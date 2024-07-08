@@ -3227,7 +3227,7 @@ class PagePermissionTester:
         """
         Reorder permission checking is similar to publishing a subpage, since it immediately
         affects published pages. However, it shouldn't care about the 'creatability' of
-        page types, because the action only ever updates pages.
+        page types, because the action only ever updates existing pages.
         """
         if not self.user.is_active:
             return False

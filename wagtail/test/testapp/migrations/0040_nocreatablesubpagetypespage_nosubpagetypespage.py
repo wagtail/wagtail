@@ -8,12 +8,22 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0093_uploadedfile'),
-        ('tests', '0037_testpermissionedgenericsetting_and_more'),
+        ('tests', '0039_alter_eventcategory_locale_and_more'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='NoCreatableSubpageTypesPage',
+            fields=[
+                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=('wagtailcore.page',),
+        ),
+        migrations.CreateModel(
+            name='NoSubpageTypesPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
             ],

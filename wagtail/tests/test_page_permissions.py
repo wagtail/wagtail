@@ -21,6 +21,7 @@ from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     NoCreatableSubpageTypesPage,
+    NoSubpageTypesPage,
     SingletonPageViaMaxCount,
 )
 
@@ -48,6 +49,13 @@ class TestPagePermission(TestCase):
         )
         homepage.add_child(instance=no_creatable_subpages_page)
 
+        # As this is a direct child of the homepage, permission checks should
+        # mostly mirror those for the homepage itself
+        no_subpages_page = NoSubpageTypesPage(
+            title="No subpages", slug="no-subpages"
+        )
+        homepage.add_child(instance=no_subpages_page)
+
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         unpublished_event_page = EventPage.objects.get(
             url_path="/home/events/tentative-unpublished-event/"
@@ -63,6 +71,9 @@ class TestPagePermission(TestCase):
         no_creatable_subpages_perms = no_creatable_subpages_page.permissions_for_user(
             event_editor
         )
+        no_subpages_perms = no_subpages_page.permissions_for_user(
+            event_editor
+        )
         christmas_page_perms = christmas_page.permissions_for_user(event_editor)
         unpub_perms = unpublished_event_page.permissions_for_user(event_editor)
         someone_elses_event_perms = someone_elses_event_page.permissions_for_user(
@@ -72,12 +83,14 @@ class TestPagePermission(TestCase):
 
         self.assertFalse(homepage_perms.can_add_subpage())
         self.assertFalse(no_creatable_subpages_perms.can_add_subpage())
+        self.assertFalse(no_subpages_perms.can_add_subpage())
         self.assertTrue(christmas_page_perms.can_add_subpage())
         self.assertTrue(unpub_perms.can_add_subpage())
         self.assertTrue(someone_elses_event_perms.can_add_subpage())
 
         self.assertFalse(homepage_perms.can_edit())
         self.assertFalse(no_creatable_subpages_perms.can_edit())
+        self.assertFalse(no_subpages_perms.can_edit())
         self.assertTrue(christmas_page_perms.can_edit())
         self.assertTrue(unpub_perms.can_edit())
         # basic 'add' permission doesn't allow editing pages owned by someone else
@@ -85,6 +98,7 @@ class TestPagePermission(TestCase):
 
         self.assertFalse(homepage_perms.can_delete())
         self.assertFalse(no_creatable_subpages_perms.can_delete())
+        self.assertFalse(no_subpages_perms.can_delete())
         self.assertFalse(
             christmas_page_perms.can_delete()
         )  # cannot delete because it is published
@@ -93,26 +107,31 @@ class TestPagePermission(TestCase):
 
         self.assertFalse(homepage_perms.can_publish())
         self.assertFalse(no_creatable_subpages_perms.can_publish())
+        self.assertFalse(no_subpages_perms.can_publish())
         self.assertFalse(christmas_page_perms.can_publish())
         self.assertFalse(unpub_perms.can_publish())
 
         self.assertFalse(homepage_perms.can_unpublish())
         self.assertFalse(no_creatable_subpages_perms.can_unpublish())
+        self.assertFalse(no_subpages_perms.can_unpublish())
         self.assertFalse(christmas_page_perms.can_unpublish())
         self.assertFalse(unpub_perms.can_unpublish())
 
         self.assertFalse(homepage_perms.can_publish_subpage())
         self.assertFalse(no_creatable_subpages_perms.can_publish_subpage())
+        self.assertFalse(no_subpages_perms.can_publish_subpage())
         self.assertFalse(christmas_page_perms.can_publish_subpage())
         self.assertFalse(unpub_perms.can_publish_subpage())
 
         self.assertFalse(homepage_perms.can_reorder_children())
         self.assertFalse(no_creatable_subpages_perms.can_reorder_children())
+        self.assertFalse(no_subpages_perms.can_reorder_children())
         self.assertFalse(christmas_page_perms.can_reorder_children())
         self.assertFalse(unpub_perms.can_reorder_children())
 
         self.assertFalse(homepage_perms.can_move())
         self.assertFalse(no_creatable_subpages_perms.can_move())
+        self.assertFalse(no_subpages_perms.can_move())
         # cannot move because this would involve unpublishing from its current location
         self.assertFalse(christmas_page_perms.can_move())
         self.assertTrue(unpub_perms.can_move())
@@ -139,12 +158,21 @@ class TestPagePermission(TestCase):
             email="eventmoderator@example.com"
         )
         homepage = Page.objects.get(url_path="/home/")
+
         # As this is a direct child of the homepage, permission checks should
         # mostly mirror those for the homepage itself
         no_creatable_subpages_page = NoCreatableSubpageTypesPage(
             title="No creatable subpages", slug="no-creatable-subpages"
         )
         homepage.add_child(instance=no_creatable_subpages_page)
+
+        # As this is a direct child of the homepage, permission checks should
+        # mostly mirror those for the homepage itself
+        no_subpages_page = NoSubpageTypesPage(
+            title="No subpages", slug="no-subpages"
+        )
+        homepage.add_child(instance=no_subpages_page)
+
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
         unpublished_event_page = EventPage.objects.get(
             url_path="/home/events/tentative-unpublished-event/"
@@ -157,28 +185,35 @@ class TestPagePermission(TestCase):
         no_creatable_subpages_perms = no_creatable_subpages_page.permissions_for_user(
             event_moderator
         )
+        no_subpages_perms = no_subpages_page.permissions_for_user(
+            event_moderator
+        )
         christmas_page_perms = christmas_page.permissions_for_user(event_moderator)
         unpub_perms = unpublished_event_page.permissions_for_user(event_moderator)
         board_meetings_perms = board_meetings_page.permissions_for_user(event_moderator)
 
         self.assertFalse(homepage_perms.can_add_subpage())
         self.assertFalse(no_creatable_subpages_perms.can_add_subpage())
+        self.assertFalse(no_subpages_perms.can_add_subpage())
         self.assertTrue(christmas_page_perms.can_add_subpage())
         self.assertTrue(unpub_perms.can_add_subpage())
 
         self.assertFalse(homepage_perms.can_edit())
         self.assertFalse(no_creatable_subpages_perms.can_edit())
+        self.assertFalse(no_subpages_perms.can_edit())
         self.assertTrue(christmas_page_perms.can_edit())
         self.assertTrue(unpub_perms.can_edit())
 
         self.assertFalse(homepage_perms.can_delete())
         self.assertFalse(no_creatable_subpages_perms.can_delete())
+        self.assertFalse(no_subpages_perms.can_delete())
         # can delete a published page because we have publish permission
         self.assertTrue(christmas_page_perms.can_delete())
         self.assertTrue(unpub_perms.can_delete())
 
         self.assertFalse(homepage_perms.can_publish())
         self.assertFalse(no_creatable_subpages_perms.can_publish())
+        self.assertFalse(no_subpages_perms.can_publish())
         self.assertTrue(christmas_page_perms.can_publish())
         self.assertTrue(unpub_perms.can_publish())
 
@@ -191,16 +226,19 @@ class TestPagePermission(TestCase):
 
         self.assertFalse(homepage_perms.can_publish_subpage())
         self.assertFalse(no_creatable_subpages_perms.can_publish_subpage())
+        self.assertFalse(no_subpages_perms.can_publish_subpage())
         self.assertTrue(christmas_page_perms.can_publish_subpage())
         self.assertTrue(unpub_perms.can_publish_subpage())
 
         self.assertFalse(homepage_perms.can_reorder_children())
         self.assertFalse(no_creatable_subpages_perms.can_reorder_children())
+        self.assertFalse(no_subpages_perms.can_reorder_children())
         self.assertTrue(christmas_page_perms.can_reorder_children())
         self.assertTrue(unpub_perms.can_reorder_children())
 
         self.assertFalse(homepage_perms.can_move())
         self.assertFalse(no_creatable_subpages_perms.can_move())
+        self.assertFalse(no_subpages_perms.can_move())
         self.assertTrue(christmas_page_perms.can_move())
         self.assertTrue(unpub_perms.can_move())
 
@@ -362,12 +400,20 @@ class TestPagePermission(TestCase):
     def test_superuser_has_full_permissions(self):
         user = get_user_model().objects.get(email="superuser@example.com")
         homepage = Page.objects.get(url_path="/home/").specific
+
         # As this is a direct child of the homepage, permission checks should
         # mostly mirror those for the homepage itself
         no_creatable_subpages_page = NoCreatableSubpageTypesPage(
             title="No creatable subpages", slug="no-creatable-subpages"
         )
         homepage.add_child(instance=no_creatable_subpages_page)
+
+        # As this is a direct child of the homepage, permission checks should
+        # mostly mirror those for the homepage itself
+        no_subpages_page = NoSubpageTypesPage(
+            title="No subpages", slug="no-subpages"
+        )
+        homepage.add_child(instance=no_subpages_page)
 
         root = Page.objects.get(url_path="/").specific
         unpublished_event_page = EventPage.objects.get(
@@ -381,6 +427,9 @@ class TestPagePermission(TestCase):
         no_creatable_subpages_perms = no_creatable_subpages_page.permissions_for_user(
             user
         )
+        no_subpages_perms = no_subpages_page.permissions_for_user(
+            user
+        )
         root_perms = root.permissions_for_user(user)
         unpub_perms = unpublished_event_page.permissions_for_user(user)
         board_meetings_perms = board_meetings_page.permissions_for_user(user)
@@ -389,24 +438,31 @@ class TestPagePermission(TestCase):
         self.assertFalse(
             no_creatable_subpages_perms.can_add_subpage()
         )  # There are no 'creatable' subpage types
+        self.assertFalse(
+            no_subpages_perms.can_add_subpage()
+        )  # There are no subpage types
         self.assertTrue(root_perms.can_add_subpage())
 
         self.assertTrue(homepage_perms.can_edit())
         self.assertTrue(no_creatable_subpages_perms.can_edit())
+        self.assertTrue(no_subpages_perms.can_edit())
         self.assertFalse(
             root_perms.can_edit()
         )  # root is not a real editable page, even to superusers
 
         self.assertTrue(homepage_perms.can_delete())
         self.assertTrue(no_creatable_subpages_perms.can_delete())
+        self.assertTrue(no_subpages_perms.can_delete())
         self.assertFalse(root_perms.can_delete())
 
         self.assertTrue(homepage_perms.can_publish())
         self.assertTrue(no_creatable_subpages_perms.can_publish())
+        self.assertTrue(no_subpages_perms.can_publish())
         self.assertFalse(root_perms.can_publish())
 
         self.assertTrue(homepage_perms.can_unpublish())
         self.assertTrue(no_creatable_subpages_perms.can_unpublish())
+        self.assertTrue(no_subpages_perms.can_unpublish())
         self.assertFalse(root_perms.can_unpublish())
         self.assertFalse(unpub_perms.can_unpublish())
 
@@ -414,14 +470,20 @@ class TestPagePermission(TestCase):
         self.assertFalse(
             no_creatable_subpages_perms.can_publish_subpage()
         )  # There are no 'creatable' subpages, so a new one cannot be 'created and published' here
+        self.assertFalse(
+            no_subpages_perms.can_publish_subpage()
+        )  # There are no subpages, so a new one cannot be 'created and published' here
+
         self.assertTrue(root_perms.can_publish_subpage())
 
         self.assertTrue(homepage_perms.can_reorder_children())
         self.assertTrue(no_creatable_subpages_perms.can_reorder_children())
+        self.assertTrue(no_subpages_perms.can_reorder_children())
         self.assertTrue(root_perms.can_reorder_children())
 
         self.assertTrue(homepage_perms.can_move())
         self.assertTrue(no_creatable_subpages_perms.can_move())
+        self.assertTrue(no_subpages_perms.can_move())
         self.assertFalse(root_perms.can_move())
 
         self.assertTrue(homepage_perms.can_move_to(root))

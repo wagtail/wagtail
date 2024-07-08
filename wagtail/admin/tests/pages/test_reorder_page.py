@@ -6,6 +6,7 @@ from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessIndex,
     NoCreatableSubpageTypesPage,
+    NoSubpageTypesPage,
     SimplePage,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -150,10 +151,45 @@ class TestPageReorderWithParentPageRestrictions(TestPageReorder):
 class TestPageReorderWithNoSubPageTypes(TestPageReorder):
     """
     This TestCase is the same as the TestPageReorder class above, but uses a
+    NoSubpageTypesPage instance as the parent page instead of SimplePage.
+
+    This ensures that a parent page having an empty `subpage_types` list does
+    not prevent the reorder pre-existing or automatically generated pages
+    beneath it.
+    """
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # root
+        # |- parent_page (NoSubpageTypesPage)
+        # |  |- child_1 (SimplePage)
+        # |  |- child_2 (SimplePage)
+        # |  |- child_3 (SimplePage)
+
+        self.index_page = NoSubpageTypesPage(title="Index", slug="index")
+        self.root_page.add_child(instance=self.index_page)
+
+        self.child_1 = SimplePage(title="Child 1", slug="child-1")
+        self.index_page.add_child(instance=self.child_1)
+        self.child_2 = SimplePage(title="Child 2", slug="child-2")
+        self.index_page.add_child(instance=self.child_2)
+        self.child_3 = SimplePage(title="Child 3", slug="child-3")
+        self.index_page.add_child(instance=self.child_3)
+
+        # Login
+        self.user = self.login()
+
+
+class TestPageReorderWithNoCreatableSubPageTypes(TestPageReorder):
+    """
+    This TestCase is the same as the TestPageReorder class above, but uses a
     NoCreatableSubpageTypesPage instance as the parent page instead of SimplePage.
 
-    This ensures that a parent page having no creatable page types does not
-    affect the ability to reorder pre-existing or code-generated pages beneath it.
+    This ensures that a parent page having no 'creatable' page types in
+    its `subpage_types` list does not prevent the reorder pre-existing or
+    automatically generated pages beneath it.
     """
 
     def setUp(self):
