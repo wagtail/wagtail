@@ -159,6 +159,8 @@ class TestPageReorderWithNoSubPageTypes(TestPageReorder):
     """
 
     def setUp(self):
+        child_content = '<p>This is content</p>'
+
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
@@ -171,11 +173,11 @@ class TestPageReorderWithNoSubPageTypes(TestPageReorder):
         self.index_page = NoSubpageTypesPage(title="Index", slug="index")
         self.root_page.add_child(instance=self.index_page)
 
-        self.child_1 = SimplePage(title="Child 1", slug="child-1")
+        self.child_1 = SimplePage(title="Child 1", slug="child-1", content=child_content)
         self.index_page.add_child(instance=self.child_1)
-        self.child_2 = SimplePage(title="Child 2", slug="child-2")
+        self.child_2 = SimplePage(title="Child 2", slug="child-2", content=child_content)
         self.index_page.add_child(instance=self.child_2)
-        self.child_3 = SimplePage(title="Child 3", slug="child-3")
+        self.child_3 = SimplePage(title="Child 3", slug="child-3", content=child_content)
         self.index_page.add_child(instance=self.child_3)
 
         # Login
@@ -193,6 +195,8 @@ class TestPageReorderWithNoCreatableSubPageTypes(TestPageReorder):
     """
 
     def setUp(self):
+        child_content = '<p>This is content</p>'
+
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
@@ -205,11 +209,11 @@ class TestPageReorderWithNoCreatableSubPageTypes(TestPageReorder):
         self.index_page = NoCreatableSubpageTypesPage(title="Index", slug="index")
         self.root_page.add_child(instance=self.index_page)
 
-        self.child_1 = SimplePage(title="Child 1", slug="child-1")
+        self.child_1 = SimplePage(title="Child 1", slug="child-1", content=child_content)
         self.index_page.add_child(instance=self.child_1)
-        self.child_2 = SimplePage(title="Child 2", slug="child-2")
+        self.child_2 = SimplePage(title="Child 2", slug="child-2", content=child_content)
         self.index_page.add_child(instance=self.child_2)
-        self.child_3 = SimplePage(title="Child 3", slug="child-3")
+        self.child_3 = SimplePage(title="Child 3", slug="child-3", content=child_content)
         self.index_page.add_child(instance=self.child_3)
 
         # Login
