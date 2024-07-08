@@ -25,7 +25,7 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ], block_counts={
     'heading': {'min_num': 1},
     'image': {'max_num': 5},
@@ -339,6 +339,12 @@ All block definitions accept the following optional keyword arguments:
 
     :param required: If true (the default), the field cannot be left blank.
 
+.. autoclass:: wagtail.images.blocks.ImageBlock
+    :show-inheritance:
+
+    An accessibility-focused control to allow the editor to select an existing image, or upload a new one. This has provision for adding alt text, indicating whether images are purely decorative, and is the Wagtail-recommended approach to uploading images. The following additional keyword argument is accepted:
+
+    :param required: If true (the default), the field cannot be left blank.
 
 .. autoclass:: wagtail.images.blocks.ImageChooserBlock
     :show-inheritance:
@@ -412,7 +418,7 @@ All block definitions accept the following optional keyword arguments:
            ('person', blocks.StructBlock([
                ('first_name', blocks.CharBlock()),
                ('surname', blocks.CharBlock()),
-               ('photo', ImageChooserBlock(required=False)),
+               ('photo', ImageBlock(required=False)),
                ('biography', blocks.RichTextBlock()),
            ], icon='user')),
        ])
@@ -426,7 +432,7 @@ All block definitions accept the following optional keyword arguments:
        class PersonBlock(blocks.StructBlock):
            first_name = blocks.CharBlock()
            surname = blocks.CharBlock()
-           photo = ImageChooserBlock(required=False)
+           photo = ImageBlock(required=False)
            biography = blocks.RichTextBlock()
 
            class Meta:
@@ -442,7 +448,7 @@ All block definitions accept the following optional keyword arguments:
        body = StreamField([
            ('heading', blocks.CharBlock(form_classname="title")),
            ('paragraph', blocks.RichTextBlock()),
-           ('image', ImageChooserBlock()),
+           ('image', ImageBlock()),
            ('person', PersonBlock()),
        ])
 
@@ -504,7 +510,7 @@ All block definitions accept the following optional keyword arguments:
            # ...
            ('carousel', blocks.StreamBlock(
                [
-                   ('image', ImageChooserBlock()),
+                   ('image', ImageBlock()),
                    ('quotation', blocks.StructBlock([
                        ('text', blocks.TextBlock()),
                        ('author', blocks.CharBlock()),
@@ -521,7 +527,7 @@ All block definitions accept the following optional keyword arguments:
     .. code-block:: python
 
        class CarouselBlock(blocks.StreamBlock):
-           image = ImageChooserBlock()
+           image = ImageBlock()
            quotation = blocks.StructBlock([
                ('text', blocks.TextBlock()),
                ('author', blocks.CharBlock()),
