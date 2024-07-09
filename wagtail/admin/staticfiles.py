@@ -24,15 +24,19 @@ except AttributeError:
         use_version_strings = True
     else:
         # see if we're using a storage backend using hashed filenames
-        storage = storages[STATICFILES_STORAGE_ALIAS].__class__
-        use_version_strings = not issubclass(storage, HashedFilesMixin)
+        use_version_strings = not isinstance(
+            storages[STATICFILES_STORAGE_ALIAS], HashedFilesMixin
+        )
 
 
 if use_version_strings:
     # SECRET_KEY is used to prevent exposing the Wagtail version
-    VERSION_HASH = hashlib.sha1(
-        (__version__ + settings.SECRET_KEY).encode("utf-8")
-    ).hexdigest()[:8]
+    VERSION_HASH = hashlib.blake2b(
+        __version__.encode(),
+        salt=settings.SECRET_KEY.encode()[:16],
+        digest_size=4,
+        person=__name__.encode()[:16],
+    )
 else:
     VERSION_HASH = None
 
