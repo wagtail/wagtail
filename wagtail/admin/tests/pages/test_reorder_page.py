@@ -51,65 +51,97 @@ class TestPageReorder(WagtailTestUtils, TestCase):
         """
         Test that GET requests to set_page_position view don't alter the page order.
         """
+        print(f"Testing 'set_page_position' as {self.user}")
         response = self.client.get(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_1.id,))
         )
+
+        if response.status_code == 302:
+            print("302 response info:", response.__dict__)
         self.assertEqual(response.status_code, 200)
 
         # Ensure page order does not change:
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)
         self.assertListEqual(list(child_slugs), ["child-1", "child-2", "child-3"])
 
+
     def test_page_set_page_position_without_position_argument_moves_it_to_the_end(self):
+        print(f"Testing 'set_page_position' as {self.user}")
         response = self.client.post(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_1.id,))
         )
+
+        if response.status_code == 302:
+            print("302 response info:", response.__dict__)
         self.assertEqual(response.status_code, 200)
 
-        # check if child_1 is the last child page:
+         # check if child_1 is the last child page:
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)
         self.assertListEqual(list(child_slugs), ["child-2", "child-3", "child-1"])
 
+
     def test_page_move_page_position_up(self):
         """Moves child 3 to the first position."""
+        print(f"Testing 'set_page_position' as {self.user}")
         response = self.client.post(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_3.id,))
             + "?position=0"
         )
+
+        if response.status_code == 302:
+            print("302 response info:", response.__dict__)
         self.assertEqual(response.status_code, 200)
+
         # check if child_3 is the first child page:
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)
         self.assertListEqual(list(child_slugs), ["child-3", "child-1", "child-2"])
 
+
     def test_page_move_page_position_down(self):
         """
         Moves child 3 to the first position."""
+        print(f"Testing 'set_page_position' as {self.user}")
         response = self.client.post(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_1.id,))
             + "?position=1"
         )
+
+        if response.status_code == 302:
+            print("302 response info:", response.__dict__)
         self.assertEqual(response.status_code, 200)
+
         # check if child_1 is the second child page:
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)
         self.assertListEqual(list(child_slugs), ["child-2", "child-1", "child-3"])
 
+
     def test_page_move_page_position_to_the_same_position(self):
         """
         Moves child 3 to the first position."""
+        print(f"Testing 'set_page_position' as {self.user}")
         response = self.client.post(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_1.id,))
             + "?position=0"
         )
+
+        if response.status_code == 302:
+            print("302 response info:", response.__dict__)
         self.assertEqual(response.status_code, 200)
+
         # Ensure page order does not change:
         child_slugs = self.index_page.get_children().values_list("slug", flat=True)
         self.assertListEqual(list(child_slugs), ["child-1", "child-2", "child-3"])
 
+
     def test_page_set_page_position_with_invalid_target_position(self):
+        print(f"Testing 'set_page_position' as {self.user}")
         response = self.client.post(
             reverse("wagtailadmin_pages:set_page_position", args=(self.child_3.id,))
             + "?position=99"
         )
+
+        if response.status_code == 302:
+            print("302 response info:", response.__dict__)
         self.assertEqual(response.status_code, 200)
 
         # Ensure page order does not change:
