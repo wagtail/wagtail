@@ -31,7 +31,8 @@
             <div class="w-dialog__content">
                 <div class="w-dialog__header">
                     <h2 class="w-dialog__title w-h1" id="title-{{ id }}">
-                        {% if icon_name %}{% icon name=icon_name classname="w-dialog__icon" %}{% endif %}
+                        {% fragment as icon_classname %}{% classnames "w-dialog__icon" icon_classname %}{% endfragment %}
+                        {% if icon_name %}{% icon name=icon_name classname=icon_classname %}{% endif %}
                         {{ title }}
                     </h2>
 
