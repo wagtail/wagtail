@@ -3,7 +3,6 @@ import itertools
 import re
 from functools import lru_cache
 
-from django.conf import settings
 from django.template.loader import render_to_string
 from django.urls import reverse
 
@@ -33,10 +32,7 @@ def get_icons():
 
 @lru_cache(maxsize=None)
 def get_icon_sprite_hash():
-    # SECRET_KEY is used to prevent exposing the Wagtail version
-    return hashlib.sha1(
-        (get_icons() + settings.SECRET_KEY).encode("utf-8")
-    ).hexdigest()[:8]
+    return hashlib.sha1(get_icons().encode()).hexdigest()
 
 
 def get_icon_sprite_url():
