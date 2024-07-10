@@ -32,7 +32,7 @@ def get_icons():
 
 @lru_cache(maxsize=None)
 def get_icon_sprite_hash():
-    return hashlib.sha1(get_icons().encode()).hexdigest()
+    return hashlib.sha1(get_icons().encode()).hexdigest()[:8]
 
 
 def get_icon_sprite_url():
