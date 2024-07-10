@@ -32,6 +32,11 @@ describe('SwapController', () => {
     application.stop();
     document.body.innerHTML = '<main></main>';
     jest.clearAllMocks();
+    // Restore any fetch mocks for good measure. Some tests may mock fetch despite
+    // expecting it not to be called, leaving fetch in a mocked state for other tests.
+    // Some tests also use mockImplementation() instead of the mockResponse*() helpers
+    // that use mockImplementationOnce(), which can cause fetch to be mocked indefinitely.
+    fetch.mockRestore();
   });
 
   describe('when results element & src URL value is not available', () => {
@@ -553,14 +558,14 @@ describe('SwapController', () => {
     });
   });
 
-  describe('performing a content update via actions on a controlled form using form values', () => {
+  describe('performing a content update via actions on a controlled form without using form values', () => {
     let beginEventHandler;
     let formElement;
     let onSuccess;
     const results = getMockResults({ total: 2 });
 
     beforeEach(() => {
-      document.body.innerHTML = `
+      document.body.innerHTML = /* html */ `
       <main>
       <form
         id="form"
@@ -570,7 +575,8 @@ describe('SwapController', () => {
         data-action="custom:event->w-swap#replaceLazy submit:prevent->w-swap#replace"
         data-w-swap-target-value="#content"
       >
-        <button type="submit">Submit<button>
+        <input type="text" name="foo-unused" value="bar-unused" />
+        <button type="submit">Submit</button>
       </form>
       <div id="content"></div>
       </main>
@@ -631,7 +637,7 @@ describe('SwapController', () => {
       // should update HTML
       expect(
         document.getElementById('content').querySelectorAll('li'),
-      ).toHaveLength(5);
+      ).toHaveLength(2);
 
       await flushPromises();
 
@@ -931,7 +937,7 @@ describe('SwapController', () => {
     beforeEach(() => {
       // intentionally testing without target input (icon not needed & should work without this)
 
-      document.body.innerHTML = `
+      document.body.innerHTML = /* html */ `
       <main>
       <form
         class="search-form"
@@ -945,7 +951,7 @@ describe('SwapController', () => {
         <input id="search" type="text" name="q"/>
         <input name="type" type="hidden" value="some-type" />
         <input name="other" type="text" />
-        <button type="submit">Submit<button>
+        <button type="submit">Submit</button>
       </form>
       <div id="task-results"></div>
       </main>
