@@ -30,13 +30,11 @@ except AttributeError:
 
 
 if use_version_strings:
-    # SECRET_KEY is used to prevent exposing the Wagtail version
-    VERSION_HASH = hashlib.blake2b(
-        __version__.encode(),
-        salt=settings.SECRET_KEY.encode()[:16],
-        digest_size=4,
-        person=__name__.encode()[:16],
-    )
+    # INSTALLED_APPS is used as a unique value to distinguish Wagtail apps
+    # and avoid exposing the Wagtail version directly
+    VERSION_HASH = hashlib.sha1(
+        "".join([__version__] + settings.INSTALLED_APPS).encode(),
+    ).hexdigest()[:8]
 else:
     VERSION_HASH = None
 
