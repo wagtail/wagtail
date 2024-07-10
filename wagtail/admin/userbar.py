@@ -84,7 +84,7 @@ class AccessibilityItem(BaseItem):
     axe_custom_checks = [
         {
             "id": "check-image-alt-text",
-            "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$"},
+            "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
         },
     ]
 
