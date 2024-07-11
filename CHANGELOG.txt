@@ -21,6 +21,8 @@ Changelog
  * Automatically register permissions for models registered with a `ModelViewSet` (Sage Abdullah)
  * Implement universal listings UI for report views (Sage Abdullah)
  * Make `routable_resolver_match` attribute available on RoutablePageMixin responses (Andy Chosak)
+ * Support customizations to `UserViewSet` via the app config (Sage Abdullah)
+ * Add word count and reading time metrics within the page editor (Albina Starykova. Sponsored by The Motley Fool)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
@@ -58,6 +60,16 @@ Changelog
  * Maintenance: Replace `urlparse` with `urlsplit` to improve performance (Jake Howard)
  * Maintenance: Optimise embed finder lookups (Jake Howard)
  * Maintenance: Improve performance of initial admin loading by moving sprite hashing out of module import time (Jake Howard)
+
+
+6.1.3 (11.07.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
+ * Fix: Allow renditions of `.ico` images (Julie Rymer)
+ * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Fix: Fix dynamic image serve view with certain backends (Sébastien Corbin)
 
 
 6.1.2 (30.05.2024)
@@ -181,6 +193,12 @@ Changelog
  * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
  * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
+
+
+6.0.6 (11.07.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
 
 
 6.0.5 (30.05.2024)
@@ -397,9 +415,10 @@ Changelog
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
 
 
-5.2.6 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.6 (11.07.2024)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
  * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
  * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
 

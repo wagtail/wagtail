@@ -25,6 +25,9 @@ msgstr ""
 msgid "Wagtail style guide"
 msgstr "Wagtail 风格指南"
 
+msgid "Minimap"
+msgstr "小地图"
+
 msgid "Save"
 msgstr "保存"
 

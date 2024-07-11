@@ -5,6 +5,7 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
+# Matt Westcott <matthew@torchbox.com>, 2024
 # Roger Pons <rogerpons@gmail.com>, 2017,2022-2024
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -155,8 +156,8 @@ msgstr "Últims documents"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
 msgstr ""
-"Ho sentim, no s'han trobat documents que coincideixin amb \"<em>"
-"%(search_query)s</em>\""
+"Ho sentim, no s'han trobat documents que coincideixin amb "
+"\"<em>%(search_query)s</em>\""
 
 msgid "You haven't uploaded any documents in this collection."
 msgstr "No heu pujat cap document a aquest col·lecció."
@@ -217,19 +218,19 @@ msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"No heu pujat cap document a aquesta col·lecció. Per què no en  <a href="
-"\"%(wagtaildocs_add_document_url)s\">pugeu un ara</a>?"
+"No heu pujat cap document a aquesta col·lecció. Per què no en  <a "
+"href=\"%(wagtaildocs_add_document_url)s\">pugeu un ara</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"No has pujat cap document. Per què no <a href="
-"%(wagtaildocs_add_document_url)s\">pujes un ara</a>?"
+"No has pujat cap document. Per què no <a "
+"href=\"%(wagtaildocs_add_document_url)s\">pujes un ara</a>?"
 
 #, python-format
 msgid ""
