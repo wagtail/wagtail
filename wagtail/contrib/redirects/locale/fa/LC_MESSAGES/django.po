@@ -5,6 +5,7 @@
 # Translators:
 # Amir Mahmoodi, 2022
 # Amir Mahmoodi, 2022
+# Bardia Khoshroo, 2024
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Bardia Khoshroo, 2024\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,12 @@ msgstr ""
 
 msgid "Type"
 msgstr "نوع"
+
+msgid "Permanent"
+msgstr "دایمی"
+
+msgid "Temporary"
+msgstr "موقتی"
 
 msgid "All"
 msgstr "همه"
@@ -103,11 +110,17 @@ msgstr "انصراف"
 msgid "Preview"
 msgstr "پیش‌نمایش"
 
+msgid "Summary"
+msgstr "خلاصه"
+
 msgid "From"
 msgstr "از"
 
 msgid "To"
 msgstr "به"
+
+msgid "Error"
+msgstr "خطا"
 
 msgid "Continue"
 msgstr "ادامه"
@@ -118,11 +131,11 @@ msgstr "متاسفانه هیچ ریدایرکتی منطبق با «<em>%(query
 
 #, python-format
 msgid ""
-"No redirects have been created. Why not <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"هیچ ریدایرکتی ایجاد نشده. می‌توانید یکی را <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">ایجاد</a> کنید"
+"هیچ ریدایرکتی ایجاد نشده. می‌توانید یکی را <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">ایجاد</a> کنید"
 
 msgid "Site"
 msgstr "سایت"

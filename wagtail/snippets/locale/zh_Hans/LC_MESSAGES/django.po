@@ -13,6 +13,7 @@
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2021
+# Yu Cheng, 2024
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2018-2019,2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
@@ -22,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -70,9 +71,17 @@ msgstr "%(label)s 和发布"
 msgid "Wagtail snippets"
 msgstr "Wagtail 片段"
 
+msgid "Delete selected snippets"
+msgstr "删除选定的片段"
+
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' 已删除。"
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s 已删除。"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -94,11 +103,23 @@ msgstr "确定要删除 %(snippet_type_name)s？"
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "你确定要删除 %(count)s%(snippet_type_name)s ？"
 
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "您无权删除此 %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "您无权删除这些 %(snippet_plural_name)s"
+
 msgid "Yes, delete"
 msgstr "是的，删除"
 
 msgid "No, don't delete"
 msgstr "否，不删除"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "抱歉，没有片段匹配“<em>%(search_query)s</em>”"
 
 msgid "Publishing…"
 msgstr "正在发布..."
@@ -112,11 +133,17 @@ msgstr "正在保存……"
 msgid "Replace current draft"
 msgstr "替换当前的草稿"
 
+msgid "Replace current revision"
+msgstr "替换当前版本"
+
 msgid "Save draft"
 msgstr "保存草稿"
 
 msgid "Actions"
 msgstr "动作"
+
+msgid "Select all snippets in listing"
+msgstr "选择列表中的所有片段"
 
 msgid "Choose"
 msgstr "选择"
@@ -129,6 +156,18 @@ msgstr "名字"
 
 msgid "Instances"
 msgstr "实例"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "“%(title)s”的更多选项"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "编辑此%(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "%(model_name)s 历史"
 
 msgid "Home"
 msgstr "首页"

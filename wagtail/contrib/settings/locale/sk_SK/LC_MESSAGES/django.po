@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ivan Waginger <ivan.waginger@gmail.com>, 2024
 # Jozef Gáborík <hi@jozo.io>, 2020
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # karabellyj <jozefkarabelly@gmail.com>, 2017
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Martin Janšto <mato@jansto.sk>, 2017\n"
+"Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +27,10 @@ msgstr ""
 
 msgid "default"
 msgstr "predvolené"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s pre %(site)s"
 
 msgid "Site"
 msgstr "Sídlo"
@@ -41,3 +46,7 @@ msgstr "Nastavenia"
 
 msgid "The setting could not be saved due to errors."
 msgstr "Nastavenia neboli uložené kvôli chybám."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s aktualizované."

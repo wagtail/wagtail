@@ -159,16 +159,16 @@ msgstr "Empfohlenes Ergebnis hinzufügen"
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu „<em>"
-"%(query_string)s</em>“ passen."
+"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu "
+"„<em>%(query_string)s</em>“ passen."
 
 #, python-format
 msgid ""
-"No promoted results have been created. Why not <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Es wurden keine hervorgehobenen Suchbegriffe angelegt. Warum <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">fügen Sie nicht einen hinzu</a>?"
+"Es wurden keine hervorgehobenen Suchbegriffe angelegt. Warum <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">fügen Sie nicht einen hinzu</a>?"
 
 msgid "No promoted results have been created."
 msgstr "Es wurden keine hervorgehobenen Ergebnisse erstellt."

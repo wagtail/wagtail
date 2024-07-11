@@ -134,8 +134,17 @@ msgstr "tagy"
 msgid "image"
 msgstr "obrázok"
 
+msgid "Yes, add"
+msgstr "Áno, pridať"
+
+msgid "No, don't add"
+msgstr "Nie, nepridať"
+
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+msgid "No, don't delete"
+msgstr "Nie, nezmazať"
 
 msgid "Popular tags"
 msgstr "Populárne tagy"
@@ -200,19 +209,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste nenahrali do kolekcie žiadne obrázky. Prečo nenahrať <a href="
-"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste nenahrali do kolekcie žiadne obrázky. Prečo nenahrať <a "
+"href=\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a href="
-"\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste nenahrali žiadne obrázky. Prečo nenahrať <a "
+"href=\"%(wagtailimages_add_image_url)s\">jeden práve teraz</a>?"
 
 msgid "Preview"
 msgstr "Náhľad"
@@ -261,6 +270,12 @@ msgstr "Pridať oprávnenia obrázku"
 
 msgid "Tags"
 msgstr "Tagy"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Add to collection"
+msgstr "Pridať do zbierky"
 
 msgid "Delete"
 msgstr "Vymazať"
