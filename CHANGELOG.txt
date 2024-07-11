@@ -401,6 +401,7 @@ Changelog
 5.2.6 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
  * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
  * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
 
