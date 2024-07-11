@@ -107,7 +107,7 @@ def ping(request, app_label, model_name, object_id, session_id):
             .first()
         )
 
-        if newest_revision and newest_revision.id != revision_id:
+        if newest_revision:
             try:
                 session_info = other_sessions_lookup[newest_revision.user_id]
             except KeyError:
@@ -145,17 +145,17 @@ def ping(request, app_label, model_name, object_id, session_id):
     #    ping the server.
     other_sessions = sorted(
         other_sessions_lookup.values(),
-        key=lambda other_session: other_session["session_id"] or 0,
-    )
-    other_sessions = sorted(
-        other_sessions,
-        key=lambda other_session: other_session["is_editing"],
-        reverse=True,
-    )
-    other_sessions = sorted(
-        other_sessions,
-        key=lambda other_session: other_session["revision_id"] or 0,
-        reverse=True,
+        key=lambda other_session: (
+            # We want to sort revision_id and is_editing in descending order,
+            # but we want to sort session_id in ascending order. To achieve this
+            # in a single pass, we negate the values of revision_id and is_editing.
+            # We can negate revision_id because there can only be one (at most)
+            # session with revision_id, so we only care about the presence and
+            # not the ID itself, thus we can treat it as a boolean flag.
+            not other_session["revision_id"],
+            not other_session["is_editing"],
+            other_session["session_id"],
+        ),
     )
 
     return JsonResponse(
