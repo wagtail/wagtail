@@ -131,6 +131,12 @@ Changelog
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
 
 
+6.0.6 (11.07.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
+
+
 6.0.5 (30.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
