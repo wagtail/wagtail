@@ -14,6 +14,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2022
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
+# Yu Cheng, 2024
 # 汇民 王 <whuim@qq.com>, 2017-2021
 msgid ""
 msgstr ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +47,13 @@ msgstr "支持的格式：%(supported_formats)s。"
 #, python-format
 msgid "Not a supported image format. Supported formats: %(supported_formats)s."
 msgstr "不支持的图片格式。支持类型如下： %(supported_formats)s"
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"不是有效的 .%(extension)s 图像。扩展名与文件格式不匹配 (%(image_format)s)"
 
 #, python-format
 msgid ""
@@ -184,6 +192,11 @@ msgstr "是的，添加"
 msgid "No, don't add"
 msgstr "否，不添加"
 
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "将 %(counter)s 张图像添加到新集合"
+
 msgid "Add images to collection"
 msgstr "将图片添加到集合"
 
@@ -227,6 +240,13 @@ msgstr "否，不删除"
 msgid "Popular tags"
 msgstr "热门标签"
 
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"上传成功。但是，您上传的新图像似乎与现有图像重复。如果不需要，您可以将其删"
+"除。"
+
 msgid "Existing"
 msgstr "已存在"
 
@@ -245,6 +265,9 @@ msgstr "最新图片"
 #, python-format
 msgid "Select %(title)s"
 msgstr "选择 %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "您尚未上传此集合中的任何图片。"
 
 msgid ""
 "Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
@@ -319,6 +342,9 @@ msgstr "未找到文件"
 msgid "Usage"
 msgstr "使用情况"
 
+msgid "Sort by"
+msgstr "排序方式"
+
 msgid "Select all images in listing"
 msgstr "选择列表中的所有图片"
 
@@ -328,16 +354,16 @@ msgstr "对不起，没有符合\"<em>%(query_string)s</em>\"的图片。"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images in this collection. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "此集合中还没有图片。为何不 <a href=\"%(wagtailimages_add_image_url)s\">上传一"
 "个</a> ？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any images. Why not <a href="
-"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 "还没上传图片呢。来<a href=\"%(wagtailimages_add_image_url)s\">上传一个</a>吧?"
 
@@ -346,6 +372,18 @@ msgstr "预览"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Image URL"
+msgstr "图片URL"
+
+msgid "Copy URL"
+msgstr "复制URL"
+
+msgid "Copied to clipboard"
+msgstr "已复制到剪贴板"
+
+msgid "Copying to clipboard failed"
+msgstr "复制到剪贴板失败"
 
 msgid "Add multiple images"
 msgstr "添加多个图片"
@@ -449,6 +487,12 @@ msgstr "标题: (A -> Z)"
 
 msgid "Title: (Z -> A)"
 msgstr "标题: (Z -> A)"
+
+msgid "File size: (low to high)"
+msgstr "文件大小：（从小到大）"
+
+msgid "File size: (high to low)"
+msgstr "文件大小：（从大到小）"
 
 msgid "Images"
 msgstr "图片"

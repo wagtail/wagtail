@@ -5,11 +5,11 @@
 # Thomas Kunambi <kunambi@gmail.com>, 2022
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
 # Loic Teixeira, 2022
-# Martin Sandström <martin@marteinn.se>, 2023
+# Martin Sandström <martin@marteinn.se>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2023\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -42,6 +42,9 @@ msgstr "Alternativ text"
 
 msgid "Are you sure?"
 msgstr "Är du säker?"
+
+msgid "Blocks"
+msgstr "Block"
 
 msgid "Broken link"
 msgstr "Bruten länk"

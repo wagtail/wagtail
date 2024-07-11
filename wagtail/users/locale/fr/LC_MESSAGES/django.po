@@ -17,14 +17,14 @@
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -141,6 +141,17 @@ msgstr "Sombre"
 
 msgid "admin theme"
 msgstr "Thème d'interface d'administration"
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "Snug"
+msgstr "Ajusté"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "densité"
 
 msgid "user profile"
 msgstr "compte utilisateur"
@@ -279,6 +290,30 @@ msgstr "Déverrouiller"
 msgid "Custom permissions"
 msgstr "Permissions personnalisées"
 
+msgid "Toggle all"
+msgstr "Activer/Désactiver tout"
+
+msgid "Toggle all add permissions"
+msgstr "Activer/Désactiver toutes les permissions d'ajout"
+
+msgid "Toggle all change permissions"
+msgstr "Activer/Désactiver toutes les permissions de modification"
+
+msgid "Toggle all delete permissions"
+msgstr "Activer/Désactiver toutes les permissions de suppression"
+
+msgid "Toggle all publish permissions"
+msgstr "Activer/Désactiver toutes les permissions de publication"
+
+msgid "Toggle all lock permissions"
+msgstr "Activer/Désactiver toutes les permissions de verrouillage"
+
+msgid "Toggle all unlock permissions"
+msgstr "Activer/Désactiver toutes les permissions de déverrouillage"
+
+msgid "Toggle all custom permissions"
+msgstr "Activer/Désactiver toutes les permissions personnalisées"
+
 msgid "Other permissions"
 msgstr "Autres permissions"
 
@@ -297,11 +332,11 @@ msgstr "Désolé, aucun groupe ne correspond à \"%(query)s\""
 
 #, python-format
 msgid ""
-"There are no groups configured. Why not <a href="
-"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Il n'y a pas de groupe configuré. Pourquoi ne pas <a href="
-"\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
+"Il n'y a pas de groupe configuré. Pourquoi ne pas <a "
+"href=\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
 
 msgid "Are you sure you want to delete this user?"
 msgstr "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
@@ -321,13 +356,16 @@ msgstr "Supprimer l'utilisateur"
 msgid "Select all users in listing"
 msgstr "Sélectionner tous les utilisateurs dans la liste"
 
+msgid "Sorry, no users match your query"
+msgstr "Désolé, aucun utilisateur ne correspond à votre recherche"
+
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
-"\">add some</a>?"
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"Il n'y a pas d'utilisateur configuré. Pourquoi ne pas <a href="
-"\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
+"Il n'y a pas d'utilisateur configuré. Pourquoi ne pas <a "
+"href=\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -409,8 +447,11 @@ msgstr "Voir les utilisateurs dans ce groupe"
 msgid "Group '%(object)s' deleted."
 msgstr "Groupe « %(object)s » supprimé."
 
+msgid "Last login"
+msgstr "Dernière connexion"
+
 msgid "Group"
-msgstr "Group"
+msgstr "Groupe"
 
 msgid "Add a user"
 msgstr "Ajouter un utilisateur"

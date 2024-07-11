@@ -6,10 +6,11 @@
 # pyzenberg <pyzenberg@gmail.com>, 2022
 # Loic Teixeira, 2022
 # Amir Mahmoodi, 2023
+# Bardia Khoshroo, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Amir Mahmoodi, 2023\n"
+"Last-Translator: Bardia Khoshroo, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/torchbox/teams/8009/fa/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
@@ -26,6 +27,9 @@ msgstr "انصراف"
 
 msgid "Close"
 msgstr "بستن"
+
+msgid "Comment"
+msgstr "نظر"
 
 msgid "Dashboard"
 msgstr "داشبورد"

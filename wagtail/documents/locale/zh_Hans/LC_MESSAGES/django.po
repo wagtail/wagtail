@@ -12,6 +12,7 @@
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
+# Yu Cheng, 2024
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -96,6 +97,11 @@ msgstr "是的，添加"
 
 msgid "No, don't add"
 msgstr "否，不添加"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "将 %(counter)s 个文档添加到新集合"
 
 msgid "Add documents to collection"
 msgstr "将文档添加到集合"
@@ -201,16 +207,16 @@ msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "此集合中还没有文档。为何不 <a href=\"%(wagtaildocs_add_document_url)s\">上传"
 "一份</a> ？"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "一个文档都没有呢，现在<a href=\"%(wagtaildocs_add_document_url)s\">上传一个</"
 "a> ？"
