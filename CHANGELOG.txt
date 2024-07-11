@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.2.6 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.6 (11.07.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
