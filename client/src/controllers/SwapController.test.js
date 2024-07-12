@@ -1643,4 +1643,328 @@ describe('SwapController', () => {
       );
     });
   });
+
+  describe('deferring the content update until the focus is out of the target container', () => {
+    const getMockResultsWithButtons = (total) =>
+      getMockResults({ total }) +
+      `<button id="button1">Focusable 1</button><button id="button2">Focusable 2</button>`;
+
+    beforeEach(() => {
+      document.body.innerHTML = /* html */ `
+      <main>
+        <form
+          action="/path/to/editing-sessions/"
+          method="get"
+          data-controller="w-swap"
+          data-action="submit->w-swap#submitLazy:prevent"
+          data-w-swap-defer-value="true"
+          data-w-swap-target-value="#editing-sessions"
+        >
+          <input name="title" type="text"/>
+          <input name="type" type="hidden" value="some-type" />
+          <button id="submit" type="submit">Submit</button>
+        </form>
+        <div id="editing-sessions">
+          <div>
+            <button id="button1">Focusable 1</button>
+            <button id="button2">Focusable 2</button>
+          </div>
+        </div>
+      </main>
+      `;
+    });
+
+    it('should wait until the target loses focus and continue execution immediately after', async () => {
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      // focus on an element inside the target container
+      document.getElementById('button1').focus();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      // switch focus to a different element but still inside the target container
+      document.getElementById('button2').focus();
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      // switch focus to an element outside the target container
+      document.getElementById('submit').focus();
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(5);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should not wait until the target loses focus if defer value is set to false', async () => {
+      // unset the defer value (default is false)
+      const form = document.querySelector('form');
+      form.removeAttribute('data-w-swap-defer-value');
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      // focus on an element inside the target container
+      document.getElementById('button1').focus();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      await flushPromises();
+
+      // if the deferred write happens (which should not), the test will
+      // time out because the focus is still inside the target container
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(5);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should write immediately if there is a deferred write but we no longer need to defer', async () => {
+      const successEvents = [];
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', (event) => {
+          successEvents.push(event);
+          resolve(event);
+        });
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      // focus on an element inside the target container
+      document.getElementById('button1').focus();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      // instead of switching the focus outside, we set the defer value
+      // to false, so we can test the case where a new update is not deferred but
+      // there is a deferred write and the focus is still inside the target container
+      const form = document.querySelector('form');
+      form.setAttribute('data-w-swap-defer-value', 'false');
+
+      // change the input so we can trigger a new request with a different URL to check
+      document.querySelector('input[name="title"]').value = 'newvalue';
+
+      // submit the form again
+      form.submit();
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(8));
+      jest.runAllTimers();
+      await flushPromises();
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=newvalue&type=some-type',
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=newvalue&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should skip the deferred write and instead write the last request's response (8 items)
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(8);
+
+      await flushPromises();
+
+      // should still use the last request's response instead of running the deferred write
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(8);
+
+      // Simulate triggering the unlikely edge case of the focusout event being triggered,
+      // with no deferred writes left, which theoretically could only happen if the
+      // defer value was changed to false at midpoint like in this test case.
+      // We need to regain focus on an element in the target container first,
+      // because the previous element that was focused is no longer in the DOM.
+      document.getElementById('button1').focus();
+      // then we focus out
+      document.getElementById('submit').focus();
+
+      jest.runAllTimers();
+      await flushPromises();
+
+      // should still use the last request's response instead of running the deferred write
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(8);
+
+      // the success event should be dispatched only once as the deferred write was skipped
+      expect(successEvents).toHaveLength(1);
+      expect(successEvents[0].detail.requestUrl).toEqual(
+        '/path/to/editing-sessions/?title=newvalue&type=some-type',
+      );
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+  });
 });
