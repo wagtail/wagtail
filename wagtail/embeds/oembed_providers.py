@@ -39,9 +39,7 @@ blip_tv = {
 
 cacoo = {
     "endpoint": "http://cacoo.com/oembed.{format}",
-    "urls": [
-        r"^https?://cacoo\.com/diagrams/.+$"
-    ],
+    "urls": [r"^https?://cacoo\.com/diagrams/.+$"],
 }
 
 chirb = {
@@ -203,8 +201,8 @@ geograph_gg = {
         r"^https?://.*\.geograph\.org\.je/.*$",
         r"^https?://channel-islands\.geograph\.org/.*$",
         r"^https?://channel-islands\.geographs\.org/.*$",
-        r"^https?://.*\.channel\.geographs\.org/.*$"
-    ]
+        r"^https?://.*\.channel\.geographs\.org/.*$",
+    ],
 }
 
 geograph_uk = {
