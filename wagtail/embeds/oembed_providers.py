@@ -199,11 +199,11 @@ funny_or_die = {
 geograph_gg = {
     "endpoint": "http://www.geograph.org.gg/api/oembed",
     "urls": [
-        r"^http://.*\.geograph\.org\.gg/.*$",
-        r"^http://.*\.geograph\.org\.je/.*$",
-        r"^http://channel-islands\.geograph\.org/.*$",
-        r"^http://channel-islands\.geographs\.org/.*$",
-        r"^http://.*\.channel\.geographs\.org/.*$"
+        r"^https?://.*\.geograph\.org\.gg/.*$",
+        r"^https?://.*\.geograph\.org\.je/.*$",
+        r"^https?://channel-islands\.geograph\.org/.*$",
+        r"^https?://channel-islands\.geographs\.org/.*$",
+        r"^https?://.*\.channel\.geographs\.org/.*$"
     ]
 }
 
@@ -522,8 +522,8 @@ speakerdeck = {
 spotify = {
     "endpoint": "https://open.spotify.com/oembed",
     "urls": [
-        r"^https://open\.spotify\.com/.*$",
-        r"^spotify:.*$"
+        r"^https?://open\.spotify\.com/.+$",
+        r"^https?://spoti\.fi/.+$",
     ],
 }
 
@@ -765,138 +765,3 @@ all_providers = [
     yandex,
     youtube,
 ]
-
-
-'''
-updated_urls_provider=[
-    {
-        "endpoint": "http://cacoo.com/oembed.{format}",
-        "urls": [
-            r"^https?://cacoo\.com/diagrams/.+$"
-        ]
-    },
-    {
-        "endpoint": "http://chirb.it/oembed.{format}",
-        "urls": [
-            r"^http://chirb\.it/.+$"
-        ]
-    },
-    {
-        "endpoint": "https://coub.com/api/oembed.{format}",
-        "urls": [
-            "^https?://coub\\.com/view/.+$",
-            "^https?://coub\\.com/embed/.+$"
-        ]
-    },
-    {
-        "endpoint": "http://www.geograph.org.gg/api/oembed",
-        "urls": [
-            r"^http://.*\.geograph\.org\.gg/.*$",
-            r"^http://.*\.geograph\.org\.je/.*$",
-            r"^http://channel-islands\.geograph\.org/.*$",
-            r"^http://channel-islands\.geographs\.org/.*$",
-            r"^http://.*\.channel\.geographs\.org/.*$"
-        ]
-    },
-    {
-        "endpoint": "https://open.spotify.com/oembed",
-        "urls": [
-            r"^https://open\.spotify\.com/.*$",
-            r"^spotify:.*$"
-        ]
-    },
-]
-'''
-
-
-''''
-non_functional_providers=[
-   {
-      "provider":{
-         "endpoint":"http://demo.clikthrough.com/services/oembed/",
-         "urls":[
-            "^https?://demo\\.clikthrough\\.com/theater/video/.+$"
-         ]
-      },
-      "Reason":"The service appears to have become inactive,but there are no specific details about when or why it shut down."
-   },
-   {
-      "provider":{
-         "endpoint":"http://api.dipdive.com/oembed.{format}",
-         "urls":[
-            "^http://[-\\w]+\\.dipdive\\.com/media/.+$"
-         ]
-      },
-      "Reason":"This social networking site for artists and fans, co-founded by will.i.am, went offline around 2011"
-   },
-   {
-      "provider":{
-         "endpoint":"http://api.justin.tv/api/embed/from_url.{format}",
-         "urls":[
-            "^https?://(?:www\\.)?justin\\.tv/.+$"
-         ]
-      },
-      "Reason":"Justin.tv shut down on August 5, 2014. "
-   },
-   {
-      "provider":{
-         "endpoint":"http://tv.majorleaguegaming.com/oembed",
-         "urls":[
-            "^http://mlg\\.tv/.+$",
-            "^http://tv\\.majorleaguegaming\\.com/.+$"
-         ]
-      },
-      "Reason":"The MLG.tv platform appears to be defunct.Its is not also in oembedproviders given by offical website OEmbed"
-   },
-   {
-      "provider":{
-         "endpoint":"http://qik.com/api/oembed.{format}",
-         "urls":[
-            "^http://qik\\.com/.+$",
-            "^http://qik\\.ly/.+$"
-         ]
-      },
-      "Reason":"Qik was acquired by Skype in January 2011 for $150 million and subsequently shut down in April 2014 as its features were integrated into Skype."
-   },
-   {
-      "provider":{
-         "endpoint":"http://www.rdio.com/api/oembed",
-         "urls":[
-            "^http://(?:wwww\\.)?rdio\\.com/people/[^#?/]+/playlists/.+$",
-            "^http://[-\\w]+\\.rdio\\.com/artist/[^#?/]+/album/.+$"
-         ]
-      },
-      "Reason":"Rdio filed for bankruptcy and its key assets were acquired by Pandora in November 2015 for $75 million.Its is Shutdown now"
-   },
-   {
-      "provider":{
-         "endpoint":"http://revision3.com/api/oembed/",
-         "urls":[
-            "^http://[-\\w]+\\.revision3\\.com/.+$"
-         ]
-      },
-      "Reason":"On May 3, 2012, Discovery Communications announced that it had entered into an agreement to acquire Revision3.[1] The transaction closed on June 1, 2012"
-   },
-   {
-      "provider":{
-         "endpoint":"http://oembed.urtak.com/1/oembed",
-         "urls":[
-            "^https?://(?:[-\\w]+\\.)?urtak\\.com/.+$"
-         ]
-      },
-      "Reason":"On September 16, 2013 Urtak announced the service would be suspended commencing September 20, 2013"
-   },
-   {
-      "provider":{
-         "endpoint":"http://www.yfrog.com/api/oembed",
-         "urls":[
-            "^https?://(?:www\\.)?yfrog\\.com/.+$",
-            "^https?://(?:www\\.)?yfrog\\.us/.+$"
-         ]
-      },
-      "Reason":"yfrog is a defunct image hosting service formerly run by ImageShack. It commenced operations in February 2009 and shut down in 2015."
-   }
-]
-'''
-
-
