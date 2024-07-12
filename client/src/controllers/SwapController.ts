@@ -47,6 +47,7 @@ export class SwapController extends Controller<
     icon: { default: '', type: String },
     loading: { default: false, type: Boolean },
     reflect: { default: false, type: Boolean },
+    defer: { default: false, type: Boolean },
     src: { default: '', type: String },
     jsonPath: { default: '', type: String },
     target: { default: '#listing-results', type: String },
@@ -62,6 +63,8 @@ export class SwapController extends Controller<
   declare iconValue: string;
   declare loadingValue: boolean;
   declare reflectValue: boolean;
+  /** Defer writing the results until the focus has left the target container */
+  declare deferValue: boolean;
   declare srcValue: string;
   declare jsonPathValue: string;
   declare targetValue: string;
@@ -77,6 +80,8 @@ export class SwapController extends Controller<
   searchLazy?: { (...args: any[]): void; cancel(): void };
   /** Debounced function to submit the serialised form and then replace the DOM */
   submitLazy?: { (...args: any[]): void; cancel(): void };
+  /** A function that writes the HTML to the target */
+  writeDeferred?: () => Promise<string>;
 
   connect() {
     this.srcValue =
@@ -314,26 +319,69 @@ export class SwapController extends Controller<
         return response.text();
       })
       .then((results) => {
-        target.innerHTML = results;
+        const write = async () => {
+          target.innerHTML = results;
 
-        if (this.reflectValue) {
-          const event = this.dispatch('reflect', {
-            cancelable: true,
-            detail: { requestUrl },
+          if (this.reflectValue) {
+            const event = this.dispatch('reflect', {
+              cancelable: true,
+              detail: { requestUrl },
+              target,
+            });
+            if (!event.defaultPrevented) {
+              this.reflectParams(requestUrl);
+            }
+          }
+
+          this.dispatch('success', {
+            cancelable: false,
+            detail: { requestUrl, results },
             target,
           });
-          if (!event.defaultPrevented) {
-            this.reflectParams(requestUrl);
-          }
+
+          return results;
+        };
+
+        // If the currently focused element is within the target container,
+        // defer the write until the focus has left the container.
+        if (
+          this.deferValue &&
+          document.activeElement &&
+          target.contains(document.activeElement)
+        ) {
+          return new Promise((resolve, reject) => {
+            this.writeDeferred = write;
+
+            const handleFocusOut = (event: FocusEvent) => {
+              // If the new focus is still within the target container, do nothing
+              if (target.contains(event.relatedTarget as Node | null)) {
+                return;
+              }
+
+              if (this.writeDeferred) {
+                this.writeDeferred().then(resolve).catch(reject);
+                // Clear the deferred write to ensure it's not called again
+                this.writeDeferred = undefined;
+              } else {
+                // The deferred write has been cleared but this listener is still
+                // triggered, which is unlikely to happen but possible
+                // (e.g. another request was made but the focus is still here and
+                // deferValue is set to false), so just resolve
+                resolve(results);
+              }
+
+              // Done for the current data, remove the listener
+              target.removeEventListener('focusout', handleFocusOut);
+            };
+
+            target.addEventListener('focusout', handleFocusOut);
+          });
         }
 
-        this.dispatch('success', {
-          cancelable: false,
-          detail: { requestUrl, results },
-          target,
-        });
-
-        return results;
+        // If there's a previously deferred write, and we're not in a state that
+        // needs a deferred write, clear the previous one and write immediately.
+        this.writeDeferred = undefined;
+        return write();
       })
       .catch((error) => {
         if (signal.aborted) return;
