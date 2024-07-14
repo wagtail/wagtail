@@ -7,7 +7,7 @@ import tippy from 'tippy.js';
 import {
   BaseSequenceBlock,
   BaseSequenceChild,
-  BaseInsertionControl,
+  BaseInsertionControl, MoveUpButton, MoveDownButton, DuplicateButton, DeleteButton,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
@@ -451,5 +451,12 @@ export class StreamBlockDefinition {
       initialState,
       initialError,
     );
+  }
+
+  setActions(base) {
+    base.addActionButton(new MoveUpButton(base));
+    base.addActionButton(new MoveDownButton(base));
+    base.addActionButton(new DuplicateButton(base));
+    base.addActionButton(new DeleteButton(base));
   }
 }

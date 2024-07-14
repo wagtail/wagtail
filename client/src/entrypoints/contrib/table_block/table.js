@@ -4,6 +4,12 @@
 
 import $ from 'jquery';
 import { hasOwn } from '../../../utils/hasOwn';
+import {
+  DeleteButton,
+  DuplicateButton,
+  MoveDownButton,
+  MoveUpButton
+} from "../../../components/StreamField/blocks/BaseSequenceBlock";
 
 /**
  * Due to the limitations of Handsontable, the 'cell' elements do not accept keyboard focus.
@@ -307,6 +313,13 @@ class TableInput {
     };
     widget.setState(initialState);
     return widget;
+  }
+
+  setActions(base) {
+    base.addActionButton(new MoveUpButton(base));
+    base.addActionButton(new MoveDownButton(base));
+    base.addActionButton(new DuplicateButton(base));
+    base.addActionButton(new DeleteButton(base));
   }
 }
 window.telepath.register('wagtail.widgets.TableInput', TableInput);

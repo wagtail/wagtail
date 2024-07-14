@@ -6,6 +6,7 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import {DeleteButton, DuplicateButton, MoveDownButton, MoveUpButton} from "./BaseSequenceBlock";
 
 export class StructBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -197,5 +198,12 @@ export class StructBlockDefinition {
       initialState,
       initialError,
     );
+  }
+
+  setActions(base) {
+    base.addActionButton(new MoveUpButton(base));
+    base.addActionButton(new MoveDownButton(base));
+    base.addActionButton(new DuplicateButton(base));
+    base.addActionButton(new DeleteButton(base));
   }
 }

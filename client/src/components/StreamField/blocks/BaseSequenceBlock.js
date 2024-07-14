@@ -11,7 +11,7 @@ import {
 } from '../../../includes/panels';
 import { range } from '../../../utils/range';
 
-class ActionButton {
+export class ActionButton {
   constructor(sequenceChild) {
     this.sequenceChild = sequenceChild;
   }
@@ -63,7 +63,7 @@ class ActionButton {
   }
 }
 
-class MoveUpButton extends ActionButton {
+export class MoveUpButton extends ActionButton {
   enableEvent = 'enableMoveUp';
   disableEvent = 'disableMoveUp';
   initiallyDisabled = true;
@@ -75,7 +75,7 @@ class MoveUpButton extends ActionButton {
   }
 }
 
-class MoveDownButton extends ActionButton {
+export class MoveDownButton extends ActionButton {
   enableEvent = 'enableMoveDown';
   disableEvent = 'disableMoveDown';
   initiallyDisabled = true;
@@ -87,7 +87,7 @@ class MoveDownButton extends ActionButton {
   }
 }
 
-class DuplicateButton extends ActionButton {
+export class DuplicateButton extends ActionButton {
   enableEvent = 'enableDuplication';
   disableEvent = 'disableDuplication';
   icon = 'copy';
@@ -98,7 +98,7 @@ class DuplicateButton extends ActionButton {
   }
 }
 
-class DeleteButton extends ActionButton {
+export class DeleteButton extends ActionButton {
   icon = 'bin';
   labelIdentifier = 'DELETE';
 
@@ -196,10 +196,7 @@ export class BaseSequenceChild extends EventEmitter {
     this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
     this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
 
-    this.addActionButton(new MoveUpButton(this));
-    this.addActionButton(new MoveDownButton(this));
-    this.addActionButton(new DuplicateButton(this));
-    this.addActionButton(new DeleteButton(this));
+    this.blockDef.setActions(this)
 
     const capabilities = new Map();
     capabilities.set('duplicate', {

@@ -1,4 +1,5 @@
 import { escapeHtml as h } from '../../../utils/text';
+import {DeleteButton, DuplicateButton, MoveDownButton, MoveUpButton} from "./BaseSequenceBlock";
 
 export class StaticBlock {
   constructor(blockDef, placeholder) {
@@ -40,5 +41,12 @@ export class StaticBlockDefinition {
 
   render(placeholder) {
     return new StaticBlock(this, placeholder);
+  }
+
+  setActions(base) {
+    base.addActionButton(new MoveUpButton(base));
+    base.addActionButton(new MoveDownButton(base));
+    base.addActionButton(new DuplicateButton(base));
+    base.addActionButton(new DeleteButton(base));
   }
 }

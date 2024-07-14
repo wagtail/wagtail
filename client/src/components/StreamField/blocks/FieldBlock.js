@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
+import {DeleteButton, DuplicateButton, MoveDownButton, MoveUpButton} from "./BaseSequenceBlock";
 
 export class FieldBlock {
   constructor(
@@ -199,5 +200,12 @@ export class FieldBlockDefinition {
       initialError,
       parentCapabilities,
     );
+  }
+
+  setActions(base) {
+    base.addActionButton(new MoveUpButton(base));
+    base.addActionButton(new MoveDownButton(base));
+    base.addActionButton(new DuplicateButton(base));
+    base.addActionButton(new DeleteButton(base));
   }
 }

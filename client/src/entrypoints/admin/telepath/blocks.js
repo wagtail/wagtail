@@ -18,6 +18,7 @@ import {
   StreamBlock,
   StreamBlockDefinition,
 } from '../../../components/StreamField/blocks/StreamBlock';
+import {ActionButton} from "../../../components/StreamField/blocks/BaseSequenceBlock";
 
 const wagtailStreamField = window.wagtailStreamField || {};
 
@@ -36,6 +37,8 @@ wagtailStreamField.blocks = {
 
   StreamBlock,
   StreamBlockDefinition,
+
+  ActionButton,
 };
 
 window.telepath.register('wagtail.blocks.FieldBlock', FieldBlockDefinition);

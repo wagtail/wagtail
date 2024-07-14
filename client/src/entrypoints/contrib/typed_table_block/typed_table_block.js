@@ -7,6 +7,12 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import {
+  DeleteButton,
+  DuplicateButton,
+  MoveDownButton,
+  MoveUpButton
+} from "../../../components/StreamField/blocks/BaseSequenceBlock";
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -602,6 +608,13 @@ export class TypedTableBlockDefinition {
       initialState,
       initialError,
     );
+  }
+
+  setActions(base) {
+    base.addActionButton(new MoveUpButton(base));
+    base.addActionButton(new MoveDownButton(base));
+    base.addActionButton(new DuplicateButton(base));
+    base.addActionButton(new DeleteButton(base));
   }
 }
 window.telepath.register(
