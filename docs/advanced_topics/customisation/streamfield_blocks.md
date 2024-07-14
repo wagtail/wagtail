@@ -171,6 +171,55 @@ window.telepath.register('myapp.blocks.AddressBlock', AddressBlockDefinition);
 
 (custom_value_class_for_structblock)=
 
+### Adding new actions to a StructBlock
+
+```javascript
+class ResetButton extends window.wagtailStreamField.blocks.ActionButton {
+    icon = 'arrow-up';
+    labelIdentifier = 'MOVE_UP';
+    
+    onClick() {
+        this.sequenceChild.resetState();
+    }
+}
+
+class AddressBlockDefinition extends window.wagtailStreamField.blocks
+    .StructBlockDefinition {
+    render(placeholder, prefix, initialState, initialError) {
+        const block = super.render(
+            placeholder,
+            prefix,
+            initialState,
+            initialError,
+        );
+        
+        block.resetState = () => {
+            block.setState(initialState);
+        };
+
+        const stateField = document.getElementById(prefix + '-state');
+        const countryField = document.getElementById(prefix + '-country');
+        const updateStateInput = () => {
+            if (countryField.value == 'us') {
+                stateField.removeAttribute('disabled');
+            } else {
+                stateField.setAttribute('disabled', true);
+            }
+        };
+        updateStateInput();
+        countryField.addEventListener('change', updateStateInput);
+
+        return block;
+    }
+    
+    setActions(base) {
+        super().setActions(base);
+        
+    }
+}
+window.telepath.register('myapp.blocks.AddressBlock', AddressBlockDefinition);
+```
+
 ## Additional methods and properties on `StructBlock` values
 
 When rendering StreamField content on a template, StructBlock values are represented as `dict`-like objects where the keys correspond to the names of the child blocks. Specifically, these values are instances of the class `wagtail.blocks.StructValue`.
