@@ -7,7 +7,11 @@ import tippy from 'tippy.js';
 import {
   BaseSequenceBlock,
   BaseSequenceChild,
-  BaseInsertionControl, MoveUpButton, MoveDownButton, DuplicateButton, DeleteButton,
+  BaseInsertionControl,
+  MoveUpButton,
+  MoveDownButton,
+  DuplicateButton,
+  DeleteButton,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';

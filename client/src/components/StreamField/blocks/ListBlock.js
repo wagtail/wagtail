@@ -4,7 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   BaseSequenceBlock,
   BaseSequenceChild,
-  BaseInsertionControl, MoveUpButton, MoveDownButton, DuplicateButton, DeleteButton,
+  BaseInsertionControl,
+  MoveUpButton,
+  MoveDownButton,
+  DuplicateButton,
+  DeleteButton,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { range } from '../../../utils/range';

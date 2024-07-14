@@ -214,7 +214,6 @@ class AddressBlockDefinition extends window.wagtailStreamField.blocks
     
     setActions(base) {
         super().setActions(base);
-        
     }
 }
 window.telepath.register('myapp.blocks.AddressBlock', AddressBlockDefinition);

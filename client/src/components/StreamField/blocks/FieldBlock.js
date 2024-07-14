@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
-import {DeleteButton, DuplicateButton, MoveDownButton, MoveUpButton} from "./BaseSequenceBlock";
+import {
+  DeleteButton,
+  DuplicateButton,
+  MoveDownButton,
+  MoveUpButton,
+} from './BaseSequenceBlock';
 
 export class FieldBlock {
   constructor(

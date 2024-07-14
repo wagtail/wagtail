@@ -196,7 +196,7 @@ export class BaseSequenceChild extends EventEmitter {
     this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
     this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
 
-    this.blockDef.setActions(this)
+    this.blockDef.setActions(this);
 
     const capabilities = new Map();
     capabilities.set('duplicate', {

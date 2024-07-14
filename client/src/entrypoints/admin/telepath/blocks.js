@@ -18,7 +18,7 @@ import {
   StreamBlock,
   StreamBlockDefinition,
 } from '../../../components/StreamField/blocks/StreamBlock';
-import {ActionButton} from "../../../components/StreamField/blocks/BaseSequenceBlock";
+import { ActionButton } from '../../../components/StreamField/blocks/BaseSequenceBlock';
 
 const wagtailStreamField = window.wagtailStreamField || {};
 

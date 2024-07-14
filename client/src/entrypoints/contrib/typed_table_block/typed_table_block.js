@@ -11,8 +11,8 @@ import {
   DeleteButton,
   DuplicateButton,
   MoveDownButton,
-  MoveUpButton
-} from "../../../components/StreamField/blocks/BaseSequenceBlock";
+  MoveUpButton,
+} from '../../../components/StreamField/blocks/BaseSequenceBlock';
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {

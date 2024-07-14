@@ -1,5 +1,10 @@
 import { escapeHtml as h } from '../../../utils/text';
-import {DeleteButton, DuplicateButton, MoveDownButton, MoveUpButton} from "./BaseSequenceBlock";
+import {
+  DeleteButton,
+  DuplicateButton,
+  MoveDownButton,
+  MoveUpButton,
+} from './BaseSequenceBlock';
 
 export class StaticBlock {
   constructor(blockDef, placeholder) {

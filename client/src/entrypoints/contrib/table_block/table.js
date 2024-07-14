@@ -8,8 +8,8 @@ import {
   DeleteButton,
   DuplicateButton,
   MoveDownButton,
-  MoveUpButton
-} from "../../../components/StreamField/blocks/BaseSequenceBlock";
+  MoveUpButton,
+} from '../../../components/StreamField/blocks/BaseSequenceBlock';
 
 /**
  * Due to the limitations of Handsontable, the 'cell' elements do not accept keyboard focus.
