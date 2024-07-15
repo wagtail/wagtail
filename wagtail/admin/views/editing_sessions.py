@@ -180,7 +180,7 @@ def ping(request, app_label, model_name, object_id, session_id):
                 }
                 for other_session in other_sessions
             ],
-            "html": EditingSessionsList(other_sessions).render_html(),
+            "html": EditingSessionsList(session, other_sessions).render_html(),
         }
     )
 

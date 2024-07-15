@@ -698,6 +698,7 @@ class CreateEditViewOptionalFeaturesMixin:
         )
         revision_id = self.object.latest_revision_id if self.revision_enabled else None
         return EditingSessionsModule(
+            session,
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=(
