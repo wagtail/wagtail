@@ -14,7 +14,7 @@
                 {{ user_name }} saved a new version
             {% endblocktranslate %}
 
-            {% dropdown theme="popup" classname="w-group" toggle_label=avatar toggle_classname="w-p-0" %}
+            {% dropdown theme="popup" classname="w-group" toggle_label=avatar toggle_aria_label=saved_new_version_message|capfirst toggle_classname="w-p-0" %}
                 <div class="w-flex w-flex-col w-items-center w-justify-center w-gap-1 w-p-1">
                     <div class="w-label-2 w-flex w-items-center w-gap-1.5">
                         {% icon name="warning" classname="w-text-critical-200 w-w-5 w-h-5" %}
@@ -37,7 +37,7 @@
                 {{ user_name }} has unsaved changes
             {% endblocktranslate %}
 
-            {% dropdown theme="popup" toggle_label=avatar toggle_classname="w-p-0" %}
+            {% dropdown theme="popup" toggle_label=avatar toggle_classname="w-p-0" toggle_aria_label=has_unsaved_changes_message|capfirst %}
                 <div class="w-label-2 w-flex w-items-center w-gap-1.5 w-p-1">
                     {% icon name="warning" classname="w-text-warning-100 w-w-5 w-h-5" %}
                     {{ has_unsaved_changes_message|capfirst }}
@@ -53,6 +53,7 @@
                     {{ avatar }}
                     <div class="w-flex w-flex-col w-items-center w-justify-center" data-w-tooltip-target="content" hidden>
                         <span class="w-font-semibold">{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
+                        <span class="w-sr-only">-</span>
                         <span>{% trans "Currently viewing" %}</span>
                     </div>
                 </button>
