@@ -37,6 +37,10 @@
   &[data-placement^='bottom'] > .tippy-arrow::before {
     @apply w-border-b-surface-page;
   }
+
+  .tippy-content {
+    @apply w-p-0;
+  }
 }
 
 .tippy-box[data-theme='drilldown'] {

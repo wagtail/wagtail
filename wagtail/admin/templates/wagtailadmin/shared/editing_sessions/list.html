@@ -1,12 +1,16 @@
 {% load wagtailadmin_tags i18n %}
 
-<div class="w-flex w-pr-8 w-mr-5 w-border-r w-border-border-furniture">
+<div class="w-editing-sessions">
     {% for session in sessions|slice:":4" %}
+        {% fragment as avatar %}
+            {% avatar user=session.user classname="w-editing-sessions__avatar" %}
+        {% endfragment %}
+
         {% if session.revision_id %}
-            {% fragment as avatar %}
-                <div class="w-relative">
-                    {% avatar user=session.user classname="w-mx-[1px] w-w-7 w-h-7 w-border-2 w-border-critical-200 w-ping w-ping--critical" %}
-                    {% icon name="warning" classname="w-text-critical-200 w-w-4 w-h-4 w-absolute -w-bottom-2 w-left-2 w-z-10 w-stroke-surface-header w-shadow-white group-hover:w-hidden" %}
+            {% fragment as avatar_decorated %}
+                <div class="w-editing-sessions__decorated-avatar">
+                    {{ avatar }}
+                    {% icon name="warning" %}
                 </div>
             {% endfragment %}
 
@@ -14,10 +18,10 @@
                 {{ user_name }} saved a new version
             {% endblocktranslate %}
 
-            {% dropdown theme="popup" classname="w-group" toggle_label=avatar toggle_aria_label=saved_new_version_message|capfirst toggle_classname="w-p-0" %}
-                <div class="w-flex w-flex-col w-items-center w-justify-center w-gap-1 w-p-1">
-                    <div class="w-label-2 w-flex w-items-center w-gap-1.5">
-                        {% icon name="warning" classname="w-text-critical-200 w-w-5 w-h-5" %}
+            {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--latest" toggle_label=avatar_decorated toggle_aria_label=saved_new_version_message|capfirst %}
+                <div class="w-editing-sessions__popup">
+                    <div class="w-editing-sessions__message">
+                        {% icon name="warning" %}
                         {{ saved_new_version_message|capfirst }}
                     </div>
 
@@ -29,50 +33,40 @@
                 </div>
             {% enddropdown %}
         {% elif session.is_editing %}
-            {% fragment as avatar %}
-                {% avatar user=session.user classname="w-mx-[1px] w-w-7 w-h-7 w-border-2 w-border-warning-100" %}
-            {% endfragment %}
-
             {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar has_unsaved_changes_message %}
                 {{ user_name }} has unsaved changes
             {% endblocktranslate %}
 
-            {% dropdown theme="popup" toggle_label=avatar toggle_classname="w-p-0" toggle_aria_label=has_unsaved_changes_message|capfirst %}
-                <div class="w-label-2 w-flex w-items-center w-gap-1.5 w-p-1">
-                    {% icon name="warning" classname="w-text-warning-100 w-w-5 w-h-5" %}
-                    {{ has_unsaved_changes_message|capfirst }}
+            {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--editing" toggle_label=avatar toggle_aria_label=has_unsaved_changes_message|capfirst %}
+                <div class="w-editing-sessions__popup">
+                    <div class="w-editing-sessions__message">
+                        {% icon name="warning" %}
+                        {{ has_unsaved_changes_message|capfirst }}
+                    </div>
                 </div>
             {% enddropdown %}
         {% else %}
-            {% fragment as avatar %}
-                {% avatar user=session.user classname="w-mx-[1px] w-w-7 w-h-7 w-border-2 w-border-surface-field hover:w-border-positive-100" %}
-            {% endfragment %}
-
-            <div>
-                <button class="w-p-0 w-bg-transparent" type="button" data-controller="w-tooltip">
-                    {{ avatar }}
-                    <div class="w-flex w-flex-col w-items-center w-justify-center" data-w-tooltip-target="content" hidden>
-                        <span class="w-font-semibold">{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
-                        <span class="w-sr-only">-</span>
-                        <span>{% trans "Currently viewing" %}</span>
-                    </div>
-                </button>
-            </div>
+            <button class="w-editing-sessions__session" type="button" data-controller="w-tooltip">
+                {{ avatar }}
+                <div class="w-editing-sessions__popup" data-w-tooltip-target="content" hidden>
+                    <span class="w-editing-sessions__name">{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
+                    <span class="w-sr-only">-</span>
+                    <span>{% trans "Currently viewing" %}</span>
+                </div>
+            </button>
         {% endif %}
     {% endfor %}
     {% if sessions|length > 4 %}
         {% fragment as more_sessions_toggle %}
-            <div class="w-flex w-items-center w-justify-center w-bg-surface-page w-rounded-full w-w-7 w-h-7 w-border-2 w-border-border-furniture hover:w-border-positive-100 w-font-bold w-text-11">
-                +{{ sessions|length|add:"-4" }}
-            </div>
+            +{{ sessions|length|add:"-4" }}
         {% endfragment %}
 
-        {% dropdown theme="drilldown" toggle_label=more_sessions_toggle toggle_classname="w-p-0 w-mx-[1px]" %}
-            <div class="w-flex w-flex-col w-gap-4 w-p-2">
+        {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle %}
+            <div class="w-editing-sessions__more-list">
                 {% for session in sessions|slice:"4:" %}
-                    <div class="w-flex w-items-center">
+                    <div class="w-editing-sessions__list-item">
                         {% avatar user=session.user size="small" %}
-                        <span class="w-text-14">{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
+                        <span>{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
                     </div>
                 {% endfor %}
             </div>
