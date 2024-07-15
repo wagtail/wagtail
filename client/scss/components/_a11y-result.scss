@@ -76,7 +76,6 @@
   background-color: theme('colors.positive.100');
   border-radius: theme('borderRadius.full');
   font-size: theme('fontSize.11');
-  line-height: theme('lineHeight.none');
   height: theme('spacing.4');
   width: theme('spacing.4');
   color: theme('colors.text-button');
@@ -87,5 +86,9 @@
 
   @media (forced-colors: active) {
     border: theme('spacing.px') solid ButtonText;
+  }
+
+  .w-userbar & {
+    line-height: theme('lineHeight.none');
   }
 }
