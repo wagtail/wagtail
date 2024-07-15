@@ -57,11 +57,17 @@
         {% endif %}
     {% endfor %}
     {% if sessions|length > 4 %}
+        {% blocktranslate trimmed count num_user=sessions|length|add:"-4" asvar num_other_users_message %}
+            One other user is currently viewing
+        {% plural %}
+            {{ num_user }} other users are currently viewing
+        {% endblocktranslate %}
+
         {% fragment as more_sessions_toggle %}
             +{{ sessions|length|add:"-4" }}
         {% endfragment %}
 
-        {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle %}
+        {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle toggle_aria_label=num_other_users_message|capfirst %}
             <div class="w-editing-sessions__more-list">
                 {% for session in sessions|slice:"4:" %}
                     <div class="w-editing-sessions__list-item">
