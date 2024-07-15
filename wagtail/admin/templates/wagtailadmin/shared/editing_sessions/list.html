@@ -15,9 +15,15 @@
                     </div>
                 {% endfragment %}
 
-                {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar saved_new_version_message %}
-                    {{ user_name }} saved a new version
-                {% endblocktranslate %}
+                {% if current_session.user == session.user %}
+                    {% blocktranslate trimmed asvar saved_new_version_message %}
+                        You saved a new version in another session
+                    {% endblocktranslate %}
+                {% else %}
+                    {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar saved_new_version_message %}
+                        {{ user_name }} saved a new version
+                    {% endblocktranslate %}
+                {% endif %}
 
                 {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--latest" toggle_label=avatar_decorated toggle_aria_label=saved_new_version_message|capfirst %}
                     <div class="w-editing-sessions__popup">
@@ -34,9 +40,15 @@
                     </div>
                 {% enddropdown %}
             {% elif session.is_editing %}
-                {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar has_unsaved_changes_message %}
-                    {{ user_name }} has unsaved changes
-                {% endblocktranslate %}
+                {% if current_session.user == session.user %}
+                    {% blocktranslate trimmed asvar has_unsaved_changes_message %}
+                        You have unsaved changes in another session
+                    {% endblocktranslate %}
+                {% else %}
+                    {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar has_unsaved_changes_message %}
+                        {{ user_name }} has unsaved changes
+                    {% endblocktranslate %}
+                {% endif %}
 
                 {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--editing" toggle_label=avatar toggle_aria_label=has_unsaved_changes_message|capfirst %}
                     <div class="w-editing-sessions__popup">
@@ -86,16 +98,28 @@
 
 {% if sessions.0.revision_id %}
     <template data-controller="w-teleport" data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog" data-w-teleport-reset-value="true">
-        {% blocktranslate trimmed with user_name=sessions.0.user|user_display_name|default:_("system") model_name=_("page") asvar someone_has_saved_message %}
-            {{ user_name }} has saved a newer version of this {{ model_name }}
-        {% endblocktranslate %}
+        {% if current_session.user == sessions.0.user %}
+            {% blocktranslate trimmed with model_name=_("page") asvar someone_has_saved_message %}
+                You have saved a newer version of this {{ model_name }} in another session
+            {% endblocktranslate %}
+        {% else %}
+            {% blocktranslate trimmed with user_name=sessions.0.user|user_display_name|default:_("system") model_name=_("page") asvar someone_has_saved_message %}
+                {{ user_name }} has saved a newer version of this {{ model_name }}
+            {% endblocktranslate %}
+        {% endif %}
         {{ someone_has_saved_message|capfirst }}
     </template>
 
     <template data-controller="w-teleport" data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog" data-w-teleport-reset-value="true">
-        {% blocktranslate trimmed with user_name=sessions.0.user|user_display_name|default:_("system") asvar overwrite_message %}
-            Proceeding will overwrite the changes made by {{ user_name }}. Refreshing the page will lose any of your unsaved changes.
-        {% endblocktranslate %}
+        {% if current_session.user == sessions.0.user %}
+            {% blocktranslate trimmed asvar overwrite_message %}
+                Proceeding will overwrite the changes you made in that session. Refreshing the page will lose any of your unsaved changes in the current session.
+            {% endblocktranslate %}
+        {% else %}
+            {% blocktranslate trimmed with user_name=sessions.0.user|user_display_name|default:_("system") asvar overwrite_message %}
+                Proceeding will overwrite the changes made by {{ user_name }}. Refreshing the page will lose any of your unsaved changes.
+            {% endblocktranslate %}
+        {% endif %}
         {{ overwrite_message|capfirst }}
     </template>
 {% endif %}

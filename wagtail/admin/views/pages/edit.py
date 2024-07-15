@@ -891,6 +891,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             last_seen_at=timezone.now(),
         )
         return EditingSessionsModule(
+            session,
             reverse(
                 "wagtailadmin_editing_sessions:ping",
                 args=("wagtailcore", "page", self.page.pk, session.id),
