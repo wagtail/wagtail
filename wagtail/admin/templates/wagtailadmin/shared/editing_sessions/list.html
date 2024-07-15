@@ -1,60 +1,62 @@
 {% load wagtailadmin_tags i18n %}
 
-<div class="w-editing-sessions">
+<ol class="w-editing-sessions">
     {% for session in sessions|slice:":4" %}
-        {% fragment as avatar %}
-            {% avatar user=session.user classname="w-editing-sessions__avatar" %}
-        {% endfragment %}
-
-        {% if session.revision_id %}
-            {% fragment as avatar_decorated %}
-                <div class="w-editing-sessions__decorated-avatar">
-                    {{ avatar }}
-                    {% icon name="warning" %}
-                </div>
+        <li>
+            {% fragment as avatar %}
+                {% avatar user=session.user classname="w-editing-sessions__avatar" %}
             {% endfragment %}
 
-            {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar saved_new_version_message %}
-                {{ user_name }} saved a new version
-            {% endblocktranslate %}
-
-            {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--latest" toggle_label=avatar_decorated toggle_aria_label=saved_new_version_message|capfirst %}
-                <div class="w-editing-sessions__popup">
-                    <div class="w-editing-sessions__message">
+            {% if session.revision_id %}
+                {% fragment as avatar_decorated %}
+                    <div class="w-editing-sessions__decorated-avatar">
+                        {{ avatar }}
                         {% icon name="warning" %}
-                        {{ saved_new_version_message|capfirst }}
                     </div>
+                {% endfragment %}
 
-                    {% fragment as refresh_button_content %}
-                        {% icon name="rotate" %}
-                        {% trans "Refresh" %}
-                    {% endfragment %}
-                    {% dialog_toggle classname="button button-small button-secondary chooser__choose-button" text=refresh_button_content dialog_id="w-unsaved-changes-dialog" %}
-                </div>
-            {% enddropdown %}
-        {% elif session.is_editing %}
-            {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar has_unsaved_changes_message %}
-                {{ user_name }} has unsaved changes
-            {% endblocktranslate %}
+                {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar saved_new_version_message %}
+                    {{ user_name }} saved a new version
+                {% endblocktranslate %}
 
-            {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--editing" toggle_label=avatar toggle_aria_label=has_unsaved_changes_message|capfirst %}
-                <div class="w-editing-sessions__popup">
-                    <div class="w-editing-sessions__message">
-                        {% icon name="warning" %}
-                        {{ has_unsaved_changes_message|capfirst }}
+                {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--latest" toggle_label=avatar_decorated toggle_aria_label=saved_new_version_message|capfirst %}
+                    <div class="w-editing-sessions__popup">
+                        <div class="w-editing-sessions__message">
+                            {% icon name="warning" %}
+                            {{ saved_new_version_message|capfirst }}
+                        </div>
+
+                        {% fragment as refresh_button_content %}
+                            {% icon name="rotate" %}
+                            {% trans "Refresh" %}
+                        {% endfragment %}
+                        {% dialog_toggle classname="button button-small button-secondary chooser__choose-button" text=refresh_button_content dialog_id="w-unsaved-changes-dialog" %}
                     </div>
-                </div>
-            {% enddropdown %}
-        {% else %}
-            <button class="w-editing-sessions__session" type="button" data-controller="w-tooltip">
-                {{ avatar }}
-                <div class="w-editing-sessions__popup" data-w-tooltip-target="content" hidden>
-                    <span class="w-editing-sessions__name">{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
-                    <span class="w-sr-only">-</span>
-                    <span>{% trans "Currently viewing" %}</span>
-                </div>
-            </button>
-        {% endif %}
+                {% enddropdown %}
+            {% elif session.is_editing %}
+                {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("system") asvar has_unsaved_changes_message %}
+                    {{ user_name }} has unsaved changes
+                {% endblocktranslate %}
+
+                {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--editing" toggle_label=avatar toggle_aria_label=has_unsaved_changes_message|capfirst %}
+                    <div class="w-editing-sessions__popup">
+                        <div class="w-editing-sessions__message">
+                            {% icon name="warning" %}
+                            {{ has_unsaved_changes_message|capfirst }}
+                        </div>
+                    </div>
+                {% enddropdown %}
+            {% else %}
+                <button class="w-editing-sessions__session" type="button" data-controller="w-tooltip">
+                    {{ avatar }}
+                    <div class="w-editing-sessions__popup" data-w-tooltip-target="content" hidden>
+                        <span class="w-editing-sessions__name">{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
+                        <span class="w-sr-only">-</span>
+                        <span>{% trans "Currently viewing" %}</span>
+                    </div>
+                </button>
+            {% endif %}
+        </li>
     {% endfor %}
     {% if sessions|length > 4 %}
         {% blocktranslate trimmed count num_user=sessions|length|add:"-4" asvar num_other_users_message %}
@@ -67,18 +69,20 @@
             +{{ sessions|length|add:"-4" }}
         {% endfragment %}
 
-        {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle toggle_aria_label=num_other_users_message|capfirst %}
-            <div class="w-editing-sessions__more-list">
-                {% for session in sessions|slice:"4:" %}
-                    <div class="w-editing-sessions__list-item">
-                        {% avatar user=session.user size="small" %}
-                        <span>{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
-                    </div>
-                {% endfor %}
-            </div>
-        {% enddropdown %}
+        <li>
+            {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle toggle_aria_label=num_other_users_message|capfirst %}
+                <ol class="w-editing-sessions__more-list">
+                    {% for session in sessions|slice:"4:" %}
+                        <li class="w-editing-sessions__list-item">
+                            {% avatar user=session.user size="small" %}
+                            <span>{{ session.user|user_display_name|default:_("system")|capfirst }}</span>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% enddropdown %}
+        </li>
     {% endif %}
-</div>
+</ol>
 
 {% if sessions.0.revision_id %}
     <template data-controller="w-teleport" data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog" data-w-teleport-reset-value="true">
