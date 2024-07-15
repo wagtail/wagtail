@@ -10,8 +10,13 @@
   @apply w-relative;
 
   .icon {
-    @apply w-w-4 w-h-4 w-absolute -w-bottom-2 w-left-2 w-z-10 w-stroke-surface-header w-shadow-white;
+    @apply w-w-4 w-h-4 w-absolute -w-bottom-2 w-left-2 w-z-20 w-stroke-surface-header w-shadow-white;
   }
+}
+
+.w-editing-sessions__decorator-filler {
+  /* HACK: fill the 'hole' inside the warning icon with a solid bg-surface-header */
+  @apply w-block w-w-[3px] w-h-2 w-absolute w-bottom-[-5px] w-left-[14.5px] w-bg-surface-header w-z-10;
 }
 
 .w-editing-sessions__popup {
@@ -33,7 +38,9 @@
 .w-editing-sessions__session {
   @apply w-p-0 w-bg-transparent;
 
-  [aria-expanded='true'] .w-editing-sessions__decorated-avatar .icon {
+  [aria-expanded='true']
+    .w-editing-sessions__decorated-avatar
+    :where(.icon, .w-editing-sessions__decorator-filler) {
     @apply w-hidden;
   }
 }
