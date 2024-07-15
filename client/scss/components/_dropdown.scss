@@ -44,3 +44,13 @@
     }
   }
 }
+
+.w-dropdown--popup {
+  .w-dropdown__content {
+    @apply w-p-4;
+  }
+
+  .w-dropdown__toggle {
+    @apply w-p-0;
+  }
+}
