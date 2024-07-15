@@ -7,7 +7,7 @@
     </div>
 {% enddialog %}
 
-{% blocktranslate trimmed with user_name=_("system") model_name=_("page") asvar someone_has_saved_message %}
+{% blocktranslate trimmed with user_name=_("system") model_name=content_type.name asvar someone_has_saved_message %}
     {{ user_name }} has saved a newer version of this {{ model_name }}
 {% endblocktranslate %}
 
