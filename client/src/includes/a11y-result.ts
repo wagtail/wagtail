@@ -177,16 +177,21 @@ export const renderA11yResults = (
         const a11yErrorName = currentA11yRow.querySelector(
           '[data-a11y-result-name]',
         ) as HTMLSpanElement;
-        a11yErrorName.id = `w-a11y-result__name-${nodeCounter}`;
-        // Display custom error messages supplied by Wagtail if available,
-        // fallback to default error message from Axe
-        a11yErrorName.textContent =
-          config.messages[violation.id].error_name || violation.help;
         const a11yErrorHelp = currentA11yRow.querySelector(
           '[data-a11y-result-help]',
         ) as HTMLDivElement;
+        a11yErrorName.id = `w-a11y-result__name-${nodeCounter}`;
+
+        // Display custom error messages supplied by Wagtail if available,
+        // fallback to default error message from Axe
+        const messages = config.messages[violation.id];
+
+        const name =
+          (typeof messages === 'string' ? messages : messages?.error_name) ||
+          violation.help;
+        a11yErrorName.textContent = name;
         a11yErrorHelp.textContent =
-          config.messages[violation.id].help_text || '';
+          messages?.help_text || violation.description;
 
         // Special-case when displaying accessibility results within the admin interface.
         const selectorName = toSelector(
