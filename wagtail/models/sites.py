@@ -160,7 +160,8 @@ class Site(models.Model):
 
     @staticmethod
     def _find_for_request(request):
-        hostname = split_domain_port(request.get_host())[0]
+        # Use `_get_raw_host` to avoid ALLOWED_HOSTS checks
+        hostname = split_domain_port(request._get_raw_host())[0]
         port = request.get_port()
         site = None
         try:
