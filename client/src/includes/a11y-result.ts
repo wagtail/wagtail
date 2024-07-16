@@ -74,7 +74,7 @@ export const getAxeConfiguration = (
 
 /**
  * Custom rule for checking image alt text. This rule checks if the alt text for images
- * contains poor quality text like file extensions.
+ * contains poor quality text like file extensions or undescores.
  * The rule will be added via the Axe.configure() API.
  * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
  */

@@ -347,7 +347,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             axe_custom_checks = [
                 {
                     "id": "check-image-alt-text",
-                    "options": {"pattern": "\\.[a-z]{1,4}$"},
+                    "options": {"pattern": "\\.[a-z]{1,4}$|_"},
                 },
             ]
 
@@ -402,7 +402,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                     "checks": [
                         {
                             "id": "check-image-alt-text",
-                            "options": {"pattern": "\\.[a-z]{1,4}$"},
+                            "options": {"pattern": "\\.[a-z]{1,4}$|_"},
                         },
                         {
                             "id": "check-link-text",

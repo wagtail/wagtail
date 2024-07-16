@@ -93,13 +93,14 @@ describe('addCustomChecks', () => {
 
 // Options for checkImageAltText function
 const options = {
-  pattern: '\\.(avif|gif|jpg|jpeg|png|svg|webp)$',
+  pattern: '\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_',
 };
 
 describe.each`
   text                                                | result
   ${'Good alt text with words like GIFted and motif'} | ${true}
   ${'Bad alt text.png'}                               | ${false}
+  ${'Bad_alt_text'}                                   | ${false}
   ${''}                                               | ${true}
 `('checkImageAltText', ({ text, result }) => {
   const resultText = result ? 'should not be flagged' : 'should be flagged';
