@@ -60,6 +60,7 @@ Changelog
  * Maintenance: Replace `urlparse` with `urlsplit` to improve performance (Jake Howard)
  * Maintenance: Optimise embed finder lookups (Jake Howard)
  * Maintenance: Improve performance of initial admin loading by moving sprite hashing out of module import time (Jake Howard)
+ * Maintenance: Remove workaround and inline scripts for activating workflow actions (Sage Abdullah)
 
 
 6.1.3 (11.07.2024)
