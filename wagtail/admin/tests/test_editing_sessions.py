@@ -152,6 +152,14 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser", session_text)
+        self.assertIn("Currently viewing", session_text)
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(self.session.is_editing)
@@ -182,6 +190,14 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser", session_text)
+        self.assertIn("Currently viewing", session_text)
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertTrue(self.session.is_editing)
@@ -212,6 +228,15 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser", session_text)
+        self.assertIn("Currently viewing", session_text)
+        self.assertNotIn("saved a new version", session_text)
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(self.session.is_editing)
@@ -243,6 +268,31 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "Vic Otheruser has saved a newer version of this page",
+            dialog_title.string,
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by Vic Otheruser. "
+            "Refreshing the page will lose any of your unsaved changes.",
+            dialog_subtitle.string,
+        )
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(self.session.is_editing)
@@ -274,6 +324,31 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 1)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Vic Otheruser saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "Vic Otheruser has saved a newer version of this page",
+            dialog_title.string,
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by Vic Otheruser. "
+            "Refreshing the page will lose any of your unsaved changes.",
+            dialog_subtitle.string,
+        )
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(self.session.is_editing)
@@ -331,6 +406,35 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 2)
+        session_text = rendered_sessions[0].text
+        self.assertIn("Gordon Thirduser saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "Gordon Thirduser has saved a newer version of this page",
+            dialog_title.string,
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by Gordon Thirduser. "
+            "Refreshing the page will lose any of your unsaved changes.",
+            dialog_subtitle.string,
+        )
+        other_session_text = rendered_sessions[1].text
+        self.assertIn("Vic Otheruser", other_session_text)
+        self.assertIn("Currently viewing", other_session_text)
+        self.assertNotIn("saved a new version", other_session_text)
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(self.session.is_editing)
@@ -372,6 +476,35 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 2)
+        session_text = rendered_sessions[0].text
+        self.assertIn("System saved a new version", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_title)
+        self.assertIn(
+            "System has saved a newer version of this page",
+            dialog_title.string,
+        )
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNotNone(dialog_subtitle)
+        self.assertIn(
+            "Proceeding will overwrite the changes made by system. "
+            "Refreshing the page will lose any of your unsaved changes.",
+            dialog_subtitle.string,
+        )
+        other_session_text = rendered_sessions[1].text
+        self.assertIn("Vic Otheruser", other_session_text)
+        self.assertIn("Currently viewing", other_session_text)
+        self.assertNotIn("saved a new version", other_session_text)
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(self.session.is_editing)
@@ -490,6 +623,23 @@ class TestPingView(WagtailTestUtils, TestCase):
             ],
         )
 
+        # Should include the new URLs for the new session
+        self.assertEqual(
+            response_json["ping_url"],
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, session.id),
+            ),
+        )
+
+        self.assertEqual(
+            response_json["release_url"],
+            reverse(
+                "wagtailadmin_editing_sessions:release",
+                args=(session.id,),
+            ),
+        )
+
         # content_object is a non-specific Page object
         self.assertEqual(type(session.content_object), Page)
         self.assertEqual(session.content_object.id, self.page.id)
@@ -569,6 +719,26 @@ class TestPingView(WagtailTestUtils, TestCase):
                 },
             ],
         )
+
+        soup = self.get_soup(response_json["html"])
+        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        self.assertEqual(len(rendered_sessions), 2)
+        session_text = rendered_sessions[0].text
+        self.assertIn("You have unsaved changes in another session", session_text)
+        self.assertNotIn("Currently viewing", session_text)
+        dialog_title = soup.select_one(
+            'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNone(dialog_title)
+        dialog_subtitle = soup.select_one(
+            'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
+        )
+        self.assertIsNone(dialog_subtitle)
+        other_session_text = rendered_sessions[1].text
+        self.assertIn("Vic Otheruser", other_session_text)
+        self.assertIn("Currently viewing", other_session_text)
+        self.assertNotIn("saved a new version", other_session_text)
+
         self.session.refresh_from_db()
         self.assertEqual(self.session.last_seen_at, TIMESTAMP_NOW)
         self.assertFalse(self.session.is_editing)
