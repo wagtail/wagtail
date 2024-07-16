@@ -92,29 +92,42 @@ class AccessibilityItem(BaseItem):
     #: to use as the error messages. If an enabled rule does not exist in this
     #: dictionary, Axe's error message for the rule will be used as fallback.
     axe_messages = {
-        "button-name": _(
-            "Button text is empty. Use meaningful text for screen reader users."
-        ),
-        "empty-heading": _(
-            "Empty heading found. Use meaningful text for screen reader users."
-        ),
-        "empty-table-header": _(
-            "Table header text is empty. Use meaningful text for screen reader users."
-        ),
-        "frame-title": _(
-            "Empty frame title found. Use a meaningful title for screen reader users."
-        ),
-        "heading-order": _("Incorrect heading hierarchy. Avoid skipping levels."),
-        "input-button-name": _(
-            "Input button text is empty. Use meaningful text for screen reader users."
-        ),
-        "link-name": _(
-            "Link text is empty. Use meaningful text for screen reader users."
-        ),
-        "p-as-heading": _("Misusing paragraphs as headings. Use proper heading tags."),
-        "alt-text-quality": _(
-            "Image alt text has inappropriate pattern. Use meaningful text."
-        ),
+        "button-name": {
+            "error_name": _("Button text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "empty-heading": {
+            "error_name": _("Empty heading found"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "empty-table-header": {
+            "error_name": _("Table header text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "frame-title": {
+            "error_name": _("Empty frame title found"),
+            "help_text": _("Use a meaningful title for screen reader users"),
+        },
+        "heading-order": {
+            "error_name": _("Incorrect heading hierarchy"),
+            "help_text": _("Avoid skipping levels"),
+        },
+        "input-button-name": {
+            "error_name": _("Input button text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "link-name": {
+            "error_name": _("Link text is empty"),
+            "help_text": _("Use meaningful text for screen reader users"),
+        },
+        "p-as-heading": {
+            "error_name": _("Misusing paragraphs as headings"),
+            "help_text": _("Use proper heading tags"),
+        },
+        "alt-text-quality": {
+            "error_name": _("Image alt text has inappropriate pattern"),
+            "help_text": _("Use meaningful text"),
+        },
     }
 
     def get_axe_include(self, request):
