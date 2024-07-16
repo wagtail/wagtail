@@ -2,10 +2,10 @@
 
 {% wagtail_config as settings %}
 
-<div class="preview-panel preview-panel--mobile" data-preview-panel data-action="{{ preview_url }}">
+<div class="preview-panel" data-preview-panel data-action="{{ preview_url }}">
     <div class="preview-panel__sizes">
         {% for size in page.preview_sizes %}
-            <label class="preview-panel__size-button preview-panel__size-button--{{ size.name }}">
+            <label class="preview-panel__size-button preview-panel__size-button--{{ size.name }} {% if size.default_size %}size-button-active{% endif %}">
                 {% icon name=size.icon %}
                 <input
                     type="radio"
