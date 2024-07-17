@@ -83,7 +83,9 @@
         {% endfragment %}
 
         <li>
-            {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle toggle_aria_label=num_other_users_message %}
+            <span id="w-editing-sessions-more-summary" class="w-sr-only">{{ num_other_users_message }}</span>
+
+            {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle toggle_describedby="w-editing-sessions-more-summary" %}
                 <ol class="w-editing-sessions__more-list">
                     {% for session in sessions|slice:"4:" %}
                         <li class="w-editing-sessions__list-item">
