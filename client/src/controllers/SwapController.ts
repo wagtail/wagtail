@@ -142,6 +142,9 @@ export class SwapController extends Controller<
    * to be replaced is flagged as busy.
    */
   loadingValueChanged(isLoading: boolean, isLoadingPrevious) {
+    // Don't bother marking as busy and adding the spinner icon if we defer writes
+    if (this.deferValue) return;
+
     const target = isLoadingPrevious === undefined ? null : this.target; // ensure we avoid DOM interaction before connect
     if (isLoading) {
       target?.setAttribute('aria-busy', 'true');

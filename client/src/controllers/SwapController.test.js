@@ -1652,6 +1652,9 @@ describe('SwapController', () => {
     beforeEach(() => {
       document.body.innerHTML = /* html */ `
       <main>
+        <svg class="icon icon-breadcrumb-expand" aria-hidden="true">
+          <use href="#icon-breadcrumb-expand"></use>
+        </svg>
         <form
           action="/path/to/editing-sessions/"
           method="get"
@@ -1702,8 +1705,12 @@ describe('SwapController', () => {
         requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
       });
 
-      // visual loading state should be active
+      // visual loading state should not be shown
       await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-breadcrumb-expand');
+      expect(target.getAttribute('aria-busy')).toBeNull();
 
       expect(handleError).not.toHaveBeenCalled();
       expect(global.fetch).toHaveBeenCalledWith(
@@ -1715,18 +1722,12 @@ describe('SwapController', () => {
       await Promise.resolve();
 
       // should not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       await flushPromises();
 
       // should still not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       // switch focus to a different element but still inside the target container
       document.getElementById('button2').focus();
@@ -1734,10 +1735,7 @@ describe('SwapController', () => {
       await flushPromises();
 
       // should still not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       // switch focus to an element outside the target container
       document.getElementById('submit').focus();
@@ -1751,10 +1749,7 @@ describe('SwapController', () => {
       });
 
       // should update HTML
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(5);
+      expect(target.querySelectorAll('li').length).toEqual(5);
 
       await flushPromises();
 
@@ -1797,6 +1792,10 @@ describe('SwapController', () => {
 
       // visual loading state should be active
       await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-spinner');
+      expect(target.getAttribute('aria-busy')).toEqual('true');
 
       expect(handleError).not.toHaveBeenCalled();
       expect(global.fetch).toHaveBeenCalledWith(
@@ -1808,10 +1807,7 @@ describe('SwapController', () => {
       await Promise.resolve();
 
       // should not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       await flushPromises();
 
@@ -1826,10 +1822,7 @@ describe('SwapController', () => {
       });
 
       // should update HTML
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(5);
+      expect(target.querySelectorAll('li').length).toEqual(5);
 
       await flushPromises();
 
@@ -1863,8 +1856,12 @@ describe('SwapController', () => {
         requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
       });
 
-      // visual loading state should be active
+      // visual loading state should not be shown
       await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-breadcrumb-expand');
+      expect(target.getAttribute('aria-busy')).toBeNull();
 
       expect(handleError).not.toHaveBeenCalled();
       expect(global.fetch).toHaveBeenCalledWith(
@@ -1876,23 +1873,17 @@ describe('SwapController', () => {
       await Promise.resolve();
 
       // should not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       // simulate a popup being shown
       const popup = document.createElement('div');
       popup.setAttribute('aria-expanded', 'true');
-      document.getElementById('editing-sessions').appendChild(popup);
+      target.appendChild(popup);
 
       await flushPromises();
 
       // should still not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       // hide the popup and replace it with a tooltip
       popup.setAttribute('aria-expanded', 'false');
@@ -1908,10 +1899,7 @@ describe('SwapController', () => {
       await flushPromises();
 
       // should still not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       // hide the tooltip
       elementWithTooltip.removeAttribute('aria-describedby');
@@ -1925,10 +1913,7 @@ describe('SwapController', () => {
       });
 
       // should update HTML
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(5);
+      expect(target.querySelectorAll('li').length).toEqual(5);
 
       await flushPromises();
 
@@ -1969,8 +1954,12 @@ describe('SwapController', () => {
         requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
       });
 
-      // visual loading state should be active
+      // visual loading state should not be shown
       await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-breadcrumb-expand');
+      expect(target.getAttribute('aria-busy')).toBeNull();
 
       expect(handleError).not.toHaveBeenCalled();
       expect(global.fetch).toHaveBeenCalledWith(
@@ -1982,18 +1971,12 @@ describe('SwapController', () => {
       await Promise.resolve();
 
       // should not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       await flushPromises();
 
       // should still not update HTML just yet
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(0);
+      expect(target.querySelectorAll('li').length).toEqual(0);
 
       // instead of switching the focus outside, we set the defer value
       // to false, so we can test the case where a new update is not deferred but
@@ -2024,18 +2007,12 @@ describe('SwapController', () => {
       });
 
       // should skip the deferred write and instead write the last request's response (8 items)
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(8);
+      expect(target.querySelectorAll('li').length).toEqual(8);
 
       await flushPromises();
 
       // should still use the last request's response instead of running the deferred write
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(8);
+      expect(target.querySelectorAll('li').length).toEqual(8);
 
       // Simulate triggering the unlikely edge case of the focusout event being triggered,
       // with no deferred writes left, which theoretically could only happen if the
@@ -2050,10 +2027,7 @@ describe('SwapController', () => {
       await flushPromises();
 
       // should still use the last request's response instead of running the deferred write
-      expect(
-        document.getElementById('editing-sessions').querySelectorAll('li')
-          .length,
-      ).toEqual(8);
+      expect(target.querySelectorAll('li').length).toEqual(8);
 
       // the success event should be dispatched only once as the deferred write was skipped
       expect(successEvents).toHaveLength(1);
