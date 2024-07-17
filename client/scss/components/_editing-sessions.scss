@@ -78,3 +78,12 @@
 .w-editing-sessions__list-item {
   @apply w-flex w-items-center w-text-14;
 }
+
+.w-editing-sessions-dialog-buttons {
+  @apply w-mt-8 w-flex w-flex-wrap w-gap-4;
+
+  .button + .button {
+    // Reset default left margin for buttons in a row
+    @apply w-ml-0;
+  }
+}
