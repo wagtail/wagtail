@@ -140,14 +140,12 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
             ]
             del self.fields["password"]
         # Remove the fields that are not allowed for the page
-        choices = self.fields["restriction_type"].choices
-        choices = [
+        self.fields["restriction_type"].choices = [
             choice
-            for choice in choices
+            for choice in self.fields["restriction_type"].choices
             if choice[0] in private_page_options
             or choice[0] == PageViewRestriction.NONE
         ]
-        self.fields["restriction_type"].choices = choices
 
     class Meta:
         model = PageViewRestriction
