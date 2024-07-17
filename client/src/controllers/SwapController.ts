@@ -66,6 +66,7 @@ export class SwapController extends Controller<
   /** Defer writing the results until the focus has left the target container */
   declare deferValue: boolean;
   declare srcValue: string;
+  /** A dotted path to the HTML string value to extract from the JSON response */
   declare jsonPathValue: string;
   declare targetValue: string;
   declare waitValue: number;
@@ -289,11 +290,17 @@ export class SwapController extends Controller<
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        // Allow support for expecting a JSON response that contains the HTML
+        // fragment at a specific path. This allows the backend to return a JSON
+        // response that also contains other data (e.g. state updates), which can
+        // be easier to work with in JS compared to inspecting the HTML directly.
         if (this.jsonPathValue) {
           let html: unknown;
           try {
             const json: Record<string, unknown> = await response.json();
 
+            // Dispatch an event with the JSON data to allow other controllers to
+            // access the data and potentially modify it before extracting the HTML.
             this.dispatch('json', {
               cancelable: false,
               detail: { requestUrl, data: json },

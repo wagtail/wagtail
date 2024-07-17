@@ -78,6 +78,9 @@ export class TooltipController extends Controller<HTMLElement> {
   get options(): Partial<Props> {
     let content: Content = this.contentValue;
     if (this.hasContentTarget) {
+      // When using a content target, the HTML is only used once during initialization.
+      // We cannot update it later via contentTargetConnected/contentTargetDisconnected,
+      // because Tippy immediately unmounts it from the DOM to be remounted later.
       this.contentTarget.hidden = false;
       content = this.contentTarget;
     }

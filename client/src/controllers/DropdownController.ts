@@ -211,6 +211,11 @@ export class DropdownController extends Controller<HTMLElement> {
           plugins: this.plugins,
         },
         'popup': {
+          // This theme is somewhere between a tooltip and a dropdown.
+          // It's mostly informational, so we want it to be shown on hover and focus.
+          // However, it may also contain a small amount of interactive elements,
+          // so we also want a click trigger to make sure the popup stays open
+          // when you hover out, like a dropdown menu.
           arrow: true,
           placement: 'bottom',
           plugins: this.plugins,
