@@ -219,12 +219,12 @@ export class SwapController extends Controller<
     const form = this.formElement;
     const data = new FormData(form);
 
+    let url = this.srcValue;
     // serialise the form to a query string if it's a GET request
-    // cast as any to avoid https://github.com/microsoft/TypeScript/issues/43797
-    const searchParams = new URLSearchParams(data as any);
-    const queryString = '?' + searchParams.toString();
-    const url =
-      form.method === 'get' ? this.srcValue + queryString : this.srcValue;
+    if (form.method === 'get') {
+      // cast as any to avoid https://github.com/microsoft/TypeScript/issues/43797
+      url += '?' + new URLSearchParams(data as any).toString();
+    }
 
     this.replace(url, data);
   }
