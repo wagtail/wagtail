@@ -63,7 +63,7 @@ export class SwapController extends Controller<
   declare iconValue: string;
   declare loadingValue: boolean;
   declare reflectValue: boolean;
-  /** Defer writing the results until the focus has left the target container */
+  /** Defer writing the results while there is interaction with the target container */
   declare deferValue: boolean;
   declare srcValue: string;
   /** A dotted path to the HTML string value to extract from the JSON response */
@@ -327,6 +327,9 @@ export class SwapController extends Controller<
       })
       .then((results) => {
         const write = async () => {
+          // If there's a previously deferred write, which may or may not be
+          // this current function, clear it and proceed with the current one.
+          this.writeDeferred = undefined;
           target.innerHTML = results;
 
           if (this.reflectValue) {
@@ -350,25 +353,34 @@ export class SwapController extends Controller<
         };
 
         // If the currently focused element is within the target container,
-        // defer the write until the focus has left the container.
-        if (
-          this.deferValue &&
-          document.activeElement &&
-          target.contains(document.activeElement)
-        ) {
+        // or if there's a tooltip present, defer the write until the focus has
+        // left the container or all tooltips have been removed.
+        const tooltipSelector =
+          '[aria-expanded="true"], [aria-describedby^="tippy"]';
+        const hasFocus =
+          document.activeElement && target.contains(document.activeElement);
+        const hasTooltip = target.querySelector(tooltipSelector);
+
+        if (this.deferValue && (hasFocus || hasTooltip)) {
           return new Promise((resolve, reject) => {
             this.writeDeferred = write;
 
-            const handleFocusOut = (event: FocusEvent) => {
-              // If the new focus is still within the target container, do nothing
-              if (target.contains(event.relatedTarget as Node | null)) {
-                return;
-              }
-
+            const tryWrite = () => {
               if (this.writeDeferred) {
+                // This function is called both when the focus leaves the target
+                // container and when all tooltips are removed. They are not
+                // mutually exclusive and are called separately, so we need to
+                // check both conditions to ensure we don't write when the other
+                // condition is still true.
+                const nowHasFocus =
+                  document.activeElement &&
+                  target.contains(document.activeElement);
+                const nowHasTooltip = target.querySelector(tooltipSelector);
+
+                // Return false to indicate that we still need to defer the write
+                if (nowHasFocus || nowHasTooltip) return false;
+
                 this.writeDeferred().then(resolve).catch(reject);
-                // Clear the deferred write to ensure it's not called again
-                this.writeDeferred = undefined;
               } else {
                 // The deferred write has been cleared but this listener is still
                 // triggered, which is unlikely to happen but possible
@@ -377,17 +389,47 @@ export class SwapController extends Controller<
                 resolve(results);
               }
 
-              // Done for the current data, remove the listener
-              target.removeEventListener('focusout', handleFocusOut);
+              // Return true to indicate that we're done deferring
+              // and the listener/observer should be cleaned up
+              return true;
             };
 
-            target.addEventListener('focusout', handleFocusOut);
+            if (hasFocus) {
+              const handleFocusOut = (event: FocusEvent) => {
+                // If the new focus is still within the target container, do nothing
+                if (target.contains(event.relatedTarget as Node | null)) return;
+
+                const done = tryWrite();
+                if (done) {
+                  target.removeEventListener('focusout', handleFocusOut);
+                }
+              };
+              target.addEventListener('focusout', handleFocusOut);
+            }
+
+            // Not using `else` here because hasFocus and hasTooltip are not
+            // mutually exclusive
+            if (hasTooltip) {
+              // Tooltips may be triggered by other events (e.g. mouseenter, click).
+              // Instead of using events, we use a MutationObserver to detect if
+              // there are any tooltips present in the target container.
+
+              const callback: MutationCallback = (_, observer) => {
+                const done = tryWrite();
+                if (done) {
+                  observer.disconnect();
+                }
+              };
+
+              const observer = new MutationObserver(callback);
+              observer.observe(target, {
+                attributeFilter: ['aria-expanded', 'aria-describedby'],
+                subtree: true,
+              });
+            }
           });
         }
 
-        // If there's a previously deferred write, and we're not in a state that
-        // needs a deferred write, clear the previous one and write immediately.
-        this.writeDeferred = undefined;
         return write();
       })
       .catch((error) => {

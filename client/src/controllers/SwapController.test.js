@@ -1838,6 +1838,105 @@ describe('SwapController', () => {
       expect(window.location.search).toEqual('');
     });
 
+    it('should wait until all tooltips are gone and continue execution immediately after', async () => {
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      // simulate a popup being shown
+      const popup = document.createElement('div');
+      popup.setAttribute('aria-expanded', 'true');
+      document.getElementById('editing-sessions').appendChild(popup);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      // hide the popup and replace it with a tooltip
+      popup.setAttribute('aria-expanded', 'false');
+      const elementWithTooltip = document.createElement('button');
+      elementWithTooltip.setAttribute('aria-describedby', 'tippy-1');
+      document
+        .getElementById('editing-sessions')
+        .appendChild(elementWithTooltip);
+      const tippy = document.createElement('div');
+      tippy.id = 'tippy-1';
+      document.body.appendChild(tippy);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(0);
+
+      // hide the tooltip
+      elementWithTooltip.removeAttribute('aria-describedby');
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toEqual(5);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
     it('should write immediately if there is a deferred write but we no longer need to defer', async () => {
       const successEvents = [];
       const onSuccess = new Promise((resolve) => {
