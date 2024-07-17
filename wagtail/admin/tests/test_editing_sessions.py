@@ -496,7 +496,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
-            "Proceeding will overwrite the changes made by system. "
+            "Proceeding will overwrite the changes made by System. "
             "Refreshing the page will lose any of your unsaved changes.",
             dialog_subtitle.string,
         )

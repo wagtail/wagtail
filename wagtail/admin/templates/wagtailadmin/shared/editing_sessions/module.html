@@ -7,15 +7,15 @@
     </div>
 {% enddialog %}
 
-{% blocktranslate trimmed with user_name=_("system") model_name=content_type.name asvar someone_has_saved_message %}
+{% blocktranslate trimmed with user_name=_("System") model_name=content_type.name asvar someone_has_saved_message %}
     {{ user_name }} has saved a newer version of this {{ model_name }}
 {% endblocktranslate %}
 
-{% blocktranslate trimmed with user_name=_("system") asvar overwrite_message %}
+{% blocktranslate trimmed with user_name=_("System") asvar overwrite_message %}
     Proceeding will overwrite the changes made by {{ user_name }}. Refreshing the page will lose any of your unsaved changes.
 {% endblocktranslate %}
 
-{% dialog id="w-overwrite-changes-dialog" dialog_root_selector='[data-edit-form]' icon_name="warning" icon_classname="w-text-critical-200" title=someone_has_saved_message|capfirst subtitle=overwrite_message|capfirst %}
+{% dialog id="w-overwrite-changes-dialog" dialog_root_selector='[data-edit-form]' icon_name="warning" icon_classname="w-text-critical-200" title=someone_has_saved_message subtitle=overwrite_message %}
     <div class="w-mt-8">
         <button class="button" type="button" data-w-dialog-target="confirm" data-action="w-dialog#confirm">{% trans "Continue" %}</button>
         <button class="button button-secondary" type="button" data-controller="w-action" data-action="w-action#forceReload">{% trans "Refresh the page" %}</button>
