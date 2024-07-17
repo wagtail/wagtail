@@ -7,7 +7,7 @@ from wagtail.models import Page, PageViewRestriction
 
 
 def set_privacy(request, page_id):
-    page = get_object_or_404(Page, id=page_id).specific
+    page = get_object_or_404(Page, id=page_id).specific_deferred
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_set_view_restrictions():
         raise PermissionDenied
