@@ -21,7 +21,7 @@ Usually, an operation that retrieves a QuerySet of pages (such as ``homepage.get
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Previously, this was implemented in ``wagtail.wagtailsearch`` but now has
-been moved into a separate module: `wagtail.contrib.wagtailsearchpromotions`
+been moved into a separate module: ``wagtail.contrib.wagtailsearchpromotions``
 
 Atomic rebuilding of Elasticsearch indexes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,7 +105,7 @@ Upgrade considerations
 
 This feature has moved into a contrib module so is no longer enabled by default.
 
-To re-enable it, add `wagtail.contrib.wagtailsearchpromotions` to your ``INSTALLED_APPS``:
+To re-enable it, add ``wagtail.contrib.wagtailsearchpromotions`` to your ``INSTALLED_APPS``:
 
 .. code-block:: python
 
@@ -117,7 +117,7 @@ To re-enable it, add `wagtail.contrib.wagtailsearchpromotions` to your ``INSTALL
         ...
 
 If you have references to the ``wagtail.wagtailsearch.models.EditorsPick`` model in your
-project, you will need to update these to point to the `wagtail.contrib.wagtailsearchpromotions.models.SearchPromotion` model instead.
+project, you will need to update these to point to the ``wagtail.contrib.wagtailsearchpromotions.models.SearchPromotion`` model instead.
 
 If you created your project using the ``wagtail start`` command with Wagtail 1.0,
 you will probably have references to this model in the ``search/views.py`` file.

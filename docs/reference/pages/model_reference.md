@@ -1281,7 +1281,7 @@ An abstract base class that represents a record of an action performed on an obj
 
         The object title at the time of the entry creation
 
-        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to ``LogEntryManger.log_action``
+        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to ``LogEntryManager.log_action``
 
     .. attribute:: user
 
