@@ -168,7 +168,6 @@ describe('ActionController', () => {
       <form
         data-controller="w-unsaved"
         data-action="beforeunload@window->w-unsaved#confirm"
-        data-w-unsaved-force-value="true"
         data-w-unsaved-confirmation-value="You have unsaved changes!"
       >
       </form>
@@ -180,6 +179,13 @@ describe('ActionController', () => {
         Reload
       </button>
       `;
+      await Promise.resolve();
+
+      // Simulate having unsaved changes by setting has-edits-value to true.
+      // We can't set this on init because the value is set to false on connect.
+      document
+        .querySelector('form')
+        .setAttribute('data-w-unsaved-has-edits-value', 'true');
       await Promise.resolve();
       const beforeUnloadHandler = jest.fn();
       window.addEventListener('beforeunload', beforeUnloadHandler);
@@ -202,7 +208,6 @@ describe('ActionController', () => {
       <form
         data-controller="w-unsaved"
         data-action="beforeunload@window->w-unsaved#confirm"
-        data-w-unsaved-force-value="true"
         data-w-unsaved-confirmation-value="You have unsaved changes!"
       >
       </form>
@@ -213,9 +218,16 @@ describe('ActionController', () => {
       >
         Force reload
       </button>`);
+
+      // Simulate having unsaved changes by setting has-edits-value to true.
+      // We can't set this on init because the value is set to false on connect.
+      document
+        .querySelector('form')
+        .setAttribute('data-w-unsaved-has-edits-value', 'true');
+      await Promise.resolve();
     });
 
-    it('should reload the page without preventing the beforeunload event', () => {
+    it('should reload the page without showing the browser confirmation dialog', () => {
       const confirmHandler = jest.fn();
       const beforeUnloadHandler = jest.fn();
       document.addEventListener('w-unsaved:confirm', confirmHandler);
