@@ -1227,9 +1227,12 @@ class AbstractRendition(ImageFileMixin, models.Model):
     @property
     def alt(self):
         # 'decorative' and 'contextual_alt_text' exist only for ImageBlock
-        if hasattr(self.image, 'decorative') and self.image.decorative:
+        if hasattr(self.image, "decorative") and self.image.decorative:
             return ""
-        elif hasattr(self.image, 'contextual_alt_text') and self.image.contextual_alt_text:
+        elif (
+            hasattr(self.image, "contextual_alt_text")
+            and self.image.contextual_alt_text
+        ):
             return self.image.contextual_alt_text
         else:
             return self.image.default_alt_text
