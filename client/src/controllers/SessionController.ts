@@ -57,12 +57,14 @@ export class SessionController extends Controller<HTMLElement> {
 
   static outlets = ['w-dialog'];
 
-  static targets = ['unsavedChanges'];
+  static targets = ['unsavedChanges', 'reload'];
 
   declare readonly hasUnsavedChangesTarget: boolean;
   declare readonly hasWDialogOutlet: boolean;
   /** The checkbox input to indicate unsaved changes */
   declare readonly unsavedChangesTarget: HTMLInputElement;
+  /** Reload buttons in the sessions' popups */
+  declare readonly reloadTargets: HTMLButtonElement[];
   /** The confirmation dialog for overwriting changes made by another user */
   declare readonly wDialogOutlet: DialogController;
   /** The interval duration for the ping event */
@@ -217,6 +219,26 @@ export class SessionController extends Controller<HTMLElement> {
     if (!this.hasUnsavedChangesTarget) return;
     const type = event.type.split(':')[1];
     this.unsavedChangesTarget.checked = type !== 'clear';
+    this.reloadTargets.forEach((button) => this.reloadTargetConnected(button));
+  }
+
+  /**
+   * Conditionally set whether the reload button should immediately reload or
+   * show the "unsaved changes" dialog based on the unsaved changes state.
+   * @param button The reload button to update
+   */
+  reloadTargetConnected(button: HTMLButtonElement): void {
+    if (
+      this.hasUnsavedChangesTarget &&
+      this.unsavedChangesTarget.checked &&
+      button.dataset.dialogId
+    ) {
+      button.removeAttribute('data-action');
+      button.setAttribute('data-a11y-dialog-show', button.dataset.dialogId);
+    } else {
+      button.removeAttribute('data-a11y-dialog-show');
+      button.setAttribute('data-action', 'w-action#reload');
+    }
   }
 
   get swapController() {

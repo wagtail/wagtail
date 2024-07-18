@@ -390,38 +390,110 @@ describe('SessionController', () => {
     });
   });
 
-  describe('storing unsaved changes state to a checkbox input', () => {
+  describe('storing unsaved changes state to a checkbox input and update reload buttons accordingly', () => {
+    let reloadButton;
+
     beforeEach(() => {
       document.body.innerHTML = /* html */ `
         <form data-controller="w-session" data-action="w-unsaved:add@document->w-session#setUnsavedChanges w-unsaved:clear@document->w-session#setUnsavedChanges">
           <input type="checkbox" name="is_editing" data-w-session-target="unsavedChanges" value="1" />
         </form>
       `;
+
+      reloadButton = document.createElement('button');
+      reloadButton.type = 'button';
+      reloadButton.setAttribute('data-w-session-target', 'reload');
+      reloadButton.setAttribute('data-dialog-id', 'w-unsaved-changes-dialog');
+      reloadButton.innerHTML = 'Refresh';
     });
 
     it('should set the checkbox state to be checked when there is a w-unsaved:add event', async () => {
+      const form = document.querySelector('form');
       const checkbox = document.querySelector('input');
       expect(checkbox.checked).toBe(false);
+
+      // when connected, the reload button should be set up to reload the page
+      form.appendChild(reloadButton);
+      await Promise.resolve();
+      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toBeNull();
+      expect(reloadButton.getAttribute('data-action')).toEqual(
+        'w-action#reload',
+      );
+
       document.dispatchEvent(new CustomEvent('w-unsaved:add'));
       await Promise.resolve();
       expect(checkbox.checked).toBe(true);
 
       // should be included in the form
-      const form = document.querySelector('form');
       expect(new FormData(form).get('is_editing')).toBe('1');
+
+      // should make the reload button show the unsaved changes dialog instead
+      // of reloading, by setting the data-a11y-dialog-show attribute and
+      // removing the data-action attribute
+      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toEqual(
+        'w-unsaved-changes-dialog',
+      );
+      expect(reloadButton.getAttribute('data-action')).toBeNull();
     });
 
     it('should set the checkbox state to be unchecked when there is a w-unsaved:clear event', async () => {
+      const form = document.querySelector('form');
       const checkbox = document.querySelector('input');
       checkbox.checked = true;
       expect(checkbox.checked).toBe(true);
+
+      // when connected, the reload button should be set up to show the unsaved
+      // changes dialog
+      form.appendChild(reloadButton);
+      await Promise.resolve();
+      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toEqual(
+        'w-unsaved-changes-dialog',
+      );
+      expect(reloadButton.getAttribute('data-action')).toBeNull();
+
       document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
       await Promise.resolve();
       expect(checkbox.checked).toBe(false);
 
       // should not be included in the form
-      const form = document.querySelector('form');
       expect(new FormData(form).get('is_editing')).toBeNull();
+
+      // should make the reload button reload the page instead of showing the
+      // unsaved changes dialog, by setting the data-action attribute and
+      // removing the data-a11y-dialog-show attribute
+      expect(reloadButton.getAttribute('data-a11y-dialog-show')).toBeNull();
+      expect(reloadButton.getAttribute('data-action')).toEqual(
+        'w-action#reload',
+      );
+    });
+
+    it('should work fine if there is no unsavedChanges target', async () => {
+      const form = document.querySelector('form');
+      const checkbox = document.querySelector('input');
+      checkbox.remove();
+
+      document.dispatchEvent(new CustomEvent('w-unsaved:add'));
+      await Promise.resolve();
+      expect(form.innerHTML.trim()).toEqual('');
+
+      document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
+      await Promise.resolve();
+      expect(form.innerHTML.trim()).toEqual('');
+    });
+
+    it('should work fine if there is no reload target', async () => {
+      const form = document.querySelector('form');
+      const checkbox = document.querySelector('input');
+
+      // the reloadButton is never appended to the form
+
+      document.dispatchEvent(new CustomEvent('w-unsaved:add'));
+      await Promise.resolve();
+      expect(form.innerHTML.trim()).toEqual(checkbox.outerHTML.trim());
+
+      document.dispatchEvent(new CustomEvent('w-unsaved:clear'));
+      await Promise.resolve();
+      expect(form.innerHTML.trim()).toEqual(checkbox.outerHTML.trim());
     });
   });
 

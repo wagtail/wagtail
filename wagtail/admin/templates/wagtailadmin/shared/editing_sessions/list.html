@@ -33,11 +33,15 @@
                             {{ saved_new_version_message }}
                         </div>
 
-                        {% fragment as refresh_button_content %}
+                        {% comment %}
+                            Use a custom button element instead of the dialog_toggle.html so we can add arbitrary
+                            data attributes to the button element. This is useful for allowing the SessionController
+                            to conditionally show the dialog, i.e. only when the user has unsaved changes.
+                        {% endcomment %}
+                        <button type="button" data-w-session-target="reload" class="button button-small button-secondary chooser__choose-button" data-dialog-id="w-unsaved-changes-dialog">
                             {% icon name="rotate" %}
                             {% trans "Refresh" %}
-                        {% endfragment %}
-                        {% dialog_toggle classname="button button-small button-secondary chooser__choose-button" text=refresh_button_content dialog_id="w-unsaved-changes-dialog" %}
+                        </button>
                     </div>
                 {% enddropdown %}
             {% elif session.is_editing %}
