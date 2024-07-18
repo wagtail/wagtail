@@ -53,11 +53,14 @@ os.environ["DATABASE_ENGINE"] = "django.db.backends.sqlite3"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
+    "autodoc2",
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "myst_parser",
     "sphinx_wagtail_theme",
+]
+autodoc2_packages = [
+    "../wagtail",
 ]
 
 autodoc_type_aliases = {
