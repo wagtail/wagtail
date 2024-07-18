@@ -305,4 +305,8 @@ export class DropdownController extends Controller<HTMLElement> {
       ? (toggleParent.parentElement as HTMLElement)
       : toggleParent;
   }
+
+  disconnect() {
+    this.tippy?.destroy();
+  }
 }
