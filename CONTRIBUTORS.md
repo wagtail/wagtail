@@ -825,6 +825,7 @@
 * Inju Michorius
 * Jeroen de Vries
 * Romein van Buren
+* Chris Shenton
 
 ## Translators
 
