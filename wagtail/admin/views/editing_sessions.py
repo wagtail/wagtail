@@ -71,7 +71,7 @@ def ping(request, app_label, model_name, object_id, session_id):
             last_seen_at__gte=timezone.now() - timezone.timedelta(minutes=1),
         )
         .exclude(id=session.id)
-        .select_related("user")
+        .select_related("user", "user__wagtail_userprofile")
         .order_by("-last_seen_at")
     )
 
