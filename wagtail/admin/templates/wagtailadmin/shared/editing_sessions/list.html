@@ -9,7 +9,7 @@
 
             {% if session.revision_id %}
                 {% fragment as avatar_decorated %}
-                    <div class="w-editing-sessions__decorated-avatar">
+                    <div class="w-editing-sessions__decorated-avatar w-ping w-ping--critical">
                         {{ avatar }}
                         {% icon name="warning" %}
                         <span class="w-editing-sessions__decorator-filler"></span>
