@@ -127,10 +127,9 @@ function initPreview() {
 
     // Ensure only one device class is applied
     sizeInputs.forEach((input) => {
-      input.closest('label').classList.toggle(
-        `size-button-active`,
-        input.value === device,
-      );
+      input
+        .closest('label')
+        .classList.toggle(`size-button-active`, input.value === device);
     });
   };
 
