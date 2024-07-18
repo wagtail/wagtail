@@ -154,7 +154,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 1)
         session_text = rendered_sessions[0].text
         self.assertIn("Vic Otheruser", session_text)
@@ -192,7 +192,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 1)
         session_text = rendered_sessions[0].text
         self.assertIn("Vic Otheruser", session_text)
@@ -230,7 +230,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 1)
         session_text = rendered_sessions[0].text
         self.assertIn("Vic Otheruser", session_text)
@@ -270,7 +270,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 1)
         session_text = rendered_sessions[0].text
         self.assertIn("Vic Otheruser saved a new version", session_text)
@@ -326,7 +326,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 1)
         session_text = rendered_sessions[0].text
         self.assertIn("Vic Otheruser saved a new version", session_text)
@@ -408,7 +408,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 2)
         session_text = rendered_sessions[0].text
         self.assertIn("Gordon Thirduser saved a new version", session_text)
@@ -478,7 +478,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 2)
         session_text = rendered_sessions[0].text
         self.assertIn("System saved a new version", session_text)
@@ -721,7 +721,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
 
         soup = self.get_soup(response_json["html"])
-        rendered_sessions = soup.select("ol.w-editing-sessions li")
+        rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 2)
         session_text = rendered_sessions[0].text
         self.assertIn("You have unsaved changes in another session", session_text)

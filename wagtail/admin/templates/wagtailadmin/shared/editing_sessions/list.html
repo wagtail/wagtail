@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags i18n %}
 
-<ol class="w-editing-sessions">
+<ol class="w-editing-sessions__list">
     {% for session in sessions|slice:":4" %}
         <li>
             {% fragment as avatar %}

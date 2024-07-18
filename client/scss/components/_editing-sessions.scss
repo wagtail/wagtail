@@ -1,5 +1,9 @@
 .w-editing-sessions {
-  @apply w-flex w-p-0 w-m-0 w-pr-8 w-mr-5 w-border-r w-border-border-furniture;
+  @apply w-mr-auto sm:w-pr-8 sm:w-mr-5 sm:w-border-r w-border-border-furniture;
+}
+
+.w-editing-sessions__list {
+  @apply w-flex w-p-0 w-m-0;
 }
 
 .w-editing-sessions__avatar {
