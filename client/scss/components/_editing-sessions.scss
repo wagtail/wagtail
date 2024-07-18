@@ -47,11 +47,11 @@
 
 .w-editing-sessions__session--saved {
   .w-editing-sessions__avatar {
-    @apply w-border-critical-200;
+    @apply w-border-text-error;
   }
 
   .icon {
-    @apply w-text-critical-200;
+    @apply w-text-text-error;
   }
 }
 
