@@ -566,6 +566,23 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     },
   );
 
+  const assertCanAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toBe(null);
+
+    // Test menu
+    expect(
+      document
+        .querySelector('button[title="Insert a block"]')
+        .getAttribute('disabled'),
+    ).toBe(null);
+  };
+
   const assertShowingErrorMessage = () => {
     expect(document.querySelector('p.help-block.help-critical').innerHTML).toBe(
       'The maximum number of items is 3',
@@ -597,6 +614,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     ]);
     boundBlock.inserters[0].open();
 
+    assertCanAddBlock();
     assertNotShowingErrorMessage();
   });
 
@@ -626,6 +644,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     ]);
     boundBlock.inserters[0].open();
 
+    assertCanAddBlock();
     assertShowingErrorMessage();
   });
 
@@ -674,6 +693,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     ]);
     boundBlock.inserters[0].open();
 
+    assertCanAddBlock();
     assertNotShowingErrorMessage();
 
     boundBlock.insert(
@@ -685,6 +705,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
       2,
     );
 
+    assertCanAddBlock();
     assertShowingErrorMessage();
   });
 
@@ -714,10 +735,12 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
     ]);
     boundBlock.inserters[0].open();
 
+    assertCanAddBlock();
     assertShowingErrorMessage();
 
     boundBlock.deleteBlock(2);
 
+    assertCanAddBlock();
     assertNotShowingErrorMessage();
   });
 });

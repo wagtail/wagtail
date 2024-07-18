@@ -345,6 +345,23 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
     },
   );
 
+  const assertCanAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toBe(null);
+
+    // Test menu
+    expect(
+      document
+        .querySelector('button[data-streamfield-list-add]')
+        .getAttribute('disabled'),
+    ).toBe(null);
+  };
+
   const assertShowingErrorMessage = () => {
     expect(document.querySelector('p.help-block.help-critical').innerHTML).toBe(
       'The maximum number of items is 3',
@@ -363,6 +380,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
     ]);
 
+    assertCanAddBlock();
     assertNotShowingErrorMessage();
   });
 
@@ -375,6 +393,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       { value: 'Fourth value', id: '44444444-4444-4444-4444-444444444444' },
     ]);
 
+    assertCanAddBlock();
     assertShowingErrorMessage();
   });
 
@@ -401,10 +420,12 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
     ]);
 
+    assertCanAddBlock();
     assertNotShowingErrorMessage();
 
     boundBlock.insert('Fourth value', 2);
 
+    assertCanAddBlock();
     assertShowingErrorMessage();
   });
 
@@ -417,10 +438,12 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       { value: 'Fourth value', id: '44444444-4444-4444-4444-444444444444' },
     ]);
 
+    assertCanAddBlock();
     assertShowingErrorMessage();
 
     boundBlock.deleteBlock(2);
 
+    assertCanAddBlock();
     assertNotShowingErrorMessage();
   });
 });
