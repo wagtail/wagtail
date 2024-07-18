@@ -3,20 +3,20 @@
 }
 
 .w-editing-sessions__avatar {
-  @apply w-mx-[1px] w-w-7 w-h-7 w-border-2 w-border-surface-field hover:w-border-positive-100;
+  @apply w-mx-px w-w-7 w-h-7 w-border-2 w-border-surface-field hover:w-border-positive-100;
 }
 
 .w-editing-sessions__decorated-avatar {
   @apply w-relative w-rounded-full;
 
   .icon {
-    @apply w-w-4 w-h-4 w-absolute -w-bottom-2 w-left-2 w-z-20 w-stroke-surface-header w-shadow-white;
+    @apply w-w-4 w-h-4 w-absolute -w-bottom-2 w-left-[.45rem] w-z-20 w-stroke-surface-header w-shadow-white;
   }
 }
 
 .w-editing-sessions__decorator-filler {
   /* HACK: fill the 'hole' inside the warning icon with a solid bg-surface-header */
-  @apply w-block w-w-[3px] w-h-2 w-absolute w-bottom-[-5px] w-left-[14.5px] w-bg-surface-header w-z-10;
+  @apply w-block w-w-[.1875rem] w-h-2 w-absolute w-bottom-[-.3125rem] w-left-[.90625rem] w-bg-surface-header w-z-10;
 }
 
 .w-editing-sessions__popup {
