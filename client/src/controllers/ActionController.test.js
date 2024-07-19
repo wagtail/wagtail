@@ -27,11 +27,7 @@ describe('ActionController', () => {
         reload: {
           configurable: true,
           value: jest.fn().mockImplementation(() => {
-            const event = new Event('beforeunload');
-            Object.defineProperty(event, 'returnValue', {
-              value: null,
-              writable: true,
-            });
+            const event = new Event('beforeunload', { cancelable: true });
             window.dispatchEvent(event);
           }),
         },
@@ -156,9 +152,8 @@ describe('ActionController', () => {
       expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
 
       const event = beforeUnloadHandler.mock.lastCall[0];
-      // These mean the browser confirmation dialog was not shown
+      // This means the browser confirmation dialog was not shown
       expect(event.defaultPrevented).toBe(false);
-      expect(event.returnValue).toBeNull();
 
       window.removeEventListener('beforeunload', beforeUnloadHandler);
     });
@@ -168,7 +163,7 @@ describe('ActionController', () => {
       <form
         data-controller="w-unsaved"
         data-action="beforeunload@window->w-unsaved#confirm"
-        data-w-unsaved-confirmation-value="You have unsaved changes!"
+        data-w-unsaved-confirmation-value="true"
       >
       </form>
       <button
@@ -197,7 +192,7 @@ describe('ActionController', () => {
 
       const event = beforeUnloadHandler.mock.lastCall[0];
       // This means the browser confirmation dialog was shown
-      expect(event.returnValue).toBe('You have unsaved changes!');
+      expect(event.defaultPrevented).toBe(true);
       window.removeEventListener('beforeunload', beforeUnloadHandler);
     });
   });
@@ -208,7 +203,7 @@ describe('ActionController', () => {
       <form
         data-controller="w-unsaved"
         data-action="beforeunload@window->w-unsaved#confirm"
-        data-w-unsaved-confirmation-value="You have unsaved changes!"
+        data-w-unsaved-confirmation-value="true"
       >
       </form>
       <button
@@ -239,9 +234,8 @@ describe('ActionController', () => {
       expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
 
       const beforeUnloadEvent = beforeUnloadHandler.mock.lastCall[0];
-      // If the browser confirmation was shown, these would be truthy
+      // If the browser confirmation was shown, this would be true
       expect(beforeUnloadEvent.defaultPrevented).toBe(false);
-      expect(beforeUnloadEvent.returnValue).toBeNull();
 
       expect(confirmHandler).toHaveBeenCalledTimes(1);
       const confirmEvent = confirmHandler.mock.lastCall[0];

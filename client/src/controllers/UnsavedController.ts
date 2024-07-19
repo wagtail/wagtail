@@ -24,7 +24,7 @@ const DEFAULT_DURATIONS = {
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
- *   data-w-unsaved-confirmation-value="You have unsaved changes!"
+ *   data-w-unsaved-confirmation-value="true"
  * >
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
@@ -34,7 +34,7 @@ const DEFAULT_DURATIONS = {
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
- *   data-w-unsaved-confirmation-value="You have unsaved changes!"
+ *   data-w-unsaved-confirmation-value="true"
  *   data-w-unsaved-watch-value="edits comments"
  * >
  *   <input type="text" value="something" />
@@ -45,7 +45,7 @@ const DEFAULT_DURATIONS = {
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
- *   data-w-unsaved-confirmation-value="You have unsaved changes!"
+ *   data-w-unsaved-confirmation-value="true"
  *   data-w-unsaved-force-value="true"
  * >
  *   <input type="text" value="something" />
@@ -56,7 +56,7 @@ const DEFAULT_DURATIONS = {
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
- *   data-w-unsaved-confirmation-value="Please double check before you close"
+ *   data-w-unsaved-confirmation-value="true"
  *   data-w-unsaved-force-value="true"
  *   data-w-unsaved-watch-value=""
  * >
@@ -66,7 +66,7 @@ const DEFAULT_DURATIONS = {
  */
 export class UnsavedController extends Controller<HTMLFormElement> {
   static values = {
-    confirmation: { default: '', type: String },
+    confirmation: { default: false, type: Boolean },
     durations: { default: DEFAULT_DURATIONS, type: Object },
     force: { default: false, type: Boolean },
     hasComments: { default: false, type: Boolean },
@@ -74,11 +74,21 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     watch: { default: 'edits', type: String },
   };
 
-  /** Translated value for the beforeunload confirmation dialog, if empty no confirmation will show. */
-  declare confirmationValue: string;
+  /** Whether to show the browser confirmation dialog. */
+  declare confirmationValue: boolean;
   /** Configurable duration values. */
   declare durationsValue: typeof DEFAULT_DURATIONS;
-  /** When set to true, the form will always be considered dirty and the confirmation dialog will be forced to show. */
+  /**
+   * When set to `true`, the form will always be considered dirty.
+   * Useful for when the user just submitted an invalid form, in which case we
+   * consider the form to be dirty even on initial load.
+   *
+   * Setting this to `true` effectively disables the edit check, i.e. similar to
+   * setting `watchValue` to `''` and setting `hasEditsValue` to `true`.
+   *
+   * Note that the `confirmationValue` must still be set to `true` in order for
+   * the browser confirmation dialog to appear.
+   */
   declare forceValue: boolean;
   /** Value (state) tracking of what changes exist (comments). */
   declare hasCommentsValue: boolean;
@@ -172,25 +182,21 @@ export class UnsavedController extends Controller<HTMLFormElement> {
   }
 
   /**
-   * Trigger the beforeunload confirmation dialog if active (confirm value exists).
+   * Trigger the beforeunload confirmation dialog if active (confirm value is true).
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
    */
   confirm(event: BeforeUnloadEvent) {
-    const confirmationMessage = this.confirmationValue;
-
-    if (!confirmationMessage) return null;
+    if (!this.confirmationValue) return;
 
     if (this.forceValue || this.hasCommentsValue || this.hasEditsValue) {
+      // Dispatch a `confirm` event that is cancelable to allow for custom handling
+      // instead of the browser's default confirmation dialog.
       const confirmEvent = this.dispatch('confirm', { cancelable: true });
-      if (confirmEvent.defaultPrevented) return null;
+      if (confirmEvent.defaultPrevented) return;
 
-      // eslint-disable-next-line no-param-reassign
-      event.returnValue = confirmationMessage;
-
-      return confirmationMessage;
+      // This will trigger the browser's default confirmation dialog
+      event.preventDefault();
     }
-
-    return null;
   }
 
   hasCommentsValueChanged(current: boolean, previous: boolean) {
@@ -237,10 +243,10 @@ export class UnsavedController extends Controller<HTMLFormElement> {
   /**
    * When the form is submitted, ensure that the exit confirmation
    * does not trigger. Deactivate the confirmation by setting the
-   * confirm value to empty.
+   * confirmation value to false.
    */
   submit() {
-    this.confirmationValue = '';
+    this.confirmationValue = false;
   }
 
   /**
@@ -360,8 +366,11 @@ export class UnsavedController extends Controller<HTMLFormElement> {
         if (!(form instanceof HTMLFormElement)) return;
 
         [
-          ['data-w-unsaved-confirmation-value', confirmationMessage || ' '],
-          ['data-w-unsaved-force-value', String(alwaysDirty || false)],
+          [
+            'data-w-unsaved-confirmation-value',
+            `${!!confirmationMessage || true}`,
+          ],
+          ['data-w-unsaved-force-value', `${alwaysDirty || false}`],
           ['data-w-unsaved-watch-value', 'edits comments'],
         ].forEach(([key, value]) => {
           form.setAttribute(key, value);

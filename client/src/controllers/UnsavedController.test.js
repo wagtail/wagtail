@@ -52,7 +52,7 @@ describe('UnsavedController', () => {
       id="form"
       data-controller="w-unsaved"
       data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
-      data-w-unsaved-confirmation-value="You have unsaved changes!"
+      data-w-unsaved-confirmation-value="true"
     >
       <input type="text" id="name" value="John" />
       <button>Submit</submit>
@@ -212,15 +212,10 @@ describe('UnsavedController', () => {
   describe('showing a confirmation message when exiting the browser tab', () => {
     const mockBrowserClose = () =>
       new Promise((resolve) => {
-        const event = new Event('beforeunload');
-        Object.defineProperty(event, 'returnValue', {
-          value: false,
-          writable: true,
-        });
-
+        const event = new Event('beforeunload', { cancelable: true });
         window.dispatchEvent(event);
-
-        resolve(event.returnValue);
+        // If the event is prevented, the browser will show a confirmation message.
+        resolve(event.defaultPrevented);
       });
 
     it('should not show a confirmation message if no edits exist', async () => {
@@ -238,7 +233,7 @@ describe('UnsavedController', () => {
         <form
           data-controller="w-unsaved"
           data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
-          data-w-unsaved-confirmation-value="You have unsaved changes!"
+          data-w-unsaved-confirmation-value="true"
           data-w-unsaved-force-value="true"
         >
           <input type="text" id="name" value="John" />
@@ -248,8 +243,28 @@ describe('UnsavedController', () => {
 
       const result = await mockBrowserClose();
 
-      expect(result).toEqual('You have unsaved changes!');
+      expect(result).toEqual(true);
       expect(events['w-unsaved:confirm']).toHaveLength(1);
+    });
+
+    it('should not show a confirmation message if forced but confirmation value is false', async () => {
+      await setup(`
+      <section>
+        <form
+          data-controller="w-unsaved"
+          data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
+          data-w-unsaved-confirmation-value="false"
+          data-w-unsaved-force-value="true"
+        >
+          <input type="text" id="name" value="John" />
+          <button>Submit</submit>
+        </form>
+      </section>`);
+
+      const result = await mockBrowserClose();
+
+      expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(0);
     });
 
     it('should allow a confirmation message to show before the browser closes', async () => {
@@ -263,7 +278,7 @@ describe('UnsavedController', () => {
 
       const result = await mockBrowserClose();
 
-      expect(result).toEqual('You have unsaved changes!');
+      expect(result).toEqual(true);
       expect(events['w-unsaved:confirm']).toHaveLength(1);
     });
 

@@ -18,7 +18,7 @@
         data-controller="w-init w-unsaved"
         data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
         data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
-        data-w-unsaved-confirmation-value="{{ _("This page has unsaved changes.") }}"
+        data-w-unsaved-confirmation-value="true"
         data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
         data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
     >

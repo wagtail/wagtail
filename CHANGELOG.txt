@@ -281,6 +281,7 @@ Changelog
  * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
  * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
+ * Maintenance: Adopt the modern best practice for `beforeunload` usage in `UnsavedController` to trigger a leave page warning when edits have been made (Shubham Mukati, Sage Abdullah)
 
 
 6.0.6 (11.07.2024)
