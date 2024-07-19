@@ -128,6 +128,10 @@ export class SessionController extends Controller<HTMLElement> {
    */
   addInterval(): void {
     this.clearInterval();
+    // Values outside this range will be ignored by window.setInterval,
+    // making it fire all the time.
+    if (this.intervalValue <= 0 || this.intervalValue >= 2 ** 31) return;
+
     this.interval = window.setInterval(this.ping, this.intervalValue);
   }
 

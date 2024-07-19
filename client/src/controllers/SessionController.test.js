@@ -67,6 +67,17 @@ describe('SessionController', () => {
       handlePing.mockClear();
       jest.advanceTimersByTime(123456);
       expect(handlePing).toHaveBeenCalledTimes(6);
+
+      // Setting it to 0 should stop the interval
+      handlePing.mockClear();
+      element.setAttribute('data-w-session-interval-value', '0');
+      await Promise.resolve();
+
+      jest.advanceTimersByTime(20000);
+      expect(handlePing).toHaveBeenCalledTimes(0);
+      jest.advanceTimersByTime(20000);
+      expect(handlePing).toHaveBeenCalledTimes(0);
+      handlePing.mockClear();
     });
 
     it('should allow setting a custom interval value on init and changing it afterwards', async () => {
@@ -100,6 +111,17 @@ describe('SessionController', () => {
       handlePing.mockClear();
       jest.advanceTimersByTime(123456);
       expect(handlePing).toHaveBeenCalledTimes(8);
+
+      // Setting it to >= 2**31 should stop the interval
+      handlePing.mockClear();
+      element.setAttribute('data-w-session-interval-value', `${2 ** 31}`);
+      await Promise.resolve();
+
+      jest.advanceTimersByTime(20000);
+      expect(handlePing).toHaveBeenCalledTimes(0);
+      jest.advanceTimersByTime(20000);
+      expect(handlePing).toHaveBeenCalledTimes(0);
+      handlePing.mockClear();
     });
   });
 
