@@ -36,7 +36,7 @@
     border: 1px solid theme('colors.text-status-label');
     border-radius: theme('borderRadius.xl');
     // stylelint-disable-next-line property-disallowed-list
-    text-transform: capitalize;
+    text-transform: none;
   }
 }
 
