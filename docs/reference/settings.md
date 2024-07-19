@@ -259,6 +259,16 @@ WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 
 The interval (in milliseconds) is to check for changes made in the page editor before updating the preview. The default value is `500`.
 
+(wagtail_editing_session_ping_interval)=
+
+### `WAGTAIL_EDITING_SESSION_PING_INTERVAL`
+
+```python
+WAGTAIL_EDITING_SESSION_PING_INTERVAL = 10000
+```
+
+The interval (in milliseconds) to ping the server during an editing session. This is used to indicate that the session is active, as well as to display the list of other sessions that are currently editing the same content. The default value is `10000` (10 seconds). In order to effectively display the sessions list, this value needs to be set to under 1 minute. If set to 0, the interval will be disabled.
+
 (wagtailadmin_global_edit_lock)=
 
 ### `WAGTAILADMIN_GLOBAL_EDIT_LOCK`
