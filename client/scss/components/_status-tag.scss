@@ -29,12 +29,14 @@
   }
 
   &--label {
-    padding: theme('spacing.[0.5]') theme('spacing.2');
+    padding: theme('spacing.px') theme('spacing.2');
     color: theme('colors.text-status-label');
     font-weight: theme('fontWeight.medium');
     background: theme('colors.surface-status-label');
     border: 1px solid theme('colors.text-status-label');
     border-radius: theme('borderRadius.xl');
+    // stylelint-disable-next-line property-disallowed-list
+    text-transform: none;
   }
 }
 
