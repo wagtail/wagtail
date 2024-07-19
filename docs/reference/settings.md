@@ -257,7 +257,7 @@ To completely disable the preview panel, set [preview modes](wagtail.models.Page
 WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 ```
 
-The interval (in milliseconds) is to check for changes made in the page editor before updating the preview. The default value is `500`.
+How often to check for changes made in the page editor before updating the preview. In milliseconds. The default value is `500`.
 
 (wagtail_editing_session_ping_interval)=
 
