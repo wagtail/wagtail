@@ -175,20 +175,20 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * Trigger the beforeunload confirmation dialog if active (confirm value exists).
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
    */
-  confirm(event: BeforeUnloadEvent) {
+  confirm(event: BeforeUnloadEvent) { 
     const confirmationMessage = this.confirmationValue;
-
-    if (!confirmationMessage) return null;
-
+  
+    if (!confirmationMessage) return;
+  
     if (this.forceValue || this.hasCommentsValue || this.hasEditsValue) {
-      // eslint-disable-next-line no-param-reassign
-      event.returnValue = confirmationMessage;
-
-      return confirmationMessage;
+      // Trigger the confirmation dialog
+      event.preventDefault();
+  
+      // Type assertion to avoid TypeScript error
+      (event as any).returnValue = ''; // Use cautiously, or remove if not needed.
     }
-
-    return null;
   }
+  
 
   hasCommentsValueChanged(current: boolean, previous: boolean) {
     if (current !== previous) this.notify();
