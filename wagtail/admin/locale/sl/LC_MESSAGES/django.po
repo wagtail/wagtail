@@ -270,6 +270,13 @@ msgstr "Nova stran bo podrejena tej nadrejeni strani."
 msgid "You do not have permission to create a page under \"%(page_title)s\"."
 msgstr "Nimate dovoljenja za ustvarjanje strani pod \"%(page_title)s\"."
 
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"Strani tipa \" 1%(page_type)s \" ne morete ustvariti pod \" 2%(page_title)s "
+"\"."
+
 msgid "Search…"
 msgstr "Iskanje…"
 
@@ -705,6 +712,14 @@ msgid ""
 msgstr ""
 "Ta %(model_name)s je bil označen kot potrebna sprememb pri <strong>%(task)s</"
 "strong> v <strong>%(workflow)s</strong>."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Ta %(model_name)s je trenutno na <strong>%(task)s</strong> v "
+"<strong>%(workflow)s</strong>."
 
 #, python-format
 msgid "Publishing this %(model_name)s will cancel the current workflow."
@@ -1410,6 +1425,10 @@ msgstr "Ni rezultatov v '<span class=\"w-title-ellipsis\">%(title)s</span>'."
 msgid "Search the whole site"
 msgstr "Iskanje po celotnem spletnem mestu"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s - %(end_index)s od %(items_count)s"
+
 msgid "Sites menu"
 msgstr "Meniji strani"
 
@@ -2055,6 +2074,13 @@ msgstr ""
 "href=\"%(add_url)s\">ustvarili nove </a>?"
 
 #, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Omogočenih nalog ni. Zakaj ne bi dodali <a href=\"%(add_url)s\">eno nalogo</"
+"a>?"
+
+#, python-format
 msgid "Pages that use workflow '%(name)s'"
 msgstr "Strani, ki uporabljajo potek dela '%(name)s'"
 
@@ -2639,6 +2665,10 @@ msgstr ""
 "Osredotočite se na gumb za vlečenje in pritisnite puščici navzgor ali "
 "navzdol, da premaknete element, nato pa pritisnite enter, da pošljete "
 "spremembo."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s'  je bil uspešno premaknjen."
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
