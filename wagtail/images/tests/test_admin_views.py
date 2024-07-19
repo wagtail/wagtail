@@ -1264,12 +1264,20 @@ class TestImageEditView(WagtailTestUtils, TestCase):
     def test_no_thousand_separators_in_focal_point_editor(self):
         large_image = Image.objects.create(
             title="Test image",
-            file=get_test_image_file(size=(1024, 768)),
+            file=get_test_image_file(size=(3840, 2160)),
+            focal_point_x=2048,
+            focal_point_y=1001,
+            focal_point_width=1009,
+            focal_point_height=1002,
         )
         response = self.client.get(
             reverse("wagtailimages:edit", args=(large_image.id,))
         )
-        self.assertContains(response, 'data-original-width="1024"')
+        self.assertContains(response, 'data-original-width="3840"')
+        self.assertContains(response, 'data-focal-point-x="2048"')
+        self.assertContains(response, 'data-focal-point-y="1001"')
+        self.assertContains(response, 'data-focal-point-width="1009"')
+        self.assertContains(response, 'data-focal-point-height="1002"')
 
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
     def test_unique_together_validation_error(self):
