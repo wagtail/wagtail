@@ -10,12 +10,10 @@
   @apply w-w-4 w-h-4 w-align-text-bottom w-transition motion-reduce:w-transition-none;
 
   @media (forced-colors: active) {
-    & {
-      border: 1px solid ButtonText;
+    border: 1px solid ButtonText;
 
-      &:hover {
-        border-color: Highlight;
-      }
+    &:hover {
+      border-color: Highlight;
     }
   }
 }
