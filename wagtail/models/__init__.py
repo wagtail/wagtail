@@ -3254,7 +3254,17 @@ class PagePermissionTester:
 
         # reject moves that are forbidden by subpage_types / parent_page_types rules
         # (these rules apply to superusers too)
-        if not self.page.specific.can_move_to(destination):
+        # – but only check this if the page is not already under the target parent.
+        # If it already is, then the user is just reordering the page, and we want
+        # to allow it even if the page currently violates the subpage_type /
+        # parent_page_type rules. This can happen if it was either created before
+        # the rules were specified, or it was done programmatically (e.g. to
+        # predefine a set of pages and disallow the creation of new subpages by
+        # setting subpage_types = []).
+
+        if (not self.page.is_child_of(destination)) and (
+            not self.page.specific.can_move_to(destination)
+        ):
             return False
 
         # shortcut the trivial 'everything' / 'nothing' permissions
