@@ -622,6 +622,8 @@ class DeferredSpecificIterable(SpecificIterable):
 
         for row in results:
             content_type_id = row["content_type_id"]
+            pk = row["id"]
+
             if (specific_model := specific_models.get(content_type_id)) is None:
                 content_type = ContentType.objects.get_for_id(content_type_id)
                 specific_model = content_type.model_class()
@@ -629,7 +631,7 @@ class DeferredSpecificIterable(SpecificIterable):
                     warnings.warn(
                         "A specific version of the following content type could not be returned "
                         "because the specific model is not present on the active "
-                        f"branch: <{model.__name__} pk='{row["pk"]}' type='{content_type}'>",
+                        f"branch: <{model.__name__} pk='{pk}' type='{content_type}'>",
                         category=RuntimeWarning,
                     )
                     specific_model = model
@@ -639,7 +641,7 @@ class DeferredSpecificIterable(SpecificIterable):
 
             # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
             if (pk_name := specific_model._meta.pk.attname) not in row:
-                setattr(obj, pk_name, row["id"])
+                setattr(obj, pk_name, pk)
 
             # Add any annotated fields
             for attr in annotations:
