@@ -79,12 +79,12 @@ The following methods can be overridden on your custom `Image` or `Rendition` mo
     :no-index:
 
 .. class:: AbstractImage
-    :noindexentry:
+    :no-index-entry:
 
     .. automethod:: get_upload_to
 
 .. class:: AbstractRendition
-    :noindexentry:
+    :no-index-entry:
 
     .. automethod:: get_upload_to
 ```

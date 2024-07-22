@@ -156,7 +156,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
 ```{eval-rst}
 .. class:: Page
-    :noindex:
+    :no-index:
 
     .. automethod:: get_specific
 
@@ -444,7 +444,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
 
 ```{eval-rst}
 .. class:: Site
-    :noindex:
+    :no-index:
 
     .. automethod:: find_for_request
 
@@ -546,7 +546,7 @@ If your model defines a [`Meta` class](inv:django#ref/models/options) (either wi
 
 ```{eval-rst}
 .. class:: TranslatableMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: get_translations
 
@@ -607,7 +607,7 @@ Pages already include this mixin, so there is no need to add it.
 
 ```{eval-rst}
 .. class:: RevisionMixin
-    :noindex:
+    :no-index:
 
     .. autoattribute:: revisions
 
@@ -665,7 +665,7 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages 
 
 ```{eval-rst}
 .. class:: DraftStateMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: publish
 
@@ -707,7 +707,7 @@ Pages already include this mixin, so there is no need to add it. See [](wagtails
 
 ```{eval-rst}
 .. class:: LockableMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: get_lock
 
@@ -805,7 +805,7 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
 ```{eval-rst}
 .. class:: Revision
-    :noindex:
+    :no-index:
 
     .. attribute:: objects
 
@@ -833,7 +833,7 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
 ```{eval-rst}
 .. class:: Revision
-    :noindex:
+    :no-index:
 
     .. automethod:: as_object
 
@@ -928,7 +928,7 @@ Workflows represent sequences of tasks that must be approved for an action to be
 
 ```{eval-rst}
 .. class:: Workflow
-    :noindex:
+    :no-index:
 
     .. automethod:: start
 
@@ -1007,7 +1007,7 @@ Workflow states represent the status of a started workflow on an object.
 
 ```{eval-rst}
 .. class:: WorkflowState
-    :noindex:
+    :no-index:
 
     .. attribute:: STATUS_CHOICES
 
@@ -1064,7 +1064,7 @@ Tasks represent stages in a workflow that must be approved for the workflow to c
 
 ```{eval-rst}
 .. class:: Task
-    :noindex:
+    :no-index:
 
     .. autoattribute:: workflows
 
@@ -1171,7 +1171,7 @@ Task states store state information about the progress of a task on a particular
 
 ```{eval-rst}
 .. class:: TaskState
-    :noindex:
+    :no-index:
 
     .. attribute:: STATUS_CHOICES
 
@@ -1325,7 +1325,7 @@ An abstract base class that represents a record of an action performed on an obj
 
 ```{eval-rst}
 .. class:: BaseLogEntry
-    :noindex:
+    :no-index:
 
     .. autoattribute:: user_display_name
 
