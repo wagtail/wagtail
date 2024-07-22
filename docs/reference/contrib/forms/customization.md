@@ -629,10 +629,6 @@ class FormPage(AbstractEmailForm):
     # content_panels = ...
 ```
 
-```{versionchanged} 6.1
-The `SubmissionsListView` class is now a subclass of Wagtail's generic `BaseListingView`. As a result, the `ordering` attribute has been renamed to `default_ordering`.
-```
-
 ## Adding a custom field type
 
 First, make the new field type available in the page editor by changing your `FormField` model.
