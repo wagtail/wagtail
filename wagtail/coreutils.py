@@ -1,5 +1,6 @@
 import functools
 import inspect
+import itertools
 import logging
 import re
 import unicodedata
@@ -585,3 +586,20 @@ def make_wagtail_template_fragment_key(fragment_name, page, site, vary_on=None):
         vary_on = []
     vary_on.extend([page.cache_key, site.id])
     return make_template_fragment_key(fragment_name, vary_on)
+
+
+if hasattr(itertools, "batched"):
+    batched = itertools.batched
+else:
+
+    def batched(iterable, n):
+        """
+        A pure-Python version of `itertools.batched`, introduced in 3.12.
+
+        https://docs.python.org/3.12/library/itertools.html#itertools.batched
+        """
+        if n < 1:
+            raise ValueError("n must be at least one")
+        iterator = iter(iterable)
+        while batch := tuple(itertools.islice(iterator, n)):
+            yield batch

@@ -11,6 +11,7 @@ from django.db.models.functions import Cast, Length, Substr
 from django.db.models.query import BaseIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.coreutils import batched
 from wagtail.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
 
@@ -596,15 +597,7 @@ class SpecificIterable(BaseIterable):
         else:
             # Iterate through the queryset, returning the rows in manageable
             # chunks for self.__iter__() to fetch full instances for
-            current_chunk = []
-            for r in queryset.iterator(self.chunk_size):
-                current_chunk.append(r)
-                if len(current_chunk) == self.chunk_size:
-                    yield tuple(current_chunk)
-                    current_chunk.clear()
-            # Return any left-overs
-            if current_chunk:
-                yield tuple(current_chunk)
+            yield from batched(queryset.iterator(self.chunk_size), self.chunk_size)
 
 
 class DeferredSpecificIterable(SpecificIterable):
@@ -621,30 +614,35 @@ class DeferredSpecificIterable(SpecificIterable):
 
         annotations = list(queryset.query.annotation_select.keys())
 
-        for chunk in self._get_chunks(queryset.values()):
-            for values in chunk:
-                content_type_id = values["content_type_id"]
-                if (specific_model := specific_models.get(content_type_id)) is None:
-                    content_type = ContentType.objects.get_for_id(content_type_id)
-                    specific_model = content_type.model_class()
-                    if specific_model is None:
-                        warnings.warn(
-                            "A specific version of the following content type could not be returned "
-                            "because the specific model is not present on the active "
-                            f"branch: <{model.__name__} pk='{values["pk"]}' type='{content_type}'>",
-                            category=RuntimeWarning,
-                        )
-                        specific_model = model
-                    specific_models[content_type_id] = specific_model
+        results = (
+            queryset.iterator(self.chunk_size).values()
+            if self.chunked_fetch
+            else queryset.values()
+        )
 
-                obj = specific_model.from_db(db, values.keys(), values.values())
+        for row in results:
+            content_type_id = row["content_type_id"]
+            if (specific_model := specific_models.get(content_type_id)) is None:
+                content_type = ContentType.objects.get_for_id(content_type_id)
+                specific_model = content_type.model_class()
+                if specific_model is None:
+                    warnings.warn(
+                        "A specific version of the following content type could not be returned "
+                        "because the specific model is not present on the active "
+                        f"branch: <{model.__name__} pk='{row["pk"]}' type='{content_type}'>",
+                        category=RuntimeWarning,
+                    )
+                    specific_model = model
+                specific_models[content_type_id] = specific_model
 
-                # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
-                if (pk_name := specific_model._meta.pk.attname) not in values:
-                    setattr(obj, pk_name, values["id"])
+            obj = specific_model.from_db(db, row.keys(), row.values())
 
-                # Add any annotated fields
-                for attr in annotations:
-                    setattr(obj, attr, values[attr])
+            # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
+            if (pk_name := specific_model._meta.pk.attname) not in row:
+                setattr(obj, pk_name, row["id"])
 
-                yield obj
+            # Add any annotated fields
+            for attr in annotations:
+                setattr(obj, attr, row[attr])
+
+            yield obj
