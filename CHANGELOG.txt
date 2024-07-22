@@ -4,7 +4,7 @@ Changelog
 6.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Redirect to the last viewed listing page after deleting form submissions (Matthias Brück)
 
 
 6.2 (xx.xx.xxxx) - IN DEVELOPMENT
