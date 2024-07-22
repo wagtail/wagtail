@@ -443,14 +443,7 @@ def safe_md5(data=b"", usedforsecurity=True):
     to use the digest for secure purposes and to please just go ahead and
     allow it to happen.
     """
-
-    # Although ``accepts_kwarg`` works great on Python 3.8+, on Python 3.7 it
-    # raises a ValueError, saying "no signature found for builtin". So, back
-    # to the try/except.
-    try:
-        return md5(data, usedforsecurity=usedforsecurity)
-    except TypeError:
-        return md5(data)
+    return md5(data, usedforsecurity=usedforsecurity)
 
 
 class BatchProcessor:
