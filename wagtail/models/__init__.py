@@ -2319,6 +2319,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not parent_is_root and parent.locale_id != self.locale_id:
             return False
 
+        # If the page is already under the target parent, that means the user is
+        # just reordering the page. We need to check this before checking
+        # `can_exist_under`, because that method checks `subpage_types`. In some
+        # cases, the page already violates the parent's subpage_types, which can
+        # happen if it was either created before the subpage_types were specified,
+        # or it was done programmatically (e.g. to predefine a set of pages and
+        # disallow the creation of new subpages by setting subpage_types = []).
+        # In these cases, we still want to allow the page to be reordered.
+        if self.pk and parent.pk and self.is_child_of(parent):
+            return True
+
         return self.can_exist_under(parent)
 
     @classmethod
