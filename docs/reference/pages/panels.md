@@ -11,7 +11,7 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
-   :noindex:
+   :no-index:
 ```
 
 (field_panel)=
@@ -300,7 +300,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
-   :noindex:
+   :no-index:
 
 .. autoclass:: TitleFieldPanel
 
