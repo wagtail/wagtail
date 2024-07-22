@@ -607,7 +607,7 @@ class SpecificIterable(BaseIterable):
                 yield tuple(current_chunk)
 
 
-class DeferredSpecificIterable(BaseIterable):
+class DeferredSpecificIterable(SpecificIterable):
     """
     A highly-modified version of `ModelIterable`, which returns instances
     of the specific model, but with only the parent model's fields.
@@ -615,64 +615,36 @@ class DeferredSpecificIterable(BaseIterable):
 
     def __iter__(self):
         queryset = self.queryset
-        db = queryset.db
         model = queryset.model
-
-        # We need the content type and id to find the right model, so they
-        # MUST be included in the set of fields
-        if queryset.query.deferred_loading[0]:
-            queryset = queryset._chain()
-            queryset.query.deferred_loading[0].add(model._meta.pk.name)
-            queryset.query.deferred_loading[0].add("content_type")
-
-        compiler = queryset.query.get_compiler(using=db)
-
-        # Execute the query. This will also fill compiler.select
-        results = compiler.execute_sql(
-            chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
-        )
-
-        select_fields = compiler.klass_info["select_fields"]
-        model_fields_start, model_fields_end = select_fields[0], select_fields[-1] + 1
-        init_list = [
-            f[0].target.attname
-            for f in compiler.select[model_fields_start:model_fields_end]
-        ]
-        annotation_col_map = compiler.annotation_col_map
-
-        content_type_index = init_list.index("content_type_id")
-        pk_index = init_list.index(model._meta.pk.attname)
+        db = queryset.db
         specific_models = {}
 
-        for row in compiler.results_iter(results):
-            pk = row[pk_index]
-            content_type_id = row[content_type_index]
+        annotations = list(queryset.query.annotation_select.keys())
 
-            # Find the specific model, so we know what to instantiate
-            if (specific_model := specific_models.get(content_type_id)) is None:
-                content_type = ContentType.objects.get_for_id(content_type_id)
-                specific_model = content_type.model_class()
-                if specific_model is None:
-                    warnings.warn(
-                        "A specific version of the following content type could not be returned "
-                        "because the specific model is not present on the active "
-                        f"branch: <{model.__name__} pk='{pk}' type='{content_type}'>",
-                        category=RuntimeWarning,
-                    )
-                    specific_model = model
-                specific_models[content_type_id] = specific_model
+        for chunk in self._get_chunks(queryset.values()):
+            for values in chunk:
+                content_type_id = values["content_type_id"]
+                if (specific_model := specific_models.get(content_type_id)) is None:
+                    content_type = ContentType.objects.get_for_id(content_type_id)
+                    specific_model = content_type.model_class()
+                    if specific_model is None:
+                        warnings.warn(
+                            "A specific version of the following content type could not be returned "
+                            "because the specific model is not present on the active "
+                            f"branch: <{model.__name__} pk='{values["pk"]}' type='{content_type}'>",
+                            category=RuntimeWarning,
+                        )
+                        specific_model = model
+                    specific_models[content_type_id] = specific_model
 
-            obj = specific_model.from_db(
-                db, init_list, row[model_fields_start:model_fields_end]
-            )
+                obj = specific_model.from_db(db, values.keys(), values.values())
 
-            # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
-            if specific_model._meta.pk.attname not in init_list:
-                setattr(obj, specific_model._meta.pk.attname, pk)
+                # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
+                if (pk_name := specific_model._meta.pk.attname) not in values:
+                    setattr(obj, pk_name, values["id"])
 
-            # Add any annotated fields
-            if annotation_col_map:
-                for attr_name, col_pos in annotation_col_map.items():
-                    setattr(obj, attr_name, row[col_pos])
+                # Add any annotated fields
+                for attr in annotations:
+                    setattr(obj, attr, values[attr])
 
-            yield obj
+                yield obj
