@@ -4,7 +4,7 @@ Utility classes for rewriting elements of HTML-like strings
 
 import re
 from collections import defaultdict
-from typing import Callable, Dict, List
+from typing import Callable
 
 from django.utils.functional import cached_property
 
@@ -101,7 +101,7 @@ class TagRewriter:
 
         return html
 
-    def extract_tags(self, html: str) -> Dict[str, List[TagMatch]]:
+    def extract_tags(self, html: str) -> dict[str, list[TagMatch]]:
         """Helper method to extract and group HTML tags and their attributes.
 
         Returns a dict of TagMatch objects, mapping tag types to a list of all TagMatch objects of that tag type.
