@@ -3,19 +3,17 @@ from collections import OrderedDict
 
 from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import gettext, gettext_lazy, ngettext
-from django.views.generic import TemplateView
+from django.utils.translation import gettext, gettext_lazy
 from django_filters import DateFromToRangeFilter
 
-from wagtail.admin import messages
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.contrib.forms.utils import get_forms_for_user
+from wagtail.contrib.forms.utils import get_form_submissions_as_data, get_forms_for_user
 from wagtail.models import Page
 
 
@@ -79,69 +77,6 @@ class FormPagesListView(generic.IndexView):
     def get_base_queryset(self):
         """Return the queryset of form pages for this view"""
         return get_forms_for_user(self.request.user).select_related("content_type")
-
-
-class DeleteSubmissionsView(TemplateView):
-    """Delete the selected submissions"""
-
-    template_name = "wagtailforms/confirm_delete.html"
-    page = None
-    submissions = None
-    success_url = "wagtailforms:list_submissions"
-
-    def get_queryset(self):
-        """Returns a queryset for the selected submissions"""
-        submission_ids = self.request.GET.getlist("selected-submissions")
-        submission_class = self.page.get_submission_class()
-        return submission_class._default_manager.filter(id__in=submission_ids)
-
-    def handle_delete(self, submissions):
-        """Deletes the given queryset"""
-        count = submissions.count()
-        submissions.delete()
-        messages.success(
-            self.request,
-            ngettext(
-                "One submission has been deleted.",
-                "%(count)d submissions have been deleted.",
-                count,
-            )
-            % {"count": count},
-        )
-
-    def get_success_url(self):
-        """Returns the success URL to redirect to after a successful deletion"""
-        return self.success_url
-
-    def dispatch(self, request, *args, **kwargs):
-        """Check permissions, set the page and submissions, handle delete"""
-        page_id = kwargs.get("page_id")
-
-        if not get_forms_for_user(self.request.user).filter(id=page_id).exists():
-            raise PermissionDenied
-
-        self.page = get_object_or_404(Page, id=page_id).specific
-
-        self.submissions = self.get_queryset()
-
-        if self.request.method == "POST":
-            self.handle_delete(self.submissions)
-            return redirect(self.get_success_url(), page_id)
-
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        """Get the context for this view"""
-        context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "page": self.page,
-                "submissions": self.submissions,
-            }
-        )
-
-        return context
 
 
 class SubmissionsListFilterSet(WagtailFilterSet):
@@ -280,43 +215,22 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
         data_fields = self.form_page.get_data_fields()
         data_rows = []
         context["submissions"] = submissions
+        context["page_title"] = self.page_title
         if not self.is_export:
-            # Build data_rows as list of dicts containing model_id and fields
-            for submission in submissions:
-                form_data = submission.get_data()
-                data_row = []
-                for name, label in data_fields:
-                    val = form_data.get(name)
-                    if isinstance(val, list):
-                        val = ", ".join(val)
-                    data_row.append(val)
-                data_rows.append({"model_id": submission.id, "fields": data_row})
-            # Build data_headings as list of dicts containing model_id and fields
-            ordering_by_field = self.get_validated_ordering()
-            orderable_fields = self.orderable_fields
-            data_headings = []
-            for name, label in data_fields:
-                order_label = None
-                if name in orderable_fields:
-                    order = ordering_by_field.get(name)
-                    if order:
-                        order_label = order[1]  # 'ascending' or 'descending'
-                    else:
-                        order_label = "orderable"  # not ordered yet but can be
-                data_headings.append(
-                    {
-                        "name": name,
-                        "label": label,
-                        "order": order_label,
-                    }
-                )
+            (data_headings, data_rows) = get_form_submissions_as_data(
+                data_fields=data_fields,
+                submissions=submissions,
+                orderable_fields=self.orderable_fields,
+                ordering_by_field=self.get_validated_ordering(),
+            )
 
             context.update(
                 {
+                    "app_label": "wagtailforms",
+                    "model_name": "formsubmission",
                     "form_page": self.form_page,
                     "data_headings": data_headings,
                     "data_rows": data_rows,
                 }
             )
-
         return context

@@ -1,3 +1,15 @@
 {% extends "wagtailadmin/generic/listing.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans trimmed with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
+{% block extra_js %}
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'SNIPPET';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {{ block.super }}
+{% endblock %}
+
+{% block bulk_actions %}
+    {% trans "Select all documents in listing" as select_all_text %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=data_rows %}
+{% endblock %}

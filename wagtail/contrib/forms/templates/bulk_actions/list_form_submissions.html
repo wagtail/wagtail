@@ -1,0 +1,29 @@
+{% load i18n %}
+<table class="listing">
+    <thead>
+        <tr>
+            <th id="submit_time" class="">
+                Submission date
+            </th>
+            {% for heading in data_headings %}
+                <th>
+                    {{ heading.name }}
+                </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    {% for item in items %}
+        <tbody>
+            <tr>
+                <td>
+                    {{item.item.submit_time}}
+                </td>
+                {% for label,data in item.item.form_data.items %}
+                    <td>
+                        {{ data }}
+                    </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    {% endfor %}
+</table>

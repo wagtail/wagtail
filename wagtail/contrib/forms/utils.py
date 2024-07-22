@@ -45,3 +45,44 @@ def get_forms_for_user(user):
         editable_forms = fn(user, editable_forms)
 
     return editable_forms
+
+def get_form_submissions_as_data(
+    data_fields={}, submissions=[], orderable_fields=[], ordering_by_field={}
+):
+    """
+    Build data_rows as list of dicts containing id and fields and
+    build data_headings as list of dicts containing id and fields
+    """
+
+    data_rows = []
+    for submission in submissions:
+        form_data = submission.get_data()
+        data_row = []
+        for name, label in data_fields:
+            val = form_data.get(name)
+            if isinstance(val, list):
+                val = ", ".join(val)
+            data_row.append(val)
+        data_rows.append({"id": submission.id, "fields": data_row})
+
+    data_headings = []
+    for name, label in data_fields:
+        order_label = None
+        if name in orderable_fields:
+            order = ordering_by_field.get(name)
+            if order:
+                order_label = order[1]  # 'ascending' or 'descending'
+            else:
+                order_label = "orderable"  # not ordered yet but can be
+        data_headings.append(
+            {
+                "name": name,
+                "label": label,
+                "order": order_label,
+            }
+        )
+
+    return (
+        data_headings,
+        data_rows,
+    )
