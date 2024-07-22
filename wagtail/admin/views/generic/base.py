@@ -3,6 +3,7 @@ from collections import namedtuple
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.formats import date_format
@@ -191,6 +192,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     index_url_name = None
     index_results_url_name = None
     page_kwarg = "p"
+    paginate_by_kwarg = "p_size"
     default_ordering = None
     filterset_class = None
 
@@ -407,6 +409,27 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         queryset = self.filter_queryset(queryset)
         return queryset
 
+    def get_paginate_by(self, queryset):
+        # Determine the pagination size from the URL query parameter.
+        # If the parameter is not provided, use the 'paginate_by' attribute of the view class.
+        # If the attribute is not set, fall back to a default value of 10.
+        paginate_by = self.request.GET.get(self.paginate_by_kwarg)
+
+        if paginate_by is None or paginate_by == "":
+            return self.paginate_by or 10
+
+        try:
+            paginate_by = int(paginate_by)
+            if paginate_by > 0:
+                return paginate_by
+            else:
+                raise Http404()
+        except ValueError:
+            if paginate_by == "all":
+                return len(queryset)
+            else:
+                raise Http404()
+
     def get_table_kwargs(self):
         return {
             "ordering": self.ordering,
@@ -441,6 +464,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         context = super().get_context_data(*args, **kwargs)
 
         table = self.get_table(context["object_list"])
+
+        context["selected_page_size"] = self.request.GET.get(self.paginate_by_kwarg)
 
         context["index_url"] = self.index_url
         context["index_results_url"] = self.index_results_url
