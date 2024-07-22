@@ -1,5 +1,4 @@
 import uuid
-from typing import Dict
 
 from django.apps import apps
 from django.conf import settings
@@ -98,7 +97,7 @@ class Locale(models.Model):
     def __str__(self):
         return force_str(self.get_display_name())
 
-    def _get_language_info(self) -> Dict[str, str]:
+    def _get_language_info(self) -> dict[str, str]:
         return translation.get_language_info(self.language_code)
 
     @property

@@ -1,5 +1,5 @@
 import re
-from typing import Any, List, Tuple, Union
+from typing import Any, Union
 
 from django.db.backends.base.base import BaseDatabaseWrapper
 from django.db.models.expressions import CombinedExpression, Expression, Value
@@ -166,7 +166,7 @@ class SearchQuery(SearchQueryCombinable, Expression):
         compiler: SQLCompiler,
         connection: BaseDatabaseWrapper,
         **extra_context: Any,
-    ) -> Tuple[str, List[Any]]:
+    ) -> tuple[str, list[Any]]:
         sql, params = compiler.compile(self.value)
         return (sql, params)
 
@@ -229,7 +229,7 @@ class MatchExpression(Expression):
     def __init__(
         self,
         query: SearchQueryCombinable,
-        columns: List[str] = None,
+        columns: list[str] = None,
         output_field: Field = BooleanField(),
     ) -> None:
         super().__init__(output_field=output_field)

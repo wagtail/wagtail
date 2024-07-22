@@ -3,8 +3,9 @@ import inspect
 import logging
 import re
 import unicodedata
+from collections.abc import Iterable
 from hashlib import md5
-from typing import TYPE_CHECKING, Any, Dict, Iterable, Union
+from typing import TYPE_CHECKING, Any, Union
 from warnings import warn
 
 from anyascii import anyascii
@@ -256,7 +257,7 @@ def find_available_slug(parent, requested_slug, ignore_page_id=None):
     return slug
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_content_languages():
     """
     Cache of settings.WAGTAIL_CONTENT_LANGUAGES in a dictionary for easy lookups by key.
@@ -545,7 +546,7 @@ class BatchCreator(BatchProcessor):
         if self.max_size and len(self.items) == self.max_size:
             self.process()
 
-    def extend(self, iterable: Iterable[Union[Model, Dict[str, Any]]]) -> None:
+    def extend(self, iterable: Iterable[Union[Model, dict[str, Any]]]) -> None:
         for value in iterable:
             if isinstance(value, self.model):
                 self.add(instance=value)

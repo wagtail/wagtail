@@ -193,7 +193,7 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_streamfield_names(model_class):
     return tuple(
         field.name
@@ -1295,7 +1295,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     private_page_options = ["password", "groups", "login"]
 
     @staticmethod
-    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+    def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
         Find the page route for the given HTTP request object, and URL path. The route
         result (`page`, `args`, and `kwargs`) will be cached via
@@ -1322,7 +1322,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return request._wagtail_route_for_request
 
     @staticmethod
-    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+    def find_for_request(request: HttpRequest, path: str) -> Page | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
         page route will be cached via `request._wagtail_route_for_request`

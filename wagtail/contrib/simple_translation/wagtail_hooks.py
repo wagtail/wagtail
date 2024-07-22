@@ -1,5 +1,3 @@
-from typing import List
-
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
@@ -118,7 +116,7 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
 
 
 @hooks.register("construct_translated_pages_to_cascade_actions")
-def construct_translated_pages_to_cascade_actions(pages: List[Page], action: str):
+def construct_translated_pages_to_cascade_actions(pages: list[Page], action: str):
     if not getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
         return
 

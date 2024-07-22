@@ -317,7 +317,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                     ActiveFilter(
                         bound_field.auto_id,
                         filter_def.label,
-                        "%s - %s" % (start_date_display, end_date_display),
+                        f"{start_date_display} - {end_date_display}",
                         self.get_url_without_filter_param(
                             [
                                 widget.suffixed(field_name, suffix)

@@ -1,5 +1,5 @@
 import logging
-from typing import Iterable, Set, Tuple
+from collections.abc import Iterable
 
 from django.conf import settings
 from django.db.models import Q
@@ -89,8 +89,8 @@ def autocreate_redirects_on_page_move(
 
 
 def _page_urls_for_sites(
-    page: Page, sites: Tuple[Site], cache_target: Page
-) -> Set[Tuple[Site, str, str]]:
+    page: Page, sites: tuple[Site], cache_target: Page
+) -> set[tuple[Site, str, str]]:
     urls = set()
     for site in sites:
         # use a `HttpRequest` to influence the return value

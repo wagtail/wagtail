@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+from typing import Union
 
 from django.test import SimpleTestCase
 
@@ -10,7 +10,7 @@ class AdminTemplateTestUtils:
 
     def assertBreadcrumbsItemsRendered(
         self: Union[WagtailTestUtils, SimpleTestCase],
-        items: List[Dict[str, str]],
+        items: list[dict[str, str]],
         html: Union[str, bytes],
     ):
         soup = self.get_soup(html)

@@ -34,7 +34,7 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_edit_handler(model):
     """
     Get the panel to use in the Wagtail admin when editing this model.
