@@ -88,7 +88,7 @@ class DeleteSubmissionsView(TemplateView):
     template_name = "wagtailforms/confirm_delete.html"
     page = None
     submissions = None
-    success_url = "wagtailforms:list_submissions"
+    success_url_name = "wagtailforms:list_submissions"
 
     def get_queryset(self):
         """Returns a queryset for the selected submissions"""
@@ -115,7 +115,7 @@ class DeleteSubmissionsView(TemplateView):
         next_url = get_valid_next_url_from_request(self.request)
         if next_url:
             return next_url
-        return self.success_url
+        return reverse(self.success_url_name, args=(self.page.id,))
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions, set the page and submissions, handle delete"""
@@ -130,7 +130,7 @@ class DeleteSubmissionsView(TemplateView):
 
         if self.request.method == "POST":
             self.handle_delete(self.submissions)
-            return redirect(self.get_success_url(), page_id)
+            return redirect(self.get_success_url())
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -144,9 +144,7 @@ class DeleteSubmissionsView(TemplateView):
                 "submissions": self.submissions,
             }
         )
-        next_url = get_valid_next_url_from_request(self.request)
-        if next_url:
-            context["next_url"] = next_url
+        context["next_url"] = self.get_success_url()
 
         return context
 

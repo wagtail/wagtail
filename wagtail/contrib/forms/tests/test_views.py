@@ -1263,15 +1263,29 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         self.form_page = Page.objects.get(url_path="/home/contact-us/")
 
     def test_delete_submission_show_confirmation(self):
+        delete_url = reverse(
+            "wagtailforms:delete_submissions", args=(self.form_page.id,)
+        )
+        list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+
         response = self.client.get(
             reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
             + f"?selected-submissions={FormSubmission.objects.first().id}"
         )
+        self.assertEqual(response.status_code, 200)
         # Check show confirm page when HTTP method is GET
         self.assertTemplateUsed(response, "wagtailforms/confirm_delete.html")
 
         # Check that the deletion has not happened with GET request
         self.assertEqual(FormSubmission.objects.count(), 2)
+
+        # The delete form should have a 'next' input that points back to the list page
+        soup = self.get_soup(response.content)
+        form = soup.select_one(f'form[action^="{delete_url}"]')
+        self.assertIsNotNone(form)
+        next_input = form.find("input", {"name": "next"})
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input.get("value"), list_url)
 
     def test_delete_submission_with_permissions(self):
         response = self.client.post(
@@ -1348,12 +1362,33 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         )
 
     def test_delete_submission_with_next_url(self):
+        submission_id = FormSubmission.objects.first().id
+        delete_url = reverse(
+            "wagtailforms:delete_submissions", args=(self.form_page.id,)
+        )
         list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
         next_url = list_url + "?p=2"
+
+        response = self.client.get(
+            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
+            + f"?selected-submissions={submission_id}&next={next_url}"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # The delete form should have a 'next' input that points back to the list page
+        # with the same pagination querystring
+        soup = self.get_soup(response.content)
+        form = soup.select_one(f'form[action^="{delete_url}"]')
+        self.assertIsNotNone(form)
+        next_input = form.find("input", {"name": "next"})
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input.get("value"), next_url)
+
+        # Submitting the form should redirect to the next URL
         response = self.client.post(
             reverse("wagtailforms:delete_submissions", args=(self.form_page.id,)),
             {
-                "selected-submissions": FormSubmission.objects.first().id,
+                "selected-submissions": submission_id,
                 "next": next_url,
             },
         )
