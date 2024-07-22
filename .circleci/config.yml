@@ -3,7 +3,7 @@ version: 2
 jobs:
   backend:
     docker:
-      - image: cimg/python:3.8.11
+      - image: cimg/python:3.12
     environment:
       PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -62,7 +62,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: cimg/python:3.8.11-browsers
+      - image: cimg/python:3.12-browsers
     environment:
       PIPENV_VENV_IN_PROJECT: true
       DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
@@ -118,7 +118,7 @@ jobs:
 
   nightly-build:
     docker:
-      - image: cimg/python:3.8.11-node
+      - image: cimg/python:3.12-node
     steps:
       - checkout
       - run: pip install --user wheel boto3
