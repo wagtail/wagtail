@@ -34,7 +34,7 @@ export const wagtailPreviewPlugin: AxePlugin = {
       // Inside the preview frame, only call the expected plugin instance method.
       // eslint-disable-next-line no-underscore-dangle
       const pluginInstance = this._registry[id];
-      pluginInstance[action].call(pluginInstance, options, callback);
+      pluginInstance?.[action].call(pluginInstance, options, callback);
     }
   },
   commands: [
