@@ -1,3 +1,5 @@
+import functools
+
 import zoneinfo
 from django.conf import settings
 from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR
@@ -102,6 +104,7 @@ def get_available_admin_languages():
     )
 
 
+@functools.cache
 def get_available_admin_time_zones():
     if not settings.USE_TZ:
         return []
