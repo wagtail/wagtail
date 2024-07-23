@@ -690,6 +690,49 @@ describe('PreviewController', () => {
       // By the end, there should only be one fetch call
       expect(global.fetch).toHaveBeenCalledTimes(1);
     });
+
+    it('should clean up event listeners on disconnect', async () => {
+      await initializeOpenedPanel();
+
+      const element = document.querySelector('[data-controller="w-preview"]');
+      const controller = application.getControllerForElementAndIdentifier(
+        element,
+        'w-preview',
+      );
+      jest.spyOn(element.parentElement, 'removeEventListener');
+
+      element.removeAttribute('data-controller');
+      await Promise.resolve();
+
+      expect(element.parentElement.removeEventListener).toHaveBeenCalledWith(
+        'show',
+        controller.activatePreview,
+      );
+      expect(element.parentElement.removeEventListener).toHaveBeenCalledWith(
+        'hide',
+        controller.deactivatePreview,
+      );
+    });
+
+    it('should require the url value to be set', async () => {
+      const element = document.querySelector('[data-controller="w-preview"]');
+      const handleError = jest.fn();
+      element.removeAttribute('data-w-preview-url-value');
+
+      application = Application.start();
+      application.handleError = handleError;
+      application.register('w-preview', PreviewController);
+      await Promise.resolve();
+
+      expect(handleError).toHaveBeenCalledWith(
+        expect.objectContaining({
+          message:
+            'The preview panel controller requires the data-w-preview-url-value attribute to be set',
+        }),
+        'Error connecting controller',
+        expect.objectContaining({ identifier: 'w-preview' }),
+      );
+    });
   });
 
   describe('auto update cycle from opening the panel with a valid form -> invalid form -> valid form -> closing the panel', () => {
