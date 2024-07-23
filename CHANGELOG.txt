@@ -5,6 +5,8 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Redirect to the last viewed listing page after deleting form submissions (Matthias Brück)
+ * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
+ * Maintenance: Removed support for Python 3.8 (Matt Westcott)
 
 
 6.2 (xx.xx.xxxx) - IN DEVELOPMENT
