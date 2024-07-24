@@ -238,9 +238,10 @@ describe('SessionController', () => {
       workflowActionButton.addEventListener('click', handleWorkflowAction, {
         capture: true,
       });
-      document.addEventListener('w-dialog:shown', handleDialogShow);
-      document.addEventListener('w-dialog:hidden', handleDialogHidden);
-      document.addEventListener('w-dialog:confirmed', handleDialogConfirmed);
+      const dialog = document.getElementById('w-overwrite-changes-dialog');
+      dialog.addEventListener('w-dialog:shown', handleDialogShow);
+      dialog.addEventListener('w-dialog:hidden', handleDialogHidden);
+      dialog.addEventListener('w-dialog:confirmed', handleDialogConfirmed);
     });
 
     afterEach(() => {
@@ -409,6 +410,91 @@ describe('SessionController', () => {
       // The confirm button should be updated to the new action button's label
       expect(dialog.getAttribute('aria-hidden')).toBeNull();
       expect(confirmButton.textContent).toEqual('Approve');
+    });
+
+    it("should hide the submit button's dialog when it shows the confirmation dialog and show it again afterwards", async () => {
+      const confirmButton = document.getElementById('confirm');
+      // Mark the confirm button as DialogController's confirm target
+      confirmButton.setAttribute('data-w-dialog-target', 'confirm');
+
+      const otherDialog = document.createElement('div');
+      otherDialog.id = 'w-schedule-publishing-dialog';
+      otherDialog.setAttribute('aria-hidden', 'true');
+      otherDialog.setAttribute('data-controller', 'w-dialog');
+      otherDialog.setAttribute(
+        'data-action',
+        'w-dialog:hide->w-dialog#hide w-dialog:show->w-dialog#show',
+      );
+      otherDialog.innerHTML = /* html */ `
+        <div role="document">
+          <div id="schedule-publishing-dialog-body" data-w-dialog-target="body">
+            Set the publishing schedule
+
+            <input type="datetime-local" name="go_live_at" />
+            <input type="datetime-local" name="expire_at" />
+
+            <button type="submit">Save schedule</button>
+          </div>
+        </div>
+      `;
+
+      const otherDialogTrigger = document.createElement('button');
+      otherDialogTrigger.type = 'button';
+      otherDialogTrigger.setAttribute(
+        'data-a11y-dialog-show',
+        'w-schedule-publishing-dialog',
+      );
+      otherDialogTrigger.innerHTML = 'Set schedule';
+
+      form.appendChild(otherDialog);
+      form.appendChild(otherDialogTrigger);
+
+      // Reconnect the DialogController so the submit button in the
+      // schedule publishing dialog works
+      const dialog = document.querySelector('#w-overwrite-changes-dialog');
+      dialog.removeAttribute('data-controller');
+      await Promise.resolve();
+      dialog.setAttribute('data-controller', 'w-dialog');
+      await Promise.resolve();
+
+      expect(handleDialogShow).not.toHaveBeenCalled();
+
+      // Show the schedule publishing dialog
+      otherDialogTrigger.click();
+      expect(otherDialog.getAttribute('aria-hidden')).toBeNull();
+
+      // Should not trigger the confirmation dialog yet
+      expect(handleDialogShow).not.toHaveBeenCalled();
+
+      const scheduleSubmitButton = otherDialog.querySelector(
+        'button[type="submit"]',
+      );
+      scheduleSubmitButton.click();
+      await Promise.resolve();
+
+      // Should trigger the confirmation dialog
+      expect(handleSubmit).not.toHaveBeenCalled();
+      expect(handleWorkflowAction).not.toHaveBeenCalled();
+      expect(handleDialogShow).toHaveBeenCalled();
+      expect(dialog.getAttribute('aria-hidden')).toBeNull();
+      expect(confirmButton.textContent).toEqual('Save schedule');
+
+      // Should hide the schedule publishing dialog
+      expect(otherDialog.getAttribute('aria-hidden')).toEqual('true');
+
+      // Confirm the dialog
+      confirmButton.click();
+      await Promise.resolve();
+
+      // Should hide the confirmation dialog and continue the action
+      expect(handleDialogHidden).toHaveBeenCalled();
+      expect(handleDialogConfirmed).toHaveBeenCalled();
+      expect(handleSubmit).toHaveBeenCalledTimes(1);
+      expect(handleWorkflowAction).not.toHaveBeenCalled();
+      expect(dialog.getAttribute('aria-hidden')).toEqual('true');
+
+      // The schedule publishing dialog should still be hidden
+      expect(otherDialog.getAttribute('aria-hidden')).toEqual('true');
     });
   });
 

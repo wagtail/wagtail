@@ -87,14 +87,6 @@ export class SessionController extends Controller<HTMLElement> {
   }
 
   connect(): void {
-    this.interceptTargets.forEach((button) => {
-      // Match the event listener configuration of workflow-action that uses
-      // capture so we can intercept the workflow-action's listener.
-      button.addEventListener('click', this.showConfirmationDialog, {
-        capture: true,
-      });
-    });
-
     // Do a ping so the sessions list can be loaded immediately.
     this.ping();
   }
@@ -175,6 +167,12 @@ export class SessionController extends Controller<HTMLElement> {
     // workflow action modal) after the user confirms the dialog.
     if (!this.interceptValue || !this.hasWDialogOutlet) return;
 
+    // If the action button is inside a dialog, we need to hide the dialog first
+    // so it doesn't interfere with the confirmation dialog
+    this.lastActionButton
+      ?.closest('[data-controller="w-dialog"]')
+      ?.dispatchEvent(new Event('w-dialog:hide'));
+
     // Prevent form submission
     event.preventDefault();
     // Prevent triggering other event listeners e.g. workflow actions modal
@@ -197,10 +195,30 @@ export class SessionController extends Controller<HTMLElement> {
   }
 
   wDialogOutletConnected(): void {
+    // Attach the event listener to the buttons that will be intercepted.
+    // Do it here instead of in connect() so hopefully this includes any buttons
+    // that are inside a dialog that is connected after this controller
+    // (e.g. the schedule publishing dialog).
+    this.interceptTargets.forEach((button) => {
+      // Match the event listener configuration of workflow-action that uses
+      // capture so we can intercept the workflow-action's listener.
+      button.addEventListener('click', this.showConfirmationDialog, {
+        capture: true,
+      });
+    });
+
     this.wDialogOutlet.element.addEventListener(
       'w-dialog:confirmed',
       this.confirmAction,
     );
+  }
+
+  wDialogOutletDisconnected(): void {
+    this.interceptTargets?.forEach((button) => {
+      button.removeEventListener('click', this.showConfirmationDialog, {
+        capture: true,
+      });
+    });
   }
 
   /**
@@ -293,10 +311,5 @@ export class SessionController extends Controller<HTMLElement> {
     if (this.interval) {
       window.clearInterval(this.interval);
     }
-    this.interceptTargets?.forEach((button) => {
-      button.removeEventListener('click', this.showConfirmationDialog, {
-        capture: true,
-      });
-    });
   }
 }
