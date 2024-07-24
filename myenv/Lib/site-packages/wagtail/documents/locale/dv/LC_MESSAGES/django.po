@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Fauzaan Gasim, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Fauzaan Gasim, 2024\n"
+"Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
+"dv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: dv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Collection"
+msgstr "ކަލެކްޝަން"
+
+msgid "Add"
+msgstr "އިތުރު"
+
+msgid "Edit"
+msgstr "އެޑިޓް"
+
+msgid "Choose"
+msgstr "ނަގާ"
+
+msgid "title"
+msgstr "ޓައިޓަލް"
+
+msgid "file"
+msgstr "ފައިލް"
+
+msgid "created at"
+msgstr "އުފެއްދިފައިވަނީ "
+
+msgid "uploaded by user"
+msgstr "ޔޫސަރ އަޕްލޯޑް ކޮށްފައި"
+
+msgid "tags"
+msgstr "ޓެގްތައް"
+
+msgid "Yes, add"
+msgstr "ލައްބަ އިތުރުކުރޭ"
+
+msgid "No, don't add"
+msgstr "ނޫން އިތުރު ނުކުރާތި"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
+msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
+
+msgid "Yes, delete"
+msgstr "ލައްބަ! ފުހެލާ"
+
+msgid "No, don't delete"
+msgstr "ނޫން! ފުހެނުލާތި"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"މިހާރު <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>އެއްޗެއް "
+"އަޕްލޯޑް</a> ކޮށްލަން ވީނު؟"
+
+msgid "Uploading…"
+msgstr "އަޕްލޯޑް ވަނީ . . . "
+
+msgid "Upload"
+msgstr "އަޕްލޯޑް ކުރޭ"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "%(title)s ބަދަލު ކުރެވެނީ"
+
+msgid "Editing"
+msgstr "އެޑިޓްކުރަނީ"
+
+msgid "Save"
+msgstr "ސޭވްކުރޭ"
+
+msgid "Filesize"
+msgstr "ފައިލް ސައިޒް"
+
+msgid "File not found"
+msgstr "ފައިލް ނުފެނުން"
+
+msgid "Usage"
+msgstr "ބޭނުންކުރުން"
+
+msgid "Or choose from your computer"
+msgstr "ނުވަތަ ކޮމްޕިއުޓަރުން ޚިޔާރު ކުރޭ"
+
+msgid "Add to collection:"
+msgstr "ކަލެކްޝަނަށް އިތުރުކުރޭ:"
+
+msgid "Sorry, upload failed."
+msgstr "ސޮރީ، އަޕްލޯޑް ފެއިލްވެއްޖެ."
+
+msgid "Tags"
+msgstr "ޓެގްތައް"
+
+msgid "Tag"
+msgstr "ޓެގް"
+
+msgid "Add to collection"
+msgstr "ކަލެކްޝަނަށް އިތުރުކުރޭ:"
+
+msgid "Delete"
+msgstr "ޑިލީޓްކުރެވޭ"
+
+msgid "Created"
+msgstr "އުފެއްދިފައި"
+
+msgid "Choose a document"
+msgstr "ޑޮކިއުމަންޓެއް ނަގާ"
+
+msgid "Edit this document"
+msgstr "މި ޑޮކިއުމަންޓް އެޑިޓްކުރޭ"
+
+msgid "Title"
+msgstr "ޓައިޓަލް"

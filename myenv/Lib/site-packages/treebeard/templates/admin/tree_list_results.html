@@ -1,0 +1,7 @@
+{% if results %}
+    <ul>
+        {% for result in results %}
+            <li class="{% cycle 'row1' 'row2' %}">{{ result }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

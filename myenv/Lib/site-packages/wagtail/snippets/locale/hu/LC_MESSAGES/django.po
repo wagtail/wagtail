@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
+"Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Közzététel"
+
+msgid "Submit for moderation"
+msgstr "Beküldés moderálásra"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Újraküldés ide: %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Beküldés ide: %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Munkafolyamat újraindítása"
+
+msgid "Cancel workflow "
+msgstr "Munkafolyamat felfüggesztése"
+
+msgid "Unpublish"
+msgstr "Visszavonás"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Locked"
+msgstr "Zárolt"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s és közzététel"
+
+msgid "Wagtail snippets"
+msgstr "Elemek"
+
+msgid "Delete selected snippets"
+msgstr "Kiválasztott elemek törlése"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "'%(object)s' %(model_name)s törölve."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s törölve."
+msgstr[1] "%(count)d %(model_name)s törölve."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s törlése"
+
+msgid "Delete "
+msgstr "Törlés"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s helyen használva"
+msgstr[1] "%(usage_count)s helyen használva"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Biztosan törli a(z) %(snippet_type_name)s típusú elemet?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Biztosan töröl %(count)s %(snippet_type_name)s elemet?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Nincs jogosultsága törölni ezt a(z) %(snippet_type_name)s elemet "
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Nincs jogosultsága törölni ezeket: %(snippet_plural_name)s"
+
+msgid "Yes, delete"
+msgstr "Igen, törlés"
+
+msgid "No, don't delete"
+msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Sajnáljuk, de egyelen elem sem felel meg a következő feltételeknek: "
+"\"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Még egyetlen %(snippet_type_name)s típusú elem sincs létrehozva. Miért nem "
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">hoz létre egy újat most</a>?"
+
+msgid "Publishing…"
+msgstr "Közzététel folyamatban..."
+
+msgid "Publish this version"
+msgstr "Verzió közzététele"
+
+msgid "Saving…"
+msgstr "Mentés folyamatban..."
+
+msgid "Replace current draft"
+msgstr "Jelenlegi vázlat lecserélése"
+
+msgid "Replace current revision"
+msgstr "Jelenlegi verzió lecserélése"
+
+msgid "Save draft"
+msgstr "Vázlat mentése"
+
+msgid "Actions"
+msgstr "Akciók"
+
+msgid "Select all snippets in listing"
+msgstr "Összes elem kiválasztása a listában"
+
+msgid "Choose"
+msgstr "Kiválasztás"
+
+msgid "Snippets"
+msgstr "Elemek"
+
+msgid "Name"
+msgstr "Név"
+
+msgid "Instances"
+msgstr "Példányok"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "'%(title)s' további lehetőségei"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "%(model_name)s szerkesztése"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "%(model_name)s története"
+
+msgid "Home"
+msgstr "Nyitólap"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "%(object)s kiválasztása"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Másik %(object)s kiválasztása"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s szerkesztése"

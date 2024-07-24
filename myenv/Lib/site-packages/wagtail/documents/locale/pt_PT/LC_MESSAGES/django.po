@@ -1,0 +1,349 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Jose Lourenco <jose@lourenco.ws>, 2015
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020-2021
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Thiago Cangussu <cangussu.thg@gmail.com>, 2014
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
+"Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail documents"
+msgstr "Documentos Wagtail"
+
+msgid "Collection"
+msgstr "Coleção"
+
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Add/edit documents you own"
+msgstr "Crie/altere os seus documentos"
+
+msgid "Edit"
+msgstr "Alterar"
+
+msgid "Edit any document"
+msgstr "Alterar qualquer documento"
+
+msgid "Choose"
+msgstr "Escolha"
+
+msgid "Select documents in choosers"
+msgstr "Selecionar documento nas escolhas"
+
+msgid "title"
+msgstr "título"
+
+msgid "file"
+msgstr "ficheiro"
+
+msgid "created at"
+msgstr "criado em"
+
+msgid "uploaded by user"
+msgstr "carregado pelo utilizador"
+
+msgid "tags"
+msgstr "palavras-chave"
+
+msgid "document"
+msgstr "documento"
+
+msgid "documents"
+msgstr "documentos"
+
+msgid "Add tags to documents"
+msgstr "Adicionar palavras-chave a documentos"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Tem a certeza que quer adicionar palavras-chave a este documento?"
+msgstr[1] "Tem a certeza que quer adicionar palavras-chave a estes documentos?"
+msgstr[2] "Tem a certeza que quer adicionar palavras-chave a estes documentos?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Não tem permissão para adicionar palavras-chave a este documento."
+msgstr[1] "Não tem permissão para adicionar palavras-chave a estes documentos."
+msgstr[2] "Não tem permissão para adicionar palavras-chave a estes documentos."
+
+msgid "Yes, add"
+msgstr "Sim, adicionar"
+
+msgid "No, don't add"
+msgstr "Não, não adicionar"
+
+msgid "Add documents to collection"
+msgstr "Adicionar documentos a coleção"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Tem a certeza que quer adicionar o seguinte documento à coleção selecionada?"
+msgstr[1] ""
+"Tem a certeza que quer adicionar os seguintes documentos à coleção "
+"selecionada?"
+msgstr[2] ""
+"Tem a certeza que quer adicionar os seguintes documentos à coleção "
+"selecionada?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Não tem permissão para adicionar este documento a uma coleção."
+msgstr[1] "Não tem permissão para adicionar estes documentos a uma coleção."
+msgstr[2] "Não tem permissão para adicionar estes documentos a uma coleção."
+
+msgid "Delete documents"
+msgstr "Apagar documentos"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Tem a certeza que quer apagar este documento?"
+msgstr[1] "Tem a certeza que quer apagar estes documentos?"
+msgstr[2] "Tem a certeza que quer apagar estes documentos?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilizado %(usage_count)s vez"
+msgstr[1] "Utilizado %(usage_count)s vezes"
+msgstr[2] "Utilizado %(usage_count)s vezes"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Não tem permissão para apagar este documento"
+msgstr[1] "Não tem permissão para apagar estes documentos"
+msgstr[2] "Não tem permissão para apagar estes documentos"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+msgid "No, don't delete"
+msgstr "Não, não apagar"
+
+msgid "Latest documents"
+msgstr "Últimos documentos"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Ainda não carregou nenhum documento para esta coleção."
+
+msgid "You haven't uploaded any documents."
+msgstr "Ainda não carregou nenhum documento"
+
+msgid "Change document:"
+msgstr "Alterar documento:"
+
+msgid "Add a document"
+msgstr "Adicionar um documento"
+
+msgid "Add document"
+msgstr "Adicionar documento"
+
+msgid "Uploading…"
+msgstr "A carregar…"
+
+msgid "Upload"
+msgstr "Carregar"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "A alterar %(title)s"
+
+msgid "Editing"
+msgstr "A alterar"
+
+msgid "Save"
+msgstr "Gravar"
+
+msgid "Delete document"
+msgstr "Apagar documento"
+
+msgid "Filesize"
+msgstr "Tamanho do ficheiro"
+
+msgid "File not found"
+msgstr "Ficheiro não encontrado"
+
+msgid "Usage"
+msgstr "Utilização"
+
+msgid "Select all documents in listing"
+msgstr "Selecionar todos os documentos da listagem"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhum documento corresponde a \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Ainda não carregou nenhum documento nesta coleção. Que tal <a "
+"href=\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Ainda não carregou nenhum documento. Que tal <a "
+"href=\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?"
+
+msgid "Add multiple documents"
+msgstr "Adicionar múltiplos documentos"
+
+msgid "Add documents"
+msgstr "Adicionar documentos"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Arraste e largue documentos nesta área para carregar imediatamente."
+
+msgid "Or choose from your computer"
+msgstr "Ou escolha no seu computador"
+
+msgid "Add to collection:"
+msgstr "Adicionar a coleção:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Carregamento bem sucedido. Por favor atualize o nome do documento para algo "
+"mais apropriado, caso necessário. Também pode apagar este documento se o seu "
+"carregamento não era necessário."
+
+msgid "Sorry, upload failed."
+msgstr "Desculpe, o carregamento falhou."
+
+msgid "Document updated."
+msgstr "Documento atualizado."
+
+msgid "You need a password to access this document."
+msgstr "Precisa de uma senha para aceder a este documento."
+
+msgid "Document permissions"
+msgstr "Permissões de documento"
+
+msgid "Add a document permission"
+msgstr "Adicionar uma permissão de documento"
+
+msgid "Tag"
+msgstr "Palavra-chave"
+
+msgid "Add tags to the selected documents"
+msgstr "Adicionar palavras-chave aos documentos selecionados"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] ""
+"Novas palavras-chave foram adicionadas a %(num_parent_objects)ddocumento"
+msgstr[1] ""
+"Novas palavras-chave foram adicionadas a %(num_parent_objects)ddocumentos"
+msgstr[2] ""
+"Novas palavras-chave foram adicionadas a %(num_parent_objects)ddocumentos"
+
+msgid "Add to collection"
+msgstr "Adicionar a coleção"
+
+msgid "Add selected documents to collection"
+msgstr "Adicionar documentos selecionados a coleção"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)ddocumento foi adicionado a%(collection)s"
+msgstr[1] "%(num_parent_objects)ddocumentos foram adicionados a%(collection)s"
+msgstr[2] "%(num_parent_objects)ddocumentos foram adicionados a%(collection)s"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Delete selected documents"
+msgstr "Apagar documentos selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)ddocumento foi apagado"
+msgstr[1] "%(num_parent_objects)ddocumentos foram apagados"
+msgstr[2] "%(num_parent_objects)ddocumentos foram apagados"
+
+msgid "File"
+msgstr "Ficheiro"
+
+msgid "Created"
+msgstr "Criado"
+
+msgid "Choose a document"
+msgstr "Escolher um documento"
+
+msgid "Choose another document"
+msgstr "Escolher outro documento"
+
+msgid "Edit this document"
+msgstr "Alterar este documento"
+
+msgid "Documents"
+msgstr "Documentos"
+
+msgid "Title"
+msgstr "Título"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Documento '%(document_title)s' adicionado."
+
+msgid "The document could not be saved due to errors."
+msgstr "O documento não pôde ser guardado devido a erros."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Documento '%(document_title)s' atualizado"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"O ficheiro não foi encontrado. Por favor mude a origem ou apague o documento"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Documento '%(document_title)s' apagado."
+
+msgid "Document"
+msgstr "Documento"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s documento"
+msgstr[1] "%(count)s documentos"
+msgstr[2] "%(count)s documentos"

@@ -1,0 +1,138 @@
+Metadata-Version: 2.1
+Name: Willow
+Version: 1.8.0
+Summary: A Python image library that sits on top of Pillow, Wand and OpenCV
+Keywords: Imaging
+Author-email: Karl Hobley <karl@kaed.uk>
+Maintainer-email: Wagtail Core team <hello@wagtail.org>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Topic :: Multimedia :: Graphics
+Classifier: Topic :: Multimedia :: Graphics :: Graphics Conversion
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Dist: filetype>=1.0.10,!=1.1.0
+Requires-Dist: defusedxml>=0.7,<1.0
+Requires-Dist: Sphinx>=7.0 ; extra == "docs"
+Requires-Dist: sphinx-wagtail-theme>=6.1.1,<7.0 ; extra == "docs"
+Requires-Dist: sphinxcontrib-spelling>=8.0,<9.0 ; extra == "docs"
+Requires-Dist: sphinx_copybutton>=0.5 ; extra == "docs"
+Requires-Dist: pillow-heif>=0.10.0,<1.0.0 ; extra == "heif" and ( python_version < '3.12')
+Requires-Dist: pillow-heif>=0.13.0,<1.0.0 ; extra == "heif" and ( python_version >= '3.12')
+Requires-Dist: Pillow>=9.1.0,<11.0.0 ; extra == "pillow"
+Requires-Dist: willow[pillow,wand,heif] ; extra == "testing"
+Requires-Dist: coverage[toml]>=7.2.7,<8.0 ; extra == "testing"
+Requires-Dist: pre-commit>=3.4.0 ; extra == "testing"
+Requires-Dist: Wand>=0.6,<1.0 ; extra == "wand"
+Project-URL: Changelog, https://github.com/wagtail/Willow/blob/main/CHANGELOG.txt
+Project-URL: Documentation, https://willow.wagtail.org/
+Project-URL: Source, https://github.com/wagtail/Willow
+Provides-Extra: docs
+Provides-Extra: heif
+Provides-Extra: pillow
+Provides-Extra: testing
+Provides-Extra: wand
+
+# [Willow image library](https://pypi.org/project/Willow/)
+
+[![PyPI](https://img.shields.io/pypi/v/Willow.svg)](https://pypi.org/project/Willow/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/Willow.svg)](https://pypi.org/project/Willow/)
+[![Build Status](https://github.com/torchbox/Willow/workflows/CI/badge.svg)](https://github.com/wagtail/Willow/actions)
+
+A wrapper that combines the functionality of multiple Python image libraries into one API.
+
+[Documentation](https://willow.readthedocs.io/en/latest/index.html)
+
+## Overview
+
+Willow is a simple image library that combines the APIs of [Pillow](https://pillow.readthedocs.io/), [Wand](https://docs.wand-py.org) and [OpenCV](https://opencv.org/).
+It converts the image between the libraries when necessary.
+
+Willow currently has basic resize and crop operations, face and feature detection and animated GIF support.
+New operations and library integrations can also be [easily implemented](https://willow.readthedocs.org/en/latest/guide/extend.html).
+
+The library is written in pure Python and supports versions 3.8 3.9, 3.10, 3.11 and 3.12.
+
+## Examples
+
+### Resizing an image
+
+```python
+from willow.image import Image
+
+f = open('test.png', 'rb')
+img = Image.open(f)
+
+# Resize the image to 100x100 pixels
+img = img.resize((100, 100))
+
+# Save it
+with open('test_thumbnail.png', 'wb') as out:
+   img.save_as_png(out)
+```
+
+This will open the image file with Pillow or Wand (if Pillow is unavailable).
+
+It will then resize it to 100x100 pixels and save it back out as a PNG file.
+
+
+### Detecting faces
+
+```python
+from willow.image import Image
+
+f = open('photo.png', 'rb')
+img = Image.open(f)
+
+# Find faces
+faces = img.detect_faces()
+```
+
+Like above, the image file will be loaded with either Pillow or Wand.
+
+As neither Pillow nor Wand support detecting faces, Willow would automatically convert the image to OpenCV and use that to perform the detection.
+
+## Available operations
+
+[Documentation](https://willow.readthedocs.org/en/latest/reference.html#builtin-operations)
+
+| Operation                                        | Pillow | Wand | OpenCV |
+| ------------------------------------------------ | ------ | ---- | ------ |
+| `get_size()`                                     | ✓      | ✓    | ✓      |
+| `get_frame_count()`                              | ✓\*\*  | ✓    | ✓\*\*  |
+| `resize(size)`                                   | ✓      | ✓    |        |
+| `crop(rect)`                                     | ✓      | ✓    |        |
+| `rotate(angle)`                                  | ✓      | ✓    |        |
+| `set_background_color_rgb(color)`                | ✓      | ✓    |        |
+| `transform_colorspace_to_srgb(rendering_intent)` | ✓      |      |        |
+| `auto_orient()`                                  | ✓      | ✓    |        |
+| `save_as_jpeg(file, quality)`                    | ✓      | ✓    |        |
+| `save_as_png(file)`                              | ✓      | ✓    |        |
+| `save_as_gif(file)`                              | ✓      | ✓    |        |
+| `save_as_webp(file, quality)`                    | ✓      | ✓    |        |
+| `save_as_heif(file, quality, lossless)`          | ✓⁺     |      |        |
+| `save_as_avif(file, quality, lossless)`          | ✓⁺     | ✓⁺   |        |
+| `save_as_ico(file)`                              | ✓      | ✓    |        |
+| `has_alpha()`                                    | ✓      | ✓    | ✓\*    |
+| `has_animation()`                                | ✓\*    | ✓    | ✓\*    |
+| `get_pillow_image()`                             | ✓      |      |        |
+| `get_wand_image()`                               |        | ✓    |        |
+| `detect_features()`                              |        |      | ✓      |
+| `detect_faces(cascade_filename)`                 |        |      | ✓      |
+
+\* Always returns `False`
+
+\** Always returns `1`
+
+⁺ Requires the [pillow-heif](https://pypi.org/project/pillow-heif/) library
+

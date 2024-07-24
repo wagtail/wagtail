@@ -1,0 +1,264 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail kasutajad"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "See väärtus võib sisaldada ainult tähti, numbreid ja @/./+/-/_  märke."
+
+msgid "A user with that username already exists."
+msgstr "Selle kasutajanimega kasutaja on juba olemas."
+
+msgid "The two password fields didn't match."
+msgstr "Kaks paroolivälja ei klappinud."
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "First Name"
+msgstr "Eesnimi"
+
+msgid "Last Name"
+msgstr "Perekonnanimi"
+
+msgid "Password"
+msgstr "Parool"
+
+msgid "Leave blank if not changing."
+msgstr "Jätke tühjaks, kui te seda ei muuda."
+
+msgid "Password confirmation"
+msgstr "Salasõna kinnitamine"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Sisestage kontrollimiseks sama parool nagu eespool."
+
+msgid "Administrator"
+msgstr "Administraator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administraatoritel on täielik juurdepääs mis tahes objekti või sätte "
+"haldamiseks."
+
+msgid "A group with that name already exists."
+msgstr "Sellenimeline rühm on juba olemas."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Samal lehel ei saa olla mitu lubade kirjet."
+
+msgid "submitted notifications"
+msgstr "esitatud teated"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Saate märguande, kui leht esitatakse modereerimiseks"
+
+msgid "approved notifications"
+msgstr "kinnitatud teated"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Saate märguande, kui teie lehe muutmine on kinnitatud"
+
+msgid "rejected notifications"
+msgstr "tagasilükatud teated"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Saate märguande, kui teie lehe muutmine lükatakse tagasi"
+
+msgid "preferred language"
+msgstr "eelistatud keel"
+
+msgid "Select language for the admin"
+msgstr "Valige administraatori keel"
+
+msgid "current time zone"
+msgstr "praegune ajavöönd"
+
+msgid "Select your current time zone"
+msgstr "Valige oma praegune ajavöönd"
+
+msgid "profile picture"
+msgstr "profiili pilti"
+
+msgid "Default"
+msgstr "Vaikimisi"
+
+msgid "user profile"
+msgstr "Kasutajaprofiil"
+
+msgid "user profiles"
+msgstr "kasutajaprofiilid"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "Selle grupi kustutamine tühistab selle grupi kõik kasutajate õigused."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Kas soovite kindlasti selle grupi kustutada?"
+
+msgid "Add group"
+msgstr "Lisa rühm"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Delete group"
+msgstr "Kustuta grupp"
+
+msgid "Object permissions"
+msgstr "Objekti load"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Add"
+msgstr "Lisama"
+
+msgid "Change"
+msgstr "Muuda"
+
+msgid "Publish"
+msgstr "Avalda"
+
+msgid "Lock"
+msgstr "Lukusta"
+
+msgid "Unlock"
+msgstr "Ava"
+
+msgid "Other permissions"
+msgstr "Muud load"
+
+msgid "Page permissions"
+msgstr "Lehe load"
+
+msgid "Page"
+msgstr "Leht"
+
+msgid "Add a page permission"
+msgstr "Lisage lehe luba"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Vabandust, ükski rühm ei vasta \"%(query)s\\"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Konfigureeritud gruppe pole. Miks mitte <a "
+"href=\"%(wagtailusers_create_group_url)s\">lisada üks</a>?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Kas soovite kindlasti selle kasutaja kustutada?"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Roles"
+msgstr "Rollid"
+
+msgid "Add user"
+msgstr "Lisa kasutaja"
+
+msgid "Delete user"
+msgstr "Kustuta kasutaja"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Konfigureeritud pole ühtegi kasutajat. Miks mitte <a "
+"href=\"%(wagtailusers_add_url)s\">lisada mõned</a>?"
+
+msgid "Active"
+msgstr "Aktiivne"
+
+msgid "Inactive"
+msgstr "Mitteaktiivne"
+
+msgid "Groups"
+msgstr "Grupid"
+
+msgid "Add a group"
+msgstr "Lisage rühm"
+
+msgid "Search groups"
+msgstr "Gruppide otsimine"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Grupp '%(object)s' on loodud."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Grupp '%(object)s' on värskendatud."
+
+msgid "The group could not be saved due to errors."
+msgstr "Rühma ei õnnestunud vigade tõttu salvestada."
+
+msgid "View users in this group"
+msgstr "Kuva selle grupi kasutajad"
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Grupp '%(object)s' on kustutatud."
+
+msgid "Add a user"
+msgstr "Kasutaja lisamine"
+
+msgid "Users"
+msgstr "Kasutajad"
+
+msgid "Username"
+msgstr "Kasutajanimi"
+
+msgid "Admin"
+msgstr "Administraator"
+
+msgid "Status"
+msgstr "Staatus"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Kasutaja '%(object)s' on värskendatud."
+
+msgid "The user could not be saved due to errors."
+msgstr "Kasutajat ei õnnestunud vigade tõttu salvestada."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Kasutaja '%(object)s' on kustutatud."

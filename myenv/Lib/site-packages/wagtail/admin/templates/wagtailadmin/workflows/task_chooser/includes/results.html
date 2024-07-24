@@ -1,0 +1,75 @@
+{% load i18n wagtailadmin_tags %}
+{% if tasks %}
+    {% if search_form.is_searching %}
+        <h2 role="alert">
+            {% blocktrans trimmed count counter=tasks.paginator.count %}
+                There is {{ counter }} match
+            {% plural %}
+                There are {{ counter }} matches
+            {% endblocktrans %}
+        </h2>
+    {% else %}
+        <h2>{% trans "Tasks" %}</h2>
+    {% endif %}
+
+    <table class="listing">
+        <thead>
+            <tr class="table-headers">
+                <th>
+                    {% trans "Name" %}
+                </th>
+                {% if search_form.specific_task_model_selected %}
+                    {# TODO #}
+                {% else %}
+                    <th>
+                        {% trans "Task type" %}
+                    </th>
+                {% endif %}
+                <th>
+                    {% trans "Used on" %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td class="title">
+                        <div class="title-wrapper"><a href="{% url 'wagtailadmin_workflows:task_chosen' task.id %}" class="task-choice">{{ task.name }}</a></div>
+                    </td>
+                    {% if search_form.specific_task_model_selected %}
+                        {# TODO #}
+                    {% else %}
+                        <td>
+                            {{ task.content_type.name }}
+                        </td>
+                    {% endif %}
+                    <td>
+                        {% for workflow in task.active_workflows|slice:":5" %}
+                            {{ workflow.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            {% trans "Not used" %}
+                        {% endfor %}
+                        {% if task.active_workflows.count > 5 %}
+                            {% blocktrans trimmed count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=tasks linkurl='wagtailadmin_workflows:task_chooser_results' %}
+{% else %}
+    {% if all_tasks.exists %}
+        <p role="alert">{% blocktrans trimmed %}Sorry, no tasks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% else %}
+        <p>
+            {% trans "You haven't created any tasks." %}
+            {% if can_create %}
+                {% blocktrans trimmed %}
+                    Why not <a class="create-one-now" href="#tab-new" data-tab-trigger>create one now</a>?
+                {% endblocktrans %}
+            {% endif %}
+        </p>
+    {% endif %}
+{% endif %}

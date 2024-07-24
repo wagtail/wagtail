@@ -1,0 +1,40 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
+# Yin Guanhao <sopium@mysterious.site>, 2021
+# 汇民 王 <whuim@qq.com>, 2017
+# 飘 赵 <275980464@qq.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: 飘 赵 <275980464@qq.com>, 2016\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtail 数据表块"
+
+msgid "Row header"
+msgstr "行标题"
+
+msgid "Column header"
+msgstr "列标题"
+
+msgid "Table caption"
+msgstr "表格标题"
+
+msgid "Table"
+msgstr "表格"

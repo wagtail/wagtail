@@ -1,0 +1,18 @@
+#
+# Translators:
+# Mirza Iskandarov <mirza.iskandarov@gmail.com>, 2022
+#
+msgid ""
+msgstr ""
+"Last-Translator: Mirza Iskandarov <mirza.iskandarov@gmail.com>, 2022\n"
+"Language-Team: Azerbaijani (Azerbaijan) (https://app.transifex.com/torchbox/"
+"teams/8009/az_AZ/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: az_AZ\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Silmək"
+
+msgid "Save"
+msgstr "Yadda saxla"

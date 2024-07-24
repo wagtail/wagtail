@@ -1,0 +1,441 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andrei Satsevich, 2023
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Andrei Satsevich, 2023\n"
+"Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail users"
+msgstr "Карыстальнік Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Патрабуюцца толькі літары, лічбы і @/./+/-/_ "
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Гэта значэнне можа складацца толькі з літар, лічбаў і знакаў: @/./+/-/_ "
+
+msgid "A user with that username already exists."
+msgstr "Карыстальнік з такім імем ужо існуе."
+
+msgid "The two password fields didn't match."
+msgstr "Два полі паролi не супадаюць."
+
+msgid "Email"
+msgstr "Электронная пошта"
+
+msgid "First Name"
+msgstr "Імя"
+
+msgid "Last Name"
+msgstr "Прозвішча"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Leave blank if not changing."
+msgstr "Пакіньце поле пустым, калі не мяняецца."
+
+msgid "Password confirmation"
+msgstr "Зацвердзіце пароль"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Калі ласка, увядзіце для праверкі той жа пароль, як паказана вышэй."
+
+msgid "Administrator"
+msgstr "Адміністратар"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Адміністратар мае поўны доступ да кіравання любым аб'ектам або наладай."
+
+msgid "A group with that name already exists."
+msgstr "Гурт з такой назвай ужо існуе."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Вы не можаце мець некалькі запісаў з дазволамі на адну і тую ж старонку."
+
+msgid "submitted notifications"
+msgstr "Адасланыя паведамленні"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Атрымліваць паведамленні, калі старонка адпраўляецца на мадэрацыю"
+
+msgid "approved notifications"
+msgstr "Паведамленне з пацвярджэннем"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Атрымліваць паведамленні, калі пацверджана рэдактаванне вашай старонкі"
+
+msgid "rejected notifications"
+msgstr "Паведамленні пры адхіленні"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Атрымліваць паведамленне, калі адхілена рэдактаванне старонкі"
+
+msgid "updated comments notifications"
+msgstr "абноўленыя апавяшчэння аб каментарах"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Атрымліваць апавяшчэнне, калі каментары былі створаны, зачыненыя або "
+"выдаленыя на старонцы, на якую вы падпісаліся"
+
+msgid "preferred language"
+msgstr "Пажаданая мова"
+
+msgid "Select language for the admin"
+msgstr "Выбар мовы для адміністратара"
+
+msgid "current time zone"
+msgstr "істнуючы гадзінны пояс"
+
+msgid "Select your current time zone"
+msgstr "Выберыце гадзінны пояс"
+
+msgid "profile picture"
+msgstr "Выява профіля"
+
+msgid "System default"
+msgstr "Сістэмныя налады па змаўчанні"
+
+msgid "Light"
+msgstr "Светлая"
+
+msgid "Dark"
+msgstr "Цёмная"
+
+msgid "admin theme"
+msgstr "каляровая тэма адміністратара"
+
+msgid "Default"
+msgstr "Па змаўчанні"
+
+msgid "user profile"
+msgstr "профіль карыстальніка"
+
+msgid "user profiles"
+msgstr "профілі карыстальнікаў"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Прызначыць ролю 1 карыстачу"
+msgstr[1] "Прызначыць ролю %(counter)s карыстальнікам"
+msgstr[2] "Прызначыць ролю %(counter)s карыстальнікам"
+msgstr[3] "Прызначыць ролю %(counter)s карыстальнікам"
+
+msgid "Assign role"
+msgstr "Прызначыць ролю"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Вы ўпэўненыя, што хочаце прызначыць гэтую ролю гэтым карыстальнікам?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "У вас недастаткова правоў для рэдагавання гэтага карыстальніка"
+msgstr[1] "У вас недастаткова правоў для рэдагавання гэтых карыстальнікаў"
+msgstr[2] "У вас недастаткова правоў для рэдагавання гэтых карыстальнікаў"
+msgstr[3] "У вас недастаткова правоў для рэдагавання гэтых карыстальнікаў"
+
+msgid "Yes, assign"
+msgstr "Так, прызначыць"
+
+msgid "No, don't assign"
+msgstr "Не, не прызначаць"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Выдаліць 1 карыстальніка"
+msgstr[1] "Выдаліць %(counter)s карыстальнікаў"
+msgstr[2] "Выдаліць %(counter)s карыстальнікаў"
+msgstr[3] "Выдаліць %(counter)s карыстальнікаў"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Хочаце выдаліць гэтых карыстальнікаў?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "У вас няма дазволу на выдаленне гэтага карыстальніка"
+msgstr[1] "У вас няма дазволу на выдаленне гэтых карыстальнікаў"
+msgstr[2] "У вас няма дазволу на выдаленне гэтых карыстальнікаў"
+msgstr[3] "У вас няма дазволу на выдаленне гэтых карыстальнікаў"
+
+msgid "Yes, delete"
+msgstr "Так. Выдаліць."
+
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Змяніць актыўны стан для 1 карыстальніка"
+msgstr[1] "Змяніць актыўны стан для %(counter)s карыстальнікаў"
+msgstr[2] "Змяніць актыўны стан для %(counter)s карыстальнікаў"
+msgstr[3] "Змяніць актыўны стан для %(counter)s карыстальнікаў"
+
+msgid "Set active state"
+msgstr "Усталяваць актыўны стан"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Вы ўпэўненыя, што хочаце змяніць актыўны стан для гэтых карыстальнікаў?"
+
+msgid "You cannot change your own active status"
+msgstr "Вы не можаце змяніць свой актыўны статус"
+
+msgid "Yes, change state"
+msgstr "Так, змяніць стан"
+
+msgid "No, don't change state"
+msgstr "Не, не мяняць стан"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Група '%(group_name)s' змяшчае <strong>%(group_user_count)s</strong> "
+"удзельніка."
+msgstr[1] ""
+"Група '%(group_name)s' эзмяшчае <strong>%(group_user_count)s</strong> "
+"удзельнікаў."
+msgstr[2] ""
+"Група '%(group_name)s' эзмяшчае <strong>%(group_user_count)s</strong> "
+"удзельнікаў."
+msgstr[3] ""
+"Група '%(group_name)s' эзмяшчае <strong>%(group_user_count)s</strong> "
+"удзельнікаў."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Выдаленне гэтага гурта анулюе ўсе правы, якімі ён надзяляў ўсіх удзельнікаў "
+"гэтага гурта."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Вы сапраўды хочаце выдаліць гэты гурт?"
+
+msgid "Add group"
+msgstr "Дадаць гурт"
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Delete group"
+msgstr "Выдаліць гурт"
+
+msgid "Object permissions"
+msgstr "Дазвол аб'ектаў"
+
+msgid "Name"
+msgstr "Імя"
+
+msgid "Add"
+msgstr "Дадаць"
+
+msgid "Change"
+msgstr "Змяніць"
+
+msgid "Publish"
+msgstr "Апублікаваць"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
+
+msgid "Custom permissions"
+msgstr "Карыстальніцкія правы доступу"
+
+msgid "Other permissions"
+msgstr "Іншыя дазволы"
+
+msgid "Page permissions"
+msgstr "Дазвол старонкі"
+
+msgid "Page"
+msgstr "Старонка"
+
+msgid "Add a page permission"
+msgstr "Дадаць дазвол старонкі"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Нажаль, ніводны гурт не адпавядае \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Гурты не настроенныя. Давай дададзім <a "
+"href=\"%(wagtailusers_create_group_url)s\">дадай трохі</a>?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Вы ўпэўнены, што хочаце выдаліць гэтага карыстальніка?"
+
+msgid "Account"
+msgstr "Уліковы запіс"
+
+msgid "Roles"
+msgstr "Ролі"
+
+msgid "Add user"
+msgstr "Дадаць карыстальніка"
+
+msgid "Delete user"
+msgstr "Выдаліць карыстальніка"
+
+msgid "Select all users in listing"
+msgstr "Выбраць усіх карыстальнікаў у спісе"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Карыстальнікі не сканфігураваны. <a href=\"%(wagtailusers_add_url)s\"> "
+"дадаць карыстальніка </a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "карыстальнік %(id)s (выдалены)"
+
+msgid "Assign role to selected users"
+msgstr "Прызначыць ролю выбраным карыстальнікам"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d карыстальнік быў прызначаны як %(role)s"
+msgstr[1] "%(num_parent_objects)dкарыстальніка былі прызначаныя як%(role)s"
+msgstr[2] "%(num_parent_objects)dкарыстальнікі былі прызначаныя як%(role)s"
+msgstr[3] "%(num_parent_objects)dкарыстальнікі былі прызначаныя як%(role)s"
+
+msgid "Delete selected users"
+msgstr "Выдаліць выбраных карыстальнікаў"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)dкарыстальнік быў выдалены"
+msgstr[1] "%(num_parent_objects)d карыстальніка выдалілі"
+msgstr[2] "%(num_parent_objects)d карыстальнікаў выдалілі"
+msgstr[3] "%(num_parent_objects)d карыстальнікаў выдалілі"
+
+msgid "Active"
+msgstr "Актыўны"
+
+msgid "Inactive"
+msgstr "Неактыўны"
+
+msgid "Mark as active"
+msgstr "Пазначыць як актыўны"
+
+msgid "Change the active state for selected users"
+msgstr "Змяніць актыўны стан для выбраных карыстальнікаў"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)dкарыстальнік было адзначана як актыўны"
+msgstr[1] "%(num_parent_objects)dкарыстальніка было адзначана як актыўныя"
+msgstr[2] "%(num_parent_objects)dкарыстальнікаў было адзначана як актыўныя"
+msgstr[3] "%(num_parent_objects)dкарыстальнікаў было адзначана як актыўныя"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)dкарыстальнік было адзначана як неактыўны"
+msgstr[1] "%(num_parent_objects)dкарыстальніка было адзначана як неактыўныя"
+msgstr[2] "%(num_parent_objects)dкарыстальнікаў было адзначана як неактыўныя"
+msgstr[3] "%(num_parent_objects)dкарыстальнікаў было адзначана як неактыўныя"
+
+msgid "Groups"
+msgstr "Гурты"
+
+msgid "Add a group"
+msgstr "Дадаць гурт"
+
+msgid "Search groups"
+msgstr "Пошук гуртоў"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Створана '%(object)s' гуртоў."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Адноўлены '%(object)s' гурт."
+
+msgid "The group could not be saved due to errors."
+msgstr "Гурт не можа быць захавана з-за памылкі."
+
+msgid "View users in this group"
+msgstr "Прагляд карыстальнікаў групы"
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Гурт '%(object)s' выдалены."
+
+msgid "Add a user"
+msgstr "Дадаць карыстальніка"
+
+msgid "Users"
+msgstr "Карыстальнікі"
+
+msgid "Username"
+msgstr "Імя карыстальніка"
+
+msgid "Admin"
+msgstr "Адміністратар"
+
+msgid "Access level"
+msgstr "Узровень доступу"
+
+msgid "Status"
+msgstr "Статус"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Карыстальнік '%(object)s' створан."
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Карыстальнік '%(object)s' адноўлены."
+
+msgid "The user could not be saved due to errors."
+msgstr "Карыстальнік не можа быць захавана з-за памылкі."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Карыстальнік '%(object)s' выдалены."

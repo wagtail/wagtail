@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dimitri Fekas, 2022
+# fekioh, 2022
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
+# serafeim <serafeim@torchbox.com>, 2016
+# serafeim <serafeim@torchbox.com>, 2016
+# Yiannis Inglessis <negtheone@gmail.com>, 2016,2018
+# Yiannis Inglessis <negtheone@gmail.com>, 2016,2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016,2018\n"
+"Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "προεπιλογή"
+
+msgid "Site"
+msgstr "Ιστότοπος"
+
+msgid "Saving…"
+msgstr "Αποθήκευση…"
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
+msgid "Settings"
+msgstr "Επιλογές"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Αυτή ρύθμιση δεν άνοιξε γιατί δεν έχει οριστεί ιστότοπος"
+
+msgid "The setting could not be saved due to errors."
+msgstr "Η ρύθμιση δεν μπορεί να αποθηκευτεί λόγω σφάλματος."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s αναθεωρήθηκε"

@@ -1,0 +1,17 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+
+    <div class="nice-padding">
+        <p>{% blocktrans trimmed %}This workflow is currently in progress on {{ workflow_states_in_progress }} pages. Deleting this workflow will cancel moderation on these page.
+            Are you sure you want to delete this workflow?{% endblocktrans %}</p>
+        <form action="{{ view.get_delete_url }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+            <a class="button button-secondary" href="{{ view.get_edit_url }}">{% trans 'No' %}</a>
+        </form>
+    </div>
+{% endblock %}

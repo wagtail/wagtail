@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Krzysztof Jeziorny <github@jeziorny.net>, 2022
+# Miłosz Miśkiewicz, 2016
+# Miłosz Miśkiewicz, 2018-2020
+# Miłosz Miśkiewicz, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Miłosz Miśkiewicz, 2016\n"
+"Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "default"
+msgstr "domyślny"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s dla %(site)s"
+
+msgid "Site"
+msgstr "Serwis"
+
+msgid "Saving…"
+msgstr "Zapisywanie…"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Settings"
+msgstr "Ustawienia"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"To ustawienie nie mogło zostać otwarte ponieważ nie zdefiniowano żadnego "
+"serwisu."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Ustawienie nie mogło zostać zapisane z powodu błędów."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s zaktualizowane."

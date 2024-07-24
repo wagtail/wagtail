@@ -1,0 +1,71 @@
+{% load wagtailadmin_tags i18n %}
+
+{% if view.active_filters %}
+    {% include "wagtailadmin/shared/active_filters.html" with active_filters=view.active_filters %}
+{% endif %}
+
+{% if render_filters_fragment %}
+    <template data-controller="w-teleport" data-w-teleport-target-value="#filters-drilldown" data-w-teleport-reset-value="true">
+        {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters %}
+    </template>
+{% endif %}
+
+<form id="page-reorder-form">
+    {% csrf_token %}
+
+    {% if parent_page %}
+        {% if parent_page.is_root %}
+            <div class="nice-padding">
+                <div class="help-block help-info">
+                    {% icon name='help' %}
+                    {% if perms.wagtailcore.add_site %}
+                        {% url 'wagtailsites:index' as wagtailsites_index_url %}
+                        <p>
+                            {% blocktrans trimmed %}
+                                The root level is where you can add new sites to your Wagtail installation. Pages created here will not be accessible at any URL until they are associated with a site.
+                            {% endblocktrans %}
+                            {% if wagtailsites_index_url %}
+                                <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
+                            {% endif %}
+                        </p>
+                        <p>
+                            {% blocktrans trimmed %}
+                                If you just want to add pages to an existing site, create them as children of the homepage instead.
+                            {% endblocktrans %}
+                        </p>
+                    {% else %}
+                        {% blocktrans trimmed %}
+                            Pages created here will not be accessible at any URL. To add pages to an existing site, create them as children of the homepage.
+                        {% endblocktrans %}
+                    {% endif %}
+                </div>
+            </div>
+            {# get_url_parts will return None is the page has no site #}
+        {% elif not parent_page.get_url_parts %}
+            <div class="nice-padding">
+                <div class="help-block help-warning">
+                    {% icon name='warning' %}
+                    {% if perms.wagtailcore.add_site %}
+                        {% url 'wagtailsites:index' as wagtailsites_index_url %}
+                        {% blocktrans trimmed %}
+                            There is no site set up for this location. Pages created here will not be accessible at any URL until a site is associated with this location.
+                        {% endblocktrans %}
+                        {% if wagtailsites_index_url %}
+                            <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
+                        {% endif %}
+                    {% else %}
+                        {% blocktrans trimmed %}
+                            There is no site record for this location. Pages created here will not be accessible at any URL.
+                        {% endblocktrans %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% component table %}
+
+    {% if is_paginated %}
+        {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+    {% endif %}
+</form>

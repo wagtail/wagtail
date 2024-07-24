@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019,2021,2024
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019,2021,2024\n"
+"Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail table block"
+msgstr "Táblázat blokk"
+
+msgid "Row header"
+msgstr "Sor fejléc"
+
+msgid "Table headers"
+msgstr "Táblázat fejlécek"
+
+msgid "Display the first row as a header"
+msgstr "Első sor fejlécként"
+
+msgid "Display the first column as a header"
+msgstr "Első oszlop fejlécként"
+
+msgid "Column header"
+msgstr "Oszlop fejléc"
+
+msgid "Display the first row AND first column as headers"
+msgstr "Első sor ÉS oszlop is fejlécként"
+
+msgid "No headers"
+msgstr "Nincs fejléc"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Melyik cellák legyenek fejlécek?"
+
+msgid "Table caption"
+msgstr "Táblázat felirata"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Egy fejléc, amelyik a táblázat témáját írja le, és nagyon hasznos az "
+"olvasóprogramoknak."
+
+msgid "Table"
+msgstr "Táblázat"

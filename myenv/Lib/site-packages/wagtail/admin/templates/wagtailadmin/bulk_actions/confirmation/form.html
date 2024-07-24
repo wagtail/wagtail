@@ -1,0 +1,7 @@
+<form action="{{ submit_url }}" method="POST">
+    {% include 'wagtailadmin/shared/non_field_errors.html' %}
+    {% csrf_token %}
+    {% block form_fields %}{% endblock form_fields %}
+    <input type="submit" value="{{ action_button_text }}" class="button {{ action_button_class }}" />
+    <a href="{{ next }}" class="button button-secondary">{{ no_action_button_text }}</a>
+</form>

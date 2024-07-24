@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Naglis Jonaitis, 2022
+# Loic Teixeira, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Lithuanian (https://app.transifex.com/torchbox/teams/8009/"
+"lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Wagtail locales"
+msgstr "Wagtail lokalės"
+
+msgid "Language"
+msgstr "Kalba"
+
+msgid "Select a new language"
+msgstr "Pasirinkite naują kalbą"
+
+msgid "This locale's language code is not supported"
+msgstr "Šios lokalės kalbos kodas nepalaikomas"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+msgid "Back"
+msgstr "Atgal"
+
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"Esamas šios lokalės kalbos kodas nepalaikomas. Prašome pasirinkti kitą kalbą "
+"arba ištrinti šią lokalę."
+
+msgid "Locales"
+msgstr "Lokalės"
+
+msgid "Add a locale"
+msgstr "Pridėti lokalę"
+
+msgid "Usage"
+msgstr "Panaudojimas"
+
+msgid "Add locale"
+msgstr "Pridėti lokalę"
+
+#, python-format
+msgid "Locale '%(object)s' created."
+msgstr "Lokalė '%(object)s' sukurta."
+
+#, python-format
+msgid "Locale '%(object)s' updated."
+msgstr "Lokalė '%(object)s' atnaujinta."
+
+msgid "The locale could not be saved due to errors."
+msgstr "Ši lokalė negali būti išsaugota dėl klaidų."
+
+msgid "Delete locale"
+msgstr "Ištrinti lokalę"
+
+#, python-format
+msgid "Locale '%(object)s' deleted."
+msgstr "Lokalė '%(object)s' ištrinta."
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "Ar tikrai norite ištrinti šią lokalę?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr "Ši lokalė negali būti ištrinta, nes daugiau nėra kitų lokalių."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr ""
+"Ši lokalė negali būti ištrinta, nes yra ją naudojančių puslapių ir/ar kitų "
+"objektų."

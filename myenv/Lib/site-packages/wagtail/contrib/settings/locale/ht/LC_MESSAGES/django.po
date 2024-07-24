@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Hantz Vius <vhantz@protonmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Hantz Vius <vhantz@protonmail.com>, 2020\n"
+"Language-Team: Haitian (Haitian Creole) (http://app.transifex.com/torchbox/"
+"wagtail/language/ht/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ht\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Site"
+msgstr "Sit"
+
+msgid "Saving…"
+msgstr "Anrejistreman..."
+
+msgid "Save"
+msgstr "Anrejistre"
+
+msgid "Settings"
+msgstr "Konfigirasyon"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Konfigirasyn sa pa t ka louvri paske okenn sit pa defini."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Konfigirasyon an pa t ka anrejistre akòz de erè."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)saktyalize."

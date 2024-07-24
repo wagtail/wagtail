@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
+# Ettore Atalan <atalanttore@googlemail.com>, 2020
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Oliver Engel <codeangel@posteo.de>, 2021
+# afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
+# Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
+# Oliver Engel <codeangel@posteo.de>, 2021
+# pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
+# Stefan Hammer <stefan@hammerworxx.com>, 2023-2024
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Tammo van Lessen <tvanlessen@gmail.com>, 2015
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Wasilis Mandratzis-Walz, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2023-2024\n"
+"Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail Hervorgehobene Suchergebnisse"
+
+msgid "Search term(s)/phrase"
+msgstr "Suchbegriffe/Phrase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Geben Sie den vollständigen Suchbegriff ein. Um Ihre hervorgehobenen "
+"Ergebnisse anzuzeigen, wird eine genaue Übereinstimmung benötigt. "
+"Platzhalter sind NICHT erlaubt."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Bitte geben Sie mindestens einen Vorschlag für diesen Suchbegriff an."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Wenn Sie eine externe Link-URL eingeben, müssen Sie einen externen Linktext "
+"eingeben."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Sie müssen eine Seite ODER einen externen Link empfehlen."
+
+msgid "Please only select a page OR enter an external link."
+msgstr ""
+"Bitte wählen Sie nur eine Seite aus ODER geben Sie einen externen Link ein."
+
+msgid "Query Daily Hits"
+msgstr "Nach täglichen Treffern suchen"
+
+msgid "page"
+msgstr "Seite"
+
+msgid "Choose an internal page for this promotion"
+msgstr "Wählen Sie eine interne Seite für diese Hervorhebung"
+
+msgid "External link URL"
+msgstr "Externe Link-URL"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr ""
+"Alternativ können Sie für diese Hervorhebung einen externen Link nutzen"
+
+msgid "description"
+msgstr "Beschreibung"
+
+msgid "Applies to internal page or external link"
+msgstr "Gilt für interne Seite oder externen Link"
+
+msgid "search promotion"
+msgstr "Hervorgehobenes Suchergebnis"
+
+msgid "Add search promotion"
+msgstr "Hervorgehobenes Suchergebnis hinzufügen"
+
+msgid "Add search pick"
+msgstr "Suchauswahl hinzufügen"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Hervorgehobene Suchergebnisse sind eine Möglichkeit, bestimmte Seiten "
+"oder externe Links zu empfehlen, die von sich aus nicht sehr weit oben in "
+"den Suchergebnissen auftauchen würden. So könnte zum Beispiel Ihre "
+"Spendenseite auftauchen wenn nach dem Suchbegriff „<em>unterstützen</em>“ "
+"gesucht wird.</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Im Eingabefeld \"Suchbegriffe/Phrasen\" müssen Sie den vollständigen und "
+"genauen Suchbegriff, inklusive eventueller Rechtschreibfehler, eingeben, für "
+"den Sie Seiten empfehlen möchten. Zur Unterstützung können Sie aus häufig "
+"verwendeten Suchbegriffen wählen.</p>"
+
+msgid "Save"
+msgstr "Speichern"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "%(query)s löschen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Sind Sie sicher, dass Sie alle hervorgehobenen Suchergebnisse für diesen "
+"Suchbegriff löschen wollen?"
+
+msgid "Yes, delete"
+msgstr "Ja, löschen"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Bearbeite %(query)s"
+
+msgid "Editing"
+msgstr "Bearbeite"
+
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "Move down"
+msgstr "Nach unten"
+
+msgid "Recommended search result"
+msgstr "Empfohlenes Suchergebnis"
+
+msgid "Promoted search results"
+msgstr "Hervorgehobene Suchergebnisse"
+
+msgid "Add a recommended result"
+msgstr "Empfohlenes Ergebnis hinzufügen"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Leider gibt es keine hervorgehobenen Suchergebnisse, die zu "
+"„<em>%(query_string)s</em>“ passen."
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Es wurden keine hervorgehobenen Suchbegriffe angelegt. Warum <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">fügen Sie nicht einen hinzu</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Es wurden keine hervorgehobenen Ergebnisse erstellt."
+
+msgid "Popular search terms"
+msgstr "Häufige Suchbegriffe"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Terms"
+msgstr "Begriffe"
+
+msgid "Views (past week)"
+msgstr "Aufrufe (letze Woche)"
+
+msgid "No results found"
+msgstr "Keine Ergebnisse gefunden"
+
+msgid "Choose from popular search terms"
+msgstr "Wählen Sie aus populären Suchbegriffen"
+
+msgid "External link"
+msgstr "Externer Link"
+
+msgid "None"
+msgstr "Keine"
+
+msgid "Search Terms"
+msgstr "Suchbegriffe"
+
+msgid "Add new promoted result"
+msgstr "Neues hervorgehobenes Suchergebnis hinzufügen"
+
+msgid "Search term(s)"
+msgstr "Suchbegriff/e"
+
+msgid "Promoted results"
+msgstr "Hervorgehobene Suchergebnisse"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Redaktionsempfehlungen für ‚%(query)s‘ erstellt."
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Empfehlungen konnten wegen eines Fehlers nicht erstellt werden"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Redaktionsempfehlungen für ‚%(query)s‘ aktualisiert."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Empfehlungen wurden wegen eines Fehlers nicht gespeichert"
+
+msgid "Editor's picks deleted."
+msgstr "Redaktionsempfehlungen gelöscht."

@@ -1,0 +1,27 @@
+{% load wagtailadmin_tags i18n %}
+
+{% include "wagtailadmin/shared/non_field_errors.html" %}
+
+<form action="{{ edit_action }}" method="POST" enctype="multipart/form-data" novalidate>
+    <ul class="fields">
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                <li>{% formattedfield field %}</li>
+            {% endif %}
+        {% endfor %}
+        <li>
+            <button
+                type="submit"
+                class="button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+            >
+                {% icon name="spinner" %}{% trans 'Update' %}
+            </button>
+            <a href="{{ delete_action }}" class="delete button no">{% trans "Delete" %}</a>
+        </li>
+    </ul>
+</form>

@@ -1,0 +1,5 @@
+{% load i18n wagtailadmin_tags %}
+<button type="submit" class="button action-save {% if is_revision %}warning{% endif %}" disabled>
+    {% if icon_name %}{% icon name=icon_name %}{% endif %}
+    {% trans 'Page locked' %}
+</button>

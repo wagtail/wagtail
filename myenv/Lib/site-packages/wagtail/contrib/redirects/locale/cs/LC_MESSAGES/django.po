@@ -1,0 +1,216 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2020
+# Marek Turnovec <aesculap@gmail.com>, 2016
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail přesměrování"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Trvalé"
+
+msgid "Temporary"
+msgstr "Dočasné"
+
+msgid "All"
+msgstr "Všechna"
+
+msgid "From site"
+msgstr "Z webu"
+
+msgid "All sites"
+msgstr "Všechny weby"
+
+msgid "A redirect with this path already exists."
+msgstr "Přesměrování s touto cestou již existuje."
+
+msgid "File to import"
+msgstr "Soubor pro import"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Podporované formáty: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Z pole"
+
+msgid "To field"
+msgstr "Do pole"
+
+msgid "redirect from"
+msgstr "přesměrovat z"
+
+msgid "site"
+msgstr "web"
+
+msgid "permanent"
+msgstr "trvalé"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Doporučeno. Trvalé přesměrování zajistí, že webové vyhledávače zapomenou "
+"původní stránku (pole 'Přesměrovat z') a zaindexují novou stránku."
+
+msgid "redirect to a page"
+msgstr "přesměrovat na stránku"
+
+msgid "redirect to any URL"
+msgstr "přesměrovat na jakékoliv URL"
+
+msgid "created at"
+msgstr "vytvořeno:"
+
+msgid "temporary"
+msgstr "dočasné"
+
+msgid "redirect"
+msgstr "přesměrování"
+
+msgid "Add redirect"
+msgstr "Přidat přesměrování"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Redirects"
+msgstr "Přesměrování"
+
+msgid "Import redirects"
+msgstr "Načíst přesměrování"
+
+msgid "Import"
+msgstr "Import"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Smazat přesměrování %(title)s"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Opravdu chcete smazat toto přesměrování?"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "Confirm import"
+msgstr "Potvrdit import"
+
+msgid "Confirm"
+msgstr "Potvrdit"
+
+msgid "Cancel"
+msgstr "Stornovat"
+
+msgid "Preview"
+msgstr "Náhled"
+
+msgid "Summary"
+msgstr "Rekapitulace"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Nalezeno %(total)s přiřazení, vytvořeno %(successes)s a nalezeno %(errors)s "
+"chyb."
+
+msgid "From"
+msgstr "Z"
+
+msgid "To"
+msgstr "na"
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "Continue"
+msgstr "Pokračovat"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+" Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádná "
+"přesměrování"
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Nebyly nalezeny žádná přesměrování. Nové přesměrování můžete přidat <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">zde</a>?"
+
+msgid "Site"
+msgstr "Web"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Přesměrování nelze uložit, zkontrolujte správné vyplnění polí."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Přesměrování '%(redirect_title)s' bylo upraveno."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Přesměrování '%(redirect_title)s' bylo smazáno."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Přesměrování '%(redirect_title)s' bylo přidáno."
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "The redirect could not be created due to errors."
+msgstr "Přesměrování nelze vytvořit, zkontrolujte správné vyplnění polí."
+
+msgid "Search redirects"
+msgstr "Hledat přesměrování"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Formát souboru \"%(extension)s\" není podporován"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Importovaný soubor má nesprávné kódování: %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "došlo k %(error)s chybě/ám při čtení souboru: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Načteno %(total)d přiřazení"
+msgstr[1] "Načteno %(total)d přiřazení"
+msgstr[2] "Načteno %(total)d přiřazení"
+msgstr[3] "Načteno %(total)d přiřazení"

@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load i18n %}
+{% block no_results_message %}
+    {% if is_searching %}
+        <p role="alert">{% blocktrans trimmed %}Sorry, no promoted results match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+    {% elif add_url %}
+        <p>{% blocktrans trimmed with wagtailsearchpromotions_add_url=add_url %}No promoted results have been created. Why not <a href="{{ wagtailsearchpromotions_add_url }}">add one</a>?{% endblocktrans %}</p>
+    {% else %}
+        <p>{% blocktrans trimmed %}No promoted results have been created.{% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}

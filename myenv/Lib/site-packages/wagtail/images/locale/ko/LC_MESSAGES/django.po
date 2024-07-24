@@ -1,0 +1,378 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
+"Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail images"
+msgstr "웨그테일 이미지"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"지원 포맷: %(supported_formats)s. 최대 파일 사이즈: %(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "지원 포맷: %(supported_formats)s"
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"지원하지 않는 이미지 포맷입니다. 지원 포맷은 %(supported_formats)s 입니다."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다(%(file_size)s). 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"이 파일은 픽셀이 너무 많습니다 (%(num_pixels)s). 최대 픽셀 "
+"%(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"이 파일 사이즈는 너무 큽니다. 최대 허용 가능한 파일 사이즈는 "
+"%(max_filesize)s 입니다."
+
+msgid "Full width"
+msgstr "전체 너비"
+
+msgid "Left-aligned"
+msgstr "좌측 정렬"
+
+msgid "Right-aligned"
+msgstr "우측 정렬"
+
+msgid "Collection"
+msgstr "모음"
+
+msgid "Alt text"
+msgstr "대체 텍스트"
+
+msgid "Filter"
+msgstr "필터"
+
+msgid "Original size"
+msgstr "원본 사이즈"
+
+msgid "Resize to width"
+msgstr "너비에 따라 사이즈 조정"
+
+msgid "Resize to height"
+msgstr "높이에 따라 사이즈 조정"
+
+msgid "Resize to min"
+msgstr "최소 사이즈에 따라 사이즈 조정"
+
+msgid "Resize to max"
+msgstr "최대 사이즈에 따라 사이즈 조정"
+
+msgid "Resize to fill"
+msgstr "꽉 채우도록 사이즈 조정"
+
+msgid "Width"
+msgstr "너비"
+
+msgid "Height"
+msgstr "높이"
+
+msgid "Closeness"
+msgstr " 접근"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "Add/edit images you own"
+msgstr "이미지 추가/수정"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "Edit any image"
+msgstr "이미지 수정"
+
+msgid "Choose"
+msgstr "선택"
+
+msgid "title"
+msgstr "제목"
+
+msgid "file"
+msgstr "파일"
+
+msgid "width"
+msgstr "너비"
+
+msgid "height"
+msgstr "높이"
+
+msgid "created at"
+msgstr "생성된 시간:"
+
+msgid "uploaded by user"
+msgstr "업로드한 사용자:"
+
+msgid "tags"
+msgstr "태그"
+
+msgid "image"
+msgstr "이미지"
+
+msgid "images"
+msgstr "이미지"
+
+msgid "Yes, add"
+msgstr "네, 추가합니다"
+
+msgid "No, don't add"
+msgstr "아니오, 추가하지 않습니다"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s번 사용"
+
+msgid "Yes, delete"
+msgstr "네, 지우겠습니다"
+
+msgid "No, don't delete"
+msgstr "아니오, 지우지 않습니다"
+
+msgid "Popular tags"
+msgstr "인기있는 태그"
+
+msgid "Existing"
+msgstr "존재함"
+
+msgid "New"
+msgstr "신규"
+
+msgid "Latest images"
+msgstr "최근 이미지"
+
+msgid "Choose a format"
+msgstr "포맷 선택"
+
+msgid "Insert image"
+msgstr "이미지 삽입"
+
+msgid "Change image file:"
+msgstr "이미지 파일 변경"
+
+msgid "Add an image"
+msgstr "이미지 추가"
+
+msgid "Add image"
+msgstr "이미지 추가"
+
+msgid "Save"
+msgstr "저장"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "%(title)s 이미지 수정"
+
+msgid "Editing"
+msgstr "수정중"
+
+msgid "Delete image"
+msgstr "이미지 삭제"
+
+msgid "URL Generator"
+msgstr "URL 생성기"
+
+msgid "Focal point"
+msgstr "중요 부분"
+
+msgid "(optional)"
+msgstr "(선택)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"이미지의 중요한 영역을 정하려면, 박스를 이미지로 드래그하여 주시기 바랍니다."
+
+msgid "Current focal point shown"
+msgstr "현재 표시된 중요부분"
+
+msgid "Remove focal area"
+msgstr "중요부분 제거"
+
+msgid "Max dimensions"
+msgstr "최대 크기"
+
+msgid "Filesize"
+msgstr "파일 사이즈"
+
+msgid "File not found"
+msgstr "파일을 찾을 수 없습니다"
+
+msgid "Usage"
+msgstr "사용"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 이미지 결과가 없습니다."
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"해당 모음에 업로드한 이미지가 없습니다. 지금 하나 <a "
+"href=\"%(wagtailimages_add_image_url)s\">업로드</a> 해 보는 건 어떠세요?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"업로드한 이미지가 없습니다. 하나 <a href=\"%(wagtailimages_add_image_url)s\">"
+"업로드</a> 해 보는 건 어떠세요?"
+
+msgid "Preview"
+msgstr "프리뷰"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Add multiple images"
+msgstr "복수 이미지 추가"
+
+msgid "Add images"
+msgstr "이미지 추가"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "이 영역에 이미지를 드래그 앤 드롭하여 바로 업로드할 수 있습니다."
+
+msgid "Or choose from your computer"
+msgstr "혹은 당신의 컴퓨터에서 선택하시기 바랍니다"
+
+msgid "Add to collection:"
+msgstr "모음에 추가하기:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"성공적으로 업로드 되었습니다. 가능하면 이미지의 제목을 알맞게 변경하여 주시"
+"기 바랍니다. 업로드가 필요하지 않다면 이미지를 완전히 삭제할 수도 있습니다."
+
+msgid "Sorry, upload failed."
+msgstr "죄송합니다, 업로드가 실패하였습니다."
+
+msgid "Server Error"
+msgstr "서버 오류"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "이 오류를 다음의 정보와 함께 웹 관리자에게 보고하시길 바랍니다"
+
+msgid "Image updated."
+msgstr "이미지 수정됨."
+
+msgid "Image permissions"
+msgstr "이미지 권한"
+
+msgid "Add an image permission"
+msgstr "이미지 권한 추가"
+
+msgid "Tags"
+msgstr "태그"
+
+msgid "Tag"
+msgstr "테그"
+
+msgid "Add to collection"
+msgstr "컬렉션에 추가"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Upload"
+msgstr "업로드"
+
+msgid "Uploading…"
+msgstr "업로드 중…"
+
+msgid "Choose an image"
+msgstr "이미지 선택"
+
+msgid "Choose another image"
+msgstr "다른 이미지 선택"
+
+msgid "Edit this image"
+msgstr "이 이미지 수정"
+
+msgid "Images"
+msgstr "이미지"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "'%(image_title)s' 이미지가 업데이트 되었습니다."
+
+msgid "Edit again"
+msgstr "재수정"
+
+msgid "The image could not be saved due to errors."
+msgstr "에러로 인해 이미지를 저장할 수 없습니다."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시"
+"기 바랍니다."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "'%(image_title)s' 이미지가 삭제되었습니다."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "'%(image_title)s' 이미지가 추가 되었습니다."
+
+msgid "The image could not be created due to errors."
+msgstr "에러로 인해 이미지가 생성될 수 없습니다."
+
+msgid "Image"
+msgstr "이미지"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s개의 이미지"
+
+msgid "Change image"
+msgstr "이미지 변경"

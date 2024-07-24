@@ -1,0 +1,218 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Eetu Häivälä, 2016
+# Eetu Häivälä, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtailin uudelleenohjaukset"
+
+msgid "Type"
+msgstr "Tyyppi"
+
+msgid "Permanent"
+msgstr "Pysyvä"
+
+msgid "Temporary"
+msgstr "Tilapäinen"
+
+msgid "All"
+msgstr "Kaikki"
+
+msgid "From site"
+msgstr "Sivustolta"
+
+msgid "All sites"
+msgstr "Kaikki sivustot"
+
+msgid "A redirect with this path already exists."
+msgstr "Uudelleenohjaus tällä polulla on jo olemassa."
+
+msgid "File to import"
+msgstr "Tuotava tiedosto"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Tuetut muodot: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Kentästä"
+
+msgid "To field"
+msgstr "Kenttään"
+
+msgid "redirect from"
+msgstr "uudelleen&shy;ohjaus lähteestä"
+
+msgid "site"
+msgstr "sivusto"
+
+msgid "permanent"
+msgstr "pysyvä"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Suositeltu. Pysyvät uudelleenohjaukset varmistavat että hakukoneet unohtavat "
+"vanhan sivun (uudelleenohjauksen lähde) ja indeksoivat uuden sivun sen "
+"sijasta."
+
+msgid "redirect to a page"
+msgstr "uudelleenohjaa sivulle"
+
+msgid "redirect to any URL"
+msgstr "uudelleenohjaa URL-osoitteeseen"
+
+msgid "automatically created"
+msgstr "automaattisesti luotu"
+
+msgid "created at"
+msgstr "luotu"
+
+msgid "temporary"
+msgstr "tilapäinen"
+
+msgid "redirect"
+msgstr "uudelleenohjus"
+
+msgid "Add redirect"
+msgstr "Lisää uudelleenohjaus"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Redirects"
+msgstr "Uudelleenohjaukset"
+
+msgid "Import redirects"
+msgstr "Tuo uudelleenohjaukset"
+
+msgid "Import"
+msgstr "Tuo"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Poista uudelleenohjaus %(title)s"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Haluatko varmasti poistaa tämän uudelleenohjauksen?"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+msgid "Confirm import"
+msgstr "Vahvista tuonti"
+
+msgid "Confirm"
+msgstr "Vahvista"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Preview"
+msgstr "Esikatsele"
+
+msgid "Summary"
+msgstr "Yhteenveto"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Löydettiin %(total)s uudelleenohjausta, luotiin %(successes)s ja löydettiin "
+"%(errors)s virhe(ttä)."
+
+msgid "From"
+msgstr "Lähde"
+
+msgid "To"
+msgstr "Kohde"
+
+msgid "Error"
+msgstr "Virhe"
+
+msgid "Continue"
+msgstr "Jatka"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään uudelleenohjaus ei täsmää hakuun "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Et ole luonut yhtään uudelleenohjausta. Mikset vaikka <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">lisäisi yhtä nyt</a>?"
+
+msgid "Site"
+msgstr "Sivusto"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Uudelleenohjausta ei voitu tallentaa virheiden vuoksi."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Uudelleenohjaus '%(redirect_title)s' päivitetty."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Uudelleenohjaus '%(redirect_title)s' poistettu."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Uudelleenohjaus '%(redirect_title)s' lisätty."
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "The redirect could not be created due to errors."
+msgstr "Uudelleenohjausta ei voitu luoda virheiden vuoksi."
+
+msgid "Search redirects"
+msgstr "Hae uudelleenohjauksia"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Tiedostomuoto tyyppiä' \"%(extension)s\" ei ole tuettu"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Tuodulla tiedostolla on väärä merkistökoodaus: %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s kohdattu kun yritettiin lukea tiedostoa: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Tuotu %(total)d uudelleenohjaus"
+msgstr[1] "Tuotu %(total)d uudelleenohjausta"

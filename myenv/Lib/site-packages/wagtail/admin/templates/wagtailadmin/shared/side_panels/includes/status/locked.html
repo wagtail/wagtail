@@ -1,0 +1,38 @@
+{% extends 'wagtailadmin/shared/side_panels/includes/action_list_item.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block content %}
+    {% trans 'Locking: ' as screen_reader_title_prefix %}
+
+    {% if lock %}
+        {% with icon_name=lock_context.icon title=lock_context.locked_by help_text=lock_context.description %}
+            {{ block.super }}
+        {% endwith %}
+    {% else %}
+        {% trans 'Unlocked' as title %}
+
+        {% if user_can_lock %}
+            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
+                Anyone can edit this {{ model_name }} – lock it to prevent others from editing
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans trimmed with model_name=base_model_name|lower asvar help_text %}
+                Anyone can edit this {{ model_name }}
+            {% endblocktrans %}
+        {% endif %}
+
+        {% with icon_name='lock-open' help_text=help_text|capfirst %}
+            {{ block.super }}
+        {% endwith %}
+    {% endif %}
+{% endblock %}
+
+{% block action %}
+    {% trans 'Lock' as lock_text %}
+    {% if user_can_unlock %}
+        {% include 'wagtailadmin/shared/action_switch.html' with data_url=unlock_url label_text=lock_text checked=True %}
+    {% endif %}
+    {% if user_can_lock %}
+        {% include 'wagtailadmin/shared/action_switch.html' with data_url=lock_url label_text=lock_text checked=False %}
+    {% endif %}
+{% endblock %}

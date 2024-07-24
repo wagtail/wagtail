@@ -1,0 +1,222 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2017
+# Eugene <eugene.mechanism@gmail.com>, 2014-2015
+# Eugene <eugene.mechanism@gmail.com>, 2017
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Влад <integration.into.society@gmail.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
+"Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail forms"
+msgstr "Формы Wagtail"
+
+msgid "Date from"
+msgstr "Дата от"
+
+msgid "Date to"
+msgstr "Дата до"
+
+#, python-format
+msgid ""
+"There is another field with the label %(label_name)s, please change one of "
+"them."
+msgstr "Уже есть другое поле с меткой %(label_name)s,  измените одно из них."
+
+msgid "Single line text"
+msgstr "Однострочный текст"
+
+msgid "Multi-line text"
+msgstr "Многострочный текст"
+
+msgid "Email"
+msgstr "Адрес электронной почты"
+
+msgid "Number"
+msgstr "Число"
+
+msgid "URL"
+msgstr "Веб-адрес"
+
+msgid "Checkbox"
+msgstr "Флажок"
+
+msgid "Checkboxes"
+msgstr "Флажки"
+
+msgid "Drop down"
+msgstr "Выпадающий список"
+
+msgid "Multiple select"
+msgstr "Множественный выбор"
+
+msgid "Radio buttons"
+msgstr "Радио-кнопки"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Date/time"
+msgstr "Дата/время"
+
+msgid "Hidden field"
+msgstr "Спрятанное поле"
+
+msgid "submit time"
+msgstr "время добавления"
+
+msgid "form submission"
+msgstr "добавление формы"
+
+msgid "form submissions"
+msgstr "Представления формы"
+
+msgid "name"
+msgstr "имя"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Безопасное имя для поля формы, метка поля преобразованное в ascii_snake_case"
+
+msgid "label"
+msgstr "метка"
+
+msgid "The label of the form field"
+msgstr "Метка поля формы"
+
+msgid "field type"
+msgstr "тип поля"
+
+msgid "required"
+msgstr "обязательно"
+
+msgid "choices"
+msgstr "выбор"
+
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Список вариантов, разделенных запятыми или новой строкой. Применимо только в "
+"флажках, выборе и раскрывающемся списке."
+
+msgid "default value"
+msgstr "значение по умолчанию"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Значение по умолчанию. Для флажков поддерживаются значения, разделенные "
+"запятыми или новой строкой."
+
+msgid "help text"
+msgstr "текст подсказки"
+
+msgid "Submission date"
+msgstr "Дата добавления"
+
+msgid "Form"
+msgstr "Форма"
+
+msgid "Landing page"
+msgstr "Целевая страница"
+
+msgid "to address"
+msgstr "адрес назначения"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Не обязательно - заполненные формы будут отправляться на эти почтовые адрес. "
+"Разделяйте адреса запятыми."
+
+msgid "from address"
+msgstr "адрес отправителя"
+
+msgid "subject"
+msgstr "тема"
+
+#, python-format
+msgid "%(model_name)s submissions"
+msgstr "%(model_name)s представления"
+
+#, python-format
+msgid "Delete form data %(title)s"
+msgstr "Удалить данные формы %(title)s"
+
+msgid "Delete form data"
+msgstr "Удалить данные формы"
+
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] "Вы уверены, что хотите удалить эту заполненную форму?"
+msgstr[1] "Вы уверены, что хотите удалить эти заполненные формы?"
+msgstr[2] "Вы уверены, что хотите удалить эти заполненные формы?"
+msgstr[3] "Вы уверены, что хотите удалить эти заполненные формы?"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete selected submissions"
+msgstr "Удалить выбранные"
+
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr "Форма '%(title)s' еще не заполнялась."
+
+msgid "Total submissions"
+msgstr "Всего добавлений"
+
+msgid "Latest submission"
+msgstr "Последнее добавление"
+
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr "Заполненные %(form_title)s"
+
+msgid "Forms"
+msgstr "Формы"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Origin"
+msgstr "Происхождение"
+
+msgid "Pages"
+msgstr "Страницы"
+
+#, python-format
+msgid "One submission has been deleted."
+msgid_plural "%(count)d submissions have been deleted."
+msgstr[0] "Одно добавление было удалено."
+msgstr[1] "%(count)d добавления было удалено."
+msgstr[2] "%(count)d добавлений было удалено."
+msgstr[3] "%(count)d добавлений было удалено."
+
+msgid "Form data"
+msgstr "Данные формы"

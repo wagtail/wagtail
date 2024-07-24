@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2024
+# Marek Turnovec <aesculap@gmail.com>, 2016,2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020
+# IT Management <hudan@itmanagement.cz>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2024\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "default"
+msgstr "výchozí"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s pro %(site)s"
+
+msgid "Site"
+msgstr "Web"
+
+msgid "Saving…"
+msgstr "Ukládání…"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Settings"
+msgstr "Nastavení"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Nastavení nebylo možné načíst protože není definovaný žádný web."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Nastavení nelze uložit, zkontrolujte správné vyplnění polí."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s aktualizováno."

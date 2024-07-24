@@ -1,0 +1,91 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: django-taggit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-14 11:30+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Serafeim Papastefanos <spapas@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: taggit/apps.py:7
+msgid "Taggit"
+msgstr ""
+
+#: taggit/forms.py:31
+msgid "Please provide a comma-separated list of tags."
+msgstr "Παρακαλούμε συπληρώστε μια λίστα από ετικέτες χωρισμένη με κόμματα"
+
+#: taggit/managers.py:432
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: taggit/managers.py:433
+msgid "A comma-separated list of tags."
+msgstr "Μια χωρισμένη με κόμματα λίστα από ετικέτες"
+
+#: taggit/models.py:19
+msgctxt "A tag name"
+msgid "name"
+msgstr "Όνομα"
+
+#: taggit/models.py:22
+msgctxt "A tag slug"
+msgid "slug"
+msgstr "Sluig"
+
+#: taggit/models.py:82
+msgid "tag"
+msgstr "Ετικέτα"
+
+#: taggit/models.py:83
+msgid "tags"
+msgstr ""
+
+#: taggit/models.py:89
+#, python-format
+msgid "%(object)s tagged with %(tag)s"
+msgstr "%(object)s μαρκαρισμένα με %(tag)s"
+
+#: taggit/models.py:134
+#, fuzzy
+#| msgid "Content type"
+msgid "content type"
+msgstr "Είδος περιεχομένου"
+
+#: taggit/models.py:165 taggit/models.py:172
+#, fuzzy
+#| msgid "Object id"
+msgid "object ID"
+msgstr "Κωδικός αντικειμένου"
+
+#: taggit/models.py:180
+#, fuzzy
+#| msgid "Tagged Item"
+msgid "tagged item"
+msgstr "Αντικείμενο με ετικέτα"
+
+#: taggit/models.py:181
+#, fuzzy
+#| msgid "Tagged Items"
+msgid "tagged items"
+msgstr "Αντικείμενα με ετικέτα"
+
+#: taggit/serializers.py:40
+#, python-brace-format
+msgid "Expected a list of items but got type \"{input_type}\"."
+msgstr ""
+
+#: taggit/serializers.py:43
+msgid ""
+"Invalid json list. A tag list submitted in string form must be valid json."
+msgstr ""
+
+#: taggit/serializers.py:46
+msgid "All list items must be of string type."
+msgstr ""

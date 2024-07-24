@@ -1,0 +1,81 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block actions %}
+    <div>
+        <a href="{% url 'wagtailadmin_reports:workflow_tasks' %}" class="button">{% trans "By Task" %}</a>
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block results %}
+    {% if object_list %}
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th>
+                        {% trans 'Workflow' %}
+                    </th>
+                    <th>
+                        {% trans 'Page/Snippet' %}
+                    </th>
+                    <th>
+                        {% trans 'Status' %}
+                    </th>
+                    <th>
+                        {% trans 'Tasks' %}
+                    </th>
+                    <th>
+                        {% trans 'Requested by' %}
+                    </th>
+                    <th>
+                        {% trans 'Started at' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for workflow_state in object_list %}
+                    <tr>
+                        <td>
+                            <b>{{ workflow_state.workflow }}</b>
+                        </td>
+                        <td>
+                            <a href="{% admin_edit_url workflow_state.content_object %}">
+                                {% latest_str workflow_state.content_object %}
+                            </a>
+                            {% i18n_enabled as show_locale_labels %}
+                            {% if show_locale_labels and workflow_state.content_object.locale_id %}
+                                {% locale_label_from_id workflow_state.content_object.locale_id as locale_label %}
+                                {% status locale_label classname="w-status--label" %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% admin_url_name workflow_state.content_object 'workflow_history_detail' as workflow_history_detail_url_name %}
+                            {% url workflow_history_detail_url_name workflow_state.content_object.pk|admin_urlquote workflow_state.pk as status_url %}
+                            {% status workflow_state.get_status_display url=status_url classname="w-status--primary" %}
+                        </td>
+                        <td>
+                            <h2>{{ workflow_name }}</h2>
+                            {% trans 'Incomplete task' as incomplete_title %}
+                            {% for task in workflow_state.all_tasks_with_status %}
+                                <span data-controller="w-tooltip" data-w-tooltip-content-value="{{ task.name }}: {{ task.status_display }}">
+                                    {% if task.status == 'approved' %}
+                                        {% icon "success" title=task.status_display classname="initial" %}
+                                    {% elif task.status == 'rejected' %}
+                                        {% icon "error" title=task.status_display classname="initial" %}
+                                    {% else %}
+                                        {% icon "radio-empty" title=incomplete_title classname="initial" %}
+                                    {% endif %}
+                                </span>
+                            {% endfor %}
+                        </td>
+                        <td>{{ workflow_state.requested_by|user_display_name }}</td>
+                        <td>{{ workflow_state.created_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No pages/snippets have been submitted for moderation yet" %}</p>
+    {% endif %}
+{% endblock %}

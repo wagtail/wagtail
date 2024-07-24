@@ -1,0 +1,358 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020-2021
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
+# Thomas Kunambi <kunambi@gmail.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2022\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokument"
+
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Add/edit documents you own"
+msgstr "Lägg till/redigera dokument du äger"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Edit any document"
+msgstr "Redigera alla dokument"
+
+msgid "Choose"
+msgstr "Välj"
+
+msgid "Select documents in choosers"
+msgstr "Markera dokument i väljare"
+
+msgid "title"
+msgstr "titel"
+
+msgid "file"
+msgstr "fil"
+
+msgid "created at"
+msgstr "skapad vid"
+
+msgid "uploaded by user"
+msgstr "uppladdad av användare"
+
+msgid "tags"
+msgstr "taggar"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "documents"
+msgstr "dokument"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Lägg till tagg till 1 dokument"
+msgstr[1] "Lägg till taggar till %(counter)s dokument"
+
+msgid "Add tags to documents"
+msgstr "Lägg till taggar till dokument"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Är du säker på att du vill lägga till tagg på följande dokument?"
+msgstr[1] "Är du säker på att du vill lägga till tagg på följande dokument?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Du saknar rättigheter att lägga till tagg på detta dokument"
+msgstr[1] "Du saknar rättigheter att lägga till taggar på dessa dokument"
+
+msgid "Yes, add"
+msgstr "Ja, lägg till"
+
+msgid "No, don't add"
+msgstr "Nej, lägg inte till"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Lägg till 1 dokument till en kollektion"
+msgstr[1] "Lägg till %(counter)s dokument till ny kollektion"
+
+msgid "Add documents to collection"
+msgstr "Lägg till dokument till samling"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Är du säker på att du vill lägga till följande dokument i vald samling?"
+msgstr[1] ""
+"Är du säker på att du vill lägga till följande dokument i vald samling?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Du saknar rättigheter att lägga till detta dokument till samling"
+msgstr[1] "Du saknar rättigheter att lägga till dessa dokument till samling"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Radera 1 dokument"
+msgstr[1] "Radera %(counter)s dokument"
+
+msgid "Delete documents"
+msgstr "Radera dokument"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Är du säker på att du vill radera detta dokument?"
+msgstr[1] "Är du säker på att du vill radera dessa dokument?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Du saknar rättigheter att radera detta dokument"
+msgstr[1] "Du saknar rättigheter att radera dessa dokument"
+
+msgid "Yes, delete"
+msgstr "Ja, radera"
+
+msgid "No, don't delete"
+msgstr "Nej, radera inte."
+
+msgid "Latest documents"
+msgstr "Senaste dokument"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "Ledsen, inga dokument matchar \"<em>%(search_query)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Du har inte laddat upp några dokument i den här samlingen."
+
+msgid "You haven't uploaded any documents."
+msgstr "Du har inte laddat upp några dokument."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Varför inte <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>ladda upp en nu</a>?"
+
+msgid "Change document:"
+msgstr "Ändra dokument:"
+
+msgid "Add a document"
+msgstr "Lägg till ett dokument"
+
+msgid "Add document"
+msgstr "Lägg till dokument"
+
+msgid "Uploading…"
+msgstr "Laddar upp…"
+
+msgid "Upload"
+msgstr "Ladda upp"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Redigerar %(title)s"
+
+msgid "Editing"
+msgstr "Redigerar"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Delete document"
+msgstr "Ta bort dokument"
+
+msgid "Filesize"
+msgstr "Filstorlek"
+
+msgid "File not found"
+msgstr "Filen hittades inte"
+
+msgid "Usage"
+msgstr "Användning"
+
+msgid "Select all documents in listing"
+msgstr "Välj alla dokument i listan"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Ledsen, inga dokument matchar \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Du har inte laddat upp några dokument till den här samlingen. Varför inte <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Du har inte laddat upp några dokument. Varför inte <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
+
+msgid "Add multiple documents"
+msgstr "Lägg till flera dokument"
+
+msgid "Add documents"
+msgstr "Lägg till dokument"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Dra och släpp dokument inom det här området för att ladda upp direkt."
+
+msgid "Or choose from your computer"
+msgstr "Eller välj från din dator"
+
+msgid "Add to collection:"
+msgstr "Lägg till i samling:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Uppladdningen lyckades. Vänligen uppdatera det här dokumentet med en mer "
+"lämplig titel, om nödvändigt. Du kan också radera dokumentet helt och hållet "
+"om uppladdningen inte var nödvändig."
+
+msgid "Sorry, upload failed."
+msgstr "Ledsen, uppladdningen misslyckades."
+
+msgid "Document updated."
+msgstr "Dokument uppdaterat."
+
+msgid "You need a password to access this document."
+msgstr "Du behöver ett lösenord för få åtkomst till dokumentet."
+
+msgid "Document permissions"
+msgstr "Dokumenträttigheter"
+
+msgid "Add a document permission"
+msgstr "Lägg till en dokumenträttighet"
+
+msgid "Tags"
+msgstr "Taggar"
+
+msgid "Tag"
+msgstr "Tagg"
+
+msgid "Add tags to the selected documents"
+msgstr "Lägg till taggar på valda dokument"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Nya taggar har lagts till på %(num_parent_objects)d dokument"
+msgstr[1] "Nya taggar har lags till på %(num_parent_objects)d dokument"
+
+msgid "Add to collection"
+msgstr "Lägg till i samling"
+
+msgid "Add selected documents to collection"
+msgstr "Lägg till valda dokument i samling"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d dokument har lagts till %(collection)s"
+msgstr[1] "%(num_parent_objects)d dokument har lats till %(collection)s"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Delete selected documents"
+msgstr "Radera valda dokument"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d dokument har raderats"
+msgstr[1] "%(num_parent_objects)d dokument har raderats"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Created"
+msgstr "Skapades"
+
+msgid "Choose a document"
+msgstr "Välj ett dokument"
+
+msgid "Choose another document"
+msgstr "Välj ett annat dokument"
+
+msgid "Edit this document"
+msgstr "Redigera detta dokument"
+
+msgid "Documents"
+msgstr "Dokument"
+
+msgid "Title"
+msgstr "Titel"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' lades till."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumentet kunde inte sparas p.g.a. fel."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokument '%(document_title)s' laddades upp"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Filen kunde inte hittas. Vänligen ändra källan eller ta bort dokumentet."
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' borttaget."
+
+msgid "Document"
+msgstr "Dokument"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokument"

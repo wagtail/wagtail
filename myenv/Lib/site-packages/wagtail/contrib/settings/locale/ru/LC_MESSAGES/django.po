@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Alexey Trofimov <funkindy@gmail.com>, 2020
+# Anatoly <pandorinpan@gmail.com>, 2021
+# Eugene <eugene.mechanism@gmail.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2016
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# Nikita Tonkoshkur <humapen@gmail.com>, 2018
+# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
+# Zhdan Parfenov, 2022
+# Влад <integration.into.society@gmail.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Zhdan Parfenov, 2022\n"
+"Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "default"
+msgstr "по умолчанию"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s для %(site)s"
+
+msgid "Site"
+msgstr "Сайт"
+
+msgid "Saving…"
+msgstr "Сохранение…"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Эта настройка не может быть открыта, так как сайт не определён."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Эта настройка не может быть сохранена из-за ошибок."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s обновлено."

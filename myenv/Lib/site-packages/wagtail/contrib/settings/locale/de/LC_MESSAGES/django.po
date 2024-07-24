@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021
+# Matthias Martin, 2019
+# Matthias Martin, 2019
+# Matti Borchers, 2022
+# mattibo, 2022
+# Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Scriptim <Scriptim@gmx.de>, 2020
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Tibor <tibor@lpld.io>, 2020
+# Scriptim <Scriptim@gmx.de>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Scriptim <Scriptim@gmx.de>, 2020\n"
+"Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "Standard"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s von %(site)s"
+
+msgid "Site"
+msgstr "Webseite"
+
+msgid "Saving…"
+msgstr "Speichern…"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Diese Einstellung konnte nicht geöffnet werden, da keine Website definiert "
+"ist."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Aufgrund von Fehlern konnte die Einstellung nicht gespeichert werden."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s aktualisiert."

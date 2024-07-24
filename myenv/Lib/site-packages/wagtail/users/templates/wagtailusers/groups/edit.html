@@ -1,0 +1,40 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load wagtailusers_tags wagtailadmin_tags i18n %}
+
+{% block main_content %}
+    <form action="{% url 'wagtailusers_groups:edit' group.id %}" method="POST" novalidate>
+        {% csrf_token %}
+
+        <div class="fields">
+            {% block fields %}
+                {% panel id="name" heading=form.name.label id_for_label=form.name.id_for_label is_required=True %}
+                    {% formattedfield field=form.name show_label=False %}
+                {% endpanel %}
+                {% block extra_fields %}{% endblock extra_fields %}
+            {% endblock fields %}
+
+            <div>
+                {% format_permissions permission_bound_field=form.permissions %}
+            </div>
+
+            {% for panel in permission_panels %}
+                <div>
+                    {{ panel.as_admin_panel }}
+                </div>
+            {% endfor %}
+            <div>
+                <input type="submit" value="{% trans 'Save' %}" class="button" />
+
+                {% if perms.auth.delete_group %}
+                    <a href="{% url 'wagtailusers_groups:delete' group.id %}" class="button no">{% trans "Delete group" %}</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailusers/groups/includes/group_form_js.html" %}
+{% endblock %}

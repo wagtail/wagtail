@@ -1,0 +1,4 @@
+ID,UUID,Type,Requested by,Granted,Imported,Site,User,Date,Time,Permanent,Notes,Checked,Category,Protocol,Domain,From,To
+1,4aaafa99-9362-4170-9949-d628482f847f,Redirect,Ann Smith,TRUE,FALSE,1,Admin User,06/07/2022,14:46,FALSE,…,TRUE,Offsite,HTTPS,www.example.com,/goodbye,https://www.example.com/cya/
+2,713e00d5-599e-4f9d-bd1b-be5ff3ab627c,Redirect,Ngaio Bailo,TRUE,FALSE,1,Admin User,06/07/2022,14:43,FALSE,…,TRUE,Offsite,HTTPS,www.example.com,/hello,https://www.example.com/hi/
+3,0e9e4f6a-cb56-4ea4-9301-61dff68b9961,Redirect,Cheng Lee,TRUE,FALSE,1,Admin User,06/07/2022,14:43,FALSE,…,TRUE,Samesite,HTTPS,,/welcome,/hello

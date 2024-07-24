@@ -1,0 +1,178 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Maris Serzans <maris.serzans@gmail.com>, 2015
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "A user with that username already exists."
+msgstr "Lietotājvāds aizņemts"
+
+msgid "Email"
+msgstr "E-pasts"
+
+msgid "First Name"
+msgstr "Vārds"
+
+msgid "Last Name"
+msgstr "Uzvārds"
+
+msgid "Password"
+msgstr "Parole"
+
+msgid "Password confirmation"
+msgstr "Paroles apstiprinājums"
+
+msgid "Administrator"
+msgstr "Administrators"
+
+msgid "A group with that name already exists."
+msgstr "Grupas nosaukums aizņemts."
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Saņemt paziņojumu, kad lapa iesniegta administrēšanai"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Saņemt paziņojumu, kad lapas labojumi apstiprināti"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Saņemt paziņojumu, kad lapas labojumi atraidīti"
+
+msgid "Default"
+msgstr "Noklusējums"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Vai esat drošs, ka vēlaties dzēst šo grupu?"
+
+msgid "Add group"
+msgstr "Pievienot grupu"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Delete group"
+msgstr "Dzēst grupu"
+
+msgid "Name"
+msgstr "Vārds"
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Change"
+msgstr "Mainīt"
+
+msgid "Publish"
+msgstr "Publicēt"
+
+msgid "Lock"
+msgstr "Slēgt"
+
+msgid "Unlock"
+msgstr "Atslēgt"
+
+msgid "Other permissions"
+msgstr "Citas atļaujas"
+
+msgid "Page permissions"
+msgstr "Lapu atļaujas"
+
+msgid "Page"
+msgstr "Lapa"
+
+msgid "Add a page permission"
+msgstr "Pievienot atļauju lapai"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nav izveidotas grupas. <a "
+"href=\"%(wagtailusers_create_group_url)s\">Pievienot jaunu grupu?</a>"
+
+msgid "Account"
+msgstr "Konts"
+
+msgid "Roles"
+msgstr "Lomas"
+
+msgid "Add user"
+msgstr "Pievienot lietotāju"
+
+msgid "Active"
+msgstr "Aktīvs"
+
+msgid "Inactive"
+msgstr "Nav aktīvs"
+
+msgid "Groups"
+msgstr "Grupas"
+
+msgid "Add a group"
+msgstr "PIevienot grupu"
+
+msgid "Search groups"
+msgstr "Meklēt grupas"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Grupa '%(object)s' izveidota"
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Grupa '%(object)s' atjaunota."
+
+msgid "The group could not be saved due to errors."
+msgstr "Grupu nevarēja saglabāt kļūdu dēļ."
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Grupa '%(object)s' dzēsta."
+
+msgid "Group"
+msgstr "Grupa"
+
+msgid "Add a user"
+msgstr "Pievienot lietotāju"
+
+msgid "Users"
+msgstr "Lietotāji"
+
+msgid "Username"
+msgstr "Lietotājvārds"
+
+msgid "Admin"
+msgstr "Administrators"
+
+msgid "Status"
+msgstr "Statuss"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Lietotājs '%(object)s' atjaunots. "
+
+msgid "The user could not be saved due to errors."
+msgstr "Lietotāju nevarēja saglabāt kļūdu dēļ."

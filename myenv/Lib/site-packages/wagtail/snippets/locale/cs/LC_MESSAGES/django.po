@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2020
+# Marek Turnovec <aesculap@gmail.com>, 2016
+# Martin Rejmon, 2023
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Martin Rejmon, 2023\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Publish"
+msgstr "Publikovat"
+
+msgid "Submit for moderation"
+msgstr "Odeslat ke schválení"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Potvrdit %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Potvrdit %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Obnovit zpracování"
+
+msgid "Cancel workflow "
+msgstr "Stornovat zpracování"
+
+msgid "Unpublish"
+msgstr "Nezveřejňovat"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Locked"
+msgstr "Uzamčeno"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s a publikovat"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail fragmenty"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' zrušeno."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Zrušit %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Zrušit"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)s -krát"
+msgstr[1] "Použito %(usage_count)s -krát"
+msgstr[2] "Použito %(usage_count)s -krát"
+msgstr[3] "Použito %(usage_count)s -krát"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Určitě chcete smazat následující %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Určitě chcete smazat %(count)s %(snippet_type_name)s?"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "No, don't delete"
+msgstr "Ne, nerušit."
+
+msgid "Publishing…"
+msgstr "Publikování..."
+
+msgid "Publish this version"
+msgstr "Publikovat tuto verzi"
+
+msgid "Saving…"
+msgstr "Ukládá se..."
+
+msgid "Replace current draft"
+msgstr "Nahradit aktuální koncept"
+
+msgid "Save draft"
+msgstr "Uložit návrh"
+
+msgid "Actions"
+msgstr "Akce"
+
+msgid "Choose"
+msgstr "Zvolit"
+
+msgid "Snippets"
+msgstr "Úryvky"
+
+msgid "Name"
+msgstr "Jméno"
+
+msgid "Home"
+msgstr "Domů"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Zvol %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Zvol další %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Edituj %(object)s"

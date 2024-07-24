@@ -1,0 +1,194 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Alex Morega, 2023
+# Bogdan Mateescu, 2019
+# Bogdan Mateescu, 2019
+# Dan Braghis, 2014
+# Dan Braghis, 2014-2022
+# Dan Braghis, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Alex Morega, 2023\n"
+"Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Publish"
+msgstr "Publică"
+
+msgid "Submit for moderation"
+msgstr "Trimite pentru moderare"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Retrimite la %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Trimite la %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Repornește flux de lucru"
+
+msgid "Cancel workflow "
+msgstr "Anulează flux de lucru"
+
+msgid "Unpublish"
+msgstr "Anulare publicare"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Locked"
+msgstr "A blocat"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s și publică"
+
+msgid "Wagtail snippets"
+msgstr "Fragment Wagtail"
+
+msgid "Delete selected snippets"
+msgstr "Șterge fragmentele selectate"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' a fost eliminat(ă)."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s șters."
+msgstr[1] "%(count)d %(model_name)s șterse."
+msgstr[2] "%(count)d de %(model_name)s șterse."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Șterge %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Șterge"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s utilizare"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s de utilizări"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Sigur doriți să ștergeți acest %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Sigur doriți să ștergeți %(count)s %(snippet_type_name)s?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Nu aveți permisiunea de a șterge %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Nu aveți permisiunea să ștergeți aceste %(snippet_plural_name)s"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+msgid "No, don't delete"
+msgstr "Nu, nu șterge"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Ne pare rău, \"<em>%(search_query)s</em>\" nu se potrivește cu nici un "
+"fragment"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Nu au fost create %(snippet_type_name)s. De să nu <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">incepeți acum</a>?"
+
+msgid "Publishing…"
+msgstr "În curs de publicare…"
+
+msgid "Publish this version"
+msgstr "Publică această versiune"
+
+msgid "Saving…"
+msgstr "În curs de salvare..."
+
+msgid "Replace current draft"
+msgstr "Înlocuiește ciorna curentă"
+
+msgid "Replace current revision"
+msgstr "Înlocuiește reviziunea curentă"
+
+msgid "Save draft"
+msgstr "Salvare ciornă"
+
+msgid "Actions"
+msgstr "Acțiuni"
+
+msgid "Select all snippets in listing"
+msgstr "Selectează toate fragmentele din listă"
+
+msgid "Choose"
+msgstr "Alege"
+
+msgid "Snippets"
+msgstr "Fragmente"
+
+msgid "Name"
+msgstr "Nume"
+
+msgid "Instances"
+msgstr "Instanțe"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Mai multe opțiuni pentru '%(title)s'"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Editează acest %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "Istoria %(model_name)s"
+
+msgid "Home"
+msgstr "Acasă"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Alege %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Alege alt %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Editează %(object)s"

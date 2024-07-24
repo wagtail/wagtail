@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ed <724195301@qq.com>, 2018
+# Ed <724195301@qq.com>, 2018
+# Ford Guo <agile.guo@gmail.com>, 2023
+# hanfeng <appweb.cn@gmail.com>, 2014
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2019-2020
+# 祝沙军 <zhushajun@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2023\n"
+"Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
+"language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail 高级搜索"
+
+msgid "Search term(s)/phrase"
+msgstr "搜索词/短语"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"输入完整搜索词条进行匹配。要显示推广结果必须使用完全匹配，不允许出现通配符。"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "请至少指定一条针对此搜索条件的建议。"
+
+msgid "Query Daily Hits"
+msgstr "每日查询次数"
+
+msgid "page"
+msgstr "页面"
+
+msgid "description"
+msgstr "描述"
+
+msgid "search promotion"
+msgstr "搜索推广"
+
+msgid "Add search promotion"
+msgstr "增加搜索推广"
+
+msgid "Add search pick"
+msgstr "增加搜索精选"
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "删除%(query)s"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "确定删除此搜索词条下的所有推广结果？"
+
+msgid "Yes, delete"
+msgstr "是，删除"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "编辑%(query)s"
+
+msgid "Editing"
+msgstr "编辑"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Promoted search results"
+msgstr "推广搜索结果"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的推广结果"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"还没有创建过推广结果。为何不<a href=\"%(wagtailsearchpromotions_add_url)s\">"
+"创建一个</a>？"
+
+msgid "Popular search terms"
+msgstr "热门搜索词"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Terms"
+msgstr "词语"
+
+msgid "Views (past week)"
+msgstr "查看 (上周)"
+
+msgid "No results found"
+msgstr "没有找到结果"
+
+msgid "Choose from popular search terms"
+msgstr "从热门搜索词中选择"
+
+msgid "External link"
+msgstr "外部链接"
+
+msgid "None"
+msgstr "无"
+
+msgid "Search Terms"
+msgstr "检索词"
+
+msgid "Add new promoted result"
+msgstr "新增推广结果"
+
+msgid "Search term(s)"
+msgstr "搜索词条(s)"
+
+msgid "Promoted results"
+msgstr "推广结果"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "为'%(query)s'的编辑精选已被创建。"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "无法创建推荐，出现错误。"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "为'%(query)s'的编辑精选已被更新。"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "无法保存推荐，出现错误。"
+
+msgid "Editor's picks deleted."
+msgstr "编辑精选已被删除。"

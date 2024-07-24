@@ -1,0 +1,2 @@
+{% load i18n %}
+<input {% if parent %}data-bulk-action-parent-id="{{ parent }}"{% endif %} data-bulk-action-select-all-checkbox type="checkbox" aria-label="{{ _('Select all') }}"/>

@@ -1,0 +1,354 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail pildid"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Toetatud vormingud: %(supported_formats)s. Maksimaalne failisuurus: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Toetatud vormingud: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Pole toetatud pildivorming. Toetatud vormingud: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"See fail on liiga suur (%(file_size)s). Maksimaalne failisuurus "
+"%(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Selles failis on liiga palju piksleid (%(num_pixels)s). Maksimaalne piksel "
+"%(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "See fail on liiga suur. Maksimaalne failisuurus %(max_filesize)s."
+
+msgid "Full width"
+msgstr "Täislaius"
+
+msgid "Left-aligned"
+msgstr "Joondatud vasakule"
+
+msgid "Right-aligned"
+msgstr "Paremale joondatud"
+
+msgid "Collection"
+msgstr "Kogumine"
+
+msgid "Alt text"
+msgstr "Alt-tekst"
+
+msgid "Filter"
+msgstr "Filtreeri"
+
+msgid "Original size"
+msgstr "Algne suurus"
+
+msgid "Resize to width"
+msgstr "Suuruse muutmine laiuseks"
+
+msgid "Resize to height"
+msgstr "Suuruse muutmine suurusele"
+
+msgid "Resize to min"
+msgstr "Suuruse muutmine min"
+
+msgid "Resize to max"
+msgstr "Suuruse muutmine max"
+
+msgid "Resize to fill"
+msgstr "Suuruse muutmiseks täitmiseks"
+
+msgid "Width"
+msgstr "Laius"
+
+msgid "Height"
+msgstr "Kõrgus"
+
+msgid "Closeness"
+msgstr "Lähedus"
+
+msgid "Add"
+msgstr "Lisama"
+
+msgid "Add/edit images you own"
+msgstr "Lisage / muutke omatavaid pilte"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Edit any image"
+msgstr "Muutke suvalist pilti"
+
+msgid "Choose"
+msgstr "Valige"
+
+msgid "title"
+msgstr "pealkiri"
+
+msgid "file"
+msgstr "faili"
+
+msgid "width"
+msgstr "laius"
+
+msgid "height"
+msgstr "kõrgus"
+
+msgid "created at"
+msgstr "loodud aadressil"
+
+msgid "uploaded by user"
+msgstr "kasutaja üles laaditud"
+
+msgid "tags"
+msgstr "sildid"
+
+msgid "image"
+msgstr "pilt"
+
+msgid "images"
+msgstr "pilte"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
+msgid "Popular tags"
+msgstr "Populaarsed sildid"
+
+msgid "Existing"
+msgstr "Olemasolev"
+
+msgid "New"
+msgstr "Uus"
+
+msgid "Latest images"
+msgstr "Uusimad pildid"
+
+msgid "Choose a format"
+msgstr "Valige vorming"
+
+msgid "Insert image"
+msgstr "Sisesta pilt"
+
+msgid "Change image file:"
+msgstr "Pildifaili muutmine:"
+
+msgid "Add an image"
+msgstr "Lisage pilt"
+
+msgid "Add image"
+msgstr "Lisa pilt"
+
+msgid "Save"
+msgstr "Salvesta"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "%(title)s redigeerimine"
+
+msgid "Editing"
+msgstr "Redigeerimine"
+
+msgid "Delete image"
+msgstr "Kustuta pilt"
+
+msgid "URL Generator"
+msgstr "URL-i generaator"
+
+msgid "Focal point"
+msgstr "Fookuspunkt"
+
+msgid "(optional)"
+msgstr "(valikuline)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Selle pildi kõige olulisema piirkonna määratlemiseks lohistage kast "
+"ülaloleva pildi kohale."
+
+msgid "Current focal point shown"
+msgstr "Kuvatud praegune fookuspunkt"
+
+msgid "Remove focal area"
+msgstr "Eemaldage fookusala"
+
+msgid "Max dimensions"
+msgstr "Maksimaalsed mõõtmed"
+
+msgid "Filesize"
+msgstr "Faili suurus"
+
+msgid "File not found"
+msgstr "Faili ei leitud"
+
+msgid "Usage"
+msgstr "Kasutamine"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Vabandust, ükski pilt ei vasta \"<em>%(query_string)s</em>\" päringule"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Te pole sellesse kogusse ühtegi pilti üles laadinud. Miks mitte <a "
+"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Te pole ühtegi pilti üles laadinud. Miks mitte <a "
+"href=\"%(wagtailimages_add_image_url)s\">seda kohe üles laadida</a>?"
+
+msgid "Preview"
+msgstr "Eelvaade"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Add multiple images"
+msgstr "Lisage mitu pilti"
+
+msgid "Add images"
+msgstr "Lisage pilte"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Kohe üleslaadimiseks lohistage pilte sellesse piirkonda."
+
+msgid "Or choose from your computer"
+msgstr "Või valige oma arvutist"
+
+msgid "Add to collection:"
+msgstr "Lisa kogusse:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Üleslaadimine õnnestus. Vajadusel värskendage seda pilti sobivama "
+"pealkirjaga. Võite ka pildi täielikult kustutada, kui üleslaadimist pole "
+"vaja."
+
+msgid "Sorry, upload failed."
+msgstr "Vabandust, üleslaadimine ebaõnnestus."
+
+msgid "Server Error"
+msgstr "Serveri viga"
+
+msgid "Image updated."
+msgstr "Pilt on värskendatud."
+
+msgid "Image permissions"
+msgstr "Pildi load"
+
+msgid "Add an image permission"
+msgstr "Lisage pildiluba"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Upload"
+msgstr "Laadi üles"
+
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
+
+msgid "Choose an image"
+msgstr "Valige pilt"
+
+msgid "Edit this image"
+msgstr "Muutke seda pilti"
+
+msgid "Images"
+msgstr "Kujutised"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Pilt „%(image_title)s” on värskendatud."
+
+msgid "Edit again"
+msgstr "Muuda uuesti"
+
+msgid "The image could not be saved due to errors."
+msgstr "Pilti ei õnnestunud vigade tõttu salvestada."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "Allikapildifaili ei leitud. Palun muutke allikat või kustutage pilt."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Pilt '%(image_title)s' on kustutatud."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Pilt '%(image_title)s' on lisatud."
+
+msgid "The image could not be created due to errors."
+msgstr "Pilti ei saanud vigade tõttu luua."
+
+msgid "Image"
+msgstr "Pilt"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s pilt"
+msgstr[1] "%(count)s pilti"
+
+msgid "Change image"
+msgstr "Muuda pilti"

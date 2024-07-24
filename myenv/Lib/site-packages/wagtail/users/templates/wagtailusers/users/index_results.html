@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/generic/index_results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block no_results_message %}
+    {% if is_searching or is_filtering %}
+        <h2 role="alert">{% blocktrans trimmed %}Sorry, no users match your query{% endblocktrans %}</h2>
+    {% else %}
+        <p>{% blocktrans trimmed with wagtailusers_add_url=add_url %}There are no users configured. Why not <a href="{{ wagtailusers_add_url }}">add some</a>?{% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,6 @@
+{% load wagtailadmin_tags %}
+{% for button in buttons %}
+    {% if button.show %}
+        <li>{% component button %}</li>
+    {% endif %}
+{% endfor %}

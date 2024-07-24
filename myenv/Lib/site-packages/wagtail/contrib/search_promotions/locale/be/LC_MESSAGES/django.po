@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
+"Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Пошукавае прасоўванне Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Крытэр пошуку (фраза)"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Каб адпавядаць - увядзіце поўны радок пошуку. Патрабуецца дакладнае "
+"супадзенне для вашых Вынікаў Прасоўвання, якія будуць адлюстроўвацца. Не "
+"дапускаюцца групавыя сімвалы."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Калі ласка, сфармулюйце не менш за адну рэкамендацыю па пошукаваму запыту."
+
+msgid "Query Daily Hits"
+msgstr "Запыт штодзенных хітоў"
+
+msgid "page"
+msgstr "старонка"
+
+msgid "description"
+msgstr "апісанне"
+
+msgid "search promotion"
+msgstr "пошукавае прасоўванне"
+
+msgid "Add search promotion"
+msgstr "Дадаць пошукавае прасоўванне"
+
+msgid "Add search pick"
+msgstr "Дадаць пошуковую падборку"
+
+msgid "Save"
+msgstr "Захаваць"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Выдаліць %(query)s"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Вы ўпэўнены, што жадаеце выдаліць усе прасунутыя вынікі па гэтым пошукаваму "
+"запыту?"
+
+msgid "Yes, delete"
+msgstr "Так, выдаліць"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Рэдактаванне %(query)s"
+
+msgid "Editing"
+msgstr "Рэдактаванне"
+
+msgid "Move up"
+msgstr "Перамясціць уверх"
+
+msgid "Move down"
+msgstr "Перамясціць уніз"
+
+msgid "Promoted search results"
+msgstr "Высокі вынік пошуку"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "На жаль, няма вынікаў рэкламы \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Ніякіх рэкламных вынікаў не было знойдзена, супадаючых з <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+
+msgid "Popular search terms"
+msgstr "Папулярныя пошукавыя запыты"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Terms"
+msgstr "Тэрміны"
+
+msgid "Views (past week)"
+msgstr "Прагляды (за тыдзень)"
+
+msgid "No results found"
+msgstr "Нічога не знойдзена"
+
+msgid "Choose from popular search terms"
+msgstr "Выбраць з папулярных пошукавых запытаў"
+
+msgid "External link"
+msgstr "Знешняя спасылка"
+
+msgid "None"
+msgstr "Нікодны"
+
+msgid "Search Terms"
+msgstr "Умовы пошуку"
+
+msgid "Add new promoted result"
+msgstr "Дадаць новы высокі вынік пошуку"
+
+msgid "Search term(s)"
+msgstr "Пошукавы(я) запыт(ы)"
+
+msgid "Promoted results"
+msgstr "Рэклама вынікаў"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Зроблена падборка для '%(query)s'."
+
+msgid "Edit"
+msgstr "Рэдактаваць"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Рэкамендацыі не былі створаны з-за памылкі"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Падборка для «%(query)s» абнаўляецца."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Рэкамендацыі не былі захаваныя з-за памылкі"
+
+msgid "Editor's picks deleted."
+msgstr "Падборка выдалена."

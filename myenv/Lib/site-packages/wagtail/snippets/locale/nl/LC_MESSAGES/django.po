@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Storm Heg <storm@stormbase.digital>, 2021-2024
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publiceren"
+
+msgid "Submit for moderation"
+msgstr "Dien in ter controle"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Stuur opnieuw door naar %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Stuur door naar %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Workflow herstarten"
+
+msgid "Cancel workflow "
+msgstr "Workflow annuleren"
+
+msgid "Unpublish"
+msgstr "Publicatie intrekken"
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Locked"
+msgstr "Vergrendeld"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s en publiceren"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail snippets"
+
+msgid "Delete selected snippets"
+msgstr "Verwijder geselecteerde snippets"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' verwijderd."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d%(model_name)s verwijderd."
+msgstr[1] "%(count)d%(model_name)s verwijderd."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Verwijder%(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Verwijder"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s keer gebruikt"
+msgstr[1] "%(usage_count)s keer gebruikt"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Weet je zeker dat je deze %(snippet_type_name)s wilt verwijderen?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "%(count)s%(snippet_type_name)s worden verwijderd. Weet je het zeker?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Je hebt niet de juiste rechten om %(snippet_type_name)s te verwijderen"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr ""
+"Je hebt niet de juiste rechten om deze %(snippet_plural_name)s te verwijderen"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijder"
+
+msgid "No, don't delete"
+msgstr "Nee, niet verwijderen"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Sorry, er zijn geen snippets die voldoen aan de zoekopdracht "
+"\"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Er zijn nog geen %(snippet_type_name)s snippets toegevoegd. <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Voeg er nu een toe</a>"
+
+msgid "Publishing…"
+msgstr "Bezig met publiceren..."
+
+msgid "Publish this version"
+msgstr "Publiceer deze versie"
+
+msgid "Saving…"
+msgstr "Bezig met opslaan…"
+
+msgid "Replace current draft"
+msgstr "Vervang huidig concept"
+
+msgid "Replace current revision"
+msgstr "Vervang huidige revisie"
+
+msgid "Save draft"
+msgstr "Bewaar concept"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Select all snippets in listing"
+msgstr "Selecteer alle snippets in lijst"
+
+msgid "Choose"
+msgstr "Kies"
+
+msgid "Snippets"
+msgstr "Snippets"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Instances"
+msgstr "Instanties"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Meer opties voor '%(title)s'"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Bewerk %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "%(model_name)s geschiedenis"
+
+msgid "Home"
+msgstr "Home"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Kies %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Kies %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Wijzig %(object)s"

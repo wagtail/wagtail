@@ -1,0 +1,11 @@
+{% load wagtailadmin_tags %}
+
+{% if show_menu %}
+    {% dropdown_button button=default_menu_item toggle_icon="arrow-up" %}
+        {% for item in rendered_menu_items %}
+            {{ item }}
+        {% endfor %}
+    {% enddropdown_button %}
+{% elif default_menu_item %}
+    {{ default_menu_item }}
+{% endif %}

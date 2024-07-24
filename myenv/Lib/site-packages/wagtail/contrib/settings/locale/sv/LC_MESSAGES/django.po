@@ -1,0 +1,55 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andreas Bergström <andreas.bergstrom@gmail.com>, 2018
+# André Karlsson <andre@sess.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020
+# Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019,2022
+# Thomas Kunambi <kunambi@gmail.com>, 2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016,2022\n"
+"Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
+"sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "standard"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s för %(site)s"
+
+msgid "Site"
+msgstr "Webbplats"
+
+msgid "Saving…"
+msgstr "Sparar…"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Settings"
+msgstr "Inställningar"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Den här inställningen kunde inte öppnas eftersom det inte finns någon "
+"definierad webbplats."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Inställningen kunde inte sparas då ett fel uppstod."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s uppdaterad."

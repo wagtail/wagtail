@@ -1,0 +1,263 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# Oliver Engel <codeangel@posteo.de>, 2022
+# Donald Buczek, 2021
+# Donald Buczek, 2021
+# Ettore Atalan <atalanttore@googlemail.com>, 2016,2020
+# Florian Vogt <flori@vorlif.org>, 2015
+# Florian Vogt <flori@vorlif.org>, 2015
+# Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# Johannes Spielmann <j@spielmannsolutions.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# karlsander <karlsander@gmail.com>, 2014
+# Oliver Engel <codeangel@posteo.de>, 2021-2022
+# Oliver Engel <codeangel@posteo.de>, 2021
+# pcraston <patrick@craston.com>, 2014
+# Patrick Hebner <hebner.tec@gmail.com>, 2020
+# pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Florian Vogt <flori@vorlif.org>, 2015
+# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
+"de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail Weiterleitungen"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Permanent"
+
+msgid "Temporary"
+msgstr "Temporär"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "From site"
+msgstr "Von Website"
+
+msgid "All sites"
+msgstr "Alle Websites"
+
+msgid "A redirect with this path already exists."
+msgstr "Eine Weiterleitung mit diesem Pfad existiert bereits."
+
+msgid "File to import"
+msgstr "Zu importierende Datei"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Unterstützte Formate: %(supported_formats)s"
+
+msgid "From field"
+msgstr "Von Feld"
+
+msgid "To field"
+msgstr "Zu Feld"
+
+msgid "redirect from"
+msgstr "Weiterleitung von"
+
+msgid "site"
+msgstr "Webseite"
+
+msgid "permanent"
+msgstr "Permanent"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Empfohlen. Permanente Weiterleitungen sorgen dafür, dass Suchmaschinen die "
+"alten Einträge vergessen und stattdessen die neue Seite (aus ‚Weiterleiten "
+"von‘) durchsuchen."
+
+msgid "redirect to a page"
+msgstr "Zu einer Seite weiterleiten"
+
+msgid "target page route"
+msgstr "Pfad der Zielseite"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Wahlweise geben Sie einen Pfad auf die Zeilseite an, um auf diese "
+"weiterlzuleiten. Freilassen, um auf den Standardseitenpfad weiterzuleiten."
+
+msgid "redirect to any URL"
+msgstr "Zu einer URL weiterleiten"
+
+msgid "automatically created"
+msgstr "automatisch erstellt"
+
+msgid "created at"
+msgstr "Erstellt am"
+
+msgid "temporary"
+msgstr "temporär"
+
+msgid "redirect"
+msgstr "Weiterleitung"
+
+msgid "redirects"
+msgstr "Weiterleitungen"
+
+msgid "Add redirect"
+msgstr "Weiterleitung hinzufügen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Redirects"
+msgstr "Weiterleitungen"
+
+msgid "Import redirects"
+msgstr "Weiterleitungen importieren"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Wählen Sie eine Datei, in der die Weiterleitungen zeilenweise angeordnet "
+"sind. Die Datei sollte zwei Spalten enthalten, welche die Werte für "
+"<code>von</code> und <code>nach</code> repräsentieren (die Namen der Spalten "
+"sind beliebig wählbar).</p><p>Nach dem Übermitteln der Datei werden Sie zu "
+"einer Bestätigungsseite weitergeleitet. Hier können Sie Ihre Weiterleitungen "
+"noch einmal anpassen, bevor diese importiert werden.</p> "
+
+msgid "Import"
+msgstr "Import"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Weiterleitung %(title)s löschen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Sind Sie sicher, dass Sie diese Weiterleitung löschen wollen?"
+
+msgid "Yes, delete"
+msgstr "Ja, löschen"
+
+msgid "Confirm import"
+msgstr "Import bestätigen"
+
+msgid "Confirm"
+msgstr "Bestätigen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Preview"
+msgstr "Vorschau"
+
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"%(total)s Weiterleitungen gefunden, %(successes)s erstellt und %(errors)s "
+"Fehler gefunden."
+
+msgid "From"
+msgstr "Von"
+
+msgid "To"
+msgstr "Nach"
+
+msgid "Error"
+msgstr "Fehler"
+
+msgid "Continue"
+msgstr "Weiter"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Leider gibt es keine Weiterleitungen zum Suchbegriff „<em>%(query_string)s</"
+"em>“"
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Sie haben noch keine Weiterleitung erstellt.<a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">Erstellen Sie doch jetzt eine!"
+"</a>"
+
+msgid "Site"
+msgstr "Seite"
+
+msgid "The redirect could not be saved due to errors."
+msgstr ""
+"Aufgrund von Fehlern konnte die Weiterleitung nicht gespeichert werden."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Weiterleitung ‚%(redirect_title)s‘ aktualisiert."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Weiterleitung ‚%(redirect_title)s‘ gelöscht."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Weiterleitung ‚%(redirect_title)s‘ hinzugefügt"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "The redirect could not be created due to errors."
+msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."
+
+msgid "Search redirects"
+msgstr "Such-Umleitungen"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Das Dateiformat des Types \"%(extension)s\" wird nicht unterstützt."
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Die importierte Datei hat eine falsche Kodierung: %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "Es sind %(error)s beim lesen der Datei %(filename)s aufgetreten."
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "%(total)d Weiterleitung wurde importiert."
+msgstr[1] "%(total)d Weiterleitungen wurden importiert."

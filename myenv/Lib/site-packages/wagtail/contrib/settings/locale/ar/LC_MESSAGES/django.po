@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2016
+# abdulaziz alfuhigi <abajall@gmail.com>, 2016
+# Bashar Al-Abdulhadi, 2020
+# Bashar Al-Abdulhadi, 2020
+# Khaled Arnaout <khaledarnaout@live.com>, 2018
+# Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
+# abdulaziz alfuhigi <abajall@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>, 2016\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "default"
+msgstr "الإفتراضي"
+
+msgid "Site"
+msgstr "موقع"
+
+msgid "Saving…"
+msgstr "جاري الحفظ…"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Settings"
+msgstr "اعدادات"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "لايمكن فتح الاعدادات لعدم وجود موقع مُعرف."
+
+msgid "The setting could not be saved due to errors."
+msgstr "لايمكن حفظ الاعدادات بسبب وجود اخطاء"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "تم تحديث %(setting_type)s"

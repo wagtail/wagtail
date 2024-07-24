@@ -1,0 +1,591 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Eetu Häivälä, 2016-2017
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2024
+# Juha Yrjölä <juha.yrjola@iki.fi>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2022
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2024\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtailin kuvat"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Tuetut muodot: %(supported_formats)s. Tiedoston koko voi olla enintään: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Tuetut muodot: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Kuvan muoto ei ole tuettu. Tuetut muodot: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"Not a valid .%(extension)s image. The extension does not match the file "
+"format (%(image_format)s)"
+msgstr ""
+"Ei kelvollinen .%(extension)s-kuva. Tiedostopääte ei vastaa tiedostomuotoa "
+"(%(image_format)s)"
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tiedosto on liian suuri (%(file_size)s). Tiedoston koko voi olla enintään "
+"%(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Tässä tiedostossa on liian monta kuvapistettä (%(num_pixels)s). "
+"Enimmäismäärä on %(max_pixels_count)s, "
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Tiedosto on liian suuri. Tiedoston koko voi olla enintään %(max_filesize)s."
+
+msgid "Full width"
+msgstr "Täysi leveys"
+
+msgid "Left-aligned"
+msgstr "Tasattu vasemmalle"
+
+msgid "Right-aligned"
+msgstr "Tasattu oikealle"
+
+msgid "Collection"
+msgstr "Kokoelma"
+
+msgid "Format"
+msgstr "Muoto"
+
+msgid "Image is decorative"
+msgstr "Kuva on vain koristeellinen"
+
+msgid "Alt text"
+msgstr "Vaihtoehtoinen teksti"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Lisää kuvalle vaihtoehtoinen teksti tai merkitse se vain koristeelliseksi."
+
+msgid "Filter"
+msgstr "Suodatin"
+
+msgid "Original size"
+msgstr "Alkuperäinen koko"
+
+msgid "Resize to width"
+msgstr "Muuta leveys"
+
+msgid "Resize to height"
+msgstr "Muuta korkeus"
+
+msgid "Resize to min"
+msgstr "Muuta pienempään suuntaan"
+
+msgid "Resize to max"
+msgstr "Muuta suurempaan suuntaan"
+
+msgid "Resize to fill"
+msgstr "Muuta täyttämään"
+
+msgid "Width"
+msgstr "Leveys"
+
+msgid "Height"
+msgstr "Korkeus"
+
+msgid "Closeness"
+msgstr "Läheisyys"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add/edit images you own"
+msgstr "Lisää/muokkaa kuvia jota omistat"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit any image"
+msgstr "Muokkaa mitä vain kuvaa"
+
+msgid "Choose"
+msgstr "Valitse"
+
+msgid "Select images in choosers"
+msgstr "Valitse kuvat valitsimissa"
+
+msgid "title"
+msgstr "otsikko"
+
+msgid "file"
+msgstr "tiedosto"
+
+msgid "width"
+msgstr "leveys"
+
+msgid "height"
+msgstr "korkeus"
+
+msgid "created at"
+msgstr "luotu"
+
+msgid "uploaded by user"
+msgstr "lähettänyt käyttäjä"
+
+msgid "tags"
+msgstr "tunnisteet"
+
+msgid "image"
+msgstr "kuva"
+
+msgid "images"
+msgstr "kuvaa"
+
+#, python-format
+msgid "Add tags to 1 image"
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Lisää tunnisteet 1 kuvaan"
+msgstr[1] "Lisää tunnisteet %(counter)s kuvaan"
+
+msgid "Add tags to images"
+msgstr "Lisää tunnisteet kuviin"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Haluatko varmasti lisätä tunnisteen seuraavaan kuvaan?"
+msgstr[1] "Haluatko varmasti lisätä tunnisteen seuraaviin kuviin?"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "Oikeutesi eivät riitä tunnisteiden lisäämiseen tähän kuvaan"
+msgstr[1] "Oikeutesi eivät riitä tunnisteiden lisäämiseen näihin kuviin"
+
+msgid "Yes, add"
+msgstr "Kyllä, lisää"
+
+msgid "No, don't add"
+msgstr "Ei, älä lisää"
+
+#, python-format
+msgid "Add 1 image to new collection"
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Lisää 1 kuva uuteen kokoelmaan"
+msgstr[1] "Lisää %(counter)s kuvaa uuteen kokoelmaan"
+
+msgid "Add images to collection"
+msgstr "Lisää kuvia kokoelmaan"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] "Haluatko varmasti lisätä seuraavan kuvan valittuun kokoelmaan?"
+msgstr[1] "Haluatko varmasti lisätä seuraavat kuvat valittuun kokoelmaan?"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "Oikeutesi eivät riitä tämän kuvan lisäämiseksi kokoelmaan"
+msgstr[1] "Oikeutesi eivät riitä näiden kuvien lisäämiseen kokoelmaan"
+
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] "Poista 1 kuva"
+msgstr[1] "Poista %(counter)s kuvaa"
+
+msgid "Delete images"
+msgstr "Poista kuvat"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Haluatko varmasti poistaa tämän kuvan?"
+msgstr[1] "Haluatko varmasti poistaa nämä kuvat?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
+
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] "Oikeutesi eivät riitä tämän kuvan poistamiseen"
+msgstr[1] "Oikeutesi eivät riitä näiden kuvien poistamiseen"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+msgid "No, don't delete"
+msgstr "Ei, älä poista"
+
+msgid "Popular tags"
+msgstr "Suositut tunnisteet"
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of an "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Lähetys onnistui. Uusi kuva vaikuttaa kuitenkin olevan kaksoiskappale "
+"olemassa olevasta kuvasta. Saatat mahdollisesti haluta poistaa uuden kuvan, "
+"jos kaksoiskappale ei ollut tarkoituksellinen."
+
+msgid "Existing"
+msgstr "Olemassa oleva"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "Use new image"
+msgstr "Käytä uutta kuvaa"
+
+msgid "Use existing and delete new"
+msgstr "Käytä olemassa olevaa ja poista uusi"
+
+msgid "Latest images"
+msgstr "Tuoreimmat kuvat"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Valitse %(title)s"
+
+msgid "You haven't uploaded any images in this collection."
+msgstr "Et ole lähettänyt kuvia tähän kokoelmaan."
+
+msgid "You haven't uploaded any images."
+msgstr "Et ole lähettänyt kuvia."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Mitä jos vaikka <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>lähettäisit kuvan nyt</a>?"
+
+msgid "Choose a format"
+msgstr "Valitse muoto"
+
+msgid "Insert image"
+msgstr "Lisää kuva"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> kuva <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> kuvaa <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+
+msgid "Change image file:"
+msgstr "Vaihda kuvatiedosto:"
+
+msgid "Add an image"
+msgstr "Lisää kuva"
+
+msgid "Add image"
+msgstr "Lisää kuva"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Keep new image"
+msgstr "Säilytä uusi kuva"
+
+msgid "Delete new image"
+msgstr "Poista uusi kuva"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Muokataan kuvaa %(title)s"
+
+msgid "Editing"
+msgstr "Muokataan"
+
+msgid "Delete image"
+msgstr "Poista kuva"
+
+msgid "Image focal point"
+msgstr "Kuvan kiintopiste"
+
+msgid "URL Generator"
+msgstr "URL-generaattori"
+
+msgid "Focal point"
+msgstr "Polttopiste"
+
+msgid "(optional)"
+msgstr "(valinnainen)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Määrittele kuvan tärkein alue rajaamalla yläpuolella olevasta kuvasta "
+"suorakaide."
+
+msgid "Current focal point shown"
+msgstr "Nykyinen kiintopiste näkyy"
+
+msgid "Remove focal area"
+msgstr "Poista polttopiste"
+
+msgid "Max dimensions"
+msgstr "Enimmäismitat"
+
+msgid "Filesize"
+msgstr "Tiedostokoko"
+
+msgid "File not found"
+msgstr "Tiedostoa ei löydy"
+
+msgid "Usage"
+msgstr "Käyttö"
+
+msgid "Sort by"
+msgstr "Järjestys"
+
+msgid "Select all images in listing"
+msgstr "Valitse listauksen kaikki kuvat"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään kuva ei täsmää hakuun \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Et ole lähettänyt yhtään kuvaa tähän kokoelmaan. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Et ole lähettänyt yhtään kuvaa. Mikset vaikka <a "
+"href=\"%(wagtailimages_add_image_url)s\">lähettäisi yhtä nyt</a>?"
+
+msgid "Preview"
+msgstr "Esikatsele"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Image URL"
+msgstr "Kuvan osoite"
+
+msgid "Copy URL"
+msgstr "Kopioi osoite"
+
+msgid "Copied to clipboard"
+msgstr "Kopioitu leikepöydälle"
+
+msgid "Copying to clipboard failed"
+msgstr "Leikepöydälle kopiointi epäonnistui"
+
+msgid "Add multiple images"
+msgstr "Lisää useita kuvia"
+
+msgid "Add images"
+msgstr "Lisää kuvia"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Raahaa ja pudota kuvia tälle alueelle lähettääksesi ne heti."
+
+msgid "Or choose from your computer"
+msgstr "Tai valitse tietokoneeltasi"
+
+msgid "Add to collection:"
+msgstr "Lisää kokoelmaan:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Siirto onnistui. Päivitä kuva osuvammalla otsikolla, jos tarpeellista. Voit "
+"myös poistaa kuvan kokonaan, jos siirto ei ollut tarpeellinen."
+
+msgid ""
+"Upload successful. However, your new image seems to be a duplicate of this "
+"existing image. You may delete it if it wasn't required."
+msgstr ""
+"Lähetys onnistui. Uusi kuva vaikuttaa kuitenkin olevan tämän olemassa olevan "
+"kuvan kaksoiskappale. Saatat mahdollisesti haluta poistaa uuden kuvan, jos "
+"kaksoiskappale ei ollut tarkoituksellinen."
+
+msgid "Sorry, upload failed."
+msgstr "Pahoittelut, siirto epäonnistui."
+
+msgid "Server Error"
+msgstr "Palvelinvirhe"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
+
+msgid "Image updated."
+msgstr "Kuva päivitetty."
+
+msgid "Image permissions"
+msgstr "Kuvan oikeudet"
+
+msgid "Add an image permission"
+msgstr "Lisää kuvaoikeus"
+
+msgid "Tags"
+msgstr "Tunnisteet"
+
+msgid "Tag"
+msgstr "Tunniste"
+
+msgid "Add tags to the selected images"
+msgstr "Lisää tunnisteet valittuihin kuviin"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] "Uusia tunnisteita on lisätty %(num_parent_objects)d kuvaan"
+msgstr[1] "Uusia tunnisteita on lisätty %(num_parent_objects)d kuvaan"
+
+msgid "Add to collection"
+msgstr "Lisää kokoelmaan"
+
+msgid "Add selected images to collection"
+msgstr "Lisää valitut kuvat kokoelmaan"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d kuva on lisätty kokoelmaan %(collection)s"
+msgstr[1] "%(num_parent_objects)d kuvaa on lisätty kokoelmaan %(collection)s"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Delete selected images"
+msgstr "Poista valitut kuvat"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been deleted"
+msgid_plural "%(num_parent_objects)d images have been deleted"
+msgstr[0] "%(num_parent_objects)d kuva on poistettu"
+msgstr[1] "%(num_parent_objects)d kuvaa on poistettu"
+
+msgid "Upload"
+msgstr "Lähetä"
+
+msgid "Uploading…"
+msgstr "Lähetetään…"
+
+msgid "Choose an image"
+msgstr "Valitse kuva"
+
+msgid "Choose another image"
+msgstr "Valitse toinen kuva"
+
+msgid "Edit this image"
+msgstr "Muokkaa tätä kuvaa"
+
+msgid "Newest"
+msgstr "Uusin"
+
+msgid "Oldest"
+msgstr "Vanhin"
+
+msgid "Title: (A -> Z)"
+msgstr "Nimi: (A -> Ö)"
+
+msgid "Title: (Z -> A)"
+msgstr "Nimi: (Ö -> A)"
+
+msgid "File size: (low to high)"
+msgstr "Tiedostokoko: (pienimmästä suurimpaan)"
+
+msgid "File size: (high to low)"
+msgstr "Tiedostokoko: (suurimmasta pienimpään)"
+
+msgid "Images"
+msgstr "Kuvat"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Kuva '%(image_title)s' päivitetty."
+
+msgid "Edit again"
+msgstr "Muokkaa uudestaan"
+
+msgid "The image could not be saved due to errors."
+msgstr "Kuvaa ei voitu tallentaa virheiden vuoksi."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Valittua kuvatiedostoa ei löytynyt. Ole hyvä ja valitse toinen kuvatiedosto "
+"tai poista kuva."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Kuva '%(image_title)s' poistettu."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Kuva '%(image_title)s' lisätty."
+
+msgid "The image could not be created due to errors."
+msgstr "Kuvaa ei voitu luoda virheiden vuoksi."
+
+msgid "Image"
+msgstr "Kuva"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s kuva"
+msgstr[1] "%(count)s kuvaa"
+
+msgid "Change image"
+msgstr "Vaihda kuva"

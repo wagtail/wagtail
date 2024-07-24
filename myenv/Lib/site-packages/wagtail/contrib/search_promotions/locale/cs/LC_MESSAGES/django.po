@@ -1,0 +1,163 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail upřednostněné hledání"
+
+msgid "Search term(s)/phrase"
+msgstr "Hledat výraz(y)/fráze"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Zadejte řetězec tak, aby odpovídal hledanému výrazu. Je vyžadována přesná "
+"shoda pro zobrazení Vašich propagovaných výsledků, zástupné znaky nejsou "
+"povoleny."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Definujte prosím alespoň jedno doporučení pro hledaný výraz."
+
+msgid "Query Daily Hits"
+msgstr "Denní vyhledávané výrazy"
+
+msgid "page"
+msgstr "stránka"
+
+msgid "description"
+msgstr "popis"
+
+msgid "search promotion"
+msgstr "upřednostňování hledání"
+
+msgid "Add search promotion"
+msgstr "Přidat upřednostněné hledání"
+
+msgid "Add search pick"
+msgstr "Přidat volbu hledání"
+
+msgid "Save"
+msgstr "Uložit"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Smazat %(query)s"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Opravdu chcete smazat všechny upřednostněné výsledky pro tento hledaný výraz?"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Úprava %(query)s"
+
+msgid "Editing"
+msgstr "Úprava"
+
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Promoted search results"
+msgstr "Upřednostněné výsledky hledání"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Bohužel, výrazu \"<em>%(query_string)s</em>\" neodpovídají žádné "
+"upřednostněné výsledky"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nebyly nalezeny žádné upřednostněné výsledky. Nové upřednostněné vyhledávání "
+"můžete přidat <a href=\"%(wagtailsearchpromotions_add_url)s\">zde</a>?"
+
+msgid "Popular search terms"
+msgstr "Oblíbené hledané výrazy"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Terms"
+msgstr "Výrazy"
+
+msgid "Views (past week)"
+msgstr "Zobrazení (poslední týden)"
+
+msgid "No results found"
+msgstr "Nebyly nalezeny žádné výsledky"
+
+msgid "Choose from popular search terms"
+msgstr "Vybrat z nejčastěji hledaných výrazů"
+
+msgid "External link"
+msgstr "Externí odkaz"
+
+msgid "None"
+msgstr "Nic"
+
+msgid "Search Terms"
+msgstr "Hledat výrazy"
+
+msgid "Add new promoted result"
+msgstr "Přidat nový upřednostněný výsledek"
+
+msgid "Search term(s)"
+msgstr "Hledaný výraz(y)"
+
+msgid "Promoted results"
+msgstr "Upřednostněné výsledky"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Editorův výběr pro '%(query)s' byl vytvořen."
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Doporučení nelze vytvořit, zkontrolujte správné vyplnění polí."
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Editorův výběr pro '%(query)s' byl upraven."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Doporučení nelze uložit, zkontrolujte správné vyplnění polí."
+
+msgid "Editor's picks deleted."
+msgstr "Editorův výběr byl smazán."

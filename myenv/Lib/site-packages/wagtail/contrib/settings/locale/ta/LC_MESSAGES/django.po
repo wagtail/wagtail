@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Ramakrishnan Sathyanarayanan, 2022
+# Ramakrishnan Sathyanarayanan, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Ramakrishnan Sathyanarayanan, 2022\n"
+"Language-Team: Tamil (http://app.transifex.com/torchbox/wagtail/language/"
+"ta/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ta\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "முன் நிர்ணயம்"
+
+msgid "Site"
+msgstr "தளம் "
+
+msgid "Saving…"
+msgstr "சேமிக்கின்றது..."
+
+msgid "Save"
+msgstr "சேமிக்கவும் "
+
+msgid "Settings"
+msgstr "அமைவுகள்"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "இதுவரை தளம் எதுவும் உருவாக்கப்படாததால் இந்த அமைவை திறக்க இயலாது."
+
+msgid "The setting could not be saved due to errors."
+msgstr "பிழை காரணமாக இந்த அமைவு சேமிக்க இயலாது."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sமாற்றப்பட்டது."

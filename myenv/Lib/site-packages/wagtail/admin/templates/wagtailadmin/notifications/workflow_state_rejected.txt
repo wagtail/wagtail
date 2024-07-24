@@ -1,0 +1,29 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting default="" as base_url %}
+
+{% block content %} {% if page %}
+{% if task_state.finished_by %}
+{% blocktrans trimmed with title=page.get_admin_display_title|safe workflow=workflow.name|safe task=task.name|safe rejector=task_state.finished_by|user_display_name %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}" by {{ rejector }}.{% endblocktrans %}
+{% else %}
+{% blocktrans trimmed with title=page.get_admin_display_title|safe workflow=workflow.name|safe task=task.name|safe %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}".{% endblocktrans %}
+{% endif %}
+{% if comment %}
+{% blocktrans trimmed with comment=comment|safe %}The following comment was left: "{{ comment }}"{% endblocktrans %}
+{% endif %}
+{% trans "You can edit the page here:"%} {{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %} {% else %} {% latest_str object as title %} {% admin_edit_url object user as edit_url %}
+{% if task_state.finished_by %}{% blocktrans trimmed with title=title|safe workflow=workflow.name|safe task=task.name|safe rejector=task_state.finished_by|user_display_name model_name=model_name|safe asvar message %}
+    The {{ model_name }} "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}" by {{ rejector }}.
+{% endblocktrans %}{{ message|capfirst|safe }}
+{% else %}
+{% blocktrans trimmed with title=title|safe workflow=workflow.name|safe task=task.name|safe model_name=model_name|safe asvar message %}
+    The {{ model_name }} "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}".
+{% endblocktrans %}{{ message|capfirst|safe }}
+{% endif %}
+{% if comment %}
+{% blocktrans trimmed with comment=comment|safe %}
+    The following comment was left: "{{ comment }}"
+{% endblocktrans %}
+{% endif %}
+{% if edit_url %}{% blocktrans trimmed with model_name=model_name|safe asvar edit_message %}You can edit the {{ model_name }} here: {% endblocktrans %}{{ edit_message|capfirst|safe }} {{ base_url }}{{ edit_url }}{% endif %}{% endif %}
+{% endblock %}

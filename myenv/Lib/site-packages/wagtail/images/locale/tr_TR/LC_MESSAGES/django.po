@@ -1,0 +1,357 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# José Luis <alagunajs@gmail.com>, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
+"Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
+"language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail resimler"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Desteklenen biçimler: %(supported_formats)s. Azami dosya boyutu: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Desteklenen biçimler: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Desteklenen bir resim formatı değil. Desteklenen biçimler: "
+"%(supported_formats)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr "Dosya çok büyük (%(file_size)s). Azami dosya boyutu %(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Dosyada çok fazla piksel var (%(num_pixels)s). Azami piksel "
+"%(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Dosya çok büyük. Azami dosya boyutu %(max_filesize)s."
+
+msgid "Full width"
+msgstr "Tam genişlik"
+
+msgid "Left-aligned"
+msgstr "Sola yaslı"
+
+msgid "Right-aligned"
+msgstr "Sağa yaslı"
+
+msgid "Collection"
+msgstr "Koleksiyon"
+
+msgid "Alt text"
+msgstr "Alt metin"
+
+msgid "Filter"
+msgstr "Filtrele"
+
+msgid "Original size"
+msgstr "Özgün boyut"
+
+msgid "Resize to width"
+msgstr "Bu genişliğe yeniden boyutlandır"
+
+msgid "Resize to height"
+msgstr "Bu yüksekliğe yeniden boyutlandır"
+
+msgid "Resize to min"
+msgstr "Asgari buna yeniden boyutlandır"
+
+msgid "Resize to max"
+msgstr "Azami buna yeniden boyutlandır"
+
+msgid "Resize to fill"
+msgstr "Doldurma şeklinde yeniden boyutlandır"
+
+msgid "Width"
+msgstr "Genişlik"
+
+msgid "Height"
+msgstr "Yükseklik"
+
+msgid "Closeness"
+msgstr "Sıklık"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Add/edit images you own"
+msgstr "Sahip olduğunuz resimleri ekle/düzenle"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit any image"
+msgstr "Herhangi bir resmi düzenle"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "title"
+msgstr "başlık"
+
+msgid "file"
+msgstr "dosya"
+
+msgid "width"
+msgstr "genişlik"
+
+msgid "height"
+msgstr "yükseklik"
+
+msgid "created at"
+msgstr "oluşturulma zamanı"
+
+msgid "uploaded by user"
+msgstr "yükleyen kullanıcı"
+
+msgid "tags"
+msgstr "etiketler"
+
+msgid "image"
+msgstr "resim"
+
+msgid "images"
+msgstr "resimler"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+msgid "Popular tags"
+msgstr "Yaygın etiketler"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Latest images"
+msgstr "En yeni resim"
+
+msgid "Choose a format"
+msgstr "Biçim seçin"
+
+msgid "Insert image"
+msgstr "Resim ekleyin"
+
+msgid "Change image file:"
+msgstr "Resim dosyasını değiştir:"
+
+msgid "Add an image"
+msgstr "Resim ekle"
+
+msgid "Add image"
+msgstr "Resim ekle"
+
+msgid "Save"
+msgstr "Kaydet"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "%(title)s resim düzenleniyor"
+
+msgid "Editing"
+msgstr "Düzenleniyor"
+
+msgid "Delete image"
+msgstr "Resmi sil"
+
+msgid "URL Generator"
+msgstr "URL Üretici"
+
+msgid "Focal point"
+msgstr "Odak noktası"
+
+msgid "(optional)"
+msgstr "(isteğe bağlı)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Resmin en önemli bölgesini seçmek için yukarıdaki resmin üzerinde kutuyu "
+"sürükleyin."
+
+msgid "Current focal point shown"
+msgstr "Şuanki odak noktası"
+
+msgid "Remove focal area"
+msgstr "Odak bölgesini kaldır"
+
+msgid "Max dimensions"
+msgstr "Azami boyutlar"
+
+msgid "Filesize"
+msgstr "Dosya boyutu"
+
+msgid "File not found"
+msgstr "Dosya bulunamadı"
+
+msgid "Usage"
+msgstr "Kullanım"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen resim yok"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Bu koleksiyona resim yüklemediniz. Neden <a "
+"href=\"%(wagtailimages_add_image_url)s\">şimdi bir tane yüklemiyorsunuz</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Resim yüklemediniz. Neden <a href=\"%(wagtailimages_add_image_url)s\">şimdi "
+"bir tane yüklemiyorsunuz</a>?"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Add multiple images"
+msgstr "Birden fazla resim ekle"
+
+msgid "Add images"
+msgstr "Resim ekle"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Hemen yüklemek için resimleri bu alana sürükleyip bırakın."
+
+msgid "Or choose from your computer"
+msgstr "Veya bilgisayarınızdan seçin"
+
+msgid "Add to collection:"
+msgstr "Koleksiyona ekle:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Yükleme başarılı. Lütfen gerekliyse resim için daha uygun bir başlık "
+"belirleyin. Eğer yükleme gerekli değilse resmi tamamen silebilirsiniz."
+
+msgid "Sorry, upload failed."
+msgstr "Üzgünüm, yükleme başarısız oldu."
+
+msgid "Server Error"
+msgstr "Sunucu Hatası"
+
+msgid "Image updated."
+msgstr "Resim güncellendi."
+
+msgid "Image permissions"
+msgstr "Resim izinleri"
+
+msgid "Add an image permission"
+msgstr "Resim izni ekle"
+
+msgid "Tags"
+msgstr "Etiketler"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Upload"
+msgstr "Yükle"
+
+msgid "Uploading…"
+msgstr "Yükleniyor…"
+
+msgid "Choose an image"
+msgstr "Bir resim seç"
+
+msgid "Edit this image"
+msgstr "Resmi düzenle"
+
+msgid "Images"
+msgstr "Resimler"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Resim '%(image_title)s' güncellendi."
+
+msgid "Edit again"
+msgstr "Tekrar düzenle"
+
+msgid "The image could not be saved due to errors."
+msgstr "Hata oluştuğu için resim kaydedilemedi."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Kaynak resim dosyası bulunamadı. Lütfen ya kaynağı değiştirin ya da resmi "
+"silin."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Resim '%(image_title)s' silindi."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Resim '%(image_title)s' eklendi."
+
+msgid "The image could not be created due to errors."
+msgstr "Hata oluştuğu için resim oluşturulamadı."
+
+msgid "Image"
+msgstr "Resim"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s resim"
+msgstr[1] "%(count)s resim"
+
+msgid "Change image"
+msgstr "Resmi değiştir"

@@ -1,0 +1,31 @@
+#
+# Translators:
+# Rodrigo Yanez, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Rodrigo Yanez, 2023\n"
+"Language-Team: Spanish (Latin America) (https://app.transifex.com/torchbox/"
+"teams/8009/es_419/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Delete"
+msgstr "Borrar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "More actions"
+msgstr "Más acciones"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "This field is required."
+msgstr "Este campo es obligatorio"

@@ -1,0 +1,354 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2022
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Younes Oumakhou, 2022
+# Younes Oumakhou, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Younes Oumakhou, 2022\n"
+"Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Wagtail images"
+msgstr "صور"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"الصيغ المدعومة:%(supported_formats)s. حجم الملف الأقصى:%(max_upload_size)s ."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "الصيغ المدعومة:%(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "ليس صيغة صورة مدعومة. الصيغ المدعومة:%(supported_formats)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"هذا الملف كبير جدًا (%(file_size)s). حجم الملف الأقصى %(max_filesize)s ."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "هذا الملف كبير للغاية. حجم الملف الأقصى %(max_filesize)s ."
+
+msgid "Full width"
+msgstr "العرض الكامل"
+
+msgid "Left-aligned"
+msgstr "محاذاة لليسار"
+
+msgid "Right-aligned"
+msgstr "محاذاة لليمين"
+
+msgid "Collection"
+msgstr "مجموعة"
+
+msgid "Alt text"
+msgstr "نص للمساعدة"
+
+msgid "Filter"
+msgstr "ارسح"
+
+msgid "Original size"
+msgstr "الحجم الأصلي"
+
+msgid "Resize to width"
+msgstr "أعد الحجم للاتساع"
+
+msgid "Resize to height"
+msgstr "أعد الحجم للارتفاع"
+
+msgid "Resize to min"
+msgstr "أعد الحجم للأصغر"
+
+msgid "Resize to max"
+msgstr "أعد الحجم للأكير"
+
+msgid "Resize to fill"
+msgstr "أعد الحجم للامتلاء"
+
+msgid "Width"
+msgstr "عرض"
+
+msgid "Height"
+msgstr "ارتفاع"
+
+msgid "Closeness"
+msgstr "مقربة"
+
+msgid "Add"
+msgstr "اضف"
+
+msgid "Add/edit images you own"
+msgstr "إضافة / تحرير الصور التي تملكها"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Edit any image"
+msgstr "تحرير أي صورة"
+
+msgid "Choose"
+msgstr "اختر"
+
+msgid "title"
+msgstr "عنوان"
+
+msgid "file"
+msgstr "ملف"
+
+msgid "width"
+msgstr "عرض"
+
+msgid "height"
+msgstr "ارتفاع"
+
+msgid "created at"
+msgstr "أنشئت في"
+
+msgid "uploaded by user"
+msgstr "رفع عن طريق المستخدم"
+
+msgid "tags"
+msgstr "العلامات الدالة"
+
+msgid "image"
+msgstr "صورة"
+
+msgid "images"
+msgstr "صور"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "هل أنت متأكد من حذف هذه الصورة؟"
+msgstr[1] "هل أنت متأكد من حذف هذه الصورة؟"
+msgstr[2] "هل أنت متأكد من حذف هاتين الصورتين؟"
+msgstr[3] "هل أنت متأكد من حذف هذه الصور؟"
+msgstr[4] "هل أنت متأكد من حذف هذه الصور؟"
+msgstr[5] "هل أنت متأكد من حذف هذه الصور؟"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "تم استخدامه %(usage_count)sمرة"
+msgstr[1] "تم استخدامه %(usage_count)s مرة"
+msgstr[2] "تم استخدامه %(usage_count)s مرة"
+msgstr[3] "تم استخدامه %(usage_count)s مرة"
+msgstr[4] "تم استخدامه %(usage_count)s مرة"
+msgstr[5] "تم استخدامه %(usage_count)s مرة"
+
+msgid "Yes, delete"
+msgstr "نعم احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
+msgid "Popular tags"
+msgstr "علامات دالة شائعة"
+
+msgid "New"
+msgstr "جديد"
+
+msgid "Latest images"
+msgstr "احد الصور"
+
+msgid "Choose a format"
+msgstr "اختر شكلا"
+
+msgid "Insert image"
+msgstr "أدخل صورة"
+
+msgid "Change image file:"
+msgstr "غير ملف الصورة"
+
+msgid "Add an image"
+msgstr "أضف صورة"
+
+msgid "Add image"
+msgstr "أضف صورة"
+
+msgid "Save"
+msgstr "احفظ"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "تحرير الصورة %(title)s"
+
+msgid "Editing"
+msgstr "تنقيح"
+
+msgid "Delete image"
+msgstr "احذف صورة"
+
+msgid "URL Generator"
+msgstr "مولد URL"
+
+msgid "(optional)"
+msgstr "(إختياري)"
+
+msgid "Current focal point shown"
+msgstr "تظهر نقطة التركز الجارية"
+
+msgid "Remove focal area"
+msgstr "إزالة المنطقة البؤرية"
+
+msgid "Max dimensions"
+msgstr "أوسع الأيعاد"
+
+msgid "Filesize"
+msgstr "حجم الملف"
+
+msgid "File not found"
+msgstr "الملف غير موجود"
+
+msgid "Usage"
+msgstr "استعمال"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا توجد صور تطابق \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي صور في هذه المجموعة. لماذا لا <a "
+"href=\"%(wagtailimages_add_image_url)s\">تحمل واحد الآن</a>؟"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"لم تحمِّل أي صور. لماذا لا <a href=\"%(wagtailimages_add_image_url)s\">تحمل "
+"واحد الآن</a>؟"
+
+msgid "Preview"
+msgstr "نظر مقدم"
+
+msgid "URL"
+msgstr "الرابط"
+
+msgid "Add multiple images"
+msgstr "أضف صور غديدة"
+
+msgid "Add images"
+msgstr "أضف صور"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "اسحب صورا وأدخلها في هذه المنطقة  لإدخالها في الحاسوب فورا"
+
+msgid "Or choose from your computer"
+msgstr "أو اختر من حاسوبك"
+
+msgid "Add to collection:"
+msgstr "إضافة إلى المجموعة:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"عملية الإدخال في الحاسوب ناجحة.  من فضلك جدد هذه الصورة وعنوان أكثر مناسبة "
+"إذا يلزم. ومن الممكن حذق الصورة كاملاإذا لم تكن عملية الإدخال واجبا."
+
+msgid "Sorry, upload failed."
+msgstr "متأسف! فشلت عملية الرفع"
+
+msgid "Server Error"
+msgstr "خطأ في الخادم"
+
+msgid "Image updated."
+msgstr "تم تحديث الصورة."
+
+msgid "Image permissions"
+msgstr "أذونات الصور"
+
+msgid "Add an image permission"
+msgstr "إضافة إذن صورة"
+
+msgid "Delete"
+msgstr "احذف"
+
+msgid "Upload"
+msgstr "انقل إلى الحاسوب"
+
+msgid "Uploading…"
+msgstr "يتم الرفع…"
+
+msgid "Choose an image"
+msgstr "اختر صورة"
+
+msgid "Choose another image"
+msgstr "اختر صورة أخرى"
+
+msgid "Edit this image"
+msgstr "حرر هذه الصورة"
+
+msgid "Images"
+msgstr "صور"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "تم تحديث الصورة %(image_title)s."
+
+msgid "Edit again"
+msgstr "أعد التحرير"
+
+msgid "The image could not be saved due to errors."
+msgstr "حفظ الصورة مستحيل بسبب أحطاء"
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr "الصورة الأصلية غير موجودة..  من فضلك غير الأصل أو احذف الصورة"
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "الصورة \"%(image_title)s\" محذوفة."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "تمت إضافة صورة '%(image_title)s'."
+
+msgid "The image could not be created due to errors."
+msgstr "إنشاء الصورة مستخيل بسبب أخطاء"
+
+msgid "Image"
+msgstr "صورة"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "صورة %(count)s"
+msgstr[1] "صورة %(count)s"
+msgstr[2] "صور %(count)s"
+msgstr[3] "صورة %(count)s"
+msgstr[4] "صور %(count)s"
+msgstr[5] "صور %(count)s"
+
+msgid "Change image"
+msgstr "تغير الصورة"

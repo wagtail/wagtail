@@ -1,0 +1,220 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2020
+# Franklin Kingma <franklin@statix.net>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020,2023
+# Meteor0id, 2018
+# Storm Heg <storm@stormbase.digital>, 2022-2024
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2024\n"
+"Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail zoek promoties"
+
+msgid "Search term(s)/phrase"
+msgstr "Zoekterm(en)/uitdrukking"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Voer de volledige zoekterm in. Een exacte match is nodig om gepromote "
+"resultaten te kunnen tonen, wildcards zijn NIET toegestaan."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Geef minimaal één aanbeveling op voor deze zoekterm."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "Je moet ook een link tekst invoeren als je een externe link invoert."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Je moet een pagina OF externe link aanbevelen."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Kies alsjeblieft alleen een pagina OF externe link."
+
+msgid "Query Daily Hits"
+msgstr "Aantal dagelijkse zoekopdrachten"
+
+msgid "page"
+msgstr "pagina"
+
+msgid "Choose an internal page for this promotion"
+msgstr "Kies een interne pagina voor deze promotie"
+
+msgid "External link URL"
+msgstr "Externe link URL"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Gebruik anders een externe link voor deze actie"
+
+msgid "description"
+msgstr "omschrijving"
+
+msgid "Applies to internal page or external link"
+msgstr "Geldt voor interne pagina of externe link"
+
+msgid "search promotion"
+msgstr "zoekpromotie"
+
+msgid "Add search promotion"
+msgstr "Voeg een zoekwoord-promotie toe"
+
+msgid "Add search pick"
+msgstr "Voeg een zoekterm toe"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Aanbevolen zoekresultaten zijn een manier om specifieke pagina's of "
+"externe links aan te bevelen die organisch mogelijk niet hoog in de "
+"zoekresultaten verschijnen. U kunt bijvoorbeeld uw primaire donatiepagina "
+"aanbevelen aan een gebruiker die zoekt met de minder gebruikelijke term "
+"\"<em>geven</em>\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Het 'Zoekterm(en)' veld moet een volledige zoekterm, <em>inclusief</em> "
+"mogelijk spelfouten/gebruikersfouten bevatten waarvoor u een aanbevolen "
+"resultaat wilt instellen. Om te helpen kunt u kiezen uit populaire "
+"zoektermen van gebruikers van de website.</p>            "
+
+msgid "Save"
+msgstr "Opslaan"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Verwijder %(query)s"
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Weet je zeker dat je alle aanbevolen zoekresultaten voor deze zoekterm wilt "
+"verwijderen?"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijder"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Bewerken van %(query)s"
+
+msgid "Editing"
+msgstr "Wijzigen"
+
+msgid "Move up"
+msgstr "Verplaats naar boven"
+
+msgid "Move down"
+msgstr "Verplaats naar beneden"
+
+msgid "Recommended search result"
+msgstr "Aanbevolen zoekresultaat"
+
+msgid "Promoted search results"
+msgstr "Gepromoveerde zoekresultaten"
+
+msgid "Add a recommended result"
+msgstr "Voeg een aanbevolen resultaat toe"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sorry, geen gepromoveerde resultaten komen overeen met de zoekterm "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen gepromoveerde zoekresultaten aangemaakt. Waarom <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">voeg je er niet een toe</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Er zijn nog geen gepromoveerde resultaten aangemaakt."
+
+msgid "Popular search terms"
+msgstr "Populaire zoektermen"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Terms"
+msgstr "Termen"
+
+msgid "Views (past week)"
+msgstr "Weergaves (afgelopen week)"
+
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+msgid "Choose from popular search terms"
+msgstr "Kies uit populaire zoektermen"
+
+msgid "External link"
+msgstr "Externe link"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Search Terms"
+msgstr "Zoektermen"
+
+msgid "Add new promoted result"
+msgstr "Voeg een gepromoveerd resultaat toe"
+
+msgid "Search term(s)"
+msgstr "Zoekterm(en)"
+
+msgid "Promoted results"
+msgstr "Gepromoveerde resultaten"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Editor aanbevelingen voor '%(query)s' aangemaakt."
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Aanbevelingen zijn vanwege fouten niet aangemaakt."
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Editor aanbevelingen voor '%(query)s' gewijzigd."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Aanbeveling is niet opgeslagen door fouten"
+
+msgid "Editor's picks deleted."
+msgstr "Editor aanbevelingen verwijderd."

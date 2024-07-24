@@ -1,0 +1,32 @@
+{% load i18n wagtailadmin_tags %}
+
+{% blocktrans trimmed with model_name=model_opts.verbose_name asvar schedule_publishing_dialog_subtitle %}
+    Choose when this {{ model_name }} should go live and/or expire
+{% endblocktrans%}
+
+{% if page %}
+    {% page_permissions instance as page_perms %}
+    {% trans 'Choose when this page should go live and/or expire' as schedule_publishing_dialog_subtitle %}
+    {% if page_perms.can_publish %}
+        {% trans 'This publishing schedule will only take effect after you select the "Publish" option' as message_heading %}
+    {% else %}
+        {% trans "Anyone with editing permissions can create schedules" as message_heading %}
+        {% trans "But only those with publishing permissions can make them effective." as message_description %}
+    {% endif %}
+{% endif %}
+
+{% dialog id='schedule-publishing-dialog' dialog_root_selector='[data-edit-form]' classname=classname icon_name='calendar-alt' title=_("Set publishing schedule") subtitle=schedule_publishing_dialog_subtitle|capfirst message_icon_name='info' message_status='info' message_heading=message_heading message_description=message_description %}
+    {% include 'wagtailadmin/panels/multi_field_panel.html' %}
+
+    <button
+        type="submit"
+        class="button action-save button-longrunning"
+        data-controller="w-progress w-kbd"
+        data-action="w-progress#activate"
+        data-w-kbd-key-value="mod+s"
+        data-w-kbd-scope-value="global"
+        data-w-progress-active-value="{% trans 'Saving…' %}"
+    >
+        <em data-w-progress-target="label">{% trans 'Save schedule' %}</em>
+    </button>
+{% enddialog %}

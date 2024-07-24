@@ -1,0 +1,508 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
+# Andrei Satsevich, 2023
+# Andrei Satsevich, 2023-2024
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
+# Eugene <eugene.mechanism@gmail.com>, 2017
+# Eugene <eugene.mechanism@gmail.com>, 2014-2016
+# Eugene <eugene.mechanism@gmail.com>, 2017
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
+# Sergey Komarov <sjkomarov@gmail.com>, 2014
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2017
+# Vassily <zuber.kg@gmail.com>, 2017
+# Влад <integration.into.society@gmail.com>, 2022
+# Влад <integration.into.society@gmail.com>, 2021-2022
+# Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
+# Михаил Герасимов, 2019
+# Никита Викторович <hnknta@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Andrei Satsevich, 2023-2024\n"
+"Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail users"
+msgstr "Пользователи Wagtail"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Только буквы, цифры и @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Это значение может содержать только буквы, цифры и символы @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким именем уже существует. "
+
+msgid "The two password fields didn't match."
+msgstr "Два поля с паролями не совпадают."
+
+msgid "Email"
+msgstr "Адрес электронной почты"
+
+msgid "First Name"
+msgstr "Имя"
+
+msgid "Last Name"
+msgstr "Фамилия"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Leave blank if not changing."
+msgstr "Оставьте пустым, если не изменяется."
+
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Введите такой же пароль, как выше, для подтверждения."
+
+msgid "Administrator"
+msgstr "Администратор"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Администраторы имеют полный доступ для управления любыми объектами или "
+"настройками."
+
+msgid "A group with that name already exists."
+msgstr "Группа с таким названием уже существует."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Вы не можете иметь несколько записей с правами доступа для одной и той же "
+"страницы."
+
+msgid "submitted notifications"
+msgstr "уведомления при добавлении"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Принимать уведомление при отправке страницы на модерацию."
+
+msgid "approved notifications"
+msgstr "уведомления при утверждении"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Принимать уведомление при одобрении вашей редакции страницы."
+
+msgid "rejected notifications"
+msgstr "уведомления при отклонении"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Принимать уведомление при отклонении вашей редакции страницы."
+
+msgid "updated comments notifications"
+msgstr "обновленные уведомления о комментариях"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Получать уведомление, когда комментарии были созданы, закрыты или удалены на "
+"странице, на которую вы подписались"
+
+msgid "preferred language"
+msgstr "Предпочтительный язык"
+
+msgid "Select language for the admin"
+msgstr "Выберите язык администратора"
+
+msgid "current time zone"
+msgstr "текущий часовой пояс"
+
+msgid "Select your current time zone"
+msgstr "Выберите текущий часовой пояс"
+
+msgid "profile picture"
+msgstr "изображение профиля"
+
+msgid "System default"
+msgstr "Системные настройки по умолчанию"
+
+msgid "Light"
+msgstr "Светлая"
+
+msgid "Dark"
+msgstr "Тёмная"
+
+msgid "admin theme"
+msgstr "цветовая тема администратора"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "Snug"
+msgstr "Удобная"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "плотность"
+
+msgid "user profile"
+msgstr "профиль пользователя"
+
+msgid "user profiles"
+msgstr "профили пользователя"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Назначить роль 1 пользователю"
+msgstr[1] "Назначить роль %(counter)s пользователям"
+msgstr[2] "Назначить роль %(counter)s пользователям"
+msgstr[3] "Назначить роль %(counter)s пользователям"
+
+msgid "Assign role"
+msgstr "Назначить роль"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Вы уверены, что хотите назначить эту роль этим пользователям?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "У вас недостаточно прав для редактирования этого пользователя"
+msgstr[1] "У вас недостаточно прав для редактирования этих пользователей"
+msgstr[2] "У вас недостаточно прав для редактирования этих пользователей"
+msgstr[3] "У вас недостаточно прав для редактирования этих пользователей"
+
+msgid "Yes, assign"
+msgstr "Да, назначить"
+
+msgid "No, don't assign"
+msgstr "Нет, не назначать"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Удалить пользователя"
+msgstr[1] "Удалить %(counter)s пользователей"
+msgstr[2] "Удалить %(counter)s пользователей"
+msgstr[3] "Удалить %(counter)s пользователей"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Вы уверены, что хотите удалить этих пользователей?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "У вас недостаточно прав для удаления этого пользователя"
+msgstr[1] "У вас недостаточно прав для удаления этих пользователей"
+msgstr[2] "У вас недостаточно прав для удаления этих пользователей"
+msgstr[3] "У вас недостаточно прав для удаления этих пользователей"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Изменить активное состояние для 1 пользователя"
+msgstr[1] "Изменить активное состояние для %(counter)s пользователей"
+msgstr[2] "Изменить активное состояние для %(counter)s пользователей"
+msgstr[3] "Изменить активное состояние для %(counter)s пользователей"
+
+msgid "Set active state"
+msgstr "Установить активное состояние"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Вы уверены, что хотите изменить активное состояние для этих пользователей?"
+
+msgid "You cannot change your own active status"
+msgstr "Вы не можете изменить свой активный статус"
+
+msgid "Yes, change state"
+msgstr "Да, изменить состояние"
+
+msgid "No, don't change state"
+msgstr "Нет, не менять состояние"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Группа '%(group_name)s' содержит <strong>%(group_user_count)s</strong> "
+"участиника."
+msgstr[1] ""
+"Группа '%(group_name)s' содержит <strong>%(group_user_count)s</"
+"strong>участников."
+msgstr[2] ""
+"Группа '%(group_name)s'содержит <strong>%(group_user_count)s</"
+"strong>участников."
+msgstr[3] ""
+"Группа '%(group_name)s' содержит <strong>%(group_user_count)s</strong> "
+"участников."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Удаление этой группы приведет к удалению прав, которые она давала всем ее "
+"участникам."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Вы уверены что хотите удалить эту группу?"
+
+msgid "Add group"
+msgstr "Добавить группу"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Delete group"
+msgstr "Удалить группу"
+
+msgid "Object permissions"
+msgstr "Разрешения объекта"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Change"
+msgstr "Изменить"
+
+msgid "Publish"
+msgstr "Опубликовать"
+
+msgid "Lock"
+msgstr "Блокировка"
+
+msgid "Unlock"
+msgstr "Разблокировать"
+
+msgid "Custom permissions"
+msgstr "Пользовательские разрешения"
+
+msgid "Toggle all"
+msgstr "Отметить все"
+
+msgid "Toggle all add permissions"
+msgstr "Отметить все разрешения на добавление"
+
+msgid "Toggle all change permissions"
+msgstr "Отметить все разрешения на изменение"
+
+msgid "Toggle all delete permissions"
+msgstr "Отметить все разрешения на удаление"
+
+msgid "Toggle all publish permissions"
+msgstr "Отметить все разрешения на публикацию"
+
+msgid "Toggle all lock permissions"
+msgstr "Отметить все разрешения на блокировку"
+
+msgid "Toggle all unlock permissions"
+msgstr "Отметить все разрешения на разблокировку"
+
+msgid "Toggle all custom permissions"
+msgstr "Отметить все пользовательские разрешения"
+
+msgid "Other permissions"
+msgstr "Другие разрешения"
+
+msgid "Page permissions"
+msgstr "Права на страницы"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Add a page permission"
+msgstr "Добавить права на страницу"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Извините, подходящих групп не найдено \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Группы еще не созданы. Почему бы не <a "
+"href=\"%(wagtailusers_create_group_url)s\">добавить</a>?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Вы уверены, что хотите удалить этого пользователя?"
+
+msgid "Account"
+msgstr "Аккаунт"
+
+msgid "Roles"
+msgstr "Роли"
+
+msgid "Add user"
+msgstr "Добавить пользователя"
+
+msgid "Delete user"
+msgstr "Удалить пользователя"
+
+msgid "Select all users in listing"
+msgstr "Выбрать всех пользователей в списке"
+
+msgid "Sorry, no users match your query"
+msgstr "Извините, нет пользователей, соответствующих вашему запросу"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Пользователи не сконфигурированы. <a "
+"href=\"%(wagtailusers_add_url)s\">Добавить пользователя</a>."
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "пользователь 1%(id)s (удален)"
+
+msgid "Assign role to selected users"
+msgstr "Назначить роль выбранным пользователям"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)dпользователь был назначен как %(role)s"
+msgstr[1] "%(num_parent_objects)dпользователи были назначены как %(role)s"
+msgstr[2] "%(num_parent_objects)d пользователи были назначены как %(role)s"
+msgstr[3] "%(num_parent_objects)d пользователи были назначены как %(role)s"
+
+msgid "Delete selected users"
+msgstr "Удалить выбранных пользователей"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d пользователь был удален"
+msgstr[1] "%(num_parent_objects)d пользователей было удалено"
+msgstr[2] "%(num_parent_objects)d пользователей было удалено"
+msgstr[3] "%(num_parent_objects)d пользователей было удалено"
+
+msgid "Active"
+msgstr "Активный"
+
+msgid "Inactive"
+msgstr "Неактивный"
+
+msgid "Mark as active"
+msgstr "Отметить как активный"
+
+msgid "Change the active state for selected users"
+msgstr "Изменить активное состояние для выбранных пользователей"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d пользователь был отмечен как активный"
+msgstr[1] "%(num_parent_objects)d  пользователей было отмечено как активные"
+msgstr[2] "%(num_parent_objects)d  пользователей было отмечено как активные"
+msgstr[3] "%(num_parent_objects)d пользователей было отмечено как активные"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d пользователь был отмечен как неактивный"
+msgstr[1] "%(num_parent_objects)d пользователей было отмечено как неактивные"
+msgstr[2] "%(num_parent_objects)d пользователей было отмечено как неактивные"
+msgstr[3] "%(num_parent_objects)d пользователей было отмечено как неактивные"
+
+msgid "Groups"
+msgstr "Группы"
+
+msgid "Add a group"
+msgstr "Добавить группу"
+
+msgid "Search groups"
+msgstr "Поиск групп"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Группа '%(object)s' создана."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Группа '%(object)s' обновлена."
+
+msgid "The group could not be saved due to errors."
+msgstr "Группа не может быть сохранена из-за ошибок."
+
+msgid "View users in this group"
+msgstr "Просмотр пользователей группы"
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Группа '%(object)s' удалена."
+
+msgid "Last login"
+msgstr "Последний вход"
+
+msgid "Group"
+msgstr "Группа"
+
+msgid "Add a user"
+msgstr "Добавить пользователя"
+
+msgid "Users"
+msgstr "Пользователи"
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Admin"
+msgstr "Администратор"
+
+msgid "Access level"
+msgstr "Уровень доступа"
+
+msgid "Status"
+msgstr "Статус"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Дополнительные опции для '%(title)s'"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Пользователь '%(object)s' создан."
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Пользователь '%(object)s' обновлен."
+
+msgid "The user could not be saved due to errors."
+msgstr "Пользователь но может быть сохранен из-за ошибок."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Пользователь '%(object)s' удалён."

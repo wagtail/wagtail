@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2022
+# Juha Yrjölä <juha.yrjola@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "oletusarvo"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s sivustolle %(site)s"
+
+msgid "Site"
+msgstr "Sivusto"
+
+msgid "Saving…"
+msgstr "Tallennetaan…"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Settings"
+msgstr "Asetukset"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Tätä asetusta ei voitu avata, koska sivustoa ei ole määritelty."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Asetusta ei voitu tallentaa virheiden vuoksi."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s päivitetty."

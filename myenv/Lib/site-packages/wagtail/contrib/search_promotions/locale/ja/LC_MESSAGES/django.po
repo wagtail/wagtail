@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Daigo Shitara <stain.witness@gmail.com>, 2016
+# 小口英昭 <oguchi@bluff-lab.com>, 2019
+# 石田秀 <ishidashu@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
+"Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
+"ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtailプロモーション検索"
+
+msgid "Search term(s)/phrase"
+msgstr "単語/文章を検索"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"完全な検索語句を入力して下さい。検索結果を表示するためには検索語句とページ内"
+"の語句が完全に一致する必要があります。？や＊などのワイルドカードは無効です。"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "この検索語の結果に表示したいページをひとつ以上指定してください。"
+
+msgid "Query Daily Hits"
+msgstr "人気の検索クエリ"
+
+msgid "page"
+msgstr "ページ"
+
+msgid "description"
+msgstr "説明文"
+
+msgid "search promotion"
+msgstr "プロモーションを検索"
+
+msgid "Add search promotion"
+msgstr "プロモーション検索を追加"
+
+msgid "Add search pick"
+msgstr "プロモーションを追加"
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "%(query)sを削除"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "提案された検索結果を削除してよろしいですか？"
+
+msgid "Yes, delete"
+msgstr "はい、削除します"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "%(query)sを編集"
+
+msgid "Editing"
+msgstr "編集"
+
+msgid "Move up"
+msgstr "上に移動"
+
+msgid "Move down"
+msgstr "下に移動"
+
+msgid "Promoted search results"
+msgstr "提案された検索結果"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "<em>%(query_string)s</em>に一致する提案はありません。"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"まだ検索結果への提案がありません。<a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">新しく提案</a>しますか？"
+
+msgid "Popular search terms"
+msgstr "人気の検索ワード"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Terms"
+msgstr "語句"
+
+msgid "Views (past week)"
+msgstr "閲覧数（一週間）"
+
+msgid "No results found"
+msgstr "結果は見つかりませんでした。"
+
+msgid "Choose from popular search terms"
+msgstr "人気の検索ワードから選択"
+
+msgid "External link"
+msgstr "外部リンク"
+
+msgid "None"
+msgstr "なし"
+
+msgid "Search Terms"
+msgstr "検索ワード"
+
+msgid "Add new promoted result"
+msgstr "新たに検索結果を提案"
+
+msgid "Search term(s)"
+msgstr "検索ワード"
+
+msgid "Promoted results"
+msgstr "提案された検索結果"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "'%(query)s'に対する提案が作成されました。"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "提案はエラーにより作成されませんでした。"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "'%(query)s'に対する提案が更新されました。"
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "提案はエラーにより保存されませんでした。"
+
+msgid "Editor's picks deleted."
+msgstr "提案は削除されました。"

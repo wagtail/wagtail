@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
+"language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail promoviranje pretraga"
+
+msgid "Search term(s)/phrase"
+msgstr "Izraz(i)/fraza za pretraživanje"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Unesite puni izraz za pretraživanje. Potrebno je potpuno podudaranje kako bi "
+"se prikazali Promovirani Rezultati, zamjenski znakovi NISU dozvoljeni."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Molimo navedite barem jednu preporuku za ovaj pojam."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Potrebno je unijeti tekst vanjske poveznice ako uneste URL vanjske poveznice."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Potrebno je preporučiti stranicu ILI vanjsku poveznicu."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Molimo odaberite samo stranicu ILI vanjsku poveznicu."
+
+msgid "Query Daily Hits"
+msgstr "Dnevni pregledi za upit"
+
+msgid "page"
+msgstr "stranica"
+
+msgid "Choose an internal page for this promotion"
+msgstr "Odaberite unutarnju stranicu za promociju"
+
+msgid "External link URL"
+msgstr "URL vanjske poveznice"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Ili iskoristite vanjsku poveznicu za promociju"
+
+msgid "description"
+msgstr "opis"
+
+msgid "Applies to internal page or external link"
+msgstr "Za unutarnju stranicu ili vanjsku poveznicu"
+
+msgid "search promotion"
+msgstr "Promocija pretraživanja"
+
+msgid "Add search promotion"
+msgstr "Dodaj promociju"
+
+msgid "Add search pick"
+msgstr "Dodaj promovirani rezultat"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p> Promovirani rezultati pretraživanja su način za preporuku određenih "
+"stranica ili vanjskih poveznica koje se možda neće priordno pojaviti pri "
+"vrhu u rezultatima pretraživanja. Npr. preporuka glavne stranice za donacije "
+"korisniku koji pretražuje manje učestao pojam \"<em>darivanje</em>\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>Polje \"Pojam(ovi)/fraze\" mora sadržavati puni i točan pojam za koji se "
+"prepručuje rezultat, <em>uključujući</em> bilo kakve tipfelere/greške. Kao "
+"pomoć, možete izabrati pojam za pretraživanja koji je popularan među "
+"korisnicima vašeg sjedišta.</p>"
+
+msgid "Save"
+msgstr "Spremi"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Izbriši %(query)s"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Jeste li sigurni da želite izbrisati sve promovirane rezultate za ovaj pojam?"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Uređivanje %(query)s"
+
+msgid "Editing"
+msgstr "Uređivanje"
+
+msgid "Move up"
+msgstr "Pomakni gore"
+
+msgid "Move down"
+msgstr "Pomakni dolje"
+
+msgid "Recommended search result"
+msgstr "Preporučeni rezultat pretraživanja"
+
+msgid "Promoted search results"
+msgstr "Promovirani rezultati pretraživanja"
+
+msgid "Add a recommended result"
+msgstr "Dodaj preporučeni rezultat"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Nažalost nisu pronađeni promovirani rezultati koji odgovaraju "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nema postavljenih promoviranih rezultata. Zašto ne <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">dodate jedan</a>?"
+
+msgid "Popular search terms"
+msgstr "Popularni pojmovi za pretraživanje"
+
+msgid "Search"
+msgstr "Pretraži"
+
+msgid "Terms"
+msgstr "Pojmovi"
+
+msgid "Views (past week)"
+msgstr "Pregledi (prošli tjedan)"
+
+msgid "No results found"
+msgstr "Nema pronađenih rezultata"
+
+msgid "Choose from popular search terms"
+msgstr "Odaberi među popularnim pojmovima"
+
+msgid "External link"
+msgstr "Vanjska poveznica"
+
+msgid "None"
+msgstr "Prazno"
+
+msgid "Search Terms"
+msgstr "Pojmovi za pretraživanje"
+
+msgid "Add new promoted result"
+msgstr "Dodaj novi promovirani rezultat"
+
+msgid "Search term(s)"
+msgstr "Pojam(ovi) za pretraživanje"
+
+msgid "Promoted results"
+msgstr "Promovirani rezultati"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Izbor urednika za '%(query)s' je stvoren."
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Nije moguće stvoriti preporuke zbog grešaka"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Izbor urednika za '%(query)s' je ažuriran."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Nije moguće sačuvati preporuke zbog grešaka"
+
+msgid "Editor's picks deleted."
+msgstr "Izbor urednika je izbrisan."

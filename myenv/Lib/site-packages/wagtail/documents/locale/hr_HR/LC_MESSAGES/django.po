@@ -1,0 +1,391 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dino Aljević <dino8890@protonmail.com>, 2020-2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2024\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
+"language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumenti"
+
+msgid "Collection"
+msgstr "Zbirka"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Add/edit documents you own"
+msgstr "Dodaj/uredi vlastite dokumente"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit any document"
+msgstr "Uređivanje bilo kojeg dokumenta"
+
+msgid "Choose"
+msgstr "Odaberi"
+
+msgid "Select documents in choosers"
+msgstr "Odaberi dokumente u izborniku"
+
+msgid "title"
+msgstr "naslov"
+
+msgid "file"
+msgstr "datoteka"
+
+msgid "created at"
+msgstr "Stvoreno u"
+
+msgid "uploaded by user"
+msgstr "Prenio korisnik"
+
+msgid "tags"
+msgstr "oznake"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "documents"
+msgstr "dokumenti"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Označi 1 dokument"
+msgstr[1] "Označi %(counter)s dokumenta"
+msgstr[2] "Označi %(counter)s dokumenata"
+
+msgid "Add tags to documents"
+msgstr "Dodaj oznake dokumentima"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Jeste li sigurni da želite označiti sljedeći dokument?"
+msgstr[1] "Jeste li sigurni da želite označiti sljedeće dokumente?"
+msgstr[2] "Jeste li sigurni da želite označiti sljedeće dokumente?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Nemate dozvolu za dodavanje oznake ovom dokumentu"
+msgstr[1] "Nemate dozvolu za dodavanje oznaka ovim dokumentima"
+msgstr[2] "Nemate dozvolu za dodavanje oznaka ovim dokumentima"
+
+msgid "Yes, add"
+msgstr "Da, dodaj"
+
+msgid "No, don't add"
+msgstr "Ne, nemoj dodati"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Dodaj 1 dokument u novu zbirku"
+msgstr[1] "Dodaj %(counter)s dokumenta u novu zbirku"
+msgstr[2] "Dodaj %(counter)s dokumenta u novu zbirku"
+
+msgid "Add documents to collection"
+msgstr "Dodaj dokumente u zbirku"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Jeste li sigurni da želite dodati sljedeći dokument u odabranu zbirku?"
+msgstr[1] ""
+"Jeste li sigurni da želite dodati sljedeće dokumente u odabranu zbirku?"
+msgstr[2] ""
+"Jeste li sigurni da želite dodati sljedeće dokumente u odabranu zbirku?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Nemate dozvolu za dodavanje ovog dokumenta u zbirku"
+msgstr[1] "Nemate dozvolu za dodavanje ovih dokumenata u zbirku"
+msgstr[2] "Nemate dozvolu za dodavanje ovih dokumenata u zbirku"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Izbriši 1 dokument"
+msgstr[1] "Izbriši %(counter)s dokumenata"
+msgstr[2] "Izbriši %(counter)s dokumenata"
+
+msgid "Delete documents"
+msgstr "Izbriši dokumente"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Jeste li sigurni da želite izbrisati ovaj dokument?"
+msgstr[1] "Jeste li sigurni da želite izbrisati ove dokumente?"
+msgstr[2] "Jeste li sigurni da želite izbrisati ove dokumente?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Korišteno %(usage_count)s put"
+msgstr[1] "Korišteno %(usage_count)s puta"
+msgstr[2] "Korišteno %(usage_count)s puta"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Nemate dozvolu za brisanje dokumenta"
+msgstr[1] "Nemate dozvolu za brisanje ovih dokumenata"
+msgstr[2] "Nemate dozvolu za brisanje ovih dokumenata"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
+msgid "Latest documents"
+msgstr "Najnoviji dokumenti"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Nažalost nisu pronađeni dokumenti koji odgovaraju \"<em>%(search_query)s</"
+"em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Nemate dokumenata u ovoj zbirci."
+
+msgid "You haven't uploaded any documents."
+msgstr "Nemate dokumenata."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Zašto ne <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>dodate jedan</a>?"
+
+msgid "Change document:"
+msgstr "Promijeni dokument:"
+
+msgid "Add a document"
+msgstr "Dodaj dokument"
+
+msgid "Add document"
+msgstr "Dodaj dokument"
+
+msgid "Uploading…"
+msgstr "Prijenos u tijeku..."
+
+msgid "Upload"
+msgstr "Prijenos"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Uređivanje %(title)s"
+
+msgid "Editing"
+msgstr "Uređivanje"
+
+msgid "Save"
+msgstr "Spremi"
+
+msgid "Delete document"
+msgstr "Izbriši dokument"
+
+msgid "Filesize"
+msgstr "Veličina datoteke"
+
+msgid "File not found"
+msgstr "Datoteka nije pronađena"
+
+msgid "Usage"
+msgstr "Upotreba"
+
+msgid "Select all documents in listing"
+msgstr "Odaberi sve dokumente iz popisa"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Nažalost nisu pronađeni dokumenti koji odgovaraju \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nemate dokumenata u ovoj zbirci. Zašto ne <a "
+"href=\"%(wagtaildocs_add_document_url)s\">dodate jedan</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nemate dokumenata. Zašto ne <a "
+"href=\"%(wagtaildocs_add_document_url)s\">dodate jedan</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Dokument <span class=\"w-sr-only\">je stvoren u "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Dokumenata <span class=\"w-sr-only\">je stvoreno u "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Dokumenata <span class=\"w-sr-only\">je stvoreno u "
+"%(site_name)s</span>"
+
+msgid "Add multiple documents"
+msgstr "Dodaj više dokumenata"
+
+msgid "Add documents"
+msgstr "Dodaj dokumente"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Dovucite dokumente ovdje kako bi ih prenijeli."
+
+msgid "Or choose from your computer"
+msgstr "Ili odaberite sa vašeg računala"
+
+msgid "Add to collection:"
+msgstr "Dodaj u zbirku:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Uspješan prijenos. Molimo preimenujte ovaj dokument ako je to potrebno. "
+"Također možete izbrisati dokument ako njegov prijenos nije bio potreban. "
+
+msgid "Sorry, upload failed."
+msgstr "Nažalost, prijenos nije uspio."
+
+msgid "Document updated."
+msgstr "Dokument je ažuriran."
+
+msgid "You need a password to access this document."
+msgstr "Potrebna je lozinka kako bi pristupili ovom dokumentu."
+
+msgid "Document permissions"
+msgstr "Dozvole dokumenta"
+
+msgid "Add a document permission"
+msgstr "Dodaj dozvolu dokumenta"
+
+msgid "Tags"
+msgstr "Oznake"
+
+msgid "Tag"
+msgstr "Oznaka"
+
+msgid "Add tags to the selected documents"
+msgstr "Dodaj oznake odabranim dokumentima"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Nove oznake su dodane %(num_parent_objects)d dokumentu,"
+msgstr[1] "Nove oznake su dodane na %(num_parent_objects)d dokumenta"
+msgstr[2] "Nove oznake su dodane na %(num_parent_objects)d dokumenta."
+
+msgid "Add to collection"
+msgstr "Dodaj u zbirku"
+
+msgid "Add selected documents to collection"
+msgstr "Dodaj odabrane dokumente u zbirku"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d dokument je dodan u zbirku %(collection)s"
+msgstr[1] "%(num_parent_objects)d dokumenata je dodano u zbirku %(collection)s"
+msgstr[2] "%(num_parent_objects)d dokumenata je dodano u zbirku %(collection)s"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Delete selected documents"
+msgstr "Izbriši odabrane dokumente"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d dokument je izbrisan"
+msgstr[1] "%(num_parent_objects)d dokumenata je izbrisano"
+msgstr[2] "%(num_parent_objects)d dokumenata je izbrisano"
+
+msgid "File"
+msgstr "Datoteka"
+
+msgid "Created"
+msgstr "Stvoreno"
+
+msgid "Choose a document"
+msgstr "Odaberi dokument"
+
+msgid "Choose another document"
+msgstr "Odaberi drugi dokument"
+
+msgid "Edit this document"
+msgstr "Uredi ovaj dokument"
+
+msgid "Documents"
+msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Naslov"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' je dodan."
+
+msgid "The document could not be saved due to errors."
+msgstr "Nije moguće sačuvati dokument zbog grešaka."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokument '%(document_title)s' je ažuriran"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Datoteka nije pronađena. Molimo promijenite izvor ili izbrišite dokument."
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' je izbrisan."
+
+msgid "Document"
+msgstr "Dokument"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokumenata"
+msgstr[2] "%(count)s dokumenata"

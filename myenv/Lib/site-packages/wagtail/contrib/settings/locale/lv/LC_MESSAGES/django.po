@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020\n"
+"Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+msgid "default"
+msgstr "noklusētais"
+
+msgid "Site"
+msgstr "Vietne"
+
+msgid "Saving…"
+msgstr "Saglabā..."
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Settings"
+msgstr "Uzstādījumi"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Šo iestatījumu nevarēja atvērt, jo nav definēta vietne."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Kļūdu dēļ uzstādījumus nebija iespējams saglabāt."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s saglabāti."

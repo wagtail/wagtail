@@ -1,0 +1,2 @@
+[console_scripts]
+wagtail = wagtail.bin.wagtail:main

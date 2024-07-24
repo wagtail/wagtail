@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andrei Satsevich, 2023-2024
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2015
+# Eugene <eugene.mechanism@gmail.com>, 2015
+# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Влад <integration.into.society@gmail.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Andrei Satsevich, 2023-2024\n"
+"Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Поисковое продвижение Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Критерий поиска/фраза"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Введите полный критерий поиска, для соответствия. Точное совпадение "
+"требуется для отображения вашей Выборки Редактора, подстановки не "
+"допускаются."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Пожалуйста, сформулируйте по крайней мере одну рекомендацию по этому "
+"поисковому запросу."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"При вводе URL-адреса внешней ссылки Вам необходимо ввести текст внешней "
+"ссылки."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Вы должны порекомендовать страницу ИЛИ внешнюю ссылку."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Пожалуйста, выберите только страницу ИЛИ введите внешнюю ссылку."
+
+msgid "Query Daily Hits"
+msgstr "Запрос Ежедневных Хитов"
+
+msgid "page"
+msgstr "страница"
+
+msgid "Choose an internal page for this promotion"
+msgstr "Выберите внутреннюю страницу для этого продвижения"
+
+msgid "External link URL"
+msgstr "URL-адрес внешней ссылки"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr ""
+"В качестве альтернативы используйте внешнюю ссылку для этого продвижения"
+
+msgid "description"
+msgstr "описание"
+
+msgid "Applies to internal page or external link"
+msgstr "Применяется к внутренней странице или внешней ссылке"
+
+msgid "search promotion"
+msgstr "поисковое продвижение"
+
+msgid "Add search promotion"
+msgstr "Добавить поисковое продвижение"
+
+msgid "Add search pick"
+msgstr "Добавить поисковую подборку"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Продвигаемые результаты поиска - это способ рекомендовать определенные "
+"страницы или внешние ссылки, которые могут не занимать высокие позиции в "
+"результатах поиска. Например, рекомендовать пользователю вашу основную "
+"страницу пожертвований, который ищет менее распространенный термин "
+"\"<em>дарение</em>\".</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>\"Поисковый запрос(ы)/фраза\" в поле ниже должны содержать полный и "
+"точный поисковый запрос, для которого вы хотите рекомендовать что-то, "
+"<em>включая</em> любые ошибки и опечатки, которые может допустить "
+"пользователь. Для помощи, вы можете выбрать из наиболее популярных поисковых "
+"запросов, которые совершали пользователи вашего сайта.</p>            "
+
+msgid "Save"
+msgstr "Сохранить"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Удалить %(query)s"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Вы уверены что вы хотите удалить все продвигаемые результаты поиска для "
+"этого поискового запроса?"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Редактирование %(query)s"
+
+msgid "Editing"
+msgstr "Редактирование"
+
+msgid "Move up"
+msgstr "Двигать вверх"
+
+msgid "Move down"
+msgstr "Двигать вниз"
+
+msgid "Recommended search result"
+msgstr "Рекомендуемый результат поиска"
+
+msgid "Promoted search results"
+msgstr "Продвигаемые результаты поиска"
+
+msgid "Add a recommended result"
+msgstr "Добавить рекомендуемый результат"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Извините, нет продвигаемых результатов, совпадающих с "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Продвигаемых поисковых запросов пока не создано. Почему бы не <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">добавить один</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Продвигаемые поисковые запросы не были созданы."
+
+msgid "Popular search terms"
+msgstr "Популярные поисковые запросы"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Terms"
+msgstr "Критерии"
+
+msgid "Views (past week)"
+msgstr "Просмотров (прошлая неделя)"
+
+msgid "No results found"
+msgstr "Ничего не найдено"
+
+msgid "Choose from popular search terms"
+msgstr "Выбрать из популярных поисковых запросов"
+
+msgid "External link"
+msgstr "Внешняя ссылка"
+
+msgid "None"
+msgstr "Ничего"
+
+msgid "Search Terms"
+msgstr "Поисковые запросы"
+
+msgid "Add new promoted result"
+msgstr "Добавить новый продвигаемый результат"
+
+msgid "Search term(s)"
+msgstr "Критерии поиска"
+
+msgid "Promoted results"
+msgstr "Продвигаемые результаты"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Подборка для '%(query)s' создана."
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Рекомендации не были созданы из-за ошибок"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Подборка для '%(query)s' обновлена."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Рекомендации не были сохранены из-за ошибок"
+
+msgid "Editor's picks deleted."
+msgstr "Подборка удалена."

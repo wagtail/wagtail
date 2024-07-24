@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Roger Pons <rogerpons@gmail.com>, 2023
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
+"Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail locales"
+msgstr "Configuracions regionals de Wagtail"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Select a new language"
+msgstr "Seleccionar un nou idioma"
+
+msgid "This locale's language code is not supported"
+msgstr "El codi d'idioma d'aquesta configuració regional no està suportat"
+
+msgid "Yes, delete"
+msgstr "Sí, suprimir"
+
+msgid "Back"
+msgstr "Tornar"
+
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"El codi d'idioma actual d'aquesta configuració regional no està suportat. "
+"Trieu un altre idioma o suprimiu aquesta configuració regional."
+
+msgid "Locales"
+msgstr "Configuracions regionals"
+
+msgid "Add a locale"
+msgstr "Afegir una configuració regional"
+
+msgid "Usage"
+msgstr "Ús"
+
+msgid "Add locale"
+msgstr "Afegir configuració regional"
+
+#, python-format
+msgid "Locale '%(object)s' created."
+msgstr "S'ha creat la configuració regional '%(object)s'."
+
+#, python-format
+msgid "Locale '%(object)s' updated."
+msgstr "S'ha actualitzat la configuració regional '%(object)s'."
+
+msgid "The locale could not be saved due to errors."
+msgstr "No s'ha pogut desar la configuració regional per causa d'errors."
+
+msgid "Delete locale"
+msgstr "Esborrar configuració regional"
+
+#, python-format
+msgid "Locale '%(object)s' deleted."
+msgstr "S'ha esborrat la configuració regional '%(object)s'."
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "Segur que voleu esborrar aquesta configuració regional?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr ""
+"No es pot esborrar aquesta configuració regional perquè no n'hi ha d'altres."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr ""
+"No es pot esborrar aquesta configuració regional perquè hi ha pàgines i/o "
+"altres objectes que l'estan fent servir."

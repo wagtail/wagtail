@@ -1,0 +1,6 @@
+{% load wagtailadmin_tags %}
+<button type="button" id="comment-icon" data-annotation class="w-field__comment-button w-field__comment-button--reveal !w-hidden">
+    {% icon name='comment' %}
+</button>
+{{ comments_data|json_script:"comments-data" }}
+<div id="comments-output" hidden></div>

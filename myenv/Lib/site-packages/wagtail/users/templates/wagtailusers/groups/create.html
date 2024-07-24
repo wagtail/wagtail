@@ -1,0 +1,29 @@
+{% extends "wagtailadmin/generic/create.html" %}
+{% load wagtailusers_tags i18n wagtailadmin_tags %}
+
+{% block main_content %}
+    <form action="{% url 'wagtailusers_groups:add' %}" method="POST" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields">
+            {% block fields %}
+                <li>{% formattedfield form.name %}</li>
+                {% block extra_fields %}{% endblock extra_fields %}
+            {% endblock fields %}
+            <li>
+                {% format_permissions permission_bound_field=form.permissions %}
+            </li>
+            {% for panel in permission_panels %}
+                <li>
+                    {{ panel.as_admin_panel }}
+                </li>
+            {% endfor %}
+            <li><input type="submit" value="{% trans 'Add group' %}" class="button" /></li>
+        </ul>
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailusers/groups/includes/group_form_js.html" %}
+{% endblock %}

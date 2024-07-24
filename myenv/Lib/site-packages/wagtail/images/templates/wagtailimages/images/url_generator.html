@@ -1,0 +1,58 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailimages_tags wagtailadmin_tags i18n %}
+
+{% block extra_css %}
+    <style>
+        .loading-mask {
+            max-height: clamp(25rem, 50vh, 50rem);
+        }
+    </style>
+{% endblock %}
+
+{% block main_content %}
+    <div class="w-image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' object.id '__filterspec__' %}">
+        <form class="w-image-url-generator__form w-mb-5">
+            {% include "wagtailadmin/shared/field.html" with field=form.filter_method %}
+            {% field_row max_content=True %}
+                {% include "wagtailadmin/shared/field.html" with field=form.width %}
+                {% include "wagtailadmin/shared/field.html" with field=form.height %}
+                {% include "wagtailadmin/shared/field.html" with field=form.closeness %}
+            {% endfield_row %}
+        </form>
+
+        {% trans "Preview" as heading %}
+        {% panel id="preview" icon="view" heading=heading %}
+            <div class="w-image-url-generator__preview">
+                <div class="loading-mask w-block w-border-2 w-border-border-furniture w-overflow-scroll w-p-4 w-rounded-sm">
+                    <img class="preview w-max-w-none" src="" alt="{% trans 'Preview' %}" />
+                </div>
+            </div>
+        {% endpanel %}
+
+        {% trans "URL" as heading %}
+        {% panel id="url" heading=heading %}
+            <div class="w-relative" data-controller="w-clipboard w-clone" data-w-clone-auto-clear-value="5_000" data-action="w-clipboard:copy->w-clone#clear w-clipboard:copied->w-clone#add w-clipboard:error->w-clone#add">
+                <label class="w-sr-only" for="result-url">{% trans "Image URL" %}</label>
+                <textarea class="w-image-url-generator__url" id="result-url" rows="1" name="result-url" data-controller="w-action" data-action="focus->w-action#select" data-w-clipboard-target="value">
+                </textarea>
+                <button type="button" class="button button-secondary w-absolute w-top-3.5 w-right-3 w-bottom-auto w-left-auto" data-action="w-clipboard#copy" aria-describedby="clipboard-tooltip">
+                    {% trans "Copy URL" %}
+                </button>
+                <div class="clipboard-tooltip" data-w-clone-target="container" id="clipboard-tooltip" aria-atomic="true" aria-live="polite"></div>
+                <template data-w-clone-target="template" data-type="success">
+                    <span class="w-text-grey-50 w-absolute w-right-2 w-bg-positive-100 w-p-2 w-rounded-sm">{% trans 'Copied to clipboard' %}</span>
+                </template>
+                <template data-w-clone-target="template" data-type="error">
+                    <span class="w-text-grey-50 w-absolute w-right-2 w-bg-critical-100 w-p-2 w-rounded-sm">{% trans 'Copying to clipboard failed' %}</span>
+                </template>
+            </div>
+        {% endpanel %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/image-url-generator.js' %}"></script>
+{% endblock %}

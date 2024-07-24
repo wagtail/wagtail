@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumendid"
+
+msgid "Collection"
+msgstr "Kogumine"
+
+msgid "Add"
+msgstr "Lisama"
+
+msgid "Add/edit documents you own"
+msgstr "Lisage / muutke teile kuuluvaid dokumente"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Edit any document"
+msgstr "Muutke mis tahes dokumenti"
+
+msgid "Choose"
+msgstr "Valige"
+
+msgid "title"
+msgstr "pealkiri"
+
+msgid "file"
+msgstr "faili"
+
+msgid "created at"
+msgstr "loodud aadressil"
+
+msgid "uploaded by user"
+msgstr "kasutaja üles laaditud"
+
+msgid "tags"
+msgstr "sildid"
+
+msgid "document"
+msgstr "dokument"
+
+msgid "documents"
+msgstr "dokumendid"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
+msgid "Latest documents"
+msgstr "Viimased dokumendid"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Te pole sellesse kogusse ühtegi dokumenti üles laadinud."
+
+msgid "You haven't uploaded any documents."
+msgstr "Te pole ühtegi dokumenti üles laadinud."
+
+msgid "Change document:"
+msgstr "Muuda dokumenti:"
+
+msgid "Add a document"
+msgstr "Lisage dokument"
+
+msgid "Add document"
+msgstr "Lisage dokument"
+
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
+
+msgid "Upload"
+msgstr "Laadi üles"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "%(title)s muutmine"
+
+msgid "Editing"
+msgstr "Redigeerimine"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Delete document"
+msgstr "Kustuta dokument"
+
+msgid "Filesize"
+msgstr "Faili suurus"
+
+msgid "File not found"
+msgstr "Faili ei leitud"
+
+msgid "Usage"
+msgstr "Kasutamine"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Vabandust, ükski dokument ei ühti \"<em>%(query_string)s</em>\\"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Te pole sellesse kogusse ühtegi dokumenti üles laadinud. Miks mitte laadida "
+"<a href=\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Te pole üles laadinud ühtegi dokumenti. Miks mitte laadida <a "
+"href=\"%(wagtaildocs_add_document_url)s\">üles üks</a>?"
+
+msgid "Add multiple documents"
+msgstr "Lisage mitu dokumenti"
+
+msgid "Add documents"
+msgstr "Lisage dokumendid"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Kohe üleslaadimiseks lohistage dokumendid sellesse piirkonda."
+
+msgid "Or choose from your computer"
+msgstr "Või valige oma arvutist"
+
+msgid "Add to collection:"
+msgstr "Lisa kogusse:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Üleslaadimine õnnestus. Vajadusel värskendage seda dokumenti sobivama "
+"pealkirjaga. Võite ka dokumendi täielikult kustutada, kui üleslaadimist pole "
+"vaja."
+
+msgid "Sorry, upload failed."
+msgstr "Vabandust, üleslaadimine ebaõnnestus."
+
+msgid "You need a password to access this document."
+msgstr "Sellele dokumendile juurdepääsemiseks vajate parooli."
+
+msgid "Document permissions"
+msgstr "Dokumendi load"
+
+msgid "Add a document permission"
+msgstr "Lisage dokumendi luba"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "File"
+msgstr "Fail"
+
+msgid "Created"
+msgstr "Loodud"
+
+msgid "Choose a document"
+msgstr "Valige dokument"
+
+msgid "Choose another document"
+msgstr "Valige mõni muu dokument"
+
+msgid "Edit this document"
+msgstr "Muutke seda dokumenti"
+
+msgid "Documents"
+msgstr "Dokumendid"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokument '%(document_title)s' on lisatud."
+
+msgid "The document could not be saved due to errors."
+msgstr "Vigade tõttu ei õnnestunud dokumenti salvestada."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumendi '%(document_title)s' värskendamine on toimunud"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokument '%(document_title)s' on kustutatud."
+
+msgid "Document"
+msgstr "Dokument"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokument"
+msgstr[1] "%(count)s dokumenti."

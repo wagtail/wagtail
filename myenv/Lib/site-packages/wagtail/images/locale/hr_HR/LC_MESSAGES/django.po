@@ -1,0 +1,395 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dino Aljević <dino8890@protonmail.com>, 2020-2022
+# Luka Matijević <lumatijev@gmail.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
+"language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail slike"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Podržani formati: %(supported_formats)s. Najveća veličina: "
+"%(max_upload_size)s"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Podržani formati: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr "Format slike nije podržan. Podržani formati: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Datoteka je prevelika (%(file_size)s). Najveća dopuštena veličina: "
+"%(max_filesize)s."
+
+#, python-format
+msgid ""
+"This file has too many pixels (%(num_pixels)s). Maximum pixels "
+"%(max_pixels_count)s."
+msgstr ""
+"Datoteka ima previše piksela (%(num_pixels)s). Najveća dopuštena količina; "
+"%(max_pixels_count)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Datoteka je prevelika. Najveća dopuštena veličina: %(max_filesize)s."
+
+msgid "Full width"
+msgstr "Cijela širina"
+
+msgid "Left-aligned"
+msgstr "Lijevo poravnano"
+
+msgid "Right-aligned"
+msgstr "Desno poravnano"
+
+msgid "Collection"
+msgstr "Zbirka"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Slika je dekorativna"
+
+msgid "Alt text"
+msgstr "Alternativni tekst"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Molimo dodajte alternativni tekst slici ili ju označite kao dekorativnu."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Original size"
+msgstr "Izvorna veličina"
+
+msgid "Resize to width"
+msgstr "Obzirom na širinu"
+
+msgid "Resize to height"
+msgstr "Obzirom na visinu"
+
+msgid "Resize to min"
+msgstr "Obizrom na najmanju dimenziju"
+
+msgid "Resize to max"
+msgstr "Obzirom na najveću dimenziju"
+
+msgid "Resize to fill"
+msgstr "Upotpuni"
+
+msgid "Width"
+msgstr "Širina"
+
+msgid "Height"
+msgstr "Visina"
+
+msgid "Closeness"
+msgstr "Bliskost"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Add/edit images you own"
+msgstr "Dodaj/uredi vlastite slike"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit any image"
+msgstr "Uređivanje bilo koje slike"
+
+msgid "Choose"
+msgstr "Odaberi"
+
+msgid "title"
+msgstr "naslov"
+
+msgid "file"
+msgstr "datoteka"
+
+msgid "width"
+msgstr "širina"
+
+msgid "height"
+msgstr "visina"
+
+msgid "created at"
+msgstr "Stvoreno u"
+
+msgid "uploaded by user"
+msgstr "Prenio korisnik"
+
+msgid "tags"
+msgstr "oznake"
+
+msgid "image"
+msgstr "slika"
+
+msgid "images"
+msgstr "slike"
+
+msgid "Add tags to images"
+msgstr "Dodaj oznake slikama"
+
+msgid "Yes, add"
+msgstr "Da, dodaj"
+
+msgid "No, don't add"
+msgstr "Ne, nemoj dodati"
+
+msgid "Add images to collection"
+msgstr "Dodaj slike u zbirku"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Korišteno %(usage_count)s put "
+msgstr[1] "Korišteno %(usage_count)s puta"
+msgstr[2] "Korišteno %(usage_count)s puta"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
+msgid "Popular tags"
+msgstr "Popularne oznake"
+
+msgid "Existing"
+msgstr "Postojeći"
+
+msgid "New"
+msgstr "Novi"
+
+msgid "Latest images"
+msgstr "Najnovije slike"
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Zašto ne <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>dodate jedan</a>?"
+
+msgid "Choose a format"
+msgstr "Odaberi format"
+
+msgid "Insert image"
+msgstr "Umetni sliku"
+
+msgid "Change image file:"
+msgstr "Promijeni sliku:"
+
+msgid "Add an image"
+msgstr "Dodaj sliku"
+
+msgid "Add image"
+msgstr "Dodaj sliku"
+
+msgid "Save"
+msgstr "Spremi"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Uređivanje slike %(title)s"
+
+msgid "Editing"
+msgstr "Uređivanje"
+
+msgid "Delete image"
+msgstr "Izbriši sliku"
+
+msgid "URL Generator"
+msgstr "URL Generator"
+
+msgid "Focal point"
+msgstr "Žarišna točka"
+
+msgid "(optional)"
+msgstr "(neobavezno)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Kako bi naznačili najbitniji dio, povucite pravokutnik preko gornje slike."
+
+msgid "Current focal point shown"
+msgstr "Prikazana je trenutna žarišna točka"
+
+msgid "Remove focal area"
+msgstr "Izbriši žarišno područje"
+
+msgid "Max dimensions"
+msgstr "Maksimalne dimenzije"
+
+msgid "Filesize"
+msgstr "Veličina datoteke"
+
+msgid "File not found"
+msgstr "Datoteka nije pronađena"
+
+msgid "Usage"
+msgstr "Upotreba"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Nažalost nisu pronađene slike koje odgovaraju \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nemate slika u ovoj zbirci. Zašto ne <a "
+"href=\"%(wagtailimages_add_image_url)s\">dodate jednu</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nemate slika. Zašto ne <a href=\"%(wagtailimages_add_image_url)s\">dodate "
+"jednu</a>?"
+
+msgid "Preview"
+msgstr "Pregled"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Add multiple images"
+msgstr "Dodaj više slika"
+
+msgid "Add images"
+msgstr "Dodaj slike"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Dovucite slike ovdje kako bi ih prenijeli."
+
+msgid "Or choose from your computer"
+msgstr "Ili odaberite sa vašeg računala"
+
+msgid "Add to collection:"
+msgstr "Dodaj u zbirku:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Uspješan prijenos. Molimo preimenujte ovu sliku ako je to potrebno. Također "
+"možete izbrisati sliku ako njen prijenos nije bio potreban. "
+
+msgid "Sorry, upload failed."
+msgstr "Nažalost, prijenos nije uspio."
+
+msgid "Server Error"
+msgstr "Greška na poslužitelju"
+
+msgid "Image updated."
+msgstr "Slika je ažurirana."
+
+msgid "Image permissions"
+msgstr "Dozvole slike"
+
+msgid "Add an image permission"
+msgstr "Dodaj dozvolu slike"
+
+msgid "Tags"
+msgstr "Oznake"
+
+msgid "Tag"
+msgstr "Oznaka"
+
+msgid "Add to collection"
+msgstr "Dodaj u zbirku"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Upload"
+msgstr "Prijenos"
+
+msgid "Uploading…"
+msgstr "Prijenos u tijeku..."
+
+msgid "Choose an image"
+msgstr "Odaberi sliku"
+
+msgid "Edit this image"
+msgstr "Uredi ovu sliku"
+
+msgid "Images"
+msgstr "Slike"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Slika '%(image_title)s' je ažurirana."
+
+msgid "Edit again"
+msgstr "Uredi ponovno"
+
+msgid "The image could not be saved due to errors."
+msgstr "Nije moguće sačuvati sliku zbog grešaka."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Izvorna slika nije pronađena. Molimo promijenite izvor ili izbrišite sliku."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Slika '%(image_title)s' je izbrisana."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Slika '%(image_title)s' je dodana."
+
+msgid "The image could not be created due to errors."
+msgstr "Nije moguće stvoriti sliku zbog grešaka."
+
+msgid "Image"
+msgstr "Slika"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s slika"
+msgstr[1] "%(count)s slika"
+msgstr[2] "%(count)s slika"
+
+msgid "Change image"
+msgstr "Promijeni sliku"

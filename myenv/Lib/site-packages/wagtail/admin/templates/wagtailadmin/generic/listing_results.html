@@ -1,0 +1,19 @@
+{% load wagtailadmin_tags i18n %}
+
+{% block before_results %}{% endblock %}
+{% if object_list %}
+    {% block results %}
+        {% component table %}
+    {% endblock %}
+    {% block pagination %}
+        {% if is_paginated %}
+            <div class="nice-padding">
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+            </div>
+        {% endif %}
+    {% endblock %}
+{% else %}
+    <div class="nice-padding w-mt-8">
+        {% block no_results_message %}<p>{% trans "There are no results." %}</p>{% endblock %}
+    </div>
+{% endif %}

@@ -1,0 +1,21 @@
+{% load i18n l10n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+
+    Variables accepted by this template:
+
+    - `instance` - the object being listed
+    - `obj_type` - {string} the bulk actions type, e.g. 'page'
+    - `aria_describedby` - {string} if present, adds aria-describedby to the checkbox,
+                           usually refers to the text in a title column with the id of
+                           `{obj_type}_{instance.pk}_title`
+
+{% endcomment %}
+
+<td class="bulk-action-checkbox-cell">
+    <input type="checkbox"
+           {% if obj_type == 'page' %}data-page-status="{% if instance.live %}live{% else %}draft{% endif %}"{% endif %}
+           data-object-id="{{ instance.pk|unlocalize|admin_urlquote }}" data-bulk-action-checkbox class="bulk-action-checkbox"
+           aria-label="{% trans "Select" %}"
+           {% if aria_describedby %}aria-describedby="{{ aria_describedby }}"{% endif %}
+    />
+</td>

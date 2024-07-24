@@ -1,0 +1,250 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Axel Haustant, 2016
+# Axel H., 2016
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2020-2022
+# nahuel, 2014
+# nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
+"Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail redirects"
+msgstr "Règles de Redirections Wagtail"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Permanent"
+msgstr "Permanente"
+
+msgid "Temporary"
+msgstr "Temporaire"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "From site"
+msgstr "Du site"
+
+msgid "All sites"
+msgstr "Tous les sites"
+
+msgid "A redirect with this path already exists."
+msgstr "Une règle de redirection avec ce chemin existe déjà."
+
+msgid "File to import"
+msgstr "Fichier à importer"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formats supportés : %(supported_formats)s."
+
+msgid "From field"
+msgstr "Champ source"
+
+msgid "To field"
+msgstr "Champ destination"
+
+msgid "redirect from"
+msgstr "redirige depuis"
+
+msgid "site"
+msgstr "site"
+
+msgid "permanent"
+msgstr "permanent"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Recommandé. Les règles de redirection permanentes vous assurent que les "
+"moteurs de recherche oublient la vieille page (définie sous « redirige "
+"depuis ») et indexe la nouvelle à la place."
+
+msgid "redirect to a page"
+msgstr "redirige vers une page"
+
+msgid "target page route"
+msgstr "route de la page cible"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"La route de page vers laquelle effectuer la redirection, ou la route par "
+"défaut si laissé vide."
+
+msgid "redirect to any URL"
+msgstr "redirige vers n'importe quelle URL"
+
+msgid "automatically created"
+msgstr "créée automatiquement"
+
+msgid "created at"
+msgstr "créé à"
+
+msgid "temporary"
+msgstr "temporaire"
+
+msgid "redirect"
+msgstr "règle de redirection"
+
+msgid "redirects"
+msgstr "règles de redirection"
+
+msgid "Add redirect"
+msgstr "Ajouter une règle de redirection"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Redirects"
+msgstr "Règles de Redirection"
+
+msgid "Import redirects"
+msgstr "Importer des règles de redirection"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Sélectionnez un fichier dans lequel chaque ligne représente une règle de "
+"redirection et où chaque ligne est composée de deux colonnes représentant la "
+"<code>source</code> et <code>destination</code> (le nom des colonnes est "
+"libre).</p>\n"
+"<p>Après soumission du formulaire, vous pourrez personnaliser les "
+"redirections lors de l'étape de confirmation.</p>"
+
+msgid "Import"
+msgstr "Importer"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Supprimer la règle de redirection %(title)s"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer cette règle de redirection ?"
+
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+msgid "Confirm import"
+msgstr "Confirmer l'import"
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Preview"
+msgstr "Prévisualisation"
+
+msgid "Summary"
+msgstr "Sommaire"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"%(total)s règles de redirection trouvées, %(successes)s créées et %(errors)s "
+"erreurs."
+
+msgid "From"
+msgstr "Depuis"
+
+msgid "To"
+msgstr "Vers"
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "Continue"
+msgstr "Continuer"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Désolé, aucune règle de redirection ne correspond à « <em>%(query_string)s</"
+"em> »"
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Aucune règle de redirection n'a été créée. Pourquoi ne pas <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "La règle de redirection ne peut être enregistrée du fait d'erreurs."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Règle de Redirection « %(redirect_title)s » mise à jour."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Règle de Redirection « %(redirect_title)s » supprimée."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Règle de Redirection « %(redirect_title)s » ajoutée."
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "The redirect could not be created due to errors."
+msgstr "La règle de redirection ne peut être créée du fait d'erreurs."
+
+msgid "Search redirects"
+msgstr "Rechercher une règle de redirection"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Le format de fichier « %(extension)s » n'est pas supporté"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "L'encodage du fichier importé est incorrect : %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s erreurs lors de la lecture du fichier : %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "%(total)d règle de redirection importée"
+msgstr[1] "%(total)d règles de redirection importées"
+msgstr[2] "%(total)d règles de redirection importées"

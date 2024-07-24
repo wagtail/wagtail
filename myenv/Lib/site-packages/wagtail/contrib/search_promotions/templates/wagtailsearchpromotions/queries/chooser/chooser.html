@@ -1,0 +1,18 @@
+{% load i18n wagtailadmin_tags %}
+{% trans "Popular search terms" as pop_str %}
+{% include "wagtailadmin/shared/header.html" with title=pop_str %}
+
+<div class="nice-padding">
+    <form class="query-search full-width" action="{% url 'wagtailsearchpromotions:chooserresults' %}" method="GET" autocomplete="off" novalidate>
+        <ul class="fields">
+            {% for field in searchform %}
+                <li>{% formattedfield field %}</li>
+            {% endfor %}
+            <li class="submit"><input type="submit" value="{% trans 'Search' %}" class="button" /></li>
+        </ul>
+    </form>
+
+    <div id="query-results">
+        {% include "wagtailsearchpromotions/queries/chooser/results.html" %}
+    </div>
+</div>

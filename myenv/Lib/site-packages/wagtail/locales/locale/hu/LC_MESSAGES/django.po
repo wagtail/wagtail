@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Istvan Farkas <istvan.farkas@gmail.com>, 2020
+# Loic Teixeira, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail locales"
+msgstr "Wagtail területi beállítások"
+
+msgid "Language"
+msgstr "Nyelv"
+
+msgid "Select a new language"
+msgstr "Új nyelv kiválasztása"
+
+msgid "This locale's language code is not supported"
+msgstr "Ennek a területi beállításnak a nyelvkódja nem támogatott"
+
+msgid "Yes, delete"
+msgstr "Igen, törlöm"
+
+msgid "Back"
+msgstr "Vissza"
+
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"Ennek a területi beállításnak a nyelvkódja jelenleg nem támogatott. Kérjük "
+"válasszon egy új nyelvet, vagy törölje ezt a területi beállítást."
+
+msgid "Locales"
+msgstr "Területi beállítások"
+
+msgid "Add a locale"
+msgstr "Területi beállítás hozzáadása"
+
+msgid "Usage"
+msgstr "Használat"
+
+msgid "Add locale"
+msgstr "Területi beállítás hozzáadása"
+
+#, python-format
+msgid "Locale '%(object)s' created."
+msgstr "A(z) '%(object)s' területi beállítás létrehozva."
+
+#, python-format
+msgid "Locale '%(object)s' updated."
+msgstr "A(z) '%(object)s' területi beállítás frissítve."
+
+msgid "The locale could not be saved due to errors."
+msgstr "Hiba történt a területi beállítás mentése során."
+
+msgid "Delete locale"
+msgstr "Nyelvi beállítás törlése"
+
+#, python-format
+msgid "Locale '%(object)s' deleted."
+msgstr "A(z) '%(object)s' területi beállítás törölve lett."
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "Biztosan törölni kívánja ezt a területi beállítást?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr "Ezt a területi beállítást nem lehet törölni, mert nincs másik megadva."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr ""
+"Ezt a területi beállítást nem lehet törölni, mert vannak olyan oldalak és/"
+"vagy egyéb rekordok, amelyek használják."

@@ -1,0 +1,249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dominik Lech, 2022
+# Dominik Lech, 2022
+# Łukasz Bołdys (Lukasz Boldys), 2014,2021
+# Łukasz Bołdys (Lukasz Boldys), 2021
+# Łukasz Bołdys (Lukasz Boldys), 2014
+# Miłosz Miśkiewicz, 2016
+# Miłosz Miśkiewicz, 2018,2020-2021,2023
+# Miłosz Miśkiewicz, 2016
+# Łukasz Bołdys (Lukasz Boldys), 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Miłosz Miśkiewicz, 2018,2020-2021,2023\n"
+"Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
+"pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Wagtail redirects"
+msgstr "Przekierowania Wagtail"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Stałe"
+
+msgid "Temporary"
+msgstr "Czasowe"
+
+msgid "All"
+msgstr "Wszystkie"
+
+msgid "From site"
+msgstr "Serwis źródłowy"
+
+msgid "All sites"
+msgstr "Wszystkie serwisy"
+
+msgid "A redirect with this path already exists."
+msgstr "Przekierowanie z tym adresem już istnieje."
+
+msgid "File to import"
+msgstr "Plik do importu"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Wspierane formaty: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Pole formularza"
+
+msgid "To field"
+msgstr "Do pola"
+
+msgid "redirect from"
+msgstr "przekierowanie z"
+
+msgid "site"
+msgstr "serwis"
+
+msgid "permanent"
+msgstr "stałe"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Zalecane. Stałe przekierowania dają pewność, że wyszukiwarki zapomną starą "
+"stronę ('Przekieruj z') i zaindeksują w jej miejsce nową."
+
+msgid "redirect to a page"
+msgstr "przekieruj na stronę"
+
+msgid "target page route"
+msgstr "ścieżka strony docelowej"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Opcjonalnie zdefiniuj ścieżkę na stronie docelowej do przekierowania. "
+"Pozostaw puste aby przekierować do domyślnej ścieżki."
+
+msgid "redirect to any URL"
+msgstr "przekieruj na dowolny adres URL"
+
+msgid "automatically created"
+msgstr "automatycznie utworzone"
+
+msgid "created at"
+msgstr "utworzono dnia"
+
+msgid "temporary"
+msgstr "tymczasowy"
+
+msgid "redirect"
+msgstr "przekierowanie"
+
+msgid "redirects"
+msgstr "przekierowania"
+
+msgid "Add redirect"
+msgstr "Dodaj przekierowanie"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Redirects"
+msgstr "Przekierowania"
+
+msgid "Import redirects"
+msgstr "Import przekierowań"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Wybierz plik gdzie przekierowania są podzielone w wiersze i zawierają "
+"kolumny reprezentujące <code>z</code> oraz <code>na</code> (nazwy mogą być "
+"dowolne).</p> <p>Po wysłaniu zostaniesz poproszony o potwierdzenie i "
+"będziesz mógł zmienić przekierowania przed importem.</p>"
+
+msgid "Import"
+msgstr "Import"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Usuń przekierowanie %(title)s"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Czy na pewno chcesz usunąć to przekierowanie?"
+
+msgid "Yes, delete"
+msgstr "Tak, usuń"
+
+msgid "Confirm import"
+msgstr "Potwierdź import"
+
+msgid "Confirm"
+msgstr "Potwierdź"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Preview"
+msgstr "Podgląd"
+
+msgid "Summary"
+msgstr "Podsumowanie"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Znaleziono %(total)s przekierowań, utworzono %(successes)s i znaleziono "
+"%(errors)s błędów."
+
+msgid "From"
+msgstr "Z"
+
+msgid "To"
+msgstr "Do"
+
+msgid "Error"
+msgstr "Błąd"
+
+msgid "Continue"
+msgstr "Kontynuuj"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Przepraszamy, żadne przekierowanie nie pasuje do \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Nie zostały stworzone żadne przekierowania. Czemu nie <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">dodać jakiegoś</a>?"
+
+msgid "Site"
+msgstr "Serwis"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Uaktualniono przekierowanie '%(redirect_title)s'."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Usunięto przekierowanie '%(redirect_title)s'."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Przekierowanie '%(redirect_title)s' dodane."
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "The redirect could not be created due to errors."
+msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."
+
+msgid "Search redirects"
+msgstr "Szukaj przekierowań"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Format pliku typu \"%(extension)s\" nie jest wspierany"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Zaimportowany plik ma złe kodowanie: %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr ""
+"%(error)s błędów napotkanych w trakcie próbie odczytu pliku: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Zaimportowano %(total)d przekierowanie"
+msgstr[1] "Zaimportowano %(total)d przekierowań"
+msgstr[2] "Zaimportowano %(total)d przekierowań"
+msgstr[3] "Zaimportowano %(total)d przekierowań"

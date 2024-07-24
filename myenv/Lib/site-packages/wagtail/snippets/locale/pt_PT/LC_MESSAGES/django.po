@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Felipe Lobato, 2023
+# Jose Lourenco <jose@lourenco.ws>, 2015
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Felipe Lobato, 2023\n"
+"Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Submit for moderation"
+msgstr "Enviar para moderação"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Reenviar para %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Enviar para %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Reiniciar fluxo de trabalho"
+
+msgid "Cancel workflow "
+msgstr "Cancelar fluxo de trabalho"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Save"
+msgstr "Gravar"
+
+msgid "Locked"
+msgstr "Bloqueado"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s e Publicar"
+
+msgid "Wagtail snippets"
+msgstr "Trechos Wagtail"
+
+msgid "Delete selected snippets"
+msgstr "Deletar os itens selecionados"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' apagado."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Apagar %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Apagar"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilizado %(usage_count)s vez"
+msgstr[1] "Utilizado %(usage_count)s vezes"
+msgstr[2] "Utilizado %(usage_count)s vezes"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Tem a certeza que quer apagar este %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Tem a certeza que quer apagar %(count)s %(snippet_type_name)s?"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+msgid "No, don't delete"
+msgstr "Não, não apagar"
+
+msgid "Publishing…"
+msgstr "A publicar..."
+
+msgid "Publish this version"
+msgstr "Publicar esta versão"
+
+msgid "Saving…"
+msgstr "A gravar…"
+
+msgid "Replace current draft"
+msgstr "Substituir rascunho atual."
+
+msgid "Save draft"
+msgstr "Gravar rascunho"
+
+msgid "Actions"
+msgstr "Ações"
+
+msgid "Choose"
+msgstr "Escolher"
+
+msgid "Snippets"
+msgstr "Trechos"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Home"
+msgstr "Início"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Escolher outro/a %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Alterar este %(object)s"

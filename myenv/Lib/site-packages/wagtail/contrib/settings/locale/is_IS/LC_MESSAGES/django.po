@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016,2018,2022
+# saevarom <saevar@saevar.is>, 2020,2022
+# saevarom <saevar@saevar.is>, 2020,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2020,2022\n"
+"Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "default"
+msgstr "sjálfgefin"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s fyrir %(site)s"
+
+msgid "Site"
+msgstr "Síða"
+
+msgid "Saving…"
+msgstr "Vista…"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Settings"
+msgstr "Stillingar"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Ekki er hægt að breyta þessari stillingu þar sem engin síða hefur verið "
+"skilgreind."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Ekki var hægt að vista stillingarnar, villur komu upp."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)suppfært."

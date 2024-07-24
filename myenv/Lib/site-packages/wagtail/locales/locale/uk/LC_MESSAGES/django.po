@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2021
+# Anastasiia La, 2021
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Loic Teixeira, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Ukrainian (https://app.transifex.com/torchbox/teams/8009/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail locales"
+msgstr "Локалі Wagtail"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "Select a new language"
+msgstr "Оберіть нову мову"
+
+msgid "This locale's language code is not supported"
+msgstr "Поточний код мови цієї локалі не підтримується"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"Поточний код мови цієї локалі не підтримується. Будь ласка, виберіть іншу "
+"мову або видаліть цю локаль."
+
+msgid "Locales"
+msgstr "Локалі"
+
+msgid "Add a locale"
+msgstr "Додати локаль"
+
+msgid "Usage"
+msgstr "Використання"
+
+msgid "Add locale"
+msgstr "Додати локаль"
+
+#, python-format
+msgid "Locale '%(object)s' created."
+msgstr "Локаль '%(object)s' створено."
+
+#, python-format
+msgid "Locale '%(object)s' updated."
+msgstr "Локаль '%(object)s' оновлено."
+
+msgid "The locale could not be saved due to errors."
+msgstr "Локаль не можна зберегти через помилки."
+
+msgid "Delete locale"
+msgstr "Видалити локаль"
+
+#, python-format
+msgid "Locale '%(object)s' deleted."
+msgstr "Локаль '%(object)s' видалено."
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "Ви впевненні, що хочете видалити цю локаль?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr "Цю локаль не можна видалити, тому що немає інших локалей."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr ""
+"Цю локаль не можна видалити, тому що є сторінки та/або інші об'єкти, які "
+"використовують її."

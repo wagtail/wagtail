@@ -1,0 +1,231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015-2016
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# José Luis <alagunajs@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: José Luis <alagunajs@gmail.com>, 2015-2016\n"
+"Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
+"language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail belgeler"
+
+msgid "Collection"
+msgstr "Koleksiyon"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Add/edit documents you own"
+msgstr "Sahip olduğunuz belgeleri ekleyin/düzenleyin"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit any document"
+msgstr "Herhangi bir belge düzenle"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "title"
+msgstr "başla"
+
+msgid "file"
+msgstr "dosya"
+
+msgid "created at"
+msgstr "oluşturulma zamanı"
+
+msgid "uploaded by user"
+msgstr "yükleyen kullanıcı"
+
+msgid "tags"
+msgstr "etiketler"
+
+msgid "document"
+msgstr "belge"
+
+msgid "documents"
+msgstr "belgeler"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+msgid "Latest documents"
+msgstr "En yeni belgeler"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Bu koleksiyone henüz belge yüklemediniz."
+
+msgid "You haven't uploaded any documents."
+msgstr "Hiç belge yüklemediniz."
+
+msgid "Change document:"
+msgstr "Belgeyi değiştir:"
+
+msgid "Add a document"
+msgstr "Belge ekle"
+
+msgid "Add document"
+msgstr "Belge ekle"
+
+msgid "Uploading…"
+msgstr "Yükleniyor…"
+
+msgid "Upload"
+msgstr "Yükle"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "%(title)s düzenleniyor"
+
+msgid "Editing"
+msgstr "Düzenleniyor"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Delete document"
+msgstr "Belge sil"
+
+msgid "Filesize"
+msgstr "Dosya boyutu"
+
+msgid "File not found"
+msgstr "Dosya bulunamadı"
+
+msgid "Usage"
+msgstr "Kullanım"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Bu koleksiyona belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Hiç belge yüklemediniz. Neden <a "
+"href=\"%(wagtaildocs_add_document_url)s\">bir tane yüklemiyorsunuz</a>?"
+
+msgid "Add multiple documents"
+msgstr "Birden fazla belge akle"
+
+msgid "Add documents"
+msgstr "Belge ekle"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Hemen yüklenmesi için belgeleri bu alana sürükleyip bırakın."
+
+msgid "Or choose from your computer"
+msgstr "Veya bilgisayarınızdan seçin"
+
+msgid "Add to collection:"
+msgstr "Koleksiyona ekle:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Yükleme başarılı. Eğer gerekliyse lütfen bu belgenin başlığını, daha uygun "
+"bir başlıkla değiştirin."
+
+msgid "Sorry, upload failed."
+msgstr "Üzgünüm, yükleme başarısız oldu."
+
+msgid "You need a password to access this document."
+msgstr "Bu belgeye erişebilmeniz için şifre gerekiyor."
+
+msgid "Document permissions"
+msgstr "Belge izinleri"
+
+msgid "Add a document permission"
+msgstr "Bir belge izni ekle"
+
+msgid "Tags"
+msgstr "Etiketler"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "File"
+msgstr "Dosya"
+
+msgid "Choose a document"
+msgstr "Belge seç"
+
+msgid "Choose another document"
+msgstr "Başka bir belge seçin"
+
+msgid "Edit this document"
+msgstr "Belgeyi düzenle"
+
+msgid "Documents"
+msgstr "Belgeler"
+
+msgid "Title"
+msgstr "Başlık"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "'%(document_title)s' belgesi eklendi."
+
+msgid "The document could not be saved due to errors."
+msgstr "Hata nediyle belge kaydedilemedi."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "'%(document_title)s' belgesi güncellendi"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "'%(document_title)s' belgesi silindi."
+
+msgid "Document"
+msgstr "Belge"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s belge"
+msgstr[1] "%(count)s belge"

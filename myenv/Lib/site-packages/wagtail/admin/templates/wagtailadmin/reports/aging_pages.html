@@ -1,0 +1,58 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block results %}
+    {% if object_list %}
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th class="title">
+                        {% trans 'Title' %}
+                    </th>
+                    <th class="status">
+                        {% trans 'Status' %}
+                    </th>
+                    <th class="updated">
+                        {% trans 'Last published' %}
+                    </th>
+                    <th>{% trans 'Last published by' %}</th>
+                    <th class="type">
+                        {% trans 'Type' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page in object_list %}
+                    <tr>
+                        <td class="title" valign="top">
+                            <a href="{% url 'wagtailadmin_pages:edit' page.id %}">
+                                {{ page.specific_deferred.get_admin_display_title }}
+                            </a>
+                            {% i18n_enabled as show_locale_labels %}
+                            {% if show_locale_labels %}
+                                {% locale_label_from_id page.locale_id as locale_label %}
+                                {% status locale_label classname="w-status--label" %}
+                            {% endif %}
+                        </td>
+                        <td class="status" valign="top">
+                            {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
+                        </td>
+                        <td class="updated" valign="top">{% human_readable_date page.last_published_at %}</td>
+                        <td valign="top">
+                            {% include "wagtailadmin/shared/user_avatar.html" with user=page.last_published_by username=page.last_published_by_user %}
+                        </td>
+                        <td valign="top">
+                            {{ page.content_type|format_content_type }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No pages found." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block no_results %}
+    <p>{% trans "No pages found." %}</p>
+{% endblock %}

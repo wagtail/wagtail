@@ -1,0 +1,23 @@
+{% load i18n wagtailadmin_tags %}
+
+<template id="w-a11y-result-row-template">
+    <div class="w-a11y-result__row" data-a11y-result-row>
+        <h3 class="w-a11y-result__header">
+            <span class="w-a11y-result__name" data-a11y-result-name></span>
+            <span class="w-sr-only">{% trans 'Issues found' %}</span><span class="w-a11y-result__subtotal_count" data-a11y-result-count></span>
+        </h3>
+        <div class="w-a11y-result__container" data-a11y-result-container></div>
+    </div>
+</template>
+<template id="w-a11y-result-selector-template">
+    <button class="w-a11y-result__selector" data-a11y-result-selector type="button">
+        {% icon name="link-external" classname="w-a11y-result__icon" %}
+        <span data-a11y-result-selector-text></span>
+    </button>
+</template>
+
+<div class="w-mt-12">
+    <h2 class="w-flex w-items-center w-gap-2"><span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span></h2>
+    <div data-checks-panel></div>
+</div>
+{{ axe_configuration|json_script:"accessibility-axe-configuration" }}

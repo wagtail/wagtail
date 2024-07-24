@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-10-03 15:24+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
+"Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail sites"
+msgstr "Wagtail siteler (sites)"
+
+msgid "Choose a root page"
+msgstr "Bir kök (root) sayfa seç"
+
+msgid "Choose a different root page"
+msgstr "Farklı bir kök (root) sayfa seç"
+
+msgid "Sites"
+msgstr "Siteler"
+
+msgid "Add a site"
+msgstr "Bir site ekle"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Default?"
+msgstr "Varsayılan mı?"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "Add site"
+msgstr "Site ekle"
+
+#, python-format
+msgid "Site '%(object)s' created."
+msgstr "'%(object)s' sitesi oluşturuldu."
+
+msgid "The site could not be saved due to errors."
+msgstr "Sitesi hata nedeniyle kaydedilemedi."
+
+#, python-format
+msgid "Site '%(object)s' updated."
+msgstr "'%(object)s' sitesi güncellendi."
+
+msgid "Delete site"
+msgstr "Siteyi sil"
+
+#, python-format
+msgid "Site '%(object)s' deleted."
+msgstr "Site '%(object)s' silindi."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Bu siteyi silmek istediğinizden emin misiniz?"

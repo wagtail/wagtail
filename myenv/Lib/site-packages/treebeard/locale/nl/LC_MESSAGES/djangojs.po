@@ -1,0 +1,24 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Django-treebeard\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-18 14:12+0200\n"
+"PO-Revision-Date: 2011-07-18 14:12+0200\n"
+"Last-Translator: Jaap Roes <jaap@eight.nl>\n"
+"Language-Team: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/treebeard/treebeard-admin.js:157
+msgid "Abort"
+msgstr "Annuleren"
+
+#: static/treebeard/treebeard-admin.js:172
+msgid "As Sibling"
+msgstr "Als naastliggend onderdeel"
+
+#: static/treebeard/treebeard-admin.js:190
+msgid "As child"
+msgstr "Als subonderdeel"

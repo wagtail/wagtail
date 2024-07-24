@@ -1,0 +1,63 @@
+{% extends "wagtailadmin/generic/listing_results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block before_results %}
+    {% if view.active_filters %}
+        {% include "wagtailadmin/shared/active_filters.html" with active_filters=view.active_filters %}
+    {% endif %}
+
+    {% if render_filters_fragment %}
+        <template data-controller="w-teleport" data-w-teleport-target-value="#filters-drilldown" data-w-teleport-reset-value="true">
+            {% include "wagtailadmin/shared/headers/_filters.html" with filters=filters %}
+        </template>
+    {% endif %}
+
+    {% if render_buttons_fragment %}
+        <template data-controller="w-teleport" data-w-teleport-target-value="#w-slim-header-buttons" data-w-teleport-reset-value="true">
+            {% for button in header_buttons %}
+                {% component button %}
+            {% endfor %}
+        </template>
+    {% endif %}
+
+    {% if is_searching and view.show_other_searches %}
+        <div class="nice-padding">
+            {% search_other %}
+        </div>
+    {% endif %}
+
+    {% if not object_list %}
+        {# pass, to allow the same logic as `if object_list and (is_searching or is_filtering)` #}
+    {% elif is_searching or is_filtering %}
+        <div class="nice-padding">
+            <h2 role="alert">
+                {% blocktrans trimmed count counter=items_count %}
+                    There is {{ counter }} match
+                {% plural %}
+                    There are {{ counter }} matches
+                {% endblocktrans %}
+            </h2>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block no_results_message %}
+    {% fragment as no_results_message %}
+        {% if is_searching or is_filtering %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name_plural asvar no_results_text %}
+                No {{ model_name }} match your query.
+            {% endblocktrans %}
+        {% elif add_url %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name_plural asvar no_results_text %}
+                There are no {{ model_name }} to display. Why not <a href="{{ add_url }}">add one</a>?
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name_plural asvar no_results_text %}
+                There are no {{ model_name }} to display.
+            {% endblocktrans %}
+        {% endif %}
+        {{ no_results_text|capfirst }}
+    {% endfragment %}
+
+    <p>{{ no_results_message }}</p>
+{% endblock %}

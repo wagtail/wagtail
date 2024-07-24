@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dan Braghis, 2016
+# Dan Braghis, 2016,2018,2020-2022
+# Julian C <jcuotpc@gmail.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Dan Braghis, 2016,2018,2020-2022\n"
+"Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "default"
+msgstr "implicit"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s pentru %(site)s"
+
+msgid "Site"
+msgstr "Sit"
+
+msgid "Saving…"
+msgstr "În curs de salvare..."
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Settings"
+msgstr "Setări"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Setarea nu poate fi deschisă din cauzei lipsei definiților de sit."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Setarea nu a putut fi salvată din cauza erorilor."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sa fost actualizat(ă)."

@@ -1,0 +1,139 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Ragıp Ünal <ragip@ragipunal.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
+"Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
+"tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Submit for moderation"
+msgstr "Denetleme için gönder"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Tekrar gönderildi %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Gönderildi %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "iş akışını yenile"
+
+msgid "Cancel workflow "
+msgstr " İş akışını iptal et"
+
+msgid "Unpublish"
+msgstr "Yayından kaldır"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Locked"
+msgstr "Kilitlendi"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ve yayınla"
+
+msgid "Wagtail snippets"
+msgstr "Wagtail blokları"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' silindi."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "%(snippet_type_name)s sil"
+
+msgid "Delete "
+msgstr "Sil "
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s kez kullanıldı"
+msgstr[1] "%(usage_count)s kez kullanıldı"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "%(snippet_type_name)s kod bloğunu silmek istediğinizden emin misiniz?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+"%(count)s %(snippet_type_name)s kod bloğunu silmek istediğinizden emin "
+"misiniz?"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+msgid "Publishing…"
+msgstr "Yayınlanıyor…"
+
+msgid "Publish this version"
+msgstr "Bu düzeltmeyi yayınla"
+
+msgid "Saving…"
+msgstr "Kaydediliyor…"
+
+msgid "Replace current draft"
+msgstr "Şimdiki taslağın yerine koy"
+
+msgid "Save draft"
+msgstr "Taslağı kaydet"
+
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Choose"
+msgstr "Seç"
+
+msgid "Snippets"
+msgstr "Bloklar"
+
+msgid "Name"
+msgstr "Ad"
+
+msgid "Home"
+msgstr "Anasayfa"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "%(object)s seç"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Başka %(object)s seç"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s düzenle"

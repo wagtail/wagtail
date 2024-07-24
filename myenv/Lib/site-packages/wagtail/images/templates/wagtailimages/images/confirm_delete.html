@@ -1,0 +1,22 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailimages_tags i18n wagtailadmin_tags %}
+
+{% block main_content %}
+    <div class="row row-flush">
+        <div class="col6">
+            {% image image max-800x600 %}
+        </div>
+        <div class="col6">
+            {% include "wagtailadmin/shared/usage_summary.html" %}
+            {% if not is_protected %}
+                <p>{{ view.confirmation_message }}</p>
+                <form action="{{ view.get_delete_url }}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ view.get_success_url }}" name="next">
+                    <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+                    <a href="{{ view.get_success_url }}" class="button button-secondary">{% trans "No, don't delete" %}</a>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

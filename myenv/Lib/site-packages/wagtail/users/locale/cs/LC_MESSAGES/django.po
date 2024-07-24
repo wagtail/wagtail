@@ -1,0 +1,314 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020
+# IT Management <hudan@itmanagement.cz>, 2020
+# Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Marek Turnovec <aesculap@gmail.com>, 2022-2023
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
+# Tomáš Podivínský, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Tomáš Podivínský, 2023\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail uživatelé"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Toto pole může obsahovat pouze písmena bez diakritiky, číslice, @, ., +, -, "
+"_."
+
+msgid "A user with that username already exists."
+msgstr "Toto uživatelské jméno již existuje."
+
+msgid "The two password fields didn't match."
+msgstr "Zadaná hesla se neshodují."
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "First Name"
+msgstr "Jméno"
+
+msgid "Last Name"
+msgstr "Příjmení"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Leave blank if not changing."
+msgstr "Nevyplňuje, chcete-li zachovat současné heslo."
+
+msgid "Password confirmation"
+msgstr "Potvrzení hesla"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Pro zabránění překlepům zadejte heslo ještě jednou."
+
+msgid "Administrator"
+msgstr "Administrátor"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrátor má plný přístup ke správě jakéhokoliv objektu nebo nastavení."
+
+msgid "A group with that name already exists."
+msgstr "Skupina s tímto názvem již existuje."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Oprávnění pro stejnou stránku nemůže být nastaveno vícekrát."
+
+msgid "submitted notifications"
+msgstr "odeslané upozornění"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Upozornit, když je stránka odeslána ke schválení"
+
+msgid "approved notifications"
+msgstr "schválené upozornění"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Upozornit, když je vaše stránka schválena"
+
+msgid "rejected notifications"
+msgstr "odmítnuté upozornění"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Upozornit, když je vaše stránka zamítnuta"
+
+msgid "updated comments notifications"
+msgstr "notifikace o aktualizovaných komentářích"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Dostávat notifikace, jestliže komentáře byly vytvořeny, odsouhlaseny nebo "
+"zrušeny na stránce, pro níž chcete notifikace o komentářích dostávat"
+
+msgid "preferred language"
+msgstr "preferovaný jazyk"
+
+msgid "Select language for the admin"
+msgstr "Zvolte jazyk pro redakční systém"
+
+msgid "current time zone"
+msgstr "aktuální časové pásmo"
+
+msgid "Select your current time zone"
+msgstr "Zvolte vaše časové pásmo"
+
+msgid "profile picture"
+msgstr "profilová fotografie"
+
+msgid "Light"
+msgstr "Světlé"
+
+msgid "Dark"
+msgstr "Tmavé"
+
+msgid "Default"
+msgstr "Default(ní)"
+
+msgid "user profile"
+msgstr "uživatelský profile"
+
+msgid "user profiles"
+msgstr "uživatelské profily"
+
+msgid "Assign role"
+msgstr "Přiřadit roli"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Nemáte oprávnění pro editaci tohoto uživatele"
+msgstr[1] "Nemáte oprávnění pro editaci těchto uživatelů"
+msgstr[2] "Nemáte oprávnění pro editaci těchto uživatelů"
+msgstr[3] "Nemáte oprávnění pro editaci těchto uživatelů"
+
+msgid "Yes, assign"
+msgstr "Ano, přiřadit"
+
+msgid "No, don't assign"
+msgstr "Ne, nepřiřazovat"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Opravdu chcete smazat tyto uživatele?"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Smazání této skupiny způsobí odebrání skupinového oprávnění všem jejím "
+"členům."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Opravdu chcete smazat tuto skupinu?"
+
+msgid "Add group"
+msgstr "Přidat skupinu"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Delete group"
+msgstr "Smazat skupinu"
+
+msgid "Object permissions"
+msgstr "Oprávnění k objektům"
+
+msgid "Name"
+msgstr "Název"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Change"
+msgstr "Upravit"
+
+msgid "Publish"
+msgstr "Publikovat"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Unlock"
+msgstr "Odemknout"
+
+msgid "Other permissions"
+msgstr "Ostatní oprávnění"
+
+msgid "Page permissions"
+msgstr "Oprávnění ke stránce"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Add a page permission"
+msgstr "Přidat oprávnění ke stránce"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Bohužel, výrazu \"%(query)s\" neodpovídají žádné skupiny"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nebyly nalezeny žádné skupiny. Novou skupinu můžete přidat <a "
+"href=\"%(wagtailusers_create_group_url)s\">zde</a>."
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Opravdu chcete smazat tohoto uživatele?"
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Add user"
+msgstr "Přidat uživatele"
+
+msgid "Delete user"
+msgstr "Smazat uživatele"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Nejsou určeni uživatelé. Pojďme <a href=\"%(wagtailusers_add_url)s\">nějaké "
+"přidat</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "uživatel %(id)s (odstraněn)"
+
+msgid "Delete selected users"
+msgstr "Smazat vybrané uživatele"
+
+msgid "Active"
+msgstr "Aktivní"
+
+msgid "Inactive"
+msgstr "Neaktivní"
+
+msgid "Groups"
+msgstr "Skupiny"
+
+msgid "Add a group"
+msgstr "Přidat skupinu"
+
+msgid "Search groups"
+msgstr "Hledat skupiny"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Skupina '%(object)s' byla vytvořena."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Skupina '%(object)s' byla upravena."
+
+msgid "The group could not be saved due to errors."
+msgstr "Skupinu nelze uložit, zkontrolujte správné vyplnění polí."
+
+msgid "View users in this group"
+msgstr "Zobrazit uživatele v této skupině"
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Skupina '%(object)s' byla smazána."
+
+msgid "Add a user"
+msgstr "Přidat uživatele"
+
+msgid "Users"
+msgstr "Uživatelé"
+
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Status"
+msgstr "Stav"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Uživatel '%(object)s' byl upraven."
+
+msgid "The user could not be saved due to errors."
+msgstr "Uživatele nelze uložit, zkontrolujte správné vyplnění polí."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Uživatel '%(object)s' byl smazán."

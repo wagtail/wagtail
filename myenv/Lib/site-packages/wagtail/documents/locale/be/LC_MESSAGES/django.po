@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Stas Rudakou <stas@garage22.net>, 2018
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
+"Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail дакументы "
+
+msgid "Collection"
+msgstr "Калекцыя"
+
+msgid "Add"
+msgstr "Дадаць"
+
+msgid "Add/edit documents you own"
+msgstr "Дадаць/рэдагаваць дакументы, якімі вы валодаеце"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+msgid "Edit any document"
+msgstr "Рэдагаваць любы дакумент"
+
+msgid "Choose"
+msgstr "Выбраць"
+
+msgid "title"
+msgstr "Назва"
+
+msgid "file"
+msgstr "Файл"
+
+msgid "created at"
+msgstr "створана"
+
+msgid "uploaded by user"
+msgstr "Запампована карыстальнікам"
+
+msgid "tags"
+msgstr "Тэгі"
+
+msgid "document"
+msgstr "дакумент"
+
+msgid "documents"
+msgstr "дакументы"
+
+msgid "Yes, add"
+msgstr "Так, дадаць"
+
+msgid "No, don't add"
+msgstr "Не, не дадаваць"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Выкарыстоўваецца %(usage_count)s раз"
+msgstr[1] "Выкарыстоўваецца %(usage_count)s разы"
+msgstr[2] "Выкарыстоўваецца %(usage_count)s разоў"
+msgstr[3] "Выкарыстоўваецца %(usage_count)s разоў"
+
+msgid "Yes, delete"
+msgstr "Так, выдаліць"
+
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
+msgid "Latest documents"
+msgstr "Апошнія дакументы"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Вы не загрузілі дакументы ў гэтую калекцыю."
+
+msgid "You haven't uploaded any documents."
+msgstr "Вы не загрузілі ніякіх дакументаў."
+
+msgid "Change document:"
+msgstr "Змяніць дакумент:"
+
+msgid "Add a document"
+msgstr "Дадаць дакумент"
+
+msgid "Add document"
+msgstr "Дадаць дакумент"
+
+msgid "Uploading…"
+msgstr "Запампоўваецца..."
+
+msgid "Upload"
+msgstr "Запампаваць"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Рэдагаванне %(title)s"
+
+msgid "Editing"
+msgstr "Рэдагаванне"
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Delete document"
+msgstr "Выдаліць дакумент"
+
+msgid "Filesize"
+msgstr "Памер файла"
+
+msgid "File not found"
+msgstr "Файл не знойдзены"
+
+msgid "Usage"
+msgstr "Выкарыстоўванне"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Выбачайце, падыходных дакументаў не знойдзена \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы яшчэ не загрузілі ніводнага дакумента ў гэтую калекцыю. Чаму б не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы яшчэ не загрузілі ніводнага дакумента. Чаму б не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
+
+msgid "Add multiple documents"
+msgstr "Дадаць некалькі дакументаў"
+
+msgid "Add documents"
+msgstr "Дадаць дакументы"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Перацягні дакументы ў гэтую вобласць для неадкладнай загрузкі."
+
+msgid "Or choose from your computer"
+msgstr "Або абярыце на вашым кампутары"
+
+msgid "Add to collection:"
+msgstr "Дадаць да калекцыі:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Паспяховая загрузка. Калі ласка, абновіце загаловак для гэтага дакумента на "
+"больш прыдатны, калі гэта неабходна. Таксама вы можаце цалкам выдаліць "
+"дакумент, калі яго запампоўка не патрэбна."
+
+msgid "Sorry, upload failed."
+msgstr "На жаль, не атрымалася запампаваць."
+
+msgid "You need a password to access this document."
+msgstr "Патрэбны пароль, каб атрымаць доступ да гэтага дакумента."
+
+msgid "Document permissions"
+msgstr "Доступ да дакумента"
+
+msgid "Add a document permission"
+msgstr "Дадаць правы доступу да дакумента"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Created"
+msgstr "Створаны"
+
+msgid "Choose a document"
+msgstr "Абраць дакумент"
+
+msgid "Choose another document"
+msgstr "Абраць іншы дакумент"
+
+msgid "Edit this document"
+msgstr "Рэдагаваць гэты дакумент"
+
+msgid "Documents"
+msgstr "Дакументы"
+
+msgid "Title"
+msgstr "Назва"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Дакумент '%(document_title)s' даданы."
+
+msgid "The document could not be saved due to errors."
+msgstr "Дакумент на можа быць захаваны з-за памылак."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Дакумент '%(document_title)s' абноўлены"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Файл не знойдзены. Калі ласка, змяніце крыніцу ці выдаліце дакумент."
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Дакумент '%(document_title)s' выдалены."
+
+msgid "Document"
+msgstr "Дакумент"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s дакумент"
+msgstr[1] "%(count)s дакументы"
+msgstr[2] "%(count)s дакументаў"
+msgstr[3] "%(count)s дакументаў"

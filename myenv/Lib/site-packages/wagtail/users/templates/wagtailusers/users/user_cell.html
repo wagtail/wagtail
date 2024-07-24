@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/tables/title_cell.html" %}
+{% load wagtailadmin_tags %}
+
+{% block title %}
+    <div class="w-inline-flex w-items-center">
+        {% avatar user=instance size="small" classname="w-shrink-0" %}
+        {{ block.super }}
+    </div>
+{% endblock %}

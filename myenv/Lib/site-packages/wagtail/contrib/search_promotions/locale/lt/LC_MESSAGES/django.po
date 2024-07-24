@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Search term(s)/phrase"
+msgstr "Paieškos terminas(ai)/frazė"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Įveskite pilną paieškos tekstą  kuris atitiktų. Tikslus atitikmuo reikamas "
+"kad jūsų reklamuojami rezultatai būtų atvaizduoti, laisvaženkliai "
+"neleidžiami."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Prašome pateikti bent vieną rekomendaciją šiam paieškos terminui."
+
+msgid "Query Daily Hits"
+msgstr "Kasdieninių paspaudimų užklausa"
+
+msgid "page"
+msgstr "puslapis"
+
+msgid "description"
+msgstr "apibūdinimas"
+
+msgid "search promotion"
+msgstr "paieškos reklama"
+
+msgid "Add search promotion"
+msgstr "Pridėti paieškos reklamą"
+
+msgid "Add search pick"
+msgstr "Pridėti paieškos pasirinkimą"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Ištrinti %(query)s"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ar tikrai norite ištrinti visus reklamuojamus rezultatus šiam paieškos "
+"terminui?"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Redaguojama %(query)s"
+
+msgid "Editing"
+msgstr "Redagavimas"
+
+msgid "Move up"
+msgstr "Perkelti aukštyn"
+
+msgid "Move down"
+msgstr "Perkelti žemyn"
+
+msgid "Promoted search results"
+msgstr "Reklamuojami paieškos rezultatai"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Atsiprašome, jokie reklamuojami rezultatai neatitiko "
+"<em>\"%(query_string)s\"</em>"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nebuvo sukurti jokie reklamuojami rezultatai. Kodėl gi <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">nesukūrus vieno</a>?"
+
+msgid "Popular search terms"
+msgstr "Populiarūs paieškos terminai"
+
+msgid "Search"
+msgstr "Ieškoti"
+
+msgid "Terms"
+msgstr "Terminai"
+
+msgid "Views (past week)"
+msgstr "Peržiūros (paskutinę savaitę)"
+
+msgid "No results found"
+msgstr "Nerasta jokių rezultatų"
+
+msgid "Choose from popular search terms"
+msgstr "Pasirinkite iš populiarių paieškos terminų"
+
+msgid "External link"
+msgstr "Išorinė nuoroda"
+
+msgid "None"
+msgstr "Joks"
+
+msgid "Search Terms"
+msgstr "Paieškos terminai"
+
+msgid "Add new promoted result"
+msgstr "Pridėti naują reklamuojamą rezultatą"
+
+msgid "Search term(s)"
+msgstr "Paieškos terminas(ai)"
+
+msgid "Promoted results"
+msgstr "Reklamuojami rezultatai"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Redaktoriaus pasirinkimai '%(query)s' sukurti."
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Rekomendacijos nebuvo sukurtos dėl klaidų"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Redaktoriaus pasirinkimai '%(query)s' atnaujinti."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Rekomendacijos nebuvo išsaugotos dėl klaidų"
+
+msgid "Editor's picks deleted."
+msgstr "Redaktoriaus pasirinkimai ištrinti."

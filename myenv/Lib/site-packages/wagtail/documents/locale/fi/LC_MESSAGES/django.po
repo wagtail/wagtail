@@ -1,0 +1,379 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Eetu Häivälä, 2017
+# Eetu Häivälä, 2017
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022,2024
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022,2024\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtailin dokumentit"
+
+msgid "Collection"
+msgstr "Kokoelma"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add/edit documents you own"
+msgstr "Lisää/muokkaa dokumentteja jota omistat"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit any document"
+msgstr "Muokkaa mitä vain dokumenttia"
+
+msgid "Choose"
+msgstr "Valitse"
+
+msgid "Select documents in choosers"
+msgstr "Valitse dokumentit valitsimessa"
+
+msgid "title"
+msgstr "otsikko"
+
+msgid "file"
+msgstr "tiedosto"
+
+msgid "created at"
+msgstr "luotu"
+
+msgid "uploaded by user"
+msgstr "lähettänyt käyttäjä"
+
+msgid "tags"
+msgstr "tunnisteet"
+
+msgid "document"
+msgstr "dokumentti"
+
+msgid "documents"
+msgstr "ohjeet"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Lisää tunnisteet 1 dokumenttiin"
+msgstr[1] "Lisää tunnisteet %(counter)s dokumenttiin"
+
+msgid "Add tags to documents"
+msgstr "Lisää tunnisteita dokumentteihin"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Haluatko varmasit lisätä tunnisteen seuraavaan dokumenttiin?"
+msgstr[1] "Haluatko varmasit lisätä tunnisteen seuraaviin dokumentteihin?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Oikeutesi eivät riitä tunnisteiden lisäämiseen tähän dokumenttiin"
+msgstr[1] ""
+"Oikeutesi eivät riitä tunnisteiden lisäämiseen näihin dokumentteihin"
+
+msgid "Yes, add"
+msgstr "Kyllä, lisää"
+
+msgid "No, don't add"
+msgstr "Ei, älä lisää"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Lisää 1 dokumentti uuteen kokoelmaan"
+msgstr[1] "Lisää %(counter)s dokumenttia uuteen kokoelmaan"
+
+msgid "Add documents to collection"
+msgstr "Lisää dokumentit kokoelmaan"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] "Haluatko varmasti lisätä seuraavan dokumentin valittuun kokoelmaan?"
+msgstr[1] "Haluatko varmasti lisätä seuraavat dokumentit valittuun kokoelmaan?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Oikeutesi eivät riitä tämän dokumentin lisäämiseksi kokoelmaan"
+msgstr[1] "Oikeutesi eivät riitä näiden dokumenttien lisäämiseksi kokoelmaan"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Poista 1 dokumentti"
+msgstr[1] "Poista %(counter)s dokumenttia"
+
+msgid "Delete documents"
+msgstr "Poista dokumentit"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Haluatko varmasti poistaa tämän dokumentin?"
+msgstr[1] "Haluatko varmasti poistaa nämä dokumentit?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Käytetty %(usage_count)s kerran"
+msgstr[1] "Käytetty %(usage_count)s kertaa"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Oikeutesi eivät riitä tämän dokumentin poistamiseen"
+msgstr[1] "Oikeutesi eivät riitä näiden dokumenttien poistamiseen"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+msgid "No, don't delete"
+msgstr "Ei, älä poista"
+
+msgid "Latest documents"
+msgstr "Tuoreimmat dokumentit"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"Valitettavasti yksikään dokumentti ei vastaa hakua \"<em>%(search_query)s</"
+"em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Et ole tuonut dokumentteja tähän kokoelmaan."
+
+msgid "You haven't uploaded any documents."
+msgstr "Et ole tuonut dokumenttejä."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Mitä jos vaikka <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>lähettäisit dokumentin nyt</a>?"
+
+msgid "Change document:"
+msgstr "Vaihda dokumentti:"
+
+msgid "Add a document"
+msgstr "Lisää dokumentti"
+
+msgid "Add document"
+msgstr "Lisää dokumentti"
+
+msgid "Uploading…"
+msgstr "Lähetetään…"
+
+msgid "Upload"
+msgstr "Lähetä"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Muokataan %(title)s"
+
+msgid "Editing"
+msgstr "Muokataan"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Delete document"
+msgstr "Poista dokumentti"
+
+msgid "Filesize"
+msgstr "Tiedostokoko"
+
+msgid "File not found"
+msgstr "Tiedostoa ei löydy"
+
+msgid "Usage"
+msgstr "Käyttö"
+
+msgid "Select all documents in listing"
+msgstr "Valitse listauksen kaikki dokumentit"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään dokumentti ei täsmää hakuun \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Et ole lisännyt yhtään dokumenttia tähän kokoelmaan. Mikset vaikka <a "
+"href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Et ole lisännyt yhtään dokumenttia. Mikset vaikka <a "
+"href=\"%(wagtaildocs_add_document_url)s\">lisäisi yhtä nyt</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> dokumentti <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> dokumenttia <span class=\"w-sr-only\">luotu "
+"sivustolla %(site_name)s</span>"
+
+msgid "Add multiple documents"
+msgstr "Lisää useampi dokumentti"
+
+msgid "Add documents"
+msgstr "Lisää dokumentteja"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Raahaa ja pudota dokumentteja tälle alueelle lähettääksesi ne heti."
+
+msgid "Or choose from your computer"
+msgstr "Tai valitse tietokoneeltasi"
+
+msgid "Add to collection:"
+msgstr "Lisää kokoelmaan:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Dokumentti on tuotu. Anna sille sopivampi otsikko, jos se on tarpeen. Voit "
+"myös poistaa dokumentin, jos sitä ei tarvinnutkaan tuoda."
+
+msgid "Sorry, upload failed."
+msgstr "Pahoittelut, siirto epäonnistui."
+
+msgid "Document updated."
+msgstr "Dokumentti päivitetty."
+
+msgid "You need a password to access this document."
+msgstr "Tarvitset salasanan avataksesi tämän dokumentin."
+
+msgid "Document permissions"
+msgstr "Dokumentin oikeudet"
+
+msgid "Add a document permission"
+msgstr "Lisää dokumenttioikeus"
+
+msgid "Tags"
+msgstr "Tunnisteet"
+
+msgid "Tag"
+msgstr "Tunniste"
+
+msgid "Add tags to the selected documents"
+msgstr "Lisää tunnisteita valituille dokumenteille"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Uusia tunnisteita on lisätty %(num_parent_objects)d dokumenttiin"
+msgstr[1] "Uusia tunnisteita on lisätty %(num_parent_objects)d dokumenttiin"
+
+msgid "Add to collection"
+msgstr "Lisää kokoelmaan"
+
+msgid "Add selected documents to collection"
+msgstr "Lisää valitut dokumentit kokoelmaan"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] ""
+"%(num_parent_objects)d dokumentti on lisätty kokoelmaan %(collection)s"
+msgstr[1] ""
+"%(num_parent_objects)d dokumenttia on lisätty kokoelmaan %(collection)s"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Delete selected documents"
+msgstr "Poista valitut dokumentit"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d dokumentti on poistettu"
+msgstr[1] "%(num_parent_objects)d dokumenttia on poistettu"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Created"
+msgstr "Luotu"
+
+msgid "Choose a document"
+msgstr "Valitse dokumentti"
+
+msgid "Choose another document"
+msgstr "Valitse toinen dokumentti"
+
+msgid "Edit this document"
+msgstr "Muokkaa tätä dokumenttia"
+
+msgid "Documents"
+msgstr "Dokumentit"
+
+msgid "Title"
+msgstr "Otsikko"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokumentti '%(document_title)s' lisätty."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumentti '%(document_title)s' päivitetty"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokumentti '%(document_title)s' poistettu."
+
+msgid "Document"
+msgstr "Dokumentti"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokumentti"
+msgstr[1] "%(count)s dokumenttia"

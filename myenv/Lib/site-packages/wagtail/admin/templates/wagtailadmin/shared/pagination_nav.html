@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    Expects a 'linkurl' parameter to use as the base URL, which may be a URL route name (must be
+    reverse-resolvable with no arguments) or a direct URL path. If omitted, links will be given
+    an href of the form "?p=123", implicitly preserving the current URL path.
+{% endcomment %}
+{% resolve_url linkurl as url_path %}
+
+<nav class="pagination" aria-label="{% trans 'Pagination' %}">
+    <p>{% blocktrans trimmed with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+    <ul>
+        <li class="prev">
+            {% if items.has_previous %}
+                <a href="{{ url_path }}{% querystring p=items.previous_page_number %}">
+                    {% icon name="arrow-left" classname="default" %}
+                    {% trans 'Previous' %}
+                </a>
+            {% endif %}
+        </li>
+        <li class="next">
+            {% if items.has_next %}
+                <a href="{{ url_path }}{% querystring p=items.next_page_number %}">
+                    {% trans 'Next' %}
+                    {% icon name="arrow-right" classname="default" %}
+                </a>
+            {% endif %}
+        </li>
+    </ul>
+</nav>

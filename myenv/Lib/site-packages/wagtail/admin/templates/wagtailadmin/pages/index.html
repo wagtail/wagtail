@@ -1,0 +1,36 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block header %}
+    {% include 'wagtailadmin/shared/headers/slim_header.html' with title=header_title icon_name=header_icon search_url=index_results_url buttons=header_buttons %}
+{% endblock %}
+
+{% block listing %}
+    <div id="listing-results">
+        {% comment %}
+            This div will be replaced on AJAX refreshes.
+            Do not add page furniture here unless you intend it to disappear on AJAX refresh
+        {% endcomment %}
+        {% include 'wagtailadmin/pages/index_results.html' %}
+    </div>
+{% endblock %}
+{% block bulk_actions %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=_("Select all pages in listing") app_label='wagtailcore' model_name='page' objects=page_obj %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+
+    {% comment %}
+    The first column will display checkboxes only if ordering is not being carried out, in which case
+    that column will have the drag and drop buttons to enable ordering
+    {% endcomment %}
+    {% if not show_ordering_column %}
+        <script>
+            window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'PAGE';
+        </script>
+        <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {% endif %}
+{% endblock %}

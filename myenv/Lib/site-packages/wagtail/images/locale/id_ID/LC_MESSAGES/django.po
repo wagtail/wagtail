@@ -1,0 +1,330 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# Matt Westcott <matthew@torchbox.com>, 2022
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail gambar"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Format yang didukung: %(supported_formats)s, Ukuran berkas maksimum: "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Format yang didukung: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Format gambar tidak didukung. Format yang didukung: %(supported_formats)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Berkas terlalu besar (%(file_size)s). Ukuran berkas maksimum "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr "Berkas terlalu besar. Ukuran berkas maksimum %(max_filesize)s."
+
+msgid "Full width"
+msgstr "Lebar penuh"
+
+msgid "Left-aligned"
+msgstr "Rata kiri"
+
+msgid "Right-aligned"
+msgstr "Rata kanan"
+
+msgid "Collection"
+msgstr "Koleksi"
+
+msgid "Alt text"
+msgstr "Teks alt"
+
+msgid "Filter"
+msgstr "Saring"
+
+msgid "Original size"
+msgstr "Ukuran original"
+
+msgid "Resize to width"
+msgstr "Ubah ukuran sesuai lebar"
+
+msgid "Resize to height"
+msgstr "Ubah ukuran sesuai tinggi"
+
+msgid "Resize to min"
+msgstr "Ubah ukuran ke min"
+
+msgid "Resize to max"
+msgstr "Ubah ukuran ke max"
+
+msgid "Resize to fill"
+msgstr "Ubah ukuran dengan diisi"
+
+msgid "Width"
+msgstr "Lebar"
+
+msgid "Height"
+msgstr "Tinggi"
+
+msgid "Closeness"
+msgstr "Kedekatan"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Add/edit images you own"
+msgstr "Tambah/Ubah gambar yang Anda miliki"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Edit any image"
+msgstr "Ubah gambar apa saja"
+
+msgid "Choose"
+msgstr "Pilih"
+
+msgid "title"
+msgstr "judul"
+
+msgid "file"
+msgstr "berkas"
+
+msgid "width"
+msgstr "lebar"
+
+msgid "height"
+msgstr "tinggi"
+
+msgid "created at"
+msgstr "dibuat pada"
+
+msgid "uploaded by user"
+msgstr "diunggah oleh pengguna"
+
+msgid "tags"
+msgstr "tag"
+
+msgid "image"
+msgstr "gambar"
+
+msgid "images"
+msgstr "gambar-gambar"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)s kali"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
+msgid "Popular tags"
+msgstr "Tag Populer"
+
+msgid "New"
+msgstr "Baru"
+
+msgid "Latest images"
+msgstr "Gambar terbaru"
+
+msgid "Choose a format"
+msgstr "Pilih format"
+
+msgid "Insert image"
+msgstr "Masukkan gambar"
+
+msgid "Change image file:"
+msgstr "Ubah berkas gambar:"
+
+msgid "Add an image"
+msgstr "Tambah sebuah gambar"
+
+msgid "Add image"
+msgstr "Tambah gambar"
+
+msgid "Save"
+msgstr "Simpan"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Mengubah gambar %(title)s"
+
+msgid "Editing"
+msgstr "Mengubah"
+
+msgid "Delete image"
+msgstr "Hapus gambar"
+
+msgid "URL Generator"
+msgstr "Generator URL"
+
+msgid "Current focal point shown"
+msgstr "Titik fokus saat ini ditampilkan"
+
+msgid "Remove focal area"
+msgstr "Hapus area fokus"
+
+msgid "Max dimensions"
+msgstr "Dimensi maks"
+
+msgid "Filesize"
+msgstr "Ukuran berkas"
+
+msgid "File not found"
+msgstr "Berkas tidak ditemukan"
+
+msgid "Usage"
+msgstr "Penggunaan"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Maaf, tidak ada gambar yang sesuai dengan \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Anda sama sekali belum mengunggah gambar dalam koleksi ini. Mengapa tidak <a "
+"href=\"%(wagtailimages_add_image_url)s\">mengunggahnya sekarang</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Anda sama sekali belum mengunggah gambar. Mengapa tidak <a "
+"href=\"%(wagtailimages_add_image_url)s\">mengunggahnya sekarang</a>?"
+
+msgid "Preview"
+msgstr "Pratinjau"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Add multiple images"
+msgstr "Tambah beberapa gambar"
+
+msgid "Add images"
+msgstr "Tambah gambar"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Seret dan lepaskan gambar ke area ini untuk langsung diunggah."
+
+msgid "Or choose from your computer"
+msgstr "Atau pilih dari komputer Anda"
+
+msgid "Add to collection:"
+msgstr "Tambah ke koleksi:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Pengunggahan berhasil. Jika perlu, perbarui gambar ini dengan judul yang "
+"lebih tepat. Anda juga dapat menghapus gambar sepenuhnya jika unggahan tidak "
+"diperlukan."
+
+msgid "Sorry, upload failed."
+msgstr "Maaf, pengunggahan gagal."
+
+msgid "Server Error"
+msgstr "Kesalahan Server"
+
+msgid "Image updated."
+msgstr "Gambar telah diperbarui."
+
+msgid "Image permissions"
+msgstr "Izin gambar"
+
+msgid "Add an image permission"
+msgstr "Tambahkan izin gambar"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Upload"
+msgstr "Unggah"
+
+msgid "Uploading…"
+msgstr "Mengunggah..."
+
+msgid "Choose an image"
+msgstr "Pilih sebuah gambar"
+
+msgid "Edit this image"
+msgstr "Ubah gambar ini"
+
+msgid "Images"
+msgstr "Gambar"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Gambar '%(image_title)s' telah diperbarui."
+
+msgid "Edit again"
+msgstr "Ubah kembali"
+
+msgid "The image could not be saved due to errors."
+msgstr "Gambar tidak dapat disimpan karena suatu kesalahan."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Sumber berkas gambar tidak dapat ditemukan. Mohon untuk mengganti suber atau "
+"hapus gambar."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Gambar '%(image_title)s' dihapus."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Gambar '%(image_title)s' ditambahkan."
+
+msgid "The image could not be created due to errors."
+msgstr "Gambar tidak dapat dibuat karena suatu kesalahan."
+
+msgid "Image"
+msgstr "Gambar"
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s gambar"
+
+msgid "Change image"
+msgstr "Ubah gambar"

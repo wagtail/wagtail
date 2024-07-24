@@ -1,0 +1,122 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Philip Crisp, 2022
+# Philip Crisp, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
+
+msgid "Publish"
+msgstr "Cyhoeddi"
+
+msgid "Submit for moderation"
+msgstr "Cyflwyno i'w gymedroli"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Ailgyflwyno i %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Cyflwyno i %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Ailgychwyn llif gwaith"
+
+msgid "Cancel workflow "
+msgstr "Canslo llif gwaith"
+
+msgid "Unpublish"
+msgstr "Anghyhoedd"
+
+msgid "Delete"
+msgstr "Dileu"
+
+msgid "Save"
+msgstr "Cadw"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s a chyhoeddi"
+
+msgid "Wagtail snippets"
+msgstr "Pytiau Wagtail"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' wedi'i dileu."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Dileu %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Dileu"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Wedi defnyddio %(usage_count)s amser"
+msgstr[1] "Wedi defnyddio %(usage_count)s amser"
+msgstr[2] "Wedi defnyddio %(usage_count)s amser"
+msgstr[3] "Wedi defnyddio %(usage_count)s amser"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Ydych chi'n siwr eich fod chi eisio dileu %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+"Ydych chi'n siwr eich fod chi eisio dileu %(count)s %(snippet_type_name)s?"
+
+msgid "Yes, delete"
+msgstr "Ia, dileu"
+
+msgid "No, don't delete"
+msgstr "Na, peidiwch a ddileu"
+
+msgid "Saving…"
+msgstr "Cadw…"
+
+msgid "Actions"
+msgstr "Gweithredoedd"
+
+msgid "Choose"
+msgstr "Dewis"
+
+msgid "Snippets"
+msgstr "Pytiau"
+
+msgid "Name"
+msgstr "Enw"
+
+msgid "Home"
+msgstr "Adref"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Dewis %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Dewis %(object)s arall"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Golygu %(object)s"

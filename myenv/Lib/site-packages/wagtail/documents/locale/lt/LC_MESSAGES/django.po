@@ -1,0 +1,233 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2022
+# Naglis Jonaitis, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Naglis Jonaitis, 2022\n"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumentai"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
+msgid "Add"
+msgstr "Pridėti"
+
+msgid "Add/edit documents you own"
+msgstr "Pridėti/redaguoti dokumentus, kurie jums priklauso"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Edit any document"
+msgstr "Redaguoti bet kurį dokumentą"
+
+msgid "Choose"
+msgstr "Pasirinkti"
+
+msgid "Select documents in choosers"
+msgstr "Leisti pasirinkti dokumentus iš šios kolekcijos pasirinkimo lange."
+
+msgid "title"
+msgstr "pavadinimas"
+
+msgid "file"
+msgstr "byla"
+
+msgid "created at"
+msgstr "sukurta"
+
+msgid "uploaded by user"
+msgstr "įkelta vartotojo"
+
+msgid "tags"
+msgstr "žymenos"
+
+msgid "document"
+msgstr "dokumentas"
+
+msgid "documents"
+msgstr "dokumentai"
+
+msgid "Yes, add"
+msgstr "Taip, pridėti"
+
+msgid "No, don't add"
+msgstr "Ne, nepridėti"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+msgid "No, don't delete"
+msgstr "Ne, neištrinti"
+
+msgid "Latest documents"
+msgstr "Paskutiniai dokumentai"
+
+msgid "Change document:"
+msgstr "Keisti dokumentą:"
+
+msgid "Add a document"
+msgstr "Pridėti dokumentą"
+
+msgid "Add document"
+msgstr "Pridėti dokumentą"
+
+msgid "Uploading…"
+msgstr "Įkeliama..."
+
+msgid "Upload"
+msgstr "Įkelti"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Redaguojama %(title)s"
+
+msgid "Editing"
+msgstr "Redaguojama"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid "Delete document"
+msgstr "Ištrinti dokumentą"
+
+msgid "Filesize"
+msgstr "Bylos dydis"
+
+msgid "File not found"
+msgstr "Byla nerasta"
+
+msgid "Usage"
+msgstr "Panaudojimas"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nėra įkeltas joks dokumentas į šią kolekciją. Kodėl gi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Nėra įkeltas joks dokumentas. Kodėl gi <a "
+"href=\"%(wagtaildocs_add_document_url)s\">neįkėlus vieno</a>?"
+
+msgid "Add multiple documents"
+msgstr "Pridėti daug dokumentų"
+
+msgid "Add documents"
+msgstr "Pridėti dokumentus"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Tempkite ir meskite dokumentus į šią zoną, kad iškart juos įkeltumėte."
+
+msgid "Or choose from your computer"
+msgstr "Arba rinkitės iš savo kompiuterio"
+
+msgid "Add to collection:"
+msgstr "Pridėti į kolekciją:"
+
+msgid "Sorry, upload failed."
+msgstr "Atsiprašome, įkelti nepavyko."
+
+msgid "You need a password to access this document."
+msgstr "Jums reikia slaptažodžio kad galėtumėte pasiekti šį dokumentą."
+
+msgid "Document permissions"
+msgstr "Dokumento leidimai"
+
+msgid "Add a document permission"
+msgstr "Pridėti dokumentų leidimą"
+
+msgid "Add to collection"
+msgstr "Pridėti į kolekciją"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "File"
+msgstr "Byla"
+
+msgid "Created"
+msgstr "Sukurtas"
+
+msgid "Choose a document"
+msgstr "Pasirinkti dokumentą"
+
+msgid "Choose another document"
+msgstr "Pasirinkti kitą dokumentą"
+
+msgid "Edit this document"
+msgstr "Redaguoti šį dokumentą"
+
+msgid "Documents"
+msgstr "Dokumentai"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokumentas '%(document_title)s' pridėtas."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumentas negali būti išsaugotas dėl klaidų."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumentas '%(document_title)s' atnaujintas"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Byla nebuvo rasta. Prašome pakeisti šaltinį arba ištrinti dokumentą"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokumentas '%(document_title)s' ištrintas."
+
+msgid "Document"
+msgstr "Dokumentas"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s dokumentas"
+msgstr[1] "%(count)s dokumentai"
+msgstr[2] "%(count)s dokumentų"
+msgstr[3] "%(count)s dokumentų"

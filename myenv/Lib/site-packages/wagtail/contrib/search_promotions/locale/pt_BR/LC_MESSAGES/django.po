@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Daniel Carvalho <dnc331@gmail.com>, 2019
+# Gladson <gladsonbrito@gmail.com>, 2014
+# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021,2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021,2024\n"
+"Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail promoção de pesquisa"
+
+msgid "Search term(s)/phrase"
+msgstr "Buscar termo(s)/frase"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Introduza a cadeia de busca completa para corresponder. Uma correspondência "
+"exata é necessário para os seus resultados promovidos ser exibido, curingas "
+"não são permitidos."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Especifique pelo menos uma recomendação para este termo de busca."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"Você deverá inserir um texto de link externo se inserir um URL de link "
+"externo."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Você deve recomendar uma página OU um link externo."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Selecione apenas uma página OU insira um link externo."
+
+msgid "Query Daily Hits"
+msgstr "Acessos diários da query"
+
+msgid "page"
+msgstr "página"
+
+msgid "Choose an internal page for this promotion"
+msgstr "Escolha uma página interna para esta promoção"
+
+msgid "External link URL"
+msgstr "URL do link externo"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Alternativamente, use um link externo para esta promoção"
+
+msgid "description"
+msgstr "descrição"
+
+msgid "Applies to internal page or external link"
+msgstr "Aplica-se à página interna ou link externo"
+
+msgid "search promotion"
+msgstr "promoção de pesquisa"
+
+msgid "Add search promotion"
+msgstr "Adicionar promoção de pesquisa"
+
+msgid "Add search pick"
+msgstr "Adicionar sugestão de pesquisa"
+
+msgid "Save"
+msgstr "Salvar"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Excluir %(query)s"
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Você tem certeza que você quer excluir todos os resultados promovidos para "
+"este termo?"
+
+msgid "Yes, delete"
+msgstr "Sim, apague"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Editando %(query)s"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "Move up"
+msgstr "Mover para cima"
+
+msgid "Move down"
+msgstr "Mover para baixo"
+
+msgid "Recommended search result"
+msgstr "Resultado de pesquisa recomendado"
+
+msgid "Promoted search results"
+msgstr "Resultados promovidos"
+
+msgid "Add a recommended result"
+msgstr "Adicione um resultado recomendado"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhum resultado promovido com \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nenhum resultado promovido foi criado. Porque não <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Nenhum resultado promovido foi criado."
+
+msgid "Popular search terms"
+msgstr "Termos populares de pesquisa"
+
+msgid "Search"
+msgstr "Busca"
+
+msgid "Terms"
+msgstr "Termos"
+
+msgid "Views (past week)"
+msgstr "Visualizações (última semana)"
+
+msgid "No results found"
+msgstr "Nenhum resultado encontrado"
+
+msgid "Choose from popular search terms"
+msgstr "Escolha a partir de termos populares"
+
+msgid "External link"
+msgstr "Link externo"
+
+msgid "None"
+msgstr "Nenhum"
+
+msgid "Search Terms"
+msgstr "Procurar Termos"
+
+msgid "Add new promoted result"
+msgstr "Adicionar um novo resultado promovido"
+
+msgid "Search term(s)"
+msgstr "Procurar termo(s)"
+
+msgid "Promoted results"
+msgstr "Resultados promovidos"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Sugestões dos editores para '%(query)s' criados."
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "As recomendações não poderiam ser criadas devido a erros"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Sugestões do editor para '%(query)s' atualizado."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "As recomendações não puderam ser salvas devido a erros"
+
+msgid "Editor's picks deleted."
+msgstr "Sugestões do editor deletado."

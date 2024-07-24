@@ -1,0 +1,192 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# LB (Ben Johnston) <mail@lb.ee>, 2019
+# Marco Badan <marco.badan@gmail.com>, 2021-2023
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
+"Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Publish"
+msgstr "Pubblica"
+
+msgid "Submit for moderation"
+msgstr "Invia per la moderazione"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Invia di nuovo a %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Invia a %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Riavvia il flusso di lavoro"
+
+msgid "Cancel workflow "
+msgstr "Annulla il flusso di lavoro"
+
+msgid "Unpublish"
+msgstr "Annulla pubblicazione"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Locked"
+msgstr "Bloccata"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s e Pubblica"
+
+msgid "Wagtail snippets"
+msgstr "Snippets Wagtail"
+
+msgid "Delete selected snippets"
+msgstr "Elimina snippet selezionati"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' eliminato."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d %(model_name)s eliminato."
+msgstr[1] "%(count)d %(model_name)s eliminati."
+msgstr[2] "%(count)d %(model_name)s eliminati."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Elimina %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Elimina"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usato %(usage_count)s volta"
+msgstr[1] "Usato %(usage_count)s volte"
+msgstr[2] "Usato %(usage_count)s volte"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Sei sicuro di voler eliminare questo %(snippet_type_name)s?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Sei sicuro di voler cancellare %(count)s %(snippet_type_name)s?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr "Non hai i permessi per eliminare questo %(snippet_type_name)s."
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr "Non hai i permessi per eliminare questi %(snippet_plural_name)s."
+
+msgid "Yes, delete"
+msgstr "Si, elimina"
+
+msgid "No, don't delete"
+msgstr "No, non eliminarlo"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Spiacenti, nessun snippet corrisponde a \"<em>%(search_query)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Non hai ancora creato nessuno snippet %(snippet_type_name)s. Perché non <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">ne crei uno adesso</a>?"
+
+msgid "Publishing…"
+msgstr "Pubblicazione in corso..."
+
+msgid "Publish this version"
+msgstr "Pubblica questa versione"
+
+msgid "Saving…"
+msgstr "Salvataggio in corso…"
+
+msgid "Replace current draft"
+msgstr "Sostituisci la bozza corrente"
+
+msgid "Replace current revision"
+msgstr "Sostituisci la revisione corrente"
+
+msgid "Save draft"
+msgstr "Salva bozza"
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "Select all snippets in listing"
+msgstr "Seleziona tutti gli snippet nell'elenco"
+
+msgid "Choose"
+msgstr "Scegli"
+
+msgid "Snippets"
+msgstr "Snippets"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Instances"
+msgstr "Istanze"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Più opzioni per '%(title)s'"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Modifica questo %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "storico %(model_name)s"
+
+msgid "Home"
+msgstr "Home"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Scegli %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Scegli un' altro %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Modifica questo %(object)s"

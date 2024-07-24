@@ -1,0 +1,332 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# jim dal <dimitrisdal@gmail.com>, 2014
+# Nick Mavrakis <mavrakis.n@gmail.com>, 2017
+# serafeim <serafeim@torchbox.com>, 2014,2016
+# serafeim <serafeim@torchbox.com>, 2014,2016
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
+# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
+"Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
+"el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Υποστηριζόμενες μορφες: %(supported_formats)s. Μέγιστο μέγεθος αρχείου:  "
+"%(max_upload_size)s."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Υποστηριζόμενες μορφές: %(supported_formats)s."
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %(supported_formats)s."
+msgstr ""
+"Δεν είναι μια υποστηριζόμενη μορφή εικόνας. Υποστηριζόμενες μορφές: "
+"%(supported_formats)s."
+
+#, python-format
+msgid ""
+"This file is too big (%(file_size)s). Maximum filesize %(max_filesize)s."
+msgstr ""
+"Το αρχείο είναι πολύ μεγάλο (%(file_size)s). Μέγιστο μέγεθος αρχείου  "
+"%(max_filesize)s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %(max_filesize)s."
+msgstr ""
+"Το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου  %(max_filesize)s."
+
+msgid "Full width"
+msgstr "Πλήρες πλάτος"
+
+msgid "Left-aligned"
+msgstr "Στοίχιση αριστερά"
+
+msgid "Right-aligned"
+msgstr "Στοίχιση δεξιά"
+
+msgid "Collection"
+msgstr "Συλλογή"
+
+msgid "Filter"
+msgstr "Φίλτρο"
+
+msgid "Original size"
+msgstr "Γνήσιο μέγεθος"
+
+msgid "Resize to width"
+msgstr "Αλλαγή μεγέθους σε πλάτος"
+
+msgid "Resize to height"
+msgstr "Αλλαγή μεγέθους σε ύψος"
+
+msgid "Resize to min"
+msgstr "Αλλαγή μεγέθους σε ελάχ"
+
+msgid "Resize to max"
+msgstr "Αλλαγή μεγέθους έως μέγ"
+
+msgid "Resize to fill"
+msgstr "Αλλαγή μεγέθους για να αναπληρώσει"
+
+msgid "Width"
+msgstr "Πλάτος"
+
+msgid "Height"
+msgstr "Υψος"
+
+msgid "Closeness"
+msgstr "Εγγύτητα"
+
+msgid "Add"
+msgstr "Προσθήκη"
+
+msgid "Add/edit images you own"
+msgstr "Προσθήκη/επεξεργασία των εικόνων σας"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Edit any image"
+msgstr "Επεξεργασία όλων των εικόνων"
+
+msgid "Choose"
+msgstr "Επιλογή"
+
+msgid "title"
+msgstr "τίτλος"
+
+msgid "file"
+msgstr "αρχείο"
+
+msgid "width"
+msgstr "πλάτος"
+
+msgid "height"
+msgstr "ύψος"
+
+msgid "created at"
+msgstr "δημιουργία στις"
+
+msgid "uploaded by user"
+msgstr "ανέβηκε από το χρήστη"
+
+msgid "tags"
+msgstr "ετικέτες"
+
+msgid "image"
+msgstr "Εικόνα"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
+
+msgid "Yes, delete"
+msgstr "Ναι, να διαγραφεί"
+
+msgid "No, don't delete"
+msgstr "Ακύρωση διαγραφής"
+
+msgid "Popular tags"
+msgstr "Δημοφιλείς ετικέτες"
+
+msgid "New"
+msgstr "Καινούργιο"
+
+msgid "Latest images"
+msgstr "Τελευταίες εικόνες"
+
+msgid "Choose a format"
+msgstr "Επιλογή τύπου"
+
+msgid "Insert image"
+msgstr "Εισαγωγή εικόνας"
+
+msgid "Change image file:"
+msgstr "Αλλαγή αρχείου εικόνας:"
+
+msgid "Add an image"
+msgstr "Προσθήκη εικόνας"
+
+msgid "Add image"
+msgstr "Προσθήκη εικόνας"
+
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "Επεξεργασία εικόνας %(title)s"
+
+msgid "Editing"
+msgstr "Διόρθωση"
+
+msgid "Delete image"
+msgstr "Διαγραφή εικόνας"
+
+msgid "URL Generator"
+msgstr "Παραγωγή URL"
+
+msgid "Current focal point shown"
+msgstr "Τρέχον εστιακό σημείο παρουσιάζεται"
+
+msgid "Max dimensions"
+msgstr "Μέγιστες διαστάσεις"
+
+msgid "Filesize"
+msgstr "Μέγεθος Αρχείου"
+
+msgid "File not found"
+msgstr "Το αρχείο δεν βρέθηκε"
+
+msgid "Usage"
+msgstr "Χρήση"
+
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Λυπούμαστε, καμία εικόνα δε ταιριάζει με το \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Δεν έχετε ανεβάσει εικόνες στη συλλογή. Θέλετε να <a "
+"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>;"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a "
+"href=\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Δεν έχετε ανεβάσει εικόνες. Θέλετε να <a "
+"href=\"%(wagtailimages_add_image_url)s\">ανεβάσετε μία</a>?"
+
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Add multiple images"
+msgstr "Προσθήκη πολλαπλών εικόνων"
+
+msgid "Add images"
+msgstr "Προσθήκη εικόνων"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr ""
+"Μεταφέρετε και αποθέστε εικόνες σε αυτόν τον τομέα για να τις ανεβάσετε "
+"αμέσως."
+
+msgid "Or choose from your computer"
+msgstr "Ή επιλέξτε από τον υπολογιστή σας"
+
+msgid "Add to collection:"
+msgstr "Προσθήκη συλλογής:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Μεταφόρτωση επιτυχής. Ενημερώστε την εικόνα με ένα πιο κατάλληλο τίτλο, αν "
+"είναι απαραίτητο. Μπορείτε επίσης να διαγράψετε την εικόνα εντελώς, αν η "
+"αποστολή δεν ήταν απαραίτητη."
+
+msgid "Sorry, upload failed."
+msgstr "Συγγνώμη, η μεταφόρτωση απέτυχε."
+
+msgid "Server Error"
+msgstr "Σφάλμα"
+
+msgid "Image updated."
+msgstr "Ενημέρωση εικόνας"
+
+msgid "Image permissions"
+msgstr "Άδειες εικόνων"
+
+msgid "Add an image permission"
+msgstr "Προσθήκη αδειών εικόνων"
+
+msgid "Tags"
+msgstr "Ετικέτες"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Upload"
+msgstr "Ανέβασμα"
+
+msgid "Uploading…"
+msgstr "Ανέβασμα εικόνας …"
+
+msgid "Choose an image"
+msgstr "Επιλέξατε εικόνα"
+
+msgid "Choose another image"
+msgstr "Επιλογή άλλης εικόνας"
+
+msgid "Edit this image"
+msgstr "Επεξεργασία αυτής της εικόνας"
+
+msgid "Images"
+msgstr "Εικόνες"
+
+#, python-format
+msgid "Image '%(image_title)s' updated."
+msgstr "Η εικόνα '%(image_title)s' ενημερώθηκε."
+
+msgid "Edit again"
+msgstr "Επεξεργασία ξανά"
+
+msgid "The image could not be saved due to errors."
+msgstr "Δεν ήταν δυνατή η αποθήκευση της εικόνας."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Το αρχείο προέλευσης της εικόνας δεν θα μπορεσε να βρεθεί. Παρακαλούμε να "
+"αλλάξετε την πηγή ή να διαγράψετε την εικόνα."
+
+#, python-format
+msgid "Image '%(image_title)s' deleted."
+msgstr "Η εικόνα '%(image_title)s' διαγράφηκε."
+
+#, python-format
+msgid "Image '%(image_title)s' added."
+msgstr "Η εικόνα '%(image_title)s' δημιουργήθηκε."
+
+msgid "The image could not be created due to errors."
+msgstr "Δεν ήταν δυνατή η δημιουργία της εικόνας."
+
+#, python-format
+msgid "%(count)s image"
+msgid_plural "%(count)s images"
+msgstr[0] "%(count)s εικόνα"
+msgstr[1] "%(count)s εικόνες"

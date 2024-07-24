@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Eetu Häivälä, 2016
+# Eetu Häivälä, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022-2023
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022-2023\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtailin hakuehdotukset"
+
+msgid "Search term(s)/phrase"
+msgstr "Hakutermit/-lause"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Syötä täydellinen hakumerkkijono, jota vasten täsmätään. Täydellinen täsmäys "
+"vaaditaan promootiotulosten näyttämiseen; jokerimerkit eivät ole sallittuja."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Ole hyvä ja määrittele ainakin yksi suositus tälle hakutermille."
+
+msgid "Query Daily Hits"
+msgstr "Kyselyn päivittäiset vastaukset"
+
+msgid "page"
+msgstr "sivu"
+
+msgid "description"
+msgstr "kuvaus"
+
+msgid "search promotion"
+msgstr "hakupromootio"
+
+msgid "Add search promotion"
+msgstr "Lisää hakupromootio"
+
+msgid "Add search pick"
+msgstr "Lisää hakuvalinta"
+
+msgid "Save"
+msgstr "Tallenna"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Poista %(query)s"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Muokataan %(query)s"
+
+msgid "Editing"
+msgstr "Muokataan"
+
+msgid "Move up"
+msgstr "Siirrä ylös"
+
+msgid "Move down"
+msgstr "Siirrä alas"
+
+msgid "Recommended search result"
+msgstr "Suositeltu hakutulos"
+
+msgid "Promoted search results"
+msgstr "Nostetut hakutulokset"
+
+msgid "Add a recommended result"
+msgstr "Lisää suositeltu tulos"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Pahoittelut, yksikään nostettu tulos ei täsmää hakuun "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Yhtään nostettua tulosta ei ole luotu. Mikset vaikka <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">lisäisi yhtä nyt</a>?"
+
+msgid "Popular search terms"
+msgstr "Suositut hakutermit"
+
+msgid "Search"
+msgstr "Haku"
+
+msgid "Terms"
+msgstr "Termit"
+
+msgid "Views (past week)"
+msgstr "Näytöt (kuluva viikko)"
+
+msgid "No results found"
+msgstr "Ei tuloksia"
+
+msgid "Choose from popular search terms"
+msgstr "Valitse suosituista hakutermeistä"
+
+msgid "External link"
+msgstr "Ulkoinen linkki"
+
+msgid "None"
+msgstr "Ei mitään"
+
+msgid "Search Terms"
+msgstr "Hakutermit"
+
+msgid "Add new promoted result"
+msgstr "Lisää uusi nostettu tulos"
+
+msgid "Search term(s)"
+msgstr "Hakutermi(t)"
+
+msgid "Promoted results"
+msgstr "Nostetut tulokset"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Toimituksen valinnat kohteelle '%(query)s' luotu."
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Suosituksia ei voitu luoda virheiden vuoksi"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Toimituksen valinnat kohteelle '%(query)s' päivitetty."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Suosituksia ei voitu tallentaa virheiden vuoksi."
+
+msgid "Editor's picks deleted."
+msgstr "Toimituksen valinnat poistettu."

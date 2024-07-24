@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Haitian (Haitian Creole) (http://app.transifex.com/torchbox/"
+"wagtail/language/ht/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ht\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Search term(s)/phrase"
+msgstr "Chèche tèm/fraz"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Antre tèks ou vle pareye a o konplè. Yon parèy egzak nesesè pou Rezilta "
+"Ankouraje ou yo afiche, djokèr PA aksepte."
+
+msgid "Query Daily Hits"
+msgstr "Chèche Hit Kotidyen"
+
+msgid "Save"
+msgstr "Anrejistre"
+
+msgid "Editing"
+msgstr "Modifikasyon"
+
+msgid "Popular search terms"
+msgstr "Tèm rechèch ki popilè"
+
+msgid "Search"
+msgstr "Chèche"
+
+msgid "Terms"
+msgstr "Tèm"
+
+msgid "Views (past week)"
+msgstr "Vi (semèn pase)"
+
+msgid "No results found"
+msgstr "Okenn rezilta pa twouve"
+
+msgid "Choose from popular search terms"
+msgstr "Chwazi pami tèm rechèch ki popilè yo"
+
+msgid "Edit"
+msgstr "Modifye"

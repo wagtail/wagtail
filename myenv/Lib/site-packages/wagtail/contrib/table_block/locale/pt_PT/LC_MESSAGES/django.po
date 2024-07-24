@@ -1,0 +1,39 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020-2021
+# Tiago Henriques <trinosauro@gmail.com>, 2016,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2016,2022\n"
+"Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
+"wagtail/language/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail table block"
+msgstr "Bloco de tabela Wagtail"
+
+msgid "Row header"
+msgstr "Cabeçalho de linha"
+
+msgid "Column header"
+msgstr "Cabeçalho de coluna"
+
+msgid "Table caption"
+msgstr "Legenda da tabela"
+
+msgid "Table"
+msgstr "Tabela"

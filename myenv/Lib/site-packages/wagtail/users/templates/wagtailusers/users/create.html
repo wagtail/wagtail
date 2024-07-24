@@ -1,0 +1,67 @@
+{% extends "wagtailadmin/generic/form.html" %}
+{% load wagtailadmin_tags wagtailimages_tags %}
+{% load i18n %}
+
+{% block main_content %}
+    <div class="w-tabs" data-tabs>
+        <div class="w-tabs__wrapper">
+            <div role="tablist" class="w-tabs__list">
+                {% trans "Account" as account_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
+                {% trans "Roles" as roles_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='roles' title=roles_text %}
+            </div>
+        </div>
+
+        <form action="{% url 'wagtailusers_users:add' %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            <div class="tab-content">
+                {% csrf_token %}
+                <section
+                    id="tab-account"
+                    class="w-tabs__panel"
+                    role="tabpanel"
+                    hidden
+                    aria-labelledby="tab-label-account"
+                >
+                    <ul class="fields">
+                        {% block fields %}
+                            {% if form.separate_username_field %}
+                                <li>{% formattedfield form.username_field %}</li>
+                            {% endif %}
+                            <li>{% formattedfield form.email %}</li>
+                            <li>{% formattedfield form.first_name %}</li>
+                            <li>{% formattedfield form.last_name %}</li>
+                            {% block extra_fields %}{% endblock extra_fields %}
+                            {% if form.password1 %}
+                                <li>{% formattedfield form.password1 %}</li>
+                            {% endif %}
+                            {% if form.password2 %}
+                                <li>{% formattedfield form.password2 %}</li>
+                            {% endif %}
+                        {% endblock fields %}
+
+                        <li>
+                            <a href="#tab-roles" data-tab-trigger class="button">
+                                {% trans "Roles" %}
+                                {% icon name="arrow-right" classname="default" %}
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <section
+                    id="tab-roles"
+                    class="w-tabs__panel"
+                    role="tabpanel"
+                    hidden
+                    aria-labelledby="tab-label-roles"
+                >
+                    <ul class="fields">
+                        <li>{% formattedfield form.is_superuser %}</li>
+                        <li>{% formattedfield form.groups %}</li>
+                        <li><button class="button">{% trans "Add user" %}</button></li>
+                    </ul>
+                </section>
+            </div>
+        </form>
+    </div>
+{% endblock %}

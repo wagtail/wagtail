@@ -1,0 +1,3 @@
+{% extends "wagtailadmin/generic/listing.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans trimmed with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}

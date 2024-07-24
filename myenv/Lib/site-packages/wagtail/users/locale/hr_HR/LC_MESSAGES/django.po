@@ -1,0 +1,430 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020-2024
+# Luka Matijević <lumatijev@gmail.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2024\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
+"language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail korisnici"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Obavezno. Slova, brojevi i @/./+/-/_ znakovi."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Vrijednost smije sadržavati samo slova, brojeve i znakove @/./+/-/_."
+
+msgid "A user with that username already exists."
+msgstr "Korisničko ime već postoji."
+
+msgid "The two password fields didn't match."
+msgstr "Lozinke nisu jednake."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Ime"
+
+msgid "Last Name"
+msgstr "Prezime"
+
+msgid "Password"
+msgstr "Lozinka"
+
+msgid "Leave blank if not changing."
+msgstr "Ostavite prazno ako ju ne mijenjate."
+
+msgid "Password confirmation"
+msgstr "Potvrda lozinke"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Unesite istu lozinku kao iznad zbog verifikacije."
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administratori imaju potpuni pristup upravljanju bilo kojeg objekta ili "
+"postavke."
+
+msgid "A group with that name already exists."
+msgstr "Grupa s danim imenom već postoji."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nije moguće dodati više skupova dozvola za istu stranicu."
+
+msgid "submitted notifications"
+msgstr "obavijesti stranica"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Primite obavijest kada se stranica pošalje na moderiranje"
+
+msgid "approved notifications"
+msgstr "obavijesti odobrenja"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Primite obavijest kada je vaša promjena na stranici odobrena"
+
+msgid "rejected notifications"
+msgstr "obavijesti odbačaja"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Primite obavijest kada je vaša promjena na stranici odbijena"
+
+msgid "updated comments notifications"
+msgstr "obavijesti ažuriranih komentara"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Primajte obavijesti kada su komentari stvoreni, riješeni ili izbrisani na "
+"stranici na koju ste pretplaćeni za primanje obavijesti komentara."
+
+msgid "preferred language"
+msgstr "odabrani jezik"
+
+msgid "Select language for the admin"
+msgstr "Odaberite jezik sučelja"
+
+msgid "current time zone"
+msgstr "odabrana vremenska zona"
+
+msgid "Select your current time zone"
+msgstr "Odaberite vašu vremensku zonu"
+
+msgid "profile picture"
+msgstr "slika profila"
+
+msgid "System default"
+msgstr "Sistemska"
+
+msgid "Light"
+msgstr "Svijetla"
+
+msgid "Dark"
+msgstr "Tamna"
+
+msgid "admin theme"
+msgstr "tema sučelja"
+
+msgid "Default"
+msgstr "Zadano"
+
+msgid "user profile"
+msgstr "korisnički profil"
+
+msgid "user profiles"
+msgstr "korisnički profili"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Pridruži ulogu 1 korisniku"
+msgstr[1] "Pridruži ulogu %(counter)s korisnika"
+msgstr[2] "Dodijeli ulogu %(counter)s korisnika"
+
+msgid "Assign role"
+msgstr "Dodijeli ulogu"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Jeste li sigurni da želite dodijeliti ulogu ovim korisnicima?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Nemate dozvolu za uređivanje korisnika"
+msgstr[1] "Nemate dozvolu za uređivanje ovih korisnika"
+msgstr[2] "Nemate dozvolu za uređivanje ovih korisnika"
+
+msgid "Yes, assign"
+msgstr "Da, dodijeli"
+
+msgid "No, don't assign"
+msgstr "Ne, nemoj dodijeliti"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Izbriši 1 korisnika"
+msgstr[1] "Izbriši %(counter)s korisnika"
+msgstr[2] "Izbriši %(counter)s korisnika"
+
+msgid "Delete"
+msgstr "Obriši"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Jeste li sigurni da želite izbrisati ove korisnike?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Nemate dozvolu za brisanje korisnika"
+msgstr[1] "Nemate dozvolu za brisanje ovih korisnika"
+msgstr[2] "Nemate dozvolu za brisanje ovih korisnika"
+
+msgid "Yes, delete"
+msgstr "Da, obriši"
+
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Promijeni aktivno stanje za 1 korisnika"
+msgstr[1] "Promijeni aktivno stanje za %(counter)s korisnika"
+msgstr[2] "Promijeni aktivno stanje za %(counter)s korisnika"
+
+msgid "Set active state"
+msgstr "Postavi aktivno stanje"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Jeste li sigurni da želite promijeniti aktivno stanje ovim korisnicima?"
+
+msgid "You cannot change your own active status"
+msgstr "Ne možete promjeniti vlastito aktivno stanje"
+
+msgid "Yes, change state"
+msgstr "Da, promijeni stanje"
+
+msgid "No, don't change state"
+msgstr "Ne, nemoj promijeniti stanje"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Grupa '%(group_name)s' ima <strong>%(group_user_count)s</strong> člana."
+msgstr[1] ""
+"Grupa '%(group_name)s' ima <strong>%(group_user_count)s</strong> članova."
+msgstr[2] ""
+"Grupa '%(group_name)s' ima <strong>%(group_user_count)s</strong> članova."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Brisanjem ove grupe će se ukinuti sve pripadajuće dozvole svim korisnicima u "
+"ovoj grupi."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Jeste li sigurni da želite izbrisati grupu?"
+
+msgid "Add group"
+msgstr "Dodaj grupu"
+
+msgid "Save"
+msgstr "Pohrani"
+
+msgid "Delete group"
+msgstr "Obriši grupu"
+
+msgid "Object permissions"
+msgstr "Dozvole objekta"
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Change"
+msgstr "Promijeni"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Lock"
+msgstr "Zaključavanje"
+
+msgid "Unlock"
+msgstr "Otključavanje"
+
+msgid "Custom permissions"
+msgstr "Posebne dozvole"
+
+msgid "Other permissions"
+msgstr "Ostale dozvole"
+
+msgid "Page permissions"
+msgstr "Dozvole stranice"
+
+msgid "Page"
+msgstr "Stranica"
+
+msgid "Add a page permission"
+msgstr "Dodaj dozvolu stranice"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Nažalost nisu pronađene grupe koje odgovaraju \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nema postavljenih grupa. Zašto ne <a "
+"href=\"%(wagtailusers_create_group_url)s\">dodate neke</a>?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Jeste li sigurni da želite izbrisati korisnika?"
+
+msgid "Account"
+msgstr "Korisnički račun"
+
+msgid "Roles"
+msgstr "Uloge"
+
+msgid "Add user"
+msgstr "Dodaj korisnika"
+
+msgid "Delete user"
+msgstr "Izbriši korisnika"
+
+msgid "Select all users in listing"
+msgstr "Odaberite sve korisnike iz popisa"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Nema postavljenih korisnika. Zašto ne <a "
+"href=\"%(wagtailusers_add_url)s\">dodate neke</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "korisnik %(id)s (izbrisan)"
+
+msgid "Assign role to selected users"
+msgstr "Dodijeli ulogu odabranim korisnicima"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d korisniku je dodijeljena uloga %(role)s"
+msgstr[1] "%(num_parent_objects)d korisnika je dodijeljena uloga %(role)s"
+msgstr[2] "%(num_parent_objects)d korisnika je dodijeljena uloga %(role)s"
+
+msgid "Delete selected users"
+msgstr "Izbriši odabrene korisnike"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d korisnik je izbrisan"
+msgstr[1] "%(num_parent_objects)d korisnika je izbrisano"
+msgstr[2] "%(num_parent_objects)d korisnika je izbrisano"
+
+msgid "Active"
+msgstr "Aktivan"
+
+msgid "Inactive"
+msgstr "Neaktivan"
+
+msgid "Mark as active"
+msgstr "Označi kao aktivnog"
+
+msgid "Change the active state for selected users"
+msgstr "Promijeni aktivno stanje odabranim korisnicima"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d korisnik je označen kao aktivan"
+msgstr[1] "%(num_parent_objects)d korisnika je označeno kao aktivno"
+msgstr[2] "%(num_parent_objects)d korisnika je označeno kao aktivno"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d korisnik je označen kao neaktivan"
+msgstr[1] "%(num_parent_objects)d korisnika je označeno kao neaktivno"
+msgstr[2] "%(num_parent_objects)d korisnika je označeno kao neaktivno"
+
+msgid "Groups"
+msgstr "Grupe"
+
+msgid "Add a group"
+msgstr "Dodaj grupu"
+
+msgid "Search groups"
+msgstr "Pretraži grupe"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Grupa '%(object)s' je stvorena."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Grupa '%(object)s' je ažurirana."
+
+msgid "The group could not be saved due to errors."
+msgstr "Nije moguće sačuvati grupu zbog grešaka."
+
+msgid "View users in this group"
+msgstr "Pregledaj korisnike u ovoj grupi."
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Grupa '%(object)s' je izbrisana."
+
+msgid "Add a user"
+msgstr "Dodaj korisnika"
+
+msgid "Users"
+msgstr "Korisnici"
+
+msgid "Username"
+msgstr "Korisničko ime"
+
+msgid "Admin"
+msgstr "Administrator"
+
+msgid "Access level"
+msgstr "Razina pristupa"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Više opcija za '%(title)s'"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Korisnik '%(object)s' stvoren."
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Korisnik '%(object)s' je ažuriran."
+
+msgid "The user could not be saved due to errors."
+msgstr "Nije moguće sačuvati korisnika zbog grešaka."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Korisnik '%(object)s' je izbrisan."

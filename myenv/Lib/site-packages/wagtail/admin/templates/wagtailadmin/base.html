@@ -1,0 +1,47 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
+
+{% block furniture %}
+    <template data-wagtail-sidebar-branding-logo>{% block branding_logo %}{% endblock %}</template>
+    {% sidebar_props %}
+    <aside id="wagtail-sidebar" class="sidebar-loading" data-wagtail-sidebar aria-label="{% trans 'Sidebar' %}"></aside>
+    {% keyboard_shortcuts_dialog %}
+    <main class="content-wrapper w-overflow-x-hidden" id="main">
+        <div class="content">
+            {# Always show messages div so it can be appended to by JS #}
+            <div class="messages" role="status" data-controller="w-messages" data-action="w-messages:add@document->w-messages#add" data-w-messages-added-class="new" data-w-messages-show-class="appear" data-w-messages-show-delay-value="100">
+                <ul data-w-messages-target="container">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% message_level_tag message as level_tag %}
+                            <li class="{% message_tags message %}">
+                                {% if level_tag == "error" %}
+                                    {# There is no error icon, use warning icon instead #}
+                                    {% icon name="warning" classname="messages-icon" %}
+                                {% elif message.extra_tags == "lock" %}
+                                    {% icon name="lock" classname="messages-icon" %}
+                                {% elif message.extra_tags == "unlock" %}
+                                    {% icon name="lock-open" classname="messages-icon" %}
+                                {% else %}
+                                    {% icon name=level_tag classname="messages-icon" %}
+                                {% endif %}
+                                {{ message|safe }}
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+                <template data-w-messages-target="template" data-type="success">
+                    <li class="success">{% icon name="success" classname="messages-icon" %}<span></span></li>
+                </template>
+                <template data-w-messages-target="template" data-type="error">
+                    <li class="error">{% icon name="warning" classname="messages-icon" %}<span></span></li>
+                </template>
+                <template data-w-messages-target="template" data-type="warning">
+                    <li class="warning">{% icon name="warning" classname="messages-icon" %}<span></span></li>
+                </template>
+            </div>
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+{% endblock %}

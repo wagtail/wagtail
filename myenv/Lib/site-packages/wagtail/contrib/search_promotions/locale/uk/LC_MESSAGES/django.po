@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
+"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
+"Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Пошукова промоція Wagtail "
+
+msgid "Search term(s)/phrase"
+msgstr "Критерій(ї) пошуку/фраза"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Будь ласка, задайте хоча б одну рекомендацію для цього пошукового терміну."
+
+msgid "Query Daily Hits"
+msgstr "Щоденні Пошукові Хіти"
+
+msgid "page"
+msgstr "сторінка"
+
+msgid "description"
+msgstr "опис"
+
+msgid "search promotion"
+msgstr "просування у пошуку"
+
+msgid "Add search promotion"
+msgstr "Додати просування у пошуку"
+
+msgid "Add search pick"
+msgstr "Додати пошукову вибірку"
+
+msgid "Save"
+msgstr "Зберегти"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Видалити %(query)s"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ви впевнені, що бажаєте видалити усі промотовані результати для цієї "
+"пошукової фрази?"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Редагування %(query)s"
+
+msgid "Editing"
+msgstr "Редагування"
+
+msgid "Move up"
+msgstr "Перемістити нагору"
+
+msgid "Move down"
+msgstr "Перемістити вниз"
+
+msgid "Promoted search results"
+msgstr "Промотовані результати пошуку"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Вибачте, відсутні промотовані результати для \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Жодного промотованого результату не створено. Чому б не <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">додати один</a>?"
+
+msgid "Popular search terms"
+msgstr "Популярні критерії пошуку"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Terms"
+msgstr "Критерії"
+
+msgid "Views (past week)"
+msgstr "Перегляди (останнього тижня)"
+
+msgid "No results found"
+msgstr "Результати не знайдені"
+
+msgid "Choose from popular search terms"
+msgstr "Оберіть з популярних критеріїв пошуку"
+
+msgid "External link"
+msgstr "Зовнішнє посилання"
+
+msgid "None"
+msgstr "Нічого"
+
+msgid "Search Terms"
+msgstr "Пошукові терміни"
+
+msgid "Add new promoted result"
+msgstr "Додати новий промотований результат"
+
+msgid "Search term(s)"
+msgstr "Пошуковий термін(и)"
+
+msgid "Promoted results"
+msgstr "Промотовані результати"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Вибір редактора для '%(query)s' створений."
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Рекомендації не були створені через помилки"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Вибір редактора для '%(query)s' оновлений."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Рекомендації не були збережені через помилки"
+
+msgid "Editor's picks deleted."
+msgstr "Вибір редактора видалений"

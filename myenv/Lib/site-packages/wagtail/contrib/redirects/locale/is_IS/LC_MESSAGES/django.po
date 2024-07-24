@@ -1,0 +1,239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020-2022
+# saevarom <saevar@saevar.is>, 2015,2019,2022
+# saevarom <saevar@saevar.is>, 2015,2019,2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2015,2019,2022\n"
+"Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtail tilvísanir"
+
+msgid "Type"
+msgstr "Tegund"
+
+msgid "Permanent"
+msgstr "Permanent"
+
+msgid "Temporary"
+msgstr "Tímabundin"
+
+msgid "All"
+msgstr "Allar"
+
+msgid "From site"
+msgstr "Frá vefsvæði"
+
+msgid "All sites"
+msgstr "Allar síður"
+
+msgid "A redirect with this path already exists."
+msgstr "Tilvísun á þessa slóð er þegar til"
+
+msgid "File to import"
+msgstr "Skrá sem lesa á inn"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Studd skráarsnið: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Frá reit"
+
+msgid "To field"
+msgstr "Í reit"
+
+msgid "redirect from"
+msgstr "Tilvísun frá"
+
+msgid "site"
+msgstr "vefsvæði"
+
+msgid "permanent"
+msgstr "varanleg"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Mælt með. Varanleg tilvísun passar upp á að leitarvélar gleymi eldri síðunni "
+"(þaðan sem vísað er frá) og indexi nýju síðuna í staðinn."
+
+msgid "redirect to a page"
+msgstr "tilvísun á síðu"
+
+msgid "target page route"
+msgstr "slóð til að vísa á"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Þú getur gefið upp slóð á síðuna sem þú vilt vísa á. Skildu eftir autt til "
+"að vísa á sjálfgefna slóð."
+
+msgid "redirect to any URL"
+msgstr "tilvísun á slóð"
+
+msgid "automatically created"
+msgstr "sjálfvirkt búin til"
+
+msgid "created at"
+msgstr "búin til"
+
+msgid "temporary"
+msgstr "Tímabundið"
+
+msgid "redirect"
+msgstr "tilvísun"
+
+msgid "redirects"
+msgstr "tilvísanir"
+
+msgid "Add redirect"
+msgstr "Bæta við tilvísun"
+
+msgid "Save"
+msgstr "Vista"
+
+msgid "Redirects"
+msgstr "Tilvísanir"
+
+msgid "Import redirects"
+msgstr "Lesa inn tilvísanir"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Veldu skrá sem er með tilvísun í hverri línu sem inniheldur dálka sem "
+"standa fyrir <code>frá</code> og <code>til</code> (þeir geta heitið hvað sem "
+"er).</p>  <p>Eftir að skráin er send inn birtist staðfestingarsíða þar sem "
+"þú getur farið yfir tilvísanirnar áður en þær eru lesnar inn.</p>            "
+
+msgid "Import"
+msgstr "Lesa inn"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Eyða tilvísun %(title)s"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Ertu viss um að þú viljir eyða þessari tilvísun?"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+msgid "Confirm import"
+msgstr "Staðfesta innlestur"
+
+msgid "Confirm"
+msgstr "Staðfesta"
+
+msgid "Cancel"
+msgstr "Hætta við"
+
+msgid "Preview"
+msgstr "Forskoða"
+
+msgid "Summary"
+msgstr "Samantekt"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Fann %(total)s tilvísanir, bjó til %(successes)s og fann %(errors)s villur."
+
+msgid "From"
+msgstr "Frá"
+
+msgid "To"
+msgstr "Til"
+
+msgid "Error"
+msgstr "Villa"
+
+msgid "Continue"
+msgstr "Áfram"
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Því miður finnast engar tilvísanir sem passa við \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Engar tilvísanir hér. Viltu <a "
+"href=\"%(wagtailredirects_add_redirect_url)s\">búa til tilvísun</a>?"
+
+msgid "Site"
+msgstr "Vefsvæði"
+
+msgid "The redirect could not be saved due to errors."
+msgstr ""
+"Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' updated."
+msgstr "Tilvísun '%(redirect_title)s' uppfærð."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' deleted."
+msgstr "Tilvísun '%(redirect_title)s' eytt."
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Tilvísun '%(redirect_title)s' var bætt við."
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "The redirect could not be created due to errors."
+msgstr ""
+"Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
+
+msgid "Search redirects"
+msgstr "Leita í tilvísunum"
+
+#, python-format
+msgid "File format of type \"%(extension)s\" is not supported"
+msgstr "Skráarsnið af tegundinni \"%(extension)s\" er ekki stutt"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %(error_message)s"
+msgstr "Innlesin skrá er vitlaust kóðuð: %(error_message)s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s fundust við að lesa inn skrána: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Las inn %(total)d tilvísun"
+msgstr[1] "Las inn %(total)d tilvísanir"

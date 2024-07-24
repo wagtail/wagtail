@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# giammi <gian-maria.daffre@giammi.org>, 2018
+# Marco Badan <marco.badan@gmail.com>, 2021,2024
+# Stefano Marchetto <airbatum@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021,2024\n"
+"Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
+"it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Wagtail table block"
+msgstr "Blocco tabella Wagtail"
+
+msgid "Row header"
+msgstr "Intestazione di riga"
+
+msgid "Table headers"
+msgstr "Intestazioni tabella"
+
+msgid "Display the first row as a header"
+msgstr "Visualizza la prima riga come intestazione."
+
+msgid "Display the first column as a header"
+msgstr "Visualizza la prima colonna come intestazione."
+
+msgid "Column header"
+msgstr "Intestazione colonna"
+
+msgid "Display the first row AND first column as headers"
+msgstr "Visualizza la prima riga E la prima colonna come intestazioni"
+
+msgid "No headers"
+msgstr "Nessuna intestazione"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Quali celle dovrebbero essere visualizzate come intestazioni?"
+
+msgid "Table caption"
+msgstr "Didascalia"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Un'intestazione che identifica l'argomento generale della tabella, utile "
+"agli utenti dotati di screen reader."
+
+msgid "Table"
+msgstr "Tabella"

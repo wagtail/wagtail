@@ -1,0 +1,87 @@
+# This file is distributed under the same license as the django-taggit package.
+#
+# Translators:
+# Nikolay Korotkiy <sikmir@gmail.com>, 2018
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-taggit\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-14 11:32+0900\n"
+"PO-Revision-Date: 2018-01-06 17:27-0600\n"
+"Last-Translator: Nikolay Korotkiy <sikmir@gmail.com>\n"
+"Language-Team: Finnish\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: taggit/apps.py:7
+msgid "Taggit"
+msgstr "Tagit"
+
+#: taggit/forms.py:31
+msgid "Please provide a comma-separated list of tags."
+msgstr "Ole hyvä ja anna pilkulla erotettu lista tageista."
+
+#: taggit/managers.py:432
+msgid "Tags"
+msgstr "Tagit"
+
+#: taggit/managers.py:433
+msgid "A comma-separated list of tags."
+msgstr "Pilkulla erotettu lista tageista."
+
+#: taggit/models.py:19
+msgctxt "A tag name"
+msgid "name"
+msgstr "Nimi"
+
+#: taggit/models.py:22
+msgctxt "A tag slug"
+msgid "slug"
+msgstr "Lyhytnimi"
+
+#: taggit/models.py:82
+msgid "tag"
+msgstr "Tagi"
+
+#: taggit/models.py:83
+msgid "tags"
+msgstr ""
+
+#: taggit/models.py:89
+#, python-format
+msgid "%(object)s tagged with %(tag)s"
+msgstr "%(object)s on merkitty %(tag)s:lla"
+
+#: taggit/models.py:134
+msgid "content type"
+msgstr "Sisältötyyppi"
+
+#: taggit/models.py:165 taggit/models.py:172
+msgid "object ID"
+msgstr "Kohteen ID"
+
+#: taggit/models.py:180
+msgid "tagged item"
+msgstr "Merkitty kohde"
+
+#: taggit/models.py:181
+msgid "tagged items"
+msgstr "Merkittyjä kohteita"
+
+#: taggit/serializers.py:40
+#, python-brace-format
+msgid "Expected a list of items but got type \"{input_type}\"."
+msgstr ""
+
+#: taggit/serializers.py:43
+msgid ""
+"Invalid json list. A tag list submitted in string form must be valid json."
+msgstr ""
+
+#: taggit/serializers.py:46
+msgid "All list items must be of string type."
+msgstr ""

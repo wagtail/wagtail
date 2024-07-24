@@ -1,0 +1,54 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block bodyclass %}editor-view{% endblock %}
+
+{% block main_header %}
+    {% if breadcrumbs_items %}
+        <div class="nice-padding w-mt-8">
+            <h2 class="w-relative w-h1" id="header-title">
+                {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
+                {{ page_subtitle }}
+            </h2>
+        </div>
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block main_content %}
+    {% block before_form %}{% endblock %}
+    <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
+        {% csrf_token %}
+
+        {% if panel %}
+            {{ panel.render_form_content }}
+        {% else %}
+            {% block hidden_fields %}
+                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+            {% endblock %}
+
+            <ul class="fields">
+                {% block visible_fields %}
+                    {% for field in form.visible_fields %}
+                        <li>{% formattedfield field %}</li>
+                    {% endfor %}
+                {% endblock %}
+            </ul>
+        {% endif %}
+
+        {% block actions %}
+            <button type="submit" class="button">{{ submit_button_label }}</button>
+        {% endblock %}
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ media.js }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
+{% endblock %}

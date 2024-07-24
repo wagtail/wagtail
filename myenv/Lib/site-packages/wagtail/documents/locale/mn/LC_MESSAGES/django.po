@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
+"Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
+"mn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Файлууд"
+
+msgid "Collection"
+msgstr "Цуглуулга"
+
+msgid "Add"
+msgstr "Нэмэх"
+
+msgid "Add/edit documents you own"
+msgstr "Өөрийн файлуудыг нэмэх/засах"
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "Edit any document"
+msgstr "Ямар ч файлыг засах"
+
+msgid "Choose"
+msgstr "Сонгох"
+
+msgid "title"
+msgstr "гарчиг"
+
+msgid "file"
+msgstr "файл"
+
+msgid "created at"
+msgstr "үүссэн "
+
+msgid "uploaded by user"
+msgstr "хэрэглэгчийн хуулсан"
+
+msgid "tags"
+msgstr "шошго"
+
+msgid "document"
+msgstr "файл"
+
+msgid "documents"
+msgstr "файлууд"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашиглагдсан байна"
+msgstr[1] "%(usage_count)s удаа ашиглагдсан байна"
+
+msgid "Yes, delete"
+msgstr "Тийм, устга"
+
+msgid "No, don't delete"
+msgstr "Үгүй, устгахгүй"
+
+msgid "Latest documents"
+msgstr "Сүүлийн файлууд"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Энэ цуглуулгад ямар нэг файл нэмээгүй байна."
+
+msgid "You haven't uploaded any documents."
+msgstr "Та ямар нэг файл хуулаагүй байна."
+
+msgid "Change document:"
+msgstr "Файлыг солих"
+
+msgid "Add a document"
+msgstr "Файл нэмэх"
+
+msgid "Add document"
+msgstr "Файл нэмэх"
+
+msgid "Uploading…"
+msgstr "Хуулж байна..."
+
+msgid "Upload"
+msgstr "Хуулах"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "%(title)sзасч байна"
+
+msgid "Editing"
+msgstr "Засч байна"
+
+msgid "Save"
+msgstr "Хадгалах"
+
+msgid "Delete document"
+msgstr "Файл устгах"
+
+msgid "Filesize"
+msgstr "Файлын хэмжээ"
+
+msgid "File not found"
+msgstr "Файл олдсонгүй"
+
+msgid "Usage"
+msgstr "Хэрэглээ"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "\"<em>%(query_string)s</em>\" утгад тохирох хайлтын илэрц олдсонгүй"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Та ямар ч файл оруулаагүй байна. <a "
+"href=\"%(wagtaildocs_add_document_url)s\">Шинийг</a> оруулж яагаад болохгүй "
+"гэж?"
+
+msgid "Add multiple documents"
+msgstr "Олон файл нэмэх"
+
+msgid "Add documents"
+msgstr "Файл нэмэх"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Энэ хэсэгт файлуудаа чирж оруулж сайт руу хуулна уу."
+
+msgid "Or choose from your computer"
+msgstr "Эсвэл өөрийн компьютерээс сонгох"
+
+msgid "Add to collection:"
+msgstr "Цуглуулга руу нэмэх"
+
+msgid "Sorry, upload failed."
+msgstr "Уучлаарай, хуулахад алдаа гарлаа."
+
+msgid "You need a password to access this document."
+msgstr "Энэ файлыг үзэхийн тулд нууц үгийг нь оруулах хэрэгтэй."
+
+msgid "Document permissions"
+msgstr "Файлын хандалтын эрхүүд"
+
+msgid "Add a document permission"
+msgstr "Файлын хандалтын эрх нэмэх"
+
+msgid "Tags"
+msgstr "Шошго"
+
+msgid "Delete"
+msgstr "Устгах"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Choose a document"
+msgstr "Файл сонгох"
+
+msgid "Choose another document"
+msgstr "Өөр файл сонгох"
+
+msgid "Edit this document"
+msgstr "Файлыг засах"
+
+msgid "Documents"
+msgstr "Файлууд"
+
+msgid "Title"
+msgstr "Гарчиг"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "'%(document_title)s' файл нэмэгдлээ."
+
+msgid "The document could not be saved due to errors."
+msgstr "Алдаанаас шалтгаалж файл хадгалагдсангүй."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "'%(document_title)s' файл шинэчлэгдлээ"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл устгана уу"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "'%(document_title)s' файл устлаа."
+
+msgid "Document"
+msgstr "Файл"

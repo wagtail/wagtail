@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Tomas Walch <tomas@alternaliv.se>, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2021-10-15 16:05+0000\n"
+"Last-Translator: Tomas Walch <tomas@alternaliv.se>, 2021\n"
+"Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add column"
+msgstr "Lägg till kolumn"
+
+msgid "Add row"
+msgstr "Lägg till rad"
+
+msgid "Column heading"
+msgstr "Kolumnrubrik"
+
+msgid "Insert column"
+msgstr "Infoga kolumn"
+
+msgid "Delete column"
+msgstr "Ta bort kolumn"
+
+msgid "Insert row"
+msgstr "Infoga rad"
+
+msgid "Delete row"
+msgstr "Ta bort rad"

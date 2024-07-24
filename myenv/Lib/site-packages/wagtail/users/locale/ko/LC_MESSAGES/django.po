@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
+"Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "웨그테일 사용자"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "이 값에는 오직 문자, 숫자 및 @/./+/-/_ 만 포함될 수 있습니다."
+
+msgid "A user with that username already exists."
+msgstr "이 사용자명은 이미 사용되고 있습니다."
+
+msgid "The two password fields didn't match."
+msgstr "두 개의 비밀번호가 일치하지 않습니다."
+
+msgid "Email"
+msgstr "이메일"
+
+msgid "First Name"
+msgstr "이름"
+
+msgid "Last Name"
+msgstr "성"
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Leave blank if not changing."
+msgstr "변경되지 않았으면 빈 칸으로 남겨 두시기 바랍니다"
+
+msgid "Password confirmation"
+msgstr "비밀번호 확인"
+
+msgid "Enter the same password as above, for verification."
+msgstr "확인을 위해, 위의 비밀번호를 똑같이 적어주시기 바랍니다."
+
+msgid "Administrator"
+msgstr "관리자"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "관리자에게는 모든 객체나 설정을 관리할 수 있는 권한이 있습니다."
+
+msgid "A group with that name already exists."
+msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "같은 페이지에 대해서 여러 개의 권한을 설정할 수는 없습니다."
+
+msgid "submitted notifications"
+msgstr "제출 알림"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "페이지가 검토를 위해 제출되었을 때 알림을 받습니다"
+
+msgid "approved notifications"
+msgstr "승인 알림"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "당신의 페이지 수정 건이 승인 되었을때 알림을 받습니다"
+
+msgid "rejected notifications"
+msgstr "거절 알림"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "당신의 페이지 수정 건이 거절되었을 때 알림을 받습니다"
+
+msgid "preferred language"
+msgstr "선호하는 언어"
+
+msgid "Select language for the admin"
+msgstr "관리자에서 사용할 언어를 선택하세요"
+
+msgid "current time zone"
+msgstr "현재 타임존"
+
+msgid "Select your current time zone"
+msgstr "현재 타임존 선택"
+
+msgid "profile picture"
+msgstr "프로필 사진"
+
+msgid "Default"
+msgstr "기본값"
+
+msgid "user profile"
+msgstr "사용자 프로필"
+
+msgid "user profiles"
+msgstr "사용자 프로필"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Yes, delete"
+msgstr "네, 지우겠습니다."
+
+msgid "No, don't delete"
+msgstr "아니오, 지우지 않습니다"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "이 그룹을 지우면 그룹 안의 모든 구성원들의 권한도 없어집니다."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "이 그룹을 정말 삭제할까요?"
+
+msgid "Add group"
+msgstr "그룹 추가"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Delete group"
+msgstr "그룹 삭제"
+
+msgid "Object permissions"
+msgstr "오브젝트 권한"
+
+msgid "Name"
+msgstr "이름"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "Change"
+msgstr "변화"
+
+msgid "Publish"
+msgstr "게시"
+
+msgid "Lock"
+msgstr "잠금"
+
+msgid "Unlock"
+msgstr "잠금 풀기"
+
+msgid "Other permissions"
+msgstr "다른 권한"
+
+msgid "Page permissions"
+msgstr "페이지 권한"
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "Add a page permission"
+msgstr "페이지 권한 추가"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "죄송합니다. \"%(query)s\"에 해당하는 그룹은 없습니다"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a "
+"href=\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "이 사용자를 확실히 삭제하시겠습니까?"
+
+msgid "Account"
+msgstr "계정"
+
+msgid "Roles"
+msgstr "역할"
+
+msgid "Add user"
+msgstr "사용자 추가"
+
+msgid "Delete user"
+msgstr "사용자 삭제"
+
+msgid "Active"
+msgstr "활성화"
+
+msgid "Inactive"
+msgstr "비활성화"
+
+msgid "Groups"
+msgstr "그룹"
+
+msgid "Add a group"
+msgstr "그룹 추가"
+
+msgid "Search groups"
+msgstr "그룹 검색"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "'%(object)s' 그룹이 생성 되었습니다."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "'%(object)s' 그룹이 업데이트 되었습니다"
+
+msgid "The group could not be saved due to errors."
+msgstr "에러로 인해 그룹이 생성될 수 없습니다."
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "'%(object)s' 그룹이 삭제 되었습니다."
+
+msgid "Group"
+msgstr "그룹"
+
+msgid "Add a user"
+msgstr "사용자 추가"
+
+msgid "Users"
+msgstr "사용자"
+
+msgid "Username"
+msgstr "사용자명"
+
+msgid "Admin"
+msgstr "관리자"
+
+msgid "Status"
+msgstr "상태"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "'%(object)s' 사용자가 업데이트 되었습니다."
+
+msgid "The user could not be saved due to errors."
+msgstr "에러로 인해 사용자를 저장할 수 없습니다."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "'%(object)s' 사용자가 삭제되었습니다."

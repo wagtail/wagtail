@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail promosi pencarian"
+
+msgid "Search term(s)/phrase"
+msgstr "Kata kunci()/frase pencarian"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Masukkan string pencarian lengkap yang akan dicocokkan. Pencocokan yang sama "
+"persis dibutuhan untuk menampilkan Promoted Results anda, wildcard TIDAK "
+"diizinkan."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Mohon tentukan setidaknya satu rekomendasi untuk instilah pencarian ini."
+
+msgid "Query Daily Hits"
+msgstr "Query Hits Harian"
+
+msgid "page"
+msgstr "halaman"
+
+msgid "description"
+msgstr "deskripsi"
+
+msgid "search promotion"
+msgstr "promosi pencarian"
+
+msgid "Add search promotion"
+msgstr "Tambah promosi pencarian"
+
+msgid "Add search pick"
+msgstr "Tambah pilihan pencarian"
+
+msgid "Save"
+msgstr "Simpan"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Hapus %(query)s"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Apakah anda yakin untuk menghapus semua hasil terpromosi untuk kata kunci "
+"pencarian ini?"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Mengubah %(query)s"
+
+msgid "Editing"
+msgstr "Mengubah"
+
+msgid "Move up"
+msgstr "Geser ke atas"
+
+msgid "Move down"
+msgstr "Geser ke bawah"
+
+msgid "Promoted search results"
+msgstr "Hasil pencarian terpromosi"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Maaf, tidak ada hasil terpromosi yang sesuai dengan \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Tidak ada hasil terpromosi yang dibuat. Mengapa tidak <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">menambahnya</a>?"
+
+msgid "Popular search terms"
+msgstr "Kata kunci pencarian populer"
+
+msgid "Search"
+msgstr "Pencarian"
+
+msgid "Terms"
+msgstr "Kata kunci"
+
+msgid "Views (past week)"
+msgstr "Tampilan (seminggu lalu)"
+
+msgid "No results found"
+msgstr "Tidak ada hasil"
+
+msgid "Choose from popular search terms"
+msgstr "Pilih dari kata kunci pencarian populer"
+
+msgid "External link"
+msgstr "Tautan luar"
+
+msgid "None"
+msgstr "Tidak ada"
+
+msgid "Search Terms"
+msgstr "Kata kunci pencarian"
+
+msgid "Add new promoted result"
+msgstr "Tambah hasil terpromosi baru"
+
+msgid "Search term(s)"
+msgstr "Kata kunci pencarian()"
+
+msgid "Promoted results"
+msgstr "Hasil terpromosi"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Pilihan editor untuk '%(query)s' telah dibuat."
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Rekomendasi tidak dapat dibuat karena suatu kesalahan."
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Pilihan editor untuk '%(query)s' telah diperbarui."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Rekomendasi tidak dapat disimpan karena suatu kesalahan."
+
+msgid "Editor's picks deleted."
+msgstr "Pilihan editor dihapus."

@@ -1,0 +1,3 @@
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <small><a href="{{ url }}" class="nolink">{{ value.name |capfirst }} ({{ value.app_label }}.{{ value.model }})</a></small>
+</td>

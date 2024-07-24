@@ -1,0 +1,35 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% trans "Summary" %}{% endblock %}
+{% block content %}
+    {% trans "Import redirects" as header_title %}
+    {% trans "Summary" as header_subtitle %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=header_subtitle icon="redirect" %}
+    <section id="summary" class="nice-padding">
+        <p class="help-block help-warning">
+            {% icon name='warning' %}
+            {% blocktrans trimmed with total=import_summary.total successes=import_summary.successes errors=import_summary.errors_count %}Found {{ total }} redirects, created {{ successes }} and found {{ errors }} errors.{% endblocktrans %}
+        </p>
+
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th>{% trans "From" %}</th>
+                    <th>{% trans "To" %}</th>
+                    <th>{% trans "Error" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for error in import_summary.errors %}
+                    <tr>
+                        {% for value in error %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'wagtailredirects:index' %}" class="button">{% trans "Continue" %}</a>
+    </section>
+{% endblock %}

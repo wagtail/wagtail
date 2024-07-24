@@ -1,0 +1,41 @@
+{% load wagtailadmin_tags i18n %}
+<!-- Wagtail user bar embed code -->
+<template id="wagtail-userbar-template">
+    {# In preview panels, we still render the userbar UI, but hidden by default. #}
+    <aside {% if request.in_preview_panel %}hidden{% endif %}>
+        <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar part="userbar">
+            <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
+            {% hook_output 'insert_global_admin_css' %}
+            <div class="w-userbar-nav">
+
+                <svg class="w-hidden">
+                    <defs>
+                        {% include "wagtailadmin/icons/wagtail.svg" %}
+                        {% include "wagtailadmin/icons/key.svg" %}
+                        {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
+                        {% include "wagtailadmin/icons/edit.svg" %}
+                        {% include "wagtailadmin/icons/plus.svg" %}
+                        {% include "wagtailadmin/icons/check.svg" %}
+                        {% include "wagtailadmin/icons/cross.svg" %}
+                        {% include "wagtailadmin/icons/crosshairs.svg" %}
+                    </defs>
+                </svg>
+
+                <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="w-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
+                    {% block branding_logo %}{% include "wagtailadmin/logo.html" with classname="w-userbar-icon" %}{% endblock %}
+                    <span class="w-sr-only">{% trans 'View Wagtail quick actions' %}</span>
+                </button>
+                <ul aria-labelledby="wagtail-userbar-trigger" class="w-userbar-items" id="wagtail-userbar-items" role="menu">
+                    {% for item in items %}
+                        {{ item|safe }}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div data-a11y-result-outline-container></div>
+    </aside>
+</template>
+<wagtail-userbar></wagtail-userbar>
+<script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/userbar.js' %}"></script>
+<!-- end Wagtail user bar embed code -->

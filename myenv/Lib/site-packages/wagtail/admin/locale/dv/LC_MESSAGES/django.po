@@ -1,0 +1,2582 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Fauzaan Gasim, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Fauzaan Gasim, 2024\n"
+"Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
+"dv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: dv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "ޝާއިއުކުރުން"
+
+msgid "Submit for moderation"
+msgstr "މޮޑެރޭޝަނަށް ހުށަހެޅުން"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)s އަށް އަލުން ހުށަހެޅުން"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)s އަށް ހުށަހެޅުން"
+
+msgid "Restart workflow "
+msgstr "ވޯކްފްލޯ އަލުން ފަށާށެވެ "
+
+msgid "Cancel workflow "
+msgstr "ވޯކްފްލޯ ކެންސަލް ކުރުން "
+
+msgid "Unpublish"
+msgstr "އަންޕަބްލިޝް ކުރުން"
+
+msgid "Save Draft"
+msgstr "ސޭވް ޑްރާފްޓް"
+
+msgid "Page locked"
+msgstr "ސަފްހާ ތަޅުލެވިފައި"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s އަދި ހުށައަޅާ"
+
+msgid "Wagtail admin"
+msgstr "ވަގްޓޭލް އެޑްމިން"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "މާފަށް އެދެން، މި ސަރަހައްދަށް ވަނުމުގެ ހުއްދައެއް ނެތް."
+
+msgid "You do not have permission to access the admin"
+msgstr "އެޑްމިން އަށް ވަނުމުގެ ހުއްދައެއް ނެތެވެ"
+
+msgid "None"
+msgstr "None"
+
+msgid "Date from"
+msgstr "ތާރީޚުން ފެށިގެން..."
+
+msgid "Date to"
+msgstr "ތާރީޙާއި ހަމަޔަށް"
+
+msgid "Locale"
+msgstr "ލޯކަލް"
+
+msgid "All"
+msgstr "ހުރިހާ"
+
+msgid "Collection"
+msgstr "ކަލެކްޝަން"
+
+msgid "Tag"
+msgstr "ޓެގް"
+
+msgid "Preferred language"
+msgstr "އިސްކަންދޭ ބަހެވެ"
+
+msgid "Current time zone"
+msgstr "މިހާރުގެ ޓައިމް ޒޯން"
+
+msgid "First Name"
+msgstr "ފުރަތަމަ ނަން"
+
+msgid "Last Name"
+msgstr "ފަހު ނަން"
+
+msgid "Email"
+msgstr "އީމެއިލް"
+
+msgid "Upload a profile picture"
+msgstr "ޕްރޮފައިލް ޕިކްޗަރއެއް އަޕްލޯޑް ކުރުން"
+
+msgid "Enter password"
+msgstr "ޕާސްވޯޑް ލިޔެލާށެވެ"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "ތިބާގެ %(username_field)s އާއި ޕާސްވޯޑް އެއްގޮތް ނުވިއެވެ. އަނެއްކާވެސް މަސައްކަތް ކުރައްވާށެވެ."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "ތިބާގެ %(username_field_name)s ލިޔެލާށެވެ"
+
+msgid "Enter your email address to reset your password"
+msgstr "ޕާސްވޯޑް ރީސެޓް ކުރުމަށް އީމެއިލް އެޑްރެސް ލިޔެލާށެވެ"
+
+msgid "URL"
+msgstr "ޔޫ.އާރް.އެލް"
+
+msgid "Search term"
+msgstr "ސަރޗް ޓާމް"
+
+msgid "Search"
+msgstr "ހޯދާ"
+
+msgid "All collections"
+msgstr "ހުރިހާ ކަލެކްޝަންތަކެއް"
+
+msgid "Parent"
+msgstr "ބެލެނިވެރިޔާއެވެ"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr "ހައިރާރކިކަލް ޕޮޒިޝަން ހޮވުން. ނޯޓް: ކަލެކްޝަނަކީ އޭގެ އަމިއްލަ ދަރިއަކަށް ނުވަތަ އޭގެ ދަރިފަސްކޮޅުގެ މީހަކަށް ނުވެވޭނެއެވެ."
+
+msgid "Please select another parent"
+msgstr "އެހެން ބެލެނިވެރިއެއް ހޮވުން އެދެމެވެ"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "އެއް ކަލެކްޝަނަކަށް ގިނަ ހުއްދަ ރެކޯޑްތަކެއް ނުހުންނާނެއެވެ."
+
+msgid "Add"
+msgstr "އިތުރު"
+
+msgid "Add collections"
+msgstr "ކަލެކްޝަންތައް އިތުރުކުރުން"
+
+msgid "Edit"
+msgstr "އެޑިޓް"
+
+msgid "Edit collections"
+msgstr "ކަލެކްޝަންތައް އެޑިޓްކުރުން"
+
+msgid "Delete"
+msgstr "ޑިލީޓް"
+
+msgid "Delete collections"
+msgstr "ކަލެކްޝަންތައް ޑިލީޓްކުރުން"
+
+msgid "You cannot edit another user's comment."
+msgstr "އެހެން ޔޫޒަރެއްގެ ކޮމެންޓް އެޑިޓް ނުކުރެވޭނެއެވެ."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "ގޯ ލައިވް ތާރީޚު/ގަޑި ހުންނަންވާނީ މުއްދަތު ހަމަވާ ތާރީޚު/ގަޑިގެ ކުރިންނެވެ"
+
+msgid "Expiry date/time must be in the future"
+msgstr "މުއްދަތު ހަމަވާ ތާރީޚު/ގަޑިއަކީ ކުރިއަށް އޮތް ތަނުގައި ވާންޖެހޭނެއެވެ"
+
+msgid "New title"
+msgstr "އައު ލަގަބެވެ"
+
+msgid "New slug"
+msgstr "އައު ސްލަގެވެ"
+
+msgid "New parent page"
+msgstr "އާ ބެލެނިވެރި ސަފްހާއެއް"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "މި ކޮޕީ ވާނީ މި ދީފައިވާ ބެލެނިވެރިޔާ ޕޭޖުގެ ދަރިއަކަށެވެ."
+
+msgid "Copy subpages"
+msgstr "ސަބްޕޭޖްތައް ކޮޕީކުރޭ"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "މީގެން %(count)s ސަބްޕޭޖް ކޮޕީ ކުރާނެ"
+msgstr[1] "މީގެން %(count)s ސަބްޕޭޖް ކޮޕީ ކުރާނެ"
+
+msgid "Publish copied page"
+msgstr "ކޮޕީކޮށްފައިވާ ޞަފްޙާ ޝާއިޢުކުރުން"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "މި ޕޭޖް ލައިވް ކުރަނީ. އޭގެ ކޮޕީ ވެސް ޝާއިއު ކުރަން ބޭނުން ތަ؟"
+
+msgid "Publish copies"
+msgstr "ކޮޕީތައް ޝާއިއުކުރުން"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s ކޮޕީ ކުރަމުންދާ ޞަފްޙާތަކުގެ ތެރެއިން ލައިވް ކުރެވިފައިވާ ޞަފްޙާތަކެވެ. އެމީހުންގެ ކޮޕީތައް ޝާއިއު ކުރަން ބޭނުން "
+"ހެއްޔެވެ؟"
+msgstr[1] ""
+"%(count)s ކޮޕީ ކުރަމުންދާ ޞަފްޙާތަކުގެ ތެރެއިން ލައިވް ކުރެވިފައިވާ ޞަފްޙާތަކެވެ. އެމީހުންގެ ކޮޕީތައް ޝާއިއު ކުރަން ބޭނުން "
+"ހެއްޔެވެ؟"
+
+msgid "Alias"
+msgstr "އެލިއާސް އެވެ"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "ކުރިއަށް އޮތް ބަދަލުތަކާ އެކު އާ ޞަފްޙާތައް އަޕްޑޭޓްކޮށް ބެހެއްޓުން"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "\\&quot;%(page_title)s\\ ޞަފްޙާއަށް ކޮޕީ ކުރުމުގެ ހުއްދައެއް ނެތެވެ."
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "ސަބްޕޭޖް ކޮޕީ ކުރާއިރު ޕޭޖެއް އޭގެ ތެރެއަށް ކޮޕީ ނުކުރެވޭނެއެވެ"
+
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "ސްލަގް &#39;%(page_slug)s&#39; މިހާރުވެސް ބެލެނިވެރި ޞަފްޙާގެ ތެރޭގައި ބޭނުން ކުރަމުންދެއެވެ"
+
+msgid "Select a new parent for this page."
+msgstr "މި ޕޭޖަށް އާ ބެލެނިވެރިއަކު ހޮވާށެވެ."
+
+msgid "Parent page"
+msgstr "ބެލެނިވެރި ޕޭޖް"
+
+msgid "Search…"
+msgstr "ހޯދުން…"
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "ޓެގް(ސް) %(value_too_long)s ހުންނަނީ %(max_tag_length)d އަކުރުތަކުގެ މައްޗަށެވެ"
+
+msgid "Visibility"
+msgstr "ފެންނަން ހުރުމެވެ"
+
+msgid "This field is required."
+msgstr "މި ދާއިރާ ބޭނުންވެއެވެ."
+
+msgid "Please select at least one group."
+msgstr "މަދުވެގެން އެއް ގްރޫޕެއް ހޮވުން އެދެމެވެ."
+
+msgid "All types"
+msgstr "ހުރިހާ ބާވަތެކެވެ"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "މި ޞަފްޙާގައި މިހާރުވެސް ވޯކްފްލޯ &#39;%(workflow_name)s&#39; ޙަވާލުކޮށްފައިވެއެވެ."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "މި ވޯކްފްލޯ އެއް ޕޭޖަކަށް އެތައް ފަހަރަކު އެސައިން ނުކުރެވޭނެއެވެ."
+
+msgid "Give your workflow a name"
+msgstr "ތިމާގެ ވޯކްފްލޯއަށް ނަމެއް ދޭށެވެ"
+
+msgid "Add tasks to your workflow"
+msgstr "ތިމާގެ ވޯކްފްލޯއަށް ޓާސްކްތައް އިތުރުކުރުން"
+
+msgid "Task"
+msgstr "މަސައްކަތެއް"
+
+msgid "1 page selected"
+msgstr "1 ޞަފްޙާ ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s ގެ ޞަފްޙާތައް ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "މި ސްކްރީންގައިވާ ހުރިހާ %(objects)s ޞަފްޙާތައް ހޮވާފައިވެއެވެ"
+
+msgid "All pages in listing selected"
+msgstr "ލިސްޓިންގގައިވާ ހުރިހާ ޞަފްޙާއެއް ހޮވާފައިވެއެވެ"
+
+msgid "1 document selected"
+msgstr "1 ޑޮކިއުމަންޓް ހޮވިއްޖެއެވެ"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s ޑޮކިއުމަންޓްތައް ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "މި ސްކްރީންގައިވާ ހުރިހާ %(objects)s ޑޮކިއުމަންޓްތައް ހޮވާފައިވެއެވެ"
+
+msgid "All documents in listing selected"
+msgstr "ލިސްޓިންގގައިވާ ހުރިހާ ލިޔެކިޔުންތަކެއް ހޮވާފައިވެއެވެ"
+
+msgid "1 image selected"
+msgstr "1 އިމޭޖް ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s ގެ ތަސްވީރުތައް ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "މި ސްކްރީންގައިވާ ހުރިހާ %(objects)s ތަސްވީރުތައް ހޮވާފައިވެއެވެ"
+
+msgid "All images in listing selected"
+msgstr "ލިސްޓިންގގައިވާ ހުރިހާ ތަސްވީރުތަކެއް ހޮވާފައިވެއެވެ"
+
+msgid "1 user selected"
+msgstr "1 ޔޫޒަރ ސެލެކްޓް ކުރެވިއްޖެއެވެ"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s ޔޫޒަރުން ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "މި ސްކްރީންގައިވާ ހުރިހާ %(objects)s ޔޫޒަރުން ހޮވާފައިވެއެވެ"
+
+msgid "All users in listing selected"
+msgstr "ލިސްޓިންގގައި ތިބި ހުރިހާ ޔޫޒަރުން ހޮވާފައިވެއެވެ"
+
+msgid "1 snippet selected"
+msgstr "1 ސްނިޕެޓް ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s ސްނިޕެޓްސް ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "މި ސްކްރީންގައިވާ ހުރިހާ %(objects)s ސްނިޕެޓްތައް ހޮވާފައިވެއެވެ"
+
+msgid "All snippets in listing selected"
+msgstr "ލިސްޓިންގގައިވާ ހުރިހާ ސްނިޕެޓްތަކެއް ހޮވާފައިވެއެވެ"
+
+msgid "1 item selected"
+msgstr "1 އެއްޗެއް ހޮވިއްޖެއެވެ"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s ގެ ތަކެތި ހޮވާފައިވެއެވެ"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "މި ސްކްރީންގައިވާ ހުރިހާ %(objects)s އައިޓަމްތައް ހޮވާފައިވެއެވެ"
+
+msgid "All items in listing selected"
+msgstr "ލިސްޓިންގގައިވާ ހުރިހާ އެއްޗެއް ހޮވާފައިވެއެވެ"
+
+msgid "For search engines"
+msgstr "ސަރޗް އިންޖީނުތަކަށްޓަކައެވެ"
+
+msgid "For site menus"
+msgstr "ސައިޓް މެނޫތަކަށްޓަކައެވެ"
+
+msgid "Content"
+msgstr "މައިގަނޑު ކޮންޓެންޓް"
+
+msgid "Promote"
+msgstr "ކުރިއެރުވުން"
+
+msgid "Settings"
+msgstr "ސެޓިންގސް"
+
+msgid "Title"
+msgstr "މަޤާމު"
+
+msgid "Page title"
+msgstr "ޞަފްޙާގެ ސުރުޚީ"
+
+msgid "Error 404: Page not found"
+msgstr "އެރަރ 404: ޞަފްޙާ ނުފެނެއެވެ"
+
+msgid "Error 404"
+msgstr "އެރަރ 404"
+
+msgid "The requested page could not be found."
+msgstr "އެދިފައިވާ ޕޭޖް ހޯދިފައެއް ނުވެއެވެ."
+
+msgid "Go to Wagtail admin"
+msgstr "ވަގްޓޭލް އެޑްމިން އަށް ދާށެވެ"
+
+msgid "Account"
+msgstr "އެކައުންޓު"
+
+msgid "More actions"
+msgstr "އިތުރު އަމަލުތަކެވެ"
+
+msgid "Save account details"
+msgstr "އެކައުންޓްގެ ތަފްސީލް ސޭވްކުރުން"
+
+msgid "Reset password"
+msgstr "ޕާސްވޯޑް ރީސެޓްކުރުން"
+
+msgid "Password change successful"
+msgstr "ޕާސްވޯޑް ބަދަލުކުރުން ކާމިޔާބު"
+
+msgid "Login"
+msgstr "ލޮގިން ވެވޭނެއެވެ"
+
+msgid "Set your new password"
+msgstr "އާ ޕާސްވޯޑް ސެޓް ކުރާށެވެ"
+
+msgid "Invalid password reset link"
+msgstr "ސައްހަ ނޫން ޕާސްވޯޑް ރީސެޓް ލިންކެއް"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "ޕާސްވޯޑް ރީސެޓް ލިންކް ސައްހަ ނޫން ކަމަށް ބެލެވެނީ، ކުރިން ބޭނުންކޮށްފައި އޮތުމުން ކަމަށް ވެދާނެ އެވެ."
+
+msgid "Request a new password reset"
+msgstr "އާ ޕާސްވޯޑް ރީސެޓް ކުރުމަށް އެދިއްޖެއެވެ"
+
+msgid "Check your email"
+msgstr "އީމެއިލް ޗެކް ކުރާށެވެ"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "މި އެޑްރެހަށް އެކައުންޓެއް އޮތްނަމަ ޕާސްވޯޑް ރީސެޓް ކުރުމަށް ލިންކެއް އީމެއިލް ކުރެވިފައިވެއެވެ."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "ޕާސްވޯޑް ރީސެޓް ކުރުމަށް ތިރީގައިވާ ލިންކަށް ފޮލޯ ކުރައްވާ:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "ތިބާގެ ޔޫޒަރނޭމް (ހަނދާން ނައްތާލެވިއްޖެ ހާލަތެއްގައި):"
+
+msgid "Password reset"
+msgstr "ޕާސްވޯޑް ރީސެޓް ކުރުން"
+
+msgid "Reset your password"
+msgstr "ޕާސްވޯޑް ރީސެޓް ކުރާށެވެ"
+
+msgid "Reset to default"
+msgstr "ޑިފޯލްޓް އަށް ރީސެޓް ކުރާށެވެ"
+
+msgid "Default avatar"
+msgstr "ޑިފޯލްޓް އަވަޓަރ އެވެ"
+
+msgid "Upload a profile picture:"
+msgstr "ޕްރޮފައިލް ތަސްވީރެއް އަޕްލޯޑް ކުރުން:"
+
+msgid "Sidebar"
+msgstr "ސައިޑްބާރ އެވެ"
+
+msgid "Go back"
+msgstr "އެނބުރި ދާށެވެ"
+
+msgid "Bulk actions"
+msgstr "ބަލްކް އެކްޝަންސް"
+
+msgid "Select"
+msgstr "ޚިޔާރުކުރުން"
+
+msgid "Select row"
+msgstr "ރޯ ހޮވާށެވެ"
+
+msgid "Select all"
+msgstr "ހުރިހާ އެއްޗެއް ހޮވާށެވެ"
+
+msgid "Internal link"
+msgstr "އެތެރޭގެ ލިންކެއް"
+
+msgid "External link"
+msgstr "ބޭރު ލިންކެއް"
+
+msgid "Email link"
+msgstr "އީމެއިލް ލިންކް"
+
+msgid "Phone link"
+msgstr "ފޯނު ލިންކް"
+
+msgid "Anchor link"
+msgstr "އެންކަރ ލިންކް"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s މެޗު އެބަހުއްޓެވެ"
+msgstr[1] "%(counter)s މެޗުތައް އެބަހުއްޓެވެ"
+
+msgid "Add an anchor link"
+msgstr "އެންކަރ ލިންކެއް އިތުރުކުރުން"
+
+msgid "Insert anchor"
+msgstr "އެންކަރ ޖައްސާށެވެ"
+
+msgid "Choose"
+msgstr "އިޚްތިޔާރު"
+
+msgid "Choose a page"
+msgstr "ޞަފްޙާއެއް ހޮވާށެވެ"
+
+msgid "Confirm selection"
+msgstr "ސެލެކްޝަން ކޮންފަރމްކުރުން"
+
+msgid "Convert to internal link"
+msgstr "އެތެރޭގެ ލިންކަށް ބަދަލުކުރުން"
+
+msgid "Use external link"
+msgstr "ބޭރު ލިންކް ބޭނުން ކުރާށެވެ"
+
+msgid "Add an email link"
+msgstr "އީމެއިލް ލިންކެއް އިތުރުކުރުން"
+
+msgid "Insert link"
+msgstr "ލިންކް އިންސަރޓް ކުރާށެވެ"
+
+msgid "Add an external link"
+msgstr "ބޭރު ލިންކެއް އިތުރުކުރުން"
+
+msgid "Add a phone link"
+msgstr "ފޯނު ލިންކެއް އިތުރުކޮށްލާށެވެ"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s ހޮވާށެވެ"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "&#39;%(title)s&#39; ގެ ސަބްޕޭޖްތައް ހޯދުން."
+
+msgid "Explore"
+msgstr "ދިރާސާކުރުން"
+
+msgid "Collection privacy"
+msgstr "ކަލެކްޝަން ޕްރައިވެސީ"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "މި ކަލެކްޝަން ޕްރައިވެޓްކޮށްފައިވަނީ ބެލެނިވެރި ކަލެކްޝަނަކުންނެވެ."
+
+msgid "You can edit the privacy settings on:"
+msgstr "ޕްރައިވެސީ ސެޓިންގސް އެޑިޓް ކުރެވޭނީ:"
+
+msgid "Save"
+msgstr "ރައްކާކުރުން"
+
+msgid "Change privacy"
+msgstr "ޕްރައިވެސީ ބަދަލުކުރުން"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "މި ކަލެކްޝަންގައި ހިމެނޭ ލިޔެކިޔުންތައް ބަލާލެވޭނެ ގޮތް ކަނޑައަޅަނީ ޕްރައިވެސީ ސެޓިންގްސް އިންނެވެ."
+
+msgid "Privacy"
+msgstr "އަމިއްލަ"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "ކަލެކްޝަން ޕްރައިވެސީ ސެޓްކުރުން. މިހާރުގެ ހާލަތު: އާންމު"
+
+msgid "Public"
+msgstr "ޢާންމު"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "ކަލެކްޝަން ޕްރައިވެސީ ސެޓްކުރުން. މިހާރުގެ ޙާލަތު: އަމިއްލަ"
+
+msgid "Private"
+msgstr "އަމިއްލަ"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "މި ކަލެކްޝަން ޑިލީޓް ނުކުރެވޭނެ، އެއީ ހުސް ކަލެކްޝަނެއް ނޫން ކަމުންނެވެ. އޭގައި ހިމެނެނީ:"
+
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "މާފަށް އެދެން، \\&quot; <em>%(search_query)s</em> \\"
+
+msgid "There are no results."
+msgstr "އޭގެ ނަތީޖާއެއް ނުފެނެއެވެ."
+
+msgid "Yes, delete"
+msgstr "އާދެ، ޑިލީޓް ކުރާށެވެ"
+
+msgid "No, don't delete"
+msgstr "ނޫން ޑިލީޓް ނުކުރާށެވެ"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "މި %(model_name)s އަންޕަބްލިޝް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+msgid "Yes, unpublish it"
+msgstr "އާދެ، އަންޕަބްލިޝް ކޮށްލާށެވެ"
+
+msgid "No, don't unpublish"
+msgstr "ނޫން، އަންޕަބްލިޝް ނުކުރާށެވެ"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "%(model_name)s ޝާއިޢުކުރުން"
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "މި %(model_name)s ޕަބްލިޝް ކުރުމުން މިހާރު ހިނގަމުންދާ ވޯކްފްލޯ ކެންސަލް ވާނެއެވެ."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "އަދިވެސް މި %(model_name)s ޝާއިއު ކުރަން ބޭނުން ހެއްޔެވެ؟"
+
+msgid "Cancel"
+msgstr "ކެންސަލް"
+
+msgid "Comment"
+msgstr "ކޮމެންޓްކުރޭ"
+
+msgid "Actions"
+msgstr "އަމަލުތައް"
+
+msgid "Update"
+msgstr "އަޕްޑޭޓް"
+
+msgid "Preview not available"
+msgstr "ޕްރިވިއުއެއް ނުލިބެއެވެ"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕްރިވިއު ނުފެނެއެވެ.<br /> ކަމާބެހޭ ދާއިރާތައް ހައިލައިޓް ކުރުމަށް ސޭވް އަށް ފިތާލާށެވެ."
+
+msgid "Comparing"
+msgstr "އަޅާކިޔުމެވެ"
+
+msgid "Fields"
+msgstr "ދަނޑުތަކެވެ"
+
+msgid "Changes"
+msgstr "ބަދަލުތައް"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "1 ތަން ތިރިއަށް ބަދަލުވިއެވެ."
+msgstr[1] "%(counter)s ތަންތަން ތިރިއަށް ބަދަލުވިއެވެ."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "މައްޗަށް 1 ލެވެލް ބަދަލުވެއްޖެ"
+msgstr[1] "މައްޗަށް %(counter)sލެވެލް ބަދަލުވެއްޖެ"
+
+msgid "There are no differences between these two versions"
+msgstr "މި ދެ ވަރޝަންގެ އެއްވެސް ތަފާތެއް ނެތެވެ"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "%(site_name)s ވެގްޓޭލް ސީއެމްއެސް އަށް މަރުހަބާ"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "މިއީ ތިބާ އުފެއްދި ކޮންޓެންޓާ ބެހޭ އެހީތެރި މައުލޫމާތުތައް ދައްކާނެ ތިބާގެ ޑޭޝްބޯޑެވެ."
+
+msgid "Your locked pages"
+msgstr "ތިބާގެ ތަޅުލާފައިވާ ޞަފްޙާތަކެވެ"
+
+msgid "Locked at"
+msgstr "ތަޅުލާފައި އޮތީ"
+
+msgid "Edit this page"
+msgstr "މި ޕޭޖް އެޑިޓް ކުރާށެވެ"
+
+msgid "Unlock"
+msgstr "އަންލޮކް"
+
+msgid "Draft"
+msgstr "ދެލިކޮޕީ"
+
+msgid "Live"
+msgstr "ދިރިއުޅުން"
+
+msgid "Your most recent edits"
+msgstr "ތިޔަބޭފުޅުންގެ އެންމެ ފަހުގެ އެޑިޓްތަކެވެ"
+
+msgid "Status"
+msgstr "ޙާލަތު"
+
+msgid "Date"
+msgstr "ތާރީޚް"
+
+msgid "Site summary"
+msgstr "ސައިޓްގެ ޚުލާސާ"
+
+msgid "Read the release notes."
+msgstr "ރިލީޒް ނޯޓްސް ކިޔާށެވެ."
+
+msgid "Your pages and snippets in a workflow"
+msgstr "ވޯކްފްލޯއެއްގައި ތިބާގެ ޞަފްޙާތަކާއި ސްނިޕެޓްތައް"
+
+msgid "Task started"
+msgstr "ޓާސްކް ފެށުނެވެ"
+
+msgid "Changes requested at"
+msgstr "ބަދަލު ގެނައުމަށް އެދިފައިވަނީ ގދ"
+
+msgid "Awaiting"
+msgstr "އިންތިޒާރުގައެވެ"
+
+msgid "Close"
+msgstr "ލެއްޕުން"
+
+msgid "Awaiting your review"
+msgstr "ތިޔަބޭފުޅުންގެ ރިވިއުގެ އިންތިޒާރުގައެވެ"
+
+msgid "Tasks"
+msgstr "މަސައްކަތެއް"
+
+msgid "Task submitted by"
+msgstr "ހުށަހަޅާފައިވާ ޓާސްކް"
+
+msgid "Preview"
+msgstr "ޕްރިވިއު"
+
+msgid "Compare with live version"
+msgstr "ލައިވް ވާޝަން އާއި އަޅާކިޔާށެވެ"
+
+msgid "Compare with previous version"
+msgstr "ކުރީގެ ވަރޝަނާ އަޅާކިޔާށެވެ"
+
+msgid "Sign in"
+msgstr "ސައިން އިން ކޮށްލައްވާށެވެ"
+
+msgid "Sign in to Wagtail"
+msgstr "ވަގްޓޭލް އަށް ސައިން އިން ކުރާށެވެ"
+
+msgid "Forgotten password?"
+msgstr "ޕާސްވޯޑް ހަނދާން ނެތިއްޖެތަ؟"
+
+msgid "Remember me"
+msgstr "އަހަރެންގެ މަތިން ހަނދާން ކުރާށެވެ"
+
+msgid "Signing in…"
+msgstr "ސައިން އިން ކުރަނީ..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "\\&quot;%(title)s\\&quot; ޕޭޖް ފާސްކޮށްފި އެވެ."
+
+msgid "You can view the page here:"
+msgstr "މިތަނުން ޕޭޖް ބަލާލެވޭނެއެވެ:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "\\&quot;%(title)s\\&quot; ޕޭޖް ފާސްކޮށްފި އެވެ"
+
+msgid "Edit your notification preferences here:"
+msgstr "މިތަނުން ނޮޓިފިކޭޝަން ޕްރެފެރެންސް އެޑިޓް ކުރައްވާ:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "\\&quot;%(title)s\\&quot; ޕޭޖް ބާތިލްކޮށްފި އެވެ."
+
+msgid "You can edit the page here:"
+msgstr "މިތަނުން ޞަފްޙާ އެޑިޓް ކުރެވޭނެއެވެ:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "\\&quot;%(title)s\\&quot; ޕޭޖް ބާތިލްކޮށްފި އެވެ"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"\\&quot;%(title)s\\&quot; ޕޭޖް މޮޑެރޭޝަން މަރުހަލާ \\&quot;%(task)s\\&quot; ގައި "
+"ފާސްކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "%(model_name)s މިތަނުން އެޑިޓް ކުރެވޭނެއެވެ:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "\\&quot;%(title)s\\&quot; ޕޭޖް ފާސްކޮށްފައިވަނީ \\&quot;%(task)s\\&quot; ގައެވެ."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr ""
+"%(model_name)s \\&quot;%(title)s\\&quot; \\&quot;%(task)s\\&quot; ގައި އެޕްރޫވް "
+"ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr ""
+"\\&quot;%(title)s\\&quot; ޕޭޖް މޮޑެރޭޝަން މަރުހަލާ \\&quot;%(task)s\\&quot; ގައި ރިޖެކްޓް "
+"ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr ""
+"\\&quot;%(task)s\\&quot; ގެ ތެރޭގައި %(model_name)s \\&quot;%(title)s\\&quot; "
+"ރިޖެކްޓް ކުރެވިއްޖެއެވެ."
+
+msgid "You can preview the page here:"
+msgstr "މިތަނުން ޕޭޖް ޕްރިވިއު ކުރެވޭނެއެވެ:"
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "%(model_name)s ޕްރިވިއު ކުރެވޭނީ މިތަނުން:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s އިން \\&quot;%(title)s\\&quot; އަށް ކޮމެންޓްތައް އަޕްޑޭޓްކޮށްފިއެވެ."
+
+msgid "New comments"
+msgstr "އާ ކޮމެންޓްތަކެއް"
+
+msgid "Resolved comments"
+msgstr "ހައްލުކޮށްފައިވާ ކޮމެންޓްތަކެވެ"
+
+msgid "Deleted comments"
+msgstr "ކޮމެންޓްތައް ޑިލީޓްކޮށްފިއެވެ"
+
+msgid "New replies"
+msgstr "އައު ޖަވާބުތަކެވެ"
+
+msgid "New replies to:"
+msgstr "އާ ޖަވާބުތައް:"
+
+msgid "New comments:"
+msgstr "އާ ކޮމެންޓްތައް:"
+
+msgid "Resolved comments:"
+msgstr "ހައްލުކޮށްފައިވާ ކޮމެންޓްތައް:"
+
+msgid "Deleted comments:"
+msgstr "ޑިލީޓްކޮށްފައިވާ ކޮމެންޓްތައް:"
+
+msgid "New replies:"
+msgstr "އައު ޖަވާބުތައް:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr ""
+"ވޯކްފްލޯ \\&quot;%(workflow)s\\&quot; ގައި \\&quot;%(title)s\\&quot; ޕޭޖް ފާސްކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr ""
+"\\&quot;%(title)s\\&quot; ޕޭޖް ފާސްކޮށްފައިވަނީ \\&quot;%(workflow)s\\&quot; ގައެވެ."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \\&quot;%(title)s\\&quot; \\&quot;%(workflow)s\\&quot; ގައި "
+"ފާސްކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "ތިރީގައި މިވާ ކޮމެންޓް ދޫކޮށްލެވުނީ: \\&quot;%(comment)s\\"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr ""
+"\\&quot;%(workflow)s\\&quot; ގެ ތެރޭގައި \\&quot;%(title)s\\&quot; ޕޭޖް ރިޖެކްޓް "
+"ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s \\&quot;%(title)s\\&quot; \\&quot;%(workflow)s\\&quot; ގެ ތެރޭގައި "
+"ރިޖެކްޓް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr ""
+"\\&quot;%(title)s\\&quot; ޕޭޖް ވޯކްފްލޯ \\&quot;%(workflow)s\\&quot; އަށް ހުށަހަޅާފައިވެއެވެ."
+
+msgid "Page privacy"
+msgstr "ޕޭޖް ޕްރައިވެސީ"
+
+msgid "This page has been made private by a parent page."
+msgstr "މި ޕޭޖް ޕްރައިވެޓްކޮށްފައިވަނީ ބެލެނިވެރި ޕޭޖަކުންނެވެ."
+
+msgid "Save the page before leaving"
+msgstr "ފުރުމުގެ ކުރިން ޕޭޖް ސޭވް ކޮށްލާށެވެ"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "ތިބާގެ އަތުގައި <span>ސޭވް ނުކުރެވި ހުރި އެޑިޓްތައް</span> އެބަހުއްޓެވެ"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "ތިބާގެ އަތުގައި <span>ސޭވް ނުކުރެވި ހުރި ކޮމެންޓްތައް</span> އެބަހުއްޓެވެ"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "ތިބާގެ އަތުގައި <span>ސޭވް ނުކުރެވި ހުރި އެޑިޓްތަކާއި</span> <span>ކޮމެންޓްތައް</span> އެބަހުއްޓެވެ"
+
+msgid "Publishing…"
+msgstr "ހުށައެޅެނީ . . . "
+
+msgid "Publish this version"
+msgstr "މި ވާޝަން ޕަބްލިޝްކުރޭ"
+
+msgid "Saving…"
+msgstr "ސޭވްކުރަނީ"
+
+msgid "Replace current draft"
+msgstr "މިހާރުގެ ޑްރާފްޓް މިޔާ ބަދަލުކުރޭ"
+
+msgid "Save draft"
+msgstr "ޑްރާފްޓް ރައްކާކުރޭ"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "%(title)s ގައި ޕޭޖެއް އުފެއްދުން"
+
+msgid "Create a page in"
+msgstr "އިން ޕޭޖެއް އުފެއްދުން"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "އުފައްދަން ބޭނުންވަނީ ކޮން ވައްތަރެއްގެ ޕޭޖެއްތޯ ހޮވާށެވެ."
+
+msgid "Sorry, you cannot create a page at this location."
+msgstr "މާފަށް އެދެން، މި ތަނުގައި ޕޭޖެއް ނުހެދޭނެ."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "%(page_type)s ބޭނުންކުރާ ޞަފްޙާތައް"
+
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "1 ސަފްހާ ފުހެލެވިއްޖެ"
+msgstr[1] "%(counter)s ސަފްހާ ފުހެލެވިއްޖެ"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "މި ޞަފްޙާތައް ޑިލީޓް ކުރަން ބޭނުންވާކަން ޔަޤީން ހެއްޔެވެ؟"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "މިކަމުގެ ސަބަބުން 1 އިތުރު ސަބްޕޭޖް ފުހެލެވޭނެ"
+msgstr[1] "މިކަމުގެ ސަބަބުން %(counter)s އިތުރު ސަބްޕޭޖް ވެސް ފުހެލެވޭނެ"
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "މި ޞަފްޙާ ޑިލީޓް ކުރުމުގެ ހުއްދަ ތިބާގެ އަތުގައި ނެތެވެ"
+msgstr[1] "މި ޞަފްޙާތައް ޑިލީޓް ކުރުމުގެ ހުއްދަ ތިބާގެ އަތުގައި ނެތެވެ"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "1 ސަފްހާ މޫވްކުރޭ"
+msgstr[1] "%(counter)s ސަފްހާ މޫވް ކުރޭ"
+
+msgid "Move"
+msgstr "މޫވްކުރޭ"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "މި ޞަފްޙާތައް ބަދަލުކުރަން ބޭނުންވާކަން ޔަޤީން ހެއްޔެވެ؟"
+
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "މި ސަފްހާގަ 1 ދަރިޕޭޖް ހިމެނޭ"
+msgstr[1] "މިސަފްހާގަ %(counter)s ދަރިޕޭޖް ހިމެނޭ"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "މި ޞަފްޙާ ބަދަލުކުރުމުގެ ހުއްދަ ތިބާގެ އަތުގައި ނެތެވެ"
+msgstr[1] "މި ޞަފްޙާތައް ބަދަލުކުރުމުގެ ހުއްދަ ތިބާގެ އަތުގައި ނެތެވެ"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] "ތިރީގައިވާ ޞަފްޙާ ޑަބިލިކޭޓް ސްލަގްތަކުގެ ސަބަބުން ބަދަލު ނުކުރެވޭނެއެވެ"
+msgstr[1] "ތިރީގައިވާ ޞަފްޙާތައް ޑަބިލިކޭޓް ސްލަގްތަކުގެ ސަބަބުން ބަދަލު ނުކުރެވޭނެއެވެ"
+
+msgid "There is no valid destination page for these pages"
+msgstr "މި ޞަފްޙާތަކަށް ސައްޙަ މަންޒިލް ޞަފްޙާއެއް ނެތެވެ"
+
+msgid "Yes, move these pages"
+msgstr "އާދެ، މި ޞަފްޙާތައް ބަދަލުކޮށްލާށެވެ"
+
+msgid "No, don't move"
+msgstr "ނޫން ހަރަކާތެއް ނުކުރާށެވެ"
+
+#, python-format
+msgid "Publish 1 page"
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "1 ދަރިޕޭޖް ޕަބްލިޝް ކުރޭ"
+msgstr[1] "%(counter)sދަރި ޕޭޖް ޕަބްލިޝްކުރެވިއްޖެ"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "މި ޞަފްޙާތައް ޝާއިޢުކުރަން ބޭނުންވާކަން ޔަޤީން ހެއްޔެވެ؟"
+
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "މި ސަފްހާ ގަ 1 ޕަބްލިޝްނުކުރާ ސަބް ސަފްހާ ހިމެނޭ"
+msgstr[1] "މި ސަފްހާ ގަ %(counter)s ޕަބްލިޝްނުކުރާ ސަބް ސަފްހާ ހިމެނޭ"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "މި ޞަފްޙާ ޝާއިޢުކުރުމުގެ ހުއްދަ ތިޔަބޭފުޅާގެ އަތުގައި ނެތެވެ"
+msgstr[1] "މި ޞަފްޙާތައް ޝާއިޢުކުރުމުގެ ހުއްދަ ތިޔަބޭފުޅާގެ އަތުގައި ނެތެވެ"
+
+msgid "Yes, publish"
+msgstr "އާދެ، ޝާއިޢުކުރުން"
+
+msgid "No, don't publish"
+msgstr "ނޫން ޝާއިއު ނުކުރާށެވެ"
+
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "1 ސަފްހާ އަންޕަބްލިޝްކުރޭ"
+msgstr[1] "%(counter)s  ޞަފްޙާތައް އަންޕަބްލިޝްކުރުން"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "މި ޞަފްޙާތައް އަންޕަބްލިޝް ކުރަން ބޭނުންވާކަން ޔަޤީން ހެއްޔެވެ؟"
+
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "މި ސަފްހާގައި 1 ސަބްޕޭޖް އެބަ ހުރި"
+msgstr[1] "މި ޞަފްޙާގައި %(counter)s ސަބްޕޭޖްތައް އެބަ ހުރި"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "މި ޞަފްޙާ އަންޕަބްލިޝް ކުރުމުގެ ހުއްދަ ތިބާގެ އަތުގައި ނެތެވެ"
+msgstr[1] "މި ޞަފްޙާތައް އަންޕަބްލިޝް ކުރުމުގެ ހުއްދަ ތިބާގެ އަތުގައި ނެތެވެ"
+
+msgid "Yes, unpublish"
+msgstr "އާދެ، އަންޕަބްލިޝް"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "އެލިއާސް %(title)s ބަދަލުކުރުން"
+
+msgid "Convert alias"
+msgstr "އެލިއާސް ބަދަލުކުރުން"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "މި އެލިއާސް އާދައިގެ ޞަފްޙާއަކަށް ބަދަލުކުރަން ބޭނުންވާކަން ޔަޤީން ހެއްޔެވެ؟"
+
+msgid "This action cannot be undone."
+msgstr "މި ޢަމަލު އަނބުރާ ނުގެންދެވޭނެއެވެ."
+
+msgid "Yes, convert it"
+msgstr "އާދެ، އެކަން ބަދަލުކުރައްވާށެވެ"
+
+msgid "No, leave it as an alias"
+msgstr "ނޫން، އެލިއާސްއެއްގެ ގޮތުގައި ދޫކޮށްލާށެވެ"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "މި ޕޭޖް ޑިލީޓް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "މި ޢަމަލުގެ ސަބަބުން ޖުމްލަ <b>%(total_pages)s</b> ޞަފްޙާތައް ޑިލީޓްވާނެއެވެ."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "ކޮންފަރމް ކުރުމަށް <b>%(wagtail_site_name)s</b> ލިޔެލާށެވެ."
+
+msgid "Yes, delete it"
+msgstr "އާދެ ޑިލީޓް ކޮށްލާށެވެ"
+
+msgid "No, don't delete it"
+msgstr "ނޫން ޑިލީޓް ނުކުރާށެވެ"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "މި ޞަފްޙާ &#39;%(title)s&#39; އަށް ބަދަލުކުރަން ބޭނުންވާކަން ޔަޤީން ހެއްޔެވެ؟"
+
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] "މިކަމުގެ ސަބަބުން މި ޞަފްޙާގެ ތަރުޖަމާތަކާއި އެމީހުންގެ ޗައިލްޑް ޕޭޖްތައްވެސް ބަދަލުވެގެންދާނެއެވެ"
+msgstr[1] ""
+"މިކަމުގެ ސަބަބުން މި ޞަފްޙާގެ%(translations_to_move_count)s  ތަރުޖަމާތަކާއި އެމީހުންގެ ޗައިލްޑް ޕޭޖްތައްވެސް "
+"ބަދަލުވެގެންދާނެއެވެ"
+
+msgid "Yes, move this page"
+msgstr "އާދެ، މި ޞަފްޙާ ބަދަލުކުރައްވާށެވެ"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "މި ޕޭޖް އަންޕަބްލިޝް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] "މިކަމުގެ ސަބަބުން ވެސް ޞަފްޙާގެ އެއް ތަރުޖަމާ ޝާއިޢުނުކުރެވިގެންދާނެއެވެ."
+msgstr[1] "މިކަމުގެ ސަބަބުން ވެސް ޞަފްޙާގެ%(translation_count)s ތަރުޖަމާ ޝާއިޢުނުކުރެވިގެންދާނެއެވެ."
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"މި ޞަފްޙާގައި ޗައިލްޑް ޕޭޖްތައް ހުންނައިރު، އޭގެ ތަރުޖަމާތަކުގައި އެއްކޮށް ތަރުޖަމާކޮށްފައިވާ އެއް ތަރުޖަމާ ޗައިލްޑް ޕޭޖެއް ހުރެއެވެ. "
+"މިކަންކަން ވެސް އަންޕަބްލިޝް ކުރާށެވެ"
+msgstr[1] ""
+"މި ޞަފްޙާގައި ޗައިލްޑް ޕޭޖްތައް ހުންނައިރު، އޭގެ ތަރުޖަމާތަކުގައި އެއްކޮށް ތަރުޖަމާކޮށްފައިވާ "
+"%(live_descendant_count)s ތަރުޖަމާ ޗައިލްޑް ޕޭޖެއް ހުރެއެވެ. މިކަންކަން ވެސް އަންޕަބްލިޝް ކުރާށެވެ"
+
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] "މި ޞަފްޙާގައި އެއް ސަބްޕޭޖްތައް ހުރެއެވެ. މިސަފްހާ ވެސް އަންޕަބްލިޝް ކުރާށެވެ"
+msgstr[1] "މި ޞަފްޙާގައި  %(live_descendant_count)s ސަބްޕޭޖްތައް ހުރެއެވެ. މިސަފްހާ ވެސް އަންޕަބްލިޝް ކުރާށެވެ"
+
+msgid "Publish page"
+msgstr "ޕަބްލިޝް ޕޭޖް"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "މި ޕޭޖް ޝާއިއުކުރުމުން މިހާރު ހިނގަމުންދާ ވޯކްފްލޯ ކެންސަލް ވާނެއެވެ."
+
+msgid "Would you still like to publish this page?"
+msgstr "އަދިވެސް މި ޕޭޖް ޝާއިއު ކުރަން ބޭނުން ހެއްޔެވެ؟"
+
+msgid "Copy"
+msgstr "ނަކަލުކޮށްލާ"
+
+msgid "Copy this page"
+msgstr "މި ޕޭޖް ކޮޕީ ކޮށްލާށެވެ"
+
+msgid "This page has unsaved changes."
+msgstr "މި ޞަފްޙާގައި ސޭވް ނުކުރެވި ހުރި ބަދަލުތަކެއް އެބަހުއްޓެވެ."
+
+msgid "This page is an alias of another page."
+msgstr "މި ޞަފްޙާއަކީ އެހެން ޞަފްޙާއެއްގެ އެލިއާސްއެކެވެ."
+
+msgid "Edit original page"
+msgstr "އަސްލު ޞަފްޙާ އެޑިޓްކުރުން"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "މި އެލިއާސް އާދައިގެ ޞަފްޙާއަކަށް ބަދަލުކުރުން"
+
+msgid "Select all pages in listing"
+msgstr "ލިސްޓިންގގައިވާ ހުރިހާ ޞަފްޙާއެއް ހޮވާށެވެ"
+
+msgid ""
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
+msgstr ""
+"ރޫޓް ލެވެލް އަކީ ތިމާގެ ވެގްޓޭލް އިންސްޓޯލޭޝަނަށް އާ ސައިޓްތައް އިތުރުކުރެވޭނެ ތަނެކެވެ. މިތަނުގައި އުފައްދާ ޞަފްޙާތަކަށް ސައިޓަކާ "
+"ގުޅިފައިވާ ޞަފްޙާތަކެއް ނޫނީ އެއްވެސް ޔޫ.އާރ.އެލް އެއްގައި ނުވަދެވޭނެއެވެ."
+
+msgid "Configure a site now."
+msgstr "މިހާރު ސައިޓެއް ކޮންފިގްރޭޓް ކުރާށެވެ."
+
+msgid ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+msgstr ""
+"ހަމައެކަނި މިހާރު ހުރި ސައިޓަކަށް ޕޭޖްތައް އިތުރުކުރަން ބޭނުންނަމަ، އޭގެ ބަދަލުގައި ހޯމްޕޭޖުގެ ކުދިންގެ ގޮތުގައި އެ ޕޭޖްތައް އުފައްދާށެވެ."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"މިތަނުގައި އުފައްދާ ޞަފްޙާތަކަށް އެއްވެސް ޔޫ.އާރ.އެލް އެއްގައި އެކްސެސް ނުކުރެވޭނެއެވެ. މިހާރު ހުރި ސައިޓަކަށް ޕޭޖްތައް "
+"އިތުރުކުރުމަށްޓަކައި، ހޯމްޕޭޖުގެ ކުދިންގެ ގޮތުގައި އެ ޕޭޖްތައް އުފައްދާށެވެ."
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"މިތަނަށް އެއްވެސް ސައިޓެއް ސެޓްއަޕް ކުރެވިފައެއް ނުވެއެވެ. މިތަނުގައި އުފައްދާފައިވާ ޞަފްޙާތަކަށް އެއްވެސް ޔޫ.އާރ.އެލް އެއްގައި ސައިޓެއް "
+"މި ތަނާއި ގުޅިފައި ނުވާހާ ހިނދަކު އެކްސެސް ނުކުރެވޭނެއެވެ."
+
+msgid ""
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
+msgstr "މިތަނުގެ ސައިޓް ރެކޯޑެއް ނެތެވެ. މިތަނުގައި އުފައްދާ ޞަފްޙާތަކަށް އެއްވެސް ޔޫ.އާރ.އެލް އެއްގައި އެކްސެސް ނުކުރެވޭނެއެވެ."
+
+msgid "This page is locked, by you, to further editing"
+msgstr "މި ޞަފްޙާ ލޮކްކޮށްފައިވަނީ، ތިޔަބޭފުޅުންގެ ފަރާތުން، އިތުރަށް އެޑިޓް ކުރުމަށްޓަކައެވެ"
+
+msgid "This page is locked to further editing"
+msgstr "މި ޕޭޖް ލޮކްކޮށްފައިވަނީ އިތުރަށް އެޑިޓް ކުރުމަށްޓަކައެވެ"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "&#39;%(title)s&#39; ގެ ޗައިލްޑް ޕޭޖްތައް އެކްސްޕްލޯރ ކުރާށެވެ."
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "&#39;%(title)s&#39; އަށް ޗައިލްޑް ޕޭޖެއް އިތުރުކުރުން."
+
+msgid "Drag"
+msgstr "ލަސްކުރުން"
+
+msgid "Disable ordering of child pages"
+msgstr "ޗައިލްޑް ޕޭޖްތައް ތަރުތީބުކުރުން ނުކުޅެދުންތެރިކުރުން"
+
+msgid "Sort"
+msgstr "ހަމައަކަށް އެޅުވުން"
+
+msgid "Enable ordering of child pages"
+msgstr "ޗައިލްޑް ޕޭޖްތައް ތަރުތީބުކުރުން އެނެބަލްކުރުން"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s ގެ %(items_count)s މުޅި ސައިޓް ހުރަސްކޮށް."
+
+msgid "No results across entire site."
+msgstr "މުޅި ސައިޓް ހުރަސްކޮށް އެއްވެސް ނަތީޖާއެއް ނުލިބެއެވެ."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "&#39; <span class=\"w-title-ellipsis\">%(title)s</span> &#39; އިން ހޯދާށެވެ."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"&#39; <span class=\"w-title-ellipsis\">%(title)s</span> &#39; ގެ ނަތީޖާއެއް ނުލިބެއެވެ."
+
+msgid "Search the whole site"
+msgstr "މުޅި ސައިޓް ހޯދާށެވެ"
+
+msgid "Sites menu"
+msgstr "ސައިޓްސް މެނޫ"
+
+msgid "Pagination"
+msgstr "ޕޭޖިނޭޝަން"
+
+msgid "Previous"
+msgstr "ފަހަތް"
+
+msgid "Next"
+msgstr "ދެންއޮތް"
+
+msgid "This page is protected from public view"
+msgstr "މި ޞަފްޙާއަކީ އާންމުންގެ ލޮލުން ރައްކާތެރިކޮށްފައިވާ ޞަފްޙާއެކެވެ"
+
+msgid "Confirm"
+msgstr "ޔަގީން ކުރޭ"
+
+msgid "Add child page"
+msgstr "ޗައިލްޑް ޕޭޖް އިތުރުކުރުން"
+
+#, python-format
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "އެއްގޮތް  1 ޞަފްޙާއެބަ ހުރި"
+msgstr[1] "އެއްގޮތް %(counter)s ޞަފްޙާތަކެއް ހުރެއެވެ"
+
+msgid "Page types"
+msgstr "ޞަފްޙާގެ ބާވަތްތައް"
+
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "މާފަށް އެދެން، އެއްވެސް ޞަފްޙާއެއް <em>%(query_string)s އާއި</em> ދިމާނުވެއެވެ"
+
+msgid "Enter a search term above"
+msgstr "މަތީގައިވާ ސަރޗް ޓާރމްއެއް ލިޔެލާށެވެ"
+
+msgid "No pages use"
+msgstr "އެއްވެސް ޞަފްޙާއެއް ބޭނުން ނުކުރެއެވެ"
+
+msgid "Move up"
+msgstr "މައްޗަށް ދޭ"
+
+msgid "Move down"
+msgstr "ތިރިޔަށް ދޭ"
+
+#, python-format
+msgid "Choose when this %(model_name)s should go live and/or expire"
+msgstr "މި %(model_name)s ލައިވްވާންވީ ވަގުތު އަދި/ނުވަތަ މުއްދަތު ހަމަވާންވީ ވަގުތު ހޮވާށެވެ"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "މި ޕޭޖް ލައިވްވާންވީ ވަގުތު އަދި/ނުވަތަ މުއްދަތު ހަމަވާންވީ ވަގުތު ހޮވާށެވެ"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
+msgstr "މި ޕަބްލިޝިންގ ޝެޑިއުލަށް އަމަލުކުރަން ފަށާނީ \"ޕަބްލިޝް\" އޮޕްޝަން ހޮވުމުންނެވެ"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "އެޑިޓް ކުރުމުގެ ހުއްދަ ލިބިފައިވާ ކޮންމެ މީހަކަށް ވެސް ޝެޑިއުލް ތައްޔާރު ކުރެވޭނެ އެވެ"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr "އެކަމަކު އެކަންކަން އެފެކްޓިވް ކުރެވޭނީ ޕަބްލިޝިން ހުއްދަ ލިބިފައިވާ މީހުންނަށް އެކަންޏެވެ."
+
+msgid "Set publishing schedule"
+msgstr "ޕަބްލިޝިންގ ޝެޑިއުލް ކަނޑައެޅުން"
+
+msgid "Save schedule"
+msgstr "ޝެޑިއުލް ސޭވްކުރުން"
+
+msgid "Collection management permissions"
+msgstr "ކަލެކްޝަން މެނޭޖްމަންޓްގެ ހުއްދަތައް"
+
+msgid "Add a collection permission"
+msgstr "ކަލެކްޝަން ހުއްދައެއް އިތުރުކުރުން"
+
+msgid "Last published"
+msgstr "އެންމެ ފަހުން ޝާއިއުކުރި..."
+
+msgid "Last published by"
+msgstr "އެންމެ ފަހުން ޝާއިއުކޮށްފައިވަނީ..."
+
+msgid "Type"
+msgstr "ބާވަތް"
+
+msgid "No pages found."
+msgstr "އެއްވެސް ޞަފްޙާއެއް ނުފެނެއެވެ."
+
+msgid "No pages match this report's criteria."
+msgstr "މި ރިޕޯޓުގެ މިންގަނޑާ އެއްވެސް ޞަފްޙާއެއް ނުފެތޭ."
+
+msgid "Updated"
+msgstr "އަޕްޑޭޓް ކުރެވިއްޖެއެވެ"
+
+msgid "App"
+msgstr "އެޕް"
+
+msgid "Pages"
+msgstr "ސަފްހާތައް"
+
+msgid "Last edited page"
+msgstr "އެންމެ ފަހުން އެޑިޓްކުރި ޞަފްޙާ"
+
+msgid "Last edit"
+msgstr "އެންމެ ފަހުން އެޑިޓް ކުރިއެވެ"
+
+msgid "No page types found."
+msgstr "ޕޭޖް ވައްތަރެއް ނުފެނެއެވެ."
+
+msgid "Locking status"
+msgstr "ލޮކިންގ ސްޓޭޓަސް"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> ގައި <b>ތިބާ</b> ލޮކް ކޮށްފައިވެއެވެ"
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> ގައި <b>%(locked_by)s</b> އިން ލޮކް ކުރެވިފައިވެއެވެ"
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> ގައި ލޮކް ކުރެވިފައިވެއެވެ"
+
+msgid "Locked"
+msgstr "ތަޅުލެވިފައި"
+
+msgid "No locked pages found."
+msgstr "ތަޅުލާފައިވާ ޞަފްޙާއެއް ނުފެނެއެވެ."
+
+msgid "Name"
+msgstr "ނަން"
+
+msgid "Action"
+msgstr "ހަރަކާތް"
+
+msgid "User"
+msgstr "ޔޫޒަރ"
+
+msgid "Date / Time"
+msgstr "ތާރީޚު / ގަޑި"
+
+msgid "Edit this item"
+msgstr "މި އެއްޗެއް އެޑިޓް ކުރާށެވެ"
+
+msgid "No log entries found."
+msgstr "ލޮގް އެންޓްރީއެއް ނުފެނެއެވެ."
+
+msgid "By Task"
+msgstr "ބައި ޓާސްކް"
+
+msgid "Workflow"
+msgstr "ވޯކްފްލޯ"
+
+msgid "Page/Snippet"
+msgstr "ޞަފްޙާ/ސްނިޕެޓް"
+
+msgid "Requested by"
+msgstr "އެދިފައިވަނީ..."
+
+msgid "Started at"
+msgstr "ފެށުނީ"
+
+msgid "Incomplete task"
+msgstr "ފުރިހަމަ ނުވާ މަސައްކަތެއް"
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "މޮޑެރޭޝަނަށް އަދި އެއްވެސް ޕޭޖެއް/ސްނިޕެޓެއް ހުށަހަޅާފައެއް ނުވެއެވެ"
+
+msgid "By Workflow"
+msgstr "ވޯކްފްލޯ އިންނެވެ"
+
+msgid "Completed at"
+msgstr "ނިންމާފައި ވަނީ ގދ"
+
+msgid "Clear"
+msgstr "ސާފުކޮށް"
+
+msgid "Toggle breadcrumbs"
+msgstr "ރޮށި ޓޮގްލް ކޮށްލާށެވެ"
+
+msgid "Breadcrumb"
+msgstr "ބްރެޑްކްރަމްބް އެވެ"
+
+msgid "Close dialog"
+msgstr "ޑައިލޮގް ބަންދުކުރުން"
+
+msgid "Download XLSX"
+msgstr "އެކްސްއެލްއެސްއެކްސް ޑައުންލޯޑް ކޮށްލައްވާށެވެ"
+
+msgid "Download CSV"
+msgstr "ސީއެސްވީ ޑައުންލޯޑް ކޮށްލައްވާށެވެ"
+
+msgid "Filter"
+msgstr "ފިލްޓަރ ކޮށްލާށެވެ"
+
+msgid "Apply filters"
+msgstr "ފިލްޓަރުތައް އުނގުޅާށެވެ"
+
+msgid "Add comment"
+msgstr "ކޮމެންޓް އެޑް ކުރާށެވެ"
+
+msgid "Show filters"
+msgstr "ފިލްޓަރުތައް ދައްކާށެވެ"
+
+msgid "Filter by"
+msgstr "ފިލްޓަރ ކުރާށެވެ"
+
+msgid "Back"
+msgstr "ފަހަތް"
+
+msgid "History"
+msgstr "ތާރީޚް"
+
+msgid "Current page status:"
+msgstr "މިހާރުގެ ޞަފްޙާގެ ޙާލަތު:"
+
+msgid "Visit the live page"
+msgstr "ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
+
+msgid "Visible to all. Visit the live page"
+msgstr "އެންމެންނަށް ފެންނަން ހުރެއެވެ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
+
+msgid "Private. Visit the live page"
+msgstr "އަމިއްލަ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
+
+msgid "Visible to all"
+msgstr "އެންމެންނަށް ފެންނަން ހުރެއެވެ"
+
+msgid "Toggle section"
+msgstr "ޓޮގްލް ސެކްޝަން"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)s އަށް ރިވިޝަން %(revision.id)s ޝެޑިއުލް ނުކުރުން"
+
+msgid "Unschedule"
+msgstr "ޝެޑިއުލް ނުކޮށް"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "މި އިސްލާހު އަންޝެޑިއުލް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+msgid "Yes, unschedule"
+msgstr "އާދެ، ޝެޑިއުލް ނޫން"
+
+msgid "No, don't unschedule"
+msgstr "ނޫން، އަންޝެޑިއުލް ނުކުރާށެވެ"
+
+msgid "Other searches"
+msgstr "އެހެން ހޯދުންތަކެވެ"
+
+msgid "Minimap"
+msgstr "މިނިމެޕް"
+
+msgid "Side panels"
+msgstr "ސައިޑް ޕެނަލްތަކެވެ"
+
+msgid "Toggle side panel"
+msgstr "ޓޮގްލް ސައިޑް ޕެނަލް"
+
+msgid "Side panel width"
+msgstr "ސައިޑް ޕެނަލް ފުޅާމިން"
+
+msgid "Issues found"
+msgstr "މައްސަލަތަކެއް ފެނިއްޖެއެވެ"
+
+msgid "Comment notifications"
+msgstr "ކޮމެންޓް ނޮޓިފިކޭޝަންތައް"
+
+msgid "Locale: "
+msgstr "ލޯކަލް: "
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "%(translations_total)s ގެ ލޮކޭޝަންތަކުގައި ލިބެން ހުރެއެވެ"
+
+msgid "No other translations"
+msgstr "އެހެން ތަރުޖަމާއެއް ނެތެވެ"
+
+msgid "Switch locales"
+msgstr "ލޮކޭޝަން ބަދަލުކުރުން"
+
+msgid "Locking: "
+msgstr "ލޮކްކުރުން: "
+
+msgid "Unlocked"
+msgstr "އަންލޮކް ކޮށްފައި"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "މި %(model_name)s ކޮންމެ މީހަކަށްވެސް އެޑިޓް ކުރެވޭނެއެވެ"
+
+msgid "Lock"
+msgstr "ތަޅު"
+
+msgid "Page visibility: "
+msgstr "ޞަފްޙާ ފެންނަ ގޮތް: "
+
+msgid "Once live anyone can view"
+msgstr "އެއްފަހަރު ލައިވް ކޮށްލުމުން ކޮންމެ މީހަކަށްވެސް ބަލާލެވޭނެއެވެ"
+
+msgid "Not visible to the public"
+msgstr "އާންމުންނަށް ފެންނަން ނެތް"
+
+msgid "Choose who can view the live version of this page"
+msgstr "މި ޕޭޖުގެ ލައިވް ވާޝަން ބަލާލެވޭނީ ކޮންބަޔަކަށްތޯ ހޮވާށެވެ"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "ޕްރައިވެސީއަށް އަންނަ ބަދަލުތައް މި ޕޭޖުގެ ހުރިހާ ކުދިންނަށް ވެސް އަމަލުކުރެވޭނެ އެވެ."
+
+msgid "Usage"
+msgstr "ބޭނުންކުރުން"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
+msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
+
+msgid "Status: "
+msgstr "ޙާލަތު: "
+
+msgid "Expiry:"
+msgstr "މުއްދަތު ހަމަވުން:"
+
+msgid "Edit schedule"
+msgstr "ޝެޑިއުލް އެޑިޓްކުރުން"
+
+msgid "In Moderation"
+msgstr "އިން މޮޑެރޭޝަން"
+
+msgid "View details"
+msgstr "ތަފްސީލް ބައްލަވާށެވެ"
+
+msgid "View history"
+msgstr "ތާރީޚު ބަލާށެވެ"
+
+msgid "Invalid schedule"
+msgstr "ސައްހަ ނޫން ޝެޑިއުލެއް"
+
+msgid "Go-live:"
+msgstr "ގޯ-ލައިވް:"
+
+msgid "Once published:"
+msgstr "އެއްފަހަރު ޝާއިއު ކުރުމުން:"
+
+msgid "No publishing schedule set"
+msgstr "ޕަބްލިޝިންގ ޝެޑިއުލް ކަނޑައެޅިފައެއް ނުވެއެވެ"
+
+msgid "Set schedule"
+msgstr "ޝެޑިއުލް ކަނޑައެޅުން"
+
+msgid "Preview in mobile size"
+msgstr "މޯބައިލް ސައިޒުގައި ޕްރިވިއު ކުރުން"
+
+msgid "Preview in tablet size"
+msgstr "ޓެބްލެޓް ސައިޒުގައި ޕްރިވިއު ކުރާށެވެ"
+
+msgid "Preview in desktop size"
+msgstr "ޑެސްކްޓޮޕް ސައިޒުގައި ޕްރިވިއުކުރުން"
+
+msgid "Preview in new tab"
+msgstr "އާ ޓެބްގައި ޕްރިވިއު ކުރާށެވެ"
+
+msgid "Loading"
+msgstr "ލޯޑިންގ"
+
+msgid "Preview is out of date"
+msgstr "ޕްރިވިއު މުސްކުޅިވެއްޖެއެވެ"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr "ޕްރިވިއު އަލުން ފެށުމަށްޓަކައި ވެލިޑޭޝަން އެރަރސް ރަނގަޅުކުރުން (ސޭވް ކުރުމުން އެރަރސް ހައިލައިޓްވާނެ)"
+
+msgid "Preview mode"
+msgstr "ޕްރިވިއު މޯޑް"
+
+msgid "First published"
+msgstr "ފުރަތަމަ ޝާއިއުކުރިއެވެ"
+
+msgid "Edit / Review"
+msgstr "އެޑިޓް / ރިވިއުކުރުން"
+
+msgid "Workflow history"
+msgstr "ވޯކްފްލޯ ތާރީޚު"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "ރިކުއެސްޓް ކޮށްފައިވަނީ <b>%(modified_by)s</b> އިންނެވެ"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "<b>%(started_at)s</b> އިން ފެށިގެން ދިޔައެވެ"
+
+msgid "Timeline"
+msgstr "ޓައިމްލައިން"
+
+msgid "Initial Revision"
+msgstr "އިސްލާހުކުރުން"
+
+msgid "Edited"
+msgstr "އެޑިޓްކޮށްފައި"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s އިން <b>%(who)s</b> އިން <b>%(at)s</b> ގައި"
+
+msgid "with comment:"
+msgstr "ކޮމެންޓާއެކު:"
+
+msgid "Workflow started"
+msgstr "ވޯކްފްލޯ ފެށުނެވެ"
+
+msgid "Workflow completed"
+msgstr "ވޯކްފްލޯ ނިމިއްޖެއެވެ"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s އިން <b>%(who)s</b>"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "%(title)s އަށް ވޯކްފްލޯ ހީސްޓްރީ"
+
+msgid "Workflow history for"
+msgstr "ވޯކްފްލޯ ހީސްޓްރީ އަށް..."
+
+msgid "Approved task"
+msgstr "ފާސްކޮށްފައިވާ މަސައްކަތެވެ"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "މި ޕޭޖް އަދި މޮޑެރޭޝަނަށް ހުށަހަޅާފައެއް ނުވެއެވެ"
+
+#, python-format
+msgid "This %(model_name)s hasn't been submitted for moderation yet"
+msgstr "މި %(model_name)s އަދި މޮޑެރޭޝަނަށް ހުށަހަޅާފައެއް ނުވެއެވެ"
+
+msgid ""
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
+msgstr ""
+"ވެގްޓެއިލް ބޭނުން ކުރުމަށް ޖާވާސްކްރިޕްޓް ބޭނުންވާ ނަމަވެސް މިވަގުތު އެ ޖާވާސްކްރިޕްޓް ޑިސެބިލް ކޮށްފައިވެ އެވެ.<br /> <a "
+"href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noreferrer\">މިއީ ވެބް ބްރައުޒާގައި ޖާވާސްކްރިޕްޓް އެނެބަލް ކުރާނެ ގޮތުގެ އިރުޝާދުތަކެވެ.</a>"
+
+msgid "Skip to main content"
+msgstr "މައިގަނޑު ކޮންޓެންޓަށް ސްކިޕް ކުރާށެވެ"
+
+msgid "View Wagtail quick actions"
+msgstr "ވެގްޓޭލް އަވަސް އަމަލުތައް ބަލާށެވެ"
+
+msgid "Accessibility"
+msgstr "އެކްސެސިބިލިޓީ"
+
+msgid "Warnings"
+msgstr "އިންޒާރުތައް"
+
+msgid "Add a child page"
+msgstr "ޗައިލްޑް ޕޭޖެއް އިތުރުކުރުން"
+
+msgid "Show in Explorer"
+msgstr "އެކްސްޕްލޯރަރ އިން ދައްކާށެވެ"
+
+msgid "No"
+msgstr "ނޫން"
+
+msgid "Are you sure you want to disable this workflow?"
+msgstr "މި ވޯކްފްލޯ ޑިސެބިލް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+msgid "Yes, disable"
+msgstr "އާދެ، ޑިސެބަލް ކުރާށެވެ"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "މި ޓާސްކް ޑިސެބިލް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+msgid "Assign your workflow to pages"
+msgstr "ތިބާގެ ވޯކްފްލޯ ޕޭޖްތަކަށް ޙަވާލުކުރުން"
+
+msgid "Assign your workflow to snippets"
+msgstr "ތިބާގެ ވޯކްފްލޯ ސްނިޕެޓްތަކަށް ޙަވާލުކުރުން"
+
+msgid "Creating…"
+msgstr "އުފައްދަމުން..."
+
+msgid "Create"
+msgstr "ތައްޔާރުކުރުން"
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr "މި ވޯކްފްލޯ ޑިސެބިލް ކުރެވިފައިވާތީ އެއްވެސް ޕޭޖަކަށް އެސައިން ނުކުރެވޭނެއެވެ."
+
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr "މި ވޯކްފްލޯ ޑިސެބިލް ކުރެވިފައިވާތީ އެއްވެސް ސްނިޕެޓަކަށް ޙަވާލު ނުކުރެވޭނެއެވެ."
+
+msgid "Used on the following active workflows"
+msgstr "ތިރީގައިވާ އެކްޓިވް ވޯކްފްލޯތަކުގައި ބޭނުންކުރެއެވެ"
+
+msgid "Not used"
+msgstr "ބޭނުން ނުކުރެވޭ"
+
+msgid "Disabled"
+msgstr "ނުކުޅެދޭ"
+
+msgid "Assigned pages"
+msgstr "ޙަވާލުކުރެވިފައިވާ ޞަފްޙާތަކެވެ"
+
+msgid "Page"
+msgstr "ޞަފްޙާ"
+
+msgid "Assign to another page"
+msgstr "އެހެން ޕޭޖަކަށް ޙަވާލުކުރުން"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "ފިޔަވަޅު %(step_number)s"
+
+#, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 ސަފްހާ"
+msgstr[1] "%(counter)s ސަފްހާ"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 ސްނިޕެޓް ގެ ބާވަތް"
+msgstr[1] "%(counter)sސްނިޕެޓް ގެ ބާވަތް"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "އުފައްދަން ބޭނުންވާ ވައްތަރެއްގެ ޓާސްކެއް ހޮވާށެވެ."
+
+msgid "Choose a task"
+msgstr "މަސައްކަތެއް ހޮވާށެވެ"
+
+msgid "New"
+msgstr "އާ"
+
+msgid "Existing"
+msgstr "މިހާރު ހުރި"
+
+msgid "Choose a different task type"
+msgstr "ތަފާތު ޓާސްކް ޓައިޕެއް ހޮވާށެވެ"
+
+msgid "Task type"
+msgstr "ޓާސްކް ޓައިޕް"
+
+msgid "Used on"
+msgstr "ބޭނުންކޮށްފައިވަނީ އޮން..."
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "މާފަށް އެދެން، އެއްވެސް މަސައްކަތެއް \\&quot; <em>%(query_string)s</em> \\"
+
+msgid "You haven't created any tasks."
+msgstr "އެއްވެސް މަސައްކަތެއް އުފައްދާފައެއް ނުވެއެވެ."
+
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
+msgstr ""
+"މިހާރު އެއްޗެއް <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>ނުއުފައްދާނީ ކީއްވެގެން؟ </a>"
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"އެއްވެސް މަސައްކަތެއް އުފެދިފައެއް ނުވެއެވެ. ކީއްވެތަ <a href=\"%(add_url)s\">އެއްޗެއް އިތުރު</a> ނުކުރަނީ ?"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"އެނެބަލް ކުރެވިފައިވާ މަސައްކަތެއް ނެތެވެ. ކީއްވެތަ <a href=\"%(add_url)s\">އެއްޗެއް އިތުރު</a> ނުކުރަނީ ?"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "ވޯކްފްލޯ &#39;%(name)s&#39; ބޭނުންކުރާ ޕޭޖްތައް."
+
+msgid "Pages that use workflow"
+msgstr "ވޯކްފްލޯ ބޭނުންކުރާ ޕޭޖްތައް"
+
+msgid "Submitted"
+msgstr "ހުށަހަޅާފައި"
+
+msgid "Not started"
+msgstr "ފެށުނީކީ ނޫނެވެ"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "%(requested_by)s އިން އެދިފައިވާ ބަދަލުތައް"
+
+msgid "Changes requested"
+msgstr "ބަދަލުތަކެއް ގެނައުމަށް އެދިއްޖެއެވެ"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "%(approved_by)s އިން ފާސްކޮށްފައިވެއެވެ"
+
+msgid "Published"
+msgstr "ޝާއިޢުކޮށްފައިވެއެވެ"
+
+msgid "See full history"
+msgstr "ފުރިހަމަ ތާރީޚު ބައްލަވާށެވެ"
+
+msgid "More"
+msgstr "އިތުރަށް"
+
+msgid "More bulk actions"
+msgstr "އިތުރު ބަލްކް އެކްޝަންސް"
+
+msgid "0 minutes"
+msgstr "0 މިނެޓް"
+
+msgid "just now"
+msgstr "ހަމަ މިހާރު"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ކުރިން"
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "at %(time)s by %(user_display_name)s އިންނެވެ"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(time_period)s ކުރިން %(user_display_name)s އިންނެވެ"
+
+msgid "Log out"
+msgstr "ލޮގް އައުޓް ކޮށްލާށެވެ"
+
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "ބަދަލުތައް އެދިފައިވާ %(finished_at)s"
+
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "%(task_name)s %(started_at)s އަށް ފޮނުވާފައިވެއެވެ"
+
+msgid "Bold"
+msgstr "ބޯލްޑް"
+
+msgid "Italic"
+msgstr "އިޓަލިކް އެވެ"
+
+msgid "Superscript"
+msgstr "ސުޕަރސްކްރިޕްޓް"
+
+msgid "Subscript"
+msgstr "ސަބްސްކްރިޕްޓް"
+
+msgid "Toggle status"
+msgstr "ޓޮގްލް ސްޓޭޓަސް"
+
+msgid "Toggle comments"
+msgstr "ކޮމެންޓްތައް ޓޮގްލް ކުރާށެވެ"
+
+msgid "Comments"
+msgstr "ކޮމެންޓްތައް"
+
+msgid "Toggle checks"
+msgstr "ޗެކްތައް ޓޮގްލް ކުރުން"
+
+msgid "Checks"
+msgstr "ޗެކް ކުރެއެވެ"
+
+msgid "Toggle preview"
+msgstr "ޓޮގްލް ޕްރިވިއު"
+
+#, python-format
+msgid "Sort by '%(label)s' in ascending order."
+msgstr "އުފުލޭ ތަރުތީބުން &#39;%(label)s&#39; އަށް ތަރުތީބުކުރުން."
+
+#, python-format
+msgid "Sort by '%(label)s' in descending order."
+msgstr "ތިރިއަށް އަންނަ ތަރުތީބުން &#39;%(label)s&#39; އަށް ތަރުތީބުކުރުން."
+
+msgid "Button text is empty. Use meaningful text for screen reader users."
+msgstr "ބަޓަން ޓެކްސްޓް ހުރީ ހުސްކޮށެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr "ހުސް ސުރުޚީއެއް ފެނިއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr "ޓޭބަލް ހެޑަރ ޓެކްސްޓް ހުސްވެފައި ހުރެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr "ހުސް ފްރޭމް ޓައިޓަލް ފެނިއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ސުރުޚީއެއް ބޭނުންކުރުން."
+
+msgid "Incorrect heading hierarchy. Avoid skipping levels."
+msgstr "ގޯސް ހެޑިންގ ހައިރާކީ. ލެވެލްތައް ސްކިޕް ކުރުމުން ދުރުހެލިވާށެވެ."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr "އިންޕުޓް ބަޓަން ޓެކްސްޓް ހުސްވެއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr "ލިންކް ޓެކްސްޓް ހުސްވެއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
+
+msgid "Misusing paragraphs as headings. Use proper heading tags."
+msgstr "ސުރުޚީއެއްގެ ގޮތުގައި ޕެރެގްރާފްތައް ނުބައިކޮށް ބޭނުންކުރުން. ރަނގަޅު ސުރުޚީ ޓެގްތައް ބޭނުންކުރުން."
+
+msgid "Profile"
+msgstr "ޕްރޮފައިލް"
+
+msgid "Notifications"
+msgstr "ނޮޓިފިކޭޝަންތައް"
+
+msgid "Name and Email"
+msgstr "ނަމާއި އީމެއިލް"
+
+msgid "Profile picture"
+msgstr "ޕްރޮފައިލް ޕިކްޗަރ"
+
+msgid "Theme preferences"
+msgstr "ތީމް ޕްރެފެރެންސް"
+
+msgid "Password"
+msgstr "ޕާސްވަރޑް"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "އެކައުންޓް ސެޓިންގްސް އަށް ކާމިޔާބުކަމާއެކު ބަދަލު ގެނެސްފި!"
+
+msgid "You have been successfully logged out."
+msgstr "ކާމިޔާބުކަމާއެކު ލޮގްއައުޓް ވެއްޖެއެވެ."
+
+msgid "Collections"
+msgstr "ކަލެކްޝަންތައް"
+
+msgid "Add a collection"
+msgstr "ކަލެކްޝަނެއް އިތުރުކުރުން"
+
+msgid "Add collection"
+msgstr "ކަލެކްޝަން އިތުރުކުރުން"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "ކަލެކްޝަން &#39;%(object)s&#39; އުފެއްދިއެވެ."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "ކަލެކްޝަން &#39;%(object)s&#39; އަޕްޑޭޓް ކޮށްފި."
+
+msgid "The collection could not be saved due to errors."
+msgstr "ގޯސްތަކެއް ހުރުމުން ކަލެކްޝަން ސޭވް ނުކުރެވުނެވެ."
+
+msgid "Delete collection"
+msgstr "ކަލެކްޝަން ޑިލީޓްކުރުން"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "ކަލެކްޝަން &#39;%(object)s&#39; ޑިލީޓްކޮށްފިއެވެ."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "މި ކަލެކްޝަން ޑިލީޓް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+msgid "Home"
+msgstr "ހޯމް"
+
+msgid "Live version"
+msgstr "ލައިވް ވާރޝަން"
+
+msgid "Current draft"
+msgstr "މިހާރުގެ ޑްރާފްޓް"
+
+msgid "Review this version"
+msgstr "މި ވާރޝަން ރިވިއު ކުރޭ"
+
+msgid "Compare with current version"
+msgstr "މިހާރުގެ ވާރޝަން އާއި އަޅާކިޔާލާ"
+
+msgid "Cancel scheduled publish"
+msgstr "ޝެޑިއުލް ކުރެވިފައިވާ ޕަބްލިޝްކުރުން ކެންސަލްކުރޭ"
+
+msgid "Workflow progress"
+msgstr "ވޯކްފްލޯގެ ކުރިއެރުން"
+
+#, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "%(model_name)s &#39;%(title)s&#39; މިހާރު އަންލޮކް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s ލޮކްކޮށްފައި ހުރުމުން ސޭވް ނުކުރެވުނެވެ"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s &#39;%(object)s&#39; އަޕްޑޭޓް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s &#39;%(object)s&#39; އުފެއްދިއެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s &#39;%(object)s&#39; ޝާއިއު ކުރުމަށް ޝެޑިއުލް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "%(model_name)s &#39;%(object)s&#39; އުފައްދައި ޝާއިއު ކުރުމަށް ޝެޑިއުލް ކުރެވިފައިވެއެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s &#39;%(object)s&#39; އަޕްޑޭޓްކޮށް ޝާއިއުކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s &#39;%(object)s&#39; އުފައްދައި ޝާއިއުކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been submitted for moderation."
+msgstr "%(model_name)s &#39;%(object)s&#39; މޮޑެރޭޝަނަށް ހުށަހަޅާފައިވެއެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and submitted for moderation."
+msgstr "%(model_name)s &#39;%(object)s&#39; އުފައްދައި މޮޑެރޭޝަނަށް ހުށަހަޅާފައިވެއެވެ."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been restarted."
+msgstr "%(model_name)s &#39;%(object)s&#39; ގައި ވޯކްފްލޯ އަލުން ފަށައިފިއެވެ."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
+msgstr "%(model_name)s &#39;%(object)s&#39; ގައި ވޯކްފްލޯ ކެންސަލް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "&#39;%(title)s&#39; އެޑިޓްކުރުން."
+
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "&#39;%(title)s&#39; ކޮޕީ ކުރާށެވެ."
+
+msgid "Inspect"
+msgstr "އިންސްޕެކްޓް ކުރުން"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "&#39;%(title)s&#39; އިންސްޕެކްޓްކުރުން."
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "&#39;%(title)s&#39; ޑިލީޓްކުރުން."
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "&#39;%(title)s&#39; އަށް އިތުރު އިޚްތިޔާރުތައް."
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s އިތުރުކުރުން"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s އަށް ގޯސްތަކެއް ހުރުމުން އުފެއްދެވޭ ގޮތެއް ނުވިއެވެ."
+
+msgid "Editing"
+msgstr "އެޑިޓްކުރުން"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "%(model_name)s އަށް ގޯސްތަކެއް ހުރުމުން ސޭވް ނުކުރެވުނެވެ."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s &#39;%(object)s&#39; ޑިލީޓް ކޮށްފިއެވެ."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "މި %(model_name)s ޑިލީޓް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
+
+msgid "Inspecting"
+msgstr "އިންސްޕެކްޓް ކުރުން"
+
+msgid "Earliest"
+msgstr "އެންމެ ކުރީގެ..."
+
+msgid "Latest"
+msgstr "އެންމެފަހުގެ"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "&#39;%(object)s&#39; ޝާއިޢު ނުކުރެވިފައިވެއެވެ."
+
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "\\&quot;%(object)s\\&quot; ގެ ވަރޝަން %(revision_id)s ޝެޑިއުލް ނުކުރެވިފައިވެއެވެ."
+
+msgid "If you confirm deletion"
+msgstr "ޑިލީޓް ކޮންފަރމް ކޮށްފިނަމަ"
+
+msgid "Field"
+msgstr "ދާއިރާ"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "މި %(object)s އެޑިޓް ކުރާށެވެ"
+
+#, python-format
+msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."
+msgstr "%(model_name)s &#39;%(title)s&#39; މިވަގުތު މޮޑެރޭޝަނަށް އިންތިޒާރު ނުކުރެއެވެ."
+
+msgid "Dashboard"
+msgstr "ޑޭޝްބޯޑެވެ"
+
+msgid "Delete selected pages"
+msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ޑިލީޓްކުރުން"
+
+msgid "1 page has been deleted"
+msgstr "1 ޞަފްޙާ ޑިލީޓް ކުރެވިއްޖެއެވެ"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d ޕޭޖްތައް ޑިލީޓްކޮށްފިއެވެ"
+
+msgid "Select a new parent page"
+msgstr "އާ ބެލެނިވެރި ޕޭޖެއް ހޮވާށެވެ"
+
+msgid "Move selected pages"
+msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ބަދަލުކުރުން"
+
+msgid "Publish selected pages"
+msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ޝާއިޢުކުރުން"
+
+msgid "1 page has been published"
+msgstr "1 ޞަފްޙާ ޝާއިޢުކުރެވިއްޖެއެވެ"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d ޞަފްޙާތައް ޝާއިޢުކޮށްފައިވެއެވެ"
+
+msgid "Unpublish selected pages"
+msgstr "ހޮވާފައިވާ ޞަފްޙާތައް އަންޕަބްލިޝްކުރުން"
+
+msgid "1 page has been unpublished"
+msgstr "1 ޞަފްޙާ ވަނީ ޝާއިޢު ނުކުރެވިފައެވެ"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d ޞަފްޙާތައް ޝާއިޢު ނުކުރެވިފައިވެއެވެ"
+
+#, python-format
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "ޞަފްޙާ &#39;%(page_title)s&#39; އާދައިގެ ޞަފްޙާއަކަށް ބަދަލުކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; އަދި %(subpages_count)s ސަބްޕޭޖް ކޮޕީކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "ޞަފްޙާ &#39;%(page_title)s&#39; ކޮޕީކޮށްފައިވެއެވެ."
+
+msgid "View draft"
+msgstr "ޑްރާފްޓް ބަލާށެވެ"
+
+msgid "View live"
+msgstr "ލައިވްކޮށް ބަލާށެވެ"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; އުފެދިއްޖެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; އުފައްދައި ޝާއިއުކުރުމަށް ޝެޑިއުލްކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; އުފައްދައި ޝާއިއުކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; އުފައްދައި މޮޑެރޭޝަނަށް ހުށަހެޅިއެވެ."
+
+msgid "The page could not be created due to validation errors"
+msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕޭޖް އުފެއްދެވޭ ގޮތެއް ނުވިއެވެ"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; ޑިލީޓްކޮށްފިއެވެ."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s އެޑިޓްކުރުން"
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; އަޕްޑޭޓް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "&#39;%(page_title)s&#39; ޞަފްޙާގައިވާ ވޯކްފްލޯ ކެންސަލް ކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; ޝާއިއު ކުރުމަށް ވަނީ ހަމަޖެހިފައެވެ."
+
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "&#39;%(page_title)s&#39; ޞަފްޙާގެ %(datetime)s އިން ވަރޝަން ޝާއިޢުކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "ޞަފްޙާ &#39;%(page_title)s&#39; ޝާއިޢުކޮށްފައިވެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "މޮޑެރޭޝަނަށް ހުށަހަޅާފައިވަނީ &#39;%(page_title)s&#39; ޞަފްޙާއެވެ."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "&#39;%(page_title)s&#39; ޞަފްޙާގައިވާ ވޯކްފްލޯ އަލުން ފަށައިފިއެވެ."
+
+msgid "The page could not be saved as it is locked"
+msgstr "އެ ޕޭޖް ލޮކްކޮށްފައި އޮތުމުން ސޭވް ކުރެވޭ ގޮތެއް ނުވި އެވެ"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕޭޖް ސޭވް ނުކުރެވުނެވެ"
+
+msgid "Date updated"
+msgstr "ތާރީޚު އަޕްޑޭޓް ކޮށްފި"
+
+msgid "Owner"
+msgstr "ވެރި ފަރާތް"
+
+msgid "Edited by"
+msgstr "އެޑިޓްކޮށްފައިވަނީ..."
+
+msgid "Site"
+msgstr "ސައިޓް"
+
+msgid "Has child pages"
+msgstr "ޗައިލްޑް ޕޭޖްތައް ހުރެއެވެ"
+
+msgid "Any"
+msgstr "ކޮންމެ"
+
+msgid "Yes"
+msgstr "އާނ"
+
+msgid "Page type"
+msgstr "ޞަފްޙާގެ ބާވަތެވެ"
+
+msgid "Exploring"
+msgstr "އެކްސްޕްލޯރ ކުރަމުންނެވެ"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"ޑްރެގް ބަޓަންއަށް ފޯކަސްކޮށް މައްޗަށް ނުވަތަ ތިރިއަށް ތިރިއަށް ޖަހާ ތިރިއަށް ފިތާލުމަށްފަހު އެ އެއްޗެއް ގެންދިއުމަށްފަހު އެންޓަރ އަށް "
+"ފިތާލުމުން ބަދަލު ހުށަހަޅޭނެ"
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "&#39;%(page_title)s&#39; ކާމިޔާބުކަމާއެކު ބަދަލުކުރެވިއްޖެއެވެ."
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; މިހާރު ވަނީ އަންލޮކް ކޮށްފައެވެ."
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
+msgstr ""
+"ސްލަގް %(page_slug)s މިހާރުވެސް ބޭނުންކުރަމުންދަނީ ހޮވާފައިވާ ބެލެނިވެރި ޞަފްޙާގައެވެ. ސްލަގް ޔުނިކްކަން ޔަގީންކޮށް އަލުން "
+"ފަށާށެވެ"
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "ޕޭޖް &#39;%(page_title)s&#39; ބަދަލުކޮށްފިއެވެ."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr "ތިޔަ ބަލަނީ މި ޞަފްޙާގެ ކުރީގެ ވަރޝަނެއް 1 އިންނެވެ <b>%(created_at)s</b> by %(user)s"
+
+msgid "Page history"
+msgstr "ޞަފްޙާގެ ތާރީޚެވެ"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "ޞަފްޙާ &#39;%(page_title)s&#39; ޝާއިޢު ނުކުރެވިފައިވެއެވެ."
+
+msgid "Pages using"
+msgstr "ޕޭޖްތައް ބޭނުންކޮށްގެން"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "&#39;%(page_title)s&#39; ޕޭޖް މިވަގުތު މޮޑެރޭޝަނަށް އިންތިޒާރު ނުކުރެއެވެ."
+
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr "%(page_title)s ޕޭޖް މިވަގުތު މޮޑެރޭޝަން އިން ޓާސްކް %(task_name)s ގެ އިންތިޒާރަކު ނެތެވެ."
+
+msgid "Last published before"
+msgstr "އެންމެ ފަހުން ޝާއިއުކޮށްފައިވަނީ މީގެ ކުރިންނެވެ"
+
+msgid "Aging pages"
+msgstr "މުސްކުޅިވުމުގެ ޞަފްޙާތަކެވެ"
+
+msgid "Last published at"
+msgstr "އެންމެ ފަހުން ޝާއިއުކޮށްފައިވަނީ ގދ"
+
+msgid "Hide commenting actions"
+msgstr "ކޮމެންޓް ކުރުމުގެ އަމަލުތައް ފޮރުވާށެވެ"
+
+msgid "Site history"
+msgstr "ސައިޓްގެ ތާރީޚު"
+
+msgid "ID"
+msgstr "އައިޑީ"
+
+msgid "Action type"
+msgstr "ޢަމަލުގެ ބާވަތެވެ"
+
+msgid "Date/Time"
+msgstr "ތާރީޚު/ގަޑި"
+
+msgid "Locked pages"
+msgstr "ތަޅުލާފައި ހުންނަ ޞަފްޙާތަކެވެ"
+
+msgid "Page types usage"
+msgstr "ޕޭޖް ޓައިޕްސް ބޭނުންކުރުން"
+
+msgid "Show"
+msgstr "ދެއްކުން"
+
+msgid "Awaiting my review"
+msgstr "އަހަރެންގެ ރިވިއުގެ އިންތިޒާރުގައެވެ"
+
+msgid "Workflows"
+msgstr "ވޯކްފްލޯސް"
+
+msgid "Page/Snippet ID"
+msgstr "ޕޭޖް/ސްނިޕެޓް އައިޑީ"
+
+msgid "Page/Snippet Type"
+msgstr "ޕޭޖް/ސްނިޕެޓް ޓައިޕް"
+
+msgid "Page/Snippet Title"
+msgstr "ޞަފްޙާ/ސްނިޕެޓް ސުރުޚީ"
+
+msgid "Workflow tasks"
+msgstr "ވޯކްފްލޯ ޓާސްކްސް"
+
+msgid "Requested By"
+msgstr "ރިކުއެސްޓް ކޮށްފައިވަނީ"
+
+msgid "Add a workflow"
+msgstr "ވޯކްފްލޯއެއް އިތުރުކުރުން"
+
+msgid "Used by"
+msgstr "ބޭނުން ކުރަނީ..."
+
+msgid "New workflow"
+msgstr "އާ ވޯކްފްލޯއެއް"
+
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "ވޯކްފްލޯ &#39;%(object)s&#39; އުފެއްދިއެވެ."
+
+msgid "Editing workflow"
+msgstr "ވޯކްފްލޯ އެޑިޓްކުރުން"
+
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "ވޯކްފްލޯ &#39;%(object)s&#39; އަޕްޑޭޓް ކޮށްފި."
+
+msgid "Disable"
+msgstr "ޑިޒޭބަލް"
+
+msgid "Enable"
+msgstr "އެނޭބަލް"
+
+msgid "Disable workflow"
+msgstr "ވޯކްފްލޯ ޑިސެބަލް ކުރުން"
+
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "ވޯކްފްލޯ &#39;%(object)s&#39; ޑިސެބިލްކޮށްފިއެވެ."
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"މި ވޯކްފްލޯ%(states_in_progress)dޕޭޖް/ސްނިޕެޓްތަކުގައެވެ. މި ވޯކްފްލޯ ޑިސެބިލް ކުރުމުން މި ޕޭޖް/ސްނިޕެޓްތަކުގައި "
+"މޮޑެރޭޝަން ކެންސަލް ވާނެއެވެ."
+msgstr[1] ""
+"މި ވޯކްފްލޯ%(states_in_progress)d ޕޭޖް/ސްނިޕެޓްތަކުގައެވެ. މި ވޯކްފްލޯ ޑިސެބިލް ކުރުމުން މި ޕޭޖް/ސްނިޕެޓްތަކުގައި "
+"މޮޑެރޭޝަން ކެންސަލް ވާނެއެވެ."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "ވޯކްފްލޯ &#39;%(workflow_name)s&#39; އެނެބަލްކޮށްފިއެވެ."
+
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "ވޯކްފްލޯ ނައްތާލާފައިވަނީ ޕޭޖް &#39;%(page_title)s&#39; އިންނެވެ."
+
+msgid "New workflow task"
+msgstr "އައު ވޯކްފްލޯ ޓާސްކެއް"
+
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "ޓާސްކް &#39;%(object)s&#39; އުފެއްދިއެވެ."
+
+msgid "Editing workflow task"
+msgstr "ވޯކްފްލޯ ޓާސްކް އެޑިޓްކުރުން"
+
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "ޓާސްކް &#39;%(object)s&#39; އަޕްޑޭޓް ކޮށްފި."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s އެޑިޓްކުރުން"
+
+msgid "Disable task"
+msgstr "ޑިސެބަލް ޓާސްކް"
+
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "ޓާސްކް &#39;%(object)s&#39; ޑިސެބިލްކޮށްފިއެވެ."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"މި މަސައްކަތަކީ ޞަފްޙާ/ސްނިޕެޓްތަކުގައި%(states_in_progress)d މަސައްކަތެކެވެ. މި ޓާސްކް ޑިސެބިލް ކުރުމުން މޮޑެރޭޝަން "
+"ވޯކްފްލޯގައި ސްކިޕްވެ، ވޯކްފްލޯއެއް އެޑިޓް ކުރާއިރު ސެލެކްޝަން އަށް ލިސްޓް ނުކުރެވޭނެއެވެ."
+msgstr[1] ""
+"މި މަސައްކަތަކީ ޞަފްޙާ/ސްނިޕެޓްތަކުގައި %(states_in_progress)dމަސައްކަތެކެވެ. މި ޓާސްކް ޑިސެބިލް ކުރުމުން މޮޑެރޭޝަން "
+"ވޯކްފްލޯގައި ސްކިޕްވެ، ވޯކްފްލޯއެއް އެޑިޓް ކުރާއިރު ސެލެކްޝަން އަށް ލިސްޓް ނުކުރެވޭނެއެވެ."
+
+#, python-format
+msgid "Task '%(task_name)s' enabled."
+msgstr "ޓާސްކް &#39;%(task_name)s&#39; އެނެބަލްކޮށްފިއެވެ."
+
+msgid "Choose another"
+msgstr "އެހެން ހޮވާށެވެ"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "&#39;%(title)s&#39; ގެ ޑްރާފްޓް ވާޝަން ޕްރިވިއުކުރުން."
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "&#39;%(title)s&#39; ގެ ލައިވް ވާޝަން ބަލާށެވެ."
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "&#39;%(title)s&#39; ޞަފްޙާ ބަދަލުކުރުން."
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "ކޮޕީ ޕޭޖް &#39;%(title)s&#39;."
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "&#39;%(title)s&#39; ޞަފްޙާ ޑިލީޓްކުރުން."
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "އަންޕަބްލިޝް ޕޭޖް &#39;%(title)s&#39;."
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "&#39;%(title)s&#39; އަށް ޕޭޖް ހީސްޓްރީ ބަލާށެވެ."
+
+msgid "Sort menu order"
+msgstr "މެނޫ ތަރުތީބު ތަރުތީބުކުރުން"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "&#39;%(title)s&#39; ގެ ޗައިލްޑް ޕޭޖްތަކުގެ ތަރުތީބު ބަދަލުކުރުން."
+
+msgid "Bulleted list"
+msgstr "ބުލެޓް ޖަހާފައިވާ ލިސްޓެވެ"
+
+msgid "Numbered list"
+msgstr "ނަންބަރު ޖަހާފައިވާ ލިސްޓެވެ"
+
+msgid "Blockquote"
+msgstr "ބްލޮކްކޯޓް"
+
+msgid "Link"
+msgstr "ލިންކް"
+
+msgid "Strikethrough"
+msgstr "ސްޓްރައިކްތްރޫ އެވެ"
+
+msgid "Code"
+msgstr "ކޯޑް"
+
+msgid "Reports"
+msgstr "ރިޕޯޓްތައް"
+
+msgid "Editor Guide"
+msgstr "އެޑިޓަރ ގައިޑް"
+
+msgid "Help"
+msgstr "އެހީވުން"
+
+msgid "Choose an item"
+msgstr "އެއްޗެއް ހޮވާށެވެ"
+
+msgid "Choose another item"
+msgstr "އެހެން އެއްޗެއް ހޮވާށެވެ"
+
+msgid "Clear choice"
+msgstr "ސާފު ޗޮއިސް"
+
+msgid "Choose another page"
+msgstr "އެހެން ޞަފްޙާއެއް ހޮވާށެވެ"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr "ޖާގަ ހުންނަ މަލްޓި ވޯޑް ޓެގްތައް އޮޓޮމެޓިކުން ޑަބަލް ކޯޓްސް (\") ގެ ތެރޭގައި ބަންދުވާނެއެވެ."
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "ޓެގްތައް އެކުލެވިގެންވާނީ އެންމެ ލަފުޒެއް ކަމަށާއި، ޖާގައެއް ނެތް ކަމަށް ވެސް ވިދާޅުވި އެވެ."
+
+msgid "Choose another task"
+msgstr "އެހެން މަސައްކަތެއް ހޮވާށެވެ"
+
+msgid "Edit this task"
+msgstr "މި ޓާސްކް އެޑިޓް ކުރާށެވެ"

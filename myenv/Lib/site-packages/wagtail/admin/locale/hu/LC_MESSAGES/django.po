@@ -1,0 +1,3388 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# aaao <aron.santa@gmail.com>, 2019
+# B N <biczoxd@gmail.com>, 2018
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
+# Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+# Patrik Radics, 2022
+# Patrik Radics, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
+"Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
+"hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Közzététel"
+
+msgid "Submit for moderation"
+msgstr "Beküldés moderálásra"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Újraküldés ide: %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Beküldés ide: %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Munkafolyamat újraindítása"
+
+msgid "Cancel workflow "
+msgstr "Munkafolyamat felfüggesztése"
+
+msgid "Unpublish"
+msgstr "Visszavonás"
+
+msgid "Save Draft"
+msgstr "Vázlat mentése"
+
+msgid "Page locked"
+msgstr "Zárolt oldal"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s és közzététel"
+
+msgid "Wagtail admin"
+msgstr "Wagtail Admin"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Sajnáljuk, de nincs engedélye ezen felület eléréséhez."
+
+msgid "You do not have permission to access the admin"
+msgstr ""
+"Nincs megfelelő engedélye, hogy hozzáférjen az adminisztrációs felülethez."
+
+msgid "None"
+msgstr "Üres"
+
+msgid "Date from"
+msgstr "Dátumtól"
+
+msgid "Date to"
+msgstr "Dátumig"
+
+msgid "Locale"
+msgstr "Nyelv"
+
+msgid "All"
+msgstr "Összes"
+
+msgid "Collection"
+msgstr "Gyűjtemény"
+
+msgid "Tag"
+msgstr "Címkézés"
+
+msgid "Preferred language"
+msgstr "Alapértelmezett nyelv"
+
+msgid "Current time zone"
+msgstr "Jelenlegi időzóna"
+
+msgid "First Name"
+msgstr "Keresztnév"
+
+msgid "Last Name"
+msgstr "Vezetéknév"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Upload a profile picture"
+msgstr "Profilkép feltöltése"
+
+msgid "Enter password"
+msgstr "Adja meg a jelszavát"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"A %(username_field)s felhasználónévhez tartozó jelszó nem megfelelő. "
+"Próbálja újra."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Adja meg a %(username_field_name)s értéket"
+
+msgid "Enter your email address to reset your password"
+msgstr "Kérjük adja meg az email címét a jelszó változtatáshoz."
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Keresett szó(darab)"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "All collections"
+msgstr "Összes gyűjtemény"
+
+msgid "Parent"
+msgstr "Szülő"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Válassza ki a kívánt helyet a fastruktúrában. Megjegyzés: a gyűjtemény nem "
+"lehet saját maga, vagy egy saját gyermekének a gyermeke."
+
+msgid "Please select another parent"
+msgstr "Kérjül válasszon másik szülőt"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
+
+msgid "Add"
+msgstr "Hozzáadás"
+
+msgid "Add collections"
+msgstr "Gyűjtemények hozzáadása"
+
+msgid "Edit"
+msgstr "Szerkeszt"
+
+msgid "Edit collections"
+msgstr "Gyűjtemények szerkesztése"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Delete collections"
+msgstr "Gyűjtemények törlése"
+
+msgid "You cannot edit another user's comment."
+msgstr "Másik felhasználó megjegyzését nem lehet szerkeszteni."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "A megjelenés dátumának/idejének a lejárat ideje előttinek kell lennie"
+
+msgid "Expiry date/time must be in the future"
+msgstr "A lejárat dátumának/idejének egy jövőbeni időpontnak kell lennie."
+
+msgid "New title"
+msgstr "Új oldalcím"
+
+msgid "New slug"
+msgstr "Új domain-darabka (slug)"
+
+msgid "New parent page"
+msgstr "Új szülő oldal"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ez a másolat a megadott oldal alá fog tartozni."
+
+msgid "Copy subpages"
+msgstr "Aloldalak másolása"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Aloldal másolása %(count)s példányban"
+msgstr[1] "Aloldal másolása %(count)s példányban."
+
+msgid "Publish copied page"
+msgstr "Oldal másolatának közzététele"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Már közzétett oldal. Szeretné az oldal másolatát is közzétenni?"
+
+msgid "Publish copies"
+msgstr "Másolatok közzététele"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"A másolni kívánt oldalt már közzétették %(count)s példányban. A másolatát is "
+"közzéteszi?"
+msgstr[1] ""
+"A másolni kívánt oldalakat már közzétették %(count)s példányban. A "
+"másolatait is közzéteszi?"
+
+msgid "Alias"
+msgstr "Kapcsolt példány"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Az újonnan létrejövő oldal átveszi az eredeti változtatásait"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nincs engedélye a következő oldal másolásához: \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"A domain-darabka már használatban van az oldal szülőoldalán "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Aloldalak másolásakor nem lehet egy oldalt saját magára másolni"
+
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "A(z) '%(page_slug)s' rövidítés már használatban van a szülőoldal alatt"
+
+msgid "Select a new parent for this page."
+msgstr "Kérjük válasszon új szülőt ennek az oldalnak."
+
+msgid "Parent page"
+msgstr "Szülő oldal"
+
+msgid "Search…"
+msgstr "Keresés..."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr ""
+"Cím(ek) %(value_too_long)s túl lépik a %(max_tag_length)d karakterszámot "
+
+msgid "Visibility"
+msgstr "Láthatóság"
+
+msgid "This field is required."
+msgstr "Egy mező megadása szükséges."
+
+msgid "Please select at least one group."
+msgstr "Kérjük válasszon ki legalább egy csoportot."
+
+msgid "All types"
+msgstr "Összes típus"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Ez az oldal már a következő munkamenetbe tartozik: '%(workflow_name)s'"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Ezt a munkafolyamatot nem lehet többször hozzárendelni ugyanahhoz az "
+"oldalhoz."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"A(z) '%(content_type)s' elem már a következő munkamenetbe tartozik: "
+"'%(workflow_name)s'."
+
+msgid "Give your workflow a name"
+msgstr "Munkafolyamat elnevezése"
+
+msgid "Add tasks to your workflow"
+msgstr "Feladatok hozzáadása a munkafolyamathoz"
+
+msgid "Task"
+msgstr "Feladat"
+
+msgid "1 page selected"
+msgstr "1 oldal kiválasztva"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s oldal kiválasztva"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Mind a(z) %(objects)s oldal ezen a képernyőn kiválasztva"
+
+msgid "All pages in listing selected"
+msgstr "Összes oldal a listában kiválasztva"
+
+msgid "1 document selected"
+msgstr "1 dokumentum kiválasztva"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s dokumentum kiválasztva"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Mint a(z) %(objects)s dokumentum kiválasztva ezen a képernyőn"
+
+msgid "All documents in listing selected"
+msgstr "Összes dokumentum kiválasztva a listában"
+
+msgid "1 image selected"
+msgstr "1 kép kiválasztva"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s kép kiválasztva"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Mint a(z) %(objects)s kép kiválasztva ezen a képernyőn"
+
+msgid "All images in listing selected"
+msgstr "Minden kép kiválasztva a listában"
+
+msgid "1 user selected"
+msgstr "1 felhasználó kiválasztva"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s felhasználó kiválasztva"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "Mind a(z) %(objects)s felhasználó kiválasztva ezen a képernyőn"
+
+msgid "All users in listing selected"
+msgstr "Minden felhasználó kiválasztva a listában"
+
+msgid "1 snippet selected"
+msgstr "1 elem kiválasztva"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s elem kiválasztva"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Mind a(z) %(objects)s elem kiválasztva ezen a képernyőn"
+
+msgid "All snippets in listing selected"
+msgstr "Minden elem kiválasztva a listában"
+
+msgid "1 item selected"
+msgstr "1 elem kiválasztva"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s elem kiválasztva"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "Mind a(z) %(objects)s elem kiválasztva ezen a képernyőn"
+
+msgid "All items in listing selected"
+msgstr "Minden elem kiválasztva a listában"
+
+msgid "For search engines"
+msgstr "Keresőmotorok számára"
+
+msgid "For site menus"
+msgstr "Oldal menük számára"
+
+msgid "Content"
+msgstr "Tartalom"
+
+msgid "Promote"
+msgstr "Marketing"
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Page title"
+msgstr "Oldal címe"
+
+msgid "Error 404: Page not found"
+msgstr "404-es hiba: az oldal nem található"
+
+msgid "Error 404"
+msgstr "404-es hiba"
+
+msgid "The requested page could not be found."
+msgstr "A keresett oldal nem található."
+
+msgid "Go to Wagtail admin"
+msgstr "Admin felület megnyitása"
+
+msgid "Account"
+msgstr "Felhasználói fiók"
+
+msgid "More actions"
+msgstr "További akciók"
+
+msgid "Save account details"
+msgstr "Fiók részleteinek mentése"
+
+msgid "Reset password"
+msgstr "Jelszó módosítása"
+
+msgid "Password change successful"
+msgstr "A jelszót sikeresen módosította"
+
+msgid "Login"
+msgstr "Bejelentkezés"
+
+msgid "Set your new password"
+msgstr "Állítsa be az új jelszót"
+
+msgid "Invalid password reset link"
+msgstr "Érvénytelen jelszó módosító link"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"A jelszó módosítására szolgáló link érvénytelen, valószínűleg azért, mert "
+"már fel lett használva."
+
+msgid "Request a new password reset"
+msgstr "Új jelszó igénylése"
+
+msgid "Check your email"
+msgstr "Ellenőrizze emailjeit"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "A jelszavának módosításához szükséges linket elküldtük e-mailben."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Kérem kattintson az alábbi linkre a jelszava módosításához:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Felhasználónév (ha elfelejtette):"
+
+msgid "Password reset"
+msgstr "Jelszó módosítása"
+
+msgid "Reset your password"
+msgstr "Módosítsa jelszavát"
+
+msgid "Reset to default"
+msgstr "Visszaállítás alapértelmezettre"
+
+msgid "Default avatar"
+msgstr "Alapértelmezett avatár"
+
+msgid "Upload a profile picture:"
+msgstr "Profilkép feltöltése:"
+
+msgid "Sidebar"
+msgstr "Oldalsáv"
+
+msgid "Go back"
+msgstr "Vissza"
+
+msgid "Bulk actions"
+msgstr "Tömeges akciók"
+
+msgid "Select"
+msgstr "Kiválasztás"
+
+msgid "Select row"
+msgstr "Sor kiválasztása"
+
+msgid "Select all"
+msgstr "Összes kiválasztása"
+
+msgid "Internal link"
+msgstr "Belső link"
+
+msgid "External link"
+msgstr "Külső link"
+
+msgid "Email link"
+msgstr "Email link"
+
+msgid "Phone link"
+msgstr "Telefonszám link"
+
+msgid "Anchor link"
+msgstr "Belső hivatkozás"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "%(counter)s találat van"
+msgstr[1] "%(counter)stalálat van."
+
+msgid "Add an anchor link"
+msgstr "Belső hivatkozás hozzáadása"
+
+msgid "Insert anchor"
+msgstr "Belső hivatkozás beillesztése"
+
+msgid "Choose"
+msgstr "Kiválasztás"
+
+msgid "Choose a page"
+msgstr "Oldal kiválasztása"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Csak a következő típust lehet kiválasztani ehhez a mezőhöz: %(type)s. A "
+"keresés találati oldal el fogja rejteni a többi típust."
+msgstr[1] ""
+"Csak a következő típusokat lehet kiválasztani ehhez a mezőhöz: %(type)s. A "
+"keresés találati oldal el fogja rejteni a többi típust."
+
+msgid "Confirm selection"
+msgstr "Kiválasztás megerősítése"
+
+msgid "Convert to internal link"
+msgstr "Átalakítás belső linkké"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"A beírt URL: <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, úgy tűnik, hogy megegyezik "
+"a(z) %(page)s oldalllal, amelynek linkje <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Ha ezt a belső linket %(page)s típusúra cseréljük, akkor ha a hivatkozott "
+"oldal elérése megváltozik, a link is követni fogja. Szeretné lecserélni?"
+
+msgid "Use external link"
+msgstr "Külső link használata"
+
+msgid "Add an email link"
+msgstr "Email link hozzáadása"
+
+msgid "Insert link"
+msgstr "Link beszúrása"
+
+msgid "Add an external link"
+msgstr "Külső link hozzáadása"
+
+msgid "Add a phone link"
+msgstr "Telefonszám link hozzáadása"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s kiválasztása"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "'%(title)s' aloldalainak tallózása"
+
+msgid "Explore"
+msgstr "Tallózás"
+
+msgid "Collection privacy"
+msgstr "Gyűjtemény láthatósága"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Ez a gyűjtemény privát a szülő gyűjtemény beállításai miatt."
+
+msgid "You can edit the privacy settings on:"
+msgstr "A láthatósági beállításokat itt szerkesztheti:"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Change privacy"
+msgstr "Láthatóság megváltoztatása"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"A láthatósági beállítások határozzák meg, hogy ki tekintheti meg a "
+"gyűjteménybe tartozó elemeket."
+
+msgid "Privacy"
+msgstr "Láthatóság"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Gyűjtemény láthatóságának beállítása. Jelenlegi státusz: publikus"
+
+msgid "Public"
+msgstr "Publikus"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Gyűjtemény láthatóságának beállítása. Jelenlegi státusz: privát"
+
+msgid "Private"
+msgstr "Privát"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Ezt a gyűjteményt nem lehet törölni, mert nem üres. Tartalma:"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"Nincs még gyűjtemény létrehozva. Miért nem <a "
+"href=\"%(add_collection_url)s\">ad hozzá egyet</a>?"
+
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr ""
+"Sajnáljuk, de nincs találat erre a kifejezésre: \"<em>%(search_query)s</em>\""
+
+msgid "There are no results."
+msgstr "Nincs találat"
+
+msgid "Yes, delete"
+msgstr "Törlés megerősítése"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s visszavonása"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Biztosan visszavonja a(z) %(model_name)s tartalmat? "
+
+msgid "Yes, unpublish it"
+msgstr "Igen, visszavonom"
+
+msgid "No, don't unpublish"
+msgstr "Nem, mégsem vonom vissza"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "%(model_name)sközzététele"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"Ez a(z) %(model_name)sváltoztatásra váróként lett megjelölve a "
+"<strong>%(workflow)s</strong> munkafolyamat <strong>%(task)s</strong> "
+"lépésében."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Ez a(z) %(model_name)s jelenleg a(z) <strong>%(workflow)s</strong> "
+"munkafolyamat <strong>%(task)s</strong> feladatánál tart."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr ""
+"Ezen %(model_name)s közzététele megszakítja a jelenlegi munkafolyamatot."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Biztosan közzéteszi a(z) %(model_name)s tartalmat?"
+
+msgid "Cancel"
+msgstr "Mégsem"
+
+msgid "Comment"
+msgstr "Megjegyzés"
+
+msgid "Actions"
+msgstr "Akciók"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Egyetlen %(model_name)s sem felelt meg a feltételeknek."
+
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"Nincs megjeleníthető %(model_name)s. Miért nem <a href=\"%(add_url)s\">ad "
+"hozzá egyet</a>?"
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Nincs megjeleníthető %(model_name)s."
+
+msgid "Update"
+msgstr "Frissítés"
+
+msgid "Preview not available"
+msgstr "Előnézet nem elérhető"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Az előnézet a kitöltési hibák miatt nem elérhető. <br /> Kattintson a mentés "
+"gombra a hibás mezők megjelöléséhez."
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s összevetése"
+
+msgid "Comparing"
+msgstr "Összevetés"
+
+msgid "Fields"
+msgstr "Mezők"
+
+msgid "Changes"
+msgstr "Változtatások"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "Lefelé mozgatva 1 helyet."
+msgstr[1] "Lefelé mozgatva %(counter)s helyet."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "Felfelé mozgatva 1 helyet."
+msgstr[1] "Felfelé mozgatva %(counter)s helyet."
+
+msgid "There are no differences between these two versions"
+msgstr "Nincsenek különbségek a két verzió között"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Üdvözöljük a %(site_name)s Wagtail CMS oldalon!"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Íme az Ön műszerfala, amelyen hasznos információk jelennek meg a létrehozott "
+"oldalairól."
+
+msgid "Your locked pages"
+msgstr "Zárolt oldalai"
+
+msgid "Locked at"
+msgstr "Zárolva ekkor: "
+
+msgid "Edit this page"
+msgstr "Oldal szerkesztése"
+
+msgid "Unlock"
+msgstr "Feloldás"
+
+msgid "Draft"
+msgstr "Vázlat"
+
+msgid "Live"
+msgstr "Közzétett oldal"
+
+msgid "Your most recent edits"
+msgstr "A legutóbbi szerkesztések"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Site summary"
+msgstr "Oldal összegzés"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> oldal létrehozva ezen az oldalon: <span class=\"w-sr-"
+"only\">%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> oldal létrehozva ezen az oldalon: <span class=\"w-sr-"
+"only\">%(site_name)s</span>"
+
+#, python-format
+msgid ""
+"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
+"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
+"strong>."
+msgstr ""
+"Új Wagtail verzió elérhető. Az ön verziója: <strong>%(current_version)s</"
+"strong>. Új verzió: <strong data-w-upgrade-target=\"latestVersion\"></strong>"
+
+msgid "Read the release notes."
+msgstr "Frissítési dokumentáció megtekintése."
+
+msgid "Your pages and snippets in a workflow"
+msgstr "Munkafolyamatban lévő oldalak és elemek"
+
+msgid "Task started"
+msgstr "Feladat elindítva"
+
+msgid "Changes requested at"
+msgstr "Változtatások kérése:"
+
+msgid "Awaiting"
+msgstr "Várakozik"
+
+msgid "Close"
+msgstr "Bezár"
+
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "A dolgok megváltoztak a Wagtail %(version)s verzióban!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
+msgstr ""
+"De aggodalomra semmi ok. A <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">Wagtail "
+"szerkesztők kézikönyve</a> (angol nyelvű) bemutatja az újdonságokat és "
+"változásokat!"
+
+msgid "Awaiting your review"
+msgstr "Ellenőrzésre vár"
+
+msgid "Tasks"
+msgstr "Feladatok"
+
+msgid "Task submitted by"
+msgstr "Feladat beküldője "
+
+msgid "Preview"
+msgstr "Előnézet"
+
+msgid "Compare with live version"
+msgstr "Hasonlítás az éles verzióval"
+
+msgid "Compare with previous version"
+msgstr "Összehasonlítás az előző verzióval"
+
+msgid "Sign in"
+msgstr "Bejelentkezés"
+
+msgid "Sign in to Wagtail"
+msgstr "Bejelentkezés a Wagtail-be"
+
+msgid "Forgotten password?"
+msgstr "Elfelejtette jelszavát?"
+
+msgid "Remember me"
+msgstr "Emlékezz rám"
+
+msgid "Signing in…"
+msgstr "Belépés..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "A \"%(title)s\" című oldal jóváhagyásra került."
+
+msgid "You can view the page here:"
+msgstr "Az oldalt itt tekintheti meg:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "A \"%(title)s\" című oldal jóváhagyásra került"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Helló %(username)s, "
+
+msgid "Edit your notification preferences here:"
+msgstr "Az értesítési beállításait itt módosíthatja:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "A \"%(title)s\" című oldal elutasításra került."
+
+msgid "You can edit the page here:"
+msgstr "Az oldalt itt szerkesztheti:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "A \"%(title)s\" című oldal elutasításra került"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" jóvá lett hagyva a következő engedélyezési lépésben: "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s jóvá lett hagyva a következő engedélyezési "
+"lépésben: \"%(task)s\"."
+
+#, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "Ezt a(z) %(model_name)s tartalmat itt szerkesztheti:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "A(z) \"%(title)s\" jóvá lett hagyva itt: \"%(task)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s jóvá lett hagyva a következő engedélyezési "
+"lépésben: \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" oldal el lett utasítva a moderációs folyamat \"%(task)s\" "
+"lépésében."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s el lett utasítva a moderációs folyamat "
+"\"%(task)s\" lépésében."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "A(z) \"%(title)s\" oldal el lett utasítva eközben: \"%(task)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s el lett utasítva eközben: \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" oldal jóváhagyásra lett küldve a moderációs folyamat "
+"\"%(task)s\" lépésben."
+
+msgid "You can preview the page here:"
+msgstr "Az oldal előnézetét itt tekintheti meg:"
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s jóváhagyásra lett küldve a moderációs "
+"folyamat \"%(task)s\" lépésben."
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "A(z) %(model_name)s előnézete megtekinthető itt:"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" oldal jóváhagyásra lett küldve a moderációs folyamat "
+"\"%(task)s\" lépésébe."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval to "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s jóváhagyásra lett küldve a moderációs "
+"folyamat \"%(task)s\" lépésébe."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr ""
+"A(z) \"%(title)s\" oldal jóváhagyásra lett küldve a moderációs folyamat "
+"\"%(task)s\" lépésében."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\""
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s jóváhagyásra lett küldve a moderációs "
+"folyamat \"%(task)s\" lépésben."
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)sfrissítette a megjegyzését itt: \"%(title)s\"."
+
+msgid "New comments"
+msgstr "Új megjegyzés"
+
+msgid "Resolved comments"
+msgstr "Megoldott megjegyzések"
+
+msgid "Deleted comments"
+msgstr "Törölt megjegyzések"
+
+msgid "New replies"
+msgstr "Új válaszok"
+
+msgid "New replies to:"
+msgstr "Új válaszok erre: "
+
+msgid "New comments:"
+msgstr "Új megjegyzések: "
+
+msgid "Resolved comments:"
+msgstr "Megoldott megjegyzések: "
+
+msgid "Deleted comments:"
+msgstr "Törölt megjegyzések:"
+
+msgid "New replies:"
+msgstr "Új válaszok: "
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s frissítette a megjegyzéseit itt: \"%(title)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" oldal jóvá lett hagyva a(z) \"%(workflow)s\" "
+"munkafolyamatban."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s jóvá lett hagyva a(z) \"%(workflow)s\" "
+"munkafolyamatban."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "A(z) \"%(title)s\" oldal jóvá lett hagyva itt: \"%(workflow)s\"."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s jóvá lett hagyva a következő "
+"munkafolyamatban: \"%(workflow)s\""
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"A(z) \"%(title)s\" oldalt %(rejector)s elutasította a(z) \"%(workflow)s\" "
+"munkafolyamat \"%(task)s\" lépésében."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" el lett utasítva a(z) \"%(workflow)s\" munkafolyamat "
+"\"%(task)s\" lépésében."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "A következő megjegyzéssel: \"%(comment)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)startalmat %(rejector)s elutasította a(z) "
+"\"%(workflow)s\" munkafolyamat \"%(task)s\" lépésében."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)sel lett utasítva a(z) \"%(workflow)s\" "
+"munkafolyamat \"%(task)s\" lépésében."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "A(z) \"%(title)s\" el lett utasítva itt: \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s el lett utasítva eközben: \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"A(z) \"%(title)s\" oldalt %(requester)s beküldte a \"%(workflow)s\" "
+"moderációs munkamenetbe."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" oldal moderálásra lett küldve a következő "
+"munkafolyamatban: \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\" by %(requester)s."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s tartalmat%(requester)s beküldte a "
+"\"%(workflow)s\" moderációs munkamenetbe."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s moderálásra lett küldve a következő "
+"munkafolyamatban: \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr ""
+"A(z) \"%(title)s\" oldal be lett küldve a következő munkafolyamatba: "
+"\"%(workflow)s\""
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted to workflow "
+"\"%(workflow)s\""
+msgstr ""
+"A(z) \"%(title)s\" %(model_name)s be lett küldve a következő "
+"munkafolyamatba: \"%(workflow)s\"."
+
+msgid "Page privacy"
+msgstr "Az oldal láthatósága"
+
+msgid "This page has been made private by a parent page."
+msgstr "Ez az oldal privát a szülő oldal beállításai miatt."
+
+msgid "Save the page before leaving"
+msgstr "Mentse az oldalt az elhagyása előtt"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Az oldalon<span>mentetlen változtatások</span> vannak"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Az oldalon <span>mentetlen megjegyzések</span> vannak"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"Az oldalon <span>mentetlen változtatások</span> és <span>kommentek</span> "
+"vannak"
+
+msgid "Publishing…"
+msgstr "Közzététel folyamatban..."
+
+msgid "Publish this version"
+msgstr "Verzió közzététele"
+
+msgid "Saving…"
+msgstr "Mentés..."
+
+msgid "Replace current draft"
+msgstr "Jelenlegi vázlat lecserélése"
+
+msgid "Save draft"
+msgstr "Vázlat mentése"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Oldal létrehozása itt: %(title)s"
+
+msgid "Create a page in"
+msgstr "Oldal létrehozása itt: "
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Kérjük válassza ki, hogy milyen típusú oldalt szeretne létrehozni."
+
+msgid "Sorry, you cannot create a page at this location."
+msgstr "Sajnáljuk, de itt nem hozhat létre új oldalt."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "%(page_type)s típusú oldalak"
+
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "1 oldal törlése"
+msgstr[1] "%(counter)s oldal törlése"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Biztosan törölni szeretné ezeket az oldalakat?"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "Ez a művelet egyben egy további aloldalt is törölni fog."
+msgstr[1] "Ez a művelet egyben %(counter)s további aloldalt is törölni fog."
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Nincs jogosultsági törölni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága törölni ezeket az oldalakat"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "1 oldal mozgatása"
+msgstr[1] "%(counter)s oldal mozgatása"
+
+msgid "Move"
+msgstr "Mozgatás"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Biztosan mozgatni szeretné ezeket az oldalakat?"
+
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Ebbek az oldalnak 1 gyermekoldala van"
+msgstr[1] "Ennek az oldalnak %(counter)s gyermekoldala van"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "Nincs jogosultsága átmozgatni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága átmozgatni ezeket az oldalakat"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s"
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "A következő oldalt nem lehet a(z) %(dest_title)s alá mozgatni"
+msgstr[1] ""
+"A következő oldalakat nem lehet a(z) %(dest_title)s oldal alá mozgatni "
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"A következő oldalt nem lehetett mozgatni megegyeztő domain-darabka miatt"
+msgstr[1] ""
+"A következő oldalakat nem lehetett mozgatni megegyeztő domain-darabka miatt"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Ezeknek az oldalaknak nincs érvényes cél oldaluk"
+
+msgid "Yes, move these pages"
+msgstr "Igen, átmozgatom az oldalakat"
+
+msgid "No, don't move"
+msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Publish 1 page"
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "1 oldal közzététele"
+msgstr[1] "%(counter)s oldal közzététele"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Biztosan közzé szeretné tenni ezeket az oldalakat?"
+
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Ennek az oldalnak 1 közzétételre váró aloldala van"
+msgstr[1] "Ennek az oldalnak %(counter)s közétételre váró aloldala van"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Nincs jogosultsága közzétenni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága közzétenni ezeket az oldalakat"
+
+msgid "Yes, publish"
+msgstr "Igen, közzéteszem"
+
+msgid "No, don't publish"
+msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "1 oldal visszavonása"
+msgstr[1] "%(counter)s oldal visszavonása"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Biztosan vissza szeretné vonni ezeket az oldalakat?"
+
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "Ennek az oldalnak 1 aloldala van"
+msgstr[1] "Ennek az oldalnak %(counter)s aloldala van"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "Nincs jogosultsága visszavonni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága visszavonni ezeket az oldalakat"
+
+msgid "Yes, unpublish"
+msgstr "Igen, visszavonom"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "%(title)s kapcsolt példány konvertálása"
+
+msgid "Convert alias"
+msgstr "Kapcsolt példány konvertálása"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Biztosan átkonvertálja ezt a kapcsolt példányt hagyományos oldallá?"
+
+msgid "This action cannot be undone."
+msgstr "Ezt az akciót nem lehet visszavonni."
+
+msgid "Yes, convert it"
+msgstr "Igen, konvertálom"
+
+msgid "No, leave it as an alias"
+msgstr "Mégsem, maradjon kapcsolt példány"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s törlése"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Biztosan törölni kívánja ezt az oldalt?"
+
+#, python-format
+msgid "Deleting this page will also delete %(descendant_count)s child page."
+msgid_plural ""
+"Deleting this page will also delete %(descendant_count)s more child pages."
+msgstr[0] ""
+"Az oldal törléséve további %(descendant_count)s gyermek oldal is törölve "
+"lesz."
+msgstr[1] ""
+"Az oldal törlésével további %(descendant_count)s gyermekoldal is törölve "
+"lesz."
+
+#, python-format
+msgid ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Ezen felül 1 fordítás, és %(translation_descendant_count)s lefordított "
+"gyermekoldal is törlődni fog."
+msgstr[1] ""
+"Ezen felül 1 fordítás, és összesen %(translation_descendant_count)s "
+"lefordított gyermekoldal is törlődni fog."
+
+#, python-format
+msgid ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Ezen felül %(translation_count)s fordítás, és "
+"%(translation_descendant_count)s lefordított gyermekoldal is törlődni fog."
+msgstr[1] ""
+"Ezen felül %(translation_count)s fordítás, és "
+"%(translation_descendant_count)s lefordított gyermekoldal is törlődni fog."
+
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "Ezen felül %(translation_count)s fordítás is törlődni fog."
+msgstr[1] "Ezen felül %(translation_count)s fordítás is törlődni fog."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Az oldal törlésekor 1 fordítás, és összesen %(translation_descendant_count)s "
+"lefordított gyermekoldal is törlődni fog."
+msgstr[1] ""
+"Az oldal törlésekor 1 fordítás, és összesen %(translation_descendant_count)s "
+"lefordított gyermekoldal is törlődni fog."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Az oldal törlésekor%(translation_count)s fordítás, és "
+"%(translation_descendant_count)s lefordított gyermekoldal is törlődni fog."
+msgstr[1] ""
+"Az oldal törlésekor %(translation_count)s fordítás, és "
+"%(translation_descendant_count)s lefordított gyermekoldal is törlődni fog."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translation of "
+"this page."
+msgid_plural ""
+"This will also delete %(descendant_count)s more child pages. Deleting this "
+"page will also delete %(translation_count)s translations of this page."
+msgstr[0] "A törlés egyben %(translation_count)s fordítást is törölni fog."
+msgstr[1] ""
+"A törlés egyben %(descendant_count)s további gyermekoldalt is töröni fog. "
+"Ezen felül %(translation_count)s fordítás is törlésre kerül."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Ez a művelet összesen <b>%(total_pages)s</b> oldalt fog törölni."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "Kérjük írja be, hogy <b>%(wagtail_site_name)s</b> a megerősítéshez."
+
+msgid "Yes, delete it"
+msgstr "Igen, törlöm"
+
+msgid "No, don't delete it"
+msgstr "Nem, mégsem törlöm"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Ezen felül <a href=\"%(unpublish_url)s\">visszavonhatja az oldalt</a>. Ez "
+"eltünteti az oldalt a látogatók elől, és később bármikor tovább "
+"szerkeszthető, illetve újra közzétehető."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "%(title)s mozgatása"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Biztosan átmozgatja ezt az oldalt ide: '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Biztosan átmozgatja ezt az oldalt, és a hozzá tartozó aloldalakat ide: "
+"'%(title)s'?"
+
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] "Ezzel 1 fordítást, és annak gyermekoldalait is átmozgatja."
+msgstr[1] ""
+"Ezzel %(translations_to_move_count)s fordítást, és azok gyemrekoldalait is "
+"átmozgatja."
+
+msgid "Yes, move this page"
+msgstr "Igen, átmozgatom"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Biztosan vissza szeretné vonni ezt az oldalt?"
+
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] "Ez egyben visszavonja az oldal fordítását is."
+msgstr[1] "Ez egyben visszavonja az oldal %(translation_count)s fordítását is."
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"Ennek az oldalnak egy gyermekoldala és fordítása van. Kérjük ezeket is vonja "
+"vissza"
+msgstr[1] ""
+"Ennek az oldalnak %(live_descendant_count)s gyermekoldala és lefordított "
+"oldala van. Kérjük ezeket is vonja vissza"
+
+#, python-format
+msgid ""
+"This page has one child page and its translations have a combined "
+"%(translation_descendant_count)s translated child pages. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined %(translation_descendant_count)s translated child pages. "
+"Unpublish these too"
+msgstr[0] ""
+"Ennek az oldalnak 1 gyermekoldala, és összesen "
+"%(translation_descendant_count)s lefordított gyermekoldala van. Kérjük "
+"ezeket is vonja vissza"
+msgstr[1] ""
+"Ennek az oldalnak %(live_descendant_count)s gyermekoldala, és összesen "
+"%(translation_descendant_count)s lefordított gyermekoldala van. Kérjük "
+"ezeket is vonja vissza"
+
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] "Ennek az oldalnak 1 aloldala van. Ezt is vissza kell vonni"
+msgstr[1] ""
+"Ebbek az oldalnak van %(live_descendant_count)s aloldala. Ezeket is vissza "
+"kell vonni"
+
+msgid "Publish page"
+msgstr "Oldal közzététele"
+
+#, python-format
+msgid ""
+"This page was marked as needing changes at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"Ez az oldal változtatásokat igénylőként lett megjelölve a(z) "
+"<strong>%(workflow)s</strong> munkafolyamat <strong>%(task)s</strong> "
+"lépésében."
+
+#, python-format
+msgid ""
+"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
+"strong>."
+msgstr ""
+"Ez az oldal jelenleg a(z) <strong>%(workflow)s</strong> munkafolyamat "
+"<strong>%(task)s</strong> feladatánál tart."
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Az oldal közzététele felfüggeszti a jelenlegi munkafolyamatot."
+
+msgid "Would you still like to publish this page?"
+msgstr "Biztosan közzéteszi ezt az oldalt?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "%(title)smásolása"
+
+msgid "Copy"
+msgstr "Másolás"
+
+msgid "Copy this page"
+msgstr "Oldal másolása"
+
+msgid "This page has unsaved changes."
+msgstr "Ezen az oldalon mentetlen változtatások vannak."
+
+msgid "This page is an alias of another page."
+msgstr "Ez az oldal egy másik oldalhoz kapcsolt példány."
+
+msgid "Edit original page"
+msgstr "Eredeti oldal szerkesztése"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Kapcsolt példány konvertálása hagyományos oldallá"
+
+msgid "Select all pages in listing"
+msgstr "Összes oldal kiválasztása a listában"
+
+msgid ""
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
+msgstr ""
+"A gyökér szint az, ahol új, különálló webhelyeket lehet a Wagtail "
+"alkalmazáshoz hozzáadni. Az ide felvett oldalak addig nem lesznek "
+"elérhetőek, amíg nincsenek egy webhelyhez rendelve."
+
+msgid "Configure a site now."
+msgstr "Állítson be új webhelyet."
+
+msgid ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+msgstr ""
+"Ha csak egy meglévő webhelyhez kíván új oldalakat adni, akkor annak "
+"nyitóoldala alatt hozza őket létre."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"Az itt létrehozott oldalak nem lesznek elérhetőek semmilyen linken. Ha "
+"meglévő webhelyhez akarja őket hozzáadni, annak nyitóoldala alatt hozza "
+"létre ezeket."
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"tt nincs webhely beállítva. Az itt létrehozott oldalak nem lesznek "
+"elérhetőek semmilyen linken, amíg nincs webhely hozzárendelve."
+
+msgid ""
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
+msgstr ""
+"Ehhez a helyhez nincs webhely megadva. Az itt létrehozott oldalak nem "
+"lesznek elérhetőek."
+
+msgid "This page is locked, by you, to further editing"
+msgstr "Ez az oldal zárolva van, ezzel a felhasználóval, további szerkesztésre"
+
+msgid "This page is locked to further editing"
+msgstr "Ez az oldal zárolva van, így nem lehet szerkeszteni"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "'%(title)s' gyermek oldalainak tallózása"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Gyermek oldal hozzáadása ehhez: '%(title)s'"
+
+msgid "Drag"
+msgstr "Megragadás"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s / %(total)s elem"
+
+msgid "Disable ordering of child pages"
+msgstr "Aloldalak sorrendezésének tiltása"
+
+msgid "Sort"
+msgstr "Sorbarendezés"
+
+msgid "Enable ordering of child pages"
+msgstr "Aloldalak sorba rendezésének engedélyezése"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s - %(end_index)s / %(items_count)s a teljes oldalon."
+
+msgid "No results across entire site."
+msgstr "Nincs találat a teljes oldalon."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Keresés itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s - %(end_index)s / %(items_count)s itt: '<span class=\"w-"
+"title-ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"Nincs találat itt: '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
+msgid "Search the whole site"
+msgstr "Keresés a teljes oldalon"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s - %(end_index)s / %(items_count)s"
+
+msgid "Sites menu"
+msgstr "Webhely menü"
+
+msgid "Pagination"
+msgstr "Lapozó"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "%(num_pages)s/ %(page_number)s. oldal"
+
+msgid "Previous"
+msgstr "Előző"
+
+msgid "Next"
+msgstr "Következő"
+
+msgid "This page is protected from public view"
+msgstr "Ez az oldal védett a közönségtől"
+
+msgid "Confirm"
+msgstr "Megerősítés"
+
+msgid "Add child page"
+msgstr "Gyermek oldal hozzáadása"
+
+#, python-format
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "Összesen 1 megfelelő oldal van"
+msgstr[1] "Összesen %(counter)s megfelelő oldal van"
+
+msgid "Page types"
+msgstr "Oldal típusok"
+
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr ""
+"Sajnáljuk, de egy oldal sem felel meg a következő kifejezésnek: "
+"<em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Kérjük adja meg a keresett kifejezést"
+
+msgid "No pages use"
+msgstr "Egyetlen oldal sem használja: "
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)s hozzáadása"
+
+msgid "Move up"
+msgstr "Mozgatás fel"
+
+msgid "Move down"
+msgstr "Mozgatás le"
+
+#, python-format
+msgid "Choose when this %(model_name)s should go live and/or expire"
+msgstr ""
+"Válassza ki, hogy a(z) %(model_name)s mikor lesz közzétéve és/vagy elrejtve"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Válassza ki, hogy az oldal mikor lesz közzétéve vagy eltüntetve"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
+msgstr "Az időzítés csak akkor működik, ha az adott tartalom közzé van téve"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "Bárki, akinek szerkesztési joga van, tud időzíteni"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr ""
+"De csak a közzétételi jogosultsággal rendelkező felhasználók tudják "
+"érvényessé tenni."
+
+msgid "Set publishing schedule"
+msgstr "Közzététel időzítése"
+
+msgid "Save schedule"
+msgstr "Időzítés mentése"
+
+msgid "Collection management permissions"
+msgstr "Gyűjtemény kezelői jogosultságok"
+
+msgid "Add a collection permission"
+msgstr "Gyűjtemény jogosultság hozzáadása"
+
+msgid "Last published"
+msgstr "Utolsó közzététel"
+
+msgid "Last published by"
+msgstr "Utoljára közzétette "
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "No pages found."
+msgstr "Nincs megfelelő oldal."
+
+msgid "No pages match this report's criteria."
+msgstr "Egyetlen oldal sem felel meg a feltételeknek."
+
+msgid "Updated"
+msgstr "Frissítve"
+
+msgid "App"
+msgstr "Névtér"
+
+msgid "Pages"
+msgstr "Oldalak"
+
+msgid "Last edited page"
+msgstr "Utoljára szerkesztett oldal"
+
+msgid "Last edit"
+msgstr "Utolsó szerkesztés"
+
+msgid "No page types found."
+msgstr "Nincs oldaltípus."
+
+msgid "Locking status"
+msgstr "Zárolás státusz"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Zárolva <b>saját magam</b> által ekkor: <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "Zárolva <b>%(locked_by)s</b> által ekkor: <b>%(locking_date)s</b>"
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "Zárolva ekkor: <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Zárolt"
+
+msgid "No locked pages found."
+msgstr "Nincs zárolt oldal."
+
+msgid "Name"
+msgstr "Név"
+
+msgid "Action"
+msgstr "Akció"
+
+msgid "User"
+msgstr "Felhasználó"
+
+msgid "Date / Time"
+msgstr "Dátum / idő"
+
+msgid "Edit this item"
+msgstr "Elem szerkesztése"
+
+msgid "No log entries found."
+msgstr "Nincs naplóbejegyzés."
+
+msgid "By Task"
+msgstr "Feladat szerint"
+
+msgid "Workflow"
+msgstr "Munkamenet"
+
+msgid "Page/Snippet"
+msgstr "Oldal/Elem"
+
+msgid "Requested by"
+msgstr "Kérelmező"
+
+msgid "Started at"
+msgstr "Elindítva: "
+
+msgid "Incomplete task"
+msgstr "Befejezetlen feladat"
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "Még nem lett beküldve oldal/elem moderálásra"
+
+msgid "By Workflow"
+msgstr "Munkafolyamat szerint"
+
+msgid "Completed at"
+msgstr "Befejezve: "
+
+msgid "Clear"
+msgstr "Alapállapot"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(page_num)s/%(total_pages)s. oldal"
+
+msgid "Toggle breadcrumbs"
+msgstr "Morzsamenü kapcsolása"
+
+msgid "Breadcrumb"
+msgstr "Navigációs sáv"
+
+msgid "Close dialog"
+msgstr "Ablak bezárása"
+
+msgid "Download XLSX"
+msgstr "XSLX letöltése"
+
+msgid "Download CSV"
+msgstr "CSV letöltése"
+
+msgid "Filter"
+msgstr "Szűrő"
+
+msgid "Apply filters"
+msgstr "Szűrés"
+
+msgid "Add comment"
+msgstr "Megjegyzés hozzáadása"
+
+msgid "Show filters"
+msgstr "Szűrők megjelenítése"
+
+msgid "Filter by"
+msgstr "Szűrés"
+
+msgid "Back"
+msgstr "Vissza"
+
+msgid "History"
+msgstr "Történet"
+
+msgid "Current page status:"
+msgstr "Oldal jelenlegi státusza:"
+
+msgid "Visit the live page"
+msgstr "Élő oldal megtekintése"
+
+msgid "Visible to all. Visit the live page"
+msgstr "Mindenkinek látható. Élő oldal megtekintése"
+
+msgid "Private. Visit the live page"
+msgstr "Privát. Élő oldal megtekintése"
+
+msgid "Visible to all"
+msgstr "Látható mindenkinek"
+
+msgid "Toggle section"
+msgstr "Szekció kapcsolása"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)s oldal %(revision.id)s verziója időzítésének visszavonása"
+
+msgid "Unschedule"
+msgstr "Időzítés visszavonása"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Biztosan visszavonja a verzió időzített megjelenítését?"
+
+msgid "Yes, unschedule"
+msgstr "Igen, visszavonom"
+
+msgid "No, don't unschedule"
+msgstr "Nem, mégsem vonom vissza"
+
+msgid "Other searches"
+msgstr "További keresések"
+
+msgid "Minimap"
+msgstr "Minitérkép"
+
+msgid "Side panels"
+msgstr "Oldalpanelek"
+
+msgid "Toggle side panel"
+msgstr "Oldalsáv kapcsolása"
+
+msgid "Side panel width"
+msgstr "Oldalpanel szélessége"
+
+msgid "Issues found"
+msgstr "Problémák találhatóak"
+
+msgid "Comment notifications"
+msgstr "Értesítések megjegyzésekről"
+
+msgid "Locale: "
+msgstr "Nyelv:"
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "%(translations_total)s nyelven elérhező"
+
+msgid "No other translations"
+msgstr "Nincs további fordítás"
+
+msgid "Switch locales"
+msgstr "Nyelv megváltoztatása"
+
+msgid "Locking: "
+msgstr "Zárolás:"
+
+msgid "Unlocked"
+msgstr "Megnyitott"
+
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Bárki szerkesztheti ezt a(z) %(model_name)startalmat. Zárolással meg lehet "
+"akadályozni, hogy mások módosítsák."
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Bárki szerkesztheti ezt a(z) %(model_name)s tartalmat"
+
+msgid "Lock"
+msgstr "Zárol"
+
+msgid "Page visibility: "
+msgstr "Oldal láthatósága:"
+
+msgid "Once live anyone can view"
+msgstr "Ha élő, látható mindenkinek"
+
+msgid "Not visible to the public"
+msgstr "Nem látható a közönség számára"
+
+msgid "Choose who can view the live version of this page"
+msgstr "Válassza ki, hogy kik nézhetik meg az oldal közzétett változatát"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"A láthatóság beállításai érvényesek lesznek az összes ez alatti tartalomra "
+"is."
+
+msgid "Usage"
+msgstr "Használat"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s helyen használva"
+msgstr[1] "%(usage_count)s helyen használva"
+
+msgid "Status: "
+msgstr "Státusz: "
+
+msgid "Expiry:"
+msgstr "Lejárat:"
+
+msgid "Edit schedule"
+msgstr "Időzítés szerkesztése"
+
+msgid "In Moderation"
+msgstr "Jóváhagyás alatt"
+
+msgid "View details"
+msgstr "Részletek megtekintése"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "létrehozó: %(user)s"
+
+msgid "View history"
+msgstr "Történet megtekintése"
+
+msgid "Invalid schedule"
+msgstr "Érvénytelen időzítés"
+
+msgid "Go-live:"
+msgstr "Megjelenés:"
+
+msgid "Once published:"
+msgstr "Egyszer közzétéve: "
+
+msgid "No publishing schedule set"
+msgstr "Nincs közzététel időzítve"
+
+msgid "Set schedule"
+msgstr "Időzítés beállítása"
+
+msgid "Preview in mobile size"
+msgstr "Előnézet okostelefon méretben"
+
+msgid "Preview in tablet size"
+msgstr "Előnézet tablet méretben"
+
+msgid "Preview in desktop size"
+msgstr "Előnézet monitor méretben"
+
+msgid "Preview in new tab"
+msgstr "Előnézet új fülben"
+
+msgid "Loading"
+msgstr "Betöltés"
+
+msgid "Preview is out of date"
+msgstr "Az előnézet már nem aktuális"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"Javítsa ki a hibákat az előnézet folytatásához (a mentés kiemeli a hibákat)"
+
+msgid "Preview mode"
+msgstr "Előnézet mód"
+
+msgid "First published"
+msgstr "Első közzététel időpontja"
+
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Erre a(z) %(model_name)s tartalomra %(usage_count)s hivatkozás van."
+msgstr[1] "Erre a(z) %(model_name)s tartalomra %(usage_count)s hivatkozás van."
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"Erre a(z) %(model_name)s tartalomra egy vagy több hivatkozás is található "
+"máshol, így nem törölhető."
+
+msgid "Edit / Review"
+msgstr "Szerkesztés / ellenőrzés"
+
+msgid "Workflow history"
+msgstr "Munkafolyamat történet"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Kérelmezte: <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Indítás ideje: <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "Státusz: %(status)s"
+
+msgid "Timeline"
+msgstr "Idővonal"
+
+msgid "Initial Revision"
+msgstr "Eredeti verzió"
+
+msgid "Edited"
+msgstr "Szerkesztve"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "%(action)s végrehajtva <b>%(who)s</b> által ekkor: <b>%(at)s</b>"
+
+#, python-format
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "%(action)s végrehajtva ekkor: <b>%(at)s</b>"
+
+msgid "with comment:"
+msgstr "ezzel a megjegyzéssel: "
+
+msgid "Workflow started"
+msgstr "Munkafolyamat elindult"
+
+msgid "Workflow completed"
+msgstr "Munkafolyamat befejeződött"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "%(action)s végrehajtva <b>%(who)s</b> által"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Munkamenet történet: %(title)s"
+
+msgid "Workflow history for"
+msgstr "Munkamenet történet: "
+
+msgid "Approved task"
+msgstr "Jóváhagyott feladat"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Az oldal még nem lett moderálásra küldve"
+
+#, python-format
+msgid "This %(model_name)s hasn't been submitted for moderation yet"
+msgstr "Ez a(z) %(model_name)s még nem lett beküldve moderálásra"
+
+msgid ""
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
+msgstr ""
+"A Wagtail használatához Javascript szükséges, de jelenleg ki van kapcsolva. "
+"<br />Itt megtalálja <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">a leírását annak, hogy hogyan "
+"engedélyezheti a Javascript futtatást böngészőjében</a>."
+
+msgid "Skip to main content"
+msgstr "Előre a fő tartalomig"
+
+msgid "View Wagtail quick actions"
+msgstr "Gyors akciók megtekintése"
+
+msgid "Accessibility"
+msgstr "Akadálymentesség"
+
+msgid "Warnings"
+msgstr "Figyelmeztetések"
+
+msgid "Add a child page"
+msgstr "Gyermek oldal hozzáadása"
+
+msgid "Show in Explorer"
+msgstr "Megtekintés az intézőben"
+
+#, python-format
+msgid ""
+"This workflow is currently in progress on %(workflow_states_in_progress)s "
+"pages. Deleting this workflow will cancel moderation on these page. Are you "
+"sure you want to delete this workflow?"
+msgstr ""
+"Ez a munkafolyamat %(workflow_states_in_progress)s oldalnál fut. Ha "
+"kikapcsolja ezt a munkafolyamatot, ezeken az oldalakon megszakad a moderálás."
+
+msgid "No"
+msgstr "Nem"
+
+msgid "Are you sure you want to disable this workflow?"
+msgstr "Biztosan ki akarja kapcsolni ezt a munkafolyamatot?"
+
+msgid "Yes, disable"
+msgstr "Igen, kikapcsolom"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "Biztosan ki akarja kapcsolni ezt a feladatot?"
+
+msgid "Assign your workflow to pages"
+msgstr "Munkafolyamat hozzárendelése oldalakhoz"
+
+msgid "Assign your workflow to snippets"
+msgstr "Munkamenet hozzárendelése elemekhez"
+
+msgid "Creating…"
+msgstr "Létrehozás folyamatban..."
+
+msgid "Create"
+msgstr "Létrehozás"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
+msgstr ""
+"A munkafolyamatok a gyermekoldalakra is vonatkoznak. Ha itt egy szülő oldalt "
+"választ, annak gyermekoldalai is ezt a munkafolyamatot fogják használni. A "
+"munkafolyamat alá tartozó <a href=\"%(workflow_pages_url)s\">oldalak "
+"listáját itt megtekinthei</a>."
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr ""
+"Ez a munkafolyamat ki van kapcsolva, így nem lehet oldalakhoz rendelni."
+
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr "Ez a munkafolyamat ki van kapcsolva, így nem lehet elemekhez rendelni."
+
+msgid "Used on the following active workflows"
+msgstr "A következő aktív munkafolyamatokban szerepel"
+
+msgid "Not used"
+msgstr "Nem szerepel"
+
+msgid "Disabled"
+msgstr "Kikapcsoltva"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+ %(counter)s további"
+msgstr[1] "+ %(counter)s további"
+
+msgid "Assigned pages"
+msgstr "Hozzárendelt oldalak"
+
+msgid "Page"
+msgstr "Oldal"
+
+msgid "Assign to another page"
+msgstr "Másik oldalhoz rendelés"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "%(step_number)s. lépés"
+
+#, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 oldal"
+msgstr[1] "%(counter)s oldal"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 elem típus"
+msgstr[1] "%(counter)s elem típus"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nincs még munkafolyamat létrehozva. Miért nem <a href=\"%(add_url)s\">ad "
+"hozzá egyet</a>?"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nincs engedélyezett munkafolyamat. Miért nem <a href=\"%(add_url)s\">ad "
+"hozzá egyet</a>?"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Kérjük válassza ki, hogy milyen feladat típust szeretne létrehozni."
+
+msgid "Choose a task"
+msgstr "Feladat kiválasztása"
+
+msgid "New"
+msgstr "Új"
+
+msgid "Existing"
+msgstr "Létező"
+
+msgid "Choose a different task type"
+msgstr "Másik feladat típus választása"
+
+msgid "Task type"
+msgstr "Feladat típusa"
+
+msgid "Used on"
+msgstr "Használva itt: "
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Sajnáljuk, de nincs ennek megfelelő feladat: \"<em>%(query_string)s</em>\""
+
+msgid "You haven't created any tasks."
+msgstr "Még nem hozott létre feladatot."
+
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
+msgstr ""
+"Miért nem <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>hoz "
+"létre egyet most</a>?"
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nincs még feladat létrehozva. Miért nem <a href=\"%(add_url)s\">ad hozzá "
+"egyet</a>?"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nincs még engedélyezett feladat. Miért nem <a href=\"%(add_url)s\">ad hozzá "
+"egyet</a>?"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "A(z) '%(name)s' munkafolyamatot használó oldalak"
+
+msgid "Pages that use workflow"
+msgstr "Munkafolyamatot használó oldalak"
+
+msgid "Submitted"
+msgstr "Beküldve"
+
+msgid "Not started"
+msgstr "Nincs elindítva"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "%(requested_by)s által kért változtatások"
+
+msgid "Changes requested"
+msgstr "Változtatás kérve"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "%(approved_by)s jóváhagyta"
+
+msgid "Published"
+msgstr "Közzétéve"
+
+msgid "See full history"
+msgstr "Teljes történet megtekintése"
+
+msgid "More"
+msgstr "Tovább"
+
+msgid "More bulk actions"
+msgstr "További tömeges akciók"
+
+msgid "0 minutes"
+msgstr "0 perc"
+
+msgid "just now"
+msgstr "épp most"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s "
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "%(user_display_name)s ekkor: %(time)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "ekkor: %(time)s"
+
+#, python-format
+msgid "%(time)s by %(user_display_name)s"
+msgstr "%(user_display_name)s ekkor: %(time)s"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(user_display_name)s %(time_period)s"
+
+msgid "Log out"
+msgstr "Kijelentkezés"
+
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "Változtatások kérése ekkor: %(finished_at)s"
+
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "%(task_name)s lépésben %(started_at)s óta"
+
+#, python-format
+msgid "%(status_display)s %(task_name)s %(started_at)s"
+msgstr "%(status_display)s%(task_name)s%(started_at)s"
+
+msgid "Undo"
+msgstr "Visszavonás"
+
+msgid "Redo"
+msgstr "Újra"
+
+msgid "Bold"
+msgstr "Félkövér"
+
+msgid "Italic"
+msgstr "Dőlt"
+
+msgid "Superscript"
+msgstr "Felső index"
+
+msgid "Subscript"
+msgstr "Alsó index"
+
+msgid "Toggle status"
+msgstr "Státusz átállítása"
+
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Hivatkozva %(count)s alkalommal"
+msgstr[1] "Hivatkozva %(count)s alkalommal"
+
+msgid "Toggle comments"
+msgstr "Megjegyzések átállítása"
+
+msgid "Comments"
+msgstr "Megjegyzések"
+
+msgid "Toggle checks"
+msgstr "Ellenőrzések kapcsolása"
+
+msgid "Checks"
+msgstr "Ellenőrzések"
+
+msgid "Toggle preview"
+msgstr "Előnézet kapcsolása"
+
+#, python-format
+msgid "Sort by '%(label)s' in ascending order."
+msgstr "Rendezés '%(label)s' szerint növekvő sorrendben."
+
+#, python-format
+msgid "Sort by '%(label)s' in descending order."
+msgstr "Rendezés '%(label)s' szerint csökkenő sorrendben."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"A(z) '%(parent)s' oldal alá tartozó gyermekoldalak sorbarendezése "
+"'%(label)s' alapján növekvő sorrendbe."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"A(z) '%(parent)s' oldal alá tartozó gyermekoldalak sorbarendezése "
+"'%(label)s' alapján csökkenő sorrendbe."
+
+msgid "Button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"A gomb szövege üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
+"használói számára."
+
+msgid "Empty heading found. Use meaningful text for screen reader users."
+msgstr ""
+"Egy címsor üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
+"használói számára."
+
+msgid ""
+"Table header text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Táblázat fejléc szövege üres. Kérjük adjon meg egy rövid leírást a "
+"felolvasóprogramok használói számára."
+
+msgid ""
+"Empty frame title found. Use a meaningful title for screen reader users."
+msgstr ""
+"A beágyazás címe üres. Kérjük adjon meg egy rövid leírást a "
+"felolvasóprogramok használói számára."
+
+msgid "Incorrect heading hierarchy. Avoid skipping levels."
+msgstr "Érvénytelen címsor hierarchia. Kérjük kerülje a szintek átlépését."
+
+msgid ""
+"Input button text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"A gomb szövege üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
+"használói számára."
+
+msgid "Link text is empty. Use meaningful text for screen reader users."
+msgstr ""
+"Link szövege üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
+"használói számára."
+
+msgid "Misusing paragraphs as headings. Use proper heading tags."
+msgstr ""
+"Bekezdések használata címsorként. Kérjük használja a megfelelő címsor "
+"típusokat."
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Notifications"
+msgstr "Értesítések"
+
+msgid "Name and Email"
+msgstr "Név és e-mail-cím"
+
+msgid "Profile picture"
+msgstr "Profilkép"
+
+msgid "Theme preferences"
+msgstr "Téma beállítások"
+
+msgid "Password"
+msgstr "Jelszó"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "A fiók beállításainak mentése sikeres volt!"
+
+msgid "You have been successfully logged out."
+msgstr "A kijelentkezés sikeres volt."
+
+msgid "Collections"
+msgstr "Gyűjtemények"
+
+msgid "Add a collection"
+msgstr "Gyűjtemény létrehozása"
+
+msgid "Add collection"
+msgstr "Gyűjtemény létrehozása"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr " Gyűjtemény létrehozva: '%(object)s'."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Gyűjtemény frissítve: '%(object)s'."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Hiba történt a gyűjtemény mentése során."
+
+msgid "Delete collection"
+msgstr "Gyűjtemény törlése"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Gyűjtemény törölve: '%(object)s'."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Biztosan törli a gyűjteményt?"
+
+msgid "Home"
+msgstr "Nyitólap"
+
+msgid "Live version"
+msgstr "Élő verzió"
+
+msgid "Current draft"
+msgstr "Jelenlegi vázlat"
+
+msgid "Review this version"
+msgstr "Verzió ellenőrzése"
+
+msgid "Compare with current version"
+msgstr "Összehasonlítás a jelenlegi verzióval"
+
+msgid "Cancel scheduled publish"
+msgstr "Időzített közzététel visszavonása"
+
+msgid "Workflow progress"
+msgstr "Munkafolyamat állapot"
+
+#, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "'%(title)s' %(model_name)szárolása fel lett oldva."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "A(z) %(model_name)s mentése nem sikerült, mert zárolva van."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s'%(object)s' frissítve."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' létrehozva."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "'%(object)s' %(model_name)s időzítve."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "'%(object)s' %(model_name)s létrehozva és időzítve."
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr "'%(object)s' %(model_name)s közzétéve, és ez a verzió időzítve van."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "'%(object)s' %(model_name)s frissítve és közzétéve."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "'%(object)s' %(model_name)s létrehozva és közzétéve."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been submitted for moderation."
+msgstr "'%(object)s' %(model_name)sbenyújtva moderálásra."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and submitted for moderation."
+msgstr "'%(object)s' %(model_name)slétrehozva és benyújtva moderálásra."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been restarted."
+msgstr ""
+"A munkafolyamat a(z) '%(object)s' %(model_name)s esetén újra lett indítva."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
+msgstr ""
+"A munkafolyamat a(z) '%(object)s' %(model_name)s esetén meg lett szakítva."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
+msgstr ""
+"A(z) %(model_name)s egy korábbi verzióját látja, amelyet %(user)s készített "
+"ekkor: <b>%(created_at)s</b>"
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' has been replaced with version from "
+"%(timestamp)s."
+msgstr ""
+"A(z) '%(object)s' %(model_name)s le lett cserélve a %(timestamp)s időpontban "
+"szerkesztett verzióval."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
+msgstr ""
+"A(z) '%(object)s' %(model_name)s  %(timestamp)s időpontban szerkesztett "
+"verziója közzé lett téve."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "
+"for publishing."
+msgstr ""
+"A(z) '%(object)s' %(model_name)s %(timestamp)s időpontban szerkesztett "
+"verziója időzítve lett."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' szerkesztése"
+
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "'%(title)s' másolása"
+
+msgid "Inspect"
+msgstr "Vizsgálat"
+
+#, python-format
+msgid "Inspect '%(title)s'"
+msgstr "'%(title)s' vizsgálata"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "'%(title)s' törlése"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "'%(title)s' további lehetőségei"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s hozzáadása"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "%(model_name)s létrehozása hibák miatt sikertelen"
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "Új: %(model_name)s"
+
+msgid "Editing"
+msgstr "Szerkesztés"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "'%(model_name)s' mentése hibák miatt sikertelen."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' törölve."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "Biztosan törölni kívánja ezt a(z) %(model_name)s tartalmat?"
+
+msgid "Inspecting"
+msgstr "Vizsgálat"
+
+msgid "Earliest"
+msgstr "Legkorábbi"
+
+msgid "Latest"
+msgstr "Legkésőbbi"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' visszavonva."
+
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "'%(object)s' %(revision_id)s verziójának időzítése visszavonva."
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "\"%(object)s\" %(revision_id)s verziója"
+
+msgid "If you confirm deletion"
+msgstr "Ha megerősíti a törlést"
+
+msgid "Field"
+msgstr "Mező"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(Privát %(object)s)"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s szerkesztése"
+
+#, python-format
+msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."
+msgstr "A(z) '%(title)s' %(model_name)s jelenleg nem vár moderálásra."
+
+#, python-format
+msgid ""
+"The %(model_name)s '%(title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"A(z) '%(title)s' %(model_name)s jelenleg nem vár moderálásra a(z) "
+"'%(task_name)s' feladatban."
+
+msgid "Dashboard"
+msgstr "Műszerfal"
+
+msgid "Delete selected pages"
+msgstr "Kiválasztott oldalak törlése"
+
+msgid "1 page has been deleted"
+msgstr "1 oldal törölve lett"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "1 oldal és %(num_child_objects)d aloldala törölve lett"
+msgstr[1] "1 oldal és %(num_child_objects)daloldala törölve lett"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d oldal törölve lett"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"%(num_parent_objects)d oldal, és %(num_child_objects)d aloldal törölve lett"
+msgstr[1] ""
+"%(num_parent_objects)d oldal, és %(num_child_objects)d aloldal törölve lett"
+
+msgid "Select a new parent page"
+msgstr "Új szülő oldal kiválasztása"
+
+msgid "Move selected pages"
+msgstr "Kiválasztott oldalak átmozgatása"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d oldal átmozgatva"
+msgstr[1] "%(num_pages)d oldal átmozgatva"
+
+msgid "Publish selected pages"
+msgstr "Kiválasztott oldalak közzététele"
+
+msgid "1 page has been published"
+msgstr "1 oldal közzétéve"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "1 oldal és %(num_child_objects)d aloldal közzétéve"
+msgstr[1] "1 oldal és %(num_child_objects)d aloldal közzétéve"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d oldal közzétéve"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal közzétéve"
+msgstr[1] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal közzétéve"
+
+msgid "Unpublish selected pages"
+msgstr "Kiválasztott oldalak visszavonása"
+
+msgid "1 page has been unpublished"
+msgstr "1 oldal visszavonva"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] "1 oldal és %(num_child_objects)d aloldal visszavonva"
+msgstr[1] "1 oldal és %(num_child_objects)d aloldal visszavonva"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d oldal visszavonva"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
+msgstr[1] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
+
+#, python-format
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "A(z) '%(page_title)s' oldal hagyományos oldallá lett konvertálva."
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "'%(page_title)s' oldal és %(subpages_count)s aloldal átmásolva."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "'%(page_title)s' oldal átmásolva."
+
+msgid "View draft"
+msgstr "Vázlat megtekintése"
+
+msgid "View live"
+msgstr "Megtekintés az oldalon"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "'%(page_title)s' oldal létrehozva."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "A(z) '%(page_title)s' oldal letrehozva, közzététele időzítve."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr " '%(page_title)s' létrehozva és közzétéve."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr " '%(page_title)s' be lett nyújtva moderálásra."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Az oldal nem jött létre az űrlapon található hibák miatt"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "'%(page_title)s' oldal törölve."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s szerkesztése"
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"A(z) '%(page_title)s' oldal le lett cserélve a "
+"%(previous_revision_datetime)s által szerkesztett verzióra."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "'%(page_title)s' oldal frissítve."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "A munkafolyamat a(z) '%(page_title)s' oldalon esetén megszakadt."
+
+#, python-format
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"A(z) '%(page_title)s' oldal %(previous_revision_datetime)s által készített "
+"verziójának közzététele időzítve lett."
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"A(z) '%(page_title)s' oldal élő, és ezen verzió közzététele időzítve lett."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "'%(page_title)s' oldal közzététele időzítve."
+
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr ""
+"A(z) '%(page_title)s' oldal %(datetime)s által szerkesztett verziója közzé "
+"lett téve."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "'%(page_title)s' oldal közzétéve."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "'%(page_title)s' be lett nyújtva moderálásra."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "A munkafolyamat a(z) '%(page_title)s' oldal esetén újra lett indítva."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Az oldal mentése nem sikerült, mert zárolva van."
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
+
+msgid "Date updated"
+msgstr "Frissítés dátuma"
+
+msgid "Owner"
+msgstr "Létrehozó"
+
+msgid "Edited by"
+msgstr "Szerkesztette"
+
+msgid "Site"
+msgstr "Weboldal"
+
+msgid "Has child pages"
+msgstr "Vannak gyermekoldalai"
+
+msgid "Any"
+msgstr "Bármelyik"
+
+msgid "Yes"
+msgstr "Igen"
+
+msgid "Page type"
+msgstr "Oldal típusa"
+
+msgid "Exploring"
+msgstr "Felfedezés"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Fókuszáljon a fogd-és-vidd ikonra, majd a fel/le nyilak segítségével "
+"mozgassa az elemet, majd nyomjon entert a változtatások mentéséhez."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "'%(page_title)s' mozgatása sikeres volt."
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "'%(page_title)s' oldal zárolása fel lett oldva."
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
+msgstr ""
+"A '%(page_slug)s' domain-darabka már használatban van a kiválasztott "
+"szülőoldalon. Győződjön meg róla, hogy a rövidítés egyedi, és próbálja újra."
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "'%(page_title)s' oldal átmozgatva."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Az oldal egy korábbi verzióját látja, amelyet %(user)s készített ekkor: "
+"<b>%(created_at)s</b>"
+
+msgid "Page history"
+msgstr "Oldaltörténet"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "'%(page_title)s' oldal visszavonva."
+
+msgid "Pages using"
+msgstr "Oldalak, amik használják "
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "'%(page_title)s' oldal jelenleg nem vár moderálásra."
+
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"A(z) '%(page_title)s' oldal jelenleg nem vár moderálásra a(z) "
+"'%(task_name)s' feladatban."
+
+msgid "Last published before"
+msgstr "Utolsó közzététel ezelőtt"
+
+msgid "Aging pages"
+msgstr "Régi oldalak"
+
+msgid "Last published at"
+msgstr "Utolsó közzététel ideje"
+
+msgid "Hide commenting actions"
+msgstr "Megjegyzés akciók elrejtése"
+
+msgid "Site history"
+msgstr "Weboldal történet"
+
+msgid "ID"
+msgstr "Azonosító"
+
+msgid "Action type"
+msgstr "Akció típusa"
+
+msgid "Date/Time"
+msgstr "Dátum/idő"
+
+msgid "Locked pages"
+msgstr "Zárolt oldalak"
+
+msgid "Page types usage"
+msgstr "Oldaltípus használat"
+
+msgid "Show"
+msgstr "Megtekintés"
+
+msgid "Awaiting my review"
+msgstr "Átnézésre vár"
+
+msgid "Workflows"
+msgstr "Munkafolyamatok"
+
+msgid "Page/Snippet ID"
+msgstr "Oldal/elem azonosító"
+
+msgid "Page/Snippet Type"
+msgstr "Oldal/elem típusa"
+
+msgid "Page/Snippet Title"
+msgstr "Oldal/elem címe"
+
+msgid "Workflow tasks"
+msgstr "Munkafolyamat feladatok"
+
+msgid "Requested By"
+msgstr "Kérelmezte: "
+
+msgid "Add a workflow"
+msgstr "Munkafolyamat hozzáadása"
+
+msgid "Used by"
+msgstr "Ezek használják: "
+
+msgid "New workflow"
+msgstr "Új munkafolyamat"
+
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "'%(object)s' munkafolyamat létrehozva."
+
+msgid "Editing workflow"
+msgstr "Munkafolyamat szerkesztése"
+
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "'%(object)s' munkafolyamat frissítve."
+
+msgid "Disable"
+msgstr "Kikapcsol"
+
+msgid "Enable"
+msgstr "Bekapcsol"
+
+msgid "Disable workflow"
+msgstr "Munkafolyamat kikapcsolása"
+
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "'%(object)s' munkafolyamat kikapcsolva."
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"Ez a munkafolyamat %(states_in_progress)d tartalom esetén fut. Ha "
+"kikapcsolja ezt a munkafolyamatot, ezeken a tartalmakon megszakad a "
+"moderálás."
+msgstr[1] ""
+"Ez a munkafolyamat %(states_in_progress)d tartalom esetén fut. Ha "
+"kikapcsolja ezt a munkafolyamatot, ezeken a tartalmakon megszakad a "
+"moderálás."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "'%(workflow_name)s' munkafolyamat bekapcsolva."
+
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "A munkafolyamat el lett távolítva erről az oldalról: '%(page_title)s'."
+
+msgid "New workflow task"
+msgstr "Új munkafolyamat feladat"
+
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "'%(object)s' feladat létrehozva."
+
+msgid "Editing workflow task"
+msgstr "Munkafolyamat feladat szerkesztése"
+
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "'%(object)s' feladat frissítve."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s szerkesztése"
+
+msgid "Disable task"
+msgstr "Feladat kikapcsolása"
+
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "'%(object)s' feladat kikapcsolva."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Ez a feladat épp folyamatban van %(states_in_progress)d tartalom esetén. A "
+"feladat kikapcsolása esetén a munkafolyamatban ez át lesz lépve, és a "
+"munkamenet szerkesztésekor sem lesz kiválasztható."
+msgstr[1] ""
+"Ez a feladat épp folyamatban van %(states_in_progress)d tartalom esetén. A "
+"feladat kikapcsolása esetén a munkafolyamatban ez át lesz lépve, és a "
+"munkamenet szerkesztésekor sem lesz kiválasztható."
+
+#, python-format
+msgid "Task '%(task_name)s' enabled."
+msgstr "'%(task_name)s' feladat bekapcsolva."
+
+msgid "Choose another"
+msgstr "Másik kiválasztása"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "'%(title)s' vázlatának előnézete"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "'%(title)s' élő változatának előnézete"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "'%(title)s' oldal mozgatása"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "'%(title)s' oldal másolása"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "'%(title)s' oldal törlése"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "'%(title)s' oldal visszavonása"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "'%(title)s' oldal története"
+
+msgid "Sort menu order"
+msgstr "Menü sorrend rendezése"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Fejléc %(level)d"
+
+msgid "Bulleted list"
+msgstr "Lista"
+
+msgid "Numbered list"
+msgstr "Sorszámozott lista"
+
+msgid "Blockquote"
+msgstr "Idézet"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Strikethrough"
+msgstr "Áthúzott"
+
+msgid "Code"
+msgstr "Kód"
+
+msgid "Reports"
+msgstr "Kimutatások"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Újdonságok a Wagtail %(version)s verzióban"
+
+msgid "Editor Guide"
+msgstr "Szerkesztők Kézikönyve (Angol)"
+
+msgid "Help"
+msgstr "Segítség"
+
+msgid "Choose an item"
+msgstr "Elem kiválasztása"
+
+msgid "Choose another item"
+msgstr "Másik elem kiválasztása"
+
+msgid "Clear choice"
+msgstr "Kiválasztás törlése"
+
+msgid "Choose another page"
+msgstr "Másik oldal választása"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"A többszavas címkék, amelyekben szóköz van, automatikusan idézőjelek (\") "
+"közé kerülnek."
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "A címkék csak egy szóból állhatnak, szóköz nem lehet bennük."
+
+msgid "Choose another task"
+msgstr "Másik feladat kiválasztása"
+
+msgid "Edit this task"
+msgstr "Feladat szerkesztése"

@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022,2024
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2021-2022,2024\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtailin taulukkolohko"
+
+msgid "Row header"
+msgstr "Riviotsikko"
+
+msgid "Table headers"
+msgstr "Taulukon otsikot"
+
+msgid "Display the first row as a header"
+msgstr "Näytä ensimmäinen rivi otsikkona"
+
+msgid "Display the first column as a header"
+msgstr "Näytä ensimmäinen sarake otsikkona"
+
+msgid "Column header"
+msgstr "Sarakeotsikko"
+
+msgid "Display the first row AND first column as headers"
+msgstr "Näytä ensimmäinen rivi JA ensimmäinen sarake otsikkoina"
+
+msgid "No headers"
+msgstr "Ei otsikoita"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Mitkä solut näytetään otsikkoina?"
+
+msgid "Table caption"
+msgstr "Taulukon otsikko"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Otsikko, joka ilmaisee taulukon aiheen ja hyödyttää ruudunlukijaohjelmien "
+"käyttäjiä"
+
+msgid "Table"
+msgstr "Taulukko"

@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{# Comment Notifications Toggle  #}
+{% if form.show_comments_toggle %}
+    <div class="w-relative w-flex w-justify-end w-mt-1 w-ml-8" data-comment-notifications hidden>
+        <label class="switch w-p-0 w-m-0 w-font-normal w-flex w-justify-between w-text-14 w-space-x-2">
+            {% trans "Comment notifications" %}
+            {{ form.comment_notifications }}
+            <span class="switch__toggle"></span>
+        </label>
+    </div>
+{% endif %}
+
+<div id="comments"></div>

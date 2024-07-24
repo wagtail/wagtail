@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend Eelmets <debcf78e@opayq.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
+"Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
+"et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail otsingu kuulutamised"
+
+msgid "Search term(s)/phrase"
+msgstr "Otsingutermin (id) / fraas"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Sisestage kogu otsingustring sobitamiseks. Teie reklaamitud tulemuste "
+"kuvamiseks on vajalik täpne vaste, metamärke EI lubata."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Palun täpsustage vähemalt üks otsingu termin."
+
+msgid "Query Daily Hits"
+msgstr "Päringu Igapäevased Kordused"
+
+msgid "page"
+msgstr "leht"
+
+msgid "description"
+msgstr "kirjeldus"
+
+msgid "search promotion"
+msgstr "otsingu kuulutamine"
+
+msgid "Add search promotion"
+msgstr "Lisa otsingu kuulutus"
+
+msgid "Add search pick"
+msgstr "Lisa otsingu valik"
+
+msgid "Save"
+msgstr "Salvesta"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Kustuta %(query)s"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Kas soovite kindlasti kustutada selle otsingutermini kõik reklaamitud "
+"tulemused?"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Muudan %(query)s"
+
+msgid "Editing"
+msgstr "Muutmine"
+
+msgid "Move up"
+msgstr "Mine üles"
+
+msgid "Move down"
+msgstr "Mine alla"
+
+msgid "Promoted search results"
+msgstr "Reklaamitud otsingutulemus"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+" Vabandust, mitte ükski reklaamitud tulemus ei sobi \"<em>%(query_string)s</"
+"em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+" Reklaamitud tulemusi pole loodud. Lisa <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">üks</a>?"
+
+msgid "Popular search terms"
+msgstr "Populaarsed otsinguterminid"
+
+msgid "Search"
+msgstr "Otsing"
+
+msgid "Terms"
+msgstr "Terminid"
+
+msgid "Views (past week)"
+msgstr "Vaatamised (eelmine nädal)"
+
+msgid "No results found"
+msgstr "Tulemusi ei leitud"
+
+msgid "Choose from popular search terms"
+msgstr "Valige populaarsete otsinguterminite hulgast"
+
+msgid "External link"
+msgstr "Väline link"
+
+msgid "None"
+msgstr "mitte ühtegi"
+
+msgid "Search Terms"
+msgstr "Otsinguterminid"
+
+msgid "Add new promoted result"
+msgstr "Lisa uus reklaamitud otsingutulemus"
+
+msgid "Search term(s)"
+msgstr "Otsingutermin(id)"
+
+msgid "Promoted results"
+msgstr "Reklaamitud tulemused"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Toimetaja valikud '%(query)s' jaoks loodi."
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Soovitusi ei loodud vigade tõttu."
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Toimetaja valikud '%(query)s' jaoks uuendati."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Soovitusi ei salvestatud vigade tõttu."
+
+msgid "Editor's picks deleted."
+msgstr " Toimetaja valikud kustutatud."

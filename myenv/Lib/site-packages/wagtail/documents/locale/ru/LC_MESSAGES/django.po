@@ -1,0 +1,432 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Alexander Penshin <apenshin@gmail.com>, 2018
+# Andrei Satsevich, 2024
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
+# Eugene <eugene.mechanism@gmail.com>, 2017
+# Eugene <eugene.mechanism@gmail.com>, 2014-2016
+# Eugene <eugene.mechanism@gmail.com>, 2017
+# Никита Викторович <hnknta@gmail.com>, 2014
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015
+# Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
+# Влад <integration.into.society@gmail.com>, 2022
+# Виктор Виктор <spam.vitek@gmail.com>, 2020
+# Влад <integration.into.society@gmail.com>, 2022
+# Михаил Герасимов, 2019
+# Михаил Герасимов, 2019
+# Никита Викторович <hnknta@gmail.com>, 2014
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Andrei Satsevich, 2024\n"
+"Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
+"ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail documents"
+msgstr "Документы Wagtail"
+
+msgid "Collection"
+msgstr "Коллекция"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add/edit documents you own"
+msgstr "Добавить/редактировать свои документы"
+
+msgid "Edit"
+msgstr "Править"
+
+msgid "Edit any document"
+msgstr "Редактировать любой документ"
+
+msgid "Choose"
+msgstr "Выберите"
+
+msgid "Select documents in choosers"
+msgstr "Укажите документ в выбранном"
+
+msgid "title"
+msgstr "заголовок"
+
+msgid "file"
+msgstr "файл"
+
+msgid "created at"
+msgstr "создано"
+
+msgid "uploaded by user"
+msgstr "загружено пользователем"
+
+msgid "tags"
+msgstr "теги"
+
+msgid "document"
+msgstr "документ"
+
+msgid "documents"
+msgstr "документы"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Добавить теги к 1 документу"
+msgstr[1] "Добавить теги к %(counter)s документам"
+msgstr[2] "Добавить теги к %(counter)s документам"
+msgstr[3] "Добавить теги к %(counter)s документам"
+
+msgid "Add tags to documents"
+msgstr "Добавить теги к документам"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Вы уверены, что хотите пометить этот документ?"
+msgstr[1] "Вы уверены, что хотите пометить следующие документы?"
+msgstr[2] "Вы уверены, что хотите пометить следующие документы?"
+msgstr[3] "Вы уверены, что хотите пометить следующие документы?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "У вас недостаточно прав для добавления тегов к этому документу"
+msgstr[1] "У вас недостаточно прав для добавления тегов к этим документам"
+msgstr[2] "У вас недостаточно прав для добавления тегов к этим документам"
+msgstr[3] "У вас недостаточно прав для добавления тегов к этим документам"
+
+msgid "Yes, add"
+msgstr "Да, добавить"
+
+msgid "No, don't add"
+msgstr "Нет, не добавлять"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Добавить 1 документ в новую коллекцию"
+msgstr[1] "Добавить %(counter)s документы в новую коллекцию"
+msgstr[2] "Добавить %(counter)s документы в новую коллекцию"
+msgstr[3] "Добавить %(counter)s документы в новую коллекцию"
+
+msgid "Add documents to collection"
+msgstr "Добавить документы в коллекцию"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Вы уверены, что хотите добавить следующий документ в выбранную коллекцию?"
+msgstr[1] ""
+"Вы уверены, что хотите добавить следующие документы в выбранную коллекцию?"
+msgstr[2] ""
+"Вы уверены, что хотите добавить следующие документы в выбранную коллекцию?"
+msgstr[3] ""
+"Вы уверены, что хотите добавить следующие документы в выбранную коллекцию?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "У вас недостаточно прав для добавления этого документа в коллекцию"
+msgstr[1] "У вас недостаточно прав для добавления этих документов в коллекцию"
+msgstr[2] "У вас недостаточно прав для добавления этих документов в коллекцию"
+msgstr[3] "У вас недостаточно прав для добавления этих документов в коллекцию"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Удалить 1 документ"
+msgstr[1] "Удалить %(counter)s документов"
+msgstr[2] "Удалить %(counter)s документов"
+msgstr[3] "Удалить %(counter)s документов"
+
+msgid "Delete documents"
+msgstr "Удалить документы"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Вы уверены, что хотите удалить этот документ?"
+msgstr[1] "Вы уверены, что хотите удалить эти документы?"
+msgstr[2] "Вы уверены, что хотите удалить эти документы?"
+msgstr[3] "Вы уверены, что хотите удалить эти документы?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использован %(usage_count)s раз."
+msgstr[1] "Использован %(usage_count)s раз."
+msgstr[2] "Использован %(usage_count)s раз."
+msgstr[3] "Использован %(usage_count)s раз."
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "У вас недостаточно прав для удаления этого документа"
+msgstr[1] "У вас недостаточно прав для удаления этих документов"
+msgstr[2] "У вас недостаточно прав для удаления этих документов"
+msgstr[3] "У вас недостаточно прав для удаления этих документов"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
+msgid "Latest documents"
+msgstr "Последние документы"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr ""
+"К сожалению, нет документов, соответствующих запросу \"<em>%(search_query)s</"
+"em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Вы не загрузили документы в эту коллекцию."
+
+msgid "You haven't uploaded any documents."
+msgstr "Вы не загрузили каких-либо документов."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Почему бы не <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>загрузить один сейчас</a>?"
+
+msgid "Change document:"
+msgstr "Изменить документ:"
+
+msgid "Add a document"
+msgstr "Добавить документ"
+
+msgid "Add document"
+msgstr "Добавить документ"
+
+msgid "Uploading…"
+msgstr "Загрузка..."
+
+msgid "Upload"
+msgstr "Загрузка"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Редактирование %(title)s"
+
+msgid "Editing"
+msgstr "Редактирование"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Delete document"
+msgstr "Удалить документ"
+
+msgid "Filesize"
+msgstr "Размер файла"
+
+msgid "File not found"
+msgstr "Файл не найден"
+
+msgid "Usage"
+msgstr "Использование"
+
+msgid "Select all documents in listing"
+msgstr "Выбрать все документы из списка"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Извините, подходящих документов не найдено \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы еще не загрузили ни одного документа в эту коллекцию. Почему бы не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы еще не загрузили ни одного документа. Почему бы не <a "
+"href=\"%(wagtaildocs_add_document_url)s\">сделать это сейчас</a>?"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span>Документ<span class=\"w-sr-only\">создан на "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> Документа <span class=\"w-sr-only\"> создано на "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span>Документов <span class=\"w-sr-only\">создано на "
+"%(site_name)s</span>"
+msgstr[3] ""
+"<span>%(total)s</span> Документов <span class=\"w-sr-only\">создано на "
+"%(site_name)s</span>"
+
+msgid "Add multiple documents"
+msgstr "Добавить несколько документов"
+
+msgid "Add documents"
+msgstr "Добавить документы"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Перетяните документы в эту область для немедленной загрузки."
+
+msgid "Or choose from your computer"
+msgstr "Или выберите на вашем компьютере"
+
+msgid "Add to collection:"
+msgstr "Добавить в коллекцию:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Загрузка успешна. Пожалуйста, обновите заголовок для этого документа на "
+"более подходящий, если это необходимо. Также вы можете полностью удалить "
+"документ, если его загрузка не требовалась."
+
+msgid "Sorry, upload failed."
+msgstr "Извините, загрузка не удалась."
+
+msgid "Document updated."
+msgstr "Документ обновлен."
+
+msgid "You need a password to access this document."
+msgstr "Вы должны ввести пароль, чтобы получить доступ к этому документу."
+
+msgid "Document permissions"
+msgstr "Доступ к документу"
+
+msgid "Add a document permission"
+msgstr "Добавить права доступа к документу"
+
+msgid "Tags"
+msgstr "Теги"
+
+msgid "Tag"
+msgstr "Тег"
+
+msgid "Add tags to the selected documents"
+msgstr "Добавить теги к выбранным документам"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Новые теги были добавлены к %(num_parent_objects)d документу"
+msgstr[1] "Новые теги были добавлены к %(num_parent_objects)d документам"
+msgstr[2] "Новые теги были добавлены к %(num_parent_objects)d документам"
+msgstr[3] "Новые теги были добавлены к %(num_parent_objects)d документам"
+
+msgid "Add to collection"
+msgstr "Добавить в коллекцию"
+
+msgid "Add selected documents to collection"
+msgstr "Добавить выбранные документы в коллекцию"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d документ был добавлен в %(collection)s"
+msgstr[1] "%(num_parent_objects)d документы были добавлены в %(collection)s"
+msgstr[2] "%(num_parent_objects)d документы были добавлены в %(collection)s"
+msgstr[3] "%(num_parent_objects)d документы были добавлены в %(collection)s"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete selected documents"
+msgstr "Удалить выбранные документы"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d документ был удален"
+msgstr[1] "%(num_parent_objects)d документов было удалено"
+msgstr[2] "%(num_parent_objects)d документов было удалено"
+msgstr[3] "%(num_parent_objects)d документов было удалено"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Created"
+msgstr "Создан"
+
+msgid "Choose a document"
+msgstr "Выберите документ"
+
+msgid "Choose another document"
+msgstr "Выбрать другой документ"
+
+msgid "Edit this document"
+msgstr "Редактировать этот документ"
+
+msgid "Documents"
+msgstr "Документы"
+
+msgid "Title"
+msgstr "Заголовок"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Документ '%(document_title)s' добавлен."
+
+msgid "The document could not be saved due to errors."
+msgstr "Документ не может быть сохранен из-за ошибок."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Документ '%(document_title)s' обновлен"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
+"документ"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Документ '%(document_title)s' удален."
+
+msgid "Document"
+msgstr "Документ"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s документ"
+msgstr[1] "%(count)s документа"
+msgstr[2] "%(count)s документов"
+msgstr[3] "%(count)s документов"

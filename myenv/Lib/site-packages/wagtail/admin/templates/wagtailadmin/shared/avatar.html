@@ -1,0 +1,21 @@
+{% load wagtailadmin_tags %}
+{% comment "text/markdown" %}
+    Displays a user avatar using the avatar template
+    Variables this template accepts:
+
+    - `classname` - if present, adds classname to the root class list
+    - `user` - A user object to use for the avatar image
+    - `size` (string?) - small, large, square
+    - `tooltip` (string?) - Modifier classes
+{% endcomment %}
+<span class='{% classnames "avatar" size classname %}' {% if tooltip %} data-controller="w-tooltip" data-w-tooltip-content-value="{{ tooltip }}" {% endif %}>
+    {% if size == 'small' %}
+        <img src="{% avatar_url user size=25 %}" alt="" decoding="async" loading="lazy"/>
+    {% elif size == 'large' %}
+        <img src="{% avatar_url user size=100 %}" alt="" decoding="async" loading="lazy"/>
+    {% elif size == 'square' %}
+        <img src="{% avatar_url user %}" alt="" decoding="async" loading="lazy"/>
+    {% else %}
+        <img src="{% avatar_url user %}" alt="" decoding="async" loading="lazy"/>
+    {% endif %}
+</span>

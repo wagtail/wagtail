@@ -1,0 +1,455 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Aarni Koskela, 2016
+# Aarni Koskela, 2016
+# Eetu Häivälä, 2016-2017
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
+"Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
+"fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtailin käyttäjät"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "Vaadittu. Vain kirjaimia, numeroita ja merkkejä @/./+/-/_."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Arvo voi sisältää ainoastaan kirjaimia, numeroita ja @/./+/-/_ -"
+"erikoismerkkejä."
+
+msgid "A user with that username already exists."
+msgstr "Käyttäjä tällä käyttäjänimellä on jo olemassa."
+
+msgid "The two password fields didn't match."
+msgstr "Salasanakentät eivät täsmää."
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "First Name"
+msgstr "Etunimi"
+
+msgid "Last Name"
+msgstr "Sukunimi"
+
+msgid "Password"
+msgstr "Salasana"
+
+msgid "Leave blank if not changing."
+msgstr "Jätä tyhjäksi jos ei muutettavaa."
+
+msgid "Password confirmation"
+msgstr "Salasanan vahvistus"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Syötä sama salasana tarkistuksen vuoksi toistamiseen."
+
+msgid "Administrator"
+msgstr "Ylläpitäjä"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Ylläpitäjät voivat hallita mitä tahansa kohdetta tai asetusta."
+
+msgid "A group with that name already exists."
+msgstr "Samanniminen ryhmä on jo olemassa."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Samalle sivulle ei voi olla useampaa pääsylupatietuetta."
+
+msgid "submitted notifications"
+msgstr "lähetysilmoitukset"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Vastaanota ilmoituksia kun sivu lähetetään hyväksyttäväksi"
+
+msgid "approved notifications"
+msgstr "hyväksymisilmoitukset"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hyväksytään"
+
+msgid "rejected notifications"
+msgstr "hylkäysilmoitukset"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Vastaanota ilmoituksia kun sivun muokkauksesi hylätään"
+
+msgid "updated comments notifications"
+msgstr "päivitetty kommentti-ilmoitukset"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Vastaanota ilmoitus, kun kommentteja on luotu, selvitetty tai poistettu "
+"sivulta, jonka osalta olet tilannut kommentti-ilmoitukset"
+
+msgid "preferred language"
+msgstr "mieluisin kieli"
+
+msgid "Select language for the admin"
+msgstr "Valitse hallintapaneelin kieli"
+
+msgid "current time zone"
+msgstr "nykyinen aikavyöhyke"
+
+msgid "Select your current time zone"
+msgstr "Valitse nykyinen aikavyöhykkeesi"
+
+msgid "profile picture"
+msgstr "profiilin kuva"
+
+msgid "System default"
+msgstr "Järjestelmän oletus"
+
+msgid "Light"
+msgstr "Vaalea"
+
+msgid "Dark"
+msgstr "Tumma"
+
+msgid "admin theme"
+msgstr "admin-teema"
+
+msgid "Default"
+msgstr "Oletus"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "tiiviys"
+
+msgid "user profile"
+msgstr "käyttäjäprofiili"
+
+msgid "user profiles"
+msgstr "käyttäjäprofiilit"
+
+#, python-format
+msgid "Assign role to 1 user"
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Määritä rooli 1 käyttäjälle"
+msgstr[1] "Määritä rooli %(counter)s käyttäjälle"
+
+msgid "Assign role"
+msgstr "Määritä rooli"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Haluatko varmasti määrittää tämän roolin näille käyttäjille?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Oikeutesi eivät riitä tämän käyttäjän muokkaamiseen"
+msgstr[1] "Oikeutesi eivät riitä näiden käyttäjien muokkaamiseen"
+
+msgid "Yes, assign"
+msgstr "Kyllä, määritä"
+
+msgid "No, don't assign"
+msgstr "Ei, älä määritä"
+
+#, python-format
+msgid "Delete 1 user"
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Poista 1 käyttäjä"
+msgstr[1] "Poista %(counter)s käyttäjää"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Haluatko varmasti poistaa nämä käyttäjät?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Oikeutesi eivät riitä tämän käyttäjän poistamiseen"
+msgstr[1] "Oikeutesi eivät riitä näiden käyttäjien poistamiseen"
+
+msgid "Yes, delete"
+msgstr "Kyllä, poista"
+
+msgid "No, don't delete"
+msgstr "Ei, älä poista"
+
+#, python-format
+msgid "Change active state for 1 user"
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Muuta aktiivista tilaa 1 käyttäjän osalta"
+msgstr[1] "Muuta aktiivista tilaa %(counter)s käyttäjän osalta"
+
+msgid "Set active state"
+msgstr "Aseta aktiivinen tila"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Haluatko varmasti muuttaa aktiivisen tilan seuraavien käyttäjien osalta?"
+
+msgid "You cannot change your own active status"
+msgstr "Et voi muuttaa omaa aktiivista tilaasi"
+
+msgid "Yes, change state"
+msgstr "Kyllä, vaihda tila"
+
+msgid "No, don't change state"
+msgstr "Ei, älä vaihda tilaa"
+
+#, python-format
+msgid ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> member."
+msgid_plural ""
+"The group '%(group_name)s' has <strong>%(group_user_count)s</strong> members."
+msgstr[0] ""
+"Ryhmässä '%(group_name)s' on <strong>%(group_user_count)s</strong> jäsen."
+msgstr[1] ""
+"Ryhmässä '%(group_name)s' on <strong>%(group_user_count)s</strong> jäsentä."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Tämän ryhmän poistaminen peruuttaa ryhmän oikeudet kaikilta siihen "
+"kuuluvilta käyttäjiltä."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Haluatko varmasti poistaa tämän ryhmän?"
+
+msgid "Add group"
+msgstr "Lisää ryhmä"
+
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Delete group"
+msgstr "Poista ryhmä"
+
+msgid "Object permissions"
+msgstr "Kohteen oikeudet"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Change"
+msgstr "Muuta"
+
+msgid "Publish"
+msgstr "Julkaise"
+
+msgid "Lock"
+msgstr "Lukitse"
+
+msgid "Unlock"
+msgstr "Avaa lukitus"
+
+msgid "Custom permissions"
+msgstr "Mukautetut oikeudet"
+
+msgid "Toggle all"
+msgstr "Kaikki päällä/pois"
+
+msgid "Toggle all add permissions"
+msgstr "Lisäysoikeudet päällä/pois"
+
+msgid "Toggle all change permissions"
+msgstr "Muokkausoikeudet päällä/pois"
+
+msgid "Toggle all delete permissions"
+msgstr "Poisto-oikeudet päällä/pois"
+
+msgid "Toggle all publish permissions"
+msgstr "Julkaisuoikeudet päällä/pois"
+
+msgid "Toggle all lock permissions"
+msgstr "Lukitusoikeudet päällä/pois"
+
+msgid "Toggle all unlock permissions"
+msgstr "Lukituksen avauksen oikeudet päällä/pois"
+
+msgid "Toggle all custom permissions"
+msgstr "Kaikki mukautetut oikeudet päällä/pois"
+
+msgid "Other permissions"
+msgstr "Muut oikeudet"
+
+msgid "Page permissions"
+msgstr "Sivuoikeudet"
+
+msgid "Page"
+msgstr "Sivu"
+
+msgid "Add a page permission"
+msgstr "Lisää sivuoikeus"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Ei löytynyt ryhmää hakuehdolla \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Yhtään ryhmää ei ole asetettu. Mikset vaikka <a "
+"href=\"%(wagtailusers_create_group_url)s\">lisäisi joitakin nyt</a>?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Haluatko varmasti poistaa tämän käyttäjän?"
+
+msgid "Account"
+msgstr "Tili"
+
+msgid "Roles"
+msgstr "Roolit"
+
+msgid "Add user"
+msgstr "Lisää käyttäjä"
+
+msgid "Delete user"
+msgstr "Poista käyttäjä"
+
+msgid "Select all users in listing"
+msgstr "Valitse listauksen kaikki käyttäjät"
+
+msgid "Sorry, no users match your query"
+msgstr "Ei kyselyä vastaavia käyttäjiä"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a "
+"href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a "
+"href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "käyttäjä %(id)s (poistettu)"
+
+msgid "Assign role to selected users"
+msgstr "Määritä rooli valituille käyttäjille"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d käyttäjä on määritetty rooliin %(role)s"
+msgstr[1] "%(num_parent_objects)d käyttäjää on määritetty rooliin %(role)s"
+
+msgid "Delete selected users"
+msgstr "Poista valitut käyttäjät"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d käyttäjä on poistettu"
+msgstr[1] "%(num_parent_objects)d käyttäjää on poistettu."
+
+msgid "Active"
+msgstr "Aktiivinen"
+
+msgid "Inactive"
+msgstr "Passiivinen"
+
+msgid "Mark as active"
+msgstr "Merkitse aktiiviseksi"
+
+msgid "Change the active state for selected users"
+msgstr "Muuta valittujen käyttäjien aktiivista tilaa"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d käyttäjä on merkitty aktiiviseksi"
+msgstr[1] "%(num_parent_objects)d käyttäjää on merkitty aktiivisiksi"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d käyttäjä on merkitty passiiviseksi"
+msgstr[1] "%(num_parent_objects)d käyttäjää on merkitty passiivisiksi"
+
+msgid "Groups"
+msgstr "Ryhmät"
+
+msgid "Add a group"
+msgstr "Lisää ryhmä"
+
+msgid "Search groups"
+msgstr "Hae ryhmiä"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Ryhmä '%(object)s' luotu."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Ryhmä '%(object)s' päivitetty."
+
+msgid "The group could not be saved due to errors."
+msgstr "Ryhmää ei voitu tallentaa virheiden vuoksi."
+
+msgid "View users in this group"
+msgstr "Näytä tämän ryhmän käyttäjät"
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Ryhmä '%(object)s' poistettu."
+
+msgid "Last login"
+msgstr "Viimeksi kirjautunut"
+
+msgid "Group"
+msgstr "Ryhmä"
+
+msgid "Add a user"
+msgstr "Lisää käyttäjä"
+
+msgid "Users"
+msgstr "Käyttäjät"
+
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+msgid "Admin"
+msgstr "Ylläpitäjä"
+
+msgid "Access level"
+msgstr "Pääsytaso"
+
+msgid "Status"
+msgstr "Tila"
+
+#, python-format
+msgid "User '%(object)s' created."
+msgstr "Käyttäjä '%(object)s' luotu."
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Käyttäjä '%(object)s' päivitetty."
+
+msgid "The user could not be saved due to errors."
+msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Käyttäjä '%(object)s' poistettu."

@@ -1,0 +1,12 @@
+{% load wagtailadmin_tags %}
+
+<div class="w-form-width" {% include "wagtailadmin/shared/attrs.html" with attrs=self.attrs %}>
+    {% if self.help_text %}
+        {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
+    {% endif %}
+    {% for child, identifier in self.visible_children_with_identifiers %}
+        {% panel id_prefix=self.prefix id=identifier classname=child.classes|join:' ' attrs=child.attrs heading=child.heading heading_size="label" icon=child.icon id_for_label=child.id_for_label is_required=child.is_required %}
+            {% component child %}
+        {% endpanel %}
+    {% endfor %}
+</div>

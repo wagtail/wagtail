@@ -1,0 +1,200 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Benoît Vogel <contact@spicy-informatique.com>, 2019
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2018
+# Loic Teixeira, 2018,2020-2022
+# Loic Teixeira, 2018
+# nahuel, 2014
+# nahuel, 2014
+# Sebastien Andrivet <sebastien@andrivet.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
+"Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Publish"
+msgstr "Publier"
+
+msgid "Submit for moderation"
+msgstr "Soumettre pour modération"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Resoumettre à %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Soumettre à %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Relancer le workflow"
+
+msgid "Cancel workflow "
+msgstr "Annuler le workflow"
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Locked"
+msgstr "Verrouillé(e)"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr " %(label)s et Publier"
+
+msgid "Wagtail snippets"
+msgstr "Fragments Wagtail"
+
+msgid "Delete selected snippets"
+msgstr "Supprimer les fragments sélectionnés"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s « %(object)s » supprimé(e)."
+
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] "%(count)d « %(model_name)s » supprimé(e)."
+msgstr[1] "%(count)d « %(model_name)s » supprimé(e)s."
+msgstr[2] "%(count)d « %(model_name)s » supprimé(e)s."
+
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr "Supprimer  %(snippet_type_name)s"
+
+msgid "Delete "
+msgstr "Supprimer"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilisé(e) %(usage_count)s fois"
+msgstr[1] "Utilisé(e) %(usage_count)s fois"
+msgstr[2] "Utilisé(e) %(usage_count)s fois"
+
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer ce/cette %(snippet_type_name)s ?"
+
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer %(count)s %(snippet_type_name)s?"
+
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr ""
+"Vous n’avez pas l’autorisation de supprimer ce(tte) %(snippet_type_name)s"
+
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr ""
+"Vous n’avez pas l’autorisation de supprimer ces %(snippet_plural_name)s"
+
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
+
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr "Désolé, aucun fragment ne correspond à « <em>%(search_query)s</em> »"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+"Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">en créer un maintenant</a> ?"
+
+msgid "Publishing…"
+msgstr "Publication..."
+
+msgid "Publish this version"
+msgstr "Publier cette version"
+
+msgid "Saving…"
+msgstr "Enregistrement…"
+
+msgid "Replace current draft"
+msgstr "Remplacer le brouillon actuel"
+
+msgid "Replace current revision"
+msgstr "Remplacer la version actuelle"
+
+msgid "Save draft"
+msgstr "Enregistrer le brouillon"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Select all snippets in listing"
+msgstr "Sélectionner tous les fragments dans la liste"
+
+msgid "Choose"
+msgstr "Choisir"
+
+msgid "Snippets"
+msgstr "Fragments"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Instances"
+msgstr "Occurrences"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Plus d’options pour « %(title)s »"
+
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr "Modifier ce/cette %(model_name)s"
+
+#, python-format
+msgid "%(model_name)s history"
+msgstr "Historique de %(model_name)s"
+
+msgid "Home"
+msgstr "Accueil"
+
+#, python-format
+msgid "Choose %(object)s"
+msgstr "Choisir %(object)s"
+
+#, python-format
+msgid "Choose another %(object)s"
+msgstr "Choisir un autre %(object)s"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Modifier ce/cette %(object)s"

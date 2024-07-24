@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/shared/header.html" %}
+
+{% block right_column_classname %}right col{% endblock %}
+{% block right_column %}
+    <form>
+        {% if locale %}
+            {% include 'wagtailadmin/shared/locale_selector.html' with theme='large' %}
+        {% endif %}
+    </form>
+    {{ block.super }}
+{% endblock %}

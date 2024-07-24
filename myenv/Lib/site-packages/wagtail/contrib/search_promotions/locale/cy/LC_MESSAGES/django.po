@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Philip Crisp, 2022
+# Philip Crisp, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
+"Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
+"cy/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cy\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
+"11) ? 2 : 3;\n"
+
+msgid "Wagtail search promotions"
+msgstr "Hyrwyddiadau chwilio Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "Term(au)/ymadrodd chwilio"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Rhowch y term chwilio llawn i gyfateb. Mae angen cyfatebiaeth union er mwyn "
+"i'ch Canlyniadau Hyrwyddedig gael eu harddangos, NI chaniateir cardiau "
+"chwilio."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Nodwch o leiaf un argymhelliad ar gyfer y term chwilio hwn."
+
+msgid "Query Daily Hits"
+msgstr "Ymholiad Trawiadau Dyddiol"
+
+msgid "page"
+msgstr "tudalen"
+
+msgid "description"
+msgstr "disgrifiad"
+
+msgid "search promotion"
+msgstr "hyrwyddo chwilio"
+
+msgid "Add search promotion"
+msgstr "Ychwanegwch hyrwyddo chwilio"
+
+msgid "Add search pick"
+msgstr "Ychwanegu dewis chwilio"
+
+msgid "Save"
+msgstr "Cadw"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Dileu %(query)s"
+
+msgid "Delete"
+msgstr "Dileu"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ydych chi'n siŵr eich bod am ddileu'r holl ganlyniadau a hyrwyddir ar gyfer "
+"y term chwilio hwn?"
+
+msgid "Yes, delete"
+msgstr "Ia, dileu"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Golygu %(query)s"
+
+msgid "Editing"
+msgstr "Golygu"
+
+msgid "Move up"
+msgstr "Symyd i fyny"
+
+msgid "Move down"
+msgstr "Symyd i lawr"
+
+msgid "Promoted search results"
+msgstr "Canlyniad chwilio wedi'i hyrwyddo"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Mae'n ddrwg gennym, nid oes unrhyw ganlyniadau wedi'u hyrwyddo yn cyfateb "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
+
+msgid "Popular search terms"
+msgstr "Termau chwilio poblogaidd"
+
+msgid "Search"
+msgstr "Chwilio"
+
+msgid "Terms"
+msgstr "Termau"
+
+msgid "Views (past week)"
+msgstr "Golygfeydd (yr wythnos ddiwethaf)"
+
+msgid "No results found"
+msgstr "Dim chanfuwyd canlyniadau"
+
+msgid "Choose from popular search terms"
+msgstr "Dewiswch o dermau chwilio poblogaidd"
+
+msgid "None"
+msgstr "Ddim"
+
+msgid "Search Terms"
+msgstr "Termau Chwilio"
+
+msgid "Add new promoted result"
+msgstr "Ychwanegu canlyniad newydd a hyrwyddir"
+
+msgid "Search term(s)"
+msgstr "Term(au) chwilio"
+
+msgid "Promoted results"
+msgstr "Canlyniadau a hyrwyddir"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Dewisiadau'r golygydd ar gyfer '%(query)s' wedi'i creu."
+
+msgid "Edit"
+msgstr "Golygu"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Nid yw argymhellion wedi'u creu oherwydd gwallau"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Dewisiadau'r golygydd ar gyfer '%(query)s' wedi'i diweddaru."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Nid yw argymhellion wedi'u cadw oherwydd gwallau"
+
+msgid "Editor's picks deleted."
+msgstr "Dewisiadau'r golygydd wedi'u dileu."

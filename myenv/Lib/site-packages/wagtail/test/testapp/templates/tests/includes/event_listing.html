@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+<ul>
+    {% for event in events %}
+        <li><a href="{% pageurl event %}">{{ event.title }}</a></li>
+    {% endfor %}
+</ul>

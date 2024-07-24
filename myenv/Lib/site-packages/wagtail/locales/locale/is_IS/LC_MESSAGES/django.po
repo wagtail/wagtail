@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# saevarom <saevar@saevar.is>, 2021
+# Loic Teixeira, 2022
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Loic Teixeira, 2022\n"
+"Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
+"teams/8009/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail locales"
+msgstr "Wagtail þýðingar"
+
+msgid "Language"
+msgstr "Tungumál"
+
+msgid "Select a new language"
+msgstr "Veldu nýtt tungumál"
+
+msgid "This locale's language code is not supported"
+msgstr "Tungumálakóði þessarar þýðingar er ekki studdur"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+msgid "Back"
+msgstr "Til baka"
+
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"Tungumálakóði þessarar þýðingar er ekki studdur. Vinsamlegast veldu annað "
+"tungumál eða eyddu þessari þýðingu."
+
+msgid "Locales"
+msgstr "Þýðingar"
+
+msgid "Add a locale"
+msgstr "Bæta við þýðingu"
+
+msgid "Usage"
+msgstr "Notkun"
+
+msgid "Add locale"
+msgstr "Bæta við þýðingu"
+
+#, python-format
+msgid "Locale '%(object)s' created."
+msgstr "Þýðing '%(object)s' búin til."
+
+#, python-format
+msgid "Locale '%(object)s' updated."
+msgstr "Þýðing '%(object)s' uppfærð."
+
+msgid "The locale could not be saved due to errors."
+msgstr "Ekki var hægt að vista þýðingu þar sem hún stóðst ekki villuprófanir."
+
+msgid "Delete locale"
+msgstr "Eyða þýðingu"
+
+#, python-format
+msgid "Locale '%(object)s' deleted."
+msgstr "Þýðingu '%(object)s' eytt."
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "Ertu viss um að þú viljir eyða þessari þýðingu?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr ""
+"Ekki er hægt að eyða þýðingu þar sem það eru ekki til neinar aðrar þýðingar."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr ""
+"Ekki er hægt að eyða þýðingu þar sem það eru síður og/eða aðrir hlutir að "
+"nota hana."

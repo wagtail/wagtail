@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Adi Ron <adi@bnop.co>, 2019
+# Men770, 2021
+# Men770, 2021
+# Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2017\n"
+"Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
+"language/he_IL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
+"1 == 0) ? 1: 2;\n"
+
+msgid "default"
+msgstr "ברירת מחדל"
+
+msgid "Site"
+msgstr "אתר"
+
+msgid "Saving…"
+msgstr "שומר..."
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Settings"
+msgstr "הגדרות"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "לא ניתן לפתוח את ההגדרות בגלל שאף אתר לא מוגדר."
+
+msgid "The setting could not be saved due to errors."
+msgstr "לא ניתן לשמור את ההגדרות עקב שגיאות."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sעודכנו"

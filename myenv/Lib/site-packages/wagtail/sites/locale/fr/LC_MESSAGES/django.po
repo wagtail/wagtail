@@ -1,0 +1,74 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
+# incognitae <pierre@onoffdesign.com>, 2016
+# Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2022
+# Loic Teixeira, 2022
+# incognitae <pierre@onoffdesign.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-10-03 15:24+0000\n"
+"Last-Translator: incognitae <pierre@onoffdesign.com>, 2016\n"
+"Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
+"fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+msgid "Wagtail sites"
+msgstr "Sites Wagtail"
+
+msgid "Choose a root page"
+msgstr "Choisir une page racine"
+
+msgid "Choose a different root page"
+msgstr "Choisissez une page racine différente"
+
+msgid "Sites"
+msgstr "Sites"
+
+msgid "Add a site"
+msgstr "Ajouter un site"
+
+msgid "Site"
+msgstr "Site"
+
+msgid "Default?"
+msgstr "Défaut ?"
+
+msgid "Default"
+msgstr "Défaut"
+
+msgid "Add site"
+msgstr "Ajouter un site"
+
+#, python-format
+msgid "Site '%(object)s' created."
+msgstr "Site « %(object)s » créé."
+
+msgid "The site could not be saved due to errors."
+msgstr "Le site ne peut être enregistré du fait d'erreurs."
+
+#, python-format
+msgid "Site '%(object)s' updated."
+msgstr "Site « %(object)s » mis à jour."
+
+msgid "Delete site"
+msgstr "Supprimer le site"
+
+#, python-format
+msgid "Site '%(object)s' deleted."
+msgstr "Site « %(object)s » supprimé."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer ce site ?"

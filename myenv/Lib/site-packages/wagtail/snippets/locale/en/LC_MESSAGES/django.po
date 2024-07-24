@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: action_menu.py:70
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:15
+msgid "Publish"
+msgstr ""
+
+#: action_menu.py:83
+msgid "Submit for moderation"
+msgstr ""
+
+#: action_menu.py:111
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr ""
+
+#: action_menu.py:121
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr ""
+
+#: action_menu.py:162
+msgid "Restart workflow "
+msgstr ""
+
+#: action_menu.py:183
+msgid "Cancel workflow "
+msgstr ""
+
+#: action_menu.py:197
+msgid "Unpublish"
+msgstr ""
+
+#: action_menu.py:218 bulk_actions/delete.py:15
+msgid "Delete"
+msgstr ""
+
+#: action_menu.py:239
+#: templates/wagtailsnippets/snippets/action_menu/save.html:27
+msgid "Save"
+msgstr ""
+
+#: action_menu.py:246
+#: templates/wagtailsnippets/snippets/action_menu/locked.html:4
+msgid "Locked"
+msgstr ""
+
+#: action_menu.py:323
+#, python-format
+msgid "%(label)s and Publish"
+msgstr ""
+
+#: apps.py:9
+msgid "Wagtail snippets"
+msgstr ""
+
+#: bulk_actions/delete.py:17
+msgid "Delete selected snippets"
+msgstr ""
+
+#: bulk_actions/delete.py:88
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr ""
+
+#: bulk_actions/delete.py:94
+#, python-format
+msgid "%(count)d %(model_name)s deleted."
+msgid_plural "%(count)d %(model_name)s deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:6
+#, python-format
+msgid "Delete %(snippet_type_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:13
+msgid "Delete "
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:25
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:27
+#, python-format
+msgid "Are you sure you want to delete this %(snippet_type_name)s?"
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:29
+#, python-format
+msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:44
+#, python-format
+msgid "You don't have permission to delete this %(snippet_type_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:48
+#, python-format
+msgid "You don't have permission to delete these %(snippet_plural_name)s"
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:57
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailsnippets/bulk_actions/confirm_bulk_delete.html:58
+msgid "No, don't delete"
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/results.html:5
+#, python-format
+msgid "Sorry, no snippets match \"<em>%(search_query)s</em>\""
+msgstr ""
+
+#: templates/wagtailsnippets/chooser/results.html:10
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a "
+"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
+"rel=\"noreferrer\">create one now</a>?"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:11
+msgid "Publishing…"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:15
+msgid "Publish this version"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/save.html:9
+msgid "Saving…"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/save.html:20
+msgid "Replace current draft"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/save.html:22
+msgid "Replace current revision"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/save.html:25
+msgid "Save draft"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/create.html:16
+#: templates/wagtailsnippets/snippets/edit.html:17
+msgid "Actions"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/index.html:13
+msgid "Select all snippets in listing"
+msgstr ""
+
+#: views/chooser.py:21
+msgid "Choose"
+msgstr ""
+
+#: views/snippets.py:77 views/snippets.py:104 views/snippets.py:913
+#: wagtail_hooks.py:44
+msgid "Snippets"
+msgstr ""
+
+#: views/snippets.py:117
+msgid "Name"
+msgstr ""
+
+#: views/snippets.py:123
+msgid "Instances"
+msgstr ""
+
+#: views/snippets.py:214
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr ""
+
+#: views/snippets.py:389
+#, python-format
+msgid "Edit this %(model_name)s"
+msgstr ""
+
+#: views/snippets.py:395
+#, python-format
+msgid "%(model_name)s history"
+msgstr ""
+
+#: views/snippets.py:912
+msgid "Home"
+msgstr ""
+
+#: widgets.py:22
+#, python-format
+msgid "Choose %(object)s"
+msgstr ""
+
+#: widgets.py:23
+#, python-format
+msgid "Choose another %(object)s"
+msgstr ""
+
+#: widgets.py:24
+#, python-format
+msgid "Edit this %(object)s"
+msgstr ""

@@ -1,0 +1,14 @@
+#
+# Translators:
+# Anshika Vashistha, 2023
+#
+msgid ""
+msgstr ""
+"Last-Translator: Anshika Vashistha, 2023\n"
+"Language-Team: Hindi (https://app.transifex.com/torchbox/teams/8009/hi/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: hi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Save"
+msgstr "Save"

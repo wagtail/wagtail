@@ -1,0 +1,3 @@
+{% load i18n %}
+
+{% blocktrans trimmed with title=revision.content_object.get_admin_display_title|safe %}The page "{{ title }}" has been approved{% endblocktrans %}

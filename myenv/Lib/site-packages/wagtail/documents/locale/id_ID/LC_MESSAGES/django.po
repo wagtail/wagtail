@@ -1,0 +1,214 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# geek pantura <geekpantura@gmail.com>, 2016
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# Ronggo Radityo <radityo3000@yahoo.com>, 2017
+# Sutrisno Efendi <kangfend@gmail.com>, 2017
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumen"
+
+msgid "Collection"
+msgstr "Koleksi"
+
+msgid "Add"
+msgstr "Menambahkan"
+
+msgid "Add/edit documents you own"
+msgstr "Tambah/Perbaharui dokumen anda"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "Edit any document"
+msgstr "Ubah dokumen manapun"
+
+msgid "Choose"
+msgstr "Pilih"
+
+msgid "title"
+msgstr "Judul"
+
+msgid "file"
+msgstr "Berkas"
+
+msgid "created at"
+msgstr "Dibuat pada"
+
+msgid "uploaded by user"
+msgstr "Diunggah oleh pengguna"
+
+msgid "tags"
+msgstr "Penanda"
+
+msgid "document"
+msgstr "Dokumen"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)skali"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
+msgid "Latest documents"
+msgstr "Dokumen terbaru"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Anda belum mengunggah dokumen apapun dalam koleksi ini."
+
+msgid "You haven't uploaded any documents."
+msgstr "Anda belum mengunggah dokumen apapun."
+
+msgid "Change document:"
+msgstr "Ubah dokumen:"
+
+msgid "Add a document"
+msgstr "Tambah dokumen"
+
+msgid "Add document"
+msgstr "Tambah dokumen"
+
+msgid "Uploading…"
+msgstr "Mengunggah"
+
+msgid "Upload"
+msgstr "Unggah"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Sedang mengubah %(title)s"
+
+msgid "Editing"
+msgstr "Mengubah"
+
+msgid "Save"
+msgstr "Simpan"
+
+msgid "Delete document"
+msgstr "Hapus dokumen"
+
+msgid "Filesize"
+msgstr "Ukuran file"
+
+msgid "File not found"
+msgstr "File tidak ditemukan"
+
+msgid "Usage"
+msgstr "Pemakaian"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Anda sama sekali belum mengunggah dokumen dalam koleksi ini. Mengapa tidak "
+"<a href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Anda sama sekali belum mengunggah dokumen. Mengapa tidak <a "
+"href=\"%(wagtaildocs_add_document_url)s\">mengunggahnya sekarang</a>?"
+
+msgid "Add multiple documents"
+msgstr "Tambah beberapa dokumen"
+
+msgid "Add documents"
+msgstr "Tambah dokumen"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Seret dan lepaskan dokumen ke area ini untuk langsung diunggah."
+
+msgid "Or choose from your computer"
+msgstr "Atau pilih dari komputer Anda"
+
+msgid "Add to collection:"
+msgstr "Tambah ke koleksi:"
+
+msgid "Sorry, upload failed."
+msgstr "Maaf, pengunggahan gagal."
+
+msgid "You need a password to access this document."
+msgstr "Anda memerlukan kata sandi untuk mengakses dokumen ini."
+
+msgid "Document permissions"
+msgstr "Izin dokumen"
+
+msgid "Add a document permission"
+msgstr "Tambahkan izin dokumen"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "File"
+msgstr "Berkas"
+
+msgid "Choose a document"
+msgstr "Pilih Dokumen"
+
+msgid "Choose another document"
+msgstr "Pilih dokumen lain"
+
+msgid "Edit this document"
+msgstr "Ubah dokumen ini"
+
+msgid "Documents"
+msgstr "Dokumen"
+
+msgid "Title"
+msgstr "Judul"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "Dokumen '%(document_title)s' ditambahkan."
+
+msgid "The document could not be saved due to errors."
+msgstr "Dokumen tidak dapat tersimpan dikarenakan oleh error."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "Dokumen '%(document_title)s' diperbarui."
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Berkas tidak dapat ditemukan. Mohon untuk mengganti sumber atau hapus dokumen"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "Dokumen '%(document_title)s' dihapus."
+
+msgid "Document"
+msgstr "Dokumen"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)sdokumen"

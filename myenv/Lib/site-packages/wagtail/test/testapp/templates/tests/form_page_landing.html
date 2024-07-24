@@ -1,0 +1,12 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+    <p>{{ greeting }}</p>
+    <p>Thank you for your feedback.</p>
+
+    <ul>
+        {% for key, value in form_submission.get_data.items %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

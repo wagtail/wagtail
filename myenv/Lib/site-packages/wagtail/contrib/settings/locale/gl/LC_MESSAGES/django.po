@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016,2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016,2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# X Bello <xbello@gmail.com>, 2022
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
+"gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "default"
+msgstr "por defecto"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s para %(site)s"
+
+msgid "Site"
+msgstr "Sitio web"
+
+msgid "Saving…"
+msgstr "Gardando…"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Settings"
+msgstr "Configuración"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Esta configuración non puido ser aberta porque non hai ningún sitio web "
+"definido."
+
+msgid "The setting could not be saved due to errors."
+msgstr "A configuración non pode ser gardada debido a erros."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s actualizado."

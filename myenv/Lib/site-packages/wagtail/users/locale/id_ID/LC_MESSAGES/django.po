@@ -1,0 +1,249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+# M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
+"Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
+"wagtail/language/id_ID/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail pengguna"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Hanya dapat berisi karakter huruf, angka dan @/./+/-/_ saja."
+
+msgid "A user with that username already exists."
+msgstr "Pengguna dengan username tersebut sudah ada."
+
+msgid "The two password fields didn't match."
+msgstr "Kedua isian kata sandi tidak cocok."
+
+msgid "Email"
+msgstr "Email/Surel"
+
+msgid "First Name"
+msgstr "Nama Depan"
+
+msgid "Last Name"
+msgstr "Nama Belakang"
+
+msgid "Password"
+msgstr "Kata Kunci"
+
+msgid "Leave blank if not changing."
+msgstr "Kosongkan jika tidak berubah."
+
+msgid "Password confirmation"
+msgstr "Konfirmasi kata kunci"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Masukkan kata kunci yang sama dengan diatas untuk verifikasi."
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrator memiliki akses penuh untuk mengelola objek atau pengaturan apa "
+"saja."
+
+msgid "A group with that name already exists."
+msgstr "Grup dengan nama tersebut sudah ada."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Anda tidak dapat memiliki beberapa catatan izin untuk halaman yang sama."
+
+msgid "submitted notifications"
+msgstr "notifikasi terkirim"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Terima notifikasi ketika halaman dikirim untuk moderasi"
+
+msgid "approved notifications"
+msgstr "notifikasi diterima"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Terima notifikasi ketika halaman yang Anda ubah telah diterima"
+
+msgid "rejected notifications"
+msgstr "notifikasi ditolak"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Terima notifikasi ketika halaman yang Anda ubah ditolak"
+
+msgid "preferred language"
+msgstr "bahasa pilihan"
+
+msgid "Select language for the admin"
+msgstr "Pilih bahasa untuk admin"
+
+msgid "current time zone"
+msgstr "zona waktu saat ini"
+
+msgid "Select your current time zone"
+msgstr "Pilih zona waktu saat ini"
+
+msgid "profile picture"
+msgstr "gambar profil"
+
+msgid "Default"
+msgstr "Utama"
+
+msgid "user profile"
+msgstr "profil pengguna"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Menghapus grup ini akan mencabut izin grup untuk semua member pengguna."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Apakah Anda yakin ingin menghapus grup ini?"
+
+msgid "Add group"
+msgstr "Tambah grup"
+
+msgid "Save"
+msgstr "Simpan"
+
+msgid "Delete group"
+msgstr "Hapus grup"
+
+msgid "Object permissions"
+msgstr "Izin objek"
+
+msgid "Name"
+msgstr "Nama"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Change"
+msgstr "Ubah"
+
+msgid "Publish"
+msgstr "Publikasi"
+
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Unlock"
+msgstr "Buka kunci"
+
+msgid "Other permissions"
+msgstr "Izin lain-lain"
+
+msgid "Page permissions"
+msgstr "Izin halaman"
+
+msgid "Page"
+msgstr "Halaman"
+
+msgid "Add a page permission"
+msgstr "Tambah izin halaman"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Maaf, tidak ada grup yang sesuai dengan \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Tidak ada grup yang terkonfigurasi. Mengapa <a "
+"href=\"%(wagtailusers_create_group_url)s\">tidak menambahnya</a>?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Apakah anda yakin untuk menghapus pengguna ini?"
+
+msgid "Account"
+msgstr "Akun"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Add user"
+msgstr "Tambah pengguna"
+
+msgid "Delete user"
+msgstr "Hapus pengguna"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Tidak Aktif"
+
+msgid "Groups"
+msgstr "Grup"
+
+msgid "Add a group"
+msgstr "Tambah grup"
+
+msgid "Search groups"
+msgstr "Pencarian Grup"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "Grup '%(object)s' dibuat."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "Grup '%(object)s' diperbarui."
+
+msgid "The group could not be saved due to errors."
+msgstr "Grup tidak dapat disimpan karena suatu kesalahan."
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "Grup '%(object)s' dihapus."
+
+msgid "Add a user"
+msgstr "Tambah pengguna"
+
+msgid "Users"
+msgstr "Pengguna"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "Pengguna '%(object)s' berhasil diperbaharui."
+
+msgid "The user could not be saved due to errors."
+msgstr "Pengguna tidak dapat disimpan karena suatu kesalahan."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "Pengguna '%(object)s' dihapus."

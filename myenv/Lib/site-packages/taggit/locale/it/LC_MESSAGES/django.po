@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-14 11:35+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: taggit/apps.py:7
+msgid "Taggit"
+msgstr ""
+
+#: taggit/forms.py:31
+msgid "Please provide a comma-separated list of tags."
+msgstr "Fornire una lista di tag separati da virgola."
+
+#: taggit/managers.py:432
+msgid "Tags"
+msgstr "Tag"
+
+#: taggit/managers.py:433
+msgid "A comma-separated list of tags."
+msgstr "Una lista di tag separati da virgola."
+
+#: taggit/models.py:19
+msgctxt "A tag name"
+msgid "name"
+msgstr "Nome"
+
+#: taggit/models.py:22
+msgctxt "A tag slug"
+msgid "slug"
+msgstr "Slug"
+
+#: taggit/models.py:82
+msgid "tag"
+msgstr "Tag"
+
+#: taggit/models.py:83
+msgid "tags"
+msgstr ""
+
+#: taggit/models.py:89
+#, python-format
+msgid "%(object)s tagged with %(tag)s"
+msgstr "%(object)s con tag %(tag)s"
+
+#: taggit/models.py:134
+msgid "content type"
+msgstr "Tipo"
+
+#: taggit/models.py:165 taggit/models.py:172
+msgid "object ID"
+msgstr "Id Oggetto"
+
+#: taggit/models.py:180
+msgid "tagged item"
+msgstr "Oggetto con tag"
+
+#: taggit/models.py:181
+msgid "tagged items"
+msgstr "Oggetti con tag"
+
+#: taggit/serializers.py:40
+#, python-brace-format
+msgid "Expected a list of items but got type \"{input_type}\"."
+msgstr ""
+
+#: taggit/serializers.py:43
+msgid ""
+"Invalid json list. A tag list submitted in string form must be valid json."
+msgstr ""
+
+#: taggit/serializers.py:46
+msgid "All list items must be of string type."
+msgstr ""

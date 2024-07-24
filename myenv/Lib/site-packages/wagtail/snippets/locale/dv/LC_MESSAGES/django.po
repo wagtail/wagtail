@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Fauzaan Gasim, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Fauzaan Gasim, 2024\n"
+"Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
+"dv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: dv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "ޕަބްލިޝް"
+
+msgid "Submit for moderation"
+msgstr "މޮޑެރޭޝަނަށް ހުށަހަޅާ"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)sއަށް އަލުން ހުށަހަޅާ"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)sއަށް ހުށައަޅާ"
+
+msgid "Restart workflow "
+msgstr "ވޯކްފްލޯ އަލުން ފަށާ"
+
+msgid "Cancel workflow "
+msgstr "ވޯކްފްލޯ ކެންސަލް ކުރޭ"
+
+msgid "Unpublish"
+msgstr "އަންޕަބްލިޝް ކޮށްލާ"
+
+msgid "Delete"
+msgstr "ޑިލީޓްކުރެވޭ"
+
+msgid "Save"
+msgstr "ސޭވްކުރޭ"
+
+msgid "Locked"
+msgstr "ތަޅުލެވިފައި"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s އަދި ހުށައަޅާ"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)sގެ %(object)s ފުހެލެވިއްޖެ"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)sފަހަރު ބޭނުން ކުރެވިއްޖެ"
+msgstr[1] " %(usage_count)s ފަހަރު ބޭނުންކުރެވިއްޖެ "
+
+msgid "Yes, delete"
+msgstr "ލައްބަ! ފުހެލާ"
+
+msgid "No, don't delete"
+msgstr "ނޫން! ފުހެނުލާތި"
+
+msgid "Publishing…"
+msgstr "ހުށައެޅެނީ . . . "
+
+msgid "Publish this version"
+msgstr "މި ވާޝަން ޕަބްލިޝްކުރޭ"
+
+msgid "Saving…"
+msgstr "ސޭވްކުރަނީ"
+
+msgid "Replace current draft"
+msgstr "މިހާރުގެ ޑްރާފްޓް މިޔާ ބަދަލުކުރޭ"
+
+msgid "Save draft"
+msgstr "ޑްރާފްޓް ރައްކާކުރޭ"
+
+msgid "Actions"
+msgstr "ހަރަކާތްތައް"
+
+msgid "Choose"
+msgstr "ނަގާ"
+
+msgid "Name"
+msgstr "ނަން"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "%(title)s އަށްވާ އިތުރު އޮޕްޝަންތައް"
+
+msgid "Home"
+msgstr "ހޯމް"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "މި %(object)s އެޑިޓް ކުރޭ"

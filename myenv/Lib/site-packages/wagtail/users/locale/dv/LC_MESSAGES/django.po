@@ -1,0 +1,117 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Fauzaan Gasim, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Fauzaan Gasim, 2024\n"
+"Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
+"dv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: dv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "ވެގްޓޭލް ޔޫސާރސް"
+
+msgid "Required. Letters, digits and @/./+/-/_ only."
+msgstr "ބޭނުންވާ. އަކުރުތަކާއި އަދަދުތަކާއި @/./+/-/_ އެކަނި."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "މީގައި ހިމެނޭނީ ހަމައެކަނި އަކުރުތަކާއި ނަންބަރުތަކާއި @/./+/-/_ މިއަކުރުތަކެވެ."
+
+msgid "A user with that username already exists."
+msgstr "އެ ޔޫޒަރނޭމް ލިބިފައިވާ ޔޫޒަރެއް މިހާރުވެސް އެބަހުއްޓެވެ."
+
+msgid "The two password fields didn't match."
+msgstr "ދެ ޕާސްވޯޑް ފީލްޑް ދިމަލެއް ނުވިއެވެ."
+
+msgid "Email"
+msgstr "އީމެއިލް"
+
+msgid "First Name"
+msgstr "ފުރަތަމަ ނަން"
+
+msgid "Last Name"
+msgstr "ފަހު ނަން"
+
+msgid "Password"
+msgstr "ޕާސްވޯޑް"
+
+msgid "Leave blank if not changing."
+msgstr "ބަދަލު ނުކުރާނަމަ ހުސްކޮށް ބާއްވާށެވެ."
+
+msgid "Password confirmation"
+msgstr "ޕާސްވޯޑް ކޮންފަރމް ކުރުން"
+
+msgid "Enter the same password as above, for verification."
+msgstr "މަތީގައިވާ ޕާސްވޯޑް ޔަގީން ކުރުމަށްޓަކައި އަލުން ޖައްސަވާ، "
+
+msgid "Administrator"
+msgstr "އެޑްމިނިސްޓްރޭޓަރު"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "އެޑްމިނިސްޓްރޭޓަރުންނަށް ހުރިހާ އެއްޗެއް ނުވަތަ ސެޓިންގއެއް މެނޭޖް ކުރުމަށް ފުރިހަމަ އެކްސެސް ލިބިގެންވޭ"
+
+msgid "A group with that name already exists."
+msgstr "ތި ނަން ކިޔާ ގްރޫޕެއް މިހާރުވެސް އެބަހުއްޓެވެ."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "އެއް ޞަފްޙާއަކަށް ތަފާތު ހުއްދަތަކުގެ ރެކޯޑެއް ނުބެހެއްޓޭނެ"
+
+msgid "Default"
+msgstr "ޑީފޯލްޓް"
+
+msgid "Delete"
+msgstr "ޑިލީޓްކުރެވޭ"
+
+msgid "Yes, delete"
+msgstr "ލައްބަ! ފުހެލާ"
+
+msgid "No, don't delete"
+msgstr "ނޫން! ފުހެނުލާތި"
+
+msgid "Save"
+msgstr "ސޭވްކުރޭ"
+
+msgid "Name"
+msgstr "ނަން"
+
+msgid "Add"
+msgstr "އިތުރު"
+
+msgid "Publish"
+msgstr "ޕަބްލިޝް"
+
+msgid "Lock"
+msgstr "ތަޅުލާ"
+
+msgid "Unlock"
+msgstr "ތަޅު ހުޅުވާ"
+
+msgid "Page permissions"
+msgstr "ސަފްހާގެ ހުއްދަތައް"
+
+msgid "Page"
+msgstr "ސަފްހާ"
+
+msgid "Add a page permission"
+msgstr "ސަފްހާގެ ހުއްދައެއް އިތުރުކުރޭ"
+
+msgid "Account"
+msgstr "އެކައުންޓް"
+
+msgid "Status"
+msgstr "ހާލަތު"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "&#39;%(title)s&#39; އަށް އިތުރު އިޚްތިޔާރުތައް."

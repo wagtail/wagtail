@@ -1,0 +1,15 @@
+{% load wagtailadmin_tags %}
+{% if url %}
+    <a href="{{ url }}" class="{% classnames 'w-status' classname %}"{% if title %} title="{{ title }}" {% endif %}{% if attrs %} {{ attrs }}{% endif %}>
+        {% if hidden_label %}
+            <span class="w-sr-only">{{ hidden_label }}</span> {% if label %}{{ label }}{% endif %}
+        {% else %}
+            {% if label %}{{ label }}{% endif %}
+        {% endif %}
+    </a>
+{% else %}
+    <span class="{% classnames 'w-status' classname %}"{% if attrs %} {{ attrs }}{% endif %}>
+        {% if hidden_label %}<span class="w-sr-only">{{ hidden_label }}</span>{% endif %}
+        {% if label %}{{ label }}{% endif %}
+    </span>
+{% endif %}

@@ -1,0 +1,13 @@
+{% load wagtailadmin_tags %}
+
+{% comment %}
+    JavaScript declarations to be included on the 'create page' and 'edit page' views
+{% endcomment %}
+
+<script src="{% versioned_static 'wagtailadmin/js/comments.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/vendor/rangy-core.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/expanding-formset.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/preview-panel.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
+{% hook_output 'insert_editor_js' %}

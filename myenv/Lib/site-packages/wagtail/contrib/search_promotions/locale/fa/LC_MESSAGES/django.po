@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amir Mahmoodi, 2022
+# Amir Mahmoodi, 2022
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Search term(s)/phrase"
+msgstr "عبارت(ها)/عناوین جستجو"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr "کل عبارت مورد نظر را وارد کنید. "
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "لطفا دست کم یک پیشنهاد برای این عبارت جستجو تعیین کنید."
+
+msgid "Query Daily Hits"
+msgstr "تعداد جستجوی روزانه"
+
+msgid "page"
+msgstr "صفحه"
+
+msgid "description"
+msgstr "شرح"
+
+msgid "search promotion"
+msgstr "جستجوی ترویج"
+
+msgid "Add search promotion"
+msgstr "افزودن ترویج جستجو"
+
+msgid "Add search pick"
+msgstr "افزودن جستجوی برگزیده"
+
+msgid "Save"
+msgstr "ذخیره"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "حذف %(query)s"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "آیا اطمینان دارید که همه نتایج ترویج شده برای این عبارت جستجو حذف شود؟"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "ویرایش%(query)s"
+
+msgid "Editing"
+msgstr "ویرایش"
+
+msgid "Move up"
+msgstr "حرکت به بالا"
+
+msgid "Move down"
+msgstr "حرکت به پایین"
+
+msgid "Promoted search results"
+msgstr "نتایج جستجوی ترویج شده"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه نتایج ترویجی شامل «<em>%(query_string)s</em>» یافت نشد"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"هیچ نتیجه ترویج شده ای ایجاد نشده. می‌توانید یکی را <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">ایجاد</a> کنید."
+
+msgid "Popular search terms"
+msgstr "عناوین منتخب جستجو‌شده"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Terms"
+msgstr "عنوان"
+
+msgid "Views (past week)"
+msgstr "بازدیدها (هفته پیش)"
+
+msgid "No results found"
+msgstr "هیچ موردی پیدا نشد"
+
+msgid "Choose from popular search terms"
+msgstr "از عناوین منتخب جستجو شده انتخاب کنید"
+
+msgid "External link"
+msgstr "لینک بیرونی"
+
+msgid "None"
+msgstr "خالی"
+
+msgid "Search Terms"
+msgstr "عبارات جستجو"
+
+msgid "Add new promoted result"
+msgstr "افزودن نتیجه ترویج شده جدید"
+
+msgid "Search term(s)"
+msgstr "عبارت(های) جستجو"
+
+msgid "Promoted results"
+msgstr "نتایج ترویج شده"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "منتخب ویراستار برای '%(query)s' ایجاد شد."
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "پیشنهادها به دلیل بروز خطا ایجاد نشد"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "انتخاب ویراستار برای '%(query)s' آپدیت شد."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "پیشنهادها به دلیل بروز خطا ذخیره نشدند"
+
+msgid "Editor's picks deleted."
+msgstr "منتخب ویراستار حذف شد"

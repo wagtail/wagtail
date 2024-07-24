@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dino Aljević <dino8890@protonmail.com>, 2020,2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2023\n"
+"Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
+"language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail stilske smjernice"
+
+msgid "Minimap"
+msgstr "Prozor za prelistavanje"
+
+msgid "Save"
+msgstr "Spremi"
+
+msgid "Delete image"
+msgstr "Izbriši sliku"
+
+msgid "Styleguide"
+msgstr "Stilske smjernice"
+
+msgid "Success message"
+msgstr "Poruka uspjeha"
+
+msgid "View live"
+msgstr "Pogledaj uživo"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Warning message"
+msgstr "Poruka upozorenja"
+
+msgid "Error message"
+msgstr "Poruka greške"

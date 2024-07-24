@@ -1,0 +1,261 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Basitlik İyidir, 2020
+# Basitlik İyidir, 2020
+# José Luis <alagunajs@gmail.com>, 2015
+# José Luis <alagunajs@gmail.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2020
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
+# Ragıp Ünal <ragip@ragipunal.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2015\n"
+"Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
+"language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail kullanıcılar"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Bu değer sadece harf, sayı ya da @/./+/-/_ karakterlerinden oluşur."
+
+msgid "A user with that username already exists."
+msgstr "Bu kullanıcı adı daha önce alınmış."
+
+msgid "The two password fields didn't match."
+msgstr "Parolalar eşleşmiyor"
+
+msgid "Email"
+msgstr "Eposta"
+
+msgid "First Name"
+msgstr "Ad"
+
+msgid "Last Name"
+msgstr "Soyad"
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "Leave blank if not changing."
+msgstr "Aynı kalması için boş bırakın."
+
+msgid "Password confirmation"
+msgstr "Parola doğrulama"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Doğrulama yapmak için yukarıdaki şifrenin aynısını girin."
+
+msgid "Administrator"
+msgstr "Yönetici"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Yöneticilerin herhangi bir nesne ya da ayarı değiştirmek için tam yetkisi "
+"vardır."
+
+msgid "A group with that name already exists."
+msgstr "O isimde bir grup zaten var."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Aynı sayfa için birden fazla izin kaydı olamaz."
+
+msgid "submitted notifications"
+msgstr "gönderilen bildirimler"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Kontrol edilmek üzere bir sayfa gönderildiğinde bildirim alın"
+
+msgid "approved notifications"
+msgstr "onaylanan bildirimler"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Düzenlediğiniz sayfa onaylandığında bildirim alın"
+
+msgid "rejected notifications"
+msgstr "reddedilen bildirimler"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Düzenlediğiniz sayfa reddedildiğinde bildirim alın"
+
+msgid "preferred language"
+msgstr "tercih edilen dil"
+
+msgid "Select language for the admin"
+msgstr "Yönetim paneli dilini belirleyin"
+
+msgid "current time zone"
+msgstr "şimdiki zaman dilimi"
+
+msgid "Select your current time zone"
+msgstr "Şimdiki zaman dilimizi seçin"
+
+msgid "profile picture"
+msgstr "profil resmi"
+
+msgid "Default"
+msgstr "Varsayılan"
+
+msgid "user profile"
+msgstr "kullanıcı profili"
+
+msgid "user profiles"
+msgstr "kullanıcı profilleri"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "Grubu silmek, grubun izinlerini tüm üye kullanıcılardan geri alır."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Grubu silmek istediğinizden emin misiniz?"
+
+msgid "Add group"
+msgstr "Grup ekle"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Delete group"
+msgstr "Grubu sil"
+
+msgid "Object permissions"
+msgstr "Nesne izinleri"
+
+msgid "Name"
+msgstr "Ad"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Change"
+msgstr "Değiştir"
+
+msgid "Publish"
+msgstr "Yayınla"
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "Unlock"
+msgstr "Kilidi kaldır"
+
+msgid "Other permissions"
+msgstr "Diğer izinler"
+
+msgid "Page permissions"
+msgstr "Sayfa izinleri"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Add a page permission"
+msgstr "Bir sayfa izni ekle"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Üzgünüm, \"%(query)s\" ile eşleşen bir grup bulunamadı"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a "
+"href=\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Herhangi bir grup ayarlanmadı. Neden <a "
+"href=\"%(wagtailusers_create_group_url)s\">bir kaç tane ayarlamıyorsunuz</a>?"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Bu kullanıcıyı silmek istediğinizden emin misiniz?"
+
+msgid "Account"
+msgstr "Hesap"
+
+msgid "Roles"
+msgstr "Roller"
+
+msgid "Add user"
+msgstr "Kullanıcı ekle"
+
+msgid "Delete user"
+msgstr "Kullanıcıyı sil"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Pasif"
+
+msgid "Groups"
+msgstr "Gruplar"
+
+msgid "Add a group"
+msgstr "Bir grup ekle"
+
+msgid "Search groups"
+msgstr "Gruplarda ara"
+
+#, python-format
+msgid "Group '%(object)s' created."
+msgstr "'%(object)s' grubu oluşturuldu."
+
+#, python-format
+msgid "Group '%(object)s' updated."
+msgstr "'%(object)s' grubu güncellendi."
+
+msgid "The group could not be saved due to errors."
+msgstr "Hata nedeniyle grup kaydedilemedi."
+
+#, python-format
+msgid "Group '%(object)s' deleted."
+msgstr "'%(object)s' grubu silindi."
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Add a user"
+msgstr "Kullanıcı ekle"
+
+msgid "Users"
+msgstr "Kullanıcılar"
+
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+msgid "Admin"
+msgstr "Yönetici"
+
+msgid "Status"
+msgstr "Durum"
+
+#, python-format
+msgid "User '%(object)s' updated."
+msgstr "'%(object)s' kullanıcısı güncellendi."
+
+msgid "The user could not be saved due to errors."
+msgstr "Hata nedeniyle kullanıcı kaydedilemedi."
+
+#, python-format
+msgid "User '%(object)s' deleted."
+msgstr "'%(object)s' kullanıcısı silindi."
