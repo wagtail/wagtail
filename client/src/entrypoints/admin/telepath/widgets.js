@@ -511,10 +511,8 @@ class BaseDateTimeWidget extends Widget {
         element.focus();
       },
       getTextLabel() {
-        if(this.getValue()) {
-          return this.getValue().toString();
-        }
-        return null;
+        if (!this.getValue()) return '';
+        return this.getValue();
       },
       idForLabel: id,
     };
