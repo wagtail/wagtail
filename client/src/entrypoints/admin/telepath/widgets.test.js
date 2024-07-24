@@ -809,4 +809,8 @@ describe('telepath: wagtail.widgets.DateTimeInput', () => {
     boundWidget.focus();
     expect(document.activeElement).toBe(document.querySelector('input'));
   });
+
+  test('getTextLabel() returns the text of entered value', () => {
+    expect(boundWidget.getTextLabel()).toBe('2021-01-19 11:59');
+  });
 });

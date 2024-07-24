@@ -827,6 +827,7 @@
 * Romein van Buren
 * Chris Shenton
 * Nathanaël Jourdane
+* Vaughn Dickson
 
 ## Translators
 
