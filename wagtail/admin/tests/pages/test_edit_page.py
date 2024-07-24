@@ -2681,46 +2681,132 @@ class TestParentalM2M(WagtailTestUtils, TestCase):
         self.assertIn(self.men_with_beards_category, created_page.categories.all())
 
     def test_edit_and_save(self):
-        post_data = {
-            "title": "Christmas",
-            "date_from": "2017-12-25",
-            "slug": "christmas",
-            "audience": "public",
-            "location": "The North Pole",
-            "cost": "Free",
-            "carousel_items-TOTAL_FORMS": 0,
-            "carousel_items-INITIAL_FORMS": 0,
-            "carousel_items-MIN_NUM_FORMS": 0,
-            "carousel_items-MAX_NUM_FORMS": 0,
-            "speakers-TOTAL_FORMS": 0,
-            "speakers-INITIAL_FORMS": 0,
-            "speakers-MIN_NUM_FORMS": 0,
-            "speakers-MAX_NUM_FORMS": 0,
-            "related_links-TOTAL_FORMS": 0,
-            "related_links-INITIAL_FORMS": 0,
-            "related_links-MIN_NUM_FORMS": 0,
-            "related_links-MAX_NUM_FORMS": 0,
-            "head_counts-TOTAL_FORMS": 0,
-            "head_counts-INITIAL_FORMS": 0,
-            "head_counts-MIN_NUM_FORMS": 0,
-            "head_counts-MAX_NUM_FORMS": 0,
-            "categories": [self.holiday_category.id, self.men_with_beards_category.id],
-        }
-        response = self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,)),
-            post_data,
-        )
-        self.assertRedirects(
-            response, reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,))
-        )
-        updated_page = EventPage.objects.get(id=self.christmas_page.id)
-        created_revision = updated_page.get_latest_revision_as_object()
+        test_cases = [
+            {
+                "name": "Teste completo",
+                "post_data": {
+                    "title": "Christmas",
+                    "date_from": "2017-12-25",
+                    "slug": "christmas",
+                    "audience": "public",
+                    "location": "The North Pole",
+                    "cost": "Free",
+                    "carousel_items-TOTAL_FORMS": 0,
+                    "carousel_items-INITIAL_FORMS": 0,
+                    "carousel_items-MIN_NUM_FORMS": 0,
+                    "carousel_items-MAX_NUM_FORMS": 0,
+                    "speakers-TOTAL_FORMS": 0,
+                    "speakers-INITIAL_FORMS": 0,
+                    "speakers-MIN_NUM_FORMS": 0,
+                    "speakers-MAX_NUM_FORMS": 0,
+                    "related_links-TOTAL_FORMS": 0,
+                    "related_links-INITIAL_FORMS": 0,
+                    "related_links-MIN_NUM_FORMS": 0,
+                    "related_links-MAX_NUM_FORMS": 0,
+                    "head_counts-TOTAL_FORMS": 0,
+                    "head_counts-INITIAL_FORMS": 0,
+                    "head_counts-MIN_NUM_FORMS": 0,
+                    "head_counts-MAX_NUM_FORMS": 0,
+                    "categories": [self.holiday_category.id, self.men_with_beards_category.id],
+                },
+                "expected_redirect": True,
+                "expected_holiday_category_in_revision": True,
+                "expected_men_with_beards_category_in_revision": True,
+                "expected_live_page_categories_count": 0,
+            },
+            {
+                "name": "Teste sem carousel_items",
+                "post_data": {
+                    "title": "Christmas",
+                    "date_from": "2017-12-25",
+                    "slug": "christmas",
+                    "audience": "public",
+                    "location": "The North Pole",
+                    "cost": "Free",
+                    "carousel_items-TOTAL_FORMS": 0,
+                    "carousel_items-INITIAL_FORMS": 0,
+                    "carousel_items-MIN_NUM_FORMS": 0,
+                    "carousel_items-MAX_NUM_FORMS": 0,
+                    "speakers-TOTAL_FORMS": 0,
+                    "speakers-INITIAL_FORMS": 0,
+                    "speakers-MIN_NUM_FORMS": 0,
+                    "speakers-MAX_NUM_FORMS": 0,
+                    "related_links-TOTAL_FORMS": 0,
+                    "related_links-INITIAL_FORMS": 0,
+                    "related_links-MIN_NUM_FORMS": 0,
+                    "related_links-MAX_NUM_FORMS": 0,
+                    "head_counts-TOTAL_FORMS": 0,
+                    "head_counts-INITIAL_FORMS": 0,
+                    "head_counts-MIN_NUM_FORMS": 0,
+                    "head_counts-MAX_NUM_FORMS": 0,
+                    "categories": [self.holiday_category.id, self.men_with_beards_category.id],
+                },
+                "expected_redirect": True,
+                "expected_holiday_category_in_revision": True,
+                "expected_men_with_beards_category_in_revision": True,
+                "expected_live_page_categories_count": 0,
+            },
+            {
+                "name": "Teste com data inválida",
+                "post_data": {
+                    "title": "Christmas",
+                    "date_from": "invalid-date",
+                    "slug": "christmas",
+                    "audience": "public",
+                    "location": "The North Pole",
+                    "cost": "Free",
+                    "carousel_items-TOTAL_FORMS": 0,
+                    "carousel_items-INITIAL_FORMS": 0,
+                    "carousel_items-MIN_NUM_FORMS": 0,
+                    "carousel_items-MAX_NUM_FORMS": 0,
+                    "speakers-TOTAL_FORMS": 0,
+                    "speakers-INITIAL_FORMS": 0,
+                    "speakers-MIN_NUM_FORMS": 0,
+                    "speakers-MAX_NUM_FORMS": 0,
+                    "related_links-TOTAL_FORMS": 0,
+                    "related_links-INITIAL_FORMS": 0,
+                    "related_links-MIN_NUM_FORMS": 0,
+                    "related_links-MAX_NUM_FORMS": 0,
+                    "head_counts-TOTAL_FORMS": 0,
+                    "head_counts-INITIAL_FORMS": 0,
+                    "head_counts-MIN_NUM_FORMS": 0,
+                    "head_counts-MAX_NUM_FORMS": 0,
+                    "categories": [self.holiday_category.id, self.men_with_beards_category.id],
+                },
+                "expected_redirect": False,
+                "expected_holiday_category_in_revision": False,
+                "expected_men_with_beards_category_in_revision": False,
+                "expected_live_page_categories_count": 0,
+            },
+        ]
 
-        self.assertIn(self.holiday_category, created_revision.categories.all())
-        self.assertIn(self.men_with_beards_category, created_revision.categories.all())
+        for case in test_cases:
+            with self.subTest(case["name"]):
+                response = self.client.post(
+                    reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,)),
+                    case["post_data"],
+                )
+                if case["expected_redirect"]:
+                    self.assertRedirects(
+                        response, reverse("wagtailadmin_pages:edit", args=(self.christmas_page.id,))
+                    )
+                else:
+                    self.assertNotEqual(response.status_code, 302)
 
-        # no change to live page record yet
-        self.assertEqual(0, updated_page.categories.count())
+                updated_page = EventPage.objects.get(id=self.christmas_page.id)
+                created_revision = updated_page.get_latest_revision_as_object()
+
+                if case["expected_holiday_category_in_revision"]:
+                    self.assertIn(self.holiday_category, created_revision.categories.all())
+                else:
+                    self.assertNotIn(self.holiday_category, created_revision.categories.all())
+
+                if case["expected_men_with_beards_category_in_revision"]:
+                    self.assertIn(self.men_with_beards_category, created_revision.categories.all())
+                else:
+                    self.assertNotIn(self.men_with_beards_category, created_revision.categories.all())
+
+                self.assertEqual(case["expected_live_page_categories_count"], updated_page.categories.count())
 
     def test_edit_and_publish(self):
         post_data = {
