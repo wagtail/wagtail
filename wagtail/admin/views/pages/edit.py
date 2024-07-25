@@ -901,7 +901,6 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 args=(session.id,),
             ),
             [],
-            content_type,
             self.page.latest_revision_id,
         )
 
