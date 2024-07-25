@@ -691,6 +691,29 @@ describe('PreviewController', () => {
       expect(global.fetch).toHaveBeenCalledTimes(1);
     });
 
+    it('should assume the first device size is the default if none are marked as default', async () => {
+      // Remove the default size marker
+      document
+        .querySelector('[data-default-size]')
+        .removeAttribute('data-default-size');
+      expect(document.querySelectorAll('[data-default-size]')).toHaveLength(0);
+
+      const element = document.querySelector('[data-controller="w-preview"]');
+
+      // Move the tablet size to the first position
+      const tabletSize = document.querySelector(
+        'label:has(input[name="preview-size"][value="tablet"])',
+      );
+      element.prepend(tabletSize);
+
+      await initializeOpenedPanel();
+      const tabletInput = tabletSize.querySelector('input');
+      expect(tabletInput.checked).toBe(true);
+      expect(
+        tabletSize.classList.contains('w-preview__size-button--selected'),
+      ).toBe(true);
+    });
+
     it('should clean up event listeners on disconnect', async () => {
       await initializeOpenedPanel();
 
