@@ -285,17 +285,14 @@ class TestPingView(WagtailTestUtils, TestCase):
             'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
         )
         self.assertIsNotNone(dialog_title)
-        self.assertIn(
-            "Vic Otheruser has saved a newer version of this page",
-            dialog_title.string,
-        )
+        self.assertIn("Vic Otheruser saved a new version", dialog_title.string)
         dialog_subtitle = soup.select_one(
             'template[data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog"]'
         )
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will lose any of your unsaved changes.",
+            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
             dialog_subtitle.string,
         )
 
@@ -342,7 +339,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
-            "Vic Otheruser has saved a newer version of this page",
+            "Vic Otheruser saved a new version",
             dialog_title.string,
         )
         dialog_subtitle = soup.select_one(
@@ -351,7 +348,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Vic Otheruser. "
-            "Refreshing the page will lose any of your unsaved changes.",
+            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
             dialog_subtitle.string,
         )
 
@@ -424,7 +421,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
-            "Gordon Thirduser has saved a newer version of this page",
+            "Gordon Thirduser saved a new version",
             dialog_title.string,
         )
         dialog_subtitle = soup.select_one(
@@ -433,7 +430,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by Gordon Thirduser. "
-            "Refreshing the page will lose any of your unsaved changes.",
+            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
             dialog_subtitle.string,
         )
         other_session_text = rendered_sessions[1].text
@@ -494,7 +491,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(dialog_title)
         self.assertIn(
-            "System has saved a newer version of this page",
+            "System saved a new version",
             dialog_title.string,
         )
         dialog_subtitle = soup.select_one(
@@ -503,7 +500,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(dialog_subtitle)
         self.assertIn(
             "Proceeding will overwrite the changes made by System. "
-            "Refreshing the page will lose any of your unsaved changes.",
+            "Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.",
             dialog_subtitle.string,
         )
         other_session_text = rendered_sessions[1].text
@@ -730,7 +727,7 @@ class TestPingView(WagtailTestUtils, TestCase):
         rendered_sessions = soup.select("ol.w-editing-sessions__list li")
         self.assertEqual(len(rendered_sessions), 2)
         session_text = rendered_sessions[0].text
-        self.assertIn("You have unsaved changes in another session", session_text)
+        self.assertIn("You have unsaved changes in another window", session_text)
         self.assertNotIn("Currently viewing", session_text)
         dialog_title = soup.select_one(
             'template[data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog"]'
