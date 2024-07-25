@@ -21,15 +21,18 @@ describe('PreviewController', () => {
       ...originalWindow,
       ...props,
     }));
-  const resizeObserverMockObserve = jest.fn();
-  const resizeObserverMockUnobserve = jest.fn();
-  const resizeObserverMockDisconnect = jest.fn();
 
-  const ResizeObserverMock = jest.fn().mockImplementation(() => ({
-    observe: resizeObserverMockObserve,
-    unobserve: resizeObserverMockUnobserve,
-    disconnect: resizeObserverMockDisconnect,
-  }));
+  const ResizeObserverMock = jest.fn((callback) => {
+    const observed = [];
+    return {
+      callback,
+      observe: jest.fn((el) => observed.push(el)),
+      unobserve: jest.fn((el) => observed.splice(observed.indexOf(el), 1)),
+      disconnect: jest.fn(() => observed.splice(0, observed.length)),
+      // Not a real ResizeObserver method, but useful for simulating resize
+      notify: jest.fn((entries) => callback(entries)),
+    };
+  });
 
   global.ResizeObserver = ResizeObserverMock;
 
@@ -306,7 +309,6 @@ describe('PreviewController', () => {
 
     it('should observe its own size so it can set the preview width accordingly', async () => {
       expect(ResizeObserverMock).not.toHaveBeenCalled();
-      expect(resizeObserverMockObserve).not.toHaveBeenCalled();
 
       application = Application.start();
       application.register('w-preview', PreviewController);
@@ -315,8 +317,16 @@ describe('PreviewController', () => {
 
       const previewPanel = document.querySelector('.w-preview');
 
+      expect(ResizeObserverMock).toHaveBeenCalledTimes(1);
       expect(ResizeObserverMock).toHaveBeenCalledWith(expect.any(Function));
-      expect(resizeObserverMockObserve).toHaveBeenCalledWith(previewPanel);
+
+      const observer = ResizeObserverMock.mock.results[0].value;
+      expect(observer.observe).toHaveBeenCalledWith(previewPanel);
+
+      observer.notify([{ contentRect: { width: 5463 } }]);
+      expect(previewPanel.style.getPropertyValue('--preview-panel-width')).toBe(
+        '5463',
+      );
     });
   });
 
