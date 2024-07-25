@@ -713,7 +713,6 @@ class CreateEditViewOptionalFeaturesMixin:
                 args=(session.id,),
             ),
             [],
-            content_type,
             revision_id,
         )
 
