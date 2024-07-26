@@ -263,8 +263,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         width_field="width",
         height_field="height",
     )
-    image_description = models.CharField(
-        blank=True, max_length=255, verbose_name=_("image description"), default=""
+    description = models.CharField(
+        blank=True, max_length=255, verbose_name=_("description"), default=""
     )
     width = models.IntegerField(verbose_name=_("width"), editable=False)
     height = models.IntegerField(verbose_name=_("height"), editable=False)
@@ -843,8 +843,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 class Image(AbstractImage):
     admin_form_fields = (
         "title",
-        "image_description",
         "file",
+        "description",
         "collection",
         "tags",
         "focal_point_x",
