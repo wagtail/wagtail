@@ -101,13 +101,6 @@
         @include svg-icon(0.9rem);
       }
     }
-
-    input[type='radio'] {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0;
-    }
   }
 
   &__refresh-button.button--icon {
@@ -190,5 +183,16 @@
 
   &__mode-select {
     @apply w-outline-offset-inside;
+  }
+
+  // A hidden element that is only rendered for functionality purposes,
+  // but is not visible to the user. Used by radio inputs for preview sizes and
+  // the iframe while it's loading. We nest the selector rather than suffixing
+  // the parent selector to beat the specificity of input[type="radio"] styles
+  .w-preview__proxy {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
   }
 }

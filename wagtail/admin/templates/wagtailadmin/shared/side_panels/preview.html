@@ -1,30 +1,28 @@
-{% load i18n wagtailadmin_tags %}
-
-{% wagtail_config as settings %}
+{% load i18n l10n wagtailadmin_tags %}
 
 <div
     class="w-preview"
     data-controller="w-preview"
     data-w-preview-has-errors-class="w-preview--has-errors"
+    data-w-preview-proxy-class="w-preview__proxy"
     data-w-preview-selected-size-class="w-preview__size-button--selected"
+    data-w-preview-auto-update-interval-value="{{ auto_update_interval|unlocalize }}"
     data-w-preview-url-value="{{ preview_url }}"
-    data-w-preview-auto-update-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW|yesno:'true,false' }}"
-    data-w-preview-auto-update-interval-value="{{ settings.WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL }}"
     data-w-preview-w-progress-outlet="[data-controller='w-preview'] [data-controller='w-progress']"
 >
     <div class="w-preview__sizes">
         {% block size_buttons %}
             <label class="w-preview__size-button">
                 {% icon name="mobile-alt" %}
-                <input type="radio" name="preview-size" value="mobile" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
+                <input type="radio" class="w-preview__proxy" name="preview-size" value="mobile" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
             </label>
             <label class="w-preview__size-button">
                 {% icon name="tablet-alt" %}
-                <input type="radio" name="preview-size" value="tablet" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
+                <input type="radio" class="w-preview__proxy" name="preview-size" value="tablet" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
             </label>
             <label class="w-preview__size-button">
                 {% icon name="desktop" %}
-                <input type="radio" name="preview-size" value="desktop" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
+                <input type="radio" class="w-preview__proxy" name="preview-size" value="desktop" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
             </label>
         {% endblock %}
 
@@ -33,7 +31,7 @@
         {% endblock %}
     </div>
 
-    {% if settings.WAGTAIL_AUTO_UPDATE_PREVIEW %}
+    {% if auto_update_interval %}
         <div class="w-preview__spinner" data-w-preview-target="spinner" hidden>
             {% icon name="spinner" classname="default" %}
             <span class="w-sr-only">{% trans 'Loading'%}</span>
