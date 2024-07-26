@@ -826,7 +826,7 @@
 * Jeroen de Vries
 * Romein van Buren
 * Chris Shenton
-* Nathanaël
+* Nathanaël Jourdane
 
 ## Translators
 
