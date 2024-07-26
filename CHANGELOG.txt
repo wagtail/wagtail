@@ -60,7 +60,7 @@ Changelog
  * Docs: Add better docs for generating URLs on creating admin views (Shlomo Markowitz)
  * Docs: Document the `vary_fields` property for custom image filters (Daniel Kirkham)
  * Docs: Fix documentation build errors (Himanshu Garg, Chris Shenton)
- * Docs: Fix PDF export (Nathanaël)
+ * Docs: Fix PDF export (Nathanaël Jourdane)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
  * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
