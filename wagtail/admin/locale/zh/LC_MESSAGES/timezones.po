@@ -1,0 +1,1327 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"PO-Revision-Date: 2021-09-27 17:40\n"
+"Last-Translator: translate.py\n"
+"Language-Team: The Unicode Consortium CLDR <https://github.com/unicode-org/cldr-json>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Africa/Abidjan"
+msgstr "非洲/阿比让"
+
+msgid "Africa/Accra"
+msgstr "非洲/阿克拉"
+
+msgid "Africa/Addis_Ababa"
+msgstr "非洲/亚的斯亚贝巴"
+
+msgid "Africa/Algiers"
+msgstr "非洲/阿尔及尔"
+
+msgid "Africa/Asmara"
+msgstr "非洲/内罗毕"
+
+msgid "Africa/Bamako"
+msgstr "非洲/巴马科"
+
+msgid "Africa/Bangui"
+msgstr "非洲/班吉"
+
+msgid "Africa/Banjul"
+msgstr "非洲/班珠尔"
+
+msgid "Africa/Bissau"
+msgstr "非洲/比绍"
+
+msgid "Africa/Blantyre"
+msgstr "非洲/布兰太尔"
+
+msgid "Africa/Brazzaville"
+msgstr "非洲/布拉柴维尔"
+
+msgid "Africa/Bujumbura"
+msgstr "非洲/布琼布拉"
+
+msgid "Africa/Cairo"
+msgstr "非洲/开罗"
+
+msgid "Africa/Casablanca"
+msgstr "非洲/卡萨布兰卡"
+
+msgid "Africa/Ceuta"
+msgstr "非洲/休达"
+
+msgid "Africa/Conakry"
+msgstr "非洲/科纳克里"
+
+msgid "Africa/Dakar"
+msgstr "非洲/达喀尔"
+
+msgid "Africa/Dar_es_Salaam"
+msgstr "非洲/达累斯萨拉姆"
+
+msgid "Africa/Djibouti"
+msgstr "非洲/吉布提"
+
+msgid "Africa/Douala"
+msgstr "非洲/杜阿拉"
+
+msgid "Africa/El_Aaiun"
+msgstr "非洲/阿尤恩"
+
+msgid "Africa/Freetown"
+msgstr "非洲/弗里敦"
+
+msgid "Africa/Gaborone"
+msgstr "非洲/哈博罗内"
+
+msgid "Africa/Harare"
+msgstr "非洲/哈拉雷"
+
+msgid "Africa/Johannesburg"
+msgstr "非洲/约翰内斯堡"
+
+msgid "Africa/Juba"
+msgstr "非洲/朱巴"
+
+msgid "Africa/Kampala"
+msgstr "非洲/坎帕拉"
+
+msgid "Africa/Khartoum"
+msgstr "非洲/喀土穆"
+
+msgid "Africa/Kigali"
+msgstr "非洲/基加利"
+
+msgid "Africa/Kinshasa"
+msgstr "非洲/金沙萨"
+
+msgid "Africa/Lagos"
+msgstr "非洲/拉各斯"
+
+msgid "Africa/Libreville"
+msgstr "非洲/利伯维尔"
+
+msgid "Africa/Lome"
+msgstr "非洲/洛美"
+
+msgid "Africa/Luanda"
+msgstr "非洲/罗安达"
+
+msgid "Africa/Lubumbashi"
+msgstr "非洲/卢本巴希"
+
+msgid "Africa/Lusaka"
+msgstr "非洲/卢萨卡"
+
+msgid "Africa/Malabo"
+msgstr "非洲/马拉博"
+
+msgid "Africa/Maputo"
+msgstr "非洲/马普托"
+
+msgid "Africa/Maseru"
+msgstr "非洲/马塞卢"
+
+msgid "Africa/Mbabane"
+msgstr "非洲/姆巴巴纳"
+
+msgid "Africa/Mogadishu"
+msgstr "非洲/摩加迪沙"
+
+msgid "Africa/Monrovia"
+msgstr "非洲/蒙罗维亚"
+
+msgid "Africa/Nairobi"
+msgstr "非洲/内罗毕"
+
+msgid "Africa/Ndjamena"
+msgstr "非洲/恩贾梅纳"
+
+msgid "Africa/Niamey"
+msgstr "非洲/尼亚美"
+
+msgid "Africa/Nouakchott"
+msgstr "非洲/努瓦克肖特"
+
+msgid "Africa/Ouagadougou"
+msgstr "非洲/瓦加杜古"
+
+msgid "Africa/Porto-Novo"
+msgstr "非洲/波多诺伏"
+
+msgid "Africa/Sao_Tome"
+msgstr "非洲/圣多美"
+
+msgid "Africa/Tripoli"
+msgstr "非洲/的黎波里"
+
+msgid "Africa/Tunis"
+msgstr "非洲/突尼斯"
+
+msgid "Africa/Windhoek"
+msgstr "非洲/温得和克"
+
+msgid "America/Adak"
+msgstr "美洲/埃达克"
+
+msgid "America/Anchorage"
+msgstr "美洲/安克雷奇"
+
+msgid "America/Anguilla"
+msgstr "美洲/安圭拉"
+
+msgid "America/Antigua"
+msgstr "美洲/安提瓜"
+
+msgid "America/Araguaina"
+msgstr "美洲/阿拉瓜伊纳"
+
+msgid "America/Argentina/Buenos_Aires"
+msgstr "美洲/布宜诺斯艾利斯"
+
+msgid "America/Argentina/Catamarca"
+msgstr "美洲/卡塔马卡"
+
+msgid "America/Argentina/Cordoba"
+msgstr "美洲/科尔多瓦"
+
+msgid "America/Argentina/Jujuy"
+msgstr "美洲/胡胡伊"
+
+msgid "America/Argentina/La_Rioja"
+msgstr "美洲/阿根廷/拉里奥哈"
+
+msgid "America/Argentina/Mendoza"
+msgstr "美洲/门多萨"
+
+msgid "America/Argentina/Rio_Gallegos"
+msgstr "美洲/阿根廷/里奥加耶戈斯"
+
+msgid "America/Argentina/Salta"
+msgstr "美洲/阿根廷/萨尔塔"
+
+msgid "America/Argentina/San_Juan"
+msgstr "美洲/阿根廷/圣胡安"
+
+msgid "America/Argentina/San_Luis"
+msgstr "美洲/阿根廷/圣路易斯"
+
+msgid "America/Argentina/Tucuman"
+msgstr "美洲/阿根廷/图库曼"
+
+msgid "America/Argentina/Ushuaia"
+msgstr "美洲/阿根廷/乌斯怀亚"
+
+msgid "America/Aruba"
+msgstr "美洲/阿鲁巴"
+
+msgid "America/Asuncion"
+msgstr "美洲/亚松森"
+
+msgid "America/Atikokan"
+msgstr "美洲/阿蒂科肯"
+
+msgid "America/Bahia"
+msgstr "美洲/巴伊亚"
+
+msgid "America/Bahia_Banderas"
+msgstr "美洲/巴伊亚班德拉斯"
+
+msgid "America/Barbados"
+msgstr "美洲/巴巴多斯"
+
+msgid "America/Belem"
+msgstr "美洲/贝伦"
+
+msgid "America/Belize"
+msgstr "美洲/伯利兹"
+
+msgid "America/Blanc-Sablon"
+msgstr "美洲/布兰克萨布隆"
+
+msgid "America/Boa_Vista"
+msgstr "美洲/博阿维斯塔"
+
+msgid "America/Bogota"
+msgstr "美洲/波哥大"
+
+msgid "America/Boise"
+msgstr "美洲/博伊西"
+
+msgid "America/Cambridge_Bay"
+msgstr "美洲/剑桥湾"
+
+msgid "America/Campo_Grande"
+msgstr "美洲/大坎普"
+
+msgid "America/Cancun"
+msgstr "美洲/坎昆"
+
+msgid "America/Caracas"
+msgstr "美洲/加拉加斯"
+
+msgid "America/Cayenne"
+msgstr "美洲/卡宴"
+
+msgid "America/Cayman"
+msgstr "美洲/开曼"
+
+msgid "America/Chicago"
+msgstr "美洲/芝加哥"
+
+msgid "America/Chihuahua"
+msgstr "美洲/奇瓦瓦"
+
+msgid "America/Costa_Rica"
+msgstr "美洲/哥斯达黎加"
+
+msgid "America/Creston"
+msgstr "美洲/克雷斯顿"
+
+msgid "America/Cuiaba"
+msgstr "美洲/库亚巴"
+
+msgid "America/Curacao"
+msgstr "美洲/库拉索"
+
+msgid "America/Danmarkshavn"
+msgstr "美洲/丹马沙文"
+
+msgid "America/Dawson"
+msgstr "美洲/道森"
+
+msgid "America/Dawson_Creek"
+msgstr "美洲/道森克里克"
+
+msgid "America/Denver"
+msgstr "美洲/丹佛"
+
+msgid "America/Detroit"
+msgstr "美洲/底特律"
+
+msgid "America/Dominica"
+msgstr "美洲/多米尼加"
+
+msgid "America/Edmonton"
+msgstr "美洲/埃德蒙顿"
+
+msgid "America/Eirunepe"
+msgstr "美洲/依伦尼贝"
+
+msgid "America/El_Salvador"
+msgstr "美洲/萨尔瓦多"
+
+msgid "America/Fort_Nelson"
+msgstr "美洲/纳尔逊堡"
+
+msgid "America/Fortaleza"
+msgstr "美洲/福塔雷萨"
+
+msgid "America/Glace_Bay"
+msgstr "美洲/格莱斯贝"
+
+msgid "America/Goose_Bay"
+msgstr "美洲/古斯湾"
+
+msgid "America/Grand_Turk"
+msgstr "美洲/大特克"
+
+msgid "America/Grenada"
+msgstr "美洲/格林纳达"
+
+msgid "America/Guadeloupe"
+msgstr "美洲/瓜德罗普"
+
+msgid "America/Guatemala"
+msgstr "美洲/危地马拉"
+
+msgid "America/Guayaquil"
+msgstr "美洲/瓜亚基尔"
+
+msgid "America/Guyana"
+msgstr "美洲/圭亚那"
+
+msgid "America/Halifax"
+msgstr "美洲/哈利法克斯"
+
+msgid "America/Havana"
+msgstr "美洲/哈瓦那"
+
+msgid "America/Hermosillo"
+msgstr "美洲/埃莫西约"
+
+msgid "America/Indiana/Indianapolis"
+msgstr "美洲/印第安纳波利斯"
+
+msgid "America/Indiana/Knox"
+msgstr "美洲/印第安纳州诺克斯"
+
+msgid "America/Indiana/Marengo"
+msgstr "美洲/印第安纳州马伦戈"
+
+msgid "America/Indiana/Petersburg"
+msgstr "美洲/印第安纳州彼得斯堡"
+
+msgid "America/Indiana/Tell_City"
+msgstr "美洲/印第安纳州特尔城"
+
+msgid "America/Indiana/Vevay"
+msgstr "美洲/印第安纳州维维市"
+
+msgid "America/Indiana/Vincennes"
+msgstr "美洲/印第安纳州温森斯"
+
+msgid "America/Indiana/Winamac"
+msgstr "美洲/印第安纳州威纳马克"
+
+msgid "America/Inuvik"
+msgstr "美洲/伊努维克"
+
+msgid "America/Iqaluit"
+msgstr "美洲/伊魁特"
+
+msgid "America/Jamaica"
+msgstr "美洲/牙买加"
+
+msgid "America/Juneau"
+msgstr "美洲/朱诺"
+
+msgid "America/Kentucky/Louisville"
+msgstr "美洲/路易斯维尔"
+
+msgid "America/Kentucky/Monticello"
+msgstr "美洲/肯塔基州蒙蒂塞洛"
+
+msgid "America/Kralendijk"
+msgstr "美洲/克拉伦代克"
+
+msgid "America/La_Paz"
+msgstr "美洲/拉巴斯"
+
+msgid "America/Lima"
+msgstr "美洲/利马"
+
+msgid "America/Los_Angeles"
+msgstr "美洲/洛杉矶"
+
+msgid "America/Lower_Princes"
+msgstr "美洲/下太子区"
+
+msgid "America/Maceio"
+msgstr "美洲/马塞约"
+
+msgid "America/Managua"
+msgstr "美洲/马那瓜"
+
+msgid "America/Manaus"
+msgstr "美洲/马瑙斯"
+
+msgid "America/Marigot"
+msgstr "美洲/马里戈特"
+
+msgid "America/Martinique"
+msgstr "美洲/马提尼克"
+
+msgid "America/Matamoros"
+msgstr "美洲/马塔莫罗斯"
+
+msgid "America/Mazatlan"
+msgstr "美洲/马萨特兰"
+
+msgid "America/Menominee"
+msgstr "美洲/梅诺米尼"
+
+msgid "America/Merida"
+msgstr "美洲/梅里达"
+
+msgid "America/Metlakatla"
+msgstr "美洲/梅特拉卡特拉"
+
+msgid "America/Mexico_City"
+msgstr "美洲/墨西哥城"
+
+msgid "America/Miquelon"
+msgstr "美洲/密克隆"
+
+msgid "America/Moncton"
+msgstr "美洲/蒙克顿"
+
+msgid "America/Monterrey"
+msgstr "美洲/蒙特雷"
+
+msgid "America/Montevideo"
+msgstr "美洲/蒙得维的亚"
+
+msgid "America/Montserrat"
+msgstr "美洲/蒙特塞拉特"
+
+msgid "America/Nassau"
+msgstr "美洲/拿骚"
+
+msgid "America/New_York"
+msgstr "美洲/纽约"
+
+msgid "America/Nipigon"
+msgstr "美洲/尼皮贡"
+
+msgid "America/Nome"
+msgstr "美洲/诺姆"
+
+msgid "America/Noronha"
+msgstr "美洲/洛罗尼亚"
+
+msgid "America/North_Dakota/Beulah"
+msgstr "美洲/北达科他州比尤拉"
+
+msgid "America/North_Dakota/Center"
+msgstr "美洲/北达科他州申特"
+
+msgid "America/North_Dakota/New_Salem"
+msgstr "美洲/北达科他州新塞勒姆"
+
+msgid "America/Nuuk"
+msgstr "美洲/Nuuk"
+
+msgid "America/Ojinaga"
+msgstr "美洲/奥希纳加"
+
+msgid "America/Panama"
+msgstr "美洲/巴拿马"
+
+msgid "America/Pangnirtung"
+msgstr "美洲/旁涅唐"
+
+msgid "America/Paramaribo"
+msgstr "美洲/帕拉马里博"
+
+msgid "America/Phoenix"
+msgstr "美洲/凤凰城"
+
+msgid "America/Port-au-Prince"
+msgstr "美洲/太子港"
+
+msgid "America/Port_of_Spain"
+msgstr "美洲/西班牙港"
+
+msgid "America/Porto_Velho"
+msgstr "美洲/波多韦柳"
+
+msgid "America/Puerto_Rico"
+msgstr "美洲/波多黎各"
+
+msgid "America/Punta_Arenas"
+msgstr "美洲/蓬塔阿雷纳斯"
+
+msgid "America/Rainy_River"
+msgstr "美洲/雷尼河"
+
+msgid "America/Rankin_Inlet"
+msgstr "美洲/兰今湾"
+
+msgid "America/Recife"
+msgstr "美洲/累西腓"
+
+msgid "America/Regina"
+msgstr "美洲/里贾纳"
+
+msgid "America/Resolute"
+msgstr "美洲/雷索卢特"
+
+msgid "America/Rio_Branco"
+msgstr "美洲/里奥布郎库"
+
+msgid "America/Santarem"
+msgstr "美洲/圣塔伦"
+
+msgid "America/Santiago"
+msgstr "美洲/圣地亚哥"
+
+msgid "America/Santo_Domingo"
+msgstr "美洲/圣多明各"
+
+msgid "America/Sao_Paulo"
+msgstr "美洲/圣保罗"
+
+msgid "America/Scoresbysund"
+msgstr "美洲/斯科列斯比桑德"
+
+msgid "America/Sitka"
+msgstr "美洲/锡特卡"
+
+msgid "America/St_Barthelemy"
+msgstr "美洲/圣巴泰勒米岛"
+
+msgid "America/St_Johns"
+msgstr "美洲/圣约翰斯"
+
+msgid "America/St_Kitts"
+msgstr "美洲/圣基茨"
+
+msgid "America/St_Lucia"
+msgstr "美洲/圣卢西亚"
+
+msgid "America/St_Thomas"
+msgstr "美洲/圣托马斯"
+
+msgid "America/St_Vincent"
+msgstr "美洲/圣文森特"
+
+msgid "America/Swift_Current"
+msgstr "美洲/斯威夫特卡伦特"
+
+msgid "America/Tegucigalpa"
+msgstr "美洲/特古西加尔巴"
+
+msgid "America/Thule"
+msgstr "美洲/图勒"
+
+msgid "America/Thunder_Bay"
+msgstr "美洲/桑德贝"
+
+msgid "America/Tijuana"
+msgstr "美洲/蒂华纳"
+
+msgid "America/Toronto"
+msgstr "美洲/多伦多"
+
+msgid "America/Tortola"
+msgstr "美洲/托尔托拉"
+
+msgid "America/Vancouver"
+msgstr "美洲/温哥华"
+
+msgid "America/Whitehorse"
+msgstr "美洲/怀特霍斯"
+
+msgid "America/Winnipeg"
+msgstr "美洲/温尼伯"
+
+msgid "America/Yakutat"
+msgstr "美洲/亚库塔特"
+
+msgid "America/Yellowknife"
+msgstr "美洲/耶洛奈夫"
+
+msgid "Antarctica/Casey"
+msgstr "南极洲/卡塞"
+
+msgid "Antarctica/Davis"
+msgstr "南极洲/戴维斯"
+
+msgid "Antarctica/DumontDUrville"
+msgstr "南极洲/迪蒙迪尔维尔"
+
+msgid "Antarctica/Macquarie"
+msgstr "南极洲/麦格理"
+
+msgid "Antarctica/Mawson"
+msgstr "南极洲/莫森"
+
+msgid "Antarctica/McMurdo"
+msgstr "南极洲/麦克默多"
+
+msgid "Antarctica/Palmer"
+msgstr "南极洲/帕默尔"
+
+msgid "Antarctica/Rothera"
+msgstr "南极洲/罗瑟拉"
+
+msgid "Antarctica/Syowa"
+msgstr "南极洲/昭和"
+
+msgid "Antarctica/Troll"
+msgstr "南极洲/特罗尔"
+
+msgid "Antarctica/Vostok"
+msgstr "南极洲/沃斯托克"
+
+msgid "Arctic/Longyearbyen"
+msgstr "Arctic/朗伊尔城"
+
+msgid "Asia/Aden"
+msgstr "亚洲/亚丁"
+
+msgid "Asia/Almaty"
+msgstr "亚洲/阿拉木图"
+
+msgid "Asia/Amman"
+msgstr "亚洲/安曼"
+
+msgid "Asia/Anadyr"
+msgstr "亚洲/阿纳德尔"
+
+msgid "Asia/Aqtau"
+msgstr "亚洲/阿克套"
+
+msgid "Asia/Aqtobe"
+msgstr "亚洲/阿克托别"
+
+msgid "Asia/Ashgabat"
+msgstr "亚洲/阿什哈巴德"
+
+msgid "Asia/Atyrau"
+msgstr "亚洲/阿特劳"
+
+msgid "Asia/Baghdad"
+msgstr "亚洲/巴格达"
+
+msgid "Asia/Bahrain"
+msgstr "亚洲/巴林"
+
+msgid "Asia/Baku"
+msgstr "亚洲/巴库"
+
+msgid "Asia/Bangkok"
+msgstr "亚洲/曼谷"
+
+msgid "Asia/Barnaul"
+msgstr "亚洲/巴尔瑙尔"
+
+msgid "Asia/Beirut"
+msgstr "亚洲/贝鲁特"
+
+msgid "Asia/Bishkek"
+msgstr "亚洲/比什凯克"
+
+msgid "Asia/Brunei"
+msgstr "亚洲/文莱"
+
+msgid "Asia/Chita"
+msgstr "亚洲/赤塔"
+
+msgid "Asia/Choibalsan"
+msgstr "亚洲/乔巴山"
+
+msgid "Asia/Colombo"
+msgstr "亚洲/科伦坡"
+
+msgid "Asia/Damascus"
+msgstr "亚洲/大马士革"
+
+msgid "Asia/Dhaka"
+msgstr "亚洲/达卡"
+
+msgid "Asia/Dili"
+msgstr "亚洲/帝力"
+
+msgid "Asia/Dubai"
+msgstr "亚洲/迪拜"
+
+msgid "Asia/Dushanbe"
+msgstr "亚洲/杜尚别"
+
+msgid "Asia/Famagusta"
+msgstr "亚洲/法马古斯塔"
+
+msgid "Asia/Gaza"
+msgstr "亚洲/加沙"
+
+msgid "Asia/Hebron"
+msgstr "亚洲/希伯伦"
+
+msgid "Asia/Ho_Chi_Minh"
+msgstr "亚洲/胡志明市"
+
+msgid "Asia/Hong_Kong"
+msgstr "亚洲/香港"
+
+msgid "Asia/Hovd"
+msgstr "亚洲/科布多"
+
+msgid "Asia/Irkutsk"
+msgstr "亚洲/伊尔库茨克"
+
+msgid "Asia/Jakarta"
+msgstr "亚洲/雅加达"
+
+msgid "Asia/Jayapura"
+msgstr "亚洲/查亚普拉"
+
+msgid "Asia/Jerusalem"
+msgstr "亚洲/耶路撒冷"
+
+msgid "Asia/Kabul"
+msgstr "亚洲/喀布尔"
+
+msgid "Asia/Kamchatka"
+msgstr "亚洲/堪察加"
+
+msgid "Asia/Karachi"
+msgstr "亚洲/卡拉奇"
+
+msgid "Asia/Kathmandu"
+msgstr "亚洲/加德满都"
+
+msgid "Asia/Khandyga"
+msgstr "亚洲/汉德加"
+
+msgid "Asia/Kolkata"
+msgstr "亚洲/加尔各答"
+
+msgid "Asia/Krasnoyarsk"
+msgstr "亚洲/克拉斯诺亚尔斯克"
+
+msgid "Asia/Kuala_Lumpur"
+msgstr "亚洲/吉隆坡"
+
+msgid "Asia/Kuching"
+msgstr "亚洲/古晋"
+
+msgid "Asia/Kuwait"
+msgstr "亚洲/科威特"
+
+msgid "Asia/Macau"
+msgstr "亚洲/澳门"
+
+msgid "Asia/Magadan"
+msgstr "亚洲/马加丹"
+
+msgid "Asia/Makassar"
+msgstr "亚洲/望加锡"
+
+msgid "Asia/Manila"
+msgstr "亚洲/马尼拉"
+
+msgid "Asia/Muscat"
+msgstr "亚洲/马斯喀特"
+
+msgid "Asia/Nicosia"
+msgstr "亚洲/尼科西亚"
+
+msgid "Asia/Novokuznetsk"
+msgstr "亚洲/新库兹涅茨克"
+
+msgid "Asia/Novosibirsk"
+msgstr "亚洲/新西伯利亚"
+
+msgid "Asia/Omsk"
+msgstr "亚洲/鄂木斯克"
+
+msgid "Asia/Oral"
+msgstr "亚洲/乌拉尔"
+
+msgid "Asia/Phnom_Penh"
+msgstr "亚洲/金边"
+
+msgid "Asia/Pontianak"
+msgstr "亚洲/坤甸"
+
+msgid "Asia/Pyongyang"
+msgstr "亚洲/平壤"
+
+msgid "Asia/Qatar"
+msgstr "亚洲/卡塔尔"
+
+msgid "Asia/Qostanay"
+msgstr "亚洲/库斯塔奈"
+
+msgid "Asia/Qyzylorda"
+msgstr "亚洲/克孜洛尔达"
+
+msgid "Asia/Riyadh"
+msgstr "亚洲/利雅得"
+
+msgid "Asia/Sakhalin"
+msgstr "亚洲/萨哈林"
+
+msgid "Asia/Samarkand"
+msgstr "亚洲/撒马尔罕"
+
+msgid "Asia/Seoul"
+msgstr "亚洲/首尔"
+
+msgid "Asia/Shanghai"
+msgstr "亚洲/上海"
+
+msgid "Asia/Singapore"
+msgstr "亚洲/新加坡"
+
+msgid "Asia/Srednekolymsk"
+msgstr "亚洲/中科雷姆斯克"
+
+msgid "Asia/Taipei"
+msgstr "亚洲/台北"
+
+msgid "Asia/Tashkent"
+msgstr "亚洲/塔什干"
+
+msgid "Asia/Tbilisi"
+msgstr "亚洲/第比利斯"
+
+msgid "Asia/Tehran"
+msgstr "亚洲/德黑兰"
+
+msgid "Asia/Thimphu"
+msgstr "亚洲/廷布"
+
+msgid "Asia/Tokyo"
+msgstr "亚洲/东京"
+
+msgid "Asia/Tomsk"
+msgstr "亚洲/托木斯克"
+
+msgid "Asia/Ulaanbaatar"
+msgstr "亚洲/乌兰巴托"
+
+msgid "Asia/Urumqi"
+msgstr "亚洲/乌鲁木齐"
+
+msgid "Asia/Ust-Nera"
+msgstr "亚洲/乌斯内拉"
+
+msgid "Asia/Vientiane"
+msgstr "亚洲/万象"
+
+msgid "Asia/Vladivostok"
+msgstr "亚洲/符拉迪沃斯托克"
+
+msgid "Asia/Yakutsk"
+msgstr "亚洲/雅库茨克"
+
+msgid "Asia/Yangon"
+msgstr "亚洲/仰光"
+
+msgid "Asia/Yekaterinburg"
+msgstr "亚洲/叶卡捷琳堡"
+
+msgid "Asia/Yerevan"
+msgstr "亚洲/埃里温"
+
+msgid "Atlantic/Azores"
+msgstr "Atlantic/亚速尔群岛"
+
+msgid "Atlantic/Bermuda"
+msgstr "Atlantic/百慕大"
+
+msgid "Atlantic/Canary"
+msgstr "Atlantic/加那利"
+
+msgid "Atlantic/Cape_Verde"
+msgstr "Atlantic/佛得角"
+
+msgid "Atlantic/Faroe"
+msgstr "Atlantic/法罗"
+
+msgid "Atlantic/Madeira"
+msgstr "Atlantic/马德拉"
+
+msgid "Atlantic/Reykjavik"
+msgstr "Atlantic/雷克雅未克"
+
+msgid "Atlantic/South_Georgia"
+msgstr "Atlantic/南乔治亚"
+
+msgid "Atlantic/St_Helena"
+msgstr "Atlantic/圣赫勒拿"
+
+msgid "Atlantic/Stanley"
+msgstr "Atlantic/斯坦利"
+
+msgid "Australia/Adelaide"
+msgstr "澳大利亚/阿德莱德"
+
+msgid "Australia/Brisbane"
+msgstr "澳大利亚/布里斯班"
+
+msgid "Australia/Broken_Hill"
+msgstr "澳大利亚/布罗肯希尔"
+
+msgid "Australia/Darwin"
+msgstr "澳大利亚/达尔文"
+
+msgid "Australia/Eucla"
+msgstr "澳大利亚/尤克拉"
+
+msgid "Australia/Hobart"
+msgstr "澳大利亚/霍巴特"
+
+msgid "Australia/Lindeman"
+msgstr "澳大利亚/林德曼"
+
+msgid "Australia/Lord_Howe"
+msgstr "澳大利亚/豪勋爵"
+
+msgid "Australia/Melbourne"
+msgstr "澳大利亚/墨尔本"
+
+msgid "Australia/Perth"
+msgstr "澳大利亚/珀斯"
+
+msgid "Australia/Sydney"
+msgstr "澳大利亚/悉尼"
+
+msgid "Canada/Atlantic"
+msgstr "加拿大/大西洋时间"
+
+msgid "Canada/Central"
+msgstr "加拿大/北美中部时间"
+
+msgid "Canada/Eastern"
+msgstr "加拿大/北美东部时间"
+
+msgid "Canada/Mountain"
+msgstr "加拿大/北美山区时间"
+
+msgid "Canada/Newfoundland"
+msgstr "加拿大/纽芬兰时间"
+
+msgid "Canada/Pacific"
+msgstr "加拿大/北美太平洋时间"
+
+msgid "Europe/Amsterdam"
+msgstr "欧洲/阿姆斯特丹"
+
+msgid "Europe/Andorra"
+msgstr "欧洲/安道尔"
+
+msgid "Europe/Astrakhan"
+msgstr "欧洲/阿斯特拉罕"
+
+msgid "Europe/Athens"
+msgstr "欧洲/雅典"
+
+msgid "Europe/Belgrade"
+msgstr "欧洲/贝尔格莱德"
+
+msgid "Europe/Berlin"
+msgstr "欧洲/柏林"
+
+msgid "Europe/Bratislava"
+msgstr "欧洲/布拉迪斯拉发"
+
+msgid "Europe/Brussels"
+msgstr "欧洲/布鲁塞尔"
+
+msgid "Europe/Bucharest"
+msgstr "欧洲/布加勒斯特"
+
+msgid "Europe/Budapest"
+msgstr "欧洲/布达佩斯"
+
+msgid "Europe/Busingen"
+msgstr "欧洲/布辛根"
+
+msgid "Europe/Chisinau"
+msgstr "欧洲/基希讷乌"
+
+msgid "Europe/Copenhagen"
+msgstr "欧洲/哥本哈根"
+
+msgid "Europe/Dublin"
+msgstr "欧洲/都柏林"
+
+msgid "Europe/Gibraltar"
+msgstr "欧洲/直布罗陀"
+
+msgid "Europe/Guernsey"
+msgstr "欧洲/根西岛"
+
+msgid "Europe/Helsinki"
+msgstr "欧洲/赫尔辛基"
+
+msgid "Europe/Isle_of_Man"
+msgstr "欧洲/马恩岛"
+
+msgid "Europe/Istanbul"
+msgstr "欧洲/伊斯坦布尔"
+
+msgid "Europe/Jersey"
+msgstr "欧洲/泽西岛"
+
+msgid "Europe/Kaliningrad"
+msgstr "欧洲/加里宁格勒"
+
+msgid "Europe/Kiev"
+msgstr "欧洲/基辅"
+
+msgid "Europe/Kirov"
+msgstr "欧洲/基洛夫"
+
+msgid "Europe/Lisbon"
+msgstr "欧洲/里斯本"
+
+msgid "Europe/Ljubljana"
+msgstr "欧洲/卢布尔雅那"
+
+msgid "Europe/London"
+msgstr "欧洲/伦敦"
+
+msgid "Europe/Luxembourg"
+msgstr "欧洲/卢森堡"
+
+msgid "Europe/Madrid"
+msgstr "欧洲/马德里"
+
+msgid "Europe/Malta"
+msgstr "欧洲/马耳他"
+
+msgid "Europe/Mariehamn"
+msgstr "欧洲/玛丽港"
+
+msgid "Europe/Minsk"
+msgstr "欧洲/明斯克"
+
+msgid "Europe/Monaco"
+msgstr "欧洲/摩纳哥"
+
+msgid "Europe/Moscow"
+msgstr "欧洲/莫斯科"
+
+msgid "Europe/Oslo"
+msgstr "欧洲/奥斯陆"
+
+msgid "Europe/Paris"
+msgstr "欧洲/巴黎"
+
+msgid "Europe/Podgorica"
+msgstr "欧洲/波德戈里察"
+
+msgid "Europe/Prague"
+msgstr "欧洲/布拉格"
+
+msgid "Europe/Riga"
+msgstr "欧洲/里加"
+
+msgid "Europe/Rome"
+msgstr "欧洲/罗马"
+
+msgid "Europe/Samara"
+msgstr "欧洲/萨马拉"
+
+msgid "Europe/San_Marino"
+msgstr "欧洲/圣马力诺"
+
+msgid "Europe/Sarajevo"
+msgstr "欧洲/萨拉热窝"
+
+msgid "Europe/Saratov"
+msgstr "欧洲/萨拉托夫"
+
+msgid "Europe/Simferopol"
+msgstr "欧洲/辛菲罗波尔"
+
+msgid "Europe/Skopje"
+msgstr "欧洲/斯科普里"
+
+msgid "Europe/Sofia"
+msgstr "欧洲/索非亚"
+
+msgid "Europe/Stockholm"
+msgstr "欧洲/斯德哥尔摩"
+
+msgid "Europe/Tallinn"
+msgstr "欧洲/塔林"
+
+msgid "Europe/Tirane"
+msgstr "欧洲/地拉那"
+
+msgid "Europe/Ulyanovsk"
+msgstr "欧洲/乌里扬诺夫斯克"
+
+msgid "Europe/Uzhgorod"
+msgstr "欧洲/乌日哥罗德"
+
+msgid "Europe/Vaduz"
+msgstr "欧洲/瓦杜兹"
+
+msgid "Europe/Vatican"
+msgstr "欧洲/梵蒂冈"
+
+msgid "Europe/Vienna"
+msgstr "欧洲/维也纳"
+
+msgid "Europe/Vilnius"
+msgstr "欧洲/维尔纽斯"
+
+msgid "Europe/Volgograd"
+msgstr "欧洲/伏尔加格勒"
+
+msgid "Europe/Warsaw"
+msgstr "欧洲/华沙"
+
+msgid "Europe/Zagreb"
+msgstr "欧洲/萨格勒布"
+
+msgid "Europe/Zaporozhye"
+msgstr "欧洲/扎波罗热"
+
+msgid "Europe/Zurich"
+msgstr "欧洲/苏黎世"
+
+msgid "GMT"
+msgstr "GMT/格林尼治标准时间"
+
+msgid "Indian/Antananarivo"
+msgstr "Indian/安塔那那利佛"
+
+msgid "Indian/Chagos"
+msgstr "Indian/查戈斯"
+
+msgid "Indian/Christmas"
+msgstr "Indian/圣诞岛"
+
+msgid "Indian/Cocos"
+msgstr "Indian/可可斯"
+
+msgid "Indian/Comoro"
+msgstr "Indian/科摩罗"
+
+msgid "Indian/Kerguelen"
+msgstr "Indian/凯尔盖朗"
+
+msgid "Indian/Mahe"
+msgstr "Indian/马埃岛"
+
+msgid "Indian/Maldives"
+msgstr "Indian/马尔代夫"
+
+msgid "Indian/Mauritius"
+msgstr "Indian/毛里求斯"
+
+msgid "Indian/Mayotte"
+msgstr "Indian/马约特"
+
+msgid "Indian/Reunion"
+msgstr "Indian/留尼汪"
+
+msgid "Pacific/Apia"
+msgstr "Pacific/阿皮亚"
+
+msgid "Pacific/Auckland"
+msgstr "Pacific/奥克兰"
+
+msgid "Pacific/Bougainville"
+msgstr "Pacific/布干维尔"
+
+msgid "Pacific/Chatham"
+msgstr "Pacific/查塔姆"
+
+msgid "Pacific/Chuuk"
+msgstr "Pacific/特鲁克群岛"
+
+msgid "Pacific/Easter"
+msgstr "Pacific/复活节岛"
+
+msgid "Pacific/Efate"
+msgstr "Pacific/埃法特"
+
+msgid "Pacific/Enderbury"
+msgstr "Pacific/恩德伯里"
+
+msgid "Pacific/Fakaofo"
+msgstr "Pacific/法考福"
+
+msgid "Pacific/Fiji"
+msgstr "Pacific/斐济"
+
+msgid "Pacific/Funafuti"
+msgstr "Pacific/富纳富提"
+
+msgid "Pacific/Galapagos"
+msgstr "Pacific/加拉帕戈斯"
+
+msgid "Pacific/Gambier"
+msgstr "Pacific/甘比尔"
+
+msgid "Pacific/Guadalcanal"
+msgstr "Pacific/瓜达尔卡纳尔"
+
+msgid "Pacific/Guam"
+msgstr "Pacific/关岛"
+
+msgid "Pacific/Honolulu"
+msgstr "Pacific/檀香山"
+
+msgid "Pacific/Kiritimati"
+msgstr "Pacific/基里地马地岛"
+
+msgid "Pacific/Kosrae"
+msgstr "Pacific/库赛埃"
+
+msgid "Pacific/Kwajalein"
+msgstr "Pacific/夸贾林"
+
+msgid "Pacific/Majuro"
+msgstr "Pacific/马朱罗"
+
+msgid "Pacific/Marquesas"
+msgstr "Pacific/马克萨斯"
+
+msgid "Pacific/Midway"
+msgstr "Pacific/中途岛"
+
+msgid "Pacific/Nauru"
+msgstr "Pacific/瑙鲁"
+
+msgid "Pacific/Niue"
+msgstr "Pacific/纽埃"
+
+msgid "Pacific/Norfolk"
+msgstr "Pacific/诺福克"
+
+msgid "Pacific/Noumea"
+msgstr "Pacific/努美阿"
+
+msgid "Pacific/Pago_Pago"
+msgstr "Pacific/帕果帕果"
+
+msgid "Pacific/Palau"
+msgstr "Pacific/帕劳"
+
+msgid "Pacific/Pitcairn"
+msgstr "Pacific/皮特凯恩"
+
+msgid "Pacific/Pohnpei"
+msgstr "Pacific/波纳佩岛"
+
+msgid "Pacific/Port_Moresby"
+msgstr "Pacific/莫尔兹比港"
+
+msgid "Pacific/Rarotonga"
+msgstr "Pacific/拉罗汤加"
+
+msgid "Pacific/Saipan"
+msgstr "Pacific/塞班"
+
+msgid "Pacific/Tahiti"
+msgstr "Pacific/塔希提"
+
+msgid "Pacific/Tarawa"
+msgstr "Pacific/塔拉瓦"
+
+msgid "Pacific/Tongatapu"
+msgstr "Pacific/东加塔布"
+
+msgid "Pacific/Wake"
+msgstr "Pacific/威克"
+
+msgid "Pacific/Wallis"
+msgstr "Pacific/瓦利斯"
+
+msgid "US/Alaska"
+msgstr "美国/阿拉斯加时间"
+
+msgid "US/Arizona"
+msgstr "美国/Arizona"
+
+msgid "US/Central"
+msgstr "美国/北美中部时间"
+
+msgid "US/Eastern"
+msgstr "美国/北美东部时间"
+
+msgid "US/Hawaii"
+msgstr "美国/夏威夷-阿留申时间"
+
+msgid "US/Mountain"
+msgstr "美国/北美山区时间"
+
+msgid "US/Pacific"
+msgstr "美国/北美太平洋时间"
+
+msgid "UTC"
+msgstr "UTC/协调世界时"
