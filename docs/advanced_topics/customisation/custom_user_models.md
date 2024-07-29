@@ -107,10 +107,10 @@ class UserViewSet(WagtailUserViewSet):
         return CustomUserCreationForm
 ```
 
-Then, configure the `wagtail.users` application to use the custom viewset, by setting up a custom `AppConfig` class. Within your custom `myapp` app directory, create `apps.py` (if it does not exist already) and add:
+Then, configure the `wagtail.users` application to use the custom viewset, by setting up a custom `AppConfig` class. Within your project folder (which will be the package containing the top-level settings and urls modules), create `apps.py` (if it does not exist already) and add:
 
 ```python
-# myapp/apps.py
+# myproject/apps.py
 from wagtail.users.apps import WagtailUsersAppConfig
 
 
@@ -123,7 +123,8 @@ Replace `wagtail.users` in `settings.INSTALLED_APPS` with the path to `CustomUse
 ```python
 INSTALLED_APPS = [
     ...,
-    "myapp.apps.CustomUsersAppConfig",
+    "myapp",  # an app that contains the custom user model
+    "myproject.apps.CustomUsersAppConfig",  # a custom app config for the wagtail.users app
     # "wagtail.users",
     ...,
 ]
