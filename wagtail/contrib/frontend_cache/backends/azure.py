@@ -100,7 +100,7 @@ class AzureBaseBackend(BaseBackend):
         return {
             "resource_group_name": self._resource_group_name,
             "custom_headers": self._custom_headers,
-            "content_paths": paths,
+            "content_paths": set(paths),
         }
 
     def _purge_content(self, paths):
