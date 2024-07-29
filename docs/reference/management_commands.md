@@ -6,7 +6,7 @@
 
 ## start
 
-The Wagtail `start` command is similar to the Django [`startproject`](https://docs.djangoproject.com/en/5.0/ref/django-admin/#startproject) command. By default, the `start` command creates a project template, which contains your `models.py`, templates, and settings files. For example, to create new Wagtail project named `mysite`, use the command like this:
+By default, the `start` command creates a project template, which contains your `models.py`, templates, and settings files. For example, to create new Wagtail project named `mysite`, use the command like this:
 
 ```sh
 wagtail start mysite
