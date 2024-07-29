@@ -18,6 +18,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, StatusTagColumn, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.widgets.button import Button
+from wagtail.contrib.frontend_cache.utils import PurgeBatch, purge_urls_from_cache
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
 from wagtail.contrib.redirects.forms import (
@@ -36,6 +37,7 @@ from wagtail.contrib.redirects.utils import (
     write_to_file_storage,
 )
 from wagtail.log_actions import log
+from wagtail.models import Site
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -154,6 +156,20 @@ class EditView(generic.EditView):
             "redirect_title": self.object.title
         }
 
+    def save_instance(self):
+        purger = PurgeBatch()
+
+        root_paths = Site.get_site_root_paths()
+        purger.add_urls(self.object.old_links(root_paths))
+
+        instance = super().save_instance()
+
+        purger.add_urls(self.object.old_links(root_paths))
+
+        purger.purge()
+
+        return instance
+
 
 @permission_checker.require("delete")
 def delete(request, redirect_id):
@@ -168,6 +184,9 @@ def delete(request, redirect_id):
         with transaction.atomic():
             log(instance=theredirect, action="wagtail.delete")
             theredirect.delete()
+
+        purge_urls_from_cache(theredirect.old_links())
+
         messages.success(
             request,
             _("Redirect '%(redirect_title)s' deleted.")
@@ -192,6 +211,8 @@ def add(request):
             with transaction.atomic():
                 theredirect = form.save()
                 log(instance=theredirect, action="wagtail.create")
+
+            purge_urls_from_cache(theredirect.old_links())
 
             messages.success(
                 request,

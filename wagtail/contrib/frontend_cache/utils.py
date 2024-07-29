@@ -64,6 +64,15 @@ def purge_url_from_cache(url, backend_settings=None, backends=None):
 
 
 def purge_urls_from_cache(urls, backend_settings=None, backends=None):
+    if not urls:
+        return
+
+    backends = get_backends(backend_settings, backends)
+
+    # If no backends are configured, there's nothing to do
+    if not backends:
+        return
+
     # Convert each url to urls one for each managed language (WAGTAILFRONTENDCACHE_LANGUAGES setting).
     # The managed languages are common to all the defined backends.
     # This depends on settings.USE_I18N
@@ -104,8 +113,6 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
 
     for url in urls:
         urls_by_hostname[urlsplit(url).netloc].append(url)
-
-    backends = get_backends(backend_settings, backends)
 
     for hostname, urls in urls_by_hostname.items():
         backends_for_hostname = {
@@ -150,14 +157,14 @@ class PurgeBatch:
     """Represents a list of URLs to be purged in a single request"""
 
     def __init__(self, urls=None):
-        self.urls = []
+        self.urls = set()
 
         if urls is not None:
             self.add_urls(urls)
 
     def add_url(self, url):
         """Adds a single URL"""
-        self.urls.append(url)
+        self.urls.add(url)
 
     def add_urls(self, urls):
         """
@@ -166,7 +173,7 @@ class PurgeBatch:
         This is equivalent to running ``.add_url(url)`` on each URL
         individually
         """
-        self.urls.extend(urls)
+        self.urls.update(urls)
 
     def add_page(self, page):
         """
