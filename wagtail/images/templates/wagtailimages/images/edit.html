@@ -51,10 +51,10 @@
                 <div
                     class="focal-point-chooser"
                     style="max-width: {{ rendition.width }}px; max-height: {{ rendition.height }}px;"
-                    data-focal-point-x="{{ image.focal_point_x|default_if_none:'' }}"
-                    data-focal-point-y="{{ image.focal_point_y|default_if_none:'' }}"
-                    data-focal-point-width="{{ image.focal_point_width|default_if_none:'' }}"
-                    data-focal-point-height="{{ image.focal_point_height|default_if_none:'' }}"
+                    data-focal-point-x="{{ image.focal_point_x|default_if_none:''|unlocalize }}"
+                    data-focal-point-y="{{ image.focal_point_y|default_if_none:''|unlocalize }}"
+                    data-focal-point-width="{{ image.focal_point_width|default_if_none:''|unlocalize }}"
+                    data-focal-point-height="{{ image.focal_point_height|default_if_none:''|unlocalize }}"
                     data-focal-input-label="{% trans 'Image focal point' %}"
                 >
                     <img {{ rendition.attrs }} decoding="async" data-original-width="{{ image.width|unlocalize }}" data-original-height="{{ image.height|unlocalize }}" class="show-transparency">

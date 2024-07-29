@@ -1,6 +1,7 @@
 import datetime
 import json
 import urllib
+from unittest.mock import patch
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -14,6 +15,8 @@ from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
+from willow.optimizers.base import OptimizerBase
+from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
@@ -78,12 +81,10 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "a cute puppy")
 
     def test_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"p": 1})
-        self.assertEqual(response.status_code, 200)
-        # page numbers out of range should return 404
-        response = self.get({"p": 9999})
-        self.assertEqual(response.status_code, 404)
+        pages = ["0", "1", "-1", "9999", "Not a page"]
+        for page in pages:
+            response = self.get({"p": page})
+            self.assertEqual(response.status_code, 200)
 
     def test_pagination_preserves_other_params(self):
         root_collection = Collection.get_first_root_node()
@@ -1261,12 +1262,20 @@ class TestImageEditView(WagtailTestUtils, TestCase):
     def test_no_thousand_separators_in_focal_point_editor(self):
         large_image = Image.objects.create(
             title="Test image",
-            file=get_test_image_file(size=(1024, 768)),
+            file=get_test_image_file(size=(3840, 2160)),
+            focal_point_x=2048,
+            focal_point_y=1001,
+            focal_point_width=1009,
+            focal_point_height=1002,
         )
         response = self.client.get(
             reverse("wagtailimages:edit", args=(large_image.id,))
         )
-        self.assertContains(response, 'data-original-width="1024"')
+        self.assertContains(response, 'data-original-width="3840"')
+        self.assertContains(response, 'data-focal-point-x="2048"')
+        self.assertContains(response, 'data-focal-point-y="1001"')
+        self.assertContains(response, 'data-focal-point-width="1009"')
+        self.assertContains(response, 'data-focal-point-height="1002"')
 
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
     def test_unique_together_validation_error(self):
@@ -3530,6 +3539,35 @@ class TestPreviewView(WagtailTestUtils, TestCase):
         response = self.client.get(
             reverse("wagtailimages:preview", args=(self.image.id, "fill-800x600"))
         )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "image/png")
+
+    def test_preview_with_optimizer(self):
+        """
+        Test that preview works with optimizers
+
+        Willow optimizers require
+        """
+
+        class DummyOptimizer(OptimizerBase):
+            library_name = "dummy"
+            image_format = "png"
+
+            @classmethod
+            def check_library(cls):
+                return True
+
+            @classmethod
+            def process(cls, file_path: str):
+                pass
+
+        # Get the image
+        with patch.object(registry, "_registered_optimizers", [DummyOptimizer]):
+            response = self.client.get(
+                reverse("wagtailimages:preview", args=(self.image.id, "fill-800x600"))
+            )
 
         # Check response
         self.assertEqual(response.status_code, 200)

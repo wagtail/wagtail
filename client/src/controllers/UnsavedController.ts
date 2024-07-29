@@ -181,6 +181,9 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     if (!confirmationMessage) return null;
 
     if (this.forceValue || this.hasCommentsValue || this.hasEditsValue) {
+      const confirmEvent = this.dispatch('confirm', { cancelable: true });
+      if (confirmEvent.defaultPrevented) return null;
+
       // eslint-disable-next-line no-param-reassign
       event.returnValue = confirmationMessage;
 

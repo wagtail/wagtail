@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import tippy, { Placement, Props, Instance } from 'tippy.js';
+import tippy, { Placement, Props, Instance, Content } from 'tippy.js';
 import { domReady } from '../utils/domReady';
 
 /**
@@ -41,11 +41,15 @@ export class TooltipController extends Controller<HTMLElement> {
     placement: { default: 'bottom', type: String },
   };
 
+  static targets = ['content'];
+
   declare contentValue: string;
   declare offsetValue: [number, number];
   declare placementValue: Placement;
+  declare contentTarget: HTMLElement;
 
   declare readonly hasOffsetValue: boolean;
+  declare readonly hasContentTarget: boolean;
 
   tippy?: Instance<Props>;
 
@@ -72,8 +76,17 @@ export class TooltipController extends Controller<HTMLElement> {
   }
 
   get options(): Partial<Props> {
+    let content: Content = this.contentValue;
+    if (this.hasContentTarget) {
+      // When using a content target, the HTML is only used once during initialization.
+      // We cannot update it later via contentTargetConnected/contentTargetDisconnected,
+      // because Tippy immediately unmounts it from the DOM to be remounted later.
+      this.contentTarget.hidden = false;
+      content = this.contentTarget;
+    }
+
     return {
-      content: this.contentValue,
+      content,
       placement: this.placementValue,
       plugins: this.plugins,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),

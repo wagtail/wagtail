@@ -48,6 +48,9 @@ msgstr "Naozaj chcete zmazať tento %(snippet_type_name)s?"
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
 
+msgid "No, don't delete"
+msgstr "Nie, nezmazať"
+
 msgid "Saving…"
 msgstr "Ukladám…"
 

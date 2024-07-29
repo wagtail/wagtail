@@ -2,6 +2,7 @@
 {% load i18n %}
 {% block results %}
     <form class="w-overflow-auto" data-controller="w-bulk" data-w-bulk-action-inactive-class="w-invisible" action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
+        <input type="hidden" value="{{ next_url }}" name="next">
         <table class="listing">
             <col />
             <col />

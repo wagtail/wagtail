@@ -63,10 +63,6 @@ Users are not allowed to move or delete the collection that is used to assign th
 
 See Django's documentation on [custom permissions](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#custom-permissions) for details on how to set permissions up.
 
-```{versionadded} 6.1
-The ability to have custom permissions with codenames starting with `add_`, `change_`, or `delete_` was added.
-```
-
 Permissions for models registered with Wagtail will automatically show up in the Wagtail admin Group edit form. For other models, you can also add the permissions using the `register_permissions` hook (see [](register_permissions)).
 
 To add a custom permission to be used in the Wagtail admin without relating to a specific model, you can create it using the content type of the `wagtail.admin.models.Admin` model. For example:
@@ -86,10 +82,6 @@ permission = Permission.objects.create(
 ```
 
 After registering the permission using the `register_permissions` hook, it will be displayed in the Wagtail admin Group edit form under the 'Other permissions' section, alongside the 'Can access Wagtail admin' permission.
-
-```{versionadded} 6.1
-The ability to register custom permissions in the "Other permissions" section was added.
-```
 
 ## `FieldPanel` and `PanelGroup` permissions
 

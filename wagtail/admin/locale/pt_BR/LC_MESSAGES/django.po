@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Arthur Sturzbecher, 2024
 # Bruno Bertoldi <bruno.bertoldi@gmail.com>, 2017
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
@@ -28,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024\n"
+"Last-Translator: Arthur Sturzbecher, 2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -561,6 +562,24 @@ msgstr "Escolha um item"
 
 msgid "Choose a page"
 msgstr "Escolha uma página"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Somente páginas do tipo \"%(type)s\" podem ser selecionadas para este campo. "
+"Os resultados da busca irão excluir páginas de outros tipos."
+msgstr[1] ""
+"Somente os seguintes tipos de página podem ser escolhidos para este campo: "
+"%(type)s. Os resultados da pesquisa excluirão páginas de outros tipos."
+msgstr[2] ""
+"Somente os seguintes tipos de página podem ser escolhidos para este campo: "
+"%(type)s. Os resultados da pesquisa excluirão páginas de outros tipos.\n"
+"            "
 
 msgid "Confirm selection"
 msgstr "Confirmar seleção"

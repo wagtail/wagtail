@@ -1,13 +1,38 @@
+from warnings import warn
+
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.views.generic.base import BaseListingView
+from wagtail.admin.views.generic import BaseListingView, PermissionCheckedMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.permissions import page_permission_policy
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
-class ReportView(SpreadsheetExportMixin, BaseListingView):
+class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView):
     template_name = "wagtailadmin/reports/base_report.html"
+    results_template_name = "wagtailadmin/reports/base_report_results.html"
     title = ""
     paginate_by = 50
+    _show_breadcrumbs = True
+
+    def get_breadcrumbs_items(self):
+        return super().get_breadcrumbs_items() + [
+            {"url": "", "label": self.get_page_title()}
+        ]
+
+    def get_page_title(self):
+        if self.page_title:
+            return self.page_title
+        # WagtailAdminTemplateMixin uses `page_title`, but the documented approach
+        # for ReportView used `title`, so we need to support both during the
+        # deprecation period. When `title` is removed, this and the `get_context_data`
+        # overrides can be removed.
+        warn(
+            f"The `title` attribute in `{self.__class__.__name__}` (a `ReportView` subclass) "
+            "is deprecated. Use `page_title` instead.",
+            RemovedInWagtail70Warning,
+        )
+        return self.title
 
     def get_filtered_queryset(self):
         return self.filter_queryset(self.get_queryset())
@@ -28,7 +53,7 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["title"] = self.title
+        context["title"] = self.get_page_title()
         return context
 
     def render_to_response(self, context, **response_kwargs):
@@ -40,7 +65,7 @@ class ReportView(SpreadsheetExportMixin, BaseListingView):
 
 
 class PageReportView(ReportView):
-    template_name = "wagtailadmin/reports/base_page_report.html"
+    results_template_name = "wagtailadmin/reports/base_page_report_results.html"
     export_headings = {
         "latest_revision_created_at": _("Updated"),
         "status_string": _("Status"),
@@ -52,3 +77,5 @@ class PageReportView(ReportView):
         "status_string",
         "content_type.model_class._meta.verbose_name.title",
     ]
+    context_object_name = "pages"
+    permission_policy = page_permission_policy

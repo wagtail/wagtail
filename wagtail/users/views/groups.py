@@ -149,6 +149,10 @@ class GroupViewSet(ModelViewSet):
     model = Group
     ordering = ["name"]
     add_to_reference_index = False
+    menu_name = "groups"
+    menu_label = _("Groups")
+    menu_order = 601
+    add_to_settings_menu = True
 
     index_view_class = IndexView
     add_view_class = CreateView

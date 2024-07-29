@@ -55,6 +55,9 @@ msgstr "رمزعبور"
 msgid "The password you have entered is not correct. Please try again."
 msgstr "رمزعبور وارد شده درست نیست. لطفا مجددا سعی کنید."
 
+msgid "Comment"
+msgstr "نظر"
+
 msgid "Locked"
 msgstr "قفل شده"
 

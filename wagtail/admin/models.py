@@ -1,5 +1,9 @@
+from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Count, Model
+from django.db import models
+from django.db.models import Count
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
@@ -15,7 +19,7 @@ from wagtail.models import Page
 # A dummy model that exists purely to attach the access_admin permission type to, so that it
 # doesn't get identified as a stale content type and removed by the remove_stale_contenttypes
 # management command.
-class Admin(Model):
+class Admin(models.Model):
     class Meta:
         default_permissions = []  # don't create the default add / change / delete / view perms
         permissions = [
@@ -68,3 +72,31 @@ def popular_tags_for_model(model, count=10):
         .annotate(item_count=Count("taggit_taggeditem_items"))
         .order_by("-item_count")[:count]
     )
+
+
+class EditingSession(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="editing_sessions",
+    )
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="+"
+    )
+    object_id = models.CharField(max_length=255)
+    content_object = GenericForeignKey(
+        "content_type", "object_id", for_concrete_model=False
+    )
+    last_seen_at = models.DateTimeField()
+    is_editing = models.BooleanField(default=False)
+
+    @staticmethod
+    def cleanup():
+        EditingSession.objects.filter(
+            last_seen_at__lt=timezone.now() - timezone.timedelta(hours=1)
+        ).delete()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+        ]

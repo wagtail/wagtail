@@ -1,6 +1,5 @@
-import itertools
-import re
-from typing import Any, Mapping, Union
+from collections.abc import Mapping
+from typing import Any, Union
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -9,11 +8,11 @@ from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
 from django.http import Http404, HttpResponse
-from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy
 from django.views.generic.base import TemplateView
 
 from wagtail import hooks
+from wagtail.admin.icons import get_icons
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
@@ -350,32 +349,5 @@ def default(request):
     raise Http404
 
 
-icon_comment_pattern = re.compile(r"<!--.*?-->")
-_icons_html = None
-
-
-def icons():
-    global _icons_html
-    if _icons_html is None:
-        icon_hooks = hooks.get_hooks("register_icons")
-        all_icons = sorted(
-            itertools.chain.from_iterable(hook([]) for hook in icon_hooks)
-        )
-        combined_icon_markup = ""
-        for icon in all_icons:
-            symbol = (
-                render_to_string(icon)
-                .replace('xmlns="http://www.w3.org/2000/svg"', "")
-                .replace("svg", "symbol")
-            )
-            symbol = icon_comment_pattern.sub("", symbol)
-            combined_icon_markup += symbol
-
-        _icons_html = render_to_string(
-            "wagtailadmin/shared/icons.html", {"icons": combined_icon_markup}
-        )
-    return _icons_html
-
-
 def sprite(request):
-    return HttpResponse(icons())
+    return HttpResponse(get_icons(), content_type="image/svg+xml; charset=utf-8")

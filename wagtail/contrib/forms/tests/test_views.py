@@ -197,7 +197,11 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailforms:index"), {"p": "Hello world!"})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/index.html")
+
+        # Check that it got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_forms_index_pagination_out_of_range(self):
         # Create some more form pages to make pagination kick in
@@ -207,7 +211,13 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailforms:index"), {"p": 99999})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/index.html")
+
+        # Check that it got the last page
+        self.assertEqual(
+            response.context["page_obj"].number, response.context["paginator"].num_pages
+        )
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
@@ -319,7 +329,15 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["page_obj"].object_list), 3)
 
         response = self.client.get(self.forms_index_url, {"p": 4})
-        self.assertEqual(response.status_code, 404)
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
         # now check the French pages.
         response = self.client.get(
@@ -463,10 +481,8 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
 
-        response = self.client.get(
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"p": 2},
-        )
+        list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        response = self.client.get(list_url, {"p": 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -474,6 +490,18 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
 
         # Check that we got the correct page
         self.assertEqual(response.context["page_obj"].number, 2)
+
+        # The delete form should have a 'next' input that points back to the list page
+        # with the same pagination querystring
+        soup = self.get_soup(response.content)
+        delete_url = reverse(
+            "wagtailforms:delete_submissions", args=(self.form_page.id,)
+        )
+        form = soup.find("form", {"action": delete_url})
+        self.assertIsNotNone(form)
+        next_input = form.find("input", {"name": "next"})
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input.get("value"), f"{list_url}?p=2")
 
     def test_list_submissions_pagination_invalid(self):
         self.make_list_submissions()
@@ -484,7 +512,11 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
@@ -495,7 +527,13 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number, response.context["paginator"].num_pages
+        )
 
     def test_list_submissions_default_order(self):
         response = self.client.get(
@@ -1156,10 +1194,8 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
 
-        response = self.client.get(
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"p": 2},
-        )
+        list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        response = self.client.get(list_url, {"p": 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1174,6 +1210,18 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
         self.assertContains(response, "generated-username-", count=20)
 
+        # The delete form should have a 'next' input that points back to the list page
+        # with the same pagination querystring
+        soup = self.get_soup(response.content)
+        delete_url = reverse(
+            "wagtailforms:delete_submissions", args=(self.form_page.id,)
+        )
+        form = soup.find("form", {"action": delete_url})
+        self.assertIsNotNone(form)
+        next_input = form.find("input", {"name": "next"})
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input.get("value"), f"{list_url}?p=2")
+
     def test_list_submissions_pagination_invalid(self):
         self.make_list_submissions()
 
@@ -1183,7 +1231,11 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_list_submissions_pagination_out_of_range(self):
         self.make_list_submissions()
@@ -1194,7 +1246,13 @@ class TestCustomFormsSubmissionsList(WagtailTestUtils, TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number, response.context["paginator"].num_pages
+        )
 
 
 class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
@@ -1205,15 +1263,29 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
         self.form_page = Page.objects.get(url_path="/home/contact-us/")
 
     def test_delete_submission_show_confirmation(self):
+        delete_url = reverse(
+            "wagtailforms:delete_submissions", args=(self.form_page.id,)
+        )
+        list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+
         response = self.client.get(
             reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
             + f"?selected-submissions={FormSubmission.objects.first().id}"
         )
+        self.assertEqual(response.status_code, 200)
         # Check show confirm page when HTTP method is GET
         self.assertTemplateUsed(response, "wagtailforms/confirm_delete.html")
 
         # Check that the deletion has not happened with GET request
         self.assertEqual(FormSubmission.objects.count(), 2)
+
+        # The delete form should have a 'next' input that points back to the list page
+        soup = self.get_soup(response.content)
+        form = soup.select_one(f'form[action^="{delete_url}"]')
+        self.assertIsNotNone(form)
+        next_input = form.find("input", {"name": "next"})
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input.get("value"), list_url)
 
     def test_delete_submission_with_permissions(self):
         response = self.client.post(
@@ -1288,6 +1360,39 @@ class TestDeleteFormSubmission(WagtailTestUtils, TestCase):
             response,
             reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
         )
+
+    def test_delete_submission_with_next_url(self):
+        submission_id = FormSubmission.objects.first().id
+        delete_url = reverse(
+            "wagtailforms:delete_submissions", args=(self.form_page.id,)
+        )
+        list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        next_url = list_url + "?p=2"
+
+        response = self.client.get(
+            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,))
+            + f"?selected-submissions={submission_id}&next={next_url}"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # The delete form should have a 'next' input that points back to the list page
+        # with the same pagination querystring
+        soup = self.get_soup(response.content)
+        form = soup.select_one(f'form[action^="{delete_url}"]')
+        self.assertIsNotNone(form)
+        next_input = form.find("input", {"name": "next"})
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input.get("value"), next_url)
+
+        # Submitting the form should redirect to the next URL
+        response = self.client.post(
+            reverse("wagtailforms:delete_submissions", args=(self.form_page.id,)),
+            {
+                "selected-submissions": submission_id,
+                "next": next_url,
+            },
+        )
+        self.assertRedirects(response, next_url)
 
 
 class TestDeleteCustomFormSubmission(WagtailTestUtils, TestCase):
@@ -1483,10 +1588,8 @@ class TestFormsWithCustomSubmissionsList(WagtailTestUtils, TestCase):
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
 
-        response = self.client.get(
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"p": 2},
-        )
+        list_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        response = self.client.get(list_url, {"p": 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1496,6 +1599,18 @@ class TestFormsWithCustomSubmissionsList(WagtailTestUtils, TestCase):
         self.assertContains(response, "Page 2 of 3")
         self.assertContains(response, "Wet my pants excited!", count=50)
         self.assertEqual(response.context["page_obj"].number, 2)
+
+        # The delete form should have a 'next' input that points back to the list page
+        # with the same pagination querystring
+        soup = self.get_soup(response.content)
+        delete_url = reverse(
+            "wagtailforms:delete_submissions", args=(self.form_page.id,)
+        )
+        form = soup.find("form", {"action": delete_url})
+        self.assertIsNotNone(form)
+        next_input = form.find("input", {"name": "next"})
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input.get("value"), f"{list_url}?p=2")
 
     def test_list_submissions_csv_export(self):
         response = self.client.get(

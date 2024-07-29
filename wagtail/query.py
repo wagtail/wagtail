@@ -1,7 +1,8 @@
 import posixpath
 import warnings
 from collections import defaultdict
-from typing import Any, Dict, Iterable, Tuple
+from collections.abc import Iterable
+from typing import Any
 
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
@@ -588,7 +589,7 @@ class SpecificIterable(BaseIterable):
                         setattr(item, annotation, value)
                 yield item
 
-    def _get_chunks(self, queryset) -> Iterable[Tuple[Dict[str, Any]]]:
+    def _get_chunks(self, queryset) -> Iterable[tuple[dict[str, Any]]]:
         if not self.chunked_fetch:
             # The entire result will be stored in memory, so there is no
             # benefit to splitting the result

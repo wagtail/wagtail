@@ -1,0 +1,132 @@
+{% load wagtailadmin_tags i18n %}
+
+<ol class="w-editing-sessions__list">
+    {% for session in sessions|slice:":4" %}
+        <li>
+            {% fragment as avatar %}
+                {% avatar user=session.user classname="w-editing-sessions__avatar" %}
+            {% endfragment %}
+
+            {% if session.revision_id %}
+                {% fragment as avatar_decorated %}
+                    <div class="w-editing-sessions__decorated-avatar w-ping w-ping--critical">
+                        {{ avatar }}
+                        {% icon name="warning" %}
+                        <span class="w-editing-sessions__decorator-filler"></span>
+                    </div>
+                {% endfragment %}
+
+                {% if current_session.user == session.user %}
+                    {% blocktranslate trimmed asvar saved_new_version_message %}
+                        You saved a new version in another window
+                    {% endblocktranslate %}
+                {% else %}
+                    {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("System") asvar saved_new_version_message %}
+                        {{ user_name }} saved a new version
+                    {% endblocktranslate %}
+                {% endif %}
+
+                {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--saved" toggle_label=avatar_decorated toggle_aria_label=saved_new_version_message %}
+                    <div class="w-editing-sessions__popup">
+                        <div class="w-editing-sessions__message">
+                            {% icon name="warning" %}
+                            {{ saved_new_version_message }}
+                        </div>
+
+                        {% comment %}
+                            Use a custom button element instead of the dialog_toggle.html so we can add arbitrary
+                            data attributes to the button element. This is useful for allowing the SessionController
+                            to conditionally show the dialog, i.e. only when the user has unsaved changes.
+                        {% endcomment %}
+                        <button type="button" data-w-session-target="reload" class="button button-small button-secondary chooser__choose-button" data-dialog-id="w-unsaved-changes-dialog">
+                            {% icon name="rotate" %}
+                            {% trans "Refresh" %}
+                        </button>
+                    </div>
+                {% enddropdown %}
+            {% elif session.is_editing %}
+                {% if current_session.user == session.user %}
+                    {% blocktranslate trimmed asvar has_unsaved_changes_message %}
+                        You have unsaved changes in another window
+                    {% endblocktranslate %}
+                {% else %}
+                    {% blocktranslate trimmed with user_name=session.user|user_display_name|default:_("System") asvar has_unsaved_changes_message %}
+                        {{ user_name }} has unsaved changes
+                    {% endblocktranslate %}
+                {% endif %}
+
+                {% dropdown theme="popup" classname="w-editing-sessions__session w-editing-sessions__session--editing" toggle_label=avatar toggle_aria_label=has_unsaved_changes_message %}
+                    <div class="w-editing-sessions__popup">
+                        <div class="w-editing-sessions__message">
+                            {% icon name="warning" %}
+                            {{ has_unsaved_changes_message }}
+                        </div>
+                    </div>
+                {% enddropdown %}
+            {% else %}
+                <button class="w-editing-sessions__session" type="button" data-controller="w-tooltip">
+                    {{ avatar }}
+                    <div class="w-editing-sessions__popup" data-w-tooltip-target="content" hidden>
+                        <span class="w-editing-sessions__name">{{ session.user|user_display_name|default:_("System") }}</span>
+                        <span class="w-sr-only">-</span>
+                        <span>{% trans "Currently viewing" %}</span>
+                    </div>
+                </button>
+            {% endif %}
+        </li>
+    {% endfor %}
+    {% if sessions|length > 4 %}
+        {% blocktranslate trimmed count num_user=sessions|length|add:"-4" asvar num_other_users_message %}
+            One other user is currently viewing
+        {% plural %}
+            {{ num_user }} other users are currently viewing
+        {% endblocktranslate %}
+
+        {% fragment as more_sessions_toggle %}
+            +{{ sessions|length|add:"-4" }}
+        {% endfragment %}
+
+        <li>
+            <span id="w-editing-sessions-more-summary" class="w-sr-only">{{ num_other_users_message }}</span>
+
+            {% dropdown theme="drilldown" classname="w-editing-sessions__session w-editing-sessions__session--more" toggle_classname="w-editing-sessions__avatar" toggle_label=more_sessions_toggle toggle_describedby="w-editing-sessions-more-summary" %}
+                <ol class="w-editing-sessions__more-list">
+                    {% for session in sessions|slice:"4:" %}
+                        <li class="w-editing-sessions__list-item">
+                            {% avatar user=session.user size="small" %}
+                            <span>{{ session.user|user_display_name|default:_("System") }}</span>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% enddropdown %}
+        </li>
+    {% endif %}
+</ol>
+
+{% if sessions.0.revision_id %}
+    <template data-controller="w-teleport" data-w-teleport-target-value="#title-text-w-overwrite-changes-dialog" data-w-teleport-reset-value="true">
+        {% if current_session.user == sessions.0.user %}
+            {% blocktranslate trimmed asvar someone_has_saved_message %}
+                You saved a new version in another window
+            {% endblocktranslate %}
+        {% else %}
+            {% blocktranslate trimmed with user_name=sessions.0.user|user_display_name|default:_("System") asvar someone_has_saved_message %}
+                {{ user_name }} saved a new version
+            {% endblocktranslate %}
+        {% endif %}
+        {{ someone_has_saved_message }}
+    </template>
+
+    <template data-controller="w-teleport" data-w-teleport-target-value="#subtitle-w-overwrite-changes-dialog" data-w-teleport-reset-value="true">
+        {% if current_session.user == sessions.0.user %}
+            {% blocktranslate trimmed asvar overwrite_message %}
+                Proceeding will overwrite the changes you made in that window. Refreshing the page will show you the new changes, but you will lose any of your unsaved changes in the current window.
+            {% endblocktranslate %}
+        {% else %}
+            {% blocktranslate trimmed with user_name=sessions.0.user|user_display_name|default:_("System") asvar overwrite_message %}
+                Proceeding will overwrite the changes made by {{ user_name }}. Refreshing the page will show you the new changes, but you will lose any of your unsaved changes.
+            {% endblocktranslate %}
+        {% endif %}
+        {{ overwrite_message }}
+    </template>
+{% endif %}

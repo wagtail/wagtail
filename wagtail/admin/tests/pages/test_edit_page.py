@@ -127,12 +127,14 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
+        soup = self.get_soup(html)
+        dialog = soup.select_one(
+            """
+            template[data-controller="w-teleport"][data-w-teleport-target-value="[data-edit-form]"]
+            #schedule-publishing-dialog
+            """
         )
+        self.assertIsNotNone(dialog)
         # Should render the main form with data-edit-form attribute
         self.assertTagInHTML(
             f'<form action="{edit_url}" method="POST" data-edit-form>',
@@ -2067,7 +2069,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # as when running it within the full test suite
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(33):
+        with self.assertNumQueries(35):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
@@ -2080,7 +2082,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # Warm up the cache as above.
         self.client.get(reverse("wagtailadmin_pages:edit", args=(self.event_page.id,)))
 
-        with self.assertNumQueries(37):
+        with self.assertNumQueries(39):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )

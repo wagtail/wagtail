@@ -17,7 +17,7 @@ import posixpath
 import uuid
 from io import StringIO
 from typing import TYPE_CHECKING
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 from warnings import warn
 
 from django import forms
@@ -193,7 +193,7 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_streamfield_names(model_class):
     return tuple(
         field.name
@@ -702,7 +702,7 @@ class PreviewableMixin:
         """
         url = self._get_dummy_header_url(original_request)
         if url:
-            url_info = urlparse(url)
+            url_info = urlsplit(url)
             hostname = url_info.hostname
             path = url_info.path
             port = url_info.port or (443 if url_info.scheme == "https" else 80)
@@ -1291,8 +1291,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     promote_panels = []
     settings_panels = []
 
+    # Privacy options for page
+    private_page_options = ["password", "groups", "login"]
+
     @staticmethod
-    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+    def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
         Find the page route for the given HTTP request object, and URL path. The route
         result (`page`, `args`, and `kwargs`) will be cached via
@@ -1319,7 +1322,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return request._wagtail_route_for_request
 
     @staticmethod
-    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+    def find_for_request(request: HttpRequest, path: str) -> Page | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
         page route will be cached via `request._wagtail_route_for_request`
@@ -1817,7 +1820,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This is called by Wagtail whenever a page with aliases is published.
 
         :param revision: The revision of the original page that we are updating to (used for logging purposes)
-        :type revision: PageRevision, optional
+        :type revision: Revision, Optional
         """
         specific_self = self.specific
 
@@ -2387,8 +2390,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     ):
         """
         Copies a given page
-        :param log_action flag for logging the action. Pass None to skip logging.
-            Can be passed an action string. Defaults to 'wagtail.copy'
+
+        :param log_action: flag for logging the action. Pass None to skip logging. Can be passed an action string. Defaults to 'wagtail.copy'
         """
         return CopyPageAction(
             self,
@@ -4520,6 +4523,9 @@ class PageLogEntryManager(BaseLogEntryManager):
             )
 
         return PageLogEntry.objects.filter(q)
+
+    def for_instance(self, instance):
+        return self.filter(page=instance)
 
 
 class PageLogEntry(BaseLogEntry):

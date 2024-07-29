@@ -7,7 +7,7 @@ at the bottom of the main menu.
 
 ## Adding new panels
 
-Each panel on this form is a separate model form that can operate on an instance of either the user model, or the {class}`wagtail.users.models.UserProfile`.
+Each panel on this form is a separate model form that can operate on an instance of either the user model, or the `wagtail.users.models.UserProfile`.
 
 ### Basic example
 
@@ -54,7 +54,7 @@ The attributes are as follows:
 
 ## Operating on the `UserProfile` model
 
-To add a panel that alters data on the user's {class}`wagtail.users.models.UserProfile` instance, set `form_object` to `'profile'`:
+To add a panel that alters data on the user's `wagtail.users.models.UserProfile` instance, set `form_object` to `'profile'`:
 
 ```python
 # forms.py

@@ -23,6 +23,7 @@ from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.utils.utils import flatten_choices
 
 
 class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
@@ -288,7 +289,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                         )
                     )
             elif isinstance(filter_def, MultipleChoiceFilter):
-                choices = {str(id): label for id, label in filter_def.field.choices}
+                choices = flatten_choices(filter_def.field.choices)
                 for item in value:
                     filters.append(
                         ActiveFilter(
@@ -316,7 +317,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                     ActiveFilter(
                         bound_field.auto_id,
                         filter_def.label,
-                        "%s - %s" % (start_date_display, end_date_display),
+                        f"{start_date_display} - {end_date_display}",
                         self.get_url_without_filter_param(
                             [
                                 widget.suffixed(field_name, suffix)
@@ -326,7 +327,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
                     )
                 )
             elif isinstance(filter_def, ChoiceFilter):
-                choices = {str(id): label for id, label in filter_def.field.choices}
+                choices = flatten_choices(filter_def.field.choices)
                 filters.append(
                     ActiveFilter(
                         bound_field.auto_id,
@@ -405,6 +406,18 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         queryset = self.order_queryset(queryset)
         queryset = self.filter_queryset(queryset)
         return queryset
+
+    def paginate_queryset(self, queryset, page_size):
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty(),
+        )
+
+        page_number = self.request.GET.get(self.page_kwarg)
+        page = paginator.get_page(page_number)
+        return (paginator, page, page.object_list, page.has_other_pages())
 
     def get_table_kwargs(self):
         return {

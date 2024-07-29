@@ -103,6 +103,70 @@ describe('DialogController', () => {
       expect(document.documentElement.style.overflowY).toBe('');
     });
 
+    it('should support the ability to confirm the dialog with an event to indicate the confirmation', async () => {
+      const hiddenListener = jest.fn();
+      document.addEventListener('w-dialog:hidden', hiddenListener);
+
+      const confirmedListener = jest.fn();
+      document.addEventListener('w-dialog:confirmed', confirmedListener);
+
+      // Add a confirm button to the dialog
+      const dialogBody = document.getElementById('dialog-body');
+      const confirmButton = document.createElement('button');
+      confirmButton.type = 'button';
+      confirmButton.setAttribute('data-action', 'w-dialog#confirm');
+      dialogBody.appendChild(confirmButton);
+
+      application.start();
+
+      await Promise.resolve();
+
+      expect(hiddenListener).not.toHaveBeenCalled();
+      expect(confirmedListener).not.toHaveBeenCalled();
+
+      const dialog = document.getElementById('dialog-container');
+
+      // closed by default
+      expect(dialog.getAttribute('aria-hidden')).toEqual('true');
+      expect(document.documentElement.style.overflowY).toBe('');
+
+      // show the dialog manually
+      dialog.dispatchEvent(new CustomEvent('w-dialog:show'));
+
+      expect(dialog.getAttribute('aria-hidden')).toEqual(null);
+      expect(hiddenListener).not.toHaveBeenCalled();
+      expect(confirmedListener).not.toHaveBeenCalled();
+      // add style to root element on shown by default
+      expect(document.documentElement.style.overflowY).toBe('hidden');
+
+      // hide the dialog using the confirm button
+      confirmButton.click();
+
+      expect(dialog.getAttribute('aria-hidden')).toEqual('true');
+
+      // w-dialog:hide event should still be dispatched
+      expect(hiddenListener).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: expect.objectContaining({
+            body: dialogBody,
+            dialog: expect.any(Object),
+          }),
+        }),
+      );
+      // reset style on root element when hidden by default
+      expect(document.documentElement.style.overflowY).toBe('');
+
+      // w-dialog:confirmed event should be dispatched
+      expect(confirmedListener).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: expect.objectContaining({
+            body: dialogBody,
+            dialog: expect.any(Object),
+          }),
+        }),
+      );
+    });
+
     it('should support the ability use a theme to avoid document style change', async () => {
       const dialog = document.getElementById('dialog-container');
 

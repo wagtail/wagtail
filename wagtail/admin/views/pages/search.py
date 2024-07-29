@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -165,7 +165,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         kwargs["actions_next_url"] = self.get_index_url()
         return kwargs
 
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context.update(
             {
@@ -182,7 +182,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
 class SearchView(BaseSearchView):
     template_name = "wagtailadmin/pages/search.html"
 
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["search_form"] = SearchForm(self.request.GET)
         return context

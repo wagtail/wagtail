@@ -5,7 +5,7 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2024
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -130,6 +130,14 @@ msgstr "predloga skrbnika"
 
 msgid "Default"
 msgstr "Privzeta"
+
+msgid "Snug"
+msgstr "Udobno"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "gostota"
 
 msgid "user profile"
 msgstr "uporabniški profil"
@@ -272,6 +280,30 @@ msgstr "Odkleni"
 msgid "Custom permissions"
 msgstr "Dovoljenja po meri"
 
+msgid "Toggle all"
+msgstr "Preklopi vse"
+
+msgid "Toggle all add permissions"
+msgstr "Preklop vseh dovoljenj za dodajanje"
+
+msgid "Toggle all change permissions"
+msgstr "Preklop vseh dovoljenj za spremembe"
+
+msgid "Toggle all delete permissions"
+msgstr "Preklop vseh dovoljenj za brisanje"
+
+msgid "Toggle all publish permissions"
+msgstr "Preklop vseh dovoljenj za objavo"
+
+msgid "Toggle all lock permissions"
+msgstr "Preklop vseh dovoljenj za zaklepanje"
+
+msgid "Toggle all unlock permissions"
+msgstr "Preklop vseh dovoljenj za odklepanje"
+
+msgid "Toggle all custom permissions"
+msgstr "Preklop vseh dovoljenj po meri"
+
 msgid "Other permissions"
 msgstr "Ostala dovoljenja"
 
@@ -314,6 +346,9 @@ msgstr "Izbriši uporabnika"
 msgid "Select all users in listing"
 msgstr "Izberite vse uporabnike na seznamu"
 
+msgid "Sorry, no users match your query"
+msgstr "Žal ni uporabnikov, ki bi ustrezali vaši poizvedbi"
+
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
@@ -345,6 +380,9 @@ msgstr "Aktiven"
 
 msgid "Inactive"
 msgstr "Neaktiven"
+
+msgid "Mark as active"
+msgstr "Označi kot aktivno"
 
 msgid "Change the active state for selected users"
 msgstr "Spremenite aktivno stanje za izbrane uporabnike"
@@ -391,6 +429,12 @@ msgstr "Ogled uporabnikov v tej skupini"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Skupina '%(object)s' izbrisana."
+
+msgid "Last login"
+msgstr "Zadnja prijava"
+
+msgid "Group"
+msgstr "Skupina"
 
 msgid "Add a user"
 msgstr "Dodaj uporabnika"

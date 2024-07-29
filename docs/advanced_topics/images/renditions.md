@@ -157,7 +157,7 @@ The following `AbstractImage` model methods are involved in finding and generati
 .. automodule:: wagtail.images.models
 
 .. class:: AbstractImage
-    :noindex:
+    :no-index:
 
     .. automethod:: get_rendition
 

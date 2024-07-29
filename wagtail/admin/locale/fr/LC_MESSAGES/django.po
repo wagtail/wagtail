@@ -37,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Aurel Pere, 2024\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,9 @@ msgstr "Collection"
 
 msgid "Tag"
 msgstr "Mot-clé"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Filtrer jusqu'à dix mot-clés les plus populaires."
 
 msgid "Preferred language"
 msgstr "Langue préférée"
@@ -279,6 +282,21 @@ msgstr "Sélectionner une nouvelle page parente pour cette page"
 
 msgid "Parent page"
 msgstr "Page parente"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "La nouvelle page sera enfant de cette page parente."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr ""
+"Vous n'avez pas la permission de créer une page sous \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"VOus ne pouvez pas créer une page de type \"%(page_type)s\" sous "
+"\"%(page_title)s\"."
 
 msgid "Search…"
 msgstr "Rechercher..."
@@ -1804,7 +1822,7 @@ msgstr "Rechercher dans tout le site"
 
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s sur %(items_count)sitems"
+msgstr "%(start_index)s-%(end_index)s sur %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Menu des sites"
@@ -2040,6 +2058,18 @@ msgstr "Retour"
 msgid "History"
 msgstr "Historique"
 
+msgid "Keyboard shortcuts"
+msgstr "Raccourcis clavier"
+
+msgid "All keyboard shortcuts"
+msgstr "Tous les raccourcis clavier"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "Keyboard shortcut"
+msgstr "Raccourci clavier"
+
 msgid "Current page status:"
 msgstr "Status actuel de la page :"
 
@@ -2235,7 +2265,7 @@ msgid ""
 "One or more references to this %(model_name)s prevent it from being deleted."
 msgstr ""
 "Une ou plusieurs références vers ce(tte) %(model_name)s l'empêche d'être "
-"supprimé."
+"supprimé(e)."
 
 msgid "Edit / Review"
 msgstr "Modifier / Vérifier"
@@ -2566,17 +2596,53 @@ msgstr "Envoyé vers %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
+msgid "Common actions"
+msgstr "Actions fréquentes"
+
+msgid "Cut"
+msgstr "Couper"
+
+msgid "Paste"
+msgstr "Coller"
+
+msgid "Paste and match style"
+msgstr "Coller et appliquer le style"
+
+msgid "Paste without formatting"
+msgstr "Coller sans le style de formatage"
+
 msgid "Undo"
 msgstr "Annuler"
 
 msgid "Redo"
 msgstr "Rétablir"
 
+msgid "Save changes"
+msgstr "Enregistrer les changements"
+
+msgid "Text content"
+msgstr "Contenu texte"
+
+msgid "Insert or edit a link"
+msgstr "Insérer ou modifier un lien"
+
+msgid "Text formatting"
+msgstr "Formatage de texte"
+
 msgid "Bold"
 msgstr "Gras"
 
 msgid "Italic"
 msgstr "Italique"
+
+msgid "Underline"
+msgstr "Souligner"
+
+msgid "Monospace (code)"
+msgstr "Monospace (code)"
+
+msgid "Strike-through"
+msgstr "Barré"
 
 msgid "Superscript"
 msgstr "Exposant"
@@ -2839,6 +2905,10 @@ msgstr ""
 "planifié(e) pour la publication."
 
 #, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Modifier « %(title)s »"
 
@@ -3054,6 +3124,13 @@ msgstr[2] ""
 "%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
 "dépubliées"
 
+msgid "Choose parent"
+msgstr "Choisir un parent"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Créer un(e) nouveau(elle) %(model_name)s"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr ""
@@ -3159,6 +3236,9 @@ msgstr "La page n'a pu être enregistrée car elle est verrouillée"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "La page ne peut être enregistrée du fait d'erreurs de validation."
+
+msgid "Is commenting action"
+msgstr "Est une action de commentaire"
 
 msgid "Date updated"
 msgstr "Date mise à jour"
@@ -3297,6 +3377,9 @@ msgstr "Tâches de workflow"
 
 msgid "Requested By"
 msgstr "Demandé par"
+
+msgid "Show disabled"
+msgstr "Afficher les désactivés"
 
 msgid "Add a workflow"
 msgstr "Ajouter un workflow"
@@ -3479,6 +3562,9 @@ msgstr "Ce qui est nouveau avec Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Guide du redacteur"
+
+msgid "Shortcuts"
+msgstr "Raccourcis"
 
 msgid "Help"
 msgstr "Aide"

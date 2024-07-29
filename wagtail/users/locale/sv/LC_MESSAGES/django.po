@@ -4,7 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020-2021
+# Martin Sandström <martin@marteinn.se>, 2020-2021,2024
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2023
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 10:04+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021-2023\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -114,6 +114,18 @@ msgstr "Välj din nuvarande tidszon"
 
 msgid "profile picture"
 msgstr "profilbild"
+
+msgid "System default"
+msgstr "Systeminställningar"
+
+msgid "Light"
+msgstr "Ljust"
+
+msgid "Dark"
+msgstr "Mörkt"
+
+msgid "admin theme"
+msgstr "admintema"
 
 msgid "Default"
 msgstr "Standard"
@@ -244,6 +256,21 @@ msgstr "Lås upp"
 msgid "Custom permissions"
 msgstr "Anpassade rättigheter"
 
+msgid "Toggle all"
+msgstr "Växla alla"
+
+msgid "Toggle all add permissions"
+msgstr "Växla alla lägg till rättigheter"
+
+msgid "Toggle all change permissions"
+msgstr "Växla alla redigera rättigheter"
+
+msgid "Toggle all delete permissions"
+msgstr "Växla alla radera rättigheter"
+
+msgid "Toggle all publish permissions"
+msgstr "Växla alla publicera rättigheter"
+
 msgid "Other permissions"
 msgstr "Andra rättigheter"
 
@@ -322,6 +349,9 @@ msgstr "Aktiv"
 msgid "Inactive"
 msgstr "Inaktiv"
 
+msgid "Mark as active"
+msgstr "Markera som aktiv"
+
 msgid "Change the active state for selected users"
 msgstr "Ändra aktiv status för valda användare"
 
@@ -364,6 +394,12 @@ msgstr "Visa användare i denna grupp"
 msgid "Group '%(object)s' deleted."
 msgstr "Grupp '%(object)s' raderad."
 
+msgid "Last login"
+msgstr "Senast inloggad"
+
+msgid "Group"
+msgstr "Grupp"
+
 msgid "Add a user"
 msgstr "Lägg till en användare"
 
@@ -375,6 +411,9 @@ msgstr "Användarnamn"
 
 msgid "Admin"
 msgstr "Administratör"
+
+msgid "Access level"
+msgstr "Behörighetsnivå"
 
 msgid "Status"
 msgstr "Status"

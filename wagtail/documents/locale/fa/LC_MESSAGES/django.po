@@ -67,6 +67,12 @@ msgstr "سند"
 msgid "documents"
 msgstr "مستندات"
 
+msgid "Yes, add"
+msgstr "بله اضافه کن"
+
+msgid "No, don't add"
+msgstr "نه، اضافه نکن"
+
 msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
 msgstr[0] "آیا از حذف این سند اطمینان دارید؟"
@@ -188,6 +194,9 @@ msgstr "مجوزهای سند"
 
 msgid "Add a document permission"
 msgstr "افزودن یک مجوز سند"
+
+msgid "Tag"
+msgstr "برچسب"
 
 msgid "Delete"
 msgstr "حذف"

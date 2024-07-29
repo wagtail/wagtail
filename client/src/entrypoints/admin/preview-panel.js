@@ -1,17 +1,34 @@
 import axe from 'axe-core';
+
 import {
   getAxeConfiguration,
+  getA11yReport,
   renderA11yResults,
 } from '../../includes/a11y-result';
+import { wagtailPreviewPlugin } from '../../includes/previewPlugin';
+import {
+  getPreviewContentMetrics,
+  renderContentMetrics,
+} from '../../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { debounce } from '../../utils/debounce';
 import { gettext } from '../../utils/gettext';
 
+const runContentChecks = async () => {
+  axe.registerPlugin(wagtailPreviewPlugin);
+
+  const contentMetrics = await getPreviewContentMetrics({
+    targetElement: 'main, [role="main"], body',
+  });
+
+  renderContentMetrics({
+    wordCount: contentMetrics.wordCount,
+    readingTime: contentMetrics.readingTime,
+  });
+};
+
 const runAccessibilityChecks = async (onClickSelector) => {
   const a11yRowTemplate = document.querySelector('#w-a11y-result-row-template');
-  const a11ySelectorTemplate = document.querySelector(
-    '#w-a11y-result-selector-template',
-  );
   const checksPanel = document.querySelector('[data-checks-panel]');
   const config = getAxeConfiguration(document.body);
   const toggleCounter = document.querySelector(
@@ -21,34 +38,23 @@ const runAccessibilityChecks = async (onClickSelector) => {
     '[data-side-panel="checks"] [data-a11y-result-count]',
   );
 
-  if (
-    !a11yRowTemplate ||
-    !a11ySelectorTemplate ||
-    !config ||
-    !toggleCounter ||
-    !panelCounter
-  ) {
+  if (!a11yRowTemplate || !config || !toggleCounter || !panelCounter) {
     return;
   }
 
   // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
-  const context = {
+  config.context = {
     include: {
       fromFrames: ['#preview-iframe'].concat(config.context.include),
     },
   };
   if (config.context.exclude?.length > 0) {
-    context.exclude = {
+    config.context.exclude = {
       fromFrames: ['#preview-iframe'].concat(config.context.exclude),
     };
   }
 
-  const results = await axe.run(context, config.options);
-
-  const a11yErrorsNumber = results.violations.reduce(
-    (sum, violation) => sum + violation.nodes.length,
-    0,
-  );
+  const { results, a11yErrorsNumber } = await getA11yReport(config);
 
   toggleCounter.innerText = a11yErrorsNumber.toString();
   toggleCounter.hidden = a11yErrorsNumber === 0;
@@ -60,7 +66,6 @@ const runAccessibilityChecks = async (onClickSelector) => {
     results,
     config,
     a11yRowTemplate,
-    a11ySelectorTemplate,
     onClickSelector,
   );
 };
@@ -205,6 +210,8 @@ function initPreview() {
 
       // Remove the load event listener so it doesn't fire when switching modes
       newIframe.removeEventListener('load', handleLoad);
+
+      runContentChecks();
 
       const onClickSelector = () => newTabButton.click();
       runAccessibilityChecks(onClickSelector);

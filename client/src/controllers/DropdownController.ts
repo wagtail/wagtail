@@ -187,8 +187,8 @@ export class DropdownController extends Controller<HTMLElement> {
       ...(this.hasContentTarget
         ? { content: this.contentTarget as Content }
         : {}),
-      ...this.themeOptions,
       trigger: 'click',
+      ...this.themeOptions,
       interactive: true,
       ...(this.hasOffsetValue && { offset: this.offsetValue }),
       getReferenceClientRect: () => this.reference.getBoundingClientRect(),
@@ -209,6 +209,17 @@ export class DropdownController extends Controller<HTMLElement> {
           maxWidth: 350,
           placement: 'bottom',
           plugins: this.plugins,
+        },
+        'popup': {
+          // This theme is somewhere between a tooltip and a dropdown.
+          // It's mostly informational, so we want it to be shown on hover and focus.
+          // However, it may also contain a small amount of interactive elements,
+          // so we also want a click trigger to make sure the popup stays open
+          // when you hover out, like a dropdown menu.
+          arrow: true,
+          placement: 'bottom',
+          plugins: this.plugins,
+          trigger: 'mouseenter focus click',
         },
         'drilldown': {
           arrow: false,
@@ -293,5 +304,9 @@ export class DropdownController extends Controller<HTMLElement> {
     return this.themeValue === 'dropdown-button'
       ? (toggleParent.parentElement as HTMLElement)
       : toggleParent;
+  }
+
+  disconnect() {
+    this.tippy?.destroy();
   }
 }

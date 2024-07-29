@@ -110,13 +110,11 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, f'href="{expected_new_page_copy_url}"')
 
     def test_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"q": "Hello", "p": 1})
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
-        # page numbers out of range should return 404
-        response = self.get({"q": "Hello", "p": 9999})
-        self.assertEqual(response.status_code, 404)
+        pages = ["0", "1", "-1", "9999", "Not a page"]
+        for page in pages:
+            response = self.get({"q": "Hello", "p": page})
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, "wagtailadmin/pages/search.html")
 
     def test_root_can_appear_in_search_results(self):
         response = self.get({"q": "root"})

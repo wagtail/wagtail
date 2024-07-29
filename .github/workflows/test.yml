@@ -20,17 +20,17 @@ concurrency:
 # - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
 
 # Current configuration:
-# - django 4.2, python 3.8, postgres:12, parallel
+# - django 4.2, python 3.9, postgres:12, parallel
 # - django 4.2, python 3.9, mysql:8.0
 # - django 4.2, python 3.10, sqlite
 # - django 5.0, python 3.12, mysql:8.1, parallel
 # - django 5.0, python 3.11, postgres:12, parallel, USE_EMAIL_USER_MODEL=yes
 # - django 5.0, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
-# - django stable/5.0.x, python 3.10, postgres (allow failures)
-# - django main, python 3.10, postgres:latest, parallel (allow failures)
-# - elasticsearch 7, django 4.2, python 3.8, postgres:latest
+# - django stable/5.1.x, python 3.11, postgres:15 (allow failures)
+# - django main, python 3.12, postgres:latest, parallel (allow failures)
+# - elasticsearch 7, django 4.2, python 3.9, postgres:latest
 # - opensearch 2, django 4.2, python 3.9, sqlite
-# - elasticsearch 8, django 5.0, python 3.10, sqlite, USE_EMAIL_USER_MODEL=yes
+# - elasticsearch 8, django 5.0, python 3.11, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
 # When running tests in parallel, some errors cannot be pickled and result in
@@ -80,7 +80,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.8'
+          - python: '3.9'
             django: 'Django>=4.2,<4.3'
             experimental: false
             parallel: '--parallel'
@@ -95,19 +95,15 @@ jobs:
             notz: notz
             experimental: false
             parallel: '--parallel'
-          - python: '3.10'
-            django: 'git+https://github.com/django/django.git@stable/5.0.x#egg=Django'
+          - python: '3.11'
+            django: 'git+https://github.com/django/django.git@stable/5.1.x#egg=Django'
+            postgres: 'postgres:15'
             experimental: true
-          - python: '3.10'
+          - python: '3.12'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
-            install_extras: |
-              pip uninstall -y django-taggit
-              pip install \
-                git+https://github.com/laymonage/django-taggit.git@django-5.1#egg=django-taggit
-
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
@@ -204,7 +200,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.10'
+          - python: '3.11'
             django: 'Django>=5.0,<5.1'
             emailuser: emailuser
     steps:
@@ -253,7 +249,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.8'
+          - python: '3.9'
             django: 'Django>=4.2,<4.3'
             experimental: false
 

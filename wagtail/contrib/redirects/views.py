@@ -1,5 +1,4 @@
 import os
-from typing import List
 
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.db import transaction
@@ -123,7 +122,7 @@ class IndexView(generic.IndexView):
         return super().get_base_queryset().select_related("redirect_page", "site")
 
     @cached_property
-    def header_more_buttons(self) -> List[Button]:
+    def header_more_buttons(self) -> list[Button]:
         buttons = super().header_more_buttons.copy()
         buttons.append(
             Button(

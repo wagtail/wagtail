@@ -12,6 +12,7 @@ from django_filters import DateFromToRangeFilter
 from wagtail.admin import messages
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column, TitleColumn
+from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
@@ -87,7 +88,7 @@ class DeleteSubmissionsView(TemplateView):
     template_name = "wagtailforms/confirm_delete.html"
     page = None
     submissions = None
-    success_url = "wagtailforms:list_submissions"
+    success_url_name = "wagtailforms:list_submissions"
 
     def get_queryset(self):
         """Returns a queryset for the selected submissions"""
@@ -111,7 +112,10 @@ class DeleteSubmissionsView(TemplateView):
 
     def get_success_url(self):
         """Returns the success URL to redirect to after a successful deletion"""
-        return self.success_url
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            return next_url
+        return reverse(self.success_url_name, args=(self.page.id,))
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions, set the page and submissions, handle delete"""
@@ -126,7 +130,7 @@ class DeleteSubmissionsView(TemplateView):
 
         if self.request.method == "POST":
             self.handle_delete(self.submissions)
-            return redirect(self.get_success_url(), page_id)
+            return redirect(self.get_success_url())
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -140,6 +144,7 @@ class DeleteSubmissionsView(TemplateView):
                 "submissions": self.submissions,
             }
         )
+        context["next_url"] = self.get_success_url()
 
         return context
 
@@ -319,4 +324,5 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
                 }
             )
 
+        context["next_url"] = self.request.get_full_path()
         return context

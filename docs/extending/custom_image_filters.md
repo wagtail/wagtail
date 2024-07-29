@@ -36,3 +36,16 @@ Use the filter in a template, like so:
 
 {% image page.photo width-400 blur-7 %}
 ```
+
+If your custom image filter depends on fields within the `Image`, for instance those defining the focal point, add a `vary_fields` property listing those field names to the subclassed `FilterOperation`. This ensures that a new rendition is created whenever the focal point is changed:
+
+```python
+class BlurOutsideFocusPointOperation(FilterOperation):
+    vary_fields = (
+        "focal_point_width",
+        "focal_point_height",
+        "focal_point_x",
+        "focal_point_y",
+    )
+    # ...
+```

@@ -24,7 +24,7 @@ python3 --version
 py --version
 ```
 
-If none of the preceding commands return a version number, or return a version lower than 3.8, then [install Python 3](https://www.python.org/downloads/).
+If none of the preceding commands return a version number, or return a version lower than 3.9, then [install Python 3](https://www.python.org/downloads/).
 
 (virtual_environment_creation)=
 
