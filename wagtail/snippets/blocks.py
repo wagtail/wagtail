@@ -23,8 +23,10 @@ class SnippetChooserBlock(ChooserBlock):
     def widget(self):
         from wagtail.snippets.widgets import AdminSnippetChooser
 
-        # Override the default icon with the icon for the target model
-        self.set_meta_options({"icon": self.target_model.snippet_viewset.icon})
+        # Override the default icon with the icon for the target model (if defined)
+        if (icon := self.target_model.snippet_viewset.icon) != "snippet":
+            self.set_meta_options({"icon": icon})
+
         return AdminSnippetChooser(self.target_model, icon=self.meta.icon)
 
     class Meta:
