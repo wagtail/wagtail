@@ -3,6 +3,11 @@
   padding: theme('spacing.4');
   display: flex;
   justify-content: space-between;
+
+  // Shows additional details within the CMS only.
+  .form-side--checks & {
+    display: block;
+  }
 }
 
 .w-a11y-result__header {
@@ -42,6 +47,15 @@
   margin-inline-end: calc(theme('spacing.[2.5]') * -1);
   height: theme('spacing.[7.5]');
   width: theme('spacing.[7.5]');
+
+  .form-side--checks & {
+    background-color: theme('colors.surface-button-outline-hover');
+    margin-top: theme('spacing.[2.5]');
+    margin-inline-end: 0;
+    padding: theme('spacing.1');
+    gap: theme('spacing.[1.5]');
+    width: auto;
+  }
 
   &:hover,
   &:focus {
