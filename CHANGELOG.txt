@@ -27,6 +27,7 @@ Changelog
  * Allow changing available privacy options per page model (Shlomo Markowitz)
  * Add concurrent editing notifications for pages and snippets (Matt Westcott, Sage Abdullah)
  * Add "soft" client-side validation for `StreamBlock` / `ListBlock` `min_num` / `max_num` (Matt Westcott)
+ * Log accessibility checker results in the console to help developers with troubleshooting (Thibaud Colas)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
