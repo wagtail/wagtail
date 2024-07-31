@@ -142,6 +142,13 @@ export const getA11yReport = async (
     (sum, violation) => sum + violation.nodes.length,
     0,
   );
+
+  if (a11yErrorsNumber > 0) {
+    // Help developers potentially troubleshooting userbar check results.
+    // eslint-disable-next-line no-console
+    console.error('axe.run results', results.violations);
+  }
+
   return {
     results,
     a11yErrorsNumber,
