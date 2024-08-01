@@ -447,7 +447,7 @@ class MockBackend(BaseBackend):
     def hostname_purge_supported(self):
         return self._hostname_purge_supported
 
-    def allow_everything_purge_for_site(self, site):
+    def allow_everything_purge_for_hostname(self, hostname):
         return self._everything_purge_supported
 
 

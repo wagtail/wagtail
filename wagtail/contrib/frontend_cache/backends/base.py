@@ -59,14 +59,16 @@ class BaseBackend:
         """
         return False
 
-    def allow_everything_purge_for_site(self, site) -> bool:
+    def allow_everything_purge_for_hostname(self, hostname) -> bool:
         """
-        When a request has been made to purge all URLs for ``site``, but ``purge_hostname()``
-        is not supported by this instance, is it acceptable to purge 'everything' instead?
+        When a request has been made to purge all URLs for supplied ``hostname``, but
+        ``purge_hostname()`` is not supported by this instance, is it acceptable to purge
+        'everything' instead?
 
         By default, this returns ``False`` because of the potential to adversely impact
-        other apps or services. However, it could return  ``True`` in cases where purging
-        'everything' is more-or-less equivalent to a hostname-specific purge. Or, on
-        projects with huge numbers of pages, where URL-batch purges could be impractical.
+        other apps or services behind the same cahe. However, it could return  ``True`` in
+        cases where purging 'everything' is more-or-less equivalent to a hostname-specific
+        purge. Or, on projects with huge numbers of pages, where URL-batch purges could be
+        impractical.
         """
         return False

@@ -169,7 +169,7 @@ def purge_site(
         if backend.invalidates_hostname(site.hostname):
             if backend.hostname_purge_supported():
                 purge_hostname_backends[name] = backend
-            elif backend.allow_everything_purge_for_site(site):
+            elif backend.allow_everything_purge_for_hostname(site.hostname):
                 purge_everything_backends[name] = backend
             else:
                 other_backends[name] = backend
