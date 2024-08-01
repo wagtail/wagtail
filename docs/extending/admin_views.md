@@ -400,7 +400,7 @@ To find the url for any model in the admin the `AdminURLFinder` class can be use
 ```python
 from wagtail.admin.admin_url_finder import AdminURLFinder
 
-finder = AdminURLFinder
+finder = AdminURLFinder()
 
 finder.get_edit_url(model_instance)
 ```
