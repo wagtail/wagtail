@@ -11,7 +11,7 @@ declare global {
 
 const DEFAULT_DURATIONS = {
   initial: 10_000,
-  long: 3_000,
+  long: 300,
   notify: 30,
   short: 300,
 };
