@@ -10,7 +10,7 @@ Changelog
  * Allow custom permission policies on snippets to prevent superusers from creating or editing them (Sage Abdullah)
  * Do not link to edit view from listing views if user has no permission to edit (Sage Abdullah)
  * Allow access to snippets and other model viewsets to users with "View" permission (Sage Abdullah)
- * Skip `ChooseParentView` if only one possible valid parent page availale (Matthias Brück)
+ * Skip `ChooseParentView` if only one possible valid parent page is available (Matthias Brück)
  * Add `copy_for_translation_done` signal when a page is copied for translation (Arnar Tumi Þorsteinsson)
  * Remove reduced opacity for draft page title in listings (Inju Michorius)
  * Adopt more compact representation for StreamField definitions in migrations (Matt Westcott)
