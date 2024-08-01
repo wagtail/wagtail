@@ -34,13 +34,14 @@ class BaseBackend:
 
     def purge_everything(self) -> None:
         """
-        Purge all cached URLs managed by the backend. Where the underlying service or
-        technology supports it, specific backends can implement this to allow efficient
-        mass-purging with a minimal number of requests.
+        Purge all cached URLs managed by the underlying service instance, regardless of
+        hostname. Where the underlying service supports it, specific backends can implement
+        this to allow efficient mass-purging with a minimal number of requests.
 
         Where implemented (and enabled for the specific instance), this can be used by
         ``wagtail.contrib.frontend_cache.utils.purge_site()`` as an alternative to
-        ``purge_hostname()``.
+        ``purge_hostname()``, depending on the outcome of
+        ``allow_everything_purge_for_hostname()``
         """
         raise NotImplementedError
 
