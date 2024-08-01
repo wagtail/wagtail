@@ -11,7 +11,7 @@ Changelog
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
 
 
-6.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2 (01.08.2024)
 ~~~~~~~~~~~~~~~~
 
  * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
