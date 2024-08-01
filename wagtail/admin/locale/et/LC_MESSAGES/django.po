@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -354,9 +354,6 @@ msgstr "Uurige ' %(title)s' alamlehti"
 msgid "Explore"
 msgstr "Avastage"
 
-msgid "Collection privacy"
-msgstr "Kogude privaatsus"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Selle kogu on privaatseks muutnud vanemkogu."
 
@@ -626,9 +623,6 @@ msgid ""
 msgstr ""
 "Leht \"%(title)s\" on edastatud töövoo \"%(workflow)s\" modereerimiseks."
 
-msgid "Page privacy"
-msgstr "Lehe privaatsus"
-
 msgid "This page has been made private by a parent page."
 msgstr "Vanemaleht on selle lehe privaatseks muutnud."
 
@@ -843,9 +837,6 @@ msgstr "Muutke seda üksust"
 msgid "No log entries found."
 msgstr "Logikirjeid ei leitud."
 
-msgid "By Task"
-msgstr "Autor ülesanne"
-
 msgid "Workflow"
 msgstr "Töövoog"
 
@@ -858,9 +849,6 @@ msgstr "Algus kell"
 msgid "Incomplete task"
 msgstr "Mittetäielik ülesanne"
 
-msgid "By Workflow"
-msgstr "Töövoo järgi"
-
 msgid "Completed at"
 msgstr "Valmis kell"
 
@@ -870,6 +858,9 @@ msgstr "Leht %(page_num)s lehtedest %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Riivsai"
+
+msgid "Continue"
+msgstr "Jätka"
 
 msgid "Download XLSX"
 msgstr "Laadige alla XLSX"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2018,2020-2024\n"
@@ -618,9 +618,6 @@ msgstr "Skoða undirsíður %(title)s'"
 msgid "Explore"
 msgstr "Skoða"
 
-msgid "Collection privacy"
-msgstr "Aðgengisstillingar safns"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Þetta safn er með takmarkað aðgengi vegna stillinga yfirflokks."
 
@@ -1191,9 +1188,6 @@ msgid ""
 msgstr ""
 "%(model_name)s \"%(title)s\" hefur verið send til yfirferðar í vinnuflæði "
 "\"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Síðu aðgengi"
 
 msgid "This page has been made private by a parent page."
 msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
@@ -1841,9 +1835,6 @@ msgstr "Síðu síðast breytt"
 msgid "Last edit"
 msgstr "Síðast breytt"
 
-msgid "No page types found."
-msgstr "Engar síðu tengundir fundust."
-
 msgid "Locking status"
 msgstr "Staða á læsingu"
 
@@ -1865,6 +1856,9 @@ msgstr "Læst"
 msgid "No locked pages found."
 msgstr "Engar læstar síður fundust"
 
+msgid "No page types found."
+msgstr "Engar síðu tengundir fundust."
+
 msgid "Name"
 msgstr "Nafn"
 
@@ -1882,9 +1876,6 @@ msgstr "Breyta þessu"
 
 msgid "No log entries found."
 msgstr "Engar atburðaskráningar fundust."
-
-msgid "By Task"
-msgstr "Eftir skrefi"
 
 msgid "Workflow"
 msgstr "Vinnuflæði"
@@ -1904,9 +1895,6 @@ msgstr "Óklárað skref"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Engar síður/snifsi hafa verið send inn til yfirferðar ennþá"
 
-msgid "By Workflow"
-msgstr "Eftir vinnuflæði"
-
 msgid "Completed at"
 msgstr "Lokið"
 
@@ -1925,6 +1913,9 @@ msgstr "Brauðmolar"
 
 msgid "Close dialog"
 msgstr "Loka glugga"
+
+msgid "Continue"
+msgstr "Áfram"
 
 msgid "Download XLSX"
 msgstr "Sækja XLSX"
@@ -2584,34 +2575,6 @@ msgid ""
 msgstr ""
 "Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í öfugri stafrófsröð."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr "Texta vantar á hnapp. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr "Tóm fyrirsögn fannst. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr "Tómur haus á töflu. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Tómur titill ramma fannst. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Röng stærðarröð fyrirsagna. Varist að sleppa stærðum."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr "Texta vantar á hnapp. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr "Tómur texti á krækju. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr "Málsgrein notuð sem fyrirsögn. Notið rétt tög fyrir fyrirsagnir."
-
 msgid "Profile"
 msgstr "Prófíll"
 
@@ -3197,9 +3160,6 @@ msgstr "Elstu síðurnar"
 
 msgid "Last published at"
 msgstr "Síðast sett í loftið"
-
-msgid "Hide commenting actions"
-msgstr "Fela athugasemdaaðgerðir"
 
 msgid "Site history"
 msgstr "Saga síðu"

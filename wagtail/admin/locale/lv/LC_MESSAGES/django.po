@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Joren Štekeļs, 2024\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -432,9 +432,6 @@ msgstr "Pārlūkot '%(title)s' apakšlapas"
 msgid "Explore"
 msgstr "Pārlūkot"
 
-msgid "Collection privacy"
-msgstr "Kolekcijas privātums"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Šo kolekciju privātu ir padarījusi augstāka līmeņa kolekcija."
 
@@ -593,9 +590,6 @@ msgstr "Lapa \"%(title)s\" tika noraidīta"
 
 msgid "You can preview the page here:"
 msgstr "Priekšskatīt lapu:"
-
-msgid "Page privacy"
-msgstr "Lapas privātuma iestatījumi"
 
 msgid "Saving…"
 msgstr "Saglabā..."

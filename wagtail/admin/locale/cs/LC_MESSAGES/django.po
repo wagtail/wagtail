@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -481,9 +481,6 @@ msgstr "Prozkoumat podstránky '%(title)s'"
 msgid "Explore"
 msgstr "Prozkoumat"
 
-msgid "Collection privacy"
-msgstr "Viditelnost kolekce"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Tato kolekce byla nastavena jako soukromá nadřazenou kolekcí."
 
@@ -798,9 +795,6 @@ msgid ""
 msgstr ""
 "Stránka \"%(title)s\" byla uložena k posouzení pro postup \"%(workflow)s\"."
 
-msgid "Page privacy"
-msgstr "Viditelnost"
-
 msgid "This page has been made private by a parent page."
 msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 
@@ -1067,9 +1061,6 @@ msgstr "Upravit tuto položku"
 msgid "No log entries found."
 msgstr "Nenalezeny žádné záznamy v logu."
 
-msgid "By Task"
-msgstr "Úlohou"
-
 msgid "Workflow"
 msgstr "Zpracování"
 
@@ -1082,9 +1073,6 @@ msgstr "Spuštěno v"
 msgid "Incomplete task"
 msgstr "Neúplná úloha"
 
-msgid "By Workflow"
-msgstr "Podle postupu"
-
 msgid "Completed at"
 msgstr "Dokončeno v"
 
@@ -1094,6 +1082,9 @@ msgstr "Strana %(page_num)s z %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Drobečková navigace"
+
+msgid "Continue"
+msgstr "Pokračovat"
 
 msgid "Download XLSX"
 msgstr "Stáhnout XLSX"

@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -392,9 +392,6 @@ msgstr "Εξερεύνηση υποσελίδων του '%(title)s'"
 msgid "Explore"
 msgstr "Εξερεύνηση"
 
-msgid "Collection privacy"
-msgstr "Ιδιωτικότητα συλλογής"
-
 msgid "You can edit the privacy settings on:"
 msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
 
@@ -649,9 +646,6 @@ msgstr "Διαγραμμένα σχόλια"
 msgid "New replies:"
 msgstr "Νέες απαντήσεις:"
 
-msgid "Page privacy"
-msgstr "Ιδιωτικοτητα σελιδας"
-
 msgid "This page has been made private by a parent page."
 msgstr "Αυτή η σελίδα έχει γίνει ιδιωτική από μια κύρια σελίδα."
 
@@ -856,15 +850,15 @@ msgstr "Ημερομηνία / Ώρα"
 msgid "Edit this item"
 msgstr "Επεξεργασία αυτού του στοιχείου"
 
-msgid "By Task"
-msgstr "Ανά Εργασία"
-
 msgid "Workflow"
 msgstr "Ροή εργασιών"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Σελίδα %(page_num)s από %(total_pages)s."
+
+msgid "Continue"
+msgstr "Συνέχεια"
 
 msgid "Download CSV"
 msgstr "Ληψη CSV"

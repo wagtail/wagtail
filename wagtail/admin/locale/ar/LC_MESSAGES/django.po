@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Mahmoud Marayef, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -417,9 +417,6 @@ msgstr "استكشف الصفحات الفرعية %(title)s"
 msgid "Explore"
 msgstr "استكشف"
 
-msgid "Collection privacy"
-msgstr "مجموعة خصوصية"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "تم جعل هذه المجموعة خاصة من قبل مجموعة الأم."
 
@@ -579,9 +576,6 @@ msgstr "الصفحة \"%(title)s\" تم رفضها."
 
 msgid "You can preview the page here:"
 msgstr "يمكن النظر المقدم في الصفحة هنا"
-
-msgid "Page privacy"
-msgstr "خصوصية الصفحة"
 
 msgid "This page has been made private by a parent page."
 msgstr "لقد تم جعل هذه الصفحة خاصة بواسطة صفحة رئيسية."
@@ -802,6 +796,9 @@ msgstr "تحرير هذا العنصر"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "صفحة %(page_num)s من %(total_pages)s"
+
+msgid "Continue"
+msgstr "أكمل"
 
 msgid "Download XLSX"
 msgstr "حمل XLSX"

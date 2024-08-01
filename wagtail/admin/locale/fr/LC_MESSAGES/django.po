@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -426,6 +426,9 @@ msgstr "Les %(objects)s éléments sur cet écran"
 msgid "All items in listing selected"
 msgstr "Tous les éléments dans la liste"
 
+msgid "Can access Wagtail admin"
+msgstr "Peut accéder à l'administration Wagtail"
+
 msgid "For search engines"
 msgstr "Pour les moteurs de recherche"
 
@@ -647,9 +650,6 @@ msgstr "Ajouter une sous-page à « %(title)s »"
 
 msgid "Explore"
 msgstr "Explorer"
-
-msgid "Collection privacy"
-msgstr "Confidentialité de la collection"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Cette collection a été rendue privée par une collection parente."
@@ -1231,11 +1231,11 @@ msgstr ""
 "%(model_name)s « %(title)s » a été soumis(e) dans le workflow "
 "« %(workflow)s »."
 
-msgid "Page privacy"
-msgstr "Page privée"
-
 msgid "This page has been made private by a parent page."
 msgstr "Cette page a été rendue privée par une page parente."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "La modification de confidentialité pour cette page a été désactivée."
 
 msgid "Save the page before leaving"
 msgstr "Enregistrer la page avant de quitter"
@@ -1946,9 +1946,6 @@ msgstr "Dernière page modifiée"
 msgid "Last edit"
 msgstr "Dernière modification"
 
-msgid "No page types found."
-msgstr "Aucun type de page trouvé."
-
 msgid "Locking status"
 msgstr "Status de verrouillage"
 
@@ -1970,6 +1967,9 @@ msgstr "Verrouillé"
 msgid "No locked pages found."
 msgstr "Aucune page verrouillée trouvée"
 
+msgid "No page types found."
+msgstr "Aucun type de page trouvé."
+
 msgid "Name"
 msgstr "Nom"
 
@@ -1987,9 +1987,6 @@ msgstr "Modifier cet item"
 
 msgid "No log entries found."
 msgstr "Aucune entrée de journal trouvée."
-
-msgid "By Task"
-msgstr "Par tâche"
 
 msgid "Workflow"
 msgstr "Workflow"
@@ -2009,9 +2006,6 @@ msgstr "Tâche incomplète"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Aucune page ou fragment n'ont encore été soumis pour modération"
 
-msgid "By Workflow"
-msgstr "Par Workflow"
-
 msgid "Completed at"
 msgstr "Terminé à"
 
@@ -2030,6 +2024,79 @@ msgstr "Fil d'Ariane"
 
 msgid "Close dialog"
 msgstr "Fermer"
+
+msgid "You saved a new version in another session"
+msgstr "Vous avez enregistré une nouvelle version dans une autre session"
+
+msgid "System"
+msgstr "Système"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s a enregistré une nouvelle version"
+
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+msgid "You have unsaved changes in another session"
+msgstr "Vous avez des modifications non enregistrées dans une autre session"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s a des modifications non enregistrées"
+
+msgid "Currently viewing"
+msgstr "Consulté actuellement par"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Un autre utilisateur est en train de consulter"
+msgstr[1] "%(num_user)s autres utilisateurs sont en train de consulter"
+msgstr[2] "%(num_user)s autres utilisateurs sont en train de consulter"
+
+#, python-format
+msgid ""
+"You have saved a newer version of this %(model_name)s in another session"
+msgstr ""
+"Vous avez enregistré une nouvelle version de ce(tte) %(model_name)s dans une "
+"autre session"
+
+#, python-format
+msgid "%(user_name)s has saved a newer version of this %(model_name)s"
+msgstr ""
+"%(user_name)s a enregistré une nouvelle version de ce(tte) %(model_name)s"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that session. Refreshing "
+"the page will lose any of your unsaved changes in the current session."
+msgstr ""
+"Continuer écrasera les modifications effectuées dans l'autre session. "
+"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
+"enregistrées dans la session actuelle."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will lose any of your unsaved changes."
+msgstr ""
+"Continuer écrasera les modifications effectuées par %(user_name)s. "
+"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
+"enregistrées."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr ""
+"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
+"enregistrées"
+
+msgid "Refresh page"
+msgstr "Rafraîchir la page"
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "Refresh the page"
+msgstr "Rafraîchir la page"
 
 msgid "Download XLSX"
 msgstr "Télécharger en XLSX"
@@ -2118,6 +2185,18 @@ msgstr "Afficher/masquer le panneau latéral"
 
 msgid "Side panel width"
 msgstr "Largeur du panneau latéral"
+
+msgid "Show issue"
+msgstr "Afficher le problème"
+
+msgid "Content metrics"
+msgstr "Métriques de contenu"
+
+msgid "Words"
+msgstr "Mots"
+
+msgid "Reading time"
+msgstr "Durée de lecture"
 
 msgid "Issues found"
 msgstr "Problèmes trouvés"
@@ -2698,47 +2777,47 @@ msgstr ""
 "Trier les sous-pages de « %(parent)s » par « %(label)s » par ordre "
 "décroissant."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du bouton est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Button text is empty"
+msgstr "Le texte du bouton est vide"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du titre est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Use meaningful text for screen reader users"
+msgstr "Utiliser un texte parlant pour les utilisateurs de lecteur d'écran"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte de l'en-tête du tableau est vide. Utilisez un texte significatif "
-"pour les utilisateurs de lecteurs d'écran."
+msgid "Empty heading found"
+msgstr "Titre vide trouvé"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Le titre du cadre intégré (frame) est vide. Utilisez un texte significatif "
-"pour les utilisateurs de lecteurs d'écran."
+msgid "Table header text is empty"
+msgstr "Le texte d'entête de tableau est vide"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr ""
-"Hiérarchie des titres incorrecte. Veuillez éviter de sauter des niveaux de "
-"titres."
+msgid "Empty frame title found"
+msgstr "Titre d'iframe vide trouvé"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du bouton de saisie est vide. Utilisez un texte significatif pour "
-"les utilisateurs de lecteurs d'écran."
+msgid "Use a meaningful title for screen reader users"
+msgstr "Utiliser un titre parlant pour les utilisateurs de lecteur d'écran"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du lien est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Incorrect heading hierarchy"
+msgstr "Hiérarchie de titre incorrecte"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Mauvais usage de paragraphes comme titres. Utilisez plutôt une balise titre."
+msgid "Avoid skipping levels"
+msgstr "Éviter de sauter des niveaux"
+
+msgid "Input button text is empty"
+msgstr "Le texte du bouton d'action est vide"
+
+msgid "Link text is empty"
+msgstr "Le texte du lien est vide"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Utilisation de paragraphes en tant que titre"
+
+msgid "Use proper heading tags"
+msgstr "Utiliser des balises de titre appropriées"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Le texte alternatif de l'image a un motif inapproprié"
+
+msgid "Use meaningful text"
+msgstr "Utiliser un texte parlant"
 
 msgid "Profile"
 msgstr "Compte"
@@ -3333,9 +3412,6 @@ msgstr "Pages vieillissantes"
 msgid "Last published at"
 msgstr "Dernière publication le"
 
-msgid "Hide commenting actions"
-msgstr "Cacher les actions de commentaires"
-
 msgid "Site history"
 msgstr "Historique du Site"
 
@@ -3372,11 +3448,17 @@ msgstr "Type de page/fragment"
 msgid "Page/Snippet Title"
 msgstr "Titre de page/fragment"
 
+msgid "By task"
+msgstr "Par tâche"
+
 msgid "Workflow tasks"
 msgstr "Tâches de workflow"
 
 msgid "Requested By"
 msgstr "Demandé par"
+
+msgid "By workflow"
+msgstr "Par workflow"
 
 msgid "Show disabled"
 msgstr "Afficher les désactivés"

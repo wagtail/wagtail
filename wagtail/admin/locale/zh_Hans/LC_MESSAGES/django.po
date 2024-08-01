@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -599,9 +599,6 @@ msgstr "查看'%(title)s'的子页面"
 msgid "Explore"
 msgstr "浏览"
 
-msgid "Collection privacy"
-msgstr "集合私有设置"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "这个集合已经被父集合设为私有。"
 
@@ -963,9 +960,6 @@ msgid ""
 "\"%(workflow)s\"."
 msgstr "页面“%(title)s”已提交到工作流“%(workflow)s”以进行审核。"
 
-msgid "Page privacy"
-msgstr "页面私有设置"
-
 msgid "This page has been made private by a parent page."
 msgstr "此页面已被父节点设置为私有。"
 
@@ -1323,9 +1317,6 @@ msgstr "最后编辑的页面"
 msgid "Last edit"
 msgstr "最后编辑"
 
-msgid "No page types found."
-msgstr "未找到页面类型。"
-
 msgid "Locking status"
 msgstr "锁定状态"
 
@@ -1338,6 +1329,9 @@ msgstr "已锁定"
 
 msgid "No locked pages found."
 msgstr "找不到已锁定的页面。"
+
+msgid "No page types found."
+msgstr "未找到页面类型。"
 
 msgid "Name"
 msgstr "名字"
@@ -1357,9 +1351,6 @@ msgstr "编辑此项"
 msgid "No log entries found."
 msgstr "未找到日志记录"
 
-msgid "By Task"
-msgstr "按任务"
-
 msgid "Workflow"
 msgstr "工作流"
 
@@ -1377,9 +1368,6 @@ msgstr "未完成的任务"
 
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "尚未提交任何页面/片段进行审核"
-
-msgid "By Workflow"
-msgstr "按工作流"
 
 msgid "Completed at"
 msgstr "完成于"
@@ -1399,6 +1387,9 @@ msgstr "面包屑导航"
 
 msgid "Close dialog"
 msgstr "关闭对话框"
+
+msgid "Continue"
+msgstr "继续"
 
 msgid "Download XLSX"
 msgstr "下载XLSX"
@@ -2206,9 +2197,6 @@ msgstr "较早的页面"
 
 msgid "Last published at"
 msgstr "最后发布日期"
-
-msgid "Hide commenting actions"
-msgstr "隐藏评论动作"
 
 msgid "Site history"
 msgstr "网站历史"

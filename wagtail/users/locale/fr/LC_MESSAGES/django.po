@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -366,6 +366,9 @@ msgid ""
 msgstr ""
 "Il n'y a pas d'utilisateur configuré. Pourquoi ne pas <a "
 "href=\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
+
+msgid "Can view"
+msgstr "Peut voir"
 
 #, python-format
 msgid "user %(id)s (deleted)"

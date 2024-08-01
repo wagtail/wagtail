@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Dan Braghis, 2014-2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -615,9 +615,6 @@ msgstr "Explorează subpaginile '%(title)s'"
 msgid "Explore"
 msgstr "Explorează"
 
-msgid "Collection privacy"
-msgstr "Confidențialitate colecție"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Această colecție a fost făcută privată de către o colecție părinte."
 
@@ -1161,9 +1158,6 @@ msgid ""
 msgstr ""
 "%(model_name)s \"%(title)s\" a fost trimis la fluxul de lucru "
 "\"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Confidențialitate"
 
 msgid "This page has been made private by a parent page."
 msgstr "Această pagină a fost făcută privată de către o pagină părinte."
@@ -1870,9 +1864,6 @@ msgstr "Editează acest element"
 msgid "No log entries found."
 msgstr "Nu s-au găsit intrări de jurnal."
 
-msgid "By Task"
-msgstr "După sarcină"
-
 msgid "Workflow"
 msgstr "Flux de lucru"
 
@@ -1890,9 +1881,6 @@ msgstr "Sarcină incompletă"
 
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Nicio pagină/fragment nu au fost trimise spre moderare până acum"
-
-msgid "By Workflow"
-msgstr "După flux de lucru"
 
 msgid "Completed at"
 msgstr "Completat la"
@@ -1912,6 +1900,9 @@ msgstr "Traseu navigare"
 
 msgid "Close dialog"
 msgstr "Închide dialog"
+
+msgid "Continue"
+msgstr "Continuă"
 
 msgid "Download XLSX"
 msgstr "Descarcă XLSX"
@@ -2583,47 +2574,6 @@ msgstr ""
 "Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
 "decrescătoare."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Textul butonului este gol. Folosiți un text semnificativ pentru utilizatorii "
-"cu cititoare de ecran."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Titlu gol. Folosiți un text semnificativ pentru utilizatorii cu cititoare de "
-"ecran."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Titlul tabelului este gol. Folosiți un text semnificativ pentru utilizatorii "
-"cu cititoare de ecran."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Titlul pentru ramă este gol. Folosiți un text semnificativ pentru "
-"utilizatorii cu cititoare de ecran."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Ierarhia titlurilor este incorectă. Evitați să săriți peste niveluri."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Textul pentru butonul de introducere este gol. Folosiți un text semnificativ "
-"pentru utilizatorii cu cititoare de ecran."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Textul pentru link este gol. Folosiți un text semnificativ pentru "
-"utilizatorii cu cititoare de ecran."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Folosirea incorectă a paragrafelor pe post de titluri. Folosiți etichete de "
-"tip titlu corespunzătoare."
-
 msgid "Profile"
 msgstr "Profil"
 
@@ -3195,9 +3145,6 @@ msgstr "Pagini învechite"
 
 msgid "Last published at"
 msgstr "Publicată ultima dată la"
-
-msgid "Hide commenting actions"
-msgstr "Ascunde acțiunile de comentare"
 
 msgid "Site history"
 msgstr "Istorie sait"

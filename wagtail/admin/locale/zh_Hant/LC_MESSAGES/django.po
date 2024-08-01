@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -472,9 +472,6 @@ msgstr "查看'%(title)s'的子頁面"
 msgid "Explore"
 msgstr "瀏覽"
 
-msgid "Collection privacy"
-msgstr "集合隱蔽設置"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "此集合已經被上階集合設為隱蔽。"
 
@@ -766,9 +763,6 @@ msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
 msgstr "頁面 \"%(title)s\" 已提交至審核工作流程 \"%(workflow)s\" "
-
-msgid "Page privacy"
-msgstr "頁面隱蔽設置"
 
 msgid "This page has been made private by a parent page."
 msgstr "此頁面已被上階頁面設置為隱蔽。"
@@ -1077,6 +1071,9 @@ msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
 msgid "Close dialog"
 msgstr "關閉對話框"
 
+msgid "Continue"
+msgstr "繼續"
+
 msgid "Download XLSX"
 msgstr "下載 XLSX"
 
@@ -1332,9 +1329,6 @@ msgstr "評論"
 msgid "Toggle preview"
 msgstr "切換預覽"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "不正確的標題層級。請避免跳級。"
-
 msgid "Notifications"
 msgstr "通知"
 
@@ -1544,9 +1538,6 @@ msgstr "頁面使用"
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "頁面 '%(page_title)s'目前不在等待審核。"
-
-msgid "Hide commenting actions"
-msgstr "隠藏論論動作"
 
 msgid "Site history"
 msgstr "網站歷史"

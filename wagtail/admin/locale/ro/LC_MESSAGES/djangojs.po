@@ -4,10 +4,11 @@
 # Julian C <jcuotpc@gmail.com>, 2022
 # Alex Morega, 2023
 # Dan Braghis, 2023
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dan Braghis, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/torchbox/teams/8009/ro/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ro\n"
@@ -201,6 +202,12 @@ msgstr "Despică bloc"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Numărul maxim de articole este %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Numărul minim de articole este %(min_num)d"
 
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."

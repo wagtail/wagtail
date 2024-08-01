@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -285,9 +285,6 @@ msgstr "Prehliadajte podstránky '%(title)s'"
 msgid "Explore"
 msgstr "Prehliadať"
 
-msgid "Collection privacy"
-msgstr "Súkromie kolekcie"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Táto kolekcia bola zmenená na súkromnú svojou rodičovskou kolekciou."
 
@@ -436,9 +433,6 @@ msgstr "Stránka \"%(title)s\" bola zamietnutá"
 
 msgid "You can preview the page here:"
 msgstr "Tu môžete vidieť stránku:"
-
-msgid "Page privacy"
-msgstr "Nastavenie súkromia stránky"
 
 msgid "This page has been made private by a parent page."
 msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou."
@@ -600,6 +594,9 @@ msgstr "Upraviť položku"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
+
+msgid "Continue"
+msgstr "Pokračovať"
 
 msgid "Download CSV"
 msgstr "Stiahnuť CSV"

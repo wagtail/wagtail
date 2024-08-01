@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -347,6 +347,9 @@ msgstr "Kaikki %(objects)s tietuetta tässä näytössä valittu"
 msgid "All items in listing selected"
 msgstr "Kaikki listauksen tietueet valittu"
 
+msgid "Can access Wagtail admin"
+msgstr "Pääsy Wagtail-ylläpitoon"
+
 msgid "For search engines"
 msgstr "Hakukoneille"
 
@@ -522,9 +525,6 @@ msgstr "Selaa sivun %(title)s alasivuja"
 
 msgid "Explore"
 msgstr "Selaa"
-
-msgid "Collection privacy"
-msgstr "Kokoelman yksityisyys"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Tämä kokoelma on yksityinen, koska sen isäntäkin on."
@@ -838,9 +838,6 @@ msgstr "Seuraava kommentti jätettiin: \"%(comment)s\""
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Sivu \"%(title)s\" on hylätty työnkulussa \"%(workflow)s\"."
 
-msgid "Page privacy"
-msgstr "Sivun yksityisyys"
-
 msgid "This page has been made private by a parent page."
 msgstr "Tämä sivu on asetettu yksityiseksi isäntäsivulta."
 
@@ -1118,6 +1115,9 @@ msgstr "Järjestä"
 msgid "Enable ordering of child pages"
 msgstr "Salli alasivujen uudelleenjärjestäminen"
 
+msgid "No results across entire site."
+msgstr "Ei tuloksia mistään päin sivustoa."
+
 msgid "Search the whole site"
 msgstr "Hae koko sivustolta"
 
@@ -1223,9 +1223,6 @@ msgstr "Viimeksi muokattu sivu"
 msgid "Last edit"
 msgstr "Viimeisin muokkaus"
 
-msgid "No page types found."
-msgstr "Sivutyyppejä ei löytynyt."
-
 msgid "Locking status"
 msgstr "Lukitsemisen tila"
 
@@ -1247,6 +1244,9 @@ msgstr "Lukittu"
 msgid "No locked pages found."
 msgstr "Lukittuja sivuja ei löytynyt."
 
+msgid "No page types found."
+msgstr "Sivutyyppejä ei löytynyt."
+
 msgid "Name"
 msgstr "Nimi"
 
@@ -1264,9 +1264,6 @@ msgstr "Muokkaa tätä"
 
 msgid "No log entries found."
 msgstr "Lokimerkintöjä ei löytynyt."
-
-msgid "By Task"
-msgstr "Tehtävän mukaan"
 
 msgid "Workflow"
 msgstr "Työnkulku"
@@ -1286,9 +1283,6 @@ msgstr "Keskeneräinen tehtävä"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Sivuja/pätkiä ei ole vielä lähetetty tarkastettavaksi"
 
-msgid "By Workflow"
-msgstr "Työnkulun mukaan"
-
 msgid "Completed at"
 msgstr "Valmistunut"
 
@@ -1304,6 +1298,35 @@ msgstr "Murupolut päälle/pois"
 
 msgid "Breadcrumb"
 msgstr "Linkkipolku"
+
+msgid "You saved a new version in another session"
+msgstr "Tallensit uuden version toisessa istunnossa"
+
+msgid "System"
+msgstr "Järjestelmä"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s tallensi uuden version"
+
+msgid "Refresh"
+msgstr "Päivitä"
+
+msgid "You have unsaved changes in another session"
+msgstr "Sinulla on tallentamattomia muutoksia toisessa istunnossa"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "Käyttäjällä %(user_name)s on tallentamattomia muutoksia"
+
+msgid "Refresh page"
+msgstr "Päivitä sivu"
+
+msgid "Continue"
+msgstr "Jatka"
+
+msgid "Refresh the page"
+msgstr "Päivitä sivu"
 
 msgid "Download XLSX"
 msgstr "Hae XLSX"
@@ -1833,8 +1856,14 @@ msgid ""
 msgstr ""
 "Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan laskevasti."
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Virheellinen otsikkohierarkia. Vältä tasojen ohittamista."
+msgid "Button text is empty"
+msgstr "Painikkeen teksti on tyhjä"
+
+msgid "Empty heading found"
+msgstr "Tyhjä otsake löytyi"
+
+msgid "Link text is empty"
+msgstr "Linkin teksti on tyhjä"
 
 msgid "Profile"
 msgstr "Profiili"
@@ -2171,9 +2200,6 @@ msgstr "Ikääntyvät sivut"
 
 msgid "Last published at"
 msgstr "Viimeksi julkaistu"
-
-msgid "Hide commenting actions"
-msgstr "Piilota kommentointitoiminnot"
 
 msgid "Site history"
 msgstr "Sivuston historia"

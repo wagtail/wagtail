@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -597,9 +597,6 @@ msgstr "Utforska undersidor till '%(title)s'"
 msgid "Explore"
 msgstr "Utforska"
 
-msgid "Collection privacy"
-msgstr "Sekretess för samlingar"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Denna samling har gjorts privat p.g.a. en huvudsamling."
 
@@ -1043,9 +1040,6 @@ msgstr ""
 #, python-format
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr "Sidan \"%(title)s\" har lämnats in till arbetsflöde \"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Sidsekretess"
 
 msgid "This page has been made private by a parent page."
 msgstr "Denna sida har gjorts privat p.g.a. en huvudsida."
@@ -1532,9 +1526,6 @@ msgstr "Senast redigerad sida"
 msgid "Last edit"
 msgstr "Senast redigerad"
 
-msgid "No page types found."
-msgstr "Inga sidtyper hittades."
-
 msgid "Locking status"
 msgstr "Låsstatus"
 
@@ -1556,6 +1547,9 @@ msgstr "Låst"
 msgid "No locked pages found."
 msgstr "Inga upplåsta sidor hittades."
 
+msgid "No page types found."
+msgstr "Inga sidtyper hittades."
+
 msgid "Name"
 msgstr "Namn"
 
@@ -1573,9 +1567,6 @@ msgstr "Redigera objektet"
 
 msgid "No log entries found."
 msgstr "Inga loggposter funna"
-
-msgid "By Task"
-msgstr "Av Uppgift"
 
 msgid "Workflow"
 msgstr "Arbetsflöde"
@@ -1595,9 +1586,6 @@ msgstr "Ej slutförd uppgift"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Inga sidor/snuttar har ännu skickats in för moderering"
 
-msgid "By Workflow"
-msgstr "Av Arbetsflöde"
-
 msgid "Completed at"
 msgstr "Slutfördes vid"
 
@@ -1616,6 +1604,9 @@ msgstr "Sökvägsnavigering"
 
 msgid "Close dialog"
 msgstr "Stäng dialog"
+
+msgid "Continue"
+msgstr "Fortsätt"
 
 msgid "Download XLSX"
 msgstr "Ladda ner XLSX"
@@ -2645,9 +2636,6 @@ msgstr "Äldre sidor"
 
 msgid "Last published at"
 msgstr "Senast publicerad vid"
-
-msgid "Hide commenting actions"
-msgstr "Göm kommenteringshandlingar"
 
 msgid "Site history"
 msgstr "Sajthistorik"
