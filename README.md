@@ -19,8 +19,8 @@
     <a href="https://pypi.python.org/pypi/wagtail/">
         <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
     </a>
-    <a href="https://twitter.com/WagtailCMS">
-        <img src="https://img.shields.io/twitter/follow/WagtailCMS?style=social&logo=twitter" alt="follow on Twitter">
+    <a href="https://x.com/WagtailCMS">
+        <img src="https://img.shields.io/twitter/follow/WagtailCMS?style=social&logo=twitter" alt="follow on X">
     </a>
 </p>
 

@@ -828,6 +828,7 @@
 * Chris Shenton
 * Nathanaël Jourdane
 * Vaughn Dickson
+* Ansuman Shukla
 
 ## Translators
 
