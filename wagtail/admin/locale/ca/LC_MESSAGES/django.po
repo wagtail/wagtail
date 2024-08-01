@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -396,6 +396,9 @@ msgstr "S'ha seleccionat els %(objects)s elements de la pantalla"
 msgid "All items in listing selected"
 msgstr "S'ha seleccionat tots els elements del llistat"
 
+msgid "Can access Wagtail admin"
+msgstr "Pot accedir a l'administració de Wagtail"
+
 msgid "For search engines"
 msgstr "Per motors de cerca"
 
@@ -612,9 +615,6 @@ msgstr "Explorar subpàgines de '%(title)s'"
 
 msgid "Explore"
 msgstr "Explora"
-
-msgid "Collection privacy"
-msgstr "Privadesa de la col·lecció"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Aquesta col·lecció ha estat feta privada per una col·lecció pare."
@@ -1200,11 +1200,11 @@ msgstr ""
 "El/la %(model_name)s \"%(title)s\" ha estat enviat/da al fluxe de treball "
 "\"%(workflow)s\""
 
-msgid "Page privacy"
-msgstr "Privadesa de la pàgina"
-
 msgid "This page has been made private by a parent page."
 msgstr "Aquesta pàgina ha estat feta privada per una pàgina pare."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "S'ha desactivat la modificació de la privacitat d'aquesta pàgina."
 
 msgid "Save the page before leaving"
 msgstr "Desar la pàgina abans de sortir"
@@ -1851,9 +1851,6 @@ msgstr "Última pàgina editada"
 msgid "Last edit"
 msgstr "Última edició"
 
-msgid "No page types found."
-msgstr "No s'ha trobat cap tipus de pàgina."
-
 msgid "Locking status"
 msgstr "Estat de bloqueig"
 
@@ -1875,6 +1872,9 @@ msgstr "Bloquejada"
 msgid "No locked pages found."
 msgstr "No s'ha trobat cap pàgina bloquejada."
 
+msgid "No page types found."
+msgstr "No s'ha trobat cap tipus de pàgina."
+
 msgid "Name"
 msgstr "Nom"
 
@@ -1892,9 +1892,6 @@ msgstr "Editar aquest element"
 
 msgid "No log entries found."
 msgstr "No s'han trobat entrades de registre."
-
-msgid "By Task"
-msgstr "Per tasca"
 
 msgid "Workflow"
 msgstr "Fluxe de treball"
@@ -1914,9 +1911,6 @@ msgstr "La tasca és incompleta"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "No s'ha enviat a moderar cap pàgina/fragment"
 
-msgid "By Workflow"
-msgstr "Per fluxe de treball"
-
 msgid "Completed at"
 msgstr "Completat el"
 
@@ -1935,6 +1929,72 @@ msgstr "Ruta de navegació"
 
 msgid "Close dialog"
 msgstr "Tancar el diàleg"
+
+msgid "You saved a new version in another session"
+msgstr "Heu desat una nova versió en una altra sessió"
+
+msgid "System"
+msgstr "Sistema"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s ha desat una nova versió"
+
+msgid "Refresh"
+msgstr "Refrescar"
+
+msgid "You have unsaved changes in another session"
+msgstr "Teniu canvis sense desar en una altra sessió"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s té canvis sense desar"
+
+msgid "Currently viewing"
+msgstr "Actualment visualitzant"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Un altre usuari està actualment visualitzant"
+msgstr[1] "%(num_user)s altres usuaris estan actualment visualitzant"
+
+#, python-format
+msgid ""
+"You have saved a newer version of this %(model_name)s in another session"
+msgstr ""
+"Teniu una versió desada més nova d'aquest %(model_name)s en una altra sessió"
+
+#, python-format
+msgid "%(user_name)s has saved a newer version of this %(model_name)s"
+msgstr "%(user_name)s ha desat una versió més nova d'aquest %(model_name)s"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that session. Refreshing "
+"the page will lose any of your unsaved changes in the current session."
+msgstr ""
+"Continuar sobrescriurà els canvis que heu fet en una altra sessió. Refrescar "
+"la pàgina farà perdre qualsevol canvi no desat a la sessió actual."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will lose any of your unsaved changes."
+msgstr ""
+"Continuar sobrescriurà els canvis fets per %(user_name)s. Refrescar la "
+"pàgina farà perdre qualsevol canvi no desat a la sessió actual."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Si es refresca la pàgina es perdrà qualsevol canvi no desat"
+
+msgid "Refresh page"
+msgstr "Refrescar la pàgina"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Refresh the page"
+msgstr "Refrescar la pàgina"
 
 msgid "Download XLSX"
 msgstr "Baixa XLSX"
@@ -2023,6 +2083,18 @@ msgstr "Communtar panell lateral"
 
 msgid "Side panel width"
 msgstr "Ample del panell lateral"
+
+msgid "Show issue"
+msgstr "Mostra incidència"
+
+msgid "Content metrics"
+msgstr "Mètriques de contingut"
+
+msgid "Words"
+msgstr "Paraules"
+
+msgid "Reading time"
+msgstr "Temps de lectura"
 
 msgid "Issues found"
 msgstr "Incidències trobades"
@@ -2599,46 +2671,47 @@ msgstr ""
 "Ordenar les pàgines filles de '%(parent)s' per '%(label)s' en ordre "
 "descendent."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"El text del botó està buït. Empreu text entenedor pels usuaris de lectors de "
-"pantalla."
+msgid "Button text is empty"
+msgstr "El text del botó està buït"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"S'ha trobat una capçalera buïda. Empreu text entenedor pels usuaris de "
-"lectors de pantalla."
+msgid "Use meaningful text for screen reader users"
+msgstr "Utilitzeu text amb significat pels usuaris de lectors de pantalla"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"El text de capçalera de la taula està buït. Empreu text entenedor pels "
-"usuaris de lectors de pantalla."
+msgid "Empty heading found"
+msgstr "S'ha trobat un encapçalament buït"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"S'ha trobat un títol de marc buït. Empreu text entenedor pels usuaris de "
-"lectors de pantalla."
+msgid "Table header text is empty"
+msgstr "El text de l'encapçalament de la taula està buït"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Jerarqui de capçalera incorrecta. Eviteu saltar-vos nivells."
+msgid "Empty frame title found"
+msgstr "S'ha trobat un títol de marc buït"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"El text del botó d'entrada està buït. Empreu text entenedor pels usuaris de "
-"lectors de pantalla."
+msgid "Use a meaningful title for screen reader users"
+msgstr "Utilitzeu un títol amb significat pels usuaris de lectors de pantalla"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"El text de l'enllaç està buït. Empreu text entenedor pels usuaris de lectors "
-"de pantalla."
+msgid "Incorrect heading hierarchy"
+msgstr "La jerarquia de l'encapçalamenta és incorrecta"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Mal ús dels paràgrafs com a encapçalaments. Utilitzeu etiquetes "
-"d'encapçalament adequades."
+msgid "Avoid skipping levels"
+msgstr "Eviteu els salts de nivells"
+
+msgid "Input button text is empty"
+msgstr "El text del botó d'entrada està buït"
+
+msgid "Link text is empty"
+msgstr "El text de l'enllaç està buït"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Mal ús dels paràgrafs com a encapçalaments"
+
+msgid "Use proper heading tags"
+msgstr "Utilitzeu etiquetes d'encapçalament adequades"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "El text alternatiu de la imatge té un patró inadequat"
+
+msgid "Use meaningful text"
+msgstr "Utilitzar text amb significat"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -3218,9 +3291,6 @@ msgstr "Pàgines envellides"
 msgid "Last published at"
 msgstr "Última publicació"
 
-msgid "Hide commenting actions"
-msgstr "Amagar les accions de comentaris"
-
 msgid "Site history"
 msgstr "Historial del lloc"
 
@@ -3257,11 +3327,17 @@ msgstr "Tipus de Pàgina/Fragment"
 msgid "Page/Snippet Title"
 msgstr "Títol de la Pàgina/Fragment"
 
+msgid "By task"
+msgstr "Per tasca"
+
 msgid "Workflow tasks"
 msgstr "Tasques de fluxe de treball"
 
 msgid "Requested By"
 msgstr "Demanat per"
+
+msgid "By workflow"
+msgstr "Per fluxe de treball"
 
 msgid "Show disabled"
 msgstr "Mostrar desactivat"

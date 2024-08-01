@@ -5,7 +5,7 @@
 #
 # Translators:
 # Ed Wurch <ewurch@gmail.com>, 2021
-# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2021
+# Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2021
 # Iuri L. Machado, 2022
 # Loic Teixeira, 2022
 # Luiz Boaretto <lboaretto@gmail.com>, 2024
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/torchbox/"

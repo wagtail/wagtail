@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -402,6 +402,9 @@ msgstr "Wedi'i gwblhau yn"
 
 msgid "Breadcrumb"
 msgstr "Briwsion Bara"
+
+msgid "Continue"
+msgstr "Parhau"
 
 msgid "Download XLSX"
 msgstr "Lawrlwythwch XSLX"

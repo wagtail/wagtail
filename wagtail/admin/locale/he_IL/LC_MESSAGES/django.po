@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -370,9 +370,6 @@ msgstr "העמוד \"%(title)s\" נדחה"
 
 msgid "You can preview the page here:"
 msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
-
-msgid "Page privacy"
-msgstr "הגדרות פרטיות של העמוד"
 
 msgid "This page has been made private by a parent page."
 msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"

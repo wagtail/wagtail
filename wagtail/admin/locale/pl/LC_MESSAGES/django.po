@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022-2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -617,9 +617,6 @@ msgstr "Przeglądaj strony podrzędne od '%(title)s'"
 msgid "Explore"
 msgstr "Przeglądaj"
 
-msgid "Collection privacy"
-msgstr "Prywatność kolekcji"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Ta kolekcja została ustawiona jako prywatna przez kolekcję nadrzędną."
 
@@ -1155,9 +1152,6 @@ msgid ""
 msgstr ""
 "Strona %(model_name)s \"%(title)s\" została przekierowana do procesu "
 "\"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Prywatność strony"
 
 msgid "This page has been made private by a parent page."
 msgstr "Ta strona jest prywatna ze względu na stronę rodzica."
@@ -1764,9 +1758,6 @@ msgstr "Edytuj element"
 msgid "No log entries found."
 msgstr "Brak wpisów w logu."
 
-msgid "By Task"
-msgstr "Wg. zadania"
-
 msgid "Workflow"
 msgstr "Proces"
 
@@ -1784,9 +1775,6 @@ msgstr "Niedokończone zadanie"
 
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Żadne strony/skrawki nie zostały przekazane do moderacji"
-
-msgid "By Workflow"
-msgstr "Wg. procesu"
 
 msgid "Completed at"
 msgstr "Zakończono dnia"
@@ -1806,6 +1794,9 @@ msgstr "Breadcrumb"
 
 msgid "Close dialog"
 msgstr "Zamknij informację"
+
+msgid "Continue"
+msgstr "Kontynuuj"
 
 msgid "Download XLSX"
 msgstr "Pobierz XLSX"
@@ -2406,47 +2397,6 @@ msgid ""
 "descending order."
 msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Tekst przycisku jest pusty. Użyj wartościowych słów dla użytkowników "
-"korzystających z narzędzi wspierających czytanie."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Wykryto pusty nagłówek. Użyj wartościowych słów dla użytkowników "
-"korzystających z narzędzi wspierających czytanie."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Wykryto pusty nagłówek tabeli. Użyj wartościowych słów dla użytkowników "
-"korzystających z narzędzi wspierających czytanie."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Wykryto pusty nagłówek ramki. Użyj wartościowych słów dla użytkowników "
-"korzystających z narzędzi wspierających czytanie."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Nieprawidłowa hierarchia nagłówków. Unikaj pomijania poziomiów."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Tekst przycisku jest pusty. Użyj wartościowych słów dla użytkowników "
-"korzystających z narzędzi wspierających czytanie."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Tekst linku jest pusta. Użyj wartościowych słów dla użytkowników "
-"korzystających z narzędzi wspierających czytanie."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Nieprawidłowe użycie paragrafów jako nagłówków. Użyj prawidłowych tagów "
-"nagłówków."
-
 msgid "Profile"
 msgstr "Profile"
 
@@ -2838,9 +2788,6 @@ msgstr "Starzejące się strony"
 
 msgid "Last published at"
 msgstr "Ostatnio opublikowane"
-
-msgid "Hide commenting actions"
-msgstr "Ukryj akcje komentowania"
 
 msgid "Site history"
 msgstr "Historia serwisu"

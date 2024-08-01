@@ -5,11 +5,12 @@
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Loic Teixeira, 2023
+# Loic Teixeira, 2024
+# Sébastien Corbin <seb.corbin@gmail.com>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
 "Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -30,6 +31,12 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s erreur"
 msgstr[1] "%(num)s erreurs"
 msgstr[2] "%(num)s erreurs"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s mins"
+msgstr[2] "%(num)s mins"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
@@ -205,6 +212,12 @@ msgid ""
 msgstr ""
 "L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
 "restauré."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Le nombre maximum d'éléments est %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Le nombre minimum d'éléments est %(min_num)d"
 
 msgid "This field is required."
 msgstr "Ce champ est requis."

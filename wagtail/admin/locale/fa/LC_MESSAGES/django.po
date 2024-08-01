@@ -5,7 +5,8 @@
 # Translators:
 # Amir Mahmoodi, 2022
 # Amir Mahmoodi, 2022-2023
-# Bardia Khoshroo, 2024
+# Bardia, 2024
+# Bardia, 2024
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2020
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Bardia Khoshroo, 2024\n"
+"Last-Translator: Bardia, 2024\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +57,10 @@ msgstr "ذخیره پیش نویس"
 
 msgid "Page locked"
 msgstr "صفحه قفل شد"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s و انتشار"
 
 msgid "Wagtail admin"
 msgstr "ادمین وگتیل"
@@ -251,6 +256,13 @@ msgstr "انتخاب یک والد جدید برای این صفحه."
 msgid "Parent page"
 msgstr "صفحه والد"
 
+msgid "The new page will be a child of this given parent page."
+msgstr "صفحه جدید زیر شاخه صفحه مادر خواهد شد."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "شما اجازه ساخت صفحه در زیر شاخه صفحه%(page_title)s را ندارید."
+
 msgid "Search…"
 msgstr "جستجو..."
 
@@ -269,6 +281,9 @@ msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
 msgid "All types"
 msgstr "همه انواع"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "شما نمیتوانید یک دستورالعمل را به یک صفحه چند بار اعمال کنید"
 
 msgid "Give your workflow a name"
 msgstr "به رویه کاریتان نام بدهید"
@@ -362,6 +377,9 @@ msgstr "همه %(objects)s آیتم این صفحه انتخاب شدند"
 
 msgid "All items in listing selected"
 msgstr "همه آیتم های فهرست انتخاب شدند"
+
+msgid "Can access Wagtail admin"
+msgstr "دسترسی برای رفتن به صفحه ادمین وگتیل"
 
 msgid "For search engines"
 msgstr "برای موتور های جست و جو"
@@ -575,9 +593,6 @@ msgstr "کاوش زیرصفحه های «%(title)s»"
 msgid "Explore"
 msgstr "کاوش"
 
-msgid "Collection privacy"
-msgstr "حریم مجموعه"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "این مجموعه توسط یک مجموعه والد خصوصی شده است."
 
@@ -638,6 +653,10 @@ msgstr "نه، حذف نکن"
 msgid "Unpublish %(title)s"
 msgstr "لغو انتشار %(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "آیا مطمئن هستید میخواهید %(model_name)s را از انتشار خارج کنید؟"
+
 msgid "Yes, unpublish it"
 msgstr "بله لغو انتشار شود"
 
@@ -647,6 +666,10 @@ msgstr "نه لغو انتشار نشود"
 #, python-format
 msgid "Publish %(model_name)s"
 msgstr "انتشار%(model_name)s"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "آیا هنوز مایل به انتشار %(model_name)s هستید؟"
 
 msgid "Cancel"
 msgstr "لغو"
@@ -882,9 +905,6 @@ msgstr "پاسخ های جدید:"
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\""
 msgstr "%(editor)s نظرات \"%(title)s\" را بروز کرده است"
-
-msgid "Page privacy"
-msgstr "حریم صفحه"
 
 msgid "This page has been made private by a parent page."
 msgstr "این صفحه توسط صفحه والد شخصی شده."
@@ -1163,6 +1183,9 @@ msgstr "صفحه %(page_num)s از %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "خرده نان"
+
+msgid "Continue"
+msgstr "ادامه"
 
 msgid "Download XLSX"
 msgstr "دانلود XLSX"
@@ -1741,9 +1764,6 @@ msgstr "صفحات سالخورده"
 
 msgid "Last published at"
 msgstr "انتشار قبلی در"
-
-msgid "Hide commenting actions"
-msgstr "مخفی کردت اعمال مربوط به نظر دهی"
 
 msgid "Site history"
 msgstr "تاریخچه سایت"

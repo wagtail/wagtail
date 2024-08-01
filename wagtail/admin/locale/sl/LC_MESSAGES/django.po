@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -627,9 +627,6 @@ msgstr "Razišči podstrani od '%(title)s'"
 msgid "Explore"
 msgstr "Razišči"
 
-msgid "Collection privacy"
-msgstr "Zbirka zasebnosti"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "To zbirko je nadrejena zbirka naredila zasebno."
 
@@ -1008,9 +1005,6 @@ msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
 msgstr "Stran \"%(title)s\" je bila poslana v potek dela \"%(workflow)s\"."
-
-msgid "Page privacy"
-msgstr "Zasebnost strani"
 
 msgid "This page has been made private by a parent page."
 msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
@@ -1545,9 +1539,6 @@ msgstr "Nazadnje urejena stran"
 msgid "Last edit"
 msgstr "Zadnje urejanje"
 
-msgid "No page types found."
-msgstr "Najdena ni bila nobena vrsta strani."
-
 msgid "Locking status"
 msgstr "Status zaklepanja"
 
@@ -1569,6 +1560,9 @@ msgstr "Zaklenjeno"
 msgid "No locked pages found."
 msgstr "Zaklenjene strani niso bile najdene."
 
+msgid "No page types found."
+msgstr "Najdena ni bila nobena vrsta strani."
+
 msgid "Name"
 msgstr "Ime"
 
@@ -1586,9 +1580,6 @@ msgstr "Uredi element"
 
 msgid "No log entries found."
 msgstr "Najden ni bil noben vnos v dnevnik."
-
-msgid "By Task"
-msgstr "Po nalogi"
 
 msgid "Workflow"
 msgstr "Potek dela"
@@ -1608,9 +1599,6 @@ msgstr "Nedokončana naloga"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Nobena stran/izrezek še ni bil poslan v moderiranje"
 
-msgid "By Workflow"
-msgstr "Po poteku dela"
-
 msgid "Completed at"
 msgstr "Zaključeno ob"
 
@@ -1629,6 +1617,9 @@ msgstr "Drobtina"
 
 msgid "Close dialog"
 msgstr "Zapri pogovorno okno"
+
+msgid "Continue"
+msgstr "Nadaljuj"
 
 msgid "Download XLSX"
 msgstr "Prenesi XLSX"
@@ -2261,45 +2252,6 @@ msgstr ""
 "Razvrsti vrstni red podrejenih strani znotraj '%(parent)s' po '%(label)s' v "
 "padajočem vrstnem redu."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Besedilo gumba je prazno. Uporabite smiselno besedilo za uporabnike "
-"bralnikov zaslona"
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Najden prazen naslov. Uporabite smiselno besedilo za uporabnike bralnikov "
-"zaslona."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Besedilo glave tabele je prazno. Uporabite smiselno besedilo za uporabnike "
-"bralnikov zaslona."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Najden je prazen naslov okvirja. Uporabite smiseln naslov za uporabnike "
-"bralnika zaslona."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Napačna hierarhija naslovov. Izogibajte se preskakovanju ravni."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Besedilo gumba za vnos je prazno. Uporabite smiselno besedilo za uporabnike "
-"bralnikov zaslona."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Besedilo povezave je prazno. Uporabite smiselno besedilo za uporabnike "
-"bralnikov zaslona."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr "Zloraba odstavkov kot naslovov. Uporabite ustrezne oznake naslovov."
-
 msgid "Profile"
 msgstr "Profil"
 
@@ -2708,9 +2660,6 @@ msgstr "Zgodovina strani"
 
 msgid "Last published at"
 msgstr "Nazadnje objavljeno ob"
-
-msgid "Hide commenting actions"
-msgstr "Skrij dejanja komentiranja"
 
 msgid "Site history"
 msgstr "Zgodovina mesta"

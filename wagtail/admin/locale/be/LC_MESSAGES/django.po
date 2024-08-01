@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -368,9 +368,6 @@ msgstr "Агляд падстаронак для '%(title)s'"
 msgid "Explore"
 msgstr "Агляд"
 
-msgid "Collection privacy"
-msgstr "Прыватнасць калекцыі"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Гэтая калекцыя была зачынена бацькоўскай калекцыяй"
 
@@ -545,9 +542,6 @@ msgstr "Старонка \"%(title)s\" была адхілена"
 
 msgid "You can preview the page here:"
 msgstr "Вы можаце праглядзець старонку вось тут:"
-
-msgid "Page privacy"
-msgstr "Прыватнасць старонкі"
 
 msgid "This page has been made private by a parent page."
 msgstr "Гэтая старонка была зачынена бацькоўскай старонкай"
@@ -756,6 +750,9 @@ msgstr "Старонка %(page_num)s з %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Шлях па сайту"
+
+msgid "Continue"
+msgstr "Працягнуць"
 
 msgid "Download XLSX"
 msgstr "Спампаваць XLSX"

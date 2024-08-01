@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -314,9 +314,6 @@ msgstr "Esplora pajina iha  '%(title)s' nia okos"
 msgid "Explore"
 msgstr "Esplora"
 
-msgid "Collection privacy"
-msgstr "Rekolla privasidade"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Koleksaun nee halo privadu ona husi koleksaun inan-aman"
 
@@ -471,9 +468,6 @@ msgstr "Pájina \"%(title)s\" rejeita ona "
 
 msgid "You can preview the page here:"
 msgstr "Ita-boot bele prevee pájina neʼe:"
-
-msgid "Page privacy"
-msgstr "Pájina privasidade"
 
 msgid "This page has been made private by a parent page."
 msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
@@ -648,6 +642,9 @@ msgstr "Pajina %(page_num)s husi %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "Hatudu dalan korta"
+
+msgid "Continue"
+msgstr "Kontinua"
 
 msgid "Download CSV"
 msgstr "Download CSV"

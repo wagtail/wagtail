@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -611,9 +611,6 @@ msgstr "Explorar subpáginas de '%(title)s'"
 msgid "Explore"
 msgstr "Explorar"
 
-msgid "Collection privacy"
-msgstr "Privacidad de la Colección"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Esta colección ha sido hecha privada por una colección padre."
 
@@ -1018,9 +1015,6 @@ msgstr ""
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr ""
 "La página \"%(title)s\" ha sido enviada al flujo de trabajo \"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Privacidad de la página"
 
 msgid "This page has been made private by a parent page."
 msgstr "Esta página fue convertida en privada por una página padre."
@@ -1708,9 +1702,6 @@ msgstr "Editar este item"
 msgid "No log entries found."
 msgstr "No se encontraron entradas de registro."
 
-msgid "By Task"
-msgstr "Por Tarea"
-
 msgid "Workflow"
 msgstr "Flujo de trabajo"
 
@@ -1725,9 +1716,6 @@ msgstr "Iniciado el"
 
 msgid "Incomplete task"
 msgstr "Tarea incompleta"
-
-msgid "By Workflow"
-msgstr "Por Flujo de Trabajo"
 
 msgid "Completed at"
 msgstr "Completado el"
@@ -1747,6 +1735,9 @@ msgstr "Ruta de navegación"
 
 msgid "Close dialog"
 msgstr "Cerrar diálogo"
+
+msgid "Continue"
+msgstr "Continuar"
 
 msgid "Download XLSX"
 msgstr "Descargar XLSX"
@@ -2768,9 +2759,6 @@ msgstr "Páginas envejeciendo"
 
 msgid "Last published at"
 msgstr "Última publicación el"
-
-msgid "Hide commenting actions"
-msgstr "Ocultar acciones de comentario"
 
 msgid "Site history"
 msgstr "Historial del sitio"

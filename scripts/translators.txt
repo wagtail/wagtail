@@ -451,7 +451,7 @@ Stein Strindhaug <stein.strindhaug.gmail.com>
 Persian - fa
 -----
 Amir Mahmoodi
-Bardia Khoshroo
+Bardia
 Ehsan jahanbakhsh <man207ej.gmail.com>
 Hamed NAJAND <hmd.nzhd.gmail.com>
 Loic Teixeira
@@ -504,7 +504,7 @@ LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Luiz Boaretto <lboaretto.gmail.com>
 Marcio Mazza <marciomazza.gmail.com>
-Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec.sottomaiormacedo.tech>
+Rodrigo Sottomaior Macedo <sottomaiormacedotec.sottomaiormacedo.tech>
 Thiago Cangussu <cangussu.thg.gmail.com>
 Thiago Cangussu <cng.thg.gmail.com>
 Vitor Hugo da Silva Lima <silvalimavitorhugo.gmail.com>

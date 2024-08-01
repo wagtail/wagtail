@@ -8,16 +8,16 @@
 # Влад <integration.into.society@gmail.com>, 2022
 # sergeybe <sergeybe@gmail.com>, 2022
 # Loic Teixeira, 2022
-# Andrei Satsevich, 2023
+# Andrei Satsevich, 2024
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Andrei Satsevich, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,6 +67,9 @@ msgstr[0] "Перевести родительскую страницу."
 msgstr[1] "Перевести родительские страницы."
 msgstr[2] "Перевести родительские страницы."
 msgstr[3] "Перевести родительские страницы."
+
+msgid "Can submit translations"
+msgstr "Может представлять переводы"
 
 msgid "Submit"
 msgstr "Применить"

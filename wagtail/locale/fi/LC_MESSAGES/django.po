@@ -6,7 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Glen Somerville <glen.somerville@gmail.com>, 2015
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2023\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -128,14 +128,32 @@ msgstr "Vain %(user)s voi tehdä muutoksia kun %(model_name)s on lukittu"
 msgid "This %(model_name)s is currently awaiting moderation."
 msgstr "Tämä %(model_name)s odottaa parhaillaan tarkastusta."
 
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Tämä {model_name} odottaa tehtävää <b>'{task_name}'</b> työnkulussa "
+"<b>'{workflow_name}'</b>."
+
 msgid "Unlocked"
 msgstr "Ei lukittu"
 
 msgid "Locked by workflow"
 msgstr "Lukittu työnkulun toimesta"
 
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' on lukittu ja se on ajastettu julkiseksi {datetime}"
+
 msgid "Locked by schedule"
 msgstr "Lukittu aikataulun toimesta"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Parhaillaan lukittu ja julkaistaan ajastettuna päiväyksenä"
 
 msgid "live"
 msgstr "julkaistu"
@@ -416,6 +434,9 @@ msgstr "valmistanut"
 msgid "Task state"
 msgstr "Tehtävän tila"
 
+msgid "Task states"
+msgstr "Tehtävän tilat"
+
 msgid "Draft saved"
 msgstr "Luonnos tallennettu"
 
@@ -545,8 +566,24 @@ msgstr ""
 msgid "Public"
 msgstr "Julkinen"
 
+msgid "Private, accessible with a shared password"
+msgstr "Yksityinen, nähtävissä jaetulla salasanalla"
+
+msgid "Private, accessible to any logged-in users"
+msgstr "Yksityinen, näkyy kirjautuneille käyttäjille"
+
 msgid "Private, accessible to users in specific groups"
 msgstr "Yksityinen, näkyy tiettyjen ryhmien käyttäjille"
+
+msgid "shared password"
+msgstr "jaettu salasana"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Jaettuja salasanoja ei tule käyttää arkaluonteisen tiedon suojaamiseen. Kuka "
+"tahansa, jolla on tämä salasana, voi nähdä sisällön."
 
 msgid "view restriction"
 msgstr "näyttörajoitus"
@@ -574,6 +611,12 @@ msgstr "Tarvitset salasanan päästäksesi tälle sivulle"
 
 msgid "Continue"
 msgstr "Jatka"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s alikokoelma"
+msgstr[1] "%(count)s alikokoelmaa"
 
 msgid "Create"
 msgstr "Luo"
@@ -707,11 +750,19 @@ msgstr "Lisätty katselurajoitus"
 msgid "Update view restrictions"
 msgstr "Päivitä katselurajoitukset"
 
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Päivitetty näkymärajoitukseksi '%(restriction)s'"
+
 msgid "Updated view restriction"
 msgstr "Päivitetty katselurajoitus"
 
 msgid "Remove view restrictions"
 msgstr "Poista katselurajoitukset"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr "Poistettu näkymärajoitus '%(restriction)s'. Tämä sivu on julkinen."
 
 msgid "Removed view restriction"
 msgstr "Poistettu katselurajoitus"
@@ -754,6 +805,10 @@ msgstr "Selvitetty kommentti"
 
 msgid "Reply to comment"
 msgstr "Vastaa kommenttiin"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Vastattu kommenttiin kentässä %(field)s: \"%(text)s\""
 
 msgid "Replied to a comment"
 msgstr "Vastattu kommenttiin"
@@ -806,6 +861,13 @@ msgstr "Työnkulun tehtävä hylätty. Työnkulku valmistui"
 
 msgid "Workflow: resume task"
 msgstr "Työnkulku: palauta tehtävä"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Lähetetty uudelleen '%(task)s'. Työnkulku palautettu"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Työnkulun tehtävä lähetetty uudelleen. Työnkulku palautettu"
 
 msgid "Workflow: cancel"
 msgstr "Työnkulku: peruttu"

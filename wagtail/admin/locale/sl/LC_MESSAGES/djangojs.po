@@ -2,12 +2,12 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2022
-# Loic Teixeira, 2022
 # Andrej Marsetič, 2023
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrej Marsetič, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -205,6 +205,12 @@ msgid ""
 msgstr ""
 "Urejevalnik se je pravkar zrušil. Vsebina je bila ponastavljena na zadnjo "
 "shranjeno različico"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Največje število predmetov je %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Najmanjše število predmetov je %(min_num)d"
 
 msgid "This field is required."
 msgstr "Polje je obvezno."

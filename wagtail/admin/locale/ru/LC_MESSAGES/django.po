@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -440,6 +440,9 @@ msgstr "Выбраны все %(objects)s элементов на этом эк�
 msgid "All items in listing selected"
 msgstr "Все элементы в списке выбраны"
 
+msgid "Can access Wagtail admin"
+msgstr "Доступ к панели управления Wagtail"
+
 msgid "For search engines"
 msgstr "Для поисковых систем"
 
@@ -663,9 +666,6 @@ msgstr "Обзор подстраниц для '%(title)s'"
 
 msgid "Explore"
 msgstr "Обзор"
-
-msgid "Collection privacy"
-msgstr "Приватность коллекции"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Коллекция приватна в соответствии с родительской коллекцией."
@@ -1242,11 +1242,11 @@ msgid ""
 msgstr ""
 "%(model_name)s\"%(title)s\" передано в рабочий процесс \"%(workflow)s\""
 
-msgid "Page privacy"
-msgstr "Приватность страницы"
-
 msgid "This page has been made private by a parent page."
 msgstr "Страница приватна в соответствии с родительской страницей."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "Изменение конфиденциальности для этой страницы было отключено."
 
 msgid "Save the page before leaving"
 msgstr "Сохраните страницу перед выходом"
@@ -2006,9 +2006,6 @@ msgstr "Последняя отредактированная страница"
 msgid "Last edit"
 msgstr "Последнее редактирование"
 
-msgid "No page types found."
-msgstr "Типы страниц не найдены."
-
 msgid "Locking status"
 msgstr "Статус блокировки"
 
@@ -2028,7 +2025,10 @@ msgid "Locked"
 msgstr "Заблокировано"
 
 msgid "No locked pages found."
-msgstr "Не найдены заблокированные страницы."
+msgstr "Не найдено ни одной заблокированной страницы."
+
+msgid "No page types found."
+msgstr "Типы страниц не найдены."
 
 msgid "Name"
 msgstr "Имя"
@@ -2048,9 +2048,6 @@ msgstr "Редактировать этот элемент"
 msgid "No log entries found."
 msgstr "Записи в журнале не найдены."
 
-msgid "By Task"
-msgstr "По Задаче"
-
 msgid "Workflow"
 msgstr "Рабочий процесс"
 
@@ -2068,9 +2065,6 @@ msgstr "Незавершенная задача"
 
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "На модерацию пока не отправлено ни одной страницы/фрагмента"
-
-msgid "By Workflow"
-msgstr "По рабочему процессу"
 
 msgid "Completed at"
 msgstr "Завершен в"
@@ -2090,6 +2084,76 @@ msgstr "Путь по сайту"
 
 msgid "Close dialog"
 msgstr "Закрыть"
+
+msgid "You saved a new version in another session"
+msgstr "Вы сохранили новую версию в другой сессии"
+
+msgid "System"
+msgstr "Система"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "Пользователь %(user_name)s сохранил новую версию"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "You have unsaved changes in another session"
+msgstr "У вас есть несохраненные изменения в другой сессии"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "Пользователь %(user_name)s имеет несохраненные изменения"
+
+msgid "Currently viewing"
+msgstr "В данный момент просматривается"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Еще один пользователь в данный момент смотрит"
+msgstr[1] "Ещё %(num_user)s пользователей в данный момент просматривают"
+msgstr[2] "Ещё %(num_user)s пользователей в данный момент просматривают"
+msgstr[3] "Ещё %(num_user)s пользователей в данный момент просматривают"
+
+#, python-format
+msgid ""
+"You have saved a newer version of this %(model_name)s in another session"
+msgstr "Вы сохранили более новую версию этой %(model_name)s в другой сессии"
+
+#, python-format
+msgid "%(user_name)s has saved a newer version of this %(model_name)s"
+msgstr ""
+"Пользователь %(user_name)s сохранил более новую версию этой %(model_name)s"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that session. Refreshing "
+"the page will lose any of your unsaved changes in the current session."
+msgstr ""
+"При продолжении работы изменения, сделанные в этом сеансе, будут "
+"перезаписаны. Обновление страницы приведет к потере всех несохраненных "
+"изменений в текущей сессии."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will lose any of your unsaved changes."
+msgstr ""
+"При продолжении работы изменения, сделанные %(user_name)s, будут "
+"перезаписаны. Обновление страницы приведет к потере всех несохраненных "
+"изменений."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Обновление страницы означает потерю всех несохраненных изменений"
+
+msgid "Refresh page"
+msgstr "Обновить страницу"
+
+msgid "Continue"
+msgstr "Продолжить"
+
+msgid "Refresh the page"
+msgstr "Обновить страницу"
 
 msgid "Download XLSX"
 msgstr "Скачать XLSX"
@@ -2179,6 +2243,18 @@ msgstr "Переключить боковую панель"
 msgid "Side panel width"
 msgstr "Ширина боковой панели"
 
+msgid "Show issue"
+msgstr "Показать проблему"
+
+msgid "Content metrics"
+msgstr "Метрики контента"
+
+msgid "Words"
+msgstr "Слова"
+
+msgid "Reading time"
+msgstr "Время чтения"
+
 msgid "Issues found"
 msgstr "Найдены проблемы"
 
@@ -2208,8 +2284,8 @@ msgstr "Разблокировано"
 msgid ""
 "Anyone can edit this %(model_name)s – lock it to prevent others from editing"
 msgstr ""
-"Любой может редактировать %(model_name)s - заблокируйте, чтобы предотвратить "
-"редактирование другими"
+"Любой может редактировать %(model_name)s - заблокируйте его, чтобы другие не "
+"могли редактировать"
 
 #, python-format
 msgid "Anyone can edit this %(model_name)s"
@@ -2518,9 +2594,9 @@ msgstr[3] "%(counter)s страниц"
 msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 тип фрагмента"
-msgstr[1] "%(counter)sтипы фрагментов"
-msgstr[2] "%(counter)sтипы фрагментов"
-msgstr[3] "%(counter)s типы фрагментов"
+msgstr[1] "%(counter)s типа фрагментов"
+msgstr[2] "%(counter)s типов фрагментов"
+msgstr[3] "%(counter)s типов фрагментов"
 
 #, python-format
 msgid ""
@@ -2767,46 +2843,49 @@ msgstr ""
 "Отсортировать дочерние страницы из '%(parent)s' в '%(label)s в порядке "
 "убывания."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Текст кнопки пуст. Используйте осмысленный текст для пользователей программ "
-"чтения с экрана."
+msgid "Button text is empty"
+msgstr "Текст кнопки пуст"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
+msgid "Use meaningful text for screen reader users"
 msgstr ""
-"Найден пустой заголовок. Используйте осмысленный текст для пользователей "
-"программ чтения с экрана."
+"Используйте осмысленный текст для пользователей программ чтения с экрана"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
+msgid "Empty heading found"
+msgstr "Найден пустой заголовок"
+
+msgid "Table header text is empty"
+msgstr "Текст заголовка таблицы пуст"
+
+msgid "Empty frame title found"
+msgstr "Найден пустой заголовок кадра"
+
+msgid "Use a meaningful title for screen reader users"
 msgstr ""
-"Текст заголовка таблицы пуст. Используйте осмысленный текст для "
-"пользователей программ чтения с экрана."
+"Используйте осмысленный заголовок для пользователей программ чтения с экрана"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Найдено пустое название фрейма. Используйте содержательный заголовок для "
-"пользователей программ чтения с экрана."
+msgid "Incorrect heading hierarchy"
+msgstr "Неправильная иерархия заголовков"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Неправильная иерархия заголовков. Избегайте пропусков уровней."
+msgid "Avoid skipping levels"
+msgstr "Избегайте пропуска уровней"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Текст кнопки ввода пуст. Используйте осмысленный текст для пользователей "
-"программ чтения с экрана."
+msgid "Input button text is empty"
+msgstr "Текст кнопки ввода не заполнен"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Текст ссылки пуст. Используйте осмысленный текст для пользователей программ "
-"чтения с экрана."
+msgid "Link text is empty"
+msgstr "Текст ссылки пуст"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Неправильное использование абзацев в качестве заголовков. Используйте "
-"правильные теги заголовков."
+msgid "Misusing paragraphs as headings"
+msgstr "Неправильное использование абзацев в качестве заголовков"
+
+msgid "Use proper heading tags"
+msgstr "Используйте правильные теги заголовков"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Текст alt у изображения имеет неподходящий паттерн"
+
+msgid "Use meaningful text"
+msgstr "Используйте содержательный текст"
 
 msgid "Profile"
 msgstr "Профиль"
@@ -3409,9 +3488,6 @@ msgstr "Устаревающие страницы"
 msgid "Last published at"
 msgstr "Последняя публикация на"
 
-msgid "Hide commenting actions"
-msgstr "Скрыть действия комментирования"
-
 msgid "Site history"
 msgstr "История действий на сайте"
 
@@ -3448,11 +3524,17 @@ msgstr "Тип Cтраницы/Фрагмента"
 msgid "Page/Snippet Title"
 msgstr "Заголовок Cтраницы/Фрагмента"
 
+msgid "By task"
+msgstr "По задаче"
+
 msgid "Workflow tasks"
 msgstr "Задачи рабочего процесса"
 
 msgid "Requested By"
 msgstr "Запросил"
+
+msgid "By workflow"
+msgstr "По рабочему процессу"
 
 msgid "Show disabled"
 msgstr "Показать отключенные"

@@ -2,10 +2,11 @@
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2022
 # Naglis Jonaitis, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Naglis Jonaitis, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/torchbox/teams/8009/"
 "lt/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -133,6 +134,12 @@ msgstr "Rodyti naujausią turinį"
 
 msgid "Split block"
 msgstr "Skaidyti bloką"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Didžiausias vienetų kiekis %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Mažiausias vienetų kiekis %(min_num)d"
 
 msgid "This field is required."
 msgstr "Šis laukas yra privalomas."
