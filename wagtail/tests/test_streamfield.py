@@ -914,6 +914,41 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
             },
         )
 
+    def test_deconstruct_with_listblock_with_child_block_kwarg(self):
+        field = StreamField(
+            [
+                ("heading", blocks.CharBlock(required=True)),
+                (
+                    "bullets",
+                    blocks.ListBlock(child_block=blocks.CharBlock(required=True)),
+                ),
+            ],
+            blank=True,
+        )
+        field.set_attributes_from_name("body")
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(
+            args,
+            [
+                [
+                    ("heading", 0),
+                    ("bullets", 1),
+                ]
+            ],
+        )
+        self.assertEqual(
+            kwargs,
+            {
+                "blank": True,
+                "block_lookup": {
+                    0: ("wagtail.blocks.CharBlock", (), {"required": True}),
+                    1: ("wagtail.blocks.ListBlock", (), {"child_block": 0}),
+                },
+            },
+        )
+
     def test_deconstruct_with_listblock_subclass(self):
         # See https://github.com/wagtail/wagtail/issues/12164 - unlike StructBlock and StreamBlock,
         # ListBlock's deconstruct method doesn't reduce subclasses to the base ListBlock class.
