@@ -144,21 +144,21 @@ class TestImage(TestCase):
             file=get_test_image_file_svg(),
         )
         self.assertIsNone(image.get_suggested_focal_point())
-        
+
     def test_default_with_description(self):
         # Primary default should be description
         image = Image.objects.create(
-            title = "Test Image",
-            description = "This is a test description",
-            file = get_test_image_file(),
+            title="Test Image",
+            description="This is a test description",
+            file=get_test_image_file(),
         )
         self.assertEqual(image.default_alt_text, image.description)
-    
+
     def test_default_without_description(self):
         # Secondary default should be title
         image = Image.objects.create(
-            title = "Test Image",
-            file = get_test_image_file(),
+            title="Test Image",
+            file=get_test_image_file(),
         )
         self.assertEqual(image.default_alt_text, image.title)
 
