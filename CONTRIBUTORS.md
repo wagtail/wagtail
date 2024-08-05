@@ -829,6 +829,7 @@
 * Nathanaël Jourdane
 * Vaughn Dickson
 * Ansuman Shukla
+* Nayanshi Singh
 
 ## Translators
 
