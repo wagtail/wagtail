@@ -827,9 +827,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     @property
     def default_alt_text(self):
         # by default the alt text field (used in rich text insertion) is populated
-        # from the title. Subclasses might provide a separate alt field, and
-        # override this
-        return self.title
+        # from the description. In the absence of that, it is populated from the title.
+        # Subclasses might provide a separate alt field, and override this
+        return getattr(self, 'description', None) or self.title
 
     def is_editable_by_user(self, user):
         from wagtail.images.permissions import permission_policy
