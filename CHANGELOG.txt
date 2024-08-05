@@ -4,7 +4,7 @@ Changelog
 6.2.1 (xx.xx.20xx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Handle `child_block` being passed as a kwarg in ListBlock migrations (Matt Westcott)
 
 
 6.2 (01.08.2024)
