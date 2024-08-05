@@ -1013,7 +1013,10 @@ def page_listing_buttons(page, user, next_url=None):
     yield wagtailadmin_widgets.PageListingButton(
         'A page listing button',
         '/goes/to/a/url/',
-        priority=10
+        priority=10,
+        page=page,
+        user=user,
+        classname="my-custom-button-style"
     )
 ```
 
@@ -1038,10 +1041,12 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_more_buttons')
 def page_listing_more_buttons(page, user, next_url=None):
-    yield wagtailadmin_widgets.Button(
+    yield wagtailadmin_widgets.PageDropdownItemButton(
         'A dropdown button',
         '/goes/to/a/url/',
-        priority=60
+        priority=60,
+        page=page,
+        user=user,
     )
 ```
 
@@ -1052,6 +1057,10 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
+
+```{versionchanged} 6.3
+This hook accepts `wagtail.admin.widgets.PageDropdownItemButton` objects instead of `wagtail.admin.widgets.PageListingButton` objects. Support for `PageListingButton` objects is deprecated and will be removed in a future release.
+```
 
 #### Buttons with dropdown lists
 

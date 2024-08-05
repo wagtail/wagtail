@@ -367,12 +367,32 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertSequenceEqual(urls, expected_urls)
 
     def test_buttons_hook(self):
+        class CustomButton(UserListingButton):
+            template_name = "tests/custom_button.html"
+
+            def __init__(self, *args, user_pk, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.user_pk = user_pk
+
+            def get_context_data(self, parent_context):
+                context = super().get_context_data(parent_context)
+                context["user_pk"] = self.user_pk
+                return context
+
         def hook(user, request_user):
             self.assertEqual(request_user, self.user)
             yield UserListingButton(
                 "Show profile",
                 f"/goes/to/a/url/{user.pk}",
+                classname="custom-class",
                 priority=30,
+            )
+            yield CustomButton(
+                "Impersonate",
+                "/impersonate/",
+                priority=20,
+                icon_name="user",
+                user_pk=user.pk,
             )
             yield ButtonWithDropdown(
                 label="Moar pls!",
@@ -400,6 +420,23 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(
             custom_button.text.strip(),
             "Show profile",
+        )
+        # Should not have any default classes
+        self.assertEqual(custom_button.attrs["class"], ["custom-class"])
+
+        # Should allow a button with a custom template,
+        # e.g. rendering a <button> inside a <form> instead of a <a> tag
+        impersonate_form = actions.select_one(
+            "li [data-controller='w-dropdown'] form[action='/impersonate/']"
+        )
+        self.assertIsNotNone(impersonate_form)
+        self.assertEqual(
+            impersonate_form.select_one("input[name='user_pk']").attrs.get("value"),
+            str(self.test_user.pk),
+        )
+        self.assertEqual(
+            impersonate_form.select_one("button[type='submit']").text.strip(),
+            "Impersonate",
         )
 
         nested_dropdown = actions.select_one(

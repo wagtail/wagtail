@@ -236,7 +236,10 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
 
             yield SnippetListingButton(
-                "Another useless snippet listing button", "/custom-url", priority=10
+                "Another useless snippet listing button",
+                "/custom-url",
+                priority=10,
+                classname="custom-class",
             )
 
         with hooks.register_temporarily(
@@ -259,6 +262,8 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             custom_button.text.strip(),
             "Another useless snippet listing button",
         )
+        # Should not have any default classes
+        self.assertEqual(custom_button.attrs["class"], ["custom-class"])
 
     def test_register_snippet_listing_buttons_hook_with_dropdown(self):
         advert = Advert.objects.create(text="My Lovely advert")
@@ -299,6 +304,8 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
         self.assertIsNotNone(custom_button)
         self.assertEqual(custom_button.text.strip(), "Alrighty")
+        # Should not have any default classes
+        self.assertEqual(custom_button.attrs["class"], [])
 
     def test_construct_snippet_listing_buttons_hook(self):
         Advert.objects.create(text="My Lovely advert")
