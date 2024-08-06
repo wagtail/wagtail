@@ -1,11 +1,11 @@
 import unittest.mock
 
-from bs4 import BeautifulSoup
 from django.apps import apps
 from django.test import TestCase
 
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageBlock, ImageChooserBlock
+from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 from .utils import (
     Image,
@@ -86,7 +86,7 @@ class TestImageBlock(TestImageChooserBlock):
             "decorative": False,
         }
         html = block.render(block.to_python(value))
-        soup = BeautifulSoup(html, "html.parser")
+        soup = WagtailTestUtils.get_soup(html)
         img_tag = soup.find("img")
 
         # check specific attributes
@@ -101,7 +101,7 @@ class TestImageBlock(TestImageChooserBlock):
             "decorative": True,
         }
         html = block.render(block.to_python(value))
-        soup = BeautifulSoup(html, "html.parser")
+        soup = WagtailTestUtils.get_soup(html)
         img_tag = soup.find("img")
 
         # check specific attributes
@@ -123,7 +123,7 @@ class TestImageBlock(TestImageChooserBlock):
 
         # Check the error message
         self.assertIn(
-            "Alt text is required for non-decorative images",
+            "Please add some alt text for your image or mark it as decorative",
             str(context.exception.block_errors["alt_text"]),
         )
 
