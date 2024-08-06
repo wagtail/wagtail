@@ -131,7 +131,8 @@ class ImageBlock(StructBlock):
             raise StructBlockValidationError(
                 block_errors={
                     "image": ValidationError(
-                        _("Expected an image instance, got %r" % value)
+                        _("Expected an image instance, got %(value)s")
+                        % {"value": value}
                     )
                 }
             )
