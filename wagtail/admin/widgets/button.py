@@ -198,8 +198,25 @@ class BaseDropdownMenuButton(Button):
 
 class ButtonWithDropdown(BaseDropdownMenuButton):
     def __init__(self, *args, **kwargs):
-        self.dropdown_buttons = kwargs.pop("buttons", [])
+        self._dropdown_buttons = kwargs.pop("buttons", [])
         super().__init__(*args, **kwargs)
+
+    @cached_property
+    def dropdown_buttons(self):
+        for button in self._dropdown_buttons:
+            if isinstance(button, ListingButton):
+                warn(
+                    "Using `wagtail.admin.widgets.ListingButton` in a "
+                    "`ButtonWithDropdown` is deprecated. Use "
+                    "`wagtail.admin.widgets.Button` instead.",
+                    category=RemovedInWagtail70Warning,
+                )
+                # Remove the button classes that are added by ListingButton
+                button.classname = " ".join(
+                    set(button.classname.split())
+                    - {"button", "button-small", "button-secondary"}
+                )
+        return self._dropdown_buttons
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):

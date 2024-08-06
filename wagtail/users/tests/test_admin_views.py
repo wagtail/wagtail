@@ -384,6 +384,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             yield UserListingButton(
                 "Show profile",
                 f"/goes/to/a/url/{user.pk}",
+                classname="custom-class",
                 priority=30,
             )
             yield CustomButton(
@@ -420,6 +421,8 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             custom_button.text.strip(),
             "Show profile",
         )
+        # Should not have any default classes
+        self.assertEqual(custom_button.attrs["class"], ["custom-class"])
 
         # Should allow a button with a custom template,
         # e.g. rendering a <button> inside a <form> instead of a <a> tag

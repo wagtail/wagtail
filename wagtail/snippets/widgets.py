@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
-from wagtail.admin.widgets.button import ListingButton
+from wagtail.admin.widgets.button import Button
 from wagtail.telepath import register
 
 
@@ -67,5 +67,11 @@ class SnippetChooserAdapter(BaseChooserAdapter):
 register(SnippetChooserAdapter(), AdminSnippetChooser)
 
 
-class SnippetListingButton(ListingButton):
+# This used to extend ListingButton – but since the universal listings design,
+# all default buttons are now rendered inside a dropdown. Snippets never had
+# separate hooks for top-level buttons and dropdown buttons (as they have no
+# "more" button like pages have). As a result, we now extend Button so it
+# doesn't have the default CSS classes that ListingButton adds. The class name
+# is not changed to avoid unnecessary breaking changes.
+class SnippetListingButton(Button):
     pass

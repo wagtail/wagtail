@@ -43,9 +43,9 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
+    Button,
     ButtonWithDropdown,
     HeaderButton,
-    ListingButton,
 )
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -380,7 +380,7 @@ class IndexView(
         buttons = []
         if edit_url := self.get_edit_url(instance):
             buttons.append(
-                ListingButton(
+                Button(
                     _("Edit"),
                     url=edit_url,
                     icon_name="edit",
@@ -392,7 +392,7 @@ class IndexView(
             )
         if copy_url := self.get_copy_url(instance):
             buttons.append(
-                ListingButton(
+                Button(
                     _("Copy"),
                     url=copy_url,
                     icon_name="copy",
@@ -404,7 +404,7 @@ class IndexView(
             )
         if inspect_url := self.get_inspect_url(instance):
             buttons.append(
-                ListingButton(
+                Button(
                     _("Inspect"),
                     url=inspect_url,
                     icon_name="info-circle",
@@ -417,7 +417,7 @@ class IndexView(
             )
         if delete_url := self.get_delete_url(instance):
             buttons.append(
-                ListingButton(
+                Button(
                     _("Delete"),
                     url=delete_url,
                     icon_name="bin",

@@ -1,8 +1,13 @@
+from unittest import mock
+
 from django.contrib.admin.utils import quote
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.widgets.button import ListingButton
+from wagtail.test.testapp.views import TestIndexView
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestGenericIndexView(WagtailTestUtils, TestCase):
@@ -22,6 +27,31 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
         h1 = soup.select_one("h1")
         self.assertIsNotNone(h1)
         self.assertEqual(h1.text.strip(), "Model with string type primary keys")
+
+    def get_list_more_buttons(self):
+        def get_list_more_buttons(view):
+            return [
+                ListingButton(
+                    "Deprecated", "http://example.com/deprecated", "test-deprecated"
+                )
+            ]
+
+        with mock.patch.object(
+            TestIndexView, "get_list_more_buttons", new=get_list_more_buttons
+        ), self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "Using `wagtail.admin.widgets.ListingButton` in a  `ButtonWithDropdown` "
+            "is deprecated. Use `wagtail.admin.widgets.Button` instead.",
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        dropdown_buttons = soup.select("li [data-controller='w-dropdown'] a")
+        self.assertEqual(len(dropdown_buttons), 1)
+        self.assertEqual(dropdown_buttons[0].text.strip(), "Deprecated")
+        self.assertEqual(dropdown_buttons[0]["href"], "http://example.com/deprecated")
+        self.assertEqual(dropdown_buttons[0]["class"], "test-deprecated")
 
 
 class TestGenericEditView(WagtailTestUtils, TestCase):
