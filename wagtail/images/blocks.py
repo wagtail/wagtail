@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
+from django.utils.translation import gettext as _
 
 from wagtail.admin.compare import BlockComparison
 from wagtail.blocks import BooleanBlock, CharBlock, ChooserBlock, StructBlock
@@ -61,7 +62,7 @@ class ImageChooserBlockComparison(BlockComparison):
 class ImageBlock(StructBlock):
     image = ImageChooserBlock(required=True)
     decorative = BooleanBlock(
-        default=False, required=False, label="Image is decorative"
+        default=False, required=False, label=_("Image is decorative")
     )
     alt_text = CharBlock(required=False)
 
@@ -120,7 +121,9 @@ class ImageBlock(StructBlock):
         if value is None:
             raise StructBlockValidationError(
                 block_errors={
-                    "image": ValidationError("Expected an image instance, got nothing")
+                    "image": ValidationError(
+                        _("Expected an image instance, got nothing")
+                    )
                 }
             )
 
@@ -128,7 +131,7 @@ class ImageBlock(StructBlock):
             raise StructBlockValidationError(
                 block_errors={
                     "image": ValidationError(
-                        "Expected an image instance, got %r" % value
+                        _("Expected an image instance, got %r" % value)
                     )
                 }
             )
@@ -137,7 +140,9 @@ class ImageBlock(StructBlock):
             raise StructBlockValidationError(
                 block_errors={
                     "alt_text": ValidationError(
-                        "Alt text is required for non-decorative images"
+                        _(
+                            "Please add some alt text for your image or mark it as decorative"
+                        )
                     )
                 }
             )
