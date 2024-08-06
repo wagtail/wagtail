@@ -722,6 +722,7 @@ class TestGetImageForm(WagtailTestUtils, TestCase):
             [
                 "title",
                 "file",
+                "description",
                 "collection",
                 "tags",
                 "focal_point_x",
@@ -739,6 +740,7 @@ class TestGetImageForm(WagtailTestUtils, TestCase):
             [
                 "title",
                 "file",
+                "description",
                 "collection",
                 "tags",
                 "focal_point_x",
@@ -844,11 +846,13 @@ class TestDifferentUpload(TestCase):
     def test_upload_path(self):
         image = CustomImageFilePath.objects.create(
             title="Test image",
+            description="A test description",
             file=get_test_image_file(),
         )
 
         second_image = CustomImageFilePath.objects.create(
             title="Test Image",
+            description="A test description",
             file=get_test_image_file(colour="black"),
         )
 

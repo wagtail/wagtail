@@ -1468,7 +1468,7 @@ class CustomImage(AbstractImage):
     )
 
     class Meta:
-        unique_together = [("title", "collection")]
+        unique_together = [("title", "description", "collection")]
 
 
 class CustomRendition(AbstractRendition):
