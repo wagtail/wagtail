@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -331,9 +331,6 @@ msgstr "Menjelajah sub-halaman dari '%(title)s'"
 msgid "Explore"
 msgstr "Jelajahi"
 
-msgid "Collection privacy"
-msgstr "Privasi koleksi"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Koleksi ini diubah menjadi bersifat pribadi oleh halaman induknya."
 
@@ -493,9 +490,6 @@ msgstr "Halaman \"%(title)s\" ditolak"
 
 msgid "You can preview the page here:"
 msgstr "Anda dapat meninjau halaman tersebut disini:"
-
-msgid "Page privacy"
-msgstr "Privasi halaman"
 
 msgid "This page has been made private by a parent page."
 msgstr ""
@@ -676,6 +670,9 @@ msgstr "Diselesaikan pada"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Halaman %(page_num)s dari %(total_pages)s."
+
+msgid "Continue"
+msgstr "Lanjut"
 
 msgid "Download CSV"
 msgstr "Unduh CSV"

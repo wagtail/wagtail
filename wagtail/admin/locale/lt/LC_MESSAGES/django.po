@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -391,9 +391,6 @@ msgstr "Naršyti vidinius '%(title)s' puslapius"
 msgid "Explore"
 msgstr "Naršyti"
 
-msgid "Collection privacy"
-msgstr "Kolekcijos privatumas"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Ši kolekcija buvo padaryta privačia pagal pirminę kolekciją."
 
@@ -612,9 +609,6 @@ msgstr "Ištrinti komentarai:"
 
 msgid "New replies:"
 msgstr "Nauji atsakymai:"
-
-msgid "Page privacy"
-msgstr "Puslapio privatumas"
 
 msgid "This page has been made private by a parent page."
 msgstr "Šis puslapis buvo padarytas privačiu pagal tėvinį puslapį."
@@ -835,15 +829,15 @@ msgstr "Data / laikas"
 msgid "Edit this item"
 msgstr "Redaguoti šį elementą"
 
-msgid "By Task"
-msgstr "Pagal užduotį"
-
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Puslapis %(page_num)s iš %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Naršymo kelias"
+
+msgid "Continue"
+msgstr "Tęsti"
 
 msgid "Download XLSX"
 msgstr "Parsiųsti XLSX"
@@ -1183,9 +1177,6 @@ msgstr "Puslapis '%(page_title)s' dabar nelaukia moderavimo."
 
 msgid "Aging pages"
 msgstr "Senstantys puslapiai"
-
-msgid "Hide commenting actions"
-msgstr "Slėpti komentavimo veiksmus"
 
 msgid "Site history"
 msgstr "Tinklalapio istorija"

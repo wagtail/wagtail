@@ -124,9 +124,17 @@ jest.mock('axe-core', () => ({
 }));
 
 describe('getA11yReport', () => {
+  let consoleError: jest.SpyInstance;
+
   beforeEach(() => {
+    consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
     jest.clearAllMocks();
   });
+
+  afterEach(() => {
+    consoleError.mockRestore();
+  });
+
   it('should configure Axe with custom rules and return the accessibility report', async () => {
     const mockResults = {
       violations: [
@@ -146,6 +154,10 @@ describe('getA11yReport', () => {
     };
     const report = await getA11yReport(config);
     expect(axe.configure).toHaveBeenCalled();
+    expect(consoleError).toHaveBeenCalledWith(
+      'axe.run results',
+      mockResults.violations,
+    );
     expect(axe.run).toHaveBeenCalledWith(config.context, config.options);
     expect(report.results).toEqual(mockResults);
     expect(report.a11yErrorsNumber).toBe(3);
@@ -166,5 +178,6 @@ describe('getA11yReport', () => {
     };
     const report = await getA11yReport(config);
     expect(report.a11yErrorsNumber).toBe(0);
+    expect(consoleError).not.toHaveBeenCalled();
   });
 });

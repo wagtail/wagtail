@@ -62,7 +62,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2021-2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -458,6 +458,9 @@ msgstr "Alle %(objects)s Elemente auf dem Bildschirm ausgewählt"
 msgid "All items in listing selected"
 msgstr "Alle Elemente der Auflistung ausgewählt"
 
+msgid "Can access Wagtail admin"
+msgstr "Kann auf Wagtail-Admin zugreifen"
+
 msgid "For search engines"
 msgstr "Für Suchmaschinen"
 
@@ -675,9 +678,6 @@ msgstr "Unterseiten von ‚%(title)s‘ durchstöbern"
 
 msgid "Explore"
 msgstr "Durchstöbern"
-
-msgid "Collection privacy"
-msgstr "Privatsphäre-Einstellungen der Sammlung"
 
 msgid "This collection has been made private by a parent collection."
 msgstr ""
@@ -1261,12 +1261,12 @@ msgid ""
 msgstr ""
 "%(model_name)s \"%(title)s\" wurde in Workflow \"%(workflow)s\" eingereicht"
 
-msgid "Page privacy"
-msgstr "Privatsphäre-Einstellungen der Seite"
-
 msgid "This page has been made private by a parent page."
 msgstr ""
 "Diese Seite wurde durch eine übergeordnete Seite als privat gekennzeichnet."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "Die Änderung der Privatsphäre für diese Seite wurde deaktiviert."
 
 msgid "Save the page before leaving"
 msgstr "Speichern Sie die Seite vor dem Verlassen"
@@ -1943,9 +1943,6 @@ msgstr "Zuletzt bearbeitete Seite"
 msgid "Last edit"
 msgstr "Letzte Bearbeitung"
 
-msgid "No page types found."
-msgstr "Keine Seitentypen gefunden."
-
 msgid "Locking status"
 msgstr "Sperr-Status"
 
@@ -1967,6 +1964,9 @@ msgstr "Gesperrt"
 msgid "No locked pages found."
 msgstr "Keine gesperrten Seiten gefunden"
 
+msgid "No page types found."
+msgstr "Keine Seitentypen gefunden."
+
 msgid "Name"
 msgstr "Name"
 
@@ -1984,9 +1984,6 @@ msgstr "Dieses Objekt bearbeiten"
 
 msgid "No log entries found."
 msgstr "Keine Protokoll-Einträge gefunden."
-
-msgid "By Task"
-msgstr "Nach Aufgabe"
 
 msgid "Workflow"
 msgstr "Workflow"
@@ -2006,9 +2003,6 @@ msgstr "Unvollständige Aufgabe"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Es wurden noch keine Seiten/Schnipsel zur Moderation eingereicht"
 
-msgid "By Workflow"
-msgstr "Von Workflow"
-
 msgid "Completed at"
 msgstr "Vervollständigt am"
 
@@ -2027,6 +2021,79 @@ msgstr "Breadcrumb"
 
 msgid "Close dialog"
 msgstr "Dialog schließen"
+
+msgid "You saved a new version in another session"
+msgstr "Sie haben in einer anderen Sitzung eine neue Version gespeichert"
+
+msgid "System"
+msgstr "System"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s hat eine neue Version gespeichert"
+
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+msgid "You have unsaved changes in another session"
+msgstr "Sie haben ungespeicherte Änderungen in einer anderen Sitzung"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s hat ungespeicherte Änderungen"
+
+msgid "Currently viewing"
+msgstr "Wird gerade angezeigt"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "1 weiterer Benutzer sieht sich das gerade an"
+msgstr[1] "%(num_user)s weitere Benutzer sehen sich das gerade an"
+
+#, python-format
+msgid ""
+"You have saved a newer version of this %(model_name)s in another session"
+msgstr ""
+"Sie haben eine neuere Version dieses %(model_name)s-Objekts in einer anderen "
+"Sitzung gespeichert"
+
+#, python-format
+msgid "%(user_name)s has saved a newer version of this %(model_name)s"
+msgstr ""
+"%(user_name)s hat eine neuere Version dieses %(model_name)s-Objekts "
+"gespeichert"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that session. Refreshing "
+"the page will lose any of your unsaved changes in the current session."
+msgstr ""
+"Wenn Sie fortfahren, werden die Änderungen, die Sie in dieser Sitzung "
+"vorgenommen haben, überschrieben. Wenn Sie die Seite aktualisieren, gehen "
+"alle ungespeicherten Änderungen der aktuellen Sitzung verloren."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will lose any of your unsaved changes."
+msgstr ""
+"Wenn Sie fortfahren, werden die von %(user_name)s vorgenommenen Änderungen "
+"überschrieben. Wenn Sie die Seite aktualisieren, gehen alle ungespeicherten "
+"Änderungen verloren."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr ""
+"Wenn Sie die Seite aktualisieren, gehen alle ungespeicherten Änderungen "
+"verloren."
+
+msgid "Refresh page"
+msgstr "Seite aktualisieren"
+
+msgid "Continue"
+msgstr "Weiter"
+
+msgid "Refresh the page"
+msgstr "Diese Seite aktualisieren"
 
 msgid "Download XLSX"
 msgstr "XLSX herunterladen"
@@ -2118,6 +2185,18 @@ msgstr "Seitenleiste ein-/ausblenden"
 
 msgid "Side panel width"
 msgstr "Breite der Seitenleiste"
+
+msgid "Show issue"
+msgstr "Problem anzeigen"
+
+msgid "Content metrics"
+msgstr "Inhaltsmetriken"
+
+msgid "Words"
+msgstr "Wörter"
+
+msgid "Reading time"
+msgstr "Lesezeit"
 
 msgid "Issues found"
 msgstr "Probleme gefunden"
@@ -2700,47 +2779,47 @@ msgstr ""
 "Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in absteigender "
 "Reihenfolge"
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Button-Text ist leer. Verwenden Sie aussagekräftigen Text für Screenreader-"
-"Benutzer."
+msgid "Button text is empty"
+msgstr "Button-Text ist leer"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Leere Überschrift gefunden. Verwenden Sie aussagekräftigen Text für "
-"Screenreader-Benutzer."
+msgid "Use meaningful text for screen reader users"
+msgstr "Verwenden Sie aussagekräftigen Text für Screenreader-Benutzer"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Tabellenkopftext ist leer. Verwenden Sie aussagekräftigen Text für "
-"Screenreader-Benutzer."
+msgid "Empty heading found"
+msgstr "Leere Überschrift gefunden"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Leerer Frame-Titel gefunden. Verwenden Sie einen aussagekräftigen Titel für "
-"Screenreader-Benutzer."
+msgid "Table header text is empty"
+msgstr "Tabellenkopftext ist leer"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr ""
-"Falsche Überschriftenhierarchie. Vermeiden Sie es, Ebenen zu überspringen."
+msgid "Empty frame title found"
+msgstr "Leerer Frame-Titel gefunden"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Input-Button-Text ist leer. Verwenden Sie aussagekräftigen Text für "
-"Screenreader-Benutzer."
+msgid "Use a meaningful title for screen reader users"
+msgstr "Verwenden Sie einen aussagekräftigen Titel für Screenreader-Benutzer"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Linktext ist leer. Verwenden Sie aussagekräftigen Text für Screenreader-"
-"Benutzer."
+msgid "Incorrect heading hierarchy"
+msgstr "Falsche Überschriftenhierarchie"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Missbrauch von Absätzen als Überschriften. Verwenden Sie die richtigen "
-"Überschriften-Tags."
+msgid "Avoid skipping levels"
+msgstr "Vermeiden Sie es, Ebenen zu überspringen"
+
+msgid "Input button text is empty"
+msgstr "Input-Button-Text ist leer"
+
+msgid "Link text is empty"
+msgstr "Link-Text ist leer"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Missbrauch von Absätzen als Überschriften"
+
+msgid "Use proper heading tags"
+msgstr "Verwenden Sie die richtigen Überschriften-Tags"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Bild-Alt-Text hat unpassendes Muster"
+
+msgid "Use meaningful text"
+msgstr "Verwenden Sie aussagekräftigen Text"
 
 msgid "Profile"
 msgstr "Profil"
@@ -3338,9 +3417,6 @@ msgstr "Alternde Seiten"
 msgid "Last published at"
 msgstr "Zuletzt veröffentlicht am"
 
-msgid "Hide commenting actions"
-msgstr "Kommentaraktionen verbergen"
-
 msgid "Site history"
 msgstr "Webseitenverlauf"
 
@@ -3377,11 +3453,17 @@ msgstr "Seiten-/Schnipseltyp"
 msgid "Page/Snippet Title"
 msgstr "Seiten-/Schnipseltitel"
 
+msgid "By task"
+msgstr "Nach Aufgabe"
+
 msgid "Workflow tasks"
 msgstr "Workflow-Aufgaben"
 
 msgid "Requested By"
 msgstr "Angefordert von"
+
+msgid "By workflow"
+msgstr "Nach Workflow"
 
 msgid "Show disabled"
 msgstr "Deaktivierte anzeigen"

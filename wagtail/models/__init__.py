@@ -193,7 +193,7 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_streamfield_names(model_class):
     return tuple(
         field.name
@@ -1295,7 +1295,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     private_page_options = ["password", "groups", "login"]
 
     @staticmethod
-    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+    def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
         Find the page route for the given HTTP request object, and URL path. The route
         result (`page`, `args`, and `kwargs`) will be cached via
@@ -1322,7 +1322,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return request._wagtail_route_for_request
 
     @staticmethod
-    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+    def find_for_request(request: HttpRequest, path: str) -> Page | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
         page route will be cached via `request._wagtail_route_for_request`
@@ -3228,10 +3228,13 @@ class PagePermissionTester:
 
     def can_reorder_children(self):
         """
-        Keep reorder permissions the same as publishing, since it immediately affects published pages
-        (and the use-cases for a non-admin needing to do it are fairly obscure...)
+        Reorder permission checking is similar to publishing a subpage, since it immediately
+        affects published pages. However, it shouldn't care about the 'creatability' of
+        page types, because the action only ever updates existing pages.
         """
-        return self.can_publish_subpage()
+        if not self.user.is_active:
+            return False
+        return self.user.is_superuser or ("publish" in self.permissions)
 
     def can_move(self):
         """
@@ -3251,7 +3254,17 @@ class PagePermissionTester:
 
         # reject moves that are forbidden by subpage_types / parent_page_types rules
         # (these rules apply to superusers too)
-        if not self.page.specific.can_move_to(destination):
+        # – but only check this if the page is not already under the target parent.
+        # If it already is, then the user is just reordering the page, and we want
+        # to allow it even if the page currently violates the subpage_type /
+        # parent_page_type rules. This can happen if it was either created before
+        # the rules were specified, or it was done programmatically (e.g. to
+        # predefine a set of pages and disallow the creation of new subpages by
+        # setting subpage_types = []).
+
+        if (not self.page.is_child_of(destination)) and (
+            not self.page.specific.can_move_to(destination)
+        ):
             return False
 
         # shortcut the trivial 'everything' / 'nothing' permissions

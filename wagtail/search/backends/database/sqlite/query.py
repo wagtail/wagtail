@@ -1,4 +1,4 @@
-from typing import Any, List, Tuple
+from typing import Any
 
 from django.db.backends.base.base import BaseDatabaseWrapper
 from django.db.models.expressions import CombinedExpression, Expression, Func, Value
@@ -149,7 +149,7 @@ class SearchQueryExpression(SearchQueryCombinable, Expression):
         compiler: SQLCompiler,
         connection: BaseDatabaseWrapper,
         **extra_context: Any,
-    ) -> Tuple[str, List[Any]]:
+    ) -> tuple[str, list[Any]]:
         sql, params = compiler.compile(self.value)
         return (sql, params)
 
@@ -172,7 +172,7 @@ class MatchExpression(Expression):
     )
     output_field = BooleanField()
 
-    def __init__(self, columns: List[str], query: SearchQueryCombinable) -> None:
+    def __init__(self, columns: list[str], query: SearchQueryCombinable) -> None:
         super().__init__(output_field=self.output_field)
         self.columns = columns
         self.query = query
@@ -211,7 +211,7 @@ class AndNot(SearchQuery):
         return f"<{repr(self.subquery_a)} AndNot {repr(self.subquery_b)}>"
 
 
-def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:
+def normalize(search_query: SearchQuery) -> tuple[SearchQuery]:
     """
     Turns this query into a normalized version.
     For example, And(Not(PlainText("Arepa")), PlainText("Crepe")) would be turned into AndNot(PlainText("Crepe"), PlainText("Arepa")): "Crepe AND NOT Arepa".
@@ -222,7 +222,7 @@ def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:
     if isinstance(search_query, PlainText):
         return search_query  # We can't normalize a PlainText.
     if isinstance(search_query, And):
-        normalized_subqueries: List[SearchQuery] = [
+        normalized_subqueries: list[SearchQuery] = [
             normalize(subquery) for subquery in search_query.subqueries
         ]  # This builds a list of normalized subqueries.
 
@@ -255,7 +255,7 @@ def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:
 
         return AndNot(And(not_negated_subqueries), Or(negated_subqueries))
     if isinstance(search_query, Or):
-        normalized_subqueries: List[SearchQuery] = [
+        normalized_subqueries: list[SearchQuery] = [
             normalize(subquery) for subquery in search_query.subqueries
         ]  # This builds a list of (subquery, negated) tuples.
 

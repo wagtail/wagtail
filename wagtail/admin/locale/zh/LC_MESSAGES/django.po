@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -222,9 +222,6 @@ msgstr "这个页面 \"%(title)s\" 已经被拒绝"
 
 msgid "You can preview the page here:"
 msgstr "你可以在此预览这页："
-
-msgid "Page privacy"
-msgstr "页面隐私"
 
 msgid "Saving…"
 msgstr "正在保存"

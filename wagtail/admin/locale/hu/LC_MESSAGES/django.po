@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -596,9 +596,6 @@ msgstr "'%(title)s' aloldalainak tallózása"
 
 msgid "Explore"
 msgstr "Tallózás"
-
-msgid "Collection privacy"
-msgstr "Gyűjtemény láthatósága"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Ez a gyűjtemény privát a szülő gyűjtemény beállításai miatt."
@@ -1187,9 +1184,6 @@ msgid ""
 msgstr ""
 "A(z) \"%(title)s\" %(model_name)s be lett küldve a következő "
 "munkafolyamatba: \"%(workflow)s\"."
-
-msgid "Page privacy"
-msgstr "Az oldal láthatósága"
 
 msgid "This page has been made private by a parent page."
 msgstr "Ez az oldal privát a szülő oldal beállításai miatt."
@@ -1841,9 +1835,6 @@ msgstr "Utoljára szerkesztett oldal"
 msgid "Last edit"
 msgstr "Utolsó szerkesztés"
 
-msgid "No page types found."
-msgstr "Nincs oldaltípus."
-
 msgid "Locking status"
 msgstr "Zárolás státusz"
 
@@ -1865,6 +1856,9 @@ msgstr "Zárolt"
 msgid "No locked pages found."
 msgstr "Nincs zárolt oldal."
 
+msgid "No page types found."
+msgstr "Nincs oldaltípus."
+
 msgid "Name"
 msgstr "Név"
 
@@ -1882,9 +1876,6 @@ msgstr "Elem szerkesztése"
 
 msgid "No log entries found."
 msgstr "Nincs naplóbejegyzés."
-
-msgid "By Task"
-msgstr "Feladat szerint"
 
 msgid "Workflow"
 msgstr "Munkamenet"
@@ -1904,9 +1895,6 @@ msgstr "Befejezetlen feladat"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Még nem lett beküldve oldal/elem moderálásra"
 
-msgid "By Workflow"
-msgstr "Munkafolyamat szerint"
-
 msgid "Completed at"
 msgstr "Befejezve: "
 
@@ -1925,6 +1913,9 @@ msgstr "Navigációs sáv"
 
 msgid "Close dialog"
 msgstr "Ablak bezárása"
+
+msgid "Continue"
+msgstr "Folytatás"
 
 msgid "Download XLSX"
 msgstr "XSLX letöltése"
@@ -2540,47 +2531,6 @@ msgstr ""
 "A(z) '%(parent)s' oldal alá tartozó gyermekoldalak sorbarendezése "
 "'%(label)s' alapján csökkenő sorrendbe."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"A gomb szövege üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
-"használói számára."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Egy címsor üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
-"használói számára."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Táblázat fejléc szövege üres. Kérjük adjon meg egy rövid leírást a "
-"felolvasóprogramok használói számára."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"A beágyazás címe üres. Kérjük adjon meg egy rövid leírást a "
-"felolvasóprogramok használói számára."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Érvénytelen címsor hierarchia. Kérjük kerülje a szintek átlépését."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"A gomb szövege üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
-"használói számára."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Link szövege üres. Kérjük adjon meg egy rövid leírást a felolvasóprogramok "
-"használói számára."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Bekezdések használata címsorként. Kérjük használja a megfelelő címsor "
-"típusokat."
-
 msgid "Profile"
 msgstr "Profil"
 
@@ -3136,9 +3086,6 @@ msgstr "Régi oldalak"
 
 msgid "Last published at"
 msgstr "Utolsó közzététel ideje"
-
-msgid "Hide commenting actions"
-msgstr "Megjegyzés akciók elrejtése"
 
 msgid "Site history"
 msgstr "Weboldal történet"

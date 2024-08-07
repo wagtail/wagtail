@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -538,9 +538,6 @@ msgstr "&#39;%(title)s&#39; ގެ ސަބްޕޭޖްތައް ހޯދުން."
 msgid "Explore"
 msgstr "ދިރާސާކުރުން"
 
-msgid "Collection privacy"
-msgstr "ކަލެކްޝަން ޕްރައިވެސީ"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "މި ކަލެކްޝަން ޕްރައިވެޓްކޮށްފައިވަނީ ބެލެނިވެރި ކަލެކްޝަނަކުންނެވެ."
 
@@ -879,9 +876,6 @@ msgstr ""
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr ""
 "\\&quot;%(title)s\\&quot; ޕޭޖް ވޯކްފްލޯ \\&quot;%(workflow)s\\&quot; އަށް ހުށަހަޅާފައިވެއެވެ."
-
-msgid "Page privacy"
-msgstr "ޕޭޖް ޕްރައިވެސީ"
 
 msgid "This page has been made private by a parent page."
 msgstr "މި ޕޭޖް ޕްރައިވެޓްކޮށްފައިވަނީ ބެލެނިވެރި ޕޭޖަކުންނެވެ."
@@ -1337,9 +1331,6 @@ msgstr "އެންމެ ފަހުން އެޑިޓްކުރި ޞަފްޙާ"
 msgid "Last edit"
 msgstr "އެންމެ ފަހުން އެޑިޓް ކުރިއެވެ"
 
-msgid "No page types found."
-msgstr "ޕޭޖް ވައްތަރެއް ނުފެނެއެވެ."
-
 msgid "Locking status"
 msgstr "ލޮކިންގ ސްޓޭޓަސް"
 
@@ -1361,6 +1352,9 @@ msgstr "ތަޅުލެވިފައި"
 msgid "No locked pages found."
 msgstr "ތަޅުލާފައިވާ ޞަފްޙާއެއް ނުފެނެއެވެ."
 
+msgid "No page types found."
+msgstr "ޕޭޖް ވައްތަރެއް ނުފެނެއެވެ."
+
 msgid "Name"
 msgstr "ނަން"
 
@@ -1378,9 +1372,6 @@ msgstr "މި އެއްޗެއް އެޑިޓް ކުރާށެވެ"
 
 msgid "No log entries found."
 msgstr "ލޮގް އެންޓްރީއެއް ނުފެނެއެވެ."
-
-msgid "By Task"
-msgstr "ބައި ޓާސްކް"
 
 msgid "Workflow"
 msgstr "ވޯކްފްލޯ"
@@ -1400,9 +1391,6 @@ msgstr "ފުރިހަމަ ނުވާ މަސައްކަތެއް"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "މޮޑެރޭޝަނަށް އަދި އެއްވެސް ޕޭޖެއް/ސްނިޕެޓެއް ހުށަހަޅާފައެއް ނުވެއެވެ"
 
-msgid "By Workflow"
-msgstr "ވޯކްފްލޯ އިންނެވެ"
-
 msgid "Completed at"
 msgstr "ނިންމާފައި ވަނީ ގދ"
 
@@ -1417,6 +1405,9 @@ msgstr "ބްރެޑްކްރަމްބް އެވެ"
 
 msgid "Close dialog"
 msgstr "ޑައިލޮގް ބަންދުކުރުން"
+
+msgid "Continue"
+msgstr "ކުރިޔަށް"
 
 msgid "Download XLSX"
 msgstr "އެކްސްއެލްއެސްއެކްސް ޑައުންލޯޑް ކޮށްލައްވާށެވެ"
@@ -1911,33 +1902,6 @@ msgstr "އުފުލޭ ތަރުތީބުން &#39;%(label)s&#39; އަށް ތަރު�
 msgid "Sort by '%(label)s' in descending order."
 msgstr "ތިރިއަށް އަންނަ ތަރުތީބުން &#39;%(label)s&#39; އަށް ތަރުތީބުކުރުން."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr "ބަޓަން ޓެކްސްޓް ހުރީ ހުސްކޮށެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr "ހުސް ސުރުޚީއެއް ފެނިއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr "ޓޭބަލް ހެޑަރ ޓެކްސްޓް ހުސްވެފައި ހުރެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr "ހުސް ފްރޭމް ޓައިޓަލް ފެނިއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ސުރުޚީއެއް ބޭނުންކުރުން."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "ގޯސް ހެޑިންގ ހައިރާކީ. ލެވެލްތައް ސްކިޕް ކުރުމުން ދުރުހެލިވާށެވެ."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr "އިންޕުޓް ބަޓަން ޓެކްސްޓް ހުސްވެއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr "ލިންކް ޓެކްސްޓް ހުސްވެއްޖެއެވެ. ސްކްރީން ރީޑަރ ބޭނުންކުރާ ފަރާތްތަކަށް މާނަހުރި ލިޔުން ބޭނުންކުރުން."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr "ސުރުޚީއެއްގެ ގޮތުގައި ޕެރެގްރާފްތައް ނުބައިކޮށް ބޭނުންކުރުން. ރަނގަޅު ސުރުޚީ ޓެގްތައް ބޭނުންކުރުން."
-
 msgid "Profile"
 msgstr "ޕްރޮފައިލް"
 
@@ -2344,9 +2308,6 @@ msgstr "މުސްކުޅިވުމުގެ ޞަފްޙާތަކެވެ"
 
 msgid "Last published at"
 msgstr "އެންމެ ފަހުން ޝާއިއުކޮށްފައިވަނީ ގދ"
-
-msgid "Hide commenting actions"
-msgstr "ކޮމެންޓް ކުރުމުގެ އަމަލުތައް ފޮރުވާށެވެ"
 
 msgid "Site history"
 msgstr "ސައިޓްގެ ތާރީޚު"

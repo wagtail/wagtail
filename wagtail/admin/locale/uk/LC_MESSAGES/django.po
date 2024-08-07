@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2022-2024\n"
@@ -542,9 +542,6 @@ msgstr "Переглянути вкладені сторінки для '%(title
 msgid "Explore"
 msgstr "Переглянути"
 
-msgid "Collection privacy"
-msgstr "Загальнодоступність колекції"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Батьківська колекція зробила цю колекцію приватною. "
 
@@ -910,9 +907,6 @@ msgid ""
 msgstr ""
 "Сторінку \"%(title)s\" було передано на модерацію до робочого процесу "
 "\"%(workflow)s\"."
-
-msgid "Page privacy"
-msgstr "Приватність сторінки"
 
 msgid "This page has been made private by a parent page."
 msgstr "Батьківська сторінка зробила цю сторінку приватною."
@@ -1301,9 +1295,6 @@ msgstr "Редагувати цей елемент"
 msgid "No log entries found."
 msgstr "Записи в журналі не знайдені. "
 
-msgid "By Task"
-msgstr "За завданням"
-
 msgid "Workflow"
 msgstr "Робочий процес"
 
@@ -1319,9 +1310,6 @@ msgstr "Запущено о"
 msgid "Incomplete task"
 msgstr "Незавершене завдання"
 
-msgid "By Workflow"
-msgstr "За робочим процесом"
-
 msgid "Completed at"
 msgstr "Завершено в"
 
@@ -1331,6 +1319,9 @@ msgstr "Сторінка %(page_num)s з %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Ланцюжок навігації"
+
+msgid "Continue"
+msgstr "Продовжити"
 
 msgid "Download XLSX"
 msgstr "Завантажити XLSX"
@@ -2138,9 +2129,6 @@ msgid ""
 msgstr ""
 "Сторінка '%(page_title)s' не перебуває в очікуванні модерації в завданні "
 "'%(task_name)s'."
-
-msgid "Hide commenting actions"
-msgstr "Приховати дії коментування"
 
 msgid "Site history"
 msgstr "Історія сайту"

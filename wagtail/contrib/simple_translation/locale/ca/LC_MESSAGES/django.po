@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Roger Pons <rogerpons@gmail.com>, 2023
+# Roger Pons <rogerpons@gmail.com>, 2024
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,6 +53,9 @@ msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
 msgstr[0] "Traduir la pàgina pare"
 msgstr[1] "Traduir les pàgines pare."
+
+msgid "Can submit translations"
+msgstr "Pot enviar traduccions"
 
 msgid "Submit"
 msgstr "Enviar"

@@ -5,11 +5,11 @@
 # Yiannis Inglessis <negtheone@gmail.com>, 2022
 # fekioh, 2022
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Greek (https://app.transifex.com/torchbox/teams/8009/el/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: el\n"
@@ -128,6 +128,12 @@ msgid ""
 msgstr ""
 "Ο επεξεργαστής κειμένου απέτυχε. Το περιεχόμενο επαναφέρθηκε στην τελευταία "
 "αποθηκευμένη έκδοση."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Ο μέγιστος αριθμός στοιχείων είναι %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Ο ελάχιστος αριθμός στοιχείων είναι %(min_num)d"
 
 msgid "This field is required."
 msgstr "Το πεδίο αυτό είναι απαραίτητο"

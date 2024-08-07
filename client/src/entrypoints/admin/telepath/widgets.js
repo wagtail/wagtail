@@ -510,6 +510,9 @@ class BaseDateTimeWidget extends Widget {
         if (opts && opts.soft) return;
         element.focus();
       },
+      getTextLabel() {
+        return this.getValue() || '';
+      },
       idForLabel: id,
     };
     widget.setState(initialState);

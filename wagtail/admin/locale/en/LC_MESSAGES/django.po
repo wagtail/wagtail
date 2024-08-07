@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2457,7 +2457,8 @@ msgid "Close dialog"
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:20
-msgid "You saved a new version in another session"
+#: templates/wagtailadmin/shared/editing_sessions/list.html:110
+msgid "You saved a new version in another window"
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:24
@@ -2470,6 +2471,7 @@ msgid "System"
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:24
+#: templates/wagtailadmin/shared/editing_sessions/list.html:114
 #, python-format
 msgid "%(user_name)s saved a new version"
 msgstr ""
@@ -2479,7 +2481,7 @@ msgid "Refresh"
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:50
-msgid "You have unsaved changes in another session"
+msgid "You have unsaved changes in another window"
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:54
@@ -2498,28 +2500,19 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailadmin/shared/editing_sessions/list.html:110
-#, python-format
-msgid ""
-"You have saved a newer version of this %(model_name)s in another session"
-msgstr ""
-
-#: templates/wagtailadmin/shared/editing_sessions/list.html:114
-#, python-format
-msgid "%(user_name)s has saved a newer version of this %(model_name)s"
-msgstr ""
-
 #: templates/wagtailadmin/shared/editing_sessions/list.html:123
 msgid ""
-"Proceeding will overwrite the changes you made in that session. Refreshing "
-"the page will lose any of your unsaved changes in the current session."
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/list.html:127
 #, python-format
 msgid ""
 "Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will lose any of your unsaved changes."
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
 msgstr ""
 
 #: templates/wagtailadmin/shared/editing_sessions/module.html:3
@@ -2659,24 +2652,24 @@ msgstr ""
 msgid "Side panel width"
 msgstr ""
 
-#: templates/wagtailadmin/shared/side_panels/checks.html:12
+#: templates/wagtailadmin/shared/side_panels/checks.html:13
 #: templates/wagtailadmin/userbar/item_accessibility.html:26
 msgid "Show issue"
 msgstr ""
 
-#: templates/wagtailadmin/shared/side_panels/checks.html:19
+#: templates/wagtailadmin/shared/side_panels/checks.html:24
 msgid "Content metrics"
 msgstr ""
 
-#: templates/wagtailadmin/shared/side_panels/checks.html:23
+#: templates/wagtailadmin/shared/side_panels/checks.html:28
 msgid "Words"
 msgstr ""
 
-#: templates/wagtailadmin/shared/side_panels/checks.html:27
+#: templates/wagtailadmin/shared/side_panels/checks.html:32
 msgid "Reading time"
 msgstr ""
 
-#: templates/wagtailadmin/shared/side_panels/checks.html:34
+#: templates/wagtailadmin/shared/side_panels/checks.html:39
 #: templates/wagtailadmin/userbar/item_accessibility.html:6
 #: templates/wagtailadmin/userbar/item_accessibility.html:12
 msgid "Issues found"
@@ -3632,27 +3625,27 @@ msgstr ""
 msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
 msgstr ""
 
-#: views/generic/mixins.py:769
+#: views/generic/mixins.py:768
 #, python-format
 msgid ""
 "You are viewing a previous version of this %(model_name)s from "
 "<b>%(created_at)s</b> by %(user)s"
 msgstr ""
 
-#: views/generic/mixins.py:803
+#: views/generic/mixins.py:802
 #, python-format
 msgid ""
 "%(model_name)s '%(object)s' has been replaced with version from "
 "%(timestamp)s."
 msgstr ""
 
-#: views/generic/mixins.py:807
+#: views/generic/mixins.py:806
 #, python-format
 msgid ""
 "Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
 msgstr ""
 
-#: views/generic/mixins.py:812
+#: views/generic/mixins.py:811
 #, python-format
 msgid ""
 "Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "

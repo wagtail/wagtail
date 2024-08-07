@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -583,9 +583,6 @@ msgstr "Utforsk undersider av \"%(title)s\""
 msgid "Explore"
 msgstr "Utforsk"
 
-msgid "Collection privacy"
-msgstr "Samlingsvern"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Denne samlingen har blitt gjort privat av en overordnet samling."
 
@@ -920,9 +917,6 @@ msgstr "%(model_name)s \"%(title)s\" har blitt avslått under \"%(task)s\"."
 msgid "You can preview the page here:"
 msgstr "Du kan forhåndsvise siden her:"
 
-msgid "Page privacy"
-msgstr "Sidevern"
-
 msgid "This page has been made private by a parent page."
 msgstr "Denne siden har blitt gjort privat av en foreldreside."
 
@@ -1130,6 +1124,9 @@ msgstr "Side %(page_num)s av %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Brødsmuler"
+
+msgid "Continue"
+msgstr "Fortsett"
 
 msgid "Download XLSX"
 msgstr "Last ned XLSX"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -306,9 +306,6 @@ msgstr "Udforsk undersider af '%(title)s'?"
 msgid "Explore"
 msgstr "Udforsk"
 
-msgid "Collection privacy"
-msgstr "Indsamling af privatfølsomme data"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Denne samling er blevet gjort privat af en forældre samling."
 
@@ -425,9 +422,6 @@ msgstr "Du kan redigere siden her:"
 
 msgid "You can preview the page here:"
 msgstr "Du kan få en forhåndsvisning af siden her:"
-
-msgid "Page privacy"
-msgstr "Side privatliv"
 
 msgid "This page has been made private by a parent page."
 msgstr "Denne side er blevet lavet privat af en forældreside."

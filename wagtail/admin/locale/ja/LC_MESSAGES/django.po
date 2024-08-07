@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: okosama star, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -402,9 +402,6 @@ msgstr "%(title)sのサブページを閲覧"
 msgid "Explore"
 msgstr "閲覧"
 
-msgid "Collection privacy"
-msgstr "コレクションプライバシー"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "このコレクションは親ページにより非公開に設定されています。"
 
@@ -628,9 +625,6 @@ msgstr "削除されたコメント"
 msgid "New replies:"
 msgstr "新しい返信"
 
-msgid "Page privacy"
-msgstr "ページの公開設定"
-
 msgid "This page has been made private by a parent page."
 msgstr "このページは親ページにより非公開に設定されています。"
 
@@ -851,6 +845,9 @@ msgstr "%(total_pages)sページ中%(page_num)sページ目"
 
 msgid "Breadcrumb"
 msgstr "パンくず"
+
+msgid "Continue"
+msgstr "続ける"
 
 msgid "Download XLSX"
 msgstr "XLSXファイルをダウンロード"

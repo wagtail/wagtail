@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: mirusu400, 2024\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -540,9 +540,6 @@ msgstr "'%(title)s' 의 하위 페이지 탐색"
 msgid "Explore"
 msgstr "탐색"
 
-msgid "Collection privacy"
-msgstr "모음 공개 범위"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "이 모음은 상위 모음에 의해 비공개로 설정되었습니다."
 
@@ -884,9 +881,6 @@ msgstr ""
 #, python-format
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr "페이지\"%(title)s\"가 작업\"%(workflow)s\"안에 승인되었습니다."
-
-msgid "Page privacy"
-msgstr "페이지 공개 범위"
 
 msgid "This page has been made private by a parent page."
 msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습니다"
@@ -1329,9 +1323,6 @@ msgstr "이 아이템 수정"
 msgid "No log entries found."
 msgstr "기록 입장이 확인되지 않음"
 
-msgid "By Task"
-msgstr "업무에 의해"
-
 msgid "Workflow"
 msgstr "작업흐름"
 
@@ -1343,9 +1334,6 @@ msgstr "에서 시작됨"
 
 msgid "Incomplete task"
 msgstr "업무 미완성"
-
-msgid "By Workflow"
-msgstr "작업흐름에 의해"
 
 msgid "Completed at"
 msgstr "에 완료됨"
@@ -1359,6 +1347,9 @@ msgstr "부분 전환"
 
 msgid "Breadcrumb"
 msgstr "브레드크럼"
+
+msgid "Continue"
+msgstr "계속"
 
 msgid "Download XLSX"
 msgstr "XLSX 다운로드"
@@ -2126,9 +2117,6 @@ msgstr "오래된 페이지"
 
 msgid "Last published at"
 msgstr "에 마지막으로 게시됨"
-
-msgid "Hide commenting actions"
-msgstr "댓글 달기 숨기기"
 
 msgid "Site history"
 msgstr "사이트 자취"

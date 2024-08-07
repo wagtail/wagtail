@@ -824,6 +824,13 @@ class TestConstructStreamFieldFromLookup(TestCase):
         self.assertEqual(link_text_block.name, "link_text")
 
 
+# Used by TestDeconstructStreamFieldWithLookup.test_deconstruct_with_listblock_subclass -
+# needs to be a module-level definition so that the path returned from deconstruct is valid
+class BulletListBlock(blocks.ListBlock):
+    def __init__(self, **kwargs):
+        super().__init__(blocks.CharBlock(required=True), **kwargs)
+
+
 class TestDeconstructStreamFieldWithLookup(TestCase):
     def test_deconstruct(self):
         class ButtonBlock(blocks.StructBlock):
@@ -871,6 +878,111 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
                         ],
                         {},
                     ),
+                },
+            },
+        )
+
+    def test_deconstruct_with_listblock(self):
+        field = StreamField(
+            [
+                ("heading", blocks.CharBlock(required=True)),
+                ("bullets", blocks.ListBlock(blocks.CharBlock(required=True))),
+            ],
+            blank=True,
+        )
+        field.set_attributes_from_name("body")
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(
+            args,
+            [
+                [
+                    ("heading", 0),
+                    ("bullets", 1),
+                ]
+            ],
+        )
+        self.assertEqual(
+            kwargs,
+            {
+                "blank": True,
+                "block_lookup": {
+                    0: ("wagtail.blocks.CharBlock", (), {"required": True}),
+                    1: ("wagtail.blocks.ListBlock", (0,), {}),
+                },
+            },
+        )
+
+    def test_deconstruct_with_listblock_with_child_block_kwarg(self):
+        field = StreamField(
+            [
+                ("heading", blocks.CharBlock(required=True)),
+                (
+                    "bullets",
+                    blocks.ListBlock(child_block=blocks.CharBlock(required=True)),
+                ),
+            ],
+            blank=True,
+        )
+        field.set_attributes_from_name("body")
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(
+            args,
+            [
+                [
+                    ("heading", 0),
+                    ("bullets", 1),
+                ]
+            ],
+        )
+        self.assertEqual(
+            kwargs,
+            {
+                "blank": True,
+                "block_lookup": {
+                    0: ("wagtail.blocks.CharBlock", (), {"required": True}),
+                    1: ("wagtail.blocks.ListBlock", (), {"child_block": 0}),
+                },
+            },
+        )
+
+    def test_deconstruct_with_listblock_subclass(self):
+        # See https://github.com/wagtail/wagtail/issues/12164 - unlike StructBlock and StreamBlock,
+        # ListBlock's deconstruct method doesn't reduce subclasses to the base ListBlock class.
+        # Therefore, if a ListBlock subclass defines its own __init__ method with an incompatible
+        # signature to the base ListBlock, this custom signature will be preserved in the result of
+        # deconstruct(), and we cannot rely on the first argument being the child block.
+
+        field = StreamField(
+            [
+                ("heading", blocks.CharBlock(required=True)),
+                ("bullets", BulletListBlock()),
+            ],
+            blank=True,
+        )
+        field.set_attributes_from_name("body")
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(
+            args,
+            [
+                [
+                    ("heading", 0),
+                    ("bullets", 1),
+                ]
+            ],
+        )
+        self.assertEqual(
+            kwargs,
+            {
+                "blank": True,
+                "block_lookup": {
+                    0: ("wagtail.blocks.CharBlock", (), {"required": True}),
+                    1: ("wagtail.tests.test_streamfield.BulletListBlock", (), {}),
                 },
             },
         )

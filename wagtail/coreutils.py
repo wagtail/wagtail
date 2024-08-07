@@ -3,8 +3,9 @@ import inspect
 import logging
 import re
 import unicodedata
+from collections.abc import Iterable
 from hashlib import md5
-from typing import TYPE_CHECKING, Any, Dict, Iterable, Union
+from typing import TYPE_CHECKING, Any, Union
 from warnings import warn
 
 from anyascii import anyascii
@@ -256,7 +257,7 @@ def find_available_slug(parent, requested_slug, ignore_page_id=None):
     return slug
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_content_languages():
     """
     Cache of settings.WAGTAIL_CONTENT_LANGUAGES in a dictionary for easy lookups by key.
@@ -443,14 +444,7 @@ def safe_md5(data=b"", usedforsecurity=True):
     to use the digest for secure purposes and to please just go ahead and
     allow it to happen.
     """
-
-    # Although ``accepts_kwarg`` works great on Python 3.8+, on Python 3.7 it
-    # raises a ValueError, saying "no signature found for builtin". So, back
-    # to the try/except.
-    try:
-        return md5(data, usedforsecurity=usedforsecurity)
-    except TypeError:
-        return md5(data)
+    return md5(data, usedforsecurity=usedforsecurity)
 
 
 class BatchProcessor:
@@ -552,7 +546,7 @@ class BatchCreator(BatchProcessor):
         if self.max_size and len(self.items) == self.max_size:
             self.process()
 
-    def extend(self, iterable: Iterable[Union[Model, Dict[str, Any]]]) -> None:
+    def extend(self, iterable: Iterable[Union[Model, dict[str, Any]]]) -> None:
         for value in iterable:
             if isinstance(value, self.model):
                 self.add(instance=value)

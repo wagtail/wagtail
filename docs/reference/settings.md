@@ -219,6 +219,52 @@ WAGTAIL_TIME_FORMAT = '%H:%M'
 
 Specifies the date, time, and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior) and must be one of the recognized formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
 
+For example, to use US Imperial style date and time format (AM/PM times) in the Wagtail Admin, you'll need to override the Django format for your site's locale.
+
+```python
+# settings.py
+WAGTAIL_TIME_FORMAT = "%I:%M %p"  # 03:00 PM
+WAGTAIL_DATE_FORMAT = '%m/%d/%Y'  # 01/31/2004
+WAGTAIL_DATETIME_FORMAT = '%m/%d/%Y %I:%M %p'  # 01/31/2004 03:00 PM
+
+# Django uses formatting based on the system locale.
+# Therefore we must specify a locale and then override the date
+# formatting for that locale.
+FORMAT_MODULE_PATH = ["formats"]
+LANGUAGE_CODE = "en-US"
+```
+
+Next create the file `formats/en_US/formats.py` in your project:
+
+```python
+# formats/en_US/formats.py
+
+# Append our custom format to the Django defaults.
+TIME_INPUT_FORMATS = [
+    "%H:%M:%S",  # '14:30:59'
+    "%H:%M:%S.%f",  # '14:30:59.000200'
+    "%H:%M",  # '14:30'
+    # Custom
+    "%I:%M %p",
+]
+DATETIME_INPUT_FORMATS = [
+    "%Y-%m-%d %H:%M:%S",  # '2006-10-25 14:30:59'
+    "%Y-%m-%d %H:%M:%S.%f",  # '2006-10-25 14:30:59.000200'
+    "%Y-%m-%d %H:%M",  # '2006-10-25 14:30'
+    "%m/%d/%Y %H:%M:%S",  # '10/25/2006 14:30:59'
+    "%m/%d/%Y %H:%M:%S.%f",  # '10/25/2006 14:30:59.000200'
+    "%m/%d/%Y %H:%M",  # '10/25/2006 14:30'
+    "%m/%d/%y %H:%M:%S",  # '10/25/06 14:30:59'
+    "%m/%d/%y %H:%M:%S.%f",  # '10/25/06 14:30:59.000200'
+    "%m/%d/%y %H:%M",  # '10/25/06 14:30'
+    # Custom
+    "%m/%d/%Y %I:%M %p",
+]
+
+# Here you can also customize: DATE_INPUT_FORMATS, DATE_FORMAT,
+# DATETIME_FORMAT, TIME_FORMAT, SHORT_DATE_FORMAT.
+```
+
 ## Page editing
 
 ### `WAGTAILADMIN_COMMENTS_ENABLED`
@@ -589,7 +635,7 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 Logged-in users can choose their current time zone for the admin interface in the account settings. If there is no time zone selected by the user, then `TIME_ZONE` will be used.
 (Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
 
-The list of time zones is by default the common_timezones list from pytz.
+By default, this uses the set of timezones returned by `zoneinfo.available_timezones()`.
 It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
 If there is zero or one-time zone permitted, the account settings form will be hidden.
 

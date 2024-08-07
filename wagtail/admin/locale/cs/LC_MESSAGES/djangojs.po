@@ -6,11 +6,11 @@
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2022
 # Marek Turnovec <aesculap@gmail.com>, 2022
 # Mirek Zvolský <zvolsky@seznam.cz>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/torchbox/teams/8009/cs/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: cs\n"
@@ -128,6 +128,12 @@ msgstr "Zobrazit aktuální obsah"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editor zhavaroval. Obsah byl obnoven z poslední uložené verze."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maximální počet položek je %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimální počet položek je %(min_num)d"
 
 msgid "This field is required."
 msgstr "Toto pole je vyžadováno."

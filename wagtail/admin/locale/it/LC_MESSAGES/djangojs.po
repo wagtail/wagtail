@@ -6,12 +6,12 @@
 # giammi <gian-maria.daffre@giammi.org>, 2022
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2022
 # gcm, 2022
-# Loic Teixeira, 2022
 # Marco Badan <marco.badan@gmail.com>, 2024
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2024\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
@@ -192,6 +192,12 @@ msgid ""
 msgstr ""
 "L'editor è appena andato in crash. Il contenuto è stato reimpostato "
 "sull'ultima versione salvata."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Il numero massimo di elementi è %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Il numero minimo di elementi è %(min_num)d"
 
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio."

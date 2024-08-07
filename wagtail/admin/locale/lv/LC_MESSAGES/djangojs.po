@@ -3,11 +3,11 @@
 # Reinis Rozenbergs <reinisr@gmail.com>, 2022
 # Maris Serzans <maris.serzans@gmail.com>, 2022
 # Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Latvian (https://app.transifex.com/torchbox/teams/8009/lv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: lv\n"
@@ -92,6 +92,12 @@ msgstr "Pārādīt jaunāko saturu"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Redaktors kļūda. Saturs ir atiestatīts uz pēdējo saglabāto versiju."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimālais skaits ir %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimālais skaits ir %(min_num)d"
 
 msgid "This field is required."
 msgstr "Šis lauks ir nepieciešams"

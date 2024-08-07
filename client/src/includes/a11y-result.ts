@@ -142,6 +142,13 @@ export const getA11yReport = async (
     (sum, violation) => sum + violation.nodes.length,
     0,
   );
+
+  if (a11yErrorsNumber > 0) {
+    // Help developers potentially troubleshooting userbar check results.
+    // eslint-disable-next-line no-console
+    console.error('axe.run results', results.violations);
+  }
+
   return {
     results,
     a11yErrorsNumber,
@@ -194,20 +201,32 @@ export const renderA11yResults = (
           messages?.help_text || violation.description;
 
         // Special-case when displaying accessibility results within the admin interface.
+        const isInCMS = node.target[0] === '#preview-iframe';
         const selectorName = toSelector(
-          node.target[0] === '#preview-iframe'
-            ? node.target[1]
-            : node.target[0],
+          isInCMS ? node.target[1] : node.target[0],
         );
 
         const a11ySelector = currentA11yRow.querySelector(
           '[data-a11y-result-selector]',
         ) as HTMLButtonElement;
         a11ySelector.setAttribute('aria-describedby', a11yErrorName.id);
-        a11ySelector?.addEventListener(
+        a11ySelector.addEventListener(
           'click',
           onClickSelector.bind(null, selectorName),
         );
+
+        // Display the selector text in the CMS,
+        // as a workaround until we highlight errors within the preview panel.
+        if (isInCMS) {
+          const selectorText = a11ySelector.querySelector(
+            '[data-a11y-result-selector-text]',
+          ) as HTMLSpanElement;
+          // Remove unnecessary details before displaying selectors to the user
+          selectorText.textContent = selectorName.replace(
+            /\[data-block-key="\w{5}"\]/,
+            '',
+          );
+        }
       });
     });
   }

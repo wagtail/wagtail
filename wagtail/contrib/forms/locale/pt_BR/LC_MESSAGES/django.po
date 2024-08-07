@@ -10,14 +10,14 @@
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
-# Rodrigo de Almeida Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2022
+# Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
+"Last-Translator: Rodrigo Sottomaior Macedo "
 "<sottomaiormacedotec@sottomaiormacedo.tech>, 2022\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"

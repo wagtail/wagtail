@@ -5,9 +5,22 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Redirect to the last viewed listing page after deleting form submissions (Matthias Brück)
+ * Provide `getTextLabel` method on date / time StreamField blocks (Vaughn Dickson)
+ * Purge frontend cache when modifying redirects (Jake Howard)
+ * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
+ * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
+ * Docs: Document how to customise date/time format settings (Vince Salvino)
+ * Maintenance: Removed support for Python 3.8 (Matt Westcott)
+ * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
 
 
-6.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2.1 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Handle `child_block` being passed as a kwarg in ListBlock migrations (Matt Westcott)
+
+
+6.2 (01.08.2024)
 ~~~~~~~~~~~~~~~~
 
  * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
@@ -16,7 +29,7 @@ Changelog
  * Allow custom permission policies on snippets to prevent superusers from creating or editing them (Sage Abdullah)
  * Do not link to edit view from listing views if user has no permission to edit (Sage Abdullah)
  * Allow access to snippets and other model viewsets to users with "View" permission (Sage Abdullah)
- * Skip `ChooseParentView` if only one possible valid parent page availale (Matthias Brück)
+ * Skip `ChooseParentView` if only one possible valid parent page is available (Matthias Brück)
  * Add `copy_for_translation_done` signal when a page is copied for translation (Arnar Tumi Þorsteinsson)
  * Remove reduced opacity for draft page title in listings (Inju Michorius)
  * Adopt more compact representation for StreamField definitions in migrations (Matt Westcott)
@@ -33,6 +46,8 @@ Changelog
  * Allow changing available privacy options per page model (Shlomo Markowitz)
  * Add concurrent editing notifications for pages and snippets (Matt Westcott, Sage Abdullah)
  * Add "soft" client-side validation for `StreamBlock` / `ListBlock` `min_num` / `max_num` (Matt Westcott)
+ * Log accessibility checker results in the console to help developers with troubleshooting (Thibaud Colas)
+ * Disable pointer events on checker highlights to simplify DevTools inspections (Thibaud Colas)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
@@ -56,6 +71,7 @@ Changelog
  * Fix: Show not allowed extension in error message (Sahil Jangra)
  * Fix: Fix focal point chooser when localization enabled (Sébastien Corbin)
  * Fix: Ensure that system checks for `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT` and `WAGTAIL_TIME_FORMAT` take `FORMAT_MODULE_PATH` into account (Sébastien Corbin)
+ * Fix: Prevent rich text fields inside choosers from being duplicated when opened repeatedly (Sage Abdullah)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
@@ -66,7 +82,7 @@ Changelog
  * Docs: Add better docs for generating URLs on creating admin views (Shlomo Markowitz)
  * Docs: Document the `vary_fields` property for custom image filters (Daniel Kirkham)
  * Docs: Fix documentation build errors (Himanshu Garg, Chris Shenton)
- * Docs: Fix PDF export (Nathanaël)
+ * Docs: Fix PDF export (Nathanaël Jourdane)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
  * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
@@ -76,6 +92,7 @@ Changelog
  * Maintenance: Optimise embed finder lookups (Jake Howard)
  * Maintenance: Improve performance of initial admin loading by moving sprite hashing out of module import time (Jake Howard)
  * Maintenance: Remove workaround and inline scripts for activating workflow actions (Sage Abdullah)
+ * Maintenance: Prevent `'BlockWidget' object has no attribute '_block_json'` from masking errors during StreamField serialization (Matt Westcott)
 
 
 6.1.3 (11.07.2024)

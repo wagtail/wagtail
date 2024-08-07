@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Halit Çelik, 2023\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -372,9 +372,6 @@ msgstr "'%(title)s' sayfasının alt sayfalarını araştırın"
 msgid "Explore"
 msgstr "Araştır"
 
-msgid "Collection privacy"
-msgstr "Koleksiyon gizliliği"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Bu koleksiyon bir üst koleksiyon tarafından gizli yapıldı."
 
@@ -541,9 +538,6 @@ msgstr "\"%(title)s\" sayfası reddedildi."
 
 msgid "You can preview the page here:"
 msgstr "Sayfayı buradan önizleyebilirsiniz:"
-
-msgid "Page privacy"
-msgstr "Sayfa gizliliği"
 
 msgid "This page has been made private by a parent page."
 msgstr "Bu sayfa bir üst sayfa tarafından gizli yapıldı."
@@ -741,6 +735,9 @@ msgstr "Sayfa %(page_num)s / %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "İçerik haritası"
+
+msgid "Continue"
+msgstr "Devam et"
 
 msgid "Download XLSX"
 msgstr "XLSX İndir"

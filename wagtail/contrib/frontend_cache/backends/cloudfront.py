@@ -45,7 +45,7 @@ class CloudfrontBackend(BaseBackend):
                 self.hostnames = list(self.cloudfront_distribution_id.keys())
 
     def purge_batch(self, urls):
-        paths_by_distribution_id = defaultdict(list)
+        paths_by_distribution_id = defaultdict(set)
 
         for url in urls:
             url_parsed = urlparse(url)
@@ -69,7 +69,7 @@ class CloudfrontBackend(BaseBackend):
                 distribution_id = self.cloudfront_distribution_id
 
             if distribution_id:
-                paths_by_distribution_id[distribution_id].append(url_parsed.path)
+                paths_by_distribution_id[distribution_id].add(url_parsed.path)
 
         for distribution_id, paths in paths_by_distribution_id.items():
             self._create_invalidation(distribution_id, paths)

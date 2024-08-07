@@ -1,6 +1,6 @@
 import unittest
 
-import pytz
+import zoneinfo
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -244,6 +244,7 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
     def setUp(self):
         self.user = self.login()
+        get_available_admin_time_zones.cache_clear()
 
     def test_account_view(self):
         """
@@ -567,7 +568,10 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_available_admin_time_zones_by_default(self):
-        self.assertListEqual(get_available_admin_time_zones(), pytz.common_timezones)
+        self.assertListEqual(
+            get_available_admin_time_zones(),
+            sorted(zoneinfo.available_timezones()),
+        )
 
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(WAGTAIL_USER_TIME_ZONES=["Europe/London"])

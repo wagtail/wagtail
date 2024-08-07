@@ -2,11 +2,11 @@
 # Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2022
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Mongolian (https://app.transifex.com/torchbox/teams/8009/"
 "mn/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,6 +78,12 @@ msgid ""
 msgstr ""
 "Текст засварлагчид алдаа гарлаа. Контент сүүлийн хадгалагдсан хувилбараар "
 "хадгалагдсан."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Хамгийн ихдээ %(max_num)d хэсэг байна"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Хамгийн багадаа %(min_num)d хэсэг байна"
 
 msgid "This field is required."
 msgstr "Энэ талбарыг заавал бөглөх шаардлагатай."

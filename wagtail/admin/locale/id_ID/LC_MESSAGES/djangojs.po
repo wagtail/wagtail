@@ -3,11 +3,11 @@
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2022
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2022
 # Ronggo Radityo <radityo3000@yahoo.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Indonesian (Indonesia) (https://app.transifex.com/torchbox/"
 "teams/8009/id_ID/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,6 +88,12 @@ msgid ""
 msgstr ""
 "Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
 "disimpan."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Jumlah isi maksimum adalah %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Jumlah isi minimum adalah %(min_num)d"
 
 msgid "This field is required."
 msgstr "Kolom ini harus diisi."

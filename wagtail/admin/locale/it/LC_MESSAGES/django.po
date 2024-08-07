@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -630,9 +630,6 @@ msgstr "Esplora sottopagine di '%(title)s'"
 msgid "Explore"
 msgstr "Esplora"
 
-msgid "Collection privacy"
-msgstr "Privacy raccolta"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Questa raccolta è stata resa privata dalla raccolta padre."
 
@@ -1220,9 +1217,6 @@ msgid ""
 msgstr ""
 "Il %(model_name)s \"%(title)s\" è stato inviato al flusso di lavoro "
 "\"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Privacy della pagina"
 
 msgid "This page has been made private by a parent page."
 msgstr "Questa pagina è stata resa privata dalla pagina padre."
@@ -1861,9 +1855,6 @@ msgstr "Ultima pagina modificata"
 msgid "Last edit"
 msgstr "Ultima modifica"
 
-msgid "No page types found."
-msgstr "Nessun tipo di pagina trovato."
-
 msgid "Locking status"
 msgstr "Stato blocco"
 
@@ -1885,6 +1876,9 @@ msgstr "Bloccata"
 msgid "No locked pages found."
 msgstr "Nessuna pagina bloccata trovata."
 
+msgid "No page types found."
+msgstr "Nessun tipo di pagina trovato."
+
 msgid "Name"
 msgstr "Nome"
 
@@ -1902,9 +1896,6 @@ msgstr "Modifica questo elemento"
 
 msgid "No log entries found."
 msgstr "Nessun log trovato."
-
-msgid "By Task"
-msgstr "Per attività"
 
 msgid "Workflow"
 msgstr "Flusso di lavoro"
@@ -1924,9 +1915,6 @@ msgstr "Attività non completata"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Nessuna pagina/snippet è stato ancora inviato per la moderazione"
 
-msgid "By Workflow"
-msgstr "Per flusso di lavoro"
-
 msgid "Completed at"
 msgstr "Completato alle"
 
@@ -1942,6 +1930,9 @@ msgstr "Breadcrumb"
 
 msgid "Close dialog"
 msgstr "Chiudi dialogo"
+
+msgid "Continue"
+msgstr "Continua"
 
 msgid "Download XLSX"
 msgstr "Scarica XLSX"
@@ -2608,48 +2599,6 @@ msgstr ""
 "Ordina le pagine figlio all'interno di '%(parent)s' per '%(label)s' in "
 "ordine decrescente."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Il testo del pulsante è vuoto. Utilizza un testo significativo per gli "
-"utenti di screen reader."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Intestazione vuota trovata. Utilizza un testo significativo per gli utenti "
-"di screen reader."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Il testo dell'intestazione della tabella è vuoto. Utilizzare un testo "
-"significativo per gli utenti di screen reader."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Titolo del frame vuoto trovato. Utilizza un titolo significativo per gli "
-"utenti di screen reader."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Gerarchia dei titoli errata. Evitare di saltare livelli."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Il testo tradotto è:\n"
-"Il testo del pulsante di input è vuoto. Utilizza un testo significativo per "
-"gli utenti di screen reader."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Il testo del link è vuoto. Utilizza un testo significativo per gli utenti di "
-"screen reader."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Utilizzo improprio dei paragrafi come titoli. Utilizza tag di intestazione "
-"corretti."
-
 msgid "Profile"
 msgstr "Profilo"
 
@@ -3135,9 +3084,6 @@ msgstr "Pagine datate"
 
 msgid "Last published at"
 msgstr "Ultima pubblicazione a"
-
-msgid "Hide commenting actions"
-msgstr "Nascondi azioni relative ai commenti"
 
 msgid "Site history"
 msgstr "Storico sito"

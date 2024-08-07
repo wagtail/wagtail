@@ -42,7 +42,6 @@ install_requires = [
 testing_extras = [
     # Required for running the tests
     "python-dateutil>=2.7",
-    "pytz>=2014.7",
     "Jinja2>=3.0,<3.2",
     "boto3>=1.28,<2",
     "freezegun>=0.3.8",
@@ -71,7 +70,7 @@ testing_extras = [
 documentation_extras = [
     "pyenchant>=3.1.1,<4",
     "sphinxcontrib-spelling>=7,<8",
-    "Sphinx>=7.0",
+    "Sphinx>=7.3",
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==6.3.0",
     "myst_parser==2.0.0",
@@ -108,7 +107,6 @@ https://github.com/wagtail/wagtail/.",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
@@ -119,7 +117,7 @@ https://github.com/wagtail/wagtail/.",
         "Framework :: Wagtail",
         "Topic :: Internet :: WWW/HTTP :: Site Management",
     ],
-    python_requires=">=3.8",
+    python_requires=">=3.9",
     install_requires=install_requires,
     extras_require={"testing": testing_extras, "docs": documentation_extras},
     entry_points="""

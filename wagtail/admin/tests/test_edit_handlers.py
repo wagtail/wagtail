@@ -1,6 +1,7 @@
+from collections.abc import Mapping
 from datetime import date, datetime, timezone
 from functools import wraps
-from typing import Any, List, Mapping, Optional
+from typing import Any, Optional
 from unittest import mock
 
 from django import forms
@@ -846,7 +847,7 @@ class TestFieldPanel(TestCase):
     def _get_form(
         self,
         data: Optional[Mapping[str, Any]] = None,
-        fields: Optional[List[str]] = None,
+        fields: Optional[list[str]] = None,
     ) -> WagtailAdminPageForm:
         cls = get_form_for_model(
             EventPage,

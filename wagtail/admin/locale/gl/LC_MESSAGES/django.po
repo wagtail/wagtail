@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -397,6 +397,9 @@ msgstr "Seleccionados os %(objects)s ítems desta pantalla"
 msgid "All items in listing selected"
 msgstr "Seleccionados tódolos ítems do listado"
 
+msgid "Can access Wagtail admin"
+msgstr "Pode entrar no admin de Wagtail"
+
 msgid "For search engines"
 msgstr "Para os motores de busca"
 
@@ -612,9 +615,6 @@ msgstr "Explorar subpáxinas de '%(title)s'"
 
 msgid "Explore"
 msgstr "Explorar"
-
-msgid "Collection privacy"
-msgstr "Privacidade da colección"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Esta colección fíxose privada por unha colección nai."
@@ -1193,11 +1193,11 @@ msgid ""
 msgstr ""
 "O %(model_name)s \"%(title)s\" enviouse ó fluxo de traballo \"%(workflow)s\"."
 
-msgid "Page privacy"
-msgstr "Privacidade da páxina"
-
 msgid "This page has been made private by a parent page."
 msgstr "Esta páxina foi feita privada por unha páxina pai."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "O cambio de privacidade para esta páxina deshabilitouse."
 
 msgid "Save the page before leaving"
 msgstr "Gardar a páxina antes de sair"
@@ -1839,9 +1839,6 @@ msgstr "Última páxina editada"
 msgid "Last edit"
 msgstr "Última edición"
 
-msgid "No page types found."
-msgstr "Non se atoparon páxinas dese tipo."
-
 msgid "Locking status"
 msgstr "Estado de bloqueo"
 
@@ -1863,6 +1860,9 @@ msgstr "Bloqueada"
 msgid "No locked pages found."
 msgstr "Non se atoparon páxinas bloqueadas."
 
+msgid "No page types found."
+msgstr "Non se atoparon páxinas dese tipo."
+
 msgid "Name"
 msgstr "Nome"
 
@@ -1880,9 +1880,6 @@ msgstr "Editar este ítem"
 
 msgid "No log entries found."
 msgstr "Non se atoparon entradas no rexistro."
-
-msgid "By Task"
-msgstr "Por Tarefa"
 
 msgid "Workflow"
 msgstr "Fluxo de traballo"
@@ -1902,9 +1899,6 @@ msgstr "Tarefa incompleta"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Aínda non se enviaron páxinas nin fragmentos á moderación."
 
-msgid "By Workflow"
-msgstr "Por Fluxo de traballo"
-
 msgid "Completed at"
 msgstr "Completado o"
 
@@ -1923,6 +1917,71 @@ msgstr "Miga de pan"
 
 msgid "Close dialog"
 msgstr "Pechar diálogo"
+
+msgid "You saved a new version in another session"
+msgstr "Gardaches unha nova version noutra sesión"
+
+msgid "System"
+msgstr "Sistema"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s gardóu unha nova versión"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "You have unsaved changes in another session"
+msgstr "Tes cambios sen gardar noutra sesión"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s ten cambios sen gardar"
+
+msgid "Currently viewing"
+msgstr "Vendo agora mesmo"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Outro usuario vendo agora mesmo"
+msgstr[1] "Outros %(num_user)s usuarios están vendo agora mesmo"
+
+#, python-format
+msgid ""
+"You have saved a newer version of this %(model_name)s in another session"
+msgstr "Gardaches unha nova versión deste %(model_name)s noutra sesión"
+
+#, python-format
+msgid "%(user_name)s has saved a newer version of this %(model_name)s"
+msgstr "%(user_name)s gardóu unha nova versión deste %(model_name)s"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that session. Refreshing "
+"the page will lose any of your unsaved changes in the current session."
+msgstr ""
+"Proceder vai sobreescribir os cambios que fixeches nesta sesión. Actualizar "
+"a páxina fará que se perdan tódolos cambios sen gardar desta sesión."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will lose any of your unsaved changes."
+msgstr ""
+"Proceder vai sobreescribir os cambios feitos por %(user_name)s. Actualizar a "
+"páxina fará que se perdan tódolos cambios sen gardar."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Actualizar a páxina implica que perderás tódolos cambios sen gardar."
+
+msgid "Refresh page"
+msgstr "Actualizar páxina"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Refresh the page"
+msgstr "Actualizar a páxina"
 
 msgid "Download XLSX"
 msgstr "Descargar XLSX"
@@ -2011,6 +2070,18 @@ msgstr "Permutar panel lateral"
 
 msgid "Side panel width"
 msgstr "Ancho do panel lateral"
+
+msgid "Show issue"
+msgstr "Mostrar asunto"
+
+msgid "Content metrics"
+msgstr "Métricas do contido"
+
+msgid "Words"
+msgstr "Palabras"
+
+msgid "Reading time"
+msgstr "Tempo de lectura"
 
 msgid "Issues found"
 msgstr "Problemas atopados"
@@ -2587,45 +2658,47 @@ msgstr ""
 "Ordenar as páxinas fillas dentro de '%(parent)s' por '%(label)s' en orde "
 "decrecente."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do botón está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Button text is empty"
+msgstr "O texto do botón está baleiro"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Hai un encabezado baleiro. Usa un texto útil para os usuarios con pantalla "
-"de voz."
+msgid "Use meaningful text for screen reader users"
+msgstr "Usa un texto con sentido para os usuarios con lectores de pantalla"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O encabezado da tabla está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Empty heading found"
+msgstr "Atopado un encabezado valeiro"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Hai un título de inserción baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Table header text is empty"
+msgstr "O encabezado da tabla está baleiro"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Xerarquía de encabezados incorrecta. Evita saltar niveles."
+msgid "Empty frame title found"
+msgstr "Atopado título de marco baleiro"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do botón está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Use a meaningful title for screen reader users"
+msgstr "Usa un título con sentido para os usuarios con lectores de pantalla"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do enlace está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Incorrect heading hierarchy"
+msgstr "Xerarquía de encabezados incorrecta"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Mal uso de párrafos como encabezados. Usa etiquetas de encabezado axeitadas."
+msgid "Avoid skipping levels"
+msgstr "Evita saltar niveles"
+
+msgid "Input button text is empty"
+msgstr "O texto do botón de entrada está baleiro"
+
+msgid "Link text is empty"
+msgstr "O texto do enlace está baleiro"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Mal uso de párrafos como encabezados"
+
+msgid "Use proper heading tags"
+msgstr "Usa etiquetas de encabezados apropiados"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "O texto alternativo da imaxe ten un patrón inapropiado"
+
+msgid "Use meaningful text"
+msgstr "Usa un texto con sentido"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -3199,9 +3272,6 @@ msgstr "Páxinas envellecidas"
 msgid "Last published at"
 msgstr "Publicada por última vez en"
 
-msgid "Hide commenting actions"
-msgstr "Agachar accións de comentarios"
-
 msgid "Site history"
 msgstr "Historial do sitio"
 
@@ -3238,11 +3308,17 @@ msgstr "Tipo Páxina/Fragmento"
 msgid "Page/Snippet Title"
 msgstr "Título Páxina/Fragmento"
 
+msgid "By task"
+msgstr "Por tarefa"
+
 msgid "Workflow tasks"
 msgstr "Tarefas do fluxo de traballo"
 
 msgid "Requested By"
 msgstr "Solicitado Por"
+
+msgid "By workflow"
+msgstr "Por fluxo de traballo"
 
 msgid "Show disabled"
 msgstr "Amosar deshabilitados"

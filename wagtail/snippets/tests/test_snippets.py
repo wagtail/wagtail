@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks, management
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
@@ -5346,6 +5346,11 @@ class TestSnippetChooserBlock(TestCase):
 
         # None should not yield any references
         self.assertListEqual(list(block.extract_references(None)), [])
+
+    def test_exception_on_non_snippet_model(self):
+        with self.assertRaises(ImproperlyConfigured):
+            block = SnippetChooserBlock(Locale)
+            block.widget
 
 
 class TestAdminSnippetChooserWidget(WagtailTestUtils, TestCase):

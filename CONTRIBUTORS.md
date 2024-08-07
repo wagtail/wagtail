@@ -826,7 +826,10 @@
 * Jeroen de Vries
 * Romein van Buren
 * Chris Shenton
-* Nathanaël
+* Nathanaël Jourdane
+* Vaughn Dickson
+* Ansuman Shukla
+* Nayanshi Singh
 
 ## Translators
 

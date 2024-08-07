@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -438,9 +438,6 @@ msgstr "Pretraži podstranice od '%(title)s'"
 msgid "Explore"
 msgstr "Pretraži"
 
-msgid "Collection privacy"
-msgstr "Privatnost zbirke"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Ovu zbirku je nadređena zbirka učinila privatnom."
 
@@ -718,9 +715,6 @@ msgstr ""
 "Stranica \"%(title)s\" je poslana na moderiranje u tijek rada "
 "\"%(workflow)s\"."
 
-msgid "Page privacy"
-msgstr "Privatnost stranice"
-
 msgid "This page has been made private by a parent page."
 msgstr "Ovu stranicu je nadređena stranica učinila privatnom."
 
@@ -946,9 +940,6 @@ msgstr "Uredi ovu stavku"
 msgid "No log entries found."
 msgstr "Nema pronađenih zapisa."
 
-msgid "By Task"
-msgstr "Po zadatku"
-
 msgid "Workflow"
 msgstr "Tijek rada"
 
@@ -960,9 +951,6 @@ msgstr "Započeto u"
 
 msgid "Incomplete task"
 msgstr "Nepotpun zadatak"
-
-msgid "By Workflow"
-msgstr "Po tijeku rada"
 
 msgid "Completed at"
 msgstr "Završeno u"
@@ -976,6 +964,9 @@ msgstr "Prikaži/sakrij navigacijsku traku"
 
 msgid "Breadcrumb"
 msgstr "Navigacijska traka"
+
+msgid "Continue"
+msgstr "Nastavi"
 
 msgid "Download XLSX"
 msgstr "Preuzmi XLSX"

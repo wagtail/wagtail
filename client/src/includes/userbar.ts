@@ -424,6 +424,7 @@ export class Userbar extends HTMLElement {
         z-index: 129;
         outline: 1px solid #CD4444;
         box-shadow: 0px 0px 12px 1px #FF0000;
+        pointer-events: none;
         `;
       };
 
