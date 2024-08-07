@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"POT-Creation-Date: 2024-08-07 10:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,35 +30,35 @@ msgstr ""
 msgid "Add Comment"
 msgstr ""
 
-#: blocks/list_block.py:208 blocks/stream_block.py:178
+#: blocks/list_block.py:222 blocks/stream_block.py:178
 #: blocks/stream_block.py:208
 #, python-format
 msgid "The minimum number of items is %(min_num)d"
 msgstr ""
 
-#: blocks/list_block.py:216 blocks/stream_block.py:188
+#: blocks/list_block.py:230 blocks/stream_block.py:188
 #: blocks/stream_block.py:218
 #, python-format
 msgid "The maximum number of items is %(max_num)d"
 msgstr ""
 
-#: blocks/list_block.py:434 blocks/stream_block.py:837
+#: blocks/list_block.py:456 blocks/stream_block.py:837
 msgid "Move up"
 msgstr ""
 
-#: blocks/list_block.py:435 blocks/stream_block.py:838
+#: blocks/list_block.py:457 blocks/stream_block.py:838
 msgid "Move down"
 msgstr ""
 
-#: blocks/list_block.py:436 blocks/stream_block.py:839
+#: blocks/list_block.py:458 blocks/stream_block.py:839
 msgid "Duplicate"
 msgstr ""
 
-#: blocks/list_block.py:437 blocks/stream_block.py:840 wagtail_hooks.py:115
+#: blocks/list_block.py:459 blocks/stream_block.py:840 wagtail_hooks.py:115
 msgid "Delete"
 msgstr ""
 
-#: blocks/list_block.py:438 blocks/stream_block.py:841 models/__init__.py:1123
+#: blocks/list_block.py:460 blocks/stream_block.py:841 models/__init__.py:1123
 msgid "Add"
 msgstr ""
 
