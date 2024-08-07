@@ -159,7 +159,7 @@ class PageListingButton(ListingButton):
 
 
 class BaseDropdownMenuButton(BaseButton):
-    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
+    template_name = "wagtailadmin/shared/button_with_dropdown.html"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, url=None, **kwargs)
@@ -199,6 +199,10 @@ class ButtonWithDropdown(BaseDropdownMenuButton):
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
+    # This page-specific class and template is documented for
+    # the register_page_listing_buttons hook
+    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
+
     def __init__(
         self,
         label,

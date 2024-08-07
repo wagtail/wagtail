@@ -50,6 +50,9 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
+        self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
@@ -73,6 +76,9 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
             )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
@@ -101,6 +107,9 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
@@ -147,6 +156,9 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
