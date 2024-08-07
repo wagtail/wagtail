@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Handle `child_block` being passed as a kwarg in ListBlock migrations (Matt Westcott)
+ * Fix: Fix broken task type filter in workflow task chooser modal (Sage Abdullah)
 
 
 6.2 (01.08.2024)
