@@ -558,6 +558,71 @@ describe('SwapController', () => {
     });
   });
 
+  describe('performing a content update via actions on a controlled button without a form', () => {
+    beforeEach(() => {
+      document.body.innerHTML = `
+      <button
+        id="clear"
+        data-controller="w-swap"
+        data-action="w-swap#replaceLazy"
+        data-w-swap-src-value="/admin/custom/results/?type=bar"
+        data-w-swap-target-value="#results"
+      >Clear owner filter</button>
+      <div id="results"></div>
+      `;
+    });
+
+    it('should default the request method to GET', async () => {
+      const button = document.getElementById('clear');
+      const targetElement = document.getElementById('results');
+
+      const results = getMockResults();
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+
+      button.click();
+
+      jest.runAllTimers(); // update is debounced
+
+      // the content should be marked as busy
+      await Promise.resolve(); // trigger next rendering
+      expect(targetElement.getAttribute('aria-busy')).toEqual('true');
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/custom/results/?type=bar',
+        expect.objectContaining({
+          method: 'GET',
+          body: undefined,
+        }),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/admin/custom/results/?type=bar',
+        results,
+      });
+
+      // should update HTML
+      expect(targetElement.querySelectorAll('li')).toHaveLength(3);
+
+      await flushPromises();
+
+      // should reset the busy state
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+    });
+  });
+
   describe('performing a content update via actions on a controlled form without using form values', () => {
     let beginEventHandler;
     let formElement;
@@ -731,7 +796,7 @@ describe('SwapController', () => {
             'x-requested-with': 'XMLHttpRequest',
             'x-xsrf-token': 'potato',
           },
-          method: 'post',
+          method: 'POST',
         }),
       );
       // We are using #replace, not #submit, so we should not have a body
@@ -1029,6 +1094,11 @@ describe('SwapController', () => {
         document.addEventListener('w-swap:success', resolve);
       });
 
+      // Even if the attribute and the property use lowercase
+      const formElement = document.querySelector('form');
+      expect(formElement.getAttribute('method')).toEqual('get');
+      expect(formElement.method).toEqual('get');
+
       const beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
 
@@ -1059,7 +1129,11 @@ describe('SwapController', () => {
       expect(handleError).not.toHaveBeenCalled();
       expect(global.fetch).toHaveBeenCalledWith(
         '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
-        expect.any(Object),
+        expect.objectContaining({
+          // Should normalize the method name to uppercase and not send a body
+          method: 'GET',
+          body: undefined,
+        }),
       );
 
       const successEvent = await onSuccess;
@@ -1133,7 +1207,7 @@ describe('SwapController', () => {
             'x-requested-with': 'XMLHttpRequest',
             'x-xsrf-token': 'potato',
           },
-          method: 'post',
+          method: 'POST',
           body: expect.any(FormData),
         }),
       );
@@ -1145,6 +1219,86 @@ describe('SwapController', () => {
         type: 'some-type',
         other: 'something on other',
       });
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('task-results').querySelectorAll('li').length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should use the normalized method name and not send a body in a GET request', async () => {
+      const input = document.getElementById('search');
+      const formElement = document.querySelector('form');
+
+      // Use a non-standard casing for the method
+      formElement.setAttribute('method', 'Get');
+      expect(formElement.getAttribute('method')).toEqual('Get');
+
+      // The method property is an enum that always uses lowercase
+      // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fs-method
+      expect(formElement.method).toEqual('get');
+
+      const results = getMockResults({ total: 5 });
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      const expectedRequestUrl =
+        '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other';
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        // The form data should be sent as query params, without the body
+        expectedRequestUrl,
+        expect.objectContaining({
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            'x-xsrf-token': 'potato',
+          },
+          method: 'GET', // normalized method name should be in uppercase
+          body: undefined,
+        }),
+      );
 
       const successEvent = await onSuccess;
 
