@@ -202,15 +202,11 @@ class StreamField(models.Field):
             )
         else:
             # When querying with JSONField features, the rhs might not be a StreamValue.
-            # Note: when Django 4.2 is the minimum supported version, this can be removed
-            # as the serialisation is handled in get_db_prep_value instead.
             return self.json_field.get_prep_value(value)
 
     def get_db_prep_value(self, value, connection, prepared=False):
         if not isinstance(value, StreamValue):
             # When querying with JSONField features, the rhs might not be a StreamValue.
-            # As of Django 4.2, JSONField value serialisation is handled in
-            # get_db_prep_value instead of get_prep_value.
             return self.json_field.get_db_prep_value(value, connection, prepared)
         return super().get_db_prep_value(value, connection, prepared)
 
