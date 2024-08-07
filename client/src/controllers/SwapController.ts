@@ -5,8 +5,8 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 /**
  * Allow for an element to trigger an async query that will
- * patch the results into a results DOM container. The query
- * input can be the controlled element or the containing form.
+ * patch the results into a results DOM container. The controlled
+ * element can be the query input, the containing form, or a button.
  * It supports the ability to update the URL with the query
  * when processed or simply make a query based on a form's
  * values.
@@ -35,9 +35,21 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *    data-w-swap-target-value="#listing-results"
  *  />
  *
+ * @example - A single button that will update the results
+ *  <div id="results"></div>
+ *  <button
+ *    id="clear"
+ *    data-controller="w-swap"
+ *    data-action="input->w-swap#replaceLazy"
+ *    data-w-swap-src-value="path/to/results/?type=bar"
+ *    data-w-swap-target-value="#results"
+ *  >
+ *    Clear owner filter
+ *  </button>
+ *
  */
 export class SwapController extends Controller<
-  HTMLFormElement | HTMLInputElement
+  HTMLFormElement | HTMLInputElement | HTMLButtonElement
 > {
   static defaultClearParam = 'p';
 
@@ -220,13 +232,14 @@ export class SwapController extends Controller<
    */
   submit() {
     const form = this.formElement;
-    const data = new FormData(form);
+    let data: FormData | undefined = new FormData(form);
 
     let url = this.srcValue;
     // serialise the form to a query string if it's a GET request
-    if (form.method === 'get') {
+    if (form.getAttribute('method')?.toUpperCase() === 'GET') {
       // cast as any to avoid https://github.com/microsoft/TypeScript/issues/43797
       url += '?' + new URLSearchParams(data as any).toString();
+      data = undefined;
     }
 
     this.replace(url, data);
@@ -279,7 +292,8 @@ export class SwapController extends Controller<
     }) as CustomEvent<{ requestUrl: string }>;
 
     if (beginEvent.defaultPrevented) return Promise.resolve();
-    const formMethod = this.formElement.getAttribute('method') || undefined;
+    const formMethod =
+      this.formElement.getAttribute('method')?.toUpperCase() || 'GET';
     return fetch(requestUrl, {
       headers: {
         'x-requested-with': 'XMLHttpRequest',
@@ -287,7 +301,7 @@ export class SwapController extends Controller<
       },
       signal,
       method: formMethod,
-      body: formMethod !== 'get' ? data : undefined,
+      body: formMethod !== 'GET' ? data : undefined,
     })
       .then(async (response) => {
         if (!response.ok) {
