@@ -25,11 +25,9 @@ def user_can_delete_user(current_user, user_to_delete):
     return True
 
 
-def get_gravatar_url(email, size=50):
-    default = "mm"
-    size = (
-        int(size) * 2
-    )  # requested at retina size by default and scaled down at point of use with css
+def get_gravatar_url(email, size=50, default="mp"):
+    # requested at retina size by default and scaled down at point of use with css
+    size = int(size) * 2
     gravatar_provider_url = getattr(
         settings, "WAGTAIL_GRAVATAR_PROVIDER_URL", "//www.gravatar.com/avatar"
     )
