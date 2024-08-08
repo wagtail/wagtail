@@ -11,7 +11,7 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
     avatar_url,
     i18n_enabled,
@@ -99,9 +99,12 @@ class TestNotificationStaticTemplateTag(SimpleTestCase):
 
 
 class TestVersionedStatic(SimpleTestCase):
+    def test_version_hash(self):
+        self.assertEqual(len(VERSION_HASH), 8)
+
     def test_versioned_static(self):
         result = versioned_static("wagtailadmin/js/core.js")
-        self.assertRegex(result, r"^/static/wagtailadmin/js/core.js\?v=(\w+)$")
+        self.assertRegex(result, r"^/static/wagtailadmin/js/core.js\?v=(\w{8})$")
 
     @mock.patch("wagtail.admin.staticfiles.static")
     def test_versioned_static_version_string(self, mock_static):
