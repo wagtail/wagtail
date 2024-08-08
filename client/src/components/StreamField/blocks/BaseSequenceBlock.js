@@ -226,6 +226,13 @@ export class BaseSequenceChild extends EventEmitter {
       capabilities,
     );
 
+    if(!this.block.hasAttribute("label") || !this.block.hasAttribute("aria-labelledby")){
+      const innerHeadingLabel = dom
+        .find('[data-panel-heading]')
+        .find(':first-child');
+      innerHeadingLabel.attr('aria-labelledby',`block-${this.id}-heading`)
+    }
+
     initCollapsiblePanel(this.element.querySelector('[data-panel-toggle]'));
 
     if (collapsed) {
