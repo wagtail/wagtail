@@ -117,10 +117,9 @@ function initPreview() {
 
     // Ensure only one device class is applied
     sizeInputs.forEach((input) => {
-      previewPanel.classList.toggle(
-        `preview-panel--${input.value}`,
-        input.value === device,
-      );
+      input
+        .closest('label')
+        .classList.toggle(`size-button-active`, input.value === device);
     });
   };
 

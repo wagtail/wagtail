@@ -117,9 +117,7 @@
     inset-inline-end: 1.5rem;
   }
 
-  &--mobile &__size-button--mobile,
-  &--tablet &__size-button--tablet,
-  &--desktop &__size-button--desktop {
+  .size-button-active {
     @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
   }
 
