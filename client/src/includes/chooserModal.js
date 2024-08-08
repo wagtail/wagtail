@@ -218,6 +218,13 @@ class ChooserModalOnloadHandlerFactory {
     }
 
     $(this.chosenLinkSelector, containerElement).on('click', (event) => {
+      const openModalButton = $('[data-multiple-choice-open-modal]')[0];
+
+      if (
+        Number(modal.triggerElement.getAttribute('maxforms-remainder')) === 1
+      ) {
+        openModalButton.setAttribute('disabled', 'true');
+      }
       modal.loadUrl(event.currentTarget.href);
       return false;
     });
@@ -237,9 +244,56 @@ class ChooserModalOnloadHandlerFactory {
   }
 
   updateMultipleChoiceSubmitEnabledState(modal) {
+    const openModalButton = $('[data-multiple-choice-open-modal]')[0];
     // update the enabled state of the multiple choice submit button depending on whether
     // any items have been selected
-    if ($('[data-multiple-choice-select]:checked', modal.body).length) {
+    if (
+      $('[data-multiple-choice-select]:checked', modal.body).length ||
+      $('[data-multiple-choice-select][disabled]', modal.body).length ||
+      (Number(openModalButton.getAttribute('maxforms-remainder')) === 0 &&
+        openModalButton.getAttribute('disabled') === 'false')
+    ) {
+      const messageCounter = document.createElement('p');
+      const selectCount = $(
+        '[data-multiple-choice-select]:checked',
+        modal.body,
+      ).length;
+      messageCounter.textContent = gettext(
+        `${openModalButton.getAttribute('maxforms') - openModalButton.getAttribute('maxforms-remainder') + selectCount}/${openModalButton.getAttribute('maxforms')}`,
+      );
+      messageCounter.style.cssText =
+        'font-weight: bold; font-size: 1rem; padding-top: 15px;';
+
+      const multipleChoice = $('[data-multiple-choice-select]', modal.body);
+      const lastMultipleChoice = multipleChoice.last();
+      const message = lastMultipleChoice.next();
+
+      if (
+        openModalButton.hasAttribute('maxforms') &&
+        Number(openModalButton.getAttribute('maxforms')) !== 1000
+      ) {
+        if (message.length <= 0) {
+          lastMultipleChoice.after(messageCounter);
+        } else {
+          message.remove();
+          lastMultipleChoice.after(messageCounter);
+        }
+      }
+      if (
+        $('[data-multiple-choice-select]:checked', modal.body).length ===
+        Number(openModalButton.getAttribute('maxforms-remainder'))
+      ) {
+        $('[data-multiple-choice-select]:not(:checked)').attr(
+          'disabled',
+          'true',
+        );
+      } else if (
+        $('[data-multiple-choice-select]:checked', modal.body).length <
+        openModalButton.getAttribute('maxforms-remainder')
+      ) {
+        $('[data-multiple-choice-select]', modal.body).removeAttr('disabled');
+      }
+
       $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
     } else {
       $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
