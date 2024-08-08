@@ -4,9 +4,9 @@
 {% block content %}
     {% include "wagtailadmin/shared/header.html" with title=_("Account") icon="user" merged=1 %}
 
-    <div class="w-tabs" data-tabs>
+    <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#loadHistory" data-w-tabs-selected-class="animate-in">
         <div class="w-tabs__wrapper">
-            <div role="tablist" class="w-tabs__list">
+            <div role="tablist" class="w-tabs__list" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
                 {% for tab in panels_by_tab.keys %}
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=tab.name title=tab.title %}
                 {% endfor %}
@@ -26,6 +26,7 @@
                         id="tab-{{ tab.name|cautious_slugify }}"
                         class="w-tabs__panel"
                         role="tabpanel"
+                        data-w-tabs-target="panel"
                         hidden
                         aria-labelledby="tab-label-{{ tab.name|cautious_slugify }}"
                     >
@@ -46,6 +47,7 @@
                         id="tab-actions"
                         class="w-tabs__panel"
                         role="tabpanel"
+                        data-w-tabs-target="panel"
                         hidden
                         aria-labelledby="tab-label-actions"
                     >

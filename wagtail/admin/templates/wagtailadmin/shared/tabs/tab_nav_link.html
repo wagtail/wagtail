@@ -9,7 +9,7 @@
     - `classname` - {string?} Extra css classes to pass to this component
 {% endcomment %}
 
-<a id="tab-label-{{ tab_id }}" href="#tab-{{ tab_id }}" class="w-tabs__tab {{ classname }}" role="tab" aria-selected="false" tabindex="-1">
+<a id="tab-label-{{ tab_id }}" href="#tab-{{ tab_id }}" class="w-tabs__tab {{ classname }}" role="tab" aria-selected="false" tabindex="-1" data-action="w-tabs#select:prevent" data-w-tabs-target="label">
     {{ title }}
     <div class="w-tabs__errors" data-controller="w-count" data-w-count-active-class="!w-flex" data-w-count-container-value="#tab-{{ tab_id }}">
         <span aria-hidden="true" data-w-count-target="total"></span>
