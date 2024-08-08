@@ -368,6 +368,15 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
         self.assertContains(response, "There is 1 match")
         self.assertContains(response, "foobarbaz")
+        self.assertContains(response, "Parent")
+        self.assertNotContains(response, "data-multiple-choice-select")
+
+    def test_multiple(self):
+        response = self.get({"q": "foobarbaz", "multiple": "1"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
+        self.assertNotContains(response, "Parent")
+        self.assertContains(response, "data-multiple-choice-select")
 
     def test_partial_match(self):
         response = self.get({"q": "fooba"})
