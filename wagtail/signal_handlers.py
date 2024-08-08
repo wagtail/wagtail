@@ -18,13 +18,28 @@ from wagtail.models import Locale, Page, ReferenceIndex, Site
 logger = logging.getLogger("wagtail")
 
 
-# Clear the wagtail_site_root_paths from the cache whenever Site records are updated.
 def post_save_site_signal_handler(instance, update_fields=None, **kwargs):
     Site.clear_site_root_paths_cache()
+    Site.clear_site_for_hostname_cache()
 
 
 def post_delete_site_signal_handler(instance, **kwargs):
     Site.clear_site_root_paths_cache()
+    Site.clear_site_for_hostname_cache()
+
+
+def post_save_site_root_page(instance, update_fields=None, **kwargs):
+    if not Site.objects.filter(root_page=instance).exists():
+        return
+
+    Site.clear_site_for_hostname_cache()
+
+
+def post_delete_site_root_page(instance, **kwargs):
+    if not Site.objects.filter(root_page=instance).exists():
+        return
+
+    Site.clear_site_for_hostname_cache()
 
 
 def pre_delete_page_unpublish(sender, instance, **kwargs):
@@ -133,3 +148,6 @@ def register_signal_handlers():
     # (we don't want to log references in migrations as the ReferenceIndex model might not exist)
     pre_migrate.connect(disconnect_reference_index_signal_handlers)
     post_migrate.connect(connect_reference_index_signal_handlers)
+
+    post_save.connect(post_save_site_root_page, sender=Page)
+    post_delete.connect(post_delete_site_root_page, sender=Page)
