@@ -94,12 +94,12 @@
                 newPaginationbutton.onclick = function() {
                     runSearchPageSearch(i)
                 };
-                pagination.querySelector(".pagination-previous").onclick = function() {
+                pagination.querySelector(".pagination-previous").addEventListener(" onclick ", function() {
                     runSearchPageSearch(page - 1)
-                };
-                pagination.querySelector(".pagination-next").onclick = function() {
+                });
+                pagination.querySelector(".pagination-next").addEventListener(" onclick ", function() {
                     runSearchPageSearch(page + 1)
-                };
+                });
 
                 newPaginationItem.append(newPaginationbutton)
                 paginationList.append(newPaginationItem)
