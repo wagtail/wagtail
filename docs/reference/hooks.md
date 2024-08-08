@@ -571,6 +571,10 @@ The arguments passed to the hook are as follows:
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
 
+```{versionchanged} 6.3
+This hook accepts `wagtail.admin.widgets.Button` or `wagtail.admin.widgets.PageButton` objects instead of `wagtail.admin.widgets.PageListingButton` objects. Support for `PageListingButton` objects is deprecated and will be removed in a future release.
+```
+
 ## Editor workflow
 
 Hooks for customizing the way users are directed through the process of creating page content.
@@ -1029,7 +1033,7 @@ The `priority` argument controls the order the buttons are displayed in. Buttons
 
 ### `register_page_listing_more_buttons`
 
-Add buttons to the "More" dropdown menu for a page in the page explorer. This works similarly to the `register_page_listing_buttons` hook but is useful for lesser-used custom actions that are better suited for the dropdown.
+Add buttons to the "More" dropdown menu for a page in the page explorer. This works similarly to the `register_page_listing_buttons` hook, but it accepts `PageButton` or plain `Button` objects instead of `PageListingButton`. It is useful for lesser-used custom actions that are better suited for the dropdown.
 
 This example will add a simple button to the dropdown menu:
 
@@ -1038,7 +1042,7 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_more_buttons')
 def page_listing_more_buttons(page, user, next_url=None):
-    yield wagtailadmin_widgets.Button(
+    yield wagtailadmin_widgets.PageButton(
         'A dropdown button',
         '/goes/to/a/url/',
         priority=60
@@ -1052,6 +1056,10 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=60`.
+
+```{versionchanged} 6.3
+This hook accepts `wagtail.admin.widgets.Button` or `wagtail.admin.widgets.PageButton` objects instead of `wagtail.admin.widgets.PageListingButton` objects. Support for `PageListingButton` objects is deprecated and will be removed in a future release.
+```
 
 #### Buttons with dropdown lists
 

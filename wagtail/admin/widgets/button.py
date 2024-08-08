@@ -38,7 +38,7 @@ class Button(Component):
 
         # if a 'title' attribute has been passed, correct that to aria-label
         # as that's what will be picked up in renderings that don't use button.render
-        # directly (e.g. _dropdown_items.html)
+        # directly
         if "title" in self.attrs and "aria-label" not in self.attrs:
             self.attrs["aria-label"] = self.attrs.pop("title")
         self.priority = priority
@@ -125,15 +125,16 @@ class HeaderButton(Button):
         )
 
 
-# Base class for all listing buttons
-# This is also used by SnippetListingButton defined in wagtail.snippets.widgets
+# This used to be the base class for all listing buttons, but now it's only for
+# top-level buttons (i.e. not inside a dropdown) since the universal listings
+# design. For buttons inside a dropdown, the base Button class is used instead.
 class ListingButton(Button):
     def __init__(self, label="", url=None, classname="", **kwargs):
         classname = f"{classname} button button-small button-secondary".strip()
         super().__init__(label=label, url=url, classname=classname, **kwargs)
 
 
-class PageListingButton(ListingButton):
+class PageButtonMixin:
     aria_label_format = None
     url_name = None
 
@@ -167,8 +168,16 @@ class PageListingButton(ListingButton):
             return self.page.permissions_for_user(self.user)
 
 
+class PageButton(PageButtonMixin, Button):
+    pass
+
+
+class PageListingButton(PageButtonMixin, ListingButton):
+    pass
+
+
 class BaseDropdownMenuButton(Button):
-    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
+    template_name = "wagtailadmin/shared/button_with_dropdown.html"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, url=None, **kwargs)
@@ -189,11 +198,32 @@ class BaseDropdownMenuButton(Button):
 
 class ButtonWithDropdown(BaseDropdownMenuButton):
     def __init__(self, *args, **kwargs):
-        self.dropdown_buttons = kwargs.pop("buttons", [])
+        self._dropdown_buttons = kwargs.pop("buttons", [])
         super().__init__(*args, **kwargs)
+
+    @cached_property
+    def dropdown_buttons(self):
+        for button in self._dropdown_buttons:
+            if isinstance(button, ListingButton):
+                warn(
+                    "Using `wagtail.admin.widgets.ListingButton` in a "
+                    "`ButtonWithDropdown` is deprecated. Use "
+                    "`wagtail.admin.widgets.Button` instead.",
+                    category=RemovedInWagtail70Warning,
+                )
+                # Remove the button classes that are added by ListingButton
+                button.classname = " ".join(
+                    set(button.classname.split())
+                    - {"button", "button-small", "button-secondary"}
+                )
+        return self._dropdown_buttons
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
+    # This page-specific class and template is documented for
+    # the register_page_listing_buttons hook
+    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
+
     def __init__(
         self,
         label,
@@ -232,10 +262,10 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
     def dropdown_buttons(self):
         button_hooks = hooks.get_hooks(self.hook_name)
 
-        buttons = []
+        hook_buttons = []
         for hook in button_hooks:
             if accepts_kwarg(hook, "user"):
-                buttons.extend(
+                hook_buttons.extend(
                     hook(page=self.page, user=self.user, next_url=self.next_url)
                 )
             else:
@@ -246,7 +276,26 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
                     category=RemovedInWagtail70Warning,
                 )
                 page_perms = self.page.permissions_for_user(self.user)
-                buttons.extend(hook(self.page, page_perms, self.next_url))
+                hook_buttons.extend(hook(self.page, page_perms, self.next_url))
 
-        buttons = [b for b in buttons if b.show]
+        buttons = []
+        for button in hook_buttons:
+            if not button.show:
+                continue
+
+            if isinstance(button, PageListingButton):
+                warn(
+                    "Using `wagtail.admin.widgets.PageListingButton` in "
+                    "`register_page_listing_more_buttons` or "
+                    "`register_page_header_buttons` hooks is deprecated. "
+                    "Use `wagtail.admin.widgets.PageButton` instead.",
+                    category=RemovedInWagtail70Warning,
+                )
+                # Remove the button classes that are added by ListingButton
+                button.classname = " ".join(
+                    set(button.classname.split())
+                    - {"button", "button-small", "button-secondary"}
+                )
+            buttons.append(button)
+
         return buttons
