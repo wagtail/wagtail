@@ -1,3 +1,5 @@
+jest.setTimeout(30000);
+
 describe('Homepage', () => {
   beforeAll(async () => {
     await page.goto(`${TEST_ORIGIN}/admin/`, {
