@@ -1,4 +1,4 @@
-.preview-panel {
+.w-preview {
   --w-preview-background-color: var(--w-color-white);
   --preview-width-ratio: min(
     1,
@@ -73,8 +73,20 @@
     place-items: center;
     cursor: pointer;
 
-    &:focus-within {
+    &--selected,
+    &--selected:hover {
+      @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
+    }
+
+    &:focus-within:has(:focus-visible) {
       @include focus-outline;
+    }
+
+    @supports not selector(:focus-visible) {
+      &:focus-within {
+        /* Fallback for browsers without :focus-visible support */
+        @include focus-outline;
+      }
     }
 
     .icon {
@@ -101,13 +113,14 @@
   &__refresh-button.button--icon {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     position: absolute;
     top: 1.25rem;
     inset-inline-end: 1.5rem;
 
-    .icon {
-      @include svg-icon(0.9rem);
+    // Use element and class selectors to beat .button-longrunning specificity
+    svg.icon,
+    svg.icon-spinner {
+      margin-inline-end: 0;
     }
   }
 
@@ -115,12 +128,6 @@
     position: absolute;
     top: 1.25rem;
     inset-inline-end: 1.5rem;
-  }
-
-  &--mobile &__size-button--mobile,
-  &--tablet &__size-button--tablet,
-  &--desktop &__size-button--desktop {
-    @apply w-bg-surface-menus w-text-text-button w-transform-none w-border w-border-transparent;
   }
 
   &__controls {
@@ -131,7 +138,7 @@
 
     // Show the border only if there's an error,
     // but always show it if there are multiple preview modes
-    .preview-panel--has-errors &:not(&--multiple),
+    .w-preview--has-errors &:not(&--multiple),
     &--multiple {
       @apply w-border-border-furniture w-border-t;
       padding-top: 1rem;
