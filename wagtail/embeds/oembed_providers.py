@@ -39,9 +39,7 @@ blip_tv = {
 
 cacoo = {
     "endpoint": "http://cacoo.com/oembed.{format}",
-    "urls": [
-        r"^https?://cacoo\.com/.+$",
-    ],
+    "urls": [r"^https?://cacoo\.com/diagrams/.+$"],
 }
 
 chirb = {
@@ -199,11 +197,11 @@ funny_or_die = {
 geograph_gg = {
     "endpoint": "http://www.geograph.org.gg/api/oembed",
     "urls": [
-        r"^https?://(?:[-\w]+\.)?geograph\.org\.gg/.+$",
-        r"^https?://(?:[-\w]+\.)?geograph\.org\.je/.+$",
-        r"^https?://channel-islands\.geograph\.org/.+$",
-        r"^https?://channel-islands\.geographs\.org/.+$",
-        r"^https?://(?:[-\w]+\.)?channel\.geographs\.org/.+$",
+        r"^https?://.*\.geograph\.org\.gg/.*$",
+        r"^https?://.*\.geograph\.org\.je/.*$",
+        r"^https?://channel-islands\.geograph\.org/.*$",
+        r"^https?://channel-islands\.geographs\.org/.*$",
+        r"^https?://.*\.channel\.geographs\.org/.*$",
     ],
 }
 
@@ -697,7 +695,6 @@ all_providers = [
     chirb,
     circuitlab,
     clickthrough,
-    clikthrough,
     collegehumor,
     coub,
     crowd_ranking,
@@ -705,7 +702,6 @@ all_providers = [
     dailymotion,
     datastudio,
     deviantart,
-    dipdive,
     dipity,
     dotsub,
     etsy,
@@ -723,7 +719,6 @@ all_providers = [
     ifixit,
     ifttt,
     issuu,
-    justin_tv,
     kickstarter,
     kinomap,
     major_league_gaming,
@@ -738,10 +733,7 @@ all_providers = [
     pinterest,
     polldaddy,
     polleverywhere,
-    qik,
-    rdio,
     reddit,
-    revision3,
     roomshare,
     sapo,
     screenr,
@@ -759,7 +751,6 @@ all_providers = [
     tumblr,
     twenty_three_hq,
     twitter,
-    urtak,
     ustream,
     vhx_tv,
     viddler,
@@ -770,6 +761,5 @@ all_providers = [
     wistia,
     wordpress,
     yandex,
-    yfrog,
     youtube,
 ]
