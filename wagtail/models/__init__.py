@@ -290,7 +290,14 @@ class RevisionMixin(models.Model):
         "latest_revision",
     ]
 
-    @property
+    _revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        for_concrete_model=False,
+    )
+
+    @cached_property
     def revisions(self):
         """
         Returns revisions that belong to the object.
@@ -302,10 +309,7 @@ class RevisionMixin(models.Model):
         ``related_query_name`` of the ``GenericRelation`` and add custom logic
         (e.g. to always use the specific instance in ``Page``).
         """
-        return Revision.objects.filter(
-            content_type=self.get_content_type(),
-            object_id=self.pk,
-        )
+        return Revision.objects.for_instance(self)
 
     def get_base_content_type(self):
         parents = self._meta.get_parent_list()
@@ -915,8 +919,18 @@ class LockableMixin(models.Model):
             return BasicLock(self)
 
 
-class WorkflowMixin:
+class WorkflowMixin(models.Model):
     """A mixin that allows a model to have workflows."""
+
+    _workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        for_concrete_model=False,
+    )
+
+    class Meta:
+        abstract = True
 
     @classmethod
     def check(cls, **kwargs):
@@ -990,7 +1004,7 @@ class WorkflowMixin:
         """Returns the active workflow assigned to the object."""
         return self.get_default_workflow()
 
-    @property
+    @cached_property
     def workflow_states(self):
         """
         Returns workflow states that belong to the object.
@@ -1199,9 +1213,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
 
-    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
+    _revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        related_query_name="page",
+        for_concrete_model=False,
+    )
 
-    # Add GenericRelation to allow WorkflowState.objects.filter(page=...) queries.
+    # Override WorkflowMixin's GenericRelation to specify related_query_name
+    # so we can do WorkflowState.objects.filter(page=...) queries.
     # There is no need to override the workflow_states property, as the default
     # implementation in WorkflowMixin already ensures that the queryset uses the
     # base Page content type.
@@ -1347,7 +1368,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def __str__(self):
         return self.title
 
-    @property
+    @cached_property
     def revisions(self):
         # Always use the specific page instance when querying for revisions as
         # they are always saved with the specific content_type.
@@ -1710,7 +1731,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         clean=True,
     ):
         # Raise error if this is not the specific version of the page
-        if not isinstance(self, self.specific_class):
+        if not self.is_specific:
             raise RuntimeError(
                 "page.save_revision() must be called on the specific version of the page. "
                 "Call page.specific.save_revision() instead."
@@ -2463,7 +2484,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             and self.specific_class.permissions_for_user
             != type(self).permissions_for_user
         )
-        if is_overridden and not isinstance(self, self.specific_class):
+        if is_overridden and not self.is_specific:
             return self.specific_deferred.permissions_for_user(user)
         return PagePermissionTester(user, self)
 
@@ -2792,12 +2813,23 @@ class RevisionQuerySet(models.QuerySet):
         return self.exclude(self.page_revisions_q())
 
     def for_instance(self, instance):
-        return self.filter(
-            content_type=ContentType.objects.get_for_model(
-                instance, for_concrete_model=False
-            ),
-            object_id=str(instance.pk),
-        )
+        """
+        Filters to only Revisions for the given instance
+        """
+        try:
+            # Use RevisionMixin.get_base_content_type() if available
+            return self.filter(
+                base_content_type=instance.get_base_content_type(),
+                object_id=str(instance.pk),
+            )
+        except AttributeError:
+            # Fallback to ContentType for the model
+            return self.filter(
+                content_type=ContentType.objects.get_for_model(
+                    instance, for_concrete_model=False
+                ),
+                object_id=str(instance.pk),
+            )
 
 
 class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
