@@ -2,6 +2,9 @@ import { Application } from '@hotwired/stimulus';
 import { BulkController } from './BulkController';
 
 describe('BulkController', () => {
+  let application;
+  let handleError;
+
   const shiftClick = async (element) => {
     document.dispatchEvent(
       new KeyboardEvent('keydown', {
@@ -34,9 +37,15 @@ describe('BulkController', () => {
   ) => {
     document.body.innerHTML = `<main>${html}</main>`;
 
-    const application = Application.start();
+    application = Application.start();
     application.register('w-bulk', BulkController);
+    handleError = jest.fn();
+    application.handleError = handleError;
   };
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('selects all checkboxes when the select all checkbox is clicked', async () => {
     await setup();
@@ -450,6 +459,35 @@ describe('BulkController', () => {
       await shiftClick(document.getElementById('row-4-change'));
       expect(document.getElementById('row-3-change').checked).toEqual(true);
       expect(document.querySelectorAll(':checked')).toHaveLength(5);
+    });
+
+    it('should not throw an error when shift+clicking across groups', async () => {
+      await setup(html);
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
+      document.getElementById('row-0-add').click();
+
+      // Same row, different group
+      await shiftClick(document.getElementById('row-0-change'));
+
+      // Should not throw an error, and only select the two checkboxes
+      expect(application.handleError).not.toHaveBeenCalled();
+      expect(document.getElementById('row-0-add').checked).toEqual(true);
+      expect(document.getElementById('row-0-change').checked).toEqual(true);
+      expect(document.querySelectorAll(':checked')).toHaveLength(2);
+
+      document.getElementById('row-1-change').click();
+
+      // Different row, different group
+      await shiftClick(document.getElementById('row-3-add'));
+
+      // Should not throw an error, and only select the two checkboxes
+      // in addition to the two already selected
+      expect(application.handleError).not.toHaveBeenCalled();
+      expect(document.getElementById('row-1-change').checked).toEqual(true);
+      expect(document.getElementById('row-3-add').checked).toEqual(true);
+      expect(document.getElementById('row-0-add').checked).toEqual(true);
+      expect(document.getElementById('row-0-change').checked).toEqual(true);
+      expect(document.querySelectorAll(':checked')).toHaveLength(4);
     });
 
     it('should support the group being passed in via a CustomEvent', async () => {
