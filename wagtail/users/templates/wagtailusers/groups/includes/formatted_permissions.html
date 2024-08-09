@@ -51,7 +51,7 @@
                         {% if extra_perms_exist.custom %}
                             <td>
                                 {% if content_perms_dict.custom %}
-                                    <fieldset class="w-p-0">
+                                    <fieldset class="w-p-0 w-flex w-flex-col w-gap-1">
                                         <legend class="w-sr-only">{% trans "Custom permissions" %}</legend>
                                         {% for custom_perm in content_perms_dict.custom %}
                                             {% trans custom_perm.name as custom_perm_label %}
