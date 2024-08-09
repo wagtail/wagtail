@@ -3,7 +3,9 @@ import unittest.mock
 from django.apps import apps
 from django.test import TestCase
 
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.images.blocks import ImageBlock, ImageChooserBlock
+from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 from .utils import (
     Image,
@@ -73,3 +75,87 @@ class TestImageChooserBlock(TestCase):
 
         # None should not yield any references
         self.assertListEqual(list(block.extract_references(None)), [])
+
+
+class TestImageBlock(TestImageChooserBlock):
+    def test_render(self):
+        block = ImageBlock()
+        value = {
+            "image": self.image.id,  # An id is expected
+            "alt_text": "Sample alt text",
+            "decorative": False,
+        }
+        html = block.render(block.to_python(value))
+        soup = WagtailTestUtils.get_soup(html)
+        img_tag = soup.find("img")
+
+        # check specific attributes
+        self.assertEqual(img_tag["alt"], value.get("alt_text"))
+        self.assertIn("/media/images/test", img_tag["src"])
+
+    def test_render_as_decorative(self):
+        block = ImageBlock()
+        value = {
+            "image": self.image.id,  # An id is expected
+            "alt_text": "Sample alt text",
+            "decorative": True,
+        }
+        html = block.render(block.to_python(value))
+        soup = WagtailTestUtils.get_soup(html)
+        img_tag = soup.find("img")
+
+        # check specific attributes
+        self.assertEqual(img_tag["alt"], "")
+        self.assertIn("/media/images/test", img_tag["src"])
+
+    def test_no_alt_text(self):
+        block = ImageBlock()
+        value = {
+            "image": self.image.id,  # An id is expected
+            "alt_text": None,  # No alt text passed
+            "decorative": False,
+        }
+
+        # Invalid state when no alt text is given, and image not marked as decorative
+        # Should raise a StructBlock validation error
+        with self.assertRaises(StructBlockValidationError) as context:
+            block.clean(block.to_python(value))
+
+        # Check the error message
+        self.assertIn(
+            "Please add some alt text for your image or mark it as decorative",
+            str(context.exception.block_errors["alt_text"]),
+        )
+
+    def test_wrong_instance_type(self):
+        block = ImageBlock()
+        value = {"image": self.image.id, "alt_text": "Blank", "decorative": False}
+
+        # Invalid state when value is not an image instance
+        # Should raise a StructBlock validation error
+        with self.assertRaises(StructBlockValidationError) as context:
+            # pass in dict instead of normalized image instance
+            block.clean(value)
+
+        # Check the error message
+        self.assertIn(
+            "Expected an image instance, got %r" % value,
+            str(context.exception.block_errors["image"]),
+        )
+
+    def test_to_python_with_int(self):
+        block = ImageBlock()
+        value = block.to_python(self.image.id)
+
+        self.assertEqual(value.id, self.image.id)
+        self.assertEqual(value.contextual_alt_text, "")
+        self.assertFalse(value.decorative)
+
+    def test_to_python_with_dict(self):
+        block = ImageBlock()
+        value = {"image": self.image.id, "alt_text": "Sample text", "decorative": False}
+        result = block.to_python(value)
+
+        self.assertEqual(result.id, self.image.id)
+        self.assertEqual(result.contextual_alt_text, "Sample text")
+        self.assertFalse(result.decorative)
