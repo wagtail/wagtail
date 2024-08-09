@@ -76,7 +76,6 @@ def format_permissions(permission_bound_field):
             'add': checkbox,
             'change': checkbox,
             'delete': checkbox,
-            'publish': checkbox,  # only if the model extends DraftStateMixin
             'custom': list_of_checkboxes_for_custom_permissions
         },
     ]
@@ -112,13 +111,10 @@ def format_permissions(permission_bound_field):
 
     # Permissions that are known by Wagtail, to be shown under their own columns.
     # Other permissions will be shown under the "custom permissions" column.
-    main_permission_names = ["add", "change", "delete", "publish", "lock", "unlock"]
+    main_permission_names = ["add", "change", "delete"]
 
     # Only show the columns for these permissions if any of the model has them.
     extra_perms_exist = {
-        "publish": False,
-        "lock": False,
-        "unlock": False,
         "custom": False,
     }
     # Batch the permission query for all content types, then group by content type
