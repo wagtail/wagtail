@@ -27,8 +27,10 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.log_actions import log
 from wagtail.models import (
     Collection,
+    DraftStateMixin,
     GroupCollectionPermission,
     GroupPagePermission,
+    LockableMixin,
     Page,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -1846,7 +1848,6 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             Q(codename__startswith="add")
             | Q(codename__startswith="change")
             | Q(codename__startswith="delete")
-            | Q(codename__startswith="publish")
         ).delete()
 
         # A custom permission that happens to also start with "change"
@@ -1865,36 +1866,46 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertInHTML("Custom permissions", response.content.decode())
 
-    def test_show_publish_permissions(self):
+    def test_show_mixin_permissions(self):
         response = self.get()
-        html = response.content.decode()
+        soup = self.get_soup(response.content)
+        object_permissions = soup.select_one("#object-permissions-section")
+        self.assertIsNotNone(object_permissions)
 
-        # Should show the Publish column
-        self.assertInHTML("<th>Publish</th>", html)
+        # Should not show separate Publish, Lock, or Unlock columns
+        # (i.e. the checkboxes should be in the "Custom permissions" column)
+        self.assertFalse(
+            {th.text.strip() for th in object_permissions.select("th")}
+            & {"Publish", "Lock", "Unlock"}
+        )
 
-        # Should show inputs for publish permissions on models with DraftStateMixin
-        self.assertInHTML("Can publish draft state model", html)
-        self.assertInHTML("Can publish draft state custom primary key model", html)
+        mixin_permissions = (
+            ("publish", DraftStateMixin),
+            ("lock", LockableMixin),
+            ("unlock", LockableMixin),
+        )
+        for action, mixin in mixin_permissions:
+            with self.subTest(action=action):
+                permissions = Permission.objects.filter(
+                    codename__startswith=action,
+                    content_type__app_label="tests",
+                ).select_related("content_type")
+                self.assertGreater(len(permissions), 0)
 
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
-
-    def test_hide_publish_permissions(self):
-        # Remove all `publish` permissions
-        Permission.objects.filter(codename__startswith="publish").delete()
-
-        response = self.get()
-        html = response.content.decode()
-
-        # Should not show the Publish column
-        self.assertNotInHTML("<th>Publish</th>", html)
-
-        # Should not show inputs for publish permissions even on models with DraftStateMixin
-        self.assertNotInHTML("Can publish draft state model", html)
-        self.assertNotInHTML("Can publish draft state custom primary key model", html)
-
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
+                for permission in permissions:
+                    # Should show a checkbox for each permission in the
+                    # "Custom permissions" column (thus inside a fieldset), with a
+                    # simple "Can {action}" label (without the model name)
+                    checkbox = object_permissions.select_one(
+                        f'td > fieldset input[value="{permission.pk}"]'
+                    )
+                    self.assertIsNotNone(checkbox)
+                    label = checkbox.parent
+                    self.assertEqual(label.name, "label")
+                    self.assertEqual(label.text.strip(), f"Can {action}")
+                    # Should only show the permission for models with the mixin applied
+                    content_type = permission.content_type
+                    self.assertTrue(issubclass(content_type.model_class(), mixin))
 
     def test_strip_model_name_from_custom_permissions(self):
         """
@@ -2454,36 +2465,46 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertEqual(len(checkbox), 1)
 
-    def test_show_publish_permissions(self):
+    def test_show_mixin_permissions(self):
         response = self.get()
-        html = response.content.decode()
+        soup = self.get_soup(response.content)
+        object_permissions = soup.select_one("#object-permissions-section")
+        self.assertIsNotNone(object_permissions)
 
-        # Should show the Publish column
-        self.assertInHTML("<th>Publish</th>", html)
+        # Should not show separate Publish, Lock, or Unlock columns
+        # (i.e. the checkboxes should be in the "Custom permissions" column)
+        self.assertFalse(
+            {th.text.strip() for th in object_permissions.select("th")}
+            & {"Publish", "Lock", "Unlock"}
+        )
 
-        # Should show inputs for publish permissions on models with DraftStateMixin
-        self.assertInHTML("Can publish draft state model", html)
-        self.assertInHTML("Can publish draft state custom primary key model", html)
+        mixin_permissions = (
+            ("publish", DraftStateMixin),
+            ("lock", LockableMixin),
+            ("unlock", LockableMixin),
+        )
+        for action, mixin in mixin_permissions:
+            with self.subTest(action=action):
+                permissions = Permission.objects.filter(
+                    codename__startswith=action,
+                    content_type__app_label="tests",
+                ).select_related("content_type")
+                self.assertGreater(len(permissions), 0)
 
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
-
-    def test_hide_publish_permissions(self):
-        # Remove all `publish` permissions
-        Permission.objects.filter(codename__startswith="publish").delete()
-
-        response = self.get()
-        html = response.content.decode()
-
-        # Should not show the Publish column
-        self.assertNotInHTML("<th>Publish</th>", html)
-
-        # Should not show inputs for publish permissions even on models with DraftStateMixin
-        self.assertNotInHTML("Can publish draft state model", html)
-        self.assertNotInHTML("Can publish draft state custom primary key model", html)
-
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
+                for permission in permissions:
+                    # Should show a checkbox for each permission in the
+                    # "Custom permissions" column (thus inside a fieldset), with a
+                    # simple "Can {action}" label (without the model name)
+                    checkbox = object_permissions.select_one(
+                        f'td > fieldset input[value="{permission.pk}"]'
+                    )
+                    self.assertIsNotNone(checkbox)
+                    label = checkbox.parent
+                    self.assertEqual(label.name, "label")
+                    self.assertEqual(label.text.strip(), f"Can {action}")
+                    # Should only show the permission for models with the mixin applied
+                    content_type = permission.content_type
+                    self.assertTrue(issubclass(content_type.model_class(), mixin))
 
     def test_group_edit_loads_with_django_permissions_in_order(self):
         # ensure objects are ordered as registered, followed by the default ordering
