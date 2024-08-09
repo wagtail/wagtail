@@ -61,7 +61,7 @@ module.exports = function exports(env, argv) {
       'image-chooser',
       'image-chooser-modal',
       'image-chooser-telepath',
-      'image-chooser-modified',
+      'image-block',
     ],
     'documents': [
       'document-chooser',

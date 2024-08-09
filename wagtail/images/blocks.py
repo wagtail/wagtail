@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.compare import BlockComparison
 from wagtail.blocks import BooleanBlock, CharBlock, ChooserBlock, StructBlock
@@ -64,7 +64,7 @@ class ImageBlock(StructBlock):
     decorative = BooleanBlock(
         default=False, required=False, label=_("Image is decorative")
     )
-    alt_text = CharBlock(required=False)
+    alt_text = CharBlock(required=False, label=_("Alt text"))
 
     def get_searchable_content(self, value):
         return []
@@ -196,7 +196,7 @@ class ImageBlockAdapter(StructBlockAdapter):
     def media(self):
         structblock_media = super().media
         return forms.Media(
-            js=structblock_media._js + ["wagtailimages/js/image-chooser-modified.js"],
+            js=structblock_media._js + ["wagtailimages/js/image-block.js"],
             css=structblock_media._css,
         )
 
