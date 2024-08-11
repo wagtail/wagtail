@@ -12,12 +12,14 @@ Changelog
  * Docs: Document how to customise date/time format settings (Vince Salvino)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
+ * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
 
 
 6.2.1 (xx.xx.20xx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Handle `child_block` being passed as a kwarg in ListBlock migrations (Matt Westcott)
+ * Fix: Fix broken task type filter in workflow task chooser modal (Sage Abdullah)
 
 
 6.2 (01.08.2024)
