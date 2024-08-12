@@ -58,7 +58,9 @@ def page_listing_more_buttons(page, user, next_url=None):
 
         if has_locale_to_translate_to:
             url = reverse("simple_translation:submit_page_translation", args=[page.id])
-            yield wagtailadmin_widgets.Button(_("Translate"), url, priority=60)
+            yield wagtailadmin_widgets.Button(
+                _("Translate"), url, icon_name="globe", priority=60
+            )
 
 
 @hooks.register("register_page_header_buttons")
