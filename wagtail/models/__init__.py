@@ -642,7 +642,7 @@ class DraftStateMixin(models.Model):
 
     def get_lock(self):
         # Scheduled publishing lock should take precedence over other locks
-        if self.scheduled_revision:
+        if self.approved_schedule:
             return ScheduledForPublishLock(self)
         return super().get_lock()
 
