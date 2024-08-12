@@ -12,6 +12,7 @@ from django.db.models.functions import Cast, Length, Substr
 from django.db.models.query import BaseIterable, ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.models.i18n import Locale
 from wagtail.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
 
@@ -504,6 +505,17 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
             _is_site_root=Exists(
                 Site.objects.filter(
                     root_page__translation_key=OuterRef("translation_key")
+                )
+            )
+        )
+
+    def annotate_has_untranslated_locale(self):
+        return self.annotate(
+            _has_untranslated_locale=Exists(
+                Locale.objects.exclude(
+                    id__in=self.model.objects.filter(
+                        translation_key=OuterRef(OuterRef("translation_key"))
+                    ).values("locale_id")
                 )
             )
         )

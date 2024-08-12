@@ -185,6 +185,10 @@ class IndexView(generic.IndexView):
 
         return super().get(request)
 
+    @cached_property
+    def i18n_enabled(self):
+        return getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+
     def get_valid_orderings(self):
         valid_orderings = super().get_valid_orderings()
 
@@ -230,6 +234,8 @@ class IndexView(generic.IndexView):
         # Annotate queryset with various states to be used later for performance optimisations
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             pages = pages.prefetch_workflow_states()
+        if self.i18n_enabled:
+            pages = pages.annotate_has_untranslated_locale()
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
@@ -351,7 +357,6 @@ class ExplorableIndexView(IndexView):
         self.parent_page = self.parent_page.specific
         self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
 
-        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
         if self.i18n_enabled and not self.parent_page.is_root():
             self.locale = self.parent_page.locale
             self.translations = self.get_translations()
