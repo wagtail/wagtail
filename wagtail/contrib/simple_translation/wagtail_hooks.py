@@ -48,13 +48,18 @@ def register_submit_translation_permission():
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, user, next_url=None):
     if user.has_perm("simple_translation.submit_translation") and not page.is_root():
-        # If there's at least one locale that we haven't translated into yet,
-        # show "Translate this page" button
-        has_locale_to_translate_to = Locale.objects.exclude(
-            id__in=page.get_translations(inclusive=True).values_list(
-                "locale_id", flat=True
-            )
-        ).exists()
+        if hasattr(page, "_has_untranslated_locale"):
+            # `_has_untranslated_locale` may be populated by `annotate_has_untranslated_locale`
+            # on querysets as a performance optimisation
+            has_locale_to_translate_to = page._has_untranslated_locale
+        else:
+            # If there's at least one locale that we haven't translated into yet,
+            # show "Translate this page" button
+            has_locale_to_translate_to = Locale.objects.exclude(
+                id__in=page.get_translations(inclusive=True).values_list(
+                    "locale_id", flat=True
+                )
+            ).exists()
 
         if has_locale_to_translate_to:
             url = reverse("simple_translation:submit_page_translation", args=[page.id])
