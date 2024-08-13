@@ -114,7 +114,7 @@ class PageFilterSet(WagtailFilterSet):
         fields = []  # only needed for filters being generated automatically
 
 
-class ExplorablePageFilterSet(PageFilterSet):
+class GenericPageFilterSet(PageFilterSet):
     content_type = MultipleContentTypeFilter(
         label=_("Page type"),
         queryset=lambda request: get_page_content_types(include_base_page_type=False),
@@ -275,7 +275,7 @@ class ExplorableIndexView(IndexView):
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
-    filterset_class = ExplorablePageFilterSet
+    filterset_class = GenericPageFilterSet
 
     @classproperty
     def columns(cls):
