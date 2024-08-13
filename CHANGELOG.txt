@@ -9,6 +9,7 @@ Changelog
  * Provide `getTextLabel` method on date / time StreamField blocks (Vaughn Dickson)
  * Purge frontend cache when modifying redirects (Jake Howard)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
+ * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customise date/time format settings (Vince Salvino)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
