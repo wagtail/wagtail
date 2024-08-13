@@ -15,8 +15,8 @@ from django_filters.filters import (
 from wagtail import hooks
 from wagtail.admin.filters import (
     DateRangePickerWidget,
-    MultipleContentTypeFilter,
     MultipleUserFilter,
+    PageTypeFilter,
     WagtailFilterSet,
 )
 from wagtail.admin.ui.components import MediaContainer
@@ -33,7 +33,7 @@ from wagtail.admin.ui.tables.pages import (
     PageTitleColumn,
 )
 from wagtail.admin.views import generic
-from wagtail.models import Page, PageLogEntry, Site, get_page_content_types
+from wagtail.models import Page, PageLogEntry, Site
 from wagtail.permissions import page_permission_policy
 
 
@@ -115,11 +115,7 @@ class PageFilterSet(WagtailFilterSet):
 
 
 class ExplorablePageFilterSet(PageFilterSet):
-    content_type = MultipleContentTypeFilter(
-        label=_("Page type"),
-        queryset=lambda request: get_page_content_types(include_base_page_type=False),
-        widget=CheckboxSelectMultiple,
-    )
+    content_type = PageTypeFilter()
 
 
 class IndexView(generic.IndexView):

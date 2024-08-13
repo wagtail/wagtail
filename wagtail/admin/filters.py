@@ -10,6 +10,7 @@ from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_languages, get_content_type_label
+from wagtail.models import get_page_content_types
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
@@ -179,6 +180,17 @@ class ContentTypeModelMultipleChoiceField(
 
 class MultipleContentTypeFilter(django_filters.ModelMultipleChoiceFilter):
     field_class = ContentTypeModelMultipleChoiceField
+
+
+class PageTypeFilter(MultipleContentTypeFilter):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("label", _("Page type"))
+        kwargs.setdefault("widget", forms.CheckboxSelectMultiple)
+        kwargs.setdefault(
+            "queryset",
+            lambda request: get_page_content_types(include_base_page_type=False),
+        )
+        super().__init__(*args, **kwargs)
 
 
 class UserModelMultipleChoiceField(django_filters.fields.ModelMultipleChoiceField):
