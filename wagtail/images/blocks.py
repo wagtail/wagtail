@@ -95,9 +95,9 @@ class ImageBlock(StructBlock):
         return self._struct_value_to_image(struct_value)
 
     def bulk_to_python(self, values):
-        # For backward compatibility with ImageChooserBlock
         struct_values = []
         for value in values:
+            # For backward compatibility with ImageChooserBlock
             if isinstance(value, int):
                 from wagtail.images import get_image_model
 
