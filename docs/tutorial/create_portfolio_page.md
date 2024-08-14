@@ -49,7 +49,7 @@ class CaptionedImageBlock(StructBlock):
 
     class Meta:
         icon = "image"
-        template = "base/blocks/image_block.html"
+        template = "base/blocks/captioned_image_block.html"
 
 
 class HeadingBlock(StructBlock):
@@ -91,7 +91,7 @@ class CaptionedImageBlock(StructBlock):
     attribution = CharBlock(required=False)
     class Meta:
         icon = "image"
-        template = "base/blocks/image_block.html"
+        template = "base/blocks/captioned_image_block.html"
 ```
 
 `CaptionedImageBlock` inherits from `StructBlock`. With `StructBlock`, you can group several child blocks together under a single parent block. Your `CaptionedImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageBlock` field block type. With `ImageBlock`, editors can select an existing image or upload a new one. Its `required` argument has a value of `true`, which means that you must provide an image for the block to work. The `caption` and `attribution` child blocks use the `CharBlock` field block type, which provides single-line text inputs for adding captions and attributions to your images. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. That means you can leave them empty in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) if you want to.
@@ -141,7 +141,7 @@ Wagtail provides built-in templates to render each block. However, you can overr
 
 Finally, you must add the custom templates that you defined in the `Meta` classes of your `CaptionedImageBlock` and `HeadingBlock` blocks.
 
-To add the custom template of your `CaptionedImageBlock`, create a `base/templates/base/blocks/image_block.html` file and add the following to it:
+To add the custom template of your `CaptionedImageBlock`, create a `base/templates/base/blocks/captioned_image_block.html` file and add the following to it:
 
 ```html+django
 {% load wagtailimages_tags %}
