@@ -151,7 +151,7 @@ the latest Wagtail versions.
 -   [Wagtail-Multilingual: a simple project to demonstrate how multilingual is implemented](https://github.com/cristovao-alves/Wagtail-Multilingual) (31 January 2017)
 -   [Wagtail: 2 Steps for Adding Pages Outside of the CMS](https://www.caktusgroup.com/blog/2016/02/15/wagtail-2-steps-adding-pages-outside-cms/) (15 February 2016)
 -   [Deploying Wagtail to Heroku](https://wagtail.org/blog/deploying-wagtail-heroku/) (15 July 2015)
--   [Adding a Twitter Widget for Wagtail's new StreamField](https://jossingram.wordpress.com/2015/04/02/adding-a-twitter-widget-for-wagtails-new-streamfield/) (2 April 2015)
+-   [Adding a  Widget for Wagtail's new StreamField](https://jossingram.wordpress.com/2015/04/02/adding-a-twitter-widget-for-wagtails-new-streamfield/) (2 April 2015)
 -   [Working With Wagtail: Menus](https://learnwagtail.com/tutorials/how-to-create-a-custom-wagtail-menu-system/) (22 January 2015)
 -   [Upgrading Wagtail to use Django 1.7 locally using vagrant](https://jossingram.wordpress.com/2014/12/10/upgrading-wagtail-to-use-django-1-7-locally-using-vagrant/) (10 December 2014)
 -   [Wagtail redirect page. Can link to page, URL and document](https://gist.github.com/alej0varas/e7e334643ceab6e65744) (24 September 2014)
