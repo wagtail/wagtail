@@ -21,16 +21,16 @@ concurrency:
 
 # Current configuration:
 # - django 4.2, python 3.9, postgres:12, parallel
-# - django 4.2, python 3.9, mysql:8.0
-# - django 4.2, python 3.10, sqlite
-# - django 5.0, python 3.12, mysql:8.1, parallel
-# - django 5.0, python 3.11, postgres:12, parallel, USE_EMAIL_USER_MODEL=yes
-# - django 5.0, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
+# - django 4.2, python 3.10, mysql:8.0
+# - django 5.0, python 3.11, sqlite
+# - django 5.1, python 3.12, mysql:8.1, parallel
+# - django 5.1, python 3.12, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 5.1, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.1.x, python 3.11, postgres:15 (allow failures)
 # - django main, python 3.12, postgres:latest, parallel (allow failures)
 # - elasticsearch 7, django 4.2, python 3.9, postgres:latest
-# - opensearch 2, django 4.2, python 3.9, sqlite
-# - elasticsearch 8, django 5.0, python 3.11, sqlite, USE_EMAIL_USER_MODEL=yes
+# - opensearch 2, django 5.0, python 3.10, sqlite
+# - elasticsearch 8, django 5.1, python 3.12, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
 # When running tests in parallel, some errors cannot be pickled and result in
@@ -47,8 +47,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.10'
-            django: 'Django>=4.2,<4.3'
+          - python: '3.11'
+            django: 'Django>=5.0,<5.1'
+          - python: '3.12'
+            django: 'Django>=5.1,<5.2'
+            emailuser: emailuser
+            parallel: '--parallel'
 
     steps:
       - uses: actions/checkout@v3
@@ -65,9 +69,10 @@ jobs:
       - name: Test
         run: |
           WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
-          coverage run --parallel-mode --source wagtail runtests.py
+          coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
+          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
       - name: Upload coverage data
         uses: actions/upload-artifact@v3
         with:
@@ -83,11 +88,6 @@ jobs:
           - python: '3.9'
             django: 'Django>=4.2,<4.3'
             experimental: false
-            parallel: '--parallel'
-          - python: '3.11'
-            django: 'Django>=5.0,<5.1'
-            experimental: false
-            emailuser: emailuser
             parallel: '--parallel'
           - python: '3.12'
             django: 'Django>=5.0,<5.1'
@@ -150,11 +150,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.9'
+          - python: '3.10'
             django: 'Django>=4.2,<4.3'
             experimental: false
           - python: '3.12'
-            django: 'Django>=5.0,<5.1'
+            django: 'Django>=5.1,<5.2'
             experimental: false
             parallel: '--parallel'
             mysql: 'mysql:8.1'
@@ -200,8 +200,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.11'
-            django: 'Django>=5.0,<5.1'
+          - python: '3.12'
+            django: 'Django>=5.1,<5.2'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
@@ -307,8 +307,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.9'
-            django: 'Django>=4.2,<4.3'
+          - python: '3.10'
+            django: 'Django>=5.0,<5.1'
             experimental: false
 
     steps:
