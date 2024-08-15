@@ -989,7 +989,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_index.html")
         self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": "Tasks"}],
+            [{"url": "", "label": "Workflow tasks"}],
             response.content,
         )
 

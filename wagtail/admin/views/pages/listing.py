@@ -145,7 +145,6 @@ class IndexView(generic.IndexView):
     index_results_url_name = None
     default_ordering = "-latest_revision_created_at"
     model = Page
-    _show_breadcrumbs = True
 
     columns = [
         BulkActionsColumn("bulk_actions"),

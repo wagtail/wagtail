@@ -52,7 +52,6 @@ class FormPagesListView(generic.IndexView):
     index_results_url_name = "wagtailforms:index_results"
     page_title = gettext_lazy("Forms")
     header_icon = "form"
-    _show_breadcrumbs = True
     columns = [
         TitleColumn(
             "title",
@@ -177,7 +176,6 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     forms_index_url_name = "wagtailforms:index"
     index_url_name = "wagtailforms:list_submissions"
     index_results_url_name = "wagtailforms:list_submissions_results"
-    _show_breadcrumbs = True
     show_export_buttons = True
 
     def dispatch(self, request, *args, **kwargs):

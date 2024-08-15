@@ -77,7 +77,6 @@ class ModelIndexView(generic.BaseListingView):
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
-    _show_breadcrumbs = True
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -99,9 +98,6 @@ class ModelIndexView(generic.BaseListingView):
         if not self.snippet_types:
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
-
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [{"url": "", "label": _("Snippets")}]
 
     def get_list_url(self, model):
         if model.snippet_viewset.permission_policy.user_has_any_permission(

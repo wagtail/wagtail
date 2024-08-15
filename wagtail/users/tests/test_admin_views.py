@@ -207,7 +207,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
         self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": capfirst(User._meta.verbose_name_plural)}],
+            [{"url": "", "label": "Users"}],
             response.content,
         )
 
