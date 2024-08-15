@@ -85,11 +85,6 @@ class IndexView(
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-
-        if not self.filterset_class:
-            # Allow filterset_class to be dynamically constructed from list_filter
-            self.filterset_class = self.get_filterset_class()
-
         self.setup_search()
 
     def setup_search(self):
@@ -124,7 +119,8 @@ class IndexView(
 
         return SearchForm()
 
-    def get_filterset_class(self):
+    @cached_property
+    def filterset_class(self):
         # Allow filterset_class to be dynamically constructed from list_filter.
 
         # If the model is translatable, ensure a ``WagtailFilterSet`` subclass
