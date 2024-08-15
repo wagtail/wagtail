@@ -65,7 +65,6 @@ class IndexView(generic.IndexView):
     index_results_url_name = "wagtailimages:index_results"
     add_url_name = "wagtailimages:add_multiple"
     edit_url_name = "wagtailimages:edit"
-    _show_breadcrumbs = True
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
     columns = []

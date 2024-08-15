@@ -193,6 +193,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     page_kwarg = "p"
     default_ordering = None
     filterset_class = None
+    _show_breadcrumbs = True
 
     def get_template_names(self):
         if self.results_only:
@@ -201,6 +202,15 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             return [self.results_template_name]
         else:
             return super().get_template_names()
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            },
+        ]
 
     @cached_property
     def filters(self):

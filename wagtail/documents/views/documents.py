@@ -78,7 +78,6 @@ class IndexView(generic.IndexView):
     model = get_document_model()
     add_item_label = gettext_lazy("Add a document")
     show_other_searches = True
-    _show_breadcrumbs = True
 
     def get_base_queryset(self):
         # Get documents (filtered by user permission)

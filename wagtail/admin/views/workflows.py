@@ -138,7 +138,6 @@ class Index(IndexView):
     default_ordering = "name"
     search_fields = ["name"]
     filterset_class = WorkflowFilterSet
-    _show_breadcrumbs = True
     paginate_by = 20
 
     def show_disabled(self):
@@ -529,7 +528,6 @@ class TaskIndex(IndexView):
     default_ordering = "name"
     search_fields = ["name"]
     filterset_class = TaskFilterSet
-    _show_breadcrumbs = True
     paginate_by = 50
 
     def show_disabled(self):

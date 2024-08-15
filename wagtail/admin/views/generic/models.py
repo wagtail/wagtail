@@ -356,13 +356,6 @@ class IndexView(
             return capfirst(self.model._meta.verbose_name_plural)
         return self.page_title
 
-    def get_breadcrumbs_items(self):
-        if not self.model:
-            return self.breadcrumbs_items
-        return self.breadcrumbs_items + [
-            {"url": "", "label": capfirst(self.model._meta.verbose_name_plural)},
-        ]
-
     @cached_property
     def header_buttons(self):
         buttons = []
