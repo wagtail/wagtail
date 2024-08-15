@@ -10,6 +10,12 @@
   @apply w-w-4 w-h-4 w-align-text-bottom w-transition motion-reduce:w-transition-none;
 }
 
+@media (forced-colors: active) {
+  &{
+    border: 1px solid ButtonText;
+  }
+}
+
 .w-dropdown__content {
   @apply w-flex w-flex-col w-justify-start w-py-2;
   max-height: 50vh;
