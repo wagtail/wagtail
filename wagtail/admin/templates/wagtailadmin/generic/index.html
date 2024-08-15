@@ -13,3 +13,20 @@
         {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=header_action_url action_text=header_action_label action_icon=header_action_icon extra_actions=extra_actions icon=header_icon search_url=search_url search_form=search_form search_results_url=index_results_url only %}
     {% endif %}
 {% endblock %}
+
+{% block listing %}
+    {% comment %}
+        DEPRECATED: This block override is for supporting views that have filters
+        but not using breadcrumbs (thus have no slim_header to put the filters in).
+        There is no longer such a view in Wagtail core, but we keep this block
+        until we can enforce the use of breadcrumbs in all listing views.
+    {% endcomment %}
+    {% if filters and not breadcrumbs_items %}
+        <div class="filterable">
+            {{ block.super }}
+            {% include "wagtailadmin/shared/filters.html" %}
+        </div>
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
