@@ -1,5 +1,11 @@
 {% extends "wagtailadmin/generic/index.html" %}
 {% load wagtailadmin_tags i18n %}
+{% comment %}
+    A base template for listing pages in the Wagtail admin. This is used as-is
+    by non-explorable listings, e.g. in a `PageListingViewSet`'s `IndexView` and
+    in the main "Search" view. It is also extended by explorable_index.html for
+    additional functionality.
+{% endcomment %}
 
 {% block bulk_actions %}
     {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=_("Select all pages in listing") app_label='wagtailcore' model_name='page' objects=page_obj %}
