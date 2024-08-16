@@ -90,7 +90,7 @@ class ImageBlock(StructBlock):
     def to_python(self, value):
         # For backward compatibility with ImageChooserBlock
         if isinstance(value, int):
-            image = self.image.to_python(value)
+            image = self.child_blocks["image"].to_python(value)
             struct_value = {"image": image, "decorative": False, "alt_text": ""}
         else:
             struct_value = super().to_python(value)
