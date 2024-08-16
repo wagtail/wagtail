@@ -7,6 +7,7 @@ from django.db import transaction
 from django.db.models import Count, OuterRef, Prefetch
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -20,7 +21,10 @@ from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.filters import MultipleContentTypeFilter, WagtailFilterSet
+from wagtail.admin.filters import (
+    MultipleContentTypeFilter,
+    WagtailFilterSet,
+)
 from wagtail.admin.forms.workflows import (
     TaskChooserSearchForm,
     WorkflowContentTypeForm,
@@ -31,6 +35,8 @@ from wagtail.admin.forms.workflows import (
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import BaseColumn, Column, TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
+from wagtail.admin.views.generic.base import BaseListingView
+from wagtail.admin.views.pages.listing import PageListingMixin
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import (
     Page,
@@ -42,7 +48,6 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.permissions import (
-    page_permission_policy,
     task_permission_policy,
     workflow_permission_policy,
 )
@@ -392,24 +397,62 @@ class Disable(DeleteView):
         self.object.deactivate(user=self.request.user)
 
 
-def usage(request, pk):
-    workflow = get_object_or_404(Workflow, id=pk)
+class WorkflowUsageView(PageListingMixin, BaseListingView):
+    pk_url_kwarg = "pk"
+    index_url_name = "wagtailadmin_workflows:usage"
+    index_results_url_name = "wagtailadmin_workflows:usage_results"
+    paginate_by = 20
+    header_icon = "tasks"
+    page_title = _("Usage")
 
-    editable_pages = page_permission_policy.instances_user_has_permission_for(
-        request.user, "change"
-    )
-    pages = workflow.all_pages() & editable_pages
-    paginator = Paginator(pages, per_page=10)
-    pages = paginator.get_page(request.GET.get("p"))
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
 
-    return render(
-        request,
-        "wagtailadmin/workflows/usage.html",
-        {
-            "workflow": workflow,
-            "used_by": pages,
-        },
-    )
+        # We set page_permission_policy as the main permission policy for this view
+        # via PageListingMixin, since this view is about listing pages that are using
+        # the workflow (and the mixin uses it to work with the queryset). However, we
+        # also want to ensure the user has permissions for the workflow itself.
+        if not workflow_permission_policy.user_has_any_permission_for_instance(
+            request.user, self.any_permission_required, self.object
+        ):
+            raise PermissionDenied
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_page_subtitle(self):
+        return self.object.name
+
+    def get_breadcrumbs_items(self):
+        title = self.get_page_title()
+        subtitle = self.get_page_subtitle()
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse("wagtailadmin_workflows:index"),
+                "label": capfirst(Workflow._meta.verbose_name_plural),
+            },
+            {
+                "url": reverse("wagtailadmin_workflows:edit", args=(self.object.pk,)),
+                "label": subtitle,
+            },
+            {"url": "", "label": title, "sublabel": subtitle},
+        ]
+
+    def get_index_url(self):
+        return reverse(self.index_url_name, args=(self.object.pk,))
+
+    def get_index_results_url(self):
+        return reverse(self.index_results_url_name, args=(self.object.pk,))
+
+    def get_object(self):
+        return get_object_or_404(Workflow, id=self.kwargs.get(self.pk_url_kwarg))
+
+    def get_base_queryset(self):
+        editable_pages = self.permission_policy.instances_user_has_permission_for(
+            self.request.user, "change"
+        ).filter(depth__gt=1)
+        pages = self.object.all_pages() & editable_pages
+        pages = self._annotate_queryset(pages)
+        return pages
 
 
 @require_POST
