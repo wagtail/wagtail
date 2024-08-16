@@ -175,7 +175,6 @@ class SearchView(PermissionCheckedMixin, BaseListingView):
                 "all_pages": self.all_pages,
                 "content_types": self.content_types,
                 "selected_content_type": self.selected_content_type,
-                "ordering": self.ordering,
             }
         )
         return context

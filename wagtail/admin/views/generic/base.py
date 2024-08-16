@@ -537,6 +537,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         context["index_url"] = self.index_url
         context["index_results_url"] = self.index_results_url
         context["verbose_name_plural"] = self.verbose_name_plural
+        context["ordering"] = self.ordering
         context["table"] = table
         context["media"] = table.media
         # On Django's BaseListView, a listing where pagination is applied, but the results

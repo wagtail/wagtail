@@ -297,7 +297,6 @@ class IndexView(generic.IndexView):
 
         context.update(
             {
-                "ordering": self.ordering,
                 "search_form": self.search_form,
                 "is_searching": self.is_searching,
             }
