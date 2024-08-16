@@ -365,6 +365,18 @@ ul.listing {
     @include transition(border-color 0.2s ease);
     border: 3px solid theme('colors.surface-page');
   }
+
+  &--dashboard {
+    margin-bottom: 0;
+
+    .title-wrapper {
+      font-weight: theme('fontWeight.medium');
+    }
+
+    .actions {
+      float: none;
+    }
+  }
 }
 
 .image-choice {
@@ -611,11 +623,12 @@ table.listing {
     // - no nice padding is applied,
     // - we're not in a report listing,
     // - we're not in the editor view,
+    // - we're not in the dashboard view,
     // and:
     // - no bulk actions are present,
     // - we're not in the "custom ordering" mode,
     // then apply the same 80px padding via the first column's left padding.
-    &:not(.nice-padding &, .report &, .editor-view &):not(
+    &:not(.nice-padding &, .w-dashboard &, .report &, .editor-view &):not(
         :has(
             td:first-child input[type='checkbox']:only-child,
             th:first-child input[type='checkbox']:only-child,

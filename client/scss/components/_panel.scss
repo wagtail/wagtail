@@ -160,3 +160,21 @@ $header-button-size: theme('spacing.6');
 .w-panel__wrapper {
   @include max-form-width();
 }
+
+.w-panel--dashboard {
+  @include box();
+  padding-bottom: 0;
+  margin-bottom: calc(
+    theme('spacing.4') + theme('spacing.4') * var(--w-density-factor)
+  );
+
+  .w-panel__header {
+    margin-inline-start: calc(-1 * theme('spacing.5'));
+    padding-bottom: theme('spacing.5');
+  }
+
+  .w-panel__heading {
+    margin-inline-start: theme('spacing.2');
+    white-space: wrap;
+  }
+}

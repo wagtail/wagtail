@@ -36,7 +36,6 @@ User = get_user_model()
 class UpgradeNotificationPanel(Component):
     name = "upgrade_notification"
     template_name = "wagtailadmin/home/upgrade_notification.html"
-    order = 100
 
     def get_upgrade_check_setting(self) -> Union[bool, str]:
         return getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True)
@@ -292,6 +291,9 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
 
         context["media"] = self.get_media(panels)
         context["panels"] = sorted(panels, key=lambda p: p.order)
+        # Panels that are not customizable via `construct_homepage_panels` hook
+        context["upgrade_notification"] = UpgradeNotificationPanel()
+        context["site_summary"] = SiteSummaryPanel(self.request)
         context["user"] = self.request.user
 
         return {**context, **site_details}
@@ -307,10 +309,8 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
     def get_panels(self):
         request = self.request
         panels = [
-            SiteSummaryPanel(request),
             # Disabled until a release warrants the banner.
             # WhatsNewInWagtailVersionPanel(),
-            UpgradeNotificationPanel(),
             WorkflowObjectsToModeratePanel(),
             UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),

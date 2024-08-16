@@ -1,0 +1,31 @@
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
+{% wagtail_version as current_version %}
+<div class="w-flex w-gap-5 w-mb-[3.5rem] lg:w-pl-[3.75rem] lg:w-border-l w-border-border-furniture">
+    {% avatar_url user 80 as avatar %}
+    <div class="w-header__glyph avatar xlarge">
+        <img src="{{ avatar }}" alt="" />
+        <a class="edit-link"
+           href="{{ base_url }}{% url 'wagtailadmin_account' %}#avatar-section">{% icon name="edit" %}</a>
+    </div>
+    <div>
+        <div class="w-text-16 w-font-bold w-text-text-label w-mb-1">{{ user|user_display_name }}</div>
+        <ul class="w-list-none w-p-0 w-m-0 w-flex w-flex-col w-gap-1">
+            <li>
+                <a class="w-underline w-underline-offset-[3px]"
+                   href="{{ base_url }}{% url 'wagtailadmin_account' %}">{% trans 'Account' %}</a>
+            </li>
+            {% wagtail_feature_release_editor_guide_link as editor_guide_link %}
+            <li>
+                <a class="w-underline w-underline-offset-[3px] w-flex w-items-center w-gap-1"
+                   href="{{ editor_guide_link }}"
+                   target="_blank"
+                   rel="noreferrer">
+                    {% blocktrans trimmed %}
+                        Wagtail {{ current_version }} editor's guide
+                    {% endblocktrans %}
+                    {% icon name="link-external" classname="w-a11y-result__icon" %}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

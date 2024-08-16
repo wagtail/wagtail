@@ -1,14 +1,18 @@
 {% load i18n wagtailadmin_tags %}
 {% if states %}
-    {% panel id="awaiting-review" heading=_("Awaiting your review") %}
-        <table class="listing">
+    {% panel id="awaiting-review" heading=_("Awaiting your review") classname="w-panel--dashboard" %}
+        <table class="listing listing--dashboard">
             <col />
+            <col width="7%"/>
+            <col width="10%"/>
+            <col width="5%"/>
             <col width="15%"/>
-            <col width="15%"/>
-            <col width="15%"/>
+            <col width="10%"/>
             <thead class="w-sr-only">
                 <tr>
                     <th class="title">{% trans "Title" %}</th>
+                    <th aria-hidden="true">{% comment %} added for visual alignment only {% endcomment %}</th>
+                    <th aria-hidden="true">{% comment %} added for visual alignment only {% endcomment %}</th>
                     <th>{% trans "Tasks" %}</th>
                     <th>{% trans "Task submitted by" %}</th>
                     <th>{% trans "Task started" %}</th>
@@ -22,7 +26,7 @@
                             {% page_permissions obj as page_perms %}
                         {% endif %}
                         <tr>
-                            <td class="title" valign="top">
+                            <td class="title">
                                 <div class="title-wrapper">
                                     {% admin_edit_url obj as edit_url %}
                                     {% if page_perms.can_edit or not is_page and edit_url %}
@@ -36,11 +40,16 @@
                                         {% locale_label_from_id obj.locale_id as locale_label %}
                                         {% status locale_label classname="w-status--label" %}
                                     {% endif %}
-                                    {% if is_page %}
-                                        {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
-                                    {% endif %}
-                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
+
                                 </div>
+                            </td>
+                            <td>
+                                {% if is_page %}
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=obj %}
+                                {% endif %}
+                                {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=obj %}
+                            </td>
+                            <td>
                                 {% if actions %}
                                     <ul class="actions">
                                         <li>
@@ -65,7 +74,7 @@
                                     </ul>
                                 {% endif %}
                             </td>
-                            <td class="tasks" valign="top">
+                            <td class="tasks">
                                 {% for task in workflow_tasks %}
                                     <span data-controller="w-tooltip" data-w-tooltip-content-value="{{ task.name }}: {{ task.status_display }}">
                                         {% if task.status == 'approved' %}
@@ -78,10 +87,10 @@
                                     </span>
                                 {% endfor %}
                             </td>
-                            <td valign="top">
+                            <td>
                                 {% if revision.user %}{{ revision.user|user_display_name }}{% endif %}
                             </td>
-                            <td valign="top">{% human_readable_date task_state.started_at %}</td>
+                            <td>{% human_readable_date task_state.started_at %}</td>
                         </tr>
                     {% endwith %}
                 {% endfor %}

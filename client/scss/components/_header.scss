@@ -38,11 +38,6 @@
     font-weight: theme('fontWeight.normal');
   }
 
-  .w-header__description {
-    font-size: theme('fontSize.18');
-    font-weight: theme('fontWeight.normal');
-  }
-
   // Give padding to the rows inside of headers so that nested breadcrumbs aren't padded by their parent header el.
   // Use w-header--with-padding for headers that don't contain .row elements.
   &.w-header--with-padding,

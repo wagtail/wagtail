@@ -19,7 +19,6 @@
 
   &.w-status--primary {
     color: theme('colors.text-meta');
-    border: 1px solid theme('colors.text-meta');
     background: theme('colors.surface-page');
   }
 
@@ -37,6 +36,10 @@
     border-radius: theme('borderRadius.xl');
     // stylelint-disable-next-line property-disallowed-list
     text-transform: none;
+
+    .w-dashboard & {
+      float: inline-end;
+    }
   }
 }
 

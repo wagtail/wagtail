@@ -13,29 +13,19 @@
 }
 
 .indicator {
-  font-size: 1em;
   margin-inline-end: 0;
   opacity: theme('opacity.70');
 
   .icon {
-    border: 1px solid transparent;
-    border-radius: 50%;
-    font-size: 1.25em;
     padding: 2px;
     vertical-align: middle; // reset vertical-align set by icon.initial
 
-    @media (forced-colors: active) {
-      background-color: ButtonText;
+    .w-dashboard & {
+      padding: 0;
     }
   }
 
-  &.indicator--is-inverse {
-    .icon {
-      border-color: theme(
-        'colors.surface-page'
-      ); // ensure border is available for high contrast mode
-      background-color: theme('colors.text-context');
-      color: theme('colors.surface-page');
-    }
+  &--is-inverse {
+    opacity: theme('opacity.30');
   }
 }
