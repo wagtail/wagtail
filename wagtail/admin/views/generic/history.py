@@ -198,7 +198,6 @@ class LogEntryUserColumn(UserColumn):
 class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     page_title = gettext_lazy("History")
-    results_template_name = "wagtailadmin/generic/history_results.html"
     header_icon = "history"
     paginate_by = 20
     filterset_class = HistoryFilterSet
