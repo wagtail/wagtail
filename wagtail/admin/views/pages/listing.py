@@ -122,9 +122,8 @@ class GenericPageFilterSet(PageFilterSet):
     )
 
 
-class IndexView(generic.IndexView):
-    template_name = "wagtailadmin/pages/index.html"
-    results_template_name = "wagtailadmin/pages/index_results.html"
+class PageListingMixin:
+    template_name = "wagtailadmin/pages/listing.html"
     permission_policy = page_permission_policy
     any_permission_required = {
         "add",
@@ -135,12 +134,11 @@ class IndexView(generic.IndexView):
         "unlock",
     }
     context_object_name = "pages"
-    paginate_by = 50
     table_class = PageTable
-    table_classname = "listing full-width"
-    filterset_class = PageFilterSet
+    filterset_class = GenericPageFilterSet
     default_ordering = "-latest_revision_created_at"
     model = Page
+    is_searchable = True
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -154,6 +152,13 @@ class IndexView(generic.IndexView):
             "latest_revision_created_at",
             label=_("Updated"),
             sort_key="latest_revision_created_at",
+            width="12%",
+        ),
+        Column(
+            "type",
+            label=_("Type"),
+            accessor="page_type_display_name",
+            sort_key="content_type",
             width="12%",
         ),
         PageStatusColumn(
@@ -194,11 +199,6 @@ class IndexView(generic.IndexView):
             ordering = default_ordering
 
         return ordering
-
-    def get_base_queryset(self):
-        pages = self.model.objects.filter(depth__gt=1)
-        pages = self._annotate_queryset(pages)
-        return pages
 
     def _annotate_queryset(self, pages):
         pages = pages.prefetch_related("content_type", "sites_rooted_here").filter(
@@ -264,6 +264,25 @@ class IndexView(generic.IndexView):
         return kwargs
 
 
+class IndexView(PageListingMixin, generic.IndexView):
+    template_name = "wagtailadmin/pages/index.html"
+    results_template_name = "wagtailadmin/pages/index_results.html"
+    paginate_by = 50
+    table_classname = "listing full-width"
+    filterset_class = PageFilterSet
+
+    @classproperty
+    def columns(cls):
+        columns = PageListingMixin.columns.copy()
+        columns.pop(3)  # Remove the "Type" column
+        return columns
+
+    def get_base_queryset(self):
+        pages = self.model.objects.filter(depth__gt=1)
+        pages = self._annotate_queryset(pages)
+        return pages
+
+
 class ExplorableIndexView(IndexView):
     """
     A version of the page listing where the user is presented with a view of a specified parent page;
@@ -279,17 +298,7 @@ class ExplorableIndexView(IndexView):
 
     @classproperty
     def columns(cls):
-        columns = super().columns.copy()
-        columns.insert(
-            3,
-            Column(
-                "type",
-                label=_("Type"),
-                accessor="page_type_display_name",
-                sort_key="content_type",
-                width="12%",
-            ),
-        )
+        columns = PageListingMixin.columns.copy()
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
 
