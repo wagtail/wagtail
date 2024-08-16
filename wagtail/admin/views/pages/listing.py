@@ -19,7 +19,6 @@ from wagtail.admin.filters import (
     MultipleUserFilter,
     WagtailFilterSet,
 )
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
@@ -136,13 +135,10 @@ class IndexView(generic.IndexView):
         "unlock",
     }
     context_object_name = "pages"
-    page_kwarg = "p"
     paginate_by = 50
     table_class = PageTable
     table_classname = "listing full-width"
     filterset_class = PageFilterSet
-    index_url_name = None
-    index_results_url_name = None
     default_ordering = "-latest_revision_created_at"
     model = Page
 
@@ -167,22 +163,6 @@ class IndexView(generic.IndexView):
             width="12%",
         ),
     ]
-
-    def get(self, request):
-        # Search
-        self.query_string = None
-        self.is_searching = False
-        if "q" in self.request.GET:
-            self.search_form = SearchForm(self.request.GET)
-            if self.search_form.is_valid():
-                self.query_string = self.search_form.cleaned_data["q"]
-        else:
-            self.search_form = SearchForm()
-
-        if self.query_string:
-            self.is_searching = True
-
-        return super().get(request)
 
     def get_valid_orderings(self):
         valid_orderings = super().get_valid_orderings()
@@ -267,35 +247,15 @@ class IndexView(generic.IndexView):
     def search_queryset(self, queryset):
         if self.is_searching:
             queryset = queryset.autocomplete(
-                self.query_string, order_by_relevance=(not self.is_explicitly_ordered)
+                self.search_query, order_by_relevance=(not self.is_explicitly_ordered)
             )
 
         return queryset
-
-    def get_index_url(self):
-        return reverse(self.index_url_name)
-
-    def get_index_results_url(self):
-        return reverse(self.index_results_url_name)
-
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [{"url": "", "label": self.get_page_title()}]
 
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["actions_next_url"] = self.index_url
         return kwargs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context.update(
-            {
-                "search_form": self.search_form,
-                "is_searching": self.is_searching,
-            }
-        )
-        return context
 
 
 class ExplorableIndexView(IndexView):
