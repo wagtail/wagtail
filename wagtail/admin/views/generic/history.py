@@ -200,7 +200,6 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     page_title = gettext_lazy("History")
     results_template_name = "wagtailadmin/generic/history_results.html"
     header_icon = "history"
-    is_searchable = False
     paginate_by = 20
     filterset_class = HistoryFilterSet
     history_url_name = None
@@ -298,10 +297,13 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     def user_can_unschedule(self):
         return self.user_has_permission("publish")
 
+    @cached_property
+    def verbose_name_plural(self):
+        return BaseLogEntry._meta.verbose_name_plural
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
-        context["model_opts"] = BaseLogEntry._meta
         return context
 
     def get_base_queryset(self):

@@ -451,6 +451,7 @@ class TestSearchIndexView(WagtailTestUtils, TestCase):
 
     def test_search_disabled(self):
         response = self.get("fctoy_alt1", {"q": "ork"})
+        self.assertFalse(response.context.get("search_form"))
         self.assertContains(response, "Forky")
         self.assertContains(response, "Buzz Lightyear")
         self.assertNotContains(response, "There are 2 matches")
@@ -1043,6 +1044,11 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         for rendered_row, expected_row in zip(rendered_rows, expected):
             self.assertSequenceEqual(rendered_row, expected_row)
 
+        # History view is not searchable
+        input = soup.select_one("input#id_q")
+        self.assertIsNone(input)
+        self.assertFalse(response.context.get("search_form"))
+
     def test_action_filter(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
@@ -1240,6 +1246,11 @@ class TestUsageView(WagtailTestUtils, TestCase):
         link = tds[2].select_one("a")
         self.assertIsNotNone(link)
         self.assertIn(tbx_edit_url, link.attrs.get("href"))
+
+        # Usage view is not searchable
+        input = soup.select_one("input#id_q")
+        self.assertIsNone(input)
+        self.assertFalse(response.context.get("search_form"))
 
     def test_usage_without_permission(self):
         self.user.is_superuser = False

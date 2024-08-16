@@ -24,6 +24,7 @@ from taggit.models import Tag
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
 from wagtail.admin.widgets.button import ButtonWithDropdown
@@ -225,7 +226,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         self.assertContains(self.get(), "Add advert")
 
     def test_not_searchable(self):
-        self.assertFalse(self.get().context["is_searchable"])
+        self.assertFalse(self.get().context.get("search_form"))
 
     def test_register_snippet_listing_buttons_hook(self):
         advert = Advert.objects.create(text="My Lovely advert")
@@ -714,7 +715,7 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
         self.assertNotContains(response, "This field is required.")
 
     def test_is_searchable(self):
-        self.assertTrue(self.get().context["is_searchable"])
+        self.assertIsInstance(self.get().context["search_form"], SearchForm)
 
     def test_search_hello(self):
         response = self.get({"q": "Hello"})
