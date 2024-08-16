@@ -60,6 +60,13 @@ class ImageChooserBlockComparison(BlockComparison):
 
 
 class ImageBlock(StructBlock):
+    """
+    An usage of ImageChooserBlock with support for alt text.
+    For backward compatibility, this block overrides necessary methods to change
+    the StructValue to be an Image model instance, making it compatible in
+    places where ImageChooserBlock was used.
+    """
+
     image = ImageChooserBlock(required=True)
     decorative = BooleanBlock(
         default=False, required=False, label=_("Image is decorative")
@@ -67,7 +74,7 @@ class ImageBlock(StructBlock):
     alt_text = CharBlock(required=False, label=_("Alt text"))
 
     def get_searchable_content(self, value):
-        return []
+        return super().get_searchable_content(value)
 
     def _struct_value_to_image(self, struct_value):
         image = struct_value.get("image")
@@ -100,8 +107,11 @@ class ImageBlock(StructBlock):
                     struct_value = {"image": image, "decorative": False, "alt_text": ""}
                     struct_values.append(struct_value)
 
+                break  # no need for further execution after bulk_to_python has been called.
+
             else:
                 struct_values = super().bulk_to_python(values)
+                break  # no need for further execution after bulk_to_python has been called.
 
         return [
             self._struct_value_to_image(struct_value) for struct_value in struct_values
