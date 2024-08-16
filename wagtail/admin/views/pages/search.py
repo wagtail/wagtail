@@ -6,7 +6,6 @@ from django.db.models.query import QuerySet
 from django.http import Http404
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
@@ -49,7 +48,7 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
     return pages, all_pages
 
 
-class BaseSearchView(PermissionCheckedMixin, BaseListingView):
+class SearchView(PermissionCheckedMixin, BaseListingView):
     permission_policy = page_permission_policy
     any_permission_required = {
         "add",
@@ -60,10 +59,16 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         "unlock",
     }
     paginate_by = 20
-    page_kwarg = "p"
+    page_title = _("Search")
+    header_icon = "search"
     context_object_name = "pages"
     table_class = PageTable
     index_url_name = "wagtailadmin_pages:search"
+    index_results_url_name = "wagtailadmin_pages:search_results"
+    # We override get_queryset here that has a custom search implementation
+    is_searchable = True
+    template_name = "wagtailadmin/pages/search.html"
+    results_template_name = "wagtailadmin/pages/search_results.html"
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -126,8 +131,6 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         else:
             self.selected_content_type = None
 
-        self.q = self.request.GET.get("q", "")
-
         return super().get(request)
 
     def get_queryset(self) -> QuerySet[Any]:
@@ -145,7 +148,7 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
 
         # Parse query and filter
         pages, self.all_pages = page_filter_search(
-            self.q, pages, self.all_pages, self.ordering
+            self.search_query, pages, self.all_pages, self.ordering
         )
 
         # Facets
@@ -170,23 +173,9 @@ class BaseSearchView(PermissionCheckedMixin, BaseListingView):
         context.update(
             {
                 "all_pages": self.all_pages,
-                "query_string": self.q,
                 "content_types": self.content_types,
                 "selected_content_type": self.selected_content_type,
                 "ordering": self.ordering,
             }
         )
         return context
-
-
-class SearchView(BaseSearchView):
-    template_name = "wagtailadmin/pages/search.html"
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["search_form"] = SearchForm(self.request.GET)
-        return context
-
-
-class SearchResultsView(BaseSearchView):
-    template_name = "wagtailadmin/pages/search_results.html"
