@@ -969,6 +969,45 @@ class TestPingView(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
+    def test_moderator_without_explicit_edit_permission_on_page(self):
+        # submit page for moderation
+        workflow = self.page.get_workflow()
+        workflow.start(self.page, self.other_user)
+
+        # Revoke all page permissions from the Moderators group, so that the workflow is
+        # the only thing granting them access to the page
+        moderators = Group.objects.get(name="Moderators")
+        moderators.page_permissions.all().delete()
+
+        # make user a moderator
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(moderators)
+
+        # access to the ping endpoint should be granted
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_locked_page(self):
+        self.page.locked = True
+        self.page.locked_by = self.other_user
+        self.page.locked_at = TIMESTAMP_PAST
+        self.page.save()
+
+        # access to the ping endpoint should be granted
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.id, self.session.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
     @freeze_time(TIMESTAMP_NOW)
     def test_ping_snippet_model(self):
         snippet = Advert.objects.create(text="Test snippet")
