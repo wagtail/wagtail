@@ -11,7 +11,7 @@ from django.views.decorators.http import require_POST
 from wagtail.admin.models import EditingSession
 from wagtail.admin.ui.editing_sessions import EditingSessionsList
 from wagtail.admin.utils import get_user_display_name
-from wagtail.models import Page, Revision, RevisionMixin
+from wagtail.models import Page, Revision, RevisionMixin, WorkflowMixin
 
 
 @require_POST
@@ -34,10 +34,18 @@ def ping(request, app_label, model_name, object_id, session_id):
         except AttributeError:
             # model is neither a Page nor a snippet
             raise Http404
-        else:
-            can_edit = permission_policy.user_has_permission_for_instance(
-                request.user, "change", obj
-            )
+
+        can_edit = permission_policy.user_has_permission_for_instance(
+            request.user, "change", obj
+        )
+        if not can_edit and isinstance(obj, WorkflowMixin):
+            workflow = obj.get_workflow()
+            if workflow is not None:
+                current_workflow_task = obj.current_workflow_task
+                can_edit = (
+                    current_workflow_task
+                    and current_workflow_task.user_can_access_editor(obj, request.user)
+                )
 
     if not can_edit:
         raise Http404
