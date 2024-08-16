@@ -4,7 +4,7 @@
     {% avatar_url user 80 as avatar %}
     <div class="w-header__glyph avatar xlarge">
         <img src="{{ avatar }}" alt="" />
-        <a class="edit-link"
+        <a class="edit-link" aria-label="Edit account avatar"
            href="{{ base_url }}{% url 'wagtailadmin_account' %}#avatar-section">{% icon name="edit" %}</a>
     </div>
     <div>
