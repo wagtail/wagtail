@@ -51,12 +51,6 @@ export class MultipleChooserPanel extends InlinePanel {
           chooserWidget.setStateFromModalData(item);
         });
       }, queryParams);
-      if (opts.allowDuplicates === 'True') {
-        openModalButton.setAttribute(
-          'chooserids',
-          getChoiceSelectIds().join(','),
-        );
-      }
     });
   }
 
