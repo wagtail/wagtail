@@ -82,7 +82,7 @@ class ImageBlock(StructBlock):
         if image:
             # If the image is decorative, set alt_text to an empty string
             image.contextual_alt_text = (
-                "" if decorative else struct_value.get("alt_text", "")
+                "" if decorative else struct_value.get("alt_text")
             )
             image.decorative = decorative
         return image
@@ -91,7 +91,7 @@ class ImageBlock(StructBlock):
         # For backward compatibility with ImageChooserBlock
         if isinstance(value, int):
             image = self.child_blocks["image"].to_python(value)
-            struct_value = {"image": image, "decorative": False, "alt_text": ""}
+            struct_value = {"image": image, "decorative": False, "alt_text": None}
         else:
             struct_value = super().to_python(value)
         return self._struct_value_to_image(struct_value)
@@ -104,7 +104,7 @@ class ImageBlock(StructBlock):
                 image_values = self.child_blocks["image"].bulk_to_python(values)
 
                 for image in image_values:
-                    struct_value = {"image": image, "decorative": False, "alt_text": ""}
+                    struct_value = {"image": image, "decorative": False, "alt_text": None}
                     struct_values.append(struct_value)
 
                 break  # no need for further execution after bulk_to_python has been called.
