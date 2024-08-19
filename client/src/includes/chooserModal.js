@@ -234,8 +234,6 @@ class ChooserModalOnloadHandlerFactory {
     $('[data-multiple-choice-select]', containerElement).on('change', () => {
       this.updateMultipleChoiceSubmitEnabledState(modal);
     });
-
-    this.disabledDuplicateCheckboxes(modal);
   }
 
   updateMultipleChoiceSubmitEnabledState(modal) {
@@ -245,28 +243,6 @@ class ChooserModalOnloadHandlerFactory {
       $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
     } else {
       $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
-    }
-  }
-
-  disabledDuplicateCheckboxes(modal) {
-    const openModalButton = modal.triggerElement;
-
-    if (openModalButton.hasAttribute('chooserids')) {
-      const selectedObjectIds = openModalButton
-        .getAttribute('chooserids')
-        .split(',')
-        .map(Number);
-
-      // eslint-disable-next-line func-names
-      $('[data-multiple-choice-select]', modal.body).each(function () {
-        const value = $(this).val();
-
-        if (selectedObjectIds.includes(parseInt(value, 10))) {
-          $(this).prop('disabled', true);
-        } else {
-          $(this).prop('disabled', false);
-        }
-      });
     }
   }
 
@@ -372,6 +348,9 @@ class ChooserModal {
     const urlParams = {};
     if (opts.multiple) {
       urlParams.multiple = 1;
+    }
+    if (opts.chooserIds) {
+      urlParams.chooserIds = opts.chooserIds;
     }
     if (opts.linkedFieldFilters) {
       Object.assign(urlParams, opts.linkedFieldFilters);

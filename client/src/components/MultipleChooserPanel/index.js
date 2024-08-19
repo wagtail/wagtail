@@ -23,8 +23,7 @@ export class MultipleChooserPanel extends InlinePanel {
         if (
           chooserWidget !== null &&
           chooserWidget.state !== null &&
-          chooserWidget.state.id !== null &&
-          typeof parseInt(chooserWidget.state.id, 10) === 'number'
+          chooserWidget.state.id !== null
         ) {
           chooserIds.push(chooserWidget.state.id);
         }
@@ -36,21 +35,22 @@ export class MultipleChooserPanel extends InlinePanel {
       `${opts.formsetPrefix}-OPEN_MODAL`,
     );
     openModalButton.addEventListener('click', () => {
-      this.chooserWidgetFactory.openModal(
-        (result) => {
-          result.forEach((item) => {
-            if (opts.maxForms && this.getChildCount() >= opts.maxForms) return;
-            this.addForm();
-            const formIndex = this.formCount - 1;
-            const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
-            const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
-            const chooserWidget =
-              this.chooserWidgetFactory.getById(chooserFieldId);
-            chooserWidget.setStateFromModalData(item);
-          });
-        },
-        { multiple: true },
-      );
+      const queryParams = { multiple: true };
+      if (opts.allowDuplicates) {
+        queryParams.chooserIds = getChoiceSelectIds().join(',');
+      }
+      this.chooserWidgetFactory.openModal((result) => {
+        result.forEach((item) => {
+          if (opts.maxForms && this.getChildCount() >= opts.maxForms) return;
+          this.addForm();
+          const formIndex = this.formCount - 1;
+          const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
+          const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
+          const chooserWidget =
+            this.chooserWidgetFactory.getById(chooserFieldId);
+          chooserWidget.setStateFromModalData(item);
+        });
+      }, queryParams);
       if (opts.allowDuplicates === 'True') {
         openModalButton.setAttribute(
           'chooserids',
