@@ -104,7 +104,11 @@ class ImageBlock(StructBlock):
                 image_values = self.child_blocks["image"].bulk_to_python(values)
 
                 for image in image_values:
-                    struct_value = {"image": image, "decorative": False, "alt_text": None}
+                    struct_value = {
+                        "image": image,
+                        "decorative": False,
+                        "alt_text": None,
+                    }
                     struct_values.append(struct_value)
 
                 break  # no need for further execution after bulk_to_python has been called.
