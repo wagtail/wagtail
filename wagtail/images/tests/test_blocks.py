@@ -148,7 +148,7 @@ class TestImageBlock(TestImageChooserBlock):
         value = block.to_python(self.image.id)
 
         self.assertEqual(value.id, self.image.id)
-        self.assertEqual(value.contextual_alt_text, "")
+        self.assertEqual(value.contextual_alt_text, None)
         self.assertFalse(value.decorative)
 
     def test_to_python_with_dict(self):
