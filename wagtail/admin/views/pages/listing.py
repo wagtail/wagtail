@@ -31,6 +31,7 @@ from wagtail.admin.ui.tables.pages import (
     PageStatusColumn,
     PageTable,
     PageTitleColumn,
+    ParentPageColumn,
 )
 from wagtail.admin.views import generic
 from wagtail.models import Page, PageLogEntry, Site, get_page_content_types
@@ -148,6 +149,7 @@ class PageListingMixin:
             sort_key="title",
             classname="title",
         ),
+        ParentPageColumn("parent", label=_("Parent")),
         DateColumn(
             "latest_revision_created_at",
             label=_("Updated"),
@@ -274,7 +276,7 @@ class IndexView(PageListingMixin, generic.IndexView):
     @classproperty
     def columns(cls):
         columns = PageListingMixin.columns.copy()
-        columns.pop(3)  # Remove the "Type" column
+        columns.pop(4)  # Remove the "Type" column
         return columns
 
     def get_base_queryset(self):
@@ -299,6 +301,7 @@ class ExplorableIndexView(IndexView):
     @classproperty
     def columns(cls):
         columns = PageListingMixin.columns.copy()
+        columns.pop(2)  # Remove the "Parent" column
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
 
