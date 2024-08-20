@@ -6,6 +6,7 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Deploying Wagtail on Divio](https://docs.divio.com/en/latest/introduction/wagtail/) (~June 2024)
 -   [Upgrading Wagtail (from 2.5 to 6.0)](https://learnwagtail.com/blog/category/upgrading-wagtail/) (18 April 2024)
 -   [Using Wagtail Form Templates in Software Development Projects](https://devcodef1.com/news/1211030/wagtail-form-templates-in-sd-projects) (9 April 2024)
 -   [Build an Intuitive Link StructBlock in Wagtail: Simplifying Link Management for Content Editors](https://enzedonline.com/en/tech-blog/build-an-intuitive-link-structblock-in-wagtail-simplifying-link-management-for-content-editors/) (9 March 2024)
