@@ -4,21 +4,16 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
+from django.utils.functional import classproperty
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.ui.tables import Column, DateColumn
 from wagtail.admin.ui.tables.pages import (
-    BulkActionsColumn,
     NavigateToChildrenColumn,
-    PageStatusColumn,
-    PageTable,
-    PageTitleColumn,
-    ParentPageColumn,
 )
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
+from wagtail.admin.views.pages.listing import PageListingMixin
 from wagtail.models import Page
-from wagtail.permissions import page_permission_policy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -48,57 +43,24 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
     return pages, all_pages
 
 
-class SearchView(PermissionCheckedMixin, BaseListingView):
-    permission_policy = page_permission_policy
-    any_permission_required = {
-        "add",
-        "change",
-        "publish",
-        "bulk_delete",
-        "lock",
-        "unlock",
-    }
+class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
     paginate_by = 20
     page_title = _("Search")
     header_icon = "search"
-    context_object_name = "pages"
-    table_class = PageTable
     index_url_name = "wagtailadmin_pages:search"
     index_results_url_name = "wagtailadmin_pages:search_results"
     # We override get_queryset here that has a custom search implementation
     is_searchable = True
+    # This view has its own filtering mechanism that doesn't use django-filter
+    filterset_class = None
     template_name = "wagtailadmin/pages/search.html"
     results_template_name = "wagtailadmin/pages/search_results.html"
 
-    columns = [
-        BulkActionsColumn("bulk_actions"),
-        PageTitleColumn(
-            "title",
-            classname="title",
-            label=_("Title"),
-            sort_key="title",
-        ),
-        ParentPageColumn("parent", label=_("Parent")),
-        DateColumn(
-            "latest_revision_created_at",
-            label=_("Updated"),
-            sort_key="latest_revision_created_at",
-            width="12%",
-        ),
-        Column(
-            "type",
-            label=_("Type"),
-            accessor="page_type_display_name",
-            width="12%",
-        ),
-        PageStatusColumn(
-            "status",
-            label=_("Status"),
-            sort_key="live",
-            width="12%",
-        ),
-        NavigateToChildrenColumn("navigate", width="10%"),
-    ]
+    @classproperty
+    def columns(cls):
+        columns = super().columns.copy()
+        columns.append(NavigateToChildrenColumn("navigate", width="10%"))
+        return columns
 
     def get(self, request):
         self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
@@ -134,9 +96,7 @@ class SearchView(PermissionCheckedMixin, BaseListingView):
         return super().get(request)
 
     def get_queryset(self) -> QuerySet[Any]:
-        pages = self.all_pages = (
-            Page.objects.all().prefetch_related("content_type").specific()
-        )
+        pages = self.all_pages = Page.objects.all()
         if self.show_locale_labels:
             pages = pages.select_related("locale")
 
@@ -145,6 +105,8 @@ class SearchView(PermissionCheckedMixin, BaseListingView):
 
         if self.selected_content_type:
             pages = pages.filter(content_type=self.selected_content_type)
+
+        pages = self._annotate_queryset(pages)
 
         # Parse query and filter
         pages, self.all_pages = page_filter_search(
