@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -2025,9 +2025,6 @@ msgstr "Fil d'Ariane"
 msgid "Close dialog"
 msgstr "Fermer"
 
-msgid "You saved a new version in another session"
-msgstr "Vous avez enregistré une nouvelle version dans une autre session"
-
 msgid "System"
 msgstr "Système"
 
@@ -2037,9 +2034,6 @@ msgstr "%(user_name)s a enregistré une nouvelle version"
 
 msgid "Refresh"
 msgstr "Rafraîchir"
-
-msgid "You have unsaved changes in another session"
-msgstr "Vous avez des modifications non enregistrées dans une autre session"
 
 #, python-format
 msgid "%(user_name)s has unsaved changes"
@@ -2054,35 +2048,6 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Un autre utilisateur est en train de consulter"
 msgstr[1] "%(num_user)s autres utilisateurs sont en train de consulter"
 msgstr[2] "%(num_user)s autres utilisateurs sont en train de consulter"
-
-#, python-format
-msgid ""
-"You have saved a newer version of this %(model_name)s in another session"
-msgstr ""
-"Vous avez enregistré une nouvelle version de ce(tte) %(model_name)s dans une "
-"autre session"
-
-#, python-format
-msgid "%(user_name)s has saved a newer version of this %(model_name)s"
-msgstr ""
-"%(user_name)s a enregistré une nouvelle version de ce(tte) %(model_name)s"
-
-msgid ""
-"Proceeding will overwrite the changes you made in that session. Refreshing "
-"the page will lose any of your unsaved changes in the current session."
-msgstr ""
-"Continuer écrasera les modifications effectuées dans l'autre session. "
-"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
-"enregistrées dans la session actuelle."
-
-#, python-format
-msgid ""
-"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will lose any of your unsaved changes."
-msgstr ""
-"Continuer écrasera les modifications effectuées par %(user_name)s. "
-"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
-"enregistrées."
 
 msgid "Refreshing the page means you will lose any unsaved changes"
 msgstr ""

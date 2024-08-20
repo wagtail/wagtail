@@ -23,6 +23,7 @@
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
 # Ramon de Jezus <rdejezus@leukeleu.nl>, 2020
+# Richard Voorhorst, 2024
 # Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
@@ -33,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Last-Translator: Richard Voorhorst, 2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1958,7 +1959,7 @@ msgstr "Kruimelpad"
 msgid "Close dialog"
 msgstr "Sluit dialoog"
 
-msgid "You saved a new version in another session"
+msgid "You saved a new version in another window"
 msgstr "Je hebt een nieuwere versie opgeslagen in een ander venster"
 
 msgid "System"
@@ -1971,7 +1972,7 @@ msgstr "%(user_name)s heeft een nieuwere versie opgeslagen"
 msgid "Refresh"
 msgstr "Herladen"
 
-msgid "You have unsaved changes in another session"
+msgid "You have unsaved changes in another window"
 msgstr "Je heb niet-opgeslagen wijzigingen in een ander venster"
 
 #, python-format
@@ -1987,34 +1988,25 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Een andere gebruiker is nu actief"
 msgstr[1] "%(num_user)s andere gebruikers zijn nu actief"
 
-#, python-format
 msgid ""
-"You have saved a newer version of this %(model_name)s in another session"
-msgstr ""
-"Je hebt een nieuwere versie van %(model_name)s opgeslagen in een ander "
-"venster"
-
-#, python-format
-msgid "%(user_name)s has saved a newer version of this %(model_name)s"
-msgstr "%(user_name)s heeft een nieuwere versie opgeslagen van %(model_name)s"
-
-msgid ""
-"Proceeding will overwrite the changes you made in that session. Refreshing "
-"the page will lose any of your unsaved changes in the current session."
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
 msgstr ""
 "Je hebt wijzigingen opgeslagen in een ander venster. Als je verder gaat in "
-"dit venster worden die wijzigingen overschreven. Je kunt de pagina herladen "
-"om nieuwe wijzigingen op te halen, maar daarmee gaan wijzigingen die je hier "
+"dit venster worden deze wijzigingen overschreven. Je kunt de pagina herladen "
+"om nieuwe wijzigingen op te halen maar daarmee gaan wijzigingen die je hier "
 "gemaakt hebt verloren."
 
 #, python-format
 msgid ""
 "Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will lose any of your unsaved changes."
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
 msgstr ""
 "%(user_name)s heeft wijzigingen opgeslagen. Deze wijzigingen worden "
 "overschreven als je verder gaat. Je kunt de pagina herladen om nieuwe "
-"wijzigingen op te halen, maar daarmee gaan wijzigingen die je hier gemaakt "
+"wijzigingen op te halen maar daarmee gaan wijzigingen die je hier gemaakt "
 "hebt verloren."
 
 msgid "Refreshing the page means you will lose any unsaved changes"

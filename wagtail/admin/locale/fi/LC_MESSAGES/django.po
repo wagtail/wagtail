@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -1299,9 +1299,6 @@ msgstr "Murupolut päälle/pois"
 msgid "Breadcrumb"
 msgstr "Linkkipolku"
 
-msgid "You saved a new version in another session"
-msgstr "Tallensit uuden version toisessa istunnossa"
-
 msgid "System"
 msgstr "Järjestelmä"
 
@@ -1311,9 +1308,6 @@ msgstr "%(user_name)s tallensi uuden version"
 
 msgid "Refresh"
 msgstr "Päivitä"
-
-msgid "You have unsaved changes in another session"
-msgstr "Sinulla on tallentamattomia muutoksia toisessa istunnossa"
 
 #, python-format
 msgid "%(user_name)s has unsaved changes"
