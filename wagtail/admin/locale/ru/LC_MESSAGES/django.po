@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -989,10 +989,10 @@ msgstr "Страница \"%(title)s\" была утверждена"
 
 #, python-format
 msgid "Hello %(username)s,"
-msgstr "Привет, %(username)s,"
+msgstr "Здравствуйте %(username)s,"
 
 msgid "Edit your notification preferences here:"
-msgstr "Редактировать ваши настройки уведомления здесь:"
+msgstr "Если необходимо, отредактируйте свои настройки уведомлений здесь:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -2085,8 +2085,8 @@ msgstr "Путь по сайту"
 msgid "Close dialog"
 msgstr "Закрыть"
 
-msgid "You saved a new version in another session"
-msgstr "Вы сохранили новую версию в другой сессии"
+msgid "You saved a new version in another window"
+msgstr "Вы сохранили новую версию в другом окне"
 
 msgid "System"
 msgstr "Система"
@@ -2098,8 +2098,8 @@ msgstr "Пользователь %(user_name)s сохранил новую ве�
 msgid "Refresh"
 msgstr "Обновить"
 
-msgid "You have unsaved changes in another session"
-msgstr "У вас есть несохраненные изменения в другой сессии"
+msgid "You have unsaved changes in another window"
+msgstr "У вас есть несохраненные изменения в другом окне"
 
 #, python-format
 msgid "%(user_name)s has unsaved changes"
@@ -2116,32 +2116,24 @@ msgstr[1] "Ещё %(num_user)s пользователей в данный мом
 msgstr[2] "Ещё %(num_user)s пользователей в данный момент просматривают"
 msgstr[3] "Ещё %(num_user)s пользователей в данный момент просматривают"
 
-#, python-format
 msgid ""
-"You have saved a newer version of this %(model_name)s in another session"
-msgstr "Вы сохранили более новую версию этой %(model_name)s в другой сессии"
-
-#, python-format
-msgid "%(user_name)s has saved a newer version of this %(model_name)s"
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
 msgstr ""
-"Пользователь %(user_name)s сохранил более новую версию этой %(model_name)s"
-
-msgid ""
-"Proceeding will overwrite the changes you made in that session. Refreshing "
-"the page will lose any of your unsaved changes in the current session."
-msgstr ""
-"При продолжении работы изменения, сделанные в этом сеансе, будут "
-"перезаписаны. Обновление страницы приведет к потере всех несохраненных "
-"изменений в текущей сессии."
+"При продолжении работы изменения, сделанные в этом окне, будут перезаписаны. "
+"Обновление страницы покажет вам новые изменения, но вы потеряете все "
+"несохраненные изменения в текущем окне."
 
 #, python-format
 msgid ""
 "Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
-"page will lose any of your unsaved changes."
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
 msgstr ""
 "При продолжении работы изменения, сделанные %(user_name)s, будут "
-"перезаписаны. Обновление страницы приведет к потере всех несохраненных "
-"изменений."
+"перезаписаны. Обновление страницы покажет новые изменения, но все "
+"несохраненные изменения будут потеряны."
 
 msgid "Refreshing the page means you will lose any unsaved changes"
 msgstr "Обновление страницы означает потерю всех несохраненных изменений"
