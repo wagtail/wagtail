@@ -17,7 +17,7 @@ Changelog
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
 
 
-6.2.1 (xx.xx.20xx) - IN DEVELOPMENT
+6.2.1 (20.08.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Handle `child_block` being passed as a kwarg in ListBlock migrations (Matt Westcott)
