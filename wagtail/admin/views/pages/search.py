@@ -114,7 +114,7 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         # Facets
         if pages.supports_facet:
             self.content_types = [
-                (ContentType.objects.get(id=content_type_id), count)
+                (ContentType.objects.get_for_id(content_type_id), count)
                 for content_type_id, count in self.all_pages.facet(
                     "content_type_id"
                 ).items()
