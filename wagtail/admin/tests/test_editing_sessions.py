@@ -15,6 +15,7 @@ from wagtail.models import (
     GroupPagePermission,
     Page,
     Revision,
+    RevisionMixin,
     Workflow,
     WorkflowContentType,
 )
@@ -1415,6 +1416,9 @@ class TestModuleInEditView(WagtailTestUtils, TestCase):
 
     @override_settings(USE_THOUSAND_SEPARATOR=True)
     def test_edit_view_with_thousand_separator(self):
+        if not isinstance(self.object, RevisionMixin):
+            self.skipTest("not a revisionable object")
+
         # Make it so that the latest revision has an ID > 1000
         content_type = self.object.get_base_content_type()
         data = self.object.serializable_data()
