@@ -1706,6 +1706,25 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertContains(response, "Page 1 of 3")
         self.assertEqual(response.status_code, 200)
 
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
+    def test_chooser_with_thousand_separator(self):
+        file = get_test_image_file(size=(1, 1))
+        images = [Image(title=f"Test image {i}", file=file) for i in range(1_000)]
+        Image.objects.bulk_create(images, batch_size=200)
+        last_image = Image.objects.last()
+
+        response = self.get({"multiple": 1})
+
+        self.assertContains(response, "Page 1 of 50")
+        self.assertGreaterEqual(last_image.pk, 1_000)
+        html = response.json()["html"]
+        self.assertInHTML(
+            f"""
+            <input type="checkbox" data-multiple-choice-select
+            name="id" value="{last_image.pk}" title="Select {last_image.title}">""",
+            html,
+        )
+
     def test_filter_by_tag(self):
         for i in range(0, 10):
             image = Image.objects.create(

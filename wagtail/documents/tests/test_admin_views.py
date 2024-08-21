@@ -166,6 +166,31 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
             count=2,
         )
 
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
+    def test_index_with_thousand_separator(self):
+        Collection.load_bulk(
+            [{"data": {"name": f"Collection {i}"}} for i in range(1_000)]
+        )
+        root_collection = Collection.get_first_root_node()
+        travel_plans = root_collection.add_child(name="Travel plans")
+        self.assertGreater(travel_plans.pk, 1_000)
+        models.Document.objects.create(title="Itinerary", collection=travel_plans)
+
+        response = self.get({"collection_id": travel_plans.pk})
+        # Should render the "Select all" with the correct collection ID
+        # twice, one for the column header and one in the footer.
+        self.assertContains(
+            response,
+            f"""
+            <input data-bulk-action-parent-id="{travel_plans.pk}"
+                   data-bulk-action-select-all-checkbox
+                   type="checkbox"
+                   aria-label="Select all"
+            />""",
+            html=True,
+            count=2,
+        )
+
     def test_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
         evil_plans = root_collection.add_child(name="Evil plans")

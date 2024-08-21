@@ -1427,11 +1427,11 @@ class TestModuleInEditView(WagtailTestUtils, TestCase):
                 object_str=str(self),
                 created_at=created_at,
             )
-            for _ in range(1000)
+            for _ in range(1_000)
         ]
         Revision.objects.bulk_create(revisions, batch_size=200)
         self.object.save_revision()
-        self.assertGreater(self.object.latest_revision.id, 1000)
+        self.assertGreater(self.object.latest_revision.id, 1_000)
         self.test_edit_view_with_default_interval()
 
 
