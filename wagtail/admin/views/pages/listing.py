@@ -175,6 +175,10 @@ class PageListingMixin:
     def i18n_enabled(self):
         return getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
+    @cached_property
+    def show_locale_labels(self):
+        return self.i18n_enabled
+
     def get_valid_orderings(self):
         valid_orderings = super().get_valid_orderings()
 
@@ -216,7 +220,7 @@ class PageListingMixin:
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             pages = pages.prefetch_workflow_states()
         if self.i18n_enabled:
-            pages = pages.annotate_has_untranslated_locale()
+            pages = pages.prefetch_related("locale").annotate_has_untranslated_locale()
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
@@ -263,6 +267,7 @@ class PageListingMixin:
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["actions_next_url"] = self.index_url
+        kwargs["show_locale_labels"] = self.show_locale_labels
         return kwargs
 
     def get_context_data(self, **kwargs):
@@ -350,6 +355,10 @@ class ExplorableIndexView(IndexView):
             self.is_searching or self.is_filtering
         )
 
+    @cached_property
+    def show_locale_labels(self):
+        return self.i18n_enabled and self.parent_page.is_root()
+
     def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
@@ -385,7 +394,6 @@ class ExplorableIndexView(IndexView):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
-        kwargs["show_locale_labels"] = self.i18n_enabled and self.parent_page.is_root()
 
         if self.show_ordering_column:
             kwargs["caption"] = _(
