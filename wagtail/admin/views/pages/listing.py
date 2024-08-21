@@ -265,6 +265,14 @@ class PageListingMixin:
         kwargs["actions_next_url"] = self.index_url
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if any(isinstance(column, ParentPageColumn) for column in self.columns):
+            Page.objects.annotate_parent_page(context["object_list"])
+
+        return context
+
 
 class IndexView(PageListingMixin, generic.IndexView):
     template_name = "wagtailadmin/pages/index.html"
@@ -439,19 +447,12 @@ class ExplorableIndexView(IndexView):
         context = super().get_context_data(**kwargs)
 
         if self.is_searching:
-            # postprocess this page of results to annotate each result with its parent page
-            parent_page_paths = {
-                page.path[: -page.steplen] for page in context["object_list"]
-            }
-            parent_pages_by_path = {
-                page.path: page
-                for page in Page.objects.filter(path__in=parent_page_paths).specific()
-            }
+            Page.objects.annotate_parent_page(context["object_list"])
             for page in context["object_list"]:
-                parent_page = parent_pages_by_path.get(page.path[: -page.steplen])
                 # add annotation if parent page is found and is not the currently viewed parent
-                if parent_page and parent_page != self.parent_page:
-                    page.annotated_parent_page = parent_page
+                # to be used by PageTitleColumn instead of a dedicated ParentPageColumn
+                if page._parent_page and page._parent_page != self.parent_page:
+                    page.annotated_parent_page = page._parent_page
 
         context.update(
             {
