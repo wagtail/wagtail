@@ -7,10 +7,17 @@ from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.timezone import now
 from freezegun import freeze_time
 
 from wagtail.admin.models import EditingSession
-from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
+from wagtail.models import (
+    GroupPagePermission,
+    Page,
+    Revision,
+    Workflow,
+    WorkflowContentType,
+)
 from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
@@ -1405,6 +1412,27 @@ class TestModuleInEditView(WagtailTestUtils, TestCase):
         # Should use the custom interval (30s)
         self.assertEqual(module.get("data-w-session-interval-value"), "30000")
         self.assertRevisionInput(module)
+
+    @override_settings(USE_THOUSAND_SEPARATOR=True)
+    def test_edit_view_with_thousand_separator(self):
+        # Make it so that the latest revision has an ID > 1000
+        content_type = self.object.get_base_content_type()
+        data = self.object.serializable_data()
+        created_at = now()
+        revisions = [
+            Revision(
+                content_object=self.object,
+                base_content_type=content_type,
+                content=data,
+                object_str=str(self),
+                created_at=created_at,
+            )
+            for _ in range(1000)
+        ]
+        Revision.objects.bulk_create(revisions, batch_size=200)
+        self.object.save_revision()
+        self.assertGreater(self.object.latest_revision.id, 1000)
+        self.test_edit_view_with_default_interval()
 
 
 class TestModuleInEditViewWithRevisableSnippet(TestModuleInEditView):
