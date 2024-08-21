@@ -1,8 +1,6 @@
-(deployment_guide)=
+# Wagtail Deployment: Under the Hood
 
-# Deploying Wagtail
-
-Once you've built your Wagtail site, it's time to release it upon the rest of the internet.
+This doc provides a technical deep-dive into Wagtail hosting concepts. Most likely, you'll want to [choose a hosting provider](index.md) instead.
 
 Wagtail is built on Django, and so the vast majority of the deployment steps and considerations for deploying Django are also true for Wagtail. We recommend reading Django's ["How to deploy Django"](inv:django#howto/deployment/index) documentation.
 
@@ -97,7 +95,7 @@ Your production site should be as fast and performant as possible. For tips on h
 
 ## Deployment examples
 
-Some examples of deployments on a few hosting platforms can be found in [](./third_party_tutorials). This is not a complete list of platforms where Wagtail can run, nor is it necessarily the only way to run Wagtail there.
+Some examples of deployments on a few hosting platforms can be found in [](/advanced_topics/third_party_tutorials). This is not a complete list of platforms where Wagtail can run, nor is it necessarily the only way to run Wagtail there.
 
 An example of a production Wagtail site is [guide.wagail.org](https://guide.wagtail.org/), which is [open-source](https://github.com/wagtail/guide) and runs on Heroku. More information on its hosting environment can be found in [its documentation](https://github.com/wagtail/guide/blob/main/docs/hosting-environment.md).
 
