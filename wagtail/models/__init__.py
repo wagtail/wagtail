@@ -235,6 +235,36 @@ class BasePageManager(models.Manager):
 
         return self.get(path=common_parent_path)
 
+    def annotate_parent_page(self, pages):
+        """
+        Annotates each page with its parent page. This is implemented as a
+        manager-only method instead of a QuerySet method so it can be used with
+        search results.
+
+        If given a QuerySet, this method will evaluate it. Only use this method
+        when you are ready to consume the queryset, e.g. after pagination has
+        been applied. This is typically done in the view's `get_context_data`
+        using `context["object_list"]`.
+
+        This method does not return a new queryset, but modifies the existing one,
+        to ensure any references to the queryset in the view's context are updated
+        (e.g. when using `context_object_name`).
+        """
+        parent_page_paths = {
+            Page._get_parent_path_from_path(page.path) for page in pages
+        }
+        parent_pages_by_path = {
+            page.path: page
+            for page in Page.objects.filter(path__in=parent_page_paths).specific(
+                defer=True
+            )
+        }
+        for page in pages:
+            parent_page = parent_pages_by_path.get(
+                Page._get_parent_path_from_path(page.path)
+            )
+            page._parent_page = parent_page
+
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)
 
