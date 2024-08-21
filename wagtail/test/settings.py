@@ -270,3 +270,6 @@ MESSAGE_TAGS = {
     message_constants.WARNING: "my-custom-tag",
     message_constants.ERROR: "my-custom-tag",
 }
+
+USE_THOUSAND_SEPARATOR = True
+FORMAT_MODULE_PATH = ["wagtail.test.formats"]
