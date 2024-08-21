@@ -11,6 +11,7 @@ Changelog
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
+ * Fix: Reinstate transparency indicator on image chooser widgets (Sébastien Corbin)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customise date/time format settings (Vince Salvino)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
