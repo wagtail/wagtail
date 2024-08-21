@@ -163,7 +163,7 @@ export class BaseSequenceChild extends EventEmitter {
                 <use href="#icon-${blockTypeIcon}"></use>
               </svg>
             </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
+            <h1 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
               <span data-panel-heading-text class="c-sf-block__title"></span>
               <span class="c-sf-block__type">${blockTypeLabel}</span>
               ${

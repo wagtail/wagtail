@@ -38,6 +38,7 @@ $header-button-size: theme('spacing.6');
   @apply w-h3;
   display: inline-block;
   margin: 0;
+  margin-top: 10px;
   margin-inline-start: var(--header-gap);
   padding-inline-end: theme('spacing.2');
   white-space: nowrap;
