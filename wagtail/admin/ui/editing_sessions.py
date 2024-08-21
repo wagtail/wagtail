@@ -32,7 +32,8 @@ class EditingSessionsModule(Component):
             "release_url": self.release_url,
             "ping_interval": str(ping_interval),  # avoid the need to |unlocalize
             "sessions_list": self.sessions_list,
-            "revision_id": str(self.revision_id),  # avoid the need to |unlocalize
+            "revision_id": self.revision_id
+            and str(self.revision_id),  # avoid the need to |unlocalize
         }
 
 
