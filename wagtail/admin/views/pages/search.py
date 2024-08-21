@@ -1,6 +1,5 @@
 from typing import Any
 
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.http import Http404
@@ -63,7 +62,6 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         return columns
 
     def get(self, request):
-        self.show_locale_labels = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
         self.content_types = []
         self.ordering = None
 
@@ -123,12 +121,6 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
             ]
 
         return pages
-
-    def get_table_kwargs(self):
-        kwargs = super().get_table_kwargs()
-        kwargs["show_locale_labels"] = self.show_locale_labels
-        kwargs["actions_next_url"] = self.get_index_url()
-        return kwargs
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
