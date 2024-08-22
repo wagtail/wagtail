@@ -1,11 +1,13 @@
 {% load i18n wagtailadmin_tags %}
 
 <h2 role="alert">
-    {% blocktrans trimmed count counter=pages.paginator.count %}
-        There is {{ counter }} match
-    {% plural %}
-        There are {{ counter }} matches
-    {% endblocktrans %}
+    {% with counter_val=pages.paginator.count %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}
+            There is {{ counter }} match
+        {% plural %}
+            There are {{ counter }} matches
+        {% endblocktrans %}
+    {% endwith %}
 </h2>
 
 {% if pages %}

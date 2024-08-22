@@ -36,7 +36,7 @@
     <input type="checkbox" name="is_editing" value="1" data-w-session-target="unsavedChanges" hidden />
     {% if revision_id %}
         {# The ID of the latest revision that was known when this module was initially loaded #}
-        <input type="hidden" name="revision_id" value="{{ revision_id }}" />
+        <input type="hidden" name="revision_id" value="{{ revision_id|unlocalize }}" />
     {% endif %}
     <div id="w-editing-sessions">
         {% component sessions_list %}

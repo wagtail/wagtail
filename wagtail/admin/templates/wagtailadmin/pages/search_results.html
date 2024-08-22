@@ -2,11 +2,13 @@
 <div class="nice-padding">
     {% if pages %}
         <h2 role="alert">
-            {% blocktrans trimmed count counter=all_pages.count %}
-                There is one matching page
-            {% plural %}
-                There are {{ counter }} matching pages
-            {% endblocktrans %}
+            {% with page_count=all_pages.count %}
+                {% blocktrans trimmed with counter=page_count|intcomma count counter_val=page_count %}
+                    There is one matching page
+                {% plural %}
+                    There are {{ counter }} matching pages
+                {% endblocktrans %}
+            {% endwith %}
         </h2>
 
         {% search_other %}
@@ -16,16 +18,16 @@
                 <h3 id="page-types-title" class="filter-title">{% trans "Page types" %}</h3>
                 <ul class="filter-options">
                     {% if not selected_content_type %}
-                        <li class="w-bg-border-furniture">{% trans "All" %} ({{ all_pages.count }})</li>
+                        <li class="w-bg-border-furniture">{% trans "All" %} ({{ all_pages.count|intcomma }})</li>
                     {% else %}
-                        <li><a href="{% url 'wagtailadmin_pages:search' %}?q={{ query_string|urlencode }}">{% trans "All" %} ({{ all_pages.count }})</a></li>
+                        <li><a href="{% url 'wagtailadmin_pages:search' %}?q={{ query_string|urlencode }}">{% trans "All" %} ({{ all_pages.count|intcomma }})</a></li>
                     {% endif %}
 
                     {% for content_type, count in content_types %}
                         {% if content_type == selected_content_type %}
-                            <li class="w-bg-border-furniture">{{ content_type.model_class.get_verbose_name }} ({{ count }})</li>
+                            <li class="w-bg-border-furniture">{{ content_type.model_class.get_verbose_name }} ({{ count|intcomma }})</li>
                         {% else %}
-                            <li><a href="{% url 'wagtailadmin_pages:search' %}?q={{ query_string|urlencode }}&amp;content_type={{ content_type.app_label }}.{{ content_type.model|lower }}">{{ content_type.model_class.get_verbose_name }} ({{ count }})</a></li>
+                            <li><a href="{% url 'wagtailadmin_pages:search' %}?q={{ query_string|urlencode }}&amp;content_type={{ content_type.app_label }}.{{ content_type.model|lower }}">{{ content_type.model_class.get_verbose_name }} ({{ count|intcomma }})</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>

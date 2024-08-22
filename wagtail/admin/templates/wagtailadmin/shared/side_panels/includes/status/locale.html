@@ -5,7 +5,7 @@
     {% trans 'Locale: ' as screen_reader_title_prefix %}
 
     {% if object.pk and translations %}
-        {% blocktrans trimmed asvar help_text %}
+        {% blocktrans trimmed with translations_total=translations_total|intcomma asvar help_text %}
             Available in {{ translations_total }} locales
         {% endblocktrans %}
     {% else %}
