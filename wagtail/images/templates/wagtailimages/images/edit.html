@@ -50,7 +50,7 @@
 
                 <div
                     class="focal-point-chooser"
-                    style="max-width: {{ rendition.width }}px; max-height: {{ rendition.height }}px;"
+                    style="max-width: {{ rendition.width|unlocalize }}px; max-height: {{ rendition.height|unlocalize }}px;"
                     data-focal-point-x="{{ image.focal_point_x|default_if_none:''|unlocalize }}"
                     data-focal-point-y="{{ image.focal_point_y|default_if_none:''|unlocalize }}"
                     data-focal-point-width="{{ image.focal_point_width|default_if_none:''|unlocalize }}"
@@ -78,13 +78,15 @@
 
                         <dl>
                             <dt>{% trans "Max dimensions" %}</dt>
-                            <dd>{{ original_image.width }}x{{ original_image.height }}</dd>
+                            <dd>{{ original_image.width|unlocalize }}x{{ original_image.height|unlocalize }}</dd>
                             <dt>{% trans "Filesize" %}</dt>
                             <dd>{% if filesize %}{{ filesize|filesizeformat }}{% else %}{% trans "File not found" %}{% endif %}</dd>
 
                             <dt>{% trans "Usage" %}</dt>
                             <dd>
-                                <a href="{{ image.usage_url }}">{% blocktrans trimmed count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                                {% with image.get_usage.count as usage_count_val %}
+                                    <a href="{{ image.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                                {% endwith %}
                             </dd>
                         </dl>
                     </div>

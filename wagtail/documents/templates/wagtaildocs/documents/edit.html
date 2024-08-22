@@ -53,7 +53,9 @@
 
                 <dt>{% trans "Usage" %}</dt>
                 <dd>
-                    <a href="{{ document.usage_url }}">{% blocktrans trimmed count usage_count=document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                    {% with usage_count_val=document.get_usage.count %}
+                        <a href="{{ document.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                    {% endwith %}
                 </dd>
             </dl>
         </div>

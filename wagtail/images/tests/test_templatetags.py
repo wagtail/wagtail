@@ -12,6 +12,7 @@ from wagtail.images.tests.utils import (
 
 LIBRARIES = {
     "wagtailimages_tags": "wagtail.images.templatetags.wagtailimages_tags",
+    "l10n": "django.templatetags.l10n",
 }
 
 
@@ -123,7 +124,10 @@ class ImagesTestCase(TestCase):
         cls.engine = Engine(
             app_dirs=True,
             libraries=LIBRARIES,
-            builtins=[LIBRARIES["wagtailimages_tags"]],
+            builtins=[
+                LIBRARIES["wagtailimages_tags"],
+                LIBRARIES["l10n"],
+            ],
         )
 
     @classmethod
@@ -275,8 +279,8 @@ class SrcsetImageTagTestCase(ImagesTestCase):
     def test_srcset_image_assignment(self):
         template = (
             "{% srcset_image myimage width-{30,60} as bg %}"
-            "width: {{ bg.renditions.0.width }}, url: {{ bg.renditions.0.url }} "
-            "width: {{ bg.renditions.1.width }}, url: {{ bg.renditions.1.url }} "
+            "width: {{ bg.renditions.0.width|unlocalize }}, url: {{ bg.renditions.0.url }} "
+            "width: {{ bg.renditions.1.width|unlocalize }}, url: {{ bg.renditions.1.url }} "
         )
         rendered = self.render(template, {"myimage": self.image})
         expected = f"""
@@ -403,10 +407,10 @@ class PictureTagTestCase(ImagesTestCase):
     def test_picture_assignment(self):
         template = (
             "{% picture myimage width-{550,600} format-{jpeg,webp} as bg %}"
-            "width: {{ bg.formats.jpeg.0.width }}, url: {{ bg.formats.jpeg.0.url }} "
-            "width: {{ bg.formats.jpeg.1.width }}, url: {{ bg.formats.jpeg.1.url }} "
-            "width: {{ bg.formats.webp.0.width }}, url: {{ bg.formats.webp.0.url }} "
-            "width: {{ bg.formats.webp.1.width }}, url: {{ bg.formats.webp.1.url }} "
+            "width: {{ bg.formats.jpeg.0.width|unlocalize }}, url: {{ bg.formats.jpeg.0.url }} "
+            "width: {{ bg.formats.jpeg.1.width|unlocalize }}, url: {{ bg.formats.jpeg.1.url }} "
+            "width: {{ bg.formats.webp.0.width|unlocalize }}, url: {{ bg.formats.webp.0.url }} "
+            "width: {{ bg.formats.webp.1.width|unlocalize }}, url: {{ bg.formats.webp.1.url }} "
         )
         rendered = self.render(template, {"myimage": self.image})
         expected = f"""

@@ -11,7 +11,7 @@
         <span class="w-sr-only">
             {% trans 'Drag' %}
             <span>
-                {% blocktranslate trimmed with index=row.index|add:1 total=table.row_count %}Item {{ index }} of {{ total }}{% endblocktranslate %}
+                {% blocktranslate trimmed with index=row.index|add:1|intcomma total=table.row_count|intcomma %}Item {{ index }} of {{ total }}{% endblocktranslate %}
             </span>
         </span>
     </button>
