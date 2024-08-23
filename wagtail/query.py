@@ -12,6 +12,7 @@ from django.db.models.functions import Cast, Length, Substr
 from django.db.models.query import BaseIterable, ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.models.i18n import TranslatableQuerySetMixin
 from wagtail.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
 
@@ -179,7 +180,12 @@ class SpecificQuerySetMixin:
         )
 
 
-class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet):
+class PageQuerySet(
+    SearchableQuerySetMixin,
+    SpecificQuerySetMixin,
+    TranslatableQuerySetMixin,
+    TreeQuerySet,
+):
     def live_q(self):
         return Q(live=True)
 
