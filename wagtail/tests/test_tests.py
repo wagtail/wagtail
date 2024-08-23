@@ -1,5 +1,7 @@
 import json
+import unittest
 
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template import Context, Template
@@ -464,6 +466,10 @@ class TestDummyExternalStorage(WagtailTestUtils, TestCase):
             DummyExternalStorage().save("test.png", simple_png)
 
 
+@unittest.skipUnless(
+    settings.WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT,
+    "Number formatting functions have not been patched",
+)
 class TestPatchedNumberFormat(TestCase):
     def test_outputting_number_directly_is_disallowed(self):
         context = Context({"num": 42})

@@ -29,7 +29,7 @@ jobs:
           name: Run tests
           command: |
             export PYTHONUNBUFFERED=1
-            pipenv run python -u runtests.py --parallel=2
+            WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1 pipenv run python -u runtests.py --parallel=2
 
   frontend:
     docker:

@@ -5,7 +5,13 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.test.numberformat import patch_number_formats
 
-patch_number_formats()
+WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT = (
+    os.environ.get("WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT", "0") == "1"
+)
+if WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT:
+    # Patch Django number formatting functions to raise exceptions if a number is output directly
+    # on a template (which is liable to cause bugs when USE_THOUSAND_SEPARATOR is in use).
+    patch_number_formats()
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
