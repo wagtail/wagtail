@@ -1,3 +1,5 @@
+import warnings
+
 from django.conf import settings
 from django.urls import reverse
 from django.utils.text import capfirst
@@ -7,6 +9,7 @@ from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.admin.userbar import AccessibilityItem
 from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class BaseSidePanel(Component):
@@ -353,8 +356,16 @@ class PreviewSidePanel(BaseSidePanel):
 
     @property
     def auto_update_interval(self):
-        if not getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW", True):
-            return 0
+        if hasattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW"):
+            warnings.warn(
+                "`WAGTAIL_AUTO_UPDATE_PREVIEW` is deprecated. "
+                "Set `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` to disable "
+                "auto-update for previews.",
+                RemovedInWagtail70Warning,
+            )
+            if not settings.WAGTAIL_AUTO_UPDATE_PREVIEW:
+                return 0
+
         return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL", 500)
 
     def get_context_data(self, parent_context):
