@@ -17,12 +17,12 @@ concurrency:
 # - at least one test run for each older supported version of Python and Django
 # - at least one test run for each supported Elasticsearch version
 # - a test run against Django's git main and active stable branch (allowing failures)
-# - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
+# - test runs with USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes and WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 
 # Current configuration:
 # - django 4.2, python 3.9, postgres:12, parallel
 # - django 4.2, python 3.10, mysql:8.0
-# - django 5.0, python 3.11, sqlite
+# - django 5.0, python 3.11, sqlite, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 5.1, python 3.12, mysql:8.1, parallel
 # - django 5.1, python 3.12, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
 # - django 5.1, python 3.12, postgres:15, parallel, DISABLE_TIMEZONE=yes
@@ -49,6 +49,7 @@ jobs:
         include:
           - python: '3.11'
             django: 'Django>=5.0,<5.1'
+            check_template_number_format: '1'
           - python: '3.12'
             django: 'Django>=5.1,<5.2'
             emailuser: emailuser
@@ -73,6 +74,7 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
       - name: Upload coverage data
         uses: actions/upload-artifact@v3
         with:
