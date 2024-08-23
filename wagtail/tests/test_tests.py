@@ -1,6 +1,8 @@
 import json
 
+from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.template import Context, Template
 from django.test import TestCase
 
 from wagtail.admin.tests.test_contentstate import content_state_equal
@@ -460,3 +462,21 @@ class TestDummyExternalStorage(WagtailTestUtils, TestCase):
             "Content file pointer should be at 0 - got 70 instead",
         ):
             DummyExternalStorage().save("test.png", simple_png)
+
+
+class TestPatchedNumberFormat(TestCase):
+    def test_outputting_number_directly_is_disallowed(self):
+        context = Context({"num": 42})
+        template = Template("the answer is {{ num }}")
+        with self.assertRaises(ImproperlyConfigured):
+            template.render(context)
+
+    def test_outputting_number_via_intcomma(self):
+        context = Context({"num": 9000})
+        template = Template("{% load wagtailadmin_tags %}It's over {{ num|intcomma }}!")
+        self.assertEqual(template.render(context), "It's over 9,000!")
+
+    def test_outputting_number_via_unlocalize(self):
+        context = Context({"num": 9000})
+        template = Template("{% load l10n %}It's over {{ num|unlocalize }}!")
+        self.assertEqual(template.render(context), "It's over 9000!")

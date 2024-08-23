@@ -3,6 +3,10 @@ import os
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.test.numberformat import patch_number_formats
+
+patch_number_formats()
+
 DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
 WAGTAILADMIN_BASE_URL = "http://testserver"
