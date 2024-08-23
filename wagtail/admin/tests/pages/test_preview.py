@@ -1,7 +1,7 @@
 import datetime
 from functools import wraps
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
@@ -535,6 +535,18 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         self.assertIsNotNone(controller)
         self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
+        # Should have a default interval of 500ms and should render the hidden spinner
+        interval_value = controller.get("data-w-preview-auto-update-interval-value")
+        self.assertEqual(interval_value, "500")
+        spinner = controller.select_one('[data-w-preview-target="spinner"]')
+        self.assertIsNotNone(spinner)
+        self.assertIsNotNone(spinner.get("hidden"))
+        self.assertIsNotNone(spinner.select_one("svg.icon-spinner"))
+
+        # Should not render any buttons (the refresh button in particular)
+        refresh_button = controller.select_one("button")
+        self.assertIsNone(refresh_button)
+
         # Should show the iframe
         iframe = controller.select_one("#w-preview-iframe")
         self.assertIsNotNone(iframe)
@@ -589,6 +601,60 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         other_option = mode_select.select_one('option[value="original"]')
         self.assertIsNotNone(other_option)
         self.assertIsNone(other_option.get("selected"))
+
+    @override_settings(WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL=12345)
+    def test_custom_auto_update_interval(self):
+        edit_url = self.get_url_on_edit("edit", self.single)
+        preview_url = self.get_url_on_edit("preview_on_edit", self.single)
+        response = self.client.get(edit_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+
+        # Should set the custom interval value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
+        interval_value = controller.get("data-w-preview-auto-update-interval-value")
+        self.assertEqual(interval_value, "12345")
+
+        # Should render the spinner
+        spinner = controller.select_one('[data-w-preview-target="spinner"]')
+        self.assertIsNotNone(spinner)
+        self.assertIsNotNone(spinner.get("hidden"))
+        self.assertIsNotNone(spinner.select_one("svg.icon-spinner"))
+
+        # Should not render any buttons (the refresh button in particular)
+        refresh_button = controller.select_one("button")
+        self.assertIsNone(refresh_button)
+
+    @override_settings(WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL=0)
+    def test_disable_auto_update_using_zero_interval(self):
+        edit_url = self.get_url_on_edit("edit", self.single)
+        preview_url = self.get_url_on_edit("preview_on_edit", self.single)
+        response = self.client.get(edit_url)
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+
+        # Should set the interval value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
+        interval_value = controller.get("data-w-preview-auto-update-interval-value")
+        self.assertEqual(interval_value, "0")
+
+        # Should not render the spinner
+        spinner = controller.select_one('[data-w-preview-target="spinner"]')
+        self.assertIsNone(spinner)
+
+        # Should render the refresh button with the w-progress controller
+        refresh_button = controller.select_one("button")
+        self.assertIsNotNone(refresh_button)
+        self.assertEqual(refresh_button.get("data-controller"), "w-progress")
+        self.assertEqual(refresh_button.text.strip(), "Refresh")
 
     def test_show_preview_on_revisions_list(self):
         latest_revision = self.single.save_revision(log_action=True)
