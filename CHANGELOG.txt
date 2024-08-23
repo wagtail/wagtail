@@ -18,6 +18,7 @@ Changelog
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
  * Maintenance: Improve page listing performance (Sage Abdullah)
+ * Maintenance: Phase out usage of SECRET_KEY in version and icon hashes (Jake Howard)
 
 
 6.2.1 (20.08.2024)
