@@ -296,31 +296,33 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        # Should show the preview panel
-        self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
-
         # Should have the preview side panel toggle button
         soup = self.get_soup(response.content)
+        self.assertIsNotNone(soup.select_one('[data-side-panel="preview"]'))
         toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
         self.assertIsNotNone(toggle_button)
         self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
         self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
 
+        # Should set the preview URL value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
+
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="w-preview__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
         # Should not show the preview mode selection
-        self.assertNotContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
-        )
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNone(mode_select)
 
     def test_show_preview_panel_on_create_with_multiple_modes(self):
         create_url = self.get_url(self.multiple, "add")
@@ -333,28 +335,35 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the preview panel
         self.assertContains(response, 'data-side-panel-toggle="preview"')
         self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should set the preview URL value on the controller
+        soup = self.get_soup(response.content)
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="w-preview__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set and correctly quoted
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
-        # should show the preview mode selection
-        self.assertContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
-        )
-        self.assertContains(response, '<option value="">Normal</option>')
-
-        # Should respect the default_preview_mode
-        self.assertContains(
-            response, '<option value="alt#1" selected>Alternate</option>'
-        )
+        # should show the preview mode selection with the default mode selected
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNotNone(mode_select)
+        self.assertEqual(mode_select["id"], "id_preview_mode")
+        default_option = mode_select.select_one('option[value="alt#1"]')
+        self.assertIsNotNone(default_option)
+        self.assertIsNotNone(default_option.get("selected"))
+        other_option = mode_select.select_one('option[value=""]')
+        self.assertIsNotNone(other_option)
+        self.assertEqual(other_option.text.strip(), "Normal")
+        self.assertIsNone(other_option.get("selected"))
 
     def test_show_preview_panel_on_edit_with_single_mode(self):
         edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
@@ -366,25 +375,33 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        # Should show the preview panel
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
-        self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
+        # Should have the preview side panel toggle button
+        soup = self.get_soup(response.content)
+        self.assertIsNotNone(soup.select_one('[data-side-panel="preview"]'))
+        toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
+        self.assertIsNotNone(toggle_button)
+        self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
+        self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
+
+        # Should set the preview URL value on the controller
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="preview-panel__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
         # Should not show the preview mode selection
-        self.assertNotContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
-        )
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNone(mode_select)
 
     def test_show_preview_panel_on_edit_with_multiple_modes(self):
         edit_url = self.get_url(self.multiple, "edit", args=(self.multiple.pk,))
@@ -399,28 +416,35 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should show the preview panel
         self.assertContains(response, 'data-side-panel-toggle="preview"')
         self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, 'data-action="%s"' % preview_url)
+
+        # Should set the preview URL value on the controller
+        soup = self.get_soup(response.content)
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should show the iframe
-        self.assertContains(
-            response,
-            '<iframe id="preview-iframe" loading="lazy" title="Preview" class="w-preview__iframe" data-preview-iframe aria-describedby="w-preview-error-banner">',
-        )
+        iframe = controller.select_one("#w-preview-iframe")
+        self.assertIsNotNone(iframe)
+        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
 
         # Should show the new tab button with the default mode set and correctly quoted
-        self.assertContains(response, f'href="{new_tab_url}" target="_blank"')
+        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
+        self.assertIsNotNone(new_tab_button)
+        self.assertEqual(new_tab_button["href"], new_tab_url)
+        self.assertEqual(new_tab_button["target"], "_blank")
 
-        # should show the preview mode selection
-        self.assertContains(
-            response,
-            '<select id="id_preview_mode" name="preview_mode" class="w-preview__mode-select" data-preview-mode-select>',
-        )
-        self.assertContains(response, '<option value="">Normal</option>')
-
-        # Should respect the default_preview_mode
-        self.assertContains(
-            response, '<option value="alt#1" selected>Alternate</option>'
-        )
+        # should show the preview mode selection with the default mode selected
+        mode_select = controller.select_one('[data-w-preview-target="mode"]')
+        self.assertIsNotNone(mode_select)
+        self.assertEqual(mode_select["id"], "id_preview_mode")
+        default_option = mode_select.select_one('option[value="alt#1"]')
+        self.assertIsNotNone(default_option)
+        self.assertIsNotNone(default_option.get("selected"))
+        other_option = mode_select.select_one('option[value=""]')
+        self.assertIsNotNone(other_option)
+        self.assertEqual(other_option.text.strip(), "Normal")
+        self.assertIsNone(other_option.get("selected"))
 
     def test_show_preview_on_revisions_list(self):
         latest_revision = self.multiple.save_revision(log_action=True)
@@ -459,7 +483,8 @@ class TestDisablePreviewWithEmptyModes(WagtailTestUtils, TestCase):
         preview_url = self.get_url("preview_on_add")
         self.assertNotContains(response, 'data-side-panel-toggle="preview"')
         self.assertNotContains(response, 'data-side-panel="preview"')
-        self.assertNotContains(response, 'data-action="%s"' % preview_url)
+        self.assertNotContains(response, 'data-controller="w-preview"')
+        self.assertNotContains(response, preview_url)
 
     def test_disable_preview_on_edit(self):
         response = self.client.get(self.get_url("edit", args=(self.snippet.pk,)))
@@ -468,7 +493,8 @@ class TestDisablePreviewWithEmptyModes(WagtailTestUtils, TestCase):
         preview_url = self.get_url("preview_on_edit", args=(self.snippet.pk,))
         self.assertNotContains(response, 'data-side-panel-toggle="preview"')
         self.assertNotContains(response, 'data-side-panel="preview"')
-        self.assertNotContains(response, 'data-action="%s"' % preview_url)
+        self.assertNotContains(response, 'data-controller="w-preview"')
+        self.assertNotContains(response, preview_url)
 
     def test_disable_preview_on_revisions_list(self):
         latest_revision = self.snippet.save_revision(log_action=True)
