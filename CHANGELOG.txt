@@ -17,6 +17,7 @@ Changelog
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
+ * Maintenance: Improve page listing performance (Sage Abdullah)
 
 
 6.2.1 (20.08.2024)
