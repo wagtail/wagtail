@@ -20,6 +20,9 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         ).specific
         self.christmas_event.save_revision()
 
+        self.site_root = Page.objects.specific().get(id=2)
+        self.events_page = self.christmas_event.get_parent().specific
+
         workflow = self.christmas_event.get_workflow()
         self.workflow_state = workflow.start(self.christmas_event, self.user)
 
@@ -42,21 +45,18 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
             ),
         )
 
-        site_root = Page.objects.get(id=2)
-        events_page = self.christmas_event.get_parent()
-
         items = [
             {
                 "url": reverse("wagtailadmin_explore_root"),
                 "label": "Root",
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(site_root.id,)),
-                "label": site_root.get_admin_display_title(),
+                "url": reverse("wagtailadmin_explore", args=(self.site_root.id,)),
+                "label": self.site_root.get_admin_display_title(),
             },
             {
-                "url": reverse("wagtailadmin_explore", args=(events_page.id,)),
-                "label": events_page.get_admin_display_title(),
+                "url": reverse("wagtailadmin_explore", args=(self.events_page.id,)),
+                "label": self.events_page.get_admin_display_title(),
             },
             {
                 "url": reverse("wagtailadmin_explore", args=(self.christmas_event.id,)),
@@ -110,6 +110,38 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertContains(response, '<div class="w-tabs" data-tabs>')
 
         self.assertContains(response, '<div class="tab-content">')
+
+        items = [
+            {
+                "url": reverse("wagtailadmin_explore_root"),
+                "label": "Root",
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.site_root.id,)),
+                "label": self.site_root.get_admin_display_title(),
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.events_page.id,)),
+                "label": self.events_page.get_admin_display_title(),
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.christmas_event.id,)),
+                "label": self.christmas_event.get_admin_display_title(),
+            },
+            {
+                "url": reverse(
+                    "wagtailadmin_pages:workflow_history",
+                    args=(self.christmas_event.id,),
+                ),
+                "label": "Workflow history",
+            },
+            {
+                "url": "",
+                "label": "Workflow progress",
+                "sublabel": self.christmas_event.get_admin_display_title(),
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_get_detail_with_bad_permissions(self):
         # Remove privileges from user

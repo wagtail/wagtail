@@ -406,11 +406,79 @@ class WorkflowHistoryDetailView(
     BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView
 ):
     template_name = "wagtailadmin/shared/workflow_history/detail.html"
+    index_url_name = None
+    edit_url_name = None
     workflow_state_url_kwarg = "workflow_state_id"
     workflow_history_url_name = None
     page_title = gettext_lazy("Workflow progress")
     header_icon = "list-ul"
     object_icon = "doc-empty-inverse"
+    _show_breadcrumbs = True
+
+    @cached_property
+    def index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
+
+    @cached_property
+    def edit_url(self):
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
+    @cached_property
+    def workflow_history_url(self):
+        if self.workflow_history_url_name:
+            return reverse(
+                self.workflow_history_url_name, args=(quote(self.object.pk),)
+            )
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url:
+            items.append(
+                {
+                    "url": self.index_url,
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        if self.edit_url:
+            items.append(
+                {
+                    "url": self.edit_url,
+                    "label": self.get_page_subtitle(),
+                }
+            )
+        if self.workflow_history_url:
+            items.append(
+                {
+                    "url": self.workflow_history_url,
+                    "label": gettext("Workflow history"),
+                }
+            )
+        items.append(
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
+        return self.breadcrumbs_items + items
+
+    def get_page_subtitle(self):
+        return get_latest_str(self.object)
+
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        if self.edit_url:
+            buttons.append(
+                HeaderButton(
+                    gettext("Edit / Review"),
+                    url=self.edit_url,
+                    icon_name="edit",
+                )
+            )
+        return buttons
 
     @cached_property
     def workflow_state(self):
@@ -526,7 +594,6 @@ class WorkflowHistoryDetailView(
         context.update(
             {
                 "object": self.object,
-                "object_icon": self.object_icon,
                 "workflow_state": self.workflow_state,
                 "tasks": self.tasks,
                 "task_states_by_revision": self.task_states_by_revision,
