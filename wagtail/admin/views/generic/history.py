@@ -2,7 +2,6 @@ from datetime import timedelta
 
 import django_filters
 from django.contrib.admin.utils import quote
-from django.core.paginator import Paginator
 from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -325,27 +324,77 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         return kwargs
 
 
-class WorkflowHistoryView(BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView):
-    template_name = "wagtailadmin/shared/workflow_history/index.html"
-    page_kwarg = "p"
-    workflow_history_url_name = None
+class WorkflowHistoryView(BaseObjectMixin, BaseListingView):
+    template_name = "wagtailadmin/shared/workflow_history/listing.html"
+    results_template_name = "wagtailadmin/shared/workflow_history/listing_results.html"
+    paginate_by = 20
+    index_url_name = None
+    edit_url_name = None
     workflow_history_detail_url_name = None
+    page_title = gettext_lazy("Workflow history")
+    context_object_name = "workflow_states"
 
     @cached_property
-    def workflow_states(self):
-        return WorkflowState.objects.for_instance(self.object).order_by("-created_at")
+    def index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
+
+    @cached_property
+    def edit_url(self):
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        if self.edit_url:
+            buttons.append(
+                HeaderButton(gettext("Edit"), url=self.edit_url, icon_name="edit")
+            )
+        return buttons
+
+    def get_page_subtitle(self):
+        return get_latest_str(self.object)
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url:
+            items.append(
+                {
+                    "url": self.index_url,
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+
+        if self.edit_url:
+            items.append(
+                {
+                    "url": self.edit_url,
+                    "label": self.get_page_subtitle(),
+                }
+            )
+        items.append(
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
+
+        return self.breadcrumbs_items + items
+
+    def get_base_queryset(self):
+        return (
+            WorkflowState.objects.for_instance(self.object)
+            .select_related("workflow", "requested_by")
+            .order_by("-created_at")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        paginator = Paginator(self.workflow_states, per_page=20)
-        workflow_states = paginator.get_page(self.request.GET.get(self.page_kwarg))
-
         context.update(
             {
                 "object": self.object,
-                "workflow_states": workflow_states,
-                "workflow_history_url_name": self.workflow_history_url_name,
                 "workflow_history_detail_url_name": self.workflow_history_detail_url_name,
                 "model_opts": self.object._meta,
             }

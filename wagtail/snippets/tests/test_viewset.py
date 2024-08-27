@@ -90,7 +90,7 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             ("delete", [pk], "header.html"),
             ("usage", [pk], "headers/slim_header.html"),
             ("unpublish", [pk], "header.html"),
-            ("workflow_history", [pk], "header.html"),
+            ("workflow_history", [pk], "headers/slim_header.html"),
             ("revisions_revert", [pk, self.revision_1.id], "headers/slim_header.html"),
             (
                 "revisions_compare",
@@ -1554,6 +1554,23 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "label": str(self.object),
             },
             {"url": "", "label": "Inspect", "sublabel": str(self.object)},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_workflow_history_view(self):
+        response = self.client.get(
+            self.get_url("workflow_history", args=(self.object.pk,))
+        )
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "Workflow history", "sublabel": str(self.object)},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
