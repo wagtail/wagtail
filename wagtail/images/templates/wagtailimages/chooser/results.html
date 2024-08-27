@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/generic/chooser/results.html" %}
-{% load i18n wagtailimages_tags wagtailadmin_tags %}
+{% load i18n wagtailimages_tags wagtailadmin_tags l10n %}
 
 {% block listing_title %}<h2>{% trans "Latest images" %}</h2>{% endblock %}
 
@@ -11,7 +11,7 @@
                     <label title="Select {% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}">
                         <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                         <h3>
-                            <input type="checkbox" data-multiple-choice-select name="id" value="{{ image.id }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}">
+                            <input type="checkbox" data-multiple-choice-select name="id" value="{{ image.id|unlocalize }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}">
                             {{ image.title|ellipsistrim:60 }}
                         </h3>
                     </label>

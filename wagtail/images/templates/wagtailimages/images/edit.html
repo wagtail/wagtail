@@ -50,7 +50,7 @@
 
                 <div
                     class="focal-point-chooser"
-                    style="max-width: {{ rendition.width }}px; max-height: {{ rendition.height }}px;"
+                    style="max-width: {{ rendition.width|unlocalize }}px; max-height: {{ rendition.height|unlocalize }}px;"
                     data-focal-point-x="{{ image.focal_point_x|default_if_none:''|unlocalize }}"
                     data-focal-point-y="{{ image.focal_point_y|default_if_none:''|unlocalize }}"
                     data-focal-point-width="{{ image.focal_point_width|default_if_none:''|unlocalize }}"

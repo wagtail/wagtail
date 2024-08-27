@@ -30,7 +30,7 @@ class EditingSessionsModule(Component):
             "current_session": self.current_session,
             "ping_url": self.ping_url,
             "release_url": self.release_url,
-            "ping_interval": str(ping_interval),  # avoid the need to | unlocalize
+            "ping_interval": ping_interval,
             "sessions_list": self.sessions_list,
             "revision_id": self.revision_id,
         }
