@@ -5,6 +5,7 @@ Release notes
    :maxdepth: 1
 
    upgrading
+   6.2.2
    6.2.1
    6.2
    6.1.3
