@@ -614,11 +614,10 @@ class DeferredSpecificIterable(SpecificIterable):
 
         annotations = list(queryset.query.annotation_select.keys())
 
-        results = (
-            queryset.iterator(self.chunk_size).values()
-            if self.chunked_fetch
-            else queryset.values()
-        )
+        results = queryset.values()
+
+        if self.chunked_fetch:
+            results = results.iterator(self.chunk_size)
 
         for row in results:
             content_type_id = row["content_type_id"]
