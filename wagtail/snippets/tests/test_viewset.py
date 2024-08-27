@@ -137,11 +137,9 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
-        # The icon is not displayed in the header,
-        # but it is displayed in the main content
-        self.assertEqual(response.context["header_icon"], "list-ul")
-        self.assertContains(response, "icon icon-list-ul")
+        self.assertTemplateNotUsed(response, "wagtailadmin/shared/header.html")
+        self.assertEqual(response.context["header_icon"], "cog")
+        self.assertContains(response, "icon icon-clipboard-list")
         self.assertContains(response, "icon icon-cog")
 
 

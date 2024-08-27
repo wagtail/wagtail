@@ -55,10 +55,13 @@ class WorkflowHistoryView(
 
 
 class WorkflowHistoryDetailView(
-    PageWorkflowHistoryViewMixin, history.WorkflowHistoryDetailView
+    PageWorkflowHistoryViewMixin,
+    GenericPageBreadcrumbsMixin,
+    history.WorkflowHistoryDetailView,
 ):
-    object_icon = "doc-empty-inverse"
+    header_icon = "doc-empty-inverse"
     workflow_history_url_name = "wagtailadmin_pages:workflow_history"
+    breadcrumbs_items_to_take = 2
 
 
 class PageHistoryView(GenericPageBreadcrumbsMixin, history.HistoryView):

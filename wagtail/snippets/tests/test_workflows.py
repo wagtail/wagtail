@@ -7,6 +7,7 @@ from django.urls import reverse
 from wagtail.models import Workflow, WorkflowContentType, WorkflowState
 from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 # This module serves to gather snippets-equivalent of workflows-related tests
 # that are found throughout page-specific test modules, e.g. test_create_page.py,
@@ -153,7 +154,11 @@ class TestEditViewNotLockable(TestEditView):
     model = ModeratedModel
 
 
-class TestWorkflowHistory(BaseWorkflowsTestCase):
+class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
+    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
+        {"label": "Snippets", "url": "/admin/snippets/"},
+    ]
+
     def setUp(self):
         super().setUp()
         self.object.text = "Edited!"
@@ -220,6 +225,27 @@ class TestWorkflowHistory(BaseWorkflowsTestCase):
         self.assertContains(response, "Moderators approval")
         self.assertContains(response, "In progress")
         self.assertContains(response, "test@email.com")
+
+        items = [
+            {
+                "url": self.get_url("list", args=()),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit"),
+                "label": str(self.object),
+            },
+            {
+                "url": self.get_url("workflow_history"),
+                "label": "Workflow history",
+            },
+            {
+                "url": "",
+                "label": "Workflow progress",
+                "sublabel": str(self.object),
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_get_detail_completed(self):
         self.workflow_state.current_task_state.approve(user=None)
