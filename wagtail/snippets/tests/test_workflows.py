@@ -164,7 +164,7 @@ class TestWorkflowHistory(BaseWorkflowsTestCase):
         response = self.client.get(self.get_url("workflow_history"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, "wagtailadmin/shared/workflow_history/index.html"
+            response, "wagtailadmin/shared/workflow_history/listing.html"
         )
 
         self.assertContains(response, self.get_url("edit"))

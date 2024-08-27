@@ -4,10 +4,12 @@ from django.urls import reverse
 
 from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
-class TestWorkflowHistoryDetail(WagtailTestUtils, TestCase):
+class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
+    base_breadcrumb_items = []
 
     def setUp(self):
         self.user = self.create_test_user()
@@ -39,6 +41,34 @@ class TestWorkflowHistoryDetail(WagtailTestUtils, TestCase):
                 args=[self.christmas_event.id, self.workflow_state.id],
             ),
         )
+
+        site_root = Page.objects.get(id=2)
+        events_page = self.christmas_event.get_parent()
+
+        items = [
+            {
+                "url": reverse("wagtailadmin_explore_root"),
+                "label": "Root",
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(site_root.id,)),
+                "label": site_root.get_admin_display_title(),
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(events_page.id,)),
+                "label": events_page.get_admin_display_title(),
+            },
+            {
+                "url": reverse("wagtailadmin_explore", args=(self.christmas_event.id,)),
+                "label": self.christmas_event.get_admin_display_title(),
+            },
+            {
+                "url": "",
+                "label": "Workflow history",
+                "sublabel": self.christmas_event.get_admin_display_title(),
+            },
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_get_index_with_bad_permissions(self):
         # Remove privileges from user
