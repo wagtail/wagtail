@@ -19,6 +19,7 @@ Changelog
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
  * Maintenance: Improve page listing performance (Sage Abdullah)
  * Maintenance: Phase out usage of SECRET_KEY in version and icon hashes (Jake Howard)
+ * Maintenance: Audit all use of localized and non-localized numbers in templates (Matt Westcott)
 
 
 6.2.1 (20.08.2024)
