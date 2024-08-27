@@ -159,6 +159,9 @@ class Column(BaseColumn):
         context = super().get_cell_context_data(instance, parent_context)
         value = self.get_value(instance)
         if isinstance(value, int) and not isinstance(value, bool):
+            # To prevent errors arising from USE_THOUSAND_SEPARATOR, we require all numbers output
+            # on templates to be explicitly localized or unlocalized. For numeric table cells, we
+            # unlocalize them by default; developers may subclass Column to obtain formatted numbers.
             value = unlocalize(value)
         context["value"] = value
         return context
