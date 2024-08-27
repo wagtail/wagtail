@@ -254,7 +254,7 @@ class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
         )
         self.client.get(url)
 
-        with self.assertNumQueries(25):
+        with self.assertNumQueries(18):
             response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -369,7 +369,7 @@ class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
         )
         self.client.get(url)
 
-        with self.assertNumQueries(29):
+        with self.assertNumQueries(19):
             response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)

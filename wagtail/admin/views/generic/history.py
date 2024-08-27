@@ -1,3 +1,4 @@
+from collections import defaultdict
 from datetime import timedelta
 
 import django_filters
@@ -483,9 +484,9 @@ class WorkflowHistoryDetailView(
     @cached_property
     def workflow_state(self):
         return get_object_or_404(
-            WorkflowState.objects.for_instance(self.object).filter(
-                id=self.kwargs[self.workflow_state_url_kwarg]
-            ),
+            WorkflowState.objects.for_instance(self.object)
+            .filter(id=self.kwargs[self.workflow_state_url_kwarg])
+            .select_related("requested_by", "requested_by__wagtail_userprofile")
         )
 
     @cached_property
@@ -498,6 +499,7 @@ class WorkflowHistoryDetailView(
         """
         return (
             Revision.objects.for_instance(self.object)
+            .select_related("user")
             .filter(
                 id__in=TaskState.objects.filter(
                     workflow_state=self.workflow_state
@@ -513,14 +515,25 @@ class WorkflowHistoryDetailView(
     @cached_property
     def task_states_by_revision(self):
         """Get QuerySet of tasks completed for each revision."""
+        # Fetch task states for the revisions in one query instead of one query per revision
+        task_states = (
+            TaskState.objects.filter(
+                workflow_state=self.workflow_state,
+                revision_id__in=[revision.pk for revision in self.revisions],
+            )
+            .prefetch_related("task", "finished_by")
+            .specific()
+        )
+        task_states_by_revision_id = defaultdict(list)
+        for task_state in task_states:
+            task_states_by_revision_id[task_state.revision_id].append(task_state)
+
         task_states_by_revision_task = [
             (
                 revision,
                 {
                     task_state.task: task_state
-                    for task_state in TaskState.objects.filter(
-                        workflow_state=self.workflow_state, revision=revision
-                    ).specific()
+                    for task_state in task_states_by_revision_id[revision.pk]
                 },
             )
             for revision in self.revisions
@@ -540,6 +553,7 @@ class WorkflowHistoryDetailView(
         """Generate timeline."""
         completed_task_states = (
             TaskState.objects.filter(workflow_state=self.workflow_state)
+            .select_related("finished_by", "task")
             .exclude(finished_at__isnull=True)
             .exclude(status=TaskState.STATUS_CANCELLED)
         )
