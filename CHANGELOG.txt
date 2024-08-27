@@ -4,7 +4,7 @@ Changelog
 6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
 
 
 6.2.1 (20.08.2024)
