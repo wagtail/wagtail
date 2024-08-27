@@ -2792,12 +2792,20 @@ class RevisionQuerySet(models.QuerySet):
         return self.exclude(self.page_revisions_q())
 
     def for_instance(self, instance):
-        return self.filter(
-            content_type=ContentType.objects.get_for_model(
-                instance, for_concrete_model=False
-            ),
-            object_id=str(instance.pk),
-        )
+        try:
+            # Use RevisionMixin.get_base_content_type() if available
+            return self.filter(
+                base_content_type=instance.get_base_content_type(),
+                object_id=str(instance.pk),
+            )
+        except AttributeError:
+            # Fallback to ContentType for the model
+            return self.filter(
+                content_type=ContentType.objects.get_for_model(
+                    instance, for_concrete_model=False
+                ),
+                object_id=str(instance.pk),
+            )
 
 
 class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
