@@ -74,7 +74,7 @@ Add a `WAGTAILDOCS_EXTENSIONS` setting to specify the file types that Wagtail wi
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
 ```
 
-Various other settings are available to configure Wagtail's behaviour - see [Settings](/reference/settings).
+Various other settings are available to configure Wagtail's behavior - see [Settings](/reference/settings).
 
 ## URL configuration
 

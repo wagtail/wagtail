@@ -129,7 +129,7 @@ class UserApprovalTask(Task):
 
 (custom_tasks_behavior)=
 
-## Customising behaviour
+## Customising behavior
 
 Both `Task` and `TaskState` have a number of methods that can be overridden to implement custom behavior. Here are some of the most useful:
 

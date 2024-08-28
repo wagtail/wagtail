@@ -776,7 +776,7 @@ See [](private_pages) for more details.
 TAGGIT_CASE_INSENSITIVE = True
 ```
 
-Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
+Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behavior is preferable.
 
 ### `TAG_SPACES_ALLOWED`
 
