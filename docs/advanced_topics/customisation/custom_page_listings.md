@@ -28,7 +28,7 @@ def register_blog_page_listing_viewset():
     return blog_page_listing_viewset
 ```
 
-The columns of the listing can be customised by overriding the `columns` attribute on the viewset. This should be a list of `wagtail.admin.ui.tables.Column` instances:
+The columns of the listing can be customized by overriding the `columns` attribute on the viewset. This should be a list of `wagtail.admin.ui.tables.Column` instances:
 
 ```python
 from wagtail import hooks
@@ -44,7 +44,7 @@ class BlogPageListingViewSet(PageListingViewSet):
     ]
 ```
 
-The filtering options for the listing can be customised by overriding the `filterset_class` attribute on the viewset:
+The filtering options for the listing can be customized by overriding the `filterset_class` attribute on the viewset:
 
 ```python
 from wagtail import hooks

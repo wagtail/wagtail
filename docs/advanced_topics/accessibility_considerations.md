@@ -84,7 +84,7 @@ Here are common gotchas to be aware of to make the site’s templates as accessi
 
 ### Alt text in templates
 
-See the [content modelling](content_modeling) section above. Additionally, make sure to [customise images’ alt text](image_tag_alt), either setting it to the relevant field, or to an empty string for decorative images, or images where the alt text would be a repeat of other content.
+See the [content modelling](content_modeling) section above. Additionally, make sure to [customize images’ alt text](image_tag_alt), either setting it to the relevant field, or to an empty string for decorative images, or images where the alt text would be a repeat of other content.
 Even when your images have alt text coming directly from the image model, you still need to decide whether there should be alt text for the particular context the image is used in. For example, avoid alt text in listings where the alt text just repeats the listing items’ title.
 
 ### Empty heading tags

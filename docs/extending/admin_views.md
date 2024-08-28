@@ -246,7 +246,7 @@ class CalendarViewSet(ViewSet):
     menu_label = "Calendar"
     icon = "date"
     # The `name` will be used for both the URL prefix and the URL namespace.
-    # They can be customised individually via `url_prefix` and `url_namespace`.
+    # They can be customized individually via `url_prefix` and `url_namespace`.
     name = "calendar"
 
     def get_urlpatterns(self):
