@@ -410,8 +410,9 @@ Return a QuerySet of `Permission` objects to be shown in the Groups administrati
 Add buttons to the user list.
 
 This hook takes two parameters:
--  `user`: The user object to generate the button for
--  `request_user`: The currently logged-in user
+
+-   `user`: The user object to generate the button for
+-   `request_user`: The currently logged-in user
 
 This example will add a simple button to the listing if the currently logged-in user is a superuser:
 
