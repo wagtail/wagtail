@@ -238,7 +238,7 @@ Some users, such as those with vestibular disorders, may prefer a more static ve
 
 ```css
 @media (prefers-reduced-motion) {
-  /* styles to apply if a user's device settings are set to reduced motion */
+    /* styles to apply if a user's device settings are set to reduced motion */
     /* for example, disable animations */
     * {
         animation: none !important;
@@ -248,7 +248,6 @@ Some users, such as those with vestibular disorders, may prefer a more static ve
 ```
 
 Note that `prefers-reduced-motion` is only applied for users who enabled this setting in their operating system or browser. This feature is supported by Chrome, Safari and Firefox. For more information on reduced motion, see the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion).
-
 
 ## Accessibility resources
 

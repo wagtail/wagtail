@@ -1,4 +1,5 @@
 (custom_page_listings)=
+
 # Custom page listings
 
 Normally, editors navigate through the Wagtail admin interface by following the structure of the page tree. However, this can make it slow to locate a specific page for editing, especially on large sites where pages are organised into a deep hierarchy.

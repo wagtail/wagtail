@@ -215,11 +215,11 @@ If you successfully install flyctl but get an error saying "`fly` is not recogni
 8. Create your Fly.io project by running `fly launch`. Then press `y` to configure the settings.
 9. You will be taken to an admin screen on fly.io. Fill out the fields as follows:
 
-| Field                                                     | Instruction                                                                          |
-|-----------------------------------------------------------|--------------------------------------------------------------------------------------|
-| Choose a region for deployment                            | Select the region closest to the _AWS_S3_REGION_NAME_ in your _env.production_ file. |
-| CPU & Memory                                              | VM Size - shared-cpu-1x  VM Memory - 512 MB                                          |
-| Database                                                  | Fly Postgres - choose smallest option                                                |
+| Field                          | Instruction                                                                          |
+| ------------------------------ | ------------------------------------------------------------------------------------ |
+| Choose a region for deployment | Select the region closest to the _AWS_S3_REGION_NAME_ in your _env.production_ file. |
+| CPU & Memory                   | VM Size - shared-cpu-1x VM Memory - 512 MB                                           |
+| Database                       | Fly Postgres - choose smallest option                                                |
 
 click confirm **Confirm settings**
 
@@ -231,10 +231,10 @@ it's recommended to create a new database with the launch of the app through the
 
 10. Back in your terminal, answer the resulting prompt questions as follows:
 
-| Question                                                | Instruction                                                                                                                              |
-| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Overwrite ".../.dockerignore"?                          | Enter _y_                                                                                                                                |
-| Overwrite ".../Dockerfile"?                             | Enter _y_                                                                                                                                |
+| Question                       | Instruction |
+| ------------------------------ | ----------- |
+| Overwrite ".../.dockerignore"? | Enter _y_   |
+| Overwrite ".../Dockerfile"?    | Enter _y_   |
 
 The `fly launch` command creates two new files, `Dockerfile` and `fly.toml`, in your project directory.
 

@@ -340,7 +340,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
             class BreadPage(Page):
                 ...
 
-                # default 
+                # default
                 private_page_options = ['password', 'groups', 'login']
 
                 # disable shared password
