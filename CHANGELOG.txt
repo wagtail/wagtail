@@ -20,6 +20,7 @@ Changelog
  * Maintenance: Improve page listing performance (Sage Abdullah)
  * Maintenance: Phase out usage of SECRET_KEY in version and icon hashes (Jake Howard)
  * Maintenance: Audit all use of localized and non-localized numbers in templates (Matt Westcott)
+ * Maintenance: Refactor StreamField `get_prep_value` for closer alignment with JSONField (Sage Abdullah)
 
 
 6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
