@@ -1,9 +1,16 @@
+import datetime
+
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import timezone
+from django.utils.formats import localize
+from freezegun import freeze_time
 
+from wagtail.admin.utils import get_user_display_name
 from wagtail.models import Workflow, WorkflowContentType, WorkflowState
 from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel
 from wagtail.test.utils import WagtailTestUtils
@@ -161,9 +168,36 @@ class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
 
     def setUp(self):
         super().setUp()
+        self.timestamps = [
+            datetime.datetime(2020, 1, 1, 10, 0, 0),
+            datetime.datetime(2020, 1, 1, 11, 0, 0),
+            datetime.datetime(2020, 1, 2, 12, 0, 0),
+            datetime.datetime(2020, 1, 3, 13, 0, 0),
+            datetime.datetime(2020, 1, 4, 14, 0, 0),
+        ]
+
+        if settings.USE_TZ:
+            self.timestamps[:] = [
+                timezone.make_aware(timestamp, timezone=datetime.timezone.utc)
+                for timestamp in self.timestamps
+            ]
+            self.localized_timestamps = [
+                localize(timezone.localtime(timestamp), "c")
+                for timestamp in self.timestamps
+            ]
+        else:
+            self.localized_timestamps = [
+                localize(timestamp, "c") for timestamp in self.timestamps
+            ]
+
+        self.moderator = self.create_superuser("moderator")
+        self.moderator_name = get_user_display_name(self.moderator)
+
         self.object.text = "Edited!"
-        self.object.save_revision()
-        self.workflow_state = self.workflow.start(self.object, self.user)
+        with freeze_time(self.timestamps[0]):
+            self.object.save_revision()
+        with freeze_time(self.timestamps[1]):
+            self.workflow_state = self.workflow.start(self.object, self.user)
 
     def test_get_index(self):
         response = self.client.get(self.get_url("workflow_history"))
@@ -201,12 +235,28 @@ class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_get_detail(self):
-        response = self.client.get(
-            self.get_url(
-                "workflow_history_detail",
-                (quote(self.object.pk), self.workflow_state.id),
-            ),
+        task_state = self.workflow_state.current_task_state
+
+        with freeze_time(self.timestamps[2]):
+            task_state.task.on_action(
+                task_state, user=self.moderator, action_name="reject"
+            )
+        self.workflow_state.refresh_from_db()
+
+        with freeze_time(self.timestamps[3]):
+            self.object.save_revision(user=self.user)
+            self.workflow_state.resume(user=self.user)
+        self.workflow_state.refresh_from_db()
+
+        url = self.get_url(
+            "workflow_history_detail",
+            (quote(self.object.pk), self.workflow_state.id),
         )
+        self.client.get(url)
+
+        with self.assertNumQueries(25):
+            response = self.client.get(url)
+
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, "wagtailadmin/shared/workflow_history/detail.html"
@@ -217,8 +267,53 @@ class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
 
         self.assertContains(response, '<div class="w-tabs" data-tabs>')
         self.assertContains(response, '<div class="tab-content">')
-        self.assertContains(response, "Tasks")
-        self.assertContains(response, "Timeline")
+
+        soup = self.get_soup(response.content)
+        tasks = soup.select_one("#tab-tasks table")
+        self.assertIsNotNone(tasks)
+        cells = [
+            [td.get_text(separator=" ", strip=True) for td in tr.select("td")]
+            for tr in tasks.select("tr")
+        ]
+
+        self.assertEqual(
+            cells,
+            [
+                ["Initial Revision", "In progress"],
+                [
+                    f"Edited at {self.localized_timestamps[0]}",
+                    f"Rejected by {self.moderator_name} at {self.localized_timestamps[2]}",
+                ],
+            ],
+        )
+
+        timeline = soup.select_one("#tab-timeline table")
+        self.assertIsNotNone(timeline)
+        cells = [
+            [td.get_text(separator=" ", strip=True) for td in tr.select("td")]
+            for tr in timeline.select("tr")
+        ]
+        self.assertEqual(
+            cells,
+            [
+                [
+                    self.localized_timestamps[3],
+                    "Edited",
+                ],
+                [
+                    self.localized_timestamps[2],
+                    f"Moderators approval Rejected by {self.moderator_name}",
+                ],
+                [
+                    self.localized_timestamps[1],
+                    "Workflow started",
+                ],
+                [
+                    self.localized_timestamps[0],
+                    "Edited",
+                ],
+            ],
+        )
 
         # Should show the currently in progress workflow with the latest revision
         self.assertContains(response, "Edited!")
@@ -248,13 +343,35 @@ class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
     def test_get_detail_completed(self):
-        self.workflow_state.current_task_state.approve(user=None)
-        response = self.client.get(
-            self.get_url(
-                "workflow_history_detail",
-                (quote(self.object.pk), self.workflow_state.id),
-            ),
+        task_state = self.workflow_state.current_task_state
+
+        with freeze_time(self.timestamps[2]):
+            task_state.task.on_action(
+                task_state, user=self.moderator, action_name="reject"
+            )
+        self.workflow_state.refresh_from_db()
+
+        with freeze_time(self.timestamps[3]):
+            self.object.save_revision(user=self.user)
+            self.workflow_state.resume(user=self.user)
+        self.workflow_state.refresh_from_db()
+
+        with freeze_time(self.timestamps[4]):
+            task_state = self.workflow_state.current_task_state
+            task_state.task.on_action(
+                task_state, user=self.moderator, action_name="approve"
+            )
+        self.workflow_state.refresh_from_db()
+
+        url = self.get_url(
+            "workflow_history_detail",
+            (quote(self.object.pk), self.workflow_state.id),
         )
+        self.client.get(url)
+
+        with self.assertNumQueries(29):
+            response = self.client.get(url)
+
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, "wagtailadmin/shared/workflow_history/detail.html"
@@ -265,8 +382,64 @@ class TestWorkflowHistory(AdminTemplateTestUtils, BaseWorkflowsTestCase):
 
         self.assertContains(response, '<div class="w-tabs" data-tabs>')
         self.assertContains(response, '<div class="tab-content">')
-        self.assertContains(response, "Tasks")
-        self.assertContains(response, "Timeline")
+
+        soup = self.get_soup(response.content)
+        tasks = soup.select_one("#tab-tasks table")
+        self.assertIsNotNone(tasks)
+        cells = [
+            [td.get_text(separator=" ", strip=True) for td in tr.select("td")]
+            for tr in tasks.select("tr")
+        ]
+
+        self.assertEqual(
+            cells,
+            [
+                [
+                    "Initial Revision",
+                    f"Approved by {self.moderator_name} at {self.localized_timestamps[4]}",
+                ],
+                [
+                    f"Edited at {self.localized_timestamps[0]}",
+                    f"Rejected by {self.moderator_name} at {self.localized_timestamps[2]}",
+                ],
+            ],
+        )
+
+        timeline = soup.select_one("#tab-timeline table")
+        self.assertIsNotNone(timeline)
+        cells = [
+            [td.get_text(separator=" ", strip=True) for td in tr.select("td")]
+            for tr in timeline.select("tr")
+        ]
+        self.assertEqual(
+            cells,
+            [
+                [
+                    self.localized_timestamps[4],
+                    "Workflow completed Approved",
+                ],
+                [
+                    self.localized_timestamps[4],
+                    f"Moderators approval Approved by {self.moderator_name}",
+                ],
+                [
+                    self.localized_timestamps[3],
+                    "Edited",
+                ],
+                [
+                    self.localized_timestamps[2],
+                    f"Moderators approval Rejected by {self.moderator_name}",
+                ],
+                [
+                    self.localized_timestamps[1],
+                    "Workflow started",
+                ],
+                [
+                    self.localized_timestamps[0],
+                    "Edited",
+                ],
+            ],
+        )
 
         # Should show the completed workflow with the latest revision
         self.assertContains(response, "Edited!")
