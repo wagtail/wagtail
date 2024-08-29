@@ -55,6 +55,7 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
 
         self.moderator = self.create_superuser("moderator")
         self.moderator_name = get_user_display_name(self.moderator)
+        self.user_name = get_user_display_name(self.user)
 
         with freeze_time(self.timestamps[0]):
             self.christmas_event.save_revision()
@@ -177,12 +178,16 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(
             cells,
             [
-                # FIXME: This should be rendered by timestamp in ascending order,
-                # otherwise the "Initial Revision" cell would be incorrect.
-                ["Initial Revision", "In progress"],
+                # This is divided into different columns per task, so it makes
+                # sense to start with the initial revision on the first cell and
+                # then it should be rendered in ascending order.
                 [
-                    f"Edited at {self.localized_timestamps[0]}",
+                    "Initial Revision",
                     f"Rejected by {self.moderator_name} at {self.localized_timestamps[2]}",
+                ],
+                [
+                    f"Edited by {self.user_name} at {self.localized_timestamps[3]}",
+                    "In progress",
                 ],
             ],
         )
@@ -196,7 +201,8 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(
             cells,
             [
-                # Should be rendered in reverse chronological order
+                # The items are merged into a single column as a timeline, so it
+                # should be rendered in reverse chronological order.
                 [
                     self.localized_timestamps[3],
                     "Edited",
@@ -304,15 +310,16 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(
             cells,
             [
-                # FIXME: This should be rendered by timestamp in ascending order,
-                # otherwise the "Initial Revision" cell would be incorrect.
+                # This is divided into different columns per task, so it makes
+                # sense to start with the initial revision on the first cell and
+                # then it should be rendered in ascending order.
                 [
                     "Initial Revision",
-                    f"Approved by {self.moderator_name} at {self.localized_timestamps[4]}",
+                    f"Rejected by {self.moderator_name} at {self.localized_timestamps[2]}",
                 ],
                 [
-                    f"Edited at {self.localized_timestamps[0]}",
-                    f"Rejected by {self.moderator_name} at {self.localized_timestamps[2]}",
+                    f"Edited by {self.user_name} at {self.localized_timestamps[3]}",
+                    f"Approved by {self.moderator_name} at {self.localized_timestamps[4]}",
                 ],
             ],
         )
@@ -326,7 +333,8 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(
             cells,
             [
-                # Should be rendered in reverse chronological order
+                # The items are merged into a single column as a timeline, so it
+                # should be rendered in reverse chronological order.
                 [
                     self.localized_timestamps[4],
                     "Workflow completed Approved",

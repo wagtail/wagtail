@@ -505,7 +505,7 @@ class WorkflowHistoryDetailView(
                     workflow_state=self.workflow_state
                 ).values_list("revision_id", flat=True),
             )
-            .order_by("-created_at")
+            .order_by("created_at")
         )
 
     @cached_property
