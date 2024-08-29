@@ -491,8 +491,8 @@ class WorkflowHistoryDetailView(
     @cached_property
     def revisions(self):
         """
-        Get QuerySet of all revisions that have existed during this workflow state.
-        It's possible that the object is edited while the workflow is running,
+        Get QuerySet of all revisions that caused a task state change during this
+        workflow state. It's possible that a task is rejected and then resubmitted,
         so some tasks may be repeated. All tasks that have been completed no matter
         what revision needs to be displayed on this page.
         """
