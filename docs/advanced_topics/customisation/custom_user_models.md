@@ -41,13 +41,21 @@ from myapp.models import MembershipStatus
 
 
 class CustomUserEditForm(UserEditForm):
-    country = forms.CharField(required=True, label=_("Country"))
     status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
+
+    # Use ModelForm's automatic form fields generation for the model's `country` field,
+    # but use an explicit custom form field for `status`.
+    class Meta(UserEditForm.Meta):
+        fields = UserEditForm.Meta.fields | {"country", "status"}
 
 
 class CustomUserCreationForm(UserCreationForm):
-    country = forms.CharField(required=True, label=_("Country"))
     status = forms.ModelChoiceField(queryset=MembershipStatus.objects, required=True, label=_("Status"))
+
+    # Use ModelForm's automatic form fields generation for the model's `country` field,
+    # but use an explicit custom form field for `status`.
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields | {"country", "status"}
 ```
 
 ## Extending the create and edit templates
@@ -123,11 +131,16 @@ Replace `wagtail.users` in `settings.INSTALLED_APPS` with the path to `CustomUse
 ```python
 INSTALLED_APPS = [
     ...,
+    # Make sure you have two separate entries for the following:
     "myapp",  # an app that contains the custom user model
     "myproject.apps.CustomUsersAppConfig",  # a custom app config for the wagtail.users app
-    # "wagtail.users",
+    # "wagtail.users",  # this should be removed in favour of the custom app config
     ...,
 ]
+```
+
+```{warning}
+You can also place the `WagtailUsersAppConfig` subclass inside the same `apps.py` file of your custom user model's app (instead of in a `myproject/apps.py` file), but you need to be careful. Make sure to use two separate config classes instead of turning your existing `AppConfig` subclass into a `WagtailUsersAppConfig` subclass, as that would cause Django to pick up your custom user model as being part of `wagtail.users`. You may also need to set {attr}`~django.apps.AppConfig.default` to `True` in your own app's `AppConfig`, unless you already use a dotted path to the app's `AppConfig` subclass in `INSTALLED_APPS`.
 ```
 
 The `UserViewSet` class is a subclass of {class}`~wagtail.admin.viewsets.model.ModelViewSet` and thus it supports most of [the customizations available for `ModelViewSet`](generic_views). For example, you can use a custom directory for the templates by setting {attr}`~wagtail.admin.viewsets.model.ModelViewSet.template_prefix`:
