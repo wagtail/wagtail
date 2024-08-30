@@ -627,7 +627,7 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(WagtailTestUtils, Test
         )
 
 
-class TestDocumentEditView(WagtailTestUtils, TestCase):
+class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -685,6 +685,14 @@ class TestDocumentEditView(WagtailTestUtils, TestCase):
         # (see TestDocumentEditViewWithCustomDocumentModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtaildocs:index"), "label": "Documents"},
+                {"url": "", "label": "Test document"},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/documents/edit/%d/" % self.document.id

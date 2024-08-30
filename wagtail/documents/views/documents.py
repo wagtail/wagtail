@@ -2,11 +2,8 @@ import os
 
 from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
-from django.urls import reverse
+from django.http.response import HttpResponse as HttpResponse
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
@@ -189,79 +186,69 @@ class CreateView(generic.CreateView):
         }
 
 
-@permission_checker.require("change")
-def edit(request, document_id):
-    Document = get_document_model()
-    DocumentForm = get_document_form(Document)
+class EditView(generic.EditView):
+    permission_policy = permission_policy
+    pk_url_kwarg = "document_id"
+    error_message = gettext_lazy("The document could not be saved due to errors.")
+    template_name = "wagtaildocs/documents/edit.html"
+    index_url_name = "wagtaildocs:index"
+    edit_url_name = "wagtaildocs:edit"
+    delete_url_name = "wagtaildocs:delete"
+    header_icon = "doc-full-inverse"
+    context_object_name = "document"
+    _show_breadcrumbs = True
 
-    doc = get_object_or_404(Document, id=document_id)
+    @cached_property
+    def model(self):
+        return get_document_model()
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", doc
-    ):
-        raise PermissionDenied
+    def get_form_class(self):
+        return get_document_form(self.model)
 
-    next_url = get_valid_next_url_from_request(request)
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not self.permission_policy.user_has_permission_for_instance(
+            self.request.user, self.permission_required, obj
+        ):
+            raise PermissionDenied
+        return obj
 
-    if request.method == "POST":
-        form = DocumentForm(
-            request.POST, request.FILES, instance=doc, user=request.user
-        )
-        if form.is_valid():
-            doc = form.save()
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
-            edit_url = reverse("wagtaildocs:edit", args=(doc.id,))
-            redirect_url = "wagtaildocs:index"
-            if next_url:
-                edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
-                redirect_url = next_url
+    def get_success_message(self):
+        return _("Document '%(document_title)s' updated") % {
+            "document_title": self.object.title
+        }
 
-            messages.success(
-                request,
-                _("Document '%(document_title)s' updated")
-                % {"document_title": doc.title},
-                buttons=[messages.button(edit_url, _("Edit"))],
-            )
-            return redirect(redirect_url)
-        else:
-            messages.error(request, _("The document could not be saved due to errors."))
-    else:
-        form = DocumentForm(instance=doc, user=request.user)
+    @cached_property
+    def next_url(self):
+        return get_valid_next_url_from_request(self.request)
 
-    try:
-        local_path = doc.file.path
-    except NotImplementedError:
-        # Document is hosted externally (eg, S3)
-        local_path = None
+    def get_success_url(self):
+        return self.next_url or super().get_success_url()
 
-    if local_path:
-        # Give error if document file doesn't exist
-        if not os.path.isfile(local_path):
-            messages.error(
-                request,
-                _(
-                    "The file could not be found. Please change the source or delete the document"
-                ),
-                buttons=[
-                    messages.button(
-                        reverse("wagtaildocs:delete", args=(doc.id,)), _("Delete")
-                    )
-                ],
-            )
+    def render_to_response(self, context, **response_kwargs):
+        if self.object.is_stored_locally():
+            # Give error if document file doesn't exist
+            if not os.path.isfile(self.object.file.path):
+                messages.error(
+                    self.request,
+                    _(
+                        "The file could not be found. Please change the source or delete the document"
+                    ),
+                    buttons=[messages.button(self.get_delete_url(), _("Delete"))],
+                )
 
-    return TemplateResponse(
-        request,
-        "wagtaildocs/documents/edit.html",
-        {
-            "document": doc,
-            "filesize": doc.get_file_size(),
-            "form": form,
-            "user_can_delete": permission_policy.user_has_permission_for_instance(
-                request.user, "delete", doc
-            ),
-            "next": next_url,
-        },
-    )
+        return super().render_to_response(context, **response_kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filesize"] = self.object.get_file_size()
+        context["next"] = self.next_url
+        return context
 
 
 class DeleteView(generic.DeleteView):
