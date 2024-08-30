@@ -307,6 +307,8 @@ class UsageView(generic.UsageView):
     permission_policy = permission_policy
     permission_required = "change"
     header_icon = "doc-full-inverse"
+    index_url_name = "wagtaildocs:index"
+    edit_url_name = "wagtaildocs:edit"
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(

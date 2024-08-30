@@ -28,6 +28,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestDocumentIndexView(WagtailTestUtils, TestCase):
@@ -2052,7 +2053,7 @@ class TestUsageCount(WagtailTestUtils, TestCase):
         self.assertContains(response, "Used 0 times")
 
 
-class TestGetUsage(WagtailTestUtils, TestCase):
+class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2086,6 +2087,24 @@ class TestGetUsage(WagtailTestUtils, TestCase):
         self.assertContains(response, "Christmas")
         self.assertContains(response, '<table class="listing">')
         self.assertContains(response, "<td>Event page</td>", html=True)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtaildocs:index"),
+                    "label": "Documents",
+                },
+                {
+                    "url": reverse("wagtaildocs:edit", args=(1,)),
+                    "label": "test document",
+                },
+                {
+                    "url": "",
+                    "label": "Usage",
+                    "sublabel": "test document",
+                },
+            ],
+            response.content,
+        )
 
     def test_usage_page_no_usage(self):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))
