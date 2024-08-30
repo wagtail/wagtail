@@ -834,6 +834,7 @@
 * Atif Khan
 * Sanjeev Holla S
 * Shubham Mukati
+* Matthew Scouten
 
 ## Translators
 
