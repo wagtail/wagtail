@@ -156,42 +156,37 @@ class IndexView(generic.IndexView):
         return context
 
 
-@permission_checker.require("add")
-def add(request):
-    Document = get_document_model()
-    DocumentForm = get_document_form(Document)
+class CreateView(generic.CreateView):
+    permission_policy = permission_policy
+    index_url_name = "wagtaildocs:index"
+    add_url_name = "wagtaildocs:add"
+    edit_url_name = "wagtaildocs:edit"
+    error_message = gettext_lazy("The document could not be created due to errors.")
+    template_name = "wagtaildocs/documents/add.html"
+    header_icon = "doc-full-inverse"
+    _show_breadcrumbs = True
 
-    if request.method == "POST":
-        doc = Document(uploaded_by_user=request.user)
-        form = DocumentForm(
-            request.POST, request.FILES, instance=doc, user=request.user
-        )
-        if form.is_valid():
-            form.save()
+    @cached_property
+    def model(self):
+        # Use a property instead of setting this as a class attribute so it is
+        # accessed at request-time, thus can be tested with override_settings
+        return get_document_model()
 
-            messages.success(
-                request,
-                _("Document '%(document_title)s' added.")
-                % {"document_title": doc.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtaildocs:edit", args=(doc.id,)), _("Edit")
-                    )
-                ],
-            )
-            return redirect("wagtaildocs:index")
-        else:
-            messages.error(request, _("The document could not be saved due to errors."))
-    else:
-        form = DocumentForm(user=request.user)
+    def get_form_class(self):
+        return get_document_form(self.model)
 
-    return TemplateResponse(
-        request,
-        "wagtaildocs/documents/add.html",
-        {
-            "form": form,
-        },
-    )
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def get_initial_form_instance(self):
+        return self.model(uploaded_by_user=self.request.user)
+
+    def get_success_message(self, instance):
+        return _("Document '%(document_title)s' added.") % {
+            "document_title": instance.title
+        }
 
 
 @permission_checker.require("change")
