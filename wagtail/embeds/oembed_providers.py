@@ -88,6 +88,14 @@ coub = {
     ],
 }
 
+crowdsignal = {
+    "endpoint": "https://api.crowdsignal.com/oembed",
+    "urls": [
+        r"^https?://(?:[-\w]+\.)?polldaddy\.com/.+$",
+        r"^https?://poll.fm/\d+$",
+    ],
+}
+
 crowd_ranking = {
     "endpoint": "http://crowdranking.com/api/oembed.{format}",
     "urls": [
@@ -383,23 +391,6 @@ pinterest = {
     ],
 }
 
-
-polldaddy = {
-    "endpoint": "https://polldaddy.com/oembed/",
-    "urls": [
-        r"^https?://(?:[-\w]+\.)?polldaddy\.com/.+$",
-    ],
-}
-
-
-polleverywhere = {
-    "endpoint": "https://www.polleverywhere.com/services/oembed/",
-    "urls": [
-        r"^https?://www\.polleverywhere\.com/polls/.+$",
-        r"^https?://www\.polleverywhere\.com/multiple_choice_polls/.+$",
-        r"^https?://www\.polleverywhere\.com/free_text_polls/.+$",
-    ],
-}
 
 qik = {
     "endpoint": "http://qik.com/api/oembed.{format}",
@@ -700,6 +691,7 @@ all_providers = [
     clikthrough,
     collegehumor,
     coub,
+    crowdsignal,
     crowd_ranking,
     dailymile,
     dailymotion,
@@ -736,8 +728,6 @@ all_providers = [
     opera,
     photobucket,
     pinterest,
-    polldaddy,
-    polleverywhere,
     qik,
     rdio,
     reddit,
