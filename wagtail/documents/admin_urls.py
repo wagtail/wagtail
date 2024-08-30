@@ -10,7 +10,7 @@ urlpatterns = [
         documents.IndexView.as_view(results_only=True),
         name="index_results",
     ),
-    path("add/", documents.add, name="add"),
+    path("add/", documents.CreateView.as_view(), name="add"),
     path("edit/<int:document_id>/", documents.edit, name="edit"),
     path("delete/<int:document_id>/", documents.DeleteView.as_view(), name="delete"),
     path("multiple/add/", multiple.AddView.as_view(), name="add_multiple"),

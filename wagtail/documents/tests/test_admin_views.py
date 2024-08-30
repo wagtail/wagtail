@@ -405,7 +405,7 @@ class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, "<td>Root</td>", html=True)
 
 
-class TestDocumentAddView(WagtailTestUtils, TestCase):
+class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -426,6 +426,14 @@ class TestDocumentAddView(WagtailTestUtils, TestCase):
 
         # draftail should NOT be a standard JS include on this page
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtaildocs:index"), "label": "Documents"},
+                {"url": "", "label": "New: Document"},
+            ],
+            response.content,
+        )
 
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
