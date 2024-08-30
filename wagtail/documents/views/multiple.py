@@ -1,5 +1,10 @@
 import os.path
 
+from django.urls import reverse
+from django.utils.text import capfirst
+from django.utils.translation import gettext_lazy
+
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.admin.views.generic.multiple_upload import (
     CreateFromUploadView as BaseCreateFromUploadView,
@@ -15,10 +20,14 @@ from ..forms import get_document_form, get_document_multi_form
 from ..permissions import permission_policy
 
 
-class AddView(BaseAddView):
+class AddView(WagtailAdminTemplateMixin, BaseAddView):
     permission_policy = permission_policy
     template_name = "wagtaildocs/multiple/add.html"
+    header_icon = "doc-full-inverse"
+    page_title = gettext_lazy("Add documents")
+    _show_breadcrumbs = True
 
+    index_url_name = "wagtaildocs:index"
     edit_object_url_name = "wagtaildocs:edit_multiple"
     delete_object_url_name = "wagtaildocs:delete_multiple"
     edit_object_form_prefix = "doc"
@@ -30,6 +39,15 @@ class AddView(BaseAddView):
     edit_upload_form_prefix = "uploaded-document"
     context_upload_name = "uploaded_document"
     context_upload_id_name = "uploaded_file_id"
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+            {"url": "", "label": self.get_page_title()},
+        ]
 
     def get_model(self):
         return get_document_model()
