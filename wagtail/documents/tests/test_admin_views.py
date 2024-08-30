@@ -9,6 +9,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.html import escape
 from django.utils.http import urlencode
+from django.utils.text import capfirst
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.documents import get_document_model, models
@@ -1025,7 +1026,7 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
         self.assertContains(response, "This document is referenced 0 times")
 
 
-class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
+class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     """
     This tests the multiple document upload views located in wagtaildocs/views/multiple.py
     """
@@ -1063,6 +1064,17 @@ class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/multiple/add.html")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtaildocs:index"),
+                    "label": capfirst(self.doc._meta.verbose_name_plural),
+                },
+                {"url": "", "label": "Add documents"},
+            ],
+            response.content,
+        )
 
         # no collection chooser when only one collection exists
         self.assertNotContains(response, "id_adddocument_collection")
