@@ -337,39 +337,33 @@ class DeleteView(generic.DeleteView):
         }
 
 
-@permission_checker.require("add")
-def add(request):
-    ImageModel = get_image_model()
-    ImageForm = get_image_form(ImageModel)
+class CreateView(generic.CreateView):
+    permission_policy = permission_policy
+    index_url_name = "wagtailimages:index"
+    add_url_name = "wagtailimages:add"
+    edit_url_name = "wagtailimages:edit"
+    error_message = gettext_lazy("The image could not be created due to errors.")
+    template_name = "wagtailimages/images/add.html"
+    header_icon = "image"
+    _show_breadcrumbs = True
 
-    if request.method == "POST":
-        image = ImageModel(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
-        if form.is_valid():
-            form.save()
+    @cached_property
+    def model(self):
+        return get_image_model()
 
-            messages.success(
-                request,
-                _("Image '%(image_title)s' added.") % {"image_title": image.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailimages:edit", args=(image.id,)), _("Edit")
-                    )
-                ],
-            )
-            return redirect("wagtailimages:index")
-        else:
-            messages.error(request, _("The image could not be created due to errors."))
-    else:
-        form = ImageForm(user=request.user)
+    def get_form_class(self):
+        return get_image_form(self.model)
 
-    return TemplateResponse(
-        request,
-        "wagtailimages/images/add.html",
-        {
-            "form": form,
-        },
-    )
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def get_initial_form_instance(self):
+        return self.model(uploaded_by_user=self.request.user)
+
+    def get_success_message(self, instance):
+        return _("Image '%(image_title)s' added.") % {"image_title": instance.title}
 
 
 class UsageView(generic.UsageView):
