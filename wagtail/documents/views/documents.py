@@ -4,6 +4,7 @@ from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
 from django.http.response import HttpResponse as HttpResponse
 from django.utils.functional import cached_property
+from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 
@@ -196,6 +197,7 @@ class EditView(generic.EditView):
     delete_url_name = "wagtaildocs:delete"
     header_icon = "doc-full-inverse"
     context_object_name = "document"
+    delete_item_label = gettext_lazy("Delete document")
     _show_breadcrumbs = True
 
     @cached_property
@@ -229,6 +231,12 @@ class EditView(generic.EditView):
 
     def get_success_url(self):
         return self.next_url or super().get_success_url()
+
+    def get_delete_url(self):
+        delete_url = super().get_delete_url()
+        if self.next_url:
+            delete_url += "?" + urlencode({"next": self.next_url})
+        return delete_url
 
     def render_to_response(self, context, **response_kwargs):
         if self.object.is_stored_locally():
