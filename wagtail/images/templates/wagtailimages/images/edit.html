@@ -1,16 +1,8 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/edit.html" %}
 {% load wagtailimages_tags wagtailadmin_tags i18n l10n %}
-{% block titletag %}{% blocktrans trimmed with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
-{% block extra_css %}
-    {{ block.super }}
-
-    {{ form.media.css }}
-{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
-
-    {{ form.media.js }}
 
     <!-- Focal point chooser -->
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
@@ -18,15 +10,11 @@
     <script src="{% versioned_static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
 {% endblock %}
 
-{% block content %}
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
-    {% include "wagtailadmin/shared/non_field_errors.html" %}
-
+{% block main_content %}
     <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <input type="hidden" value="{{ next }}" name="next">
-        <div class="row row-flush nice-padding">
+        <div class="row row-flush">
             <div class="col6">
                 {% for field in form %}
                     {% if field.name == 'file' %}
@@ -39,8 +27,8 @@
                 {% endfor %}
                 <div class="w-hidden sm:w-block">
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
-                    {% if user_can_delete %}
-                        <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="button no">{% trans "Delete image" %}</a>
+                    {% if can_delete %}
+                        <a href="{{ delete_url }}{% if next %}?next={{ next|urlencode }}{% endif %}" class="button no">{% trans "Delete image" %}</a>
                     {% endif %}
                 </div>
             </div>
@@ -94,11 +82,11 @@
             </div>
         </div>
 
-        <div class="row row-flush nice-padding sm:!w-hidden">
+        <div class="row row-flush sm:!w-hidden">
             <div class="col5">
                 <input type="submit" value="{% trans 'Save' %}" class="button" />
-                {% if user_can_delete %}
-                    <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next }}{% endif %}" class="button no">{% trans "Delete image" %}</a>
+                {% if can_delete %}
+                    <a href="{{ delete_url }}{% if next %}?next={{ next }}{% endif %}" class="button no">{% trans "Delete image" %}</a>
                 {% endif %}
             </div>
         </div>

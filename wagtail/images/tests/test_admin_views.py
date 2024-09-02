@@ -935,7 +935,7 @@ class TestImageAddViewWithLimitedCollectionPermissions(WagtailTestUtils, TestCas
         )
 
 
-class TestImageEditView(WagtailTestUtils, TestCase):
+class TestImageEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -972,6 +972,14 @@ class TestImageEditView(WagtailTestUtils, TestCase):
         # (see TestImageEditViewWithCustomImageModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailimages:index"), "label": "Images"},
+                {"url": "", "label": "Test image"},
+            ],
+            response.content,
+        )
 
     def test_simple_with_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
