@@ -131,8 +131,10 @@ class EditView(generic.EditView):
     index_url_name = "wagtailimages:index"
     edit_url_name = "wagtailimages:edit"
     delete_url_name = "wagtailimages:delete"
+    url_generator_url_name = "wagtailimages:url_generator"
     header_icon = "image"
     context_object_name = "image"
+    delete_item_label = gettext_lazy("Delete image")
     _show_breadcrumbs = True
 
     @cached_property
@@ -193,9 +195,11 @@ class EditView(generic.EditView):
 
         try:
             reverse("wagtailimages_serve", args=("foo", "1", "bar"))
-            context["url_generator_enabled"] = True
+            context["url_generator_url"] = reverse(
+                self.url_generator_url_name, args=(self.object.id,)
+            )
         except NoReverseMatch:
-            context["url_generator_enabled"] = False
+            context["url_generator_url"] = None
 
         return context
 
