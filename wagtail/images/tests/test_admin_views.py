@@ -15,6 +15,7 @@ from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
 from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
@@ -35,6 +36,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 from .utils import Image, get_test_image_file, get_test_image_file_svg
@@ -2336,7 +2338,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(WagtailTestUtils, TestCas
         )
 
 
-class TestMultipleImageUploader(WagtailTestUtils, TestCase):
+class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     """
@@ -2365,6 +2367,17 @@ class TestMultipleImageUploader(WagtailTestUtils, TestCase):
         # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailimages:index"),
+                    "label": capfirst(self.image._meta.verbose_name_plural),
+                },
+                {"url": "", "label": "Add images"},
+            ],
+            response.content,
+        )
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
     def test_add_max_file_size_context_variables(self):
