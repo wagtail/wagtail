@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <div class="w-image-url-generator nice-padding" data-generator-url="{% url 'wagtailimages:generate_url' object.id '__filterspec__' %}">
+    <div class="w-image-url-generator w-mt-8" data-generator-url="{% url 'wagtailimages:generate_url' object.id '__filterspec__' %}">
         <form class="w-image-url-generator__form w-mb-5">
             {% include "wagtailadmin/shared/field.html" with field=form.filter_method %}
             {% field_row max_content=True %}

@@ -209,8 +209,11 @@ class URLGeneratorView(generic.InspectView):
     model = get_image_model()
     pk_url_kwarg = "image_id"
     header_icon = "image"
-    page_title = "Generating URL"
+    page_title = gettext_lazy("Generate URL")
     template_name = "wagtailimages/images/url_generator.html"
+    index_url_name = "wagtailimages:index"
+    edit_url_name = "wagtailimages:edit"
+    _show_breadcrumbs = True
 
     def get_page_subtitle(self):
         return self.object.title
