@@ -2197,6 +2197,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         except self.specific_class.DoesNotExist:
             return None
 
+    def get_default_privacy_setting(self,request=None):
+        return {"type":"public"}
+
     @classmethod
     def clean_subpage_models(cls):
         """
