@@ -3373,7 +3373,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         self.assertTrue(response_json["success"])
 
 
-class TestURLGeneratorView(WagtailTestUtils, TestCase):
+class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -3396,6 +3396,19 @@ class TestURLGeneratorView(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/url_generator.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/base.html")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailimages:index"), "label": "Images"},
+                {
+                    "url": reverse("wagtailimages:edit", args=(self.image.id,)),
+                    "label": "Test image",
+                },
+                {"url": "", "label": "Generate URL", "sublabel": "Test image"},
+            ],
+            response.content,
+        )
 
     def test_get_bad_permissions(self):
         """
