@@ -379,6 +379,11 @@ class UsageView(generic.UsageView):
     permission_policy = permission_policy
     permission_required = "change"
     header_icon = "image"
+    index_url_name = "wagtailimages:index"
+    edit_url_name = "wagtailimages:edit"
+
+    def get_base_object_queryset(self):
+        return super().get_base_object_queryset().select_related("uploaded_by_user")
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(
