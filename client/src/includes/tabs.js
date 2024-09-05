@@ -1,3 +1,4 @@
+import { getElementByContentPath } from '../utils/contentPath';
 /**
  *  All tabs and tab content must be nested in an element with the data-tab attribute
  *  All tab buttons need the role="tab" attr and an href with the tab content ID
@@ -271,9 +272,10 @@ class Tabs {
   selectTabByURLHash() {
     if (window.location.hash) {
       const anchorId = window.location.hash.slice(1);
+      const anchoredElement =
+        document.getElementById(anchorId) || getElementByContentPath();
       // Support linking straight to a tab, or to an element within a tab.
-      const tabID = document
-        .getElementById(anchorId)
+      const tabID = anchoredElement
         ?.closest('[role="tabpanel"]')
         ?.getAttribute('aria-labelledby');
       const tab = document.getElementById(tabID);

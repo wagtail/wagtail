@@ -1,3 +1,5 @@
+import { getElementByContentPath } from '../utils/contentPath';
+
 /**
  * Switches a collapsible panel from expanded to collapsed, or vice versa.
  * Updates the DOM and fires custom events for other code to hook into.
@@ -110,7 +112,10 @@ export function initCollapsiblePanels(
 export function initAnchoredPanels(
   anchorTarget = document.getElementById(window.location.hash.slice(1)),
 ) {
-  const target = anchorTarget?.matches('[data-panel]') ? anchorTarget : null;
+  const target = anchorTarget?.matches('[data-panel]')
+    ? anchorTarget
+    : getElementByContentPath();
+
   if (target) {
     setTimeout(() => {
       target.scrollIntoView({ behavior: 'smooth' });

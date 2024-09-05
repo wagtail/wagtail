@@ -118,6 +118,23 @@ describe('tabs', () => {
       expect(promoteTabLabel.getAttribute('aria-selected')).toEqual('true');
     });
 
+    it('should select the correct tab where the element pointed by the contentpath directive lives', async () => {
+      window.location.hash = '#:w:contentpath=search_description';
+      initTabs();
+      await Promise.resolve();
+
+      const contentTab = document.getElementById('tab-content');
+      const promoteTab = document.getElementById('tab-promote');
+      const contentTabLabel = document.getElementById('tab-label-content');
+      const promoteTabLabel = document.getElementById('tab-label-promote');
+
+      expect(contentTab.hasAttribute('hidden')).toBe(true);
+      expect(promoteTab.hasAttribute('hidden')).toBe(false);
+
+      expect(contentTabLabel.getAttribute('aria-selected')).toEqual('false');
+      expect(promoteTabLabel.getAttribute('aria-selected')).toEqual('true');
+    });
+
     it('should not throw an error if the URL hash begins with a number', async () => {
       window.location.hash = '#123abcd';
       initTabs();
