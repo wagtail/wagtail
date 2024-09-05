@@ -105,12 +105,15 @@ export function initCollapsiblePanels(
 /**
  * Smooth scroll onto any active panel.
  * Needs to run after the whole page is loaded so the browser can resolve any
- * JS-rendered :target.
+ * JS-rendered elements.
  */
 export function initAnchoredPanels(
-  anchorTarget = document.querySelector<HTMLElement>('[data-panel]:target'),
+  anchorTarget = document.getElementById(window.location.hash.slice(1)),
 ) {
-  if (anchorTarget) {
-    anchorTarget.scrollIntoView({ behavior: 'smooth' });
+  const target = anchorTarget?.matches('[data-panel]') ? anchorTarget : null;
+  if (target) {
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   }
 }
