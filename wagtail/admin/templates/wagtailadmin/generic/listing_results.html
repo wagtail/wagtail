@@ -49,23 +49,8 @@
     {% endblock %}
 {% else %}
     <div class="nice-padding w-mt-8">
-        {% fragment as no_results_message %}
-            {% if not verbose_name_plural %}
-                {% trans "There are no results." as no_results_text %}
-            {% elif is_searching or is_filtering %}
-                {% blocktrans trimmed with model_name=verbose_name_plural asvar no_results_text %}
-                    No {{ model_name }} match your query.
-                {% endblocktrans %}
-            {% else %}
-                {% blocktrans trimmed with model_name=verbose_name_plural asvar no_results_text %}
-                    There are no {{ model_name }} to display.
-                {% endblocktrans %}
-            {% endif %}
-            {{ no_results_text|capfirst }}
-        {% endfragment %}
-
         {% block no_results_message %}
-            <p>{{ no_results_message }}</p>
+            <p>{{ no_results_message|capfirst }}</p>
         {% endblock %}
     </div>
 {% endif %}

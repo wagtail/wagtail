@@ -529,6 +529,20 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         if self.index_results_url_name:
             return reverse(self.index_results_url_name)
 
+    @cached_property
+    def no_results_message(self):
+        if not self.verbose_name_plural:
+            return _("There are no results.")
+
+        if self.is_searching or self.is_filtering:
+            return _("No %(model_name)s match your query.") % {
+                "model_name": self.verbose_name_plural
+            }
+
+        return _("There are no %(model_name)s to display.") % {
+            "model_name": self.verbose_name_plural
+        }
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -537,6 +551,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         context["index_url"] = self.index_url
         context["index_results_url"] = self.index_results_url
         context["verbose_name_plural"] = self.verbose_name_plural
+        context["no_results_message"] = self.no_results_message
         context["ordering"] = self.ordering
         context["table"] = table
         context["media"] = table.media
