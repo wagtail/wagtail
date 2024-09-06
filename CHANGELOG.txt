@@ -25,6 +25,7 @@ Changelog
  * Maintenance: Refactor StreamField `get_prep_value` for closer alignment with JSONField (Sage Abdullah)
  * Maintenance: Move search implementation logic from generic `IndexView` to `BaseListingView` (Sage Abdullah)
  * Maintenance: Upgrade Puppeteer integration tests for reliability (Matt Westcott)
+ * Maintenance: Restore ability to use `.in_bulk()` on specific querysets under Django 5.2a0 (Sage Abdullah)
 
 
 6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
