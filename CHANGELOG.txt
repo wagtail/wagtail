@@ -12,6 +12,7 @@ Changelog
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
  * Fix: Reinstate transparency indicator on image chooser widgets (Sébastien Corbin)
+ * Fix: Remove table headers that have no text (Matt Westcott)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
@@ -23,6 +24,7 @@ Changelog
  * Maintenance: Audit all use of localized and non-localized numbers in templates (Matt Westcott)
  * Maintenance: Refactor StreamField `get_prep_value` for closer alignment with JSONField (Sage Abdullah)
  * Maintenance: Move search implementation logic from generic `IndexView` to `BaseListingView` (Sage Abdullah)
+ * Maintenance: Upgrade Puppeteer integration tests for reliability (Matt Westcott)
 
 
 6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
