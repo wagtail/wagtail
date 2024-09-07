@@ -98,7 +98,7 @@ class IndexView(
     def is_searchable(self):
         # Do not automatically enable search if the model is not indexed and
         # search_fields is not defined.
-        if not class_is_indexed(self.model) and not self.search_fields:
+        if not (self.model and class_is_indexed(self.model)) and not self.search_fields:
             return False
 
         # Require the results-only view to be set up before enabling search
