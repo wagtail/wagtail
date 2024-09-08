@@ -75,7 +75,7 @@ The django-storages Amazon S3 backends (`storages.backends.s3boto.S3BotoStorage`
 
 ### Cache
 
-Wagtail is designed to take adavantage of Django's [cache framework](inv:django#topics/cache) when available to accelerate page loads. The cache is especially useful for the Wagtail admin, which can't take advantage of conventional CDN caching.
+Wagtail is designed to take advantage of Django's [cache framework](inv:django#topics/cache) when available to accelerate page loads. The cache is especially useful for the Wagtail admin, which can't take advantage of conventional CDN caching.
 
 Wagtail supports any of Django's cache backend, however we recommend against using one tied to the specific process or environment Django is running (eg `FileBasedCache` or `LocMemCache`).
 
