@@ -186,22 +186,31 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         # privacy setting options ['public',"logged_in", "shared_password", "user_groups"]
         default_privacy_setting = self.page.get_default_privacy_setting(self.request)
 
-        if default_privacy_setting['type'] == 'public': # default privacy setting is public no need to do anything
+        if (
+            default_privacy_setting["type"] == "public"
+        ):  # default privacy setting is public no need to do anything
             pass
-        elif default_privacy_setting['type'] == 'logged_in':
-            PageViewRestriction.objects.create(page=self.page, restriction_type='login')
-        elif default_privacy_setting['type'] == 'shared_password':
-            PageViewRestriction.objects.create(page=self.page, restriction_type='password', password=default_privacy_setting['password'])
-        elif default_privacy_setting['type'] == 'user_groups':
+        elif default_privacy_setting["type"] == "logged_in":
+            PageViewRestriction.objects.create(page=self.page, restriction_type="login")
+        elif default_privacy_setting["type"] == "shared_password":
+            PageViewRestriction.objects.create(
+                page=self.page,
+                restriction_type="password",
+                password=default_privacy_setting["password"],
+            )
+        elif default_privacy_setting["type"] == "user_groups":
             # Create a page view restriction for groups
-            groups_page_restriction = PageViewRestriction.objects.create(page=self.page, restriction_type='groups')
+            groups_page_restriction = PageViewRestriction.objects.create(
+                page=self.page, restriction_type="groups"
+            )
             # add groups to the page view restriction
-            for group in default_privacy_setting['groups']:
+            for group in default_privacy_setting["groups"]:
                 groups_page_restriction.groups.add(group)
         else:
             # Not sure which exception should be raised here
-            raise Exception('Invalid privacy setting. Choose from public, logged_in, shared_password, user_groups')
-
+            raise Exception(
+                "Invalid privacy setting. Choose from public, logged_in, shared_password, user_groups"
+            )
 
     def save_action(self):
         self.page = self.form.save(commit=False)
