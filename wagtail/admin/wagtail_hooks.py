@@ -243,7 +243,6 @@ def page_listing_buttons(page, user, next_url=None):
 class PageListingEditButton(PageListingButton):
     label = _("Edit")
     icon_name = "edit"
-    aria_label_format = _("Edit '%(title)s'")
     url_name = "wagtailadmin_pages:edit"
 
     @property
@@ -254,7 +253,6 @@ class PageListingEditButton(PageListingButton):
 class PageListingViewDraftButton(PageListingButton):
     label = _("View draft")
     icon_name = "draft"
-    aria_label_format = _("Preview draft version of '%(title)s'")
     url_name = "wagtailadmin_pages:view_draft"
     attrs = {"rel": "noreferrer"}
 
@@ -266,7 +264,6 @@ class PageListingViewDraftButton(PageListingButton):
 class PageListingViewLiveButton(PageListingButton):
     label = _("View live")
     icon_name = "doc-empty"
-    aria_label_format = _("View live version of '%(title)s'")
     attrs = {"rel": "noreferrer"}
 
     @property
@@ -277,7 +274,6 @@ class PageListingViewLiveButton(PageListingButton):
 class PageListingAddChildPageButton(PageListingButton):
     label = _("Add child page")
     icon_name = "circle-plus"
-    aria_label_format = _("Add a child page to '%(title)s'")
     url_name = "wagtailadmin_pages:add_subpage"
 
     @property
@@ -288,7 +284,6 @@ class PageListingAddChildPageButton(PageListingButton):
 class PageListingMoveButton(PageListingButton):
     label = _("Move")
     icon_name = "arrow-right-full"
-    aria_label_format = _("Move page '%(title)s'")
     url_name = "wagtailadmin_pages:move"
 
     @property
@@ -299,7 +294,6 @@ class PageListingMoveButton(PageListingButton):
 class PageListingCopyButton(PageListingButton):
     label = _("Copy")
     icon_name = "copy"
-    aria_label_format = _("Copy page '%(title)s'")
     url_name = "wagtailadmin_pages:copy"
 
     @property
@@ -310,7 +304,6 @@ class PageListingCopyButton(PageListingButton):
 class PageListingDeleteButton(PageListingButton):
     label = _("Delete")
     icon_name = "bin"
-    aria_label_format = _("Delete page '%(title)s'")
 
     @cached_property
     def url(self):
@@ -340,7 +333,6 @@ class PageListingDeleteButton(PageListingButton):
 class PageListingUnpublishButton(PageListingButton):
     label = _("Unpublish")
     icon_name = "download"
-    aria_label_format = _("Unpublish page '%(title)s'")
     url_name = "wagtailadmin_pages:unpublish"
 
     @property
@@ -351,7 +343,6 @@ class PageListingUnpublishButton(PageListingButton):
 class PageListingHistoryButton(PageListingButton):
     label = _("History")
     icon_name = "history"
-    aria_label_format = _("View page history for '%(title)s'")
     url_name = "wagtailadmin_pages:history"
 
     @property
@@ -362,7 +353,6 @@ class PageListingHistoryButton(PageListingButton):
 class PageListingSortMenuOrderButton(PageListingButton):
     label = _("Sort menu order")
     icon_name = "list-ul"
-    aria_label_format = _("Change ordering of child pages of '%(title)s'")
 
     @property
     def show(self):
