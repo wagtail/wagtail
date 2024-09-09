@@ -29,6 +29,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
     ButtonsColumnMixin,
@@ -348,7 +349,14 @@ class IndexView(
         return buttons
 
     def get_list_buttons(self, instance):
-        more_buttons = self.get_list_more_buttons(instance)
+        more_buttons = []
+        for button in self.get_list_more_buttons(instance):
+            if isinstance(button, MenuItem):
+                if button.is_shown(self.request.user):
+                    more_buttons.append(Button.from_menu_item(button))
+            else:
+                more_buttons.append(button)
+
         buttons = []
         if more_buttons:
             buttons.append(

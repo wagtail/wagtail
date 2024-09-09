@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy
 from wagtail import hooks
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.search import SearchArea
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -28,6 +29,7 @@ from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.admin.widgets.button import (
     BaseDropdownMenuButton,
+    Button,
     ButtonWithDropdown,
 )
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
@@ -193,6 +195,10 @@ class IndexView(generic.IndexView):
                     # If the button is a dropdown menu, add it to the top-level
                     # because we do not support nested dropdowns
                     list_buttons.append(button)
+                elif isinstance(button, MenuItem):
+                    # Allow simple MenuItem instances to be passed in directly
+                    if button.is_shown(self.request.user):
+                        more_buttons.append(Button.from_menu_item(button))
                 else:
                     # Otherwise, add it to the default "More" dropdown
                     more_buttons.append(button)
