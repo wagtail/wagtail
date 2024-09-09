@@ -16,6 +16,7 @@ from wagtail import hooks
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
@@ -35,6 +36,7 @@ from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.admin.widgets.button import (
     BaseDropdownMenuButton,
+    Button,
     ButtonWithDropdown,
 )
 from wagtail.models import (
@@ -189,6 +191,10 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                     # If the button is a dropdown menu, add it to the top-level
                     # because we do not support nested dropdowns
                     list_buttons.append(button)
+                elif isinstance(button, MenuItem):
+                    # Allow simple MenuItem instances to be passed in directly
+                    if button.is_shown(self.request.user):
+                        more_buttons.append(Button.from_menu_item(button))
                 else:
                     # Otherwise, add it to the default "More" dropdown
                     more_buttons.append(button)
