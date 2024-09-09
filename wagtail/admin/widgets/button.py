@@ -153,23 +153,12 @@ class ListingButton(BaseButton):
 
 
 class PageListingButton(ListingButton):
-    aria_label_format = None
     url_name = None
 
     def __init__(self, *args, page=None, next_url=None, attrs={}, user=None, **kwargs):
         self.page = page
         self.user = user
         self.next_url = next_url
-
-        attrs = attrs.copy()
-        if (
-            self.page
-            and self.aria_label_format is not None
-            and "aria-label" not in attrs
-        ):
-            attrs["aria-label"] = self.aria_label_format % {
-                "title": self.page.get_admin_display_title()
-            }
         super().__init__(*args, attrs=attrs, **kwargs)
 
     @cached_property
