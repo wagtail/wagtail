@@ -5,6 +5,7 @@ from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
+from wagtail.admin.ui.menus import MenuItem
 
 
 class Button(Component):
@@ -58,27 +59,27 @@ class Button(Component):
         return f"<Button: {self.label}>"
 
     def __lt__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (Button, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) < (other.priority, other.label)
 
     def __le__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (Button, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) <= (other.priority, other.label)
 
     def __gt__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (Button, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) > (other.priority, other.label)
 
     def __ge__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (Button, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) >= (other.priority, other.label)
 
     def __eq__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (Button, MenuItem)):
             return NotImplemented
         return (
             self.label == other.label
@@ -86,6 +87,15 @@ class Button(Component):
             and self.classname == other.classname
             and self.attrs == other.attrs
             and self.priority == other.priority
+        )
+
+    @classmethod
+    def from_menu_item(cls, menu_item: MenuItem):
+        return cls(
+            label=menu_item.label,
+            url=menu_item.url,
+            icon_name=menu_item.icon_name,
+            priority=menu_item.priority,
         )
 
 
