@@ -14,4 +14,9 @@ urlpatterns = [
         views.TestDeleteView.as_view(),
         name="testapp_generic_delete",
     ),
+    path(
+        "test-index-without-model/",
+        views.TestIndexViewWithoutModel.as_view(),
+        name="testapp_generic_index_without_model",
+    ),
 ]

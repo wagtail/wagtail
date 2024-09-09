@@ -1,8 +1,10 @@
+import warnings
 from collections import namedtuple
 
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.formats import date_format
@@ -20,9 +22,12 @@ from django_filters.filters import (
 )
 
 from wagtail.admin import messages
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.search.backends import get_search_backend
+from wagtail.search.index import class_is_indexed
 from wagtail.utils.utils import flatten_choices
 
 
@@ -191,8 +196,14 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     index_url_name = None
     index_results_url_name = None
     page_kwarg = "p"
+    is_searchable = None  # Subclasses must explicitly set this to True to enable search
+    search_kwarg = "q"
+    search_fields = None
+    search_backend_name = "default"
     default_ordering = None
     filterset_class = None
+    verbose_name_plural = None
+    _show_breadcrumbs = True
 
     def get_template_names(self):
         if self.results_only:
@@ -201,6 +212,74 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             return [self.results_template_name]
         else:
             return super().get_template_names()
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            },
+        ]
+
+    def get_search_form(self):
+        if not self.is_searchable:
+            return None
+
+        if self.search_kwarg in self.request.GET:
+            return SearchForm(self.request.GET)
+
+        return SearchForm()
+
+    @cached_property
+    def search_form(self):
+        return self.get_search_form()
+
+    @cached_property
+    def search_query(self):
+        if self.search_form and self.search_form.is_valid():
+            return self.search_form.cleaned_data[self.search_kwarg]
+        return ""
+
+    @cached_property
+    def is_searching(self):
+        return bool(self.search_query)
+
+    def search_queryset(self, queryset):
+        if not self.is_searching:
+            return queryset
+
+        # Use Wagtail Search if the model is indexed and a search backend is defined.
+        # Django ORM can still be used on an indexed model by unsetting
+        # search_backend_name and defining search_fields on the view.
+        if class_is_indexed(queryset.model) and self.search_backend_name:
+            search_backend = get_search_backend(self.search_backend_name)
+            if queryset.model.get_autocomplete_search_fields():
+                return search_backend.autocomplete(
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
+                )
+            else:
+                # fall back on non-autocompleting search
+                warnings.warn(
+                    f"{queryset.model} is defined as Indexable but does not specify "
+                    "any AutocompleteFields. Searches within the admin will only "
+                    "respond to complete words.",
+                    category=RuntimeWarning,
+                )
+                return search_backend.search(
+                    self.search_query,
+                    queryset,
+                    fields=self.search_fields,
+                    order_by_relevance=(not self.is_explicitly_ordered),
+                )
+
+        query = Q()
+        for field in self.search_fields or []:
+            query |= Q(**{field + "__icontains": self.search_query})
+        return queryset.filter(query)
 
     @cached_property
     def filters(self):
@@ -405,6 +484,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         queryset = self.get_base_queryset()
         queryset = self.order_queryset(queryset)
         queryset = self.filter_queryset(queryset)
+        queryset = self.search_queryset(queryset)
         return queryset
 
     def paginate_queryset(self, queryset, page_size):
@@ -449,6 +529,20 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
         if self.index_results_url_name:
             return reverse(self.index_results_url_name)
 
+    @cached_property
+    def no_results_message(self):
+        if not self.verbose_name_plural:
+            return _("There are no results.")
+
+        if self.is_searching or self.is_filtering:
+            return _("No %(model_name)s match your query.") % {
+                "model_name": self.verbose_name_plural
+            }
+
+        return _("There are no %(model_name)s to display.") % {
+            "model_name": self.verbose_name_plural
+        }
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
@@ -456,6 +550,9 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         context["index_url"] = self.index_url
         context["index_results_url"] = self.index_results_url
+        context["verbose_name_plural"] = self.verbose_name_plural
+        context["no_results_message"] = self.no_results_message
+        context["ordering"] = self.ordering
         context["table"] = table
         context["media"] = table.media
         # On Django's BaseListView, a listing where pagination is applied, but the results
@@ -474,6 +571,12 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             context["is_filtering"] = self.is_filtering
             context["media"] += self.filters.form.media
 
+        if self.search_form:
+            context["search_form"] = self.search_form
+            context["is_searching"] = self.is_searching
+            context["query_string"] = self.search_query
+            context["media"] += self.search_form.media
+
         # If we're rendering the results as an HTML fragment, the caller can pass a _w_filter_fragment=1
         # URL parameter to indicate that the filters should be rendered as a <template> block so that
         # we can replace the existing filters.
@@ -482,6 +585,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             and self.filters
             and self.results_only
         )
+        # Ensure that the header buttons get re-rendered for the results-only view,
+        # in case they make use of the search/filter state
         context["render_buttons_fragment"] = (
             context.get("header_buttons") and self.results_only
         )

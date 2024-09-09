@@ -9,7 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Prefetch, Q
 from django.db.models.expressions import Exists, OuterRef
 from django.db.models.functions import Cast, Length, Substr
-from django.db.models.query import BaseIterable, ModelIterable
+from django.db.models.query import ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.models.i18n import Locale
@@ -521,7 +521,7 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
         )
 
 
-class SpecificIterable(BaseIterable):
+class SpecificIterable(ModelIterable):
     def __iter__(self):
         """
         Identify and return all specific items in a queryset, and return them

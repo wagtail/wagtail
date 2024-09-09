@@ -15,6 +15,7 @@ from django.utils.timezone import now
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.menu import admin_menu, settings_menu
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.staticfiles import versioned_static
@@ -1077,7 +1078,7 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
         self.assertNotContains(response, "This field is required.")
 
     def test_is_searchable(self):
-        self.assertTrue(self.get().context["is_searchable"])
+        self.assertIsInstance(self.get().context["search_form"], SearchForm)
 
     def test_search_index_view(self):
         response = self.get({"q": "Django"})

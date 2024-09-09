@@ -13,12 +13,6 @@ class ReportView(SpreadsheetExportMixin, PermissionCheckedMixin, BaseListingView
     results_template_name = "wagtailadmin/reports/base_report_results.html"
     title = ""
     paginate_by = 50
-    _show_breadcrumbs = True
-
-    def get_breadcrumbs_items(self):
-        return super().get_breadcrumbs_items() + [
-            {"url": "", "label": self.get_page_title()}
-        ]
 
     def get_page_title(self):
         if self.page_title:

@@ -468,7 +468,7 @@ class ModelViewSet(ViewSet):
         subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_.
         This will be passed to the ``filterset_class`` attribute of the index view.
         """
-        return self.index_view_class.filterset_class
+        return self.UNDEFINED
 
     @cached_property
     def search_fields(self):

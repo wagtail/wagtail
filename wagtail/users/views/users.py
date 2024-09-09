@@ -148,6 +148,8 @@ class IndexView(generic.IndexView):
     results_template_name = "wagtailusers/users/index_results.html"
     add_item_label = gettext_lazy("Add a user")
     context_object_name = "users"
+    # We don't set search_fields and the model may not be indexed, but we override
+    # search_queryset, so we set is_searchable to True to enable search
     is_searchable = True
     page_title = gettext_lazy("Users")
     show_other_searches = True

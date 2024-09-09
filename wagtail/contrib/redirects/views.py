@@ -78,7 +78,6 @@ class IndexView(generic.IndexView):
     paginate_by = 20
     page_title = gettext_lazy("Redirects")
     search_fields = ["old_path", "redirect_page__url_path", "redirect_link"]
-    _show_breadcrumbs = True
     columns = [
         TitleColumn(
             "old_path",

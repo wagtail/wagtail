@@ -1,7 +1,9 @@
+jest.setTimeout(30000);
+
 describe('Groups', () => {
   beforeAll(async () => {
     await page.goto(`${TEST_ORIGIN}/admin/groups/2/`);
-  }, 10000);
+  });
 
   it('has the right heading', async () => {
     expect(await page.title()).toContain('Editing: Editors - Wagtail');

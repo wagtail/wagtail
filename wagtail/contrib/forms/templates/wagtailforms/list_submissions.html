@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/generic/index_results.html" %}
+{% extends "wagtailadmin/generic/listing_results.html" %}
 {% load i18n l10n %}
 {% block results %}
     <form class="w-overflow-auto" data-controller="w-bulk" data-w-bulk-action-inactive-class="w-invisible" action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">

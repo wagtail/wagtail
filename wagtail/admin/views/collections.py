@@ -30,7 +30,6 @@ class Index(IndexView):
             accessor="1",
         )
     ]
-    _show_breadcrumbs = True
 
     def get_queryset(self):
         return self.permission_policy.instances_user_has_any_permission_for(

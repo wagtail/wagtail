@@ -68,6 +68,11 @@ class TestIndexView(IndexView):
     context_object_name = "test_object"
 
 
+class TestIndexViewWithoutModel(IndexView):
+    def get_base_queryset(self):
+        return ModelWithStringTypePrimaryKey.objects.all()
+
+
 class CustomModelEditForm(forms.ModelForm):
     class Meta:
         model = ModelWithStringTypePrimaryKey

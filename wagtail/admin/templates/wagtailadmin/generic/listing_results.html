@@ -18,6 +18,22 @@
             {% endfor %}
         </template>
     {% endif %}
+
+    {% block other_searches %}{% endblock %}
+
+    {% if not object_list %}
+        {# pass, to allow the same logic as `if object_list and (is_searching or is_filtering)` #}
+    {% elif is_searching or is_filtering %}
+        <div class="nice-padding">
+            <h2 role="alert">
+                {% blocktrans trimmed with counter=items_count|intcomma count counter_val=items_count %}
+                    There is {{ counter }} match
+                {% plural %}
+                    There are {{ counter }} matches
+                {% endblocktrans %}
+            </h2>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% if object_list %}
@@ -33,6 +49,8 @@
     {% endblock %}
 {% else %}
     <div class="nice-padding w-mt-8">
-        {% block no_results_message %}<p>{% trans "There are no results." %}</p>{% endblock %}
+        {% block no_results_message %}
+            <p>{{ no_results_message|capfirst }}</p>
+        {% endblock %}
     </div>
 {% endif %}
