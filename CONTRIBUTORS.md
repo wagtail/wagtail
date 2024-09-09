@@ -832,6 +832,7 @@
 * Nayanshi Singh
 * Daniel Black
 * Atif Khan
+* Sanjeev Holla S
 
 ## Translators
 
