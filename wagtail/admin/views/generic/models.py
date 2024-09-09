@@ -41,12 +41,7 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.admin.widgets.button import (
-    Button,
-    ButtonWithDropdown,
-    HeaderButton,
-    ListingButton,
-)
+from wagtail.admin.widgets.button import Button, ButtonWithDropdown, HeaderButton
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
@@ -319,50 +314,37 @@ class IndexView(
         buttons = []
         if edit_url := self.get_edit_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Edit"),
                     url=edit_url,
                     icon_name="edit",
-                    attrs={
-                        "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=10,
                 )
             )
         if copy_url := self.get_copy_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Copy"),
                     url=copy_url,
                     icon_name="copy",
-                    attrs={
-                        "aria-label": _("Copy '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=20,
                 )
             )
         if inspect_url := self.get_inspect_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Inspect"),
                     url=inspect_url,
                     icon_name="info-circle",
-                    attrs={
-                        "aria-label": _("Inspect '%(title)s'")
-                        % {"title": str(instance)}
-                    },
                     priority=20,
                 )
             )
         if delete_url := self.get_delete_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Delete"),
                     url=delete_url,
                     icon_name="bin",
-                    attrs={
-                        "aria-label": _("Delete '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=30,
                 )
             )
