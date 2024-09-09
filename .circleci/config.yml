@@ -83,16 +83,18 @@ jobs:
           paths:
             - .venv
       - restore_cache:
-          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+          key: ui_tests-npm_integration-v2-{{ checksum "client/tests/integration/package-lock.json" }}
       # Only install if node_modules wasn’t cached.
       - run: |
           if [[ ! -e "client/tests/integration/node_modules" ]]; then
               npm --prefix ./client/tests/integration ci
           fi
       - save_cache:
-          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+          key: ui_tests-npm_integration-v2-{{ checksum "client/tests/integration/package-lock.json" }}
           paths:
             - client/tests/integration/node_modules
+            # Also cache the global location where Puppeteer stores browsers.
+            - ~/.cache/puppeteer
       - run: pipenv run ./wagtail/test/manage.py migrate
       - run:
           command: pipenv run ./wagtail/test/manage.py runserver 0:8000
