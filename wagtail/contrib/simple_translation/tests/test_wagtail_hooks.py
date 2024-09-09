@@ -7,12 +7,14 @@ from wagtail import hooks
 from wagtail.actions.create_alias import CreatePageAliasAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.admin import widgets as wagtailadmin_widgets
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.contrib.simple_translation.wagtail_hooks import (
     page_listing_more_buttons,
     register_submit_translation_permission,
 )
 from wagtail.models import Locale, Page
 from wagtail.test.i18n.models import TestPage
+from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -99,6 +101,37 @@ class TestWagtailHooksButtons(Utils):
         assert isinstance(
             list(page_listing_more_buttons(blog_page, user))[0],
             wagtailadmin_widgets.Button,
+        )
+
+    def test_snippet_buttons(self):
+        snippet = TranslatableSnippet.objects.create(text="Test Snippet")
+        user = self.create_user(username="testuser")
+
+        # Test the button is not created for a user without permission
+        user.user_permissions.remove(
+            Permission.objects.get(codename="submit_translation")
+        )
+        buttons = []
+        for hook in hooks.get_hooks("register_snippet_listing_buttons"):
+            buttons.extend(hook(snippet, user))
+        self.assertEqual(len(buttons), 0)
+
+        # Test the button is created for a user with permission
+        perm = Permission.objects.get(codename="submit_translation")
+        user.user_permissions.add(perm)
+        user = get_user_model().objects.get(pk=user.pk)
+        buttons = []
+        for hook in hooks.get_hooks("register_snippet_listing_buttons"):
+            buttons.extend(hook(snippet, user))
+        self.assertEqual(len(buttons), 1)
+        self.assertIsInstance(buttons[0], MenuItem)
+        self.assertEqual(buttons[0].label, "Translate")
+        self.assertEqual(
+            buttons[0].url,
+            reverse(
+                "simple_translation:submit_snippet_translation",
+                args=(snippet._meta.app_label, snippet._meta.model_name, snippet.pk),
+            ),
         )
 
 

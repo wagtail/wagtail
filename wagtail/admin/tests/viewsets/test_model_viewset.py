@@ -1474,22 +1474,18 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         expected_buttons = [
             (
                 "Edit",
-                f"Edit '{self.object}'",
                 reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
             ),
             (
                 "Copy",
-                f"Copy '{self.object}'",
                 reverse("feature_complete_toy:copy", args=[quote(self.object.pk)]),
             ),
             (
                 "Inspect",
-                f"Inspect '{self.object}'",
                 reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
             ),
             (
                 "Delete",
-                f"Delete '{self.object}'",
                 reverse("feature_complete_toy:delete", args=[quote(self.object.pk)]),
             ),
         ]
@@ -1497,12 +1493,11 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         rendered_buttons = more_dropdown.select("a")
         self.assertEqual(len(rendered_buttons), len(expected_buttons))
 
-        for rendered_button, (label, aria_label, url) in zip(
-            rendered_buttons, expected_buttons
-        ):
+        for rendered_button, (label, url) in zip(rendered_buttons, expected_buttons):
             self.assertEqual(rendered_button.text.strip(), label)
-            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+            # Should not render aria-label in favor of the button text
+            self.assertIsNone(rendered_button.attrs.get("aria-label"))
 
     def test_title_cell_not_link_to_edit_view_when_no_edit_permission(self):
         self.user.is_superuser = False
@@ -1593,17 +1588,14 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         expected_buttons = [
             (
                 "Edit",
-                f"Edit '{self.object}'",
                 reverse("fctoy_alt1:edit", args=[quote(self.object.pk)]),
             ),
             (
                 "Inspect",
-                f"Inspect '{self.object}'",
                 reverse("fctoy_alt1:inspect", args=[quote(self.object.pk)]),
             ),
             (
                 "Delete",
-                f"Delete '{self.object}'",
                 reverse("fctoy_alt1:delete", args=[quote(self.object.pk)]),
             ),
         ]
@@ -1611,12 +1603,11 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         rendered_buttons = more_dropdown.select("a")
         self.assertEqual(len(rendered_buttons), len(expected_buttons))
 
-        for rendered_button, (label, aria_label, url) in zip(
-            rendered_buttons, expected_buttons
-        ):
+        for rendered_button, (label, url) in zip(rendered_buttons, expected_buttons):
             self.assertEqual(rendered_button.text.strip(), label)
-            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+            # Should not render aria-label in favor of the button text
+            self.assertIsNone(rendered_button.attrs.get("aria-label"))
 
     def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
         self.user.is_superuser = False
