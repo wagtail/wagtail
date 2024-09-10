@@ -61,7 +61,9 @@ export const contentMetricsPluginInstance = {
     options: ContentMetricsOptions,
     done: (metrics: ContentMetrics) => void,
   ) {
-    const main = document.querySelector<HTMLElement>(options.targetElement);
+    const main =
+      document.querySelector<HTMLElement>(options.targetElement) ||
+      document.body; // Fallback to the body only if the target element is not found
     const text = main?.innerText || '';
     const lang = document.documentElement.lang || 'en';
     const wordCount = getWordCount(lang, text);
