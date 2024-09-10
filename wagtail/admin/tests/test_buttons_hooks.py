@@ -297,7 +297,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         buttons = [
             button
             for button in page_listing_more_buttons(page, user=editor)
-            if button.show
+            if button.is_shown(user=editor)
         ]
         self.assertEqual(
             len([button for button in buttons if button.label == "Sort menu order"]), 0
@@ -311,7 +311,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         buttons = [
             button
             for button in page_listing_more_buttons(page, user=publisher)
-            if button.show
+            if button.is_shown(user=publisher)
         ]
         reorder_button = next(
             button for button in buttons if button.label == "Sort menu order"
