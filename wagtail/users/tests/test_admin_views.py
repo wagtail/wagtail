@@ -224,6 +224,12 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query_string"], "Hello")
+        soup = self.get_soup(response.content)
+        filter_options = soup.select(".filter-options a")
+        self.assertIn(
+            ("Users", reverse("wagtailusers_users:index") + "?q=Hello"),
+            [(a.text.strip(), a.get("href")) for a in filter_options],
+        )
 
     def test_search_query_one_field(self):
         response = self.get({"q": "first name"})

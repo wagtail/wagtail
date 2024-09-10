@@ -11,6 +11,7 @@ from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
 from django.forms import CheckboxSelectMultiple
 from django.template import RequestContext
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -427,7 +428,7 @@ class UserViewSet(ModelViewSet):
     def get_search_area(self):
         return self.search_area_class(
             gettext_lazy("Users"),
-            self.get_url_name("index"),
+            reverse(self.get_url_name("index")),
             name="users",
             icon_name="user",
             order=600,
