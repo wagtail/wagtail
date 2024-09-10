@@ -1,9 +1,7 @@
 from warnings import warn
 
 from django.forms.utils import flatatt
-from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
@@ -153,26 +151,7 @@ class ListingButton(BaseButton):
 
 
 class PageListingButton(ListingButton):
-    url_name = None
-
-    def __init__(self, *args, page=None, next_url=None, attrs={}, user=None, **kwargs):
-        self.page = page
-        self.user = user
-        self.next_url = next_url
-        super().__init__(*args, attrs=attrs, **kwargs)
-
-    @cached_property
-    def url(self):
-        if self.page and self.url_name is not None:
-            url = reverse(self.url_name, args=[self.page.id])
-            if self.next_url:
-                url += "?" + urlencode({"next": self.next_url})
-            return url
-
-    @cached_property
-    def page_perms(self):
-        if self.page:
-            return self.page.permissions_for_user(self.user)
+    pass
 
 
 class BaseDropdownMenuButton(BaseButton):
@@ -240,10 +219,10 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
     def dropdown_buttons(self):
         button_hooks = hooks.get_hooks(self.hook_name)
 
-        buttons = []
+        hook_buttons = []
         for hook in button_hooks:
             if accepts_kwarg(hook, "user"):
-                buttons.extend(
+                hook_buttons.extend(
                     hook(page=self.page, user=self.user, next_url=self.next_url)
                 )
             else:
@@ -254,7 +233,15 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
                     category=RemovedInWagtail70Warning,
                 )
                 page_perms = self.page.permissions_for_user(self.user)
-                buttons.extend(hook(self.page, page_perms, self.next_url))
+                hook_buttons.extend(hook(self.page, page_perms, self.next_url))
 
-        buttons = [b for b in buttons if b.show]
+        buttons = []
+        for button in hook_buttons:
+            # Allow hooks to return either Button or MenuItem instances
+            if isinstance(button, MenuItem):
+                if button.is_shown(self.user):
+                    buttons.append(Button.from_menu_item(button))
+            elif button.show:
+                buttons.append(button)
+
         return buttons

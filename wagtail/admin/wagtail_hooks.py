@@ -41,6 +41,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 )
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
+from wagtail.admin.ui.menus.pages import PageMenuItem
 from wagtail.admin.ui.sidebar import (
     PageExplorerMenuItem as PageExplorerMenuItemComponent,
 )
@@ -52,7 +53,7 @@ from wagtail.admin.views.pages.bulk_actions import (
     UnpublishBulkAction,
 )
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.widgets import ButtonWithDropdownFromHook, PageListingButton
+from wagtail.admin.widgets import ButtonWithDropdownFromHook
 from wagtail.models import Collection, Page, Task, Workflow
 from wagtail.permissions import (
     collection_permission_policy,
@@ -241,68 +242,62 @@ def page_listing_buttons(page, user, next_url=None):
     )
 
 
-class PageListingEditButton(PageListingButton):
+class PageListingEditButton(PageMenuItem):
     label = _("Edit")
     icon_name = "edit"
     url_name = "wagtailadmin_pages:edit"
 
-    @property
-    def show(self):
-        return self.page_perms.can_edit()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_edit()
 
 
-class PageListingViewDraftButton(PageListingButton):
+class PageListingViewDraftButton(PageMenuItem):
     label = _("View draft")
     icon_name = "draft"
     url_name = "wagtailadmin_pages:view_draft"
     attrs = {"rel": "noreferrer"}
 
-    @property
-    def show(self):
+    def is_shown(self, user):
         return self.page.has_unpublished_changes and self.page.is_previewable()
 
 
-class PageListingViewLiveButton(PageListingButton):
+class PageListingViewLiveButton(PageMenuItem):
     label = _("View live")
     icon_name = "doc-empty"
     attrs = {"rel": "noreferrer"}
 
-    @property
-    def show(self):
+    def is_shown(self, user):
         return self.page.live and self.page.url
 
 
-class PageListingAddChildPageButton(PageListingButton):
+class PageListingAddChildPageButton(PageMenuItem):
     label = _("Add child page")
     icon_name = "circle-plus"
     url_name = "wagtailadmin_pages:add_subpage"
 
-    @property
-    def show(self):
-        return self.page_perms.can_add_subpage()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_add_subpage()
 
 
-class PageListingMoveButton(PageListingButton):
+class PageListingMoveButton(PageMenuItem):
     label = _("Move")
     icon_name = "arrow-right-full"
     url_name = "wagtailadmin_pages:move"
 
-    @property
-    def show(self):
-        return self.page_perms.can_move()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_move()
 
 
-class PageListingCopyButton(PageListingButton):
+class PageListingCopyButton(PageMenuItem):
     label = _("Copy")
     icon_name = "copy"
     url_name = "wagtailadmin_pages:copy"
 
-    @property
-    def show(self):
-        return self.page_perms.can_copy()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_copy()
 
 
-class PageListingDeleteButton(PageListingButton):
+class PageListingDeleteButton(PageMenuItem):
     label = _("Delete")
     icon_name = "bin"
 
@@ -326,38 +321,34 @@ class PageListingDeleteButton(PageListingButton):
                     url += "?" + urlencode({"next": self.next_url})
             return url
 
-    @property
-    def show(self):
-        return self.page_perms.can_delete()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_delete()
 
 
-class PageListingUnpublishButton(PageListingButton):
+class PageListingUnpublishButton(PageMenuItem):
     label = _("Unpublish")
     icon_name = "download"
     url_name = "wagtailadmin_pages:unpublish"
 
-    @property
-    def show(self):
-        return self.page_perms.can_unpublish()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_unpublish()
 
 
-class PageListingHistoryButton(PageListingButton):
+class PageListingHistoryButton(PageMenuItem):
     label = _("History")
     icon_name = "history"
     url_name = "wagtailadmin_pages:history"
 
-    @property
-    def show(self):
-        return self.page_perms.can_view_revisions()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_view_revisions()
 
 
-class PageListingSortMenuOrderButton(PageListingButton):
+class PageListingSortMenuOrderButton(PageMenuItem):
     label = _("Sort menu order")
     icon_name = "list-ul"
 
-    @property
-    def show(self):
-        return self.page_perms.can_reorder_children()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_reorder_children()
 
     @cached_property
     def url(self):
@@ -366,38 +357,32 @@ class PageListingSortMenuOrderButton(PageListingButton):
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, user, next_url=None):
-    yield PageListingEditButton(page=page, user=user, next_url=next_url, priority=2)
-    yield PageListingViewDraftButton(page=page, user=user, priority=4)
-    yield PageListingViewLiveButton(page=page, user=user, url=page.url, priority=6)
-    yield PageListingAddChildPageButton(
-        page=page, user=user, next_url=next_url, priority=8
-    )
-    yield PageListingMoveButton(page=page, user=user, priority=10)
-    yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=20)
-    yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=30)
-    yield PageListingUnpublishButton(
-        page=page, user=user, next_url=next_url, priority=40
-    )
-    yield PageListingHistoryButton(page=page, user=user, priority=50)
-    yield PageListingSortMenuOrderButton(page=page, user=user, priority=60)
+    yield PageListingEditButton(page=page, next_url=next_url, priority=2)
+    yield PageListingViewDraftButton(page=page, priority=4)
+    yield PageListingViewLiveButton(page=page, url=page.url, priority=6)
+    yield PageListingAddChildPageButton(page=page, next_url=next_url, priority=8)
+    yield PageListingMoveButton(page=page, priority=10)
+    yield PageListingCopyButton(page=page, next_url=next_url, priority=20)
+    yield PageListingDeleteButton(page=page, next_url=next_url, priority=30)
+    yield PageListingUnpublishButton(page=page, next_url=next_url, priority=40)
+    yield PageListingHistoryButton(page=page, priority=50)
+    yield PageListingSortMenuOrderButton(page=page, priority=60)
 
 
 @hooks.register("register_page_header_buttons")
 def page_header_buttons(page, user, view_name, next_url=None):
-    yield PageListingEditButton(page=page, user=user, priority=10)
+    yield PageListingEditButton(page=page, priority=10)
 
     # "add child" is a separate primary action on the index page
     if view_name != "index":
-        yield PageListingAddChildPageButton(page=page, user=user, priority=15)
+        yield PageListingAddChildPageButton(page=page, priority=15)
 
-    yield PageListingMoveButton(page=page, user=user, priority=20)
-    yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=30)
-    yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=50)
-    yield PageListingUnpublishButton(
-        page=page, user=user, next_url=next_url, priority=60
-    )
-    yield PageListingHistoryButton(page=page, user=user, priority=65)
-    yield PageListingSortMenuOrderButton(page=page, user=user, priority=70)
+    yield PageListingMoveButton(page=page, priority=20)
+    yield PageListingCopyButton(page=page, next_url=next_url, priority=30)
+    yield PageListingDeleteButton(page=page, next_url=next_url, priority=50)
+    yield PageListingUnpublishButton(page=page, next_url=next_url, priority=60)
+    yield PageListingHistoryButton(page=page, priority=65)
+    yield PageListingSortMenuOrderButton(page=page, priority=70)
 
 
 @hooks.register("register_admin_urls")

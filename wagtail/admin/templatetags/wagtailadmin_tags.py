@@ -35,6 +35,7 @@ from wagtail.admin.menu import admin_menu
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.utils import (
     get_admin_base_url,
     get_latest_str,
@@ -461,10 +462,10 @@ def page_listing_buttons(context, page, user, next_url=None):
     next_url = next_url or context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
-    buttons = []
+    hook_buttons = []
     for hook in button_hooks:
         if accepts_kwarg(hook, "user"):
-            buttons.extend(hook(page=page, next_url=next_url, user=user))
+            hook_buttons.extend(hook(page=page, next_url=next_url, user=user))
         else:
             # old-style hook that accepts page_perms instead of user
             warn(
@@ -474,7 +475,16 @@ def page_listing_buttons(context, page, user, next_url=None):
             )
 
             page_perms = page.permissions_for_user(user)
-            buttons.extend(hook(page, page_perms, next_url))
+            hook_buttons.extend(hook(page, page_perms, next_url))
+
+    buttons = []
+    for button in hook_buttons:
+        # Allow hooks to return either Button or MenuItem instances
+        if isinstance(button, MenuItem):
+            if button.is_shown(user):
+                buttons.append(PageListingButton.from_menu_item(button))
+        elif button.show:
+            buttons.append(button)
 
     buttons.sort()
 
@@ -503,10 +513,10 @@ def page_header_buttons(context, page, user, view_name):
     page_perms = page.permissions_for_user(user)
     button_hooks = hooks.get_hooks("register_page_header_buttons")
 
-    buttons = []
+    hook_buttons = []
     for hook in button_hooks:
         if accepts_kwarg(hook, "user"):
-            buttons.extend(
+            hook_buttons.extend(
                 hook(page=page, user=user, next_url=next_url, view_name=view_name)
             )
         else:
@@ -518,9 +528,17 @@ def page_header_buttons(context, page, user, view_name):
             )
 
             page_perms = page.permissions_for_user(user)
-            buttons.extend(hook(page, page_perms, next_url))
+            hook_buttons.extend(hook(page, page_perms, next_url))
 
-    buttons = [b for b in buttons if b.show]
+    buttons = []
+    for button in hook_buttons:
+        # Allow hooks to return either Button or MenuItem instances
+        if isinstance(button, MenuItem):
+            if button.is_shown(user):
+                buttons.append(Button.from_menu_item(button))
+        elif button.show:
+            buttons.append(button)
+
     buttons.sort()
     return {
         "buttons": buttons,
