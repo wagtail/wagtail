@@ -9,14 +9,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               pipenv install -e .[testing,docs]
           fi
       - save_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
           paths:
             - .venv
       - run: pipenv run ruff check .
@@ -72,14 +72,14 @@ jobs:
       - attach_workspace:
           at: ~/project
       - restore_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               pipenv install -e .[testing]
           fi
       - save_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
           paths:
             - .venv
       - restore_cache:
