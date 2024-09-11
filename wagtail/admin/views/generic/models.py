@@ -365,7 +365,7 @@ class IndexView(
             elif isinstance(button, MenuItem):
                 if button.is_shown(self.request.user):
                     more_buttons.append(Button.from_menu_item(button))
-            else:
+            elif button.show:
                 more_buttons.append(button)
 
         if more_buttons:
