@@ -38,7 +38,7 @@ class BaseButton(Component):
         self.priority = priority
 
     def get_context_data(self, parent_context):
-        return {"button": self}
+        return {"button": self, "request": parent_context.get("request")}
 
     @property
     def base_attrs_string(self):
@@ -170,13 +170,17 @@ class BaseDropdownMenuButton(BaseButton):
         raise NotImplementedError
 
     def get_context_data(self, parent_context):
-        return {
-            "buttons": sorted(self.dropdown_buttons),
-            "label": self.label,
-            "title": self.aria_label,
-            "toggle_classname": self.classname,
-            "icon_name": self.icon_name,
-        }
+        context = super().get_context_data(parent_context)
+        context.update(
+            {
+                "buttons": sorted(self.dropdown_buttons),
+                "label": self.label,
+                "title": self.aria_label,
+                "toggle_classname": self.classname,
+                "icon_name": self.icon_name,
+            }
+        )
+        return context
 
 
 class ButtonWithDropdown(BaseDropdownMenuButton):
