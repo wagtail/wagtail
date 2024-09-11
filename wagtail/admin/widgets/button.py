@@ -156,7 +156,13 @@ class ListingButton(BaseButton):
 
 
 class PageListingButton(ListingButton):
-    pass
+    def __init__(self, *args, **kwargs):
+        warn(
+            "`PageListingButton` is deprecated. "
+            "Use `wagtail.admin.widgets.button.ListingButton` instead.",
+            category=RemovedInWagtail70Warning,
+        )
+        super().__init__(*args, **kwargs)
 
 
 class BaseDropdownMenuButton(BaseButton):
