@@ -11,6 +11,7 @@ class PageMenuItem(MenuItem):
     url = None
     icon_name = None
     priority = None
+    link_rel = None
 
     def __init__(
         self,

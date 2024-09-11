@@ -259,6 +259,27 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
         self.assertEqual(delete_button.url, full_url)
 
+    def test_buttons_with_rel_attribute(self):
+        """
+        Ensure that PageMenuItem can specify a rel attribute for the link.
+        """
+        self.child_page.save_revision()
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        buttons = soup.select("td li [data-controller='w-dropdown'] a[rel]")
+        self.assertEqual(len(buttons), 2)
+        self.assertEqual(
+            {button.text.strip() for button in buttons},
+            {"View live", "View draft"},
+        )
+        self.assertEqual(
+            [button.get("rel") for button in buttons],
+            [["noreferrer"], ["noreferrer"]],
+        )
+
     def test_delete_button_with_invalid_next_url(self):
         """
         Ensure that the built in delete button on page listing will not use

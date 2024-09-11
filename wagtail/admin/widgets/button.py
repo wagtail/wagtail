@@ -94,11 +94,16 @@ class BaseButton(Component):
 
     @classmethod
     def from_menu_item(cls, menu_item: MenuItem):
+        attrs = {}
+        if link_rel := getattr(menu_item, "link_rel", None):
+            attrs["rel"] = link_rel
+
         return cls(
             label=menu_item.label,
             url=menu_item.url,
             icon_name=menu_item.icon_name,
             priority=menu_item.priority,
+            attrs=attrs,
         )
 
 
