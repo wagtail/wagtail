@@ -233,8 +233,6 @@ def page_listing_buttons(page, user, next_url=None):
         next_url=next_url,
         icon_name="dots-horizontal",
         attrs={
-            "target": "_blank",
-            "rel": "noreferrer",
             "aria-label": _("More options for '%(title)s'")
             % {"title": page.get_admin_display_title()},
         },
