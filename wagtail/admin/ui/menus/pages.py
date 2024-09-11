@@ -10,6 +10,7 @@ class PageMenuItem(MenuItem):
     label = None
     icon_name = None
     priority = None
+    link_rel = None
 
     def __init__(
         self,
