@@ -1050,7 +1050,7 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
 def page_listing_buttons(page, user, next_url=None):
-    yield wagtailadmin_widgets.PageListingButton(
+    yield wagtailadmin_widgets.ListingButton(
         'A page listing button',
         '/goes/to/a/url/',
         priority=10
@@ -1064,6 +1064,10 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
+
+```{versionchanged} 7.0
+The `PageListingButton` class is deprecated in favor of `ListingButton`.
+```
 
 (register_page_listing_more_buttons)=
 
@@ -1133,7 +1137,7 @@ The template for the dropdown button can be customized by overriding `wagtailadm
 
 ### `construct_page_listing_buttons`
 
-Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `PageListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
+Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `ListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
 
 ```python
 @hooks.register('construct_page_listing_buttons')

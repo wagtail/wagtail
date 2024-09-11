@@ -1,9 +1,12 @@
+from warnings import warn
+
 from django.forms.utils import flatatt
 from django.utils.functional import cached_property
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.admin.ui.menus import MenuItem
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class BaseButton(Component):
@@ -152,7 +155,13 @@ class ListingButton(BaseButton):
 
 
 class PageListingButton(ListingButton):
-    pass
+    def __init__(self, *args, **kwargs):
+        warn(
+            "`PageListingButton` is deprecated. "
+            "Use `wagtail.admin.widgets.button.ListingButton` instead.",
+            category=RemovedInWagtail80Warning,
+        )
+        super().__init__(*args, **kwargs)
 
 
 class BaseDropdownMenuButton(BaseButton):
