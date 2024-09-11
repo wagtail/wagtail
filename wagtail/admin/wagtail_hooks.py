@@ -255,7 +255,7 @@ class PageListingViewDraftButton(PageMenuItem):
     label = _("View draft")
     icon_name = "draft"
     url_name = "wagtailadmin_pages:view_draft"
-    attrs = {"rel": "noreferrer"}
+    link_rel = "noreferrer"
 
     def is_shown(self, user):
         return self.page.has_unpublished_changes and self.page.is_previewable()
@@ -264,7 +264,7 @@ class PageListingViewDraftButton(PageMenuItem):
 class PageListingViewLiveButton(PageMenuItem):
     label = _("View live")
     icon_name = "doc-empty"
-    attrs = {"rel": "noreferrer"}
+    link_rel = "noreferrer"
 
     def is_shown(self, user):
         return self.page.live and self.page.url
