@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
-from wagtail.admin.widgets.button import ListingButton
+from wagtail.admin.widgets.button import Button
 from wagtail.telepath import register
 
 
@@ -67,5 +67,5 @@ class SnippetChooserAdapter(BaseChooserAdapter):
 register(SnippetChooserAdapter(), AdminSnippetChooser)
 
 
-class SnippetListingButton(ListingButton):
+class SnippetListingButton(Button):
     pass

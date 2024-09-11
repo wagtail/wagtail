@@ -41,7 +41,12 @@ from wagtail.admin.ui.tables import (
 )
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.admin.widgets.button import Button, ButtonWithDropdown, HeaderButton
+from wagtail.admin.widgets.button import (
+    BaseButton,
+    Button,
+    ButtonWithDropdown,
+    HeaderButton,
+)
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
@@ -351,15 +356,18 @@ class IndexView(
         return buttons
 
     def get_list_buttons(self, instance):
+        buttons = []
         more_buttons = []
+
         for button in self.get_list_more_buttons(instance):
-            if isinstance(button, MenuItem):
+            if isinstance(button, BaseButton) and not button.allow_in_dropdown:
+                buttons.append(button)
+            elif isinstance(button, MenuItem):
                 if button.is_shown(self.request.user):
                     more_buttons.append(Button.from_menu_item(button))
             else:
                 more_buttons.append(button)
 
-        buttons = []
         if more_buttons:
             buttons.append(
                 ButtonWithDropdown(
