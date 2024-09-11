@@ -410,6 +410,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             yield ButtonWithDropdown(
                 label="Moar pls!",
                 buttons=[ListingButton("Alrighty", "/cheers", priority=10)],
+                attrs={"data-foo": "bar"},
             )
 
         with self.register_hook("register_user_listing_buttons", hook):
@@ -472,6 +473,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         custom_dropdown = dropdown_buttons[1]
         self.assertIsNotNone(custom_dropdown)
         self.assertEqual(custom_dropdown.select_one("button").text.strip(), "Moar pls!")
+        self.assertEqual(custom_dropdown.get("data-foo"), "bar")
         # Should contain the custom button inside the custom dropdown
         custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
         self.assertIsNotNone(custom_button)
