@@ -10,6 +10,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
+from django.middleware.csrf import get_token
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -266,6 +267,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             def get_context_data(self, parent_context):
                 context = super().get_context_data(parent_context)
                 context["user_pk"] = self.user_pk
+                context["csrf_token"] = get_token(context["request"])
                 return context
 
         def hook(user, request_user):
@@ -345,6 +347,8 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             impersonate_form.select_one("button[type='submit']").text.strip(),
             "Impersonate",
         )
+        csrf_token = impersonate_form.select_one("input[name='csrfmiddlewaretoken']")
+        self.assertIsNotNone(csrf_token)
 
         custom_dropdown = dropdown_buttons[1]
         self.assertIsNotNone(custom_dropdown)
