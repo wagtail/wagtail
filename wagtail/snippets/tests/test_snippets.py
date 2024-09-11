@@ -325,6 +325,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             yield ButtonWithDropdown(
                 label="Moar pls!",
                 buttons=[ListingButton("Alrighty", "/cheers", priority=10)],
+                attrs={"data-foo": "bar"},
             )
 
         with hooks.register_temporarily(
@@ -350,6 +351,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
                 custom_dropdown = button
         self.assertIsNotNone(custom_dropdown)
         self.assertEqual(custom_dropdown.select_one("button").text.strip(), "Moar pls!")
+        self.assertEqual(custom_dropdown.get("data-foo"), "bar")
         # Should contain the custom button inside the custom dropdown
         custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
         self.assertIsNotNone(custom_button)
