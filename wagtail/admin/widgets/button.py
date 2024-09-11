@@ -169,6 +169,16 @@ class BaseDropdownMenuButton(BaseButton):
     def dropdown_buttons(self):
         raise NotImplementedError
 
+    @property
+    def base_attrs_string(self):
+        attrs = self.attrs.copy()
+        # For dropdowns, attrs are rendered on the wrapper `<div>`, not the
+        # toggle button. Don't render the `aria-label` on the wrapper. We'll pass
+        # it as the `title` context variable to be used as `toggle_aria_label`
+        # instead, which will be rendered on the toggle button.
+        attrs.pop("aria-label", None)
+        return flatatt(attrs)
+
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context.update(
