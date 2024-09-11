@@ -28,7 +28,7 @@ from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.admin.widgets.button import (
-    BaseDropdownMenuButton,
+    BaseButton,
     Button,
     ButtonWithDropdown,
 )
@@ -191,9 +191,9 @@ class IndexView(generic.IndexView):
             hook_buttons = hook(user=instance, request_user=self.request.user)
 
             for button in hook_buttons:
-                if isinstance(button, BaseDropdownMenuButton):
-                    # If the button is a dropdown menu, add it to the top-level
-                    # because we do not support nested dropdowns
+                if isinstance(button, BaseButton) and not button.allow_in_dropdown:
+                    # If the button is not allowed in a dropdown menu, add it to
+                    # the top-level list of buttons
                     list_buttons.append(button)
                 elif isinstance(button, MenuItem):
                     # Allow simple MenuItem instances to be passed in directly
