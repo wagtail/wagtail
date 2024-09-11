@@ -180,24 +180,26 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         )
 
     def get_list_buttons(self, instance):
-        more_buttons = self.get_list_more_buttons(instance)
         next_url = self.request.path
         list_buttons = []
+        more_buttons = []
 
+        buttons = self.get_list_more_buttons(instance)
         for hook in hooks.get_hooks("register_snippet_listing_buttons"):
-            hook_buttons = hook(instance, self.request.user, next_url)
-            for button in hook_buttons:
-                if isinstance(button, BaseButton) and not button.allow_in_dropdown:
-                    # If the button is not allowed in a dropdown menu, add it to
-                    # the top-level list of buttons
-                    list_buttons.append(button)
-                elif isinstance(button, MenuItem):
-                    # Allow simple MenuItem instances to be passed in directly
-                    if button.is_shown(self.request.user):
-                        more_buttons.append(Button.from_menu_item(button))
-                else:
-                    # Otherwise, add it to the default "More" dropdown
-                    more_buttons.append(button)
+            buttons.extend(hook(instance, self.request.user, next_url))
+
+        for button in buttons:
+            if isinstance(button, BaseButton) and not button.allow_in_dropdown:
+                # If the button is not allowed in a dropdown menu, add it to
+                # the top-level list of buttons
+                list_buttons.append(button)
+            elif isinstance(button, MenuItem):
+                # Allow simple MenuItem instances to be passed in directly
+                if button.is_shown(self.request.user):
+                    more_buttons.append(Button.from_menu_item(button))
+            elif button.show:
+                # Otherwise, add it to the default "More" dropdown
+                more_buttons.append(button)
 
         # Pass the more_buttons to the construct hooks, as that's what contains
         # the default buttons and most buttons added via register_snippet_listing_buttons

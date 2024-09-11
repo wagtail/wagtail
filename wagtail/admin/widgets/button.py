@@ -35,12 +35,6 @@ class BaseButton(Component):
 
         self.attrs = self.attrs.copy()
         self.attrs.update(attrs)
-
-        # if a 'title' attribute has been passed, correct that to aria-label
-        # as that's what will be picked up in renderings that don't use button.render
-        # directly (e.g. _dropdown_items.html)
-        if "title" in self.attrs and "aria-label" not in self.attrs:
-            self.attrs["aria-label"] = self.attrs.pop("title")
         self.priority = priority
 
     def get_context_data(self, parent_context):
