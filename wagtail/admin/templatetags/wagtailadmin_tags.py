@@ -44,7 +44,8 @@ from wagtail.admin.utils import (
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
-from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
+from wagtail.admin.widgets import Button, ButtonWithDropdown
+from wagtail.admin.widgets.button import ListingButton
 from wagtail.coreutils import (
     accepts_kwarg,
     camelcase_to_underscore,
@@ -482,7 +483,7 @@ def page_listing_buttons(context, page, user, next_url=None):
         # Allow hooks to return either Button or MenuItem instances
         if isinstance(button, MenuItem):
             if button.is_shown(user):
-                buttons.append(PageListingButton.from_menu_item(button))
+                buttons.append(ListingButton.from_menu_item(button))
         elif button.show:
             buttons.append(button)
 
@@ -560,7 +561,7 @@ def bulk_action_choices(context, app_label, model_name):
         next_url = context["request"].path
 
     bulk_action_buttons = [
-        PageListingButton(
+        ListingButton(
             action.display_name,
             reverse(
                 "wagtail_bulk_action", args=[app_label, model_name, action.action_type]
