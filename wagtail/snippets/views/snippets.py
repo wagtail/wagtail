@@ -35,7 +35,7 @@ from wagtail.admin.views.generic.preview import (
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.admin.widgets.button import (
-    BaseDropdownMenuButton,
+    BaseButton,
     Button,
     ButtonWithDropdown,
 )
@@ -187,9 +187,9 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         for hook in hooks.get_hooks("register_snippet_listing_buttons"):
             hook_buttons = hook(instance, self.request.user, next_url)
             for button in hook_buttons:
-                if isinstance(button, BaseDropdownMenuButton):
-                    # If the button is a dropdown menu, add it to the top-level
-                    # because we do not support nested dropdowns
+                if isinstance(button, BaseButton) and not button.allow_in_dropdown:
+                    # If the button is not allowed in a dropdown menu, add it to
+                    # the top-level list of buttons
                     list_buttons.append(button)
                 elif isinstance(button, MenuItem):
                     # Allow simple MenuItem instances to be passed in directly

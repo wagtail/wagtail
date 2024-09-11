@@ -12,13 +12,14 @@ from wagtail.coreutils import accepts_kwarg
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
-class Button(Component):
+class BaseButton(Component):
     template_name = "wagtailadmin/shared/button.html"
     show = True
     label = ""
     icon_name = None
     url = None
     attrs = {}
+    allow_in_dropdown = False
 
     def __init__(
         self, label="", url=None, classname="", icon_name=None, attrs={}, priority=1000
@@ -63,27 +64,27 @@ class Button(Component):
         return f"<Button: {self.label}>"
 
     def __lt__(self, other):
-        if not isinstance(other, (Button, MenuItem)):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) < (other.priority, other.label)
 
     def __le__(self, other):
-        if not isinstance(other, (Button, MenuItem)):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) <= (other.priority, other.label)
 
     def __gt__(self, other):
-        if not isinstance(other, (Button, MenuItem)):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) > (other.priority, other.label)
 
     def __ge__(self, other):
-        if not isinstance(other, (Button, MenuItem)):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) >= (other.priority, other.label)
 
     def __eq__(self, other):
-        if not isinstance(other, (Button, MenuItem)):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (
             self.label == other.label
@@ -103,8 +104,14 @@ class Button(Component):
         )
 
 
-class HeaderButton(Button):
-    """An icon-only button to be displayed after the breadcrumbs in the header."""
+class Button(BaseButton):
+    """Plain link button with a label and optional icon."""
+
+    allow_in_dropdown = True
+
+
+class HeaderButton(BaseButton):
+    """Top-level button to be displayed after the breadcrumbs in the header."""
 
     def __init__(
         self,
@@ -137,7 +144,9 @@ class HeaderButton(Button):
 
 # Base class for all listing buttons
 # This is also used by SnippetListingButton defined in wagtail.snippets.widgets
-class ListingButton(Button):
+class ListingButton(BaseButton):
+    """Top-level button to be displayed in a listing view."""
+
     def __init__(self, label="", url=None, classname="", **kwargs):
         classname = f"{classname} button button-small button-secondary".strip()
         super().__init__(label=label, url=url, classname=classname, **kwargs)
@@ -177,7 +186,7 @@ class PageListingButton(ListingButton):
             return self.page.permissions_for_user(self.user)
 
 
-class BaseDropdownMenuButton(Button):
+class BaseDropdownMenuButton(BaseButton):
     template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
 
     def __init__(self, *args, **kwargs):
