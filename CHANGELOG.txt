@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
+ * Docs: Clarify process for UserViewSet customisation (Sage Abdullah)
 
 
 6.2.1 (20.08.2024)
