@@ -256,14 +256,36 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertSequenceEqual(urls, expected_urls)
 
     def test_buttons_hook(self):
+        class CustomButton(Button):
+            template_name = "tests/custom_button.html"
+
+            def __init__(self, *args, user_pk, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.user_pk = user_pk
+
+            def get_context_data(self, parent_context):
+                context = super().get_context_data(parent_context)
+                context["user_pk"] = self.user_pk
+                return context
+
         def hook(user, request_user):
             self.assertEqual(request_user, self.user)
+            # This should be a top-level button
             yield ListingButton(
                 "Enhance profile",
                 f"/goes/to/a/url/{user.pk}",
                 priority=30,
             )
+            # These should be inside the default dropdown
             yield Button("Show profile", f"/goes/to/a/url/{user.pk}", priority=20)
+            yield CustomButton(
+                "Impersonate",
+                f"/impersonate/{user.pk}",
+                priority=30,
+                icon_name="user",
+                user_pk=user.pk,
+            )
+            # This should be a top-level button
             yield ButtonWithDropdown(
                 label="Moar pls!",
                 buttons=[ListingButton("Alrighty", "/cheers", priority=10)],
@@ -286,6 +308,10 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
         self.assertIs(top_level_custom_button, custom_buttons[0])
         self.assertEqual(top_level_custom_button.text.strip(), "Enhance profile")
+        self.assertEqual(
+            top_level_custom_button.get("class"),
+            ["button", "button-small", "button-secondary"],
+        )
         in_dropdown_custom_button = actions.select_one(
             f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
         )
@@ -294,6 +320,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             in_dropdown_custom_button.text.strip(),
             "Show profile",
         )
+        self.assertEqual(in_dropdown_custom_button.get("class"), [])
 
         nested_dropdown = actions.select_one(
             "li [data-controller='w-dropdown'] [data-controller='w-dropdown']"
@@ -302,10 +329,24 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         dropdown_buttons = actions.select("li > [data-controller='w-dropdown']")
         # Default "More" button and the custom "Moar pls!" button
         self.assertEqual(len(dropdown_buttons), 2)
-        custom_dropdown = None
-        for button in dropdown_buttons:
-            if "Moar pls!" in button.text.strip():
-                custom_dropdown = button
+
+        default_dropdown = dropdown_buttons[0]
+        # Should allow a button with a custom template,
+        # e.g. rendering a <button> inside a <form> instead of a <a> tag
+        impersonate_form = default_dropdown.select_one(
+            f"form[action='/impersonate/{self.test_user.pk}']"
+        )
+        self.assertIsNotNone(impersonate_form)
+        self.assertEqual(
+            impersonate_form.select_one("input[name='user_pk']").attrs.get("value"),
+            str(self.test_user.pk),
+        )
+        self.assertEqual(
+            impersonate_form.select_one("button[type='submit']").text.strip(),
+            "Impersonate",
+        )
+
+        custom_dropdown = dropdown_buttons[1]
         self.assertIsNotNone(custom_dropdown)
         self.assertEqual(custom_dropdown.select_one("button").text.strip(), "Moar pls!")
         # Should contain the custom button inside the custom dropdown

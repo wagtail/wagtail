@@ -184,28 +184,29 @@ class IndexView(generic.IndexView):
             return super().get_delete_url(instance)
 
     def get_list_buttons(self, instance):
-        more_buttons = self.get_list_more_buttons(instance)
+        more_buttons = []
         list_buttons = []
 
+        buttons = self.get_list_more_buttons(instance)
         for hook in hooks.get_hooks("register_user_listing_buttons"):
-            hook_buttons = hook(user=instance, request_user=self.request.user)
+            buttons.extend(hook(user=instance, request_user=self.request.user))
 
-            for button in hook_buttons:
-                if isinstance(button, BaseButton) and not button.allow_in_dropdown:
-                    # If the button is not allowed in a dropdown menu, add it to
-                    # the top-level list of buttons
-                    list_buttons.append(button)
-                elif isinstance(button, MenuItem):
-                    # Allow simple MenuItem instances to be passed in directly
-                    if button.is_shown(self.request.user):
-                        more_buttons.append(Button.from_menu_item(button))
-                else:
-                    # Otherwise, add it to the default "More" dropdown
-                    more_buttons.append(button)
+        for button in buttons:
+            if isinstance(button, BaseButton) and not button.allow_in_dropdown:
+                # If the button is not allowed in a dropdown menu, add it to
+                # the top-level list of buttons
+                list_buttons.append(button)
+            elif isinstance(button, MenuItem):
+                # Allow simple MenuItem instances to be passed in directly
+                if button.is_shown(self.request.user):
+                    more_buttons.append(Button.from_menu_item(button))
+            elif button.show:
+                # Otherwise, add it to the default "More" dropdown
+                more_buttons.append(button)
 
         list_buttons.append(
             ButtonWithDropdown(
-                buttons=sorted(more_buttons),
+                buttons=more_buttons,
                 icon_name="dots-horizontal",
                 attrs={
                     "aria-label": _("More options for '%(title)s'")
@@ -214,7 +215,7 @@ class IndexView(generic.IndexView):
             )
         )
 
-        return sorted(list_buttons)
+        return list_buttons
 
     def get_base_queryset(self):
         users = User._default_manager.all()
