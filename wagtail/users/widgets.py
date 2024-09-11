@@ -1,5 +1,5 @@
-from wagtail.admin.widgets import ListingButton
+from wagtail.admin.widgets import Button
 
 
-class UserListingButton(ListingButton):
+class UserListingButton(Button):
     pass
