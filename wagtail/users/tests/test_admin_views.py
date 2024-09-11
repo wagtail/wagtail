@@ -19,7 +19,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.models import Admin
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.log_actions import log
 from wagtail.models import (
@@ -41,6 +41,7 @@ from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import UserViewSet
 from wagtail.users.wagtail_hooks import get_viewset_cls
 from wagtail.users.widgets import UserListingButton
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 add_user_perm_codename = f"add_{AUTH_USER_MODEL_NAME.lower()}"
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
@@ -257,14 +258,15 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_buttons_hook(self):
         def hook(user, request_user):
             self.assertEqual(request_user, self.user)
-            yield UserListingButton(
-                "Show profile",
+            yield ListingButton(
+                "Enhance profile",
                 f"/goes/to/a/url/{user.pk}",
                 priority=30,
             )
+            yield Button("Show profile", f"/goes/to/a/url/{user.pk}", priority=20)
             yield ButtonWithDropdown(
                 label="Moar pls!",
-                buttons=[UserListingButton("Alrighty", "/cheers", priority=10)],
+                buttons=[ListingButton("Alrighty", "/cheers", priority=10)],
             )
 
         with self.register_hook("register_user_listing_buttons", hook):
@@ -279,14 +281,17 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         profile_url = f"/goes/to/a/url/{self.test_user.pk}"
         actions = row.select_one("td ul.actions")
+        custom_buttons = actions.select(f"a[href='{profile_url}']")
+        self.assertEqual(len(custom_buttons), 2)
         top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNone(top_level_custom_button)
-        custom_button = actions.select_one(
+        self.assertIs(top_level_custom_button, custom_buttons[0])
+        self.assertEqual(top_level_custom_button.text.strip(), "Enhance profile")
+        in_dropdown_custom_button = actions.select_one(
             f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
         )
-        self.assertIsNotNone(custom_button)
+        self.assertIs(in_dropdown_custom_button, custom_buttons[1])
         self.assertEqual(
-            custom_button.text.strip(),
+            in_dropdown_custom_button.text.strip(),
             "Show profile",
         )
 
@@ -307,6 +312,44 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
         self.assertIsNotNone(custom_button)
         self.assertEqual(custom_button.text.strip(), "Alrighty")
+
+    def test_buttons_hook_with_deprecated_class(self):
+        def hook(user, request_user):
+            self.assertEqual(request_user, self.user)
+            yield UserListingButton(
+                "Show profile", f"/goes/to/a/url/{user.pk}", priority=20
+            )
+
+        with self.register_hook("register_user_listing_buttons", hook):
+            with self.assertWarnsMessage(
+                RemovedInWagtail80Warning,
+                "`UserListingButton` is deprecated. "
+                "Use `wagtail.admin.widgets.button.Button` "
+                "or `wagtail.admin.widgets.button.ListingButton` instead.",
+            ):
+                response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        row = soup.select_one(f"tbody tr:has([data-object-id='{self.test_user.pk}'])")
+        self.assertIsNotNone(row)
+
+        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
+        actions = row.select_one("td ul.actions")
+        custom_buttons = actions.select(f"a[href='{profile_url}']")
+        self.assertEqual(len(custom_buttons), 1)
+        top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
+        self.assertIsNone(top_level_custom_button)
+        in_dropdown_custom_button = actions.select_one(
+            f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
+        )
+        self.assertIs(in_dropdown_custom_button, custom_buttons[0])
+        self.assertEqual(
+            in_dropdown_custom_button.text.strip(),
+            "Show profile",
+        )
 
 
 class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

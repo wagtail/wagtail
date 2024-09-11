@@ -27,7 +27,7 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
-from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, ModelLogEntry, Revision
@@ -78,6 +78,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -246,7 +247,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
     def test_not_searchable(self):
         self.assertFalse(self.get().context.get("search_form"))
 
-    def test_register_snippet_listing_buttons_hook(self):
+    def test_register_snippet_listing_buttons_hook_deprecated_class(self):
         advert = Advert.objects.create(text="My Lovely advert")
 
         def snippet_listing_buttons(snippet, user, next_url=None):
@@ -261,7 +262,13 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         with hooks.register_temporarily(
             "register_snippet_listing_buttons", snippet_listing_buttons
         ):
-            response = self.get()
+            with self.assertWarnsMessage(
+                RemovedInWagtail80Warning,
+                "`SnippetListingButton` is deprecated. "
+                "Use `wagtail.admin.widgets.button.Button` "
+                "or `wagtail.admin.widgets.button.ListingButton` instead.",
+            ):
+                response = self.get()
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
@@ -279,6 +286,52 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             "Another useless snippet listing button",
         )
 
+    def test_register_snippet_listing_buttons_hook(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+
+        def snippet_listing_buttons(snippet, user, next_url=None):
+            self.assertEqual(snippet, advert)
+            self.assertEqual(user, self.user)
+            self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
+
+            yield ListingButton(
+                "A useless top-level snippet listing button",
+                "/custom-url",
+                priority=10,
+            )
+
+            yield Button(
+                "A useless snippet listing button inside the 'More' dropdown",
+                "/custom-url",
+                priority=10,
+            )
+
+        with hooks.register_temporarily(
+            "register_snippet_listing_buttons", snippet_listing_buttons
+        ):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        custom_buttons = actions.select("a[href='/custom-url']")
+        top_level_custom_button = actions.select_one("li > a[href='/custom-url']")
+        self.assertIs(top_level_custom_button, custom_buttons[0])
+        self.assertEqual(
+            top_level_custom_button.text.strip(),
+            "A useless top-level snippet listing button",
+        )
+        in_dropdown_custom_button = actions.select_one(
+            "li [data-controller='w-dropdown'] a[href='/custom-url']"
+        )
+        self.assertIs(in_dropdown_custom_button, custom_buttons[1])
+        self.assertEqual(
+            in_dropdown_custom_button.text.strip(),
+            "A useless snippet listing button inside the 'More' dropdown",
+        )
+
     def test_register_snippet_listing_buttons_hook_with_dropdown(self):
         advert = Advert.objects.create(text="My Lovely advert")
 
@@ -288,7 +341,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             self.assertEqual(next_url, reverse("wagtailsnippets_tests_advert:list"))
             yield ButtonWithDropdown(
                 label="Moar pls!",
-                buttons=[SnippetListingButton("Alrighty", "/cheers", priority=10)],
+                buttons=[ListingButton("Alrighty", "/cheers", priority=10)],
             )
 
         with hooks.register_temporarily(
