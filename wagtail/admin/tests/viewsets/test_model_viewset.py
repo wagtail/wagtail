@@ -1465,6 +1465,8 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         actions = soup.select_one("tbody tr td ul.actions")
         more_dropdown = actions.select_one("li [data-controller='w-dropdown']")
         self.assertIsNotNone(more_dropdown)
+        # The aria-label should be on the toggle button, not the dropdown
+        self.assertIsNone(more_dropdown.get("aria-label"))
         more_button = more_dropdown.select_one("button")
         self.assertEqual(
             more_button.attrs.get("aria-label").strip(),
