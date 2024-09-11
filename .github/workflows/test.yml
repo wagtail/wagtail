@@ -367,6 +367,8 @@ jobs:
       - test-postgres-elasticsearch7
       - test-sqlite-opensearch2
     runs-on: ubuntu-latest
+    env:
+      codecov_token: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -405,6 +407,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
+        if: ${{ env.codecov_token != '' || (github.repository == 'wagtail/wagtail' && github.event_name == 'pull_request') }}
         with:
           fail_ci_if_error: true
           flags: backend
