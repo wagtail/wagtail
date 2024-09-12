@@ -23,7 +23,7 @@ concurrency:
 # - django 4.2, python 3.9, postgres:12, psycopg 2, parallel
 # - django 4.2, python 3.10, mysql:8.0
 # - django 5.0, python 3.11, sqlite, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 5.1, python 3.12, mysql:8.1, parallel
+# - django 5.1, python 3.12, mysql:8.4, parallel, USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes
 # - django 5.1, python 3.12, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
 # - django 5.1, python 3.12, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.1.x, python 3.11, postgres:15, psycopg 3 (allow failures)
@@ -165,11 +165,14 @@ jobs:
             django: 'Django>=5.1,<5.2'
             experimental: false
             parallel: '--parallel'
-            mysql: 'mysql:8.1'
+            mysql: 'mysql:8.4'
+            emailuser: emailuser
+            notz: notz
     services:
       mysql:
         image: ${{ matrix.mysql || 'mysql:8.0' }}
         env:
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: wagtail
         ports:
@@ -197,6 +200,9 @@ jobs:
           DATABASE_ENGINE: django.db.backends.mysql
           DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: root
+          DATABASE_PASSWORD: root
+          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+          DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
         uses: actions/upload-artifact@v4
         with:
