@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
+ * Fix: Fix broken link to user search (Shlomo Markowitz)
  * Docs: Clarify process for UserViewSet customisation (Sage Abdullah)
 
 
