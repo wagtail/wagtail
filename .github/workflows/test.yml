@@ -22,8 +22,10 @@ concurrency:
 # Current configuration:
 # - django 4.2, python 3.9, postgres:12, psycopg 2, parallel
 # - django 4.2, python 3.10, mysql:8.0
+# - django 4.2, python 3.11, mariadb:10.5
 # - django 5.0, python 3.11, sqlite, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 5.1, python 3.12, mysql:8.4, parallel, USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes
+# - django 5.1, python 3.12, mariadb:11.4, parallel, USE_EMAIL_USER_MODEL=yes, DISABLE_TIMEZONE=yes
 # - django 5.1, python 3.12, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
 # - django 5.1, python 3.12, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.1.x, python 3.11, postgres:15, psycopg 3 (allow failures)
@@ -161,6 +163,19 @@ jobs:
           - python: '3.10'
             django: 'Django>=4.2,<4.3'
             experimental: false
+          - python: '3.11'
+            django: 'Django>=4.2,<4.3'
+            experimental: false
+            mysql: 'mariadb:10.5'
+            healthcmd: 'mariadb-admin ping'
+          - python: '3.12'
+            django: 'Django>=5.1,<5.2'
+            experimental: false
+            parallel: '--parallel'
+            mysql: 'mariadb:11.4'
+            healthcmd: 'mariadb-admin ping'
+            emailuser: emailuser
+            notz: notz
           - python: '3.12'
             django: 'Django>=5.1,<5.2'
             experimental: false
@@ -172,12 +187,13 @@ jobs:
       mysql:
         image: ${{ matrix.mysql || 'mysql:8.0' }}
         env:
+          MARIADB_ROOT_PASSWORD: root
           MYSQL_ROOT_PASSWORD: root
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: wagtail
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
+        options: --health-cmd="${{ matrix.healthcmd || 'mysqladmin ping' }}" --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
 
     steps:
       - uses: actions/checkout@v4
