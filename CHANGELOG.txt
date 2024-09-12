@@ -14,6 +14,7 @@ Changelog
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
  * Fix: Reinstate transparency indicator on image chooser widgets (Sébastien Corbin)
  * Fix: Remove table headers that have no text (Matt Westcott)
+ * Fix: Fix broken link to user search (Shlomo Markowitz)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
