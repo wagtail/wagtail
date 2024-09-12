@@ -167,12 +167,10 @@ jobs:
             django: 'Django>=4.2,<4.3'
             experimental: false
             mysql: 'mariadb:10.5'
-            healthcmd: 'mariadb-admin ping'
           - python: '3.12'
             django: 'Django>=5.1,<5.2'
             experimental: false
             mysql: 'mariadb:11.4'
-            healthcmd: 'mariadb-admin ping'
             emailuser: emailuser
           - python: '3.12'
             django: 'Django>=5.1,<5.2'
@@ -188,9 +186,10 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: wagtail
+          HEALTH_CMD: ${{ startsWith(matrix.mysql, 'mariadb') && 'healthcheck.sh --connect --innodb_initialized' || 'mysqladmin --protocol=tcp ping' }}
         ports:
           - 3306:3306
-        options: --health-cmd="${{ matrix.healthcmd || 'mysqladmin ping' }}" --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
+        options: --health-cmd=$HEALTH_CMD --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
 
     steps:
       - uses: actions/checkout@v4
