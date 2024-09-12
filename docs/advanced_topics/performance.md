@@ -88,7 +88,7 @@ For details on configuring Wagtail for Elasticsearch, see [](wagtailsearch_backe
 
 ## Database
 
-Wagtail is tested on PostgreSQL, SQLite, and MySQL. It may work on some third-party database backends as well, but this is not guaranteed.
+Wagtail is tested on PostgreSQL, SQLite, MySQL and MariaDB. It may work on some third-party database backends as well, but this is not guaranteed.
 
 We recommend PostgreSQL for production use, however, the choice of database ultimately depends on a combination of factors, including personal preference, team expertise, and specific project requirements. The most important aspect is to ensure that your selected database can meet the performance and scalability requirements of your project.
 
