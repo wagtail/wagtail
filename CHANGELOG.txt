@@ -55,6 +55,7 @@ Changelog
  * Maintenance: Migrate preview-panel JavaScript to Stimulus & TypeScript, add full unit testing (Sage Abdullah)
  * Maintenance: Move `wagtailConfig` values from inline scripts to the `wagtail_config` template tag (LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Deprecate the `{% locales %}` and `{% js_translation_strings %}` template tags (LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Ensure multi-line comments are cleaned from custom icons in addition to just single line comments (Jake Howard)
 
 
 6.2.2 (24.09.2024)
