@@ -17,7 +17,19 @@
 
 {% block main_content %}
     {% block before_form %}{% endblock %}
-    <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
+    <form
+        id="w-editor-form"
+        action="{{ action_url }}"
+        method="POST"
+        novalidate
+        {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}
+        data-edit-form
+        data-controller="w-unsaved"
+        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-w-unsaved-confirmation-value="true"
+        data-w-unsaved-force-value="{{ has_unsaved_changes|yesno:'true,false' }}"
+        data-w-unsaved-watch-value="edits"
+    >
         {% csrf_token %}
 
         {% block fields %}
