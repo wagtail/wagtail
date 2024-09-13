@@ -532,6 +532,10 @@ class CreateView(
             % {"model_name": self.model and self.model._meta.verbose_name}
         )
 
+    @cached_property
+    def has_unsaved_changes(self):
+        return self.form.is_bound
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
@@ -540,6 +544,7 @@ class CreateView(
         context["submit_button_label"] = self.submit_button_label
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
+        context["has_unsaved_changes"] = self.has_unsaved_changes
         return context
 
     def get_side_panels(self):
@@ -839,6 +844,10 @@ class EditView(
             messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
+    @cached_property
+    def has_unsaved_changes(self):
+        return self.form.is_bound
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
@@ -848,6 +857,7 @@ class EditView(
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
+        context["has_unsaved_changes"] = self.has_unsaved_changes
         context["can_delete"] = self.user_has_permission_for_instance(
             "delete", self.object
         )
