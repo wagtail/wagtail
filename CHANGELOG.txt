@@ -9,6 +9,7 @@ Changelog
  * Redirect to the last viewed listing page after deleting form submissions (Matthias Brück)
  * Provide `getTextLabel` method on date / time StreamField blocks (Vaughn Dickson)
  * Purge frontend cache when modifying redirects (Jake Howard)
+ * Migrate workflow history views to universal listings (Sage Abdullah)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
