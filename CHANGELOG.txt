@@ -241,6 +241,7 @@ Changelog
  * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
  * Fix: Reinstate missing static files in style guide (Sage Abdullah)
  * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
+ * Fix: Ensure invalid submissions are marked as dirty edits on load to trigger UI and browser warnings for unsaved changes, restoring previous behavior from Wagtail 5.2 (Sage Abdullah)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)

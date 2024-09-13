@@ -10,6 +10,7 @@ describe('UnsavedController', () => {
     'w-unsaved:clear',
     'w-unsaved:ready',
     'w-unsaved:confirm',
+    'w-unsaved:watch-edits',
   ];
 
   const events = {};
@@ -241,6 +242,18 @@ describe('UnsavedController', () => {
         </form>
       </section>`);
 
+      // Should immediately set the form as having edits
+      const form = document.querySelector('form');
+      expect(form.dataset.wUnsavedHasEditsValue).toEqual('true');
+
+      // Should dispatch an add event with the type of edits
+      // so that the user can be warned
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+
+      // Should not dispatch a watch-edits event
+      expect(events['w-unsaved:watch-edits']).toHaveLength(0);
+
       const result = await mockBrowserClose();
 
       expect(result).toEqual(true);
@@ -260,6 +273,18 @@ describe('UnsavedController', () => {
           <button>Submit</submit>
         </form>
       </section>`);
+
+      // Should immediately set the form as having edits
+      const form = document.querySelector('form');
+      expect(form.dataset.wUnsavedHasEditsValue).toEqual('true');
+
+      // Should dispatch an add event with the type of edits
+      // so that the user can be warned
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+
+      // Should not dispatch a watch-edits event
+      expect(events['w-unsaved:watch-edits']).toHaveLength(0);
 
       const result = await mockBrowserClose();
 

@@ -111,7 +111,13 @@ export class UnsavedController extends Controller<HTMLFormElement> {
     const watch = this.watchValue;
 
     if (watch.includes('comments')) this.watchComments(durations);
-    if (watch.includes('edits')) this.watchEdits(durations);
+
+    if (this.forceValue) {
+      // Do not watch for edits and assume the form is dirty
+      this.hasEditsValue = true;
+    } else if (watch.includes('edits')) {
+      this.watchEdits(durations);
+    }
 
     this.dispatch('ready', { cancelable: false });
   }
@@ -155,11 +161,6 @@ export class UnsavedController extends Controller<HTMLFormElement> {
 
     this.runningCheck = debounce(
       () => {
-        if (this.forceValue) {
-          this.hasEditsValue = true;
-          return;
-        }
-
         if (!this.initialFormData) {
           this.hasEditsValue = false;
           return;
@@ -188,7 +189,7 @@ export class UnsavedController extends Controller<HTMLFormElement> {
   confirm(event: BeforeUnloadEvent) {
     if (!this.confirmationValue) return;
 
-    if (this.forceValue || this.hasCommentsValue || this.hasEditsValue) {
+    if (this.hasCommentsValue || this.hasEditsValue) {
       // Dispatch a `confirm` event that is cancelable to allow for custom handling
       // instead of the browser's default confirmation dialog.
       const confirmEvent = this.dispatch('confirm', { cancelable: true });
