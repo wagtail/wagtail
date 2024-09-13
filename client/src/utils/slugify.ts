@@ -9,7 +9,7 @@ export const slugify = (
   allowUnicode
     ? value
         .replace(/\s+/g, '-')
-        .replace(/[&/\\#,+()$~%.'":`@^!*?<>{}]/g, '')
+        .replace(/[^A-Za-z0-9\-_]/g, '')
         .toLowerCase()
     : value
         .replace(/\s+/g, '-')
