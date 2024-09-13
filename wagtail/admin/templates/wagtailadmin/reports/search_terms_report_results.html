@@ -1,0 +1,7 @@
+{% extends 'wagtailadmin/reports/base_report_results.html' %}
+{% load i18n wagtailadmin_tags %}
+
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">{% trans "Filter" %}</button>
+</form>

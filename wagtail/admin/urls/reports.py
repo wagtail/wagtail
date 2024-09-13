@@ -7,6 +7,7 @@ from wagtail.admin.views.reports.page_types_usage import (
     PageTypesUsageReportView,
 )
 from wagtail.admin.views.reports.workflows import WorkflowTasksView, WorkflowView
+from wagtail.admin.views.reports.search_terms import SearchTermsReportView
 
 app_name = "wagtailadmin_reports"
 urlpatterns = [
@@ -49,5 +50,15 @@ urlpatterns = [
         "page-types-usage/results/",
         PageTypesUsageReportView.as_view(results_only=True),
         name="page_types_usage_results",
+    ),
+    path(
+        "search-terms/", 
+        SearchTermsReportView.as_view(), 
+        name="search_terms"
+    ),
+    path(
+        "reports/search-terms/results/",
+        SearchTermsReportView.as_view(results_only=True),
+        name="search_terms_results"
     ),
 ]
