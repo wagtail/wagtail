@@ -27,10 +27,6 @@
       max-width: 1em;
       max-height: 1em;
     }
-
-    &.avatar {
-      margin-inline-start: calc(0 - theme('spacing.2'));
-    }
   }
 
   .w-header__subtitle {
@@ -99,10 +95,6 @@
       margin-inline-end: 2em;
     }
 
-    .avatar.small {
-      margin-inline-start: 0;
-    }
-
     a {
       font-weight: theme('fontWeight.bold');
     }
@@ -119,12 +111,6 @@
 
     &.w-header--merged .w-breadcrumbs {
       padding-inline-start: 0;
-    }
-
-    .w-header__glyph {
-      &.avatar {
-        margin-inline-start: calc(0 - theme('spacing.9'));
-      }
     }
 
     .left {

@@ -369,12 +369,73 @@ ul.listing {
   &--dashboard {
     margin-bottom: 0;
 
-    .title-wrapper {
+    tbody {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      padding-inline-start: theme('spacing.6');
+    }
+
+    td:last-child {
+      padding-inline-end: theme('spacing.6');
+    }
+
+    .title a {
       font-weight: theme('fontWeight.medium');
     }
 
-    .actions {
-      float: none;
+    .w-status--label {
+      float: inline-end;
+      font-size: inherit;
+    }
+
+    .indicator .icon {
+      padding: 0;
+    }
+
+    .privacy-indicator {
+      margin-inline-end: theme('spacing.2');
+
+      // Adjust icon size to closely match the appearance of the adjacent 'locked' icon
+      .icon-no-view {
+        width: 1.1em;
+        height: 1.1em;
+      }
+    }
+
+    .tasks {
+      text-wrap: nowrap;
+    }
+
+    .actions li {
+      float: inline-end;
+    }
+
+    @include media-breakpoint-down(md) {
+      display: grid;
+
+      tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: theme('spacing.2');
+        padding: theme('spacing.5');
+      }
+
+      td,
+      td:first-child,
+      td:last-child {
+        padding: 0;
+      }
+
+      .title {
+        width: 100%;
+      }
+
+      .actions-container {
+        margin-inline-start: auto;
+      }
     }
   }
 }
@@ -628,7 +689,7 @@ table.listing {
     // - no bulk actions are present,
     // - we're not in the "custom ordering" mode,
     // then apply the same 80px padding via the first column's left padding.
-    &:not(.nice-padding &, .w-dashboard &, .report &, .editor-view &):not(
+    &:not(.nice-padding &, .report &, .editor-view &, .w-dashboard &):not(
         :has(
             td:first-child input[type='checkbox']:only-child,
             th:first-child input[type='checkbox']:only-child,

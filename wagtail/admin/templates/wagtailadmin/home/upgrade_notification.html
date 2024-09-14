@@ -1,6 +1,6 @@
 {% load i18n wagtailcore_tags wagtailadmin_tags %}
 {% wagtail_version as current_version %}
-<div class="w-panel-upgrade w-hidden w-flex w-gap-5 w-items-center w-pl-slim-header w-pr-5 sm:w-px-[3.5rem] w-py-5 w-color-text-content w-bg-surface-info-panel"
+<div class="w-panel-upgrade w-hidden w-flex w-mb-[-2rem] sm:w-mb-0 w-gap-5 w-items-center w-pl-slim-header w-pr-5 sm:w-px-[3.5rem] w-py-5 w-color-text-content w-bg-surface-info-panel w-border-b w-border-transparent"
      data-controller="w-upgrade"
      data-w-upgrade-current-version-value="{{ current_version }}"
      {% if lts_only %}data-w-upgrade-lts-only-value="true"{% endif %}

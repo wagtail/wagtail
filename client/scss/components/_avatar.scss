@@ -62,7 +62,7 @@
       position: absolute;
       top: 100%;
       inset-inline-start: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(calc(var(--w-direction-factor) * -50%), -50%);
       background-color: theme('colors.surface-page');
 
       .icon {

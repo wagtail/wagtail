@@ -55,7 +55,6 @@ class PagesSummaryItem(SummaryItem):
 
 
 class SiteSummaryPanel(Component):
-    name = "site_summary"
     template_name = "wagtailadmin/home/site_summary.html"
 
     def __init__(self, request):

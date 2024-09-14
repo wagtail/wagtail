@@ -36,10 +36,6 @@
     border-radius: theme('borderRadius.xl');
     // stylelint-disable-next-line property-disallowed-list
     text-transform: none;
-
-    .w-dashboard & {
-      float: inline-end;
-    }
   }
 }
 

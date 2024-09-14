@@ -8,10 +8,11 @@ from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
 from django.http import Http404, HttpResponse
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
 from wagtail import hooks
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.icons import get_icons
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
@@ -282,7 +283,7 @@ class RecentEditsPanel(Component):
 
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
     template_name = "wagtailadmin/home.html"
-    page_title = gettext_lazy("Dashboard")
+    page_title = _("Dashboard")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -294,6 +295,7 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
         # Panels that are not customizable via `construct_homepage_panels` hook
         context["upgrade_notification"] = UpgradeNotificationPanel()
         context["site_summary"] = SiteSummaryPanel(self.request)
+        context["search_form"] = SearchForm(placeholder=_("Search all pages..."))
         context["user"] = self.request.user
 
         return {**context, **site_details}

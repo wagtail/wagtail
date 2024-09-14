@@ -162,15 +162,19 @@ $header-button-size: theme('spacing.6');
 }
 
 .w-panel--dashboard {
-  @include box();
-  padding-bottom: 0;
+  border: 1px solid theme('colors.border-furniture');
+  border-radius: 5px;
   margin-bottom: calc(
     theme('spacing.4') + theme('spacing.4') * var(--w-density-factor)
   );
 
   .w-panel__header {
-    margin-inline-start: calc(-1 * theme('spacing.5'));
-    padding-bottom: theme('spacing.5');
+    padding: theme('spacing.5');
+    margin-inline-start: 0;
+
+    @include media-breakpoint-up(sm) {
+      margin-inline-start: calc(-1 * theme('spacing.5'));
+    }
   }
 
   .w-panel__heading {
