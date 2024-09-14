@@ -31,6 +31,7 @@ describe('slugify', () => {
       expect(slugify('Lisboa é ótima à beira-mar', options)).toBe(
         'lisboa-é-ótima-à-beira-mar',
       );
+      expect(slugify('উইকিপিডিয়ায় স্বাগতম!', options)).toBe('উইকপডযয-সবগতম');
     });
   });
 });
