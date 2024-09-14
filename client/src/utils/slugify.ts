@@ -35,5 +35,7 @@ export const slugify = (
         .replace(/\s+/g, '-')
         .replace(/[^A-Za-z0-9\-_]/g, '')
         .toLowerCase();
+
+      // This will check for unwanted characters at last
       return allowUnicode ? sanitizeSlug(slug) : slug;
   };
