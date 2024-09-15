@@ -830,6 +830,7 @@
 * Vaughn Dickson
 * Ansuman Shukla
 * Nayanshi Singh
+* Daniel Black
 
 ## Translators
 

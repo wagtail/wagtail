@@ -18,6 +18,7 @@ npm-debug.log*
 /.cache/
 /.pytest_cache/
 /storybook-static
+/wagtail/tests/test-media/
 
 ### JetBrains
 .idea/
