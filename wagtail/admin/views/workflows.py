@@ -451,7 +451,7 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
             self.request.user, "change"
         ).filter(depth__gt=1)
         pages = self.object.all_pages() & editable_pages
-        pages = self._annotate_queryset(pages)
+        pages = self.annotate_queryset(pages)
         return pages
 
 

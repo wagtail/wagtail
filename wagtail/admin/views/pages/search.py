@@ -104,7 +104,7 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         if self.selected_content_type:
             pages = pages.filter(content_type=self.selected_content_type)
 
-        pages = self._annotate_queryset(pages)
+        pages = self.annotate_queryset(pages)
 
         # Parse query and filter
         pages, self.all_pages = page_filter_search(

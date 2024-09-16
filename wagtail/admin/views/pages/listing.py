@@ -206,9 +206,9 @@ class PageListingMixin:
 
         return ordering
 
-    def _annotate_queryset(self, pages):
+    def annotate_queryset(self, pages):
         pages = pages.prefetch_related("content_type", "sites_rooted_here").filter(
-            pk__in=self.permission_policy.explorable_instances(
+            pk__in=page_permission_policy.explorable_instances(
                 self.request.user
             ).values_list("pk", flat=True)
         )
@@ -292,7 +292,7 @@ class IndexView(PageListingMixin, generic.IndexView):
 
     def get_base_queryset(self):
         pages = self.model.objects.filter(depth__gt=1)
-        pages = self._annotate_queryset(pages)
+        pages = self.annotate_queryset(pages)
         return pages
 
 
@@ -365,7 +365,7 @@ class ExplorableIndexView(IndexView):
         else:
             pages = self.parent_page.get_children()
 
-        pages = self._annotate_queryset(pages)
+        pages = self.annotate_queryset(pages)
         return pages
 
     def search_queryset(self, queryset):
