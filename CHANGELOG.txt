@@ -5,17 +5,22 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add formal support for Django 5.1 (Matt Westcott)
+ * Formalize support for MariaDB (Sage Abdullah, Daniel Black)
  * Redirect to the last viewed listing page after deleting form submissions (Matthias Brück)
  * Provide `getTextLabel` method on date / time StreamField blocks (Vaughn Dickson)
  * Purge frontend cache when modifying redirects (Jake Howard)
+ * Migrate workflow history views to universal listings (Sage Abdullah)
+ * Refactor documents views to use universal designs (Sage Abdullah)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
  * Fix: Reinstate transparency indicator on image chooser widgets (Sébastien Corbin)
  * Fix: Remove table headers that have no text (Matt Westcott)
+ * Fix: Fix broken link to user search (Shlomo Markowitz)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
+ * Docs: Clarify process for UserViewSet customisation (Sage Abdullah)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
@@ -26,12 +31,15 @@ Changelog
  * Maintenance: Move search implementation logic from generic `IndexView` to `BaseListingView` (Sage Abdullah)
  * Maintenance: Upgrade Puppeteer integration tests for reliability (Matt Westcott)
  * Maintenance: Restore ability to use `.in_bulk()` on specific querysets under Django 5.2a0 (Sage Abdullah)
+ * Maintenance: Add generated `test-media` to .gitignore (Shlomo Markowitz)
 
 
 6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
+ * Fix: Fix broken link to user search (Shlomo Markowitz)
+ * Docs: Clarify process for UserViewSet customisation (Sage Abdullah)
 
 
 6.2.1 (20.08.2024)

@@ -20,21 +20,23 @@
     <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
         {% csrf_token %}
 
-        {% if panel %}
-            {{ panel.render_form_content }}
-        {% else %}
-            {% block hidden_fields %}
-                {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-            {% endblock %}
-
-            <ul class="fields">
-                {% block visible_fields %}
-                    {% for field in form.visible_fields %}
-                        <li>{% formattedfield field %}</li>
-                    {% endfor %}
+        {% block fields %}
+            {% if panel %}
+                {{ panel.render_form_content }}
+            {% else %}
+                {% block hidden_fields %}
+                    {% for field in form.hidden_fields %}{{ field }}{% endfor %}
                 {% endblock %}
-            </ul>
-        {% endif %}
+
+                <ul class="fields">
+                    {% block visible_fields %}
+                        {% for field in form.visible_fields %}
+                            <li>{% formattedfield field %}</li>
+                        {% endfor %}
+                    {% endblock %}
+                </ul>
+            {% endif %}
+        {% endblock %}
 
         {% block actions %}
             <button type="submit" class="button">{{ submit_button_label }}</button>

@@ -1,25 +1,25 @@
+{% extends "wagtailadmin/generic/listing_results.html" %}
 {% load i18n wagtailadmin_tags %}
-{% load l10n %}
 
-<table class="listing">
-    <thead>
-        <tr>
-            <th>
-                {% trans 'Status' %}
-            </th>
-            <th>
-                {% trans 'Tasks' %}
-            </th>
-            <th>
-                {% trans 'Requested by' %}
-            </th>
-            <th>
-                {% trans 'Started at' %}
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if workflow_states %}
+{% block results %}
+    <table class="listing">
+        <thead>
+            <tr>
+                <th>
+                    {% trans 'Status' %}
+                </th>
+                <th>
+                    {% trans 'Tasks' %}
+                </th>
+                <th>
+                    {% trans 'Requested by' %}
+                </th>
+                <th>
+                    {% trans 'Started at' %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
             {% for workflow_state in workflow_states %}
                 <tr>
                     <td>
@@ -46,20 +46,18 @@
                     <td>{% human_readable_date workflow_state.created_at %}</td>
                 </tr>
             {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block no_results_message %}
+    <p>
+        {% if page %}
+            {% trans "This page hasn't been submitted for moderation yet" %}
         {% else %}
-            {% block no_results %}
-                <tr><td class="no-results-message">
-                    <p>
-                        {% if page %}
-                            {% trans "This page hasn't been submitted for moderation yet" %}
-                        {% else %}
-                            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
-                                This {{ model_name }} hasn't been submitted for moderation yet
-                            {% endblocktrans %}
-                        {% endif %}
-                    </p>
-                </td></tr>
-            {% endblock %}
+            {% blocktrans trimmed with model_name=model_opts.verbose_name %}
+                This {{ model_name }} hasn't been submitted for moderation yet
+            {% endblocktrans %}
         {% endif %}
-    </tbody>
-</table>
+    </p>
+{% endblock %}

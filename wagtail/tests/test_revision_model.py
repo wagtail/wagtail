@@ -70,6 +70,9 @@ class TestRevisableModel(TestCase):
         self.assertEqual(self.instance.get_base_content_type(), self.content_type)
         self.assertEqual(self.instance.get_content_type(), self.content_type)
 
+        # The for_instance() method should return the revision
+        self.assertEqual(Revision.objects.for_instance(self.instance).first(), revision)
+
     def test_content_type_with_inheritance(self):
         instance = RevisableGrandChildModel.objects.create(text="test")
         instance.text = "test updated"
@@ -87,6 +90,18 @@ class TestRevisableModel(TestCase):
         self.assertEqual(instance.get_base_content_type(), base_content_type)
         self.assertEqual(instance.get_content_type(), content_type)
 
+        # The for_instance() method should return the revision,
+        # whether we're using the specific instance
+        self.assertIsInstance(instance, RevisableModel)
+        self.assertIsInstance(instance, RevisableGrandChildModel)
+        self.assertEqual(Revision.objects.for_instance(instance).first(), revision)
+
+        # or the base instance
+        base_instance = RevisableModel.objects.get(pk=instance.pk)
+        self.assertIsInstance(base_instance, RevisableModel)
+        self.assertNotIsInstance(base_instance, RevisableGrandChildModel)
+        self.assertEqual(Revision.objects.for_instance(base_instance).first(), revision)
+
     def test_content_type_for_page_model(self):
         hello_page = self.create_page()
         hello_page.content = "Updated world"
@@ -103,6 +118,18 @@ class TestRevisableModel(TestCase):
         self.assertEqual(revision, revision_from_db)
         self.assertEqual(hello_page.get_base_content_type(), base_content_type)
         self.assertEqual(hello_page.get_content_type(), content_type)
+
+        # The for_instance() method should return the revision,
+        # whether we're using the specific instance
+        self.assertIsInstance(hello_page, SimplePage)
+        self.assertIsInstance(hello_page, Page)
+        self.assertEqual(Revision.objects.for_instance(hello_page).first(), revision)
+
+        # or the base instance
+        base_instance = Page.objects.get(pk=hello_page.pk)
+        self.assertIsInstance(base_instance, Page)
+        self.assertNotIsInstance(base_instance, SimplePage)
+        self.assertEqual(Revision.objects.for_instance(base_instance).first(), revision)
 
     def test_as_object(self):
         self.instance.text = "updated"
