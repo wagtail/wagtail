@@ -57,7 +57,7 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
 
     @classproperty
     def columns(cls):
-        columns = super().columns.copy()
+        columns = PageListingMixin.columns.copy()
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
 
