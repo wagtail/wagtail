@@ -48,6 +48,7 @@ from wagtail.models import (
     WorkflowTask,
 )
 from wagtail.permissions import (
+    page_permission_policy,
     task_permission_policy,
     workflow_permission_policy,
 )
@@ -398,6 +399,8 @@ class Disable(DeleteView):
 
 
 class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
+    permission_policy = workflow_permission_policy
+    any_permission_required = {"add", "change", "delete", "view"}
     pk_url_kwarg = "pk"
     index_url_name = "wagtailadmin_workflows:usage"
     index_results_url_name = "wagtailadmin_workflows:usage_results"
@@ -408,12 +411,12 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        # We set page_permission_policy as the main permission policy for this view
-        # via PageListingMixin, since this view is about listing pages that are using
-        # the workflow (and the mixin uses it to work with the queryset). However, we
-        # also want to ensure the user has permissions for the workflow itself.
-        if not workflow_permission_policy.user_has_any_permission_for_instance(
-            request.user, self.any_permission_required, self.object
+        # We set workflow_permission_policy as the main permission policy for this view
+        # for consistency with the other workflow views. However, since we are listing
+        # page objects in this view, we want to ensure the user has a page permission.
+        if not page_permission_policy.user_has_any_permission(
+            request.user,
+            {"add", "change", "publish", "bulk_delete", "lock", "unlock"},
         ):
             raise PermissionDenied
 
@@ -447,7 +450,7 @@ class WorkflowUsageView(PageListingMixin, PermissionCheckedMixin, BaseListingVie
         return get_object_or_404(Workflow, id=self.kwargs.get(self.pk_url_kwarg))
 
     def get_base_queryset(self):
-        editable_pages = self.permission_policy.instances_user_has_permission_for(
+        editable_pages = page_permission_policy.instances_user_has_permission_for(
             self.request.user, "change"
         ).filter(depth__gt=1)
         pages = self.object.all_pages() & editable_pages
