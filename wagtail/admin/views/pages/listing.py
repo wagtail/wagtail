@@ -288,9 +288,7 @@ class IndexView(PageListingMixin, generic.IndexView):
 
     @classproperty
     def columns(cls):
-        columns = PageListingMixin.columns.copy()
-        columns.pop(4)  # Remove the "Type" column
-        return columns
+        return [col for col in PageListingMixin.columns if col.name != "type"]
 
     def get_base_queryset(self):
         pages = self.model.objects.filter(depth__gt=1)
@@ -313,8 +311,7 @@ class ExplorableIndexView(IndexView):
 
     @classproperty
     def columns(cls):
-        columns = PageListingMixin.columns.copy()
-        columns.pop(2)  # Remove the "Parent" column
+        columns = [col for col in PageListingMixin.columns if col.name != "parent"]
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
 
