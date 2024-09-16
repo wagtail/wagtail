@@ -198,11 +198,7 @@ class PageListingMixin:
         return ordering
 
     def annotate_queryset(self, pages):
-        pages = pages.prefetch_related("content_type", "sites_rooted_here").filter(
-            pk__in=page_permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+        pages = pages.prefetch_related("content_type", "sites_rooted_here")
 
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
@@ -291,7 +287,11 @@ class IndexView(PageListingMixin, generic.IndexView):
         return [col for col in PageListingMixin.columns if col.name != "type"]
 
     def get_base_queryset(self):
-        pages = self.model.objects.filter(depth__gt=1)
+        pages = self.model.objects.filter(depth__gt=1).filter(
+            pk__in=page_permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
         pages = self.annotate_queryset(pages)
         return pages
 
@@ -365,6 +365,11 @@ class ExplorableIndexView(IndexView):
         else:
             pages = self.parent_page.get_children()
 
+        pages = pages.filter(
+            pk__in=page_permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
         pages = self.annotate_queryset(pages)
         return pages
 
