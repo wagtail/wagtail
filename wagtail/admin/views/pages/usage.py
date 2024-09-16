@@ -56,7 +56,7 @@ class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingVi
 
     def get_base_queryset(self):
         queryset = self.page_class.objects.all().specific(defer=True)
-        return self._annotate_queryset(queryset)
+        return self.annotate_queryset(queryset)
 
     def get_index_url(self):
         return reverse(
