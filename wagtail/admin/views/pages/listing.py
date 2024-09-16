@@ -125,15 +125,6 @@ class GenericPageFilterSet(PageFilterSet):
 
 class PageListingMixin:
     template_name = "wagtailadmin/pages/listing.html"
-    permission_policy = page_permission_policy
-    any_permission_required = {
-        "add",
-        "change",
-        "publish",
-        "bulk_delete",
-        "lock",
-        "unlock",
-    }
     context_object_name = "pages"
     table_class = PageTable
     filterset_class = GenericPageFilterSet
@@ -280,6 +271,15 @@ class PageListingMixin:
 
 
 class IndexView(PageListingMixin, generic.IndexView):
+    permission_policy = page_permission_policy
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
     template_name = "wagtailadmin/pages/index.html"
     results_template_name = "wagtailadmin/pages/index_results.html"
     paginate_by = 50

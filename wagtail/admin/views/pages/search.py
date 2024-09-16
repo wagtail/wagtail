@@ -13,6 +13,7 @@ from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageListingMixin
 from wagtail.models import Page
+from wagtail.permissions import page_permission_policy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -43,6 +44,15 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 
 
 class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
+    permission_policy = page_permission_policy
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
     paginate_by = 20
     page_title = _("Search")
     header_icon = "search"

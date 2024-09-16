@@ -17,9 +17,19 @@ from wagtail.admin.views.pages.utils import (
     GenericPageBreadcrumbsMixin,
 )
 from wagtail.models import Page
+from wagtail.permissions import page_permission_policy
 
 
 class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
+    permission_policy = page_permission_policy
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
     index_url_name = "wagtailadmin_pages:type_use"
     index_results_url_name = "wagtailadmin_pages:type_use_results"
     page_title = _("Pages using")
