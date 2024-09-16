@@ -65,7 +65,11 @@ class ContentTypeUseView(PageListingMixin, PermissionCheckedMixin, BaseListingVi
         return self.page_class._meta.verbose_name_plural
 
     def get_base_queryset(self):
-        queryset = self.page_class.objects.all().specific(defer=True)
+        queryset = self.page_class._default_manager.all().filter(
+            pk__in=self.permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
         return self.annotate_queryset(queryset)
 
     def get_index_url(self):

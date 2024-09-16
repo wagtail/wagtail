@@ -104,7 +104,11 @@ class SearchView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
         return super().get(request)
 
     def get_queryset(self) -> QuerySet[Any]:
-        pages = self.all_pages = Page.objects.all()
+        pages = self.all_pages = Page.objects.all().filter(
+            pk__in=page_permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
         if self.show_locale_labels:
             pages = pages.select_related("locale")
 
