@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail import hooks
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import Button
 from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
 from wagtail.test.testapp.models import (
@@ -91,6 +92,13 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             response,
             reverse("wagtailadmin_pages:history", args=(self.root_page.id,)),
             count=3,
+        )
+
+        bulk_actions_js = versioned_static("wagtailadmin/js/bulk-actions.js")
+        self.assertContains(
+            response,
+            f'<script defer src="{bulk_actions_js}"></script>',
+            html=True,
         )
 
     def test_explore_results(self):
