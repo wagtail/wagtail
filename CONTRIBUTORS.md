@@ -831,7 +831,7 @@
 * Ansuman Shukla
 * Nayanshi Singh
 * Daniel Black
-* Atif2077
+* Atif Khan
 
 ## Translators
 

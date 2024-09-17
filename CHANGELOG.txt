@@ -20,7 +20,7 @@ Changelog
  * Fix: Reinstate transparency indicator on image chooser widgets (Sébastien Corbin)
  * Fix: Remove table headers that have no text (Matt Westcott)
  * Fix: Fix broken link to user search (Shlomo Markowitz)
- * Fix: Ensure that JS slugify function strips Unicode characters disallowed by Django slug validation (Atif2077)
+ * Fix: Ensure that JS slugify function strips Unicode characters disallowed by Django slug validation (Atif Khan)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
