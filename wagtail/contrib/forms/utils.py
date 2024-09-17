@@ -1,11 +1,11 @@
+from functools import lru_cache
+
 from django.contrib.contenttypes.models import ContentType
 
 from wagtail import hooks
 from wagtail.coreutils import safe_snake_case
 from wagtail.models import get_page_models
 from wagtail.permissions import page_permission_policy
-
-_FORM_CONTENT_TYPES = None
 
 
 def get_field_clean_name(label):
@@ -16,19 +16,13 @@ def get_field_clean_name(label):
     return safe_snake_case(label)
 
 
+@lru_cache(maxsize=None)
 def get_form_types():
-    global _FORM_CONTENT_TYPES
-    if _FORM_CONTENT_TYPES is None:
-        from wagtail.contrib.forms.models import FormMixin
+    from wagtail.contrib.forms.models import FormMixin
 
-        form_models = [
-            model for model in get_page_models() if issubclass(model, FormMixin)
-        ]
+    form_models = [model for model in get_page_models() if issubclass(model, FormMixin)]
 
-        _FORM_CONTENT_TYPES = list(
-            ContentType.objects.get_for_models(*form_models).values()
-        )
-    return _FORM_CONTENT_TYPES
+    return list(ContentType.objects.get_for_models(*form_models).values())
 
 
 def get_forms_for_user(user):

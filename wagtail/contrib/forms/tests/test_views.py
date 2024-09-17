@@ -18,6 +18,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page,
     make_form_page_with_custom_submission,
 )
+from wagtail.contrib.forms.utils import get_form_types
 from wagtail.models import Locale, Page
 from wagtail.test.demosite.models import FormPage as FormPageDemo
 from wagtail.test.testapp.models import (
@@ -158,6 +159,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
+        get_form_types.cache_clear()
 
     @classmethod
     def setUpTestData(cls):
