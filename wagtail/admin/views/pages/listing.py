@@ -304,6 +304,7 @@ class ExplorableIndexView(IndexView):
     """
 
     template_name = "wagtailadmin/pages/explorable_index.html"
+    results_template_name = "wagtailadmin/pages/explorable_index_results.html"
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
