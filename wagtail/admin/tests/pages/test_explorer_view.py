@@ -940,6 +940,25 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
             response, """<a href="/admin/sites/">Configure a site now.</a>"""
         )
 
+    def test_searching_at_root(self):
+        self.login(username="superuser", password="password")
+
+        # Message about root level should not show when searching or filtering
+        response = self.client.get(reverse("wagtailadmin_explore_root"), {"q": "hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "The root level is where you can add new sites to your Wagtail installation.",
+        )
+        response = self.client.get(
+            reverse("wagtailadmin_explore_root"), {"has_child_pages": "true"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "The root level is where you can add new sites to your Wagtail installation.",
+        )
+
     def test_admin_at_non_site_page(self):
         self.login(username="superuser", password="password")
         response = self.client.get(
@@ -957,6 +976,29 @@ class TestPageExplorerSignposting(WagtailTestUtils, TestCase):
         )
         self.assertContains(
             response, """<a href="/admin/sites/">Configure a site now.</a>"""
+        )
+
+    def test_searching_at_non_site_page(self):
+        self.login(username="superuser", password="password")
+
+        # Message about unroutable pages should not show when searching or filtering
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.no_site_page.id,)),
+            {"q": "hello"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "There is no site set up for this location.",
+        )
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.no_site_page.id,)),
+            {"has_child_pages": "true"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response,
+            "There is no site set up for this location.",
         )
 
     def test_admin_at_site_page(self):
