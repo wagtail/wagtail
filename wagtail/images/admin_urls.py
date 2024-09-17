@@ -6,7 +6,7 @@ app_name = "wagtailimages"
 urlpatterns = [
     path("", images.IndexView.as_view(), name="index"),
     path("results/", images.IndexView.as_view(results_only=True), name="index_results"),
-    path("<int:image_id>/", images.edit, name="edit"),
+    path("<int:image_id>/", images.EditView.as_view(), name="edit"),
     path("<int:image_id>/delete/", images.DeleteView.as_view(), name="delete"),
     path(
         "<int:image_id>/generate_url/",
@@ -19,7 +19,7 @@ urlpatterns = [
         name="generate_url",
     ),
     path("<int:image_id>/preview/<str:filter_spec>/", images.preview, name="preview"),
-    path("add/", images.add, name="add"),
+    path("add/", images.CreateView.as_view(), name="add"),
     path("usage/<int:image_id>/", images.UsageView.as_view(), name="image_usage"),
     path("multiple/add/", multiple.AddView.as_view(), name="add_multiple"),
     path("multiple/<int:image_id>/", multiple.EditView.as_view(), name="edit_multiple"),

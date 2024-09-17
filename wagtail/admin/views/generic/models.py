@@ -978,7 +978,7 @@ class DeleteView(
 class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateView):
     any_permission_required = ["add", "change", "delete", "view"]
     template_name = "wagtailadmin/generic/inspect.html"
-    page_title = gettext_lazy("Inspecting")
+    page_title = gettext_lazy("Inspect")
     model = None
     index_url_name = None
     edit_url_name = None
@@ -1015,7 +1015,7 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         items.append(
             {
                 "url": "",
-                "label": _("Inspect"),
+                "label": self.get_page_title(),
                 "sublabel": object_str,
             }
         )
