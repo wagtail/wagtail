@@ -164,6 +164,10 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.form_page = Page.objects.specific().get(url_path="/home/contact-us/")
+        # Save a revision so latest_revision_created_at is populated, and thus
+        # the form page is always shown first when using the default ordering
+        # (latest_revision_created_at descending).
+        cls.form_page.save_revision()
         cls.models = [
             FormPage,
             FormPageWithRedirect,
@@ -243,6 +247,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
         # Check that the user cannot see the form page
         self.assertNotIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 0)
 
     def test_can_see_forms_with_permission(self):
         response = self.client.get(reverse("wagtailforms:index"))
@@ -250,6 +255,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
         # Check that the user can see the form page
         self.assertIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 20)
 
     def test_cant_see_forms_after_filter_form_submissions_for_user_hook(self):
         # Hook allows to see forms only to superusers
@@ -263,6 +269,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
         # Check that an user can see the form page
         self.assertIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 20)
 
         with self.register_hook(
             "filter_form_submissions_for_user", construct_forms_for_user
@@ -271,6 +278,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
         # Check that an user can't see the form page
         self.assertNotIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 0)
 
     def test_search(self):
         response = self.client.get(reverse("wagtailforms:index"), {"q": "Form 10"})
