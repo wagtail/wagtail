@@ -29,7 +29,7 @@ class TestHome(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Welcome to the Test Site Wagtail CMS")
+        self.assertContains(response, "Test Site")
 
     def test_admin_menu(self):
         response = self.client.get(reverse("wagtailadmin_home"))

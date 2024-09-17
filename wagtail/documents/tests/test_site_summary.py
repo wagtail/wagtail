@@ -122,9 +122,9 @@ class TestDocumentsSummary(WagtailTestUtils, TestCase):
 
     def test_user_sees_proper_doc_count(self):
         cases = (
-            (self.superuser, "<span>3</span> Documents"),
-            (self.report_adder, "<span>2</span> Documents"),
-            (self.report_chooser, "<span>2</span> Documents"),
+            (self.superuser, "3 Documents"),
+            (self.report_adder, "2 Documents"),
+            (self.report_chooser, "2 Documents"),
         )
         for user, content in cases:
             with self.subTest(user=user):

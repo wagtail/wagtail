@@ -1,3 +1,17 @@
+.indicator {
+  margin-inline-end: 0;
+  opacity: theme('opacity.70');
+
+  .icon {
+    padding: 2px;
+    vertical-align: middle; // reset vertical-align set by icon.initial
+  }
+
+  &--is-dimmed {
+    opacity: theme('opacity.50');
+  }
+}
+
 .privacy-indicator {
   &.public {
     .label-private {
@@ -9,19 +23,5 @@
     .label-public {
       display: none;
     }
-  }
-}
-
-.indicator {
-  margin-inline-end: 0;
-  opacity: theme('opacity.70');
-
-  .icon {
-    padding: 2px;
-    vertical-align: middle; // reset vertical-align set by icon.initial
-  }
-
-  &--is-inverse {
-    opacity: theme('opacity.50');
   }
 }
