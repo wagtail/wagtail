@@ -284,6 +284,7 @@ class RecentEditsPanel(Component):
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
     template_name = "wagtailadmin/home.html"
     page_title = _("Dashboard")
+    permission_policy = page_permission_policy
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -296,6 +297,9 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
         context["upgrade_notification"] = UpgradeNotificationPanel()
         context["site_summary"] = SiteSummaryPanel(self.request)
         context["search_form"] = SearchForm(placeholder=_("Search all pages..."))
+        context["root_page"] = self.permission_policy.explorable_root_instance(
+            self.request.user
+        )
         context["user"] = self.request.user
 
         return {**context, **site_details}
