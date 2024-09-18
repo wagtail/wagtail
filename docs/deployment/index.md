@@ -1,6 +1,6 @@
 (deployment_guide)=
 
-# Deploying & Hosting Wagtail
+# Deployment & hosting
 
 ```{toctree}
 ---
