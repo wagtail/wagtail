@@ -18,7 +18,7 @@ const runContentChecks = async () => {
   axe.registerPlugin(wagtailPreviewPlugin);
 
   const contentMetrics = await getPreviewContentMetrics({
-    targetElement: 'main, [role="main"], body',
+    targetElement: 'main, [role="main"]',
   });
 
   renderContentMetrics({
