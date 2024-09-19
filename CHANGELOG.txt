@@ -7,6 +7,7 @@ Changelog
  * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
  * Fix: Fix broken link to user search (Shlomo Markowitz)
  * Fix: Make sure content metrics falls back to body element only when intended (Sage Abdullah)
+ * Fix: Remove wrongly-added filters from redirects index (Matt Westcott)
  * Docs: Clarify process for UserViewSet customisation (Sage Abdullah)
 
 
