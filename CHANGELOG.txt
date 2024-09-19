@@ -25,6 +25,7 @@ Changelog
  * Fix: Do not show notices about root / unroutable pages when searching or filtering in the page explorer (Matt Westcott)
  * Fix: Resolve contrast issue for page deletion warning (Sanjeev Holla S)
  * Fix: Make sure content metrics falls back to body element only when intended (Sage Abdullah)
+ * Fix: Remove wrongly-added filters from redirects index (Matt Westcott)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
