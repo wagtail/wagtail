@@ -78,10 +78,7 @@ You might get an error while trying to generate a custom template. This happens 
 {% endverbatim %}
 ```
 
-The following is a list of custom templates you can use for your projects:
-
-- [Wagtail tutorial template](https://github.com/thibaudcolas/wagtail-tutorial-template)
-- [Wagtail news template](https://github.com/torchbox/wagtail-news-template)
+See [Templates (start command)](https://github.com/springload/awesome-wagtail?tab=readme-ov-file#templates-start-command) for a list of custom templates you can use for your projects.
 
 The following sections are references for the default project template:
 
