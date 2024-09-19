@@ -141,7 +141,8 @@
       "audience": "public",
       "location": "The moon",
       "body": "<p>I haven't worked out the details yet, but it's going to have cake and ponies</p>",
-      "cost": "Free"
+      "cost": "Free",
+      "feed_image": 1
     }
   },
 
@@ -170,7 +171,8 @@
       "audience": "private",
       "location": "The moon",
       "body": "<p>your name's not down, you're not coming in</p>",
-      "cost": "Free (but not for you)"
+      "cost": "Free (but not for you)",
+      "feed_image": 1
     }
   },
 
@@ -246,7 +248,8 @@
       "audience": "public",
       "location": "Hobart",
       "body": "<p>Party time</p>",
-      "cost": "free"
+      "cost": "free",
+      "feed_image": 1
     }
   },
 
