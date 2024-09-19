@@ -8,7 +8,7 @@ Changelog
  * Fix: Fix broken link to user search (Shlomo Markowitz)
  * Fix: Make sure content metrics falls back to body element only when intended (Sage Abdullah)
  * Fix: Remove wrongly-added filters from redirects index (Matt Westcott)
- * Docs: Clarify process for UserViewSet customisation (Sage Abdullah)
+ * Docs: Clarify process for UserViewSet customization (Sage Abdullah)
 
 
 6.2.1 (20.08.2024)
