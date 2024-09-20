@@ -1,14 +1,12 @@
-from django_filters import CharFilter, DateFromToRangeFilter
-from django.forms import DateInput
 from django.utils.translation import gettext as _
+from django_filters import CharFilter, DateFromToRangeFilter
 
-from wagtail.admin.filters import WagtailFilterSet
-from wagtail.models import ContentType
-from wagtail.contrib.search_promotions.models import Query
-from wagtail.admin.views.reports import ReportView
 from wagtail.admin.auth import permission_denied
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column
-from wagtail.admin.filters import DateRangePickerWidget
+from wagtail.admin.views.reports import ReportView
+from wagtail.contrib.search_promotions.models import Query
+from wagtail.models import ContentType
 
 
 class SearchTermsReportFilterSet(WagtailFilterSet):
@@ -19,7 +17,7 @@ class SearchTermsReportFilterSet(WagtailFilterSet):
     )
 
     created_at = DateFromToRangeFilter(
-        label=_("Searched at"),
+        label=_("Date"),
         field_name="daily_hits__date",
         widget=DateRangePickerWidget,
     )
@@ -45,7 +43,7 @@ class SearchTermsReportView(ReportView):
         "_hits": _("Views"),
     }
     list_export = [
-        "query_string", 
+        "query_string",
         "_hits",
     ]
 

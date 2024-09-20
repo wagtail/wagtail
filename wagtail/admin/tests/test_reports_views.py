@@ -16,8 +16,8 @@ from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.admin.views.reports import page_types_usage
-from wagtail.contrib.search_promotions.models import Query
 from wagtail.admin.views.reports.audit_logging import LogEntriesView
+from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import (
     GroupPagePermission,
     Locale,
@@ -1555,7 +1555,9 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report_results.html")
+        self.assertTemplateUsed(
+            response, "wagtailadmin/reports/base_report_results.html"
+        )
         self.assertTemplateUsed(
             response,
             "wagtailadmin/reports/search_terms_report_results.html",
@@ -1570,7 +1572,6 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         soup = self.get_soup(response.content)
         self.assertActiveFilterNotRendered(soup)
         self.assertPageTitle(soup, "Search Terms - Wagtail")
-
 
     def test_get_with_no_permissions(self):
         self.user.is_superuser = False
@@ -1590,8 +1591,7 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         self.assertEqual(response.status_code, 200)
 
         data_lines = response.getvalue().decode().split("\n")
-        self.assertEqual(
-            data_lines[0], "Query string,Hits\r")
+        self.assertEqual(data_lines[0], "Query string,Hits\r")
 
     def test_xlsx_export(self):
         response = self.get(params={"export": "xlsx"})

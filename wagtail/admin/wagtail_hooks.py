@@ -20,7 +20,6 @@ from wagtail.admin.menu import (
     DismissibleSubmenuMenuItem,
     MenuItem,
     SubmenuMenuItem,
-    AdminOnlyMenuItem,
     help_menu,
     reports_menu,
     settings_menu,
@@ -961,17 +960,6 @@ def register_page_types_report_menu_item():
         name="page-types-usage",
         icon_name="doc-empty-inverse",
         order=1200,
-    )
-
-
-@hooks.register("register_reports_menu_item")
-def register_query_search_report_menu_item():
-    return AdminOnlyMenuItem(
-        _("Search Terms"),
-        reverse("wagtailadmin_reports:search_terms"),
-        name="query-hits",
-        icon_name="search",
-        order=1300,
     )
 
 
