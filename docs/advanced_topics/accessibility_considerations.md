@@ -146,7 +146,8 @@ By default, the checker includes the following rules to find common accessibilit
 
 To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
-For example, aXe's `p-as-heading` rule uses combinations of font weight and size or font weight plus italics to decide if a paragraph is acting as a heading visually. If your heading styles do not use italics, you may need aXe to rely solely on font weight to identify short, bold paragraphs as headings.
+For example, Axe's [`p-as-heading`](https://github.com/dequelabs/axe-core/blob/develop/lib/checks/navigation/p-as-heading.json) rule evaluates combinations of font weight, size, and italics to decide if a paragraph is acting as a heading visually. Depending on your heading styles, you might want Axe to rely only on font weight to flag short, bold paragraphs as potential headings.
+
 
 ```python
 from wagtail.admin.userbar import AccessibilityItem
@@ -180,7 +181,7 @@ from wagtail.admin.userbar import AccessibilityItem
 
 
 class CustomAccessibilityItem(AccessibilityItem):
-    # Run all AXE rules up to WCAG 2.2 AA
+    # Run all Axe rules with these tags in the development environment
     axe_rules_in_dev = [
         "wcag2a",
         "wcag2aa",
@@ -199,7 +200,8 @@ class CustomAccessibilityItem(AccessibilityItem):
         if env.bool('DEBUG', default=False):
             return self.axe_rules_in_dev
         else:
-            return self.axe_run_only  # Wagtail's default rules
+            # In production, run Wagtail's default accessibility rules for authored content only
+            return self.axe_run_only
 
 
 @hooks.register('construct_wagtail_userbar')
