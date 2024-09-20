@@ -28,12 +28,12 @@ class SearchTermsReportFilterSet(WagtailFilterSet):
 
 
 class SearchTermsReportView(ReportView):
-    results_template_name = "wagtailadmin/reports/search_terms_report_results.html"
+    results_template_name = "wagtailsearchpromotions/search_terms_report_results.html"
     page_title = _("Search Terms")
     header_icon = "search"
     filterset_class = SearchTermsReportFilterSet
-    index_url_name = "wagtailadmin_reports:search_terms"
-    index_results_url_name = "wagtailadmin_reports:search_terms_results"
+    index_url_name = "wagtailsearchpromotions:search_terms"
+    index_results_url_name = "wagtailsearchpromotions:search_terms_results"
     columns = [
         Column("query_string", label=_("Search term(s)")),
         Column("_hits", label=_("Views")),

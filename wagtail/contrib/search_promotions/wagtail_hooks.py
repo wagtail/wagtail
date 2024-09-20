@@ -45,7 +45,7 @@ def register_search_picks_menu_item():
 def register_query_search_report_menu_item():
     return AdminOnlyMenuItem(
         _("Search Terms"),
-        reverse("wagtailadmin_reports:search_terms"),
+        reverse("wagtailsearchpromotions:search_terms"),
         name="search-terms",
         icon_name="search",
         order=1300,

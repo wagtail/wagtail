@@ -17,7 +17,6 @@ from openpyxl import load_workbook
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.admin.views.reports import page_types_usage
 from wagtail.admin.views.reports.audit_logging import LogEntriesView
-from wagtail.contrib.search_promotions.models import Query
 from wagtail.models import (
     GroupPagePermission,
     Locale,
@@ -1547,77 +1546,3 @@ class TestPageTypesUsageReportViewPermissions(BaseReportViewTestCase):
             f"<a href={edit_simple_page_url}>{latest_edited_simple_page.get_admin_display_title()}</a>",
             html=True,
         )
-
-
-class TestQueryHitsReportView(BaseReportViewTestCase):
-    url_name = "wagtailadmin_reports:search_terms"
-
-    def test_simple(self):
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailadmin/reports/base_report_results.html"
-        )
-        self.assertTemplateUsed(
-            response,
-            "wagtailadmin/reports/search_terms_report_results.html",
-        )
-        self.assertBreadcrumbs(
-            [{"url": "", "label": "Search Terms"}],
-            response.content,
-        )
-
-        self.assertContains(response, "There are no results.")
-
-        soup = self.get_soup(response.content)
-        self.assertActiveFilterNotRendered(soup)
-        self.assertPageTitle(soup, "Search Terms - Wagtail")
-
-    def test_get_with_no_permissions(self):
-        self.user.is_superuser = False
-        self.user.save()
-        self.user.user_permissions.add(
-            Permission.objects.get(
-                content_type__app_label="wagtailadmin", codename="access_admin"
-            )
-        )
-
-        response = self.get()
-
-        self.assertRedirects(response, reverse("wagtailadmin_home"))
-
-    def test_csv_export(self):
-        response = self.get(params={"export": "csv"})
-        self.assertEqual(response.status_code, 200)
-
-        data_lines = response.getvalue().decode().split("\n")
-        self.assertEqual(data_lines[0], "Query string,Hits\r")
-
-    def test_xlsx_export(self):
-        response = self.get(params={"export": "xlsx"})
-        self.assertEqual(response.status_code, 200)
-        workbook_data = response.getvalue()
-        worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
-        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
-        self.assertEqual(
-            cell_array[0],
-            ["Query string", "Hits"],
-        )
-
-
-class TestFilteredQueryHitsView(BaseReportViewTestCase):
-    url_name = "wagtailadmin_reports:search_terms"
-
-    def setUp(self):
-        self.user = self.login()
-        self.query_hit = Query.get("Found")
-        self.query_hit.add_hit(timezone.now())
-
-    def test_filter_by_query_string(self):
-        response = self.get(params={"query_string": "Found"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Found")
-
-        response = self.get(params={"query_string": "Not found"})
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "There are no results.")
