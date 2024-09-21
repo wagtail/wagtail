@@ -49,6 +49,7 @@ Changelog
  * Fix: Footer action buttons now include their `media` definitions (Sage Abdullah)
  * Fix: Improve the text contrast of the bulk actions "Select all" button (Sage Abdullah)
  * Fix: Fix error on workflow settings view with multiple snippet types assigned to the same workflow on Postgres (Sage Abdullah)
+ * Fix: Fix datetime fields overflowing its parent wrapper in listing filters (Rohit Singh)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
