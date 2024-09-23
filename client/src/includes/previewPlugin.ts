@@ -11,9 +11,9 @@ export const wagtailPreviewPlugin: AxePlugin = {
   id: 'wagtailPreview',
   run(id, action, options, callback) {
     // Outside the preview frame, we need to send the command to the preview iframe.
-    const preview = document.querySelector<HTMLIFrameElement>(
-      '[data-preview-iframe]',
-    );
+    const preview = document.getElementById(
+      'w-preview-iframe',
+    ) as HTMLIFrameElement;
 
     if (preview) {
       // @ts-expect-error Not declared in the official Axe Utils API.
@@ -34,7 +34,7 @@ export const wagtailPreviewPlugin: AxePlugin = {
       // Inside the preview frame, only call the expected plugin instance method.
       // eslint-disable-next-line no-underscore-dangle
       const pluginInstance = this._registry[id];
-      pluginInstance[action].call(pluginInstance, options, callback);
+      pluginInstance?.[action].call(pluginInstance, options, callback);
     }
   },
   commands: [

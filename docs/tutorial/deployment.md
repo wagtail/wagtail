@@ -4,7 +4,7 @@ So far, you've been accessing your site locally. Now, it's time to deploy it. De
 
 To deploy your site, you'll first need to choose a [hosting provider](deployment_guide), then follow their Wagtail deployment guide.
 
-If you're unsure, we have a tutorial for using [Fly.io with Backblaze](../deploy/flyio).
+If you're unsure, we have a tutorial for using [Fly.io with Backblaze](../deployment/flyio).
 
 ---
 

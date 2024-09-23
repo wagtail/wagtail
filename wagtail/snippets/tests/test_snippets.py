@@ -4502,10 +4502,12 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         # Should show the preview panel
         preview_url = self.get_url("preview_on_edit")
         self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, f'data-action="{preview_url}"')
+        soup = self.get_soup(response.content)
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should have the preview side panel toggle button
-        soup = self.get_soup(response.content)
         toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
         self.assertIsNotNone(toggle_button)
         self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])

@@ -56,6 +56,8 @@ class ParentPageColumn(Column):
     cell_template_name = "wagtailadmin/pages/listing/_parent_page_cell.html"
 
     def get_value(self, instance):
+        if parent := getattr(instance, "_parent_page", None):
+            return parent
         return instance.get_parent()
 
 

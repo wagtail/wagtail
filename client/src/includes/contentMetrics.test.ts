@@ -1,4 +1,8 @@
-import { getWordCount, getReadingTime } from './contentMetrics';
+import {
+  getWordCount,
+  getReadingTime,
+  contentMetricsPluginInstance,
+} from './contentMetrics';
 
 describe.each`
   text                                               | lang         | wordCount
@@ -36,5 +40,52 @@ describe.each`
 `('getReadingTime', ({ lang, wordCount, readingTime }) => {
   test(`calculates reading time for '${wordCount}' words in language '${lang}'`, () => {
     expect(getReadingTime(lang, wordCount)).toBe(readingTime);
+  });
+});
+
+describe('contentMetricsPluginInstance', () => {
+  let originalInnerText;
+  beforeAll(() => {
+    originalInnerText = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      'innerText',
+    );
+  });
+
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <main>
+        <p>Test content</p>
+      </main>
+      <div>Something else</div>
+    `;
+
+    // innerText is not implemented in JSDOM
+    // https://github.com/jsdom/jsdom/issues/1245
+    Object.defineProperty(HTMLElement.prototype, 'innerText', {
+      configurable: true,
+      get() {
+        return this.textContent;
+      },
+    });
+  });
+
+  afterAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'innerText', {
+      configurable: true,
+      value: originalInnerText,
+    });
+  });
+
+  it('should use the specified selector', () => {
+    const done = jest.fn();
+    contentMetricsPluginInstance.getMetrics({ targetElement: 'main' }, done);
+    expect(done).toHaveBeenCalledWith({ wordCount: 2, readingTime: 0 });
+  });
+
+  it('should fall back to the body element if the selector does not match any elements', () => {
+    const done = jest.fn();
+    contentMetricsPluginInstance.getMetrics({ targetElement: 'article' }, done);
+    expect(done).toHaveBeenCalledWith({ wordCount: 4, readingTime: 0 });
   });
 });

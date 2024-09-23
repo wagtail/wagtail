@@ -295,7 +295,11 @@ WAGTAIL_AUTO_UPDATE_PREVIEW = True
 When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
 This behavior is enabled by default.
 
-To completely disable the preview panel, set [preview modes](wagtail.models.Page.preview_modes) to be empty on your model `preview_modes = []`.
+```{versionchanged} 6.3
+This setting is deprecated. Set `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` to disable automatic preview updates instead.
+```
+
+(wagtail_auto_update_preview_interval)=
 
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
 
@@ -303,7 +307,11 @@ To completely disable the preview panel, set [preview modes](wagtail.models.Page
 WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 ```
 
-How often to check for changes made in the page editor before updating the preview. In milliseconds. The default value is `500`.
+The interval (in milliseconds) to automatically check for changes made in the page or snippet editor before updating the preview in the preview panel. The default value is `500`.
+
+If set to `0`, a refresh button will be shown in the panel and the preview is only updated when the button is clicked.
+
+To completely disable previews, set [preview modes](wagtail.models.Page.preview_modes) to be empty on your model (`preview_modes = []`).
 
 (wagtail_editing_session_ping_interval)=
 
@@ -313,7 +321,7 @@ How often to check for changes made in the page editor before updating the previ
 WAGTAIL_EDITING_SESSION_PING_INTERVAL = 10000
 ```
 
-The interval (in milliseconds) to ping the server during an editing session. This is used to indicate that the session is active, as well as to display the list of other sessions that are currently editing the same content. The default value is `10000` (10 seconds). In order to effectively display the sessions list, this value needs to be set to under 1 minute. If set to 0, the interval will be disabled.
+The interval (in milliseconds) to ping the server during an editing session. This is used to indicate that the session is active, as well as to display the list of other sessions that are currently editing the same content. The default value is `10000` (10 seconds). In order to effectively display the sessions list, this value needs to be set to under 1 minute. If set to `0`, the interval will be disabled.
 
 (wagtailadmin_global_edit_lock)=
 
@@ -915,7 +923,7 @@ Specifies whether moderation workflows are enabled (default: `True`). When disab
 WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True
 ```
 
-Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result, if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes. This is the default, `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True` . The second mode does not require reapproval: if edits are made when tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode, set `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False`.
+Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result, if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes. To use workflows in this mode, set `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`. The second mode does not require reapproval: if edits are made when tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. This is the default, `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False`.
 
 ### `WAGTAIL_FINISH_WORKFLOW_ACTION`
 

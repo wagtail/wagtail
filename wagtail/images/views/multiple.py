@@ -2,7 +2,10 @@ import os.path
 
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.text import capfirst
+from django.utils.translation import gettext_lazy
 
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.admin.views.generic.multiple_upload import (
     CreateFromUploadView as BaseCreateFromUploadView,
@@ -19,10 +22,14 @@ from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_
 from wagtail.images.utils import find_image_duplicates
 
 
-class AddView(BaseAddView):
+class AddView(WagtailAdminTemplateMixin, BaseAddView):
     permission_policy = ImagesPermissionPolicyGetter()
     template_name = "wagtailimages/multiple/add.html"
+    header_icon = "image"
+    page_title = gettext_lazy("Add images")
+    _show_breadcrumbs = True
 
+    index_url_name = "wagtailimages:index"
     edit_object_url_name = "wagtailimages:edit_multiple"
     delete_object_url_name = "wagtailimages:delete_multiple"
     edit_object_form_prefix = "image"
@@ -34,6 +41,15 @@ class AddView(BaseAddView):
     edit_upload_form_prefix = "uploaded-image"
     context_upload_name = "uploaded_image"
     context_upload_id_name = "uploaded_file_id"
+
+    def get_breadcrumbs_items(self):
+        return self.breadcrumbs_items + [
+            {
+                "url": reverse(self.index_url_name),
+                "label": capfirst(self.model._meta.verbose_name_plural),
+            },
+            {"url": "", "label": self.get_page_title()},
+        ]
 
     def get_model(self):
         return get_image_model()
