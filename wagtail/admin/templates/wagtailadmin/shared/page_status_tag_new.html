@@ -31,7 +31,10 @@
               w-font-semibold
               hover:w-border-surface-menus
               hover:w-text-text-label
-              w-transition"
+              w-transition
+              more-contrast:w-border
+              more-contrast:w-border-border-interactive-more-contrast
+              hover:more-contrast:w-border-border-interactive-more-contrast-hover"
        aria-label="{% if is_public %}{% trans 'Visible to all. Visit the live page' %}{% else %}{% trans 'Private. Visit the live page' %}{% endif %}"
        data-controller="w-tooltip"
        data-w-tooltip-content-value="{% if is_public %}{% trans 'Visible to all' %}{% else %}{% trans 'Private' %}{% endif %}"

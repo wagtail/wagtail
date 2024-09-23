@@ -840,6 +840,7 @@
 * Gabriel Getzie
 * Rohit Singh
 * Robin Varghese
+* Victoria Ottah
 
 ## Translators
 

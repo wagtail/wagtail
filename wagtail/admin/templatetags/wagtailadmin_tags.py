@@ -683,12 +683,18 @@ def admin_theme_classname(context):
         if hasattr(user, "wagtail_userprofile")
         else "system"
     )
+    contrast_name = (
+        user.wagtail_userprofile.contrast
+        if hasattr(user, "wagtail_userprofile")
+        else "system"
+    )
     density_name = (
         user.wagtail_userprofile.density
         if hasattr(user, "wagtail_userprofile")
         else "default"
     )
-    return f"w-theme-{theme_name} w-density-{density_name}"
+    contrast_name = contrast_name.split("_")[0]
+    return f"w-theme-{theme_name} w-density-{density_name} w-contrast-{contrast_name}"
 
 
 @register.simple_tag

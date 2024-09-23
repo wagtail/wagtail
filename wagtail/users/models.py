@@ -84,6 +84,17 @@ class UserProfile(models.Model):
         max_length=40,
     )
 
+    class AdminContrastThemes(models.TextChoices):
+        SYSTEM = "system", _("System default")
+        MORE_CONTRAST = "more_contrast", _("More contrast")
+
+    contrast = models.CharField(
+        verbose_name=_("contrast"),
+        choices=AdminContrastThemes.choices,
+        default=AdminContrastThemes.SYSTEM,
+        max_length=40,
+    )
+
     class AdminDensityThemes(models.TextChoices):
         DEFAULT = "default", _("Default")
         SNUG = "snug", _("Snug")

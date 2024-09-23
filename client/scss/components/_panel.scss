@@ -61,6 +61,7 @@ $header-button-size: theme('spacing.6');
 .w-panel__toggle,
 .w-panel__controls .button.button--icon {
   @include show-focus-outline-inside();
+  @include more-contrast-interactive();
   display: inline-grid;
   justify-content: center;
   align-content: center;
