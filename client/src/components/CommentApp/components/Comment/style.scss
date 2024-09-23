@@ -1,0 +1,136 @@
+.comment {
+  @include box;
+
+  width: 300px;
+  display: block;
+  transition:
+    top 0.5s ease 0s,
+    inset-inline-end 0.5s ease 0s,
+    height 0.5s ease 0s;
+  pointer-events: auto;
+  padding-bottom: 0;
+  inset-inline-end: 0;
+
+  &--focused {
+    inset-inline-end: 25px;
+  }
+
+  &__text {
+    color: $color-box-text;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    word-break: break-all;
+    white-space: pre-wrap;
+
+    &--mode-deleting {
+      color: theme('colors.text-context');
+    }
+  }
+
+  form {
+    border-top: 1px solid $color-comment-separator;
+  }
+
+  &--mode-creating form {
+    border-top: 0;
+    margin-top: 12px;
+  }
+
+  &--mode-editing form {
+    margin-top: 12px;
+  }
+
+  &--mode-deleting &__text {
+    color: theme('colors.text-placeholder');
+  }
+
+  &__replies {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__button {
+    @include button;
+  }
+
+  &__actions,
+  &__reply-actions {
+    padding-bottom: 20px;
+  }
+
+  &__actions &__button,
+  &__reply-actions &__button {
+    margin-inline-end: 10px;
+    margin-top: 12px;
+  }
+
+  &__confirm-delete &__button {
+    margin-inline-start: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__confirm-delete,
+  &__error {
+    color: $color-box-text;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 10px;
+
+    button {
+      float: inline-end;
+    }
+
+    &::after {
+      display: block;
+      content: ' ';
+      clear: both;
+    }
+  }
+
+  &__error {
+    color: theme('colors.white.DEFAULT');
+    background-color: theme('colors.critical.200');
+    border-radius: 3px;
+    padding: 5px;
+    padding-inline-start: 10px;
+    height: 26px;
+    line-height: 26px;
+    vertical-align: middle;
+
+    button {
+      height: 26px;
+      float: inline-end;
+      margin-inline-start: 5px;
+      color: theme('colors.white.DEFAULT');
+      background-color: theme('colors.critical.200');
+      border-color: theme('colors.white.DEFAULT');
+      padding: 2px;
+      padding-inline-start: 10px;
+      padding-inline-end: 10px;
+      font-size: 0.65em;
+      font-weight: bold;
+    }
+
+    &::after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+  }
+
+  &__progress {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  &__reply-input {
+    /* stylelint-disable-next-line declaration-no-important */
+    margin-top: 20px !important;
+  }
+}

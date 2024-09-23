@@ -1,0 +1,98 @@
+# vim:sw=4 ts=4 et:
+#
+# This is a sample uWSGI configuration file for running a Wagtail application.
+# It's designed to run under uWSGI's Emperor mode[0], but should work fine as
+# a standalone instance, e.g. under supervisord using
+# 'uwsgi --ini /path/to/wagtail.ini'.
+#
+# This configuration assumes an application called 'mywagtail', running under
+# the 'mywagtail' user account, with the application deployed in
+# /home/mywagtail/app and the virtualenv in /home/mywagtail/venv.
+#
+# [0] https://uwsgi-docs.readthedocs.org/en/latest/Emperor.html
+
+[uwsgi]
+# Abort on unknown configuration options.
+strict              = true
+
+uid                 = mywagtail
+gid                 = mywagtail
+umask               = 022
+
+# Report memory usage to check for leaks; optional.
+memory-report       = true
+
+# Change these paths to where uWSGI is installed on your system.  If you've
+# installed uWSGI with pip, then you won't have any plugins, so plugin-dir
+# can be omitted.
+binary-path         = /opt/tbx/bin/uwsgi
+plugin-dir          = /opt/tbx/lib/uwsgi/plugins
+
+# Shut down worker processes when we exit.
+no-orphans          = true
+
+# Provide a statistics socket for uwsgitop; optional.
+stats               = /home/mywagtail/mywagtail.stats
+
+# Run in master mode.
+master              = true
+
+# Set this to the root directory of your project.
+chdir               = /home/mywagtail/app
+# ... and its virtualenv.
+virtualenv          = /home/mywagtail/venv
+
+# Create a UNIX socket that the web server can access.  Replace 'www-data'
+# with the group (not the user) that your web server runs as.
+#
+# To use FastCGI instead of the uWSGI protocol, replace 'uwsgi-socket' with
+# 'fastcgi-socket'.
+uwsgi-socket        = /home/mywagtail/mywagtail.sock
+chmod-socket        = 660
+chown-socket        = mywagtail:www-data
+
+# The number of worker processes to create.
+workers             = 5
+
+# Create multiple threads per worker.  This is more memory-efficient if your
+# application is thread-safe.
+enable-threads      = true
+threads             = 5
+
+# Use cheaper to kill off idle workers.  This doesn't always work well; for
+# example, on Debian 7 with recently uWSGI versions it appears to sometimes
+# deadlock the application when killing a worker.  If this isn't specified,
+# uWSGI will just create the maximum number of workers at all times.
+cheaper-algo        = spare
+cheaper             = 1
+cheaper-initial     = 1
+cheaper-step        = 1
+
+# Application environment.
+env                 = PATH=/home/mywagtail/venv/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+env                 = HOME=/home/mywagtail
+# Set $PYTHONPATH so that 'django-admin' works without needing the
+# virtualenv active.
+env                 = PYTHONPATH=/home/mywagtail/app/mywagtail
+# Settings module.
+env                 = DJANGO_SETTINGS_MODULE=myapp.settings.production
+# WSGI application.  Wagtail includes this in the default template.
+module              = mywagtail.wsgi:application
+
+# You can run additional daemons along with the application; for example,
+# if you want to run Celery:
+attach-daemon       = celery worker -A myceleryapp -C -c1
+attach-daemon       = celery beat -A myceleryapp -C
+
+# Log errors and requests.
+logto               = /var/log/uwsgi/mywagtail.log
+log-date            = true
+log-prefix          = [mywagtail]
+logfile-chown       = true
+
+# Enable thunder lock to prevent the thundering herd problem.
+thunder-lock        = true
+
+pcre-jit            = true
+close-on-exec       = true
+buffer-size         = 16384

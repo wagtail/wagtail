@@ -1,0 +1,13 @@
+{% load i18n wagtailadmin_tags %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% for workflow_task in value|slice:":5" %}
+        <a href="{% url 'wagtailadmin_workflows:edit' workflow_task.workflow.pk %}">{{ workflow_task.workflow.name }}{% if not forloop.last %}, {% endif %}</a>
+    {% empty %}
+        {% trans "Not used" %}
+    {% endfor %}
+    {% if value|length > 5 %}
+        {% with counter_val=value|length|add:-5 %}
+            {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+        {% endwith %}
+    {% endif %}
+</td>

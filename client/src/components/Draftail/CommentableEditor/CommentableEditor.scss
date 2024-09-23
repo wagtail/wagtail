@@ -1,0 +1,19 @@
+.Draftail-CommentControl {
+  display: none;
+
+  .tab-content--comments-enabled & {
+    display: inline-block;
+  }
+}
+
+.Draftail-CommentControl .Draftail-ToolbarButton {
+  color: theme('colors.text-button-outline-default');
+
+  &:not(:hover) .icon-comment-add {
+    display: none;
+  }
+
+  &:hover .icon-comment-add-reversed {
+    display: none;
+  }
+}

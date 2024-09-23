@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
+"<div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to children 1`] = `
+"<div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select w-field--error" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+          <p class="error-message">This is too big.</p></div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`] = `
+"<div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders correctly 1`] = `
+"<div class="custom-form-template">
+        <p>here comes the first field:</p>
+        <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+        <p>and here is the second:</p>
+        <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+      </div>"
+`;

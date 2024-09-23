@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu should render with the minimum required props 1`] = `
+<Fragment>
+  <nav
+    aria-label="Main menu"
+    className="sidebar-main-menu w-scrollbar-thin"
+  >
+    <ul
+      className="sidebar-main-menu__list"
+    />
+  </nav>
+  <div
+    className="sidebar-footer sidebar-footer--visible"
+  >
+    <ForwardRef(TippyWrapper)
+      disabled={true}
+      placement="right"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        className="
+            w-px-5
+            sidebar-footer__account
+            w-bg-surface-menus
+            w-text-text-label-menus-default
+            w-flex
+            w-items-center
+            w-relative
+            w-w-full
+            w-appearance-none
+            w-border-0
+            w-overflow-hidden
+            w-py-3
+            hover:w-bg-surface-menu-item-active
+            focus:w-bg-surface-menu-item-active
+            w-transition"
+        onClick={[Function]}
+        type="button"
+      >
+        <div
+          className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]"
+        >
+          <img
+            alt=""
+            decoding="async"
+            loading="lazy"
+            src="https://gravatar/profile"
+          />
+        </div>
+        <div
+          className="sidebar-footer__account-toggle"
+        >
+          <div
+            className="sidebar-footer__account-label w-label-3"
+          />
+          <Icon
+            className="w-w-4 w-h-4 w-text-text-label-menus-default"
+            name="arrow-up"
+          />
+        </div>
+      </button>
+    </ForwardRef(TippyWrapper)>
+    <ul />
+  </div>
+</Fragment>
+`;

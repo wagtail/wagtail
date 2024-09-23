@@ -1,0 +1,56 @@
+default_language_version:
+  node: system
+  python: python3
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 'v0.1.5'
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        types_or: [css, scss, javascript, ts, tsx, json, yaml]
+        additional_dependencies:
+          # Keep in sync with package.json
+          - prettier@3.1.0
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        types: [file]
+        files: \.(js|ts|tsx)$
+        args: [--report-unused-disable-directives]
+        additional_dependencies:
+          # Keep in sync with package.json
+          - eslint@8.56.0
+          - '@typescript-eslint/eslint-plugin@6.21.0'
+          - '@typescript-eslint/parser@6.21.0'
+          - '@wagtail/eslint-config-wagtail@0.4.0'
+  - repo: https://github.com/thibaudcolas/pre-commit-stylelint
+    rev: v15.11.0
+    hooks:
+      - id: stylelint
+        files: \.scss$
+        additional_dependencies:
+          # Keep in sync with package.json
+          - stylelint@15.11.0
+          - '@wagtail/stylelint-config-wagtail@0.8.0'
+  - repo: https://github.com/thibaudcolas/curlylint
+    rev: v0.13.1
+    hooks:
+      - id: curlylint
+        args: ['--parse-only']
+  - repo: https://github.com/rtts/djhtml
+    rev: 3.0.6
+    hooks:
+      - id: djhtml
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v1.40.0
+    hooks:
+      - id: semgrep
+        files: \.py$
+        args: ['--config', '.semgrep.yml', '--disable-version-check', '--error']

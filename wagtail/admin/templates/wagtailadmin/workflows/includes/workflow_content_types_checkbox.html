@@ -1,0 +1,14 @@
+{% load wagtailadmin_tags %}
+
+{% for id, errors in errors_by_id.items %}
+    {% if id == widget.value %}
+        <div class="w-field__errors" data-field-errors>
+            {% icon name="warning" classname="w-field__errors-icon" %}
+            <p class="error-message">
+                {% for error in errors %}{{ error.message }} {% endfor %}
+            </p>
+        </div>
+    {% endif %}
+{% endfor %}
+
+{% include "django/forms/widgets/checkbox_option.html" %}

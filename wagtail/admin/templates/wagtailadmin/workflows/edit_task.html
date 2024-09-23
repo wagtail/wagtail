@@ -1,0 +1,72 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block main_content %}
+    <form action="{{ view.edit_url }}" enctype="multipart/form-data" method="POST" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields">
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    <li>{% formattedfield field %}</li>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+            <li>
+                <div class="help-block help-info">
+                    {% icon name='help' %}
+                    {% for workflow in object.active_workflows %}
+                        {% if forloop.first %}<strong>{% trans "Used on the following active workflows" %}:</strong> {% endif %}
+                        <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        {% trans "Not used" %}
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+
+        {% block footer %}
+            <footer class="footer">
+                <div class="actions footer__container w-flex">
+                    {% block form_actions %}
+                        {% fragment as button %}
+                            <button
+                                type="submit"
+                                class="button action-save button-longrunning w-flex-grow"
+                                data-controller="w-progress w-kbd"
+                                data-action="w-progress#activate"
+                                data-w-kbd-key-value="mod+s"
+                                data-w-kbd-scope-value="global"
+                                data-w-progress-active-value="{% trans 'Saving…' %}"
+                            >
+                                {% icon name="spinner" %}
+                                <em data-w-progress-target="label">{% trans 'Save' %}</em>
+                            </button>
+                        {% endfragment %}
+                        {% if can_enable or can_disable %}
+                            {% dropdown_button button=button toggle_icon="arrow-up" %}
+                                {% if can_enable %}
+                                    <button
+                                        class="button"
+                                        data-controller="w-action"
+                                        data-action="w-action#post"
+                                        data-w-action-continue-value="true"
+                                        data-w-action-url-value='{{ view.get_enable_url }}'
+                                        type="submit"
+                                    >
+                                        {{ view.enable_item_label }}
+                                    </button>
+                                {% elif can_disable %}
+                                    <a href="{{ view.get_delete_url }}" class="button">{{ view.delete_item_label }}</a>
+                                {% endif %}
+                            {% enddropdown_button %}
+                        {% else %}
+                            {{ button }}
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

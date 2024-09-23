@@ -1,0 +1,347 @@
+=========================
+Wagtail 2.0 release notes
+=========================
+
+*February 28, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Added Django 2.0 support
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail is now compatible with Django 2.0. Compatibility fixes were contributed by Matt Westcott, Karl Hobley, LB (Ben Johnston) and Mads Jensen.
+
+
+New rich text editor
+~~~~~~~~~~~~~~~~~~~~
+
+Wagtail's rich text editor has now been replaced with `Draftail <https://github.com/springload/draftail>`_, a new editor based on `Draft.js <https://draftjs.org/>`_, fixing numerous bugs and providing an improved editing experience, better support for current browsers, and more consistent HTML output. This feature was developed by Thibaud Colas, Loïc Teixeira and Matt Westcott.
+
+
+Reorganized modules
+~~~~~~~~~~~~~~~~~~~
+
+The modules that make up Wagtail have been renamed and reorganized, to avoid the repetition in names like ``wagtail.wagtailcore.models`` (originally an artifact of app naming limitations in Django 1.6) and to improve consistency. While this will require some up-front work to upgrade existing Wagtail sites, we believe that this will be a long-term improvement to the developer experience, improving readability of code and reducing errors. This change was implemented by Karl Hobley and Matt Westcott.
+
+
+Scheduled page revisions
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The behavior of scheduled publishing has been revised so that pages are no longer unpublished at the point of setting a future go-live date, making it possible to schedule updates to an existing published page. This feature was developed by Patrick Woods.
+
+
+Other features
+~~~~~~~~~~~~~~
+
+* Moved Wagtail API v1 implementation (``wagtail.contrib.api``) to an `external app <https://github.com/wagtail/wagtailapi_legacy>`_ (Karl Hobley)
+* The page chooser now searches all fields of a page, instead of just the title (Bertrand Bordage)
+* Implement ordering by date in form submission view (LB (Ben Johnston))
+* Elasticsearch scroll API is now used when fetching more than 100 search results (Karl Hobley)
+* Added hidden field to the form builder (Ross Crawford-d'Heureuse)
+* Usage count now shows on delete confirmation page when WAGTAIL_USAGE_COUNT_ENABLED is active (Kees Hink)
+* Added usage count to snippets (Kees Hink)
+* Moved usage count to the sidebar on the edit page (Kees Hink)
+* Explorer menu now reflects customizations to the page listing made via the `construct_explorer_page_queryset` hook and `ModelAdmin.exclude_from_explorer` property (Tim Heap)
+* "Choose another image" button changed to "Change image" to avoid ambiguity (Edd Baldry)
+* Added hooks ``before_create_user``, ``after_create_user``, ``before_delete_user``, ``after_delete_user``, ``before_edit_user``, ``after_edit_user`` (Jon Carmack)
+* Added ``exclude_fields_in_copy`` property to Page to define fields that should not be included on page copy (LB (Ben Johnston))
+* Improved error message on incorrect ``{% image %}`` tag syntax (LB (Ben Johnston))
+* Optimised preview data storage (Bertrand Bordage)
+* Added ``render_landing_page`` method to ``AbstractForm`` to be easily overridden and pass ``form_submission`` to landing page context (Stein Strindhaug)
+* Added ``heading`` kwarg to ``InlinePanel`` to allow heading to be set independently of button label (Adrian Turjak)
+* The value type returned from a ``StructBlock`` can now be customized. See :ref:`custom_value_class_for_structblock` (LB (Ben Johnston))
+* Added ``bgcolor`` image operation (Karl Hobley)
+* Added ``WAGTAILADMIN_USER_LOGIN_FORM`` setting for overriding the admin login form (Mike Dingjan)
+* Snippets now support custom primary keys (Sævar Öfjörð Magnússon)
+* Upgraded jQuery to version 3.2.1 (Janneke Janssen)
+* Update autoprefixer configuration to better match browser support targets (Janneke Janssen)
+* Update React and related dependencies to latest versions (Janneke Janssen, Hugo van den Berg)
+* Remove Hallo editor ``.richtext`` CSS class in favor of more explicit extension points (Thibaud Colas)
+* Updated documentation styling (LB (Ben Johnston))
+* Rich text fields now take feature lists into account when whitelisting HTML elements (Matt Westcott)
+* FormPage lists and Form submission lists in admin now use class based views for easy overriding (Johan Arensman)
+* Form submission csv exports now have the export date in the filename and can be customized (Johan Arensman)
+* FormBuilder class now uses bound methods for field generation, adding custom fields is now easier and documented (LB (Ben Johnston))
+* Added ``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS`` setting to determine whether superusers are included in moderation email notifications (Bruno Alla)
+* Added a basic Dockerfile to the project template (Tom Dyson)
+* StreamField blocks now allow custom ``get_template`` methods for overriding templates in instances (Christopher Bledsoe)
+* Simplified edit handler API (Florent Osmont, Bertrand Bordage)
+* Made 'add/change/delete collection' permissions configurable from the group edit page (Matt Westcott)
+* Expose React-related dependencies as global variables for extension in the admin interface (Thibaud Colas)
+* Added helper functions for constructing form data for use with ``assertCanCreate``. See :ref:`form_data_test_helpers` (Tim Heap, Matt Westcott)
+
+
+Bug fixes
+~~~~~~~~~
+
+* Do not remove stopwords when generating slugs from non-ASCII titles, to avoid issues with incorrect word boundaries (Sævar Öfjörð Magnússon)
+* The PostgreSQL search backend now preserves ordering of the ``QuerySet`` when searching with ``order_by_relevance=False`` (Bertrand Bordage)
+* Using ``modeladmin_register`` as a decorator no longer replaces the decorated class with ``None`` (Tim Heap)
+* Fixed crash in XML sitemap generator when all pages on the site are private (Stein Strindhaug)
+* The ``{% routablepageurl %}`` template tag no longer generates invalid URLs when the ``WAGTAIL_APPEND_SLASH`` setting was set to ``False`` (Venelin Stoykov)
+* The "View live" button is no longer shown if the page doesn't have a routable URL (Tim Heap)
+* API listing views no longer fail when no site records are defined (Karl Hobley)
+* Fixed rendering of border on dropdown arrow buttons on Chrome (Bertrand Bordage)
+* Fixed incorrect z-index on userbar causing it to appear behind page content (Stein Strindhaug)
+* Form submissions pagination no longer looses date filter when changing page (Bertrand Bordage)
+* PostgreSQL search backend now removes duplicate page instances from the database (Bertrand Bordage)
+* ``FormSubmissionsPanel`` now recognizes custom form submission classes (LB (Ben Johnston))
+* Prevent the footer and revisions link from unnecessarily collapsing on mobile (Jack Paine)
+* Empty searches were activated when paginating through images and documents (LB (Ben Johnston))
+* Summary numbers of pages, images and documents were not responsive when greater than 4 digits (Michael Palmer)
+* Project template now has password validators enabled by default (Matt Westcott)
+* Alignment options correctly removed from ``TableBlock`` context menu (LB (Ben Johnston))
+* Fix support of ``ATOMIC_REBUILD`` for projects with Elasticsearch client ``>=1.7.0`` (Mikalai Radchuk)
+* Fixed error on Elasticsearch backend when passing a QuerySet as an ``__in`` filter (Karl Hobley, Matt Westcott)
+* ``__isnull`` filters no longer fail on Elasticsearch 5 (Karl Hobley)
+* Prevented intermittent failures on Postgres search backend when a field is defined as both a ``SearchField`` and a ``FilterField`` (Matt Westcott)
+* Alt text of images in rich text is no longer truncated on double-quote characters (Matt Westcott)
+* Ampersands in embed URLs within rich text are no longer double-escaped (Matt Westcott)
+* Using RGBA images no longer crashes with Pillow >= 4.2.0 (Karl Hobley)
+* Copying a page with PostgreSQL search enabled no longer crashes (Bertrand Bordage)
+* Style of the page unlock button was broken (Bertrand Bordage)
+* Admin search no longer floods browser history (Bertrand Bordage)
+* Version comparison now handles custom primary keys on inline models correctly (LB (Ben Johnston))
+* Fixed error when inserting chooser panels into FieldRowPanel (Florent Osmont, Bertrand Bordage)
+* Reinstated missing error reporting on image upload (Matt Westcott)
+* Only load Hallo CSS if Hallo is in use (Thibaud Colas)
+* Prevent style leak of Wagtail panel icons in widgets using ``h2`` elements (Thibaud Colas)
+
+Upgrade considerations
+======================
+
+Removed support for Python 2.7, Django 1.8 and Django 1.10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python 2.7, Django 1.8 and Django 1.10 are no longer supported in this release. You are advised to upgrade your project to Python 3 and Django 1.11 before upgrading to Wagtail 2.0.
+
+
+Added support for Django 2.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before upgrading to Django 2.0, you are advised to review the `release notes <https://docs.djangoproject.com/en/stable/releases/2.0/>`_, especially the `backwards incompatible changes <https://docs.djangoproject.com/en/stable/releases/2.0/#backwards-incompatible-changes-in-2-0>`_ and `removed features <https://docs.djangoproject.com/en/stable/releases/2.0/#features-removed-in-2-0>`_.
+
+
+Wagtail module path updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Many of the module paths within Wagtail have been reorganized to reduce duplication - for example, ``wagtail.wagtailcore.models`` is now ``wagtail.core.models``. As a result, ``import`` lines and other references to Wagtail modules will need to be updated when you upgrade to Wagtail 2.0. A new command has been added to assist with this - from the root of your project's code base:
+
+.. code-block:: console
+
+    $ wagtail updatemodulepaths --list  # list the files to be changed without updating them
+    $ wagtail updatemodulepaths --diff  # show the changes to be made, without updating files
+    $ wagtail updatemodulepaths  # actually update the files
+
+Or, to run from a different location:
+
+.. code-block:: console
+
+    $ wagtail updatemodulepaths /path/to/project --list
+    $ wagtail updatemodulepaths /path/to/project --diff
+    $ wagtail updatemodulepaths /path/to/project
+
+For the full list of command line options, enter ``wagtail help updatemodulepaths``.
+
+You are advised to take a backup of your project codebase before running this command. The command will perform a search-and-replace over all \*.py files for the affected module paths; while this should catch the vast majority of module references, it will not be able to fix instances that do not use the dotted path directly, such as ``from wagtail import wagtailcore``.
+
+The full list of modules to be renamed is as follows:
+
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| Old name                                | New name                          | Notes                             |
++=========================================+===================================+===================================+
+| wagtail.wagtailcore                     | wagtail.core                      |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailadmin                    | wagtail.admin                     |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtaildocs                     | wagtail.documents                 | 'documents' no longer abbreviated |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailembeds                   | wagtail.embeds                    |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailimages                   | wagtail.images                    |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailsearch                   | wagtail.search                    |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailsites                    | wagtail.sites                     |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailsnippets                 | wagtail.snippets                  |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailusers                    | wagtail.users                     |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailforms                    | wagtail.contrib.forms             | Moved into 'contrib'              |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.wagtailredirects                | wagtail.contrib.redirects         | Moved into 'contrib'              |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailapi              | *removed*                         | API v1, removed in this release   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailfrontendcache    | wagtail.contrib.frontend_cache    | Underscore added                  |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailroutablepage     | wagtail.contrib.routable_page     | Underscore added                  |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailsearchpromotions | wagtail.contrib.search_promotions | Underscore added                  |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailsitemaps         | wagtail.contrib.sitemaps          |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+| wagtail.contrib.wagtailstyleguide       | wagtail.contrib.styleguide        |                                   |
++-----------------------------------------+-----------------------------------+-----------------------------------+
+
+Places these should be updated include:
+
+* ``import`` lines
+* Paths specified in settings, such as ``INSTALLED_APPS``, ``MIDDLEWARE`` and ``WAGTAILSEARCH_BACKENDS``
+* Fields and blocks referenced within migrations, such as ``wagtail.wagtailcore.fields.StreamField`` and ``wagtail.wagtailcore.blocks.RichTextBlock``
+
+However, note that this only applies to dotted module paths beginning with ``wagtail.``. App names that are *not* part of a dotted module path should be left unchanged - in this case, the ``wagtail`` prefix is still required to avoid clashing with other apps that might exist in the project with names such as ``admin`` or ``images``. The following should be left unchanged:
+
+* Foreign keys specifying a model as ``'app_name.ModelName'``, e.g. ``models.ForeignKey('wagtailimages.Image',...)``
+* App labels used in database table names, content types or permissions
+* Paths to templates and static files, e.g. when :ref:`overriding admin templates with custom branding <custom_branding>`
+* Template tag library names, e.g. ``{% load wagtailcore_tags %}``
+
+
+Hallo.js customizations are unavailable on the Draftail rich text editor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Draftail rich text editor has a substantially different API from Hallo.js, including the use of a non-HTML format for its internal data representation; as a result, functionality added through Hallo.js plugins will be unavailable. If your project is dependent on Hallo.js-specific behavior, you can revert to the original Hallo-based editor by adding the following to your settings:
+
+.. code-block:: python
+
+  WAGTAILADMIN_RICH_TEXT_EDITORS = {
+      'default': {
+          'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea'
+      }
+  }
+
+
+Data format for rich text fields in ``assertCanCreate`` tests has been updated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``assertCanCreate`` test method (see :doc:`/advanced_topics/testing`) requires data to be passed in the same format that the page edit form would submit. The Draftail rich text editor posts this data in a non-HTML format, and so any existing ``assertCanCreate`` tests involving rich text fields will fail when Draftail is in use:
+
+.. code-block:: python
+
+  self.assertCanCreate(root_page, ContentPage, {
+      'title': 'About us',
+      'body': '<p>Lorem ipsum dolor sit amet</p>',  # will not work
+  })
+
+Wagtail now provides a set of helper functions for constructing form data: see :ref:`form_data_test_helpers`. The above assertion can now be rewritten as:
+
+.. code-block:: python
+
+  from wagtail.tests.utils.form_data import rich_text
+
+  self.assertCanCreate(root_page, ContentPage, {
+      'title': 'About us',
+      'body': rich_text('<p>Lorem ipsum dolor sit amet</p>'),
+  })
+
+
+
+Removed support for Elasticsearch 1.x
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Elasticsearch 1.x is no longer supported in this release. Please upgrade to a 2.x or 5.x release of Elasticsearch before upgrading to Wagtail 2.0.
+
+
+Removed version 1 of the Wagtail API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Version 1 of the Wagtail API (``wagtail.contrib.wagtailapi``) has been removed from Wagtail.
+
+If you're using version 1, you will need to migrate to version 2. Please see
+:doc:`/advanced_topics/api/v2/configuration` and :doc:`/advanced_topics/api/v2/usage`.
+
+If migrating to version 2 is not an option right now (if you have API clients that you don't
+have direct control over, such as a mobile app), you can find the implementation of the
+version 1 API in the new `wagtailapi_legacy <https://github.com/wagtail/wagtailapi_legacy>`_ repository.
+
+This repository has been created to provide a place for the community to collaborate on supporting
+legacy versions of the API until everyone has migrated to an officially supported version.
+
+
+``construct_whitelister_element_rules`` hook is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``construct_whitelister_element_rules`` hook, used to specify additional HTML elements to be permitted in rich text, is deprecated. The recommended way of whitelisting elements is now to use rich text features. For example, a whitelist rule that was previously defined as:
+
+.. code-block:: python
+
+  from wagtail.core import hooks
+  from wagtail.core.whitelist import allow_without_attributes
+
+  @hooks.register('construct_whitelister_element_rules')
+  def whitelist_blockquote():
+      return {
+          'blockquote': allow_without_attributes,
+      }
+
+can be rewritten as:
+
+.. code-block:: python
+
+  from wagtail.admin.rich_text.converters.editor_html import WhitelistRule
+  from wagtail.core import hooks
+  from wagtail.core.whitelist import allow_without_attributes
+
+  @hooks.register('register_rich_text_features')
+  def blockquote_feature(features):
+
+      # register a feature 'blockquote' which whitelists the <blockquote> element
+      features.register_converter_rule('editorhtml', 'blockquote', [
+          WhitelistRule('blockquote', allow_without_attributes),
+      ])
+
+      # add 'blockquote' to the default feature set
+      features.default_features.append('blockquote')
+
+Please note that the new Draftail rich text editor uses a different mechanism to process rich text content, and does not apply whitelist rules; they only take effect when the Hallo.js editor is in use.
+
+
+``wagtail.images.views.serve.generate_signature`` now returns a string
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``generate_signature`` function in ``wagtail.images.views.serve``, used to build URLs for the :ref:`dynamic image serve view <using_images_outside_wagtail>`, now returns a string rather than a byte string. This ensures that any existing user code that builds up the final image URL with ``reverse`` will continue to work on Django 2.0 (which no longer allows byte strings to be passed to ``reverse``). Any code that expects a byte string as the return value of ``generate_string`` - for example, calling ``decode()`` on the result - will need to be updated. (Apps that need to preserve compatibility with earlier versions of Wagtail can call ``django.utils.encoding.force_text`` instead of ``decode``.)
+
+
+Deprecated search view
+~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail has always included a bundled view for frontend search. However, this view isn't easy to customize so
+defining this view per project is usually preferred. If you have used this bundled view (check for an import
+from  ``wagtail.wagtailsearch.urls`` in your project's ``urls.py``), you will need to replace this with your
+own implementation.
+
+See the search view in Wagtail demo for a guide: https://github.com/wagtail/wagtaildemo/blob/master/demo/views.py
+
+New Hallo editor extension points
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+With the introduction of a new editor, we want to make sure existing editor plugins meant for Hallo only target
+Hallo editors for extension.
+
+* The existing ``.richtext`` CSS class is no longer applied to the Hallo editor’s DOM element.
+* In JavaScript, use the ``[data-hallo-editor]`` attribute selector to target the editor, eg. ``var $editor = $('[data-hallo-editor]');``.
+* In CSS, use the ``.halloeditor`` class selector.
+
+For example,
+
+.. code-block:: diff
+
+  /* JS */
+  - var widget = $(elem).parent('.richtext').data('IKS-hallo');
+  + var widget = $(elem).parent('[data-hallo-editor]').data('IKS-hallo');
+
+  [...]
+
+  /* Styles */
+  - .richtext {
+  + .halloeditor {
+      font-family: monospace;
+  }

@@ -1,0 +1,18 @@
+===========================
+Wagtail 2.6.2 release notes
+===========================
+
+*September 19, 2019*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Prevent search indexing failures on Postgres 9.4 and Django >= 2.2.1 (Matt Westcott)

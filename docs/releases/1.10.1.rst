@@ -1,0 +1,19 @@
+============================
+Wagtail 1.10.1 release notes
+============================
+
+*May 19, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Fix admin page preview that was broken 24 hours after previewing a page (Martin Hill)
+* Removed territory-specific translations for Spanish, Polish, Swedish, Russian and Chinese (Taiwan) that block more complete translations from being used (Matt Westcott)

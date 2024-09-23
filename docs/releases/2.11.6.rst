@@ -1,0 +1,21 @@
+============================
+Wagtail 2.11.6 release notes
+============================
+
+*March 5, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Un-pin django-treebeard following upstream fix for migration issue (Matt Westcott)
+ * Prevent crash when copying an alias page (Karl Hobley)
+ * Prevent errors on page editing after changing LANGUAGE_CODE (Matt Westcott)
+ * Correctly handle model inheritance and ``ClusterableModel`` on ``copy_for_translation`` (Karl Hobley)

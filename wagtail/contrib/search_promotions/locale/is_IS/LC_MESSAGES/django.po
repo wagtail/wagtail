@@ -1,0 +1,212 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022,2024
+# saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2016,2022,2024\n"
+"Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
+"wagtail/language/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail leitarmeðmæli"
+
+msgid "Search term(s)/phrase"
+msgstr "Leitarorð/frasar"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Sláðu inn allan leitarstrenginn sem á að virkja. Notendur þurfa að slá inn "
+"nákvæmlega sömu leit til að fá auglýstar leitarniðurstöður, algildisstafir "
+"(e. wildcards) eru EKKI leyfðir."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Vinsamlegast bættu við amk einum meðmælum fyrir þennan leitarfrasa."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr "Þú verður að setja texta fyrir hlekkinn ef þú nota ytri hlekk."
+
+msgid "You must recommend a page OR an external link."
+msgstr "Þú verður að mæla með síðu EÐA nota ytri hlekk."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "Vinsamlegast veldu síðu EÐA ytri hlekk."
+
+msgid "Query Daily Hits"
+msgstr "Fjöldi daglegra leita"
+
+msgid "page"
+msgstr "síða"
+
+msgid "Choose an internal page for this promotion"
+msgstr "Veldu innri síðu fyrir þessi leitarmeðmæli"
+
+msgid "External link URL"
+msgstr "Hlekkur á ytri síðu"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "Þú getur einnig notað ytri hlekk fyrir þessi leitarmeðmæli"
+
+msgid "description"
+msgstr "lýsing"
+
+msgid "Applies to internal page or external link"
+msgstr "Á við um innri síðu eða ytri hlekk"
+
+msgid "search promotion"
+msgstr "leitarmeðmæli"
+
+msgid "Add search promotion"
+msgstr "Bæta við leitarmeðmælum"
+
+msgid "Add search pick"
+msgstr "Bættu við leitar frasa"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>Leitarmeðmæli eru leið til þess að mæla með ákveðnum síðum eða ytri "
+"hlekkjum sem birtast ekki endilega efst í leitarniðurstöðum. T.d. getur þú "
+"mælt með aðal styrktar síðunni þinni ef leitað er að orðinu \"<em>gefa</"
+"em>\", sem annars hefði ekki skilað styrktarsíðunni í leitarniðurstöður.</p>"
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p>\"Leitarorð/frasar\" reiturinn fyrir neðan verður að innihalda alla og "
+"nákvæmlega þá leit sem þú vilt að sýni þessar niðurstöður, <em>þar með "
+"taldar</em> allar misritanir og stafsetningarvillur. Til að hjálpa þér eru "
+"hérna leitarorð og frasar sem eru vinsæl meðal notenda á vefnum.</p>"
+
+msgid "Save"
+msgstr "Vista"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Eyða %(query)s"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "Ertu viss um að þú viljir eyða öllum "
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Breyti %(query)s"
+
+msgid "Editing"
+msgstr "Breyti"
+
+msgid "Move up"
+msgstr "Færa upp"
+
+msgid "Move down"
+msgstr "Færa niður"
+
+msgid "Recommended search result"
+msgstr "Meðmæltar leitar niðurstöður"
+
+msgid "Promoted search results"
+msgstr "Meðmæltar leitar niðurstöður"
+
+msgid "Add a recommended result"
+msgstr "Bæta við meðmæltum leitarniðurstöðum"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Því miður eru engar meðmæltar niðurstöður sem passa við "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Engin meðmæli hafa verið búin til. Hví ekki að <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">bæta við einum</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Engin leitarorð sem mælt er með hafa verið búin til"
+
+msgid "Popular search terms"
+msgstr "Vinsælir leitarfrasar"
+
+msgid "Search"
+msgstr "Leita"
+
+msgid "Terms"
+msgstr "Leitarorð"
+
+msgid "Views (past week)"
+msgstr "Síðuflettingar (síðust vikuna)"
+
+msgid "No results found"
+msgstr "Engar niðurstöður fundust"
+
+msgid "Choose from popular search terms"
+msgstr "Veldu úr vinsælum leitarfrösum"
+
+msgid "External link"
+msgstr "Ytri hlekkur"
+
+msgid "None"
+msgstr "Ekkert"
+
+msgid "Search Terms"
+msgstr "Leitarfrasi"
+
+msgid "Add new promoted result"
+msgstr "Bæta við nýjum meðmæltum niðurstöðum"
+
+msgid "Search term(s)"
+msgstr "Leitarfrasi"
+
+msgid "Promoted results"
+msgstr "Meðmæltar niðurstöður"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "Val ritstjóra fyrir  '%(query)s' búin til."
+
+msgid "Edit"
+msgstr "Breyta"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Ekki tókst að búa til meðmæli þar sem það stóðst ekki villuprófanir"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "Val ritstjóra fyrir '%(query)s' uppfært."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Ekki tókst að vista meðmæli þar sem það stóðst ekki villuprófanir"
+
+msgid "Editor's picks deleted."
+msgstr "Vali ritstjóra eytt."

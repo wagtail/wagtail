@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+<td class="{% if column.classname %}{{ column.classname }} {% endif %}title">
+    <div class="title-wrapper">
+        <a href="{{ link_url }}">{{ value }}</a>
+        {% if not value.language_code_is_valid %}
+            {% trans "This locale's language code is not supported" as error %}
+            {% icon name="warning" classname="locale-error" title=error %}
+        {% endif %}
+    </div>
+</td>

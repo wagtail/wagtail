@@ -1,0 +1,30 @@
+// Based upon the fine work and thoughts from Bootstrap v4.
+// Copyright 2011-2018 The Bootstrap Authors
+// Copyright 2011-2018 Twitter, Inc.
+// Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up($name) {
+  $min: breakpoint-min($name);
+  @if $min {
+    @media screen and (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name) {
+  $max: breakpoint-max($name);
+  @if $max {
+    @media screen and (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}

@@ -1,0 +1,35 @@
+@use 'sass:color';
+@mixin wagtail-label-overrides {
+  float: none;
+  width: initial;
+  padding: 0;
+}
+
+.ImageBlock__field {
+  @include wagtail-label-overrides;
+  display: block;
+  margin-bottom: $button-spacing * 2;
+  color: theme('colors.surface-page');
+  cursor: pointer;
+}
+
+@mixin wagtail-input-overrides {
+  border: 0;
+  font-size: inherit;
+}
+
+.ImageBlock__field__input {
+  @include wagtail-input-overrides;
+  font-size: 1rem;
+  background-color: theme('colors.surface-field');
+  color: theme('colors.text-context');
+
+  &[readonly] {
+    color: theme('colors.border-field-inactive');
+  }
+}
+
+.ImageBlock__alt {
+  @include font-smoothing;
+  font-size: 0.875rem;
+}

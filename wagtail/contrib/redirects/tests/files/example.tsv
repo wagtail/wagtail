@@ -1,0 +1,4 @@
+from	to
+/hello	http://hello.com/random/
+/goodbye	http://hello.com/goodbye/
+/goodbye	/cake/

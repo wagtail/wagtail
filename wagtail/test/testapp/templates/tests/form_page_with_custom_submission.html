@@ -1,0 +1,24 @@
+{% extends "tests/base.html" %}
+{% load wagtailcore_tags i18n %}
+
+{% block content %}
+    <p>{{ greeting }}</p>
+
+    {% if user.is_authenticated and user.is_active or request.is_preview %}
+        {% if form %}
+            <div>
+                {{ self.intro|richtext }}
+            </div>
+            <form action="{% pageurl self %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit">
+            </form>
+        {% else %}
+            <div>{% trans 'The form is already filled.' %}</div>
+        {% endif %}
+    {% else %}
+        <div>{% trans 'You must log in first.' %}</div>
+    {% endif %}
+
+{% endblock %}

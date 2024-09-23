@@ -1,0 +1,16 @@
+// makes a link look like regular text
+.nolink {
+  color: theme('colors.text-context');
+
+  &:hover {
+    color: theme('colors.text-link-hover');
+  }
+
+  @media (forced-colors: active) {
+    color: GrayText;
+  }
+}
+
+a.underlined {
+  border-bottom: 1px solid currentColor;
+}

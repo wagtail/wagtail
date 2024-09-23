@@ -1,0 +1,30 @@
+============================
+Wagtail 2.15.5 release notes
+============================
+
+*April 11, 2022*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
+ * Generate new translation keys for translatable ``Orderable`` when page is copied without being published (Kalob Taulien, Dan Braghis)
+ * Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
+
+
+Upgrade considerations
+======================
+
+Jinja2 compatibility
+~~~~~~~~~~~~~~~~~~~~
+
+Developers using Jinja2 templating should note that the template tags in this release (and earlier releases in the 2.15.x series) are compatible with Jinja2 2.11.x and 3.0.x. Jinja2 2.11.x is unmaintained and requires ``markupsafe`` to be pinned to version ``<2.1`` to work; Jinja2 3.1.x has breaking changes and is not compatible. We therefore recommend that you use Jinja2 3.0.x, or 2.11.x with fully pinned dependencies.

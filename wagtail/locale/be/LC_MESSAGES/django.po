@@ -1,0 +1,376 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andrei Satsevich, 2023
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Andrei Satsevich, 2023\n"
+"Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Ядро Wagtail"
+
+msgid "Add Comment"
+msgstr "Дадаць Каментар"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Мінімальная колькасць элементаў %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максімальную колькасць элементаў %(max_num)d"
+
+msgid "Move up"
+msgstr "Падвінуць наверх"
+
+msgid "Move down"
+msgstr "Падвінусь уніз"
+
+msgid "Duplicate"
+msgstr "Дублікат"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid "Add"
+msgstr "дадаць"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: у гэтага блока няма опцый."
+
+msgid "This block has no options."
+msgstr "Гэты блок не мае опцый."
+
+msgid "This field is required."
+msgstr "Патрабуецца запоўніць гэтае поле."
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Уведзены вамі пароль няправільны. Паспрабуйце яшчэ раз."
+
+msgid "Comment"
+msgstr "Каментар"
+
+msgid "Locked"
+msgstr "Заблакавана"
+
+msgid "Unlocked"
+msgstr "Разблакавана"
+
+msgid "live"
+msgstr "апублікавана"
+
+msgid "has unpublished changes"
+msgstr "мае неапублікаваныя змены"
+
+msgid "first published at"
+msgstr "ўпершыню апублікавана"
+
+msgid "last published at"
+msgstr "апошні раз друкавалася"
+
+msgid "go live date/time"
+msgstr "дата / час публікацыі"
+
+msgid "expiry date/time"
+msgstr "дата / час заканчэння"
+
+msgid "expired"
+msgstr "скончыўся"
+
+msgid "scheduled"
+msgstr "запланаванае"
+
+msgid "draft"
+msgstr "чарнавік"
+
+msgid "live + scheduled"
+msgstr "размешчана + запланаваная"
+
+msgid "live + draft"
+msgstr "апублікавана + чарнавік"
+
+msgid "Default"
+msgstr "Па змаўчанні"
+
+msgid "locked"
+msgstr "заблакавана"
+
+msgid "locked at"
+msgstr "заблякаваны ў"
+
+msgid "locked by"
+msgstr "заблякаваны"
+
+msgid "Add/edit pages you own"
+msgstr "Дадаць / рэдагаваць свае старонкі"
+
+msgid "Bulk delete"
+msgstr "Масавае выдаленне"
+
+msgid "Delete pages with children"
+msgstr "Выдаліць разам з даччынымі старонкамі"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+msgid "Edit any page"
+msgstr "Рэдагаваць любую старонку"
+
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Вашы заблякаваныя / разблакаваныя старонкі"
+
+msgid "Publish"
+msgstr "Апублікаваць"
+
+msgid "Publish any page"
+msgstr "Апублікаваць любую старонку"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
+
+msgid "Unlock any page"
+msgstr "Разблакаваць любую старонку"
+
+msgid "title"
+msgstr "загаловак"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Загаловак старонкі бачны ўсім"
+
+msgid "slug"
+msgstr "моцна складаны"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Імя старонкі, якое будзе адлюстроўвацца ў URL, напрыклад http://domain.com/"
+"blog/[my-slug]/"
+
+msgid "content type"
+msgstr "тып змесціва"
+
+msgid "URL path"
+msgstr "шлях URL"
+
+msgid "owner"
+msgstr "уладальнік"
+
+msgid "show in menus"
+msgstr "паказваць у меню"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr ""
+"Ці павінна спасылка на гэтую старонку адлюстроўвацца ў аўтаматычна "
+"генераваных меню"
+
+msgid "latest revision created at"
+msgstr "апошняя версія створана"
+
+msgid "page"
+msgstr "старонка"
+
+msgid "pages"
+msgstr "старонкі"
+
+msgid "created at"
+msgstr "створана"
+
+msgid "user"
+msgstr "карыстальнік"
+
+msgid "content JSON"
+msgstr "сожержимое JSON"
+
+msgid "approved go live at"
+msgstr "пацверджана да публікацыі"
+
+msgid "group"
+msgstr "група"
+
+msgid "permission"
+msgstr "права доступу"
+
+msgid "group page permission"
+msgstr "права на старонку ў гурта"
+
+msgid "group page permissions"
+msgstr "правы на старонку ў гурта"
+
+msgid "page view restriction"
+msgstr "абмежаванне на прагляд старонкі"
+
+msgid "page view restrictions"
+msgstr "абмежаванні на прагляд старонак"
+
+msgid "name"
+msgstr "імя"
+
+msgid "groups"
+msgstr "групы"
+
+msgid "Approve"
+msgstr "Пацвярдзіць"
+
+msgid "comment"
+msgstr "каментар"
+
+msgid "collection"
+msgstr "калекцыя"
+
+msgid "collection view restriction"
+msgstr "абмежаванне на прагляд калекцыі"
+
+msgid "collection view restrictions"
+msgstr "абмежаванні на прагляд калекцыі"
+
+msgid "collections"
+msgstr "калекцыі"
+
+msgid "group collection permission"
+msgstr "права доступу да калекцыі ў гурта"
+
+msgid "group collection permissions"
+msgstr "правы доступу да калекцыі ў гурта"
+
+msgid "uploaded by user"
+msgstr "Запампована карыстальнікам"
+
+msgid "hostname"
+msgstr "імя хаста"
+
+msgid "port"
+msgstr "порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Пакажыце які-небудзь выдатны ад 80 порт, калі вам патрэбны канкрэтны нумар "
+"порта ў URL-адрасе (напрыклад, распрацоўка на порце 8000). Не ўплывае на "
+"апрацоўку запыту (так што форвардинг партоў працягвае працаваць)."
+
+msgid "site name"
+msgstr "імя сайта"
+
+msgid "Human-readable name for the site."
+msgstr "Чалавека-зразумелая імя для сайта."
+
+msgid "root page"
+msgstr "каранёвая старонка"
+
+msgid "is default site"
+msgstr "сайт па змаўчанні"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Калі выбрана, гэты сайт будзе апрацоўваць запыты для ўсіх наяўных імёнаў "
+"хастоў, ня замацаваных за іншымі сайтамі"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайты"
+
+msgid "default"
+msgstr "па змаўчанні"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)sўжо наладжаны як сайт па змаўчанні. Вы павінны спачатку "
+"адключыць гэтую наладу ў яго, перш, чым вы можаце захаваць гэты сайт па "
+"змаўчанні."
+
+msgid "Public"
+msgstr "Публічна"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Прыватна, даступна для карыстальнікаў з названых груп"
+
+msgid "view restriction"
+msgstr "абмежаванне на прагляд"
+
+msgid "view restrictions"
+msgstr "абмежаванні на прагляд"
+
+msgid "Log in"
+msgstr "Увайсці"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Вашы імя карыстальніка і пароль не пасуюць. Калі ласка, паспрабуйце яшчэ раз."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Ваш рахунак не мае доступу да гэтай старонцы. Для прагляду, калі ласка, "
+"увайдзіце, выкарыстоўваючы рахунак, які мае доступ."
+
+msgid "Password required"
+msgstr "Патрабуецца пароль"
+
+msgid "You need a password to access this page."
+msgstr "Вам патрэбен пароль для доступу да гэтай старонцы."
+
+msgid "Continue"
+msgstr "Працягнуць"
+
+msgid "Created"
+msgstr "Створаны"
+
+msgid "Edited"
+msgstr "Зменена"
+
+msgid "Unpublish"
+msgstr "Адмяніць публікацыю"
+
+msgid "Reject"
+msgstr "Адхіліць"
+
+msgid "Copy"
+msgstr "Скапіяваць"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Скапіраваны для перакладу з %(title)s (%(locale)s)"
+
+msgid "Move"
+msgstr "Рухайцеся"
+
+msgid "Add comment"
+msgstr "Дадаць каментар"

@@ -1,0 +1,27 @@
+{% load i18n wagtailadmin_tags %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <div class="w-flex w-items-center w-justify-between">
+        <div>
+            <div class="w-flex w-items-center w-gap-2">
+                {{ value }}
+
+                {% if status %}
+                    {% status status classname="w-status--primary" %}
+                {% endif %}
+            </div>
+
+            {% if instance.comment %}
+                <div>{% trans "Comment" %}: <em>{{ instance.comment }}</em></div>
+            {% endif %}
+        </div>
+
+        {% if actions %}
+            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
+                {% for action in actions %}
+                    <a href="{{ action.url }}">{{ action.label }}</a>
+                {% endfor %}
+            {% enddropdown %}
+        {% endif %}
+    </div>
+</td>

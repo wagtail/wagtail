@@ -1,0 +1,18 @@
+============================
+Wagtail 2.13.4 release notes
+============================
+
+*July 13, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Prevent embed thumbnail_url migration from failing on URLs longer than 200 characters (Matt Westcott)

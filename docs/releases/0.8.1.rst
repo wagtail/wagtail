@@ -1,0 +1,19 @@
+===========================
+Wagtail 0.8.1 release notes
+===========================
+
+*November 5, 2014*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Bug fixes
+~~~~~~~~~
+
+* Fixed a regression where images would fail to save when feature detection is active

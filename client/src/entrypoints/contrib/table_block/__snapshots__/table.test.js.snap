@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
+"<div>
+      <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-id-table-header-choice">Table headers</label>
+          <select id="the-id-table-header-choice" name="table-header-choice">
+            <option value="">Select a header option</option>
+            <option value="row">
+                Display the first row as a header
+            </option>
+            <option value="column">
+                Display the first column as a header
+            </option>
+            <option value="both">
+                Display the first row AND first column as headers
+            </option>
+            <option value="neither">
+                No headers
+            </option>
+          </select>
+        <p class="help">Which cells should be displayed as headers?</p>
+      </div>
+      <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-id-handsontable-col-caption">Table caption</label>
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__help" id="the-id-handsontable-col-caption-helptext" data-field-help="">
+            <div class="help">A heading that identifies the overall topic of the table, and is useful for screen reader users.</div>
+          </div>
+          <div class="w-field__input" data-field-input="">
+            <input type="text" id="the-id-handsontable-col-caption" name="handsontable-col-caption" aria-describedby="the-id-handsontable-col-caption-helptext">
+          </div>
+        </div>
+      </div>
+      <div id="the-id-handsontable-container"></div>
+      <input type="hidden" name="the-name" id="the-id" placeholder="Table" value="{&quot;data&quot;:[[&quot;Test&quot;,&quot;Heading&quot;],[&quot;Foo&quot;,&quot;123&quot;],[&quot;Bar&quot;,&quot;456&quot;]],&quot;cell&quot;:[],&quot;first_row_is_table_header&quot;:true,&quot;first_col_is_header&quot;:false,&quot;table_caption&quot;:&quot;&quot;}">
+    </div>"
+`;
+
+exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
+"<div>
+      <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-id-table-header-choice">En-têtes de tableau</label>
+          <select id="the-id-table-header-choice" name="table-header-choice">
+            <option value="">Select a header option</option>
+            <option value="row">
+                Afficher la première ligne sous forme d'en-tête
+            </option>
+            <option value="column">
+                Afficher la première colonne sous forme d'en-tête
+            </option>
+            <option value="both">
+                Afficher la première ligne ET la première colonne sous forme d'en-têtes
+            </option>
+            <option value="neither">
+                Pas d'en-têtes
+            </option>
+          </select>
+        <p class="help">Quelles cellules doivent être affichées en tant qu'en-têtes?</p>
+      </div>
+      <div class="w-field__wrapper" data-field-wrapper="">
+        <label class="w-field__label" for="the-id-handsontable-col-caption">Légende du tableau</label>
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__help" id="the-id-handsontable-col-caption-helptext" data-field-help="">
+            <div class="help">Un en-tête qui identifie le sujet général du tableau et qui est utile pour les utilisateurs de lecteurs d'écran</div>
+          </div>
+          <div class="w-field__input" data-field-input="">
+            <input type="text" id="the-id-handsontable-col-caption" name="handsontable-col-caption" aria-describedby="the-id-handsontable-col-caption-helptext">
+          </div>
+        </div>
+      </div>
+      <div id="the-id-handsontable-container"></div>
+      <input type="hidden" name="the-name" id="the-id" placeholder="Tableau" value="{&quot;data&quot;:[[&quot;Test&quot;,&quot;Heading&quot;],[&quot;Foo&quot;,&quot;123&quot;],[&quot;Bar&quot;,&quot;456&quot;]],&quot;cell&quot;:[],&quot;first_row_is_table_header&quot;:true,&quot;first_col_is_header&quot;:false,&quot;table_caption&quot;:&quot;&quot;}">
+    </div>"
+`;

@@ -1,0 +1,17 @@
+node_modules
+*.min.js
+**/lib/
+public/
+coverage/
+**/vendor/
+docs/_build
+wagtail/admin/static
+wagtail/documents/static
+wagtail/images/static
+wagtail/embeds/static
+wagtail/search/static
+wagtail/snippets/static
+wagtail/users/static
+wagtail/contrib/*/static
+.mypy_cache
+/storybook-static

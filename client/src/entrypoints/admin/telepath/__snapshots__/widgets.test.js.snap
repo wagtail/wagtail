@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.widgets.RadioSelect for CheckboxSelectMultiple it renders correctly 1`] = `
+"<ul id="the-id">
+          <li>
+            <label for="the-id_0">
+            <input type="checkbox" name="the-name" value="red" id="the-id_0"> Red</label>
+          </li>
+          <li>
+            <label for="the-id_1">
+            <input type="checkbox" name="the-name" value="green" id="the-id_1"> Green</label>
+          </li>
+          <li>
+            <label for="the-id_2">
+            <input type="checkbox" name="the-name" value="blue" id="the-id_2"> Blue</label>
+          </li>
+        </ul>"
+`;
+
+exports[`telepath: wagtail.widgets.RadioSelect it renders correctly 1`] = `
+"<ul id="the-id">
+          <li>
+            <label for="the-id_0">
+            <input type="radio" name="the-name" value="tea" id="the-id_0"> Tea</label>
+          </li>
+          <li>
+            <label for="the-id_1">
+            <input type="radio" name="the-name" value="coffee" id="the-id_1"> Coffee</label>
+          </li>
+        </ul>"
+`;
+
+exports[`telepath: wagtail.widgets.Select it renders correctly 1`] = `
+"<select name="the-name" id="the-id">
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+        </select>"
+`;
+
+exports[`telepath: wagtail.widgets.Select multiple it renders correctly 1`] = `
+"<select name="the-name" id="the-id" multiple="">
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>"
+`;

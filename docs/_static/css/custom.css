@@ -1,0 +1,92 @@
+/* fix a few issues with static/scrolling sidebar and algolia search fields
+- issue where overflow-x hidden was added but not required if hidden submit button wraps
+- added search content causes width of sidebar to make content wrap
+- search results not able to be shown inside scrollable container
+- https://github.com/wagtail/sphinx_wagtail_theme/issues/201
+*/
+
+.sidebar-container .collapse {
+  overflow-x: unset;
+}
+
+@media screen and (min-width: 992px) {
+  .sidebar-container {
+    width: 25%;
+  }
+}
+
+body.body--autocomplete-open .sidebar-container .collapse {
+  overflow-y: unset;
+}
+
+.rst-versions.rst-badge {
+  z-index: 1021;
+}
+
+/* Promotion banner */
+
+.promotion-banner {
+  background: #00676a;
+  color: white;
+  border-radius: 6px;
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  position: relative;
+}
+
+.promotion-banner svg {
+  position: absolute;
+  width: 3.5rem;
+  top: -0.5rem;
+  left: 0;
+}
+
+.promotion-banner a {
+  display: flex;
+  color: inherit;
+  padding: 1rem;
+  text-align: left;
+  flex: 1 1 50%;
+  border: 0;
+  text-decoration: none;
+}
+
+.promotion-banner strong {
+  font-size: 1.25em;
+}
+
+.promotion-banner .close {
+  padding: 10px;
+  width: 3.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: inherit;
+  border: 0;
+  background: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.promotion-banner:hover svg {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: bounce;
+}

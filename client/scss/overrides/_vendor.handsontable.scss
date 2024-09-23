@@ -1,0 +1,38 @@
+.handsontable {
+  // Styles for the table cells
+  .htCore {
+    td,
+    th {
+      background-color: theme('backgroundColor.surface-field');
+      color: theme('colors.text-context');
+    }
+  }
+
+  // Styles for the context menu
+  &.htMenu.htContextMenu td {
+    background-color: theme('backgroundColor.surface-menus');
+    color: theme('colors.text-label-menus-default');
+
+    // Styles for hovered (and not disabled) context menu item
+    &.current {
+      background-color: theme('backgroundColor.surface-menu-item-active');
+      color: theme('colors.text-label-menus-active');
+    }
+
+    // Styles for disabled context menu item
+    &.htDisabled,
+    &.htDisabled:hover {
+      // TODO: Define more appropriate colours for disabled context menu items
+      background-color: theme('backgroundColor.surface-button-inactive');
+      color: theme('colors.text-label-menus-default');
+    }
+  }
+}
+
+// Styles for the active cell input (when editing a cell)
+.handsontableInputHolder {
+  .handsontableInput {
+    background-color: theme('backgroundColor.surface-field');
+    color: theme('colors.text-context');
+  }
+}

@@ -1,0 +1,51 @@
+{% extends "wagtailadmin/generic/listing_results.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block before_results %}
+    <div class="nice-padding">
+        {% search_other %}
+
+        {% if object_list.supports_facet %}
+            <nav class="listing-filter" aria-labelledby="page-types-title">
+                <h3 id="page-types-title" class="filter-title">{% trans "Page types" %}</h3>
+                <ul class="filter-options">
+                    {% if not selected_content_type %}
+                        <li class="w-bg-border-furniture">{% trans "All" %} ({{ all_pages.count|intcomma }})</li>
+                    {% else %}
+                        <li><a href="{{ index_url }}?q={{ query_string|urlencode }}">{% trans "All" %} ({{ all_pages.count|intcomma }})</a></li>
+                    {% endif %}
+
+                    {% for content_type, count in content_types %}
+                        {% if content_type == selected_content_type %}
+                            <li class="w-bg-border-furniture">{{ content_type.model_class.get_verbose_name }} ({{ count|intcomma }})</li>
+                        {% else %}
+                            <li><a href="{{ index_url }}?q={{ query_string|urlencode }}&amp;content_type={{ content_type.app_label }}.{{ content_type.model|lower }}">{{ content_type.model_class.get_verbose_name }} ({{ count|intcomma }})</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        {% endif %}
+
+        {% if object_list %}
+            <h2 role="alert">
+                {% with page_count=all_pages.count %}
+                    {% blocktrans trimmed with counter=page_count|intcomma count counter_val=page_count %}
+                        There is one matching page
+                    {% plural %}
+                        There are {{ counter }} matching pages
+                    {% endblocktrans %}
+                {% endwith %}
+            </h2>
+        {% elif query_string %}
+            <h2 role="alert">
+                {% blocktrans trimmed %}Sorry, no pages match <em>{{ query_string }}</em>{% endblocktrans %}
+            </h2>
+        {% else %}
+            <p>{% trans 'Enter a search term above' %}</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block no_results_message %}
+    {# This view has a custom no results message using the alert h2 like the results count message #}
+{% endblock %}

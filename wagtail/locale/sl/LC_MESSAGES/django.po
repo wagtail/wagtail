@@ -1,0 +1,1032 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# andrej55 <andrej.marsetic@gmail.com>, 2022
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022
+# Andrej Marsetič, 2022-2024
+# andrej55 <andrej.marsetic@gmail.com>, 2022
+# Mitja Pagon <mitja.pagon@inueni.com>, 2016
+# UP, 2021
+# UP, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Andrej Marsetič, 2022-2024\n"
+"Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail API v2"
+msgstr "Wagtail API v2"
+
+msgid "Wagtail core"
+msgstr "Wagtail jedro"
+
+msgid "Add Comment"
+msgstr "Dodaj komentar"
+
+#, python-format
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Najmanjše število predmetov je %(min_num)d"
+
+#, python-format
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Največje število predmetov je %(max_num)d"
+
+msgid "Move up"
+msgstr "Premakni navzgor"
+
+msgid "Move down"
+msgstr "Premakni navzdol"
+
+msgid "Duplicate"
+msgstr "Podvoji"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Add"
+msgstr "Dodaj"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: ta blok nima možnosti."
+
+msgid "This block has no options."
+msgstr "Ta blok nima možnosti."
+
+msgid "This field is required."
+msgstr "Polje je obvezno."
+
+msgid "Wagtail frontend cache"
+msgstr "Wagtailov predpomnilnik ospredja"
+
+msgid "Wagtail routablepage"
+msgstr "Wagtail usmerjevalna stran"
+
+msgid "Wagtail sitemaps"
+msgstr "Zemljevidi strani Wagtail"
+
+msgid "Unknown content type"
+msgstr "Neznana vrsta vsebine"
+
+msgid "Password"
+msgstr "Geslo"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Geslo, ki ste ga vnesli, ni pravilno. Prosim poskusite ponovno."
+
+msgid "Comment"
+msgstr "Komentar"
+
+msgid "Locked"
+msgstr "Zaklenjeno"
+
+#, python-format
+msgid "No one can make changes while the %(model_name)s is locked"
+msgstr "Nihče ne more spreminjati, ko je %(model_name)s zaklenjen"
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>you</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' ste zaklenii</b> <b>vi</b> ob <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b> by <b>you</b>."
+msgstr "<b>'{title}' ste zaklenili</b> <b>vi</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' was locked</b> by <b>{user}</b> on <b>{datetime}</b>."
+msgstr "<b>'{title}' ste zaklenili</b> vi <b>{user}</b> ob <b>{datetime}</b>."
+
+#, python-brace-format
+msgid "<b>'{title}' is locked</b>."
+msgstr "<b>'{title}' je zaklenjen</b>."
+
+msgid "Locked by you"
+msgstr "Zaklenjeno s vaše strani"
+
+msgid "Locked by another user"
+msgstr "Zaklenil drug uporabnik"
+
+#, python-format
+msgid "Only you can make changes while the %(model_name)s is locked"
+msgstr "Ko je %(model_name)s zaklenjen, lahko spreminjate le vi"
+
+#, python-format
+msgid "Only %(user)s can make changes while the %(model_name)s is locked"
+msgstr "Ko je %(model_name)s zaklenjen, lahko spreminja le %(user)s"
+
+#, python-format
+msgid "This %(model_name)s is currently awaiting moderation."
+msgstr "%(model_name)s trenutno čaka moderiranje"
+
+#, python-brace-format
+msgid ""
+"This {model_name} is awaiting <b>'{task_name}'</b> in the "
+"<b>'{workflow_name}'</b> workflow."
+msgstr ""
+"Ta {model_name} čaka na <b>'{task_name}'</b> v delovnem toku "
+"<b>'{workflow_name}'.</b>"
+
+#, python-format
+msgid "Only reviewers for this task can edit the %(model_name)s."
+msgstr "Samo pregledovalci te naloge lahko urejajo %(model_name)s."
+
+msgid "Unlocked"
+msgstr "Odklenjeno"
+
+msgid "Locked by workflow"
+msgstr "Zaklenjeni poteki dela"
+
+#, python-format
+msgid ""
+"Reviewers can edit this %(model_name)s – lock it to prevent other reviewers "
+"from editing"
+msgstr ""
+"Recenzenti lahko urejajo ta %(model_name)s- zaklenite ga, da preprečite "
+"urejanje drugim recenzentom"
+
+#, python-format
+msgid "Only reviewers can edit and approve the %(model_name)s"
+msgstr "Samo pregledovalci lahko urejajo in potrjujejo %(model_name)s"
+
+#, python-brace-format
+msgid ""
+"{model_name} '{title}' is locked and has been scheduled to go live at "
+"{datetime}"
+msgstr ""
+"{model_name} '{title}' je zaklenjen in je načrtovan za začetek ob {datetime}"
+
+msgid "Locked by schedule"
+msgstr "Zaklenjeno po urniku"
+
+msgid "Currently locked and will go live on the scheduled date"
+msgstr "Trenutno zaklenjeno in bo objavljeno na načrtovani datum"
+
+msgid "latest revision"
+msgstr "zadnja revizija"
+
+msgid "live"
+msgstr "v živo"
+
+msgid "has unpublished changes"
+msgstr "ima neobjavljene spremebe"
+
+msgid "first published at"
+msgstr "prvič objavljeno ob"
+
+msgid "last published at"
+msgstr "nazadnje objavljeno ob"
+
+msgid "live revision"
+msgstr "revizija objavljenih"
+
+msgid "go live date/time"
+msgstr "datum začetka objave"
+
+msgid "expiry date/time"
+msgstr "datum poteka objave"
+
+msgid "expired"
+msgstr "pretečeno"
+
+msgid "scheduled"
+msgstr "načrtovana"
+
+msgid "draft"
+msgstr "osnutek"
+
+msgid "live + scheduled"
+msgstr "objavljeno + po urniku"
+
+msgid "live + draft"
+msgstr "objavljeno + osnutek"
+
+msgid "Default"
+msgstr "Privzeta"
+
+msgid "locked"
+msgstr "zaklenjeno"
+
+msgid "locked at"
+msgstr "zaklenjena na"
+
+msgid "locked by"
+msgstr "zaklenil"
+
+msgid "in moderation"
+msgstr "v pregledu"
+
+msgid "live + in moderation"
+msgstr "objavljeno + v pregledu"
+
+msgid "Add/edit pages you own"
+msgstr "Dodaj/uredi strani v vaši lasti"
+
+msgid "Bulk delete"
+msgstr "Množično brisanje"
+
+msgid "Delete pages with children"
+msgstr "Izbrišite strani z otroki"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Edit any page"
+msgstr "Uredi katerokoli stran"
+
+msgid "Lock"
+msgstr "Zakleni"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Zaklenite/odklenite strani, ki ste jih zaklenili"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Publish any page"
+msgstr "Objavi katerokoli stran"
+
+msgid "Unlock"
+msgstr "Odkleni"
+
+msgid "Unlock any page"
+msgstr "Odklenite katero koli stran"
+
+msgid "title"
+msgstr "naziv"
+
+msgid "The page title as you'd like it to be seen by the public"
+msgstr "Naziv strani, kot želite da jo vidijo obiskovalci"
+
+msgid "slug"
+msgstr "ključ"
+
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Ime strani, kot se bo pojavilo v URL-ju, npr. e.g http://domain.com/blog/"
+"[moj-kljuc]/"
+
+msgid "content type"
+msgstr "tip vsebine"
+
+msgid "URL path"
+msgstr "URL pot"
+
+msgid "owner"
+msgstr "lastnik"
+
+msgid "title tag"
+msgstr "oznaka naslova"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Ime strani, ki bo prikazano kot klikabilen naslov v rezultatih iskanja "
+"spletnih iskalnikov."
+
+msgid "show in menus"
+msgstr "prikazuj v meniju"
+
+msgid ""
+"Whether a link to this page will appear in automatically generated menus"
+msgstr "Določa, ali bo stran vidna v avtomatskih menijih"
+
+msgid "meta description"
+msgstr "meta opis"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Besedilni opis strani, ki bo prikazan pod naslovom rezultata iskanja "
+"spletnih iskalnikov."
+
+msgid "latest revision created at"
+msgstr "zadnja različica ustvarjena"
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use within the parent page at "
+"'%(parent_url_path)s'"
+msgstr ""
+"Ta ključ '%(page_slug)s' je že v uporabi znotraj nadrejene strani na "
+"'%(parent_url_path)s'"
+
+msgid "page"
+msgstr "stran"
+
+msgid "pages"
+msgstr "strani"
+
+msgid "object id"
+msgstr "id objekta"
+
+msgid "created at"
+msgstr "ustvarjeno"
+
+msgid "user"
+msgstr "uporabnik"
+
+msgid "content JSON"
+msgstr "JSON vsebina"
+
+msgid "approved go live at"
+msgstr "potrjeno, objava"
+
+msgid "revision"
+msgstr "revizija"
+
+msgid "revisions"
+msgstr "revizije"
+
+msgid "group"
+msgstr "skupina"
+
+msgid "permission"
+msgstr "dovoljenje"
+
+msgid "group page permission"
+msgstr "dovoljenje za stran skupine"
+
+msgid "group page permissions"
+msgstr "dovoljenja skupinske strani"
+
+msgid "page view restriction"
+msgstr "omejitev ogledov strani"
+
+msgid "page view restrictions"
+msgstr "omejitve ogledov strani"
+
+msgid "workflow"
+msgstr "potek dela"
+
+msgid "workflow page"
+msgstr "stran poteka dela"
+
+msgid "workflow pages"
+msgstr "strani potekov dela"
+
+msgid "workflow_tasks"
+msgstr "potekdela_naloge"
+
+msgid "task"
+msgstr "naloga"
+
+msgid "workflow task order"
+msgstr "vrstni red opravil poteka dela"
+
+msgid "workflow task orders"
+msgstr "naloge poteka dela"
+
+msgid "name"
+msgstr "ime"
+
+msgid "active"
+msgstr "aktiven"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktivne naloge je mogoče dodajati delovnim procesom. Deaktiviranje ne "
+"odstrani opravila iz obstoječih delovnih procesov."
+
+msgid "tasks"
+msgstr "naloge"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktivne potek dela je mogoče dodati na strani/izrezke. Če deaktivirate potek "
+"dela, ga ne odstranite z obstoječih strani/delčkov."
+
+msgid "workflows"
+msgstr "delovni potek"
+
+msgid "groups"
+msgstr "skupine"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Te skupine uporabnikov bodo moderirale ali odobrile strani/delce v tem "
+"koraku skozi proces dela"
+
+msgid "Request changes"
+msgstr "Zahtevajte spremembe"
+
+msgid "Approve"
+msgstr "Potrdi"
+
+msgid "Approve with comment"
+msgstr "Odobri s komentarjem"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Člani izbranih skupin Wagtail lahko odobrijo to nalogo"
+
+msgid "Group approval task"
+msgstr "Naloga skupinske odobritve"
+
+msgid "Group approval tasks"
+msgstr "Naloge skupinske odobritve"
+
+msgid "In progress"
+msgstr "V teku"
+
+msgid "Approved"
+msgstr "dobreno"
+
+msgid "Needs changes"
+msgstr "Potrebuje spremembe"
+
+msgid "Cancelled"
+msgstr "Preklicano"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "zahtevano od"
+
+msgid "current task state"
+msgstr "trenutno stanje naloge"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Morda je samo eden v teku ali pa je potrebno spremeniti stanje poteka dela "
+"na strani/delcih."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Delovni tok '%(workflow_name)s' na %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "Ni začeto"
+
+msgid "Workflow state"
+msgstr "potekdela_stanje"
+
+msgid "Workflow states"
+msgstr "Stanja poteka dela"
+
+msgid "Rejected"
+msgstr "Zavrnjeno"
+
+msgid "Skipped"
+msgstr "Preskočeno"
+
+msgid "workflow state"
+msgstr "stanje poteka dela"
+
+msgid "started at"
+msgstr "začeto ob"
+
+msgid "finished at"
+msgstr "zaključeno ob"
+
+msgid "finished by"
+msgstr "zaključil"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Naloga '%(task_name)s' na reviziji '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Stanje naloge"
+
+msgid "Task states"
+msgstr "Stanja naloge"
+
+msgid "page log entry"
+msgstr "vnos v dnevnik strani"
+
+msgid "page log entries"
+msgstr "vnosi v dnevnik strani"
+
+msgid "Draft saved"
+msgstr "Osnutek je shranjen"
+
+msgid "comment"
+msgstr "komentar"
+
+msgid "comments"
+msgstr "komentarji"
+
+msgid "comment reply"
+msgstr "komentar odgovor"
+
+msgid "comment replies"
+msgstr "odgovori na komentarje"
+
+msgid "timestamp (UTC)"
+msgstr "časovni žig (UTC)"
+
+msgid "log entry"
+msgstr "vnos v dnevnik"
+
+msgid "log entries"
+msgstr "vnosi v dnevnik"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Akcija dnevnika '%(action_name)s' ni bila registrirana."
+
+msgid "system"
+msgstr "sistem"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Neznan %(action)s"
+
+msgid "model log entry"
+msgstr "vnos v dnevnik modela"
+
+msgid "model log entries"
+msgstr "vnosi v dnevnik modela"
+
+msgid "collection"
+msgstr "zbirka"
+
+msgid "collection view restriction"
+msgstr "omejitev pogleda zbirke"
+
+msgid "collection view restrictions"
+msgstr "omejitve ogledov zbirke"
+
+msgid "collections"
+msgstr "zbirke"
+
+msgid "group collection permission"
+msgstr "dovoljenje za skupinsko zbiranje"
+
+msgid "group collection permissions"
+msgstr "dovoljenja za zbirke skupin"
+
+msgid "for content type"
+msgstr "za vrsto vsebine"
+
+msgid "uploaded by user"
+msgstr "ki jo je naložil uporabnik"
+
+#, python-format
+msgid "the %(model_name)s will also be deleted"
+msgstr "tudi %(model_name)s bo izbrisan"
+
+msgid "prevents deletion"
+msgstr "preprečuje brisanje"
+
+#, python-format
+msgid "will be set to the default %(model_name)s"
+msgstr "bo nastavljen na privzet %(model_name)s"
+
+msgid "will do nothing"
+msgstr "ne bo naredil nič"
+
+msgid "may prevent deletion"
+msgstr "lahko prepreči izbris"
+
+#, python-format
+msgid "will be set to a %(model_name)s specified by the system"
+msgstr "bo nastavljen na %(model_name)s vrednost, ki jo določi sistem"
+
+msgid "will unset the reference"
+msgstr "bo razveljavilo referenco"
+
+msgid "hostname"
+msgstr "ime strežnika"
+
+msgid "port"
+msgstr "vrata"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"To nastavite na nekaj drugega kot na 80, če potrebujete določeno številko "
+"vrat, da se prikaže v URL-jih (npr. razvoj na vratih 8000). Ne vpliva na "
+"obdelavo zahtev (zato posredovanje vrat še vedno deluje)."
+
+msgid "site name"
+msgstr "ime spletnega mesta"
+
+msgid "Human-readable name for the site."
+msgstr "Berljiva oblika imena spletnega mesta."
+
+msgid "root page"
+msgstr "začetna stran"
+
+msgid "is default site"
+msgstr "privzeto spletno mesto"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Če je odgovor da, bo to spletno mesto obravnavalo zahteve za vsa druga imena "
+"gostiteljev, ki nimajo lastnega vnosa spletnega mesta"
+
+msgid "site"
+msgstr "spletno mesto"
+
+msgid "sites"
+msgstr "spletna mesta"
+
+msgid "default"
+msgstr "privzeto"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je že vklopljeno kot privzeto spletno mesto. Preden lahko to "
+"spletno mesto določite kot privzeto, morate najprej izklopiti obstoječega."
+
+msgid "Public"
+msgstr "Javno"
+
+msgid "Private, accessible with a shared password"
+msgstr "Zasebno, dostopno s skupnim geslom"
+
+msgid "Private, accessible to any logged-in users"
+msgstr "Zasebno, dostopno vsem prijavljenim uporabnikom"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Zasebno, dostopno uporabnikom iz določenih skupin"
+
+msgid "shared password"
+msgstr "deljeno geslo"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"Za zaščito občutljive vsebine ne smete uporabljati skupnih gesel. Vsakdo, ki "
+"ima to geslo, si bo lahko ogledal vsebino."
+
+msgid "view restriction"
+msgstr "omejitev pogleda"
+
+msgid "view restrictions"
+msgstr "omejitve pogleda"
+
+msgid "Log in"
+msgstr "Prijava"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "Vaše uporabniško ime in geslo se ne ujemata. Prosim poskusite ponovno."
+
+msgid ""
+"Your account doesn't have access to this page. To proceed, please log in "
+"with an account that has access."
+msgstr ""
+"Vaš račun nima dostopa do te strani. Če želite nadaljevati, se prijavite z "
+"računom, ki ima dostop."
+
+msgid "Password required"
+msgstr "Geslo zahtevano"
+
+msgid "You need a password to access this page."
+msgstr "Za dostop do te strani potrebujete geslo."
+
+msgid "Continue"
+msgstr "Nadaljuj"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s zbirka potomcev"
+msgstr[1] "%(count)s zbirki potomcev"
+msgstr[2] "%(count)s zbirk potomcev"
+msgstr[3] "%(count)s zbirk potomcev"
+
+msgid "Create"
+msgstr "Ustvari"
+
+msgid "Created"
+msgstr "Ustvarjeno"
+
+msgid "Edited"
+msgstr "Urejeno"
+
+msgid "Deleted"
+msgstr "Izbrisano"
+
+msgid "Published"
+msgstr "Objavljeno"
+
+msgid "Publish scheduled draft"
+msgstr "Objavi načrtovani osnutek"
+
+msgid "Published scheduled draft"
+msgstr "Objavljen načrtovani osnutek"
+
+msgid "Unpublish"
+msgstr "Umakni iz objave"
+
+msgid "Unpublished"
+msgstr "Neobjavljeno"
+
+msgid "Unpublish scheduled draft"
+msgstr "Prekliči objavo načrtovanega osnutka"
+
+msgid "Unpublished scheduled draft"
+msgstr "Neobjavljeni načrtovani osnutek"
+
+msgid "Reject"
+msgstr "Zavrni"
+
+msgid "Rename"
+msgstr "Preimenuj"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Preimenovano iz '%(old)s' v '%(new)s'"
+
+msgid "Renamed"
+msgstr "Preimenovano"
+
+msgid "Revert"
+msgstr "Povrni"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Povrnjeno na prejšnjo revizijo z ID-jem %(revision_id)s od %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Povrnjeno na prejšnjo revizijo"
+
+msgid "Copy"
+msgstr "Kopiraj"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Kopirano iz %(title)s"
+
+msgid "Copied"
+msgstr "Kopirano"
+
+msgid "Copy for translation"
+msgstr "Kopiraj iz prevoda"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Kopirano za prevod iz %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Kopirano za prevod"
+
+msgid "Create alias"
+msgstr "Ustvari vzdevek"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Ustvaril vzdevek za %(title)s"
+
+msgid "Created an alias"
+msgstr "Ustvaril vzdevek"
+
+msgid "Convert alias into ordinary page"
+msgstr "Pretvori vzdevek v navadno stran"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Pretvorjen vzdevek '%(title)s' v navadno stran"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Pretvorjen vzdevek v navadno stran"
+
+msgid "Move"
+msgstr "Premakni"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Premaknjeno iz '%(old_parent)s' v '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Premaknjeno"
+
+msgid "Reorder"
+msgstr "Preuredite"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Preurejeno pod '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Preurejeno"
+
+msgid "Schedule publication"
+msgstr "Načrtujte objavo"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revizija %(revision_id)s iz%(created_at)s predvidena za objavo ob "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Stran je predvidena za objavo ob %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Stran je načrtovana za objavo"
+
+msgid "Unschedule publication"
+msgstr "Prekliči objavo"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revizija %(revision_id)s iz %(created_at)s nenačrtovane objave na "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Stran ni predvidena za objavo ob %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Načrtovana objava strani odstranjena"
+
+msgid "Add view restrictions"
+msgstr "Dodajte omejitve za ogled"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Dodana '%(restriction)s' omejitev pogleda"
+
+msgid "Added view restriction"
+msgstr "Dodana omejitev pogleda"
+
+msgid "Update view restrictions"
+msgstr "Posodobite omejitve pogleda"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Omejitev pogleda je posodobljena na '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Posodobljena omejitev pogleda"
+
+msgid "Remove view restrictions"
+msgstr "Odstranite omejitve pogleda"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction. The page is public."
+msgstr ""
+"Odstranjena je bila omejitev pogleda '%(restriction)s'. Stran je javna."
+
+msgid "Removed view restriction"
+msgstr "Odstranjena omejitev ogleda"
+
+msgid "Add comment"
+msgstr "Dodaj komentar"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Dodan komentar na polje %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Dodan komentar"
+
+msgid "Edit comment"
+msgstr "Uredi komentar"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Uredil komentar na polju %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Uredil komentar"
+
+msgid "Delete comment"
+msgstr "Izbriši komentar"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Izbrisan komentar o polju %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Izbrisal komentar"
+
+msgid "Resolve comment"
+msgstr "Rešite komentar"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Razrešen komentar na polju %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Razrešen komentar"
+
+msgid "Reply to comment"
+msgstr "Odgovorite na komentar"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Odgovoril na komentar na polje %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Odgovoril na komentar"
+
+msgid "Edit reply to comment"
+msgstr "Uredi odgovor na komentar"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Uredil odgovor na komentar v polju %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Uredil odgovor"
+
+msgid "Delete reply to comment"
+msgstr "Izbriši odgovor na komentar"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Izbrisan odgovor na komentar v polju %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Izbrisal odgovor"
+
+msgid "Workflow: start"
+msgstr "Potek dela: začetek"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' je začel. Naslednji korak '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Potek dela se je začel"
+
+msgid "Workflow: approve task"
+msgstr "Delovni proces: odobri opravilo"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Odobreno na '%(task)s'. Naslednji korak '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Odobren '%(task)s'. '%(workflow)s' zaključeno."
+
+msgid "Workflow task approved"
+msgstr "Naloga poteka dela odobrena"
+
+msgid "Workflow: reject task"
+msgstr "Potek dela: zavrni nalogo"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Zavrnjeno ob '%(task)s'. Zahtevane so spremembe"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Naloga poteka dela zavrnjena. Potek dela končan"
+
+msgid "Workflow: resume task"
+msgstr "Potek dela: nadaljuj nalogo"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed"
+msgstr "Ponovno poslano '%(task)s'. Delovni tok je nadaljevan."
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr ""
+"Opravilo poteka dela je bilo ponovno poslano. Potek dela se je nadaljeval"
+
+msgid "Workflow: cancel"
+msgstr "Potek dela: prekliči"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Preklican '%(workflow)s' ob '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Potek dela preklican"

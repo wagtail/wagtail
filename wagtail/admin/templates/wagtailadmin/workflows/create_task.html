@@ -1,0 +1,39 @@
+{% extends "wagtailadmin/generic/create.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block main_content %}
+    <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields">
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    <li>{% formattedfield field %}</li>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        {% block footer %}
+            <footer class="footer">
+                <div class="actions footer__container w-flex">
+                    {% block form_actions %}
+                        <button
+                            type="submit"
+                            class="button action-save button-longrunning w-flex-grow"
+                            data-controller="w-progress w-kbd"
+                            data-action="w-progress#activate"
+                            data-w-kbd-key-value="mod+s"
+                            data-w-kbd-scope-value="global"
+                            data-w-progress-active-value="{% trans 'Creating…' %}"
+                        >
+                            {% icon name="spinner" %}
+                            <em data-w-progress-target="label">{% trans 'Create' %}</em>
+                        </button>
+                    {% endblock %}
+                </div>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

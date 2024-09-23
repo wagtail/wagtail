@@ -1,0 +1,5 @@
+{% load wagtailcore_tags %}
+
+{% for block in value %}
+    <div class="{{ block.block_type }}"{% if language %} lang="{{ language }}"{% endif %}>{% include_block block %}</div>
+{% endfor %}

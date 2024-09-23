@@ -1,0 +1,22 @@
+{% load wagtailadmin_tags %}
+{% comment %}
+    This is a switch (checkbox) input that is hooked into the ActionController
+    to allow for a POST request to be made when the switch is toggled.
+
+    Variables this template accepts:
+
+    data_url - A URL for ActionController to use
+    checked - Whether the switch is checked (active) or not
+    label_text - The text that shows up beside the switch
+    sr_only_label - Make the label invisible for all but screen reader users
+    classname - Custom CSS classes for styling
+{% endcomment %}
+<label class="switch w-my-0 {{ classname }}">
+    {% if label_text %}
+        <span class="w-mr-1 {% if sr_only_label %}w-sr-only{% endif %}">{{ label_text }}</span>
+    {% endif %}
+    <input type="checkbox" {% if checked %}checked{% endif %} data-controller="w-action" data-action="click->w-action#post" data-w-action-url-value="{{ data_url }}">
+    <span class="switch__toggle">
+        {% icon name="check" classname="switch__icon" %}
+    </span>
+</label>

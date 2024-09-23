@@ -1,0 +1,3 @@
+{% load i18n wagtailadmin_tags %}
+
+{% blocktrans trimmed with title=page.get_admin_display_title|safe editor=editor|user_display_name|safe %}{{ editor }} has updated comments on "{{ title }}"{% endblocktrans %}

@@ -1,0 +1,18 @@
+===========================
+Wagtail 1.5.3 release notes
+===========================
+
+*July 18, 2016*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's changed
+==============
+
+Bug fixes
+~~~~~~~~~
+
+* Pin html5lib to version 0.999999 to prevent breakage caused by internal API changes (Liam Brenner)

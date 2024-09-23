@@ -1,0 +1,22 @@
+.w-avatar-panel {
+  &__image {
+    // do not display the user image if the clearing image is checked
+    .avatar-clear:checked ~ .avatar.avatar-span {
+      display: none;
+    }
+
+    // do not display the gravatar image when the input is not checked
+    .avatar-clear:not(:checked) ~ .avatar.gravatar {
+      display: none;
+    }
+  }
+
+  &__form {
+    label {
+      display: block;
+      padding: 0;
+      width: unset;
+      margin-bottom: 10px;
+    }
+  }
+}

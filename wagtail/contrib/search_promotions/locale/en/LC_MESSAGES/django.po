@@ -1,0 +1,253 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps.py:8
+msgid "Wagtail search promotions"
+msgstr ""
+
+#: forms.py:11
+msgid "Search term(s)/phrase"
+msgstr ""
+
+#: forms.py:13
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+
+#: forms.py:56
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+
+#: forms.py:88
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+
+#: forms.py:93
+msgid "You must recommend a page OR an external link."
+msgstr ""
+
+#: forms.py:98
+msgid "Please only select a page OR enter an external link."
+msgstr ""
+
+#: models.py:92 models.py:93
+msgid "Query Daily Hits"
+msgstr ""
+
+#: models.py:102
+msgid "page"
+msgstr ""
+
+#: models.py:103
+msgid "Choose an internal page for this promotion"
+msgstr ""
+
+#: models.py:109
+msgid "External link URL"
+msgstr ""
+
+#: models.py:110
+msgid "Alternatively, use an external link for this promotion"
+msgstr ""
+
+#: models.py:119
+msgid "description"
+msgstr ""
+
+#: models.py:120
+msgid "Applies to internal page or external link"
+msgstr ""
+
+#: models.py:160
+msgid "search promotion"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/add.html:3
+msgid "Add search promotion"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/add.html:5
+msgid "Add search pick"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/add.html:11
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/add.html:15
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/add.html:29
+#: templates/wagtailsearchpromotions/edit.html:19
+msgid "Save"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:3
+#, python-format
+msgid "Delete %(query)s"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:5
+#: templates/wagtailsearchpromotions/edit.html:20
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:10
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:9
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/confirm_delete.html:12
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/edit.html:3
+#, python-format
+msgid "Editing %(query)s"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/edit.html:5
+msgid "Editing"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:8
+msgid "Move up"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:9
+msgid "Move down"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:13
+msgid "Recommended search result"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:4
+#: views.py:82 wagtail_hooks.py:36
+msgid "Promoted search results"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:14
+msgid "Add a recommended result"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/index_results.html:5
+#: templates/wagtailsearchpromotions/results.html:5
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: templates/wagtailsearchpromotions/index_results.html:7
+#: templates/wagtailsearchpromotions/results.html:8
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/index_results.html:9
+msgid "No promoted results have been created."
+msgstr ""
+
+#: templates/wagtailsearchpromotions/queries/chooser/chooser.html:2
+msgid "Popular search terms"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/queries/chooser/chooser.html:11
+msgid "Search"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/queries/chooser/results.html:9
+msgid "Terms"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/queries/chooser/results.html:10
+#: views.py:59
+msgid "Views (past week)"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/queries/chooser/results.html:24
+msgid "No results found"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/queries/chooser_field.html:7
+msgid "Choose from popular search terms"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/search_promotion_column.html:8
+msgid "External link"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/search_promotion_column.html:13
+msgid "None"
+msgstr ""
+
+#: views.py:33
+msgid "Search Terms"
+msgstr ""
+
+#: views.py:43
+msgid "Add new promoted result"
+msgstr ""
+
+#: views.py:47
+msgid "Search term(s)"
+msgstr ""
+
+#: views.py:54
+msgid "Promoted results"
+msgstr ""
+
+#: views.py:145
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr ""
+
+#: views.py:149 views.py:209
+msgid "Edit"
+msgstr ""
+
+#: views.py:167
+msgid "Recommendations have not been created due to errors"
+msgstr ""
+
+#: views.py:205
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr ""
+
+#: views.py:225
+msgid "Recommendations have not been saved due to errors"
+msgstr ""
+
+#: views.py:255
+msgid "Editor's picks deleted."
+msgstr ""

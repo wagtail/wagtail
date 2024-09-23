@@ -1,0 +1,1865 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Eva Mikesova <eva.mikesova@tul.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018,2020,2023
+# IT Management <hudan@itmanagement.cz>, 2020
+# Ivan Pomykacz <mist@alastify.cz>, 2015
+# Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Kryštof Pilnáček <krystof.pilnacek@rossum.ai>, 2022
+# Marek Turnovec <aesculap@gmail.com>, 2016,2020,2022
+# Martina Oleksakova <martina.oleksakova@tul.cz>, 2018
+# Martin Galda <martingalda9@gmail.com>, 2017-2018
+# Matt Westcott <matthew@torchbox.com>, 2018
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
+# IT Management <hudan@itmanagement.cz>, 2018
+# Tomáš Jeřábek <tomas@tomasjerabek.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
+"Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
+"cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
+"<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Publish"
+msgstr "Publikovat"
+
+msgid "Submit for moderation"
+msgstr "Odeslat ke schválení"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Potvrdit %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Potvrdit %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Obnovit zpracování"
+
+msgid "Cancel workflow "
+msgstr "Stornovat zpracování"
+
+msgid "Unpublish"
+msgstr "Zrušit publikaci"
+
+msgid "Save Draft"
+msgstr "Uložit Koncept"
+
+msgid "Page locked"
+msgstr "Stránka je uzamčena"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s a publikovat"
+
+msgid "Wagtail admin"
+msgstr "Wagtail admin"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Promiňte, ale na přístup k této části nemáte oprávnění."
+
+msgid "You do not have permission to access the admin"
+msgstr "Nemáte oprávnění k přístupu do redakčního systému"
+
+msgid "None"
+msgstr "Nic"
+
+msgid "Date from"
+msgstr "Datum od"
+
+msgid "Date to"
+msgstr "Datum do"
+
+msgid "Locale"
+msgstr "Místní nastavení (locale)"
+
+msgid "All"
+msgstr "Vše"
+
+msgid "Collection"
+msgstr "Kolekce"
+
+msgid "Preferred language"
+msgstr "Preferovaný jazyk"
+
+msgid "Current time zone"
+msgstr "Aktuální časové pásmo"
+
+msgid "First Name"
+msgstr "Jméno"
+
+msgid "Last Name"
+msgstr "Příjmení"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Upload a profile picture"
+msgstr "Nahrát profilovou fotografii"
+
+msgid "Enter password"
+msgstr "Zadejte heslo"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Vaše %(username_field)s a heslo není správné. Zkuste to prosím znovu."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Zadejte své %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Hledaný výraz"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "All collections"
+msgstr "Všechny kolekce"
+
+msgid "Parent"
+msgstr "Nadřazená stránka"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Nastavte umístění. Poznámka: Kolekce nemůže být potomkem sebe sama nebo "
+"některého z vlastních potomků."
+
+msgid "Please select another parent"
+msgstr "Prosím, zvolte jiného předka"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Add collections"
+msgstr "Přidat kolekce"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Edit collections"
+msgstr "Upravit kolekce"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Delete collections"
+msgstr "Smazat kolekce"
+
+msgid "You cannot edit another user's comment."
+msgstr "Nemůžete změnit komentář jiného uživatele."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Datum/čas publikování musí být dřívější než datum/čas expirace"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/čas expirace musí být v budoucnosti"
+
+msgid "New title"
+msgstr "Nový název"
+
+msgid "New slug"
+msgstr "Nový název pro URL"
+
+msgid "New parent page"
+msgstr "Nová rodičovská stránka"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Tato kopie bude potomkem dané rodičovské stránky"
+
+msgid "Copy subpages"
+msgstr "Kopírovat podstránky"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Bude zkopírována %(count)s podstránka."
+msgstr[1] "Bude zkopírováno %(count)s podstránek."
+msgstr[2] "Bude zkopírováno %(count)s podstránek."
+msgstr[3] "Bude zkopírováno %(count)s podstránek."
+
+msgid "Publish copied page"
+msgstr "Publikovat zkopírovanou stránku"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Tato stránka je publikována. Chcete publikovat i zkopírovanou stránku?"
+
+msgid "Publish copies"
+msgstr "Publikovat kopie"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s z kopírovaných stránek je publikována. Chcete publikovat i její "
+"kopii?"
+msgstr[1] ""
+"%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
+"jejich kopie?"
+msgstr[2] ""
+"%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
+"jejich kopie?"
+msgstr[3] ""
+"%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
+"jejich kopie?"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Udržovat nové stránky aktualizované s budoucími změnami"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nemáte oprávnění kopírovat do stránky \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Tento název pro URL je již použit v kontextu s rodičovskou stránkou "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Není možné kopírovat stránku samu do sebe při kopírování podstránek"
+
+msgid "Select a new parent for this page."
+msgstr "Zvolte novou nadřazenou stránku pro tuto stránku."
+
+msgid "Parent page"
+msgstr "Nadřazená stránka"
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Tag(y) %(value_too_long)s mají více než %(max_tag_length)d znaků"
+
+msgid "Visibility"
+msgstr "Viditelnost"
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."
+
+msgid "Please select at least one group."
+msgstr "Zvolte prosím alespoň jednu skupinu."
+
+msgid "All types"
+msgstr "Všechny typy"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Tato stránka již má přiřazeno zpracování '%(workflow_name)s'."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "Nelze přiřadit tento postup ke stejné stránce vícekrát."
+
+msgid "Give your workflow a name"
+msgstr "Pojmenujte tento postup"
+
+msgid "Add tasks to your workflow"
+msgstr "Přidejte úlohy do tohoto postupu"
+
+msgid "Task"
+msgstr "Úkol"
+
+msgid "1 page selected"
+msgstr "1 stránka vybrána"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s stránek vybráno"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Všechny %(objects)s stránky na této obrazovce vybrány"
+
+msgid "1 document selected"
+msgstr "1 dokument vybrán"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s dokumentů vybráno"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Všechny %(objects)s dokumenty na této obrazovce vybrány"
+
+msgid "1 image selected"
+msgstr "1 obrázek vybrán"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s obrázků vybráno"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Všechny %(objects)s obrázky na této obrazovce vybrány"
+
+msgid "1 user selected"
+msgstr "1 uživatel vybrán"
+
+msgid "For search engines"
+msgstr "Pro vyhledávače"
+
+msgid "For site menus"
+msgstr "Pro menu webu"
+
+msgid "Content"
+msgstr "Obsah"
+
+msgid "Promote"
+msgstr "Propagovat"
+
+msgid "Settings"
+msgstr "Nastavení"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "Page title"
+msgstr "Název stránky"
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Stránka nebyla nalezena"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "Požadovaná stránka nebyla nalezena."
+
+msgid "Go to Wagtail admin"
+msgstr "Přejít do redakčního systému"
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "More actions"
+msgstr "Další akce"
+
+msgid "Save account details"
+msgstr "Uložit detaily účtu"
+
+msgid "Reset password"
+msgstr "Obnovit heslo"
+
+msgid "Password change successful"
+msgstr "Heslo bylo úspěšně změněno"
+
+msgid "Login"
+msgstr "Přihlásit se"
+
+msgid "Set your new password"
+msgstr "Nastavte své nové heslo"
+
+msgid "Invalid password reset link"
+msgstr "Neplatný odkaz na obnovu hesla"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Odkaz na obnovu hesla byl neplatný, pravděpodobně už byl použit."
+
+msgid "Request a new password reset"
+msgstr "Znovu požádat o obnovu hesla"
+
+msgid "Check your email"
+msgstr "Zkontrolujte svoji e-mailovou schránku"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Odkaz na obnovu hesla byl odeslán na váš email, pokud existuje účet s touto "
+"adresou."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Prosím klikněte na odkaz níže pro obnovu hesla:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Vaše uživatelské jméno (pro případ že si ho nepamatujete):"
+
+msgid "Password reset"
+msgstr "Obnovení hesla"
+
+msgid "Reset your password"
+msgstr "Nastavit nové heslo"
+
+msgid "Reset to default"
+msgstr "Zpět na původní hodnoty"
+
+msgid "Upload a profile picture:"
+msgstr "Nahrát profilový obrázek:"
+
+msgid "Go back"
+msgstr "Zpět"
+
+msgid "Bulk actions"
+msgstr "Hromadné akce"
+
+msgid "Select row"
+msgstr "Vybrat řádek"
+
+msgid "Select all"
+msgstr "Vybrat vše"
+
+msgid "Internal link"
+msgstr "Interní odkaz"
+
+msgid "External link"
+msgstr "Externí odkaz"
+
+msgid "Email link"
+msgstr "Odkaz na e-mailovou adresu"
+
+msgid "Phone link"
+msgstr "Odkaz na telefon"
+
+msgid "Anchor link"
+msgstr "Odkaz na kotvu"
+
+msgid "Add an anchor link"
+msgstr "Vložit odkaz na kotvu"
+
+msgid "Insert anchor"
+msgstr "Vložit kotvu"
+
+msgid "Choose"
+msgstr "Zvolit"
+
+msgid "Choose a page"
+msgstr "Zvolit stránku"
+
+msgid "Use external link"
+msgstr "Použít externí odkaz"
+
+msgid "Add an email link"
+msgstr "Vložit e-mailový odkaz"
+
+msgid "Insert link"
+msgstr "Vložit odkaz"
+
+msgid "Add an external link"
+msgstr "Vložit externí odkaz"
+
+msgid "Add a phone link"
+msgstr "Vložit telefonní odkaz"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Prozkoumat podstránky '%(title)s'"
+
+msgid "Explore"
+msgstr "Prozkoumat"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Tato kolekce byla nastavena jako soukromá nadřazenou kolekcí."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Nastavení viditelnosti můžete změnit zde:"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "Nastavení soukromí určuje kdo má přístup k dokumentům v této kolekci."
+
+msgid "Privacy"
+msgstr "Viditelnost"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Nastavení viditelnosti kolekce. Aktuální stav: Veřejná"
+
+msgid "Public"
+msgstr "Veřejné"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Nastavení viditelnosti kolekce. Aktuální stav: Privátní"
+
+msgid "Private"
+msgstr "Soukromé"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Tato kolekce nemůže být smazána protože není prázdná. Obsahuje:"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"Nebyly nalezeny žádné kolekce. Novou kolekci můžete přidat <a "
+"href=\"%(add_collection_url)s\">zde</a>."
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Zrušit publikaci %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Ano, zrušit publikaci"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nerušit publikaci"
+
+msgid "Cancel"
+msgstr "Storno"
+
+msgid "Comment"
+msgstr "Komentář"
+
+msgid "Actions"
+msgstr "Akce"
+
+msgid "Update"
+msgstr "Uložit"
+
+msgid "Preview not available"
+msgstr "Náhled není dostupný"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porovnání %(title)s"
+
+msgid "Comparing"
+msgstr "Porovnání"
+
+msgid "Fields"
+msgstr "Pole"
+
+msgid "Changes"
+msgstr "Změny"
+
+msgid "There are no differences between these two versions"
+msgstr "Obě verze jsou shodné"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Vítejte v redakčním systému %(site_name)s"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
+
+msgid "Your locked pages"
+msgstr "Vámi uzamčené stránky"
+
+msgid "Locked at"
+msgstr "Uzamčeno: "
+
+msgid "Edit this page"
+msgstr "Upravit stránku"
+
+msgid "Unlock"
+msgstr "Odemknout"
+
+msgid "Draft"
+msgstr "Koncept"
+
+msgid "Live"
+msgstr "Publikováno"
+
+msgid "Your most recent edits"
+msgstr "Vaše poslední úpravy"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Site summary"
+msgstr "Přehled obsahu"
+
+msgid "Task started"
+msgstr "Úkol spuštěn"
+
+msgid "Changes requested at"
+msgstr "Změny, o které bylo požádáno v"
+
+msgid "Awaiting"
+msgstr "Čeká se"
+
+msgid "Close"
+msgstr "Zavřít"
+
+msgid "Awaiting your review"
+msgstr "Očekává se vaše revize"
+
+msgid "Tasks"
+msgstr "Úkoly"
+
+msgid "Preview"
+msgstr "Náhled"
+
+msgid "Compare with live version"
+msgstr "Porovnat s publikovánou verzí"
+
+msgid "Compare with previous version"
+msgstr "Porovnat s předchozí verzí"
+
+msgid "Sign in"
+msgstr "Přihlásit se"
+
+msgid "Sign in to Wagtail"
+msgstr "Přihlášení do redakčního systému"
+
+msgid "Forgotten password?"
+msgstr "Zapomenuté heslo?"
+
+msgid "Remember me"
+msgstr "Zapamatovat si mě"
+
+msgid "Signing in…"
+msgstr "Přihlašování..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Stránka \"%(title)s\" byla schválena."
+
+msgid "You can view the page here:"
+msgstr "Stránku můžete zobrazit zde:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Stránka \"%(title)s\" byla schválena"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Dobrý den %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Své nastavení notifikací najdete zde:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Stránka \"%(title)s\" byla zamítnuta."
+
+msgid "You can edit the page here:"
+msgstr "Stránku můžete upravit zde:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Stránka \"%(title)s\" byla zamítnuta"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "Stránka \"%(title)s\" byla schválena během posouzení \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "Stránka \"%(title)s\" byla schválena v \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "Stránka \"%(title)s\" byla odmítnuta během posouzení \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "Stránka \"%(title)s\" byla odmítnuta v \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"Stránka \"%(title)s\" byla uložena ke schválení během posouzení \"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Náhled stránky můžete zobrazit zde:"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"Stránka \"%(title)s\" byla uložena ke schválení během posouzení \"%(task)s\"."
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s aktualizoval komentáře u \"%(title)s\"."
+
+msgid "New comments"
+msgstr "Nové komentáře"
+
+msgid "Resolved comments"
+msgstr "Odsouhlasené komentáře"
+
+msgid "Deleted comments"
+msgstr "Zrušené komentáře"
+
+msgid "New replies"
+msgstr "Nové reakce"
+
+msgid "New replies to:"
+msgstr "Nové reakce na:"
+
+msgid "New comments:"
+msgstr "Nové komentáře:"
+
+msgid "Resolved comments:"
+msgstr "Odsouhlasené komentáře:"
+
+msgid "Deleted comments:"
+msgstr "Zrušené komentáře:"
+
+msgid "New replies:"
+msgstr "Nové reakce:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s aktualizoval komentáře u \"%(title)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "Stránka \"%(title)s\" byla schválena v postupu \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Stránka \"%(title)s\" byla schválena \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"Stránka \"%(title)s\" byla odmítnuta během \"%(task)s\" v postupu "
+"\"%(workflow)s\" (kým) %(rejector)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Stránka \"%(title)s\" byla odmítnuta během \"%(task)s\" v postupu "
+"\"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Byl přidán tento komentář: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Stránka \"%(title)s\" byla zamítnuta během \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Stránka \"%(title)s\" byla uložena k posouzení pro postup \"%(workflow)s\" "
+"od %(requester)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Stránka \"%(title)s\" byla uložena k posouzení pro postup \"%(workflow)s\"."
+
+msgid "This page has been made private by a parent page."
+msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
+
+msgid "Save the page before leaving"
+msgstr "Uložit stránku před jejím opuštěním"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Máte <span>neuložené změny</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "You have <span>neuložené komentáře</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Máte <span>neuložené změny</span> a <span>komentáře</span>"
+
+msgid "Publishing…"
+msgstr "Publikování..."
+
+msgid "Publish this version"
+msgstr "Publikovat tuto verzi"
+
+msgid "Saving…"
+msgstr "Ukládání..."
+
+msgid "Replace current draft"
+msgstr "Nahradit aktuální koncept"
+
+msgid "Save draft"
+msgstr "Uložit koncept"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Vytvořit stránku pod %(title)s"
+
+msgid "Create a page in"
+msgstr "Vytvořit stránku pod"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Zvolit typ stránky, který chcete vytvořit."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Stránky typu %(page_type)s"
+
+msgid "Move"
+msgstr "Přesunout"
+
+msgid "Yes, move these pages"
+msgstr "Ano, přesunout tyto stránky"
+
+msgid "No, don't move"
+msgstr "Ne, nepřesouvat"
+
+msgid "Yes, publish"
+msgstr "Ano, publikovat"
+
+msgid "No, don't publish"
+msgstr "Ne, nepublikovat"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Opravdu chcete zrušit publikaci těchto stránek?"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "Změnit alias %(title)s"
+
+msgid "Convert alias"
+msgstr "Změnit alias"
+
+msgid "This action cannot be undone."
+msgstr "Tato akce nemůže být odvolána."
+
+msgid "Yes, convert it"
+msgstr "Ano, provést změnu"
+
+msgid "No, leave it as an alias"
+msgstr "Ne, ponechat jako alias"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Smazat %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Opravdu chcete smazat tuto stránku?"
+
+msgid "Yes, delete it"
+msgstr "Ano, smazat"
+
+msgid "No, don't delete it"
+msgstr "Ne, nemazat"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Můžete také jen <a href=\"%(unpublish_url)s\">zrušit publikaci stránky</a>. "
+"Tím přestane být stránka veřejně viditelná a později ji můžete upravit nebo "
+"znovu publikovat."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Přesunout %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Opravdu chcete přesunout tuto stránku pod '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Opravdu chcete přesunout tuto stránku a všechny její podstránky pod "
+"'%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Ano, přesunout stránku"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Opravdu chcete zrušit publikaci této stránky?"
+
+msgid "Publish page"
+msgstr "Publikovat stránku"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Zveřejnění této stránky přeruší aktuální postup."
+
+msgid "Would you still like to publish this page?"
+msgstr "Opravdu chcete zveřejnit tuto stránku?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopírovat %(title)s"
+
+msgid "Copy"
+msgstr "Kopírovat"
+
+msgid "Copy this page"
+msgstr "Kopírovat tuto stránku"
+
+msgid "This page has unsaved changes."
+msgstr "Na této stránce jsou neuložené změny."
+
+msgid "This page is an alias of another page."
+msgstr "Tato stránka je aliasem od jiné stránky."
+
+msgid "Edit original page"
+msgstr "Editovat původní stránku"
+
+msgid "Configure a site now."
+msgstr "Nyní zkonfigurujte web"
+
+msgid "This page is locked to further editing"
+msgstr "Tato stránka je uzamčena pro další úpravy"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Zobrazit podstránky '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Přidat podstránku pod '%(title)s'"
+
+msgid "Drag"
+msgstr "Přetáhnout myší"
+
+msgid "Disable ordering of child pages"
+msgstr "Vypnout řazení podstránek"
+
+msgid "Sort"
+msgstr "Třídění"
+
+msgid "Enable ordering of child pages"
+msgstr "Zapnout řazení podstránek"
+
+msgid "Sites menu"
+msgstr "Seznam webů"
+
+msgid "Pagination"
+msgstr "Stránkování"
+
+msgid "Previous"
+msgstr "Předchozí"
+
+msgid "Next"
+msgstr "Následující"
+
+msgid "This page is protected from public view"
+msgstr "Tato stránka není veřejně viditelná"
+
+msgid "Confirm"
+msgstr "Potvrdit"
+
+msgid "Add child page"
+msgstr "Přidat podstránku"
+
+msgid "Page types"
+msgstr "Typy stránky"
+
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Bohužel, žádná stránka nevyhovuje <em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Zadejte hledaný výraz"
+
+msgid "No pages use"
+msgstr "Žádné stránky typu"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Přidat %(label)s"
+
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Last published"
+msgstr "Naposledy publikováno"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "No pages found."
+msgstr "Nebyla nalezena žádná stránka."
+
+msgid "No pages match this report's criteria."
+msgstr "Žádná stránka neodpovídá parametrům výkazu."
+
+msgid "Updated"
+msgstr "Uloženo"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Locking status"
+msgstr "Stav uzamčení"
+
+msgid "Locked"
+msgstr "Uzamčeno"
+
+msgid "No locked pages found."
+msgstr "Nebyly nalezeny žádné uzamčené stránky"
+
+msgid "Name"
+msgstr "Jméno"
+
+msgid "Action"
+msgstr "Akce"
+
+msgid "User"
+msgstr "Uživatel"
+
+msgid "Date / Time"
+msgstr "Datum / Čas"
+
+msgid "Edit this item"
+msgstr "Upravit tuto položku"
+
+msgid "No log entries found."
+msgstr "Nenalezeny žádné záznamy v logu."
+
+msgid "Workflow"
+msgstr "Zpracování"
+
+msgid "Requested by"
+msgstr "Požadováno (kým)"
+
+msgid "Started at"
+msgstr "Spuštěno v"
+
+msgid "Incomplete task"
+msgstr "Neúplná úloha"
+
+msgid "Completed at"
+msgstr "Dokončeno v"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Strana %(page_num)s z %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Drobečková navigace"
+
+msgid "Continue"
+msgstr "Pokračovat"
+
+msgid "Download XLSX"
+msgstr "Stáhnout XLSX"
+
+msgid "Download CSV"
+msgstr "Stáhnout CSV"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Apply filters"
+msgstr "Použít filtry"
+
+msgid "Add comment"
+msgstr "Přidat komentář"
+
+msgid "Back"
+msgstr "Zpět"
+
+msgid "History"
+msgstr "Historie"
+
+msgid "Current page status:"
+msgstr "Aktuální stav stránky:"
+
+msgid "Visit the live page"
+msgstr "Navštívit publikovanou stránku"
+
+msgid "Toggle section"
+msgstr "Přepnout výběr"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Zruš plánovanou publikaci verze %(revision.id)s %(title)s"
+
+msgid "Unschedule"
+msgstr "Zrušit naplánované publikování"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Opravdu chcete zrušit naplánovanou publikaci této verze?"
+
+msgid "Yes, unschedule"
+msgstr "Ano, nezveřejňovat"
+
+msgid "No, don't unschedule"
+msgstr "Ne, ponechat ke zveřejnění"
+
+msgid "Other searches"
+msgstr "Další hledání"
+
+msgid "Side panels"
+msgstr "Postranní panely"
+
+msgid "Toggle side panel"
+msgstr "Přepnout postranní panel"
+
+msgid "Comment notifications"
+msgstr "Notifikace o komentářích"
+
+msgid "Unlocked"
+msgstr "Odemčeno"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
+
+msgid "Usage"
+msgstr "Použití"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)s -krát"
+msgstr[1] "Použito %(usage_count)s -krát"
+msgstr[2] "Použito %(usage_count)s -krát"
+msgstr[3] "Použito %(usage_count)s -krát"
+
+msgid "View history"
+msgstr "Zobrazit historii"
+
+msgid "First published"
+msgstr "Poprvé publikováno"
+
+msgid "Edit / Review"
+msgstr "Editovat / Revidovat"
+
+msgid "Workflow history"
+msgstr "Historie postupu"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Požadováno (kým) <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Zahájeno v <b>%(started_at)s</b>"
+
+msgid "Timeline"
+msgstr "Časová osa"
+
+msgid "Initial Revision"
+msgstr "První revize"
+
+msgid "Edited"
+msgstr "Upraveno"
+
+msgid "with comment:"
+msgstr "s komentářem:"
+
+msgid "Workflow started"
+msgstr "Postup byl zahájen"
+
+msgid "Workflow completed"
+msgstr "Postup byl dokončen"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Historie postupu pro %(title)s"
+
+msgid "Workflow history for"
+msgstr "Historie postupu pro"
+
+msgid "Approved task"
+msgstr "Schválená úloha"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Tato stránka zatím nebyla uložena k posouzení"
+
+msgid "Skip to main content"
+msgstr "Přeskočit na hlavní obsah"
+
+msgid "Add a child page"
+msgstr "Přidat podstránku"
+
+msgid "Show in Explorer"
+msgstr "Zobrazit v exploreru"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Are you sure you want to disable this workflow?"
+msgstr "Opravdu chcete zakázat tento postup?"
+
+msgid "Yes, disable"
+msgstr "Ano, zakázat"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "Opravdu chcete zakázat tuto úlohu?"
+
+msgid "Assign your workflow to pages"
+msgstr "Přiřadit postup ke stránkám"
+
+msgid "Creating…"
+msgstr "Vytváření..."
+
+msgid "Create"
+msgstr "Vytvořit"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
+msgstr ""
+"Postupy se uplatní i pro podstránky. Vyberete-li nyní nadřazenou stránku, i "
+"její podřízené stránky použijí tento postup. Zobrazit <a "
+"href=\"%(workflow_pages_url)s\">seznam stránek</a>, které aplikují tento "
+"postup."
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr "Tento postup není povolen. Nelze ho proto přiřazovat ke stránkám."
+
+msgid "Used on the following active workflows"
+msgstr "Použito na následujících aktivních postupech."
+
+msgid "Not used"
+msgstr "Nepoužito"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s navíc"
+msgstr[1] "+%(counter)s navíc"
+msgstr[2] "+%(counter)s navíc"
+msgstr[3] "+%(counter)s navíc"
+
+msgid "Assigned pages"
+msgstr "Přiřazené stránky"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "Assign to another page"
+msgstr "Přiřadit k jiné stránce"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Krok %(step_number)s"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nebyl definován žádný postup. Můžete <a href=\"%(add_url)s\">nějaký zadat</a>"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nebyl povolen žádný postup. Můžete <a href=\"%(add_url)s\">nějaký zadat</a>"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Určete, jaký typ úlohy chcete vytvořit."
+
+msgid "Choose a task"
+msgstr "Vybrat úlohu"
+
+msgid "New"
+msgstr "Nový"
+
+msgid "Existing"
+msgstr "Existující"
+
+msgid "Choose a different task type"
+msgstr "Zvolte jiný typ úlohy"
+
+msgid "Task type"
+msgstr "Typ úlohy"
+
+msgid "Used on"
+msgstr "Použito (kde)"
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "Bohužel, žádná úloha neodpovídá \"<em>%(query_string)s</em>\""
+
+msgid "You haven't created any tasks."
+msgstr "Nevytvořil(a) jste žádné úlohy."
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nebyly vytvořeny žádné úlohy. Můžete <a href=\"%(add_url)s\">nějakou "
+"vytvořit nyní</a>"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nejsou žádné povolené úlohy. Můžete <a href=\"%(add_url)s\">nějakou vytvořit "
+"nyní</a>"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Stránky, které používají postup '%(name)s'"
+
+msgid "Pages that use workflow"
+msgstr "Stránky, které používají postup"
+
+msgid "Submitted"
+msgstr "Uloženo"
+
+msgid "Not started"
+msgstr "Není spuštěno"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Změny, požadované (kým) %(requested_by)s"
+
+msgid "Changes requested"
+msgstr "Jsou požadovány změny"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "Schváleno (kým) %(approved_by)s"
+
+msgid "Published"
+msgstr "Publikováno"
+
+msgid "See full history"
+msgstr "Zobraz celou historii"
+
+msgid "More"
+msgstr "Více"
+
+msgid "0 minutes"
+msgstr "0 minut"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
+
+msgid "Log out"
+msgstr "Odhlásit"
+
+msgid "Undo"
+msgstr "Vrátit zpět"
+
+msgid "Redo"
+msgstr "Opakovat"
+
+msgid "Bold"
+msgstr "Tučné"
+
+msgid "Italic"
+msgstr "Šikmé"
+
+msgid "Superscript"
+msgstr "Superscript (Horní index)"
+
+msgid "Subscript"
+msgstr "Subscript (Dolní index)"
+
+msgid "Comments"
+msgstr "Komentáře"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Seřadit podstránky z '%(parent)s' podle '%(label)s' ve vzestupném pořadí."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Seřadit podstránky z '%(parent)s' podle '%(label)s' v sestupném pořadí."
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Notifications"
+msgstr "Notifikace"
+
+msgid "Name and Email"
+msgstr "Jméno a email"
+
+msgid "Profile picture"
+msgstr "Profilový obrázek"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Nastavení vašeho účtu byla úspěšně změněna."
+
+msgid "You have been successfully logged out."
+msgstr "Právě jste se úspěšně odhlásili."
+
+msgid "Collections"
+msgstr "Kolekce"
+
+msgid "Add a collection"
+msgstr "Přidat kolekci"
+
+msgid "Add collection"
+msgstr "Přidat kolekci"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Kolekce '%(object)s' byla vytvořena."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Kolekce '%(object)s' byla uložena."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Kolekci nelze uložit, zkontrolujte správné vyplnění polí."
+
+msgid "Delete collection"
+msgstr "Smazat kolekci"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Kolekce '%(object)s' byla smazána."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Opravdu chcete smazat tuto kolekci?"
+
+msgid "Home"
+msgstr "Domů"
+
+msgid "Live version"
+msgstr "Publikovaná verze"
+
+msgid "Current draft"
+msgstr "Aktuální koncept"
+
+msgid "Review this version"
+msgstr "Revidovat tuto verzi"
+
+msgid "Compare with current version"
+msgstr "Porovnat s aktuální verzí"
+
+msgid "Cancel scheduled publish"
+msgstr "Zrušit naplánované publikování"
+
+msgid "Workflow progress"
+msgstr "Průběh postupu"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' aktualizováno."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' vytvořeno."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editovat '%(title)s'"
+
+msgid "Inspect"
+msgstr "Prozkoumat"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Zrušit '%(title)s'"
+
+msgid "Editing"
+msgstr "Úprava"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' zrušeno."
+
+msgid "Inspecting"
+msgstr "Prohlíží se.."
+
+msgid "Earliest"
+msgstr "Nejstarší"
+
+msgid "Latest"
+msgstr "Nejnovější"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Edituj %(object)s"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Publish selected pages"
+msgstr "Publikovat vybrané stránky"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"Stránka '%(page_title)s' a %(subpages_count)s podstránek bylo zkopírováno."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Stránka '%(page_title)s' byla zkopírována."
+
+msgid "View draft"
+msgstr "Zobrazit koncept"
+
+msgid "View live"
+msgstr "Zobrazit publikovanou verzi"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Stránka '%(page_title)s' byla vytvořena."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Stránka '%(page_title)s' byla vytvořena a naplánována pro publikování."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Stránka '%(page_title)s' byla vytvořena a publikována."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Stránka '%(page_title)s' byla vytvořena a odeslána ke schválení."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Stránku nelze vytvořit, zkontrolujte správné vyplnění polí"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Stránka '%(page_title)s' byla smazána."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Upravuje se %(page_type)s"
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"Stránka '%(page_title)s' byla nahrazena verzí (od) "
+"%(previous_revision_datetime)s."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Stránka '%(page_title)s' byla aktualizována."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "Postup na stránce '%(page_title)s' byl stornován."
+
+#, python-format
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"Verze %(previous_revision_datetime)s stránky '%(page_title)s' byla "
+"naplánována ke zveřejnění."
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Stránka '%(page_title)s' je zveřejněna a tato verze byla ke zveřejnění "
+"naplánována."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Stránka '%(page_title)s' byla naplánována pro publikování."
+
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "Verze %(datetime)s stránky '%(page_title)s' byla zveřejněna."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Stránka '%(page_title)s' byla zveřejněna."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Stránka '%(page_title)s' byla uložena ke schválení."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Postup na stránce '%(page_title)s' byl obnoven."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Stránku nelze uložit, protože je uzamčena"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
+
+msgid "Site"
+msgstr "Web"
+
+msgid "Yes"
+msgstr "Ano"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Stránka '%(page_title)s' je nyní odemknuta."
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
+msgstr ""
+"Slug (identifikátor) '%(page_slug)s' je už použit v nadřazené stránce. "
+"Použijte unikátní identifikátor a zkuste to znova"
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Stránka '%(page_title)s' byla přesunuta."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Prohlížíte předchozí verzi této stránky z <b>%(created_at)s</b> od %(user)s"
+
+msgid "Page history"
+msgstr "Historie stránky"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Stránce '%(page_title)s' byla zrušena publikace."
+
+msgid "Pages using"
+msgstr "Stránky typu"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Stránka '%(page_title)s' nyní nečeká na schválení."
+
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"Stránka '%(page_title)s' nyní neočekává posouzení v rámci úlohy "
+"'%(task_name)s'."
+
+msgid "Site history"
+msgstr "Historie webu"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Typ akce"
+
+msgid "Date/Time"
+msgstr "Datum/Čas"
+
+msgid "Locked pages"
+msgstr "Uzamčené stránky"
+
+msgid "Show"
+msgstr "Zobrazit"
+
+msgid "Awaiting my review"
+msgstr "Očekává se moje kontrola"
+
+msgid "Workflows"
+msgstr "Postupy"
+
+msgid "Workflow tasks"
+msgstr "Úlohy v rámci postupu"
+
+msgid "Requested By"
+msgstr "Požadováno (kým)"
+
+msgid "Add a workflow"
+msgstr "Přidat postup"
+
+msgid "Used by"
+msgstr "Použito (kým)"
+
+msgid "New workflow"
+msgstr "Nový postup"
+
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "Postup '%(object)s' byl vytvořen."
+
+msgid "Editing workflow"
+msgstr "Edituje se postup"
+
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "Postup '%(object)s' byl aktualizován."
+
+msgid "Disable"
+msgstr "Zakázat"
+
+msgid "Enable"
+msgstr "Povolit"
+
+msgid "Disable workflow"
+msgstr "Zakázat postup"
+
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "Postup '%(object)s' byl zakázán."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "Postup '%(workflow_name)s' byl povolen."
+
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "Postup byl odstraněn ze stránky '%(page_title)s'."
+
+msgid "New workflow task"
+msgstr "Nová úloha v rámci postupu"
+
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "Úloha '%(object)s' byla vytvořena."
+
+msgid "Editing workflow task"
+msgstr "Edituje se úloha postupu"
+
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "Úloha '%(object)s' byla aktualizována."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Edituje se %(task_type)s"
+
+msgid "Disable task"
+msgstr "Zakázat úlohu"
+
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "Úloha '%(object)s' byla zakázána."
+
+#, python-format
+msgid "Task '%(task_name)s' enabled."
+msgstr "Úloha '%(task_name)s' byla povolena."
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Prohlédnout koncept stránky '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Zobrazit publikovanou verzi '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Přesunout stránku %(title)s"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopírovat stránku '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Smazat stránku %(title)s"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Zrušit publikaci stránky %(title)s"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "Zobrazit historii stránky '%(title)s'"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Hlavička %(level)d"
+
+msgid "Bulleted list"
+msgstr "Nečíslovaný seznam"
+
+msgid "Numbered list"
+msgstr "Číslovaný seznam"
+
+msgid "Blockquote"
+msgstr "Blockquote (Zvýrazněný blok)"
+
+msgid "Link"
+msgstr "Odkaz"
+
+msgid "Strikethrough"
+msgstr "Přeškrtnuté"
+
+msgid "Code"
+msgstr "Kód"
+
+msgid "Reports"
+msgstr "Výkazy"
+
+msgid "Help"
+msgstr "Nápověda"
+
+msgid "Choose an item"
+msgstr "Zvolit položku"
+
+msgid "Choose another item"
+msgstr "Zvolit jinou položku"
+
+msgid "Clear choice"
+msgstr "Zrušit výběr"
+
+msgid "Choose another page"
+msgstr "Zvolit jinou stránku"
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "Tagy mohou být tvořeny pouze jedním slovem, mezery nejsou povoleny."
+
+msgid "Choose another task"
+msgstr "Zvolte jinou úlohu"
+
+msgid "Edit this task"
+msgstr "Editovat tuto úlohu"

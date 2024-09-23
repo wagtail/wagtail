@@ -1,0 +1,187 @@
+/* =============================================================================
+/*  Wagtail CMS main stylesheet
+/* =============================================================================
+
+REFERENCE
+
+  * We organise our styles based on a combination of ITCSS and
+    the Sass 7-1 pattern.
+  * Classes should be written using BEM, which we modify to include a prefix.
+  * Every BEM block should have its own file.
+
+┌────────────┬────────────────────────┬──────────────┬
+│ Folder     │ Contents               │ ITCSS level  │
+├────────────┼────────────────────────┼──────────────┼
+│ settings   │ variables, maps, fonts │ 1 Settings   │
+│ tools      │ mixins, functions      │ 2 Tools      │
+│ generic    │ resets                 │ 3 Generic    │
+│ elements   │ elements, no classes   │ 4 Elements   │
+│ objects    │ Unused                 │ 5 Objects    │
+│ components │ classes                │ 6 Components │
+│            │   BEM blocks           │              │
+│ overrides  │ classes                │ 7 Trumps     │
+│            │   overrides, utilities │              │
+└────────────┴────────────────────────┴──────────────┘
+
+SCSS: https://sass-lang.com/guide
+ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
+Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
+BEM: https://getbem.com/
+
+==============================================================================*/
+
+/* Legacy vendor styles. Do not add new styles here. */
+@use 'generic/normalize';
+@use 'vendor/jquery-ui-1.10.3.verdant';
+@use 'vendor/jquery.tagit' as tagit;
+@use 'vendor/jquery.Jcrop.min' as jcrop;
+
+/* SETTINGS
+These are variables, maps, and fonts.
+* No CSS should be produced by these files
+*/
+
+@import 'settings';
+
+/* TOOLS
+These are functions and mixins.
+* No CSS should be produced by these files.
+*/
+
+@import 'tools';
+
+/* GENERIC
+This is for resets and other rules that affect large collections of bare elements.
+* Changes to them should be very rare.
+*/
+
+/* ELEMENTS
+These are base styles for bare HTML elements.
+* Changes to them should be very rare.
+*/
+
+// These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
+// Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
+// https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+@tailwind base;
+@tailwind components;
+@import 'elements/elements';
+@import 'elements/typography';
+@import 'elements/forms';
+
+/* COMPONENTS
+These are classes for components.
+* These classes (unless legacy) are prefixed with `.w-`.
+* React component styles live in the same folders as their React components,
+  which is the preferred pattern over housing them in the scss folder.
+*/
+
+@import '../src/components/Transition/Transition';
+@import '../src/components/LoadingSpinner/LoadingSpinner';
+@import '../src/components/PublicationStatus/PublicationStatus';
+@import '../src/components/ComboBox/ComboBox';
+@import '../src/components/PageExplorer/PageExplorer';
+@import '../src/components/CommentApp/main';
+
+@import 'components/avatar';
+@import 'components/icons';
+@import 'components/forms/input-base';
+@import 'components/forms/input-text';
+@import 'components/forms/radio-checkbox';
+@import 'components/forms/select';
+@import 'components/forms/tagit';
+@import 'components/forms/radio-checkbox-multiple';
+@import 'components/forms/error-message';
+@import 'components/forms/required-mark';
+@import 'components/forms/help';
+@import 'components/forms/drop-zone';
+@import 'components/forms/daterange';
+@import 'components/forms/file';
+@import 'components/forms/publishing';
+@import 'components/forms/switch';
+@import 'components/forms/title';
+@import 'components/forms/field';
+@import 'components/forms/field-row';
+@import 'components/forms/field-comment-control';
+@import 'components/forms/field-textoutput';
+@import 'components/forms/form-width';
+@import 'components/forms/nested-panel';
+@import 'components/tabs';
+@import 'components/panel';
+@import 'components/dialog';
+@import 'components/dismissible';
+@import 'components/drilldown';
+@import 'components/dropdown';
+@import 'components/dropdown-button';
+@import 'components/help-block';
+@import 'components/button';
+@import 'components/keyboard-shortcuts';
+@import 'components/modals';
+@import 'components/chooser';
+@import 'components/tag';
+@import 'components/listing';
+@import 'components/filters';
+@import 'components/messages';
+@import 'components/messages.capability';
+@import 'components/messages.status';
+@import 'components/header';
+@import 'components/progressbar';
+@import 'components/summary';
+@import 'components/whats-new';
+@import 'components/grid.legacy';
+@import 'components/footer';
+@import 'components/loading-mask';
+@import 'components/human-readable-date';
+@import 'components/link.legacy';
+@import 'components/indicator';
+@import 'components/status-tag';
+@import 'components/skiplink';
+@import 'components/workflow-tasks';
+@import 'components/workflow-timeline';
+@import 'components/bulk_actions';
+@import 'components/preview-panel';
+@import 'components/preview-error';
+@import 'components/form-side';
+@import 'components/a11y-result';
+@import 'components/userbar';
+@import 'components/breadcrumbs';
+@import 'components/pill';
+@import 'components/ping';
+@import 'components/editing-sessions';
+
+@import '../src/components/Sidebar/Sidebar';
+@import '../src/components/Minimap/Minimap';
+
+/* OVERRIDES
+These are classes that provide overrides.
+* Higher specificity is allowed here because these are overrides and imported last.
+*/
+
+// VENDOR: overrides of vendor styles.
+@import 'overrides/vendor.datetimepicker';
+@import 'overrides/vendor.handsontable';
+@import 'overrides/vendor.tagit';
+@import 'overrides/vendor.tippy';
+
+// UTILITIES: classes that do one simple thing.
+@import 'overrides/utilities.focus';
+
+// Legacy utilities
+@import 'overrides/utilities.legacy';
+
+// TAILWIND: This is at the bottom so it can take precedence over other css classes
+@tailwind utilities;
+
+/* Legacy layout-specific styles. Do not add new styles here. */
+
+@import 'layouts/404';
+@import 'layouts/compare-revisions';
+@import 'layouts/home';
+@import 'layouts/login';
+@import 'layouts/account';
+@import 'layouts/workflow-progress';
+@import 'layouts/report';
+@import 'layouts/add-multiple';
+@import 'layouts/chooser-duplicate-upload';
+@import 'layouts/focal-point-chooser';
+@import 'layouts/redirects';

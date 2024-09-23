@@ -1,0 +1,44 @@
+{% load i18n wagtailadmin_tags %}
+<template id="w-a11y-result-row-template">
+    <div class="w-a11y-result__row" data-a11y-result-row>
+        <div>
+            <h3 class="w-a11y-result__header">
+                <span class="w-a11y-result__name" data-a11y-result-name></span>
+            </h3>
+            <div class="w-a11y-result__help" data-a11y-result-help></div>
+        </div>
+        <button
+            class="w-a11y-result__selector"
+            data-a11y-result-selector
+            aria-label="{% trans 'Show issue' %}"
+            type="button"
+        >
+            <span class="w-a11y-result__selector-text" data-a11y-result-selector-text></span>
+            {% icon name="link-external" classname="w-a11y-result__icon" %}
+        </button>
+    </div>
+</template>
+<div class="w-divide-y w-divide-border-furniture w-py-6 w-pl-2 lg:w-pl-8">
+    <div>
+        <h2 class="w-my-5 w-text-16 w-font-bold w-text-text-label">
+            {% trans 'Content metrics' %}
+        </h2>
+        <div class="w-flex w-gap-10">
+            <div>
+                <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Words' %}</h3>
+                <p class="w-font-semibold w-text-text-label" data-content-word-count>-</p>
+            </div>
+            <div>
+                <h3 class="w-my-2 w-text-14 w-text-text-placeholder">{% trans 'Reading time' %}</h3>
+                <p class="w-font-semibold w-text-text-label" data-content-reading-time>-</p>
+            </div>
+        </div>
+    </div>
+    <div class="w-mt-3">
+        <h2 class="w-flex w-items-center w-gap-2 w-my-5 w-text-16 w-font-bold">
+            <span>{% trans 'Issues found' %}</span><span class="w-a11y-result__count" data-a11y-result-count>0</span>
+        </h2>
+        <div class="w-flex w-flex-col w-gap-2.5" data-checks-panel></div>
+    </div>
+</div>
+{{ axe_configuration|json_script:"accessibility-axe-configuration" }}

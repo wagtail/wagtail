@@ -1,0 +1,21 @@
+============================
+Wagtail 1.12.2 release notes
+============================
+
+*September 18, 2017*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Migration for addition of ``Page.draft_title`` field is now reversible (Venelin Stoykov)
+* Fixed failure on application startup when ``ManifestStaticFilesStorage`` is in use and ``collectstatic`` has not yet been run (Matt Westcott)
+* Fixed handling of Vimeo and other oEmbed providers with a format parameter in the endpoint URL (Mitchel Cabuloy)
+* Fixed regression in rendering save button in wagtail.contrib.settings edit view (Matt Westcott)

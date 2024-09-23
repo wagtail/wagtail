@@ -1,0 +1,27 @@
+============================
+Wagtail 2.12.4 release notes
+============================
+
+*April 19, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+CVE-2021-29434: Improper validation of URLs ('Cross-site Scripting') in rich text fields
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses a cross-site scripting (XSS) vulnerability in rich text fields. When saving the contents of a rich text field in the admin interface, Wagtail did not apply server-side checks to ensure that link URLs use a valid protocol. A malicious user with access to the admin interface could thus craft a POST request to publish content with javascript: URLs containing arbitrary code. The vulnerability is not exploitable by an ordinary site visitor without access to the Wagtail admin.
+
+Many thanks to Kevin Breen for reporting this issue.
+
+
+Bug fixes
+~~~~~~~~~
+
+* Prevent reverse migration errors in images and documents (Mike Brown)
+* Avoid wagtailembeds migration failure on MySQL 8.0.13+ (Matt Westcott)

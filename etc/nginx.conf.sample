@@ -1,0 +1,52 @@
+# vim:sw=4 ts=4 et:
+#
+# This is a sample nginx configuration for a Wagtail application running under
+# uWSGI.
+
+server {
+    # We don't set 'root' here, because we send location / to uWSGI, so
+    # nothing ends up at nginx's default handler.
+
+    listen 80;
+    server_name mywagtail.org;
+
+    error_log /var/log/nginx/mywagtail.org_error.log;
+    access_log /var/log/nginx/mywagtail.org_access.log;
+
+    # Maximum file upload size.
+    client_max_body_size 64M;
+
+    # Enable content compression for text types.
+    gzip on;
+    gzip_types text/plain text/css application/x-javascript image/svg+xml;
+    gzip_comp_level 1;
+    gzip_disable msie6;
+    gzip_http_version 1.0;
+    gzip_proxied any;
+    gzip_vary on;
+
+    location /static/ {
+        access_log off;
+        expires 3600;
+        alias /home/mywagtail/app/static/;
+    }
+
+    # Set a longer expiry for CACHE/, because the filenames are unique.
+    location /static/CACHE/ {
+        access_log off;
+        expires 864000;
+        alias /home/mywagtail/app/static/CACHE/;
+    }
+
+    # Only serve /media/images/ by default, not e.g. original_images/.
+    location /media/images/ {
+        expires 864000;
+        alias /home/mywagtail/app/media/images/;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/mywagtail/mywagtail.sock;
+        break;
+    }
+}

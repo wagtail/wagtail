@@ -1,0 +1,1082 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Amawalee Combe <dang@getsalebox.com>, 2019
+# Jon Combe <jon@naremit.com>, 2019
+# Siramol Khunchai, 2024
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Siramol Khunchai, 2024\n"
+"Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
+"th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "การจัดพิมพ์"
+
+msgid "Submit for moderation"
+msgstr "เสนอให้ตรวจ/ส่งให้ตรวจ"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "ส่งไปยัง %(task_name)s อีกครั้ง"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "ส่งไปยัง %(workflow_name)s"
+
+msgid "Unpublish"
+msgstr "ยกเลิกประกาศ"
+
+msgid "Save Draft"
+msgstr "บันทึกร่าง"
+
+msgid "Page locked"
+msgstr "หน้านี้ถูกล็อกไว้"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s และเผยแพร่"
+
+msgid "Wagtail admin"
+msgstr "แอดมินแว็กเทล"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "ขออภัย, คุณไม่สามารถเปิดหน้านี้ได้"
+
+msgid "You do not have permission to access the admin"
+msgstr "คุณไม่ได้รับอนุญาตให้เข้าถึงผู้ดูแลระบบ"
+
+msgid "None"
+msgstr "ไม่มี"
+
+msgid "Date from"
+msgstr "จากวันที่"
+
+msgid "Date to"
+msgstr "ถึงวันที่"
+
+msgid "Collection"
+msgstr "ชุด"
+
+msgid "Preferred language"
+msgstr "ภาษาที่ต้องการใช้"
+
+msgid "Current time zone"
+msgstr "โซนเวลาปัจจุบัน"
+
+msgid "First Name"
+msgstr "ชื่อจริง"
+
+msgid "Last Name"
+msgstr "นามสกุล"
+
+msgid "Email"
+msgstr "อีเมล"
+
+msgid "Upload a profile picture"
+msgstr "อัพโหลดรูปภาพข้อมูลส่วนตัว"
+
+msgid "Enter password"
+msgstr "ใส่รหัสผ่าน"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "%(username_field)s และรหัสผ่านของคุณไม่ตรงกัน โปรดลองใหม่อีกครั้ง"
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "กรอก%(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "กรอกอีเมลของคุณเพื่อรีเซ็ตรหัสผ่านของคุณ"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "คำที่ต้องการค้นหา"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "All collections"
+msgstr "ทุกชุด"
+
+msgid "Parent"
+msgstr "หน้าหลัก,หน้าแรก"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"เลือกตำแหน่งตามลำดับชั้น. หมายเหตุ: collection หนึ่งไม่สามารถเป็น child หรือเป็นหนึ่งใน "
+"descendants ของตัวเองได้"
+
+msgid "Please select another parent"
+msgstr "โปรดเลือก parent อื่น"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "คุณไม่สามารถมีใบอนุญาติที่จดทะเบียนซ้ำกันได้"
+
+msgid "Add"
+msgstr "เพิ่ม"
+
+msgid "Add collections"
+msgstr "เพิ่มชุด"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgid "Edit collections"
+msgstr "แก้ไขชุด"
+
+msgid "Delete"
+msgstr "ลบ"
+
+msgid "Delete collections"
+msgstr "ลบชุด"
+
+msgid "You cannot edit another user's comment."
+msgstr "คุณไม่สามารถแก้ไขความคิดเห็นของผู้อื่นได้"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "วันและเวลาที่เผยแพร่ต้องมาก่อนวันและเวลาที่หมดอายุ"
+
+msgid "Expiry date/time must be in the future"
+msgstr "วันที่ / เวลาหมดอายุจะต้องเป็นวันเวลาในอนาคต"
+
+msgid "New title"
+msgstr "หัวข้อใหม่"
+
+msgid "New slug"
+msgstr "slug เป็นส่วนหนึ่งของURL ใหม่"
+
+msgid "New parent page"
+msgstr "หน้าแรก,หน้าหลัก"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "หน้านี้จะเป็นหน้าย่อยของหน้าแรก"
+
+msgid "Copy subpages"
+msgstr "คัดลอกหน้าย่อย"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "นี่จะเป็นการคัดลอก %(count)s หน้าย่อย"
+
+msgid "Publish copied page"
+msgstr "เผยแพร่หน้าที่คัดลอก"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "หน้านี้กำลังเผยแพร่ คุณต้องการจะเผยแพร่สำเนาด้วยหรือไม่?"
+
+msgid "Publish copies"
+msgstr "การจัดพิมพ์ซ้ำ"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] "%(count)s ของหน้าที่ถูกก็อปปี้กำลังถ่ายทอดสดอยู่ คุณต้องการจะตีพิมพ์ก็อปปี้นี้มั้ย?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "คุณไม่ได้รับอนุญาตให้คัดลอกไปยังหน้า \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr "Slugนี้ถูกใช้อยู่ในบริเวณหน้าหลัก \"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "คุณไม่สามารถที่จะคัดลอกหน้าแรกมาใส่ในหน้าย่อยได้"
+
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "Slug '%(page_slug)s' ถูกใช้ไปแล้วภายใต้หน้าหลักนี้"
+
+msgid "Select a new parent for this page."
+msgstr "เลือกหน้าหลักใหม่สำหรับหน้านี้"
+
+msgid "Parent page"
+msgstr "หน้าแรก,หน้าหลัก"
+
+msgid "Search…"
+msgstr "ค้นหา..."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "Tag(s) %(value_too_long)s มีความยาวเกิน %(max_tag_length)d ตัวอักษร"
+
+msgid "Visibility"
+msgstr "ความชัดเจน"
+
+msgid "This field is required."
+msgstr "ต้องระบุข้อมูลในเนื้อหานี้"
+
+msgid "Please select at least one group."
+msgstr "โปรดเลือกอย่างน้อยหนึ่งกลุ่ม"
+
+msgid "All types"
+msgstr "ทุกประเภท"
+
+msgid "1 page selected"
+msgstr "1 หน้า ถูกเลือก"
+
+msgid "Content"
+msgstr "เนื้อหา"
+
+msgid "Promote"
+msgstr "โปรโมท"
+
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
+
+msgid "Page title"
+msgstr "ชื่อหน้า"
+
+msgid "Error 404: Page not found"
+msgstr "Error 404 : ไม่พบเนื้อหา"
+
+msgid "Error 404"
+msgstr "Error 404 / ผิดพลาด 404"
+
+msgid "The requested page could not be found."
+msgstr "ไม่พบหน้าที่ต้องการหา"
+
+msgid "Go to Wagtail admin"
+msgstr "ไปยังหน้า Wagtail admin"
+
+msgid "Account"
+msgstr "ชื่อบัญชี"
+
+msgid "Reset password"
+msgstr "ตั้งรหัสใหม่อีกครั้ง"
+
+msgid "Password change successful"
+msgstr "เปลี่ยนรหัสผ่านสำเร็จ"
+
+msgid "Login"
+msgstr "เข้าสู่ระบบ"
+
+msgid "Set your new password"
+msgstr "ตั้งรหัสใหม่"
+
+msgid "Invalid password reset link"
+msgstr "รหัสไม่ถูกต้อง / ตั้งลิ้งค์ใหม่อีกครั้ง"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "รหัสที่ตั้งลิ้งค์ใหม่ไม่สามารถใช้ได้ เนื่องจากมีผู้ใช้แล้ว"
+
+msgid "Request a new password reset"
+msgstr "ขอรหัสใหม่อีกครั้ง"
+
+msgid "Check your email"
+msgstr "ตรวจสอบอีเมลของคุณ"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "ลิ้งค์ที่คุณตั้งรหัสใหม่ได้ถูกส่งไปยังอีเมลของคุณแล้ว"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "กรุณาทำตามขั้นตอนของลิ้งค์ด้านล่างเพื่อที่จะตั้งรหัสใหม่"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "ชื่อบัญชีของคุณ (กรณีที่คุณลืมชื่อบัญชีของคุณ)"
+
+msgid "Password reset"
+msgstr "ตั้งรหัสใหม่"
+
+msgid "Reset your password"
+msgstr "ตั้งรหัสใหม่"
+
+msgid "Internal link"
+msgstr "ลิงค์ภายใน"
+
+msgid "External link"
+msgstr "ลิงค์ภายนอก"
+
+msgid "Email link"
+msgstr "ลิงค์ของอีเมล"
+
+msgid "Choose"
+msgstr "เลือก"
+
+msgid "Choose a page"
+msgstr "เลือกหน้า"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"เฉพาะหน้าประเภทดังนี้ที่สามารถเลือกได้สำหรับฟิลด์นี้: %(type)s. "
+"ผลการค้นหาจะไม่รวมหน้าประเภทอื่นนอกจากนี้"
+
+msgid "Add an email link"
+msgstr "เติมลิงค์อีเมล"
+
+msgid "Insert link"
+msgstr "ใส่ลิงค์"
+
+msgid "Add an external link"
+msgstr "เติมลิงค์ภายใน"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "เลือก %(title)s"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "สำรวจหน้าย่อยของ '%(title)s'"
+
+msgid "Explore"
+msgstr "สำรวจ"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "ข้อมูลส่วนตัวเหล่านี้ถูกเก็บไว้โดยฐานข้อมูล"
+
+msgid "You can edit the privacy settings on:"
+msgstr "คุณสามารถแก้ไขข้อมูลส่วนตัวตามนี้"
+
+msgid "Save"
+msgstr "เซฟ , เก็บรักษาข้อมูล"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "การตั้งค่าข้อมูลส่วนตัวว่าใครสามารถเข้าถึงข้อมูลนี้ได้"
+
+msgid "Privacy"
+msgstr "ความเป็นส่วนตัว , ข้อมูลส่วนตัว"
+
+msgid "Public"
+msgstr "สาธารณะ"
+
+msgid "Private"
+msgstr "ส่วนตัว"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "ข้อความนี้ไม่สามารถลบออกได้เนื่องจากยังมีเนื้อหาเก่าอยู่"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr "ไม่มีชุดไหนถูกสร้าง ทำไมคุณไม่<a href=\"%(add_collection_url)s\">เพิ่มสักอัน</a>?"
+
+msgid "Yes, delete"
+msgstr ""
+"ใช่,\n"
+"ลบ"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "ยกเลิกการเผยแพร่ %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "คุณแน่ใจว่าต้องการจะยุติการเผยแพร่ %(model_name)s นี้หรือไม่?"
+
+msgid "Yes, unpublish it"
+msgstr "ใช่, ยุติการเผยแพร่"
+
+msgid "No, don't unpublish"
+msgstr "ไม่, ไม่ต้องยกเลิก"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "เผยแพร่ %(model_name)s"
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "การเผยแพร่ %(model_name)s นี้จะทำการยกเลิก workflow ปัจจุบัน"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "คุณยังต้องการจะเผยแพร่ %(model_name)s หรือไม่?"
+
+msgid "Update"
+msgstr "ล่าสุด"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "กำลังเปรียบเทียบ %(title)s"
+
+msgid "Comparing"
+msgstr "กำลังเปรียบเทียบ"
+
+msgid "Fields"
+msgstr "หัวข้อ"
+
+msgid "Changes"
+msgstr "เปลี่ยน"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "ยินดีต้อนรับสู่ %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "นี่คือหน้าจอที่ช่วยในการให้ข้อมูลเกี่ยวกับการแสดงเนื้อหาที่คุณสร้าง"
+
+msgid "Edit this page"
+msgstr "แก้ไขหน้านี้"
+
+msgid "Draft"
+msgstr "ร่าง , ข้อความที่เก็บเอาไว้ทำใหม่"
+
+msgid "Live"
+msgstr "กำลังเผยแพร่"
+
+msgid "Your most recent edits"
+msgstr "ที่คุณแก้ไขล่าสุด"
+
+msgid "Status"
+msgstr "สถานะ"
+
+msgid "Date"
+msgstr "วันที่"
+
+msgid "Site summary"
+msgstr "สรุป,หน้าหลักของเว็บไซด์"
+
+msgid "Close"
+msgstr "ปิด"
+
+msgid "Preview"
+msgstr "ภาพตัวอย่าง"
+
+msgid "Compare with live version"
+msgstr "เปรียบเทียบกับเวอร์ชันที่กำลังเผยพร่"
+
+msgid "Sign in"
+msgstr "ลงชื่อเข้าใช้"
+
+msgid "Sign in to Wagtail"
+msgstr "ลงชื่อเข้าใช้ในWagtail"
+
+msgid "Signing in…"
+msgstr "กำลังลงชื่อเข้าใช้"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "หน้านี้ \"%(title)s\" ได้ผ่านการอนุมัติแล้ว"
+
+msgid "You can view the page here:"
+msgstr "คุณสามารถดูหน้านี้ ตรงนี้"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "หน้านี้ \"%(title)s\" ได้ผ่านการอนุมัติแล้ว"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "สวัสดี %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "แก้ไขประกาศของคุณ ตั้งค่าตรงนี้"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "หน้านี้ \"%(title)s\" ไม่ผ่านการอนุมัติ"
+
+msgid "You can edit the page here:"
+msgstr "คุณสามารถแก้ไขหน้านี้ ตรงนี้"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "หน้านี้ \"%(title)s\"ไม่ผ่านการอนุมัติ"
+
+msgid "You can preview the page here:"
+msgstr "คุณสามารถดูภาพตัวอย่างได้จากตรงนี้"
+
+msgid "This page has been made private by a parent page."
+msgstr "หน้านี้ถูกตั้งค่าส่วนตัวโดยหน้าหลัก"
+
+msgid "Save the page before leaving"
+msgstr "บันทึกหน้านี้ก่อนออกไป"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "คุณมี <span>การแก้ไขที่ยังไม่ได้บันทึก</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "คุณมี <span>การแก้ไข</span> และ <span>ความคิดเห็น</span> ที่ยังไม่ได้บันทึก"
+
+msgid "Publishing…"
+msgstr "กำลังเผยแพร่..."
+
+msgid "Publish this version"
+msgstr "เผยแพร่เวอร์ชั่นนี้"
+
+msgid "Saving…"
+msgstr "กำลังเซฟ, กำลังเก็บข้อมูล"
+
+msgid "Replace current draft"
+msgstr "แทนที่ฉบับร่างล่าสุด"
+
+msgid "Save draft"
+msgstr "บันทึกฉบับร่าง"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "สร้างหน้านี้ใน %(title)s"
+
+msgid "Create a page in"
+msgstr "สร้างหน้าใหม่ใน..."
+
+msgid "Choose which type of page you'd like to create."
+msgstr "เลือกรูปแบบหน้าที่คุณอยากจะสร้าง"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "หน้านี้กำลังถูกใช้ %(page_type)s"
+
+msgid "Move"
+msgstr "เคลื่อนย้าย"
+
+#, python-format
+msgid "Publish 1 page"
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "เผยแพร่ %(counter)s หน้า"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "คุณแน่ใจว่าต้องการเผยแพร่หน้าเหล่านี้?"
+
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "หน้านี้มีหน้าย่อย %(counter)s หน้า ที่ยังไม่ได้เผยแพร่"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "คุณไม่ได้รับอนุญาตให้เผยแพร่หน้าเหล่านี้"
+
+msgid "Yes, publish"
+msgstr "ใช่, ทำการเผยแพร่"
+
+msgid "No, don't publish"
+msgstr "ไม่, ไม่ต้องเผยแพร่"
+
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "ยุติการเผยแพร่ %(counter)s หน้า"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "คุณแน่ใจว่าต้องการยุติการเผยแพร่หน้าเหล่านี้?"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "คุณไม่ได้รับอนุญาตให้ยุติการเผยแพร่หน้าเหล่านี้"
+
+msgid "Yes, unpublish"
+msgstr "ใช่, ยุติการเผยแพร่"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "ลบ %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะลบหน้านี้มั้ย?"
+
+msgid "Yes, delete it"
+msgstr ""
+"ใช่,\n"
+"ลบทิ้ง"
+
+msgid "No, don't delete it"
+msgstr ""
+"ไม่,\n"
+"อย่าลบทิ้ง"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"อีกทางเลือกหนึ่งของคุณ <a href=\"%(unpublish_url)s\">ยกเลิกการพิมพ์หน้า</a>. "
+"มันทำให้หน้านี้ถูกลบจากหน้าสาธารณะและคุณสามารถแก้ไขหรือตีพิมพ์ภายหลังอีกครั้งหนึ่งได้"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "เคลื่อนย้าย %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะเคลื่อนย้ายหน้านี้ไปยัง '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "คุณแน่ใจว่าคุณต้องการจะเคลื่อนย้ายหน้านี้และหน้าย่อยทั้งหมดไปยัง '%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "ใช่,เคลื่อนย้ายหน้านี้"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "คุณแน่ใจว่าคุณต้องการยกเลิกการเผยแพร่หน้านี้?"
+
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] "หน้านี้มีหน้าย่อย %(live_descendant_count)s หน้า ยุติการเผยแพร่หน้าพวกนี้ด้วย"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "การเผยแพร่หน้านี้จะทำการยกเลิก workflow ปัจจุบัน"
+
+msgid "Would you still like to publish this page?"
+msgstr "คุณยังต้องการจะเผยแพร่หน้านี้หรือไม่?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "ก๊อปปี้ %(title)s"
+
+msgid "Copy"
+msgstr "ก๊อปปี้ , คัดลอก"
+
+msgid "Copy this page"
+msgstr "ก๊อปปี้หน้านี้ , คัดลอกหน้านี้"
+
+msgid "This page has unsaved changes."
+msgstr "หน้านี้มีการเปลี่ยนแปลงที่ยังไม่ได้เซฟเอาไว้"
+
+msgid "Configure a site now."
+msgstr "โครงสร้างเว็บไซด์ในขณะนี้"
+
+msgid "This page is locked to further editing"
+msgstr "หน้านี้ถูกล็อกไม่สามารถแก้ไขได้แล้ว"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "สำรวจหน้าย่อยของ '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "เพิ่มหน้าย่อยที่ '%(title)s'"
+
+msgid "Drag"
+msgstr "ลาก"
+
+msgid "Disable ordering of child pages"
+msgstr "การเรียงไม่สามารถทำได้ในหย้าย่อย"
+
+msgid "Enable ordering of child pages"
+msgstr "การเรียงลำดับสามารถทำได้ในหน้าย่อย"
+
+msgid "Sites menu"
+msgstr "เมนูของเว็บไซด์"
+
+msgid "Previous"
+msgstr "หน้าก่อนหน้านี้"
+
+msgid "Next"
+msgstr "ถัดไป"
+
+msgid "This page is protected from public view"
+msgstr "หน้านี้ถูกป้องกันจากสาธารณะ"
+
+msgid "Add child page"
+msgstr "หน้าย่อย"
+
+msgid "Page types"
+msgstr "รูปแบบหน้า"
+
+msgid "Enter a search term above"
+msgstr "เข้าสู่การค้นหาคำที่หาอยู่"
+
+msgid "No pages use"
+msgstr "ไม่มีหน้าท่ีใช้"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "เพิ่ม %(label)s"
+
+msgid "Move up"
+msgstr "เลื่อนขึ้น"
+
+msgid "Move down"
+msgstr "เลื่อนลง"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
+msgstr "กำหนดการเผยแพร่นี้จะมีผลหลังจากที่คุณเลือก \"เผยแพร่\" แล้วเท่านั้น"
+
+msgid "Set publishing schedule"
+msgstr "ตั้งกำหนดการเผยแพร่"
+
+msgid "Last published"
+msgstr "เผยแพร่ล่าสุด"
+
+msgid "Last published by"
+msgstr "เผยแพร่ล่าสุดโดย"
+
+msgid "Type"
+msgstr "รูปแบบ"
+
+msgid "Updated"
+msgstr "อัพเดท"
+
+msgid "Pages"
+msgstr "หลายหน้า"
+
+msgid "Locked"
+msgstr "ล็อกเรียบร้อยแล้ว"
+
+msgid "Name"
+msgstr "ชื่อ"
+
+msgid "Edit this item"
+msgstr "แก้ไขชิ้นนี้"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "หน้า %(page_num)s ของ%(total_pages)s."
+
+msgid "Continue"
+msgstr "ต่อ,ต่อเนื่อง"
+
+msgid "Download CSV"
+msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
+
+msgid "Filter"
+msgstr "คัดกรอง"
+
+msgid "Visit the live page"
+msgstr "ไปยังหน้าที่เผยแพร่"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
+
+msgid "Unschedule"
+msgstr "ยกเลิกตาราง"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "คุณแน่ใจว่าคุณอยากจะยกเลิกการแก้ไขนี้"
+
+msgid "Yes, unschedule"
+msgstr ""
+"ใช่,\n"
+"ยกเลิกตาราง"
+
+msgid "No, don't unschedule"
+msgstr "ไม่, ไม่ต้องยกเลิกตาราง"
+
+msgid "Other searches"
+msgstr "ค้นหาอย่างอื่น"
+
+msgid "Unlocked"
+msgstr "ปลดล็อก"
+
+msgid "Lock"
+msgstr "ล็อค"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "การเปลี่ยนความเป็นส่วนตัวทั้งหมดสามารถแสดงให้เห็นในหน้าย่อยทุกหน้า"
+
+msgid "Usage"
+msgstr "การใช้"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
+
+msgid "Once published:"
+msgstr "เผยแพร่แล้ว:"
+
+msgid "No publishing schedule set"
+msgstr "ไม่ได้ตั้งกำหนดการเผยแพร่"
+
+msgid "First published"
+msgstr "เผยแพร่ครั้งแรก"
+
+msgid "Edited"
+msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
+
+msgid "Add a child page"
+msgstr "เพิ่มหน้ารองลงมา"
+
+msgid "Show in Explorer"
+msgstr "โชว์ในอินเตอร์เน็ตเอ็กซ์โปรเล่อร์"
+
+msgid "Page"
+msgstr "หน้า"
+
+msgid "New"
+msgstr "ใหม่,อันใหม่"
+
+msgid "Published"
+msgstr "เผยแพร่แล้ว"
+
+msgid "More"
+msgstr "เพิ่ม"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ที่ผ่านมา"
+
+msgid "Log out"
+msgstr "ออกจากระบบ"
+
+msgid "Undo"
+msgstr "ถอยหลัง"
+
+msgid "Redo"
+msgstr "ทำใหม่"
+
+msgid "Bold"
+msgstr "ตัวอักษรหนา"
+
+msgid "Italic"
+msgstr "ตัวอักษรเอียง"
+
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+msgid "You have been successfully logged out."
+msgstr "คุณออกจากระบบเรียบร้อยแล้ว"
+
+msgid "Collections"
+msgstr "ชุด"
+
+msgid "Add a collection"
+msgstr "เพิ่มเติมชุด"
+
+msgid "Add collection"
+msgstr "เพิ่มเติมชุด"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "ชุด'%(object)s'ถูกสร้างแล้ว"
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "ชุด'%(object)s'อัพเดทแล้ว"
+
+msgid "The collection could not be saved due to errors."
+msgstr "ชุดนี้ไม่สามารถเซฟได้ในระหว่างที่มีข้อผิดพลาด"
+
+msgid "Delete collection"
+msgstr "ลบทิ้งชุดนี้"
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "คุณแน่ใจว่าคุณต้องการลบทิ้งชุดนี้?"
+
+msgid "Home"
+msgstr "หน้าหลักของเว็บไซด์"
+
+msgid "Live version"
+msgstr "เวอร์ชันที่กำลังเผยพร่"
+
+msgid "Current draft"
+msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
+
+msgid "Cancel scheduled publish"
+msgstr "ยกเลิกกำหนดการเผยแพร่"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' กำลังมีกำหนดการที่จะเผยแพร่"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' ถูกสร้างและกำหนดการเผยแพร่"
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"%(model_name)s '%(object)s' กำลังเผยแพร่ และเวอร์ชั่นนี้กำลังมีกำหนดการที่จะเผยแพร่"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s '%(object)s' มีการอัปเดตและเผยแพร่"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s '%(object)s' ถูกสร้างและเผยแพร่"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "แก้ไข'%(title)s'"
+
+msgid "Inspect"
+msgstr "ตรวจ"
+
+msgid "Editing"
+msgstr "กำลังแก้ไข"
+
+msgid "Inspecting"
+msgstr "กำลังตรวจ"
+
+msgid "Earliest"
+msgstr "ที่เก่าแก่ที่สุด"
+
+msgid "Latest"
+msgstr "ล่าสุด"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "แก้ไขสิ่งนี้ %(object)s"
+
+msgid "Dashboard"
+msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "หน้า'%(page_title)s'และ%(subpages_count)sเป็นหน้าย่อยที่ถูกก๊อปปี้"
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "หน้า%(page_title)sถูกคัดลอกแล้ว"
+
+msgid "View draft"
+msgstr "ดูฉบับร่าง"
+
+msgid "View live"
+msgstr "ดูหน้าที่เผยแพร่"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "หน้า'%(page_title)s'ถูกสร้าง"
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "หน้า'%(page_title)s'ถูกสร้างและตีพิมพ์สำหรับตาราง"
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "หน้า'%(page_title)s'ถูกสร้างและตีพิมพ์"
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "หน้า'%(page_title)s'ถูกสร้างและถูกส่งสำหรับตรวจ"
+
+msgid "The page could not be created due to validation errors"
+msgstr "หน้านี้ไม่สามารถถูกสร้างในระหว่างที่การยืนยันเกิดข้อผิดพลาด"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr ""
+"หน้า%(page_title)s\n"
+"ถูกลบแล้ว"
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "หน้า%(page_title)sได้อัพเดทแล้ว"
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr "หน้า '%(page_title)s' กำลังเผยแพร่ และเวอร์ชั่นนี้กำลังมีกำหนดการที่จะเผยแพร่"
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "หน้า%(page_title)sได้จัดตารางในการพิมพ์เรียบร้อยแล้ว"
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "หน้า%(page_title)s ได้จัดพิมพ์เรียบร้อยแล้ว"
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "หน้า'%(page_title)s'ถูกส่งสำหรับตรวจแล้ว"
+
+msgid "The page could not be saved as it is locked"
+msgstr "หน้านี้ไม่สามารถเซฟได้เนื่องจากมันถูกล็อกอยู่"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "หน้านี้ไม่สามารถถูกเซฟระหว่างการยืนยันที่เกิดข้อผิดพลาด"
+
+msgid "Site"
+msgstr "เว็บไซด์"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "หน้า'%(page_title)s'ตอนนี้ได้ถูกปลดล็อกแล้ว"
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr ""
+"หน้า%(page_title)s \n"
+"เคลื่อนย้ายแล้ว"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "หน้า%(page_title)s ยกเลิกจัดพิมพ์แล้ว"
+
+msgid "Pages using"
+msgstr "หน้านี้กำลังถูกใช้อยู่"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "หน้า%(page_title)s ปัจจุบันนี้ไม่รอตรวจ"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "ดูตัวอย่างเวอร์ชั่นฉบับร่างของ '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "ดูเวอร์ชั่นที่เผยแพร่ของ '%(title)s'"
+
+msgid "Bulleted list"
+msgstr "รายการสัญลักษณ์"
+
+msgid "Numbered list"
+msgstr "รายการตัวเลข"
+
+msgid "Link"
+msgstr "ลิงค์"
+
+msgid "Choose an item"
+msgstr "เลือกชิ้น"
+
+msgid "Choose another item"
+msgstr "เลือกอีกชิ้นหนึ่ง"
+
+msgid "Clear choice"
+msgstr "ล้างที่เลือก"
+
+msgid "Choose another page"
+msgstr "เลือกหน้าอื่น"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr "Tags ที่มีช่องว่างระหว่างคำจะถูกครอบด้วยเครื่องหมายอัญประกาศคู่ (\") โดยอัตโนมัติ"

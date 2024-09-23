@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar should render with the minimum required props 1`] = `
+<Fragment>
+  <button
+    aria-expanded="false"
+    aria-label="Toggle sidebar"
+    className="button sidebar-nav-toggle"
+    onClick={[Function]}
+    type="button"
+  >
+    <Icon
+      name="bars"
+    />
+  </button>
+  <div
+    className="sidebar"
+  >
+    <div
+      className="sidebar__inner"
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      <div
+        className="sm:w-mt-2 w-justify-end w-flex  w-items-center"
+      >
+        <button
+          aria-expanded="true"
+          aria-label="Toggle sidebar"
+          className="w-mr-4
+                button
+                sidebar__collapse-toggle
+                w-flex
+                w-justify-center
+                w-items-center
+                hover:w-bg-surface-menu-item-active
+                hover:text-white
+                hover:opacity-100"
+          onClick={[Function]}
+          type="button"
+        >
+          <Icon
+            className="-w-rotate-180"
+            name="expand-right"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</Fragment>
+`;

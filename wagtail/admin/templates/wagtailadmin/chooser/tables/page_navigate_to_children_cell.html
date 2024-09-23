@@ -1,0 +1,6 @@
+{% load i18n wagtailadmin_tags %}
+<td class="{% if value.can_descend %}children{% endif %} {% if column.classname %}{{ column.classname }}{% endif %}">
+    {% if value.can_descend %}
+        <a href="{% url 'wagtailadmin_choose_page_child' value.id %}{% querystring p=None %}" class="navigate-pages" title="{% blocktrans trimmed with title=value.get_admin_display_title %}Explore subpages of '{{ title }}'{% endblocktrans %}" aria-label="{% trans 'Explore' %}">{% icon name="arrow-right" classname="default" %}</a>
+    {% endif %}
+</td>

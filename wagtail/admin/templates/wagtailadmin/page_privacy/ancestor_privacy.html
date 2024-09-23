@@ -1,0 +1,3 @@
+{% load i18n %}
+<p>{% trans "This page has been made private by a parent page." %}</p>
+<p>{% trans "You can edit the privacy settings on:" %} <a href="{% url 'wagtailadmin_pages:edit' page_with_restriction.id %}">{{ page_with_restriction.specific_deferred.get_admin_display_title }}</a></p>

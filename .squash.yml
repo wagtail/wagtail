@@ -1,0 +1,28 @@
+deployments:
+  default:
+    dockerimage: python:3.11.4-slim-bullseye
+    build_steps:
+      - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev curl
+      - RUN bash -c "curl -sL https://deb.nodesource.com/setup_20.x | bash -"
+      - apt install -y nodejs
+      - pip install setuptools pip --upgrade --force-reinstall
+      - cd /code
+    post_build_steps:
+      - npm ci --audit=false --progress=false
+      - npm run build
+      - git clone --depth=1 https://github.com/wagtail/bakerydemo.git /bakerydemo
+      # Install bakerydemo dependencies
+      - pip install -r /bakerydemo/requirements/base.txt
+      # Install the checked-out version of Wagtail, overriding whatever version was installed previously
+      - pip install /code
+      - cd /bakerydemo
+      - python manage.py migrate
+      # Load content, will also create a superuser for us (admin / changeme)
+      - python manage.py load_initial_data
+      # Ensure that the CSRF_TRUSTED_ORIGINS setting includes the Squash.io domain
+      - echo "CSRF_TRUSTED_ORIGINS = ['https://*.squash.io']" > /bakerydemo/bakerydemo/settings/local.py
+    launch_steps:
+      - cd /bakerydemo/
+      - python manage.py runserver 0.0.0.0:80
+    port_forwarding: 80:80
+    run_options: -v ~/code:/code

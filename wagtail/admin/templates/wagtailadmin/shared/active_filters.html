@@ -1,0 +1,21 @@
+{% load i18n wagtailadmin_tags %}
+<ul class="w-active-filters">
+    {% for filter in active_filters %}
+        <li class="w-pill">
+            <button class="w-pill__content" data-controller="w-action" data-w-active-filter-id="{{ filter.auto_id }}" aria-controls="drilldown-{{ filter.auto_id }}">
+                <span class="w-text-14">{{ filter.field_label }}:</span>
+                <b class="w-ml-1">{{ filter.value }}</b>
+            </button>
+            <button
+                data-controller="w-swap"
+                data-action="click->w-swap#replaceLazy"
+                data-w-swap-src-value="{{ filter.removed_filter_url }}"
+                data-w-swap-target-value="#listing-results"
+                data-w-swap-reflect-value="true"
+                class="w-pill__remove"
+                aria-label="{% trans 'Clear' %}">
+                {% icon name="cross" classname="w-h-4 w-w-4" %}
+            </button>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,71 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailadmin_tags %}
+{% load i18n %}
+{% block bodyclass %}editor-view{% endblock %}
+
+{% block content %}
+    {% get_comments_enabled as comments_enabled %}
+
+    {% include 'wagtailadmin/shared/headers/page_create_header.html' with title=header_title %}
+
+    <form
+        id="page-edit-form"
+        action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}"
+        method="POST"
+        novalidate
+        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+        data-edit-form
+        data-controller="w-init w-unsaved"
+        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-w-init-event-value="{% if comments_enabled %}w-comments:init{% endif %}"
+        data-w-unsaved-confirmation-value="{{ _("This page has unsaved changes.") }}"
+        data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
+        data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
+    >
+        {% csrf_token %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        {% if parent_page.is_root %}
+            {# The user is allowed to set a different locale for pages created at the root #}
+            {# If they've done this, make sure their chosen locale is passed in the form #}
+            <input type="hidden" name="locale" value="{{ locale.language_code }}">
+        {% endif %}
+
+        {{ edit_handler.render_form_content }}
+
+        <footer class="footer w-grid md:w-grid-flow-col">
+            <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
+                {{ action_menu.render_html }}
+                {% block extra_footer_actions %}
+                {% endblock %}
+            </nav>
+            {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+        </footer>
+    </form>
+
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    {% comment %}
+        Additional js from widgets media. Allows for custom widgets in admin panel.
+    {% endcomment %}
+    {{ media.js }}
+
+    <script>
+        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
+        // This value may be used by JS widgets on the form
+        {% if locale %}
+            window.wagtailConfig = window.wagtailConfig || {};
+            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
+        {% endif %}
+    </script>
+{% endblock %}

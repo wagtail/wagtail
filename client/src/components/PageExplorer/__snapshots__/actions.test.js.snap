@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions closePageExplorer close 1`] = `
+[
+  {
+    "payload": undefined,
+    "type": "CLOSE_EXPLORER",
+  },
+]
+`;
+
+exports[`actions gotoPage creates action 1`] = `
+[
+  {
+    "payload": {
+      "id": 5,
+      "transition": 1,
+    },
+    "type": "GOTO_PAGE",
+  },
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "GET_CHILDREN_START",
+  },
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "GET_TRANSLATIONS_START",
+  },
+]
+`;
+
+exports[`actions gotoPage triggers getChildren 1`] = `
+[
+  {
+    "payload": {
+      "id": 5,
+      "transition": 1,
+    },
+    "type": "GOTO_PAGE",
+  },
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "GET_CHILDREN_START",
+  },
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "GET_TRANSLATIONS_START",
+  },
+]
+`;
+
+exports[`actions openPageExplorer open 1`] = `
+[
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "OPEN_EXPLORER",
+  },
+]
+`;
+
+exports[`actions openPageExplorer open at root 1`] = `
+[
+  {
+    "payload": {
+      "id": 1,
+    },
+    "type": "OPEN_EXPLORER",
+  },
+  {
+    "payload": {
+      "id": 1,
+    },
+    "type": "GET_CHILDREN_START",
+  },
+]
+`;
+
+exports[`actions openPageExplorer open first time 1`] = `
+[
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "OPEN_EXPLORER",
+  },
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "GET_CHILDREN_START",
+  },
+  {
+    "payload": {
+      "id": 5,
+    },
+    "type": "GET_TRANSLATIONS_START",
+  },
+]
+`;

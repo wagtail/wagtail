@@ -1,0 +1,95 @@
+.w-drilldown__contents {
+  max-height: min(480px, 70vh);
+  overflow-y: auto;
+}
+
+.w-drilldown .w-drilldown__toggle {
+  @apply w-label-1;
+  display: flex;
+  justify-content: space-between;
+  padding-inline-start: theme('spacing.5');
+  padding-inline-end: theme('spacing.5');
+  border: 1px solid transparent;
+
+  &:hover {
+    background-color: transparent;
+    border-color: theme('colors.border-button-outline-hover');
+    color: theme('colors.text-link-hover');
+    cursor: pointer;
+
+    @media (forced-colors: active) {
+      border-color: Highlight;
+    }
+  }
+
+  .icon {
+    pointer-events: none;
+    width: theme('spacing.5');
+    height: theme('spacing.5');
+    margin-inline-end: 0;
+  }
+}
+
+.w-drilldown__submenu {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  padding-inline-end: theme('spacing.4');
+}
+
+.w-drilldown .w-drilldown__back {
+  @apply w-label-1;
+  position: relative;
+  padding: theme('spacing.[2.5]');
+  align-self: flex-start;
+
+  .icon {
+    pointer-events: none;
+    margin-inline-end: 0;
+  }
+
+  &:hover {
+    background-color: transparent;
+    border-color: theme('colors.border-button-outline-hover');
+    color: theme('colors.text-link-hover');
+    cursor: pointer;
+
+    @media (forced-colors: active) {
+      border-color: Highlight;
+    }
+  }
+}
+
+.w-drilldown__submenu .w-field__wrapper {
+  // Align the margin-top with the submenu’s back button
+  // and reduce the default margin-bottom.
+  margin-top: theme('spacing.2');
+  margin-bottom: theme('spacing.2');
+  // Force fields to stay within the width of the drilldown.
+  max-width: calc(260px - theme('spacing.4'));
+}
+
+.w-drilldown__submenu .w-field__label {
+  @apply w-label-1;
+  margin-bottom: theme('spacing.3');
+}
+
+.w-drilldown__count {
+  $badge-size: theme('spacing.4');
+  width: $badge-size;
+  height: $badge-size;
+  line-height: 1.5;
+  text-align: center;
+  font-size: 0.5625rem;
+  font-weight: theme('fontWeight.bold');
+  border-radius: theme('borderRadius.full');
+  background-color: theme('colors.info.100');
+  border: 1px solid theme('colors.info.100');
+  color: theme('colors.white.DEFAULT');
+
+  // Reuse the same count component as a button badge.
+  .w-filter-button & {
+    position: absolute;
+    top: calc(-0.5 * #{$badge-size});
+    inset-inline-end: calc(-0.5 * #{$badge-size});
+  }
+}

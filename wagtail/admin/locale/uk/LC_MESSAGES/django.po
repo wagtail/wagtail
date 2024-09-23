@@ -1,0 +1,2312 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Anastasiia La, 2021
+# Anastasiia La, 2021
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Mykola Zamkovoi <nickzam@gmail.com>, 2014
+# Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2019-2020
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2022-2024
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Zoriana Zaiats, 2018
+# Zoriana Zaiats, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
+"2020,2022-2024\n"
+"Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
+"uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Publish"
+msgstr "Опублікувати"
+
+msgid "Submit for moderation"
+msgstr "Надіслати на модерацію"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Оновити %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Надіслати в %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Перезапустити робочий процес"
+
+msgid "Cancel workflow "
+msgstr "Скасувати робочий процес"
+
+msgid "Unpublish"
+msgstr "Зняти з публікації"
+
+msgid "Save Draft"
+msgstr "Зберегти чернентку"
+
+msgid "Page locked"
+msgstr "Сторінку заблоковано"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s і Опублікувати"
+
+msgid "Wagtail admin"
+msgstr "Адміністрування Wagtail "
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Вибачте, ви не маєте дозволів для доступу у цей розділ."
+
+msgid "You do not have permission to access the admin"
+msgstr "У Вас не вистачає прав для доступу до адмінпанелі"
+
+msgid "None"
+msgstr "Нічого"
+
+msgid "Date from"
+msgstr "Дата початку"
+
+msgid "Date to"
+msgstr "Дата кінця"
+
+msgid "Locale"
+msgstr "Локаль"
+
+msgid "All"
+msgstr "Усі"
+
+msgid "Collection"
+msgstr "Колекція"
+
+msgid "Tag"
+msgstr "Тег"
+
+msgid "Preferred language"
+msgstr "Бажана мова"
+
+msgid "Current time zone"
+msgstr "Поточний часовий пояс"
+
+msgid "First Name"
+msgstr "Ім'я"
+
+msgid "Last Name"
+msgstr "Прізвище"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Upload a profile picture"
+msgstr "Завантажити зображення для профілю"
+
+msgid "Enter password"
+msgstr "Введіть пароль"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Ваші %(username_field)s та пароль не відповідають один одному. Будь ласка, "
+"спробуйте ще раз."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Введіть ваш %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Введіть вашу е-мейл адресу для скидання паролю"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Пошуковий термін"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "All collections"
+msgstr "Усі колекції"
+
+msgid "Parent"
+msgstr "Предок"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Виберіть положення в ієрархії. Примітка: колекція не може стати дочірнім "
+"елементом самої себе або одного зі своїх нащадків."
+
+msgid "Please select another parent"
+msgstr "Будь ласка, виберіть іншого предка"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "Add collections"
+msgstr "Додати колекції"
+
+msgid "Edit"
+msgstr "Редагування"
+
+msgid "Edit collections"
+msgstr "Редагувати колекції"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Delete collections"
+msgstr "Видалити колекції"
+
+msgid "You cannot edit another user's comment."
+msgstr "Ви не можете проредагувати коментар іншого користувача."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Дата/час наживо має знаходитись перед датою/часом закінчення"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Дата/час закінчення має бути у майбутньому"
+
+msgid "New title"
+msgstr "Новий заголовок"
+
+msgid "New slug"
+msgstr "Нова коротка назва для URL"
+
+msgid "New parent page"
+msgstr "Нова батьківська сторінка"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ця копія буде спадковою для даної батьківської сторінки."
+
+msgid "Copy subpages"
+msgstr "Скопіюваті підсторінки"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Ця дія скопіює %(count)s підсторінку."
+msgstr[1] "Ця дія скопіює %(count)s підсторінок."
+msgstr[2] "Ця дія скопіює %(count)s підсторінок."
+msgstr[3] "Ця дія скопіює %(count)s підсторінок."
+
+msgid "Publish copied page"
+msgstr "Опублікуваті скопійовані сторінки"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+"Ця сторінка відображається на сайті, хочете також опублікувати її копію?"
+
+msgid "Publish copies"
+msgstr "Опублїкувати копії"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s сторінку, що ви копіюєте, вже опубліковано. Хочете опублїкувати її "
+"копїю?"
+msgstr[1] ""
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
+msgstr[2] ""
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
+msgstr[3] ""
+"%(count)s сторінок, що ви копіюєте, вже опубліковано. Хочете опублїкувати їх "
+"копїю?"
+
+msgid "Alias"
+msgstr "Пов'язана копія "
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Копія буде автоматично оновлюватись, при зміні оригінальної сторінки"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Ви не маєте прав на копіювання до сторінок \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Ця коротка назва вже використана в контексті батьківської сторінки "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Не можливо скопіювати сторінку в саму себе, коли копіюєте підсторінки"
+
+msgid "Select a new parent for this page."
+msgstr "Виберіть нову батьківську сторінку для цієї сторінки"
+
+msgid "Parent page"
+msgstr "Батьківська сторінка"
+
+msgid "Visibility"
+msgstr "Видимість"
+
+msgid "This field is required."
+msgstr "Це поле необхідно заповнити"
+
+msgid "Please select at least one group."
+msgstr "Будь ласка, виберіть як мінімум одну групу"
+
+msgid "All types"
+msgstr "Усі типи"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Сторінка вже належить робочому процесу '%(workflow_name)s'. "
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Робочий процес не може бути багаторазово присвоєно одній і тій же сторінці. "
+
+msgid "Give your workflow a name"
+msgstr "Дайте назву робочому процесу"
+
+msgid "Add tasks to your workflow"
+msgstr "Додати завдання до робочого процесу"
+
+msgid "Task"
+msgstr "Завдання"
+
+msgid "1 page selected"
+msgstr "Обрано 1 сторінку"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "Обрано %(objects)s сторінок"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Обрано всі %(objects)s сторінок на цьому екрані"
+
+msgid "All pages in listing selected"
+msgstr "Обрано всі сторінки у списку"
+
+msgid "1 document selected"
+msgstr "Обрано 1 документ"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "Обрано %(objects)s документів"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Обрано всі %(objects)s документів на цьому екрані"
+
+msgid "All documents in listing selected"
+msgstr "Обрано всі документи у списку"
+
+msgid "1 image selected"
+msgstr "Обрано 1 зображення"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "Обрано %(objects)s зображень"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Обрано всі %(objects)s зображень на цьому екрані"
+
+msgid "All images in listing selected"
+msgstr "Обрано всі зображення у списку"
+
+msgid "1 user selected"
+msgstr "Обрано 1 користувача"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "Обрано %(objects)s користувачів"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "Обрано всі %(objects)s користувачів на цьому екрані"
+
+msgid "All users in listing selected"
+msgstr "Обрано всіх користувачів у списку"
+
+msgid "1 snippet selected"
+msgstr "вибрано 1 сніпет"
+
+msgid "1 item selected"
+msgstr "Обрано 1 об'єкт"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "Обрано %(objects)s об'єктів"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "Обрано всі %(objects)s об'єктів на цьому екрані"
+
+msgid "All items in listing selected"
+msgstr "Обрано всі об'єкти у списку"
+
+msgid "For search engines"
+msgstr "Для пошукових систем"
+
+msgid "For site menus"
+msgstr "Для меню сайту"
+
+msgid "Content"
+msgstr "Контент"
+
+msgid "Promote"
+msgstr "Просування"
+
+msgid "Settings"
+msgstr "Налаштування"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Page title"
+msgstr "Заголовок сторінки"
+
+msgid "Error 404: Page not found"
+msgstr "Помилка 404: сторінку не знайдено"
+
+msgid "Error 404"
+msgstr "Помилка 404"
+
+msgid "The requested page could not be found."
+msgstr "Сторінку, яку ви просите, неможливо знайти"
+
+msgid "Go to Wagtail admin"
+msgstr "Перехід до адмінпанелі"
+
+msgid "Account"
+msgstr "Обліковий запис"
+
+msgid "More actions"
+msgstr "Більше дій"
+
+msgid "Save account details"
+msgstr "Зберегти дані облікового запису"
+
+msgid "Reset password"
+msgstr "Скинути пароль"
+
+msgid "Password change successful"
+msgstr "Пароль вдало змінений"
+
+msgid "Login"
+msgstr "Вхід"
+
+msgid "Set your new password"
+msgstr "Встановіть новий пароль"
+
+msgid "Invalid password reset link"
+msgstr "Неправильне посилання для скидання паролю"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Посилання для скидання паролю недійсне, можливо через те, що воно вже було "
+"використане. "
+
+msgid "Request a new password reset"
+msgstr "Зробити запит для нового скидання паролю"
+
+msgid "Check your email"
+msgstr "Перевірте Вашу пошту"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Посилання на скидання паролю було відправлено вам на електронну пошту, якщо "
+"для цієї адреси було заведено аккаунт. "
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Слідуйте за посиланням щоб скинути пароль"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ваше ім'я користувача (якщо забули):"
+
+msgid "Password reset"
+msgstr "Скидання паролю"
+
+msgid "Reset your password"
+msgstr "Скинути Ваш пароль"
+
+msgid "Reset to default"
+msgstr "Скинути значення за умовчанням "
+
+msgid "Upload a profile picture:"
+msgstr "Завантажити зображення для профілю:"
+
+msgid "Go back"
+msgstr "Повернутися назад"
+
+msgid "Bulk actions"
+msgstr "Групові дії"
+
+msgid "Select row"
+msgstr "Вибрати рядок"
+
+msgid "Select all"
+msgstr "Обрати все"
+
+msgid "Internal link"
+msgstr "Внутрішнє посилання"
+
+msgid "External link"
+msgstr "Зовнішнє посилання"
+
+msgid "Email link"
+msgstr "Посилання на email"
+
+msgid "Phone link"
+msgstr "Посилання на телефон"
+
+msgid "Anchor link"
+msgstr "Якір посилання"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Знайдено %(counter)s співпадіння"
+msgstr[1] "Знайдено %(counter)s співпадінь"
+msgstr[2] "Знайдено %(counter)s співпадінь"
+msgstr[3] "Знайдено %(counter)s співпадінь"
+
+msgid "Add an anchor link"
+msgstr "Добавити якір посилання"
+
+msgid "Insert anchor"
+msgstr "Вставити якір"
+
+msgid "Choose"
+msgstr "Вибрати"
+
+msgid "Choose a page"
+msgstr "Оберіть сторінку"
+
+msgid "Confirm selection"
+msgstr "Підтвердити вибір"
+
+msgid "Convert to internal link"
+msgstr "Конвертувати у внутрішнє посилання"
+
+msgid "Use external link"
+msgstr "Використовувати зовнішнє посилання"
+
+msgid "Add an email link"
+msgstr "Додати посилання на email "
+
+msgid "Insert link"
+msgstr "Вставити посилання"
+
+msgid "Add an external link"
+msgstr "Вставити зовнішнє посилання"
+
+msgid "Add a phone link"
+msgstr "Додати посилання на телефон"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Вибрати %(title)s"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Переглянути вкладені сторінки для '%(title)s'"
+
+msgid "Explore"
+msgstr "Переглянути"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Батьківська колекція зробила цю колекцію приватною. "
+
+msgid "You can edit the privacy settings on:"
+msgstr "Ви можете редагувати налаштування приватності для:"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Налаштування приватності визначають, хто зможе переглядати документи у цій "
+"колекції."
+
+msgid "Privacy"
+msgstr "Приватність"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Встановити конфіденційність колекції. Поточний статус: Public"
+
+msgid "Public"
+msgstr "Публічний"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Встановити конфіденційність колекції. Поточний статус: Приватний"
+
+msgid "Private"
+msgstr "Приватний"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr ""
+"Цю колекцію не можна видалити, тому що вона не є порожньою. Вона містить: "
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"Жодної колекції не створено. Чому б не <a "
+"href=\"%(add_collection_url)s\">створити одну</a>?"
+
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "Вибачте, немає співпадінь для \"<em>%(search_query)s</em>\""
+
+msgid "There are no results."
+msgstr "Немає результатів"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Зняти з публікації %(title)s"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "Ви впевнені, що хочете зняти з публікації цей %(model_name)s?"
+
+msgid "Yes, unpublish it"
+msgstr "Так, зняти з публікації"
+
+msgid "No, don't unpublish"
+msgstr "Ні, не знімати з публікації"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "Опублікувати %(model_name)s"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "Ви все ще хочете опублікувати цю %(model_name)s?"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Actions"
+msgstr "Дії"
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "Preview not available"
+msgstr "Попередній перегляд недоступний"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"Попередній перегляд неможливий через помилки валідації. <br /> Натисніть "
+"зберегти щоб підсвітити відповідні поля"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Порівняння %(title)s"
+
+msgid "Comparing"
+msgstr "Порівняння"
+
+msgid "Fields"
+msgstr "Поля"
+
+msgid "Changes"
+msgstr "Зміни"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "Переміщено вниз на 1 місце."
+msgstr[1] "Переміщено вниз на %(counter)s місця."
+msgstr[2] "Переміщено вниз на %(counter)s місць."
+msgstr[3] "Переміщено вниз на %(counter)s місць."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "Переміщено вгору на 1 місце."
+msgstr[1] "Переміщено вгору на %(counter)s місця."
+msgstr[2] "Переміщено вгору на %(counter)s місць."
+msgstr[3] "Переміщено вгору на %(counter)s місць."
+
+msgid "There are no differences between these two versions"
+msgstr "Немає ніяких відмінностей між цими двома версіями"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Ласкаво просимо до %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Це панель, на якій буде показана корисна інформація про створений вами "
+"контент."
+
+msgid "Your locked pages"
+msgstr "Ваші заблоковані сторінки"
+
+msgid "Locked at"
+msgstr "Заблоковано в "
+
+msgid "Edit this page"
+msgstr "Редагувати цю сторінку"
+
+msgid "Unlock"
+msgstr "Розблокувати"
+
+msgid "Draft"
+msgstr "Чернетка"
+
+msgid "Live"
+msgstr "Наживо"
+
+msgid "Your most recent edits"
+msgstr "Останні зміни, зроблені вами"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Site summary"
+msgstr "Резюме сайту"
+
+msgid "Task started"
+msgstr "Завдання запущене"
+
+msgid "Changes requested at"
+msgstr "Вимагаються зміни"
+
+msgid "Awaiting"
+msgstr "В очікуванні"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Awaiting your review"
+msgstr "В очікуванні огляду"
+
+msgid "Tasks"
+msgstr "Завдання"
+
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+msgid "Compare with live version"
+msgstr "Порівняти із версією наживо"
+
+msgid "Compare with previous version"
+msgstr "Порівняти з попередньою версією"
+
+msgid "Sign in"
+msgstr "Увійти"
+
+msgid "Sign in to Wagtail"
+msgstr "Увійдіть до Wagtail"
+
+msgid "Forgotten password?"
+msgstr "Забули пароль?"
+
+msgid "Remember me"
+msgstr "Запам'ятати мене"
+
+msgid "Signing in…"
+msgstr "Здійснюється вхід..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Сторінку \"%(title)s\" схвалено."
+
+msgid "You can view the page here:"
+msgstr "Ви можете переглянути сторінку тут:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Сторінку \"%(title)s\" схвалено"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Привіт %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Змінюйте вподобання ваших сповіщень тут:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Сторінку \"%(title)s\" було відхилено."
+
+msgid "You can edit the page here:"
+msgstr "Ви можете редагувати сторінку тут:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Сторінку \"%(title)s\" було відхилено"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"Сторінку \"%(title)s\"  було затверджено на етапі модерації \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "Сторінку \"%(title)s\" було затверджено в \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "Сторінку \"%(title)s\" було відхилено на етапі модерації \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "Сторінку \"%(title)s\" було відхилено впродовж \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було передано на затвердження на етапі модерації "
+"\"%(task)s\"."
+
+msgid "You can preview the page here:"
+msgstr "Ви можете попередньо передивитись сторінку тут:"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було передано на затвердження до етапу модерації "
+"\"%(task)s\"."
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s оновив коментарі до \"%(title)s\"."
+
+msgid "New comments"
+msgstr "Нові коментарі"
+
+msgid "Resolved comments"
+msgstr "Вирішені коментарі"
+
+msgid "Deleted comments"
+msgstr "Видалені коментарі"
+
+msgid "New replies"
+msgstr "Нові відповіді"
+
+msgid "New replies to:"
+msgstr "Нові відповіді на: "
+
+msgid "New comments:"
+msgstr "Нові коментарі:"
+
+msgid "Resolved comments:"
+msgstr "Вирішені коментарі: "
+
+msgid "Deleted comments:"
+msgstr "Видалені коментарі: "
+
+msgid "New replies:"
+msgstr "Нові відповіді:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s оновив коментарі до \"%(title)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було затверджено в робочому процесі \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Сторінку \"%(title)s\" було затверджено в \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"Сторінку \"%(title)s\" було відхилено під час \"%(task)s\" в робочому "
+"процесі \"%(workflow)s\" користувачем %(rejector)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було відхилено під час \"%(task)s\" в робочому "
+"процесі \"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Залишено наступний коментар: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Сторінку \"%(title)s\" було відхилено під час \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Сторінку \"%(title)s\" було відправлено на модерацію в робочий процес "
+"\"%(workflow)s\" користувачем %(requester)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було передано на модерацію до робочого процесу "
+"\"%(workflow)s\"."
+
+msgid "This page has been made private by a parent page."
+msgstr "Батьківська сторінка зробила цю сторінку приватною."
+
+msgid "Save the page before leaving"
+msgstr "Збережіть сторінку перед виходом"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "У вас є <span>незбережені зміни</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "У вас є <span>незбережені коментарі</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "У вас є <span>незбережені зміни</span> і <span>коментарі</span>"
+
+msgid "Publishing…"
+msgstr "Опубліковується..."
+
+msgid "Publish this version"
+msgstr "Опублікувати цю версію"
+
+msgid "Saving…"
+msgstr "Йде збереження..."
+
+msgid "Replace current draft"
+msgstr "Замінити поточну чернетку"
+
+msgid "Save draft"
+msgstr "Зберегти чернетку"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Створити сторінку в %(title)s"
+
+msgid "Create a page in"
+msgstr "Створити сторінку в"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Оберіть тип сторінки, яку ви б хотіли створити."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Сторінка типу '%(page_type)s'"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Ви впевнені, що ви бажаєте видалити ці сторінки?"
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Вам не дозволено видаляти цю сторінку"
+msgstr[1] "Вам не дозволено видаляти ці сторінки"
+msgstr[2] "Вам не дозволено видаляти ці сторінки"
+msgstr[3] "Вам не дозволено видаляти ці сторінки"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Перемістити 1 сторінку"
+msgstr[1] "Перемістити %(counter)s сторінок"
+msgstr[2] "Перемістити %(counter)s сторінок"
+msgstr[3] "Перемістити %(counter)s сторінок"
+
+msgid "Move"
+msgstr "Перемістити"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Ви впевнені, що ви бажаєте перемістити ці сторінки?"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "Вам не дозволено переміщувати цю сторінку"
+msgstr[1] "Вам не дозволено переміщувати ці сторінки"
+msgstr[2] "Вам не дозволено переміщувати ці сторінки"
+msgstr[3] "Вам не дозволено переміщувати ці сторінки"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"Наступна сторінка не може бути переміщена через дублікат коротких назв"
+msgstr[1] ""
+"Наступні сторінки не можуть бути переміщені через дублікат коротких назв"
+msgstr[2] ""
+"Наступні сторінки не можуть бути переміщені через дублікат коротких назв"
+msgstr[3] ""
+"Наступні сторінки не можуть бути переміщені через дублікат коротких назв"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Немає правильної сторінки призначення для цих сторінок"
+
+msgid "Yes, move these pages"
+msgstr "Так, перемістити цю сторінку"
+
+msgid "No, don't move"
+msgstr "Ні, не переміщувати"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Ви впевнені, що хочете опублікувати ці сторінки?"
+
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "Ця сторінка має одну дочірню сторінку зняту з публікації"
+msgstr[1] "Ця сторінка має %(counter)s дочірніх сторінки знятих з публікації"
+msgstr[2] "Ця сторінка має %(counter)s дочірніх сторінок знятих з публікації"
+msgstr[3] "Ця сторінка має %(counter)s дочірніх сторінок знятих з публікації"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Вам не дозволено публікувати цю сторінку"
+msgstr[1] "Вам не дозволено публікувати ці сторінки"
+msgstr[2] "Вам не дозволено публікувати ці сторінки"
+msgstr[3] "Вам не дозволено публікувати ці сторінки"
+
+msgid "Yes, publish"
+msgstr "Так, опублікувати"
+
+msgid "No, don't publish"
+msgstr "Ні, не опубліковувати"
+
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Зняти з публікації 1 сторінку"
+msgstr[1] "Зняти з публікації %(counter)s сторінки"
+msgstr[2] "Зняти з публікації %(counter)s сторінок"
+msgstr[3] "Зняти з публікації %(counter)s сторінок"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Ви впевнені, що хочете зняти з публікації ці сторінки?"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "Вам не дозволено знімати з публікації цю сторінку"
+msgstr[1] "Вам не дозволено знімати з публікації ці сторінки"
+msgstr[2] "Вам не дозволено знімати з публікації ці сторінки"
+msgstr[3] "Вам не дозволено знімати з публікації ці сторінки"
+
+msgid "Yes, unpublish"
+msgstr "Так, зняти з публікації"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "Конвертувати псевдонім %(title)s"
+
+msgid "Convert alias"
+msgstr "Конвертувати псевдонім"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr ""
+"Ви впевненні, що хочете конвертувати цей псевдонім в звичайну сторінку?"
+
+msgid "This action cannot be undone."
+msgstr "Ця дія не може бути скасована."
+
+msgid "Yes, convert it"
+msgstr "Так, конвертувати"
+
+msgid "No, leave it as an alias"
+msgstr "Ні, залишити як псевдонім"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Видалити %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Ви впевнені, що хочете видалити цю сторінку?"
+
+msgid "Yes, delete it"
+msgstr "Так, видалити"
+
+msgid "No, don't delete it"
+msgstr "Ні, не видаляти"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"У якості альтернативи ви можете <a href=\"%(unpublish_url)s\">зняти з "
+"публікації сторінку</a>. Цим самим ви видалите сторінку з публічного доступу "
+"і зможете відредагувати чи опублікувати її потім знову. "
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Перемістити %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Ви впевнені, що хочете перемістити цю сторінку до '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Ви впевнені, що хочете перемістити цю сторінку разом з її дочірніми до  "
+"'%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Так, перемістити цю сторінку"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Ви впевнені, що хочете зняти з публікації цю сторінку?"
+
+msgid "Publish page"
+msgstr "Опублікувати сторінку"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Публікація цієї сторінки скасує поточний робочий процес."
+
+msgid "Would you still like to publish this page?"
+msgstr "Ви все одно хочете опублікувати сторінку?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Копіювати%(title)s"
+
+msgid "Copy"
+msgstr "Копіювати"
+
+msgid "Copy this page"
+msgstr "Копіювати цю сторінку"
+
+msgid "This page has unsaved changes."
+msgstr "Ця сторінка має незбережені зміни"
+
+msgid "This page is an alias of another page."
+msgstr "Ця сторінка псевдонім іншої сторінки. "
+
+msgid "Edit original page"
+msgstr "Редагувати оригінальну сторінку"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Конвертувати цей псевдонім в звичайну сторінку"
+
+msgid "Select all pages in listing"
+msgstr "Обрати всі сторінки у списку"
+
+msgid "Configure a site now."
+msgstr "Сконфігурувати сайт зараз."
+
+msgid "This page is locked, by you, to further editing"
+msgstr "Сторінку заблоковано вами для майбутнього редагування"
+
+msgid "This page is locked to further editing"
+msgstr "Сторінку заблоковано для майбутнього редагування"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Переглянути дочірні сторінки для '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Додати дочірню сторінку для'%(title)s'"
+
+msgid "Drag"
+msgstr "Перетягнути"
+
+msgid "Disable ordering of child pages"
+msgstr "Вимкнути впорядковування дочірніх сторінок"
+
+msgid "Sort"
+msgstr "Сортувати"
+
+msgid "Enable ordering of child pages"
+msgstr "Увімкнути впорядковування дочірніх сторінок"
+
+msgid "Search the whole site"
+msgstr "Шукати по всьому сайту"
+
+msgid "Sites menu"
+msgstr "Меню сайтів"
+
+msgid "Pagination"
+msgstr "Пагінація"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Сторінка %(page_number)s з %(num_pages)s."
+
+msgid "Previous"
+msgstr "Попередня"
+
+msgid "Next"
+msgstr "Наступна"
+
+msgid "This page is protected from public view"
+msgstr "Ця сторінка захищена від публічного перегляду"
+
+msgid "Confirm"
+msgstr "Підтвердити"
+
+msgid "Add child page"
+msgstr "Додати дочірню сторінку"
+
+msgid "Page types"
+msgstr "Типи сторінок"
+
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Вибачте, жодна сторінка не відповідає <em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Введіть пошукову фразу"
+
+msgid "No pages use"
+msgstr "Не використовується жодна сторінка"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Додати %(label)s"
+
+msgid "Move up"
+msgstr "Пересунути вгору"
+
+msgid "Move down"
+msgstr "Пересунути вниз"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
+msgstr ""
+"Графік публікації почне працювати лише після того, як ви натиснете кнопку "
+"\"Опублікувати\""
+
+msgid "Set publishing schedule"
+msgstr "Задати графік публікації"
+
+msgid "Save schedule"
+msgstr "Зберегти графік"
+
+msgid "Collection management permissions"
+msgstr "Дозволи на керування колекцією"
+
+msgid "Add a collection permission"
+msgstr "Додати дозвіл для колекції"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "No pages found."
+msgstr "Сторінок не знайдено."
+
+msgid "No pages match this report's criteria."
+msgstr "Жодна сторінка не відповідає критеріям цього звіту. "
+
+msgid "Updated"
+msgstr "Оновлено"
+
+msgid "Pages"
+msgstr "Сторінки"
+
+msgid "Locking status"
+msgstr "Статус блокування"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "Заблоковано <b>вами</b> о <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Заблоковано"
+
+msgid "No locked pages found."
+msgstr "Заблокованих сторінок немає."
+
+msgid "Name"
+msgstr "Ім'я"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "User"
+msgstr "Користувач"
+
+msgid "Date / Time"
+msgstr "Дата / Час"
+
+msgid "Edit this item"
+msgstr "Редагувати цей елемент"
+
+msgid "No log entries found."
+msgstr "Записи в журналі не знайдені. "
+
+msgid "Workflow"
+msgstr "Робочий процес"
+
+msgid "Page/Snippet"
+msgstr "Сторінка/Сніпет"
+
+msgid "Requested by"
+msgstr "За вимогою"
+
+msgid "Started at"
+msgstr "Запущено о"
+
+msgid "Incomplete task"
+msgstr "Незавершене завдання"
+
+msgid "Completed at"
+msgstr "Завершено в"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Сторінка %(page_num)s з %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Ланцюжок навігації"
+
+msgid "Continue"
+msgstr "Продовжити"
+
+msgid "Download XLSX"
+msgstr "Завантажити XLSX"
+
+msgid "Download CSV"
+msgstr "Завантажити CSV"
+
+msgid "Filter"
+msgstr "Фільтр"
+
+msgid "Apply filters"
+msgstr "Застосувати фільтри"
+
+msgid "Add comment"
+msgstr "Додати коментар"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "History"
+msgstr "Історія змін"
+
+msgid "Current page status:"
+msgstr "Поточний статус сторінки:"
+
+msgid "Visit the live page"
+msgstr "Відвідати сторінку"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
+
+msgid "Unschedule"
+msgstr "Зняти з розкладу"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ви впевнені,  що хочете зняти з розкладу цю ревізію?"
+
+msgid "Yes, unschedule"
+msgstr "Так, зняти з розкладу"
+
+msgid "No, don't unschedule"
+msgstr "Ні, не знімати з розкладу"
+
+msgid "Other searches"
+msgstr "Інші пошуки"
+
+msgid "Comment notifications"
+msgstr "Сповіщення про коментарі"
+
+msgid "Unlocked"
+msgstr "Розблоковано"
+
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"Всі можуть редагувати цю %(model_name)s – заблокуйте її щоб інші не могли "
+"редагувати"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "Всі можуть редагувати цю %(model_name)s"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr ""
+"Зміни приватності також будуть застосовані до усіх дочірніх сторінок цієї "
+"сторінки."
+
+msgid "Usage"
+msgstr "Використання"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Використано %(usage_count)s раз"
+msgstr[1] "Використано %(usage_count)s рази"
+msgstr[2] "Використано %(usage_count)s разів"
+msgstr[3] "Використано %(usage_count)s разів"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "користувачем %(user)s"
+
+msgid "View history"
+msgstr "Переглянути історію"
+
+msgid "Go-live:"
+msgstr "Буде опубліковано: "
+
+msgid "No publishing schedule set"
+msgstr "Графік публікації відсутній"
+
+msgid "Set schedule"
+msgstr "Задати графік"
+
+msgid "Preview is out of date"
+msgstr "Попередній перегляд застарів"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"Виправте помилки валідації, щоб користуватись попереднім переглядом "
+"(збереження сторінки підсвітить помилки)"
+
+msgid "First published"
+msgstr "Вперше опубліковано"
+
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "Цей %(model_name)s використано %(usage_count)sраз"
+msgstr[1] "Цей %(model_name)s використано %(usage_count)s рази"
+msgstr[2] "Цей %(model_name)s використано %(usage_count)s разів"
+msgstr[3] "Цей %(model_name)s використано %(usage_count)s разів"
+
+msgid "Edit / Review"
+msgstr "Редагувати / Перевірити"
+
+msgid "Workflow history"
+msgstr "Історія робочого процесу"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "За вимогою <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Розпочато о <b>%(started_at)s</b>"
+
+msgid "Timeline"
+msgstr "Хронологія"
+
+msgid "Initial Revision"
+msgstr "Початкова Ревізія"
+
+msgid "Edited"
+msgstr "Відредаговано"
+
+msgid "with comment:"
+msgstr "з коментарем:"
+
+msgid "Workflow started"
+msgstr "Робочий процес запущений"
+
+msgid "Workflow completed"
+msgstr "Робочий процес завершений"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Історія робочого процесу для %(title)s"
+
+msgid "Workflow history for"
+msgstr "Історія робочого процесу для"
+
+msgid "Approved task"
+msgstr "Схвалене завдання"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Цю сторінку ще не надіслано на модерацію "
+
+msgid "Skip to main content"
+msgstr "Перейти до основного вмісту "
+
+msgid "View Wagtail quick actions"
+msgstr "Переглянути швидкі дії Wagtail "
+
+msgid "Add a child page"
+msgstr "Додати дочірню сторінку"
+
+msgid "Show in Explorer"
+msgstr "Показати у переглядачі"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "Are you sure you want to disable this workflow?"
+msgstr "Ви впевнені, що хочете вимкнути цей робочий процес?"
+
+msgid "Yes, disable"
+msgstr "Так, вимкнути"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "Ви впевнені, що хочете вимкнути це завдання?"
+
+msgid "Assign your workflow to pages"
+msgstr "Призначте ваш робочий процес сторінкам "
+
+msgid "Creating…"
+msgstr "Створення..."
+
+msgid "Create"
+msgstr "Створити"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
+msgstr ""
+"Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
+"батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
+"робочий процес. Перегляньте <a href=\"%(workflow_pages_url)s\">список "
+"сторінок</a>, в яких використовується ваш робочий процес. "
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr "Цей робочий процес вимкнуто, він не може бути використаний."
+
+msgid "Used on the following active workflows"
+msgstr "Використовується в наведених нижче активних робочих процесах"
+
+msgid "Not used"
+msgstr "Не використовується"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s більше"
+msgstr[1] "+%(counter)s більше"
+msgstr[2] "+%(counter)s більше"
+msgstr[3] "+%(counter)s більше"
+
+msgid "Assigned pages"
+msgstr "Призначені сторінки"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "Assign to another page"
+msgstr "Призначити іншу сторінку"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Крок %(step_number)s"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Жодного робочого процесу не створено. Чому б не <a "
+"href=\"%(add_url)s\">додати один</a>?"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Немає увімкнутих робочих процесів. Чому б не <a href=\"%(add_url)s\">додати "
+"один</a>?"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Оберіть тип завдання, якого ви б хотіли створити."
+
+msgid "Choose a task"
+msgstr "Оберіть завдання"
+
+msgid "New"
+msgstr "Створити"
+
+msgid "Existing"
+msgstr "Існуючі"
+
+msgid "Choose a different task type"
+msgstr "Оберіть інший тип завдання"
+
+msgid "Task type"
+msgstr "Тип завдання"
+
+msgid "Used on"
+msgstr "Використовується на "
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "Вибачте, жодне завдання не відповідає \"<em>%(query_string)s</em>\""
+
+msgid "You haven't created any tasks."
+msgstr "Ви не створили жодних завдань. "
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Жодного завдання не створено. Чому б не <a href=\"%(add_url)s\">додати одне</"
+"a>?"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Немає увімкнутих завдань. Чому б не <a href=\"%(add_url)s\">додати одне</a>?"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Сторінки, які використовують робочий процес '%(name)s'"
+
+msgid "Pages that use workflow"
+msgstr "Сторінки, які використовують робочий процес"
+
+msgid "Submitted"
+msgstr "Застосовано"
+
+msgid "Not started"
+msgstr "Не запущено"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Зміни за вимогою %(requested_by)s"
+
+msgid "Changes requested"
+msgstr "Вимагаються зміни"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "Затверджено %(approved_by)s"
+
+msgid "Published"
+msgstr "Опубліковано"
+
+msgid "See full history"
+msgstr "Переглянути повну історію"
+
+msgid "More"
+msgstr "Більше"
+
+msgid "0 minutes"
+msgstr "0 хвилин"
+
+msgid "just now"
+msgstr "щойно"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s тому"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(time_period)s тому користувачем %(user_display_name)s"
+
+msgid "Log out"
+msgstr "Вийти"
+
+msgid "Undo"
+msgstr "Відмінити"
+
+msgid "Redo"
+msgstr "Повторити"
+
+msgid "Bold"
+msgstr "Жирний"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "Superscript"
+msgstr "Верхній індекс"
+
+msgid "Subscript"
+msgstr "Нижній індекс"
+
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "Використано %(count)s раз"
+msgstr[1] "Використано %(count)s рази"
+msgstr[2] "Використано %(count)s разів"
+msgstr[3] "Використано %(count)s разів"
+
+msgid "Comments"
+msgstr "Коментарі"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
+"порядку більшення."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
+"порядку зменшення."
+
+msgid "Profile"
+msgstr "Профіль"
+
+msgid "Notifications"
+msgstr "Сповіщення"
+
+msgid "Name and Email"
+msgstr "Ім'я та електронна адреса"
+
+msgid "Profile picture"
+msgstr "Зображення профілю користувача"
+
+msgid "Theme preferences"
+msgstr "Налаштування теми"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Ваші налаштування облікового запису успішно змінено!"
+
+msgid "You have been successfully logged out."
+msgstr "Ви успішно вийшли."
+
+msgid "Collections"
+msgstr "Колекції"
+
+msgid "Add a collection"
+msgstr "Додати колекцію"
+
+msgid "Add collection"
+msgstr "Додати колекцію"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Колекцію '%(object)s' створено."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Колекцію '%(object)s' оновлено."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Ця колекція не може бути збережена через помилки"
+
+msgid "Delete collection"
+msgstr "Видалили колекцію"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Колекцію '%(object)s' видалено."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Ви впевнені, що хочете видалили цю колекцію?"
+
+msgid "Home"
+msgstr "Головна"
+
+msgid "Live version"
+msgstr "Версія наживо"
+
+msgid "Current draft"
+msgstr "Поточна чернетка"
+
+msgid "Review this version"
+msgstr "Переглянути цю версію"
+
+msgid "Compare with current version"
+msgstr "Порівняти з поточною версією"
+
+msgid "Cancel scheduled publish"
+msgstr "Скасувати заплановану публікацію"
+
+msgid "Workflow progress"
+msgstr "Прогрес робочого процесу"
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "%(model_name)s не може бути збережено через блокування"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' оновлено."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' створено."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Редагувати '%(title)s'"
+
+msgid "Inspect"
+msgstr "Переглянути"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Видалити '%(title)s'"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Більше опцій для '%(title)s'"
+
+msgid "Editing"
+msgstr "Редагування"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' видалено."
+
+msgid "Inspecting"
+msgstr "Перегляд"
+
+msgid "Earliest"
+msgstr "Найбільш раннє"
+
+msgid "Latest"
+msgstr "Останнє"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "'%(object)s' знято з публікації"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Редагувати %(object)s"
+
+msgid "Dashboard"
+msgstr "Панель"
+
+msgid "Delete selected pages"
+msgstr "Видалити обрані сторінки"
+
+msgid "1 page has been deleted"
+msgstr "1 сторінка було видалено"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "Видалено 1 сторінку і %(num_child_objects)d дочірню сторінку"
+msgstr[1] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[2] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[3] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d сторінок було видалено"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірню "
+"сторінку"
+msgstr[1] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
+"сторінок"
+msgstr[2] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
+"сторінок"
+msgstr[3] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
+"сторінок"
+
+msgid "Select a new parent page"
+msgstr "Обрати нову батьківську сторінку"
+
+msgid "Move selected pages"
+msgstr "Перенести обрані сторінки"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d сторінка була перенесена"
+msgstr[1] "%(num_pages)d сторінок було перенесено"
+msgstr[2] "%(num_pages)d сторінок було перенесено"
+msgstr[3] "%(num_pages)d сторінок було перенесено"
+
+msgid "Publish selected pages"
+msgstr "Опублікувати обрані сторінки"
+
+msgid "1 page has been published"
+msgstr "1 сторінку було опубліковано"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "Опубліковано 1 сторінку і %(num_child_objects)d дочірню сторінку"
+msgstr[1] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[2] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[3] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d сторінок було знято з публікації"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] ""
+"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d дочірня "
+"сторінка"
+msgstr[1] ""
+"Опубліковано %(num_parent_objects)d сторінку і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[2] ""
+"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[3] ""
+"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+
+msgid "Unpublish selected pages"
+msgstr "Зняти з публікації обрані сторінки"
+
+msgid "1 page has been unpublished"
+msgstr "1 сторінку було знято з публікації"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірню сторінку"
+msgstr[1] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[2] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[3] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d сторінок було знято з публікації"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірня сторінка"
+msgstr[1] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[2] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[3] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+
+#, python-format
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "Сторінку '%(page_title)s' було конвертовано в звичайну сторінку."
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"Сторінка '%(page_title)s' і %(subpages_count)s вкладені сторінки скопійовано."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Сторінку '%(page_title)s' скопійовано."
+
+msgid "View draft"
+msgstr "Переглянути чернетку"
+
+msgid "View live"
+msgstr "Побачити наживо"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Сторінку '%(page_title)s' створено."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Сторінку '%(page_title)s' створено і заплановано до публікації. "
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Сторінку '%(page_title)s' створено і опубліковано."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Сторінку '%(page_title)s' створено і направлено на модерацію."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Цю сторінку не можна створити через помилки валідації"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Сторінку '%(page_title)s' видалено."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Редагування %(page_type)s"
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"Сторінку '%(page_title)s' було замінено версією від "
+"%(previous_revision_datetime)s."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Сторінку '%(page_title)s' оновлено."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "Робочий процес на сторінці '%(page_title)s' було скасовано."
+
+#, python-format
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"Версія від %(previous_revision_datetime)s сторінки '%(page_title)s' було "
+"заплановано на публікацію."
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"Сторінка '%(page_title)s' у режимі наживо і цю версію було заплановано до "
+"публікації."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Сторінку '%(page_title)s' заплановано до публікації."
+
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "Версію від %(datetime)s сторінки '%(page_title)s' опубліковано."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Сторінку '%(page_title)s' опубліковано."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Сторінку '%(page_title)s' надіслано на модерацію."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Робочий процес на сторінці '%(page_title)s' перезапущений."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Сторінку не можна зберегти, бо вона заблокована"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Сторінку не можна зберегти через помилки валідації"
+
+msgid "Site"
+msgstr "Сайт"
+
+msgid "Yes"
+msgstr "Так"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Сторінку '%(page_title)s' розблоковано."
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
+msgstr ""
+"Коротка назва '%(page_slug)s' вже використовується у обраних батьківських "
+"сторінках. Переконайтеся, що коротка назва унікальна і спробуйте ще раз."
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Сторінку '%(page_title)s' переміщено."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Ви переглядаєте колишню версію цієї сторінки від <b>%(created_at)s</b> "
+"створену %(user)s "
+
+msgid "Page history"
+msgstr "Історія змін"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Сторінку '%(page_title)s' знято з публікації."
+
+msgid "Pages using"
+msgstr "Сторінки використовують"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Сторінка '%(page_title)s' не перебуває в очікуванні модерації."
+
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"Сторінка '%(page_title)s' не перебуває в очікуванні модерації в завданні "
+"'%(task_name)s'."
+
+msgid "Site history"
+msgstr "Історія сайту"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Тип дії"
+
+msgid "Date/Time"
+msgstr "Дата/Час"
+
+msgid "Locked pages"
+msgstr "Заблоковані сторінки"
+
+msgid "Show"
+msgstr "Показати"
+
+msgid "Awaiting my review"
+msgstr "В очікуванні огляду"
+
+msgid "Workflows"
+msgstr "Робочі процеси"
+
+msgid "Workflow tasks"
+msgstr "Завдання робочого процесу"
+
+msgid "Requested By"
+msgstr "За вимогою"
+
+msgid "Add a workflow"
+msgstr "Додати робочий процес"
+
+msgid "Used by"
+msgstr "Використовується "
+
+msgid "New workflow"
+msgstr "Новий робочий процес"
+
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "Робочий процес '%(object)s' створено."
+
+msgid "Editing workflow"
+msgstr "Редагування робочого процесу"
+
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "Робочий процес '%(object)s' оновлено."
+
+msgid "Disable"
+msgstr "Вимкнути"
+
+msgid "Enable"
+msgstr "Увімкнути"
+
+msgid "Disable workflow"
+msgstr "Вимкнути робочий процес"
+
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "Робочий процес '%(object)s' вимнуто."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "Робочий процес '%(workflow_name)s' увімкнено."
+
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "Робочий процес знятий з сторінки '%(page_title)s'."
+
+msgid "New workflow task"
+msgstr "Нове завдання робочого процесу"
+
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "Завдання '%(object)s' створено."
+
+msgid "Editing workflow task"
+msgstr "Редагування завдання робочого процесу"
+
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "Завдання '%(object)s' оновлено."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Редагування %(task_type)s"
+
+msgid "Disable task"
+msgstr "Вимкнути завдання"
+
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "Завдання '%(object)s' вимкнено."
+
+#, python-format
+msgid "Task '%(task_name)s' enabled."
+msgstr "Завдання \"%(task_name)s\" увімкнено."
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Попередньо переглянути чернетку для '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Переглянути живу версію для '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Перемістити сторінку '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Копіювати сторінку '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Видалити сторінку '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Зняти з публікації сторінку '%(title)s'"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "Переглянути історію змін для '%(title)s'"
+
+msgid "Sort menu order"
+msgstr "Сортувати порядок меню"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Заголовок %(level)d"
+
+msgid "Bulleted list"
+msgstr "Маркований список"
+
+msgid "Numbered list"
+msgstr "Пронумерований список"
+
+msgid "Blockquote"
+msgstr "Цитата"
+
+msgid "Link"
+msgstr "Посилання"
+
+msgid "Strikethrough"
+msgstr "Перекреслення"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Reports"
+msgstr "Звіти"
+
+msgid "Help"
+msgstr "Допомога"
+
+msgid "Choose an item"
+msgstr "Оберіть елемент"
+
+msgid "Choose another item"
+msgstr "Оберіть інший елемент"
+
+msgid "Clear choice"
+msgstr "Очистити вибір"
+
+msgid "Choose another page"
+msgstr "Оберіть іншу сторінку"
+
+msgid "Choose another task"
+msgstr "Оберіть інше завдання"
+
+msgid "Edit this task"
+msgstr "Редагувати це завдання"

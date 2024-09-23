@@ -1,0 +1,6 @@
+{# Render a single checkbox with text center-aligned. #}
+{% load l10n %}
+<label class="w-flex w-items-center {{ label_classname }}">
+    <input type="checkbox" name="{{ name }}"{% if value %} value="{{ value|unlocalize }}"{% endif %} {% if checked %}checked{% endif %} {% include "wagtailadmin/shared/attrs.html" with attrs=attrs %}>
+    {{ text }}
+</label>

@@ -1,0 +1,22 @@
+===========================
+Wagtail 2.7.4 release notes
+===========================
+
+*July 20, 2020*
+
+CVE-2020-15118: HTML injection through form field help text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses an HTML injection vulnerability through help text in the ``wagtail.contrib.forms`` form builder app. When a form page type is made available to Wagtail editors, and the page template is built using Django's standard form rendering helpers such as ``form.as_p`` :ref:`(as directed in the documentation) <form_builder_usage>`, any HTML tags used within a form field's help text will be rendered unescaped in the page. Allowing HTML within help text is `an intentional design decision by Django <https://docs.djangoproject.com/en/3.0/ref/models/fields/#django.db.models.Field.help_text>`_; however, as a matter of policy Wagtail does not allow editors to insert arbitrary HTML by default, as this could potentially be used to carry out cross-site scripting attacks, including privilege escalation. This functionality should therefore not have been made available to editor-level users.
+
+The vulnerability is not exploitable by an ordinary site visitor without access to the Wagtail admin.
+
+Site owners who wish to re-enable the use of HTML within help text (and are willing to accept the risk of this being exploited by editors) may set ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True`` in their configuration settings.
+
+Many thanks to Timothy Bautista for reporting this issue.
+
+
+Additional fixes
+~~~~~~~~~~~~~~~~
+
+* Expand Pillow dependency range to include 7.x (Harris Lapiroff, Matt Westcott)

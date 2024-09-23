@@ -1,0 +1,22 @@
+============================
+Wagtail 2.15.1 release notes
+============================
+
+*November 11, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Fix syntax when logging image rendition generation (Jake Howard)
+ * Increase version range for django-filter dependency (Serafeim Papastefanos)
+ * Prevent bulk action checkboxes from displaying on page reports and other non-explorer listings (Matt Westcott)
+ * Fix errors on publishing pages via bulk actions (Matt Westcott)
+ * Fix ``csrf_token`` issue when using the Approve or Unlock buttons on pages on the Wagtail admin home (Matt Westcott)

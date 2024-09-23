@@ -1,0 +1,48 @@
+// Styles for title fields throughout the page.
+// The `title` class is meant to be applied by end users throughout different forms APIs.
+:where(.w-panel, .w-field).title {
+  :where(input, textarea, .Draftail-Editor .public-DraftEditor-content) {
+    @apply w-h2;
+    color: theme('colors.text-context');
+  }
+}
+
+// Styles for the title field when at the top of the page.
+// It’s the first panel when comments are disabled, second if enabled.
+.w-panel.title:nth-child(-n + 2) {
+  .w-panel__header {
+    @apply w-sr-only;
+
+    .w-panel__anchor,
+    .w-panel__toggle {
+      @apply w-hidden;
+    }
+  }
+
+  .w-field {
+    display: grid;
+  }
+
+  // Force the help text after the field as the field also visually acts as page heading.
+  .w-field__help {
+    order: 2;
+  }
+
+  :is(input, textarea, .Draftail-Editor .public-DraftEditor-content) {
+    @apply w-h1;
+    color: theme('colors.text-context');
+    // Slightly out-dented so the field’s is horizontally aligned.
+    padding-inline-start: theme('spacing[1.5]');
+    margin-inline-start: calc(-1 * theme('spacing[1.5]'));
+
+    .w-density-snug & {
+      font-size: theme('fontSize.26');
+    }
+
+    // Avoid calling attention to the field _unless_ it’s in one of those states.
+    &:not(:hover, :focus, :placeholder-shown, [aria-invalid='true']) {
+      // Hide w/ transparency to preserve border size and show it in forced-colors mode.
+      border-color: transparent;
+    }
+  }
+}

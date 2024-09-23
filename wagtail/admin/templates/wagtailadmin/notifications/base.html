@@ -1,0 +1,139 @@
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting default="" as base_url %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title></title>
+        <style>
+            {% block styles_content %}
+                body {
+                    min-width:100%;
+                    -webkit-text-size-adjust: none;
+                    padding: 0;
+                    margin: 0;
+                }
+                .ReadMsgBody {
+                    width: 100%;
+                }
+                .ExternalClass {
+                    width: 100%;
+                }
+                table {
+                    border-collapse:collapse;
+                    mso-table-lspace:0pt;
+                    mso-table-rspace:0pt;
+                }
+                table td {
+                    border-collapse:collapse;
+                }
+                td.date a:link {
+                    color:#6b6b6b;
+                    text-decoration:none;
+                }
+                @media only screen and (max-width: 568px) {
+                    body[yahoo] .mobile {
+                        width:320px !important;
+                    }
+                    body[yahoo] .spacer {
+                        width:10px !important;
+                    }
+                    body[yahoo] .spacer_height {
+                        height:10px !important;
+                    }
+                    body[yahoo] .content {
+                        width:300px !important;
+                    }
+                    body[yahoo] .col-3{
+                        float: none !important;
+                        width: 100% !important;
+                    }
+                    body[yahoo] .force-col {
+                        display: block;
+                        padding-inline-end: 0 !important;
+                        padding-inline-start: 0 !important;
+                        padding-bottom: 12px !important;
+                    }
+                    body[yahoo] .force-col-last {
+                        display: block;
+                        padding-inline-end: 0 !important;
+                        padding-bottom: 0 !important;
+                    }
+                    body[yahoo] .center {
+                        text-align:center;
+                    }
+                    body[yahoo] .show {
+                        display: block !important;
+                    }
+                    body[yahoo] .hide {
+                        display: none !important;
+                    }
+                    body[yahoo] .img {
+                        width: 130px !important;
+                        float: inline-start;
+                    }
+                    body[yahoo] .img img {
+                        width:100% !important;
+                    }
+                    body[yahoo] .text {
+                        width: 150px !important;
+                        float: inline-end;
+                    }
+            {% endblock %}
+        </style>
+    </head>
+    <body style="background-color:#E6E6E6;padding:0px;margin:0px;" yahoo="fix" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
+
+        <table width="600" border="0" align="center" class="mobile" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    {% block branding_logo %}<img width="100%" border="0" style="display: block;" alt="" src="{% notification_static 'wagtailadmin/images/email-header.jpg' %}" />{% endblock %}
+                </td>
+            </tr>
+        </table>
+        <table width="600" border="0" align="center" class="mobile" cellspacing="0" cellpadding="0">
+            <tr>
+                <td style="background:#FAFAFA;"><table width="600" border="0" align="center" cellspacing="0" cellpadding="0" class="mobile">
+                    <tr>
+                        <td height="30" class="spacer_height">&nbsp;</td>
+                    </tr>
+                </table>
+                    <table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="mobile">
+                        <tr>
+                            <td width="30" class="spacer">&nbsp;</td>
+                            <td><table width="100%" border="0" cellspacing="0" cellpadding="0" align="left" class="content">
+                                <tr>
+                                    <td style="font-family:Arial, Helvetica, sans-serif; font-size:12px; color: #000000; line-height: 18px;">
+                                        {% block title %}
+                                            <div style="font-size:18px; line-height:24px; color: #43B1B0; font-weight:bold; display:inline-block; width: 100%; margin-bottom:10px;">{% block title_content %}{% endblock %}</div>
+                                        {% endblock %}
+
+                                        {% block greeting %}
+                                            <p>{% blocktrans trimmed with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}</p>
+                                        {% endblock %}
+
+                                        {% block content %}
+                                        {% endblock %}
+
+                                        <div style="font-size: 10px; margin-top: 20px;">
+                                            {% block preferences %}
+                                                {% trans "Edit your notification preferences here:" %} <a href="{{ base_url }}{% url 'wagtailadmin_account' %}#tab-notifications">{{ base_url }}{% url 'wagtailadmin_account' %}#tab-notifications</a>
+                                            {% endblock %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table></td>
+                            <td width="30" class="spacer">&nbsp;</td>
+                        </tr>
+                    </table>
+                    <table width="600" border="0" align="center" cellspacing="0" cellpadding="0" class="mobile">
+                        <tr>
+                            <td height="30" class="spacer_height">&nbsp;</td>
+                        </tr>
+                    </table></td>
+            </tr>
+        </table>
+    </body>
+</html>

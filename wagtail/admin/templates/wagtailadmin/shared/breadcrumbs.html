@@ -1,0 +1,88 @@
+{% load i18n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+    The breadcrumb component is reused across most of Wagtail's headers.
+    Variables this template accepts:
+
+    `items` - A list of {"url": Union[str, None], "label": str, "sublabel": Union[str, None]} dicts
+    `classname` - Modifier classes
+    `is_expanded` - Whether the breadcrumbs are always expanded or not, if True the breadcrumbs will not be collapsible
+    `icon_name` - The name of the icon to display before the final item when the breadcrumbs are collapsed
+{% endcomment %}
+{% with breadcrumb_link_classes='w-flex w-items-center w-text-text-label w-pr-0.5 w-text-14 w-no-underline w-outline-offset-inside w-border-b w-border-b-2 w-border-transparent w-box-content hover:w-border-current hover:w-text-text-label' breadcrumb_item_classes='w-h-full w-flex w-items-center w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0' icon_classes='w-w-4 w-h-4 w-ml-3' %}
+    {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
+    <div class="w-breadcrumbs w-flex w-flex-row w-items-center w-overflow-x-auto w-overflow-y-hidden w-scrollbar-thin {{ classname }} {% if is_expanded %} w-pl-3{% endif %}"
+         {% if not items %}hidden{% endif %}
+         {% if not is_expanded %}
+             data-controller="w-breadcrumbs"
+             data-action="keyup.esc@document->w-breadcrumbs#close w-breadcrumbs:open@document->w-breadcrumbs#open w-breadcrumbs:close@document->w-breadcrumbs#close"
+             data-w-breadcrumbs-close-icon-class="icon-cross"
+             data-w-breadcrumbs-closed-value="true"
+             data-w-breadcrumbs-open-icon-class="icon-breadcrumb-expand"
+             data-w-breadcrumbs-opened-content-class="w-max-w-4xl"
+             data-w-breadcrumbs-peek-target-value="header"
+         {% endif %}
+    >
+        {% if not is_expanded %}
+            <button
+                type="button"
+                class="w-flex w-items-center w-justify-center w-box-border w-ml-0 w-mr-2.5 w-w-slim-header w-h-slim-header w-bg-transparent w-text-text-meta w-transition hover:w-scale-110 hover:w-text-text-label w-outline-offset-inside"
+                aria-label="{% trans 'Toggle breadcrumbs' %}"
+                aria-expanded="false"
+                data-w-breadcrumbs-target="toggle"
+                data-action="w-breadcrumbs#toggle mouseenter->w-breadcrumbs#peek"
+            >
+                {% icon name="breadcrumb-expand" classname="w-w-4 w-h-4" %}
+            </button>
+        {% endif %}
+        <div class="w-relative w-h-slim-header w-mr-4 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-flex-1 sm:w-flex-none w-transition w-duration-300">
+            <nav class="w-flex w-items-center w-flex-row w-h-full"
+                 aria-label="{% trans 'Breadcrumb' %}">
+                <ol class="w-flex w-flex-row w-justify-start w-items-center w-h-full w-pl-0 w-my-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2">
+                    {% block breadcrumbs_items %}
+                        {% for item in items %}
+                            <li
+                                class="{{ breadcrumb_item_classes }} {% if forloop.last %}w-font-bold{% endif %} {% if not is_expanded and not forloop.last %}w-max-w-0{% endif %}"
+                                {% if not is_expanded and not forloop.last %}
+                                    hidden
+                                {% endif %}
+                                {% if is_expanded or not forloop.last %}
+                                    data-w-breadcrumbs-target="content"
+                                {% endif %}
+                            >
+                                {% fragment as icon %}
+                                    {% if icon_name and forloop.last %}
+                                        {% icon name=icon_name classname="w-breadcrumbs__icon w-hidden" %}
+                                    {% endif %}
+                                {% endfragment %}
+                                {% fragment as sublabel %}
+                                    {% if item.sublabel %}
+                                        <span class="w-sr-only">: </span>
+                                        <span class="w-breadcrumbs__sublabel w-font-normal w-hidden w-ml-2.5">
+                                            {{ item.sublabel }}
+                                        </span>
+                                    {% endif %}
+                                {% endfragment %}
+                                {% if item.url is not None %}
+                                    <a class="{{ breadcrumb_link_classes }}" href="{{ item.url }}">
+                                        {{ icon }}
+                                        {{ item.label }}
+                                        {{ sublabel }}
+                                    </a>
+                                {% else %}
+                                    <div class="w-flex w-justify-start w-items-center">
+                                        {{ icon }}
+                                        {{ item.label }}
+                                        {{ sublabel }}
+                                    </div>
+                                {% endif %}
+                                {% if not forloop.last %}
+                                    {% icon name="arrow-right" classname=icon_classes %}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    {% endblock %}
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endwith %}

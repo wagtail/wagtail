@@ -1,0 +1,20 @@
+===========================
+Wagtail 2.0.2 release notes
+===========================
+
+*August 13, 2018*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Restored ability to use non-model fields with FieldPanel (Matt Westcott, LB (Ben Johnston))
+* Fix usage URL on the document edit page (Jérôme Lebleu)
+* Pin Beautiful Soup to 4.6.0 due to further regressions in formatting empty elements (Matt Westcott)

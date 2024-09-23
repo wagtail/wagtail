@@ -1,0 +1,32 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{{ view.get_title }} {{ view.get_subtitle }}{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.get_title subtitle=view.get_subtitle icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <form method="POST" data-controller="w-bulk">
+            {% csrf_token %}
+
+            {% if next_url %}
+                <input type="hidden" name="next" value="{{ next_url }}">
+            {% endif %}
+
+            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+
+            <ul class="fields">
+                {% block visible_fields %}
+                    {% for field in form.visible_fields %}
+                        <li>{% formattedfield field %}</li>
+                    {% endfor %}
+                {% endblock %}
+                {% if form.show_submit %}
+                    <li>
+                        <input type="submit" value="{% trans 'Submit' %}" class="button" />
+                    </li>
+                {% endif %}
+            </ul>
+        </form>
+    </div>
+{% endblock %}

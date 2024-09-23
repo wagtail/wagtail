@@ -1,0 +1,80 @@
+/**
+ * Vertical and horizontal divider lines to visualise nesting in
+ * StreamField and InlinePanel.
+ */
+
+$guide-line-default-color: theme('colors.border-furniture');
+$stroke-width: 1px;
+
+@mixin guide-line-vertical() {
+  // 3px dash height, 3px space, 1px dash width.
+  background-size: $stroke-width 6px;
+  background-repeat: repeat-y;
+  background-image: linear-gradient(
+    to bottom,
+    var(--guide-line-color, $guide-line-default-color) 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+
+  @media (forced-colors: active) {
+    border-inline-start: $stroke-width dashed
+      var(--guide-line-color, CanvasText);
+    background: none;
+  }
+}
+
+@mixin guide-line-vertical-stop() {
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: $stroke-width;
+    position: relative;
+    top: theme('spacing.[2.5]');
+    inset-inline-start: calc(-1 * (var(--nesting-indent) - $stroke-width));
+    transform: translateX(calc(var(--w-direction-factor) * -50%));
+    border-bottom: $stroke-width solid
+      var(--guide-line-color, $guide-line-default-color);
+  }
+}
+
+@mixin guide-line-horizontal() {
+  min-height: $stroke-width;
+  // 3px dash width, 3px space, $stroke-width dash height.
+  background-size: 6px $stroke-width;
+  background-repeat: repeat-x;
+  background-image: linear-gradient(
+    to right,
+    var(--guide-line-color, $guide-line-default-color) 50%,
+    rgba(255, 255, 255, 0) 0%
+  );
+
+  // Guide lines are always shown in forced-colors mode, as it’s
+  // not possible to have transparent borders there.
+  @media (forced-colors: active) {
+    border-top: $stroke-width dashed var(--guide-line-color, CanvasText);
+    background: none;
+  }
+}
+
+// More visible guide line for nested panels in the currently-active DOM tree.
+@mixin guide-line-nested() {
+  &:is(:hover, :focus-within) {
+    --guide-line-color: theme('colors.icon-primary');
+
+    @media (forced-colors: active) {
+      --guide-line-color: Highlight;
+    }
+  }
+
+  // Avoid highlighting descendant panels.
+  &:is(:hover, :focus-within) .w-panel:not(:hover, :focus-within),
+  // For browsers supporting :has, avoid highlighting parent panels.
+  &:has(.w-panel:is(:hover, :focus-within)) {
+    --guide-line-color: #{$guide-line-default-color};
+
+    @media (forced-colors: active) {
+      --guide-line-color: CanvasText;
+    }
+  }
+}

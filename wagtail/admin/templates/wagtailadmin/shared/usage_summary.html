@@ -1,0 +1,28 @@
+{% load i18n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+This shared template is used to display the usage count for an object as a link
+to the object's usage page. It is used by the admin's delete and unpublish views.
+
+Variables this template accepts:
+  - `model_opts`: the model's options
+  - `usage_url`: the URL to the object's usage page
+  - `usage_count`: the number of times the object is used
+  - `is_protected` (optional): whether the object is protected from deletion
+{% endcomment %}
+<p>
+    <a href="{{ usage_url }}">
+        {% blocktrans trimmed with counter=usage_count model_name=model_opts.verbose_name usage_count=usage_count|intcomma count counter=counter asvar usage_message %}
+            This {{ model_name }} is referenced {{ usage_count }} time.
+        {% plural %}
+            This {{ model_name }} is referenced {{ usage_count }} times.
+        {% endblocktrans %}
+        {# Use capfirst in case the translated message starts with {{ model_name }}. #}
+        {{ usage_message|capfirst }}
+    </a>
+    {% if is_protected %}
+        {% blocktrans trimmed with model_name=model_opts.verbose_name asvar protected_message %}
+            One or more references to this {{ model_name }} prevent it from being deleted.
+        {% endblocktrans %}
+        {{ protected_message|capfirst }}
+    {% endif %}
+</p>

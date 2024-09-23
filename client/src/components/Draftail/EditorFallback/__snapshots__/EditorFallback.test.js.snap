@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditorFallback #error #showContent 1`] = `
+<div
+  className="Draftail-Editor"
+>
+  <div
+    className="Draftail-Toolbar"
+  >
+    <button
+      className="Draftail-ToolbarButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Show latest content
+    </button>
+    <button
+      className="Draftail-ToolbarButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Show error
+    </button>
+    <button
+      className="Draftail-ToolbarButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Reload saved content
+    </button>
+  </div>
+  <div
+    className="DraftEditor-root"
+  >
+    <div
+      className="public-DraftEditor-content"
+    >
+      <div
+        className="public-DraftEditorPlaceholder-inner"
+      >
+        The editor just crashed. Content has been reset to the last saved version.
+        <textarea
+          className="EditorFallback__textarea"
+          readOnly={true}
+          value="test"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EditorFallback #error #showError 1`] = `
+<div
+  className="Draftail-Editor"
+>
+  <div
+    className="Draftail-Toolbar"
+  >
+    <button
+      className="Draftail-ToolbarButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Show error
+    </button>
+    <button
+      className="Draftail-ToolbarButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Reload saved content
+    </button>
+  </div>
+  <div
+    className="DraftEditor-root"
+  >
+    <div
+      className="public-DraftEditor-content"
+    >
+      <div
+        className="public-DraftEditorPlaceholder-inner"
+      >
+        The editor just crashed. Content has been reset to the last saved version.
+        <pre
+          className="help-block help-critical"
+        >
+          <code
+            className="EditorFallback__error"
+          >
+            Error: test
+
+test stack
+test
+          </code>
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EditorFallback #error reload 1`] = `"test"`;
+
+exports[`EditorFallback #error works 1`] = `
+<div
+  className="Draftail-Editor"
+>
+  <div
+    className="Draftail-Toolbar"
+  >
+    <button
+      className="Draftail-ToolbarButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Show error
+    </button>
+    <button
+      className="Draftail-ToolbarButton"
+      onClick={[Function]}
+      type="button"
+    >
+      Reload saved content
+    </button>
+  </div>
+  <div
+    className="DraftEditor-root"
+  >
+    <div
+      className="public-DraftEditor-content"
+    >
+      <div
+        className="public-DraftEditorPlaceholder-inner"
+      >
+        The editor just crashed. Content has been reset to the last saved version.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EditorFallback works 1`] = `"test"`;

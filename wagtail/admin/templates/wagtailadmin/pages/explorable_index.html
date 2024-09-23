@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/pages/index.html" %}
+{% load wagtailadmin_tags %}
+{% block bodyclass %}page-explorer {% if ordering == 'ord' %}w-overflow-visible{% endif %}{% endblock %}
+
+{% block header %}
+    {% page_permissions parent_page as parent_page_perms %}
+    {% include 'wagtailadmin/pages/page_listing_header.html' with title=header_title search_url=index_results_url page_perms=parent_page_perms %}
+{% endblock %}
+
+{% block extra_js %}
+    {# Used by the privacy switch for the parent page in the status side panel. #}
+    {{ block.super }}
+    <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+{% endblock %}

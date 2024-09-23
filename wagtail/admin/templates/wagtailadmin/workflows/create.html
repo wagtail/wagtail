@@ -1,0 +1,43 @@
+{% extends "wagtailadmin/generic/create.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block main_content %}
+    <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
+        {% csrf_token %}
+
+        <div class="w-form-width">
+            {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+
+            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") %}
+                {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+            {% endpanel %}
+
+            {% if has_workflow_enabled_models %}
+                {% panel id="workflow-content-types" icon="snippet" heading=_("Assign your workflow to snippets") %}
+                    {% formattedfield field=content_type_form.content_types sr_only_label=True %}
+                {% endpanel %}
+            {% endif %}
+        </div>
+
+        {% block footer %}
+            <footer class="footer">
+                <div class="actions footer__container w-flex">
+                    {% block form_actions %}
+                        <button
+                            type="submit"
+                            class="button action-save button-longrunning w-flex-grow"
+                            data-controller="w-progress w-kbd"
+                            data-action="w-progress#activate"
+                            data-w-kbd-key-value="mod+s"
+                            data-w-kbd-scope-value="global"
+                            data-w-progress-active-value="{% trans 'Creating…' %}"
+                        >
+                            {% icon name="spinner" %}
+                            <em data-w-progress-target="label">{% trans 'Create' %}</em>
+                        </button>
+                    {% endblock %}
+                </div>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

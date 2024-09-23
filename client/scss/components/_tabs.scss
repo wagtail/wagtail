@@ -1,0 +1,76 @@
+.w-tabs {
+  &__wrapper {
+    @apply w-mb-8 w-overflow-x-auto w-scrollbar-thin w-flex w-items-center w-justify-between w-flex-wrap w-gap-4;
+  }
+
+  &__list {
+    @apply w-flex w-pr-0 w-my-[3px] w-space-x-6 w-border-b w-border-border-furniture w-w-fit;
+  }
+
+  &__tab {
+    @apply w-label-3
+    w-box-border
+    w-inline-flex
+    w-text-text-meta
+    hover:w-text-text-label
+    w-whitespace-nowrap
+    w-py-4
+    w-font-medium
+    w-relative
+    after:w-block
+    after:w-w-0
+    after:w-h-[2px]
+    after:w-bg-icon-primary
+    after:w-absolute
+    after:w-left-0
+    after:-w-bottom-px
+    after:w-transition-all
+    after:forced-colors:w-h-1
+    after:forced-colors:w-bg-LinkText
+    hover:after:w-w-full
+    hover:after:forced-colors:w-w-full
+    motion-reduce:after:w-transition-none;
+
+    &[aria-selected='true'] {
+      @apply after:w-w-full w-text-text-label after:forced-colors:w-w-full;
+    }
+  }
+
+  &__errors {
+    @apply w-hidden
+    w-absolute
+    -w-mr-3
+    w-py-0.5
+    w-px-[0.325rem]
+    w-top-1
+    -w-right-1
+    w-text-[0.5625rem]
+    w-font-bold
+    w-bg-critical-200
+    w-text-white
+    w-border
+    w-border-surface-page
+    w-rounded-[1rem];
+  }
+
+  &__list,
+  .tab-content {
+    @apply w-px-5 sm:w-px-10 md:w-px-20;
+
+    // If tab contents are nested inside of a nice-padding block then don't apply the admin padding
+    .nice-padding & {
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+    }
+  }
+
+  // Optional animate attr for tabs to animate in
+  /* stylelint-disable-next-line selector-attribute-name-disallowed-list */
+  &[data-tabs-animate] &__panel {
+    @apply motion-reduce:w-transition-none w-transition w-duration-150 w-translate-y-1 w-opacity-0;
+
+    &.animate-in {
+      @apply w-translate-y-0 w-opacity-100;
+    }
+  }
+}

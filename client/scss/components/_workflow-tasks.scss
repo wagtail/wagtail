@@ -1,0 +1,40 @@
+.workflow-tasks {
+  $task-width: 117px;
+  $task-height: 56px;
+
+  list-style-type: none;
+
+  &__task {
+    display: inline-block;
+    background-color: theme('colors.surface-page');
+    border: 2px solid theme('colors.border-button-outline-default');
+    border-radius: 5px;
+    color: theme('colors.text-link-default');
+    min-width: $task-width;
+    height: $task-height;
+    margin: 7px;
+    padding-inline-start: 9px;
+    padding-inline-end: 9px;
+  }
+
+  &__step {
+    font-size: 0.625rem;
+    margin-top: 0.1875rem;
+  }
+
+  &__name {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__extra-tasks {
+    display: inline-block;
+    height: $task-height;
+    vertical-align: middle;
+  }
+}

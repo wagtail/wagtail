@@ -1,0 +1,814 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# Ivan Waginger <ivan.waginger@gmail.com>, 2024
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# karabellyj <jozefkarabelly@gmail.com>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
+# Stevo Backor, 2016
+# Stevo Backor, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
+"Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Publish"
+msgstr "Publikovať"
+
+msgid "Submit for moderation"
+msgstr "Odoslať na moderáciu"
+
+msgid "Unpublish"
+msgstr "Nezverejniť"
+
+msgid "Page locked"
+msgstr "Stránka je uzamknutá"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"
+
+msgid "You do not have permission to access the admin"
+msgstr "Na prístup do administrácie nemáte práva."
+
+msgid "None"
+msgstr "Nič"
+
+msgid "Date from"
+msgstr "Dátum od"
+
+msgid "Date to"
+msgstr "Dátum do"
+
+msgid "Collection"
+msgstr "Kolekcie"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "First Name"
+msgstr "Krstné meno"
+
+msgid "Last Name"
+msgstr "Priezvisko"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Enter password"
+msgstr "Zadajte heslo"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Vaše %(username_field)s a heslo sú nesprávne. Prosím skúste znovu."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Zadajte vaše %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Hľadaný výraz"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "All collections"
+msgstr "Všetky kolekcie"
+
+msgid "Parent"
+msgstr "Rodič"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "Dátum publikácie musí byť pred dátumom expirácie"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Dátum expirácie musí byť v budúcnosti"
+
+msgid "New title"
+msgstr "Nový titulok"
+
+msgid "New slug"
+msgstr "Nový slug"
+
+msgid "New parent page"
+msgstr "Nová rodičovská strana"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Táto kópia bude podstránkou tejto rodičovskej stránky."
+
+msgid "Copy subpages"
+msgstr "Kopírovať podstránky"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Toto skopíruje %(count)s podstránku."
+msgstr[1] "Toto skopíruje %(count)s podstránky."
+msgstr[2] "Toto skopíruje %(count)s podstránok."
+msgstr[3] "Toto skopíruje %(count)s podstránok."
+
+msgid "Publish copied page"
+msgstr "Publikovať skopírovanú stránku"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Táto stránka je live. Chcete publikovať aj jej kópiu?"
+
+msgid "Publish copies"
+msgstr "Publikovať kópie"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s zo stránok ktoré kopírujete je live. Chcete publikovať aj jej "
+"kópiu?"
+msgstr[1] ""
+"%(count)s zo stránok ktoré kopírujete sú live. Chcete publikovať aj ich "
+"kópie?"
+msgstr[2] ""
+"%(count)s zo stránok ktoré kopírujete sú live. Chcete publikovať aj ich "
+"kópie?"
+msgstr[3] ""
+"%(count)s zo stránok ktoré kopírujete sú live. Chcete publikovať aj ich "
+"kópie?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nemáte právo na kopírovanie na stránku \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Tento slug je už použitý v kontexte jeho rodičovskej stránky "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "Nemôžete skopírovať stránku do seba samej."
+
+msgid "Parent page"
+msgstr "Rodičovská strana"
+
+msgid "Visibility"
+msgstr "Viditeľnosť"
+
+msgid "This field is required."
+msgstr "Toto pole je povinné."
+
+msgid "Please select at least one group."
+msgstr "Prosím, vyberte aspoň jednu skupinu."
+
+msgid "Content"
+msgstr "Obsah"
+
+msgid "Promote"
+msgstr "Propagovať"
+
+msgid "Settings"
+msgstr "Nastavenia"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "Page title"
+msgstr "Titulok stránky"
+
+msgid "Error 404: Page not found"
+msgstr "Chyba 404: Stránka nebola nájdená"
+
+msgid "Error 404"
+msgstr "Chyba 404"
+
+msgid "The requested page could not be found."
+msgstr "Stránka, ktorú požadujete, nebola nájdená."
+
+msgid "Go to Wagtail admin"
+msgstr "Choď do administrátorskej časti"
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "Reset password"
+msgstr "Resetovať heslo"
+
+msgid "Password change successful"
+msgstr "Heslo bolo úspešne zmenené"
+
+msgid "Login"
+msgstr "Prihlasovacie meno"
+
+msgid "Set your new password"
+msgstr "Zadajte vaše nové heslo"
+
+msgid "Check your email"
+msgstr "Skontrolujte váš email"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Prosím kliknite na odkaz nižšie pre resetovanie vášho hesla"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Vaše heslo (pre prípad, že ste zabudli)"
+
+msgid "Password reset"
+msgstr "Obnova hesla"
+
+msgid "Reset your password"
+msgstr "Resetovanie vášho hesla"
+
+msgid "Internal link"
+msgstr "Interný odkaz"
+
+msgid "External link"
+msgstr "Externý odkaz"
+
+msgid "Email link"
+msgstr "Emailový odkaz"
+
+msgid "Choose"
+msgstr "Zvoliť"
+
+msgid "Choose a page"
+msgstr "Zvoliť stránku"
+
+msgid "Add an email link"
+msgstr "Pridať emailový odkaz"
+
+msgid "Insert link"
+msgstr "Vložiť odkaz"
+
+msgid "Add an external link"
+msgstr "Pridať externý odkaz"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Prehliadajte podstránky '%(title)s'"
+
+msgid "Explore"
+msgstr "Prehliadať"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Táto kolekcia bola zmenená na súkromnú svojou rodičovskou kolekciou."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Nastavenie súkromia môžete zmeniť na:"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Nastavenia súkromia určujú, kto bude môcť prezerať dokumenty v kolekcii."
+
+msgid "Privacy"
+msgstr "Súkromie"
+
+msgid "Public"
+msgstr "Verejná"
+
+msgid "Private"
+msgstr "Privátne"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Táto kolekcia nemôže byť zmazaná, pretože nie je prázdna. Obsahuje:"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a "
+"href=\"%(add_collection_url)s\">pridajte prvú</a>."
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+msgid "No, don't delete"
+msgstr "Nie, nezmazať"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Odpublikovať %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Áno, odpublikovať"
+
+msgid "No, don't unpublish"
+msgstr "Nie, nepublikovať"
+
+msgid "Actions"
+msgstr "Akcie"
+
+msgid "Update"
+msgstr "Aktualizovať"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Porovnať %(title)s"
+
+msgid "Comparing"
+msgstr "Porovnať"
+
+msgid "Fields"
+msgstr "Polia"
+
+msgid "Changes"
+msgstr "Zmeny"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Vitajte v  %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
+"ktorý ste vytvorili."
+
+msgid "Edit this page"
+msgstr "Upraviť túto stránku"
+
+msgid "Draft"
+msgstr "Koncept"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "Your most recent edits"
+msgstr "Vaše posledné úpravy"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Site summary"
+msgstr "Prehľad sídla"
+
+msgid "Close"
+msgstr "Zavrieť"
+
+msgid "Preview"
+msgstr "Náhľad"
+
+msgid "Compare with live version"
+msgstr "Porovnaj s live verziou"
+
+msgid "Sign in"
+msgstr "Prihlásiť sa"
+
+msgid "Sign in to Wagtail"
+msgstr "Prihlásiť sa do Wagtail"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Stránka \"%(title)s\" bola schválená."
+
+msgid "You can view the page here:"
+msgstr "Tu môžete vidieť stránku"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Stránka \"%(title)s\" bola schválená"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Ahoj %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Tu upravte vaše notifikáčné nastavenia:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Stránka \"%(title)s\" bola zamietnutá."
+
+msgid "You can edit the page here:"
+msgstr "Tu môžete upraviť stránku:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Stránka \"%(title)s\" bola zamietnutá"
+
+msgid "You can preview the page here:"
+msgstr "Tu môžete vidieť stránku:"
+
+msgid "This page has been made private by a parent page."
+msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou."
+
+msgid "Saving…"
+msgstr "Ukladám…"
+
+msgid "Replace current draft"
+msgstr "Prepísať aktuálny koncept"
+
+msgid "Save draft"
+msgstr "Uložiť koncept"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Vytvoriť stránku v %(title)s"
+
+msgid "Create a page in"
+msgstr "Vytvoriť stránku v"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Zvoľte typ stránky ktorý chcete vytvoriť"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Stránky používajúce %(page_type)s"
+
+msgid "Move"
+msgstr "Presunúť"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Zmazať %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Naozaj chcete zmazať túto stránku?"
+
+msgid "Yes, delete it"
+msgstr "Áno, vymazať"
+
+msgid "No, don't delete it"
+msgstr "Nie, nevymazať"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"V prípade potreby môžete stránke <a href=\"%(unpublish_url)s\">zrušiť "
+"publikáciu</a>. Toto ju pred návštevníkmi schová, a nadalej ju budete môcť "
+"upravovať alebo neskôr publikovať."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Presunúť %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Naozaj chcete presunúť túto stránku do '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Naozaj chcete presunúť túto stránku a všetky jej podstránky do '%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Áno, presunúť túto stránku"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Naozaj chcete odpublikovať túto stránku?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopírovať %(title)s"
+
+msgid "Copy"
+msgstr "Kopírovať"
+
+msgid "Copy this page"
+msgstr "Kopírovať túto stránku"
+
+msgid "This page has unsaved changes."
+msgstr "Táto stránka má neuložené zmeny."
+
+msgid "Configure a site now."
+msgstr "Nastavte webové sídlo."
+
+msgid "This page is locked to further editing"
+msgstr "Táto stránka bola uzamknutá pre budúcu úpravu"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Prehliadajte podstránky '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Pridajte podstránku do '%(title)s'"
+
+msgid "Drag"
+msgstr "Potiahnuť"
+
+msgid "Disable ordering of child pages"
+msgstr "Zakázať usporiadanie podstránok"
+
+msgid "Enable ordering of child pages"
+msgstr "Povoliť usporiadanie child stránok"
+
+msgid "Sites menu"
+msgstr "Menu sídiel"
+
+msgid "Previous"
+msgstr "Predchádzajúca"
+
+msgid "Next"
+msgstr "Následujúca"
+
+msgid "This page is protected from public view"
+msgstr "Táto stránka je chránená pred zobrazením návštevníkom"
+
+msgid "Add child page"
+msgstr "Pridať podstránku"
+
+msgid "Enter a search term above"
+msgstr "Zadajte hľadaný výraz"
+
+msgid "No pages use"
+msgstr "Nepoužívajú žiadne stránky"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Updated"
+msgstr "Aktualizované"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Locked"
+msgstr "Zamknuté"
+
+msgid "Name"
+msgstr "Názov"
+
+msgid "User"
+msgstr "Používateľ"
+
+msgid "Edit this item"
+msgstr "Upraviť položku"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Strana %(page_num)s z %(total_pages)s."
+
+msgid "Continue"
+msgstr "Pokračovať"
+
+msgid "Download CSV"
+msgstr "Stiahnuť CSV"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Other searches"
+msgstr "Ostatné výsledky hľadania"
+
+msgid "Minimap"
+msgstr "Minimapa"
+
+msgid "Unlocked"
+msgstr "Odomknuté"
+
+msgid "Lock"
+msgstr "Zamknúť"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
+
+msgid "Edited"
+msgstr "Upravené"
+
+msgid "Add a child page"
+msgstr "Pridať podstránku"
+
+msgid "Show in Explorer"
+msgstr "Zobraziť v prehliadači"
+
+msgid "Page"
+msgstr "Stránka"
+
+msgid "New"
+msgstr "Nový"
+
+msgid "More"
+msgstr "Viac"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
+
+msgid "Log out"
+msgstr "Odhlásiť sa"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "You have been successfully logged out."
+msgstr "Boli ste úspešne odhlásení."
+
+msgid "Collections"
+msgstr "Kolekcie"
+
+msgid "Add a collection"
+msgstr "Pridať kolekciu"
+
+msgid "Add collection"
+msgstr "Pridať kolekciu"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Kolekcia '%(object)s' bola vytvorená."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Kolekcia '%(object)s' bola aktualizovaná."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Kolekcia nemôže byť uložená kvôli chybám."
+
+msgid "Delete collection"
+msgstr "Zmazať kolekciu"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Kolekcia '%(object)s' bola zmazaná."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Naozaj chcete zmazať túto kolekciu?"
+
+msgid "Home"
+msgstr "Domov"
+
+msgid "Live version"
+msgstr "Živá verzia"
+
+msgid "Current draft"
+msgstr "Aktuálny koncept"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Upraviť '%(title)s'"
+
+msgid "Inspect"
+msgstr "Skontrolovať"
+
+msgid "Editing"
+msgstr "Editácia"
+
+msgid "Inspecting"
+msgstr "Kontrola %s"
+
+msgid "Earliest"
+msgstr "Najstaršie"
+
+msgid "Latest"
+msgstr "Najnovšie"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Upraviť toto %(object)s"
+
+msgid "Dashboard"
+msgstr "Nástenka"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"Stránka '%(page_title)s' a %(subpages_count)s podstránok skopírovaných."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Stránka '%(page_title)s' bola skopírovaná."
+
+msgid "View draft"
+msgstr "Zobraziť koncept"
+
+msgid "View live"
+msgstr "Zobraziť live"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Stránka '%(page_title)s' bola vytvorená."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Stránka '%(page_title)s' vytvorená a naplánovaná pre publikáciu."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Stránka '%(page_title)s' bola úspešne vytvorená a publikovaná."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr ""
+"Stránka '%(page_title)s' bola úspešne vytvorená a odoslaná na moderáciu."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Stránka '%(page_title)s' bola zmazaná."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Stránka '%(page_title)s' bola aktualizovaná."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Stránka '%(page_title)s' bola naplánovaná pre publikáciu."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Stránka '%(page_title)s' bola publikovaná."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Stránka '%(page_title)s' bola odoslaná na moderáciu."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
+
+msgid "Owner"
+msgstr "Vlastník"
+
+msgid "Site"
+msgstr "Sídlo"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Stránka '%(page_title)s' bola odomknutá."
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Stránka '%(page_title)s' bola presunutá."
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Stránka '%(page_title)s' bola odpublikovaná."
+
+msgid "Pages using"
+msgstr "Stránky požívajúce"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Stránka '%(page_title)s'  momentálne čaká na moderáciu"
+
+msgid "Choose an item"
+msgstr "Zvoľte položku"
+
+msgid "Choose another item"
+msgstr "Zvoliť daľšiu položku"
+
+msgid "Clear choice"
+msgstr "Zmazať voľbu"
+
+msgid "Choose another page"
+msgstr "Zvoliť ďalšiu stránku"

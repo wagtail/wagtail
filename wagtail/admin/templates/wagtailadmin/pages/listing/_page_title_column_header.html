@@ -1,0 +1,36 @@
+{% extends "wagtailadmin/tables/column_header.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block after_label %}
+    {% if result_scope == "whole_tree" %}
+        {% if items_count %}
+            {% blocktranslate trimmed with start_index=start_index|intcomma end_index=end_index|intcomma items_count=items_count|intcomma %}
+                {{ start_index }}-{{ end_index }} of {{ items_count }} across entire site.
+            {% endblocktranslate %}
+        {% else %}
+            {% blocktranslate trimmed %}
+                No results across entire site.
+            {% endblocktranslate %}
+        {% endif %}
+        <a href="{{ table.base_url }}{% querystring p=None search_all=None %}">
+            {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}Search in '<span class="w-title-ellipsis">{{ title }}</span>'{% endblocktranslate %}
+        </a>
+    {% elif result_scope == "parent" %}
+        {% if items_count %}
+            {% blocktranslate trimmed with title=parent_page.get_admin_display_title start_index=start_index|intcomma end_index=end_index|intcomma items_count=items_count|intcomma %}
+                {{ start_index }}-{{ end_index }} of {{ items_count }} in '<span class="w-title-ellipsis">{{ title }}</span>'.
+            {% endblocktranslate %}
+        {% else %}
+            {% blocktranslate trimmed with title=parent_page.get_admin_display_title %}
+                No results in '<span class="w-title-ellipsis">{{ title }}</span>'.
+            {% endblocktranslate %}
+        {% endif %}
+        <a href="{{ table.base_url }}{% querystring p=None search_all=1 %}">
+            {% translate "Search the whole site" %}
+        </a>
+    {% else %}
+        {% blocktranslate trimmed with start_index=start_index|intcomma end_index=end_index|intcomma items_count=items_count|intcomma %}
+            {{ start_index }}-{{ end_index }} of {{ items_count }}
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock %}

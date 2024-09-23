@@ -1,0 +1,1260 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2020-2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Naglis Jonaitis, 2020-2023\n"
+"Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
+"language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Publish"
+msgstr "Publikuoti"
+
+msgid "Submit for moderation"
+msgstr "Pateikti moderavimui"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Save Draft"
+msgstr "Išsaugoti juodraštį"
+
+msgid "Page locked"
+msgstr "Puslapis užrakintas"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ir publikuoti"
+
+msgid "Wagtail admin"
+msgstr "Wagtail administravimas"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."
+
+msgid "You do not have permission to access the admin"
+msgstr "Jūs neturite leidimo pasiekti administravimo sąsajos"
+
+msgid "None"
+msgstr "Joks"
+
+msgid "Date from"
+msgstr "Data nuo"
+
+msgid "Date to"
+msgstr "Data iki"
+
+msgid "Locale"
+msgstr "Lokalė"
+
+msgid "All"
+msgstr "Visi"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
+msgid "Preferred language"
+msgstr "Pageidaujama kalba"
+
+msgid "Current time zone"
+msgstr "Dabartinė laiko juosta"
+
+msgid "First Name"
+msgstr "Vardas"
+
+msgid "Last Name"
+msgstr "Pavardė"
+
+msgid "Email"
+msgstr "Elektroninis paštas"
+
+msgid "Upload a profile picture"
+msgstr "Įkelti profilio nuotrauką"
+
+msgid "Enter password"
+msgstr "Įveskite slaptažodį"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Jūsų %(username_field)s ir slaptažodis nesutapo. Bandykite dar kartą."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Įveskite savo %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr ""
+"Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Paieškos frazė"
+
+msgid "Search"
+msgstr "Paieška"
+
+msgid "All collections"
+msgstr "Visos kolekcijos"
+
+msgid "Parent"
+msgstr "Tėvas"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Nustatykite poziciją hierarchijoje. Pastaba: kolekcija negali būti savo "
+"pačios arba vieno iš savo povaikių vaikas."
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
+
+msgid "Add"
+msgstr "Pridėti"
+
+msgid "Add collections"
+msgstr "Pridėti kolekcijas"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Edit collections"
+msgstr "Redaguoti kolekcijas"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Delete collections"
+msgstr "Ištrinti kolekcijas"
+
+msgid "You cannot edit another user's comment."
+msgstr "Jūs negalite redaguoti kito vartotojo komentarų."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Veikimo įjungimo data/laikas turi būti prieš galiojimo pabaigos datą/laiką"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Galiojimo pabaigos data/laikas turi būti ateityje"
+
+msgid "New title"
+msgstr "Naujas pavadinimas"
+
+msgid "New slug"
+msgstr "Naujas adreso trumpinys"
+
+msgid "New parent page"
+msgstr "Naujas tėvinis puslapis"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ši kopija bus viduje šio pateikto tėvinio puslapio."
+
+msgid "Copy subpages"
+msgstr "Kopijuoti vidinius puslapius"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Tai nukopijuos %(count)s vidinį puslapį."
+msgstr[1] "Tai nukopijuos %(count)s vidinius puslapius."
+msgstr[2] "Tai nukopijuos %(count)s vidinių puslapių."
+msgstr[3] "Tai nukopijuos %(count)s vidinių puslapių."
+
+msgid "Publish copied page"
+msgstr "Publikuoti nukopijuotą puslapį"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr ""
+"Šis puslapis yra veikiantis. Ar taip pat norėtumėte publikuoti ir jo kopiją?"
+
+msgid "Publish copies"
+msgstr "Publikuoti kopijas"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s kopijuojamas puslapis yra veikiantis. Ar norite publikuoti jo "
+"kopiją?"
+msgstr[1] ""
+"%(count)s kopijuojami puslapiai yra veikiantys. Ar norite publikuoti jų "
+"kopijas?"
+msgstr[2] ""
+"%(count)s kopijuojamų puslapių yra veikiantys. Ar norite publikuoti jų "
+"kopijas?"
+msgstr[3] ""
+"%(count)s kopijuojamų puslapių yra veikiantys. Ar norite publikuoti jų "
+"kopijas?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Jūs neturite leidimo kopijuoti į puslapį \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Šis trumpinys jau yra naudojamas tėvinio puslapio kontekste "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Jūs negalite kopijuoti puslapio į jį patį kopijuojant vidinius puslapius"
+
+msgid "Parent page"
+msgstr "Tėvinis puslapis"
+
+msgid "Visibility"
+msgstr "Matomumas"
+
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+msgid "Please select at least one group."
+msgstr "Prašome pasirinkti bent vieną grupę."
+
+msgid "All types"
+msgstr "Visi tipai"
+
+msgid "Task"
+msgstr "Užduotis"
+
+msgid "For search engines"
+msgstr "Paieškos varikliams"
+
+msgid "For site menus"
+msgstr "Tinklalapio meniu"
+
+msgid "Content"
+msgstr "Turinys"
+
+msgid "Promote"
+msgstr "Skelbti"
+
+msgid "Settings"
+msgstr "Nustatymai"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgid "Error 404: Page not found"
+msgstr "Klaida 404: Puslapis nerastas"
+
+msgid "Error 404"
+msgstr "Klaida 404"
+
+msgid "The requested page could not be found."
+msgstr "Prašomas puslapis buvo nerastas."
+
+msgid "Go to Wagtail admin"
+msgstr "Eiti į Wagtail administravimą"
+
+msgid "Account"
+msgstr "Paskyra"
+
+msgid "More actions"
+msgstr "Daugiau veiksmų"
+
+msgid "Save account details"
+msgstr "Išsaugoti paskyros duomenis"
+
+msgid "Reset password"
+msgstr "Atstatyti slaptažodį"
+
+msgid "Password change successful"
+msgstr "Šlaptažodžio pakeitimas pavyko"
+
+msgid "Login"
+msgstr "Prisijungti"
+
+msgid "Set your new password"
+msgstr "Nustatykite savo naują slaptažodį"
+
+msgid "Invalid password reset link"
+msgstr "Negaliojanti slaptažodžio atstatymo nuoroda"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Slaptažodžio atstatymo nuoroda negaliojanti, galimai dėl to, jog ji jau buvo "
+"panaudota."
+
+msgid "Check your email"
+msgstr "Patikrinkite savo elektroninį paštą"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Slaptažodžio atstatymo nuoroda išsiųsta el. paštu, jei paskyra su šiuo el. "
+"pašto adresu egzistuoja."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Sekite žemiau esančią nuorodą kad atstatytumėte savo slaptažodį:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Jūsų vartotojo vardas (tuo atveju jei pamiršote):"
+
+msgid "Password reset"
+msgstr "Slaptažodžio atstatymas"
+
+msgid "Reset your password"
+msgstr "Atstatyti savo slaptažodį"
+
+msgid "Upload a profile picture:"
+msgstr "Įkelti profilio nuotrauką:"
+
+msgid "Go back"
+msgstr "Grįžti atgal"
+
+msgid "Bulk actions"
+msgstr "Masiniai veiksmai"
+
+msgid "Select row"
+msgstr "Pažymėti eilutę"
+
+msgid "Select all"
+msgstr "Pažymėti visas"
+
+msgid "Internal link"
+msgstr "Vidinė nuoroda"
+
+msgid "External link"
+msgstr "Išorinė nuoroda"
+
+msgid "Email link"
+msgstr "Elektroninio pašto nuoroda"
+
+msgid "Phone link"
+msgstr "Telefono nuoroda"
+
+msgid "Anchor link"
+msgstr "Pririšta nuoroda"
+
+msgid "Add an anchor link"
+msgstr "Pridėti pririštą nuorodą"
+
+msgid "Insert anchor"
+msgstr "Įterpti pririštą nuorodą"
+
+msgid "Choose"
+msgstr "Pasirinkti"
+
+msgid "Choose a page"
+msgstr "Pasirinkti puslapį"
+
+msgid "Convert to internal link"
+msgstr "Paversti į vidinę nuorodą"
+
+msgid "Use external link"
+msgstr "Naudoti išorinę nuorodą"
+
+msgid "Add an email link"
+msgstr "Pridėti elektroninio pašto nuorodą"
+
+msgid "Insert link"
+msgstr "Iterpti nuorodą"
+
+msgid "Add an external link"
+msgstr "Pridėti išorinę nuorodą"
+
+msgid "Add a phone link"
+msgstr "Pridėti telefono nuorodą"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Naršyti vidinius '%(title)s' puslapius"
+
+msgid "Explore"
+msgstr "Naršyti"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Ši kolekcija buvo padaryta privačia pagal pirminę kolekciją."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Jūs galite redaguoti privatumo nustatymus čia:"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Privatumo nustatymai nustato kas galės žiūrėti dokumentus esančius šioje "
+"kolekcijoje."
+
+msgid "Privacy"
+msgstr "Privatumas"
+
+msgid "Public"
+msgstr "Viešas"
+
+msgid "Private"
+msgstr "Privatus"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Ši kolekcija negali būti ištrinta, nes ji nėra tuščia. Joje yra:"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"Nebuvo sukurtos jokios kolekcijos. Kodėl gi <a "
+"href=\"%(add_collection_url)s\">nesukūrus vienos</a>?"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+msgid "No, don't delete"
+msgstr "Ne, neištrinti"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Nebepublikuoti %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Taip, nebepublikuoti"
+
+msgid "No, don't unpublish"
+msgstr "Ne, publikuoti"
+
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgid "Comment"
+msgstr "Komentaras"
+
+msgid "Actions"
+msgstr "Veiksmai"
+
+msgid "Update"
+msgstr "Atnaujinti"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Lyginami %(title)s"
+
+msgid "Comparing"
+msgstr "Palyginama"
+
+msgid "Fields"
+msgstr "Laukai"
+
+msgid "Changes"
+msgstr "Pakeitimai"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Sveiki, čia %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Tai yra jūsų valdymo pultas kuriame bus atvaizduojama naudinga informacija "
+"apie jūsų sukurtą turinį."
+
+msgid "Your locked pages"
+msgstr "Jūsų užrakinti puslapiai"
+
+msgid "Locked at"
+msgstr "Užrakinimo data"
+
+msgid "Edit this page"
+msgstr "Redaguoti šį puslapį"
+
+msgid "Unlock"
+msgstr "Atrakinti"
+
+msgid "Draft"
+msgstr "Juodraštis"
+
+msgid "Live"
+msgstr "Veikiantis"
+
+msgid "Your most recent edits"
+msgstr "Jūsų paskutiniai redagavimai"
+
+msgid "Status"
+msgstr "Būsena"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Site summary"
+msgstr "Tinklalapio suvestinė"
+
+msgid "Task started"
+msgstr "Užduotis pradėta"
+
+msgid "Awaiting"
+msgstr "Laukiama"
+
+msgid "Close"
+msgstr "Uždaryti"
+
+msgid "Awaiting your review"
+msgstr "Laukia jūsų peržiūros"
+
+msgid "Tasks"
+msgstr "Užduotys"
+
+msgid "Task submitted by"
+msgstr "Užduotį pateikė"
+
+msgid "Preview"
+msgstr "Peržiūrėti"
+
+msgid "Compare with live version"
+msgstr "Palyginti su veikiančia versija"
+
+msgid "Compare with previous version"
+msgstr "Palyginti su ankstesne versija"
+
+msgid "Sign in"
+msgstr "Prisijungti"
+
+msgid "Sign in to Wagtail"
+msgstr "Prisijungti prie Wagtail"
+
+msgid "Forgotten password?"
+msgstr "Pamiršote slaptažodį?"
+
+msgid "Remember me"
+msgstr "Prisiminti mane"
+
+msgid "Signing in…"
+msgstr "Prisijungiama..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Puslapis \"%(title)s\" buvo patvirtintas."
+
+msgid "You can view the page here:"
+msgstr "Galite peržiūrėti puslapį čia:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Puslapis \"%(title)s\" buvo patvirtintas"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Sveiki %(username)s,"
+
+msgid "Edit your notification preferences here:"
+msgstr "Redaguokite savo pranešimų nustatymus čia:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Puslapis \"%(title)s\" buvo atmestas."
+
+msgid "You can edit the page here:"
+msgstr "Galite redaguoti puslapį čia:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Puslapis \"%(title)s\" buvo atmestas"
+
+msgid "You can preview the page here:"
+msgstr "Galite peržiūrėti puslapį čia:"
+
+msgid "New comments"
+msgstr "Nauji komentarai"
+
+msgid "Resolved comments"
+msgstr "Išspręsti komentarai"
+
+msgid "Deleted comments"
+msgstr "Ištrinti komentarai"
+
+msgid "New replies"
+msgstr "Nauji atsakymai"
+
+msgid "New replies to:"
+msgstr "Nauji atsakymai į:"
+
+msgid "New comments:"
+msgstr "Nauji komentarai:"
+
+msgid "Resolved comments:"
+msgstr "Išspręsti komentarai:"
+
+msgid "Deleted comments:"
+msgstr "Ištrinti komentarai:"
+
+msgid "New replies:"
+msgstr "Nauji atsakymai:"
+
+msgid "This page has been made private by a parent page."
+msgstr "Šis puslapis buvo padarytas privačiu pagal tėvinį puslapį."
+
+msgid "Publishing…"
+msgstr "Publikuojama..."
+
+msgid "Publish this version"
+msgstr "Publikuoti šią versiją"
+
+msgid "Saving…"
+msgstr "Saugoma..."
+
+msgid "Replace current draft"
+msgstr "Pakeisti dabartinį juodraštį"
+
+msgid "Save draft"
+msgstr "Išsaugoti juodraštį"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Sukurti puslapį viduje %(title)s"
+
+msgid "Create a page in"
+msgstr "Sukurti puslapį viduje"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Pasirinkite kokio tipo puslapį norite sukurti."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Puslapiai naudojantys %(page_type)s"
+
+msgid "Move"
+msgstr "Perkelti"
+
+msgid "Yes, publish"
+msgstr "Taip, publikuoti"
+
+msgid "No, don't publish"
+msgstr "Ne, nepublikuoti"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Ištrinti %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Ar tikrai norite ištrinti šį puslapį?"
+
+msgid "Yes, delete it"
+msgstr "Taip, ištrinti"
+
+msgid "No, don't delete it"
+msgstr "Ne, neištrinti"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Antraip jūs galite <a href=\"%(unpublish_url)s\">nebepublikuoti puslapio</"
+"a>. Tai ištrina puslapį iš viešo atvaizdavimo ir jūs galite jį redaguoti "
+"arba publikuoti vėliau."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Perkelti %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "Ar tikrai norite perkelti šį puslapį į '%(title)s'?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Ar tikrai norite perkelti šį puslapį ir visus jo vidinius puslapius į "
+"'%(title)s'?"
+
+msgid "Yes, move this page"
+msgstr "Taip, perkelti šį puslapį"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Ar tikrai norite nebepublikuoti šio puslapio?"
+
+msgid "Publish page"
+msgstr "Publikuoti puslapį"
+
+msgid "Would you still like to publish this page?"
+msgstr "Ar vis tiek norite publikuoti šį puslapį?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopijuoti %(title)s"
+
+msgid "Copy"
+msgstr "Kopijuoti"
+
+msgid "Copy this page"
+msgstr "Kopijuoti šį puslapį"
+
+msgid "This page has unsaved changes."
+msgstr "Šis puslapis turi neišsaugotų pakeitimų."
+
+msgid "Configure a site now."
+msgstr "Konfigūruoti tinklalapį dabar."
+
+msgid "This page is locked to further editing"
+msgstr "Šis puslapis tolimesniam redagavimui užrakintas"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Naršyti vidinius '%(title)s' puslapius"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Pridėti vidinį puslapį į '%(title)s'"
+
+msgid "Drag"
+msgstr "Tempti"
+
+msgid "Disable ordering of child pages"
+msgstr "Išjungti vidinių puslapių rikiavimą"
+
+msgid "Enable ordering of child pages"
+msgstr "Įgalinti vidinių puslapių rikiavimą"
+
+msgid "Sites menu"
+msgstr "Tinklalapių meniu"
+
+msgid "Pagination"
+msgstr "Skaidymas į puslapius"
+
+msgid "Previous"
+msgstr "Buvęs"
+
+msgid "Next"
+msgstr "Kitas"
+
+msgid "This page is protected from public view"
+msgstr "Šis puslapis apsaugotas nuo viešo matymo"
+
+msgid "Confirm"
+msgstr "Patvirtinti"
+
+msgid "Add child page"
+msgstr "Pridėti vidinį puslapį"
+
+msgid "Page types"
+msgstr "Puslapių tipai"
+
+msgid "Enter a search term above"
+msgstr "Aukščiau įveskite paieškos frazę"
+
+msgid "No pages use"
+msgstr "Jokie puslapiai nenaudoja"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Pridėti %(label)s"
+
+msgid "Move up"
+msgstr "Perkelti aukštyn"
+
+msgid "Move down"
+msgstr "Perkelti žemyn"
+
+msgid "Collection management permissions"
+msgstr "Kolekcijų valdymo leidimai"
+
+msgid "Add a collection permission"
+msgstr "Pridėti kolekcijų leidimą"
+
+msgid "Type"
+msgstr "Tipas"
+
+msgid "No pages found."
+msgstr "Puslapių nerasta."
+
+msgid "Updated"
+msgstr "Atnaujintas"
+
+msgid "Pages"
+msgstr "Puslapiai"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> užrakinote jūs"
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> užrakino <b>%(locked_by)s</b>"
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "Užrakinta <b>%(locking_date)s</b>"
+
+msgid "Locked"
+msgstr "Užrakinta"
+
+msgid "No locked pages found."
+msgstr "Užrakintų puslapių nerasta."
+
+msgid "Name"
+msgstr "Vardas"
+
+msgid "Action"
+msgstr "Veiksmas"
+
+msgid "User"
+msgstr "Vartotojas"
+
+msgid "Date / Time"
+msgstr "Data / laikas"
+
+msgid "Edit this item"
+msgstr "Redaguoti šį elementą"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Puslapis %(page_num)s iš %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Naršymo kelias"
+
+msgid "Continue"
+msgstr "Tęsti"
+
+msgid "Download XLSX"
+msgstr "Parsiųsti XLSX"
+
+msgid "Download CSV"
+msgstr "Parsisiųsti CSV"
+
+msgid "Filter"
+msgstr "Filtras"
+
+msgid "Apply filters"
+msgstr "Taikyti filtrus"
+
+msgid "Add comment"
+msgstr "Pridėti komentarą"
+
+msgid "Back"
+msgstr "Atgal"
+
+msgid "History"
+msgstr "Istorija"
+
+msgid "Current page status:"
+msgstr "Dabartinė puslapio būsena:"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
+
+msgid "Unschedule"
+msgstr "Neplanuoti"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ar tikrai norite neplanuoti šios revizijos?"
+
+msgid "Yes, unschedule"
+msgstr "Taip, neplanuoti"
+
+msgid "No, don't unschedule"
+msgstr "Ne, planuoti"
+
+msgid "Other searches"
+msgstr "Kitos paieškos"
+
+msgid "Comment notifications"
+msgstr "Komentarų pranešimai"
+
+msgid "Unlocked"
+msgstr "Atrakinta"
+
+msgid "Lock"
+msgstr "Užrakinti"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
+
+msgid "Usage"
+msgstr "Panaudojimas"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
+
+msgid "View history"
+msgstr "Peržiūrėti istoriją"
+
+msgid "Edit / Review"
+msgstr "Redaguoti / Peržiūrėti"
+
+msgid "Edited"
+msgstr "Redaguotas"
+
+msgid "Add a child page"
+msgstr "Pridėti vidinį puslapį"
+
+msgid "Show in Explorer"
+msgstr "Rodyti naršyklėje"
+
+msgid "Create"
+msgstr "Sukurti"
+
+msgid "Page"
+msgstr "Puslapis"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Žingsnis %(step_number)s"
+
+#, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 puslapis"
+msgstr[1] "%(counter)s puslapiai"
+msgstr[2] "%(counter)s puslapis"
+msgstr[3] "%(counter)s puslapių"
+
+msgid "New"
+msgstr "Naujas"
+
+msgid "Submitted"
+msgstr "Pateikta"
+
+msgid "Published"
+msgstr "Publikuotas"
+
+msgid "See full history"
+msgstr "Peržiūrėti pilną istoriją"
+
+msgid "More"
+msgstr "Daugiau"
+
+msgid "0 minutes"
+msgstr "0 minučių"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "prieš %(time_period)s"
+
+msgid "Log out"
+msgstr "Atsijungti"
+
+msgid "Undo"
+msgstr "Anuliuoti"
+
+msgid "Redo"
+msgstr "Atgrąžinti"
+
+msgid "Bold"
+msgstr "Stambus"
+
+msgid "Italic"
+msgstr "Pakreiptas"
+
+msgid "Comments"
+msgstr "Komentarai"
+
+msgid "Profile"
+msgstr "Profilis"
+
+msgid "Notifications"
+msgstr "Pranešimai"
+
+msgid "Name and Email"
+msgstr "Vardas ir el. paštas"
+
+msgid "Profile picture"
+msgstr "Profilio nuotrauka"
+
+msgid "Password"
+msgstr "Slaptažodis"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Jūsų paskyros nustatymai sėkmingai išsaugoti!"
+
+msgid "You have been successfully logged out."
+msgstr "Jūs sėkmingai atsijungėte."
+
+msgid "Collections"
+msgstr "Kolekcijos"
+
+msgid "Add a collection"
+msgstr "Pridėti kolekciją"
+
+msgid "Add collection"
+msgstr "Pridėti kolekciją"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Kolekcija '%(object)s' sukurta."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Kolekcija '%(object)s' atnaujinta."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Kolekcija negalėjo būti išsaugota dėl klaidų."
+
+msgid "Delete collection"
+msgstr "Ištrinti kolekciją"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Kolekcija '%(object)s' ištrinta."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Ar tikrai norite ištrinti šią kolekciją?"
+
+msgid "Home"
+msgstr "Namai"
+
+msgid "Live version"
+msgstr "Publikuota versija"
+
+msgid "Current draft"
+msgstr "Dabartinis juodraštis"
+
+msgid "Review this version"
+msgstr "Peržiūrėti šią versiją"
+
+msgid "Compare with current version"
+msgstr "Palyginti su dabartine versija"
+
+msgid "Cancel scheduled publish"
+msgstr "Atšaukti suplanuotą publikavimą"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' atnaujintas."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' sukurtas."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Redaguoti '%(title)s'"
+
+msgid "Inspect"
+msgstr "Tikrinti"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Ištrinti '%(title)s'"
+
+msgid "Editing"
+msgstr "Redaguojama"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' ištrintas."
+
+msgid "Inspecting"
+msgstr "Tikrinama"
+
+msgid "Earliest"
+msgstr "Naujausias"
+
+msgid "Latest"
+msgstr "Vėliausias"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "Redaguoti šį %(object)s"
+
+msgid "Dashboard"
+msgstr "Prietaisų skydas"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr ""
+"Puslapis '%(page_title)s' ir  '%(subpages_count)s' vidiniai puslapiai "
+"atkopijuoti."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "Puslapis '%(page_title)s' nukopijuotas."
+
+msgid "View draft"
+msgstr "Žiūrėti juodraštį"
+
+msgid "View live"
+msgstr "Žiūrėti veikiantį"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "Puslapis '%(page_title)s' sukurtas."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "Puslapis '%(page_title)s' sukurtas ir suplanuotas publikavimui."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "Puslapis '%(page_title)s' sukurtas ir publikuotas."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "Puslapis '%(page_title)s' sukurtas ir pateiktas moderavimui."
+
+msgid "The page could not be created due to validation errors"
+msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Puslapis '%(page_title)s' ištrintas."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "Puslapis '%(page_title)s' buvo atnaujintas."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "Puslapis '%(page_title)s' buvo suplanuotas publikavimui."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "Puslapis '%(page_title)s' buvo publikuotas."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "Puslapis '%(page_title)s' buvo pateiktas moderavimui."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Puslapis negalėjo būti išsaugotas nes yra užrakintas"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Puslapis negalėjo būti išsaugotas dėl validavimo klaidų"
+
+msgid "Site"
+msgstr "Tinklalapis"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "Puslapis '%(page_title)s' dabar atrakintas."
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "Puslapis '%(page_title)s' buvo perkeltas."
+
+msgid "Page history"
+msgstr "Puslapio istorija"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "Puslapis '%(page_title)s' nebepublikuojamas."
+
+msgid "Pages using"
+msgstr "Puslapiai naudoja"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "Puslapis '%(page_title)s' dabar nelaukia moderavimo."
+
+msgid "Aging pages"
+msgstr "Senstantys puslapiai"
+
+msgid "Site history"
+msgstr "Tinklalapio istorija"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Veiksmo tipas"
+
+msgid "Date/Time"
+msgstr "Data/laikas"
+
+msgid "Locked pages"
+msgstr "Užrakinti puslapiai"
+
+msgid "Show"
+msgstr "Rodyti"
+
+msgid "Disable"
+msgstr "Išjungti"
+
+msgid "Enable"
+msgstr "Įjungti"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Peržiūrėti '%(title)s' juodraštį"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Perkelti puslapį '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopijuoti puslapį '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Ištrinti puslapį '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Nebepublikuoti '%(title)s' puslapio"
+
+msgid "Sort menu order"
+msgstr "Meniu rikiavimo tvarka"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Antraštė %(level)d"
+
+msgid "Bulleted list"
+msgstr "Pažymėtas sąrašas"
+
+msgid "Numbered list"
+msgstr "Numeruotas sąrašas"
+
+msgid "Blockquote"
+msgstr "Citata"
+
+msgid "Link"
+msgstr "Nuoroda"
+
+msgid "Reports"
+msgstr "Ataskaitos"
+
+msgid "Help"
+msgstr "Pagalba"
+
+msgid "Choose an item"
+msgstr "Pasirinkti elementą"
+
+msgid "Choose another item"
+msgstr "Pasirinkti kitą elementą"
+
+msgid "Clear choice"
+msgstr "Išvalyti pasirinkimus"
+
+msgid "Choose another page"
+msgstr "Pasirinkti kitą puslapį"

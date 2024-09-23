@@ -1,0 +1,49 @@
+@use 'sass:color';
+
+// Paths
+// We can't use absolute paths here, because those are dependent on Django's
+// STATIC_URL setting. Instead, relative paths from the final location of the
+// compiled CSS files are used.
+
+$images-root: '../images/';
+
+$mobile-nice-padding: theme('spacing.5');
+$desktop-nice-padding: theme('spacing.20');
+
+// All text inputs have a 42px set height to simplify alignment.
+$text-input-height: 2.625rem;
+// Forms should be constrained to a maximum width for legibility.
+$max-form-width: 840px;
+// Consistent spacing between form fields.
+$form-field-spacing: theme('spacing.[7.5]');
+// Indentation for nested fields.
+$nested-field-indent: theme('spacing.[7.5]');
+$nested-field-indent-sm: theme('spacing.3');
+
+// screen breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: 50em,
+  // 800px
+  md: 56.25em,
+  // 900px
+  lg: 75em,
+  // 1200px
+  xl: 100em,
+  // 1440px
+);
+
+// Fonts
+// Our fonts are based off of a list of system fallbacks to ensure
+// that the most 'up-to-date' and available system font is used and rendered consistently as possible across browsers.
+
+// misc sizing
+$menu-width-slim: 60px;
+$menu-width: 200px;
+$mobile-nav-indent: 50px;
+
+// transitions
+// Please keep in sync with SIDEBAR_TRANSITION_DURATION variable in `client/src/components/Sidebar/Sidebar.tsx`
+$menu-transition-duration: 150ms;
+
+$focus-outline-width: 3px;

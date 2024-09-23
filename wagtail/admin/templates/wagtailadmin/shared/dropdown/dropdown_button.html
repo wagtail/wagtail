@@ -1,0 +1,24 @@
+{% load wagtailadmin_tags i18n %}
+
+{% comment "text/markdown" %}
+    A button with a dropdown menu next to it.
+
+    - `button` (fragment) - the main button
+    - `toggle_icon` (string?) - toggle icon identifier
+    - `toggle_classname` (string?) - additional toggle classes
+    - `classname` (string?) - additional component classes
+    - `children` - Dropdown contents (`a` and `button` elements only)
+    - `keep_mounted` (boolean?) - Whether or not the dropdown should keep its DOM node mounted when hidden
+{% endcomment %}
+
+<div class="{% classnames 'w-dropdown-button' classname %}">
+    {{ button }}
+    {% if children %}
+        {% fragment as toggle_classes %}{% classnames toggle_classname "button" %}{% endfragment %}
+        {# Built with w-sr-only so there is no visible tooltip. #}
+        {% fragment as toggle_label %}<span class="w-sr-only">{% trans "More actions" %}</span>{% endfragment %}
+        {% dropdown theme="dropdown-button" toggle_label=toggle_label toggle_classname=toggle_classes toggle_icon=toggle_icon|default:"arrow-down" toggle_tooltip_offset="[0, 0]" keep_mounted=keep_mounted %}
+            {{ children }}
+        {% enddropdown %}
+    {% endif %}
+</div>

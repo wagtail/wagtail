@@ -1,0 +1,1709 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andy Kong <worminfo@gmail.com>, 2020
+# Chih Wang <ihcgno@icloud.com>, 2019,2022
+# Chih Wang <ihcgno@icloud.com>, 2022
+# Chih Wang <ihcgno@icloud.com>, 2019
+# Chih Wang <ihcgno@icloud.com>, 2020-2021
+# Ocin Leung, 2020
+# Ocin Leung, 2020
+# Yeh Yen-Ke <yyken@outlook.com>, 2019
+# Yunchi Pang <yunchipang@gmail.com>, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
+"Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
+"wagtail/language/zh-Hant/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh-Hant\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "發佈"
+
+msgid "Submit for moderation"
+msgstr "提交審核"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "重新提交至 %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "提交至 %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "重啟工作流程"
+
+msgid "Cancel workflow "
+msgstr "取消工作流程"
+
+msgid "Unpublish"
+msgstr "取消發佈"
+
+msgid "Save Draft"
+msgstr "儲存草稿"
+
+msgid "Page locked"
+msgstr "頁面已鎖定"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s並發布"
+
+msgid "Wagtail admin"
+msgstr "Wagtail 管理"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "對不起， 你沒有權限訪問。"
+
+msgid "You do not have permission to access the admin"
+msgstr "您沒有後台管理權限"
+
+msgid "None"
+msgstr "無"
+
+msgid "Date from"
+msgstr "起始日期"
+
+msgid "Date to"
+msgstr "結束日期"
+
+msgid "Locale"
+msgstr "語系"
+
+msgid "All"
+msgstr "全部"
+
+msgid "Collection"
+msgstr "集合"
+
+msgid "Tag"
+msgstr "標籤"
+
+msgid "Preferred language"
+msgstr "首選語言"
+
+msgid "Current time zone"
+msgstr "當前時區"
+
+msgid "First Name"
+msgstr "名"
+
+msgid "Last Name"
+msgstr "姓"
+
+msgid "Email"
+msgstr "電子郵件"
+
+msgid "Upload a profile picture"
+msgstr "上傳新的頭像"
+
+msgid "Enter password"
+msgstr "輸入密碼"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "帳戶 %(username_field)s 密碼不正確，請重試。"
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "輸入你的 %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "輸入電子郵件地址以重置密碼"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "搜索條件"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "All collections"
+msgstr "所有集合"
+
+msgid "Parent"
+msgstr "上一級"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr "選取層級。注意：一個集合無法成為其本身的子集合或是任何子階級。"
+
+msgid "Please select another parent"
+msgstr "請選擇其它上級"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "對於同一個集合你不能設置多重權限"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Add collections"
+msgstr "新增集合"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Edit collections"
+msgstr "編輯集合"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Delete collections"
+msgstr "刪除集合"
+
+msgid "You cannot edit another user's comment."
+msgstr "無法編輯其它使用者的評論"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "上線時間須早於截止期限"
+
+msgid "Expiry date/time must be in the future"
+msgstr "過期日期/時間必須是未來時間。"
+
+msgid "New title"
+msgstr "新增標題"
+
+msgid "New slug"
+msgstr "新增短標題"
+
+msgid "New parent page"
+msgstr "新上階頁面"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "此副本將設為指定頁面的子頁。"
+
+msgid "Copy subpages"
+msgstr "複製子頁面"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "此操作將複製%(count)s 子頁面。"
+
+msgid "Publish copied page"
+msgstr "發佈已複製的頁面。"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "此頁面已上線。是否同時發佈其副本？"
+
+msgid "Publish copies"
+msgstr "發佈副本"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] "正在複製的 %(count)s 個頁面已是發佈狀態，你要發佈他們的副本嗎？"
+
+msgid "Alias"
+msgstr "別名"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "維持新頁面於最新更改狀態"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "你沒有權限複製到頁面“%(page_title)s”"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr "此短標題已被其上階頁面 \"%(parent_page_title)s\" 使用。"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "你在複製子頁面時不能複製當前頁面本身"
+
+msgid "Parent page"
+msgstr "上一級頁面"
+
+msgid "Visibility"
+msgstr "可見"
+
+msgid "This field is required."
+msgstr "必要欄位"
+
+msgid "Please select at least one group."
+msgstr "請至少選擇一群組。"
+
+msgid "All types"
+msgstr "所有類型"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "此頁面已指派至工作流程 '%(workflow_name)s'"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "無法多次指派此工作流程至相同頁面"
+
+msgid "Give your workflow a name"
+msgstr "命名工作流程"
+
+msgid "Add tasks to your workflow"
+msgstr "增加作業至工作流程"
+
+msgid "Task"
+msgstr "作業"
+
+msgid "1 page selected"
+msgstr "已選擇 1 頁面"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "已選擇 %(objects)s 頁面"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "已選擇顯示範圍內所有 %(objects)s 項頁面"
+
+msgid "All pages in listing selected"
+msgstr "已選擇列表中的所有頁面"
+
+msgid "1 document selected"
+msgstr "已選擇 1 項文件"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "已選擇 %(objects)s 項文件"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "已選擇顯示範圍內所有 %(objects)s 項文件"
+
+msgid "All documents in listing selected"
+msgstr "已選擇列表中的所有文件"
+
+msgid "1 image selected"
+msgstr "已選擇 1 項圖片"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "已選擇 %(objects)s 項圖片"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "已選擇顯示範圍內所有 %(objects)s 項圖片"
+
+msgid "All images in listing selected"
+msgstr "已選擇列表中的所有圖片"
+
+msgid "1 user selected"
+msgstr "已選擇 1 位使用者"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "已選擇 %(objects)s 位使用者"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "已選擇顯示範圍內所有 %(objects)s 位使用者"
+
+msgid "All users in listing selected"
+msgstr "已選擇列表中的所有使用者"
+
+msgid "1 item selected"
+msgstr "已選擇 1 個項目"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "已選擇 %(objects)s 個項目"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "已選擇顯示範圍內所有 %(objects)s 個項目"
+
+msgid "All items in listing selected"
+msgstr "已選擇列表中的所有項目"
+
+msgid "Content"
+msgstr "內容"
+
+msgid "Promote"
+msgstr "推薦"
+
+msgid "Settings"
+msgstr "設置"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "Page title"
+msgstr "頁面標題"
+
+msgid "Error 404: Page not found"
+msgstr "404錯誤：沒有找到頁面"
+
+msgid "Error 404"
+msgstr "404錯誤"
+
+msgid "The requested page could not be found."
+msgstr "找不到請求的頁面。"
+
+msgid "Go to Wagtail admin"
+msgstr "轉到管理界面"
+
+msgid "Account"
+msgstr "帳號"
+
+msgid "More actions"
+msgstr "更多操作"
+
+msgid "Save account details"
+msgstr "儲存帳戶詳細資料"
+
+msgid "Reset password"
+msgstr "重置密碼"
+
+msgid "Password change successful"
+msgstr "密碼修改成功。"
+
+msgid "Login"
+msgstr "登錄"
+
+msgid "Set your new password"
+msgstr "設置新密碼"
+
+msgid "Invalid password reset link"
+msgstr "忘記密碼"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "密碼重置鏈接已被使用。"
+
+msgid "Request a new password reset"
+msgstr "請求重新設置密碼"
+
+msgid "Check your email"
+msgstr "檢查您的郵件"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr "密碼重置鏈接將發送到該電子郵件。"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "請點擊以下連結以重置密碼"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "以防遺忘，請填寫你的用戶名:"
+
+msgid "Password reset"
+msgstr "密碼已重置。"
+
+msgid "Reset your password"
+msgstr "重置密碼"
+
+msgid "Reset to default"
+msgstr "重置為預設值"
+
+msgid "Sidebar"
+msgstr "側邊欄"
+
+msgid "Go back"
+msgstr "返回"
+
+msgid "Bulk actions"
+msgstr "批次操作"
+
+msgid "Select row"
+msgstr "選擇列"
+
+msgid "Select all"
+msgstr "全選"
+
+msgid "Internal link"
+msgstr "內部連結"
+
+msgid "External link"
+msgstr "外部連結"
+
+msgid "Email link"
+msgstr "電子郵件連結"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "共有 %(counter)s 項符合"
+
+msgid "Choose"
+msgstr "選擇"
+
+msgid "Choose a page"
+msgstr "選擇頁面"
+
+msgid "Convert to internal link"
+msgstr "轉換為內部連結"
+
+msgid "Use external link"
+msgstr "使用外部連結"
+
+msgid "Add an email link"
+msgstr "新增電子郵件"
+
+msgid "Insert link"
+msgstr "插入連結"
+
+msgid "Add an external link"
+msgstr "新增外部連結"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "查看'%(title)s'的子頁面"
+
+msgid "Explore"
+msgstr "瀏覽"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "此集合已經被上階集合設為隱蔽。"
+
+msgid "You can edit the privacy settings on:"
+msgstr "你可以在此修改隱蔽設置："
+
+msgid "Save"
+msgstr "儲存"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr "隱蔽設置可檢視此文件集合之使用者。"
+
+msgid "Privacy"
+msgstr "隱蔽設置"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "集合隱蔽設定。目前狀態：公開"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "集合隱蔽設定。目前狀態：隱蔽"
+
+msgid "Private"
+msgstr "隱蔽"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "集合非空，不能刪除，它包含有："
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"沒有創建任何集合，為何不<a href=\"%(add_collection_url)s\">創建一個</a>"
+
+msgid "Yes, delete"
+msgstr "確認刪除"
+
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "取消發佈%(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "是，取消發佈"
+
+msgid "No, don't unpublish"
+msgstr "否，不取消發佈"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Comment"
+msgstr "評論"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Update"
+msgstr "更新"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "比較 %(title)s"
+
+msgid "Comparing"
+msgstr "正在比較"
+
+msgid "Fields"
+msgstr "欄位"
+
+msgid "Changes"
+msgstr "更改"
+
+msgid "There are no differences between these two versions"
+msgstr "兩版本間無任何差異"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "歡迎使用 %(site_name)s  Wagtail 內容管理系統"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr "此面版可顯示你所建立內容的相關資訊。"
+
+msgid "Your locked pages"
+msgstr "你已鎖定的頁面"
+
+msgid "Locked at"
+msgstr "鎖定於"
+
+msgid "Edit this page"
+msgstr "編輯此頁"
+
+msgid "Unlock"
+msgstr "解鎖"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Live"
+msgstr "上線"
+
+msgid "Your most recent edits"
+msgstr "最近編輯"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Site summary"
+msgstr "網站摘要"
+
+msgid "Task started"
+msgstr "作業開始"
+
+msgid "Awaiting"
+msgstr "等待中"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Awaiting your review"
+msgstr "待審中"
+
+msgid "Tasks"
+msgstr "作業"
+
+msgid "Preview"
+msgstr "預覽"
+
+msgid "Compare with live version"
+msgstr "與線上版本進行比較"
+
+msgid "Compare with previous version"
+msgstr "與前次版本進行比較"
+
+msgid "Sign in"
+msgstr "登錄"
+
+msgid "Sign in to Wagtail"
+msgstr "登錄Wagtail"
+
+msgid "Forgotten password?"
+msgstr "忘記密碼？"
+
+msgid "Remember me"
+msgstr "記住我"
+
+msgid "Signing in…"
+msgstr "正在登錄..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "頁面 \"%(title)s\" 已核準。"
+
+msgid "You can view the page here:"
+msgstr "在此查看頁面："
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "頁面 \"%(title)s\" 已核準"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "%(username)s 你好，"
+
+msgid "Edit your notification preferences here:"
+msgstr "在此編輯通知偏好設定："
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "頁面\"%(title)s\"被駁回。"
+
+msgid "You can edit the page here:"
+msgstr "你可以在此編輯頁面："
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "頁面\"%(title)s\"被駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已於 \"%(task)s\" 核准"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 駁回"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已於 \"%(task)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+msgid "You can preview the page here:"
+msgstr "在此預覽頁面："
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+msgid "New comments"
+msgstr "新增評論"
+
+msgid "Resolved comments"
+msgstr "已解決的評論"
+
+msgid "Deleted comments"
+msgstr "已刪除的評論"
+
+msgid "New replies"
+msgstr "新回覆"
+
+msgid "New replies to:"
+msgstr "新回覆至："
+
+msgid "New comments:"
+msgstr "新評論："
+
+msgid "Resolved comments:"
+msgstr "已解決的評論："
+
+msgid "Deleted comments:"
+msgstr "已刪除的評論："
+
+msgid "New replies:"
+msgstr "新回覆："
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於工作流程 \"%(workflow)s\" 核準"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於 \"%(workflow)s\" 核準"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"頁面 \"%(title)s\" 已由 %(rejector)s 於工作流程 \"%(workflow)s\" 之 "
+"\"%(task)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於工作流程 \"%(workflow)s\" 之 \"%(task)s\" 駁回"
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "意見如下： \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已被 \"%(workflow)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核工作流程 \"%(workflow)s\" "
+
+msgid "This page has been made private by a parent page."
+msgstr "此頁面已被上階頁面設置為隱蔽。"
+
+msgid "Save the page before leaving"
+msgstr "離開前儲存頁面"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "你有<span>尚未儲存的編輯內容</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "你有<span>尚未儲存的評論內容</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "你有<span>尚未儲存的編輯</span>以及<span>評論內容</span>"
+
+msgid "Publishing…"
+msgstr "正在發佈..."
+
+msgid "Publish this version"
+msgstr "發佈此版本"
+
+msgid "Saving…"
+msgstr "儲存中..."
+
+msgid "Replace current draft"
+msgstr "替換當前的草稿"
+
+msgid "Save draft"
+msgstr "儲存草稿"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "在%(title)s中創建一個頁面"
+
+msgid "Create a page in"
+msgstr "創建一個頁面，在"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "選擇創建的頁面類型"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr " %(page_type)s類型的頁面"
+
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "刪除 %(counter)s 個頁面"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "確定要刪除這些頁面嗎？"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "此操作將同步刪除 %(counter)s 個子頁面。"
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "您沒有刪除這些頁面的權限"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "移動 %(counter)s 個頁面"
+
+msgid "Move"
+msgstr "移動"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "確定要搬移這些頁面？"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "沒有移動這些頁面的權限"
+
+msgid "Yes, move these pages"
+msgstr "確認移動頁面"
+
+msgid "No, don't move"
+msgstr "取消移動"
+
+msgid "Yes, publish"
+msgstr "確認發佈"
+
+msgid "No, don't publish"
+msgstr "取消發佈"
+
+msgid "Yes, unpublish"
+msgstr "確認取消發佈"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "轉換別名 %(title)s"
+
+msgid "Convert alias"
+msgstr "轉換別名"
+
+msgid "This action cannot be undone."
+msgstr "此操作無法復原"
+
+msgid "Yes, convert it"
+msgstr "是，確認轉換"
+
+msgid "No, leave it as an alias"
+msgstr "否，保留別名"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "刪除%(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "確定要刪除此頁面嗎？"
+
+msgid "Yes, delete it"
+msgstr "是，刪除此頁面"
+
+msgid "No, don't delete it"
+msgstr "否，不刪除此頁面"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"或者你可以 <a href=\"%(unpublish_url)s\">取消發佈此頁面</a>。此頁面將不再公開"
+"展示，稍後你可以進行編輯或者重新發佈。"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "移動%(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "確定將此頁面移到 '%(title)s'？"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr "確定將此頁面及其子頁面移至 '%(title)s'？"
+
+msgid "Yes, move this page"
+msgstr "是，移動頁面"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "確定取消發佈此頁面？"
+
+msgid "Publish page"
+msgstr "發佈頁面"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "發佈此頁面將取消目前工作流程"
+
+msgid "Would you still like to publish this page?"
+msgstr "確定仍要發佈此頁面？"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "複製%(title)s"
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Copy this page"
+msgstr "複製此頁"
+
+msgid "This page has unsaved changes."
+msgstr "此頁面有未儲存的變更"
+
+msgid "This page is an alias of another page."
+msgstr "此頁面為其它頁面之別名"
+
+msgid "Edit original page"
+msgstr "編輯原始面頁"
+
+msgid "Select all pages in listing"
+msgstr "選擇列表中的所有頁面"
+
+msgid "Configure a site now."
+msgstr "立即設定一個網站。"
+
+msgid "This page is locked to further editing"
+msgstr "此頁面已鎖定，無法編輯"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "查看'%(title)s'的子頁面"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "為'%(title)s'新增子頁面"
+
+msgid "Drag"
+msgstr "拖曳"
+
+msgid "Disable ordering of child pages"
+msgstr "禁用子頁面排序"
+
+msgid "Sort"
+msgstr "排序"
+
+msgid "Enable ordering of child pages"
+msgstr "啟用子頁面排序"
+
+msgid "Sites menu"
+msgstr "網站選單"
+
+msgid "Pagination"
+msgstr "分頁"
+
+msgid "Previous"
+msgstr "上一個"
+
+msgid "Next"
+msgstr "下一個"
+
+msgid "This page is protected from public view"
+msgstr "此頁面已受保護，公眾不可見。"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "Add child page"
+msgstr "新增子頁面"
+
+msgid "Page types"
+msgstr "頁面類型"
+
+msgid "Enter a search term above"
+msgstr "輸入上面的搜索條件"
+
+msgid "No pages use"
+msgstr "沒有頁面使用"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "增加 %(label)s"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Save schedule"
+msgstr "儲存排程"
+
+msgid "Last published"
+msgstr "最後發佈"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "Updated"
+msgstr "已更新"
+
+msgid "Pages"
+msgstr "頁面"
+
+msgid "Locking status"
+msgstr "鎖定狀態"
+
+msgid "Locked"
+msgstr "已鎖定"
+
+msgid "No locked pages found."
+msgstr "沒有已被鎖定頁面"
+
+msgid "Name"
+msgstr "名稱"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "User"
+msgstr "使用者"
+
+msgid "Date / Time"
+msgstr "日期/時間"
+
+msgid "Edit this item"
+msgstr "編輯此項"
+
+msgid "No log entries found."
+msgstr "沒有發現任何記錄"
+
+msgid "Workflow"
+msgstr "工作流程"
+
+msgid "Started at"
+msgstr "開始於"
+
+msgid "Incomplete task"
+msgstr "未完成作業"
+
+msgid "Completed at"
+msgstr "完成時間"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
+
+msgid "Close dialog"
+msgstr "關閉對話框"
+
+msgid "Continue"
+msgstr "繼續"
+
+msgid "Download XLSX"
+msgstr "下載 XLSX"
+
+msgid "Download CSV"
+msgstr "下載 CSV"
+
+msgid "Filter"
+msgstr "過濾"
+
+msgid "Apply filters"
+msgstr "套用過濾"
+
+msgid "Add comment"
+msgstr "新增評論"
+
+msgid "History"
+msgstr "歷史"
+
+msgid "Current page status:"
+msgstr "目前頁面狀態："
+
+msgid "Visit the live page"
+msgstr "查看線上頁面"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
+
+msgid "Unschedule"
+msgstr "取消預定發佈"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "確定要取消這個修訂版本的預定發佈嗎？"
+
+msgid "Yes, unschedule"
+msgstr "是的，取消定時發佈"
+
+msgid "No, don't unschedule"
+msgstr "否，不取消預定發佈"
+
+msgid "Other searches"
+msgstr "其它搜索"
+
+msgid "Locale: "
+msgstr "語系："
+
+msgid "Switch locales"
+msgstr "切換語系"
+
+msgid "Unlocked"
+msgstr "已解鎖"
+
+msgid "Lock"
+msgstr "鎖定"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "隱蔽設置也會套用至所有子頁面。"
+
+msgid "Usage"
+msgstr "使用情況"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "Status: "
+msgstr "狀態："
+
+msgid "Edit schedule"
+msgstr "編輯排程"
+
+msgid "View details"
+msgstr "檢視詳細資料"
+
+msgid "View history"
+msgstr "檢視歷史"
+
+msgid "Set schedule"
+msgstr "設定排程"
+
+msgid "Loading"
+msgstr "載入中..."
+
+msgid "Preview mode"
+msgstr "預覧模式"
+
+msgid "Edit / Review"
+msgstr "編輯 / 審核"
+
+msgid "Workflow history"
+msgstr "工作流程歷史"
+
+msgid "Timeline"
+msgstr "時間軸"
+
+msgid "Initial Revision"
+msgstr "初始版本"
+
+msgid "Edited"
+msgstr "已編輯"
+
+msgid "with comment:"
+msgstr "意見："
+
+msgid "Workflow started"
+msgstr "已開始工作流程"
+
+msgid "Workflow completed"
+msgstr "已完成工作流程"
+
+msgid "Approved task"
+msgstr "已核准作業"
+
+msgid "Skip to main content"
+msgstr "略過至主要內容"
+
+msgid "Add a child page"
+msgstr "新增子頁面"
+
+msgid "Show in Explorer"
+msgstr "在資源管理器中顯示"
+
+msgid "No"
+msgstr "否"
+
+msgid "Are you sure you want to disable this workflow?"
+msgstr "確定禁用此工作流程？"
+
+msgid "Yes, disable"
+msgstr "確認禁用"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "確定禁用此項作業？"
+
+msgid "Assign your workflow to pages"
+msgstr "指派工作流程至頁面"
+
+msgid "Creating…"
+msgstr "建立中"
+
+msgid "Create"
+msgstr "建立"
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr "已禁用此工作流程且無法指派至任何頁面。"
+
+msgid "Used on the following active workflows"
+msgstr "已使用於以下啟用中的流程"
+
+msgid "Not used"
+msgstr "未使用"
+
+msgid "Assigned pages"
+msgstr "已指派頁面"
+
+msgid "Page"
+msgstr "頁面"
+
+msgid "Assign to another page"
+msgstr "指派至其它頁面"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "步驟 %(step_number)s"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "選擇需建立的作業類型"
+
+msgid "Choose a task"
+msgstr "選則作業"
+
+msgid "New"
+msgstr "新增"
+
+msgid "Existing"
+msgstr "現有"
+
+msgid "Choose a different task type"
+msgstr "選擇其它作業類型"
+
+msgid "Task type"
+msgstr "作業類型"
+
+msgid "Used on"
+msgstr "已用於"
+
+msgid "You haven't created any tasks."
+msgstr "尚未建立任何作業"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "使用工作流程 '%(name)s' 的頁面"
+
+msgid "Pages that use workflow"
+msgstr "使用工作流程的頁面"
+
+msgid "Submitted"
+msgstr "已提交"
+
+msgid "Not started"
+msgstr "尚未開始"
+
+msgid "Changes requested"
+msgstr "已要求變更"
+
+msgid "Published"
+msgstr "已發佈"
+
+msgid "See full history"
+msgstr "檢視完整歷史"
+
+msgid "More"
+msgstr "更多"
+
+msgid "0 minutes"
+msgstr "0 分鐘"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 前"
+
+msgid "Log out"
+msgstr "登出"
+
+msgid "Undo"
+msgstr "復原"
+
+msgid "Redo"
+msgstr "取消復原"
+
+msgid "Bold"
+msgstr "粗體"
+
+msgid "Italic"
+msgstr "斜體"
+
+msgid "Superscript"
+msgstr "上標"
+
+msgid "Subscript"
+msgstr "下標"
+
+msgid "Toggle status"
+msgstr "切換狀態"
+
+msgid "Toggle comments"
+msgstr "切換評論"
+
+msgid "Comments"
+msgstr "評論"
+
+msgid "Toggle preview"
+msgstr "切換預覽"
+
+msgid "Notifications"
+msgstr "通知"
+
+msgid "Name and Email"
+msgstr "姓名與電子郵件"
+
+msgid "Password"
+msgstr "密碼"
+
+msgid "You have been successfully logged out."
+msgstr "成功登出"
+
+msgid "Collections"
+msgstr "集合"
+
+msgid "Add a collection"
+msgstr "新增一個集合"
+
+msgid "Add collection"
+msgstr "新增集合"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "集合 '%(object)s' 已創建"
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "集合 '%(object)s' 已更新"
+
+msgid "The collection could not be saved due to errors."
+msgstr "發生錯誤，無法儲存集合。"
+
+msgid "Delete collection"
+msgstr "刪除集合"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "集合 '%(object)s' 已刪除"
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "確定刪除此集合？"
+
+msgid "Home"
+msgstr "首頁"
+
+msgid "Live version"
+msgstr "線上版本"
+
+msgid "Current draft"
+msgstr "當前草稿"
+
+msgid "Review this version"
+msgstr "審核此版本"
+
+msgid "Compare with current version"
+msgstr "與目前版本進行比較"
+
+msgid "Cancel scheduled publish"
+msgstr "取消預定的發佈"
+
+msgid "Workflow progress"
+msgstr "工作流程進度"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' 已更新。"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' 已創建。"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "編輯 '%(title)s'"
+
+msgid "Inspect"
+msgstr "檢查"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "刪除 '%(title)s'"
+
+msgid "Editing"
+msgstr "正在編輯"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' 已刪除。"
+
+msgid "Inspecting"
+msgstr "正在檢查"
+
+msgid "Earliest"
+msgstr "最早的"
+
+msgid "Latest"
+msgstr "最近的"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "編輯此 %(object)s"
+
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Delete selected pages"
+msgstr "刪除選取頁面"
+
+msgid "Move selected pages"
+msgstr "移動選取頁面"
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "頁面 '%(page_title)s' 和 %(subpages_count)s 個子頁面已複製。"
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "頁面'%(page_title)s'已複製。"
+
+msgid "View draft"
+msgstr "查看草稿"
+
+msgid "View live"
+msgstr "檢視線上版本"
+
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "頁面'%(page_title)s'已創建"
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "頁面 %(page_title)s 已創建並計劃發佈中。"
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "頁面'%(page_title)s'已創建並發佈。"
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "頁面 '%(page_title)s' 已創建並提交審核。"
+
+msgid "The page could not be created due to validation errors"
+msgstr "驗證錯誤，頁面無法創建。"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "頁面'%(page_title)s'已刪除"
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "編輯 %(page_type)s"
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "頁面 '%(page_title)s' 已被更新。"
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "已取消頁面 '%(page_title)s' 之工作流程"
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "頁面 %(page_title)s 已預定發佈時間。"
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "頁面 '%(page_title)s' 已經發佈。"
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "頁面 '%(page_title)s' 已提交審核。"
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "已重啟頁面  '%(page_title)s' 之工作流程"
+
+msgid "The page could not be saved as it is locked"
+msgstr "頁面已被鎖定，無法儲存。"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "驗證錯誤，無法儲存頁面。"
+
+msgid "Site"
+msgstr "網站"
+
+msgid "Yes"
+msgstr "是"
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "頁面 '%(page_title)s'已解鎖。"
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "頁面 '%(page_title)s' 已移動。"
+
+msgid "Page history"
+msgstr "頁面歷史"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "頁面'%(page_title)s'已取消發佈。"
+
+msgid "Pages using"
+msgstr "頁面使用"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "頁面 '%(page_title)s'目前不在等待審核。"
+
+msgid "Site history"
+msgstr "網站歷史"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "操作類型"
+
+msgid "Date/Time"
+msgstr "日期/時間"
+
+msgid "Locked pages"
+msgstr "已被鎖定頁面"
+
+msgid "Show"
+msgstr "顯示"
+
+msgid "Awaiting my review"
+msgstr "待審中"
+
+msgid "Workflows"
+msgstr "工作流程"
+
+msgid "Workflow tasks"
+msgstr "工作流程作業"
+
+msgid "Add a workflow"
+msgstr "增加工作流程"
+
+msgid "Used by"
+msgstr "已使用"
+
+msgid "New workflow"
+msgstr "新增工作流程"
+
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "已建立工作流程 '%(object)s'"
+
+msgid "Editing workflow"
+msgstr "編輯工作流程"
+
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "已更新流程 '%(object)s'"
+
+msgid "Disable"
+msgstr "禁用"
+
+msgid "Enable"
+msgstr "啟用"
+
+msgid "Disable workflow"
+msgstr "禁用工作流程"
+
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "已禁用工作流程 '%(object)s'"
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "已啟用流程 '%(workflow_name)s'"
+
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "已移除頁面 '%(page_title)s' 之工作流程"
+
+msgid "New workflow task"
+msgstr "新增工作流程作業"
+
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "已建立作業 '%(object)s'"
+
+msgid "Editing workflow task"
+msgstr "編輯工作流程作業"
+
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "已更新作業 '%(object)s'"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "編輯 %(task_type)s"
+
+msgid "Disable task"
+msgstr "禁用作業"
+
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "已禁用作業 '%(object)s'"
+
+#, python-format
+msgid "Task '%(task_name)s' enabled."
+msgstr "已啟用作業 '%(task_name)s'"
+
+msgid "Choose another"
+msgstr "選擇其他"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "預覽草稿版本 '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "移動頁面 '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "複製頁面 '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "刪除頁面 '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "取消發佈頁面 '%(title)s'"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "檢視 '%(title)s' 歷史頁面"
+
+msgid "Sort menu order"
+msgstr "排列選單順序"
+
+msgid "Bulleted list"
+msgstr "項目列表"
+
+msgid "Numbered list"
+msgstr "編號列表"
+
+msgid "Blockquote"
+msgstr "區塊引言"
+
+msgid "Link"
+msgstr "超連接"
+
+msgid "Strikethrough"
+msgstr "刪除線"
+
+msgid "Code"
+msgstr "程式碼"
+
+msgid "Reports"
+msgstr "報表"
+
+msgid "Editor Guide"
+msgstr "編輯指南"
+
+msgid "Choose an item"
+msgstr "選擇一項"
+
+msgid "Choose another item"
+msgstr "選擇其它項"
+
+msgid "Clear choice"
+msgstr "清除選擇"
+
+msgid "Choose another page"
+msgstr "選擇其它頁面"
+
+msgid "Choose another task"
+msgstr "選擇其它作業"
+
+msgid "Edit this task"
+msgstr "編輯此作業"

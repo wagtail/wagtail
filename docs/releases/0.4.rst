@@ -1,0 +1,211 @@
+=========================
+Wagtail 0.4 release notes
+=========================
+
+*July 10, 2014*
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+
+Private Pages
+~~~~~~~~~~~~~
+
+Wagtail now supports password protecting pages on the frontend, allowing sections of your website to be made private.
+
+:ref:`private_pages`
+
+
+Python 3 support
+~~~~~~~~~~~~~~~~
+
+Wagtail now supports Python 3.2, 3.3 and 3.4.
+
+
+Scheduled publishing
+~~~~~~~~~~~~~~~~~~~~
+
+Editors can now schedule pages to be published or unpublished at specified times.
+
+A new management command has been added (:ref:`publish_scheduled_pages <publish_scheduled>`) to publish pages that have been scheduled by an editor.
+
+
+Search on QuerySet with Elasticsearch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It's now possible to perform searches with Elasticsearch on ``PageQuerySet`` objects:
+
+.. code-block:: console
+
+    >>> from wagtail.core.models import Page
+    >>> Page.objects.live().descendant_of(events_index).search("Hello")
+    [<Page: Event 1>, <Page: Event 2>]
+
+
+Sitemap generation
+~~~~~~~~~~~~~~~~~~
+
+A new module has been added (``wagtail.contrib.wagtailsitemaps``) which produces XML sitemaps for Wagtail sites.
+
+:ref:`sitemap_generation`
+
+
+Front-end cache invalidation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new module has been added (``wagtail.contrib.wagtailfrontendcache``) which invalidates pages in a frontend cache when they are updated or deleted in Wagtail.
+
+:ref:`frontend_cache_purging`
+
+
+Notification preferences
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Users can now decide which notifications they receive from Wagtail using a new "Notification preferences" section located in the account settings.
+
+
+Minor features
+~~~~~~~~~~~~~~
+
+
+Core
+----
+
+* Any extra arguments given to ``Page.serve`` are now passed through to ``get_context`` and ``get_template``
+* Added ``in_menu`` and ``not_in_menu`` methods to ``PageQuerySet``
+* Added ``search`` method to ``PageQuerySet``
+* Added ``get_next_siblings`` and ``get_prev_siblings`` to ``Page``
+* Added ``page_published`` signal
+* Added ``copy`` method to ``Page`` to allow copying of pages
+* Added ``construct_whitelister_element_rules`` hook for customizing the HTML whitelist used when saving ``RichText`` fields
+* Support for setting a ``subpage_types`` property on ``Page`` models, to define which page types are allowed as subpages
+
+
+Admin
+-----
+
+* Removed the "More" section from the menu
+* Added pagination to page listings
+* Added a new datetime picker widget
+* Updated ``hallo.js`` to version 1.0.4
+* Aesthetic improvements to preview experience
+* Login screen redirects to dashboard if user is already logged in
+* Snippets are now ordered alphabetically
+* Added ``init_new_page`` signal
+
+
+Search
+------
+
+* Added a new way to configure searchable/filterable fields on models
+* Added ``get_indexed_objects`` allowing developers to customize which objects get added to the search index
+* Major refactor of Elasticsearch backend
+* Use ``match`` instead of ``query_string`` queries
+* Fields are now indexed in Elasticsearch with their correct type
+* Filter fields are no longer included in ``_all``
+* Fields with partial matching are now indexed together into ``_partials``
+
+
+Images
+------
+
+* Added ``original`` as a resizing rule supported by the ``{% image %}`` tag
+* ``image`` tag now accepts extra keyword arguments to be output as attributes on the ``img`` tag
+* Added an ``attrs`` property to image rendition objects to output ``src``, ``width``, ``height`` and ``alt`` attributes all in one go
+
+
+Other
+-----
+
+* Added styleguide, for Wagtail developers
+
+
+Bug fixes
+~~~~~~~~~
+
+* Animated GIFs are now coalesced before resizing
+* The Wand backend clones images before modifying them
+* The admin breadcrumb is now positioned correctly on mobile
+* The page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
+* Embeds - fixed crash when no HTML field is sent back from the embed provider
+* Multiple sites with same hostname but different ports are now allowed
+* It is no longer possible to create multiple sites with ``is_default_site = True``
+
+
+Backwards-incompatible changes
+==============================
+
+
+ElasticUtils replaced with elasticsearch-py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are using the Elasticsearch backend, you must install the ``elasticsearch`` module into your environment.
+
+
+.. note::
+
+    If you are using an older version of Elasticsearch (< 1.0) you must install ``elasticsearch`` version 0.4.x.
+
+
+Addition of ``expired`` column may break old data migrations involving pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The scheduled publishing mechanism adds an ``expired`` field to wagtailcore.Page, defaulting to False. Any application code working with Page objects should be unaffected, but any code that creates page records using direct SQL, or within existing South migrations using South's frozen ORM, will fail as this code will be unaware of the ``expired`` database column. To fix a South migration that fails in this way, add the following line to the ``'wagtailcore.page'`` entry at the bottom of the migration file:
+
+.. code-block:: python
+
+  'expired': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+
+
+.. _04_deprecated_features:
+
+Deprecated features
+===================
+
+
+Template tag libraries renamed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following template tag libraries have been renamed:
+
+* ``pageurl`` => ``wagtailcore_tags``
+* ``rich_text`` => ``wagtailcore_tags``
+* ``embed_filters`` => ``wagtailembeds_tags``
+* ``image_tags`` => ``wagtailimages_tags``
+
+The old names will continue to work, but output a ``DeprecationWarning`` - you are advised to update any ``{% load %}`` tags in your templates to refer to the new names.
+
+
+New search field configuration format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``indexed_fields`` is now deprecated and has been replaced by a new search field configuration format called ``search_fields``. See :ref:`wagtailsearch_indexing` for how to define a ``search_fields`` property on your models.
+
+
+``Page.route`` method should now return a ``RouteResult``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Previously, the ``route`` method called ``serve`` and returned an ``HttpResponse`` object. This has now been split up so ``serve`` is called separately and ``route`` must now return a RouteResult object.
+
+If you are overriding ``Page.route`` on any of your page models, you will need to update the method to return a ``RouteResult`` object. The old method of returning an ``HttpResponse`` will continue to work, but this will throw a ``DeprecationWarning`` and bypass the ``before_serve_page`` hook, which means in particular that :ref:`private_pages` will not work on those page types. See :ref:`overriding_route_method`.
+
+
+Wagtailadmins ``hooks`` module has moved to wagtailcore
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you use any ``wagtail_hooks.py`` files in your project, you may have an import like: ``from wagtail.wagtailadmin import hooks``
+
+Change this to: ``from wagtail.core import hooks``
+
+
+Miscellaneous
+~~~~~~~~~~~~~
+
+* ``Page.show_as_mode``  replaced with ``Page.serve_preview``
+* ``Page.get_page_modes`` method replaced with ``Page.preview_modes`` property
+* ``Page.get_other_siblings`` replaced with ``Page.get_siblings(inclusive=False)``

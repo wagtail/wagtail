@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/generic/listing_results.html" %}
+{% load i18n %}
+
+{% block no_results_message %}
+    {% if is_searching %}
+        <p role="alert">{% blocktrans trimmed with query=search_form.q.value %}Sorry, no groups match "{{ query }}"{% endblocktrans %}</p>
+    {% else %}
+        <p>{% blocktrans trimmed with wagtailusers_create_group_url=add_url %}There are no groups configured. Why not <a href="{{ wagtailusers_create_group_url }}">add some</a>?{% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}

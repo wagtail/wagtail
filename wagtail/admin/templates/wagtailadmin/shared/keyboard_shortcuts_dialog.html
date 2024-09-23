@@ -1,0 +1,29 @@
+{% load wagtailadmin_tags i18n %}
+{% dialog icon_name="keyboard" classname="w-keyboard-shortcuts" id="keyboard-shortcuts-dialog" title=_("Keyboard shortcuts") %}
+    <table class="w-w-full">
+        <caption class="w-sr-only">
+            {% trans "All keyboard shortcuts" %}
+        </caption>
+        <thead class="w-sr-only">
+            <tr>
+                <th scope="col">{% trans "Section" %}</th>
+                <th scope="col">{% trans "Keyboard shortcut" %}</th>
+            </tr>
+        </thead>
+        {% block shortcuts %}
+            {% for category, shortcuts in shortcuts.items %}
+                <tbody class="w-w-full" id="keyboard-shortut-group-{{ category.0 }}">
+                    <tr class="w-keyboard-shortcuts__category" colspan="2">
+                        <th class="w-h4" scope="rowgroup">{{ category.1 }}</th>
+                    </tr>
+                    {% for shortcut in shortcuts %}
+                        <tr class="w-keyboard_shortcuts__key">
+                            <th scope="row">{{ shortcut.0 }}</th>
+                            <td><kbd>{{ shortcut.1 }}</kbd></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% endfor %}
+        {% endblock %}
+    </table>
+{% enddialog %}

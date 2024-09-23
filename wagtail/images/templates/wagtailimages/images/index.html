@@ -1,0 +1,28 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load wagtailadmin_tags wagtailimages_tags i18n %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'IMAGE';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+{% endblock %}
+
+{% block slim_header %}
+    {% fragment as extra_form_fields %}
+        {% rawformattedfield label_text=_("Sort by") id_for_label="order_images_by" sr_only_label=True %}
+            <select id="order_images_by" name="ordering">
+                {% for ordering, ordering_text in ORDERING_OPTIONS.items %}
+                    <option value="{{ ordering }}" {% if current_ordering == ordering %}selected="selected"{% endif %}>{{ ordering_text }}</option>
+                {% endfor %}
+            </select>
+        {% endrawformattedfield %}
+    {% endfragment %}
+    {% include "wagtailimages/images/image_listing_header.html" with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url title=header_title search_url=index_results_url search_form=search_form filters=filters buttons=header_buttons icon_name=header_icon extra_form_fields=extra_form_fields only %}
+{% endblock %}
+
+{% block bulk_actions %}
+    {% trans "Select all images in listing" as select_all_text %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=model_opts.app_label model_name=model_opts.model_name objects=page_obj parent=current_collection.id %}
+{% endblock %}

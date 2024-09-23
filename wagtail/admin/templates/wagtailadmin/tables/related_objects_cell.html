@@ -1,0 +1,9 @@
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value %}
+        <ul>
+            {% for item in value %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</td>

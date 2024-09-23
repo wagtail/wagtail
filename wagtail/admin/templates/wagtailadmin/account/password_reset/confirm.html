@@ -1,0 +1,45 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}
+    {% if validlink %}
+        {% trans "Set your new password" %}
+    {% else %}
+        {% trans "Invalid password reset link" %}
+    {% endif %}
+{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" id="main">
+        {% if validlink %}
+            <h1>{% trans "Set your new password" %}</h1>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                {% formattedfield form.new_password1 %}
+                {% formattedfield form.new_password2 %}
+
+                <footer class="form-actions">
+                    <button type="submit" class="button">{% trans 'Reset password' %}</button>
+                </footer>
+            </form>
+        {% else %}
+            <h1>{% trans "Invalid password reset link" %}</h1>
+
+            <div class="messages" role="status">
+                {% if not validlink %}
+                    <ul>
+                        <li class="error">
+                            {% trans "The password reset link was invalid, possibly because it has already been used." %}
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <a href="{% url 'wagtailadmin_password_reset' %}" class="button">{% trans 'Request a new password reset' %}</a>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

@@ -1,0 +1,64 @@
+@use 'sass:color';
+
+.w-status {
+  border-radius: 2px;
+  text-align: center;
+  display: inline-block;
+  word-break: normal;
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+  padding: 0 0.5em;
+  border: 1px solid theme('colors.border-furniture');
+  color: theme('colors.text-context');
+  -webkit-font-smoothing: auto;
+  line-height: 19px;
+  font-size: 0.8em;
+  margin: 0 0.5em 0.5em;
+  background: theme('colors.surface-page')
+    url('#{$images-root}bg-dark-diag.svg');
+
+  &.w-status--primary {
+    color: theme('colors.text-meta');
+    border: 1px solid theme('colors.text-meta');
+    background: theme('colors.surface-page');
+  }
+
+  &.w-status--disabled,
+  &[disabled] {
+    pointer-events: none;
+  }
+
+  &--label {
+    padding: theme('spacing.px') theme('spacing.2');
+    color: theme('colors.text-status-label');
+    font-weight: theme('fontWeight.medium');
+    background: theme('colors.surface-status-label');
+    border: 1px solid theme('colors.text-status-label');
+    border-radius: theme('borderRadius.xl');
+    // stylelint-disable-next-line property-disallowed-list
+    text-transform: none;
+  }
+}
+
+.listing .index .w-status--label {
+  border: 1px solid;
+}
+
+button.w-status:hover,
+a.w-status:hover,
+a.w-status.w-status--primary:hover {
+  border-color: theme('colors.border-button-outline-hover');
+  color: theme('colors.text-button-outline-hover');
+}
+
+button.w-status:hover {
+  border-color: theme('colors.border-button-outline-hover');
+  background-color: theme('colors.surface-button-outline-hover');
+  color: theme('colors.text-button-outline-hover');
+}
+
+// Special case for text-transform: uppercase.
+.page-status-tag {
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+}

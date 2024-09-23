@@ -1,0 +1,12 @@
+===========================
+Wagtail 2.7.3 release notes
+===========================
+
+*May 4, 2020*
+
+CVE-2020-11037: Potential timing attack on password-protected private pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses a potential timing attack on pages or documents that have been protected with a shared password through Wagtail's "Privacy" controls. This password check is performed through a character-by-character string comparison, and so an attacker who is able to measure the time taken by this check to a high degree of accuracy could potentially use timing differences to gain knowledge of the password. (This is `understood to be feasible on a local network, but not on the public internet <https://groups.google.com/d/msg/django-developers/iAaq0pvHXuA/fpUuwjK3i2wJ>`_.)
+
+Many thanks to Thibaud Colas for reporting this issue.

@@ -1,0 +1,819 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Alessandro <alessandro@catalpa.io>, 2019
+# Joanico Barros <joanico@catalpa.io>, 2019
+# Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
+# Mario <mario@catalpa.io>, 2019
+# Mario <mario@catalpa.io>, 2019
+# Matt Westcott <matthew@torchbox.com>, 2020-2021
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019-2020
+# Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
+# Peter Coward <peter@catalpa.io>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
+"Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
+"language/tet/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tet\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "Publika"
+
+msgid "Submit for moderation"
+msgstr "Submete ba moderasaun"
+
+msgid "Unpublish"
+msgstr "Halo la publika"
+
+msgid "Save Draft"
+msgstr "Rai hanesan ezbosu"
+
+msgid "Page locked"
+msgstr "Pajina xave ona"
+
+msgid "Wagtail admin"
+msgstr "Administrasaun Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Deskulpa, ita boot laiha permisaun atu assesu ba area ida nee."
+
+msgid "You do not have permission to access the admin"
+msgstr "It boot laiha permisaun atu assesu ba administrasaun"
+
+msgid "None"
+msgstr "Mamuk"
+
+msgid "Date from"
+msgstr "Data husi"
+
+msgid "Date to"
+msgstr "Data to'o"
+
+msgid "Collection"
+msgstr "Kolleksaun"
+
+msgid "Preferred language"
+msgstr "Prefere lian"
+
+msgid "Current time zone"
+msgstr "Zona tempu agora dadaun"
+
+msgid "First Name"
+msgstr "Naran Dahuluk"
+
+msgid "Last Name"
+msgstr "Naran Ikus"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Upload a profile picture"
+msgstr "Upload imajen profile"
+
+msgid "Enter password"
+msgstr "Hatama seña"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "Ita boot nia%(username_field)s ka seña laloos. Favor ida koko fali."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Hatama ita nia 1%(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Loron buka"
+
+msgid "Search"
+msgstr "Buka"
+
+msgid "All collections"
+msgstr "Koleksaun hotu-hotu"
+
+msgid "Parent"
+msgstr "Inan-aman"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Ita labele hatama permisaun rua ba koleksaun ida"
+
+msgid "Add"
+msgstr "Hatama"
+
+msgid "Edit"
+msgstr "Hadia"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"Ita tenki hatama tempu no loron publika molok tempu no loron expirasuan "
+
+msgid "Expiry date/time must be in the future"
+msgstr "Ita boot tenki hatama tempu no loron expirasuan iha futuru"
+
+msgid "New title"
+msgstr "Titlu foun"
+
+msgid "New slug"
+msgstr "Slug foun"
+
+msgid "New parent page"
+msgstr "Pajina inan-aman foun"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Kopia ida nee sei sai hanesan pajina oan hodi fo ba pajina inan-aman."
+
+msgid "Copy subpages"
+msgstr "Kopia pajina labarik sira"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Sei kopia pajina oan sira %(count)s "
+
+msgid "Publish copied page"
+msgstr "Halo pajina kopia publika"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Pagina nee publika ona. Ita boot hakarek hola kopia publica mos ka?"
+
+msgid "Publish copies"
+msgstr "Halo kopia sira publica"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] "Ita boot kopia %(count)s pajina publika. Mos halo kopi publika ka?"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Ita boot laiha permisaun atu kopia pajina \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Slug nee uza tiha ona iha laran kontextu ninia pajina inan-aman "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Ita boot labele kopia pajina iha rasik laran bainhira kopia pajina oan sira"
+
+msgid "Parent page"
+msgstr "inan-aman"
+
+msgid "Visibility"
+msgstr "Visibilidade"
+
+msgid "This field is required."
+msgstr "Ita boot prezia hatama informasaun nee "
+
+msgid "Please select at least one group."
+msgstr "Favor ida hili grupu ida ka tan"
+
+msgid "Content"
+msgstr "Konteudu"
+
+msgid "Promote"
+msgstr "Promove"
+
+msgid "Settings"
+msgstr "Konfigurasaun"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Error 404: Page not found"
+msgstr "Erru 404: Pajina la hetan"
+
+msgid "Error 404"
+msgstr "Erru 404"
+
+msgid "The requested page could not be found."
+msgstr "Deskulpa! Ita boot husu ba pajina, maibee ami la hetan."
+
+msgid "Go to Wagtail admin"
+msgstr "Ba administrasaun Wagtail"
+
+msgid "Account"
+msgstr "Konta"
+
+msgid "Reset password"
+msgstr "Inisiu troka seña"
+
+msgid "Password change successful"
+msgstr "Seña troka diak"
+
+msgid "Login"
+msgstr "Tama"
+
+msgid "Set your new password"
+msgstr "Hatama ita nia seña foun"
+
+msgid "Invalid password reset link"
+msgstr "Link hafoun Seña la loos"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Troka seña ligasaun ne'e la valido ona, mak ne'e ka tamba ida ne'e usa ona."
+
+msgid "Request a new password reset"
+msgstr "Husu seña muda foun "
+
+msgid "Check your email"
+msgstr "Revista ita-nia email"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Link hodi reset ita nian seña email tiha ona ba ita, karik konta existe ho "
+"enderessu nee."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Favor ida tuir link iha kraik nee hodi reset ita nian seña."
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Ita nia Uzuario (iha kazu ne'e, ita haluhan ona)"
+
+msgid "Password reset"
+msgstr "Seña muda"
+
+msgid "Reset your password"
+msgstr "Muda ita nia Seña "
+
+msgid "Internal link"
+msgstr "Ligasaun interna"
+
+msgid "External link"
+msgstr "Ligasaun externa"
+
+msgid "Email link"
+msgstr "Ligasaun email"
+
+msgid "Phone link"
+msgstr "Ligasaun telefone"
+
+msgid "Anchor link"
+msgstr "Ligasaun"
+
+msgid "Add an anchor link"
+msgstr "Aumenta ligasaun"
+
+msgid "Insert anchor"
+msgstr "Hatama ligasaun"
+
+msgid "Choose"
+msgstr "Hili"
+
+msgid "Choose a page"
+msgstr "Hili pajina ida"
+
+msgid "Add an email link"
+msgstr "Aumenta ligasaun email ida"
+
+msgid "Insert link"
+msgstr "Insere ligasaun"
+
+msgid "Add an external link"
+msgstr "Aumenta ligasaun externa ida"
+
+msgid "Add a phone link"
+msgstr "Aumenta ligasaun telefone"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Esplora pajina iha  '%(title)s' nia okos"
+
+msgid "Explore"
+msgstr "Esplora"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Koleksaun nee halo privadu ona husi koleksaun inan-aman"
+
+msgid "You can edit the privacy settings on:"
+msgstr "Ita boot bele troka konfigurasaun privado iha:"
+
+msgid "Save"
+msgstr "Rai"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Konfigurasaun privado determina se mak bele haree dokumentu sira iha "
+"koleksaun nee."
+
+msgid "Privacy"
+msgstr "Privasidade"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Troka koleksaun privadu. Status agora: Publiku"
+
+msgid "Public"
+msgstr "Públiku"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Troka koleksaun privadu. Status agora: Privadu"
+
+msgid "Private"
+msgstr "Privadu"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Koleksaun nee labele hamoos tanba laos mamuk. Iha laran:"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"Koleksaun sira seidauk kria. Karik <a href=\"%(add_collection_url)s\">hatama "
+"ida</a>?"
+
+msgid "Yes, delete"
+msgstr "Sin, hamoos"
+
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "La publika %(title)s"
+
+msgid "Yes, unpublish it"
+msgstr "Sin, subar"
+
+msgid "No, don't unpublish"
+msgstr "Lae, la subar"
+
+msgid "Actions"
+msgstr "Asaun sira"
+
+msgid "Update"
+msgstr "Troka"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "Comparasaun %(title)s"
+
+msgid "Comparing"
+msgstr "Comparasaun"
+
+msgid "Fields"
+msgstr "Attributu sira"
+
+msgid "Changes"
+msgstr "Troka sira"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Benvindu ba %(site_name)s Wagtail CMS"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
+
+msgid "Edit this page"
+msgstr "Hadia pájina ida ne'e"
+
+msgid "Draft"
+msgstr "Esbosu"
+
+msgid "Live"
+msgstr "Ativu"
+
+msgid "Your most recent edits"
+msgstr "Ita boot nia troka sira"
+
+msgid "Status"
+msgstr "Estadu"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Site summary"
+msgstr "Sumariu Situs"
+
+msgid "Close"
+msgstr "Taka"
+
+msgid "Preview"
+msgstr "Haree"
+
+msgid "Sign in"
+msgstr "Tama"
+
+msgid "Sign in to Wagtail"
+msgstr "Tama ba Wagtail"
+
+msgid "Signing in…"
+msgstr "Tama hela..."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "Pájina %(title)s\" aprova tiha ona."
+
+msgid "You can view the page here:"
+msgstr "Ita-boot bele hare pájina ne'e:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "Pájina \"%(title)s\" aprova tiha ona"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "Hello 1 %(username)s"
+
+msgid "Edit your notification preferences here:"
+msgstr "Hadia ita-nia notifikasaun preferénsia iha ne'e:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "Pájina %(title)s\" rejeita tiha ona"
+
+msgid "You can edit the page here:"
+msgstr "Ita-boot bele hadia pájina neʼe:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "Pájina \"%(title)s\" rejeita ona "
+
+msgid "You can preview the page here:"
+msgstr "Ita-boot bele prevee pájina neʼe:"
+
+msgid "This page has been made private by a parent page."
+msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
+
+msgid "Publishing…"
+msgstr "Publika hela..."
+
+msgid "Saving…"
+msgstr "Rai hela..."
+
+msgid "Replace current draft"
+msgstr "Troka rakunnu ida neebe agora"
+
+msgid "Save draft"
+msgstr "Salva hanesan esbosu"
+
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "Kria pájina ida iha %(title)s"
+
+msgid "Create a page in"
+msgstr "Kria pájina ida iha"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "Hili tipu pajina ita boot hakarek kria."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Pajina uza%(page_type)s"
+
+msgid "Move"
+msgstr "Muda"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Hamoos %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Ita serteza duni katak ita hakarak hamoos pájina ida-neʼe?"
+
+msgid "Yes, delete it"
+msgstr "Sim, hamoos."
+
+msgid "No, don't delete it"
+msgstr "Lae, la hamoos"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Ita boot mos bele <a href=\"%(unpublish_url)s\">subar pajina </a>. Nee subar "
+"pajina husi publika, no ita boot bele troka ka halo publika tarde liu."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Muda %(title)s"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "ita boot hakarak muda pajina ida nee too  '%(title)s' nia laran?"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"Ita boot hakarak muda pajina ida nee, no oan hotu-hotu to'o '%(title)s' nia "
+"laran?"
+
+msgid "Yes, move this page"
+msgstr "Sin, muda pájina ida-ne'e"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Ita iha serteza katak ita hakarak la publika pájina neʼe?"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kópia %(title)s"
+
+msgid "Copy"
+msgstr "Kópia "
+
+msgid "Copy this page"
+msgstr "Kópia pájina ne'e   "
+
+msgid "This page has unsaved changes."
+msgstr "Pajina ne'e iha sasan troka la salva ona."
+
+msgid "Configure a site now."
+msgstr "Konfigura situs ida agora"
+
+msgid "This page is locked to further editing"
+msgstr "Pajina nee xavi, labele troka"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Esplora pajina iha '%(title)s' nia okos"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Aumenta pajina iha '%(title)s' okos"
+
+msgid "Drag"
+msgstr "Rasta"
+
+msgid "Disable ordering of child pages"
+msgstr "Xavi orden pajina"
+
+msgid "Sort"
+msgstr "Orden"
+
+msgid "Enable ordering of child pages"
+msgstr "Loke pajina orden"
+
+msgid "Sites menu"
+msgstr "Munu situs"
+
+msgid "Pagination"
+msgstr "Pajinasaun"
+
+msgid "Previous"
+msgstr "Antes"
+
+msgid "Next"
+msgstr "Tuir mai"
+
+msgid "This page is protected from public view"
+msgstr "Pajina nee la publiku"
+
+msgid "Add child page"
+msgstr "Aumenta pajina iha okos"
+
+msgid "Page types"
+msgstr "Tipu pajina sira"
+
+msgid "Enter a search term above"
+msgstr "Hatama termu buka iha leten"
+
+msgid "No pages use"
+msgstr "Laiha pajina nebee uza"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr " Hatama %(label)s"
+
+msgid "Move up"
+msgstr "Muda ba leten"
+
+msgid "Move down"
+msgstr "Muda ba kraik"
+
+msgid "Type"
+msgstr "Tipu"
+
+msgid "Updated"
+msgstr "Atualiza ona"
+
+msgid "Pages"
+msgstr "Pajina sira"
+
+msgid "Locked"
+msgstr "Xavi tiha ona"
+
+msgid "Name"
+msgstr "Naran"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pajina %(page_num)s husi %(total_pages)s"
+
+msgid "Breadcrumb"
+msgstr "Hatudu dalan korta"
+
+msgid "Continue"
+msgstr "Kontinua"
+
+msgid "Download CSV"
+msgstr "Download CSV"
+
+msgid "Filter"
+msgstr "Filtru"
+
+msgid "Current page status:"
+msgstr "Status pajina dadaun"
+
+msgid "Visit the live page"
+msgstr "Vizita pajina publiku"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Hamoos orariu revizaun %(revision.id)s ba %(title)s"
+
+msgid "Unschedule"
+msgstr "Hamoos orariu"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Ita serteza hakarak hamoos orariu revizaun nee?"
+
+msgid "Yes, unschedule"
+msgstr "Sim, hamoos orariu"
+
+msgid "No, don't unschedule"
+msgstr "Lae, la hamoos"
+
+msgid "Other searches"
+msgstr "Buka seluk"
+
+msgid "Unlocked"
+msgstr "Loke tiha ona"
+
+msgid "Lock"
+msgstr "Xavi"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
+
+msgid "Usage"
+msgstr "Uza"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
+
+msgid "Edited"
+msgstr "Hadia tiha ona"
+
+msgid "Add a child page"
+msgstr "Hatama pajina oan"
+
+msgid "Show in Explorer"
+msgstr "Hatudu iha Esplorador"
+
+msgid "Page"
+msgstr "Pajina"
+
+msgid "New"
+msgstr "Foun"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s liubá"
+
+msgid "Log out"
+msgstr "Sai"
+
+msgid "Undo"
+msgstr " La halo "
+
+msgid "Redo"
+msgstr "Halo fila fali"
+
+msgid "Password"
+msgstr "Seña"
+
+msgid "You have been successfully logged out."
+msgstr "Ita boot sai ona ho sussessu."
+
+msgid "Collections"
+msgstr "Koleksaun"
+
+msgid "Add a collection"
+msgstr "Hatama Koleksaun"
+
+msgid "Add collection"
+msgstr "Hatama Koleksaun"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "Koleksaun '%(object)s' kria ona."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "Koleksaun '%(object)s' hadia ona."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Koleksaun iha erru, labele rai"
+
+msgid "Delete collection"
+msgstr "Hamoos Koleksaun"
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "Koleksaun '%(object)s' hamoos ona."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Ita boot serteza hamoos koleksaun nee?"
+
+msgid "Home"
+msgstr "Uma"
+
+msgid "Live version"
+msgstr "revisaun publiku"
+
+msgid "Current draft"
+msgstr "Esbosu agora dadaun"
+
+msgid "Cancel scheduled publish"
+msgstr "Kansela orariu publiku"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s '%(object)s' hadia ona."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s '%(object)s' kria ona"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr " Edit '%(title)s'"
+
+msgid "Inspect"
+msgstr "Inspeksaun"
+
+msgid "Editing"
+msgstr "Hadia hela"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s '%(object)s' hamoos ona."
+
+msgid "Inspecting"
+msgstr "Inspeksaun tiha ona"
+
+msgid "Latest"
+msgstr " Mak tardi liu"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "hadia iha %(object)s"
+
+msgid "Dashboard"
+msgstr "Painel kontrolu"
+
+msgid "View live"
+msgstr "Haree iha situ"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "Pajina '%(page_title)s' hammos ona."
+
+msgid "Site"
+msgstr "situs"
+
+msgid "Pages using"
+msgstr "Pájina ne'ebé uza"

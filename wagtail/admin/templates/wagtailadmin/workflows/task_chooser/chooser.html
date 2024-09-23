@@ -1,0 +1,65 @@
+{% load i18n wagtailadmin_tags %}
+{% include "wagtailadmin/shared/header.html" with title=_("Choose a task") merged=1 icon="thumbtack" %}
+
+{% if can_create %}
+    <div class="w-tabs" data-tabs data-tabs-disable-url>
+        <div class="w-tabs__wrapper w-overflow-hidden">
+            <div role="tablist" class="w-tabs__list w-w-full">
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='new' title=_("New") %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='existing' title=_("Existing") %}
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <section
+                id="tab-new"
+                class="w-tabs__panel"
+                role="tabpanel"
+                aria-labelledby="tab-label-new"
+                hidden
+            >
+                {% include "wagtailadmin/workflows/task_chooser/includes/create_tab.html" %}
+            </section>
+            <section
+                id="tab-existing"
+                class="w-tabs__panel"
+                role="tabpanel"
+                aria-labelledby="tab-label-existing"
+                hidden
+            >
+                <form
+                    class="task-search"
+                    action="{% url 'wagtailadmin_workflows:task_chooser_results' %}"
+                    method="GET"
+                    novalidate
+                    data-controller="w-swap"
+                    data-action="navigate->w-swap#replace submit->w-swap#submit:stop:prevent input->w-swap#submitLazy"
+                    data-w-swap-target-value="#search-results"
+                    data-w-swap-wait-value="50"
+                >
+                    <ul class="fields">
+                        {% for field in search_form %}
+                            <li>{% formattedfield field %}</li>
+                        {% endfor %}
+                    </ul>
+                </form>
+                <div id="search-results" class="listing tasks">
+                    {% include "wagtailadmin/workflows/task_chooser/includes/results.html" %}
+                </div>
+            </section>
+        </div>
+    </div>
+{% else %}
+    <div class="nice-padding">
+        <form class="task-search" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>
+            <ul class="fields">
+                {% for field in search_form %}
+                    <li>{% formattedfield field %}</li>
+                {% endfor %}
+            </ul>
+        </form>
+        <div id="search-results" class="listing tasks">
+            {% include "wagtailadmin/workflows/task_chooser/includes/results.html" %}
+        </div>
+    </div>
+{% endif %}

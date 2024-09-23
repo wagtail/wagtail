@@ -1,0 +1,44 @@
+{% load i18n l10n wagtailadmin_tags %}
+
+{# The title field for a page in the page listing, when in 'explore' mode #}
+
+<div class="title-wrapper">
+    {% if page.is_site_root %}
+        {% if perms.wagtailcore.add_site or perms.wagtailcore.change_site or perms.wagtailcore.delete_site %}
+            <a href="{% url 'wagtailsites:index' %}" title="{% trans 'Sites menu' %}">{% icon name="site" classname="initial" %}</a>
+        {% endif %}
+    {% endif %}
+
+    {% comment %}
+        Instead of adding the "page_{pk}_title" id to the td element
+        in _page_title_cell.html, add it to an element that only contains the
+        page title (and not other things e.g. the buttons or other indicators),
+        so that other elements can refer to title for screen reader purposes
+        without also reading out the buttons and indicators.
+    {% endcomment %}
+    {% fragment as page_title %}
+        <span id="page_{{ page.pk|unlocalize|admin_urlquote }}_title">
+            {% if not page.is_site_root and not page.is_leaf %}{% icon name="folder" classname="initial" %}{% endif %}
+            {{ page.get_admin_display_title }}
+        </span>
+    {% endfragment %}
+
+    {% if page_perms.can_edit %}
+        <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">
+            {{ page_title }}
+        </a>
+    {% else %}
+        {{ page_title }}
+    {% endif %}
+
+    {% if show_locale_labels %}
+        {% status page.locale.get_display_name classname="w-status--label" %}
+    {% endif %}
+
+    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
+    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
+</div>
+
+<ul class="actions">
+    {% page_listing_buttons page request.user next_url=actions_next_url %}
+</ul>

@@ -1,0 +1,318 @@
+================================
+Wagtail 2.15 (LTS) release notes
+================================
+
+*November 4, 2021*
+
+.. contents::
+    :local:
+    :depth: 1
+
+Wagtail 2.15 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 12 months).
+
+
+What's new
+==========
+
+New database search backend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail has a new search backend that uses the full-text search features of the database in use. It supports SQLite, PostgreSQL, MySQL, and MariaDB.
+
+This new search backend replaces both the existing generic database and PostgreSQL-specific search backends.
+
+To switch to this new backend, see the upgrade considerations below.
+
+This feature was developed by Aldán Creo as part of Google Summer of Code.
+
+
+Bulk actions
+~~~~~~~~~~~~
+
+Bulk actions are now available for Page, User, Image, and Document models in the Wagtail Admin, allowing users to perform actions like publication or deletion on groups of objects at once.
+
+This feature was developed by Shohan Dutta Roy, mentored by Dan Braghis, Jacob Topp-Mugglestone, and Storm Heg.
+
+
+Audit logging for all models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Audit logging has been extended so that all models (not just pages) can have actions logged against them. The Site History report now includes logs from all object types and snippets and ModelAdmin provide a history view showing previous edits to an object. This feature was developed by Matt Westcott, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
+Collection management permissions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Permission for managing collections can now be assigned to individual subtrees of the collection hierarchy, allowing sub-teams within a site to control how their images and documents are organized. For more information, see :ref:`collection_management_permissions`. This feature was developed by Cynthia Kiser.
+
+
+Typed table block
+~~~~~~~~~~~~~~~~~
+
+A new ``TypedTableBlock`` block type is available for StreamField, allowing authors to create tables where the cell values are any StreamField block type, including rich text. For more information, see :doc:`/reference/contrib/typed_table_block`. This feature was developed by Matt Westcott, Coen van der Kamp and Scott Cranfill, and sponsored by `YouGov <https://yougov.com/>`_.
+
+Windows high contrast support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As part of a broad push to improve the accessibility of the administration interface, Wagtail now supports `Windows high contrast mode <https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696>`_. There are remaining known issues but we are confident Wagtail is now much more usable for people relying on this assistive technology.
+
+Individual fixes were implemented by a large number of first-time and seasoned contributors:
+
+ * Comments icon now matches link color (Dmitrii Faiazov, LB (Ben Johnston))
+ * Sidebar logo is now visible in high contrast mode (Dmitrii Faiazov, LB (Ben Johnston))
+ * Icons in links and buttons now use the appropriate “active control” color (Dmitrii Faiazov, LB (Ben Johnston))
+ * Comments dropdown now has a border (Shariq Jamil, LB (Ben Johnston))
+ * Make StreamField block chooser menu buttons appear as buttons (Dmitrii Faiazov, LB (Ben Johnston))
+ * Add a separator to identify the search forms (Dmitrii Faiazov, LB (Ben Johnston))
+ * Update tab styles so the active tab can be identified (Dmitrii Faiazov, LB (Ben Johnston))
+ * Make hamburger menu a button for tab and high contrast accessibility (Amy Chan, Dan Braghis)
+ * Tag fields now have the correct background (Desai Akshata, LB (Ben Johnston))
+ * Added sidebar vertical separation with main content (Onkar Apte, LB (Ben Johnston))
+ * Added vertical separation between field panels (Chakita Muttaraju, LB (Ben Johnston))
+ * Switch widgets on/off states are now visually distinguishable (Sakshi Uppoor, Thibaud Colas)
+ * Checkbox widgets on/off states are now visually distinguishable (Thibaud Colas, Jacob Topp-Mugglestone, LB (Ben Johnston))
+
+Particular thanks to LB, who reviewed almost all of those contributions, and Kyle Bayliss, who did the initial audit to identify High contrast mode issues.
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Add the ability for the page chooser to convert external urls that match a page to internal links, see :ref:`wagtailadmin_external_link_conversion` (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
+ * Added "Extending Wagtail" section to documentation (Matt Westcott)
+ * Introduced :doc:`template components </extending/template_components>`, a standard mechanism for renderable objects in the admin (Matt Westcott)
+ * Support ``min_num`` / ``max_num`` options on ListBlock (Matt Westcott)
+ * Implemented automatic tree synchronisation for :doc:`contrib.simple_translation </reference/contrib/simple_translation>` (Mitchel Cabuloy)
+ * Added a `background_position_style` property to renditions. This can be used to crop images using its focal point in the browser. See :ref:`rendition_background_position_style` (Karl Hobley)
+ * Added a distinct ``wagtail.copy_for_translation`` log action type (Karl Hobley)
+ * Add a debug logger around image rendition generation (Jake Howard)
+ * Convert Documents and Images to class based views for easier overriding (Matt Westcott)
+ * Isolate admin URLs for Documents and Images search listing results with the name `'listing_results'` (Matt Westcott)
+ * Removed ``request.is_ajax()`` usage in Documents, Image and Snippet views (Matt Westcott)
+ * Simplify generic admin view templates plus ensure ``page_title`` and ``page_subtitle`` are used consistently (Matt Westcott)
+ * Extend support for :ref:`collapsing edit panels <collapsible>` from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
+ * Add object count to header within modeladmin listing view (Jonathan "Yoni" Knoll)
+ * Add ability to return HTML in multiple image upload errors (Gordon Pendleton)
+ * Upgrade internal JS tooling; Node v14 plus other smaller package upgrades (LB (Ben Johnston))
+ * Add support for ``non_field_errors`` rendering in Workflow action modal (LB (Ben Johnston))
+ * Support calling ``get_image_model`` and ``get_document_model`` at import time (Matt Westcott)
+ * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
+ * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
+ * Added ``ExcelDateFormatter`` to ``wagtail.admin.views.mixins`` so that dates in Excel exports will appear in the locale's ``SHORT_DATETIME_FORMAT`` (Andrew Stone)
+ * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
+ * Add ``label_format`` attribute to customize the label shown for a collapsed StructBlock (Matt Westcott)
+ * User Group permissions editing in the admin will now show all custom object permissions in one row instead of a separate table (Kamil Marut)
+ * Create ``ImageFileMixin`` to extract shared file handling methods from ``AbstractImage`` and ``AbstractRendition`` (Fabien Le Frapper)
+ * Add ``before_delete_page`` and ``register_permissions`` examples to Hooks documentation (Jane Liu, Daniel Fairhead)
+ * Add clarity to modeladmin template override behavior in the documentation (Joe Howard, Dan Swain)
+ * Add section about CSV exports to security documentation (Matt Westcott)
+ * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
+ * Translations in ``nl_NL`` are moved to the ``nl`` po files. ``nl_NL`` translation files are deleted. Projects that use ``LANGUAGE_CODE = 'nl-nl'`` will automatically fallback to ``nl``. (Loïc Teixeira, Coen van der Kamp)
+ * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
+ * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
+ * The title field on Image and Document uploads will now default to the filename without the file extension and this behavior can be customized (LB Johnston)
+ * Add support for Python 3.10 (Matt Westcott)
+ * Introduce, ``autocomplete``, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
+ * Use SVG icons in modeladmin headers and StreamField buttons/headers (Jérôme Lebleu)
+ * Add tags to existing Django registered checks (LB Johnston)
+ * Upgrade admin frontend JS libraries jQuery to 3.6.0 (Fabien Le Frapper)
+ * Added ``request.preview_mode`` so that template rendering can vary based on preview mode (Andy Chosak)
+
+Bug fixes
+~~~~~~~~~
+
+ * Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
+ * Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
+ * InlinePanel add button is now keyboard navigatable (Jesse Menn)
+ * Remove redundant 'clear' button from site root page chooser (Matt Westcott)
+ * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
+ * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
+ * Menu sidebar hamburger icon on smaller viewports now correctly indicates it is a button to screen readers and can be accessed via keyboard (Amy Chan, Dan Braghis)
+ * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
+ * Screen readers can now access login screen field labels (Amy Chan)
+ * Admin breadcrumbs home icon now shows for users with access to a subtree only (Stefan Hammer)
+ * Add handling of invalid inline styles submitted to ``RichText`` so ``ConfigException`` is not thrown (Alex Tomkins)
+ * Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
+ * Set ``default_auto_field`` in ``postgres_search`` ``AppConfig`` (Nick Moreton)
+ * Ensure admin tab JS events are handled on page load (Andrew Stone)
+ * ``EmailNotificationMixin`` and ``send_notification`` should only send emails to active users (Bryan Williams)
+ * Disable Task confirmation now shows the correct value for quantity of tasks in progress (LB Johnston)
+ * Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
+ * Add ``gettext_lazy`` to ``ModelAdmin`` built in view titles so that language settings are correctly used (Matt Westcott)
+ * Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
+ * Add full support for custom ``edit_handler`` usage by adding missing ``bind_to`` call to ``PreviewOnEdit`` view (Stefan Hammer)
+ * Only show active (not disabled) tasks in the workflow task chooser (LB Johnston)
+ * CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
+ * Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
+ * Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam, Anirudh V S)
+ * Changed relation name used for admin commenting from ``comments`` to ``wagtail_admin_comments`` to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * CSS variables are now correctly used for the filtering menu in modeladmin (Noah H)
+ * Panel heading attribute is no longer ignored when nested inside a ``MultiFieldPanel`` (Jérôme Lebleu)
+
+Upgrade considerations
+======================
+
+Database search backends replaced
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following search backends (configured in ``WAGTAILSEARCH_BACKENDS``) have been deprecated:
+
+ - ``wagtail.search.backends.db`` (the default if ``WAGTAILSEARCH_BACKENDS`` is not specified)
+ - ``wagtail.contrib.postgres_search.backend``
+
+Both of these backends have now been replaced by ``wagtail.search.backends.database``. This new
+backend supports all of the features of the PostgreSQL backend, and also supports other databases.
+It will be made the default backend in Wagtail 3.0. To enable the new backend, edit (or add) the
+``WAGTAILSEARCH_BACKENDS`` setting as follows:
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.search.backends.database',
+        }
+    }
+
+Also remove ``'wagtail.contrib.postgres_search'`` from ``INSTALLED_APPS`` if this was previously set.
+
+After switching to this backend, you will need to run the ``manage.py update_index`` management
+command to populate the search index (see :ref:`update_index`).
+
+If you have used the PostgreSQL-specific ``SEARCH_CONFIG``, this will continue to work as before with the new backend. For example:
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.search.backends.database',
+            'SEARCH_CONFIG': 'english',
+        }
+    }
+
+However, as a PostgreSQL specific feature, this will be ignored when using a different database.
+
+
+Admin homepage panels, summary items and action menu items now use components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _template_components_2_15:
+
+Several Wagtail hooks provide a mechanism for passing Python objects to be rendered as HTML inside admin views, and the APIs for these objects have been updated to adopt a common :doc:`template components </extending/template_components>` pattern. The affected objects are:
+
+ * Homepage panels (as registered with the :ref:`construct_homepage_panels` hook)
+ * Homepage summary items (as registered with the :ref:`construct_homepage_summary_items` hook)
+ * Page action menu items (as registered with the :ref:`register_page_action_menu_item` and :ref:`construct_page_action_menu` hooks)
+ * Snippet action menu items (as registered with the :ref:`register_snippet_action_menu_item` and :ref:`construct_snippet_action_menu` hooks)
+
+User code that creates these objects should be updated to follow the component API. This will typically require the following changes:
+
+ * Homepage panels should be made subclasses of ``wagtail.admin.ui.components.Component``, and the ``render(self)`` method should be changed to ``render_html(self, parent_context)``. (Alternatively, rather than defining ``render_html``, it may be more convenient to reimplement it with a template, as per :ref:`creating_template_components`.)
+ * Summary item classes can continue to inherit from ``wagtail.admin.site_summary.SummaryItem`` (which is now a subclass of ``Component``) as before, but:
+
+   * Any ``template`` attribute should be changed to ``template_name``;
+   * Any place where the ``render(self)`` method is overridden should be changed to ``render_html(self, parent_context)``;
+   * Any place where the ``get_context(self)`` method is overridden should be changed to ``get_context_data(self, parent_context)``.
+
+ * Action menu items for pages and snippets can continue to inherit from ``wagtail.admin.action_menu.ActionMenuItem`` and ``wagtail.snippets.action_menu.ActionMenuItem`` respectively - these are now subclasses of ``Component`` - but:
+
+   * Any ``template`` attribute should be changed to ``template_name``;
+   * Any ``get_context`` method should be renamed to ``get_context_data``;
+   * The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods no longer accept a ``request`` parameter. The request object is available in the context dictionary as ``context['request']``.
+
+
+Passing callables as messages in ``register_log_actions`` is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When defining new action types for :ref:`audit logging <audit_log>` with the :ref:`register_log_actions` hook, it was previously possible to pass a callable as the message. This is now deprecated - to define a message that depends on the log entry's data, you should now create a subclass of ``wagtail.core.log_actions.LogFormatter``. For example:
+
+.. code-block:: python
+
+    from django.utils.translation import gettext_lazy as _
+    from wagtail.core import hooks
+
+    @hooks.register('register_log_actions')
+    def additional_log_actions(actions):
+
+        def greeting_message(data):
+            return _('Hello %(audience)s') % {
+                'audience': data['audience'],
+            }
+        actions.register_action('wagtail_package.greet_audience', _('Greet audience'), greeting_message)
+
+should now be rewritten as:
+
+.. code-block:: python
+
+    from django.utils.translation import gettext_lazy as _
+    from wagtail.core import hooks
+    from wagtail.core.log_actions import LogFormatter
+
+    @hooks.register('register_log_actions')
+    def additional_log_actions(actions):
+
+        @actions.register_action('wagtail_package.greet_audience')
+        class GreetingActionFormatter(LogFormatter):
+            label = _('Greet audience')
+
+            def format_message(self, log_entry):
+                return _('Hello %(audience)s') % {
+                    'audience': log_entry.data['audience'],
+                }
+
+
+``PageLogEntry.objects.log_action`` is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Audit logging is now supported on all model types, not just pages, and so the ``PageLogEntry.objects.log_action``
+method for logging actions performed on pages is deprecated in favor of the general-purpose ``log`` function. Code that
+calls ``PageLogEntry.objects.log_action`` should now import the ``log`` function from ``wagtail.core.log_actions`` and
+call this instead (all arguments are unchanged).
+
+Additionally, for logging actions on non-Page models, it is generally no longer necessary to subclass ``BaseLogEntry``; see :ref:`audit_log` for further details.
+
+
+Removed support for Internet Explorer (IE11)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If this affects you or your organization, consider which alternative browsers you may be able to use.
+Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://learn.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
+
+
+``search()`` method partial match future deprecation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before the ``autocomplete()`` method was introduced, the search method also did partial matching.
+This behavior is will be deprecated in a future release and you should either switch to the new
+``autocomplete()`` method or pass ``partial_match=False`` into the search method to opt-in to the
+new behavior. The partial matching in ``search()`` will be completely removed in a future release.
+See: :ref:`wagtailsearch_searching_pages`
+
+
+Change of relation name for admin comments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``related_name`` of the relation linking the Page and User models to admin comments has been
+changed from ``comments`` to ``wagtail_admin_comments``, to avoid conflicts with third-party apps
+that implement commenting. If you have any code that references the ``comments`` relation
+(including fixture files), this should be updated to refer to ``wagtail_admin_comments`` instead.
+If this is not feasible, the previous behavior can be restored by adding
+``WAGTAIL_COMMENTS_RELATION_NAME = 'comments'`` to your project's settings.
+
+Reusable library code that needs to preserve backwards compatibility with previous Wagtail versions
+can find out the relation name as follows:
+
+.. code-block:: python
+
+    try:
+        from wagtail.core.models import COMMENTS_RELATION_NAME
+    except ImportError:
+        COMMENTS_RELATION_NAME = 'comments'
+
+
+Bulk action views not covered by existing hooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bulk action views provide alternative routes to actions like publishing or copying a page.
+If your site relies on hooks like ``before_publish_page`` or ``before_copy_page`` to perform
+checks, or add additional functionality, those hooks will not be called on the
+corresponding bulk action views. If you want to add this to the bulk action views as well,
+use the new bulk action hooks: :ref:`before_bulk_action` and :ref:`after_bulk_action`.

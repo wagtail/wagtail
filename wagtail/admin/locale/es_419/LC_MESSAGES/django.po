@@ -1,0 +1,645 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Rodrigo Yanez, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Rodrigo Yanez, 2023\n"
+"Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
+"wagtail/language/es_419/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Submit for moderation"
+msgstr "Enviar para moderación"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "Reenviar a  %(task_name)s"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "Enviar a %(workflow_name)s"
+
+msgid "Restart workflow "
+msgstr "Reiniciar flujo de trabajo"
+
+msgid "Cancel workflow "
+msgstr "Cancelar flujo de trabajo"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Save Draft"
+msgstr "Guardar borrador"
+
+msgid "Page locked"
+msgstr "Página bloqueada"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s y publicar"
+
+msgid "Wagtail admin"
+msgstr "Administrador de Wagtail"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Lo sentimos, no tienes permiso para acceder a esta área."
+
+msgid "You do not have permission to access the admin"
+msgstr "No tienes permiso para acceder al administrador"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Date from"
+msgstr "Fecha desde"
+
+msgid "Date to"
+msgstr "Fecha hasta"
+
+msgid "All"
+msgstr "Todos"
+
+msgid "Collection"
+msgstr "Colección"
+
+msgid "Preferred language"
+msgstr "Idioma preferido"
+
+msgid "Current time zone"
+msgstr "Zona horaria actual"
+
+msgid "First Name"
+msgstr "Nombre"
+
+msgid "Last Name"
+msgstr "Apellido"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Upload a profile picture"
+msgstr "Subir una foto de perfil"
+
+msgid "Enter password"
+msgstr "Introducir contraseña"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr ""
+"Your %(username_field)s y contraseña no coinciden. Por favor, inténtalo de "
+"nuevo."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "Introduce tu %(username_field_name)s"
+
+msgid "Enter your email address to reset your password"
+msgstr ""
+"Introduce tu dirección de correo electrónico para restablecer tu contraseña"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "Término de búsqueda"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "All collections"
+msgstr "Todas las colecciones"
+
+msgid "Parent"
+msgstr "Padre"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Selecciona la posición jerárquica. Nota: una colección no puede convertirse "
+"en un hijo de sí misma o de uno de sus descendientes."
+
+msgid "Please select another parent"
+msgstr "Por favor, selecciona otro padre"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr ""
+"No se pueden tener varios registros de permisos para la misma colección."
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Add collections"
+msgstr "Añadir colecciones"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit collections"
+msgstr "Editar colecciones"
+
+msgid "Delete"
+msgstr "Borrar"
+
+msgid "Delete collections"
+msgstr "Borrar colecciones"
+
+msgid "You cannot edit another user's comment."
+msgstr "No puedes editar comentarios de otros usuarios."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr ""
+"La fecha/hora de publicación debe ser anterior a la fecha/hora de expiración"
+
+msgid "Expiry date/time must be in the future"
+msgstr "La fecha/hora de expiración debe situarse en el futuro"
+
+msgid "New title"
+msgstr "Nuevo título"
+
+msgid "New slug"
+msgstr "Nuevo slug"
+
+msgid "New parent page"
+msgstr "Nueva página padre"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Esta copia será hijo de esta página padre."
+
+msgid "Copy subpages"
+msgstr "Copiar subpáginas"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Esto copiará %(count)s subpágina."
+msgstr[1] "Esto copiará %(count)s subpáginas."
+msgstr[2] "Esto copiará %(count)s subpages."
+
+msgid "Publish copied page"
+msgstr "Publicar página copiada"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Esta página está publicada. ¿Deseas publicar también su copia?"
+
+msgid "Publish copies"
+msgstr "Publicar copias"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s de las páginas que se están copiando está publicada. ¿Te gustaría "
+"publicar la copia?"
+msgstr[1] ""
+"%(count)s de las páginas que se están copiando están publicada. ¿Te gustaría "
+"publicar las copias?"
+msgstr[2] ""
+"%(count)s de las páginas que se están copiando están publicadas. ¿Te "
+"gustaría publiar las copias?"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Mantener actualizadas las nuevas páginas con los cambios futuros"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "No tienes permiso para copiar a la página \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"Este slug ya está en uso en el contexto de su página padre "
+"\"%(parent_page_title)s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "No puedes copiar una página dentro de sí misma al copiar subpáginas"
+
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "El slug '%(page_slug)s' ya está en uso dentro de la página padre"
+
+msgid "Select a new parent for this page."
+msgstr "Selecciona una nueva página padre para esta página."
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr ""
+"Las etiquetas %(value_too_long)s tienen más de %(max_tag_length)d caracteres"
+
+msgid "Visibility"
+msgstr "Visibilidad"
+
+msgid "This field is required."
+msgstr "Este campo es obligatorio"
+
+msgid "Please select at least one group."
+msgstr "Por favor, selecciona al menos un grupo."
+
+msgid "All types"
+msgstr "Todos los tipos"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "Esta página ya tiene asignado el flujo de trabajo '%(workflow_name)s'."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"No puedes asignar este flujo de trabajo a la misma página varias veces."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"El snippet '%(content_type)s' ya tiene asignado el flujo de trabajo "
+"'%(workflow_name)s'."
+
+msgid "Give your workflow a name"
+msgstr "Ponle un nombre a tu flujo de trabajo"
+
+msgid "Add tasks to your workflow"
+msgstr "Añade tareas a tu flujo de trabajo"
+
+msgid "Task"
+msgstr "Tarea"
+
+msgid "1 page selected"
+msgstr "1 página seleccionada"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s páginas seleccionadas"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "Todas las %(objects)s páginas en esta pantalla seleccionadas"
+
+msgid "All pages in listing selected"
+msgstr "Todas las páginas en la lista seleccionadas"
+
+msgid "1 document selected"
+msgstr "1 documento seleccionado"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s documentos seleccionados"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "Todos los %(objects)s documentos en esta pantalla seleccionados"
+
+msgid "All documents in listing selected"
+msgstr "Todos los documentos en la lista seleccionados"
+
+msgid "1 image selected"
+msgstr "1 imagen seleccionada"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s imágenes seleccionadas"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "Todas las %(objects)s imágenes en esta pantalla seleccionadas"
+
+msgid "All images in listing selected"
+msgstr "Todas las imágenes en la lista seleccionadas"
+
+msgid "1 user selected"
+msgstr "1 usuario seleccionado"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s usuarios seleccionados"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "Todos los %(objects)s usuarios en esta pantalla seleccionados"
+
+msgid "All users in listing selected"
+msgstr "Todos los usuarios en la lista seleccionados"
+
+msgid "1 snippet selected"
+msgstr "1 snippet seleccionado"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s snippets seleccionados"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "Todos los %(objects)s snippets en esta pantalla seleccionados"
+
+msgid "All snippets in listing selected"
+msgstr "Todos los snippets en la lista seleccionados"
+
+msgid "1 item selected"
+msgstr "1 elemento seleccionado"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s elementos seleccionados"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "Todos los %(objects)s elementos en esta pantalla seleccionados"
+
+msgid "All items in listing selected"
+msgstr "Todos los elementos en la lista seleccionados"
+
+msgid "For search engines"
+msgstr "Para motores de búsqueda"
+
+msgid "For site menus"
+msgstr "Para los menús de la página"
+
+msgid "Content"
+msgstr "Contenido"
+
+msgid "Promote"
+msgstr "Promocionar"
+
+msgid "Settings"
+msgstr "Configuración"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Page title"
+msgstr "Título de la página"
+
+msgid "Error 404: Page not found"
+msgstr "Error 404: Página no encontrada"
+
+msgid "Error 404"
+msgstr "Error 404"
+
+msgid "The requested page could not be found."
+msgstr "No se ha podido encontrar la página solicitada."
+
+msgid "Go to Wagtail admin"
+msgstr "Ir al administrador de Wagtail"
+
+msgid "Account"
+msgstr "Cuenta"
+
+msgid "More actions"
+msgstr "Más acciones"
+
+msgid "Save account details"
+msgstr "Guardar los datos de la cuenta"
+
+msgid "Reset password"
+msgstr "Restablecer contraseña"
+
+msgid "Password change successful"
+msgstr "Cambio de contraseña realizado con éxito"
+
+msgid "Login"
+msgstr "Inicio de sesión"
+
+msgid "Set your new password"
+msgstr "Establece tu nueva contraseña"
+
+msgid "Invalid password reset link"
+msgstr "Enlace de restablecimiento de contraseña no válido"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"El enlace para restablecer la contraseña no es válido, posiblemente porque "
+"ya se ha utilizado."
+
+msgid "Request a new password reset"
+msgstr "Solicitar un nuevo restablecimiento de contraseña"
+
+msgid "Check your email"
+msgstr "Revisa tu correo electrónico"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Se te ha enviado por correo electrónico un enlace para restablecer tu "
+"contraseña si existe una cuenta para esta dirección."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Haz clic en el siguiente enlace para restablecer tu contraseña:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Tu nombre de usuario (en caso de que lo hayas olvidado):"
+
+msgid "Password reset"
+msgstr "Restablecer contraseña"
+
+msgid "Reset your password"
+msgstr "Restablece tu contraseña"
+
+msgid "Reset to default"
+msgstr "Restablecer avatar predeterminado"
+
+msgid "Default avatar"
+msgstr "Avatar predeterminado"
+
+msgid "Upload a profile picture:"
+msgstr "Sube una foto de perfil:"
+
+msgid "Sidebar"
+msgstr "Barra lateral"
+
+msgid "Go back"
+msgstr "Volver atrás"
+
+msgid "Bulk actions"
+msgstr "Acciones en bloque"
+
+msgid "Select row"
+msgstr "Seleccionar fila"
+
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+msgid "Internal link"
+msgstr "Enlace interno"
+
+msgid "External link"
+msgstr "Enlace externo"
+
+msgid "Email link"
+msgstr "Enlace de correo electrónico"
+
+msgid "Phone link"
+msgstr "Enlace de teléfono"
+
+msgid "Anchor link"
+msgstr "Enlace de anclaje"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "Hay %(counter)s coincidencia"
+msgstr[1] "Hay %(counter)s coincidencias"
+msgstr[2] "Hay %(counter)s coincidencias"
+
+msgid "Add an anchor link"
+msgstr "Añadir un enlace de anclaje"
+
+msgid "Insert anchor"
+msgstr "Insertar anclaje"
+
+msgid "Choose"
+msgstr "Seleccionar"
+
+msgid "Choose a page"
+msgstr "Seleccionar una página"
+
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"En este campo sólo pueden seleccionarse páginas del tipo \"%(type)s\" may be "
+"chosen for this field. Los resultados de la búsqueda excluirán páginas de "
+"otros tipos."
+msgstr[1] ""
+"En este campo sólo pueden seleccionarse los siguientes tipos de página: "
+"%(type)s. Los resultados de la búsqueda excluirán páginas de otros tipos."
+msgstr[2] ""
+"En este campo sólo pueden seleccionarse los siguientes tipos de página: "
+"%(type)s. Los resultados de la búsqueda excluirán páginas de otros tipos."
+
+msgid "Confirm selection"
+msgstr "Confirmar selección"
+
+msgid "Convert to internal link"
+msgstr "Convertir a enlace interno"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"La URL que has introducido, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, aparentemente coincide con "
+"la página interna %(page)s, que tiene la URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"Convertir el URL a un link interno hacia %(page)s haría que el enlace se "
+"actualizara automáticamente si la página subyacente cambia su URL. ¿Deseas "
+"hacerlo?"
+
+msgid "Use external link"
+msgstr "Usar enlace externo"
+
+msgid "Add an email link"
+msgstr "Añadir un enlace de correo electrónico"
+
+msgid "Insert link"
+msgstr "Insertar enlace"
+
+msgid "Add an external link"
+msgstr "Añadir un enlace externo"
+
+msgid "Add a phone link"
+msgstr "Añadir un enlace de teléfono"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Seleccionar %(title)s"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Explorar subpáginas de '%(title)s'"
+
+msgid "Explore"
+msgstr "Explorar"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Esta colección ha sido convertida en privada por una colección padre."
+
+msgid "You can edit the privacy settings on:"
+msgstr "Puedes editar la configuración de privacidad en:"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Change privacy"
+msgstr "Cambiar privacidad"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"La configuración de privacidad determina quién puede ver los documentos de "
+"esta colección."
+
+msgid "Privacy"
+msgstr "Privacidad"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Establecer la privacidad de la colección. Estado actual: Público"
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Establecer privacidad de la colección. Estado actual: Privado"
+
+msgid "Private"
+msgstr "Privado"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "Esta colección no se puede borrar, porque no está vacía. Contiene:"
+
+msgid "Saving…"
+msgstr "Guardando..."
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Editing"
+msgstr "Editando"
+
+msgid "Site"
+msgstr "Página"
+
+msgid "Choose an item"
+msgstr "Seleccionar un item"
+
+msgid "Choose another item"
+msgstr "Seleccionar otro item"

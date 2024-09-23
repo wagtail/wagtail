@@ -1,0 +1,45 @@
+$icon-size: theme('spacing.4');
+
+.c-sf-add-button {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: theme('spacing.6');
+  height: theme('spacing.6');
+  appearance: none;
+  color: theme('colors.text-button-outline-default');
+  background-color: theme('colors.surface-page');
+  padding: 0;
+  cursor: pointer;
+  // Align with guide lines, which are already offset by a half icon size.
+  margin-inline-start: calc(-1 * (1px + $icon-size / 4));
+
+  .icon {
+    width: $icon-size;
+    height: $icon-size;
+    padding: theme('spacing.[0.5]');
+    border: 1px solid currentColor;
+    border-radius: theme('borderRadius.full');
+    transition: transform 0.3s ease;
+  }
+
+  &[aria-expanded='true'] .icon {
+    transform: rotate(45deg);
+  }
+
+  &:hover,
+  &:focus-visible {
+    .icon {
+      color: theme('colors.surface-page');
+      background-color: theme('colors.text-button-outline-hover');
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.2;
+
+    @media (forced-colors: active) {
+      color: GrayText;
+    }
+  }
+}
