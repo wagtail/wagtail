@@ -162,6 +162,7 @@ $header-button-size: theme('spacing.6');
 }
 
 .w-panel--dashboard {
+  background-color: theme('colors.surface-dashboard-panel');
   border: 1px solid theme('colors.border-furniture');
   border-radius: 5px;
   margin-bottom: calc(

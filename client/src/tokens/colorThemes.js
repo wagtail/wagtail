@@ -112,6 +112,12 @@ const light = [
         textUtility: 'w-text-surface-info-panel',
         cssVariable: '--w-color-surface-info-panel',
       },
+      'surface-dashboard-panel': {
+        value: 'var(--w-color-white)',
+        bgUtility: 'w-bg-surface-dashboard-panel',
+        textUtility: 'w-text-surface-dashboard-panel',
+        cssVariable: '--w-color-surface-dashboard-panel',
+      },
     },
   },
   {
@@ -393,6 +399,12 @@ const dark = [
         bgUtility: 'w-bg-surface-info-panel',
         textUtility: 'w-text-surface-info-panel',
         cssVariable: '--w-color-surface-info-panel',
+      },
+      'surface-dashboard-panel': {
+        value: 'var(--w-color-grey-800)',
+        bgUtility: 'w-bg-surface-dashboard-panel',
+        textUtility: 'w-text-surface-dashboard-panel',
+        cssVariable: '--w-color-surface-dashboard-panel',
       },
     },
   },
