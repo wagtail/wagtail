@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2.2 (24.09.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
