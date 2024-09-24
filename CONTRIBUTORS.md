@@ -887,5 +887,6 @@
 * Turkish: Saadettin Yasir Akel, Umut Bektaş, Halit Çelik, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, Fatih Koç koç, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal, Suayip Uzulmez
 * Turkish (Türkiye): Saadettin Yasir Akel, Basitlik İyidir, Umut Bektaş, Aydın Zafer Cengiz, lzm dgl, Cihad Gündoǧdu, Ahmet Serdar Karadeniz, Fatih Koç koç, José Luis, Py Data, Halim Turan, Ragıp Ünal
 * Ukrainian: Yuri Fabirovsky, Vladislav Herasimenko, Mikolai Incognito, Anastasiia La, Sergiy Shkodenko, Viktor Shytiuk, Ivan Tyshchenko, Zoriana Zaiats, Mykola Zamkovoi
+* Uyghur: Abduqadir Abliz, Azat
 * Vietnamese: Amelia Dao, Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham, stdpi
 * Welsh: Philip Crisp, Adam Hughes

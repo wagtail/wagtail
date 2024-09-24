@@ -4,6 +4,7 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Ivan Waginger <ivan.waginger@gmail.com>, 2024
 # Martin Janšto <mato@jansto.sk>, 2017
 # Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 16:26+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
+"Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -275,7 +276,7 @@ msgid "Tag"
 msgstr "Tag"
 
 msgid "Add to collection"
-msgstr "Pridať do zbierky"
+msgstr "Pridať do kolekcie"
 
 msgid "Delete"
 msgstr "Vymazať"

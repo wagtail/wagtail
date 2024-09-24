@@ -1,0 +1,364 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
+"ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail پۈتۈك"
+
+msgid "Collection"
+msgstr "توپلام"
+
+msgid "Add"
+msgstr "قوش"
+
+msgid "Add/edit documents you own"
+msgstr "پۈتۈكلىرىڭىزنى قوشۇپ/تەھرىرلەيدۇ"
+
+msgid "Edit"
+msgstr "تەھرىر"
+
+msgid "Edit any document"
+msgstr "خالىغان پۈتۈكنى تەھرىرلەيدۇ"
+
+msgid "Choose"
+msgstr "تاللا"
+
+msgid "Select documents in choosers"
+msgstr "تاللىغۇچتىن پۈتۈك تاللىنىدۇ"
+
+msgid "title"
+msgstr "ماۋزۇ"
+
+msgid "file"
+msgstr "ھۆججەت"
+
+msgid "created at"
+msgstr "قۇرۇلغان ۋاقتى"
+
+msgid "uploaded by user"
+msgstr "ئىشلەتكۈچى يۈكلىگەن"
+
+msgid "tags"
+msgstr "بەلگە"
+
+msgid "document"
+msgstr "پۈتۈك"
+
+msgid "documents"
+msgstr "پۈتۈك"
+
+#, python-format
+msgid "Add tags to 1 document"
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "1 پۈتۈككە بەلگە قوشىدۇ"
+msgstr[1] "%(counter)s پۈتۈككە بەلگە قوشىدۇ"
+
+msgid "Add tags to documents"
+msgstr "پۈتۈككە بەلگە قوشىدۇ"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "تۆۋەندىكى پۈتۈككە راستتىنلا بەلگە قوشامسىز؟"
+msgstr[1] "تۆۋەندىكى پۈتۈككە راستتىنلا بەلگە قوشامسىز؟"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "بۇ پۈتۈككە بەلگە قوشۇش ئىجازىتىڭىز يوق"
+msgstr[1] "بۇ پۈتۈككە بەلگە قوشۇش ئىجازىتىڭىز يوق"
+
+msgid "Yes, add"
+msgstr "ھەئە، قوش"
+
+msgid "No, don't add"
+msgstr "ياق، قوشما"
+
+#, python-format
+msgid "Add 1 document to new collection"
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "يېڭى توپلامغا 1 پۈتۈك قوشىدۇ"
+msgstr[1] "يېڭى توپلامغا %(counter)s پۈتۈك قوشىدۇ"
+
+msgid "Add documents to collection"
+msgstr "پۈتۈكنى توپلامغا قوشىدۇ"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] "تاللىغان توپلامغا تۆۋەندىكى پۈتۈكنى راستتىنلا قوشامسىز؟"
+msgstr[1] "تاللىغان توپلامغا تۆۋەندىكى پۈتۈكنى راستتىنلا قوشامسىز؟"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "توپلامغا بۇ پۈتۈكنى قوشۇش ئىجازىتىڭىز يوق"
+msgstr[1] "توپلامغا بۇ پۈتۈكنى قوشۇش ئىجازىتىڭىز يوق"
+
+#, python-format
+msgid "Delete 1 document"
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "1 پۈتۈك ئۆچۈر"
+msgstr[1] "%(counter)s پۈتۈك ئۆچۈر"
+
+msgid "Delete documents"
+msgstr "پۈتۈك ئۆچۈر"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "بۇ پۈتۈكنى راستتىنلا ئۆچۈرەمسىز؟"
+msgstr[1] "بۇ پۈتۈكنى راستتىنلا ئۆچۈرەمسىز؟"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s قېتىم ئىشلىتىلدى"
+msgstr[1] "%(usage_count)s قېتىم ئىشلىتىلدى"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "بۇ  پۈتۈكنى ئۆچۈرۈش ئىجازىتىڭىز يوق"
+msgstr[1] "بۇ  پۈتۈكنى ئۆچۈرۈش ئىجازىتىڭىز يوق"
+
+msgid "Yes, delete"
+msgstr "ھەئە، ئۆچۈر"
+
+msgid "No, don't delete"
+msgstr "ياق، ئۆچۈرمە"
+
+msgid "Latest documents"
+msgstr "ئاخىرقى پۈتۈك"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "كەچۈرۈڭ، ھېچقانداق پۈتۈك «<em>%(search_query)s</em>» غا ماس كەلمىدى"
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "سىز بۇ توپلامغا ھېچقانداق پۈتۈك يۈكلىمىدىڭىز."
+
+msgid "You haven't uploaded any documents."
+msgstr "سىز ھېچقانداق پۈتۈك يۈكلىمىدىڭىز."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"نېمىشقا <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>ھازىر بىرنى يۈكلە</a>مەيسىز؟"
+
+msgid "Change document:"
+msgstr "پۈتۈك ئۆزگەرت:"
+
+msgid "Add a document"
+msgstr "پۈتۈك قوش"
+
+msgid "Add document"
+msgstr "پۈتۈك قوش"
+
+msgid "Uploading…"
+msgstr "يۈكلەۋاتىدۇ…"
+
+msgid "Upload"
+msgstr "يۈكلە"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "«%(title)s» تەھرىر"
+
+msgid "Editing"
+msgstr "تەھرىرلەش"
+
+msgid "Save"
+msgstr "ساقلا"
+
+msgid "Delete document"
+msgstr "پۈتۈك ئۆچۈر"
+
+msgid "Filesize"
+msgstr "ھۆججەت چوڭلۇقى"
+
+msgid "File not found"
+msgstr "ھۆججەت تېپىلمىدى"
+
+msgid "Usage"
+msgstr "ئىشلىتىلىشى"
+
+msgid "Select all documents in listing"
+msgstr "تىزىمدىكى ھەممە پۈتۈكنى تاللايدۇ"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr "كەچۈرۈڭ، ھېچقانداق پۈتۈك «<em>%(query_string)s</em>» غا ماس كەلمىدى"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"سىز بۇ توپلامغا ھېچقانداق پۈتۈك يۈكلىمىدىڭىز. نېمىشقا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ھازىر بىرنى يۈكلە</a>مەيسىز؟"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"ھېچقانداق پۈتۈك يۈكلىمىدىڭىز. نېمىشقا <a "
+"href=\"%(wagtaildocs_add_document_url)s\">ھازىر بىرنى يۈكلە</a>مەيسىز؟"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> پۈتۈك <span class=\"w-sr-only\"> %(site_name)s دا "
+"قۇرۇلدى</span>"
+msgstr[1] ""
+"<span>%(total)s</span> پۈتۈك <span class=\"w-sr-only\"> %(site_name)s دا "
+"قۇرۇلدى</span>"
+
+msgid "Add multiple documents"
+msgstr "كۆپ پۈتۈك قوش"
+
+msgid "Add documents"
+msgstr "پۈتۈك قوش"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "پۈتۈك بۇ دائىرىگە سۆرەپ تاشلانسا تېزلا يۈكلىنىدۇ."
+
+msgid "Or choose from your computer"
+msgstr "ياكى كومپيۇتېرىڭىزدىن تاللاڭ"
+
+msgid "Add to collection:"
+msgstr "توپلامغا قوشۇش:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"يۈكلەش مۇۋەپپەقىيەتلىك. ئەگەر زۆرۈر بولسا بۇ پۈتۈكنى تېخىمۇ مۇۋاپىق ماۋزۇ "
+"بىلەن يېڭىلاڭ. ئەگەر يۈكلەش زۆرۈر بولمىسا، پۈتۈكنى پۈتۈنلەي ئۆچۈرەلەيسىز."
+
+msgid "Sorry, upload failed."
+msgstr "كەچۈرۈڭ، يۈكلىيەلمىدى."
+
+msgid "Document updated."
+msgstr "پۈتۈك يېڭىلاندى."
+
+msgid "You need a password to access this document."
+msgstr "بۇ پۈتۈكنى زىيارەت قىلىش ئۈچۈن ئىم كىرگۈزۈش كېرەك."
+
+msgid "Document permissions"
+msgstr "پۈتۈك ئىجازىتى"
+
+msgid "Add a document permission"
+msgstr "پۈتۈككە ئىجازەت قوش"
+
+msgid "Tags"
+msgstr "بەلگە"
+
+msgid "Tag"
+msgstr "بەلگە"
+
+msgid "Add tags to the selected documents"
+msgstr "تاللىغان پۈتۈككە بەلگە قوشىدۇ"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "%(num_parent_objects)d پۈتۈككە يېڭى بەلگە قوشۇلدى"
+msgstr[1] "%(num_parent_objects)d پۈتۈككە يېڭى بەلگە قوشۇلدى"
+
+msgid "Add to collection"
+msgstr "توپلامغا قوش"
+
+msgid "Add selected documents to collection"
+msgstr "تاللانغان پۈتۈكنى توپلامغا قوشىدۇ"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d پۈتۈك %(collection)s غا قوشۇلدى"
+msgstr[1] "%(num_parent_objects)d پۈتۈك %(collection)s غا قوشۇلدى"
+
+msgid "Delete"
+msgstr "ئۆچۈر"
+
+msgid "Delete selected documents"
+msgstr "تاللانغان پۈتۈكنى ئۆچۈر"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d پۈتۈك ئۆچۈرۈلدى"
+msgstr[1] "%(num_parent_objects)d پۈتۈك ئۆچۈرۈلدى"
+
+msgid "File"
+msgstr "ھۆججەت"
+
+msgid "Created"
+msgstr "قۇرغان ۋاقتى"
+
+msgid "Choose a document"
+msgstr "پۈتۈك تاللىنىدۇ"
+
+msgid "Choose another document"
+msgstr "باشقا پۈتۈك تاللىنىدۇ"
+
+msgid "Edit this document"
+msgstr "پۈتۈك تەھرىرلەيدۇ"
+
+msgid "Documents"
+msgstr "پۈتۈك"
+
+msgid "Title"
+msgstr "ماۋزۇ"
+
+#, python-format
+msgid "Document '%(document_title)s' added."
+msgstr "«%(document_title)s» پۈتۈك قوشۇلدى."
+
+msgid "The document could not be saved due to errors."
+msgstr "خاتالىق سەۋەبىدىن پۈتۈكنى ساقلىغىلى بولمىدى."
+
+#, python-format
+msgid "Document '%(document_title)s' updated"
+msgstr "«%(document_title)s» پۈتۈك يېڭىلاندى"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr "ھۆججەتنى تاپالمىدى. مەنبەنى ئۆزگەرتىڭ ياكى پۈتۈكنى ئۆچۈرۈڭ"
+
+#, python-format
+msgid "Document '%(document_title)s' deleted."
+msgstr "«%(document_title)s» پۈتۈك ئۆچۈرۈلدى."
+
+msgid "Document"
+msgstr "پۈتۈك"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s پۈتۈك"
+msgstr[1] "%(count)s پۈتۈك"
