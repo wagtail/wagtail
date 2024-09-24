@@ -146,6 +146,71 @@ By default, the checker includes the following rules to find common accessibilit
 
 To customize how the checker is run (such as what rules to test), you can define a custom subclass of {class}`~wagtail.admin.userbar.AccessibilityItem` and override the attributes to your liking. Then, swap the instance of the default `AccessibilityItem` with an instance of your custom class via the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
+For example, Axe's [`p-as-heading`](https://github.com/dequelabs/axe-core/blob/develop/lib/checks/navigation/p-as-heading.json) rule evaluates combinations of font weight, size, and italics to decide if a paragraph is acting as a heading visually. Depending on your heading styles, you might want Axe to rely only on font weight to flag short, bold paragraphs as potential headings.
+
+
+```python
+from wagtail.admin.userbar import AccessibilityItem
+
+
+class CustomAccessibilityItem(AccessibilityItem):
+    axe_custom_checks = [
+        {
+	    # Flag heading-like paragraphs based only on font weight compared to surroundings.
+            "id": "p-as-heading",
+            "options": {
+                "margins": [
+                    { "weight": 150 },
+                ],
+                "passLength": 1,
+                "failLength": 0.5
+            },
+        },
+    ]
+
+
+@hooks.register('construct_wagtail_userbar')
+def replace_userbar_accessibility_item(request, items):
+    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
+```
+
+The checks you run in production should be restricted to issues your content editors can fix themselves; warnings about things out of their control will only teach them to ignore all warnings. However, it may be useful for you to run additional checks in your development environment.
+
+```python
+from wagtail.admin.userbar import AccessibilityItem
+
+
+class CustomAccessibilityItem(AccessibilityItem):
+    # Run all Axe rules with these tags in the development environment
+    axe_rules_in_dev = [
+        "wcag2a",
+        "wcag2aa",
+        "wcag2aaa",
+        "wcag21a",
+        "wcag21aa",
+        "wcag22aa",
+        "best-practice",
+    ]
+    # Except for the color-contrast-enhanced rule
+    axe_rules = {
+        "color-contrast-enhanced": {"enabled": False},
+    }
+
+    def get_axe_run_only(self, request):
+        if env.bool('DEBUG', default=False):
+            return self.axe_rules_in_dev
+        else:
+            # In production, run Wagtail's default accessibility rules for authored content only
+            return self.axe_run_only
+
+
+@hooks.register('construct_wagtail_userbar')
+def replace_userbar_accessibility_item(request, items):
+    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
+```
+
+#### AccessibilityItem reference
+
 The following is the reference documentation for the `AccessibilityItem` class:
 
 ```{eval-rst}
@@ -181,40 +246,6 @@ The following is the reference documentation for the `AccessibilityItem` class:
     .. automethod:: get_axe_context
     .. automethod:: get_axe_options
     .. automethod:: get_axe_spec
-```
-
-Here is an example of a custom `AccessibilityItem` subclass that enables more rules:
-
-```python
-from wagtail.admin.userbar import AccessibilityItem
-
-
-class CustomAccessibilityItem(AccessibilityItem):
-    # Run all rules with these tags
-    axe_run_only = [
-        "wcag2a",
-        "wcag2aa",
-        "wcag2aaa",
-        "wcag21a",
-        "wcag21aa",
-        "wcag22aa",
-        "best-practice",
-    ]
-    # Except for the color-contrast-enhanced rule
-    axe_rules = {
-        "color-contrast-enhanced": {"enabled": False},
-    }
-
-    def get_axe_rules(self, request):
-        # Do not disable any rules if the user is a superuser
-        if request.user.is_superuser:
-            return {}
-        return self.axe_rules
-
-
-@hooks.register('construct_wagtail_userbar')
-def replace_userbar_accessibility_item(request, items):
-    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
 ```
 
 ### wagtail-accessibility
