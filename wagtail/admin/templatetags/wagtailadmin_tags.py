@@ -867,7 +867,15 @@ def locales(serialize=True):
         }
         for locale in Locale.objects.all()
     ]
-    return json.dumps(result) if serialize else result
+
+    if serialize:
+        warn(
+            "The `locales` template tag will be removed in a future release.",
+            category=RemovedInWagtail70Warning,
+        )
+        return json.dumps(result)
+
+    return result
 
 
 @register.simple_tag
