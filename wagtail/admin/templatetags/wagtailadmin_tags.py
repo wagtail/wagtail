@@ -684,6 +684,10 @@ def admin_theme_classname(context):
 
 @register.simple_tag
 def js_translation_strings():
+    warn(
+        "The `js_translation_strings` template tag will be removed in a future release.",
+        category=RemovedInWagtail70Warning,
+    )
     return mark_safe(json.dumps(get_js_translation_strings()))
 
 
