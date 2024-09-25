@@ -50,6 +50,7 @@ Changelog
  * Maintenance: Improve `debounce` util's return type for better TypeScript usage (Sage Abdullah)
  * Maintenance: Ensure the side panel's show event is dispatched after any hide events (Sage Abdullah)
  * Maintenance: Migrate preview-panel JavaScript to Stimulus & TypeScript, add full unit testing (Sage Abdullah)
+ * Maintenance: Move `wagtailConfig` values from inline scripts to the `wagtail_config` template tag (LB (Ben) Johnston, Sage Abdullah)
 
 
 6.2.2 (24.09.2024)
