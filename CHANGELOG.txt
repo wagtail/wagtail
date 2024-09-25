@@ -57,6 +57,7 @@ Changelog
  * Maintenance: Move `wagtailConfig` values from inline scripts to the `wagtail_config` template tag (LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Deprecate the `{% locales %}` and `{% js_translation_strings %}` template tags (LB (Ben) Johnston, Sage Abdullah)
  * Maintenance: Ensure multi-line comments are cleaned from custom icons in addition to just single line comments (Jake Howard)
+ * Maintenance: Deprecate `window.wagtailConfig.BULK_ACTION_ITEM_TYPE` usage in JavaScript to reduce reliance on inline scripts (LB (Ben) Johnston)
 
 
 6.2.2 (24.09.2024)
