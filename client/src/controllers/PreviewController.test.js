@@ -2,7 +2,7 @@ import { Application } from '@hotwired/stimulus';
 import { ProgressController } from './ProgressController';
 import { PreviewController } from './PreviewController';
 
-jest.mock('../config/wagtailConfig.js', () => ({
+jest.mock('../config/wagtailConfig.ts', () => ({
   WAGTAIL_CONFIG: {
     CSRF_HEADER_NAME: 'X-CSRFToken',
     CSRF_TOKEN: 'test-token',
