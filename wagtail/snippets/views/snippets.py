@@ -831,7 +831,7 @@ class SnippetViewSet(ModelViewSet):
 
         **Deprecated** - the preferred way to customise this is to define a ``menu_label`` property.
         """
-        return self.model_opts.verbose_name_plural.title()
+        return capfirst(self.model_opts.verbose_name_plural)
 
     @cached_property
     def menu_name(self):

@@ -40,8 +40,8 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             response,
             '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
         )
-        # Title-cased from verbose_name_plural
-        self.assertContains(response, "Json Stream Models")
+        # Capitalized-first from verbose_name_plural
+        self.assertContains(response, "JSON stream models")
         self.assertContains(response, reverse("streammodel:index"))
         self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
         # Set on class
@@ -81,7 +81,7 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
         )
 
         # The menu item for the model is shown
-        self.assertContains(response, "Json Stream Models")
+        self.assertContains(response, "JSON stream models")
         self.assertContains(response, reverse("streammodel:index"))
         self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
 

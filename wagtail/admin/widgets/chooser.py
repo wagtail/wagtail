@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -250,7 +251,7 @@ class AdminPageChooser(BaseChooser):
             cleaned_target_models = [Page]
 
         if len(cleaned_target_models) == 1 and cleaned_target_models[0] is not Page:
-            model_name = cleaned_target_models[0]._meta.verbose_name.title()
+            model_name = capfirst(cleaned_target_models[0]._meta.verbose_name)
             self.choose_one_text += " (" + model_name + ")"
 
         self.user_perms = user_perms

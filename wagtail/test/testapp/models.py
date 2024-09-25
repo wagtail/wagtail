@@ -1524,6 +1524,9 @@ class JSONStreamModel(models.Model):
         ],
     )
 
+    class Meta:
+        verbose_name = "JSON stream model"
+
 
 class JSONMinMaxCountStreamModel(models.Model):
     body = StreamField(
