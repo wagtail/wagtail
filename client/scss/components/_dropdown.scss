@@ -1,5 +1,9 @@
 .w-dropdown__toggle {
   @apply w-px-2 w-text-text-label w-bg-transparent;
+  @media (prefers-contrast: more) {
+    @apply w-border w-border-solid w-border-text-label; 
+  }
+}
 }
 
 .w-dropdown__toggle--icon {
