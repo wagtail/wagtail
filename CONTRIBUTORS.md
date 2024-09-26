@@ -839,6 +839,7 @@
 * rahulsamant37
 * Gabriel Getzie
 * Rohit Singh
+* Robin Varghese
 
 ## Translators
 
