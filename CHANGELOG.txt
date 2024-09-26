@@ -16,6 +16,7 @@ Changelog
  * Add search and filters to form pages listing (Sage Abdullah)
  * Deprecate the `WAGTAIL_AUTO_UPDATE_PREVIEW` setting, use `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` instead (Sage Abdullah)
  * Consistently use `capfirst` for title-casing model verbose names (Sébastien Corbin)
+ * Fire `copy_for_translation_done` signal when copying translatable models as well as pages (Coen van der Kamp)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
