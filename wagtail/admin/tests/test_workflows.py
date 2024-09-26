@@ -162,6 +162,33 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertNotContains(response, "There are no enabled workflows.")
         self.assertContains(response, "test_workflow")
 
+    def test_multiple_snippets_assigned_to_workflow(self):
+        Workflow.objects.create(name="Nocontenttypes")
+        multi_ct_workflow = Workflow.objects.create(name="Multicontenttypes")
+        for model in [FullFeaturedSnippet, ModeratedModel]:
+            WorkflowContentType.objects.create(
+                workflow=multi_ct_workflow,
+                content_type=ContentType.objects.get_for_model(model),
+            )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        cells = [
+            text
+            for td in soup.select("td")
+            if (text := td.get_text(separator=" | ", strip=True))
+        ]
+        self.assertEqual(
+            cells,
+            [
+                "Multicontenttypes",
+                "0 pages | 2 snippet types",
+                "Nocontenttypes",
+                "0 pages | 0 snippet types",
+            ],
+        )
+
     def test_num_queries(self):
         self.create_workflows()
         self.get()
