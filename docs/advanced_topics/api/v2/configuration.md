@@ -290,6 +290,29 @@ a URL to the image if your media files are properly configured.
 
 For cases where the source image set may contain SVGs, the `ImageRenditionField` constructor takes a `preserve_svg` argument. The behavior of `ImageRenditionField` when `preserve_svg` is `True` is as described for the `image` template tag's `preserve-svg` argument (see the documentation on [](svg_images)).
 
+### Authentication
+
+To protect the access to your API, you can implement an [authentication](https://www.django-rest-framework.org/api-guide/authentication/) method provided by the Django Rest Framework, for example the [Token Authentication](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication):
+
+```python
+# api.py
+
+from rest_framework.permissions import IsAuthenticated
+
+# ...
+
+class CustomPagesAPIViewSet(PagesAPIViewSet):
+    name = "pages"
+    permission_classes = (IsAuthenticated,)
+
+
+api_router.register_endpoint("pages", CustomPagesAPIViewSet)
+```
+
+Don't forget to add `rest_framework.authtoken` to your `INSTALLED_APPS` section in the settings and run the needed migrations. This way, your API endpoint will be accessible only with the Authorization header containing the generated `Token: exampletoken123xyz`.
+
+Note: If you use `TokenAuthentication` in production you must ensure that your API is only available over `https`.
+
 ## Additional settings
 
 ### `WAGTAILAPI_BASE_URL`
