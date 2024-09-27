@@ -309,8 +309,32 @@ class CustomPagesAPIViewSet(PagesAPIViewSet):
 api_router.register_endpoint("pages", CustomPagesAPIViewSet)
 ```
 
-Don't forget to add `rest_framework.authtoken` to your `INSTALLED_APPS` section in the settings and run the needed migrations. This way, your API endpoint will be accessible only with the Authorization header containing the generated `Token: exampletoken123xyz`.
+Extend settings with
 
+```python
+# settings.py
+
+INSTALLED_APPS = [
+    ...
+
+    'rest_framework.authtoken',
+
+    ...
+]
+
+...
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+    ],
+}
+```
+
+
+Don't forget to run the needed migrations. 
+
+Your API endpoint will be accessible only with the Authorization header containing the generated `Token: exampletoken123xyz`.
 Note: If you use `TokenAuthentication` in production you must ensure that your API is only available over `https`.
 
 ## Additional settings
