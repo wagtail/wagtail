@@ -1,13 +1,15 @@
 {% extends "wagtailadmin/tables/title_cell.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block title %}
     <a href="{{ link_url }}">
-        {% blocktrans trimmed count counter=instance.all_pages.count %}
-            1 page
-        {% plural %}
-            {{ counter }} pages
-        {% endblocktrans %}
+        {% with instance.all_pages.count as counter_val %}
+            {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}
+                1 page
+            {% plural %}
+                {{ counter }} pages
+            {% endblocktrans %}
+        {% endwith %}
     </a>
 {% endblock %}
 
@@ -15,11 +17,13 @@
     {# Only show snippet type count if there's a model with workflows enabled #}
     {% if workflow_enabled_models %}
         <div>
-            {% blocktrans trimmed count counter=instance.content_types %}
-                1 snippet type
-            {% plural %}
-                {{ counter }} snippet types
-            {% endblocktrans %}
+            {% with instance.content_types as counter_val %}
+                {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}
+                    1 snippet type
+                {% plural %}
+                    {{ counter }} snippet types
+                {% endblocktrans %}
+            {% endwith %}
         </div>
     {% endif %}
 {% endblock %}

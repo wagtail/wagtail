@@ -1,6 +1,7 @@
+from collections.abc import Mapping
 from datetime import date, datetime, timezone
 from functools import wraps
-from typing import Any, List, Mapping, Optional
+from typing import Any, Optional
 from unittest import mock
 
 from django import forms
@@ -52,6 +53,7 @@ from wagtail.test.testapp.models import (
     FormPageWithRedirect,
     GalleryPage,
     PageChooserModel,
+    PersonPage,
     RestaurantPage,
     RestaurantTag,
     SimplePage,
@@ -845,7 +847,7 @@ class TestFieldPanel(TestCase):
     def _get_form(
         self,
         data: Optional[Mapping[str, Any]] = None,
-        fields: Optional[List[str]] = None,
+        fields: Optional[list[str]] = None,
     ) -> WagtailAdminPageForm:
         cls = get_form_for_model(
             EventPage,
@@ -1520,6 +1522,42 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
                     EventPage, "speakers", label="Speakers", bacon="chunky"
                 ),
             )
+
+
+class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.request = get_dummy_request()
+        user = AnonymousUser()  # technically, Anonymous users cannot access the admin
+        self.request.user = user
+
+    def test_render(self):
+        """
+        Check that the inline panel renders the panels set on the model
+        when no 'panels' parameter is passed in the InlinePanel definition
+        """
+        social_link_object_list = ObjectList(
+            [
+                InlinePanel(
+                    "social_links",
+                    label="Social Links",
+                )
+            ]
+        ).bind_to_model(PersonPage)
+        PersonPageForm = social_link_object_list.get_form_class()
+
+        person_page = PersonPage()
+        form = PersonPageForm(instance=person_page)
+        panel = social_link_object_list.get_bound_panel(
+            instance=person_page, form=form, request=self.request
+        )
+        result = panel.render_html()
+        # rendered panel must not contain hidden fields for ORDER
+        self.assertNotInHTML(
+            'id="id_social_links-__prefix__-ORDER"',
+            result,
+        )
 
 
 class TestInlinePanelGetComparison(TestCase):

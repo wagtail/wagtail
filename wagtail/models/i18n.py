@@ -1,5 +1,4 @@
 import uuid
-from typing import Dict
 
 from django.apps import apps
 from django.conf import settings
@@ -9,6 +8,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import translation
 from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 
 from wagtail.actions.copy_for_translation import CopyForTranslationAction
@@ -97,7 +97,7 @@ class Locale(models.Model):
     def __str__(self):
         return force_str(self.get_display_name())
 
-    def _get_language_info(self) -> Dict[str, str]:
+    def _get_language_info(self) -> dict[str, str]:
         return translation.get_language_info(self.language_code)
 
     @property
@@ -177,7 +177,11 @@ class Locale(models.Model):
 class TranslatableMixin(models.Model):
     translation_key = models.UUIDField(default=uuid.uuid4, editable=False)
     locale = models.ForeignKey(
-        Locale, on_delete=models.PROTECT, related_name="+", editable=False
+        Locale,
+        on_delete=models.PROTECT,
+        related_name="+",
+        editable=False,
+        verbose_name=_("locale"),
     )
     locale.wagtail_reference_index_ignore = True
 

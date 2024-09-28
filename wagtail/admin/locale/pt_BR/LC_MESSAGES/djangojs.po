@@ -6,15 +6,15 @@
 # Éder Brito <britoederr@gmail.com>, 2022
 # Gladson <gladsonbrito@gmail.com>, 2022
 # Iuri L. Machado, 2022
-# Luiz Boaretto <lboaretto@gmail.com>, 2022
-# Loic Teixeira, 2022
 # LB (Ben Johnston) <mail@lb.ee>, 2023
 # A M, 2023
 # Felipe Lobato, 2023
+# Luiz Boaretto <lboaretto@gmail.com>, 2024
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Felipe Lobato, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/torchbox/"
 "teams/8009/pt_BR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +30,18 @@ msgstr "(1 novo item neste menu)"
 
 msgid "(New)"
 msgstr "(Novo)"
+
+msgid "%(num)s error"
+msgid_plural "%(num)s errors"
+msgstr[0] "%(num)s erro"
+msgstr[1] "%(num)s erros"
+msgstr[2] "%(num)s erros"
+
+msgid "%(num)s pixel"
+msgid_plural "%(num)s pixels"
+msgstr[0] "%(num)s pixel"
+msgstr[1] "%(num)s pixels"
+msgstr[2] "%(num)s pixels"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -198,6 +210,12 @@ msgid ""
 msgstr ""
 "O editor simplesmente travou. O conteúdo foi redefinido para a última versão "
 "salva."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "O número máximo de itens é %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "O número mínimo de itens é %(min_num)d"
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."

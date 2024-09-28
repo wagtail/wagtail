@@ -76,15 +76,15 @@ The following methods can be overridden on your custom `Image` or `Rendition` mo
 
 ```{eval-rst}
 .. automodule:: wagtail.images.models
-    :noindex:
+    :no-index:
 
 .. class:: AbstractImage
-    :noindex:
+    :no-index-entry:
 
     .. automethod:: get_upload_to
 
 .. class:: AbstractRendition
-    :noindex:
+    :no-index-entry:
 
     .. automethod:: get_upload_to
 ```

@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { gettext } from '../../utils/gettext';
-import { ADMIN_URLS, LOCALE_NAMES } from '../../config/wagtailConfig';
+import { LOCALE_NAMES, WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import Icon from '../Icon/Icon';
 import Link from '../Link/Link';
 import PublicationStatus from '../PublicationStatus/PublicationStatus';
 import { PageState } from './reducers/nodes';
+
+const { ADMIN_URLS } = WAGTAIL_CONFIG;
 
 // Hoist icons in the explorer item, as it is re-rendered many times.
 const childrenIcon = <Icon name="folder-inverse" className="icon--menuitem" />;

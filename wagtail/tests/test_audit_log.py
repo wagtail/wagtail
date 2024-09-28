@@ -3,6 +3,7 @@ import json
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.test import TestCase
@@ -10,6 +11,7 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.log_actions import LogActionRegistry
+from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
     Page,
     PageLogEntry,
@@ -36,8 +38,13 @@ class TestAuditLogManager(WagtailTestUtils, TestCase):
                 title="Simple page", slug="simple", content="Hello", owner=self.user
             )
         )
+        self.snippet_1 = FullFeaturedSnippet.objects.create(text="snippet 1")
+        self.snippet_2 = FullFeaturedSnippet.objects.create(text="snippet 2")
+        self.snippet_content_type = ContentType.objects.get_for_model(
+            FullFeaturedSnippet
+        )
 
-    def test_log_action(self):
+    def test_log_action_for_page(self):
         now = timezone.now()
 
         with freeze_time(now):
@@ -49,7 +56,19 @@ class TestAuditLogManager(WagtailTestUtils, TestCase):
         self.assertEqual(entry.user, self.user)
         self.assertEqual(entry.timestamp, now)
 
-    def test_get_for_model(self):
+    def test_log_action_for_snippet(self):
+        now = timezone.now()
+
+        with freeze_time(now):
+            entry = ModelLogEntry.objects.log_action(
+                self.snippet_1, "wagtail.edit", user=self.user
+            )
+
+        self.assertEqual(entry.content_type, self.snippet_content_type)
+        self.assertEqual(entry.user, self.user)
+        self.assertEqual(entry.timestamp, now)
+
+    def test_get_for_page_model(self):
         PageLogEntry.objects.log_action(self.page, "wagtail.edit")
         PageLogEntry.objects.log_action(self.simple_page, "wagtail.edit")
 
@@ -59,10 +78,61 @@ class TestAuditLogManager(WagtailTestUtils, TestCase):
             list(entries), list(PageLogEntry.objects.filter(page=self.simple_page))
         )
 
+    def test_get_for_snippet_model(self):
+        ModelLogEntry.objects.log_action(self.snippet_1, "wagtail.edit")
+        ModelLogEntry.objects.log_action(self.snippet_2, "wagtail.edit")
+
+        entries = ModelLogEntry.objects.get_for_model(FullFeaturedSnippet)
+        self.assertEqual(entries.count(), 2)
+        self.assertListEqual(
+            list(entries),
+            list(ModelLogEntry.objects.filter(content_type=self.snippet_content_type)),
+        )
+
     def test_get_for_user(self):
         self.assertEqual(
             PageLogEntry.objects.get_for_user(self.user).count(), 1
         )  # the create from setUp
+
+    def test_get_for_page_instance(self):
+        PageLogEntry.objects.log_action(self.page, "wagtail.edit")
+        PageLogEntry.objects.log_action(self.simple_page, "wagtail.edit")
+        other_simple_page = self.page.add_child(
+            instance=SimplePage(
+                title="Simple page 2", slug="simple2", content="Hello", owner=self.user
+            )
+        )
+        PageLogEntry.objects.log_action(other_simple_page, "wagtail.edit")
+
+        entries = PageLogEntry.objects.for_instance(self.simple_page)
+        expected_entries = list(PageLogEntry.objects.filter(page=self.simple_page))
+        self.assertEqual(entries.count(), 2)
+        self.assertListEqual(list(entries), expected_entries)
+
+        # should also be able to retrieve entries via the log registry, which
+        # eliminates the need to know that PageLogEntry is the log entry model
+        entries = log_registry.get_logs_for_instance(self.simple_page)
+        self.assertEqual(entries.count(), 2)
+        self.assertListEqual(list(entries), expected_entries)
+
+    def test_get_for_snippet_instance(self):
+        ModelLogEntry.objects.log_action(self.snippet_1, "wagtail.edit")
+        ModelLogEntry.objects.log_action(self.snippet_2, "wagtail.edit")
+
+        entries = ModelLogEntry.objects.for_instance(self.snippet_1)
+        expected_entries = list(
+            ModelLogEntry.objects.filter(
+                content_type=self.snippet_content_type, object_id=self.snippet_1.pk
+            )
+        )
+        self.assertEqual(entries.count(), 1)
+        self.assertListEqual(list(entries), expected_entries)
+
+        # should also be able to retrieve entries via the log registry, which
+        # eliminates the need to know that ModelLogEntry is the log entry model
+        entries = log_registry.get_logs_for_instance(self.snippet_1)
+        self.assertEqual(entries.count(), 1)
+        self.assertListEqual(list(entries), expected_entries)
 
 
 class TestAuditLog(TestCase):

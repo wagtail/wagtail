@@ -164,6 +164,10 @@ export class BulkController extends Controller<HTMLElement> {
       const lastClickedIndex = activeItems.findIndex(
         (item) => item === lastChanged,
       );
+
+      // The last clicked item is not in the current group, skip bulk toggling
+      if (lastClickedIndex === -1) return;
+
       const currentIndex = activeItems.findIndex(
         (item) => item === event?.target,
       );

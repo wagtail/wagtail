@@ -1,32 +1,31 @@
 import {
-  ADMIN_API,
-  ADMIN_URLS,
+  LOCALE_NAMES,
   MAX_EXPLORER_PAGES,
   WAGTAIL_CONFIG,
 } from './wagtailConfig';
 
 describe('wagtailConfig', () => {
-  describe('ADMIN_API', () => {
+  describe('LOCALE_NAMES', () => {
     it('exists', () => {
-      expect(ADMIN_API).toBeDefined();
-    });
-  });
-
-  describe('ADMIN_URLS', () => {
-    it('exists', () => {
-      expect(ADMIN_URLS).toBeDefined();
+      expect(LOCALE_NAMES).toBeInstanceOf(Map);
+      expect(LOCALE_NAMES.get('fr')).toEqual('French');
     });
   });
 
   describe('MAX_EXPLORER_PAGES', () => {
     it('exists', () => {
-      expect(MAX_EXPLORER_PAGES).toBeDefined();
+      expect(MAX_EXPLORER_PAGES).toBeGreaterThan(0);
     });
   });
 
   describe('WAGTAIL_CONFIG', () => {
     it('exists', () => {
-      expect(WAGTAIL_CONFIG).toBeDefined();
+      expect(WAGTAIL_CONFIG).toEqual(
+        expect.objectContaining({
+          ACTIVE_LOCALE: expect.any(String),
+          LOCALES: expect.any(Array),
+        }),
+      );
     });
   });
 });

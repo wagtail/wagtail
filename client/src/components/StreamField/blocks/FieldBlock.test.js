@@ -166,8 +166,8 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
   test('setError() renders errors', () => {
     boundBlock.setError({
       messages: [
-        'Field must not contain the letter E',
-        'Field must contain a story about kittens',
+        'Field must not contain the letter E.',
+        'Field must contain a story about kittens.',
       ],
     });
     expect(document.body.innerHTML).toMatchSnapshot();

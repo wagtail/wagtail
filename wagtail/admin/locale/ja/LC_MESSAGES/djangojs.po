@@ -8,11 +8,11 @@
 # shuhei hirota, 2022
 # kojikojikojikoji, 2022
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/torchbox/teams/8009/ja/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ja\n"
@@ -131,6 +131,12 @@ msgid ""
 msgstr ""
 "エディタがクラッシュしました。内容が最後に保存されたバージョンになっていま"
 "す。"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "項目の最大数は%(max_num)dです。"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "項目の最小数は%(min_num)dです。"
 
 msgid "This field is required."
 msgstr "この項目は必須です。"

@@ -4,11 +4,10 @@ import {
   updateDismissibles,
 } from './DismissibleController';
 
-jest.mock('../config/wagtailConfig.js', () => ({
+jest.mock('../config/wagtailConfig.ts', () => ({
   WAGTAIL_CONFIG: {
+    ...jest.requireActual('../config/wagtailConfig.ts').WAGTAIL_CONFIG,
     ADMIN_URLS: { DISMISSIBLES: '/admin/dismissibles/' },
-    CSRF_HEADER_NAME: 'X-CSRFToken',
-    CSRF_TOKEN: 'test-token',
   },
 }));
 
@@ -63,7 +62,7 @@ describe('DismissibleController', () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': 'test-token',
+        'x-xsrf-token': 'potato',
       },
       body: JSON.stringify(data),
       mode: 'same-origin',
@@ -84,7 +83,7 @@ describe('updateDismissibles', () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': 'test-token',
+        'x-xsrf-token': 'potato',
       },
       body: JSON.stringify(data),
       mode: 'same-origin',

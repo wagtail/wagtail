@@ -24,6 +24,19 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(h1.text.strip(), "Model with string type primary keys")
 
 
+class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
+    fixtures = ["test.json"]
+
+    def get(self, params={}):
+        return self.client.get(reverse("testapp_generic_index_without_model"), params)
+
+    def test_non_integer_primary_key(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_object_count = response.context_data["object_list"].count()
+        self.assertEqual(response_object_count, 3)
+
+
 class TestGenericEditView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 

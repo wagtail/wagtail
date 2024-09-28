@@ -92,7 +92,7 @@ A form template for a StructBlock must include the output of `render_form` for e
 
 ## Additional JavaScript on `StructBlock` forms
 
-Often it may be desirable to attach custom JavaScript behaviour to a StructBlock form. For example, given a block such as:
+Often it may be desirable to attach custom JavaScript behavior to a StructBlock form. For example, given a block such as:
 
 ```python
 class AddressBlock(StructBlock):

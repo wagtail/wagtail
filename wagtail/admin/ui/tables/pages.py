@@ -56,6 +56,8 @@ class ParentPageColumn(Column):
     cell_template_name = "wagtailadmin/pages/listing/_parent_page_cell.html"
 
     def get_value(self, instance):
+        if parent := getattr(instance, "_parent_page", None):
+            return parent
         return instance.get_parent()
 
 
@@ -92,7 +94,10 @@ class NavigateToChildrenColumn(BaseColumn):
         return context
 
     def render_header_html(self, parent_context):
-        return mark_safe("<th></th>")
+        # This column has no header, as the cell's function will vary between "explore child pages"
+        # and "add child page", and this link provides all the signposting needed. Render it as a
+        # <td> rather than <th> as headings cannot be empty (https://dequeuniversity.com/rules/axe/4.9/empty-table-header).
+        return mark_safe("<td></td>")
 
 
 class PageTable(Table):

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2023
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2024
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2018
 # saevarom <saevar@saevar.is>, 2015,2017-2023
@@ -11,9 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2023\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2018,2020-2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +85,9 @@ msgstr "Safn"
 
 msgid "Tag"
 msgstr "Merking"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Sía út frá tíu vinsælustu merkingunum"
 
 msgid "Preferred language"
 msgstr "Valið tungumál"
@@ -253,6 +257,24 @@ msgstr "Veldu nýja yfirsíðu fyrir þessa síðu."
 
 msgid "Parent page"
 msgstr "Yfirsíða"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "Nýja síðan verður undirsíða þessarar yfirsíðu"
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr ""
+"Þú hefur ekki réttindi til þess að búa til síðu undir \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"Þú getur ekki búið til síðu af tegundinni \"%(page_type)s\" undir "
+"\"%(page_title)s\"."
+
+msgid "Search…"
+msgstr "Leita..."
 
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
@@ -596,9 +618,6 @@ msgstr "Skoða undirsíður %(title)s'"
 msgid "Explore"
 msgstr "Skoða"
 
-msgid "Collection privacy"
-msgstr "Aðgengisstillingar safns"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Þetta safn er með takmarkað aðgengi vegna stillinga yfirflokks."
 
@@ -706,6 +725,22 @@ msgstr "Athugasemd"
 msgid "Actions"
 msgstr "Aðgerðir"
 
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Engin %(model_name)s passa við leit þína."
+
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"Hér eru engin %(model_name)s til að sýna. Hví ekki að <a "
+"href=\"%(add_url)s\">Bæta við einu</a>?"
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Það eru engin %(model_name)s til að sýna."
+
 msgid "Update"
 msgstr "Uppfæra"
 
@@ -787,6 +822,20 @@ msgstr "Dagsetning"
 
 msgid "Site summary"
 msgstr "Upplýsingar um vef"
+
+#, python-format
+msgid ""
+"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> síða <span class=\"w-sr-only\">búin til í "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> síður <span class=\"w-sr-only\">búnar til í "
+"%(site_name)s</span>"
 
 #, python-format
 msgid ""
@@ -1139,9 +1188,6 @@ msgid ""
 msgstr ""
 "%(model_name)s \"%(title)s\" hefur verið send til yfirferðar í vinnuflæði "
 "\"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Síðu aðgengi"
 
 msgid "This page has been made private by a parent page."
 msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
@@ -1626,6 +1672,10 @@ msgstr "Bæta undirsíðu við '%(title)s'"
 msgid "Drag"
 msgstr "Draga"
 
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "Atriði %(index)s af %(total)s"
+
 msgid "Disable ordering of child pages"
 msgstr "Óvirkja röðun á undirsíðum"
 
@@ -1635,8 +1685,36 @@ msgstr "Raða"
 msgid "Enable ordering of child pages"
 msgstr "Virkja röðun á undirsíðum"
 
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "%(start_index)s-%(end_index)s af %(items_count)s yfir alla síðuna."
+
+msgid "No results across entire site."
+msgstr "Engar niðurstöður á allri síðunni."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "Leita í '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"%(start_index)s-%(end_index)s af %(items_count)s í '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"Engar niðurstöður í '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+
 msgid "Search the whole site"
 msgstr "Leita í öllu vefsvæðinu"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s af %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Síðuvalmynd"
@@ -1745,8 +1823,17 @@ msgstr "Engar síður passa við forsendur þessarar skýrslu."
 msgid "Updated"
 msgstr "Uppfært"
 
+msgid "App"
+msgstr "App"
+
 msgid "Pages"
 msgstr "Síður"
+
+msgid "Last edited page"
+msgstr "Síðu síðast breytt"
+
+msgid "Last edit"
+msgstr "Síðast breytt"
 
 msgid "Locking status"
 msgstr "Staða á læsingu"
@@ -1769,6 +1856,9 @@ msgstr "Læst"
 msgid "No locked pages found."
 msgstr "Engar læstar síður fundust"
 
+msgid "No page types found."
+msgstr "Engar síðu tengundir fundust."
+
 msgid "Name"
 msgstr "Nafn"
 
@@ -1787,9 +1877,6 @@ msgstr "Breyta þessu"
 msgid "No log entries found."
 msgstr "Engar atburðaskráningar fundust."
 
-msgid "By Task"
-msgstr "Eftir skrefi"
-
 msgid "Workflow"
 msgstr "Vinnuflæði"
 
@@ -1807,9 +1894,6 @@ msgstr "Óklárað skref"
 
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Engar síður/snifsi hafa verið send inn til yfirferðar ennþá"
-
-msgid "By Workflow"
-msgstr "Eftir vinnuflæði"
 
 msgid "Completed at"
 msgstr "Lokið"
@@ -1830,6 +1914,9 @@ msgstr "Brauðmolar"
 msgid "Close dialog"
 msgstr "Loka glugga"
 
+msgid "Continue"
+msgstr "Áfram"
+
 msgid "Download XLSX"
 msgstr "Sækja XLSX"
 
@@ -1845,11 +1932,29 @@ msgstr "Bæta við síum"
 msgid "Add comment"
 msgstr "Bæta við athugasemd"
 
+msgid "Show filters"
+msgstr "Sýna síur"
+
+msgid "Filter by"
+msgstr "Sía eftir"
+
 msgid "Back"
 msgstr "Til baka"
 
 msgid "History"
 msgstr "Saga"
+
+msgid "Keyboard shortcuts"
+msgstr "Lyklaborðs flýtileiðir"
+
+msgid "All keyboard shortcuts"
+msgstr "Allar lyklaborðs flýtileiðir"
+
+msgid "Section"
+msgstr "Kafli"
+
+msgid "Keyboard shortcut"
+msgstr "Lyklaborðs flýtileið"
 
 msgid "Current page status:"
 msgstr "Núverandi staða síðu:"
@@ -2371,17 +2476,53 @@ msgstr "Sent til %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
+msgid "Common actions"
+msgstr "Algengar aðgerðir"
+
+msgid "Cut"
+msgstr "Klippa"
+
+msgid "Paste"
+msgstr "Líma"
+
+msgid "Paste and match style"
+msgstr "Líma síðu í sama stíl"
+
+msgid "Paste without formatting"
+msgstr "Líma án þess að aðlaga"
+
 msgid "Undo"
 msgstr "Bakka"
 
 msgid "Redo"
 msgstr "Endurgera"
 
+msgid "Save changes"
+msgstr "Vista breytingar"
+
+msgid "Text content"
+msgstr "Innihald texta"
+
+msgid "Insert or edit a link"
+msgstr "Bæta við eða breyta hlekk"
+
+msgid "Text formatting"
+msgstr "Aðlaga texta"
+
 msgid "Bold"
 msgstr "Feitletrun"
 
 msgid "Italic"
 msgstr "Skáletrun"
+
+msgid "Underline"
+msgstr "Undirstrika"
+
+msgid "Monospace (code)"
+msgstr "Jafnstafaletur/monospace (kóði)"
+
+msgid "Strike-through"
+msgstr "Strika í gegn"
 
 msgid "Superscript"
 msgstr "Yfirskrift"
@@ -2403,6 +2544,12 @@ msgstr "Sýna/fela athugasemdir"
 
 msgid "Comments"
 msgstr "Athugasemdir"
+
+msgid "Toggle checks"
+msgstr "Sýna/fela aðvaranir"
+
+msgid "Checks"
+msgstr "Athuganir"
 
 msgid "Toggle preview"
 msgstr "Sýna/fela forskoðun"
@@ -2427,34 +2574,6 @@ msgid ""
 "descending order."
 msgstr ""
 "Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í öfugri stafrófsröð."
-
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr "Texta vantar á hnapp. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr "Tóm fyrirsögn fannst. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr "Tómur haus á töflu. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Tómur titill ramma fannst. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Röng stærðarröð fyrirsagna. Varist að sleppa stærðum."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr "Texta vantar á hnapp. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr "Tómur texti á krækju. Notið lýsandi texta fyrir notendur skjálesara."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr "Málsgrein notuð sem fyrirsögn. Notið rétt tög fyrir fyrirsagnir."
 
 msgid "Profile"
 msgstr "Prófíll"
@@ -2621,8 +2740,16 @@ msgstr ""
 "til birtingar."
 
 #, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Breyta '%(title)s'"
+
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "Afrita '%(title)s'"
 
 msgid "Inspect"
 msgstr "Skoða"
@@ -2640,11 +2767,25 @@ msgid "More options for '%(title)s'"
 msgstr "Fleiri valmöguleikar fyrir '%(title)s'"
 
 #, python-format
+msgid "Add %(model_name)s"
+msgstr "Bæta við %(model_name)s"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr ""
+"Ekki var hægt að búa til %(model_name)s þar sem það stóðst ekki villuprófanir"
+
+#, python-format
 msgid "New: %(model_name)s"
 msgstr "Nýtt: %(model_name)s"
 
 msgid "Editing"
 msgstr "Breyti"
+
+#, python-format
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr ""
+"Ekki var hægt að vista %(model_name)s þar sem það stóðst ekki villuprófanir"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
@@ -2811,6 +2952,13 @@ msgstr[1] ""
 "%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
 "teknar úr loftinu"
 
+msgid "Choose parent"
+msgstr "Veldu yfirsíðu"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Búa til nýtt %(model_name)s"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr "Síðu '%(page_title)s' hefur verið breytt í venjulega síðu."
@@ -2917,14 +3065,46 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
+msgid "Is commenting action"
+msgstr "Er að gera athugasemd"
+
+msgid "Date updated"
+msgstr "Dagsetning uppfærð"
+
 msgid "Owner"
 msgstr "Eigandi"
+
+msgid "Edited by"
+msgstr "Breytt af"
 
 msgid "Site"
 msgstr "Vefsvæði"
 
+msgid "Has child pages"
+msgstr "Er með undirsíður"
+
+msgid "Any"
+msgstr "Hvað sem er"
+
 msgid "Yes"
 msgstr "Já"
+
+msgid "Page type"
+msgstr "Tegund síðu"
+
+msgid "Exploring"
+msgstr "Skoðar"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"Fókusaðu á draghnappinn og ýttu á upp og niður örvarnar til þess að færa, "
+"ýttu svo á enter til að senda breytinguna."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "Tókst að færa '%(page_title)s' ."
 
 #, python-format
 msgid "Page '%(page_title)s' is now unlocked."
@@ -2981,9 +3161,6 @@ msgstr "Elstu síðurnar"
 msgid "Last published at"
 msgstr "Síðast sett í loftið"
 
-msgid "Hide commenting actions"
-msgstr "Fela athugasemdaaðgerðir"
-
 msgid "Site history"
 msgstr "Saga síðu"
 
@@ -2998,6 +3175,9 @@ msgstr "Dagsetning/Tími"
 
 msgid "Locked pages"
 msgstr "Læstar síður"
+
+msgid "Page types usage"
+msgstr "Notkun síðutegunda"
 
 msgid "Show"
 msgstr "Sýna"
@@ -3022,6 +3202,9 @@ msgstr "Skref vinnuflæðis"
 
 msgid "Requested By"
 msgstr "Umbeðið af"
+
+msgid "Show disabled"
+msgstr "Sýna óvirkt"
 
 msgid "Add a workflow"
 msgstr "Bæta við vinnuflæði"
@@ -3194,6 +3377,9 @@ msgstr "Hvað er nýtt í Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Notendahandbók"
+
+msgid "Shortcuts"
+msgstr "Flýtileiðir"
 
 msgid "Help"
 msgstr "Hjálp"

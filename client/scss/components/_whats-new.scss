@@ -25,7 +25,7 @@
       border-radius: theme('borderRadius.full');
 
       @media (prefers-reduced-motion: no-preference) {
-        animation: pulse-warning 5s 5;
+        animation: ping-warning 5s 5;
       }
     }
   }

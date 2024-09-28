@@ -11,6 +11,7 @@ from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone, translation
+from freezegun import freeze_time
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
@@ -31,32 +32,115 @@ from wagtail.test.testapp.models import (
     SimplePage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
-class TestLockedPagesView(WagtailTestUtils, TestCase):
+class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    url_name = None
+    header_buttons_parent_selector = "#w-slim-header-buttons"
+    drilldown_selector = ".w-drilldown"
+    extra_params = ""
+    results_only = False
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.url = reverse(cls.url_name)
+        if cls.results_only:
+            cls.header_buttons_parent_selector = (
+                '[data-controller="w-teleport"]'
+                '[data-w-teleport-target-value="#w-slim-header-buttons"]'
+            )
+            cls.drilldown_selector = (
+                '[data-controller="w-teleport"]'
+                '[data-w-teleport-target-value="#filters-drilldown"]'
+            )
+            cls.extra_params = "&_w_filter_fragment=true"
+
     def setUp(self):
         self.user = self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:locked_pages"), params)
+        if self.results_only:
+            params["_w_filter_fragment"] = "true"
+        return self.client.get(self.url, params)
+
+    def assertActiveFilter(self, soup, name, value):
+        # Should render the export buttons inside the header "more" dropdown
+        # with the filtered URL. When used in a results-only view, these are
+        # teleported to the correct element in the skeleton.
+        links_parent = soup.select_one(self.header_buttons_parent_selector)
+        self.assertIsNotNone(links_parent)
+        links = links_parent.select(".w-dropdown a")
+        unfiltered_url = reverse(self.url_name)
+        filtered_url = f"{unfiltered_url}?{name}={value}{self.extra_params}"
+        self.assertEqual(len(links), 2)
+        self.assertEqual(
+            [link.get("href") for link in links],
+            [f"{filtered_url}&export=xlsx", f"{filtered_url}&export=csv"],
+        )
+
+        # Should render the active filter pill
+        active_filter = soup.select_one(".w-active-filters .w-pill__content")
+        clear_button = soup.select_one(".w-active-filters .w-pill__remove")
+        self.assertIsNotNone(active_filter)
+        self.assertIsNotNone(clear_button)
+        self.assertNotIn(name, clear_button.attrs.get("data-w-swap-src-value"))
+        self.assertEqual(clear_button.attrs.get("data-w-swap-reflect-value"), "true")
+
+    def assertActiveFilterNotRendered(self, soup):
+        self.assertIsNone(soup.select_one(".w-active-filters"))
+
+    def assertBreadcrumbs(self, breadcrumbs, html):
+        if self.results_only:
+            self.assertBreadcrumbsNotRendered(html)
+        else:
+            self.assertBreadcrumbsItemsRendered(breadcrumbs, html)
+
+    def assertPageTitle(self, soup, title):
+        page_title = soup.select_one("title")
+        if self.results_only:
+            self.assertIsNone(page_title)
+        else:
+            self.assertIsNotNone(page_title)
+            self.assertEqual(page_title.text.strip(), title)
+
+
+class TestLockedPagesView(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:locked_pages"
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/locked_pages_results.html",
+        )
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Locked pages"}],
+            response.content,
+        )
 
         # Initially there should be no locked pages
         self.assertContains(response, "No locked pages found.")
 
-        # No user locked anything
-        self.assertInHTML(
-            """
-            <select name="locked_by" id="id_locked_by">
-                <option value="" selected>---------</option>
-            </select>
-            """,
-            response.content.decode(),
+        # Should render the filter inside the drilldown
+        soup = self.get_soup(response.content)
+        locked_by_options = soup.select(
+            f"{self.drilldown_selector} select[name='locked_by'] option"
         )
+        # No user locked anything, so there should be no option for the filter
+        self.assertEqual(len(locked_by_options), 1)
+        self.assertEqual(locked_by_options[0].text, "---------")
+        self.assertEqual(locked_by_options[0].get("value"), "")
+        self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Locked pages - Wagtail")
 
         parent_page = Page.objects.first()
         parent_page.add_child(
@@ -79,20 +163,35 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         # Now the listing should contain our locked page
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/locked_pages_results.html",
+        )
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Locked pages"}],
+            response.content,
+        )
         self.assertNotContains(response, "No locked pages found.")
         self.assertContains(response, "First locked page")
         self.assertContains(response, "Second locked page")
 
-        self.assertInHTML(
-            f"""
-            <select name="locked_by" id="id_locked_by">
-                <option value="" selected>---------</option>
-                <option value="{self.user.pk}">{self.user}</option>
-            </select>
-            """,
-            response.content.decode(),
+        # Should render the filter inside the drilldown
+        soup = self.get_soup(response.content)
+        locked_by_options = soup.select(
+            f"{self.drilldown_selector} select[name='locked_by'] option"
         )
+        # The options should only display users who have locked pages
+        self.assertEqual(len(locked_by_options), 2)
+        self.assertEqual(locked_by_options[0].text, "---------")
+        self.assertIsNone(locked_by_options[0].value)
+        self.assertEqual(locked_by_options[1].text, str(self.user))
+        self.assertEqual(locked_by_options[1].get("value"), str(self.user.pk))
+        self.assertActiveFilterNotRendered(soup)
 
         # Locked by current user shown in indicator
         self.assertContains(response, "locked-indicator indicator--is-inverse")
@@ -119,7 +218,15 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         response = self.get()
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/locked_pages.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/locked_pages_results.html",
+        )
         self.assertContains(response, "No locked pages found.")
 
     def test_get_with_no_permissions(self):
@@ -210,8 +317,9 @@ class TestLockedPagesView(WagtailTestUtils, TestCase):
         self.assertEqual(worksheet["E2"].number_format, ExcelDateFormatter().get())
 
 
-class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
+class TestFilteredLockedPagesView(BaseReportViewTestCase):
     fixtures = ["test.json"]
+    url_name = "wagtailadmin_reports:locked_pages"
 
     def setUp(self):
         self.user = self.login()
@@ -229,9 +337,6 @@ class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
         self.christmas_page.locked_at = timezone.now()
         self.christmas_page.save()
 
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:locked_pages"), params)
-
     def test_filter_by_live(self):
         response = self.get(params={"live": "true"})
         self.assertEqual(response.status_code, 200)
@@ -245,6 +350,9 @@ class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "My locked page")
         self.assertNotContains(response, "Christmas")
 
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "live", "false")
+
     def test_filter_by_user(self):
         response = self.get(params={"locked_by": self.user.pk})
         self.assertEqual(response.status_code, 200)
@@ -253,8 +361,14 @@ class TestFilteredLockedPagesView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, "My locked page")
 
 
-class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
+class TestFilteredLockedPagesResultsView(TestFilteredLockedPagesView):
+    url_name = "wagtailadmin_reports:locked_pages_results"
+    results_only = True
+
+
+class TestFilteredLogEntriesView(BaseReportViewTestCase):
     fixtures = ["test.json"]
+    url_name = "wagtailadmin_reports:site_history"
 
     def setUp(self):
         self.user = self.login()
@@ -275,17 +389,32 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
         )
         editors.user_set.add(self.editor)
 
+        # timezone matches TIME_ZONE = "Asia/Tokyo" in tests/settings.py
+        with freeze_time("2024-05-06 12:00:00+09:00"):
+            self.today = timezone.now()
+
         self.create_log = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.create"
+            self.home_page,
+            "wagtail.create",
+            timestamp=self.today - timezone.timedelta(days=4),
+            user=self.user,
         )
         self.edit_log_1 = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.edit"
+            self.home_page,
+            "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=3),
         )
         self.edit_log_2 = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.edit"
+            self.home_page,
+            "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=2),
+            user=self.editor,
         )
         self.edit_log_3 = PageLogEntry.objects.log_action(
-            self.home_page, "wagtail.edit"
+            self.home_page,
+            "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=1),
+            title="The FINAL cut",
         )
 
         self.create_comment_log = PageLogEntry.objects.log_action(
@@ -322,30 +451,37 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
         self.create_custom_log = ModelLogEntry.objects.log_action(
             self.custom_model,
             "wagtail.create",
+            timestamp=self.today - timezone.timedelta(days=3),
         )
 
         self.edit_custom_log = ModelLogEntry.objects.log_action(
             self.custom_model,
             "wagtail.edit",
+            timestamp=self.today - timezone.timedelta(days=2),
+            title="the final CUT",
         )
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:site_history"), params)
 
     def assert_log_entries(self, response, expected):
         actual = set(response.context["object_list"])
         self.assertSetEqual(actual, set(expected))
 
     def assert_filter_actions(self, response, expected):
+        soup = self.get_soup(response.content)
         actual = {
-            choice[0]
-            for choice in response.context["filters"].filters["action"].extra["choices"]
+            choice.get("value")
+            for choice in soup.select(
+                f"{self.drilldown_selector} input[name='action'][type='checkbox']"
+            )
         }
         self.assertSetEqual(actual, set(expected))
 
     def test_unfiltered(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Site history"}],
+            response.content,
+        )
         self.assert_log_entries(
             response,
             [
@@ -371,6 +507,10 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 "wagtail.comments.create_reply",
             ],
         )
+
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Site history - Wagtail")
 
         # The editor should not see the Advert's log entries.
         self.login(user=self.editor)
@@ -400,6 +540,9 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
             ],
         )
 
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
+
     def test_filter_by_action(self):
         response = self.get(params={"action": "wagtail.edit"})
         self.assertEqual(response.status_code, 200)
@@ -425,8 +568,144 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
             ],
         )
 
-    def test_hide_commenting_actions(self):
-        response = self.get(params={"hide_commenting_actions": "on"})
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "action", "wagtail.edit")
+
+    def test_filter_by_action_multiple(self):
+        response = self.get(params={"action": ["wagtail.edit", "wagtail.create"]})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.create_custom_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.edit_custom_log,
+            ],
+        )
+
+        self.login(user=self.editor)
+        response = self.get(params={"action": ["wagtail.edit", "wagtail.create"]})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+            ],
+        )
+
+    def test_filter_by_timestamp(self):
+        today = self.today.date()
+        response = self.get(
+            params={"timestamp_from": today - timezone.timedelta(days=3)}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                # Doesn't contain self.create_log which was created 4 days ago
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        response = self.get(params={"timestamp_to": today - timezone.timedelta(days=2)})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                # Doesn't contain self.edit_log_3 which was created 1 day ago,
+                # as well as self.create_comment_log, self.edit_comment_log,
+                # and self.create_reply_log which was created without an explicit
+                # timestamp (and thus defaults to the current time)
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+        response = self.get(
+            params={
+                "timestamp_from": today - timezone.timedelta(days=3),
+                "timestamp_to": today - timezone.timedelta(days=2),
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                # Doesn't contain
+                # self.create_log which was created 4 days ago,
+                # self.edit_log_3 which was created 1 day ago,
+                # as well as self.create_comment_log, self.edit_comment_log,
+                # and self.create_reply_log which was created without an explicit
+                # timestamp (and thus defaults to the current time)
+                self.edit_log_1,
+                self.edit_log_2,
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+    def test_filter_by_user(self):
+        response = self.get(params={"user": self.editor.pk})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(response, [self.edit_log_2])
+
+        response = self.get(params={"user": [self.user.pk, self.editor.pk]})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(response, [self.create_log, self.edit_log_2])
+
+    def test_filter_by_label(self):
+        response = self.get(params={"label": "final cut"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(response, [self.edit_log_3, self.edit_custom_log])
+
+    def test_filter_by_object_type(self):
+        response = self.get(
+            params={"object_type": ContentType.objects.get_for_model(Page).pk}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_log,
+                self.edit_log_1,
+                self.edit_log_2,
+                self.edit_log_3,
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+
+        response = self.get(
+            params={"object_type": ContentType.objects.get_for_model(Advert).pk}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_custom_log,
+                self.edit_custom_log,
+            ],
+        )
+
+    def test_is_commenting_action(self):
+        response = self.get(params={"is_commenting_action": "false"})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(
             response,
@@ -439,9 +718,24 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 self.edit_custom_log,
             ],
         )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "false")
+
+        response = self.get(params={"is_commenting_action": "true"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "true")
 
         self.login(user=self.editor)
-        response = self.get(params={"hide_commenting_actions": "on"})
+        response = self.get(params={"is_commenting_action": "false"})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(
             response,
@@ -452,6 +746,21 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
                 self.edit_log_3,
             ],
         )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "false")
+
+        response = self.get(params={"is_commenting_action": "true"})
+        self.assertEqual(response.status_code, 200)
+        self.assert_log_entries(
+            response,
+            [
+                self.create_comment_log,
+                self.edit_comment_log,
+                self.create_reply_log,
+            ],
+        )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "is_commenting_action", "true")
 
     def test_log_entry_with_stale_content_type(self):
         stale_content_type = ContentType.objects.create(
@@ -499,6 +808,46 @@ class TestFilteredLogEntriesView(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_deprecated_title_attribute(self):
+        # Remove this test when the deprecation ends
+        with mock.patch.object(
+            LogEntriesView,
+            "page_title",
+            return_value=None,
+            new_callable=mock.PropertyMock,
+        ), mock.patch.object(
+            LogEntriesView,
+            "title",
+            return_value="Deprecated page title",
+            new_callable=mock.PropertyMock,
+        ):
+            with self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "The `title` attribute in `LogEntriesView` (a `ReportView` subclass) is "
+                "deprecated. Use `page_title` instead.",
+            ):
+                self.assertEqual(LogEntriesView.title, "Deprecated page title")
+                self.assertIsNone(LogEntriesView.page_title)
+                response = self.get()
+                self.assertEqual(response.status_code, 200)
+                self.assertPageTitle(
+                    self.get_soup(response.content),
+                    "Deprecated page title - Wagtail",
+                )
+                self.assertEqual(
+                    response.context["page_title"],
+                    "Deprecated page title",
+                )
+                self.assertEqual(
+                    response.context["title"],
+                    "Deprecated page title",
+                )
+
+
+class TestFilteredLogEntriesResultsView(TestFilteredLogEntriesView):
+    url_name = "wagtailadmin_reports:site_history_results"
+    results_only = True
+
 
 @override_settings(
     USE_L10N=True,
@@ -523,14 +872,13 @@ class TestExcelDateFormatter(TestCase):
             self.assertEqual(formatter.format("m/d/Y g:i A"), "mm/dd/yyyy h:mm AM/PM")
 
 
-class TestAgingPagesView(WagtailTestUtils, TestCase):
+class TestAgingPagesView(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:aging_pages"
+
     def setUp(self):
         self.user = self.login()
         self.root = Page.objects.first()
         self.home = Page.objects.get(slug="home")
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
 
     def publish_home_page(self):
         self.home.save_revision().publish(user=self.user)
@@ -538,7 +886,22 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/aging_pages.html")
+        self.assertTemplateNotUsed(
+            response,
+            "wagtailadmin/reports/base_page_report.html",
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/aging_pages_results.html",
+        )
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Aging pages"}],
+            response.content,
+        )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Aging pages - Wagtail")
 
     def test_displays_only_published_pages(self):
         response = self.get()
@@ -686,12 +1049,11 @@ class TestAgingPagesView(WagtailTestUtils, TestCase):
         self.assertContains(response, expected_deleted_string)
 
 
-class TestAgingPagesViewPermissions(WagtailTestUtils, TestCase):
+class TestAgingPagesViewPermissions(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:aging_pages"
+
     def setUp(self):
         self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
 
     def test_simple(self):
         response = self.get()
@@ -734,16 +1096,14 @@ class TestAgingPagesViewPermissions(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):
+class TestFilteredAgingPagesView(BaseReportViewTestCase):
     fixtures = ["test.json"]
+    url_name = "wagtailadmin_reports:aging_pages"
 
     def setUp(self):
         self.user = self.login()
         self.home_page = Page.objects.get(slug="home")
         self.aboutus_page = Page.objects.get(slug="about-us")
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
 
     def test_filter_by_live(self):
         response = self.get(params={"live": "true"})
@@ -758,13 +1118,24 @@ class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, self.aboutus_page.title)
 
     def test_filter_by_content_type(self):
-        response = self.get(
-            params={"content_type": self.aboutus_page.specific.content_type.pk}
-        )
+        ct_pk = self.aboutus_page.specific.content_type.pk
+        response = self.get(params={"content_type": ct_pk})
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.aboutus_page.title)
         self.assertNotContains(response, self.home_page.title)
+
+        soup = self.get_soup(response.content)
+        self.assertActiveFilter(soup, "content_type", ct_pk)
+
+        # Should render the filter inside the drilldown component
+        ct_select = soup.select_one(
+            f"{self.drilldown_selector} select[name='content_type']"
+        )
+        self.assertIsNotNone(ct_select)
+        selected_option = ct_select.select_one("option[selected]")
+        self.assertIsNotNone(selected_option)
+        self.assertEqual(selected_option.get("value"), str(ct_pk))
 
     def test_filter_by_last_published_at(self):
         self.home_page.last_published_at = timezone.now()
@@ -776,14 +1147,17 @@ class TestFilteredAgingPagesView(WagtailTestUtils, TestCase):
         self.assertNotContains(response, self.home_page.title)
 
 
-class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
+class TestFilteredAgingPagesResultsView(TestFilteredAgingPagesView):
+    url_name = "wagtailadmin_reports:aging_pages_results"
+    results_only = True
+
+
+class PageTypesUsageReportViewTest(BaseReportViewTestCase):
     fixtures = ["test.json"]
+    url_name = "wagtailadmin_reports:page_types_usage"
 
     def setUp(self):
         self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
     @staticmethod
     def display_name(content_type):
@@ -792,7 +1166,18 @@ class PageTypesUsageReportViewTest(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/reports/page_types_usage.html")
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailadmin/reports/page_types_usage_results.html",
+        )
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Page types usage"}],
+            response.content,
+        )
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Page types usage - Wagtail")
 
     def test_displays_only_page_types(self):
         """Asserts that the correct models are included in the queryset."""
@@ -904,14 +1289,13 @@ class PageTypesUsageReportViewQuerysetTests(WagtailTestUtils, TestCase):
 
 
 @override_settings(LANGUAGE_CODE="en", WAGTAIL_I18N_ENABLED=True)
-class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
+class PageTypesReportFiltersTests(BaseReportViewTestCase):
+    url_name = "wagtailadmin_reports:page_types_usage"
+
     def setUp(self):
         self.user = self.login()
         self.default_locale = Locale.get_default()
         self.fr_locale, _ = Locale.objects.get_or_create(language_code="fr")
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
 
     def test_locale_filtering(self):
         # Create pages in default locale
@@ -972,6 +1356,16 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         # The last edited page should be the French version (even though page was later edited in English)
         self.assertEqual(event_page_row.last_edited_page.locale, self.fr_locale)
         self.assertEqual(simple_page_row.last_edited_page.locale, self.fr_locale)
+
+        # Should render the filter inside the drilldown component
+        soup = self.get_soup(response.content)
+        locale_select = soup.select_one(
+            f"{self.drilldown_selector} select[name='page_locale']"
+        )
+        self.assertIsNotNone(locale_select)
+        selected_option = locale_select.select_one("option[selected]")
+        self.assertIsNotNone(selected_option)
+        self.assertEqual(selected_option.get("value"), "fr")
 
     def test_site_filtering_with_single_site(self):
         """Asserts that the site filter is not displayed when there is only one site."""
@@ -1055,14 +1449,14 @@ class PageTypesReportFiltersTests(WagtailTestUtils, TestCase):
         self.assertCountEqual(choices, expected_choices)
 
 
-class TestPageTypesUsageReportViewPermissions(WagtailTestUtils, TestCase):
+class PageTypesReportFiltersResultsTests(PageTypesReportFiltersTests):
+    url_name = "wagtailadmin_reports:page_types_usage_results"
+    results_only = True
+
+
+class TestPageTypesUsageReportViewPermissions(BaseReportViewTestCase):
     fixtures = ["test.json"]
-
-    def setUp(self):
-        self.user = self.login()
-
-    def get(self, params={}):
-        return self.client.get(reverse("wagtailadmin_reports:page_types_usage"), params)
+    url_name = "wagtailadmin_reports:page_types_usage"
 
     def test_simple(self):
         response = self.get()

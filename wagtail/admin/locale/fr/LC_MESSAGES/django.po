@@ -9,7 +9,7 @@
 # Aurélien Debord <contact@aureliendebord.com>, 2017
 # Aurel Pere, 2024
 # Axel Haustant, 2016
-# Axel Haustant, 2016
+# Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018,2023-2024
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
@@ -35,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Aurel Pere, 2024\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,9 @@ msgstr "Collection"
 
 msgid "Tag"
 msgstr "Mot-clé"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Filtrer jusqu'à dix mot-clés les plus populaires."
 
 msgid "Preferred language"
 msgstr "Langue préférée"
@@ -280,6 +283,21 @@ msgstr "Sélectionner une nouvelle page parente pour cette page"
 msgid "Parent page"
 msgstr "Page parente"
 
+msgid "The new page will be a child of this given parent page."
+msgstr "La nouvelle page sera enfant de cette page parente."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr ""
+"Vous n'avez pas la permission de créer une page sous \"%(page_title)s\"."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"VOus ne pouvez pas créer une page de type \"%(page_type)s\" sous "
+"\"%(page_title)s\"."
+
 msgid "Search…"
 msgstr "Rechercher..."
 
@@ -407,6 +425,9 @@ msgstr "Les %(objects)s éléments sur cet écran"
 
 msgid "All items in listing selected"
 msgstr "Tous les éléments dans la liste"
+
+msgid "Can access Wagtail admin"
+msgstr "Peut accéder à l'administration Wagtail"
 
 msgid "For search engines"
 msgstr "Pour les moteurs de recherche"
@@ -629,9 +650,6 @@ msgstr "Ajouter une sous-page à « %(title)s »"
 
 msgid "Explore"
 msgstr "Explorer"
-
-msgid "Collection privacy"
-msgstr "Confidentialité de la collection"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Cette collection a été rendue privée par une collection parente."
@@ -1213,11 +1231,11 @@ msgstr ""
 "%(model_name)s « %(title)s » a été soumis(e) dans le workflow "
 "« %(workflow)s »."
 
-msgid "Page privacy"
-msgstr "Page privée"
-
 msgid "This page has been made private by a parent page."
 msgstr "Cette page a été rendue privée par une page parente."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "La modification de confidentialité pour cette page a été désactivée."
 
 msgid "Save the page before leaving"
 msgstr "Enregistrer la page avant de quitter"
@@ -1804,7 +1822,7 @@ msgstr "Rechercher dans tout le site"
 
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s"
-msgstr "%(start_index)s-%(end_index)s sur %(items_count)sitems"
+msgstr "%(start_index)s-%(end_index)s sur %(items_count)s"
 
 msgid "Sites menu"
 msgstr "Menu des sites"
@@ -1928,9 +1946,6 @@ msgstr "Dernière page modifiée"
 msgid "Last edit"
 msgstr "Dernière modification"
 
-msgid "No page types found."
-msgstr "Aucun type de page trouvé."
-
 msgid "Locking status"
 msgstr "Status de verrouillage"
 
@@ -1952,6 +1967,9 @@ msgstr "Verrouillé"
 msgid "No locked pages found."
 msgstr "Aucune page verrouillée trouvée"
 
+msgid "No page types found."
+msgstr "Aucun type de page trouvé."
+
 msgid "Name"
 msgstr "Nom"
 
@@ -1969,9 +1987,6 @@ msgstr "Modifier cet item"
 
 msgid "No log entries found."
 msgstr "Aucune entrée de journal trouvée."
-
-msgid "By Task"
-msgstr "Par tâche"
 
 msgid "Workflow"
 msgstr "Workflow"
@@ -1991,9 +2006,6 @@ msgstr "Tâche incomplète"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Aucune page ou fragment n'ont encore été soumis pour modération"
 
-msgid "By Workflow"
-msgstr "Par Workflow"
-
 msgid "Completed at"
 msgstr "Terminé à"
 
@@ -2012,6 +2024,69 @@ msgstr "Fil d'Ariane"
 
 msgid "Close dialog"
 msgstr "Fermer"
+
+msgid "You saved a new version in another window"
+msgstr "Vous avez enregistré une nouvelle version dans une autre fenêtre"
+
+msgid "System"
+msgstr "Système"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s a enregistré une nouvelle version"
+
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+msgid "You have unsaved changes in another window"
+msgstr "Vous avez des modifications non enregistrées dans une autre fenêtre"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s a des modifications non enregistrées"
+
+msgid "Currently viewing"
+msgstr "Consulté actuellement par"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Un autre utilisateur est en train de consulter"
+msgstr[1] "%(num_user)s autres utilisateurs sont en train de consulter"
+msgstr[2] "%(num_user)s autres utilisateurs sont en train de consulter"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Continuer écrasera les modifications effectuées dans l'autre fenêtre. "
+"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
+"perdrez toutes vos modifications non enregistrées dans la fenêtre actuelle."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"Continuer écrasera les modifications effectuées par %(user_name)s. "
+"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
+"perdrez toutes vos modifications non enregistrées."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr ""
+"Rafraîchir la page signifie que vous perdrez toutes vos modifications non "
+"enregistrées"
+
+msgid "Refresh page"
+msgstr "Rafraîchir la page"
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "Refresh the page"
+msgstr "Rafraîchir la page"
 
 msgid "Download XLSX"
 msgstr "Télécharger en XLSX"
@@ -2039,6 +2114,18 @@ msgstr "Retour"
 
 msgid "History"
 msgstr "Historique"
+
+msgid "Keyboard shortcuts"
+msgstr "Raccourcis clavier"
+
+msgid "All keyboard shortcuts"
+msgstr "Tous les raccourcis clavier"
+
+msgid "Section"
+msgstr "Section"
+
+msgid "Keyboard shortcut"
+msgstr "Raccourci clavier"
 
 msgid "Current page status:"
 msgstr "Status actuel de la page :"
@@ -2088,6 +2175,18 @@ msgstr "Afficher/masquer le panneau latéral"
 
 msgid "Side panel width"
 msgstr "Largeur du panneau latéral"
+
+msgid "Show issue"
+msgstr "Afficher le problème"
+
+msgid "Content metrics"
+msgstr "Métriques de contenu"
+
+msgid "Words"
+msgstr "Mots"
+
+msgid "Reading time"
+msgstr "Durée de lecture"
 
 msgid "Issues found"
 msgstr "Problèmes trouvés"
@@ -2235,7 +2334,7 @@ msgid ""
 "One or more references to this %(model_name)s prevent it from being deleted."
 msgstr ""
 "Une ou plusieurs références vers ce(tte) %(model_name)s l'empêche d'être "
-"supprimé."
+"supprimé(e)."
 
 msgid "Edit / Review"
 msgstr "Modifier / Vérifier"
@@ -2566,17 +2665,53 @@ msgstr "Envoyé vers %(task_name)s %(started_at)s"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s %(task_name)s %(started_at)s"
 
+msgid "Common actions"
+msgstr "Actions fréquentes"
+
+msgid "Cut"
+msgstr "Couper"
+
+msgid "Paste"
+msgstr "Coller"
+
+msgid "Paste and match style"
+msgstr "Coller et appliquer le style"
+
+msgid "Paste without formatting"
+msgstr "Coller sans le style de formatage"
+
 msgid "Undo"
 msgstr "Annuler"
 
 msgid "Redo"
 msgstr "Rétablir"
 
+msgid "Save changes"
+msgstr "Enregistrer les changements"
+
+msgid "Text content"
+msgstr "Contenu texte"
+
+msgid "Insert or edit a link"
+msgstr "Insérer ou modifier un lien"
+
+msgid "Text formatting"
+msgstr "Formatage de texte"
+
 msgid "Bold"
 msgstr "Gras"
 
 msgid "Italic"
 msgstr "Italique"
+
+msgid "Underline"
+msgstr "Souligner"
+
+msgid "Monospace (code)"
+msgstr "Monospace (code)"
+
+msgid "Strike-through"
+msgstr "Barré"
 
 msgid "Superscript"
 msgstr "Exposant"
@@ -2632,47 +2767,47 @@ msgstr ""
 "Trier les sous-pages de « %(parent)s » par « %(label)s » par ordre "
 "décroissant."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du bouton est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Button text is empty"
+msgstr "Le texte du bouton est vide"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du titre est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Use meaningful text for screen reader users"
+msgstr "Utiliser un texte parlant pour les utilisateurs de lecteur d'écran"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte de l'en-tête du tableau est vide. Utilisez un texte significatif "
-"pour les utilisateurs de lecteurs d'écran."
+msgid "Empty heading found"
+msgstr "Titre vide trouvé"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Le titre du cadre intégré (frame) est vide. Utilisez un texte significatif "
-"pour les utilisateurs de lecteurs d'écran."
+msgid "Table header text is empty"
+msgstr "Le texte d'entête de tableau est vide"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr ""
-"Hiérarchie des titres incorrecte. Veuillez éviter de sauter des niveaux de "
-"titres."
+msgid "Empty frame title found"
+msgstr "Titre d'iframe vide trouvé"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du bouton de saisie est vide. Utilisez un texte significatif pour "
-"les utilisateurs de lecteurs d'écran."
+msgid "Use a meaningful title for screen reader users"
+msgstr "Utiliser un titre parlant pour les utilisateurs de lecteur d'écran"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Le texte du lien est vide. Utilisez un texte significatif pour les "
-"utilisateurs de lecteurs d'écran."
+msgid "Incorrect heading hierarchy"
+msgstr "Hiérarchie de titre incorrecte"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Mauvais usage de paragraphes comme titres. Utilisez plutôt une balise titre."
+msgid "Avoid skipping levels"
+msgstr "Éviter de sauter des niveaux"
+
+msgid "Input button text is empty"
+msgstr "Le texte du bouton d'action est vide"
+
+msgid "Link text is empty"
+msgstr "Le texte du lien est vide"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Utilisation de paragraphes en tant que titre"
+
+msgid "Use proper heading tags"
+msgstr "Utiliser des balises de titre appropriées"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Le texte alternatif de l'image a un motif inapproprié"
+
+msgid "Use meaningful text"
+msgstr "Utiliser un texte parlant"
 
 msgid "Profile"
 msgstr "Compte"
@@ -2837,6 +2972,10 @@ msgid ""
 msgstr ""
 "La version du « %(timestamp)s » de %(model_name)s « %(object)s » a été "
 "planifié(e) pour la publication."
+
+#, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -3054,6 +3193,13 @@ msgstr[2] ""
 "%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
 "dépubliées"
 
+msgid "Choose parent"
+msgstr "Choisir un parent"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Créer un(e) nouveau(elle) %(model_name)s"
+
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
 msgstr ""
@@ -3160,6 +3306,9 @@ msgstr "La page n'a pu être enregistrée car elle est verrouillée"
 msgid "The page could not be saved due to validation errors"
 msgstr "La page ne peut être enregistrée du fait d'erreurs de validation."
 
+msgid "Is commenting action"
+msgstr "Est une action de commentaire"
+
 msgid "Date updated"
 msgstr "Date mise à jour"
 
@@ -3253,9 +3402,6 @@ msgstr "Pages vieillissantes"
 msgid "Last published at"
 msgstr "Dernière publication le"
 
-msgid "Hide commenting actions"
-msgstr "Cacher les actions de commentaires"
-
 msgid "Site history"
 msgstr "Historique du Site"
 
@@ -3292,11 +3438,20 @@ msgstr "Type de page/fragment"
 msgid "Page/Snippet Title"
 msgstr "Titre de page/fragment"
 
+msgid "By task"
+msgstr "Par tâche"
+
 msgid "Workflow tasks"
 msgstr "Tâches de workflow"
 
 msgid "Requested By"
 msgstr "Demandé par"
+
+msgid "By workflow"
+msgstr "Par workflow"
+
+msgid "Show disabled"
+msgstr "Afficher les désactivés"
 
 msgid "Add a workflow"
 msgstr "Ajouter un workflow"
@@ -3479,6 +3634,9 @@ msgstr "Ce qui est nouveau avec Wagtail %(version)s"
 
 msgid "Editor Guide"
 msgstr "Guide du redacteur"
+
+msgid "Shortcuts"
+msgstr "Raccourcis"
 
 msgid "Help"
 msgstr "Aide"

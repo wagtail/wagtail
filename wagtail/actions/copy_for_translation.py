@@ -3,6 +3,7 @@ from django.db import transaction
 
 from wagtail.coreutils import find_available_slug
 from wagtail.models.copying import _copy
+from wagtail.signals import copy_for_translation_done
 
 
 class ParentNotTranslatedError(Exception):
@@ -79,7 +80,7 @@ class CopyPageForTranslationAction:
 
     def walk(self, current_page):
         for child_page in current_page.get_children():
-            self._copy_for_translation(
+            translated_page = self._copy_for_translation(
                 child_page
                 if child_page.live
                 else child_page.get_latest_revision_as_object(),
@@ -88,6 +89,13 @@ class CopyPageForTranslationAction:
                 self.alias,
                 self.exclude_fields,
             )
+
+            copy_for_translation_done.send(
+                sender=self.__class__,
+                source_obj=child_page.specific,
+                target_obj=translated_page,
+            )
+
             self.walk(child_page)
 
     @transaction.atomic
@@ -160,6 +168,12 @@ class CopyPageForTranslationAction:
             self.exclude_fields,
         )
 
+        copy_for_translation_done.send(
+            sender=self.__class__,
+            source_obj=self.page,
+            target_obj=translated_page,
+        )
+
         if self.include_subtree:
             self.walk(self.page)
 
@@ -226,6 +240,12 @@ class CopyForTranslationAction:
 
         translated_object = self._copy_for_translation(
             self.object, self.locale, self.exclude_fields
+        )
+
+        copy_for_translation_done.send(
+            sender=self.__class__,
+            source_obj=self.object,
+            target_obj=translated_object,
         )
 
         return translated_object

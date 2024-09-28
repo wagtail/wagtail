@@ -62,7 +62,7 @@ describe('Calling initEditor via event dispatching', () => {
     jest.resetAllMocks();
   });
 
-  it.only('should support creating a new editor with event dispatching', async () => {
+  it('should support creating a new editor with event dispatching', async () => {
     expect(window.draftail.initEditor).not.toHaveBeenCalled();
 
     document.body.innerHTML = '<main><input id="editor"></main>';
@@ -106,6 +106,59 @@ describe('Calling initEditor via event dispatching', () => {
   afterAll(() => {
     console.error.mockRestore();
     window.draftail.initEditor.mockRestore();
+  });
+});
+
+describe('importing the module multiple times', () => {
+  it('should run the init function once if the script is included multiple times', async () => {
+    // Imported at the top level (similar to the initial page load)
+    const firstDraftail = window.draftail;
+
+    // Subsequent imports (e.g. in AJAX responses)
+    jest.isolateModules(() => {
+      require('./draftail');
+    });
+
+    // Should be the same instance
+    const secondDraftail = window.draftail;
+    expect(secondDraftail).toBe(firstDraftail);
+
+    jest.isolateModules(() => {
+      require('./draftail');
+    });
+
+    const thirdDraftail = window.draftail;
+    expect(thirdDraftail).toBe(firstDraftail);
+
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(window.draftail, 'initEditor').mockImplementation(() => {});
+
+    expect(window.draftail.initEditor).not.toHaveBeenCalled();
+
+    document.body.innerHTML = '<main><input id="editor"></main>';
+
+    document.getElementById('editor').dispatchEvent(
+      new CustomEvent('w-draftail:init', {
+        bubbles: true,
+        cancelable: false,
+        detail: { some: 'detail' },
+      }),
+    );
+
+    expect(console.error).toHaveBeenCalledTimes(0);
+
+    // Should only be called once. If the script isn't written correctly, then
+    // the window.draftail object would be a new instance every time, or
+    // the initEditor function would be called multiple times.
+    expect(window.draftail.initEditor).toHaveBeenCalledTimes(1);
+    expect(window.draftail.initEditor).toHaveBeenLastCalledWith(
+      '#editor',
+      { some: 'detail' },
+      null,
+    );
+
     /* eslint-enable no-console */
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 });

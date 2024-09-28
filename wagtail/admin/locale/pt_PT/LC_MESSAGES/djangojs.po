@@ -4,11 +4,11 @@
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2022
 # Luís Tiago Favas <traducoes@favas.eu>, 2022
 # Tiago Henriques <trinosauro@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Portuguese (Portugal) (https://app.transifex.com/torchbox/"
 "teams/8009/pt_PT/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,6 +146,12 @@ msgstr "Mostrar último conteúdo"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "O editor crashou. O conteúdo foi resposto na última versão gravada."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "O numero máximo de itens é %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "O número mínimo de itens é %(min_num)d"
 
 msgid "This field is required."
 msgstr "Este campo é obrigatório."

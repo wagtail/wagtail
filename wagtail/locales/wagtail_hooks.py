@@ -1,4 +1,3 @@
-from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -29,12 +28,4 @@ def register_locales_menu_item():
         name="locales",
         icon_name="site",
         order=603,
-    )
-
-
-@hooks.register("register_permissions")
-def register_permissions():
-    return Permission.objects.filter(
-        content_type__app_label="wagtailcore",
-        codename__in=["add_locale", "change_locale", "delete_locale"],
     )

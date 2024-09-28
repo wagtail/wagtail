@@ -5,7 +5,7 @@ from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -47,7 +47,6 @@ from wagtail.models import (
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
-from wagtail.snippets.permissions import user_can_edit_snippet_type
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -78,7 +77,6 @@ class ModelIndexView(generic.BaseListingView):
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
-    _show_breadcrumbs = True
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -90,9 +88,10 @@ class ModelIndexView(generic.BaseListingView):
                 "name": capfirst(model._meta.verbose_name_plural),
                 "count": model._default_manager.all().count(),
                 "model": model,
+                "url": url,
             }
             for model in get_snippet_models()
-            if user_can_edit_snippet_type(self.request.user, model)
+            if (url := self.get_list_url(model))
         ]
 
     def dispatch(self, request, *args, **kwargs):
@@ -100,11 +99,12 @@ class ModelIndexView(generic.BaseListingView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [{"url": "", "label": _("Snippets")}]
-
-    def get_list_url(self, type):
-        return reverse(type["model"].snippet_viewset.get_url_name("list"))
+    def get_list_url(self, model):
+        if model.snippet_viewset.permission_policy.user_has_any_permission(
+            self.request.user,
+            {"add", "change", "delete", "view"},
+        ):
+            return reverse(model.snippet_viewset.get_url_name("list"))
 
     def get_queryset(self):
         return None
@@ -115,7 +115,7 @@ class ModelIndexView(generic.BaseListingView):
             TitleColumn(
                 "name",
                 label=_("Name"),
-                get_url=self.get_list_url,
+                get_url=lambda type: type["url"],
                 sort_key="name",
             ),
             Column(
@@ -206,16 +206,17 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
                 )
                 hook(more_buttons, instance, self.request.user, {})
 
-        list_buttons.append(
-            ButtonWithDropdown(
-                buttons=more_buttons,
-                icon_name="dots-horizontal",
-                attrs={
-                    "aria-label": _("More options for '%(title)s'")
-                    % {"title": str(instance)},
-                },
+        if more_buttons:
+            list_buttons.append(
+                ButtonWithDropdown(
+                    buttons=more_buttons,
+                    icon_name="dots-horizontal",
+                    attrs={
+                        "aria-label": _("More options for '%(title)s'")
+                        % {"title": str(instance)},
+                    },
+                )
             )
-        )
 
         return list_buttons
 
@@ -262,16 +263,8 @@ class CreateView(generic.CreateEditViewOptionalFeaturesMixin, generic.CreateView
         return context
 
 
-class CopyView(CreateView):
-    def get_object(self):
-        return get_object_or_404(self.model, pk=self.kwargs["pk"])
-
-    def _get_initial_form_instance(self):
-        instance = self.get_object()
-        # Set locale of the new instance
-        if self.locale:
-            instance.locale = self.locale
-        return instance
+class CopyView(generic.CopyViewMixin, CreateView):
+    pass
 
 
 class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
@@ -768,11 +761,9 @@ class SnippetViewSet(ModelViewSet):
                 "workflow_history/index",
                 fallback=self.workflow_history_view_class.template_name,
             ),
-            workflow_history_url_name=self.get_url_name("workflow_history"),
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
             ),
-            _show_breadcrumbs=False,
         )
 
     @property
@@ -783,10 +774,7 @@ class SnippetViewSet(ModelViewSet):
                 "workflow_history/detail",
                 fallback=self.workflow_history_detail_view_class.template_name,
             ),
-            object_icon=self.icon,
-            header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
-            _show_breadcrumbs=False,
         )
 
     @property
@@ -843,7 +831,7 @@ class SnippetViewSet(ModelViewSet):
 
         **Deprecated** - the preferred way to customise this is to define a ``menu_label`` property.
         """
-        return self.model_opts.verbose_name_plural.title()
+        return capfirst(self.model_opts.verbose_name_plural)
 
     @cached_property
     def menu_name(self):

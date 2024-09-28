@@ -5,11 +5,14 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
-# make sure we can import wagtail.admin.auth here without triggering a circular import
-# (which is easily done because it's dealing with django.contrib.auth views which depend
-# on the user model)
+# Custom user models are a common source of circular import errors, since the user model is often
+# referenced in Wagtail core code that we may want to import here. To prevent this, Wagtail should
+# avoid importing the user model at load time.
+# wagtail.admin.auth and wagtail.admin.views.generic are imported here as these have been
+# previously identified as sources of circular imports.
 from wagtail.admin.auth import permission_denied  # noqa: F401
 from wagtail.admin.panels import FieldPanel
+from wagtail.admin.views.generic import chooser as chooser_views  # noqa: F401
 
 from .fields import ConvertedValueField
 

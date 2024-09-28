@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -117,9 +119,24 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(
             response, "wagtailadmin/page_privacy/ancestor_privacy.html"
         )
+        self.assertContains(
+            response, "This page has been made private by a parent page."
+        )
         self.assertEqual(
             response.context["page_with_restriction"].specific, self.private_page
         )
+        # Should render without any heading, as the dialog already has a heading
+        soup = self.get_soup(json.loads(response.content)["html"])
+        self.assertIsNone(soup.select_one("header"))
+        self.assertIsNone(soup.select_one("h1"))
+
+        # Should link to the edit page for the collection with the restriction
+        link = soup.select_one("a")
+        parent_edit_url = reverse(
+            "wagtailadmin_pages:edit",
+            args=(self.private_page.pk,),
+        )
+        self.assertEqual(link.get("href"), parent_edit_url)
 
     def test_set_password_restriction(self):
         """
@@ -526,4 +543,69 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
         self.assertContains(response, '<div class="" data-privacy-sidebar-private>')
         self.assertContains(
             response, '<div class="w-hidden" data-privacy-sidebar-public>'
+        )
+
+    def test_private_page_options_only_password_groups(self):
+        # change the private_page_options to password and login
+        original_private_page_options = self.public_page.private_page_options
+        self.public_page.specific.__class__.private_page_options = [
+            "password",
+            "groups",
+        ]
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
+        )
+
+        restriction_types = [
+            choice[0]
+            for choice in response.context["form"].fields["restriction_type"].choices
+        ]
+
+        # Check response
+        self.assertListEqual(restriction_types, ["none", "password", "groups"])
+
+        # Reset the private_page_options to previous value
+        self.public_page.specific.__class__.private_page_options = (
+            original_private_page_options
+        )
+
+    def test_private_page_options_only_password_login(self):
+        # change the private_page_options to password and login
+        original_private_page_options = self.public_page.private_page_options
+        self.public_page.specific.__class__.private_page_options = ["password", "login"]
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
+        )
+
+        restriction_types = [
+            choice[0]
+            for choice in response.context["form"].fields["restriction_type"].choices
+        ]
+
+        # Check response
+        self.assertListEqual(restriction_types, ["none", "password", "login"])
+
+        # Reset the private_page_options to previous value
+        self.public_page.specific.__class__.private_page_options = (
+            original_private_page_options
+        )
+
+    def test_private_page_no_options(self):
+        # change the private_page_options to empty list
+        original_private_page_options = self.public_page.private_page_options
+        self.public_page.specific.__class__.private_page_options = []
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:set_privacy", args=(self.public_page.id,))
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/page_privacy/no_privacy.html")
+
+        # Reset the private_page_options to previous value
+        self.public_page.specific.__class__.private_page_options = (
+            original_private_page_options
         )

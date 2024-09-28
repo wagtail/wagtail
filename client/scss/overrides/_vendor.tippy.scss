@@ -31,6 +31,18 @@
   }
 }
 
+.tippy-box[data-theme='popup'] {
+  @apply w-rounded w-bg-surface-page w-text-inherit w-shadow-md;
+
+  &[data-placement^='bottom'] > .tippy-arrow::before {
+    @apply w-border-b-surface-page;
+  }
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
+
 .tippy-box[data-theme='drilldown'] {
   @apply w-rounded w-bg-surface-page w-text-inherit w-shadow-md;
   width: 300px;

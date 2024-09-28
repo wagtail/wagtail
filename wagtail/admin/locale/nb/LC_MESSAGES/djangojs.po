@@ -2,12 +2,12 @@
 # Translators:
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2022
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2022
-# Loic Teixeira, 2022
 # Jonathan D, 2023
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jonathan D, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/torchbox/"
 "teams/8009/nb/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,6 +102,12 @@ msgstr "Vis siste innhold"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editoren krasjet. Innholdet er tilbakestilt til sist lagrede versjon."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "De må være maks %(max_num)d elementer"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "De må være minst %(min_num)d elementer"
 
 msgid "This field is required."
 msgstr "Dette feltet er påkrevet."

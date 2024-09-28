@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks, management
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
@@ -24,9 +24,12 @@ from taggit.models import Tag
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.menu import admin_menu
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
 from wagtail.admin.widgets.button import ButtonWithDropdown
 from wagtail.blocks.field_block import FieldBlockAdapter
+from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
@@ -35,7 +38,6 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.views.snippets import CopyView
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -96,6 +98,26 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 302)
 
+    def test_get_with_only_view_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="tests", codename="view_advert"
+            ),
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
+        soup = self.get_soup(response.content)
+        link = soup.select_one("tr td a")
+        self.assertEqual(link["href"], reverse("wagtailsnippets_tests_advert:list"))
+        self.assertEqual(link.text.strip(), "Adverts")
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -110,6 +132,29 @@ class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_displays_snippet(self):
         self.assertContains(self.get(), "Adverts")
+
+    def test_snippets_menu_item_shown_with_only_view_permission(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="tests", codename="view_advert"
+            ),
+        )
+        self.user.save()
+
+        request = get_dummy_request()
+        request.user = self.user
+        menu_items = admin_menu.menu_items_for_request(request)
+        snippets = [item for item in menu_items if item.name == "snippets"]
+        self.assertEqual(len(snippets), 1)
+        item = snippets[0]
+        self.assertEqual(item.name, "snippets")
+        self.assertEqual(item.label, "Snippets")
+        self.assertEqual(item.icon_name, "snippet")
+        self.assertEqual(item.url, reverse("wagtailsnippets:index"))
 
 
 class TestSnippetListView(WagtailTestUtils, TestCase):
@@ -171,19 +216,17 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["page_obj"][0].text, "advert 10")
 
     def test_simple_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"p": 1})
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
-        # page numbers out of range should return 404
-        response = self.get({"p": 9999})
-        self.assertEqual(response.status_code, 404)
+        pages = ["0", "1", "-1", "9999", "Not a page"]
+        for page in pages:
+            response = self.get({"p": page})
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
 
     def test_not_searchable(self):
-        self.assertFalse(self.get().context["is_searchable"])
+        self.assertFalse(self.get().context.get("search_form"))
 
     def test_register_snippet_listing_buttons_hook(self):
         advert = Advert.objects.create(text="My Lovely advert")
@@ -319,6 +362,23 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+    def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
+        Advert.objects.create(text="My Lovely advert")
+
+        def remove_all_buttons(buttons, snippet, user):
+            buttons[:] = []
+            self.assertEqual(len(buttons), 0)
+
+        with hooks.register_temporarily(
+            "construct_snippet_listing_buttons",
+            remove_all_buttons,
+        ):
+            response = self.get()
+
+        soup = self.get_soup(response.content)
+        actions = soup.select_one("tbody tr td ul.actions")
+        self.assertIsNone(actions)
 
     def test_use_latest_draft_as_title(self):
         snippet = DraftStateModel.objects.create(text="Draft-enabled Foo, Published")
@@ -655,7 +715,7 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
         self.assertNotContains(response, "This field is required.")
 
     def test_is_searchable(self):
-        self.assertTrue(self.get().context["is_searchable"])
+        self.assertIsInstance(self.get().context["search_form"], SearchForm)
 
     def test_search_hello(self):
         response = self.get({"q": "Hello"})
@@ -974,20 +1034,29 @@ class TestSnippetCopyView(WagtailTestUtils, TestCase):
             StandardSnippet.snippet_viewset.get_url_name("copy"),
             args=(self.snippet.pk,),
         )
-        self.login()
+        self.user = self.login()
 
-    def test_simple(self):
+    def test_without_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        admin_permission = Permission.objects.get(
+            content_type__app_label="wagtailadmin", codename="access_admin"
+        )
+        self.user.user_permissions.add(admin_permission)
+
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_form_is_prefilled(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
 
-    def test_form_prefilled(self):
-        request = RequestFactory().get(self.url)
-        view = CopyView()
-        view.model = StandardSnippet
-        view.setup(request, pk=self.snippet.pk)
-
-        self.assertEqual(view._get_initial_form_instance(), self.snippet)
+        # Ensure form is prefilled
+        soup = self.get_soup(response.content)
+        text_input = soup.select_one('input[name="text"]')
+        self.assertEqual(text_input.attrs.get("value"), "Test snippet")
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -1116,12 +1185,14 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
+        soup = self.get_soup(html)
+        dialog = soup.select_one(
+            """
+            template[data-controller="w-teleport"][data-w-teleport-target-value="[data-edit-form]"]
+            #schedule-publishing-dialog
+            """
         )
+        self.assertIsNotNone(dialog)
         # Should render the main form with data-edit-form attribute
         self.assertTagInHTML(
             f'<form action="{add_url}" method="POST" data-edit-form>',
@@ -1516,12 +1587,14 @@ class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
+        soup = self.get_soup(html)
+        dialog = soup.select_one(
+            """
+            template[data-controller="w-teleport"][data-w-teleport-target-value="[data-edit-form]"]
+            #schedule-publishing-dialog
+            """
         )
+        self.assertIsNotNone(dialog)
         # Should render the main form with data-edit-form attribute
         self.assertTagInHTML(
             f'<form action="{self.get_edit_url()}" method="POST" data-edit-form>',
@@ -4429,10 +4502,12 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         # Should show the preview panel
         preview_url = self.get_url("preview_on_edit")
         self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, f'data-action="{preview_url}"')
+        soup = self.get_soup(response.content)
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should have the preview side panel toggle button
-        soup = self.get_soup(response.content)
         toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
         self.assertIsNotNone(toggle_button)
         self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
@@ -5274,6 +5349,11 @@ class TestSnippetChooserBlock(TestCase):
 
         # None should not yield any references
         self.assertListEqual(list(block.extract_references(None)), [])
+
+    def test_exception_on_non_snippet_model(self):
+        with self.assertRaises(ImproperlyConfigured):
+            block = SnippetChooserBlock(Locale)
+            block.widget
 
 
 class TestAdminSnippetChooserWidget(WagtailTestUtils, TestCase):

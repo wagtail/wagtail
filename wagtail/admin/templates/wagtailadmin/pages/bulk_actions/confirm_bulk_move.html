@@ -1,7 +1,10 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Move 1 page{% plural %}Move {{ counter }} pages{% endblocktrans %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Move 1 page{% plural %}Move {{ counter }} pages{% endblocktrans %}
+    {% endwith %}
 {% endblock %}
 
 {% block header %}
@@ -17,11 +20,13 @@
                     <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
                     {% if not page.item.is_leaf %}
                         <p>
-                            {% blocktrans trimmed count counter=page.child_pages %}
-                                This page has one child page
-                            {% plural %}
-                                This page has {{ counter }} child pages
-                            {% endblocktrans %}
+                            {% with counter_val=page.child_pages %}
+                                {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}
+                                    This page has one child page
+                                {% plural %}
+                                    This page has {{ counter }} child pages
+                                {% endblocktrans %}
+                            {% endwith %}
                         </p>
                     {% endif %}
                 </li>

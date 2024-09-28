@@ -72,9 +72,14 @@ class ImageCreationFormMixin(CreationFormMixin):
 class BaseImageChooseView(BaseChooseView):
     template_name = "wagtailimages/chooser/chooser.html"
     results_template_name = "wagtailimages/chooser/results.html"
-    per_page = 12
     ordering = "-created_at"
     construct_queryset_hook_name = "construct_image_chooser_queryset"
+
+    @property
+    def per_page(self):
+        # Make per_page into a property so that we can read back WAGTAILIMAGES_CHOOSER_PAGE_SIZE
+        # at runtime.
+        return getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 20)
 
     def get_object_list(self):
         return (
@@ -309,7 +314,6 @@ class ImageChooserViewSet(ChooserViewSet):
     preserve_url_parameters = ChooserViewSet.preserve_url_parameters + ["select_format"]
 
     icon = "image"
-    per_page = getattr(settings, "WAGTAILIMAGES_CHOOSER_PAGE_SIZE", 10)
     choose_one_text = _("Choose an image")
     create_action_label = _("Upload")
     create_action_clicked_label = _("Uploading…")

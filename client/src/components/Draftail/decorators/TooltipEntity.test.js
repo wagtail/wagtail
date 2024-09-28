@@ -4,6 +4,10 @@ import { shallow } from 'enzyme';
 import TooltipEntity from './TooltipEntity';
 
 describe('TooltipEntity', () => {
+  beforeEach(() => {
+    document.body.innerHTML = '<main>MAIN</main>';
+  });
+
   it('works', () => {
     expect(
       shallow(

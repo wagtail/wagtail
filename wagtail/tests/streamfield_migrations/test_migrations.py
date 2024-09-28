@@ -1,7 +1,8 @@
 import datetime
 import json
 
-from django.db.models import F, JSONField
+from django.db import connection
+from django.db.models import F, JSONField, TextField
 from django.db.models.functions import Cast
 from django.test import TestCase
 from django.utils import timezone
@@ -24,8 +25,8 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
     ]
     app_name = None
 
-    def setUp(self):
-        instances = [
+    def _get_test_instances(self):
+        return [
             self.factory(
                 content__0__char1="Test char 1",
                 content__1__char1="Test char 2",
@@ -43,6 +44,9 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
                 content__2__char2="Test char 3",
             ),
         ]
+
+    def setUp(self):
+        instances = self._get_test_instances()
 
         self.original_raw_data = {}
         self.original_revisions = {}
@@ -102,9 +106,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
 
         self.apply_migration()
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -128,9 +130,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
         revisions_from = timezone.now() + datetime.timedelta(days=2)
         self.apply_migration(revisions_from=revisions_from)
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -159,9 +159,7 @@ class BaseMigrationTest(TestCase, MigrationTestMixin):
         revisions_from = timezone.now() - datetime.timedelta(days=2)
         self.apply_migration(revisions_from=revisions_from)
 
-        instances = self.model.objects.all().annotate(
-            raw_content=Cast(F("content"), JSONField())
-        )
+        instances = self.model.objects.all()
 
         for instance in instances:
             old_revisions = self.original_revisions[instance.id]
@@ -209,3 +207,46 @@ class TestPage(BaseMigrationTest):
 
     def test_migrate_revisions_from_date(self):
         self._test_migrate_revisions_from_date()
+
+
+class TestNullStreamField(BaseMigrationTest):
+    """
+    Migrations are processed if the underlying JSON is null.
+
+    This might occur if we're operating on a StreamField that was added to a model that
+    had existing records.
+    """
+
+    model = models.SamplePage
+    factory = factories.SamplePageFactory
+    has_revisions = True
+    app_name = "streamfield_migration_tests"
+
+    def _get_test_instances(self):
+        return self.factory.create_batch(1, content=None)
+
+    def setUp(self):
+        super().setUp()
+
+        # Bypass StreamField/StreamBlock processing that cast a None stream field value
+        # to the empty StreamValue, and set the underlying JSON to null.
+        with connection.cursor() as cursor:
+            cursor.execute(f"UPDATE {self.model._meta.db_table} SET content = 'null'")
+
+    def assert_null_content(self):
+        """
+        The raw JSON of all instances for this test is null.
+        """
+
+        instances = self.model.objects.all().annotate(
+            raw_content=Cast(F("content"), TextField())
+        )
+
+        for instance in instances:
+            with self.subTest(instance=instance):
+                self.assertEqual(instance.raw_content, "null")
+
+    def test_migrate_stream_data(self):
+        self.assert_null_content()
+        self.apply_migration()
+        self.assert_null_content()

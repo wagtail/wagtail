@@ -5,7 +5,7 @@ from django.urls import Resolver404
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.models import Page
+from wagtail.models import Page, Site
 
 
 class Redirect(models.Model):
@@ -80,6 +80,21 @@ class Redirect(models.Model):
             return self.redirect_link
         return None
 
+    def old_links(self, site_root_paths=None):
+        """
+        Determine the old URLs which this redirect might handle.
+
+        :param site_root_paths: Pre-calculated root paths (obtained from `Site.get_site_root_paths`)
+        :return: List of old links
+        """
+        if self.site_id is not None:
+            return {self.site.root_url + self.old_path}
+
+        if site_root_paths is None:
+            site_root_paths = Site.get_site_root_paths()
+
+        return {root_paths.root_url + self.old_path for root_paths in site_root_paths}
+
     def get_is_permanent_display(self):
         if self.is_permanent:
             return _("permanent")
@@ -146,7 +161,7 @@ class Redirect(models.Model):
         url_parsed = urlparse(url)
 
         # Path must start with / but not end with /
-        path = url_parsed[2]
+        path = url_parsed.path
         if not path.startswith("/"):
             path = "/" + path
 
@@ -154,12 +169,12 @@ class Redirect(models.Model):
             path = path[:-1]
 
         # Parameters must be sorted alphabetically
-        parameters = url_parsed[3]
+        parameters = url_parsed.params
         parameters_components = parameters.split(";")
         parameters = ";".join(sorted(parameters_components))
 
         # Query string components must be sorted alphabetically
-        query_string = url_parsed[4]
+        query_string = url_parsed.query
         query_string_components = query_string.split("&")
         query_string = "&".join(sorted(query_string_components))
 

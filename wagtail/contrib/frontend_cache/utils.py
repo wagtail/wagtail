@@ -1,7 +1,7 @@
 import logging
 import re
 from collections import defaultdict
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlsplit, urlunsplit
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -64,6 +64,15 @@ def purge_url_from_cache(url, backend_settings=None, backends=None):
 
 
 def purge_urls_from_cache(urls, backend_settings=None, backends=None):
+    if not urls:
+        return
+
+    backends = get_backends(backend_settings, backends)
+
+    # If no backends are configured, there's nothing to do
+    if not backends:
+        return
+
     # Convert each url to urls one for each managed language (WAGTAILFRONTENDCACHE_LANGUAGES setting).
     # The managed languages are common to all the defined backends.
     # This depends on settings.USE_I18N
@@ -80,13 +89,12 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
         # Purge the given url for each managed language
         for isocode in languages:
             for url in urls:
-                up = urlparse(url)
-                new_url = urlunparse(
+                up = urlsplit(url)
+                new_url = urlunsplit(
                     (
                         up.scheme,
                         up.netloc,
                         re.sub(langs_regex, "/%s/" % isocode, up.path),
-                        up.params,
                         up.query,
                         up.fragment,
                     )
@@ -104,9 +112,7 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
     urls_by_hostname = defaultdict(list)
 
     for url in urls:
-        urls_by_hostname[urlparse(url).netloc].append(url)
-
-    backends = get_backends(backend_settings, backends)
+        urls_by_hostname[urlsplit(url).netloc].append(url)
 
     for hostname, urls in urls_by_hostname.items():
         backends_for_hostname = {
@@ -151,14 +157,14 @@ class PurgeBatch:
     """Represents a list of URLs to be purged in a single request"""
 
     def __init__(self, urls=None):
-        self.urls = []
+        self.urls = set()
 
         if urls is not None:
             self.add_urls(urls)
 
     def add_url(self, url):
         """Adds a single URL"""
-        self.urls.append(url)
+        self.urls.add(url)
 
     def add_urls(self, urls):
         """
@@ -167,7 +173,7 @@ class PurgeBatch:
         This is equivalent to running ``.add_url(url)`` on each URL
         individually
         """
-        self.urls.extend(urls)
+        self.urls.update(urls)
 
     def add_page(self, page):
         """

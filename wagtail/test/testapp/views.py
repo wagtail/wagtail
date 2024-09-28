@@ -68,6 +68,11 @@ class TestIndexView(IndexView):
     context_object_name = "test_object"
 
 
+class TestIndexViewWithoutModel(IndexView):
+    def get_base_queryset(self):
+        return ModelWithStringTypePrimaryKey.objects.all()
+
+
 class CustomModelEditForm(forms.ModelForm):
     class Meta:
         model = ModelWithStringTypePrimaryKey
@@ -278,6 +283,7 @@ class ToyViewSetGroup(ModelViewSetGroup):
             index_view_class=FeatureCompleteToyIndexView,
             list_display=["name", "strid", "release_date"],
             ordering=["strid"],
+            copy_view_enabled=False,
         ),
     )
 

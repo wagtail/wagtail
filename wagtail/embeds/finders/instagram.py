@@ -1,5 +1,4 @@
 import json
-import re
 from urllib import request as urllib_request
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
@@ -7,25 +6,28 @@ from urllib.request import Request
 
 from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 
-from .base import EmbedFinder
+from .oembed import OEmbedFinder
 
 
 class AccessDeniedInstagramOEmbedException(EmbedException):
     pass
 
 
-class InstagramOEmbedFinder(EmbedFinder):
+INSTAGRAM_PROVIDER = {
+    "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed",
+    "urls": [
+        r"^https?://(?:www\.)?instagram\.com/p/.+$",
+        r"^https?://(?:www\.)?instagram\.com/tv/.+$",
+        r"^https?://(?:www\.)?instagram\.com/reel/.+$",
+    ],
+}
+
+
+class InstagramOEmbedFinder(OEmbedFinder):
     """
     An embed finder that supports the authenticated Instagram oEmbed Endpoint.
     https://developers.facebook.com/docs/instagram/oembed
     """
-
-    INSTAGRAM_ENDPOINT = "https://graph.facebook.com/v11.0/instagram_oembed"
-    INSTAGRAM_URL_PATTERNS = [
-        r"^https?://(?:www\.)?instagram\.com/p/.+$",
-        r"^https?://(?:www\.)?instagram\.com/tv/.+$",
-        r"^https?://(?:www\.)?instagram\.com/reel/.+$",
-    ]
 
     def __init__(self, omitscript=False, app_id=None, app_secret=None):
         # {settings.INSTAGRAM_APP_ID}|{settings.INSTAGRAM_APP_SECRET}
@@ -33,13 +35,14 @@ class InstagramOEmbedFinder(EmbedFinder):
         self.app_secret = app_secret
         self.omitscript = omitscript
 
-    def accept(self, url):
-        for pattern in self.INSTAGRAM_URL_PATTERNS:
-            if re.match(pattern, url):
-                return True
-        return False
+        super().__init__(providers=[INSTAGRAM_PROVIDER])
 
     def find_embed(self, url, max_width=None, max_height=None):
+        # Find provider
+        endpoint = self._get_endpoint(url)
+        if endpoint is None:
+            raise EmbedNotFoundException
+
         params = {"url": url, "format": "json"}
         if max_width:
             params["maxwidth"] = max_width
@@ -49,7 +52,7 @@ class InstagramOEmbedFinder(EmbedFinder):
             params["omitscript"] = "true"
 
         # Configure request
-        request = Request(self.INSTAGRAM_ENDPOINT + "?" + urlencode(params))
+        request = Request(endpoint + "?" + urlencode(params))
         request.add_header("Authorization", f"Bearer {self.app_id}|{self.app_secret}")
 
         # Perform request

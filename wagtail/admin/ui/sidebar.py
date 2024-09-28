@@ -1,4 +1,5 @@
-from typing import Any, List, Mapping
+from collections.abc import Mapping
+from typing import Any
 from warnings import warn
 
 from django import forms
@@ -152,7 +153,7 @@ class SubMenuItem(MenuItem):
         self,
         name: str,
         label: str,
-        menu_items: List[MenuItem],
+        menu_items: list[MenuItem],
         icon_name: str = "",
         classname: str = "",
         classnames: str = "",
@@ -262,7 +263,7 @@ class SearchModule:
 @adapter("wagtail.sidebar.MainMenuModule", base=BaseSidebarAdapter)
 class MainMenuModule:
     def __init__(
-        self, menu_items: List[MenuItem], account_menu_items: List[MenuItem], user
+        self, menu_items: list[MenuItem], account_menu_items: list[MenuItem], user
     ):
         self.menu_items = menu_items
         self.account_menu_items = account_menu_items

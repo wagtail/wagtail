@@ -246,7 +246,7 @@ class CalendarViewSet(ViewSet):
     menu_label = "Calendar"
     icon = "date"
     # The `name` will be used for both the URL prefix and the URL namespace.
-    # They can be customised individually via `url_prefix` and `url_namespace`.
+    # They can be customized individually via `url_prefix` and `url_namespace`.
     name = "calendar"
 
     def get_urlpatterns(self):
@@ -308,3 +308,99 @@ def register_viewset():
 This will result in a top-level menu item "Agenda" with the two viewsets' menu items as sub-items, e.g. "Calendar" and "Events".
 
 For further customizations, refer to the {class}`~wagtail.admin.viewsets.base.ViewSetGroup` documentation.
+
+## Adding links in admin views
+
+### Snippets
+
+We will use `BreadTypeSnippet` from the [Wagtail Bakery demo](https://github.com/wagtail/bakerydemo/) as an example.
+
+The snippet URL names follow the following pattern: `wagtailsnippets_{app_label}_{model_name}:{list/edit/inspect/copy/delete}` by default.
+
+In Python, you can use {meth}`~wagtail.admin.viewsets.base.ViewSet.get_url_name` to get the name of the snippet view URL. (e.g. `BreadTypeSnippet.get_url_name("list")`)
+
+So the `BreadTypeSnippet` URLs would look as follows, when used in templates:
+
+```html+django
+{% url 'wagtailsnippets_breads_breadtype:list' %}
+{% url 'wagtailsnippets_breads_breadtype:edit' object.id %}
+{% url 'wagtailsnippets_breads_breadtype:inspect' object.id %}
+{% url 'wagtailsnippets_breads_breadtype:copy' object.id %}
+{% url 'wagtailsnippets_breads_breadtype:delete' object.id %}
+```
+
+### Pages
+
+New page
+
+```html+django
+{% url 'wagtailadmin_pages:add' content_type_app_name content_type_model_name parent_id %}
+```
+
+Page usage
+
+```html+django
+{% url 'wagtailadmin_pages:usage' page_id %}
+```
+
+Edit page
+
+```html+django
+{% url 'wagtailadmin_pages:edit' page_id %}
+```
+
+Delete page
+
+```html+django
+{% url 'wagtailadmin_pages:delete' page_id %}
+```
+
+Copy page
+
+```html+django
+{% url 'wagtailadmin_pages:copy' page_id }
+```
+
+### Images
+
+Images list
+
+```html+django
+{% url 'wagtailimages:index' %}
+```
+
+Edit image
+
+```html+django
+{% url 'wagtailimages:edit' image_id %}
+```
+
+Delete image
+
+```html+django
+{% url 'wagtailimages:delete' image_id %}
+```
+
+New image
+
+```html+django
+{% url 'wagtailimages:add' %}
+```
+
+Image usage
+
+```html+django
+{% url 'wagtailimages:image_usage' image_id %}
+```
+
+### AdminURLFinder
+
+To find the url for any model in the admin the `AdminURLFinder` class can be used.
+
+```python
+from wagtail.admin.admin_url_finder import AdminURLFinder
+
+finder = AdminURLFinder()
+
+finder.get_edit_url(model_instance)
+```

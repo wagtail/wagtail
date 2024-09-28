@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2022,2024
 # saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2016,2018-2020,2022-2023\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
+"2015-2016,2022,2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -150,6 +151,9 @@ msgid ""
 msgstr ""
 "Engin meðmæli hafa verið búin til. Hví ekki að <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">bæta við einum</a>?"
+
+msgid "No promoted results have been created."
+msgstr "Engin leitarorð sem mælt er með hafa verið búin til"
 
 msgid "Popular search terms"
 msgstr "Vinsælir leitarfrasar"

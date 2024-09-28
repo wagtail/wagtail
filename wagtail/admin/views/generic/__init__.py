@@ -4,6 +4,7 @@ from .base import (  # noqa: F401
     BaseOperationView,
     WagtailAdminTemplateMixin,
 )
+from .history import HistoryView  # noqa: F401
 from .mixins import (  # noqa: F401
     BeforeAfterHookMixin,
     CreateEditViewOptionalFeaturesMixin,
@@ -15,6 +16,7 @@ from .mixins import (  # noqa: F401
 )
 from .models import (  # noqa: F401
     CopyView,
+    CopyViewMixin,
     CreateView,
     DeleteView,
     EditView,

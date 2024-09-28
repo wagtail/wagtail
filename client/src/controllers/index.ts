@@ -16,8 +16,10 @@ import { InitController } from './InitController';
 import { KeyboardController } from './KeyboardController';
 import { LinkController } from './LinkController';
 import { OrderableController } from './OrderableController';
+import { PreviewController } from './PreviewController';
 import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
+import { SessionController } from './SessionController';
 import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
@@ -50,9 +52,11 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: KeyboardController, identifier: 'w-kbd' },
   { controllerConstructor: LinkController, identifier: 'w-link' },
   { controllerConstructor: OrderableController, identifier: 'w-orderable' },
+  { controllerConstructor: PreviewController, identifier: 'w-preview' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
   { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },
   { controllerConstructor: RevealController, identifier: 'w-reveal' },
+  { controllerConstructor: SessionController, identifier: 'w-session' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },

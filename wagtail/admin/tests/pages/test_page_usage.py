@@ -103,7 +103,9 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertContains(response, "Contact us")
         self.assertContains(
-            response, reverse("wagtailadmin_pages:edit", args=(form_page.id,))
+            response,
+            reverse("wagtailadmin_pages:edit", args=(form_page.id,))
+            + "#:w:contentpath=thank_you_redirect_page",
         )
         self.assertContains(response, "Thank you redirect page")
         self.assertContains(response, "<td>Form page with redirect</td>", html=True)

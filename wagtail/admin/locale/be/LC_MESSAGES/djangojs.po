@@ -1,12 +1,12 @@
 #
 # Translators:
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
-# Loic Teixeira, 2022
 # Andrei Satsevich, 2023
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Belarusian (https://app.transifex.com/torchbox/teams/8009/"
 "be/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -99,6 +99,12 @@ msgstr "Паказаць апошні змест"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Рэдактар ​​зламаўся. Змест быў скінут да апошняй захаванай версіі."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максімальную колькасць элементаў %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Мінімальная колькасць элементаў %(min_num)d"
 
 msgid "This field is required."
 msgstr "Патрабуецца запоўніць гэтае поле."

@@ -11,7 +11,7 @@ import {
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 import { hasOwn } from '../../../utils/hasOwn';
-import { range } from '../../../utils/range';
+import { gettext } from '../../../utils/gettext';
 import ComboBox, {
   comboBoxLabel,
   comboBoxNoResults,
@@ -98,8 +98,6 @@ class StreamBlockMenu extends BaseInsertionControl {
     }
 
     this.combobox = document.createElement('div');
-    this.canAddBlock = true;
-    this.disabledBlockTypes = new Set();
 
     this.tooltip = tippy(this.addButton.get(0), {
       content: this.combobox,
@@ -118,15 +116,11 @@ class StreamBlockMenu extends BaseInsertionControl {
 
   get blockItems() {
     return this.groupedChildBlockDefs.map(([group, blockDefs]) => {
-      const groupItems = blockDefs
-        // Allow adding all blockDefs even when disabled, so validation only impedes when saving.
-        // Keeping the previous filtering here for future reference.
-        // .filter((blockDef) => !this.disabledBlockTypes.has(blockDef.name))
-        .map((blockDef) => ({
-          type: blockDef.name,
-          label: blockDef.meta.label,
-          icon: blockDef.meta.icon,
-        }));
+      const groupItems = blockDefs.map((blockDef) => ({
+        type: blockDef.name,
+        label: blockDef.meta.label,
+        icon: blockDef.meta.icon,
+      }));
 
       return {
         label: group || '',
@@ -160,21 +154,7 @@ class StreamBlockMenu extends BaseInsertionControl {
     this.close();
   }
 
-  setNewBlockRestrictions(canAddBlock, disabledBlockTypes) {
-    this.canAddBlock = canAddBlock;
-    this.disabledBlockTypes = disabledBlockTypes;
-    // Disable/enable menu open button
-    if (this.canAddBlock) {
-      this.addButton.removeAttr('disabled');
-    } else {
-      this.addButton.attr('disabled', 'true');
-    }
-  }
-
   open() {
-    if (!this.canAddBlock) {
-      return;
-    }
     this.addButton.attr('aria-expanded', 'true');
     this.tooltip.show();
   }
@@ -212,6 +192,7 @@ export class StreamBlock extends BaseSequenceBlock {
         </div>
       `).insertBefore(dom);
     }
+    this.container = dom;
 
     // StreamChild objects for the current (non-deleted) child blocks
     this.children = [];
@@ -238,7 +219,6 @@ export class StreamBlock extends BaseSequenceBlock {
         block.collapse();
       });
     }
-    this.container = dom;
 
     if (initialError) {
       this.setError(initialError);
@@ -282,38 +262,64 @@ export class StreamBlock extends BaseSequenceBlock {
    */
   blockCountChanged() {
     super.blockCountChanged();
-    this.canAddBlock = true;
     this.childBlockCounts.clear();
 
-    if (
-      typeof this.blockDef.meta.maxNum === 'number' &&
-      this.children.length >= this.blockDef.meta.maxNum
-    ) {
-      this.canAddBlock = false;
+    const errorMessages = [];
+
+    const maxNum = this.blockDef.meta.maxNum;
+    if (typeof maxNum === 'number' && this.children.length > maxNum) {
+      const message = gettext(
+        'The maximum number of items is %(max_num)d',
+      ).replace('%(max_num)d', `${maxNum}`);
+      errorMessages.push(message);
+    }
+
+    const minNum = this.blockDef.meta.minNum;
+    if (typeof minNum === 'number' && this.children.length < minNum) {
+      const message = gettext(
+        'The minimum number of items is %(min_num)d',
+      ).replace('%(min_num)d', `${minNum}`);
+      errorMessages.push(message);
     }
 
     // Check if there are any block types that have count limits
-    this.disabledBlockTypes = new Set();
-    for (const blockType in this.blockDef.meta.blockCounts) {
-      if (hasOwn(this.blockDef.meta.blockCounts, blockType)) {
-        const maxNum = this.getBlockMax(blockType);
+    for (const [blockType, constraints] of Object.entries(
+      this.blockDef.meta.blockCounts,
+    )) {
+      const blockMaxNum = constraints.max_num;
+      if (typeof blockMaxNum === 'number') {
+        const currentBlockCount = this.getBlockCount(blockType);
 
-        if (typeof maxNum === 'number') {
-          const currentBlockCount = this.getBlockCount(blockType);
+        if (currentBlockCount > blockMaxNum) {
+          const childBlockDef = this.blockDef.childBlockDefsByName[blockType];
+          const message = gettext(
+            'The maximum number of items is %(max_num)d',
+          ).replace('%(max_num)d', `${blockMaxNum}`);
+          const messageWithPrefix = `${childBlockDef.meta.label}: ${message}`;
+          errorMessages.push(messageWithPrefix);
+        }
+      }
 
-          if (currentBlockCount >= maxNum) {
-            this.disabledBlockTypes.add(blockType);
-          }
+      const blockMinNum = constraints.min_num;
+      if (typeof blockMinNum === 'number') {
+        const currentBlockCount = this.getBlockCount(blockType);
+
+        if (currentBlockCount < blockMinNum) {
+          const childBlockDef = this.blockDef.childBlockDefsByName[blockType];
+          const message = gettext(
+            'The minimum number of items is %(min_num)d',
+          ).replace('%(min_num)d', `${blockMinNum}`);
+          const messageWithPrefix = `${childBlockDef.meta.label}: ${message}`;
+          errorMessages.push(messageWithPrefix);
         }
       }
     }
 
-    range(0, this.inserters.length).forEach((i) => {
-      this.inserters[i].setNewBlockRestrictions(
-        this.canAddBlock,
-        this.disabledBlockTypes,
-      );
-    });
+    if (errorMessages.length) {
+      this.setError({ messages: errorMessages });
+    } else {
+      this.setError({});
+    }
   }
 
   _createChild(

@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags l10n %}
 
 {% block main_content %}
     {% block fields_output %}
@@ -11,7 +11,7 @@
                         {% if field.component %}
                             {% component field.component %}
                         {% else %}
-                            {{ field.value }}
+                            {{ field.value|localize }}
                         {% endif %}
                     </dd>
                 {% endfor %}

@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Language-Team: Uyghur (https://app.transifex.com/torchbox/teams/8009/ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail ئاددىي تەرجىمە"
+
+msgid "Select all"
+msgstr "ھەممىنى تاللا"
+
+msgid "Locales"
+msgstr "يەرلىك تىل"
+
+msgid "All child pages will be created."
+msgstr "بارلىق بالا بەت قۇرۇلىدۇ."
+
+#, python-format
+msgid "Include subtree (%(descendant_count)s page)"
+msgid_plural "Include subtree (%(descendant_count)s pages)"
+msgstr[0] "تارماق شاخ (%(descendant_count)s بەتنى ئۆز ئىچىگە ئالىدۇ"
+msgstr[1] "تارماق شاخ (%(descendant_count)s بەتنى ئۆز ئىچىگە ئالىدۇ"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "يەرلىك بەت چەكلەنگەن چۈنكى ئانا بەت تەرجىمە قىلىنمىغان."
+msgstr[1] "بەزى يەرلىك بەت چەكلەنگەن چۈنكى بەزى ئانا بەت تەرجىمە قىلىنمىغان."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "ئانا بەتنى تەرجىمە قىلىش."
+msgstr[1] "ئانا بەتنى تەرجىمە قىلىش."
+
+msgid "Can submit translations"
+msgstr "تەرجىمە يوللىيالايدۇ"
+
+msgid "Submit"
+msgstr "تاپشۇر"
+
+msgid "Translate"
+msgstr "تەرجىمە"
+
+#. Translators: always plural
+#, python-format
+msgid "%(locales_count)s locales"
+msgstr "%(locales_count)s يەرلىك تىل"
+
+msgid "Translate page"
+msgstr "بەت تەرجىمىسى"
+
+#, python-format
+msgid "The page '%(page_title)s' was successfully created in %(locales)s"
+msgstr "بۇ «%(page_title)s» بەت %(locales)s دا مۇۋەپپەقىيەتلىك قۇرۇلغان"
+
+#, python-format
+msgid "Translate %(model_name)s"
+msgstr "%(model_name)s نى تەرجىمە قىلىڭ"
+
+#, python-format
+msgid "Successfully created %(locales)s for %(model_name)s '%(object)s'"
+msgstr "%(locales)s for %(model_name)s «%(object)s» مۇۋەپپەقىيەتلىك قۇرۇلدى"
+
+msgid "Translate this page"
+msgstr "بۇ بەتنى تەرجىمە قىلىڭ"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "«%(title)s» نى تەرجىمە قىلىڭ"

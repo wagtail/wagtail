@@ -1,3 +1,5 @@
+jest.setTimeout(30000);
+
 describe('Editor', () => {
   const globalEditorExcludes =
     '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar, li[aria-controls^="tab-"]';

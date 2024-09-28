@@ -1,11 +1,11 @@
 #
 # Translators:
 # Awatea Randall <awatea@octave.nz>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Maori (https://app.transifex.com/torchbox/teams/8009/mi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: mi\n"
@@ -86,6 +86,12 @@ msgstr "Whakaatu te rārangi take hōu"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Kua pakaru tē ētita. Kua puritia tē rārangi ki te rerenga tuatahi"
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Te nama nui rawa mō ēnei tūemi ko %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Te nama iti rawa mō ēnei tūemi ko %(min_num)d"
 
 msgid "This field is required."
 msgstr "Hiahiatia ana tēnei whīra"

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from unittest import mock
 
 from django.conf import settings
@@ -217,8 +217,8 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
         self,
         page: Page,
         route_path: Optional[str] = "/",
-        query_data: Optional[Dict[str, Any]] = None,
-        post_data: Optional[Dict[str, Any]] = None,
+        query_data: Optional[dict[str, Any]] = None,
+        post_data: Optional[dict[str, Any]] = None,
         user: Optional[AbstractBaseUser] = None,
         accept_404: Optional[bool] = False,
         accept_redirect: Optional[bool] = False,
@@ -297,7 +297,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
     def assertPageIsEditable(
         self,
         page: Page,
-        post_data: Optional[Dict[str, Any]] = None,
+        post_data: Optional[dict[str, Any]] = None,
         user: Optional[AbstractBaseUser] = None,
         msg: Optional[str] = None,
     ):
@@ -379,7 +379,7 @@ class WagtailPageTestCase(WagtailTestUtils, TestCase):
         self,
         page: Page,
         mode: Optional[str] = "",
-        post_data: Optional[Dict[str, Any]] = None,
+        post_data: Optional[dict[str, Any]] = None,
         user: Optional[AbstractBaseUser] = None,
         msg: Optional[str] = None,
     ):

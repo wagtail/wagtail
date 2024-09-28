@@ -19,7 +19,6 @@ from wagtail.admin.filters import (
     MultipleUserFilter,
     WagtailFilterSet,
 )
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
@@ -32,6 +31,7 @@ from wagtail.admin.ui.tables.pages import (
     PageStatusColumn,
     PageTable,
     PageTitleColumn,
+    ParentPageColumn,
 )
 from wagtail.admin.views import generic
 from wagtail.models import Page, PageLogEntry, Site, get_page_content_types
@@ -115,7 +115,7 @@ class PageFilterSet(WagtailFilterSet):
         fields = []  # only needed for filters being generated automatically
 
 
-class ExplorablePageFilterSet(PageFilterSet):
+class GenericPageFilterSet(PageFilterSet):
     content_type = MultipleContentTypeFilter(
         label=_("Page type"),
         queryset=lambda request: get_page_content_types(include_base_page_type=False),
@@ -123,29 +123,14 @@ class ExplorablePageFilterSet(PageFilterSet):
     )
 
 
-class IndexView(generic.IndexView):
-    template_name = "wagtailadmin/pages/index.html"
-    results_template_name = "wagtailadmin/pages/index_results.html"
-    permission_policy = page_permission_policy
-    any_permission_required = {
-        "add",
-        "change",
-        "publish",
-        "bulk_delete",
-        "lock",
-        "unlock",
-    }
+class PageListingMixin:
+    template_name = "wagtailadmin/pages/listing.html"
     context_object_name = "pages"
-    page_kwarg = "p"
-    paginate_by = 50
     table_class = PageTable
-    table_classname = "listing full-width"
-    filterset_class = PageFilterSet
-    index_url_name = None
-    index_results_url_name = None
+    filterset_class = GenericPageFilterSet
     default_ordering = "-latest_revision_created_at"
     model = Page
-    _show_breadcrumbs = True
+    is_searchable = True
 
     columns = [
         BulkActionsColumn("bulk_actions"),
@@ -155,10 +140,18 @@ class IndexView(generic.IndexView):
             sort_key="title",
             classname="title",
         ),
+        ParentPageColumn("parent", label=_("Parent")),
         DateColumn(
             "latest_revision_created_at",
             label=_("Updated"),
             sort_key="latest_revision_created_at",
+            width="12%",
+        ),
+        Column(
+            "type",
+            label=_("Type"),
+            accessor="page_type_display_name",
+            sort_key="content_type",
             width="12%",
         ),
         PageStatusColumn(
@@ -169,21 +162,13 @@ class IndexView(generic.IndexView):
         ),
     ]
 
-    def get(self, request):
-        # Search
-        self.query_string = None
-        self.is_searching = False
-        if "q" in self.request.GET:
-            self.search_form = SearchForm(self.request.GET)
-            if self.search_form.is_valid():
-                self.query_string = self.search_form.cleaned_data["q"]
-        else:
-            self.search_form = SearchForm()
+    @cached_property
+    def i18n_enabled(self):
+        return getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
-        if self.query_string:
-            self.is_searching = True
-
-        return super().get(request)
+    @cached_property
+    def show_locale_labels(self):
+        return self.i18n_enabled
 
     def get_valid_orderings(self):
         valid_orderings = super().get_valid_orderings()
@@ -212,17 +197,8 @@ class IndexView(generic.IndexView):
 
         return ordering
 
-    def get_base_queryset(self):
-        pages = self.model.objects.filter(depth__gt=1)
-        pages = self._annotate_queryset(pages)
-        return pages
-
-    def _annotate_queryset(self, pages):
-        pages = pages.prefetch_related("content_type", "sites_rooted_here").filter(
-            pk__in=self.permission_policy.explorable_instances(
-                self.request.user
-            ).values_list("pk", flat=True)
-        )
+    def annotate_queryset(self, pages):
+        pages = pages.prefetch_related("content_type", "sites_rooted_here")
 
         # We want specific page instances, but do not need streamfield values here
         pages = pages.defer_streamfields().specific()
@@ -230,6 +206,8 @@ class IndexView(generic.IndexView):
         # Annotate queryset with various states to be used later for performance optimisations
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             pages = pages.prefetch_workflow_states()
+        if self.i18n_enabled:
+            pages = pages.prefetch_related("locale").annotate_has_untranslated_locale()
 
         pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
@@ -268,36 +246,54 @@ class IndexView(generic.IndexView):
     def search_queryset(self, queryset):
         if self.is_searching:
             queryset = queryset.autocomplete(
-                self.query_string, order_by_relevance=(not self.is_explicitly_ordered)
+                self.search_query, order_by_relevance=(not self.is_explicitly_ordered)
             )
 
         return queryset
 
-    def get_index_url(self):
-        return reverse(self.index_url_name)
-
-    def get_index_results_url(self):
-        return reverse(self.index_results_url_name)
-
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [{"url": "", "label": self.get_page_title()}]
-
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["actions_next_url"] = self.index_url
+        kwargs["show_locale_labels"] = self.show_locale_labels
         return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context.update(
-            {
-                "ordering": self.ordering,
-                "search_form": self.search_form,
-                "is_searching": self.is_searching,
-            }
-        )
+        if any(isinstance(column, ParentPageColumn) for column in self.columns):
+            Page.objects.annotate_parent_page(context["object_list"])
+
         return context
+
+
+class IndexView(PageListingMixin, generic.IndexView):
+    permission_policy = page_permission_policy
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
+    template_name = "wagtailadmin/pages/index.html"
+    results_template_name = "wagtailadmin/pages/index_results.html"
+    paginate_by = 50
+    table_classname = "listing full-width"
+    filterset_class = PageFilterSet
+
+    @classproperty
+    def columns(cls):
+        return [col for col in PageListingMixin.columns if col.name != "type"]
+
+    def get_base_queryset(self):
+        pages = self.model.objects.filter(depth__gt=1).filter(
+            pk__in=page_permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
+        pages = self.annotate_queryset(pages)
+        return pages
 
 
 class ExplorableIndexView(IndexView):
@@ -308,24 +304,15 @@ class ExplorableIndexView(IndexView):
     """
 
     template_name = "wagtailadmin/pages/explorable_index.html"
+    results_template_name = "wagtailadmin/pages/explorable_index_results.html"
     index_url_name = "wagtailadmin_explore"
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
-    filterset_class = ExplorablePageFilterSet
+    filterset_class = GenericPageFilterSet
 
     @classproperty
     def columns(cls):
-        columns = super().columns.copy()
-        columns.insert(
-            3,
-            Column(
-                "type",
-                label=_("Type"),
-                accessor="page_type_display_name",
-                sort_key="content_type",
-                width="12%",
-            ),
-        )
+        columns = [col for col in PageListingMixin.columns if col.name != "parent"]
         columns.append(NavigateToChildrenColumn("navigate", width="10%"))
         return columns
 
@@ -351,7 +338,6 @@ class ExplorableIndexView(IndexView):
         self.parent_page = self.parent_page.specific
         self.scheduled_page = self.parent_page.get_scheduled_revision_as_object()
 
-        self.i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
         if self.i18n_enabled and not self.parent_page.is_root():
             self.locale = self.parent_page.locale
             self.translations = self.get_translations()
@@ -367,6 +353,10 @@ class ExplorableIndexView(IndexView):
             self.is_searching or self.is_filtering
         )
 
+    @cached_property
+    def show_locale_labels(self):
+        return self.i18n_enabled and self.parent_page.is_root()
+
     def get_base_queryset(self):
         if self.is_searching or self.is_filtering:
             if self.is_searching_whole_tree:
@@ -376,7 +366,12 @@ class ExplorableIndexView(IndexView):
         else:
             pages = self.parent_page.get_children()
 
-        pages = self._annotate_queryset(pages)
+        pages = pages.filter(
+            pk__in=page_permission_policy.explorable_instances(
+                self.request.user
+            ).values_list("pk", flat=True)
+        )
+        pages = self.annotate_queryset(pages)
         return pages
 
     def search_queryset(self, queryset):
@@ -402,7 +397,6 @@ class ExplorableIndexView(IndexView):
         kwargs = super().get_table_kwargs()
         kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
-        kwargs["show_locale_labels"] = self.i18n_enabled and self.parent_page.is_root()
 
         if self.show_ordering_column:
             kwargs["caption"] = _(
@@ -464,19 +458,12 @@ class ExplorableIndexView(IndexView):
         context = super().get_context_data(**kwargs)
 
         if self.is_searching:
-            # postprocess this page of results to annotate each result with its parent page
-            parent_page_paths = {
-                page.path[: -page.steplen] for page in context["object_list"]
-            }
-            parent_pages_by_path = {
-                page.path: page
-                for page in Page.objects.filter(path__in=parent_page_paths).specific()
-            }
+            Page.objects.annotate_parent_page(context["object_list"])
             for page in context["object_list"]:
-                parent_page = parent_pages_by_path.get(page.path[: -page.steplen])
                 # add annotation if parent page is found and is not the currently viewed parent
-                if parent_page and parent_page != self.parent_page:
-                    page.annotated_parent_page = parent_page
+                # to be used by PageTitleColumn instead of a dedicated ParentPageColumn
+                if page._parent_page and page._parent_page != self.parent_page:
+                    page.annotated_parent_page = page._parent_page
 
         context.update(
             {

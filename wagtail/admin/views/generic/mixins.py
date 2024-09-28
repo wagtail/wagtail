@@ -2,6 +2,7 @@ import json
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
+from django.contrib.contenttypes.models import ContentType
 from django.db import models, transaction
 from django.forms import Media
 from django.shortcuts import get_object_or_404
@@ -16,7 +17,9 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import messages
+from wagtail.admin.models import EditingSession
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
+from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
@@ -287,14 +290,19 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def user_has_permission(self, permission):
         user = self.request.user
-        if user.is_superuser:
-            return True
-
         # Workflow lock/unlock methods take precedence before the base
         # "lock" and "unlock" permissions -- see PagePermissionTester for reference
         if permission == "lock" and self.current_workflow_task:
+            # Follow the logic in PagePermissionTester.user_can_lock()
+            # (superusers can always lock)
+            if user.is_superuser:
+                return True
             return self.current_workflow_task.user_can_lock(self.object, user)
         if permission == "unlock":
+            # Follow the logic in PagePermissionTester.user_can_unlock()
+            # (superusers can always unlock)
+            if user.is_superuser:
+                return True
             # Allow unlocking even if the user does not have the 'unlock' permission
             # if they are the user who locked the object
             if self.object.locked_by_id == user.pk:
@@ -677,6 +685,37 @@ class CreateEditViewOptionalFeaturesMixin:
 
         return context
 
+    def get_editing_sessions(self):
+        if self.view_name == "create":
+            return None
+        EditingSession.cleanup()
+        content_type = ContentType.objects.get_for_model(self.model)
+        session = EditingSession.objects.create(
+            user=self.request.user,
+            content_type=content_type,
+            object_id=self.object.pk,
+            last_seen_at=timezone.now(),
+        )
+        revision_id = self.object.latest_revision_id if self.revision_enabled else None
+        return EditingSessionsModule(
+            session,
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=(
+                    self.model._meta.app_label,
+                    self.model._meta.model_name,
+                    quote(self.object.pk),
+                    session.id,
+                ),
+            ),
+            reverse(
+                "wagtailadmin_editing_sessions:release",
+                args=(session.id,),
+            ),
+            [],
+            revision_id,
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(self.get_lock_context())
@@ -691,6 +730,7 @@ class CreateEditViewOptionalFeaturesMixin:
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)
         context["revisions_compare_url_name"] = self.revisions_compare_url_name
+        context["editing_sessions"] = self.get_editing_sessions()
         return context
 
     def post(self, request, *args, **kwargs):

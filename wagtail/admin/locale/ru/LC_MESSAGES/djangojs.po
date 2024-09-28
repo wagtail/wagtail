@@ -8,13 +8,14 @@
 # Мирон Левицкий <miron200504@gmail.com>, 2022
 # 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
-# Loic Teixeira, 2022
 # Влад <integration.into.society@gmail.com>, 2023
 # Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023
+# Loic Teixeira, 2024
+# Andrei Satsevich, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023\n"
+"Last-Translator: Andrei Satsevich, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
@@ -37,6 +38,13 @@ msgstr[0] "%(num)s ошибка"
 msgstr[1] "%(num)s ошибки"
 msgstr[2] "%(num)s ошибок"
 msgstr[3] "%(num)s ошибок"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s минута"
+msgstr[1] "%(num)s минуты"
+msgstr[2] "%(num)s минут"
+msgstr[3] "%(num)s минут"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
@@ -212,6 +220,12 @@ msgid ""
 msgstr ""
 "Редактор только что сломался. Содержимое было возвращено к последней "
 "сохранённой версии."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Максимальное количество элементов: %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Минимальное количество элементов: %(min_num)d"
 
 msgid "This field is required."
 msgstr "Это поле обязательно для заполнения."

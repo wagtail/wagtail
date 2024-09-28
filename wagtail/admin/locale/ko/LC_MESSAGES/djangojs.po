@@ -3,11 +3,11 @@
 # Jihan Chung <jihanchung20@gmail.com>, 2022
 # Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/torchbox/teams/8009/ko/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ko\n"
@@ -149,6 +149,12 @@ msgid ""
 msgstr ""
 "에디터에 문제가 발생했습니다. 내용은 마지막으로 저장된 버전으로 초기화되었습"
 "니다."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "항목은 최대 개수는 %(max_num)d개입니다"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "항목은 최소 %(min_num)d개 이상이어야 합니다"
 
 msgid "This field is required."
 msgstr "이 필드는 필수입니다."

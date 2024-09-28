@@ -64,7 +64,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. attribute:: model
 
-   Required; the model class that this viewset will work with. The :attr:`~django.db.models.Options.model_name` will be used
+   Required; the model class that this viewset will work with. The ``model_name`` will be used
    as the URL prefix and namespace, unless these are specified explicitly via the :attr:`~.ViewSet.name`, :attr:`~.ViewSet.url_prefix` or
    :attr:`~.ViewSet.url_namespace` attributes.
 
@@ -78,6 +78,7 @@ Viewsets are Wagtail's mechanism for defining a group of related admin views wit
 
    .. automethod:: get_form_class
    .. automethod:: get_edit_handler
+   .. automethod:: get_permissions_to_register
 
    .. autoattribute:: menu_label
 

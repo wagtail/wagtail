@@ -238,7 +238,7 @@ BASE_PAGE_ACTION_MENU_ITEMS = None
 def _get_base_page_action_menu_items():
     """
     Retrieve the global list of menu items for the page action menu,
-    which may then be customised on a per-request basis
+    which may then be customized on a per-request basis
     """
     global BASE_PAGE_ACTION_MENU_ITEMS
 

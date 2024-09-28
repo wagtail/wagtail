@@ -5,11 +5,11 @@
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2022
 # ultraify media <ultraify@gmail.com>, 2022
 # Younes Oumakhou, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ar\n"
@@ -97,6 +97,12 @@ msgstr "اظهر اخر محتوى"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "المحرر تحطمت للتو. تمت إعادة تعيين المحتوى إلى آخر إصدار تم حفظه."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "الحد الأقصى لعدد العناصر هو %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "الحد الأدنى لعدد العناصر هو %(min_num)d"
 
 msgid "This field is required."
 msgstr "هذه الخانة مطلوبه."

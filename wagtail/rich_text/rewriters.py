@@ -4,8 +4,9 @@ Utility classes for rewriting elements of HTML-like strings
 
 import re
 from collections import defaultdict
-from itertools import chain
-from typing import Callable, Tuple
+from typing import Callable
+
+from django.utils.functional import cached_property
 
 FIND_A_TAG = re.compile(r"<a(\b[^>]*)>")
 FIND_EMBED_TAG = re.compile(r"<embed(\b[^>]*)/>")
@@ -28,6 +29,26 @@ def extract_attrs(attr_string: str) -> dict:
     return attributes
 
 
+class TagMatch:
+    """Represents a single matched tag in a rich text string"""
+
+    def __init__(self, match):
+        self.match = match  # a regexp match object
+        self.replacement = None  # to be filled in by the rewriter
+
+    @cached_property
+    def attrs(self):
+        return extract_attrs(self.match.group(1))
+
+    @property
+    def start(self):
+        return self.match.start()
+
+    @property
+    def end(self):
+        return self.match.end()
+
+
 class TagRewriter:
     def __init__(self, rules=None, bulk_rules=None, reference_extractors=None):
         self.rules = rules or {}
@@ -38,54 +59,65 @@ class TagRewriter:
         raise NotImplementedError
 
     def get_tag_type_from_attrs(self, attrs):
+        """Given a dict of attributes from a tag, return the tag type."""
         raise NotImplementedError
 
     def get_tag_replacements(self, tag_type, attrs_list):
-        # Note: return an empty list for cases when you don't want any replacements made
+        """Given a list of attribute dicts, all taken from tags of the same type, return a
+        corresponding list of replacement strings to replace the tags with.
+
+        Return an empty list for cases when you don't want any replacements made.
+        """
         raise NotImplementedError
 
     def __call__(self, html: str) -> str:
-        matches_by_tag_type, attrs_by_tag_type = self.extract_tags(html)
+        matches_by_tag_type = self.extract_tags(html)
+        matches_to_replace = []
 
-        replacements = [
-            self.get_tag_replacements(tag_type, attrs_list)
-            for tag_type, attrs_list in attrs_by_tag_type.items()
-        ]
+        # For each tag type, get the list of replacement strings for all tags of that type
+        for tag_type, tag_matches in matches_by_tag_type.items():
+            attr_dicts = [match.attrs for match in tag_matches]
+            replacements = self.get_tag_replacements(tag_type, attr_dicts)
+
+            if not replacements:
+                continue
+
+            for match, replacement in zip(tag_matches, replacements):
+                match.replacement = replacement
+                matches_to_replace.append(match)
+
+        # Replace the tags in order of appearance in the string, so that offsets remain valid
+        matches_to_replace.sort(key=lambda match: match.start)
 
         offset = 0
-        for match, replacement in zip(
-            chain(*matches_by_tag_type.values()), chain(*replacements)
-        ):
+        for match in matches_to_replace:
             html = (
-                html[: match.start() + offset]
-                + replacement
-                + html[match.end() + offset :]
+                html[: match.start + offset]
+                + match.replacement
+                + html[match.end + offset :]
             )
 
-            offset += len(replacement) - match.end() + match.start()
+            offset += len(match.replacement) - match.end + match.start
 
         return html
 
-    def extract_tags(self, html: str) -> Tuple[dict, dict]:
+    def extract_tags(self, html: str) -> dict[str, list[TagMatch]]:
         """Helper method to extract and group HTML tags and their attributes.
 
-        Returns the full list of regex matches grouped by tag type as well as
-        the tag attribute dictionaries grouped by tag type.
+        Returns a dict of TagMatch objects, mapping tag types to a list of all TagMatch objects of that tag type.
         """
         matches_by_tag_type = defaultdict(list)
-        attrs_by_tag_type = defaultdict(list)
 
         # Regex used to match <tag ...> tags in the HTML.
         re_pattern = self.get_opening_tag_regex()
 
-        for match in re_pattern.finditer(html):
-            attrs = extract_attrs(match.group(1))
-            tag_type = self.get_tag_type_from_attrs(attrs)
+        for re_match in re_pattern.finditer(html):
+            tag_match = TagMatch(re_match)
+            tag_type = self.get_tag_type_from_attrs(tag_match.attrs)
 
-            matches_by_tag_type[tag_type].append(match)
-            attrs_by_tag_type[tag_type].append(attrs)
+            matches_by_tag_type[tag_type].append(tag_match)
 
-        return matches_by_tag_type, attrs_by_tag_type
+        return matches_by_tag_type
 
     def convert_rule_to_bulk_rule(self, rule: Callable) -> Callable:
         def bulk_rule(args):

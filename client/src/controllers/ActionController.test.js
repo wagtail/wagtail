@@ -1,5 +1,6 @@
 import { Application } from '@hotwired/stimulus';
 import { ActionController } from './ActionController';
+import { UnsavedController } from './UnsavedController';
 
 describe('ActionController', () => {
   let app;
@@ -10,6 +11,7 @@ describe('ActionController', () => {
 
     app = Application.start();
     app.register('w-action', ActionController);
+    app.register('w-unsaved', UnsavedController);
 
     await Promise.resolve();
   };
@@ -22,6 +24,17 @@ describe('ActionController', () => {
       {
         ...Object.getOwnPropertyDescriptors(oldWindowLocation),
         assign: { configurable: true, value: jest.fn() },
+        reload: {
+          configurable: true,
+          value: jest.fn().mockImplementation(() => {
+            const event = new Event('beforeunload');
+            Object.defineProperty(event, 'returnValue', {
+              value: null,
+              writable: true,
+            });
+            window.dispatchEvent(event);
+          }),
+        },
       },
     );
   });
@@ -44,7 +57,7 @@ describe('ActionController', () => {
       </button>`);
     });
 
-    it('it should allow for a form POST with created data', () => {
+    it('should allow for a form POST with created data', () => {
       const btn = document.querySelector('[data-controller="w-action"]');
       const submitMock = jest.fn();
       window.HTMLFormElement.prototype.submit = submitMock;
@@ -56,6 +69,44 @@ describe('ActionController', () => {
       expect(form.action).toBe('https://www.github.com/');
       expect(new FormData(form).get('csrfmiddlewaretoken')).toBe('potato');
       expect(new FormData(form).get('next')).toBe('http://localhost/');
+    });
+  });
+
+  describe('sendBeacon method', () => {
+    beforeEach(async () => {
+      await setup(`
+      <button
+        data-controller="w-action"
+        data-action="blur->w-action#sendBeacon"
+        data-w-action-url-value="https://analytics.example/not-interested"
+      >
+        If you move focus away from this button, a POST request will be sent.
+      </button>
+      <button id="other-button">Other button</button>
+      `);
+    });
+
+    it('should send a POST request using sendBeacon with the CSRF token included', () => {
+      const sendBeaconMock = jest.fn();
+      Object.defineProperty(window.navigator, 'sendBeacon', {
+        value: sendBeaconMock,
+      });
+
+      const btn = document.querySelector('[data-controller="w-action"]');
+      const otherBtn = document.getElementById('other-button');
+      btn.focus();
+      otherBtn.focus();
+
+      expect(sendBeaconMock).toHaveBeenCalledTimes(1);
+      expect(sendBeaconMock).toHaveBeenCalledWith(
+        'https://analytics.example/not-interested',
+        expect.any(FormData),
+      );
+
+      const formData = sendBeaconMock.mock.lastCall[1];
+      expect(
+        Object.fromEntries(formData.entries()).csrfmiddlewaretoken,
+      ).toEqual('potato');
     });
   });
 
@@ -74,15 +125,131 @@ describe('ActionController', () => {
 
     it('should call click method when button is clicked via Stimulus action', () => {
       const btn = document.getElementById('button');
-      const clickMock = jest.fn();
-      HTMLButtonElement.prototype.click = clickMock;
-
-      btn.addEventListener('some-event', btn.click());
+      const clickMock = jest.spyOn(HTMLButtonElement.prototype, 'click');
 
       const event = new CustomEvent('some-event');
       btn.dispatchEvent(event);
 
       expect(clickMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('reload method', () => {
+    beforeEach(async () => {
+      await setup(`
+      <button
+        id="button"
+        data-controller="w-action"
+        data-action="click->w-action#reload"
+      >
+        Reload
+      </button>`);
+    });
+
+    it('should reload the page', () => {
+      const beforeUnloadHandler = jest.fn();
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+
+      document.getElementById('button').click();
+
+      expect(window.location.reload).toHaveBeenCalledTimes(1);
+      expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
+
+      const event = beforeUnloadHandler.mock.lastCall[0];
+      // These mean the browser confirmation dialog was not shown
+      expect(event.defaultPrevented).toBe(false);
+      expect(event.returnValue).toBeNull();
+
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    });
+
+    it('should not bypass the browser confirmation dialog if the event is prevented', async () => {
+      document.body.innerHTML = /* html */ `
+      <form
+        data-controller="w-unsaved"
+        data-action="beforeunload@window->w-unsaved#confirm"
+        data-w-unsaved-confirmation-value="You have unsaved changes!"
+      >
+      </form>
+      <button
+        id="button"
+        data-controller="w-action"
+        data-action="click->w-action#reload"
+      >
+        Reload
+      </button>
+      `;
+      await Promise.resolve();
+
+      // Simulate having unsaved changes by setting has-edits-value to true.
+      // We can't set this on init because the value is set to false on connect.
+      document
+        .querySelector('form')
+        .setAttribute('data-w-unsaved-has-edits-value', 'true');
+      await Promise.resolve();
+      const beforeUnloadHandler = jest.fn();
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+
+      document.getElementById('button').click();
+
+      expect(window.location.reload).toHaveBeenCalledTimes(1);
+      expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
+
+      const event = beforeUnloadHandler.mock.lastCall[0];
+      // This means the browser confirmation dialog was shown
+      expect(event.returnValue).toBe('You have unsaved changes!');
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    });
+  });
+
+  describe('forceReload method', () => {
+    beforeEach(async () => {
+      await setup(/* html */ `
+      <form
+        data-controller="w-unsaved"
+        data-action="beforeunload@window->w-unsaved#confirm"
+        data-w-unsaved-confirmation-value="You have unsaved changes!"
+      >
+      </form>
+      <button
+        id="button"
+        data-controller="w-action"
+        data-action="click->w-action#forceReload"
+      >
+        Force reload
+      </button>`);
+
+      // Simulate having unsaved changes by setting has-edits-value to true.
+      // We can't set this on init because the value is set to false on connect.
+      document
+        .querySelector('form')
+        .setAttribute('data-w-unsaved-has-edits-value', 'true');
+      await Promise.resolve();
+    });
+
+    it('should reload the page without showing the browser confirmation dialog', () => {
+      const confirmHandler = jest.fn();
+      const beforeUnloadHandler = jest.fn();
+      document.addEventListener('w-unsaved:confirm', confirmHandler);
+      window.addEventListener('beforeunload', beforeUnloadHandler);
+
+      document.getElementById('button').click();
+
+      expect(window.location.reload).toHaveBeenCalledTimes(1);
+      expect(beforeUnloadHandler).toHaveBeenCalledTimes(1);
+
+      const beforeUnloadEvent = beforeUnloadHandler.mock.lastCall[0];
+      // If the browser confirmation was shown, these would be truthy
+      expect(beforeUnloadEvent.defaultPrevented).toBe(false);
+      expect(beforeUnloadEvent.returnValue).toBeNull();
+
+      expect(confirmHandler).toHaveBeenCalledTimes(1);
+      const confirmEvent = confirmHandler.mock.lastCall[0];
+      // We're preventing UnsavedController from triggering the browser confirmation
+      expect(confirmEvent.defaultPrevented).toBe(true);
+
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+      document.removeEventListener('w-unsaved:confirm', confirmHandler);
     });
   });
 

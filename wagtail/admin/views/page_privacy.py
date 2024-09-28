@@ -7,7 +7,7 @@ from wagtail.models import Page, PageViewRestriction
 
 
 def set_privacy(request, page_id):
-    page = get_object_or_404(Page, id=page_id)
+    page = get_object_or_404(Page, id=page_id).specific_deferred
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_set_view_restrictions():
         raise PermissionDenied
@@ -16,13 +16,17 @@ def set_privacy(request, page_id):
     restrictions = page.get_view_restrictions().order_by("page__depth")
     if restrictions:
         restriction = restrictions[0]
-        restriction_exists_on_ancestor = restriction.page != page
+        restriction_exists_on_ancestor = restriction.page.id != page.id
     else:
         restriction = None
         restriction_exists_on_ancestor = False
 
     if request.method == "POST":
-        form = PageViewRestrictionForm(request.POST, instance=restriction)
+        form = PageViewRestrictionForm(
+            request.POST,
+            instance=restriction,
+            private_page_options=page.private_page_options,
+        )
         if form.is_valid() and not restriction_exists_on_ancestor:
             if form.cleaned_data["restriction_type"] == PageViewRestriction.NONE:
                 # remove any existing restriction
@@ -49,10 +53,15 @@ def set_privacy(request, page_id):
     else:  # request is a GET
         if not restriction_exists_on_ancestor:
             if restriction:
-                form = PageViewRestrictionForm(instance=restriction)
+                form = PageViewRestrictionForm(
+                    instance=restriction, private_page_options=page.private_page_options
+                )
             else:
                 # no current view restrictions on this page
-                form = PageViewRestrictionForm(initial={"restriction_type": "none"})
+                form = PageViewRestrictionForm(
+                    initial={"restriction_type": "none"},
+                    private_page_options=page.private_page_options,
+                )
 
     if restriction_exists_on_ancestor:
         # display a message indicating that there is a restriction at ancestor level -
@@ -64,6 +73,12 @@ def set_privacy(request, page_id):
             {
                 "page_with_restriction": restriction.page,
             },
+        )
+    elif len(page.private_page_options) == 0:
+        return render_modal_workflow(
+            request,
+            "wagtailadmin/page_privacy/no_privacy.html",
+            None,
         )
     else:
         # no restriction set at ancestor level - can set restrictions here

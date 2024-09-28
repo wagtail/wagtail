@@ -5,7 +5,7 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2024
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
 # UP, 2021
@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -323,6 +323,26 @@ msgstr "Izberite obliko zapisa"
 msgid "Insert image"
 msgstr "Vstavi sliko"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> Slika <span class=\"w-sr-only\">ustvarjena na "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> sliki<span class=\"w-sr-only\">ustvarjeni na "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> Slike <span class=\"w-sr-only\">ustvarjene na "
+"%(site_name)s</span>"
+msgstr[3] ""
+"<span>%(total)s</span> Slik <span class=\"w-sr-only\">ustvarjenih na "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Spremeni datoteko slike:"
 
@@ -419,6 +439,18 @@ msgstr "Predogled"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Image URL"
+msgstr "URL naslov slike"
+
+msgid "Copy URL"
+msgstr "Kopiraj URL"
+
+msgid "Copied to clipboard"
+msgstr "Kopirano v odložišče"
+
+msgid "Copying to clipboard failed"
+msgstr "Kopiranje v odložišče ni uspelo"
 
 msgid "Add multiple images"
 msgstr "Dodaj več slik"

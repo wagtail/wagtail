@@ -2,11 +2,11 @@
 # Translators:
 # Ragnar Rebase <rrebase@gmail.com>, 2022
 # Erlend Eelmets <debcf78e@opayq.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/torchbox/teams/8009/et/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: et\n"
@@ -91,6 +91,12 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 "Redaktorjooksis kokku. Sisu on lähtestatud viimati salvestatud versioonile."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimaalne üksuste arv on %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimaalne üksuste arv on %(min_num)d"
 
 msgid "This field is required."
 msgstr "Selle välja täitmine on kohustuslik."

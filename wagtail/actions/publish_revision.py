@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -47,7 +47,7 @@ class PublishRevisionAction:
         user=None,
         changed: bool = True,
         log_action: bool = True,
-        previous_revision: Optional[Revision] = None,
+        previous_revision: Revision | None = None,
     ):
         self.revision = revision
         self.object = self.revision.as_object()
@@ -107,7 +107,7 @@ class PublishRevisionAction:
         user,
         changed,
         log_action: bool,
-        previous_revision: Optional[Revision] = None,
+        previous_revision: Revision | None = None,
     ):
         from wagtail.models import Revision
 

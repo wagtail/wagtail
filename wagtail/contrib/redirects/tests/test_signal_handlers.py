@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 
+from wagtail.contrib.frontend_cache.tests import PURGED_URLS
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Page, Site
@@ -11,7 +12,14 @@ from wagtail.test.utils import WagtailTestUtils
 User = get_user_model()
 
 
-@override_settings(WAGTAILREDIRECTS_AUTO_CREATE=True)
+@override_settings(
+    WAGTAILREDIRECTS_AUTO_CREATE=True,
+    WAGTAILFRONTENDCACHE={
+        "dummy": {
+            "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+        },
+    },
+)
 class TestAutocreateRedirects(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
@@ -24,6 +32,8 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
         self.home_page = self.site.root_page
         self.event_index = EventIndex.objects.get()
         self.other_page = Page.objects.get(url_path="/home/about-us/")
+
+        PURGED_URLS.clear()
 
     def trigger_page_slug_changed_signal(self, page):
         page.slug += "-extra"
@@ -76,9 +86,20 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
             # the automatically_created flag should have been set to True
             self.assertTrue(r.automatically_created)
 
+        self.assertEqual(
+            PURGED_URLS,
+            {
+                "http://localhost/events/saint-patrick/pointless-suffix",
+                "http://localhost/events/final-event",
+                "http://localhost/events/christmas",
+                "http://localhost/events",
+            },
+        )
+
     def test_no_redirects_created_when_page_is_root_for_all_sites_it_belongs_to(self):
         self.trigger_page_slug_changed_signal(self.home_page)
         self.assertFalse(Redirect.objects.exists())
+        self.assertEqual(len(PURGED_URLS), 0)
 
     def test_handling_of_existing_redirects(self):
         # the page we'll be triggering the change for here is...
@@ -131,6 +152,16 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
             ).exists()
         )
 
+        self.assertEqual(
+            PURGED_URLS,
+            {
+                "http://localhost/events/saint-patrick/pointless-suffix",
+                "http://localhost/events/final-event",
+                "http://localhost/events/christmas",
+                "http://localhost/events",
+            },
+        )
+
     def test_redirect_creation_for_custom_route_paths(self):
         # Add a page that has overridden get_route_paths()
         homepage = Page.objects.get(id=2)
@@ -165,6 +196,14 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
                 ),
             ],
         )
+        self.assertEqual(
+            PURGED_URLS,
+            {
+                "http://localhost/routable-page",
+                "http://localhost/routable-page/not-a-valid-route",
+                "http://localhost/routable-page/render-method-test",
+            },
+        )
 
     def test_no_redirects_created_when_pages_are_moved_to_a_different_site(self):
         # Add a new home page
@@ -187,8 +226,10 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
 
         # No redirects should have been created
         self.assertFalse(Redirect.objects.exists())
+        self.assertEqual(len(PURGED_URLS), 0)
 
     @override_settings(WAGTAILREDIRECTS_AUTO_CREATE=False)
     def test_no_redirects_created_if_disabled(self):
         self.trigger_page_slug_changed_signal(self.event_index)
         self.assertFalse(Redirect.objects.exists())
+        self.assertEqual(len(PURGED_URLS), 0)

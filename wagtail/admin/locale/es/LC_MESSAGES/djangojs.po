@@ -7,12 +7,12 @@
 # José Luis <alagunajs@gmail.com>, 2022
 # Antoni Aloy <aaloy@apsl.net>, 2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2022
-# Loic Teixeira, 2022
 # X Bello <xbello@gmail.com>, 2023
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: X Bello <xbello@gmail.com>, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/torchbox/teams/8009/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
@@ -189,6 +189,12 @@ msgid ""
 msgstr ""
 "El editor simplemente se colgó. El contenido se ha restablecido a la última "
 "versión guardada."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "El máximo número de elementos es %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "El mínimo número de elementos es %(min_num)d"
 
 msgid "This field is required."
 msgstr "Este campo es necesario."

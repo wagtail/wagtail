@@ -87,6 +87,14 @@ class BaseTypedTableBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
+    @classmethod
+    def construct_from_lookup(cls, lookup, child_blocks, **kwargs):
+        if child_blocks:
+            child_blocks = [
+                (name, lookup.get_block(index)) for name, index in child_blocks
+            ]
+        return cls(child_blocks, **kwargs)
+
     def value_from_datadict(self, data, files, prefix):
         caption = data["%s-caption" % prefix]
 
@@ -256,6 +264,17 @@ class BaseTypedTableBlock(Block):
         """
         path = "wagtail.contrib.typed_table_block.blocks.TypedTableBlock"
         args = [list(self.child_blocks.items())]
+        kwargs = self._constructor_kwargs
+        return (path, args, kwargs)
+
+    def deconstruct_with_lookup(self, lookup):
+        path = "wagtail.contrib.typed_table_block.blocks.TypedTableBlock"
+        args = [
+            [
+                (name, lookup.add_block(block))
+                for name, block in self.child_blocks.items()
+            ]
+        ]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 

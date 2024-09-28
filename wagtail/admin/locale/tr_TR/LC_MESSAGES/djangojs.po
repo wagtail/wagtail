@@ -3,11 +3,11 @@
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
 # Py Data Geek <pydatageek@gmail.com>, 2022
-# Loic Teixeira, 2022
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Turkish (Turkey) (https://app.transifex.com/torchbox/"
 "teams/8009/tr_TR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,6 +89,12 @@ msgstr "Son içeriği göster"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editör çöktü. İçerik son kaydedilen sürüme sıfırlandı."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Azami öğe sayısı %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Asgari öğe sayısı %(min_num)d"
 
 msgid "This field is required."
 msgstr "Bu alan gerekli."

@@ -5,7 +5,7 @@
     <p>
         {% trans "Are you sure you want to unpublish this page?" %}
         {% if translation_count %}
-            {% blocktrans trimmed with translation_count=translation_count count counter=translation_count %}
+            {% blocktrans trimmed with counter=translation_count translation_count=translation_count|intcomma count counter=counter %}
                 This will also unpublish one translation of the page.
             {% plural %}
                 This will also unpublish all {{ translation_count }} translations of the page.
@@ -21,20 +21,20 @@
         {% fragment as text %}
             {% if translation_descendant_count %}
                 {% if translation_descendant_count == 1 %}
-                    {% blocktrans trimmed count counter=live_descendant_count %}
+                    {% blocktrans trimmed with counter=live_descendant_count live_descendant_count=live_descendant_count|intcomma count counter=counter %}
                         This page has one subpage and its translations have a combined one translated child page. Unpublish these too
                     {% plural %}
                         This page has {{ live_descendant_count }} child pages and its translations have a combined one translated child page. Unpublish these too
                     {% endblocktrans %}
                 {% else %}
-                    {% blocktrans trimmed count counter=live_descendant_count %}
+                    {% blocktrans trimmed with counter=live_descendant_count live_descendant_count=live_descendant_count|intcomma translation_descendant_count=translation_descendant_count|intcomma count counter=counter %}
                         This page has one child page and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
                     {% plural %}
                         This page has {{ live_descendant_count }} child pages and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
                     {% endblocktrans %}
                 {% endif %}
             {% else %}
-                {% blocktrans trimmed count counter=live_descendant_count %}
+                {% blocktrans trimmed with counter=live_descendant_count live_descendant_count=live_descendant_count|intcomma count counter=counter %}
                     This page has one subpage. Unpublish this too
                 {% plural %}
                     This page has {{ live_descendant_count }} subpages. Unpublish these too

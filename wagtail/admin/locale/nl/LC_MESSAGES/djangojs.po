@@ -4,13 +4,13 @@
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Loic Teixeira, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2023
-# Storm Heg <storm@stormbase.digital>, 2023
+# Loic Teixeira, 2024
+# Storm Heg <storm@stormbase.digital>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2023\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -29,6 +29,11 @@ msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s foutmelding"
 msgstr[1] "%(num)s foutmeldingen"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s min"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
@@ -201,6 +206,12 @@ msgid ""
 msgstr ""
 "De editor is zojuist vastgelopen. De inhoud is teruggezet naar de laatst "
 "opgeslagen versie."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Het maximale aantal items is %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Het minimale aantal items is %(min_num)d"
 
 msgid "This field is required."
 msgstr "Dit veld is verplicht."

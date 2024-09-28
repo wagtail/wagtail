@@ -1,8 +1,8 @@
+from collections import defaultdict
 from datetime import timedelta
 
 import django_filters
 from django.contrib.admin.utils import quote
-from django.core.paginator import Paginator
 from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -60,17 +60,23 @@ class HistoryFilterSet(WagtailFilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        actions = get_actions_for_filter(self.queryset)
+        actions = self.get_action_choices()
         if not actions:
             del self.filters["action"]
         else:
             self.filters["action"].extra["choices"] = actions
 
-        users = self.queryset.get_users()
+        users = self.get_users_queryset()
         if not users.exists():
             del self.filters["user"]
         else:
             self.filters["user"].extra["queryset"] = users
+
+    def get_action_choices(self):
+        return get_actions_for_filter(self.queryset)
+
+    def get_users_queryset(self):
+        return self.queryset.get_users()
 
 
 class ActionColumn(Column):
@@ -192,9 +198,7 @@ class LogEntryUserColumn(UserColumn):
 class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     any_permission_required = ["add", "change", "delete"]
     page_title = gettext_lazy("History")
-    results_template_name = "wagtailadmin/generic/history_results.html"
     header_icon = "history"
-    is_searchable = False
     paginate_by = 20
     filterset_class = HistoryFilterSet
     history_url_name = None
@@ -221,7 +225,7 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
                 },
                 user_can_unschedule=self.user_can_unschedule(),
             ),
-            LogEntryUserColumn("user", width="25%"),
+            LogEntryUserColumn("user", label=gettext_lazy("User"), width="25%"),
             DateColumn("timestamp", label=gettext_lazy("Date"), width="15%"),
         ]
 
@@ -292,10 +296,13 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
     def user_can_unschedule(self):
         return self.user_has_permission("publish")
 
+    @cached_property
+    def verbose_name_plural(self):
+        return BaseLogEntry._meta.verbose_name_plural
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context["object"] = self.object
-        context["model_opts"] = BaseLogEntry._meta
         return context
 
     def get_base_queryset(self):
@@ -318,27 +325,77 @@ class HistoryView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
         return kwargs
 
 
-class WorkflowHistoryView(BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView):
-    template_name = "wagtailadmin/shared/workflow_history/index.html"
-    page_kwarg = "p"
-    workflow_history_url_name = None
+class WorkflowHistoryView(BaseObjectMixin, BaseListingView):
+    template_name = "wagtailadmin/shared/workflow_history/listing.html"
+    results_template_name = "wagtailadmin/shared/workflow_history/listing_results.html"
+    paginate_by = 20
+    index_url_name = None
+    edit_url_name = None
     workflow_history_detail_url_name = None
+    page_title = gettext_lazy("Workflow history")
+    context_object_name = "workflow_states"
 
     @cached_property
-    def workflow_states(self):
-        return WorkflowState.objects.for_instance(self.object).order_by("-created_at")
+    def index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
+
+    @cached_property
+    def edit_url(self):
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        if self.edit_url:
+            buttons.append(
+                HeaderButton(gettext("Edit"), url=self.edit_url, icon_name="edit")
+            )
+        return buttons
+
+    def get_page_subtitle(self):
+        return get_latest_str(self.object)
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url:
+            items.append(
+                {
+                    "url": self.index_url,
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+
+        if self.edit_url:
+            items.append(
+                {
+                    "url": self.edit_url,
+                    "label": self.get_page_subtitle(),
+                }
+            )
+        items.append(
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
+
+        return self.breadcrumbs_items + items
+
+    def get_base_queryset(self):
+        return (
+            WorkflowState.objects.for_instance(self.object)
+            .select_related("workflow", "requested_by")
+            .order_by("-created_at")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        paginator = Paginator(self.workflow_states, per_page=20)
-        workflow_states = paginator.get_page(self.request.GET.get(self.page_kwarg))
-
         context.update(
             {
                 "object": self.object,
-                "workflow_states": workflow_states,
-                "workflow_history_url_name": self.workflow_history_url_name,
                 "workflow_history_detail_url_name": self.workflow_history_detail_url_name,
                 "model_opts": self.object._meta,
             }
@@ -350,36 +407,105 @@ class WorkflowHistoryDetailView(
     BaseObjectMixin, WagtailAdminTemplateMixin, TemplateView
 ):
     template_name = "wagtailadmin/shared/workflow_history/detail.html"
+    index_url_name = None
+    edit_url_name = None
     workflow_state_url_kwarg = "workflow_state_id"
     workflow_history_url_name = None
     page_title = gettext_lazy("Workflow progress")
     header_icon = "list-ul"
     object_icon = "doc-empty-inverse"
+    _show_breadcrumbs = True
+
+    @cached_property
+    def index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
+
+    @cached_property
+    def edit_url(self):
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(quote(self.object.pk),))
+
+    @cached_property
+    def workflow_history_url(self):
+        if self.workflow_history_url_name:
+            return reverse(
+                self.workflow_history_url_name, args=(quote(self.object.pk),)
+            )
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if self.index_url:
+            items.append(
+                {
+                    "url": self.index_url,
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        if self.edit_url:
+            items.append(
+                {
+                    "url": self.edit_url,
+                    "label": self.get_page_subtitle(),
+                }
+            )
+        if self.workflow_history_url:
+            items.append(
+                {
+                    "url": self.workflow_history_url,
+                    "label": gettext("Workflow history"),
+                }
+            )
+        items.append(
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
+        return self.breadcrumbs_items + items
+
+    def get_page_subtitle(self):
+        return get_latest_str(self.object)
+
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        if self.edit_url:
+            buttons.append(
+                HeaderButton(
+                    gettext("Edit / Review"),
+                    url=self.edit_url,
+                    icon_name="edit",
+                )
+            )
+        return buttons
 
     @cached_property
     def workflow_state(self):
         return get_object_or_404(
-            WorkflowState.objects.for_instance(self.object).filter(
-                id=self.kwargs[self.workflow_state_url_kwarg]
-            ),
+            WorkflowState.objects.for_instance(self.object)
+            .filter(id=self.kwargs[self.workflow_state_url_kwarg])
+            .select_related("requested_by", "requested_by__wagtail_userprofile")
         )
 
     @cached_property
     def revisions(self):
         """
-        Get QuerySet of all revisions that have existed during this workflow state.
-        It's possible that the object is edited while the workflow is running,
+        Get QuerySet of all revisions that caused a task state change during this
+        workflow state. It's possible that a task is rejected and then resubmitted,
         so some tasks may be repeated. All tasks that have been completed no matter
         what revision needs to be displayed on this page.
         """
         return (
             Revision.objects.for_instance(self.object)
+            .select_related("user")
             .filter(
                 id__in=TaskState.objects.filter(
                     workflow_state=self.workflow_state
                 ).values_list("revision_id", flat=True),
             )
-            .order_by("-created_at")
+            .order_by("created_at")
         )
 
     @cached_property
@@ -389,14 +515,25 @@ class WorkflowHistoryDetailView(
     @cached_property
     def task_states_by_revision(self):
         """Get QuerySet of tasks completed for each revision."""
+        # Fetch task states for the revisions in one query instead of one query per revision
+        task_states = (
+            TaskState.objects.filter(
+                workflow_state=self.workflow_state,
+                revision_id__in=[revision.pk for revision in self.revisions],
+            )
+            .prefetch_related("task", "finished_by")
+            .specific()
+        )
+        task_states_by_revision_id = defaultdict(list)
+        for task_state in task_states:
+            task_states_by_revision_id[task_state.revision_id].append(task_state)
+
         task_states_by_revision_task = [
             (
                 revision,
                 {
                     task_state.task: task_state
-                    for task_state in TaskState.objects.filter(
-                        workflow_state=self.workflow_state, revision=revision
-                    ).specific()
+                    for task_state in task_states_by_revision_id[revision.pk]
                 },
             )
             for revision in self.revisions
@@ -416,6 +553,7 @@ class WorkflowHistoryDetailView(
         """Generate timeline."""
         completed_task_states = (
             TaskState.objects.filter(workflow_state=self.workflow_state)
+            .select_related("finished_by", "task")
             .exclude(finished_at__isnull=True)
             .exclude(status=TaskState.STATUS_CANCELLED)
         )
@@ -470,7 +608,6 @@ class WorkflowHistoryDetailView(
         context.update(
             {
                 "object": self.object,
-                "object_icon": self.object_icon,
                 "workflow_state": self.workflow_state,
                 "tasks": self.tasks,
                 "task_states_by_revision": self.task_states_by_revision,

@@ -119,6 +119,14 @@ class BaseStructBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
+    @classmethod
+    def construct_from_lookup(cls, lookup, child_blocks, **kwargs):
+        if child_blocks:
+            child_blocks = [
+                (name, lookup.get_block(index)) for name, index in child_blocks
+            ]
+        return cls(child_blocks, **kwargs)
+
     def get_default(self):
         """
         Any default value passed in the constructor or self.meta is going to be a dict
@@ -309,6 +317,17 @@ class BaseStructBlock(Block):
         """
         path = "wagtail.blocks.StructBlock"
         args = [list(self.child_blocks.items())]
+        kwargs = self._constructor_kwargs
+        return (path, args, kwargs)
+
+    def deconstruct_with_lookup(self, lookup):
+        path = "wagtail.blocks.StructBlock"
+        args = [
+            [
+                (name, lookup.add_block(block))
+                for name, block in self.child_blocks.items()
+            ]
+        ]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
 

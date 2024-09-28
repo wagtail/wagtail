@@ -1,7 +1,11 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
 
 {% block header %}
     {% include "wagtailadmin/shared/header.html" with title=_("Delete") icon="doc-empty-inverse" %}
@@ -16,11 +20,13 @@
                     <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
                     {% if page.descendant_count %}
                         <p>
-                            {% blocktrans trimmed count counter=page.descendant_count %}
-                                This will also delete one more subpage.
-                            {% plural %}
-                                This will also delete {{ counter }} more subpages.
-                            {% endblocktrans %}
+                            {% with counter_val=page.descendant_count %}
+                                {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}
+                                    This will also delete one more subpage.
+                                {% plural %}
+                                    This will also delete {{ counter }} more subpages.
+                                {% endblocktrans %}
+                            {% endwith %}
                         </p>
                     {% endif %}
                 </li>

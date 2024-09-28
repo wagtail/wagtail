@@ -1,7 +1,11 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
 {% load wagtailimages_tags wagtailadmin_tags %}
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Add tags to 1 image {% plural %}Add tags to {{ counter }} images{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Add tags to 1 image {% plural %}Add tags to {{ counter }} images{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
 
 {% block header %}
     {% trans "Add tags to images" as add_str %}

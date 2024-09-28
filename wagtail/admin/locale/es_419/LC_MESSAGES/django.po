@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Rodrigo Yanez, 2023\n"
 "Language-Team: Spanish (Latin America) (http://app.transifex.com/torchbox/"
@@ -588,9 +588,6 @@ msgstr "Explorar subpáginas de '%(title)s'"
 
 msgid "Explore"
 msgstr "Explorar"
-
-msgid "Collection privacy"
-msgstr "Privacidad de la colección"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Esta colección ha sido convertida en privada por una colección padre."

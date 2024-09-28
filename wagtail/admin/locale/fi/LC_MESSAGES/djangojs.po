@@ -2,12 +2,12 @@
 # Translators:
 # Aarni Koskela, 2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2022
-# Loic Teixeira, 2022
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2023
+# Loic Teixeira, 2024
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2023\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -26,6 +26,11 @@ msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s virhe"
 msgstr[1] "%(num)s virhettä"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s min"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
@@ -114,7 +119,7 @@ msgid "Main menu"
 msgstr "Päävalikko"
 
 msgid "Missing document"
-msgstr "Puuttuva asiakirja"
+msgstr "Puuttuva dokumentti"
 
 msgid "More actions"
 msgstr "Lisää toimintoja"
@@ -195,6 +200,12 @@ msgid ""
 msgstr ""
 "Tekstinkäsittely joutui virhetilaan. Sisällöksi on palautettu viimeisin "
 "tallennettu versio. "
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Kohtia voi olla enintään %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Kohtia on oltava vähintään %(min_num)d"
 
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."

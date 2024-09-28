@@ -5,16 +5,16 @@
 # Translators:
 # Andrej Marsetič, 2022
 # Andrej Marsetič, 2022
-# Andrej Marsetič, 2022-2023
+# Andrej Marsetič, 2022-2024
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2023\n"
+"Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -252,6 +252,26 @@ msgstr ""
 "Naložen ni še noben dokument. Zakaj ga ne bi <a "
 "href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
+#, python-format
+msgid ""
+"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgid_plural ""
+"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
+"%(site_name)s</span>"
+msgstr[0] ""
+"<span>%(total)s</span> dokument <span class=\"w-sr-only\"> ustvarjen v "
+"%(site_name)s</span>"
+msgstr[1] ""
+"<span>%(total)s</span> dokumenta <span class=\"w-sr-only\">ustvarjena na "
+"%(site_name)s</span>"
+msgstr[2] ""
+"<span>%(total)s</span> dokumenti <span class=\"w-sr-only\">ustvarjeni na "
+"%(site_name)s</span>"
+msgstr[3] ""
+"<span>%(total)s</span> dokumentov <span class=\"w-sr-only\">narejenih v "
+"%(site_name)s</span>"
+
 msgid "Add multiple documents"
 msgstr "Dodaj več dokumentov"
 
@@ -313,6 +333,15 @@ msgstr "Dodaj v zbirko"
 
 msgid "Add selected documents to collection"
 msgstr "Dodajte izbrane dokumente v zbirko"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "V %(collection)s je bilo dodan %(num_parent_objects)d dokument"
+msgstr[1] "V %(collection)s sta bila dodana %(num_parent_objects)d dokumenta"
+msgstr[2] "V %(collection)s je bilo dodanih %(num_parent_objects)d dokumentov"
+msgstr[3] "V %(collection)s je bilo dodanih %(num_parent_objects)d dokumentov"
 
 msgid "Delete"
 msgstr "Izbriši"

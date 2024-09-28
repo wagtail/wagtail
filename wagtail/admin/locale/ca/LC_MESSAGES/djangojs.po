@@ -2,11 +2,11 @@
 # Translators:
 # David Llop, 2022
 # Loic Teixeira, 2022
-# Roger Pons <rogerpons@gmail.com>, 2023
+# Roger Pons <rogerpons@gmail.com>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ca\n"
@@ -25,6 +25,11 @@ msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s error"
 msgstr[1] "%(num)s errors"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s min"
+msgstr[1] "%(num)s mins"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
@@ -197,6 +202,12 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 "L'editor ha fallat. El contingut ha estat reiniciat a l'última versió desada."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "El nombre màxim d'elements és %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "El nombre mínim d'elements és %(min_num)d"
 
 msgid "This field is required."
 msgstr "Aquest camp és obligatori."

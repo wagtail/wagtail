@@ -3,20 +3,20 @@ version: 2
 jobs:
   backend:
     docker:
-      - image: cimg/python:3.8.11
+      - image: cimg/python:3.12
     environment:
       PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
       - restore_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               pipenv install -e .[testing,docs]
           fi
       - save_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
           paths:
             - .venv
       - run: pipenv run ruff check .
@@ -29,7 +29,7 @@ jobs:
           name: Run tests
           command: |
             export PYTHONUNBUFFERED=1
-            pipenv run python -u runtests.py --parallel=2
+            WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1 pipenv run python -u runtests.py --parallel=2
 
   frontend:
     docker:
@@ -62,7 +62,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: cimg/python:3.8.11-browsers
+      - image: cimg/python:3.12-browsers
     environment:
       PIPENV_VENV_IN_PROJECT: true
       DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
@@ -72,27 +72,30 @@ jobs:
       - attach_workspace:
           at: ~/project
       - restore_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               pipenv install -e .[testing]
           fi
       - save_cache:
-          key: pipenv-v1-{{ checksum "setup.py" }}
+          key: pipenv-v2-{{ checksum "setup.py" }}
           paths:
             - .venv
       - restore_cache:
-          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+          key: ui_tests-npm_integration-v2-{{ checksum "client/tests/integration/package-lock.json" }}
       # Only install if node_modules wasn’t cached.
       - run: |
           if [[ ! -e "client/tests/integration/node_modules" ]]; then
               npm --prefix ./client/tests/integration ci
           fi
       - save_cache:
-          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+          key: ui_tests-npm_integration-v2-{{ checksum "client/tests/integration/package-lock.json" }}
           paths:
             - client/tests/integration/node_modules
+            # Also cache the global location where Puppeteer stores browsers.
+            # https://pptr.dev/guides/configuration/#changing-the-default-cache-directory
+            - ~/.cache/puppeteer
       - run: pipenv run ./wagtail/test/manage.py migrate
       - run:
           command: pipenv run ./wagtail/test/manage.py runserver 0:8000
@@ -118,7 +121,7 @@ jobs:
 
   nightly-build:
     docker:
-      - image: cimg/python:3.8.11-node
+      - image: cimg/python:3.12-node
     steps:
       - checkout
       - run: pip install --user wheel boto3

@@ -7,7 +7,7 @@
 #  - File.size exceptions raise DummyExternalStorageError
 #  - Storage._save() fails loudly if the content file's pointer is not at the start
 
-from django.core.files.base import File
+from django.core.files import File
 from django.core.files.storage import FileSystemStorage, Storage
 from django.utils.deconstruct import deconstructible
 

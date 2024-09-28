@@ -5,7 +5,12 @@ import { UnsavedController } from './UnsavedController';
 jest.useFakeTimers();
 
 describe('UnsavedController', () => {
-  const eventNames = ['w-unsaved:add', 'w-unsaved:clear', 'w-unsaved:ready'];
+  const eventNames = [
+    'w-unsaved:add',
+    'w-unsaved:clear',
+    'w-unsaved:ready',
+    'w-unsaved:confirm',
+  ];
 
   const events = {};
 
@@ -224,6 +229,7 @@ describe('UnsavedController', () => {
       const result = await mockBrowserClose();
 
       expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(0);
     });
 
     it('should show a confirmation message if forced', async () => {
@@ -243,6 +249,7 @@ describe('UnsavedController', () => {
       const result = await mockBrowserClose();
 
       expect(result).toEqual('You have unsaved changes!');
+      expect(events['w-unsaved:confirm']).toHaveLength(1);
     });
 
     it('should allow a confirmation message to show before the browser closes', async () => {
@@ -257,9 +264,10 @@ describe('UnsavedController', () => {
       const result = await mockBrowserClose();
 
       expect(result).toEqual('You have unsaved changes!');
+      expect(events['w-unsaved:confirm']).toHaveLength(1);
     });
 
-    it('should should not show a confirmation message if there are edits but the form is being submitted', async () => {
+    it('should not show a confirmation message if there are edits but the form is being submitted', async () => {
       await setup();
 
       document
@@ -274,6 +282,29 @@ describe('UnsavedController', () => {
       const result = await mockBrowserClose();
 
       expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(0);
+    });
+
+    it('should not show a confirmation message if the confirm event is prevented', async () => {
+      const preventConfirm = jest
+        .fn()
+        .mockImplementation((e) => e.preventDefault());
+      document.addEventListener('w-unsaved:confirm', preventConfirm);
+      await setup();
+
+      document
+        .getElementById('name')
+        .dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      const result = await mockBrowserClose();
+
+      expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(1);
+      expect(events['w-unsaved:confirm'][0].defaultPrevented).toEqual(true);
+      expect(preventConfirm).toHaveBeenCalledTimes(1);
+      document.removeEventListener('w-unsaved:confirm', preventConfirm);
     });
   });
 });

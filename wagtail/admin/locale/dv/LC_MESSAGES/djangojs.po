@@ -60,6 +60,12 @@ msgstr "ހޯދާ"
 msgid "Server Error"
 msgstr "ސަރވަރ ގެ މައްސަލައެއް ޖެހިއްޖެ"
 
+msgid "The maximum number of items is %(max_num)d"
+msgstr "އެންމެ ގިނަ ތަކެތީގެ އަދަދަކީ %(max_num)d އެވެ"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "އެންމެ މަދު ތަކެތީގެ އަދަދަކީ %(min_num)d އެވެ"
+
 msgid "This field is required."
 msgstr "މި ބައި ކޮންމެހެންވެސް ބޭނުންވާނެ"
 

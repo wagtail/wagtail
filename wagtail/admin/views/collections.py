@@ -30,7 +30,6 @@ class Index(IndexView):
             accessor="1",
         )
     ]
-    _show_breadcrumbs = True
 
     def get_queryset(self):
         return self.permission_policy.instances_user_has_any_permission_for(
@@ -137,17 +136,6 @@ class Edit(EditView):
         if "parent" in self.form.changed_data:
             instance.move(self.form.cleaned_data["parent"], "sorted-child")
         return instance
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["can_delete"] = (
-            self.permission_policy.instances_user_has_permission_for(
-                self.request.user, "delete"
-            )
-            .filter(pk=self.object.pk)
-            .first()
-        )
-        return context
 
 
 class Delete(DeleteView):

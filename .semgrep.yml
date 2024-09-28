@@ -39,6 +39,9 @@ rules:
       - metavariable-regex:
           metavariable: $STRING_ID
           regex: ".*%\\w.*"
+    paths:
+      exclude:
+        - 'wagtail/test/numberformat.py'
     message: >
       Do not use anonymous placeholders for translations.
       Use printf style formatting with named placeholders instead.

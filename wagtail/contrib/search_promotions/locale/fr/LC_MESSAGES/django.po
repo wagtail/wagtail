@@ -12,15 +12,15 @@
 # Loic Teixeira, 2020,2022-2023
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-18 17:28+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -164,6 +164,9 @@ msgid ""
 msgstr ""
 "Aucun résultat de promotion n'a été créé. Pourquoi ne pas <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">en ajouter un</a> ?"
+
+msgid "No promoted results have been created."
+msgstr "Aucun résultat mis en avant n'a été créé."
 
 msgid "Popular search terms"
 msgstr "Termes de recherche populaires"

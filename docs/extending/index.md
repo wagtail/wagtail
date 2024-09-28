@@ -1,4 +1,4 @@
-# Extending Wagtail
+# Extending
 
 The Wagtail admin interface is a suite of Django apps, and so the familiar concepts from Django development - views, templates, URL routes and so on - can be used to add new functionality to Wagtail. Numerous [third-party packages](https://wagtail.org/packages/) can be installed to extend Wagtail's capabilities.
 
