@@ -331,10 +331,9 @@ REST_FRAMEWORK = {
 }
 ```
 
+Don't forget to run the app's migrations.
 
-Don't forget to run the app's migrations. 
-
-Your API endpoint will be accessible only with the Authorization header containing the generated `Token exampleSecretToken123xyz`. 
+Your API endpoint will be accessible only with the Authorization header containing the generated `Token exampleSecretToken123xyz`.
 Tokens can be generated in the Django admin under Auth Token or using the `manage.py` command `drf_create_token`.
 
 Note: If you use `TokenAuthentication` in production you must ensure that your API is only available over `https`.
