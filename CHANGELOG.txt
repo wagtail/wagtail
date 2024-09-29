@@ -31,6 +31,7 @@ Changelog
  * Fix: Prevent popular tags filter from generating overly complex queries when not filtering (Matt Westcott)
  * Fix: Fix content path links in usage view to scroll to the correct element (Sage Abdullah)
  * Fix: Always show the minimap toggle button (Albina Starykova)
+ * Fix: Ensure that dropdown button toggles show with a border in high contrast mode (Ishwari8104, LB (Ben) Johnston)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
