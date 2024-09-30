@@ -849,6 +849,7 @@
 * Srishti Jaiswal
 * Alessandro Chitarrini
 * Joel William
+* Ataf Fazledin Ahamed
 
 ## Translators
 
