@@ -164,41 +164,42 @@ class FormBuilder:
 
 
 class StreamFieldFormBuilder(FormBuilder):
+    extra_field_options = []
+
     def create_dropdown_field(self, field_value, options):
-        options["choices"] = self.get_formatted_field_choices(field_value)
-        options["initial"] = self.get_formatted_field_initial(field_value)[0]
-        return super().create_dropdown_field(field_value, options)
+        _options = self.format_field_options(options, field_value["choices"])
+        return django.forms.ChoiceField(**_options)
 
     def create_multiselect_field(self, field_value, options):
-        options["choices"] = self.get_formatted_field_choices(field_value)
-        options["initial"] = self.get_formatted_field_initial(field_value)
-        return super().create_multiselect_field(field_value, options)
+        _options = self.format_field_options(options, field_value["choices"])
+        return django.forms.MultipleChoiceField(**_options)
 
     def create_radio_field(self, field_value, options):
-        options["choices"] = self.get_formatted_field_choices(field_value)
-        options["initial"] = self.get_formatted_field_initial(field_value)[0]
-        return super().create_radio_field(field_value, options)
+        _options = self.format_field_options(options, field_value["choices"])
+        return django.forms.ChoiceField(widget=django.forms.RadioSelect, **_options)
 
     def create_checkboxes_field(self, field_value, options):
-        options["choices"] = self.get_formatted_field_choices(field_value)
-        options["initial"] = self.get_formatted_field_initial(field_value)
-        return super().create_checkboxes_field(field_value, options)
+        _options = self.format_field_options(options, field_value["choices"])
+        return django.forms.MultipleChoiceField(
+            widget=django.forms.CheckboxSelectMultiple, **_options
+        )
 
-    def get_formatted_field_choices(self, field_data):
-        return [
-            (
-                get_field_clean_name(choice["value"]["label"].strip()),
-                choice["value"]["label"],
-            )
-            for choice in field_data["choices"]
-        ]
+    def format_field_options(self, options, choices):
+        formatted_choices = []
+        formatted_initial = []
 
-    def get_formatted_field_initial(self, field_data):
-        return [
-            choice["value"]["label"]
-            for choice in field_data["choices"]
-            if choice["value"]["initial"]
-        ]
+        for choice in choices:
+            label = choice["value"]["label"].strip()
+            slug = get_field_clean_name(label)
+            formatted_choices.append((slug, label))
+            if choice["value"]["initial"]:
+                formatted_initial.append(slug)
+
+        return {
+            **options,
+            "choices": formatted_choices,
+            "initial": formatted_initial,
+        }
 
     @property
     def formfields(self):
@@ -216,6 +217,12 @@ class StreamFieldFormBuilder(FormBuilder):
         options = {**field_data["value"]}
         if not getattr(settings, "WAGTAILFORMS_HELP_TEXT_ALLOW_HTML", False):
             options["help_text"] = conditional_escape(options["help_text"])
+
+        if hasattr(self, "extra_field_options"):
+            for option in self.extra_field_options:
+                if option in options:
+                    options.pop(option)
+
         return options
 
 
