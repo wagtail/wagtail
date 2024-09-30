@@ -35,6 +35,7 @@ class assets_mixin:
             package = json.loads(input_file.read().decode("utf-8"))
         except ValueError as e:
             print("Unable to read " + path + " " + e)  # noqa: T201
+            input_file.close()
             raise SystemExit(1)
 
         package["version"] = __semver__
