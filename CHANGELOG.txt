@@ -14,6 +14,7 @@ Changelog
  * Docs: Add the `wagtail start` command to the management commands reference page (Damilola Oladele)
  * Docs: Refine the project template page sections and document common issues encountered when creating custom templates (Damilola Oladele)
  * Docs: Refine page titles to better align with the documentation style guide (Srishti Jaiswal)
+ * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
 
 
 6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT

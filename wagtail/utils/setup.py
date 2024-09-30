@@ -29,10 +29,10 @@ class assets_mixin:
         Writes the current Wagtail version number into package.json
         """
         path = os.path.join(".", "client", "package.json")
-        input_file = open(path)
 
         try:
-            package = json.loads(input_file.read().decode("utf-8"))
+            with open(path, "r") as f:
+                package = json.loads(f.read())
         except ValueError as e:
             print("Unable to read " + path + " " + e)  # noqa: T201
             raise SystemExit(1)
