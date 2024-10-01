@@ -1,4 +1,4 @@
-# Contributing to Wagtail
+# Contributing
 
 Thank you for your interest in improving Wagtail!
 

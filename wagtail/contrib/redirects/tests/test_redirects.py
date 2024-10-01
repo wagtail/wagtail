@@ -774,23 +774,6 @@ class TestRedirectsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
 
         self.assertEqual(len(csv_data), 10)
 
-    def test_redirect_page_filter_only_includes_relevant_pages(self):
-        """
-        The redirect_page filter should only include pages referenced by Redirect objects.
-        """
-        response = self.get()
-        request = response.context["request"]
-        qs = response.context["filters"].filters["redirect_page"].queryset(request)
-        self.assertQuerySetEqual(qs, Page.objects.none())
-
-        page = Page.objects.get(id=2)
-        models.Redirect.add_redirect("/to-page", page, False)
-
-        response = self.get()
-        request = response.context["request"]
-        qs = response.context["filters"].filters["redirect_page"].queryset(request)
-        self.assertQuerySetEqual(qs, Page.objects.filter(pk=2))
-
 
 @override_settings(
     WAGTAILFRONTENDCACHE={

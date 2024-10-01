@@ -1,4 +1,4 @@
-# Advanced topics
+# Advanced
 
 ```{toctree}
 ---

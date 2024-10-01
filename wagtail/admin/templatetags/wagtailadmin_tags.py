@@ -940,18 +940,6 @@ def wagtail_config(context):
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
         },
     }
-
-    default_settings = {
-        "WAGTAIL_AUTO_UPDATE_PREVIEW": True,
-        "WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL": 500,
-    }
-    config.update(
-        {
-            option: getattr(settings, option, default)
-            for option, default in default_settings.items()
-        }
-    )
-
     return config
 
 

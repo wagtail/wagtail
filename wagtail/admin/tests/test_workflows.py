@@ -43,6 +43,7 @@ from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
     ModeratedModel,
+    MultiPreviewModesPage,
     SimplePage,
     SimpleTask,
 )
@@ -4133,12 +4134,15 @@ class TestTaskChooserChosenView(WagtailTestUtils, TestCase):
 
 class TestWorkflowUsageView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
         self.workflow = Workflow.objects.get()
 
         self.root_page = Page.objects.get(depth=1)
         self.home_page = Page.objects.get(depth=2)
 
+        self.child_page_with_default_workflow = self.home_page.add_child(
+            instance=SimplePage(title="A page", content="I'm a page")
+        )
         self.child_page_with_another_workflow = self.home_page.add_child(
             instance=SimplePage(title="Another page", content="I'm another page")
         )
@@ -4153,11 +4157,109 @@ class TestWorkflowUsageView(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/listing.html")
 
-        object_set = {page.id for page in response.context["used_by"].object_list}
-        self.assertIn(self.root_page.id, object_set)
-        self.assertIn(self.home_page.id, object_set)
-        self.assertNotIn(self.child_page_with_another_workflow.id, object_set)
+        object_set = {page.id for page in response.context["object_list"]}
+        # Should not contain child_page_with_another_workflow. It should also
+        # not contain the root page, as it's irrelevant (you'll never be able to
+        # edit and submit it to the workflow)
+        self.assertEqual(
+            object_set,
+            {self.home_page.id, self.child_page_with_default_workflow.id},
+        )
+
+    def test_with_no_permission(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        # No GroupPagePermission created
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Only a page permission is created, but no workflow permission, not enough
+        permission = GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="change",
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Delete page permission and add workflow permission, also not enough
+        permission.delete()
+        group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailcore", codename="change_workflow"
+            )
+        )
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_with_minimal_permissions(self):
+        group = Group.objects.create(name="test group")
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.groups.add(group)
+        group.permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailcore", codename="change_workflow"
+            ),
+        )
+        GroupPagePermission.objects.create(
+            group=group,
+            page=Page.objects.first(),
+            permission_type="change",
+        )
+
+        # With a workflow permission and a page permission, the user should be
+        # able to access the view
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage", args=[self.workflow.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_search_and_filtered_results(self):
+        page_1 = SimplePage(title="Hello wagtail", content="test")
+        page_2 = SimplePage(title="Hello django", content="test")
+        self.home_page.add_child(instance=page_1)
+        self.home_page.add_child(instance=page_2)
+        self.home_page.add_child(instance=MultiPreviewModesPage(title="Hello python"))
+
+        response = self.client.get(
+            reverse("wagtailadmin_workflows:usage_results", args=[self.workflow.id]),
+            {
+                "content_type": ContentType.objects.get_for_model(SimplePage).id,
+                "q": "hello",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/generic/listing_results.html")
+
+        object_set = {page.id for page in response.context["object_list"]}
+        self.assertEqual(object_set, {page_1.id, page_2.id})
 
 
 @freeze_time("2020-06-01 12:00:00")

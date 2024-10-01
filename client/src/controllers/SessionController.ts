@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import { DialogController } from './DialogController';
 import { SwapController } from './SwapController';
 import { ActionController } from './ActionController';
+import { setOptionalInterval } from '../utils/interval';
 
 interface PingResponse {
   session_id: string;
@@ -73,7 +74,7 @@ export class SessionController extends Controller<HTMLElement> {
   declare interceptValue: boolean;
 
   /** The interval ID for the periodic pinging */
-  declare interval: number;
+  declare interval: number | null;
   /** The last action button that triggered the event */
   lastActionButton?: HTMLButtonElement;
 
@@ -120,11 +121,7 @@ export class SessionController extends Controller<HTMLElement> {
    */
   addInterval(): void {
     this.clearInterval();
-    // Values outside this range will be ignored by window.setInterval,
-    // making it fire all the time.
-    if (this.intervalValue <= 0 || this.intervalValue >= 2 ** 31) return;
-
-    this.interval = window.setInterval(this.ping, this.intervalValue);
+    this.interval = setOptionalInterval(this.ping, this.intervalValue);
   }
 
   /**
@@ -133,6 +130,7 @@ export class SessionController extends Controller<HTMLElement> {
   clearInterval(): void {
     if (this.interval) {
       window.clearInterval(this.interval);
+      this.interval = null;
     }
   }
 

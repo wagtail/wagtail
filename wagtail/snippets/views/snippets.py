@@ -761,11 +761,9 @@ class SnippetViewSet(ModelViewSet):
                 "workflow_history/index",
                 fallback=self.workflow_history_view_class.template_name,
             ),
-            workflow_history_url_name=self.get_url_name("workflow_history"),
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
             ),
-            _show_breadcrumbs=False,
         )
 
     @property
@@ -776,10 +774,7 @@ class SnippetViewSet(ModelViewSet):
                 "workflow_history/detail",
                 fallback=self.workflow_history_detail_view_class.template_name,
             ),
-            object_icon=self.icon,
-            header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
-            _show_breadcrumbs=False,
         )
 
     @property

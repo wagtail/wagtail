@@ -70,7 +70,7 @@
             <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
                 {% csrf_token %}
                 {% if confirm_before_delete %}
-                    <p id="id_confirm_site_name-warning" class="status-msg warning">
+                    <p id="id_confirm_site_name-warning" class="status-msg failure">
                         {% blocktrans trimmed with total_pages=descendant_count|add:1|intcomma %}
                             This action will delete total <b>{{ total_pages }}</b> pages.
                         {% endblocktrans %}

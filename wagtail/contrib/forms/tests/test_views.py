@@ -3,6 +3,7 @@ from io import BytesIO
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.contenttypes.models import ContentType
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.html import escape
@@ -17,7 +18,9 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page,
     make_form_page_with_custom_submission,
 )
+from wagtail.contrib.forms.utils import get_form_types
 from wagtail.models import Locale, Page
+from wagtail.test.demosite.models import FormPage as FormPageDemo
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
@@ -28,6 +31,8 @@ from wagtail.test.testapp.models import (
     FormPageWithCustomFormBuilder,
     FormPageWithCustomSubmission,
     FormPageWithCustomSubmissionListView,
+    FormPageWithRedirect,
+    JadeFormPage,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
@@ -154,16 +159,35 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.login(username="siteeditor", password="password")
-        self.form_page = Page.objects.get(url_path="/home/contact-us/")
+        get_form_types.cache_clear()
 
-    def make_form_pages(self):
+    @classmethod
+    def setUpTestData(cls):
+        cls.form_page = Page.objects.specific().get(url_path="/home/contact-us/")
+        # Save a revision so latest_revision_created_at is populated, and thus
+        # the form page is always shown first when using the default ordering
+        # (latest_revision_created_at descending).
+        cls.form_page.save_revision()
+        cls.models = [
+            FormPage,
+            FormPageWithRedirect,
+            FormPageWithCustomFormBuilder,
+            FormPageWithCustomSubmission,
+            FormPageWithCustomSubmissionListView,
+            JadeFormPage,
+            FormPageDemo,
+        ]
+        cls.make_form_pages()
+
+    @classmethod
+    def make_form_pages(cls):
         """
         This makes 100 form pages and adds them as children to 'contact-us'
         This is used to test pagination on the forms index
         """
         for i in range(100):
-            self.form_page.add_child(
-                instance=FormPage(
+            cls.form_page.add_child(
+                instance=cls.models[i % len(cls.models)](
                     title="Form " + str(i), slug="form-" + str(i), live=True
                 )
             )
@@ -176,9 +200,6 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailforms/index.html")
 
     def test_forms_index_pagination(self):
-        # Create some more form pages to make pagination kick in
-        self.make_form_pages()
-
         # Get page two
         response = self.client.get(reverse("wagtailforms:index"), {"p": 2})
 
@@ -190,9 +211,6 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["page_obj"].number, 2)
 
     def test_forms_index_pagination_invalid(self):
-        # Create some more form pages to make pagination kick in
-        self.make_form_pages()
-
         # Get page two
         response = self.client.get(reverse("wagtailforms:index"), {"p": "Hello world!"})
 
@@ -204,10 +222,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_forms_index_pagination_out_of_range(self):
-        # Create some more form pages to make pagination kick in
-        self.make_form_pages()
-
-        # Get page two
+        # Get page that is out of range
         response = self.client.get(reverse("wagtailforms:index"), {"p": 99999})
 
         # Check response
@@ -220,19 +235,27 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
         )
 
     def test_cannot_see_forms_without_permission(self):
+        self.login(username="admin_only_user", password="password")
+        response = self.client.get(reverse("wagtailforms:index"))
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
         # Login with as a user without permission to see forms
         self.login(username="eventeditor", password="password")
 
         response = self.client.get(reverse("wagtailforms:index"))
+        self.assertEqual(response.status_code, 200)
 
         # Check that the user cannot see the form page
         self.assertNotIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 0)
 
     def test_can_see_forms_with_permission(self):
         response = self.client.get(reverse("wagtailforms:index"))
+        self.assertEqual(response.status_code, 200)
 
         # Check that the user can see the form page
         self.assertIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 20)
 
     def test_cant_see_forms_after_filter_form_submissions_for_user_hook(self):
         # Hook allows to see forms only to superusers
@@ -246,6 +269,7 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
         # Check that an user can see the form page
         self.assertIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 20)
 
         with self.register_hook(
             "filter_form_submissions_for_user", construct_forms_for_user
@@ -254,6 +278,65 @@ class TestFormsIndex(WagtailTestUtils, TestCase):
 
         # Check that an user can't see the form page
         self.assertNotIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(len(response.context["form_pages"]), 0)
+
+    def test_search(self):
+        response = self.client.get(reverse("wagtailforms:index"), {"q": "Form 10"})
+
+        self.assertNotIn(self.form_page, response.context["form_pages"])
+        self.assertCountEqual(
+            [page.title for page in response.context["form_pages"]],
+            ["Form 10"],
+        )
+
+    def test_filter_by_page_type(self):
+        content_type_ids = [
+            ct.pk
+            for ct in ContentType.objects.get_for_models(
+                FormPageWithRedirect, FormPageDemo
+            ).values()
+        ]
+        response = self.client.get(
+            reverse("wagtailforms:index"),
+            {"content_type": content_type_ids},
+        )
+
+        soup = self.get_soup(response.content)
+        inputs = soup.select('input[name="content_type"]')
+        self.assertCountEqual(
+            [int(input.attrs.get("value")) for input in inputs],
+            [ct.pk for ct in ContentType.objects.get_for_models(*self.models).values()],
+        )
+        selected_cts = soup.select('input[name="content_type"][checked]')
+        self.assertEqual(len(selected_cts), 2)
+        self.assertCountEqual(
+            [int(input.attrs.get("value")) for input in selected_cts],
+            content_type_ids,
+        )
+
+        # Check that only pages of the selected types are shown
+        self.assertNotIn(self.form_page, response.context["form_pages"])
+        self.assertEqual(
+            {page.__class__ for page in response.context["form_pages"]},
+            {FormPageWithRedirect, FormPageDemo},
+        )
+
+    def test_search_and_filter(self):
+        response = self.client.get(
+            reverse("wagtailforms:index"),
+            {
+                "q": "Contact",
+                "content_type": ContentType.objects.get_for_model(FormPage).pk,
+            },
+        )
+
+        self.assertIn(self.form_page, response.context["form_pages"])
+        # The "Contact us one more time" page from the fixtures is not included
+        # because it's a FormPageWithCustomSubmission, not a FormPage
+        self.assertCountEqual(
+            [page.title for page in response.context["form_pages"]],
+            ["Contact us"],
+        )
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -349,8 +432,9 @@ class TestFormsIndexWithLocalisationEnabled(WagtailTestUtils, TestCase):
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_switcher_doesnt_show_with_i18n_disabled(self):
         response = self.client.get(self.forms_index_url)
-
-        self.assertNotContains(response, "data-locale-selector")
+        soup = self.get_soup(response.content)
+        inputs = soup.select('input[name="locale"]')
+        self.assertEqual(len(inputs), 0)
 
 
 class TestFormsSubmissionsList(WagtailTestUtils, TestCase):

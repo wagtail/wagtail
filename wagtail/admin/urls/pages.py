@@ -36,6 +36,11 @@ urlpatterns = [
         usage.ContentTypeUseView.as_view(),
         name="type_use",
     ),
+    path(
+        "usage/<slug:content_type_app_name>/<slug:content_type_model_name>/results/",
+        usage.ContentTypeUseView.as_view(results_only=True),
+        name="type_use_results",
+    ),
     path("<int:page_id>/usage/", usage.UsageView.as_view(), name="usage"),
     path("<int:page_id>/edit/", edit.EditView.as_view(), name="edit"),
     path(

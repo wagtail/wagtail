@@ -201,7 +201,7 @@ export const renderA11yResults = (
           messages?.help_text || violation.description;
 
         // Special-case when displaying accessibility results within the admin interface.
-        const isInCMS = node.target[0] === '#preview-iframe';
+        const isInCMS = node.target[0] === '#w-preview-iframe';
         const selectorName = toSelector(
           isInCMS ? node.target[1] : node.target[0],
         );

@@ -353,7 +353,7 @@ Instead, review the issue, understand it and if you feel you can contribute you 
 -   [Django's contributor guide](https://docs.djangoproject.com/en/dev/internals/contributing/) is a helpful resource for contributors, even those not contributing to Wagtail.
 -   [MDN's open source etiquette](https://developer.mozilla.org/en-US/docs/MDN/Community/Open_source_etiquette) is a great guideline for how to be a great contributor.
 -   [Learning Git Branching](https://learngitbranching.js.org/) a solid interactive guide to understand how git branching works.
--   [Hacktoberfest](https://hacktoberfest.com/) every October, join in the fun and submit pull requests for a t-shirt.
+-   [Hacktoberfest](https://hacktoberfest.com/) every October, join in the fun and submit pull requests.
 -   [21 Pull Requests](https://24pullrequests.com/) a December community effort to contribute to open source.
 -   [Windows step by step guide to getting bakerydemo running with local Wagtail](https://juliet.hashnode.dev/a-step-by-step-guide-for-manually-setting-up-bakery-demo-with-wagtail)
 
