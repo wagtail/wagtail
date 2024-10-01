@@ -89,8 +89,8 @@ class BlogPage(Page):
 class SecretPage(Page):
     ...
     def get_default_privacy_setting(self, request):
-        import secrets
         # set default to auto-generated password
+        import secrets
         return {'type':'shared_password',"password":secrets.token_urlsafe(32)}
 ```
 
