@@ -65,9 +65,12 @@ class Indexed:
         return [
             field
             for field in cls.get_search_fields()
-            if isinstance(field, AutocompleteField) or (
-                isinstance(field, RelatedFields) and any(
-                    isinstance(related_field, AutocompleteField) for related_field in field.get_fields()
+            if isinstance(field, AutocompleteField)
+            or (
+                isinstance(field, RelatedFields)
+                and any(
+                    isinstance(related_field, AutocompleteField)
+                    for related_field in field.get_fields()
                 )
             )
         ]
