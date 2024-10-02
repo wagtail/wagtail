@@ -45,13 +45,40 @@
             {% endblock %}
 
             {% if is_multiple_choice %}
-                <form action="{{ chosen_multiple_url }}" method="GET" data-multiple-choice-form>
+                <form
+                    action="{{ chosen_multiple_url }}"
+                    method="GET"
+                    data-controller="w-bulk"
+                    data-multiple-choice-form
+                >
+                    <div class="help-block help-info">
+                        {% icon name='help' %}
+                        {% comment %} get number correctly passed into translations, maybe just use trans {% endcomment %}
+                        <p>
+                            {% blocktrans with max=3 %}This is {{ max }} by {{ max }}{% endblocktrans %}
+                            {% blocktrans trimmed %}
+                            <p>An overall total of <data value="3">three</data> items can be selected.</p>
+                            <p>Select up to <data value="2">two</data> additional items from the choices below.</p>
+                            {% endblocktrans %}
+                        </p>
+                    </div>
 
                     <div id="search-results" class="listing">
                         {% include view.results_template_name %}
                     </div>
 
-                    <input type="submit" data-multiple-choice-submit value="{% trans 'Confirm selection' %}" class="button" />
+                    <input class="button" type="submit" data-multiple-choice-submit value="{% trans 'Confirm selection' %}" />
+                    <button class="button button-secondary" type="button" data-action="w-bulk#toggleAll" data-w-bulk-force-param="false">{% trans 'Clear selection' %}</button>
+
+                    <div class="help-block help-warning">
+                        {% icon name='warning' %}
+                        {% comment %} make this show only when over the threshold {% endcomment %}
+                        <p>
+                            {% blocktrans trimmed %}
+                            <p>Too many items selected, these will not be applied upon confirming selection.</p>
+                            {% endblocktrans %}
+                        </p>
+                    </div>
                 </form>
             {% else %}
                 <div id="search-results" class="listing">
