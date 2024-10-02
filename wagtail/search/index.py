@@ -63,16 +63,13 @@ class Indexed:
     @classmethod
     def get_autocomplete_search_fields(cls):
         return [
-            field
+            related_field
             for field in cls.get_search_fields()
-            if isinstance(field, AutocompleteField)
-            or (
-                isinstance(field, RelatedFields)
-                and any(
-                    isinstance(related_field, AutocompleteField)
-                    for related_field in field.get_fields()
-                )
+            if isinstance(field, (AutocompleteField, RelatedFields))
+            for related_field in (
+                field.get_fields() if isinstance(field, RelatedFields) else [field]
             )
+            if isinstance(related_field, AutocompleteField)
         ]
 
     @classmethod
