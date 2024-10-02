@@ -5,35 +5,51 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
 
 /**
  * Adds the ability for a controlled element to update the total count
- * of selected elements within the provided container selector, defaults
- * to `body.`
+ * of selected elements (via the `find` selector) within the provided
+ * container (via a selector or defaulting to the controlled element).
  *
- * @example
- * <div data-controller="w-count">
- *  <span data-w-count-target="label"></span>
- *  <span class="error-message">An error</span>
- * </div>
+ * @example - Finding all error messages within the body
+ * ```html
+ * <section>
+ *   <div data-controller="w-count" data-w-count-container-value="body">
+ *    <span data-w-count-target="label"></span>
+ *    <span class="error-message">An error</span>
+ *   </div>
+ *   <div class="error-message">Another error</div>
+ * </section>
+ * ```
+ *
+ * @example - Change a class when the total is above the provided minimum in the controlled element
+ * ```html
+ * <form data-controller="w-count" data-w-count-min-value="1" data-w-count-active-class="active" data-w-count-find-value="*:checked">
+ *   <input type="checkbox" name="opt" value="A" />
+ *   <input type="checkbox" name="opt" value="B" checked="" />
+ *   <input type="checkbox" name="opt" value="C" checked="" />
+ * </form>
+ * ```
  */
 export class CountController extends Controller<HTMLFormElement> {
   static classes = ['active'];
+
   static targets = ['label', 'total'];
+
   static values = {
-    container: { default: 'body', type: String },
+    container: { default: '', type: String },
     find: { default: DEFAULT_ERROR_SELECTOR, type: String },
     labels: { default: [], type: Array },
     min: { default: 0, type: Number },
     total: { default: 0, type: Number },
   };
 
-  /** selector string, used to determine the container/s to search through */
+  /** Selector string, used to determine the container/s to search through. If not provided will use the controller's element. */
   declare containerValue: string;
-  /** selector string, used to find the elements to count within the container */
+  /** Selector string, used to find the elements to count within the container. */
   declare findValue: string;
-  /** override pluralisation strings, e.g. `data-w-count-labels-value='["One item","Many items"]'` */
+  /** Override pluralisation strings, e.g. `data-w-count-labels-value='["One item","Many items"]'`. */
   declare labelsValue: string[];
-  /** minimum value, anything equal or below will trigger blank labels in the UI */
+  /** Minimum value, anything equal or below will trigger blank labels in the UI. */
   declare minValue: number;
-  /** total current count of found elements */
+  /** Total current count of found elements. */
   declare totalValue: number;
 
   declare readonly activeClass: string;
@@ -48,9 +64,13 @@ export class CountController extends Controller<HTMLFormElement> {
   }
 
   count() {
-    this.totalValue = [
-      ...document.querySelectorAll(this.containerValue || 'body'),
-    ]
+    const containerSelector = this.containerValue;
+
+    const containers = containerSelector
+      ? [...document.querySelectorAll(containerSelector)]
+      : [this.element];
+
+    this.totalValue = containers
       .map((element) => element.querySelectorAll(this.findValue).length)
       .reduce((total, subTotal) => total + subTotal, 0);
 
