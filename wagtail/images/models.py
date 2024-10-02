@@ -62,6 +62,7 @@ IMAGE_FORMAT_EXTENSIONS = {
     "webp": ".webp",
     "svg": ".svg",
     "ico": ".ico",
+    "heic": ".heic",
 }
 
 
@@ -998,11 +999,12 @@ class Filter:
                 # Developer specified an output format
                 output_format = env["output-format"]
             else:
-                # Convert bmp and webp to png by default
+                # Convert avif, bmp and webp to png, and heic to jpg, by default
                 default_conversions = {
                     "avif": "png",
                     "bmp": "png",
                     "webp": "png",
+                    "heic": "jpeg",
                 }
 
                 # Convert unanimated GIFs to PNG as well
@@ -1061,6 +1063,20 @@ class Filter:
                 else:
                     quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 80)
                 return willow.save_as_avif(output, quality=quality)
+            elif output_format == "heic":
+                # Allow changing of HEIC compression quality. Safari is the only browser that supports HEIC,
+                # so there is little value in outputting it - for that reason, we make it work if someone
+                # explicitly requests it, but these settings are not documented.
+                if (
+                    "output-format-options" in env
+                    and "lossless" in env["output-format-options"]
+                ):
+                    return willow.save_as_heif(output, lossless=True)
+                elif "heic-quality" in env:
+                    quality = env["heic-quality"]
+                else:
+                    quality = getattr(settings, "WAGTAILIMAGES_HEIC_QUALITY", 80)
+                return willow.save_as_heif(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
             elif output_format == "ico":
