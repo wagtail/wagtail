@@ -14,7 +14,29 @@ export class MultipleChooserPanel extends InlinePanel {
     const openModalButton = document.getElementById(
       `${opts.formsetPrefix}-OPEN_MODAL`,
     );
+    console.log('THIS THING ON???', opts, openModalButton);
+
     openModalButton.addEventListener('click', () => {
+      // console.log('OPEN MODAL BUTTON CLICKED', { ...opts });
+      // need to get the TOTAL_FORMS, INITIAL_FORMS, and MAX_NUM_FORMS from the formset
+
+      const maxForms = opts.maxForms;
+      const totalForms = Number(
+        document.getElementById(`${opts.formsetPrefix}-TOTAL_FORMS`)?.value ||
+          0,
+      );
+      // const maxMultiple = maxForms ? maxForms - totalForms : true;
+
+      console.log(
+        'OPEN MODAL BUTTON CLICKED',
+        { ...opts },
+        {
+          maxForms,
+          totalForms,
+          // maxMultiple,
+        },
+      );
+
       this.chooserWidgetFactory.openModal(
         (result) => {
           result.forEach((item) => {
@@ -25,10 +47,17 @@ export class MultipleChooserPanel extends InlinePanel {
             const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
             const chooserWidget =
               this.chooserWidgetFactory.getById(chooserFieldId);
+            // THIS RUNS AFTER SELECTION!!@##!@
+            console.log('multi-chooser-panel', {
+              item,
+              chooserWidget,
+              opts,
+              count: this.getChildCount(),
+            });
             chooserWidget.setStateFromModalData(item);
           });
         },
-        { multiple: true },
+        { available: maxForms - totalForms, multiple: maxForms },
       );
     });
   }

@@ -1,6 +1,6 @@
 import re
 import urllib.parse
-
+from pprint import pprint
 from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import (
@@ -203,6 +203,7 @@ class BaseChooseView(
 
     @cached_property
     def is_multiple_choice(self):
+        # add a maximum param?
         return self.request.GET.get("multiple")
 
     @property
@@ -267,6 +268,10 @@ class BaseChooseView(
         # For result pagination links, we need a version of results_url with parameters removed,
         # so that the pagination include can append its own parameters via the {% querystring %} template tag
         results_pagination_url = re.sub(r"\?.*$", "", results_url)
+
+        print("chooser", pprint(vars(self)))
+        print("chooser:context", context)
+        # I want to get the maximum number of items that can be selected
 
         context.update(
             {

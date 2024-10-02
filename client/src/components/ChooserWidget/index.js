@@ -207,6 +207,7 @@ export class ChooserFactory {
       this.modal = new this.chooserModalClass(this.opts.modalUrl);
     }
     const options = { ...this.getModalOptions(), ...customOptions };
+    console.log('chooser open modal', options);
     this.modal.open(options, callback);
   }
 

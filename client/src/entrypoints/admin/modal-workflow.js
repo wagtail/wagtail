@@ -29,6 +29,8 @@ function ModalWorkflow(opts) {
   const errorCallback = opts.onError || noop;
   const useDialog = !!opts.dialogId;
 
+  console.info('ModalWorkflow', opts);
+
   if (useDialog) {
     self.dialog = document.getElementById(opts.dialogId);
     self.url = opts.url || self.dialog.dataset.url;

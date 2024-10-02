@@ -347,7 +347,9 @@ class ChooserModal {
   getURLParams(opts) {
     const urlParams = {};
     if (opts.multiple) {
-      urlParams.multiple = 1;
+      // allow passing of maximum multiple selection, falling back to a large number if any other truthy value is passed
+      urlParams.multiple =
+        typeof opts.multiple === 'number' ? opts.multiple : 9999;
     }
     if (opts.linkedFieldFilters) {
       Object.assign(urlParams, opts.linkedFieldFilters);
@@ -356,6 +358,7 @@ class ChooserModal {
   }
 
   open(opts, callback) {
+    console.log('chooserModal open', opts);
     // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getURL(opts || {}),
