@@ -7,7 +7,7 @@ import logging
 import os.path
 import re
 import time
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict, defaultdict, namedtuple
 from collections.abc import Iterable
 from contextlib import contextmanager
 from io import BytesIO
@@ -39,7 +39,6 @@ from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
 )
-from wagtail.images.fields import image_format_name_to_content_type
 from wagtail.images.image_operations import (
     FilterOperation,
     FormatOperation,
@@ -1125,13 +1124,22 @@ class ResponsiveImage:
         return False
 
 
+FileFormat = namedtuple("FileFormat", ["name", "mime_type"])
+
+
 class Picture(ResponsiveImage):
     # Keep this separate from FormatOperation.supported_formats,
     # as the order our formats are defined in is essential for the picture tag.
     # Defines the order of <source> elements in the tag when format operations
     # are in use, and the priority order to identify the "fallback" format.
     # The browser will pick the first supported format in this list.
-    source_format_order = ["avif", "webp", "jpeg", "png", "gif"]
+    source_format_order = [
+        FileFormat("avif", "image/avif"),
+        FileFormat("webp", "image/webp"),
+        FileFormat("jpeg", "image/jpeg"),
+        FileFormat("png", "image/png"),
+        FileFormat("gif", "image/gif"),
+    ]
 
     def __init__(
         self,
@@ -1164,8 +1172,8 @@ class Picture(ResponsiveImage):
 
     def get_fallback_format(self):
         for fmt in reversed(self.source_format_order):
-            if fmt in self.formats:
-                return fmt
+            if fmt.name in self.formats:
+                return fmt.name
 
     def __html__(self):
         # If there aren’t multiple formats, render a vanilla img tag with srcset.
@@ -1181,9 +1189,9 @@ class Picture(ResponsiveImage):
         sources = []
 
         for fmt in self.source_format_order:
-            if fmt != fallback_format and fmt in self.formats:
-                srcset = self.get_width_srcset(self.formats[fmt])
-                mime = image_format_name_to_content_type(fmt)
+            if fmt.name != fallback_format and fmt.name in self.formats:
+                srcset = self.get_width_srcset(self.formats[fmt.name])
+                mime = fmt.mime_type
                 sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
 
         if len(fallback_renditions) > 1:
