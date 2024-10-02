@@ -2,22 +2,36 @@ import { Controller } from '@hotwired/stimulus';
 import { slugify } from '../utils/slugify';
 import { urlify } from '../utils/urlify';
 
-type SlugMethods = 'slugify' | 'urlify';
+enum Actions {
+  Slugify = 'slugify',
+  Urlify = 'urlify',
+}
 
 /**
- * Adds ability to slugify the value of an input element.
+ * Adds ability to clean values of an input element with methods such as slugify or urlify.
  *
- * @example
+ * @example - Using the slugify method
  * ```html
  * <input type="text" name="slug" data-controller="w-slug" data-action="blur->w-slug#slugify" />
  * ```
+ *
+ * @example - Using the urlify method (registered as w-slug)
+ * ```html
+ * <input type="text" name="url-path" data-controller="w-slug" data-action="change->w-slug#urlify" />
+ * <input type="text" name="url-path-with-unicode" data-controller="w-slug" data-w-slug-allow-unicode="true" data-action="change->w-slug#urlify" />
+ * ```
  */
-export class SlugController extends Controller<HTMLInputElement> {
+export class CleanController extends Controller<HTMLInputElement> {
   static values = {
     allowUnicode: { default: false, type: Boolean },
   };
 
-  declare allowUnicodeValue: boolean;
+  /**
+   * If true, unicode values in the cleaned values will be allowed.
+   * Otherwise unicode values will try to be transliterated.
+   * @see `WAGTAIL_ALLOW_UNICODE_SLUGS` in settings
+   */
+  declare readonly allowUnicodeValue: boolean;
 
   /**
    * Allow for a comparison value to be provided so that a dispatched event can be
@@ -27,8 +41,8 @@ export class SlugController extends Controller<HTMLInputElement> {
    * either a Stimulus param value on the element or the event's detail.
    */
   compare(
-    event: CustomEvent<{ compareAs?: SlugMethods; value: string }> & {
-      params?: { compareAs?: SlugMethods };
+    event: CustomEvent<{ compareAs?: Actions; value: string }> & {
+      params?: { compareAs?: Actions };
     },
   ) {
     // do not attempt to compare if the current field is empty
@@ -37,7 +51,7 @@ export class SlugController extends Controller<HTMLInputElement> {
     }
 
     const compareAs =
-      event.detail?.compareAs || event.params?.compareAs || 'slugify';
+      event.detail?.compareAs || event.params?.compareAs || Actions.Slugify;
 
     const compareValue = this[compareAs](
       { detail: { value: event.detail?.value || '' } },
