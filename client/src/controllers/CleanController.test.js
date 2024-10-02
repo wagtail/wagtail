@@ -255,6 +255,34 @@ describe('CleanController', () => {
 
       expect(slugInput.value).toEqual('visiter-toulouse-en-été-2025');
     });
+
+    it('should allow overriding the slugify behaviour with an event listener', async () => {
+      const slugInput = document.getElementById('id_slug');
+      slugInput.value = 'slugify TEST On edit page  ';
+
+      let eventDetail;
+
+      slugInput.addEventListener('w-clean:slugify', (event) => {
+        event.preventDefault();
+        eventDetail = { ...event.detail };
+        event.detail.continue(`071-${event.detail.valueCleaned}`);
+      });
+
+      slugInput.dispatchEvent(new CustomEvent('blur'));
+
+      await new Promise(process.nextTick);
+
+      expect(slugInput.value).toBe('071-slugify-test-on-edit-page');
+
+      expect(eventDetail).toEqual(
+        expect.objectContaining({
+          allowUnicode: false,
+          continue: expect.any(Function),
+          value: 'slugify TEST On edit page  ',
+          valueCleaned: 'slugify-test-on-edit-page',
+        }),
+      );
+    });
   });
 
   describe('urlify', () => {
@@ -341,6 +369,36 @@ describe('CleanController', () => {
       await new Promise(process.nextTick);
 
       expect(slugInput.value).toBe('');
+    });
+
+    it('should allow overriding the urlify behaviour with an event listener', async () => {
+      const slugInput = document.getElementById('id_slug');
+      slugInput.value = 'slugify Tê$s$ting On edit page  ';
+
+      let eventDetail;
+
+      slugInput.addEventListener('w-clean:urlify', (event) => {
+        event.preventDefault();
+        eventDetail = { ...event.detail };
+        event.detail.continue(`001-${event.detail.valueCleaned}`);
+      });
+
+      document
+        .getElementById('id_slug')
+        .dispatchEvent(new CustomEvent('custom:event'));
+
+      await new Promise(process.nextTick);
+
+      expect(slugInput.value).toBe('001-slugify-testing-on-edit-page');
+
+      expect(eventDetail).toEqual(
+        expect.objectContaining({
+          allowUnicode: false,
+          continue: expect.any(Function),
+          value: 'slugify Tê$s$ting On edit page  ',
+          valueCleaned: 'slugify-testing-on-edit-page',
+        }),
+      );
     });
   });
 });
