@@ -25,10 +25,11 @@ image formats and let the browser choose the one it prefers. For example:
 </picture>
 ```
 
+(customising_output_formats)=
 ### Customising output formats
 
 By default, all `avif`, `bmp` and `webp` images are converted to the `png` format
-when no image output format is given.
+when no image output format is given, and `heic` images are converted to `jpeg`.
 
 The default conversion mapping can be changed by setting the
 `WAGTAILIMAGES_FORMAT_CONVERSIONS` to a dictionary, which maps the input type

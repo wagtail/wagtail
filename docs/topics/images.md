@@ -566,3 +566,15 @@ If a user navigates directly to the URL of the SVG file embedded scripts may be 
 -   setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
 
 The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed.
+
+(heic_heif_images)=
+
+## HEIC / HEIF images
+
+`.heic` images are not widely supported on the web, but may be encountered when exporting images from Apple devices. Wagtail does not allow upload of these by default, but this can be enabled by adding "heic" to `WAGTAILIMAGES_EXTENSIONS`:
+
+```python
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "heic"]
+```
+
+These images will be automatically converted to JPEG format when rendered (see [](customising_output_formats)).
