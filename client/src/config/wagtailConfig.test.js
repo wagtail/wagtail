@@ -22,7 +22,7 @@ describe('wagtailConfig', () => {
     it('exists', () => {
       expect(WAGTAIL_CONFIG).toEqual(
         expect.objectContaining({
-          ACTIVE_LOCALE: expect.any(String),
+          ACTIVE_CONTENT_LOCALE: expect.any(String),
           LOCALES: expect.any(Array),
         }),
       );

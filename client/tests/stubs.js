@@ -35,7 +35,7 @@ const wagtailConfig = {
       display_name: 'French',
     },
   ],
-  ACTIVE_LOCALE: 'en',
+  ACTIVE_CONTENT_LOCALE: 'en',
 };
 
 const configScript = Object.assign(document.createElement('script'), {
