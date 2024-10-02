@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.forms.fields import FileField, ImageField
+from django.forms.widgets import FileInput
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
@@ -32,6 +33,8 @@ class WagtailImageField(ImageField):
     default_validators = [ImageFileExtensionValidator]
 
     def __init__(self, *args, **kwargs):
+        self.allowed_image_extensions = get_allowed_image_extensions()
+
         super().__init__(*args, **kwargs)
 
         # Get max upload size from settings
@@ -42,8 +45,6 @@ class WagtailImageField(ImageField):
             settings, "WAGTAILIMAGES_MAX_IMAGE_PIXELS", 128 * 1000000
         )
         self.max_upload_size_text = filesizeformat(self.max_upload_size)
-
-        self.allowed_image_extensions = get_allowed_image_extensions()
 
         self.supported_formats_text = ", ".join(self.allowed_image_extensions).upper()
 
@@ -181,3 +182,18 @@ class WagtailImageField(ImageField):
             self.check_image_pixel_size(f)
 
         return f
+
+    def widget_attrs(self, widget):
+        attrs = super().widget_attrs(widget)
+
+        if (
+            isinstance(widget, FileInput)
+            and "accept" not in widget.attrs
+            and attrs.get("accept") == "image/*"
+            and "heic" in self.allowed_image_extensions
+        ):
+            # File upload dialogs (at least on Chrome / Mac) don't count heic as part of image/*, as it's not a
+            # web-safe format, so add it explicitly
+            attrs["accept"] = "image/*, image/heic"
+
+        return attrs
