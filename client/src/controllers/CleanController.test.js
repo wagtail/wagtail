@@ -1,7 +1,7 @@
 import { Application } from '@hotwired/stimulus';
-import { SlugController } from './SlugController';
+import { CleanController } from './CleanController';
 
-describe('SlugController', () => {
+describe('CleanController', () => {
   let application;
 
   beforeEach(() => {
@@ -12,12 +12,12 @@ describe('SlugController', () => {
       id="id_slug"
       name="slug"
       type="text"
-      data-controller="w-slug"
-      data-action="blur->w-slug#slugify"
+      data-controller="w-clean"
+      data-action="blur->w-clean#slugify"
     />`;
 
     application = Application.start();
-    application.register('w-slug', SlugController);
+    application.register('w-clean', CleanController);
   });
 
   it('should trim and slugify the input value when focus is moved away from it', () => {
@@ -35,7 +35,7 @@ describe('SlugController', () => {
     const slugInput = document.querySelector('#id_slug');
 
     expect(
-      slugInput.hasAttribute('data-w-slug-allow-unicode-value'),
+      slugInput.hasAttribute('data-w-clean-allow-unicode-value'),
     ).toBeFalsy();
 
     slugInput.value = 'Visiter Toulouse en été 2025';
@@ -47,10 +47,10 @@ describe('SlugController', () => {
 
   it('should allow unicode characters when allow-unicode-value is set to truthy', () => {
     const slugInput = document.querySelector('#id_slug');
-    slugInput.setAttribute('data-w-slug-allow-unicode-value', 'true');
+    slugInput.setAttribute('data-w-clean-allow-unicode-value', 'true');
 
     expect(
-      slugInput.hasAttribute('data-w-slug-allow-unicode-value'),
+      slugInput.hasAttribute('data-w-clean-allow-unicode-value'),
     ).toBeTruthy();
 
     slugInput.value = 'Visiter Toulouse en été 2025';
@@ -72,17 +72,17 @@ describe('compare behavior', () => {
         id="id_slug"
         name="slug"
         type="text"
-        data-controller="w-slug"
+        data-controller="w-clean"
       />`;
 
     application = Application.start();
-    application.register('w-slug', SlugController);
+    application.register('w-clean', CleanController);
 
     const slugInput = document.querySelector('#id_slug');
 
     slugInput.dataset.action = [
-      'blur->w-slug#urlify',
-      'custom:event->w-slug#compare',
+      'blur->w-clean#urlify',
+      'custom:event->w-clean#compare',
     ].join(' ');
   });
 
@@ -164,7 +164,7 @@ describe('compare behavior', () => {
 
     const slug = document.querySelector('#id_slug');
 
-    slug.setAttribute('data-w-slug-compare-as-param', 'urlify');
+    slug.setAttribute('data-w-clean-compare-as-param', 'urlify');
     slug.setAttribute('value', title);
 
     // apply the urlify method to the content to ensure the value before check is urlify
@@ -239,17 +239,17 @@ describe('urlify behavior', () => {
         id="id_slug"
         name="slug"
         type="text"
-        data-controller="w-slug"
+        data-controller="w-clean"
       />`;
 
     application = Application.start();
-    application.register('w-slug', SlugController);
+    application.register('w-clean', CleanController);
 
     const slugInput = document.querySelector('#id_slug');
 
     slugInput.dataset.action = [
-      'blur->w-slug#slugify',
-      'custom:event->w-slug#urlify:prevent',
+      'blur->w-clean#slugify',
+      'custom:event->w-clean#urlify:prevent',
     ].join(' ');
   });
 
@@ -284,7 +284,7 @@ describe('urlify behavior', () => {
     const value = 'Dê-me fatias de   pizza de manhã --ou-- à noite';
 
     const slugInput = document.getElementById('id_slug');
-    slugInput.setAttribute('data-w-slug-allow-unicode-value', 'true');
+    slugInput.setAttribute('data-w-clean-allow-unicode-value', 'true');
 
     slugInput.value = value;
 
