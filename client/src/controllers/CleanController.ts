@@ -2,15 +2,18 @@ import { Controller } from '@hotwired/stimulus';
 import { slugify } from '../utils/slugify';
 import { urlify } from '../utils/urlify';
 
-type SlugMethods = 'slugify' | 'urlify';
+type ValidMethods = 'slugify' | 'urlify';
 
 /**
- * Adds ability to slugify the value of an input element.
+ * Adds ability to clean values of an input element with methods such as slugify or urlify.
  *
- * @example
- * <input type="text" name="slug" data-controller="w-slug" data-action="blur->w-slug#slugify" />
+ * @example - using the slugify method
+ * <input type="text" name="slug" data-controller="w-clean" data-action="blur->w-clean#slugify" />
+ *
+ * @example - using the urlify method (registered as w-slug)
+ * <input type="text" name="url-path" data-controller="w-slug" data-action="change->w-slug#urlify" />
  */
-export class SlugController extends Controller<HTMLInputElement> {
+export class CleanController extends Controller<HTMLInputElement> {
   static values = {
     allowUnicode: { default: false, type: Boolean },
   };
@@ -25,8 +28,8 @@ export class SlugController extends Controller<HTMLInputElement> {
    * either a Stimulus param value on the element or the event's detail.
    */
   compare(
-    event: CustomEvent<{ compareAs?: SlugMethods; value: string }> & {
-      params?: { compareAs?: SlugMethods };
+    event: CustomEvent<{ compareAs?: ValidMethods; value: string }> & {
+      params?: { compareAs?: ValidMethods };
     },
   ) {
     // do not attempt to compare if the current field is empty
