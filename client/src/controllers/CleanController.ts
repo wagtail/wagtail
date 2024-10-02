@@ -27,7 +27,7 @@ export class CleanController extends Controller<HTMLInputElement> {
    * By default it will compare to the slugify method, this can be overridden by providing
    * either a Stimulus param value on the element or the event's detail.
    */
-  compare(
+  async compare(
     event: CustomEvent<{ compareAs?: ValidMethods; value: string }> & {
       params?: { compareAs?: ValidMethods };
     },
@@ -40,7 +40,7 @@ export class CleanController extends Controller<HTMLInputElement> {
     const compareAs =
       event.detail?.compareAs || event.params?.compareAs || 'slugify';
 
-    const compareValue = this[compareAs](
+    const compareValue = await this[compareAs](
       { detail: { value: event.detail?.value || '' } },
       true,
     );
@@ -61,20 +61,44 @@ export class CleanController extends Controller<HTMLInputElement> {
    * or can be used to simply return the transformed value.
    * If a custom event with detail.value is provided, that value will be used
    * instead of the field's value.
+   *
+   * @fires CleanController#slugify - Dispatched before the value is updated, allows for custom processing.
+   *
+   * @event CleanController#slugify
+   * @type {CustomEvent}
+   * @property {boolean} cancelable - Is cancelable
+   * @property {function} detail.continue - Continue with a custom cleaned value
+   * @property {string} detail.value - The original value
+   * @property {string} detail.valueCleaned - The cleaned value
+   * @property {string} name - `w-clean:slugify` or `w-slug:slugify`
    */
-  slugify(
+  async slugify(
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     ignoreUpdate = false,
   ) {
     const allowUnicode = this.allowUnicodeValue;
     const { value = this.element.value } = event?.detail || {};
-    const newValue = slugify(value.trim(), { allowUnicode });
+    const valueCleaned = slugify(value.trim(), { allowUnicode });
+
+    const resolvedValue = await new Promise<string>((resolve) => {
+      const overrideEvent = this.dispatch('slugify', {
+        bubbles: true,
+        cancelable: true,
+        detail: {
+          allowUnicode,
+          continue: (_: unknown) => resolve(String(_)),
+          value,
+          valueCleaned,
+        },
+      });
+      if (!overrideEvent.defaultPrevented) resolve(valueCleaned);
+    });
 
     if (!ignoreUpdate) {
-      this.element.value = newValue;
+      this.element.value = resolvedValue;
     }
 
-    return newValue;
+    return resolvedValue;
   }
 
   /**
@@ -87,23 +111,46 @@ export class CleanController extends Controller<HTMLInputElement> {
    *
    * If a custom event with detail.value is provided, that value will be used
    * instead of the field's value.
+   *
+   * @fires CleanController#urlify - Dispatched before the value is updated, allows for custom processing.
+   *
+   * @event CleanController#urlify
+   * @type {CustomEvent}
+   * @property {boolean} cancelable - Is cancelable
+   * @property {function} detail.continue - Continue with a custom cleaned value
+   * @property {string} detail.value - The original value
+   * @property {string} detail.valueCleaned - The cleaned value
+   * @property {string} name - `w-clean:urlify` or `w-slug:urlify`
    */
-  urlify(
+  async urlify(
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     ignoreUpdate = false,
   ) {
     const allowUnicode = this.allowUnicodeValue;
     const { value = this.element.value } = event?.detail || {};
-    const trimmedValue = value.trim();
 
-    const newValue =
-      urlify(trimmedValue, { allowUnicode }) ||
-      this.slugify({ detail: { value: trimmedValue } }, true);
+    const valueCleaned =
+      urlify(value.trim(), { allowUnicode }) ||
+      this.slugify({ detail: { value } }, true);
+
+    const resolvedValue = await new Promise<string>((resolve) => {
+      const overrideEvent = this.dispatch('urlify', {
+        bubbles: true,
+        cancelable: true,
+        detail: {
+          allowUnicode,
+          continue: (_: unknown) => resolve(String(_)),
+          value,
+          valueCleaned,
+        },
+      });
+      if (!overrideEvent.defaultPrevented) resolve(valueCleaned);
+    });
 
     if (!ignoreUpdate) {
-      this.element.value = newValue;
+      this.element.value = resolvedValue;
     }
 
-    return newValue;
+    return resolvedValue;
   }
 }
