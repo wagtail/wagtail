@@ -846,6 +846,7 @@
 * Ankit Kumar
 * Frank Yiu
 * Shaurya Panchal
+* Sumana Sree Angajala
 
 ## Translators
 
