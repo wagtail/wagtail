@@ -1152,6 +1152,37 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
                 # Check we got the right model back
                 self.assertEqual(page.path, SimplePage.objects.get(id=page.id).path)
 
+    def test_deferred_specific_query_with_select_related(self):
+        with self.assertNumQueries(0):
+            # The query should be lazy.
+            qs = (
+                SimplePage.objects.all()
+                .select_related("content_type")
+                .specific(defer=True)
+            )
+
+        with self.assertNumQueries(1):
+            pages = list(qs)
+
+        self.assertEqual(len(pages), 2)
+
+        for page in pages:
+            self.assertIsInstance(page, SimplePage)
+
+            with self.assertNumQueries(0):
+                self.assertIs(page, page.specific)
+
+            # Calling `.specific` on its own queryset will mean defer does nothing
+            with self.assertNumQueries(0):
+                page.content
+
+            with self.assertNumQueries(0):
+                page.content_type
+
+            with self.assertNumQueries(1):
+                # Check we got the right model back
+                self.assertEqual(page.path, SimplePage.objects.get(id=page.id).path)
+
     def test_specific_query_with_iterator(self):
         queryset = self.live_pages_with_annotations
 
