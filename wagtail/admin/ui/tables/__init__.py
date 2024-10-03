@@ -6,6 +6,7 @@ from collections.abc import Mapping
 from django.contrib.admin.utils import quote
 from django.forms import MediaDefiningClass
 from django.template.loader import get_template
+from django.templatetags.l10n import unlocalize
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -156,7 +157,13 @@ class Column(BaseColumn):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context["value"] = self.get_value(instance)
+        value = self.get_value(instance)
+        if isinstance(value, int) and not isinstance(value, bool):
+            # To prevent errors arising from USE_THOUSAND_SEPARATOR, we require all numbers output
+            # on templates to be explicitly localized or unlocalized. For numeric table cells, we
+            # unlocalize them by default; developers may subclass Column to obtain formatted numbers.
+            value = unlocalize(value)
+        context["value"] = value
         return context
 
 
@@ -271,6 +278,12 @@ class BooleanColumn(Column):
     """Represents a True/False/None value as a tick/cross/question icon"""
 
     cell_template_name = "wagtailadmin/tables/boolean_cell.html"
+
+    def get_value(self, instance):
+        value = super().get_value(instance)
+        if value is None:
+            return None
+        return bool(value)
 
 
 class LiveStatusTagColumn(StatusTagColumn):

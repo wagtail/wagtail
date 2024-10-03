@@ -36,7 +36,7 @@ export default function initSidePanel() {
 
     const body = document.querySelector('body');
     const selectedPanel = document.querySelector(
-      `[data-side-panel-toggle="${panelName}"]`,
+      `[data-side-panel="${panelName}"]`,
     );
 
     // Abort if panelName is specified but it does not exist
@@ -60,7 +60,8 @@ export default function initSidePanel() {
         if (panel.hidden) {
           // eslint-disable-next-line no-param-reassign
           panel.hidden = false;
-          panel.dispatchEvent(new CustomEvent('show'));
+          // Don't fire the show event just yet,
+          // to ensure that the hide event for the other panels is fired first.
           sidePanelWrapper.classList.add(`form-side--${name}`);
           body.classList.add('side-panel-open');
         }
@@ -88,6 +89,11 @@ export default function initSidePanel() {
         toggle.dataset.sidePanelToggle === panelName ? 'true' : 'false',
       );
     });
+
+    if (selectedPanel) {
+      // Dispatch the show event after all the toggling logic is done
+      selectedPanel.dispatchEvent(new CustomEvent('show'));
+    }
 
     // Remember last opened side panel if not in explorer
     if (!inExplorer) {

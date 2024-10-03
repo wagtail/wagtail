@@ -65,8 +65,8 @@ The syntax for `srcset_image` is the same as `image`, with two exceptions:
 {% srcset_image [image] [resize-rule-with-brace-expansion] sizes="[my source sizes]" %}
 ```
 
-- The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule, and one width descriptor per URL. The first provided size will always be used as the `src` attribute, and define the image’s width and height attributes, as a fallback.
-- The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
+-   The resize rule should be provided with multiple sizes in a brace-expansion pattern, like `width-{200,400}`. This will generate the `srcset` attribute, with as many URLs as there are sizes defined in the resize rule, and one width descriptor per URL. The first provided size will always be used as the `src` attribute, and define the image’s width and height attributes, as a fallback.
+-   The [`sizes`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#sizes) attribute is essential. This tells the browser how large the image will be displayed on the page, so that it can select the most appropriate image to load.
 
 Here is an example of `srcset_image` in action, generating a `srcset` attribute:
 

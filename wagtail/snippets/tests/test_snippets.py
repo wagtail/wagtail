@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks, management
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
@@ -24,6 +24,7 @@ from taggit.models import Tag
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.panels import FieldPanel, ObjectList, get_edit_handler
 from wagtail.admin.widgets.button import ButtonWithDropdown
@@ -215,19 +216,17 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         self.assertEqual(response.context["page_obj"][0].text, "advert 10")
 
     def test_simple_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"p": 1})
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
-        # page numbers out of range should return 404
-        response = self.get({"p": 9999})
-        self.assertEqual(response.status_code, 404)
+        pages = ["0", "1", "-1", "9999", "Not a page"]
+        for page in pages:
+            response = self.get({"p": page})
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, "wagtailsnippets/snippets/index.html")
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
 
     def test_not_searchable(self):
-        self.assertFalse(self.get().context["is_searchable"])
+        self.assertFalse(self.get().context.get("search_form"))
 
     def test_register_snippet_listing_buttons_hook(self):
         advert = Advert.objects.create(text="My Lovely advert")
@@ -716,7 +715,7 @@ class TestSnippetListViewWithSearchableSnippet(WagtailTestUtils, TransactionTest
         self.assertNotContains(response, "This field is required.")
 
     def test_is_searchable(self):
-        self.assertTrue(self.get().context["is_searchable"])
+        self.assertIsInstance(self.get().context["search_form"], SearchForm)
 
     def test_search_hello(self):
         response = self.get({"q": "Hello"})
@@ -1186,12 +1185,14 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
+        soup = self.get_soup(html)
+        dialog = soup.select_one(
+            """
+            template[data-controller="w-teleport"][data-w-teleport-target-value="[data-edit-form]"]
+            #schedule-publishing-dialog
+            """
         )
+        self.assertIsNotNone(dialog)
         # Should render the main form with data-edit-form attribute
         self.assertTagInHTML(
             f'<form action="{add_url}" method="POST" data-edit-form>',
@@ -1586,12 +1587,14 @@ class BaseTestSnippetEditView(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
         # Should show the dialog template pointing to the [data-edit-form] selector as the root
-        self.assertTagInHTML(
-            '<template data-controller="w-teleport" data-w-teleport-target-value="[data-edit-form]">',
-            html,
-            count=1,
-            allow_extra_attrs=True,
+        soup = self.get_soup(html)
+        dialog = soup.select_one(
+            """
+            template[data-controller="w-teleport"][data-w-teleport-target-value="[data-edit-form]"]
+            #schedule-publishing-dialog
+            """
         )
+        self.assertIsNotNone(dialog)
         # Should render the main form with data-edit-form attribute
         self.assertTagInHTML(
             f'<form action="{self.get_edit_url()}" method="POST" data-edit-form>',
@@ -4499,10 +4502,12 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         # Should show the preview panel
         preview_url = self.get_url("preview_on_edit")
         self.assertContains(response, 'data-side-panel="preview"')
-        self.assertContains(response, f'data-action="{preview_url}"')
+        soup = self.get_soup(response.content)
+        controller = soup.select_one('[data-controller="w-preview"]')
+        self.assertIsNotNone(controller)
+        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
 
         # Should have the preview side panel toggle button
-        soup = self.get_soup(response.content)
         toggle_button = soup.find("button", {"data-side-panel-toggle": "preview"})
         self.assertIsNotNone(toggle_button)
         self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
@@ -5344,6 +5349,11 @@ class TestSnippetChooserBlock(TestCase):
 
         # None should not yield any references
         self.assertListEqual(list(block.extract_references(None)), [])
+
+    def test_exception_on_non_snippet_model(self):
+        with self.assertRaises(ImproperlyConfigured):
+            block = SnippetChooserBlock(Locale)
+            block.widget
 
 
 class TestAdminSnippetChooserWidget(WagtailTestUtils, TestCase):

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 <div class="w-py-6 w-space-y-3">
     <section class="w-flex w-space-x-3">
         <div class="w-flex w-flex-1">
@@ -13,7 +13,7 @@
                 {% if usage_url_text %}
                     {{ usage_url_text }}
                 {% else %}
-                    {% blocktrans trimmed count usage_count=usage_count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
+                    {% blocktrans trimmed with counter=usage_count usage_count=usage_count|intcomma count counter=counter %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}
                 {% endif %}
             </a>
         </div>

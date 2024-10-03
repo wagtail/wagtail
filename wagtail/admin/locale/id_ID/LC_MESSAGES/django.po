@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -203,8 +203,8 @@ msgid ""
 "This slug is already in use within the context of its parent page "
 "\"%(parent_page_title)s\""
 msgstr ""
-"Slug ini telah digunakan dalam konteks halaman induk \"%(parent_page_title)s"
-"\""
+"Slug ini telah digunakan dalam konteks halaman induk "
+"\"%(parent_page_title)s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr ""
@@ -331,9 +331,6 @@ msgstr "Menjelajah sub-halaman dari '%(title)s'"
 msgid "Explore"
 msgstr "Jelajahi"
 
-msgid "Collection privacy"
-msgstr "Privasi koleksi"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Koleksi ini diubah menjadi bersifat pribadi oleh halaman induknya."
 
@@ -365,11 +362,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Belum ada koleksi. Bagaimana kalau <a href=\"%(add_collection_url)s"
-"\">membuat sebuah koleksi</a>?"
+"Belum ada koleksi. Bagaimana kalau <a "
+"href=\"%(add_collection_url)s\">membuat sebuah koleksi</a>?"
 
 msgid "Yes, delete"
 msgstr "Ya, hapus"
@@ -493,9 +490,6 @@ msgstr "Halaman \"%(title)s\" ditolak"
 
 msgid "You can preview the page here:"
 msgstr "Anda dapat meninjau halaman tersebut disini:"
-
-msgid "Page privacy"
-msgstr "Privasi halaman"
 
 msgid "This page has been made private by a parent page."
 msgstr ""
@@ -676,6 +670,9 @@ msgstr "Diselesaikan pada"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Halaman %(page_num)s dari %(total_pages)s."
+
+msgid "Continue"
+msgstr "Lanjut"
 
 msgid "Download CSV"
 msgstr "Unduh CSV"

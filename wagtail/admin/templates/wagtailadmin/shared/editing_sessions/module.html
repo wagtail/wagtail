@@ -1,0 +1,44 @@
+{% load i18n l10n wagtailadmin_tags %}
+
+{% dialog id="w-unsaved-changes-dialog" icon_name="warning" icon_classname="w-text-text-error" title=_("Refreshing the page means you will lose any unsaved changes") %}
+    <div class="w-editing-sessions-dialog-buttons">
+        <button class="button" type="button" data-controller="w-action" data-action="w-action#forceReload">{% trans "Refresh page" %}</button>
+        <button class="button button-secondary" type="button" data-action="w-dialog#hide">{% trans "Cancel" %}</button>
+    </div>
+{% enddialog %}
+
+{% comment %}
+    The "-" strings are only placeholders so that the appropriate elements are rendered.
+    The messages will be provided via the sessions list component and teleported into the corresponding elements.
+    The dialog won't ever be shown without the actual messages under normal circumstances.
+{% endcomment %}
+{% dialog id="w-overwrite-changes-dialog" dialog_root_selector='[data-edit-form]' icon_name="warning" icon_classname="w-text-text-error" title="-" subtitle="-" %}
+    <div class="w-editing-sessions-dialog-buttons">
+        <button class="button" type="button" data-w-dialog-target="confirm" data-action="w-dialog#confirm">{% trans "Continue" %}</button>
+        <button class="button button-secondary" type="button" data-controller="w-action" data-action="w-action#forceReload">{% trans "Refresh the page" %}</button>
+    </div>
+{% enddialog %}
+
+<form
+    method="post"
+    class="w-editing-sessions"
+    data-controller="w-swap w-action w-session"
+    data-w-swap-target-value="#w-editing-sessions"
+    data-w-swap-src-value="{{ ping_url }}"
+    data-w-swap-json-path-value="html"
+    data-w-swap-defer-value="true"
+    data-w-action-continue-value="true"
+    data-w-action-url-value="{{ release_url }}"
+    data-w-session-interval-value="{{ ping_interval|unlocalize }}"
+    data-w-session-w-dialog-outlet="[data-edit-form] [data-controller='w-dialog']#w-overwrite-changes-dialog"
+    data-action="w-session:ping->w-swap#submit visibilitychange@document->w-session#dispatchVisibilityState w-session:visible->w-session#ping w-session:visible->w-session#addInterval w-session:hidden->w-session#clearInterval w-session:hidden->w-action#sendBeacon w-unsaved:add@document->w-session#setUnsavedChanges w-unsaved:clear@document->w-session#setUnsavedChanges w-swap:json->w-session#updateSessionData"
+>
+    <input type="checkbox" name="is_editing" value="1" data-w-session-target="unsavedChanges" hidden />
+    {% if revision_id %}
+        {# The ID of the latest revision that was known when this module was initially loaded #}
+        <input type="hidden" name="revision_id" value="{{ revision_id|unlocalize }}" />
+    {% endif %}
+    <div id="w-editing-sessions">
+        {% component sessions_list %}
+    </div>
+</form>

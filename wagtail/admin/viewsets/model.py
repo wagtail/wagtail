@@ -1,11 +1,16 @@
 from warnings import warn
 
+from django.contrib.auth import get_permission_codename
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 from django.shortcuts import redirect
 from django.urls import path
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import (
     ModelAdminURLFinder,
     register_admin_url_finder,
@@ -464,7 +469,7 @@ class ModelViewSet(ViewSet):
         subclass of `django_filters.FilterSet <https://django-filter.readthedocs.io/en/stable/ref/filterset.html>`_.
         This will be passed to the ``filterset_class`` attribute of the index view.
         """
-        return self.index_view_class.filterset_class
+        return self.UNDEFINED
 
     @cached_property
     def search_fields(self):
@@ -510,7 +515,7 @@ class ModelViewSet(ViewSet):
 
     @cached_property
     def menu_label(self):
-        return self.model_opts.verbose_name_plural.title()
+        return capfirst(self.model_opts.verbose_name_plural)
 
     @cached_property
     def menu_item_class(self):
@@ -616,6 +621,26 @@ class ModelViewSet(ViewSet):
         if self.add_to_reference_index:
             ReferenceIndex.register_model(self.model)
 
+    def get_permissions_to_register(self):
+        """
+        Returns a queryset of :class:`~django.contrib.auth.models.Permission`
+        objects to be registered with the :ref:`register_permissions` hook. By
+        default, it returns all permissions for the model if
+        :attr:`inspect_view_enabled` is set to ``True``. Otherwise, the "view"
+        permission is excluded.
+        """
+        content_type = ContentType.objects.get_for_model(self.model)
+        permissions = Permission.objects.filter(content_type=content_type)
+        # Only register the "view" permission if the inspect view is enabled
+        if not self.inspect_view_enabled:
+            permissions = permissions.exclude(
+                codename=get_permission_codename("view", self.model_opts)
+            )
+        return permissions
+
+    def register_permissions(self):
+        hooks.register("register_permissions", self.get_permissions_to_register)
+
     def get_urlpatterns(self):
         urlpatterns = [
             path("", self.index_view, name="index"),
@@ -657,6 +682,7 @@ class ModelViewSet(ViewSet):
         super().on_register()
         self.register_admin_url_finder()
         self.register_reference_index()
+        self.register_permissions()
 
 
 class ModelViewSetGroup(ViewSetGroup):
@@ -671,7 +697,7 @@ class ModelViewSetGroup(ViewSetGroup):
     def get_app_label_from_subitems(self):
         for instance in self.registerables:
             if app_label := getattr(instance, "app_label", ""):
-                return app_label.title()
+                return capfirst(app_label)
         return ""
 
     @cached_property

@@ -1,7 +1,85 @@
 Changelog
 =========
 
-6.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Add formal support for Django 5.1 (Matt Westcott)
+ * Formalize support for MariaDB (Sage Abdullah, Daniel Black)
+ * Redirect to the last viewed listing page after deleting form submissions (Matthias Brück)
+ * Provide `getTextLabel` method on date / time StreamField blocks (Vaughn Dickson)
+ * Purge frontend cache when modifying redirects (Jake Howard)
+ * Migrate workflow history views to universal listings (Sage Abdullah)
+ * Refactor documents views to use universal designs (Sage Abdullah)
+ * Refactor images views to use universal designs (Sage Abdullah)
+ * Implement universal listings for workflow usage and page type usage views (Sage Abdullah)
+ * Add search and filters to form pages listing (Sage Abdullah)
+ * Deprecate the `WAGTAIL_AUTO_UPDATE_PREVIEW` setting, use `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` instead (Sage Abdullah)
+ * Consistently use `capfirst` for title-casing model verbose names (Sébastien Corbin)
+ * Fire `copy_for_translation_done` signal when copying translatable models as well as pages (Coen van der Kamp)
+ * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
+ * Fix: Improve layout of object permissions table (Sage Abdullah)
+ * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
+ * Fix: Reinstate transparency indicator on image chooser widgets (Sébastien Corbin)
+ * Fix: Remove table headers that have no text (Matt Westcott)
+ * Fix: Fix broken link to user search (Shlomo Markowitz)
+ * Fix: Ensure that JS slugify function strips Unicode characters disallowed by Django slug validation (Atif Khan)
+ * Fix: Do not show notices about root / unroutable pages when searching or filtering in the page explorer (Matt Westcott)
+ * Fix: Resolve contrast issue for page deletion warning (Sanjeev Holla S)
+ * Fix: Make sure content metrics falls back to body element only when intended (Sage Abdullah)
+ * Fix: Remove wrongly-added filters from redirects index (Matt Westcott)
+ * Fix: Prevent popular tags filter from generating overly complex queries when not filtering (Matt Westcott)
+ * Fix: Fix content path links in usage view to scroll to the correct element (Sage Abdullah)
+ * Fix: Always show the minimap toggle button (Albina Starykova)
+ * Fix: Ensure that dropdown button toggles show with a border in high contrast mode (Ishwari8104, LB (Ben) Johnston)
+ * Fix: Update email notification header to the new logo design (rahulsamant37)
+ * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
+ * Docs: Document how to customize date/time format settings (Vince Salvino)
+ * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
+ * Docs: Clarify process for UserViewSet customization (Sage Abdullah)
+ * Docs: Correct `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT` documentation to state that it defaults to `False` (Matt Westcott)
+ * Docs: Add an example of customizing a default accessibility check (Cynthia Kiser)
+ * Docs: Demonstrate access protection with `TokenAuthentication` in the Wagtail API v2 Configuration Guide (Krzysztof Jeziorny)
+ * Maintenance: Removed support for Python 3.8 (Matt Westcott)
+ * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
+ * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
+ * Maintenance: Improve page listing performance (Sage Abdullah)
+ * Maintenance: Phase out usage of SECRET_KEY in version and icon hashes (Jake Howard)
+ * Maintenance: Audit all use of localized and non-localized numbers in templates (Matt Westcott)
+ * Maintenance: Refactor StreamField `get_prep_value` for closer alignment with JSONField (Sage Abdullah)
+ * Maintenance: Move search implementation logic from generic `IndexView` to `BaseListingView` (Sage Abdullah)
+ * Maintenance: Upgrade Puppeteer integration tests for reliability (Matt Westcott)
+ * Maintenance: Restore ability to use `.in_bulk()` on specific querysets under Django 5.2a0 (Sage Abdullah)
+ * Maintenance: Add generated `test-media` to .gitignore (Shlomo Markowitz)
+ * Maintenance: Improve `debounce` util's return type for better TypeScript usage (Sage Abdullah)
+ * Maintenance: Ensure the side panel's show event is dispatched after any hide events (Sage Abdullah)
+ * Maintenance: Migrate preview-panel JavaScript to Stimulus & TypeScript, add full unit testing (Sage Abdullah)
+ * Maintenance: Move `wagtailConfig` values from inline scripts to the `wagtail_config` template tag (LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Deprecate the `{% locales %}` and `{% js_translation_strings %}` template tags (LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Ensure multi-line comments are cleaned from custom icons in addition to just single line comments (Jake Howard)
+
+
+6.2.2 (24.09.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
+ * Fix: Fix broken link to user search (Shlomo Markowitz)
+ * Fix: Make sure content metrics falls back to body element only when intended (Sage Abdullah)
+ * Fix: Remove wrongly-added filters from redirects index (Matt Westcott)
+ * Fix: Prevent popular tags filter from generating overly complex queries when not filtering (Matt Westcott)
+ * Docs: Clarify process for UserViewSet customization (Sage Abdullah)
+
+
+6.2.1 (20.08.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Handle `child_block` being passed as a kwarg in ListBlock migrations (Matt Westcott)
+ * Fix: Fix broken task type filter in workflow task chooser modal (Sage Abdullah)
+ * Fix: Prevent circular imports between `wagtail.admin.models` and custom user models (Matt Westcott)
+ * Fix: Ensure that concurrent editing check works for users who only have edit access via workflows (Matt Westcott)
+
+
+6.2 (01.08.2024)
 ~~~~~~~~~~~~~~~~
 
  * Optimize and consolidate redirects report view into the index view (Jake Howard, Dan Braghis)
@@ -10,10 +88,25 @@ Changelog
  * Allow custom permission policies on snippets to prevent superusers from creating or editing them (Sage Abdullah)
  * Do not link to edit view from listing views if user has no permission to edit (Sage Abdullah)
  * Allow access to snippets and other model viewsets to users with "View" permission (Sage Abdullah)
- * Skip `ChooseParentView` if only one possible valid parent page availale (Matthias Brück)
+ * Skip `ChooseParentView` if only one possible valid parent page is available (Matthias Brück)
  * Add `copy_for_translation_done` signal when a page is copied for translation (Arnar Tumi Þorsteinsson)
  * Remove reduced opacity for draft page title in listings (Inju Michorius)
  * Adopt more compact representation for StreamField definitions in migrations (Matt Westcott)
+ * Implement a new design for locale labels in listings (Albina Starykova)
+ * Add alt text validation rule in the accessibility checker (Albina Starykova)
+ * Add a `deactivate()` method to `ProgressController` (Alex Morega)
+ * Allow manually specifying credentials for CloudFront frontend cache backend (Jake Howard)
+ * Automatically register permissions for models registered with a `ModelViewSet` (Sage Abdullah)
+ * Implement universal listings UI for report views (Sage Abdullah)
+ * Make `routable_resolver_match` attribute available on RoutablePageMixin responses (Andy Chosak)
+ * Support customizations to `UserViewSet` via the app config (Sage Abdullah)
+ * Add word count and reading time metrics within the page editor (Albina Starykova. Sponsored by The Motley Fool)
+ * Implement a new design for accessibility checks (Albina Starykova)
+ * Allow changing available privacy options per page model (Shlomo Markowitz)
+ * Add concurrent editing notifications for pages and snippets (Matt Westcott, Sage Abdullah)
+ * Add "soft" client-side validation for `StreamBlock` / `ListBlock` `min_num` / `max_num` (Matt Westcott)
+ * Log accessibility checker results in the console to help developers with troubleshooting (Thibaud Colas)
+ * Disable pointer events on checker highlights to simplify DevTools inspections (Thibaud Colas)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
@@ -28,6 +121,16 @@ Changelog
  * Fix: Specify `verbose_name` on `TranslatableMixin.locale` so that it is translated when used as a label (Romein van Buren)
  * Fix: Disallow null characters in API filter values (Jochen Wersdörfer)
  * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Fix: Ensure external-to-internal link conversion works when the `wagtail_serve` view is on a non-root path (Sage Abdullah)
+ * Fix: Add missing `for_instance` method to `PageLogEntryManager` (Matt Westcott)
+ * Fix: Ensure that "User" column on history view is translatable (Romein van Buren)
+ * Fix: Handle StreamField migrations where the field value is null (Joshua Munn)
+ * Fix: Prevent incorrect menu ordering when order value is 0 (Ben Dickinson)
+ * Fix: Fix dynamic image serve view with certain backends (Sébastien Corbin)
+ * Fix: Show not allowed extension in error message (Sahil Jangra)
+ * Fix: Fix focal point chooser when localization enabled (Sébastien Corbin)
+ * Fix: Ensure that system checks for `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT` and `WAGTAIL_TIME_FORMAT` take `FORMAT_MODULE_PATH` into account (Sébastien Corbin)
+ * Fix: Prevent rich text fields inside choosers from being duplicated when opened repeatedly (Sage Abdullah)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
@@ -35,12 +138,30 @@ Changelog
  * Docs: Document the fact that `Orderable` is not required for inline panels (Bojan Mihelac)
  * Docs: Add note about `prefers-reduced-motion` to the accessibility documentation (Roel Koper)
  * Docs: Update deployment instructions for Fly.io (Jeroen de Vries)
+ * Docs: Add better docs for generating URLs on creating admin views (Shlomo Markowitz)
+ * Docs: Document the `vary_fields` property for custom image filters (Daniel Kirkham)
+ * Docs: Fix documentation build errors (Himanshu Garg, Chris Shenton)
+ * Docs: Fix PDF export (Nathanaël Jourdane)
  * Maintenance: Use `DjangoJSONEncoder` instead of custom `LazyStringEncoder` to serialize Draftail config (Sage Abdullah)
  * Maintenance: Refactor image chooser pagination to check `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` at runtime (Matt Westcott)
  * Maintenance: Exclude the `client/scss` directory in Tailwind content config to speed up CSS compilation (Sage Abdullah)
  * Maintenance: Split `contrib.frontend_cache.backends` into dedicated sub-modules (Andy Babic)
  * Maintenance: Remove unused `docs/autobuild.sh` script (Sævar Öfjörð Magnússon)
  * Maintenance: Replace `urlparse` with `urlsplit` to improve performance (Jake Howard)
+ * Maintenance: Optimize embed finder lookups (Jake Howard)
+ * Maintenance: Improve performance of initial admin loading by moving sprite hashing out of module import time (Jake Howard)
+ * Maintenance: Remove workaround and inline scripts for activating workflow actions (Sage Abdullah)
+ * Maintenance: Prevent `'BlockWidget' object has no attribute '_block_json'` from masking errors during StreamField serialization (Matt Westcott)
+
+
+6.1.3 (11.07.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
+ * Fix: Allow renditions of `.ico` images (Julie Rymer)
+ * Fix: Handle choice groups as dictionaries in active filters (Sébastien Corbin)
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Fix: Fix dynamic image serve view with certain backends (Sébastien Corbin)
 
 
 6.1.2 (30.05.2024)
@@ -92,7 +213,7 @@ Changelog
  * Update the minimum version of `djangorestframework` to 3.15.1 (Sage Abdullah)
  * Add support for related fields in generic `IndexView.list_display` (Abdelrahman Hamada)
  * Improve page fetching logic and cache route results per request (Gordon Pendleton)
- * Optimise rewriting of links / embeds in rich text using bulk database lookups (Andy Chosak)
+ * Optimize rewriting of links / embeds in rich text using bulk database lookups (Andy Chosak)
  * Add normalization mechanism to StreamField so that assignments and defaults can be passed in a wider range of data types (Joshua Munn, Matt Westcott)
  * Allow specifying a `STORAGES` alias name for `WAGTAILIMAGES_RENDITION_STORAGE` (Alec Baron)
  * Update `PASSWORD_REQUIRED_TEMPLATE` setting to `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` with deprecation of previous naming (Saksham Misra, LB (Ben) Johnston)
@@ -124,6 +245,9 @@ Changelog
  * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
  * Fix: Reinstate missing static files in style guide (Sage Abdullah)
  * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
+ * Fix: Ensure invalid submissions are marked as dirty edits on load to trigger UI and browser warnings for unsaved changes, restoring previous behavior from Wagtail 5.2 (Sage Abdullah)
+ * Fix: Update polldaddy oEmbed provider to use the crowdsignal URL (Matthew Scouten)
+ * Fix: Remove polleverywhere oEmbed provider as it this application longer supports oEmbed (Matthew Scouten)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
@@ -164,6 +288,13 @@ Changelog
  * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
  * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
+ * Maintenance: Adopt the modern best practice for `beforeunload` usage in `UnsavedController` to trigger a leave page warning when edits have been made (Shubham Mukati, Sage Abdullah)
+
+
+6.0.6 (11.07.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
 
 
 6.0.5 (30.05.2024)
@@ -380,6 +511,14 @@ Changelog
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
 
 
+5.2.6 (11.07.2024)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2024-39317: Regular expression denial-of-service via search query parsing (Jake Howard)
+ * Fix: Fix image preview when Willow optimizers are enabled (Alex Tomkins)
+ * Maintenance: Remove django-pattern-library upper bound in testing dependencies (Sage Abdullah)
+
+
 5.2.5 (01.05.2024)
 ~~~~~~~~~~~~~~~~~~
 
@@ -487,7 +626,7 @@ Changelog
  * Support extending Wagtail client-side with Stimulus (LB (Ben) Johnston)
  * Update all `FieldPanel('title')` examples to use the recommended `TitleFieldPanel('title')` panel (Chinedu Ihedioha)
  * The `purge_revisions` management command now respects revisions that have a `on_delete=PROTECT` foreign key relation and won't delete them (Neeraj P Yetheendran, Meghana Reddy, Sage Abdullah, Storm Heg)
- * Add support for Shift + Click behaviour in form submissions and simple translations submissions (LB (Ben) Johnston)
+ * Add support for Shift + Click behavior in form submissions and simple translations submissions (LB (Ben) Johnston)
  * Improve filtering of audit logging based on the user's permissions (Stefan Hammer)
  * Fix: Ensure that StreamField's `FieldBlock`s correctly set the `required` and `aria-describedby` attributes (Storm Heg)
  * Fix: Avoid an error when the moderation panel (admin dashboard) contains both snippets and private pages (Matt Westcott)
@@ -549,7 +688,7 @@ Changelog
  * Maintenance: Deprecate legacy URL redirects in `ModelViewSet` and `SnippetViewSet` (Sage Abdullah)
  * Maintenance: Simplify code for registering page listing action buttons (Matt Westcott)
  * Maintenance: Removed the unused, legacy, Wagtail userbar views set up for an old iframe approach (Sage Abdullah)
- * Maintenance: Optimise `lru_cache` usage (Jake Howard)
+ * Maintenance: Optimize `lru_cache` usage (Jake Howard)
  * Maintenance: Implement `date_since` in `get_most_popular` inside `search_promotions.models.Query` (TopDevPros)
  * Maintenance: Refactor generic view subclasses to better reuse the generic templates and breadcrumbs (Sage Abdullah)
  * Maintenance: Adopt consistent `classname` (not `classnames`) attributes for all `MenuItem` usage, including deprecation warnings (LB (Ben) Johnston)
@@ -689,7 +828,7 @@ Changelog
  * Maintenance: Optimise use of `specific` on Task and TaskState (Matt Westcott)
  * Maintenance: Use table UI component for workflow task index view (Matt Westcott)
  * Maintenance: Make header search available on generic index view (Matt Westcott)
- * Maintenance: Update pagination behaviour to reject out-of-range / invalid page numbers (Matt Westcott)
+ * Maintenance: Update pagination behavior to reject out-of-range / invalid page numbers (Matt Westcott)
  * Maintenance: Remove color tokens which are duplicates / unused (Thibaud Colas)
  * Maintenance: Add tests to help with maintenance of theme color tokens (Thibaud Colas)
  * Maintenance: Split out a base listing view from generic index view (Matt Westcott)

@@ -11,15 +11,6 @@
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
-                {% if extra_perms_exist.publish %}
-                    <col width="10%" />
-                {% endif %}
-                {% if extra_perms_exist.lock %}
-                    <col width="10%" />
-                {% endif %}
-                {% if extra_perms_exist.unlock %}
-                    <col width="10%" />
-                {% endif %}
                 {% if extra_perms_exist.custom %}
                     <col width="25%" />
                 {% endif %}
@@ -30,15 +21,6 @@
                     <th>{% trans "Add" %}</th>
                     <th>{% trans "Change" %}</th>
                     <th>{% trans "Delete" %}</th>
-                    {% if extra_perms_exist.publish %}
-                        <th>{% trans "Publish" %}</th>
-                    {% endif %}
-                    {% if extra_perms_exist.lock %}
-                        <th>{% trans "Lock" %}</th>
-                    {% endif %}
-                    {% if extra_perms_exist.unlock %}
-                        <th>{% trans "Unlock" %}</th>
-                    {% endif %}
                     {% if extra_perms_exist.custom %}
                         <th>{% trans "Custom permissions" %}</th>
                     {% endif %}
@@ -66,34 +48,10 @@
                                 {{ content_perms_dict.delete.checkbox.tag }}
                             {% endif %}
                         </td>
-                        {% if extra_perms_exist.publish %}
-                            <td>
-                                {% if content_perms_dict.publish %}
-                                    <label for="{{ content_perms_dict.publish.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.publish.perm.name }}</label>
-                                    {{ content_perms_dict.publish.checkbox.tag }}
-                                {% endif %}
-                            </td>
-                        {% endif %}
-                        {% if extra_perms_exist.lock %}
-                            <td>
-                                {% if content_perms_dict.lock %}
-                                    <label for="{{ content_perms_dict.lock.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.lock.perm.name }}</label>
-                                    {{ content_perms_dict.lock.checkbox.tag }}
-                                {% endif %}
-                            </td>
-                        {% endif %}
-                        {% if extra_perms_exist.unlock %}
-                            <td>
-                                {% if content_perms_dict.unlock %}
-                                    <label for="{{ content_perms_dict.unlock.checkbox.id_for_label }}" class="w-sr-only">{{ content_perms_dict.unlock.perm.name }}</label>
-                                    {{ content_perms_dict.unlock.checkbox.tag }}
-                                {% endif %}
-                            </td>
-                        {% endif %}
                         {% if extra_perms_exist.custom %}
                             <td>
                                 {% if content_perms_dict.custom %}
-                                    <fieldset class="w-p-0">
+                                    <fieldset class="w-p-0 w-flex w-flex-col w-gap-1">
                                         <legend class="w-sr-only">{% trans "Custom permissions" %}</legend>
                                         {% for custom_perm in content_perms_dict.custom %}
                                             {% trans custom_perm.name as custom_perm_label %}
@@ -124,24 +82,6 @@
                         <label for="toggle-all-delete" class="visuallyhidden">{% trans "Toggle all delete permissions" %}</label>
                         <input id="toggle-all-delete" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="delete">
                     </td>
-                    {% if extra_perms_exist.publish %}
-                        <td>
-                            <label for="toggle-all-publish" class="visuallyhidden">{% trans "Toggle all publish permissions" %}</label>
-                            <input id="toggle-all-publish" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="publish">
-                        </td>
-                    {% endif %}
-                    {% if extra_perms_exist.lock %}
-                        <td>
-                            <label for="toggle-all-lock" class="visuallyhidden">{% trans "Toggle all lock permissions" %}</label>
-                            <input id="toggle-all-lock" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="lock">
-                        </td>
-                    {% endif %}
-                    {% if extra_perms_exist.unlock %}
-                        <td>
-                            <label for="toggle-all-unlock" class="visuallyhidden">{% trans "Toggle all unlock permissions" %}</label>
-                            <input id="toggle-all-unlock" type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all" data-w-bulk-group-param="unlock">
-                        </td>
-                    {% endif %}
                     {% if extra_perms_exist.custom %}
                         <td>
                             <label for="toggle-all-custom" class="visuallyhidden">{% trans "Toggle all custom permissions" %}</label>
@@ -165,7 +105,6 @@
             <thead>
                 <tr>
                     <th>{% trans "Name" %}</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>

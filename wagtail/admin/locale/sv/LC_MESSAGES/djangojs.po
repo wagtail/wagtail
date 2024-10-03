@@ -4,12 +4,12 @@
 # Philip Andersen <renegadevi@codeofmagi.net>, 2022
 # Thomas Kunambi <kunambi@gmail.com>, 2022
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
-# Loic Teixeira, 2022
-# Martin Sandström <martin@marteinn.se>, 2023
+# Martin Sandström <martin@marteinn.se>, 2024
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -42,6 +42,9 @@ msgstr "Alternativ text"
 
 msgid "Are you sure?"
 msgstr "Är du säker?"
+
+msgid "Blocks"
+msgstr "Block"
 
 msgid "Broken link"
 msgstr "Bruten länk"
@@ -193,6 +196,12 @@ msgid ""
 msgstr ""
 "Textredigeraren kraschade. Innehållet har återställts till den senaste "
 "sparade versionen."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Det maximala antalet block är %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Det minsta antalet block är %(min_num)d"
 
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."

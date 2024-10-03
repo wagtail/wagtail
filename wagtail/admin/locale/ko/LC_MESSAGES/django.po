@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: mirusu400, 2024\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -508,15 +508,15 @@ msgstr "내부 연결로 변경"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"당신이 입력한 URL, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>,은 URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>을 소유한 내부 "
-"페이지%(page)s,와 연결되는 것 같습니다."
+"당신이 입력한 URL, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>,은 URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>을 소유한 내"
+"부 페이지%(page)s,와 연결되는 것 같습니다."
 
 msgid "Use external link"
 msgstr "외부 링크를 사용하세요."
@@ -539,9 +539,6 @@ msgstr "'%(title)s' 의 하위 페이지 탐색"
 
 msgid "Explore"
 msgstr "탐색"
-
-msgid "Collection privacy"
-msgstr "모음 공개 범위"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "이 모음은 상위 모음에 의해 비공개로 설정되었습니다."
@@ -580,8 +577,8 @@ msgstr "이 모음을 삭제할 수 없습니다. 모음이 비어 있지 않습
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "생성되어 있는 모음이 하나도 없습니다. <a href=\"%(add_collection_url)s\">하"
 "나 생성</a>해 보는 것은 어떠신가요?"
@@ -884,9 +881,6 @@ msgstr ""
 #, python-format
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr "페이지\"%(title)s\"가 작업\"%(workflow)s\"안에 승인되었습니다."
-
-msgid "Page privacy"
-msgstr "페이지 공개 범위"
 
 msgid "This page has been made private by a parent page."
 msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습니다"
@@ -1329,9 +1323,6 @@ msgstr "이 아이템 수정"
 msgid "No log entries found."
 msgstr "기록 입장이 확인되지 않음"
 
-msgid "By Task"
-msgstr "업무에 의해"
-
 msgid "Workflow"
 msgstr "작업흐름"
 
@@ -1343,9 +1334,6 @@ msgstr "에서 시작됨"
 
 msgid "Incomplete task"
 msgstr "업무 미완성"
-
-msgid "By Workflow"
-msgstr "작업흐름에 의해"
 
 msgid "Completed at"
 msgstr "에 완료됨"
@@ -1359,6 +1347,9 @@ msgstr "부분 전환"
 
 msgid "Breadcrumb"
 msgstr "브레드크럼"
+
+msgid "Continue"
+msgstr "계속"
 
 msgid "Download XLSX"
 msgstr "XLSX 다운로드"
@@ -1524,9 +1515,9 @@ msgstr "이 페이지는 조정을 위해 제출되지 않음"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
 "Wagtail을 사용하려면 JavaScript가 필요하지만 현재 사용할 수 없습니다. <br />"
 "다음은 웹 브라우저에서 J<a href=\"https://www.enable-javascript.com/\" "
@@ -1578,12 +1569,13 @@ msgstr "생성"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "워크플로우는 하위 페이지에도 적용됩니다. 여기서 상위 페이지를 선택하면 하위 "
-"페이지도 이 워크플로우를 사용합니다. 워크플로가 적용되는 <a href="
-"\"%(workflow_pages_url)s\">페이지 목록</a>을 확인하십시오."
+"페이지도 이 워크플로우를 사용합니다. 워크플로가 적용되는 <a "
+"href=\"%(workflow_pages_url)s\">페이지 목록</a>을 확인하십시오."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "이 워크플로우는 불가하기에 다른 페이지에 할당될 수 없음"
@@ -2125,9 +2117,6 @@ msgstr "오래된 페이지"
 
 msgid "Last published at"
 msgstr "에 마지막으로 게시됨"
-
-msgid "Hide commenting actions"
-msgstr "댓글 달기 숨기기"
 
 msgid "Site history"
 msgstr "사이트 자취"

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import concurrent.futures
 import hashlib
 import itertools
@@ -6,10 +8,11 @@ import os.path
 import re
 import time
 from collections import OrderedDict, defaultdict
+from collections.abc import Iterable
 from contextlib import contextmanager
 from io import BytesIO
 from tempfile import SpooledTemporaryFile
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Any
 
 import willow
 from django.apps import apps
@@ -440,12 +443,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         """Get the Rendition model for this Image model"""
         return cls.renditions.rel.related_model
 
-    def _get_prefetched_renditions(self) -> Union[Iterable["AbstractRendition"], None]:
+    def _get_prefetched_renditions(self) -> Iterable[AbstractRendition] | None:
         if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
             return self.renditions.all()
         return getattr(self, "prefetched_renditions", None)
 
-    def _add_to_prefetched_renditions(self, rendition: "AbstractRendition") -> None:
+    def _add_to_prefetched_renditions(self, rendition: AbstractRendition) -> None:
         # Reuse this rendition if requested again from this object
         try:
             self._prefetched_objects_cache["renditions"]._result_cache.append(rendition)
@@ -456,7 +459,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         except AttributeError:
             pass
 
-    def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
+    def get_rendition(self, filter: Filter | str) -> AbstractRendition:
         """
         Returns a ``Rendition`` instance with a ``file`` field value (an
         image) reflecting the supplied ``filter`` value and focal point values
@@ -484,7 +487,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         return rendition
 
-    def find_existing_rendition(self, filter: "Filter") -> "AbstractRendition":
+    def find_existing_rendition(self, filter: Filter) -> AbstractRendition:
         """
         Returns an existing ``Rendition`` instance with a ``file`` field value
         (an image) reflecting the supplied ``filter`` value and focal point
@@ -503,7 +506,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         except KeyError:
             raise Rendition.DoesNotExist
 
-    def create_rendition(self, filter: "Filter") -> "AbstractRendition":
+    def create_rendition(self, filter: Filter) -> AbstractRendition:
         """
         Creates and returns a ``Rendition`` instance with a ``file`` field
         value (an image) reflecting the supplied ``filter`` value and focal
@@ -524,9 +527,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         )
         return rendition
 
-    def get_renditions(
-        self, *filters: Union["Filter", str]
-    ) -> Dict[str, "AbstractRendition"]:
+    def get_renditions(self, *filters: Filter | str) -> dict[str, AbstractRendition]:
         """
         Returns a ``dict`` of ``Rendition`` instances with image files reflecting
         the supplied ``filters``, keyed by filter spec patterns.
@@ -564,8 +565,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return {filter.spec: renditions[filter] for filter in filters}
 
     def find_existing_renditions(
-        self, *filters: "Filter"
-    ) -> Dict["Filter", "AbstractRendition"]:
+        self, *filters: Filter
+    ) -> dict[Filter, AbstractRendition]:
         """
         Returns a dictionary of existing ``Rendition`` instances with ``file``
         values (images) reflecting the supplied ``filters`` and the focal point
@@ -576,8 +577,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         created before, the return value will be an empty dict.
         """
         Rendition = self.get_rendition_model()
-        filters_by_spec: Dict[str, Filter] = {f.spec: f for f in filters}
-        found: Dict[Filter, AbstractRendition] = {}
+        filters_by_spec: dict[str, Filter] = {f.spec: f for f in filters}
+        found: dict[Filter, AbstractRendition] = {}
 
         # Interrogate prefetched values first (where available)
         prefetched_renditions = self._get_prefetched_renditions()
@@ -587,7 +588,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             # prefetched value, and further cache/database lookups are avoided.
 
             # group renditions by the filters of interest
-            potential_matches: Dict[Filter, List[AbstractRendition]] = defaultdict(list)
+            potential_matches: dict[Filter, list[AbstractRendition]] = defaultdict(list)
             for rendition in prefetched_renditions:
                 try:
                     filter = filters_by_spec[rendition.filter_spec]
@@ -635,9 +636,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                     found[filter] = rendition
         return found
 
-    def create_renditions(
-        self, *filters: "Filter"
-    ) -> Dict["Filter", "AbstractRendition"]:
+    def create_renditions(self, *filters: Filter) -> dict[Filter, AbstractRendition]:
         """
         Creates multiple ``Rendition`` instances with image files reflecting the supplied
         ``filters``, and returns them as a ``dict`` keyed by the relevant ``Filter`` instance.
@@ -662,8 +661,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             filter = filters[0]
             return {filter: self.create_rendition(filter)}
 
-        return_value: Dict[Filter, AbstractRendition] = {}
-        filter_map: Dict[str, Filter] = {f.spec: f for f in filters}
+        return_value: dict[Filter, AbstractRendition] = {}
+        filter_map: dict[str, Filter] = {f.spec: f for f in filters}
 
         # Read file contents into memory
         with self.open_file() as file:
@@ -686,7 +685,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         # identical renditions in the meantime, we should find them to avoid clashes.
         # NB: Clashes can still occur, because there is no get_or_create() equivalent
         # for multiple objects. However, this will reduce that risk considerably.
-        files_for_deletion: List[File] = []
+        files_for_deletion: list[File] = []
 
         # Assemble Q() to identify potential clashes
         lookup_q = Q()
@@ -722,8 +721,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return return_value
 
     def generate_rendition_instance(
-        self, filter: "Filter", source: BytesIO
-    ) -> "AbstractRendition":
+        self, filter: Filter, source: BytesIO
+    ) -> AbstractRendition:
         """
         Use the supplied ``source`` image to create and return an
         **unsaved** ``Rendition`` instance, with a ``file`` value reflecting
@@ -738,7 +737,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ),
         )
 
-    def generate_rendition_file(self, filter: "Filter", *, source: File = None) -> File:
+    def generate_rendition_file(self, filter: Filter, *, source: File = None) -> File:
         """
         Generates an in-memory image matching the supplied ``filter`` value
         and focal point value from this object, wraps it in a ``File`` object
@@ -875,7 +874,7 @@ class Filter:
         self.spec = spec
 
     @classmethod
-    def expand_spec(self, spec: Union["str", Iterable["str"]]) -> List["str"]:
+    def expand_spec(self, spec: str | Iterable[str]) -> list[str]:
         """
         Converts a spec pattern with brace-expansions, into a list of spec patterns.
         For example, "width-{100,200}" becomes ["width-100", "width-200"].
@@ -1090,14 +1089,14 @@ class ResponsiveImage:
 
     def __init__(
         self,
-        renditions: Dict[str, "AbstractRendition"],
-        attrs: Optional[Dict[str, Any]] = None,
+        renditions: dict[str, AbstractRendition],
+        attrs: dict[str, Any] | None = None,
     ):
         self.renditions = list(renditions.values())
         self.attrs = attrs
 
     @classmethod
-    def get_width_srcset(cls, renditions_list: List["AbstractRendition"]):
+    def get_width_srcset(cls, renditions_list: list[AbstractRendition]):
         if len(renditions_list) == 1:
             # No point in using width descriptors if there is a single image.
             return renditions_list[0].url
@@ -1120,7 +1119,7 @@ class ResponsiveImage:
     def __bool__(self):
         return bool(self.renditions)
 
-    def __eq__(self, other: "ResponsiveImage"):
+    def __eq__(self, other: ResponsiveImage):
         if isinstance(other, ResponsiveImage):
             return self.renditions == other.renditions and self.attrs == other.attrs
         return False
@@ -1136,16 +1135,16 @@ class Picture(ResponsiveImage):
 
     def __init__(
         self,
-        renditions: Dict[str, "AbstractRendition"],
-        attrs: Optional[Dict[str, Any]] = None,
+        renditions: dict[str, AbstractRendition],
+        attrs: dict[str, Any] | None = None,
     ):
         super().__init__(renditions, attrs)
         # Store renditions grouped by format separately for access from templates.
         self.formats = self.get_formats(renditions)
 
     def get_formats(
-        self, renditions: Dict[str, "AbstractRendition"]
-    ) -> Dict[str, List["AbstractRendition"]]:
+        self, renditions: dict[str, AbstractRendition]
+    ) -> dict[str, list[AbstractRendition]]:
         """
         Group renditions by the format they are for, if any.
         If there is only one format, no grouping is required.

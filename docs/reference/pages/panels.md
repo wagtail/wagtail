@@ -11,7 +11,7 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
-   :noindex:
+   :no-index:
 ```
 
 (field_panel)=
@@ -280,7 +280,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 .. class:: FormSubmissionsPanel(**kwargs)
 
-    This panel adds a single, read-only section in the edit interface for pages implementing the :class:`~wagtail.contrib.forms.models.AbstractForm` model.
+    This panel adds a single, read-only section in the edit interface for pages implementing the ``wagtail.contrib.forms.models.AbstractForm`` model.
     It includes the number of total submissions for the given form and also a link to the listing of submissions.
 
     .. code-block:: python
@@ -300,7 +300,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 ```{eval-rst}
 .. module:: wagtail.admin.panels
-   :noindex:
+   :no-index:
 
 .. autoclass:: TitleFieldPanel
 

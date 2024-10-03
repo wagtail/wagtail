@@ -4,6 +4,7 @@
 #
 # Translators:
 # dellax <michalnebbia@gmail.com>, 2015
+# Ivan Waginger <ivan.waginger@gmail.com>, 2024
 # Martin Janšto <mato@jansto.sk>, 2017
 # Martin Janšto <mato@jansto.sk>, 2017
 # dellax <michalnebbia@gmail.com>, 2015
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
+"Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +24,11 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Wagtail documents"
+msgstr "Wagtail dokumenty"
+
 msgid "Collection"
-msgstr "Kolekcie"
+msgstr "Kolekcia"
 
 msgid "Add"
 msgstr "Pridať"
@@ -59,8 +63,29 @@ msgstr "tagy"
 msgid "document"
 msgstr "dokument"
 
+msgid "documents"
+msgstr "dokumenty"
+
+msgid "Add tags to documents"
+msgstr "Pridať tagy k dokumentom"
+
+msgid "Yes, add"
+msgstr "Áno, pridať"
+
+msgid "No, don't add"
+msgstr "Nie, nepridať"
+
+msgid "Add documents to collection"
+msgstr "Pridať dokumenty do kolekcie"
+
+msgid "Delete documents"
+msgstr "Zmazať dokumenty"
+
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+msgid "No, don't delete"
+msgstr "Nie, nezmazať"
 
 msgid "Latest documents"
 msgstr "Posledné dokumenty"
@@ -102,24 +127,24 @@ msgstr "Súbor nebol nájdený"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu \"<em>"
-"%(query_string)s</em>\""
+"Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu "
+"\"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Zatiaľ ste do kolekcie nenahrali žiadne dokumenty. Prečo nenahrať <a href="
-"\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
+"Zatiaľ ste do kolekcie nenahrali žiadne dokumenty. Prečo nenahrať <a "
+"href=\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Zatial ste nenahrali žiadne dokumenty. Prečo nenahrať <a href="
-"\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
+"Zatial ste nenahrali žiadne dokumenty. Prečo nenahrať <a "
+"href=\"%(wagtaildocs_add_document_url)s\">jeden práve teraz</a>?"
 
 msgid "Add multiple documents"
 msgstr "Pridať viaceré dokumenty"
@@ -140,6 +165,9 @@ msgstr "Pridať do kolekcie:"
 msgid "Sorry, upload failed."
 msgstr "Prepáčte, ale nahrávanie zlihalo."
 
+msgid "Document updated."
+msgstr "Dokument bol aktualizovaný."
+
 msgid "You need a password to access this document."
 msgstr "K prístupu k tomuto dokumentu potrebujete heslo."
 
@@ -152,8 +180,23 @@ msgstr "Pridať oprávnenia dokumentu"
 msgid "Tags"
 msgstr "Tagy"
 
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Add tags to the selected documents"
+msgstr "Pridať tagy k vybraným dokumentom"
+
+msgid "Add to collection"
+msgstr "Pridať do kolekcie"
+
+msgid "Add selected documents to collection"
+msgstr "Pridať vybrané dokumenty do zbierky"
+
 msgid "Delete"
 msgstr "Vymazať"
+
+msgid "Delete selected documents"
+msgstr "Vymazať vybrané dokumenty"
 
 msgid "File"
 msgstr "Súbor"

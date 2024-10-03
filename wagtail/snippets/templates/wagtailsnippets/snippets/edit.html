@@ -22,15 +22,6 @@
 {% block extra_js %}
     {{ block.super }}
 
-    <script>
-        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
-        // This value may be used by JS widgets on the form
-        {% if locale %}
-            window.wagtailConfig = window.wagtailConfig || {};
-            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
-        {% endif %}
-    </script>
-
     {% if workflow_enabled %}
         {% include "wagtailadmin/shared/_workflow_init.html" %}
     {% endif %}

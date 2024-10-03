@@ -27,18 +27,24 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.log_actions import log
 from wagtail.models import (
     Collection,
+    DraftStateMixin,
     GroupCollectionPermission,
     GroupPagePermission,
+    LockableMixin,
     Page,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
-from wagtail.users.forms import UserCreationForm, UserEditForm
+from wagtail.users.forms import GroupForm, UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
-from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
-from wagtail.users.wagtail_hooks import get_group_viewset_cls
+from wagtail.users.views.users import (
+    UserViewSet,
+    get_user_creation_form,
+    get_user_edit_form,
+)
+from wagtail.users.wagtail_hooks import get_viewset_cls
 from wagtail.users.widgets import UserListingButton
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
@@ -51,6 +57,10 @@ User = get_user_model()
 
 def test_avatar_provider(user, default, size=50):
     return "/nonexistent/path/to/avatar.png"
+
+
+class CustomGroupForm(GroupForm):
+    pass
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -66,6 +76,18 @@ class CustomUserEditForm(UserEditForm):
 class CustomGroupViewSet(GroupViewSet):
     icon = "custom-icon"
 
+    def get_form_class(self, for_update=False):
+        return CustomGroupForm
+
+
+class CustomUserViewSet(UserViewSet):
+    icon = "custom-icon"
+
+    def get_form_class(self, for_update=False):
+        if for_update:
+            return CustomUserEditForm
+        return CustomUserCreationForm
+
 
 class TestUserFormHelpers(TestCase):
     def test_get_user_edit_form_with_default_form(self):
@@ -80,25 +102,45 @@ class TestUserFormHelpers(TestCase):
         WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm"
     )
     def test_get_user_creation_form_with_custom_form(self):
-        user_form = get_user_creation_form()
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            user_form = get_user_creation_form()
         self.assertIs(user_form, CustomUserCreationForm)
 
     @override_settings(WAGTAIL_USER_EDIT_FORM="wagtail.users.tests.CustomUserEditForm")
     def test_get_user_edit_form_with_custom_form(self):
-        user_form = get_user_edit_form()
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            user_form = get_user_edit_form()
         self.assertIs(user_form, CustomUserEditForm)
 
     @override_settings(
         WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationFormDoesNotExist"
     )
     def test_get_user_creation_form_with_invalid_form(self):
-        self.assertRaises(ImproperlyConfigured, get_user_creation_form)
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            self.assertRaises(ImproperlyConfigured, get_user_creation_form)
 
     @override_settings(
         WAGTAIL_USER_EDIT_FORM="wagtail.users.tests.CustomUserEditFormDoesNotExist"
     )
     def test_get_user_edit_form_with_invalid_form(self):
-        self.assertRaises(ImproperlyConfigured, get_user_edit_form)
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+        ):
+            self.assertRaises(ImproperlyConfigured, get_user_edit_form)
 
 
 class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -165,7 +207,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # response should contain page furniture, including the "Add a user" button
         self.assertContains(response, "Add a user")
         self.assertBreadcrumbsItemsRendered(
-            [{"url": "", "label": capfirst(User._meta.verbose_name_plural)}],
+            [{"url": "", "label": "Users"}],
             response.content,
         )
 
@@ -184,6 +226,12 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query_string"], "Hello")
+        soup = self.get_soup(response.content)
+        filter_options = soup.select(".filter-options a")
+        self.assertIn(
+            ("Users", reverse("wagtailusers_users:index") + "?q=Hello"),
+            [(a.text.strip(), a.get("href")) for a in filter_options],
+        )
 
     def test_search_query_one_field(self):
         response = self.get({"q": "first name"})
@@ -198,12 +246,10 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIn(self.test_user, results)
 
     def test_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"p": 1})
-        self.assertEqual(response.status_code, 200)
-        # page numbers out of range should return 404
-        response = self.get({"p": 9999})
-        self.assertEqual(response.status_code, 404)
+        pages = ["0", "1", "-1", "9999", "Not a page"]
+        for page in pages:
+            response = self.get({"p": page})
+            self.assertEqual(response.status_code, 200)
 
     def test_ordering(self):
         # checking that only valid ordering used, in case of `IndexView` the valid
@@ -466,7 +512,6 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     )
     @override_settings(
         WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm",
-        WAGTAIL_USER_CUSTOM_FIELDS=["country", "document"],
     )
     def test_create_with_custom_form(self):
         response = self.post(
@@ -1625,7 +1670,7 @@ class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(names, ["Editors", "Moderators", "Photographers"])
 
 
-class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
+class TestGroupIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -1637,7 +1682,7 @@ class TestGroupIndexResultsView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing_results.html")
         # response should not contain page furniture
-        self.assertNotContains(response, "Add a group")
+        self.assertBreadcrumbsNotRendered(response.content)
 
     def test_search(self):
         response = self.get({"q": "Hello"})
@@ -1809,7 +1854,6 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             Q(codename__startswith="add")
             | Q(codename__startswith="change")
             | Q(codename__startswith="delete")
-            | Q(codename__startswith="publish")
         ).delete()
 
         # A custom permission that happens to also start with "change"
@@ -1828,36 +1872,46 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertInHTML("Custom permissions", response.content.decode())
 
-    def test_show_publish_permissions(self):
+    def test_show_mixin_permissions(self):
         response = self.get()
-        html = response.content.decode()
+        soup = self.get_soup(response.content)
+        object_permissions = soup.select_one("#object-permissions-section")
+        self.assertIsNotNone(object_permissions)
 
-        # Should show the Publish column
-        self.assertInHTML("<th>Publish</th>", html)
+        # Should not show separate Publish, Lock, or Unlock columns
+        # (i.e. the checkboxes should be in the "Custom permissions" column)
+        self.assertFalse(
+            {th.text.strip() for th in object_permissions.select("th")}
+            & {"Publish", "Lock", "Unlock"}
+        )
 
-        # Should show inputs for publish permissions on models with DraftStateMixin
-        self.assertInHTML("Can publish draft state model", html)
-        self.assertInHTML("Can publish draft state custom primary key model", html)
+        mixin_permissions = (
+            ("publish", DraftStateMixin),
+            ("lock", LockableMixin),
+            ("unlock", LockableMixin),
+        )
+        for action, mixin in mixin_permissions:
+            with self.subTest(action=action):
+                permissions = Permission.objects.filter(
+                    codename__startswith=action,
+                    content_type__app_label="tests",
+                ).select_related("content_type")
+                self.assertGreater(len(permissions), 0)
 
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
-
-    def test_hide_publish_permissions(self):
-        # Remove all `publish` permissions
-        Permission.objects.filter(codename__startswith="publish").delete()
-
-        response = self.get()
-        html = response.content.decode()
-
-        # Should not show the Publish column
-        self.assertNotInHTML("<th>Publish</th>", html)
-
-        # Should not show inputs for publish permissions even on models with DraftStateMixin
-        self.assertNotInHTML("Can publish draft state model", html)
-        self.assertNotInHTML("Can publish draft state custom primary key model", html)
-
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
+                for permission in permissions:
+                    # Should show a checkbox for each permission in the
+                    # "Custom permissions" column (thus inside a fieldset), with a
+                    # simple "Can {action}" label (without the model name)
+                    checkbox = object_permissions.select_one(
+                        f'td > fieldset input[value="{permission.pk}"]'
+                    )
+                    self.assertIsNotNone(checkbox)
+                    label = checkbox.parent
+                    self.assertEqual(label.name, "label")
+                    self.assertEqual(label.text.strip(), f"Can {action}")
+                    # Should only show the permission for models with the mixin applied
+                    content_type = permission.content_type
+                    self.assertTrue(issubclass(content_type.model_class(), mixin))
 
     def test_strip_model_name_from_custom_permissions(self):
         """
@@ -2397,7 +2451,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_is_custom_permission_checked(self):
         # Add a permission from the 'custom permission' column to the user's group
-        custom_permission = Permission.objects.get(codename="view_fancysnippet")
+        custom_permission = Permission.objects.get(codename="view_fullfeaturedsnippet")
         self.test_group.permissions.add(custom_permission)
 
         response = self.get()
@@ -2417,36 +2471,46 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertEqual(len(checkbox), 1)
 
-    def test_show_publish_permissions(self):
+    def test_show_mixin_permissions(self):
         response = self.get()
-        html = response.content.decode()
+        soup = self.get_soup(response.content)
+        object_permissions = soup.select_one("#object-permissions-section")
+        self.assertIsNotNone(object_permissions)
 
-        # Should show the Publish column
-        self.assertInHTML("<th>Publish</th>", html)
+        # Should not show separate Publish, Lock, or Unlock columns
+        # (i.e. the checkboxes should be in the "Custom permissions" column)
+        self.assertFalse(
+            {th.text.strip() for th in object_permissions.select("th")}
+            & {"Publish", "Lock", "Unlock"}
+        )
 
-        # Should show inputs for publish permissions on models with DraftStateMixin
-        self.assertInHTML("Can publish draft state model", html)
-        self.assertInHTML("Can publish draft state custom primary key model", html)
+        mixin_permissions = (
+            ("publish", DraftStateMixin),
+            ("lock", LockableMixin),
+            ("unlock", LockableMixin),
+        )
+        for action, mixin in mixin_permissions:
+            with self.subTest(action=action):
+                permissions = Permission.objects.filter(
+                    codename__startswith=action,
+                    content_type__app_label="tests",
+                ).select_related("content_type")
+                self.assertGreater(len(permissions), 0)
 
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
-
-    def test_hide_publish_permissions(self):
-        # Remove all `publish` permissions
-        Permission.objects.filter(codename__startswith="publish").delete()
-
-        response = self.get()
-        html = response.content.decode()
-
-        # Should not show the Publish column
-        self.assertNotInHTML("<th>Publish</th>", html)
-
-        # Should not show inputs for publish permissions even on models with DraftStateMixin
-        self.assertNotInHTML("Can publish draft state model", html)
-        self.assertNotInHTML("Can publish draft state custom primary key model", html)
-
-        # Should not show inputs for publish permissions on models without DraftStateMixin
-        self.assertNotInHTML("Can publish advert", html)
+                for permission in permissions:
+                    # Should show a checkbox for each permission in the
+                    # "Custom permissions" column (thus inside a fieldset), with a
+                    # simple "Can {action}" label (without the model name)
+                    checkbox = object_permissions.select_one(
+                        f'td > fieldset input[value="{permission.pk}"]'
+                    )
+                    self.assertIsNotNone(checkbox)
+                    label = checkbox.parent
+                    self.assertEqual(label.name, "label")
+                    self.assertEqual(label.text.strip(), f"Can {action}")
+                    # Should only show the permission for models with the mixin applied
+                    content_type = permission.content_type
+                    self.assertTrue(issubclass(content_type.model_class(), mixin))
 
     def test_group_edit_loads_with_django_permissions_in_order(self):
         # ensure objects are ordered as registered, followed by the default ordering
@@ -2566,44 +2630,76 @@ class TestGroupHistoryView(WagtailTestUtils, TestCase):
 
 
 class TestGroupViewSet(TestCase):
+    app_config_attr = "group_viewset"
+    default_viewset_cls = GroupViewSet
+    custom_viewset_cls = CustomGroupViewSet
+    create_form_cls = CustomGroupForm
+    edit_form_cls = CustomGroupForm
+
     def setUp(self):
         self.app_config = apps.get_app_config("wagtailusers")
 
-    def test_get_group_viewset_cls(self):
-        self.assertIs(get_group_viewset_cls(self.app_config), GroupViewSet)
+    def test_get_viewset_cls(self):
+        self.assertIs(
+            get_viewset_cls(self.app_config, self.app_config_attr),
+            self.default_viewset_cls,
+        )
 
-    def test_get_group_viewset_cls_with_custom_form(self):
+    def test_get_viewset_cls_with_custom_form(self):
         with unittest.mock.patch.object(
             self.app_config,
-            "group_viewset",
-            new="wagtail.users.tests.CustomGroupViewSet",
+            self.app_config_attr,
+            new=f"wagtail.users.tests.{self.custom_viewset_cls.__name__}",
         ):
-            group_viewset = get_group_viewset_cls(self.app_config)
-        self.assertIs(group_viewset, CustomGroupViewSet)
+            group_viewset = get_viewset_cls(self.app_config, self.app_config_attr)
+        self.assertIs(group_viewset, self.custom_viewset_cls)
         self.assertEqual(group_viewset.icon, "custom-icon")
+        viewset = group_viewset()
+        self.assertIs(viewset.get_form_class(for_update=False), self.create_form_cls)
+        self.assertIs(viewset.get_form_class(for_update=True), self.edit_form_cls)
 
-    def test_get_group_viewset_cls_custom_form_invalid_value(self):
+    def test_get_viewset_cls_custom_form_invalid_value(self):
         with unittest.mock.patch.object(
-            self.app_config, "group_viewset", new="asdfasdf"
+            self.app_config, self.app_config_attr, new="asdfasdf"
         ):
-            with self.assertRaises(ImproperlyConfigured) as exc_info:
-                get_group_viewset_cls(self.app_config)
-            self.assertIn(
-                "asdfasdf doesn't look like a module path", str(exc_info.exception)
-            )
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
+                "asdfasdf doesn't look like a module path",
+            ):
+                get_viewset_cls(self.app_config, self.app_config_attr)
 
-    def test_get_group_viewset_cls_custom_form_does_not_exist(self):
+    def test_get_viewset_cls_custom_form_does_not_exist(self):
         with unittest.mock.patch.object(
             self.app_config,
-            "group_viewset",
+            self.app_config_attr,
             new="wagtail.users.tests.CustomClassDoesNotExist",
         ):
-            with self.assertRaises(ImproperlyConfigured) as exc_info:
-                get_group_viewset_cls(self.app_config)
-            self.assertIn(
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
                 'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
-                str(exc_info.exception),
-            )
+            ):
+                get_viewset_cls(self.app_config, self.app_config_attr)
+
+
+class TestUserViewSet(TestGroupViewSet):
+    app_config_attr = "user_viewset"
+    default_viewset_cls = UserViewSet
+    custom_viewset_cls = CustomUserViewSet
+    create_form_cls = CustomUserCreationForm
+    edit_form_cls = CustomUserEditForm
+
+    def test_registered_permissions(self):
+        group_ct = ContentType.objects.get_for_model(Group)
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_user_permissions = qs.filter(content_type=group_ct)
+        self.assertEqual(
+            set(registered_user_permissions.values_list("codename", flat=True)),
+            {"add_group", "change_group", "delete_group"},
+        )
 
 
 class TestAuthorisationIndexView(WagtailTestUtils, TestCase):
@@ -2956,4 +3052,18 @@ class TestTemplateTags(WagtailTestUtils, TestCase):
         self.assertEqual(
             top_level_custom_button.text.strip(),
             "Show profile",
+        )
+
+
+class TestAdminPermissions(WagtailTestUtils, TestCase):
+    def test_registered_user_permissions(self):
+        user_ct = ContentType.objects.get_for_model(User)
+        model_name = User._meta.model_name
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_user_permissions = qs.filter(content_type=user_ct)
+        self.assertEqual(
+            set(registered_user_permissions.values_list("codename", flat=True)),
+            {f"add_{model_name}", f"change_{model_name}", f"delete_{model_name}"},
         )

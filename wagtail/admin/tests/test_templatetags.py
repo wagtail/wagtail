@@ -11,7 +11,8 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.localization import get_js_translation_strings
+from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
     avatar_url,
     i18n_enabled,
@@ -27,6 +28,7 @@ from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
@@ -99,9 +101,12 @@ class TestNotificationStaticTemplateTag(SimpleTestCase):
 
 
 class TestVersionedStatic(SimpleTestCase):
+    def test_version_hash(self):
+        self.assertEqual(len(VERSION_HASH), 8)
+
     def test_versioned_static(self):
         result = versioned_static("wagtailadmin/js/core.js")
-        self.assertRegex(result, r"^/static/wagtailadmin/js/core.js\?v=(\w+)$")
+        self.assertRegex(result, r"^/static/wagtailadmin/js/core.js\?v=(\w{8})$")
 
     @mock.patch("wagtail.admin.staticfiles.static")
     def test_versioned_static_version_string(self, mock_static):
@@ -375,7 +380,12 @@ class TestInternationalisationTags(TestCase):
             self.assertTrue(i18n_enabled())
 
     def test_locales(self):
-        locales_output = locales_tag()
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `locales` template tag will be removed in a future release.",
+        ):
+            locales_output = locales_tag()
+
         self.assertIsInstance(locales_output, str)
         self.assertEqual(
             json.loads(locales_output),
@@ -397,6 +407,20 @@ class TestInternationalisationTags(TestCase):
         # check with an invalid id
         with self.assertNumQueries(0):
             self.assertIsNone(locale_label_from_id(self.locale_ids[-1] + 100), None)
+
+    def test_js_translation_strings(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            {% js_translation_strings %}
+        """
+
+        expected = json.dumps(get_js_translation_strings())
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "The `js_translation_strings` template tag will be removed in a future release.",
+        ):
+            self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
 class ComponentTest(SimpleTestCase):

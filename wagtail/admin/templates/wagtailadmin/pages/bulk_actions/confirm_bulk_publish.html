@@ -1,7 +1,11 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Publish 1 page {% plural %}Publish {{ counter }} pages{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Publish 1 page {% plural %}Publish {{ counter }} pages{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
 
 {% block header %}
     {% include "wagtailadmin/shared/header.html" with title=_("Publish") icon="doc-empty-inverse" %}
@@ -14,15 +18,17 @@
             {% for page in items %}
                 <li>
                     <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
-                    {% if page.draft_descendant_count %}
-                        <p>
-                            {% blocktrans trimmed count counter=page.draft_descendant_count %}
-                                This page has one unpublished subpage
-                            {% plural %}
-                                This page has {{ counter }} unpublished subpages
-                            {% endblocktrans %}
-                        </p>
-                    {% endif %}
+                    {% with draft_descendant_count=page.draft_descendant_count %}
+                        {% if draft_descendant_count %}
+                            <p>
+                                {% blocktrans trimmed with counter=draft_descendant_count|intcomma count counter_val=draft_descendant_count %}
+                                    This page has one unpublished subpage
+                                {% plural %}
+                                    This page has {{ counter }} unpublished subpages
+                                {% endblocktrans %}
+                            </p>
+                        {% endif %}
+                    {% endwith %}
                 </li>
             {% endfor %}
         </ul>

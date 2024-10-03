@@ -1,7 +1,6 @@
 import re
 from functools import lru_cache
 from html import unescape
-from typing import List
 
 from django.core.validators import MaxLengthValidator
 from django.db.models import Model
@@ -132,7 +131,7 @@ class EntityHandler:
         return model._default_manager.get(id=attrs["id"])
 
     @classmethod
-    def get_many(cls, attrs_list: List[dict]) -> List[Model]:
+    def get_many(cls, attrs_list: list[dict]) -> list[Model]:
         model = cls.get_model()
         instance_ids = [attrs.get("id") for attrs in attrs_list]
         instances_by_id = model._default_manager.in_bulk(instance_ids)
@@ -148,7 +147,7 @@ class EntityHandler:
         raise NotImplementedError
 
     @classmethod
-    def expand_db_attributes_many(cls, attrs_list: List[dict]) -> List[str]:
+    def expand_db_attributes_many(cls, attrs_list: list[dict]) -> list[str]:
         """
         Given a list of attribute dicts from a list of entity tags stored in
         the database, return the real HTML representation of each one.

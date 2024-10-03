@@ -86,7 +86,7 @@ class Advert(PreviewableMixin, models.Model):
 
 ## Making snippets searchable
 
-If a snippet model inherits from {class}`wagtail.search.index.Indexed`, as described in [](wagtailsearch_indexing_models), Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the `Advert` snippet could be made searchable as follows:
+If a snippet model inherits from `wagtail.search.index.Indexed`, as described in [](wagtailsearch_indexing_models), Wagtail will automatically add a search box to the chooser interface for that snippet type. For example, the `Advert` snippet could be made searchable as follows:
 
 ```python
 # ...
@@ -326,7 +326,7 @@ The admin dashboard and workflow reports will also show you snippets (alongside 
 
 ## Tagging snippets
 
-Adding tags to snippets is very similar to adding tags to pages. The only difference is that if `RevisionMixin` is not applied, then {class}`taggit.manager.TaggableManager` should be used in the place of {class}`~modelcluster.contrib.taggit.ClusterTaggableManager`.
+Adding tags to snippets is very similar to adding tags to pages. The only difference is that if `RevisionMixin` is not applied, then `taggit.manager.TaggableManager` should be used in the place of `modelcluster.contrib.taggit.ClusterTaggableManager`.
 
 ```python
 # ...

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2022-2024\n"
@@ -542,9 +542,6 @@ msgstr "Переглянути вкладені сторінки для '%(title
 msgid "Explore"
 msgstr "Переглянути"
 
-msgid "Collection privacy"
-msgstr "Загальнодоступність колекції"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Батьківська колекція зробила цю колекцію приватною. "
 
@@ -582,11 +579,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Жодної колекції не створено. Чому б не <a href=\"%(add_collection_url)s"
-"\">створити одну</a>?"
+"Жодної колекції не створено. Чому б не <a "
+"href=\"%(add_collection_url)s\">створити одну</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -911,9 +908,6 @@ msgstr ""
 "Сторінку \"%(title)s\" було передано на модерацію до робочого процесу "
 "\"%(workflow)s\"."
 
-msgid "Page privacy"
-msgstr "Приватність сторінки"
-
 msgid "This page has been made private by a parent page."
 msgstr "Батьківська сторінка зробила цю сторінку приватною."
 
@@ -1237,8 +1231,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr ""
 "Графік публікації почне працювати лише після того, як ви натиснете кнопку "
 "\"Опублікувати\""
@@ -1301,9 +1295,6 @@ msgstr "Редагувати цей елемент"
 msgid "No log entries found."
 msgstr "Записи в журналі не знайдені. "
 
-msgid "By Task"
-msgstr "За завданням"
-
 msgid "Workflow"
 msgstr "Робочий процес"
 
@@ -1319,9 +1310,6 @@ msgstr "Запущено о"
 msgid "Incomplete task"
 msgstr "Незавершене завдання"
 
-msgid "By Workflow"
-msgstr "За робочим процесом"
-
 msgid "Completed at"
 msgstr "Завершено в"
 
@@ -1331,6 +1319,9 @@ msgstr "Сторінка %(page_num)s з %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Ланцюжок навігації"
+
+msgid "Continue"
+msgstr "Продовжити"
 
 msgid "Download XLSX"
 msgstr "Завантажити XLSX"
@@ -1532,8 +1523,9 @@ msgstr "Створити"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
 "батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
@@ -1574,8 +1566,8 @@ msgstr "Крок %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
-"\">додати один</a>?"
+"Жодного робочого процесу не створено. Чому б не <a "
+"href=\"%(add_url)s\">додати один</a>?"
 
 #, python-format
 msgid ""
@@ -2137,9 +2129,6 @@ msgid ""
 msgstr ""
 "Сторінка '%(page_title)s' не перебуває в очікуванні модерації в завданні "
 "'%(task_name)s'."
-
-msgid "Hide commenting actions"
-msgstr "Приховати дії коментування"
 
 msgid "Site history"
 msgstr "Історія сайту"

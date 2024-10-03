@@ -5,6 +5,8 @@
 # Translators:
 # Amir Mahmoodi, 2022
 # Amir Mahmoodi, 2022-2023
+# Bardia, 2024
+# Bardia, 2024
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2020
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
@@ -16,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Amir Mahmoodi, 2022-2023\n"
+"Last-Translator: Bardia, 2024\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +43,12 @@ msgstr "دوباره ثبت کردن در %(task_name)s"
 msgid "Submit to %(workflow_name)s"
 msgstr "ثبت کردن در %(workflow_name)s"
 
+msgid "Restart workflow "
+msgstr "بازنشانی رویه کاری"
+
+msgid "Cancel workflow "
+msgstr "لغو رویه کاری"
+
 msgid "Unpublish"
 msgstr "لغو انتشار"
 
@@ -49,6 +57,10 @@ msgstr "ذخیره پیش نویس"
 
 msgid "Page locked"
 msgstr "صفحه قفل شد"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s و انتشار"
 
 msgid "Wagtail admin"
 msgstr "ادمین وگتیل"
@@ -76,6 +88,12 @@ msgstr "همه"
 
 msgid "Collection"
 msgstr "مجموعه"
+
+msgid "Tag"
+msgstr "برچسب"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "فیلتر با ده محبوبترین برچسب ها"
 
 msgid "Preferred language"
 msgstr "زبان ترجیحی"
@@ -207,6 +225,9 @@ msgstr[1] ""
 "%(count)s تا از صفحات در حال کپی شدن منتشر شده‌اند. آیا مایل کپی‌های آنها نیز "
 "انتشار یابند؟"
 
+msgid "Alias"
+msgstr "نام مستعار"
+
 msgid "Keep the new pages updated with future changes"
 msgstr "بروز نگه داشتن صفحات جدید با تغییرات آینده"
 
@@ -235,6 +256,16 @@ msgstr "انتخاب یک والد جدید برای این صفحه."
 msgid "Parent page"
 msgstr "صفحه والد"
 
+msgid "The new page will be a child of this given parent page."
+msgstr "صفحه جدید زیر شاخه صفحه مادر خواهد شد."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "شما اجازه ساخت صفحه در زیر شاخه صفحه%(page_title)s را ندارید."
+
+msgid "Search…"
+msgstr "جستجو..."
+
 #, python-format
 msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
 msgstr "برچسب(های) %(value_too_long)s بیشتر از %(max_tag_length)d حرف دارند"
@@ -250,6 +281,18 @@ msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
 msgid "All types"
 msgstr "همه انواع"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "شما نمیتوانید یک دستورالعمل را به یک صفحه چند بار اعمال کنید"
+
+msgid "Give your workflow a name"
+msgstr "به رویه کاریتان نام بدهید"
+
+msgid "Add tasks to your workflow"
+msgstr "به رویه کاریتان دستورالعمل اضافه کنید"
+
+msgid "Task"
+msgstr "دستورالعمل"
 
 msgid "1 page selected"
 msgstr "1 صفحه انتخاب شده"
@@ -334,6 +377,9 @@ msgstr "همه %(objects)s آیتم این صفحه انتخاب شدند"
 
 msgid "All items in listing selected"
 msgstr "همه آیتم های فهرست انتخاب شدند"
+
+msgid "Can access Wagtail admin"
+msgstr "دسترسی برای رفتن به صفحه ادمین وگتیل"
 
 msgid "For search engines"
 msgstr "برای موتور های جست و جو"
@@ -423,6 +469,9 @@ msgstr "رمزعبور را بازنشانی کنید"
 msgid "Reset to default"
 msgstr "بازنشانی به پیشفرض"
 
+msgid "Default avatar"
+msgstr "تصویر پیشفرض"
+
 msgid "Upload a profile picture:"
 msgstr "بارگذاری یک تصویر پروفایل:"
 
@@ -434,6 +483,9 @@ msgstr "بازگشت به عقب"
 
 msgid "Bulk actions"
 msgstr "اعمال جمعی"
+
+msgid "Select"
+msgstr "انتخاب"
 
 msgid "Select row"
 msgstr "انتخاب ردیف"
@@ -496,15 +548,15 @@ msgstr "تبدیل به لینک داخلی"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"بنظر میرسد آدرسی که وارد کردید، <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>، با صفحه %(page)s با آدرس <a "
-"target=\"_blank\" rel=\"noreferrer\" href=\"%(internal_url)s\">"
-"%(internal_url)s</a>  همخوانی دارد."
+"بنظر میرسد آدرسی که وارد کردید، <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>، با صفحه %(page)s با آدرس "
+"<a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a>  همخوانی دارد."
 
 #, python-format
 msgid ""
@@ -540,9 +592,6 @@ msgstr "کاوش زیرصفحه های «%(title)s»"
 
 msgid "Explore"
 msgstr "کاوش"
-
-msgid "Collection privacy"
-msgstr "حریم مجموعه"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "این مجموعه توسط یک مجموعه والد خصوصی شده است."
@@ -581,8 +630,8 @@ msgstr "بدلیل خالی نبودن، مجموعه قابل حذف نیست. 
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
 "مجموعه ای ایجاد نشد. چرا یکی <a href=\"%(add_collection_url)s\">ایجاد</a> "
 "نمیکنید؟"
@@ -590,6 +639,9 @@ msgstr ""
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
 msgstr "متاسفانه هیچ انطباقی برای \"<em>%(search_query)s</em>\" وجود ندارد"
+
+msgid "There are no results."
+msgstr "نتیجه ای یافت نشد."
 
 msgid "Yes, delete"
 msgstr "بله حذف شود"
@@ -601,14 +653,29 @@ msgstr "نه، حذف نکن"
 msgid "Unpublish %(title)s"
 msgstr "لغو انتشار %(title)s"
 
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "آیا مطمئن هستید میخواهید %(model_name)s را از انتشار خارج کنید؟"
+
 msgid "Yes, unpublish it"
 msgstr "بله لغو انتشار شود"
 
 msgid "No, don't unpublish"
 msgstr "نه لغو انتشار نشود"
 
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "انتشار%(model_name)s"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "آیا هنوز مایل به انتشار %(model_name)s هستید؟"
+
 msgid "Cancel"
 msgstr "لغو"
+
+msgid "Comment"
+msgstr "نظر"
 
 msgid "Actions"
 msgstr "اعمال"
@@ -707,6 +774,12 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "خواندن یادداشت های انتشار."
 
+msgid "Task started"
+msgstr "دستورالعمل آغاز شده"
+
+msgid "Changes requested at"
+msgstr "تغییرات درخواست شده در"
+
 msgid "Awaiting"
 msgstr "در انتظار"
 
@@ -719,18 +792,24 @@ msgstr "چیز هایی در وگتیل %(version)s عوض شده اند!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
-"نگران نباشید، ما هواتون رو داریم. بر روی <a class=\"w-whats-new__link\" href="
-"\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">راهنمای "
+"نگران نباشید، ما هواتون رو داریم. بر روی <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\">راهنمای "
 "ویرایشگر وگتیل</a> کلیک کنید تا ته توی تغییرات و ویژگی های جدید و هیجان "
 "انگیز را در بیارید!"
 
 msgid "Awaiting your review"
 msgstr "در انتظار بازنگری شما"
+
+msgid "Tasks"
+msgstr "دستورالعمل ها"
+
+msgid "Task submitted by"
+msgstr "دستورالعمل ثبت شده توسط"
 
 msgid "Preview"
 msgstr "نمایش"
@@ -827,11 +906,11 @@ msgstr "پاسخ های جدید:"
 msgid "%(editor)s has updated comments on \"%(title)s\""
 msgstr "%(editor)s نظرات \"%(title)s\" را بروز کرده است"
 
-msgid "Page privacy"
-msgstr "حریم صفحه"
-
 msgid "This page has been made private by a parent page."
 msgstr "این صفحه توسط صفحه والد شخصی شده."
+
+msgid "Save the page before leaving"
+msgstr "پیش از ترک کردن، صفحه را ذخیره کن"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "شما دارای <span>تغییرات ذخیره نشده</span> هستید  "
@@ -867,6 +946,9 @@ msgstr "ایجاد صفحه در"
 msgid "Choose which type of page you'd like to create."
 msgstr "نوع صفحه ای را که میخواهید بسازید مشخص کنید."
 
+msgid "Sorry, you cannot create a page at this location."
+msgstr "متاسفانه ایجاد صفحه در اینجا میسر نیست."
+
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "صفحه هایی که %(page_type)s هستند"
@@ -878,6 +960,9 @@ msgstr[1] "شما مجور حذف این صفحات را ندارید"
 
 msgid "Move"
 msgstr "انتقال"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "آیا از انتقال این صفحات اطمینان دارید؟"
 
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
@@ -897,6 +982,9 @@ msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
 msgstr[0] "شما مجوز منتشر کردن این صفحه را ندارید"
 msgstr[1] "شما مجوز منتشر کردن این صفحات را ندارید"
+
+msgid "Yes, publish"
+msgstr "بله، انتشار بده"
 
 msgid "No, don't publish"
 msgstr "نه، منتشر نکن"
@@ -974,6 +1062,12 @@ msgstr "کپی این صفحه"
 
 msgid "This page has unsaved changes."
 msgstr "این صفحه تغییرات ذخیره نشده دارد."
+
+msgid "Edit original page"
+msgstr "ویرایش صفحه اصلی"
+
+msgid "Select all pages in listing"
+msgstr "انتخاب تمامی صفحات در لیست"
 
 msgid "Configure a site now."
 msgstr "پیکربندی یک سایت"
@@ -1089,6 +1183,9 @@ msgstr "صفحه %(page_num)s از %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "خرده نان"
+
+msgid "Continue"
+msgstr "ادامه"
 
 msgid "Download XLSX"
 msgstr "دانلود XLSX"
@@ -1368,8 +1465,8 @@ msgstr "%(model_name)s '%(object)s' ایجاد و منتشر شد."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
 "شما در حال دیدن بازبینی قبلی %(model_name)s در <b>%(created_at)s</b> توسط "
 "%(user)s هستید"
@@ -1667,9 +1764,6 @@ msgstr "صفحات سالخورده"
 
 msgid "Last published at"
 msgstr "انتشار قبلی در"
-
-msgid "Hide commenting actions"
-msgstr "مخفی کردت اعمال مربوط به نظر دهی"
 
 msgid "Site history"
 msgstr "تاریخچه سایت"

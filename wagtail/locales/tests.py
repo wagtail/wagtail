@@ -1,8 +1,11 @@
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages import get_messages
 from django.contrib.messages.constants import ERROR
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
@@ -344,3 +347,16 @@ class TestLocaleDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         # Check that the locale was not deleted
         self.assertTrue(Locale.objects.filter(language_code="en").exists())
+
+
+class TestAdminPermissions(WagtailTestUtils, TestCase):
+    def test_registered_permissions(self):
+        locale_ct = ContentType.objects.get_for_model(Locale)
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_permissions = qs.filter(content_type=locale_ct)
+        self.assertEqual(
+            set(registered_permissions.values_list("codename", flat=True)),
+            {"add_locale", "change_locale", "delete_locale"},
+        )

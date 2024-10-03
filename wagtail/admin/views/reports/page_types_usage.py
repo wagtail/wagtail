@@ -1,6 +1,5 @@
 import django_filters
 from django.conf import settings
-from django.core.exceptions import PermissionDenied
 from django.db.models import Count, F, OuterRef, Q, Subquery
 from django.utils.translation import gettext_lazy as _
 
@@ -96,10 +95,14 @@ class PageTypesUsageReportFilterSet(WagtailFilterSet):
 
 
 class PageTypesUsageReportView(ReportView):
-    template_name = "wagtailadmin/reports/page_types_usage.html"
-    title = _("Page types usage")
+    results_template_name = "wagtailadmin/reports/page_types_usage_results.html"
+    page_title = _("Page types usage")
     header_icon = "doc-empty-inverse"
     filterset_class = PageTypesUsageReportFilterSet
+    index_url_name = "wagtailadmin_reports:page_types_usage"
+    index_results_url_name = "wagtailadmin_reports:page_types_usage_results"
+    permission_policy = page_permission_policy
+    any_permission_required = ["add", "change", "publish"]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -143,10 +146,3 @@ class PageTypesUsageReportView(ReportView):
         queryset = queryset.order_by("-count", "app_label", "model")
 
         return queryset
-
-    def dispatch(self, request, *args, **kwargs):
-        if not page_permission_policy.user_has_any_permission(
-            request.user, ["add", "change", "publish"]
-        ):
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)

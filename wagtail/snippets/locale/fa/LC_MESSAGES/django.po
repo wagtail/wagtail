@@ -5,15 +5,16 @@
 # Translators:
 # Amir Mahmoodi, 2022
 # Amir Mahmoodi, 2022
+# Bardia, 2024
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
+"Last-Translator: Bardia, 2024\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,12 @@ msgstr "دوباره ثبت کردن در %(task_name)s"
 msgid "Submit to %(workflow_name)s"
 msgstr "ثبت کردن در %(workflow_name)s"
 
+msgid "Restart workflow "
+msgstr "بازنشانی رویه"
+
+msgid "Cancel workflow "
+msgstr "لغو رویه کاری"
+
 msgid "Unpublish"
 msgstr "لغو انتشار"
 
@@ -47,6 +54,13 @@ msgstr "ذخیره"
 
 msgid "Locked"
 msgstr "قفل شده"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s و انتشار"
+
+msgid "Delete "
+msgstr "حذف"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -86,6 +100,9 @@ msgstr "ذخیره پیشنویس"
 msgid "Actions"
 msgstr "اعمال"
 
+msgid "Select all snippets in listing"
+msgstr "انتخاب تمامی اسنیپت های لیست"
+
 msgid "Choose"
 msgstr "انتخاب"
 
@@ -94,6 +111,9 @@ msgstr "قطعه‌ها"
 
 msgid "Name"
 msgstr "نام"
+
+msgid "Instances"
+msgstr "موارد"
 
 msgid "Home"
 msgstr "خانه"

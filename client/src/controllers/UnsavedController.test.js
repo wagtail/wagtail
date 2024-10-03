@@ -5,7 +5,13 @@ import { UnsavedController } from './UnsavedController';
 jest.useFakeTimers();
 
 describe('UnsavedController', () => {
-  const eventNames = ['w-unsaved:add', 'w-unsaved:clear', 'w-unsaved:ready'];
+  const eventNames = [
+    'w-unsaved:add',
+    'w-unsaved:clear',
+    'w-unsaved:ready',
+    'w-unsaved:confirm',
+    'w-unsaved:watch-edits',
+  ];
 
   const events = {};
 
@@ -47,7 +53,7 @@ describe('UnsavedController', () => {
       id="form"
       data-controller="w-unsaved"
       data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
-      data-w-unsaved-confirmation-value="You have unsaved changes!"
+      data-w-unsaved-confirmation-value="true"
     >
       <input type="text" id="name" value="John" />
       <button>Submit</submit>
@@ -207,15 +213,10 @@ describe('UnsavedController', () => {
   describe('showing a confirmation message when exiting the browser tab', () => {
     const mockBrowserClose = () =>
       new Promise((resolve) => {
-        const event = new Event('beforeunload');
-        Object.defineProperty(event, 'returnValue', {
-          value: false,
-          writable: true,
-        });
-
+        const event = new Event('beforeunload', { cancelable: true });
         window.dispatchEvent(event);
-
-        resolve(event.returnValue);
+        // If the event is prevented, the browser will show a confirmation message.
+        resolve(event.defaultPrevented);
       });
 
     it('should not show a confirmation message if no edits exist', async () => {
@@ -224,6 +225,7 @@ describe('UnsavedController', () => {
       const result = await mockBrowserClose();
 
       expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(0);
     });
 
     it('should show a confirmation message if forced', async () => {
@@ -232,7 +234,7 @@ describe('UnsavedController', () => {
         <form
           data-controller="w-unsaved"
           data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
-          data-w-unsaved-confirmation-value="You have unsaved changes!"
+          data-w-unsaved-confirmation-value="true"
           data-w-unsaved-force-value="true"
         >
           <input type="text" id="name" value="John" />
@@ -240,9 +242,54 @@ describe('UnsavedController', () => {
         </form>
       </section>`);
 
+      // Should immediately set the form as having edits
+      const form = document.querySelector('form');
+      expect(form.dataset.wUnsavedHasEditsValue).toEqual('true');
+
+      // Should dispatch an add event with the type of edits
+      // so that the user can be warned
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+
+      // Should not dispatch a watch-edits event
+      expect(events['w-unsaved:watch-edits']).toHaveLength(0);
+
       const result = await mockBrowserClose();
 
-      expect(result).toEqual('You have unsaved changes!');
+      expect(result).toEqual(true);
+      expect(events['w-unsaved:confirm']).toHaveLength(1);
+    });
+
+    it('should not show a confirmation message if forced but confirmation value is false', async () => {
+      await setup(`
+      <section>
+        <form
+          data-controller="w-unsaved"
+          data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
+          data-w-unsaved-confirmation-value="false"
+          data-w-unsaved-force-value="true"
+        >
+          <input type="text" id="name" value="John" />
+          <button>Submit</submit>
+        </form>
+      </section>`);
+
+      // Should immediately set the form as having edits
+      const form = document.querySelector('form');
+      expect(form.dataset.wUnsavedHasEditsValue).toEqual('true');
+
+      // Should dispatch an add event with the type of edits
+      // so that the user can be warned
+      expect(events['w-unsaved:add']).toHaveLength(1);
+      expect(events['w-unsaved:add'][0]).toHaveProperty('detail.type', 'edits');
+
+      // Should not dispatch a watch-edits event
+      expect(events['w-unsaved:watch-edits']).toHaveLength(0);
+
+      const result = await mockBrowserClose();
+
+      expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(0);
     });
 
     it('should allow a confirmation message to show before the browser closes', async () => {
@@ -256,10 +303,11 @@ describe('UnsavedController', () => {
 
       const result = await mockBrowserClose();
 
-      expect(result).toEqual('You have unsaved changes!');
+      expect(result).toEqual(true);
+      expect(events['w-unsaved:confirm']).toHaveLength(1);
     });
 
-    it('should should not show a confirmation message if there are edits but the form is being submitted', async () => {
+    it('should not show a confirmation message if there are edits but the form is being submitted', async () => {
       await setup();
 
       document
@@ -274,6 +322,29 @@ describe('UnsavedController', () => {
       const result = await mockBrowserClose();
 
       expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(0);
+    });
+
+    it('should not show a confirmation message if the confirm event is prevented', async () => {
+      const preventConfirm = jest
+        .fn()
+        .mockImplementation((e) => e.preventDefault());
+      document.addEventListener('w-unsaved:confirm', preventConfirm);
+      await setup();
+
+      document
+        .getElementById('name')
+        .dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      const result = await mockBrowserClose();
+
+      expect(result).toEqual(false);
+      expect(events['w-unsaved:confirm']).toHaveLength(1);
+      expect(events['w-unsaved:confirm'][0].defaultPrevented).toEqual(true);
+      expect(preventConfirm).toHaveBeenCalledTimes(1);
+      document.removeEventListener('w-unsaved:confirm', preventConfirm);
     });
   });
 });

@@ -97,6 +97,11 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertContains(response, "<th>Field</th>", html=True)
         self.assertNotContains(response, "<th>If you confirm deletion</th>", html=True)
         self.assertContains(response, "Snippet content object")
+        self.assertContains(
+            response,
+            reverse("wagtailadmin_pages:edit", args=[gfk_page.id])
+            + "#:w:contentpath=snippet_content_object",
+        )
 
     def test_usage_without_edit_permission_on_snippet(self):
         # Create a user with basic admin backend access

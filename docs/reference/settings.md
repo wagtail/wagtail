@@ -205,6 +205,8 @@ WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
 
 Customize Wagtail's behavior when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
 
+If the url is relative, Wagtail will not convert the link if there are more than one {class}`~wagtail.models.Site` instances. This is to avoid accidentally matching coincidentally named pages on different sites.
+
 (wagtail_date_time_formats)=
 
 ### `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT`
@@ -216,6 +218,52 @@ WAGTAIL_TIME_FORMAT = '%H:%M'
 ```
 
 Specifies the date, time, and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior) and must be one of the recognized formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
+
+For example, to use US Imperial style date and time format (AM/PM times) in the Wagtail Admin, you'll need to override the Django format for your site's locale.
+
+```python
+# settings.py
+WAGTAIL_TIME_FORMAT = "%I:%M %p"  # 03:00 PM
+WAGTAIL_DATE_FORMAT = '%m/%d/%Y'  # 01/31/2004
+WAGTAIL_DATETIME_FORMAT = '%m/%d/%Y %I:%M %p'  # 01/31/2004 03:00 PM
+
+# Django uses formatting based on the system locale.
+# Therefore we must specify a locale and then override the date
+# formatting for that locale.
+FORMAT_MODULE_PATH = ["formats"]
+LANGUAGE_CODE = "en-US"
+```
+
+Next create the file `formats/en_US/formats.py` in your project:
+
+```python
+# formats/en_US/formats.py
+
+# Append our custom format to the Django defaults.
+TIME_INPUT_FORMATS = [
+    "%H:%M:%S",  # '14:30:59'
+    "%H:%M:%S.%f",  # '14:30:59.000200'
+    "%H:%M",  # '14:30'
+    # Custom
+    "%I:%M %p",
+]
+DATETIME_INPUT_FORMATS = [
+    "%Y-%m-%d %H:%M:%S",  # '2006-10-25 14:30:59'
+    "%Y-%m-%d %H:%M:%S.%f",  # '2006-10-25 14:30:59.000200'
+    "%Y-%m-%d %H:%M",  # '2006-10-25 14:30'
+    "%m/%d/%Y %H:%M:%S",  # '10/25/2006 14:30:59'
+    "%m/%d/%Y %H:%M:%S.%f",  # '10/25/2006 14:30:59.000200'
+    "%m/%d/%Y %H:%M",  # '10/25/2006 14:30'
+    "%m/%d/%y %H:%M:%S",  # '10/25/06 14:30:59'
+    "%m/%d/%y %H:%M:%S.%f",  # '10/25/06 14:30:59.000200'
+    "%m/%d/%y %H:%M",  # '10/25/06 14:30'
+    # Custom
+    "%m/%d/%Y %I:%M %p",
+]
+
+# Here you can also customize: DATE_INPUT_FORMATS, DATE_FORMAT,
+# DATETIME_FORMAT, TIME_FORMAT, SHORT_DATE_FORMAT.
+```
 
 ## Page editing
 
@@ -247,7 +295,11 @@ WAGTAIL_AUTO_UPDATE_PREVIEW = True
 When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
 This behavior is enabled by default.
 
-To completely disable the preview panel, set [preview modes](wagtail.models.Page.preview_modes) to be empty on your model `preview_modes = []`.
+```{versionchanged} 6.3
+This setting is deprecated. Set `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` to disable automatic preview updates instead.
+```
+
+(wagtail_auto_update_preview_interval)=
 
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
 
@@ -255,7 +307,21 @@ To completely disable the preview panel, set [preview modes](wagtail.models.Page
 WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 500
 ```
 
-The interval (in milliseconds) is to check for changes made in the page editor before updating the preview. The default value is `500`.
+The interval (in milliseconds) to automatically check for changes made in the page or snippet editor before updating the preview in the preview panel. The default value is `500`.
+
+If set to `0`, a refresh button will be shown in the panel and the preview is only updated when the button is clicked.
+
+To completely disable previews, set [preview modes](wagtail.models.Page.preview_modes) to be empty on your model (`preview_modes = []`).
+
+(wagtail_editing_session_ping_interval)=
+
+### `WAGTAIL_EDITING_SESSION_PING_INTERVAL`
+
+```python
+WAGTAIL_EDITING_SESSION_PING_INTERVAL = 10000
+```
+
+The interval (in milliseconds) to ping the server during an editing session. This is used to indicate that the session is active, as well as to display the list of other sessions that are currently editing the same content. The default value is `10000` (10 seconds). In order to effectively display the sessions list, this value needs to be set to under 1 minute. If set to `0`, the interval will be disabled.
 
 (wagtailadmin_global_edit_lock)=
 
@@ -502,6 +568,8 @@ WAGTAILADMIN_USER_PASSWORD_RESET_FORM = 'users.forms.PasswordResetForm'
 
 Allows the default `PasswordResetForm` to be extended with extra fields.
 
+(user_form_settings)=
+
 ### `WAGTAIL_USER_EDIT_FORM`
 
 ```python
@@ -510,7 +578,9 @@ WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
 
 Allows the default `UserEditForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user edit form.
 
-For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+```{versionchanged} 6.2
+This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
+```
 
 ### `WAGTAIL_USER_CREATION_FORM`
 
@@ -520,7 +590,9 @@ WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
 
 Allows the default `UserCreationForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user creation form.
 
-For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+```{versionchanged} 6.2
+This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
+```
 
 ### `WAGTAIL_USER_CUSTOM_FIELDS`
 
@@ -528,9 +600,11 @@ For further information See {doc}`/advanced_topics/customisation/custom_user_mod
 WAGTAIL_USER_CUSTOM_FIELDS = ['country']
 ```
 
-A list of the extra custom fields to be appended to the default list.
+A list of the extra custom fields to be appended to the default list. The resulting list is passed to {class}`~django.forms.ModelForm`'s `Meta.fields` to generate the form fields.
 
-For further information See {doc}`/advanced_topics/customisation/custom_user_models`.
+```{versionchanged} 6.2
+This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
+```
 
 ### `WAGTAILADMIN_USER_LOGIN_FORM`
 
@@ -569,7 +643,7 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 Logged-in users can choose their current time zone for the admin interface in the account settings. If there is no time zone selected by the user, then `TIME_ZONE` will be used.
 (Note that time zones are only applied to datetime fields, not to plain time or date fields. This is a Django design decision.)
 
-The list of time zones is by default the common_timezones list from pytz.
+By default, this uses the set of timezones returned by `zoneinfo.available_timezones()`.
 It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
 If there is zero or one-time zone permitted, the account settings form will be hidden.
 
@@ -656,10 +730,6 @@ WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
 
-```{versionchanged} 6.1
-`PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`.
-```
-
 ### `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
@@ -667,10 +737,6 @@ WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
-
-```{versionchanged} 6.1
-`DOCUMENT_PASSWORD_REQUIRED_TEMPLATE` has been deprecated and renamed to `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`.
-```
 
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 
@@ -718,7 +784,7 @@ See [](private_pages) for more details.
 TAGGIT_CASE_INSENSITIVE = True
 ```
 
-Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behaviour is preferable.
+Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behavior is preferable.
 
 ### `TAG_SPACES_ALLOWED`
 
@@ -857,7 +923,7 @@ Specifies whether moderation workflows are enabled (default: `True`). When disab
 WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True
 ```
 
-Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result, if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes. This is the default, `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True` . The second mode does not require reapproval: if edits are made when tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode, set `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False`.
+Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result, if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes. To use workflows in this mode, set `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`. The second mode does not require reapproval: if edits are made when tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. This is the default, `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False`.
 
 ### `WAGTAIL_FINISH_WORKFLOW_ACTION`
 

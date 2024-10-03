@@ -1524,6 +1524,9 @@ class JSONStreamModel(models.Model):
         ],
     )
 
+    class Meta:
+        verbose_name = "JSON stream model"
+
 
 class JSONMinMaxCountStreamModel(models.Model):
     body = StreamField(
@@ -1666,6 +1669,14 @@ class MTIBasePage(Page):
 class MTIChildPage(MTIBasePage):
     # Should be creatable by default, no need to set anything
     pass
+
+
+class NoCreatableSubpageTypesPage(Page):
+    subpage_types = [MTIBasePage]
+
+
+class NoSubpageTypesPage(Page):
+    subpage_types = []
 
 
 class AbstractPage(Page):

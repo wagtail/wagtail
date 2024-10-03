@@ -14,7 +14,7 @@ def get_document_model_string():
 def get_document_model():
     """
     Get the document model from the ``WAGTAILDOCS_DOCUMENT_MODEL`` setting.
-    Defaults to the standard :class:`~wagtail.documents.models.Document` model
+    Defaults to the standard ``wagtail.documents.models.Document`` model
     if no custom model is defined.
     """
     from django.apps import apps

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,63 +22,63 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:48
+#: forms.py:55
 msgid "Required. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:53
+#: forms.py:60
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:79
+#: forms.py:86
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:80
+#: forms.py:87
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:83
+#: forms.py:90
 msgid "Email"
 msgstr ""
 
-#: forms.py:84
+#: forms.py:91
 msgid "First Name"
 msgstr ""
 
-#: forms.py:85
+#: forms.py:92
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:88
+#: forms.py:95
 msgid "Password"
 msgstr ""
 
-#: forms.py:91
+#: forms.py:98
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:95
+#: forms.py:102
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:98
+#: forms.py:105
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:103 forms.py:240 views/users.py:95
+#: forms.py:110 forms.py:247 views/users.py:109
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:106 forms.py:242
+#: forms.py:113 forms.py:249
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:236
+#: forms.py:243
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:371
+#: forms.py:378
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
@@ -306,8 +306,8 @@ msgid "Object permissions"
 msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:29
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:166
-#: views/groups.py:92 views/users.py:149
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:167
+#: views/groups.py:92 views/users.py:163
 msgid "Name"
 msgstr ""
 
@@ -336,40 +336,40 @@ msgstr ""
 msgid "Custom permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:112
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:113
 msgid "Toggle all"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:115
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:116
 msgid "Toggle all add permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:119
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:120
 msgid "Toggle all change permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:123
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:124
 msgid "Toggle all delete permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:128
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:129
 msgid "Toggle all publish permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:134
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:135
 msgid "Toggle all lock permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:140
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:141
 msgid "Toggle all unlock permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:146
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:147
 msgid "Toggle all custom permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:156
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:159
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:157
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:160
 msgid "Other permissions"
 msgstr ""
 
@@ -412,12 +412,12 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: templates/wagtailusers/users/create.html:61 views/users.py:266
+#: templates/wagtailusers/users/create.html:61 views/users.py:280
 msgid "Add user"
 msgstr ""
 
 #: templates/wagtailusers/users/edit.html:50
-#: templates/wagtailusers/users/edit.html:71 views/users.py:340
+#: templates/wagtailusers/users/edit.html:71 views/users.py:355
 msgid "Delete user"
 msgstr ""
 
@@ -434,6 +434,10 @@ msgstr ""
 msgid ""
 "There are no users configured. Why not <a "
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+
+#: templatetags/wagtailusers_tags.py:64
+msgid "Can view"
 msgstr ""
 
 #: utils.py:53
@@ -463,12 +467,12 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/set_active_state.py:11 views/users.py:118
-#: views/users.py:174
+#: views/bulk_actions/set_active_state.py:11 views/users.py:132
+#: views/users.py:188
 msgid "Active"
 msgstr ""
 
-#: views/bulk_actions/set_active_state.py:11 views/users.py:176
+#: views/bulk_actions/set_active_state.py:11 views/users.py:190
 msgid "Inactive"
 msgstr ""
 
@@ -494,7 +498,7 @@ msgid_plural "%(num_parent_objects)d users have been marked as inactive"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/groups.py:82 wagtail_hooks.py:93
+#: views/groups.py:82 views/groups.py:153
 msgid "Groups"
 msgstr ""
 
@@ -529,58 +533,58 @@ msgstr ""
 msgid "Group '%(object)s' deleted."
 msgstr ""
 
-#: views/users.py:99 views/users.py:185
+#: views/users.py:113 views/users.py:199
 msgid "Last login"
 msgstr ""
 
-#: views/users.py:105
+#: views/users.py:119
 msgid "Group"
 msgstr ""
 
-#: views/users.py:135
+#: views/users.py:149
 msgid "Add a user"
 msgstr ""
 
-#: views/users.py:138 wagtail_hooks.py:73 wagtail_hooks.py:131
+#: views/users.py:152 views/users.py:392 views/users.py:429
 msgid "Users"
 msgstr ""
 
-#: views/users.py:159
+#: views/users.py:173
 msgid "Username"
 msgstr ""
 
-#: views/users.py:166
+#: views/users.py:180
 msgid "Admin"
 msgstr ""
 
-#: views/users.py:167
+#: views/users.py:181
 msgid "Access level"
 msgstr ""
 
-#: views/users.py:178
+#: views/users.py:192
 msgid "Status"
 msgstr ""
 
-#: views/users.py:230
+#: views/users.py:244
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/users.py:265
+#: views/users.py:279
 #, python-format
 msgid "User '%(object)s' created."
 msgstr ""
 
-#: views/users.py:287
+#: views/users.py:301
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr ""
 
-#: views/users.py:288
+#: views/users.py:302
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:341
+#: views/users.py:356
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr ""

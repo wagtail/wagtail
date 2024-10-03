@@ -1,18 +1,18 @@
 #
 # Translators:
 # Luka Matijević <lumatijev@gmail.com>, 2022
-# Loic Teixeira, 2022
 # Dino Aljević <dino8890@protonmail.com>, 2023
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/"
 "teams/8009/hr_HR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: hr_HR\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 msgid "%(num)s error"
 msgid_plural "%(num)s errors"
@@ -120,6 +120,12 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 "Uređivač se upravo srušio. Sadržaj je vraćen na zadnju pohranjenu verziju. "
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksimalni broj stavki iznosi %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimalni broj stavki iznosi %(min_num)d"
 
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."

@@ -2,18 +2,18 @@
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2022
 # Miłosz Miśkiewicz, 2022
-# Loic Teixeira, 2022
 # Krzysztof Jeziorny <github@jeziorny.net>, 2023
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
-"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "(%(number)s new items in this menu)"
 msgstr "(%(number)s nowe pozycje w tym menu)"
@@ -204,6 +204,12 @@ msgid ""
 msgstr ""
 "Edytor napotkał błąd. Zawartość została cofnięta do ostatniej zapisanej "
 "wersji."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "Maksymalna ilość elementów to %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "Minimalna ilość elementów to %(min_num)d"
 
 msgid "This field is required."
 msgstr "To pole jest wymagane."

@@ -1,4 +1,5 @@
 {% extends "tests/base.html" %}
+{% load l10n %}
 
 {% block content %}
     <p>{{ greeting }}</p>
@@ -6,7 +7,7 @@
 
     <ul>
         {% for key, value in form_submission.get_data.items %}
-            <li>{{ key }}: {{ value }}</li>
+            <li>{{ key }}: {{ value|unlocalize }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

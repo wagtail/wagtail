@@ -1,5 +1,4 @@
 import functools
-import hashlib
 
 from django.conf import settings
 from django.http import Http404
@@ -13,6 +12,7 @@ from wagtail import hooks
 from wagtail.admin.api import urls as api_urls
 from wagtail.admin.auth import require_admin_access
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
+from wagtail.admin.urls import editing_sessions as wagtailadmin_editing_sessions_urls
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
@@ -111,6 +111,13 @@ urlpatterns = [
         dismissibles.DismissiblesView.as_view(),
         name="wagtailadmin_dismissibles",
     ),
+    path(
+        "editing-sessions/",
+        include(
+            wagtailadmin_editing_sessions_urls,
+            namespace="wagtailadmin_editing_sessions",
+        ),
+    ),
 ]
 
 
@@ -124,23 +131,10 @@ for fn in hooks.get_hooks("register_admin_urls"):
 # Add "wagtailadmin.access_admin" permission check
 urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
-sprite_hash = None
-
-
-def get_sprite_hash():
-    global sprite_hash
-    if not sprite_hash:
-        content = str(home.sprite(None).content, "utf-8")
-        # SECRET_KEY is used to prevent exposing the Wagtail version
-        sprite_hash = hashlib.sha1(
-            (content + settings.SECRET_KEY).encode("utf-8")
-        ).hexdigest()[:8]
-    return sprite_hash
-
 
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
-    path(f"sprite-{get_sprite_hash()}/", home.sprite, name="wagtailadmin_sprite"),
+    path("sprite/", home.sprite, name="wagtailadmin_sprite"),
     path("login/", account.LoginView.as_view(), name="wagtailadmin_login"),
     # Password reset
     path("password_reset/", include(wagtailadmin_password_reset_urls)),

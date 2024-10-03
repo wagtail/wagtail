@@ -125,6 +125,9 @@ class CopyForm(forms.Form):
 
 class PageViewRestrictionForm(BaseViewRestrictionForm):
     def __init__(self, *args, **kwargs):
+        # get the list of private page options from the page
+        private_page_options = kwargs.pop("private_page_options", [])
+
         super().__init__(*args, **kwargs)
 
         if not getattr(settings, "WAGTAIL_PRIVATE_PAGE_OPTIONS", {}).get(
@@ -136,6 +139,13 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
                 if choice[0] != PageViewRestriction.PASSWORD
             ]
             del self.fields["password"]
+        # Remove the fields that are not allowed for the page
+        self.fields["restriction_type"].choices = [
+            choice
+            for choice in self.fields["restriction_type"].choices
+            if choice[0] in private_page_options
+            or choice[0] == PageViewRestriction.NONE
+        ]
 
     class Meta:
         model = PageViewRestriction

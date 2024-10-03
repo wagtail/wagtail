@@ -28,21 +28,21 @@
  *
  */
 export const debounce = <A extends any[], R = any>(
-  func: (...args: A) => R,
+  func: (...args: A) => R | Promise<R>,
   wait: number | null = 0,
-): { (...args: A): Promise<R | unknown>; cancel(): void } => {
+): { (...args: A): Promise<R>; cancel(): void } => {
   let timeoutId: number | undefined;
 
-  const debounced = (...args: any[]) => {
+  const debounced = (...args: A) => {
     window.clearTimeout(timeoutId);
     if (typeof wait !== 'number' || Number.isNaN(wait)) {
       try {
-        return Promise.resolve(func(...(args as A)));
+        return Promise.resolve<R>(func(...(args as A)));
       } catch (error) {
         return Promise.reject(error);
       }
     } else {
-      return new Promise((resolve, reject) => {
+      return new Promise<R>((resolve, reject) => {
         timeoutId = window.setTimeout(() => {
           try {
             resolve(func(...(args as A)));

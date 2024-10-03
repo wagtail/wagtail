@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -359,9 +359,6 @@ msgstr "สำรวจหน้าย่อยของ '%(title)s'"
 msgid "Explore"
 msgstr "สำรวจ"
 
-msgid "Collection privacy"
-msgstr "การเก็บรวบรวมข้อมูลส่วนตัว"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "ข้อมูลส่วนตัวเหล่านี้ถูกเก็บไว้โดยฐานข้อมูล"
 
@@ -390,8 +387,8 @@ msgstr "ข้อความนี้ไม่สามารถลบออก
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr "ไม่มีชุดไหนถูกสร้าง ทำไมคุณไม่<a href=\"%(add_collection_url)s\">เพิ่มสักอัน</a>?"
 
 msgid "Yes, delete"
@@ -520,9 +517,6 @@ msgstr "หน้านี้ \"%(title)s\"ไม่ผ่านการอน�
 
 msgid "You can preview the page here:"
 msgstr "คุณสามารถดูภาพตัวอย่างได้จากตรงนี้"
-
-msgid "Page privacy"
-msgstr "ความเป็นส่วนตัวของหน้านี้"
 
 msgid "This page has been made private by a parent page."
 msgstr "หน้านี้ถูกตั้งค่าส่วนตัวโดยหน้าหลัก"
@@ -735,8 +729,8 @@ msgid "Move down"
 msgstr "เลื่อนลง"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr "กำหนดการเผยแพร่นี้จะมีผลหลังจากที่คุณเลือก \"เผยแพร่\" แล้วเท่านั้น"
 
 msgid "Set publishing schedule"
@@ -769,6 +763,9 @@ msgstr "แก้ไขชิ้นนี้"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "หน้า %(page_num)s ของ%(total_pages)s."
+
+msgid "Continue"
+msgstr "ต่อ,ต่อเนื่อง"
 
 msgid "Download CSV"
 msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"

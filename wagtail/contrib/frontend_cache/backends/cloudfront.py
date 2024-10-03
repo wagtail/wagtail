@@ -22,7 +22,13 @@ class CloudfrontBackend(BaseBackend):
 
         super().__init__(params)
 
-        self.client = boto3.client("cloudfront")
+        self.client = boto3.client(
+            "cloudfront",
+            aws_access_key_id=params.get("AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=params.get("AWS_SECRET_ACCESS_KEY"),
+            aws_session_token=params.get("AWS_SESSION_TOKEN"),
+        )
+
         try:
             self.cloudfront_distribution_id = params.pop("DISTRIBUTION_ID")
         except KeyError:
@@ -39,7 +45,7 @@ class CloudfrontBackend(BaseBackend):
                 self.hostnames = list(self.cloudfront_distribution_id.keys())
 
     def purge_batch(self, urls):
-        paths_by_distribution_id = defaultdict(list)
+        paths_by_distribution_id = defaultdict(set)
 
         for url in urls:
             url_parsed = urlparse(url)
@@ -63,7 +69,7 @@ class CloudfrontBackend(BaseBackend):
                 distribution_id = self.cloudfront_distribution_id
 
             if distribution_id:
-                paths_by_distribution_id[distribution_id].append(url_parsed.path)
+                paths_by_distribution_id[distribution_id].add(url_parsed.path)
 
         for distribution_id, paths in paths_by_distribution_id.items():
             self._create_invalidation(distribution_id, paths)

@@ -6,6 +6,7 @@ jest.useFakeTimers({ legacyFakeTimers: true });
 describe('ProgressController', () => {
   // form submit is not implemented in jsdom
   const mockSubmit = jest.fn((e) => e.preventDefault());
+  let application;
 
   beforeEach(() => {
     document.body.innerHTML = `
@@ -25,7 +26,8 @@ describe('ProgressController', () => {
 
     document.getElementById('form').addEventListener('submit', mockSubmit);
 
-    Application.start().register('w-progress', ProgressController);
+    application = Application.start();
+    application.register('w-progress', ProgressController);
   });
 
   afterEach(() => {
@@ -93,5 +95,36 @@ describe('ProgressController', () => {
     expect(label.textContent).toBe('Sign in');
     expect(button.getAttribute('disabled')).toBeNull();
     expect(button.classList.contains('button-longrunning-active')).toBe(false);
+  });
+
+  it('should return to the original state when deactivate is called', async () => {
+    const button = document.querySelector('.button-longrunning');
+    const label = document.querySelector('#em-el');
+    const controller = application.getControllerForElementAndIdentifier(
+      button,
+      'w-progress',
+    );
+
+    const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+
+    button.click();
+    jest.advanceTimersByTime(10);
+    await new Promise(queueMicrotask);
+
+    expect(label.textContent).toBe('Loading');
+    expect(button.getAttribute('disabled')).toEqual('');
+    expect(button.classList.contains('button-longrunning-active')).toBe(true);
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 30_000);
+
+    controller.deactivate();
+    await new Promise(queueMicrotask);
+    expect(label.textContent).toBe('Sign in');
+    expect(button.getAttribute('disabled')).toBeNull();
+    expect(button.classList.contains('button-longrunning-active')).toBe(false);
+
+    // Should clear the timeout
+    expect(clearTimeout).toHaveBeenLastCalledWith(
+      setTimeoutSpy.mock.results.at(-1).value,
+    );
   });
 });

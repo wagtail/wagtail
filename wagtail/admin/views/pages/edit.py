@@ -17,7 +17,9 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
+from wagtail.admin.models import EditingSession
 from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.editing_sessions import EditingSessionsModule
 from wagtail.admin.ui.side_panels import (
     ChecksSidePanel,
     CommentsSidePanel,
@@ -36,6 +38,7 @@ from wagtail.models import (
     Page,
     PageSubscription,
     WorkflowState,
+    get_default_page_content_type,
 )
 from wagtail.utils.timestamps import render_timestamp
 
@@ -878,6 +881,29 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             side_panels.append(CommentsSidePanel(self.page, self.request))
         return MediaContainer(side_panels)
 
+    def get_editing_sessions(self):
+        EditingSession.cleanup()
+        content_type = get_default_page_content_type()
+        session = EditingSession.objects.create(
+            user=self.request.user,
+            content_type=content_type,
+            object_id=self.page.pk,
+            last_seen_at=timezone.now(),
+        )
+        return EditingSessionsModule(
+            session,
+            reverse(
+                "wagtailadmin_editing_sessions:ping",
+                args=("wagtailcore", "page", self.page.pk, session.id),
+            ),
+            reverse(
+                "wagtailadmin_editing_sessions:release",
+                args=(session.id,),
+            ),
+            [],
+            self.page.latest_revision_id,
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_perms = self.page.permissions_for_user(self.request.user)
@@ -925,6 +951,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 and user_perms.can_unlock(),
                 "locale": self.locale,
                 "media": media,
+                "editing_sessions": self.get_editing_sessions(),
             }
         )
 

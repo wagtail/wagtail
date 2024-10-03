@@ -1,7 +1,9 @@
 from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailTestUtils
@@ -482,3 +484,16 @@ class TestLimitedPermissions(WagtailTestUtils, TestCase):
         # Check that the site was edited
         with self.assertRaises(Site.DoesNotExist):
             Site.objects.get(id=self.localhost.id)
+
+
+class TestAdminPermissions(WagtailTestUtils, TestCase):
+    def test_registered_permissions(self):
+        site_ct = ContentType.objects.get_for_model(Site)
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_permissions = qs.filter(content_type=site_ct)
+        self.assertEqual(
+            set(registered_permissions.values_list("codename", flat=True)),
+            {"add_site", "change_site", "delete_site"},
+        )

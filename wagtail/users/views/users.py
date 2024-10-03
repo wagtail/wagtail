@@ -2,18 +2,23 @@ from warnings import warn
 
 import django_filters
 from django.conf import settings
-from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth import (
+    get_user_model,
+    update_session_auth_hash,
+)
 from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
 from django.forms import CheckboxSelectMultiple
 from django.template import RequestContext
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
@@ -22,8 +27,7 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
 )
 from wagtail.admin.utils import get_user_display_name
-from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.admin.views.generic.history import HistoryView
+from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
 from wagtail.admin.widgets.button import (
@@ -41,7 +45,8 @@ User = get_user_model()
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
 # 'auth.delete_user') for user management actions, but this may vary according to
-# the AUTH_USER_MODEL setting
+# the AUTH_USER_MODEL setting. These are no longer used in the codebase in favour
+# of ModelPermissionPolicy, but are kept here for backwards compatibility.
 add_user_perm = f"{AUTH_USER_APP_LABEL}.add_{AUTH_USER_MODEL_NAME.lower()}"
 change_user_perm = "{}.change_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
@@ -54,6 +59,11 @@ delete_user_perm = "{}.delete_{}".format(
 def get_user_creation_form():
     form_setting = "WAGTAIL_USER_CREATION_FORM"
     if hasattr(settings, form_setting):
+        warn(
+            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+            RemovedInWagtail70Warning,
+        )
         return get_custom_form(form_setting)
     else:
         return UserCreationForm
@@ -62,6 +72,11 @@ def get_user_creation_form():
 def get_user_edit_form():
     form_setting = "WAGTAIL_USER_EDIT_FORM"
     if hasattr(settings, form_setting):
+        warn(
+            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
+            "`UserViewSet` subclass and override `get_form_class()` instead.",
+            RemovedInWagtail70Warning,
+        )
         return get_custom_form(form_setting)
     else:
         return UserEditForm
@@ -125,7 +140,7 @@ class UserFilterSet(WagtailFilterSet):
         fields = []
 
 
-class Index(IndexView):
+class IndexView(generic.IndexView):
     """
     Lists the users for management within the admin.
     """
@@ -134,6 +149,8 @@ class Index(IndexView):
     results_template_name = "wagtailusers/users/index_results.html"
     add_item_label = gettext_lazy("Add a user")
     context_object_name = "users"
+    # We don't set search_fields and the model may not be indexed, but we override
+    # search_queryset, so we set is_searchable to True to enable search
     is_searchable = True
     page_title = gettext_lazy("Users")
     show_other_searches = True
@@ -257,7 +274,7 @@ class Index(IndexView):
         return queryset
 
 
-class Create(CreateView):
+class CreateView(generic.CreateView):
     """
     Provide the ability to create a user within the admin.
     """
@@ -279,7 +296,7 @@ class Create(CreateView):
         )
 
 
-class Edit(EditView):
+class EditView(generic.EditView):
     """
     Provide the ability to edit a user within the admin.
     """
@@ -333,7 +350,7 @@ class Edit(EditView):
         return context
 
 
-class Delete(DeleteView):
+class DeleteView(generic.DeleteView):
     """
     Provide the ability to delete a user within the admin.
     """
@@ -363,7 +380,7 @@ class Delete(DeleteView):
         )
 
 
-class History(HistoryView):
+class HistoryView(generic.HistoryView):
     def get_page_subtitle(self):
         return get_user_display_name(self.object)
 
@@ -374,12 +391,16 @@ class UserViewSet(ModelViewSet):
     ordering = "name"
     add_to_reference_index = False
     filterset_class = UserFilterSet
+    menu_name = "users"
+    menu_label = gettext_lazy("Users")
+    menu_order = 600
+    add_to_settings_menu = True
 
-    index_view_class = Index
-    add_view_class = Create
-    edit_view_class = Edit
-    delete_view_class = Delete
-    history_view_class = History
+    index_view_class = IndexView
+    add_view_class = CreateView
+    edit_view_class = EditView
+    delete_view_class = DeleteView
+    history_view_class = HistoryView
 
     template_prefix = "wagtailusers/users/"
 
@@ -395,3 +416,29 @@ class UserViewSet(ModelViewSet):
         if for_update:
             return get_user_edit_form()
         return get_user_creation_form()
+
+    @cached_property
+    def search_area_class(self):
+        class UsersSearchArea(SearchArea):
+            def is_shown(search_area, request):
+                return self.permission_policy.user_has_any_permission(
+                    request.user, {"add", "change", "delete"}
+                )
+
+        return UsersSearchArea
+
+    def get_search_area(self):
+        return self.search_area_class(
+            gettext_lazy("Users"),
+            reverse(self.get_url_name("index")),
+            name="users",
+            icon_name="user",
+            order=600,
+        )
+
+    def register_search_area(self):
+        hooks.register("register_admin_search_area", self.get_search_area)
+
+    def on_register(self):
+        super().on_register()
+        self.register_search_area()

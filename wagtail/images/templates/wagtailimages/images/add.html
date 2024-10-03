@@ -1,12 +1,9 @@
-{% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags wagtailadmin_tags %}
-{% load i18n %}
+{% extends "wagtailadmin/generic/form.html" %}
+{% load wagtailimages_tags wagtailadmin_tags i18n %}
 {% block titletag %}{% trans "Add an image" %}{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
-
-    {{ form.media.js }}
 
     <script>
         $(function() {
@@ -39,30 +36,15 @@
     </script>
 {% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ form.media.css }}
-{% endblock %}
-
-{% block content %}
-    {% trans "Add image" as add_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
-
-    <div class="nice-padding">
-        {% include "wagtailadmin/shared/non_field_errors.html" %}
-
-        <form action="{% url 'wagtailimages:add' %}" method="POST" enctype="multipart/form-data" novalidate>
-            {% csrf_token %}
-            <ul class="fields">
-                {% for field in form %}
-                    {% if field.is_hidden %}
-                        {{ field }}
-                    {% else %}
-                        <li>{% formattedfield field %}</li>
-                    {% endif %}
-                {% endfor %}
-                <li><input type="submit" value="{% trans 'Save' %}" class="button" /></li>
-            </ul>
-        </form>
-    </div>
+{% block actions %}
+    <button
+        type="submit"
+        class="button button-longrunning"
+        data-controller="w-progress"
+        data-action="w-progress#activate"
+        data-w-progress-active-value="{% trans 'Uploading…' %}"
+    >
+        {% icon name="spinner" %}
+        <em data-w-progress-target="label">{% trans 'Upload' %}</em>
+    </button>
 {% endblock %}

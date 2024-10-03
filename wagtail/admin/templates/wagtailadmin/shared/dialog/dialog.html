@@ -31,12 +31,13 @@
             <div class="w-dialog__content">
                 <div class="w-dialog__header">
                     <h2 class="w-dialog__title w-h1" id="title-{{ id }}">
-                        {% if icon_name %}{% icon name=icon_name classname="w-dialog__icon" %}{% endif %}
-                        {{ title }}
+                        {% fragment as icon_classname %}{% classnames "w-dialog__icon" icon_classname %}{% endfragment %}
+                        {% if icon_name %}{% icon name=icon_name classname=icon_classname %}{% endif %}
+                        <span id="title-text-{{ id }}">{{ title }}</span>
                     </h2>
 
                     {% if subtitle %}
-                        <p class="w-dialog__subtitle w-help-text">{{ subtitle }}</p>
+                        <p class="w-dialog__subtitle w-help-text" id="subtitle-{{ id }}">{{ subtitle }}</p>
                     {% endif %}
                 </div>
 

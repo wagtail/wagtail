@@ -1,17 +1,19 @@
 import posixpath
 import warnings
 from collections import defaultdict
-from typing import Any, Dict, Iterable, Tuple
+from collections.abc import Iterable
+from typing import Any
 
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Prefetch, Q
 from django.db.models.expressions import Exists, OuterRef
 from django.db.models.functions import Cast, Length, Substr
-from django.db.models.query import BaseIterable, ModelIterable
+from django.db.models.query import ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.coreutils import batched
+from wagtail.models.i18n import Locale
 from wagtail.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
 
@@ -508,8 +510,19 @@ class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet)
             )
         )
 
+    def annotate_has_untranslated_locale(self):
+        return self.annotate(
+            _has_untranslated_locale=Exists(
+                Locale.objects.exclude(
+                    id__in=self.model.objects.filter(
+                        translation_key=OuterRef(OuterRef("translation_key"))
+                    ).values("locale_id")
+                )
+            )
+        )
 
-class SpecificIterable(BaseIterable):
+
+class SpecificIterable(ModelIterable):
     def __iter__(self):
         """
         Identify and return all specific items in a queryset, and return them
@@ -589,7 +602,7 @@ class SpecificIterable(BaseIterable):
                         setattr(item, annotation, value)
                 yield item
 
-    def _get_chunks(self, queryset) -> Iterable[Tuple[Dict[str, Any]]]:
+    def _get_chunks(self, queryset) -> Iterable[tuple[dict[str, Any]]]:
         if not self.chunked_fetch:
             # The entire result will be stored in memory, so there is no
             # benefit to splitting the result

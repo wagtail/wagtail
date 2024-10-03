@@ -77,7 +77,6 @@ class ModelIndexView(generic.BaseListingView):
     header_icon = "snippet"
     index_url_name = "wagtailsnippets:index"
     default_ordering = "name"
-    _show_breadcrumbs = True
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -99,9 +98,6 @@ class ModelIndexView(generic.BaseListingView):
         if not self.snippet_types:
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
-
-    def get_breadcrumbs_items(self):
-        return self.breadcrumbs_items + [{"url": "", "label": _("Snippets")}]
 
     def get_list_url(self, model):
         if model.snippet_viewset.permission_policy.user_has_any_permission(
@@ -765,11 +761,9 @@ class SnippetViewSet(ModelViewSet):
                 "workflow_history/index",
                 fallback=self.workflow_history_view_class.template_name,
             ),
-            workflow_history_url_name=self.get_url_name("workflow_history"),
             workflow_history_detail_url_name=self.get_url_name(
                 "workflow_history_detail"
             ),
-            _show_breadcrumbs=False,
         )
 
     @property
@@ -780,10 +774,7 @@ class SnippetViewSet(ModelViewSet):
                 "workflow_history/detail",
                 fallback=self.workflow_history_detail_view_class.template_name,
             ),
-            object_icon=self.icon,
-            header_icon="list-ul",
             workflow_history_url_name=self.get_url_name("workflow_history"),
-            _show_breadcrumbs=False,
         )
 
     @property
@@ -840,7 +831,7 @@ class SnippetViewSet(ModelViewSet):
 
         **Deprecated** - the preferred way to customise this is to define a ``menu_label`` property.
         """
-        return self.model_opts.verbose_name_plural.title()
+        return capfirst(self.model_opts.verbose_name_plural)
 
     @cached_property
     def menu_name(self):

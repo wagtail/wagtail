@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Arthur Sturzbecher, 2024
 # Bruno Bertoldi <bruno.bertoldi@gmail.com>, 2017
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
@@ -26,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024\n"
+"Last-Translator: Arthur Sturzbecher, 2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -282,8 +283,8 @@ msgstr "Você não tem permissão para criar uma página em \"%(page_title)s\"."
 msgid ""
 "You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
 msgstr ""
-"Você não pode criar uma página do tipo \"%(page_type)s\" em \"%(page_title)s"
-"\"."
+"Você não pode criar uma página do tipo \"%(page_type)s\" em "
+"\"%(page_title)s\"."
 
 msgid "Search…"
 msgstr "Procurar..."
@@ -562,6 +563,24 @@ msgstr "Escolha um item"
 msgid "Choose a page"
 msgstr "Escolha uma página"
 
+#, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"Somente páginas do tipo \"%(type)s\" podem ser selecionadas para este campo. "
+"Os resultados da busca irão excluir páginas de outros tipos."
+msgstr[1] ""
+"Somente os seguintes tipos de página podem ser escolhidos para este campo: "
+"%(type)s. Os resultados da pesquisa excluirão páginas de outros tipos."
+msgstr[2] ""
+"Somente os seguintes tipos de página podem ser escolhidos para este campo: "
+"%(type)s. Os resultados da pesquisa excluirão páginas de outros tipos.\n"
+"            "
+
 msgid "Confirm selection"
 msgstr "Confirmar seleção"
 
@@ -604,9 +623,6 @@ msgstr "Explorar subpáginas de '%(title)s'"
 msgid "Explore"
 msgstr "Explorar"
 
-msgid "Collection privacy"
-msgstr "Coleção privada"
-
 msgid "This collection has been made private by a parent collection."
 msgstr "Essa coleção foi feita privativa por uma coleção raíz."
 
@@ -646,11 +662,11 @@ msgstr "Esta coleção não pode ser excluída, porque ela não está vazia. Con
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Nenhuma coleção foi criada. Porque não <a href=\"%(add_collection_url)s"
-"\">adicionar uma</a>?"
+"Nenhuma coleção foi criada. Porque não <a "
+"href=\"%(add_collection_url)s\">adicionar uma</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -710,8 +726,8 @@ msgid ""
 "There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
 "one</a>?"
 msgstr ""
-"Não há %(model_name)s para exibir. Por que não <a href=\"%(add_url)s"
-"\">adicionar um</a>?"
+"Não há %(model_name)s para exibir. Por que não <a "
+"href=\"%(add_url)s\">adicionar um</a>?"
 
 #, python-format
 msgid "There are no %(model_name)s to display."
@@ -1041,9 +1057,6 @@ msgid ""
 msgstr ""
 "A página \"%(title)s\" foi submetido para moderação ao fluxo de trabalho "
 "\"%(workflow)s\"."
-
-msgid "Page privacy"
-msgstr "Página privada"
 
 msgid "This page has been made private by a parent page."
 msgstr "Essa página foi feita privativa por uma página raíz."
@@ -1507,8 +1520,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Escolha quando esta página deve entrar no ar e/ou expirar"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr ""
 "Este cronograma de publicação só entrará em vigor após você selecionar a "
 "opção \"Publicar\""
@@ -1562,9 +1575,6 @@ msgstr "Última página editada"
 msgid "Last edit"
 msgstr "Última edição "
 
-msgid "No page types found."
-msgstr "Nenhum tipo de página encontrado."
-
 msgid "Locking status"
 msgstr "Status de bloqueio"
 
@@ -1586,6 +1596,9 @@ msgstr "Bloqueado"
 msgid "No locked pages found."
 msgstr "Nenhuma página bloqueada encontrada."
 
+msgid "No page types found."
+msgstr "Nenhum tipo de página encontrado."
+
 msgid "Name"
 msgstr "Nome"
 
@@ -1603,9 +1616,6 @@ msgstr "Edite este item"
 
 msgid "No log entries found."
 msgstr "Nenhuma entrada de log encontrada."
-
-msgid "By Task"
-msgstr "Por tarefa"
 
 msgid "Workflow"
 msgstr "Fluxo de trabalho"
@@ -1625,9 +1635,6 @@ msgstr "Tarefa incompleta"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Nenhuma página/snippets foi enviado para moderação ainda"
 
-msgid "By Workflow"
-msgstr "Por fluxo de trabalho"
-
 msgid "Completed at"
 msgstr "Concluído em"
 
@@ -1643,6 +1650,9 @@ msgstr "Navegação"
 
 msgid "Close dialog"
 msgstr "Fechar caixa de diálogo"
+
+msgid "Continue"
+msgstr "Continuar"
 
 msgid "Download XLSX"
 msgstr "Baixar XLSX"
@@ -1974,13 +1984,14 @@ msgstr "Criar"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Os workflows também se aplicam a sub-páginas. Se você selecionar a página "
-"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a href="
-"\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu fluxo de "
-"trabalho  atribuído."
+"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a "
+"href=\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu "
+"fluxo de trabalho  atribuído."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
@@ -2039,15 +2050,15 @@ msgstr[2] "%(counter)s tipos de snippet"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Nenhum fluxo de trabalho foi criado. Por que não <a href=\"%(add_url)s"
-"\">adicionar um</a>?"
+"Nenhum fluxo de trabalho foi criado. Por que não <a "
+"href=\"%(add_url)s\">adicionar um</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Não há fluxos de trabalho habilitados. Por que não <a href=\"%(add_url)s"
-"\">adicionar um</a>?"
+"Não há fluxos de trabalho habilitados. Por que não <a "
+"href=\"%(add_url)s\">adicionar um</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Escolha o tipo de tarefa que deseja criar."
@@ -2274,45 +2285,6 @@ msgstr ""
 "Classifique a ordem das páginas filhas em '%(parent)s' por '%(label)s' em "
 "ordem decrescente."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do botão está vazio. Use texto significativo para usuários de "
-"leitores de tela."
-
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Título vazio encontrado. Use texto significativo para usuários de leitores "
-"de tela."
-
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do cabeçalho da tabela está vazio. Use texto significativo para "
-"usuários de leitores de tela."
-
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Foi encontrado um título de quadro vazio. Use um título significativo para "
-"usuários de leitores de tela."
-
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Hierarquia de títulos incorreta. Evite pular níveis."
-
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do botão de entrada está vazio. Use texto significativo para "
-"usuários de leitores de tela."
-
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do link está vazio. Use texto significativo para usuários de "
-"leitores de tela."
-
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr "Uso indevido de parágrafos como títulos. Use tags de título adequadas."
-
 msgid "Profile"
 msgstr "Perfil"
 
@@ -2446,11 +2418,11 @@ msgstr "O fluxo de trabalho em %(model_name)s '%(object)s' foi cancelado."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
-"Você está visualizando uma versão anterior deste %(model_name)s de <b>"
-"%(created_at)s</b> por %(user)s"
+"Você está visualizando uma versão anterior deste %(model_name)s de "
+"<b>%(created_at)s</b> por %(user)s"
 
 #, python-format
 msgid ""
@@ -2865,8 +2837,8 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
-"Você está visualizando uma versão anterior desta página de <b>"
-"%(created_at)s</b> por %(user)s"
+"Você está visualizando uma versão anterior desta página de "
+"<b>%(created_at)s</b> por %(user)s"
 
 msgid "Page history"
 msgstr "Histórico da página"
@@ -2898,9 +2870,6 @@ msgstr "Páginas antigas"
 
 msgid "Last published at"
 msgstr "Publicado pela última vez em"
-
-msgid "Hide commenting actions"
-msgstr "Ocultar ações de comentários"
 
 msgid "Site history"
 msgstr "Histórico do site"

@@ -13,6 +13,7 @@ from django.utils.html import escape
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
@@ -39,8 +40,8 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             response,
             '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
         )
-        # Title-cased from verbose_name_plural
-        self.assertContains(response, "Json Stream Models")
+        # Capitalized-first from verbose_name_plural
+        self.assertContains(response, "JSON stream models")
         self.assertContains(response, reverse("streammodel:index"))
         self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
         # Set on class
@@ -80,7 +81,7 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
         )
 
         # The menu item for the model is shown
-        self.assertContains(response, "Json Stream Models")
+        self.assertContains(response, "JSON stream models")
         self.assertContains(response, reverse("streammodel:index"))
         self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
 
@@ -450,6 +451,7 @@ class TestSearchIndexView(WagtailTestUtils, TestCase):
 
     def test_search_disabled(self):
         response = self.get("fctoy_alt1", {"q": "ork"})
+        self.assertFalse(response.context.get("search_form"))
         self.assertContains(response, "Forky")
         self.assertContains(response, "Buzz Lightyear")
         self.assertNotContains(response, "There are 2 matches")
@@ -1042,6 +1044,11 @@ class TestHistoryView(WagtailTestUtils, TestCase):
         for rendered_row, expected_row in zip(rendered_rows, expected):
             self.assertSequenceEqual(rendered_row, expected_row)
 
+        # History view is not searchable
+        input = soup.select_one("input#id_q")
+        self.assertIsNone(input)
+        self.assertFalse(response.context.get("search_form"))
+
     def test_action_filter(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
@@ -1234,11 +1241,21 @@ class TestUsageView(WagtailTestUtils, TestCase):
         link = tds[0].select_one("a")
         self.assertIsNotNone(link)
         self.assertEqual(link.attrs.get("href"), tbx_edit_url)
+        content_path_link = tds[-1].select_one("a")
+        self.assertEqual(
+            content_path_link.attrs.get("href"),
+            tbx_edit_url + "#:w:contentpath=cascading_toy",
+        )
 
         # Link to referrer's edit view with parameters for the specific field
         link = tds[2].select_one("a")
         self.assertIsNotNone(link)
         self.assertIn(tbx_edit_url, link.attrs.get("href"))
+
+        # Usage view is not searchable
+        input = soup.select_one("input#id_q")
+        self.assertIsNone(input)
+        self.assertFalse(response.context.get("search_form"))
 
     def test_usage_without_permission(self):
         self.user.is_superuser = False
@@ -1389,6 +1406,25 @@ class TestInspectView(WagtailTestUtils, TestCase):
         values = [dd.text.strip() for dd in soup.select("dd")]
         self.assertEqual(fields, expected_fields)
         self.assertEqual(values, expected_values)
+
+    def test_view_permission_registered(self):
+        content_type = ContentType.objects.get_for_model(FeatureCompleteToy)
+        qs = Permission.objects.none()
+        for fn in hooks.get_hooks("register_permissions"):
+            qs |= fn()
+        registered_user_permissions = qs.filter(content_type=content_type)
+        self.assertEqual(
+            set(registered_user_permissions.values_list("codename", flat=True)),
+            {
+                "add_featurecompletetoy",
+                "change_featurecompletetoy",
+                "delete_featurecompletetoy",
+                # The "view" permission should be registered if inspect view is enabled
+                "view_featurecompletetoy",
+                # Any custom permissions should be registered too
+                "can_set_release_date",
+            },
+        )
 
     def test_disabled(self):
         # An alternate viewset for the same model without inspect_view_enabled = True

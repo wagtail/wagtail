@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -66,6 +66,12 @@ msgstr "سند"
 
 msgid "documents"
 msgstr "مستندات"
+
+msgid "Yes, add"
+msgstr "بله اضافه کن"
+
+msgid "No, don't add"
+msgstr "نه، اضافه نکن"
 
 msgid "Are you sure you want to delete this document?"
 msgid_plural "Are you sure you want to delete these documents?"
@@ -140,19 +146,19 @@ msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پید�
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز به این مجموعه سندی آپلود نشده. می‌توانید یکی را همین الان <a href="
-"\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید"
+"هنوز به این مجموعه سندی آپلود نشده. می‌توانید یکی را همین الان <a "
+"href=\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"هنوز سندی آپلود نکرده اید. می‌توانید همین الان یکی را <a href="
-"\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید."
+"هنوز سندی آپلود نکرده اید. می‌توانید همین الان یکی را <a "
+"href=\"%(wagtaildocs_add_document_url)s\">آپلود</a> کنید."
 
 msgid "Add multiple documents"
 msgstr "افزودن چند سند"
@@ -188,6 +194,9 @@ msgstr "مجوزهای سند"
 
 msgid "Add a document permission"
 msgstr "افزودن یک مجوز سند"
+
+msgid "Tag"
+msgstr "برچسب"
 
 msgid "Delete"
 msgstr "حذف"

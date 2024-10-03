@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2016,2018,2024\n"
@@ -211,19 +211,19 @@ msgstr "Því miður eru engar skrár sem passa við \"<em>%(query_string)s</em>
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents in this collection. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents in this collection. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum skrám í þetta safn. Hví ekki að<a href="
-"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum skrám í þetta safn. Hví ekki að<a "
+"href=\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
 
 #, python-format
 msgid ""
-"You haven't uploaded any documents. Why not <a href="
-"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+"You haven't uploaded any documents. Why not <a "
+"href=\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
-"Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a href="
-"\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
+"Þú hefur ekki hlaðið neinum skrám. Hví ekki að<a "
+"href=\"%(wagtaildocs_add_document_url)s\">hlaða inn nokkrum núna</a>?"
 
 #, python-format
 msgid ""

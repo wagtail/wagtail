@@ -4,12 +4,10 @@ from tempfile import SpooledTemporaryFile
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.http import FileResponse, HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 from django.views import View
@@ -65,7 +63,6 @@ class IndexView(generic.IndexView):
     index_results_url_name = "wagtailimages:index_results"
     add_url_name = "wagtailimages:add_multiple"
     edit_url_name = "wagtailimages:edit"
-    _show_breadcrumbs = True
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
     columns = []
@@ -126,84 +123,85 @@ class IndexView(generic.IndexView):
         return context
 
 
-@permission_checker.require("change")
-def edit(request, image_id):
-    Image = get_image_model()
-    ImageForm = get_image_form(Image)
+class EditView(generic.EditView):
+    permission_policy = permission_policy
+    pk_url_kwarg = "image_id"
+    error_message = gettext_lazy("The image could not be saved due to errors.")
+    template_name = "wagtailimages/images/edit.html"
+    index_url_name = "wagtailimages:index"
+    edit_url_name = "wagtailimages:edit"
+    delete_url_name = "wagtailimages:delete"
+    url_generator_url_name = "wagtailimages:url_generator"
+    header_icon = "image"
+    context_object_name = "image"
+    delete_item_label = gettext_lazy("Delete image")
+    _show_breadcrumbs = True
 
-    image = get_object_or_404(Image, id=image_id)
+    @cached_property
+    def model(self):
+        return get_image_model()
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "change", image
-    ):
-        raise PermissionDenied
+    def get_form_class(self):
+        return get_image_form(self.model)
 
-    next_url = get_valid_next_url_from_request(request)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
-    if request.method == "POST":
-        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
-        if form.is_valid():
-            form.save()
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not permission_policy.user_has_permission_for_instance(
+            self.request.user, "change", obj
+        ):
+            raise PermissionDenied
+        return obj
 
-            edit_url = reverse("wagtailimages:edit", args=(image.id,))
-            redirect_url = "wagtailimages:index"
-            if next_url:
-                edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
-                redirect_url = next_url
+    def get_success_message(self):
+        return _("Image '%(image_title)s' updated.") % {
+            "image_title": self.object.title
+        }
 
-            messages.success(
-                request,
-                _("Image '%(image_title)s' updated.") % {"image_title": image.title},
-                buttons=[messages.button(edit_url, _("Edit again"))],
-            )
-            return redirect(redirect_url)
-        else:
-            messages.error(request, _("The image could not be saved due to errors."))
-    else:
-        form = ImageForm(instance=image, user=request.user)
+    @cached_property
+    def next_url(self):
+        return get_valid_next_url_from_request(self.request)
 
-    # Check if we should enable the frontend url generator
-    try:
-        reverse("wagtailimages_serve", args=("foo", "1", "bar"))
-        url_generator_enabled = True
-    except NoReverseMatch:
-        url_generator_enabled = False
+    def get_success_url(self):
+        return self.next_url or super().get_success_url()
 
-    if image.is_stored_locally():
-        # Give error if image file doesn't exist
-        if not os.path.isfile(image.file.path):
-            messages.error(
-                request,
-                _(
-                    "The source image file could not be found. Please change the source or delete the image."
-                )
-                % {"image_title": image.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailimages:delete", args=(image.id,)), _("Delete")
+    def render_to_response(self, context, **response_kwargs):
+        if self.object.is_stored_locally():
+            # Give error if image file doesn't exist
+            if not os.path.isfile(self.object.file.path):
+                messages.error(
+                    self.request,
+                    _(
+                        "The source image file could not be found. Please change the source or delete the image."
                     )
-                ],
+                    % {"image_title": self.object.title},
+                    buttons=[messages.button(self.get_delete_url(), _("Delete"))],
+                )
+
+        return super().render_to_response(context, **response_kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["next"] = self.next_url
+
+        try:
+            context["filesize"] = self.object.get_file_size()
+        except SourceImageIOError:
+            context["filesize"] = None
+
+        try:
+            reverse("wagtailimages_serve", args=("foo", "1", "bar"))
+            context["url_generator_url"] = reverse(
+                self.url_generator_url_name, args=(self.object.id,)
             )
+        except NoReverseMatch:
+            context["url_generator_url"] = None
 
-    try:
-        filesize = image.get_file_size()
-    except SourceImageIOError:
-        filesize = None
-
-    return TemplateResponse(
-        request,
-        "wagtailimages/images/edit.html",
-        {
-            "image": image,
-            "form": form,
-            "url_generator_enabled": url_generator_enabled,
-            "filesize": filesize,
-            "user_can_delete": permission_policy.user_has_permission_for_instance(
-                request.user, "delete", image
-            ),
-            "next": next_url,
-        },
-    )
+        return context
 
 
 class URLGeneratorView(generic.InspectView):
@@ -211,8 +209,11 @@ class URLGeneratorView(generic.InspectView):
     model = get_image_model()
     pk_url_kwarg = "image_id"
     header_icon = "image"
-    page_title = "Generating URL"
+    page_title = gettext_lazy("Generate URL")
     template_name = "wagtailimages/images/url_generator.html"
+    index_url_name = "wagtailimages:index"
+    edit_url_name = "wagtailimages:edit"
+    _show_breadcrumbs = True
 
     def get_page_subtitle(self):
         return self.object.title
@@ -338,39 +339,33 @@ class DeleteView(generic.DeleteView):
         }
 
 
-@permission_checker.require("add")
-def add(request):
-    ImageModel = get_image_model()
-    ImageForm = get_image_form(ImageModel)
+class CreateView(generic.CreateView):
+    permission_policy = permission_policy
+    index_url_name = "wagtailimages:index"
+    add_url_name = "wagtailimages:add"
+    edit_url_name = "wagtailimages:edit"
+    error_message = gettext_lazy("The image could not be created due to errors.")
+    template_name = "wagtailimages/images/add.html"
+    header_icon = "image"
+    _show_breadcrumbs = True
 
-    if request.method == "POST":
-        image = ImageModel(uploaded_by_user=request.user)
-        form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
-        if form.is_valid():
-            form.save()
+    @cached_property
+    def model(self):
+        return get_image_model()
 
-            messages.success(
-                request,
-                _("Image '%(image_title)s' added.") % {"image_title": image.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailimages:edit", args=(image.id,)), _("Edit")
-                    )
-                ],
-            )
-            return redirect("wagtailimages:index")
-        else:
-            messages.error(request, _("The image could not be created due to errors."))
-    else:
-        form = ImageForm(user=request.user)
+    def get_form_class(self):
+        return get_image_form(self.model)
 
-    return TemplateResponse(
-        request,
-        "wagtailimages/images/add.html",
-        {
-            "form": form,
-        },
-    )
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def get_initial_form_instance(self):
+        return self.model(uploaded_by_user=self.request.user)
+
+    def get_success_message(self, instance):
+        return _("Image '%(image_title)s' added.") % {"image_title": instance.title}
 
 
 class UsageView(generic.UsageView):
@@ -380,6 +375,11 @@ class UsageView(generic.UsageView):
     permission_policy = permission_policy
     permission_required = "change"
     header_icon = "image"
+    index_url_name = "wagtailimages:index"
+    edit_url_name = "wagtailimages:edit"
+
+    def get_base_object_queryset(self):
+        return super().get_base_object_queryset().select_related("uploaded_by_user")
 
     def user_has_permission(self, permission):
         return self.permission_policy.user_has_permission_for_instance(

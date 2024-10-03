@@ -32,6 +32,11 @@ describe('SwapController', () => {
     application.stop();
     document.body.innerHTML = '<main></main>';
     jest.clearAllMocks();
+    // Restore any fetch mocks for good measure. Some tests may mock fetch despite
+    // expecting it not to be called, leaving fetch in a mocked state for other tests.
+    // Some tests also use mockImplementation() instead of the mockResponse*() helpers
+    // that use mockImplementationOnce(), which can cause fetch to be mocked indefinitely.
+    fetch.mockRestore();
   });
 
   describe('when results element & src URL value is not available', () => {
@@ -553,14 +558,79 @@ describe('SwapController', () => {
     });
   });
 
-  describe('performing a content update via actions on a controlled form using form values', () => {
+  describe('performing a content update via actions on a controlled button without a form', () => {
+    beforeEach(() => {
+      document.body.innerHTML = `
+      <button
+        id="clear"
+        data-controller="w-swap"
+        data-action="w-swap#replaceLazy"
+        data-w-swap-src-value="/admin/custom/results/?type=bar"
+        data-w-swap-target-value="#results"
+      >Clear owner filter</button>
+      <div id="results"></div>
+      `;
+    });
+
+    it('should default the request method to GET', async () => {
+      const button = document.getElementById('clear');
+      const targetElement = document.getElementById('results');
+
+      const results = getMockResults();
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+
+      button.click();
+
+      jest.runAllTimers(); // update is debounced
+
+      // the content should be marked as busy
+      await Promise.resolve(); // trigger next rendering
+      expect(targetElement.getAttribute('aria-busy')).toEqual('true');
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/admin/custom/results/?type=bar',
+        expect.objectContaining({
+          method: 'GET',
+          body: undefined,
+        }),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/admin/custom/results/?type=bar',
+        results,
+      });
+
+      // should update HTML
+      expect(targetElement.querySelectorAll('li')).toHaveLength(3);
+
+      await flushPromises();
+
+      // should reset the busy state
+      expect(targetElement.getAttribute('aria-busy')).toBeNull();
+    });
+  });
+
+  describe('performing a content update via actions on a controlled form without using form values', () => {
     let beginEventHandler;
     let formElement;
     let onSuccess;
     const results = getMockResults({ total: 2 });
 
     beforeEach(() => {
-      document.body.innerHTML = `
+      document.body.innerHTML = /* html */ `
       <main>
       <form
         id="form"
@@ -570,7 +640,8 @@ describe('SwapController', () => {
         data-action="custom:event->w-swap#replaceLazy submit:prevent->w-swap#replace"
         data-w-swap-target-value="#content"
       >
-        <button type="submit">Submit<button>
+        <input type="text" name="foo-unused" value="bar-unused" />
+        <button type="submit">Submit</button>
       </form>
       <div id="content"></div>
       </main>
@@ -631,7 +702,7 @@ describe('SwapController', () => {
       // should update HTML
       expect(
         document.getElementById('content').querySelectorAll('li'),
-      ).toHaveLength(5);
+      ).toHaveLength(2);
 
       await flushPromises();
 
@@ -670,6 +741,66 @@ describe('SwapController', () => {
         expectedRequestUrl,
         expect.any(Object),
       );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('content').querySelectorAll('li'),
+      ).toHaveLength(2);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should support using the form method as the fetch request method', async () => {
+      const expectedRequestUrl = '/path/to-src-value/?with=param';
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      formElement.setAttribute('data-w-swap-src-value', expectedRequestUrl);
+      formElement.setAttribute('method', 'post');
+
+      formElement.dispatchEvent(
+        new CustomEvent('custom:event', { bubbles: false }),
+      );
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        expectedRequestUrl,
+        expect.objectContaining({
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            'x-xsrf-token': 'potato',
+          },
+          method: 'POST',
+        }),
+      );
+      // We are using #replace, not #submit, so we should not have a body
+      expect(global.fetch.mock.lastCall[1].body).toBeUndefined();
 
       const successEvent = await onSuccess;
 
@@ -931,7 +1062,7 @@ describe('SwapController', () => {
     beforeEach(() => {
       // intentionally testing without target input (icon not needed & should work without this)
 
-      document.body.innerHTML = `
+      document.body.innerHTML = /* html */ `
       <main>
       <form
         class="search-form"
@@ -945,7 +1076,7 @@ describe('SwapController', () => {
         <input id="search" type="text" name="q"/>
         <input name="type" type="hidden" value="some-type" />
         <input name="other" type="text" />
-        <button type="submit">Submit<button>
+        <button type="submit">Submit</button>
       </form>
       <div id="task-results"></div>
       </main>
@@ -962,6 +1093,11 @@ describe('SwapController', () => {
       const onSuccess = new Promise((resolve) => {
         document.addEventListener('w-swap:success', resolve);
       });
+
+      // Even if the attribute and the property use lowercase
+      const formElement = document.querySelector('form');
+      expect(formElement.getAttribute('method')).toEqual('get');
+      expect(formElement.method).toEqual('get');
 
       const beginEventHandler = jest.fn();
       document.addEventListener('w-swap:begin', beginEventHandler);
@@ -993,7 +1129,11 @@ describe('SwapController', () => {
       expect(handleError).not.toHaveBeenCalled();
       expect(global.fetch).toHaveBeenCalledWith(
         '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
-        expect.any(Object),
+        expect.objectContaining({
+          // Should normalize the method name to uppercase and not send a body
+          method: 'GET',
+          body: undefined,
+        }),
       );
 
       const successEvent = await onSuccess;
@@ -1002,6 +1142,169 @@ describe('SwapController', () => {
       expect(successEvent.detail).toEqual({
         requestUrl:
           '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('task-results').querySelectorAll('li').length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should support using the form method as the fetch request method', async () => {
+      const input = document.getElementById('search');
+      const formElement = document.querySelector('form');
+      const expectedRequestUrl = '/custom/to-src-value/?with=param';
+
+      formElement.setAttribute('data-w-swap-src-value', expectedRequestUrl);
+      formElement.setAttribute('method', 'post');
+
+      const results = getMockResults({ total: 5 });
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        // The form data should be serialized and sent as the body,
+        // not as query params
+        expectedRequestUrl,
+        expect.objectContaining({
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            'x-xsrf-token': 'potato',
+          },
+          method: 'POST',
+          body: expect.any(FormData),
+        }),
+      );
+      expect(
+        Object.fromEntries(global.fetch.mock.lastCall[1].body.entries()),
+      ).toEqual({
+        // eslint-disable-next-line id-length
+        q: 'alpha',
+        type: 'some-type',
+        other: 'something on other',
+      });
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('task-results').querySelectorAll('li').length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should use the normalized method name and not send a body in a GET request', async () => {
+      const input = document.getElementById('search');
+      const formElement = document.querySelector('form');
+
+      // Use a non-standard casing for the method
+      formElement.setAttribute('method', 'Get');
+      expect(formElement.getAttribute('method')).toEqual('Get');
+
+      // The method property is an enum that always uses lowercase
+      // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fs-method
+      expect(formElement.method).toEqual('get');
+
+      const results = getMockResults({ total: 5 });
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(results);
+
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      input.value = 'alpha';
+      document.querySelector('[name="other"]').value = 'something on other';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // search is debounced
+
+      // should fire a begin event before the request is made
+      const expectedRequestUrl =
+        '/path/to/form/action/?q=alpha&type=some-type&other=something+on+other';
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: expectedRequestUrl,
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        // The form data should be sent as query params, without the body
+        expectedRequestUrl,
+        expect.objectContaining({
+          headers: {
+            'x-requested-with': 'XMLHttpRequest',
+            'x-xsrf-token': 'potato',
+          },
+          method: 'GET', // normalized method name should be in uppercase
+          body: undefined,
+        }),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: expectedRequestUrl,
         results: expect.any(String),
       });
 
@@ -1205,6 +1508,690 @@ describe('SwapController', () => {
       expect(global.fetch).not.toHaveBeenCalled();
 
       document.removeEventListener('w-swap:begin', beginEventHandler);
+    });
+  });
+
+  describe('performing a content update using HTML in JSON response', () => {
+    let button;
+    let results;
+    const onErrorEvent = jest.fn();
+
+    beforeEach(() => {
+      document.body.innerHTML = `
+      <main>
+        <form
+          action="/path/to/editing-sessions/"
+          method="get"
+          data-controller="w-swap"
+          data-action="submit->w-swap#submitLazy:prevent"
+          data-w-swap-target-value="#editing-sessions"
+          data-w-swap-json-path-value="nested.data.results"
+        >
+          <input name="title" type="text"/>
+          <input name="type" type="hidden" value="some-type" />
+          <button type="submit">Submit<button>
+        </form>
+        <div id="editing-sessions"></div>
+      </main>
+      `;
+
+      button = document.querySelector('button');
+      results = getMockResults({ total: 5 });
+    });
+
+    const expectErrorHandled = async () => {
+      expect(window.location.search).toEqual('');
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      button.click();
+
+      jest.runAllTimers(); // update is debounced
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      expect(onErrorEvent).not.toHaveBeenCalled();
+
+      await Promise.resolve(); // trigger next rendering
+
+      await flushPromises(); // resolve all promises
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenLastCalledWith(
+        'Error fetching %s',
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Error),
+      );
+      // eslint-disable-next-line no-console
+      expect(console.error.mock.lastCall[2]).toEqual(
+        expect.objectContaining({
+          message:
+            'Unable to parse as JSON at path "nested.data.results" to a string',
+        }),
+      );
+
+      // should not update any HTML
+      expect(document.getElementById('editing-sessions').innerHTML).toEqual('');
+
+      // should have dispatched a custom event for the error
+      expect(onErrorEvent).toHaveBeenCalledTimes(1);
+      expect(onErrorEvent.mock.calls[0][0].detail).toEqual({
+        error: expect.any(Error),
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      await Promise.resolve(); // trigger next rendering
+    };
+
+    it('should update the target element with the HTML content from the JSON response', async () => {
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const jsonEventHandler = new Promise((resolve) => {
+        document.addEventListener('w-swap:json', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results } } }),
+      );
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      button.click();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      await Promise.resolve();
+
+      const jsonEvent = await jsonEventHandler;
+
+      // should dispatch json event
+      expect(jsonEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        data: expect.objectContaining({ nested: { data: { results } } }),
+      });
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(
+        document.getElementById('editing-sessions').querySelectorAll('li')
+          .length,
+      ).toBeTruthy();
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should handle non-JSON response gracefully', async () => {
+      document.addEventListener('w-swap:error', onErrorEvent);
+
+      const jsonEventHandler = jest.fn();
+      document.addEventListener('w-swap:json', jsonEventHandler);
+
+      fetch.mockResponseSuccessText('<div><p>Some HTML content</p></div>');
+
+      await expectErrorHandled();
+
+      // should not dispatch json event
+      expect(jsonEventHandler).not.toHaveBeenCalled();
+    });
+
+    it('should handle non-existing key gracefully', async () => {
+      document.addEventListener('w-swap:error', onErrorEvent);
+
+      const jsonEventHandler = jest.fn();
+      document.addEventListener('w-swap:json', jsonEventHandler);
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { differentKey: results } } }),
+      );
+
+      await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { differentKey: results } },
+            }),
+          },
+        }),
+      );
+    });
+
+    it('should handle non-string values gracefully', async () => {
+      document.addEventListener('w-swap:error', onErrorEvent);
+      const jsonEventHandler = jest.fn();
+      document.addEventListener('w-swap:json', jsonEventHandler);
+
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: 123 } } }),
+      );
+
+      await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: 123 } },
+            }),
+          },
+        }),
+      );
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: true } } }),
+      );
+
+      await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: true } },
+            }),
+          },
+        }),
+      );
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: null } } }),
+      );
+
+      await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: null } },
+            }),
+          },
+        }),
+      );
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: { some: 'object' } } } }),
+      );
+
+      await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: { some: 'object' } } },
+            }),
+          },
+        }),
+      );
+
+      jest.clearAllMocks();
+      fetch.mockResponseSuccessJSON(
+        JSON.stringify({ nested: { data: { results: [1, false, 'hello'] } } }),
+      );
+
+      await expectErrorHandled();
+
+      // should still dispatch json event
+      expect(jsonEventHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          detail: {
+            requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+            data: expect.objectContaining({
+              nested: { data: { results: [1, false, 'hello'] } },
+            }),
+          },
+        }),
+      );
+    });
+  });
+
+  describe('deferring the content update until the focus is out of the target container', () => {
+    const getMockResultsWithButtons = (total) =>
+      getMockResults({ total }) +
+      `<button id="button1">Focusable 1</button><button id="button2">Focusable 2</button>`;
+
+    beforeEach(() => {
+      document.body.innerHTML = /* html */ `
+      <main>
+        <svg class="icon icon-breadcrumb-expand" aria-hidden="true">
+          <use href="#icon-breadcrumb-expand"></use>
+        </svg>
+        <form
+          action="/path/to/editing-sessions/"
+          method="get"
+          data-controller="w-swap"
+          data-action="submit->w-swap#submitLazy:prevent"
+          data-w-swap-defer-value="true"
+          data-w-swap-target-value="#editing-sessions"
+        >
+          <input name="title" type="text"/>
+          <input name="type" type="hidden" value="some-type" />
+          <button id="submit" type="submit">Submit</button>
+        </form>
+        <div id="editing-sessions">
+          <div>
+            <button id="button1">Focusable 1</button>
+            <button id="button2">Focusable 2</button>
+          </div>
+        </div>
+      </main>
+      `;
+    });
+
+    it('should wait until the target loses focus and continue execution immediately after', async () => {
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      // focus on an element inside the target container
+      document.getElementById('button1').focus();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should not be shown
+      await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-breadcrumb-expand');
+      expect(target.getAttribute('aria-busy')).toBeNull();
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      // switch focus to a different element but still inside the target container
+      document.getElementById('button2').focus();
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      // switch focus to an element outside the target container
+      document.getElementById('submit').focus();
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(target.querySelectorAll('li').length).toEqual(5);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should not wait until the target loses focus if defer value is set to false', async () => {
+      // unset the defer value (default is false)
+      const form = document.querySelector('form');
+      form.removeAttribute('data-w-swap-defer-value');
+
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      // focus on an element inside the target container
+      document.getElementById('button1').focus();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should be active
+      await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-spinner');
+      expect(target.getAttribute('aria-busy')).toEqual('true');
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      await flushPromises();
+
+      // if the deferred write happens (which should not), the test will
+      // time out because the focus is still inside the target container
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(target.querySelectorAll('li').length).toEqual(5);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should wait until all tooltips are gone and continue execution immediately after', async () => {
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', resolve);
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should not be shown
+      await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-breadcrumb-expand');
+      expect(target.getAttribute('aria-busy')).toBeNull();
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      // simulate a popup being shown
+      const popup = document.createElement('div');
+      popup.setAttribute('aria-expanded', 'true');
+      target.appendChild(popup);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      // hide the popup and replace it with a tooltip
+      popup.setAttribute('aria-expanded', 'false');
+      const elementWithTooltip = document.createElement('button');
+      elementWithTooltip.setAttribute('aria-describedby', 'tippy-1');
+      document
+        .getElementById('editing-sessions')
+        .appendChild(elementWithTooltip);
+      const tippy = document.createElement('div');
+      tippy.id = 'tippy-1';
+      document.body.appendChild(tippy);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      // hide the tooltip
+      elementWithTooltip.removeAttribute('aria-describedby');
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should update HTML
+      expect(target.querySelectorAll('li').length).toEqual(5);
+
+      await flushPromises();
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
+    });
+
+    it('should write immediately if there is a deferred write but we no longer need to defer', async () => {
+      const successEvents = [];
+      const onSuccess = new Promise((resolve) => {
+        document.addEventListener('w-swap:success', (event) => {
+          successEvents.push(event);
+          resolve(event);
+        });
+      });
+
+      const beginEventHandler = jest.fn();
+      document.addEventListener('w-swap:begin', beginEventHandler);
+
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(5));
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      document.getElementById('submit').click();
+
+      // focus on an element inside the target container
+      document.getElementById('button1').focus();
+
+      expect(beginEventHandler).not.toHaveBeenCalled();
+
+      jest.runAllTimers(); // submit is debounced
+
+      // should fire a begin event before the request is made
+      expect(beginEventHandler).toHaveBeenCalledTimes(1);
+      expect(beginEventHandler.mock.calls[0][0].detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=&type=some-type',
+      });
+
+      // visual loading state should not be shown
+      await Promise.resolve(); // trigger next rendering
+      const icon = document.querySelector('.icon use');
+      const target = document.getElementById('editing-sessions');
+      expect(icon.getAttribute('href')).toEqual('#icon-breadcrumb-expand');
+      expect(target.getAttribute('aria-busy')).toBeNull();
+
+      expect(handleError).not.toHaveBeenCalled();
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=&type=some-type',
+        expect.any(Object),
+      );
+
+      // simulate the request completing
+      await Promise.resolve();
+
+      // should not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      await flushPromises();
+
+      // should still not update HTML just yet
+      expect(target.querySelectorAll('li').length).toEqual(0);
+
+      // instead of switching the focus outside, we set the defer value
+      // to false, so we can test the case where a new update is not deferred but
+      // there is a deferred write and the focus is still inside the target container
+      const form = document.querySelector('form');
+      form.setAttribute('data-w-swap-defer-value', 'false');
+
+      // change the input so we can trigger a new request with a different URL to check
+      document.querySelector('input[name="title"]').value = 'newvalue';
+
+      // submit the form again
+      form.submit();
+      fetch.mockResponseSuccessText(getMockResultsWithButtons(8));
+      jest.runAllTimers();
+      await flushPromises();
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/path/to/editing-sessions/?title=newvalue&type=some-type',
+        expect.any(Object),
+      );
+
+      const successEvent = await onSuccess;
+
+      // should dispatch success event
+      expect(successEvent.detail).toEqual({
+        requestUrl: '/path/to/editing-sessions/?title=newvalue&type=some-type',
+        results: expect.any(String),
+      });
+
+      // should skip the deferred write and instead write the last request's response (8 items)
+      expect(target.querySelectorAll('li').length).toEqual(8);
+
+      await flushPromises();
+
+      // should still use the last request's response instead of running the deferred write
+      expect(target.querySelectorAll('li').length).toEqual(8);
+
+      // Simulate triggering the unlikely edge case of the focusout event being triggered,
+      // with no deferred writes left, which theoretically could only happen if the
+      // defer value was changed to false at midpoint like in this test case.
+      // We need to regain focus on an element in the target container first,
+      // because the previous element that was focused is no longer in the DOM.
+      document.getElementById('button1').focus();
+      // then we focus out
+      document.getElementById('submit').focus();
+
+      jest.runAllTimers();
+      await flushPromises();
+
+      // should still use the last request's response instead of running the deferred write
+      expect(target.querySelectorAll('li').length).toEqual(8);
+
+      // the success event should be dispatched only once as the deferred write was skipped
+      expect(successEvents).toHaveLength(1);
+      expect(successEvents[0].detail.requestUrl).toEqual(
+        '/path/to/editing-sessions/?title=newvalue&type=some-type',
+      );
+
+      // should NOT update the current URL
+      // as the reflect-value attribute is not set
+      expect(window.location.search).toEqual('');
     });
   });
 });

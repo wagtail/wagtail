@@ -14,7 +14,12 @@ urlpatterns = [
     path("enable/<int:pk>/", workflows.enable_workflow, name="enable"),
     path("disable/<int:pk>/", workflows.Disable.as_view(), name="disable"),
     path("edit/<int:pk>/", workflows.Edit.as_view(), name="edit"),
-    path("usage/<int:pk>/", workflows.usage, name="usage"),
+    path("usage/<int:pk>/", workflows.WorkflowUsageView.as_view(), name="usage"),
+    path(
+        "usage/<int:pk>/results/",
+        workflows.WorkflowUsageView.as_view(results_only=True),
+        name="usage_results",
+    ),
     path("remove/<int:page_pk>/", workflows.remove_workflow, name="remove"),
     path(
         "remove/<int:page_pk>/<int:workflow_pk>/",

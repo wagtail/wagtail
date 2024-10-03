@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,31 +51,31 @@ msgstr ""
 msgid "Select documents in choosers"
 msgstr ""
 
-#: models.py:25
+#: models.py:26
 msgid "title"
 msgstr ""
 
-#: models.py:26
+#: models.py:27
 msgid "file"
 msgstr ""
 
-#: models.py:27
+#: models.py:28
 msgid "created at"
 msgstr ""
 
-#: models.py:30
+#: models.py:31
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:38
+#: models.py:39
 msgid "tags"
 msgstr ""
 
-#: models.py:204
+#: models.py:208
 msgid "document"
 msgstr ""
 
-#: models.py:205
+#: models.py:209
 msgid "documents"
 msgstr ""
 

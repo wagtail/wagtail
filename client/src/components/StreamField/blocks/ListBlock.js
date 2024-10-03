@@ -7,7 +7,7 @@ import {
   BaseInsertionControl,
 } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
-import { range } from '../../../utils/range';
+import { gettext } from '../../../utils/gettext';
 import {
   addErrorMessages,
   removeErrorMessages,
@@ -188,18 +188,33 @@ export class ListBlock extends BaseSequenceBlock {
   blockCountChanged() {
     super.blockCountChanged();
 
-    if (typeof this.blockDef.meta.maxNum === 'number') {
-      if (this.children.length >= this.blockDef.meta.maxNum) {
-        /* prevent adding new blocks */
-        range(0, this.inserters.length).forEach((i) => {
-          this.inserters[i].disable();
-        });
-      } else {
-        /* allow adding new blocks */
-        range(0, this.inserters.length).forEach((i) => {
-          this.inserters[i].enable();
-        });
+    const errorMessages = [];
+    const maxNum = this.blockDef.meta.maxNum;
+
+    if (typeof maxNum === 'number') {
+      if (this.children.length > maxNum) {
+        const message = gettext(
+          'The maximum number of items is %(max_num)d',
+        ).replace('%(max_num)d', `${maxNum}`);
+        errorMessages.push(message);
       }
+    }
+
+    const minNum = this.blockDef.meta.minNum;
+
+    if (typeof minNum === 'number') {
+      if (this.children.length < minNum) {
+        const message = gettext(
+          'The minimum number of items is %(min_num)d',
+        ).replace('%(min_num)d', `${minNum}`);
+        errorMessages.push(message);
+      }
+    }
+
+    if (errorMessages.length) {
+      this.setError({ messages: errorMessages });
+    } else {
+      this.setError({});
     }
   }
 

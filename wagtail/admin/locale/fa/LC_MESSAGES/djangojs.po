@@ -4,12 +4,13 @@
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2022
 # Mostafa Heidarian <tabvar@gmail.com>, 2022
 # pyzenberg <pyzenberg@gmail.com>, 2022
-# Loic Teixeira, 2022
 # Amir Mahmoodi, 2023
+# Bardia, 2024
+# Loic Teixeira, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Amir Mahmoodi, 2023\n"
+"Last-Translator: Loic Teixeira, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/torchbox/teams/8009/fa/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
@@ -26,6 +27,9 @@ msgstr "انصراف"
 
 msgid "Close"
 msgstr "بستن"
+
+msgid "Comment"
+msgstr "نظر"
 
 msgid "Dashboard"
 msgstr "داشبورد"
@@ -96,6 +100,12 @@ msgstr "نشان دادن آخرین محتوا"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "ویراستار از کار افتاد. محتوا به آخرین نسخه ذخیره شده برگردانده شد."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "حداکثر تعداد آیتم ها %(max_num)d مورد میباشد"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "کمترین تعداد آیتم ها %(min_num)d مورد است"
 
 msgid "This field is required."
 msgstr "این فیلد لازم است."

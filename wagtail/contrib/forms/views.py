@@ -2,21 +2,31 @@ import datetime
 from collections import OrderedDict
 
 from django.contrib.admin.utils import quote
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.forms import CheckboxSelectMultiple
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.functional import classproperty
 from django.utils.translation import gettext, gettext_lazy, ngettext
 from django.views.generic import TemplateView
 from django_filters import DateFromToRangeFilter
 
 from wagtail.admin import messages
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.filters import (
+    DateRangePickerWidget,
+    MultipleContentTypeFilter,
+    WagtailFilterSet,
+)
 from wagtail.admin.ui.tables import Column, TitleColumn
-from wagtail.admin.views import generic
+from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.views.generic import PermissionCheckedMixin
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.contrib.forms.utils import get_forms_for_user
+from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
+from wagtail.contrib.forms.utils import get_form_types, get_forms_for_user
 from wagtail.models import Page
+from wagtail.permissions import page_permission_policy
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -39,9 +49,28 @@ class ContentTypeColumn(Column):
         return context
 
 
-class FormPagesListView(generic.IndexView):
+class FormPageFilterSet(PageFilterSet):
+    content_type = MultipleContentTypeFilter(
+        label=gettext_lazy("Page type"),
+        queryset=lambda request: ContentType.objects.filter(
+            pk__in=[ct.pk for ct in get_form_types()]
+        ).order_by("model"),
+        widget=CheckboxSelectMultiple,
+    )
+
+
+class FormPagesListView(PageListingMixin, PermissionCheckedMixin, BaseListingView):
     """Lists the available form pages for the current user"""
 
+    permission_policy = page_permission_policy
+    any_permission_required = {
+        "add",
+        "change",
+        "publish",
+        "bulk_delete",
+        "lock",
+        "unlock",
+    }
     template_name = "wagtailforms/index.html"
     results_template_name = "wagtailforms/index_results.html"
     context_object_name = "form_pages"
@@ -51,25 +80,36 @@ class FormPagesListView(generic.IndexView):
     index_results_url_name = "wagtailforms:index_results"
     page_title = gettext_lazy("Forms")
     header_icon = "form"
-    _show_breadcrumbs = True
-    columns = [
-        TitleColumn(
-            "title",
-            classname="title",
-            label=gettext_lazy("Title"),
-            width="50%",
-            url_name="wagtailforms:list_submissions",
-            sort_key="title",
-        ),
-        ContentTypeColumn(
-            "content_type",
-            label=gettext_lazy("Origin"),
-            width="50%",
-            sort_key="content_type",
-        ),
-    ]
     model = Page
-    is_searchable = False
+    is_searchable = True
+    filterset_class = FormPageFilterSet
+
+    @classproperty
+    def columns(self):
+        columns = [
+            col for col in PageListingMixin.columns if col.name not in {"title", "type"}
+        ]
+        columns.insert(
+            1,
+            TitleColumn(
+                "title",
+                classname="title",
+                label=gettext_lazy("Title"),
+                url_name="wagtailforms:list_submissions",
+                sort_key="title",
+                width="30%",
+            ),
+        )
+        columns.insert(
+            -1,
+            ContentTypeColumn(
+                "content_type",
+                label=gettext_lazy("Origin"),
+                sort_key="content_type",
+                width="20%",
+            ),
+        )
+        return columns
 
     def get_breadcrumbs_items(self):
         return self.breadcrumbs_items + [
@@ -78,7 +118,8 @@ class FormPagesListView(generic.IndexView):
 
     def get_base_queryset(self):
         """Return the queryset of form pages for this view"""
-        return get_forms_for_user(self.request.user).select_related("content_type")
+        pages = get_forms_for_user(self.request.user).select_related("content_type")
+        return self.annotate_queryset(pages)
 
 
 class DeleteSubmissionsView(TemplateView):
@@ -87,7 +128,7 @@ class DeleteSubmissionsView(TemplateView):
     template_name = "wagtailforms/confirm_delete.html"
     page = None
     submissions = None
-    success_url = "wagtailforms:list_submissions"
+    success_url_name = "wagtailforms:list_submissions"
 
     def get_queryset(self):
         """Returns a queryset for the selected submissions"""
@@ -111,7 +152,10 @@ class DeleteSubmissionsView(TemplateView):
 
     def get_success_url(self):
         """Returns the success URL to redirect to after a successful deletion"""
-        return self.success_url
+        next_url = get_valid_next_url_from_request(self.request)
+        if next_url:
+            return next_url
+        return reverse(self.success_url_name, args=(self.page.id,))
 
     def dispatch(self, request, *args, **kwargs):
         """Check permissions, set the page and submissions, handle delete"""
@@ -126,7 +170,7 @@ class DeleteSubmissionsView(TemplateView):
 
         if self.request.method == "POST":
             self.handle_delete(self.submissions)
-            return redirect(self.get_success_url(), page_id)
+            return redirect(self.get_success_url())
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -140,6 +184,7 @@ class DeleteSubmissionsView(TemplateView):
                 "submissions": self.submissions,
             }
         )
+        context["next_url"] = self.get_success_url()
 
         return context
 
@@ -172,7 +217,6 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
     forms_index_url_name = "wagtailforms:index"
     index_url_name = "wagtailforms:list_submissions"
     index_results_url_name = "wagtailforms:list_submissions_results"
-    _show_breadcrumbs = True
     show_export_buttons = True
 
     def dispatch(self, request, *args, **kwargs):
@@ -319,4 +363,5 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
                 }
             )
 
+        context["next_url"] = self.request.get_full_path()
         return context

@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
+from django.db.models.lookups import In
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, TransactionTestCase, override_settings
@@ -15,12 +16,14 @@ from django.utils.encoding import force_str
 from django.utils.html import escape, escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
+from django.utils.text import capfirst
 from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
 from wagtail.images.utils import generate_signature
+from wagtail.images.views.images import ImagesFilterSet
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
@@ -35,6 +38,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 from .utils import Image, get_test_image_file, get_test_image_file_svg
@@ -45,7 +49,7 @@ urlquote_safechars = RFC3986_SUBDELIMS + "/~:@"
 
 class TestImageIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
         self.kitten_image = Image.objects.create(
             title="a cute kitten",
             file=get_test_image_file(size=(1, 1)),
@@ -81,12 +85,10 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertContains(response, "a cute puppy")
 
     def test_pagination(self):
-        # page numbers in range should be accepted
-        response = self.get({"p": 1})
-        self.assertEqual(response.status_code, 200)
-        # page numbers out of range should return 404
-        response = self.get({"p": 9999})
-        self.assertEqual(response.status_code, 404)
+        pages = ["0", "1", "-1", "9999", "Not a page"]
+        for page in pages:
+            response = self.get({"p": page})
+            self.assertEqual(response.status_code, 200)
 
     def test_pagination_preserves_other_params(self):
         root_collection = Collection.get_first_root_node()
@@ -374,6 +376,28 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             # the prefetched objects cache.
             self.get()
 
+    def test_empty_tag_filter_does_not_perform_id_filtering(self):
+        image_one_tag = Image.objects.create(
+            title="Test image with one tag",
+            file=get_test_image_file(),
+        )
+        image_one_tag.tags.add("one")
+
+        request = RequestFactory().get(reverse("wagtailimages:index"))
+        request.user = self.user
+        filterset = ImagesFilterSet(
+            data={}, queryset=Image.objects.all(), request=request, is_searching=True
+        )
+
+        # Filtering on tags during a search would normally apply a `pk__in` filter, but this should not happen
+        # when the tag filter is empty.
+        in_clauses = [
+            clause
+            for clause in filterset.qs.query.where.children
+            if isinstance(clause, In)
+        ]
+        self.assertEqual(len(in_clauses), 0)
+
 
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -515,7 +539,7 @@ class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
         )
 
 
-class TestImageAddView(WagtailTestUtils, TestCase):
+class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -542,6 +566,14 @@ class TestImageAddView(WagtailTestUtils, TestCase):
 
         # draftail should NOT be a standard JS include on this page
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailimages:index"), "label": "Images"},
+                {"url": "", "label": "New: Image"},
+            ],
+            response.content,
+        )
 
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -927,7 +959,7 @@ class TestImageAddViewWithLimitedCollectionPermissions(WagtailTestUtils, TestCas
         )
 
 
-class TestImageEditView(WagtailTestUtils, TestCase):
+class TestImageEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -964,6 +996,14 @@ class TestImageEditView(WagtailTestUtils, TestCase):
         # (see TestImageEditViewWithCustomImageModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailimages:index"), "label": "Images"},
+                {"url": "", "label": "Test image"},
+            ],
+            response.content,
+        )
 
     def test_simple_with_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
@@ -1264,12 +1304,20 @@ class TestImageEditView(WagtailTestUtils, TestCase):
     def test_no_thousand_separators_in_focal_point_editor(self):
         large_image = Image.objects.create(
             title="Test image",
-            file=get_test_image_file(size=(1024, 768)),
+            file=get_test_image_file(size=(3840, 2160)),
+            focal_point_x=2048,
+            focal_point_y=1001,
+            focal_point_width=1009,
+            focal_point_height=1002,
         )
         response = self.client.get(
             reverse("wagtailimages:edit", args=(large_image.id,))
         )
-        self.assertContains(response, 'data-original-width="1024"')
+        self.assertContains(response, 'data-original-width="3840"')
+        self.assertContains(response, 'data-focal-point-x="2048"')
+        self.assertContains(response, 'data-focal-point-y="1001"')
+        self.assertContains(response, 'data-focal-point-width="1009"')
+        self.assertContains(response, 'data-focal-point-height="1002"')
 
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
     def test_unique_together_validation_error(self):
@@ -2330,7 +2378,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(WagtailTestUtils, TestCas
         )
 
 
-class TestMultipleImageUploader(WagtailTestUtils, TestCase):
+class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     """
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     """
@@ -2359,6 +2407,17 @@ class TestMultipleImageUploader(WagtailTestUtils, TestCase):
         # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailimages:index"),
+                    "label": capfirst(self.image._meta.verbose_name_plural),
+                },
+                {"url": "", "label": "Add images"},
+            ],
+            response.content,
+        )
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)
     def test_add_max_file_size_context_variables(self):
@@ -3338,7 +3397,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(WagtailTestUtils, TestCa
         self.assertTrue(response_json["success"])
 
 
-class TestURLGeneratorView(WagtailTestUtils, TestCase):
+class TestURLGeneratorView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -3361,6 +3420,19 @@ class TestURLGeneratorView(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/url_generator.html")
+        self.assertTemplateUsed(response, "wagtailadmin/generic/base.html")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailimages:index"), "label": "Images"},
+                {
+                    "url": reverse("wagtailimages:edit", args=(self.image.id,)),
+                    "label": "Test image",
+                },
+                {"url": "", "label": "Generate URL", "sublabel": "Test image"},
+            ],
+            response.content,
+        )
 
     def test_get_bad_permissions(self):
         """

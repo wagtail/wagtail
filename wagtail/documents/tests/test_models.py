@@ -217,8 +217,12 @@ class TestDocumentValidateExtensions(TestCase):
         creation when called full_clean. This specific testcase invalid
         file extension is passed
         """
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(ValidationError) as e:
             self.document_invalid.full_clean()
+        expected_message = (
+            "File extension “doc” is not allowed. Allowed extensions are: pdf."
+        )
+        self.assertEqual(e.exception.message_dict["file"][0], expected_message)
 
     def test_create_doc_valid_extension(self):
         """

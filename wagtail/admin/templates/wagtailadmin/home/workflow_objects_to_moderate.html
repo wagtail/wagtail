@@ -44,7 +44,7 @@
                                 {% if actions %}
                                     <ul class="actions">
                                         <li>
-                                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") hide_on_click=True %}
+                                            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") hide_on_click=True keep_mounted=True %}
                                                 {% for action_name, action_label, modal in actions %}
                                                     <button data-workflow-action-url="{% url state.workflow_action_url_name obj.pk|admin_urlquote action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
                                                 {% endfor %}
@@ -89,14 +89,5 @@
         </table>
     {% endpanel %}
 
-    <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
-    <script>
-        document.querySelectorAll('[data-controller="w-dropdown"]').forEach((e) => {
-            e.addEventListener(
-                'w-dropdown:shown',
-                () => ActivateWorkflowActionsForDashboard('{{ csrf_token|escapejs }}'),
-                { once: true },
-            );
-        });
-    </script>
+    <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}" data-activate="dashboard"></script>
 {% endif %}

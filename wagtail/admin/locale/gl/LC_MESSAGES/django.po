@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -397,6 +397,9 @@ msgstr "Seleccionados os %(objects)s ítems desta pantalla"
 msgid "All items in listing selected"
 msgstr "Seleccionados tódolos ítems do listado"
 
+msgid "Can access Wagtail admin"
+msgstr "Pode entrar no admin de Wagtail"
+
 msgid "For search engines"
 msgstr "Para os motores de busca"
 
@@ -568,15 +571,15 @@ msgstr "Convertir a enlace interno"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"A URL que introduciches, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, parece que coincide ca páxina "
-"interna %(page)s, que ten a URL <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>."
+"A URL que introduciches, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, parece que coincide ca "
+"páxina interna %(page)s, que ten a URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -612,9 +615,6 @@ msgstr "Explorar subpáxinas de '%(title)s'"
 
 msgid "Explore"
 msgstr "Explorar"
-
-msgid "Collection privacy"
-msgstr "Privacidade da colección"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Esta colección fíxose privada por unha colección nai."
@@ -656,11 +656,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Non se creou ningunha colección. ¿Por que non <a href="
-"\"%(add_collection_url)s\">engadir unha</a>?"
+"Non se creou ningunha colección. ¿Por que non <a "
+"href=\"%(add_collection_url)s\">engadir unha</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -703,11 +703,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
-"Este %(model_name)s agora está en <strong>%(task)s</strong> en <strong>"
-"%(workflow)s</strong>."
+"Este %(model_name)s agora está en <strong>%(task)s</strong> en "
+"<strong>%(workflow)s</strong>."
 
 #, python-format
 msgid "Publishing this %(model_name)s will cancel the current workflow."
@@ -735,8 +735,8 @@ msgid ""
 "There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
 "one</a>?"
 msgstr ""
-"Non hai %(model_name)s que amosar. Por qué non <a href=\"%(add_url)s"
-"\">engadír un</a>?"
+"Non hai %(model_name)s que amosar. Por qué non <a "
+"href=\"%(add_url)s\">engadír un</a>?"
 
 #, python-format
 msgid "There are no %(model_name)s to display."
@@ -844,9 +844,9 @@ msgid ""
 "strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
 "strong>."
 msgstr ""
-"Dispoñible actualización de Wagtail. A túa versión: <strong>"
-"%(current_version)s</strong>. Nova versión: <strong data-w-upgrade-target="
-"\"latestVersion\"></strong>."
+"Dispoñible actualización de Wagtail. A túa versión: "
+"<strong>%(current_version)s</strong>. Nova versión: <strong data-w-upgrade-"
+"target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Lee as notas da versión"
@@ -872,15 +872,15 @@ msgstr "As cousas en Wagtail %(version)s cambiaron!"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
 "Non te preocupes, estamos para axudar. Bótalle un ollo á <a class=\"w-whats-"
-"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Guía do Editor de Wagtail</a> para aprender qué cambiou e algunhas novas "
-"ferramentas!"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Guía do Editor de Wagtail</a> para aprender qué cambiou e "
+"algunhas novas ferramentas!"
 
 msgid "Awaiting your review"
 msgstr "Agardando pola túa revisión"
@@ -954,8 +954,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been approved in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"O %(model_name)s \"%(title)s\" aprobouse no estado de moderación \"%(task)s"
-"\"-"
+"O %(model_name)s \"%(title)s\" aprobouse no estado de moderación "
+"\"%(task)s\"-"
 
 #, python-format
 msgid "You can edit the %(model_name)s here:"
@@ -980,8 +980,8 @@ msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
 "\"%(task)s\"."
 msgstr ""
-"O %(model_name)s \"%(title)s\" rexeitouse no estado de moderación \"%(task)s"
-"\"."
+"O %(model_name)s \"%(title)s\" rexeitouse no estado de moderación "
+"\"%(task)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
@@ -1088,11 +1088,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
-"\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
 msgstr ""
-"O %(model_name)s \"%(title)s\" aprobouse no fluxo de traballo \"%(workflow)s"
-"\"."
+"O %(model_name)s \"%(title)s\" aprobouse no fluxo de traballo "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1146,8 +1146,8 @@ msgstr "A páxina \"%(title)s\" rexeitouse durante \"%(workflow)s\"."
 msgid ""
 "The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr ""
-"O %(model_name)s \"%(title)s\" rexeitouse no fluxo de traballo \"%(workflow)s"
-"\"."
+"O %(model_name)s \"%(title)s\" rexeitouse no fluxo de traballo "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid ""
@@ -1193,11 +1193,11 @@ msgid ""
 msgstr ""
 "O %(model_name)s \"%(title)s\" enviouse ó fluxo de traballo \"%(workflow)s\"."
 
-msgid "Page privacy"
-msgstr "Privacidade da páxina"
-
 msgid "This page has been made private by a parent page."
 msgstr "Esta páxina foi feita privada por unha páxina pai."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "O cambio de privacidade para esta páxina deshabilitouse."
 
 msgid "Save the page before leaving"
 msgstr "Gardar a páxina antes de sair"
@@ -1785,8 +1785,8 @@ msgid "Choose when this page should go live and/or expire"
 msgstr "Escolle cándo debería esta páxina verse en vivo e/ou caducar"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr ""
 "Este adiamento de publicación so terá efectos despóis de que selecciones a "
 "opción \"Publicar\""
@@ -1839,9 +1839,6 @@ msgstr "Última páxina editada"
 msgid "Last edit"
 msgstr "Última edición"
 
-msgid "No page types found."
-msgstr "Non se atoparon páxinas dese tipo."
-
 msgid "Locking status"
 msgstr "Estado de bloqueo"
 
@@ -1863,6 +1860,9 @@ msgstr "Bloqueada"
 msgid "No locked pages found."
 msgstr "Non se atoparon páxinas bloqueadas."
 
+msgid "No page types found."
+msgstr "Non se atoparon páxinas dese tipo."
+
 msgid "Name"
 msgstr "Nome"
 
@@ -1880,9 +1880,6 @@ msgstr "Editar este ítem"
 
 msgid "No log entries found."
 msgstr "Non se atoparon entradas no rexistro."
-
-msgid "By Task"
-msgstr "Por Tarefa"
 
 msgid "Workflow"
 msgstr "Fluxo de traballo"
@@ -1902,9 +1899,6 @@ msgstr "Tarefa incompleta"
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "Aínda non se enviaron páxinas nin fragmentos á moderación."
 
-msgid "By Workflow"
-msgstr "Por Fluxo de traballo"
-
 msgid "Completed at"
 msgstr "Completado o"
 
@@ -1923,6 +1917,66 @@ msgstr "Miga de pan"
 
 msgid "Close dialog"
 msgstr "Pechar diálogo"
+
+msgid "You saved a new version in another window"
+msgstr "Gardaches unha nova versión noutra ventana"
+
+msgid "System"
+msgstr "Sistema"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s gardóu unha nova versión"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "You have unsaved changes in another window"
+msgstr "Tes cambios sen gardar noutra ventana"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s ten cambios sen gardar"
+
+msgid "Currently viewing"
+msgstr "Vendo agora mesmo"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Outro usuario vendo agora mesmo"
+msgstr[1] "Outros %(num_user)s usuarios están vendo agora mesmo"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Proceder vai sobreescribir os cambios que fixeches nesa ventana. Actualizar "
+"a páxina mostrarache os novos cambios, pero perderás tódolos cambios sen "
+"gardar da ventana actual."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"Proceder vai sobreescribir os cambios feitos por %(user_name)s. Actualizar a "
+"páxina mostrarache os novos cambios, pero perderás tódolos teus cambios sen "
+"gardar."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Actualizar a páxina implica que perderás tódolos cambios sen gardar."
+
+msgid "Refresh page"
+msgstr "Actualizar páxina"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Refresh the page"
+msgstr "Actualizar a páxina"
 
 msgid "Download XLSX"
 msgstr "Descargar XLSX"
@@ -2011,6 +2065,18 @@ msgstr "Permutar panel lateral"
 
 msgid "Side panel width"
 msgstr "Ancho do panel lateral"
+
+msgid "Show issue"
+msgstr "Mostrar asunto"
+
+msgid "Content metrics"
+msgstr "Métricas do contido"
+
+msgid "Words"
+msgstr "Palabras"
+
+msgid "Reading time"
+msgstr "Tempo de lectura"
 
 msgid "Issues found"
 msgstr "Problemas atopados"
@@ -2223,14 +2289,14 @@ msgstr "Este %(model_name)s aínda non se envióu á moderación"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
 "Precísase JavaScript para usar Wagtail, pero agora mesmo está desactivado."
-"<br /> Aquí tes as <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noreferrer\">instruccións para activar JavaScript no teu "
-"navegador</a>."
+"<br /> Aquí tes as <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instruccións para activar JavaScript no "
+"teu navegador</a>."
 
 msgid "Skip to main content"
 msgstr "Ir ó contido principal"
@@ -2287,8 +2353,9 @@ msgstr "Crear"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Os fluxos de traballo tamén se lle aplican ás páxinas fillas. Si seleccionas "
 "aquí unha páxina nai, as súas páxinas fillas tamén usarán este fluxo de "
@@ -2349,15 +2416,15 @@ msgstr[1] "%(counter)s tipos de fragmentos"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Non se crearon fluxos de traballo. Por qué non <a href=\"%(add_url)s"
-"\">engadir un</a>?"
+"Non se crearon fluxos de traballo. Por qué non <a "
+"href=\"%(add_url)s\">engadir un</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Non hai fluxos de traballo activados. Por qué non <a href=\"%(add_url)s"
-"\">engadir un</a>?"
+"Non hai fluxos de traballo activados. Por qué non <a "
+"href=\"%(add_url)s\">engadir un</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Elixe qué tipo de tarefa che gustaría crear."
@@ -2586,45 +2653,47 @@ msgstr ""
 "Ordenar as páxinas fillas dentro de '%(parent)s' por '%(label)s' en orde "
 "decrecente."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do botón está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Button text is empty"
+msgstr "O texto do botón está baleiro"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
-msgstr ""
-"Hai un encabezado baleiro. Usa un texto útil para os usuarios con pantalla "
-"de voz."
+msgid "Use meaningful text for screen reader users"
+msgstr "Usa un texto con sentido para os usuarios con lectores de pantalla"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O encabezado da tabla está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Empty heading found"
+msgstr "Atopado un encabezado valeiro"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Hai un título de inserción baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Table header text is empty"
+msgstr "O encabezado da tabla está baleiro"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Xerarquía de encabezados incorrecta. Evita saltar niveles."
+msgid "Empty frame title found"
+msgstr "Atopado título de marco baleiro"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do botón está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Use a meaningful title for screen reader users"
+msgstr "Usa un título con sentido para os usuarios con lectores de pantalla"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"O texto do enlace está baleiro. Usa un texto útil para os usuarios con "
-"pantalla de voz."
+msgid "Incorrect heading hierarchy"
+msgstr "Xerarquía de encabezados incorrecta"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Mal uso de párrafos como encabezados. Usa etiquetas de encabezado axeitadas."
+msgid "Avoid skipping levels"
+msgstr "Evita saltar niveles"
+
+msgid "Input button text is empty"
+msgstr "O texto do botón de entrada está baleiro"
+
+msgid "Link text is empty"
+msgstr "O texto do enlace está baleiro"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Mal uso de párrafos como encabezados"
+
+msgid "Use proper heading tags"
+msgstr "Usa etiquetas de encabezados apropiados"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "O texto alternativo da imaxe ten un patrón inapropiado"
+
+msgid "Use meaningful text"
+msgstr "Usa un texto con sentido"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -2759,8 +2828,8 @@ msgstr "Cancelouse o fluxo de traballo no %(model_name)s '%(object)s'."
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
 "Estás vendo unha versión anterior deste %(model_name)s de <b>%(created_at)s</"
 "b> por %(user)s"
@@ -3198,9 +3267,6 @@ msgstr "Páxinas envellecidas"
 msgid "Last published at"
 msgstr "Publicada por última vez en"
 
-msgid "Hide commenting actions"
-msgstr "Agachar accións de comentarios"
-
 msgid "Site history"
 msgstr "Historial do sitio"
 
@@ -3237,11 +3303,17 @@ msgstr "Tipo Páxina/Fragmento"
 msgid "Page/Snippet Title"
 msgstr "Título Páxina/Fragmento"
 
+msgid "By task"
+msgstr "Por tarefa"
+
 msgid "Workflow tasks"
 msgstr "Tarefas do fluxo de traballo"
 
 msgid "Requested By"
 msgstr "Solicitado Por"
+
+msgid "By workflow"
+msgstr "Por fluxo de traballo"
 
 msgid "Show disabled"
 msgstr "Amosar deshabilitados"

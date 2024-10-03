@@ -1,6 +1,10 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Delete 1 document {% plural %}Delete {{ counter }} documents{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Delete 1 document {% plural %}Delete {{ counter }} documents{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
 
 {% block header %}
     {% trans "Delete documents" as del_str %}
@@ -18,10 +22,12 @@
         </p>
         <ul>
             {% for document in items %}
-                <li>
-                    <a href="{% url 'wagtaildocs:edit' document.item.id %}" target="_blank" rel="noreferrer">{{document.item.title}}</a>
-                    (<a href="{{ document.item.usage_url }}">{% blocktrans trimmed count usage_count=document.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
-                </li>
+                {% with usage_count_val=document.item.get_usage.count %}
+                    <li>
+                        <a href="{% url 'wagtaildocs:edit' document.item.id %}" target="_blank" rel="noreferrer">{{document.item.title}}</a>
+                        (<a href="{{ document.item.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
+                    </li>
+                {% endwith %}
             {% endfor %}
         </ul>
     {% endif %}

@@ -12,6 +12,7 @@ Let's say you need to connect Active Directory groups with Django groups.
 We create a model for Active Directory groups as follows:
 
 ```python
+# myapp/models.py
 from django.contrib.auth.models import Group
 from django.db import models
 
@@ -32,6 +33,7 @@ However, there is no role field on the Wagtail group 'edit' or 'create' view.
 To add it, inherit from `wagtail.users.forms.GroupForm` and add a new field:
 
 ```python
+# myapp/forms.py
 from django import forms
 
 from wagtail.users.forms import GroupForm as WagtailGroupForm
@@ -65,6 +67,7 @@ class GroupForm(WagtailGroupForm):
 Now add your custom form into the group viewset by inheriting the default Wagtail `GroupViewSet` class and overriding the `get_form_class` method.
 
 ```python
+# myapp/viewsets.py
 from wagtail.users.views.groups import GroupViewSet as WagtailGroupViewSet
 
 from .forms import GroupForm
@@ -89,11 +92,12 @@ Add the field to the group 'edit'/'create' templates:
 Finally, we configure the `wagtail.users` application to use the custom viewset, by setting up a custom `AppConfig` class. Within your project folder (which will be the package containing the top-level settings and urls modules), create `apps.py` (if it does not exist already) and add:
 
 ```python
+# myproject/apps.py
 from wagtail.users.apps import WagtailUsersAppConfig
 
 
 class CustomUsersAppConfig(WagtailUsersAppConfig):
-    group_viewset = "myapplication.someapp.viewsets.GroupViewSet"
+    group_viewset = "myapp.viewsets.GroupViewSet"
 ```
 
 Replace `wagtail.users` in `settings.INSTALLED_APPS` with the path to `CustomUsersAppConfig`.
@@ -101,11 +105,15 @@ Replace `wagtail.users` in `settings.INSTALLED_APPS` with the path to `CustomUse
 ```python
 INSTALLED_APPS = [
     ...,
-    "myapplication.apps.CustomUsersAppConfig",
+    "myproject.apps.CustomUsersAppConfig",
     # "wagtail.users",
     ...,
 ]
 ```
+
+The `GroupViewSet` class is a subclass of {class}`~wagtail.admin.viewsets.model.ModelViewSet` and thus it supports most of [the customizations available for `ModelViewSet`](./generic_views).
+
+The user forms and views can be customized in a similar way - see [](custom_userviewset).
 
 (customizing_group_views_permissions_order)=
 

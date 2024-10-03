@@ -4,9 +4,11 @@ import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
 from django.db.models import CharField, Q
 from django.db.models.functions import Cast
+from django.urls import reverse
+from django.utils.functional import cached_property
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import (
@@ -15,6 +17,7 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.utils import get_latest_str
+from wagtail.admin.widgets.button import HeaderButton
 from wagtail.coreutils import get_content_type_label
 from wagtail.models import (
     Task,
@@ -135,10 +138,14 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
 
 
 class WorkflowView(ReportView):
-    template_name = "wagtailadmin/reports/workflow.html"
-    title = _("Workflows")
+    results_template_name = "wagtailadmin/reports/workflow_results.html"
+    page_title = _("Workflows")
     header_icon = "tasks"
     filterset_class = WorkflowReportFilterSet
+    index_url_name = "wagtailadmin_reports:workflow"
+    index_results_url_name = "wagtailadmin_reports:workflow_results"
+    permission_policy = page_permission_policy
+    any_permission_required = ["add", "change", "publish"]
 
     export_headings = {
         "content_object.pk": _("Page/Snippet ID"),
@@ -170,6 +177,16 @@ class WorkflowView(ReportView):
             self.FORMAT_XLSX: get_content_type_label,
         }
 
+    @cached_property
+    def header_buttons(self):
+        return [
+            HeaderButton(
+                gettext("By task"),
+                reverse("wagtailadmin_reports:workflow_tasks"),
+                icon_name="thumbtack",
+            )
+        ]
+
     def get_title(self, content_object):
         return get_latest_str(content_object)
 
@@ -198,19 +215,16 @@ class WorkflowView(ReportView):
     def decorate_paginated_queryset(self, object_list):
         return [obj for obj in object_list if obj.content_object]
 
-    def dispatch(self, request, *args, **kwargs):
-        if not page_permission_policy.user_has_any_permission(
-            request.user, ["add", "change", "publish"]
-        ):
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)
-
 
 class WorkflowTasksView(ReportView):
-    template_name = "wagtailadmin/reports/workflow_tasks.html"
-    title = _("Workflow tasks")
+    results_template_name = "wagtailadmin/reports/workflow_tasks_results.html"
+    page_title = _("Workflow tasks")
     header_icon = "thumbtack"
     filterset_class = WorkflowTasksReportFilterSet
+    index_url_name = "wagtailadmin_reports:workflow_tasks"
+    index_results_url_name = "wagtailadmin_reports:workflow_tasks_results"
+    permission_policy = page_permission_policy
+    any_permission_required = ["add", "change", "publish"]
 
     export_headings = {
         "workflow_state.content_object.pk": _("Page/Snippet ID"),
@@ -243,6 +257,16 @@ class WorkflowTasksView(ReportView):
             self.FORMAT_CSV: get_content_type_label,
             self.FORMAT_XLSX: get_content_type_label,
         }
+
+    @cached_property
+    def header_buttons(self):
+        return [
+            HeaderButton(
+                gettext("By workflow"),
+                reverse("wagtailadmin_reports:workflow"),
+                icon_name="tasks",
+            )
+        ]
 
     def get_title(self, content_object):
         return get_latest_str(content_object)

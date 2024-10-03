@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    = -W --keep-going -n -jauto
+SPHINXOPTS    = --fail-on-warning -n -jauto
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build

@@ -1,6 +1,8 @@
-import { ADMIN_API } from '../config/wagtailConfig';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { getPageChildren, getPage } from './admin';
 import client from './client';
+
+const { ADMIN_API } = WAGTAIL_CONFIG;
 
 jest.mock('./client', () => {
   const stubResult = {

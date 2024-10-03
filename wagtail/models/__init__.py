@@ -193,7 +193,7 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_streamfield_names(model_class):
     return tuple(
         field.name
@@ -234,6 +234,36 @@ class BasePageManager(models.Manager):
             return self.model.get_first_root_node()
 
         return self.get(path=common_parent_path)
+
+    def annotate_parent_page(self, pages):
+        """
+        Annotates each page with its parent page. This is implemented as a
+        manager-only method instead of a QuerySet method so it can be used with
+        search results.
+
+        If given a QuerySet, this method will evaluate it. Only use this method
+        when you are ready to consume the queryset, e.g. after pagination has
+        been applied. This is typically done in the view's `get_context_data`
+        using `context["object_list"]`.
+
+        This method does not return a new queryset, but modifies the existing one,
+        to ensure any references to the queryset in the view's context are updated
+        (e.g. when using `context_object_name`).
+        """
+        parent_page_paths = {
+            Page._get_parent_path_from_path(page.path) for page in pages
+        }
+        parent_pages_by_path = {
+            page.path: page
+            for page in Page.objects.filter(path__in=parent_page_paths).specific(
+                defer=True
+            )
+        }
+        for page in pages:
+            parent_page = parent_pages_by_path.get(
+                Page._get_parent_path_from_path(page.path)
+            )
+            page._parent_page = parent_page
 
 
 PageManager = BasePageManager.from_queryset(PageQuerySet)
@@ -642,7 +672,7 @@ class DraftStateMixin(models.Model):
 
     def get_lock(self):
         # Scheduled publishing lock should take precedence over other locks
-        if self.scheduled_revision:
+        if self.approved_schedule:
             return ScheduledForPublishLock(self)
         return super().get_lock()
 
@@ -1291,8 +1321,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     promote_panels = []
     settings_panels = []
 
+    # Privacy options for page
+    private_page_options = ["password", "groups", "login"]
+
     @staticmethod
-    def route_for_request(request: "HttpRequest", path: str) -> RouteResult | None:
+    def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
         Find the page route for the given HTTP request object, and URL path. The route
         result (`page`, `args`, and `kwargs`) will be cached via
@@ -1319,7 +1352,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return request._wagtail_route_for_request
 
     @staticmethod
-    def find_for_request(request: "HttpRequest", path: str) -> "Page" | None:
+    def find_for_request(request: HttpRequest, path: str) -> Page | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
         page route will be cached via `request._wagtail_route_for_request`
@@ -1817,7 +1850,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         This is called by Wagtail whenever a page with aliases is published.
 
         :param revision: The revision of the original page that we are updating to (used for logging purposes)
-        :type revision: PageRevision, optional
+        :type revision: Revision, Optional
         """
         specific_self = self.specific
 
@@ -2387,8 +2420,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     ):
         """
         Copies a given page
-        :param log_action flag for logging the action. Pass None to skip logging.
-            Can be passed an action string. Defaults to 'wagtail.copy'
+
+        :param log_action: flag for logging the action. Pass None to skip logging. Can be passed an action string. Defaults to 'wagtail.copy'
         """
         return CopyPageAction(
             self,
@@ -2789,12 +2822,20 @@ class RevisionQuerySet(models.QuerySet):
         return self.exclude(self.page_revisions_q())
 
     def for_instance(self, instance):
-        return self.filter(
-            content_type=ContentType.objects.get_for_model(
-                instance, for_concrete_model=False
-            ),
-            object_id=str(instance.pk),
-        )
+        try:
+            # Use RevisionMixin.get_base_content_type() if available
+            return self.filter(
+                base_content_type=instance.get_base_content_type(),
+                object_id=str(instance.pk),
+            )
+        except AttributeError:
+            # Fallback to ContentType for the model
+            return self.filter(
+                content_type=ContentType.objects.get_for_model(
+                    instance, for_concrete_model=False
+                ),
+                object_id=str(instance.pk),
+            )
 
 
 class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
@@ -3225,10 +3266,13 @@ class PagePermissionTester:
 
     def can_reorder_children(self):
         """
-        Keep reorder permissions the same as publishing, since it immediately affects published pages
-        (and the use-cases for a non-admin needing to do it are fairly obscure...)
+        Reorder permission checking is similar to publishing a subpage, since it immediately
+        affects published pages. However, it shouldn't care about the 'creatability' of
+        page types, because the action only ever updates existing pages.
         """
-        return self.can_publish_subpage()
+        if not self.user.is_active:
+            return False
+        return self.user.is_superuser or ("publish" in self.permissions)
 
     def can_move(self):
         """
@@ -3248,7 +3292,17 @@ class PagePermissionTester:
 
         # reject moves that are forbidden by subpage_types / parent_page_types rules
         # (these rules apply to superusers too)
-        if not self.page.specific.can_move_to(destination):
+        # – but only check this if the page is not already under the target parent.
+        # If it already is, then the user is just reordering the page, and we want
+        # to allow it even if the page currently violates the subpage_type /
+        # parent_page_type rules. This can happen if it was either created before
+        # the rules were specified, or it was done programmatically (e.g. to
+        # predefine a set of pages and disallow the creation of new subpages by
+        # setting subpage_types = []).
+
+        if (not self.page.is_child_of(destination)) and (
+            not self.page.specific.can_move_to(destination)
+        ):
             return False
 
         # shortcut the trivial 'everything' / 'nothing' permissions
@@ -4520,6 +4574,9 @@ class PageLogEntryManager(BaseLogEntryManager):
             )
 
         return PageLogEntry.objects.filter(q)
+
+    def for_instance(self, instance):
+        return self.filter(page=instance)
 
 
 class PageLogEntry(BaseLogEntry):

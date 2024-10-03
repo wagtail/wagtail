@@ -588,7 +588,7 @@ class FormPage(AbstractEmailForm):
 
 (custom_form_submission_listing)=
 
-## Customise form submissions listing in Wagtail Admin
+## Customize form submissions listing in Wagtail Admin
 
 The Admin listing of form submissions can be customized by setting the attribute `submissions_list_view_class` on your FormPage model.
 
@@ -627,10 +627,6 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     # content_panels = ...
-```
-
-```{versionchanged} 6.1
-The `SubmissionsListView` class is now a subclass of Wagtail's generic `BaseListingView`. As a result, the `ordering` attribute has been renamed to `default_ordering`.
 ```
 
 ## Adding a custom field type

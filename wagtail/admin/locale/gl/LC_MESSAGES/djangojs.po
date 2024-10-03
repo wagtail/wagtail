@@ -1,12 +1,12 @@
 #
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2022
-# Loic Teixeira, 2022
-# X Bello <xbello@gmail.com>, 2023
+# Loic Teixeira, 2024
+# X Bello <xbello@gmail.com>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: X Bello <xbello@gmail.com>, 2023\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2024\n"
 "Language-Team: Galician (https://app.transifex.com/torchbox/teams/8009/gl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: gl\n"
@@ -25,6 +25,11 @@ msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s erro"
 msgstr[1] "%(num)s erros"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minuto"
+msgstr[1] "%(num)s minutos"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
@@ -196,6 +201,12 @@ msgstr "Partir bloque"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "O editor acaba de cascar. O contido volveu á ultima versión gardada."
+
+msgid "The maximum number of items is %(max_num)d"
+msgstr "O máximo número de ítems é %(max_num)d"
+
+msgid "The minimum number of items is %(min_num)d"
+msgstr "O mínimo número de ítems é %(min_num)d"
 
 msgid "This field is required."
 msgstr "Este campo é requirido."

@@ -1,4 +1,5 @@
 from itertools import groupby
+from warnings import warn
 
 from django import forms
 from django.conf import settings
@@ -21,6 +22,7 @@ from wagtail.models import (
     GroupPagePermission,
     Page,
 )
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 User = get_user_model()
 
@@ -29,6 +31,11 @@ standard_fields = {"email", "first_name", "last_name", "is_superuser", "groups"}
 # Custom fields
 if hasattr(settings, "WAGTAIL_USER_CUSTOM_FIELDS"):
     custom_fields = set(settings.WAGTAIL_USER_CUSTOM_FIELDS)
+    warn(
+        "The `WAGTAIL_USER_CUSTOM_FIELDS` setting is deprecated. Use a custom "
+        "`UserViewSet` subclass and override `get_form_class()` instead.",
+        RemovedInWagtail70Warning,
+    )
 else:
     custom_fields = set()
 

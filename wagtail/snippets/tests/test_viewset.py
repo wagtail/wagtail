@@ -15,6 +15,7 @@ from django.utils.timezone import now
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.menu import admin_menu, settings_menu
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.staticfiles import versioned_static
@@ -89,7 +90,7 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             ("delete", [pk], "header.html"),
             ("usage", [pk], "headers/slim_header.html"),
             ("unpublish", [pk], "header.html"),
-            ("workflow_history", [pk], "header.html"),
+            ("workflow_history", [pk], "headers/slim_header.html"),
             ("revisions_revert", [pk, self.revision_1.id], "headers/slim_header.html"),
             (
                 "revisions_compare",
@@ -136,11 +137,9 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/header.html")
-        # The icon is not displayed in the header,
-        # but it is displayed in the main content
-        self.assertEqual(response.context["header_icon"], "list-ul")
-        self.assertContains(response, "icon icon-list-ul")
+        self.assertTemplateNotUsed(response, "wagtailadmin/shared/header.html")
+        self.assertEqual(response.context["header_icon"], "cog")
+        self.assertContains(response, "icon icon-clipboard-list")
         self.assertContains(response, "icon icon-cog")
 
 
@@ -1077,7 +1076,7 @@ class TestDjangoORMSearchBackend(BaseSnippetViewSetTests):
         self.assertNotContains(response, "This field is required.")
 
     def test_is_searchable(self):
-        self.assertTrue(self.get().context["is_searchable"])
+        self.assertIsInstance(self.get().context["search_form"], SearchForm)
 
     def test_search_index_view(self):
         response = self.get({"q": "Django"})
@@ -1137,14 +1136,14 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.model = RevisableModel
         revisable_item = group_item.menu_items[0]
         self.assertEqual(revisable_item.name, "revisable-models")
-        self.assertEqual(revisable_item.label, "Revisable Models")
+        self.assertEqual(revisable_item.label, "Revisable models")
         self.assertEqual(revisable_item.icon_name, "snippet")
         self.assertEqual(revisable_item.url, self.get_url("list"))
 
         self.model = RevisableChildModel
         revisable_child_item = group_item.menu_items[1]
         self.assertEqual(revisable_child_item.name, "revisable-child-models")
-        self.assertEqual(revisable_child_item.label, "Revisable Child Models")
+        self.assertEqual(revisable_child_item.label, "Revisable child models")
         self.assertEqual(revisable_child_item.icon_name, "snippet")
         self.assertEqual(revisable_child_item.url, self.get_url("list"))
 
@@ -1553,6 +1552,23 @@ class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
                 "label": str(self.object),
             },
             {"url": "", "label": "Inspect", "sublabel": str(self.object)},
+        ]
+        self.assertBreadcrumbsItemsRendered(items, response.content)
+
+    def test_workflow_history_view(self):
+        response = self.client.get(
+            self.get_url("workflow_history", args=(self.object.pk,))
+        )
+        items = [
+            {
+                "url": self.get_url("list"),
+                "label": "Full-featured snippets",
+            },
+            {
+                "url": self.get_url("edit", args=(self.object.pk,)),
+                "label": str(self.object),
+            },
+            {"url": "", "label": "Workflow history", "sublabel": str(self.object)},
         ]
         self.assertBreadcrumbsItemsRendered(items, response.content)
 

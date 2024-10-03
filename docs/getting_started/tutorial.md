@@ -24,7 +24,7 @@ python3 --version
 py --version
 ```
 
-If none of the preceding commands return a version number, or return a version lower than 3.8, then [install Python 3](https://www.python.org/downloads/).
+If none of the preceding commands return a version number, or return a version lower than 3.9, then [install Python 3](https://www.python.org/downloads/).
 
 (virtual_environment_creation)=
 
@@ -304,7 +304,7 @@ python manage.py migrate
 ```
 
 Also, since the model name is `BlogIndexPage`, the default template name,
-unless you override it, is `blog_index_page.html`. Django looks for a template whose name matches the name of your Page model within the templates directory in your blog app folder. You can override this default behaviour if you want to. To create a template for the
+unless you override it, is `blog_index_page.html`. Django looks for a template whose name matches the name of your Page model within the templates directory in your blog app folder. You can override this default behavior if you want to. To create a template for the
 `BlogIndexPage` model, create a file at the location `blog/templates/blog/blog_index_page.html`.
 
 ```{note}

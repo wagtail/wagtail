@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Daniel Freira, 2024\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -574,15 +574,15 @@ msgstr "Converter para ligação interna"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"O URL que inseriu, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, parece corresponder à página "
-"interna%(page)s, que tem o URL <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(internal_url)s\">%(internal_url)s</a>."
+"O URL que inseriu, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, parece corresponder à "
+"página interna%(page)s, que tem o URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 msgid "Use external link"
 msgstr "Usar ligação externa"
@@ -609,9 +609,6 @@ msgstr "Explorar páginas-filha de '%(title)s'"
 
 msgid "Explore"
 msgstr "Explorar"
-
-msgid "Collection privacy"
-msgstr "Privacidade da coleção"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "A coleção foi tornada privada por uma coleção-mãe."
@@ -652,11 +649,11 @@ msgstr "A coleção não pode ser apagada, dado não estar vazia. Contém:"
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Ainda não foram criadas coleções. Que tal <a href=\"%(add_collection_url)s"
-"\">adicionar uma</a>?"
+"Ainda não foram criadas coleções. Que tal <a "
+"href=\"%(add_collection_url)s\">adicionar uma</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -967,9 +964,6 @@ msgstr ""
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr ""
 "A página \"%(title)s\" foi enviada para o fluxo de trabalho \"%(workflow)s\""
-
-msgid "Page privacy"
-msgstr "Privacidade da página"
 
 msgid "This page has been made private by a parent page."
 msgstr "Esta página foi tornada privada por uma página-mãe"
@@ -1345,9 +1339,6 @@ msgstr "Alterar este item"
 msgid "No log entries found."
 msgstr "Nenhuma entrada de diário encontrada."
 
-msgid "By Task"
-msgstr "Por Tarefa"
-
 msgid "Workflow"
 msgstr "Fluxo de trabalho"
 
@@ -1360,9 +1351,6 @@ msgstr "Iniciado a"
 msgid "Incomplete task"
 msgstr "Tarefa incompleta"
 
-msgid "By Workflow"
-msgstr "Por Fluxo de Trabalho"
-
 msgid "Completed at"
 msgstr "Completado a"
 
@@ -1372,6 +1360,9 @@ msgstr "Página %(page_num)s de %(total_pages)s."
 
 msgid "Breadcrumb"
 msgstr "Percurso"
+
+msgid "Continue"
+msgstr "Continuar"
 
 msgid "Download XLSX"
 msgstr "Descarregar XLSX"
@@ -1523,8 +1514,9 @@ msgstr "Criar"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Os fluxos de trabalho também se aplicam a páginas-filha. Se selecionar a "
 "página-mãe aqui, todas as suas páginas-filha irão herdar o mesmo fluxo de "
@@ -1566,15 +1558,15 @@ msgstr "Passo %(step_number)s"
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ainda não foi criado nenhum fluxo de trabalho. Que tal <a href=\"%(add_url)s"
-"\">adicionar um</a>?"
+"Ainda não foi criado nenhum fluxo de trabalho. Que tal <a "
+"href=\"%(add_url)s\">adicionar um</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Não existem fluxos de trabalho ativos. Que tal <a href=\"%(add_url)s"
-"\">adicionar um</a>?"
+"Não existem fluxos de trabalho ativos. Que tal <a "
+"href=\"%(add_url)s\">adicionar um</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Escolha o tipo de tarefa que gostaria de criar."
@@ -1608,8 +1600,8 @@ msgstr "Ainda não criou nenhuma tarefa."
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ainda não foi criada nenhuma tarefa. Que tal <a href=\"%(add_url)s"
-"\">adicionar uma</a>?"
+"Ainda não foi criada nenhuma tarefa. Que tal <a "
+"href=\"%(add_url)s\">adicionar uma</a>?"
 
 #, python-format
 msgid ""
@@ -2098,9 +2090,6 @@ msgstr "Páginas envelhecidas"
 
 msgid "Last published at"
 msgstr "Última publicação a"
-
-msgid "Hide commenting actions"
-msgstr "Esconder ações de comentário"
 
 msgid "Site history"
 msgstr "Histórico do site"

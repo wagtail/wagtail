@@ -33,6 +33,7 @@ from wagtail.test.utils import TestCase, WagtailTestUtils
         ("fr", "French"),
         ("de", "German"),
     ],
+    WAGTAIL_I18N_ENABLED=True,
 )
 class TestSubmitTranslationView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -118,6 +119,7 @@ class TestSubmitTranslationView(WagtailTestUtils, TestCase):
         ("fr", "French"),
         ("de", "German"),
     ],
+    WAGTAIL_I18N_ENABLED=True,
 )
 class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -222,6 +224,7 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         ("fr", "French"),
         ("de", "German"),
     ],
+    WAGTAIL_I18N_ENABLED=True,
 )
 class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -401,6 +404,7 @@ class TestSubmitSnippetTranslationWithDraftState(WagtailTestUtils, TestCase):
         ("de", "German"),
     ],
     WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True,
+    WAGTAIL_I18N_ENABLED=True,
 )
 class TestPageTreeSync(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -438,3 +442,50 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
 
         self.assertFalse(en_blog_index.has_translation(self.fr_locale))
         self.assertFalse(en_blog_index.has_translation(self.de_locale))
+
+
+@override_settings(
+    LANGUAGES=[
+        ("en", "English"),
+        ("fr", "French"),
+        ("de", "German"),
+    ],
+    WAGTAIL_CONTENT_LANGUAGES=[
+        ("en", "English"),
+        ("fr", "French"),
+        ("de", "German"),
+    ],
+    WAGTAIL_I18N_ENABLED=True,
+)
+class TestPageListing(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.en_locale = Locale.objects.first()
+        cls.fr_locale = Locale.objects.create(language_code="fr")
+        cls.de_locale = Locale.objects.create(language_code="de")
+
+        cls.en_homepage = Page.objects.get(depth=2)
+        cls.pages = []
+        for i in range(10):
+            instance = TestPage(title=f"Foo {i}", slug=f"foo-{i}")
+            cls.pages.append(cls.en_homepage.add_child(instance=instance))
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_translate_button_displayed(self):
+        url = reverse("wagtailadmin_explore", args=(self.en_homepage.pk,))
+        response = self.client.get(url)
+        with self.assertNumQueries(41):
+            response = self.client.get(url)
+
+        soup = self.get_soup(response.content)
+        page = self.pages[0]
+        translate_url = reverse(
+            "simple_translation:submit_page_translation",
+            args=[page.id],
+        )
+        translate_button = soup.select_one(f'a[href="{translate_url}"]')
+        self.assertIsNotNone(translate_button)
+        self.assertEqual(translate_button.text.strip(), "Translate")
+        self.assertIsNotNone(translate_button.select_one("svg.icon-globe"))

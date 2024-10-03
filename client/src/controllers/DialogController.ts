@@ -21,22 +21,27 @@ export class DialogController extends Controller<HTMLElement> {
     theme: { default: '', type: String },
   };
 
-  static targets = ['body', 'notify'];
+  static targets = ['body', 'notify', 'confirm'];
 
   declare dialog: A11yDialog;
   declare readonly bodyTarget: HTMLElement;
   declare readonly themeValue: string;
   /** Optional targets that will be dispatched events for key dialog events. */
   declare readonly notifyTargets: HTMLElement[];
+  declare readonly hasConfirmTarget: boolean;
+  declare readonly confirmTarget: HTMLButtonElement;
+
+  get eventDetail() {
+    return { body: this.bodyTarget, dialog: this.dialog };
+  }
 
   connect() {
     this.dialog = new A11yDialog(this.element);
-    const detail = { body: this.bodyTarget, dialog: this.dialog };
     const isFloating = this.themeValue === FLOATING;
     this.dialog
       .on('show', () => {
         if (!isFloating) document.documentElement.style.overflowY = 'hidden';
-        this.dispatch('shown', { detail, cancelable: false });
+        this.dispatch('shown', { detail: this.eventDetail, cancelable: false });
         this.notifyTargets.forEach((target) => {
           this.dispatch('shown', {
             target,
@@ -47,7 +52,10 @@ export class DialogController extends Controller<HTMLElement> {
       })
       .on('hide', () => {
         if (!isFloating) document.documentElement.style.overflowY = '';
-        this.dispatch('hidden', { detail, cancelable: false });
+        this.dispatch('hidden', {
+          detail: this.eventDetail,
+          cancelable: false,
+        });
         this.notifyTargets.forEach((target) => {
           this.dispatch('hidden', {
             target,
@@ -56,7 +64,7 @@ export class DialogController extends Controller<HTMLElement> {
           });
         });
       });
-    this.dispatch('ready', { detail });
+    this.dispatch('ready', { detail: this.eventDetail });
     if (this.notifyTargets && Array.isArray(this.notifyTargets)) {
       this.notifyTargets.forEach((target) => {
         this.dispatch('ready', { target, bubbles: false, cancelable: false });
@@ -71,5 +79,10 @@ export class DialogController extends Controller<HTMLElement> {
 
   show() {
     this.dialog.show();
+  }
+
+  confirm() {
+    this.hide();
+    this.dispatch('confirmed', { detail: this.eventDetail, cancelable: false });
   }
 }

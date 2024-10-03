@@ -26,6 +26,11 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  *  Enable
  * </button>
  *
+ * @example - triggering a POST request via sendBeacon
+ * <button data-controller="w-action" data-action="blur->w-action#sendBeacon">
+ *  If you move focus away from this button, a POST request will be sent.
+ * </button>
+ *
  * @example - triggering a dynamic redirect
  * // note: a link is preferred normally
  * <form>
@@ -71,10 +76,7 @@ export class ActionController extends Controller<
    */
   noop() {}
 
-  post(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
-
+  private createFormElement() {
     const formElement = document.createElement('form');
 
     formElement.action = this.urlValue;
@@ -97,8 +99,45 @@ export class ActionController extends Controller<
       formElement.appendChild(nextElement);
     }
 
+    return formElement;
+  }
+
+  post(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const formElement = this.createFormElement();
     document.body.appendChild(formElement);
     formElement.submit();
+  }
+
+  /**
+   * Like post, but uses the Beacon API, which can be used to send data
+   * to a server without waiting for a response. Useful for sending analytics
+   * data or a "release" signal before navigating away from a page.
+   */
+  sendBeacon() {
+    navigator.sendBeacon(this.urlValue, new FormData(this.createFormElement()));
+  }
+
+  /**
+   * Reload the browser.
+   */
+  reload() {
+    window.location.reload();
+  }
+
+  /**
+   * Reload the browser, bypassing the browser dialog triggered by UnsavedController.
+   */
+  forceReload() {
+    window.addEventListener(
+      'w-unsaved:confirm',
+      (event) => {
+        event.preventDefault();
+      },
+      { once: true },
+    );
+    window.location.reload();
   }
 
   /**

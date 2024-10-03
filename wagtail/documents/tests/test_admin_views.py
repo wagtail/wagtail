@@ -9,6 +9,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.html import escape
 from django.utils.http import urlencode
+from django.utils.text import capfirst
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.documents import get_document_model, models
@@ -28,6 +29,7 @@ from wagtail.test.testapp.models import (
     VariousOnDeleteModel,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestDocumentIndexView(WagtailTestUtils, TestCase):
@@ -71,7 +73,11 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": "Hello World!"})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
+
+        # Check that we got page one
+        self.assertEqual(response.context["page_obj"].number, 1)
 
     def test_pagination_out_of_range(self):
         self.make_docs()
@@ -79,7 +85,14 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         response = self.get({"p": 99999})
 
         # Check response
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtaildocs/documents/index.html")
+
+        # Check that we got the last page
+        self.assertEqual(
+            response.context["page_obj"].number,
+            response.context["paginator"].num_pages,
+        )
 
     def test_ordering(self):
         orderings = ["title", "-created_at"]
@@ -392,7 +405,7 @@ class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
         self.assertContains(response, "<td>Root</td>", html=True)
 
 
-class TestDocumentAddView(WagtailTestUtils, TestCase):
+class TestDocumentAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
 
@@ -413,6 +426,14 @@ class TestDocumentAddView(WagtailTestUtils, TestCase):
 
         # draftail should NOT be a standard JS include on this page
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtaildocs:index"), "label": "Documents"},
+                {"url": "", "label": "New: Document"},
+            ],
+            response.content,
+        )
 
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -606,7 +627,7 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(WagtailTestUtils, Test
         )
 
 
-class TestDocumentEditView(WagtailTestUtils, TestCase):
+class TestDocumentEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -664,6 +685,14 @@ class TestDocumentEditView(WagtailTestUtils, TestCase):
         # (see TestDocumentEditViewWithCustomDocumentModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, "wagtailadmin/js/draftail.js")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtaildocs:index"), "label": "Documents"},
+                {"url": "", "label": "Test document"},
+            ],
+            response.content,
+        )
 
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/documents/edit/%d/" % self.document.id
@@ -1013,7 +1042,7 @@ class TestDocumentDeleteView(WagtailTestUtils, TestCase):
         self.assertContains(response, "This document is referenced 0 times")
 
 
-class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
+class TestMultipleDocumentUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     """
     This tests the multiple document upload views located in wagtaildocs/views/multiple.py
     """
@@ -1051,6 +1080,17 @@ class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtaildocs/multiple/add.html")
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtaildocs:index"),
+                    "label": capfirst(self.doc._meta.verbose_name_plural),
+                },
+                {"url": "", "label": "Add documents"},
+            ],
+            response.content,
+        )
 
         # no collection chooser when only one collection exists
         self.assertNotContains(response, "id_adddocument_collection")
@@ -2041,7 +2081,7 @@ class TestUsageCount(WagtailTestUtils, TestCase):
         self.assertContains(response, "Used 0 times")
 
 
-class TestGetUsage(WagtailTestUtils, TestCase):
+class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -2075,6 +2115,24 @@ class TestGetUsage(WagtailTestUtils, TestCase):
         self.assertContains(response, "Christmas")
         self.assertContains(response, '<table class="listing">')
         self.assertContains(response, "<td>Event page</td>", html=True)
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtaildocs:index"),
+                    "label": "Documents",
+                },
+                {
+                    "url": reverse("wagtaildocs:edit", args=(1,)),
+                    "label": "test document",
+                },
+                {
+                    "url": "",
+                    "label": "Usage",
+                    "sublabel": "test document",
+                },
+            ],
+            response.content,
+        )
 
     def test_usage_page_no_usage(self):
         response = self.client.get(reverse("wagtaildocs:document_usage", args=(1,)))

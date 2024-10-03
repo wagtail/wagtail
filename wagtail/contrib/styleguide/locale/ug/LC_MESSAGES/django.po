@@ -1,0 +1,49 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2015-08-26 14:07+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
+"ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail style guide"
+msgstr "Wagtail ئۇسلۇب قوللانمىسى"
+
+msgid "Minimap"
+msgstr "كىچىك خەرىتە"
+
+msgid "Save"
+msgstr "ساقلا"
+
+msgid "Delete image"
+msgstr "سۈرەت ئۆچۈر"
+
+msgid "Styleguide"
+msgstr "ئۇسلۇب قوللانمىسى"
+
+msgid "Success message"
+msgstr "مۇۋەپپەقىيەت ئۇچۇرى"
+
+msgid "View live"
+msgstr "شۇئان كۆرسەت"
+
+msgid "Edit"
+msgstr "تەھرىر"
+
+msgid "Warning message"
+msgstr "ئاگاھلاندۇرۇش ئۇچۇرى"
+
+msgid "Error message"
+msgstr "خاتالىق ئۇچۇرى"

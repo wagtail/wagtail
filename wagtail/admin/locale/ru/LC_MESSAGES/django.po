@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,9 +53,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Publish"
 msgstr "Опубликовать"
@@ -440,6 +440,9 @@ msgstr "Выбраны все %(objects)s элементов на этом эк�
 msgid "All items in listing selected"
 msgstr "Все элементы в списке выбраны"
 
+msgid "Can access Wagtail admin"
+msgstr "Доступ к панели управления Wagtail"
+
 msgid "For search engines"
 msgstr "Для поисковых систем"
 
@@ -618,15 +621,15 @@ msgstr "Преобразовать во внутреннюю ссылку"
 
 #, python-format
 msgid ""
-"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
-"internal page %(page)s, which has the URL <a target=\"_blank\" rel="
-"\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 msgstr ""
-"Введенный вами URL, <a target=\"_blank\" rel=\"noreferrer\" href="
-"\"%(submitted_url)s\">%(submitted_url)s</a>, похоже, совпадает с внутренней "
-"страницей %(page)s, которая имеет URL <a target=\"_blank\" rel=\"noreferrer"
-"\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+"Введенный вами URL, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, похоже, совпадает с "
+"внутренней страницей %(page)s, которая имеет URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
 
 #, python-format
 msgid ""
@@ -663,9 +666,6 @@ msgstr "Обзор подстраниц для '%(title)s'"
 
 msgid "Explore"
 msgstr "Обзор"
-
-msgid "Collection privacy"
-msgstr "Приватность коллекции"
 
 msgid "This collection has been made private by a parent collection."
 msgstr "Коллекция приватна в соответствии с родительской коллекцией."
@@ -707,11 +707,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"No collections have been created. Why not <a href=\"%(add_collection_url)s"
-"\">add one</a>?"
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
 msgstr ""
-"Коллекции еще не были созданы. Почему бы не <a href=\"%(add_collection_url)s"
-"\">добавить одну</a>?"
+"Коллекции еще не были созданы. Почему бы не <a "
+"href=\"%(add_collection_url)s\">добавить одну</a>?"
 
 #, python-format
 msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
@@ -754,8 +754,8 @@ msgstr ""
 
 #, python-format
 msgid ""
-"This %(model_name)s is currently at <strong>%(task)s</strong> in <strong>"
-"%(workflow)s</strong>."
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
 msgstr ""
 "%(model_name)sв настоящее время находится на <strong>%(task)s</strong> в "
 "<strong>%(workflow)s</strong>."
@@ -786,8 +786,8 @@ msgid ""
 "There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
 "one</a>?"
 msgstr ""
-"Нет %(model_name)s для отображения. Почему бы не <a href=\"%(add_url)s"
-"\">добавить одну</a>?"
+"Нет %(model_name)s для отображения. Почему бы не <a "
+"href=\"%(add_url)s\">добавить одну</a>?"
 
 #, python-format
 msgid "There are no %(model_name)s to display."
@@ -933,15 +933,15 @@ msgstr "Что изменилось в Wagtail %(version)s !"
 
 #, python-format
 msgid ""
-"Don't worry, we've got your back. Check out the <a class=\"w-whats-new__link"
-"\" href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">Wagtail Editor Guide</a> to get the low down on what's changed and some "
-"exciting new features!"
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
 msgstr ""
 "Не волнуйтесь, мы поможем вам. Посмотрите на <a class=\"w-whats-new__link\" "
-"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer"
-"\">руководство по редактору Wagtail</a>, чтобы узнать, что изменилось, и "
-"узнать о некоторых интересных новых функциях!"
+"href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">руководство по редактору Wagtail</a>, чтобы узнать, что "
+"изменилось, и узнать о некоторых интересных новых функциях!"
 
 msgid "Awaiting your review"
 msgstr "В ожидании вашего отзыва"
@@ -989,10 +989,10 @@ msgstr "Страница \"%(title)s\" была утверждена"
 
 #, python-format
 msgid "Hello %(username)s,"
-msgstr "Привет, %(username)s,"
+msgstr "Здравствуйте %(username)s,"
 
 msgid "Edit your notification preferences here:"
-msgstr "Редактировать ваши настройки уведомления здесь:"
+msgstr "Если необходимо, отредактируйте свои настройки уведомлений здесь:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
@@ -1134,21 +1134,21 @@ msgstr "%(editor)s обновил комментарии к \"%(title)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr ""
-"Страница \"%(title)s\"  утверждена в рамках рабочего процесса \"%(workflow)s"
-"\"."
+"Страница \"%(title)s\"  утверждена в рамках рабочего процесса "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid ""
-"The %(model_name)s \"%(title)s\" has been approved in workflow \"%(workflow)s"
-"\"."
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
 msgstr ""
 "%(model_name)s \"%(title)s\" одобрено в рабочем процессе \"%(workflow)s\"."
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
 msgstr ""
-"Страница \"%(title)s\" утверждена в рамках рабочего процесса \"%(workflow)s"
-"\"."
+"Страница \"%(title)s\" утверждена в рамках рабочего процесса "
+"\"%(workflow)s\"."
 
 #, python-format
 msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(workflow)s\"."
@@ -1242,11 +1242,11 @@ msgid ""
 msgstr ""
 "%(model_name)s\"%(title)s\" передано в рабочий процесс \"%(workflow)s\""
 
-msgid "Page privacy"
-msgstr "Приватность страницы"
-
 msgid "This page has been made private by a parent page."
 msgstr "Страница приватна в соответствии с родительской страницей."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "Изменение конфиденциальности для этой страницы было отключено."
 
 msgid "Save the page before leaving"
 msgstr "Сохраните страницу перед выходом"
@@ -1510,17 +1510,17 @@ msgid_plural ""
 "It will also delete %(translation_count)s translations and their combined "
 "%(translation_descendant_count)s translated child pages."
 msgstr[0] ""
-"При этом будет удалён %(translation_count)s перевод и объединенная"
-"%(translation_descendant_count)s переведенная дочерняя страница."
+"При этом будет удалён %(translation_count)s перевод и "
+"объединенная%(translation_descendant_count)s переведенная дочерняя страница."
 msgstr[1] ""
-"При этом будут удалёны %(translation_count)s перевода и объединенные"
-"%(translation_descendant_count)sдочерние переводы."
+"При этом будут удалёны %(translation_count)s перевода и "
+"объединенные%(translation_descendant_count)sдочерние переводы."
 msgstr[2] ""
 "При этом будут удалёны  %(translation_count)s переводов и объединенные "
 "%(translation_descendant_count)s дочерние переводы."
 msgstr[3] ""
-"При этом будет удалён %(translation_count)s перевод и объединенные"
-"%(translation_descendant_count)s дочерние переводы."
+"При этом будет удалён %(translation_count)s перевод и "
+"объединенные%(translation_descendant_count)s дочерние переводы."
 
 #, python-format
 msgid "It will also delete %(translation_count)s translation."
@@ -1751,8 +1751,8 @@ msgid ""
 "This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
 "strong>."
 msgstr ""
-"Эта страница на стадии <strong>%(task)s</strong> в рабочем процессе <strong>"
-"%(workflow)s</strong>."
+"Эта страница на стадии <strong>%(task)s</strong> в рабочем процессе "
+"<strong>%(workflow)s</strong>."
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Публикация этой страницы отменит текущий рабочий процесс."
@@ -1952,8 +1952,8 @@ msgstr ""
 "Выберите, когда эта страница должна стать активной и/или снятой с публикации"
 
 msgid ""
-"This publishing schedule will only take effect after you select the \"Publish"
-"\" option"
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
 msgstr ""
 "Этот график публикации вступит в силу только после выбора опции "
 "\"Опубликовать\"."
@@ -2006,9 +2006,6 @@ msgstr "Последняя отредактированная страница"
 msgid "Last edit"
 msgstr "Последнее редактирование"
 
-msgid "No page types found."
-msgstr "Типы страниц не найдены."
-
 msgid "Locking status"
 msgstr "Статус блокировки"
 
@@ -2028,7 +2025,10 @@ msgid "Locked"
 msgstr "Заблокировано"
 
 msgid "No locked pages found."
-msgstr "Не найдены заблокированные страницы."
+msgstr "Не найдено ни одной заблокированной страницы."
+
+msgid "No page types found."
+msgstr "Типы страниц не найдены."
 
 msgid "Name"
 msgstr "Имя"
@@ -2048,9 +2048,6 @@ msgstr "Редактировать этот элемент"
 msgid "No log entries found."
 msgstr "Записи в журнале не найдены."
 
-msgid "By Task"
-msgstr "По Задаче"
-
 msgid "Workflow"
 msgstr "Рабочий процесс"
 
@@ -2068,9 +2065,6 @@ msgstr "Незавершенная задача"
 
 msgid "No pages/snippets have been submitted for moderation yet"
 msgstr "На модерацию пока не отправлено ни одной страницы/фрагмента"
-
-msgid "By Workflow"
-msgstr "По рабочему процессу"
 
 msgid "Completed at"
 msgstr "Завершен в"
@@ -2090,6 +2084,68 @@ msgstr "Путь по сайту"
 
 msgid "Close dialog"
 msgstr "Закрыть"
+
+msgid "You saved a new version in another window"
+msgstr "Вы сохранили новую версию в другом окне"
+
+msgid "System"
+msgstr "Система"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "Пользователь %(user_name)s сохранил новую версию"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "You have unsaved changes in another window"
+msgstr "У вас есть несохраненные изменения в другом окне"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "Пользователь %(user_name)s имеет несохраненные изменения"
+
+msgid "Currently viewing"
+msgstr "В данный момент просматривается"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Еще один пользователь в данный момент смотрит"
+msgstr[1] "Ещё %(num_user)s пользователей в данный момент просматривают"
+msgstr[2] "Ещё %(num_user)s пользователей в данный момент просматривают"
+msgstr[3] "Ещё %(num_user)s пользователей в данный момент просматривают"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"При продолжении работы изменения, сделанные в этом окне, будут перезаписаны. "
+"Обновление страницы покажет вам новые изменения, но вы потеряете все "
+"несохраненные изменения в текущем окне."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"При продолжении работы изменения, сделанные %(user_name)s, будут "
+"перезаписаны. Обновление страницы покажет новые изменения, но все "
+"несохраненные изменения будут потеряны."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Обновление страницы означает потерю всех несохраненных изменений"
+
+msgid "Refresh page"
+msgstr "Обновить страницу"
+
+msgid "Continue"
+msgstr "Продолжить"
+
+msgid "Refresh the page"
+msgstr "Обновить страницу"
 
 msgid "Download XLSX"
 msgstr "Скачать XLSX"
@@ -2179,6 +2235,18 @@ msgstr "Переключить боковую панель"
 msgid "Side panel width"
 msgstr "Ширина боковой панели"
 
+msgid "Show issue"
+msgstr "Показать проблему"
+
+msgid "Content metrics"
+msgstr "Метрики контента"
+
+msgid "Words"
+msgstr "Слова"
+
+msgid "Reading time"
+msgstr "Время чтения"
+
 msgid "Issues found"
 msgstr "Найдены проблемы"
 
@@ -2208,8 +2276,8 @@ msgstr "Разблокировано"
 msgid ""
 "Anyone can edit this %(model_name)s – lock it to prevent others from editing"
 msgstr ""
-"Любой может редактировать %(model_name)s - заблокируйте, чтобы предотвратить "
-"редактирование другими"
+"Любой может редактировать %(model_name)s - заблокируйте его, чтобы другие не "
+"могли редактировать"
 
 #, python-format
 msgid "Anyone can edit this %(model_name)s"
@@ -2394,9 +2462,9 @@ msgstr "%(model_name)sеще не отправлен на модерацию"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
-"Here are the <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
-"\" rel=\"noreferrer\">instructions how to enable JavaScript in your web "
-"browser</a>."
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
 msgstr ""
 "Для использования CMS требуется JavaScript, но в настоящее время он отключен."
 "<br />Вот <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
@@ -2459,8 +2527,9 @@ msgstr "Создать"
 #, python-format
 msgid ""
 "Workflows apply to child pages too. If you select a parent page here, its "
-"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
-"\">the list of the pages</a> your workflow applies to."
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
 msgstr ""
 "Рабочий процесс релевантен также и для страниц-потомков. Если вы выберете "
 "здесь страницу, то ее потомки также будут использовать этот рабочий процесс. "
@@ -2517,23 +2586,23 @@ msgstr[3] "%(counter)s страниц"
 msgid "1 snippet type"
 msgid_plural "%(counter)s snippet types"
 msgstr[0] "1 тип фрагмента"
-msgstr[1] "%(counter)sтипы фрагментов"
-msgstr[2] "%(counter)sтипы фрагментов"
-msgstr[3] "%(counter)s типы фрагментов"
+msgstr[1] "%(counter)s типа фрагментов"
+msgstr[2] "%(counter)s типов фрагментов"
+msgstr[3] "%(counter)s типов фрагментов"
 
 #, python-format
 msgid ""
 "No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Рабочие процессы еще не созданы. Почему бы не <a href=\"%(add_url)s"
-"\">создать что-нибудь</a>?"
+"Рабочие процессы еще не созданы. Почему бы не <a "
+"href=\"%(add_url)s\">создать что-нибудь</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Нет ни одного включенного рабочего процесса. Почему бы не <a href="
-"\"%(add_url)s\">включить один из них</a>?"
+"Нет ни одного включенного рабочего процесса. Почему бы не <a "
+"href=\"%(add_url)s\">включить один из них</a>?"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "Выберите, какую задачу вы хотели бы создать."
@@ -2575,15 +2644,15 @@ msgstr ""
 msgid ""
 "No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ни одной задачи еще не создано. Почему бы не <a href=\"%(add_url)s"
-"\">добавить какую-нибудь</a>?"
+"Ни одной задачи еще не создано. Почему бы не <a "
+"href=\"%(add_url)s\">добавить какую-нибудь</a>?"
 
 #, python-format
 msgid ""
 "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Ни одной задачи еще не включено. Почему бы не <a href=\"%(add_url)s"
-"\">включить какую-нибудь</a>?"
+"Ни одной задачи еще не включено. Почему бы не <a "
+"href=\"%(add_url)s\">включить какую-нибудь</a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -2766,46 +2835,49 @@ msgstr ""
 "Отсортировать дочерние страницы из '%(parent)s' в '%(label)s в порядке "
 "убывания."
 
-msgid "Button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Текст кнопки пуст. Используйте осмысленный текст для пользователей программ "
-"чтения с экрана."
+msgid "Button text is empty"
+msgstr "Текст кнопки пуст"
 
-msgid "Empty heading found. Use meaningful text for screen reader users."
+msgid "Use meaningful text for screen reader users"
 msgstr ""
-"Найден пустой заголовок. Используйте осмысленный текст для пользователей "
-"программ чтения с экрана."
+"Используйте осмысленный текст для пользователей программ чтения с экрана"
 
-msgid ""
-"Table header text is empty. Use meaningful text for screen reader users."
+msgid "Empty heading found"
+msgstr "Найден пустой заголовок"
+
+msgid "Table header text is empty"
+msgstr "Текст заголовка таблицы пуст"
+
+msgid "Empty frame title found"
+msgstr "Найден пустой заголовок кадра"
+
+msgid "Use a meaningful title for screen reader users"
 msgstr ""
-"Текст заголовка таблицы пуст. Используйте осмысленный текст для "
-"пользователей программ чтения с экрана."
+"Используйте осмысленный заголовок для пользователей программ чтения с экрана"
 
-msgid ""
-"Empty frame title found. Use a meaningful title for screen reader users."
-msgstr ""
-"Найдено пустое название фрейма. Используйте содержательный заголовок для "
-"пользователей программ чтения с экрана."
+msgid "Incorrect heading hierarchy"
+msgstr "Неправильная иерархия заголовков"
 
-msgid "Incorrect heading hierarchy. Avoid skipping levels."
-msgstr "Неправильная иерархия заголовков. Избегайте пропусков уровней."
+msgid "Avoid skipping levels"
+msgstr "Избегайте пропуска уровней"
 
-msgid ""
-"Input button text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Текст кнопки ввода пуст. Используйте осмысленный текст для пользователей "
-"программ чтения с экрана."
+msgid "Input button text is empty"
+msgstr "Текст кнопки ввода не заполнен"
 
-msgid "Link text is empty. Use meaningful text for screen reader users."
-msgstr ""
-"Текст ссылки пуст. Используйте осмысленный текст для пользователей программ "
-"чтения с экрана."
+msgid "Link text is empty"
+msgstr "Текст ссылки пуст"
 
-msgid "Misusing paragraphs as headings. Use proper heading tags."
-msgstr ""
-"Неправильное использование абзацев в качестве заголовков. Используйте "
-"правильные теги заголовков."
+msgid "Misusing paragraphs as headings"
+msgstr "Неправильное использование абзацев в качестве заголовков"
+
+msgid "Use proper heading tags"
+msgstr "Используйте правильные теги заголовков"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Текст alt у изображения имеет неподходящий паттерн"
+
+msgid "Use meaningful text"
+msgstr "Используйте содержательный текст"
 
 msgid "Profile"
 msgstr "Профиль"
@@ -2940,11 +3012,11 @@ msgstr "Рабочий процесс над %(model_name)s '%(object)s' был 
 
 #, python-format
 msgid ""
-"You are viewing a previous version of this %(model_name)s from <b>"
-"%(created_at)s</b> by %(user)s"
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
 msgstr ""
-"Вы просматриваете предыдущую версию этой %(model_name)s от <b>"
-"%(created_at)s</b> пользователя %(user)s"
+"Вы просматриваете предыдущую версию этой %(model_name)s от "
+"<b>%(created_at)s</b> пользователя %(user)s"
 
 #, python-format
 msgid ""
@@ -3408,9 +3480,6 @@ msgstr "Устаревающие страницы"
 msgid "Last published at"
 msgstr "Последняя публикация на"
 
-msgid "Hide commenting actions"
-msgstr "Скрыть действия комментирования"
-
 msgid "Site history"
 msgstr "История действий на сайте"
 
@@ -3447,11 +3516,17 @@ msgstr "Тип Cтраницы/Фрагмента"
 msgid "Page/Snippet Title"
 msgstr "Заголовок Cтраницы/Фрагмента"
 
+msgid "By task"
+msgstr "По задаче"
+
 msgid "Workflow tasks"
 msgstr "Задачи рабочего процесса"
 
 msgid "Requested By"
 msgstr "Запросил"
+
+msgid "By workflow"
+msgstr "По рабочему процессу"
 
 msgid "Show disabled"
 msgstr "Показать отключенные"

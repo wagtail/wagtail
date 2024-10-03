@@ -22,6 +22,12 @@ msgid_plural "%(num)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
+#: src/includes/contentMetrics.ts:113
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] ""
+msgstr[1] ""
+
 #: src/includes/sidePanel.js:152
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
@@ -41,7 +47,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:350
+#: src/entrypoints/admin/telepath/widgets.js:407
 msgid "Blocks"
 msgstr ""
 
@@ -121,7 +127,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:276
+#: src/entrypoints/admin/preview-panel.js:283
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -268,12 +274,24 @@ msgstr ""
 msgid "Show latest content"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:241
+#: src/entrypoints/admin/telepath/widgets.js:298
 msgid "Split block"
 msgstr ""
 
 #: src/components/Draftail/EditorFallback/EditorFallback.js:112
 msgid "The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+
+#: src/components/StreamField/blocks/ListBlock.js:196
+#: src/components/StreamField/blocks/StreamBlock.js:271
+#: src/components/StreamField/blocks/StreamBlock.js:295
+msgid "The maximum number of items is %(max_num)d"
+msgstr ""
+
+#: src/components/StreamField/blocks/ListBlock.js:207
+#: src/components/StreamField/blocks/StreamBlock.js:279
+#: src/components/StreamField/blocks/StreamBlock.js:309
+msgid "The minimum number of items is %(min_num)d"
 msgstr ""
 
 #: src/includes/chooserModal.js:21

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 10:04+0100\n"
+"POT-Creation-Date: 2024-08-07 10:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -54,6 +54,9 @@ msgstr "رمزعبور"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "رمزعبور وارد شده درست نیست. لطفا مجددا سعی کنید."
+
+msgid "Comment"
+msgstr "نظر"
 
 msgid "Locked"
 msgstr "قفل شده"

@@ -1,7 +1,11 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n wagtailusers_tags wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans trimmed count counter=items|length %}Change active state for 1 user {% plural %}Change active state for {{ counter }} users{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% with counter_val=items|length %}
+        {% blocktrans trimmed with counter=counter_val|intcomma count counter_val=counter_val %}Change active state for 1 user {% plural %}Change active state for {{ counter }} users{% endblocktrans %}
+    {% endwith %}
+{% endblock %}
 
 {% block header %}
     {% trans "Set active state" as header_str %}

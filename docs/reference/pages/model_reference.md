@@ -156,7 +156,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
 ```{eval-rst}
 .. class:: Page
-    :noindex:
+    :no-index:
 
     .. automethod:: get_specific
 
@@ -325,6 +325,33 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
         Controls the maximum number of pages of this type that can be created under any one parent page.
 
+    .. attribute:: private_page_options
+
+        Controls what privacy options are available for the page type.
+
+       The following options are available:
+
+       - ``'password'`` - Can restrict to use a shared password
+       - ``'groups'`` - Can restrict to users in specific groups
+       - ``'login'`` - Can restrict to logged in users
+
+        .. code-block:: python
+
+            class BreadPage(Page):
+                ...
+
+                # default
+                private_page_options = ['password', 'groups', 'login']
+
+                # disable shared password
+                private_page_options = ['groups', 'login']
+
+                # only shared password
+                private_page_options = ['password']
+
+                # no privacy options for this page model
+                private_page_options = []
+
     .. attribute:: exclude_fields_in_copy
 
         An array of field names that will not be included when a Page is copied.
@@ -347,6 +374,8 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. automethod:: with_content_json
 
     .. automethod:: save
+
+    .. automethod:: copy
 
     .. automethod:: create_alias
 
@@ -415,7 +444,7 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
 
 ```{eval-rst}
 .. class:: Site
-    :noindex:
+    :no-index:
 
     .. automethod:: find_for_request
 
@@ -459,7 +488,6 @@ database queries making them unable to be edited or viewed.
 
 ```{eval-rst}
 .. class:: Locale
-    :noindex:
 
     .. autoattribute:: language_code
 
@@ -494,7 +522,7 @@ Pages already include this mixin, so there is no need to add it.
 
     .. attribute:: locale
 
-        (Foreign Key to :class:`~wagtail.models.Locale`)
+        (Foreign Key to :class:`wagtail.models.Locale`)
 
         For pages, this defaults to the locale of the parent page.
 
@@ -518,7 +546,7 @@ If your model defines a [`Meta` class](inv:django#ref/models/options) (either wi
 
 ```{eval-rst}
 .. class:: TranslatableMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: get_translations
 
@@ -579,7 +607,7 @@ Pages already include this mixin, so there is no need to add it.
 
 ```{eval-rst}
 .. class:: RevisionMixin
-    :noindex:
+    :no-index:
 
     .. autoattribute:: revisions
 
@@ -637,7 +665,7 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages 
 
 ```{eval-rst}
 .. class:: DraftStateMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: publish
 
@@ -679,7 +707,7 @@ Pages already include this mixin, so there is no need to add it. See [](wagtails
 
 ```{eval-rst}
 .. class:: LockableMixin
-    :noindex:
+    :no-index:
 
     .. automethod:: get_lock
 
@@ -777,11 +805,11 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
 ```{eval-rst}
 .. class:: Revision
-    :noindex:
+    :no-index:
 
     .. attribute:: objects
 
-        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a :meth:`~wagtail.models.RevisionsManager.for_instance` method that lets you query for revisions of a specific object.
+        This default manager is used to retrieve all of the ``Revision`` objects in the database. It also provides a ``wagtail.models.RevisionsManager.for_instance`` method that lets you query for revisions of a specific object.
 
         Example:
 
@@ -805,7 +833,7 @@ You can use the [`purge_revisions`](purge_revisions) command to delete old revis
 
 ```{eval-rst}
 .. class:: Revision
-    :noindex:
+    :no-index:
 
     .. automethod:: as_object
 
@@ -900,7 +928,7 @@ Workflows represent sequences of tasks that must be approved for an action to be
 
 ```{eval-rst}
 .. class:: Workflow
-    :noindex:
+    :no-index:
 
     .. automethod:: start
 
@@ -979,7 +1007,7 @@ Workflow states represent the status of a started workflow on an object.
 
 ```{eval-rst}
 .. class:: WorkflowState
-    :noindex:
+    :no-index:
 
     .. attribute:: STATUS_CHOICES
 
@@ -1036,7 +1064,7 @@ Tasks represent stages in a workflow that must be approved for the workflow to c
 
 ```{eval-rst}
 .. class:: Task
-    :noindex:
+    :no-index:
 
     .. autoattribute:: workflows
 
@@ -1143,7 +1171,7 @@ Task states store state information about the progress of a task on a particular
 
 ```{eval-rst}
 .. class:: TaskState
-    :noindex:
+    :no-index:
 
     .. attribute:: STATUS_CHOICES
 
@@ -1253,7 +1281,7 @@ An abstract base class that represents a record of an action performed on an obj
 
         The object title at the time of the entry creation
 
-        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to :meth:`~LogEntryManger.log_action`
+        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to ``LogEntryManager.log_action``
 
     .. attribute:: user
 
@@ -1297,7 +1325,7 @@ An abstract base class that represents a record of an action performed on an obj
 
 ```{eval-rst}
 .. class:: BaseLogEntry
-    :noindex:
+    :no-index:
 
     .. autoattribute:: user_display_name
 
