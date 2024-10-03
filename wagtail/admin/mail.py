@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import override
 
 from wagtail.coreutils import camelcase_to_underscore
-from wagtail.models import GroupApprovalTask, Page, TaskState, WorkflowState
+from wagtail.models import AbstractGroupApprovalTask, Page, TaskState, WorkflowState
 from wagtail.users.models import UserProfile
 
 logger = logging.getLogger("wagtail.admin")
@@ -367,7 +367,7 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def can_handle(self, instance, **kwargs):
         if super().can_handle(instance, **kwargs) and isinstance(
-            instance.task.specific, GroupApprovalTask
+            instance.task.specific, AbstractGroupApprovalTask
         ):
             return True
         return False
