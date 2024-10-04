@@ -50,7 +50,7 @@ class Command(BaseCommand):
 
         if dryrun:
             self.stdout.write("\n---------------------------------")
-            if any(expired_objects):
+            if expired_objects:
                 self.stdout.write("Expired objects to be deactivated:")
                 self.stdout.write("Expiry datetime\t\tModel\t\tSlug\t\tName")
                 self.stdout.write("---------------\t\t-----\t\t----\t\t----")
