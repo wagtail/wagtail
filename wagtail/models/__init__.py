@@ -2740,17 +2740,20 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.translation_key = self.translation_key
         obj.locale = self.locale
         obj.alias_of_id = self.alias_of_id
-        revision_comments = getattr(obj, COMMENTS_RELATION_NAME)
-        page_comments = getattr(self, COMMENTS_RELATION_NAME).filter(
-            resolved_at__isnull=True
+        revision_comment_positions = dict(
+            getattr(obj, COMMENTS_RELATION_NAME).values_list("id", "position")
+        )
+        page_comments = (
+            getattr(self, COMMENTS_RELATION_NAME)
+            .filter(resolved_at__isnull=True)
+            .defer("position")
         )
         for comment in page_comments:
             # attempt to retrieve the comment position from the revision's stored version
             # of the comment
             try:
-                revision_comment = revision_comments.get(id=comment.id)
-                comment.position = revision_comment.position
-            except Comment.DoesNotExist:
+                comment.position = revision_comment_positions[comment.id]
+            except KeyError:
                 pass
         setattr(obj, COMMENTS_RELATION_NAME, page_comments)
 
