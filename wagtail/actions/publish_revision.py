@@ -94,9 +94,8 @@ class PublishRevisionAction:
         )
 
         if isinstance(self.object, WorkflowMixin):
-            workflow_state = self.object.current_workflow_state
-            if workflow_state and getattr(
-                settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+            if getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True) and (
+                workflow_state := self.object.current_workflow_state
             ):
                 workflow_state.cancel(user=self.user)
 
