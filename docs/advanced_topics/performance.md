@@ -80,9 +80,9 @@ The methods used to get the URL of a `Page` such as `Page.get_url` and `Page.get
 
 When using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageurl_tag) template tags, the request is automatically passed in, so no further optimization is needed.
 
-## Deferred fields
+## Specific instances
 
-Some APIs require using the `Page` model, such as when you want to search across all pages on your site. However, you need to then render or call methods on the specific instances.
+Some APIs require using the `Page` model, such as when you want to search across all pages on your site. However, you want to then render or call methods on the specific instances.
 
 These specific instances can be retrieved using the `specific` attribute on either the page or queryset:
 
@@ -95,9 +95,11 @@ These specific instances can be retrieved using the `specific` attribute on eith
 <BlogPage: A Blog post>
 ```
 
-When using `specific`, custom fields which only exist on the specific page (eg the body of a blog post) require an extra query to load. When using the `.specific` queryset method, these queries are done in bulk (one per page type), rather than one per instance.
+When using `specific`, custom fields which only exist on the specific page (eg the body of a blog post) require an extra query to load. When using the `.specific` queryset method, these queries are done in bulk (one per page type), rather than one per instance, improving performance.
 
-Instead, these extra fields can be "deferred". If only the base `Page` model's fields are needed, but you still need your instance's methods, the extra fields can be skipped when creating the specific instances:
+### Deferred fields
+
+Alternatively, the loading of these extra fields can be "deferred". If only the base `Page` model's fields are needed, but you still need your specific instance's methods, the extra fields can be skipped when creating the specific instances:
 
 ```python
 >>> Page.objects.all().specific(defer=True)
@@ -117,9 +119,9 @@ The instances are the same - the difference comes when trying to access these ex
 >>> specific_deferred_page.body  # The query for `body` is done here
 ```
 
-Because no additional queries are performed, and less data is operated on, "deferred" models are significantly faster than specific versions.
+Because no additional queries are performed, and less data is operated on, "deferred" models can be significantly faster than specific versions, especially when working with a large number of pages.
 
-The `.specific(defer=True)` method on the queryset does the same, however operates in bulk so is faster-still.
+Using the `.specific` QuerySet method is faster than calling `.specific` or `.specific_deferred` on each instance, since internal operations can be done in bulk.
 
 ## Search
 
