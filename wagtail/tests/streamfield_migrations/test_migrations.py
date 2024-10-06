@@ -278,7 +278,7 @@ class StreamChildrenToListBlockOperationTestCase(BaseMigrationTest):
         """
 
         self.apply_migration(
-            operations_and_block_path=[
+            operations_and_block_paths=[
                 (
                     StreamChildrenToListBlockOperation(
                         block_name="char1", list_block_name="list1"
