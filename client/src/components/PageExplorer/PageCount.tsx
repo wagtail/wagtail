@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { gettext } from '../../utils/gettext';
-import { ADMIN_URLS } from '../../config/wagtailConfig';
+import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import Icon from '../Icon/Icon';
 
 interface PageCountProps {
@@ -18,7 +18,7 @@ const PageCount: React.FunctionComponent<PageCountProps> = ({ page }) => {
 
   return (
     <a
-      href={`${ADMIN_URLS.PAGES}${page.id}/`}
+      href={`${WAGTAIL_CONFIG.ADMIN_URLS.PAGES}${page.id}/`}
       className="c-page-explorer__see-more"
     >
       {gettext('See all')}

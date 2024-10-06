@@ -1,0 +1,212 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
+"ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail ئالىي ئىزدەش"
+
+msgid "Search term(s)/phrase"
+msgstr "ئىزدەيدىغان ئىبارە/ئاتالغۇ"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"ئىزدەيدىغان تولۇق ھەرپ تىزىقى كىرگۈزۈلىدۇ. ئالىي ئىزدەش نەتىجىسىنى "
+"كۆرسىتىشتە تولۇق ماس كېلىشى زۆرۈر، ئورتاق بەلگە ئىشلىتىشكە يول قويۇلمايدۇ."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "بۇ ئىزدەيدىغان ئىبارىگە كەم دېگەندە بىر تەۋسىيە بەلگىلەڭ."
+
+msgid "You must enter an external link text if you enter an external link URL."
+msgstr ""
+"ئەگەر سىرتقى ئۇلانمىدىكى تور ئادرېسىنى كىرگۈزسىڭىز چوقۇم سىرتقى ئۇلانما "
+"تېكىستىنى كىرگۈزۈشىڭىز كېرەك."
+
+msgid "You must recommend a page OR an external link."
+msgstr "چوقۇم بىر بەت ياكى سىرتقى ئۇلانمىنى تەۋسىيە قىلىڭ."
+
+msgid "Please only select a page OR enter an external link."
+msgstr "پەقەت بىر بەتنى تاللاڭ ياكى سىرتقى ئۇلىنىشنى كىرگۈزۈڭ."
+
+msgid "Query Daily Hits"
+msgstr "كۈندىلىك چېكىلىشىنى سۈرۈشتۈرۈش"
+
+msgid "page"
+msgstr "بەت"
+
+msgid "Choose an internal page for this promotion"
+msgstr "بۇ ئالىي ئىزدەشكە ئىچكى بەتتىن بىرنى تاللاڭ"
+
+msgid "External link URL"
+msgstr "سىرتقى ئۇلانما تور ئادرېسى"
+
+msgid "Alternatively, use an external link for this promotion"
+msgstr "ئۇنىڭدىن باشقا، بۇ ئالىي ئىزدەشكە سىرتقى ئۇلانمىدىن بىرنى ئىشلىتىدۇ"
+
+msgid "description"
+msgstr "چۈشەندۈرۈش"
+
+msgid "Applies to internal page or external link"
+msgstr "ئىچكى بەت ياكى سىرتقى ئۇلانمىنى قوللىنىدۇ"
+
+msgid "search promotion"
+msgstr "ئالىي ئىزدەش"
+
+msgid "Add search promotion"
+msgstr "ئالىي ئىزدەش قوش"
+
+msgid "Add search pick"
+msgstr "ئىزدەشكە خىللاش قوش"
+
+msgid ""
+"<p>Promoted search results are a means of recommending specific pages or "
+"external links that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>"
+msgstr ""
+"<p>ئالىي ئىزدەش نەتىجىسى بەلگىلەنگەن بەت ياكى سىرتقى ئۇلانمىنى تەۋسىيە "
+"قىلىشنىڭ ۋاسىتىسى بولۇپ، ئىشدەش نەتىجىسىدە ئورگانىك يۇقىرى كۆتۈرۈلمەسلىكى "
+"مۇمكىن. مەسىلەن ، ئاز ئۇچرايدىغان «<em>ئىئانە</ em>» دېگەن ئاتالغۇ بىلەن "
+"ئىزدەۋاتقان ئىشلەتكۈچىگە ئاساسىي ئىئانە بېتىڭىزنى تەۋسىيە قىلىڭ."
+
+msgid ""
+"<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
+"search for which you wish to provide recommended results, <em>including</em> "
+"any misspellings/user error. To help, you can choose from search terms that "
+"have been popular with users of your site.</p>"
+msgstr ""
+"<p> تۆۋەندىكى «ئىزدەش ئىبارىسى/ئاتالغۇ» بۆلىكىدە سىز تەۋسىيە قىلغان "
+"نەتىجىلەرنى تەمىنلىمەكچى بولغان تولۇق ۋە ئېنىق ئىزدەش بولۇشى كېرەك، ھەر "
+"قانداق ئىملا خاتالىقى/ئىشلەتكۈچى خاتالىقىنى <em>ئۆز ئىچىگە ئالىدۇ</em>. "
+"ياردەم قىلىش ئۈچۈن، تور بېكىتىڭىزدە ئىشلەتكۈچىلەر ياقتۇرۇپ ئىزدىگەن "
+"ئاتالغۇلاردىن  تاللىيالايسىز. </p>"
+
+msgid "Save"
+msgstr "ساقلا"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "%(query)s نى ئۆچۈر"
+
+msgid "Delete"
+msgstr "ئۆچۈر"
+
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr "بۇ ئاتالغۇنىڭ بارلىق ئالىي ئىزدەش نەتىجىسىنى راستتىنلا ئۆچۈرەمسىز؟"
+
+msgid "Yes, delete"
+msgstr "ھەئە، ئۆچۈر"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "%(query)s تەھرىرلەۋاتىدۇ"
+
+msgid "Editing"
+msgstr "تەھرىرلەش"
+
+msgid "Move up"
+msgstr "يۇقىرىغا"
+
+msgid "Move down"
+msgstr "تۆۋەنگە"
+
+msgid "Recommended search result"
+msgstr "تەۋسىيە ئىزدەش نەتىجىسى"
+
+msgid "Promoted search results"
+msgstr "ئالىي ئىزدەش نەتىجىسى"
+
+msgid "Add a recommended result"
+msgstr "تەۋسىيە ئىزدەش نەتىجىسى قوش"
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"كەچۈرۈڭ، «<em>%(query_string)s</em>» غا ھېچقانداق ئالىي ئىزدەش نەتىجىسى ماس "
+"كەلمىدى"
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"ھېچقانداق ئالىي ئىزدەش نەتىجىسى قۇرۇلمىغان. نېمىشقا <a "
+"href=\"%(wagtailsearchpromotions_add_url)s\">بىرنى قۇر</a>مايسىز؟"
+
+msgid "No promoted results have been created."
+msgstr "ھېچقانداق ئالىي ئىزدەش نەتىجىسى قۇرۇلمىغان."
+
+msgid "Popular search terms"
+msgstr "ئالقىشلىق ئىزدەش ئاتالغۇسى"
+
+msgid "Search"
+msgstr "ئىزدە"
+
+msgid "Terms"
+msgstr "ئاتالغۇ"
+
+msgid "Views (past week)"
+msgstr "كۆرۈلۈشى (ئۆتكەن ھەپتە)"
+
+msgid "No results found"
+msgstr "ھېچقانداق نەتىجە تېپىلمىدى"
+
+msgid "Choose from popular search terms"
+msgstr "ئالقىشلىق ئىزدەش ئاتالغۇسىدىن تاللىنىدۇ"
+
+msgid "External link"
+msgstr "سىرتقى ئۇلانما"
+
+msgid "None"
+msgstr "يوق"
+
+msgid "Search Terms"
+msgstr "ئىزدەيدىغان ئاتالغۇ"
+
+msgid "Add new promoted result"
+msgstr "يېڭى ئالىي ئىزدەش نەتىجىسىنى قوش"
+
+msgid "Search term(s)"
+msgstr "ئىزدەيدىغان ئاتالغۇ"
+
+msgid "Promoted results"
+msgstr "ئالىي نەتىجە"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' created."
+msgstr "«%(query)s» ئۈچۈن تەھرىرلىگۈچ خىللىغانلىرى قۇرۇلدى."
+
+msgid "Edit"
+msgstr "تەھرىر"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "خاتالىق سەۋەبىدىن تەۋسىيەنى قۇرغىلى بولمىدى"
+
+#, python-format
+msgid "Editor's picks for '%(query)s' updated."
+msgstr "«%(query)s» ئۈچۈن تەھرىرلىگۈچ خىللىغانلىرى يېڭىلاندى."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "خاتالىق سەۋەبىدىن تەۋسىيەنى ساقلىغىلى بولمىدى"
+
+msgid "Editor's picks deleted."
+msgstr "تەھرىرلىگۈچنىڭ خىللىغانلىرى ئۆچۈرۈلدى."

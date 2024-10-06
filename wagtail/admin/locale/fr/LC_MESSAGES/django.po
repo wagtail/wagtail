@@ -2025,6 +2025,9 @@ msgstr "Fil d'Ariane"
 msgid "Close dialog"
 msgstr "Fermer"
 
+msgid "You saved a new version in another window"
+msgstr "Vous avez enregistré une nouvelle version dans une autre fenêtre"
+
 msgid "System"
 msgstr "Système"
 
@@ -2034,6 +2037,9 @@ msgstr "%(user_name)s a enregistré une nouvelle version"
 
 msgid "Refresh"
 msgstr "Rafraîchir"
+
+msgid "You have unsaved changes in another window"
+msgstr "Vous avez des modifications non enregistrées dans une autre fenêtre"
 
 #, python-format
 msgid "%(user_name)s has unsaved changes"
@@ -2048,6 +2054,25 @@ msgid_plural "%(num_user)s other users are currently viewing"
 msgstr[0] "Un autre utilisateur est en train de consulter"
 msgstr[1] "%(num_user)s autres utilisateurs sont en train de consulter"
 msgstr[2] "%(num_user)s autres utilisateurs sont en train de consulter"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Continuer écrasera les modifications effectuées dans l'autre fenêtre. "
+"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
+"perdrez toutes vos modifications non enregistrées dans la fenêtre actuelle."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"Continuer écrasera les modifications effectuées par %(user_name)s. "
+"Rafraîchir la page vous affichera les nouvelles modifications, mais vous "
+"perdrez toutes vos modifications non enregistrées."
 
 msgid "Refreshing the page means you will lose any unsaved changes"
 msgstr ""

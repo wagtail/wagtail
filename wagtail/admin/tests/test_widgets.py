@@ -119,7 +119,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
-        self.assertIn("Choose a page (Simple Page)", html)
+        self.assertIn("Choose a page (Simple page)", html)
 
     def test_render_with_target_model_as_single_instance(self):
         widget = widgets.AdminPageChooser(target_models=SimplePage)
@@ -131,7 +131,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
-        self.assertIn("Choose a page (Simple Page)", html)
+        self.assertIn("Choose a page (Simple page)", html)
 
     def test_render_with_target_model_as_single_string(self):
         widget = widgets.AdminPageChooser(target_models="tests.SimplePage")
@@ -143,7 +143,7 @@ class TestAdminPageChooserWidget(TestCase):
         )
 
         html = widget.render("test", self.child_page, {"id": "test-id"})
-        self.assertIn("Choose a page (Simple Page)", html)
+        self.assertIn("Choose a page (Simple page)", html)
 
     def test_render_with_multiple_target_models(self):
         target_models = [SimplePage, "tests.eventpage"]

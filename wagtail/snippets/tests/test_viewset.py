@@ -1136,14 +1136,14 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.model = RevisableModel
         revisable_item = group_item.menu_items[0]
         self.assertEqual(revisable_item.name, "revisable-models")
-        self.assertEqual(revisable_item.label, "Revisable Models")
+        self.assertEqual(revisable_item.label, "Revisable models")
         self.assertEqual(revisable_item.icon_name, "snippet")
         self.assertEqual(revisable_item.url, self.get_url("list"))
 
         self.model = RevisableChildModel
         revisable_child_item = group_item.menu_items[1]
         self.assertEqual(revisable_child_item.name, "revisable-child-models")
-        self.assertEqual(revisable_child_item.label, "Revisable Child Models")
+        self.assertEqual(revisable_child_item.label, "Revisable child models")
         self.assertEqual(revisable_child_item.icon_name, "snippet")
         self.assertEqual(revisable_child_item.url, self.get_url("list"))
 

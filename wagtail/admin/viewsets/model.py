@@ -8,6 +8,7 @@ from django.forms.models import modelform_factory
 from django.shortcuts import redirect
 from django.urls import path
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import (
@@ -514,7 +515,7 @@ class ModelViewSet(ViewSet):
 
     @cached_property
     def menu_label(self):
-        return self.model_opts.verbose_name_plural.title()
+        return capfirst(self.model_opts.verbose_name_plural)
 
     @cached_property
     def menu_item_class(self):
@@ -696,7 +697,7 @@ class ModelViewSetGroup(ViewSetGroup):
     def get_app_label_from_subitems(self):
         for instance in self.registerables:
             if app_label := getattr(instance, "app_label", ""):
-                return app_label.title()
+                return capfirst(app_label)
         return ""
 
     @cached_property

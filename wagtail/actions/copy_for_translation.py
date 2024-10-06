@@ -242,4 +242,10 @@ class CopyForTranslationAction:
             self.object, self.locale, self.exclude_fields
         )
 
+        copy_for_translation_done.send(
+            sender=self.__class__,
+            source_obj=self.object,
+            target_obj=translated_object,
+        )
+
         return translated_object

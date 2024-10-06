@@ -11,6 +11,10 @@ class TestIconSpriteView(SimpleTestCase):
         )
         self.assertEqual(response.wsgi_request.GET["h"], get_icon_sprite_hash())
 
+    def test_no_comments(self):
+        response = self.client.get(get_icon_sprite_url())
+        self.assertNotContains(response, "<!--")
+
 
 class TestIconSpriteHash(SimpleTestCase):
     def test_hash(self):

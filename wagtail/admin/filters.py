@@ -223,7 +223,7 @@ class PopularTagsFilter(django_filters.MultipleChoiceFilter):
 
     def filter(self, qs, value):
         filtered = super().filter(qs, value)
-        if not self.use_subquery:
+        if not self.use_subquery or not value:
             return filtered
 
         # Workaround for https://github.com/wagtail/wagtail/issues/6616

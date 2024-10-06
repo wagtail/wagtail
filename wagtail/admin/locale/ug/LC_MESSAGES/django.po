@@ -1,0 +1,436 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Azat, 2024
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
+"ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "تارقات"
+
+msgid "Submit for moderation"
+msgstr "تەستىقلىتىش ئۈچۈن يوللاش"
+
+#, python-format
+msgid "Resubmit to %(task_name)s"
+msgstr "%(task_name)s غا قايتا يوللاش"
+
+#, python-format
+msgid "Submit to %(workflow_name)s"
+msgstr "%(workflow_name)s غا يوللاش"
+
+msgid "Restart workflow "
+msgstr "خىزمەت ئېقىمىنى قايتا قوزغىتىڭ"
+
+msgid "Cancel workflow "
+msgstr "خىزمەت ئېقىمىنى بىكار قىلىڭ"
+
+msgid "Unpublish"
+msgstr "نەشىردىن ئېلىپ تاشلاش"
+
+msgid "Save Draft"
+msgstr "لايىھەنى ساقلاش"
+
+msgid "Page locked"
+msgstr "بەت قۇلۇپلاندى"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ۋە نەشىر قىلىش"
+
+msgid "Wagtail admin"
+msgstr "Wagtail باشقۇرۇش سەھىپىسى"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "كەچۈرۈڭ ، بۇ رايوننى زىيارەت قىلىش ھوقۇقىڭىز يوق."
+
+msgid "You do not have permission to access the admin"
+msgstr "سىز باشقۇرۇش سەھىپىسىگە كىرىش ھوقۇقىڭىز يوق"
+
+msgid "None"
+msgstr "يوق"
+
+msgid "Date from"
+msgstr "مۇددەت باشلىنىشى"
+
+msgid "Date to"
+msgstr "مۇددەت پۈتۈشى"
+
+msgid "Locale"
+msgstr "تىل تەڭشەش"
+
+msgid "All"
+msgstr "ھەممىسى"
+
+msgid "Collection"
+msgstr "توپلام"
+
+msgid "Tag"
+msgstr "بەلگە"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "ئەڭ كۆپ ئىشلىتىلگەن بەلگىلەرنىڭ ئون تۈرىگە قەدەر سۈزگۈچتىن ئۆتكۈزۈڭ."
+
+msgid "Preferred language"
+msgstr "تاللانغان تىل"
+
+msgid "Current time zone"
+msgstr "ھازىرقى ۋاقىت رايونى"
+
+msgid "First Name"
+msgstr "ئىسىم"
+
+msgid "Last Name"
+msgstr "فامىلە"
+
+msgid "Email"
+msgstr "ئېلخەت"
+
+msgid "Upload a profile picture"
+msgstr "تەرجىمىھال رەسىمى يۈكلەش"
+
+msgid "Enter password"
+msgstr "پارول كىرگۈزۈڭ"
+
+#, python-format
+msgid "Your %(username_field)s and password didn't match. Please try again."
+msgstr "سىزنىڭ %(username_field)s ۋە پارولىڭىز ماس كەلمىدى. قايتا سىناپ بېقىڭ."
+
+#, python-format
+msgid "Enter your %(username_field_name)s"
+msgstr "%(username_field_name)s نى كىرگۈزۈڭ"
+
+msgid "Enter your email address to reset your password"
+msgstr "پارولىڭىزنى قايتا تەڭشەش ئۈچۈن ئېلخەت ئادرېسىڭىزنى كىرگۈزۈڭ"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Search term"
+msgstr "ئىزدەش ئاتالغۇسى"
+
+msgid "Search"
+msgstr "ئىزدەش"
+
+msgid "All collections"
+msgstr "ھەممە توپلاملار"
+
+msgid "Parent"
+msgstr "ئانا تۈر"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"پەرتىبەتلىك ئورۇنى تاللاڭ. ئىزاھات: بىر توپلام ئۆزىنىڭ ياكى بۇرۇنقى ئىنكىس "
+"سۈپىتىدە بالىلاشماسلىقى كېرەك."
+
+msgid "Please select another parent"
+msgstr "باشقا ئانا تۈرىنى تاللاڭ"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "بىرلا توپلام ئۈچۈن بىر نەچچە ھوقۇق خۇججىتى بولمىسى كېرەك."
+
+msgid "Add"
+msgstr "قوش"
+
+msgid "Add collections"
+msgstr "توپلاملارنى قوش"
+
+msgid "Edit"
+msgstr "تەھرىر"
+
+msgid "Edit collections"
+msgstr "توپلام تەھرىر"
+
+msgid "Delete"
+msgstr "ئۆچۈر"
+
+msgid "Delete collections"
+msgstr "توپلامنى ئۆچۈر"
+
+msgid "You cannot edit another user's comment."
+msgstr "باشقا بىر ئىشلەتكۈچىنىڭ ئىزاھاتىنى تەھرىرلىيەلمەيسىز."
+
+msgid "Go live date/time must be before expiry date/time"
+msgstr "ئۇچۇر كۈچكە ئىگە بولىدىغان ۋاقىت نىشان ۋاقتىدىن بۇرۇن بولۇشى كېرەك"
+
+msgid "Expiry date/time must be in the future"
+msgstr "ئەمەلدىن قېلىش ۋاقتى كەلگۈسىدە بولۇشى كېرەك"
+
+msgid "New title"
+msgstr "يېڭى ماۋزۇ"
+
+msgid "New slug"
+msgstr "يېڭى ئۇل قايسا"
+
+msgid "New parent page"
+msgstr "يېڭى ئانا بەت"
+
+msgid "Parent page"
+msgstr "ئانا بەت"
+
+msgid "This field is required."
+msgstr "بۇ بۆلەك زۆرۈر."
+
+msgid "1 image selected"
+msgstr "1 سۈرەت تاللاندى"
+
+msgid "Content"
+msgstr "مەزمۇن"
+
+msgid "Settings"
+msgstr "تەكشەك"
+
+msgid "Title"
+msgstr "ماۋزۇ"
+
+msgid "Account"
+msgstr "ھېسابات"
+
+msgid "More actions"
+msgstr "تېخىمۇ كۆپ مەشغۇلات"
+
+msgid "Go back"
+msgstr "كەينىگە"
+
+msgid "Select all"
+msgstr "ھەممىنى تاللا"
+
+msgid "External link"
+msgstr "سىرتقى ئۇلانما"
+
+msgid "Choose"
+msgstr "تاللا"
+
+msgid "Choose a page"
+msgstr "بەت تاللىنىدۇ"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "%(title)s تاللىنىدۇ"
+
+msgid "Save"
+msgstr "ساقلاش"
+
+msgid "Public"
+msgstr "ئاممىۋى"
+
+msgid "Yes, delete"
+msgstr "ھەئە، ئۆچۈر"
+
+msgid "No, don't delete"
+msgstr "ياق، ئۆچۈرمە"
+
+msgid "Cancel"
+msgstr "ۋاز كەچ"
+
+msgid "Comment"
+msgstr "ئىنكاس"
+
+msgid "Actions"
+msgstr "مەشغۇلات"
+
+msgid "Edit this page"
+msgstr "بەت تەھرىرلەيدۇ"
+
+msgid "Unlock"
+msgstr "قۇلۇپ ئاچ"
+
+msgid "Status"
+msgstr "ھالەت"
+
+msgid "Date"
+msgstr "چېسلا"
+
+msgid "Close"
+msgstr "ياپ"
+
+msgid "Preview"
+msgstr "ئالدىن كۆزەت"
+
+msgid "Publishing…"
+msgstr "تارقىتىلىۋاتىدۇ…"
+
+msgid "Publish this version"
+msgstr "بۇ نەشرىنى تارقات"
+
+msgid "Saving…"
+msgstr "ساقلاۋاتىدۇ..."
+
+msgid "Replace current draft"
+msgstr "نۆۋەتتىكى دەسلەپكى نۇسخىنى ئالماشتۇر"
+
+msgid "Save draft"
+msgstr "دەسلەپكى نۇسخا ساقلا"
+
+msgid "Move"
+msgstr "يۆتكە"
+
+msgid "Yes, convert it"
+msgstr "ھەئە، قاپلىۋەت"
+
+msgid "Copy"
+msgstr "كۆچۈر"
+
+msgid "Pagination"
+msgstr "بەتكە ئايرىش"
+
+msgid "Previous"
+msgstr "ئالدىنقى"
+
+msgid "Next"
+msgstr "كېيىنكى"
+
+msgid "Confirm"
+msgstr "جەزملە"
+
+msgid "Move up"
+msgstr "يۇقىرىغا"
+
+msgid "Move down"
+msgstr "تۆۋەنگە"
+
+msgid "Type"
+msgstr "تۈرى"
+
+msgid "Pages"
+msgstr "بەت"
+
+msgid "Locked"
+msgstr "قۇلۇپلاندى"
+
+msgid "Name"
+msgstr "ئاتى"
+
+msgid "Action"
+msgstr "مەشغۇلات"
+
+msgid "Continue"
+msgstr "داۋاملاشتۇر"
+
+msgid "Filter"
+msgstr "سۈزگۈچ"
+
+msgid "Add comment"
+msgstr "ئىنكاس قوش"
+
+msgid "Back"
+msgstr "قايت"
+
+msgid "History"
+msgstr "تارىخ"
+
+msgid "Minimap"
+msgstr "كىچىك خەرىتە"
+
+msgid "Toggle side panel"
+msgstr "يان تاختىنى ئالماشتۇر"
+
+msgid "Unlocked"
+msgstr "قۇلۇپ ئېچىلغان"
+
+msgid "Lock"
+msgstr "قۇلۇپلا"
+
+msgid "Usage"
+msgstr "ئىشلىتىلىشى"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s قېتىم ئىشلىتىلدى"
+msgstr[1] "%(usage_count)s قېتىم ئىشلىتىلدى"
+
+msgid "Edited"
+msgstr "تەھرىرلەنگەن ۋاقىت"
+
+msgid "Workflow started"
+msgstr "خىزمەت ئېقىمى باشلاندى"
+
+msgid "Create"
+msgstr "قۇر"
+
+msgid "Page"
+msgstr "بەت"
+
+msgid "New"
+msgstr "يېڭى"
+
+msgid "Existing"
+msgstr "مەۋجۇت"
+
+msgid "Not started"
+msgstr "باشلىمىدى"
+
+msgid "Published"
+msgstr "يوللانغان ۋاقىت"
+
+msgid "Password"
+msgstr "ئىم"
+
+msgid "Home"
+msgstr "باش بەت"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated."
+msgstr "%(model_name)s دىكى «%(object)s» يېڭىلاندى."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created."
+msgstr "%(model_name)s دىكى «%(object)s» قۇرۇلدى."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "«%(title)s» تەھرىر"
+
+msgid "Inspect"
+msgstr "تەكشۈر"
+
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "«%(title)s» نىڭ تېخىمۇ كۆپ تاللانمىسى"
+
+msgid "Editing"
+msgstr "تەھرىرلەش"
+
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s «%(object)s» ئۆچۈرۈلدى"
+
+msgid "Inspecting"
+msgstr "تەكشۈرۈش"
+
+#, python-format
+msgid "Edit this %(object)s"
+msgstr "%(object)s تەھرىر"
+
+msgid "Dashboard"
+msgstr "باشقۇرۇش تاختىسى"
+
+msgid "View live"
+msgstr "شۇئان كۆرسەت"
+
+msgid "Site"
+msgstr "بېكەت"
+
+msgid "Disable"
+msgstr "چەكلە"
+
+msgid "Enable"
+msgstr "قوزغات"

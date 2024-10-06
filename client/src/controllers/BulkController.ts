@@ -21,8 +21,8 @@ type ToggleAllOptions = ToggleOptions & {
  *     <input type="checkbox" data-action="w-bulk#toggle" data-w-bulk-target="item">
  *     <input type="checkbox" data-action="w-bulk#toggle" data-w-bulk-target="item">
  *   </div>
- *   <button data-action="w-bulk#toggleAll" data-w-bulk-force-param="false">Clear all</button>
- *   <button data-action="w-bulk#toggleAll" data-w-bulk-force-param="true">Select all</button>
+ *   <button type="button" data-action="w-bulk#toggleAll" data-w-bulk-force-param="false">Clear all</button>
+ *   <button type="button" data-action="w-bulk#toggleAll" data-w-bulk-force-param="true">Select all</button>
  * </div>
  *
  * @example - Showing and hiding an actions container

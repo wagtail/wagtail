@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from wagtail.models import Locale, Site
 from wagtail.signals import copy_for_translation_done, page_slug_changed
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import EventCategory, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -128,7 +128,7 @@ class TestCopyForTranslationDoneSignal(WagtailTestUtils, TestCase):
 
         root_page.copy_for_translation(self.another_locale)
 
-    def test_signal_emitted_on_copy_for_translation_done(self):
+    def test_signal_emitted_on_page_copy_for_translation_done(self):
         # Connect a mock signal handler to the signal
         handler = mock.MagicMock()
         copy_for_translation_done.connect(handler)
@@ -138,6 +138,25 @@ class TestCopyForTranslationDoneSignal(WagtailTestUtils, TestCase):
         try:
             with self.captureOnCommitCallbacks(execute=True):
                 page_to_translate.copy_for_translation(self.another_locale)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            copy_for_translation_done.disconnect(handler)
+
+        # Check the signal was fired
+        self.assertEqual(handler.call_count, 1)
+
+    def test_signal_emitted_on_translatable_model_copy_for_translation_done(self):
+        # Connect a mock signal handler to the signal
+        handler = mock.MagicMock()
+        copy_for_translation_done.connect(handler)
+
+        model_to_translate = EventCategory.objects.create(
+            name="Some category", locale=self.locale
+        )
+
+        try:
+            with self.captureOnCommitCallbacks(execute=True):
+                model_to_translate.copy_for_translation(self.another_locale)
         finally:
             # Disconnect mock handler to prevent cross-test pollution
             copy_for_translation_done.disconnect(handler)

@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
+from django.db.models.lookups import In
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, TransactionTestCase, override_settings
@@ -22,6 +23,7 @@ from willow.registry import registry
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
 from wagtail.images.utils import generate_signature
+from wagtail.images.views.images import ImagesFilterSet
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
@@ -47,7 +49,7 @@ urlquote_safechars = RFC3986_SUBDELIMS + "/~:@"
 
 class TestImageIndexView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
         self.kitten_image = Image.objects.create(
             title="a cute kitten",
             file=get_test_image_file(size=(1, 1)),
@@ -373,6 +375,28 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             # No extra additional queries since renditions exist and are saved in
             # the prefetched objects cache.
             self.get()
+
+    def test_empty_tag_filter_does_not_perform_id_filtering(self):
+        image_one_tag = Image.objects.create(
+            title="Test image with one tag",
+            file=get_test_image_file(),
+        )
+        image_one_tag.tags.add("one")
+
+        request = RequestFactory().get(reverse("wagtailimages:index"))
+        request.user = self.user
+        filterset = ImagesFilterSet(
+            data={}, queryset=Image.objects.all(), request=request, is_searching=True
+        )
+
+        # Filtering on tags during a search would normally apply a `pk__in` filter, but this should not happen
+        # when the tag filter is empty.
+        in_clauses = [
+            clause
+            for clause in filterset.qs.query.where.children
+            if isinstance(clause, In)
+        ]
+        self.assertEqual(len(in_clauses), 0)
 
 
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
