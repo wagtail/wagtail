@@ -4557,15 +4557,24 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        soup = self.get_soup(response.content)
 
         # The save button should be labelled "Replace current draft"
-        self.assertContains(response, "Replace current draft")
-        # The publish button should exist
-        self.assertContains(response, "Publish this version")
-        # The publish button should have name="action-publish"
-        self.assertContains(
-            response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning warning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
+        footer = soup.select_one("footer")
+        save_button = footer.select_one(
+            'button[type="submit"]:not([name="action-publish"])'
+        )
+        self.assertIsNotNone(save_button)
+        self.assertEqual(save_button.text.strip(), "Replace current draft")
+        # The publish button should exist and have name="action-publish"
+        publish_button = footer.select_one(
+            'button[type="submit"][name="action-publish"]'
+        )
+        self.assertIsNotNone(publish_button)
+        self.assertEqual(publish_button.text.strip(), "Publish this version")
+        self.assertEqual(
+            set(publish_button.get("class")),
+            {"button", "action-save", "button-longrunning"},
         )
 
         # Should not show the Unpublish action menu item
@@ -4573,11 +4582,8 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
             "wagtailsnippets_tests_draftstatemodel:unpublish",
             args=(quote(self.snippet.pk),),
         )
-        self.assertNotContains(
-            response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
-        )
-        self.assertNotContains(response, "Unpublish")
+        unpublish_button = footer.select_one(f'a[href="{unpublish_url}"]')
+        self.assertIsNone(unpublish_button)
 
     def test_get_with_previewable_snippet(self):
         self.snippet = MultiPreviewModesModel.objects.create(text="Preview-enabled foo")
