@@ -56,7 +56,17 @@
                     {% block actions %}
                         {% fragment as main_action %}
                             {% block main_action %}
-                                <button type="submit" class="button">{{ submit_button_label }}</button>
+                                <button
+                                    type="submit"
+                                    class="button button-longrunning"
+                                    data-controller="w-progress w-kbd"
+                                    data-action="w-progress#activate"
+                                    data-w-kbd-key-value="mod+s"
+                                    data-w-kbd-scope-value="global"
+                                >
+                                    {% icon name="spinner" %}
+                                    <em data-w-progress-target="label">{{ submit_button_label }}</em>
+                                </button>
                             {% endblock %}
                         {% endfragment %}
 
