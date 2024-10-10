@@ -70,7 +70,8 @@ Wagtail is used by [NASA](https://www.nasa.gov/), [Google](https://www.google.co
 
 ### 📖 Documentation
 
-[docs.wagtail.org](https://docs.wagtail.org/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside release notes and our roadmap.
+[docs.wagtail.org](https://docs.wagtail.org/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside [release notes](https://docs.wagtail.org/en/stable/releases/) and our [roadmap](https://github.com/wagtail/wagtail/wiki/Roadmap).
+
 
 For those who are **new to Wagtail**, the [Zen of Wagtail](https://docs.wagtail.org/en/stable/getting_started/the_zen_of_wagtail.html) will help you understand what Wagtail is, and what Wagtail is _not_.
 

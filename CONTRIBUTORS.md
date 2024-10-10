@@ -833,6 +833,7 @@
 * Daniel Black
 * Atif Khan
 * Sanjeev Holla S
+* Rohit Singh
 
 ## Translators
 
