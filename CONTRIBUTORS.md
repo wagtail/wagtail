@@ -838,6 +838,7 @@
 * Ishwari8104
 * rahulsamant37
 * Gabriel Getzie
+* Rohit Singh
 
 ## Translators
 
