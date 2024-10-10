@@ -10,11 +10,6 @@
     {% include 'wagtailadmin/shared/headers/slim_header.html' with breadcrumbs_items=breadcrumbs_items side_panels=side_panels history_url=history_url buttons=header_buttons %}
 {% endblock %}
 
-{% block footer %}
-    <footer class="footer w-grid md:w-grid-flow-col">
-        <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
-            {{ action_menu.render_html }}
-        </nav>
-        {% include "wagtailadmin/shared/unsaved_changes_warning.html" %}
-    </footer>
+{% block actions %}
+    {{ action_menu.render_html }}
 {% endblock %}
