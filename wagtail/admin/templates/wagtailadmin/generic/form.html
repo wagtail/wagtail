@@ -54,7 +54,16 @@
             <footer class="footer w-grid md:w-grid-flow-col">
                 <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
                     {% block actions %}
-                        <button type="submit" class="button">{{ submit_button_label }}</button>
+                        {% fragment as main_action %}
+                            {% block main_action %}
+                                <button type="submit" class="button">{{ submit_button_label }}</button>
+                            {% endblock %}
+                        {% endfragment %}
+
+                        {% fragment stripped as extra_actions %}{% block extra_actions %}{% endblock %}{% endfragment %}
+
+                        {% include "wagtailadmin/shared/action_menu/menu.html" with show_menu=extra_actions default_menu_item=main_action menu_items_fragment=extra_actions %}
+
                     {% endblock %}
                 </nav>
             </footer>
