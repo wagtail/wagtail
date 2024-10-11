@@ -260,7 +260,6 @@ class TestRedirects(TestCase):
     def test_redirect_to_page(self):
         christmas_page = Page.objects.get(url_path="/home/events/christmas/")
         models.Redirect.objects.create(old_path="/xmas", redirect_page=christmas_page)
-
         response = self.client.get("/xmas/", HTTP_HOST="test.example.com")
         # Only one site defined, so redirect should return a local URL
         # (to keep things working if Site records haven't been configured correctly)
@@ -945,6 +944,30 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
             redirects.first().redirect_link,
             "https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist",
         )
+        self.assertIsNone(redirects.first().site)
+
+        self.assertEqual(PURGED_URLS, redirects.get().old_links())
+
+    def test_add_non_ascii_old_path_redirect(self):
+        non_ascii_str = "é" * 50
+        non_ascii_old_path = "/" + non_ascii_str
+        response = self.post(
+            {
+                "old_path": non_ascii_old_path,
+                "site": "",
+                "is_permanent": "on",
+                "redirect_link": "http://www.test.com/",
+            }
+        )
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse("wagtailredirects:index"))
+
+        # Check that the redirect was created
+        redirect_hash = models.Redirect.get_redirect_hash(non_ascii_old_path)
+        redirects = models.Redirect.objects.filter(hash=redirect_hash)
+        self.assertEqual(redirects.count(), 1)
+        self.assertEqual(redirects.first().redirect_link, "http://www.test.com/")
         self.assertIsNone(redirects.first().site)
 
         self.assertEqual(PURGED_URLS, redirects.get().old_links())
