@@ -8,7 +8,7 @@
         <div class="w-form-width">
             {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
-            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") %}
+            {% panel id="workflow-pages" icon="doc-empty-inverse" heading=_("Assign your workflow to pages") attrs=pages_formset.attrs %}
                 {% if workflow.active %}
                     <p class="help-block help-info">
                         {% icon name='help' %}

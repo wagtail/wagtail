@@ -2,6 +2,7 @@ import $ from 'jquery';
 import * as StimulusModule from '@hotwired/stimulus';
 
 import { Icon, Portal } from '../..';
+import { ExpandingFormset } from '../../components/ExpandingFormset';
 import { coreControllerDefinitions } from '../../controllers';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
@@ -58,6 +59,16 @@ window.MultipleChooserPanel = MultipleChooserPanel;
  */
 window.URLify = (str, numChars = 255, allowUnicode = false) =>
   urlify(str, { numChars, allowUnicode });
+
+/**
+ * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.
+ * @deprecated RemovedInWagtail70
+ */
+function buildExpandingFormset(prefix, opts = {}) {
+  return new ExpandingFormset(prefix, opts);
+}
+
+window.buildExpandingFormset = buildExpandingFormset;
 
 $(() => {
   /* Dropzones */
