@@ -2,9 +2,13 @@ import unittest.mock
 
 from django.apps import apps
 from django.test import TestCase
+from django.utils.safestring import SafeString
 
+from wagtail.admin import compare
+from wagtail.blocks.stream_block import StreamValue
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageBlock, ImageChooserBlock
+from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
 from .utils import (
@@ -75,6 +79,90 @@ class TestImageChooserBlock(TestCase):
 
         # None should not yield any references
         self.assertListEqual(list(block.extract_references(None)), [])
+
+
+class TestImageChooserBlockComparison(TestCase):
+    comparison_class = compare.StreamFieldComparison
+
+    def setUp(self):
+        self.image_1 = Image.objects.create(
+            title="Test image 1",
+            file=get_test_image_file(),
+        )
+
+        self.image_2 = Image.objects.create(
+            title="Test image 2",
+            file=get_test_image_file(),
+        )
+
+        self.field = StreamPage._meta.get_field("body")
+
+    def test_hasnt_changed(self):
+        field = StreamPage._meta.get_field("body")
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("image", self.image_1, "1"),
+                    ],
+                )
+            ),
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("image", self.image_1, "1"),
+                    ],
+                )
+            ),
+        )
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Body")
+        htmldiff = comparison.htmldiff()
+        self.assertIsInstance(htmldiff, SafeString)
+        self.assertIn('class="comparison__child-object"', htmldiff)
+        self.assertIn('class="preview-image"', htmldiff)
+        self.assertNotIn("deletion", htmldiff)
+        self.assertNotIn("addition", htmldiff)
+        self.assertFalse(comparison.has_changed())
+
+    def test_has_changed(self):
+        field = StreamPage._meta.get_field("body")
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("image", self.image_1, "1"),
+                    ],
+                )
+            ),
+            StreamPage(
+                body=StreamValue(
+                    field.stream_block,
+                    [
+                        ("image", self.image_2, "1"),
+                    ],
+                )
+            ),
+        )
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Body")
+        htmldiff = comparison.htmldiff()
+        self.assertIsInstance(htmldiff, SafeString)
+        self.assertIn('class="comparison__child-object"', htmldiff)
+        self.assertIn('class="preview-image deletion"', htmldiff)
+        self.assertIn('class="preview-image addition"', htmldiff)
+        self.assertTrue(comparison.has_changed())
 
 
 class TestImageBlock(TestImageChooserBlock):
