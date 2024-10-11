@@ -15,11 +15,12 @@ def _get_redirect(request, path):
         return None
 
     site = Site.find_for_request(request)
+    redirect_hash = models.Redirect.get_redirect_hash(path)
     try:
-        return models.Redirect.get_for_site(site).get(old_path=path)
+        return models.Redirect.get_for_site(site).get(hash=redirect_hash)
     except models.Redirect.MultipleObjectsReturned:
         # We have a site-specific and a site-ambivalent redirect; prefer the specific one
-        return models.Redirect.objects.get(site=site, old_path=path)
+        return models.Redirect.objects.get(site=site, hash=redirect_hash)
     except models.Redirect.DoesNotExist:
         return None
 
