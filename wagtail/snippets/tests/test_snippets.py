@@ -1020,7 +1020,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
@@ -1037,7 +1037,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -1058,7 +1058,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
@@ -1077,7 +1077,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
         self.assertNotContains(response, "<em>'Save'</em>")
@@ -1908,7 +1908,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
@@ -1925,7 +1925,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -2138,7 +2138,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
 
@@ -2539,7 +2539,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
 
@@ -2575,7 +2575,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertContains(response, "Unpublish")
 
@@ -2613,7 +2613,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertContains(response, "Unpublish")
 

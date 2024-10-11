@@ -196,7 +196,6 @@ class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = "action-unpublish"
     icon_name = "download"
-    classname = "action-secondary"
 
     def is_shown(self, context):
         if context["view"] == "edit":

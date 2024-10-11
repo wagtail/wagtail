@@ -199,7 +199,6 @@ class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = "action-unpublish"
     icon_name = "download"
-    classname = "action-secondary"
 
     def is_shown(self, context):
         if context.get("locked_for_user"):
@@ -219,7 +218,6 @@ class DeleteMenuItem(ActionMenuItem):
     name = "action-delete"
     label = _("Delete")
     icon_name = "bin"
-    classname = "action-secondary"
 
     def __init__(self, order=None):
         super().__init__(order)
