@@ -40,8 +40,8 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
             response,
             '"name": "tests", "label": "Tests", "icon_name": "folder-open-inverse"',
         )
-        # Title-cased from verbose_name_plural
-        self.assertContains(response, "Json Stream Models")
+        # Capitalized-first from verbose_name_plural
+        self.assertContains(response, "JSON stream models")
         self.assertContains(response, reverse("streammodel:index"))
         self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
         # Set on class
@@ -81,7 +81,7 @@ class TestModelViewSetGroup(WagtailTestUtils, TestCase):
         )
 
         # The menu item for the model is shown
-        self.assertContains(response, "Json Stream Models")
+        self.assertContains(response, "JSON stream models")
         self.assertContains(response, reverse("streammodel:index"))
         self.assertEqual(reverse("streammodel:index"), "/admin/streammodel/")
 
@@ -1241,6 +1241,11 @@ class TestUsageView(WagtailTestUtils, TestCase):
         link = tds[0].select_one("a")
         self.assertIsNotNone(link)
         self.assertEqual(link.attrs.get("href"), tbx_edit_url)
+        content_path_link = tds[-1].select_one("a")
+        self.assertEqual(
+            content_path_link.attrs.get("href"),
+            tbx_edit_url + "#:w:contentpath=cascading_toy",
+        )
 
         # Link to referrer's edit view with parameters for the specific field
         link = tds[2].select_one("a")

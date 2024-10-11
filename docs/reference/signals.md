@@ -197,8 +197,10 @@ This signal is emitted from a `TaskState` when a page's task is canceled.
 
 ## copy_for_translation_done
 
-This signal is emitted from a `CopyPageForTranslationAction` when a page is being copied to a new locale (translated).
+This signal is emitted from `CopyForTranslationAction` or `CopyPageForTranslationAction` when a translatable model or page is copied to a new locale (translated).
 
--   `sender` - `CopyPageForTranslationAction`
--   `source_obj` - The source page
--   `target_obj` - The copy of the source page in the new locale
+A translatable model is a model that implements the [TranslatableMixin](wagtail.models.TranslatableMixin).
+
+-   `sender` - `CopyForTranslationAction` or `CopyPageForTranslationAction`
+-   `source_obj` - The source object
+-   `target_obj` - The copy of the source object in the new locale

@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2021-10-15 16:05+0000\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Language-Team: Uyghur (https://app.transifex.com/torchbox/teams/8009/ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Caption"
+msgstr "ماۋزۇ"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"جەدۋەلنىڭ ئومۇمىي تېمىسىنى پەرقلەندۈرىدىغان ۋە ئېكراندا ئوقۇيدىغان "
+"ئىشلەتكۈچىلەر ئۈچۈن پايدىلىق ماۋزۇ."
+
+msgid "Add column"
+msgstr "رەت قوش"
+
+msgid "Add row"
+msgstr "قۇر قوش"
+
+msgid "Column heading"
+msgstr "رەت ماۋزۇسى"
+
+msgid "Insert column"
+msgstr "رەت قىستۇر"
+
+msgid "Delete column"
+msgstr "رەت ئۆچۈر"
+
+msgid "Insert row"
+msgstr "قۇر قىستۇر"
+
+msgid "Delete row"
+msgstr "قۇر ئۆچۈر"

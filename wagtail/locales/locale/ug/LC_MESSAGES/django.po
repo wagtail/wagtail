@@ -1,0 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Language-Team: Uyghur (https://app.transifex.com/torchbox/teams/8009/ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail locales"
+msgstr "Wagtail يەرلىك تىل"
+
+msgid "Language"
+msgstr "تىل"
+
+msgid "Select a new language"
+msgstr "يېڭى تىل تاللىنىدۇ"
+
+msgid "This locale's language code is not supported"
+msgstr "بۇ يەرلىك تىل كودىنى قوللىمايدۇ"
+
+msgid "Yes, delete"
+msgstr "ھەئە، ئۆچۈر"
+
+msgid "Back"
+msgstr "قايت"
+
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"بۇ يەرلىك تىل كودىنى قوللىمايدۇ. يېڭى تىل تاللاڭ ياكى بۇ يەرلىك تىلنى "
+"ئۆچۈرۈڭ."
+
+msgid "Locales"
+msgstr "يەرلىك تىل"
+
+msgid "Add a locale"
+msgstr "يەرلىك تىل قوش"
+
+msgid "Usage"
+msgstr "ئىشلىتىلىشى"
+
+msgid "Add locale"
+msgstr "يەرلىك تىل قوش"
+
+#, python-format
+msgid "Locale '%(object)s' created."
+msgstr "«%(object)s» يەرلىك تىلى قۇرۇلدى."
+
+#, python-format
+msgid "Locale '%(object)s' updated."
+msgstr "«%(object)s» يەرلىك تىلى يېڭىلاندى."
+
+msgid "The locale could not be saved due to errors."
+msgstr "خاتالىق سەۋەبىدىن يەرلىك تىلنى ساقلىغىلى بولمىدى."
+
+msgid "Delete locale"
+msgstr "يەرلىك تىلنى ئۆچۈر"
+
+#, python-format
+msgid "Locale '%(object)s' deleted."
+msgstr "يەرلىك تىل «%(object)s» ئۆچۈرۈلدى."
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "بۇ يەرلىك تىلنى راستتىنلا ئۆچۈرەمسىز؟"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr "بۇ يەرلىك تىلنى ئۆچۈرگىلى بولمايدۇ چۈنكى باشقا يەرلىك تىل يوق."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr ""
+"بۇ يەرلىك تىلنى ئۆچۈرگىلى بولمايدۇ چۈنكى بەت ۋە ياكى باشقا ئوبيېكت ئۇنى "
+"ئىشلىتىۋاتىدۇ."

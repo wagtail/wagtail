@@ -1,4 +1,22 @@
-export {};
+export interface WagtailConfig {
+  ADMIN_API: {
+    PAGES: string;
+    DOCUMENTS: string;
+    IMAGES: string;
+    EXTRA_CHILDREN_PARAMETERS: string;
+  };
+  ADMIN_URLS: {
+    DISMISSIBLES: string;
+    PAGES: string;
+  };
+  CSRF_HEADER_NAME: string;
+  CSRF_TOKEN: string;
+  I18N_ENABLED: boolean;
+  LOCALES: {
+    code: string;
+    display_name: string;
+  }[];
+}
 
 declare global {
   interface Window {
@@ -6,28 +24,5 @@ declare global {
     telepath: any;
   }
 
-  // Get text
-
-  // Wagtail globals
-
-  interface WagtailConfig {
-    ADMIN_API: {
-      PAGES: string;
-      DOCUMENTS: string;
-      IMAGES: string;
-      EXTRA_CHILDREN_PARAMETERS: string;
-    };
-
-    ADMIN_URLS: {
-      PAGES: string;
-    };
-
-    I18N_ENABLED: boolean;
-    LOCALES: {
-      code: string;
-
-      display_name: string;
-    }[];
-  }
   const wagtailConfig: WagtailConfig;
 }

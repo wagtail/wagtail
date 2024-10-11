@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
+"ug/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ug\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtail جەدۋەل بۆلىكى"
+
+msgid "Row header"
+msgstr "قۇر ماۋزۇسى"
+
+msgid "Table headers"
+msgstr "جەدۋەل بەت قېشى"
+
+msgid "Display the first row as a header"
+msgstr "بىرىنچى قۇرنى بەت قاش سۈپىتىدە كۆرسىتىدۇ"
+
+msgid "Display the first column as a header"
+msgstr "بىرىنچى رەتنى بەت قاش سۈپىتىدە كۆرسىتىدۇ"
+
+msgid "Column header"
+msgstr "رەت بەت قېشى"
+
+msgid "Display the first row AND first column as headers"
+msgstr "بىرىنچى قۇر ۋە بىرىنچى رەتنى بەت قاش سۈپىتىدە كۆرسىتىدۇ"
+
+msgid "No headers"
+msgstr "بەت قاش يوق"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "قايسى كاتەكچىلەر بەت قاش سۈپىتىدە كۆرسىتىلىشى كېرەك؟"
+
+msgid "Table caption"
+msgstr "جەدۋەل ماۋزۇسى"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"جەدۋەلنىڭ ئومۇمىي تېمىسىنى پەرقلەندۈرىدىغان ۋە ئېكراندا ئوقۇيدىغان "
+"ئىشلەتكۈچىلەر ئۈچۈن پايدىلىق ماۋزۇ."
+
+msgid "Table"
+msgstr "جەدۋەل"

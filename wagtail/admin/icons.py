@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from wagtail import hooks
 
-icon_comment_pattern = re.compile(r"<!--.*?-->")
+icon_comment_pattern = re.compile(r"<!--.*?-->", re.DOTALL)
 
 
 @lru_cache(maxsize=None)

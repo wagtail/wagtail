@@ -99,7 +99,6 @@ $(function () {
     formData: function (form) {
       var filename = this.files[0].name;
       var data = { title: filename.replace(/\.[^.]+$/, '') };
-      var maxTitleLength = window.fileupload_opts.max_title_length;
 
       var event = form.get(0).dispatchEvent(
         new CustomEvent('wagtail:documents-upload', {
@@ -108,7 +107,7 @@ $(function () {
           detail: {
             data: data,
             filename: filename,
-            maxTitleLength: maxTitleLength,
+            maxTitleLength: this.maxTitleLength,
           },
         }),
       );

@@ -53,30 +53,10 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   background-color: theme('colors.surface-page');
   color: theme('colors.icon-primary');
   transform: rotate(180deg);
-  // Expand is available for keyboard users only.
-  opacity: 0;
-  pointer-events: none;
 
   @include media-breakpoint-up(sm) {
-    margin-top: theme('spacing.9');
+    margin-top: 18px;
     padding: theme('spacing.[1.5]');
-
-    *:focus {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    // Ensure the toggle button is only visible when it has **focus-visible**.
-    // With fallback focus styles for browsers that lack focus-visible support.
-    *:focus:not(:focus-visible) {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    &:focus-visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
   }
 
   .icon {
@@ -85,8 +65,6 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   }
 
   :where(.w-minimap--expanded) & {
-    opacity: 1;
-    pointer-events: auto;
     margin-top: theme('spacing.3');
     margin-inline-start: theme('spacing.3');
     padding: theme('spacing.3');

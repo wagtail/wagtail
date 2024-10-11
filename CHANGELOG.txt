@@ -15,6 +15,9 @@ Changelog
  * Implement universal listings for workflow usage and page type usage views (Sage Abdullah)
  * Add search and filters to form pages listing (Sage Abdullah)
  * Deprecate the `WAGTAIL_AUTO_UPDATE_PREVIEW` setting, use `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` instead (Sage Abdullah)
+ * Consistently use `capfirst` for title-casing model verbose names (Sébastien Corbin)
+ * Add support for Python 3.13 (Matt Westcott)
+ * Fire `copy_for_translation_done` signal when copying translatable models as well as pages (Coen van der Kamp)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
@@ -26,11 +29,19 @@ Changelog
  * Fix: Resolve contrast issue for page deletion warning (Sanjeev Holla S)
  * Fix: Make sure content metrics falls back to body element only when intended (Sage Abdullah)
  * Fix: Remove wrongly-added filters from redirects index (Matt Westcott)
+ * Fix: Prevent popular tags filter from generating overly complex queries when not filtering (Matt Westcott)
+ * Fix: Fix content path links in usage view to scroll to the correct element (Sage Abdullah)
+ * Fix: Always show the minimap toggle button (Albina Starykova)
+ * Fix: Ensure that dropdown button toggles show with a border in high contrast mode (Ishwari8104, LB (Ben) Johnston)
+ * Fix: Update email notification header to the new logo design (rahulsamant37)
+ * Fix: Change `file_size` field on document model to avoid artificial 2Gb limit (Gabriel Getzie)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
  * Docs: Clarify process for UserViewSet customization (Sage Abdullah)
  * Docs: Correct `WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT` documentation to state that it defaults to `False` (Matt Westcott)
+ * Docs: Add an example of customizing a default accessibility check (Cynthia Kiser)
+ * Docs: Demonstrate access protection with `TokenAuthentication` in the Wagtail API v2 Configuration Guide (Krzysztof Jeziorny)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
@@ -45,15 +56,22 @@ Changelog
  * Maintenance: Improve `debounce` util's return type for better TypeScript usage (Sage Abdullah)
  * Maintenance: Ensure the side panel's show event is dispatched after any hide events (Sage Abdullah)
  * Maintenance: Migrate preview-panel JavaScript to Stimulus & TypeScript, add full unit testing (Sage Abdullah)
+ * Maintenance: Move `wagtailConfig` values from inline scripts to the `wagtail_config` template tag (LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Deprecate the `{% locales %}` and `{% js_translation_strings %}` template tags (LB (Ben) Johnston, Sage Abdullah)
+ * Maintenance: Ensure multi-line comments are cleaned from custom icons in addition to just single line comments (Jake Howard)
+ * Maintenance: Deprecate `window.wagtailConfig.BULK_ACTION_ITEM_TYPE` usage in JavaScript to reduce reliance on inline scripts (LB (Ben) Johnston)
+ * Maintenance: Remove `window.fileupload_opts` usage in JavaScript, use data attributes on fields instead to reduce reliance on inline scripts (LB (Ben) Johnston)
+ * Maintenance: Remove `image_format_name_to_content_type` helper function that duplicates Willow functionality (Matt Westcott)
 
 
-6.2.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2.2 (24.09.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix various instances of `USE_THOUSAND_SEPARATOR` formatting numbers where formatting is invalid (Sébastien Corbin, Matt Westcott)
  * Fix: Fix broken link to user search (Shlomo Markowitz)
  * Fix: Make sure content metrics falls back to body element only when intended (Sage Abdullah)
  * Fix: Remove wrongly-added filters from redirects index (Matt Westcott)
+ * Fix: Prevent popular tags filter from generating overly complex queries when not filtering (Matt Westcott)
  * Docs: Clarify process for UserViewSet customization (Sage Abdullah)
 
 
@@ -232,6 +250,9 @@ Changelog
  * Fix: Use correct URL when redirecting back to page search results after an AJAX search (Sage Abdullah)
  * Fix: Reinstate missing static files in style guide (Sage Abdullah)
  * Fix: Provide `convert_mariadb_uuids` management command to assist with upgrading to Django 5.0+ on MariaDB (Matt Westcott)
+ * Fix: Ensure invalid submissions are marked as dirty edits on load to trigger UI and browser warnings for unsaved changes, restoring previous behavior from Wagtail 5.2 (Sage Abdullah)
+ * Fix: Update polldaddy oEmbed provider to use the crowdsignal URL (Matthew Scouten)
+ * Fix: Remove polleverywhere oEmbed provider as it this application longer supports oEmbed (Matthew Scouten)
  * Docs: Add contributing development documentation on how to work with a fork of Wagtail (Nix Asteri, Dan Braghis)
  * Docs: Make sure the settings panel is listed in tabbed interface examples (Tibor Leupold)
  * Docs: Update content and page names to their US spelling instead of UK spelling (Victoria Poromon)
@@ -272,6 +293,7 @@ Changelog
  * Maintenance: Remove jQuery usage in telepath widget classes (Matt Westcott)
  * Maintenance: Remove `xregexp` (IE11 polyfill) along with `window.XRegExp` global util (LB (Ben) Johnston)
  * Maintenance: Refactor the Django port of `urlify` to use TypeScript, officially deprecate `window.URLify` global util (LB (Ben) Johnston)
+ * Maintenance: Adopt the modern best practice for `beforeunload` usage in `UnsavedController` to trigger a leave page warning when edits have been made (Shubham Mukati, Sage Abdullah)
 
 
 6.0.6 (11.07.2024)

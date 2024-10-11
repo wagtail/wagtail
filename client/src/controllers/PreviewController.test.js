@@ -2,13 +2,6 @@ import { Application } from '@hotwired/stimulus';
 import { ProgressController } from './ProgressController';
 import { PreviewController } from './PreviewController';
 
-jest.mock('../config/wagtailConfig.js', () => ({
-  WAGTAIL_CONFIG: {
-    CSRF_HEADER_NAME: 'X-CSRFToken',
-    CSRF_TOKEN: 'test-token',
-  },
-}));
-
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');
 
@@ -537,9 +530,7 @@ describe('PreviewController', () => {
       // Should NOT send a request to clear the preview data, as there is no
       // stale data that needs to be cleared
       expect(global.fetch).not.toHaveBeenCalledWith(url, {
-        headers: {
-          'X-CSRFToken': 'test-token',
-        },
+        headers: { 'x-xsrf-token': 'potato' },
         method: 'DELETE',
       });
 
@@ -686,9 +677,7 @@ describe('PreviewController', () => {
 
       // Should send a request to clear the preview data
       expect(global.fetch).toHaveBeenCalledWith(url, {
-        headers: {
-          'X-CSRFToken': 'test-token',
-        },
+        headers: { 'x-xsrf-token': 'potato' },
         method: 'DELETE',
       });
       // Should not try to reload the iframe yet

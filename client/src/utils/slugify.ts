@@ -1,9 +1,8 @@
 /**
- * Returns the supplied string as a slug, accepts options.unicodeSlugsEnabled to support
+ * Returns the supplied string as a slug, accepts options.allowUnicode to support
  * additional characters being allowed.
- * special characters of other languages which are not validated by django's slug validator are discarded.
+ * Special characters of other languages which are not validated by django's slug validator are discarded.
  */
-
 export const slugify = (
   value: string,
   { allowUnicode = false }: { allowUnicode?: boolean } = {},
