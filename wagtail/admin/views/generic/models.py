@@ -1048,6 +1048,19 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         )
         return self.breadcrumbs_items + items
 
+    @cached_property
+    def header_more_buttons(self):
+        buttons = []
+        if edit_url := self.get_edit_url():
+            buttons.append(
+                Button(_("Edit"), url=edit_url, icon_name="edit", priority=10)
+            )
+        if delete_url := self.get_delete_url():
+            buttons.append(
+                Button(_("Delete"), url=delete_url, icon_name="bin", priority=20)
+            )
+        return buttons
+
     def get_fields(self):
         fields = self.fields or [
             f.name
@@ -1117,8 +1130,6 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         context = super().get_context_data(**kwargs)
         context["object"] = self.object
         context["fields"] = self.get_fields_context()
-        context["edit_url"] = self.get_edit_url()
-        context["delete_url"] = self.get_delete_url()
         return context
 
 
