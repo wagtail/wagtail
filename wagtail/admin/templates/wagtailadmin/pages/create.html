@@ -1,7 +1,6 @@
-{% extends "wagtailadmin/generic/base.html" %}
+{% extends "wagtailadmin/generic/form.html" %}
 {% load wagtailadmin_tags %}
 {% load i18n %}
-{% block bodyclass %}editor-view{% endblock %}
 
 {% block content %}
     {% get_comments_enabled as comments_enabled %}
@@ -34,29 +33,20 @@
 
         {{ edit_handler.render_form_content }}
 
-        <footer class="footer w-grid md:w-grid-flow-col">
-            <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
-                {{ action_menu.render_html }}
-                {% block extra_footer_actions %}
-                {% endblock %}
-            </nav>
-            {% include "wagtailadmin/shared/unsaved_changes_warning.html" %}
-        </footer>
+        {% block footer %}
+            {{ block.super }}
+            {# Reuse the footer container, but redefine the actions content down below to use component classes #}
+        {% endblock %}
     </form>
 
 {% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ media.css }}
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-
-    {% comment %}
-        Additional js from widgets media. Allows for custom widgets in admin panel.
-    {% endcomment %}
-    {{ media.js }}
-{% endblock %}
+{% block actions %}
+    {{ action_menu.render_html }}
+    {% block extra_footer_actions %}
+        {% comment %}
+            While undocumented, this block is used by some packages to add
+            additional actions *outside* of the dropdown menu.
+        {% endcomment %}
+    {% endblock %}
+{% endblock%}
