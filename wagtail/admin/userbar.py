@@ -9,9 +9,7 @@ class BaseItem:
         return {"self": self, "request": request}
 
     def render(self, request):
-        return render_to_string(
-            self.template, self.get_context_data(request), request=request
-        )
+        return render_to_string(self.template, self.get_context_data(request))
 
 
 class AdminItem(BaseItem):
