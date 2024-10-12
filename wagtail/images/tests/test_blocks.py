@@ -247,3 +247,143 @@ class TestImageBlock(TestImageChooserBlock):
         self.assertEqual(result.id, self.image.id)
         self.assertEqual(result.contextual_alt_text, "Sample text")
         self.assertFalse(result.decorative)
+
+
+class TestImageBlockComparison(TestCase):
+    comparison_class = compare.StreamFieldComparison
+
+    def setUp(self):
+        self.image_1 = Image.objects.create(
+            title="Test image 1",
+            file=get_test_image_file(),
+        )
+
+        self.image_2 = Image.objects.create(
+            title="Test image 2",
+            file=get_test_image_file(),
+        )
+
+        self.field = StreamPage._meta.get_field("body")
+
+    def test_hasnt_changed(self):
+        field = StreamPage._meta.get_field("body")
+
+        page_1 = StreamPage()
+        page_1.body = [
+            {
+                "type": "image_with_alt",
+                "value": {
+                    "image": self.image_1.id,
+                    "decorative": False,
+                    "alt_text": "Some alt text",
+                },
+                "id": "1",
+            },
+        ]
+        page_2 = StreamPage()
+        page_2.body = [
+            {
+                "type": "image_with_alt",
+                "value": {
+                    "image": self.image_1.id,
+                    "decorative": False,
+                    "alt_text": "Some alt text",
+                },
+                "id": "1",
+            },
+        ]
+
+        comparison = self.comparison_class(field, page_1, page_2)
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Body")
+        htmldiff = comparison.htmldiff()
+        self.assertIsInstance(htmldiff, SafeString)
+        self.assertIn('class="comparison__child-object"', htmldiff)
+        self.assertIn('class="preview-image"', htmldiff)
+        self.assertNotIn("deletion", htmldiff)
+        self.assertNotIn("addition", htmldiff)
+        self.assertFalse(comparison.has_changed())
+
+    def test_has_changed(self):
+        field = StreamPage._meta.get_field("body")
+
+        page_1 = StreamPage()
+        page_1.body = [
+            {
+                "type": "image_with_alt",
+                "value": {
+                    "image": self.image_1.id,
+                    "decorative": False,
+                    "alt_text": "Some alt text",
+                },
+                "id": "1",
+            },
+        ]
+        page_2 = StreamPage()
+        page_2.body = [
+            {
+                "type": "image_with_alt",
+                "value": {
+                    "image": self.image_2.id,
+                    "decorative": False,
+                    "alt_text": "Some alt text",
+                },
+                "id": "1",
+            },
+        ]
+
+        comparison = self.comparison_class(field, page_1, page_2)
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Body")
+        htmldiff = comparison.htmldiff()
+        self.assertIsInstance(htmldiff, SafeString)
+        self.assertIn('class="comparison__child-object"', htmldiff)
+        self.assertIn('class="preview-image deletion"', htmldiff)
+        self.assertIn('class="preview-image addition"', htmldiff)
+        self.assertTrue(comparison.has_changed())
+
+    def test_alt_text_has_changed(self):
+        field = StreamPage._meta.get_field("body")
+
+        page_1 = StreamPage()
+        page_1.body = [
+            {
+                "type": "image_with_alt",
+                "value": {
+                    "image": self.image_1.id,
+                    "decorative": False,
+                    "alt_text": "a cat playing with some string",
+                },
+                "id": "1",
+            },
+        ]
+        page_2 = StreamPage()
+        page_2.body = [
+            {
+                "type": "image_with_alt",
+                "value": {
+                    "image": self.image_1.id,
+                    "decorative": False,
+                    "alt_text": "a kitten playing with some string",
+                },
+                "id": "1",
+            },
+        ]
+
+        comparison = self.comparison_class(field, page_1, page_2)
+
+        self.assertTrue(comparison.is_field)
+        self.assertFalse(comparison.is_child_relation)
+        self.assertEqual(comparison.field_label(), "Body")
+        htmldiff = comparison.htmldiff()
+        self.assertIsInstance(htmldiff, SafeString)
+        self.assertIn('class="comparison__child-object"', htmldiff)
+        self.assertIn(
+            '<dd>a <span class="deletion">cat</span><span class="addition">kitten</span> playing with some string</dd>',
+            htmldiff,
+        )
+        self.assertTrue(comparison.has_changed())

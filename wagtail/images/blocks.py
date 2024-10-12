@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.compare import BlockComparison
+from wagtail.admin.compare import BlockComparison, StructBlockComparison
 from wagtail.blocks import BooleanBlock, CharBlock, ChooserBlock, StructBlock
 from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 from wagtail.images.models import AbstractImage
@@ -192,6 +192,9 @@ class ImageBlock(StructBlock):
     def extract_references(self, value):
         return self.child_blocks["image"].extract_references(value)
 
+    def get_comparison_class(self):
+        return ImageBlockComparison
+
     class Meta:
         icon = "image"
         template = "wagtailimages/widgets/image.html"
@@ -210,3 +213,27 @@ class ImageBlockAdapter(StructBlockAdapter):
 
 
 register(ImageBlockAdapter(), ImageBlock)
+
+
+class ImageBlockComparison(StructBlockComparison):
+    def __init__(self, block, exists_a, exists_b, val_a, val_b):
+        super().__init__(
+            block,
+            exists_a,
+            exists_b,
+            self.image_to_struct(val_a),
+            self.image_to_struct(val_b),
+        )
+
+    def image_to_struct(self, image):
+        return {
+            "image": image,
+            "alt_text": image and image.contextual_alt_text,
+            "decorative": image and image.decorative,
+        }
+
+    def htmlvalue(self, val):
+        if isinstance(val, AbstractImage):
+            return super().htmlvalue(self.image_to_struct(val))
+        else:
+            return super().htmlvalue(val)
