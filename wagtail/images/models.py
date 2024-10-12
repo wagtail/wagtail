@@ -377,6 +377,28 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     def __str__(self):
         return self.title
 
+    def __eq__(self, other):
+        if not isinstance(other, models.Model):
+            return NotImplemented
+
+        if self._meta.concrete_model != other._meta.concrete_model:
+            return False
+
+        my_pk = self.pk
+        if my_pk is None:
+            return self is other
+
+        return (
+            my_pk == other.pk
+            and other.contextual_alt_text == self.contextual_alt_text
+            and other.is_decorative == self.is_decorative
+        )
+
+    def __hash__(self):
+        if self.pk is None:
+            raise TypeError("Model instances without primary key value are unhashable")
+        return hash((self.pk, self.contextual_alt_text, self.is_decorative))
+
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
 
