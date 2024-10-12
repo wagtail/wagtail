@@ -12,6 +12,7 @@ Changelog
  * Fix: Gracefully handle oEmbed responses with a non-200 status or missing type (Shivam Kumar, Bhavesh Sharma)
  * Fix: Keep action button labelled as "Publish" rather than "Schedule to publish" if go-live date has passed (Vishrut Ramraj)
  * Fix: Pass accumulated icons to each `register_icons` hook (Joey Jurjens, Sage Abdullah)
+ * Fix: Skip revisions that are missing the specified field in StreamField migrations (Joshua Munn)
  * Docs: Recommend running `purge_embeds` after an embed provider changes policies (Paul Souders)
  * Docs: Document `WAGTAILIMAGES_FORMAT_CONVERSIONS` in the settings docs (David Buxton)
  * Docs: Wording changes to Draftail extension docs to improve searchability (Lasse Schmieding)
