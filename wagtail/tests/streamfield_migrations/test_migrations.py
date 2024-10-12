@@ -250,3 +250,38 @@ class TestNullStreamField(BaseMigrationTest):
         self.assert_null_content()
         self.apply_migration()
         self.assert_null_content()
+
+
+class TestRevisionHandling(BaseMigrationTest):
+    """
+    Test the handling of revisions in StreamField data migrations.
+    """
+
+    model = models.SamplePage
+    factory = factories.SamplePageFactory
+    has_revisions = False  # We'll create them manually.
+    app_name = "streamfield_migration_tests"
+
+    def _get_test_instances(self):
+        return self.factory()
+
+    def setUp(self):
+        self.instance = self._get_test_instances()
+
+    def test_undefined_field_handled(self):
+        """
+        Revisions not having the targeted field are handled.
+
+        See https://github.com/wagtail/wagtail/issues/12408.
+        """
+
+        # Create a revision
+        revision = self.instance.save_revision()
+
+        # Delete the `content' field from the revision content, to simulate a revision
+        # created before the creation of the field.
+        del revision.content["content"]
+        revision.save()
+
+        # Should not throw a KeyError.
+        self.apply_migration()
