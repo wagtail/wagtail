@@ -20,7 +20,7 @@ class BaseLock:
 
         self.object = object
         self.is_page = isinstance(object, Page)
-        # Use the base page's model name instead of the specific type for brevity
+        # Use the base page's model name instead of the specific type for brevit.
         self.model_name = (Page if self.is_page else object)._meta.verbose_name
 
     def for_user(self, user):
