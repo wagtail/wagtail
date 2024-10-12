@@ -11,6 +11,7 @@ from wagtail import hooks
 from wagtail.admin.userbar import AccessibilityItem
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
+from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -444,11 +445,13 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
         self.homepage.add_child(instance=self.page)
 
     def test_userbar_rendered(self):
+        reset_call_count()
         response = self.page.serve(self.request)
         response.render()
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<template id="wagtail-userbar-template">')
+        self.assertEqual(get_call_count(), 1)
 
     def test_userbar_anonymous_user_cannot_see(self):
         self.request.user = AnonymousUser()
