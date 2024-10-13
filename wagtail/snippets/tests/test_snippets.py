@@ -807,6 +807,33 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
         self.assertNotContains(response, 'role="tablist"', html=True)
 
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            "false",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
+
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(
             reverse("wagtailsnippets_tests_advertwithtabbedinterface:add")
@@ -845,6 +872,34 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertContains(response, "The advert could not be created due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
+
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            # The form is invalid, we want to force it to be "dirty" on initial load
+            "true",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
 
     def test_create(self):
         response = self.post(
@@ -1667,6 +1722,33 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             allow_extra_attrs=True,
         )
 
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            "false",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
+
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
         self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
@@ -1705,6 +1787,34 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertContains(response, "The advert could not be saved due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
+
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            # The form is invalid, we want to force it to be "dirty" on initial load
+            "true",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
 
     def test_edit(self):
         response = self.post(

@@ -244,7 +244,9 @@ describe('UnsavedController', () => {
 
       // Should immediately set the form as having edits
       const form = document.querySelector('form');
-      expect(form.dataset.wUnsavedHasEditsValue).toEqual('true');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
 
       // Should dispatch an add event with the type of edits
       // so that the user can be warned
@@ -258,6 +260,18 @@ describe('UnsavedController', () => {
 
       expect(result).toEqual(true);
       expect(events['w-unsaved:confirm']).toHaveLength(1);
+
+      // Should still consider the form as having edits after an edit is made
+      const input = document.getElementById('name');
+      input.value = 'James Sunderland';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+      expect(events['w-unsaved:clear']).toHaveLength(0);
     });
 
     it('should not show a confirmation message if forced but confirmation value is false', async () => {
@@ -276,7 +290,9 @@ describe('UnsavedController', () => {
 
       // Should immediately set the form as having edits
       const form = document.querySelector('form');
-      expect(form.dataset.wUnsavedHasEditsValue).toEqual('true');
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
 
       // Should dispatch an add event with the type of edits
       // so that the user can be warned
@@ -290,6 +306,18 @@ describe('UnsavedController', () => {
 
       expect(result).toEqual(false);
       expect(events['w-unsaved:confirm']).toHaveLength(0);
+
+      // Should still consider the form as having edits after an edit is made
+      const input = document.getElementById('name');
+      input.value = 'James Sunderland';
+      input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(form.getAttribute('data-w-unsaved-has-edits-value')).toEqual(
+        'true',
+      );
+      expect(events['w-unsaved:clear']).toHaveLength(0);
     });
 
     it('should allow a confirmation message to show before the browser closes', async () => {

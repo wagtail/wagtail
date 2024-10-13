@@ -14,10 +14,13 @@ from wagtail.contrib.typed_table_block.blocks import (
 
 
 class CountryChoiceBlock(blocks.ChoiceBlock):
-    """A ChoiceBlock with a custom rendering, to check that block rendering is honoured"""
+    """A ChoiceBlock with a custom rendering and API representation, to check that block rendering is honoured"""
 
     def render_basic(self, value, context=None):
         return value.upper() if value else value
+
+    def get_api_representation(self, value, context=None):
+        return f".{value}" if value else value
 
 
 class TestTableBlock(TestCase):
@@ -72,6 +75,18 @@ class TestTableBlock(TestCase):
             "rows": [
                 {"values": ["nl", "A small country with stroopwafels"]},
                 {"values": ["fr", "A large country with baguettes"]},
+            ],
+            "caption": "Countries and their food",
+        }
+
+        self.api_data = {
+            "columns": [
+                {"type": "country", "heading": "Country"},
+                {"type": "text", "heading": "Description"},
+            ],
+            "rows": [
+                {"values": [".nl", "A small country with stroopwafels"]},
+                {"values": [".fr", "A large country with baguettes"]},
             ],
             "caption": "Countries and their food",
         }
@@ -173,6 +188,14 @@ class TestTableBlock(TestCase):
         table = self.block.value_from_datadict(self.form_data, {}, "table")
         table_data = self.block.get_prep_value(table)
         self.assertEqual(table_data, self.db_data)
+
+    def test_get_api_representation(self):
+        """
+        Test that the API representation honours custom representations of child blocks
+        """
+        table = self.block.to_python(self.db_data)
+        table_api_representation = self.block.get_api_representation(table)
+        self.assertEqual(table_api_representation, self.api_data)
 
     def test_clean(self):
         table = self.block.value_from_datadict(self.form_data, {}, "table")

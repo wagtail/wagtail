@@ -17,7 +17,14 @@
         <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data">
             <div class="replace-file-input">
                 <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
-                <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtaildocs:add_multiple' %}" multiple>
+                <input
+                    id="fileupload"
+                    multiple
+                    name="files[]"
+                    type="file"
+                    data-max-title-length="{{ max_title_length|stringformat:'s'|default:'null' }}"
+                    data-url="{% url 'wagtaildocs:add_multiple' %}"
+                >
             </div>
             {% csrf_token %}
             {% if collections %}
@@ -73,10 +80,4 @@
 
     <!-- Main script -->
     <script src="{% versioned_static 'wagtaildocs/js/add-multiple.js' %}"></script>
-
-    <script>
-        window.fileupload_opts = {
-            max_title_length: {{ max_title_length|stringformat:"s"|default:"null" }}, //numeric format
-        }
-    </script>
 {% endblock %}

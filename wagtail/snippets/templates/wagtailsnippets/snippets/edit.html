@@ -12,10 +12,11 @@
 {% endblock %}
 
 {% block actions %}
-    <footer class="footer">
+    <footer class="footer w-grid md:w-grid-flow-col">
         <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
             {{ action_menu.render_html }}
         </nav>
+        {% include "wagtailadmin/shared/unsaved_changes_warning.html" %}
     </footer>
 {% endblock %}
 

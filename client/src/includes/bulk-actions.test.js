@@ -1,5 +1,3 @@
-import { addBulkActionListeners } from './bulk-actions';
-
 const getHtml = ({ objectIds = [1, 45, 23, 'uuid-1', 'uuid-2'] } = {}) => `
 <main>
   <input data-bulk-action-select-all-checkbox type="checkbox" id="header-select-all"/>
@@ -11,7 +9,7 @@ const getHtml = ({ objectIds = [1, 45, 23, 'uuid-1', 'uuid-2'] } = {}) => `
     )
     .join('')}
   </div>
-  <footer class="footer bulk-actions-choices hidden" data-bulk-action-footer>
+  <footer class="footer bulk-actions-choices hidden" data-bulk-action-footer="PAGE">
     <input data-bulk-action-select-all-checkbox type="checkbox" id="footer-select-all"/>
     <span data-bulk-action-num-objects class="num-objects"></span>
   </footer>
@@ -21,10 +19,9 @@ const getHtml = ({ objectIds = [1, 45, 23, 'uuid-1', 'uuid-2'] } = {}) => `
 describe('bulk-actions', () => {
   beforeAll(() => {
     window.wagtailConfig = {
-      BULK_ACTION_ITEM_TYPE: 'page',
       STRINGS: {
         BULK_ACTIONS: {
-          page: {
+          PAGE: {
             ALL_IN_LISTING: 'ALL_IN_LISTING',
             ALL: 'ALL',
             PLURAL: 'PLURAL',
@@ -43,6 +40,9 @@ describe('bulk-actions', () => {
 
   beforeEach(() => {
     document.body.innerHTML = getHtml();
+
+    // import after globals (strings) are created
+    const { addBulkActionListeners } = require('./bulk-actions');
 
     // connect listeners
     addBulkActionListeners();
