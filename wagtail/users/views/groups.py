@@ -113,7 +113,6 @@ class CreateView(PermissionPanelFormsMixin, generic.CreateView):
 class EditView(PermissionPanelFormsMixin, generic.EditView):
     success_message = _("Group '%(object)s' updated.")
     error_message = _("The group could not be saved due to errors.")
-    delete_item_label = _("Delete group")
     context_object_name = "group"
 
     @cached_property
