@@ -55,9 +55,7 @@ class PagesSummaryItem(SummaryItem):
 
 
 class SiteSummaryPanel(Component):
-    name = "site_summary"
     template_name = "wagtailadmin/home/site_summary.html"
-    order = 100
 
     def __init__(self, request):
         self.request = request

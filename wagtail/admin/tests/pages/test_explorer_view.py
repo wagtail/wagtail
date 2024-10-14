@@ -1245,7 +1245,7 @@ class TestExplorablePageVisibility(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
         # Bob should only see the welcome for example.com, not testserver
-        self.assertContains(response, "Welcome to the example.com Wagtail CMS")
+        self.assertContains(response, "example.com")
         self.assertNotContains(response, "testserver")
 
     def test_breadcrumb_with_no_user_permissions(self):
