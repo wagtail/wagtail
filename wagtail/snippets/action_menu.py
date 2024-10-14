@@ -1,5 +1,6 @@
 """Handles rendering of the list of actions in the footer of the snippet create/edit views."""
 from functools import lru_cache
+from warnings import warn
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -13,6 +14,7 @@ from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 from wagtail.snippets.permissions import get_permission_name
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class ActionMenuItem(Component):
@@ -219,6 +221,14 @@ class DeleteMenuItem(ActionMenuItem):
     icon_name = "bin"
     classname = "action-secondary"
 
+    def __init__(self, order=None):
+        super().__init__(order)
+        warn(
+            "DeleteMenuItem is deprecated. "
+            "The delete option is now provided via EditView.get_header_more_buttons().",
+            RemovedInWagtail70Warning,
+        )
+
     def is_shown(self, context):
         delete_permission = get_permission_name("delete", context["model"])
 
@@ -258,7 +268,6 @@ def get_base_snippet_action_menu_items(model):
     """
     menu_items = [
         SaveMenuItem(order=0),
-        DeleteMenuItem(order=10),
     ]
     if issubclass(model, DraftStateMixin):
         menu_items += [
@@ -341,6 +350,9 @@ class SnippetActionMenu:
             self.default_item = None
 
     def render_html(self):
+        if not self.default_item:
+            return ""
+
         rendered_menu_items = [
             menu_item.render_html(self.context) for menu_item in self.menu_items
         ]
