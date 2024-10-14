@@ -1,8 +1,1 @@
 {% extends "wagtailadmin/generic/form.html" %}
-{% load i18n %}
-
-{% block extra_actions %}
-    {% if delete_url %}
-        <a href="{{ delete_url }}" class="button">{{ delete_item_label }}</a>
-    {% endif %}
-{% endblock %}

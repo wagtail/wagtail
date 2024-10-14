@@ -41,6 +41,7 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
+    Button,
     ButtonWithDropdown,
     HeaderButton,
     ListingButton,
@@ -728,6 +729,24 @@ class EditView(
             .first()
         )
 
+    @cached_property
+    def can_delete(self):
+        return self.user_has_permission_for_instance("delete", self.object)
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = []
+        if self.can_delete and (delete_url := self.get_delete_url()):
+            buttons.append(
+                Button(
+                    self.delete_item_label,
+                    url=delete_url,
+                    icon_name="bin",
+                    priority=20,
+                )
+            )
+        return buttons
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -858,9 +877,7 @@ class EditView(
         context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
         context["has_unsaved_changes"] = self.has_unsaved_changes
-        context["can_delete"] = self.user_has_permission_for_instance(
-            "delete", self.object
-        )
+        context["can_delete"] = self.can_delete
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
             context["delete_item_label"] = self.delete_item_label

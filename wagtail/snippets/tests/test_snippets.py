@@ -34,6 +34,7 @@ from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
+    DeleteMenuItem,
     get_base_snippet_action_menu_items,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -1943,6 +1944,32 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response = self.get()
 
         self.assertNotContains(response, "<em>Save</em>")
+
+    def test_register_deprecated_delete_menu_item(self):
+        def hook_func(model):
+            return DeleteMenuItem(order=900)
+
+        get_base_snippet_action_menu_items.cache_clear()
+        with self.register_hook(
+            "register_snippet_action_menu_item", hook_func
+        ), self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "DeleteMenuItem is deprecated. "
+            "The delete option is now provided via EditView.get_header_more_buttons().",
+        ):
+            response = self.get()
+
+        get_base_snippet_action_menu_items.cache_clear()
+
+        delete_url = reverse(
+            self.test_snippet.snippet_viewset.get_url_name("delete"),
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertContains(
+            response,
+            f'<a class="button" href="{ delete_url }"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
+            html=True,
+        )
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
