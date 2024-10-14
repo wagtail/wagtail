@@ -233,7 +233,7 @@ describe('generateThemeColorVariables', () => {
         "--w-color-text-label-menus-default": "var(--w-color-white-80)",
         "--w-color-text-link-default": "var(--w-color-secondary)",
         "--w-color-text-link-hover": "var(--w-color-secondary-400)",
-        "--w-color-text-link-info": "var(--w-color-secondary)",
+        "--w-color-text-link-info": "var(--w-color-secondary-400)",
         "--w-color-text-meta": "var(--w-color-grey-400)",
         "--w-color-text-placeholder": "var(--w-color-grey-400)",
         "--w-color-text-status-label": "var(--w-color-info-100)",

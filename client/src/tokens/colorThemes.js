@@ -214,7 +214,7 @@ const light = [
         cssVariable: '--w-color-text-status-label',
       },
       'text-link-info': {
-        value: 'var(--w-color-secondary)',
+        value: 'var(--w-color-secondary-400)',
         bgUtility: 'w-bg-text-link-info',
         textUtility: 'w-text-text-link-info',
         cssVariable: '--w-color-text-link-info',

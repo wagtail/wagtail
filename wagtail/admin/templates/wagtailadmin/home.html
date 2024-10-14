@@ -8,9 +8,7 @@
 
 {% block content %}
     {% fragment as header_title %}
-        {% block branding_welcome %}
-            {{ site_name|title }}
-        {% endblock %}
+        {% block branding_welcome %}{{ site_name|title }}{% endblock %}
     {% endfragment %}
 
     {% component upgrade_notification %}
@@ -22,7 +20,7 @@
 
                 <form
                     class="w-mb-12"
-                    action="{% url 'wagtailadmin_explore' root_page.pk %}"
+                    action="{% if root_page.pk %}{% url 'wagtailadmin_explore' root_page.pk %}{% else %}{% url 'wagtailadmin_explore_root' %}{% endif %}"
                     method="get"
                     novalidate
                     role="search"

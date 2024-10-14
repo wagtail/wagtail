@@ -35,7 +35,6 @@ User = get_user_model()
 
 
 class UpgradeNotificationPanel(Component):
-    name = "upgrade_notification"
     template_name = "wagtailadmin/home/upgrade_notification.html"
 
     def get_upgrade_check_setting(self) -> Union[bool, str]:
@@ -289,17 +288,14 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         panels = self.get_panels()
+        site_summary = SiteSummaryPanel(self.request)
         site_details = self.get_site_details()
 
-        context["media"] = self.get_media(panels)
+        context["media"] = self.get_media([*panels, site_summary])
         context["panels"] = sorted(panels, key=lambda p: p.order)
-        # Panels that are not customizable via `construct_homepage_panels` hook
+        context["site_summary"] = site_summary
         context["upgrade_notification"] = UpgradeNotificationPanel()
-        context["site_summary"] = SiteSummaryPanel(self.request)
-        context["search_form"] = SearchForm(placeholder=_("Search all pages..."))
-        context["root_page"] = self.permission_policy.explorable_root_instance(
-            self.request.user
-        )
+        context["search_form"] = SearchForm(placeholder=_("Search all pages…"))
         context["user"] = self.request.user
 
         return {**context, **site_details}
