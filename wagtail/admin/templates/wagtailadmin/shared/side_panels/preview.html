@@ -23,7 +23,7 @@
                         data-action="w-preview#togglePreviewSize"
                         data-w-preview-target="size"
                         aria-label="{{ size.label }}"
-                        data-device-width="{{ size.device_width }}"
+                        data-device-width="{{ size.device_width|stringformat:'s' }}"
                         {% if page.default_preview_size == size.name %}
                             data-default-size
                             checked
