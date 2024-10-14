@@ -103,6 +103,10 @@ class LocaleViewSet(ModelViewSet):
     edit_view_class = EditView
     delete_view_class = DeleteView
 
+    # It does not make sense to copy Locale objects as they only contain the
+    # language code and are meant to be unique.
+    copy_view_enabled = False
+
     template_prefix = "wagtaillocales/"
 
     def get_common_view_kwargs(self, **kwargs):

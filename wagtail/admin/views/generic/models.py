@@ -655,8 +655,10 @@ class EditView(
     form_class = None
     index_url_name = None
     edit_url_name = None
+    copy_url_name = None
     delete_url_name = None
     history_url_name = None
+    inspect_url_name = None
     usage_url_name = None
     page_title = gettext_lazy("Editing")
     context_object_name = None
@@ -736,6 +738,15 @@ class EditView(
     @cached_property
     def header_more_buttons(self):
         buttons = []
+        if copy_url := self.get_copy_url():
+            buttons.append(
+                Button(
+                    _("Copy"),
+                    url=copy_url,
+                    icon_name="copy",
+                    priority=10,
+                )
+            )
         if self.can_delete and (delete_url := self.get_delete_url()):
             buttons.append(
                 Button(
@@ -743,6 +754,15 @@ class EditView(
                     url=delete_url,
                     icon_name="bin",
                     priority=20,
+                )
+            )
+        if inspect_url := self.get_inspect_url():
+            buttons.append(
+                Button(
+                    _("Inspect"),
+                    url=inspect_url,
+                    icon_name="info-circle",
+                    priority=30,
                 )
             )
         return buttons
@@ -755,6 +775,10 @@ class EditView(
             )
         return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
+    def get_copy_url(self):
+        if self.copy_url_name and self.user_has_permission("add"):
+            return reverse(self.copy_url_name, args=(quote(self.object.pk),))
+
     def get_delete_url(self):
         if self.delete_url_name:
             return reverse(self.delete_url_name, args=(quote(self.object.pk),))
@@ -762,6 +786,10 @@ class EditView(
     def get_history_url(self):
         if self.history_url_name:
             return reverse(self.history_url_name, args=(quote(self.object.pk),))
+
+    def get_inspect_url(self):
+        if self.inspect_url_name:
+            return reverse(self.inspect_url_name, args=(quote(self.object.pk),))
 
     def get_usage_url(self):
         if self.usage_url_name:
