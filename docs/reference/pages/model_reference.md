@@ -202,6 +202,12 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
 
     .. autoattribute:: preview_modes
 
+    .. autoattribute:: default_preview_mode
+        
+    .. autoattribute:: preview_sizes
+
+    .. autoattribute:: default_preview_size
+    
     .. automethod:: serve_preview
 
     .. automethod:: get_parent
@@ -576,6 +582,10 @@ Pages already include this mixin, so there is no need to add it.
     .. autoattribute:: preview_modes
 
     .. autoattribute:: default_preview_mode
+        
+    .. autoattribute:: preview_sizes
+
+    .. autoattribute:: default_preview_size
 
     .. automethod:: is_previewable
 
