@@ -443,6 +443,7 @@ class CreateView(
         "The %(model_name)s could not be created due to errors."
     )
     submit_button_label = gettext_lazy("Create")
+    submit_button_active_label = gettext_lazy("Creating…")
     actions = ["create"]
 
     def setup(self, request, *args, **kwargs):
@@ -543,6 +544,7 @@ class CreateView(
         side_panels = self.get_side_panels()
         context["action_url"] = self.add_url
         context["submit_button_label"] = self.submit_button_label
+        context["submit_button_active_label"] = self.submit_button_active_label
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         context["has_unsaved_changes"] = self.has_unsaved_changes
@@ -668,6 +670,7 @@ class EditView(
     success_message = gettext_lazy("%(model_name)s '%(object)s' updated.")
     error_message = gettext_lazy("The %(model_name)s could not be saved due to errors.")
     submit_button_label = gettext_lazy("Save")
+    submit_button_active_label = gettext_lazy("Saving…")
     actions = ["edit"]
 
     def setup(self, request, *args, **kwargs):
@@ -904,6 +907,7 @@ class EditView(
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
+        context["submit_button_active_label"] = self.submit_button_active_label
         context["has_unsaved_changes"] = self.has_unsaved_changes
         context["can_delete"] = self.can_delete
         if context["can_delete"]:
