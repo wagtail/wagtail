@@ -92,6 +92,13 @@ class ImageBlock(StructBlock):
             image.decorative = decorative
         return image
 
+    def _image_to_struct_value(self, image):
+        return {
+            "image": image,
+            "alt_text": image and image.contextual_alt_text,
+            "decorative": image and image.decorative,
+        }
+
     def to_python(self, value):
         # For backward compatibility with ImageChooserBlock
         if isinstance(value, int):
@@ -200,6 +207,11 @@ class ImageBlock(StructBlock):
     def get_comparison_class(self):
         return ImageBlockComparison
 
+    def get_api_representation(self, value, context=None):
+        return super().get_api_representation(
+            self._image_to_struct_value(value), context=context
+        )
+
     class Meta:
         icon = "image"
         template = "wagtailimages/widgets/image.html"
@@ -226,19 +238,12 @@ class ImageBlockComparison(StructBlockComparison):
             block,
             exists_a,
             exists_b,
-            self.image_to_struct(val_a),
-            self.image_to_struct(val_b),
+            block._image_to_struct_value(val_a),
+            block._image_to_struct_value(val_b),
         )
-
-    def image_to_struct(self, image):
-        return {
-            "image": image,
-            "alt_text": image and image.contextual_alt_text,
-            "decorative": image and image.decorative,
-        }
 
     def htmlvalue(self, val):
         if isinstance(val, AbstractImage):
-            return super().htmlvalue(self.image_to_struct(val))
+            return super().htmlvalue(self.block._image_to_struct_value(val))
         else:
             return super().htmlvalue(val)
