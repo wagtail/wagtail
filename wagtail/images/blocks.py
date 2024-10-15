@@ -74,7 +74,12 @@ class ImageBlock(StructBlock):
     alt_text = CharBlock(required=False, label=_("Alt text"))
 
     def get_searchable_content(self, value):
-        return []
+        if not self.search_index or not value:
+            return []
+
+        return self.child_blocks["alt_text"].get_searchable_content(
+            value.contextual_alt_text
+        )
 
     def _struct_value_to_image(self, struct_value):
         image = struct_value.get("image")
