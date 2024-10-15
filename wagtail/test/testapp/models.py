@@ -211,6 +211,31 @@ class MultiPreviewModesPage(Page):
         return super().get_preview_template(request, mode_name)
 
 
+class CustomPreviewSizesPage(Page):
+    template = "tests/simple_page.html"
+
+    @property
+    def preview_sizes(self):
+        return [
+            {
+                "name": "custom-mobile",
+                "icon": "mobile-alt",
+                "device_width": 412,
+                "label": "Custom mobile preview",
+            },
+            {
+                "name": "desktop",
+                "icon": "desktop",
+                "device_width": 1280,
+                "label": "Original desktop",
+            },
+        ]
+
+    @property
+    def default_preview_size(self):
+        return "desktop"
+
+
 # Page with Excluded Fields when copied
 class PageWithExcludedCopyField(Page):
     content = models.TextField()
