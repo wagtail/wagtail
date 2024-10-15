@@ -248,6 +248,18 @@ class TestImageBlock(TestImageChooserBlock):
         self.assertEqual(result.contextual_alt_text, "Sample text")
         self.assertFalse(result.decorative)
 
+    def test_get_searchable_content(self):
+        block = ImageBlock()
+        value = {
+            "image": self.image.id,  # An id is expected
+            "alt_text": "Sample alt text",
+            "decorative": False,
+        }
+        result = block.get_searchable_content(block.to_python(value))
+
+        # check specific attributes
+        self.assertEqual(result, ["Sample alt text"])
+
 
 class TestImageBlockComparison(TestCase):
     comparison_class = compare.StreamFieldComparison
