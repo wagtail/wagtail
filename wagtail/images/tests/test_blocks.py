@@ -181,6 +181,21 @@ class TestImageBlock(TestImageChooserBlock):
         self.assertEqual(img_tag["alt"], value.get("alt_text"))
         self.assertIn("/media/images/test", img_tag["src"])
 
+    def test_render_basic(self):
+        block = ImageBlock()
+        value = {
+            "image": self.image.id,  # An id is expected
+            "alt_text": "Sample alt text",
+            "decorative": False,
+        }
+        html = block.render_basic(block.to_python(value))
+        soup = WagtailTestUtils.get_soup(html)
+        img_tag = soup.find("img")
+
+        # check specific attributes
+        self.assertEqual(img_tag["alt"], value.get("alt_text"))
+        self.assertIn("/media/images/test", img_tag["src"])
+
     def test_render_as_decorative(self):
         block = ImageBlock()
         value = {
