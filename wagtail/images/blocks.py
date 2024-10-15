@@ -212,6 +212,9 @@ class ImageBlock(StructBlock):
             self._image_to_struct_value(value), context=context
         )
 
+    def render_basic(self, value, context=None):
+        return self.child_blocks["image"].render_basic(value, context=context)
+
     class Meta:
         icon = "image"
         template = "wagtailimages/widgets/image.html"
