@@ -8,10 +8,11 @@ from django.db.models import Exists, IntegerField, Max, OuterRef, Q
 from django.db.models.functions import Cast
 from django.forms import Media
 from django.http import Http404, HttpResponse
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
 from wagtail import hooks
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.icons import get_icons
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
@@ -34,9 +35,7 @@ User = get_user_model()
 
 
 class UpgradeNotificationPanel(Component):
-    name = "upgrade_notification"
     template_name = "wagtailadmin/home/upgrade_notification.html"
-    order = 100
 
     def get_upgrade_check_setting(self) -> Union[bool, str]:
         return getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True)
@@ -283,15 +282,20 @@ class RecentEditsPanel(Component):
 
 class HomeView(WagtailAdminTemplateMixin, TemplateView):
     template_name = "wagtailadmin/home.html"
-    page_title = gettext_lazy("Dashboard")
+    page_title = _("Dashboard")
+    permission_policy = page_permission_policy
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         panels = self.get_panels()
+        site_summary = SiteSummaryPanel(self.request)
         site_details = self.get_site_details()
 
-        context["media"] = self.get_media(panels)
+        context["media"] = self.get_media([*panels, site_summary])
         context["panels"] = sorted(panels, key=lambda p: p.order)
+        context["site_summary"] = site_summary
+        context["upgrade_notification"] = UpgradeNotificationPanel()
+        context["search_form"] = SearchForm(placeholder=_("Search all pages…"))
         context["user"] = self.request.user
 
         return {**context, **site_details}
@@ -307,10 +311,8 @@ class HomeView(WagtailAdminTemplateMixin, TemplateView):
     def get_panels(self):
         request = self.request
         panels = [
-            SiteSummaryPanel(request),
             # Disabled until a release warrants the banner.
             # WhatsNewInWagtailVersionPanel(),
-            UpgradeNotificationPanel(),
             WorkflowObjectsToModeratePanel(),
             UserObjectsInWorkflowModerationPanel(),
             RecentEditsPanel(),

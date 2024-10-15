@@ -1,0 +1,26 @@
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
+<div class="w-hidden lg:w-flex w-gap-5 w-pt-4 w-mb-[3.5rem] w-px-[3.75rem] w-border-l w-border-border-furniture">
+    {% avatar user size="large" edit_link=True %}
+    <div>
+        <h2 class="w-label-1 w-mt-0 w-mb-1">{{ user|user_display_name }}</h2>
+        <ul class="w-list-none w-p-0 w-m-0 w-flex w-flex-col w-gap-1">
+            <li>
+                <a class="w-underline w-underline-offset-[3px]"
+                   href="{% url 'wagtailadmin_account' %}">{% trans 'Account' %}</a>
+            </li>
+            {% wagtail_feature_release_editor_guide_link as editor_guide_link %}
+            {% wagtail_version as current_version %}
+            <li>
+                <a class="w-underline w-underline-offset-[3px] w-flex w-items-center w-gap-1"
+                   href="{{ editor_guide_link }}"
+                   target="_blank"
+                   rel="noreferrer">
+                    {% blocktrans trimmed %}
+                        Wagtail {{ current_version }} editor guide
+                    {% endblocktrans %}
+                    {% icon name="link-external" classname="initial" %}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

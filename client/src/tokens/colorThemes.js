@@ -106,6 +106,18 @@ const light = [
         textUtility: 'w-text-surface-status-label',
         cssVariable: '--w-color-surface-status-label',
       },
+      'surface-info-panel': {
+        value: 'var(--w-color-info-50)',
+        bgUtility: 'w-bg-surface-info-panel',
+        textUtility: 'w-text-surface-info-panel',
+        cssVariable: '--w-color-surface-info-panel',
+      },
+      'surface-dashboard-panel': {
+        value: 'var(--w-color-white)',
+        bgUtility: 'w-bg-surface-dashboard-panel',
+        textUtility: 'w-text-surface-dashboard-panel',
+        cssVariable: '--w-color-surface-dashboard-panel',
+      },
     },
   },
   {
@@ -200,6 +212,12 @@ const light = [
         bgUtility: 'w-bg-text-status-label',
         textUtility: 'w-text-text-status-label',
         cssVariable: '--w-color-text-status-label',
+      },
+      'text-link-info': {
+        value: 'var(--w-color-secondary-400)',
+        bgUtility: 'w-bg-text-link-info',
+        textUtility: 'w-text-text-link-info',
+        cssVariable: '--w-color-text-link-info',
       },
     },
   },
@@ -376,6 +394,18 @@ const dark = [
         textUtility: 'w-text-surface-status-label',
         cssVariable: '--w-color-surface-status-label',
       },
+      'surface-info-panel': {
+        value: 'var(--w-color-info-100)',
+        bgUtility: 'w-bg-surface-info-panel',
+        textUtility: 'w-text-surface-info-panel',
+        cssVariable: '--w-color-surface-info-panel',
+      },
+      'surface-dashboard-panel': {
+        value: 'var(--w-color-grey-800)',
+        bgUtility: 'w-bg-surface-dashboard-panel',
+        textUtility: 'w-text-surface-dashboard-panel',
+        cssVariable: '--w-color-surface-dashboard-panel',
+      },
     },
   },
   {
@@ -470,6 +500,12 @@ const dark = [
         bgUtility: 'w-bg-text-status-label',
         textUtility: 'w-text-text-status-label',
         cssVariable: '--w-color-text-status-label',
+      },
+      'text-link-info': {
+        value: 'var(--w-color-grey-50)',
+        bgUtility: 'w-bg-text-link-info',
+        textUtility: 'w-text-text-link-info',
+        cssVariable: '--w-color-text-link-info',
       },
     },
   },

@@ -57,11 +57,11 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
         self.assertSummaryContainsLinkToPage(self.wagtail_root.pk)
 
     def test_summary_includes_page_count_without_wagtail_root(self):
-        self.assertSummaryContains(f"<span>{Page.objects.count() - 1}</span> Pages")
+        self.assertSummaryContains(f"{Page.objects.count() - 1} Pages")
 
     def test_summary_shows_zero_pages_if_none_exist_except_wagtail_root(self):
         Page.objects.exclude(pk=self.wagtail_root.pk).delete()
-        self.assertSummaryContains("<span>0</span> Pages")
+        self.assertSummaryContains("0 Pages")
 
     def test_user_with_no_page_permissions_is_not_shown_panel(self):
         self.user.is_superuser = False
@@ -78,4 +78,4 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
         self.user.is_superuser = False
         self.user.save()
         self.user.groups.add(self.test_page_group)
-        self.assertSummaryContains("<span>1</span> Page")
+        self.assertSummaryContains("1 Page")

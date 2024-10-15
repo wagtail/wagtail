@@ -585,7 +585,14 @@ def bulk_action_choices(context, app_label, model_name):
 
 
 @register.inclusion_tag("wagtailadmin/shared/avatar.html")
-def avatar(user=None, classname=None, size=None, tooltip=None, tooltip_html=None):
+def avatar(
+    user=None,
+    classname=None,
+    size=None,
+    tooltip=None,
+    tooltip_html=None,
+    edit_link=False,
+):
     """
     Displays a user avatar using the avatar template
     Usage:
@@ -596,6 +603,7 @@ def avatar(user=None, classname=None, size=None, tooltip=None, tooltip_html=None
     :param size: default None (None|'small'|'large'|'square')
     :param tooltip: Optional tooltip to display under the avatar (string)
     :param tooltip_html: Optional tooltip as an HTML element for rich content (string)
+    :param edit_link: Optional edit link to display underneath the avatar (boolean)
     :return: Rendered template snippet
     """
     return {
@@ -604,6 +612,7 @@ def avatar(user=None, classname=None, size=None, tooltip=None, tooltip_html=None
         "size": size,
         "tooltip": tooltip,
         "tooltip_html": tooltip_html,
+        "edit_link": edit_link,
     }
 
 
