@@ -32,7 +32,7 @@
     >
         {% csrf_token %}
 
-        {% block fields %}
+        {% block form_content %}
             {% if panel %}
                 {{ panel.render_form_content }}
             {% else %}
