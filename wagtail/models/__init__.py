@@ -854,30 +854,33 @@ class PreviewableMixin:
         Returns a list of dictionaries, each representing a preview size option for this object.
         Override this property to customize the preview sizes.
         Each dictionary in the list should include the following keys:
+
         - `name`: A string representing the internal name of the preview size.
         - `icon`: A string specifying the icon's name for the preview size button.
         - `device_width`: An integer indicating the device's width in pixels.
         - `label`: A string for the aria label on the preview size button.
-        Example:
-            return [
-                {
-                    'name': 'mobile',
-                    'icon': 'mobile-icon',
-                    'device_width': 320,
-                    'label': 'Preview in mobile size'
-                },
-                # Add more preview size dictionaries as needed.
-            ]
-        Returns:
-            list: A list of dictionaries detailing available preview sizes.
-        """
 
+        .. code-block:: python
+
+            @property
+            def preview_sizes(self):
+                return [
+                    {
+                        "name": "mobile",
+                        "icon": "mobile-icon",
+                        "device_width": 320,
+                        "label": "Preview in mobile size"
+                    },
+                    # Add more preview size dictionaries as needed.
+                ]
+        """
         return PreviewableMixin.DEFAULT_PREVIEW_SIZES
 
     @property
     def default_preview_size(self):
         """
-        The default preview size to use in live preview. (E.g. "desktop")
+        The default preview size name to use in live preview.
+        Defaults to ``"mobile"``, which is the first one defined in ``preview_sizes``.
         If ``preview_sizes`` is empty, an ``IndexError`` will be raised.
         """
         return self.preview_sizes[0]["name"]
