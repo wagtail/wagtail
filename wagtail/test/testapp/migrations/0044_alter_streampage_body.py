@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                     ("raw_html", 4),
                     ("books", 5),
                     ("title_list", 6),
-                    ("image_with_alt", 10),
+                    ("image_with_alt", 7),
                 ],
                 block_lookup={
                     0: ("wagtail.blocks.CharBlock", (), {}),
@@ -45,30 +45,7 @@ class Migration(migrations.Migration):
                         {},
                     ),
                     6: ("wagtail.blocks.ListBlock", (0,), {}),
-                    7: (
-                        "wagtail.images.blocks.ImageChooserBlock",
-                        (),
-                        {"required": True},
-                    ),
-                    8: (
-                        "wagtail.blocks.BooleanBlock",
-                        (),
-                        {
-                            "default": False,
-                            "label": "Image is decorative",
-                            "required": False,
-                        },
-                    ),
-                    9: (
-                        "wagtail.blocks.CharBlock",
-                        (),
-                        {"label": "Alt text", "required": False},
-                    ),
-                    10: (
-                        "wagtail.blocks.StructBlock",
-                        [[("image", 7), ("decorative", 8), ("alt_text", 9)]],
-                        {},
-                    ),
+                    7: ("wagtail.images.blocks.ImageBlock", [], {}),
                 },
             ),
         ),

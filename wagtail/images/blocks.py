@@ -73,6 +73,43 @@ class ImageBlock(StructBlock):
     )
     alt_text = CharBlock(required=False, label=_("Alt text"))
 
+    def __init__(self, required=True, **kwargs):
+        super().__init__(
+            [
+                ("image", ImageChooserBlock(required=required)),
+                (
+                    "decorative",
+                    BooleanBlock(
+                        default=False, required=False, label=_("Image is decorative")
+                    ),
+                ),
+                ("alt_text", CharBlock(required=False, label=_("Alt text"))),
+            ],
+            **kwargs,
+        )
+
+    def deconstruct(self):
+        """
+        For typical StructBlock subclasses, it makes sense for the deconstructed block object to be a basic StructBlock
+        with the child blocks passed to the constructor (because this is largely functionally identical to the
+        subclass, and avoids embedding a reference to a potentially-volatile custom class in migrations).
+
+        This is not the case for ImageBlock, as it overrides enough of StructBlock's behaviour that a basic StructBlock
+        is not a suitable substitute - and also has an incompatible constructor signature (as we don't want to support
+        passing child blocks to it).
+
+        Therefore, we opt out of the standard StructBlock deconstruction behaviour here, and always
+        deconstruct an ImageBlock as an ImageBlock.
+        """
+        return ("wagtail.images.blocks.ImageBlock", [], self._constructor_kwargs)
+
+    def deconstruct_with_lookup(self, lookup):
+        return self.deconstruct()
+
+    @classmethod
+    def construct_from_lookup(cls, lookup, *args, **kwargs):
+        return cls(**kwargs)
+
     def get_searchable_content(self, value):
         if not self.search_index or not value:
             return []

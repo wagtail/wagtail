@@ -8,6 +8,7 @@ from wagtail.admin import compare
 from wagtail.blocks.stream_block import StreamValue
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageBlock, ImageChooserBlock
+from wagtail.telepath import JSContext
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
@@ -274,6 +275,22 @@ class TestImageBlock(TestImageChooserBlock):
 
         # check specific attributes
         self.assertEqual(result, ["Sample alt text"])
+
+    def test_required_true(self):
+        block = ImageBlock()
+
+        # the inner ImageChooserBlock should appear as required
+        image_block_def = JSContext().pack(block)
+        image_chooser_block_def = image_block_def["_args"][1][0]
+        self.assertTrue(image_chooser_block_def["_args"][2]["required"])
+
+    def test_required_false(self):
+        block = ImageBlock(required=False)
+
+        # the inner ImageChooserBlock should appear as non-required
+        image_block_def = JSContext().pack(block)
+        image_chooser_block_def = image_block_def["_args"][1][0]
+        self.assertFalse(image_chooser_block_def["_args"][2]["required"])
 
 
 class TestImageBlockComparison(TestCase):
