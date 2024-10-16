@@ -40,12 +40,13 @@ describe('ComboBox', () => {
             {
               type: 'paragraph',
               description: 'Paragraph',
-              icon: <span className="custom-icon">P</span>,
+              icon: <span className="my-icon">P</span>,
             },
             {
               type: 'heading-one',
               label: 'H1',
               description: 'Heading 1',
+              icon: ['M 83.625 ', 'L 232.535156 '],
             },
             {
               type: 'heading-two',
@@ -70,6 +71,10 @@ describe('ComboBox', () => {
       wrapper = shallow(<ComboBox {...testProps} items={items} />);
     });
 
+    it('matches the snapshot', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
     it('shows items', () => {
       const options = wrapper.find('.w-combobox__option-text');
       expect(options).toHaveLength(
@@ -82,8 +87,24 @@ describe('ComboBox', () => {
       expect(wrapper.find(Icon).at(0).prop('name')).toBe('blockquote');
     });
 
-    it('supports custom icons', () => {
-      expect(wrapper.find('.custom-icon').text()).toBe('P');
+    it('supports custom icons (as provided React component)', () => {
+      const paragraphOption = wrapper.findWhere(
+        (el) => el.key() === 'paragraph',
+      );
+      const icon = paragraphOption.find('.w-combobox__option-icon').render();
+
+      expect(icon.find('.my-icon')).toHaveLength(1);
+      expect(icon.text()).toBe('P');
+    });
+
+    it('supports custom icons (as provided path)', () => {
+      const paragraphOption = wrapper.findWhere(
+        (el) => el.key() === 'heading-one',
+      );
+      const icon = paragraphOption.find('.w-combobox__option-icon').render();
+
+      expect(icon.find('svg').hasClass('icon-custom')).toBe(true);
+      expect(icon.find('.icon-custom').html()).toContain('M 83.625');
     });
 
     it('supports label as icon', () => {
