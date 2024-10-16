@@ -10,12 +10,12 @@ describe('UpgradeController', () => {
   beforeEach(() => {
     document.body.innerHTML = `
     <div
-      class="panel w-hidden"
+      class="panel"
       id="panel"
       data-controller="w-upgrade"
       data-w-upgrade-current-version-value="${version}"
-      data-w-upgrade-hidden-class="w-hidden"
       data-w-upgrade-url-value="${url}"
+      hidden
     >
       <div class="help-block help-warning">
         Your version: <strong>${version}</strong>.
@@ -30,7 +30,7 @@ describe('UpgradeController', () => {
     application.stop();
   });
 
-  it('should keep the hidden class by default & then show a message when version is out of date', async () => {
+  it('should keep the hidden attribute by default & then show a message when version is out of date', async () => {
     const data = {
       version: '5.15.1',
       url: 'https://docs.wagtail.org/latest/url',
@@ -58,16 +58,12 @@ describe('UpgradeController', () => {
       { referrerPolicy: 'strict-origin-when-cross-origin' },
     );
 
-    expect(
-      document.getElementById('panel').classList.contains('w-hidden'),
-    ).toBe(true);
+    expect(document.getElementById('panel').hidden).toBe(true);
 
     await new Promise(requestAnimationFrame);
 
     // should remove the hidden class on success
-    expect(
-      document.getElementById('panel').classList.contains('w-hidden'),
-    ).toBe(false);
+    expect(document.getElementById('panel').hidden).toBe(false);
 
     // should update the latest version number in the text
     expect(document.getElementById('latest-version').textContent).toBe(
@@ -103,9 +99,7 @@ describe('UpgradeController', () => {
     // trigger next browser render cycle
     await Promise.resolve();
 
-    expect(
-      document.getElementById('panel').classList.contains('w-hidden'),
-    ).toBe(true);
+    expect(document.getElementById('panel').hidden).toBe(true);
   });
 
   it('should throw an error if the fetch fails', async () => {
