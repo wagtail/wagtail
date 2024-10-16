@@ -15,7 +15,7 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  * updateDismissibles(data, wagtailConfig);
  */
 export const updateDismissibles = (
-  data: Record<string, boolean>,
+  data: Record<string, boolean | string>,
 ): Promise<Response> =>
   fetch(WAGTAIL_CONFIG.ADMIN_URLS?.DISMISSIBLES, {
     method: 'PATCH',
@@ -59,10 +59,24 @@ export class DismissibleController extends Controller<HTMLElement> {
    * appropriate class and data attribute optimistically. Each dismissible
    * defines how it uses (or not) these indicators.
    */
-  toggle(): void {
-    if (!this.idValue) return;
+  toggle(event?: Event & { params?: { value?: boolean | string } }): void {
     this.element.classList.add(this.dismissedClass);
     this.dismissedValue = true;
-    updateDismissibles({ [this.idValue]: true });
+    this.patch(event);
+  }
+
+  /**
+   * Send a PATCH request to the server to update the dismissible state for the
+   * given ID and update value.
+   *
+   * @param event - The event that triggered the patch, with optional params.
+   * The param can technically be any value, but we currently only use booleans
+   * and strings.
+   */
+  patch(event?: Event & { params?: { value?: boolean | string } }): void {
+    if (!this.idValue) return;
+    updateDismissibles({
+      [this.idValue]: event?.params?.value ?? this.dismissedValue,
+    });
   }
 }

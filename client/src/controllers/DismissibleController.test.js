@@ -33,6 +33,10 @@ describe('DismissibleController', () => {
     application.register('w-dismissible', DismissibleController);
   });
 
+  afterEach(() => {
+    global.fetch.mockClear();
+  });
+
   it("should add a 'dismissed' class and attribute when the dismiss button is clicked", () => {
     const button = document.querySelector('button');
     const mainContent = document.querySelector('#main-content');
@@ -65,6 +69,53 @@ describe('DismissibleController', () => {
         'x-xsrf-token': 'potato',
       },
       body: JSON.stringify(data),
+      mode: 'same-origin',
+    });
+  });
+
+  it('should toggle the client-side state without calling the server if the ID is missing', async () => {
+    const button = document.querySelector('button');
+    const mainContent = document.querySelector('#main-content');
+    mainContent.removeAttribute('data-w-dismissible-id-value');
+    await Promise.resolve();
+
+    expect(mainContent.classList).toHaveLength(0);
+    expect(
+      mainContent.getAttribute('data-w-dismissible-dismissed-value'),
+    ).toBeFalsy();
+    expect(mainContent.classList).not.toContain('w-dismissible--dismissed');
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    button.click();
+
+    expect(mainContent.classList).toContain('w-dismissible--dismissed');
+    expect(mainContent.getAttribute('data-w-dismissible-dismissed-value')).toBe(
+      'true',
+    );
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('should allow customizing the update value via params', async () => {
+    expect.assertions(1);
+
+    const mainContent = document.querySelector('#main-content');
+    mainContent.setAttribute(
+      'data-w-dismissible-id-value',
+      'last_upgrade_check',
+    );
+    const button = document.querySelector('button');
+    button.setAttribute('data-w-dismissible-value-param', '6.3.1');
+    await Promise.resolve();
+
+    button.click();
+
+    await expect(global.fetch).toHaveBeenCalledWith('/admin/dismissibles/', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-xsrf-token': 'potato',
+      },
+      body: JSON.stringify({ last_upgrade_check: '6.3.1' }),
       mode: 'same-origin',
     });
   });
