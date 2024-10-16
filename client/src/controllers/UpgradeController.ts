@@ -20,7 +20,6 @@ import { VersionNumber, VersionDeltaType } from '../utils/version';
  * }
  */
 export class UpgradeController extends Controller<HTMLElement> {
-  static classes = ['hidden'];
   static targets = ['latestVersion', 'link'];
   static values = {
     currentVersion: String,
@@ -29,7 +28,6 @@ export class UpgradeController extends Controller<HTMLElement> {
   };
 
   declare currentVersionValue: string;
-  declare hiddenClass: string;
   declare latestVersionTarget: HTMLElement;
   declare linkTarget: HTMLElement;
   declare ltsOnlyValue: any;
@@ -87,7 +85,7 @@ export class UpgradeController extends Controller<HTMLElement> {
           if (this.linkTarget instanceof HTMLElement) {
             this.linkTarget.setAttribute('href', releaseNotesUrl || '');
           }
-          this.element.classList.remove(this.hiddenClass);
+          this.element.hidden = false;
         }
       })
       .catch((err) => {
