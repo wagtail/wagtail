@@ -175,26 +175,14 @@ class ImageBlock(StructBlock):
         return self._struct_value_to_image(struct_value)
 
     def clean(self, value):
-        if value is None:
+        try:
+            self.child_blocks["image"].clean(value)
+        except ValidationError as e:
             raise StructBlockValidationError(
-                block_errors={
-                    "image": ValidationError(
-                        _("Expected an image instance, got nothing")
-                    )
-                }
+                block_errors={"image": e},
             )
 
-        if not isinstance(value, AbstractImage):
-            raise StructBlockValidationError(
-                block_errors={
-                    "image": ValidationError(
-                        _("Expected an image instance, got %(value)s")
-                        % {"value": value}
-                    )
-                }
-            )
-
-        if not value.contextual_alt_text and not value.decorative:
+        if value and not value.contextual_alt_text and not value.decorative:
             raise StructBlockValidationError(
                 block_errors={
                     "alt_text": ValidationError(

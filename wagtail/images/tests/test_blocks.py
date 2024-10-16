@@ -231,22 +231,6 @@ class TestImageBlock(TestImageChooserBlock):
             str(context.exception.block_errors["alt_text"]),
         )
 
-    def test_wrong_instance_type(self):
-        block = ImageBlock()
-        value = {"image": self.image.id, "alt_text": "Blank", "decorative": False}
-
-        # Invalid state when value is not an image instance
-        # Should raise a StructBlock validation error
-        with self.assertRaises(StructBlockValidationError) as context:
-            # pass in dict instead of normalized image instance
-            block.clean(value)
-
-        # Check the error message
-        self.assertIn(
-            "Expected an image instance, got %r" % value,
-            str(context.exception.block_errors["image"]),
-        )
-
     def test_to_python_with_int(self):
         block = ImageBlock()
         value = block.to_python(self.image.id)
@@ -284,6 +268,21 @@ class TestImageBlock(TestImageChooserBlock):
         image_chooser_block_def = image_block_def["_args"][1][0]
         self.assertTrue(image_chooser_block_def["_args"][2]["required"])
 
+        value = block.to_python(
+            {
+                "image": None,
+                "alt_text": "",
+                "decorative": False,
+            }
+        )
+        with self.assertRaises(StructBlockValidationError) as context:
+            block.clean(value)
+
+        self.assertIn(
+            "This field is required",
+            str(context.exception.block_errors["image"]),
+        )
+
     def test_required_false(self):
         block = ImageBlock(required=False)
 
@@ -291,6 +290,15 @@ class TestImageBlock(TestImageChooserBlock):
         image_block_def = JSContext().pack(block)
         image_chooser_block_def = image_block_def["_args"][1][0]
         self.assertFalse(image_chooser_block_def["_args"][2]["required"])
+
+        value = block.to_python(
+            {
+                "image": None,
+                "alt_text": "",
+                "decorative": False,
+            }
+        )
+        self.assertIsNone(block.clean(value))
 
 
 class TestImageBlockComparison(TestCase):
