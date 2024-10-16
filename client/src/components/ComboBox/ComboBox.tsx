@@ -249,9 +249,10 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                               {icon}
                             </svg>
                           );
+                        } else{
+                          return null;
                         }
-                        return null;
-
+ 
                       })()}
 
                       {/* Support for rich text options using text as an icon (for example "B" for bold). */}
