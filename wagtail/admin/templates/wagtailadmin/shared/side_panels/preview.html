@@ -12,7 +12,7 @@
 >
     <div class="w-preview__sizes">
         {% block size_buttons %}
-            {% for size in page.preview_sizes %}
+            {% for size in object.preview_sizes %}
                 <label class="w-preview__size-button">
                     {% icon name=size.icon %}
                     <input
@@ -24,7 +24,7 @@
                         data-w-preview-target="size"
                         aria-label="{{ size.label }}"
                         data-device-width="{{ size.device_width|stringformat:'s' }}"
-                        {% if page.default_preview_size == size.name %}
+                        {% if object.default_preview_size == size.name %}
                             data-default-size
                             checked
                         {% endif %}
