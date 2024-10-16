@@ -232,9 +232,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                     className={`w-combobox__option w-combobox__option--col${itemColumn}`}
                   >
                     <div className="w-combobox__option-icon">
-                      
                       {(() => {
-                        
                         if (Array.isArray(icon)) {
                           return (
                             <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" className="icon" aria-hidden="true">
@@ -249,12 +247,8 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                               {icon}
                             </svg>
                           );
-                        } else{
-                          return null;
-                        }
- 
+                        } 
                       })()}
-
                       {/* Support for rich text options using text as an icon (for example "B" for bold). */}
                       {itemLabel && !hasIcon ? <span>{itemLabel}</span> : null}
                     </div>
