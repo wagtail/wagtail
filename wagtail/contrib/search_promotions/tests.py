@@ -1,13 +1,16 @@
 import json
 from datetime import date, datetime, timedelta
-from io import StringIO
+from io import BytesIO, StringIO
 
 from django.contrib.auth.models import Permission
 from django.core import management
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
+from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.tests.test_reports_views import BaseReportViewTestCase
 from wagtail.contrib.search_promotions.models import (
     Query,
     QueryDailyHits,
@@ -972,3 +975,75 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[0], Query.get("unpopular query"))
         self.assertEqual(popular_queries[1], Query.get("popular query"))
         self.assertEqual(popular_queries[2], Query.get("little popular query"))
+
+
+class TestQueryHitsReportView(BaseReportViewTestCase):
+    url_name = "wagtailsearchpromotions:search_terms"
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
+        self.assertTemplateUsed(
+            response,
+            "wagtailsearchpromotions/search_terms_report_results.html",
+        )
+        self.assertBreadcrumbs(
+            [{"url": "", "label": "Search Terms"}],
+            response.content,
+        )
+
+        self.assertContains(response, "There are no results.")
+
+        soup = self.get_soup(response.content)
+        self.assertActiveFilterNotRendered(soup)
+        self.assertPageTitle(soup, "Search Terms - Wagtail")
+
+    def test_get_with_no_permissions(self):
+        self.user.is_superuser = False
+        self.user.save()
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+
+        response = self.get()
+
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_csv_export(self):
+        response = self.get(params={"export": "csv"})
+        self.assertEqual(response.status_code, 200)
+
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(data_lines[0], "Search term(s),Views\r")
+
+    def test_xlsx_export(self):
+        response = self.get(params={"export": "xlsx"})
+        self.assertEqual(response.status_code, 200)
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(
+            cell_array[0],
+            ["Search term(s)", "Views"],
+        )
+
+
+class TestFilteredQueryHitsView(BaseReportViewTestCase):
+    url_name = "wagtailsearchpromotions:search_terms"
+
+    def setUp(self):
+        self.user = self.login()
+        self.query_hit = Query.get("Found")
+        self.query_hit.add_hit(timezone.now())
+
+    def test_filter_by_query_string(self):
+        response = self.get(params={"query_string": "Found"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Found")
+
+        response = self.get(params={"query_string": "Not found"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There are no results.")
