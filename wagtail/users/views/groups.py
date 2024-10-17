@@ -158,6 +158,10 @@ class GroupViewSet(ModelViewSet):
     edit_view_class = EditView
     delete_view_class = DeleteView
 
+    # Copying requires prepopulating the formsets with copies of the existing
+    # permissions, which is not currently supported.
+    copy_view_enabled = False
+
     template_prefix = "wagtailusers/groups/"
 
     @property
