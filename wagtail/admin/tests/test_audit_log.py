@@ -144,8 +144,8 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         )
 
         self.assertContains(
-            response, "system", 3
-        )  # create without a user + remove restriction + 1 from unrelated admin color theme
+            response, "system", 4
+        )  # create without a user + remove restriction + 2 from unrelated admin color theme
         self.assertContains(
             response, "the_editor", 9
         )  # 7 entries by editor + 1 in sidebar menu + 1 in filter

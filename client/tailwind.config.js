@@ -190,6 +190,13 @@ module.exports = {
     plugin(({ addVariant }) => {
       addVariant('expanded', '&[aria-expanded=true]');
     }),
+    /** Support for increased contrast theme */
+    plugin(({ addVariant }) => {
+      addVariant('more-contrast', [
+        '.contrast-more &',
+        '@media (prefers-contrast: more) { .contrast-system & }',
+      ]);
+    }),
   ],
   corePlugins: {
     ...vanillaRTL.disabledCorePlugins,

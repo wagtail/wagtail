@@ -59,6 +59,10 @@
     gap: 0.75rem;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
+
+    @include more-contrast() {
+      border-color: theme('colors.border-furniture-more-contrast');
+    }
   }
 
   &__size-button {

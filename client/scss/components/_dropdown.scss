@@ -3,7 +3,7 @@
 }
 
 .w-dropdown__toggle--icon {
-  @apply w-w-8 w-h-8;
+  @apply w-w-8 w-h-8 more-contrast:w-p-0 more-contrast:w-border more-contrast:w-rounded-sm more-contrast:w-border-border-interactive-more-contrast hover:more-contrast:w-border-border-interactive-more-contrast-hover;
 }
 
 .w-dropdown__toggle-icon {

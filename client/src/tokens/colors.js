@@ -268,6 +268,16 @@ const staticColors = {
       usage: 'Background and icons for potentially dangerous states',
       contrastText: 'primary',
     },
+    75: {
+      hex: '#FDD074',
+      hsl: 'hsl(40.3, 97.2%, 72.4%)',
+      bgUtility: 'w-bg-warning-75',
+      textUtility: 'w-text-warning-75',
+      cssVariable: '--w-color-warning-75',
+      usage:
+        'Background only, for potentially dangerous states, in enhanced-contrast theme',
+      contrastText: 'primary',
+    },
     50: {
       hex: '#FFF5D8',
       hsl: 'hsl(37.3 78.7% 90.8%)',
