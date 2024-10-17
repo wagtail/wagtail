@@ -368,7 +368,7 @@ class SnippetActionMenu:
 
     @cached_property
     def media(self):
-        media = Media()
+        media = self.default_item.media if self.default_item else Media()
         for item in self.menu_items:
             media += item.media
         return media
