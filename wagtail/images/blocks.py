@@ -146,25 +146,29 @@ class ImageBlock(StructBlock):
         return self._struct_value_to_image(struct_value)
 
     def bulk_to_python(self, values):
-        struct_values = []
-        for value in values:
-            # For backward compatibility with ImageChooserBlock
-            if isinstance(value, int):
-                image_values = self.child_blocks["image"].bulk_to_python(values)
+        values = list(values)
 
-                for image in image_values:
-                    struct_value = {
-                        "image": image,
-                        "decorative": False,
-                        "alt_text": None,
-                    }
-                    struct_values.append(struct_value)
+        if not values:
+            return []
 
-                break  # no need for further execution after bulk_to_python has been called.
+        if isinstance(values[0], int):
+            # `values` is a list of image IDs (as we might encounter if an ImageChooserBlock has been
+            # changed to an ImageBlock with no data migration)
+            image_values = self.child_blocks["image"].bulk_to_python(values)
 
-            else:
-                struct_values = super().bulk_to_python(values)
-                break  # no need for further execution after bulk_to_python has been called.
+            struct_values = [
+                {
+                    "image": image,
+                    "decorative": False,
+                    "alt_text": None,
+                }
+                for image in image_values
+            ]
+
+        else:
+            # assume `values` is a list of dicts containing `image`, `decorative` and `alt_text` keys
+            # to be handled by the StructBlock superclass
+            struct_values = super().bulk_to_python(values)
 
         return [
             self._struct_value_to_image(struct_value) for struct_value in struct_values
