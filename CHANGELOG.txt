@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add formal support for Django 5.1 (Matt Westcott)
+ * Add `ImageBlock` with alt text support (Chiemezuo Akujobi for Google Summer of Code, mentored by Storm Heg, Saptak Sengupta, Thibaud Colas and Matt Westcott)
  * Formalize support for MariaDB (Sage Abdullah, Daniel Black)
  * Redirect to the last viewed listing page after deleting form submissions (Matthias Brück)
  * Provide `getTextLabel` method on date / time StreamField blocks (Vaughn Dickson)
