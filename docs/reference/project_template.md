@@ -1,6 +1,8 @@
+(project_template)=
+
 # The project template
 
-By default, running the `wagtail start` command (e.g. `wagtail start mysite`) will create a new Django project with the following structure:
+By default, running the [`wagtail start`](wagtail_start) command (e.g. `wagtail start mysite`) will create a new Django project with the following structure:
 
 ```text
 mysite/
@@ -51,7 +53,34 @@ For example, with a custom template hosted as a GitHub repository, you can use a
 wagtail start myproject --template=https://github.com/githubuser/wagtail-awesome-template/archive/main.zip
 ```
 
-The following is a reference for the default project template.
+You might get an error while trying to generate a custom template. This happens because the `--template` option attempts to parse the templates files in your custom template. To avoid this error, wrap the code in each of your template files with the `{% verbatim %}{% endverbatim %}` tag, like this:
+
+```html
+{% verbatim %}
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for post in page.get_children %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        {{ post.specific.intro }}
+        {{ post.specific.body }}
+    {% endfor %}
+
+{% endblock %}
+{% endverbatim %}
+```
+
+See [Templates (start command)](https://github.com/springload/awesome-wagtail?tab=readme-ov-file#templates-start-command) for a list of custom templates you can use for your projects.
+
+The following sections are references for the default project template:
 
 ## The "home" app
 
