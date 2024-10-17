@@ -36,6 +36,7 @@ User = get_user_model()
 
 class UpgradeNotificationPanel(Component):
     template_name = "wagtailadmin/home/upgrade_notification.html"
+    dismissible_id = "last_upgrade_check"
 
     def get_upgrade_check_setting(self) -> Union[bool, str]:
         return getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True)
@@ -46,8 +47,19 @@ class UpgradeNotificationPanel(Component):
             return True
         return False
 
+    def get_dismissible_value(self, user) -> str:
+        if profile := getattr(user, "wagtail_userprofile", None):
+            return profile.dismissibles.get(self.dismissible_id)
+        return None
+
     def get_context_data(self, parent_context: Mapping[str, Any]) -> Mapping[str, Any]:
-        return {"lts_only": self.upgrade_check_lts_only()}
+        return {
+            "lts_only": self.upgrade_check_lts_only(),
+            "dismissible_id": self.dismissible_id,
+            "dismissible_value": self.get_dismissible_value(
+                parent_context["request"].user
+            ),
+        }
 
     def render_html(self, parent_context: Mapping[str, Any] = None) -> str:
         if (
