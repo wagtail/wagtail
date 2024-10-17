@@ -31,6 +31,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
     ButtonsColumnMixin,
@@ -41,9 +42,10 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
+    BaseButton,
+    Button,
     ButtonWithDropdown,
     HeaderButton,
-    ListingButton,
 )
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
@@ -317,58 +319,55 @@ class IndexView(
         buttons = []
         if edit_url := self.get_edit_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Edit"),
                     url=edit_url,
                     icon_name="edit",
-                    attrs={
-                        "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=10,
                 )
             )
         if copy_url := self.get_copy_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Copy"),
                     url=copy_url,
                     icon_name="copy",
-                    attrs={
-                        "aria-label": _("Copy '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=20,
                 )
             )
         if inspect_url := self.get_inspect_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Inspect"),
                     url=inspect_url,
                     icon_name="info-circle",
-                    attrs={
-                        "aria-label": _("Inspect '%(title)s'")
-                        % {"title": str(instance)}
-                    },
                     priority=20,
                 )
             )
         if delete_url := self.get_delete_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Delete"),
                     url=delete_url,
                     icon_name="bin",
-                    attrs={
-                        "aria-label": _("Delete '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=30,
                 )
             )
         return buttons
 
     def get_list_buttons(self, instance):
-        more_buttons = self.get_list_more_buttons(instance)
         buttons = []
+        more_buttons = []
+
+        for button in self.get_list_more_buttons(instance):
+            if isinstance(button, BaseButton) and not button.allow_in_dropdown:
+                buttons.append(button)
+            elif isinstance(button, MenuItem):
+                if button.is_shown(self.request.user):
+                    more_buttons.append(Button.from_menu_item(button))
+            elif button.show:
+                more_buttons.append(button)
+
         if more_buttons:
             buttons.append(
                 ButtonWithDropdown(

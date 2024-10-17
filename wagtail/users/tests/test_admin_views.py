@@ -11,6 +11,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
+from django.middleware.csrf import get_token
 from django.template import RequestContext, Template
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -21,7 +22,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.models import Admin
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.coreutils import get_dummy_request
 from wagtail.log_actions import log
@@ -375,16 +376,41 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertSequenceEqual(urls, expected_urls)
 
     def test_buttons_hook(self):
+        class CustomButton(Button):
+            template_name = "tests/custom_button.html"
+
+            def __init__(self, *args, user_pk, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.user_pk = user_pk
+
+            def get_context_data(self, parent_context):
+                context = super().get_context_data(parent_context)
+                context["user_pk"] = self.user_pk
+                context["csrf_token"] = get_token(context["request"])
+                return context
+
         def hook(user, request_user):
             self.assertEqual(request_user, self.user)
-            yield UserListingButton(
-                "Show profile",
+            # This should be a top-level button
+            yield ListingButton(
+                "Enhance profile",
                 f"/goes/to/a/url/{user.pk}",
                 priority=30,
             )
+            # These should be inside the default dropdown
+            yield Button("Show profile", f"/goes/to/a/url/{user.pk}", priority=20)
+            yield CustomButton(
+                "Impersonate",
+                f"/impersonate/{user.pk}",
+                priority=30,
+                icon_name="user",
+                user_pk=user.pk,
+            )
+            # This should be a top-level button
             yield ButtonWithDropdown(
                 label="Moar pls!",
-                buttons=[UserListingButton("Alrighty", "/cheers", priority=10)],
+                buttons=[ListingButton("Alrighty", "/cheers", priority=10)],
+                attrs={"data-foo": "bar"},
             )
 
         with self.register_hook("register_user_listing_buttons", hook):
@@ -399,16 +425,24 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         profile_url = f"/goes/to/a/url/{self.test_user.pk}"
         actions = row.select_one("td ul.actions")
+        custom_buttons = actions.select(f"a[href='{profile_url}']")
+        self.assertEqual(len(custom_buttons), 2)
         top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNone(top_level_custom_button)
-        custom_button = actions.select_one(
+        self.assertIs(top_level_custom_button, custom_buttons[0])
+        self.assertEqual(top_level_custom_button.text.strip(), "Enhance profile")
+        self.assertEqual(
+            top_level_custom_button.get("class"),
+            ["button", "button-small", "button-secondary"],
+        )
+        in_dropdown_custom_button = actions.select_one(
             f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
         )
-        self.assertIsNotNone(custom_button)
+        self.assertIs(in_dropdown_custom_button, custom_buttons[1])
         self.assertEqual(
-            custom_button.text.strip(),
+            in_dropdown_custom_button.text.strip(),
             "Show profile",
         )
+        self.assertEqual(in_dropdown_custom_button.get("class"), [])
 
         nested_dropdown = actions.select_one(
             "li [data-controller='w-dropdown'] [data-controller='w-dropdown']"
@@ -417,16 +451,71 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         dropdown_buttons = actions.select("li > [data-controller='w-dropdown']")
         # Default "More" button and the custom "Moar pls!" button
         self.assertEqual(len(dropdown_buttons), 2)
-        custom_dropdown = None
-        for button in dropdown_buttons:
-            if "Moar pls!" in button.text.strip():
-                custom_dropdown = button
+
+        default_dropdown = dropdown_buttons[0]
+        # Should allow a button with a custom template,
+        # e.g. rendering a <button> inside a <form> instead of a <a> tag
+        impersonate_form = default_dropdown.select_one(
+            f"form[action='/impersonate/{self.test_user.pk}']"
+        )
+        self.assertIsNotNone(impersonate_form)
+        self.assertEqual(
+            impersonate_form.select_one("input[name='user_pk']").attrs.get("value"),
+            str(self.test_user.pk),
+        )
+        self.assertEqual(
+            impersonate_form.select_one("button[type='submit']").text.strip(),
+            "Impersonate",
+        )
+        csrf_token = impersonate_form.select_one("input[name='csrfmiddlewaretoken']")
+        self.assertIsNotNone(csrf_token)
+
+        custom_dropdown = dropdown_buttons[1]
         self.assertIsNotNone(custom_dropdown)
         self.assertEqual(custom_dropdown.select_one("button").text.strip(), "Moar pls!")
+        self.assertEqual(custom_dropdown.get("data-foo"), "bar")
         # Should contain the custom button inside the custom dropdown
         custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
         self.assertIsNotNone(custom_button)
         self.assertEqual(custom_button.text.strip(), "Alrighty")
+
+    def test_buttons_hook_with_deprecated_class(self):
+        def hook(user, request_user):
+            self.assertEqual(request_user, self.user)
+            yield UserListingButton(
+                "Show profile", f"/goes/to/a/url/{user.pk}", priority=20
+            )
+
+        with self.register_hook("register_user_listing_buttons", hook):
+            with self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "`UserListingButton` is deprecated. "
+                "Use `wagtail.admin.widgets.button.Button` "
+                "or `wagtail.admin.widgets.button.ListingButton` instead.",
+            ):
+                response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        row = soup.select_one(f"tbody tr:has([data-object-id='{self.test_user.pk}'])")
+        self.assertIsNotNone(row)
+
+        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
+        actions = row.select_one("td ul.actions")
+        custom_buttons = actions.select(f"a[href='{profile_url}']")
+        self.assertEqual(len(custom_buttons), 1)
+        top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
+        self.assertIsNone(top_level_custom_button)
+        in_dropdown_custom_button = actions.select_one(
+            f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
+        )
+        self.assertIs(in_dropdown_custom_button, custom_buttons[0])
+        self.assertEqual(
+            in_dropdown_custom_button.text.strip(),
+            "Show profile",
+        )
 
 
 class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -2990,13 +3079,22 @@ class TestTemplateTags(WagtailTestUtils, TestCase):
             )
 
         with self.register_hook("register_user_listing_buttons", hook):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`user_listing_buttons` template tag is deprecated.",
-            ):
+            with self.assertWarns(RemovedInWagtail70Warning) as warning_manager:
                 html = Template(template).render(
                     RequestContext(self.request, {"users": [self.test_user]})
                 )
+
+        self.assertEqual(
+            [str(w.message) for w in warning_manager.warnings],
+            [
+                # Deprecated template tag
+                "`user_listing_buttons` template tag is deprecated.",
+                # Deprecated class
+                "`UserListingButton` is deprecated. "
+                "Use `wagtail.admin.widgets.button.Button` "
+                "or `wagtail.admin.widgets.button.ListingButton` instead.",
+            ],
+        )
 
         soup = self.get_soup(html)
 
@@ -3038,6 +3136,10 @@ class TestTemplateTags(WagtailTestUtils, TestCase):
             [
                 # Deprecation of the template tag
                 "`user_listing_buttons` template tag is deprecated.",
+                # Deprecation of the button class
+                "`UserListingButton` is deprecated. "
+                "Use `wagtail.admin.widgets.button.Button` "
+                "or `wagtail.admin.widgets.button.ListingButton` instead.",
                 # Deprecation of the hook signature
                 "`register_user_listing_buttons` hook functions should accept a "
                 "`request_user` argument instead of `context` - "
