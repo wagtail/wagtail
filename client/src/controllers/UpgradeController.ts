@@ -1,6 +1,16 @@
 import { Controller } from '@hotwired/stimulus';
 import { VersionNumber, VersionDeltaType } from '../utils/version';
 
+interface VersionData {
+  version: string;
+  url: string;
+  minorUrl: string;
+}
+
+interface LatestVersionData extends VersionData {
+  lts: VersionData;
+}
+
 /**
  * Controls the upgrade notification component to request the latest version
  * of Wagtail and presents a message to the user if the current version
@@ -27,6 +37,8 @@ export class UpgradeController extends Controller<HTMLElement> {
     url: { default: 'https://releases.wagtail.org/latest.txt', type: String },
   };
 
+  declare readonly hasLatestVersionTarget: boolean;
+  declare readonly hasLinkTarget: boolean;
   declare currentVersionValue: string;
   declare latestVersionTarget: HTMLElement;
   declare linkTarget: HTMLElement;
@@ -52,41 +64,41 @@ export class UpgradeController extends Controller<HTMLElement> {
         }
         return response.json();
       })
-      .then((payload) => {
-        let data = payload;
-        if (data && data.lts && showLTSOnly) {
-          data = data.lts;
+      .then((payload: LatestVersionData) => {
+        let data: VersionData = payload;
+        if (payload && payload.lts && showLTSOnly) {
+          data = payload.lts;
+        }
+        // The data is not what we expect, so we can't show the notification.
+        if (!data?.version) return;
+
+        const latestVersion = new VersionNumber(data.version);
+        const versionDelta = currentVersion.howMuchBehind(latestVersion);
+
+        let releaseNotesUrl: string;
+        if (!versionDelta) {
+          return;
+        }
+        if (
+          versionDelta === VersionDeltaType.MAJOR ||
+          versionDelta === VersionDeltaType.MINOR
+        ) {
+          releaseNotesUrl = data.minorUrl;
+        } else {
+          releaseNotesUrl = data.url;
         }
 
-        if (data && data.version) {
-          const latestVersion = new VersionNumber(data.version);
-          const versionDelta = currentVersion.howMuchBehind(latestVersion);
-
-          let releaseNotesUrl = null;
-          if (!versionDelta) {
-            return;
-          }
-          if (
-            versionDelta === VersionDeltaType.MAJOR ||
-            versionDelta === VersionDeltaType.MINOR
-          ) {
-            releaseNotesUrl = data.minorUrl;
-          } else {
-            releaseNotesUrl = data.url;
-          }
-
-          if (this.latestVersionTarget instanceof HTMLElement) {
-            const versionLabel = [data.version, showLTSOnly ? '(LTS)' : '']
-              .join(' ')
-              .trim();
-            this.latestVersionTarget.textContent = versionLabel;
-          }
-
-          if (this.linkTarget instanceof HTMLElement) {
-            this.linkTarget.setAttribute('href', releaseNotesUrl || '');
-          }
-          this.element.hidden = false;
+        if (this.hasLatestVersionTarget) {
+          const versionLabel = [data.version, showLTSOnly ? '(LTS)' : '']
+            .join(' ')
+            .trim();
+          this.latestVersionTarget.textContent = versionLabel;
         }
+
+        if (this.hasLinkTarget) {
+          this.linkTarget.setAttribute('href', releaseNotesUrl || '');
+        }
+        this.element.hidden = false;
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
