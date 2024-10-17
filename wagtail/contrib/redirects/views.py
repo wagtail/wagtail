@@ -236,6 +236,11 @@ def add(request):
         "wagtailredirects/add.html",
         {
             "form": form,
+            # Remove these when this view is refactored to a generic.CreateView subclass.
+            # Avoid defining new translatable strings.
+            "submit_button_label": generic.CreateView.submit_button_label,
+            "submit_button_active_label": generic.CreateView.submit_button_active_label,
+            "media": form.media,
         },
     )
 
