@@ -8,7 +8,7 @@ describe('UpgradeController', () => {
   const version = '2.3';
 
   beforeEach(() => {
-    document.body.innerHTML = `
+    document.body.innerHTML = /* html */ `
     <div
       class="panel"
       id="panel"
@@ -78,7 +78,7 @@ describe('UpgradeController', () => {
 
   it('should not show the message if the current version is up to date', async () => {
     const data = {
-      version: '5.15.1',
+      version: '2.3',
       url: 'https://docs.wagtail.org/latest/url',
       minorUrl: 'https://docs.wagtail.org/latest-minor/url',
       lts: {
@@ -99,6 +99,16 @@ describe('UpgradeController', () => {
     // trigger next browser render cycle
     await Promise.resolve();
 
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://releases.wagtail.org/mock.txt',
+      { referrerPolicy: 'strict-origin-when-cross-origin' },
+    );
+
+    expect(document.getElementById('panel').hidden).toBe(true);
+
+    await new Promise(requestAnimationFrame);
+
+    // should keep the hidden attribute
     expect(document.getElementById('panel').hidden).toBe(true);
   });
 
