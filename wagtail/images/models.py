@@ -1071,12 +1071,12 @@ class Filter:
                     "output-format-options" in env
                     and "lossless" in env["output-format-options"]
                 ):
-                    return willow.save_as_heif(output, lossless=True)
+                    return willow.save_as_heic(output, lossless=True)
                 elif "heic-quality" in env:
                     quality = env["heic-quality"]
                 else:
                     quality = getattr(settings, "WAGTAILIMAGES_HEIC_QUALITY", 80)
-                return willow.save_as_heif(output, quality=quality)
+                return willow.save_as_heic(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
             elif output_format == "ico":
