@@ -9,7 +9,13 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.models import GroupPagePermission, Locale, Page, Revision
+from wagtail.models import (
+    GroupPagePermission,
+    Locale,
+    Page,
+    PageViewRestriction,
+    Revision,
+)
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     BusinessChild,
@@ -756,6 +762,137 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+    def test_create_default_privacy_page_public(self):
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertTrue(PageViewRestriction.objects.filter(page=page).count() == 0)
+
+    def test_create_default_privacy_page_logged_in(self):
+        original_default_privacy_setting = SimplePage.get_default_privacy_setting
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        def get_default_privacy_setting(self, request):
+            return {"type": "logged_in"}
+
+        SimplePage.get_default_privacy_setting = get_default_privacy_setting
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertTrue(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="login"
+            ).count()
+            == 1
+        )
+
+        SimplePage.get_default_privacy_setting = original_default_privacy_setting
+
+    def test_create_default_privacy_page_shared_password(self):
+        original_default_privacy_setting = SimplePage.get_default_privacy_setting
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        def get_default_privacy_setting(self, request):
+            return {"type": "shared_password", "password": "password"}
+
+        SimplePage.get_default_privacy_setting = get_default_privacy_setting
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertTrue(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="password"
+            ).count()
+            == 1
+        )
+
+        SimplePage.get_default_privacy_setting = original_default_privacy_setting
+
+    def test_create_default_privacy_page_user_groups(self):
+        original_default_privacy_setting = SimplePage.get_default_privacy_setting
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        def get_default_privacy_setting(self, request):
+            return {"type": "user_groups", "groups": []}
+
+        SimplePage.get_default_privacy_setting = get_default_privacy_setting
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertTrue(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="groups"
+            ).count()
+            == 1
+        )
+
+        SimplePage.get_default_privacy_setting = original_default_privacy_setting
 
     def test_create_nonexistantparent(self):
         response = self.client.get(
