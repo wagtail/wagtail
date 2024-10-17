@@ -134,7 +134,6 @@ class EditView(generic.EditView):
     url_generator_url_name = "wagtailimages:url_generator"
     header_icon = "image"
     context_object_name = "image"
-    delete_item_label = gettext_lazy("Delete image")
     _show_breadcrumbs = True
 
     @cached_property

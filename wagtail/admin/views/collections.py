@@ -75,7 +75,6 @@ class Edit(EditView):
     template_name = "wagtailadmin/collections/edit.html"
     success_message = gettext_lazy("Collection '%(object)s' updated.")
     error_message = gettext_lazy("The collection could not be saved due to errors.")
-    delete_item_label = gettext_lazy("Delete collection")
     edit_url_name = "wagtailadmin_collections:edit"
     index_url_name = "wagtailadmin_collections:index"
     delete_url_name = "wagtailadmin_collections:delete"

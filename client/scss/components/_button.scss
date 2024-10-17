@@ -321,11 +321,13 @@
 }
 
 .w-header-button {
+  @include more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;
   gap: theme('spacing.1');
-  height: theme('spacing.7');
+  height: theme('spacing.8');
+  min-width: theme('spacing.8');
   appearance: none;
   background-color: initial;
   border: 1px solid transparent;

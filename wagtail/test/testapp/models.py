@@ -195,7 +195,11 @@ class SimplePage(Page):
 
 
 class MultiPreviewModesPage(Page):
-    template = "tests/simple_page.html"
+    preview_templates = {
+        "original": "tests/simple_page.html",
+        "alt#1": "tests/simple_page_alt.html",
+    }
+    template = preview_templates["original"]
 
     @property
     def preview_modes(self):
@@ -206,8 +210,8 @@ class MultiPreviewModesPage(Page):
         return "alt#1"
 
     def get_preview_template(self, request, mode_name):
-        if mode_name == "alt#1":
-            return "tests/simple_page_alt.html"
+        if mode_name in self.preview_templates:
+            return self.preview_templates[mode_name]
         return super().get_preview_template(request, mode_name)
 
 

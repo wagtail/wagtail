@@ -61,6 +61,7 @@ $header-button-size: theme('spacing.6');
 .w-panel__toggle,
 .w-panel__controls .button.button--icon {
   @include show-focus-outline-inside();
+  @include more-contrast-interactive();
   display: inline-grid;
   justify-content: center;
   align-content: center;
@@ -159,4 +160,27 @@ $header-button-size: theme('spacing.6');
 
 .w-panel__wrapper {
   @include max-form-width();
+}
+
+.w-panel--dashboard {
+  background-color: theme('colors.surface-dashboard-panel');
+  border: 1px solid theme('colors.border-furniture');
+  border-radius: 5px;
+  margin-bottom: calc(
+    theme('spacing.4') + theme('spacing.4') * var(--w-density-factor)
+  );
+
+  .w-panel__header {
+    padding: theme('spacing.5');
+    margin-inline-start: 0;
+
+    @include media-breakpoint-up(sm) {
+      margin-inline-start: calc(-1 * theme('spacing.5'));
+    }
+  }
+
+  .w-panel__heading {
+    margin-inline-start: theme('spacing.2');
+    white-space: wrap;
+  }
 }

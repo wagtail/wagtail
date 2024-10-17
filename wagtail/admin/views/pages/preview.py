@@ -14,7 +14,7 @@ def view_draft(request, page_id):
         raise PermissionDenied
 
     try:
-        preview_mode = page.default_preview_mode
+        preview_mode = request.GET.get("mode", page.default_preview_mode)
     except IndexError:
         raise PermissionDenied
 

@@ -35,7 +35,9 @@ exports[`Sidebar should render with the minimum required props 1`] = `
                 w-items-center
                 hover:w-bg-surface-menu-item-active
                 hover:text-white
-                hover:opacity-100"
+                hover:opacity-100
+                more-contrast:w-border-border-interactive-more-contrast-dark-bg
+                hover:more-contrast:w-border-border-interactive-more-contrast-dark-bg-hover"
           onClick={[Function]}
           type="button"
         >

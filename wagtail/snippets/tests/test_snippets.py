@@ -34,6 +34,7 @@ from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
+    DeleteMenuItem,
     get_base_snippet_action_menu_items,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -1021,7 +1022,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
@@ -1038,7 +1039,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -1059,10 +1060,14 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
+
+            class Media:
+                js = ["js/some-default-item.js"]
+                css = {"all": ["css/some-default-item.css"]}
 
         def hook_func(menu_items, request, context):
             self.assertIsInstance(menu_items, list)
@@ -1076,12 +1081,28 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         with self.register_hook("construct_snippet_action_menu", hook_func):
             response = self.get()
 
-        self.assertContains(
-            response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
-            html=True,
-        )
-        self.assertNotContains(response, "<em>'Save'</em>")
+        soup = self.get_soup(response.content)
+        custom_action = soup.select_one("form button[name='test']")
+        self.assertIsNotNone(custom_action)
+
+        # We're replacing the save button, so it should not be in a dropdown
+        # as it's the main action
+        dropdown_parent = custom_action.find_parent(attrs={"class": "w-dropdown"})
+        self.assertIsNone(dropdown_parent)
+
+        self.assertEqual(custom_action.text.strip(), "Test")
+        self.assertEqual(custom_action.attrs.get("class"), ["button", "custom-class"])
+        icon = custom_action.select_one("svg use[href='#icon-check']")
+        self.assertIsNotNone(icon)
+
+        # Should contain media files
+        js = soup.select_one("script[src='/static/js/some-default-item.js']")
+        self.assertIsNotNone(js)
+        css = soup.select_one("link[href='/static/css/some-default-item.css']")
+        self.assertIsNotNone(css)
+
+        save_item = soup.select_one("form button[name='action-save']")
+        self.assertIsNone(save_item)
 
 
 class TestSnippetCopyView(WagtailTestUtils, TestCase):
@@ -1909,7 +1930,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
@@ -1926,7 +1947,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -1988,6 +2009,32 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertEqual("1280", radios[1]["data-device-width"])
         self.assertEqual("Original desktop", radios[1]["aria-label"])
         self.assertTrue(radios[1].has_attr("checked"))
+
+    def test_register_deprecated_delete_menu_item(self):
+        def hook_func(model):
+            return DeleteMenuItem(order=900)
+
+        get_base_snippet_action_menu_items.cache_clear()
+        with self.register_hook(
+            "register_snippet_action_menu_item", hook_func
+        ), self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "DeleteMenuItem is deprecated. "
+            "The delete option is now provided via EditView.get_header_more_buttons().",
+        ):
+            response = self.get()
+
+        get_base_snippet_action_menu_items.cache_clear()
+
+        delete_url = reverse(
+            self.test_snippet.snippet_viewset.get_url_name("delete"),
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertContains(
+            response,
+            f'<a class="button" href="{ delete_url }"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
+            html=True,
+        )
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
@@ -2156,7 +2203,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
 
@@ -2557,7 +2604,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
 
@@ -2593,7 +2640,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertContains(response, "Unpublish")
 
@@ -2631,7 +2678,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertContains(response, "Unpublish")
 
@@ -4602,15 +4649,24 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        soup = self.get_soup(response.content)
 
         # The save button should be labelled "Replace current draft"
-        self.assertContains(response, "Replace current draft")
-        # The publish button should exist
-        self.assertContains(response, "Publish this version")
-        # The publish button should have name="action-publish"
-        self.assertContains(
-            response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning warning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
+        footer = soup.select_one("footer")
+        save_button = footer.select_one(
+            'button[type="submit"]:not([name="action-publish"])'
+        )
+        self.assertIsNotNone(save_button)
+        self.assertEqual(save_button.text.strip(), "Replace current draft")
+        # The publish button should exist and have name="action-publish"
+        publish_button = footer.select_one(
+            'button[type="submit"][name="action-publish"]'
+        )
+        self.assertIsNotNone(publish_button)
+        self.assertEqual(publish_button.text.strip(), "Publish this version")
+        self.assertEqual(
+            set(publish_button.get("class")),
+            {"button", "action-save", "button-longrunning"},
         )
 
         # Should not show the Unpublish action menu item
@@ -4618,11 +4674,8 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
             "wagtailsnippets_tests_draftstatemodel:unpublish",
             args=(quote(self.snippet.pk),),
         )
-        self.assertNotContains(
-            response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
-        )
-        self.assertNotContains(response, "Unpublish")
+        unpublish_button = footer.select_one(f'a[href="{unpublish_url}"]')
+        self.assertIsNone(unpublish_button)
 
     def test_get_with_previewable_snippet(self):
         self.snippet = MultiPreviewModesModel.objects.create(text="Preview-enabled foo")

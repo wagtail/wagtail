@@ -337,7 +337,11 @@ class TestEditCollectionAsSuperuser(AdminTemplateTestUtils, WagtailTestUtils, Te
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Delete collection")
+        delete_url = reverse(
+            "wagtailadmin_collections:delete",
+            args=(self.collection.id,),
+        )
+        self.assertContains(response, delete_url)
         self.assertBreadcrumbsItemsRendered(
             [
                 {"url": "/admin/collections/", "label": "Collections"},
@@ -501,7 +505,11 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(list(response.context["form"].fields.keys()), ["name"])
-        self.assertNotContains(response, "Delete collection")
+        delete_url = reverse(
+            "wagtailadmin_collections:delete",
+            args=(self.marketing_collection.id,),
+        )
+        self.assertNotContains(response, delete_url)
 
     def test_cannot_move_collection_permissions_are_assigned_to_with_minimal_permission(
         self,
@@ -552,9 +560,13 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
         self.test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post()
 
     def test_page_shows_delete_link_only_if_delete_permitted(self):
+        delete_url = reverse(
+            "wagtailadmin_collections:delete",
+            args=(self.marketing_sub_collection.id,),
+        )
         # Retrieve edit form and check fields
         response = self.get(collection_id=self.marketing_sub_collection.id)
-        self.assertNotContains(response, "Delete collection")
+        self.assertNotContains(response, delete_url)
 
         # Add delete permission to a different collection and try again,
         # ensure that it checks against the tree structure, and not just a
@@ -566,7 +578,7 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
             permission=self.delete_permission,
         )
         response = self.get(collection_id=self.marketing_sub_collection.id)
-        self.assertNotContains(response, "Delete collection")
+        self.assertNotContains(response, delete_url)
 
         # Add delete permission to parent collection and try again
         GroupCollectionPermission.objects.create(
@@ -575,7 +587,7 @@ class TestEditCollection(CollectionInstanceTestUtils, WagtailTestUtils, TestCase
             permission=self.delete_permission,
         )
         response = self.get(collection_id=self.marketing_sub_collection.id)
-        self.assertContains(response, "Delete collection")
+        self.assertContains(response, delete_url)
 
 
 class TestDeleteCollectionAsSuperuser(

@@ -58,6 +58,10 @@
   .warning {
     background-color: theme('colors.warning.100');
     color: theme('colors.grey.600');
+
+    @include more-contrast() {
+      background-color: theme('colors.warning.75');
+    }
   }
 
   .info {

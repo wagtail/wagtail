@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends "wagtailadmin/generic/form.html" %}
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% trans "Add redirect" %}{% endblock %}
 {% block content %}
@@ -14,22 +14,11 @@
             {% for field in form.visible_fields %}
                 <li>{% formattedfield field %}</li>
             {% endfor %}
-
-            <li>
-                <input type="submit" value="{% trans 'Save' %}" class="button" />
-            </li>
         </ul>
+
+        {% block footer %}
+            {{ block.super }}
+        {% endblock %}
     </form>
 
-{% endblock %}
-
-{% block extra_js %}
-    {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ form.media.js }}
-{% endblock %}
-
-{% block extra_css %}
-    {{ block.super }}
-    {{ form.media.css }}
 {% endblock %}

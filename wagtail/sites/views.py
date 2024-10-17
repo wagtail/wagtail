@@ -41,7 +41,6 @@ class CreateView(generic.CreateView):
 class EditView(generic.EditView):
     success_message = _("Site '%(object)s' updated.")
     error_message = _("The site could not be saved due to errors.")
-    delete_item_label = _("Delete site")
     context_object_name = "site"
 
 

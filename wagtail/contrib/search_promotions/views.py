@@ -177,7 +177,11 @@ def add(request):
         {
             "query_form": query_form,
             "searchpicks_formset": searchpicks_formset,
-            "form_media": query_form.media + searchpicks_formset.media,
+            "media": query_form.media + searchpicks_formset.media,
+            # Remove these when this view is refactored to a generic.CreateView subclass.
+            # Avoid defining new translatable strings.
+            "submit_button_label": generic.CreateView.submit_button_label,
+            "submit_button_active_label": generic.CreateView.submit_button_active_label,
         },
     )
 
@@ -236,7 +240,16 @@ def edit(request, query_id):
             "query_form": query_form,
             "searchpicks_formset": searchpicks_formset,
             "query": query,
-            "form_media": query_form.media + searchpicks_formset.media,
+            "media": query_form.media + searchpicks_formset.media,
+            # Remove these when this view is refactored to a generic.CreateView subclass.
+            # Avoid defining new translatable strings.
+            "submit_button_label": generic.EditView.submit_button_label,
+            "submit_button_active_label": generic.EditView.submit_button_active_label,
+            "can_delete": request.user.has_perm(
+                "wagtailsearchpromotions.delete_searchpromotion"
+            ),
+            "delete_url": reverse("wagtailsearchpromotions:delete", args=(query.id,)),
+            "delete_item_label": generic.EditView.delete_item_label,
         },
     )
 

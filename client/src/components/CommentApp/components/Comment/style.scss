@@ -1,5 +1,6 @@
 .comment {
   @include box;
+  @include more-contrast-interactive();
 
   width: 300px;
   display: block;

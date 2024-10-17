@@ -30,8 +30,9 @@
 .footer__container {
   border-radius: theme('borderRadius.sm') theme('borderRadius.sm') 0 0;
   background: theme('colors.surface-menus');
-  color: theme('colors.text-label-menus-default');
+  color: theme('colors.text-button');
   transition: transform 1s;
+  padding: theme('spacing.1');
 
   @include media-breakpoint-down(xs) {
     width: 100%;
@@ -60,22 +61,18 @@
 }
 
 .footer__save-warning {
-  font-size: 0.95em;
+  font-size: theme('fontSize.14');
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 
-  .icon {
-    font-size: 1.2em;
-    margin-inline-end: 0.5em;
-  }
-
   p {
-    margin: -0.2em 0 0 0;
+    margin: 0;
   }
 
   @include media-breakpoint-up(sm) {
-    margin-inline-end: 50px;
+    margin-inline-end: theme('spacing[1.5]');
     align-items: center;
   }
 }
@@ -119,6 +116,7 @@
 
 .actions .button {
   @apply w-leading-none w-inline-flex w-items-center;
+  font-size: theme('fontSize.16');
   font-weight: 600;
   padding: 0 theme('spacing.3');
   white-space: initial;
@@ -133,6 +131,11 @@
 
 .actions .w-dropdown-button {
   width: 100%;
+
+  .w-dropdown .button {
+    font-size: theme('fontSize.14');
+    font-weight: 500;
+  }
 
   > .button {
     flex-grow: 1;

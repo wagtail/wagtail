@@ -230,7 +230,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
                 w-items-center
                 hover:w-bg-surface-menu-item-active
                 hover:text-white
-                hover:opacity-100`}
+                hover:opacity-100
+                more-contrast:w-border-border-interactive-more-contrast-dark-bg
+                hover:more-contrast:w-border-border-interactive-more-contrast-dark-bg-hover`}
             >
               <Icon
                 name="expand-right"

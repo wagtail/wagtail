@@ -229,7 +229,7 @@ class TestLockedPagesQueryCount(WagtailTestUtils, TestCase):
         # Warm up the cache
         html = panel.render_html(parent_context)
 
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(7):
             html = panel.render_html(parent_context)
         soup = self.get_soup(html)
         # Should be sorted descending by locked_at

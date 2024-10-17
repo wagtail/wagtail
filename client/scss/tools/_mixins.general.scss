@@ -94,6 +94,21 @@
 }
 
 /**
+ * Apply styles for enhanced contrast theming.
+ */
+@mixin more-contrast() {
+  .w-contrast-more & {
+    @content;
+  }
+
+  @media (prefers-contrast: more) {
+    .w-contrast-system & {
+      @content;
+    }
+  }
+}
+
+/**
  * Apply styles for the light theme only.
  */
 @mixin light-theme() {
@@ -104,6 +119,51 @@
   @media (prefers-color-scheme: light) {
     .w-theme-system & {
       @content;
+    }
+  }
+}
+
+/**
+ * Apply styles for the dark theme with increased contrast.
+ */
+@mixin dark-theme-more-contrast() {
+  .w-theme-dark.w-contrast-more & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .w-theme-system.w-contrast-more & {
+      @content;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .w-theme-dark.w-contrast-system & {
+      @content;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) and (prefers-contrast: more) {
+    .w-theme-system.w-contrast-system & {
+      @content;
+    }
+  }
+}
+
+/**
+* Increased contrast theme styles for interactive components
+*/
+@mixin more-contrast-interactive() {
+  @include more-contrast() {
+    border: 1px solid theme('colors.border-interactive-more-contrast');
+
+    &:hover {
+      border-color: theme('colors.border-interactive-more-contrast-hover');
+    }
+
+    &[disabled],
+    &[disabled]:hover {
+      border-style: dashed;
     }
   }
 }

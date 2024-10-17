@@ -264,6 +264,7 @@ class Edit(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable"
     header_icon = "tasks"
+    header_more_buttons = []
     edit_handler = None
     MAX_PAGES = 5
     _show_breadcrumbs = True
@@ -706,6 +707,7 @@ class EditTask(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable_task"
     header_icon = "thumbtack"
+    header_more_buttons = []
     _show_breadcrumbs = True
 
     @cached_property

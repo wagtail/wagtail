@@ -45,6 +45,9 @@ $sidebar-toggle-size: 35px;
   @media (forced-colors: active) {
     border-inline-end: 1px solid transparent;
   }
+  @include dark-theme-more-contrast() {
+    border-inline-end: 1px solid theme('colors.border-furniture-more-contrast');
+  }
 
   .icon--menuitem {
     width: 1rem;
