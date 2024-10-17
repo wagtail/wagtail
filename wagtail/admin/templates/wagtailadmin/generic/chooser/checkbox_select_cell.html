@@ -1,4 +1,8 @@
 {% load i18n l10n %}
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
-    <input type="checkbox" id="chooser-modal-select-{{ value|unlocalize }}" data-multiple-choice-select name="id" value="{{ value|unlocalize }}" title="{% blocktrans trimmed with title=instance %}Select {{ title }}{% endblocktrans %}">
+    <input type="checkbox" id="chooser-modal-select-{{ value|unlocalize }}" data-multiple-choice-select name="id" value="{{ value|unlocalize }}" title="{% blocktrans trimmed with title=instance %}Select {{ title }}{% endblocktrans %}"
+           {% if value|slugify in selectedChooserIds %}
+               disabled
+           {% endif %}
+    >
 </td>
