@@ -30,7 +30,7 @@ interface LatestVersionData extends VersionData {
  * }
  */
 export class UpgradeController extends Controller<HTMLElement> {
-  static targets = ['latestVersion', 'link'];
+  static targets = ['latestVersion', 'link', 'dismiss'];
   static values = {
     currentVersion: String,
     ltsOnly: { default: false, type: Boolean },
@@ -39,14 +39,29 @@ export class UpgradeController extends Controller<HTMLElement> {
 
   declare readonly hasLatestVersionTarget: boolean;
   declare readonly hasLinkTarget: boolean;
+  declare readonly hasDismissTarget: boolean;
   declare currentVersionValue: string;
   declare latestVersionTarget: HTMLElement;
   declare linkTarget: HTMLElement;
+  declare dismissTarget: HTMLElement;
   declare ltsOnlyValue: any;
   declare urlValue: string;
 
   connect() {
     this.checkVersion();
+  }
+
+  /**
+   * The version number that the user has acknowledged.
+   *
+   * Use the last dismissed version if it exists, or the current version otherwise.
+   */
+  get knownVersion() {
+    return new VersionNumber(
+      (this.hasDismissTarget &&
+        this.dismissTarget.getAttribute('data-w-dismissible-value-param')) ||
+        this.currentVersionValue,
+    );
   }
 
   checkVersion() {
@@ -75,10 +90,15 @@ export class UpgradeController extends Controller<HTMLElement> {
         const latestVersion = new VersionNumber(data.version);
         const versionDelta = currentVersion.howMuchBehind(latestVersion);
 
-        let releaseNotesUrl: string;
-        if (!versionDelta) {
+        // Check with the last dismissed version if it exists, so we don't
+        // show the notification again if the user has already dismissed it.
+        if (!this.knownVersion.howMuchBehind(latestVersion)) {
           return;
         }
+
+        // But use the actual installed version to check whether we want to
+        // link to the feature release notes or the patch release notes.
+        let releaseNotesUrl: string;
         if (
           versionDelta === VersionDeltaType.MAJOR ||
           versionDelta === VersionDeltaType.MINOR
@@ -98,6 +118,14 @@ export class UpgradeController extends Controller<HTMLElement> {
         if (this.hasLinkTarget) {
           this.linkTarget.setAttribute('href', releaseNotesUrl || '');
         }
+
+        if (this.hasDismissTarget) {
+          this.dismissTarget.setAttribute(
+            'data-w-dismissible-value-param',
+            data.version,
+          );
+        }
+
         this.element.hidden = false;
       })
       .catch((err) => {
