@@ -63,10 +63,12 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
     AdvertWithTabbedInterface,
+    CustomPreviewSizesModel,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
     FullFeaturedSnippet,
     MultiPreviewModesModel,
+    PreviewableModel,
     RevisableChildModel,
     RevisableModel,
     SnippetChooserModel,
@@ -1964,6 +1966,49 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response = self.get()
 
         self.assertNotContains(response, "<em>Save</em>")
+
+    def test_previewable_snippet(self):
+        self.test_snippet = PreviewableModel.objects.create(
+            text="Preview-enabled snippet"
+        )
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        radios = soup.select('input[type="radio"][name="preview-size"]')
+        self.assertEqual(len(radios), 3)
+
+        self.assertEqual(
+            [
+                "Preview in mobile size",
+                "Preview in tablet size",
+                "Preview in desktop size",
+            ],
+            [radio["aria-label"] for radio in radios],
+        )
+
+        self.assertEqual("375", radios[0]["data-device-width"])
+        self.assertTrue(radios[0].has_attr("checked"))
+
+    def test_custom_preview_sizes(self):
+        self.test_snippet = CustomPreviewSizesModel.objects.create(
+            text="Preview-enabled with custom sizes",
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        radios = soup.select('input[type="radio"][name="preview-size"]')
+        self.assertEqual(len(radios), 2)
+
+        self.assertEqual("412", radios[0]["data-device-width"])
+        self.assertEqual("Custom mobile preview", radios[0]["aria-label"])
+        self.assertFalse(radios[0].has_attr("checked"))
+
+        self.assertEqual("1280", radios[1]["data-device-width"])
+        self.assertEqual("Original desktop", radios[1]["aria-label"])
+        self.assertTrue(radios[1].has_attr("checked"))
 
     def test_register_deprecated_delete_menu_item(self):
         def hook_func(model):

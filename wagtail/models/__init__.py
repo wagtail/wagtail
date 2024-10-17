@@ -805,6 +805,26 @@ class PreviewableMixin:
     full_url = property(get_full_url)
 
     DEFAULT_PREVIEW_MODES = [("", _("Default"))]
+    DEFAULT_PREVIEW_SIZES = [
+        {
+            "name": "mobile",
+            "icon": "mobile-alt",
+            "device_width": 375,
+            "label": _("Preview in mobile size"),
+        },
+        {
+            "name": "tablet",
+            "icon": "tablet-alt",
+            "device_width": 768,
+            "label": _("Preview in tablet size"),
+        },
+        {
+            "name": "desktop",
+            "icon": "desktop",
+            "device_width": 1280,
+            "label": _("Preview in desktop size"),
+        },
+    ]
 
     @property
     def preview_modes(self):
@@ -827,6 +847,43 @@ class PreviewableMixin:
         If ``preview_modes`` is empty, an ``IndexError`` will be raised.
         """
         return self.preview_modes[0][0]
+
+    @property
+    def preview_sizes(self):
+        """
+        Returns a list of dictionaries, each representing a preview size option for this object.
+        Override this property to customize the preview sizes.
+        Each dictionary in the list should include the following keys:
+
+        - `name`: A string representing the internal name of the preview size.
+        - `icon`: A string specifying the icon's name for the preview size button.
+        - `device_width`: An integer indicating the device's width in pixels.
+        - `label`: A string for the aria label on the preview size button.
+
+        .. code-block:: python
+
+            @property
+            def preview_sizes(self):
+                return [
+                    {
+                        "name": "mobile",
+                        "icon": "mobile-icon",
+                        "device_width": 320,
+                        "label": "Preview in mobile size"
+                    },
+                    # Add more preview size dictionaries as needed.
+                ]
+        """
+        return PreviewableMixin.DEFAULT_PREVIEW_SIZES
+
+    @property
+    def default_preview_size(self):
+        """
+        The default preview size name to use in live preview.
+        Defaults to ``"mobile"``, which is the first one defined in ``preview_sizes``.
+        If ``preview_sizes`` is empty, an ``IndexError`` will be raised.
+        """
+        return self.preview_sizes[0]["name"]
 
     def is_previewable(self):
         """Returns ``True`` if at least one preview mode is specified in ``preview_modes``."""
