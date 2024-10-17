@@ -338,6 +338,11 @@ All block definitions accept the following optional keyword arguments:
     A control to allow the editor to select an existing document object, or upload a new one. The following additional keyword argument is accepted:
 
     :param required: If true (the default), the field cannot be left blank.
+```
+
+(streamfield_imageblock)=
+
+```{eval-rst}
 
 .. autoclass:: wagtail.images.blocks.ImageBlock
     :show-inheritance:
