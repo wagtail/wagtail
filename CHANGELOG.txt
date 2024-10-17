@@ -23,6 +23,9 @@ Changelog
  * Implement incremental dashboard design enhancements (Albina Starykova, Ben Enright)
  * Add support for specifying different preview modes to the "View draft" URL for pages (Robin Varghese)
  * Add a new enhanced contrast admin theming option for the admin interface (Albina Starykova, Victoria Ottah)
+ * Implement new designs for the footer actions dropdown with more contrast and larger text (Sage Abdullah)
+ * All create/edit admin forms now use a sticky submit button, for consistency and to speed up edits (Sage Abdullah)
+ * Secondary form actions such as "Delete" are now in the header actions menu (Sage Abdullah)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
@@ -41,6 +44,8 @@ Changelog
  * Fix: Update email notification header to the new logo design (rahulsamant37)
  * Fix: Change `file_size` field on document model to avoid artificial 2Gb limit (Gabriel Getzie)
  * Fix: Ensure that `TypedTableBlock` uses the correct API representations of child blocks (Matt Westcott)
+ * Fix: Footer action buttons now include their `media` definitions (Sage Abdullah)
+ * Fix: Improve the text contrast of the bulk actions "Select all" button (Sage Abdullah)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
@@ -68,6 +73,8 @@ Changelog
  * Maintenance: Deprecate `window.wagtailConfig.BULK_ACTION_ITEM_TYPE` usage in JavaScript to reduce reliance on inline scripts (LB (Ben) Johnston)
  * Maintenance: Remove `window.fileupload_opts` usage in JavaScript, use data attributes on fields instead to reduce reliance on inline scripts (LB (Ben) Johnston)
  * Maintenance: Remove `image_format_name_to_content_type` helper function that duplicates Willow functionality (Matt Westcott)
+ * Maintenance: Improve code reuse for footer actions markup across generic views (Sage Abdullah)
+ * Maintenance: Deprecate internal `DeleteMenuItem` API for footer actions (Sage Abdullah)
 
 
 6.2.2 (24.09.2024)
