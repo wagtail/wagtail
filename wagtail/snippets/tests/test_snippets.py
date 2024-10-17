@@ -1063,6 +1063,10 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             def is_shown(self, context):
                 return True
 
+            class Media:
+                js = ["js/some-default-item.js"]
+                css = {"all": ["css/some-default-item.css"]}
+
         def hook_func(menu_items, request, context):
             self.assertIsInstance(menu_items, list)
             self.assertIsInstance(request, WSGIRequest)
@@ -1075,12 +1079,28 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         with self.register_hook("construct_snippet_action_menu", hook_func):
             response = self.get()
 
-        self.assertContains(
-            response,
-            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
-            html=True,
-        )
-        self.assertNotContains(response, "<em>'Save'</em>")
+        soup = self.get_soup(response.content)
+        custom_action = soup.select_one("form button[name='test']")
+        self.assertIsNotNone(custom_action)
+
+        # We're replacing the save button, so it should not be in a dropdown
+        # as it's the main action
+        dropdown_parent = custom_action.find_parent(attrs={"class": "w-dropdown"})
+        self.assertIsNone(dropdown_parent)
+
+        self.assertEqual(custom_action.text.strip(), "Test")
+        self.assertEqual(custom_action.attrs.get("class"), ["button", "custom-class"])
+        icon = custom_action.select_one("svg use[href='#icon-check']")
+        self.assertIsNotNone(icon)
+
+        # Should contain media files
+        js = soup.select_one("script[src='/static/js/some-default-item.js']")
+        self.assertIsNotNone(js)
+        css = soup.select_one("link[href='/static/css/some-default-item.css']")
+        self.assertIsNotNone(css)
+
+        save_item = soup.select_one("form button[name='action-save']")
+        self.assertIsNone(save_item)
 
 
 class TestSnippetCopyView(WagtailTestUtils, TestCase):

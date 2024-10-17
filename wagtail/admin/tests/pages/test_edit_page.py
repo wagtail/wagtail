@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
@@ -217,6 +218,75 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/pages/%d/edit/" % self.event_page.id
         self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
+
+    def test_construct_page_action_menu_hook_with_custom_default_button(self):
+        class CustomDefaultItem(ActionMenuItem):
+            label = "Custom button"
+            name = "custom-default"
+            classname = "custom-class"
+            icon_name = "check"
+
+            class Media:
+                js = ["js/custom-default.js"]
+                css = {"all": ["css/custom-default.css"]}
+
+        def add_custom_default_item(menu_items, request, context):
+            menu_items.insert(0, CustomDefaultItem())
+
+        with self.register_hook(
+            "construct_page_action_menu",
+            add_custom_default_item,
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        custom_action = form.select_one("button[name='custom-default']")
+        self.assertIsNotNone(custom_action)
+
+        # We're replacing the save button, so it should not be in a dropdown
+        # as it's the main action
+        dropdown_parent = custom_action.find_parent(attrs={"class": "w-dropdown"})
+        self.assertIsNone(dropdown_parent)
+
+        self.assertEqual(custom_action.text.strip(), "Custom button")
+        self.assertEqual(custom_action.attrs.get("class"), ["button", "custom-class"])
+        icon = custom_action.select_one("svg use[href='#icon-check']")
+        self.assertIsNotNone(icon)
+
+        # Should contain media files
+        js = soup.select_one("script[src='/static/js/custom-default.js']")
+        self.assertIsNotNone(js)
+        css = soup.select_one("link[href='/static/css/custom-default.css']")
+        self.assertIsNotNone(css)
+
+        # The save button should now be in the dropdown
+        save_item = form.select_one(".w-dropdown .action-save")
+        self.assertIsNotNone(save_item)
+
+    def test_construct_page_action_menu_hook_removes_all_buttons(self):
+        def remove_all_buttons(menu_items, request, context):
+            menu_items[:] = []
+
+        with self.register_hook(
+            "construct_page_action_menu",
+            remove_all_buttons,
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
+            )
+
+        # It shouldn't crash due to assuming a default button is present
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        actions = form.select("footer button")
+        self.assertEqual(len(actions), 0)
 
     def test_usage_count_information_shown(self):
         PageChooserModel.objects.create(page=self.event_page)
