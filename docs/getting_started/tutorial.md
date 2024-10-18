@@ -366,11 +366,6 @@ class BlogPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
-
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
@@ -564,11 +559,6 @@ class BlogPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
-
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
@@ -653,11 +643,6 @@ class BlogPage(Page):
             return gallery_item.image
         else:
             return None
-
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
@@ -752,7 +737,7 @@ class BlogPage(Page):
     # Add this:
     authors = ParentalManyToManyField('blog.Author', blank=True)
 
-    # ... Keep the main_image method and search_fields definition. Modify your content_panels:
+    # ... Keep the main_image method. Modify your content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('date'),
@@ -852,7 +837,7 @@ class BlogPage(Page):
     # Add this:
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
+    # ... Keep the main_image method. Then modify the content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('date'),
