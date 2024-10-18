@@ -153,6 +153,7 @@ Changelog
  * Fix: Fix focal point chooser when localization enabled (Sébastien Corbin)
  * Fix: Ensure that system checks for `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT` and `WAGTAIL_TIME_FORMAT` take `FORMAT_MODULE_PATH` into account (Sébastien Corbin)
  * Fix: Prevent rich text fields inside choosers from being duplicated when opened repeatedly (Sage Abdullah)
+ * Fix: Prevent history view from breaking if a log entry's revision is missing (Matt Westcott)
  * Docs: Remove duplicate section on frontend caching proxies from performance page (Jake Howard)
  * Docs: Document `restriction_type` field on PageViewRestriction (Shlomo Markowitz)
  * Docs: Document Wagtail's bug bounty policy (Jake Howard)
