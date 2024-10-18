@@ -841,6 +841,8 @@
 * Rohit Singh
 * Robin Varghese
 * Victoria Ottah
+* Bart Cieliński
+* alexkiro
 
 ## Translators
 

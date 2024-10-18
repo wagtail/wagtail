@@ -27,6 +27,7 @@ Changelog
  * All create/edit admin forms now use a sticky submit button, for consistency and to speed up edits (Sage Abdullah)
  * Secondary form actions such as "Delete" are now in the header actions menu (Sage Abdullah)
  * Add support for uploading HEIC / HEIF images (Matt Westcott)
+ * Allow customization of preview device sizes in the live preview panel (Bart Cieliński, alexkiro, Sage Abdullah)
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
