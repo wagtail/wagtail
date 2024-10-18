@@ -571,10 +571,12 @@ The steps required to set headers for specific responses will vary, depending on
 
 ## HEIC / HEIF images
 
-`.heic` images are not widely supported on the web, but may be encountered when exporting images from Apple devices. Wagtail does not allow upload of these by default, but this can be enabled by adding "heic" to `WAGTAILIMAGES_EXTENSIONS`:
+HEIC / HEIF images are not widely supported on the web, but may be encountered when exporting images from Apple devices. Wagtail does not allow upload of these by default, but this can be enabled by adding `"heic"` to `WAGTAILIMAGES_EXTENSIONS`:
 
 ```python
 WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "heic"]
 ```
+
+Note that to upload HEIC / HEIF images, the file extension must be `.heic` and not `.heif` or other extensions.
 
 These images will be automatically converted to JPEG format when rendered (see [](customising_output_formats)).
