@@ -25,7 +25,6 @@
                         aria-label="{{ size.label }}"
                         data-device-width="{{ size.device_width|stringformat:'s' }}"
                         {% if object.default_preview_size == size.name %}
-                            data-default-size
                             checked
                         {% endif %}
                     />
