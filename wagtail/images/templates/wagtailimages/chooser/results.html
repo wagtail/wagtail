@@ -11,7 +11,11 @@
                     <label title="Select {% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}">
                         <div class="image">{% image image max-165x165 class="show-transparency" %}</div>
                         <h3>
-                            <input type="checkbox" data-multiple-choice-select name="id" value="{{ image.id }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}">
+                            <input type="checkbox" data-multiple-choice-select name="id" value="{{ image.id }}" title="{% blocktrans trimmed with title=image.title %}Select {{ title }}{% endblocktrans %}"
+                                   {% if image.id|slugify in selectedChooserIds %}
+                                       disabled
+                                   {% endif %}
+                            >
                             {{ image.title|ellipsistrim:60 }}
                         </h3>
                     </label>
