@@ -299,6 +299,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     objects = ImageQuerySet.as_manager()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.is_decorative = False
+        self.contextual_alt_text = None
+
     def _set_file_hash(self):
         with self.open_file() as f:
             self.file_hash = hash_filelike(f)
@@ -371,6 +376,28 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def __str__(self):
         return self.title
+
+    def __eq__(self, other):
+        if not isinstance(other, models.Model):
+            return NotImplemented
+
+        if self._meta.concrete_model != other._meta.concrete_model:
+            return False
+
+        my_pk = self.pk
+        if my_pk is None:
+            return self is other
+
+        return (
+            my_pk == other.pk
+            and other.contextual_alt_text == self.contextual_alt_text
+            and other.is_decorative == self.is_decorative
+        )
+
+    def __hash__(self):
+        if self.pk is None:
+            raise TypeError("Model instances without primary key value are unhashable")
+        return hash((self.pk, self.contextual_alt_text, self.is_decorative))
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -626,6 +653,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ]
             for rendition in Rendition.cache_backend.get_many(cache_keys).values():
                 filter = filters_by_spec[rendition.filter_spec]
+                # The retrieved rendition needs to be associated with the current image instance, so that any
+                # locally-set properties such as contextual_alt_text are respected
+                rendition.image = self
                 found[filter] = rendition
 
             # For items not found in the cache, look in the database
@@ -1249,7 +1279,16 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @property
     def alt(self):
-        return self.image.default_alt_text
+        # 'decorative' and 'contextual_alt_text' exist only for ImageBlock
+        if hasattr(self.image, "decorative") and self.image.decorative:
+            return ""
+        elif (
+            hasattr(self.image, "contextual_alt_text")
+            and self.image.contextual_alt_text
+        ):
+            return self.image.contextual_alt_text
+        else:
+            return self.image.default_alt_text
 
     @property
     def attrs(self):

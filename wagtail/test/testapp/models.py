@@ -65,7 +65,7 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.models import AbstractDocument, Document
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.blocks import ImageBlock, ImageChooserBlock
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.models import (
     DraftStateMixin,
@@ -1646,6 +1646,7 @@ class StreamPage(Page):
                 "title_list",
                 ListBlock(CharBlock()),
             ),
+            ("image_with_alt", ImageBlock()),
         ],
     )
 
