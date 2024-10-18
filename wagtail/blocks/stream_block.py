@@ -710,7 +710,7 @@ class StreamValue(MutableSequence):
         raw_values = OrderedDict(
             (i, raw_item["value"])
             for i, raw_item in enumerate(self._raw_data)
-            if raw_item["type"] == type_name and self._bound_blocks[i] is None
+            if self._bound_blocks[i] is None and raw_item["type"] == type_name
         )
         # pass the raw block values to bulk_to_python as a list
         converted_values = child_block.bulk_to_python(raw_values.values())
