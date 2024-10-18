@@ -59,6 +59,7 @@
     gap: 0.75rem;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
+    padding-inline: 1rem;
 
     @include more-contrast() {
       border-color: theme('colors.border-furniture-more-contrast');
@@ -103,14 +104,20 @@
   &__refresh-button.button--icon {
     display: flex;
     align-items: center;
+    justify-content: center;
     position: absolute;
-    top: 1.25rem;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
     inset-inline-end: 1.5rem;
 
     // Use element and class selectors to beat .button-longrunning specificity
     svg.icon,
     svg.icon-spinner {
       margin-inline-end: 0;
+      width: 1rem;
+      height: 1rem;
     }
   }
 
