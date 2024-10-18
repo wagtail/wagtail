@@ -233,3 +233,17 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
         self.trigger_page_slug_changed_signal(self.event_index)
         self.assertFalse(Redirect.objects.exists())
         self.assertEqual(len(PURGED_URLS), 0)
+
+    def test_redirect_created_on_move_with_non_ascii_title(self):
+        non_ascii_title = "é" * 50
+        page_with_non_ascii_title = Page(title=non_ascii_title, slug=non_ascii_title)
+        self.event_index.add_child(instance=page_with_non_ascii_title)
+
+        page_with_non_ascii_title.move(self.other_page, pos="last-child")
+
+        redirects = Redirect.objects.all()
+        redirect_page_ids = [redirect.redirect_page_id for redirect in redirects]
+
+        self.assertIn(page_with_non_ascii_title.id, redirect_page_ids)
+
+        self.assertEqual(len(PURGED_URLS), 1)
