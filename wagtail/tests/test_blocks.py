@@ -5015,6 +5015,11 @@ class TestStaticBlock(unittest.TestCase):
         result = block.render(None)
         self.assertEqual(result, "<p>PostsStaticBlock template</p>")
 
+    def test_render_without_template(self):
+        block = blocks.StaticBlock()
+        result = block.render(None)
+        self.assertEqual(result, "")
+
     def test_serialize(self):
         block = blocks.StaticBlock()
         result = block.get_prep_value(None)
