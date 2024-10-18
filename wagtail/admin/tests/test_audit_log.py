@@ -1,7 +1,9 @@
 from datetime import timedelta
+from io import StringIO
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -304,6 +306,26 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         # check site history
         response = self.client.get(reverse("wagtailadmin_reports:site_history"))
         self.assertContains(response, expected_deleted_string)
+
+    def test_page_history_after_revision_purge(self):
+        self._update_page(self.hello_page)
+        call_command("purge_revisions", days=0, stdout=StringIO())
+
+        history_url = reverse(
+            "wagtailadmin_pages:history", kwargs={"page_id": self.hello_page.id}
+        )
+
+        self.login(user=self.editor)
+
+        response = self.client.get(history_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Created", 1)
+        self.assertContains(response, "Draft saved", 2)
+        self.assertContains(response, "Locked", 1)
+        self.assertContains(response, "Unlocked", 1)
+        self.assertContains(response, "Page scheduled for publishing", 1)
+        self.assertContains(response, "Published", 1)
 
     def test_edit_form_has_history_link(self):
         self.hello_page.save_revision()
