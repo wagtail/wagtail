@@ -100,6 +100,21 @@ COMMON_PANELS = (
     FieldPanel("search_description"),
 )
 
+CUSTOM_PREVIEW_SIZES = [
+    {
+        "name": "custom-mobile",
+        "icon": "mobile-alt",
+        "device_width": 412,
+        "label": "Custom mobile preview",
+    },
+    {
+        "name": "desktop",
+        "icon": "desktop",
+        "device_width": 1280,
+        "label": "Original desktop",
+    },
+]
+
 
 # Link fields
 
@@ -220,20 +235,7 @@ class CustomPreviewSizesPage(Page):
 
     @property
     def preview_sizes(self):
-        return [
-            {
-                "name": "custom-mobile",
-                "icon": "mobile-alt",
-                "device_width": 412,
-                "label": "Custom mobile preview",
-            },
-            {
-                "name": "desktop",
-                "icon": "desktop",
-                "device_width": 1280,
-                "label": "Original desktop",
-            },
-        ]
+        return CUSTOM_PREVIEW_SIZES
 
     @property
     def default_preview_size(self):
@@ -1113,20 +1115,7 @@ class CustomPreviewSizesModel(PreviewableMixin, models.Model):
 
     @property
     def preview_sizes(self):
-        return [
-            {
-                "name": "custom-mobile",
-                "icon": "mobile-alt",
-                "device_width": 412,
-                "label": "Custom mobile preview",
-            },
-            {
-                "name": "desktop",
-                "icon": "desktop",
-                "device_width": 1280,
-                "label": "Original desktop",
-            },
-        ]
+        return CUSTOM_PREVIEW_SIZES
 
     @property
     def default_preview_size(self):

@@ -851,14 +851,14 @@ class PreviewableMixin:
     @property
     def preview_sizes(self):
         """
-        Returns a list of dictionaries, each representing a preview size option for this object.
+        A list of dictionaries, each representing a preview size option for this object.
         Override this property to customize the preview sizes.
         Each dictionary in the list should include the following keys:
 
-        - `name`: A string representing the internal name of the preview size.
-        - `icon`: A string specifying the icon's name for the preview size button.
-        - `device_width`: An integer indicating the device's width in pixels.
-        - `label`: A string for the aria label on the preview size button.
+        - ``name``: A string representing the internal name of the preview size.
+        - ``icon``: A string specifying the icon's name for the preview size button.
+        - ``device_width``: An integer indicating the device's width in pixels.
+        - ``label``: A string for the aria label on the preview size button.
 
         .. code-block:: python
 
