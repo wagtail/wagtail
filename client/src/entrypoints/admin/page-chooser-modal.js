@@ -251,6 +251,9 @@ class PageChooserModal extends ChooserModal {
     if (opts.userPerms) {
       urlParams.user_perms = opts.userPerms;
     }
+    if (opts.instanceId) {
+      urlParams.instance_id = opts.instanceId;
+    }
     return urlParams;
   }
 }
