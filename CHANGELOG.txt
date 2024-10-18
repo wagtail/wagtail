@@ -128,6 +128,7 @@ Changelog
  * Add "soft" client-side validation for `StreamBlock` / `ListBlock` `min_num` / `max_num` (Matt Westcott)
  * Log accessibility checker results in the console to help developers with troubleshooting (Thibaud Colas)
  * Disable pointer events on checker highlights to simplify DevTools inspections (Thibaud Colas)
+ * `StaticBlock` now renders nothing by default when no template is specified (Sævar Öfjörð Magnússon)
  * Fix: Make `WAGTAILIMAGES_CHOOSER_PAGE_SIZE` setting functional again (Rohit Sharma)
  * Fix: Enable `richtext` template tag to convert lazy translation values (Benjamin Bach)
  * Fix: Ensure permission labels on group permissions page are translated where available (Matt Westcott)
