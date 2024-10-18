@@ -326,6 +326,12 @@ class TestSiteRouting(TestCase):
                 Site.find_for_request(request), self.alternate_port_events_site
             )
 
+    def test_site_with_disallowed_host(self):
+        request = get_dummy_request()
+        request.META["HTTP_HOST"] = "disallowed:80"
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
+
 
 class TestRouting(TestCase):
     fixtures = ["test.json"]
