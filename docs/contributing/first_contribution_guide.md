@@ -54,7 +54,7 @@ You may also want to join StackOverflow and [follow the Wagtail tag](https://sta
 #### Checklist
 
 ```markdown
--   [ ] Read the community guidelines
+-   [ ] Read the [community guidelines](https://github.com/wagtail/wagtail/blob/main/CODE_OF_CONDUCT.md)
 -   [ ] Join GitHub
 -   [ ] Add your preferred name and image to your GitHub profile
 -   [ ] Join Slack

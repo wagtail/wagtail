@@ -843,6 +843,7 @@
 * Victoria Ottah
 * Bart Cieliński
 * alexkiro
+* Ankit Kumar
 
 ## Translators
 
