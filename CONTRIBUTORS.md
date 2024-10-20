@@ -844,6 +844,8 @@
 * Bart Cieliński
 * alexkiro
 * Ankit Kumar
+* Frank Yiu
+* Shaurya Panchal
 
 ## Translators
 
