@@ -1,5 +1,6 @@
 from django import forms
 from django.conf import settings
+from django.forms import models
 from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 
@@ -175,6 +176,19 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         super().__init__(data, files, *args, initial=initial, **kwargs)
 
         self.parent_page = parent_page
+
+        # bind the parent page of this forms page to the PageChooser widget
+        for obj in self.fields.values():
+            if isinstance(obj, models.ModelChoiceField):
+                try:
+                    obj.widget.page_instance = (
+                        self.instance
+                        if self.instance.id is not None
+                        else self.parent_page
+                    )
+                except AttributeError:
+                    # Then propably it isn't a page chooser
+                    pass
 
         if not self.show_comments_toggle:
             del self.fields["comment_notifications"]
