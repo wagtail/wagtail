@@ -624,7 +624,10 @@ class DeferredSpecificIterable(ModelIterable):
     def __iter__(self):
         for obj in super().__iter__():
             if obj.specific_class:
-                yield obj.specific_deferred
+                specific = obj.specific_deferred
+                if obj._state.fields_cache:
+                    specific._state.fields_cache = obj._state.fields_cache
+                yield specific
             else:
                 warnings.warn(
                     "A specific version of the following object could not be returned "
