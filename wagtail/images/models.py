@@ -301,7 +301,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.is_decorative = False
+        self.decorative = False
         self.contextual_alt_text = None
 
     def _set_file_hash(self):
@@ -378,6 +378,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return self.title
 
     def __eq__(self, other):
+        """
+        Customise the definition of equality so that two Image instances referring to the same
+        image but different contextual alt text or decorative status are considered different.
+        All other aspects are copied from Django's base `Model` implementation.
+        """
         if not isinstance(other, models.Model):
             return NotImplemented
 
@@ -391,13 +396,16 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return (
             my_pk == other.pk
             and other.contextual_alt_text == self.contextual_alt_text
-            and other.is_decorative == self.is_decorative
+            and other.decorative == self.decorative
         )
 
     def __hash__(self):
+        """
+        Match the semantics of the custom equality definition.
+        """
         if self.pk is None:
             raise TypeError("Model instances without primary key value are unhashable")
-        return hash((self.pk, self.contextual_alt_text, self.is_decorative))
+        return hash((self.pk, self.contextual_alt_text, self.decorative))
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
