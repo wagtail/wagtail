@@ -22,6 +22,7 @@ Changelog
  * Add support for an image `description` field across all images, to better support accessible image descriptions (Chiemezuo Akujobi)
  * Prompt the user about unsaved changes when editing snippets (Sage Abdullah)
  * Implement incremental dashboard design enhancements (Albina Starykova, Ben Enright)
+ * Make dashboard upgrade banners dismissible (Sage Abdullah)
  * Add support for specifying different preview modes to the "View draft" URL for pages (Robin Varghese)
  * Add a new enhanced contrast admin theming option for the admin interface (Albina Starykova, Victoria Ottah)
  * Implement new designs for the footer actions dropdown with more contrast and larger text (Sage Abdullah)
