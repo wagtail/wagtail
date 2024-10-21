@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0043_customimage_description"),
+        ("tests", "0044_custompreviewsizesmodel_custompreviewsizespage"),
     ]
 
     operations = [
