@@ -349,6 +349,9 @@ class ChooserModal {
     if (opts.multiple) {
       urlParams.multiple = 1;
     }
+    if (opts.chooserIds) {
+      urlParams.chooserIds = opts.chooserIds;
+    }
     if (opts.linkedFieldFilters) {
       Object.assign(urlParams, opts.linkedFieldFilters);
     }
