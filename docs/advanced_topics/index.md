@@ -8,6 +8,7 @@ images/index
 documents/index
 icons
 embeds
+tags
 add_to_django_project
 performance
 i18n
