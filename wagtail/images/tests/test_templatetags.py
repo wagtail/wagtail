@@ -104,6 +104,7 @@ class ImageNodeTestCase(TestCase):
             (self.svg_image, ["height-300"], "height-300"),
             (self.svg_image, ["scale-50"], "scale-50"),
             (self.svg_image, ["fill-400x400"], "fill-400x400"),
+            (self.svg_image, ["format-webp", "webpquality-50"], "original"),
         ]
         for image, filter_specs, expected in params:
             with self.subTest(img=image, filter_specs=filter_specs, expected=expected):
