@@ -51,23 +51,27 @@ export const getLinkAttributes = (data) => {
 /**
  * See https://docs.djangoproject.com/en/4.0/_modules/django/core/validators/#EmailValidator.
  */
-const djangoUserRegex =
-  /(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*$|^"([\001-\010\013\014\016-\037!#-[\]-\177]|\\[\001-\011\013\014\016-\177])*"$)/i;
+// Compared to Django, changed to remove start and end of string checks.
+const djangoUser =
+  /([-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*|"([\001-\010\013\014\016-\037!#-[\]-\177]|\\[\001-\011\013\014\016-\177])*")/i;
 // Compared to Django, changed to remove the end-of-domain `-` check that was done with a negative lookbehind `(?<!-)` (unsupported in Safari), and disallow all TLD hyphens instead.
-// const djangoDomainRegex = /((?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+)(?:[A-Z0-9-]{2,63}(?<!-))$/i;
-const djangoDomainRegex =
-  /((?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+)(?:[A-Z0-9]{2,63})$/i;
+// const djangoDomain = /((?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+)(?:[A-Z0-9-]{2,63}(?<!-))$/i;
+const djangoDomain =
+  /((?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+)(?:[A-Z0-9]{2,63})/i;
+
+const djangoEmail = new RegExp(
+  `^${djangoUser.source}@${djangoDomain.source}$`,
+  'i',
+);
+
 /**
  * See https://docs.djangoproject.com/en/4.0/_modules/django/core/validators/#URLValidator.
  */
-const djangoSchemes = ['http:', 'https:', 'ftp:', 'ftps:'];
+const urlPattern = /(?:http|ftp)s?:\/\/[^\s]+/;
 
-export const getValidLinkURL = (text, schemes) => {
-  if (text.includes('@')) {
-    const [user, domain] = text.split('@');
-    if (djangoUserRegex.test(user) && djangoDomainRegex.test(domain)) {
-      return `mailto:${text}`;
-    }
+export const getValidLinkURL = (text) => {
+  if (djangoEmail.test(text)) {
+    return `mailto:${text}`;
   }
 
   // If there is whitespace, treat text as not a URL.
@@ -77,30 +81,25 @@ export const getValidLinkURL = (text, schemes) => {
   }
 
   try {
-    const url = new URL(text);
-
-    if (schemes.includes(url.protocol)) {
-      return text;
-    }
+    // Switch to URL.canParse once we drop support for Safari 16.
+    // eslint-disable-next-line no-new
+    new URL(text);
   } catch (e) {
     return false;
+  }
+
+  if (urlPattern.test(text)) {
+    return text;
   }
 
   return false;
 };
 
-export const onPasteLink = (text, html, editorState, { setEditorState }) => {
-  const url = getValidLinkURL(text, djangoSchemes);
-
-  if (!url) {
-    return 'not-handled';
-  }
-
+const insertSingleLink = (editorState, text, url) => {
   const selection = editorState.getSelection();
   let content = editorState.getCurrentContent();
   content = content.createEntity('LINK', 'MUTABLE', { url });
   const entityKey = content.getLastCreatedEntityKey();
-  let nextState;
 
   if (selection.isCollapsed()) {
     content = Modifier.insertText(
@@ -110,13 +109,20 @@ export const onPasteLink = (text, html, editorState, { setEditorState }) => {
       undefined,
       entityKey,
     );
-    nextState = EditorState.push(editorState, content, 'insert-characters');
-  } else {
-    nextState = RichUtils.toggleLink(editorState, selection, entityKey);
+    return EditorState.push(editorState, content, 'insert-characters');
+  }
+  return RichUtils.toggleLink(editorState, selection, entityKey);
+};
+
+export const onPasteLink = (text, html, editorState, { setEditorState }) => {
+  const url = getValidLinkURL(text);
+
+  if (url) {
+    setEditorState(insertSingleLink(editorState, text, url));
+    return 'handled';
   }
 
-  setEditorState(nextState);
-  return 'handled';
+  return 'not-handled';
 };
 
 /**

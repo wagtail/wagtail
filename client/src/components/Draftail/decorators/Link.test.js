@@ -129,8 +129,7 @@ describe.each`
   ${'file://test'}               | ${false}
 `('getValidLinkURL', ({ text, result }) => {
   test(text, () => {
-    const schemes = ['http:', 'https:', 'ftp:', 'ftps:'];
-    expect(getValidLinkURL(text, schemes)).toBe(result);
+    expect(getValidLinkURL(text)).toBe(result);
   });
 });
 
