@@ -55,6 +55,7 @@ Changelog
  * Fix: Fix error on workflow settings view with multiple snippet types assigned to the same workflow on Postgres (Sage Abdullah)
  * Fix: Fix datetime fields overflowing its parent wrapper in listing filters (Rohit Singh)
  * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
+ * Fix: Improve layout of report listing tables (Sage Abdullah)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
