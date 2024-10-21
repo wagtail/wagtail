@@ -1,5 +1,7 @@
 import datetime
+import re
 from decimal import Decimal
+from uuid import UUID
 
 from django import forms
 from django.db.models import Model
@@ -818,10 +820,21 @@ class ChooserBlock(FieldBlock):
 
         The instances must be returned in the same order as the values and keep None values.
         """
-        objects = self.model_class.objects.in_bulk(values)
-        return [
-            objects.get(id) for id in values
-        ]  # Keeps the ordering the same as in values.
+        uuid_pattern = re.compile(
+            r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        )
+
+        is_uuid_primary_key = any(uuid_pattern.match(str(value)) for value in values)
+
+        if is_uuid_primary_key:
+            uuid_values = [UUID(value) if value else None for value in values]
+            objects = self.model_class.objects.in_bulk(uuid_values)
+            return [objects.get(uuid) for uuid in uuid_values]
+        else:
+            objects = self.model_class.objects.in_bulk(values)
+            return [
+                objects.get(id) for id in values
+            ]  # Keeps the ordering the same as in values.
 
     def get_prep_value(self, value):
         # the native value (a model instance or None) should serialise to a PK or None
@@ -841,7 +854,12 @@ class ChooserBlock(FieldBlock):
                 return None
 
     def get_form_state(self, value):
-        return self.widget.get_value_data(value)
+        form_state = self.widget.get_value_data(value)
+
+        if form_state and "id" in form_state:
+            form_state["id"] = str(form_state["id"])
+
+        return form_state
 
     def clean(self, value):
         # ChooserBlock works natively with model instances as its 'value' type (because that's what you
