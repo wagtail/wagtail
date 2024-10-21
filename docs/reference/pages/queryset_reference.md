@@ -282,4 +282,25 @@ menu_items = homepage.get_children().live().in_menu()
             homepage.get_children().defer_streamfields().specific()
 
     .. automethod:: first_common_ancestor
+
+    .. automethod:: select_related
+
+    .. automethod:: prefetch_related
+
+        #### Performance considerations
+
+        Typical usage of `prefetch_related()` results in an additional database query
+        being executed for each of the provided `lookups`. However, when combined with
+        `for_specific_subqueries=True`, this additional number of database queries is
+        multiplied for each specific type in the result. If you are only fetching
+        a small number of objects, or the type-variance of results is likely to be high,
+        the additional overhead of making these additional queries could actually have a
+        negative impact on performance.
+
+        Using `prefetch_related()` with `for_specific_subqueries=True` should be reserved
+        for cases where a large number of results is needed, or the type-variance is
+        retricted in some way. For example, when rendering a list of child pages where
+        `allow_subtypes` is set on the parent, limiting the results to a small number of
+        page types. Or, where the `type()` or `not_type()` filters have been applied to
+        restrict the queryset to a small number of specific types.
 ```
