@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,18 +104,12 @@ msgid ""
 "have been popular with users of your site.</p>"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/add.html:29
-#: templates/wagtailsearchpromotions/edit.html:19
-msgid "Save"
-msgstr ""
-
 #: templates/wagtailsearchpromotions/confirm_delete.html:3
 #, python-format
 msgid "Delete %(query)s"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/confirm_delete.html:5
-#: templates/wagtailsearchpromotions/edit.html:20
 #: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:10
 msgid "Delete"
 msgstr ""
@@ -151,7 +145,7 @@ msgid "Recommended search result"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:4
-#: views.py:82 wagtail_hooks.py:36
+#: views.py:81 wagtail_hooks.py:36
 msgid "Promoted search results"
 msgstr ""
 
@@ -190,7 +184,7 @@ msgid "Terms"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/queries/chooser/results.html:10
-#: views.py:59
+#: views.py:58
 msgid "Views (past week)"
 msgstr ""
 
@@ -214,40 +208,40 @@ msgstr ""
 msgid "Search Terms"
 msgstr ""
 
-#: views.py:43
+#: views.py:42
 msgid "Add new promoted result"
 msgstr ""
 
-#: views.py:47
+#: views.py:46
 msgid "Search term(s)"
 msgstr ""
 
-#: views.py:54
+#: views.py:53
 msgid "Promoted results"
 msgstr ""
 
-#: views.py:145
+#: views.py:144
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
-#: views.py:149 views.py:209
+#: views.py:148 views.py:212
 msgid "Edit"
 msgstr ""
 
-#: views.py:167
+#: views.py:166
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views.py:205
+#: views.py:208
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
-#: views.py:225
+#: views.py:228
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views.py:255
+#: views.py:267
 msgid "Editor's picks deleted."
 msgstr ""

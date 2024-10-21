@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,24 +79,24 @@ msgstr ""
 msgid "The locale could not be saved due to errors."
 msgstr ""
 
-#: views.py:57 views.py:64
-msgid "Delete locale"
-msgstr ""
-
-#: views.py:63
+#: views.py:62
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr ""
 
-#: views.py:65
+#: views.py:63
+msgid "Delete locale"
+msgstr ""
+
+#: views.py:64
 msgid "Are you sure you want to delete this locale?"
 msgstr ""
 
-#: views.py:71
+#: views.py:70
 msgid "This locale cannot be deleted because there are no other locales."
 msgstr ""
 
-#: views.py:77
+#: views.py:76
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."

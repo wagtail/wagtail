@@ -22,13 +22,13 @@ msgid_plural "%(num)s errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/includes/contentMetrics.ts:113
+#: src/includes/contentMetrics.ts:115
 msgid "%(num)s min"
 msgid_plural "%(num)s mins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/includes/sidePanel.js:152
+#: src/includes/sidePanel.js:158
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] ""
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Blocks"
 msgstr ""
 
-#: src/components/Draftail/decorators/Link.js:26
+#: src/components/Draftail/decorators/Link.js:33
 msgid "Broken link"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerItem.tsx:60
+#: src/components/PageExplorer/PageExplorerItem.tsx:62
 msgid "Edit '%(title)s'"
 msgstr ""
 
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Enter your reply..."
 msgstr ""
 
-#: src/entrypoints/admin/preview-panel.js:283
+#: src/controllers/PreviewController.ts:792
 msgid "Error while sending preview data."
 msgstr ""
 
@@ -183,7 +183,7 @@ msgid "Page explorer"
 msgstr ""
 
 #: src/components/PageExplorer/PageCount.tsx:28
-#: src/components/PageExplorer/PageExplorerHeader.tsx:82
+#: src/components/PageExplorer/PageExplorerHeader.tsx:84
 msgid "Pages"
 msgstr ""
 
@@ -315,7 +315,7 @@ msgstr ""
 msgid "Unpin toolbar"
 msgstr ""
 
-#: src/components/PageExplorer/PageExplorerItem.tsx:73
+#: src/components/PageExplorer/PageExplorerItem.tsx:75
 msgid "View child pages of '%(title)s'"
 msgstr ""
 
