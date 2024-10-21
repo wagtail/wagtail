@@ -846,7 +846,7 @@
 * Ankit Kumar
 * Frank Yiu
 * Shaurya Panchal
-
+* Srishti Jaiswal
 ## Translators
 
 * Afrikaans: Jaco du Plessis, Jared Osborn
