@@ -26,6 +26,7 @@ image formats and let the browser choose the one it prefers. For example:
 ```
 
 (customising_output_formats)=
+
 ### Customising output formats
 
 By default, all `avif`, `bmp` and `webp` images are converted to the `png` format

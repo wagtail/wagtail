@@ -148,7 +148,6 @@ To customize how the checker is run (such as what rules to test), you can define
 
 For example, Axe's [`p-as-heading`](https://github.com/dequelabs/axe-core/blob/develop/lib/checks/navigation/p-as-heading.json) rule evaluates combinations of font weight, size, and italics to decide if a paragraph is acting as a heading visually. Depending on your heading styles, you might want Axe to rely only on font weight to flag short, bold paragraphs as potential headings.
 
-
 ```python
 from wagtail.admin.userbar import AccessibilityItem
 
