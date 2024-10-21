@@ -276,4 +276,45 @@ describe('onPasteLink', () => {
       1: { data: { url: 'http://test.co/' } },
     });
   });
+
+  it('skips linking punctuation chars', () => {
+    const punctuation = {
+      // Characters that will be removed.
+      '.': '',
+      '?': '',
+      '!': '',
+      ':': '',
+      ';': '',
+      ',': '',
+      // Syriac Harklean Metobelus
+      '܌': '',
+      '؟': '',
+      '،': '',
+      '‼': '',
+      '﹒': '',
+      // Characters that will be preserved.
+      '…': '…',
+      '-': '-',
+      '_': '_',
+      '–': '–',
+      '+': '+',
+      '=': '=',
+    };
+    const input = Object.keys(punctuation)
+      .map((punc) => `<p><span>http://a.co/t${punc}/${punc}</span></p>`)
+      .join(' ');
+    const raw = testOnPasteOutput(input.replace(/<[^>]+/g), input);
+
+    expect(raw.blocks.map(({ text }) => text)).toMatchSnapshot();
+    expect(
+      Object.values(raw.entityMap).map((entity) => entity.data.url),
+    ).toMatchSnapshot();
+
+    const expectedLength = Object.keys(punctuation).map(
+      (punc) => `http://a.co/t${punc}/`.length + punctuation[punc].length,
+    );
+    expect(
+      raw.blocks.map(({ entityRanges }) => entityRanges[0].length),
+    ).toEqual(expectedLength);
+  });
 });

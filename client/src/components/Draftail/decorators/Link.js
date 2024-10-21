@@ -144,7 +144,14 @@ const insertContentWithLinks = (editorState, htmlOrText) => {
     const pattern = new RegExp(linkPatternSource, 'ig');
     // Find matches in the block, confirm the URL, create the entity, store the range.
     const matches = Array.from(blockText.matchAll(pattern), (match) => {
-      const url = getValidLinkURL(match[1]);
+      // Account for punctuation chars valid in URLs but unlikely to be intended.
+      // For example "Go to https://example.com."
+      // Terminal Punctuation class: see https://www.unicode.org/review/pr-23.html.
+      const cleanURLPattern = match[1].replace(
+        /\p{Terminal_Punctuation}$/u,
+        '',
+      );
+      const url = getValidLinkURL(cleanURLPattern);
 
       if (!url) return {};
 
@@ -152,7 +159,7 @@ const insertContentWithLinks = (editorState, htmlOrText) => {
 
       return {
         start: match.index,
-        end: match.index + match[1].length,
+        end: match.index + cleanURLPattern.length,
         key: content.getLastCreatedEntityKey(),
       };
     });
