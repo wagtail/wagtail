@@ -183,6 +183,9 @@ class TranslatableMixin(models.Model):
         editable=False,
         verbose_name=_("locale"),
     )
+    parent_locale = models.ForeignKey(
+        Locale, on_delete=models.PROTECT, related_name="+", editable=False, null=True
+    )
     locale.wagtail_reference_index_ignore = True
 
     class Meta:
