@@ -143,7 +143,7 @@ This document contains reference information for the model classes inside the `w
         A UUID that is shared between translations of a page. These are randomly generated
         when a new page is created and copied when a translation of a page is made.
 
-        A translation_key value can only be used on one page in each locale.
+        A ``translation_key`` value can only be used on one page in each locale.
 ```
 
 ### Methods and properties
@@ -361,7 +361,7 @@ See also [django-treebeard](https://django-treebeard.readthedocs.io/en/latest/in
     .. attribute:: exclude_fields_in_copy
 
         An array of field names that will not be included when a Page is copied.
-        Useful when you have relations that do not use `ClusterableModel` or should not be copied.
+        Useful when you have relations that do not use ``ClusterableModel`` or should not be copied.
 
         .. code-block:: python
 
@@ -931,7 +931,7 @@ Workflows represent sequences of tasks that must be approved for an action to be
 
         (boolean)
 
-        Whether or not the workflow is active: active workflows can be added to pages and snippets, and started. Inactive workflows cannot.
+        Whether or not the workflow is active. Active workflows can be added to pages and snippets, and started. Inactive workflows cannot.
 ```
 
 ### Methods and properties
@@ -986,7 +986,7 @@ Workflow states represent the status of a started workflow on an object.
 
         (foreign key to ``Workflow``)
 
-        The workflow whose state the ``WorkflowState`` represents
+        The workflow whose state the ``WorkflowState`` represents.
 
     .. attribute:: status
 
