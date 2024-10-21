@@ -118,6 +118,7 @@ describe.each`
   ${'http://test.example.co.uk'} | ${'http://test.example.co.uk'}
   ${'https://example.com'}       | ${'https://example.com'}
   ${'https://xn--ls8h.la'}       | ${'https://xn--ls8h.la'}
+  ${'http://sp.a http://c.e'}    | ${false}
   ${'ftp://example.com'}         | ${'ftp://example.com'}
   ${'ftps://example.com'}        | ${'ftps://example.com'}
   ${'//example.com'}             | ${false}
