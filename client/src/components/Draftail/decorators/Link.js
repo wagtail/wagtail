@@ -70,6 +70,12 @@ export const getValidLinkURL = (text, schemes) => {
     }
   }
 
+  // If there is whitespace, treat text as not a URL.
+  // Prevents scenarios like `URL.parse('https://test.t/ http://a.b/')`.
+  if (/\s/.test(text)) {
+    return false;
+  }
+
   try {
     const url = new URL(text);
 
