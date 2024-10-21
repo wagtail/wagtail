@@ -246,20 +246,21 @@ Even with the menu item hidden, it would still be possible for any user to visit
 
 from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.reports import PageReportView
-from wagtail.models import Page
+from wagtail.models import Page, Snippet
 
 class UnpublishedChangesReportView(PageReportView):
     index_url_name = "unpublished_changes_report"
     index_results_url_name = "unpublished_changes_report_results"
     header_icon = 'doc-empty-inverse'
     results_template_name = 'reports/unpublished_changes_report_results.html'
-    page_title = "Pages with unpublished changes"
+    page_title = "Pages and Snippets with unpublished changes"
 
     list_export = PageReportView.list_export + ['last_published_at']
     export_headings = dict(last_published_at='Last Published', **PageReportView.export_headings)
 
     def get_queryset(self):
-        return Page.objects.filter(has_unpublished_changes=True)
+        # Updated to fetch both pages and snippets
+        return Page.objects.filter(has_unpublished_changes=True) | Snippet.objects.filter(has_unpublished_changes=True)
 
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_superuser:
@@ -271,15 +272,13 @@ class UnpublishedChangesReportView(PageReportView):
 # <project>/wagtail_hooks.py
 
 from django.urls import path, reverse
-
 from wagtail.admin.menu import AdminOnlyMenuItem
 from wagtail import hooks
-
 from .views import UnpublishedChangesReportView
 
 @hooks.register('register_reports_menu_item')
 def register_unpublished_changes_report_menu_item():
-    return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), icon_name=UnpublishedChangesReportView.header_icon, order=700)
+    return AdminOnlyMenuItem("Pages and Snippets with unpublished changes", reverse('unpublished_changes_report'), icon_name=UnpublishedChangesReportView.header_icon, order=700)
 
 @hooks.register('register_admin_urls')
 def register_unpublished_changes_report_url():
@@ -287,6 +286,7 @@ def register_unpublished_changes_report_url():
         path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
         path('reports/unpublished-changes/results/', UnpublishedChangesReportView.as_view(results_only=True), name='unpublished_changes_report_results'),
     ]
+
 ```
 
 ```html+django
@@ -299,7 +299,7 @@ def register_unpublished_changes_report_url():
 {% endblock %}
 
 {% block no_results_message %}
-    <p>No pages with unpublished changes.</p>
+    <p>No pages or snippets with unpublished changes.</p>
 {% endblock %}
 ```
 
