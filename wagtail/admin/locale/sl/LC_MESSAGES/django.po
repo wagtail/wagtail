@@ -403,6 +403,9 @@ msgstr "Izbranih je vseh %(objects)s elementov na tem zaslonu"
 msgid "All items in listing selected"
 msgstr "Izbrani so vsi elementi na seznamu"
 
+msgid "Can access Wagtail admin"
+msgstr "Lahko dostopa do upravitelja Wagtail"
+
 msgid "For search engines"
 msgstr "Za iskalnike"
 
@@ -1009,6 +1012,9 @@ msgstr "Stran \"%(title)s\" je bila poslana v potek dela \"%(workflow)s\"."
 msgid "This page has been made private by a parent page."
 msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 
+msgid "Changing the privacy for this page has been disabled."
+msgstr "Spreminjanje zasebnosti za to stran je bilo onemogočeno."
+
 msgid "Save the page before leaving"
 msgstr "Pred odhodom shranite stran"
 
@@ -1226,6 +1232,26 @@ msgstr[0] "Izbrisal bo tudi %(translation_count)s prevod."
 msgstr[1] "Izbrisal bo tudi %(translation_count)s prevoda."
 msgstr[2] "Izbrisalo bo tudi %(translation_count)s prevodov."
 msgstr[3] "Izbrisalo bo tudi %(translation_count)s prevodov."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"Z izbrisom te strani se izbriše tudi 1 prevod in skupaj "
+"%(translation_descendant_count)s prevedenih podrejenih strani."
+msgstr[1] ""
+"Z izbrisom te strani se izbriše tudi 1 prevod in skupaj "
+"%(translation_descendant_count)s prevedenih podrejenih strani."
+msgstr[2] ""
+"Z izbrisom te strani se izbriše tudi 1 prevod in skupaj "
+"%(translation_descendant_count)s prevedenih podrejenih strani."
+msgstr[3] ""
+"Z izbrisom te strani se izbriše tudi 1 prevod in skupaj "
+"%(translation_descendant_count)s prevedenih podrejenih strani."
 
 #, python-format
 msgid "This action will delete total <b>%(total_pages)s</b> pages."
@@ -1618,8 +1644,57 @@ msgstr "Drobtina"
 msgid "Close dialog"
 msgstr "Zapri pogovorno okno"
 
+msgid "You saved a new version in another window"
+msgstr "Novo različico ste shranili v drugem oknu"
+
+msgid "System"
+msgstr "Sistem"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s shranil novo različico"
+
+msgid "Refresh"
+msgstr "Osveži"
+
+msgid "You have unsaved changes in another window"
+msgstr "V drugem oknu imate ne shranjene spremembe."
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s ima neshranjene spremembe"
+
+msgid "Currently viewing"
+msgstr "Trenutno si ogleduje"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "En drug uporabnik si trenutno ogleduje"
+msgstr[1] "%(num_user)s druga uporabnika si trenutno ogledujeta"
+msgstr[2] "%(num_user)s drugi uporabniki si trenutno ogledujejo"
+msgstr[3] "%(num_user)s drugi uporabniki si trenutno ogledujejo"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Nadaljevanje bo prepisalo spremembe, ki ste jih naredili v tem oknu. Če "
+"stran osvežite, se bodo prikazale nove spremembe, vendar boste izgubili vse "
+"neshranjene spremembe v trenutnem oknu."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Osvežitev strani pomeni, da boste izgubili vse neshranjene spremembe."
+
+msgid "Refresh page"
+msgstr "Osvežitev strani"
+
 msgid "Continue"
 msgstr "Nadaljuj"
+
+msgid "Refresh the page"
+msgstr "Osveži stran"
 
 msgid "Download XLSX"
 msgstr "Prenesi XLSX"
@@ -1708,6 +1783,18 @@ msgstr "Preklopi stransko ploščo"
 
 msgid "Side panel width"
 msgstr "Širina stranske vrstice"
+
+msgid "Show issue"
+msgstr "Prikaži težavo"
+
+msgid "Content metrics"
+msgstr "Meritve vsebine"
+
+msgid "Words"
+msgstr "Besede"
+
+msgid "Reading time"
+msgstr "Čas branja"
 
 msgid "Issues found"
 msgstr "Najdene težave"
@@ -1902,6 +1989,10 @@ msgstr "Odobrena naloga"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Ta stran še ni bila poslana v moderiranje"
+
+#, python-format
+msgid "This %(model_name)s hasn't been submitted for moderation yet"
+msgstr "Ta %(model_name)s še ni bil posredovan v moderiranje"
 
 msgid ""
 "JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
@@ -2252,6 +2343,48 @@ msgstr ""
 "Razvrsti vrstni red podrejenih strani znotraj '%(parent)s' po '%(label)s' v "
 "padajočem vrstnem redu."
 
+msgid "Button text is empty"
+msgstr "Besedilo gumba je prazno"
+
+msgid "Use meaningful text for screen reader users"
+msgstr "Uporabite smiselno besedilo za uporabnike bralnika zaslona"
+
+msgid "Empty heading found"
+msgstr "Najden prazen naslov"
+
+msgid "Table header text is empty"
+msgstr "Besedilo v glavi tabele je prazno"
+
+msgid "Empty frame title found"
+msgstr "Najden naslov praznega okvirja"
+
+msgid "Use a meaningful title for screen reader users"
+msgstr "Uporabite smiseln naslov za uporabnike bralnika zaslona"
+
+msgid "Incorrect heading hierarchy"
+msgstr "Nepravilna hierarhija naslovov"
+
+msgid "Avoid skipping levels"
+msgstr "Izogibajte se preskakovanju ravni"
+
+msgid "Input button text is empty"
+msgstr "Besedilo vhodnega gumba je prazno"
+
+msgid "Link text is empty"
+msgstr "Besedilo povezave je prazno"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Zloraba odstavkov kot naslovov"
+
+msgid "Use proper heading tags"
+msgstr "Uporabite pravilne oznake naslovov"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "Besedilo slike ima neustrezen vzorec"
+
+msgid "Use meaningful text"
+msgstr "Uporaba smiselnega besedila"
+
 msgid "Profile"
 msgstr "Profil"
 
@@ -2574,6 +2707,10 @@ msgstr "Stran '%(page_title)s' je objavljena."
 msgid "Page '%(page_title)s' has been submitted for moderation."
 msgstr "Stran '%(page_title)s' je bila oddana v potrditev."
 
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "Delovni tok na strani '%(page_title)s' se je ponovno začel."
+
 msgid "The page could not be saved as it is locked"
 msgstr "Strani ni bilo možno shraniti, ker je zaklenjena"
 
@@ -2638,6 +2775,13 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "Stran '%(page_title)s' premaknjena."
 
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Ogledate si prejšnjo različico te strani iz <b>%(created_at)s</b> od %(user)s"
+
 msgid "Page history"
 msgstr "Zgodovina strani"
 
@@ -2697,11 +2841,17 @@ msgstr "Vrsta strani/delca"
 msgid "Page/Snippet Title"
 msgstr "Naslov strani/delca"
 
+msgid "By task"
+msgstr "Po nalogi"
+
 msgid "Workflow tasks"
 msgstr "Naloge poteka dela"
 
 msgid "Requested By"
 msgstr "Zahtevano od"
+
+msgid "By workflow"
+msgstr "Po delovnem toku"
 
 msgid "Show disabled"
 msgstr "Prikaži onemogočene"

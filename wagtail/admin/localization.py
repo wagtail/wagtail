@@ -41,6 +41,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ("sl", "Slovenian"),
     ("th", "Thai"),
     ("tr", "Turkish"),
+    ("ug", "Uyghur"),
     ("uk", "Ukrainian"),
     ("zh-hans", "Chinese (Simplified)"),
     ("zh-hant", "Chinese (Traditional)"),

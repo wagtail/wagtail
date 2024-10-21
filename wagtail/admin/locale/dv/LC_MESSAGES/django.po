@@ -82,6 +82,9 @@ msgstr "ކަލެކްޝަން"
 msgid "Tag"
 msgstr "ޓެގް"
 
+msgid "Filter by up to ten most popular tags."
+msgstr "އެންމެ މަގުބޫލު ދިހަ ޓެގް އާއި ހަމައަށް ފިލްޓަރ ކުރާށެވެ."
+
 msgid "Preferred language"
 msgstr "އިސްކަންދޭ ބަހެވެ"
 
@@ -242,6 +245,13 @@ msgstr "މި ޕޭޖަށް އާ ބެލެނިވެރިއަކު ހޮވާށެވެ."
 msgid "Parent page"
 msgstr "ބެލެނިވެރި ޕޭޖް"
 
+msgid "The new page will be a child of this given parent page."
+msgstr "އާ ޕޭޖަކީ މި ދީފައިވާ ބެލެނިވެރި ޕޭޖުގެ ދަރިއަކަށް ވާނެއެވެ."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "%(page_title)s ގެ ދަށުން ޕޭޖެއް އުފެއްދުމުގެ ހުއްދައެއް ނެތެވެ."
+
 msgid "Search…"
 msgstr "ހޯދުން…"
 
@@ -360,6 +370,9 @@ msgstr "މި ސްކްރީންގައިވާ ހުރިހާ %(objects)s އައިޓަ�
 
 msgid "All items in listing selected"
 msgstr "ލިސްޓިންގގައިވާ ހުރިހާ އެއްޗެއް ހޮވާފައިވެއެވެ"
+
+msgid "Can access Wagtail admin"
+msgstr "ވެގްޓޭލް އެޑްމިން އަށް އެކްސެސް ކުރެވޭ"
 
 msgid "For search engines"
 msgstr "ސަރޗް އިންޖީނުތަކަށްޓަކައެވެ"
@@ -2220,6 +2233,9 @@ msgstr "އެ ޕޭޖް ލޮކްކޮށްފައި އޮތުމުން ސޭވް ކުރ�
 msgid "The page could not be saved due to validation errors"
 msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕޭޖް ސޭވް ނުކުރެވުނެވެ"
 
+msgid "Is commenting action"
+msgstr "ކޮމެންޓް ކުރަނީ ފިޔަވަޅެވެ"
+
 msgid "Date updated"
 msgstr "ތާރީޚު އަޕްޑޭޓް ކޮށްފި"
 
@@ -2345,11 +2361,20 @@ msgstr "ޕޭޖް/ސްނިޕެޓް ޓައިޕް"
 msgid "Page/Snippet Title"
 msgstr "ޞަފްޙާ/ސްނިޕެޓް ސުރުޚީ"
 
+msgid "By task"
+msgstr "ޓާސްކްގެ"
+
 msgid "Workflow tasks"
 msgstr "ވޯކްފްލޯ ޓާސްކްސް"
 
 msgid "Requested By"
 msgstr "ރިކުއެސްޓް ކޮށްފައިވަނީ"
+
+msgid "By workflow"
+msgstr "ވޯކްފްލޯ އިން"
+
+msgid "Show disabled"
+msgstr "ޑިސޭބަލްކޮށްފަވާ ދައްކާ"
 
 msgid "Add a workflow"
 msgstr "ވޯކްފްލޯއެއް އިތުރުކުރުން"
@@ -2512,6 +2537,9 @@ msgstr "ރިޕޯޓްތައް"
 
 msgid "Editor Guide"
 msgstr "އެޑިޓަރ ގައިޑް"
+
+msgid "Shortcuts"
+msgstr "ޝޯޓްކާޓްސް"
 
 msgid "Help"
 msgstr "އެހީވުން"
