@@ -1,4 +1,4 @@
-# Model Reference
+# Model reference
 
 ```{eval-rst}
 .. automodule:: wagtail.models
