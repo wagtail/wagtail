@@ -1,5 +1,12 @@
 import PropTypes from 'prop-types';
-import { Modifier, EditorState, RichUtils } from 'draft-js';
+import {
+  Modifier,
+  EditorState,
+  RichUtils,
+  convertFromHTML,
+  ContentState,
+  CharacterMetadata,
+} from 'draft-js';
 import React from 'react';
 
 import { gettext } from '../../../utils/gettext';
@@ -69,6 +76,11 @@ const djangoEmail = new RegExp(
  */
 const urlPattern = /(?:http|ftp)s?:\/\/[^\s]+/;
 
+// Find URLs and email addresses within text, ready to use with RegExp g flag.
+// Enforce URLs start at word boundaries, and end with whitespace.
+// Essential so URLs can be auto-linked in a space-separated succession.
+const linkPatternSource = `\\b(${urlPattern.source}|${djangoUser.source}@${djangoDomain.source})(\\s|$)`;
+
 export const getValidLinkURL = (text) => {
   if (djangoEmail.test(text)) {
     return `mailto:${text}`;
@@ -114,11 +126,68 @@ const insertSingleLink = (editorState, text, url) => {
   return RichUtils.toggleLink(editorState, selection, entityKey);
 };
 
+/**
+ * Insert the pasted HTML or text, auto-linking URLs and emails.
+ */
+const insertContentWithLinks = (editorState, htmlOrText) => {
+  const selection = editorState.getSelection();
+  let content = editorState.getCurrentContent();
+
+  const { contentBlocks, entityMap } = convertFromHTML(htmlOrText);
+  const blockMap = ContentState.createFromBlockArray(
+    contentBlocks,
+    entityMap,
+  ).getBlockMap();
+
+  const blocks = blockMap.map((block) => {
+    const blockText = block.getText();
+    const pattern = new RegExp(linkPatternSource, 'ig');
+    // Find matches in the block, confirm the URL, create the entity, store the range.
+    const matches = Array.from(blockText.matchAll(pattern), (match) => {
+      const url = getValidLinkURL(match[1]);
+
+      if (!url) return {};
+
+      content = content.createEntity('LINK', 'MUTABLE', { url });
+
+      return {
+        start: match.index,
+        end: match.index + match[1].length,
+        key: content.getLastCreatedEntityKey(),
+      };
+    });
+
+    // Attach the link to the correct characters based on the matches’ ranges.
+    const chars = block.getCharacterList().map((char, i) => {
+      const match = matches.find(({ start, end }) => i >= start && i < end);
+      if (match) {
+        return CharacterMetadata.applyEntity(char, match.key);
+      }
+      return char;
+    });
+
+    return block.set('characterList', chars);
+  });
+
+  content = Modifier.replaceWithFragment(
+    content,
+    selection,
+    blockMap.merge(blocks),
+  );
+  return EditorState.push(editorState, content, 'insert-characters');
+};
+
 export const onPasteLink = (text, html, editorState, { setEditorState }) => {
   const url = getValidLinkURL(text);
 
   if (url) {
     setEditorState(insertSingleLink(editorState, text, url));
+    return 'handled';
+  }
+
+  if (new RegExp(linkPatternSource, 'gi').test(text)) {
+    // Prefer the multi-line HTML clipboard data if present.
+    setEditorState(insertContentWithLinks(editorState, html || text));
     return 'handled';
   }
 
