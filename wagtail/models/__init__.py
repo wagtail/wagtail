@@ -1,8 +1,8 @@
 """
-wagtail.models is split into submodules for maintainability. All definitions intended as
+``wagtail.models`` is split into submodules for maintainability. All definitions intended as
 public should be imported here (with 'noqa: F401' comments as required) and outside code should
-continue to import them from wagtail.models (e.g. `from wagtail.models import Site`, not
-`from wagtail.models.sites import Site`.)
+continue to import them from wagtail.models (e.g. ``from wagtail.models import Site``, not
+``from wagtail.models.sites import Site``.)
 
 Submodules should take care to keep the direction of dependencies consistent; where possible they
 should implement low-level generic functionality which is then imported by higher-level models such
@@ -208,7 +208,7 @@ class BasePageManager(models.Manager):
 
     def first_common_ancestor_of(self, pages, include_self=False, strict=False):
         """
-        This is similar to `PageQuerySet.first_common_ancestor` but works
+        This is similar to ``PageQuerySet.first_common_ancestor`` but works
         for a list of pages instead of a queryset.
         """
         if not pages:
@@ -243,12 +243,12 @@ class BasePageManager(models.Manager):
 
         If given a QuerySet, this method will evaluate it. Only use this method
         when you are ready to consume the queryset, e.g. after pagination has
-        been applied. This is typically done in the view's `get_context_data`
-        using `context["object_list"]`.
+        been applied. This is typically done in the view's ``get_context_data``
+        using ``context["object_list"]``.
 
         This method does not return a new queryset, but modifies the existing one,
         to ensure any references to the queryset in the view's context are updated
-        (e.g. when using `context_object_name`).
+        (e.g. when using ``context_object_name``).
         """
         parent_page_paths = {
             Page._get_parent_path_from_path(page.path) for page in pages
@@ -326,8 +326,8 @@ class RevisionMixin(models.Model):
         Returns revisions that belong to the object.
 
         Subclasses should define a
-        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
-        :class:`~wagtail.models.Revision` and override this property to return
+        :class:``~django.contrib.contenttypes.fields.GenericRelation`` to
+        :class:``~wagtail.models.Revision`` and override this property to return
         that ``GenericRelation``. This allows subclasses to customise the
         ``related_query_name`` of the ``GenericRelation`` and add custom logic
         (e.g. to always use the specific instance in ``Page``).
@@ -392,7 +392,7 @@ class RevisionMixin(models.Model):
 
         * ``latest_revision``
 
-        If :class:`~wagtail.models.TranslatableMixin` is applied, the following field values
+        If :class:``~wagtail.models.TranslatableMixin`` is applied, the following field values
         are also preserved:
 
         * ``translation_key``
@@ -618,7 +618,7 @@ class DraftStateMixin(models.Model):
 
     def with_content_json(self, content):
         """
-        Similar to :meth:`RevisionMixin.with_content_json`,
+        Similar to :meth:``RevisionMixin.with_content_json``,
         but with the following fields also preserved:
 
         * ``live``
@@ -977,7 +977,7 @@ class LockableMixin(models.Model):
 
     def with_content_json(self, content):
         """
-        Similar to :meth:`RevisionMixin.with_content_json`,
+        Similar to :meth:``RevisionMixin.with_content_json``,
         but with the following fields also preserved:
 
         * ``locked``
@@ -1045,7 +1045,7 @@ class WorkflowMixin:
 
         For non-``Page`` models, workflows are assigned to the model's content type,
         thus shared across all instances instead of being assigned to individual
-        instances (unless :meth:`~WorkflowMixin.get_workflow` is overridden).
+        instances (unless :meth:``~WorkflowMixin.get_workflow`` is overridden).
 
         This method is used to determine the workflow to use when creating new
         instances of the model. On ``Page`` models, this method is unused as the
@@ -1084,8 +1084,8 @@ class WorkflowMixin:
 
         To allow filtering ``WorkflowState`` queries by the object,
         subclasses should define a
-        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
-        :class:`~wagtail.models.WorkflowState` with the desired
+        :class:``~django.contrib.contenttypes.fields.GenericRelation`` to
+        :class:``~wagtail.models.WorkflowState`` with the desired
         ``related_query_name``. This property can be replaced with the
         ``GenericRelation`` or overridden to allow custom logic, which can be
         useful if the model has inheritance.
@@ -1578,7 +1578,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         such as updating the ``url_path`` value of descendant page to reflect changes
         to this page's slug.
 
-        New pages should generally be saved via the `add_child() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_child>`_ or `add_sibling() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_sibling>`_
+        New pages should generally be saved via the ``add_child() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_child>``_ or ``add_sibling() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_sibling>``_
         method of an existing page, which will correctly set the ``path`` and ``depth``
         fields on the new page before saving it.
 
@@ -2375,7 +2375,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Checks if this page type can exist as a subpage under a parent page
         instance.
 
-        See also: :func:`Page.can_create_at` and :func:`Page.can_move_to`
+        See also: :func:``Page.can_create_at`` and :func:``Page.can_move_to``
         """
         return cls in parent.specific_class.allowed_subpage_models()
 
@@ -2612,7 +2612,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         A generic cache key to identify a page in its current state.
         Should the page change, so will the key.
 
-        Customizations to the cache key should be made in :attr:`get_cache_key_components`.
+        Customizations to the cache key should be made in :attr:``get_cache_key_components``.
         """
 
         hasher = safe_md5()
@@ -2711,7 +2711,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             if hasattr(settings, "PASSWORD_REQUIRED_TEMPLATE"):
                 warn(
-                    "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
+                    "The ``PASSWORD_REQUIRED_TEMPLATE`` setting is deprecated - use ``WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`` instead.",
                     category=RemovedInWagtail70Warning,
                 )
 
@@ -4245,8 +4245,8 @@ class WorkflowState(models.Model):
         """
         Returns a list of Task objects that are linked with this workflow state's
         workflow. The status of that task in this workflow state is annotated in the
-        `.status` field. And a displayable version of that status is annotated in the
-        `.status_display` field.
+        ``.status`` field. And a displayable version of that status is annotated in the
+        ``.status_display`` field.
 
         This is different to querying TaskState as it also returns tasks that haven't
         been started yet (so won't have a TaskState).
