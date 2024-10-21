@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.3 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~
+6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~
 
  * Add support for Python 3.13 (Matt Westcott)
  * Add formal support for Django 5.1 (Matt Westcott)
