@@ -148,7 +148,7 @@ const insertContentWithLinks = (editorState, htmlOrText) => {
       // For example "Go to https://example.com."
       // Terminal Punctuation class: see https://www.unicode.org/review/pr-23.html.
       const cleanURLPattern = match[1].replace(
-        /\p{Terminal_Punctuation}$/u,
+        /\p{Terminal_Punctuation}+$/u,
         '',
       );
       const url = getValidLinkURL(cleanURLPattern);
