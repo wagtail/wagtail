@@ -219,7 +219,7 @@ def purge_site(
             start=1,
         ):
             batch.add_page(page)
-            if len(batch.urls) == url_batch_chunk_size:
+            if len(batch.urls) >= url_batch_chunk_size:
                 # Purge the current batch
                 batch.purge(backends=other_backends.keys())
                 # Report progress
