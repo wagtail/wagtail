@@ -542,8 +542,9 @@ class TestCachePurgingFunctions(TestCase):
         self.assertIn(f"INFO:wagtail.frontendcache:{message}", log_record.output)
 
     def test_purge_site_default(self):
-        with self.assertNumQueries(2) and self.assertLogs(level="INFO") as log_output:
-            purge_site(self.site)
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(2):
+                purge_site(self.site)
 
         self.assertMessageLogged("Purging 18 page URLs for localhost", log_output)
         self.assertMessageLogged("Purging 2 fixed site paths for localhost", log_output)
@@ -578,8 +579,9 @@ class TestCachePurgingFunctions(TestCase):
         }
     )
     def test_purge_site_when_hostname_not_recognised(self):
-        with self.assertNumQueries(0) and self.assertLogs(level="INFO") as log_output:
-            purge_site(self.site)
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
 
         self.assertIn(
             "Unable to find purge backend for localhost",
@@ -597,8 +599,9 @@ class TestCachePurgingFunctions(TestCase):
         }
     )
     def test_purge_site_when_hostname_purging_supported(self):
-        with self.assertNumQueries(0) and self.assertLogs(level="INFO") as log_output:
-            purge_site(self.site)
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
 
         # A hostname purge should have been made successfully
         self.assertIn(
@@ -623,8 +626,9 @@ class TestCachePurgingFunctions(TestCase):
     def test_purge_site_when_hostname_purging_supported_but_not_hostname_not_recognised_by_backends(
         self,
     ):
-        with self.assertNumQueries(0) and self.assertLogs(level="INFO") as log_output:
-            purge_site(self.site)
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
 
         self.assertIn(
             "Unable to find purge backend for localhost",
@@ -643,8 +647,9 @@ class TestCachePurgingFunctions(TestCase):
         }
     )
     def test_purge_site_when_only_everything_purging_supported(self):
-        with self.assertNumQueries(0) and self.assertLogs(level="INFO") as log_output:
-            purge_site(self.site)
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
 
         # An everything purge should have been made successfully
         self.assertIn(
@@ -667,8 +672,9 @@ class TestCachePurgingFunctions(TestCase):
         }
     )
     def test_purge_site_when_hostname_or_everything_purging_supported(self):
-        with self.assertNumQueries(0) and self.assertLogs(level="INFO") as log_output:
-            purge_site(self.site)
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
 
         # A hostname purge should have been made successfully,
         # because it's safer than an everything purge
