@@ -243,17 +243,15 @@ def purge_site(
             batch = PurgeBatch()
 
         # NOTE: Add hardcoded paths/urls to the current batch
-        additional_paths = getattr(
-            settings, "WAGTAILFRONTENDCACHE_FIXED_SITE_PATHS", []
-        )
-        if additional_paths:
+        fixed_paths = getattr(settings, "WAGTAILFRONTENDCACHE_FIXED_SITE_PATHS", [])
+        if fixed_paths:
             logger.info(
                 "Purging %d fixed site paths for %s",
-                len(additional_paths),
+                len(fixed_paths),
                 site.hostname,
             )
             base_url = site.root_url
-            for path in additional_paths:
+            for path in fixed_paths:
                 batch.add_url(urljoin(base_url, path))
 
         batch.purge(backends=other_backends.keys())
