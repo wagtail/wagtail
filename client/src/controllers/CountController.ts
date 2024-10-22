@@ -60,7 +60,7 @@ export class CountController extends Controller<HTMLFormElement> {
   declare readonly totalTarget: HTMLElement;
 
   connect() {
-    this.count();
+    document.addEventListener('change', () => this.count());
   }
 
   count() {

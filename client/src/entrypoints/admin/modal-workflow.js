@@ -29,8 +29,6 @@ function ModalWorkflow(opts) {
   const errorCallback = opts.onError || noop;
   const useDialog = !!opts.dialogId;
 
-  console.info('ModalWorkflow', opts);
-
   if (useDialog) {
     self.dialog = document.getElementById(opts.dialogId);
     self.url = opts.url || self.dialog.dataset.url;
@@ -93,7 +91,8 @@ function ModalWorkflow(opts) {
   };
 
   self.ajaxifyForm = function ajaxifyForm(formSelector) {
-    $(formSelector).each(() => {
+    // eslint-disable-next-line func-names
+    $(formSelector).each(function () {
       const action = this.action;
       if (this.method.toLowerCase() === 'get') {
         $(this).on('submit', () => {

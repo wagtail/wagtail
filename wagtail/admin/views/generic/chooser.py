@@ -1,6 +1,6 @@
 import re
 import urllib.parse
-from pprint import pprint
+
 from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import (
@@ -203,8 +203,23 @@ class BaseChooseView(
 
     @cached_property
     def is_multiple_choice(self):
-        # add a maximum param?
         return self.request.GET.get("multiple")
+
+    @cached_property
+    def get_max_forms_remainder(self):
+        max_forms_remainder = self.request.GET.get("maxFormsRemainder", "0")
+        return int(max_forms_remainder)
+
+    @cached_property
+    def get_max_forms(self):
+        max_forms = self.request.GET.get("maxForms", "0")
+        return int(max_forms)
+
+    @cached_property
+    def get_selected_items(self):
+        max_forms = self.request.GET.get("maxForms", "0")
+        max_forms_remainder = self.request.GET.get("maxFormsRemainder", "0")
+        return int(max_forms) - int(max_forms_remainder)
 
     @property
     def columns(self):
@@ -269,10 +284,6 @@ class BaseChooseView(
         # so that the pagination include can append its own parameters via the {% querystring %} template tag
         results_pagination_url = re.sub(r"\?.*$", "", results_url)
 
-        print("chooser", pprint(vars(self)))
-        print("chooser:context", context)
-        # I want to get the maximum number of items that can be selected
-
         context.update(
             {
                 "results": self.results,
@@ -284,6 +295,9 @@ class BaseChooseView(
                 "is_multiple_choice": self.is_multiple_choice,
                 "search_query": self.filter_form.search_query,
                 "can_create": self.can_create(),
+                "max_forms": self.get_max_forms,
+                "max_forms_remainder": self.get_max_forms_remainder,
+                "selected_items": self.get_selected_items,
             }
         )
         if self.is_multiple_choice:
