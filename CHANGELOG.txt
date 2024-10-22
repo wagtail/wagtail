@@ -8,6 +8,7 @@ Changelog
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
+ * Docs: Refine the adding reports page so that common (page/non-page) class references are at the top and the full page only example has correct heading nesting (Alessandro Chitarrini)
 
 
 6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT

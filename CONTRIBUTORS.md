@@ -848,6 +848,7 @@
 * Shaurya Panchal
 * Sumana Sree Angajala
 * Srishti Jaiswal
+* Alessandro Chitarrini
 
 ## Translators
 
