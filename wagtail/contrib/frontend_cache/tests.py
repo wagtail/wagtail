@@ -466,6 +466,11 @@ class MockCloudflareBackend(CloudflareBackend):
         },
     },
     WAGTAILFRONTENDCACHE_FIXED_SITE_PATHS=["/signup/", "/login/"],
+    CACHES={
+        "default": {
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        }
+    },
 )
 class TestCachePurgingFunctions(TestCase):
     fixtures = ["test.json"]
