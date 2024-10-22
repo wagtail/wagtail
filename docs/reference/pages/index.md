@@ -12,7 +12,5 @@ maxdepth: 2
 ---
 theory
 model_recipes
-panels
-model_reference
 queryset_reference
 ```

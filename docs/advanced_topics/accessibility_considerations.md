@@ -254,7 +254,7 @@ This makes it easy for authors to run basic accessibility checks – validating 
 
 ### help_text and HelpPanel
 
-Occasional Wagtail users may not be aware of your site’s content guidelines, or best practices of writing for the web. Use fields’ `help_text` and `HelpPanel` (see [Panel types](../reference/pages/panels)).
+Occasional Wagtail users may not be aware of your site’s content guidelines, or best practices of writing for the web. Use fields’ `help_text` and `HelpPanel` (see [Panel types](../reference/panels)).
 
 ### Readability
 

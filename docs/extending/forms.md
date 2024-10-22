@@ -62,7 +62,7 @@ Wagtail's edit views for pages and snippets use `WagtailAdminModelForm` as stand
 
 Panels (also known as edit handlers until Wagtail 3.0) are Wagtail's mechanism for specifying the content and layout of a model form without having to write a template. They are used for the editing interface for pages and snippets, as well as the [site settings](/reference/contrib/settings) contrib module.
 
-See [](/reference/pages/panels) for the set of panel types provided by Wagtail. All panels inherit from the base class `wagtail.admin.panels.Panel`. A single panel object (usually `ObjectList` or `TabbedInterface`) exists at the top level and is the only one directly accessed by the view code; panels containing child panels inherit from the base class `wagtail.admin.panels.PanelGroup` and take care of recursively calling methods on their child panels where appropriate.
+See [](/reference/panels) for the set of panel types provided by Wagtail. All panels inherit from the base class `wagtail.admin.panels.Panel`. A single panel object (usually `ObjectList` or `TabbedInterface`) exists at the top level and is the only one directly accessed by the view code; panels containing child panels inherit from the base class `wagtail.admin.panels.PanelGroup` and take care of recursively calling methods on their child panels where appropriate.
 
 A view performs the following steps to render a model form through the panels mechanism:
 
@@ -77,4 +77,4 @@ A view performs the following steps to render a model form through the panels me
 -   An instance of the form class is created as per a normal Django form view.
 -   The view then calls `get_bound_panel` on the top-level panel, passing `instance`, `form` and `request` as keyword arguments. This returns a `BoundPanel` object, which follows [the template component API](/extending/template_components). Finally, the `BoundPanel` object (and its media definition) is rendered onto the template.
 
-New panel types can be defined by subclassing `wagtail.admin.panels.Panel` - see [](/reference/panel_api).
+New panel types can be defined by sub-classing `wagtail.admin.panels.Panel` - see [](panels_api).

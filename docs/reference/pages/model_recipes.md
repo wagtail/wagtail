@@ -37,7 +37,7 @@ With this strategy, you could use Django or Python utilities to render your mode
 
 (overriding_route_method)=
 
-### Adding Endpoints with Custom {meth}`~wagtail.models.Page.route` Methods
+## Adding Endpoints with Custom {meth}`~wagtail.models.Page.route` Methods
 
 ```{note}
 A much simpler way of adding more endpoints to pages is provided by the [](routable_page_mixin) mixin.
