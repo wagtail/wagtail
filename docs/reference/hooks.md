@@ -429,10 +429,6 @@ def user_listing_external_profile(user, request_user):
         )
 ```
 
-```{versionchanged} 6.2
-The hook function was updated to accept a `request_user` argument instead of `context`.
-```
-
 (filter_form_submissions_for_user)=
 
 ### `filter_form_submissions_for_user`
