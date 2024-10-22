@@ -18,7 +18,7 @@ from wagtail.contrib.frontend_cache.backends import (
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
-from wagtail.test.testapp.models import EventIndex
+from wagtail.test.testapp.models import EventIndex, EventPage
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .utils import (
@@ -28,6 +28,16 @@ from .utils import (
     purge_url_from_cache,
     purge_urls_from_cache,
 )
+
+EVENTPAGE_URLS = {
+    "http://localhost/events/final-event/",
+    "http://localhost/events/christmas/",
+    "http://localhost/events/saint-patrick/",
+    "http://localhost/events/tentative-unpublished-event/",
+    "http://localhost/events/someone-elses-event/",
+    "http://localhost/events/tentative-unpublished-event/",
+    "http://localhost/secret-plans/steal-underpants/",
+}
 
 
 class TestBackendConfiguration(SimpleTestCase):
@@ -438,7 +448,12 @@ class MockCloudflareBackend(CloudflareBackend):
         "varnish": {
             "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
         },
-    }
+    },
+    CACHES={
+        "default": {
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        }
+    },
 )
 class TestCachePurgingFunctions(TestCase):
     fixtures = ["test.json"]
@@ -456,16 +471,19 @@ class TestCachePurgingFunctions(TestCase):
 
     def test_purge_page_from_cache(self):
         page = EventIndex.objects.get(url_path="/home/events/")
-        purge_page_from_cache(page)
+        with self.assertNumQueries(1):
+            purge_page_from_cache(page)
         self.assertEqual(
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )
 
     def test_purge_pages_from_cache(self):
-        purge_pages_from_cache(EventIndex.objects.all())
-        self.assertEqual(
-            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
-        )
+        pages = list(Page.objects.all().type(EventPage))
+        # For each page, a query is made to fetch the specific instance,
+        # and another is made to fetch site root paths
+        with self.assertNumQueries(len(pages) * 2):
+            purge_pages_from_cache(pages)
+        self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
     def test_purge_batch(self):
         batch = PurgeBatch()
@@ -482,6 +500,17 @@ class TestCachePurgingFunctions(TestCase):
                 "http://localhost/foo",
             },
         )
+
+    def test_purge_batch_with_multiple_pages(self):
+        batch = PurgeBatch()
+        pages = list(Page.objects.all().type(EventPage))
+        # For each page, a query is made to fetch the specific instance,
+        # and another is made to fetch site root paths
+        with self.assertNumQueries(len(pages) * 2):
+            batch.add_pages(pages)
+        batch.purge()
+
+        self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
     @override_settings(
         WAGTAILFRONTENDCACHE={
