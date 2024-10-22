@@ -360,7 +360,7 @@ Only use tables when needed, using the [GitHub Flavored Markdown table syntax](h
 
 ### Version added, changed, deprecations
 
-Sphinx offers release-metadata directives to generate this information consistently. Use as appropriate.
+Sphinx offers release-metadata directives to present information about new or updated features in a consistent manner.
 
     ```{versionadded} 2.15
     ```
@@ -381,6 +381,8 @@ Sphinx offers release-metadata directives to generate this information consisten
 ```
 
 </details>
+
+These directives will typically be removed two releases after they are added, so should only be used for short-lived information, such as "The `WAGTAILIMAGES_CACHE_DURATION` setting was added". Detailed documentation about the feature should be in the main body of the text, outside of the directive.
 
 ### Progressive disclosure
 
