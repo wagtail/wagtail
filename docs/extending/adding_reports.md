@@ -56,11 +56,6 @@ The listing table should be implemented in a separate template specified by ``re
 Unless you want to customize the overall view, you will rarely need to change this template.
 To customize the listing, change the ``results_template_name`` instead.
 
-.. versionchanged:: 6.2
-   The default ``template_name`` attribute for ``PageReportView`` was changed from ``"wagtailadmin/reports/base_page_report.html"`` to ``"wagtailadmin/reports/base_report.html"``.
-
-   Additionally, customization of the ``template_name`` should generally be replaced with a ``results_template_name`` customization, unless you intend to completely override the view template and not just the listing table.
-
 .. attribute:: results_template_name
 
 (string)
@@ -73,18 +68,12 @@ which provides a default table layout based on the explorer views,
 displaying action buttons, as well as the title, time of the last update, status, and specific type of any pages.
 In this example, we'll change this to a new template in a later section.
 
-.. versionadded:: 6.2
-   The ``results_template_name`` attribute was added to support updating the listing via AJAX upon filtering and to allow the use of the ``wagtail.admin.ui.tables`` framework.
-
 .. attribute:: page_title
 
 (string)
 
 The name of your report, which will be displayed in the header. For our example, we'll set it to
 ``"Pages with unpublished changes"``.
-
-.. versionchanged:: 6.2
-   The ``title`` attribute was renamed to ``page_title``.
 
 .. attribute:: header_icon
 
@@ -104,9 +93,6 @@ The name of the URL pattern registered for the report view.
 (string)
 
 The name of the URL pattern registered for the results view (the report view with ``.as_view(results_only=True)``).
-
-.. versionadded:: 6.2
-   The ``index_results_url_name`` attribute was added to support updating the listing via AJAX upon filtering.
 
 ```
 
@@ -160,10 +146,6 @@ preprocessing, set the preprocessing_function to ``None``.
 ## Customizing templates
 
 For this example \"pages with unpublished changes\" report, we'll add an extra column to the listing template, showing the last publication date for each page. To do this, we'll extend two templates: `wagtailadmin/reports/base_page_report_results.html`, and `wagtailadmin/reports/listing/_list_page_report.html`.
-
-```{versionchanged} 6.2
-Extending `wagtailadmin/reports/base_page_report.html` was changed in favor of extending `wagtailadmin/reports/base_page_report_results.html`. The `listing` and `no_results` blocks were renamed to `results` and `no_results_message`, respectively.
-```
 
 ```html+django
 {# <project>/templates/reports/unpublished_changes_report_results.html #}
