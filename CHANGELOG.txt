@@ -32,6 +32,7 @@ Changelog
  * Secondary form actions such as "Delete" are now in the header actions menu (Sage Abdullah)
  * Allow setting page privacy rules when a restriction already exists on an ancestor page (Bojan Mihelac)
  * Automatically create links when pasting content that contain URLs into a rich text input (Thibaud Colas)
+ * Add Uyghur language support
  * Fix: Prevent page type business rules from blocking reordering of pages (Andy Babic, Sage Abdullah)
  * Fix: Improve layout of object permissions table (Sage Abdullah)
  * Fix: Fix typo in aria-label attribute of page explorer navigation link (Sébastien Corbin)
