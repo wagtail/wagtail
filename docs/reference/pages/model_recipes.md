@@ -131,4 +131,3 @@ Be careful if you're introducing new required arguments to the `serve()` method 
 def serve_preview(self, request, mode_name):
     return self.serve(request, variant='radiant')
 ```
-.
