@@ -441,7 +441,7 @@ class MockBackend(BaseBackend):
     def purge_hostname(self, hostname):
         PURGED_HOSTNAMES.append(hostname)
 
-    def purge_everything(self):
+    def purge_all(self):
         EVERYTHING_PURGES.append(datetime.now())
 
     def hostname_purge_supported(self):

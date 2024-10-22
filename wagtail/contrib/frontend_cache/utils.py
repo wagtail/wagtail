@@ -163,22 +163,18 @@ def purge_site(
     # of 'hostname-specific' purges, followed by those capabale of
     # 'everything' purges
     purge_hostname_backends = {}
-    purge_everything_backends = {}
+    purge_all_backends = {}
     other_backends = {}
     for name, backend in get_backends(backend_settings, backends).items():
         if backend.invalidates_hostname(site.hostname):
             if backend.hostname_purge_supported():
                 purge_hostname_backends[name] = backend
             elif backend.allow_everything_purge_for_hostname(site.hostname):
-                purge_everything_backends[name] = backend
+                purge_all_backends[name] = backend
             else:
                 other_backends[name] = backend
 
-    if (
-        not purge_hostname_backends
-        and not purge_everything_backends
-        and not other_backends
-    ):
+    if not purge_hostname_backends and not purge_all_backends and not other_backends:
         logger.info("Unable to find purge backend for %s", site.hostname)
         return
 
@@ -191,14 +187,14 @@ def purge_site(
         # multiple backends for the same hostname, and no way for us to
         # know what is redundant, or which backend is more important
 
-    for name, backend in purge_everything_backends.items():
+    for name, backend in purge_all_backends.items():
         # This will likely purge more than necessary, but will be more efficient
         # than cycling through every page in the tree to generate a list of URLs
 
         # NOTE: It is up to developers to disable 'everything' purges for
         # backends where it is too disruptive to other services
         logger.info(f"Purging everything via backend: {name}")
-        backend.purge_everything()
+        backend.purge_all()
 
         # NOTE: We could potentially return `None` after the first purge here,
         # but there's technically nothing to stop developers registering

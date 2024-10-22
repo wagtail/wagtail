@@ -32,7 +32,7 @@ class BaseBackend:
         """
         raise NotImplementedError
 
-    def purge_everything(self) -> None:
+    def purge_all(self) -> None:
         """
         Purge all cached URLs managed by the underlying service instance, regardless of
         hostname. Where the underlying service supports it, specific backends can implement
