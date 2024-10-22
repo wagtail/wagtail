@@ -143,4 +143,3 @@ register_snippet(TagsSnippetViewSet)
 ```
 
 A `Tag` model has a `name` and `slug` required fields. If you decide to add a tag, it is recommended to only display the `name` field panel as the slug field is automatically populated when the `name` field is filled and you don't need to enter the same name in both fields.
-
