@@ -436,7 +436,8 @@ class MockBackend(BaseBackend):
         PURGED_URLS.add(url)
 
     def purge_batch(self, urls):
-        PURGED_URLS.extend(urls)
+        global PURGED_URLS
+        PURGED_URLS = PURGED_URLS.union(urls)
 
     def purge_hostname(self, hostname):
         PURGED_HOSTNAMES.append(hostname)
