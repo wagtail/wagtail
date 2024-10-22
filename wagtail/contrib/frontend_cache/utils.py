@@ -220,12 +220,17 @@ def purge_site(
         ):
             batch.add_page(page)
             if len(batch.urls) >= url_batch_chunk_size:
+                # Capture and remove any overage
+                overage = batch.urls[url_batch_chunk_size:]
+                batch.urls = batch.urls[:url_batch_chunk_size]
                 # Purge the current batch
                 batch.purge(backends=other_backends.keys())
                 # Report progress
                 logger.info("Progress: %d/%d", i + 1, descendant_count)
                 # Start a fresh batch
                 batch = PurgeBatch()
+                # Add any overage to the new batch
+                batch.urls = overage
                 # For reporting to make sense, fixed paths must be purged separately
                 purge_fixed_paths_separately = True
 
