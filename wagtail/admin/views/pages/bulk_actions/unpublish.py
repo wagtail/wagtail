@@ -65,35 +65,15 @@ class UnpublishBulkAction(PageBulkAction):
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         include_descendants = self.cleaned_form.cleaned_data["include_descendants"]
-        if num_parent_objects == 1:
-            if include_descendants:
-                if num_child_objects == 0:
-                    success_message = _("1 page has been unpublished")
-                else:
-                    success_message = ngettext(
-                        "1 page and %(num_child_objects)d child page have been unpublished",
-                        "1 page and %(num_child_objects)d child pages have been unpublished",
-                        num_child_objects,
-                    ) % {"num_child_objects": num_child_objects}
-            else:
-                success_message = _("1 page has been unpublished")
+        if include_descendants and num_child_objects > 0:
+            # Translators: This forms a message such as "1 page and 3 child pages have been unpublished"
+            return _("%(parent_pages)s and %(child_pages)s have been unpublished") % {
+                "parent_pages": self.get_parent_page_text(num_parent_objects),
+                "child_pages": self.get_child_page_text(num_child_objects),
+            }
         else:
-            if include_descendants:
-                if num_child_objects == 0:
-                    success_message = _(
-                        "%(num_parent_objects)d pages have been unpublished"
-                    ) % {"num_parent_objects": num_parent_objects}
-                else:
-                    success_message = ngettext(
-                        "%(num_parent_objects)d pages and %(num_child_objects)d child page have been unpublished",
-                        "%(num_parent_objects)d pages and %(num_child_objects)d child pages have been unpublished",
-                        num_child_objects,
-                    ) % {
-                        "num_child_objects": num_child_objects,
-                        "num_parent_objects": num_parent_objects,
-                    }
-            else:
-                success_message = _(
-                    "%(num_parent_objects)d pages have been unpublished"
-                ) % {"num_parent_objects": num_parent_objects}
-        return success_message
+            return ngettext(
+                "%(num_parent_objects)d page has been unpublished",
+                "%(num_parent_objects)d pages have been unpublished",
+                num_parent_objects,
+            ) % {"num_parent_objects": num_parent_objects}
