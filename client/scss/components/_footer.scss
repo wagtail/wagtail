@@ -116,7 +116,6 @@
 
 .actions .button {
   @apply w-leading-none w-inline-flex w-items-center;
-  font-size: theme('fontSize.16');
   font-weight: 600;
   padding: 0 theme('spacing.3');
   white-space: initial;
@@ -138,6 +137,7 @@
   }
 
   > .button {
+    font-size: theme('fontSize.16');
     flex-grow: 1;
   }
 }
