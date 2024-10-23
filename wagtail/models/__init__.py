@@ -2136,15 +2136,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not possible_sites:
             return None
 
+        unique_site_ids = {values[0] for values in possible_sites}
         site_id, root_path, root_url, language_code = possible_sites[0]
 
-        site = Site.find_for_request(request)
-        if site:
-            for site_id, root_path, root_url, language_code in possible_sites:
-                if site_id == site.pk:
-                    break
-            else:
-                site_id, root_path, root_url, language_code = possible_sites[0]
+        if len(unique_site_ids) > 1 and request is not None:
+            site = Site.find_for_request(request)
+            if site:
+                for values in possible_sites:
+                    if values[0] == site.pk:
+                        site_id, root_path, root_url, language_code = values
+                        break
 
         use_wagtail_i18n = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
