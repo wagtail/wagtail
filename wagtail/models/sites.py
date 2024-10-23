@@ -225,7 +225,12 @@ class Site(models.Model):
 
             for site in Site.objects.select_related(
                 "root_page", "root_page__locale"
-            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
+            ).order_by(
+                "-root_page__url_path",
+                "-is_default_site",
+                "-root_page__depth",
+                "hostname",
+            ):
                 if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
                     result.extend(
                         [
