@@ -4,7 +4,7 @@ Changelog
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
 
 
 6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
