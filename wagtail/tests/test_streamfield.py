@@ -241,6 +241,8 @@ class TestStreamValueAccess(TestCase):
         # The test is analog to test_can_append(), but instead of working with the
         # in-memory version from JSONStreamModel.objects.create(), we query a fresh
         # instance from the db.
+        # The difference is that the append below adds its data to child blocks that
+        # have not yet been lazy loaded, which caused a crash in previous versions.
         self.json_body = JSONStreamModel.objects.get(pk=self.json_body.pk)
         self.json_body.body.append(("text", "bar"))
         self.json_body.save()
