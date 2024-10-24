@@ -3,6 +3,7 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
 from django.db import models
 from django.urls import reverse
+from django.utils.cache import add_never_cache_headers
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
@@ -44,7 +45,10 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
                     "wagtailcore_authenticate_with_password",
                     args=[restriction.id, page.id],
                 )
-                return page.serve_password_required_response(request, form, action_url)
+
+                response = page.serve_password_required_response(request, form, action_url)
+                add_never_cache_headers(response)
+                return response
 
             elif restriction.restriction_type in [
                 PageViewRestriction.LOGIN,
