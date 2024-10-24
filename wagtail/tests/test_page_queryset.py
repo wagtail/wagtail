@@ -995,12 +995,23 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
             title="stream page",
             slug="stream-page",
             body='[{"type": "text", "value": "foo"}]',
+            owner=self.create_test_user(),
         )
         root.add_child(instance=stream_page)
+        stream_page.save_revision().publish()
 
         with self.assertNumQueries(0):
             # The query should be lazy.
-            qs = root.get_descendants().specific(defer=True)
+            qs = (
+                root.get_descendants()
+                .select_related(
+                    "content_type",
+                    "latest_revision",
+                    "live_revision",
+                    "owner",
+                )
+                .specific(defer=True)
+            )
 
         with self.assertNumQueries(1):
             # This did use 5 queries (one for each specific class),
@@ -1011,9 +1022,16 @@ class TestSpecificQuery(WagtailTestUtils, TestCase):
         self.assertEqual(len(pages), 8)
 
         for page in pages:
+            # Any cached fields (e.g. from select_related) should be carried over
+            # instead of being re-queried.
+            with self.assertNumQueries(0):
+                content_type = page.content_type
+                page.latest_revision
+                page.live_revision
+                page.owner
+
             # An instance of the specific page type should be returned,
             # not wagtailcore.Page.
-            content_type = page.content_type
             model = content_type.model_class()
             self.assertIsInstance(page, model)
 
