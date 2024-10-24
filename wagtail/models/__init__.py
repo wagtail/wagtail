@@ -2132,8 +2132,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not possible_sites:
             return None
 
-        # Because of the ordering applied by Site.get_site_root_paths(),
-        # the first item is best in the vast majority of cases
+        # Thanks to the ordering applied by Site.get_site_root_paths(),
+        # the first item is ideal in the vast majority of setups.
         site_id, root_path, root_url, language_code = possible_sites[0]
 
         unique_site_ids = {values[0] for values in possible_sites}
