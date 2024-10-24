@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
-from wagtail.coreutils import get_content_languages
+from wagtail.coreutils import get_content_languages, get_dummy_request
 
 logger = logging.getLogger("wagtail.frontendcache")
 
@@ -132,35 +132,40 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
             backend.purge_batch(urls)
 
 
-def _get_page_cached_urls(page):
-    page_url = page.full_url
+def _get_page_cached_urls(page, *, request=None):
+    page_url = page.get_full_url(request)
     if page_url is None:  # nothing to be done if the page has no routable URL
         return []
 
-    return [page_url + path.lstrip("/") for path in page.specific.get_cached_paths()]
+    return [
+        page_url + path.lstrip("/")
+        for path in page.specific_deferred.get_cached_paths()
+    ]
 
 
-def purge_page_from_cache(page, backend_settings=None, backends=None):
-    purge_pages_from_cache([page], backend_settings=backend_settings, backends=backends)
+def purge_page_from_cache(page, backend_settings=None, backends=None, *, request=None):
+    urls = _get_page_cached_urls(page, request=request)
+    purge_urls_from_cache(urls, backend_settings, backends)
 
 
-def purge_pages_from_cache(pages, backend_settings=None, backends=None):
-    urls = []
-    for page in pages:
-        urls.extend(_get_page_cached_urls(page))
-
-    if urls:
-        purge_urls_from_cache(urls, backend_settings, backends)
+def purge_pages_from_cache(
+    pages, backend_settings=None, backends=None, *, request=None
+):
+    batch = PurgeBatch(request=request)
+    batch.add_pages(pages)
+    batch.purge(backend_settings, backends)
 
 
 class PurgeBatch:
     """Represents a list of URLs to be purged in a single request"""
 
-    def __init__(self, urls=None):
+    def __init__(self, urls=None, *, request=None):
         self.urls = set()
 
         if urls is not None:
             self.add_urls(urls)
+
+        self.request = request or get_dummy_request()
 
     def add_url(self, url):
         """Adds a single URL"""
@@ -182,7 +187,7 @@ class PurgeBatch:
         This combines the page's full URL with each path that is returned by
         the page's `.get_cached_paths` method
         """
-        self.add_urls(_get_page_cached_urls(page))
+        self.add_urls(_get_page_cached_urls(page, request=self.request))
 
     def add_pages(self, pages):
         """
