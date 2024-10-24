@@ -41,6 +41,7 @@ from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
+from django.http.request import validate_host
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
@@ -725,6 +726,26 @@ class PreviewableMixin:
         handler.load_middleware()
         return handler.get_response(request)
 
+    def _get_fallback_hostname(self):
+        """
+        Return a hostname that can be used on preview requests when the object has no
+        routable URL, or the real hostname is not valid according to ALLOWED_HOSTS.
+        """
+        try:
+            hostname = settings.ALLOWED_HOSTS[0]
+        except IndexError:
+            # Django disallows empty ALLOWED_HOSTS outright when DEBUG=False, so we must
+            # have DEBUG=True. In this mode Django allows localhost amongst others.
+            return "localhost"
+
+        if hostname == "*":
+            # Any hostname is allowed
+            return "localhost"
+
+        # Hostnames beginning with a dot are domain wildcards such as ".example.com" -
+        # these allow example.com itself, so just strip the dot
+        return hostname.lstrip(".")
+
     def _get_dummy_headers(self, original_request=None):
         """
         Return a dict of META information to be included in a faked HttpRequest object to pass to
@@ -734,20 +755,19 @@ class PreviewableMixin:
         if url:
             url_info = urlsplit(url)
             hostname = url_info.hostname
+            if not validate_host(
+                hostname,
+                settings.ALLOWED_HOSTS or [".localhost", "127.0.0.1", "[::1]"],
+            ):
+                # The hostname is not valid according to ALLOWED_HOSTS - use a fallback
+                hostname = self._get_fallback_hostname()
+
             path = url_info.path
             port = url_info.port or (443 if url_info.scheme == "https" else 80)
             scheme = url_info.scheme
         else:
-            # Cannot determine a URL to this object - cobble one together based on
-            # whatever we find in ALLOWED_HOSTS
-            try:
-                hostname = settings.ALLOWED_HOSTS[0]
-                if hostname == "*":
-                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
-                    # So we pretend it isn't there.
-                    raise IndexError
-            except IndexError:
-                hostname = "localhost"
+            # Cannot determine a URL to this object - cobble together an arbitrary valid one
+            hostname = self._get_fallback_hostname()
             path = "/"
             port = 80
             scheme = "http"
