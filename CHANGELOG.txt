@@ -95,6 +95,12 @@ Changelog
  * Maintenance: Deprecate internal `DeleteMenuItem` API for footer actions (Sage Abdullah)
 
 
+6.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * ...
+
+
 6.2.2 (24.09.2024)
 ~~~~~~~~~~~~~~~~~~
 
