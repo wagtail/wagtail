@@ -15,21 +15,26 @@ export class MultipleChooserPanel extends InlinePanel {
       `${opts.formsetPrefix}-OPEN_MODAL`,
     );
     openModalButton.addEventListener('click', () => {
-      this.chooserWidgetFactory.openModal(
-        (result) => {
-          result.forEach((item) => {
-            if (opts.maxForms && this.getChildCount() >= opts.maxForms) return;
-            this.addForm();
-            const formIndex = this.formCount - 1;
-            const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
-            const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
-            const chooserWidget =
-              this.chooserWidgetFactory.getById(chooserFieldId);
-            chooserWidget.setStateFromModalData(item);
-          });
-        },
-        { multiple: true },
-      );
+      const queryParams = { multiple: true };
+      if (opts.maxForms && opts.maxForms !== 1000) {
+        queryParams.maxForms = opts.maxForms;
+        queryParams.maxFormsRemainder = this.isFirstChildEmpty()
+          ? opts.maxForms - this.getChildCount() + 1
+          : opts.maxForms - this.getChildCount();
+      }
+
+      this.chooserWidgetFactory.openModal((result) => {
+        result.forEach((item) => {
+          if (opts.maxForms && this.getChildCount() >= opts.maxForms) return;
+          this.addForm();
+          const formIndex = this.formCount - 1;
+          const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
+          const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
+          const chooserWidget =
+            this.chooserWidgetFactory.getById(chooserFieldId);
+          chooserWidget.setStateFromModalData(item);
+        });
+      }, queryParams);
     });
   }
 
