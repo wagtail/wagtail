@@ -4,7 +4,7 @@ Changelog
 5.2.7 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
 
 
 5.2.6 (11.07.2024)
