@@ -860,6 +860,7 @@
 * Alex Fulcher
 * Harsh Dange
 * Mauro Soche
+* Krystian Magdziarz
 
 ## Translators
 

@@ -3,6 +3,7 @@ from warnings import warn
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse, reverse_lazy
+from django.utils.cache import add_never_cache_headers
 from django.utils.translation import gettext, ngettext
 from django.utils.translation import gettext_lazy as _
 
@@ -200,7 +201,11 @@ def check_view_restrictions(document, request):
                     )
 
                 context = {"form": form, "action_url": action_url}
-                return TemplateResponse(request, password_required_template, context)
+                response = TemplateResponse(
+                    request, password_required_template, context
+                )
+                add_never_cache_headers(response)
+                return response
 
             elif restriction.restriction_type in [
                 BaseViewRestriction.LOGIN,
