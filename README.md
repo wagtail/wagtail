@@ -20,7 +20,7 @@
         <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
     </a>
     <a href="https://fosstodon.org/@wagtail">
-        <img src="https://img.shields.io/mastodon/follow/109316228974672802?domain=https%3A%2F%2Ffosstodon.org&style=social" alt="Follow @wagtail@fosstodon.org">
+        <img src="https://img.shields.io/mastodon/follow/109308882653647818?domain=https%3A%2F%2Ffosstodon.org&style=social" alt="Follow @wagtail@fosstodon.org">
     </a>
 </p>
 
