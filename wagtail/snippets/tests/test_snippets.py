@@ -3,6 +3,7 @@ import json
 from io import StringIO
 from unittest import mock
 
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
@@ -5009,6 +5010,32 @@ class TestSnippetChoose(WagtailTestUtils, TestCase):
             params or {},
         )
 
+    def get_multiple_choice(self, params={}):
+        app_label, model_name = self.url_args
+        self.choosen_object1 = Advert.objects.create(text="choosen 1")
+        self.choosen_object2 = Advert.objects.create(text="choosen 2")
+        self.unChoosen_object = Advert.objects.create(text="unChoosen")
+
+        self.client.get(
+            "%s?id=%d&id=%d"
+            % (
+                reverse(
+                    f"wagtailsnippetchoosers_{app_label}_{model_name}:chosen_multiple"
+                ),
+                self.choosen_object1.pk,
+                self.choosen_object2.pk,
+            )
+        )
+
+        chooserIds = f"{self.choosen_object1.pk},{self.choosen_object2.pk}"
+        return self.client.get(
+            "%s?chooserIds=%s&multiple=1"
+            % (
+                reverse(f"wagtailsnippetchoosers_{app_label}_{model_name}:choose"),
+                chooserIds,
+            )
+        )
+
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, "wagtailadmin/generic/chooser/chooser.html")
@@ -5090,6 +5117,29 @@ class TestSnippetChoose(WagtailTestUtils, TestCase):
 
         self.assertEqual(len(response.context["results"]), 1)
         self.assertEqual(response.context["results"][0].text, "English snippet")
+
+    def test_dulplicate_checkboxes(self):
+        response = self.get_multiple_choice()
+        response_json = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response_json["step"], "choose")
+
+        soup = BeautifulSoup(response_json["html"], "html.parser")
+        choosen_object1 = soup.find(
+            "input", {"type": "checkbox", "value": self.choosen_object1.pk}
+        ).has_attr("disabled")
+        choosen_object2 = soup.find(
+            "input", {"type": "checkbox", "value": self.choosen_object2.pk}
+        ).has_attr("disabled")
+        unChoosen_object = soup.find(
+            "input", {"type": "checkbox", "value": self.unChoosen_object.pk}
+        ).has_attr("disabled")
+
+        self.assertTrue(choosen_object1)
+        self.assertTrue(choosen_object2)
+
+        self.assertFalse(unChoosen_object)
 
 
 class TestSnippetChooseResults(WagtailTestUtils, TestCase):
