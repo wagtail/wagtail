@@ -24,7 +24,7 @@ from wagtail.admin.ui.side_panels import (
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
-from wagtail.models import Locale, Page, PageSubscription
+from wagtail.models import Locale, Page, PageSubscription, PageViewRestriction
 
 
 def add_subpage(request, parent_page_id):
@@ -182,12 +182,45 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
     def get_view_live_message_button(self):
         return messages.button(self.page.url, _("View live"), new_window=False)
 
+    def set_default_privacy_setting(self):
+        # privacy setting options ['public',"logged_in", "shared_password", "user_groups"]
+        default_privacy_setting = self.page.get_default_privacy_setting(self.request)
+
+        if (
+            default_privacy_setting["type"] == "public"
+        ):  # default privacy setting is public no need to do anything
+            pass
+        elif default_privacy_setting["type"] == "logged_in":
+            PageViewRestriction.objects.create(page=self.page, restriction_type="login")
+        elif default_privacy_setting["type"] == "shared_password":
+            PageViewRestriction.objects.create(
+                page=self.page,
+                restriction_type="password",
+                password=default_privacy_setting["password"],
+            )
+        elif default_privacy_setting["type"] == "user_groups":
+            # Create a page view restriction for groups
+            groups_page_restriction = PageViewRestriction.objects.create(
+                page=self.page, restriction_type="groups"
+            )
+            # add groups to the page view restriction
+            for group in default_privacy_setting["groups"]:
+                groups_page_restriction.groups.add(group)
+        else:
+            # Not sure which exception should be raised here
+            raise Exception(
+                "Invalid privacy setting. Choose from public, logged_in, shared_password, user_groups"
+            )
+
     def save_action(self):
         self.page = self.form.save(commit=False)
         self.page.live = False
 
         # Save page
         self.parent_page.add_child(instance=self.page)
+
+        # Set pages privacy settings
+        self.set_default_privacy_setting()
 
         # Save revision
         self.page.save_revision(user=self.request.user, log_action=True)
@@ -215,6 +248,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         # Save page
         self.parent_page.add_child(instance=self.page)
+
+        # Set pages privacy settings
+        self.set_default_privacy_setting()
 
         # Save revision
         revision = self.page.save_revision(user=self.request.user, log_action=True)
@@ -269,6 +305,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         # Save page
         self.parent_page.add_child(instance=self.page)
+
+        # Set pages privacy settings
+        self.set_default_privacy_setting()
 
         # Save revision
         self.page.save_revision(user=self.request.user, log_action=True)
