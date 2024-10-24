@@ -16,7 +16,6 @@ import logging
 import posixpath
 import uuid
 from io import StringIO
-from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
 from warnings import warn
 
@@ -40,7 +39,7 @@ from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
@@ -130,9 +129,6 @@ from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
-
-if TYPE_CHECKING:
-    from django.http import HttpRequest
 
 logger = logging.getLogger("wagtail")
 
@@ -2136,10 +2132,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not possible_sites:
             return None
 
-        unique_site_ids = {values[0] for values in possible_sites}
+        # Because of the ordering applied by Site.get_site_root_paths(),
+        # the first item is best in the vast majority of cases
         site_id, root_path, root_url, language_code = possible_sites[0]
 
-        if len(unique_site_ids) > 1 and request is not None:
+        unique_site_ids = {values[0] for values in possible_sites}
+        if len(unique_site_ids) > 1 and isinstance(request, HttpRequest):
+            # The page somehow belongs to more than one site (rare, but possible).
+            # If 'request' is indeed a HttpRequest, use it to identify the 'current'
+            # site and prefer an option matching that (where present).
             site = Site.find_for_request(request)
             if site:
                 for values in possible_sites:
