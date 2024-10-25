@@ -480,14 +480,43 @@ class TestCachePurgingFunctions(TestCase):
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )
 
+    def test_purge_page_from_cache_with_shared_site_cache_target(self):
+        site_cache_target = object()
+        page = EventIndex.objects.get(url_path="/home/events/")
+
+        # Ensure site root paths are already cached, which should result in
+        # zero additional queries being incurred by this test
+        page._get_relevant_site_root_paths(site_cache_target)
+
+        with self.assertNumQueries(0):
+            for _i in range(4):
+                purge_page_from_cache(page, site_cache_target=site_cache_target)
+                self.assertEqual(
+                    PURGED_URLS,
+                    {"http://localhost/events/", "http://localhost/events/past/"},
+                )
+                PURGED_URLS.clear()
+
     def test_purge_pages_from_cache(self):
         pages = list(Page.objects.all().type(EventPage))
-        # For each page, a query is made to fetch the specific instance,
-        # and another is made to fetch site root paths
         with self.captureOnCommitCallbacks(execute=True):
-            with self.assertNumQueries(len(pages) * 2):
+            with self.assertNumQueries(1):
                 purge_pages_from_cache(pages)
         self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
+
+    def test_purge_pages_from_cache_with_shared_site_cache_target(self):
+        site_cache_target = object()
+        pages = list(Page.objects.all().type(EventPage))
+
+        # Ensure site root paths are already cached, which should result in
+        # zero additional queries being incurred by this test
+        pages[1]._get_relevant_site_root_paths(site_cache_target)
+
+        with self.assertNumQueries(0):
+            for _i in range(4):
+                purge_pages_from_cache(pages, site_cache_target=site_cache_target)
+                self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
+                PURGED_URLS.clear()
 
     def test_purge_batch(self):
         with self.captureOnCommitCallbacks(execute=True):
@@ -509,13 +538,27 @@ class TestCachePurgingFunctions(TestCase):
     def test_purge_batch_with_multiple_pages(self):
         batch = PurgeBatch()
         pages = list(Page.objects.all().type(EventPage))
-        # For each page, a query is made to fetch the specific instance,
-        # and another is made to fetch site root paths
-        with self.assertNumQueries(len(pages) * 2):
+        with self.assertNumQueries(1):
             batch.add_pages(pages)
         batch.purge()
 
         self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
+
+    def test_multiple_purge_batches_with_shared_site_cache_target(self):
+        site_cache_target = object()
+        pages = list(Page.objects.all().type(EventPage))
+
+        # Ensure site root paths are already cached, which should result in
+        # zero additional queries being incurred by this test
+        pages[1]._get_relevant_site_root_paths(site_cache_target)
+
+        with self.assertNumQueries(0):
+            for _i in range(4):
+                batch = PurgeBatch(site_cache_target=site_cache_target)
+                batch.add_pages(pages)
+                batch.purge()
+                self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
+                PURGED_URLS.clear()
 
     @override_settings(
         WAGTAILFRONTENDCACHE={
