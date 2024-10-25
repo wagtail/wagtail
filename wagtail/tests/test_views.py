@@ -63,12 +63,12 @@ class TestServeView(TestCase):
         Site.find_for_request(request)
         page, args, kwargs = Page.route_for_request(request, request.path)
         with mock.patch.object(page, "serve", wraps=page.serve) as m:
-            with self.assertNumQueries(0):
+            with self.assertNumQueries(2):
                 serve(request, "/")
             m.assert_called_once_with(request, *args, **kwargs)
 
     def test_process_view_by_page_query_count(self):
-        expected_query_count = 3
+        expected_query_count = 5
         site = Site.objects.get()
         page = site.root_page.add_child(
             instance=SimplePage(title="Simple page", slug="simple", content="Simple")
@@ -91,10 +91,7 @@ class TestServeView(TestCase):
                 page.content = "Intercept me"
                 page.save_revision().publish()
                 m.reset_mock()
-                with self.assertNumQueries(expected_query_count):
-                    # verify the same number of queries are used when the
-                    # middleware activates to demonstrate Page.route_for_request()
-                    # prevents extra database queries for serving pages
+                with self.assertNumQueries(expected_query_count - 2):
                     response_b = self.client.get("/simple/")
                 self.assertEqual(response_b.content, b"Intercepted")
                 self.assertEqual(m.call_count, 1)

@@ -45,7 +45,7 @@ from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
 from django.utils import translation as translation
-from django.utils.cache import patch_cache_control
+from django.utils.cache import add_never_cache_headers, patch_cache_control
 from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
 from django.utils.module_loading import import_string
@@ -2076,11 +2076,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def serve(self, request, *args, **kwargs):
         request.is_preview = False
 
-        return TemplateResponse(
+        response = TemplateResponse(
             request,
             self.get_template(request, *args, **kwargs),
             self.get_context(request, *args, **kwargs),
         )
+
+        if self.get_view_restrictions().filter(
+            restriction_type=BaseViewRestriction.PASSWORD
+        ).exists():
+            add_never_cache_headers(response)
+        
+        return response
 
     def is_navigable(self):
         """

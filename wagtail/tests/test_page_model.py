@@ -3994,3 +3994,59 @@ class TestPageCachedParentObjExists(TestCase):
             "_cached_parent_obj_exists",
             "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
         )
+
+
+class TestPageServeWithPasswordRestriction(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.test_page = Page(
+            title="Test Page",
+            slug="test",
+        )
+        self.root_page.add_child(instance=self.test_page)
+
+        self.password_restriction = PageViewRestriction.objects.create(
+            page=self.test_page,
+            restriction_type=PageViewRestriction.PASSWORD,
+            password='password123'
+        )
+
+        self.rf = RequestFactory()
+    def test_page_without_password_restriction_has_no_cache_headers(self):
+        self.password_restriction.delete()
+        
+        request = self.rf.get('/test/')
+        response = self.test_page.serve(request)
+
+        self.assertFalse('Cache-Control' in response)
+        self.assertFalse('Expires' in response)
+
+    def test_page_with_password_restriction_has_cache_headers(self):
+        request = self.rf.get('/test/')
+        response = self.test_page.serve(request)
+
+        self.assertTrue('Cache-Control' in response)
+        self.assertIn('max-age=0', response['Cache-Control'])
+        self.assertIn('no-cache', response['Cache-Control'])
+        self.assertIn('no-store', response['Cache-Control'])
+        self.assertIn('must-revalidate', response['Cache-Control'])
+        self.assertIn('private', response['Cache-Control'])
+        self.assertTrue('Expires' in response)
+
+    def test_page_with_password_restriction_authenticated_has_cache_headers(self):
+        # Simulate successful password authentication
+        request = self.rf.get('/test/')
+        PageViewRestriction.passed_view_restrictions_session_key = 'passed_password_restriction'
+        request.session = {
+            PageViewRestriction.passed_view_restrictions_session_key: [self.password_restriction.id]
+        }
+
+        response = self.test_page.serve(request)
+
+        self.assertTrue('Cache-Control' in response)
+        self.assertIn('max-age=0', response['Cache-Control'])
+        self.assertIn('no-cache', response['Cache-Control'])
+        self.assertIn('no-store', response['Cache-Control'])
+        self.assertIn('must-revalidate', response['Cache-Control'])
+        self.assertIn('private', response['Cache-Control'])
+        self.assertTrue('Expires' in response)
