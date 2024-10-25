@@ -154,8 +154,16 @@ class BaseSiteSetting(AbstractSetting):
         """
         if site is None:
             raise cls.DoesNotExist("%s does not exist for site None." % cls)
-        queryset = cls.base_queryset()
-        instance, created = queryset.get_or_create(site=site)
+
+        attr_name = cls.get_cache_attr_name()
+
+        if hasattr(site, attr_name):
+            return getattr(site, attr_name)
+
+        instance = cls.base_queryset().get_or_create(site=site)[0]
+
+        setattr(site, attr_name, instance)
+
         return instance
 
     def __str__(self):
