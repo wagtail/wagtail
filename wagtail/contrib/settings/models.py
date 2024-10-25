@@ -183,17 +183,13 @@ class BaseGenericSetting(AbstractSetting):
         use sequential IDs (e.g. Postgres).
         """
 
-        first_obj = cls.base_queryset().first()
-        if first_obj is None:
-            return cls.objects.create()
-        return first_obj
+        return cls.base_queryset().get_or_create()[0]
 
     @classmethod
     def load(cls, request_or_site=None):
         """
         Get or create an instance of this model. There is only ever one
-        instance of models inheriting from `AbstractSetting` so we can
-        use `pk=1`.
+        instance of models inheriting from `AbstractSetting`.
 
         If `request_or_site` is present and is a request object, then we cache
         the result on the request for faster repeat access.
