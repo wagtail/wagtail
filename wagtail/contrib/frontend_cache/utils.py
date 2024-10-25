@@ -128,7 +128,7 @@ def purge_page_from_cache(
     :type backend_settings: dict, optional
     :param backends: Optional list of strings referencing specific backends from ``settings.WAGTAILFRONTENDCACHE`` or provided as ``backend_settings``. Can be used to limit purge operations to specific backends.
     :type backends: list, optional
-    :param site_cache_target: Optional, but strongly recommended for improved performance. An object to be passed to URL-related methods, to allow cached site root path data to be reused.
+    :param site_cache_target: Optional, but strongly recommended when making a series of requests to this method. An object to be passed to URL-related methods, allowing cached site root path data to be reused across multiple requests.
     :type site_cache_target: object, optional
 
     This function retrieves all cached URLs for the given page and purges them from the configured
