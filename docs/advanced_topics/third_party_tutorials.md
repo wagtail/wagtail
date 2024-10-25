@@ -10,7 +10,7 @@ the latest Wagtail versions.
 -   [A simple block pattern for Wagtail CMS](https://lincolnloop.com/insights/simple-block-pattern-wagtail-cms/) (29 August 2024)
 -   [Django and Wagtail site building comparison tutorial video](https://www.youtube.com/watch?v=qodE7XyWCVw) (9 July 2024)
 -   [An introduction to Wagtail tutorial](https://medium.com/@dogung51290/wagtail-cms-tutorial-5bd39e08ad44) (17 June 2024)
-    [Unleashing the Power of Custom Wagtail Models](https://www.linkedin.com/pulse/unleashing-power-custom-wagtail-models-kgothatso-phooko-70tcf) (9 June 2024)
+-   [Unleashing the Power of Custom Wagtail Models](https://www.linkedin.com/pulse/unleashing-power-custom-wagtail-models-kgothatso-phooko-70tcf) (9 June 2024)
 -   [Deploying Wagtail on Divio](https://docs.divio.com/en/latest/introduction/wagtail/) (~June 2024)
 -   [Upgrading Wagtail (from 2.5 to 6.0)](https://learnwagtail.com/blog/category/upgrading-wagtail/) (18 April 2024)
 -   [Using Wagtail Form Templates in Software Development Projects](https://devcodef1.com/news/1211030/wagtail-form-templates-in-sd-projects) (9 April 2024)
