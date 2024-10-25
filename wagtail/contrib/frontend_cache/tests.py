@@ -480,7 +480,7 @@ class TestCachePurgingFunctions(TestCase):
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )
 
-    def test_purge_page_from_cache_with_shared_site_cache_target(self):
+    def test_purge_page_from_cache_with_shared_cache_object(self):
         page = EventIndex.objects.get(url_path="/home/events/")
 
         # Ensure site root paths are already cached, which should result in
@@ -489,7 +489,7 @@ class TestCachePurgingFunctions(TestCase):
 
         with self.assertNumQueries(0):
             for _i in range(4):
-                purge_page_from_cache(page, site_cache_target=page)
+                purge_page_from_cache(page, cache_object=page)
                 self.assertEqual(
                     PURGED_URLS,
                     {"http://localhost/events/", "http://localhost/events/past/"},
@@ -503,7 +503,7 @@ class TestCachePurgingFunctions(TestCase):
                 purge_pages_from_cache(pages)
         self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
-    def test_purge_pages_from_cache_with_shared_site_cache_target(self):
+    def test_purge_pages_from_cache_with_shared_cache_object(self):
         pages = list(Page.objects.all().type(EventPage))
 
         # Ensure site root paths are already cached, which should result in
@@ -512,7 +512,7 @@ class TestCachePurgingFunctions(TestCase):
 
         with self.assertNumQueries(0):
             for _i in range(4):
-                purge_pages_from_cache(pages, site_cache_target=pages[0])
+                purge_pages_from_cache(pages, cache_object=pages[0])
                 self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
                 PURGED_URLS.clear()
 
@@ -542,7 +542,7 @@ class TestCachePurgingFunctions(TestCase):
 
         self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
-    def test_multiple_purge_batches_with_shared_site_cache_target(self):
+    def test_multiple_purge_batches_with_shared_cache_object(self):
         pages = list(Page.objects.all().type(EventPage))
 
         # Ensure site root paths are already cached, which should result in
@@ -551,7 +551,7 @@ class TestCachePurgingFunctions(TestCase):
 
         with self.assertNumQueries(0):
             for _i in range(4):
-                batch = PurgeBatch(site_cache_target=pages[0])
+                batch = PurgeBatch(cache_object=pages[0])
                 batch.add_pages(pages)
                 batch.purge()
                 self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)

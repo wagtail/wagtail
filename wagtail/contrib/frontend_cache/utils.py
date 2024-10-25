@@ -105,8 +105,8 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
     purge_urls_from_cache_task.enqueue(list(urls), backend_settings, backends)
 
 
-def _get_page_cached_urls(page, site_cache_target=None):
-    page_url = page.get_full_url(site_cache_target)
+def _get_page_cached_urls(page, cache_object=None):
+    page_url = page.get_full_url(cache_object)
     if page_url is None:  # nothing to be done if the page has no routable URL
         return []
 
@@ -117,7 +117,7 @@ def _get_page_cached_urls(page, site_cache_target=None):
 
 
 def purge_page_from_cache(
-    page, backend_settings=None, backends=None, *, site_cache_target=None
+    page, backend_settings=None, backends=None, *, cache_object=None
 ):
     """
     Purge a single page from the frontend cache.
@@ -128,8 +128,8 @@ def purge_page_from_cache(
     :type backend_settings: dict, optional
     :param backends: Optional list of strings referencing specific backends from ``settings.WAGTAILFRONTENDCACHE`` or provided as ``backend_settings``. Can be used to limit purge operations to specific backends.
     :type backends: list, optional
-    :param site_cache_target: Optional, but strongly recommended when making a series of requests to this method. An object to be passed to URL-related methods, allowing cached site root path data to be reused across multiple requests.
-    :type site_cache_target: object, optional
+    :param cache_object: Optional, but strongly recommended when making a series of requests to this method. An object to be passed to URL-related methods, allowing cached site root path data to be reused across multiple requests.
+    :type cache_object: object, optional
 
     This function retrieves all cached URLs for the given page and purges them from the configured
     backends. It's useful when you need to invalidate the cache for a specific page,
@@ -138,15 +138,15 @@ def purge_page_from_cache(
     If no custom backends or settings are provided, it will use the default configuration
     from ``settings.WAGTAILFRONTENDCACHE``.
 
-    The `site_cache_target` parameter can be any kind of object that supports arbitrary attribute
+    The `cache_object` parameter can be any kind of object that supports arbitrary attribute
     assignment, such as a Python object or Django Model instance.
     """
-    urls = _get_page_cached_urls(page, site_cache_target)
+    urls = _get_page_cached_urls(page, cache_object)
     purge_urls_from_cache(urls, backend_settings, backends)
 
 
 def purge_pages_from_cache(
-    pages, backend_settings=None, backends=None, *, site_cache_target=None
+    pages, backend_settings=None, backends=None, *, cache_object=None
 ):
     """
     Purge multiple pages from the frontend cache.
@@ -157,8 +157,8 @@ def purge_pages_from_cache(
     :type backend_settings: dict, optional
     :param backends: Optional list of strings matching keys from ``settings.WAGTAILFRONTENDCACHE`` or provided as ``backend_settings``. Can be used to limit purge operations to specific backends.
     :type backends: list, optional
-    :param site_cache_target: Optional object to be passed to URL-related methods, to allow cached site root path data to be reused across multiple requests to this method. If not provided, the ``PurgeBatch`` object created by this method will be used instead.
-    :type site_cache_target: object, optional
+    :param cache_object: Optional object to be passed to URL-related methods, to allow cached site root path data to be reused across multiple requests to this method. If not provided, the ``PurgeBatch`` object created by this method will be used instead.
+    :type cache_object: object, optional
 
     This function retrieves all cached URLs for the given pages and purges them from the configured
     backends. It's useful when you need to invalidate the cache for multiple pages at once,
@@ -167,10 +167,10 @@ def purge_pages_from_cache(
     If no custom backends or settings are provided, it will use the default configuration
     from ``settings.WAGTAILFRONTENDCACHE``.
 
-    The `site_cache_target` parameter can be any kind of object that supports arbitrary attribute
+    The `cache_object` parameter can be any kind of object that supports arbitrary attribute
     assignment, such as a Python object or Django Model instance.
     """
-    batch = PurgeBatch(site_cache_target=site_cache_target)
+    batch = PurgeBatch(cache_object=cache_object)
     batch.add_pages(pages)
     batch.purge(backend_settings, backends)
 
@@ -178,13 +178,13 @@ def purge_pages_from_cache(
 class PurgeBatch:
     """Represents a list of URLs to be purged in a single request"""
 
-    def __init__(self, urls=None, *, site_cache_target=None):
+    def __init__(self, urls=None, *, cache_object=None):
         self.urls = set()
 
         if urls is not None:
             self.add_urls(urls)
 
-        self.site_cache_target = site_cache_target
+        self.cache_object = cache_object
 
     def add_url(self, url):
         """Adds a single URL"""
@@ -206,7 +206,7 @@ class PurgeBatch:
         This combines the page's full URL with each path that is returned by
         the page's `.get_cached_paths` method
         """
-        self.add_urls(_get_page_cached_urls(page, self.site_cache_target or self))
+        self.add_urls(_get_page_cached_urls(page, self.cache_object or self))
 
     def add_pages(self, pages):
         """
