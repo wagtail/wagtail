@@ -1,13 +1,13 @@
 (api_v2_usage)=
 
-# Wagtail API v2 Usage Guide
+# Wagtail API v2 usage guide
 
 The Wagtail API module exposes a public, read-only, JSON-formatted API which
 can be used by external clients (such as a mobile app) or the site's frontend.
 
 This document is intended for developers using the API exposed by Wagtail. For
 documentation on how to enable the API module in your Wagtail site, see
-[Wagtail API v2 Configuration Guide](/advanced_topics/api/v2/configuration)
+[Wagtail API v2 configuration guide](/advanced_topics/api/v2/configuration)
 
 Contents
 

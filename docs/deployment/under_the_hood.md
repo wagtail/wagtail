@@ -1,4 +1,4 @@
-# Wagtail Deployment: Under the Hood
+# Deployment: Under the hood
 
 This doc provides a technical deep-dive into Wagtail hosting concepts. Most likely, you'll want to [choose a hosting provider](index.md) instead.
 
