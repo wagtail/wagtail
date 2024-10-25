@@ -5,6 +5,9 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
+ * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
+ * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
+ * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
 
 
 6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
