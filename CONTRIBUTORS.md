@@ -743,7 +743,6 @@
 * Sandro Rodrigues
 * Brian Mugo
 * Panagiotis H.M. Issaris
-* Damilola Oladele
 * Olumide Micheal
 * Chiemezuo Akujobi
 * Krish Soni
