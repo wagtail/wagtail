@@ -496,7 +496,7 @@ In this example, the variable `is_happening_today` will be made available within
 
 All block types, not just `StructBlock`, support the `template` property. However, for blocks that handle basic Python data types, such as `CharBlock` and `IntegerBlock`, there are some limitations on where the template will take effect. For further details, see [](boundblocks_and_values).
 
-## Customisations
+## Customizations
 
 All block types implement a common API for rendering their front-end and form representations, and storing and retrieving values to and from the database. By subclassing the various block classes and overriding these methods, all kinds of customizations are possible, from modifying the layout of StructBlock form fields to implementing completely new ways of combining blocks. For further details, see [](custom_streamfield_blocks).
 
