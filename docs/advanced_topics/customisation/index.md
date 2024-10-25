@@ -1,4 +1,4 @@
-# Customising Wagtail
+# Customizing Wagtail
 
 ```{toctree}
 ---
