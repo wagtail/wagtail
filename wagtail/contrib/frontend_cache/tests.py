@@ -481,16 +481,15 @@ class TestCachePurgingFunctions(TestCase):
         )
 
     def test_purge_page_from_cache_with_shared_site_cache_target(self):
-        site_cache_target = object()
         page = EventIndex.objects.get(url_path="/home/events/")
 
         # Ensure site root paths are already cached, which should result in
         # zero additional queries being incurred by this test
-        page._get_relevant_site_root_paths(site_cache_target)
+        page._get_relevant_site_root_paths()
 
         with self.assertNumQueries(0):
             for _i in range(4):
-                purge_page_from_cache(page, site_cache_target=site_cache_target)
+                purge_page_from_cache(page, site_cache_target=page)
                 self.assertEqual(
                     PURGED_URLS,
                     {"http://localhost/events/", "http://localhost/events/past/"},
@@ -505,16 +504,15 @@ class TestCachePurgingFunctions(TestCase):
         self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
     def test_purge_pages_from_cache_with_shared_site_cache_target(self):
-        site_cache_target = object()
         pages = list(Page.objects.all().type(EventPage))
 
         # Ensure site root paths are already cached, which should result in
         # zero additional queries being incurred by this test
-        pages[1]._get_relevant_site_root_paths(site_cache_target)
+        pages[0]._get_relevant_site_root_paths()
 
         with self.assertNumQueries(0):
             for _i in range(4):
-                purge_pages_from_cache(pages, site_cache_target=site_cache_target)
+                purge_pages_from_cache(pages, site_cache_target=pages[0])
                 self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
                 PURGED_URLS.clear()
 
@@ -545,16 +543,15 @@ class TestCachePurgingFunctions(TestCase):
         self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
     def test_multiple_purge_batches_with_shared_site_cache_target(self):
-        site_cache_target = object()
         pages = list(Page.objects.all().type(EventPage))
 
         # Ensure site root paths are already cached, which should result in
         # zero additional queries being incurred by this test
-        pages[1]._get_relevant_site_root_paths(site_cache_target)
+        pages[0]._get_relevant_site_root_paths()
 
         with self.assertNumQueries(0):
             for _i in range(4):
-                batch = PurgeBatch(site_cache_target=site_cache_target)
+                batch = PurgeBatch(site_cache_target=pages[0])
                 batch.add_pages(pages)
                 batch.purge()
                 self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
