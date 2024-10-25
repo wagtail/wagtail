@@ -85,7 +85,10 @@ describe('BlockController', () => {
       `<div
         id="my-element"
         data-controller="w-block"
-        data-w-block-arguments-value='${JSON.stringify([initialData, errorData])}'
+        data-w-block-arguments-value='${JSON.stringify([
+          initialData,
+          errorData,
+        ])}'
         data-w-block-data-value='${JSON.stringify(data)}'
         >
       </div>`,

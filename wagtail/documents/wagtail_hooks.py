@@ -201,7 +201,9 @@ def check_view_restrictions(document, request):
                     )
 
                 context = {"form": form, "action_url": action_url}
-                response = TemplateResponse(request, password_required_template, context)
+                response = TemplateResponse(
+                    request, password_required_template, context
+                )
                 add_never_cache_headers(response)
                 return response
 

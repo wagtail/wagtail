@@ -46,7 +46,9 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
                     args=[restriction.id, page.id],
                 )
 
-                response = page.serve_password_required_response(request, form, action_url)
+                response = page.serve_password_required_response(
+                    request, form, action_url
+                )
                 add_never_cache_headers(response)
                 return response
 

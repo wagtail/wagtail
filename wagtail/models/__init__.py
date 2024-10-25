@@ -2082,11 +2082,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             self.get_context(request, *args, **kwargs),
         )
 
-        if self.get_view_restrictions().filter(
-            restriction_type=BaseViewRestriction.PASSWORD
-        ).exists():
+        if (
+            self.get_view_restrictions()
+            .filter(restriction_type=BaseViewRestriction.PASSWORD)
+            .exists()
+        ):
             add_never_cache_headers(response)
-        
+
         return response
 
     def is_navigable(self):
