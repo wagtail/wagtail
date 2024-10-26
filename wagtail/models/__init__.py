@@ -15,6 +15,7 @@ import functools
 import logging
 import posixpath
 import uuid
+from http import HTTPMethod
 from io import StringIO
 from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
@@ -40,7 +41,7 @@ from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseNotAllowed
 from django.http.request import validate_host
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
@@ -48,7 +49,7 @@ from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_bytes, force_str
-from django.utils.functional import Promise, cached_property
+from django.utils.functional import Promise, cached_property, classproperty
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
@@ -1413,6 +1414,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
 
+    # Allows page types to specify a list of HTTP method names that page instances will
+    # respond to. When the request type doesn't match, Wagtail should return a response
+    # with a status code of 405.
+    allowed_http_methods = [
+        HTTPMethod.DELETE,
+        HTTPMethod.GET,
+        HTTPMethod.HEAD,
+        HTTPMethod.OPTIONS,
+        HTTPMethod.PATCH,
+        HTTPMethod.POST,
+        HTTPMethod.PUT,
+    ]
+
     @staticmethod
     def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
@@ -2109,11 +2123,30 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def serve(self, request, *args, **kwargs):
         request.is_preview = False
 
+        self.check_http_method(request, *args, **kwargs)
+        if request.method == HTTPMethod.OPTIONS:
+            return self.handle_options_request(request, *args, **kwargs)
+
         return TemplateResponse(
             request,
             self.get_template(request, *args, **kwargs),
             self.get_context(request, *args, **kwargs),
         )
+
+    def check_http_method(self, request, *args, **kwargs):
+        if request.method not in self.allowed_http_methods:
+            logger.warning(
+                "Method Not Allowed (%s): %s",
+                request.method,
+                request.path,
+                extra={"status_code": 405, "request": request},
+            )
+            return HttpResponseNotAllowed(sorted(self.allowed_http_methods_upper))
+
+    def handle_options_request(self, request, *args, **kwargs):
+        response = HttpResponse()
+        response.headers["Allow"] = ", ".join(self.allowed_http_methods)
+        return response
 
     def is_navigable(self):
         """
