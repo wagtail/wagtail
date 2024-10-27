@@ -848,6 +848,7 @@
 * Sumana Sree Angajala
 * Srishti Jaiswal
 * Alessandro Chitarrini
+* Joel William
 
 ## Translators
 
