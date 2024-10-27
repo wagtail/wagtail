@@ -62,7 +62,7 @@ Minor features
 * Added ``.alt`` attribute to image renditions
 * The default ``src``, ``width``, ``height`` and ``alt`` attributes can now be overridden by attributes passed to the ``{% image %}`` tag
 * Added keyboard shortcuts for preview and save in the page editor
-* Added ``Page`` methods ``can_exist_under``, ``can_create_at``, ``can_move_to`` for customising page type business rules
+* Added ``Page`` methods ``can_exist_under``, ``can_create_at``, ``can_move_to`` for customizing page type business rules
 * ``wagtailadmin.utils.send_mail`` now passes extra keyword arguments to Django's ``send_mail`` function (Matthew Downey)
 * ``page_unpublish`` signal is now fired for each page that was unpublished by a call to ``PageQuerySet.unpublish()``
 * Add ``get_upload_to`` method to ``AbstractImage``, to allow overriding the default image upload path (Ben Emery)

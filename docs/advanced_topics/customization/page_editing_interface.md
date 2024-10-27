@@ -1,6 +1,6 @@
 # Customizing the editing interface
 
-(customising_the_tabbed_interface)=
+(customizing_the_tabbed_interface)=
 
 ## Customizing the tabbed interface
 

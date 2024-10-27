@@ -142,7 +142,7 @@ These are used for structuring fields in the interface.
 
 #### Customizing the page editor interface
 
-The page editor can be customized further. See [Customizing the editing interface](/advanced_topics/customisation/page_editing_interface).
+The page editor can be customized further. See [Customizing the editing interface](/advanced_topics/customization/page_editing_interface).
 
 (page_type_business_rules)=
 

@@ -80,7 +80,7 @@ a valid, crawlable hostname. If you change the site's hostname from
 If you change the site's port to `443`, the `https` scheme will be used.
 Find out more about [working with Sites](site_model_ref).
 
-## Customising
+## Customizing
 
 ### URLs
 
