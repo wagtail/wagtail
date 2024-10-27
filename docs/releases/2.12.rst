@@ -26,13 +26,13 @@ StreamField values now formally support being updated in-place from Python code,
 Admin colour themes
 ~~~~~~~~~~~~~~~~~~~
 
-Wagtail’s admin now uses CSS custom properties for its primary teal colour. Applying brand colours for the whole user interface only takes a few lines of CSS, and third-party extensions can reuse Wagtail’s CSS variables to support the same degree of customisation. Read on :ref:`custom_user_interface_colours`. This feature was developed by Joshua Marantz.
+Wagtail’s admin now uses CSS custom properties for its primary teal colour. Applying brand colours for the whole user interface only takes a few lines of CSS, and third-party extensions can reuse Wagtail’s CSS variables to support the same degree of customization. Read on :ref:`custom_user_interface_colours`. This feature was developed by Joshua Marantz.
 
 Other features
 ~~~~~~~~~~~~~~
 
 * Added support for Python 3.9
-* Added ``WAGTAILIMAGES_IMAGE_FORM_BASE`` and ``WAGTAILDOCS_DOCUMENT_FORM_BASE`` settings to customise the forms for images and documents (Dan Braghis)
+* Added ``WAGTAILIMAGES_IMAGE_FORM_BASE`` and ``WAGTAILDOCS_DOCUMENT_FORM_BASE`` settings to customize the forms for images and documents (Dan Braghis)
 * Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
 * Added string representation to image Format class (Andreas Nüßlein)
 * Support returning None from ``register_page_action_menu_item`` and ``register_snippet_action_menu_item`` to skip registering an item (Vadim Karpenko)

@@ -13,7 +13,7 @@ add_to_django_project
 performance
 i18n
 privacy
-customisation/index
+customization/index
 third_party_tutorials
 testing
 api/index

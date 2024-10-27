@@ -84,7 +84,7 @@ class SiteSpecificImportantPages(BaseSiteSetting):
     ]
 ```
 
-You can also customize the edit handlers [like you would do for `Page` model](customising_the_tabbed_interface) with a custom `edit_handler` attribute:
+You can also customize the edit handlers [like you would do for `Page` model](customizing_the_tabbed_interface) with a custom `edit_handler` attribute:
 
 ```python
 from wagtail.admin.panels import TabbedInterface, ObjectList

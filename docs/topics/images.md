@@ -579,4 +579,4 @@ WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "heic"]
 
 Note that to upload HEIC / HEIF images, the file extension must be `.heic` and not `.heif` or other extensions.
 
-These images will be automatically converted to JPEG format when rendered (see [](customising_output_formats)).
+These images will be automatically converted to JPEG format when rendered (see [](customizing_output_formats)).
