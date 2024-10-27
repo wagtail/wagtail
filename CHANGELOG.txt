@@ -88,6 +88,7 @@ Changelog
  * Maintenance: Remove `image_format_name_to_content_type` helper function that duplicates Willow functionality (Matt Westcott)
  * Maintenance: Improve code reuse for footer actions markup across generic views (Sage Abdullah)
  * Maintenance: Deprecate internal `DeleteMenuItem` API for footer actions (Sage Abdullah)
+ * Maintenance: Update Pillow dependency to allow 11.x (Storm Heg)
 
 
 6.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
