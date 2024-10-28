@@ -173,17 +173,34 @@ class SelectDateForm(django.forms.Form):
 
 class WagtailAdminFormPageForm(WagtailAdminPageForm):
     def clean(self):
-        cleaned_data = super().clean()
-        related_name = "form_fields"
+        """
+        Dynamically detect all related AbstractFormField subclasses to ensure
+        validation is applied regardless of the related_name or if there are multiple
+        AbstractFormField subclasses related to this page.
+        """
 
-        # Check for duplicate form fields by comparing their internal clean_names
-        if "form_fields" in self.formsets:
+        from .models import AbstractFormField
+
+        cleaned_data = super().clean()
+
+        form_fields_related_names = [
+            related_object.related_name
+            for related_object in self.instance._meta.related_objects
+            if issubclass(related_object.related_model, AbstractFormField)
+        ]
+
+        for related_name in form_fields_related_names:
+            if related_name not in self.formsets:
+                continue
+
             forms = self.formsets[related_name].forms
             for form in forms:
                 form.is_valid()
 
-            # Use existing clean_name or generate for new fields.
-            # clean_name is set in FormField.save
+            # Use existing clean_name or generate for new fields,
+            # raise an error if there are duplicate resolved clean names.
+            # Note: `clean_name` is set in `FormField.save`.
+
             clean_names = [
                 f.instance.clean_name or f.instance.get_field_clean_name()
                 for f in forms
