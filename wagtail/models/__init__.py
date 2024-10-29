@@ -2141,7 +2141,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 request.path,
                 extra={"status_code": 405, "request": request},
             )
-            return HttpResponseNotAllowed(sorted(self.allowed_http_methods_upper))
+            return HttpResponseNotAllowed(self.allowed_http_methods)
 
     def handle_options_request(self, request, *args, **kwargs):
         response = HttpResponse()
