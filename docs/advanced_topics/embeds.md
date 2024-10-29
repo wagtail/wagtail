@@ -3,7 +3,7 @@
 # Embedded content
 
 Wagtail supports generating embed code from URLs to content on external
-providers such as YouTube or Twitter. By default, Wagtail will fetch the embed
+providers such as YouTube or X. By default, Wagtail will fetch the embed
 code directly from the relevant provider's site using the oEmbed protocol.
 
 Wagtail has a built-in list of the most common providers and this list can be
