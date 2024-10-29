@@ -2714,7 +2714,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # These should definitely never change between revisions
         obj.id = self.id
         obj.pk = self.pk
-        obj.content_type = self.content_type
+        obj.content_type_id = self.content_type_id
 
         # Override possibly-outdated tree parameter fields
         obj.path = self.path
@@ -2730,15 +2730,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.draft_title = self.draft_title
         obj.live = self.live
         obj.has_unpublished_changes = self.has_unpublished_changes
-        obj.owner = self.owner
+        obj.owner_id = self.owner_id
         obj.locked = self.locked
-        obj.locked_by = self.locked_by
+        obj.locked_by_id = self.locked_by_id
         obj.locked_at = self.locked_at
-        obj.latest_revision = self.latest_revision
+        obj.latest_revision_id = self.latest_revision_id
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
         obj.translation_key = self.translation_key
-        obj.locale = self.locale
+        obj.locale_id = self.locale_id
         obj.alias_of_id = self.alias_of_id
         revision_comment_positions = dict(
             getattr(obj, COMMENTS_RELATION_NAME).values_list("id", "position")
