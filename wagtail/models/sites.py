@@ -1,6 +1,5 @@
 from collections import namedtuple
 
-from django.apps import apps
 from django.conf import settings
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
@@ -15,10 +14,16 @@ MATCH_HOSTNAME_DEFAULT = 1
 MATCH_DEFAULT = 2
 MATCH_HOSTNAME = 3
 
+_GET_SITE_FOR_HOSTNAME_CACHE_KEY = "wagtail_site_for_hostname"
+
 
 def get_site_for_hostname(hostname, port):
     """Return the wagtailcore.Site object for the given hostname and port."""
-    Site = apps.get_model("wagtailcore.Site")
+    site_cache_key = (hostname, port)
+
+    site = cache.get(_GET_SITE_FOR_HOSTNAME_CACHE_KEY, {}).get(site_cache_key)
+    if site is not None:
+        return site
 
     sites = list(
         Site.objects.annotate(
@@ -41,7 +46,7 @@ def get_site_for_hostname(hostname, port):
         )
         .filter(Q(hostname=hostname) | Q(is_default_site=True))
         .order_by("match")
-        .select_related("root_page")
+        .select_related("root_page")[:3]
     )
 
     if sites:
@@ -50,15 +55,28 @@ def get_site_for_hostname(hostname, port):
             MATCH_HOSTNAME_PORT,
             MATCH_HOSTNAME_DEFAULT,
         ):
-            return sites[0]
+            site = sites[0]
 
         # if there is a default match with a different hostname, see if
         # there are many hostname matches. if only 1 then use that instead
         # otherwise we use the default
-        if sites[0].match == MATCH_DEFAULT:
-            return sites[len(sites) == 2]
+        elif sites[0].match == MATCH_DEFAULT:
+            if len(sites) == 2:
+                site = sites[1]
+            else:
+                site = sites[0]
 
-    raise Site.DoesNotExist()
+    # Don't cache unknown sites
+    if site is None:
+        raise Site.DoesNotExist()
+
+    # Cache the found site for future requests.
+    # Re-fetch the cache to reduce risk of race conditions.
+    sites_cache = cache.get(_GET_SITE_FOR_HOSTNAME_CACHE_KEY, {})
+    sites_cache[site_cache_key] = site
+    cache.set(_GET_SITE_FOR_HOSTNAME_CACHE_KEY, sites_cache, 3600)
+
+    return site
 
 
 class SiteManager(models.Manager):
@@ -154,21 +172,15 @@ class Site(models.Model):
             return None
 
         if not hasattr(request, "_wagtail_site"):
-            site = Site._find_for_request(request)
+            hostname = split_domain_port(request.get_host())[0]
+            port = request.get_port()
+            try:
+                site = get_site_for_hostname(hostname, port)
+            except Site.DoesNotExist:
+                # copy old SiteMiddleware behaviour
+                site = None
             setattr(request, "_wagtail_site", site)
         return request._wagtail_site
-
-    @staticmethod
-    def _find_for_request(request):
-        hostname = split_domain_port(request.get_host())[0]
-        port = request.get_port()
-        site = None
-        try:
-            site = get_site_for_hostname(hostname, port)
-        except Site.DoesNotExist:
-            pass
-            # copy old SiteMiddleware behaviour
-        return site
 
     @property
     def root_url(self):
@@ -267,3 +279,7 @@ class Site(models.Model):
     @staticmethod
     def clear_site_root_paths_cache():
         cache.delete(SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION)
+
+    @staticmethod
+    def clear_site_for_hostname_cache():
+        cache.delete(_GET_SITE_FOR_HOSTNAME_CACHE_KEY)
