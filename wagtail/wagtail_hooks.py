@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
 from django.db import models
-from django.http import HttpRequest, HttpResponse
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
@@ -552,14 +551,3 @@ def register_workflow_log_actions(actions):
                 }
             except (KeyError, TypeError):
                 return _("Workflow cancelled")
-
-
-@hooks.register("before_serve_page", order=0)
-def serve_options_response(page: Page, request: HttpRequest, *args, **kwargs):
-    """Handle responding to requests for the OPTIONS HTTP verb."""
-    if request.method == "OPTIONS" and "options" in page.allowed_http_methods_lower:
-        response = HttpResponse()
-        response.headers["Allow"] = ", ".join(sorted(page.allowed_http_methods_upper))
-        response.headers["Content-Length"] = "0"
-        return response
-    return None
