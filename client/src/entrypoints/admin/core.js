@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import * as StimulusModule from '@hotwired/stimulus';
 
 import { Icon, Portal } from '../..';
@@ -58,14 +57,3 @@ window.MultipleChooserPanel = MultipleChooserPanel;
  */
 window.URLify = (str, numChars = 255, allowUnicode = false) =>
   urlify(str, { numChars, allowUnicode });
-
-$(() => {
-  /* Dropzones */
-  $('.drop-zone')
-    .on('dragover', function onDragOver() {
-      $(this).addClass('hovered');
-    })
-    .on('dragleave dragend drop', function onDragLeave() {
-      $(this).removeClass('hovered');
-    });
-});

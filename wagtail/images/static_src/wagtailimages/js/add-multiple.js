@@ -4,6 +4,14 @@ $(function () {
     e.preventDefault();
   });
 
+  $('.drop-zone')
+    .on('dragover', function onDragOver() {
+      $(this).addClass('hovered');
+    })
+    .on('dragleave dragend drop', function onDragLeave() {
+      $(this).removeClass('hovered');
+    });
+
   $('#fileupload').fileupload({
     dataType: 'html',
     sequentialUploads: true,
