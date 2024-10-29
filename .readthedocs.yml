@@ -11,3 +11,14 @@ python:
         - docs
 sphinx:
   fail_on_warning: True
+
+formats:
+  - html
+  - pdf
+  - epub
+
+
+commands:
+  - make html
+  - make latexpdf
+  - make epub
