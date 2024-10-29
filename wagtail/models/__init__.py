@@ -1464,6 +1464,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if result is not None:
             return result[0]
 
+    @classmethod
+    def allowed_http_method_names(cls):
+        return [str(method) for method in cls.allowed_http_methods]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not self.id:
@@ -2130,14 +2134,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
 
     def check_request_method(self, request, *args, **kwargs):
-        if request.method not in self.allowed_http_methods:
+        allowed_methods = self.allowed_http_method_names()
+        if request.method not in allowed_methods:
             logger.warning(
                 "Method Not Allowed (%s): %s",
                 request.method,
                 request.path,
                 extra={"status_code": 405, "request": request},
             )
-            return HttpResponseNotAllowed(self.allowed_http_methods)
+            return HttpResponseNotAllowed(allowed_methods)
 
     def handle_options_request(self, request, *args, **kwargs):
         response = HttpResponse()
