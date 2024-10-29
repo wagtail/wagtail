@@ -18,15 +18,15 @@ class AllowedHttpMethodsTestCase(TestCase):
         response = self.client.options(self.page.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response["Allow"], "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT"
+            response.headers["Allow"], "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT"
         )
 
     def test_options_request_for_restricted_page(self):
         response = self.client.options(self.event_index_page.url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Allow"], "GET, OPTIONS")
+        self.assertEqual(response.headers["Allow"], "GET, OPTIONS")
 
     def test_invalid_request_method_for_restricted_page(self):
         response = self.client.post(self.event_index_page.url)
         self.assertEqual(response.status_code, 405)
-        self.assertEqual(response["Allow"], "GET, OPTIONS")
+        self.assertEqual(response.headers["Allow"], "GET, OPTIONS")
