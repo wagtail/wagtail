@@ -9,5 +9,9 @@ python:
       path: .
       extra_requirements:
         - docs
+formats:
+  - epub
+  - pdf
+  - htmlzip
 sphinx:
   fail_on_warning: True
