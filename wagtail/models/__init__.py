@@ -49,7 +49,7 @@ from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_bytes, force_str
-from django.utils.functional import Promise, cached_property, classproperty
+from django.utils.functional import Promise, cached_property
 from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _

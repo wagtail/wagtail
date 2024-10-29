@@ -1,6 +1,6 @@
 import logging
-from http import HTTPMethod
 from functools import partial
+from http import HTTPMethod
 
 from django.core.checks import Warning
 from django.http import Http404
