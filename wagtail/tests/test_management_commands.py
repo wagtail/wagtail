@@ -5,6 +5,7 @@ from unittest import mock
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import management
+from django.core.cache import cache
 from django.db import models
 from django.test import TestCase, override_settings
 from django.utils import timezone
@@ -177,10 +178,19 @@ class TestSetUrlPathsCommand(TestCase):
         self.run_command()
 
 
+@override_settings(
+    CACHES={
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        },
+    }
+)
 class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
+        cache.clear()
+
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
@@ -215,8 +225,8 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exclude(approved_go_live_at__isnull=True)
                 .exists()
             )
-
-            management.call_command("publish_scheduled_pages")
+            with self.assertNumQueries(44):
+                management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
@@ -272,7 +282,8 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            management.call_command("publish_scheduled_pages")
+            with self.assertNumQueries(44):
+                management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
@@ -307,7 +318,8 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         page.title = "Goodbye world!"
         page.save_revision()
 
-        management.call_command("publish_scheduled_pages")
+        with self.assertNumQueries(44):
+            management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
@@ -334,7 +346,8 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        management.call_command("publish_scheduled_pages")
+        with self.assertNumQueries(42):
+            management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
@@ -369,7 +382,8 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
 
-            management.call_command("publish_scheduled_pages")
+            with self.assertNumQueries(26):
+                management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
             self.assertFalse(p.live)
@@ -396,17 +410,26 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
 
-        management.call_command("publish_scheduled_pages")
+        with self.assertNumQueries(6):
+            management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
         self.assertFalse(p.expired)
 
 
+@override_settings(
+    CACHES={
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        },
+    }
+)
 class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
+        cache.clear()
         self.snippet = DraftStateModel.objects.create(text="Hello world!", live=False)
 
     def test_go_live_will_be_published(self):
@@ -435,7 +458,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            management.call_command("publish_scheduled")
+            with self.assertNumQueries(15):
+                management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
@@ -482,7 +506,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            management.call_command("publish_scheduled")
+            with self.assertNumQueries(15):
+                management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
@@ -510,7 +535,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         self.snippet.text = "Goodbye world!"
         self.snippet.save_revision()
 
-        management.call_command("publish_scheduled")
+        with self.assertNumQueries(15):
+            management.call_command("publish_scheduled")
 
         self.snippet.refresh_from_db()
         self.assertTrue(self.snippet.live)
@@ -533,7 +559,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        management.call_command("publish_scheduled")
+        with self.assertNumQueries(14):
+            management.call_command("publish_scheduled")
 
         self.assertFalse(self.snippet.live)
         self.assertTrue(
@@ -560,7 +587,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
 
-            management.call_command("publish_scheduled")
+            with self.assertNumQueries(10):
+                management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
             self.assertFalse(self.snippet.live)
@@ -580,7 +608,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         self.snippet.refresh_from_db()
         self.assertTrue(self.snippet.live)
 
-        management.call_command("publish_scheduled")
+        with self.assertNumQueries(6):
+            management.call_command("publish_scheduled")
 
         self.snippet.refresh_from_db()
         self.assertTrue(self.snippet.live)
