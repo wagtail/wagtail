@@ -2137,6 +2137,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
 
     def check_request_method(self, request, *args, **kwargs):
+        """
+        Checks the ``method`` attribute of the request against those supported
+        by the page (as defined by :attr:`allowed_http_methods`) and responds
+        accordingly.
+
+        If supported, ``None`` is returned, and the request is processed
+        normally. If not, a warning is logged and an ``HttpResponseNotAllowed``
+        is returned, and any further request handling is terminated.
+        """
         allowed_methods = self.allowed_http_method_names()
         if request.method not in allowed_methods:
             logger.warning(
@@ -2148,9 +2157,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return HttpResponseNotAllowed(allowed_methods)
 
     def handle_options_request(self, request, *args, **kwargs):
-        response = HttpResponse()
-        response["Allow"] = ", ".join(self.allowed_http_method_names())
-        return response
+        """
+        Returns an ``HttpResponse`` with an ``"Allow"`` header containing the list of
+        supported HTTP methods for this page. This method is used instead of
+        :meth:`serve` to handle requests when the OPTIONS HTTP verb is detected (and
+        ``http.HTTPMethod.OPTIONS`` is present in :attr:`allowed_http_methods`
+        for this type of page).
+        """
+        return HttpResponse(
+            headers={"Allow": ", ".join(self.allowed_http_method_names())}
+        )
 
     def is_navigable(self):
         """

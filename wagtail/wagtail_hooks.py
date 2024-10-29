@@ -560,11 +560,15 @@ def register_workflow_log_actions(actions):
 
 
 @hooks.register("before_serve_page", order=0)
-def handle_options_request(page: Page, request: "HttpRequest", *args, **kwargs):
-    """Handle responding to requests for the OPTIONS HTTP verb."""
+def check_request_method(page: Page, request: "HttpRequest", *args, **kwargs):
+    """
+    Before serving, check the request method is permitted by the page,
+    and use the page object's :meth:``wagtail.models.Page.handle_options_request``
+    method to generate a response if the OPTIONS HTTP verb is used.
+    """
     check_response = page.check_request_method(request, *args, **kwargs)
     if check_response is not None:
         return check_response
-    if request.method == HTTPMethod.OPTIONS:
+    if request.method == HTTPMethod.OPTIONS.value:
         return page.handle_options_request(request, *args, **kwargs)
     return None
