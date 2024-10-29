@@ -11,3 +11,14 @@ python:
         - docs
 sphinx:
   fail_on_warning: True
+# Add these sections to specify the build formats
+formats:
+  - html
+  - pdf
+  - epub
+
+# Custom commands for building PDF and EPUB
+commands:
+  - make html
+  - make pdf
+  - make epub
