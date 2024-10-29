@@ -18,7 +18,3 @@ formats:
   - epub
 
 
-commands:
-  - make html
-  - make latexpdf
-  - make epub
