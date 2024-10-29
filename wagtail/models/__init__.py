@@ -2148,9 +2148,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return HttpResponseNotAllowed(allowed_methods)
 
     def handle_options_request(self, request, *args, **kwargs):
-        return HttpResponse(
-            headers={"Allow": ", ".join(self.allowed_http_method_names())}
-        )
+        response = HttpResponse()
+        response["Allow"] = ", ".join(self.allowed_http_method_names())
+        return response
 
     def is_navigable(self):
         """
