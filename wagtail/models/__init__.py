@@ -462,9 +462,9 @@ class RevisionMixin(models.Model):
             if not previous_revision:
                 log(
                     instance=self,
-                    action=(
-                        log_action if isinstance(log_action, str) else "wagtail.edit"
-                    ),
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.edit",
                     user=user,
                     revision=revision,
                     content_changed=changed,
@@ -472,9 +472,9 @@ class RevisionMixin(models.Model):
             else:
                 log(
                     instance=self,
-                    action=(
-                        log_action if isinstance(log_action, str) else "wagtail.revert"
-                    ),
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.revert",
                     user=user,
                     data={
                         "revision": {
@@ -1904,9 +1904,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not previous_revision:
                 log(
                     instance=self,
-                    action=(
-                        log_action if isinstance(log_action, str) else "wagtail.edit"
-                    ),
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.edit",
                     user=user,
                     revision=revision,
                     content_changed=changed,
@@ -1914,9 +1914,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 log(
                     instance=self,
-                    action=(
-                        log_action if isinstance(log_action, str) else "wagtail.revert"
-                    ),
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.revert",
                     user=user,
                     data={
                         "revision": {
@@ -3071,9 +3071,9 @@ class Revision(models.Model):
                     "revision": {
                         "id": self.id,
                         "created": ensure_utc(self.created_at),
-                        "go_live_at": (
-                            ensure_utc(object.go_live_at) if object.go_live_at else None
-                        ),
+                        "go_live_at": ensure_utc(object.go_live_at)
+                        if object.go_live_at
+                        else None,
                         "has_live_version": object.live,
                     }
                 },
@@ -3522,11 +3522,9 @@ class PageViewRestriction(BaseViewRestriction):
         if specific_instance:
             log(
                 instance=specific_instance,
-                action=(
-                    "wagtail.view_restriction.create"
-                    if is_new
-                    else "wagtail.view_restriction.edit"
-                ),
+                action="wagtail.view_restriction.create"
+                if is_new
+                else "wagtail.view_restriction.edit",
                 user=user,
                 data={
                     "restriction": {
@@ -3876,11 +3874,9 @@ class AbstractWorkflow(ClusterableModel):
                     "title": self.name,
                     "status": state.status,
                     "next": next_task_data,
-                    "task_state_id": (
-                        state.current_task_state.id
-                        if state.current_task_state
-                        else None
-                    ),
+                    "task_state_id": state.current_task_state.id
+                    if state.current_task_state
+                    else None,
                 }
             },
             revision=obj.get_latest_revision(),

@@ -296,27 +296,23 @@ def register_core_log_actions(actions):
                                 log_entry.data["revision"]["created"],
                             )
                         ),
-                        "go_live_at": (
-                            render_timestamp(
-                                parse_datetime_localized(
-                                    log_entry.data["revision"]["go_live_at"],
-                                )
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
                             )
-                            if log_entry.data["revision"]["go_live_at"]
-                            else None
-                        ),
+                        )
+                        if log_entry.data["revision"]["go_live_at"]
+                        else None,
                     }
                 else:
                     return _("Page unscheduled for publishing at %(go_live_at)s") % {
-                        "go_live_at": (
-                            render_timestamp(
-                                parse_datetime_localized(
-                                    log_entry.data["revision"]["go_live_at"],
-                                )
+                        "go_live_at": render_timestamp(
+                            parse_datetime_localized(
+                                log_entry.data["revision"]["go_live_at"],
                             )
-                            if log_entry.data["revision"]["go_live_at"]
-                            else None
-                        ),
+                        )
+                        if log_entry.data["revision"]["go_live_at"]
+                        else None,
                     }
             except KeyError:
                 return _("Page unscheduled from publishing")
