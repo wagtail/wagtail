@@ -1466,7 +1466,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @classmethod
     def allowed_http_method_names(cls):
-        return [str(method) for method in cls.allowed_http_methods]
+        return [
+            method.value if hasattr(method, "value") else method
+            for method in cls.allowed_http_methods
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
