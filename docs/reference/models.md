@@ -1,10 +1,10 @@
 # Model reference
 
 ```{eval-rst}
-.. automodule:: wagtail.models
+.. module:: wagtail.models
 ```
 
-This document contains reference information for the model classes inside the `wagtailcore` module.
+This document contains reference information for the model classes inside the `wagtail.models` module.
 
 (page_model_ref)=
 
