@@ -566,7 +566,9 @@ def register_workflow_log_actions(actions):
 @hooks.register("before_serve_page", order=0)
 def handle_options_request(page: Page, request: "HttpRequest", *args, **kwargs):
     """Handle responding to requests for the OPTIONS HTTP verb."""
-    page.check_http_method(request, *args, **kwargs)
+    check_response = page.check_request_method(request, *args, **kwargs)
+    if check_response is not None:
+        return check_response
     if request.method == HTTPMethod.OPTIONS:
         return page.handle_options_request(request, *args, **kwargs)
     return None

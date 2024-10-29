@@ -2129,7 +2129,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             self.get_context(request, *args, **kwargs),
         )
 
-    def check_http_method(self, request, *args, **kwargs):
+    def check_request_method(self, request, *args, **kwargs):
         if request.method not in self.allowed_http_methods:
             logger.warning(
                 "Method Not Allowed (%s): %s",
