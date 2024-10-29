@@ -1,6 +1,8 @@
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.images.fields import get_allowed_image_extensions
+
 
 class BaseItem:
     template = "wagtailadmin/userbar/item_base.html"
@@ -84,7 +86,9 @@ class AccessibilityItem(BaseItem):
     axe_custom_checks = [
         {
             "id": "check-image-alt-text",
-            "options": {"pattern": "\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_"},
+            "options": {
+                "pattern": f"\\.({'|'.join(get_allowed_image_extensions())})$|_"
+            },
         },
     ]
 

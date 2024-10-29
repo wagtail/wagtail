@@ -92,8 +92,9 @@ describe('addCustomChecks', () => {
 });
 
 // Options for checkImageAltText function
+// Permitted values are read from `get_allowed_image_extensions()`
 const options = {
-  pattern: '\\.(avif|gif|jpg|jpeg|png|svg|webp)$|_',
+  pattern: '\\.(avif|gif|jpg|jpeg|png|webp)$|_',
 };
 
 describe.each`
