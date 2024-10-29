@@ -15,7 +15,6 @@ import functools
 import logging
 import posixpath
 import uuid
-from http import HTTPMethod
 from io import StringIO
 from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
@@ -70,6 +69,7 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.compat import HTTPMethod
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
@@ -462,9 +462,9 @@ class RevisionMixin(models.Model):
             if not previous_revision:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.edit"
+                    ),
                     user=user,
                     revision=revision,
                     content_changed=changed,
@@ -472,9 +472,9 @@ class RevisionMixin(models.Model):
             else:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.revert",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.revert"
+                    ),
                     user=user,
                     data={
                         "revision": {
@@ -1904,9 +1904,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not previous_revision:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.edit"
+                    ),
                     user=user,
                     revision=revision,
                     content_changed=changed,
@@ -1914,9 +1914,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.revert",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.revert"
+                    ),
                     user=user,
                     data={
                         "revision": {
@@ -2122,10 +2122,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def serve(self, request, *args, **kwargs):
         request.is_preview = False
-
-        self.check_http_method(request, *args, **kwargs)
-        if request.method == HTTPMethod.OPTIONS:
-            return self.handle_options_request(request, *args, **kwargs)
 
         return TemplateResponse(
             request,
@@ -3075,9 +3071,9 @@ class Revision(models.Model):
                     "revision": {
                         "id": self.id,
                         "created": ensure_utc(self.created_at),
-                        "go_live_at": ensure_utc(object.go_live_at)
-                        if object.go_live_at
-                        else None,
+                        "go_live_at": (
+                            ensure_utc(object.go_live_at) if object.go_live_at else None
+                        ),
                         "has_live_version": object.live,
                     }
                 },
@@ -3526,9 +3522,11 @@ class PageViewRestriction(BaseViewRestriction):
         if specific_instance:
             log(
                 instance=specific_instance,
-                action="wagtail.view_restriction.create"
-                if is_new
-                else "wagtail.view_restriction.edit",
+                action=(
+                    "wagtail.view_restriction.create"
+                    if is_new
+                    else "wagtail.view_restriction.edit"
+                ),
                 user=user,
                 data={
                     "restriction": {
@@ -3878,9 +3876,11 @@ class AbstractWorkflow(ClusterableModel):
                     "title": self.name,
                     "status": state.status,
                     "next": next_task_data,
-                    "task_state_id": state.current_task_state.id
-                    if state.current_task_state
-                    else None,
+                    "task_state_id": (
+                        state.current_task_state.id
+                        if state.current_task_state
+                        else None
+                    ),
                 }
             },
             revision=obj.get_latest_revision(),

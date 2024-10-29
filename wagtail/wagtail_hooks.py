@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
@@ -8,11 +10,15 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail import hooks
+from wagtail.compat import HTTPMethod
 from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.utils.timestamps import parse_datetime_localized, render_timestamp
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 
 def require_wagtail_login(next):
@@ -290,23 +296,27 @@ def register_core_log_actions(actions):
                                 log_entry.data["revision"]["created"],
                             )
                         ),
-                        "go_live_at": render_timestamp(
-                            parse_datetime_localized(
-                                log_entry.data["revision"]["go_live_at"],
+                        "go_live_at": (
+                            render_timestamp(
+                                parse_datetime_localized(
+                                    log_entry.data["revision"]["go_live_at"],
+                                )
                             )
-                        )
-                        if log_entry.data["revision"]["go_live_at"]
-                        else None,
+                            if log_entry.data["revision"]["go_live_at"]
+                            else None
+                        ),
                     }
                 else:
                     return _("Page unscheduled for publishing at %(go_live_at)s") % {
-                        "go_live_at": render_timestamp(
-                            parse_datetime_localized(
-                                log_entry.data["revision"]["go_live_at"],
+                        "go_live_at": (
+                            render_timestamp(
+                                parse_datetime_localized(
+                                    log_entry.data["revision"]["go_live_at"],
+                                )
                             )
-                        )
-                        if log_entry.data["revision"]["go_live_at"]
-                        else None,
+                            if log_entry.data["revision"]["go_live_at"]
+                            else None
+                        ),
                     }
             except KeyError:
                 return _("Page unscheduled from publishing")
@@ -551,3 +561,12 @@ def register_workflow_log_actions(actions):
                 }
             except (KeyError, TypeError):
                 return _("Workflow cancelled")
+
+
+@hooks.register("before_serve_page", order=0)
+def handle_options_request(page: Page, request: "HttpRequest", *args, **kwargs):
+    """Handle responding to requests for the OPTIONS HTTP verb."""
+    page.check_http_method(request, *args, **kwargs)
+    if request.method == HTTPMethod.OPTIONS:
+        return page.handle_options_request(request, *args, **kwargs)
+    return None

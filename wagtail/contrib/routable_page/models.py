@@ -1,6 +1,5 @@
 import logging
 from functools import partial
-from http import HTTPMethod
 
 from django.core.checks import Warning
 from django.http import Http404
@@ -171,10 +170,6 @@ class RoutablePageMixin:
             kwargs = {}
         if view is None:
             return super().serve(request, *args, **kwargs)
-
-        self.check_http_method(request, *args, **kwargs)
-        if request.method == HTTPMethod.OPTIONS:
-            return self.handle_options_request(request, *args, **kwargs)
         return view(request, *args, **kwargs)
 
     def render(self, request, *args, template=None, context_overrides=None, **kwargs):
