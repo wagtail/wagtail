@@ -35,6 +35,7 @@ Changelog
  * Maintenance: Upgrade Node tooling to active LTS version 22 (LB (Ben) Johnston)
  * Maintenance: Remove defunct oEmbed providers (Rahul Samant)
  * Maintenance: Remove obsolete non-upsert-based code for Postgres search indexing (Jake Howard)
+ * Maintenance: Remove unused Rangy JS library (LB (Ben) Johnston)
 
 
 6.3 LTS (01.11.2024)
