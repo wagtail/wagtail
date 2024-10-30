@@ -58,5 +58,5 @@ For a `RichTextField`:
 For a RichTextBlock:
 
 ```html+django
-{{ value.sample_richtext_block | richtext_p_add_class:"new_class" }}
+{{ value.rich_text_block | richtext_p_add_class:"new_class" }}
 ```
