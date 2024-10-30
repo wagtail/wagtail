@@ -327,7 +327,7 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 # texinfo_no_detailmenu = False
 
-suppress_warnings = ['epub.unknown_project_files']
+epub_exclude_files = ['_static/favicon.ico', "_static/wagtail_colors_tables.txt", "_static/wagtail_icons_table.txt"]
 
 def setup(app):
     app.add_js_file("js/banner.js")
