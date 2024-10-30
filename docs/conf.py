@@ -83,6 +83,15 @@ nitpick_ignore = [
     ("py:class", "wagtail.blocks.stream_block.BaseStreamBlock"),
 ]
 
+# We have .txt and .ico files in the static directory that trigger unknown mime
+# type warnings when building the epub and are ignored by the builder. For the
+# table markup files, they are already rendered in the output. Other files are
+# not relevant to the epub. Suppress the warnings so we don't have to explicitly
+# list the files in `epub_exclude_files`.
+suppress_warnings = [
+    "epub.unknown_project_files",
+]
+
 if not on_rtd:
     extensions.append("sphinxcontrib.spelling")
 
