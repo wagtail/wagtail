@@ -9,10 +9,5 @@ python:
       path: .
       extra_requirements:
         - docs
-formats:
-  - epub
-  - pdf
-  - htmlzip
-sphinx:
-  configuration: docs/conf.py
+formats: all
   fail_on_warning: True
