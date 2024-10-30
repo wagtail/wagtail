@@ -1,7 +1,12 @@
 import warnings
 from collections import OrderedDict
 
-from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
+from django.db import (
+    NotSupportedError,
+    connections,
+    router,
+    transaction,
+)
 from django.db.models import Case, When
 from django.db.models.aggregates import Avg, Count
 from django.db.models.constants import LOOKUP_SEP
@@ -151,17 +156,22 @@ class ObjectIndexer:
 
 
 class Index:
-    def __init__(self, backend, db_alias=None):
+    def __init__(self, backend):
         self.backend = backend
         self.name = self.backend.index_name
-        self.db_alias = DEFAULT_DB_ALIAS if db_alias is None else db_alias
-        self.connection = connections[self.db_alias]
-        if self.connection.vendor != "mysql":
+
+        self.read_connection = connections[router.db_for_read(IndexEntry)]
+        self.write_connection = connections[router.db_for_write(IndexEntry)]
+
+        if (
+            self.read_connection.vendor != "mysql"
+            or self.write_connection.vendor != "mysql"
+        ):
             raise NotSupportedError(
-                "You must select a MySQL database " "to use MySQL search."
+                "You must select a MySQL database to use MySQL search."
             )
 
-        self.entries = IndexEntry._default_manager.using(self.db_alias)
+        self.entries = IndexEntry._default_manager.all()
 
     def add_model(self, model):
         pass
@@ -201,11 +211,9 @@ class Index:
         ).update(title_norm=lavg / F("title_length"))
 
     def delete_stale_model_entries(self, model):
-        existing_pks = (
-            model._default_manager.using(self.db_alias)
-            .annotate(object_id=Cast("pk", TextField()))
-            .values("object_id")
-        )
+        existing_pks = model._default_manager.annotate(
+            object_id=Cast("pk", TextField())
+        ).values("object_id")
         content_types_pks = get_descendants_content_types_pks(model)
         stale_entries = self.entries.filter(
             content_type_id__in=content_types_pks
@@ -276,7 +284,7 @@ class Index:
             update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
-        item.index_entries.all()._raw_delete(using=self.db_alias)
+        item.index_entries.all()._raw_delete(using=self.write_connection.alias)
 
     def __str__(self):
         return self.name
@@ -610,7 +618,7 @@ class MySQLSearchRebuilder:
 class MySQLSearchAtomicRebuilder(MySQLSearchRebuilder):
     def __init__(self, index):
         super().__init__(index)
-        self.transaction = transaction.atomic(using=index.db_alias)
+        self.transaction = transaction.atomic(using=index.write_connection.alias)
         self.transaction_opened = False
 
     def start(self):
@@ -650,11 +658,11 @@ class MySQLSearchBackend(BaseSearchBackend):
         if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class
 
-    def get_index_for_model(self, model, db_alias=None):
-        return Index(self, db_alias)
+    def get_index_for_model(self, model):
+        return Index(self)
 
     def get_index_for_object(self, obj):
-        return self.get_index_for_model(obj._meta.model, obj._state.db)
+        return self.get_index_for_model(obj._meta.model)
 
     def reset_index(self):
         for connection in [
