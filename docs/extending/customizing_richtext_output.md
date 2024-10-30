@@ -49,7 +49,7 @@ def richtext_p_add_class(value, class_name: str):
 
 Now, in your templates, you can add the following (don't forget to load your templatetag library):
 
-For a RichTextField:
+For a `RichTextField`:
 
 ```html+django
 {{ page.body | richtext | richtext_p_add_class:"new_class" }}
