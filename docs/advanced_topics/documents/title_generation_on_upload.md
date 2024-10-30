@@ -30,7 +30,7 @@ See MDN for more information about [custom JavaScript events](https://developer.
 
 ## Code examples
 
-For each example below, create the specified external JavaScript file in your app’s static directory, such as static/js/, and reference it in the wagtail_hooks.py file.
+For each example below, create the specified external JavaScript file in your app’s static directory, such as `static/js/`, and reference it in the `wagtail_hooks.py` file.
 
 ### Document specific methods:
 
@@ -102,7 +102,7 @@ from django.templatetags.static import static
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
     static_url = static('js/stop_title_prefill.js')
-    return mark_safe('<script src="{static_url}"></script>')
+    return mark_safe(f'<script src="{static_url}"></script>')
 ```
 
 Save the following code as static/js/stop_title_prefill.js
