@@ -173,9 +173,6 @@ class Index:
                 "You must select a PostgreSQL database " "to use PostgreSQL search."
             )
 
-        # Whether to allow adding items via the faster upsert method available in Postgres >=9.5
-        self._enable_upsert = self.connection.pg_version >= 90500
-
         self.entries = IndexEntry._default_manager.using(self.db_alias)
 
     def add_model(self, model):
@@ -237,7 +234,18 @@ class Index:
     def add_item(self, obj):
         self.add_items(obj._meta.model, [obj])
 
-    def add_items_upsert(self, content_type_pk, indexers):
+    def add_items(self, model, objs):
+        search_fields = model.get_search_fields()
+        if not search_fields:
+            return
+
+        indexers = [ObjectIndexer(obj, self.backend) for obj in objs]
+
+        # TODO: Delete unindexed objects while dealing with proxy models.
+        if not indexers:
+            return
+
+        content_type_pk = get_content_type_pk(model)
         compiler = InsertQuery(IndexEntry).get_compiler(connection=self.connection)
         title_sql = []
         autocomplete_sql = []
@@ -294,63 +302,6 @@ class Index:
             )
 
         self._refresh_title_norms()
-
-    def add_items_update_then_create(self, content_type_pk, indexers):
-        ids_and_data = {}
-        for indexer in indexers:
-            ids_and_data[indexer.id] = (
-                indexer.title,
-                indexer.autocomplete,
-                indexer.body,
-            )
-
-        index_entries_for_ct = self.entries.filter(content_type_id=content_type_pk)
-        indexed_ids = frozenset(
-            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list(
-                "object_id", flat=True
-            )
-        )
-        for indexed_id in indexed_ids:
-            title, autocomplete, body = ids_and_data[indexed_id]
-            index_entries_for_ct.filter(object_id=indexed_id).update(
-                title=title, autocomplete=autocomplete, body=body
-            )
-
-        to_be_created = []
-        for object_id in ids_and_data.keys():
-            if object_id not in indexed_ids:
-                title, autocomplete, body = ids_and_data[object_id]
-                to_be_created.append(
-                    IndexEntry(
-                        content_type_id=content_type_pk,
-                        object_id=object_id,
-                        title=title,
-                        autocomplete=autocomplete,
-                        body=body,
-                    )
-                )
-
-        self.entries.bulk_create(to_be_created)
-
-        self._refresh_title_norms()
-
-    def add_items(self, model, objs):
-        search_fields = model.get_search_fields()
-        if not search_fields:
-            return
-
-        indexers = [ObjectIndexer(obj, self.backend) for obj in objs]
-
-        # TODO: Delete unindexed objects while dealing with proxy models.
-        if indexers:
-            content_type_pk = get_content_type_pk(model)
-
-            update_method = (
-                self.add_items_upsert
-                if self._enable_upsert
-                else self.add_items_update_then_create
-            )
-            update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
         item.index_entries.all()._raw_delete(using=self.db_alias)
