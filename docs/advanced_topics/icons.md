@@ -84,7 +84,7 @@ Enable the [styleguide](styleguide) to view the available icons and their names 
 
 Here are all available icons out of the box:
 
-<details open>
+<details open="">
 
 <summary>Toggle icons table</summary>
 
