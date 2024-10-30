@@ -160,20 +160,6 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
         results = self.backend.autocomplete("first <-> second", models.Book)
         self.assertUnsortedListEqual([r.title for r in results], [])
 
-    def test_index_without_upsert(self):
-        # Test the add_items code path for Postgres 9.4, where upsert is not available
-        self.backend.reset_index()
-
-        index = self.backend.get_index_for_model(models.Book)
-        index._enable_upsert = False
-        index.add_items(models.Book, models.Book.objects.all())
-
-        results = self.backend.search("JavaScript", models.Book)
-        self.assertUnsortedListEqual(
-            [r.title for r in results],
-            ["JavaScript: The good parts", "JavaScript: The Definitive Guide"],
-        )
-
 
 @unittest.skipUnless(
     connection.vendor == "postgresql", "The current database is not PostgreSQL"
