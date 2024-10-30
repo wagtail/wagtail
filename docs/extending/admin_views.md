@@ -75,22 +75,17 @@ def index(request):
     })
 ```
 
-Now create a `templates/wagtailcalendar/` folder within the `wagtailcalendar` app, containing `index.html` as follows:
+Now create a `templates/wagtailcalendar/` folder within the `wagtailcalendar` app, containing `index.html` and `calendar.css` as follows:
 
 ```html+django
 {% extends "wagtailadmin/base.html" %}
+{% load static %}
+
 {% block titletag %}{{ current_year }} calendar{% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
-    <style>
-        table.month {
-            margin: 20px;
-        }
-        table.month td, table.month th {
-            padding: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -103,6 +98,8 @@ Now create a `templates/wagtailcalendar/` folder within the `wagtailcalendar` ap
 ```
 
 Here we are overriding three of the blocks defined in the base template: `titletag` (which sets the content of the HTML `<title>` tag), `extra_css` (which allows us to provide additional CSS styles specific to this page), and `content` (for the main content area of the page). We're also including the standard header bar component, and setting a title and icon. For a list of the recognized icon identifiers, see the [style guide](styleguide).
+
+Note: Moving inline styles to an external file helps improve security by aligning with Content Security Policy (CSP) standards.
 
 Revisiting `/admin/calendar/` will now show the calendar within the Wagtail admin page furniture.
 
@@ -190,7 +187,7 @@ def register_calendar_url():
 
 The calendar will now be visible at the URL `/admin/calendar/month/`.
 
-![A single calender month](../_static/images/adminviews_calendarmonth.png)
+![A single calendar month](../_static/images/adminviews_calendarmonth.png)
 
 Finally, we can alter our `wagtail_hooks.py` to include a group of custom menu items. This is similar to adding a single item but involves importing two more classes, `Menu` and `SubmenuMenuItem`.
 
