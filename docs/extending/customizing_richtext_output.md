@@ -7,7 +7,7 @@ This can be done through a simple [Django template filter](https://docs.djangopr
 
 ## Add a class to HTML tags
 
-This example shows how to add a class to all `<p>` tags in a RichTextField or a RichTextBlock.
+This example shows how to add a class to all paragraph (`<p>`) tags in a `RichTextField` or a `RichTextBlock`.
 
 In your templatetag library file, add a new filter:
 
