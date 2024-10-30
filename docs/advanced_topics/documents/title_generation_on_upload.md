@@ -32,31 +32,33 @@ See MDN for more information about [custom JavaScript events](https://developer.
 
 ## Code examples
 
+For each example below, create the specified external JavaScript file in your app’s static directory, such as static/js/, and reference it in the wagtail_hooks.py file.
+
 ### Adding the file extension to the start of the title
 
 ```python
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
-
 from wagtail import hooks
-
 
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
-    return mark_safe(
-    """
-    <script>
-    window.addEventListener('DOMContentLoaded', function () {
-        document.addEventListener('wagtail:documents-upload', function(event) {
-            var extension = (event.detail.filename.match(/\.([^.]*?)(?=\?|#|$)/) || [''])[1];
-            var newTitle = '(' + extension.toUpperCase() + ') ' + (event.detail.data.title || '');
-            event.detail.data.title = newTitle;
-        });
-    });
-    </script>
-    """
-    )
+    return mark_safe('<script src="{% static \'js/title_with_extension.js\' %}"></script>')
 ```
+
+Save the following code as static/js/title_with_extension.js
+
+```javascript
+// title_with_extension.js
+window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('wagtail:documents-upload', function(event) {
+        var extension = (event.detail.filename.match(/\.([^.]*?)(?=\?|#|$)/) || [''])[1];
+        var newTitle = '(' + extension.toUpperCase() + ') ' + (event.detail.data.title || '');
+        event.detail.data.title = newTitle;
+    });
+});
+```
+
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
 
@@ -65,25 +67,24 @@ Use the [`insert_editor_js` hook](insert_editor_js) instead so that this script 
 ```python
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
-
 from wagtail import hooks
 
-
 @hooks.register("insert_editor_js")
-def get_global_admin_js():
-    return mark_safe(
-    """
-    <script>
-    window.addEventListener('DOMContentLoaded', function () {
-        document.addEventListener('wagtail:documents-upload', function(event) {
-            // replace dashes/underscores with a space
-            var newTitle = (event.detail.data.title || '').replace(/(\s|_|-)/g, " ");
-            event.detail.data.title = newTitle;
-        });
+def get_editor_js():
+    return mark_safe('<script src="{% static \'js/remove_dashes_underscores.js\' %}"></script>')
+```
+
+Save the following code as static/js/remove_dashes_underscores.js
+
+```javascript
+// remove_dashes_underscores.js
+window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('wagtail:documents-upload', function(event) {
+        // Replace dashes/underscores with a space
+        var newTitle = (event.detail.data.title || '').replace(/(\s|_|-)/g, " ");
+        event.detail.data.title = newTitle;
     });
-    </script>
-    """
-    )
+});
 ```
 
 ### Stopping pre-filling of title based on filename
@@ -91,23 +92,22 @@ def get_global_admin_js():
 ```python
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
-
 from wagtail import hooks
-
 
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
-    return mark_safe(
-    """
-    <script>
-    window.addEventListener('DOMContentLoaded', function () {
-        document.addEventListener('wagtail:documents-upload', function(event) {
-            // will stop title pre-fill on single file uploads
-            // will set the multiple upload title to the filename (with extension)
-            event.preventDefault();
-        });
+    return mark_safe('<script src="{% static \'js/stop_title_prefill.js\' %}"></script>')
+```
+
+Save the following code as static/js/stop_title_prefill.js
+
+```javascript
+// stop_title_prefill.js
+window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('wagtail:documents-upload', function(event) {
+        // Will stop title pre-fill on single file uploads
+        // Will set the multiple upload title to the filename (with extension)
+        event.preventDefault();
     });
-    </script>
-    """
-    )
+});
 ```
