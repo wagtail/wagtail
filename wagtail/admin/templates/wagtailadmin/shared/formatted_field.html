@@ -23,8 +23,8 @@
         </label>
     {% endif %}
 
-    {# It’s possible to customise the fields’ layout based on widget type. #}
-    {# Customising fields based on the field type is only supported for backwards compatibility. #}
+    {# It’s possible to customize the fields’ layout based on widget type. #}
+    {# Customizing fields based on the field type is only supported for backwards compatibility. #}
     <div class="w-field {{ field_classname }}{% if has_errors %} w-field--error{% endif %}{% if show_add_comment_button %} w-field--commentable{% endif %}" data-field{% if contentpath %} data-contentpath="{{ contentpath }}"{% endif %}>
 
         {# Always associate a wrapping div with the field, so JS error rendering knows where to put error messages. #}

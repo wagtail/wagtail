@@ -88,7 +88,7 @@ const initPrefillTitleFromFilename = (
         parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
       const data = { title: filename.replace(/\.[^.]+$/, '') };
 
-      // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
+      // allow an event handler to customize data or call event.preventDefault to stop any title pre-filling
       const form = fileWidget.closest('form').get(0);
 
       if (eventName) {

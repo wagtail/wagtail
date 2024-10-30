@@ -6,7 +6,7 @@ type ToggleOptions = {
 };
 
 type ToggleAllOptions = ToggleOptions & {
-  /** Override check all behaviour to either force check or uncheck all */
+  /** Override check all behavior to either force check or uncheck all */
   force?: boolean;
 };
 
@@ -92,7 +92,7 @@ export class BulkController extends Controller<HTMLElement> {
   /** Classes to remove on the actions target if any actions are checked */
   declare readonly actionInactiveClasses: string[];
 
-  /** Internal tracking of last clicked for shift+click behaviour */
+  /** Internal tracking of last clicked for shift+click behavior */
   lastChanged?: HTMLElement | null;
 
   /** Internal tracking of whether the shift key is active for multiple selection */
@@ -100,7 +100,7 @@ export class BulkController extends Controller<HTMLElement> {
 
   /**
    * On creation, ensure that the select all checkboxes are in sync.
-   * Set up the event listeners for shift+click behaviour.
+   * Set up the event listeners for shift+click behavior.
    */
   connect() {
     this.toggle();

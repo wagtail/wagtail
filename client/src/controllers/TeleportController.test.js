@@ -5,7 +5,7 @@ import { TeleportController } from './TeleportController';
 describe('TeleportController', () => {
   let application;
 
-  describe('basic behaviour', () => {
+  describe('basic behavior', () => {
     beforeEach(() => {
       application?.stop();
 

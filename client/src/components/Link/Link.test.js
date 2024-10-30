@@ -57,7 +57,7 @@ describe('Link', () => {
     expect(preventDefault).toHaveBeenCalledTimes(0);
   });
 
-  it('calls navigate instead of default behaviour if provided', () => {
+  it('calls navigate instead of default behavior if provided', () => {
     // If "href" and a navigate handler is provided, it should call that navigate handler and prevent default
     const preventDefault = jest.fn();
     const navigate = jest.fn();

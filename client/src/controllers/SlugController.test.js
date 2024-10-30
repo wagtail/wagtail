@@ -61,7 +61,7 @@ describe('SlugController', () => {
   });
 });
 
-describe('compare behaviour', () => {
+describe('compare behavior', () => {
   let application;
 
   beforeEach(() => {
@@ -113,7 +113,7 @@ describe('compare behaviour', () => {
     expect(event.preventDefault).not.toHaveBeenCalled();
   });
 
-  it('should prevent default using the slugify (default) behaviour as the compare function when urlify values is not equal', () => {
+  it('should prevent default using the slugify (default) behavior as the compare function when urlify values is not equal', () => {
     const slug = document.querySelector('#id_slug');
 
     const title = 'Тестовий заголовок';
@@ -135,7 +135,7 @@ describe('compare behaviour', () => {
     expect(event.preventDefault).toHaveBeenCalled();
   });
 
-  it('should not prevent default using the slugify (default) behaviour as the compare function when urlify value is equal', () => {
+  it('should not prevent default using the slugify (default) behavior as the compare function when urlify value is equal', () => {
     const slug = document.querySelector('#id_slug');
 
     const title = 'the-french-dispatch-a-love-letter-to-journalists';
@@ -159,7 +159,7 @@ describe('compare behaviour', () => {
     expect(event.preventDefault).not.toHaveBeenCalled();
   });
 
-  it('should not prevent default using the urlify behaviour as the compare function when urlify value matches', () => {
+  it('should not prevent default using the urlify behavior as the compare function when urlify value matches', () => {
     const title = 'Тестовий заголовок';
 
     const slug = document.querySelector('#id_slug');
@@ -228,7 +228,7 @@ describe('compare behaviour', () => {
   });
 });
 
-describe('urlify behaviour', () => {
+describe('urlify behavior', () => {
   let application;
 
   beforeEach(() => {

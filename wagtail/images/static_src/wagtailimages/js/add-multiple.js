@@ -94,7 +94,7 @@ $(function () {
 
     /**
      * Allow a custom title to be defined by an event handler for this form.
-     * If event.preventDefault is called, the original behaviour of using the raw
+     * If event.preventDefault is called, the original behavior of using the raw
      * filename (with extension) as the title is preserved.
      *
      * @example
