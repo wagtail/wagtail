@@ -20,6 +20,7 @@ Changelog
  * Fix: Ensure form builder correctly checks for duplicate field names when using a custom related name (John-Scott Atlakson, LB (Ben) Johnston)
  * Fix: Normalize `StreamField.get_default()` to prevent creation forms from breaking (Matt Westcott)
  * Fix: Prevent out-of-order migrations from skipping creation of image/document choose permissions (Matt Westcott)
+ * Fix: Use correct connections on multi-database setups in database search backends (Jake Howard)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
