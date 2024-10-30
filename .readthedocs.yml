@@ -10,4 +10,5 @@ python:
       extra_requirements:
         - docs
 formats: all
+sphinx:
   fail_on_warning: True
