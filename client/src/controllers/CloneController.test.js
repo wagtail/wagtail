@@ -11,7 +11,7 @@ describe('CloneController', () => {
     jest.clearAllTimers();
   });
 
-  describe('default behaviour', () => {
+  describe('default behavior', () => {
     const addedListener = jest.fn();
 
     document.addEventListener('w-clone:added', addedListener);
@@ -90,7 +90,7 @@ describe('CloneController', () => {
     });
   });
 
-  describe('additional behaviour', () => {
+  describe('additional behavior', () => {
     beforeAll(() => {
       application?.stop();
       document.body.innerHTML = `

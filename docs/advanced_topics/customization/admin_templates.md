@@ -98,7 +98,7 @@ To customize the font families used in the admin user interface, inject a CSS fi
 }
 ```
 
-(custom_user_interface_colours)=
+(custom_user_interface_colors)=
 
 ## Custom user interface colors
 

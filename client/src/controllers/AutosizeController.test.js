@@ -19,7 +19,7 @@ describe('AutosizeController', () => {
 
   global.ResizeObserver = ResizeObserverMock;
 
-  describe('basic behaviour', () => {
+  describe('basic behavior', () => {
     beforeAll(() => {
       document.body.innerHTML = `
       <textarea

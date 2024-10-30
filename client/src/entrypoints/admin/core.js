@@ -10,7 +10,7 @@ import { initStimulus } from '../../includes/initStimulus';
 import { urlify } from '../../utils/urlify';
 import { escapeHtml } from '../../utils/text';
 
-/** Expose a global to allow for customisations and packages to build with Stimulus. */
+/** Expose a global to allow for customizations and packages to build with Stimulus. */
 window.StimulusModule = StimulusModule;
 
 /**

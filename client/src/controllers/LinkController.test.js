@@ -21,7 +21,7 @@ describe('LinkController', () => {
     window.location = oldWindowLocation;
   });
 
-  describe('basic behaviour on connect', () => {
+  describe('basic behavior on connect', () => {
     it('should reflect all params by default', async () => {
       setWindowLocation(
         'http://localhost:8000/admin/pages/?foo=bar&foo=baz&hello=&world=ok',
@@ -108,7 +108,7 @@ describe('LinkController', () => {
       // Trigger next browser render cycle
       await Promise.resolve();
 
-      // Behaviour:
+      // behavior:
       // - `export` param preserved (multi-value, not in new URL)
       // - `foo` param preserved (single value, available in new URL)
       // - `number` param not preserved (single value, not in new URL)
@@ -147,7 +147,7 @@ describe('LinkController', () => {
       // Trigger next browser render cycle
       await Promise.resolve();
 
-      // Behaviour:
+      // behavior:
       // - `export` param preserved (multi-value, not in new URL)
       // - `foo` param preserved (single value, available in new URL)
       // - `number` param not preserved (single value, not in new URL)
@@ -258,7 +258,7 @@ describe('LinkController', () => {
         }),
       );
 
-      // Behaviour:
+      // behavior:
       // - `export` param preserved (multi-value, not in new URL)
       // - `foo` param preserved (single value, available in new URL)
       // - `number` param not preserved (single value, not in new URL)
@@ -298,7 +298,7 @@ describe('LinkController', () => {
         }),
       );
 
-      // Behaviour:
+      // behavior:
       // - `export` param preserved (multi-value, not in new URL)
       // - `foo` param preserved (single value, available in new URL)
       // - `number` param not preserved (single value, not in new URL)
@@ -369,7 +369,7 @@ describe('LinkController', () => {
       // Trigger next browser render cycle
       await Promise.resolve();
 
-      // Behaviour:
+      // behavior:
       // - `export` param preserved (multi-value, not in new URL)
       // - `foo` param preserved (single value, available in new URL)
       // - `number` param not preserved (single value, not in new URL)
@@ -414,7 +414,7 @@ describe('LinkController', () => {
         }),
       );
 
-      // Behaviour:
+      // behavior:
       // - `export` param preserved (multi-value, not in new URL)
       // - `foo` param preserved (single value, available in new URL)
       // - `number` param not preserved (single value, not in new URL)

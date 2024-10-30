@@ -115,7 +115,7 @@ export class SyncController extends Controller<HTMLInputElement> {
   /**
    * Returns the non-default prevented elements that are targets of this sync
    * controller. Additionally allows this processing to enable or disable
-   * this controller instance's sync behaviour.
+   * this controller instance's sync behavior.
    */
   processTargetElements(
     eventName: string,
