@@ -1,7 +1,7 @@
 (customizing_richtext_output)=
 
 # Customizing richtext output
-In some cases, it might be necessary to customize the output of a [RichTextField](rich_text_field), or a `RichTextBlock` within a [StreamField](../topics/streamfield).
+In some cases, it might be necessary to customize the output of a [RichTextField](rich_text_field), or a `RichTextBlock` within a [StreamField](streamfield_topic).
 
 This can be done through a simple [Django template filter](https://docs.djangoproject.com/en/5.0/howto/custom-template-tags/).
 
