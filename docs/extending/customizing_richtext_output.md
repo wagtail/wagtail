@@ -55,7 +55,7 @@ For a `RichTextField`:
 {{ page.body | richtext | richtext_p_add_class:"new_class" }}
 ```
 
-For a RichTextBlock:
+For a `RichTextBlock`:
 
 ```html+django
 {{ value.rich_text_block | richtext_p_add_class:"new_class" }}
