@@ -394,15 +394,15 @@ Wagtail comes with three pre-defined image formats, but more can be defined in P
 
 ### `Full width`
 
-Creates an image rendition using `width-800`, giving the <img> tag the CSS class `full-width`.
+Creates an image rendition using `width-800`, giving the `<img>` tag the CSS class `full-width`.
 
 ### `Left-aligned`
 
-Creates an image rendition using `width-500`, giving the <img> tag the CSS class `left`.
+Creates an image rendition using `width-500`, giving the `<img>` tag the CSS class `left`.
 
 ### `Right-aligned`
 
-Creates an image rendition using `width-500`, giving the <img> tag the CSS class `right`.
+Creates an image rendition using `width-500`, giving the `<img>` tag the CSS class `right`.
 
 ```{note}
 The CSS classes added to images do **not** come with any accompanying stylesheets or inline styles. For example, the `left` class will do nothing, by default. The developer is expected to add these classes to their front-end CSS files, to define exactly what they want `left`, `right` or `full-width` to mean.
