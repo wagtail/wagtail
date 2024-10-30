@@ -32,29 +32,33 @@ See MDN for more information about [custom JavaScript events](https://developer.
 
 ## Code examples
 
+For each example below, create the specified external JavaScript file in your app’s static directory, such as `static/js/`, and reference it in the `wagtail_hooks.py` file.
+
 ### Removing any url unsafe characters from the title
 
 ```python
 # wagtail_hooks.py
-from django.utils.safestring import mark_safe
+from django.templatetags.static import static
+from django.utils.html import format_html
 
 from wagtail import hooks
 
-
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
-    return mark_safe(
-    """
-    <script>
-    window.addEventListener('DOMContentLoaded', function () {
-        document.addEventListener('wagtail:images-upload', function(event) {
-            var newTitle = (event.detail.data.title || '').replace(/[^a-zA-Z0-9\s-]/g, "");
-            event.detail.data.title = newTitle;
-        });
+    script_url = static('js/wagtail_admin.js')
+    return format_html('<script src="{}"></script>', script_url)
+```
+
+```javascript
+window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('wagtail:images-upload', function (event) {
+        const newTitle = (event.detail.data.title || '').replace(
+            /[^a-zA-Z0-9\s-]/g,
+            '',
+        );
+        event.detail.data.title = newTitle;
     });
-    </script>
-    """
-    )
+});
 ```
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
@@ -63,50 +67,52 @@ Use the [`insert_editor_js` hook](insert_editor_js) instead so that this script 
 
 ```python
 # wagtail_hooks.py
-from django.utils.safestring import mark_safe
+from django.templatetags.static import static
+from django.utils.html import format_html
 
 from wagtail import hooks
 
-
 @hooks.register("insert_editor_js")
 def get_global_admin_js():
-    return mark_safe(
-    """
-    <script>
-    window.addEventListener('DOMContentLoaded', function () {
-        document.addEventListener('wagtail:images-upload', function(event) {
-            // replace dashes/underscores with a space
-            var newTitle = (event.detail.data.title || '').replace(/(\s|_|-)/g, " ");
-            event.detail.data.title = newTitle;
-        });
+def insert_remove_dashes_underscores_js():
+    script_url = static('js/remove_dashes_underscores.js')
+    return format_html('<script src="{}"></script>', script_url)
+```
+
+```javascript
+window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('wagtail:images-upload', function (event) {
+        // Replace dashes/underscores with a space
+        const newTitle = (event.detail.data.title || '').replace(
+            /(\s|_|-)/g,
+            ' ',
+        );
+        event.detail.data.title = newTitle;
     });
-    </script>
-    """
-    )
+});
 ```
 
 ### Stopping pre-filling of title based on filename
 
 ```python
 # wagtail_hooks.py
-from django.utils.safestring import mark_safe
+from django.templatetags.static import static
+from django.utils.html import format_html
 
 from wagtail import hooks
 
-
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
-    return mark_safe(
-    """
-    <script>
-    window.addEventListener('DOMContentLoaded', function () {
-        document.addEventListener('wagtail:images-upload', function(event) {
-            // will stop title pre-fill on single file uploads
-            // will set the multiple upload title to the filename (with extension)
-            event.preventDefault();
-        });
+    script_url = static('js/stop_prefill.js')
+    return format_html('<script src="{}"></script>', script_url)
+```
+
+```javascript
+window.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('wagtail:images-upload', function (event) {
+        // Stop title pre-fill on single file uploads
+        // Set the multiple upload title to the filename (with extension)
+        event.preventDefault();
     });
-    </script>
-    """
-    )
+});
 ```
