@@ -18,6 +18,7 @@ Changelog
  * Docs: Recommend a larger `DATA_UPLOAD_MAX_NUMBER_FIELDS` when integrating Wagtail into Django (Matt Westcott)
  * Docs: Improve code highlighting and formatting for Python docstrings in core models (Srishti Jaiswal)
  * Docs: Re-enable building offline formats in online documentation (Read the docs) for EPUB/PDF/HTML downloads (Joel William)
+ * Docs: Resolve multiple output errors in the documentation ePub format (Sage Abdullah)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
 
