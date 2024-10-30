@@ -52,7 +52,7 @@ Now, in your templates, you can add the following (don't forget to load your tem
 For a RichTextField:
 
 ```html+django
-{{ page.sample_richtext_fied | richtext | richtext_p_add_class:"new_class" }}
+{{ page.body | richtext | richtext_p_add_class:"new_class" }}
 ```
 
 For a RichTextBlock:
