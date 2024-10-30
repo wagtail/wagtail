@@ -17,8 +17,6 @@ Changelog
  * Docs: Refine titles, references and URLS to better align with the documentation style guide, including US spelling (Srishti Jaiswal)
  * Docs: Recommend a larger `DATA_UPLOAD_MAX_NUMBER_FIELDS` when integrating Wagtail into Django (Matt Westcott)
  * Docs: Improve code highlighting and formatting for Python docstrings in core models (Srishti Jaiswal)
- * Docs: Re-enable building offline formats in online documentation (Read the docs) for EPUB/PDF/HTML downloads (Joel William)
- * Docs: Resolve multiple output errors in the documentation ePub format (Sage Abdullah)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
 
@@ -88,6 +86,8 @@ Changelog
  * Docs: Add an example of customizing a default accessibility check (Cynthia Kiser)
  * Docs: Demonstrate access protection with `TokenAuthentication` in the Wagtail API v2 Configuration Guide (Krzysztof Jeziorny)
  * Docs: Replace X links with Mastodon in the README (Alex Morega)
+ * Docs: Re-enable building offline formats in online documentation (Read the docs) for EPUB/PDF/HTML downloads (Joel William, Sage Abdullah)
+ * Docs: Resolve multiple output errors in the documentation ePub format (Sage Abdullah)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
