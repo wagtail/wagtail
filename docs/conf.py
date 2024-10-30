@@ -336,6 +336,14 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 # texinfo_no_detailmenu = False
 
+# -- Options for Epub output ---------------------------------------------------
+
+# Bibliographic Dublin Core info.
+epub_title = project
+epub_author = "Wagtail core team and contributors"
+epub_publisher = "Wagtail"
+epub_copyright = copyright
+
 
 def setup(app):
     app.add_js_file("js/banner.js")
