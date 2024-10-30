@@ -527,7 +527,9 @@ class EventSitemap(Sitemap):
 class EventIndex(Page):
     intro = RichTextField(blank=True, max_length=50)
     ajax_template = "tests/includes/event_listing.html"
-    allowed_http_methods = [HTTPMethod.GET, HTTPMethod.OPTIONS]
+
+    # NOTE: Using a mix of enum and string values to test handling of both
+    allowed_http_methods = [HTTPMethod.GET, "OPTIONS"]
 
     def get_events(self):
         return self.get_children().live().type(EventPage)
