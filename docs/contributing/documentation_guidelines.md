@@ -15,7 +15,7 @@ To ensure consistency in tone and language, follow the [Google developer documen
 
 ## Formatting recommendations
 
-Wagtail’s documentation uses a mixture of [Markdown (with MyST)](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason. Docstrings in Python code must be written in reStructuredText, as using Markdown is not yet supported.
+Wagtail’s documentation uses a mixture of [Markdown (with MyST)](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](inv:sphinx#rst-primer). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason. Docstrings in Python code must be written in reStructuredText, as using Markdown is not yet supported.
 
 Here are formats we encourage using when writing documentation for Wagtail.
 
@@ -257,7 +257,7 @@ You can read more about other methods of linking to, and creating references in 
 
 #### Intersphinx links (external docs)
 
-Due to the large amount of documentation links to Django's documentation, we have added the integration via intersphinx references. This is configured via `intersphinx_mapping` in the `docs/conf.py` file. This allows you to link to specific sections of Django's documentation and catch warnings when the target is no longer available.
+Due to the large amount of links to external documentation (especially Django), we have added the integration via intersphinx references. This is configured via [](inv:sphinx:std:confval#intersphinx_mapping) in the `docs/conf.py` file. This allows you to link to specific sections of a project's documentation and catch warnings when the target is no longer available.
 
 Markdown example:
 
@@ -349,7 +349,7 @@ Absolute links are also preferred for one-off links to external docs, even if th
 
 #### Code references
 
-When linking to code references, you can use Sphinx's reference roles.
+When linking to code references, you can use Sphinx's [reference roles](inv:sphinx#usage/restructuredtext/roles).
 
 Markdown example:
 
@@ -377,7 +377,7 @@ For more info, see {ref}`querying-jsonfield`.
 
 </details>
 
-Adding `~` before the dotted path will shorten the link text to just the final part (the object name). This can be useful when the full path is already mentioned in the text. You can also set the current scope of the documentation with a `module` or `currentmodule` directive to avoid writing the full path to every object.
+Adding `~` before the dotted path will shorten the link text to just the final part (the object name). This can be useful when the full path is already mentioned in the text. You can also set the current scope of the documentation with a [`module`](inv:sphinx:rst:directive#py:module) or [`currentmodule`](inv:sphinx:rst:directive#py:currentmodule) directive to avoid writing the full path to every object.
 
 ````md
 ```{currentmodule} wagtail.admin.viewsets.model
@@ -403,7 +403,7 @@ The {class}`ModelViewSet` class extends the {class}`~wagtail.admin.viewsets.base
 
 ```
 
-A reference role can also define how it renders itself. In the above examples, the `class` and `mod` roles are rendered as an inline code with link, but the `ref` role is rendered as a plain link.
+A reference role can also define how it renders itself. In the above examples, the [`class`](inv:sphinx:rst:role#py:class) and [`mod`](inv:sphinx:rst:role#py:mod) roles are rendered as an inline code with link, but the [`ref`](inv:sphinx:rst:role#ref) role is rendered as a plain link.
 
 These features make reference roles particularly useful when writing reference-type documentation and docstrings.
 
@@ -477,7 +477,7 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 
 ### Autodoc
 
-With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature that we highly recommend using to document Wagtail’s APIs.
+With its [autodoc](inv:sphinx#ext-autodoc) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature that we highly recommend using to document Wagtail’s APIs.
 
 Currently, this requires the `eval-rst` directive. Anything inside the directive needs to be written in reStructuredText syntax.
 

@@ -168,7 +168,11 @@ intersphinx_mapping = {
     "django": (
         "https://docs.djangoproject.com/en/stable/",
         "https://docs.djangoproject.com/en/stable/_objects/",
-    )
+    ),
+    "sphinx": (
+        "https://www.sphinx-doc.org/en/master/",
+        None,
+    ),
 }
 
 myst_url_schemes = {
