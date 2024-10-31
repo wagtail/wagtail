@@ -113,8 +113,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a `request` object and a list of panel objects and should modify this list in place as required. Panel objects are [](template_components) with an additional `order` property, an integer that determines the panel's position in the final ordered list. The default panels use integers between `100` and `300`.
 
 ```python
-from django.utils.safestring import mark_safe
-
+from django.utils.html import format_html
 from wagtail.admin.ui.components import Component
 from wagtail import hooks
 
@@ -122,15 +121,18 @@ class WelcomePanel(Component):
     order = 50
 
     def render_html(self, parent_context):
-        return mark_safe("""
-        <section class="panel summary nice-padding">
-          <h3>No, but seriously -- welcome to the admin homepage.</h3>
-        </section>
-        """)
+        return format_html(
+            """
+            <section class="panel summary nice-padding">
+              <h3>No, but seriously -- welcome to the admin homepage.</h3>
+            </section>
+            """
+        )
 
 @hooks.register('construct_homepage_panels')
 def add_another_welcome_panel(request, panels):
     panels.append(WelcomePanel())
+
 ```
 
 (construct_homepage_summary_items)=
@@ -473,9 +475,9 @@ Rich text fields in Wagtail work with a list of 'feature' identifiers that deter
 Add additional CSS files or snippets to all admin pages.
 
 ```python
+# wagtail_hooks.py
 from django.utils.html import format_html
 from django.templatetags.static import static
-
 from wagtail import hooks
 
 @hooks.register('insert_global_admin_css')
@@ -490,37 +492,62 @@ def global_admin_css():
 Add additional JavaScript files or code snippets to the page editor.
 
 ```python
-from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
+# wagtail_hooks.py
 from django.templatetags.static import static
-
+from django.utils.html import format_html, format_html_join
 from wagtail import hooks
 
-@hooks.register('insert_editor_js')
+@hooks.register("insert_editor_js")
 def editor_js():
     js_files = [
-        'js/fireworks.js', # https://fireworks.js.org
+        'js/fireworks.js', 
+        'js/controllers/fireworks_controller.js',  
     ]
-    js_includes = format_html_join('\n', '<script src="{0}"></script>',
+    return format_html_join(
+        '\n',
+        '<script src="{}"></script>',
         ((static(filename),) for filename in js_files)
-    )
-    return js_includes + mark_safe(
-        """
-        <script>
-            window.addEventListener('DOMContentLoaded', (event) => {
-                var container = document.createElement('div');
-                container.style.cssText = 'position: fixed; width: 100%; height: 100%; z-index: 100; top: 0; left: 0; pointer-events: none;';
-                container.id = 'fireworks';
-                document.getElementById('main').prepend(container);
-                var options = { "acceleration": 1.2, "autoresize": true, "mouse": { "click": true, "max": 3 } };
-                var fireworks = new Fireworks(document.getElementById('fireworks'), options);
-                fireworks.start();
-            });
-        </script>
-        """
     )
 ```
 
+Add the following line in the relevant Django template to initialize Stimulus.
+
+```django
+{% load static %}
+<script src="{% static 'js/application.js' %}"></script>
+```
+
+```javascript
+// application.js
+// This file initializes Stimulus and registers the FireworksController.
+
+import { Application } from "@hotwired/stimulus";
+import FireworksController from "./controllers/fireworks_controller";
+
+const application = Application.start();
+application.register("fireworks", FireworksController);
+
+
+// fireworks_controller.js
+// The Stimulus controller manages the fireworks effect.
+
+import { Controller } from "@hotwired/stimulus";
+import Fireworks from "fireworks-js"; 
+
+export default class extends Controller {
+    connect() {
+        const container = document.createElement('div');
+        container.style.cssText = 'position: fixed; width: 100%; height: 100%; z-index: 100; top: 0; left: 0; pointer-events: none;';
+        container.id = 'fireworks';
+        document.getElementById('main').prepend(container);
+
+        const options = { acceleration: 1.2, autoresize: true, mouse: { click: true, max: 3 } };
+        const fireworks = new Fireworks(container, options);
+        fireworks.start();
+    }
+}
+
+```
 (insert_global_admin_js)=
 
 ### `insert_global_admin_js`
@@ -528,14 +555,14 @@ def editor_js():
 Add additional JavaScript files or code snippets to all admin pages.
 
 ```python
-from django.utils.safestring import mark_safe
-
+from django.utils.html import format_html
 from wagtail import hooks
 
 @hooks.register('insert_global_admin_js')
 def global_admin_js():
-    return mark_safe(
-        '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js"></script>',
+    return format_html(
+        '<script src="{}"></script>',
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js"
     )
 ```
 
