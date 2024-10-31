@@ -89,6 +89,12 @@ Use **bold** and _italic_ sparingly and inline `code` when relevant.
 Use **bold** and _italic_ sparingly and inline `code` when relevant.
 ```
 
+Keep in mind that in reStructuredText, italic is written with `*`, and inline code must be written with double backticks, like ``` ``code`` ```.
+
+```rst
+Use **bold** and *italic* sparingly and inline ``code`` when relevant.
+```
+
 ### Code blocks
 
 Make sure to include the correct language code for syntax highlighting, and to format your code according to our coding guidelines. Frequently used: `python`, `css`, `html`, `html+django`, `javascript`, `sh`.
