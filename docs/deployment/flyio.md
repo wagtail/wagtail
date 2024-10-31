@@ -356,7 +356,11 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Use this for sending emails via an SMTP service. If you are in a development environment and do not want to send real emails, use `django.core.mail.backends.console.EmailBackend` instead.
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Use this for sending emails via an SMTP service. 
+
+""""
+If you are in a development environment and do not want to send real emails, use `django.core.mail.backends.console.EmailBackend` instead.
+""""
 
 MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -408,7 +412,9 @@ The explanation of some of the code in your `mysite/settings/production.py` file
 4. `SECURE_SSL_REDIRECT = True` enforces HTTPS redirect. This ensures that all connections to the site are secure.
 5. `ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")` defines the hostnames that can access your site. It retrieves its values from the `DJANGO_ALLOWED_HOSTS` environment variable. If no specific hosts are defined, it defaults to allowing all hosts.
 6. `EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"` configures your site to use the SMTP email backend. This backend sends emails using the Simple Mail Transfer Protocol (SMTP) through a third-party email service provider, which is necessary for production environments to ensure reliable email delivery.
-   **Note:** Fly.io does not support email services out of the box. You need to set up third-party SMTP service providers to send emails from your Django application.
+
+**Note:** Fly.io does not support email services out of the box. You need to set up third-party SMTP service providers to send emails from your Django application.
+
 7. `WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"` configures the file storage for Wagtail's redirects. Here, you set it to use cache.
 
 ---
