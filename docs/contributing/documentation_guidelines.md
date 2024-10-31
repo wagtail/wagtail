@@ -425,7 +425,7 @@ see [the section about querying `JSONField`](inv:django#querying-jsonfield).
 
 ### Note and warning call-outs
 
-Use notes and warnings sparingly, as they rely on reStructuredText syntax which is more complicated for future editors.
+Use notes and warnings sparingly to get the reader's attention when needed. These can be used to provide additional context or to warn about potential issues.
 
     ```{note}
     Notes can provide complementary information.
