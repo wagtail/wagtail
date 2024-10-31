@@ -148,7 +148,7 @@ class ImageBlock(StructBlock):
     def bulk_to_python(self, values):
         values = list(values)
 
-        if not values:
+        if not values or values[0] is None:
             return []
 
         if isinstance(values[0], int):
