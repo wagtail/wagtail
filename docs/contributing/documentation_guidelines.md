@@ -199,13 +199,15 @@ print("Hello, world!")
 
 Links are fundamental in documentation. Use internal links to tie your content to other docs, and external links as needed. Pick relevant text for links, so readers know where they will land.
 
-Don’t rely on [`links over code`](https://www.example.com/), as they are impossible to spot.
+Do not let external links hide critical context for the reader. Instead, provide the core information on the page and use links for added context.
 
 ```md
 An [external link](https://wwww.example.com).
 An [internal link to another document](/reference/contrib/legacy_richtext).
 An auto generated link label to a page [](/getting_started/tutorial).
-A [link to a reference](register_reports_menu_item).
+A [link to a target](register_reports_menu_item).
+Do not use [click here](https://www.example.com) as the link's text, use a more descriptive label.
+Do not rely on links for critical context, like [why it is important](https://www.example.com).
 ```
 
 <details>
@@ -215,13 +217,15 @@ A [link to a reference](register_reports_menu_item).
 An [external link](https://wwww.example.com).
 An [internal link to another document](/reference/contrib/legacy_richtext).
 An auto generated link label to a page [](/getting_started/tutorial).
-A [link to a reference](register_reports_menu_item).
+A [link to a target](register_reports_menu_item).
+Do not use [click here](https://www.example.com) as the link's text, use a more descriptive label.
+Do not rely on links for critical context, like [why it is important](https://www.example.com).
 
 </details>
 
-#### Reference links
+#### Anchor links
 
-Reference links (links to a target within a page) rely on the page having a reference created. Each reference must have a unique name and should use the `lower_snake_case` format. A reference can be added as follows:
+Anchor links point to a specific target on a page. They rely on the page having the target created. Each target must have a unique name and should use the `lower_snake_case` format. A target can be added as follows:
 
 ```md
 (my_awesome_section)=
@@ -231,7 +235,7 @@ Reference links (links to a target within a page) rely on the page having a refe
 ...
 ```
 
-The reference can be linked to, with an optional label, using the Markdown link syntax as follows:
+The target can be linked to, with an optional label, using the Markdown link syntax as follows:
 
 ```md
 -   Auto generated label (preferred) [](my_awesome_section)
@@ -249,31 +253,175 @@ Rendered output:
 -   Auto generated label (preferred) [](my_awesome_section)
 -   [label for section](my_awesome_section)
 
-You can read more about other methods of linking to, and creating references in the MyST parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/cross-referencing.html).
+You can read more about other methods of linking to, and creating references in the MyST-Parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/cross-referencing.html).
 
 #### Intersphinx links (external docs)
 
-Due to the large amount of documentation links to Django's Sphinx documentation, we have added the integration with this via intersphinx references.
+Due to the large amount of documentation links to Django's documentation, we have added the integration via intersphinx references. This is configured via `intersphinx_mapping` in the `docs/conf.py` file. This allows you to link to specific sections of Django's documentation and catch warnings when the target is no longer available.
+
+Markdown example:
 
 ```md
-You can select widgets from [Django's form widgets](inv:django#ref/forms/widgets)
+You can select widgets from [Django's form widgets](inv:django#ref/forms/widgets).
 ```
+
+reStructuredText example:
 
 ```rst
-    This parameter allows you to specify a :doc:`Django form widget <django:ref/forms/widgets>` to use instead of the default widget for this field type.
+You can select widgets from :doc:`Django form widget <django:ref/forms/widgets>`.
 ```
 
-There is no support for id (hash) refs on pages at this time, so these will need to be written out as full URLs, remember to use the `stable` URL and not a specific version. In some cases you may be able to reference the name of the hash directly though.
+The format for a Sphinx link in Markdown is `inv:key:domain:type#name`. The `key`, `domain`, and `type` are optional, but are recommended to avoid ambiguity when there are multiple targets with the same `name`.
+
+If the `name` contains a space, you need to wrap the whole link in angle brackets `<>`.
 
 ```md
-<!-- #django-template-context-processors-i18n does not work, so a full URL will be needed -->
-
-[django.template.context_processors.i18n](https://docs.djangoproject.com/en/stable/ref/templates/api/#django-template-context-processors-i18n)
-
-<!--  #meta-and-multi-table-inheritance does work as a direct name reference -->
-
-[multi-table inheritance](inv:django#meta-and-multi-table-inheritance)
+See Django's docs on [](<inv:django:std:label#topics/cache:template fragment caching>).
 ```
+
+<details>
+
+<summary>Rendered output</summary>
+
+See Django's docs on [](<inv:django:std:label#topics/cache:template fragment caching>).
+
+</details>
+
+##### Find the right intersphinx target
+
+The intersphinx target for a specific anchor you want to link to may not be obvious. You can use the `myst-inv` command line tool from MyST-Parser and save the output as a JSON or YAML file to get a visual representation of the available targets.
+
+```sh
+myst-inv https://docs.djangoproject.com/en/stable/_objects/ --format=json > django-inv.json
+```
+
+Using the output from `myst-inv`, you can follow the tree structure under the `objects` key to build the link target. Some text editors such as VSCode can show you the breadcrumbs to the target as you navigate the file.
+
+Other tools are also available to help you explore Sphinx inventories, such as [sphobjinv](https://github.com/bskinn/sphobjinv) and Sphinx's built-in `sphinx.ext.intersphinx` extension.
+
+```sh
+sphobjinv suggest "https://docs.djangoproject.com/en/stable/_objects/" 'template fragment caching' -su
+
+python -m sphinx.ext.intersphinx https://docs.djangoproject.com/en/stable/_objects/
+```
+
+In some cases, a more specific target may be available in the documentation. However, you may need to inspect the source code of the page to find it.
+
+For example, the above section on Django's docs can also be linked via the type `templatetag` and the name `cache`.
+
+```md
+See Django's docs on the [](inv:django:std:templatetag#cache) tag.
+```
+
+<details>
+
+<summary>Rendered output</summary>
+
+See Django's docs on the [](inv:django:std:templatetag#cache) tag.
+
+</details>
+
+Note that while the link takes you to the same section, the URL hash and the default text will be different. If you use a custom text, this may not make a difference to the reader. However, they are semantically different.
+
+Use the first approach (with the `label` type) when you are linking in the context of documentation in general, such as a guide on how to do caching. Use the second approach (with the `templatetag` type) when you are linking in the context of writing code, such as the use of the `{% cache %}` template tag. The second approach is generally preferred when writing docstrings.
+
+#### Absolute links
+
+Sometimes, there are sections in external docs that do not have a Sphinx target target attached at all. Before linking to such sections, consider linking to the nearest target before that section. If there is one available that is close enough such that your intended section is immediately visible upon clicking the link, use that. Otherwise, you can write it as a full URL. Remember to use the `stable` URL and not a specific version.
+
+A common example of using full URLs over intersphinx links is when linking to sections in Django's release notes.
+
+```md
+`DeleteView` has been updated to align with [Django 4.0's `DeleteView` implementation](https://docs.djangoproject.com/en/stable/releases/4.0/#deleteview-changes).
+```
+
+<details>
+
+<summary>Rendered output</summary>
+
+`DeleteView` has been updated to align with [Django 4.0's `DeleteView` implementation](https://docs.djangoproject.com/en/stable/releases/4.0/#deleteview-changes).
+
+</details>
+
+For external links to websites with no intersphinx mapping, always use the `https://` scheme.
+
+Absolute links are also preferred for one-off links to external docs, even if they have a Sphinx object inventory. Once there are three or more links to the same project, consider adding an intersphinx mapping if possible.
+
+#### Code references
+
+When linking to code references, you can use Sphinx's reference roles.
+
+Markdown example:
+
+```md
+The {class}`~django.db.models.JSONField` class lives in the {mod}`django.db.models.fields.json` module,
+but it can be imported from the {mod}`models <django.db.models>` module directly.
+For more info, see {ref}`querying-jsonfield`.
+```
+
+reStructuredText example:
+
+```rst
+The :class:`~django.db.models.JSONField` class lives in the :mod:`django.db.models.fields.json` module,
+but it can be imported from the :mod:`models <django.db.models>` module directly.
+For more info, see :ref:`querying-jsonfield`.
+```
+
+<details>
+
+<summary>Rendered output</summary>
+
+The {class}`~django.db.models.JSONField` class lives in the {mod}`django.db.models.fields.json` module,
+but it can be imported from the {mod}`models <django.db.models>` module directly.
+For more info, see {ref}`querying-jsonfield`.
+
+</details>
+
+Adding `~` before the dotted path will shorten the link text to just the final part (the object name). This can be useful when the full path is already mentioned in the text. You can also set the current scope of the documentation with a `module` or `currentmodule` directive to avoid writing the full path to every object.
+
+````md
+```{currentmodule} wagtail.admin.viewsets.model
+
+```
+
+The {class}`ModelViewSet` class extends the {class}`~wagtail.admin.viewsets.base.ViewSet` class.
+````
+
+<details>
+
+<summary>Rendered output</summary>
+
+```{currentmodule} wagtail.admin.viewsets.model
+
+```
+
+The {class}`ModelViewSet` class extends the {class}`~wagtail.admin.viewsets.base.ViewSet` class.
+
+</details>
+
+```{currentmodule} None
+
+```
+
+A reference role can also define how it renders itself. In the above examples, the `class` and `mod` roles are rendered as an inline code with link, but the `ref` role is rendered as a plain link.
+
+These features make reference roles particularly useful when writing reference-type documentation and docstrings.
+
+Aside from using reference roles, you can also use the link syntax. Unlike reference roles, the link syntax requires the full path to the object and it allows you to customize the link label. This can be useful when you want to avoid the reference role's default rendering, for example to mix inline code and plain text as the link label.
+
+```md
+For more details on how to query the [`JSONField` model field](django.db.models.JSONField),
+see [the section about querying `JSONField`](inv:django#querying-jsonfield).
+```
+
+<details>
+
+<summary>Rendered output</summary>
+
+For more details on how to query the [`JSONField` model field](django.db.models.JSONField),
+see [the section about querying `JSONField`](inv:django#querying-jsonfield).
+
+</details>
 
 ### Note and warning call-outs
 
