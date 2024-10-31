@@ -9,6 +9,8 @@ export class Chooser {
     this.opts = opts;
     this.initHTMLElements(id);
     this.state = this.getStateFromHTML();
+    this.parentCapabilities = opts.parentCapabilities || new Map();
+    this.splitCapability = this.parentCapabilities.get('split');
 
     for (const btn of this.chooserElement.querySelectorAll(
       '[data-chooser-action-choose]',
@@ -27,6 +29,10 @@ export class Chooser {
 
     // attach a reference to this widget object onto the root element of the chooser
     this.chooserElement.widget = this;
+  }
+
+  allowMultipleSelection() {
+    return this.splitCapability?.enabled;
   }
 
   initHTMLElements(id) {
@@ -82,7 +88,25 @@ export class Chooser {
   }
 
   setStateFromModalData(data) {
-    this.setState(data);
+    if (this.allowMultipleSelection()) {
+      if (data.length === 0) {
+        this.clear();
+      } else {
+        this.setState(data[0]);
+        /*
+        Use the 'split' capability to insert the remaining items.
+        Repeatedly split the initial widget into two widgets, whose values are
+        the initial value and the one we want to insert - this has the effect of
+        inserting a new item below the initial one. Work backwards through the
+        list to preserve the order of the items.
+        */
+        for (let i = data.length - 1; i >= 1; i -= 1) {
+          this.splitCapability.fn(data[0], data[i], () => false);
+        }
+      }
+    } else {
+      this.setState(data);
+    }
   }
 
   clear() {
@@ -127,6 +151,8 @@ export class Chooser {
   }
 
   getModalOptions() {
+    const options = {};
+
     const filters = {};
     if (this.opts.linkedFields) {
       for (const [param, lookup] of Object.entries(this.opts.linkedFields)) {
@@ -153,9 +179,13 @@ export class Chooser {
       }
     }
     if (Object.keys(filters).length) {
-      return { linkedFieldFilters: filters };
+      options.linkedFieldFilters = filters;
     }
-    return null;
+    if (this.allowMultipleSelection()) {
+      options.multiple = 1;
+    }
+
+    return options;
   }
 
   openChooserModal() {
@@ -181,12 +211,15 @@ export class ChooserFactory {
     this.opts = opts;
   }
 
-  render(placeholder, name, id, initialState) {
+  render(placeholder, name, id, initialState, parentCapabilities) {
     const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
     // eslint-disable-next-line no-param-reassign
     placeholder.outerHTML = html;
     // eslint-disable-next-line new-cap
-    const chooser = new this.widgetClass(id, this.opts);
+    const chooser = new this.widgetClass(id, {
+      ...this.opts,
+      parentCapabilities,
+    });
     chooser.setState(initialState);
     return chooser;
   }
