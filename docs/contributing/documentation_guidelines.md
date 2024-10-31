@@ -15,7 +15,7 @@ To ensure consistency in tone and language, follow the [Google developer documen
 
 ## Formatting recommendations
 
-Wagtail’s documentation uses a mixture of [Markdown](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason.
+Wagtail’s documentation uses a mixture of [Markdown (with MyST)](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason. Docstrings in Python code must be written in reStructuredText, as using Markdown is not yet supported.
 
 Here are formats we encourage using when writing documentation for Wagtail.
 
@@ -479,6 +479,8 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 
 With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature that we highly recommend using to document Wagtail’s APIs.
 
+Currently, this requires the `eval-rst` directive. Anything inside the directive needs to be written in reStructuredText syntax.
+
     ```{eval-rst}
     .. module:: wagtail.coreutils
 
@@ -524,7 +526,7 @@ Only use tables when needed, using the [GitHub Flavored Markdown table syntax](h
 
 ### Tables of contents
 
-`toctree` and `contents` can be used as reStructuredText directives.
+The `toctree` and `contents` directives can be used to render tables of contents.
 
     ```{toctree}
     ---
@@ -547,9 +549,11 @@ Only use tables when needed, using the [GitHub Flavored Markdown table syntax](h
 Sphinx offers release-metadata directives to present information about new or updated features in a consistent manner.
 
     ```{versionadded} 2.15
+    The `WAGTAIL_NEW_SETTING` setting was added.
     ```
 
     ```{versionchanged} 2.15
+    The `WAGTAIL_OLD_SETTING` setting was deprecated.
     ```
 
 <details>
@@ -557,11 +561,11 @@ Sphinx offers release-metadata directives to present information about new or up
 <summary>Rendered output</summary>
 
 ```{versionadded} 2.15
-
+The `WAGTAIL_NEW_SETTING` setting was added.
 ```
 
 ```{versionchanged} 2.15
-
+The `WAGTAIL_OLD_SETTING` setting was deprecated.
 ```
 
 </details>
@@ -615,6 +619,10 @@ reStructuredText figures (`.. figure::`) only offer very marginal improvements o
 We generally want to favor Markdown over reStructuredText, to make it as simple as possible for newcomers to make documentation contributions to Wagtail. Always prefer Markdown, unless the document’s formatting highly depends on reStructuredText syntax.
 
 If you want to use a specific Sphinx directive, consult with core contributors to see whether its usage is justified, and document its expected usage on this page.
+
+### Markdown in reStructuredText
+
+Conversely, do not use Markdown syntax in places where reStructuredText is required. A common mistake is writing Markdown-style inline `` `code` `` (with single backticks) inside Python code docstrings and inside `eval-rst` directives. This is not supported and will not render correctly.
 
 ### Arbitrary HTML
 
