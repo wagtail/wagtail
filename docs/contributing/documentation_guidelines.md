@@ -93,13 +93,15 @@ Use **bold** and _italic_ sparingly and inline `code` when relevant.
 
 Make sure to include the correct language code for syntax highlighting, and to format your code according to our coding guidelines. Frequently used: `python`, `css`, `html`, `html+django`, `javascript`, `sh`.
 
-    ```python
-    INSTALLED_APPS = [
-        ...
-        "wagtail",
-        ...
-    ]
-    ```
+````md
+```python
+INSTALLED_APPS = [
+    ...
+    "wagtail",
+    ...
+]
+```
+````
 
 <details>
 
@@ -123,10 +125,12 @@ INSTALLED_APPS = [
 
 Use `sh` as it has better support for comment and code syntax highlighting in MyST's parser, plus is more compatible with GitHub and VSCode.
 
-    ```sh
-    # some comment
-    some command
-    ```
+````md
+```sh
+# some comment
+some command
+```
+````
 
 <details>
 
@@ -141,10 +145,12 @@ some command
 
 Use `doscon` (DOS Console) only if explicitly calling out Windows commands alongside their bash equivalent.
 
-    ```doscon
-    # some comment
-    some command
-    ```
+````md
+```doscon
+# some comment
+some command
+```
+````
 
 <details>
 
@@ -154,6 +160,32 @@ Use `doscon` (DOS Console) only if explicitly calling out Windows commands along
 # some comment
 some command
 ```
+
+</details>
+
+#### Code blocks that contain triple backticks
+
+You can use three or more backticks to create code blocks. If you need to include triple backticks in a code block, you can use a different number of backticks to wrap the code block. This is useful when you need to demonstrate a Markdown code block, such as in the examples above.
+
+`````md
+````md
+```python
+print("Hello, world!")
+```
+````
+`````
+
+
+
+<details>
+
+<summary>Rendered output</summary>
+
+````md
+```python
+print("Hello, world!")
+```
+````
 
 </details>
 
