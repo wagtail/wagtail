@@ -490,8 +490,10 @@ With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc
 
 ```{eval-rst}
 .. module:: wagtail.coreutils
+    :no-index:
 
 .. autofunction:: cautious_slugify
+    :no-index:
 ```
 
 </details>
