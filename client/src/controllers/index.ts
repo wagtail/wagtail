@@ -12,6 +12,7 @@ import { DialogController } from './DialogController';
 import { DismissibleController } from './DismissibleController';
 import { DrilldownController } from './DrilldownController';
 import { DropdownController } from './DropdownController';
+import { FocusController } from './FocusController';
 import { FormsetController } from './FormsetController';
 import { InitController } from './InitController';
 import { KeyboardController } from './KeyboardController';
@@ -22,7 +23,6 @@ import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
 import { RulesController } from './RulesController';
 import { SessionController } from './SessionController';
-import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
 import { SwapController } from './SwapController';
@@ -51,6 +51,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: DismissibleController, identifier: 'w-dismissible' },
   { controllerConstructor: DrilldownController, identifier: 'w-drilldown' },
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
+  { controllerConstructor: FocusController, identifier: 'w-focus' },
   { controllerConstructor: FormsetController, identifier: 'w-formset' },
   { controllerConstructor: InitController, identifier: 'w-init' },
   { controllerConstructor: KeyboardController, identifier: 'w-kbd' },
@@ -62,7 +63,6 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: RevealController, identifier: 'w-reveal' },
   { controllerConstructor: RulesController, identifier: 'w-rules' },
   { controllerConstructor: SessionController, identifier: 'w-session' },
-  { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: SwapController, identifier: 'w-swap' },
