@@ -145,7 +145,7 @@ For more information on how to set up your Backblaze B2 Cloud Storage, read the 
 
 ## Set up Fly.io
 
-Now that you've linked your site to your Backblaze storage, it's time to set up Fly.io to host your site.
+Now that you've linked your site to your Backblaze storage, it's time to set up Fly.io to host your site. 
 
 To set up your Fly.io account, follow these steps:
 
@@ -356,7 +356,7 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Use this for sending emails via an SMTP service. If you are in a development environment and do not want to send real emails, use `django.core.mail.backends.console.EmailBackend` instead.
 
 MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -407,10 +407,48 @@ The explanation of some of the code in your `mysite/settings/production.py` file
 3. `SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")` ensures that Django can detect a secure HTTPS connection if you deploy your site behind a reverse proxy like Heroku.
 4. `SECURE_SSL_REDIRECT = True` enforces HTTPS redirect. This ensures that all connections to the site are secure.
 5. `ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")` defines the hostnames that can access your site. It retrieves its values from the `DJANGO_ALLOWED_HOSTS` environment variable. If no specific hosts are defined, it defaults to allowing all hosts.
-6. `EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"` configures your site to use the console email backend. You can configure this to use a proper email backend for sending emails.
+6. `EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"` configures your site to use the SMTP email backend. This backend sends emails using the Simple Mail Transfer Protocol (SMTP) through a third-party email service provider, which is necessary for production environments to ensure reliable email delivery.
+   **Note:** Fly.io does not support email services out of the box. You need to set up third-party SMTP service providers to send emails from your Django application.
 7. `WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"` configures the file storage for Wagtail's redirects. Here, you set it to use cache.
 
+---
+
+### Popular SMTP Service Providers
+
+1. **MailerSend**
+   - MailerSend is a cloud-based email delivery service that allows you to send transactional and marketing emails without managing email servers. It offers features like email tracking and analytics.
+   - **Key Step:** After creating an account, obtain your SMTP credentials (host, username, and password) and configure your Django settings with these values.
+
+2. **SMTP2GO**
+   - SMTP2GO is a reliable SMTP service that provides robust email delivery with tracking capabilities. It's designed for businesses of all sizes to send and monitor their emails efficiently.
+   - **Key Step:** Sign up to get your SMTP credentials and use them in your Django settings for the SMTP configuration.
+
+3. **SendPulse**
+   - SendPulse is a multi-channel marketing platform that includes email delivery services. It is suitable for sending transactional emails and offers automation features.
+   - **Key Step:** Verify your domain and get your SMTP username and password to configure your Django settings.
+
+### Setting Up Console Email Backend
+
+The Console Email Backend is useful for local development and testing, as it outputs email messages to the console instead of sending them. This allows you to verify that emails are being generated correctly without sending them to actual recipients. Keep `DEBUG = True` in your settings as this is generally used while testing
+
+To set it up, add the following line to your Django settings:
+
+```python
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+```
+
 Now, complete the configuration of your environment variables by modifying your `.env.production` file as follows:
+
+If you're planning to use any SMTP providers, include this in your `.env.production` as well:
+
+```env
+EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST="your_smtp_provider_host"  # e.g., smtp.mailersend.net for MailerSend
+EMAIL_PORT=587  # Commonly used port for TLS
+EMAIL_USE_TLS=True  # Set to True to enable TLS
+EMAIL_HOST_USER="your_smtp_username"  # Your SMTP username (usually your email address)
+EMAIL_HOST_PASSWORD="your_smtp_api_key"  # Your SMTP provider's API key
+```
 
 | Environment variable        | Instruction                                                                                           |
 | --------------------------- | ----------------------------------------------------------------------------------------------------- |
