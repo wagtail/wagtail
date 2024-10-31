@@ -97,6 +97,17 @@ Now create a `templates/wagtailcalendar/` folder within the `wagtailcalendar` ap
 {% endblock %}
 ```
 
+```css
+/* calender.css */
+table.month {
+            margin: 20px;
+        }
+        table.month td, table.month th {
+            padding: 5px;
+        }
+
+```
+
 Here we are overriding three of the blocks defined in the base template: `titletag` (which sets the content of the HTML `<title>` tag), `extra_css` (which allows us to provide additional CSS styles specific to this page), and `content` (for the main content area of the page). We're also including the standard header bar component, and setting a title and icon. For a list of the recognized icon identifiers, see the [style guide](styleguide).
 
 Note: Moving inline styles to an external file helps improve security by aligning with Content Security Policy (CSP) standards.
