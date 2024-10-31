@@ -83,6 +83,15 @@ nitpick_ignore = [
     ("py:class", "wagtail.blocks.stream_block.BaseStreamBlock"),
 ]
 
+# We have .txt and .ico files in the static directory that trigger unknown mime
+# type warnings when building the epub and are ignored by the builder. For the
+# table markup files, they are already rendered in the output. Other files are
+# not relevant to the epub. Suppress the warnings so we don't have to explicitly
+# list the files in `epub_exclude_files`.
+suppress_warnings = [
+    "epub.unknown_project_files",
+]
+
 if not on_rtd:
     extensions.append("sphinxcontrib.spelling")
 
@@ -100,7 +109,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Wagtail Documentation"
-copyright = f"{datetime.now().year}, Torchbox and contributors. BSD license"
+copyright = f"{datetime.now().year}, Wagtail core team and contributors. BSD license"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -266,7 +275,13 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ("index", "Wagtail.tex", "Wagtail Documentation", "Torchbox", "manual"),
+    (
+        "index",
+        "Wagtail.tex",
+        "Wagtail Documentation",
+        "Wagtail core team and contributors",
+        "manual",
+    ),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -293,7 +308,15 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [("index", "wagtail", "Wagtail Documentation", ["Torchbox"], 1)]
+man_pages = [
+    (
+        "index",
+        "wagtail",
+        "Wagtail Documentation",
+        ["Wagtail core team and contributors"],
+        1,
+    )
+]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -308,9 +331,9 @@ texinfo_documents = [
         "index",
         "Wagtail",
         "Wagtail Documentation",
-        "Torchbox",
+        "Wagtail core team and contributors",
         "Wagtail",
-        "One line description of project.",
+        "An open source content management system built on Django.",
         "Miscellaneous",
     ),
 ]
@@ -326,6 +349,14 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 # texinfo_no_detailmenu = False
+
+# -- Options for Epub output ---------------------------------------------------
+
+# Bibliographic Dublin Core info.
+epub_title = project
+epub_author = "Wagtail core team and contributors"
+epub_publisher = "Wagtail"
+epub_copyright = copyright
 
 
 def setup(app):

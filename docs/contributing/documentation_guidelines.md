@@ -200,9 +200,7 @@ The reference can be linked to, with an optional label, using the Markdown link 
 -   [label for section](my_awesome_section)
 ```
 
-<details>
-
-<summary>Rendered output</summary>
+Rendered output:
 
 (my_awesome_section)=
 
@@ -212,8 +210,6 @@ The reference can be linked to, with an optional label, using the Markdown link 
 
 -   Auto generated label (preferred) [](my_awesome_section)
 -   [label for section](my_awesome_section)
-
-</details>
 
 You can read more about other methods of linking to, and creating references in the MyST parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/cross-referencing.html).
 
