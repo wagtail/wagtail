@@ -358,9 +358,9 @@ CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # Use this for sending emails via an SMTP service. 
 
-""""
+"""
 If you are in a development environment and do not want to send real emails, use `django.core.mail.backends.console.EmailBackend` instead.
-""""
+"""
 
 MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
