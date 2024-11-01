@@ -89,6 +89,7 @@ Changelog
  * Docs: Replace X links with Mastodon in the README (Alex Morega)
  * Docs: Re-enable building offline formats in online documentation (Read the docs) for EPUB/PDF/HTML downloads (Joel William, Sage Abdullah)
  * Docs: Resolve multiple output errors in the documentation ePub format (Sage Abdullah)
+ * Docs: Update social media examples to use LinkedIn, Reddit, Facebook (Ayaan Qadri)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)

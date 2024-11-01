@@ -850,6 +850,7 @@
 * Alessandro Chitarrini
 * Joel William
 * Ataf Fazledin Ahamed
+* Ayaan Qadri
 
 ## Translators
 
