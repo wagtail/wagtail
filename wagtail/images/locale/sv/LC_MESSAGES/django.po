@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -26,6 +26,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail bilder"
+
+msgid "Image is decorative"
+msgstr "Bilden är dekorativ"
+
+msgid "Alt text"
+msgstr "Alternativ text"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Vänligen lägg till alternativ text för din bild eller markera den som "
+"dekorativ"
 
 #, python-format
 msgid ""
@@ -84,17 +95,6 @@ msgstr "Samling"
 msgid "Format"
 msgstr "Format"
 
-msgid "Image is decorative"
-msgstr "Bilden är dekorativ"
-
-msgid "Alt text"
-msgstr "Alternativ text"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Vänligen lägg till alternativ text för din bild eller markera den som "
-"dekorativ"
-
 msgid "Filter"
 msgstr "Filter"
 
@@ -148,6 +148,9 @@ msgstr "titel"
 
 msgid "file"
 msgstr "fil"
+
+msgid "description"
+msgstr "beskrivning"
 
 msgid "width"
 msgstr "bredd"
@@ -303,27 +306,17 @@ msgstr "Byt bildfil:"
 msgid "Add an image"
 msgstr "Lägg till en bild"
 
-msgid "Add image"
-msgstr "Lägg till bild"
+msgid "Uploading…"
+msgstr "Laddar upp…"
 
-msgid "Save"
-msgstr "Spara"
+msgid "Upload"
+msgstr "Ladda upp"
 
 msgid "Keep new image"
 msgstr "Behåll ny bild"
 
 msgid "Delete new image"
 msgstr "Radera ny bild"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Redigerar bild %(title)s"
-
-msgid "Editing"
-msgstr "Redigerar"
-
-msgid "Delete image"
-msgstr "Radera bild"
 
 msgid "Image focal point"
 msgstr "Bildens brännpunkt"
@@ -408,9 +401,6 @@ msgstr "Kopiering till urklipp misslyckades"
 
 msgid "Add multiple images"
 msgstr "Lägg till flera bilder"
-
-msgid "Add images"
-msgstr "Lägg till bilder"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Dra och släpp bilder inom det här området för att ladda upp direkt."
@@ -498,12 +488,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d bild har raderats"
 msgstr[1] "%(num_parent_objects)d bilder har raderats"
 
-msgid "Upload"
-msgstr "Ladda upp"
-
-msgid "Uploading…"
-msgstr "Laddar upp…"
-
 msgid "Choose an image"
 msgstr "Välj en bild"
 
@@ -534,15 +518,12 @@ msgstr "Filstorlek: (hög till låg)"
 msgid "Images"
 msgstr "Bilder"
 
+msgid "The image could not be saved due to errors."
+msgstr "Bilden kunde inte sparas p.g.a. fel."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Bild '%(image_title)s' uppdaterades."
-
-msgid "Edit again"
-msgstr "Redigera igen"
-
-msgid "The image could not be saved due to errors."
-msgstr "Bilden kunde inte sparas p.g.a. fel."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -551,16 +532,22 @@ msgstr ""
 "Filen för originalbilden kunde inte hittas. Vänligen ändra filen eller ta "
 "bort bilden."
 
+msgid "Delete image"
+msgstr "Radera bild"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Bild '%(image_title)s' raderad."
+
+msgid "The image could not be created due to errors."
+msgstr "Bilden kunde inte skapas p.g.a. fel."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Bild '%(image_title)s' lades till."
 
-msgid "The image could not be created due to errors."
-msgstr "Bilden kunde inte skapas p.g.a. fel."
+msgid "Add images"
+msgstr "Lägg till bilder"
 
 msgid "Image"
 msgstr "Bild"

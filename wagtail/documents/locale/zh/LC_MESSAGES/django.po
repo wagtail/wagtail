@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: shengsheng gz <gzshengsheng@139.com>, 2018\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -65,27 +65,11 @@ msgstr "修改文档："
 msgid "Add a document"
 msgstr "添加一份文档"
 
-msgid "Add document"
-msgstr "添加文档"
-
 msgid "Uploading…"
 msgstr "上传中"
 
 msgid "Upload"
 msgstr "上传"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "编辑%(title)s"
-
-msgid "Editing"
-msgstr "编辑"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Delete document"
-msgstr "删除文档"
 
 msgid "Filesize"
 msgstr "文件大小"
@@ -107,9 +91,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "添加多份文档"
-
-msgid "Add documents"
-msgstr "添加文档"
 
 msgid "Tags"
 msgstr "标签"
@@ -143,9 +124,15 @@ msgstr "有错，文档无法保存。"
 msgid "Document '%(document_title)s' updated"
 msgstr "文档'%(document_title)s'已更新"
 
+msgid "Delete document"
+msgstr "删除文档"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "文档'%(document_title)s'已删除"
+
+msgid "Add documents"
+msgstr "添加文档"
 
 msgid "Document"
 msgstr "文档"

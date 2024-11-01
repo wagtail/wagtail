@@ -5,6 +5,7 @@
 # Translators:
 # Benoît Vogel <contact@spicy-informatique.com>, 2017,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2024
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # incognitae <pierre@onoffdesign.com>, 2016
@@ -21,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -210,27 +211,11 @@ msgstr "Modifier le document :"
 msgid "Add a document"
 msgstr "Ajouter un document"
 
-msgid "Add document"
-msgstr "Ajouter le document"
-
 msgid "Uploading…"
 msgstr "Transfert…"
 
 msgid "Upload"
 msgstr "Transférer"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Modification de %(title)s"
-
-msgid "Editing"
-msgstr "Modification"
-
-msgid "Save"
-msgstr "Enregistrer"
-
-msgid "Delete document"
-msgstr "Supprimer le document"
 
 msgid "Filesize"
 msgstr "Taille du fichier"
@@ -266,26 +251,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> document <span class=\"w-sr-only\">créé dans "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">créé dans %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> documents <span class=\"w-sr-only\">créés dans "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">créé dans %(site_name)s</span>"
 msgstr[2] ""
-"<span>%(total)s</span> documents <span class=\"w-sr-only\">créés dans "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">créés dans %(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Ajouter plusieurs documents"
-
-msgid "Add documents"
-msgstr "Ajouter des documents"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -395,6 +372,9 @@ msgstr "Documents"
 msgid "Title"
 msgstr "Titre"
 
+msgid "The document could not be created due to errors."
+msgstr "Le document n'a pas pu être créé en raison d'erreurs."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Document « %(document_title)s » ajouté."
@@ -412,9 +392,15 @@ msgstr ""
 "Le fichier n'a pas été trouvé. Veuillez changer la source ou supprimer le "
 "document."
 
+msgid "Delete document"
+msgstr "Supprimer le document"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Document « %(document_title)s » supprimé."
+
+msgid "Add documents"
+msgstr "Ajouter des documents"
 
 msgid "Document"
 msgstr "Document"

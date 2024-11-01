@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
@@ -71,12 +71,12 @@ msgstr "Þýðing '%(object)s' uppfærð."
 msgid "The locale could not be saved due to errors."
 msgstr "Ekki var hægt að vista þýðingu þar sem hún stóðst ekki villuprófanir."
 
-msgid "Delete locale"
-msgstr "Eyða þýðingu"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Þýðingu '%(object)s' eytt."
+
+msgid "Delete locale"
+msgstr "Eyða þýðingu"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Ertu viss um að þú viljir eyða þessari þýðingu?"

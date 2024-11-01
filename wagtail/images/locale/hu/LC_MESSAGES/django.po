@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -22,6 +22,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Képek"
+
+msgid "Image is decorative"
+msgstr "A kép dekoratív"
+
+msgid "Alt text"
+msgstr "Alt szöveg"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Kérjük adjon hozzá egy alternatív szöveget, vagy jelölje meg dekoratív "
+"képként."
 
 #, python-format
 msgid ""
@@ -82,17 +93,6 @@ msgstr "Gyűjtemény"
 msgid "Format"
 msgstr "Formátum"
 
-msgid "Image is decorative"
-msgstr "A kép dekoratív"
-
-msgid "Alt text"
-msgstr "Alt szöveg"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Kérjük adjon hozzá egy alternatív szöveget, vagy jelölje meg dekoratív "
-"képként."
-
 msgid "Filter"
 msgstr "Szűrő"
 
@@ -146,6 +146,9 @@ msgstr "cím"
 
 msgid "file"
 msgstr "fájl"
+
+msgid "description"
+msgstr "leírás"
 
 msgid "width"
 msgstr "szélesség"
@@ -295,47 +298,23 @@ msgstr "Formátum kiválasztása"
 msgid "Insert image"
 msgstr "Kép beillesztése"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> kép létrehozva <span class=\"w-sr-only\">ezen az "
-"oldalon: %(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> kép létrehozva ezen az oldalon: <span class=\"w-sr-"
-"only\">%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Kép cseréje:"
 
 msgid "Add an image"
 msgstr "Kép hozzáadása"
 
-msgid "Add image"
-msgstr "Kép hozzáadása"
+msgid "Uploading…"
+msgstr "Feltöltés folyamatban…"
 
-msgid "Save"
-msgstr "Mentés"
+msgid "Upload"
+msgstr "Feltöltés"
 
 msgid "Keep new image"
 msgstr "Új kép megtartása"
 
 msgid "Delete new image"
 msgstr "Új kép törlése"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "%(title)s kép szerkesztése"
-
-msgid "Editing"
-msgstr "Szerkesztés"
-
-msgid "Delete image"
-msgstr "Kép törlése"
 
 msgid "Image focal point"
 msgstr "Kép fókuszpontja"
@@ -423,9 +402,6 @@ msgstr "Nem sikerült a vágólapra másolni"
 msgid "Add multiple images"
 msgstr "Több kép hozzáadása"
 
-msgid "Add images"
-msgstr "Képek hozzáadása"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Húzza az egerével a feltölteni kívánt képeket erre a területre."
 
@@ -509,12 +485,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d kép törölve"
 msgstr[1] "%(num_parent_objects)d kép törölve"
 
-msgid "Upload"
-msgstr "Feltöltés"
-
-msgid "Uploading…"
-msgstr "Feltöltés folyamatban…"
-
 msgid "Choose an image"
 msgstr "Válasszon képet"
 
@@ -545,15 +515,12 @@ msgstr "Fájlméret: (csökkenő)"
 msgid "Images"
 msgstr "Képek"
 
+msgid "The image could not be saved due to errors."
+msgstr "Hiba történt a kép mentése közben."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "'%(image_title)s' kép frissítve."
-
-msgid "Edit again"
-msgstr "Újraszerkesztés"
-
-msgid "The image could not be saved due to errors."
-msgstr "Hiba történt a kép mentése közben."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -562,16 +529,22 @@ msgstr ""
 "A forrás kép nem található. Kérjük válasszon ki új forrás fájlt, vagy "
 "törölje a képet."
 
+msgid "Delete image"
+msgstr "Kép törlése"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "'%(image_title)s' kép törölve."
+
+msgid "The image could not be created due to errors."
+msgstr "Hiba történt a kép létrehozása közben."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "'%(image_title)s' kép hozzáadva."
 
-msgid "The image could not be created due to errors."
-msgstr "Hiba történt a kép létrehozása közben."
+msgid "Add images"
+msgstr "Képek hozzáadása"
 
 msgid "Image"
 msgstr "Kép"

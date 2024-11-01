@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Madalin Popa, 2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -59,12 +59,12 @@ msgstr "Sait-ul nu a fost salvat din cauza erorilor."
 msgid "Site '%(object)s' updated."
 msgstr "Sait-ul '%(object)s' a fost actualizat."
 
-msgid "Delete site"
-msgstr "Șterge sait"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Sait-ul '%(object)s' a fost șters."
+
+msgid "Delete site"
+msgstr "Șterge sait"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Sigur doriți să ștergeți acest sait?"

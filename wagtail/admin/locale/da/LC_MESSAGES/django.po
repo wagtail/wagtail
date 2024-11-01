@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: MRostgaard <Mrostgaard@gmail.com>, 2019\n"
 "Language-Team: Danish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -226,9 +226,6 @@ msgstr "Den anmodede side kunne ikke findes."
 msgid "Go to Wagtail admin"
 msgstr "Gå til Wagtail admin"
 
-msgid "Account"
-msgstr "Konto"
-
 msgid "Reset password"
 msgstr "Genindstil adgangskode"
 
@@ -359,9 +356,11 @@ msgstr "Felter"
 msgid "Changes"
 msgstr "Ændringer"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Velkommen til %(site_name)s Wagtail CMS"
+msgid "Account"
+msgstr "Konto"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Rediger denne side"
@@ -377,9 +376,6 @@ msgstr "Live"
 
 msgid "Your most recent edits"
 msgstr "Dine seneste redigeringer"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Dato"
@@ -422,9 +418,6 @@ msgstr "Du kan redigere siden her:"
 
 msgid "You can preview the page here:"
 msgstr "Du kan få en forhåndsvisning af siden her:"
-
-msgid "This page has been made private by a parent page."
-msgstr "Denne side er blevet lavet privat af en forældreside."
 
 msgid "Publishing…"
 msgstr "Udgiver..."
@@ -495,9 +488,6 @@ msgstr "Kopi"
 
 msgid "Copy this page"
 msgstr "Kopier denne side"
-
-msgid "This page has unsaved changes."
-msgstr "Denne side har ugemte ændringer."
 
 msgid "Configure a site now."
 msgstr "Konfigurer en side nu."

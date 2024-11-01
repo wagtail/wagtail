@@ -6,15 +6,16 @@
 # Translators:
 # Loic Teixeira, 2022
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
+# saevarom <saevar@saevar.is>, 2024
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2024\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +52,9 @@ msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
 msgstr[0] "Þýða yfirsíðuna"
 msgstr[1] "Þýða yfirsíður."
+
+msgid "Can submit translations"
+msgstr "Getur sent inn þýðingar"
 
 msgid "Submit"
 msgstr "Senda"

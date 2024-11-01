@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021-2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -24,6 +24,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail paveikslėliai"
+
+msgid "Image is decorative"
+msgstr "Paveikslėlis yra dekoratyvinis"
+
+msgid "Alt text"
+msgstr "Alternatyvus tekstas"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Prašome nurodyti alternatyvųjį tekstą arba pažymėti paveikslėlį kaip "
+"dekoratyvinį"
 
 #, python-format
 msgid ""
@@ -76,17 +87,6 @@ msgstr "Kolekcija"
 
 msgid "Format"
 msgstr "Formatas"
-
-msgid "Image is decorative"
-msgstr "Paveikslėlis yra dekoratyvinis"
-
-msgid "Alt text"
-msgstr "Alternatyvus tekstas"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Prašome nurodyti alternatyvųjį tekstą arba pažymėti paveikslėlį kaip "
-"dekoratyvinį"
 
 msgid "Filter"
 msgstr "Filtras"
@@ -141,6 +141,9 @@ msgstr "pavadinimas"
 
 msgid "file"
 msgstr "byla"
+
+msgid "description"
+msgstr "apibūdinimas"
 
 msgid "width"
 msgstr "plotis"
@@ -210,21 +213,11 @@ msgstr "Keisti paveiksliuko bylą:"
 msgid "Add an image"
 msgstr "Pridėti paveiksliuką"
 
-msgid "Add image"
-msgstr "Pridėti paveiksliuką"
+msgid "Uploading…"
+msgstr "Įkeliama..."
 
-msgid "Save"
-msgstr "Išsaugoti"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Redaguojamas paveiksliukas %(title)s"
-
-msgid "Editing"
-msgstr "Redagavimas"
-
-msgid "Delete image"
-msgstr "Ištrinti paveiksliuką"
+msgid "Upload"
+msgstr "Įkelti"
 
 msgid "URL Generator"
 msgstr "URL generatorius"
@@ -290,9 +283,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "Pridėti daug paveiksliukų"
 
-msgid "Add images"
-msgstr "Pridėti paveiksliukus"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
 "Tempkite ir meskite paveiksliukus į šią zoną, kad iškart juos įkeltumėte."
@@ -336,12 +326,6 @@ msgstr "Pridėti pasirinktus paveiksliukus į kolekciją"
 msgid "Delete"
 msgstr "Ištrinti"
 
-msgid "Upload"
-msgstr "Įkelti"
-
-msgid "Uploading…"
-msgstr "Įkeliama..."
-
 msgid "Choose an image"
 msgstr "Pasirinkti paveiksliuką"
 
@@ -354,15 +338,12 @@ msgstr "Redaguoti šį paveiksliuką"
 msgid "Images"
 msgstr "Paveiksliukai"
 
+msgid "The image could not be saved due to errors."
+msgstr "Paveiksliukas negalėjo būti išsaugotas dėl klaidų."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Paveiksliukas '%(image_title)s' atnaujintas"
-
-msgid "Edit again"
-msgstr "Vėl redaguoti"
-
-msgid "The image could not be saved due to errors."
-msgstr "Paveiksliukas negalėjo būti išsaugotas dėl klaidų."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -371,16 +352,22 @@ msgstr ""
 "Paveiksliuko šaltinio byla nebuvo rasta. Prašome pakeisti šaltinį arba "
 "ištrinti paveiksliuką."
 
+msgid "Delete image"
+msgstr "Ištrinti paveiksliuką"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Paveiksliukas '%(image_title)s' ištrintas."
+
+msgid "The image could not be created due to errors."
+msgstr "Paveiksliukas negalėjo būti sukurtas dėl klaidų."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Paveiksliukas '%(image_title)s' pridėtas."
 
-msgid "The image could not be created due to errors."
-msgstr "Paveiksliukas negalėjo būti sukurtas dėl klaidų."
+msgid "Add images"
+msgstr "Pridėti paveiksliukus"
 
 msgid "Image"
 msgstr "Paveiksliukas"

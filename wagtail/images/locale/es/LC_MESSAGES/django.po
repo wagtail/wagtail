@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -36,6 +36,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imágenes Wagtail"
+
+msgid "Image is decorative"
+msgstr "Imagen es decorativa"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Por favor añade algún texto alternativo para tu imagen o márcalo como "
+"decorativo"
 
 #, python-format
 msgid ""
@@ -91,17 +102,6 @@ msgstr "Colección"
 msgid "Format"
 msgstr "Formato"
 
-msgid "Image is decorative"
-msgstr "Imagen es decorativa"
-
-msgid "Alt text"
-msgstr "Texto alternativo"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Por favor añade algún texto alternativo para tu imagen o márcalo como "
-"decorativo"
-
 msgid "Filter"
 msgstr "Filtro"
 
@@ -155,6 +155,9 @@ msgstr "título"
 
 msgid "file"
 msgstr "archivo"
+
+msgid "description"
+msgstr "descripción"
 
 msgid "width"
 msgstr "ancho"
@@ -323,27 +326,17 @@ msgstr "Cambiar archivo de imagen:"
 msgid "Add an image"
 msgstr "Añadir una imagen"
 
-msgid "Add image"
-msgstr "Añadir imagen"
+msgid "Uploading…"
+msgstr "Subiendo..."
 
-msgid "Save"
-msgstr "Guardar"
+msgid "Upload"
+msgstr "Subir"
 
 msgid "Keep new image"
 msgstr "Mantener nueva imagen"
 
 msgid "Delete new image"
 msgstr "Eliminar nueva imagen"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Editando imagen %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Delete image"
-msgstr "Eliminar imagen"
 
 msgid "Image focal point"
 msgstr "Punto focal de la imagen"
@@ -418,9 +411,6 @@ msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Agregar multiples imágenes"
-
-msgid "Add images"
-msgstr "Agregar imágenes"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
@@ -514,12 +504,6 @@ msgstr[0] "%(num_parent_objects)d imagen ha sido eliminada"
 msgstr[1] "%(num_parent_objects)d imágenes han sido eliminadas"
 msgstr[2] "%(num_parent_objects)d imágenes han sido eliminadas"
 
-msgid "Upload"
-msgstr "Subir"
-
-msgid "Uploading…"
-msgstr "Subiendo..."
-
 msgid "Choose an image"
 msgstr "Seleccionar una imagen"
 
@@ -550,15 +534,12 @@ msgstr "Tamaño de archivo: (de mayor a menor)"
 msgid "Images"
 msgstr "Imágenes"
 
+msgid "The image could not be saved due to errors."
+msgstr "La imagen no puedo ser guardada debido a errores"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imagen '%(image_title)s' actualizada."
-
-msgid "Edit again"
-msgstr "Editar de nuevo"
-
-msgid "The image could not be saved due to errors."
-msgstr "La imagen no puedo ser guardada debido a errores"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -567,16 +548,22 @@ msgstr ""
 "El archivo origen de la imagen no pudo ser encontrado. Por favor, cambia el "
 "origen o elimina esta imagen."
 
+msgid "Delete image"
+msgstr "Eliminar imagen"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imagen '%(image_title)s' eliminada."
+
+msgid "The image could not be created due to errors."
+msgstr "La imagen no pudo ser creada debido a errores."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imagen '%(image_title)s' añadida."
 
-msgid "The image could not be created due to errors."
-msgstr "La imagen no pudo ser creada debido a errores."
+msgid "Add images"
+msgstr "Agregar imágenes"
 
 msgid "Image"
 msgstr "Imagen"

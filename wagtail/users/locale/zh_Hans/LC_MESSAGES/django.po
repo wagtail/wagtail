@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -218,15 +218,6 @@ msgstr "删除组将会从所有组成员移除群权限"
 msgid "Are you sure you want to delete this group?"
 msgstr "确定要删除该组？"
 
-msgid "Add group"
-msgstr "添加组"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Delete group"
-msgstr "删除组"
-
 msgid "Object permissions"
 msgstr "对象权限"
 
@@ -238,15 +229,6 @@ msgstr "添加"
 
 msgid "Change"
 msgstr "更改"
-
-msgid "Publish"
-msgstr "发布"
-
-msgid "Lock"
-msgstr "锁定"
-
-msgid "Unlock"
-msgstr "解锁"
 
 msgid "Custom permissions"
 msgstr "定制权限"
@@ -288,12 +270,6 @@ msgstr "帐号"
 
 msgid "Roles"
 msgstr "角色"
-
-msgid "Add user"
-msgstr "添加用户"
-
-msgid "Delete user"
-msgstr "删除用户"
 
 msgid "Select all users in listing"
 msgstr "选择列表中的所有用户"
@@ -359,6 +335,9 @@ msgstr "添加一个组"
 msgid "Search groups"
 msgstr "搜索组"
 
+msgid "Add group"
+msgstr "添加组"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "组 '%(object)s' 已创建"
@@ -376,6 +355,9 @@ msgstr "查看此组中的用户"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "组 '%(object)s' 已删除。"
+
+msgid "Delete group"
+msgstr "删除组"
 
 msgid "Last login"
 msgstr "上次登录"
@@ -409,12 +391,18 @@ msgstr "“%(title)s”的更多选项"
 msgid "User '%(object)s' created."
 msgstr "用户 '%(object)s' 已创建."
 
+msgid "Add user"
+msgstr "添加用户"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "用户 '%(object)s' 已更新。"
 
 msgid "The user could not be saved due to errors."
 msgstr "无法保存用户。出现错误。"
+
+msgid "Delete user"
+msgstr "删除用户"
 
 #, python-format
 msgid "User '%(object)s' deleted."

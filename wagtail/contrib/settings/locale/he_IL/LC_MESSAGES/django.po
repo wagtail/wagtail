@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2017\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -28,12 +28,6 @@ msgstr "ברירת מחדל"
 
 msgid "Site"
 msgstr "אתר"
-
-msgid "Saving…"
-msgstr "שומר..."
-
-msgid "Save"
-msgstr "שמור"
 
 msgid "Settings"
 msgstr "הגדרות"

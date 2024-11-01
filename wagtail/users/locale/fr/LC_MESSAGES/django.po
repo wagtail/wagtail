@@ -8,6 +8,7 @@
 # Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2017
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2024
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # incognitae <pierre@onoffdesign.com>, 2016
@@ -22,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -142,6 +143,12 @@ msgstr "Sombre"
 msgid "admin theme"
 msgstr "Thème d'interface d'administration"
 
+msgid "More contrast"
+msgstr "Contraste élevé"
+
+msgid "contrast"
+msgstr "contraste"
+
 msgid "Default"
 msgstr "Par défaut"
 
@@ -257,15 +264,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ce groupe ?"
 
-msgid "Add group"
-msgstr "Ajouter un groupe"
-
-msgid "Save"
-msgstr "Enregistrer"
-
-msgid "Delete group"
-msgstr "Supprimer le groupe"
-
 msgid "Object permissions"
 msgstr "Permissions d'objets"
 
@@ -277,15 +275,6 @@ msgstr "Ajouter"
 
 msgid "Change"
 msgstr "Modifier"
-
-msgid "Publish"
-msgstr "Publier"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
 
 msgid "Custom permissions"
 msgstr "Permissions personnalisées"
@@ -301,15 +290,6 @@ msgstr "Activer/Désactiver toutes les permissions de modification"
 
 msgid "Toggle all delete permissions"
 msgstr "Activer/Désactiver toutes les permissions de suppression"
-
-msgid "Toggle all publish permissions"
-msgstr "Activer/Désactiver toutes les permissions de publication"
-
-msgid "Toggle all lock permissions"
-msgstr "Activer/Désactiver toutes les permissions de verrouillage"
-
-msgid "Toggle all unlock permissions"
-msgstr "Activer/Désactiver toutes les permissions de déverrouillage"
 
 msgid "Toggle all custom permissions"
 msgstr "Activer/Désactiver toutes les permissions personnalisées"
@@ -346,12 +326,6 @@ msgstr "Compte"
 
 msgid "Roles"
 msgstr "Rôles"
-
-msgid "Add user"
-msgstr "Ajouter l'utilisateur"
-
-msgid "Delete user"
-msgstr "Supprimer l'utilisateur"
 
 msgid "Select all users in listing"
 msgstr "Sélectionner tous les utilisateurs dans la liste"
@@ -432,6 +406,9 @@ msgstr "Ajouter un groupe"
 msgid "Search groups"
 msgstr "Rechercher des groupes"
 
+msgid "Add group"
+msgstr "Ajouter un groupe"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Groupe « %(object)s » créé."
@@ -449,6 +426,9 @@ msgstr "Voir les utilisateurs dans ce groupe"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Groupe « %(object)s » supprimé."
+
+msgid "Delete group"
+msgstr "Supprimer le groupe"
 
 msgid "Last login"
 msgstr "Dernière connexion"
@@ -482,12 +462,18 @@ msgstr "Plus d’options pour « %(title)s »"
 msgid "User '%(object)s' created."
 msgstr "Utilisateur « %(object)s » créé."
 
+msgid "Add user"
+msgstr "Ajouter l'utilisateur"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Utilisateur « %(object)s » mis à jour."
 
 msgid "The user could not be saved due to errors."
 msgstr "L'utilisateur ne peut être enregistré du fait d'erreurs."
+
+msgid "Delete user"
+msgstr "Supprimer l'utilisateur"
 
 #, python-format
 msgid "User '%(object)s' deleted."

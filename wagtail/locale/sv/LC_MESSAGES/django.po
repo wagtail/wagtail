@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021,2023-2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -175,6 +175,15 @@ msgstr "publicerad + utkast"
 
 msgid "Default"
 msgstr "Standard"
+
+msgid "Preview in mobile size"
+msgstr "Förhandsgranska i mobilstorlek"
+
+msgid "Preview in tablet size"
+msgstr "Förhandsgranska i tabletstorlek"
+
+msgid "Preview in desktop size"
+msgstr "Förhandsgranska i desktopstorlek"
 
 msgid "locked"
 msgstr "låst"

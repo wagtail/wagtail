@@ -159,7 +159,7 @@ Matt Westcott <matthew.torchbox.com>
 
 Dutch - nl
 -----
-Arne Turpyn <info.arneturpyn.com>
+508284b2a01981502bb2ffa4487c4782_15a12bb <68ad71d10bcbf1844ad453a9a62b629b_337284>
 Benjamin Van Renterghem <benjaaa.vr.gmail.com>
 Bram <bram2w.live.nl>
 Brecht Dervaux <info.dervauxbrecht.be>
@@ -221,6 +221,7 @@ Axel H.
 Axel Haustant
 Benoît Vogel <contact.spicy-informatique.com>
 Bertrand Bordage <bordage.bertrand.gmail.com>
+Christophe CHAUVET <christophe.chauvet.gmail.com>
 Dominique PERETTI <dperetti.gmail.com>
 Fabien Le Frapper <contact.fabienlefrapper.me>
 Loic Teixeira

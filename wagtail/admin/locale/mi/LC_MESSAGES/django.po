@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -263,9 +263,6 @@ msgstr "Kāhore ka taea te kimihia te whārangi nei."
 msgid "Go to Wagtail admin"
 msgstr "Haere ki whakahaere tikanga-a-Wagtail"
 
-msgid "Account"
-msgstr "Rongorua"
-
 msgid "Reset password"
 msgstr "Tautuhi anō tō kupu muna"
 
@@ -380,24 +377,29 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
-msgid "Comment"
-msgstr "Tākupu"
-
 msgid "Actions"
 msgstr "Hohenga"
 
+msgid "Comment"
+msgstr "Tākupu"
+
 msgid "Update"
 msgstr "Whakahou"
-
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Naumai kī te %(site_name)s Wagtail CMS"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
 "Koinei tō papatohu. I konei ka taea e koe te tirohia ki ngā pārongo āwhina."
+
+msgid "Account"
+msgstr "Rongorua"
+
+msgid "Language"
+msgstr "Reo"
+
+msgid "Status"
+msgstr "Tūnga"
 
 msgid "Edit this page"
 msgstr "Whakarerekē i tēnei whārangi"
@@ -407,9 +409,6 @@ msgstr "Iriti"
 
 msgid "Your most recent edits"
 msgstr "Ou whakarerekē hou"
-
-msgid "Status"
-msgstr "Tūnga"
 
 msgid "Date"
 msgstr "Rā"
@@ -447,9 +446,6 @@ msgstr "Kua parahako te whārangi \"%(title)s\""
 
 msgid "You can preview the page here:"
 msgstr "Ka taea e koe te titiro kī te whārangi ki konei:"
-
-msgid "This page has been made private by a parent page."
-msgstr "He paraiweti tēnei whārangi mai i he matua whārangi."
 
 msgid "Saving…"
 msgstr "pupuru ana..."

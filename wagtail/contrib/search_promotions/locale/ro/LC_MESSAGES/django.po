@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Dan Braghis, 2016,2019-2020,2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -101,9 +101,6 @@ msgstr ""
 "exact pentru care doriți să furnizați rezultate recomandate. <em>Includeți</"
 "em> greșeli ortografice și alte greșeli. Puteți să alegeți din termenii de "
 "căutare populari printre utilizatorii sitului dvs.</p>"
-
-msgid "Save"
-msgstr "Salvează"
 
 #, python-format
 msgid "Delete %(query)s"

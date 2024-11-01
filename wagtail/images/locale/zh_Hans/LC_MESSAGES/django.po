@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Yu Cheng, 2024\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -33,6 +33,15 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail 图片"
+
+msgid "Image is decorative"
+msgstr "图片是装饰性的"
+
+msgid "Alt text"
+msgstr "替代文本"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "请为您的图片添加替代文本，或将其标记为装饰性的。"
 
 #, python-format
 msgid ""
@@ -85,15 +94,6 @@ msgstr "集合"
 
 msgid "Format"
 msgstr "格式化"
-
-msgid "Image is decorative"
-msgstr "图片是装饰性的"
-
-msgid "Alt text"
-msgstr "替代文本"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr "请为您的图片添加替代文本，或将其标记为装饰性的。"
 
 msgid "Filter"
 msgstr "过滤器"
@@ -148,6 +148,9 @@ msgstr "标题"
 
 msgid "file"
 msgstr "文件"
+
+msgid "description"
+msgstr "描述"
 
 msgid "width"
 msgstr "宽度"
@@ -288,27 +291,17 @@ msgstr "修改图片文件："
 msgid "Add an image"
 msgstr "添加一个图片"
 
-msgid "Add image"
-msgstr "添加图片"
+msgid "Uploading…"
+msgstr "正在上传…"
 
-msgid "Save"
-msgstr "保存"
+msgid "Upload"
+msgstr "上传"
 
 msgid "Keep new image"
 msgstr "保留新图片"
 
 msgid "Delete new image"
 msgstr "删除新图片"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "编辑图片%(title)s"
-
-msgid "Editing"
-msgstr "编辑"
-
-msgid "Delete image"
-msgstr "删除图片"
 
 msgid "URL Generator"
 msgstr "URL生成器"
@@ -388,9 +381,6 @@ msgstr "复制到剪贴板失败"
 msgid "Add multiple images"
 msgstr "添加多个图片"
 
-msgid "Add images"
-msgstr "添加多个图片"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "拖曳多个图片到此区域来快速上传。"
 
@@ -464,12 +454,6 @@ msgid "%(num_parent_objects)d image has been deleted"
 msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "已删除%(num_parent_objects)d个图片"
 
-msgid "Upload"
-msgstr "上传"
-
-msgid "Uploading…"
-msgstr "正在上传…"
-
 msgid "Choose an image"
 msgstr "选择一个图片"
 
@@ -497,31 +481,34 @@ msgstr "文件大小：（从大到小）"
 msgid "Images"
 msgstr "图片"
 
+msgid "The image could not be saved due to errors."
+msgstr "图片无法保存。出现错误。"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "图片 '%(image_title)s' 已更新。"
-
-msgid "Edit again"
-msgstr "再次编辑"
-
-msgid "The image could not be saved due to errors."
-msgstr "图片无法保存。出现错误。"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "无法找到图片源文件。请修改源文件或者删除图片。"
 
+msgid "Delete image"
+msgstr "删除图片"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "图片'%(image_title)s' 已删除。"
+
+msgid "The image could not be created due to errors."
+msgstr "无法创建图片，出现错误。"
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "图片'%(image_title)s'已添加"
 
-msgid "The image could not be created due to errors."
-msgstr "无法创建图片，出现错误。"
+msgid "Add images"
+msgstr "添加多个图片"
 
 msgid "Image"
 msgstr "图片"

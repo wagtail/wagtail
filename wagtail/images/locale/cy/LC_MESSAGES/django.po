@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,6 +25,16 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Delweddau Wagtail"
+
+msgid "Image is decorative"
+msgstr "Mae'r llun yn addurniadol"
+
+msgid "Alt text"
+msgstr "Testun amgen"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Ychwanegwch destun amgen ar gyfer eich delwedd neu ei nodi fel addurnol"
 
 #, python-format
 msgid ""
@@ -77,16 +87,6 @@ msgstr "Casgliad"
 
 msgid "Format"
 msgstr "Fformat"
-
-msgid "Image is decorative"
-msgstr "Mae'r llun yn addurniadol"
-
-msgid "Alt text"
-msgstr "Testun amgen"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Ychwanegwch destun amgen ar gyfer eich delwedd neu ei nodi fel addurnol"
 
 msgid "Filter"
 msgstr "Hidlydd"
@@ -141,6 +141,9 @@ msgstr "teitl"
 
 msgid "file"
 msgstr "ffeil"
+
+msgid "description"
+msgstr "disgrifiad"
 
 msgid "width"
 msgstr "lled"
@@ -317,53 +320,23 @@ msgstr "Dewisiwch fformat"
 msgid "Insert image"
 msgstr "Mewnosod llun"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> llun <span class=\"w-sr-only\">wedi'i greu i "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> lluniau <span class=\"w-sr-only\">wedi'i greu "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> lluniau <span class=\"w-sr-only\">wedi'i greu "
-"%(site_name)s</span>"
-msgstr[3] ""
-"<span>%(total)s</span> lluniau <span class=\"w-sr-only\">wedi'i greu i "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Newid ffeil llun:"
 
 msgid "Add an image"
 msgstr "Ychwanegu llun"
 
-msgid "Add image"
-msgstr "Ychwanegu llun"
+msgid "Uploading…"
+msgstr "Wrthi'n uwchlwytho…"
 
-msgid "Save"
-msgstr "Cadw"
+msgid "Upload"
+msgstr "Uwchlwytho"
 
 msgid "Keep new image"
 msgstr "Cadw llun newydd"
 
 msgid "Delete new image"
 msgstr "Dileu llun newydd"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Golygu llun %(title)s"
-
-msgid "Editing"
-msgstr "Golygu"
-
-msgid "Delete image"
-msgstr "Dileu delwedd"
 
 msgid "Image focal point"
 msgstr "Ffocws llun"
@@ -449,9 +422,6 @@ msgstr "Methodd copïo i'r clipfwrdd"
 
 msgid "Add multiple images"
 msgstr "Ychwanegu lluniau lluosog"
-
-msgid "Add images"
-msgstr "Ychwanegu lluniau"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Llusgwch a gollwng lluniau i'r ardal hon i'w huwchlwytho ar unwaith."
@@ -549,12 +519,6 @@ msgstr[1] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[2] "%(num_parent_objects)d lluniau wedi'i dileu"
 msgstr[3] "%(num_parent_objects)d lluniau wedi'i dileu"
 
-msgid "Upload"
-msgstr "Uwchlwytho"
-
-msgid "Uploading…"
-msgstr "Wrthi'n uwchlwytho…"
-
 msgid "Choose an image"
 msgstr "Dewis delwedd"
 
@@ -585,15 +549,12 @@ msgstr "Maint ffeil: (uchel i isel)"
 msgid "Images"
 msgstr "Delweddau"
 
+msgid "The image could not be saved due to errors."
+msgstr "Ni fu modd cadw'r llun oherwydd gwallau."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Llun '%(image_title)s' wedi'i diweddaru."
-
-msgid "Edit again"
-msgstr "Golygu eto"
-
-msgid "The image could not be saved due to errors."
-msgstr "Ni fu modd cadw'r llun oherwydd gwallau."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -602,16 +563,22 @@ msgstr ""
 "Nid oedd modd dod o hyd i'r ffeil delwedd ffynhonnell. Newidiwch y "
 "ffynhonnell neu dilëwch y ddelwedd."
 
+msgid "Delete image"
+msgstr "Dileu delwedd"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Llun '%(image_title)s' wedi'i dileu."
+
+msgid "The image could not be created due to errors."
+msgstr "Ni fu modd creu'r llun oherwydd gwallau."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Llun '%(image_title)s' wedi'i ychwanegu."
 
-msgid "The image could not be created due to errors."
-msgstr "Ni fu modd creu'r llun oherwydd gwallau."
+msgid "Add images"
+msgstr "Ychwanegu lluniau"
 
 msgid "Image"
 msgstr "Llun"

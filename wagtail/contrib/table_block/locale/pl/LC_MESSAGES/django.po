@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Krzysztof Jeziorny <github@jeziorny.net>, 2024
 # Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2021
 # Miłosz Miśkiewicz, 2016
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2016\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2024\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +32,14 @@ msgstr "Blok tabeli Wagtail"
 msgid "Row header"
 msgstr "Nagłówek wiersza"
 
+msgid "Table headers"
+msgstr "Nagłówki tabeli"
+
 msgid "Column header"
 msgstr "Nagłówek kolumny"
+
+msgid "No headers"
+msgstr "Brak nagłówków"
 
 msgid "Table caption"
 msgstr "Opis tabeli"

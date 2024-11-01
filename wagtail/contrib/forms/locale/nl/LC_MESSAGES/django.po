@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -188,6 +188,9 @@ msgstr "Laatste inzending"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Inzendingen van %(form_title)s"
+
+msgid "Page type"
+msgstr "Pagina type"
 
 msgid "Forms"
 msgstr "Formulieren"

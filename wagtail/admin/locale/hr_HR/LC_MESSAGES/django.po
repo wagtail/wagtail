@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -332,9 +332,6 @@ msgstr "Traženu stranicu nije moguće pronaći."
 msgid "Go to Wagtail admin"
 msgstr "Idi na Wagtail administraciju"
 
-msgid "Account"
-msgstr "Korisnički račun"
-
 msgid "Reset password"
 msgstr "Ponovno postavi lozinku"
 
@@ -495,11 +492,11 @@ msgstr "Ne, nemoj odjaviti"
 msgid "Cancel"
 msgstr "Odustani"
 
-msgid "Comment"
-msgstr "Komentar"
-
 msgid "Actions"
 msgstr "Postupci"
+
+msgid "Comment"
+msgstr "Komentar"
 
 msgid "Update"
 msgstr "Ažuriraj"
@@ -520,10 +517,6 @@ msgstr "Promjene"
 msgid "There are no differences between these two versions"
 msgstr "Nema razlika između ove dvije verzije."
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Dobrodošli na %(site_name)s Wagtail CMS "
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -531,8 +524,17 @@ msgstr ""
 "Ovo je vaša kontrolna ploča koja će prikazivati korisne informacije o "
 "sadržaju koji stvorite."
 
+msgid "Account"
+msgstr "Korisnički račun"
+
 msgid "Your locked pages"
 msgstr "Vaše zaključane stranice"
+
+msgid "Language"
+msgstr "Jezik"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Locked at"
 msgstr "Zaključano u"
@@ -551,9 +553,6 @@ msgstr "Uživo"
 
 msgid "Your most recent edits"
 msgstr "Vaša nedavna uređivanja"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Datum"
@@ -715,9 +714,6 @@ msgstr ""
 "Stranica \"%(title)s\" je poslana na moderiranje u tijek rada "
 "\"%(workflow)s\"."
 
-msgid "This page has been made private by a parent page."
-msgstr "Ovu stranicu je nadređena stranica učinila privatnom."
-
 msgid "Publishing…"
 msgstr "Objava u tijeku..."
 
@@ -827,9 +823,6 @@ msgstr "Kopiraj"
 msgid "Copy this page"
 msgstr "Kopiraj ovu stranicu"
 
-msgid "This page has unsaved changes."
-msgstr "Stranica sadrži promjene koje nisu spremljene"
-
 msgid "This page is an alias of another page."
 msgstr "Stranica je alias od druge stranice."
 
@@ -887,9 +880,6 @@ msgstr ""
 
 msgid "Enter a search term above"
 msgstr "Unesite iznad pojam za pretraživanje"
-
-msgid "No pages use"
-msgstr "Nema stranica koje koriste"
 
 #, python-format
 msgid "Add %(label)s"
@@ -1037,12 +1027,6 @@ msgstr[0] "Korišten %(usage_count)s put"
 msgstr[1] "Korišteno %(usage_count)s puta"
 msgstr[2] "Korišteno %(usage_count)s puta"
 
-msgid "Edit / Review"
-msgstr "Uredi / Pregledaj"
-
-msgid "Workflow history"
-msgstr "Povijest tijeka rada"
-
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
 msgstr "Zatražio korisnik <b>%(modified_by)s</b>"
@@ -1069,13 +1053,6 @@ msgstr "Tijek rada je započeo"
 msgid "Workflow completed"
 msgstr "Tijek rada je završio"
 
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Povijest tijeka rada od %(title)s"
-
-msgid "Workflow history for"
-msgstr "Povijest tijeka rada od"
-
 msgid "Approved task"
 msgstr "Odobren zadatak"
 
@@ -1096,12 +1073,6 @@ msgstr "Jeste li sigurni da želite onemogućiti zadatak?"
 
 msgid "Assign your workflow to pages"
 msgstr "Pridružite svoj tijek rada stranicama"
-
-msgid "Creating…"
-msgstr "Stvaranje..."
-
-msgid "Create"
-msgstr "Stvori"
 
 #, python-format
 msgid ""
@@ -1171,6 +1142,12 @@ msgstr "Postojeći"
 msgid "Choose a different task type"
 msgstr "Odaberite drukčiju vrstu zadatka"
 
+msgid "Creating…"
+msgstr "Stvaranje..."
+
+msgid "Create"
+msgstr "Stvori"
+
 msgid "Task type"
 msgstr "Vrsta zadatka"
 
@@ -1197,13 +1174,6 @@ msgid ""
 "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Nema uključenih zadataka. Zašto ne <a href=\"%(add_url)s\">dodate jedan</a>?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "Stranice koje koriste tijek rada '%(name)s'"
-
-msgid "Pages that use workflow"
-msgstr "Stranice koje koriste tijek rada"
 
 msgid "Not started"
 msgstr "Nije započeto"
@@ -1296,12 +1266,12 @@ msgstr "Zbirka '%(object)s' je ažurirana."
 msgid "The collection could not be saved due to errors."
 msgstr "Nije moguće sačuvati zbirku zbog grešaka."
 
-msgid "Delete collection"
-msgstr "Izbriši zbirku"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Zbirka '%(object)s' je izbrisana."
+
+msgid "Delete collection"
+msgstr "Izbriši zbirku"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Jeste li sigurni da želite izbrisati zbirku?"
@@ -1324,8 +1294,14 @@ msgstr "Usporedi sa trenutnom verzijom"
 msgid "Cancel scheduled publish"
 msgstr "Otkaži zakazano objavljivanje"
 
+msgid "Workflow history"
+msgstr "Povijest tijeka rada"
+
 msgid "Workflow progress"
 msgstr "Napredak tijeka rada"
+
+msgid "Edit / Review"
+msgstr "Uredi / Pregledaj"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1364,9 +1340,6 @@ msgstr "Uređivanje"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' je izbrisan."
-
-msgid "Inspecting"
-msgstr "Pregled"
 
 msgid "Earliest"
 msgstr "Najranije"

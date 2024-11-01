@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Marek Turnovec <aesculap@gmail.com>, 2016\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -60,12 +60,12 @@ msgstr "Web nelze uložit, zkontrolujte správné vyplnění polí."
 msgid "Site '%(object)s' updated."
 msgstr "Web '%(object)s' byl upraven."
 
-msgid "Delete site"
-msgstr "Smazat web"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Web '%(object)s' byl smazán."
+
+msgid "Delete site"
+msgstr "Smazat web"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Opravdu chcete smazat tento web?"

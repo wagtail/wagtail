@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -215,6 +215,15 @@ msgstr "live + ciornă"
 
 msgid "Default"
 msgstr "Implicit"
+
+msgid "Preview in mobile size"
+msgstr "Previzualizare în dimensiune telefon mobil"
+
+msgid "Preview in tablet size"
+msgstr "Previzualizare în dimensiune tabletă"
+
+msgid "Preview in desktop size"
+msgstr "Previzualizare în dimensiune desktop"
 
 msgid "locked"
 msgstr "blocat"

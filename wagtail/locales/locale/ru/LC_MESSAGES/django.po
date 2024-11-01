@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
@@ -73,12 +73,12 @@ msgstr "Локаль '%(object)s' обновлена."
 msgid "The locale could not be saved due to errors."
 msgstr "Локаль не может быть сохранена из-за ошибок."
 
-msgid "Delete locale"
-msgstr "Удалить локаль"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Локаль '%(object)s' удалена."
+
+msgid "Delete locale"
+msgstr "Удалить локаль"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Вы уверены, что хотите удалить эту локаль?"

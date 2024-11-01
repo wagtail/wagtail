@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -114,9 +114,6 @@ msgstr ""
 "<em>включая</em> любые ошибки и опечатки, которые может допустить "
 "пользователь. Для помощи, вы можете выбрать из наиболее популярных поисковых "
 "запросов, которые совершали пользователи вашего сайта.</p>            "
-
-msgid "Save"
-msgstr "Сохранить"
 
 #, python-format
 msgid "Delete %(query)s"

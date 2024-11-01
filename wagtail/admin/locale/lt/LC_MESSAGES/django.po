@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -271,14 +271,8 @@ msgstr "Prašomas puslapis buvo nerastas."
 msgid "Go to Wagtail admin"
 msgstr "Eiti į Wagtail administravimą"
 
-msgid "Account"
-msgstr "Paskyra"
-
 msgid "More actions"
 msgstr "Daugiau veiksmų"
-
-msgid "Save account details"
-msgstr "Išsaugoti paskyros duomenis"
 
 msgid "Reset password"
 msgstr "Atstatyti slaptažodį"
@@ -446,11 +440,11 @@ msgstr "Ne, publikuoti"
 msgid "Cancel"
 msgstr "Atšaukti"
 
-msgid "Comment"
-msgstr "Komentaras"
-
 msgid "Actions"
 msgstr "Veiksmai"
+
+msgid "Comment"
+msgstr "Komentaras"
 
 msgid "Update"
 msgstr "Atnaujinti"
@@ -468,10 +462,6 @@ msgstr "Laukai"
 msgid "Changes"
 msgstr "Pakeitimai"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Sveiki, čia %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -479,8 +469,17 @@ msgstr ""
 "Tai yra jūsų valdymo pultas kuriame bus atvaizduojama naudinga informacija "
 "apie jūsų sukurtą turinį."
 
+msgid "Account"
+msgstr "Paskyra"
+
 msgid "Your locked pages"
 msgstr "Jūsų užrakinti puslapiai"
+
+msgid "Language"
+msgstr "Kalba"
+
+msgid "Status"
+msgstr "Būsena"
 
 msgid "Locked at"
 msgstr "Užrakinimo data"
@@ -499,9 +498,6 @@ msgstr "Veikiantis"
 
 msgid "Your most recent edits"
 msgstr "Jūsų paskutiniai redagavimai"
-
-msgid "Status"
-msgstr "Būsena"
 
 msgid "Date"
 msgstr "Data"
@@ -610,9 +606,6 @@ msgstr "Ištrinti komentarai:"
 msgid "New replies:"
 msgstr "Nauji atsakymai:"
 
-msgid "This page has been made private by a parent page."
-msgstr "Šis puslapis buvo padarytas privačiu pagal tėvinį puslapį."
-
 msgid "Publishing…"
 msgstr "Publikuojama..."
 
@@ -712,9 +705,6 @@ msgstr "Kopijuoti"
 msgid "Copy this page"
 msgstr "Kopijuoti šį puslapį"
 
-msgid "This page has unsaved changes."
-msgstr "Šis puslapis turi neišsaugotų pakeitimų."
-
 msgid "Configure a site now."
 msgstr "Konfigūruoti tinklalapį dabar."
 
@@ -764,9 +754,6 @@ msgstr "Puslapių tipai"
 
 msgid "Enter a search term above"
 msgstr "Aukščiau įveskite paieškos frazę"
-
-msgid "No pages use"
-msgstr "Jokie puslapiai nenaudoja"
 
 #, python-format
 msgid "Add %(label)s"
@@ -908,9 +895,6 @@ msgstr[3] "Panaudota %(usage_count)s kartų"
 msgid "View history"
 msgstr "Peržiūrėti istoriją"
 
-msgid "Edit / Review"
-msgstr "Redaguoti / Peržiūrėti"
-
 msgid "Edited"
 msgstr "Redaguotas"
 
@@ -919,9 +903,6 @@ msgstr "Pridėti vidinį puslapį"
 
 msgid "Show in Explorer"
 msgstr "Rodyti naršyklėje"
-
-msgid "Create"
-msgstr "Sukurti"
 
 msgid "Page"
 msgstr "Puslapis"
@@ -940,6 +921,9 @@ msgstr[3] "%(counter)s puslapių"
 
 msgid "New"
 msgstr "Naujas"
+
+msgid "Create"
+msgstr "Sukurti"
 
 msgid "Submitted"
 msgstr "Pateikta"
@@ -1019,12 +1003,12 @@ msgstr "Kolekcija '%(object)s' atnaujinta."
 msgid "The collection could not be saved due to errors."
 msgstr "Kolekcija negalėjo būti išsaugota dėl klaidų."
 
-msgid "Delete collection"
-msgstr "Ištrinti kolekciją"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Kolekcija '%(object)s' ištrinta."
+
+msgid "Delete collection"
+msgstr "Ištrinti kolekciją"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ar tikrai norite ištrinti šią kolekciją?"
@@ -1046,6 +1030,9 @@ msgstr "Palyginti su dabartine versija"
 
 msgid "Cancel scheduled publish"
 msgstr "Atšaukti suplanuotą publikavimą"
+
+msgid "Edit / Review"
+msgstr "Redaguoti / Peržiūrėti"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1072,9 +1059,6 @@ msgstr "Redaguojama"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' ištrintas."
-
-msgid "Inspecting"
-msgstr "Tikrinama"
 
 msgid "Earliest"
 msgstr "Naujausias"

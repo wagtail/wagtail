@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,27 +100,11 @@ msgstr "Αλλαγή εγγράφου:"
 msgid "Add a document"
 msgstr "Προσθήκη εγγράφου"
 
-msgid "Add document"
-msgstr "Προσθήκη εγγράφου"
-
 msgid "Uploading…"
 msgstr "Ανέβασμα εγγράφου .."
 
 msgid "Upload"
 msgstr "Ανέβασμα"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Διόρθωση %(title)s"
-
-msgid "Editing"
-msgstr "Διόρθωση"
-
-msgid "Save"
-msgstr "Αποθήκευση"
-
-msgid "Delete document"
-msgstr "Διαγραφή εγγράφου"
 
 msgid "Filesize"
 msgstr "Μέγεθος Αρχείου"
@@ -154,9 +138,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Προσθήκη πολλαπλών εγγράφων"
-
-msgid "Add documents"
-msgstr "Προσθήκη εγγράφου"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Σύρετε έγγραφα σε αυτή την περιοχή ώστε να ανέβουν απευθείας."
@@ -223,9 +204,15 @@ msgstr ""
 "Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
 "διαγράψετε το έγγραφο"
 
+msgid "Delete document"
+msgstr "Διαγραφή εγγράφου"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Το έγγραφο '%(document_title)s' διαγράφηκε."
+
+msgid "Add documents"
+msgstr "Προσθήκη εγγράφου"
 
 msgid "Document"
 msgstr "Έγγραφο"

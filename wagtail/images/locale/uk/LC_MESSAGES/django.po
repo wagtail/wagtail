@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2020,2023\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -28,6 +28,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Зображення Wagtail "
+
+msgid "Image is decorative"
+msgstr "Зображення декоративне"
+
+msgid "Alt text"
+msgstr "Альтернатиний текст"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Будь ласка, додайте текст до свого зображення або позначте його як "
+"декоративне"
 
 #, python-format
 msgid ""
@@ -82,17 +93,6 @@ msgstr "Колекція"
 msgid "Format"
 msgstr "Формат"
 
-msgid "Image is decorative"
-msgstr "Зображення декоративне"
-
-msgid "Alt text"
-msgstr "Альтернатиний текст"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Будь ласка, додайте текст до свого зображення або позначте його як "
-"декоративне"
-
 msgid "Filter"
 msgstr "Фільтр"
 
@@ -146,6 +146,9 @@ msgstr "заголовок"
 
 msgid "file"
 msgstr "файл"
+
+msgid "description"
+msgstr "опис"
 
 msgid "width"
 msgstr "довжина"
@@ -319,27 +322,17 @@ msgstr "Поміняти файл зображення:"
 msgid "Add an image"
 msgstr "Додати зображення"
 
-msgid "Add image"
-msgstr "Додати зображення"
+msgid "Uploading…"
+msgstr "Йде надсилання..."
 
-msgid "Save"
-msgstr "Зберегти"
+msgid "Upload"
+msgstr "Надіслати"
 
 msgid "Keep new image"
 msgstr "Зберегти нове зображення"
 
 msgid "Delete new image"
 msgstr "Видалити нове зображення"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Редагування зображення %(title)s"
-
-msgid "Editing"
-msgstr "Редагування"
-
-msgid "Delete image"
-msgstr "Видалити зображення"
 
 msgid "Image focal point"
 msgstr "Фокальна точка зображення"
@@ -412,9 +405,6 @@ msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Додати декілька зображень"
-
-msgid "Add images"
-msgstr "Додати зображення"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
@@ -507,12 +497,6 @@ msgstr[1] "%(num_parent_objects)d зображення було видалено
 msgstr[2] "%(num_parent_objects)d зображень було видалено"
 msgstr[3] "%(num_parent_objects)d зображень було видалено"
 
-msgid "Upload"
-msgstr "Надіслати"
-
-msgid "Uploading…"
-msgstr "Йде надсилання..."
-
 msgid "Choose an image"
 msgstr "Оберіть зображення"
 
@@ -543,15 +527,12 @@ msgstr "Розмір файлу: (від більших до менших)"
 msgid "Images"
 msgstr "Зображення"
 
+msgid "The image could not be saved due to errors."
+msgstr "Це зображення не можна зберегти через помилки"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Зображення '%(image_title)s' оновлено."
-
-msgid "Edit again"
-msgstr "Редагувати ще раз"
-
-msgid "The image could not be saved due to errors."
-msgstr "Це зображення не можна зберегти через помилки"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -560,16 +541,22 @@ msgstr ""
 "Джерело зображення відсутнє. Будь ласка, змініть джерело або видаліть "
 "зображення. "
 
+msgid "Delete image"
+msgstr "Видалити зображення"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Зображення '%(image_title)s' видалено."
+
+msgid "The image could not be created due to errors."
+msgstr "Зображення не можна створити через помилки."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Зображення '%(image_title)s' додано."
 
-msgid "The image could not be created due to errors."
-msgstr "Зображення не можна створити через помилки."
+msgid "Add images"
+msgstr "Додати зображення"
 
 msgid "Image"
 msgstr "Зображення"

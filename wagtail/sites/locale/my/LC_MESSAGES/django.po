@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -58,12 +58,12 @@ msgstr "အမှားအယွင်းများကြောင့် ဆ�
 msgid "Site '%(object)s' updated."
 msgstr "'%(object)s'ဆိုက်ကို မြှင့်တင်ပြီးပါပြီ။"
 
-msgid "Delete site"
-msgstr "ဆိုက်ကိုဖျက်သိမ်းပါ"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "'%(object)s'ဆိုက်ကို ဖျက်သိမ်းပြီးပါပြီ။"
+
+msgid "Delete site"
+msgstr "ဆိုက်ကိုဖျက်သိမ်းပါ"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "ဤဆိုက်ကို ဖျက်သိမ်းဖို့ သေချာပါသလား။"

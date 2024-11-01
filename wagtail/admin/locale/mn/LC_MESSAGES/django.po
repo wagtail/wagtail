@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -322,12 +322,6 @@ msgstr "Хандахыг хүссэн хуудас олдсонгүй."
 msgid "Go to Wagtail admin"
 msgstr "Админ панел руу очих"
 
-msgid "Account"
-msgstr "Хэрэглэгчийн эрх"
-
-msgid "Save account details"
-msgstr "Аккаунтын дэлгэрэнгүйг хадгалах"
-
 msgid "Reset password"
 msgstr "Нууц үгээ сэргээх"
 
@@ -481,10 +475,6 @@ msgstr "Талбарууд"
 msgid "Changes"
 msgstr "Өөрчлөлтүүд"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "\"%(site_name)s Wagtail CMS\"-д тавтай морил"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -492,8 +482,14 @@ msgstr ""
 "Энэ хянах самбар дээр таны үүсгэсэн контентын талаар хэрэгцээт мэдээлэл "
 "харагдана."
 
+msgid "Account"
+msgstr "Хэрэглэгчийн эрх"
+
 msgid "Your locked pages"
 msgstr "Түгжигдсэн хуудсууд"
+
+msgid "Status"
+msgstr "Төлөв"
 
 msgid "Locked at"
 msgstr "Түгжигдсэн"
@@ -512,9 +508,6 @@ msgstr "Нийтлэгдсэн"
 
 msgid "Your most recent edits"
 msgstr "Таны сүүлийн засварууд"
-
-msgid "Status"
-msgstr "Төлөв"
 
 msgid "Date"
 msgstr "Огноо"
@@ -613,14 +606,6 @@ msgstr "Устгасан сэтгэгдэл:"
 
 msgid "New replies:"
 msgstr "Шинэ хариулт:"
-
-msgid "This page has been made private by a parent page."
-msgstr ""
-"Эцэг хуудас нь \"хувийн\" тохиргоотой болсон тул энэ хуудас \"хувийн\" "
-"тохиргоотой болсон."
-
-msgid "Save the page before leaving"
-msgstr "Гарахаасаа өмнө хадгална уу"
 
 msgid "Publishing…"
 msgstr "Нийтэлж байна..."
@@ -734,9 +719,6 @@ msgstr "Хуулах"
 msgid "Copy this page"
 msgstr "Энэ хуудсыг хуулах"
 
-msgid "This page has unsaved changes."
-msgstr "Хуудсанд хадгалаагүй өөрчлөлт байна."
-
 msgid "Configure a site now."
 msgstr "Сайтаа тохируулна уу."
 
@@ -783,9 +765,6 @@ msgstr "Хуудасны төрөл"
 
 msgid "Enter a search term above"
 msgstr "Хайлтын утгаа дээд хэсэгт оруулна уу"
-
-msgid "No pages use"
-msgstr "Хуудас хэрэглээгүй"
 
 #, python-format
 msgid "Add %(label)s"
@@ -930,12 +909,12 @@ msgstr "'%(object)s' цуглуулга шинэчлэгдлээ."
 msgid "The collection could not be saved due to errors."
 msgstr "Алдаанаас шалтгаалж цуглуулга хадгалагдсангүй."
 
-msgid "Delete collection"
-msgstr "Цуглуулгыг устгах"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "'%(object)s' цуглуулга устлаа."
+
+msgid "Delete collection"
+msgstr "Цуглуулгыг устгах"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Энэ цуглуулгыг үнэхээр устгах уу?"
@@ -973,9 +952,6 @@ msgstr "Засч байна"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s%(object)s устгагдлаа."
-
-msgid "Inspecting"
-msgstr "Шалгаж байна"
 
 msgid "Earliest"
 msgstr "Хамгийн эхний"

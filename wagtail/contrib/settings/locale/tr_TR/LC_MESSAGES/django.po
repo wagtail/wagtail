@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2019,2023\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -33,12 +33,6 @@ msgstr "%(site_setting)s for %(site)s"
 
 msgid "Site"
 msgstr "Site"
-
-msgid "Saving…"
-msgstr "Kaydediliyor…"
-
-msgid "Save"
-msgstr "Kaydet"
 
 msgid "Settings"
 msgstr "Ayarlar"

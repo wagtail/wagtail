@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Ramakrishnan Sathyanarayanan, 2022\n"
 "Language-Team: Tamil (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,12 +25,6 @@ msgstr "முன் நிர்ணயம்"
 
 msgid "Site"
 msgstr "தளம் "
-
-msgid "Saving…"
-msgstr "சேமிக்கின்றது..."
-
-msgid "Save"
-msgstr "சேமிக்கவும் "
 
 msgid "Settings"
 msgstr "அமைவுகள்"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -90,17 +90,8 @@ msgstr "שינוי קובץ תמונה:"
 msgid "Add an image"
 msgstr "הוספת תמונה"
 
-msgid "Add image"
-msgstr "הוספת תמונה"
-
-msgid "Save"
-msgstr "שמור"
-
-msgid "Editing"
-msgstr "עריכה"
-
-msgid "Delete image"
-msgstr "מחק תמונה"
+msgid "Upload"
+msgstr "העלאה"
 
 msgid "URL Generator"
 msgstr "מייצר כתובת "
@@ -126,9 +117,6 @@ msgstr "כתובת"
 msgid "Add multiple images"
 msgstr "הוספת מספר תמונות"
 
-msgid "Add images"
-msgstr "הוספת תמונות"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "גררו ושחררו את התמונות לתוך אזור זה כדי להעלות אותן מיידית "
 
@@ -152,9 +140,6 @@ msgstr "תוויות"
 msgid "Delete"
 msgstr "מחק"
 
-msgid "Upload"
-msgstr "העלאה"
-
 msgid "Choose an image"
 msgstr "בחרו תמונה"
 
@@ -167,28 +152,31 @@ msgstr "ערוך תמונה זו "
 msgid "Images"
 msgstr "תמונות "
 
+msgid "The image could not be saved due to errors."
+msgstr "לא ניתן לשמור את התמונה עקב שגיאות. "
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "תמונה '%(image_title)s' עודכנה "
-
-msgid "Edit again"
-msgstr "ערוך שוב"
-
-msgid "The image could not be saved due to errors."
-msgstr "לא ניתן לשמור את התמונה עקב שגיאות. "
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "קובץ תמונת המקור לא ניתן למציאה. אנא שנו את המקור או מחקו את התמונה."
 
+msgid "Delete image"
+msgstr "מחק תמונה"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "תמונה '%(image_title)s' נמחקה "
+
+msgid "The image could not be created due to errors."
+msgstr "לא ניתן ליצור את התמונה עקב שגיאות "
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "תמונה '%(image_title)s' הוספה"
 
-msgid "The image could not be created due to errors."
-msgstr "לא ניתן ליצור את התמונה עקב שגיאות "
+msgid "Add images"
+msgstr "הוספת תמונות"

@@ -872,7 +872,7 @@
 * English (India): Neeraj PY, Apoorv Saini
 * Estonian: Erlend Eelmets, Martin, Ragnar Rebase
 * Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Sébastien Corbin, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Aurel Pere, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Christophe Chauvet, Sébastien Corbin, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Aurel Pere, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: X Bello, Amós Oviedo
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Bohreromir, Matti Borchers, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi

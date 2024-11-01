@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imajen Wagtail"
+
+msgid "Alt text"
+msgstr "Alt testu"
 
 #, python-format
 msgid ""
@@ -70,9 +73,6 @@ msgstr " Alinha-Loos"
 
 msgid "Collection"
 msgstr "Kolleksaun"
-
-msgid "Alt text"
-msgstr "Alt testu"
 
 msgid "Filter"
 msgstr " Filtru"
@@ -125,6 +125,9 @@ msgstr "titlu"
 msgid "file"
 msgstr "dokumentu"
 
+msgid "description"
+msgstr "Deskrisaun"
+
 msgid "width"
 msgstr "luan"
 
@@ -159,15 +162,6 @@ msgstr "Lae, Labele hamoos"
 
 msgid "New"
 msgstr "foun"
-
-msgid "Save"
-msgstr "Rai"
-
-msgid "Editing"
-msgstr "Hadia hela"
-
-msgid "Delete image"
-msgstr "Hamoos imagen"
 
 msgid "Usage"
 msgstr "Uza"
@@ -204,9 +198,6 @@ msgstr "Hili imagen ida"
 msgid "Edit this image"
 msgstr "Hadia imajen ne'e"
 
-msgid "Edit again"
-msgstr "Hadia fali"
-
 msgid "The image could not be saved due to errors."
 msgstr "Imajen labele rai tamba eru."
 
@@ -216,6 +207,9 @@ msgid ""
 msgstr ""
 "Fonte  dokumentus imajen lahetan. Favor troka nia fonte ou hamoos imajen "
 "ne'e."
+
+msgid "Delete image"
+msgstr "Hamoos imagen"
 
 #, python-format
 msgid "Image '%(image_title)s' deleted."

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -196,27 +196,11 @@ msgstr "Alterar documento"
 msgid "Add a document"
 msgstr "Adicionar um documento"
 
-msgid "Add document"
-msgstr "Adicionar documento"
-
 msgid "Uploading…"
 msgstr "Enviando…"
 
 msgid "Upload"
 msgstr "Enviar"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editando %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Save"
-msgstr "Salvar"
-
-msgid "Delete document"
-msgstr "Apagar documento"
 
 msgid "Filesize"
 msgstr "Tamanho do arquivo"
@@ -251,28 +235,8 @@ msgstr ""
 "Você não enviou nenhum documento. Por que não <a "
 "href=\"%(wagtaildocs_add_document_url)s\">enviar um agora</a>?"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Documento <span class=\"w-sr-only\">criado em "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Documentos <span class=\"w-sr-only\">criados em "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Documentos <span class=\"w-sr-only\">criados em "
-"%(site_name)s</span>"
-
 msgid "Add multiple documents"
 msgstr "Adicionar vários documentos"
-
-msgid "Add documents"
-msgstr "Adicionar documentos"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -389,9 +353,15 @@ msgstr ""
 "Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
 "documento"
 
+msgid "Delete document"
+msgstr "Apagar documento"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' apagado."
+
+msgid "Add documents"
+msgstr "Adicionar documentos"
 
 msgid "Document"
 msgstr "Documento"

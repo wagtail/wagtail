@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: 67feb0cba3962a6c9f09eb0e43697461_528661a "
 "<cbde1c637170da616adcdde6daca673c_96059>, 2014\n"
@@ -38,9 +38,6 @@ msgstr "Ezabatu"
 
 msgid "Title"
 msgstr "Izenburua"
-
-msgid "Account"
-msgstr "Kontua"
 
 msgid "Reset password"
 msgstr "Pasahitza berrezarri"
@@ -84,10 +81,6 @@ msgstr "Esteka txertatu"
 msgid "Add an external link"
 msgstr "Kanpo esteka bat gehitu"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Ongi etorri %(site_name)s Wagtail CMSra"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -95,14 +88,17 @@ msgstr ""
 "Kontrol panel honetan sortu duzun edukiekin erlazionaturiko informazio "
 "baliagarria agertuko da."
 
+msgid "Account"
+msgstr "Kontua"
+
+msgid "Status"
+msgstr "Egoera"
+
 msgid "Edit this page"
 msgstr "Orrialde hau editatu"
 
 msgid "Your most recent edits"
 msgstr "Zure edizio berrienak"
-
-msgid "Status"
-msgstr "Egoera"
 
 msgid "Date"
 msgstr "Data"

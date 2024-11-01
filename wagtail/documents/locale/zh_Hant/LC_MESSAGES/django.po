@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -96,27 +96,11 @@ msgstr "修改文件："
 msgid "Add a document"
 msgstr "新增一個文件"
 
-msgid "Add document"
-msgstr "新增文件"
-
 msgid "Uploading…"
 msgstr "正在上傳…"
 
 msgid "Upload"
 msgstr "上傳"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "編輯%(title)s"
-
-msgid "Editing"
-msgstr "編輯"
-
-msgid "Save"
-msgstr "儲存"
-
-msgid "Delete document"
-msgstr "刪除文件"
 
 msgid "Filesize"
 msgstr "文件大小"
@@ -148,9 +132,6 @@ msgstr ""
 "a> ？"
 
 msgid "Add multiple documents"
-msgstr "新增多個文件"
-
-msgid "Add documents"
 msgstr "新增多個文件"
 
 msgid "Drag and drop documents into this area to upload immediately."
@@ -233,9 +214,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "無法找到文件。請修改源或者刪除文件。"
 
+msgid "Delete document"
+msgstr "刪除文件"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "文件'%(document_title)s' 已刪除"
+
+msgid "Add documents"
+msgstr "新增多個文件"
 
 msgid "Document"
 msgstr "文件"

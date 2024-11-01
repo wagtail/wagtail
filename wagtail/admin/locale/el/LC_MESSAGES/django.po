@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -315,9 +315,6 @@ msgstr "Τίτλος σελίδας"
 msgid "Go to Wagtail admin"
 msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
 
-msgid "Account"
-msgstr "Λογαριασμός"
-
 msgid "More actions"
 msgstr "Περισσότερες επιλογές"
 
@@ -452,11 +449,11 @@ msgstr "Όχι, να μην γίνει κατάργηση της δημοσίε�
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-msgid "Comment"
-msgstr "Σχόλιο"
-
 msgid "Actions"
 msgstr "Ενέργειες"
+
+msgid "Comment"
+msgstr "Σχόλιο"
 
 msgid "Update"
 msgstr "Ενημέρωση"
@@ -477,16 +474,18 @@ msgstr "Αλλαγές"
 msgid "There are no differences between these two versions"
 msgstr "Δεν υπάρχουν διαφορές μεταξύ αυτών των δύο εκδοχών"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Καλώς ήρθατε στο %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
 "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές "
 "με το περιεχόμενου που έχετε δημιουργήσει."
+
+msgid "Account"
+msgstr "Λογαριασμός"
+
+msgid "Status"
+msgstr "Κατάσταση"
 
 msgid "Edit this page"
 msgstr "Διόρθωση της σελίδας"
@@ -502,9 +501,6 @@ msgstr "Live"
 
 msgid "Your most recent edits"
 msgstr "Οι πιο πρόσφατες διορθώσεις σας"
-
-msgid "Status"
-msgstr "Κατάσταση"
 
 msgid "Date"
 msgstr "Ημερομηνία"
@@ -646,9 +642,6 @@ msgstr "Διαγραμμένα σχόλια"
 msgid "New replies:"
 msgstr "Νέες απαντήσεις:"
 
-msgid "This page has been made private by a parent page."
-msgstr "Αυτή η σελίδα έχει γίνει ιδιωτική από μια κύρια σελίδα."
-
 msgid "Saving…"
 msgstr "Γίνεται αποθήκευση…"
 
@@ -761,14 +754,11 @@ msgstr "Αντιγραφή"
 msgid "Copy this page"
 msgstr "Αντιγραφή αυτής της σελίδας"
 
-msgid "This page has unsaved changes."
-msgstr "Η σελίδα έχει μη αποθηκευμένες αλλαγές."
+msgid "Configure a site now."
+msgstr "Διαμόρφωση site."
 
 msgid "Select all pages in listing"
 msgstr "Επιλογή όλων των σελίδων της λίστας"
-
-msgid "Configure a site now."
-msgstr "Διαμόρφωση site."
 
 msgid "This page is locked to further editing"
 msgstr "Αυτή η σελίδα έχει κλειδωθεί για περαιτέρω επεξεργασία"
@@ -813,9 +803,6 @@ msgstr "Τύποι σελίδας"
 
 msgid "Enter a search term above"
 msgstr "Εισάγετε όρο αναζήτησης"
-
-msgid "No pages use"
-msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτε"
 
 msgid "Move up"
 msgstr "Μετακίνηση πάνω"
@@ -895,9 +882,6 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 msgstr[1] "Χρησιμοποιήθηκε %(usage_count)s φορά/ές"
 
-msgid "Workflow history"
-msgstr "Ιστορικό ροής εργασιών"
-
 msgid "Edited"
 msgstr "Διορθωμένη"
 
@@ -910,14 +894,14 @@ msgstr "Εμφάνιση στον εξερευνητή"
 msgid "No"
 msgstr "Όχι"
 
-msgid "Create"
-msgstr "Δημιουργία"
-
 msgid "Page"
 msgstr "Σελίδα"
 
 msgid "New"
 msgstr "Νέο"
+
+msgid "Create"
+msgstr "Δημιουργία"
 
 msgid "Published"
 msgstr "Δημοσιεύθηκε"
@@ -976,12 +960,12 @@ msgstr "Η συλλογή '%(object)s' ενημερώθηκε."
 msgid "The collection could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση της συλλογής."
 
-msgid "Delete collection"
-msgstr "Διαγραφή συλλογής."
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Η συλλογή '%(object)s' διαγράφηκε."
+
+msgid "Delete collection"
+msgstr "Διαγραφή συλλογής."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Θέλετε να διαγράψετε τη συλλογή;"
@@ -994,6 +978,9 @@ msgstr "Τρέχουσα έκδοση"
 
 msgid "Current draft"
 msgstr "Τρέχον σχέδιο"
+
+msgid "Workflow history"
+msgstr "Ιστορικό ροής εργασιών"
 
 msgid "Workflow progress"
 msgstr "Πρόοδος ροής εργασιών"
@@ -1023,9 +1010,6 @@ msgstr "Διόρθωση"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' διαγράφηκε."
-
-msgid "Inspecting"
-msgstr "Επισκόπηση"
 
 msgid "Earliest"
 msgstr "Πιο πρόσφατες"

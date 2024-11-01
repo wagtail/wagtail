@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -476,14 +476,8 @@ msgstr "Запрошенная страница не найдена."
 msgid "Go to Wagtail admin"
 msgstr "Перейти в панель управления Wagtail"
 
-msgid "Account"
-msgstr "Аккаунт"
-
 msgid "More actions"
 msgstr "Больше действий"
-
-msgid "Save account details"
-msgstr "Сохранить данные учетной записи"
 
 msgid "Reset password"
 msgstr "Сбросить пароль"
@@ -771,15 +765,11 @@ msgstr "Вы все еще хотите опубликовать %(model_name)s?
 msgid "Cancel"
 msgstr "Отмена"
 
-msgid "Comment"
-msgstr "Оставить комментарий"
-
 msgid "Actions"
 msgstr "Действия"
 
-#, python-format
-msgid "No %(model_name)s match your query."
-msgstr "%(model_name)sне соответствует вашему запросу."
+msgid "Comment"
+msgstr "Оставить комментарий"
 
 #, python-format
 msgid ""
@@ -788,10 +778,6 @@ msgid ""
 msgstr ""
 "Нет %(model_name)s для отображения. Почему бы не <a "
 "href=\"%(add_url)s\">добавить одну</a>?"
-
-#, python-format
-msgid "There are no %(model_name)s to display."
-msgstr "Нет %(model_name)s для отображения."
 
 msgid "Update"
 msgstr "Обновить"
@@ -838,10 +824,6 @@ msgstr[3] "Перемещён на %(counter)sпозицию вверх."
 msgid "There are no differences between these two versions"
 msgstr "Нет отличий между двумя версиями"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Добро пожаловать на %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -849,8 +831,24 @@ msgstr ""
 "Это ваша панель управления, на ней отображается полезная информация о "
 "созданном вами контенте."
 
+msgid "Account"
+msgstr "Аккаунт"
+
+#, python-format
+msgid "Wagtail %(current_version)s editor guide"
+msgstr "Руководство редактора Wagtail %(current_version)s"
+
 msgid "Your locked pages"
 msgstr "Ваши заблокированные страницы"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Privacy and access"
+msgstr "Приватность и доступ"
+
+msgid "Status"
+msgstr "Статус"
 
 msgid "Locked at"
 msgstr "Заблокирован в"
@@ -870,9 +868,6 @@ msgstr "Опубликовано"
 msgid "Your most recent edits"
 msgstr "Ваши последние правки"
 
-msgid "Status"
-msgstr "Статус"
-
 msgid "Date"
 msgstr "Дата"
 
@@ -881,33 +876,28 @@ msgstr "Общая информация"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span>Страница <span class=\"w-sr-only\">создана на "
-"%(site_name)s</span>"
+"%(total)s Страница <span class=\"w-sr-only\">создана на %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span>Страниц <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Страницы <span class=\"w-sr-only\">создано на %(site_name)s</span>"
 msgstr[2] ""
-"<span>%(total)s</span>Страниц <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Страниц <span class=\"w-sr-only\">создано на %(site_name)s</span>"
 msgstr[3] ""
-"<span>%(total)s</span>Страницы <span class=\"w-sr-only\">созданные на "
-"%(site_name)s</span>"
+"%(total)s Страниц <span class=\"w-sr-only\">создано на %(site_name)s</span>"
+
+msgid "Wagtail upgrade available"
+msgstr "Доступно обновление Wagtail"
 
 #, python-format
 msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
+"Your version: <strong>%(current_version)s</strong>. New version: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
 msgstr ""
-"Доступно обновление Wagtail. Ваша версия: <strong>%(current_version)s</"
-"strong>. Новая версия: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
+"Ваша версия: <strong>%(current_version)s</strong>. Новая версия: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Прочтите примечания к выпуску."
@@ -1242,25 +1232,8 @@ msgid ""
 msgstr ""
 "%(model_name)s\"%(title)s\" передано в рабочий процесс \"%(workflow)s\""
 
-msgid "This page has been made private by a parent page."
-msgstr "Страница приватна в соответствии с родительской страницей."
-
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Изменение конфиденциальности для этой страницы было отключено."
-
-msgid "Save the page before leaving"
-msgstr "Сохраните страницу перед выходом"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "У вас есть <span> несохраненные изменения</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "У вас есть <span> несохраненные комментарии </span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"У вас есть <span> несохраненные изменения </span> и <span> комментарии </"
-"span>"
 
 msgid "Publishing…"
 msgstr "Публикуется..."
@@ -1770,9 +1743,6 @@ msgstr "Копировать"
 msgid "Copy this page"
 msgstr "Копировать эту страницу"
 
-msgid "This page has unsaved changes."
-msgstr "На странице есть несохраненные изменения."
-
 msgid "This page is an alias of another page."
 msgstr "Эта страница псевдоним другой страницы."
 
@@ -1781,9 +1751,6 @@ msgstr "Редактировать оригинальную страницу"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Преобразовать этот псевдоним в обычную страницу"
-
-msgid "Select all pages in listing"
-msgstr "Выбрать все страницы из списка"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1826,6 +1793,9 @@ msgid ""
 msgstr ""
 "Для этого местоположения нет записи сайта. Страницы, созданные здесь, не "
 "будут доступны ни по одному URL."
+
+msgid "Select all pages in listing"
+msgstr "Выбрать все страницы из списка"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Эта страница заблокирована вами для дальнейшего редактирования"
@@ -1912,6 +1882,9 @@ msgstr "Подтвердить"
 msgid "Add child page"
 msgstr "Добавить дочернюю страницу"
 
+msgid "Page types"
+msgstr "Типы страниц"
+
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1920,18 +1893,12 @@ msgstr[1] "Существуют %(counter)s совпадающих страни�
 msgstr[2] "Существуют %(counter)s совпадающих страниц"
 msgstr[3] "Существуют %(counter)s совпадающих страниц"
 
-msgid "Page types"
-msgstr "Типы страниц"
-
 #, python-format
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
 msgstr "К сожалению, по запросу <em>%(query_string)s</em> ничего не найдено."
 
 msgid "Enter a search term above"
 msgstr "Введите критерий поиска выше"
-
-msgid "No pages use"
-msgstr "Нет страниц использующих"
 
 #, python-format
 msgid "Add %(label)s"
@@ -2075,6 +2042,9 @@ msgstr "Очистить"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s из %(total_pages)s."
+
+msgid "Edit account avatar"
+msgstr "Редактировать аватар аккаунта"
 
 msgid "Toggle breadcrumbs"
 msgstr "Переключить хлебные крошки"
@@ -2349,20 +2319,14 @@ msgstr "График публикации не установлен"
 msgid "Set schedule"
 msgstr "Установить расписание"
 
-msgid "Preview in mobile size"
-msgstr "Предварительный просмотр в формате смартфона"
-
-msgid "Preview in tablet size"
-msgstr "Предварительный просмотр в формате планшета"
-
-msgid "Preview in desktop size"
-msgstr "Предварительный просмотр в формате компьютера"
-
 msgid "Preview in new tab"
 msgstr "Предварительный просмотр в новой вкладке"
 
 msgid "Loading"
 msgstr "Загрузка"
+
+msgid "Refreshing…"
+msgstr "Обновление..."
 
 msgid "Preview is out of date"
 msgstr "Предварительный просмотр устарел"
@@ -2380,6 +2344,20 @@ msgstr "Режим предпросмотра"
 msgid "First published"
 msgstr "Впервые опубликовано"
 
+msgid "Save your changes before leaving"
+msgstr "Сохраните изменения перед выходом"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "У вас есть <span> несохраненные изменения</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "У вас есть <span> несохраненные комментарии </span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"У вас есть <span> несохраненные изменения </span> и <span> комментарии </"
+"span>"
+
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2394,12 +2372,6 @@ msgid ""
 msgstr ""
 "Объект модели %(model_name)s защищен от удаления из-за связанных защищенных "
 "объектов."
-
-msgid "Edit / Review"
-msgstr "Редактировать / Проверить"
-
-msgid "Workflow history"
-msgstr "История рабочего процесса"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -2442,13 +2414,6 @@ msgstr "Рабочий процесс завершен"
 #, python-format
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "%(action)s к <b>%(who)s</b>"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "История рабочего процесса %(title)s"
-
-msgid "Workflow history for"
-msgstr "История рабочего процесса для"
 
 msgid "Approved task"
 msgstr "Утвержденная задача"
@@ -2517,12 +2482,6 @@ msgstr "Присвоить рабочий процесс страницам"
 
 msgid "Assign your workflow to snippets"
 msgstr "Назначение рабочего процесса сниппетам"
-
-msgid "Creating…"
-msgstr "Создание..."
-
-msgid "Create"
-msgstr "Создать"
 
 #, python-format
 msgid ""
@@ -2619,6 +2578,12 @@ msgstr "Существующие"
 msgid "Choose a different task type"
 msgstr "Выберите другой тип задачи"
 
+msgid "Creating…"
+msgstr "Создание..."
+
+msgid "Create"
+msgstr "Создать"
+
 msgid "Task type"
 msgstr "Тип задачи"
 
@@ -2653,13 +2618,6 @@ msgid ""
 msgstr ""
 "Ни одной задачи еще не включено. Почему бы не <a "
 "href=\"%(add_url)s\">включить какую-нибудь</a>?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "Страницы, использующие рабочий процесс '%(name)s'"
-
-msgid "Pages that use workflow"
-msgstr "Страницы, использующие рабочий процесс"
 
 msgid "Submitted"
 msgstr "Отправлено"
@@ -2923,18 +2881,26 @@ msgstr "Коллекция '%(object)s' обновлена."
 msgid "The collection could not be saved due to errors."
 msgstr "Коллекция не может быть сохранена из-за ошибок."
 
-msgid "Delete collection"
-msgstr "Удалить коллекцию"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Коллекция '%(object)s' удалена."
+
+msgid "Delete collection"
+msgstr "Удалить коллекцию"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Вы уверены что хотите удалить эту коллекцию?"
 
 msgid "Home"
 msgstr "Главная"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "%(model_name)sне соответствует вашему запросу."
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Нет %(model_name)s для отображения."
 
 msgid "Live version"
 msgstr "Опубликованная версия"
@@ -2951,8 +2917,14 @@ msgstr "Сравнить с текущей версией"
 msgid "Cancel scheduled publish"
 msgstr "Отменить запланированную публикацию"
 
+msgid "Workflow history"
+msgstr "История рабочего процесса"
+
 msgid "Workflow progress"
 msgstr "Прогресс рабочего процесса"
+
+msgid "Edit / Review"
+msgstr "Редактировать / Проверить"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
@@ -3091,9 +3063,6 @@ msgstr "%(model_name)s '%(object)s' удалена."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Вы уверены, что хотите удалить %(model_name)s?"
 
-msgid "Inspecting"
-msgstr "Просмотр"
-
 msgid "Earliest"
 msgstr "Ранний"
 
@@ -3140,6 +3109,13 @@ msgstr ""
 
 msgid "Dashboard"
 msgstr "Панель управления"
+
+msgid "Search all pages…"
+msgstr "Искать на всех страницах..."
+
+#, python-format
+msgid "Privacy is inherited from the ancestor page - %(ancestor_page)s"
+msgstr "Приватность наследуется от страницы-предка - %(ancestor_page)s"
 
 msgid "Delete selected pages"
 msgstr "Удалить выбранные страницы"
@@ -3459,6 +3435,9 @@ msgstr "Страница '%(page_title)s' снята с публикации."
 msgid "Pages using"
 msgstr "Страницы, использующие"
 
+msgid "Page types usage"
+msgstr "Использование типов страниц"
+
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "Страница '%(page_title)s' в настоящее время не ожидает модерации."
@@ -3494,9 +3473,6 @@ msgstr "Дата/Время"
 
 msgid "Locked pages"
 msgstr "Заблокированные страницы"
-
-msgid "Page types usage"
-msgstr "Использование типов страниц"
 
 msgid "Show"
 msgstr "Показать"

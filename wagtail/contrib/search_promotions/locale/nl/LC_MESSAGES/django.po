@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2022-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -104,9 +104,6 @@ msgstr ""
 "mogelijk spelfouten/gebruikersfouten bevatten waarvoor u een aanbevolen "
 "resultaat wilt instellen. Om te helpen kunt u kiezen uit populaire "
 "zoektermen van gebruikers van de website.</p>            "
-
-msgid "Save"
-msgstr "Opslaan"
 
 #, python-format
 msgid "Delete %(query)s"

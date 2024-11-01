@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail resimler"
+
+msgid "Alt text"
+msgstr "Alt metin"
 
 #, python-format
 msgid ""
@@ -72,9 +75,6 @@ msgstr "Sağa yaslı"
 
 msgid "Collection"
 msgstr "Koleksiyon"
-
-msgid "Alt text"
-msgstr "Alt metin"
 
 msgid "Filter"
 msgstr "Filtrele"
@@ -126,6 +126,9 @@ msgstr "başlık"
 
 msgid "file"
 msgstr "dosya"
+
+msgid "description"
+msgstr "açıklama"
 
 msgid "width"
 msgstr "genişlik"
@@ -181,21 +184,11 @@ msgstr "Resim dosyasını değiştir:"
 msgid "Add an image"
 msgstr "Resim ekle"
 
-msgid "Add image"
-msgstr "Resim ekle"
+msgid "Uploading…"
+msgstr "Yükleniyor…"
 
-msgid "Save"
-msgstr "Kaydet"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "%(title)s resim düzenleniyor"
-
-msgid "Editing"
-msgstr "Düzenleniyor"
-
-msgid "Delete image"
-msgstr "Resmi sil"
+msgid "Upload"
+msgstr "Yükle"
 
 msgid "URL Generator"
 msgstr "URL Üretici"
@@ -260,9 +253,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "Birden fazla resim ekle"
 
-msgid "Add images"
-msgstr "Resim ekle"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Hemen yüklemek için resimleri bu alana sürükleyip bırakın."
 
@@ -301,12 +291,6 @@ msgstr "Etiketler"
 msgid "Delete"
 msgstr "Sil"
 
-msgid "Upload"
-msgstr "Yükle"
-
-msgid "Uploading…"
-msgstr "Yükleniyor…"
-
 msgid "Choose an image"
 msgstr "Bir resim seç"
 
@@ -316,15 +300,12 @@ msgstr "Resmi düzenle"
 msgid "Images"
 msgstr "Resimler"
 
+msgid "The image could not be saved due to errors."
+msgstr "Hata oluştuğu için resim kaydedilemedi."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Resim '%(image_title)s' güncellendi."
-
-msgid "Edit again"
-msgstr "Tekrar düzenle"
-
-msgid "The image could not be saved due to errors."
-msgstr "Hata oluştuğu için resim kaydedilemedi."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -333,16 +314,22 @@ msgstr ""
 "Kaynak resim dosyası bulunamadı. Lütfen ya kaynağı değiştirin ya da resmi "
 "silin."
 
+msgid "Delete image"
+msgstr "Resmi sil"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Resim '%(image_title)s' silindi."
+
+msgid "The image could not be created due to errors."
+msgstr "Hata oluştuğu için resim oluşturulamadı."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Resim '%(image_title)s' eklendi."
 
-msgid "The image could not be created due to errors."
-msgstr "Hata oluştuğu için resim oluşturulamadı."
+msgid "Add images"
+msgstr "Resim ekle"
 
 msgid "Image"
 msgstr "Resim"

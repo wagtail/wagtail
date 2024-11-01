@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (https://app.transifex.com/torchbox/teams/8009/dv/)\n"
@@ -67,12 +67,12 @@ msgstr "%(object)s ލޯކޭލް އިސްދާރު ކުރެވިއްޖެ"
 msgid "The locale could not be saved due to errors."
 msgstr "ގޯސްތަކެއް ހުރުމުން ލޯކޭލް ސޭވް ނުކުރެވުނެވެ."
 
-msgid "Delete locale"
-msgstr "ލޯކޭލް ޑިލީޓް ކުރޭ"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "%(object)s ލޯކޭލް ޑިލީޓް ކުރެވިއްޖެ"
+
+msgid "Delete locale"
+msgstr "ލޯކޭލް ޑިލީޓް ކުރޭ"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "މި ލޯކޭލް ޑިލީޓް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"

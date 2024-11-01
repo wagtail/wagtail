@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -402,14 +402,8 @@ msgstr "Den forespurte siden ble ikke funnet."
 msgid "Go to Wagtail admin"
 msgstr "Gå til Wagtail admin"
 
-msgid "Account"
-msgstr "Konto"
-
 msgid "More actions"
 msgstr "Flere handlinger"
-
-msgid "Save account details"
-msgstr "Lagre kontodetaljer"
 
 msgid "Reset password"
 msgstr "Nullstill passord"
@@ -722,10 +716,6 @@ msgstr[1] "Flyttet opp %(counter)s plasser."
 msgid "There are no differences between these two versions"
 msgstr "Det er ingen forskjeller mellom disse to versjonene"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Velkommen til %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -733,8 +723,14 @@ msgstr ""
 "Dette er kontrollpanelet ditt, hvor du kan se en oversikt over innholdet som "
 "er lagt inn."
 
+msgid "Account"
+msgstr "Konto"
+
 msgid "Your locked pages"
 msgstr "Dine låste sider"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Locked at"
 msgstr "Låst den"
@@ -754,24 +750,11 @@ msgstr "Publisert"
 msgid "Your most recent edits"
 msgstr "Dine siste endringer"
 
-msgid "Status"
-msgstr "Status"
-
 msgid "Date"
 msgstr "Dato"
 
 msgid "Site summary"
 msgstr "Oppsummering for nettstedet"
-
-#, python-format
-msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
-msgstr ""
-"Wagtail oppdatering tilgjengelig. Din versjon: <strong>%(current_version)s</"
-"strong>. Ny versjon: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
 
 msgid "Read the release notes."
 msgstr "Les utgivelsesnotatene."
@@ -917,9 +900,6 @@ msgstr "%(model_name)s \"%(title)s\" har blitt avslått under \"%(task)s\"."
 msgid "You can preview the page here:"
 msgstr "Du kan forhåndsvise siden her:"
 
-msgid "This page has been made private by a parent page."
-msgstr "Denne siden har blitt gjort privat av en foreldreside."
-
 msgid "Publishing…"
 msgstr "Publiserer..."
 
@@ -1007,9 +987,6 @@ msgstr "Kopier"
 msgid "Copy this page"
 msgstr "Kopier denne siden"
 
-msgid "This page has unsaved changes."
-msgstr "Denne siden har endringer som ikke er lagret."
-
 msgid "Configure a site now."
 msgstr "Konfigurer et nettsted nå."
 
@@ -1062,9 +1039,6 @@ msgstr "Sidetyper"
 
 msgid "Enter a search term above"
 msgstr "Skriv inn en søkestreng over"
-
-msgid "No pages use"
-msgstr "Ingen sider bruker"
 
 #, python-format
 msgid "Add %(label)s"
@@ -1270,12 +1244,12 @@ msgstr "Samlingen \"%(object)s\" er oppdatert."
 msgid "The collection could not be saved due to errors."
 msgstr "Samlingen kunne ikke lagres grunnet feil."
 
-msgid "Delete collection"
-msgstr "Slett samlingen"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Samlingen \"%(object)s\" er slettet."
+
+msgid "Delete collection"
+msgstr "Slett samlingen"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Er du sikker på at du vil slette denne samlingen?"
@@ -1323,9 +1297,6 @@ msgstr "Redigerer"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s «%(object)s» slettet."
-
-msgid "Inspecting"
-msgstr "Inspiserer"
 
 msgid "Earliest"
 msgstr "Tidligste"

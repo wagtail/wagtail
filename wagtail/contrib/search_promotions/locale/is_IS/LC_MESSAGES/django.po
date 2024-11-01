@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
 "2015-2016,2022,2024\n"
@@ -98,9 +98,6 @@ msgstr ""
 "nákvæmlega þá leit sem þú vilt að sýni þessar niðurstöður, <em>þar með "
 "taldar</em> allar misritanir og stafsetningarvillur. Til að hjálpa þér eru "
 "hérna leitarorð og frasar sem eru vinsæl meðal notenda á vefnum.</p>"
-
-msgid "Save"
-msgstr "Vista"
 
 #, python-format
 msgid "Delete %(query)s"

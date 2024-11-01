@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,6 +24,16 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imaxes de Wagtail"
+
+msgid "Image is decorative"
+msgstr "A imaxe é decorativa"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Por favor, engade un texto alternativo para a imaxe ou márcaa como decorativa"
 
 #, python-format
 msgid ""
@@ -85,16 +95,6 @@ msgstr "Colección"
 msgid "Format"
 msgstr "Formato"
 
-msgid "Image is decorative"
-msgstr "A imaxe é decorativa"
-
-msgid "Alt text"
-msgstr "Texto alternativo"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Por favor, engade un texto alternativo para a imaxe ou márcaa como decorativa"
-
 msgid "Filter"
 msgstr "Filtro"
 
@@ -148,6 +148,9 @@ msgstr "título"
 
 msgid "file"
 msgstr "arquivo"
+
+msgid "description"
+msgstr "descripción"
 
 msgid "width"
 msgstr "ancho"
@@ -299,17 +302,13 @@ msgstr "Insertar imaxe"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"%(total)s<span> Imaxe <span class=\"w-sr-only\">creada en %(site_name)s</"
-"span>"
+"%(total)s Imaxes <span class=\"w-sr-only\">creadas en %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Imaxes <span class=\"w-sr-only\">creadas en "
-"%(site_name)s</span>"
+"%(total)s Imaxes <span class=\"w-sr-only\">creadas en %(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Cambiar arquivo de imaxe:"
@@ -317,27 +316,17 @@ msgstr "Cambiar arquivo de imaxe:"
 msgid "Add an image"
 msgstr "Engadir unha imaxe"
 
-msgid "Add image"
-msgstr "Engadir imaxe"
+msgid "Uploading…"
+msgstr "Subindo…"
 
-msgid "Save"
-msgstr "Gardar"
+msgid "Upload"
+msgstr "Subir"
 
 msgid "Keep new image"
 msgstr "Manter a nova imaxe"
 
 msgid "Delete new image"
 msgstr "Eliminar a nova imaxe"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Editando imaxe %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Delete image"
-msgstr "Eliminar imaxe"
 
 msgid "Image focal point"
 msgstr "Punto focal da imaxe"
@@ -423,9 +412,6 @@ msgstr "Fallóu a copia ó portapapéis"
 msgid "Add multiple images"
 msgstr "Engadir múltiples imaxes"
 
-msgid "Add images"
-msgstr "Engadir imaxes"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Arrastrar e soltar imaxes nesta área para subir inmediatamente"
 
@@ -434,6 +420,13 @@ msgstr "Ou selecciona dende o teu ordenador"
 
 msgid "Add to collection:"
 msgstr "Engadir á colección:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"Por favor engada unha descripción da imaxe para cumprir coas boas prácticas "
+"de accesibilidade."
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -511,12 +504,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "Eliminouse %(num_parent_objects)d imaxe"
 msgstr[1] "Elimináronse %(num_parent_objects)d imaxes"
 
-msgid "Upload"
-msgstr "Subir"
-
-msgid "Uploading…"
-msgstr "Subindo…"
-
 msgid "Choose an image"
 msgstr "Seleccionar unha imaxe"
 
@@ -547,15 +534,12 @@ msgstr "Tamaño do arquivo: (maior a menor)"
 msgid "Images"
 msgstr "Imaxes"
 
+msgid "The image could not be saved due to errors."
+msgstr "A imaxe non puido ser gardada debido a erros"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imaxe '%(image_title)s' actualizada."
-
-msgid "Edit again"
-msgstr "Editar de novo"
-
-msgid "The image could not be saved due to errors."
-msgstr "A imaxe non puido ser gardada debido a erros"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -564,16 +548,25 @@ msgstr ""
 "O imaxe fonte non puido ser atopado. Por favor, cambia a fonte ou elimina a "
 "imaxe."
 
+msgid "Generate URL"
+msgstr "Xerar URL"
+
+msgid "Delete image"
+msgstr "Eliminar imaxe"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imaxe '%(image_title)s' eliminada."
+
+msgid "The image could not be created due to errors."
+msgstr "A imaxe non puido ser creada debido a erros."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imaxe '%(image_title)s' engadida."
 
-msgid "The image could not be created due to errors."
-msgstr "A imaxe non puido ser creada debido a erros."
+msgid "Add images"
+msgstr "Engadir imaxes"
 
 msgid "Image"
 msgstr "Imaxe"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -46,21 +46,8 @@ msgstr "Вмъкни Изображение"
 msgid "Add an image"
 msgstr "Добави Изображение"
 
-msgid "Add image"
-msgstr "Добави Изображение"
-
-msgid "Save"
-msgstr "Запази"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Редакция на %(title)s"
-
-msgid "Editing"
-msgstr "Редактиране"
-
-msgid "Delete image"
-msgstr "Изтрий Изображение"
+msgid "Upload"
+msgstr "Качване"
 
 msgid "Preview"
 msgstr "Преглед"
@@ -74,9 +61,6 @@ msgstr "Тагове"
 msgid "Delete"
 msgstr "Изтрий"
 
-msgid "Upload"
-msgstr "Качване"
-
 msgid "Choose an image"
 msgstr "Изберете изображение"
 
@@ -86,20 +70,23 @@ msgstr "Избери друго Изображение"
 msgid "Images"
 msgstr "Изображения"
 
+msgid "The image could not be saved due to errors."
+msgstr "Изображението не можеше да бъде запазено поради грешки."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Изображение '%(image_title)s' обновено."
 
-msgid "The image could not be saved due to errors."
-msgstr "Изображението не можеше да бъде запазено поради грешки."
+msgid "Delete image"
+msgstr "Изтрий Изображение"
 
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Изображение '%(image_title)s' изтрито."
 
+msgid "The image could not be created due to errors."
+msgstr "Изображението не можеше да бъде създадено поради грешки."
+
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Изображение '%(image_title)s' добавено."
-
-msgid "The image could not be created due to errors."
-msgstr "Изображението не можеше да бъде създадено поради грешки."

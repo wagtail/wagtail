@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Soft Exim, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -171,15 +171,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Энэ бүлгийг үнэхээр устгах уу?"
 
-msgid "Add group"
-msgstr "Бүлэг нэмэх"
-
-msgid "Save"
-msgstr "Хадгалах"
-
-msgid "Delete group"
-msgstr "Бүлэг устгах"
-
 msgid "Object permissions"
 msgstr "Объектын хандах эрх"
 
@@ -191,15 +182,6 @@ msgstr "Нэмэх"
 
 msgid "Change"
 msgstr "Солих"
-
-msgid "Publish"
-msgstr "Нийтлэх"
-
-msgid "Lock"
-msgstr "Түгжих"
-
-msgid "Unlock"
-msgstr "Түгжээг тайлах"
 
 msgid "Custom permissions"
 msgstr "Тохируулсан эрхүүд"
@@ -238,12 +220,6 @@ msgstr "Хэрэглэгчийн эрх"
 msgid "Roles"
 msgstr "Дүрүүд"
 
-msgid "Add user"
-msgstr "Хэрэглэгч нэмэх"
-
-msgid "Delete user"
-msgstr "Хэрэглэгч устгах"
-
 msgid "Select all users in listing"
 msgstr "Жагсаалтын бүх хэрэглэгчийг сонгох"
 
@@ -271,6 +247,9 @@ msgstr "Бүлэг нэмэх"
 msgid "Search groups"
 msgstr "Бүлэг хайх"
 
+msgid "Add group"
+msgstr "Бүлэг нэмэх"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "'%(object)s' бүлэг үүслээ."
@@ -289,6 +268,9 @@ msgstr "Группын гишүүдийг харах"
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' бүлэг устгагдлаа."
 
+msgid "Delete group"
+msgstr "Бүлэг устгах"
+
 msgid "Add a user"
 msgstr "Хэрэглэгч нэмэх"
 
@@ -304,12 +286,18 @@ msgstr "Админ"
 msgid "Status"
 msgstr "Төлөв"
 
+msgid "Add user"
+msgstr "Хэрэглэгч нэмэх"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "'%(object)s' хэрэглэгч шинэчлэгдлээ."
 
 msgid "The user could not be saved due to errors."
 msgstr "Дараах алдаануудаас болж хэрэглэгч хадгалагдсангүй."
+
+msgid "Delete user"
+msgstr "Хэрэглэгч устгах"
 
 #, python-format
 msgid "User '%(object)s' deleted."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -69,9 +69,6 @@ msgstr ""
 "den exakta sökningen för vilka du vill rekommendera resultat, "
 "<em>inkluerande</em> eventuella felstavningar/användarfel. Som stöd kan du "
 "välja bland söktermer som har varit populära bland dina användare."
-
-msgid "Save"
-msgstr "Spara"
 
 #, python-format
 msgid "Delete %(query)s"

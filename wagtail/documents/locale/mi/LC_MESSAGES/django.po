@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,27 +88,11 @@ msgstr "panoni pukapuka:"
 msgid "Add a document"
 msgstr "Tāpiri he pukapuka"
 
-msgid "Add document"
-msgstr "Tāpiri pukapuka"
-
 msgid "Uploading…"
 msgstr "Tukuna atu..."
 
 msgid "Upload"
 msgstr "Tukuatu"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Whakarerekē %(title)s"
-
-msgid "Editing"
-msgstr "Whakarerekē"
-
-msgid "Save"
-msgstr "Puritia"
-
-msgid "Delete document"
-msgstr "Mukuhia pukapuka"
 
 msgid "Filesize"
 msgstr "Kōnae korahi"
@@ -143,9 +127,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Tāpiri ngā pukapuka taurea"
-
-msgid "Add documents"
-msgstr "Tāpiri ngā pukapuka"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -221,9 +202,15 @@ msgstr ""
 "Ehara ka tāea te rapu te kōnae nei. Panoni koa te mātāpuna, mukuhia tē "
 "pukapuka rānei."
 
+msgid "Delete document"
+msgstr "Mukuhia pukapuka"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Pukapuka '%(document_title)s' kua mukuhia."
+
+msgid "Add documents"
+msgstr "Tāpiri ngā pukapuka"
 
 msgid "Document"
 msgstr "Pukapuka"

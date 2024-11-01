@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -30,6 +30,15 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail afbeeldingen"
+
+msgid "Image is decorative"
+msgstr "Afbeelding is decoratief"
+
+msgid "Alt text"
+msgstr "Alt tekst"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "Voeg alt tekst toe of markeer de afbeelding als decoratief"
 
 #, python-format
 msgid ""
@@ -91,15 +100,6 @@ msgstr "Collectie"
 msgid "Format"
 msgstr "Formaat"
 
-msgid "Image is decorative"
-msgstr "Afbeelding is decoratief"
-
-msgid "Alt text"
-msgstr "Alt tekst"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr "Voeg alt tekst toe of markeer de afbeelding als decoratief"
-
 msgid "Filter"
 msgstr "Filter"
 
@@ -153,6 +153,9 @@ msgstr "titel"
 
 msgid "file"
 msgstr "bestand"
+
+msgid "description"
+msgstr "omschrijving"
 
 msgid "width"
 msgstr "breedte"
@@ -312,17 +315,15 @@ msgstr "Voeg afbeelding in"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Afbeelding <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span>"
+"%(total)s Afbeelding <span class=\"w-sr-only\">aangemaakt in %(site_name)s</"
+"span>"
 msgstr[1] ""
-"<span>%(total)s</span> Afbeeldingen <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span>"
+"%(total)s Afbeeldingen <span class=\"w-sr-only\">aangemaakt in%(site_name)s</"
+"span>"
 
 msgid "Change image file:"
 msgstr "Wijzig bestand:"
@@ -330,27 +331,17 @@ msgstr "Wijzig bestand:"
 msgid "Add an image"
 msgstr "Voeg een afbeelding toe"
 
-msgid "Add image"
-msgstr "Voeg afbeelding toe"
+msgid "Uploading…"
+msgstr "Bezig met uploaden…"
 
-msgid "Save"
-msgstr "Opslaan"
+msgid "Upload"
+msgstr "Uploaden"
 
 msgid "Keep new image"
 msgstr "Bewaar nieuwe afbeelding"
 
 msgid "Delete new image"
 msgstr "Nieuwe afbeelding verwijderen"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Wijzig afbeelding %(title)s"
-
-msgid "Editing"
-msgstr "Wijzigen"
-
-msgid "Delete image"
-msgstr "Verwijder afbeelding"
 
 msgid "Image focal point"
 msgstr "Afbeelding focusgebied"
@@ -435,9 +426,6 @@ msgstr "Kopiëren naar klembord mislukt"
 msgid "Add multiple images"
 msgstr "Voeg meerdere afbeeldingen toe"
 
-msgid "Add images"
-msgstr "Voeg afbeeldingen toe"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Sleep afbeeldingen naar dit gebied om ze direct te uploaden."
 
@@ -446,6 +434,13 @@ msgstr "Of kies vanaf je computer"
 
 msgid "Add to collection:"
 msgstr "Voeg toe aan collectie:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"Voeg alsjeblieft een beschrijving van de afbeelding toe om te voldoen aan "
+"toegankelijkheidseisen."
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -523,12 +518,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d afbeelding is verwijderd"
 msgstr[1] "%(num_parent_objects)d afbeeldingen zijn verwijderd"
 
-msgid "Upload"
-msgstr "Uploaden"
-
-msgid "Uploading…"
-msgstr "Bezig met uploaden…"
-
 msgid "Choose an image"
 msgstr "Kies een afbeelding"
 
@@ -559,15 +548,12 @@ msgstr "Bestandsgrootte: (groot naar klein)"
 msgid "Images"
 msgstr "Afbeeldingen"
 
+msgid "The image could not be saved due to errors."
+msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Afbeelding '%(image_title)s' is bijgewerkt."
-
-msgid "Edit again"
-msgstr "Bewerk opnieuw"
-
-msgid "The image could not be saved due to errors."
-msgstr "De afbeelding kon vanwege fouten niet worden opgeslagen."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -576,16 +562,25 @@ msgstr ""
 "Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
 "bronbestand of verwijder de afbeelding."
 
+msgid "Generate URL"
+msgstr "Maak URL"
+
+msgid "Delete image"
+msgstr "Verwijder afbeelding"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Afbeelding '%(image_title)s' verwijderd."
+
+msgid "The image could not be created due to errors."
+msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Afbeelding '%(image_title)s' toegevoegd."
 
-msgid "The image could not be created due to errors."
-msgstr "De afbeelding kon vanwege fouten niet worden aangemaakt."
+msgid "Add images"
+msgstr "Voeg afbeeldingen toe"
 
 msgid "Image"
 msgstr "Afbeelding"
