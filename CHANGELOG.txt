@@ -122,6 +122,7 @@ Changelog
  * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
  * Fix: Fix error on workflow settings view with multiple snippet types assigned to the same workflow on Postgres (Sage Abdullah)
  * Fix: Prevent history view from breaking if a log entry's revision is missing (Matt Westcott)
+ * Docs: Upgrade sphinx-wagtail-theme to v6.4.0, with a new search integration and Read the Docs Addons bug fixes (Thibaud Colas)
 
 
 6.2.2 (24.09.2024)
