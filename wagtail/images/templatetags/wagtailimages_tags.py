@@ -200,22 +200,32 @@ class PictureNode(SrcsetImageNode):
         if not image:
             return ""
 
+        # Get original image dimensions
+        original_width, original_height = image.width, image.height
+
+        # Get renditions and filter them
         renditions = get_renditions_or_not_found(
             image,
             self.get_filters(preserve_svg=self.preserve_svg and image.is_svg()),
         )
 
+        # Filter out renditions larger than the original image size
+        filtered_renditions = [
+            rendition for rendition in renditions if (
+                rendition.width <= original_width and
+                rendition.height <= original_height
+            )
+        ]
+
         if self.output_var_name:
-            # Wrap the renditions in Picture object, to support both
-            # rendering as-is and access to the data.
-            context[self.output_var_name] = Picture(renditions)
+            context[self.output_var_name] = Picture(filtered_renditions)
             return ""
 
         resolved_attrs = {}
         for key in self.attrs:
             resolved_attrs[key] = self.attrs[key].resolve(context)
 
-        return Picture(renditions, resolved_attrs).__html__()
+        return Picture(filtered_renditions, resolved_attrs).__html__()
 
 
 @register.simple_tag()
