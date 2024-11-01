@@ -248,6 +248,67 @@ class TestImageBlock(TestImageChooserBlock):
         self.assertEqual(result.contextual_alt_text, "Sample text")
         self.assertFalse(result.decorative)
 
+    def test_bulk_to_python_with_empty_list(self):
+        block = ImageBlock(required=False)
+        result = block.bulk_to_python([])
+        self.assertEqual(result, [])
+
+    def test_bulk_to_python_with_list_of_ints(self):
+        block = ImageBlock(required=False)
+        result = block.bulk_to_python([None, self.image.id, self.image.id])
+        self.assertEqual(result, [None, self.image, self.image])
+
+    def test_bulk_to_python_with_list_of_dicts(self):
+        block = ImageBlock(required=False)
+        result = block.bulk_to_python(
+            [
+                # This is the representation of a non-required ImageBlock left blank,
+                # as per test_get_prep_value_for_null_value
+                {"image": None, "alt_text": None, "decorative": None},
+                {
+                    "image": self.image.id,
+                    "alt_text": "Custom alt text",
+                    "decorative": False,
+                },
+                {
+                    "image": self.image.id,
+                    "alt_text": "Different alt text",
+                    "decorative": False,
+                },
+            ]
+        )
+        self.assertEqual(len(result), 3)
+        self.assertIsNone(result[0])
+        self.assertEqual(result[1].id, self.image.id)
+        self.assertEqual(result[1].contextual_alt_text, "Custom alt text")
+        self.assertEqual(result[2].id, self.image.id)
+        self.assertEqual(result[2].contextual_alt_text, "Different alt text")
+
+    def test_get_prep_value(self):
+        block = ImageBlock()
+
+        self.image.contextual_alt_text = "Custom alt text"
+        self.image.decorative = False
+
+        value = block.get_prep_value(self.image)
+        self.assertEqual(
+            value,
+            {
+                "image": self.image.id,
+                "alt_text": "Custom alt text",
+                "decorative": False,
+            },
+        )
+
+    def test_get_prep_value_for_null_value(self):
+        block = ImageBlock(required=False)
+
+        value = block.get_prep_value(None)
+        self.assertEqual(
+            value,
+            {"image": None, "alt_text": None, "decorative": None},
+        )
+
     def test_get_searchable_content(self):
         block = ImageBlock()
         value = {
