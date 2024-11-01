@@ -26,6 +26,7 @@ Changelog
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
  * Maintenance: Remove unused `uuid` UMD module as all code is now using the NPM module (LB (Ben) Johnston)
+ * Maintenance: Clean up JS comments throughout codebase to be aligned to JSDoc where practical (LB (Ben) Johnston)
 
 
 6.3 LTS (01.11.2024)

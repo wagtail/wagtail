@@ -40,9 +40,11 @@ export class InlinePanel extends ExpandingFormset {
     });
   }
 
+  /**
+   * Update states of listing controls in response to a change of state such as
+   * adding, deleting or moving an element.
+   */
   updateControlStates() {
-    /* Update states of listing controls in response to a change of state such as
-    adding, deleting or moving an element */
     this.updateChildCount();
     this.updateMoveButtonDisabledStates();
     this.updateAddButtonState();
