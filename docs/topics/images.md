@@ -315,7 +315,7 @@ Same as `url`, but always returns a full absolute URL. This requires `WAGTAILADM
 This is useful for images that will be re-used outside of the current site, such as social share images:
 
 ```html+django
-<meta name="twitter:image" content="{{ tmp_photo.full_url }}">
+<meta name="og:image" content="{{ tmp_photo.full_url }}">
 ```
 
 If your site defines a custom image model using `AbstractImage`, any additional fields you add to an image (such as a copyright holder) is **not** included in the rendition.

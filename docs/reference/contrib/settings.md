@@ -274,13 +274,13 @@ if you have to use multiple values from one model:
 
 ```html+jinja
 {% with generic_social_settings=settings("app_label.GenericSocialMediaSettings") %}
-    Follow us on Twitter at @{{ generic_social_settings.facebook }},
+    Follow us on Facebook at {{ generic_social_settings.facebook }},
     or Instagram at @{{ generic_social_settings.instagram }}.
 {% endwith %}
 
 {% with site_social_settings=settings("app_label.SiteSpecificSocialMediaSettings") %}
-    Follow us on Twitter at @{{ site_social_settings.facebook }},
-    or Instagram at @{{ site_social_settings.instagram }}.
+    Follow us on Facebook at {{ site_social_settings.facebook }},
+    or Instagram at {{ site_social_settings.instagram }}.
 {% endwith %}
 ```
 

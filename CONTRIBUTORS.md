@@ -847,6 +847,7 @@
 * Frank Yiu
 * Shaurya Panchal
 * Sumana Sree Angajala
+* Ayaan Qadri
 
 ## Translators
 
