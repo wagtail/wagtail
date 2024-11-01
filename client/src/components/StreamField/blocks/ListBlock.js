@@ -15,10 +15,10 @@ import {
 
 /* global $ */
 
+/**
+ * Wrapper for an item inside a ListBlock
+ */
 class ListChild extends BaseSequenceChild {
-  /*
-  wrapper for an item inside a ListBlock
-  */
   getState() {
     return {
       id: this.id,
@@ -50,12 +50,13 @@ class ListChild extends BaseSequenceChild {
   }
 }
 
+/**
+ * Represents a position in the DOM where a new list item can be inserted.
+ *
+ * @description
+ * This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
+ */
 class InsertPosition extends BaseInsertionControl {
-  /*
-  Represents a position in the DOM where a new list item can be inserted.
-
-  This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
-  */
   constructor(placeholder, opts) {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
@@ -135,20 +136,23 @@ export class ListBlock extends BaseSequenceBlock {
     }
   }
 
+  /**
+   * State for a ListBlock is a list of {id, value} objects, but
+   * ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
+   */
   setState(blocks) {
-    // State for a ListBlock is a list of {id, value} objects, but
-    // ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
     this.clear();
     blocks.forEach(({ value, id }, i) => {
       this.insert(value, i, { id: id || uuidv4() });
     });
   }
 
+  /**
+   * Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
+   * return the block definition and initial state to be used for the new block.
+   * For a ListBlock, no data is passed from the insertion control, as there is a single fixed child block definition.
+   */
   _getChildDataForInsertion() {
-    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
-    return the block definition and initial state to be used for the new block.
-    For a ListBlock, no data is passed from the insertion control, as there is a single fixed child block definition.
-    */
     const blockDef = this.blockDef.childBlockDef;
     const initialState = this.blockDef.initialChildState;
     return [blockDef, initialState];
@@ -180,7 +184,7 @@ export class ListBlock extends BaseSequenceBlock {
     return new InsertPosition(placeholder, opts);
   }
 
-  /*
+  /**
    * Called whenever a block is added or removed
    *
    * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.

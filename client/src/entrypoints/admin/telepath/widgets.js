@@ -224,13 +224,15 @@ class Select extends Widget {
 }
 window.telepath.register('wagtail.widgets.Select', Select);
 
+/**
+ * Definition for a command in the Draftail context menu that inserts a block.
+ *
+ * @param {BoundDraftailWidget} widget - the bound Draftail widget
+ * @param {Object} blockDef - block definition for the block to be inserted
+ * @param {Object} addSibling - capability descriptors from the containing block's capabilities definition
+ * @param {Object} split - capability descriptor from the containing block's capabilities definition
+ */
 class DraftailInsertBlockCommand {
-  /* Definition for a command in the Draftail context menu that inserts a block.
-   * Constructor args:
-   * widget - the bound Draftail widget
-   * blockDef - block definition for the block to be inserted
-   * addSibling, split - capability descriptors from the containing block's capabilities definition
-   */
   constructor(widget, blockDef, addSibling, split) {
     this.widget = widget;
     this.blockDef = blockDef;
@@ -286,12 +288,13 @@ class DraftailInsertBlockCommand {
   }
 }
 
+/**
+ * Definition for a command in the Draftail context menu that inserts a block.
+ *
+ * @param {BoundDraftailWidget} widget - the bound Draftail widget
+ * @param {Object} split - capability descriptor from the containing block's capabilities definition
+ */
 class DraftailSplitCommand {
-  /* Definition for a command in the Draftail context menu that splits the block.
-   * Constructor args:
-   * widget - the bound Draftail widget
-   * split - capability descriptor from the containing block's capabilities definition
-   */
   constructor(widget, split) {
     this.widget = widget;
     this.split = split;

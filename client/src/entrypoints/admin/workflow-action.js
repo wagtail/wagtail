@@ -11,7 +11,10 @@ function addHiddenInput(form, name, val) {
 // eslint-disable-next-line no-underscore-dangle
 window._addHiddenInput = addHiddenInput;
 
-/* When a workflow action button is clicked, either show a modal or make a POST request to the workflow action view */
+/**
+ * When a workflow action button is clicked,
+ * either show a modal or make a POST request to the workflow action view
+ */
 function ActivateWorkflowActionsForDashboard() {
   const workflowActionElements = document.querySelectorAll(
     '[data-workflow-action-url]',

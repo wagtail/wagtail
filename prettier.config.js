@@ -1,5 +1,5 @@
 /**
- * See https://prettier.io/docs/en/options.html.
+ * @see https://prettier.io/docs/en/options.html
  */
 module.exports = {
   arrowParens: 'always',
