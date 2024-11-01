@@ -431,3 +431,18 @@ If you want to use a specific Sphinx directive, consult with core contributors t
 ### Arbitrary HTML
 
 While our documentation tooling offers some support for embedding arbitrary HTML, this is frowned upon. Only do so if there is a necessity, and if the formatting is unlikely to need updates.
+
+### Code example considerations
+When including code examples, particularly JavaScript or embedded HTML, it's important to follow best practices for security and accessibility. Here are some key considerations:
+
+1. Content Security Policy (CSP) Compliance
+When adding JavaScript from external sources or inline scripts, ensure CSP compliance to prevent security vulnerabilities like cross-site scripting (XSS). Avoid mark_safe where possible, and use format_html or external files to manage scripts securely. Additionally, verify that external resources are served over HTTPS and consider loading them from trusted sources or your own server where feasible.
+
+2. Accessibility Compliance
+Make sure that all examples are accessible and adhere to accessibility standards (e.g., WCAG). For interactive components, ensure proper keyboard navigation and screen reader support. When creating dynamic content or effects (such as animations or notifications), provide options for users to pause, stop, or adjust these features as needed.
+
+
+
+
+
+
