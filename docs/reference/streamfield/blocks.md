@@ -347,10 +347,18 @@ All block definitions accept the following optional keyword arguments:
 .. autoclass:: wagtail.images.blocks.ImageBlock
     :show-inheritance:
 
-    An accessibility-focused control to allow the editor to select an existing image, or upload a new one. This has provision for adding alt text, indicating whether images are purely decorative, and is the Wagtail-recommended approach to uploading images. The following additional keyword argument is accepted:
+    An accessibility-focused control to allow the editor to select an existing image, or upload a new one. This has provision for adding alt text and indicating whether images are purely decorative, and is the Wagtail-recommended approach to uploading images. The following additional keyword argument is accepted:
 
     :param required: If true (the default), the field cannot be left blank.
 
+    ``ImageBlock`` incorporates backwards compatibility with ``ImageChooserBlock``. A block initially defined as ``ImageChooserBlock`` can be directly replaced with ``ImageBlock`` - existing data created with ``ImageChooserBlock`` will be handled automatically and changed to ``ImageBlock``'s data format when the field is resaved.
+```
+
+```{versionadded} 6.3
+The `ImageBlock` block type was added. Blocks previously defined as `ImageChooserBlock` can be directly replaced with `ImageBlock` to benefit from the alt text support, with no data migration or template changes required.
+```
+
+```{eval-rst}
 .. autoclass:: wagtail.images.blocks.ImageChooserBlock
     :show-inheritance:
 
