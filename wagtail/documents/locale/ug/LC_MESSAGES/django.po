@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -168,27 +169,11 @@ msgstr "پۈتۈك ئۆزگەرت:"
 msgid "Add a document"
 msgstr "پۈتۈك قوش"
 
-msgid "Add document"
-msgstr "پۈتۈك قوش"
-
 msgid "Uploading…"
 msgstr "يۈكلەۋاتىدۇ…"
 
 msgid "Upload"
 msgstr "يۈكلە"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "«%(title)s» تەھرىر"
-
-msgid "Editing"
-msgstr "تەھرىرلەش"
-
-msgid "Save"
-msgstr "ساقلا"
-
-msgid "Delete document"
-msgstr "پۈتۈك ئۆچۈر"
 
 msgid "Filesize"
 msgstr "ھۆججەت چوڭلۇقى"
@@ -224,23 +209,15 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> پۈتۈك <span class=\"w-sr-only\"> %(site_name)s دا "
-"قۇرۇلدى</span>"
-msgstr[1] ""
-"<span>%(total)s</span> پۈتۈك <span class=\"w-sr-only\"> %(site_name)s دا "
-"قۇرۇلدى</span>"
+"%(total)s پۈتۈك<span class=\"w-sr-only\">%(site_name)s دا قۇرۇلدى</span>"
+msgstr[1] "%(total)s پۈتۈك %(site_name)s دا قۇرۇلدى</span>"
 
 msgid "Add multiple documents"
 msgstr "كۆپ پۈتۈك قوش"
-
-msgid "Add documents"
-msgstr "پۈتۈك قوش"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "پۈتۈك بۇ دائىرىگە سۆرەپ تاشلانسا تېزلا يۈكلىنىدۇ."
@@ -335,6 +312,9 @@ msgstr "پۈتۈك"
 msgid "Title"
 msgstr "ماۋزۇ"
 
+msgid "The document could not be created due to errors."
+msgstr "خاتالىق سەۋەبىدىن پۈتۈكنى قۇرغىلى بولمىدى."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "«%(document_title)s» پۈتۈك قوشۇلدى."
@@ -350,9 +330,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "ھۆججەتنى تاپالمىدى. مەنبەنى ئۆزگەرتىڭ ياكى پۈتۈكنى ئۆچۈرۈڭ"
 
+msgid "Delete document"
+msgstr "پۈتۈك ئۆچۈر"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "«%(document_title)s» پۈتۈك ئۆچۈرۈلدى."
+
+msgid "Add documents"
+msgstr "پۈتۈك قوش"
 
 msgid "Document"
 msgstr "پۈتۈك"

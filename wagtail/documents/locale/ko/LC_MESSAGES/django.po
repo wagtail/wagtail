@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -152,27 +152,11 @@ msgstr "문서 변경:"
 msgid "Add a document"
 msgstr "문서 추가"
 
-msgid "Add document"
-msgstr "문서 추가"
-
 msgid "Uploading…"
 msgstr "업로드 중…"
 
 msgid "Upload"
 msgstr "업로드"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s 수정"
-
-msgid "Editing"
-msgstr "수정중"
-
-msgid "Save"
-msgstr "저장"
-
-msgid "Delete document"
-msgstr "문서 삭제"
 
 msgid "Filesize"
 msgstr "파일 사이즈"
@@ -208,9 +192,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "여러 개의 문서 추가"
-
-msgid "Add documents"
-msgstr "문서 추가"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "이 영역으로 문서를 드래그 앤 드롭하면 바로 업로드됩니다."
@@ -318,9 +299,15 @@ msgid ""
 msgstr ""
 "파일을 찾을 수 없습니다. 소스를 변경하거나 파일을 삭제하여 주시기 바랍니다."
 
+msgid "Delete document"
+msgstr "문서 삭제"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' 문서가 삭제 되었습니다."
+
+msgid "Add documents"
+msgstr "문서 추가"
 
 msgid "Document"
 msgstr "문서"

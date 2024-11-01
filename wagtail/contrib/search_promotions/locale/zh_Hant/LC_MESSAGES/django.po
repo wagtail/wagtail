@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -50,9 +50,6 @@ msgstr "增加搜索推廣"
 
 msgid "Add search pick"
 msgstr "增加搜索精選"
-
-msgid "Save"
-msgstr "儲存"
 
 #, python-format
 msgid "Delete %(query)s"

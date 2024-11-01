@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,6 +21,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Whakaahua-a-Wagtail"
+
+msgid "Alt text"
+msgstr "Manohi kuputuhi"
 
 #, python-format
 msgid ""
@@ -70,9 +73,6 @@ msgstr "Tīaroaro-matau"
 
 msgid "Collection"
 msgstr "Kohikohinga"
-
-msgid "Alt text"
-msgstr "Manohi kuputuhi"
 
 msgid "Filter"
 msgstr "Tātari"
@@ -124,6 +124,9 @@ msgstr "taitara"
 
 msgid "file"
 msgstr "kōnae"
+
+msgid "description"
+msgstr "whakaaturanga"
 
 msgid "width"
 msgstr "rangiwhāwhātanga"
@@ -179,21 +182,11 @@ msgstr "Panoni te kōnae whakaahua"
 msgid "Add an image"
 msgstr "Tāpiri he whakaahua"
 
-msgid "Add image"
-msgstr "Tāpiri whakaahua"
+msgid "Uploading…"
+msgstr "Tukuna atu..."
 
-msgid "Save"
-msgstr "Puritia"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "E whakarerekē ana a whakahua %(title)s"
-
-msgid "Editing"
-msgstr "Whakarerekē"
-
-msgid "Delete image"
-msgstr "Muku whakaahua"
+msgid "Upload"
+msgstr "Tukuatu"
 
 msgid "Filesize"
 msgstr "Kōnae korahi"
@@ -225,32 +218,29 @@ msgstr "Hapa rorohiko"
 msgid "Delete"
 msgstr "Muku"
 
-msgid "Upload"
-msgstr "Tukuatu"
-
-msgid "Uploading…"
-msgstr "Tukuna atu..."
-
 msgid "Choose an image"
 msgstr "Kōhiti he whakaahua"
 
 msgid "Images"
 msgstr "Ngā whakaahua"
 
+msgid "The image could not be saved due to errors."
+msgstr "Ehara ka taea te puritia kī te whakahua nei, he raruraru "
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Whakahua '%(image_title)s' kua whakahou"
 
-msgid "The image could not be saved due to errors."
-msgstr "Ehara ka taea te puritia kī te whakahua nei, he raruraru "
+msgid "Delete image"
+msgstr "Muku whakaahua"
 
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Whakahua '%(image_title)s' kua mukuhia."
 
+msgid "The image could not be created due to errors."
+msgstr "Ehara ka taea ki te hangaia te whakahua nei, he raruraru "
+
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Whakahua '%(image_title)s' kua tāpiri."
-
-msgid "The image could not be created due to errors."
-msgstr "Ehara ka taea ki te hangaia te whakahua nei, he raruraru "

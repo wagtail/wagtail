@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Dan Braghis, 2014-2016,2018-2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,6 +25,15 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imagini Wagtail"
+
+msgid "Image is decorative"
+msgstr "Imagine decorativă"
+
+msgid "Alt text"
+msgstr "Text alternativ"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "Adaugați text alternativ sau marcați imaginea ca decorativă"
 
 #, python-format
 msgid ""
@@ -83,15 +92,6 @@ msgstr "Colecție"
 msgid "Format"
 msgstr "Format"
 
-msgid "Image is decorative"
-msgstr "Imagine decorativă"
-
-msgid "Alt text"
-msgstr "Text alternativ"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr "Adaugați text alternativ sau marcați imaginea ca decorativă"
-
 msgid "Filter"
 msgstr "Filtrează"
 
@@ -145,6 +145,9 @@ msgstr "titlu"
 
 msgid "file"
 msgstr "fișier"
+
+msgid "description"
+msgstr "descriere"
 
 msgid "width"
 msgstr "lățime"
@@ -302,50 +305,23 @@ msgstr "Alege un format"
 msgid "Insert image"
 msgstr "Inserează imagine"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Imagine <span class=\"w-sr-only\">creată în "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> imagini <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> imagini <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
-
 msgid "Change image file:"
 msgstr "Schimbă fișierul imaginii:"
 
 msgid "Add an image"
 msgstr "Adaugă o imagine"
 
-msgid "Add image"
-msgstr "Adaugă imagine"
+msgid "Uploading…"
+msgstr "În curs de încărcare…"
 
-msgid "Save"
-msgstr "Salvează"
+msgid "Upload"
+msgstr "Încărcare"
 
 msgid "Keep new image"
 msgstr "Păstrează imaginea nouă"
 
 msgid "Delete new image"
 msgstr "Șterge imaginea nouă"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Editare imagine %(title)s"
-
-msgid "Editing"
-msgstr "Editare"
-
-msgid "Delete image"
-msgstr "Șterge imagine"
 
 msgid "Image focal point"
 msgstr "Punctul focal al imaginii"
@@ -431,9 +407,6 @@ msgstr "Copierea în clipboard nu a reușit"
 
 msgid "Add multiple images"
 msgstr "Adaugă mai multe imagini"
-
-msgid "Add images"
-msgstr "Adaugă imagini"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
@@ -525,12 +498,6 @@ msgstr[0] "%(num_parent_objects)d imagine a fost ștearsă"
 msgstr[1] "%(num_parent_objects)d imagini au fost șterse"
 msgstr[2] "%(num_parent_objects)d imagini au fost șterse"
 
-msgid "Upload"
-msgstr "Încărcare"
-
-msgid "Uploading…"
-msgstr "În curs de încărcare…"
-
 msgid "Choose an image"
 msgstr "Alege imagine"
 
@@ -561,15 +528,12 @@ msgstr "Mărime fișier: (de la mare la mică)"
 msgid "Images"
 msgstr "Imagini"
 
+msgid "The image could not be saved due to errors."
+msgstr "Imaginea nu a fost salvată din cauza erorilor."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imaginea '%(image_title)s' a fost actualizată."
-
-msgid "Edit again"
-msgstr "Editează din nou"
-
-msgid "The image could not be saved due to errors."
-msgstr "Imaginea nu a fost salvată din cauza erorilor."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -578,16 +542,22 @@ msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
 
+msgid "Delete image"
+msgstr "Șterge imagine"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imaginea '%(image_title)s' a fost ștearsă."
+
+msgid "The image could not be created due to errors."
+msgstr "Imaginea nu a fost creată din cauza erorilor."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imaginea '%(image_title)s' a fost adăugată."
 
-msgid "The image could not be created due to errors."
-msgstr "Imaginea nu a fost creată din cauza erorilor."
+msgid "Add images"
+msgstr "Adaugă imagini"
 
 msgid "Image"
 msgstr "imagine"

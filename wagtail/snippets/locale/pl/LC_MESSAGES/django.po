@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -154,9 +154,6 @@ msgstr "Zastąp aktualną rewizję"
 
 msgid "Save draft"
 msgstr "Zapisz szkic"
-
-msgid "Actions"
-msgstr "Akcje"
 
 msgid "Select all snippets in listing"
 msgstr "Zaznacz wszystkie skrawki na liście"

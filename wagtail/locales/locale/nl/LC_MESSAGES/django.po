@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
@@ -69,12 +69,12 @@ msgstr "Taalregio '%(object)s' gewijzigd."
 msgid "The locale could not be saved due to errors."
 msgstr "De taalregio kon vanwege fouten niet worden opgeslagen."
 
-msgid "Delete locale"
-msgstr "Verwijder taalregio"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Taalregio '%(object)s' verwijderd."
+
+msgid "Delete locale"
+msgstr "Verwijder taalregio"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Weet u zeker dat u deze taalregio wilt verwijderen?"

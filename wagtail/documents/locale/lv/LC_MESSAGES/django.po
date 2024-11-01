@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -48,24 +48,8 @@ msgstr "Mainīt dokumentu:"
 msgid "Add a document"
 msgstr "Pievienot dokumentu"
 
-msgid "Add document"
-msgstr "Pievienot dokumentu"
-
 msgid "Upload"
 msgstr "Augšupielādēt"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Labo %(title)s"
-
-msgid "Editing"
-msgstr "Labošana"
-
-msgid "Save"
-msgstr "Saglabāt"
-
-msgid "Delete document"
-msgstr "Dzēst dokumentu"
 
 msgid "Filesize"
 msgstr "Faila izmērs"
@@ -110,6 +94,9 @@ msgstr "Dokumentu nevarēja saglabāt kļūdu dēļ."
 #, python-format
 msgid "Document '%(document_title)s' updated"
 msgstr "Dokuments '%(document_title)s' atjaunots"
+
+msgid "Delete document"
+msgstr "Dzēst dokumentu"
 
 #, python-format
 msgid "Document '%(document_title)s' deleted."

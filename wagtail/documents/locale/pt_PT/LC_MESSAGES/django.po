@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -161,27 +161,11 @@ msgstr "Alterar documento:"
 msgid "Add a document"
 msgstr "Adicionar um documento"
 
-msgid "Add document"
-msgstr "Adicionar documento"
-
 msgid "Uploading…"
 msgstr "A carregar…"
 
 msgid "Upload"
 msgstr "Carregar"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "A alterar %(title)s"
-
-msgid "Editing"
-msgstr "A alterar"
-
-msgid "Save"
-msgstr "Gravar"
-
-msgid "Delete document"
-msgstr "Apagar documento"
 
 msgid "Filesize"
 msgstr "Tamanho do ficheiro"
@@ -217,9 +201,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Adicionar múltiplos documentos"
-
-msgid "Add documents"
-msgstr "Adicionar documentos"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Arraste e largue documentos nesta área para carregar imediatamente."
@@ -334,9 +315,15 @@ msgid ""
 msgstr ""
 "O ficheiro não foi encontrado. Por favor mude a origem ou apague o documento"
 
+msgid "Delete document"
+msgstr "Apagar documento"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' apagado."
+
+msgid "Add documents"
+msgstr "Adicionar documentos"
 
 msgid "Document"
 msgstr "Documento"

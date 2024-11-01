@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
 "<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
@@ -167,27 +167,11 @@ msgstr "Змінити документ:"
 msgid "Add a document"
 msgstr "Додати документ"
 
-msgid "Add document"
-msgstr "Додати документ"
-
 msgid "Uploading…"
 msgstr "Йде надсилання..."
 
 msgid "Upload"
 msgstr "Надіслати"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Редагування %(title)s"
-
-msgid "Editing"
-msgstr "Редагування"
-
-msgid "Save"
-msgstr "Зберегти"
-
-msgid "Delete document"
-msgstr "Видалити документ"
 
 msgid "Filesize"
 msgstr "Розмір файлу"
@@ -223,9 +207,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Додати декілька документів"
-
-msgid "Add documents"
-msgstr "Додати документи"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -343,9 +324,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл не знайдено. Будь ласка, змініть джерело чи видаліть документ"
 
+msgid "Delete document"
+msgstr "Видалити документ"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Документ '%(document_title)s' видалено."
+
+msgid "Add documents"
+msgstr "Додати документи"
 
 msgid "Document"
 msgstr "Документ"

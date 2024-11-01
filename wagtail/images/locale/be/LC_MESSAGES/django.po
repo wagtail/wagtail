@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -24,14 +24,14 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Малявання Wagtail "
 
+msgid "Alt text"
+msgstr "Тэкст падказкі"
+
 msgid "Collection"
 msgstr "Калекцыя"
 
 msgid "Format"
 msgstr "Фармат"
-
-msgid "Alt text"
-msgstr "Тэкст падказкі"
 
 msgid "Filter"
 msgstr "Фільтр"
@@ -59,6 +59,9 @@ msgstr "загаловак"
 
 msgid "file"
 msgstr "Файл"
+
+msgid "description"
+msgstr "апісанне"
 
 msgid "width"
 msgstr "шырыня"
@@ -117,17 +120,11 @@ msgstr "Выбраць фармат"
 msgid "Add an image"
 msgstr "Дабавіць маляванне"
 
-msgid "Add image"
-msgstr "Дабавіць маляванне"
+msgid "Uploading…"
+msgstr "Запампоўваецца..."
 
-msgid "Save"
-msgstr "Захаваць"
-
-msgid "Editing"
-msgstr "Рэдагаванне"
-
-msgid "Delete image"
-msgstr "Выдаліць выяву"
+msgid "Upload"
+msgstr "Запампаваць"
 
 msgid "(optional)"
 msgstr "(не абавязкова)"
@@ -147,9 +144,6 @@ msgstr "Папярэдні прагляд"
 msgid "URL"
 msgstr "URL"
 
-msgid "Add images"
-msgstr "Дабавіць адлюстравання"
-
 msgid "Or choose from your computer"
 msgstr "Або абярыце на вашым кампутары"
 
@@ -165,12 +159,6 @@ msgstr "Памылка Сервера"
 msgid "Delete"
 msgstr "Выдаліць"
 
-msgid "Upload"
-msgstr "Запампаваць"
-
-msgid "Uploading…"
-msgstr "Запампоўваецца..."
-
 msgid "Choose an image"
 msgstr "Выбраць малюнак"
 
@@ -179,6 +167,12 @@ msgstr "Адрэдагаваць гэты малюнак"
 
 msgid "Images"
 msgstr "Малявання"
+
+msgid "Delete image"
+msgstr "Выдаліць выяву"
+
+msgid "Add images"
+msgstr "Дабавіць адлюстравання"
 
 msgid "Change image"
 msgstr "Змяніць малюнак"

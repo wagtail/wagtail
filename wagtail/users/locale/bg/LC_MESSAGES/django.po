@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -59,23 +59,14 @@ msgstr "Изтрий"
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
 
-msgid "Save"
-msgstr "Запази"
-
 msgid "Name"
 msgstr "Име"
-
-msgid "Publish"
-msgstr "Публикувай"
 
 msgid "Account"
 msgstr "Потребителски профил"
 
 msgid "Roles"
 msgstr "Роля"
-
-msgid "Add user"
-msgstr "Добави потребител"
 
 msgid "Active"
 msgstr "Активен"
@@ -97,6 +88,9 @@ msgstr "Админ"
 
 msgid "Status"
 msgstr "Статус"
+
+msgid "Add user"
+msgstr "Добави потребител"
 
 #, python-format
 msgid "User '%(object)s' updated."

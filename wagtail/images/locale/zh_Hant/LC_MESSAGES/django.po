@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail 圖片"
+
+msgid "Alt text"
+msgstr "替代文字"
 
 #, python-format
 msgid ""
@@ -60,9 +63,6 @@ msgstr "集合"
 
 msgid "Format"
 msgstr "格式"
-
-msgid "Alt text"
-msgstr "替代文字"
 
 msgid "Filter"
 msgstr "過濾器"
@@ -114,6 +114,9 @@ msgstr "標題"
 
 msgid "file"
 msgstr "文件"
+
+msgid "description"
+msgstr "描述"
 
 msgid "width"
 msgstr "寬度"
@@ -174,21 +177,11 @@ msgstr "修改圖片文件："
 msgid "Add an image"
 msgstr "新增一個圖片"
 
-msgid "Add image"
-msgstr "新增圖片"
+msgid "Uploading…"
+msgstr "正在上傳…"
 
-msgid "Save"
-msgstr "儲存"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "編輯圖片%(title)s"
-
-msgid "Editing"
-msgstr "編輯"
-
-msgid "Delete image"
-msgstr "刪除圖片"
+msgid "Upload"
+msgstr "上傳"
 
 msgid "URL Generator"
 msgstr "URL生成器"
@@ -245,9 +238,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "新增多個圖片"
 
-msgid "Add images"
-msgstr "新增多個圖片"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "拖曳多個圖片到此區域來快速上傳。"
 
@@ -295,12 +285,6 @@ msgstr "刪除"
 msgid "Delete selected images"
 msgstr "刪除選擇的圖片"
 
-msgid "Upload"
-msgstr "上傳"
-
-msgid "Uploading…"
-msgstr "正在上傳…"
-
 msgid "Choose an image"
 msgstr "選擇一個圖片"
 
@@ -310,31 +294,34 @@ msgstr "編輯此圖片"
 msgid "Images"
 msgstr "圖片"
 
+msgid "The image could not be saved due to errors."
+msgstr "圖片無法儲存。出現錯誤。"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "圖片 '%(image_title)s' 已更新。"
-
-msgid "Edit again"
-msgstr "再次編輯"
-
-msgid "The image could not be saved due to errors."
-msgstr "圖片無法儲存。出現錯誤。"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "無法找到圖片來源文件。請修改來源文件或者刪除圖片。"
 
+msgid "Delete image"
+msgstr "刪除圖片"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "圖片'%(image_title)s' 已刪除。"
+
+msgid "The image could not be created due to errors."
+msgstr "無法創建圖片，出現錯誤。"
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "圖片'%(image_title)s'已新增"
 
-msgid "The image could not be created due to errors."
-msgstr "無法創建圖片，出現錯誤。"
+msgid "Add images"
+msgstr "新增多個圖片"
 
 msgid "Image"
 msgstr "圖片"

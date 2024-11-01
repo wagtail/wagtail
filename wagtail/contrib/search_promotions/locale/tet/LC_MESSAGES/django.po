@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -50,9 +50,6 @@ msgstr "Buka promosaun"
 
 msgid "Add search promotion"
 msgstr "Aumenta buka promosaun"
-
-msgid "Save"
-msgstr "Salva"
 
 #, python-format
 msgid "Delete %(query)s"

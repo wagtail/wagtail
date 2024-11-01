@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -50,9 +50,6 @@ msgstr "افزودن ترویج جستجو"
 
 msgid "Add search pick"
 msgstr "افزودن جستجوی برگزیده"
-
-msgid "Save"
-msgstr "ذخیره"
 
 #, python-format
 msgid "Delete %(query)s"

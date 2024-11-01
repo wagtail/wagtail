@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -222,6 +222,15 @@ msgstr "közzétéve + vázlat"
 
 msgid "Default"
 msgstr "Alapértelmezett"
+
+msgid "Preview in mobile size"
+msgstr "Előnézet okostelefon méretben"
+
+msgid "Preview in tablet size"
+msgstr "Előnézet tablet méretben"
+
+msgid "Preview in desktop size"
+msgstr "Előnézet monitor méretben"
 
 msgid "locked"
 msgstr "zárolt"

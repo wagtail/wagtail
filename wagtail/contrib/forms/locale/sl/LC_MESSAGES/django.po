@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -189,6 +189,9 @@ msgstr "Najnovejša oddaja"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "Oddani obrazci %(form_title)s"
+
+msgid "Page type"
+msgstr "Vrsta strani"
 
 msgid "Forms"
 msgstr "Obrazci"

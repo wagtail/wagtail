@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -184,27 +184,11 @@ msgstr "Wijzig document:"
 msgid "Add a document"
 msgstr "Voeg een document toe"
 
-msgid "Add document"
-msgstr "Voeg document toe"
-
 msgid "Uploading…"
 msgstr "Bezig met uploaden…"
 
 msgid "Upload"
 msgstr "Uploaden"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Wijzigen %(title)s"
-
-msgid "Editing"
-msgstr "Wijzigen"
-
-msgid "Save"
-msgstr "Opslaan"
-
-msgid "Delete document"
-msgstr "Verwijder document"
 
 msgid "Filesize"
 msgstr "Bestandsgrootte"
@@ -242,23 +226,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span> "
+"%(total)s Document <span class=\"w-sr-only\">aangemaakt in %(site_name)s</"
+"span>"
 msgstr[1] ""
-"<span>%(total)s</span> Documenten <span class=\"w-sr-only\">aangemaakt in "
-"%(site_name)s</span>"
+"%(total)s Documenten <span class=\"w-sr-only\">aangemaakt in %(site_name)s</"
+"span>"
 
 msgid "Add multiple documents"
 msgstr "Voeg meerdere documenten toe"
-
-msgid "Add documents"
-msgstr "Voeg documenten toe"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Sleep documenten naar dit gebied om ze direct te uploaden."
@@ -354,6 +333,9 @@ msgstr "Documenten"
 msgid "Title"
 msgstr "Titel"
 
+msgid "The document could not be created due to errors."
+msgstr "Het document kon niet worden aangemaakt vanwege fouten."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Document '%(document_title)s' toegevoegd."
@@ -371,9 +353,15 @@ msgstr ""
 "Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
 "verwijder het document."
 
+msgid "Delete document"
+msgstr "Verwijder document"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Document '%(document_title)s' verwijderd."
+
+msgid "Add documents"
+msgstr "Voeg documenten toe"
 
 msgid "Document"
 msgstr "Document"

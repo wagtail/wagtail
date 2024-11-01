@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -97,9 +97,6 @@ msgstr ""
 "prepručuje rezultat, <em>uključujući</em> bilo kakve tipfelere/greške. Kao "
 "pomoć, možete izabrati pojam za pretraživanja koji je popularan među "
 "korisnicima vašeg sjedišta.</p>"
-
-msgid "Save"
-msgstr "Spremi"
 
 #, python-format
 msgid "Delete %(query)s"

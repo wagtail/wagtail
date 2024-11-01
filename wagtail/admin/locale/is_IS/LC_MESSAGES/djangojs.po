@@ -1,12 +1,12 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2023
-# saevarom <saevar@saevar.is>, 2023
 # Loic Teixeira, 2024
+# saevarom <saevar@saevar.is>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2024\n"
 "Language-Team: Icelandic (Iceland) (https://app.transifex.com/torchbox/"
 "teams/8009/is_IS/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,6 +26,11 @@ msgid "%(num)s error"
 msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s villa"
 msgstr[1] "%(num)s villur"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s mín."
+msgstr[1] "%(num)s mín."
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"

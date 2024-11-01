@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -107,9 +107,6 @@ msgstr "Αντικατάσταση του τρέχοντος draft"
 
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
-
-msgid "Actions"
-msgstr "Ενέργειες"
 
 msgid "Choose"
 msgstr "Επιλογή"

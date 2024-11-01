@@ -7,15 +7,16 @@
 # Dominik Lech, 2022
 # Loic Teixeira, 2022
 # Miłosz Miśkiewicz, 2023
+# Krzysztof Jeziorny <github@jeziorny.net>, 2024
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,6 +67,9 @@ msgstr[0] "Przetłumacz stronę nadrzędną"
 msgstr[1] "Przetłumacz strony nadrzędne"
 msgstr[2] "Przetłumacz strony nadrzędne"
 msgstr[3] "Przetłumacz strony nadrzędne"
+
+msgid "Can submit translations"
+msgstr "Może zaproponować tłumaczenia"
 
 msgid "Submit"
 msgstr "Wyślij"

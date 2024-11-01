@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020,2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -124,15 +124,6 @@ msgstr "Šios grupės ištrinimas panaikins grupės leidimus visiems jos nariams
 msgid "Are you sure you want to delete this group?"
 msgstr "Ar tikrai norite ištrinti šią grupę?"
 
-msgid "Add group"
-msgstr "Pridėti grupę"
-
-msgid "Save"
-msgstr "Išsaugoti"
-
-msgid "Delete group"
-msgstr "Ištrinti grupę"
-
 msgid "Object permissions"
 msgstr "Objekto leidimai"
 
@@ -144,15 +135,6 @@ msgstr "Pridėti"
 
 msgid "Change"
 msgstr "Keisti"
-
-msgid "Publish"
-msgstr "Publikuoti"
-
-msgid "Lock"
-msgstr "Užrakinti"
-
-msgid "Unlock"
-msgstr "Atrakinti"
 
 msgid "Custom permissions"
 msgstr "Tinkinti leidimai"
@@ -190,12 +172,6 @@ msgstr "Vartotojas"
 msgid "Roles"
 msgstr "Rolės"
 
-msgid "Add user"
-msgstr "Pridėti vartotoją"
-
-msgid "Delete user"
-msgstr "Ištrinti vartotoją"
-
 msgid "Delete selected users"
 msgstr "Ištrinti pasirinktus vartotojus"
 
@@ -213,6 +189,9 @@ msgstr "Pridėti grupę"
 
 msgid "Search groups"
 msgstr "Ieškoti grupių"
+
+msgid "Add group"
+msgstr "Pridėti grupę"
 
 #, python-format
 msgid "Group '%(object)s' created."
@@ -232,6 +211,9 @@ msgstr "Peržiūrėti šios grupės vartotojus"
 msgid "Group '%(object)s' deleted."
 msgstr "Grupė '%(object)s' ištrinta."
 
+msgid "Delete group"
+msgstr "Ištrinti grupę"
+
 msgid "Add a user"
 msgstr "Pridėti vartotoją"
 
@@ -247,12 +229,18 @@ msgstr "Administratorius"
 msgid "Status"
 msgstr "Statusas"
 
+msgid "Add user"
+msgstr "Pridėti vartotoją"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Vartotojas '%(object)s' atnaujintas."
 
 msgid "The user could not be saved due to errors."
 msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
+
+msgid "Delete user"
+msgstr "Ištrinti vartotoją"
 
 #, python-format
 msgid "User '%(object)s' deleted."

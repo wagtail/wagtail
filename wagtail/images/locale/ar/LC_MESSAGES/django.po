@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "صور"
+
+msgid "Alt text"
+msgstr "نص للمساعدة"
 
 #, python-format
 msgid ""
@@ -64,9 +67,6 @@ msgstr "محاذاة لليمين"
 
 msgid "Collection"
 msgstr "مجموعة"
-
-msgid "Alt text"
-msgstr "نص للمساعدة"
 
 msgid "Filter"
 msgstr "ارسح"
@@ -118,6 +118,9 @@ msgstr "عنوان"
 
 msgid "file"
 msgstr "ملف"
+
+msgid "description"
+msgstr "وصف"
 
 msgid "width"
 msgstr "عرض"
@@ -186,21 +189,11 @@ msgstr "غير ملف الصورة"
 msgid "Add an image"
 msgstr "أضف صورة"
 
-msgid "Add image"
-msgstr "أضف صورة"
+msgid "Uploading…"
+msgstr "يتم الرفع…"
 
-msgid "Save"
-msgstr "احفظ"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "تحرير الصورة %(title)s"
-
-msgid "Editing"
-msgstr "تنقيح"
-
-msgid "Delete image"
-msgstr "احذف صورة"
+msgid "Upload"
+msgstr "انقل إلى الحاسوب"
 
 msgid "URL Generator"
 msgstr "مولد URL"
@@ -255,9 +248,6 @@ msgstr "الرابط"
 msgid "Add multiple images"
 msgstr "أضف صور غديدة"
 
-msgid "Add images"
-msgstr "أضف صور"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "اسحب صورا وأدخلها في هذه المنطقة  لإدخالها في الحاسوب فورا"
 
@@ -293,12 +283,6 @@ msgstr "إضافة إذن صورة"
 msgid "Delete"
 msgstr "احذف"
 
-msgid "Upload"
-msgstr "انقل إلى الحاسوب"
-
-msgid "Uploading…"
-msgstr "يتم الرفع…"
-
 msgid "Choose an image"
 msgstr "اختر صورة"
 
@@ -311,31 +295,34 @@ msgstr "حرر هذه الصورة"
 msgid "Images"
 msgstr "صور"
 
+msgid "The image could not be saved due to errors."
+msgstr "حفظ الصورة مستحيل بسبب أحطاء"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "تم تحديث الصورة %(image_title)s."
-
-msgid "Edit again"
-msgstr "أعد التحرير"
-
-msgid "The image could not be saved due to errors."
-msgstr "حفظ الصورة مستحيل بسبب أحطاء"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "الصورة الأصلية غير موجودة..  من فضلك غير الأصل أو احذف الصورة"
 
+msgid "Delete image"
+msgstr "احذف صورة"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "الصورة \"%(image_title)s\" محذوفة."
+
+msgid "The image could not be created due to errors."
+msgstr "إنشاء الصورة مستخيل بسبب أخطاء"
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "تمت إضافة صورة '%(image_title)s'."
 
-msgid "The image could not be created due to errors."
-msgstr "إنشاء الصورة مستخيل بسبب أخطاء"
+msgid "Add images"
+msgstr "أضف صور"
 
 msgid "Image"
 msgstr "صورة"

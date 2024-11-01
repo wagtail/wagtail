@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Dan Braghis, 2016,2018,2020-2022\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -31,12 +31,6 @@ msgstr "%(site_setting)s pentru %(site)s"
 
 msgid "Site"
 msgstr "Sit"
-
-msgid "Saving…"
-msgstr "În curs de salvare..."
-
-msgid "Save"
-msgstr "Salvează"
 
 msgid "Settings"
 msgstr "Setări"

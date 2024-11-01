@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -218,6 +218,15 @@ msgstr "live + concept"
 
 msgid "Default"
 msgstr "Default"
+
+msgid "Preview in mobile size"
+msgstr "Voorvertoning op mobiel formaat"
+
+msgid "Preview in tablet size"
+msgstr "Voorvertoning op tablet formaat"
+
+msgid "Preview in desktop size"
+msgstr "Voorvertoning op desktop formaat"
 
 msgid "locked"
 msgstr "vergrendeld"

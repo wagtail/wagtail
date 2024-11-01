@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -99,27 +99,11 @@ msgstr "Змяніць дакумент:"
 msgid "Add a document"
 msgstr "Дадаць дакумент"
 
-msgid "Add document"
-msgstr "Дадаць дакумент"
-
 msgid "Uploading…"
 msgstr "Запампоўваецца..."
 
 msgid "Upload"
 msgstr "Запампаваць"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Рэдагаванне %(title)s"
-
-msgid "Editing"
-msgstr "Рэдагаванне"
-
-msgid "Save"
-msgstr "Захаваць"
-
-msgid "Delete document"
-msgstr "Выдаліць дакумент"
 
 msgid "Filesize"
 msgstr "Памер файла"
@@ -153,9 +137,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Дадаць некалькі дакументаў"
-
-msgid "Add documents"
-msgstr "Дадаць дакументы"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Перацягні дакументы ў гэтую вобласць для неадкладнай загрузкі."
@@ -226,9 +207,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл не знойдзены. Калі ласка, змяніце крыніцу ці выдаліце дакумент."
 
+msgid "Delete document"
+msgstr "Выдаліць дакумент"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Дакумент '%(document_title)s' выдалены."
+
+msgid "Add documents"
+msgstr "Дадаць дакументы"
 
 msgid "Document"
 msgstr "Дакумент"

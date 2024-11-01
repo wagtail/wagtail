@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -57,12 +57,12 @@ msgstr "Ehara ka taea te puritia kī te pae nei, he raruraru "
 msgid "Site '%(object)s' updated."
 msgstr "Pae nama '%(object)s' kua whakahou"
 
-msgid "Delete site"
-msgstr "Mukuhia pae"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Pae nama '%(object)s' kua mukuhia"
+
+msgid "Delete site"
+msgstr "Mukuhia pae"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "E pirangi ana koe kī te mukuhia tēnei pae?"

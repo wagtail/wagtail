@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2023\n"
 "Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
@@ -69,12 +69,12 @@ msgstr "S'ha actualitzat la configuració regional '%(object)s'."
 msgid "The locale could not be saved due to errors."
 msgstr "No s'ha pogut desar la configuració regional per causa d'errors."
 
-msgid "Delete locale"
-msgstr "Esborrar configuració regional"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "S'ha esborrat la configuració regional '%(object)s'."
+
+msgid "Delete locale"
+msgstr "Esborrar configuració regional"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Segur que voleu esborrar aquesta configuració regional?"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -416,14 +416,8 @@ msgstr "A keresett oldal nem található."
 msgid "Go to Wagtail admin"
 msgstr "Admin felület megnyitása"
 
-msgid "Account"
-msgstr "Felhasználói fiók"
-
 msgid "More actions"
 msgstr "További akciók"
-
-msgid "Save account details"
-msgstr "Fiók részleteinek mentése"
 
 msgid "Reset password"
 msgstr "Jelszó módosítása"
@@ -703,15 +697,11 @@ msgstr "Biztosan közzéteszi a(z) %(model_name)s tartalmat?"
 msgid "Cancel"
 msgstr "Mégsem"
 
-msgid "Comment"
-msgstr "Megjegyzés"
-
 msgid "Actions"
 msgstr "Akciók"
 
-#, python-format
-msgid "No %(model_name)s match your query."
-msgstr "Egyetlen %(model_name)s sem felelt meg a feltételeknek."
+msgid "Comment"
+msgstr "Megjegyzés"
 
 #, python-format
 msgid ""
@@ -720,10 +710,6 @@ msgid ""
 msgstr ""
 "Nincs megjeleníthető %(model_name)s. Miért nem <a href=\"%(add_url)s\">ad "
 "hozzá egyet</a>?"
-
-#, python-format
-msgid "There are no %(model_name)s to display."
-msgstr "Nincs megjeleníthető %(model_name)s."
 
 msgid "Update"
 msgstr "Frissítés"
@@ -766,10 +752,6 @@ msgstr[1] "Felfelé mozgatva %(counter)s helyet."
 msgid "There are no differences between these two versions"
 msgstr "Nincsenek különbségek a két verzió között"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Üdvözöljük a %(site_name)s Wagtail CMS oldalon!"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -777,8 +759,17 @@ msgstr ""
 "Íme az Ön műszerfala, amelyen hasznos információk jelennek meg a létrehozott "
 "oldalairól."
 
+msgid "Account"
+msgstr "Felhasználói fiók"
+
 msgid "Your locked pages"
 msgstr "Zárolt oldalai"
+
+msgid "Language"
+msgstr "Nyelv"
+
+msgid "Status"
+msgstr "Állapot"
 
 msgid "Locked at"
 msgstr "Zárolva ekkor: "
@@ -798,37 +789,11 @@ msgstr "Közzétett oldal"
 msgid "Your most recent edits"
 msgstr "A legutóbbi szerkesztések"
 
-msgid "Status"
-msgstr "Állapot"
-
 msgid "Date"
 msgstr "Dátum"
 
 msgid "Site summary"
 msgstr "Oldal összegzés"
-
-#, python-format
-msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> oldal létrehozva ezen az oldalon: <span class=\"w-sr-"
-"only\">%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> oldal létrehozva ezen az oldalon: <span class=\"w-sr-"
-"only\">%(site_name)s</span>"
-
-#, python-format
-msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
-msgstr ""
-"Új Wagtail verzió elérhető. Az ön verziója: <strong>%(current_version)s</"
-"strong>. Új verzió: <strong data-w-upgrade-target=\"latestVersion\"></strong>"
 
 msgid "Read the release notes."
 msgstr "Frissítési dokumentáció megtekintése."
@@ -1184,23 +1149,6 @@ msgid ""
 msgstr ""
 "A(z) \"%(title)s\" %(model_name)s be lett küldve a következő "
 "munkafolyamatba: \"%(workflow)s\"."
-
-msgid "This page has been made private by a parent page."
-msgstr "Ez az oldal privát a szülő oldal beállításai miatt."
-
-msgid "Save the page before leaving"
-msgstr "Mentse az oldalt az elhagyása előtt"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "Az oldalon<span>mentetlen változtatások</span> vannak"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Az oldalon <span>mentetlen megjegyzések</span> vannak"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Az oldalon <span>mentetlen változtatások</span> és <span>kommentek</span> "
-"vannak"
 
 msgid "Publishing…"
 msgstr "Közzététel folyamatban..."
@@ -1599,9 +1547,6 @@ msgstr "Másolás"
 msgid "Copy this page"
 msgstr "Oldal másolása"
 
-msgid "This page has unsaved changes."
-msgstr "Ezen az oldalon mentetlen változtatások vannak."
-
 msgid "This page is an alias of another page."
 msgstr "Ez az oldal egy másik oldalhoz kapcsolt példány."
 
@@ -1610,9 +1555,6 @@ msgstr "Eredeti oldal szerkesztése"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Kapcsolt példány konvertálása hagyományos oldallá"
-
-msgid "Select all pages in listing"
-msgstr "Összes oldal kiválasztása a listában"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1654,6 +1596,9 @@ msgid ""
 msgstr ""
 "Ehhez a helyhez nincs webhely megadva. Az itt létrehozott oldalak nem "
 "lesznek elérhetőek."
+
+msgid "Select all pages in listing"
+msgstr "Összes oldal kiválasztása a listában"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Ez az oldal zárolva van, ezzel a felhasználóval, további szerkesztésre"
@@ -1741,14 +1686,14 @@ msgstr "Megerősítés"
 msgid "Add child page"
 msgstr "Gyermek oldal hozzáadása"
 
+msgid "Page types"
+msgstr "Oldal típusok"
+
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
 msgstr[0] "Összesen 1 megfelelő oldal van"
 msgstr[1] "Összesen %(counter)s megfelelő oldal van"
-
-msgid "Page types"
-msgstr "Oldal típusok"
 
 #, python-format
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
@@ -1758,9 +1703,6 @@ msgstr ""
 
 msgid "Enter a search term above"
 msgstr "Kérjük adja meg a keresett kifejezést"
-
-msgid "No pages use"
-msgstr "Egyetlen oldal sem használja: "
 
 #, python-format
 msgid "Add %(label)s"
@@ -2095,15 +2037,6 @@ msgstr "Nincs közzététel időzítve"
 msgid "Set schedule"
 msgstr "Időzítés beállítása"
 
-msgid "Preview in mobile size"
-msgstr "Előnézet okostelefon méretben"
-
-msgid "Preview in tablet size"
-msgstr "Előnézet tablet méretben"
-
-msgid "Preview in desktop size"
-msgstr "Előnézet monitor méretben"
-
 msgid "Preview in new tab"
 msgstr "Előnézet új fülben"
 
@@ -2125,6 +2058,17 @@ msgstr "Előnézet mód"
 msgid "First published"
 msgstr "Első közzététel időpontja"
 
+msgid "You have <span>unsaved edits</span>"
+msgstr "Az oldalon<span>mentetlen változtatások</span> vannak"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Az oldalon <span>mentetlen megjegyzések</span> vannak"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"Az oldalon <span>mentetlen változtatások</span> és <span>kommentek</span> "
+"vannak"
+
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2137,12 +2081,6 @@ msgid ""
 msgstr ""
 "Erre a(z) %(model_name)s tartalomra egy vagy több hivatkozás is található "
 "máshol, így nem törölhető."
-
-msgid "Edit / Review"
-msgstr "Szerkesztés / ellenőrzés"
-
-msgid "Workflow history"
-msgstr "Munkafolyamat történet"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -2185,13 +2123,6 @@ msgstr "Munkafolyamat befejeződött"
 #, python-format
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "%(action)s végrehajtva <b>%(who)s</b> által"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Munkamenet történet: %(title)s"
-
-msgid "Workflow history for"
-msgstr "Munkamenet történet: "
 
 msgid "Approved task"
 msgstr "Jóváhagyott feladat"
@@ -2258,12 +2189,6 @@ msgstr "Munkafolyamat hozzárendelése oldalakhoz"
 
 msgid "Assign your workflow to snippets"
 msgstr "Munkamenet hozzárendelése elemekhez"
-
-msgid "Creating…"
-msgstr "Létrehozás folyamatban..."
-
-msgid "Create"
-msgstr "Létrehozás"
 
 #, python-format
 msgid ""
@@ -2353,6 +2278,12 @@ msgstr "Létező"
 msgid "Choose a different task type"
 msgstr "Másik feladat típus választása"
 
+msgid "Creating…"
+msgstr "Létrehozás folyamatban..."
+
+msgid "Create"
+msgstr "Létrehozás"
+
 msgid "Task type"
 msgstr "Feladat típusa"
 
@@ -2387,13 +2318,6 @@ msgid ""
 msgstr ""
 "Nincs még engedélyezett feladat. Miért nem <a href=\"%(add_url)s\">ad hozzá "
 "egyet</a>?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "A(z) '%(name)s' munkafolyamatot használó oldalak"
-
-msgid "Pages that use workflow"
-msgstr "Munkafolyamatot használó oldalak"
 
 msgid "Submitted"
 msgstr "Beküldve"
@@ -2575,18 +2499,26 @@ msgstr "Gyűjtemény frissítve: '%(object)s'."
 msgid "The collection could not be saved due to errors."
 msgstr "Hiba történt a gyűjtemény mentése során."
 
-msgid "Delete collection"
-msgstr "Gyűjtemény törlése"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Gyűjtemény törölve: '%(object)s'."
+
+msgid "Delete collection"
+msgstr "Gyűjtemény törlése"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Biztosan törli a gyűjteményt?"
 
 msgid "Home"
 msgstr "Nyitólap"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Egyetlen %(model_name)s sem felelt meg a feltételeknek."
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Nincs megjeleníthető %(model_name)s."
 
 msgid "Live version"
 msgstr "Élő verzió"
@@ -2603,8 +2535,14 @@ msgstr "Összehasonlítás a jelenlegi verzióval"
 msgid "Cancel scheduled publish"
 msgstr "Időzített közzététel visszavonása"
 
+msgid "Workflow history"
+msgstr "Munkafolyamat történet"
+
 msgid "Workflow progress"
 msgstr "Munkafolyamat állapot"
+
+msgid "Edit / Review"
+msgstr "Szerkesztés / ellenőrzés"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
@@ -2742,9 +2680,6 @@ msgstr "%(model_name)s '%(object)s' törölve."
 #, python-format
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Biztosan törölni kívánja ezt a(z) %(model_name)s tartalmat?"
-
-msgid "Inspecting"
-msgstr "Vizsgálat"
 
 msgid "Earliest"
 msgstr "Legkorábbi"
@@ -3066,6 +3001,9 @@ msgstr "'%(page_title)s' oldal visszavonva."
 msgid "Pages using"
 msgstr "Oldalak, amik használják "
 
+msgid "Page types usage"
+msgstr "Oldaltípus használat"
+
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "'%(page_title)s' oldal jelenleg nem vár moderálásra."
@@ -3101,9 +3039,6 @@ msgstr "Dátum/idő"
 
 msgid "Locked pages"
 msgstr "Zárolt oldalak"
-
-msgid "Page types usage"
-msgstr "Oldaltípus használat"
 
 msgid "Show"
 msgstr "Megtekintés"

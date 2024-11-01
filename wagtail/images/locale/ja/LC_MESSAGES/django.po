@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtailの画像"
+
+msgid "Alt text"
+msgstr "Alt 属性に記載するテキスト"
 
 #, python-format
 msgid ""
@@ -74,9 +77,6 @@ msgstr "右揃え"
 
 msgid "Collection"
 msgstr "コレクション"
-
-msgid "Alt text"
-msgstr "Alt 属性に記載するテキスト"
 
 msgid "Filter"
 msgstr "フィルタ"
@@ -128,6 +128,9 @@ msgstr "タイトル"
 
 msgid "file"
 msgstr "ファイル"
+
+msgid "description"
+msgstr "説明文"
 
 msgid "width"
 msgstr "幅"
@@ -182,21 +185,11 @@ msgstr "画像ファイルを変更"
 msgid "Add an image"
 msgstr "画像を追加"
 
-msgid "Add image"
-msgstr "画像を追加"
+msgid "Uploading…"
+msgstr "アップロード中…"
 
-msgid "Save"
-msgstr "保存"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "%(title)sの画像を編集"
-
-msgid "Editing"
-msgstr "編集"
-
-msgid "Delete image"
-msgstr "画像を削除"
+msgid "Upload"
+msgstr "アップロード"
 
 msgid "URL Generator"
 msgstr "URLを生成"
@@ -259,9 +252,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "複数の画像を追加"
 
-msgid "Add images"
-msgstr "画像を追加"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
 "画像ファイルをここにドラッグ&ドロップするとすぐにアップロードできます。"
@@ -301,12 +291,6 @@ msgstr "タグ"
 msgid "Delete"
 msgstr "削除"
 
-msgid "Upload"
-msgstr "アップロード"
-
-msgid "Uploading…"
-msgstr "アップロード中…"
-
 msgid "Choose an image"
 msgstr "画像を選択"
 
@@ -319,15 +303,12 @@ msgstr "画像を編集"
 msgid "Images"
 msgstr "画像"
 
+msgid "The image could not be saved due to errors."
+msgstr "この画像はエラーにより保存されませんでした。"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "画像 '%(image_title)s' がアップロードされました。"
-
-msgid "Edit again"
-msgstr "もう一度編集する"
-
-msgid "The image could not be saved due to errors."
-msgstr "この画像はエラーにより保存されませんでした。"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -336,16 +317,22 @@ msgstr ""
 "画像のソースファイルが見つかりませんでした。ソースを変更するか画像を削除して"
 "ください。"
 
+msgid "Delete image"
+msgstr "画像を削除"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "画像 '%(image_title)s' が削除されました。"
+
+msgid "The image could not be created due to errors."
+msgstr "この画像はエラーにより生成できませんでした。 "
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "画像 '%(image_title)s' が追加されました。 "
 
-msgid "The image could not be created due to errors."
-msgstr "この画像はエラーにより生成できませんでした。 "
+msgid "Add images"
+msgstr "画像を追加"
 
 msgid "Image"
 msgstr "画像"

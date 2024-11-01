@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -31,12 +31,6 @@ msgstr "%(site_setting)s za %(site)s"
 
 msgid "Site"
 msgstr "Sjedište"
-
-msgid "Saving…"
-msgstr "Snimanje...."
-
-msgid "Save"
-msgstr "Spremi"
 
 msgid "Settings"
 msgstr "Postavke"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -24,6 +24,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail-bilder"
+
+msgid "Image is decorative"
+msgstr "Bilde er dekorativt"
+
+msgid "Alt text"
+msgstr "Alt-tekst"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Vennligst legg til alternativ tekst for bildet ditt eller merk det som "
+"dekorativt"
 
 #, python-format
 msgid ""
@@ -83,17 +94,6 @@ msgstr "Samling"
 msgid "Format"
 msgstr "Format"
 
-msgid "Image is decorative"
-msgstr "Bilde er dekorativt"
-
-msgid "Alt text"
-msgstr "Alt-tekst"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Vennligst legg til alternativ tekst for bildet ditt eller merk det som "
-"dekorativt"
-
 msgid "Filter"
 msgstr "Filter"
 
@@ -147,6 +147,9 @@ msgstr "tittel"
 
 msgid "file"
 msgstr "fil"
+
+msgid "description"
+msgstr "beskrivelse"
 
 msgid "width"
 msgstr "bredde"
@@ -302,27 +305,17 @@ msgstr "Endre bildefil:"
 msgid "Add an image"
 msgstr "Legg til et bilde"
 
-msgid "Add image"
-msgstr "Legg til bilde"
+msgid "Uploading…"
+msgstr "Laster opp…"
 
-msgid "Save"
-msgstr "Lagre"
+msgid "Upload"
+msgstr "Last opp"
 
 msgid "Keep new image"
 msgstr "Behold det nye bildet"
 
 msgid "Delete new image"
 msgstr "Slett det nye bildet"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Endrer bilde %(title)s"
-
-msgid "Editing"
-msgstr "Endrer"
-
-msgid "Delete image"
-msgstr "Slett bilde"
 
 msgid "Image focal point"
 msgstr "Bildets fokuspunkt"
@@ -394,9 +387,6 @@ msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Legg til flere bilder"
-
-msgid "Add images"
-msgstr "Legg til bilder"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Dra og slipp bilder i dette feltet for å laste opp umiddelbart."
@@ -484,12 +474,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d bilde har blitt slettet"
 msgstr[1] "%(num_parent_objects)d bilder har blitt slettet"
 
-msgid "Upload"
-msgstr "Last opp"
-
-msgid "Uploading…"
-msgstr "Laster opp…"
-
 msgid "Choose an image"
 msgstr "Velg et bilde"
 
@@ -520,31 +504,34 @@ msgstr "Filstørrelse: (høy til lav)"
 msgid "Images"
 msgstr "Bilder"
 
+msgid "The image could not be saved due to errors."
+msgstr "Bildet kunne ikke lagres grunnet feil."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Bildet \"%(image_title)s\" er oppdatert."
-
-msgid "Edit again"
-msgstr "Endre igjen"
-
-msgid "The image could not be saved due to errors."
-msgstr "Bildet kunne ikke lagres grunnet feil."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "Bildefila ble ikke funnet. Endre kilde for bildet eller slett det."
 
+msgid "Delete image"
+msgstr "Slett bilde"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Bildet \"%(image_title)s\" er slettet."
+
+msgid "The image could not be created due to errors."
+msgstr "Bildet kunne ikke opprettes grunnet feil."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Bildet \"%(image_title)s\" er lagt til."
 
-msgid "The image could not be created due to errors."
-msgstr "Bildet kunne ikke opprettes grunnet feil."
+msgid "Add images"
+msgstr "Legg til bilder"
 
 msgid "Image"
 msgstr "Bilde"

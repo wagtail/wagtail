@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2016,2022\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,12 +32,6 @@ msgstr "%(site_setting)s för %(site)s"
 
 msgid "Site"
 msgstr "Webbplats"
-
-msgid "Saving…"
-msgstr "Sparar…"
-
-msgid "Save"
-msgstr "Spara"
 
 msgid "Settings"
 msgstr "Inställningar"

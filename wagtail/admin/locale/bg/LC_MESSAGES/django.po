@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -67,9 +67,6 @@ msgstr "Заглавие"
 
 msgid "Page title"
 msgstr "Заглавие на Страница"
-
-msgid "Account"
-msgstr "Профил"
 
 msgid "Reset password"
 msgstr "Възстановете паролата"
@@ -132,10 +129,6 @@ msgstr "Отмени публикуването на %(title)s"
 msgid "Yes, unpublish it"
 msgstr "Да, отмени публикуването"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Добре дошъл в %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -143,14 +136,17 @@ msgstr ""
 "Това е вашето работно табло, където ще бъде показана полезна информация за "
 "контент, който сте създали."
 
+msgid "Account"
+msgstr "Профил"
+
+msgid "Status"
+msgstr "Статус"
+
 msgid "Edit this page"
 msgstr "Редактирайте тази страница"
 
 msgid "Your most recent edits"
 msgstr "Вашите последни редакции"
-
-msgid "Status"
-msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"

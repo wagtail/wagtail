@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -178,27 +178,11 @@ msgstr "Bytt ut dokument:"
 msgid "Add a document"
 msgstr "Legg til et dokument"
 
-msgid "Add document"
-msgstr "Legg til dokument"
-
 msgid "Uploading…"
 msgstr "Laster opp…"
 
 msgid "Upload"
 msgstr "Last opp"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Endrer %(title)s"
-
-msgid "Editing"
-msgstr "Endrer"
-
-msgid "Save"
-msgstr "Lagre"
-
-msgid "Delete document"
-msgstr "Slett dokument"
 
 msgid "Filesize"
 msgstr "Filstørrelse"
@@ -234,9 +218,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Legg til flere dokumenter"
-
-msgid "Add documents"
-msgstr "Legg til dokumenter"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Dra og slipp dokumenter i dette feltet for å laste opp umiddelbart."
@@ -347,9 +328,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 
+msgid "Delete document"
+msgstr "Slett dokument"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentet \"%(document_title)s\" er slettet."
+
+msgid "Add documents"
+msgstr "Legg til dokumenter"
 
 msgid "Document"
 msgstr "Dokument"

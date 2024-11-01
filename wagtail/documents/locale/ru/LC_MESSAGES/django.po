@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Andrei Satsevich, 2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -218,27 +218,11 @@ msgstr "Изменить документ:"
 msgid "Add a document"
 msgstr "Добавить документ"
 
-msgid "Add document"
-msgstr "Добавить документ"
-
 msgid "Uploading…"
 msgstr "Загрузка..."
 
 msgid "Upload"
 msgstr "Загрузка"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Редактирование %(title)s"
-
-msgid "Editing"
-msgstr "Редактирование"
-
-msgid "Save"
-msgstr "Сохранить"
-
-msgid "Delete document"
-msgstr "Удалить документ"
 
 msgid "Filesize"
 msgstr "Размер файла"
@@ -275,29 +259,22 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span>Документ<span class=\"w-sr-only\">создан на "
-"%(site_name)s</span>"
+"%(total)s Документ <span class=\"w-sr-only\">создан на %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Документа <span class=\"w-sr-only\"> создано на "
-"%(site_name)s</span>"
+"%(total)s Документа <span class=\"w-sr-only\">создано на %(site_name)s</span>"
 msgstr[2] ""
-"<span>%(total)s</span>Документов <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Документов <span class=\"w-sr-only\">создано на %(site_name)s</"
+"span>"
 msgstr[3] ""
-"<span>%(total)s</span> Документов <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Документов <span class=\"w-sr-only\">создано на %(site_name)s</"
+"span>"
 
 msgid "Add multiple documents"
 msgstr "Добавить несколько документов"
-
-msgid "Add documents"
-msgstr "Добавить документы"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Перетяните документы в эту область для немедленной загрузки."
@@ -399,6 +376,9 @@ msgstr "Документы"
 msgid "Title"
 msgstr "Заголовок"
 
+msgid "The document could not be created due to errors."
+msgstr "Документ не может быть создан из-за ошибок."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Документ '%(document_title)s' добавлен."
@@ -416,9 +396,15 @@ msgstr ""
 "Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
 
+msgid "Delete document"
+msgstr "Удалить документ"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Документ '%(document_title)s' удален."
+
+msgid "Add documents"
+msgstr "Добавить документы"
 
 msgid "Document"
 msgstr "Документ"

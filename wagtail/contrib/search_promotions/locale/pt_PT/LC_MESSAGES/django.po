@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -60,9 +60,6 @@ msgstr "Adicionar promoção de pesquisa"
 
 msgid "Add search pick"
 msgstr "Adicionar escolha de pesquisa"
-
-msgid "Save"
-msgstr "Gravar"
 
 #, python-format
 msgid "Delete %(query)s"

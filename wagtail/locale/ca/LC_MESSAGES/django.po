@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -216,6 +216,15 @@ msgstr "en viu + esborrany"
 
 msgid "Default"
 msgstr "Per defecte?"
+
+msgid "Preview in mobile size"
+msgstr "Previsualitzar en mida de mòbil"
+
+msgid "Preview in tablet size"
+msgstr "Previsualitzar en mida de tauleta"
+
+msgid "Preview in desktop size"
+msgstr "Previsualitzar en mida d'escriptori"
 
 msgid "locked"
 msgstr "bloquejat"

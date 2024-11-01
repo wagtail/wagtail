@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022,2024\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -177,27 +177,11 @@ msgstr "Dokumentum módosítása"
 msgid "Add a document"
 msgstr "Dokumentum hozzáadása"
 
-msgid "Add document"
-msgstr "Dokumentum hozzáadása"
-
 msgid "Uploading…"
 msgstr "Feltöltés folyamatban…"
 
 msgid "Upload"
 msgstr "Feltöltés"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Szerkesztés: %(title)s"
-
-msgid "Editing"
-msgstr "Szerkesztés"
-
-msgid "Save"
-msgstr "Mentés"
-
-msgid "Delete document"
-msgstr "Dokumentum törlése"
 
 msgid "Filesize"
 msgstr "Fájlméret"
@@ -231,25 +215,8 @@ msgstr ""
 "Még nem töltött fel dokumentumot. Nem szeretne <a "
 "href=\"%(wagtaildocs_add_document_url)s\">feltölteni egyet</a>?"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> dokumentum létrehozva ezen az oldalon: <span "
-"class=\"w-sr-only\">%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> dokumentum létrehozva ezen az oldalon: <span "
-"class=\"w-sr-only\">%(site_name)s</span>"
-
 msgid "Add multiple documents"
 msgstr "Több dokumentum hozzáadása"
-
-msgid "Add documents"
-msgstr "Dokumentumok hozzáadása"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Egérrel dobja ide a dokumentumokat az azonnali feltöltéshez."
@@ -364,9 +331,15 @@ msgstr ""
 "A fájl nem található. Kérjük adjon meg új forrásfájlt, vagy törölje a "
 "dokumentumot"
 
+msgid "Delete document"
+msgstr "Dokumentum törlése"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' dokumentum törölve."
+
+msgid "Add documents"
+msgstr "Dokumentumok hozzáadása"
 
 msgid "Document"
 msgstr "Dokumentum"

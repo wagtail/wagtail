@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -123,6 +124,12 @@ msgstr "قاراڭغۇ"
 msgid "admin theme"
 msgstr "باشقۇرغۇچى ئۆرنەك"
 
+msgid "More contrast"
+msgstr "تېخىمۇ كۆپ سېلىشتۇرمىسى"
+
+msgid "contrast"
+msgstr "سېلىشتۇرمىسى"
+
 msgid "Default"
 msgstr "كۆڭۈلدىكى"
 
@@ -229,15 +236,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "بۇ گۇرۇپپىنى راستتىنلا ئۆچۈرەمسىز؟"
 
-msgid "Add group"
-msgstr "گۇرۇپپا قوش"
-
-msgid "Save"
-msgstr "ساقلا"
-
-msgid "Delete group"
-msgstr "گۇرۇپپا ئۆچۈر"
-
 msgid "Object permissions"
 msgstr "ئوبيېكت ئىجازىتى"
 
@@ -249,15 +247,6 @@ msgstr "قوش"
 
 msgid "Change"
 msgstr "ئۆزگەرت"
-
-msgid "Publish"
-msgstr "تارقات"
-
-msgid "Lock"
-msgstr "قۇلۇپلا"
-
-msgid "Unlock"
-msgstr "قۇلۇپ ئاچ"
 
 msgid "Custom permissions"
 msgstr "ئىختىيارى ئىجازەت"
@@ -273,15 +262,6 @@ msgstr "ئۆزگەرگەن ھەممە ئىجازەتنى ئالماشتۇرىد�
 
 msgid "Toggle all delete permissions"
 msgstr "ئۆچۈرۈلگەن ھەممە ئىجازەتنى ئالماشتۇرىدۇ"
-
-msgid "Toggle all publish permissions"
-msgstr "تارقىتىلغان بارلىق ئىجازەتنى ئالماشتۇرىدۇ"
-
-msgid "Toggle all lock permissions"
-msgstr "قۇلۇپلانغان بارلىق ئىجازەتنى ئالماشتۇرىدۇ"
-
-msgid "Toggle all unlock permissions"
-msgstr "قۇلۇپلانمىغان بارلىق ئىجازەتنى ئالماشتۇرىدۇ"
 
 msgid "Toggle all custom permissions"
 msgstr "بارلىق ئىختىيارى ئىجازەتنى ئالماشتۇرىدۇ"
@@ -318,12 +298,6 @@ msgstr "ھېسابات"
 
 msgid "Roles"
 msgstr "رول"
-
-msgid "Add user"
-msgstr "ئىشلەتكۈچى قوش"
-
-msgid "Delete user"
-msgstr "ئىشلەتكۈچى ئۆچۈر"
 
 msgid "Select all users in listing"
 msgstr "تىزىمدىكى ھەممە ئىشلەتكۈچىنى تاللايدۇ"
@@ -397,6 +371,9 @@ msgstr "گۇرۇپپىغا قوش"
 msgid "Search groups"
 msgstr "گۇرۇپپا ئىزدە"
 
+msgid "Add group"
+msgstr "گۇرۇپپا قوش"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "«%(object)s» گۇرۇپپا قۇرۇلدى."
@@ -414,6 +391,9 @@ msgstr "بۇ گۇرۇپپىدىكى ئىشلەتكۈچىنى كۆرسىتىدۇ"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "«%(object)s» گۇرۇپپا ئۆچۈرۈلدى."
+
+msgid "Delete group"
+msgstr "گۇرۇپپا ئۆچۈر"
 
 msgid "Last login"
 msgstr "ئاخىرقى كىرگەن ۋاقتى"
@@ -447,12 +427,18 @@ msgstr "«%(title)s» نىڭ تېخىمۇ كۆپ تاللانمىسى"
 msgid "User '%(object)s' created."
 msgstr "«%(object)s» ئىشلەتكۈچى قۇرۇلدى."
 
+msgid "Add user"
+msgstr "ئىشلەتكۈچى قوش"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "«%(object)s» ئىشلەتكۈچى يېڭىلاندى."
 
 msgid "The user could not be saved due to errors."
 msgstr "خاتالىق سەۋەبىدىن ئىشلەتكۈچىنى ساقلىغىلى بولمىدى."
+
+msgid "Delete user"
+msgstr "ئىشلەتكۈچى ئۆچۈر"
 
 #, python-format
 msgid "User '%(object)s' deleted."

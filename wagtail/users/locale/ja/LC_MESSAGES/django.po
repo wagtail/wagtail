@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -133,15 +133,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "このグループを削除してよろしいですか？"
 
-msgid "Add group"
-msgstr "グループを追加"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Delete group"
-msgstr "グループを削除"
-
 msgid "Object permissions"
 msgstr "オブジェクト権限"
 
@@ -153,15 +144,6 @@ msgstr "追加"
 
 msgid "Change"
 msgstr "変更"
-
-msgid "Publish"
-msgstr "公開"
-
-msgid "Lock"
-msgstr "ロックする"
-
-msgid "Unlock"
-msgstr "ロックを解除"
 
 msgid "Other permissions"
 msgstr "他の権限"
@@ -197,12 +179,6 @@ msgstr "アカウント"
 msgid "Roles"
 msgstr "役割"
 
-msgid "Add user"
-msgstr "ユーザを追加"
-
-msgid "Delete user"
-msgstr "削除ユーザ"
-
 msgid "Active"
 msgstr "有効"
 
@@ -218,6 +194,9 @@ msgstr "グループを追加"
 msgid "Search groups"
 msgstr "グループを検索"
 
+msgid "Add group"
+msgstr "グループを追加"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "グループ '%(object)s' が作成されました。"
@@ -232,6 +211,9 @@ msgstr "このグループはエラーにより保存されませんでした。
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "グループ '%(object)s' は削除されました。"
+
+msgid "Delete group"
+msgstr "グループを削除"
 
 msgid "Group"
 msgstr "グループ"
@@ -251,12 +233,18 @@ msgstr "管理者"
 msgid "Status"
 msgstr "ステータス"
 
+msgid "Add user"
+msgstr "ユーザを追加"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "ユーザ '%(object)s' が更新されました。"
 
 msgid "The user could not be saved due to errors."
 msgstr "このユーザはエラーにより保存されませんでした。"
+
+msgid "Delete user"
+msgstr "削除ユーザ"
 
 #, python-format
 msgid "User '%(object)s' deleted."

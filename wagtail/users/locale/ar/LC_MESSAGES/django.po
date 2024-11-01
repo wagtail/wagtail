@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Younes Oumakhou, 2022\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -129,15 +129,6 @@ msgstr "حذف هذه المجموعة سوف يلغي تصريحات المجم
 msgid "Are you sure you want to delete this group?"
 msgstr "هل تريد فعلا حذف هذه الجماعة؟"
 
-msgid "Add group"
-msgstr "أضف جماعة"
-
-msgid "Save"
-msgstr "احفظ"
-
-msgid "Delete group"
-msgstr "احذف المجموعة"
-
 msgid "Object permissions"
 msgstr "أذونات الكائن"
 
@@ -149,15 +140,6 @@ msgstr "أضف"
 
 msgid "Change"
 msgstr "غيّر"
-
-msgid "Publish"
-msgstr "انشر"
-
-msgid "Lock"
-msgstr "قفل"
-
-msgid "Unlock"
-msgstr "إزالة القفل"
 
 msgid "Other permissions"
 msgstr "تصريحات أخرى"
@@ -192,12 +174,6 @@ msgstr "حساب"
 msgid "Roles"
 msgstr "الأدوار"
 
-msgid "Add user"
-msgstr "أضف مستخدم"
-
-msgid "Delete user"
-msgstr "إحذف المستخدم"
-
 msgid "Active"
 msgstr "نشيط"
 
@@ -213,6 +189,9 @@ msgstr "أضف مجموعة"
 msgid "Search groups"
 msgstr "مجموعات البحث"
 
+msgid "Add group"
+msgstr "أضف جماعة"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "تم إنشاء المجموعة '%(object)s'."
@@ -227,6 +206,9 @@ msgstr "من غير الممكن حفظ المجموعة بسبب أخطاء"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "تم حذف المجموعة '%(object)s'."
+
+msgid "Delete group"
+msgstr "احذف المجموعة"
 
 msgid "Group"
 msgstr "جماعة"
@@ -246,12 +228,18 @@ msgstr "إدارة"
 msgid "Status"
 msgstr "الحالة"
 
+msgid "Add user"
+msgstr "أضف مستخدم"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "تم تحديث المستخدم '%(object)s'."
 
 msgid "The user could not be saved due to errors."
 msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"
+
+msgid "Delete user"
+msgstr "إحذف المستخدم"
 
 #, python-format
 msgid "User '%(object)s' deleted."

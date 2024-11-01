@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
@@ -132,6 +132,12 @@ msgstr "Donker"
 msgid "admin theme"
 msgstr "admine thema"
 
+msgid "More contrast"
+msgstr "Meer contrast"
+
+msgid "contrast"
+msgstr "contrast"
+
 msgid "Default"
 msgstr "Default"
 
@@ -239,15 +245,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Weet je zeker dat je deze groep wilt verwijderen?"
 
-msgid "Add group"
-msgstr "Groep toevoegen"
-
-msgid "Save"
-msgstr "Opslaan"
-
-msgid "Delete group"
-msgstr "Verwijder groep"
-
 msgid "Object permissions"
 msgstr "Machtigingen per type object"
 
@@ -259,15 +256,6 @@ msgstr "Toevoegen"
 
 msgid "Change"
 msgstr "Wijzigen"
-
-msgid "Publish"
-msgstr "Publiceren"
-
-msgid "Lock"
-msgstr "Vergrendel"
-
-msgid "Unlock"
-msgstr "Ontgrendelen"
 
 msgid "Custom permissions"
 msgstr "Aangepaste machtigingen"
@@ -283,15 +271,6 @@ msgstr "Alle wijzig machtiging selectievakjes aan/uitzetten"
 
 msgid "Toggle all delete permissions"
 msgstr "Alle verwijder machtiging selectievakjes aan/uitzetten"
-
-msgid "Toggle all publish permissions"
-msgstr "Alle publiceer machtiging selectievakjes aan/uitzetten"
-
-msgid "Toggle all lock permissions"
-msgstr "Alle vergrendel machtiging selectievakjes aan/uitzetten"
-
-msgid "Toggle all unlock permissions"
-msgstr "Alle ontgrendel machtiging selectievakjes aan/uitzetten"
 
 msgid "Toggle all custom permissions"
 msgstr "Alle speciale machtigingen selectievakjes aan/uitzetten"
@@ -329,12 +308,6 @@ msgstr "Account"
 
 msgid "Roles"
 msgstr "Rollen"
-
-msgid "Add user"
-msgstr "Voeg gebruiker toe"
-
-msgid "Delete user"
-msgstr "Verwijder gebruiker"
 
 msgid "Select all users in listing"
 msgstr "Selecteer alle gebruikers in lijst"
@@ -408,6 +381,9 @@ msgstr "Voeg een groep toe"
 msgid "Search groups"
 msgstr "Zoek groepen"
 
+msgid "Add group"
+msgstr "Groep toevoegen"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Groep '%(object)s' aangemaakt."
@@ -425,6 +401,9 @@ msgstr "Bekijk gebruikers in deze groep"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Groep '%(object)s' verwijderd."
+
+msgid "Delete group"
+msgstr "Verwijder groep"
 
 msgid "Last login"
 msgstr "Laatst ingelogd"
@@ -458,12 +437,18 @@ msgstr "Meer opties voor '%(title)s'"
 msgid "User '%(object)s' created."
 msgstr "Gebruiker '%(object)s' is aangemaakt."
 
+msgid "Add user"
+msgstr "Voeg gebruiker toe"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Gebruiker '%(object)s' is gewijzigd."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
+
+msgid "Delete user"
+msgstr "Verwijder gebruiker"
 
 #, python-format
 msgid "User '%(object)s' deleted."

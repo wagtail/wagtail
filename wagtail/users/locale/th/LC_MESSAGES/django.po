@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -122,15 +122,6 @@ msgstr "ถ้าคุณลบกลุ่มนี้สมาชิกทุ
 msgid "Are you sure you want to delete this group?"
 msgstr "คุณแน่ใจว่าคุณต้องการจะลบทิ้งกลุ่มนี้?"
 
-msgid "Add group"
-msgstr "เพิ่มกลุ่ม"
-
-msgid "Save"
-msgstr "เซฟ,บันทึก"
-
-msgid "Delete group"
-msgstr "ลบกลุ่มทิ้ง"
-
 msgid "Object permissions"
 msgstr "สิ่งที่ถูกอนุญาต"
 
@@ -142,12 +133,6 @@ msgstr "เพิ่ม,เติม"
 
 msgid "Change"
 msgstr "เปลี่ยน"
-
-msgid "Publish"
-msgstr "เผยแพร่"
-
-msgid "Lock"
-msgstr "ล็อค"
 
 msgid "Other permissions"
 msgstr "การอนุญาตอย่างอื่น"
@@ -182,12 +167,6 @@ msgstr "บัญชี"
 msgid "Roles"
 msgstr "บทบาท"
 
-msgid "Add user"
-msgstr "เพิ่มผู้ใช้"
-
-msgid "Delete user"
-msgstr "ลบทิ้งผู้ใช้นี้"
-
 msgid "Active"
 msgstr "กำลังใช้งานอยู่,กำลังเปิดอยู่"
 
@@ -202,6 +181,9 @@ msgstr "เพิ่มกลุ่ม"
 
 msgid "Search groups"
 msgstr "ค้นหากลุ่ม"
+
+msgid "Add group"
+msgstr "เพิ่มกลุ่ม"
 
 #, python-format
 msgid "Group '%(object)s' created."
@@ -218,6 +200,9 @@ msgstr "กลุ่มนี้ไม่สามารถถูกเซฟไ
 msgid "Group '%(object)s' deleted."
 msgstr "กลุ่ม'%(object)s'ถูกลบทิ้งแล้ว"
 
+msgid "Delete group"
+msgstr "ลบกลุ่มทิ้ง"
+
 msgid "Add a user"
 msgstr "เพิ่มผู้ใช้"
 
@@ -233,12 +218,18 @@ msgstr "บริหาร"
 msgid "Status"
 msgstr "สถานะ"
 
+msgid "Add user"
+msgstr "เพิ่มผู้ใช้"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "ผู้ใช้'%(object)s'ถูกอัพเดทแล้ว"
 
 msgid "The user could not be saved due to errors."
 msgstr "ผู้ใช้นี้ไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
+
+msgid "Delete user"
+msgstr "ลบทิ้งผู้ใช้นี้"
 
 #, python-format
 msgid "User '%(object)s' deleted."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -52,9 +52,6 @@ msgstr "Pridėti paieškos reklamą"
 
 msgid "Add search pick"
 msgstr "Pridėti paieškos pasirinkimą"
-
-msgid "Save"
-msgstr "Išsaugoti"
 
 #, python-format
 msgid "Delete %(query)s"

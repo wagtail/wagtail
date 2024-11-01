@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -59,12 +59,12 @@ msgstr "Nije moguće sačuvati sjedište zbog grešaka."
 msgid "Site '%(object)s' updated."
 msgstr "Sjedište '%(object)s' je ažurirano."
 
-msgid "Delete site"
-msgstr "Izbriši sjedište"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Sjedište '%(object)s' je izbrisano."
+
+msgid "Delete site"
+msgstr "Izbriši sjedište"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Jeste li sigurni da želite izbrisati sjedište?"

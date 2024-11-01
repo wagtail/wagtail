@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Florian Merges, 2023\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -202,27 +202,11 @@ msgstr "Cambiar documento:"
 msgid "Add a document"
 msgstr "Añadir un documento"
 
-msgid "Add document"
-msgstr "Añadir documento"
-
 msgid "Uploading…"
 msgstr "Subiendo..."
 
 msgid "Upload"
 msgstr "Subir"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editando %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Save"
-msgstr "Guardar"
-
-msgid "Delete document"
-msgstr "Eliminar documento"
 
 msgid "Filesize"
 msgstr "Tamaño de archivo"
@@ -258,9 +242,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Añadir múltiples documentos"
-
-msgid "Add documents"
-msgstr "Añadir documentos"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -383,9 +364,15 @@ msgstr ""
 "El archivo no ha sido encontrado. Por favor cambie la fuente o elimine el "
 "documento."
 
+msgid "Delete document"
+msgstr "Eliminar documento"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' eliminado."
+
+msgid "Add documents"
+msgstr "Añadir documentos"
 
 msgid "Document"
 msgstr "Documento"

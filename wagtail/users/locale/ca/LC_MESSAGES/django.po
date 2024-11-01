@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -128,6 +128,12 @@ msgstr "Fosc"
 msgid "admin theme"
 msgstr "tema de l'administració"
 
+msgid "More contrast"
+msgstr "Més contrast"
+
+msgid "contrast"
+msgstr "contrast"
+
 msgid "Default"
 msgstr "Per defecte"
 
@@ -232,15 +238,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Segur que voleu eliminar aquest grup?"
 
-msgid "Add group"
-msgstr "Afegir grup"
-
-msgid "Save"
-msgstr "Desar"
-
-msgid "Delete group"
-msgstr "Eliminar grup"
-
 msgid "Object permissions"
 msgstr "Permisos d'objecte"
 
@@ -252,15 +249,6 @@ msgstr "Afegir"
 
 msgid "Change"
 msgstr "Canviar"
-
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Lock"
-msgstr "Bloqueja"
-
-msgid "Unlock"
-msgstr "Desbloquejar"
 
 msgid "Custom permissions"
 msgstr "Permisos personalitzats"
@@ -276,15 +264,6 @@ msgstr "Commutar tots els permisos d'edició"
 
 msgid "Toggle all delete permissions"
 msgstr "Commutar tots els permisos de supressió"
-
-msgid "Toggle all publish permissions"
-msgstr "Commutar tots els permisos de publicació"
-
-msgid "Toggle all lock permissions"
-msgstr "Commutar tots els permisos de bloqueig"
-
-msgid "Toggle all unlock permissions"
-msgstr "Commutar tots els permisos de desbloqueig"
 
 msgid "Toggle all custom permissions"
 msgstr "Commutar tots els permisos personalitzats"
@@ -321,12 +300,6 @@ msgstr "Compte"
 
 msgid "Roles"
 msgstr "Perfils"
-
-msgid "Add user"
-msgstr "Afegir usuari"
-
-msgid "Delete user"
-msgstr "Eliminar usuari"
 
 msgid "Select all users in listing"
 msgstr "Seleccionar tots els usuaris de la llista"
@@ -400,6 +373,9 @@ msgstr "Afegir un grup"
 msgid "Search groups"
 msgstr "Cercar grups"
 
+msgid "Add group"
+msgstr "Afegir grup"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "S'ha creat el grup '%(object)s'."
@@ -417,6 +393,9 @@ msgstr "Veure usuaris d'aquest grup"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "S'ha eliminat el grup '%(object)s'."
+
+msgid "Delete group"
+msgstr "Eliminar grup"
 
 msgid "Last login"
 msgstr "Últim inici de sessió"
@@ -450,12 +429,18 @@ msgstr "Més opcions per '%(title)s'"
 msgid "User '%(object)s' created."
 msgstr "S'ha creat l'usuari '%(object)s'."
 
+msgid "Add user"
+msgstr "Afegir usuari"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Usuari '%(object)s' actualitzat."
 
 msgid "The user could not be saved due to errors."
 msgstr "No s'ha pogut desar l'usuari degut a errors."
+
+msgid "Delete user"
+msgstr "Eliminar usuari"
 
 #, python-format
 msgid "User '%(object)s' deleted."

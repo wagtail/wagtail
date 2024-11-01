@@ -6,6 +6,7 @@
 # Bartek Sielicki <sielickib@student.mini.pw.edu.pl>, 2017
 # Dominik Lech, 2022
 # Dominik Lech, 2022
+# Krzysztof Jeziorny <github@jeziorny.net>, 2024
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Miłosz Miśkiewicz, 2017-2020,2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2024\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -200,27 +201,11 @@ msgstr "Zmień dokument:"
 msgid "Add a document"
 msgstr "Dodaj dokument"
 
-msgid "Add document"
-msgstr "Dodaj dokument"
-
 msgid "Uploading…"
 msgstr "Wgrywanie…"
 
 msgid "Upload"
 msgstr "Prześlij"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Edycja %(title)s"
-
-msgid "Editing"
-msgstr "Edycja"
-
-msgid "Save"
-msgstr "Zapisz"
-
-msgid "Delete document"
-msgstr "Usuń dokument"
 
 msgid "Filesize"
 msgstr "Rozmiar pliku"
@@ -257,9 +242,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Dodaj wiele dokumentów"
-
-msgid "Add documents"
-msgstr "Dodaj dokumenty"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -365,6 +347,9 @@ msgstr "Dokumenty"
 msgid "Title"
 msgstr "Tytuł"
 
+msgid "The document could not be created due to errors."
+msgstr "Dokument nie mógł zostać utworzony z powodu błędów."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dodano dokument '%(document_title)s'."
@@ -381,9 +366,15 @@ msgid ""
 msgstr ""
 "Plik nie mógł zostać odnaleziony. Proszę zmień źródło lub usuń dokument"
 
+msgid "Delete document"
+msgstr "Usuń dokument"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Usunięto dokument '%(document_title)s'"
+
+msgid "Add documents"
+msgstr "Dodaj dokumenty"
 
 msgid "Document"
 msgstr "Dokument"

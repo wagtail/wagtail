@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -112,9 +112,6 @@ msgstr "redirecionar"
 
 msgid "Add redirect"
 msgstr "Adicionar redirecionamento"
-
-msgid "Save"
-msgstr "Gravar"
 
 msgid "Redirects"
 msgstr "Redirecionamentos"

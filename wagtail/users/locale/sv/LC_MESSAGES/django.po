@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2021,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -223,15 +223,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Är du säker på att du vill radera denna grupp?"
 
-msgid "Add group"
-msgstr "Lägg till grupp"
-
-msgid "Save"
-msgstr "Spara"
-
-msgid "Delete group"
-msgstr "Radera grupp"
-
 msgid "Object permissions"
 msgstr "Objekträttigheter"
 
@@ -243,15 +234,6 @@ msgstr "Lägg till"
 
 msgid "Change"
 msgstr "Ändra"
-
-msgid "Publish"
-msgstr "Publicera"
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Unlock"
-msgstr "Lås upp"
 
 msgid "Custom permissions"
 msgstr "Anpassade rättigheter"
@@ -267,9 +249,6 @@ msgstr "Växla alla redigera rättigheter"
 
 msgid "Toggle all delete permissions"
 msgstr "Växla alla radera rättigheter"
-
-msgid "Toggle all publish permissions"
-msgstr "Växla alla publicera rättigheter"
 
 msgid "Other permissions"
 msgstr "Andra rättigheter"
@@ -303,12 +282,6 @@ msgstr "Konto"
 
 msgid "Roles"
 msgstr "Roller"
-
-msgid "Add user"
-msgstr "Lägg till användare"
-
-msgid "Delete user"
-msgstr "Radera användare"
 
 msgid "Select all users in listing"
 msgstr "Välj alla användare i lista"
@@ -376,6 +349,9 @@ msgstr "Lägg till en grupp"
 msgid "Search groups"
 msgstr "Sök grupper"
 
+msgid "Add group"
+msgstr "Lägg till grupp"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupp '%(object)s' skapad."
@@ -393,6 +369,9 @@ msgstr "Visa användare i denna grupp"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupp '%(object)s' raderad."
+
+msgid "Delete group"
+msgstr "Radera grupp"
 
 msgid "Last login"
 msgstr "Senast inloggad"
@@ -422,12 +401,18 @@ msgstr "Status"
 msgid "User '%(object)s' created."
 msgstr "Användare '%(object)s' skapad."
 
+msgid "Add user"
+msgstr "Lägg till användare"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Användaren '%(object)s' uppdaterad."
 
 msgid "The user could not be saved due to errors."
 msgstr "Användaren kunde inte sparas p.g.a. fel."
+
+msgid "Delete user"
+msgstr "Radera användare"
 
 #, python-format
 msgid "User '%(object)s' deleted."

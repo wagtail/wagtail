@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dan Braghis, 2014-2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -186,27 +186,11 @@ msgstr "Schimbă documentul:"
 msgid "Add a document"
 msgstr "Adaugă un document"
 
-msgid "Add document"
-msgstr "Adaugă document"
-
 msgid "Uploading…"
 msgstr "În curs de încărcare…"
 
 msgid "Upload"
 msgstr "Încărcare"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editare %(title)s"
-
-msgid "Editing"
-msgstr "Editare"
-
-msgid "Save"
-msgstr "Salvează"
-
-msgid "Delete document"
-msgstr "Șterge document"
 
 msgid "Filesize"
 msgstr "Mărime fișier"
@@ -242,28 +226,8 @@ msgstr ""
 "Nu ați încărcat nici un document. De ce să nu <a "
 "href=\"%(wagtaildocs_add_document_url)s\">adăugați unul</a>?"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">creat în "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Documente <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Documente <span class=\"w-sr-only\">create în "
-"%(site_name)s</span>"
-
 msgid "Add multiple documents"
 msgstr "Adaugă mai multe documente"
-
-msgid "Add documents"
-msgstr "Adaugă documente"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -378,9 +342,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 
+msgid "Delete document"
+msgstr "Șterge document"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documentul '%(document_title)s' a fost șters."
+
+msgid "Add documents"
+msgstr "Adaugă documente"
 
 msgid "Document"
 msgstr "Document"

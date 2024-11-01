@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Abduqadir Abliz <sahranbay@gmail.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,16 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail سۈرەت"
+
+msgid "Image is decorative"
+msgstr "سۈرەت زىننەتلەنگەن"
+
+msgid "Alt text"
+msgstr "ئالماشتۇرىدىغان تېكىست"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"سۈرەتنىڭ ئالماشتۇرىدىغان تېكىسىنى قوشۇڭ ياكى ئۇنىڭغا زىننەت بەلگىسى سېلىڭ"
 
 #, python-format
 msgid ""
@@ -79,16 +90,6 @@ msgstr "توپلام"
 msgid "Format"
 msgstr "پىچىم"
 
-msgid "Image is decorative"
-msgstr "سۈرەت زىننەتلەنگەن"
-
-msgid "Alt text"
-msgstr "ئالماشتۇرىدىغان تېكىست"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"سۈرەتنىڭ ئالماشتۇرىدىغان تېكىسىنى قوشۇڭ ياكى ئۇنىڭغا زىننەت بەلگىسى سېلىڭ"
-
 msgid "Filter"
 msgstr "سۈزگۈچ"
 
@@ -142,6 +143,9 @@ msgstr "ماۋزۇ"
 
 msgid "file"
 msgstr "ھۆججەت"
+
+msgid "description"
+msgstr "چۈشەندۈرۈش"
 
 msgid "width"
 msgstr "كەڭلىك"
@@ -291,17 +295,13 @@ msgstr "سۈرەت قىستۇر"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> سۈرەت <span class=\"w-sr-only\">%(site_name)s دا "
-"قۇرۇلدى</span>"
+"%(total)s سۈرەت <span class=\"w-sr-only\">%(site_name)s دا قۇرۇلدى</span>"
 msgstr[1] ""
-"<span>%(total)s</span> سۈرەت <span class=\"w-sr-only\">%(site_name)s دا "
-"قۇرۇلدى</span>"
+"%(total)s سۈرەت<span class=\"w-sr-only\"> %(site_name)s دا قۇرۇلدى</span>"
 
 msgid "Change image file:"
 msgstr "سۈرەت ھۆججەتنى ئالماشتۇرۇش:"
@@ -309,27 +309,17 @@ msgstr "سۈرەت ھۆججەتنى ئالماشتۇرۇش:"
 msgid "Add an image"
 msgstr "بىر سۈرەت قوشىدۇ"
 
-msgid "Add image"
-msgstr "سۈرەت قوش"
+msgid "Uploading…"
+msgstr "يۈكلەۋاتىدۇ…"
 
-msgid "Save"
-msgstr "ساقلا"
+msgid "Upload"
+msgstr "يۈكلە"
 
 msgid "Keep new image"
 msgstr "يېڭى سۈرەتنى ساقلاپ قال"
 
 msgid "Delete new image"
 msgstr "يېڭى سۈرەتنى ئۆچۈر"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "%(title)s سۈرەتنى تەھرىرلەش"
-
-msgid "Editing"
-msgstr "تەھرىرلەش"
-
-msgid "Delete image"
-msgstr "سۈرەت ئۆچۈر"
 
 msgid "Image focal point"
 msgstr "سۈرەتنىڭ فوكۇس نۇقتىسى"
@@ -415,9 +405,6 @@ msgstr "چاپلاش تاختىسىغا كۆچۈرەلمىدى"
 msgid "Add multiple images"
 msgstr "كۆپ سۈرەت قوش"
 
-msgid "Add images"
-msgstr "سۈرەت قوش"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "سۈرەت بۇ دائىرىگە سۆرەپ تاشلانسا تېزلا يۈكلىنىدۇ."
 
@@ -426,6 +413,13 @@ msgstr "ياكى كومپيۇتېرىڭىزدىن تاللاڭ"
 
 msgid "Add to collection:"
 msgstr "توپلامغا قوشۇش:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"ئەڭ ياخشى زىيارەتچانلىق تەسىراتىغا ئېرىشىش ئۈچۈن سۈرەتنىڭ چۈشەندۈرۈشىنى "
+"تەمىنلەڭ."
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -502,12 +496,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d سۈرەت ئۆچۈرۈلدى"
 msgstr[1] "%(num_parent_objects)d سۈرەت ئۆچۈرۈلدى"
 
-msgid "Upload"
-msgstr "يۈكلە"
-
-msgid "Uploading…"
-msgstr "يۈكلەۋاتىدۇ…"
-
 msgid "Choose an image"
 msgstr "سۈرەت تاللىنىدۇ"
 
@@ -538,31 +526,37 @@ msgstr "ھۆججەت چوڭلۇقى: (چوڭدىن كىچىككە)"
 msgid "Images"
 msgstr "سۈرەت"
 
+msgid "The image could not be saved due to errors."
+msgstr "خاتالىق سەۋەبىدىن سۈرەتنى ساقلىغىلى بولمىدى."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "«%(image_title)s» سۈرەت يېڭىلاندى."
-
-msgid "Edit again"
-msgstr "قايتا تەھرىر"
-
-msgid "The image could not be saved due to errors."
-msgstr "خاتالىق سەۋەبىدىن سۈرەتنى ساقلىغىلى بولمىدى."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "مەنبە ھۆججەتنى تاپالمىدى. مەنبەنى ئۆزگەرتىڭ ياكى سۈرەتنى ئۆچۈرۈڭ."
 
+msgid "Generate URL"
+msgstr "تور ئادرېسى ھاسىللايدۇ"
+
+msgid "Delete image"
+msgstr "سۈرەت ئۆچۈر"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "«%(image_title)s» سۈرەت ئۆچۈرۈلدى."
+
+msgid "The image could not be created due to errors."
+msgstr "خاتالىق سەۋەبىدىن سۈرەتنى قۇرغىلى بولمىدى."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "«%(image_title)s» سۈرەت قوشۇلدى."
 
-msgid "The image could not be created due to errors."
-msgstr "خاتالىق سەۋەبىدىن سۈرەتنى قۇرغىلى بولمىدى."
+msgid "Add images"
+msgstr "سۈرەت قوش"
 
 msgid "Image"
 msgstr "سۈرەت"

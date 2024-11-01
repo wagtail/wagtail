@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Andrei Satsevich, 2023\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -243,15 +243,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Вы сапраўды хочаце выдаліць гэты гурт?"
 
-msgid "Add group"
-msgstr "Дадаць гурт"
-
-msgid "Save"
-msgstr "Захаваць"
-
-msgid "Delete group"
-msgstr "Выдаліць гурт"
-
 msgid "Object permissions"
 msgstr "Дазвол аб'ектаў"
 
@@ -263,15 +254,6 @@ msgstr "Дадаць"
 
 msgid "Change"
 msgstr "Змяніць"
-
-msgid "Publish"
-msgstr "Апублікаваць"
-
-msgid "Lock"
-msgstr "Заблакаваць"
-
-msgid "Unlock"
-msgstr "Разблакаваць"
 
 msgid "Custom permissions"
 msgstr "Карыстальніцкія правы доступу"
@@ -308,12 +290,6 @@ msgstr "Уліковы запіс"
 
 msgid "Roles"
 msgstr "Ролі"
-
-msgid "Add user"
-msgstr "Дадаць карыстальніка"
-
-msgid "Delete user"
-msgstr "Выдаліць карыстальніка"
 
 msgid "Select all users in listing"
 msgstr "Выбраць усіх карыстальнікаў у спісе"
@@ -389,6 +365,9 @@ msgstr "Дадаць гурт"
 msgid "Search groups"
 msgstr "Пошук гуртоў"
 
+msgid "Add group"
+msgstr "Дадаць гурт"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Створана '%(object)s' гуртоў."
@@ -406,6 +385,9 @@ msgstr "Прагляд карыстальнікаў групы"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Гурт '%(object)s' выдалены."
+
+msgid "Delete group"
+msgstr "Выдаліць гурт"
 
 msgid "Add a user"
 msgstr "Дадаць карыстальніка"
@@ -429,12 +411,18 @@ msgstr "Статус"
 msgid "User '%(object)s' created."
 msgstr "Карыстальнік '%(object)s' створан."
 
+msgid "Add user"
+msgstr "Дадаць карыстальніка"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Карыстальнік '%(object)s' адноўлены."
 
 msgid "The user could not be saved due to errors."
 msgstr "Карыстальнік не можа быць захавана з-за памылкі."
+
+msgid "Delete user"
+msgstr "Выдаліць карыстальніка"
 
 #, python-format
 msgid "User '%(object)s' deleted."

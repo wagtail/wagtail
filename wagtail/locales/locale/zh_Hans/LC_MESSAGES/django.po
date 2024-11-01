@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/torchbox/"
@@ -70,12 +70,12 @@ msgstr "区域设置 '%(object)s' 已更新。"
 msgid "The locale could not be saved due to errors."
 msgstr "由于出现错误，无法保存区域设置。"
 
-msgid "Delete locale"
-msgstr "删除区域设置"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "区域设置 '%(object)s' 已删除。"
+
+msgid "Delete locale"
+msgstr "删除区域设置"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "您确定要删除此区域设置吗？"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: mirusu400, 2024\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -384,14 +384,8 @@ msgstr "요청한 페이지를 찾을 수 없습니다."
 msgid "Go to Wagtail admin"
 msgstr "웨그테일 관리자로 이동"
 
-msgid "Account"
-msgstr "계정"
-
 msgid "More actions"
 msgstr "더 많은 움직임"
-
-msgid "Save account details"
-msgstr "계정 세부 정보 저장"
 
 msgid "Reset password"
 msgstr "비밀번호 초기화"
@@ -602,11 +596,11 @@ msgstr "아니요, 게시를 해제하지 않습니다"
 msgid "Cancel"
 msgstr "취소"
 
-msgid "Comment"
-msgstr "댓글"
-
 msgid "Actions"
 msgstr "액션"
+
+msgid "Comment"
+msgstr "댓글"
 
 msgid "Update"
 msgstr "업데이트"
@@ -637,17 +631,22 @@ msgstr[0] "%(counter)s로 이동하십시오."
 msgid "There are no differences between these two versions"
 msgstr "이 두 버전에 다른 점이 없습니다."
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "%(site_name)s 웨그테일 CMS에 오신 것을 환영합니다"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "대시보드는 여러분이 생성한 컨텐츠들에 대한 유용한 정보들을 보여줍니다."
 
+msgid "Account"
+msgstr "계정"
+
 msgid "Your locked pages"
 msgstr "잠긴 페이지"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "Status"
+msgstr "상태"
 
 msgid "Locked at"
 msgstr "잠긴 시간:"
@@ -666,9 +665,6 @@ msgstr "라이브"
 
 msgid "Your most recent edits"
 msgstr "최신 수정된 기록"
-
-msgid "Status"
-msgstr "상태"
 
 msgid "Date"
 msgstr "날짜"
@@ -881,22 +877,6 @@ msgstr ""
 #, python-format
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr "페이지\"%(title)s\"가 작업\"%(workflow)s\"안에 승인되었습니다."
-
-msgid "This page has been made private by a parent page."
-msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습니다"
-
-msgid "Save the page before leaving"
-msgstr "떠나기 전에 페이지를 저장하십시오"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "당신은 <span>수정사항</span>을 저장하지 않았습니다"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "당신은 <span>댓글을 저장하지 않았습니다</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"당신은 <span>수정사항</span>과 <span>댓글</span>을 저장하지 않았습니다."
 
 msgid "Publishing…"
 msgstr "게시 중..."
@@ -1130,9 +1110,6 @@ msgstr "복사"
 msgid "Copy this page"
 msgstr "이 페이지 복사"
 
-msgid "This page has unsaved changes."
-msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
-
 msgid "This page is an alias of another page."
 msgstr "이 페이지는 다른 페이지의 에일리언스입니다."
 
@@ -1141,9 +1118,6 @@ msgstr "원래 페이지를 수정하십시오."
 
 msgid "Convert this alias into an ordinary page"
 msgstr "이 에일리어스를 원래의 페이지로 변환하십시오."
-
-msgid "Select all pages in listing"
-msgstr "목록의 모든 페이지를 선택하시오."
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1183,6 +1157,9 @@ msgid ""
 msgstr ""
 "이 위치에 대한 사이트 항목이 없습니다. 여기에 생성되는 페이지들은 어떤 URL로"
 "도 접근할 수 없습니다."
+
+msgid "Select all pages in listing"
+msgstr "목록의 모든 페이지를 선택하시오."
 
 msgid "This page is locked to further editing"
 msgstr "이 페이지는 추가 수정을 위해 잠겼습니다"
@@ -1229,13 +1206,13 @@ msgstr "이 페이지는 다른 이들이 보지 못하도록 보호되었습니
 msgid "Add child page"
 msgstr "하위 페이지 추가"
 
+msgid "Page types"
+msgstr "페이지 타입"
+
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
 msgstr[0] "%(counter)s가 일치함"
-
-msgid "Page types"
-msgstr "페이지 타입"
 
 #, python-format
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
@@ -1243,9 +1220,6 @@ msgstr "죄송합니다. <em>%(query_string)s</em>와 관련된 페이지가 없
 
 msgid "Enter a search term above"
 msgstr "위의 검색어를 입력하세요"
-
-msgid "No pages use"
-msgstr "사용하는 페이지가 없습니다"
 
 #, python-format
 msgid "Add %(label)s"
@@ -1456,11 +1430,15 @@ msgstr "히스토리 확인"
 msgid "First published"
 msgstr "가장 먼저 게시됨"
 
-msgid "Edit / Review"
-msgstr "수정 / 검토"
+msgid "You have <span>unsaved edits</span>"
+msgstr "당신은 <span>수정사항</span>을 저장하지 않았습니다"
 
-msgid "Workflow history"
-msgstr "워크플로우 히스토리"
+msgid "You have <span>unsaved comments</span>"
+msgstr "당신은 <span>댓글을 저장하지 않았습니다</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"당신은 <span>수정사항</span>과 <span>댓글</span>을 저장하지 않았습니다."
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -1499,13 +1477,6 @@ msgstr "워크플로우 완성됨"
 #, python-format
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "<b>%(who)s</b>에 의한 %(action)s"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "%(title)s의 워크 히스토리"
-
-msgid "Workflow history for"
-msgstr "위한 워크플로우 히스토리"
 
 msgid "Approved task"
 msgstr "업무 수락됨"
@@ -1559,12 +1530,6 @@ msgstr "이 작업을 정말 그만 두시겠습니까?"
 
 msgid "Assign your workflow to pages"
 msgstr "페이지에 당신의 작업을 할당하세요."
-
-msgid "Creating…"
-msgstr "생성중"
-
-msgid "Create"
-msgstr "생성"
 
 #, python-format
 msgid ""
@@ -1638,6 +1603,12 @@ msgstr "존재함"
 msgid "Choose a different task type"
 msgstr "다른 종류의 작업 선택"
 
+msgid "Creating…"
+msgstr "생성중"
+
+msgid "Create"
+msgstr "생성"
+
 msgid "Task type"
 msgstr "작업 종류"
 
@@ -1665,13 +1636,6 @@ msgid ""
 msgstr ""
 "불가한 워크플로우가 하나도 없습니다. 하나 <a href=\"%(add_url)s\">추가</a>해"
 "보시는 건 어떤가요?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "%(name)s워크플로우를 사용하는 페이지"
-
-msgid "Pages that use workflow"
-msgstr "워크플로우를 사용하는 페이지"
 
 msgid "Submitted"
 msgstr "제출됨"
@@ -1796,12 +1760,12 @@ msgstr "'%(object)s' 모음이 수정됨."
 msgid "The collection could not be saved due to errors."
 msgstr "이 모음은 오류로 인해 저장하지 못했습니다."
 
-msgid "Delete collection"
-msgstr "모음 삭제"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "'%(object)s' 모음이 삭제됨."
+
+msgid "Delete collection"
+msgstr "모음 삭제"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "이 모음을 지우려는 것이 확실한가요?"
@@ -1824,8 +1788,14 @@ msgstr "현재 버전과 비교합니다."
 msgid "Cancel scheduled publish"
 msgstr "예약 게시 취소"
 
+msgid "Workflow history"
+msgstr "워크플로우 히스토리"
+
 msgid "Workflow progress"
 msgstr "작업흐름 과정"
+
+msgid "Edit / Review"
+msgstr "수정 / 검토"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1852,9 +1822,6 @@ msgstr "수정"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' 삭제됨."
-
-msgid "Inspecting"
-msgstr "분석"
 
 msgid "Earliest"
 msgstr "최초"

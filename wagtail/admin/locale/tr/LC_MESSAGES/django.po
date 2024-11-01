@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Halit Çelik, 2023\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -278,9 +278,6 @@ msgstr "İstenilen sayfa bulunamadı."
 msgid "Go to Wagtail admin"
 msgstr "Wagtail yönetimine git"
 
-msgid "Account"
-msgstr "Hesap"
-
 msgid "Reset password"
 msgstr "Şifreyi sıfırla"
 
@@ -448,10 +445,6 @@ msgstr "Alanlar"
 msgid "Changes"
 msgstr "Değişiklikler"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "%(site_name)s Wagtail CMS'e Hoşgeldiniz"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -459,8 +452,14 @@ msgstr ""
 "Bu, oluşturduğunuz içerikle ilgili faydalı bilgilerin görüntüleneceği "
 "yönetim panelinizdir."
 
+msgid "Account"
+msgstr "Hesap"
+
 msgid "Your locked pages"
 msgstr "Kilitli sayfalar"
+
+msgid "Status"
+msgstr "Durum"
 
 msgid "Locked at"
 msgstr "Kilitli"
@@ -479,9 +478,6 @@ msgstr "Yayında"
 
 msgid "Your most recent edits"
 msgstr "En son düzenlemeleriniz"
-
-msgid "Status"
-msgstr "Durum"
 
 msgid "Date"
 msgstr "Tarih"
@@ -538,9 +534,6 @@ msgstr "\"%(title)s\" sayfası reddedildi."
 
 msgid "You can preview the page here:"
 msgstr "Sayfayı buradan önizleyebilirsiniz:"
-
-msgid "This page has been made private by a parent page."
-msgstr "Bu sayfa bir üst sayfa tarafından gizli yapıldı."
 
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
@@ -629,9 +622,6 @@ msgstr "Kopyala"
 msgid "Copy this page"
 msgstr "Bu sayfayı kopyala"
 
-msgid "This page has unsaved changes."
-msgstr "Bu sayfadaki düzenlemeler kaydedilmedi."
-
 msgid "Configure a site now."
 msgstr "Şimdi bir site yapılandırın."
 
@@ -685,9 +675,6 @@ msgstr "Üzgünüz, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok."
 
 msgid "Enter a search term above"
 msgstr "Bir arama kelimesi girin"
-
-msgid "No pages use"
-msgstr "Hiçbir sayfa kullanmıyor"
 
 #, python-format
 msgid "Add %(label)s"
@@ -877,12 +864,12 @@ msgstr "Koleksiyon '%(object)s' güncellendi."
 msgid "The collection could not be saved due to errors."
 msgstr "Hatalardan dolayı koleksiyon kaydedilemedi."
 
-msgid "Delete collection"
-msgstr "Koleksiyonu sil"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Koleksiyon '%(object)s' silindi."
+
+msgid "Delete collection"
+msgstr "Koleksiyonu sil"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Bu koleksiyonu silmek istediğinizden emin misiniz?"
@@ -920,9 +907,6 @@ msgstr "Düzenleniyor"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' silindi."
-
-msgid "Inspecting"
-msgstr "İnceleniyor"
 
 msgid "Earliest"
 msgstr "En eski"

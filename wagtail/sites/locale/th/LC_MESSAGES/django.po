@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -57,12 +57,12 @@ msgstr "เว็บไซด์ไม่สามารถถูกเซฟไ
 msgid "Site '%(object)s' updated."
 msgstr "เว็บไซด์'%(object)s' ถูกอัพเดทแล้ว"
 
-msgid "Delete site"
-msgstr "ลบเว็บไซด์"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "เว็บไซด์'%(object)s'ถูกลบแล้ว"
+
+msgid "Delete site"
+msgstr "ลบเว็บไซด์"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "คุฯแน่ใจว่าคุณต้องการจะลบทิ้งเว็บไซด์นี้?"
