@@ -441,7 +441,16 @@ When adding JavaScript from external sources or inline scripts, ensure CSP compl
 2. Accessibility Compliance
 Make sure that all examples are accessible and adhere to accessibility standards (e.g., WCAG). For interactive components, ensure proper keyboard navigation and screen reader support. When creating dynamic content or effects (such as animations or notifications), provide options for users to pause, stop, or adjust these features as needed.
 
+<!-- Code Quality and Security: Highlight the importance of following security guidelines, like sanitizing any user-generated content before rendering it in code examples.
+Encourage the use of ESLint or similar tools for JavaScript to help catch errors or accessibility issues early in the development process. But this all might be extra or too much.
 
+Clarity in Documentation Examples: Recommend using simple, clear examples that prioritize readability, and consider providing comments within code blocks where appropriate to clarify complex sections. However I think the docs do a great job of this already but theres not many comments in functions in my opinion. Ensure that examples are self-contained and avoid dependencies that may be difficult for newcomers to replicate or understand. 
+
+Performance and Compatibility: Maybe suggest using efficient code, testing in multiple browsers, and providing polyfills if needed for older browser support. I'm not sure how much complex we want the docs to be
+
+Error Handling and Versioning: Maybe include basic error handling in interactive examples to protect the copy-pasters, and specify dependency versions to ensure stability and reproducibility unless I missed them.
+
+-->
 
 
 
