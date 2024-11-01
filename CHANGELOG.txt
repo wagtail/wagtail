@@ -560,6 +560,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
+ * Fix: Fix error on workflow settings view with multiple snippet types assigned to the same workflow on Postgres (Sage Abdullah)
 
 
 5.2.6 (11.07.2024)
