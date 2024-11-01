@@ -296,7 +296,7 @@ Or, alternately, using the `set` tag:
 For models with foreign key relationships to other objects (for example pages),
 which are very often needed to output values in templates, you can set
 the `select_related` attribute on your model to have Wagtail utilize
-Django's [QuerySet.select_related()](https://docs.djangoproject.com/en/stable/ref/models/querysets/#select-related)
+Django's [`QuerySet.select_related()`](django.db.models.query.QuerySet.select_related)
 method to fetch the settings object and related objects in a single query.
 With this, the initial query is more complex, but you will be able to
 freely access the foreign key values without any additional queries,

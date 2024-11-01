@@ -19,7 +19,7 @@ If you want to send an encrypted email (optional), the public key ID for <securi
 
 This information can also be found in our [security.txt](https://wagtail.org/.well-known/security.txt).
 
-Django security issues should be reported directly to the Django Project, following [Django's security policies](https://docs.djangoproject.com/en/dev/internals/security/) (upon which Wagtail's own policies are based).
+Django security issues should be reported directly to the Django Project, following [Django's security policies](inv:django#internals/security) (upon which Wagtail's own policies are based).
 
 ## Supported versions
 

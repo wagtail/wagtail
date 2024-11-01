@@ -6,7 +6,7 @@ Wagtail follows [Django’s conventions for managing uploaded files](inv:django#
 
 ## File storage location
 
-Wagtail uses the [`STORAGES["default"]`](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STORAGES) setting to determine where and how user-uploaded files are stored. By default, Wagtail stores files in the local filesystem.
+Wagtail uses the [`STORAGES["default"]`](inv:django#STORAGES) setting to determine where and how user-uploaded files are stored. By default, Wagtail stores files in the local filesystem.
 
 ## Serving documents
 
@@ -43,7 +43,7 @@ WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
 
 Wagtail allows you to specify the permitted file extensions for document uploads using the [WAGTAILDOCS_EXTENSIONS](wagtaildocs_extensions) setting.
 
-It also validates the extensions using Django's [FileExtensionValidator](https://docs.djangoproject.com/en/stable/ref/validators/#fileextensionvalidator). For example:
+It also validates the extensions using Django's {class}`~django.core.validators.FileExtensionValidator`. For example:
 
 ```python
 WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']

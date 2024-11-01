@@ -164,7 +164,7 @@ class HomePage(Page):
 ```
 
 `body` is a `RichTextField`, a special Wagtail field. When `blank=True`,
-it means the field isn't mandatory and you can leave it empty. You can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the capabilities and the layout of the editing interface. Adding fields to `content_panels` enables you to edit them in the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You can read more about this on [Page models](../topics/pages).
+it means the field isn't mandatory and you can leave it empty. You can use any of the [Django core fields](inv:django#ref/models/fields). `content_panels` define the capabilities and the layout of the editing interface. Adding fields to `content_panels` enables you to edit them in the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface). You can read more about this on [Page models](../topics/pages).
 
 Run:
 
@@ -199,7 +199,7 @@ to the model. Wagtail uses normal Django templates to render each page
 type. By default, it looks for a template filename formed from the app and model name,
 separating capital letters with underscores. For example, `HomePage` within the "home" app becomes
 `home/home_page.html`. This template file can exist in any location that
-[Django's template rules](https://docs.djangoproject.com/en/stable/intro/tutorial03/#write-views-that-actually-do-something) recognize. Conventionally, you can place it within a `templates` folder within the app.
+[Django's template rules](<inv:django#intro/tutorial03:write views that actually do something>) recognize. Conventionally, you can place it within a `templates` folder within the app.
 
 Edit `home/templates/home/home_page.html` to contain the following:
 

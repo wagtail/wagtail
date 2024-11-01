@@ -18,7 +18,7 @@ class User(AbstractUser):
 ```
 
 Add the app containing your user model to `INSTALLED_APPS` - it must be above the `'wagtail.users'` line,
-in order to override Wagtail's built-in templates - and set [AUTH_USER_MODEL](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model) to reference
+in order to override Wagtail's built-in templates - and set [`AUTH_USER_MODEL`](inv:django#auth-custom-user) to reference
 your model. In this example the app is called `myapp` and the model is `User`.
 
 ```python

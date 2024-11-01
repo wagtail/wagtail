@@ -23,7 +23,7 @@ Within Wagtail's admin interface, there are a few ways to add JavaScript.
 
 The simplest way is to add global JavaScript files via hooks, see [](insert_editor_js) and [](insert_global_admin_js).
 
-For JavaScript added when a specific Widget is used you can add an inner `Media` class to ensure that the file is loaded when the widget is used, see [Django's docs on their form `Media` class](https://docs.djangoproject.com/en/stable/topics/forms/media/#assets-as-a-static-definition).
+For JavaScript added when a specific Widget is used you can add an inner `Media` class to ensure that the file is loaded when the widget is used, see [Django's docs on their form `Media` class](inv:django#assets-as-a-static-definition).
 
 In a similar way, Wagtail's [](./template_components) provide a `media` property or `Media` class to add scripts when rendered.
 

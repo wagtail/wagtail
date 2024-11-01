@@ -2,7 +2,7 @@
 
 # Permissions
 
-Wagtail adapts and extends [the Django permission system](https://docs.djangoproject.com/en/stable/topics/auth/default/#topic-authorization) to cater to the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
+Wagtail adapts and extends [the Django permission system](inv:django#topic-authorization) to cater to the needs of website content creation, such as moderation workflows, and multiple teams working on different areas of a site (or multiple sites within the same Wagtail installation). Permissions can be configured through the 'Groups' area of the Wagtail admin interface, under 'Settings'.
 
 ```{note}
 Whilst Wagtail supports a number of user roles and permissions, the Wagtail Admin should still be restricted to trusted users.
@@ -61,7 +61,7 @@ Users are not allowed to move or delete the collection that is used to assign th
 
 ## Adding custom permissions
 
-See Django's documentation on [custom permissions](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#custom-permissions) for details on how to set permissions up.
+See Django's documentation on [custom permissions](inv:django#custom-permissions) for details on how to set permissions up.
 
 Permissions for models registered with Wagtail will automatically show up in the Wagtail admin Group edit form. For other models, you can also add the permissions using the `register_permissions` hook (see [](register_permissions)).
 

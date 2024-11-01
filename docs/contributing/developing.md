@@ -145,7 +145,7 @@ DATABASE_ENGINE=django.db.backends.mysql python runtests.py
 This will create a new database called `test_wagtail` in MySQL and run
 the tests against it.
 
-If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [DATABASES](https://docs.djangoproject.com/en/stable/ref/settings/#databases) settings dictionary:
+If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [`DATABASES`](inv:django#DATABASES) settings dictionary:
 
 -   `DATABASE_ENGINE`
 -   `DATABASE_NAME`
