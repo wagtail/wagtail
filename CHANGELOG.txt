@@ -116,7 +116,7 @@ Changelog
  * Maintenance: Update Pillow dependency to allow 11.x (Storm Heg)
 
 
-6.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2.3 (01.11.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
