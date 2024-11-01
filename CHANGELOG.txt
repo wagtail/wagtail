@@ -458,7 +458,7 @@ Changelog
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
 
 
-5.2.7 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.7 (01.11.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
