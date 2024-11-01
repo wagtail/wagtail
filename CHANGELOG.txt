@@ -20,6 +20,7 @@ Changelog
  * Docs: Improve code highlighting and formatting for Python docstrings in core models (Srishti Jaiswal)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
+ * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
  * Maintenance: Remove unused `uuid` UMD module as all code is now using the NPM module (LB (Ben) Johnston)
 
 
