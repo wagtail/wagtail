@@ -431,3 +431,29 @@ If you want to use a specific Sphinx directive, consult with core contributors t
 ### Arbitrary HTML
 
 While our documentation tooling offers some support for embedding arbitrary HTML, this is frowned upon. Only do so if there is a necessity, and if the formatting is unlikely to need updates.
+
+(documentation_code_example_considerations)=
+
+## Code example considerations
+
+When including code examples, particularly JavaScript or embedded HTML, it's important to follow best practices for security, accessibility and approaches that make it easier to understand the example.
+
+These are not hard rules but rather considerations to make when writing example code.
+
+### Reference example filename
+
+At the start of a code snippet, it can be helpful to reference an example filename at the top. E.g. `# wagtail_hooks.py` or `// js/my-custom.js`.
+
+### CSP (Content Security Policy) compliance
+
+When adding JavaScript from external sources or custom scripts, ensure CSP compliance to prevent security vulnerabilities like cross-site scripting (XSS).
+
+Avoid `mark_safe` where possible, and use `format_html` and use examples that load external files to manage scripts securely instead of inline `<script>` usage.
+
+### Accessibility compliance
+
+Make sure that all examples are accessible and adhere to accessibility standards (e.g., WCAG).
+
+For interactive components, ensure proper keyboard navigation and screen reader support. When creating dynamic content or effects (such as animations or notifications), provide options for users to pause, stop, or adjust these features as needed.
+
+If needed, call out explicitly that the example is not compliant with accessibility and would need additional considerations before adoption.
