@@ -59,6 +59,7 @@ Changelog
  * Fix: Improve layout of report listing tables (Sage Abdullah)
  * Fix: Fix regression from creation of `AbstractGroupApprovalTask` to ensure `can_handle` checks for the abstract class correctly (Sumana Sree Angajala)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
+ * Docs: Upgrade sphinx-wagtail-theme to v6.4.0, with a new search integration and Read the Docs Addons bug fixes (Thibaud Colas)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
  * Docs: Clarify process for UserViewSet customization (Sage Abdullah)
