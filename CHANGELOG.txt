@@ -22,7 +22,7 @@ Changelog
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
 
 
-6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+6.3 LTS (01.11.2024)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Add support for Python 3.13 (Matt Westcott)
