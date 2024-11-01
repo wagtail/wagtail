@@ -1,7 +1,8 @@
+/* global ImageChooserModal */
+
 import { Chooser, ChooserFactory } from '.';
 
 export class ImageChooser extends Chooser {
-  // eslint-disable-next-line no-undef
   chooserModalClass = ImageChooserModal;
 
   initHTMLElements(id) {
@@ -37,6 +38,5 @@ export class ImageChooser extends Chooser {
 
 export class ImageChooserFactory extends ChooserFactory {
   widgetClass = ImageChooser;
-  // eslint-disable-next-line no-undef
   chooserModalClass = ImageChooserModal;
 }

@@ -1,3 +1,5 @@
+/* global ModalWorkflow TASK_CHOOSER_MODAL_ONLOAD_HANDLERS */
+
 import $ from 'jquery';
 
 function createTaskChooser(id) {
@@ -7,10 +9,8 @@ function createTaskChooser(id) {
   const editAction = chooserElement.find('[data-chooser-edit-link]');
 
   $('[data-chooser-action-choose]', chooserElement).on('click', () => {
-    // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: chooserElement.data('chooserUrl'),
-      // eslint-disable-next-line no-undef
       onload: TASK_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
         taskChosen(data) {

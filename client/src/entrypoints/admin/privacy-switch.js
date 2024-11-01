@@ -1,10 +1,11 @@
+/* global ModalWorkflow */
+
 import $ from 'jquery';
 
 $(() => {
   /* Interface to set permissions from the explorer / editor */
   // eslint-disable-next-line func-names
   $('[data-a11y-dialog-show="set-privacy"]').on('click', function () {
-    // eslint-disable-next-line no-undef
     ModalWorkflow({
       dialogId: 'set-privacy',
       url: this.getAttribute('data-url'),
