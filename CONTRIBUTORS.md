@@ -851,6 +851,7 @@
 * Joel William
 * Ataf Fazledin Ahamed
 * Ayaan Qadri
+* manu
 
 ## Translators
 
