@@ -32,6 +32,7 @@ Changelog
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
  * Maintenance: Remove unused `uuid` UMD module as all code is now using the NPM module (LB (Ben) Johnston)
  * Maintenance: Clean up JS comments throughout codebase to be aligned to JSDoc where practical (LB (Ben) Johnston)
+ * Maintenance: Replace `eslint-disable no-undef` linter directives with `global` comments (LB (Ben) Johnston)
  * Maintenance: Upgrade Node tooling to active LTS version 22 (LB (Ben) Johnston)
  * Maintenance: Remove defunct oEmbed providers (Rahul Samant)
  * Maintenance: Remove obsolete non-upsert-based code for Postgres search indexing (Jake Howard)

@@ -1,4 +1,5 @@
-/* eslint-disable no-underscore-dangle */
+/* global $ */
+
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -12,8 +13,6 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
-
-/* global $ */
 
 /**
  * Wrapper for an item inside a ListBlock
@@ -223,6 +222,7 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   insert(value, index, opts) {
+    // eslint-disable-next-line no-underscore-dangle
     return this._insert(
       this.blockDef.childBlockDef,
       value,

@@ -1,3 +1,5 @@
+/* global ModalWorkflow */
+
 import $ from 'jquery';
 import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
@@ -356,7 +358,6 @@ class ChooserModal {
   }
 
   open(opts, callback) {
-    // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getURL(opts || {}),
       urlParams: this.getURLParams(opts || {}),

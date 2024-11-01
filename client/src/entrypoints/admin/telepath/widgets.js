@@ -1,3 +1,5 @@
+/* global draftail */
+
 import { gettext } from '../../../utils/gettext';
 import { runInlineScripts } from '../../../utils/runInlineScripts';
 
@@ -327,7 +329,6 @@ class BoundDraftailWidget {
     this.capabilities = new Map(parentCapabilities);
     this.options = options;
 
-    // eslint-disable-next-line no-undef
     const [, setOptions] = draftail.initEditor(
       '#' + this.input.id,
       this.getFullOptions(),

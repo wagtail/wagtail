@@ -1,3 +1,5 @@
+/* global ModalWorkflow */
+
 import $ from 'jquery';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 
@@ -29,7 +31,6 @@ function ActivateWorkflowActionsForDashboard() {
         e.preventDefault();
 
         if ('launchModal' in buttonElement.dataset) {
-          // eslint-disable-next-line no-undef
           ModalWorkflow({
             url: buttonElement.dataset.workflowActionUrl,
             onload: {
@@ -86,7 +87,6 @@ function ActivateWorkflowActionsForEditView(formSelector) {
           e.stopPropagation();
 
           // open the modal at the given URL
-          // eslint-disable-next-line no-undef
           ModalWorkflow({
             url: buttonElement.dataset.workflowActionModalUrl,
             onload: {
