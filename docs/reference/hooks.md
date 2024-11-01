@@ -532,7 +532,7 @@ application.register("fireworks", FireworksController);
 // The Stimulus controller manages the fireworks effect.
 
 import { Controller } from "@hotwired/stimulus";
-import Fireworks from "fireworks-js"; 
+import Fireworks from "fireworks-js";
 
 export default class extends Controller {
     connect() {
@@ -542,11 +542,17 @@ export default class extends Controller {
         document.getElementById('main').prepend(container);
 
         const options = { acceleration: 1.2, autoresize: true, mouse: { click: true, max: 3 } };
-        const fireworks = new Fireworks(container, options);
-        fireworks.start();
+        this.fireworks = new Fireworks(container, options);
+        this.fireworks.start();
+    }
+
+    disconnect() {
+        if (this.fireworks) {
+            this.fireworks.stop();
+            document.getElementById('fireworks')?.remove();
+        }
     }
 }
-
 ```
 (insert_global_admin_js)=
 
