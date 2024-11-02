@@ -163,7 +163,7 @@ describe('PreviewController', () => {
           <a
             href="/admin/pages/1/edit/preview/"
             data-w-preview-target="newTab"
-            data-action="w-preview#openPreviewInNewTab"
+            data-action="w-preview#openPreviewInNewTab:prevent"
           >
             Preview in new tab
           </a>
