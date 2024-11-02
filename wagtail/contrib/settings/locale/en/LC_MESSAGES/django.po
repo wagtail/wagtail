@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,16 +27,8 @@ msgstr ""
 msgid "%(site_setting)s for %(site)s"
 msgstr ""
 
-#: templates/wagtailsettings/edit.html:9
+#: templates/wagtailsettings/edit.html:8
 msgid "Site"
-msgstr ""
-
-#: templates/wagtailsettings/edit.html:31
-msgid "Saving…"
-msgstr ""
-
-#: templates/wagtailsettings/edit.html:34
-msgid "Save"
 msgstr ""
 
 #: templates/wagtailsettings/index.html:3

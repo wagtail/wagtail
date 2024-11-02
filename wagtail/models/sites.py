@@ -160,7 +160,8 @@ class Site(models.Model):
 
     @staticmethod
     def _find_for_request(request):
-        hostname = split_domain_port(request.get_host())[0]
+        # Use `_get_raw_host` to avoid ALLOWED_HOSTS checks
+        hostname = split_domain_port(request._get_raw_host())[0]
         port = request.get_port()
         site = None
         try:
@@ -206,15 +207,15 @@ class Site(models.Model):
     def get_site_root_paths():
         """
         Return a list of `SiteRootPath` instances, most specific path
-        first - used to translate url_paths into actual URLs with hostnames
+        first - used to translate url_paths into actual URLs with hostnames.
 
         Each root path is an instance of the `SiteRootPath` named tuple,
         and have the following attributes:
 
-        - `site_id` - The ID of the Site record
-        - `root_path` - The internal URL path of the site's home page (for example '/home/')
-        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
-        - `language_code` - The language code of the site (for example 'en')
+        - ``site_id`` - The ID of the Site record
+        - ``root_path`` - The internal URL path of the site's home page (for example '/home/')
+        - ``root_url`` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - ``language_code`` - The language code of the site (for example 'en')
         """
         result = cache.get(
             SITE_ROOT_PATHS_CACHE_KEY, version=SITE_ROOT_PATHS_CACHE_VERSION

@@ -19,7 +19,7 @@ from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.blocks import ImageBlock
 
 class BlogPage(Page):
     author = models.CharField(max_length=255)
@@ -27,7 +27,7 @@ class BlogPage(Page):
     body = StreamField([
         ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', ImageBlock()),
     ])
 
     content_panels = Page.content_panels + [
@@ -118,12 +118,12 @@ body = StreamField([
     ('person', blocks.StructBlock([
         ('first_name', blocks.CharBlock()),
         ('surname', blocks.CharBlock()),
-        ('photo', ImageChooserBlock(required=False)),
+        ('photo', ImageBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ])),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -153,7 +153,7 @@ Placing a StructBlock's list of child blocks inside a `StreamField` definition c
 class PersonBlock(blocks.StructBlock):
     first_name = blocks.CharBlock()
     surname = blocks.CharBlock()
-    photo = ImageChooserBlock(required=False)
+    photo = ImageBlock(required=False)
     biography = blocks.RichTextBlock()
 ```
 
@@ -164,7 +164,7 @@ body = StreamField([
     ('person', PersonBlock()),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -181,12 +181,12 @@ body = StreamField([
     ('person', blocks.StructBlock([
         ('first_name', blocks.CharBlock()),
         ('surname', blocks.CharBlock()),
-        ('photo', ImageChooserBlock(required=False)),
+        ('photo', ImageBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ], icon='user')),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -196,7 +196,7 @@ body = StreamField([
 class PersonBlock(blocks.StructBlock):
     first_name = blocks.CharBlock()
     surname = blocks.CharBlock()
-    photo = ImageChooserBlock(required=False)
+    photo = ImageBlock(required=False)
     biography = blocks.RichTextBlock()
 
     class Meta:
@@ -213,10 +213,10 @@ For a list of icons available out of the box, see our [icons overview](icons). P
 :emphasize-lines: 2
 
 body = StreamField([
-    ('gallery', blocks.ListBlock(ImageChooserBlock())),
+    ('gallery', blocks.ListBlock(ImageBlock())),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -247,12 +247,12 @@ When reading back the content of a StreamField (such as when rendering a templat
 
 body = StreamField([
     ('carousel', blocks.StreamBlock([
-        ('image', ImageChooserBlock()),
+        ('image', ImageBlock()),
         ('video', EmbedBlock()),
     ])),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -260,7 +260,7 @@ body = StreamField([
 
 ```python
 class CarouselBlock(blocks.StreamBlock):
-    image = ImageChooserBlock()
+    image = ImageBlock()
     video = EmbedBlock()
 
     class Meta:
@@ -273,7 +273,7 @@ A StreamBlock subclass defined in this way can also be passed to a `StreamField`
 class CommonContentBlock(blocks.StreamBlock):
     heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageBlock()
 
 
 class BlogPage(Page):
@@ -310,7 +310,7 @@ By default, a StreamField can contain an unlimited number of blocks. The `min_nu
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ], min_num=2, max_num=5)
 ```
 
@@ -320,7 +320,7 @@ Or equivalently:
 class CommonContentBlock(blocks.StreamBlock):
     heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageBlock()
 
     class Meta:
         min_num = 2
@@ -333,7 +333,7 @@ The `block_counts` option can be used to set a minimum or maximum count for spec
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ], block_counts={
     'heading': {'min_num': 1, 'max_num': 3},
 })
@@ -345,7 +345,7 @@ Or equivalently:
 class CommonContentBlock(blocks.StreamBlock):
     heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageBlock()
 
     class Meta:
         block_counts = {
@@ -364,7 +364,7 @@ By default, each block is rendered using simple, minimal HTML markup, or no mark
     [
         ('first_name', blocks.CharBlock()),
         ('surname', blocks.CharBlock()),
-        ('photo', ImageChooserBlock(required=False)),
+        ('photo', ImageBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ],
     template='myapp/blocks/person.html',
@@ -378,7 +378,7 @@ Or, when defined as a subclass of StructBlock:
 class PersonBlock(blocks.StructBlock):
     first_name = blocks.CharBlock()
     surname = blocks.CharBlock()
-    photo = ImageChooserBlock(required=False)
+    photo = ImageBlock(required=False)
     biography = blocks.RichTextBlock()
 
     class Meta:
@@ -496,7 +496,7 @@ In this example, the variable `is_happening_today` will be made available within
 
 All block types, not just `StructBlock`, support the `template` property. However, for blocks that handle basic Python data types, such as `CharBlock` and `IntegerBlock`, there are some limitations on where the template will take effect. For further details, see [](boundblocks_and_values).
 
-## Customisations
+## Customizations
 
 All block types implement a common API for rendering their front-end and form representations, and storing and retrieving values to and from the database. By subclassing the various block classes and overriding these methods, all kinds of customizations are possible, from modifying the layout of StructBlock form fields to implementing completely new ways of combining blocks. For further details, see [](custom_streamfield_blocks).
 

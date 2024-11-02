@@ -1833,3 +1833,39 @@ class TestDefaultMessages(WagtailTestUtils, TestCase):
             response,
             escape(f"Feature complete toy '{self.object}' deleted."),
         )
+
+
+class TestHeaderButtons(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.object = FeatureCompleteToy.objects.create(name="Test Toy")
+        cls.edit_url = reverse(
+            "feature_complete_toy:edit", args=(quote(cls.object.pk),)
+        )
+        cls.copy_url = reverse(
+            "feature_complete_toy:copy", args=(quote(cls.object.pk),)
+        )
+        cls.delete_url = reverse(
+            "feature_complete_toy:delete", args=(quote(cls.object.pk),)
+        )
+        cls.inspect_url = reverse(
+            "feature_complete_toy:inspect", args=(quote(cls.object.pk),)
+        )
+
+    def test_header_buttons_in_edit_view(self):
+        response = self.client.get(self.edit_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        header_buttons = soup.select(".w-slim-header .w-dropdown a")
+        expected_buttons = [
+            ("Copy", self.copy_url),
+            ("Delete", self.delete_url),
+            ("Inspect", self.inspect_url),
+        ]
+        self.assertEqual(
+            [(a.text.strip(), a.get("href")) for a in header_buttons],
+            expected_buttons,
+        )

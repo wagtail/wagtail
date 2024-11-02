@@ -123,7 +123,7 @@ There are a few attributes for defining how the page's fields will be arranged i
 
 Each of these attributes is set to a list of `Panel` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
-Here's a summary of the `Panel` classes that Wagtail provides out of the box. See [Panel types](/reference/pages/panels) for full descriptions.
+Here's a summary of the `Panel` classes that Wagtail provides out of the box. See [Panel types](/reference/panels) for full descriptions.
 
 **Basic**
 
@@ -142,7 +142,7 @@ These are used for structuring fields in the interface.
 
 #### Customizing the page editor interface
 
-The page editor can be customized further. See [Customizing the editing interface](/advanced_topics/customisation/page_editing_interface).
+The page editor can be customized further. See [Customizing the editing interface](/advanced_topics/customization/page_editing_interface).
 
 (page_type_business_rules)=
 

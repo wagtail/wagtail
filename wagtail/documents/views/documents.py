@@ -197,7 +197,6 @@ class EditView(generic.EditView):
     delete_url_name = "wagtaildocs:delete"
     header_icon = "doc-full-inverse"
     context_object_name = "document"
-    delete_item_label = gettext_lazy("Delete document")
     _show_breadcrumbs = True
 
     @cached_property

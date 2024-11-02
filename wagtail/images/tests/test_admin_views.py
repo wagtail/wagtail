@@ -1621,6 +1621,10 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         # draftail should NOT be a standard JS include on this page
         self.assertNotIn("wagtailadmin/js/draftail.js", response_json["html"])
 
+        # upload file field should have accept="image/*"
+        soup = self.get_soup(response_json["html"])
+        self.assertEqual(soup.select_one('input[type="file"]').get("accept"), "image/*")
+
     def test_simple_with_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
         evil_plans = root_collection.add_child(name="Evil plans")
@@ -1629,6 +1633,22 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         response = self.get()
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans")
+
+    @override_settings(
+        WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
+    )
+    def test_upload_field_accepts_heic(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "choose")
+        self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
+
+        # upload file field should have an explicit 'accept' case for image/heic
+        soup = self.get_soup(response_json["html"])
+        self.assertEqual(
+            soup.select_one('input[type="file"]').get("accept"), "image/*, image/heic"
+        )
 
     def test_choose_permissions(self):
         # Create group with access to admin and Chooser permission on one Collection, but not another.

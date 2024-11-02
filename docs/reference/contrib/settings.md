@@ -84,7 +84,7 @@ class SiteSpecificImportantPages(BaseSiteSetting):
     ]
 ```
 
-You can also customize the edit handlers [like you would do for `Page` model](customising_the_tabbed_interface) with a custom `edit_handler` attribute:
+You can also customize the edit handlers [like you would do for `Page` model](customizing_the_tabbed_interface) with a custom `edit_handler` attribute:
 
 ```python
 from wagtail.admin.panels import TabbedInterface, ObjectList
@@ -274,13 +274,13 @@ if you have to use multiple values from one model:
 
 ```html+jinja
 {% with generic_social_settings=settings("app_label.GenericSocialMediaSettings") %}
-    Follow us on Twitter at @{{ generic_social_settings.facebook }},
+    Follow us on Facebook at {{ generic_social_settings.facebook }},
     or Instagram at @{{ generic_social_settings.instagram }}.
 {% endwith %}
 
 {% with site_social_settings=settings("app_label.SiteSpecificSocialMediaSettings") %}
-    Follow us on Twitter at @{{ site_social_settings.facebook }},
-    or Instagram at @{{ site_social_settings.instagram }}.
+    Follow us on Facebook at {{ site_social_settings.facebook }},
+    or Instagram at {{ site_social_settings.instagram }}.
 {% endwith %}
 ```
 

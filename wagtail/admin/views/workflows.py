@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Count, OuterRef, Prefetch
+from django.db.models import Count, Prefetch
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -43,7 +43,6 @@ from wagtail.models import (
     Task,
     TaskState,
     Workflow,
-    WorkflowContentType,
     WorkflowState,
     WorkflowTask,
 )
@@ -151,10 +150,7 @@ class Index(IndexView):
 
     def get_base_queryset(self):
         queryset = super().get_base_queryset()
-        content_types = WorkflowContentType.objects.filter(
-            workflow=OuterRef("pk")
-        ).values_list("pk", flat=True)
-        queryset = queryset.annotate(content_types=Count(content_types))
+        queryset = queryset.annotate(content_types=Count("workflow_content_types"))
         return queryset.prefetch_related(
             "workflow_pages",
             "workflow_pages__page",
@@ -264,6 +260,7 @@ class Edit(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable"
     header_icon = "tasks"
+    header_more_buttons = []
     edit_handler = None
     MAX_PAGES = 5
     _show_breadcrumbs = True
@@ -706,6 +703,7 @@ class EditTask(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable_task"
     header_icon = "thumbtack"
+    header_more_buttons = []
     _show_breadcrumbs = True
 
     @cached_property

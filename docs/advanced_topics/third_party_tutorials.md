@@ -6,6 +6,11 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Adding Wagtail to a Django project to support content](https://medium.com/@zalun/base-6-wagtail-cms-for-the-content-f60d8ec7ac9e) (29 September 2024)
+-   [A simple block pattern for Wagtail CMS](https://lincolnloop.com/insights/simple-block-pattern-wagtail-cms/) (29 August 2024)
+-   [Django and Wagtail site building comparison tutorial video](https://www.youtube.com/watch?v=qodE7XyWCVw) (9 July 2024)
+-   [An introduction to Wagtail tutorial](https://medium.com/@dogung51290/wagtail-cms-tutorial-5bd39e08ad44) (17 June 2024)
+-   [Unleashing the Power of Custom Wagtail Models](https://www.linkedin.com/pulse/unleashing-power-custom-wagtail-models-kgothatso-phooko-70tcf) (9 June 2024)
 -   [Deploying Wagtail on Divio](https://docs.divio.com/en/latest/introduction/wagtail/) (~June 2024)
 -   [Upgrading Wagtail (from 2.5 to 6.0)](https://learnwagtail.com/blog/category/upgrading-wagtail/) (18 April 2024)
 -   [Using Wagtail Form Templates in Software Development Projects](https://devcodef1.com/news/1211030/wagtail-form-templates-in-sd-projects) (9 April 2024)
@@ -173,4 +178,4 @@ You can also find more resources from the community on [Awesome Wagtail](https:/
 ## Tip
 
 We are working on a collection of Wagtail tutorials and best practices.
-Please tweet [\@WagtailCMS](https://twitter.com/WagtailCMS) or [contact us directly](mailto:hello@wagtail.org) to share your Wagtail HOWTOs, development notes or site launches.
+Please share your Wagtail HOWTOs, development notes, or site launches in the [Wagtail Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack) in #watercooler, or feel free to reach out directly via [email](mailto:hello@wagtail.org).

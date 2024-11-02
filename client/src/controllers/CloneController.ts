@@ -106,7 +106,7 @@ export class CloneController extends Controller<HTMLElement> {
     debounce(() => {
       this.element.classList.remove(...this.hideClasses);
       this.element.classList.add(...this.showClasses);
-      this.dispatch('added');
+      this.dispatch('added', { cancelable: false });
     }, this.showDelayValue || null /* run immediately if zero */)().then(() => {
       // Once complete, check if we should automatically clear the content after a delay
       const autoClearValue = this.autoClearValue || null;
@@ -141,7 +141,7 @@ export class CloneController extends Controller<HTMLElement> {
     debounce(noop, clearDelayValue)().then(() => {
       if (!this?.isClearing) return;
       this.containerTarget.innerHTML = '';
-      this.dispatch('cleared');
+      this.dispatch('cleared', { cancelable: false });
       this.isClearing = false;
     });
   }

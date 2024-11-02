@@ -743,7 +743,6 @@
 * Sandro Rodrigues
 * Brian Mugo
 * Panagiotis H.M. Issaris
-* Damilola Oladele
 * Olumide Micheal
 * Chiemezuo Akujobi
 * Krish Soni
@@ -837,6 +836,23 @@
 * Matthew Scouten
 * Ishwari8104
 * rahulsamant37
+* Gabriel Getzie
+* Rohit Singh
+* Robin Varghese
+* Victoria Ottah
+* Bart Cieliński
+* alexkiro
+* Ankit Kumar
+* Frank Yiu
+* Shaurya Panchal
+* Sumana Sree Angajala
+* Srishti Jaiswal
+* Alessandro Chitarrini
+* Joel William
+* Ataf Fazledin Ahamed
+* Ayaan Qadri
+* manu
+* Aayushman Singh
 
 ## Translators
 
@@ -899,4 +915,4 @@
 * Ukrainian: Yuri Fabirovsky, Vladislav Herasimenko, Mikolai Incognito, Anastasiia La, Sergiy Shkodenko, Viktor Shytiuk, Ivan Tyshchenko, Zoriana Zaiats, Mykola Zamkovoi
 * Uyghur: Abduqadir Abliz, Azat
 * Vietnamese: Amelia Dao, Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham, stdpi
-* Welsh: Philip Crisp, Adam Hughes
+* Welsh: Philip Lindsay-Crisp, Adam Hughes

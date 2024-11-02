@@ -1,8 +1,8 @@
 """
-wagtail.models is split into submodules for maintainability. All definitions intended as
+``wagtail.models`` is split into submodules for maintainability. All definitions intended as
 public should be imported here (with 'noqa: F401' comments as required) and outside code should
-continue to import them from wagtail.models (e.g. `from wagtail.models import Site`, not
-`from wagtail.models.sites import Site`.)
+continue to import them from wagtail.models (e.g. ``from wagtail.models import Site``, not
+``from wagtail.models.sites import Site``.)
 
 Submodules should take care to keep the direction of dependencies consistent; where possible they
 should implement low-level generic functionality which is then imported by higher-level models such
@@ -208,7 +208,7 @@ class BasePageManager(models.Manager):
 
     def first_common_ancestor_of(self, pages, include_self=False, strict=False):
         """
-        This is similar to `PageQuerySet.first_common_ancestor` but works
+        This is similar to ``PageQuerySet.first_common_ancestor`` but works
         for a list of pages instead of a queryset.
         """
         if not pages:
@@ -243,12 +243,12 @@ class BasePageManager(models.Manager):
 
         If given a QuerySet, this method will evaluate it. Only use this method
         when you are ready to consume the queryset, e.g. after pagination has
-        been applied. This is typically done in the view's `get_context_data`
-        using `context["object_list"]`.
+        been applied. This is typically done in the view's ``get_context_data``
+        using ``context["object_list"]``.
 
         This method does not return a new queryset, but modifies the existing one,
         to ensure any references to the queryset in the view's context are updated
-        (e.g. when using `context_object_name`).
+        (e.g. when using ``context_object_name``).
         """
         parent_page_paths = {
             Page._get_parent_path_from_path(page.path) for page in pages
@@ -328,7 +328,7 @@ class RevisionMixin(models.Model):
         Subclasses should define a
         :class:`~django.contrib.contenttypes.fields.GenericRelation` to
         :class:`~wagtail.models.Revision` and override this property to return
-        that ``GenericRelation``. This allows subclasses to customise the
+        that ``GenericRelation``. This allows subclasses to customize the
         ``related_query_name`` of the ``GenericRelation`` and add custom logic
         (e.g. to always use the specific instance in ``Page``).
         """
@@ -805,6 +805,26 @@ class PreviewableMixin:
     full_url = property(get_full_url)
 
     DEFAULT_PREVIEW_MODES = [("", _("Default"))]
+    DEFAULT_PREVIEW_SIZES = [
+        {
+            "name": "mobile",
+            "icon": "mobile-alt",
+            "device_width": 375,
+            "label": _("Preview in mobile size"),
+        },
+        {
+            "name": "tablet",
+            "icon": "tablet-alt",
+            "device_width": 768,
+            "label": _("Preview in tablet size"),
+        },
+        {
+            "name": "desktop",
+            "icon": "desktop",
+            "device_width": 1280,
+            "label": _("Preview in desktop size"),
+        },
+    ]
 
     @property
     def preview_modes(self):
@@ -827,6 +847,43 @@ class PreviewableMixin:
         If ``preview_modes`` is empty, an ``IndexError`` will be raised.
         """
         return self.preview_modes[0][0]
+
+    @property
+    def preview_sizes(self):
+        """
+        A list of dictionaries, each representing a preview size option for this object.
+        Override this property to customize the preview sizes.
+        Each dictionary in the list should include the following keys:
+
+        - ``name``: A string representing the internal name of the preview size.
+        - ``icon``: A string specifying the icon's name for the preview size button.
+        - ``device_width``: An integer indicating the device's width in pixels.
+        - ``label``: A string for the aria label on the preview size button.
+
+        .. code-block:: python
+
+            @property
+            def preview_sizes(self):
+                return [
+                    {
+                        "name": "mobile",
+                        "icon": "mobile-icon",
+                        "device_width": 320,
+                        "label": "Preview in mobile size"
+                    },
+                    # Add more preview size dictionaries as needed.
+                ]
+        """
+        return PreviewableMixin.DEFAULT_PREVIEW_SIZES
+
+    @property
+    def default_preview_size(self):
+        """
+        The default preview size name to use in live preview.
+        Defaults to ``"mobile"``, which is the first one defined in ``preview_sizes``.
+        If ``preview_sizes`` is empty, an ``IndexError`` will be raised.
+        """
+        return self.preview_sizes[0]["name"]
 
     def is_previewable(self):
         """Returns ``True`` if at least one preview mode is specified in ``preview_modes``."""
@@ -1013,11 +1070,15 @@ class WorkflowMixin:
 
     @property
     def has_workflow(self):
-        """Returns True if the object has an active workflow assigned, otherwise False."""
+        """
+        Returns ```True``` if the object has an active workflow assigned, otherwise ```False```.
+        """
         return self.get_workflow() is not None
 
     def get_workflow(self):
-        """Returns the active workflow assigned to the object."""
+        """
+        Returns the active workflow assigned to the object.
+        """
         return self.get_default_workflow()
 
     @property
@@ -1037,12 +1098,14 @@ class WorkflowMixin:
 
     @property
     def workflow_in_progress(self):
-        """Returns True if a workflow is in progress on the current object, otherwise False."""
+        """
+        Returns ```True``` if a workflow is in progress on the current object, otherwise ```False```.
+        """
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
 
         # `_current_workflow_states` may be populated by `prefetch_workflow_states`
-        # on querysets as a performance optimisation
+        # on querysets as a performance optimization
         if hasattr(self, "_current_workflow_states"):
             for state in self._current_workflow_states:
                 if state.status == WorkflowState.STATUS_IN_PROGRESS:
@@ -1055,12 +1118,14 @@ class WorkflowMixin:
 
     @property
     def current_workflow_state(self):
-        """Returns the in progress or needs changes workflow state on this object, if it exists."""
+        """
+        Returns the in progress or needs changes workflow state on this object, if it exists.
+        """
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return None
 
         # `_current_workflow_states` may be populated by `prefetch_workflow_states`
-        # on querysets as a performance optimisation
+        # on querysets as a performance optimization
         if hasattr(self, "_current_workflow_states"):
             try:
                 return self._current_workflow_states[0]
@@ -1075,7 +1140,9 @@ class WorkflowMixin:
 
     @property
     def current_workflow_task_state(self):
-        """Returns (specific class of) the current task state of the workflow on this object, if it exists."""
+        """
+        Returns (specific class of) the current task state of the workflow on this object, if it exists.
+        """
         current_workflow_state = self.current_workflow_state
         if (
             current_workflow_state
@@ -1086,7 +1153,9 @@ class WorkflowMixin:
 
     @property
     def current_workflow_task(self):
-        """Returns (specific class of) the current task in progress on this object, if it exists."""
+        """
+        Returns (specific class of) the current task in progress on this object, if it exists.
+        """
         current_workflow_task_state = self.current_workflow_task_state
         if current_workflow_task_state:
             return current_workflow_task_state.task.specific
@@ -1329,7 +1398,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Find the page route for the given HTTP request object, and URL path. The route
         result (`page`, `args`, and `kwargs`) will be cached via
-        `request._wagtail_route_for_request`.
+        ``request._wagtail_route_for_request``.
         """
         if not hasattr(request, "_wagtail_route_for_request"):
             try:
@@ -1355,7 +1424,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def find_for_request(request: HttpRequest, path: str) -> Page | None:
         """
         Find the page for the given HTTP request object, and URL path. The full
-        page route will be cached via `request._wagtail_route_for_request`
+        page route will be cached via ``request._wagtail_route_for_request``.
         """
         result = Page.route_for_request(request, path)
         if result is not None:
@@ -1517,11 +1586,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, clean=True, user=None, log_action=False, **kwargs):
         """
-        Overrides default method behaviour to make additional updates unique to pages,
+        Overrides default method behavior to make additional updates unique to pages,
         such as updating the ``url_path`` value of descendant page to reflect changes
         to this page's slug.
 
-        New pages should generally be saved via the `add_child() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_child>`_ or `add_sibling() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_sibling>`_
+        New pages should generally be saved via the `add_child() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_child>`_
+        or `add_sibling() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_sibling>`_
         method of an existing page, which will correctly set the ``path`` and ``depth``
         fields on the new page before saving it.
 
@@ -1688,7 +1758,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @property
     def page_type_display_name(self):
         """
-        A human-readable version of this page's type
+        A human-readable version of this page's type.
         """
         if not self.specific_class or self.is_root():
             return ""
@@ -2060,7 +2130,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
-        Return None if the page is not routable.
+        Return ``None`` if the page is not routable.
 
         This is used internally by the ``full_url``, ``url``, ``relative_url``
         and ``get_site`` properties and methods; pages with custom URL routing
@@ -2130,7 +2200,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return (site_id, root_url, page_path)
 
     def get_full_url(self, request=None):
-        """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
+        """
+        Return the full URL (including protocol / domain) to this page, or ``None`` if it is not routable.
+        """
         url_parts = self.get_url_parts(request=request)
 
         if url_parts is None or url_parts[1] is None and url_parts[2] is None:
@@ -2150,7 +2222,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         this is the local URL (starting with '/') if we're only running a single site
         (i.e. we know that whatever the current page is being served from, this link will be on the
         same domain), and the full URL (with domain) if not.
-        Return None if the page is not routable.
+        Return ``None`` if the page is not routable.
 
         Accepts an optional but recommended ``request`` keyword argument that, if provided, will
         be used to cache site-level URL information (thereby avoiding repeated database / cache
@@ -2189,7 +2261,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
         a local URL if the site matches, or a fully qualified one otherwise.
-        Return None if the page is not routable.
+        Return ``None`` if the page is not routable.
 
         Accepts an optional but recommended ``request`` keyword argument that, if provided, will
         be used to cache site-level URL information (thereby avoiding repeated database / cache
@@ -2230,8 +2302,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @classmethod
     def clean_subpage_models(cls):
         """
-        Returns the list of subpage types, normalised as model classes.
-        Throws ValueError if any entry in subpage_types cannot be recognised as a model name,
+        Returns the list of subpage types, normalized as model classes.
+        Throws ValueError if any entry in subpage_types cannot be recognized as a model name,
         or LookupError if a model does not exist (or is not a Page subclass).
         """
         if cls._clean_subpage_models is None:
@@ -2254,8 +2326,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @classmethod
     def clean_parent_page_models(cls):
         """
-        Returns the list of parent page types, normalised as model classes.
-        Throws ValueError if any entry in parent_page_types cannot be recognised as a model name,
+        Returns the list of parent page types, normalized as model classes.
+        Throws ValueError if any entry in parent_page_types cannot be recognized as a model name,
         or LookupError if a model does not exist (or is not a Page subclass).
         """
 
@@ -2280,7 +2352,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def allowed_parent_page_models(cls):
         """
         Returns the list of page types that this page type can be a subpage of,
-        as a list of model classes
+        as a list of model classes.
         """
         return [
             parent_model
@@ -2292,7 +2364,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def allowed_subpage_models(cls):
         """
         Returns the list of page types that this page type can have as subpages,
-        as a list of model classes
+        as a list of model classes.
         """
         return [
             subpage_model
@@ -2304,7 +2376,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def creatable_subpage_models(cls):
         """
         Returns the list of page types that may be created under this page type,
-        as a list of model classes
+        as a list of model classes.
         """
         return [
             page_model
@@ -2381,8 +2453,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def approved_schedule(self):
-        # `_approved_schedule` may be populated by `annotate_approved_schedule` on `PageQuerySet` as a
-        # performance optimisation
+        """
+        ``_approved_schedule`` may be populated by ``annotate_approved_schedule`` on ``PageQuerySet`` as a
+        performance optimization.
+        """
         if hasattr(self, "_approved_schedule"):
             return self._approved_schedule
 
@@ -2421,7 +2495,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Copies a given page
 
-        :param log_action: flag for logging the action. Pass None to skip logging. Can be passed an action string. Defaults to 'wagtail.copy'
+        :param log_action: flag for logging the action. Pass None to skip logging. Can be passed an action string. Defaults to ``'wagtail.copy'``.
         """
         return CopyPageAction(
             self,
@@ -2482,7 +2556,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def permissions_for_user(self, user):
         """
-        Return a PagePermissionsTester object defining what actions the user can perform on this page
+        Return a PagePermissionsTester object defining what actions the user can perform on this page.
         """
         # Allow specific classes to override this method, but only cast to the
         # specific instance if it's not already specific and if the method has
@@ -2638,9 +2712,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Serve a response indicating that the user has been denied access to view this page,
         and must supply a password.
-        form = a Django form object containing the password input
+        ``form`` = a Django form object containing the password input
             (and zero or more hidden fields that also need to be output on the template)
-        action_url = URL that this form should be POSTed to
+        ``action_url`` = URL that this form should be POSTed to
         """
 
         password_required_template = self.password_required_template
@@ -2758,7 +2832,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def has_workflow(self):
-        """Returns True if the page or an ancestor has an active workflow assigned, otherwise False"""
+        """
+        Returns ``True`` if the page or an ancestor has an active workflow assigned, otherwise ``False``.
+        """
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return False
         return (
@@ -2769,7 +2845,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
 
     def get_workflow(self):
-        """Returns the active workflow assigned to the page or its nearest ancestor"""
+        """
+        Returns the active workflow assigned to the page or its nearest ancestor.
+        """
         if not getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
             return None
 
@@ -2845,7 +2923,7 @@ class RevisionsManager(models.Manager.from_queryset(RevisionQuerySet)):
         of the previous revision, based on the revision_fk_name field. Useful
         to avoid N+1 queries when generating comparison links between revisions.
 
-        The logic is similar to Revision.get_previous().pk.
+        The logic is similar to ``Revision.get_previous().pk``.
         """
         fk = revision_fk_name
         return Subquery(
@@ -3408,7 +3486,7 @@ class PageViewRestriction(BaseViewRestriction):
 
     def delete(self, user=None, **kwargs):
         """
-        Custom delete handler to aid in logging
+        Custom delete handler to aid in logging.
         :param user: the user removing the view restriction
         """
         specific_instance = self.page.specific
@@ -3449,9 +3527,9 @@ class WorkflowPage(models.Model):
 
     def get_pages(self):
         """
-        Returns a queryset of pages that are affected by this WorkflowPage link.
+        Returns a queryset of pages that are affected by this ``WorkflowPage`` link.
 
-        This includes all descendants of the page excluding any that have other WorkflowPages.
+        This includes all descendants of the page excluding any that have other ``WorkflowPage``(s).
         """
         descendant_pages = Page.objects.descendant_of(self.page, inclusive=True)
         descendant_workflow_pages = WorkflowPage.objects.filter(
@@ -3557,12 +3635,16 @@ class Task(SpecificMixin, models.Model):
 
     @property
     def workflows(self):
-        """Returns all ``Workflow`` instances that use this task"""
+        """
+        Returns all ``Workflow`` instances that use this task.
+        """
         return Workflow.objects.filter(workflow_tasks__task=self)
 
     @property
     def active_workflows(self):
-        """Return a ``QuerySet``` of active workflows that this task is part of"""
+        """
+        Return a ``QuerySet``` of active workflows that this task is part of.
+        """
         return Workflow.objects.active().filter(workflow_tasks__task=self)
 
     @classmethod
@@ -3581,7 +3663,9 @@ class Task(SpecificMixin, models.Model):
         return self.task_state_class or TaskState
 
     def start(self, workflow_state, user=None):
-        """Start this task on the provided workflow state by creating an instance of TaskState"""
+        """
+        Start this task on the provided workflow state by creating an instance of TaskState.
+        """
         task_state = self.get_task_state_class()(workflow_state=workflow_state)
         task_state.status = TaskState.STATUS_IN_PROGRESS
         task_state.revision = workflow_state.content_object.get_latest_revision()
@@ -3596,39 +3680,50 @@ class Task(SpecificMixin, models.Model):
 
     @transaction.atomic
     def on_action(self, task_state, user, action_name, **kwargs):
-        """Performs an action on a task state determined by the ``action_name`` string passed"""
+        """
+        Performs an action on a task state determined by the ``action_name`` string passed.
+        """
         if action_name == "approve":
             task_state.approve(user=user, **kwargs)
         elif action_name == "reject":
             task_state.reject(user=user, **kwargs)
 
     def user_can_access_editor(self, obj, user):
-        """Returns True if a user who would not normally be able to access the editor for the object should be able to if the object is currently on this task.
-        Note that returning False does not remove permissions from users who would otherwise have them."""
+        """
+        Returns ``True`` if a user who would not normally be able to access the editor for the
+        object should be able to if the object is currently on this task.
+        Note that returning ``False`` does not remove permissions from users who would otherwise have them.
+        """
         return False
 
     def locked_for_user(self, obj, user):
         """
-        Returns True if the object should be locked to a given user's edits.
+        Returns ``True`` if the object should be locked to a given user's edits.
         This can be used to prevent editing by non-reviewers.
         """
         return False
 
     def user_can_lock(self, obj, user):
-        """Returns True if a user who would not normally be able to lock the object should be able to if the object is currently on this task.
-        Note that returning False does not remove permissions from users who would otherwise have them."""
+        """
+        Returns ``True`` if a user who would not normally be able to lock the object should be able to
+        if the object is currently on this task.
+        Note that returning ``False`` does not remove permissions from users who would otherwise have them.
+        """
         return False
 
     def user_can_unlock(self, obj, user):
-        """Returns True if a user who would not normally be able to unlock the object should be able to if the object is currently on this task.
-        Note that returning False does not remove permissions from users who would otherwise have them."""
+        """
+        Returns ``True`` if a user who would not normally be able to unlock the object should be able to
+        if the object is currently on this task.
+        Note that returning ``False`` does not remove permissions from users who would otherwise have them.
+        """
         return False
 
     def get_actions(self, obj, user):
         """
         Get the list of action strings (name, verbose_name, whether the action requires additional data - see
         ``get_form_for_action``) for actions the current user can perform for this task on the given object.
-        These strings should be the same as those able to be passed to ``on_action``
+        These strings should be the same as those able to be passed to ``on_action``.
         """
         return []
 
@@ -3644,12 +3739,16 @@ class Task(SpecificMixin, models.Model):
 
     @classmethod
     def get_description(cls):
-        """Returns the task description."""
+        """
+        Returns the task description.
+        """
         return ""
 
     @transaction.atomic
     def deactivate(self, user=None):
-        """Set ``active`` to False and cancel all in progress task states linked to this task"""
+        """
+        Set ``active`` to False and cancel all in progress task states linked to this task.
+        """
         self.active = False
         self.save()
         in_progress_states = TaskState.objects.filter(
@@ -3684,14 +3783,18 @@ class AbstractWorkflow(ClusterableModel):
 
     @property
     def tasks(self):
-        """Returns all ``Task`` instances linked to this workflow"""
+        """
+        Returns all ``Task`` instances linked to this workflow.
+        """
         return Task.objects.filter(workflow_tasks__workflow=self).order_by(
             "workflow_tasks__sort_order"
         )
 
     @transaction.atomic
     def start(self, obj, user):
-        """Initiates a workflow by creating an instance of ``WorkflowState``"""
+        """
+        Initiates a workflow by creating an instance of ``WorkflowState``.
+        """
         state = WorkflowState(
             content_type=obj.get_content_type(),
             base_content_type=obj.get_base_content_type(),
@@ -3732,7 +3835,9 @@ class AbstractWorkflow(ClusterableModel):
 
     @transaction.atomic
     def deactivate(self, user=None):
-        """Sets the workflow as inactive, and cancels all in progress instances of ``WorkflowState`` linked to this workflow"""
+        """
+        Sets the workflow as inactive, and cancels all in progress instances of ``WorkflowState`` linked to this workflow.
+        """
         self.active = False
         in_progress_states = WorkflowState.objects.filter(
             workflow=self, status=WorkflowState.STATUS_IN_PROGRESS
@@ -3858,7 +3963,7 @@ class GroupApprovalTask(AbstractGroupApprovalTask):
 class WorkflowStateQuerySet(models.QuerySet):
     def active(self):
         """
-        Filters to only STATUS_IN_PROGRESS and STATUS_NEEDS_CHANGES WorkflowStates
+        Filters to only ``STATUS_IN_PROGRESS`` and ``STATUS_NEEDS_CHANGES`` WorkflowStates.
         """
         return self.filter(
             Q(status=WorkflowState.STATUS_IN_PROGRESS)
@@ -3867,7 +3972,7 @@ class WorkflowStateQuerySet(models.QuerySet):
 
     def for_instance(self, instance):
         """
-        Filters to only WorkflowStates for the given instance
+        Filters to only WorkflowStates for the given instance.
         """
         try:
             # Use RevisionMixin.get_base_content_type() if available
@@ -4049,8 +4154,10 @@ class WorkflowState(models.Model):
         )
 
     def update(self, user=None, next_task=None):
-        """Checks the status of the current task, and progresses (or ends) the workflow if appropriate. If the workflow progresses,
-        next_task will be used to start a specific task next if provided."""
+        """
+        Checks the status of the current task, and progresses (or ends) the workflow if appropriate.
+        If the workflow progresses, next_task will be used to start a specific task next if provided.
+        """
         if self.status != self.STATUS_IN_PROGRESS:
             # Updating a completed or cancelled workflow should have no effect
             return
@@ -4099,7 +4206,9 @@ class WorkflowState(models.Model):
         return successful_task_states
 
     def get_next_task(self):
-        """Returns the next active task, which has not been either approved or skipped"""
+        """
+        Returns the next active task, which has not been either approved or skipped.
+        """
 
         return (
             Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True)
@@ -4145,7 +4254,9 @@ class WorkflowState(models.Model):
 
     @transaction.atomic
     def finish(self, user=None):
-        """Finishes a successful in progress workflow, marking it as approved and performing the ``on_finish`` action"""
+        """
+        Finishes a successful in progress workflow, marking it as approved and performing the ``on_finish`` action.
+        """
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
         self.status = self.STATUS_APPROVED
@@ -4154,7 +4265,9 @@ class WorkflowState(models.Model):
         workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
     def copy_approved_task_states_to_revision(self, revision):
-        """This creates copies of previously approved task states with revision set to a different revision."""
+        """
+        Creates copies of previously approved task states with revision set to a different revision.
+        """
         approved_states = TaskState.objects.filter(
             workflow_state=self, status=TaskState.STATUS_APPROVED
         )
@@ -4162,7 +4275,9 @@ class WorkflowState(models.Model):
             state.copy(update_attrs={"revision": revision})
 
     def revisions(self):
-        """Returns all revisions associated with task states linked to the current workflow state"""
+        """
+        Returns all revisions associated with task states linked to the current workflow state.
+        """
         return Revision.objects.filter(
             base_content_type_id=self.base_content_type_id,
             object_id=self.object_id,
@@ -4170,7 +4285,9 @@ class WorkflowState(models.Model):
         ).defer("content")
 
     def _get_applicable_task_states(self):
-        """Returns the set of task states whose status applies to the current revision"""
+        """
+        Returns the set of task states whose status applies to the current revision.
+        """
 
         task_states = TaskState.objects.filter(workflow_state_id=self.id)
         # If WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True, this is only task states created on the current revision
@@ -4188,8 +4305,8 @@ class WorkflowState(models.Model):
         """
         Returns a list of Task objects that are linked with this workflow state's
         workflow. The status of that task in this workflow state is annotated in the
-        `.status` field. And a displayable version of that status is annotated in the
-        `.status_display` field.
+        ``.status`` field. And a displayable version of that status is annotated in the
+        ``.status_display`` field.
 
         This is different to querying TaskState as it also returns tasks that haven't
         been started yet (so won't have a TaskState).
@@ -4251,7 +4368,9 @@ class WorkflowState(models.Model):
 
     @property
     def is_at_final_task(self):
-        """Returns the next active task, which has not been either approved or skipped"""
+        """
+        Returns the next active task, which has not been either approved or skipped.
+        """
 
         last_task = (
             Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True)
@@ -4401,7 +4520,9 @@ class TaskState(SpecificMixin, models.Model):
 
     @transaction.atomic
     def approve(self, user=None, update=True, comment=""):
-        """Approve the task state and update the workflow state"""
+        """
+        Approve the task state and update the workflow state.
+        """
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
         self.status = self.STATUS_APPROVED
@@ -4420,7 +4541,9 @@ class TaskState(SpecificMixin, models.Model):
 
     @transaction.atomic
     def reject(self, user=None, update=True, comment=""):
-        """Reject the task state and update the workflow state"""
+        """
+        Reject the task state and update the workflow state.
+        """
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
         self.status = self.STATUS_REJECTED
@@ -4440,7 +4563,9 @@ class TaskState(SpecificMixin, models.Model):
 
     @cached_property
     def task_type_started_at(self):
-        """Finds the first chronological started_at for successive TaskStates - ie started_at if the task had not been restarted"""
+        """
+        Finds the first chronological started_at for successive TaskStates - ie started_at if the task had not been restarted.
+        """
         task_states = (
             TaskState.objects.filter(workflow_state=self.workflow_state)
             .order_by("-started_at")
@@ -4456,8 +4581,11 @@ class TaskState(SpecificMixin, models.Model):
 
     @transaction.atomic
     def cancel(self, user=None, resume=False, comment=""):
-        """Cancel the task state and update the workflow state. If ``resume`` is set to True, then upon update the workflow state
-        is passed the current task as ``next_task``, causing it to start a new task state on the current task if possible"""
+        """
+        Cancel the task state and update the workflow state.
+        If ``resume`` is set to True, then upon update the workflow state is passed the current task as ``next_task``,
+        causing it to start a new task state on the current task if possible.
+        """
         self.status = self.STATUS_CANCELLED
         self.finished_at = timezone.now()
         self.comment = comment
@@ -4473,8 +4601,10 @@ class TaskState(SpecificMixin, models.Model):
         return self
 
     def copy(self, update_attrs=None, exclude_fields=None):
-        """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
-        specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
+        """
+        Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes
+        to values specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs.
+        """
         exclude_fields = (
             self.default_exclude_fields_in_copy
             + self.exclude_fields_in_copy
@@ -4720,7 +4850,7 @@ class Comment(ClusterableModel):
     def has_valid_contentpath(self, page):
         """
         Return True if this comment's contentpath corresponds to a valid field or
-        StreamField block on the given page object
+        StreamField block on the given page object.
         """
         field_name, *remainder = self.contentpath.split(".")
         try:

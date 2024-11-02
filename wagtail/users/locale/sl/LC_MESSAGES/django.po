@@ -357,6 +357,9 @@ msgstr ""
 "Ni konfiguriranih uporabnikov. Zakaj jih nebi<a "
 "href=\"%(wagtailusers_add_url)s\">dodali</a>?"
 
+msgid "Can view"
+msgstr "Lahko si ogledata"
+
 #, python-format
 msgid "user %(id)s (deleted)"
 msgstr "uporabnik%(id)s (izbrisan)"

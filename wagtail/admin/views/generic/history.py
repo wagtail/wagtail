@@ -165,6 +165,7 @@ class ActionColumn(Column):
 
         if (
             (url_name := self.url_names.get("revisions_unschedule"))
+            and instance.revision
             and instance.revision.approved_go_live_at
             and self.user_can_unschedule
         ):

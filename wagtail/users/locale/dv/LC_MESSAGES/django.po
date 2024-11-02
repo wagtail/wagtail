@@ -67,6 +67,9 @@ msgstr "ތި ނަން ކިޔާ ގްރޫޕެއް މިހާރުވެސް އެބަހ�
 msgid "You cannot have multiple permission records for the same page."
 msgstr "އެއް ޞަފްޙާއަކަށް ތަފާތު ހުއްދަތަކުގެ ރެކޯޑެއް ނުބެހެއްޓޭނެ"
 
+msgid "submitted notifications"
+msgstr "ހުށަހެޅިފައިވާ އެންގުންތައް"
+
 msgid "Default"
 msgstr "ޑީފޯލްޓް"
 

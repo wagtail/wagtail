@@ -132,7 +132,6 @@ describe('PreviewController', () => {
               data-action="w-preview#togglePreviewSize"
               data-w-preview-target="size"
               data-device-width="375"
-              data-default-size
               checked
             />
             Preview in mobile size
@@ -582,14 +581,9 @@ describe('PreviewController', () => {
       expect(
         currentSizeLabel.classList.contains('w-preview__size-button--selected'),
       ).toBe(true);
-      const defaultSizeInput = document.querySelector(
-        'input[name="preview-size"][data-default-size]',
-      );
-      expect(defaultSizeInput.value).toEqual('mobile');
-      const defaultSizeLabel = defaultSizeInput.labels[0];
       expect(
-        defaultSizeLabel.classList.contains('w-preview__size-button--selected'),
-      ).toBe(false);
+        document.querySelectorAll('.w-preview__size-button--selected'),
+      ).toHaveLength(1);
 
       // However, the actual rendered size should be the default size
       // (This is because the "Preview is unavailable" screen is actually the
@@ -738,14 +732,9 @@ describe('PreviewController', () => {
       expect(
         currentSizeLabel.classList.contains('w-preview__size-button--selected'),
       ).toBe(true);
-      const defaultSizeInput = document.querySelector(
-        'input[name="preview-size"][data-default-size]',
-      );
-      expect(defaultSizeInput.value).toEqual('mobile');
-      const defaultSizeLabel = defaultSizeInput.labels[0];
       expect(
-        defaultSizeLabel.classList.contains('w-preview__size-button--selected'),
-      ).toBe(false);
+        document.querySelectorAll('.w-preview__size-button--selected'),
+      ).toHaveLength(1);
 
       // However, the actual rendered size should be the default size
       // (This is because the "Preview is unavailable" screen is actually the
@@ -944,10 +933,8 @@ describe('PreviewController', () => {
 
     it('should assume the first device size is the default if none are marked as default', async () => {
       // Remove the default size marker
-      document
-        .querySelector('[data-default-size]')
-        .removeAttribute('data-default-size');
-      expect(document.querySelectorAll('[data-default-size]')).toHaveLength(0);
+      document.querySelector(':checked').removeAttribute('checked');
+      expect(document.querySelectorAll(':checked')).toHaveLength(0);
 
       const element = document.querySelector('[data-controller="w-preview"]');
 

@@ -40,6 +40,9 @@ msgstr "Cyfrinair"
 msgid "Comment"
 msgstr "Sylw"
 
+msgid "Locked"
+msgstr "Wedi' gloi"
+
 msgid "Default"
 msgstr "Diofyn"
 

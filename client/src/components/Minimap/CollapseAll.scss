@@ -1,4 +1,5 @@
 .w-minimap__collapse-all {
+  @include more-contrast-interactive();
   display: none;
   // Keep the icon at a stable position and reduce the amount of shifting of the button.
   min-width: 110px;

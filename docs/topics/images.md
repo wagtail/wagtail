@@ -315,7 +315,7 @@ Same as `url`, but always returns a full absolute URL. This requires `WAGTAILADM
 This is useful for images that will be re-used outside of the current site, such as social share images:
 
 ```html+django
-<meta name="twitter:image" content="{{ tmp_photo.full_url }}">
+<meta name="og:image" content="{{ tmp_photo.full_url }}">
 ```
 
 If your site defines a custom image model using `AbstractImage`, any additional fields you add to an image (such as a copyright holder) is **not** included in the rendition.
@@ -394,15 +394,15 @@ Wagtail comes with three pre-defined image formats, but more can be defined in P
 
 ### `Full width`
 
-Creates an image rendition using `width-800`, giving the <img> tag the CSS class `full-width`.
+Creates an image rendition using `width-800`, giving the `<img>` tag the CSS class `full-width`.
 
 ### `Left-aligned`
 
-Creates an image rendition using `width-500`, giving the <img> tag the CSS class `left`.
+Creates an image rendition using `width-500`, giving the `<img>` tag the CSS class `left`.
 
 ### `Right-aligned`
 
-Creates an image rendition using `width-500`, giving the <img> tag the CSS class `right`.
+Creates an image rendition using `width-500`, giving the `<img>` tag the CSS class `right`.
 
 ```{note}
 The CSS classes added to images do **not** come with any accompanying stylesheets or inline styles. For example, the `left` class will do nothing, by default. The developer is expected to add these classes to their front-end CSS files, to define exactly what they want `left`, `right` or `full-width` to mean.
@@ -566,3 +566,17 @@ If a user navigates directly to the URL of the SVG file embedded scripts may be 
 -   setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
 
 The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed.
+
+(heic_heif_images)=
+
+## HEIC / HEIF images
+
+HEIC / HEIF images are not widely supported on the web, but may be encountered when exporting images from Apple devices. Wagtail does not allow upload of these by default, but this can be enabled by adding `"heic"` to `WAGTAILIMAGES_EXTENSIONS`:
+
+```python
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "heic"]
+```
+
+Note that to upload HEIC / HEIF images, the file extension must be `.heic` and not `.heif` or other extensions.
+
+These images will be automatically converted to JPEG format when rendered (see [](customizing_output_formats)).

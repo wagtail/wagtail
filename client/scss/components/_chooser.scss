@@ -15,6 +15,7 @@ $preview-size: 2.625rem; // 42px
 // Very subdued button style specifically for choosers, as there can be a lot of
 // chooser fields left unused on a page editing form.
 .button.chooser__choose-button {
+  @include more-contrast-interactive();
   @apply w-label-3;
   display: flex;
   align-items: center;
@@ -79,11 +80,6 @@ $preview-size: 2.625rem; // 42px
   );
   height: auto;
   width: auto;
-}
-
-.chooser .w-dropdown__toggle--icon {
-  width: $preview-size;
-  height: $preview-size;
 }
 
 // Display these as inline block so that action icons such as comments can appear as close as possible

@@ -9,14 +9,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: pipenv-v2-{{ checksum "setup.py" }}
+          key: pipenv-v3-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               pipenv install -e .[testing,docs]
           fi
       - save_cache:
-          key: pipenv-v2-{{ checksum "setup.py" }}
+          key: pipenv-v3-{{ checksum "setup.py" }}
           paths:
             - .venv
       - run: pipenv run ruff check .
@@ -72,25 +72,25 @@ jobs:
       - attach_workspace:
           at: ~/project
       - restore_cache:
-          key: pipenv-v2-{{ checksum "setup.py" }}
+          key: ui_tests-pipenv-v3-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
               pipenv install -e .[testing]
           fi
       - save_cache:
-          key: pipenv-v2-{{ checksum "setup.py" }}
+          key: ui_tests-pipenv-v3-{{ checksum "setup.py" }}
           paths:
             - .venv
       - restore_cache:
-          key: ui_tests-npm_integration-v2-{{ checksum "client/tests/integration/package-lock.json" }}
+          key: ui_tests-npm_integration-v3-{{ checksum "client/tests/integration/package-lock.json" }}
       # Only install if node_modules wasn’t cached.
       - run: |
           if [[ ! -e "client/tests/integration/node_modules" ]]; then
               npm --prefix ./client/tests/integration ci
           fi
       - save_cache:
-          key: ui_tests-npm_integration-v2-{{ checksum "client/tests/integration/package-lock.json" }}
+          key: ui_tests-npm_integration-v3-{{ checksum "client/tests/integration/package-lock.json" }}
           paths:
             - client/tests/integration/node_modules
             # Also cache the global location where Puppeteer stores browsers.

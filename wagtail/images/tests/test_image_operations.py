@@ -719,6 +719,29 @@ class TestFormatFilter(TestCase):
         # quality=80 is default for the Willow and PIL libraries
         save.assert_called_with(f, "WEBP", quality=80, lossless=True)
 
+    def test_heic(self):
+        fil = Filter(spec="width-400|format-heic")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+        out = fil.run(image, BytesIO())
+
+        self.assertEqual(out.format_name, "heic")
+
+    def test_heic_lossless(self):
+        fil = Filter(spec="width-400|format-heic-lossless")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        f = BytesIO()
+        with patch("PIL.Image.Image.save") as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, "HEIF", quality=-1, chroma=444)
+
     def test_invalid(self):
         fil = Filter(spec="width-400|format-foo")
         image = Image.objects.create(

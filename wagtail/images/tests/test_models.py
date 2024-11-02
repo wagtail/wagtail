@@ -145,6 +145,23 @@ class TestImage(TestCase):
         )
         self.assertIsNone(image.get_suggested_focal_point())
 
+    def test_default_with_description(self):
+        # Primary default should be description
+        image = Image.objects.create(
+            title="Test Image",
+            description="This is a test description",
+            file=get_test_image_file(),
+        )
+        self.assertEqual(image.default_alt_text, image.description)
+
+    def test_default_without_description(self):
+        # Secondary default should be title
+        image = Image.objects.create(
+            title="Test Image",
+            file=get_test_image_file(),
+        )
+        self.assertEqual(image.default_alt_text, image.title)
+
 
 class TestImageQuerySet(TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -786,6 +803,9 @@ class TestRenditions(TestCase):
         with self.assertNumQueries(0):
             prefetched_rendition = fresh_image.get_rendition("width-500")
         self.assertFalse(hasattr(prefetched_rendition, "_mark"))
+
+        # Check that the image instance is the same as the retrieved rendition
+        self.assertIs(new_rendition.image, self.image)
 
         # changing the image file should invalidate the cache
         self.image.file = get_test_image_file(colour="green")

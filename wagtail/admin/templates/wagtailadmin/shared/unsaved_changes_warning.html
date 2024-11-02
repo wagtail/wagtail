@@ -10,23 +10,23 @@
 >
     <div class="footer__save-warning footer__emphasise-span-tags" data-w-messages-target="container"></div>
     {% block message_templates %}
-        {% trans 'Save the page before leaving' as generic_save_page_message %}
+        {% trans 'Save your changes before leaving' as generic_save_message %}
         <template data-w-messages-target="template" data-type="edits">
             <div>
                 <b>{% blocktrans trimmed %}You have <span>unsaved edits</span>{% endblocktrans %}</b>
-                <p>{{ generic_save_page_message }}</p>
+                <p>{{ generic_save_message }}</p>
             </div>
         </template>
         <template data-w-messages-target="template" data-type="comments">
             <div>
                 <b>{% blocktrans trimmed %}You have <span>unsaved comments</span>{% endblocktrans %}</b>
-                <p>{{ generic_save_page_message }}</p>
+                <p>{{ generic_save_message }}</p>
             </div>
         </template>
         <template data-w-messages-target="template" data-type="all">
             <div>
                 <b>{% blocktrans trimmed %}You have <span>unsaved edits</span> and <span>comments</span>{% endblocktrans %}</b>
-                <p>{{ generic_save_page_message }}</p>
+                <p>{{ generic_save_message }}</p>
             </div>
         </template>
     {% endblock %}

@@ -1,6 +1,6 @@
 (api_v2_configuration)=
 
-# Wagtail API v2 Configuration Guide
+# Wagtail API v2 configuration guide
 
 This section of the docs will show you how to set up a public API for your
 Wagtail site.

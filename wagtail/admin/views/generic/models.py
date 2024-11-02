@@ -41,6 +41,7 @@ from wagtail.admin.ui.tables import (
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
+    Button,
     ButtonWithDropdown,
     HeaderButton,
     ListingButton,
@@ -442,6 +443,7 @@ class CreateView(
         "The %(model_name)s could not be created due to errors."
     )
     submit_button_label = gettext_lazy("Create")
+    submit_button_active_label = gettext_lazy("Creating…")
     actions = ["create"]
 
     def setup(self, request, *args, **kwargs):
@@ -532,14 +534,20 @@ class CreateView(
             % {"model_name": self.model and self.model._meta.verbose_name}
         )
 
+    @cached_property
+    def has_unsaved_changes(self):
+        return self.form.is_bound
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
         side_panels = self.get_side_panels()
         context["action_url"] = self.add_url
         context["submit_button_label"] = self.submit_button_label
+        context["submit_button_active_label"] = self.submit_button_active_label
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
+        context["has_unsaved_changes"] = self.has_unsaved_changes
         return context
 
     def get_side_panels(self):
@@ -649,8 +657,10 @@ class EditView(
     form_class = None
     index_url_name = None
     edit_url_name = None
+    copy_url_name = None
     delete_url_name = None
     history_url_name = None
+    inspect_url_name = None
     usage_url_name = None
     page_title = gettext_lazy("Editing")
     context_object_name = None
@@ -660,6 +670,7 @@ class EditView(
     success_message = gettext_lazy("%(model_name)s '%(object)s' updated.")
     error_message = gettext_lazy("The %(model_name)s could not be saved due to errors.")
     submit_button_label = gettext_lazy("Save")
+    submit_button_active_label = gettext_lazy("Saving…")
     actions = ["edit"]
 
     def setup(self, request, *args, **kwargs):
@@ -723,6 +734,42 @@ class EditView(
             .first()
         )
 
+    @cached_property
+    def can_delete(self):
+        return self.user_has_permission_for_instance("delete", self.object)
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = []
+        if copy_url := self.get_copy_url():
+            buttons.append(
+                Button(
+                    _("Copy"),
+                    url=copy_url,
+                    icon_name="copy",
+                    priority=10,
+                )
+            )
+        if self.can_delete and (delete_url := self.get_delete_url()):
+            buttons.append(
+                Button(
+                    self.delete_item_label,
+                    url=delete_url,
+                    icon_name="bin",
+                    priority=20,
+                )
+            )
+        if inspect_url := self.get_inspect_url():
+            buttons.append(
+                Button(
+                    _("Inspect"),
+                    url=inspect_url,
+                    icon_name="info-circle",
+                    priority=30,
+                )
+            )
+        return buttons
+
     def get_edit_url(self):
         if not self.edit_url_name:
             raise ImproperlyConfigured(
@@ -731,6 +778,10 @@ class EditView(
             )
         return reverse(self.edit_url_name, args=(quote(self.object.pk),))
 
+    def get_copy_url(self):
+        if self.copy_url_name and self.user_has_permission("add"):
+            return reverse(self.copy_url_name, args=(quote(self.object.pk),))
+
     def get_delete_url(self):
         if self.delete_url_name:
             return reverse(self.delete_url_name, args=(quote(self.object.pk),))
@@ -738,6 +789,10 @@ class EditView(
     def get_history_url(self):
         if self.history_url_name:
             return reverse(self.history_url_name, args=(quote(self.object.pk),))
+
+    def get_inspect_url(self):
+        if self.inspect_url_name:
+            return reverse(self.inspect_url_name, args=(quote(self.object.pk),))
 
     def get_usage_url(self):
         if self.usage_url_name:
@@ -839,6 +894,10 @@ class EditView(
             messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
+    @cached_property
+    def has_unsaved_changes(self):
+        return self.form.is_bound
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         self.form = context.get("form")
@@ -848,9 +907,9 @@ class EditView(
         context["side_panels"] = side_panels
         context["media"] += side_panels.media
         context["submit_button_label"] = self.submit_button_label
-        context["can_delete"] = self.user_has_permission_for_instance(
-            "delete", self.object
-        )
+        context["submit_button_active_label"] = self.submit_button_active_label
+        context["has_unsaved_changes"] = self.has_unsaved_changes
+        context["can_delete"] = self.can_delete
         if context["can_delete"]:
             context["delete_url"] = self.get_delete_url()
             context["delete_item_label"] = self.delete_item_label
@@ -1021,6 +1080,19 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         )
         return self.breadcrumbs_items + items
 
+    @cached_property
+    def header_more_buttons(self):
+        buttons = []
+        if edit_url := self.get_edit_url():
+            buttons.append(
+                Button(_("Edit"), url=edit_url, icon_name="edit", priority=10)
+            )
+        if delete_url := self.get_delete_url():
+            buttons.append(
+                Button(_("Delete"), url=delete_url, icon_name="bin", priority=20)
+            )
+        return buttons
+
     def get_fields(self):
         fields = self.fields or [
             f.name
@@ -1090,8 +1162,6 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         context = super().get_context_data(**kwargs)
         context["object"] = self.object
         context["fields"] = self.get_fields_context()
-        context["edit_url"] = self.get_edit_url()
-        context["delete_url"] = self.get_delete_url()
         return context
 
 

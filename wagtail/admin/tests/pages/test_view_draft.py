@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.models import Page
-from wagtail.test.testapp.models import SimplePage, StreamPage
+from wagtail.test.testapp.models import MultiPreviewModesPage, SimplePage, StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -112,3 +112,34 @@ class TestDraftAccess(WagtailTestUtils, TestCase):
         self.assertContains(
             response, reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
+
+    def test_preview_modes(self):
+        """
+        Test that the preview_modes are respected when viewing a draft.
+        """
+        # Create a page with multiple preview modes
+        page = MultiPreviewModesPage(title="multi preview modes page")
+        self.root_page.add_child(instance=page)
+
+        # Login as admin
+        self.user = self.login()
+
+        # Test using explicit preview mode parameter
+        for mode, label in page.preview_modes:
+            with self.subTest(mode=mode, label=label):
+                response = self.client.get(
+                    reverse("wagtailadmin_pages:view_draft", args=(page.id,)),
+                    {"mode": mode},
+                )
+                # Ensure the correct template is used
+                self.assertEqual(response.status_code, 200)
+                preview_template = page.preview_templates[mode]
+                self.assertTemplateUsed(response, preview_template)
+
+        # Test default preview mode with no parameter
+        response = self.client.get(
+            reverse("wagtailadmin_pages:view_draft", args=(page.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        preview_template = page.preview_templates[page.default_preview_mode]
+        self.assertTemplateUsed(response, preview_template)

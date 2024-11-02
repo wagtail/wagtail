@@ -5,13 +5,14 @@
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2017,2020
 # Matt Westcott <matthew@torchbox.com>, 2017
+# Philip Lindsay-Crisp, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-07 10:06+0100\n"
 "PO-Revision-Date: 2016-03-01 19:20+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2017\n"
+"Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,10 @@ msgstr ""
 
 msgid "default"
 msgstr "diofyn"
+
+#, python-format
+msgid "%(site_setting)s for %(site)s"
+msgstr "%(site_setting)s i %(site)s"
 
 msgid "Site"
 msgstr "Safle"

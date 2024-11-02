@@ -8,6 +8,10 @@
   .form-side--checks & {
     display: block;
   }
+
+  @include more-contrast() {
+    border-color: theme('colors.border-furniture-more-contrast');
+  }
 }
 
 .w-a11y-result__header {

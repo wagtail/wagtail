@@ -142,6 +142,13 @@ msgstr "Ia, dileu"
 msgid "No, don't delete"
 msgstr "Na, peidiwch a ddileu"
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Beth am <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>uwchlwytho un rwan</a>?"
+
 msgid "Uploading…"
 msgstr "Wrthi'n uwchlwytho…"
 
@@ -175,6 +182,9 @@ msgstr "Ychwanegu at y casgliad:"
 
 msgid "Sorry, upload failed."
 msgstr "Mae'n ddrwg gennym, ni fu modd uwchlwytho."
+
+msgid "Tags"
+msgstr "Tagiau"
 
 msgid "Tag"
 msgstr "Tag"

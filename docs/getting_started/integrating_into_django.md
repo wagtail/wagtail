@@ -54,6 +54,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 ```
 
+Set the `DATA_UPLOAD_MAX_NUMBER_FIELDS` setting to 10000 or higher. This specifies the maximum number of fields allowed in a form submission, and it is recommended to increase this from Django's default of 1000, as particularly complex page models can exceed this limit within Wagtail's page editor:
+
+```python
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
+```
+
 Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the Wagtail admin backend:
 
 ```python

@@ -9,6 +9,7 @@ from freezegun import freeze_time
 from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
+    CustomPreviewSizesPage,
     EventCategory,
     MultiPreviewModesPage,
     SimplePage,
@@ -414,6 +415,26 @@ class TestPreview(WagtailTestUtils, TestCase):
                 response = self.client.get(preview_url + params)
                 self.assertEqual(response.status_code, 200)
                 self.assertTemplateUsed(response, template)
+
+    def test_preview_sizes(self):
+        page = CustomPreviewSizesPage(title="Custom preview size")
+        self.home_page.add_child(instance=page)
+        edit_url = reverse("wagtailadmin_pages:edit", args=(page.id,))
+
+        response = self.client.get(edit_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        radios = soup.select('input[type="radio"][name="preview-size"]')
+        self.assertEqual(len(radios), 2)
+
+        self.assertEqual("412", radios[0]["data-device-width"])
+        self.assertEqual("Custom mobile preview", radios[0]["aria-label"])
+        self.assertFalse(radios[0].has_attr("checked"))
+
+        self.assertEqual("1280", radios[1]["data-device-width"])
+        self.assertEqual("Original desktop", radios[1]["aria-label"])
+        self.assertTrue(radios[1].has_attr("checked"))
 
 
 class TestEnablePreview(WagtailTestUtils, TestCase):

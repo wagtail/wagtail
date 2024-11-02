@@ -194,7 +194,7 @@ class TestLockedPagesView(BaseReportViewTestCase):
         self.assertActiveFilterNotRendered(soup)
 
         # Locked by current user shown in indicator
-        self.assertContains(response, "locked-indicator indicator--is-inverse")
+        self.assertNotContains(response, "indicator--is-dimmed")
         self.assertContains(
             response, 'title="This page is locked, by you, to further editing"'
         )

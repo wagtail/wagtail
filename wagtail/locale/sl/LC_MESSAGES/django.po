@@ -564,6 +564,9 @@ msgstr "vnos v dnevnik modela"
 msgid "model log entries"
 msgstr "vnosi v dnevnik modela"
 
+msgid "locale"
+msgstr "lokalno"
+
 msgid "collection"
 msgstr "zbirka"
 

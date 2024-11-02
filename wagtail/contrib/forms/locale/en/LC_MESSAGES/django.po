@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,7 +148,7 @@ msgstr ""
 msgid "help text"
 msgstr ""
 
-#: models.py:195 views.py:149
+#: models.py:195 views.py:194
 msgid "Submission date"
 msgstr ""
 
@@ -198,15 +198,15 @@ msgid_plural "Are you sure you want to delete these form submissions?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailforms/confirm_delete.html:20
+#: templates/wagtailforms/confirm_delete.html:21
 msgid "Delete"
 msgstr ""
 
-#: templates/wagtailforms/list_submissions.html:36
+#: templates/wagtailforms/list_submissions.html:37
 msgid "Delete selected submissions"
 msgstr ""
 
-#: templates/wagtailforms/list_submissions.html:44
+#: templates/wagtailforms/list_submissions.html:45
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr ""
@@ -224,29 +224,33 @@ msgstr ""
 msgid "Submissions of %(form_title)s"
 msgstr ""
 
-#: views.py:52 views.py:267 wagtail_hooks.py:26
+#: views.py:54
+msgid "Page type"
+msgstr ""
+
+#: views.py:81 views.py:311 wagtail_hooks.py:26
 msgid "Forms"
 msgstr ""
 
-#: views.py:59
+#: views.py:97
 msgid "Title"
 msgstr ""
 
-#: views.py:66
+#: views.py:107
 msgid "Origin"
 msgstr ""
 
-#: views.py:76
+#: views.py:116
 msgid "Pages"
 msgstr ""
 
-#: views.py:105
+#: views.py:146
 #, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: views.py:168
+#: views.py:213
 msgid "Form data"
 msgstr ""

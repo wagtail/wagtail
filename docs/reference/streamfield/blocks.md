@@ -25,7 +25,7 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ], block_counts={
     'heading': {'min_num': 1},
     'image': {'max_num': 5},
@@ -338,8 +338,27 @@ All block definitions accept the following optional keyword arguments:
     A control to allow the editor to select an existing document object, or upload a new one. The following additional keyword argument is accepted:
 
     :param required: If true (the default), the field cannot be left blank.
+```
 
+(streamfield_imageblock)=
 
+```{eval-rst}
+
+.. autoclass:: wagtail.images.blocks.ImageBlock
+    :show-inheritance:
+
+    An accessibility-focused control to allow the editor to select an existing image, or upload a new one. This has provision for adding alt text and indicating whether images are purely decorative, and is the Wagtail-recommended approach to uploading images. The following additional keyword argument is accepted:
+
+    :param required: If true (the default), the field cannot be left blank.
+
+    ``ImageBlock`` incorporates backwards compatibility with ``ImageChooserBlock``. A block initially defined as ``ImageChooserBlock`` can be directly replaced with ``ImageBlock`` - existing data created with ``ImageChooserBlock`` will be handled automatically and changed to ``ImageBlock``'s data format when the field is resaved.
+```
+
+```{versionadded} 6.3
+The `ImageBlock` block type was added. Blocks previously defined as `ImageChooserBlock` can be directly replaced with `ImageBlock` to benefit from the alt text support, with no data migration or template changes required.
+```
+
+```{eval-rst}
 .. autoclass:: wagtail.images.blocks.ImageChooserBlock
     :show-inheritance:
 
@@ -412,7 +431,7 @@ All block definitions accept the following optional keyword arguments:
            ('person', blocks.StructBlock([
                ('first_name', blocks.CharBlock()),
                ('surname', blocks.CharBlock()),
-               ('photo', ImageChooserBlock(required=False)),
+               ('photo', ImageBlock(required=False)),
                ('biography', blocks.RichTextBlock()),
            ], icon='user')),
        ])
@@ -426,7 +445,7 @@ All block definitions accept the following optional keyword arguments:
        class PersonBlock(blocks.StructBlock):
            first_name = blocks.CharBlock()
            surname = blocks.CharBlock()
-           photo = ImageChooserBlock(required=False)
+           photo = ImageBlock(required=False)
            biography = blocks.RichTextBlock()
 
            class Meta:
@@ -442,7 +461,7 @@ All block definitions accept the following optional keyword arguments:
        body = StreamField([
            ('heading', blocks.CharBlock(form_classname="title")),
            ('paragraph', blocks.RichTextBlock()),
-           ('image', ImageChooserBlock()),
+           ('image', ImageBlock()),
            ('person', PersonBlock()),
        ])
 
@@ -504,7 +523,7 @@ All block definitions accept the following optional keyword arguments:
            # ...
            ('carousel', blocks.StreamBlock(
                [
-                   ('image', ImageChooserBlock()),
+                   ('image', ImageBlock()),
                    ('quotation', blocks.StructBlock([
                        ('text', blocks.TextBlock()),
                        ('author', blocks.CharBlock()),
@@ -521,7 +540,7 @@ All block definitions accept the following optional keyword arguments:
     .. code-block:: python
 
        class CarouselBlock(blocks.StreamBlock):
-           image = ImageChooserBlock()
+           image = ImageBlock()
            quotation = blocks.StructBlock([
                ('text', blocks.TextBlock()),
                ('author', blocks.CharBlock()),

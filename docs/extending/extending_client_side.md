@@ -103,13 +103,13 @@ Finally, load the JavaScript file into Wagtail's admin with a hook.
 ```python
 # myapp/wagtail_hooks.py
 from django.templatetags.static import static
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from wagtail import hooks
 
 @hooks.register('insert_global_admin_js')
 def global_admin_js():
-    return mark_safe(
+    return format_html(
         f'<script src="{static("js/example.js")}"></script>',
     )
 ```

@@ -163,6 +163,33 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertNotContains(response, "There are no enabled workflows.")
         self.assertContains(response, "test_workflow")
 
+    def test_multiple_snippets_assigned_to_workflow(self):
+        Workflow.objects.create(name="Nocontenttypes")
+        multi_ct_workflow = Workflow.objects.create(name="Multicontenttypes")
+        for model in [FullFeaturedSnippet, ModeratedModel]:
+            WorkflowContentType.objects.create(
+                workflow=multi_ct_workflow,
+                content_type=ContentType.objects.get_for_model(model),
+            )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        cells = [
+            text
+            for td in soup.select("td")
+            if (text := td.get_text(separator=" | ", strip=True))
+        ]
+        self.assertEqual(
+            cells,
+            [
+                "Multicontenttypes",
+                "0 pages | 2 snippet types",
+                "Nocontenttypes",
+                "0 pages | 0 snippet types",
+            ],
+        )
+
     def test_num_queries(self):
         self.create_workflows()
         self.get()
@@ -1894,7 +1921,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -1910,7 +1937,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
@@ -1924,7 +1951,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -1940,7 +1967,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After cancel, as a submitter, should only see save and submit buttons
@@ -1953,7 +1980,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     def test_workflow_action_menu_items_when_reverting(self):
@@ -1973,7 +2000,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -1989,7 +2016,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save button
@@ -2003,7 +2030,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -2019,7 +2046,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After cancel, as a submitter, should only see save button
@@ -2033,7 +2060,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     @override_settings(WAGTAILADMIN_BASE_URL="http://admin.example.com")
@@ -2180,7 +2207,7 @@ class TestSubmitPageToWorkflow(BasePageWorkflowTests):
 
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save " disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
         self.assertNotContains(
             response,
@@ -2245,7 +2272,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -2262,7 +2289,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save, approve, and reject buttons
@@ -2276,7 +2303,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -2292,7 +2319,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     def test_workflow_action_menu_items_when_reverting(self):
@@ -2312,7 +2339,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # submit for approval
@@ -2329,7 +2356,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         # After submit, as a moderator, should only see save button
@@ -2343,7 +2370,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
         self.reject()
@@ -2359,7 +2386,7 @@ class TestSubmitSnippetToWorkflowNotLockable(TestSubmitSnippetToWorkflow):
         self.assertNotContains(response, "Request changes")
         self.assertNotContains(
             response,
-            '<button type="submit" class="button action-save warning" disabled>',
+            '<button type="submit" class="button action-save" disabled>',
         )
 
     def test_submit_for_approval_changes_lock_status(self):

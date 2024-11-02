@@ -94,7 +94,7 @@ Admin
 * ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
 * Page model fields without a ``FieldPanel`` are no longer displayed in the form
 * No longer need to specify the base model on ``InlinePanel`` definitions
-* Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface. See :ref:`customising_the_tabbed_interface`.
+* Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface. See :ref:`customizing_the_tabbed_interface`.
 
 
 **Other admin changes**
@@ -339,7 +339,7 @@ Previously, the forms for creating and editing images followed Django's default 
 ``construct_wagtail_edit_bird`` hook has been renamed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Previously you could customise the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
+Previously you could customize the Wagtail userbar using the ``construct_wagtail_edit_bird`` hook.
 The hook has been renamed to ``construct_wagtail_userbar``.
 
 The old hook is now deprecated; all existing ``construct_wagtail_edit_bird`` declarations should be updated to the new hook.

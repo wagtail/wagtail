@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ngettext
 
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.admin.views.pages.search import page_filter_search
@@ -55,3 +56,19 @@ class PageBulkAction(BulkAction):
 
     def get_execution_context(self):
         return {"user": self.request.user}
+
+    def get_parent_page_text(self, num_parent_objects):
+        # Translators: This appears within a message such as "2 pages and 3 child pages have been published"
+        return ngettext(
+            "%(num_parent_objects)d page",
+            "%(num_parent_objects)d pages",
+            num_parent_objects,
+        ) % {"num_parent_objects": num_parent_objects}
+
+    def get_child_page_text(self, num_child_objects):
+        # Translators: This appears within a message such as "2 pages and 3 child pages have been published"
+        return ngettext(
+            "%(num_child_objects)d child page",
+            "%(num_child_objects)d child pages",
+            num_child_objects,
+        ) % {"num_child_objects": num_child_objects}

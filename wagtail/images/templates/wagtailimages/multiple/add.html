@@ -17,7 +17,17 @@
         <form action="{% url 'wagtailimages:add_multiple' %}" method="POST" enctype="multipart/form-data">
             <div class="replace-file-input">
                 <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
-                <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_multiple' %}" multiple>
+                <input
+                    id="fileupload"
+                    multiple
+                    name="files[]"
+                    type="file"
+                    data-accept-file-types="/\.({{ allowed_extensions|join:'|' }})$/i"
+                    data-max-file-size="{{ max_filesize|stringformat:'s'|default:'null' }}"
+                    data-max-title-length="{{ max_title_length|stringformat:'s'|default:'null' }}"
+                    data-messages='{"maxFileSize": "{{ error_max_file_size|escapejs }}", "acceptFileTypes": "{{ error_accepted_file_types|escapejs }}"}'
+                    data-url="{% url 'wagtailimages:add_multiple' %}"
+                >
             </div>
             {% csrf_token %}
             {% if collections %}
@@ -54,6 +64,7 @@
                 </div>
             </div>
             <div class="right col9">
+                <p class="error-message">{% trans "Please provide an image description to comply with best practices for accessibility." %}</p>
                 <p class="status-msg success">{% trans "Upload successful. Please update this image with a more appropriate title, if necessary. You may also delete the image completely if the upload wasn't required." %}</p>
                 <p class="status-msg warning">
                     {% trans "Upload successful. However, your new image seems to be a duplicate of this existing image. You may delete it if it wasn't required." %}
@@ -88,16 +99,4 @@
 
     <!-- Main script -->
     <script src="{% versioned_static 'wagtailimages/js/add-multiple.js' %}"></script>
-
-    <script>
-        window.fileupload_opts = {
-            accepted_file_types: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
-            max_file_size: {{ max_filesize|stringformat:"s"|default:"null" }}, //numeric format
-            max_title_length: {{ max_title_length|stringformat:"s"|default:"null" }}, //numeric format
-            errormessages: {
-                max_file_size: "{{ error_max_file_size|escapejs }}",
-                accepted_file_types: "{{ error_accepted_file_types|escapejs }}"
-            }
-        }
-    </script>
 {% endblock %}

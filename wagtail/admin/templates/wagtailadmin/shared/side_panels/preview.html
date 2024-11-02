@@ -12,18 +12,24 @@
 >
     <div class="w-preview__sizes">
         {% block size_buttons %}
-            <label class="w-preview__size-button">
-                {% icon name="mobile-alt" %}
-                <input type="radio" class="w-preview__proxy" name="preview-size" value="mobile" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="375" data-default-size checked aria-label="{% trans 'Preview in mobile size' %}" />
-            </label>
-            <label class="w-preview__size-button">
-                {% icon name="tablet-alt" %}
-                <input type="radio" class="w-preview__proxy" name="preview-size" value="tablet" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="768" aria-label="{% trans 'Preview in tablet size' %}" />
-            </label>
-            <label class="w-preview__size-button">
-                {% icon name="desktop" %}
-                <input type="radio" class="w-preview__proxy" name="preview-size" value="desktop" data-action="w-preview#togglePreviewSize" data-w-preview-target="size" data-device-width="1280" aria-label="{% trans 'Preview in desktop size' %}" />
-            </label>
+            {% for size in object.preview_sizes %}
+                <label class="w-preview__size-button">
+                    {% icon name=size.icon %}
+                    <input
+                        type="radio"
+                        class="w-preview__proxy"
+                        name="preview-size"
+                        value="{{ size.name }}"
+                        data-action="w-preview#togglePreviewSize"
+                        data-w-preview-target="size"
+                        aria-label="{{ size.label }}"
+                        data-device-width="{{ size.device_width|stringformat:'s' }}"
+                        {% if object.default_preview_size == size.name %}
+                            checked
+                        {% endif %}
+                    />
+                </label>
+            {% endfor %}
         {% endblock %}
 
         {% block new_tab_button %}

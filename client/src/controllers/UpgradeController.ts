@@ -1,6 +1,16 @@
 import { Controller } from '@hotwired/stimulus';
 import { VersionNumber, VersionDeltaType } from '../utils/version';
 
+interface VersionData {
+  version: string;
+  url: string;
+  minorUrl: string;
+}
+
+interface LatestVersionData extends VersionData {
+  lts: VersionData;
+}
+
 /**
  * Controls the upgrade notification component to request the latest version
  * of Wagtail and presents a message to the user if the current version
@@ -20,23 +30,38 @@ import { VersionNumber, VersionDeltaType } from '../utils/version';
  * }
  */
 export class UpgradeController extends Controller<HTMLElement> {
-  static classes = ['hidden'];
-  static targets = ['latestVersion', 'link'];
+  static targets = ['latestVersion', 'link', 'dismiss'];
   static values = {
     currentVersion: String,
     ltsOnly: { default: false, type: Boolean },
     url: { default: 'https://releases.wagtail.org/latest.txt', type: String },
   };
 
+  declare readonly hasLatestVersionTarget: boolean;
+  declare readonly hasLinkTarget: boolean;
+  declare readonly hasDismissTarget: boolean;
   declare currentVersionValue: string;
-  declare hiddenClass: string;
   declare latestVersionTarget: HTMLElement;
   declare linkTarget: HTMLElement;
+  declare dismissTarget: HTMLElement;
   declare ltsOnlyValue: any;
   declare urlValue: string;
 
   connect() {
     this.checkVersion();
+  }
+
+  /**
+   * The version number that the user has acknowledged.
+   *
+   * Use the last dismissed version if it exists, or the current version otherwise.
+   */
+  get knownVersion() {
+    return new VersionNumber(
+      (this.hasDismissTarget &&
+        this.dismissTarget.getAttribute('data-w-dismissible-value-param')) ||
+        this.currentVersionValue,
+    );
   }
 
   checkVersion() {
@@ -54,41 +79,54 @@ export class UpgradeController extends Controller<HTMLElement> {
         }
         return response.json();
       })
-      .then((payload) => {
-        let data = payload;
-        if (data && data.lts && showLTSOnly) {
-          data = data.lts;
+      .then((payload: LatestVersionData) => {
+        let data: VersionData = payload;
+        if (payload && payload.lts && showLTSOnly) {
+          data = payload.lts;
+        }
+        // The data is not what we expect, so we can't show the notification.
+        if (!data?.version) return;
+
+        const latestVersion = new VersionNumber(data.version);
+        const versionDelta = currentVersion.howMuchBehind(latestVersion);
+
+        // Check with the last dismissed version if it exists, so we don't
+        // show the notification again if the user has already dismissed it.
+        if (!this.knownVersion.howMuchBehind(latestVersion)) {
+          return;
         }
 
-        if (data && data.version) {
-          const latestVersion = new VersionNumber(data.version);
-          const versionDelta = currentVersion.howMuchBehind(latestVersion);
-
-          let releaseNotesUrl = null;
-          if (!versionDelta) {
-            return;
-          }
-          if (
-            versionDelta === VersionDeltaType.MAJOR ||
-            versionDelta === VersionDeltaType.MINOR
-          ) {
-            releaseNotesUrl = data.minorUrl;
-          } else {
-            releaseNotesUrl = data.url;
-          }
-
-          if (this.latestVersionTarget instanceof HTMLElement) {
-            const versionLabel = [data.version, showLTSOnly ? '(LTS)' : '']
-              .join(' ')
-              .trim();
-            this.latestVersionTarget.textContent = versionLabel;
-          }
-
-          if (this.linkTarget instanceof HTMLElement) {
-            this.linkTarget.setAttribute('href', releaseNotesUrl || '');
-          }
-          this.element.classList.remove(this.hiddenClass);
+        // But use the actual installed version to check whether we want to
+        // link to the feature release notes or the patch release notes.
+        let releaseNotesUrl: string;
+        if (
+          versionDelta === VersionDeltaType.MAJOR ||
+          versionDelta === VersionDeltaType.MINOR
+        ) {
+          releaseNotesUrl = data.minorUrl;
+        } else {
+          releaseNotesUrl = data.url;
         }
+
+        if (this.hasLatestVersionTarget) {
+          const versionLabel = [data.version, showLTSOnly ? '(LTS)' : '']
+            .join(' ')
+            .trim();
+          this.latestVersionTarget.textContent = versionLabel;
+        }
+
+        if (this.hasLinkTarget) {
+          this.linkTarget.setAttribute('href', releaseNotesUrl || '');
+        }
+
+        if (this.hasDismissTarget) {
+          this.dismissTarget.setAttribute(
+            'data-w-dismissible-value-param',
+            data.version,
+          );
+        }
+
+        this.element.hidden = false;
       })
       .catch((err) => {
         // eslint-disable-next-line no-console

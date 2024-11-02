@@ -1,6 +1,8 @@
-(editing_api)=
+(panels_reference)=
 
-# Panel types
+# Panels
+
+(editing_api)=
 
 ## Built-in Fields and Choosers
 
@@ -21,7 +23,7 @@ Here are some built-in panel types that you can use in your panel definitions. T
 ```{eval-rst}
 .. autoclass:: FieldPanel
 
-    This is the panel to use for basic Django model field types. It provides a default icon and heading based on the model field definition, but they can be customized by passing additional arguments to the constructor. For more details, see :ref:`customising_panels`.
+    This is the panel to use for basic Django model field types. It provides a default icon and heading based on the model field definition, but they can be customized by passing additional arguments to the constructor. For more details, see :ref:`customizing_panels`.
 
     .. attribute:: FieldPanel.field_name
 
@@ -304,18 +306,18 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 .. autoclass:: TitleFieldPanel
 
-    This is the panel to use for Page title fields or main titles on other models. It provides a default classname, placeholder, and widget attributes to enable the automatic sync with the slug field in the form. Many of these defaults can be customized by passing additional arguments to the constructor. All the same `FieldPanel` arguments are supported including a custom widget. For more details, see :ref:`customising_panels`.
+    This is the panel to use for Page title fields or main titles on other models. It provides a default classname, placeholder, and widget attributes to enable the automatic sync with the slug field in the form. Many of these defaults can be customized by passing additional arguments to the constructor. All the same `FieldPanel` arguments are supported including a custom widget. For more details, see :ref:`customizing_panels`.
 
 ```
 
-(customising_panels)=
+(customizing_panels)=
 
 ## Panel customization
 
-By adding extra parameters to your panel/field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behavior from Django's admin, so you may find many options for customisation covered there.
+By adding extra parameters to your panel/field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behavior from Django's admin, so you may find many options for customization covered there.
 (See [Django model field reference](inv:django#ref/models/fields)).
 
-(customising_panel_icons)=
+(customizing_panel_icons)=
 
 ### Icons
 
@@ -442,4 +444,46 @@ For example, you can use the `attrs` parameter to integrate your Stimulus contro
             attrs={'data-controller': 'my-controller'},
         ),
     ]
+```
+
+(panels_api)=
+
+## Panel API
+
+```{eval-rst}
+.. module:: wagtail.admin.panels
+```
+
+This document describes the reference API for the base `Panel` and the `BoundPanel` classes that are used to render Wagtail's panels. For available panel types and how to use them, see [](editing_api).
+
+### `Panel`
+
+```{eval-rst}
+.. autoclass:: Panel
+
+   .. automethod:: bind_to_model
+   .. automethod:: on_model_bound
+   .. automethod:: clone
+   .. automethod:: clone_kwargs
+   .. automethod:: get_form_options
+   .. automethod:: get_form_class
+   .. automethod:: get_bound_panel
+   .. autoproperty:: clean_name
+```
+
+### `BoundPanel`
+
+```{eval-rst}
+
+.. autoclass:: wagtail.admin.panels.Panel.BoundPanel
+
+   In addition to the standard template component functionality (see :ref:`creating_template_components`), this provides the following attributes and methods:
+
+   .. autoattribute:: panel
+   .. autoattribute:: instance
+   .. autoattribute:: request
+   .. autoattribute:: form
+   .. autoattribute:: prefix
+   .. automethod:: id_for_label
+   .. automethod:: is_shown
 ```
