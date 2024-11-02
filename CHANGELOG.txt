@@ -65,6 +65,7 @@ Changelog
  * Maintenance: Refactor redirects create/delete views to use generic views (Sage Abdullah)
  * Maintenance: Add JSDoc description, adopt linting recommendations, and add more unit tests for `ModalWorkflow` (LB (Ben) Johnston)
  * Maintenance: Add support for for a `delay` value in `TagController` to debounce async autocomplete tag fetch requests (Aayushman Singh)
+ * Maintenance: Add unit tests, Storybook stories & JSDoc items for the Stimulus `DrilldownController` (Srishti Jaiswal)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT

@@ -1,10 +1,32 @@
 import { Controller } from '@hotwired/stimulus';
-import { ActionController } from './ActionController';
-import { DropdownController } from './DropdownController';
+
+import type { ActionController } from './ActionController';
+import type { DropdownController } from './DropdownController';
 
 /**
  * Drilldown menu interaction combined with URL-driven
  * state management for listing filters.
+ *
+ * @example
+ * ```html
+ * <section>
+ *   <div data-controller="w-drilldown" data-w-drilldown-count-attr-value="data-w-active-filter-id">
+ *     <div data-w-drilldown-target="menu">
+ *       <h2>Filter by</h2>
+ *       <button type="button" aria-expanded="false" aria-controls="drilldown-field-0" data-w-drilldown-target="toggle" data-action="click->w-drilldown#open">Field 1</button>
+ *       <button type="button" aria-expanded="false" aria-controls="drilldown-field-1" data-w-drilldown-target="toggle" data-action="click->w-drilldown#open">Field 2</button>
+ *     </div>
+ *     <div id="drilldown-field-0" hidden tabIndex="-1">
+ *       <p>...items for field 1</p>
+ *       <button type="button" data-action="click->w-drilldown#close">Back</button>
+ *     </div>
+ *     <div id="drilldown-field-1" hidden tabIndex="-1">
+ *       <p>...items for field 2</p>
+ *       <button type="button" data-action="click->w-drilldown#close">Back</button>
+ *     </div>
+ *   </div>
+ * </section>
+ * ```
  */
 export class DrilldownController extends Controller<HTMLElement> {
   static targets = ['count', 'menu', 'toggle'];
@@ -27,14 +49,22 @@ export class DrilldownController extends Controller<HTMLElement> {
     'w-dropdown',
   ];
 
+  /** Currently active submenu id. */
   declare activeSubmenuValue: string;
+  /** Attribute used to count items. */
   declare countAttrValue: string;
 
+  /** Targets for displaying item counts. */
   declare readonly countTargets: HTMLElement[];
+  /** Main menu target element. */
   declare readonly menuTarget: HTMLElement;
+  /** Targets for submenu toggle buttons. */
   declare readonly toggleTargets: HTMLButtonElement[];
+  /** Indicates if w-dropdown outlet is present. */
   declare readonly hasWDropdownOutlet: boolean;
+  /** Outlets for action controllers. */
   declare readonly wActionOutlets: ActionController[];
+  /** Outlet for the dropdown controller. */
   declare readonly wDropdownOutlet: DropdownController;
 
   countTargetConnected() {
