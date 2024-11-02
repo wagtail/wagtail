@@ -33,7 +33,7 @@
         {% endblock %}
 
         {% block new_tab_button %}
-            <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="w-preview__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
+            <a href="{{ preview_url }}?mode={{ object.default_preview_mode|urlencode }}" target="_blank" rel="noreferrer" class="w-preview__size-button" data-w-preview-target="newTab" data-action="w-preview#openPreviewInNewTab:prevent" aria-label="{% trans 'Preview in new tab' %}">{% icon name="link-external" %}</a>
         {% endblock %}
     </div>
 
