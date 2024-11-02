@@ -852,6 +852,7 @@
 * Ataf Fazledin Ahamed
 * Ayaan Qadri
 * manu
+* Aayushman Singh
 
 ## Translators
 
