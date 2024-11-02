@@ -835,7 +835,7 @@
 * Shubham Mukati
 * Matthew Scouten
 * Ishwari8104
-* rahulsamant37
+* Rahul Samant
 * Gabriel Getzie
 * Rohit Singh
 * Robin Varghese

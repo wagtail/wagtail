@@ -28,6 +28,7 @@ Changelog
  * Maintenance: Remove unused `uuid` UMD module as all code is now using the NPM module (LB (Ben) Johnston)
  * Maintenance: Clean up JS comments throughout codebase to be aligned to JSDoc where practical (LB (Ben) Johnston)
  * Maintenance: Upgrade Node tooling to active LTS version 22 (LB (Ben) Johnston)
+ * Maintenance: Remove defunct oEmbed providers (Rahul Samant)
 
 
 6.3 LTS (01.11.2024)
@@ -77,7 +78,7 @@ Changelog
  * Fix: Fix content path links in usage view to scroll to the correct element (Sage Abdullah)
  * Fix: Always show the minimap toggle button (Albina Starykova)
  * Fix: Ensure that dropdown button toggles show with a border in high contrast mode (Ishwari8104, LB (Ben) Johnston)
- * Fix: Update email notification header to the new logo design (rahulsamant37)
+ * Fix: Update email notification header to the new logo design (Rahul Samant)
  * Fix: Change `file_size` field on document model to avoid artificial 2Gb limit (Gabriel Getzie)
  * Fix: Ensure that `TypedTableBlock` uses the correct API representations of child blocks (Matt Westcott)
  * Fix: Footer action buttons now include their `media` definitions (Sage Abdullah)
