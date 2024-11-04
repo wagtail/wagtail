@@ -131,4 +131,4 @@ Once these are removed, ``'wagtail.core.middleware.SiteMiddleware'`` can be remo
 Page / Collection managers no longer expose a ``delete`` method
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For `consistency with standard Django models <https://docs.djangoproject.com/en/stable/topics/db/queries/#deleting-objects>`_, the ``delete()`` method is no longer available on the default Page and Collection managers. Code such as ``Page.objects.delete()`` should be changed to ``Page.objects.all().delete()``.
+For :ref:`consistency with standard Django models <django:ref/models/instances:deleting objects>`, the ``delete()`` method is no longer available on the default Page and Collection managers. Code such as ``Page.objects.delete()`` should be changed to ``Page.objects.all().delete()``.
