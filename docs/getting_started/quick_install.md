@@ -11,7 +11,7 @@
 
 -   [Python 3](https://www.python.org/downloads/).
 -   **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
-    See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+    See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
 ## Install Wagtail
 
