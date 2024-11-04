@@ -15,7 +15,7 @@ To ensure consistency in tone and language, follow the [Google developer documen
 
 ## Formatting recommendations
 
-Wagtail’s documentation uses a mixture of [Markdown (with MyST)](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](inv:sphinx#rst-primer). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason. Docstrings in Python code must be written in reStructuredText, as using Markdown is not yet supported.
+Wagtail’s documentation uses a mixture of [Markdown (with MyST)](inv:myst#syntax/core) and [reStructuredText](inv:sphinx#rst-primer). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason. Docstrings in Python code must be written in reStructuredText, as using Markdown is not yet supported.
 
 Here are formats we encourage using when writing documentation for Wagtail.
 
@@ -253,7 +253,7 @@ Rendered output:
 -   Auto generated label (preferred) [](my_awesome_section)
 -   [label for section](my_awesome_section)
 
-You can read more about other methods of linking to, and creating references in the MyST-Parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/cross-referencing.html).
+You can read more about other methods of linking to, and creating references in the MyST-Parser docs section on [](inv:myst#syntax/cross-referencing).
 
 #### Intersphinx links (external docs)
 
@@ -526,7 +526,7 @@ Only use tables when needed, using the [GitHub Flavored Markdown table syntax](h
 
 ### Tables of contents
 
-The `toctree` and `contents` directives can be used to render tables of contents.
+The [`toctree` and `contents` directives](inv:myst#organising-content) can be used to render tables of contents.
 
     ```{toctree}
     ---

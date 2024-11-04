@@ -177,6 +177,10 @@ intersphinx_mapping = {
         "https://www.sphinx-doc.org/en/master/",
         None,
     ),
+    "myst": (
+        "https://myst-parser.readthedocs.io/en/stable/",
+        None,
+    ),
 }
 
 myst_url_schemes = {
