@@ -2,7 +2,7 @@
 
 The most common use for adding custom views to the Wagtail admin is to provide an interface for managing a Django model. Using [](snippets), Wagtail provides ready-made views for listing, creating, and editing Django models with minimal configuration.
 
-For other kinds of admin views that don't fit this pattern, you can write your own Django views and register them as part of the Wagtail admin through [hooks](admin_hooks). In this example, we'll implement a view that displays a calendar for the current year, using [the calendar module](https://docs.python.org/3/library/calendar.html) from Python's standard library.
+For other kinds of admin views that don't fit this pattern, you can write your own Django views and register them as part of the Wagtail admin through [hooks](admin_hooks). In this example, we'll implement a view that displays a calendar for the current year, using [the calendar module](inv:python#library/calendar) from Python's standard library.
 
 ## Defining a view
 

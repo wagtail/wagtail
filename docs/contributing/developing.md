@@ -10,7 +10,7 @@ You can also set up a cloud development environment that you can work with in a 
 
 (Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack)!)
 
-If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and [virtual environments](https://docs.python.org/3/tutorial/venv.html) to manage Python packages.
+If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and [virtual environments](inv:python#tutorial/venv) to manage Python packages.
 
 ## Setting up the Wagtail codebase
 

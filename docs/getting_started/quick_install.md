@@ -69,4 +69,4 @@ python3 -m pip install --upgrade pip
 > command not found: python3
 ```
 
-If this error occurs, [the `python3` can be replaced with `py`](https://docs.python.org/3/faq/windows.html#how-do-i-run-a-python-program-under-windows).
+If this error occurs, [the `python3` can be replaced with `py`](inv:python#faq-run-program-under-windows).

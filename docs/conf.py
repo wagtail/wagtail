@@ -169,6 +169,10 @@ intersphinx_mapping = {
         "https://docs.djangoproject.com/en/stable/",
         "https://docs.djangoproject.com/en/stable/_objects/",
     ),
+    "python": (
+        "https://docs.python.org/3/",
+        None,
+    ),
     "sphinx": (
         "https://www.sphinx-doc.org/en/master/",
         None,

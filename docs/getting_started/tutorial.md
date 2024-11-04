@@ -31,7 +31,7 @@ If none of the preceding commands return a version number, or return a version l
 ### Create and activate a virtual environment
 
 This tutorial recommends using a virtual environment, which isolates installed dependencies from other projects.
-This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3. On Ubuntu, it may be necessary to run `sudo apt install python3-venv` to install it.
+This tutorial uses [`venv`](inv:python#tutorial/venv), which is packaged with Python 3. On Ubuntu, it may be necessary to run `sudo apt install python3-venv` to install it.
 
 **On Windows** (cmd.exe), run the following commands:
 
@@ -55,7 +55,7 @@ python -m venv mysite/env
 source mysite/env/bin/activate
 ```
 
-**For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
+**For other shells** see the [`venv` documentation](inv:python#tutorial/venv).
 
 ```{note}
 If you're using version control such as git, then `mysite` is the directory for your project.
