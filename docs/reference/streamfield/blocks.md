@@ -189,7 +189,7 @@ All block definitions accept the following optional keyword arguments:
 
     A date picker. The following keyword arguments are accepted in addition to the standard ones:
 
-    :param format: Date format. This must be one of the recognized formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
+    :param format: Date format. This must be one of the recognized formats listed in the :std:setting:`django:DATE_INPUT_FORMATS` setting. If not specified Wagtail will use the ``WAGTAIL_DATE_FORMAT`` setting with fallback to ``"%Y-%m-%d"``.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
@@ -201,6 +201,7 @@ All block definitions accept the following optional keyword arguments:
 
     A time picker. The following keyword arguments are accepted in addition to the standard ones:
 
+    :param format: Time format. This must be one of the recognized formats listed in the :std:setting:`django:TIME_INPUT_FORMATS` setting. If not specified Wagtail will use the ``WAGTAIL_TIME_FORMAT`` setting with fallback to ``"%H:%M"``.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
@@ -212,7 +213,7 @@ All block definitions accept the following optional keyword arguments:
 
     A combined date/time picker. The following keyword arguments are accepted in addition to the standard ones:
 
-    :param format: Date/time format. This must be one of the recognized formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
+    :param format: Date/time format. This must be one of the recognized formats listed in the :std:setting:`django:DATETIME_INPUT_FORMATS` setting. If not specified Wagtail will use the ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to ``"%Y-%m-%d %H:%M"``.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
