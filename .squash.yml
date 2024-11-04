@@ -3,7 +3,7 @@ deployments:
     dockerimage: python:3.11.4-slim-bullseye
     build_steps:
       - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev curl
-      - RUN bash -c "curl -sL https://deb.nodesource.com/setup_20.x | bash -"
+      - RUN bash -c "curl -sL https://deb.nodesource.com/setup_22.x | bash -"
       - apt install -y nodejs
       - pip install setuptools pip --upgrade --force-reinstall
       - cd /code
