@@ -329,4 +329,4 @@ You could create such a homepage in a fixture with:
 Filling in the `path` / `numchild` / `depth` fields is necessary for tree operations like `get_parent()` to work correctly.
 `url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
 
-The [Treebeard docs](https://django-treebeard.readthedocs.io/en/latest/mp_tree.html) might help in understanding how this works.
+The [Treebeard docs](inv:treebeard:std:doc#mp_tree) might help in understanding how this works.

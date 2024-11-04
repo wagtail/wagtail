@@ -173,6 +173,10 @@ intersphinx_mapping = {
         "https://docs.python.org/3/",
         None,
     ),
+    "treebeard": (
+        "https://django-treebeard.readthedocs.io/en/stable/",
+        None,
+    ),
     "sphinx": (
         "https://www.sphinx-doc.org/en/master/",
         None,
