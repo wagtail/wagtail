@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStore } from 'redux';
+import { legacy_createStore as createStore } from 'redux';
 
 import { Store, reducer } from '../../state';
 
