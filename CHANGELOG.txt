@@ -38,6 +38,7 @@ Changelog
  * Maintenance: Remove obsolete non-upsert-based code for Postgres search indexing (Jake Howard)
  * Maintenance: Remove unused Rangy JS library (LB (Ben) Johnston)
  * Maintenance: Update `PreviewController` usage to leverage Stimulus actions instead of calling `preventDefault` manually (Ayaan Qadri)
+ * Maintenance: Various performance optimizations to page publishing (Jake Howard)
 
 
 6.3 LTS (01.11.2024)
