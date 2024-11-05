@@ -50,6 +50,7 @@ Changelog
  * Maintenance: Update `PreviewController` usage to leverage Stimulus actions instead of calling `preventDefault` manually (Ayaan Qadri)
  * Maintenance: Various performance optimizations to page publishing (Jake Howard)
  * Maintenance: Remove unnecessary DOM canvas.toBlob polyfill (LB (Ben) Johnston)
+ * Maintenance: Ensure Storybook core files are correctly running through Eslint (LB (Ben) Johnston)
 
 
 6.3.1 (19.11.2024)
