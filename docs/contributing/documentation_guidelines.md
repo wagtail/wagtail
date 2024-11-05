@@ -638,7 +638,7 @@ These are not hard rules but rather considerations to make when writing example 
 
 ### Reference example filename
 
-At the start of a code snippet, it can be helpful to reference an example filename at the top. E.g. `# wagtail_hooks.py` or `// js/my-custom.js`.
+At the start of a code snippet, it can be helpful to reference an example filename at the top. For example: `# wagtail_hooks.py` or `// js/my-custom.js`.
 
 ### CSP (Content Security Policy) compliance
 
@@ -648,7 +648,7 @@ Avoid `mark_safe` where possible, and use `format_html` and use examples that lo
 
 ### Accessibility compliance
 
-Make sure that all examples are accessible and adhere to accessibility standards (e.g., WCAG).
+Make sure that all examples are accessible and adhere to accessibility standards (for example: WCAG, ATAG).
 
 For interactive components, ensure proper keyboard navigation and screen reader support. When creating dynamic content or effects (such as animations or notifications), provide options for users to pause, stop, or adjust these features as needed.
 
