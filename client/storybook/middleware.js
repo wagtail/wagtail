@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies */
 const middleware = require('storybook-django/src/middleware');
 
 // Target the Django server with IPV4 address explicitly to avoid DNS resolution of localhost to IPV6.
