@@ -22,6 +22,8 @@ Changelog
  * Docs: Update all JavaScript inline scripts & some CSS inline style tags to a CSP compliant approach by using external scripts/styles (Aayushman Singh)
  * Docs: Update usage of `mark_safe` to `format_html` for any script inclusions, to better avoid XSS issues from example code (Aayushman Singh)
  * Docs: Update documentation writing guidelines to encourage better considerations of security, accessibility and good practice when writing code examples (Aayushman Singh, LB (Ben) Johnston)
+ * Docs: Update documentation guidelines on writing links and API reference (Sage Abdullah)
+ * Docs: Replace absolute URLs with intersphinx links where possible to avoid broken links (Sage Abdullah)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
