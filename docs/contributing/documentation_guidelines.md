@@ -475,16 +475,44 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 
 </details>
 
-### Autodoc
+### Docstrings and API reference (autodoc)
 
 With its [autodoc](inv:sphinx#ext-autodoc) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature that we highly recommend using to document Wagtail’s APIs.
 
-Currently, this requires the `eval-rst` directive. Anything inside the directive needs to be written in reStructuredText syntax.
+Modules, classes, and functions can be documented with docstrings. Class and instance attributes can be documented with docstrings (with triple quotes `"""`) or doc comments (with hash-colon `#:`). Docstrings are preferred, as they have better integration with code editors. Docstrings in Python code must be written in reStructuredText syntax.
+
+```py
+SLUG_REGEX = r'^[-a-zA-Z0-9_]+$'
+"""Docstring for module-level variable ``SLUG_REGEX``."""
+
+class Foo:
+    """Docstring for class ``Foo``."""
+
+    bar = 1
+    """Docstring for class attribute ``Foo.bar``."""
+
+    #: Doc comment for class attribute ``Foo.baz``.
+    #: It can have multiple lines, and each line must start with ``#:``.
+    #: Note that it is written before the attribute.
+    #: While Sphinx supports this, it is not recommended.
+    baz = 2
+
+    def __init__(self):
+        self.spam = 4
+        """Docstring for instance attribute ``spam``."""
+```
+
+The autodoc extension provides many directives to document Python code, such as [`autoclass`](inv:sphinx#autoclass), [`autofunction`](inv:sphinx#autofunction), [`automodule`](inv:sphinx#automodule), along with different options to customize the output. In Markdown files, these directives need to be wrapped in an `eval-rst` directive. As with docstrings, everything inside the `eval-rst` block must be written in reStructuredText syntax.
+
+You can mix automatic and non-automatic documentation. For example, you can use [`module`](inv:sphinx#py:module) instead of `automodule` and write the module's documentation in the `eval-rst` block, but still use `autoclass` and `autofunction` for classes and functions. Using automatic documentation is recommended, as it reduces the risk of inconsistencies between the code and the documentation, and it provides better integration with code editors.
 
     ```{eval-rst}
     .. module:: wagtail.coreutils
 
-    .. autofunction:: cautious_slugify
+        Wagtail's core utilities.
+
+        .. autofunction:: cautious_slugify
+            :no-index:
     ```
 
 <details>
@@ -494,11 +522,15 @@ Currently, this requires the `eval-rst` directive. Anything inside the directive
 .. module:: wagtail.coreutils
     :no-index:
 
-.. autofunction:: cautious_slugify
-    :no-index:
+    Wagtail's core utilities.
+
+    .. autofunction:: cautious_slugify
+        :no-index:
 ```
 
 </details>
+
+For more details on the available directives and options, refer to [](inv:sphinx#autodoc-directives) and [](inv:sphinx#usage/domains/python) in Sphinx's documentation.
 
 ### Tables
 
