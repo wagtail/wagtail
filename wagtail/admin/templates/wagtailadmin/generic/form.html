@@ -22,7 +22,7 @@
         action="{{ action_url }}"
         method="POST"
         novalidate
-        {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}
+        {% if form_is_multipart or form.is_multipart %} enctype="multipart/form-data"{% endif %}
         data-edit-form
         data-controller="w-unsaved"
         data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"

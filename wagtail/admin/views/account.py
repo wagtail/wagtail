@@ -238,6 +238,7 @@ class AccountView(WagtailAdminTemplateMixin, TemplateView):
         context["panels_by_tab"] = self.get_panels_by_tab(panels)
         context["menu_items"] = self.get_menu_items()
         context["media"] = self.get_media(panels)
+        context["form_is_multipart"] = True
         context["user"] = self.request.user
         # Remove these when this view is refactored to a generic.EditView subclass.
         # Avoid defining new translatable strings.
