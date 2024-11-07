@@ -31,6 +31,15 @@ class TestHome(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Test Site")
 
+    def test_accessible_skip_link_exists(self):
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            '<a class="skiplink button" href="#main" data-controller="w-focus" data-action="w-focus#focus:prevent">Skip to main content</a>',
+        )
+        self.assertContains(response, ' id="main">')
+
     def test_admin_menu(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
