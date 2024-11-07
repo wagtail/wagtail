@@ -41,6 +41,12 @@ Changelog
  * Maintenance: Various performance optimizations to page publishing (Jake Howard)
 
 
+6.3.1 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * ...
+
+
 6.3 LTS (01.11.2024)
 ~~~~~~~~~~~~~~~~~~~~
 
