@@ -1,42 +1,64 @@
 # Upgrading Wagtail
 
-## Version numbers
+New feature releases of Wagtail are released every three months. These releases provide new features, improvements and bugfixes, and are marked by incrementing the second part of the version number (for example, 6.2 to 6.3).
 
-New feature releases of Wagtail are released every three months. These releases provide new features, improvements and bugfixes, and are marked by incrementing the second part of the version number (for example, 2.6 to 2.7).
+Additionally, patch releases will be issued as needed, to fix bugs and security issues. These are marked by incrementing the third part of the version number (for example, 6.3 to 6.3.1).
 
-Additionally, patch releases will be issued as needed, to fix bugs and security issues. These are marked by incrementing the third part of the version number (for example, 2.6 to 2.6.1). Wherever possible, these releases will remain fully backwards compatible with the corresponding feature and not introduce any breaking changes.
+Occasionally, feature releases include significant visual changes to the editor interface or backwards-incompatible changes. In these cases, the first part of the version number will be incremented (for example, 5.2 to 6.0).
 
-A feature release will usually stop receiving patch release updates when the next feature release comes out. However, selected feature releases are designated as Long Term Support (LTS) releases, and will continue to receive maintenance updates to address any security and data-loss related issues that arise. Typically, a Long Term Support release will happen once every four feature releases and receive updates for five feature releases, giving a support period of fifteen months with a three month overlap.
+For dates of past and upcoming releases and support periods, see [Release schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule).
 
-Also, Long Term Support releases will ensure compatibility with at least one [Django Long Term Support release](https://www.djangoproject.com/download/#supported-versions).
+## Required reading
 
-For dates of past and upcoming releases and support periods, see [Release Schedule](https://github.com/wagtail/wagtail/wiki/Release-schedule).
-
-## Deprecation policy
-
-Sometimes it is necessary for a feature release to deprecate features from previous releases. This will be noted in the "Upgrade considerations" section of the release notes.
-
-When a feature is deprecated, it will continue to work in that feature release and the one after it, but will raise a warning. The feature will then be removed in the subsequent feature release. For example, a feature marked as deprecated in version 1.8 will continue to work in versions 1.8 and 1.9, and be dropped in version 1.10.
+If it’s your first time doing an upgrade, it is useful to read the guide on [](../contributing/release_process).
 
 ## Upgrade process
 
-We recommend upgrading one feature release at a time, even if your project is several versions behind the current one. This has a number of advantages over skipping directly to the newest release:
+We recommend upgrading one feature release at a time, even if your project is several versions behind the current one. For example, instead of going from 6.0 directly to 6.3, upgrade to 6.1 and 6.2 first. This has a number of advantages over skipping directly to the newest release:
 
 -   If anything breaks as a result of the upgrade, you will know which version caused it, and will be able to troubleshoot accordingly;
 -   Deprecation warnings shown in the console output will notify you of any code changes you need to make before upgrading to the following version;
 -   Some releases make database schema changes that need to be reflected on your project by running `./manage.py makemigrations` - this is liable to fail if too many schema changes happen in one go.
 
-Before upgrading to a new feature release:
+With that in mind, follow these steps for each feature release you need to upgrade to.
 
--   Check your project's console output for any deprecation warnings, and fix them where necessary;
--   Check the new version's release notes, and the [Compatible Django / Python versions](compatible_django_python_versions) table below, for any dependencies that need upgrading first;
--   Make a backup of your database.
+### Resolve deprecation warnings
+
+When Wagtail makes a backwards-incompatible change to a publicly-documented feature in a release, it will continue to work in that release, but a deprecation warning will be raised when that feature is used. These warnings are intended to give you advance notice before the support is completely removed in a future release, so that you can update your code accordingly.
+
+In Python, deprecation warnings are silenced by default. You must turn them on using the `-Wa` Python command line option or the `PYTHONWARNINGS` environment variable. For example, to show warnings while running tests:
+
+```sh
+python -Wa manage.py test
+```
+
+If you’re not using the Django test runner, you may need to also ensure that any console output is not captured which would hide deprecation warnings. For example, if you use [pytest](https://docs.pytest.org):
+
+```sh
+PYTHONWARNINGS=always pytest tests --capture=no
+```
+
+Resolve any deprecation warnings with your current version of Wagtail before continuing the upgrade process.
+
+Third party packages might use deprecated APIs in order to support multiple versions of Wagtail, so deprecation warnings in packages you’ve installed don’t necessarily indicate a problem. If a package doesn’t support the latest version of Wagtail, consider raising an issue or sending a pull request for it.
+
+### Preparing for the upgrade
+
+After resolving the deprecation warnings, you should read the [release notes](../releases/index) for the next feature release after your current Wagtail version.
+
+Pay particular attention to the upgrade considerations sections (which describe any backwards-incompatible changes) to get a clear idea of what will be needed for a successful upgrade.
+
+Also read the [Compatible Django / Python versions](compatible_django_python_versions) table below, as they may need upgrading first.
+
+Before continuing with the upgrade, make a backup of your database.
+
+### Upgrading
 
 To upgrade:
 
--   Update the `wagtail` line in your project's `requirements.txt` file to specify the latest patch release of the version you wish to install. For example, to upgrade to version 1.8.x, the line should read:
+-   Update the `wagtail` line in your project's `requirements.txt` file to specify the latest patch release of the version you wish to install. For example, to upgrade to version 6.3.x, the line should read:
 
-        wagtail>=1.8,<1.9
+        wagtail>=6.3,<6.4
 
 -   Run:
 
@@ -48,6 +70,10 @@ To upgrade:
 -   Test that your project is working as expected.
 
 Remember that the JavaScript and CSS files used in the Wagtail admin may have changed between releases - if you encounter erratic behavior on upgrading, ensure that you have cleared your browser cache. When deploying the upgrade to a production server, be sure to run `./manage.py collectstatic` to make the updated static files available to the web server. In production, we recommend enabling {class}`~django.contrib.staticfiles.storage.ManifestStaticFilesStorage` in the [`STORAGES["staticfiles"]` setting](inv:django#STORAGES) - this ensures that different versions of files are assigned distinct URLs.
+
+### Repeat
+
+Repeat the above steps for each feature release you need to upgrade to.
 
 (compatible_django_python_versions)=
 
@@ -112,3 +138,7 @@ The compatible versions of Django and Python for each Wagtail release are:
 | 0.1             | 1.6                        | 2.7                         |
 
 [^*]: Added in a patch release
+
+## Acknowledgement
+
+This upgrade guide is based on [](inv:django#howto/upgrade-version).
