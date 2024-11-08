@@ -2076,13 +2076,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def serve(self, request, *args, **kwargs):
         request.is_preview = False
 
-        response = TemplateResponse(
+        return TemplateResponse(
             request,
             self.get_template(request, *args, **kwargs),
             self.get_context(request, *args, **kwargs),
         )
-
-        return response
 
     def is_navigable(self):
         """
