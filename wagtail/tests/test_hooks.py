@@ -168,36 +168,34 @@ class TestServeHooks(WagtailTestUtils, TestCase):
 
         def hook_spy(next_fn):
             def wrapper(page, request, *args, **kwargs):
-                received_params.append({
-                    'page': page,
-                    'request': request,
-                    'args': args,
-                    'kwargs': kwargs
-                })
+                received_params.append(
+                    {"page": page, "request": request, "args": args, "kwargs": kwargs}
+                )
                 return next_fn(page, request, *args, **kwargs)
+
             return wrapper
 
         self.assertIsNotNone(self.page, "Test page should not be None")
         self.assertIsNotNone(self.request, "Test request should not be None")
 
-        with self.register_hook('on_serve_page', hook_spy):
+        with self.register_hook("on_serve_page", hook_spy):
             route_result = Page.route_for_request(self.request, self.page.url)
-            
+
             self.assertIsNotNone(route_result, "route_result should not be None")
-            
+
             if route_result:
                 page, args, kwargs = route_result
                 serve(self.request, self.page.url)
 
                 self.assertEqual(len(received_params), 1)
-                
+
                 params = received_params[0]
-                
-                self.assertIsNotNone(params['page'], "Hook received None as page")
-                self.assertIsNotNone(params['request'], "Hook received None as request")
-                
-                self.assertEqual(params['page'], self.page)
-                self.assertEqual(params['request'], self.request)
-                
-                self.assertEqual(params['args'], ([], {}))
-                self.assertEqual(params['kwargs'], {})
+
+                self.assertIsNotNone(params["page"], "Hook received None as page")
+                self.assertIsNotNone(params["request"], "Hook received None as request")
+
+                self.assertEqual(params["page"], self.page)
+                self.assertEqual(params["request"], self.request)
+
+                self.assertEqual(params["args"], ([], {}))
+                self.assertEqual(params["kwargs"], {})

@@ -61,13 +61,15 @@ def check_view_restrictions(callback):
                     response = require_wagtail_login(next=request.get_full_path())
                     add_never_cache_headers(response)
                     return response
-                
+
         response = callback(page, request, serve_args, serve_kwargs)
         if restrictions:
             add_never_cache_headers(response)
         return response
+
     return inner
-    
+
+
 @hooks.register("register_rich_text_features")
 def register_core_features(features):
     features.default_features.append("hr")

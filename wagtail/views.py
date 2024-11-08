@@ -23,14 +23,13 @@ def serve(request, path):
     on_serve_chain = serve_chain
     for fn in reversed(hooks.get_hooks("on_serve_page")):
         on_serve_chain = fn(on_serve_chain)
-    
+
     for fn in hooks.get_hooks("before_serve_page"):
         result = fn(page, request, args, kwargs)
         if isinstance(result, HttpResponse):
             return result
-        
-    return on_serve_chain(page, request, args, kwargs)
 
+    return on_serve_chain(page, request, args, kwargs)
 
 
 def authenticate_with_password(request, page_view_restriction_id, page_id):
