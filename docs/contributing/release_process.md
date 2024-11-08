@@ -74,9 +74,12 @@ that it's time to remove them.
 Wagtail uses a loose form of [semantic versioning](https://semver.org/).
 SemVer makes it easier to see at a glance how compatible releases are with each
 other. It also helps to anticipate when compatibility shims will be removed.
+
 It's not a pure form of SemVer as each feature release will continue to have a
 few documented backwards incompatibilities where a deprecation path isn't
-possible or not worth the cost.
+possible or not worth the cost. This is especially true for features documented
+under the [](../extending/index) section of the documentation and their
+corresponding API reference, which tend to be more actively developed.
 
 We try to strike the balance between:
 

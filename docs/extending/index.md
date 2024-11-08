@@ -4,6 +4,13 @@ The Wagtail admin interface is a suite of Django apps, and so the familiar conce
 
 This section describes the various mechanisms that can be used to integrate your own code into Wagtail's admin interface.
 
+```{note}
+The features described in this section and their corresponding reference
+documentation are not subject to the same level of stability described in our
+[](deprecation_policy). Any backwards-incompatible changes to these features
+will be called out in the upgrade considerations of the [](../releases/index).
+```
+
 ```{toctree}
 ---
 maxdepth: 2
