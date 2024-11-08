@@ -8,9 +8,9 @@ from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404
-from django.urls import reverse
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
+from django.urls import reverse
 from django.utils import timezone, translation
 from freezegun import freeze_time
 

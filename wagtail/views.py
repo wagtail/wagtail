@@ -9,7 +9,6 @@ from wagtail.forms import PasswordViewRestrictionForm
 from wagtail.models import Page, PageViewRestriction
 
 
-
 def serve_chain(page, request, args, kwargs):
     return page.serve(request, *args, **kwargs)
 

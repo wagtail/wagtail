@@ -1,17 +1,14 @@
-from wagtail import hooks
-from wagtail.test.utils import WagtailTestUtils
+from unittest import mock
 
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
-from django.contrib.sessions.middleware import SessionMiddleware
 
 from wagtail import hooks
 from wagtail.models import Page, PageViewRestriction
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.views import serve, serve_chain
 from wagtail.wagtail_hooks import check_view_restrictions
-
-from unittest import mock
 
 
 def test_hook():
