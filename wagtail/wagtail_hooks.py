@@ -23,42 +23,51 @@ def require_wagtail_login(next):
     return redirect_to_login(next, login_url)
 
 
-@hooks.register("before_serve_page")
-def check_view_restrictions(page, request, serve_args, serve_kwargs):
-    """
-    Check whether there are any view restrictions on this page which are
-    not fulfilled by the given request object. If there are, return an
-    HttpResponse that will notify the user of that restriction (and possibly
-    include a password / login form that will allow them to proceed). If
-    there are no such restrictions, return None
-    """
-    for restriction in page.get_view_restrictions():
-        if not restriction.accept_request(request):
-            if restriction.restriction_type == PageViewRestriction.PASSWORD:
-                from wagtail.forms import PasswordViewRestrictionForm
+@hooks.register("on_serve_page")
+def check_view_restrictions(callback):
+    def inner(page, request, serve_args, serve_kwargs):
+        """
+        Check whether there are any view restrictions on this page which are
+        not fulfilled by the given request object. If there are, return an
+        HttpResponse that will notify the user of that restriction (and possibly
+        include a password / login form that will allow them to proceed). If
+        there are no such restrictions, return None
+        """
+        restrictions = page.get_view_restrictions()
+        response = None
+        for restriction in restrictions:
+            if not restriction.accept_request(request):
+                if restriction.restriction_type == PageViewRestriction.PASSWORD:
+                    from wagtail.forms import PasswordViewRestrictionForm
 
-                form = PasswordViewRestrictionForm(
-                    instance=restriction,
-                    initial={"return_url": request.get_full_path()},
-                )
-                action_url = reverse(
-                    "wagtailcore_authenticate_with_password",
-                    args=[restriction.id, page.id],
-                )
+                    form = PasswordViewRestrictionForm(
+                        instance=restriction,
+                        initial={"return_url": request.get_full_path()},
+                    )
+                    action_url = reverse(
+                        "wagtailcore_authenticate_with_password",
+                        args=[restriction.id, page.id],
+                    )
 
-                response = page.serve_password_required_response(
-                    request, form, action_url
-                )
-                add_never_cache_headers(response)
-                return response
-
-            elif restriction.restriction_type in [
-                PageViewRestriction.LOGIN,
-                PageViewRestriction.GROUPS,
-            ]:
-                return require_wagtail_login(next=request.get_full_path())
-
-
+                    response = page.serve_password_required_response(
+                        request, form, action_url
+                    )
+                    add_never_cache_headers(response)
+                    return response
+                elif restriction.restriction_type in [
+                    PageViewRestriction.LOGIN,
+                    PageViewRestriction.GROUPS,
+                ]:
+                    response = require_wagtail_login(next=request.get_full_path())
+                    add_never_cache_headers(response)
+                    return response
+                
+        response = callback(page, request, serve_args, serve_kwargs)
+        if restrictions:
+            add_never_cache_headers(response)
+        return response
+    return inner
+    
 @hooks.register("register_rich_text_features")
 def register_core_features(features):
     features.default_features.append("hr")

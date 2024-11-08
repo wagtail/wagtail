@@ -8,6 +8,7 @@ from django.contrib.auth.models import AnonymousUser, Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.http import Http404
+from django.urls import reverse
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
 from django.utils import timezone, translation
@@ -4011,47 +4012,47 @@ class TestPageServeWithPasswordRestriction(TestCase, WagtailTestUtils):
             password="password123",
         )
 
-        self.rf = RequestFactory()
+    def test_page_with_password_restriction_authenticated_has_cache_headers(self):
+        auth_url = reverse(
+            "wagtailcore_authenticate_with_password",
+            args=[self.password_restriction.id, self.test_page.id],
+        )
+
+        post_response = self.client.post(
+            auth_url,
+            {
+                "password": "password123",
+                "return_url": "/test/",
+            },
+        )
+
+        self.assertRedirects(post_response, "/test/")
+
+        response = self.client.get("/test/")
+
+        self.assertTrue("Cache-Control" in response)
+        self.assertIn("max-age=0", response["Cache-Control"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("private", response["Cache-Control"])
+        self.assertTrue("Expires" in response)
+
+    def test_page_with_password_restriction_has_cache_headers(self):
+        response = self.client.get("/test/")
+
+        self.assertTrue("Cache-Control" in response)
+        self.assertIn("max-age=0", response["Cache-Control"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("private", response["Cache-Control"])
+        self.assertTrue("Expires" in response)
 
     def test_page_without_password_restriction_has_no_cache_headers(self):
         self.password_restriction.delete()
 
-        request = self.rf.get("/test/")
-        response = self.test_page.serve(request)
+        response = self.client.get("/test/")
 
         self.assertFalse("Cache-Control" in response)
         self.assertFalse("Expires" in response)
-
-    def test_page_with_password_restriction_has_cache_headers(self):
-        request = self.rf.get("/test/")
-        response = self.test_page.serve(request)
-
-        self.assertTrue("Cache-Control" in response)
-        self.assertIn("max-age=0", response["Cache-Control"])
-        self.assertIn("no-cache", response["Cache-Control"])
-        self.assertIn("no-store", response["Cache-Control"])
-        self.assertIn("must-revalidate", response["Cache-Control"])
-        self.assertIn("private", response["Cache-Control"])
-        self.assertTrue("Expires" in response)
-
-    def test_page_with_password_restriction_authenticated_has_cache_headers(self):
-        # Simulate successful password authentication
-        request = self.rf.get("/test/")
-        PageViewRestriction.passed_view_restrictions_session_key = (
-            "passed_password_restriction"
-        )
-        request.session = {
-            PageViewRestriction.passed_view_restrictions_session_key: [
-                self.password_restriction.id
-            ]
-        }
-
-        response = self.test_page.serve(request)
-
-        self.assertTrue("Cache-Control" in response)
-        self.assertIn("max-age=0", response["Cache-Control"])
-        self.assertIn("no-cache", response["Cache-Control"])
-        self.assertIn("no-store", response["Cache-Control"])
-        self.assertIn("must-revalidate", response["Cache-Control"])
-        self.assertIn("private", response["Cache-Control"])
-        self.assertTrue("Expires" in response)
