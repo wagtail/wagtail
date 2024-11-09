@@ -94,12 +94,7 @@ EVENT_AUDIENCE_CHOICES = (
 )
 
 
-COMMON_PANELS = (
-    FieldPanel("slug"),
-    FieldPanel("seo_title"),
-    FieldPanel("show_in_menus"),
-    FieldPanel("search_description"),
-)
+COMMON_PANELS = ("slug", "seo_title", "show_in_menus", "search_description")
 
 CUSTOM_PREVIEW_SIZES = [
     {
@@ -171,9 +166,9 @@ class CarouselItem(LinkFields):
     caption = models.CharField(max_length=255, blank=True)
 
     panels = [
-        FieldPanel("image"),
-        FieldPanel("embed_url"),
-        FieldPanel("caption"),
+        "image",
+        "embed_url",
+        "caption",
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
@@ -188,7 +183,7 @@ class RelatedLink(LinkFields):
     title = models.CharField(max_length=255, help_text="Link title")
 
     panels = [
-        FieldPanel("title"),
+        "title",
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
@@ -321,10 +316,7 @@ class EventPageSpeakerAward(TranslatableMixin, Orderable, models.Model):
     name = models.CharField("Award name", max_length=255)
     date_awarded = models.DateField(null=True, blank=True)
 
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("date_awarded"),
-    ]
+    panels = ["name", "date_awarded"]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
         pass
@@ -352,9 +344,9 @@ class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableMode
         return self.first_name + " " + self.last_name
 
     panels = [
-        FieldPanel("first_name"),
-        FieldPanel("last_name"),
-        FieldPanel("image"),
+        "first_name",
+        "last_name",
+        "image",
         MultiFieldPanel(LinkFields.panels, "Link"),
         InlinePanel("awards", label="Awards"),
     ]
@@ -423,16 +415,16 @@ class EventPage(Page):
 
     content_panels = [
         FieldPanel("title", classname="title"),
-        FieldPanel("date_from"),
-        FieldPanel("date_to"),
-        FieldPanel("time_from"),
-        FieldPanel("time_to"),
-        FieldPanel("location"),
+        "date_from",
+        "date_to",
+        "time_from",
+        "time_to",
+        "location",
         FieldPanel("audience", help_text="Who this event is for"),
-        FieldPanel("cost"),
-        FieldPanel("signup_link"),
+        "cost",
+        "signup_link",
         InlinePanel("carousel_items", label="Carousel items"),
-        FieldPanel("body"),
+        "body",
         InlinePanel(
             "speakers",
             label="Speaker",
@@ -440,7 +432,7 @@ class EventPage(Page):
             help_text="Put the keynote speaker first",
         ),
         InlinePanel("related_links", label="Related links"),
-        FieldPanel("categories"),
+        "categories",
         # InlinePanel related model uses `pk` not `id`
         InlinePanel("head_counts", label="Head Counts"),
     ]
@@ -2172,13 +2164,13 @@ class PersonPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("first_name"),
-                FieldPanel("last_name"),
+                "first_name",
+                "last_name",
             ],
             "Person",
         ),
-        InlinePanel("addresses", label="Address"),
-        InlinePanel("social_links", label="Social links"),
+        "addresses",
+        "social_links",
     ]
 
     class Meta:
@@ -2228,10 +2220,7 @@ class SocialLink(index.Indexed, ClusterableModel):
         to="tests.PersonPage", related_name="social_links", verbose_name="Person"
     )
 
-    panels = [
-        FieldPanel("url"),
-        FieldPanel("kind"),
-    ]
+    panels = ["url", "kind"]
 
     class Meta:
         verbose_name = "Social link"
