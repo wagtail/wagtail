@@ -167,7 +167,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             response,
             '<label class="w-field__label" for="id_speakers-__prefix__-last_name" id="id_speakers-__prefix__-last_name-label">',
         )
-        self.assertContains(response, "Add speakers")
+        self.assertContains(response, "Add speaker")
         self.assertContains(response, "Put the keynote speaker first")
 
         # Test MultiFieldPanel help text

@@ -434,7 +434,7 @@ class EventPage(Page):
         FieldPanel("body"),
         InlinePanel(
             "speakers",
-            label="Speakers",
+            label="Speaker",
             heading="Speaker lineup",
             help_text="Put the keynote speaker first",
         ),
@@ -2359,7 +2359,9 @@ class ModelWithNullableParentalKey(models.Model):
 
 class GalleryPage(Page):
     content_panels = Page.content_panels + [
-        MultipleChooserPanel("gallery_images", chooser_field_name="image")
+        MultipleChooserPanel(
+            "gallery_images", heading="Gallery images", chooser_field_name="image"
+        )
     ]
 
 

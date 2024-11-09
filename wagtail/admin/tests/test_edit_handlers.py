@@ -1569,7 +1569,7 @@ class TestInlinePanelGetComparison(TestCase):
         self.request.user = user
 
     def test_get_comparison(self):
-        # Test whether the InlinePanel passes it's label in get_comparison
+        # Test whether the InlinePanel passes its heading as the label in get_comparison
 
         page = Page.objects.get(id=4).specific
         comparison = (
@@ -1580,7 +1580,7 @@ class TestInlinePanelGetComparison(TestCase):
 
         comparison = [comp(page, page) for comp in comparison]
         field_labels = [comp.field_label() for comp in comparison]
-        self.assertIn("Speakers", field_labels)
+        self.assertIn("Speaker lineup", field_labels)
 
 
 class TestInlinePanelRelatedModelPanelConfigChecks(TestCase):
@@ -2078,7 +2078,7 @@ class TestMultipleChooserPanelGetComparison(TestCase):
         parent_page.add_child(instance=self.page)
 
     def test_get_comparison(self):
-        # Test whether the InlinePanel passes it's label in get_comparison
+        # Test whether the MultipleChooserPanel passes its heading in get_comparison
 
         comparison = (
             self.page.get_edit_handler()

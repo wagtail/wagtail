@@ -150,7 +150,7 @@ class InlinePanel(Panel):
                     compare.ChildRelationComparison,
                     self.panel.db_field,
                     field_comparisons,
-                    label=self.label,
+                    label=self.heading,
                 )
             ]
 
