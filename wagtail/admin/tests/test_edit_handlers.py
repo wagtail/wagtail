@@ -1523,6 +1523,13 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
                 ),
             )
 
+    def test_get_heading_and_label_from_field(self):
+        panel = InlinePanel("social_links").bind_to_model(PersonPage)
+        # Heading is the plural term, derived from the relation's related_name
+        self.assertEqual(panel.heading, "Social links")
+        # Label is the singular term, derived from the related model's verbose_name
+        self.assertEqual(panel.label, "Social link")
+
 
 class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
