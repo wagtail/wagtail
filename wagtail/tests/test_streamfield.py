@@ -297,6 +297,18 @@ class TestComplexDefault(TestCase):
         self.assertEqual(self.page.body[1].value[1].block_type, "author")
         self.assertEqual(self.page.body[1].value[1].value, "F. Scott Fitzgerald")
 
+    def test_creation_form_with_initial_instance(self):
+        form_class = ComplexDefaultStreamPage.get_edit_handler().get_form_class()
+        form = form_class(instance=self.page)
+        form_html = form.as_p()
+        self.assertIn("The Great Gatsby", form_html)
+
+    def test_creation_form_without_initial_instance(self):
+        form_class = ComplexDefaultStreamPage.get_edit_handler().get_form_class()
+        form = form_class()
+        form_html = form.as_p()
+        self.assertIn("The Great Gatsby", form_html)
+
 
 class TestStreamFieldRenderingBase(TestCase):
     model = JSONStreamModel
