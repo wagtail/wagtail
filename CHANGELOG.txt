@@ -26,6 +26,7 @@ Changelog
  * Docs: Update documentation writing guidelines to encourage better considerations of security, accessibility and good practice when writing code examples (Aayushman Singh, LB (Ben) Johnston)
  * Docs: Update documentation guidelines on writing links and API reference (Sage Abdullah)
  * Docs: Replace absolute URLs with intersphinx links where possible to avoid broken links (Sage Abdullah)
+ * Docs: Update upgrading guide and release process to better reflect the current practices (Sage Abdullah)
  * Docs: Document usage of custom validation for admin form pages when using `AbstractEmailForm` or `AbstractForm` pages (John-Scott Atlakson, LB (Ben) Johnston)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
