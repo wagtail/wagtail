@@ -138,7 +138,7 @@ See [](responsive_images) for full documentation.
 
 ## User Avatar
 
-This tag retrieves the correct avatar URL for a specified user, displaying either the user's uploaded profile image, their Gravatar image, or the default profile picture, depending on the site settings.
+This tag retrieves the correct avatar URL for a specified user, displaying either the user's uploaded profile image, their Gravatar image, or the default profile picture, depending on the app settings.
 
 ```html+django
 {% load wagtailadmin_tags %}
