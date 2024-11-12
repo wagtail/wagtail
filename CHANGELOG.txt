@@ -9,6 +9,7 @@ Changelog
  * Fix: Improve spacing of page / collection permissions table in Group settings (Sage Abdullah)
  * Docs: Reword `BlogTagIndexPage` example for clarity (Clifford Gama)
  * Docs: Change title of blog index page in tutorial to avoid slug issues (Thibaud Colas)
+ * Docs: Fix `wagtailcache` and `wagtailpagecache` examples to not use quotes for the `fragment_name` (Shiv)
 
 
 6.3 LTS (01.11.2024)
