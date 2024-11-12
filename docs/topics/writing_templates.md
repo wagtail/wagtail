@@ -342,7 +342,7 @@ The `{% wagtailcache %}` tag functions similarly to Django's `{% cache %}` tag, 
 ```html+django
 {% load wagtail_cache %}
 
-{% wagtailcache 500 "sidebar" %}
+{% wagtailcache 500 sidebar %}
     <!-- sidebar -->
 {% endwagtailcache %}
 ```
@@ -358,7 +358,7 @@ Much like `{% cache %}`, you can use [`make_template_fragment_key`](django.core.
 ```html+django
 {% load wagtail_cache %}
 
-{% wagtailpagecache 500 "hero" %}
+{% wagtailpagecache 500 hero %}
     <!-- hero -->
 {% endwagtailpagecache %}
 ```
@@ -368,7 +368,7 @@ This is identical to:
 ```html+django
 {% wagtail_site as current_site %}
 
-{% wagtailcache 500 "hero" page.cache_key current_site.id %}
+{% wagtailcache 500 hero page.cache_key current_site.id %}
     <!-- hero -->
 {% endwagtailcache %}
 ```
