@@ -136,7 +136,7 @@ See [](responsive_images) for full documentation.
 
 (rich_text_filter)=
 
-## User Avatar
+## User avatar
 
 This tag retrieves the correct avatar URL for a specified user, displaying either the user's uploaded profile image, their Gravatar image, or the default profile picture, depending on the app settings.
 
