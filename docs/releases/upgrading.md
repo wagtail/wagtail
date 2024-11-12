@@ -10,7 +10,8 @@ For dates of past and upcoming releases and support periods, see [Release schedu
 
 ## Required reading
 
-If it’s your first time doing an upgrade, it is useful to read the guide on [](../contributing/release_process).
+If it’s your first time doing an upgrade, it is highly recommended to read the
+guide on [](../contributing/release_process).
 
 ## Upgrade process
 
@@ -40,7 +41,7 @@ PYTHONWARNINGS=always pytest tests --capture=no
 
 Resolve any deprecation warnings with your current version of Wagtail before continuing the upgrade process.
 
-Third party packages might use deprecated APIs in order to support multiple versions of Wagtail, so deprecation warnings in packages you’ve installed don’t necessarily indicate a problem. If a package doesn’t support the latest version of Wagtail, consider raising an issue or sending a pull request for it.
+Third party packages might use deprecated APIs in order to support multiple versions of Wagtail, so deprecation warnings in packages you’ve installed don’t necessarily indicate a problem. If a package doesn’t support the latest version of Wagtail, consider raising an issue or sending a pull request to that package.
 
 ### Preparing for the upgrade
 
@@ -48,7 +49,8 @@ After resolving the deprecation warnings, you should read the [release notes](..
 
 Pay particular attention to the upgrade considerations sections (which describe any backwards-incompatible changes) to get a clear idea of what will be needed for a successful upgrade.
 
-Also read the [Compatible Django / Python versions](compatible_django_python_versions) table below, as they may need upgrading first.
+Also read the [](compatible_django_python_versions) table below, as they may
+need upgrading first.
 
 Before continuing with the upgrade, make a backup of your database.
 
@@ -56,7 +58,7 @@ Before continuing with the upgrade, make a backup of your database.
 
 To upgrade:
 
--   Update the `wagtail` line in your project's `requirements.txt` file to specify the latest patch release of the version you wish to install. For example, to upgrade to version 6.3.x, the line should read:
+-   Update the `wagtail` line in your project's `requirements.txt` file (or the equivalent, such as `pyproject.toml`) to specify the latest patch release of the version you wish to install. For example, to upgrade to version 6.3.x, the line should read:
 
         wagtail>=6.3,<6.4
 

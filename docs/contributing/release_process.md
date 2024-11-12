@@ -46,15 +46,15 @@ be "yes."
 
 A feature release will usually stop receiving patch release updates when the next feature release comes out.
 
-**Long-term support release**
+**Long-term support (LTS) release**
 
-Certain feature releases will be designated as long-term support (LTS)
-releases. These releases will get security and data loss fixes applied for
-a guaranteed period of time. Typically, a Long Term Support release will happen
-once every four feature releases and receive updates for five feature releases,
-giving a support period of fifteen months with a three month overlap.
+Certain feature releases will be designated as long-term support releases. These
+releases will get security and data loss fixes applied for a guaranteed period
+of time. Typically, a long-term support release will happen once every four feature releases and receive updates for five feature releases, giving a support
+period of fifteen months with a three month overlap.
 
-Also, Long Term Support releases will ensure compatibility with at least one [Django Long Term Support release](https://www.djangoproject.com/download/#supported-versions).
+Also, long-term support releases will ensure compatibility with at least one
+[Django long-term support release](https://www.djangoproject.com/download/#supported-versions).
 
 **Major release**
 
@@ -83,9 +83,9 @@ corresponding API reference, which tend to be more actively developed.
 
 We try to strike the balance between:
 
-- keeping the API stable for most users,
-- documenting features for advanced developers and third-party package maintainers, and
-- allowing for continuous improvement of Wagtail's internals.
+-   keeping the API stable for most users,
+-   documenting features for advanced developers and third-party package maintainers, and
+-   allowing for continuous improvement of Wagtail's internals.
 
 A feature release may deprecate certain features from previous releases. If a
 feature is deprecated in feature release A.x, it will continue to work in all
@@ -209,10 +209,11 @@ features to include in the next version. This should include a good deal of
 preliminary work on those features -- working code trumps grand design.
 
 The development team will announce a roadmap update for the next feature
-release in the form of an RFC to
-[Wagtail's RFCs repository](https://github.com/wagtail/rfcs). After the RFC is
-approved, the roadmap update will be available on
-[wagtail.org/roadmap](https://wagtail.org/roadmap).
+release in the form of a request for comments (RFC) to
+[Wagtail's RFCs repository](https://github.com/wagtail/rfcs). Anyone is welcome
+and encouraged to comment on the RFC. After the RFC is approved by the
+[Wagtail core team](https://wagtail.org/core-team/), the roadmap update will be
+available on [wagtail.org/roadmap](https://wagtail.org/roadmap).
 
 #### Phase two: development
 
