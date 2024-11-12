@@ -136,6 +136,16 @@ See [](responsive_images) for full documentation.
 
 (rich_text_filter)=
 
+## User Avatar
+
+This tag retrieves the correct avatar URL for a specified user, displaying either the user's uploaded profile image, their Gravatar image, or the default profile picture, depending on the site settings.
+
+```html+django
+{% load wagtailadmin_tags %}
+
+<img src="{% avatar_url user %}" alt="User Profile"/>
+```
+
 ## Rich text (filter)
 
 This filter takes a chunk of HTML content and renders it as safe HTML on the page. Importantly, it also expands internal shorthand references to embedded images and links made in the Wagtail editor, into fully-baked HTML ready for display.

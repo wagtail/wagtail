@@ -400,6 +400,16 @@ Image usage
 {% url 'wagtailimages:image_usage' image_id %}
 ```
 
+### Profile Picture
+
+To get the wagtail user profile picture you can use the `avatar_url` template tag.
+
+```html+django
+{% load wagtailadmin_tags %}
+
+<img src="{% avatar_url user %}" alt="User Profile"/>
+```
+
 ### AdminURLFinder
 
 To find the url for any model in the admin the `AdminURLFinder` class can be used.
