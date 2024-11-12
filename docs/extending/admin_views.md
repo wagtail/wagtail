@@ -400,7 +400,7 @@ Image usage
 {% url 'wagtailimages:image_usage' image_id %}
 ```
 
-### Profile Picture
+### Profile picture
 
 To get the wagtail user profile picture you can use the `avatar_url` template tag.
 
