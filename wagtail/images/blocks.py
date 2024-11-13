@@ -148,9 +148,16 @@ class ImageBlock(StructBlock):
     def bulk_to_python(self, values):
         values = list(values)
 
-        if any(isinstance(value, int) for value in values):
-            # `values` is a list of image IDs (as we might encounter if an ImageChooserBlock has been
+        # The normal case: `values` is a list of dicts. This is the normal representation of this block.
+        if all(isinstance(value, dict) for value in values):
+            # `values` is a list of dicts containing `image`, `decorative` and `alt_text` keys
+            struct_values = super().bulk_to_python(values)
+
+        # Else we are in a fallback for backwards compatibility with ImageChooserBlock
+        else:
+            # `values` might be a list of image IDs (as we might encounter if an ImageChooserBlock has been
             # changed to an ImageBlock with no data migration)
+            # Or it could be a [None] if we are coming from an empty ImageChooserBlock
             image_values = self.child_blocks["image"].bulk_to_python(values)
 
             struct_values = [
@@ -161,11 +168,6 @@ class ImageBlock(StructBlock):
                 }
                 for image in image_values
             ]
-
-        else:
-            # assume `values` is a (possibly empty) list of dicts containing
-            # `image`, `decorative` and `alt_text` keys to be handled by the StructBlock superclass
-            struct_values = super().bulk_to_python(values)
 
         return [
             self._struct_value_to_image(struct_value) for struct_value in struct_values
