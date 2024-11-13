@@ -145,7 +145,7 @@ For more information on how to set up your Backblaze B2 Cloud Storage, read the 
 
 ## Set up Fly.io
 
-Now that you've linked your site to your Backblaze storage, it's time to set up Fly.io to host your site. 
+Now that you've linked your site to your Backblaze storage, it's time to set up Fly.io to host your site.
 
 To set up your Fly.io account, follow these steps:
 
@@ -356,7 +356,7 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 CSRF_TRUSTED_ORIGINS = os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
 
-EMAIL_BACKEND = "django.core.mail.console.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -407,7 +407,7 @@ The explanation of some of the code in your `mysite/settings/production.py` file
 3. `SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")` ensures that Django can detect a secure HTTPS connection if you deploy your site behind a reverse proxy like Heroku.
 4. `SECURE_SSL_REDIRECT = True` enforces HTTPS redirect. This ensures that all connections to the site are secure.
 5. `ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")` defines the hostnames that can access your site. It retrieves its values from the `DJANGO_ALLOWED_HOSTS` environment variable. If no specific hosts are defined, it defaults to allowing all hosts.
-6. `EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"` configures your site to use the console email backend. You can configure this to use a proper email backend for sending emails.
+6. `EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"` configures your site to use SMTP email backend. Used to send actual emails using third-party email service provider.
 
 **Note:** Fly.io does not support email services out of the box. You need to set up third-party SMTP service providers to send emails from your Django application.
 

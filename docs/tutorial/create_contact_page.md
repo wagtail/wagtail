@@ -69,7 +69,7 @@ In the preceding code, your `FormField` model inherits from `AbstractFormField`.
 
 On the other hand, your `FormPage` model inherits from `AbstractEmailForm`. Unlike `AbstractFormField`, `AbstractEmailForm` offers a form-to-email capability. Also, it defines the `to_address`, `from_address`, and `subject` fields. It expects a `form_fields` to be defined.
 
-**Note** : For local development, it is recommended to use django.core.mail.backends.console.EmailBackend, which will log emails to the console rather than sending them. For production, configure an SMTP email backend to send form submissions via a third-party email service. Fly.io does not provide email services out of the box, so you’ll need to set up a third-party SMTP provider like SendGrid.
+**Note** : For local development, it is recommended to use django.core.mail.backends.console.EmailBackend, which will log emails to the console rather than sending them. For production, configure an SMTP email backend to send form submissions via a third-party email service. Fly.io does not provide email services out of the box, so you’ll need to set up a third-party SMTP provider like Mailgun. For more info on configuration, refer to [Django's email documentation](https://docs.djangoproject.com/en/5.1/topics/email/)
 
 After defining your `FormField` and `FormPage` models, you must create `form_page` and `form_page_landing` templates. The `form_page` template differs from a standard Wagtail template because it's passed a variable named `form` containing a Django `Form` object in addition to the usual `Page` variable. The `form_page_landing.html`, on the other hand, is a standard Wagtail template. Your site displays the `form_page_landing.html` after a user makes a successful form submission.
 
