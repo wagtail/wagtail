@@ -391,6 +391,8 @@ class TestTagsAutocomplete(WagtailTestUtils, TestCase):
 
         # The results should be limited to avoid performance issues (#12415)
         self.assertEqual(len(data), 10)
+        sorted_tags = sorted(tags, key=lambda t: t.name)
+        self.assertEqual(data, [tag.name for tag in sorted_tags[:10]])
 
 
 class TestMenuItem(WagtailTestUtils, TestCase):
