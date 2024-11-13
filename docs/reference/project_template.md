@@ -85,10 +85,18 @@ The Django settings files are split up into `base.py`, `dev.py`, `production.py`
     This file is for global settings that will be used in both development and production. Aim to keep most of your configuration in this file.
 
 -   `dev.py`
-    This file is for settings that will only be used by developers. For example: `DEBUG = True`
+    This file is for settings that will only be used by developers. For example:
+    ```
+    DEBUG = True
+  
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 -   `production.py`
-    This file is for settings that will only run on a production server. For example: `DEBUG = False`
+    This file is for settings that will only run on a production server. For example:
+    ```
+    DEBUG = False
+
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 -   `local.py`
     This file is used for settings local to a particular machine. This file should never be tracked by a version control system.
