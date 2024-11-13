@@ -30,6 +30,7 @@ import { TeleportController } from './TeleportController';
 import { TooltipController } from './TooltipController';
 import { UnsavedController } from './UnsavedController';
 import { UpgradeController } from './UpgradeController';
+import { ZoneController } from './ZoneController';
 
 /**
  * Important: Only add default core controllers that should load with the base admin JS bundle.
@@ -67,4 +68,5 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: TooltipController, identifier: 'w-tooltip' },
   { controllerConstructor: UnsavedController, identifier: 'w-unsaved' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
+  { controllerConstructor: ZoneController, identifier: 'w-zone' },
 ];
