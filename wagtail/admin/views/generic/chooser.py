@@ -106,6 +106,15 @@ class PreserveURLParametersMixin:
 class CheckboxSelectColumn(Column):
     cell_template_name = "wagtailadmin/generic/chooser/checkbox_select_cell.html"
 
+    def __init__(self, *args, chooserIds, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.chooserIds = chooserIds
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["selectedChooserIds"] = self.chooserIds
+        return context
+
 
 class BaseChooseView(
     ModalPageFurnitureMixin,
@@ -205,6 +214,14 @@ class BaseChooseView(
     def is_multiple_choice(self):
         return self.request.GET.get("multiple")
 
+    def get_chooser_ids(self):
+        chooser_ids = self.request.GET.get("chooserIds", "")
+
+        if chooser_ids:
+            return chooser_ids.split(",")
+        else:
+            return []
+
     @property
     def columns(self):
         return [self.title_column]
@@ -234,7 +251,11 @@ class BaseChooseView(
     @property
     def checkbox_column(self):
         return CheckboxSelectColumn(
-            "select", label=_("Select"), width="1%", accessor="pk"
+            "select",
+            label=_("Select"),
+            width="1%",
+            accessor="pk",
+            chooserIds=self.get_chooser_ids,
         )
 
     def get_results_page(self, request):
@@ -279,6 +300,7 @@ class BaseChooseView(
                 "is_multiple_choice": self.is_multiple_choice,
                 "search_query": self.filter_form.search_query,
                 "can_create": self.can_create(),
+                "selectedChooserIds": self.get_chooser_ids,
             }
         )
         if self.is_multiple_choice:

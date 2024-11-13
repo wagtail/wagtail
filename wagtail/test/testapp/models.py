@@ -2359,7 +2359,9 @@ class ModelWithNullableParentalKey(models.Model):
 
 class GalleryPage(Page):
     content_panels = Page.content_panels + [
-        MultipleChooserPanel("gallery_images", chooser_field_name="image")
+        MultipleChooserPanel(
+            "gallery_images", chooser_field_name="image", allow_duplicates=True
+        )
     ]
 
 

@@ -3,6 +3,7 @@ import json
 import urllib
 from unittest.mock import patch
 
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -1926,6 +1927,13 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
             )
         )
 
+    def get_multiple_choice(self, params={}):
+        chooserIds = f"{self.image1.pk},{self.image2.pk}"
+        return self.client.get(
+            "%s?chooserIds=%s&multiple=1"
+            % (reverse("wagtailimages_chooser:choose"), chooserIds)
+        )
+
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -1935,6 +1943,29 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response_json["result"]), 2)
         titles = {item["title"] for item in response_json["result"]}
         self.assertEqual(titles, {"Test image", "Another test image"})
+
+    def test_dulplicate_checkboxes(self):
+        response = self.get_multiple_choice()
+        response_json = json.loads(response.content.decode())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response_json["step"], "choose")
+
+        soup = BeautifulSoup(response_json["html"], "html.parser")
+        choosen_image1 = soup.find(
+            "input", {"type": "checkbox", "value": self.image1.pk}
+        ).has_attr("disabled")
+        choosen_image2 = soup.find(
+            "input", {"type": "checkbox", "value": self.image2.pk}
+        ).has_attr("disabled")
+        unChoosen_image = soup.find(
+            "input", {"type": "checkbox", "value": self.image3.pk}
+        ).has_attr("disabled")
+
+        self.assertTrue(choosen_image1)
+        self.assertTrue(choosen_image2)
+
+        self.assertFalse(unChoosen_image)
 
 
 class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):

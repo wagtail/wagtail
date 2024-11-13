@@ -20,6 +20,7 @@
                 canOrder: {% if can_order %}true{% else %}false{% endif %},
                 maxForms: {{ self.formset.max_num|unlocalize }},
                 chooserFieldName: "{{ chooser_field_name }}",
+                allowDuplicates: {% if allow_duplicates %}true{% else %}false{% endif %},
             });
         })();
     </script>
