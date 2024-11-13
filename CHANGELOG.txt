@@ -5,9 +5,16 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add the ability to apply basic Page QuerySet optimizations to `specific()` sub-queries using `select_related` & `prefetch_related` (Andy Babic)
+ * Increase `DATA_UPLOAD_MAX_NUMBER_FIELDS` in project template (Matt Westcott)
+ * Stop invalid Site hostname records from breaking preview (Matt Westcott)
+ * Set sensible defaults for InlinePanel heading and label (Matt Westcott)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
+ * Fix: Fix sub-menus within the main menu cannot be closed on mobile (Bojan Mihelac)
+ * Fix: Fix animation overflow transition when navigating through subpages in the sidebar page explorer (manu)
+ * Fix: Ensure form builder supports custom admin form validation (John-Scott Atlakson, LB (Ben) Johnston)
+ * Fix: Ensure form builder correctly checks for duplicate field names when using a custom related name (John-Scott Atlakson, LB (Ben) Johnston)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -17,11 +24,34 @@ Changelog
  * Docs: Refine titles, references and URLS to better align with the documentation style guide, including US spelling (Srishti Jaiswal)
  * Docs: Recommend a larger `DATA_UPLOAD_MAX_NUMBER_FIELDS` when integrating Wagtail into Django (Matt Westcott)
  * Docs: Improve code highlighting and formatting for Python docstrings in core models (Srishti Jaiswal)
+ * Docs: Update all JavaScript inline scripts & some CSS inline style tags to a CSP compliant approach by using external scripts/styles (Aayushman Singh)
+ * Docs: Update usage of `mark_safe` to `format_html` for any script inclusions, to better avoid XSS issues from example code (Aayushman Singh)
+ * Docs: Update documentation writing guidelines to encourage better considerations of security, accessibility and good practice when writing code examples (Aayushman Singh, LB (Ben) Johnston)
+ * Docs: Update documentation guidelines on writing links and API reference (Sage Abdullah)
+ * Docs: Replace absolute URLs with intersphinx links where possible to avoid broken links (Sage Abdullah)
+ * Docs: Update upgrading guide and release process to better reflect the current practices (Sage Abdullah)
+ * Docs: Document usage of custom validation for admin form pages when using `AbstractEmailForm` or `AbstractForm` pages (John-Scott Atlakson, LB (Ben) Johnston)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
+ * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
+ * Maintenance: Remove unused `uuid` UMD module as all code is now using the NPM module (LB (Ben) Johnston)
+ * Maintenance: Clean up JS comments throughout codebase to be aligned to JSDoc where practical (LB (Ben) Johnston)
+ * Maintenance: Replace `eslint-disable no-undef` linter directives with `global` comments (LB (Ben) Johnston)
+ * Maintenance: Upgrade Node tooling to active LTS version 22 (LB (Ben) Johnston)
+ * Maintenance: Remove defunct oEmbed providers (Rahul Samant)
+ * Maintenance: Remove obsolete non-upsert-based code for Postgres search indexing (Jake Howard)
+ * Maintenance: Remove unused Rangy JS library (LB (Ben) Johnston)
+ * Maintenance: Update `PreviewController` usage to leverage Stimulus actions instead of calling `preventDefault` manually (Ayaan Qadri)
+ * Maintenance: Various performance optimizations to page publishing (Jake Howard)
 
 
-6.3 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.1 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Restore ability to upload profile picture through account settings (Sage Abdullah)
+
+
+6.3 LTS (01.11.2024)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Add support for Python 3.13 (Matt Westcott)
@@ -68,7 +98,7 @@ Changelog
  * Fix: Fix content path links in usage view to scroll to the correct element (Sage Abdullah)
  * Fix: Always show the minimap toggle button (Albina Starykova)
  * Fix: Ensure that dropdown button toggles show with a border in high contrast mode (Ishwari8104, LB (Ben) Johnston)
- * Fix: Update email notification header to the new logo design (rahulsamant37)
+ * Fix: Update email notification header to the new logo design (Rahul Samant)
  * Fix: Change `file_size` field on document model to avoid artificial 2Gb limit (Gabriel Getzie)
  * Fix: Ensure that `TypedTableBlock` uses the correct API representations of child blocks (Matt Westcott)
  * Fix: Footer action buttons now include their `media` definitions (Sage Abdullah)
@@ -79,6 +109,7 @@ Changelog
  * Fix: Improve layout of report listing tables (Sage Abdullah)
  * Fix: Fix regression from creation of `AbstractGroupApprovalTask` to ensure `can_handle` checks for the abstract class correctly (Sumana Sree Angajala)
  * Docs: Upgrade Sphinx to 7.3 (Matt Westcott)
+ * Docs: Upgrade sphinx-wagtail-theme to v6.4.0, with a new search integration and Read the Docs Addons bug fixes (Thibaud Colas)
  * Docs: Document how to customize date/time format settings (Vince Salvino)
  * Docs: Create a new documentation section for deployment and move fly.io deployment from the tutorial to this section (Vince Salvino)
  * Docs: Clarify process for UserViewSet customization (Sage Abdullah)
@@ -88,6 +119,7 @@ Changelog
  * Docs: Replace X links with Mastodon in the README (Alex Morega)
  * Docs: Re-enable building offline formats in online documentation (Read the docs) for EPUB/PDF/HTML downloads (Joel William, Sage Abdullah)
  * Docs: Resolve multiple output errors in the documentation ePub format (Sage Abdullah)
+ * Docs: Update social media examples to use LinkedIn, Reddit, Facebook (Ayaan Qadri)
  * Maintenance: Removed support for Python 3.8 (Matt Westcott)
  * Maintenance: Drop pytz dependency in favour of `zoneinfo.available_timezones` (Sage Abdullah)
  * Maintenance: Relax django-taggit dependency to allow 6.0 (Matt Westcott)
@@ -113,10 +145,13 @@ Changelog
  * Maintenance: Update Pillow dependency to allow 11.x (Storm Heg)
 
 
-6.2.3 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2.3 (01.11.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
+ * Fix: Fix error on workflow settings view with multiple snippet types assigned to the same workflow on Postgres (Sage Abdullah)
+ * Fix: Prevent history view from breaking if a log entry's revision is missing (Matt Westcott)
+ * Docs: Upgrade sphinx-wagtail-theme to v6.4.0, with a new search integration and Read the Docs Addons bug fixes (Thibaud Colas)
 
 
 6.2.2 (24.09.2024)
@@ -574,10 +609,11 @@ Changelog
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
 
 
-5.2.7 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.7 (01.11.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent multiple URLs from being combined into one when pasting links into a rich text input (Thibaud Colas)
+ * Fix: Fix error on workflow settings view with multiple snippet types assigned to the same workflow on Postgres (Sage Abdullah)
 
 
 5.2.6 (11.07.2024)

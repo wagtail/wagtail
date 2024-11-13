@@ -41,6 +41,7 @@ from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
+from django.http.request import validate_host
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
@@ -725,6 +726,26 @@ class PreviewableMixin:
         handler.load_middleware()
         return handler.get_response(request)
 
+    def _get_fallback_hostname(self):
+        """
+        Return a hostname that can be used on preview requests when the object has no
+        routable URL, or the real hostname is not valid according to ALLOWED_HOSTS.
+        """
+        try:
+            hostname = settings.ALLOWED_HOSTS[0]
+        except IndexError:
+            # Django disallows empty ALLOWED_HOSTS outright when DEBUG=False, so we must
+            # have DEBUG=True. In this mode Django allows localhost amongst others.
+            return "localhost"
+
+        if hostname == "*":
+            # Any hostname is allowed
+            return "localhost"
+
+        # Hostnames beginning with a dot are domain wildcards such as ".example.com" -
+        # these allow example.com itself, so just strip the dot
+        return hostname.lstrip(".")
+
     def _get_dummy_headers(self, original_request=None):
         """
         Return a dict of META information to be included in a faked HttpRequest object to pass to
@@ -734,20 +755,19 @@ class PreviewableMixin:
         if url:
             url_info = urlsplit(url)
             hostname = url_info.hostname
+            if not validate_host(
+                hostname,
+                settings.ALLOWED_HOSTS or [".localhost", "127.0.0.1", "[::1]"],
+            ):
+                # The hostname is not valid according to ALLOWED_HOSTS - use a fallback
+                hostname = self._get_fallback_hostname()
+
             path = url_info.path
             port = url_info.port or (443 if url_info.scheme == "https" else 80)
             scheme = url_info.scheme
         else:
-            # Cannot determine a URL to this object - cobble one together based on
-            # whatever we find in ALLOWED_HOSTS
-            try:
-                hostname = settings.ALLOWED_HOSTS[0]
-                if hostname == "*":
-                    # '*' is a valid value to find in ALLOWED_HOSTS[0], but it's not a valid domain name.
-                    # So we pretend it isn't there.
-                    raise IndexError
-            except IndexError:
-                hostname = "localhost"
+            # Cannot determine a URL to this object - cobble together an arbitrary valid one
+            hostname = self._get_fallback_hostname()
             path = "/"
             port = 80
             scheme = "http"
@@ -1590,8 +1610,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         such as updating the ``url_path`` value of descendant page to reflect changes
         to this page's slug.
 
-        New pages should generally be saved via the `add_child() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_child>`_
-        or `add_sibling() <https://django-treebeard.readthedocs.io/en/latest/mp_tree.html#treebeard.mp_tree.MP_Node.add_sibling>`_
+        New pages should generally be saved via the :meth:`~treebeard.mp_tree.MP_Node.add_child`
+        or :meth:`~treebeard.mp_tree.MP_Node.add_sibling`
         method of an existing page, which will correctly set the ``path`` and ``depth``
         fields on the new page before saving it.
 
@@ -2788,7 +2808,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # These should definitely never change between revisions
         obj.id = self.id
         obj.pk = self.pk
-        obj.content_type = self.content_type
+        obj.content_type_id = self.content_type_id
 
         # Override possibly-outdated tree parameter fields
         obj.path = self.path
@@ -2804,27 +2824,30 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.draft_title = self.draft_title
         obj.live = self.live
         obj.has_unpublished_changes = self.has_unpublished_changes
-        obj.owner = self.owner
+        obj.owner_id = self.owner_id
         obj.locked = self.locked
-        obj.locked_by = self.locked_by
+        obj.locked_by_id = self.locked_by_id
         obj.locked_at = self.locked_at
-        obj.latest_revision = self.latest_revision
+        obj.latest_revision_id = self.latest_revision_id
         obj.latest_revision_created_at = self.latest_revision_created_at
         obj.first_published_at = self.first_published_at
         obj.translation_key = self.translation_key
-        obj.locale = self.locale
+        obj.locale_id = self.locale_id
         obj.alias_of_id = self.alias_of_id
-        revision_comments = getattr(obj, COMMENTS_RELATION_NAME)
-        page_comments = getattr(self, COMMENTS_RELATION_NAME).filter(
-            resolved_at__isnull=True
+        revision_comment_positions = dict(
+            getattr(obj, COMMENTS_RELATION_NAME).values_list("id", "position")
+        )
+        page_comments = (
+            getattr(self, COMMENTS_RELATION_NAME)
+            .filter(resolved_at__isnull=True)
+            .defer("position")
         )
         for comment in page_comments:
             # attempt to retrieve the comment position from the revision's stored version
             # of the comment
             try:
-                revision_comment = revision_comments.get(id=comment.id)
-                comment.position = revision_comment.position
-            except Comment.DoesNotExist:
+                comment.position = revision_comment_positions[comment.id]
+            except KeyError:
                 pass
         setattr(obj, COMMENTS_RELATION_NAME, page_comments)
 

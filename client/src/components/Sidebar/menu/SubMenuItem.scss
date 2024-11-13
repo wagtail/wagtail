@@ -96,3 +96,7 @@
     }
   }
 }
+
+.sidebar-close-menu-button {
+  @apply w-grid sm:w-hidden w-place-items-center w-text-text-label-menus-default w-p-0 w-z-sidebar-toggle w-border-transparent w-fixed w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
+}

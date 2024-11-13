@@ -94,9 +94,8 @@ class PublishRevisionAction:
         )
 
         if isinstance(self.object, WorkflowMixin):
-            workflow_state = self.object.current_workflow_state
-            if workflow_state and getattr(
-                settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+            if getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True) and (
+                workflow_state := self.object.current_workflow_state
             ):
                 workflow_state.cancel(user=self.user)
 
@@ -115,11 +114,11 @@ class PublishRevisionAction:
             object.has_unpublished_changes = True
             # Instead set the approved_go_live_at of this revision
             revision.approved_go_live_at = object.go_live_at
-            revision.save()
+            revision.save(update_fields=["approved_go_live_at"])
             # And clear the approved_go_live_at of any other revisions
             object.revisions.exclude(id=revision.id).update(approved_go_live_at=None)
             # if we are updating a currently live object skip the rest
-            if object.live_revision:
+            if object.live_revision_id:
                 # Log scheduled publishing
                 if log_action:
                     self.log_scheduling_action()

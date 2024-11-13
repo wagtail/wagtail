@@ -58,7 +58,7 @@ class FormPage(AbstractEmailForm):
 
 `AbstractEmailForm` defines the fields `to_address`, `from_address` and `subject`, and expects `form_fields` to be defined. Any additional fields are treated as ordinary page content - note that `FormPage` is responsible for serving both the form page itself and the landing page after submission, so the model definition should include all necessary content fields for both of those views.
 
-Date and datetime values in a form response will be formatted with the [SHORT_DATE_FORMAT](https://docs.djangoproject.com/en/stable/ref/settings/#short-date-format) and [SHORT_DATETIME_FORMAT](https://docs.djangoproject.com/en/stable/ref/settings/#short-datetime-format) respectively. (see [](form_builder_render_email) for how to customize the email content).
+Date and datetime values in a form response will be formatted with the [`SHORT_DATE_FORMAT`](inv:django#SHORT_DATE_FORMAT) and [`SHORT_DATETIME_FORMAT`](inv:django#SHORT_DATETIME_FORMAT) respectively. (see [](form_builder_render_email) for how to customize the email content).
 
 If you do not want your form page type to offer form-to-email functionality, you can inherit from AbstractForm instead of `AbstractEmailForm`, and omit the `to_address`, `from_address`, and `subject` fields from the `content_panels` definition.
 

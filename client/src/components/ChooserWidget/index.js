@@ -210,8 +210,10 @@ export class ChooserFactory {
     this.modal.open(options, callback);
   }
 
+  /**
+   * retrieve the widget object corresponding to the given HTML ID
+   */
   getById(id) {
-    /* retrieve the widget object corresponding to the given HTML ID */
     return document.getElementById(`${id}-chooser`).widget;
   }
 }

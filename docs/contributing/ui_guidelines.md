@@ -24,7 +24,7 @@ We use [djhtml](https://github.com/rtts/djhtml) for formatting and [Curlylint](h
 -   Follow [ARIA authoring practices](https://w3c.github.io/aria-practices/), in particular, [No ARIA is better than Bad ARIA](https://w3c.github.io/aria-practices/#no_aria_better_bad_aria).
 -   Use IDs for semantics only, classes for styling, `data-` attributes for JavaScript behavior.
 -   Order attributes with `id` first, then `class`, then any `data-` or other attributes with Stimulus `data-controller` first.
--   For comments, use [Django template syntax](https://docs.djangoproject.com/en/stable/ref/templates/language/#comments) instead of HTML.
+-   For comments, use [Django template syntax](inv:django#template-comments) instead of HTML.
 
 ## CSS guidelines
 

@@ -26,10 +26,11 @@ import {
 /* global $ */
 
 class StreamChild extends BaseSequenceChild {
-  /*
-  wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
-  such as id
-  */
+  /**
+   * wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
+   * such as id
+   * @returns {Object} - The state of the child block
+   */
   getState() {
     return {
       type: this.type,
@@ -255,9 +256,8 @@ export class StreamBlock extends BaseSequenceBlock {
     this.childBlockCounts.set(type, currentBlockCount);
   }
 
-  /*
+  /**
    * Called whenever a block is added or removed
-   *
    * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
    */
   blockCountChanged() {
@@ -355,11 +355,13 @@ export class StreamBlock extends BaseSequenceBlock {
     return this._insert(childBlockDef, value, id, index, opts);
   }
 
+  /**
+   * Called when an 'insert new block' action is triggered: given a dict of data from the insertion control.
+   * For a StreamBlock, the dict of data consists of 'type' (the chosen block type name, as a string).
+   *
+   * @returns {Array} - The block definition, initial state, and id for the new block
+   */
   _getChildDataForInsertion({ type }) {
-    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
-    return the block definition and initial state to be used for the new block.
-    For a StreamBlock, the dict of data consists of 'type' (the chosen block type name, as a string).
-    */
     const blockDef = this.blockDef.childBlockDefsByName[type];
     const initialState = this.blockDef.initialChildStates[type];
     return [blockDef, initialState, uuidv4()];

@@ -12,7 +12,7 @@ Wagtail is currently compatible with Django 4.2, 5.0 and 5.1. First, install the
 pip install wagtail
 ```
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
 ## Settings
 
@@ -121,7 +121,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](inv:django#howto/static-files/deployment).
+Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](<inv:django#howto/static-files/index:serving files uploaded by a user during development>) and [Deploying static files](inv:django#howto/static-files/deployment).
 
 With this configuration in place, you are ready to run `python manage.py migrate` to create the database tables used by Wagtail.
 

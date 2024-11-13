@@ -10,14 +10,14 @@ You can also set up a cloud development environment that you can work with in a 
 
 (Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack)!)
 
-If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and [virtual environments](https://docs.python.org/3/tutorial/venv.html) to manage Python packages.
+If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and [virtual environments](inv:python#tutorial/venv) to manage Python packages.
 
 ## Setting up the Wagtail codebase
 
 The preferred way to install the correct version of Node is to use [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `fnm install` from the project root.
 Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure you install the version as declared in the project's root `.nvmrc` file.
 
-You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
 Fork the [the Wagtail codebase](https://github.com/wagtail/wagtail) and clone the forked copy:
 
@@ -145,7 +145,7 @@ DATABASE_ENGINE=django.db.backends.mysql python runtests.py
 This will create a new database called `test_wagtail` in MySQL and run
 the tests against it.
 
-If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [DATABASES](https://docs.djangoproject.com/en/stable/ref/settings/#databases) settings dictionary:
+If you need to use different connection settings, use the following environment variables which correspond to the respective keys within Django's [`DATABASES`](inv:django#DATABASES) settings dictionary:
 
 -   `DATABASE_ENGINE`
 -   `DATABASE_NAME`

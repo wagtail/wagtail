@@ -276,6 +276,9 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
         # Form media should be included on the page
         self.assertContains(response, "vendor/colorpicker.js")
 
+        # Form should use the multipart/form-data encoding type
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
         # Check if the default title exists
         self.assertContains(response, "Name and Email")
 

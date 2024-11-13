@@ -803,7 +803,6 @@ export class PreviewController extends Controller<HTMLElement> {
    * @returns whether the data is valid
    */
   async openPreviewInNewTab(event: MouseEvent) {
-    event.preventDefault();
     const link = event.currentTarget as HTMLAnchorElement;
 
     const valid = await this.setPreviewDataWithAlert();

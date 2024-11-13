@@ -331,7 +331,7 @@ if the page supports [multiple preview modes](wagtail.models.Page.preview_modes)
 
 ## Template fragment caching
 
-Django supports [template fragment caching](https://docs.djangoproject.com/en/stable/topics/cache/#template-fragment-caching), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags which can be loaded from `wagtail_cache`:
+Django supports [template fragment caching](<inv:django:std:label#topics/cache:template fragment caching>), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags which can be loaded from `wagtail_cache`:
 
 (wagtailcache)=
 

@@ -114,8 +114,10 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
       }
     },
 
-    // For not re-setting and not removing focus from combobox when pressing `Alt+Tab`
-    // to switch windows.
+    /**
+     * For not re-setting and not removing focus from combobox when pressing `Alt+Tab`
+     * to switch windows.
+     */
     stateReducer: (state, actionAndChanges) => {
       const { type, changes } = actionAndChanges;
       switch (type) {

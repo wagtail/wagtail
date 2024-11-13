@@ -146,7 +146,7 @@ In `blog_page.html`, add the following block of code to display the document lin
 
 ## Working documents and collections
 
-Documents in Wagtail can be organized within [collections](https://docs.wagtail.org/en/v4.0/editor_manual/documents_images_snippets/collections.html). Collections provide a way to group related documents. You can cross-link documents between collections and make them accessible through different parts of your site.
+Documents in Wagtail can be organized within [collections](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/). Collections provide a way to group related documents. You can cross-link documents between collections and make them accessible through different parts of your site.
 
 Here's an example:
 
