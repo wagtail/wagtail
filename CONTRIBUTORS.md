@@ -853,6 +853,7 @@
 * Ayaan Qadri
 * manu
 * Aayushman Singh
+* Steven Steinwand
 
 ## Translators
 
