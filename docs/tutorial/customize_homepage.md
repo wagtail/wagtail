@@ -71,7 +71,7 @@ class HomePage(Page):
     ]
 ```
 
-You might already be familiar with the different parts of your `HomePage` model. The `image` field is a `ForeignKey` referencing Wagtail's built-in Image model for storing images. Similarly, `hero_cta_link` is a `ForeignKey` to `wagtailcore.Page`. The `wagtailcore.Page` is the base class for all other page types in Wagtail. This means all Wagtail pages inherit from `wagtailcore.Page`. For instance, your `class HomePage(page)` inherits from `wagtailcore.Page`.
+You might already be familiar with the different parts of your `HomePage` model. The `image` field is a `ForeignKey` referencing Wagtail's built-in Image model for storing images. Similarly, `hero_cta_link` is a `ForeignKey` to `wagtailcore.Page`. The `wagtailcore.Page` is the base class for all other page types in Wagtail. This means all Wagtail pages inherit from `wagtailcore.Page`. For instance, your `class HomePage(Page)` inherits from `wagtailcore.Page`.
 
 Using `on_delete=models.SET_NULL` ensures that if you remove an image or hero link from your admin interface, the `image` or `hero_cta_link` fields on your Homepage will be set to null, but the rest of the data will be preserved. Read the [Django documentation on the `on_delete` attribute](django.db.models.ForeignKey.on_delete) for more details.
 
