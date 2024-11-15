@@ -854,6 +854,7 @@
 * manu
 * Aayushman Singh
 * Steven Steinwand
+* Clifford Gama
 
 ## Translators
 
