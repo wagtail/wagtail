@@ -218,7 +218,7 @@ Since your `FooterText` model is a Wagtail snippet, you must manually add `Mixin
 
 `TranslatableMixin` is an abstract model you can add to any non-page Django model to make it translatable.
 
-Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. You can use the `PublishingPanel()` method to schedule `revisions` in your `FooterText`.
+Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. You can use a `PublishingPanel` to schedule revisions in your `FooterText`.
 
 The `__str__` method defines a human-readable string representation of an instance of the `FooterText` class. It returns the string "Footer text".
 
