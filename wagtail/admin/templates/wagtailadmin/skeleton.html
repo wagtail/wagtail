@@ -17,9 +17,11 @@
     {% sidebar_collapsed as sidebar_collapsed %}
     {% fragment as bodyclass %}{% block bodyclass %}{% endblock %}{% endfragment %}
     <body id="wagtail" class="{% classnames bodyclass sidebar_collapsed|yesno:"sidebar-collapsed," messages|yesno:"has-messages," %}" data-controller="w-init" data-w-init-ready-class="ready">
-        <div data-sprite></div>
+        {% block icons_sprite %}
+            <div data-sprite></div>
 
-        <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
+            <script src="{% versioned_static 'wagtailadmin/js/icons.js' %}" data-icon-url="{% icon_sprite_url %}"></script>
+        {% endblock %}
 
         <noscript class="capabilitymessage">
             {% blocktrans trimmed %}
