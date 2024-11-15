@@ -11,6 +11,7 @@ Changelog
  * Docs: Reword `BlogTagIndexPage` example for clarity (Clifford Gama)
  * Docs: Change title of blog index page in tutorial to avoid slug issues (Thibaud Colas)
  * Docs: Fix `wagtailcache` and `wagtailpagecache` examples to not use quotes for the `fragment_name` (Shiv)
+ * Docs: Lower search result ranking for release notes on readthedocs search (Sage Abdullah)
 
 
 6.3 LTS (01.11.2024)
