@@ -848,6 +848,7 @@
 * Shaurya Panchal
 * Sumana Sree Angajala
 * Ayaan Qadri
+* Clifford Gama
 
 ## Translators
 
