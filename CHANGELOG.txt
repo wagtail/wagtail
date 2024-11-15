@@ -35,6 +35,7 @@ Changelog
  * Docs: Update upgrading guide and release process to better reflect the current practices (Sage Abdullah)
  * Docs: Document usage of custom validation for admin form pages when using `AbstractEmailForm` or `AbstractForm` pages (John-Scott Atlakson, LB (Ben) Johnston)
  * Docs: Reword `BlogTagIndexPage` example for clarity (Clifford Gama)
+ * Docs: Change title of blog index page in tutorial to avoid slug issues (Thibaud Colas)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
