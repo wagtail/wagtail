@@ -921,8 +921,8 @@ class BlogTagIndexPage(Page):
 Note that this Page-based model defines no fields of its own.
 Even without fields, subclassing `Page` makes it a part of the
 Wagtail ecosystem, so that you can give it a title and URL in the
-admin, and so that you can manipulate its contents by returning
-a QuerySet from its `get_context()` method.
+admin. You can also override its `get_context()` method to add a
+QuerySet to the context dictionary, making it available to the template.
 
 Migrate this by running `python manage.py makemigrations` and then `python manage.py migrate`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Our Blog` in the admin interface.
 
