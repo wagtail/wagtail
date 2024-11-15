@@ -198,5 +198,12 @@
     width: 0;
     height: 0;
     opacity: 0;
+
+    // Remove mask-image from radio inputs to avoid loading the default icon,
+    // use extra specificity to beat the default styles
+    &:is(input[type='radio'])::before {
+      content: none;
+      mask-image: none;
+    }
   }
 }
