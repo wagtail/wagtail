@@ -4,6 +4,22 @@ import { CleanController } from './CleanController';
 describe('CleanController', () => {
   let application;
 
+  const eventNames = ['w-clean:applied'];
+
+  const events = {};
+
+  eventNames.forEach((name) => {
+    document.addEventListener(name, (event) => {
+      events[name].push(event);
+    });
+  });
+
+  beforeEach(() => {
+    eventNames.forEach((name) => {
+      events[name] = [];
+    });
+  });
+
   describe('compare', () => {
     beforeEach(() => {
       application?.stop();
@@ -211,6 +227,8 @@ describe('CleanController', () => {
     });
 
     it('should trim and slugify the input value when focus is moved away from it', async () => {
+      expect(events['w-clean:applied']).toHaveLength(0);
+
       const input = document.getElementById('slug');
       input.value = '    slug  testing on     edit page ';
 
@@ -221,9 +239,18 @@ describe('CleanController', () => {
       expect(document.getElementById('slug').value).toEqual(
         '-slug-testing-on-edit-page-', // non-trimmed adds dashes for all spaces (inc. end/start)
       );
+
+      expect(events['w-clean:applied']).toHaveLength(1);
+      expect(events['w-clean:applied']).toHaveProperty('0.detail', {
+        action: 'slugify',
+        cleanValue: '-slug-testing-on-edit-page-', // non-trimmed adds dashes for all spaces (inc. end/start)
+        sourceValue: '    slug  testing on     edit page ',
+      });
     });
 
     it('should slugify & trim (when enabled) the input value when focus is moved away from it', async () => {
+      expect(events['w-clean:applied']).toHaveLength(0);
+
       const input = document.getElementById('slug');
 
       input.setAttribute('data-w-clean-trim-value', 'true'); // enable trimmed values
@@ -237,6 +264,13 @@ describe('CleanController', () => {
       expect(document.getElementById('slug').value).toEqual(
         'slug-testing-on-edit-page',
       );
+
+      expect(events['w-clean:applied']).toHaveLength(1);
+      expect(events['w-clean:applied']).toHaveProperty('0.detail', {
+        action: 'slugify',
+        cleanValue: 'slug-testing-on-edit-page',
+        sourceValue: '    slug  testing on     edit page ',
+      });
     });
 
     it('should not allow unicode characters by default', async () => {
@@ -297,6 +331,8 @@ describe('CleanController', () => {
     });
 
     it('should update slug input value if the values are the same', async () => {
+      expect(events['w-clean:applied']).toHaveLength(0);
+
       const input = document.getElementById('slug');
       input.value = 'urlify Testing On edit page  ';
 
@@ -310,6 +346,13 @@ describe('CleanController', () => {
       await new Promise(process.nextTick);
 
       expect(input.value).toBe('urlify-testing-on-edit-page');
+
+      expect(events['w-clean:applied']).toHaveLength(1);
+      expect(events['w-clean:applied']).toHaveProperty('0.detail', {
+        action: 'urlify',
+        cleanValue: 'urlify-testing-on-edit-page',
+        sourceValue: 'urlify Testing On edit page',
+      });
     });
 
     it('should transform input with special (unicode) characters to their ASCII equivalent by default', async () => {
