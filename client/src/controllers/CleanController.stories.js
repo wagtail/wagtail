@@ -92,6 +92,23 @@ const Template = ({ debug = false }) => {
             </label>
           </div>
           <div className="w-m-4">
+            <label htmlFor="urlify-locale-uk">
+              <pre>urlify (with Ukrainian locale)</pre>
+              <input
+                id="urlify-locale-uk"
+                type="text"
+                data-controller="w-clean"
+                data-action="blur->w-clean#urlify"
+                data-w-clean-locale-value="uk-UK"
+                data-w-clean-trim-value
+              />
+              <p>Try `Георгій`, should be `heorhii`, not `georgij`.</p>
+              <output className="w-inline-flex w-items-center">
+                Source value: <pre>{sourceValues['urlify-locale-uk']}</pre>
+              </output>
+            </label>
+          </div>
+          <div className="w-m-4">
             <label htmlFor="urlify-unicode">
               <pre>urlify (allow unicode)</pre>
               <input
