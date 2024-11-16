@@ -1,6 +1,6 @@
 [
   {
-    "LATIN_MAP": [
+    "LATIN_MAP:und": [
       ["À", "A"],
       ["Á", "A"],
       ["Â", "A"],
@@ -72,7 +72,7 @@
   },
   { "LATIN_SYMBOLS_MAP": [["©", "(c)"]] },
   {
-    "GREEK_MAP": [
+    "GREEK_MAP:el": [
       ["α", "a"],
       ["β", "b"],
       ["γ", "g"],
@@ -145,7 +145,7 @@
     ]
   },
   {
-    "TURKISH_MAP": [
+    "TURKISH_MAP:tr": [
       ["ş", "s"],
       ["Ş", "S"],
       ["ı", "i"],
@@ -161,7 +161,7 @@
     ]
   },
   {
-    "ROMANIAN_MAP": [
+    "ROMANIAN_MAP:ro": [
       ["ă", "a"],
       ["î", "i"],
       ["ș", "s"],
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "RUSSIAN_MAP": [
+    "RUSSIAN_MAP:ru": [
       ["а", "a"],
       ["б", "b"],
       ["в", "v"],
@@ -245,7 +245,7 @@
     ]
   },
   {
-    "UKRAINIAN_MAP": [
+    "UKRAINIAN_MAP:uk": [
       ["Є", "Ye"],
       ["І", "I"],
       ["Ї", "Yi"],
@@ -269,7 +269,7 @@
     ]
   },
   {
-    "BELARUSIAN_MAP": [
+    "BELARUSIAN_MAP:be": [
       ["а", "a"],
       ["б", "b"],
       ["в", "v"],
@@ -337,7 +337,7 @@
     ]
   },
   {
-    "CZECH_MAP": [
+    "CZECH_MAP:cs": [
       ["č", "c"],
       ["ď", "d"],
       ["ě", "e"],
@@ -359,7 +359,7 @@
     ]
   },
   {
-    "SLOVAK_MAP": [
+    "SLOVAK_MAP:sk": [
       ["á", "a"],
       ["ä", "a"],
       ["č", "c"],
@@ -397,7 +397,7 @@
     ]
   },
   {
-    "POLISH_MAP": [
+    "POLISH_MAP:pl": [
       ["ą", "a"],
       ["ć", "c"],
       ["ę", "e"],
@@ -419,7 +419,7 @@
     ]
   },
   {
-    "LATVIAN_MAP": [
+    "LATVIAN_MAP:lv": [
       ["ā", "a"],
       ["č", "c"],
       ["ē", "e"],
@@ -445,7 +445,7 @@
     ]
   },
   {
-    "ARABIC_MAP": [
+    "ARABIC_MAP:ar": [
       ["أ", "a"],
       ["ب", "b"],
       ["ت", "t"],
@@ -477,7 +477,7 @@
     ]
   },
   {
-    "LITHUANIAN_MAP": [
+    "LITHUANIAN_MAP:lt": [
       ["ą", "a"],
       ["č", "c"],
       ["ę", "e"],
@@ -499,7 +499,7 @@
     ]
   },
   {
-    "SERBIAN_MAP": [
+    "SERBIAN_MAP:sr": [
       ["ђ", "dj"],
       ["ј", "j"],
       ["љ", "lj"],
@@ -517,7 +517,7 @@
     ]
   },
   {
-    "AZERBAIJANI_MAP": [
+    "AZERBAIJANI_MAP:az": [
       ["ç", "c"],
       ["ə", "e"],
       ["ğ", "g"],
@@ -535,7 +535,7 @@
     ]
   },
   {
-    "GEORGIAN_MAP": [
+    "GEORGIAN_MAP:ka": [
       ["ა", "a"],
       ["ბ", "b"],
       ["გ", "g"],
