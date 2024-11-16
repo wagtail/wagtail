@@ -1,6 +1,9 @@
 import { Application } from '@hotwired/stimulus';
 import { CleanController } from './CleanController';
 
+import * as urlify from '../utils/urlify';
+import * as wagtailConfig from '../config/wagtailConfig';
+
 describe('CleanController', () => {
   let application;
 
@@ -479,6 +482,133 @@ describe('CleanController', () => {
       input.dispatchEvent(new Event('blur'));
       await new Promise(process.nextTick);
       expect(input.value).toBe('i-féta-eínai-kalýteri-');
+    });
+
+    describe('urlify (with locale)', () => {
+      let CleanController2;
+      const originalActiveContentLocale =
+        wagtailConfig.WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE;
+      let ACTIVE_CONTENT_LOCALE = originalActiveContentLocale;
+
+      beforeAll(() => {
+        jest.spyOn(urlify, 'urlify');
+
+        Object.defineProperty(
+          wagtailConfig.WAGTAIL_CONFIG,
+          'ACTIVE_CONTENT_LOCALE',
+          {
+            get: () => ACTIVE_CONTENT_LOCALE,
+            configurable: true,
+          },
+        );
+
+        CleanController2 = require('./CleanController').CleanController;
+      });
+
+      const setup = async () => {
+        application?.stop();
+
+        document.body.innerHTML = `
+        <input
+          id="slug"
+          name="slug"
+          type="text"
+          data-controller="w-clean"
+          data-action="blur->w-clean#urlify"
+          data-w-clean-trim-value="true"
+        />`;
+
+        application = Application.start();
+        application.register('w-clean', CleanController2);
+
+        await Promise.resolve();
+      };
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      afterAll(() => {
+        jest.restoreAllMocks();
+        Object.defineProperty(
+          wagtailConfig.WAGTAIL_CONFIG,
+          'ACTIVE_CONTENT_LOCALE',
+          { value: originalActiveContentLocale, writable: true },
+        );
+      });
+
+      const transliterationTest = ' Тестовий  Георгій  цехщик   заголовок  '; // ~Test George [shop]worker title
+      const transliterationTestTrimmed =
+        'Тестовий  Георгій  цехщик   заголовок'; // trimmed version (passed to events)
+      const transliterationRu = 'testovij-georgij-cexshhik-zagolovok'; // Russian transliteration
+      const transliterationUk = 'testovyi-heorhii-tsekhshchyk-zaholovok'; // Ukrainian transliteration
+
+      it('should use the default locale when no locale is provided', async () => {
+        expect(ACTIVE_CONTENT_LOCALE).toBe('en'); // default set in setup mocks
+
+        await setup();
+
+        const input = document.getElementById('slug');
+        input.value = transliterationTest;
+
+        input.dispatchEvent(new Event('blur'));
+
+        await new Promise(process.nextTick);
+
+        expect(urlify.urlify).toHaveBeenCalledTimes(1);
+        expect(urlify.urlify).toHaveBeenCalledWith(transliterationTestTrimmed, {
+          allowUnicode: false,
+          locale: 'en',
+        });
+
+        expect(input.value).toBe(transliterationRu);
+        expect(input.value).not.toBe(transliterationUk);
+      });
+
+      it('should use the the override locale when provided', async () => {
+        ACTIVE_CONTENT_LOCALE = 'uk-UK';
+
+        await setup();
+
+        const input = document.getElementById('slug');
+        input.value = transliterationTest;
+
+        input.dispatchEvent(new Event('blur'));
+
+        await new Promise(process.nextTick);
+
+        expect(urlify.urlify).toHaveBeenCalledTimes(1);
+        expect(urlify.urlify).toHaveBeenCalledWith(transliterationTestTrimmed, {
+          allowUnicode: false,
+          locale: 'uk-UK',
+        });
+
+        expect(input.value).toBe(transliterationUk);
+        expect(input.value).not.toBe(transliterationRu);
+      });
+
+      it('should use an undetermined locale if no locale provided & not available from config or document', async () => {
+        ACTIVE_CONTENT_LOCALE = undefined;
+
+        await setup();
+
+        const input = document.getElementById('slug');
+        input.setAttribute('data-w-clean-allow-unicode-value', 'true');
+
+        input.value = 'Тестовий заголовок';
+
+        input.dispatchEvent(new Event('blur'));
+
+        await new Promise(process.nextTick);
+
+        expect(urlify.urlify).toHaveBeenCalledTimes(1);
+        expect(urlify.urlify).toHaveBeenCalledWith('Тестовий заголовок', {
+          allowUnicode: true,
+          locale: 'und', // undetermined locale
+        });
+
+        expect(input.value).toBe('тестовий-заголовок'); // allows unicode in this test
+      });
     });
   });
 });
