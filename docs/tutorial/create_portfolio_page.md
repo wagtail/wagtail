@@ -335,9 +335,8 @@ To add your resume to your portfolio site, follow these steps:
     b. Go to your admin interface.  
     c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).  
     d. Click `Home`.  
-    e. Click the `...` icon at the top of the resulting page.  
-    f. Click `add child page`.  
-    g. Click `Portfolio Page`.
+    e. Click the `+` icon (Add child page) at the top of the resulting page.
+    f. Click `Portfolio Page`.
 
 2. Add your resume data by following these steps:  
    a. Use "Resume" as your page title.  

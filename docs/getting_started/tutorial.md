@@ -342,7 +342,7 @@ Now that this is complete, here is how you can create a page from the Wagtail [a
 
 1.  Go to <http://127.0.0.1:8000/admin> and sign in with your admin user details.
 2.  In the Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface), go to Pages, then click Home.
-3.  Add a child page to the Home page by clicking **...** at the top of the screen and selecting the option **Add child page**.
+3.  Add a child page to the Home page by clicking the **`+`** icon (Add child page) at the top of the screen.
 4.  Choose **Blog index page** from the list of the page types.
 5.  Use "Blog" as your page title, make sure it has the slug "blog" on the Promote tab, and publish it.
 
