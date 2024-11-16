@@ -1,4 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
+
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 import { slugify } from '../utils/slugify';
 import { urlify } from '../utils/urlify';
 
@@ -21,11 +23,13 @@ enum Actions {
  * ```html
  * <input type="text" name="url-path" data-controller="w-slug" data-action="change->w-slug#urlify" />
  * <input type="text" name="url-path-with-unicode" data-controller="w-slug" data-w-slug-allow-unicode="true" data-action="change->w-slug#urlify" />
+ * <input type="text" name="url-path-with-locale" data-controller="w-slug" data-w-slug-locale="uk-UK" data-action="blur->w-slug#urlify" />
  * ```
  */
 export class CleanController extends Controller<HTMLInputElement> {
   static values = {
     allowUnicode: { default: false, type: Boolean },
+    locale: { default: '', type: String },
     trim: { default: false, type: Boolean },
   };
 
@@ -37,6 +41,10 @@ export class CleanController extends Controller<HTMLInputElement> {
   declare readonly allowUnicodeValue: boolean;
   /** If true, value will be trimmed in all clean methods before being processed by that method. */
   declare readonly trimValue: boolean;
+  /** Locale code, used to provide a more specific cleaned value. */
+  declare localeValue: string;
+  /** `und` (undetermined) locale as per ISO 639-2 */
+  undeterminedLocale = 'und';
 
   /**
    * Writes the new value to the element & dispatches the applied event.
@@ -111,6 +119,20 @@ export class CleanController extends Controller<HTMLInputElement> {
   }
 
   /**
+   * If the locale is not provided, attempt to find the most suitable target locale:
+   * 1. Use the active content locale if available (for translations)
+   * 2. Fall back to `und` (undetermined) as per ISO 639-2
+   *
+   * This only makes a difference when using the `urlify` method and where there are
+   * overlapping characters that need to be downcoded but are not in the desired order by default.
+   */
+  localeValueChanged(currentValue: string) {
+    if (currentValue) return;
+    this.localeValue =
+      WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE || this.undeterminedLocale;
+  }
+
+  /**
    * Prepares the value before being processed by an action method.
    */
   prepareValue(sourceValue = '') {
@@ -163,9 +185,10 @@ export class CleanController extends Controller<HTMLInputElement> {
     if (!preparedValue) return '';
 
     const allowUnicode = this.allowUnicodeValue;
+    const locale = this.localeValue;
 
     const cleanValue =
-      urlify(preparedValue, { allowUnicode }) ||
+      urlify(preparedValue, { allowUnicode, locale }) ||
       this.slugify(
         { detail: { value: preparedValue } },
         { ignoreUpdate: true },
