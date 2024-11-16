@@ -34,12 +34,24 @@ export class CleanController extends Controller<HTMLInputElement> {
   declare readonly trimValue: boolean;
 
   /**
-   * Writes the new value to the element.
+   * Writes the new value to the element & dispatches the applied event.
+   *
+   * @fires CleanController#applied - If a change applied to the input value, this event is dispatched.
+   *
+   * @event CleanController#applied
+   * @type {CustomEvent}
+   * @property {string} name - `w-slug:applied` | `w-clean:applied`
+   * @property {Object} detail
+   * @property {string} detail.action - The action that was applied (e.g. 'urlify' or 'slugify').
+   * @property {string} detail.cleanValue - The the cleaned value that is applied.
+   * @property {string} detail.sourceValue - The original value.
    */
-  applyUpdate(action: Actions, cleanValue: string) {
-    if (action) {
-      this.element.value = cleanValue;
-    }
+  applyUpdate(action: Actions, cleanValue: string, sourceValue?: string) {
+    this.element.value = cleanValue;
+    this.dispatch('applied', {
+      cancelable: false,
+      detail: { action, cleanValue, sourceValue },
+    });
   }
 
   /**
@@ -108,7 +120,7 @@ export class CleanController extends Controller<HTMLInputElement> {
     const cleanValue = slugify(preparedValue, { allowUnicode });
 
     if (!ignoreUpdate) {
-      this.applyUpdate(Actions.Slugify, cleanValue);
+      this.applyUpdate(Actions.Slugify, cleanValue, sourceValue);
     }
 
     return cleanValue;
@@ -143,7 +155,7 @@ export class CleanController extends Controller<HTMLInputElement> {
       );
 
     if (!ignoreUpdate) {
-      this.applyUpdate(Actions.Urlify, cleanValue);
+      this.applyUpdate(Actions.Urlify, cleanValue, sourceValue);
     }
 
     return cleanValue;
