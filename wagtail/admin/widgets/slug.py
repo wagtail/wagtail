@@ -18,6 +18,7 @@ class SlugInput(widgets.TextInput):
                 settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True
             ),
             "data-w-slug-compare-as-param": "urlify",
+            "data-w-slug-trim-value": "true",
         }
         if attrs:
             default_attrs.update(attrs)
