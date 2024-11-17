@@ -9,6 +9,10 @@ describe('urlify', () => {
         'lisboa-e-otima-a-beira-mar',
       );
     });
+
+    it('should keep leading spaces & convert to hyphens if supplied', () => {
+      expect(urlify('  I like _ßpaces')).toBe('-i-like-_sspaces');
+    });
   });
 
   describe('urlify with unicode slugs enabled', () => {
@@ -29,6 +33,10 @@ describe('urlify', () => {
       expect(urlify('Lisboa é ótima à beira-mar', options)).toBe(
         'lisboa-é-ótima-à-beira-mar',
       );
+    });
+
+    it('should keep leading spaces & convert to hyphens if supplied', () => {
+      expect(urlify('  I like _ßpaces', options)).toBe('-i-like-_ßpaces');
     });
   });
 });

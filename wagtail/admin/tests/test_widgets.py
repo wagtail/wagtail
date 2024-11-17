@@ -704,7 +704,7 @@ class TestSlugInput(TestCase):
         html = widget.render("test", None, attrs={"id": "test-id"})
 
         self.assertInHTML(
-            '<input type="text" name="test" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-allow-unicode-value data-w-slug-compare-as-param="urlify" id="test-id">',
+            '<input type="text" name="test" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-allow-unicode-value data-w-slug-compare-as-param="urlify" data-w-slug-trim-value="true" id="test-id">',
             html,
         )
 

@@ -219,6 +219,22 @@ describe('CleanController', () => {
       await new Promise(process.nextTick);
 
       expect(document.getElementById('slug').value).toEqual(
+        '-slug-testing-on-edit-page-', // non-trimmed adds dashes for all spaces (inc. end/start)
+      );
+    });
+
+    it('should slugify & trim (when enabled) the input value when focus is moved away from it', async () => {
+      const input = document.getElementById('slug');
+
+      input.setAttribute('data-w-clean-trim-value', 'true'); // enable trimmed values
+
+      input.value = '    slug  testing on     edit page ';
+
+      input.dispatchEvent(new CustomEvent('blur'));
+
+      await new Promise(process.nextTick);
+
+      expect(document.getElementById('slug').value).toEqual(
         'slug-testing-on-edit-page',
       );
     });
@@ -341,6 +357,35 @@ describe('CleanController', () => {
       await new Promise(process.nextTick);
 
       expect(input.value).toBe('');
+    });
+
+    it('should trim the value, only if trim is enabled', async () => {
+      const testValue = '  I féta eínai kalýteri .  ';
+
+      const input = document.getElementById('slug');
+
+      // the default behavior, with trim disabled
+      input.value = testValue;
+
+      input.dispatchEvent(new Event('blur'));
+      await new Promise(process.nextTick);
+      expect(input.value).toBe('-i-fta-enai-kalteri--');
+
+      // after enabling trim
+      input.setAttribute('data-w-clean-trim-value', 'true');
+      input.value = testValue;
+
+      input.dispatchEvent(new Event('blur'));
+      await new Promise(process.nextTick);
+      expect(input.value).toBe('i-fta-enai-kalteri-');
+
+      // with unicode allowed & trim enabled
+      input.setAttribute('data-w-clean-allow-unicode-value', 'true');
+      input.value = testValue;
+
+      input.dispatchEvent(new Event('blur'));
+      await new Promise(process.nextTick);
+      expect(input.value).toBe('i-féta-eínai-kalýteri-');
     });
   });
 });

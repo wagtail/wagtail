@@ -12,7 +12,8 @@ enum Actions {
  *
  * @example - Using the slugify method
  * ```html
- * <input type="text" name="slug" data-controller="w-slug" data-action="blur->w-slug#slugify" />
+ * <input type="text" name="slug" data-controller="w-clean" data-action="blur->w-clean#slugify" />
+ * <input type="text" name="slug-with-trim" data-controller="w-clean" data-action="blur->w-clean#slugify" data-w-clean-trim-value="true" />
  * ```
  *
  * @example - Using the urlify method (registered as w-slug)
@@ -24,6 +25,7 @@ enum Actions {
 export class CleanController extends Controller<HTMLInputElement> {
   static values = {
     allowUnicode: { default: false, type: Boolean },
+    trim: { default: false, type: Boolean },
   };
 
   /**
@@ -32,6 +34,17 @@ export class CleanController extends Controller<HTMLInputElement> {
    * @see `WAGTAIL_ALLOW_UNICODE_SLUGS` in settings
    */
   declare readonly allowUnicodeValue: boolean;
+  /** If true, value will be trimmed in all clean methods before being processed by that method. */
+  declare readonly trimValue: boolean;
+
+  /**
+   * Writes the new value to the element.
+   */
+  applyUpdate(action: Actions, cleanValue: string) {
+    if (action) {
+      this.element.value = cleanValue;
+    }
+  }
 
   /**
    * Allow for a comparison value to be provided so that a dispatched event can be
@@ -45,28 +58,39 @@ export class CleanController extends Controller<HTMLInputElement> {
       params?: { compareAs?: Actions };
     },
   ) {
-    // do not attempt to compare if the current field is empty
-    if (!this.element.value) {
-      return true;
-    }
+    // do not attempt to compare if the field is empty
+    if (!this.element.value) return true;
 
     const compareAs =
       event.detail?.compareAs || event.params?.compareAs || Actions.Slugify;
 
     const compareValue = this[compareAs](
       { detail: { value: event.detail?.value || '' } },
-      true,
+      { ignoreUpdate: true },
     );
 
-    const currentValue = this.element.value;
-
-    const valuesAreSame = compareValue.trim() === currentValue.trim();
+    const valuesAreSame = this.compareValues(compareValue, this.element.value);
 
     if (!valuesAreSame) {
       event?.preventDefault();
     }
 
     return valuesAreSame;
+  }
+
+  /**
+   * Compares the provided strings, ensuring the values are the same.
+   */
+  compareValues(...values: string[]): boolean {
+    return new Set(values.map((value: string) => `${value}`)).size === 1;
+  }
+
+  /**
+   * Prepares the value before being processed by an action method.
+   */
+  prepareValue(sourceValue = '') {
+    const value = this.trimValue ? sourceValue.trim() : sourceValue;
+    return value;
   }
 
   /**
@@ -77,17 +101,21 @@ export class CleanController extends Controller<HTMLInputElement> {
    */
   slugify(
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
-    ignoreUpdate = false,
+    { ignoreUpdate = false } = {},
   ) {
+    const { value: sourceValue = this.element.value } = event?.detail || {};
+    const preparedValue = this.prepareValue(sourceValue);
+    if (!preparedValue) return '';
+
     const allowUnicode = this.allowUnicodeValue;
-    const { value = this.element.value } = event?.detail || {};
-    const newValue = slugify(value.trim(), { allowUnicode });
+
+    const cleanValue = slugify(preparedValue, { allowUnicode });
 
     if (!ignoreUpdate) {
-      this.element.value = newValue;
+      this.applyUpdate(Actions.Slugify, cleanValue);
     }
 
-    return newValue;
+    return cleanValue;
   }
 
   /**
@@ -103,20 +131,25 @@ export class CleanController extends Controller<HTMLInputElement> {
    */
   urlify(
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
-    ignoreUpdate = false,
+    { ignoreUpdate = false } = {},
   ) {
-    const allowUnicode = this.allowUnicodeValue;
-    const { value = this.element.value } = event?.detail || {};
-    const trimmedValue = value.trim();
+    const { value: sourceValue = this.element.value } = event?.detail || {};
+    const preparedValue = this.prepareValue(sourceValue);
+    if (!preparedValue) return '';
 
-    const newValue =
-      urlify(trimmedValue, { allowUnicode }) ||
-      this.slugify({ detail: { value: trimmedValue } }, true);
+    const allowUnicode = this.allowUnicodeValue;
+
+    const cleanValue =
+      urlify(preparedValue, { allowUnicode }) ||
+      this.slugify(
+        { detail: { value: preparedValue } },
+        { ignoreUpdate: true },
+      );
 
     if (!ignoreUpdate) {
-      this.element.value = newValue;
+      this.applyUpdate(Actions.Urlify, cleanValue);
     }
 
-    return newValue;
+    return cleanValue;
   }
 }
