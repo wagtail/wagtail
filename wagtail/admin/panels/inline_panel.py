@@ -3,7 +3,6 @@ import functools
 from django import forms
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.utils.functional import cached_property
-from django.utils.text import capfirst
 
 from wagtail.admin import compare
 
@@ -27,7 +26,7 @@ class InlinePanel(Panel):
         super().__init__(*args, **kwargs)
         self.relation_name = relation_name
         self.panels = panels
-        self.heading = heading or label or capfirst(relation_name.replace("_", " "))
+        self.heading = heading or label
         self.label = label
         self.min_num = min_num
         self.max_num = max_num
@@ -78,8 +77,6 @@ class InlinePanel(Panel):
     def on_model_bound(self):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
-        if not self.label:
-            self.label = capfirst(self.db_field.related_model._meta.verbose_name)
 
     def classes(self):
         return super().classes() + ["w-panel--nested"]
