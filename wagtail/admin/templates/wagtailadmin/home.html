@@ -8,7 +8,13 @@
 
 {% block content %}
     {% fragment as header_title %}
-        {% block branding_welcome %}{{ site_name|title }}{% endblock %}
+        {% block branding_welcome %}
+            {% if '.' not in site_name %}
+                {{ site_name|title }}
+            {% else %}
+                {{ site_name }}
+            {% endif %}
+        {% endblock %}
     {% endfragment %}
 
     {% component upgrade_notification %}
