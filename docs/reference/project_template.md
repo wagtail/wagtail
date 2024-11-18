@@ -97,15 +97,17 @@ The Django settings files are split up into `base.py`, `dev.py`, `production.py`
     DEBUG = False
 
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    ```
 
-       ```env
-       EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-       EMAIL_HOST="smtp.mailgun.org"
-       EMAIL_PORT=587
-       EMAIL_USE_TLS=True
-       EMAIL_HOST_USER="your_mailgun_username"
-       EMAIL_HOST_PASSWORD="your_mailgun_password"
-       ```
+    ```
+    .env
+    EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST="smtp.mailgun.org"
+    EMAIL_PORT=587
+    EMAIL_USE_TLS=True
+    EMAIL_HOST_USER="your_mailgun_username"
+    EMAIL_HOST_PASSWORD="your_mailgun_password"
+    ```
        
 -   `local.py`
     This file is used for settings local to a particular machine. This file should never be tracked by a version control system.
