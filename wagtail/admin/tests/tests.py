@@ -374,6 +374,26 @@ class TestTagsAutocomplete(WagtailTestUtils, TestCase):
 
         self.assertEqual(data, [])
 
+    def test_tags_autocomplete_limit(self):
+        tags = [Tag(name=f"Tag {i}", slug=f"tag-{i}") for i in range(15)]
+        Tag.objects.bulk_create(tags)
+
+        # Send a request to the autocomplete endpoint with a broad search term
+        response = self.client.get(
+            reverse("wagtailadmin_tag_autocomplete"), {"term": "Tag"}
+        )
+
+        # Confirm the response is successful
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+        data = json.loads(response.content.decode("utf-8"))
+
+        # The results should be limited to avoid performance issues (#12415)
+        self.assertEqual(len(data), 10)
+        sorted_tags = sorted(tags, key=lambda t: t.name)
+        self.assertEqual(data, [tag.name for tag in sorted_tags[:10]])
+
 
 class TestMenuItem(WagtailTestUtils, TestCase):
     def setUp(self):

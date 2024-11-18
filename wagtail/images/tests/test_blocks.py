@@ -248,10 +248,22 @@ class TestImageBlock(TestImageChooserBlock):
         self.assertEqual(result.contextual_alt_text, "Sample text")
         self.assertFalse(result.decorative)
 
+    def test_to_python_with_none(self):
+        # Like the test_to_python_with_int case, this can occur when a non-required
+        # ImageChooserBlock has been changed to an ImageBlock
+        block = ImageBlock(required=False)
+        value = block.to_python(None)
+        self.assertIsNone(value)
+
     def test_bulk_to_python_with_empty_list(self):
         block = ImageBlock(required=False)
         result = block.bulk_to_python([])
         self.assertEqual(result, [])
+
+    def test_bulk_to_python_with_list_of_none(self):
+        block = ImageBlock(required=False)
+        result = block.bulk_to_python([None])
+        self.assertEqual(result, [None])
 
     def test_bulk_to_python_with_list_of_ints(self):
         block = ImageBlock(required=False)

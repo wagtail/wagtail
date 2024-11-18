@@ -80,6 +80,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtailimages", "0022_uploadedimage"),
+        ("wagtailadmin", "0001_create_admin_access_permissions"),
     ]
 
     operations = [

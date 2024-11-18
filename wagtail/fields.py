@@ -239,6 +239,9 @@ class StreamField(models.Field):
         defaults.update(kwargs)
         return super().formfield(**defaults)
 
+    def get_default(self):
+        return self.stream_block.normalize(super().get_default())
+
     def value_to_string(self, obj):
         # This method is used for serialization using django.core.serializers,
         # which is used by dumpdata and loaddata for serializing model objects.

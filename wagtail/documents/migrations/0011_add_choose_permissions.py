@@ -80,6 +80,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ("wagtaildocs", "0010_document_file_hash"),
+        ("wagtailadmin", "0001_create_admin_access_permissions"),
     ]
 
     operations = [
