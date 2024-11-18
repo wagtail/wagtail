@@ -207,6 +207,56 @@ describe('CleanController', () => {
 
       expect(event.preventDefault).toHaveBeenCalled();
     });
+
+    it('should allow the compare as identity to ensure that the values are always considered equal', async () => {
+      expect(events['w-clean:applied']).toHaveLength(0);
+
+      const input = document.getElementById('slug');
+      input.setAttribute('data-w-clean-compare-as-param', 'identity');
+
+      input.value = 'title-alpha';
+
+      const event = new CustomEvent('custom:event', {
+        detail: { value: 'title beta' },
+      });
+
+      event.preventDefault = jest.fn();
+
+      input.dispatchEvent(event);
+
+      await new Promise(process.nextTick);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(events['w-clean:applied']).toHaveLength(1);
+      expect(events['w-clean:applied']).toHaveProperty('0.detail', {
+        action: 'identity',
+        cleanValue: 'title-alpha',
+        sourceValue: 'title-alpha',
+      });
+
+      // now use the compare from the event detail
+      input.removeAttribute('data-w-clean-compare-as-param');
+
+      input.value = 'title-delta';
+
+      const event2 = new CustomEvent('custom:event', {
+        detail: { value: 'title whatever', compareAs: 'identity' },
+      });
+
+      event2.preventDefault = jest.fn();
+
+      input.dispatchEvent(event2);
+
+      await new Promise(process.nextTick);
+
+      expect(event2.preventDefault).not.toHaveBeenCalled();
+      expect(events['w-clean:applied']).toHaveLength(2);
+      expect(events['w-clean:applied']).toHaveProperty('1.detail', {
+        action: 'identity',
+        cleanValue: 'title-delta',
+        sourceValue: 'title-delta',
+      });
+    });
   });
 
   describe('slugify', () => {
