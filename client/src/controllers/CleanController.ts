@@ -3,6 +3,7 @@ import { slugify } from '../utils/slugify';
 import { urlify } from '../utils/urlify';
 
 enum Actions {
+  Identity = 'identity',
   Slugify = 'slugify',
   Urlify = 'urlify',
 }
@@ -91,6 +92,18 @@ export class CleanController extends Controller<HTMLInputElement> {
    */
   compareValues(...values: string[]): boolean {
     return new Set(values.map((value: string) => `${value}`)).size === 1;
+  }
+
+  /**
+   * Returns the element's value as is, without any modifications.
+   * Useful for identity fields or when no cleaning is required but the event
+   * is needed or comparison is required to always pass.
+   */
+  identity() {
+    const action = Actions.Identity;
+    const value = this.element.value;
+    this.applyUpdate(action, value, value);
+    return value;
   }
 
   /**
