@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restore ability to upload profile picture through account settings (Sage Abdullah)
+ * Fix: Correctly handle `ImageChooserBlock` to `ImageBlock` data conversions where all inputs to `bulk_to_python` are null (Storm Heg, Matt Westcott)
 
 
 6.3 LTS (01.11.2024)
