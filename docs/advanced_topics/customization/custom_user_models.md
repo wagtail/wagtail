@@ -91,6 +91,14 @@ in the default templates. There is a `fields` block that allows appending
 fields to the end or beginning of the existing fields or to allow all the fields to
 be redefined.
 
+Add the Wagtail settings to your project to reference the user form additions:
+
+```python
+WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
+WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
+WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'status']
+```
+
 (custom_userviewset)=
 
 ## Creating a custom `UserViewSet`
