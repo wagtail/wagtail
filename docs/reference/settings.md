@@ -276,6 +276,8 @@ WAGTAILADMIN_COMMENTS_ENABLED = False
 
 Sets whether commenting is enabled for pages (`True` by default).
 
+(wagtail_allow_unicode_slugs)=
+
 ### `WAGTAIL_ALLOW_UNICODE_SLUGS`
 
 ```python
