@@ -52,6 +52,10 @@ class Lexeme(LexemeCombinable, Value):
         self.invert = invert
         self.weight = weight
         super().__init__(value, output_field=output_field)
+        
+        # check if removal of non-word characters would result in an empty expression
+        if not re.sub(r"\W+", "", self.value):
+            raise ValueError("Lexeme with this value would result in an empty expression")
 
     def as_sql(self, compiler, connection):
         param = re.sub(

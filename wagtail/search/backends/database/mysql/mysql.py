@@ -344,7 +344,11 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
 
             lexemes = Lexeme(last_term, invert=invert, prefix=self.LAST_TERM_IS_PREFIX)
             for term in terms:
-                new_lexeme = Lexeme(term, invert=invert)
+                try:
+                    new_lexeme = Lexeme(term, invert=invert)
+                except ValueError:
+                    # Ignore terms that result in invalid lexemes
+                    continue
 
                 if query.operator == "and":
                     lexemes &= new_lexeme
