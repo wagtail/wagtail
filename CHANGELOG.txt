@@ -9,6 +9,7 @@ Changelog
  * Stop invalid Site hostname records from breaking preview (Matt Westcott)
  * Set sensible defaults for InlinePanel heading and label (Matt Westcott)
  * Limit tags autocompletion to 10 items to avoid performance issues with large number of matching tags (Aayushman Singh)
+ * Add the ability to restrict what types of requests a Pages supports via `allowed_http_methods` (Andy Babic)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
