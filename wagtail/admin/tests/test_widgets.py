@@ -2,6 +2,7 @@ import json
 import re
 from html import unescape
 
+from bs4 import BeautifulSoup
 from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -9,7 +10,7 @@ from django.utils.html import escape
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
-from wagtail.models import Page
+from wagtail.models import Locale, Page
 from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
@@ -698,8 +699,18 @@ class TestFilteredSelect(TestCase):
 
 
 class TestSlugInput(TestCase):
+    def getAttrs(self, *args, **kwargs):
+        return (
+            BeautifulSoup(
+                widgets.SlugInput(*args, **kwargs).render("slug", None),
+                "html.parser",
+            )
+            .find("input")
+            .attrs
+        )
+
     def test_has_data_attr(self):
-        widget = widgets.slug.SlugInput()
+        widget = widgets.SlugInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
 
@@ -709,9 +720,203 @@ class TestSlugInput(TestCase):
         )
 
     @override_settings(WAGTAIL_ALLOW_UNICODE_SLUGS=False)
-    def test_render_data_atrrs_from_settings(self):
-        widget = widgets.slug.SlugInput()
+    def test_render_data_attrs_from_settings(self):
+        widget = widgets.SlugInput()
 
         html = widget.render("test", None, attrs={"id": "test-id"})
 
         self.assertNotIn("data-w-slug-allow-unicode-value", html)
+
+    def test_with_locale_and_formatters_not_provided(self):
+        self.assertEqual(
+            self.getAttrs(),
+            {
+                "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",
+                "data-controller": "w-slug",
+                "data-w-slug-allow-unicode-value": "",
+                "data-w-slug-compare-as-param": "urlify",
+                # "data-w-slug-formatters-value":... # not included at all
+                # "data-w-slug-locale-value":... # not included at all
+                "data-w-slug-trim-value": "true",
+                "name": "slug",
+                "type": "text",
+            },
+        )
+
+        self.assertEqual(
+            self.getAttrs(formatters=[], locale=None),
+            {
+                "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",
+                "data-controller": "w-slug",
+                "data-w-slug-allow-unicode-value": "",
+                "data-w-slug-compare-as-param": "urlify",
+                # "data-w-slug-formatters-value":... # not included at all
+                # "data-w-slug-locale-value":... # not included at all
+                "data-w-slug-trim-value": "true",
+                "name": "slug",
+                "type": "text",
+            },
+        )
+
+    # Test formatters argument
+
+    def test_with_formatters_provided_are_escaped(self):
+        self.assertEqual(
+            self.getAttrs(formatters=[(r"\D\s[']+", "'?'")])[
+                "data-w-slug-formatters-value"
+            ],
+            '[[["\\\\D\\\\s[\']+","gu"],"\'?\'"]]',
+        )
+
+    def test_with_formatters_as_string(self):
+        self.assertEqual(
+            self.getAttrs(formatters=[r"\d"])["data-w-slug-formatters-value"],
+            '[[["\\\\d","gu"],""]]',
+        )
+
+        # handling of inline flags
+        self.assertEqual(
+            self.getAttrs(formatters=[r"(?m)^\d+"])["data-w-slug-formatters-value"],
+            '[[["^\\\\d+","gmu"],""]]',
+        )
+
+    def test_with_formatters_as_pattern(self):
+        self.assertEqual(
+            self.getAttrs(formatters=[re.compile(r"\d")])[
+                "data-w-slug-formatters-value"
+            ],
+            '[[["\\\\d","gu"],""]]',
+        )
+
+        # handling of inline flags
+        self.assertEqual(
+            self.getAttrs(
+                formatters=[re.compile(r"(?i)\b(?:and\|or\|the\|in\|of\|to)\b")]
+            )["data-w-slug-formatters-value"],
+            '[[["\\\\b(?:and\\\\|or\\\\|the\\\\|in\\\\|of\\\\|to)\\\\b","giu"],""]]',
+        )
+
+    def test_with_formatters_as_list_like_with_string(self):
+        self.assertEqual(
+            self.getAttrs(formatters=[["ABC"]])["data-w-slug-formatters-value"],
+            '[[["ABC","gu"],""]]',
+        )
+
+        self.assertEqual(
+            self.getAttrs(formatters=[(r"\d",)])["data-w-slug-formatters-value"],
+            '[[["\\\\d","gu"],""]]',
+        )
+
+    def test_with_formatters_as_list_like_with_pattern(self):
+        self.assertEqual(
+            self.getAttrs(formatters=[[re.compile(r"(?i)!")]])[
+                "data-w-slug-formatters-value"
+            ],
+            '[[["!","giu"],""]]',
+        )
+        self.assertEqual(
+            self.getAttrs(formatters=[(re.compile("(?m)^A"),)])[
+                "data-w-slug-formatters-value"
+            ],
+            '[[["^A","gmu"],""]]',
+        )
+
+    def test_with_formatters_with_replace(self):
+        self.assertEqual(
+            self.getAttrs(formatters=[(r"\d", "X")])["data-w-slug-formatters-value"],
+            '[[["\\\\d","gu"],"X"]]',
+        )
+
+        self.assertEqual(
+            self.getAttrs(formatters=[[re.compile(r"\d{1,3}"), "X"]])[
+                "data-w-slug-formatters-value"
+            ],
+            '[[["\\\\d{1,3}","gu"],"X"]]',
+        )
+
+    def test_with_formatters_with_replace_and_flags(self):
+        self.assertEqual(
+            self.getAttrs(
+                formatters=[
+                    [re.compile(r"^(?!blog[-\s])", flags=re.MULTILINE), "blog-", "u"]
+                ]
+            )["data-w-slug-formatters-value"],
+            '[[["^(?!blog[-\\\\s])","mu"],"blog-"]]',
+        )
+
+        self.assertEqual(
+            self.getAttrs(
+                formatters=[[re.compile(r"(?i)a*"), "Z", "g"], [r"the", "", "u"]]
+            )["data-w-slug-formatters-value"],
+            '[[["a*","gi"],"Z"],[["the","u"],""]]',
+        )
+
+    def test_with_multiple_formatters(self):
+        self.assertEqual(
+            self.getAttrs(
+                formatters=[
+                    r"\d",
+                    [r"(?<!\S)Й", "Y"],
+                    [re.compile(r"(?<!\S)Є"), "Ye", "u"],
+                    (r"(?i)the",),
+                ]
+            )["data-w-slug-formatters-value"],
+            '[[["\\\\d","gu"],""],[["(?<!\\\\S)\\u0419","gu"],"Y"],[["(?<!\\\\S)\\u0404","u"],"Ye"],[["the","giu"],""]]',
+        )
+
+    # Test locale argument
+
+    def test_with_locale_provided(self):
+        self.assertEqual(
+            self.getAttrs(locale="uk-UK"),
+            {
+                "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",
+                "data-controller": "w-slug",
+                "data-w-slug-allow-unicode-value": "",
+                "data-w-slug-compare-as-param": "urlify",
+                "data-w-slug-locale-value": "uk-UK",  # from provided locale
+                "data-w-slug-trim-value": "true",
+                "name": "slug",
+                "type": "text",
+            },
+        )
+
+        french = Locale.objects.create(language_code="fr")
+        self.assertEqual(
+            self.getAttrs(locale=french),
+            {
+                "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",
+                "data-controller": "w-slug",
+                "data-w-slug-allow-unicode-value": "",
+                "data-w-slug-compare-as-param": "urlify",
+                "data-w-slug-locale-value": "fr",  # from provided locale
+                "data-w-slug-trim-value": "true",
+                "name": "slug",
+                "type": "text",
+            },
+        )
+
+        self.assertEqual(
+            self.getAttrs(locale=False),
+            {
+                "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",
+                "data-controller": "w-slug",
+                "data-w-slug-allow-unicode-value": "",
+                "data-w-slug-compare-as-param": "urlify",
+                "data-w-slug-locale-value": "und",  # from False (aka 'undetermined')
+                "data-w-slug-trim-value": "true",
+                "name": "slug",
+                "type": "text",
+            },
+        )
+
+    def test_with_locale_blank_override(self):
+        self.assertEqual(
+            self.getAttrs(locale=False)["data-w-slug-locale-value"],
+            "und",
+        )
+
+        self.assertEqual(
+            self.getAttrs(locale="")["data-w-slug-locale-value"],
+            "und",
+        )
