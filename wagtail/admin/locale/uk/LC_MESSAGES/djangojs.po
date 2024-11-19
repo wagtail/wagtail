@@ -4,12 +4,12 @@
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2022
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2022
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2022
-# Vladyslav Herasymenko <drimacus182@gmail.com>, 2024
 # Loic Teixeira, 2024
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/torchbox/teams/8009/"
 "uk/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgid "Add a comment"
 msgstr "Додати коментар"
 
 msgid "Alt text"
-msgstr "Альтернатиний текст"
+msgstr "Альтернативний текст"
 
 msgid "Are you sure?"
 msgstr "Ви впевненні?"
@@ -142,7 +142,7 @@ msgid "Search"
 msgstr "Пошук"
 
 msgid "Search options…"
-msgstr "Шукати ..."
+msgstr "Параметри пошуку ..."
 
 msgid "See all"
 msgstr "Показати всі"

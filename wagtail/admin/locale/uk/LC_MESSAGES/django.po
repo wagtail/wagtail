@@ -957,6 +957,14 @@ msgstr "Перемістити"
 msgid "Are you sure you want to move these pages?"
 msgstr "Ви впевнені, що ви бажаєте перемістити ці сторінки?"
 
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "Ця сторінка має одну дочірню сторінку"
+msgstr[1] "Ця сторінка має %(counter)s дочірні сторінки"
+msgstr[2] "Ця сторінка має %(counter)s дочірніх сторінок"
+msgstr[3] "Ця сторінка має %(counter)s дочірніх сторінок"
+
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Вам не дозволено переміщувати цю сторінку"
@@ -1031,14 +1039,14 @@ msgstr "Так, зняти з публікації"
 
 #, python-format
 msgid "Convert alias %(title)s"
-msgstr "Конвертувати псевдонім %(title)s"
+msgstr "Конвертувати пов'язану копію %(title)s"
 
 msgid "Convert alias"
-msgstr "Конвертувати псевдонім"
+msgstr "Конвертувати пов'язану копію"
 
 msgid "Are you sure you want to convert this alias into an ordinary page?"
 msgstr ""
-"Ви впевненні, що хочете конвертувати цей псевдонім в звичайну сторінку?"
+"Ви впевненні, що хочете конвертувати цю пов'язану копію в звичайну сторінку?"
 
 msgid "This action cannot be undone."
 msgstr "Ця дія не може бути скасована."
@@ -1047,7 +1055,7 @@ msgid "Yes, convert it"
 msgstr "Так, конвертувати"
 
 msgid "No, leave it as an alias"
-msgstr "Ні, залишити як псевдонім"
+msgstr "Ні, залишити як пов'язану копію"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -1114,13 +1122,13 @@ msgid "Copy this page"
 msgstr "Копіювати цю сторінку"
 
 msgid "This page is an alias of another page."
-msgstr "Ця сторінка псевдонім іншої сторінки. "
+msgstr "Ця сторінка є пов'язаною копією іншої сторінки. "
 
 msgid "Edit original page"
 msgstr "Редагувати оригінальну сторінку"
 
 msgid "Convert this alias into an ordinary page"
-msgstr "Конвертувати цей псевдонім в звичайну сторінку"
+msgstr "Конвертувати цю пов'язану копію в звичайну сторінку"
 
 msgid "Configure a site now."
 msgstr "Сконфігурувати сайт зараз."
@@ -1295,8 +1303,67 @@ msgstr "Сторінка %(page_num)s з %(total_pages)s."
 msgid "Breadcrumb"
 msgstr "Ланцюжок навігації"
 
+msgid "You saved a new version in another window"
+msgstr "Ви зберегли нову версію у іншому вікні"
+
+msgid "System"
+msgstr "Система"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)sзберіг нову версію"
+
+msgid "Refresh"
+msgstr "Оновити"
+
+msgid "You have unsaved changes in another window"
+msgstr "У вас є незбережені зміни у іншому вікні"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)sмає незбережені зміни"
+
+msgid "Currently viewing"
+msgstr "Зараз переглядає"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Один інший користувач переглядає зараз"
+msgstr[1] "%(num_user)sінших користувачі переглядають зараз"
+msgstr[2] "%(num_user)sінших користувачів переглядають зараз"
+msgstr[3] "%(num_user)sінших користувачів переглядають зараз"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Якщо ви продовжите, це перезапише правки, які ви зробили у тому вікні. Якщо "
+"ви оновите цю сторінку, то побачите нові правки, але втратите всі "
+"незбережені редагування у поточному вікні"
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"Якщо ви продовжите, що це перезапише правки %(user_name)s. Якщо ви оновите "
+"сторінку, то побачите нові правки, проте ваші незбережені редагування будуть "
+"втрачені"
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Якщо оновити сторінку, ви втратите всі незбережені правки"
+
+msgid "Refresh page"
+msgstr "Оновити сторінку"
+
 msgid "Continue"
 msgstr "Продовжити"
+
+msgid "Refresh the page"
+msgstr "Оновити цю сторінку"
 
 msgid "Download XLSX"
 msgstr "Завантажити XLSX"
@@ -1318,6 +1385,12 @@ msgstr "Назад"
 
 msgid "History"
 msgstr "Історія змін"
+
+msgid "Keyboard shortcuts"
+msgstr "Комбінації клавіш"
+
+msgid "All keyboard shortcuts"
+msgstr "Усі комбінації клавіш"
 
 msgid "Current page status:"
 msgstr "Поточний статус сторінки:"
@@ -1395,6 +1468,9 @@ msgstr "Графік публікації відсутній"
 
 msgid "Set schedule"
 msgstr "Задати графік"
+
+msgid "Refreshing…"
+msgstr "Оновлення..."
 
 msgid "Preview is out of date"
 msgstr "Попередній перегляд застарів"
@@ -1770,6 +1846,14 @@ msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s '%(object)s' створено."
 
 #, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' заплановано до публікації."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr "%(model_name)s '%(object)s' створено і заплановано до публікації."
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "Редагувати '%(title)s'"
 
@@ -2045,8 +2129,14 @@ msgstr "Сторінку не можна зберегти, бо вона заб�
 msgid "The page could not be saved due to validation errors"
 msgstr "Сторінку не можна зберегти через помилки валідації"
 
+msgid "Owner"
+msgstr "Власник"
+
 msgid "Site"
 msgstr "Сайт"
+
+msgid "Has child pages"
+msgstr "Має дочірні сторінки"
 
 msgid "Yes"
 msgstr "Так"

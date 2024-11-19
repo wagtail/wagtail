@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Arthur Sturzbecher, 2024\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -414,6 +414,9 @@ msgstr "Todos os %(objects)s itens na tela foram selecionados"
 msgid "All items in listing selected"
 msgstr "Todos os itens listados foram selecionados"
 
+msgid "Can access Wagtail admin"
+msgstr "Pode acessar o administrador Wagtail"
+
 msgid "For search engines"
 msgstr "Para motores de busca"
 
@@ -778,6 +781,9 @@ msgstr "Suas páginas bloqueadas"
 msgid "Language"
 msgstr "Idioma"
 
+msgid "Privacy and access"
+msgstr "Privacidade e acesso"
+
 msgid "Status"
 msgstr "Status"
 
@@ -804,6 +810,29 @@ msgstr "Data"
 
 msgid "Site summary"
 msgstr "Resumo do site"
+
+#, python-format
+msgid ""
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s página <span class=\"w-sr-only\">criada em %(site_name)s</span>"
+msgstr[1] ""
+"%(total)s páginas <span class=\"w-sr-only\">criada em %(site_name)s</span>"
+msgstr[2] ""
+"%(total)s páginas <span class=\"w-sr-only\">criada em %(site_name)s</span>"
+
+msgid "Wagtail upgrade available"
+msgstr "Atualização do Wagtail disponível"
+
+#, python-format
+msgid ""
+"Your version: <strong>%(current_version)s</strong>. New version: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
+msgstr ""
+"Sua versão: <strong>%(current_version)s</strong>. Nova versão: <strong data-"
+"w-upgrade-target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Leia as notas de lançamento."
@@ -1018,6 +1047,9 @@ msgid ""
 msgstr ""
 "A página \"%(title)s\" foi submetido para moderação ao fluxo de trabalho "
 "\"%(workflow)s\"."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "A alteração da privacidade desta página foi desativada."
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -1585,14 +1617,39 @@ msgstr "Claro"
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
 
+msgid "Edit account avatar"
+msgstr "Editar avatar da conta"
+
 msgid "Breadcrumb"
 msgstr "Navegação"
 
 msgid "Close dialog"
 msgstr "Fechar caixa de diálogo"
 
+msgid "System"
+msgstr "Sistema"
+
+msgid "Refresh"
+msgstr "Atualizar"
+
+msgid "Currently viewing"
+msgstr "Visualizando atualmente"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "Um outro usuário está visualizando no momento"
+msgstr[1] "%(num_user)s outros usuários estão visualizando no momento"
+msgstr[2] "%(num_user)s outros usuários estão visualizando no momento"
+
+msgid "Refresh page"
+msgstr "Atualizar página"
+
 msgid "Continue"
 msgstr "Continuar"
+
+msgid "Refresh the page"
+msgstr "Atualizar a página"
 
 msgid "Download XLSX"
 msgstr "Baixar XLSX"
@@ -1681,6 +1738,18 @@ msgstr "Toggle side panel"
 
 msgid "Side panel width"
 msgstr "Largura do painel lateral"
+
+msgid "Show issue"
+msgstr "Mostrar problema"
+
+msgid "Content metrics"
+msgstr "Métricas de conteúdo"
+
+msgid "Words"
+msgstr "Palavras"
+
+msgid "Reading time"
+msgstr "Tempo de leitura"
 
 msgid "Issues found"
 msgstr "Problemas encontrados"
@@ -1787,6 +1856,9 @@ msgstr "Pré-visualização em nova aba"
 msgid "Loading"
 msgstr "Carregando"
 
+msgid "Refreshing…"
+msgstr "Atualizando..."
+
 msgid "Preview is out of date"
 msgstr "A pré-visualização está desatualizada"
 
@@ -1802,6 +1874,9 @@ msgstr "Modo de pré-visualização"
 
 msgid "First published"
 msgstr "Primeira publicação"
+
+msgid "Save your changes before leaving"
+msgstr "Salve suas alterações antes de sair"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Você tem <span>edição não salva</span>"
@@ -2204,6 +2279,21 @@ msgid ""
 msgstr ""
 "Classifique a ordem das páginas filhas em '%(parent)s' por '%(label)s' em "
 "ordem decrescente."
+
+msgid "Button text is empty"
+msgstr "O texto do botão está vazio"
+
+msgid "Use meaningful text for screen reader users"
+msgstr "Use texto significativo para usuários de leitores de tela"
+
+msgid "Empty heading found"
+msgstr "Cabeçalho vazio encontrado"
+
+msgid "Avoid skipping levels"
+msgstr "Evite pular níveis"
+
+msgid "Link text is empty"
+msgstr "O texto do link está vazio"
 
 msgid "Profile"
 msgstr "Perfil"
