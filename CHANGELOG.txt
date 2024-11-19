@@ -56,6 +56,7 @@ Changelog
  * Fix: Restore ability to upload profile picture through account settings (Sage Abdullah)
  * Fix: Correctly handle `ImageChooserBlock` to `ImageBlock` data conversions where all inputs to `bulk_to_python` are null (Storm Heg, Matt Westcott)
  * Fix: Improve spacing of page / collection permissions table in Group settings (Sage Abdullah)
+ * Docs: Reword `BlogTagIndexPage` example for clarity (Clifford Gama)
 
 
 6.3 LTS (01.11.2024)
