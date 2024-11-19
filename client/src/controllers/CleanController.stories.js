@@ -124,6 +124,26 @@ const Template = ({ debug = false }) => {
               </output>
             </label>
           </div>
+          <div className="w-m-4">
+            <label htmlFor="format-basic">
+              <pre>format (remove !, replace digits with #)</pre>
+              <input
+                id="format-basic"
+                type="text"
+                data-controller="w-clean"
+                data-action="blur->w-clean#format"
+                data-w-clean-allow-unicode-value
+                data-w-clean-formatters-value={JSON.stringify([
+                  /!/.source,
+                  [/\d/.source, '#'],
+                ])}
+                data-w-clean-trim-value
+              />
+              <output className="w-inline-flex w-items-center">
+                Source value: <pre>{sourceValues['format-basic']}</pre>
+              </output>
+            </label>
+          </div>
         </fieldset>
       </form>
     </StimulusWrapper>
