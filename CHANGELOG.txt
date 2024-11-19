@@ -57,6 +57,7 @@ Changelog
  * Fix: Restore ability to upload profile picture through account settings (Sage Abdullah)
  * Fix: Correctly handle `ImageChooserBlock` to `ImageBlock` data conversions where all inputs to `bulk_to_python` are null (Storm Heg, Matt Westcott)
  * Fix: Improve spacing of page / collection permissions table in Group settings (Sage Abdullah)
+ * Fix: Remove forced capitalization of site name on admin dashboard (Thibaud Colas)
  * Docs: Reword `BlogTagIndexPage` example for clarity (Clifford Gama)
  * Docs: Change title of blog index page in tutorial to avoid slug issues (Thibaud Colas)
  * Docs: Fix `wagtailcache` and `wagtailpagecache` examples to not use quotes for the `fragment_name` (Shiv)
