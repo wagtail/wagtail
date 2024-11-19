@@ -5622,6 +5622,9 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         self.snippet_a = StandardSnippetWithCustomPrimaryKey.objects.create(
             snippet_id="snippet/01", text="Hello"
         )
+        self.snippet_b = StandardSnippetWithCustomPrimaryKey.objects.create(
+            snippet_id="abc_407269_1", text="Goodbye"
+        )
 
     def get(self, snippet, params={}):
         args = [quote(snippet.pk)]
@@ -5644,9 +5647,11 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_show_edit_view(self):
-        response = self.get(self.snippet_a)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        for snippet in [self.snippet_a, self.snippet_b]:
+            with self.subTest(snippet=snippet):
+                response = self.get(snippet)
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
 
     def test_edit_invalid(self):
         response = self.post(self.snippet_a, post_data={"foo": "bar"})
@@ -5669,8 +5674,10 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
-        self.assertEqual(snippets.count(), 2)
-        self.assertEqual(snippets.last().snippet_id, "snippet_id_edited")
+        self.assertEqual(snippets.count(), 3)
+        self.assertEqual(
+            snippets.order_by("snippet_id").last().snippet_id, "snippet_id_edited"
+        )
 
     def test_create(self):
         response = self.create(
@@ -5685,40 +5692,48 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
-        self.assertEqual(snippets.count(), 2)
-        self.assertEqual(snippets.last().text, "test snippet")
+        self.assertEqual(snippets.count(), 3)
+        self.assertEqual(snippets.order_by("snippet_id").last().text, "test snippet")
 
     def test_get_delete(self):
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
-                args=[quote(self.snippet_a.pk)],
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        for snippet in [self.snippet_a, self.snippet_b]:
+            with self.subTest(snippet=snippet):
+                response = self.client.get(
+                    reverse(
+                        "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
+                        args=[quote(snippet.pk)],
+                    )
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/generic/confirm_delete.html"
+                )
 
     def test_usage_link(self):
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
-                args=[quote(self.snippet_a.pk)],
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
-        self.assertContains(
-            response,
-            "This standard snippet with custom primary key is referenced 0 times",
-        )
-        self.assertContains(
-            response,
-            reverse(
-                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:usage",
-                args=[quote(self.snippet_a.pk)],
-            )
-            + "?describe_on_delete=1",
-        )
+        for snippet in [self.snippet_a, self.snippet_b]:
+            with self.subTest(snippet=snippet):
+                response = self.client.get(
+                    reverse(
+                        "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
+                        args=[quote(snippet.pk)],
+                    )
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/generic/confirm_delete.html"
+                )
+                self.assertContains(
+                    response,
+                    "This standard snippet with custom primary key is referenced 0 times",
+                )
+                self.assertContains(
+                    response,
+                    reverse(
+                        "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:usage",
+                        args=[quote(snippet.pk)],
+                    )
+                    + "?describe_on_delete=1",
+                )
 
     def test_redirect_to_edit(self):
         with self.assertWarnsRegex(

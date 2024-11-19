@@ -677,6 +677,16 @@ class EditView(
         super().setup(request, *args, **kwargs)
         self.action = self.get_action(request)
 
+    @cached_property
+    def object_pk(self):
+        # Must be a cached_property to prevent this from being re-run on the unquoted
+        # pk written back by get_object, which would result in it being unquoted again.
+        try:
+            quoted_pk = self.kwargs[self.pk_url_kwarg]
+        except KeyError:
+            quoted_pk = self.args[0]
+        return unquote(str(quoted_pk))
+
     def get_action(self, request):
         for action in self.get_available_actions():
             if request.POST.get(f"action-{action}"):
@@ -687,9 +697,9 @@ class EditView(
         return self.actions
 
     def get_object(self, queryset=None):
-        if self.pk_url_kwarg not in self.kwargs:
-            self.kwargs[self.pk_url_kwarg] = self.args[0]
-        self.kwargs[self.pk_url_kwarg] = unquote(str(self.kwargs[self.pk_url_kwarg]))
+        # SingleObjectMixin.get_object looks for the unquoted pk in self.kwargs,
+        # so we need to write it back there.
+        self.kwargs[self.pk_url_kwarg] = self.object_pk
         return super().get_object(queryset)
 
     def get_page_subtitle(self):
@@ -947,9 +957,15 @@ class DeleteView(
         # If the object has already been loaded, return it to avoid another query
         if getattr(self, "object", None):
             return self.object
-        if self.pk_url_kwarg not in self.kwargs:
-            self.kwargs[self.pk_url_kwarg] = self.args[0]
-        self.kwargs[self.pk_url_kwarg] = unquote(str(self.kwargs[self.pk_url_kwarg]))
+
+        # SingleObjectMixin.get_object looks for the unquoted pk in self.kwargs,
+        # so we need to write it back there.
+        try:
+            quoted_pk = self.kwargs[self.pk_url_kwarg]
+        except KeyError:
+            quoted_pk = self.args[0]
+        self.kwargs[self.pk_url_kwarg] = unquote(str(quoted_pk))
+
         return super().get_object(queryset)
 
     def get_usage(self):
