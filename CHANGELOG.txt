@@ -57,6 +57,7 @@ Changelog
  * Fix: Correctly handle `ImageChooserBlock` to `ImageBlock` data conversions where all inputs to `bulk_to_python` are null (Storm Heg, Matt Westcott)
  * Fix: Improve spacing of page / collection permissions table in Group settings (Sage Abdullah)
  * Docs: Reword `BlogTagIndexPage` example for clarity (Clifford Gama)
+ * Docs: Change title of blog index page in tutorial to avoid slug issues (Thibaud Colas)
 
 
 6.3 LTS (01.11.2024)
