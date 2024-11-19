@@ -1,17 +1,24 @@
 import { Controller } from '@hotwired/stimulus';
 
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
+import { castArray } from '../utils/castArray';
 import { slugify } from '../utils/slugify';
 import { urlify } from '../utils/urlify';
 
 enum Actions {
+  Format = 'format',
   Identity = 'identity',
   Slugify = 'slugify',
   Urlify = 'urlify',
 }
 
 /**
- * Adds ability to clean values of an input element with methods such as slugify or urlify.
+ * A formatter entry is an array with a regex pattern and an optional replace value.
+ */
+type FormatterEntry = [(string | [string?, string?])?, string?];
+
+/**
+ * Adds ability to clean values of an input element with methods such as `format`, `slugify` or `urlify`.
  *
  * @example - Using the slugify method
  * ```html
@@ -25,10 +32,17 @@ enum Actions {
  * <input type="text" name="url-path-with-unicode" data-controller="w-slug" data-w-slug-allow-unicode="true" data-action="change->w-slug#urlify" />
  * <input type="text" name="url-path-with-locale" data-controller="w-slug" data-w-slug-locale="uk-UK" data-action="blur->w-slug#urlify" />
  * ```
+ *
+ * @example - Using the format method with custom formatters
+ * ```html
+ * <input type="text" name="no-spaces-or-digits" data-controller="w-clean" data-w-clean-formatters='[["\\s+", ""], ["[^\d-]", ""]]' data-action="blur->w-clean#format" />
+ * <input type="text" name="no-yelling" data-controller="w-clean" data-w-clean-formatters='[["!", ""]]' data-action="blur->w-clean#format" />
+ * ```
  */
 export class CleanController extends Controller<HTMLInputElement> {
   static values = {
     allowUnicode: { default: false, type: Boolean },
+    formatters: { default: [], type: Array },
     locale: { default: '', type: String },
     trim: { default: false, type: Boolean },
   };
@@ -41,8 +55,15 @@ export class CleanController extends Controller<HTMLInputElement> {
   declare readonly allowUnicodeValue: boolean;
   /** If true, value will be trimmed in all clean methods before being processed by that method. */
   declare readonly trimValue: boolean;
+  /** An array of formatter entries with a regex (pattern or pattern & flags array) and an optional replace value. */
+  declare readonly formattersValue: FormatterEntry[];
   /** Locale code, used to provide a more specific cleaned value. */
   declare localeValue: string;
+
+  /** Align with the default flags that can be assumed when pulling from Python. */
+  defaultRegexFlags = 'gu';
+  /** Cache the compiled regex for performance. */
+  regexCache: { [key: string]: RegExp } = {};
   /** `und` (undetermined) locale as per ISO 639-2 */
   undeterminedLocale = 'und';
 
@@ -87,7 +108,7 @@ export class CleanController extends Controller<HTMLInputElement> {
 
     const compareValue = this[compareAs](
       { detail: { value: event.detail?.value || '' } },
-      { ignoreUpdate: true },
+      { ignoreUpdate: true, runFormat: true },
     );
 
     const valuesAreSame = this.compareValues(compareValue, this.element.value);
@@ -119,6 +140,69 @@ export class CleanController extends Controller<HTMLInputElement> {
   }
 
   /**
+   * Formats the source value based on supplied formatters and formatting options.
+   * Runs as part of the prepare method on methods called (when used as Stimulus actions)
+   * or can be used directly as a standalone action.
+   */
+  format(
+    event: CustomEvent<{ value: string }> | { detail: { value: string } },
+    { ignoreUpdate = false } = {},
+  ) {
+    const { value: sourceValue = this.element.value } = event?.detail || {};
+    if (!sourceValue) return '';
+
+    const cleanValue = this.formattersValue.reduce(
+      (val, [regex = [], replaceWith = '']) => {
+        const [pattern = '', flags = this.defaultRegexFlags] = castArray(regex);
+        return val[flags.includes('g') ? 'replaceAll' : 'replace'](
+          this.getRegex(pattern, flags),
+          replaceWith,
+        );
+      },
+      this.prepareValue(sourceValue),
+    );
+
+    if (!ignoreUpdate) {
+      this.applyUpdate(Actions.Format, cleanValue, sourceValue);
+    }
+
+    return cleanValue;
+  }
+
+  /**
+   * Run the format method when the formatters change to ensure
+   * that the regex cache is populated with the latest values and
+   * that the formatters are valid.
+   */
+  formattersValueChanged(formatters?: FormatterEntry[]) {
+    if (!formatters?.length) return;
+    this.regexCache = {};
+    try {
+      this.format(
+        { detail: { value: '__PLACEHOLDER__' } },
+        { ignoreUpdate: true },
+      );
+    } catch (error) {
+      this.context.application.handleError(
+        error,
+        'Invalid regex pattern passed to formatters.',
+        { formatters: [...formatters] },
+      );
+    }
+  }
+
+  /**
+   * Get a compiled regular expression from the cache or create a new one.
+   */
+  getRegex(pattern: string, flags: string) {
+    const key = [pattern, flags].join(':');
+    if (this.regexCache[key]) return this.regexCache[key];
+    const regex = new RegExp(pattern, flags);
+    this.regexCache[key] = regex;
+    return regex;
+  }
+
+  /**
    * If the locale is not provided, attempt to find the most suitable target locale:
    * 1. Use the active content locale if available (for translations)
    * 2. Fall back to `und` (undetermined) as per ISO 639-2
@@ -134,10 +218,13 @@ export class CleanController extends Controller<HTMLInputElement> {
 
   /**
    * Prepares the value before being processed by an action method.
+   * If runFormat is true, it will run the format method on the value.
    */
-  prepareValue(sourceValue = '') {
+  prepareValue(sourceValue = '', { runFormat = false } = {}) {
     const value = this.trimValue ? sourceValue.trim() : sourceValue;
-    return value;
+    return runFormat
+      ? this.format({ detail: { value } }, { ignoreUpdate: true })
+      : value;
   }
 
   /**
@@ -148,10 +235,10 @@ export class CleanController extends Controller<HTMLInputElement> {
    */
   slugify(
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
-    { ignoreUpdate = false } = {},
+    { ignoreUpdate = false, runFormat = !ignoreUpdate } = {},
   ) {
     const { value: sourceValue = this.element.value } = event?.detail || {};
-    const preparedValue = this.prepareValue(sourceValue);
+    const preparedValue = this.prepareValue(sourceValue, { runFormat });
     if (!preparedValue) return '';
 
     const allowUnicode = this.allowUnicodeValue;
@@ -178,10 +265,10 @@ export class CleanController extends Controller<HTMLInputElement> {
    */
   urlify(
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
-    { ignoreUpdate = false } = {},
+    { ignoreUpdate = false, runFormat = !ignoreUpdate } = {},
   ) {
     const { value: sourceValue = this.element.value } = event?.detail || {};
-    const preparedValue = this.prepareValue(sourceValue);
+    const preparedValue = this.prepareValue(sourceValue, { runFormat });
     if (!preparedValue) return '';
 
     const allowUnicode = this.allowUnicodeValue;
