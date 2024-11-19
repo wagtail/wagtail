@@ -25,7 +25,7 @@ class CopyForm(forms.Form):
             initial=self.page.slug,
             label=_("New slug"),
             allow_unicode=allow_unicode,
-            widget=widgets.SlugInput,
+            widget=widgets.SlugInput(locale=self.page.locale),
         )
         self.fields["new_parent_page"] = forms.ModelChoiceField(
             initial=self.page.get_parent(),
