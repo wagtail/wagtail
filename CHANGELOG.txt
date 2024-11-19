@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.3.1 (xx.xx.20xx) - IN DEVELOPMENT
+6.3.1 (19.11.2024)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Restore ability to upload profile picture through account settings (Sage Abdullah)
