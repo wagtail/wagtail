@@ -23,6 +23,7 @@ from django_filters.filters import (
 
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.paginator import get_wagtail_paginator_class
 from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets.button import ButtonWithDropdown
@@ -214,6 +215,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     default_ordering = None
     filterset_class = None
     verbose_name_plural = None
+    paginator_class = get_wagtail_paginator_class()
 
     def get_template_names(self):
         if self.results_only:
@@ -573,6 +575,13 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         if context["is_paginated"]:
             context["items_count"] = context["paginator"].count
+            try:
+                page_number = int(self.request.GET.get(self.page_kwarg, 1))
+            except (ValueError, TypeError):
+                page_number = 1
+            context["elided_page_range"] = context["paginator"].get_elided_page_range(
+                page_number
+            )
         else:
             context["items_count"] = len(context["object_list"])
 
