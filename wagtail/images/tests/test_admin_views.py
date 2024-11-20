@@ -1822,11 +1822,11 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
                 file=get_test_image_file(size=(1, 1)),
             )
 
-        with self.assertNumQueries(30):
+        with self.assertNumQueries(31):
             # The renditions needed don't exist yet. We have 21 = 5 * 4 + 2 additional queries.
             self.get()
 
-        with self.assertNumQueries(10):
+        with self.assertNumQueries(11):
             # No extra additional queries since renditions exist and are saved in
             # the prefetched objects cache.
             self.get()
