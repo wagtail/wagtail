@@ -10,7 +10,7 @@ describe('CountController', () => {
 
       document.body.innerHTML = `
   <section>
-    <div id="element" data-controller="w-count" data-action="recount@document->w-count#count">
+    <div id="element" data-controller="w-count" data-action="recount@document->w-count#count" data-w-count-container-value="body">
       <span id="total" data-w-count-target="total"></span>
       <span id="label" data-w-count-target="label"></span>
     </div>
@@ -78,6 +78,50 @@ describe('CountController', () => {
       await Promise.resolve();
 
       expect(document.getElementById('label').innerHTML).toEqual('4 items');
+    });
+  });
+
+  describe('finding elements with the controlled element', () => {
+    beforeAll(() => {
+      application?.stop();
+
+      document.body.innerHTML = `
+    <section>
+      <form
+        data-controller="w-count"
+        data-action="change->w-count#count"
+        data-w-count-active-class="active"
+        data-w-count-find-value="*:checked"
+        data-w-count-min-value="1"
+      >
+        <input type="checkbox" name="opt" value="A" />
+        <input type="checkbox" name="opt" value="B" checked="" />
+        <input type="checkbox" name="opt" value="C" checked="" />
+      </form>
+    </section>`;
+
+      application = Application.start();
+      application.register('w-count', CountController);
+    });
+
+    it('should count the items if present & set the class', async () => {
+      expect(document.querySelector('form').classList.contains('active')).toBe(
+        true,
+      );
+    });
+
+    it('should remove the class when count is less than or equal to min value', async () => {
+      document.querySelector('input[value="B"]').removeAttribute('checked');
+
+      document
+        .querySelector('form')
+        .dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      await Promise.resolve();
+
+      expect(document.querySelector('form').classList.contains('active')).toBe(
+        false,
+      );
     });
   });
 

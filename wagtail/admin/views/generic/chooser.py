@@ -205,6 +205,22 @@ class BaseChooseView(
     def is_multiple_choice(self):
         return self.request.GET.get("multiple")
 
+    @cached_property
+    def get_max_forms_remainder(self):
+        max_forms_remainder = self.request.GET.get("maxFormsRemainder", "0")
+        return int(max_forms_remainder)
+
+    @cached_property
+    def get_max_forms(self):
+        max_forms = self.request.GET.get("maxForms", "0")
+        return int(max_forms)
+
+    @cached_property
+    def get_selected_items(self):
+        max_forms = self.request.GET.get("maxForms", "0")
+        max_forms_remainder = self.request.GET.get("maxFormsRemainder", "0")
+        return int(max_forms) - int(max_forms_remainder)
+
     @property
     def columns(self):
         return [self.title_column]
@@ -279,6 +295,9 @@ class BaseChooseView(
                 "is_multiple_choice": self.is_multiple_choice,
                 "search_query": self.filter_form.search_query,
                 "can_create": self.can_create(),
+                "max_forms": self.get_max_forms,
+                "max_forms_remainder": self.get_max_forms_remainder,
+                "selected_items": self.get_selected_items,
             }
         )
         if self.is_multiple_choice:

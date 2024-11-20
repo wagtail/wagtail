@@ -351,6 +351,10 @@ class ChooserModal {
     if (opts.multiple) {
       urlParams.multiple = 1;
     }
+    if (opts.maxForms) {
+      urlParams.maxForms = opts.maxForms;
+      urlParams.maxFormsRemainder = opts.maxFormsRemainder;
+    }
     if (opts.linkedFieldFilters) {
       Object.assign(urlParams, opts.linkedFieldFilters);
     }
