@@ -481,7 +481,10 @@ table.listing {
 
   > div {
     display: flex;
-    flex: 1 0 auto;
+    flex: 1;
+    @include media-breakpoint-down(md) {
+      flex-basis: auto;
+    }
   }
 
   p {
