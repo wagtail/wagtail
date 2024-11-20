@@ -360,7 +360,7 @@ class TestBackendConfiguration(SimpleTestCase):
             backends.get("cloudfront").purge("http://torchbox.com/blog/")
 
         _create_invalidation.assert_called_once_with(
-            "frontend", {"/home/events/christmas/"}
+            "frontend", ["/home/events/christmas/"]
         )
 
         self.assertTrue(
