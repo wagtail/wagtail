@@ -8,24 +8,36 @@
 {% endcomment %}
 {% resolve_url linkurl as url_path %}
 
-<nav class="pagination" aria-label="{% trans 'Pagination' %}">
-    <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=items.paginator.num_pages|intcomma %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+{% with items.paginator.num_pages|intcomma as total_pages %}
+<nav class="pagination w-flex w-justify-between w-flex-wrap sm:w-flex-nowrap" aria-label="{% trans 'Pagination' %}">
+    <div class="pagination__start">
+        <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=total_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+    </div>
     <ul>
         <li class="prev">
-            {% if items.has_previous %}
-                <a href="{{ url_path }}{% querystring p=items.previous_page_number %}">
-                    {% icon name="arrow-left" classname="default" %}
-                    {% trans 'Previous' %}
+            <a{% if items.has_previous %} href="{{ url_path }}{% querystring p=items.previous_page_number %}"{% endif%}>
+                {% icon name="arrow-left" classname="default" %}
+                {% trans 'Previous' %}
+            </a>
+        </li>
+        {% for page_num in elided_page_range %}
+        <li class="pagination-page-number">
+            {% if page_num == items.paginator.ELLIPSIS %}
+                <span>{{ page_num }}</span>
+            {% else %}
+                <a href="{{ url_path }}{% querystring p=page_num %}" class="{% if page_num == items.number %}current{% endif %}" aria-label="{% blocktrans trimmed with page_num=page_num %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}">
+                    {{ page_num }}
                 </a>
             {% endif %}
         </li>
+        {% endfor %}
         <li class="next">
-            {% if items.has_next %}
-                <a href="{{ url_path }}{% querystring p=items.next_page_number %}">
-                    {% trans 'Next' %}
-                    {% icon name="arrow-right" classname="default" %}
-                </a>
-            {% endif %}
+            <a{% if items.has_next %} href="{{ url_path }}{% querystring p=items.next_page_number %}"{% endif %}>
+                {% trans 'Next' %}
+                {% icon name="arrow-right" classname="default" %}
+            </a>
         </li>
     </ul>
+    <div class="pagination__end"></div>
 </nav>
+{% endwith %}

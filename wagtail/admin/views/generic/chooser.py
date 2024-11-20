@@ -21,6 +21,7 @@ from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.paginator import get_wagtail_paginator_class
 from wagtail.admin.forms.choosers import (
     BaseFilterForm,
     CollectionFilterMixin,
@@ -237,14 +238,18 @@ class BaseChooseView(
             "select", label=_("Select"), width="1%", accessor="pk"
         )
 
-    def get_results_page(self, request):
+    def get_results(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
         objects = self.filter_object_list(objects)
 
-        paginator = Paginator(objects, per_page=self.per_page)
+        paginator_class = get_wagtail_paginator_class()
+        paginator = paginator_class(objects, per_page=self.per_page)
+        return paginator
+
+    def get_results_page(self, request):
         try:
-            return paginator.page(request.GET.get("p", 1))
+            return self.get_results(request).page(request.GET.get("p", 1))
         except InvalidPage:
             raise Http404
 
@@ -268,12 +273,16 @@ class BaseChooseView(
         # so that the pagination include can append its own parameters via the {% querystring %} template tag
         results_pagination_url = re.sub(r"\?.*$", "", results_url)
 
+        paginator = self.get_results(self.request)
+        elided_page_range= paginator.get_elided_page_range(self.request.GET.get("p", 1))
+
         context.update(
             {
                 "results": self.results,
                 "table": self.table,
                 "results_url": results_url,
                 "results_pagination_url": results_pagination_url,
+                "elided_page_range": elided_page_range,
                 "is_searching": self.filter_form.is_searching,
                 "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
                 "is_multiple_choice": self.is_multiple_choice,

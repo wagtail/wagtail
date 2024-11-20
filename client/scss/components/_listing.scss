@@ -477,6 +477,12 @@ table.listing {
 
 .pagination {
   text-align: center;
+  align-items: center;
+
+  > div {
+    display: flex;
+    flex: 1 0 auto;
+  }
 
   p {
     margin: 0;
@@ -484,19 +490,58 @@ table.listing {
 
   ul {
     @include unlist();
-    margin-top: -1.7em;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
   }
 
   li {
     line-height: 1em;
+    display: flex;
+    align-items: center;
+
+    a:not([href]) {
+      visibility: hidden;
+    }
+
+    a, span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.pagination-page-number {
+      a, span {
+        font-weight: theme('fontWeight.medium');
+        height: 2rem;
+        min-width: 2.125rem;
+        margin: 0.1875rem;
+      }
+      a {
+        border: 1px solid var(--w-color-border-furniture);
+        border-radius: 3px;
+        color: var(--w-color-text-label);
+        margin: 0.1875rem;
+
+        &.current,
+        &:hover,
+        &:focus {
+          background-color: var(--w-color-primary);
+          border-color: var(--w-color-primary);
+          color: var(--w-color-text-button);
+        }
+      }
+    }
   }
 
-  .prev {
-    float: inline-start;
-  }
-
+  .prev,
   .next {
-    float: inline-end;
+    a {
+      border: 0;
+      text-decoration: underline;
+      color: var(--w-color-text-link-default);
+    }
+    margin: 0 0.5rem;
   }
 }
 
