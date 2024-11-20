@@ -8,7 +8,7 @@ from django.core.exceptions import (
     ObjectDoesNotExist,
     PermissionDenied,
 )
-from django.core.paginator import InvalidPage, Paginator
+from django.core.paginator import InvalidPage
 from django.db.models import Model
 from django.forms.models import modelform_factory
 from django.http import Http404
@@ -28,6 +28,7 @@ from wagtail.admin.forms.choosers import (
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.paginator import get_wagtail_paginator_class
 from wagtail.admin.ui.tables import Column, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
@@ -131,6 +132,7 @@ class BaseChooseView(
     results_template_name = "wagtailadmin/generic/chooser/results.html"
     construct_queryset_hook_name = None
     url_filter_parameters = []
+    paginator_class = get_wagtail_paginator_class()
 
     def get_object_list(self):
         return self.model_class.objects.all()
@@ -237,14 +239,20 @@ class BaseChooseView(
             "select", label=_("Select"), width="1%", accessor="pk"
         )
 
+    @cached_property
+    def verbose_name_plural(self):
+        if self.model_class:
+            return self.model_class._meta.verbose_name_plural
+        return None
+
     def get_results_page(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
         objects = self.filter_object_list(objects)
 
-        paginator = Paginator(objects, per_page=self.per_page)
+        self.paginator = self.paginator_class(objects, per_page=self.per_page)
         try:
-            return paginator.page(request.GET.get("p", 1))
+            return self.paginator.page(request.GET.get("p", 1))
         except InvalidPage:
             raise Http404
 
@@ -268,12 +276,17 @@ class BaseChooseView(
         # so that the pagination include can append its own parameters via the {% querystring %} template tag
         results_pagination_url = re.sub(r"\?.*$", "", results_url)
 
+        elided_page_range = self.paginator.get_elided_page_range(
+            self.request.GET.get("p", 1)
+        )
+
         context.update(
             {
                 "results": self.results,
                 "table": self.table,
                 "results_url": results_url,
                 "results_pagination_url": results_pagination_url,
+                "elided_page_range": elided_page_range,
                 "is_searching": self.filter_form.is_searching,
                 "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
                 "is_multiple_choice": self.is_multiple_choice,
