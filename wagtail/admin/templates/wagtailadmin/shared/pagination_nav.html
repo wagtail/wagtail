@@ -20,13 +20,13 @@
                     {% trans 'Previous' %}
                 </a>
             </li>
-            {% for page_num in elided_page_range %}
+            {% for page_number in elided_page_range %}
                 <li class="pagination-page-number">
-                    {% if page_num == items.paginator.ELLIPSIS %}
-                        <span>{{ page_num }}</span>
+                    {% if page_number == items.paginator.ELLIPSIS %}
+                        <span>{{ page_number }}</span>
                     {% else %}
-                        <a href="{{ url_path }}{% querystring p=page_num %}" class="{% if page_num == items.number %}current{% endif %}" aria-label="{% blocktrans trimmed with page_num=page_num %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}">
-                            {{ page_num }}
+                        <a href="{{ url_path }}{% querystring p=page_number %}" class="{% if page_number == items.number %}current{% endif %}" aria-label="{% blocktrans trimmed with page_num=page_number|intcomma %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}">
+                            {{ page_number|intcomma }}
                         </a>
                     {% endif %}
                 </li>
