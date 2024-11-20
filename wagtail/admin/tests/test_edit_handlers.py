@@ -16,49 +16,26 @@ from django.utils.html import escape, json_script
 from freezegun import freeze_time
 
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
-from wagtail.admin.panels import (
-    CommentPanel,
-    FieldPanel,
-    FieldRowPanel,
-    HelpPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    MultipleChooserPanel,
-    ObjectList,
-    PageChooserPanel,
-    Panel,
-    PublishingPanel,
-    TabbedInterface,
-    TitleFieldPanel,
-    extract_panel_definitions_from_model_class,
-    get_form_for_model,
-)
+from wagtail.admin.panels import (CommentPanel, FieldPanel, FieldRowPanel, HelpPanel,
+                                  InlinePanel, MultiFieldPanel, MultipleChooserPanel,
+                                  ObjectList, PageChooserPanel, Panel, PublishingPanel,
+                                  TabbedInterface, TitleFieldPanel,
+                                  extract_panel_definitions_from_model_class,
+                                  get_form_for_model)
 from wagtail.admin.rich_text import DraftailRichTextArea
-from wagtail.admin.widgets import (
-    AdminAutoHeightTextInput,
-    AdminDateInput,
-    AdminPageChooser,
-)
+from wagtail.admin.widgets import (AdminAutoHeightTextInput, AdminDateInput,
+                                   AdminPageChooser)
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.coreutils import get_dummy_request
 from wagtail.images import get_image_model
 from wagtail.models import Comment, CommentReply, Page, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
-from wagtail.test.testapp.models import (
-    Advert,
-    EventPage,
-    EventPageChooserModel,
-    EventPageSpeaker,
-    FormPageWithRedirect,
-    GalleryPage,
-    PageChooserModel,
-    PersonPage,
-    RestaurantPage,
-    RestaurantTag,
-    SimplePage,
-    ValidatedPage,
-)
+from wagtail.test.testapp.models import (Advert, EventPage, EventPageChooserModel,
+                                         EventPageSpeaker, FormPageWithRedirect,
+                                         GalleryPage, PageChooserModel, PersonPage,
+                                         RestaurantPage, RestaurantTag, SimplePage,
+                                         ValidatedPage)
 from wagtail.test.utils import WagtailTestUtils
 
 

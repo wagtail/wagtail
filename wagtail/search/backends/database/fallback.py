@@ -6,12 +6,8 @@ from django.db import models
 from django.db.models import Count
 from django.db.models.expressions import Value
 
-from wagtail.search.backends.base import (
-    BaseSearchBackend,
-    BaseSearchQueryCompiler,
-    BaseSearchResults,
-    FilterFieldError,
-)
+from wagtail.search.backends.base import (BaseSearchBackend, BaseSearchQueryCompiler,
+                                          BaseSearchResults, FilterFieldError)
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.search.utils import AND, OR
 

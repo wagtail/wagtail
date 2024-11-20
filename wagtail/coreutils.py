@@ -489,7 +489,6 @@ class BatchProcessor:
         A hook to allow subclasses to do any pre-processing of the data
         before the ``process()`` method is called.
         """
-        pass
 
     def _do_processing(self):
         """
@@ -504,7 +503,6 @@ class BatchProcessor:
         after the ``process()`` method is called, and before
         ``self.items`` is cleared
         """
-        pass
 
 
 class BatchCreator(BatchProcessor):

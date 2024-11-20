@@ -7,14 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('snippetstests', '0011_nonautocompletesearchablesnippet'),
-        ('wagtailcore', '0094_alter_page_locale'),
+        ("snippetstests", "0011_nonautocompletesearchablesnippet"),
+        ("wagtailcore", "0094_alter_page_locale"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='translatablesnippet',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale', verbose_name='locale'),
+            model_name="translatablesnippet",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
         ),
     ]

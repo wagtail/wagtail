@@ -8,9 +8,7 @@ from wagtail.actions.create_alias import CreatePageAliasAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.contrib.simple_translation.wagtail_hooks import (
-    page_listing_more_buttons,
-    register_submit_translation_permission,
-)
+    page_listing_more_buttons, register_submit_translation_permission)
 from wagtail.models import Locale, Page
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.utils import WagtailTestUtils

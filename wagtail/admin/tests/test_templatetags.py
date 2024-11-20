@@ -13,15 +13,12 @@ from freezegun import freeze_time
 
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
-from wagtail.admin.templatetags.wagtailadmin_tags import (
-    avatar_url,
-    i18n_enabled,
-    locale_label_from_id,
-    notification_static,
-    timesince_last_update,
-    timesince_simple,
-)
+from wagtail.admin.templatetags.wagtailadmin_tags import (avatar_url, i18n_enabled,
+                                                          locale_label_from_id)
 from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
+from wagtail.admin.templatetags.wagtailadmin_tags import (notification_static,
+                                                          timesince_last_update,
+                                                          timesince_simple)
 from wagtail.coreutils import get_dummy_request
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, Page

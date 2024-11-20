@@ -1,5 +1,6 @@
 from django.db import migrations
 from django.db.models import Count, Q
+
 from wagtail.models import Page as RealPage
 
 

@@ -7,12 +7,8 @@ from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Page
-from wagtail.test.testapp.models import (
-    DefaultStreamPage,
-    EventPage,
-    FormClassAdditionalFieldPage,
-    SecretPage,
-)
+from wagtail.test.testapp.models import (DefaultStreamPage, EventPage,
+                                         FormClassAdditionalFieldPage, SecretPage)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 

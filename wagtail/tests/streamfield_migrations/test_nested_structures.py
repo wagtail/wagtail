@@ -1,11 +1,9 @@
 from django.test import TestCase
 
-from wagtail.blocks.migrations.operations import (
-    RemoveStreamChildrenOperation,
-    RemoveStructChildrenOperation,
-    RenameStreamChildrenOperation,
-    RenameStructChildrenOperation,
-)
+from wagtail.blocks.migrations.operations import (RemoveStreamChildrenOperation,
+                                                  RemoveStructChildrenOperation,
+                                                  RenameStreamChildrenOperation,
+                                                  RenameStructChildrenOperation)
 from wagtail.blocks.migrations.utils import apply_changes_to_raw_data
 from wagtail.test.streamfield_migrations import factories, models
 

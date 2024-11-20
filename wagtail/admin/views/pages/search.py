@@ -6,9 +6,7 @@ from django.http import Http404
 from django.utils.functional import classproperty
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.ui.tables.pages import (
-    NavigateToChildrenColumn,
-)
+from wagtail.admin.ui.tables.pages import NavigateToChildrenColumn
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageListingMixin

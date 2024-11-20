@@ -1,10 +1,12 @@
 import json
 import logging
 from collections import OrderedDict
-from django.db.models import JSONField, F, Q, Subquery, OuterRef
-from django.db.models.functions import Cast
+
 from django.db.migrations import RunPython
+from django.db.models import F, JSONField, OuterRef, Q, Subquery
+from django.db.models.functions import Cast
 from django.utils.functional import cached_property
+
 from wagtail.blocks import StreamValue
 from wagtail.blocks.migrations import utils
 

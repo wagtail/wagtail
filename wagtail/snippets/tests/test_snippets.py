@@ -32,49 +32,30 @@ from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
-from wagtail.snippets.action_menu import (
-    ActionMenuItem,
-    DeleteMenuItem,
-    get_base_snippet_action_menu_items,
-)
+from wagtail.snippets.action_menu import (ActionMenuItem, DeleteMenuItem,
+                                          get_base_snippet_action_menu_items)
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.widgets import (
-    AdminSnippetChooser,
-    SnippetChooserAdapter,
-    SnippetListingButton,
-)
+from wagtail.snippets.widgets import (AdminSnippetChooser, SnippetChooserAdapter,
+                                      SnippetListingButton)
 from wagtail.test.snippets.forms import FancySnippetForm
-from wagtail.test.snippets.models import (
-    AlphaSnippet,
-    FancySnippet,
-    FileUploadSnippet,
-    NonAutocompleteSearchableSnippet,
-    RegisterDecorator,
-    RegisterFunction,
-    SearchableSnippet,
-    StandardSnippet,
-    StandardSnippetWithCustomPrimaryKey,
-    TranslatableSnippet,
-    ZuluSnippet,
-)
-from wagtail.test.testapp.models import (
-    Advert,
-    AdvertWithCustomPrimaryKey,
-    AdvertWithCustomUUIDPrimaryKey,
-    AdvertWithTabbedInterface,
-    CustomPreviewSizesModel,
-    DraftStateCustomPrimaryKeyModel,
-    DraftStateModel,
-    FullFeaturedSnippet,
-    MultiPreviewModesModel,
-    PreviewableModel,
-    RevisableChildModel,
-    RevisableModel,
-    SnippetChooserModel,
-    SnippetChooserModelWithCustomPrimaryKey,
-    VariousOnDeleteModel,
-)
+from wagtail.test.snippets.models import (AlphaSnippet, FancySnippet, FileUploadSnippet,
+                                          NonAutocompleteSearchableSnippet,
+                                          RegisterDecorator, RegisterFunction,
+                                          SearchableSnippet, StandardSnippet,
+                                          StandardSnippetWithCustomPrimaryKey,
+                                          TranslatableSnippet, ZuluSnippet)
+from wagtail.test.testapp.models import (Advert, AdvertWithCustomPrimaryKey,
+                                         AdvertWithCustomUUIDPrimaryKey,
+                                         AdvertWithTabbedInterface,
+                                         CustomPreviewSizesModel,
+                                         DraftStateCustomPrimaryKeyModel,
+                                         DraftStateModel, FullFeaturedSnippet,
+                                         MultiPreviewModesModel, PreviewableModel,
+                                         RevisableChildModel, RevisableModel,
+                                         SnippetChooserModel,
+                                         SnippetChooserModelWithCustomPrimaryKey,
+                                         VariousOnDeleteModel)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp

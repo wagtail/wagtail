@@ -6,33 +6,18 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property, classproperty
 from django.utils.translation import gettext_lazy as _
-from django_filters.filters import (
-    ChoiceFilter,
-    DateFromToRangeFilter,
-    ModelMultipleChoiceFilter,
-)
+from django_filters.filters import (ChoiceFilter, DateFromToRangeFilter,
+                                    ModelMultipleChoiceFilter)
 
 from wagtail import hooks
-from wagtail.admin.filters import (
-    DateRangePickerWidget,
-    MultipleContentTypeFilter,
-    MultipleUserFilter,
-    WagtailFilterSet,
-)
+from wagtail.admin.filters import (DateRangePickerWidget, MultipleContentTypeFilter,
+                                   MultipleUserFilter, WagtailFilterSet)
 from wagtail.admin.ui.components import MediaContainer
-from wagtail.admin.ui.side_panels import (
-    PageStatusSidePanel,
-)
+from wagtail.admin.ui.side_panels import PageStatusSidePanel
 from wagtail.admin.ui.tables import Column, DateColumn
-from wagtail.admin.ui.tables.pages import (
-    BulkActionsColumn,
-    NavigateToChildrenColumn,
-    OrderingColumn,
-    PageStatusColumn,
-    PageTable,
-    PageTitleColumn,
-    ParentPageColumn,
-)
+from wagtail.admin.ui.tables.pages import (BulkActionsColumn, NavigateToChildrenColumn,
+                                           OrderingColumn, PageStatusColumn, PageTable,
+                                           PageTitleColumn, ParentPageColumn)
 from wagtail.admin.views import generic
 from wagtail.models import Page, PageLogEntry, Site, get_page_content_types
 from wagtail.permissions import page_permission_policy

@@ -17,7 +17,6 @@ class CopyPageIntegrityError(RuntimeError):
     Raised when the page copy cannot be performed for data integrity reasons.
     """
 
-    pass
 
 
 class CopyPagePermissionError(PermissionDenied):
@@ -25,7 +24,6 @@ class CopyPagePermissionError(PermissionDenied):
     Raised when the page copy cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class CopyPageAction:
@@ -215,10 +213,10 @@ class CopyPageAction:
                             self.reset_translation_key
                             and "translation_key" in child_object
                         ):
-                            child_object[
-                                "translation_key"
-                            ] = self.generate_translation_key(
-                                child_object["translation_key"]
+                            child_object["translation_key"] = (
+                                self.generate_translation_key(
+                                    child_object["translation_key"]
+                                )
                             )
 
                 for exclude_field in specific_page.exclude_fields_in_copy:
@@ -294,18 +292,22 @@ class CopyPageAction:
                             "language_code": page_copy.locale.language_code,
                         },
                     },
-                    "source": {
-                        "id": parent.id,
-                        "title": parent.specific_deferred.get_admin_display_title(),
-                    }
-                    if parent
-                    else None,
-                    "destination": {
-                        "id": to.id,
-                        "title": to.specific_deferred.get_admin_display_title(),
-                    }
-                    if to
-                    else None,
+                    "source": (
+                        {
+                            "id": parent.id,
+                            "title": parent.specific_deferred.get_admin_display_title(),
+                        }
+                        if parent
+                        else None
+                    ),
+                    "destination": (
+                        {
+                            "id": to.id,
+                            "title": to.specific_deferred.get_admin_display_title(),
+                        }
+                        if to
+                        else None
+                    ),
                     "keep_live": page_copy.live and self.keep_live,
                     "source_locale": {
                         "id": page.locale_id,

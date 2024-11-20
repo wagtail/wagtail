@@ -14,24 +14,12 @@ from rest_framework.viewsets import GenericViewSet
 from wagtail.api import APIField
 from wagtail.models import Page, PageViewRestriction, Site
 
-from .filters import (
-    AncestorOfFilter,
-    ChildOfFilter,
-    DescendantOfFilter,
-    FieldsFilter,
-    LocaleFilter,
-    OrderingFilter,
-    SearchFilter,
-    TranslationOfFilter,
-)
+from .filters import (AncestorOfFilter, ChildOfFilter, DescendantOfFilter, FieldsFilter,
+                      LocaleFilter, OrderingFilter, SearchFilter, TranslationOfFilter)
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
-from .utils import (
-    BadRequestError,
-    get_object_detail_url,
-    page_models_from_string,
-    parse_fields_parameter,
-)
+from .utils import (BadRequestError, get_object_detail_url, page_models_from_string,
+                    parse_fields_parameter)
 
 
 class BaseAPIViewSet(GenericViewSet):
@@ -305,10 +293,10 @@ class BaseAPIViewSet(GenericViewSet):
                 child_endpoint_class = (
                     child_endpoint_class[1] if child_endpoint_class else BaseAPIViewSet
                 )
-                child_serializer_classes[
-                    field_name
-                ] = child_endpoint_class._get_serializer_class(
-                    router, child_model, child_sub_fields, nested=True
+                child_serializer_classes[field_name] = (
+                    child_endpoint_class._get_serializer_class(
+                        router, child_model, child_sub_fields, nested=True
+                    )
                 )
 
             else:

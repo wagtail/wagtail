@@ -6,11 +6,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass, ClusterFormOptions
-from permissionedforms import (
-    PermissionedForm,
-    PermissionedFormMetaclass,
-    PermissionedFormOptionsMixin,
-)
+from permissionedforms import (PermissionedForm, PermissionedFormMetaclass,
+                               PermissionedFormOptionsMixin)
 from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets

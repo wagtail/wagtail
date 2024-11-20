@@ -4,13 +4,8 @@ from contextlib import contextmanager
 from asgiref.local import Local
 from django.core.cache import cache
 from django.db import transaction
-from django.db.models.signals import (
-    post_delete,
-    post_migrate,
-    post_save,
-    pre_delete,
-    pre_migrate,
-)
+from django.db.models.signals import (post_delete, post_migrate, post_save, pre_delete,
+                                      pre_migrate)
 from modelcluster.fields import ParentalKey
 
 from wagtail.models import Locale, Page, ReferenceIndex, Site

@@ -3,11 +3,8 @@ import urllib.parse
 
 from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
-from django.core.exceptions import (
-    ImproperlyConfigured,
-    ObjectDoesNotExist,
-    PermissionDenied,
-)
+from django.core.exceptions import (ImproperlyConfigured, ObjectDoesNotExist,
+                                    PermissionDenied)
 from django.core.paginator import InvalidPage, Paginator
 from django.db.models import Model
 from django.forms.models import modelform_factory
@@ -21,12 +18,8 @@ from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.forms.choosers import (
-    BaseFilterForm,
-    CollectionFilterMixin,
-    LocaleFilterMixin,
-    SearchFilterMixin,
-)
+from wagtail.admin.forms.choosers import (BaseFilterForm, CollectionFilterMixin,
+                                          LocaleFilterMixin, SearchFilterMixin)
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string

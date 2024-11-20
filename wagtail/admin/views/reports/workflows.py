@@ -11,21 +11,13 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.filters import (
-    DateRangePickerWidget,
-    FilteredModelChoiceFilter,
-    WagtailFilterSet,
-)
+from wagtail.admin.filters import (DateRangePickerWidget, FilteredModelChoiceFilter,
+                                   WagtailFilterSet)
 from wagtail.admin.utils import get_latest_str
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.coreutils import get_content_type_label
-from wagtail.models import (
-    Task,
-    TaskState,
-    Workflow,
-    WorkflowState,
-    get_default_page_content_type,
-)
+from wagtail.models import (Task, TaskState, Workflow, WorkflowState,
+                            get_default_page_content_type)
 from wagtail.permissions import page_permission_policy
 from wagtail.snippets.models import get_editable_models
 

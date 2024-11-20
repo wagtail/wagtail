@@ -8,13 +8,8 @@ from freezegun import freeze_time
 
 from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page, Site
-from wagtail.test.testapp.models import (
-    CustomPreviewSizesPage,
-    EventCategory,
-    MultiPreviewModesPage,
-    SimplePage,
-    StreamPage,
-)
+from wagtail.test.testapp.models import (CustomPreviewSizesPage, EventCategory,
+                                         MultiPreviewModesPage, SimplePage, StreamPage)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 

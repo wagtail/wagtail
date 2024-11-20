@@ -14,26 +14,18 @@ from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.panels import get_form_for_model
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
-from wagtail.contrib.forms.tests.utils import (
-    make_form_page,
-    make_form_page_with_custom_submission,
-)
+from wagtail.contrib.forms.tests.utils import (make_form_page,
+                                               make_form_page_with_custom_submission)
 from wagtail.contrib.forms.utils import get_form_types
 from wagtail.models import Locale, Page
 from wagtail.test.demosite.models import FormPage as FormPageDemo
-from wagtail.test.testapp.models import (
-    CustomFormPageSubmission,
-    ExtendedFormField,
-    FormField,
-    FormFieldForCustomListViewPage,
-    FormFieldWithCustomSubmission,
-    FormPage,
-    FormPageWithCustomFormBuilder,
-    FormPageWithCustomSubmission,
-    FormPageWithCustomSubmissionListView,
-    FormPageWithRedirect,
-    JadeFormPage,
-)
+from wagtail.test.testapp.models import (CustomFormPageSubmission, ExtendedFormField,
+                                         FormField, FormFieldForCustomListViewPage,
+                                         FormFieldWithCustomSubmission, FormPage,
+                                         FormPageWithCustomFormBuilder,
+                                         FormPageWithCustomSubmission,
+                                         FormPageWithCustomSubmissionListView,
+                                         FormPageWithRedirect, JadeFormPage)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 

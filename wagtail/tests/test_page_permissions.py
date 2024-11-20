@@ -5,25 +5,13 @@ from django.contrib.auth.models import Group
 from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
-from wagtail.models import (
-    GroupApprovalTask,
-    GroupPagePermission,
-    Locale,
-    Page,
-    Workflow,
-    WorkflowTask,
-)
+from wagtail.models import (GroupApprovalTask, GroupPagePermission, Locale, Page,
+                            Workflow, WorkflowTask)
 from wagtail.permission_policies.pages import PagePermissionPolicy
-from wagtail.test.testapp.models import (
-    BusinessSubIndex,
-    CustomPermissionPage,
-    CustomPermissionTester,
-    EventIndex,
-    EventPage,
-    NoCreatableSubpageTypesPage,
-    NoSubpageTypesPage,
-    SingletonPageViaMaxCount,
-)
+from wagtail.test.testapp.models import (BusinessSubIndex, CustomPermissionPage,
+                                         CustomPermissionTester, EventIndex, EventPage,
+                                         NoCreatableSubpageTypesPage,
+                                         NoSubpageTypesPage, SingletonPageViaMaxCount)
 
 
 class TestPagePermission(TestCase):

@@ -8,14 +8,10 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.contrib.search_promotions.models import (
-    Query,
-    QueryDailyHits,
-    SearchPromotion,
-)
-from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import (
-    get_search_promotions,
-)
+from wagtail.contrib.search_promotions.models import (Query, QueryDailyHits,
+                                                      SearchPromotion)
+from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import \
+    get_search_promotions
 from wagtail.test.utils import WagtailTestUtils
 
 

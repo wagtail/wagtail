@@ -23,7 +23,6 @@ class PublishPermissionError(PermissionDenied):
     Raised when the publish cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class PublishRevisionAction:
@@ -197,9 +196,9 @@ class PublishRevisionAction:
 
                 log(
                     instance=object,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.publish",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.publish"
+                    ),
                     user=user,
                     data=data,
                     revision=revision,

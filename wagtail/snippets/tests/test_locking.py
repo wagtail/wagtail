@@ -8,12 +8,8 @@ from django.utils import timezone
 from wagtail.admin.utils import get_user_display_name
 from wagtail.locks import WorkflowLock
 from wagtail.models import GroupApprovalTask, Workflow, WorkflowTask
-from wagtail.test.testapp.models import (
-    Advert,
-    DraftStateModel,
-    FullFeaturedSnippet,
-    LockableModel,
-)
+from wagtail.test.testapp.models import (Advert, DraftStateModel, FullFeaturedSnippet,
+                                         LockableModel)
 from wagtail.test.utils import WagtailTestUtils
 
 

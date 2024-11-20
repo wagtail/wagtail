@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
-from wagtail.blocks.migrations.utils import formatted_list_child_generator
+
 from django.utils.deconstruct import deconstructible
+
+from wagtail.blocks.migrations.utils import formatted_list_child_generator
 
 
 class BaseBlockOperation(ABC):

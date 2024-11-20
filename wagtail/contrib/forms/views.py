@@ -13,11 +13,8 @@ from django.views.generic import TemplateView
 from django_filters import DateFromToRangeFilter
 
 from wagtail.admin import messages
-from wagtail.admin.filters import (
-    DateRangePickerWidget,
-    MultipleContentTypeFilter,
-    WagtailFilterSet,
-)
+from wagtail.admin.filters import (DateRangePickerWidget, MultipleContentTypeFilter,
+                                   WagtailFilterSet)
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import PermissionCheckedMixin

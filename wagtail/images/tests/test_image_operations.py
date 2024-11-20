@@ -6,20 +6,15 @@ from django.test import TestCase, override_settings
 
 from wagtail import hooks
 from wagtail.images import image_operations
-from wagtail.images.exceptions import (
-    InvalidFilterSpecError,
-    UnknownOutputImageFormatError,
-)
+from wagtail.images.exceptions import (InvalidFilterSpecError,
+                                       UnknownOutputImageFormatError)
 from wagtail.images.image_operations import TransformOperation
 from wagtail.images.models import Filter, Image
 from wagtail.images.shortcuts import get_rendition_or_not_found
-from wagtail.images.tests.utils import (
-    get_test_image_file,
-    get_test_image_file_avif,
-    get_test_image_file_jpeg,
-    get_test_image_file_tiff,
-    get_test_image_file_webp,
-)
+from wagtail.images.tests.utils import (get_test_image_file, get_test_image_file_avif,
+                                        get_test_image_file_jpeg,
+                                        get_test_image_file_tiff,
+                                        get_test_image_file_webp)
 
 
 class DummyImageTransform:

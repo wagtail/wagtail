@@ -1,12 +1,8 @@
 from django.test import SimpleTestCase, TestCase
 
 from wagtail.search.query import And, Or, Phrase, PlainText
-from wagtail.search.utils import (
-    balanced_reduce,
-    normalise_query_string,
-    parse_query_string,
-    separate_filters_from_query,
-)
+from wagtail.search.utils import (balanced_reduce, normalise_query_string,
+                                  parse_query_string, separate_filters_from_query)
 
 
 class TestQueryStringNormalisation(TestCase):

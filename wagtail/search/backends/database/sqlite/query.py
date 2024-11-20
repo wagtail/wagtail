@@ -247,7 +247,9 @@ def normalize(search_query: SearchQuery) -> tuple[SearchQuery]:
         ):  # If there are no negated subqueries, return an And(), now without the redundant MatchAll subqueries.
             return And(not_negated_subqueries)
 
-        for subquery in (
+        for (
+            subquery
+        ) in (
             negated_subqueries
         ):  # If there's a negated MatchAll subquery, then nothing will get matched.
             if isinstance(subquery, MatchAll):
@@ -269,7 +271,9 @@ def normalize(search_query: SearchQuery) -> tuple[SearchQuery]:
         ):  # If there are no negated subqueries, return an Or().
             return Or(normalized_subqueries)
 
-        for subquery in (
+        for (
+            subquery
+        ) in (
             negated_subqueries
         ):  # If there's a MatchAll subquery, then anything will get matched.
             if isinstance(subquery, MatchAll):

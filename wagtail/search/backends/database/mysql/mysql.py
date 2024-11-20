@@ -14,31 +14,16 @@ from django.db.models.query_utils import Q
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
-from wagtail.search.backends.base import (
-    BaseSearchBackend,
-    BaseSearchQueryCompiler,
-    BaseSearchResults,
-    FilterFieldError,
-)
-from wagtail.search.backends.database.mysql.query import (
-    Lexeme,
-    MatchExpression,
-    SearchQuery,
-)
-from wagtail.search.index import (
-    AutocompleteField,
-    RelatedFields,
-    SearchField,
-    get_indexed_models,
-)
+from wagtail.search.backends.base import (BaseSearchBackend, BaseSearchQueryCompiler,
+                                          BaseSearchResults, FilterFieldError)
+from wagtail.search.backends.database.mysql.query import (Lexeme, MatchExpression,
+                                                          SearchQuery)
+from wagtail.search.index import (AutocompleteField, RelatedFields, SearchField,
+                                  get_indexed_models)
 from wagtail.search.models import IndexEntry
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
-from wagtail.search.utils import (
-    OR,
-    balanced_reduce,
-    get_content_type_pk,
-    get_descendants_content_types_pks,
-)
+from wagtail.search.utils import (OR, balanced_reduce, get_content_type_pk,
+                                  get_descendants_content_types_pks)
 
 
 class ObjectIndexer:
@@ -491,7 +476,9 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
         )
         if not negated:
             index_entries = index_entries.filter(match_expression)
-            if self.order_by_relevance:  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
+            if (
+                self.order_by_relevance
+            ):  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
                 index_entries = index_entries.order_by(score_expression.desc())
         else:
             index_entries = index_entries.exclude(match_expression)

@@ -11,24 +11,13 @@ from django.test import TestCase, override_settings
 from django.utils import timezone
 
 from wagtail.embeds.models import Embed
-from wagtail.models import (
-    Collection,
-    Page,
-    PageLogEntry,
-    Revision,
-    Task,
-    Workflow,
-    WorkflowTask,
-)
+from wagtail.models import (Collection, Page, PageLogEntry, Revision, Task, Workflow,
+                            WorkflowTask)
 from wagtail.signals import page_published, page_unpublished, published, unpublished
-from wagtail.test.testapp.models import (
-    DraftStateModel,
-    EventPage,
-    FullFeaturedSnippet,
-    PurgeRevisionsProtectedTestModel,
-    SecretPage,
-    SimplePage,
-)
+from wagtail.test.testapp.models import (DraftStateModel, EventPage,
+                                         FullFeaturedSnippet,
+                                         PurgeRevisionsProtectedTestModel, SecretPage,
+                                         SimplePage)
 from wagtail.test.utils import WagtailTestUtils
 
 

@@ -8,7 +8,6 @@ class DeletePagePermissionError(PermissionDenied):
     Raised when the page delete cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class DeletePageAction:

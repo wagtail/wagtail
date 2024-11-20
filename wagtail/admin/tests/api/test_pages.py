@@ -10,21 +10,14 @@ from django.urls import reverse
 from django.utils import timezone
 
 from wagtail import hooks
-from wagtail.api.v2.tests.test_pages import (
-    TestPageDetail,
-    TestPageListing,
-    TestPageListingSearch,
-)
+from wagtail.api.v2.tests.test_pages import (TestPageDetail, TestPageListing,
+                                             TestPageListingSearch)
 from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.test.demosite import models
 from wagtail.test.i18n.models import TestPage
-from wagtail.test.testapp.models import (
-    EventIndex,
-    EventPage,
-    PageWithExcludedCopyField,
-    SimplePage,
-    StreamPage,
-)
+from wagtail.test.testapp.models import (EventIndex, EventPage,
+                                         PageWithExcludedCopyField, SimplePage,
+                                         StreamPage)
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase

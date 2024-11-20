@@ -8,7 +8,6 @@ class ConvertAliasPageError(RuntimeError):
     Raised when the page to convert is not an alias.
     """
 
-    pass
 
 
 class ConvertAliasPagePermissionError(PermissionDenied):
@@ -16,7 +15,6 @@ class ConvertAliasPagePermissionError(PermissionDenied):
     Raised when the alias page conversion cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class ConvertAliasPageAction:

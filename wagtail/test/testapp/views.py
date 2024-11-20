@@ -19,16 +19,10 @@ from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
 from wagtail.admin.viewsets.pages import PageListingViewSet
 from wagtail.contrib.forms.views import SubmissionsListView
-from wagtail.test.testapp.models import (
-    Advert,
-    EventPage,
-    FeatureCompleteToy,
-    JSONBlockCountsStreamModel,
-    JSONMinMaxCountStreamModel,
-    JSONStreamModel,
-    ModelWithStringTypePrimaryKey,
-    SearchTestModel,
-)
+from wagtail.test.testapp.models import (Advert, EventPage, FeatureCompleteToy,
+                                         JSONBlockCountsStreamModel,
+                                         JSONMinMaxCountStreamModel, JSONStreamModel,
+                                         ModelWithStringTypePrimaryKey, SearchTestModel)
 
 
 def user_is_called_bob(user):

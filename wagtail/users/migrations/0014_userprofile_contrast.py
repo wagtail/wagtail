@@ -14,7 +14,10 @@ class Migration(migrations.Migration):
             model_name="userprofile",
             name="contrast",
             field=models.CharField(
-                choices=[("system", "System default"), ("more_contrast", "More contrast")],
+                choices=[
+                    ("system", "System default"),
+                    ("more_contrast", "More contrast"),
+                ],
                 default="system",
                 max_length=40,
                 verbose_name="contrast",

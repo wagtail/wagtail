@@ -3,9 +3,8 @@ from django.urls import reverse_lazy
 
 from wagtail.fields import RichTextField
 from wagtail.images.rich_text import ImageEmbedHandler as FrontendImageEmbedHandler
-from wagtail.images.rich_text.editor_html import (
-    ImageEmbedHandler as EditorHtmlImageEmbedHandler,
-)
+from wagtail.images.rich_text.editor_html import \
+    ImageEmbedHandler as EditorHtmlImageEmbedHandler
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.utils import WagtailTestUtils
 

@@ -6,12 +6,8 @@ from django.db import transaction
 from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 
-from wagtail.documents import (
-    get_document_model,
-    get_document_model_string,
-    models,
-    signal_handlers,
-)
+from wagtail.documents import (get_document_model, get_document_model_string, models,
+                               signal_handlers)
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel

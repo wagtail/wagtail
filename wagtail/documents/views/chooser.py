@@ -6,15 +6,10 @@ from django.views.generic.base import View
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.tables import Column, DateColumn, DownloadColumn
-from wagtail.admin.views.generic.chooser import (
-    BaseChooseView,
-    ChooseResultsViewMixin,
-    ChooseViewMixin,
-    ChosenResponseMixin,
-    ChosenViewMixin,
-    CreateViewMixin,
-    CreationFormMixin,
-)
+from wagtail.admin.views.generic.chooser import (BaseChooseView, ChooseResultsViewMixin,
+                                                 ChooseViewMixin, ChosenResponseMixin,
+                                                 ChosenViewMixin, CreateViewMixin,
+                                                 CreationFormMixin)
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.blocks import ChooserBlock

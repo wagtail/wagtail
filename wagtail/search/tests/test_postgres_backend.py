@@ -23,12 +23,10 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
     backend_path = "wagtail.search.backends.database.postgres.postgres"
 
     def test_weights(self):
-        from ..backends.database.postgres.weights import (
-            BOOSTS_WEIGHTS,
-            WEIGHTS_VALUES,
-            determine_boosts_weights,
-            get_weight,
-        )
+        from ..backends.database.postgres.weights import (BOOSTS_WEIGHTS,
+                                                          WEIGHTS_VALUES,
+                                                          determine_boosts_weights,
+                                                          get_weight)
 
         self.assertListEqual(
             BOOSTS_WEIGHTS, [(10, "A"), (2, "B"), (0.5, "C"), (0.25, "D")]

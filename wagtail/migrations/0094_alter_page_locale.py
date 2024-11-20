@@ -7,13 +7,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0093_uploadedfile'),
+        ("wagtailcore", "0093_uploadedfile"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='page',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale', verbose_name='locale'),
+            model_name="page",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
         ),
     ]

@@ -203,9 +203,9 @@ class TableBlock(FieldBlock):
                     "first_col_is_header": first_col_is_header,
                     "html_renderer": self.is_html_renderer(),
                     "table_caption": value.get("table_caption"),
-                    "data": value["data"][1:]
-                    if table_header
-                    else value.get("data", []),
+                    "data": (
+                        value["data"][1:] if table_header else value.get("data", [])
+                    ),
                 }
             )
 

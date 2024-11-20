@@ -2,6 +2,7 @@
 A generic HTML whitelisting engine, designed to accommodate subclassing to override
 specific rules.
 """
+
 import re
 
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag
@@ -128,7 +129,6 @@ class Whitelister:
             return
 
         # by default, nothing needs to be done to whitelist string nodes
-        pass
 
     def clean_tag_node(self, doc, tag):
         # first, whitelist the contents of this tag

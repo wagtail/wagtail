@@ -12,20 +12,12 @@ from django.utils.text import slugify
 from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.coreutils import (
-    InvokeViaAttributeShortcut,
-    accepts_kwarg,
-    camelcase_to_underscore,
-    cautious_slugify,
-    find_available_slug,
-    get_content_languages,
-    get_content_type_label,
-    get_dummy_request,
-    get_supported_content_language_variant,
-    multigetattr,
-    safe_snake_case,
-    string_to_ascii,
-)
+from wagtail.coreutils import (InvokeViaAttributeShortcut, accepts_kwarg,
+                               camelcase_to_underscore, cautious_slugify,
+                               find_available_slug, get_content_languages,
+                               get_content_type_label, get_dummy_request,
+                               get_supported_content_language_variant, multigetattr,
+                               safe_snake_case, string_to_ascii)
 from wagtail.models import Page, Site
 from wagtail.utils.file import hash_filelike
 from wagtail.utils.utils import deep_update, flatten_choices

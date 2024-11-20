@@ -25,39 +25,18 @@ from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.mail import send_mail
-from wagtail.admin.panels import (
-    FieldPanel,
-    HelpPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    MultipleChooserPanel,
-    ObjectList,
-    PublishingPanel,
-    TabbedInterface,
-)
-from wagtail.blocks import (
-    CharBlock,
-    FieldBlock,
-    ListBlock,
-    RawHTMLBlock,
-    RichTextBlock,
-    StreamBlock,
-    StructBlock,
-)
+from wagtail.admin.panels import (FieldPanel, HelpPanel, InlinePanel, MultiFieldPanel,
+                                  MultipleChooserPanel, ObjectList, PublishingPanel,
+                                  TabbedInterface)
+from wagtail.blocks import (CharBlock, FieldBlock, ListBlock, RawHTMLBlock,
+                            RichTextBlock, StreamBlock, StructBlock)
 from wagtail.contrib.forms.forms import FormBuilder, WagtailAdminFormPageForm
-from wagtail.contrib.forms.models import (
-    FORM_FIELD_CHOICES,
-    AbstractEmailForm,
-    AbstractFormField,
-    AbstractFormSubmission,
-)
+from wagtail.contrib.forms.models import (FORM_FIELD_CHOICES, AbstractEmailForm,
+                                          AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.contrib.forms.views import SubmissionsListView
-from wagtail.contrib.settings.models import (
-    BaseGenericSetting,
-    BaseSiteSetting,
-    register_setting,
-)
+from wagtail.contrib.settings.models import (BaseGenericSetting, BaseSiteSetting,
+                                             register_setting)
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.documents import get_document_model
@@ -67,20 +46,10 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageBlock, ImageChooserBlock
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
-from wagtail.models import (
-    DraftStateMixin,
-    LockableMixin,
-    Orderable,
-    Page,
-    PageManager,
-    PagePermissionTester,
-    PageQuerySet,
-    PreviewableMixin,
-    RevisionMixin,
-    Task,
-    TranslatableMixin,
-    WorkflowMixin,
-)
+from wagtail.models import (DraftStateMixin, LockableMixin, Orderable, Page,
+                            PageManager, PagePermissionTester, PageQuerySet,
+                            PreviewableMixin, RevisionMixin, Task, TranslatableMixin,
+                            WorkflowMixin)
 from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet

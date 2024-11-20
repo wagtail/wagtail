@@ -1,12 +1,8 @@
 from django.test import TestCase
 
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.whitelist import (
-    Whitelister,
-    allow_without_attributes,
-    attribute_rule,
-    check_url,
-)
+from wagtail.whitelist import (Whitelister, allow_without_attributes, attribute_rule,
+                               check_url)
 
 
 class TestCheckUrl(TestCase):

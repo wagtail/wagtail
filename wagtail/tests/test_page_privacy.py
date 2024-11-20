@@ -83,7 +83,7 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         WAGTAIL_PASSWORD_REQUIRED_TEMPLATE="tests/custom_page_password_required.html"
     )
     def test_anonymous_user_must_authenticate_with_custom_password_required_template(
-        self
+        self,
     ):
         response = self.client.get("/secret-plans/")
 

@@ -2,13 +2,8 @@ from django.template import Context, Template
 from django.test import RequestFactory, TestCase
 from django.utils.html import format_html
 
-from wagtail.admin.ui.tables import (
-    BaseColumn,
-    Column,
-    RelatedObjectsColumn,
-    Table,
-    TitleColumn,
-)
+from wagtail.admin.ui.tables import (BaseColumn, Column, RelatedObjectsColumn, Table,
+                                     TitleColumn)
 from wagtail.models import Page, Site
 
 

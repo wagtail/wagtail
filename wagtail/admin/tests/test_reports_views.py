@@ -17,20 +17,9 @@ from openpyxl import load_workbook
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.admin.views.reports import page_types_usage
 from wagtail.admin.views.reports.audit_logging import LogEntriesView
-from wagtail.models import (
-    GroupPagePermission,
-    Locale,
-    ModelLogEntry,
-    Page,
-    PageLogEntry,
-    Site,
-)
-from wagtail.test.testapp.models import (
-    Advert,
-    EventPage,
-    EventPageSpeaker,
-    SimplePage,
-)
+from wagtail.models import (GroupPagePermission, Locale, ModelLogEntry, Page,
+                            PageLogEntry, Site)
+from wagtail.test.testapp.models import Advert, EventPage, EventPageSpeaker, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning

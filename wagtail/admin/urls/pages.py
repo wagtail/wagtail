@@ -1,23 +1,9 @@
 from django.urls import path, re_path
 
 from wagtail.admin.views import page_privacy
-from wagtail.admin.views.pages import (
-    convert_alias,
-    copy,
-    create,
-    delete,
-    edit,
-    history,
-    lock,
-    move,
-    ordering,
-    preview,
-    revisions,
-    search,
-    unpublish,
-    usage,
-    workflow,
-)
+from wagtail.admin.views.pages import (convert_alias, copy, create, delete, edit,
+                                       history, lock, move, ordering, preview,
+                                       revisions, search, unpublish, usage, workflow)
 
 app_name = "wagtailadmin_pages"
 urlpatterns = [

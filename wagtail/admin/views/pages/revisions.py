@@ -14,16 +14,10 @@ from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.ui.components import MediaContainer
-from wagtail.admin.ui.side_panels import (
-    ChecksSidePanel,
-    CommentsSidePanel,
-    PageStatusSidePanel,
-    PreviewSidePanel,
-)
-from wagtail.admin.views.generic.models import (
-    RevisionsCompareView,
-    RevisionsUnscheduleView,
-)
+from wagtail.admin.ui.side_panels import (ChecksSidePanel, CommentsSidePanel,
+                                          PageStatusSidePanel, PreviewSidePanel)
+from wagtail.admin.views.generic.models import (RevisionsCompareView,
+                                                RevisionsUnscheduleView)
 from wagtail.admin.views.generic.preview import PreviewRevision
 from wagtail.models import Page
 from wagtail.utils.timestamps import render_timestamp

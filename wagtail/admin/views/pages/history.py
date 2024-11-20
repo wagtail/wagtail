@@ -5,9 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin.views.generic import history
-from wagtail.admin.views.pages.utils import (
-    GenericPageBreadcrumbsMixin,
-)
+from wagtail.admin.views.pages.utils import GenericPageBreadcrumbsMixin
 from wagtail.admin.widgets import BooleanRadioSelect
 from wagtail.models import Page, PageLogEntry
 from wagtail.permissions import page_permission_policy

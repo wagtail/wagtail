@@ -5,14 +5,10 @@ from django.utils import timezone
 
 from wagtail.blocks import StreamValue
 from wagtail.blocks.migrations import migrate_operation
-from wagtail.blocks.migrations.operations import (
-    RenameStreamChildrenOperation,
-    RenameStructChildrenOperation,
-)
-from wagtail.blocks.migrations.utils import (
-    InvalidBlockDefError,
-    apply_changes_to_raw_data,
-)
+from wagtail.blocks.migrations.operations import (RenameStreamChildrenOperation,
+                                                  RenameStructChildrenOperation)
+from wagtail.blocks.migrations.utils import (InvalidBlockDefError,
+                                             apply_changes_to_raw_data)
 from wagtail.signal_handlers import disable_reference_index_auto_update
 from wagtail.test.streamfield_migrations import factories, models
 from wagtail.test.streamfield_migrations.testutils import MigrationTestMixin
@@ -225,7 +221,8 @@ class TestExceptionRaisedForLiveRevision(BadDataMigrationTestCase):
 
 class TestExceptionIgnoredForOtherRevisions(BadDataMigrationTestCase):
     """Exception should not be be raised when applying migration if it occurs while migrating
-    revision data which is not of a live or latest revision. Instead an exception should be logged"""
+    revision data which is not of a live or latest revision. Instead an exception should be logged
+    """
 
     model = models.SamplePage
 

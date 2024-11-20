@@ -13,7 +13,6 @@ class UnpublishPermissionError(PermissionDenied):
     Raised when the object unpublish cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class UnpublishAction:
@@ -67,9 +66,11 @@ class UnpublishAction:
             if log_action:
                 log(
                     instance=object,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.unpublish",
+                    action=(
+                        log_action
+                        if isinstance(log_action, str)
+                        else "wagtail.unpublish"
+                    ),
                     user=user,
                 )
 

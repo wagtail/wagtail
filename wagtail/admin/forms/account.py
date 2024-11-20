@@ -8,10 +8,8 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import get_language_info
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.localization import (
-    get_available_admin_languages,
-    get_available_admin_time_zones,
-)
+from wagtail.admin.localization import (get_available_admin_languages,
+                                        get_available_admin_time_zones)
 from wagtail.admin.widgets import SwitchInput
 from wagtail.permissions import page_permission_policy
 from wagtail.users.models import UserProfile

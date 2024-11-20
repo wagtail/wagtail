@@ -4,14 +4,8 @@ from django.test import TestCase as DjangoTestCase
 from django.urls import reverse
 
 from wagtail.admin.search import SearchArea
-from wagtail.admin.ui.sidebar import (
-    ActionMenuItem,
-    LinkMenuItem,
-    MainMenuModule,
-    PageExplorerMenuItem,
-    SearchModule,
-    SubMenuItem,
-)
+from wagtail.admin.ui.sidebar import (ActionMenuItem, LinkMenuItem, MainMenuModule,
+                                      PageExplorerMenuItem, SearchModule, SubMenuItem)
 from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning

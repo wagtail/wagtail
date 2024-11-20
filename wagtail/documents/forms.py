@@ -4,16 +4,13 @@ from django.forms.models import modelform_factory
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms.collections import (
-    BaseCollectionMemberForm,
-    CollectionChoiceField,
-    collection_member_permission_formset_factory,
-)
+    BaseCollectionMemberForm, CollectionChoiceField,
+    collection_member_permission_formset_factory)
 from wagtail.admin.forms.tags import validate_tag_length
 from wagtail.admin.widgets import AdminTagWidget
 from wagtail.documents.models import Document
-from wagtail.documents.permissions import (
-    permission_policy as documents_permission_policy,
-)
+from wagtail.documents.permissions import \
+    permission_policy as documents_permission_policy
 from wagtail.models import Collection
 from wagtail.search import index as search_index
 

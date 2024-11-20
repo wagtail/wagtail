@@ -48,6 +48,7 @@ if os.environ.get("WAGTAIL_FAIL_ON_VERSIONED_STATIC", "0") == "1":
             "the collectstatic command itself). Ensure that any media definitions declared "
             "via `class Media` are converted to a `media` property."
         )
+
 else:
 
     def versioned_static(path):

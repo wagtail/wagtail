@@ -6,13 +6,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.blocks.base import (
-    Block,
-    DeclarativeSubBlocksMetaclass,
-    get_error_json_data,
-    get_error_list_json_data,
-    get_help_icon,
-)
+from wagtail.blocks.base import (Block, DeclarativeSubBlocksMetaclass,
+                                 get_error_json_data, get_error_list_json_data,
+                                 get_help_icon)
 from wagtail.telepath import Adapter, register
 
 

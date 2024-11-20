@@ -6,12 +6,9 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.views.home import (
-    LockedPagesPanel,
-    RecentEditsPanel,
-    UserObjectsInWorkflowModerationPanel,
-    WorkflowObjectsToModeratePanel,
-)
+from wagtail.admin.views.home import (LockedPagesPanel, RecentEditsPanel,
+                                      UserObjectsInWorkflowModerationPanel,
+                                      WorkflowObjectsToModeratePanel)
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
 from wagtail.test.testapp.models import FullFeaturedSnippet, SimplePage

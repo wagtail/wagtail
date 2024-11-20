@@ -2,13 +2,9 @@ from django.core.exceptions import ImproperlyConfigured
 from elasticsearch import NotFoundError
 
 from wagtail.search.backends.elasticsearch7 import (
-    Elasticsearch7AutocompleteQueryCompiler,
-    Elasticsearch7Index,
-    Elasticsearch7Mapping,
-    Elasticsearch7SearchBackend,
-    Elasticsearch7SearchQueryCompiler,
-    Elasticsearch7SearchResults,
-)
+    Elasticsearch7AutocompleteQueryCompiler, Elasticsearch7Index, Elasticsearch7Mapping,
+    Elasticsearch7SearchBackend, Elasticsearch7SearchQueryCompiler,
+    Elasticsearch7SearchResults)
 from wagtail.search.index import class_is_indexed
 
 
@@ -90,7 +86,8 @@ class Elasticsearch8SearchBackend(Elasticsearch7SearchBackend):
 
     def _get_options_from_host_urls(self, urls):
         """Given a list of parsed URLs, return a dict of additional options to be passed into the
-        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config"""
+        Elasticsearch constructor; necessary for options that aren't valid as part of the 'hosts' config
+        """
         opts = super()._get_options_from_host_urls(urls)
 
         basic_auth = (urls[0].username, urls[0].password)

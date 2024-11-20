@@ -12,27 +12,12 @@ from django.utils.functional import cached_property
 from ....index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
 from ....models import IndexEntry, SQLiteFTSIndexEntry
 from ....query import And, MatchAll, Not, Or, Phrase, PlainText
-from ....utils import (
-    ADD,
-    MUL,
-    OR,
-    get_content_type_pk,
-    get_descendants_content_types_pks,
-)
-from ...base import (
-    BaseSearchBackend,
-    BaseSearchQueryCompiler,
-    BaseSearchResults,
-    FilterFieldError,
-)
-from .query import (
-    BM25,
-    AndNot,
-    Lexeme,
-    MatchExpression,
-    SearchQueryExpression,
-    normalize,
-)
+from ....utils import (ADD, MUL, OR, get_content_type_pk,
+                       get_descendants_content_types_pks)
+from ...base import (BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults,
+                     FilterFieldError)
+from .query import (BM25, AndNot, Lexeme, MatchExpression, SearchQueryExpression,
+                    normalize)
 
 
 class ObjectIndexer:
@@ -507,9 +492,7 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
         vectors = self.get_search_vectors()
         rank_expression = self._build_rank_expression(vectors, config)
 
-        combined_vector = vectors[
-            0
-        ][
+        combined_vector = vectors[0][
             0
         ]  # We create a combined vector for the search results queryset. We start with the first vector and build from there.
         for vector, boost in vectors[1:]:

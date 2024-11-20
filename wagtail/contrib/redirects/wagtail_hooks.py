@@ -3,10 +3,8 @@ from django.urls import include, path, reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
-from wagtail.admin.admin_url_finder import (
-    ModelAdminURLFinder,
-    register_admin_url_finder,
-)
+from wagtail.admin.admin_url_finder import (ModelAdminURLFinder,
+                                            register_admin_url_finder)
 from wagtail.admin.menu import MenuItem
 from wagtail.contrib.redirects import urls
 from wagtail.contrib.redirects.permissions import permission_policy

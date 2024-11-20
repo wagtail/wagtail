@@ -1,6 +1,6 @@
 import functools
-
 import zoneinfo
+
 from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR

@@ -2,10 +2,7 @@ from warnings import warn
 
 import django_filters
 from django.conf import settings
-from django.contrib.auth import (
-    get_user_model,
-    update_session_auth_hash,
-)
+from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
@@ -19,21 +16,13 @@ from django.utils.translation import gettext_lazy
 from wagtail import hooks
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.search import SearchArea
-from wagtail.admin.ui.tables import (
-    BulkActionsCheckboxColumn,
-    Column,
-    DateColumn,
-    StatusTagColumn,
-    TitleColumn,
-)
+from wagtail.admin.ui.tables import (BulkActionsCheckboxColumn, Column, DateColumn,
+                                     StatusTagColumn, TitleColumn)
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.boolean_radio_select import BooleanRadioSelect
-from wagtail.admin.widgets.button import (
-    BaseDropdownMenuButton,
-    ButtonWithDropdown,
-)
+from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.coreutils import accepts_kwarg
 from wagtail.users.forms import UserCreationForm, UserEditForm
@@ -164,9 +153,11 @@ class IndexView(generic.IndexView):
                 "name",
                 accessor=lambda u: get_user_display_name(u),
                 label=gettext_lazy("Name"),
-                sort_key="name"
-                if self.model_fields.issuperset({"first_name", "last_name"})
-                else None,
+                sort_key=(
+                    "name"
+                    if self.model_fields.issuperset({"first_name", "last_name"})
+                    else None
+                ),
                 get_url=self.get_edit_url,
                 classname="name",
             ),
@@ -188,9 +179,9 @@ class IndexView(generic.IndexView):
             ),
             StatusTagColumn(
                 "is_active",
-                accessor=lambda u: gettext_lazy("Active")
-                if u.is_active
-                else gettext_lazy("Inactive"),
+                accessor=lambda u: (
+                    gettext_lazy("Active") if u.is_active else gettext_lazy("Inactive")
+                ),
                 primary=lambda u: u.is_active,
                 label=gettext_lazy("Status"),
                 sort_key="is_active" if "is_active" in self.model_fields else None,

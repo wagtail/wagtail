@@ -6,12 +6,8 @@ from django.test import TestCase
 
 from wagtail.models import Site
 
-from .utils import (
-    Image,
-    get_test_bad_image,
-    get_test_image_file,
-    get_test_image_filename,
-)
+from .utils import (Image, get_test_bad_image, get_test_image_file,
+                    get_test_image_filename)
 
 
 class JinjaImagesTestCase(TestCase):

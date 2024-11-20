@@ -20,17 +20,11 @@ from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.admin.filters import (
-    MultipleContentTypeFilter,
-    WagtailFilterSet,
-)
-from wagtail.admin.forms.workflows import (
-    TaskChooserSearchForm,
-    WorkflowContentTypeForm,
-    WorkflowPagesFormSet,
-    get_task_form_class,
-    get_workflow_edit_handler,
-)
+from wagtail.admin.filters import MultipleContentTypeFilter, WagtailFilterSet
+from wagtail.admin.forms.workflows import (TaskChooserSearchForm,
+                                           WorkflowContentTypeForm,
+                                           WorkflowPagesFormSet, get_task_form_class,
+                                           get_workflow_edit_handler)
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import BaseColumn, Column, TitleColumn
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
@@ -38,19 +32,9 @@ from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageListingMixin
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import (
-    Page,
-    Task,
-    TaskState,
-    Workflow,
-    WorkflowState,
-    WorkflowTask,
-)
-from wagtail.permissions import (
-    page_permission_policy,
-    task_permission_policy,
-    workflow_permission_policy,
-)
+from wagtail.models import Page, Task, TaskState, Workflow, WorkflowState, WorkflowTask
+from wagtail.permissions import (page_permission_policy, task_permission_policy,
+                                 workflow_permission_policy)
 from wagtail.snippets.models import get_workflow_enabled_models
 from wagtail.workflows import get_task_types
 
@@ -944,11 +928,13 @@ class BaseTaskChooserView(TemplateView):
     def get_create_tab_context_data(self):
         return {
             "create_form": self.create_form,
-            "add_url": reverse("wagtailadmin_workflows:task_chooser_create")
-            + "?"
-            + self.request.GET.urlencode()
-            if self.create_model
-            else None,
+            "add_url": (
+                reverse("wagtailadmin_workflows:task_chooser_create")
+                + "?"
+                + self.request.GET.urlencode()
+                if self.create_model
+                else None
+            ),
             "task_types": self.get_task_type_options(),
         }
 

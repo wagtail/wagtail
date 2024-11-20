@@ -7,12 +7,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.models import Page, ReferenceIndex
-from wagtail.test.testapp.models import (
-    Advert,
-    DraftStateModel,
-    EventPage,
-    GenericSnippetPage,
-)
+from wagtail.test.testapp.models import (Advert, DraftStateModel, EventPage,
+                                         GenericSnippetPage)
 from wagtail.test.utils import WagtailTestUtils
 
 

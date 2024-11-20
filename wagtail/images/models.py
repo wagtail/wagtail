@@ -35,16 +35,10 @@ from taggit.managers import TaggableManager
 
 from wagtail import hooks
 from wagtail.coreutils import string_to_ascii
-from wagtail.images.exceptions import (
-    InvalidFilterSpecError,
-    UnknownOutputImageFormatError,
-)
-from wagtail.images.image_operations import (
-    FilterOperation,
-    FormatOperation,
-    ImageTransform,
-    TransformOperation,
-)
+from wagtail.images.exceptions import (InvalidFilterSpecError,
+                                       UnknownOutputImageFormatError)
+from wagtail.images.image_operations import (FilterOperation, FormatOperation,
+                                             ImageTransform, TransformOperation)
 from wagtail.images.rect import Rect
 from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
@@ -71,7 +65,6 @@ class SourceImageIOError(IOError):
     Custom exception to distinguish IOErrors that were thrown while opening the source image
     """
 
-    pass
 
 
 class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):

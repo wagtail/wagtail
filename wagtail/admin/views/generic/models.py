@@ -2,11 +2,8 @@ import warnings
 
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import (
-    FieldDoesNotExist,
-    ImproperlyConfigured,
-    PermissionDenied,
-)
+from django.core.exceptions import (FieldDoesNotExist, ImproperlyConfigured,
+                                    PermissionDenied)
 from django.db import models, transaction
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
@@ -18,11 +15,7 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
-from django.views.generic.edit import (
-    BaseCreateView,
-    BaseDeleteView,
-    BaseUpdateView,
-)
+from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
 
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.admin import messages
@@ -32,20 +25,12 @@ from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.side_panels import StatusSidePanel
-from wagtail.admin.ui.tables import (
-    ButtonsColumnMixin,
-    Column,
-    TitleColumn,
-    UpdatedAtColumn,
-)
+from wagtail.admin.ui.tables import (ButtonsColumnMixin, Column, TitleColumn,
+                                     UpdatedAtColumn)
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.admin.widgets.button import (
-    Button,
-    ButtonWithDropdown,
-    HeaderButton,
-    ListingButton,
-)
+from wagtail.admin.widgets.button import (Button, ButtonWithDropdown, HeaderButton,
+                                          ListingButton)
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex

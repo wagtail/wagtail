@@ -7,12 +7,8 @@ from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.panels import (
-    FieldPanel,
-    ObjectList,
-    PublishingPanel,
-    TabbedInterface,
-)
+from wagtail.admin.panels import (FieldPanel, ObjectList, PublishingPanel,
+                                  TabbedInterface)
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
@@ -26,23 +22,15 @@ from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetViewSetGroup
-from wagtail.test.testapp.models import (
-    DraftStateModel,
-    FullFeaturedSnippet,
-    ModeratedModel,
-    RevisableChildModel,
-    RevisableModel,
-    SnippetChooserModel,
-    VariousOnDeleteModel,
-)
-from wagtail.test.testapp.views import (
-    JSONModelViewSetGroup,
-    MiscellaneousViewSetGroup,
-    SearchTestModelViewSet,
-    ToyViewSetGroup,
-    animated_advert_chooser_viewset,
-    event_page_listing_viewset,
-)
+from wagtail.test.testapp.models import (DraftStateModel, FullFeaturedSnippet,
+                                         ModeratedModel, RevisableChildModel,
+                                         RevisableModel, SnippetChooserModel,
+                                         VariousOnDeleteModel)
+from wagtail.test.testapp.views import (JSONModelViewSetGroup,
+                                        MiscellaneousViewSetGroup,
+                                        SearchTestModelViewSet, ToyViewSetGroup,
+                                        animated_advert_chooser_viewset,
+                                        event_page_listing_viewset)
 
 from .forms import FavouriteColourForm
 

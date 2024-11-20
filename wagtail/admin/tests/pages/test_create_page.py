@@ -11,20 +11,11 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.models import GroupPagePermission, Locale, Page, Revision
 from wagtail.signals import page_published
-from wagtail.test.testapp.models import (
-    BusinessChild,
-    BusinessIndex,
-    BusinessSubIndex,
-    DefaultStreamPage,
-    PersonPage,
-    SimpleChildPage,
-    SimplePage,
-    SimpleParentPage,
-    SingletonPage,
-    SingletonPageViaMaxCount,
-    StandardChild,
-    StandardIndex,
-)
+from wagtail.test.testapp.models import (BusinessChild, BusinessIndex, BusinessSubIndex,
+                                         DefaultStreamPage, PersonPage, SimpleChildPage,
+                                         SimplePage, SimpleParentPage, SingletonPage,
+                                         SingletonPageViaMaxCount, StandardChild,
+                                         StandardIndex)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
 

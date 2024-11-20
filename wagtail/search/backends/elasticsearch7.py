@@ -11,22 +11,12 @@ from elasticsearch import VERSION as ELASTICSEARCH_VERSION
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.search.backends.base import (
-    BaseSearchBackend,
-    BaseSearchQueryCompiler,
-    BaseSearchResults,
-    FilterFieldError,
-    get_model_root,
-)
-from wagtail.search.index import (
-    AutocompleteField,
-    FilterField,
-    Indexed,
-    RelatedFields,
-    SearchField,
-    class_is_indexed,
-    get_indexed_models,
-)
+from wagtail.search.backends.base import (BaseSearchBackend, BaseSearchQueryCompiler,
+                                          BaseSearchResults, FilterFieldError,
+                                          get_model_root)
+from wagtail.search.index import (AutocompleteField, FilterField, Indexed,
+                                  RelatedFields, SearchField, class_is_indexed,
+                                  get_indexed_models)
 from wagtail.search.query import And, Boost, Fuzzy, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.utils.utils import deep_update
 

@@ -6,4 +6,3 @@ class PageClassNotFoundError(ImportError):
     migrations.
     """
 
-    pass

@@ -11,14 +11,8 @@ from django.utils.safestring import mark_safe
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
 
-from .base import (
-    Block,
-    BoundBlock,
-    DeclarativeSubBlocksMetaclass,
-    get_error_json_data,
-    get_error_list_json_data,
-    get_help_icon,
-)
+from .base import (Block, BoundBlock, DeclarativeSubBlocksMetaclass,
+                   get_error_json_data, get_error_list_json_data, get_help_icon)
 
 __all__ = [
     "BaseStructBlock",
@@ -136,9 +130,11 @@ class BaseStructBlock(Block):
 
         return self.normalize(
             {
-                name: self.meta.default[name]
-                if name in self.meta.default
-                else block.get_default()
+                name: (
+                    self.meta.default[name]
+                    if name in self.meta.default
+                    else block.get_default()
+                )
                 for name, block in self.child_blocks.items()
             }
         )
@@ -161,7 +157,9 @@ class BaseStructBlock(Block):
         )
 
     def clean(self, value):
-        result = []  # build up a list of (name, value) tuples to be passed to the StructValue constructor
+        result = (
+            []
+        )  # build up a list of (name, value) tuples to be passed to the StructValue constructor
         errors = {}
         for name, val in value.items():
             try:

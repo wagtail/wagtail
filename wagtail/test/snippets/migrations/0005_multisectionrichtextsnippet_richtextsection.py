@@ -1,6 +1,7 @@
-from django.db import migrations, models
-import wagtail.fields
 import modelcluster.fields
+from django.db import migrations, models
+
+import wagtail.fields
 
 
 class Migration(migrations.Migration):

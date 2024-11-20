@@ -3,10 +3,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import NoReverseMatch
 
 from wagtail.images.models import Filter, Picture, ResponsiveImage
-from wagtail.images.shortcuts import (
-    get_rendition_or_not_found,
-    get_renditions_or_not_found,
-)
+from wagtail.images.shortcuts import (get_rendition_or_not_found,
+                                      get_renditions_or_not_found)
 from wagtail.images.utils import to_svg_safe_spec
 from wagtail.images.views.serve import generate_image_url
 

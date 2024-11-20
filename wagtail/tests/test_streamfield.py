@@ -15,13 +15,10 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
-from wagtail.test.testapp.models import (
-    ComplexDefaultStreamPage,
-    JSONBlockCountsStreamModel,
-    JSONMinMaxCountStreamModel,
-    JSONStreamModel,
-    StreamPage,
-)
+from wagtail.test.testapp.models import (ComplexDefaultStreamPage,
+                                         JSONBlockCountsStreamModel,
+                                         JSONMinMaxCountStreamModel, JSONStreamModel,
+                                         StreamPage)
 
 
 class TestLazyStreamField(TestCase):

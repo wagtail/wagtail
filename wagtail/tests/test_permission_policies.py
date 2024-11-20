@@ -4,12 +4,9 @@ from django.test import TestCase
 
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.permission_policies import (
-    AuthenticationOnlyPermissionPolicy,
-    BlanketPermissionPolicy,
-    ModelPermissionPolicy,
-    OwnershipPermissionPolicy,
-)
+from wagtail.permission_policies import (AuthenticationOnlyPermissionPolicy,
+                                         BlanketPermissionPolicy, ModelPermissionPolicy,
+                                         OwnershipPermissionPolicy)
 from wagtail.test.utils import WagtailTestUtils
 
 

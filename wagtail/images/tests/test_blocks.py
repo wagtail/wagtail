@@ -12,12 +12,8 @@ from wagtail.telepath import JSContext
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 
-from .utils import (
-    Image,
-    get_test_bad_image,
-    get_test_image_file,
-    get_test_image_filename,
-)
+from .utils import (Image, get_test_bad_image, get_test_image_file,
+                    get_test_image_filename)
 
 
 class TestImageChooserBlock(TestCase):

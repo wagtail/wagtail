@@ -24,19 +24,10 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.images import get_image_model
 from wagtail.images.utils import generate_signature
 from wagtail.images.views.images import ImagesFilterSet
-from wagtail.models import (
-    Collection,
-    GroupCollectionPermission,
-    Page,
-    UploadedFile,
-    get_root_collection_id,
-)
-from wagtail.test.testapp.models import (
-    CustomImage,
-    CustomImageWithAuthor,
-    EventPage,
-    VariousOnDeleteModel,
-)
+from wagtail.models import (Collection, GroupCollectionPermission, Page, UploadedFile,
+                            get_root_collection_id)
+from wagtail.test.testapp.models import (CustomImage, CustomImageWithAuthor, EventPage,
+                                         VariousOnDeleteModel)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime

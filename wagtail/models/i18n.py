@@ -12,10 +12,8 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 
 from wagtail.actions.copy_for_translation import CopyForTranslationAction
-from wagtail.coreutils import (
-    get_content_languages,
-    get_supported_content_language_variant,
-)
+from wagtail.coreutils import (get_content_languages,
+                               get_supported_content_language_variant)
 from wagtail.signals import pre_validate_delete
 
 

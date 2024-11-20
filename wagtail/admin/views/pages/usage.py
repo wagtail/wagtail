@@ -13,9 +13,7 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
-from wagtail.admin.views.pages.utils import (
-    GenericPageBreadcrumbsMixin,
-)
+from wagtail.admin.views.pages.utils import GenericPageBreadcrumbsMixin
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
 

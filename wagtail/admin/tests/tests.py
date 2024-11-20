@@ -16,9 +16,7 @@ from wagtail.admin.menu import MenuItem
 from wagtail.models import Page
 from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import (
-    RemovedInWagtail70Warning,
-)
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestHome(WagtailTestUtils, TestCase):

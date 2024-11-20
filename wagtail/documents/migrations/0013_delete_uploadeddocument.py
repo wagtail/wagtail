@@ -6,11 +6,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtaildocs', '0012_uploadeddocument'),
+        ("wagtaildocs", "0012_uploadeddocument"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='UploadedDocument',
+            name="UploadedDocument",
         ),
     ]

@@ -12,18 +12,13 @@ from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page, ReferenceIndex
 from wagtail.rich_text import RichText
-from wagtail.test.testapp.models import (
-    Advert,
-    AdvertWithCustomUUIDPrimaryKey,
-    EventPage,
-    EventPageCarouselItem,
-    EventPageRelatedLink,
-    GenericSnippetNoFieldIndexPage,
-    GenericSnippetNoIndexPage,
-    GenericSnippetPage,
-    ModelWithNullableParentalKey,
-    VariousOnDeleteModel,
-)
+from wagtail.test.testapp.models import (Advert, AdvertWithCustomUUIDPrimaryKey,
+                                         EventPage, EventPageCarouselItem,
+                                         EventPageRelatedLink,
+                                         GenericSnippetNoFieldIndexPage,
+                                         GenericSnippetNoIndexPage, GenericSnippetPage,
+                                         ModelWithNullableParentalKey,
+                                         VariousOnDeleteModel)
 
 
 class TestCreateOrUpdateForObject(TestCase):

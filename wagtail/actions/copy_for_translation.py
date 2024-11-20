@@ -12,7 +12,6 @@ class ParentNotTranslatedError(Exception):
     parent page is not translated and copy_parents is False.
     """
 
-    pass
 
 
 class CopyForTranslationPermissionError(PermissionDenied):
@@ -20,7 +19,6 @@ class CopyForTranslationPermissionError(PermissionDenied):
     Raised when the object translation copy cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class CopyPageForTranslationPermissionError(CopyForTranslationPermissionError):
@@ -81,9 +79,11 @@ class CopyPageForTranslationAction:
     def walk(self, current_page):
         for child_page in current_page.get_children():
             translated_page = self._copy_for_translation(
-                child_page
-                if child_page.live
-                else child_page.get_latest_revision_as_object(),
+                (
+                    child_page
+                    if child_page.live
+                    else child_page.get_latest_revision_as_object()
+                ),
                 self.locale,
                 self.copy_parents,
                 self.alias,

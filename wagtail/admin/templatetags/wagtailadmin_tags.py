@@ -35,29 +35,16 @@ from wagtail.admin.menu import admin_menu
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
-from wagtail.admin.utils import (
-    get_admin_base_url,
-    get_latest_str,
-    get_user_display_name,
-    get_valid_next_url_from_request,
-)
+from wagtail.admin.utils import (get_admin_base_url, get_latest_str,
+                                 get_user_display_name, get_valid_next_url_from_request)
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
 from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
-from wagtail.coreutils import (
-    accepts_kwarg,
-    camelcase_to_underscore,
-    escape_script,
-    get_content_type_label,
-    get_locales_display_names,
-)
+from wagtail.coreutils import accepts_kwarg, camelcase_to_underscore
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.models import (
-    CollectionViewRestriction,
-    Locale,
-    Page,
-    PageViewRestriction,
-)
+from wagtail.coreutils import (escape_script, get_content_type_label,
+                               get_locales_display_names)
+from wagtail.models import CollectionViewRestriction, Locale, Page, PageViewRestriction
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -246,10 +233,10 @@ def test_collection_is_public(context, collection):
     DB queries on repeated calls.
     """
     if "all_collection_view_restrictions" not in context:
-        context[
-            "all_collection_view_restrictions"
-        ] = CollectionViewRestriction.objects.select_related("collection").values_list(
-            "collection__name", flat=True
+        context["all_collection_view_restrictions"] = (
+            CollectionViewRestriction.objects.select_related("collection").values_list(
+                "collection__name", flat=True
+            )
         )
 
     is_private = collection.name in context["all_collection_view_restrictions"]
@@ -267,11 +254,11 @@ def test_page_is_public(context, page):
     DB queries on repeated calls.
     """
     if not hasattr(context["request"], "all_page_view_restriction_paths"):
-        context[
-            "request"
-        ].all_page_view_restriction_paths = PageViewRestriction.objects.select_related(
-            "page"
-        ).values_list("page__path", flat=True)
+        context["request"].all_page_view_restriction_paths = (
+            PageViewRestriction.objects.select_related("page").values_list(
+                "page__path", flat=True
+            )
+        )
 
     is_private = any(
         page.path.startswith(restricted_path)
@@ -1257,9 +1244,9 @@ def formattedfield(
 
     if field:
         context["rendered_field"] = rendered_field or render_with_errors(field)
-        context[
-            "field_classname"
-        ] = f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+        context["field_classname"] = (
+            f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+        )
 
         errors = field.errors
         has_errors = bool(errors)
@@ -1366,9 +1353,11 @@ def keyboard_shortcuts_dialog(context):
                 (_("Cut"), f"{modifier} + x"),
                 (_("Paste"), f"{modifier} + v"),
                 (
-                    _("Paste and match style")
-                    if is_mac
-                    else _("Paste without formatting"),
+                    (
+                        _("Paste and match style")
+                        if is_mac
+                        else _("Paste without formatting")
+                    ),
                     f"{modifier} + Shift + v",
                 ),
                 (_("Undo"), f"{modifier} + z"),

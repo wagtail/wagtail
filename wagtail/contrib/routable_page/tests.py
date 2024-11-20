@@ -6,14 +6,11 @@ from django.test.utils import override_settings
 from django.urls import path
 from django.urls.exceptions import NoReverseMatch
 
-from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import (
-    routablepageurl,
-)
+from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import \
+    routablepageurl
 from wagtail.models import Page, Site
-from wagtail.test.routablepage.models import (
-    RoutablePageTest,
-    RoutablePageWithOverriddenIndexRouteTest,
-)
+from wagtail.test.routablepage.models import (RoutablePageTest,
+                                              RoutablePageWithOverriddenIndexRouteTest)
 
 
 class TestRoutablePage(TestCase):

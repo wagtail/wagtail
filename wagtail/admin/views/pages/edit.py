@@ -20,26 +20,16 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.models import EditingSession
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
-from wagtail.admin.ui.side_panels import (
-    ChecksSidePanel,
-    CommentsSidePanel,
-    PageStatusSidePanel,
-    PreviewSidePanel,
-)
+from wagtail.admin.ui.side_panels import (ChecksSidePanel, CommentsSidePanel,
+                                          PageStatusSidePanel, PreviewSidePanel)
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
-from wagtail.models import (
-    COMMENTS_RELATION_NAME,
-    Comment,
-    CommentReply,
-    Page,
-    PageSubscription,
-    WorkflowState,
-    get_default_page_content_type,
-)
+from wagtail.models import (COMMENTS_RELATION_NAME, Comment, CommentReply, Page,
+                            PageSubscription, WorkflowState,
+                            get_default_page_content_type)
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -935,9 +925,11 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 "history_url": self.get_history_url(),
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "page_locked": self.locked_for_user,
-                "workflow_state": self.workflow_state
-                if self.workflow_state and self.workflow_state.is_active
-                else None,
+                "workflow_state": (
+                    self.workflow_state
+                    if self.workflow_state and self.workflow_state.is_active
+                    else None
+                ),
                 "current_task_state": self.page.current_workflow_task_state,
                 "publishing_will_cancel_workflow": self.workflow_tasks
                 and getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True),

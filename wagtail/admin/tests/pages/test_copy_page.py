@@ -4,13 +4,9 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.models import GroupPagePermission, Page
-from wagtail.test.testapp.models import (
-    CustomCopyFormPage,
-    EventPage,
-    EventPageSpeaker,
-    PageWithExcludedCopyField,
-    SimplePage,
-)
+from wagtail.test.testapp.models import (CustomCopyFormPage, EventPage,
+                                         EventPageSpeaker, PageWithExcludedCopyField,
+                                         SimplePage)
 from wagtail.test.utils import WagtailTestUtils
 
 

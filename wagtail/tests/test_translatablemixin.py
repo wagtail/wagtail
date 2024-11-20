@@ -6,13 +6,9 @@ from django.db import models
 from django.test import TestCase, override_settings
 
 from wagtail.models import Locale
-from wagtail.test.i18n.models import (
-    ClusterableTestModel,
-    ClusterableTestModelChild,
-    ClusterableTestModelTranslatableChild,
-    InheritedTestModel,
-    TestModel,
-)
+from wagtail.test.i18n.models import (ClusterableTestModel, ClusterableTestModelChild,
+                                      ClusterableTestModelTranslatableChild,
+                                      InheritedTestModel, TestModel)
 
 
 def make_test_instance(model=None, **kwargs):

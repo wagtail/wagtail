@@ -3,12 +3,9 @@ from django.test import TestCase
 
 from wagtail.images.models import Image, Rendition
 from wagtail.images.templatetags.wagtailimages_tags import ImageNode
-from wagtail.images.tests.utils import (
-    get_test_bad_image,
-    get_test_image_file,
-    get_test_image_file_svg,
-    get_test_image_filename,
-)
+from wagtail.images.tests.utils import (get_test_bad_image, get_test_image_file,
+                                        get_test_image_file_svg,
+                                        get_test_image_filename)
 
 LIBRARIES = {
     "wagtailimages_tags": "wagtail.images.templatetags.wagtailimages_tags",

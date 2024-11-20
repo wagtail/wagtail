@@ -10,28 +10,16 @@ from django.test import TestCase
 from wagtail.admin.tests.test_contentstate import content_state_equal
 from wagtail.models import PAGE_MODEL_CLASSES, Page, Site
 from wagtail.test.dummy_external_storage import DummyExternalStorage
-from wagtail.test.testapp.models import (
-    BusinessChild,
-    BusinessIndex,
-    BusinessNowherePage,
-    BusinessSubIndex,
-    EventIndex,
-    EventPage,
-    NoCreatableSubpageTypesPage,
-    NoSubpageTypesPage,
-    SectionedRichTextPage,
-    SimpleChildPage,
-    SimplePage,
-    SimpleParentPage,
-    StreamPage,
-)
+from wagtail.test.testapp.models import (BusinessChild, BusinessIndex,
+                                         BusinessNowherePage, BusinessSubIndex,
+                                         EventIndex, EventPage,
+                                         NoCreatableSubpageTypesPage,
+                                         NoSubpageTypesPage, SectionedRichTextPage,
+                                         SimpleChildPage, SimplePage, SimpleParentPage,
+                                         StreamPage)
 from wagtail.test.utils import WagtailPageTests, WagtailTestUtils
-from wagtail.test.utils.form_data import (
-    inline_formset,
-    nested_form_data,
-    rich_text,
-    streamfield,
-)
+from wagtail.test.utils.form_data import (inline_formset, nested_form_data, rich_text,
+                                          streamfield)
 
 
 class TestAssertTagInHTML(WagtailTestUtils, TestCase):

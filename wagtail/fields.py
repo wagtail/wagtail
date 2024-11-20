@@ -7,15 +7,10 @@ from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
-from wagtail.blocks.definition_lookup import (
-    BlockDefinitionLookup,
-    BlockDefinitionLookupBuilder,
-)
-from wagtail.rich_text import (
-    RichTextMaxLengthValidator,
-    extract_references_from_rich_text,
-    get_text_for_indexing,
-)
+from wagtail.blocks.definition_lookup import (BlockDefinitionLookup,
+                                              BlockDefinitionLookupBuilder)
+from wagtail.rich_text import (RichTextMaxLengthValidator,
+                               extract_references_from_rich_text, get_text_for_indexing)
 
 
 class RichTextField(models.TextField):

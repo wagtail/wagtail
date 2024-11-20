@@ -88,7 +88,6 @@ def remove_initial_data(apps, schema_editor):
     """This function does nothing. The below code is commented out together
     with an explanation of why we don't need to bother reversing any of the
     initial data"""
-    pass
     # This does not need to be deleted, Django takes care of it.
     # page_content_type = ContentType.objects.get(
     #     model='page',

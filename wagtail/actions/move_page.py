@@ -15,7 +15,6 @@ class MovePagePermissionError(PermissionDenied):
     Raised when the page move cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class MovePageAction:

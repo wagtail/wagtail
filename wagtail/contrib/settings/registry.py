@@ -6,10 +6,8 @@ from django.urls import reverse
 from django.utils.text import capfirst
 
 from wagtail import hooks
-from wagtail.admin.admin_url_finder import (
-    ModelAdminURLFinder,
-    register_admin_url_finder,
-)
+from wagtail.admin.admin_url_finder import (ModelAdminURLFinder,
+                                            register_admin_url_finder)
 from wagtail.admin.menu import MenuItem
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.utils.deprecation import RemovedInWagtail70Warning

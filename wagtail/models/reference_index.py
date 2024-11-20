@@ -266,9 +266,8 @@ class ReferenceIndex(models.Model):
         if model in cls.tracked_models:
             return
 
-        from wagtail.signal_handlers import (
-            connect_reference_index_signal_handlers_for_model,
-        )
+        from wagtail.signal_handlers import \
+            connect_reference_index_signal_handlers_for_model
 
         cls.tracked_models.add(model)
         connect_reference_index_signal_handlers_for_model(model)

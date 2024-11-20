@@ -1,9 +1,7 @@
 from django.test import TestCase
 
-from wagtail.blocks.migrations.operations import (
-    RemoveStreamChildrenOperation,
-    RenameStreamChildrenOperation,
-)
+from wagtail.blocks.migrations.operations import (RemoveStreamChildrenOperation,
+                                                  RenameStreamChildrenOperation)
 from wagtail.test.streamfield_migrations import models
 from wagtail.test.streamfield_migrations.testutils import MigrationTestMixin
 

@@ -1,8 +1,7 @@
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.documents import get_document_model
-from wagtail.documents.permissions import (
-    permission_policy as documents_permission_policy,
-)
+from wagtail.documents.permissions import \
+    permission_policy as documents_permission_policy
 
 
 class DocumentBulkAction(BulkAction):

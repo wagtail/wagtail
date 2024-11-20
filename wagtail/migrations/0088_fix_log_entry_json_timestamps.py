@@ -6,7 +6,7 @@ import logging
 import django.core.serializers.json
 from django.conf import settings
 from django.db import migrations, models
-from django.utils import timezone, dateparse
+from django.utils import dateparse, timezone
 
 logger = logging.getLogger("wagtail.migrations")
 

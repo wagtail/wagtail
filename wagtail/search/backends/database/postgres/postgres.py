@@ -14,19 +14,10 @@ from django.utils.functional import cached_property
 from ....index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
 from ....models import IndexEntry
 from ....query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
-from ....utils import (
-    ADD,
-    MUL,
-    OR,
-    get_content_type_pk,
-    get_descendants_content_types_pks,
-)
-from ...base import (
-    BaseSearchBackend,
-    BaseSearchQueryCompiler,
-    BaseSearchResults,
-    FilterFieldError,
-)
+from ....utils import (ADD, MUL, OR, get_content_type_pk,
+                       get_descendants_content_types_pks)
+from ...base import (BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults,
+                     FilterFieldError)
 from .query import Lexeme
 from .weights import get_sql_weights, get_weight
 

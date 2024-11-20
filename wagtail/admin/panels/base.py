@@ -1,10 +1,8 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.safestring import mark_safe
 
-from wagtail.admin.forms.models import (
-    WagtailAdminDraftStateFormMixin,
-    WagtailAdminModelForm,
-)
+from wagtail.admin.forms.models import (WagtailAdminDraftStateFormMixin,
+                                        WagtailAdminModelForm)
 from wagtail.admin.ui.components import Component
 from wagtail.blocks import StreamValue
 from wagtail.coreutils import safe_snake_case
@@ -172,7 +170,6 @@ class Panel:
         Called after the panel has been associated with a model class and the ``self.model`` attribute is available;
         panels can override this method to perform additional initialisation related to the model.
         """
-        pass
 
     def __repr__(self):
         return "<{} with model={}>".format(

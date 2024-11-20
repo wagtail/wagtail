@@ -10,12 +10,8 @@ from django.test import TestCase, TransactionTestCase
 from wagtail.models import Locale, Page, PageViewRestriction, Site, Workflow
 from wagtail.search.query import MATCH_ALL
 from wagtail.signals import page_unpublished
-from wagtail.test.testapp.models import (
-    EventPage,
-    SimplePage,
-    SingleEventPage,
-    StreamPage,
-)
+from wagtail.test.testapp.models import (EventPage, SimplePage, SingleEventPage,
+                                         StreamPage)
 from wagtail.test.utils import WagtailTestUtils
 
 

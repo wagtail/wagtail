@@ -1,12 +1,7 @@
 from wagtail.models import Page
-from wagtail.test.testapp.models import (
-    FormField,
-    FormFieldWithCustomSubmission,
-    FormPage,
-    FormPageWithCustomSubmission,
-    FormPageWithRedirect,
-    RedirectFormField,
-)
+from wagtail.test.testapp.models import (FormField, FormFieldWithCustomSubmission,
+                                         FormPage, FormPageWithCustomSubmission,
+                                         FormPageWithRedirect, RedirectFormField)
 
 
 def make_form_page(**kwargs):

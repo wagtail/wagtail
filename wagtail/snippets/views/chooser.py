@@ -2,15 +2,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables import LiveStatusTagColumn
-from wagtail.admin.views.generic.chooser import (
-    BaseChooseView,
-    ChooseResultsViewMixin,
-    ChooseViewMixin,
-    ChosenMultipleView,
-    ChosenView,
-    CreateView,
-    CreationFormMixin,
-)
+from wagtail.admin.views.generic.chooser import (BaseChooseView, ChooseResultsViewMixin,
+                                                 ChooseViewMixin, ChosenMultipleView,
+                                                 ChosenView, CreateView,
+                                                 CreationFormMixin)
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import DraftStateMixin
 from wagtail.snippets.widgets import AdminSnippetChooser

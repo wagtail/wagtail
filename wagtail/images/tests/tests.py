@@ -11,12 +11,9 @@ from django.test import TestCase, override_settings
 from django.test.signals import setting_changed
 from django.urls import reverse
 from taggit.forms import TagField, TagWidget
-from willow.image import (
-    AvifImageFile,
-    PNGImageFile,
-    SvgImageFile,
-)
+from willow.image import AvifImageFile
 from willow.image import ImageFile as WillowImageFile
+from willow.image import PNGImageFile, SvgImageFile
 
 from wagtail.images import get_image_model, get_image_model_string
 from wagtail.images.fields import WagtailImageField
@@ -31,12 +28,8 @@ from wagtail.test.testapp.models import CustomImage, CustomImageFilePath
 from wagtail.test.utils import WagtailTestUtils, disconnect_signal_receiver
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
-from .utils import (
-    Image,
-    get_test_image_file,
-    get_test_image_file_avif,
-    get_test_image_file_svg,
-)
+from .utils import (Image, get_test_image_file, get_test_image_file_avif,
+                    get_test_image_file_svg)
 
 try:
     import sendfile  # noqa: F401

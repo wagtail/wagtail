@@ -5,10 +5,8 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 from wagtail.admin.forms.collections import (
-    BaseCollectionMemberForm,
-    CollectionChoiceField,
-    collection_member_permission_formset_factory,
-)
+    BaseCollectionMemberForm, CollectionChoiceField,
+    collection_member_permission_formset_factory)
 from wagtail.admin.forms.tags import validate_tag_length
 from wagtail.admin.widgets import AdminTagWidget
 from wagtail.images.fields import WagtailImageField

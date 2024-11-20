@@ -8,10 +8,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
-from wagtail.admin.panels import (
-    ObjectList,
-    extract_panel_definitions_from_model_class,
-)
+from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.views import generic
 from wagtail.models import Site
 from wagtail.permission_policies import ModelPermissionPolicy

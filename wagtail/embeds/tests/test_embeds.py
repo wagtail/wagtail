@@ -15,22 +15,17 @@ from wagtail import blocks
 from wagtail.embeds import oembed_providers
 from wagtail.embeds.blocks import EmbedBlock, EmbedValue
 from wagtail.embeds.embeds import get_embed, get_embed_hash
-from wagtail.embeds.exceptions import (
-    EmbedNotFoundException,
-    EmbedUnsupportedProviderException,
-)
+from wagtail.embeds.exceptions import (EmbedNotFoundException,
+                                       EmbedUnsupportedProviderException)
 from wagtail.embeds.finders import get_finders
-from wagtail.embeds.finders.embedly import (
-    AccessDeniedEmbedlyException,
-    EmbedlyException,
-)
+from wagtail.embeds.finders.embedly import (AccessDeniedEmbedlyException,
+                                            EmbedlyException)
 from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
 from wagtail.embeds.finders.facebook import AccessDeniedFacebookOEmbedException
 from wagtail.embeds.finders.facebook import FacebookOEmbedFinder as FacebookOEmbedFinder
 from wagtail.embeds.finders.instagram import AccessDeniedInstagramOEmbedException
-from wagtail.embeds.finders.instagram import (
-    InstagramOEmbedFinder as InstagramOEmbedFinder,
-)
+from wagtail.embeds.finders.instagram import \
+    InstagramOEmbedFinder as InstagramOEmbedFinder
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
 from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag

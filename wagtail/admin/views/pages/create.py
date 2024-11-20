@@ -15,12 +15,8 @@ from django.views.generic.base import View
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.ui.components import MediaContainer
-from wagtail.admin.ui.side_panels import (
-    ChecksSidePanel,
-    CommentsSidePanel,
-    PageStatusSidePanel,
-    PreviewSidePanel,
-)
+from wagtail.admin.ui.side_panels import (ChecksSidePanel, CommentsSidePanel,
+                                          PageStatusSidePanel, PreviewSidePanel)
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin

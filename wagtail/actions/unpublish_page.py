@@ -11,7 +11,6 @@ class UnpublishPagePermissionError(UnpublishPermissionError):
     Raised when the page unpublish cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class UnpublishPageAction(UnpublishAction):

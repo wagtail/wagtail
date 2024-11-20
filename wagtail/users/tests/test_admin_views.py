@@ -25,25 +25,16 @@ from wagtail.admin.widgets.button import ButtonWithDropdown
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.coreutils import get_dummy_request
 from wagtail.log_actions import log
-from wagtail.models import (
-    Collection,
-    DraftStateMixin,
-    GroupCollectionPermission,
-    GroupPagePermission,
-    LockableMixin,
-    Page,
-)
+from wagtail.models import (Collection, DraftStateMixin, GroupCollectionPermission,
+                            GroupPagePermission, LockableMixin, Page)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.forms import GroupForm, UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
-from wagtail.users.views.users import (
-    UserViewSet,
-    get_user_creation_form,
-    get_user_edit_form,
-)
+from wagtail.users.views.users import (UserViewSet, get_user_creation_form,
+                                       get_user_edit_form)
 from wagtail.users.wagtail_hooks import get_viewset_cls
 from wagtail.users.widgets import UserListingButton
 from wagtail.utils.deprecation import RemovedInWagtail70Warning

@@ -12,29 +12,16 @@ from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
-from wagtail.images.models import (
-    Filter,
-    Picture,
-    Rendition,
-    ResponsiveImage,
-    SourceImageIOError,
-    get_rendition_storage,
-)
+from wagtail.images.models import (Filter, Picture, Rendition, ResponsiveImage,
+                                   SourceImageIOError, get_rendition_storage)
 from wagtail.images.rect import Rect
 from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
-from wagtail.test.testapp.models import (
-    EventPage,
-    EventPageCarouselItem,
-    ReimportedImageModel,
-)
+from wagtail.test.testapp.models import (EventPage, EventPageCarouselItem,
+                                         ReimportedImageModel)
 from wagtail.test.utils import WagtailTestUtils
 
-from .utils import (
-    Image,
-    get_test_image_file,
-    get_test_image_file_svg,
-    get_test_image_filename,
-)
+from .utils import (Image, get_test_image_file, get_test_image_file_svg,
+                    get_test_image_filename)
 
 
 class CustomStorage(Storage):

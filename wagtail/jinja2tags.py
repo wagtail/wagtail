@@ -3,14 +3,8 @@ import jinja2.nodes
 from jinja2.ext import Extension
 from markupsafe import Markup, escape
 
-from .templatetags.wagtailcore_tags import (
-    fullpageurl,
-    pageurl,
-    richtext,
-    slugurl,
-    wagtail_site,
-    wagtail_version,
-)
+from .templatetags.wagtailcore_tags import (fullpageurl, pageurl, richtext, slugurl,
+                                            wagtail_site, wagtail_version)
 
 
 class WagtailCoreExtension(Extension):

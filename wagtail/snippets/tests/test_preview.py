@@ -6,13 +6,9 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.admin.views.generic.preview import PreviewOnEdit
-from wagtail.test.testapp.models import (
-    EventCategory,
-    MultiPreviewModesModel,
-    NonPreviewableModel,
-    PreviewableModel,
-    RevisableModel,
-)
+from wagtail.test.testapp.models import (EventCategory, MultiPreviewModesModel,
+                                         NonPreviewableModel, PreviewableModel,
+                                         RevisableModel)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 

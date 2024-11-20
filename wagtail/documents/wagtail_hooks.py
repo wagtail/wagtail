@@ -3,15 +3,14 @@ from warnings import warn
 from django.conf import settings
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse, reverse_lazy
-from django.utils.translation import gettext, ngettext
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail import hooks
-from wagtail.admin.admin_url_finder import (
-    ModelAdminURLFinder,
-    register_admin_url_finder,
-)
+from wagtail.admin.admin_url_finder import (ModelAdminURLFinder,
+                                            register_admin_url_finder)
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.search import SearchArea
@@ -21,15 +20,12 @@ from wagtail.documents.api.admin.views import DocumentsAdminAPIViewSet
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
 from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import DocumentLinkHandler
-from wagtail.documents.rich_text.contentstate import (
-    ContentstateDocumentLinkConversionRule,
-)
+from wagtail.documents.rich_text.contentstate import \
+    ContentstateDocumentLinkConversionRule
 from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
-from wagtail.documents.views.bulk_actions import (
-    AddTagsBulkAction,
-    AddToCollectionBulkAction,
-    DeleteBulkAction,
-)
+from wagtail.documents.views.bulk_actions import (AddTagsBulkAction,
+                                                  AddToCollectionBulkAction,
+                                                  DeleteBulkAction)
 from wagtail.documents.views.chooser import viewset as chooser_viewset
 from wagtail.models import BaseViewRestriction
 from wagtail.utils.deprecation import RemovedInWagtail70Warning

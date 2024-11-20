@@ -2,7 +2,6 @@ import os
 
 from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
-from django.http.response import HttpResponse as HttpResponse
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
@@ -11,14 +10,8 @@ from django.utils.translation import gettext_lazy, ngettext
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
-from wagtail.admin.ui.tables import (
-    BulkActionsCheckboxColumn,
-    Column,
-    DateColumn,
-    DownloadColumn,
-    Table,
-    TitleColumn,
-)
+from wagtail.admin.ui.tables import (BulkActionsCheckboxColumn, Column, DateColumn,
+                                     DownloadColumn, Table, TitleColumn)
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.documents import get_document_model

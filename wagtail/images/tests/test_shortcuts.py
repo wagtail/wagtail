@@ -1,10 +1,8 @@
 from django.test import TestCase
 
 from wagtail.images.models import Filter
-from wagtail.images.shortcuts import (
-    get_rendition_or_not_found,
-    get_renditions_or_not_found,
-)
+from wagtail.images.shortcuts import (get_rendition_or_not_found,
+                                      get_renditions_or_not_found)
 
 from .utils import Image, get_test_image_file
 

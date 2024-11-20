@@ -11,30 +11,17 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy
 from django.views.generic import TemplateView
 
-from wagtail.admin.filters import (
-    DateRangePickerWidget,
-    MultipleUserFilter,
-    WagtailFilterSet,
-)
+from wagtail.admin.filters import (DateRangePickerWidget, MultipleUserFilter,
+                                   WagtailFilterSet)
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.utils import get_latest_str
-from wagtail.admin.views.generic.base import (
-    BaseListingView,
-    BaseObjectMixin,
-    WagtailAdminTemplateMixin,
-)
+from wagtail.admin.views.generic.base import (BaseListingView, BaseObjectMixin,
+                                              WagtailAdminTemplateMixin)
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import (
-    BaseLogEntry,
-    DraftStateMixin,
-    PreviewableMixin,
-    Revision,
-    RevisionMixin,
-    TaskState,
-    WorkflowState,
-)
+from wagtail.models import (BaseLogEntry, DraftStateMixin, PreviewableMixin, Revision,
+                            RevisionMixin, TaskState, WorkflowState)
 
 
 def get_actions_for_filter(queryset):

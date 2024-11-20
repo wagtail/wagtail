@@ -7,34 +7,67 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('i18n', '0002_clusterabletestmodel_clusterabletestmodelchild_clusterabletestmodeltranslatablechild'),
-        ('wagtailcore', '0094_alter_page_locale'),
+        (
+            "i18n",
+            "0002_clusterabletestmodel_clusterabletestmodelchild_clusterabletestmodeltranslatablechild",
+        ),
+        ("wagtailcore", "0094_alter_page_locale"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='clusterabletestmodel',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale', verbose_name='locale'),
+            model_name="clusterabletestmodel",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
         ),
         migrations.AlterField(
-            model_name='clusterabletestmodeltranslatablechild',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale', verbose_name='locale'),
+            model_name="clusterabletestmodeltranslatablechild",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
         ),
         migrations.AlterField(
-            model_name='testchildobject',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale', verbose_name='locale'),
+            model_name="testchildobject",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
         ),
         migrations.AlterField(
-            model_name='testmodel',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale', verbose_name='locale'),
+            model_name="testmodel",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
         ),
         migrations.AlterField(
-            model_name='testnonparentalchildobject',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.locale', verbose_name='locale'),
+            model_name="testnonparentalchildobject",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.locale",
+                verbose_name="locale",
+            ),
         ),
     ]

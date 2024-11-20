@@ -3,13 +3,8 @@ from django.template.loader import render_to_string
 from django.utils import translation
 
 from wagtail import hooks
-from wagtail.admin.userbar import (
-    AccessibilityItem,
-    AddPageItem,
-    AdminItem,
-    EditPageItem,
-    ExplorePageItem,
-)
+from wagtail.admin.userbar import (AccessibilityItem, AddPageItem, AdminItem,
+                                   EditPageItem, ExplorePageItem)
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
 from wagtail.users.models import UserProfile
 

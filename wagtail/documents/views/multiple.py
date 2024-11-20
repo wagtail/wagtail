@@ -6,12 +6,10 @@ from django.utils.translation import gettext_lazy
 
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
-from wagtail.admin.views.generic.multiple_upload import (
-    CreateFromUploadView as BaseCreateFromUploadView,
-)
-from wagtail.admin.views.generic.multiple_upload import (
-    DeleteUploadView as BaseDeleteUploadView,
-)
+from wagtail.admin.views.generic.multiple_upload import \
+    CreateFromUploadView as BaseCreateFromUploadView
+from wagtail.admin.views.generic.multiple_upload import \
+    DeleteUploadView as BaseDeleteUploadView
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 

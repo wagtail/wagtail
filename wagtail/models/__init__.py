@@ -26,12 +26,8 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
-from django.core.exceptions import (
-    FieldDoesNotExist,
-    ImproperlyConfigured,
-    PermissionDenied,
-    ValidationError,
-)
+from django.core.exceptions import (FieldDoesNotExist, ImproperlyConfigured,
+                                    PermissionDenied, ValidationError)
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
@@ -53,11 +49,8 @@ from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
-from modelcluster.models import (
-    ClusterableModel,
-    get_serializable_data_for_fields,
-    model_from_serializable_data,
-)
+from modelcluster.models import (ClusterableModel, get_serializable_data_for_fields,
+                                 model_from_serializable_data)
 from treebeard.mp_tree import MP_Node
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
@@ -69,64 +62,34 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
-from wagtail.coreutils import (
-    WAGTAIL_APPEND_SLASH,
-    camelcase_to_underscore,
-    get_content_type_label,
-    get_supported_content_language_variant,
-    resolve_model_string,
-    safe_md5,
-)
+from wagtail.coreutils import (WAGTAIL_APPEND_SLASH, camelcase_to_underscore,
+                               get_content_type_label,
+                               get_supported_content_language_variant,
+                               resolve_model_string, safe_md5)
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.query import PageQuerySet, SpecificQuerySetMixin
 from wagtail.search import index
-from wagtail.signals import (
-    page_published,
-    page_slug_changed,
-    pre_validate_delete,
-    task_approved,
-    task_cancelled,
-    task_rejected,
-    task_submitted,
-    workflow_approved,
-    workflow_cancelled,
-    workflow_rejected,
-    workflow_submitted,
-)
+from wagtail.signals import (page_published, page_slug_changed, pre_validate_delete,
+                             task_approved, task_cancelled, task_rejected,
+                             task_submitted, workflow_approved, workflow_cancelled,
+                             workflow_rejected, workflow_submitted)
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import ensure_utc
 
-from .audit_log import (  # noqa: F401
-    BaseLogEntry,
-    BaseLogEntryManager,
-    LogEntryQuerySet,
-    ModelLogEntry,
-)
+from .audit_log import (BaseLogEntry, BaseLogEntryManager,  # noqa: F401
+                        LogEntryQuerySet, ModelLogEntry)
 from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa: F401
-from .i18n import (  # noqa: F401
-    BootstrapTranslatableMixin,
-    BootstrapTranslatableModel,
-    Locale,
-    LocaleManager,
-    TranslatableMixin,
-    bootstrap_translatable_model,
-    get_translatable_models,
-)
-from .media import (  # noqa: F401
-    BaseCollectionManager,
-    Collection,
-    CollectionManager,
-    CollectionMember,
-    CollectionViewRestriction,
-    GroupCollectionPermission,
-    GroupCollectionPermissionManager,
-    UploadedFile,
-    get_root_collection_id,
-)
+from .i18n import (BootstrapTranslatableMixin, BootstrapTranslatableModel,  # noqa: F401
+                   Locale, LocaleManager, TranslatableMixin,
+                   bootstrap_translatable_model, get_translatable_models)
+from .media import (BaseCollectionManager, Collection, CollectionManager,  # noqa: F401
+                    CollectionMember, CollectionViewRestriction,
+                    GroupCollectionPermission, GroupCollectionPermissionManager,
+                    UploadedFile, get_root_collection_id)
 from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
@@ -461,9 +424,9 @@ class RevisionMixin(models.Model):
             if not previous_revision:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.edit"
+                    ),
                     user=user,
                     revision=revision,
                     content_changed=changed,
@@ -471,9 +434,9 @@ class RevisionMixin(models.Model):
             else:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.revert",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.revert"
+                    ),
                     user=user,
                     data={
                         "revision": {
@@ -1890,9 +1853,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not previous_revision:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.edit",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.edit"
+                    ),
                     user=user,
                     revision=revision,
                     content_changed=changed,
@@ -1900,9 +1863,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 log(
                     instance=self,
-                    action=log_action
-                    if isinstance(log_action, str)
-                    else "wagtail.revert",
+                    action=(
+                        log_action if isinstance(log_action, str) else "wagtail.revert"
+                    ),
                     user=user,
                     data={
                         "revision": {
@@ -3042,9 +3005,9 @@ class Revision(models.Model):
                     "revision": {
                         "id": self.id,
                         "created": ensure_utc(self.created_at),
-                        "go_live_at": ensure_utc(object.go_live_at)
-                        if object.go_live_at
-                        else None,
+                        "go_live_at": (
+                            ensure_utc(object.go_live_at) if object.go_live_at else None
+                        ),
                         "has_live_version": object.live,
                     }
                 },
@@ -3493,9 +3456,11 @@ class PageViewRestriction(BaseViewRestriction):
         if specific_instance:
             log(
                 instance=specific_instance,
-                action="wagtail.view_restriction.create"
-                if is_new
-                else "wagtail.view_restriction.edit",
+                action=(
+                    "wagtail.view_restriction.create"
+                    if is_new
+                    else "wagtail.view_restriction.edit"
+                ),
                 user=user,
                 data={
                     "restriction": {
@@ -3845,9 +3810,11 @@ class AbstractWorkflow(ClusterableModel):
                     "title": self.name,
                     "status": state.status,
                     "next": next_task_data,
-                    "task_state_id": state.current_task_state.id
-                    if state.current_task_state
-                    else None,
+                    "task_state_id": (
+                        state.current_task_state.id
+                        if state.current_task_state
+                        else None
+                    ),
                 }
             },
             revision=obj.get_latest_revision(),

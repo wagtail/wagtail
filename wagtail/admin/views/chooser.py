@@ -13,12 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import View
 
 from wagtail import hooks
-from wagtail.admin.forms.choosers import (
-    AnchorLinkChooserForm,
-    EmailLinkChooserForm,
-    ExternalLinkChooserForm,
-    PhoneLinkChooserForm,
-)
+from wagtail.admin.forms.choosers import (AnchorLinkChooserForm, EmailLinkChooserForm,
+                                          ExternalLinkChooserForm, PhoneLinkChooserForm)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, DateColumn, Table

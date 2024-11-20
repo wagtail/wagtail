@@ -11,25 +11,14 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from taggit.models import Tag
 
-from wagtail.search.backends import (
-    InvalidSearchBackendError,
-    get_search_backend,
-    get_search_backends,
-)
+from wagtail.search.backends import (InvalidSearchBackendError, get_search_backend,
+                                     get_search_backends)
 from wagtail.search.backends.base import BaseSearchBackend, FieldError, FilterFieldError
 from wagtail.search.backends.database.fallback import DatabaseSearchBackend
 from wagtail.search.backends.database.sqlite.utils import fts5_available
 from wagtail.search.models import IndexEntry
-from wagtail.search.query import (
-    MATCH_ALL,
-    MATCH_NONE,
-    And,
-    Boost,
-    Not,
-    Or,
-    Phrase,
-    PlainText,
-)
+from wagtail.search.query import (MATCH_ALL, MATCH_NONE, And, Boost, Not, Or, Phrase,
+                                  PlainText)
 from wagtail.test.search import models
 from wagtail.test.utils import WagtailTestUtils
 
@@ -987,9 +976,8 @@ class TestBackendLoader(TestCase):
         "Only applicable to PostgreSQL database systems",
     )
     def test_import_by_name_postgres_db_vendor(self):
-        from wagtail.search.backends.database.postgres.postgres import (
-            PostgresSearchBackend,
-        )
+        from wagtail.search.backends.database.postgres.postgres import \
+            PostgresSearchBackend
 
         db = get_search_backend(backend="default")
         self.assertIsInstance(db, PostgresSearchBackend)
@@ -999,9 +987,8 @@ class TestBackendLoader(TestCase):
         "Only applicable to PostgreSQL database systems",
     )
     def test_import_by_path_postgres_db_vendor(self):
-        from wagtail.search.backends.database.postgres.postgres import (
-            PostgresSearchBackend,
-        )
+        from wagtail.search.backends.database.postgres.postgres import \
+            PostgresSearchBackend
 
         db = get_search_backend(backend="wagtail.search.backends.database")
         self.assertIsInstance(db, PostgresSearchBackend)
@@ -1011,9 +998,8 @@ class TestBackendLoader(TestCase):
         "Only applicable to PostgreSQL database systems",
     )
     def test_import_by_full_path_postgres_db_vendor(self):
-        from wagtail.search.backends.database.postgres.postgres import (
-            PostgresSearchBackend,
-        )
+        from wagtail.search.backends.database.postgres.postgres import \
+            PostgresSearchBackend
 
         db = get_search_backend(
             backend="wagtail.search.backends.database.SearchBackend"
@@ -1060,9 +1046,8 @@ class TestBackendLoader(TestCase):
             db = get_search_backend(backend="default")
             self.assertIsInstance(db, DatabaseSearchBackend)
         else:
-            from wagtail.search.backends.database.sqlite.sqlite import (
-                SQLiteSearchBackend,
-            )
+            from wagtail.search.backends.database.sqlite.sqlite import \
+                SQLiteSearchBackend
 
             db = get_search_backend(backend="default")
             self.assertIsInstance(db, SQLiteSearchBackend)
@@ -1078,9 +1063,8 @@ class TestBackendLoader(TestCase):
             db = get_search_backend(backend="wagtail.search.backends.database")
             self.assertIsInstance(db, DatabaseSearchBackend)
         else:
-            from wagtail.search.backends.database.sqlite.sqlite import (
-                SQLiteSearchBackend,
-            )
+            from wagtail.search.backends.database.sqlite.sqlite import \
+                SQLiteSearchBackend
 
             db = get_search_backend(backend="wagtail.search.backends.database")
             self.assertIsInstance(db, SQLiteSearchBackend)
@@ -1098,9 +1082,8 @@ class TestBackendLoader(TestCase):
             )
             self.assertIsInstance(db, DatabaseSearchBackend)
         else:
-            from wagtail.search.backends.database.sqlite.sqlite import (
-                SQLiteSearchBackend,
-            )
+            from wagtail.search.backends.database.sqlite.sqlite import \
+                SQLiteSearchBackend
 
             db = get_search_backend(
                 backend="wagtail.search.backends.database.SearchBackend"

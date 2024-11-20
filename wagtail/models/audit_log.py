@@ -69,7 +69,9 @@ class LogEntryQuerySet(models.QuerySet):
         for log_entry in log_entries:
             ids_by_content_type[log_entry.content_type_id].append(log_entry.object_id)
 
-        instances_by_id = {}  # lookup of (content_type_id, stringified_object_id) to instance
+        instances_by_id = (
+            {}
+        )  # lookup of (content_type_id, stringified_object_id) to instance
         for content_type_id, object_ids in ids_by_content_type.items():
             try:
                 content_type = ContentType.objects.get_for_id(content_type_id)

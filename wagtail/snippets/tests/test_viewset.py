@@ -31,16 +31,10 @@ from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail.snippets.widgets import AdminSnippetChooser
-from wagtail.test.testapp.models import (
-    Advert,
-    DraftStateModel,
-    FullFeaturedSnippet,
-    ModeratedModel,
-    RevisableChildModel,
-    RevisableModel,
-    SnippetChooserModel,
-    VariousOnDeleteModel,
-)
+from wagtail.test.testapp.models import (Advert, DraftStateModel, FullFeaturedSnippet,
+                                         ModeratedModel, RevisableChildModel,
+                                         RevisableModel, SnippetChooserModel,
+                                         VariousOnDeleteModel)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.utils.timestamps import render_timestamp

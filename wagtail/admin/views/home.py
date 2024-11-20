@@ -18,14 +18,8 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.generic import WagtailAdminTemplateMixin
-from wagtail.models import (
-    Page,
-    PageLogEntry,
-    Revision,
-    TaskState,
-    WorkflowState,
-    get_default_page_content_type,
-)
+from wagtail.models import (Page, PageLogEntry, Revision, TaskState, WorkflowState,
+                            get_default_page_content_type)
 from wagtail.permissions import page_permission_policy
 
 User = get_user_model()

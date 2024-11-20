@@ -114,9 +114,11 @@ class UsageView(PermissionCheckedMixin, BaseObjectMixin, BaseListingView):
             ),
             tables.ReferencesColumn(
                 "field",
-                label=_("If you confirm deletion")
-                if self.describe_on_delete
-                else _("Field"),
+                label=(
+                    _("If you confirm deletion")
+                    if self.describe_on_delete
+                    else _("Field")
+                ),
                 accessor="references",
                 get_url=lambda r: r["edit_url"],
                 describe_on_delete=self.describe_on_delete,

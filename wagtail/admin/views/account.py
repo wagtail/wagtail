@@ -19,18 +19,12 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateView
 
 from wagtail import hooks
-from wagtail.admin.forms.account import (
-    AvatarPreferencesForm,
-    LocalePreferencesForm,
-    NameEmailForm,
-    NotificationPreferencesForm,
-    ThemePreferencesForm,
-)
+from wagtail.admin.forms.account import (AvatarPreferencesForm, LocalePreferencesForm,
+                                         NameEmailForm, NotificationPreferencesForm,
+                                         ThemePreferencesForm)
 from wagtail.admin.forms.auth import LoginForm, PasswordChangeForm, PasswordResetForm
-from wagtail.admin.localization import (
-    get_available_admin_languages,
-    get_available_admin_time_zones,
-)
+from wagtail.admin.localization import (get_available_admin_languages,
+                                        get_available_admin_time_zones)
 from wagtail.admin.views.generic import EditView, WagtailAdminTemplateMixin
 from wagtail.log_actions import log
 from wagtail.users.models import UserProfile

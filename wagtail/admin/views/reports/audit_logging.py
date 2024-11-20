@@ -9,9 +9,7 @@ from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.filters import (
-    ContentTypeFilter,
-)
+from wagtail.admin.filters import ContentTypeFilter
 from wagtail.admin.views.pages.history import PageHistoryFilterSet
 from wagtail.coreutils import get_content_type_label
 from wagtail.log_actions import registry as log_action_registry

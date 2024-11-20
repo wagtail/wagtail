@@ -2,12 +2,10 @@ from django.test import TestCase
 from django.urls import reverse_lazy
 
 from wagtail.documents import get_document_model
-from wagtail.documents.rich_text import (
-    DocumentLinkHandler as FrontendDocumentLinkHandler,
-)
-from wagtail.documents.rich_text.editor_html import (
-    DocumentLinkHandler as EditorHtmlDocumentLinkHandler,
-)
+from wagtail.documents.rich_text import \
+    DocumentLinkHandler as FrontendDocumentLinkHandler
+from wagtail.documents.rich_text.editor_html import \
+    DocumentLinkHandler as EditorHtmlDocumentLinkHandler
 from wagtail.fields import RichTextField
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.utils import WagtailTestUtils

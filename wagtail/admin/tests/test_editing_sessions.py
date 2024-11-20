@@ -11,12 +11,8 @@ from freezegun import freeze_time
 
 from wagtail.admin.models import EditingSession
 from wagtail.models import GroupPagePermission, Page, Workflow, WorkflowContentType
-from wagtail.test.testapp.models import (
-    Advert,
-    AdvertWithCustomPrimaryKey,
-    FullFeaturedSnippet,
-    SimplePage,
-)
+from wagtail.test.testapp.models import (Advert, AdvertWithCustomPrimaryKey,
+                                         FullFeaturedSnippet, SimplePage)
 from wagtail.test.utils import WagtailTestUtils
 
 if settings.USE_TZ:

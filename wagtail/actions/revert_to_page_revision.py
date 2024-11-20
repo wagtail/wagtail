@@ -6,7 +6,6 @@ class RevertToPageRevisionError(RuntimeError):
     Raised when the revision revert cannot be performed for data reasons.
     """
 
-    pass
 
 
 class RevertToPageRevisionPermissionError(PermissionDenied):
@@ -14,7 +13,6 @@ class RevertToPageRevisionPermissionError(PermissionDenied):
     Raised when the revision revert cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class RevertToPageRevisionAction:

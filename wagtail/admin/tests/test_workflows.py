@@ -15,38 +15,19 @@ from freezegun import freeze_time
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.mail import (
-    BaseWorkflowStateEmailNotifier,
-    WorkflowStateApprovalEmailNotifier,
-    WorkflowStateRejectionEmailNotifier,
-)
+from wagtail.admin.mail import (BaseWorkflowStateEmailNotifier,
+                                WorkflowStateApprovalEmailNotifier,
+                                WorkflowStateRejectionEmailNotifier)
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.utils import (
-    get_admin_base_url,
-    get_latest_str,
-    get_user_display_name,
-)
-from wagtail.models import (
-    GroupApprovalTask,
-    GroupPagePermission,
-    Page,
-    PageViewRestriction,
-    Task,
-    TaskState,
-    Workflow,
-    WorkflowContentType,
-    WorkflowPage,
-    WorkflowState,
-    WorkflowTask,
-)
+from wagtail.admin.utils import (get_admin_base_url, get_latest_str,
+                                 get_user_display_name)
+from wagtail.models import (GroupApprovalTask, GroupPagePermission, Page,
+                            PageViewRestriction, Task, TaskState, Workflow,
+                            WorkflowContentType, WorkflowPage, WorkflowState,
+                            WorkflowTask)
 from wagtail.signals import page_published, published
-from wagtail.test.testapp.models import (
-    FullFeaturedSnippet,
-    ModeratedModel,
-    MultiPreviewModesPage,
-    SimplePage,
-    SimpleTask,
-)
+from wagtail.test.testapp.models import (FullFeaturedSnippet, ModeratedModel,
+                                         MultiPreviewModesPage, SimplePage, SimpleTask)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
@@ -4564,7 +4545,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
         self.object.save_revision()
 
     def test_workflowstate_email_notifier_get_recipient_users__without_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -4579,7 +4560,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -4595,7 +4576,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__without_requested_by(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state
@@ -4614,7 +4595,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_same_requested_by_and_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state

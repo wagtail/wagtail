@@ -3,12 +3,8 @@ from django.utils.encoding import force_bytes
 
 from wagtail.models import Site
 
-from ..utils import (
-    FieldsParameterParseError,
-    get_base_url,
-    parse_boolean,
-    parse_fields_parameter,
-)
+from ..utils import (FieldsParameterParseError, get_base_url, parse_boolean,
+                     parse_fields_parameter)
 
 
 class DynamicBaseUrl:

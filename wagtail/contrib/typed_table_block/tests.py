@@ -6,11 +6,8 @@ from wagtail import blocks
 from wagtail.blocks.base import get_error_json_data
 from wagtail.blocks.definition_lookup import BlockDefinitionLookup
 from wagtail.blocks.struct_block import StructBlockValidationError
-from wagtail.contrib.typed_table_block.blocks import (
-    TypedTable,
-    TypedTableBlock,
-    TypedTableBlockValidationError,
-)
+from wagtail.contrib.typed_table_block.blocks import (TypedTable, TypedTableBlock,
+                                                      TypedTableBlockValidationError)
 
 
 class CountryChoiceBlock(blocks.ChoiceBlock):

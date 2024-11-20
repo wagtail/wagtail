@@ -8,26 +8,17 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 
-from wagtail.contrib.frontend_cache.backends import (
-    AzureCdnBackend,
-    AzureFrontDoorBackend,
-    BaseBackend,
-    CloudflareBackend,
-    CloudfrontBackend,
-    HTTPBackend,
-)
+from wagtail.contrib.frontend_cache.backends import (AzureCdnBackend,
+                                                     AzureFrontDoorBackend, BaseBackend,
+                                                     CloudflareBackend,
+                                                     CloudfrontBackend, HTTPBackend)
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
-from .utils import (
-    PurgeBatch,
-    purge_page_from_cache,
-    purge_pages_from_cache,
-    purge_url_from_cache,
-    purge_urls_from_cache,
-)
+from .utils import (PurgeBatch, purge_page_from_cache, purge_pages_from_cache,
+                    purge_url_from_cache, purge_urls_from_cache)
 
 
 class TestBackendConfiguration(SimpleTestCase):

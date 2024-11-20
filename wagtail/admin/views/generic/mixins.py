@@ -25,16 +25,9 @@ from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import (
-    DraftStateMixin,
-    Locale,
-    LockableMixin,
-    PreviewableMixin,
-    RevisionMixin,
-    TranslatableMixin,
-    WorkflowMixin,
-    WorkflowState,
-)
+from wagtail.models import (DraftStateMixin, Locale, LockableMixin, PreviewableMixin,
+                            RevisionMixin, TranslatableMixin, WorkflowMixin,
+                            WorkflowState)
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -723,9 +716,9 @@ class CreateEditViewOptionalFeaturesMixin:
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
         context["workflow_history_url"] = self.get_workflow_history_url()
-        context[
-            "confirm_workflow_cancellation_url"
-        ] = self.get_confirm_workflow_cancellation_url()
+        context["confirm_workflow_cancellation_url"] = (
+            self.get_confirm_workflow_cancellation_url()
+        )
         context["publishing_will_cancel_workflow"] = getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)

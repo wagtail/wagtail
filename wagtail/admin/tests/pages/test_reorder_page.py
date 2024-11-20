@@ -2,13 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.models import Page
-from wagtail.test.testapp.models import (
-    BusinessChild,
-    BusinessIndex,
-    NoCreatableSubpageTypesPage,
-    NoSubpageTypesPage,
-    SimplePage,
-)
+from wagtail.test.testapp.models import (BusinessChild, BusinessIndex,
+                                         NoCreatableSubpageTypesPage,
+                                         NoSubpageTypesPage, SimplePage)
 from wagtail.test.utils import WagtailTestUtils
 
 

@@ -2,10 +2,8 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 
 # Retain backwards compatibility for imports
-from wagtail.admin.utils import (  # noqa: F401
-    get_latest_str,
-    get_valid_next_url_from_request,
-)
+from wagtail.admin.utils import (get_latest_str,  # noqa: F401
+                                 get_valid_next_url_from_request)
 from wagtail.permissions import page_permission_policy
 
 

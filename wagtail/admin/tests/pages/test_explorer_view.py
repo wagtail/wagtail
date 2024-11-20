@@ -9,12 +9,8 @@ from wagtail import hooks
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import Button
 from wagtail.models import GroupPagePermission, Locale, Page, Site, Workflow
-from wagtail.test.testapp.models import (
-    CustomPermissionPage,
-    SimplePage,
-    SingleEventPage,
-    StandardIndex,
-)
+from wagtail.test.testapp.models import (CustomPermissionPage, SimplePage,
+                                         SingleEventPage, StandardIndex)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 from wagtail.utils.deprecation import RemovedInWagtail70Warning

@@ -10,17 +10,9 @@ from django.test import TestCase, override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.models import (
-    GroupApprovalTask,
-    Page,
-    Task,
-    TaskState,
-    Workflow,
-    WorkflowContentType,
-    WorkflowPage,
-    WorkflowState,
-    WorkflowTask,
-)
+from wagtail.models import (GroupApprovalTask, Page, Task, TaskState, Workflow,
+                            WorkflowContentType, WorkflowPage, WorkflowState,
+                            WorkflowTask)
 from wagtail.test.testapp.models import FullFeaturedSnippet, ModeratedModel, SimplePage
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 

@@ -13,13 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 from django.views.generic.list import BaseListView
-from django_filters.filters import (
-    ChoiceFilter,
-    DateFromToRangeFilter,
-    ModelChoiceFilter,
-    ModelMultipleChoiceFilter,
-    MultipleChoiceFilter,
-)
+from django_filters.filters import (ChoiceFilter, DateFromToRangeFilter,
+                                    ModelChoiceFilter, ModelMultipleChoiceFilter,
+                                    MultipleChoiceFilter)
 
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm

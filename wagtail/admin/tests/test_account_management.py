@@ -1,6 +1,6 @@
 import unittest
-
 import zoneinfo
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -11,11 +11,9 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.admin.localization import (
-    WAGTAILADMIN_PROVIDED_LANGUAGES,
-    get_available_admin_languages,
-    get_available_admin_time_zones,
-)
+from wagtail.admin.localization import (WAGTAILADMIN_PROVIDED_LANGUAGES,
+                                        get_available_admin_languages,
+                                        get_available_admin_time_zones)
 from wagtail.admin.views.account import AccountView, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
@@ -52,9 +50,11 @@ class TestAuthentication(WagtailTestUtils, TestCase):
         response = self.client.post(
             reverse("wagtailadmin_login"),
             {
-                "username": "test@email.com"
-                if settings.AUTH_USER_MODEL == "emailuser.EmailUser"
-                else "test",
+                "username": (
+                    "test@email.com"
+                    if settings.AUTH_USER_MODEL == "emailuser.EmailUser"
+                    else "test"
+                ),
                 "password": "password",
                 # NOTE: This is set using a hidden field in reality
                 "next": reverse("wagtailadmin_home"),

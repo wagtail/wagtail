@@ -17,12 +17,8 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.log_actions import log
 from wagtail.models import ModelLogEntry
-from wagtail.test.testapp.models import (
-    FeatureCompleteToy,
-    JSONStreamModel,
-    SearchTestModel,
-    VariousOnDeleteModel,
-)
+from wagtail.test.testapp.models import (FeatureCompleteToy, JSONStreamModel,
+                                         SearchTestModel, VariousOnDeleteModel)
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail70Warning

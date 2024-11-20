@@ -17,33 +17,18 @@ from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
-from wagtail.admin.ui.tables import (
-    BulkActionsCheckboxColumn,
-    Column,
-    LiveStatusTagColumn,
-    TitleColumn,
-)
+from wagtail.admin.ui.tables import (BulkActionsCheckboxColumn, Column,
+                                     LiveStatusTagColumn, TitleColumn)
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, lock, workflow
 from wagtail.admin.views.generic.permissions import PermissionCheckedMixin
-from wagtail.admin.views.generic.preview import (
-    PreviewOnCreate,
-    PreviewOnEdit,
-    PreviewRevision,
-)
+from wagtail.admin.views.generic.preview import (PreviewOnCreate, PreviewOnEdit,
+                                                 PreviewRevision)
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
-from wagtail.admin.widgets.button import (
-    BaseDropdownMenuButton,
-    ButtonWithDropdown,
-)
-from wagtail.models import (
-    DraftStateMixin,
-    LockableMixin,
-    PreviewableMixin,
-    RevisionMixin,
-    WorkflowMixin,
-)
+from wagtail.admin.widgets.button import BaseDropdownMenuButton, ButtonWithDropdown
+from wagtail.models import (DraftStateMixin, LockableMixin, PreviewableMixin,
+                            RevisionMixin, WorkflowMixin)
 from wagtail.permissions import ModelPermissionPolicy
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
@@ -294,9 +279,11 @@ class EditView(generic.CreateEditViewOptionalFeaturesMixin, generic.EditView):
                     self.form, "show_schedule_publishing_toggle", False
                 ),
                 live_object=self.live_object,
-                scheduled_object=self.live_object.get_scheduled_revision_as_object()
-                if self.draftstate_enabled
-                else None,
+                scheduled_object=(
+                    self.live_object.get_scheduled_revision_as_object()
+                    if self.draftstate_enabled
+                    else None
+                ),
                 locale=self.locale,
                 translations=self.translations,
                 usage_url=self.get_usage_url(),

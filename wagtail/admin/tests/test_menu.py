@@ -3,15 +3,9 @@ from django.urls import reverse
 from django.utils import translation
 
 from wagtail import hooks
-from wagtail.admin.menu import (
-    AdminOnlyMenuItem,
-    DismissibleMenuItem,
-    DismissibleSubmenuMenuItem,
-    Menu,
-    MenuItem,
-    SubmenuMenuItem,
-    admin_menu,
-)
+from wagtail.admin.menu import (AdminOnlyMenuItem, DismissibleMenuItem,
+                                DismissibleSubmenuMenuItem, Menu, MenuItem,
+                                SubmenuMenuItem, admin_menu)
 from wagtail.admin.ui import sidebar
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile

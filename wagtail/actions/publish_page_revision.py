@@ -1,9 +1,7 @@
 import logging
 
-from wagtail.actions.publish_revision import (
-    PublishPermissionError,
-    PublishRevisionAction,
-)
+from wagtail.actions.publish_revision import (PublishPermissionError,
+                                              PublishRevisionAction)
 from wagtail.signals import page_published
 
 logger = logging.getLogger("wagtail")
@@ -14,7 +12,6 @@ class PublishPagePermissionError(PublishPermissionError):
     Raised when the page publish cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class PublishPageRevisionAction(PublishRevisionAction):

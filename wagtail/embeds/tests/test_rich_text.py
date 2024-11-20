@@ -6,9 +6,8 @@ from django.urls import reverse_lazy
 from wagtail.embeds.exceptions import EmbedNotFoundException
 from wagtail.embeds.models import Embed
 from wagtail.embeds.rich_text import MediaEmbedHandler as FrontendMediaEmbedHandler
-from wagtail.embeds.rich_text.editor_html import (
-    MediaEmbedHandler as EditorHtmlMediaEmbedHandler,
-)
+from wagtail.embeds.rich_text.editor_html import \
+    MediaEmbedHandler as EditorHtmlMediaEmbedHandler
 from wagtail.rich_text import expand_db_html
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.test.utils import WagtailTestUtils

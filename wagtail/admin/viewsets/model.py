@@ -11,10 +11,8 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
 from wagtail import hooks
-from wagtail.admin.admin_url_finder import (
-    ModelAdminURLFinder,
-    register_admin_url_finder,
-)
+from wagtail.admin.admin_url_finder import (ModelAdminURLFinder,
+                                            register_admin_url_finder)
 from wagtail.admin.panels.group import ObjectList
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage

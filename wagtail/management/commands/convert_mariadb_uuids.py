@@ -2,12 +2,8 @@ from django.apps import apps
 from django.core.management.base import BaseCommand
 from django.db import connection, models
 
-from wagtail.models import (
-    BaseLogEntry,
-    BootstrapTranslatableMixin,
-    ReferenceIndex,
-    TranslatableMixin,
-)
+from wagtail.models import (BaseLogEntry, BootstrapTranslatableMixin, ReferenceIndex,
+                            TranslatableMixin)
 
 
 class Command(BaseCommand):

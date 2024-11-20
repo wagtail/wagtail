@@ -3,11 +3,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
 from wagtail import hooks
-from wagtail.users.views.bulk_actions import (
-    AssignRoleBulkAction,
-    DeleteBulkAction,
-    SetActiveStateBulkAction,
-)
+from wagtail.users.views.bulk_actions import (AssignRoleBulkAction, DeleteBulkAction,
+                                              SetActiveStateBulkAction)
 
 
 def get_viewset_cls(app_config, viewset_name):

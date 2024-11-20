@@ -1,9 +1,5 @@
-from .test_admin_views import (
-    CustomGroupViewSet,
-    CustomUserCreationForm,
-    CustomUserEditForm,
-    CustomUserViewSet,
-)
+from .test_admin_views import (CustomGroupViewSet, CustomUserCreationForm,
+                               CustomUserEditForm, CustomUserViewSet)
 
 __all__ = [
     "CustomGroupViewSet",

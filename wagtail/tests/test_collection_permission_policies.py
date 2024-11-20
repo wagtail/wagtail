@@ -5,10 +5,8 @@ from django.test import TestCase
 from wagtail.documents.models import Document
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.permission_policies.collections import (
-    CollectionManagementPermissionPolicy,
-    CollectionOwnershipPermissionPolicy,
-    CollectionPermissionPolicy,
-)
+    CollectionManagementPermissionPolicy, CollectionOwnershipPermissionPolicy,
+    CollectionPermissionPolicy)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.tests.test_permission_policies import PermissionPolicyTestUtils
 

@@ -11,13 +11,8 @@ from django.utils.translation import gettext as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.telepath import Adapter, register
 
-from .base import (
-    Block,
-    BoundBlock,
-    get_error_json_data,
-    get_error_list_json_data,
-    get_help_icon,
-)
+from .base import (Block, BoundBlock, get_error_json_data, get_error_list_json_data,
+                   get_help_icon)
 
 __all__ = ["ListBlock", "ListBlockValidationError"]
 

@@ -9,14 +9,9 @@ from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.models import Page, Site
-from wagtail.test.testapp.models import (
-    FileSiteSetting,
-    IconSiteSetting,
-    PanelSiteSettings,
-    TabbedSiteSettings,
-    TestPermissionedSiteSetting,
-    TestSiteSetting,
-)
+from wagtail.test.testapp.models import (FileSiteSetting, IconSiteSetting,
+                                         PanelSiteSettings, TabbedSiteSettings,
+                                         TestPermissionedSiteSetting, TestSiteSetting)
 from wagtail.test.utils import WagtailTestUtils
 
 

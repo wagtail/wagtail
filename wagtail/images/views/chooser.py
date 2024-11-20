@@ -10,17 +10,12 @@ from django.views.generic.base import View
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.models import popular_tags_for_model
-from wagtail.admin.views.generic.chooser import (
-    BaseChooseView,
-    ChooseResultsViewMixin,
-    ChooseViewMixin,
-    ChosenMultipleViewMixin,
-    ChosenResponseMixin,
-    ChosenViewMixin,
-    CreateViewMixin,
-    CreationFormMixin,
-    PreserveURLParametersMixin,
-)
+from wagtail.admin.views.generic.chooser import (BaseChooseView, ChooseResultsViewMixin,
+                                                 ChooseViewMixin,
+                                                 ChosenMultipleViewMixin,
+                                                 ChosenResponseMixin, ChosenViewMixin,
+                                                 CreateViewMixin, CreationFormMixin,
+                                                 PreserveURLParametersMixin)
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format

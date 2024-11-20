@@ -1,10 +1,8 @@
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
 # appending their own overrides
-from wagtail.admin.forms.models import (  # NOQA: F401
-    DIRECT_FORM_FIELD_OVERRIDES,
-    FORM_FIELD_OVERRIDES,
-)
+from wagtail.admin.forms.models import (DIRECT_FORM_FIELD_OVERRIDES,  # NOQA: F401
+                                        FORM_FIELD_OVERRIDES)
 
 from .base import *  # NOQA: F403
 from .comment_panel import *  # NOQA: F403

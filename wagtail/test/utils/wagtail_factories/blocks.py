@@ -7,11 +7,8 @@ from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from .builder import (
-    ListBlockStepBuilder,
-    StreamBlockStepBuilder,
-    StructBlockStepBuilder,
-)
+from .builder import (ListBlockStepBuilder, StreamBlockStepBuilder,
+                      StructBlockStepBuilder)
 from .factories import DocumentFactory, ImageFactory, PageFactory
 from .options import BlockFactoryOptions, StreamBlockFactoryOptions
 

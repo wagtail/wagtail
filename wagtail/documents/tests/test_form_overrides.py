@@ -5,12 +5,8 @@ from taggit import models as taggit_models
 from wagtail.admin import widgets
 from wagtail.admin.widgets import AdminDateTimeInput
 from wagtail.documents import models
-from wagtail.documents.forms import (
-    BaseDocumentForm,
-    get_document_base_form,
-    get_document_form,
-    get_document_multi_form,
-)
+from wagtail.documents.forms import (BaseDocumentForm, get_document_base_form,
+                                     get_document_form, get_document_multi_form)
 from wagtail.test.testapp.media_forms import AlternateDocumentForm, OverriddenWidget
 from wagtail.test.testapp.models import CustomRestaurantDocument, RestaurantTag
 

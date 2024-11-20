@@ -16,35 +16,16 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.exceptions import PageClassNotFoundError
-from wagtail.models import (
-    Comment,
-    CommentReply,
-    GroupPagePermission,
-    Locale,
-    Page,
-    PageLogEntry,
-    PageSubscription,
-    Revision,
-    Site,
-)
+from wagtail.models import (Comment, CommentReply, GroupPagePermission, Locale, Page,
+                            PageLogEntry, PageSubscription, Revision, Site)
 from wagtail.signals import page_published
-from wagtail.test.testapp.models import (
-    EVENT_AUDIENCE_CHOICES,
-    Advert,
-    AdvertPlacement,
-    CustomPermissionPage,
-    EventCategory,
-    EventPage,
-    EventPageCarouselItem,
-    FilePage,
-    ManyToManyBlogPage,
-    PageChooserModel,
-    SimplePage,
-    SingleEventPage,
-    StandardIndex,
-    StreamPage,
-    TaggedPage,
-)
+from wagtail.test.testapp.models import (EVENT_AUDIENCE_CHOICES, Advert,
+                                         AdvertPlacement, CustomPermissionPage,
+                                         EventCategory, EventPage,
+                                         EventPageCarouselItem, FilePage,
+                                         ManyToManyBlogPage, PageChooserModel,
+                                         SimplePage, SingleEventPage, StandardIndex,
+                                         StreamPage, TaggedPage)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.test.utils.timestamps import submittable_timestamp

@@ -5,10 +5,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
-from wagtail.actions.create_alias import (
-    CreatePageAliasAction,
-    CreatePageAliasIntegrityError,
-)
+from wagtail.actions.create_alias import (CreatePageAliasAction,
+                                          CreatePageAliasIntegrityError)
 from wagtail.api.v2.utils import BadRequestError
 from wagtail.models import Page
 

@@ -24,7 +24,6 @@ def remove_duplicate_renditions(apps, schema_editor):
 
 def reverse_remove_duplicate_renditions(*args, **kwargs):
     """This is a no-op. The migration removes duplicates, we cannot recreate those duplicates."""
-    pass
 
 
 class Migration(migrations.Migration):

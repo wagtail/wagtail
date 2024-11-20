@@ -5,10 +5,8 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.contrib.auth.password_validation import (
-    password_validators_help_text_html,
-    validate_password,
-)
+from django.contrib.auth.password_validation import (password_validators_help_text_html,
+                                                     validate_password)
 from django.db import transaction
 from django.template.loader import render_to_string
 from django.utils.html import mark_safe
@@ -16,12 +14,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.widgets import AdminPageChooser
-from wagtail.models import (
-    PAGE_PERMISSION_CODENAMES,
-    PAGE_PERMISSION_TYPES,
-    GroupPagePermission,
-    Page,
-)
+from wagtail.models import (PAGE_PERMISSION_CODENAMES, PAGE_PERMISSION_TYPES,
+                            GroupPagePermission, Page)
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 User = get_user_model()
@@ -233,9 +227,9 @@ class GroupForm(forms.ModelForm):
         self.registered_permissions = Permission.objects.none()
         for fn in hooks.get_hooks("register_permissions"):
             self.registered_permissions = self.registered_permissions | fn()
-        self.fields[
-            "permissions"
-        ].queryset = self.registered_permissions.select_related("content_type")
+        self.fields["permissions"].queryset = (
+            self.registered_permissions.select_related("content_type")
+        )
 
     required_css_class = "required"
 

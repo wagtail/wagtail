@@ -7,11 +7,8 @@ from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.documents.models import Document
-from wagtail.models import (
-    Collection,
-    CollectionViewRestriction,
-    GroupCollectionPermission,
-)
+from wagtail.models import (Collection, CollectionViewRestriction,
+                            GroupCollectionPermission)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 

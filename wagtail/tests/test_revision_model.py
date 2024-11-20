@@ -5,12 +5,8 @@ from django.test import TestCase
 from freezegun import freeze_time
 
 from wagtail.models import Page, Revision, get_default_page_content_type
-from wagtail.test.testapp.models import (
-    FullFeaturedSnippet,
-    RevisableGrandChildModel,
-    RevisableModel,
-    SimplePage,
-)
+from wagtail.test.testapp.models import (FullFeaturedSnippet, RevisableGrandChildModel,
+                                         RevisableModel, SimplePage)
 
 
 class TestRevisableModel(TestCase):

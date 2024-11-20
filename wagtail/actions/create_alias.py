@@ -15,7 +15,6 @@ class CreatePageAliasIntegrityError(RuntimeError):
     Raised when creating an alias of a page cannot be performed for data integrity reasons.
     """
 
-    pass
 
 
 class CreatePageAliasPermissionError(PermissionDenied):
@@ -23,7 +22,6 @@ class CreatePageAliasPermissionError(PermissionDenied):
     Raised when creating an alias of a page cannot be performed due to insufficient permissions.
     """
 
-    pass
 
 
 class CreatePageAliasAction:
@@ -184,18 +182,22 @@ class CreatePageAliasAction:
                 user=user,
                 data={
                     "page": {"id": alias.id, "title": alias.get_admin_display_title()},
-                    "source": {
-                        "id": source_parent.id,
-                        "title": source_parent.specific_deferred.get_admin_display_title(),
-                    }
-                    if source_parent
-                    else None,
-                    "destination": {
-                        "id": parent.id,
-                        "title": parent.specific_deferred.get_admin_display_title(),
-                    }
-                    if parent
-                    else None,
+                    "source": (
+                        {
+                            "id": source_parent.id,
+                            "title": source_parent.specific_deferred.get_admin_display_title(),
+                        }
+                        if source_parent
+                        else None
+                    ),
+                    "destination": (
+                        {
+                            "id": parent.id,
+                            "title": parent.specific_deferred.get_admin_display_title(),
+                        }
+                        if parent
+                        else None
+                    ),
                 },
             )
 
