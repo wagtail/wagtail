@@ -8,7 +8,7 @@ from django.core.exceptions import (
     ObjectDoesNotExist,
     PermissionDenied,
 )
-from django.core.paginator import InvalidPage, Paginator
+from django.core.paginator import InvalidPage
 from django.db.models import Model
 from django.forms.models import modelform_factory
 from django.http import Http404
@@ -21,7 +21,6 @@ from django.views.generic.base import ContextMixin, View
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.paginator import get_wagtail_paginator_class
 from wagtail.admin.forms.choosers import (
     BaseFilterForm,
     CollectionFilterMixin,
@@ -29,6 +28,7 @@ from wagtail.admin.forms.choosers import (
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.paginator import get_wagtail_paginator_class
 from wagtail.admin.ui.tables import Column, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
@@ -274,7 +274,9 @@ class BaseChooseView(
         results_pagination_url = re.sub(r"\?.*$", "", results_url)
 
         paginator = self.get_results(self.request)
-        elided_page_range= paginator.get_elided_page_range(self.request.GET.get("p", 1))
+        elided_page_range = paginator.get_elided_page_range(
+            self.request.GET.get("p", 1)
+        )
 
         context.update(
             {

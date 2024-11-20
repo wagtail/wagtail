@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.module_loading import import_string
 
 

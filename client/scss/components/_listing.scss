@@ -507,19 +507,22 @@ table.listing {
       visibility: hidden;
     }
 
-    a, span {
+    a,
+    span {
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     &.pagination-page-number {
-      a, span {
+      a,
+      span {
         font-weight: theme('fontWeight.medium');
         height: 2rem;
         min-width: 2.125rem;
         margin: 0.1875rem;
       }
+
       a {
         border: 1px solid var(--w-color-border-furniture);
         border-radius: 3px;
