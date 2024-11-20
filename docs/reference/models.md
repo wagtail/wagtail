@@ -200,6 +200,28 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: get_admin_display_title
 
+    .. autoattribute:: allowed_http_methods
+
+        When customizing this attribute, developers are encouraged to use values from Python's built-in ``http.HTTPMethod`` enum in the list, as it is more robust, and makes use of values that already exist in memory. For example:
+
+        .. code-block:: python
+
+            from http import HTTPMethod
+
+            class MyPage(Page):
+                allowed_http_methods = [HTTPMethod.GET, HTTPMethod.OPTIONS]
+
+        The ``http.HTTPMethod`` enum wasn't added until Python 3.11, so if your project uses an older version of Python, you can use uppercase strings instead. For example:
+
+        .. code-block:: python
+
+            class MyPage(Page):
+                allowed_http_methods = ["GET", "OPTIONS"]
+
+    .. automethod:: check_request_method
+
+    .. automethod:: handle_options_request
+
     .. autoattribute:: preview_modes
 
     .. autoattribute:: default_preview_mode

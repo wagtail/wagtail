@@ -40,7 +40,7 @@ from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseNotAllowed
 from django.http.request import validate_host
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
@@ -69,6 +69,7 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.compat import HTTPMethod
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
@@ -1413,6 +1414,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
 
+    # Allows page types to specify a list of HTTP method names that page instances will
+    # respond to. When the request type doesn't match, Wagtail should return a response
+    # with a status code of 405.
+    allowed_http_methods = [
+        HTTPMethod.DELETE,
+        HTTPMethod.GET,
+        HTTPMethod.HEAD,
+        HTTPMethod.OPTIONS,
+        HTTPMethod.PATCH,
+        HTTPMethod.POST,
+        HTTPMethod.PUT,
+    ]
+
     @staticmethod
     def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """
@@ -1449,6 +1463,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         result = Page.route_for_request(request, path)
         if result is not None:
             return result[0]
+
+    @classmethod
+    def allowed_http_method_names(cls):
+        return [
+            method.value if hasattr(method, "value") else method
+            for method in cls.allowed_http_methods
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -2113,6 +2134,38 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             request,
             self.get_template(request, *args, **kwargs),
             self.get_context(request, *args, **kwargs),
+        )
+
+    def check_request_method(self, request, *args, **kwargs):
+        """
+        Checks the ``method`` attribute of the request against those supported
+        by the page (as defined by :attr:`allowed_http_methods`) and responds
+        accordingly.
+
+        If supported, ``None`` is returned, and the request is processed
+        normally. If not, a warning is logged and an ``HttpResponseNotAllowed``
+        is returned, and any further request handling is terminated.
+        """
+        allowed_methods = self.allowed_http_method_names()
+        if request.method not in allowed_methods:
+            logger.warning(
+                "Method Not Allowed (%s): %s",
+                request.method,
+                request.path,
+                extra={"status_code": 405, "request": request},
+            )
+            return HttpResponseNotAllowed(allowed_methods)
+
+    def handle_options_request(self, request, *args, **kwargs):
+        """
+        Returns an ``HttpResponse`` with an ``"Allow"`` header containing the list of
+        supported HTTP methods for this page. This method is used instead of
+        :meth:`serve` to handle requests when the OPTIONS HTTP verb is detected (and
+        ``http.HTTPMethod.OPTIONS`` is present in :attr:`allowed_http_methods`
+        for this type of page).
+        """
+        return HttpResponse(
+            headers={"Allow": ", ".join(self.allowed_http_method_names())}
         )
 
     def is_navigable(self):

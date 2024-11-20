@@ -11,3 +11,19 @@ except ValueError:
     raise ImproperlyConfigured(
         "AUTH_USER_MODEL must be of the form" " 'app_label.model_name'"
     )
+
+
+try:
+    from http import HTTPMethod
+except ImportError:
+    # For Python < 3.11
+    from enum import Enum
+
+    class HTTPMethod(Enum):
+        GET = "GET"
+        HEAD = "HEAD"
+        OPTIONS = "OPTIONS"
+        POST = "POST"
+        PUT = "PUT"
+        DELETE = "DELETE"
+        PATCH = "PATCH"
