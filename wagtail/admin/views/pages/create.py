@@ -207,8 +207,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             for group in default_privacy_setting["groups"]:
                 groups_page_restriction.groups.add(group)
         else:
-            # Not sure which exception should be raised here
-            raise Exception(
+            raise ValueError(
                 "Invalid privacy setting. Choose from public, logged_in, shared_password, user_groups"
             )
 
