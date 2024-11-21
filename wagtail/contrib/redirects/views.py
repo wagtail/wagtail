@@ -201,48 +201,27 @@ def delete(request, redirect_id):
     )
 
 
-@permission_checker.require("add")
-def add(request):
-    if request.method == "POST":
-        form = RedirectForm(request.POST, request.FILES)
-        if form.is_valid():
-            with transaction.atomic():
-                theredirect = form.save()
-                log(instance=theredirect, action="wagtail.create")
+class CreateView(generic.CreateView):
+    model = Redirect
+    form_class = RedirectForm
+    permission_policy = permission_policy
+    template_name = "wagtailredirects/add.html"
+    add_url_name = "wagtailredirects:add"
+    index_url_name = "wagtailredirects:index"
+    edit_url_name = "wagtailredirects:edit"
+    error_message = gettext_lazy("The redirect could not be created due to errors.")
+    header_icon = "redirect"
+    _show_breadcrumbs = True
 
-            purge_urls_from_cache(theredirect.old_links())
+    def get_success_message(self, instance):
+        return _("Redirect '%(redirect_title)s' added.") % {
+            "redirect_title": instance.title
+        }
 
-            messages.success(
-                request,
-                _("Redirect '%(redirect_title)s' added.")
-                % {"redirect_title": theredirect.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
-                        _("Edit"),
-                    )
-                ],
-            )
-            return redirect("wagtailredirects:index")
-        else:
-            messages.error(
-                request, _("The redirect could not be created due to errors.")
-            )
-    else:
-        form = RedirectForm()
-
-    return TemplateResponse(
-        request,
-        "wagtailredirects/add.html",
-        {
-            "form": form,
-            # Remove these when this view is refactored to a generic.CreateView subclass.
-            # Avoid defining new translatable strings.
-            "submit_button_label": generic.CreateView.submit_button_label,
-            "submit_button_active_label": generic.CreateView.submit_button_active_label,
-            "media": form.media,
-        },
-    )
+    def save_instance(self):
+        instance = super().save_instance()
+        purge_urls_from_cache(instance.old_links())
+        return instance
 
 
 @permission_checker.require_any("add")
