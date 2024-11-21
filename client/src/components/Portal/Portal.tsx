@@ -46,7 +46,7 @@ class Portal extends Component<{
   }
 
   onCloseEvent(event: MouseEvent) {
-    const isLinkTooltipKeyTriggerEvent = this.checkTooltipKeyTrigerEvent(event);
+    const isLinkTooltipKeyTriggerEvent = this.checkTooltipKeyTriggerEvent(event);
 
     if(!isLinkTooltipKeyTriggerEvent){
       const { onClose } = this.props;
@@ -58,7 +58,7 @@ class Portal extends Component<{
     }
   }
 
-  checkTooltipKeyTrigerEvent(event: MouseEvent | KeyboardEvent){
+  checkTooltipKeyTriggerEvent(event: MouseEvent | KeyboardEvent){
     if(event instanceof KeyboardEvent){
       if(event?.ctrlKey && event?.keyCode === this.K_KEY_CODE) return true
       if([this.CONTROL_KEY_CODE, this.K_KEY_CODE, this.ENTER_KEY_CODE].includes(event?.keyCode)) return true
