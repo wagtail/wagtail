@@ -33,9 +33,9 @@ class Portal extends Component<{
   };
 
   portal: HTMLElement;
-  CONTROL_KEY_CODE: Number = 17;
-  K_KEY_CODE: Number = 75
-  ENTER_KEY_CODE: Number = 13
+  CONTROL_KEY_CODE: number = 17;
+  K_KEY_CODE: number = 75
+  ENTER_KEY_CODE: number = 13
 
   constructor(props) {
     super(props);

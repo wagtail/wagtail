@@ -876,7 +876,7 @@ function CommentableEditor({
 
               if(commandTriggeredInLinkEntity){
                 const currentParent = window.getSelection()?.focusNode?.parentElement?.closest('[data-draftail-trigger]')
-                //trigger mouseEvent to Activate tooltip
+                // trigger mouseEvent to Activate tooltip
                 const mouseUpEvent = new MouseEvent('mouseup', {bubbles: true, cancelable: true });
                 currentParent?.dispatchEvent(mouseUpEvent);
 
