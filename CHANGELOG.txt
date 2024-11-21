@@ -54,6 +54,7 @@ Changelog
  * Maintenance: Ensure Storybook core files are correctly running through Eslint (LB (Ben) Johnston)
  * Maintenance: Add a new Stimulus `ZoneController` (`w-zone`) to support dynamic class name changes & event handling on container elements (Ayaan Qadri)
  * Maintenance: Migrate jQuery class toggling & drag/drop event handling within the multiple upload views to the Stimulus ZoneController usage (Ayaan Qadri)
+ * Maintenance: Test project template for warnings when run against Django pre-release versions (Sage Abdullah)
 
 
 6.3.1 (19.11.2024)
