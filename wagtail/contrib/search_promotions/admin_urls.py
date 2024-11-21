@@ -1,7 +1,7 @@
 from django.urls import path
 
 from wagtail.contrib.search_promotions import views
-from wagtail.contrib.search_promotions.search_terms import SearchTermsReportView
+from wagtail.contrib.search_promotions.views.reports import SearchTermsReportView
 
 app_name = "wagtailsearchpromotions"
 urlpatterns = [
