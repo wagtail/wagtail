@@ -124,66 +124,58 @@ def save_searchpicks(query, new_query, searchpicks_formset):
         return False
 
 
-@permission_required("wagtailsearchpromotions.add_searchpromotion")
-def add(request):
-    if request.method == "POST":
-        # Get query
-        query_form = forms.QueryForm(request.POST)
-        if query_form.is_valid():
-            query = Query.get(query_form["query_string"].value())
+class CreateView(generic.CreateView):
+    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    index_url_name = "wagtailsearchpromotions:index"
+    edit_url_name = "wagtailsearchpromotions:edit"
+    add_url_name = "wagtailsearchpromotions:add"
+    form_class = forms.QueryForm
+    success_message = gettext_lazy("Editor's picks for '%(query)s' created.")
+    error_message = gettext_lazy("Recommendations have not been created due to errors")
+    template_name = "wagtailsearchpromotions/add.html"
 
-            # Save search picks
-            searchpicks_formset = forms.SearchPromotionsFormSet(
-                request.POST, instance=query
+    def get_success_message(self, instance):
+        return self.success_message % {"query": instance}
+
+    def get_error_message(self):
+        if formset_errors := self.searchpicks_formset.non_form_errors():
+            # formset level error (e.g. no forms submitted)
+            return " ".join(error for error in formset_errors)
+        return super().get_error_message()
+
+    def form_valid(self, form):
+        self.form = form
+        self.object = Query.get(form.cleaned_data["query_string"])
+        # Save search picks
+        self.searchpicks_formset = forms.SearchPromotionsFormSet(
+            self.request.POST, instance=self.object
+        )
+
+        if save_searchpicks(self.object, self.object, self.searchpicks_formset):
+            for search_pick in self.searchpicks_formset.new_objects:
+                log(search_pick, "wagtail.create")
+            messages.success(
+                self.request,
+                self.get_success_message(self.object),
+                buttons=self.get_success_buttons(),
             )
-            if save_searchpicks(query, query, searchpicks_formset):
-                for search_pick in searchpicks_formset.new_objects:
-                    log(search_pick, "wagtail.create")
-                messages.success(
-                    request,
-                    _("Editor's picks for '%(query)s' created.") % {"query": query},
-                    buttons=[
-                        messages.button(
-                            reverse("wagtailsearchpromotions:edit", args=(query.id,)),
-                            _("Edit"),
-                        )
-                    ],
-                )
-                return redirect("wagtailsearchpromotions:index")
-            else:
-                if len(searchpicks_formset.non_form_errors()):
-                    # formset level error (e.g. no forms submitted)
-                    messages.error(
-                        request,
-                        " ".join(
-                            error for error in searchpicks_formset.non_form_errors()
-                        ),
-                    )
-                else:
-                    # specific errors will be displayed within form fields
-                    messages.error(
-                        request,
-                        _("Recommendations have not been created due to errors"),
-                    )
-        else:
-            searchpicks_formset = forms.SearchPromotionsFormSet()
-    else:
-        query_form = forms.QueryForm()
-        searchpicks_formset = forms.SearchPromotionsFormSet()
+            return redirect(self.index_url_name)
 
-    return TemplateResponse(
-        request,
-        "wagtailsearchpromotions/add.html",
-        {
-            "query_form": query_form,
-            "searchpicks_formset": searchpicks_formset,
-            "media": query_form.media + searchpicks_formset.media,
-            # Remove these when this view is refactored to a generic.CreateView subclass.
-            # Avoid defining new translatable strings.
-            "submit_button_label": generic.CreateView.submit_button_label,
-            "submit_button_active_label": generic.CreateView.submit_button_active_label,
-        },
-    )
+        return super().form_invalid(form)
+
+    def form_invalid(self, form):
+        self.searchpicks_formset = forms.SearchPromotionsFormSet()
+        return super().form_invalid(form)
+
+    def get(self, request, *args, **kwargs):
+        self.searchpicks_formset = forms.SearchPromotionsFormSet()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["searchpicks_formset"] = self.searchpicks_formset
+        context["media"] += self.searchpicks_formset.media
+        return context
 
 
 @permission_required("wagtailsearchpromotions.change_searchpromotion")
