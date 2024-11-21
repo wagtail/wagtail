@@ -1,9 +1,8 @@
 import os
 
-from django.core.exceptions import PermissionDenied, SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation
 from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect, render
-from django.template.response import TemplateResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
@@ -18,7 +17,6 @@ from wagtail.admin.ui.tables import Column, StatusTagColumn, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.widgets.button import Button
 from wagtail.contrib.frontend_cache.utils import PurgeBatch, purge_urls_from_cache
-from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
 from wagtail.contrib.redirects.forms import (
     ConfirmImportForm,
@@ -169,36 +167,23 @@ class EditView(generic.EditView):
         return instance
 
 
-@permission_checker.require("delete")
-def delete(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
+class DeleteView(generic.DeleteView):
+    model = Redirect
+    pk_url_kwarg = "redirect_id"
+    permission_policy = permission_policy
+    template_name = "wagtailredirects/confirm_delete.html"
+    index_url_name = "wagtailredirects:index"
+    delete_url_name = "wagtailredirects:delete"
+    header_icon = "redirect"
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "delete", theredirect
-    ):
-        raise PermissionDenied
+    def delete_action(self):
+        super().delete_action()
+        purge_urls_from_cache(self.object.old_links())
 
-    if request.method == "POST":
-        with transaction.atomic():
-            log(instance=theredirect, action="wagtail.delete")
-            theredirect.delete()
-
-        purge_urls_from_cache(theredirect.old_links())
-
-        messages.success(
-            request,
-            _("Redirect '%(redirect_title)s' deleted.")
-            % {"redirect_title": theredirect.title},
-        )
-        return redirect("wagtailredirects:index")
-
-    return TemplateResponse(
-        request,
-        "wagtailredirects/confirm_delete.html",
-        {
-            "redirect": theredirect,
-        },
-    )
+    def get_success_message(self):
+        return _("Redirect '%(redirect_title)s' deleted.") % {
+            "redirect_title": self.object.title
+        }
 
 
 class CreateView(generic.CreateView):
