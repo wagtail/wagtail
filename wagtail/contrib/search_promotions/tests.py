@@ -21,6 +21,7 @@ from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags
 )
 from wagtail.log_actions import registry as log_registry
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 
 
 class TestSearchPromotions(TestCase):
@@ -175,7 +176,7 @@ class TestGetSearchPromotionsTemplateTag(TestCase):
         self.assertEqual(search_picks, [])
 
 
-class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
+class TestSearchPromotionsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -183,6 +184,10 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailsearchpromotions:index"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsearchpromotions/index.html")
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Promoted search results"}],
+            response.content,
+        )
 
     def test_search(self):
         response = self.client.get(
@@ -463,7 +468,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
         self.assertIsNone(soup.select_one(f'a[href="{add_url}"]'))
 
 
-class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
+class TestSearchPromotionsAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -471,6 +476,16 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailsearchpromotions:add"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsearchpromotions/add.html")
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailsearchpromotions:index"),
+                    "label": "Promoted search results",
+                },
+                {"url": "", "label": "New: Promoted search result"},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         # Submit
