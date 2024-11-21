@@ -63,6 +63,7 @@ class Portal extends Component<{
       if(event?.ctrlKey && event?.keyCode === this.K_KEY_CODE) return true
       if([this.CONTROL_KEY_CODE, this.K_KEY_CODE, this.ENTER_KEY_CODE].includes(event?.keyCode)) return true
     }
+    return false
   }
 
   componentDidMount() {
