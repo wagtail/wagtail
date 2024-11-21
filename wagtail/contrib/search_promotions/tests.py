@@ -491,6 +491,33 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         # Check that the search pick was created
         self.assertTrue(Query.get("test").editors_picks.filter(page_id=1).exists())
 
+    def test_post_with_invalid_page(self):
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 9999999999,
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            0,
+            "page",
+            "Select a valid choice. "
+            "That choice is not one of the available choices.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
     def test_post_with_external_link(self):
         # Submit
         post_data = {
@@ -550,14 +577,16 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         }
         response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
 
-        # User should be given an error
+        # User should be given an error on a specific form in the formset
         self.assertEqual(response.status_code, 200)
         self.assertFormSetError(
             response.context["searchpicks_formset"],
-            None,
+            0,
             None,
             "Please only select a page OR enter an external link.",
         )
+        # Should not raise an error on the top-level formset
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
     def test_post_missing_recommendation(self):
         post_data = {
@@ -571,14 +600,42 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         }
         response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
 
-        # User should be given an error
+        # User should be given an error on a specific form in the formset
         self.assertEqual(response.status_code, 200)
         self.assertFormSetError(
             response.context["searchpicks_formset"],
-            None,
+            0,
             None,
             "You must recommend a page OR an external link.",
         )
+        # Should not raise an error on the top-level formset
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_invalid_external_link(self):
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-external_link_url": "notalink",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            0,
+            "external_link_url",
+            "Enter a valid URL.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
     def test_post_missing_external_text(self):
         post_data = {
@@ -592,14 +649,18 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         }
         response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
 
-        # User should be given an error
+        # User should be given an error on the specific field in the form
         self.assertEqual(response.status_code, 200)
         self.assertFormSetError(
             response.context["searchpicks_formset"],
-            None,
-            None,
+            0,
+            "external_link_text",
             "You must enter an external link text if you enter an external link URL.",
         )
+
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
 
 class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
@@ -657,6 +718,42 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
             "Description has changed",
         )
 
+    def test_post_with_invalid_page(self):
+        # Submit
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 9214599,
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            "page",
+            "Select a valid choice. "
+            "That choice is not one of the available choices.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
     def test_post_reorder(self):
         # Check order before reordering
         self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.search_pick)
@@ -697,6 +794,45 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
         # Check that the recommendations were reordered
         self.assertEqual(Query.get("Hello").editors_picks.all()[0], self.search_pick_2)
         self.assertEqual(Query.get("Hello").editors_picks.all()[1], self.search_pick)
+
+    def test_post_with_external_link(self):
+        # Submit
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 1,  # Change
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "Root page",
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 0,  # Change
+            "editors_picks-1-external_link_url": "https://djangoproject.com",
+            "editors_picks-1-external_link_text": "Django",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the search pick was created
+        self.assertTrue(
+            Query.get("Hello")
+            .editors_picks.filter(external_link_url="https://wagtail.org")
+            .exists()
+        )
+        self.assertTrue(
+            Query.get("Hello")
+            .editors_picks.filter(external_link_url="https://djangoproject.com")
+            .exists()
+        )
 
     def test_post_delete_recommendation(self):
         # Submit
@@ -761,6 +897,142 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
             None,
             "Please specify at least one recommendation for this search term.",
         )
+
+    def test_post_with_page_and_external_link(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 2,
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on a specific form in the formset
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            None,
+            "Please only select a page OR enter an external link.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+
+    def test_post_missing_recommendation(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on a specific form in the formset
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            0,
+            None,
+            "You must recommend a page OR an external link.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+
+    def test_post_invalid_external_link(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-external_link_url": "notalink",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            "external_link_url",
+            "Enter a valid URL.",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_missing_external_text(self):
+        post_data = {
+            "query_string": "Hello",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormSetError(
+            response.context["searchpicks_formset"],
+            1,
+            "external_link_text",
+            "You must enter an external link text if you enter an external link URL.",
+        )
+
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
 
 class TestSearchPromotionsDeleteView(WagtailTestUtils, TestCase):
