@@ -6,7 +6,7 @@ from wagtail.admin.widgets import AdminPageChooser
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 
 
-class QueryForm(forms.Form):
+class QueryForm(forms.ModelForm):
     query_string = forms.CharField(
         label=_("Search term(s)/phrase"),
         help_text=_(
@@ -16,6 +16,17 @@ class QueryForm(forms.Form):
         ),
         required=True,
     )
+
+    def clean(self):
+        # We allow using an existing query string on the CreateView, so we need
+        # to skip the unique validation on `query_string`. This can be done by
+        # overriding the `clean()` method without calling `super().clean()`:
+        # https://docs.djangoproject.com/en/stable/topics/forms/modelforms/#overriding-the-clean-method
+        pass
+
+    class Meta:
+        model = Query
+        fields = ["query_string"]
 
 
 class SearchPromotionForm(forms.ModelForm):
