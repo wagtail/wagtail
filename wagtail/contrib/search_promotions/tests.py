@@ -491,6 +491,48 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         # Check that the search pick was created
         self.assertTrue(Query.get("test").editors_picks.filter(page_id=1).exists())
 
+    def test_post_with_existing_query_string(self):
+        # Create an existing query with search picks
+        query = Query.get("test")
+        search_pick_1 = query.editors_picks.create(
+            page_id=1, sort_order=0, description="Root page"
+        )
+        search_pick_2 = query.editors_picks.create(
+            page_id=2, sort_order=1, description="Homepage"
+        )
+
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 1,
+            "editors_picks-0-external_link_url": "https://wagtail.org",
+            "editors_picks-0-external_link_text": "Wagtail",
+            "editors_picks-0-description": "A Django-based CMS",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the submitted search pick is created
+        # and the existing ones are still there
+        self.assertEqual(
+            set(
+                Query.get("test")
+                .editors_picks.all()
+                .values_list("page_id", "external_link_url")
+            ),
+            {
+                (search_pick_1.page_id, ""),
+                (search_pick_2.page_id, ""),
+                (None, "https://wagtail.org"),
+            },
+        )
+
     def test_post_with_invalid_page(self):
         # Submit
         post_data = {
