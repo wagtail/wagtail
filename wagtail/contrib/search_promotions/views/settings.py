@@ -126,6 +126,7 @@ def save_searchpicks(query, new_query, searchpicks_formset):
 
 
 class CreateView(generic.CreateView):
+    model = Query
     permission_policy = ModelPermissionPolicy(SearchPromotion)
     index_url_name = "wagtailsearchpromotions:index"
     edit_url_name = "wagtailsearchpromotions:edit"
@@ -134,6 +135,9 @@ class CreateView(generic.CreateView):
     success_message = gettext_lazy("Editor's picks for '%(query)s' created.")
     error_message = gettext_lazy("Recommendations have not been created due to errors")
     template_name = "wagtailsearchpromotions/add.html"
+    header_icon = "pick"
+    page_subtitle = gettext_lazy("Promoted search result")
+    _show_breadcrumbs = True
 
     def get_success_message(self, instance):
         return self.success_message % {"query": instance}
@@ -143,6 +147,11 @@ class CreateView(generic.CreateView):
             # formset level error (e.g. no forms submitted)
             return " ".join(error for error in formset_errors)
         return super().get_error_message()
+
+    def get_breadcrumbs_items(self):
+        breadcrumbs = super().get_breadcrumbs_items()
+        breadcrumbs[-2]["label"] = _("Promoted search results")
+        return breadcrumbs
 
     def form_valid(self, form):
         self.form = form
