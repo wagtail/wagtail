@@ -479,7 +479,7 @@ class CreateView(
             {
                 "url": "",
                 "label": _("New: %(model_name)s")
-                % {"model_name": capfirst(self.model._meta.verbose_name)},
+                % {"model_name": self.get_page_subtitle()},
             }
         )
         return self.breadcrumbs_items + items
