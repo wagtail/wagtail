@@ -806,7 +806,7 @@ class TestSearchPromotionsAddView(AdminTemplateTestUtils, WagtailTestUtils, Test
         self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
 
-class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
+class TestSearchPromotionsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
 
@@ -829,6 +829,17 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/searchpicks/%d/" % self.query.id
         self.assertEqual(url_finder.get_edit_url(self.search_pick), expected_url)
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailsearchpromotions:index"),
+                    "label": "Promoted search results",
+                },
+                {"url": "", "label": "hello"},
+            ],
+            response.content,
+        )
 
     def test_post(self):
         # Submit
@@ -860,6 +871,64 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
             SearchPromotion.objects.get(id=self.search_pick.id).description,
             "Description has changed",
         )
+
+        search_picks = list(
+            Query.get("Hello").editors_picks.all().order_by("description")
+        )
+        self.assertEqual(len(search_picks), 2)
+        self.assertEqual(search_picks[0].page_id, 1)
+        self.assertEqual(search_picks[0].description, "Description has changed")
+        self.assertEqual(search_picks[1].page_id, 2)
+        self.assertEqual(search_picks[1].description, "Homepage")
+
+        # Ensure that only one log entry was created for each search pick
+        for search_pick in search_picks:
+            logs = log_registry.get_logs_for_instance(search_pick)
+            self.assertEqual(len(logs), 1)
+            self.assertEqual(logs[0].action, "wagtail.edit")
+            self.assertEqual(logs[0].user, self.user)
+
+    def test_post_with_invalid_query_string(self):
+        # Submit
+        post_data = {
+            "query_string": "",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 2,
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"], "query_string", "This field is required."
+        )
+        # The formset should still contain the submitted data
+        self.assertEqual(len(response.context["searchpicks_formset"].forms), 2)
+        self.assertEqual(
+            response.context["searchpicks_formset"].forms[0].cleaned_data["page"].id,
+            1,
+        )
+        self.assertEqual(
+            response.context["searchpicks_formset"]
+            .forms[0]
+            .cleaned_data["description"],
+            "Description has changed",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, "page", [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
     def test_post_with_invalid_page(self):
         # Submit
@@ -896,6 +965,42 @@ class TestSearchPromotionsEditView(WagtailTestUtils, TestCase):
         self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
         self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
         self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
+    def test_post_change_query_string(self):
+        current_picks = set(self.query.editors_picks.all())
+        # Submit
+        post_data = {
+            "query_string": "Hello again",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 2,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-id": self.search_pick.id,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Description has changed",  # Change
+            "editors_picks-1-id": self.search_pick_2.id,
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": 2,
+            "editors_picks-1-description": "Homepage",
+        }
+        response = self.client.post(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)), post_data
+        )
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Ensure search picks from the old query are moved to the new one
+        new_query = Query.get("Hello again")
+        self.assertEqual(set(new_query.editors_picks.all()), current_picks)
+        self.search_pick.refresh_from_db()
+        self.assertEqual(self.search_pick.query, new_query)
+        self.assertEqual(self.query.editors_picks.count(), 0)
+
+        # Check that the search pick description was edited
+        self.assertEqual(self.search_pick.description, "Description has changed")
 
     def test_post_reorder(self):
         # Check order before reordering
