@@ -92,6 +92,9 @@ class SearchPromotionCreateEditMixin:
     _show_breadcrumbs = True
     page_subtitle = gettext_lazy("Promoted search result")
 
+    def get_success_message(self, instance=None):
+        return self.success_message % {"query": instance}
+
     def get_error_message(self):
         if formset_errors := self.searchpicks_formset.non_form_errors():
             # formset level error (e.g. no forms submitted)
@@ -150,21 +153,21 @@ class SearchPromotionCreateEditMixin:
 
         return True
 
-
-class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
-    success_message = gettext_lazy("Editor's picks for '%(query)s' created.")
-    error_message = gettext_lazy("Recommendations have not been created due to errors")
-    template_name = "wagtailsearchpromotions/add.html"
-    add_url_name = "wagtailsearchpromotions:add"
-
-    def get_success_message(self, instance):
-        return self.success_message % {"query": instance}
+    @cached_property
+    def searchpicks_formset(self):
+        if self.request.method == "POST":
+            return forms.SearchPromotionsFormSet(
+                self.request.POST, instance=self.object
+            )
+        return forms.SearchPromotionsFormSet(instance=self.object)
 
     def form_valid(self, form):
         self.form = form
-        self.object = Query.get(form.cleaned_data["query_string"])
+        new_query = Query.get(form.cleaned_data["query_string"])
+        if not self.object:
+            self.object = new_query
 
-        if self.save_searchpicks(self.object, self.object):
+        if self.save_searchpicks(self.object, new_query):
             messages.success(
                 self.request,
                 self.get_success_message(self.object),
@@ -174,13 +177,12 @@ class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
 
         return super().form_invalid(form)
 
-    @cached_property
-    def searchpicks_formset(self):
-        if self.request.method == "POST":
-            return forms.SearchPromotionsFormSet(
-                self.request.POST, instance=self.object
-            )
-        return forms.SearchPromotionsFormSet()
+
+class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
+    success_message = gettext_lazy("Editor's picks for '%(query)s' created.")
+    error_message = gettext_lazy("Recommendations have not been created due to errors")
+    template_name = "wagtailsearchpromotions/add.html"
+    add_url_name = "wagtailsearchpromotions:add"
 
 
 class EditView(SearchPromotionCreateEditMixin, generic.EditView):
@@ -190,31 +192,6 @@ class EditView(SearchPromotionCreateEditMixin, generic.EditView):
     success_message = gettext_lazy("Editor's picks for '%(query)s' updated.")
     error_message = gettext_lazy("Recommendations have not been saved due to errors")
     template_name = "wagtailsearchpromotions/edit.html"
-
-    def get_success_message(self):
-        return self.success_message % {"query": self.object}
-
-    def form_valid(self, form):
-        self.form = form
-        new_query = Query.get(form.cleaned_data["query_string"])
-
-        if self.save_searchpicks(self.object, new_query):
-            messages.success(
-                self.request,
-                self.get_success_message(),
-                buttons=self.get_success_buttons(),
-            )
-            return redirect(self.index_url_name)
-
-        return super().form_invalid(form)
-
-    @cached_property
-    def searchpicks_formset(self):
-        if self.request.method == "POST":
-            return forms.SearchPromotionsFormSet(
-                self.request.POST, instance=self.object
-            )
-        return forms.SearchPromotionsFormSet(instance=self.object)
 
 
 @permission_required("wagtailsearchpromotions.delete_searchpromotion")
