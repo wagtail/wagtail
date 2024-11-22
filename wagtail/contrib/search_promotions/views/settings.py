@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
@@ -146,10 +147,6 @@ class CreateView(generic.CreateView):
     def form_valid(self, form):
         self.form = form
         self.object = Query.get(form.cleaned_data["query_string"])
-        # Save search picks
-        self.searchpicks_formset = forms.SearchPromotionsFormSet(
-            self.request.POST, instance=self.object
-        )
 
         if save_searchpicks(self.object, self.object, self.searchpicks_formset):
             messages.success(
@@ -161,13 +158,13 @@ class CreateView(generic.CreateView):
 
         return super().form_invalid(form)
 
-    def form_invalid(self, form):
-        self.searchpicks_formset = forms.SearchPromotionsFormSet()
-        return super().form_invalid(form)
-
-    def get(self, request, *args, **kwargs):
-        self.searchpicks_formset = forms.SearchPromotionsFormSet()
-        return super().get(request, *args, **kwargs)
+    @cached_property
+    def searchpicks_formset(self):
+        if self.request.method == "POST":
+            return forms.SearchPromotionsFormSet(
+                self.request.POST, instance=self.object
+            )
+        return forms.SearchPromotionsFormSet()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

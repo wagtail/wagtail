@@ -599,26 +599,25 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         # User should be given an error on the specific field in the form
         self.assertEqual(response.status_code, 200)
 
-        # This currently fails because of a bug in the formset handling
-        # self.assertFormError(
-        #     response.context["form"], "query_string", "This field is required."
-        # )
-        # # The formset should still contain the submitted data
-        # self.assertEqual(len(response.context["searchpicks_formset"].forms), 1)
-        # self.assertEqual(
-        #     response.context["searchpicks_formset"].forms[0].cleaned_data["page"].id,
-        #     1,
-        # )
-        # self.assertEqual(
-        #     response.context["searchpicks_formset"]
-        #     .forms[0]
-        #     .cleaned_data["description"],
-        #     "Hello",
-        # )
-        # # Should not raise an error anywhere else
-        # self.assertFormSetError(response.context["searchpicks_formset"], 0, "page", [])
-        # self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
-        # self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+        self.assertFormError(
+            response.context["form"], "query_string", "This field is required."
+        )
+        # The formset should still contain the submitted data
+        self.assertEqual(len(response.context["searchpicks_formset"].forms), 1)
+        self.assertEqual(
+            response.context["searchpicks_formset"].forms[0].cleaned_data["page"].id,
+            1,
+        )
+        self.assertEqual(
+            response.context["searchpicks_formset"]
+            .forms[0]
+            .cleaned_data["description"],
+            "Hello",
+        )
+        # Should not raise an error anywhere else
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, "page", [])
+        self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
     def test_post_with_invalid_page(self):
         # Submit
