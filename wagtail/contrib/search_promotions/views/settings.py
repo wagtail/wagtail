@@ -152,8 +152,6 @@ class CreateView(generic.CreateView):
         )
 
         if save_searchpicks(self.object, self.object, self.searchpicks_formset):
-            for search_pick in self.searchpicks_formset.new_objects:
-                log(search_pick, "wagtail.create")
             messages.success(
                 self.request,
                 self.get_success_message(self.object),

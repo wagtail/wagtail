@@ -19,6 +19,7 @@ from wagtail.contrib.search_promotions.models import (
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import (
     get_search_promotions,
 )
+from wagtail.log_actions import registry as log_registry
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -492,13 +493,12 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         self.assertTrue(Query.get("test").editors_picks.filter(page_id=1).exists())
 
         # Ensure that only one log entry was created for the search pick
-        # This currently fails because the code incorrectly logs it twice
-        # search_picks = list(Query.get("test").editors_picks.all())
-        # self.assertEqual(len(search_picks), 1)
-        # self.assertTrue(search_picks[0].page_id, 1)
-        # logs = log_registry.get_logs_for_instance(search_picks[0])
-        # self.assertEqual(len(logs), 1)
-        # self.assertEqual(logs[0].action, "wagtail.create")
+        search_picks = list(Query.get("test").editors_picks.all())
+        self.assertEqual(len(search_picks), 1)
+        self.assertTrue(search_picks[0].page_id, 1)
+        logs = log_registry.get_logs_for_instance(search_picks[0])
+        self.assertEqual(len(logs), 1)
+        self.assertEqual(logs[0].action, "wagtail.create")
 
     def test_with_multiple_picks(self):
         # Submit
@@ -534,12 +534,11 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
         self.assertEqual(search_picks[1].description, "The landing page")
 
         # Ensure that only one log entry was created for each search pick
-        # This currently fails because the code incorrectly logs it twice
-        # for search_pick in search_picks:
-        #     logs = log_registry.get_logs_for_instance(search_pick)
-        #     self.assertEqual(len(logs), 1)
-        #     self.assertEqual(logs[0].action, "wagtail.create")
-        #     self.assertEqual(logs[0].user, self.user)
+        for search_pick in search_picks:
+            logs = log_registry.get_logs_for_instance(search_pick)
+            self.assertEqual(len(logs), 1)
+            self.assertEqual(logs[0].action, "wagtail.create")
+            self.assertEqual(logs[0].user, self.user)
 
     def test_post_with_existing_query_string(self):
         # Create an existing query with search picks
