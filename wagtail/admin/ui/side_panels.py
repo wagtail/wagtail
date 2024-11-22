@@ -254,9 +254,10 @@ class PageStatusSidePanel(StatusSidePanel):
 
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
-        templates.insert(
-            -1, "wagtailadmin/shared/side_panels/includes/status/privacy.html"
-        )
+        if self.object.id:
+            templates.insert(
+                -1, "wagtailadmin/shared/side_panels/includes/status/privacy.html"
+            )
         return templates
 
     def get_usage_context(self):
