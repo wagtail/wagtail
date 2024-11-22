@@ -4,7 +4,6 @@ from django.db.models import Sum, functions
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
-from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
@@ -182,72 +181,63 @@ class CreateView(generic.CreateView):
         return context
 
 
-@permission_required("wagtailsearchpromotions.change_searchpromotion")
-def edit(request, query_id):
-    query = get_object_or_404(Query, id=query_id)
+class EditView(generic.EditView):
+    model = Query
+    pk_url_kwarg = "query_id"
+    context_object_name = "query"
+    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    index_url_name = "wagtailsearchpromotions:index"
+    edit_url_name = "wagtailsearchpromotions:edit"
+    delete_url_name = "wagtailsearchpromotions:delete"
+    form_class = forms.QueryForm
+    success_message = gettext_lazy("Editor's picks for '%(query)s' updated.")
+    error_message = gettext_lazy("Recommendations have not been saved due to errors")
+    template_name = "wagtailsearchpromotions/edit.html"
+    header_icon = "pick"
+    page_subtitle = gettext_lazy("Promoted search result")
+    _show_breadcrumbs = True
 
-    if request.method == "POST":
-        # Get query
-        query_form = forms.QueryForm(request.POST)
-        # and the recommendations
-        searchpicks_formset = forms.SearchPromotionsFormSet(
-            request.POST, instance=query
-        )
+    def get_success_message(self):
+        return self.success_message % {"query": self.object}
 
-        if query_form.is_valid():
-            new_query = Query.get(query_form["query_string"].value())
+    def get_error_message(self):
+        if formset_errors := self.searchpicks_formset.non_form_errors():
+            # formset level error (e.g. no forms submitted)
+            return " ".join(error for error in formset_errors)
+        return super().get_error_message()
 
-            # Save search picks
-            if save_searchpicks(query, new_query, searchpicks_formset):
-                messages.success(
-                    request,
-                    _("Editor's picks for '%(query)s' updated.") % {"query": new_query},
-                    buttons=[
-                        messages.button(
-                            reverse("wagtailsearchpromotions:edit", args=(query.id,)),
-                            _("Edit"),
-                        )
-                    ],
-                )
-                return redirect("wagtailsearchpromotions:index")
-            else:
-                if len(searchpicks_formset.non_form_errors()):
-                    messages.error(
-                        request,
-                        " ".join(
-                            error for error in searchpicks_formset.non_form_errors()
-                        ),
-                    )
-                    # formset level error (e.g. no forms submitted)
-                else:
-                    messages.error(
-                        request, _("Recommendations have not been saved due to errors")
-                    )
-                    # specific errors will be displayed within form fields
+    def get_breadcrumbs_items(self):
+        breadcrumbs = super().get_breadcrumbs_items()
+        breadcrumbs[-2]["label"] = _("Promoted search results")
+        return breadcrumbs
 
-    else:
-        query_form = forms.QueryForm(initial={"query_string": query.query_string})
-        searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
+    def form_valid(self, form):
+        self.form = form
+        new_query = Query.get(form.cleaned_data["query_string"])
 
-    return TemplateResponse(
-        request,
-        "wagtailsearchpromotions/edit.html",
-        {
-            "query_form": query_form,
-            "searchpicks_formset": searchpicks_formset,
-            "query": query,
-            "media": query_form.media + searchpicks_formset.media,
-            # Remove these when this view is refactored to a generic.CreateView subclass.
-            # Avoid defining new translatable strings.
-            "submit_button_label": generic.EditView.submit_button_label,
-            "submit_button_active_label": generic.EditView.submit_button_active_label,
-            "can_delete": request.user.has_perm(
-                "wagtailsearchpromotions.delete_searchpromotion"
-            ),
-            "delete_url": reverse("wagtailsearchpromotions:delete", args=(query.id,)),
-            "delete_item_label": generic.EditView.delete_item_label,
-        },
-    )
+        if save_searchpicks(self.object, new_query, self.searchpicks_formset):
+            messages.success(
+                self.request,
+                self.get_success_message(),
+                buttons=self.get_success_buttons(),
+            )
+            return redirect(self.index_url_name)
+
+        return super().form_invalid(form)
+
+    @cached_property
+    def searchpicks_formset(self):
+        if self.request.method == "POST":
+            return forms.SearchPromotionsFormSet(
+                self.request.POST, instance=self.object
+            )
+        return forms.SearchPromotionsFormSet(instance=self.object)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["searchpicks_formset"] = self.searchpicks_formset
+        context["media"] += self.searchpicks_formset.media
+        return context
 
 
 @permission_required("wagtailsearchpromotions.delete_searchpromotion")
