@@ -2,14 +2,12 @@ from django.core.paginator import InvalidPage, Paginator
 from django.db import transaction
 from django.db.models import Sum, functions
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.utils.functional import cached_property
-from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.ui.tables import Column, RelatedObjectsColumn, TitleColumn
@@ -194,26 +192,23 @@ class EditView(SearchPromotionCreateEditMixin, generic.EditView):
     template_name = "wagtailsearchpromotions/edit.html"
 
 
-@permission_required("wagtailsearchpromotions.delete_searchpromotion")
-def delete(request, query_id):
-    query = get_object_or_404(Query, id=query_id)
+class DeleteView(generic.DeleteView):
+    model = Query
+    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    pk_url_kwarg = "query_id"
+    context_object_name = "query"
+    success_message = gettext_lazy("Editor's picks deleted.")
+    index_url_name = "wagtailsearchpromotions:index"
+    delete_url_name = "wagtailsearchpromotions:delete"
+    header_icon = "pick"
+    template_name = "wagtailsearchpromotions/confirm_delete.html"
 
-    if request.method == "POST":
-        editors_picks = query.editors_picks.all()
+    def delete_action(self):
+        editors_picks = self.object.editors_picks.all()
         with transaction.atomic():
             for search_pick in editors_picks:
                 log(search_pick, "wagtail.delete")
             editors_picks.delete()
-        messages.success(request, _("Editor's picks deleted."))
-        return redirect("wagtailsearchpromotions:index")
-
-    return TemplateResponse(
-        request,
-        "wagtailsearchpromotions/confirm_delete.html",
-        {
-            "query": query,
-        },
-    )
 
 
 def chooser(request, get_results=False):
