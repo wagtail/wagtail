@@ -59,6 +59,12 @@ Changelog
  * Maintenance: Test project template for warnings when run against Django pre-release versions (Sage Abdullah)
 
 
+6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
+
+
 6.3.1 (19.11.2024)
 ~~~~~~~~~~~~~~~~~~
 
