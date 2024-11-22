@@ -30,7 +30,7 @@ class IndexView(generic.IndexView):
     template_name = "wagtailsearchpromotions/index.html"
     results_template_name = "wagtailsearchpromotions/index_results.html"
     context_object_name = "queries"
-    page_title = gettext_lazy("Search Terms")
+    page_title = gettext_lazy("Promoted search results")
     header_icon = "pick"
     paginate_by = 20
     permission_policy = ModelPermissionPolicy(SearchPromotion)
@@ -78,7 +78,7 @@ class IndexView(generic.IndexView):
 
     def get_breadcrumbs_items(self):
         breadcrumbs = super().get_breadcrumbs_items()
-        breadcrumbs[-1]["label"] = _("Promoted search results")
+        breadcrumbs[-1]["label"] = self.get_page_title()
         return breadcrumbs
 
 
@@ -149,7 +149,7 @@ class CreateView(generic.CreateView):
 
     def get_breadcrumbs_items(self):
         breadcrumbs = super().get_breadcrumbs_items()
-        breadcrumbs[-2]["label"] = _("Promoted search results")
+        breadcrumbs[-2]["label"] = IndexView.page_title
         return breadcrumbs
 
     def form_valid(self, form):
@@ -208,7 +208,7 @@ class EditView(generic.EditView):
 
     def get_breadcrumbs_items(self):
         breadcrumbs = super().get_breadcrumbs_items()
-        breadcrumbs[-2]["label"] = _("Promoted search results")
+        breadcrumbs[-2]["label"] = IndexView.page_title
         return breadcrumbs
 
     def form_valid(self, form):
