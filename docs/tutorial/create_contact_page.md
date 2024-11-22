@@ -117,10 +117,10 @@ To add contact information to your portfolio site, follow these steps:
 
 1. Create a **Form page** as a child page of **Home** by following these steps:
 
-    a. Restart your server.  
-    b. Go to your admin interface.  
-    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).  
-    d. Click `Home`.  
+    a. Restart your server.
+    b. Go to your admin interface.
+    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+    d. Click `Home`.
     e. Click the `+` icon (Add child page) at the top of the resulting page.
     f. Click `Form page`.
 
@@ -133,21 +133,21 @@ To style your contact page, add the following CSS to your `mysite/static/css/mys
 
 ```css
 .page-form label {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 5px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .page-form :is(textarea, input, select) {
-  width: 100%;
-  max-width: 500px;
-  min-height: 40px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
+    min-height: 40px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .page-form .helptext {
-  font-style: italic;
+    font-style: italic;
 }
 ```
 
