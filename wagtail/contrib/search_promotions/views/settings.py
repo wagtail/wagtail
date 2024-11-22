@@ -83,6 +83,32 @@ class IndexView(generic.IndexView):
 
 
 class SearchPromotionCreateEditMixin:
+    model = Query
+    permission_policy = ModelPermissionPolicy(SearchPromotion)
+    index_url_name = "wagtailsearchpromotions:index"
+    edit_url_name = "wagtailsearchpromotions:edit"
+    form_class = forms.QueryForm
+    header_icon = "pick"
+    _show_breadcrumbs = True
+    page_subtitle = gettext_lazy("Promoted search result")
+
+    def get_error_message(self):
+        if formset_errors := self.searchpicks_formset.non_form_errors():
+            # formset level error (e.g. no forms submitted)
+            return " ".join(error for error in formset_errors)
+        return super().get_error_message()
+
+    def get_breadcrumbs_items(self):
+        breadcrumbs = super().get_breadcrumbs_items()
+        breadcrumbs[-2]["label"] = IndexView.page_title
+        return breadcrumbs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["searchpicks_formset"] = self.searchpicks_formset
+        context["media"] += self.searchpicks_formset.media
+        return context
+
     def save_searchpicks(self, query, new_query):
         searchpicks_formset = self.searchpicks_formset
         if not searchpicks_formset.is_valid():
@@ -126,32 +152,13 @@ class SearchPromotionCreateEditMixin:
 
 
 class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
-    model = Query
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
-    index_url_name = "wagtailsearchpromotions:index"
-    edit_url_name = "wagtailsearchpromotions:edit"
-    add_url_name = "wagtailsearchpromotions:add"
-    form_class = forms.QueryForm
     success_message = gettext_lazy("Editor's picks for '%(query)s' created.")
     error_message = gettext_lazy("Recommendations have not been created due to errors")
     template_name = "wagtailsearchpromotions/add.html"
-    header_icon = "pick"
-    page_subtitle = gettext_lazy("Promoted search result")
-    _show_breadcrumbs = True
+    add_url_name = "wagtailsearchpromotions:add"
 
     def get_success_message(self, instance):
         return self.success_message % {"query": instance}
-
-    def get_error_message(self):
-        if formset_errors := self.searchpicks_formset.non_form_errors():
-            # formset level error (e.g. no forms submitted)
-            return " ".join(error for error in formset_errors)
-        return super().get_error_message()
-
-    def get_breadcrumbs_items(self):
-        breadcrumbs = super().get_breadcrumbs_items()
-        breadcrumbs[-2]["label"] = IndexView.page_title
-        return breadcrumbs
 
     def form_valid(self, form):
         self.form = form
@@ -175,42 +182,17 @@ class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
             )
         return forms.SearchPromotionsFormSet()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["searchpicks_formset"] = self.searchpicks_formset
-        context["media"] += self.searchpicks_formset.media
-        return context
-
 
 class EditView(SearchPromotionCreateEditMixin, generic.EditView):
-    model = Query
     pk_url_kwarg = "query_id"
     context_object_name = "query"
-    permission_policy = ModelPermissionPolicy(SearchPromotion)
-    index_url_name = "wagtailsearchpromotions:index"
-    edit_url_name = "wagtailsearchpromotions:edit"
     delete_url_name = "wagtailsearchpromotions:delete"
-    form_class = forms.QueryForm
     success_message = gettext_lazy("Editor's picks for '%(query)s' updated.")
     error_message = gettext_lazy("Recommendations have not been saved due to errors")
     template_name = "wagtailsearchpromotions/edit.html"
-    header_icon = "pick"
-    page_subtitle = gettext_lazy("Promoted search result")
-    _show_breadcrumbs = True
 
     def get_success_message(self):
         return self.success_message % {"query": self.object}
-
-    def get_error_message(self):
-        if formset_errors := self.searchpicks_formset.non_form_errors():
-            # formset level error (e.g. no forms submitted)
-            return " ".join(error for error in formset_errors)
-        return super().get_error_message()
-
-    def get_breadcrumbs_items(self):
-        breadcrumbs = super().get_breadcrumbs_items()
-        breadcrumbs[-2]["label"] = IndexView.page_title
-        return breadcrumbs
 
     def form_valid(self, form):
         self.form = form
@@ -233,12 +215,6 @@ class EditView(SearchPromotionCreateEditMixin, generic.EditView):
                 self.request.POST, instance=self.object
             )
         return forms.SearchPromotionsFormSet(instance=self.object)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["searchpicks_formset"] = self.searchpicks_formset
-        context["media"] += self.searchpicks_formset.media
-        return context
 
 
 @permission_required("wagtailsearchpromotions.delete_searchpromotion")
