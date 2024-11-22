@@ -82,9 +82,12 @@ class IndexView(generic.IndexView):
         return breadcrumbs
 
 
-def save_searchpicks(query, new_query, searchpicks_formset):
-    # Save
-    if searchpicks_formset.is_valid():
+class SearchPromotionCreateEditMixin:
+    def save_searchpicks(self, query, new_query):
+        searchpicks_formset = self.searchpicks_formset
+        if not searchpicks_formset.is_valid():
+            return False
+
         # Set sort_order
         for i, form in enumerate(searchpicks_formset.ordered_forms):
             form.instance.sort_order = i
@@ -120,11 +123,9 @@ def save_searchpicks(query, new_query, searchpicks_formset):
                         log(search_pick, "wagtail.edit")
 
         return True
-    else:
-        return False
 
 
-class CreateView(generic.CreateView):
+class CreateView(SearchPromotionCreateEditMixin, generic.CreateView):
     model = Query
     permission_policy = ModelPermissionPolicy(SearchPromotion)
     index_url_name = "wagtailsearchpromotions:index"
@@ -156,7 +157,7 @@ class CreateView(generic.CreateView):
         self.form = form
         self.object = Query.get(form.cleaned_data["query_string"])
 
-        if save_searchpicks(self.object, self.object, self.searchpicks_formset):
+        if self.save_searchpicks(self.object, self.object):
             messages.success(
                 self.request,
                 self.get_success_message(self.object),
@@ -181,7 +182,7 @@ class CreateView(generic.CreateView):
         return context
 
 
-class EditView(generic.EditView):
+class EditView(SearchPromotionCreateEditMixin, generic.EditView):
     model = Query
     pk_url_kwarg = "query_id"
     context_object_name = "query"
@@ -215,7 +216,7 @@ class EditView(generic.EditView):
         self.form = form
         new_query = Query.get(form.cleaned_data["query_string"])
 
-        if save_searchpicks(self.object, new_query, self.searchpicks_formset):
+        if self.save_searchpicks(self.object, new_query):
             messages.success(
                 self.request,
                 self.get_success_message(),
