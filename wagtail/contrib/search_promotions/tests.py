@@ -805,6 +805,40 @@ class TestSearchPromotionsAddView(AdminTemplateTestUtils, WagtailTestUtils, Test
         self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
         self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.client.get(reverse("wagtailsearchpromotions:add"))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_add_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailsearchpromotions",
+                codename="add_searchpromotion",
+            ),
+        )
+
+        response = self.client.get(reverse("wagtailsearchpromotions:add"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsearchpromotions/add.html")
+
 
 class TestSearchPromotionsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
@@ -1282,10 +1316,48 @@ class TestSearchPromotionsEditView(AdminTemplateTestUtils, WagtailTestUtils, Tes
         self.assertFormSetError(response.context["searchpicks_formset"], 1, None, [])
         self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
 
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_edit_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailsearchpromotions",
+                codename="change_searchpromotion",
+            ),
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:edit", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsearchpromotions/edit.html")
+
 
 class TestSearchPromotionsDeleteView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create a search pick to delete
         self.query = Query.get("Hello")
@@ -1321,6 +1393,44 @@ class TestSearchPromotionsDeleteView(WagtailTestUtils, TestCase):
         self.assertFalse(
             SearchPromotion.objects.filter(id=self.search_pick.id).exists()
         )
+
+    def test_get_with_no_permission(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            )
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:delete", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_with_edit_permission_only(self):
+        self.user.is_superuser = False
+        self.user.save()
+        # Only basic access_admin permission is given
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin",
+                codename="access_admin",
+            ),
+            Permission.objects.get(
+                content_type__app_label="wagtailsearchpromotions",
+                codename="delete_searchpromotion",
+            ),
+        )
+
+        response = self.client.get(
+            reverse("wagtailsearchpromotions:delete", args=(self.query.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsearchpromotions/confirm_delete.html")
 
 
 class TestGarbageCollectManagementCommand(TestCase):
