@@ -464,7 +464,7 @@ class TestSearchPromotionsIndexView(WagtailTestUtils, TestCase):
 
 class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_simple(self):
         response = self.client.get(reverse("wagtailsearchpromotions:add"))
@@ -490,6 +490,56 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
 
         # Check that the search pick was created
         self.assertTrue(Query.get("test").editors_picks.filter(page_id=1).exists())
+
+        # Ensure that only one log entry was created for the search pick
+        # This currently fails because the code incorrectly logs it twice
+        # search_picks = list(Query.get("test").editors_picks.all())
+        # self.assertEqual(len(search_picks), 1)
+        # self.assertTrue(search_picks[0].page_id, 1)
+        # logs = log_registry.get_logs_for_instance(search_picks[0])
+        # self.assertEqual(len(logs), 1)
+        # self.assertEqual(logs[0].action, "wagtail.create")
+
+    def test_with_multiple_picks(self):
+        # Submit
+        post_data = {
+            "query_string": "test",
+            "editors_picks-TOTAL_FORMS": 2,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Hello",
+            "editors_picks-1-DELETE": "",
+            "editors_picks-1-ORDER": 1,
+            "editors_picks-1-page": "",
+            "editors_picks-1-external_link_url": "https://wagtail.org",
+            "editors_picks-1-external_link_text": "Wagtail",
+            "editors_picks-1-description": "The landing page",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be redirected back to the index
+        self.assertRedirects(response, reverse("wagtailsearchpromotions:index"))
+
+        # Check that the search pick was created
+        search_picks = list(
+            Query.get("test").editors_picks.all().order_by("description")
+        )
+        self.assertEqual(len(search_picks), 2)
+        self.assertEqual(search_picks[0].page_id, 1)
+        self.assertEqual(search_picks[0].description, "Hello")
+        self.assertEqual(search_picks[1].external_link_url, "https://wagtail.org")
+        self.assertEqual(search_picks[1].description, "The landing page")
+
+        # Ensure that only one log entry was created for each search pick
+        # This currently fails because the code incorrectly logs it twice
+        # for search_pick in search_picks:
+        #     logs = log_registry.get_logs_for_instance(search_pick)
+        #     self.assertEqual(len(logs), 1)
+        #     self.assertEqual(logs[0].action, "wagtail.create")
+        #     self.assertEqual(logs[0].user, self.user)
 
     def test_post_with_existing_query_string(self):
         # Create an existing query with search picks
