@@ -60,6 +60,7 @@ Changelog
  * Maintenance: Migrate jQuery class toggling & drag/drop event handling within the multiple upload views to the Stimulus ZoneController usage (Ayaan Qadri)
  * Maintenance: Test project template for warnings when run against Django pre-release versions (Sage Abdullah)
  * Maintenance: Refactor redirects create/delete views to use generic views (Sage Abdullah)
+ * Maintenance: Add JSDoc description, adopt linting recommendations, and add more unit tests for `ModalWorkflow` (LB (Ben) Johnston)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
