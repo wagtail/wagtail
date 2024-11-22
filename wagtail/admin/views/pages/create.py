@@ -24,7 +24,8 @@ from wagtail.admin.ui.side_panels import (
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
-from wagtail.models import Locale, Page, PageSubscription, PageViewRestriction
+from wagtail.models import Locale, Page, PageSubscription, PageViewRestriction, \
+    BaseViewRestriction
 
 
 def add_subpage(request, parent_page_id):
@@ -183,32 +184,32 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return messages.button(self.page.url, _("View live"), new_window=False)
 
     def set_default_privacy_setting(self):
-        # privacy setting options ['public',"logged_in", "shared_password", "user_groups"]
+        # privacy setting options BaseViewRestriction.RESTRICTION_CHOICES
         default_privacy_setting = self.page.get_default_privacy_setting(self.request)
 
         if (
-            default_privacy_setting["type"] == "public"
+            default_privacy_setting["type"] == BaseViewRestriction.NONE
         ):  # default privacy setting is public no need to do anything
             pass
-        elif default_privacy_setting["type"] == "logged_in":
-            PageViewRestriction.objects.create(page=self.page, restriction_type="login")
-        elif default_privacy_setting["type"] == "shared_password":
+        elif default_privacy_setting["type"] == BaseViewRestriction.LOGIN:
+            PageViewRestriction.objects.create(page=self.page, restriction_type=BaseViewRestriction.LOGIN)
+        elif default_privacy_setting["type"] == BaseViewRestriction.PASSWORD:
             PageViewRestriction.objects.create(
                 page=self.page,
-                restriction_type="password",
+                restriction_type=BaseViewRestriction.PASSWORD,
                 password=default_privacy_setting["password"],
             )
-        elif default_privacy_setting["type"] == "user_groups":
+        elif default_privacy_setting["type"] == BaseViewRestriction.GROUPS:
             # Create a page view restriction for groups
             groups_page_restriction = PageViewRestriction.objects.create(
-                page=self.page, restriction_type="groups"
+                page=self.page, restriction_type=BaseViewRestriction.GROUPS
             )
             # add groups to the page view restriction
             for group in default_privacy_setting["groups"]:
                 groups_page_restriction.groups.add(group)
         else:
             raise ValueError(
-                "Invalid privacy setting. Choose from public, logged_in, shared_password, user_groups"
+                "Invalid privacy setting. Choose one of the following: 'none', 'password', 'groups', 'login'."
             )
 
     def save_action(self):

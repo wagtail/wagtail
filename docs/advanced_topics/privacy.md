@@ -84,14 +84,14 @@ class BlogPage(Page):
         from django.contrib.auth.models import Group
         moderators = Group.objects.filter(name="Moderators").first()
         editors = Group.objects.filter(name="Editors").first()
-        return {'type':'user_groups','groups':[moderators,editors]}
+        return {'type':'groups','groups':[moderators,editors]}
 
 class SecretPage(Page):
     ...
     def get_default_privacy_setting(self, request):
         # set default to auto-generated password
         import secrets
-        return {'type':'shared_password',"password":secrets.token_urlsafe(32)}
+        return {'type':'password',"password":secrets.token_urlsafe(32)}
 ```
 
 ## Setting up a global "password required" page

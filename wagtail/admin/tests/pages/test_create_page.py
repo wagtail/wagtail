@@ -796,7 +796,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         }
 
         def get_default_privacy_setting(self, request):
-            return {"type": "logged_in"}
+            return {"type": "login"}
 
         SimplePage.get_default_privacy_setting = get_default_privacy_setting
 
@@ -832,7 +832,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         }
 
         def get_default_privacy_setting(self, request):
-            return {"type": "shared_password", "password": "password"}
+            return {"type": "password", "password": "password"}
 
         SimplePage.get_default_privacy_setting = get_default_privacy_setting
 
@@ -868,7 +868,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         }
 
         def get_default_privacy_setting(self, request):
-            return {"type": "user_groups", "groups": []}
+            return {"type": "groups", "groups": []}
 
         SimplePage.get_default_privacy_setting = get_default_privacy_setting
 

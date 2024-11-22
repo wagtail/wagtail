@@ -196,13 +196,13 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
         Returns a dict with the privacy option type and related info
 
-        - public: The page is public and can be accessed by anyone. (default) - `{"type": "public"}`
+        - none: The page is public and can be accessed by anyone. (default) - `{"type": "none"}`
 
-        - logged_in: The page is private and can only be accessed by authenticated users. - `{"type":"logged_in"}`
+        - login: The page is private and can only be accessed by authenticated users. - `{"type":"login"}`
 
-        - shared_password: The page is private and can only be accessed by users with a shared password. - `{"type": "shared_password", "password": "P@ssw0rd123!"}`
+        - password: The page is private and can only be accessed by users with a shared password. - `{"type": "password", "password": "P@ssw0rd123!"}`
 
-        - user_groups: The page is private and can only be accessed by users in specific groups. - `{"type": "user_groups", "groups": [moderators, editors]}`
+        - groups: The page is private and can only be accessed by users in specific groups. - `{"type": "groups", "groups": [moderators, editors]}`
 
         Example
 
@@ -216,9 +216,9 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
                     if request.user.has_perm("foo.add_bar"):
                         moderators = Group.objects.filter(name="Moderators").first()
                         editors = Group.objects.filter(name="Editors").first()
-                        return {"type": "user_groups", "groups":[moderators,editors]}
+                        return {"type": "groups", "groups":[moderators,editors]}
                     else:
-                        return {"type": "public"}
+                        return {"type": "none"}
 
 
     .. autoattribute:: context_object_name
