@@ -4,6 +4,7 @@ Changelog
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
 
 
