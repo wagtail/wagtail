@@ -48,6 +48,7 @@ class AdminTagWidget(TagWidget):
             help_text = _("Tags can only consist of a single word, no spaces allowed.")
 
         context["widget"]["help_text"] = help_text
+        context["widget"]["attrs"]["data-w-tag-delay-value"] = 200
         context["widget"]["attrs"]["data-w-tag-url-value"] = autocomplete_url
         context["widget"]["attrs"]["data-w-tag-options-value"] = json.dumps(
             {
