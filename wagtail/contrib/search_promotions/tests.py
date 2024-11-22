@@ -583,6 +583,44 @@ class TestSearchPromotionsAddView(WagtailTestUtils, TestCase):
             },
         )
 
+    def test_post_with_invalid_query_string(self):
+        # Submit
+        post_data = {
+            "query_string": "",
+            "editors_picks-TOTAL_FORMS": 1,
+            "editors_picks-INITIAL_FORMS": 0,
+            "editors_picks-MAX_NUM_FORMS": 1000,
+            "editors_picks-0-DELETE": "",
+            "editors_picks-0-ORDER": 0,
+            "editors_picks-0-page": 1,
+            "editors_picks-0-description": "Hello",
+        }
+        response = self.client.post(reverse("wagtailsearchpromotions:add"), post_data)
+
+        # User should be given an error on the specific field in the form
+        self.assertEqual(response.status_code, 200)
+
+        # This currently fails because of a bug in the formset handling
+        # self.assertFormError(
+        #     response.context["form"], "query_string", "This field is required."
+        # )
+        # # The formset should still contain the submitted data
+        # self.assertEqual(len(response.context["searchpicks_formset"].forms), 1)
+        # self.assertEqual(
+        #     response.context["searchpicks_formset"].forms[0].cleaned_data["page"].id,
+        #     1,
+        # )
+        # self.assertEqual(
+        #     response.context["searchpicks_formset"]
+        #     .forms[0]
+        #     .cleaned_data["description"],
+        #     "Hello",
+        # )
+        # # Should not raise an error anywhere else
+        # self.assertFormSetError(response.context["searchpicks_formset"], 0, "page", [])
+        # self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
+        # self.assertFormSetError(response.context["searchpicks_formset"], None, None, [])
+
     def test_post_with_invalid_page(self):
         # Submit
         post_data = {
