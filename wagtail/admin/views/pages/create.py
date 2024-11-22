@@ -24,8 +24,13 @@ from wagtail.admin.ui.side_panels import (
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
-from wagtail.models import Locale, Page, PageSubscription, PageViewRestriction, \
-    BaseViewRestriction
+from wagtail.models import (
+    BaseViewRestriction,
+    Locale,
+    Page,
+    PageSubscription,
+    PageViewRestriction,
+)
 
 
 def add_subpage(request, parent_page_id):
@@ -192,7 +197,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         ):  # default privacy setting is public no need to do anything
             pass
         elif default_privacy_setting["type"] == BaseViewRestriction.LOGIN:
-            PageViewRestriction.objects.create(page=self.page, restriction_type=BaseViewRestriction.LOGIN)
+            PageViewRestriction.objects.create(
+                page=self.page, restriction_type=BaseViewRestriction.LOGIN
+            )
         elif default_privacy_setting["type"] == BaseViewRestriction.PASSWORD:
             PageViewRestriction.objects.create(
                 page=self.page,
