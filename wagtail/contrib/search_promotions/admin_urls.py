@@ -9,7 +9,7 @@ urlpatterns = [
     path("results/", views.IndexView.as_view(results_only=True), name="index_results"),
     path("add/", views.CreateView.as_view(), name="add"),
     path("<int:query_id>/", views.EditView.as_view(), name="edit"),
-    path("<int:query_id>/delete/", views.delete, name="delete"),
+    path("<int:query_id>/delete/", views.DeleteView.as_view(), name="delete"),
     path("queries/chooser/", views.chooser, name="chooser"),
     path(
         "queries/chooser/results/",
