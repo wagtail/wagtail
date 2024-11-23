@@ -241,6 +241,7 @@ class StatusSidePanel(BaseSidePanel):
 
 class PageStatusSidePanel(StatusSidePanel):
     def __init__(self, *args, **kwargs):
+        self.parent_page = kwargs.pop("parent_page", None)
         super().__init__(*args, **kwargs)
         if self.object.pk:
             self.usage_url = reverse("wagtailadmin_pages:usage", args=(self.object.pk,))
@@ -271,6 +272,9 @@ class PageStatusSidePanel(StatusSidePanel):
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         page = self.object
+
+        if self.parent_page:
+            context["parent_page"] = self.parent_page
 
         if page.id:
             context.update(
