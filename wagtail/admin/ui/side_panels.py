@@ -254,6 +254,7 @@ class PageStatusSidePanel(StatusSidePanel):
 
     def get_status_templates(self, context):
         templates = super().get_status_templates(context)
+        # only inject the privacy status if the page exists (not for create page views)
         if self.object.id:
             templates.insert(
                 -1, "wagtailadmin/shared/side_panels/includes/status/privacy.html"
