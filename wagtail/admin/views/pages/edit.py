@@ -868,6 +868,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 scheduled_object=self.scheduled_page,
                 locale=self.locale,
                 translations=self.translations,
+                parent_page=self.page.get_parent(),
             ),
         ]
         if self.page.is_previewable():
