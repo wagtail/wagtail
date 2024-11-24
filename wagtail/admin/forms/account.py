@@ -3,6 +3,7 @@ from operator import itemgetter
 
 import l18n
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import get_language_info
@@ -15,8 +16,11 @@ from wagtail.admin.localization import (
 from wagtail.admin.widgets import SwitchInput
 from wagtail.permissions import page_permission_policy
 from wagtail.users.models import UserProfile
+from wagtail.utils.utils import reduce_image_size
 
 User = get_user_model()
+
+WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND = getattr(settings, "WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND", 1024)
 
 
 class NotificationPreferencesForm(forms.ModelForm):
@@ -116,6 +120,7 @@ class AvatarPreferencesForm(forms.ModelForm):
         self._original_avatar = self.instance.avatar
 
     def save(self, commit=True):
+        updated_avatar = None
         if (
             commit
             and self._original_avatar
@@ -130,7 +135,22 @@ class AvatarPreferencesForm(forms.ModelForm):
                 warnings.warn(
                     "Failed to delete old avatar file: %s" % self._original_avatar.name
                 )
-        super().save(commit=commit)
+
+            #check and reduce cleaned_data avatar if more than the image size bound specified to the bound
+            avatar = self.cleaned_data["avatar"]
+            avatar_size = avatar.size/1024
+            if avatar_size > WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND:
+                updated_avatar = reduce_image_size(
+                    avatar=avatar,
+                    size_bound=WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND
+                )
+
+        if updated_avatar is not None:
+            object = super().save(commit=False)
+            object.avatar = updated_avatar
+            object.save()
+        else:
+            super().save(commit=commit)
 
     class Meta:
         model = UserProfile
