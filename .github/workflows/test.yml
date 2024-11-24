@@ -153,6 +153,29 @@ jobs:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
           include-hidden-files: true
+      - name: Test project template
+        if: ${{ matrix.experimental }}
+        env:
+          PYTHONWARNINGS: error
+        run: |
+          wagtail start testproject
+          cd testproject
+          tee -a testproject/settings/local.py << EOF
+          from warnings import filterwarnings
+          SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
+          # Remove when l18n dependency is updated or removed
+          filterwarnings(
+              "ignore", "'locale.getdefaultlocale' is deprecated .*"
+          )
+          # Remove when all experimental jobs use Django >= 6.0
+          filterwarnings(
+              "ignore", "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated."
+          )
+          FORMS_URLFIELD_ASSUME_HTTPS = True
+          EOF
+          python manage.py makemigrations --check --dry-run
+          python manage.py migrate
+          python manage.py check --fail-level WARNING
 
   test-mysql:
     runs-on: ubuntu-latest

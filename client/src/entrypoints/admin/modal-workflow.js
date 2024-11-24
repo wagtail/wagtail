@@ -91,15 +91,15 @@ function ModalWorkflow(opts) {
   };
 
   self.ajaxifyForm = function ajaxifyForm(formSelector) {
-    $(formSelector).each(() => {
+    $(formSelector).each(function ajaxifyFormInner() {
       const action = this.action;
       if (this.method.toLowerCase() === 'get') {
-        $(this).on('submit', () => {
+        $(this).on('submit', function handleSubmit() {
           self.loadUrl(action, $(this).serialize());
           return false;
         });
       } else {
-        $(this).on('submit', () => {
+        $(this).on('submit', function handleSubmit() {
           self.postForm(action, $(this).serialize());
           return false;
         });

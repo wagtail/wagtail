@@ -8,13 +8,29 @@ import './modal-workflow';
 
 $.get = jest.fn().mockImplementation((url, data, cb) => {
   cb(
-    JSON.stringify({ html: `<div id="url">${url}</div>`, data, step: 'start' }),
+    JSON.stringify({
+      data,
+      html: `<div id="url">${url}</div>
+      <form id="form" method="post" action="/path/to/form/submit"><input name="key" value="value"></input></form>`,
+      step: 'start',
+    }),
+  );
+  return { fail: jest.fn() };
+});
+
+$.post = jest.fn((url, data, cb) => {
+  cb(
+    JSON.stringify({
+      html: '<div id="response">response</div>',
+    }),
   );
   return { fail: jest.fn() };
 });
 
 describe('modal-workflow', () => {
   beforeEach(() => {
+    jest.clearAllMocks();
+
     document.body.innerHTML =
       '<div id="content"><button data-chooser-action-choose id="trigger">Open</button></div>';
   });
@@ -102,6 +118,31 @@ describe('modal-workflow', () => {
     expect(triggerButton.disabled).toBe(false);
   });
 
+  it('should expose a `ajaxifyForm` method that allows forms to be submitted async', () => {
+    expect($.post).toHaveBeenCalledTimes(0);
+    expect(document.querySelectorAll('.modal-body #response')).toHaveLength(0);
+
+    const modalWorkflow = window.ModalWorkflow({ url: 'path/to/endpoint' });
+
+    modalWorkflow.ajaxifyForm('#form');
+
+    const event = new Event('submit');
+    event.preventDefault = jest.fn();
+    document.getElementById('form').dispatchEvent(event);
+
+    expect(event.preventDefault).toHaveBeenCalled();
+
+    expect($.post).toHaveBeenCalledTimes(1);
+    expect($.post).toHaveBeenCalledWith(
+      'http://localhost/path/to/form/submit',
+      'key=value',
+      expect.any(Function),
+      'text',
+    );
+
+    expect(document.querySelectorAll('.modal-body #response')).toHaveLength(1);
+  });
+
   it('should handle onload and URL param options', () => {
     const onload = { start: jest.fn() };
     const urlParams = { page: 23 };
@@ -125,12 +166,15 @@ describe('modal-workflow', () => {
 
     expect(modalWorkflow).toBeInstanceOf(Object);
 
-    // important: see mock implementation above, returning a response with injected data to validate behaviour
+    // important: see mock implementation above, returning a response with injected data to validate behavior
     const response = {
       data: urlParams,
-      html: '<div id="url">path/to/endpoint</div>',
+      html: expect.stringContaining('<div id="url">path/to/endpoint</div>'),
       step: 'start',
     };
-    expect(onload.start).toHaveBeenCalledWith(modalWorkflow, response);
+    expect(onload.start).toHaveBeenCalledWith(
+      modalWorkflow,
+      expect.objectContaining(response),
+    );
   });
 });
