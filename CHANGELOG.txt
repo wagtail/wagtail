@@ -43,7 +43,7 @@ Changelog
  * Docs: Fix `wagtailcache` and `wagtailpagecache` examples to not use quotes for the `fragment_name` (Shiv)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
  * Docs: Fix link to `HTTPMethod` in `Page.handle_options_request()` docs (Sage Abdullah)
- * Docs: Improve the Pages Theory page with section headings and admonitions to aid in readability (Clifford Gama)
+ * Docs: Improve the Pages Theory page with added & more consistent section headings and admonitions to aid in readability (Clifford Gama)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
