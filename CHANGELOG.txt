@@ -9,7 +9,7 @@ Changelog
  * Increase `DATA_UPLOAD_MAX_NUMBER_FIELDS` in project template (Matt Westcott)
  * Stop invalid Site hostname records from breaking preview (Matt Westcott)
  * Set sensible defaults for InlinePanel heading and label (Matt Westcott)
- * Limit tags autocompletion to 10 items to avoid performance issues with large number of matching tags (Aayushman Singh)
+ * Limit tags autocompletion to 10 items and add delay to avoid performance issues with large number of matching tags (Aayushman Singh)
  * Add the ability to restrict what types of requests a Pages supports via `allowed_http_methods` (Andy Babic)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
@@ -64,6 +64,7 @@ Changelog
  * Maintenance: Test project template for warnings when run against Django pre-release versions (Sage Abdullah)
  * Maintenance: Refactor redirects create/delete views to use generic views (Sage Abdullah)
  * Maintenance: Add JSDoc description, adopt linting recommendations, and add more unit tests for `ModalWorkflow` (LB (Ben) Johnston)
+ * Maintenance: Add support for for a `delay` value in `TagController` to debounce async autocomplete tag fetch requests (Aayushman Singh)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
