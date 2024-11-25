@@ -1,9 +1,8 @@
 import os
 
-from django.core.exceptions import PermissionDenied, SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation
 from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect, render
-from django.template.response import TemplateResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
@@ -18,7 +17,6 @@ from wagtail.admin.ui.tables import Column, StatusTagColumn, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.widgets.button import Button
 from wagtail.contrib.frontend_cache.utils import PurgeBatch, purge_urls_from_cache
-from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
 from wagtail.contrib.redirects.forms import (
     ConfirmImportForm,
@@ -169,80 +167,46 @@ class EditView(generic.EditView):
         return instance
 
 
-@permission_checker.require("delete")
-def delete(request, redirect_id):
-    theredirect = get_object_or_404(models.Redirect, id=redirect_id)
+class DeleteView(generic.DeleteView):
+    model = Redirect
+    pk_url_kwarg = "redirect_id"
+    permission_policy = permission_policy
+    template_name = "wagtailredirects/confirm_delete.html"
+    index_url_name = "wagtailredirects:index"
+    delete_url_name = "wagtailredirects:delete"
+    header_icon = "redirect"
 
-    if not permission_policy.user_has_permission_for_instance(
-        request.user, "delete", theredirect
-    ):
-        raise PermissionDenied
+    def delete_action(self):
+        super().delete_action()
+        purge_urls_from_cache(self.object.old_links())
 
-    if request.method == "POST":
-        with transaction.atomic():
-            log(instance=theredirect, action="wagtail.delete")
-            theredirect.delete()
-
-        purge_urls_from_cache(theredirect.old_links())
-
-        messages.success(
-            request,
-            _("Redirect '%(redirect_title)s' deleted.")
-            % {"redirect_title": theredirect.title},
-        )
-        return redirect("wagtailredirects:index")
-
-    return TemplateResponse(
-        request,
-        "wagtailredirects/confirm_delete.html",
-        {
-            "redirect": theredirect,
-        },
-    )
+    def get_success_message(self):
+        return _("Redirect '%(redirect_title)s' deleted.") % {
+            "redirect_title": self.object.title
+        }
 
 
-@permission_checker.require("add")
-def add(request):
-    if request.method == "POST":
-        form = RedirectForm(request.POST, request.FILES)
-        if form.is_valid():
-            with transaction.atomic():
-                theredirect = form.save()
-                log(instance=theredirect, action="wagtail.create")
+class CreateView(generic.CreateView):
+    model = Redirect
+    form_class = RedirectForm
+    permission_policy = permission_policy
+    template_name = "wagtailredirects/add.html"
+    add_url_name = "wagtailredirects:add"
+    index_url_name = "wagtailredirects:index"
+    edit_url_name = "wagtailredirects:edit"
+    error_message = gettext_lazy("The redirect could not be created due to errors.")
+    header_icon = "redirect"
+    _show_breadcrumbs = True
 
-            purge_urls_from_cache(theredirect.old_links())
+    def get_success_message(self, instance):
+        return _("Redirect '%(redirect_title)s' added.") % {
+            "redirect_title": instance.title
+        }
 
-            messages.success(
-                request,
-                _("Redirect '%(redirect_title)s' added.")
-                % {"redirect_title": theredirect.title},
-                buttons=[
-                    messages.button(
-                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
-                        _("Edit"),
-                    )
-                ],
-            )
-            return redirect("wagtailredirects:index")
-        else:
-            messages.error(
-                request, _("The redirect could not be created due to errors.")
-            )
-    else:
-        form = RedirectForm()
-
-    return TemplateResponse(
-        request,
-        "wagtailredirects/add.html",
-        {
-            "form": form,
-            # Remove these when this view is refactored to a generic.CreateView subclass.
-            # Avoid defining new translatable strings.
-            "submit_button_label": generic.CreateView.submit_button_label,
-            "submit_button_active_label": generic.CreateView.submit_button_active_label,
-            "media": form.media,
-        },
-    )
+    def save_instance(self):
+        instance = super().save_instance()
+        purge_urls_from_cache(instance.old_links())
+        return instance
 
 
 @permission_checker.require_any("add")

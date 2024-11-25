@@ -72,7 +72,7 @@ class CloudfrontBackend(BaseBackend):
                 paths_by_distribution_id[distribution_id].add(url_parsed.path)
 
         for distribution_id, paths in paths_by_distribution_id.items():
-            self._create_invalidation(distribution_id, paths)
+            self._create_invalidation(distribution_id, list(paths))
 
     def purge(self, url):
         self.purge_batch([url])

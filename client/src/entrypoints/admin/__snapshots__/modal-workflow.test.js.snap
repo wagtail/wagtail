@@ -45,6 +45,18 @@ HTMLCollection [
           >
             path/to/endpoint
           </div>
+          
+      
+          <form
+            action="/path/to/form/submit"
+            id="form"
+            method="post"
+          >
+            <input
+              name="key"
+              value="value"
+            />
+          </form>
         </div>
         
     

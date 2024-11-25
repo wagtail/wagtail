@@ -1,6 +1,7 @@
 from django.urls import path
 
 from wagtail.contrib.search_promotions import views
+from wagtail.contrib.search_promotions.views.reports import SearchTermsReportView
 
 app_name = "wagtailsearchpromotions"
 urlpatterns = [
@@ -14,5 +15,11 @@ urlpatterns = [
         "queries/chooser/results/",
         views.chooserresults,
         name="chooserresults",
+    ),
+    path("reports/search-terms/", SearchTermsReportView.as_view(), name="search_terms"),
+    path(
+        "reports/search-terms/results/",
+        SearchTermsReportView.as_view(results_only=True),
+        name="search_terms_results",
     ),
 ]
