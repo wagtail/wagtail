@@ -2,7 +2,7 @@
 
 # Theory
 
-## Introduction to Trees
+## Introduction to trees
 
 If you're unfamiliar with trees as an abstract data type, you might want to [review the concepts involved](<https://en.wikipedia.org/wiki/Tree_(data_structure)>).
 
@@ -20,7 +20,7 @@ As a web developer, though, you probably already have a good understanding of tr
 
 The Wagtail admin interface uses the tree to organize content for editing, letting you navigate up and down levels in the tree through its Explorer menu. This method of organization is a good place to start in thinking about your own Wagtail models.
 
-### Nodes and Leaves
+### Nodes and leaves
 
 It might be handy to think of the `Page`-derived models you want to create as being one of two node types: parents and leaves. Wagtail isn't prescriptive in this approach, but it's a good place to start if you're not experienced in structuring your own content types.
 
@@ -67,13 +67,13 @@ class EventPage(Page):
 
 If defined, `subpage_types` and `parent_page_types` will also limit the parent models allowed to contain a leaf. If not, Wagtail will allow any combination of parents and leafs to be associated in the Wagtail tree. Like with index pages, it's a good idea to make sure that the index is actually of the expected model to contain the leaf.
 
-#### Other Relationships
+#### Other relationships
 
 Your `Page`-derived models might have other interrelationships that extend the basic Wagtail tree or depart from it entirely. You could provide functions to navigate between siblings, such as a "Next Post" link on a blog page (`post->post->post`). It might make sense for subtrees to interrelate, such as in a discussion forum (`forum->post->replies`) Skipping across the hierarchy might make sense, too, as all objects of a certain model class might interrelate regardless of their ancestors (`events = EventPage.objects.all`). It's largely up to the models to define their interrelations, the possibilities are endless.
 
 (anatomy_of_a_wagtail_request)=
 
-## Anatomy of a Wagtail Request
+## Anatomy of a Wagtail request
 
 For going beyond the basics of model definition and interrelation, it might help to know how Wagtail handles requests and constructs responses. In short, it goes something like:
 
