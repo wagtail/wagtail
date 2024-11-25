@@ -1,9 +1,9 @@
-import sys
-import os
 from collections.abc import Mapping
-from PIL import Image
 from io import BytesIO
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from PIL import Image
+
 
 def deep_update(source, overrides):
     """Update a nested dictionary or similar mapping.
@@ -45,7 +45,8 @@ def flatten_choices(choices):
             ret[str(key)] = value
     return ret
 
-def reduce_image_size(avatar, size_bound, max_dimensions=(400,400)):
+
+def reduce_image_size(avatar, size_bound, max_dimensions=(400, 400)):
     """
     Reduce an image's file size to a size_bound in kilobytes.
 
@@ -66,7 +67,12 @@ def reduce_image_size(avatar, size_bound, max_dimensions=(400,400)):
 
         while quality > 10:
             temp_buffer.seek(0)
-            img.save(temp_buffer, format="JPEG" if img_ext != "png" else "PNG", quality=quality, optimize=True)
+            img.save(
+                temp_buffer,
+                format="JPEG" if img_ext != "png" else "PNG",
+                quality=quality,
+                optimize=True,
+            )
             file_size_kb = temp_buffer.tell() / kilobyte
 
             if file_size_kb <= size_bound:
@@ -81,6 +87,6 @@ def reduce_image_size(avatar, size_bound, max_dimensions=(400,400)):
             name=avatar.name,
             content_type="image/jpeg" if img_ext != "png" else "PNG",
             size=temp_buffer.tell(),
-            charset=None
+            charset=None,
         )
         return in_mem_avatar
