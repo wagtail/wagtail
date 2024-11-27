@@ -4,12 +4,12 @@ Changelog
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * Add search terms report (Nvdm)
+ * Add search terms report (Noah van der Meer)
  * Add the ability to apply basic Page QuerySet optimizations to `specific()` sub-queries using `select_related` & `prefetch_related` (Andy Babic)
  * Increase `DATA_UPLOAD_MAX_NUMBER_FIELDS` in project template (Matt Westcott)
  * Stop invalid Site hostname records from breaking preview (Matt Westcott)
  * Set sensible defaults for InlinePanel heading and label (Matt Westcott)
- * Limit tags autocompletion to 10 items to avoid performance issues with large number of matching tags (Aayushman Singh)
+ * Limit tags autocompletion to 10 items and add delay to avoid performance issues with large number of matching tags (Aayushman Singh)
  * Add the ability to restrict what types of requests a Pages supports via `allowed_http_methods` (Andy Babic)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
@@ -22,6 +22,8 @@ Changelog
  * Fix: Prevent out-of-order migrations from skipping creation of image/document choose permissions (Matt Westcott)
  * Fix: Use correct connections on multi-database setups in database search backends (Jake Howard)
  * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
+ * Fix: Show the correct privacy status in the sidebar when creating a new page (Joel William)
+ * Fix: Prevent generic model edit view from unquoting non-integer primary keys multiple times (Matt Westcott)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -42,6 +44,8 @@ Changelog
  * Docs: Change title of blog index page in tutorial to avoid slug issues (Thibaud Colas)
  * Docs: Fix `wagtailcache` and `wagtailpagecache` examples to not use quotes for the `fragment_name` (Shiv)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
+ * Docs: Fix link to `HTTPMethod` in `Page.handle_options_request()` docs (Sage Abdullah)
+ * Docs: Improve the Pages Theory page with added & more consistent section headings and admonitions to aid in readability (Clifford Gama)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
@@ -61,6 +65,9 @@ Changelog
  * Maintenance: Test project template for warnings when run against Django pre-release versions (Sage Abdullah)
  * Maintenance: Refactor redirects create/delete views to use generic views (Sage Abdullah)
  * Maintenance: Add JSDoc description, adopt linting recommendations, and add more unit tests for `ModalWorkflow` (LB (Ben) Johnston)
+ * Maintenance: Add support for for a `delay` value in `TagController` to debounce async autocomplete tag fetch requests (Aayushman Singh)
+ * Maintenance: Add unit tests, Storybook stories & JSDoc items for the Stimulus `DrilldownController` (Srishti Jaiswal)
+ * Maintenance: Enhance sidebar preview performance by eliminating duplicate asset loads on preview error (Sage Abdullah)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
