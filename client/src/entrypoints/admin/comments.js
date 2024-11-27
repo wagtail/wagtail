@@ -19,7 +19,7 @@ window.comments = (() => {
 
   function getContentPath(fieldNode) {
     // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
-    if (fieldNode.closest('[data-contentpath-disabled]')) {
+    if (!fieldNode || fieldNode.closest('[data-contentpath-disabled]')) {
       return '';
     }
     let element = fieldNode.closest('[data-contentpath]');

@@ -856,6 +856,7 @@
 * Steven Steinwand
 * Clifford Gama
 * Noah van der Meer
+* Strapchay
 
 ## Translators
 
