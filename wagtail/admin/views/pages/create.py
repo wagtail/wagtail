@@ -358,6 +358,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 show_schedule_publishing_toggle=self.form.show_schedule_publishing_toggle,
                 locale=self.locale,
                 translations=self.translations,
+                parent_page=self.parent_page,
             ),
         ]
         if self.page.is_previewable():

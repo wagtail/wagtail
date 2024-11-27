@@ -2160,9 +2160,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Returns an ``HttpResponse`` with an ``"Allow"`` header containing the list of
         supported HTTP methods for this page. This method is used instead of
-        :meth:`serve` to handle requests when the OPTIONS HTTP verb is detected (and
-        ``http.HTTPMethod.OPTIONS`` is present in :attr:`allowed_http_methods`
-        for this type of page).
+        :meth:`serve` to handle requests when the ``OPTIONS`` HTTP verb is
+        detected (and :class:`HTTPMethod.OPTIONS <python:http.HTTPMethod>` is
+        present in :attr:`allowed_http_methods` for this type of page).
         """
         return HttpResponse(
             headers={"Allow": ", ".join(self.allowed_http_method_names())}

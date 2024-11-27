@@ -855,7 +855,7 @@
 * Aayushman Singh
 * Steven Steinwand
 * Clifford Gama
-* Nvdm
+* Noah van der Meer
 
 ## Translators
 

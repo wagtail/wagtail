@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page, Site
 from wagtail.test.testapp.models import (
@@ -159,6 +160,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_create_with_invalid_data(self):
         preview_url = reverse(
@@ -198,6 +200,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_create_with_m2m_field(self):
         preview_url = reverse(
@@ -418,6 +421,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_edit_clear_preview_data(self):
         preview_session_key = f"wagtail-preview-{self.event_page.id}"
@@ -453,6 +457,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_modes(self):
         preview_url = reverse(
