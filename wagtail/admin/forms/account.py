@@ -20,7 +20,9 @@ from wagtail.utils.utils import reduce_image_size
 
 User = get_user_model()
 
-WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND = getattr(settings, "WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND", 1024)
+WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND = getattr(
+    settings, "WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND", 1024
+)
 
 
 class NotificationPreferencesForm(forms.ModelForm):
@@ -136,13 +138,12 @@ class AvatarPreferencesForm(forms.ModelForm):
                     "Failed to delete old avatar file: %s" % self._original_avatar.name
                 )
 
-            #check and reduce cleaned_data avatar if more than the image size bound specified to the bound
+            # check and reduce cleaned_data avatar if more than the image size bound specified to the bound
             avatar = self.cleaned_data["avatar"]
-            avatar_size = avatar.size/1024
+            avatar_size = avatar.size / 1024
             if avatar_size > WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND:
                 updated_avatar = reduce_image_size(
-                    avatar=avatar,
-                    size_bound=WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND
+                    avatar=avatar, size_bound=WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND
                 )
 
         if updated_avatar is not None:
