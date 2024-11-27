@@ -17,7 +17,7 @@ export const shortenLabel = (label) => {
   return shortened;
 };
 
-const ENTER_KEY_CODE = 13
+const ENTER_KEY_CODE = 13;
 
 class TooltipEntity extends Component {
   constructor(props) {
@@ -113,13 +113,13 @@ class TooltipEntity extends Component {
                   target="_blank"
                   rel="noreferrer"
                   className="Tooltip__link"
-                  onKeyDown={(e)=>{
-                    e.preventDefault()
-                    e.stopPropagation()
-                    if(e?.keyCode === ENTER_KEY_CODE){
-                      window.open(url, "_blank", "noopener,noreferrer")
-                      this.closeTooltip()
-                    };
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (e?.keyCode === ENTER_KEY_CODE) {
+                      window.open(url, '_blank', 'noopener,noreferrer');
+                      this.closeTooltip();
+                    }
                   }}
                 >
                   {shortenLabel(label)}
@@ -129,8 +129,9 @@ class TooltipEntity extends Component {
               <button
                 className="button button-small Tooltip__button"
                 onClick={this.onEdit}
-                onKeyDown={(e)=>{
-                  if(e?.keyCode === ENTER_KEY_CODE)this.onEdit(e)}}
+                onKeyDown={(e) => {
+                  if (e?.keyCode === ENTER_KEY_CODE) this.onEdit(e);
+                }}
               >
                 Edit
               </button>
@@ -138,8 +139,9 @@ class TooltipEntity extends Component {
               <button
                 className="button button-small button-secondary no Tooltip__button"
                 onClick={this.onRemove}
-                onKeyDown={(e)=>{
-                  if(e?.keyCode === ENTER_KEY_CODE) this.onRemove(e)}}
+                onKeyDown={(e) => {
+                  if (e?.keyCode === ENTER_KEY_CODE) this.onRemove(e);
+                }}
               >
                 Remove
               </button>

@@ -34,8 +34,8 @@ class Portal extends Component<{
 
   portal: HTMLElement;
   CONTROL_KEY_CODE: number = 17;
-  K_KEY_CODE: number = 75
-  ENTER_KEY_CODE: number = 13
+  K_KEY_CODE: number = 75;
+  ENTER_KEY_CODE: number = 13;
 
   constructor(props) {
     super(props);
@@ -46,9 +46,10 @@ class Portal extends Component<{
   }
 
   onCloseEvent(event: MouseEvent) {
-    const isLinkTooltipKeyTriggerEvent = this.checkTooltipKeyTriggerEvent(event);
+    const isLinkTooltipKeyTriggerEvent =
+      this.checkTooltipKeyTriggerEvent(event);
 
-    if(!isLinkTooltipKeyTriggerEvent){
+    if (!isLinkTooltipKeyTriggerEvent) {
       const { onClose } = this.props;
       const target = event.target as Element;
 
@@ -58,12 +59,17 @@ class Portal extends Component<{
     }
   }
 
-  checkTooltipKeyTriggerEvent(event: MouseEvent | KeyboardEvent){
-    if(event instanceof KeyboardEvent){
-      if(event?.ctrlKey && event?.keyCode === this.K_KEY_CODE) return true
-      if([this.CONTROL_KEY_CODE, this.K_KEY_CODE, this.ENTER_KEY_CODE].includes(event?.keyCode)) return true
+  checkTooltipKeyTriggerEvent(event: MouseEvent | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event?.ctrlKey && event?.keyCode === this.K_KEY_CODE) return true;
+      if (
+        [this.CONTROL_KEY_CODE, this.K_KEY_CODE, this.ENTER_KEY_CODE].includes(
+          event?.keyCode,
+        )
+      )
+        return true;
     }
-    return false
+    return false;
   }
 
   componentDidMount() {

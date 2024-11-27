@@ -42,7 +42,7 @@ const DraftEditorLeaf = require('draft-js/lib/DraftEditorLeaf.react');
 const { isOptionKeyCommand, hasCommandModifier } = KeyBindingUtil;
 
 const COMMENT_STYLE_IDENTIFIER = 'COMMENT-';
-const LINK_TOOLTIP_KEYCODE = 75
+const LINK_TOOLTIP_KEYCODE = 75;
 // Hack taken from https://github.com/springload/draftail/blob/main/lib/api/behavior.js#L30
 // Can be replaced with usesMacOSHeuristics once we upgrade draft-js
 const IS_MAC_OS = isOptionKeyCommand({ altKey: true } as any) === true;
@@ -758,18 +758,30 @@ function CommentableEditor({
     };
   }, [editorState, inlineStyles]);
 
-  function isLinkTooltipCommand(state: EditorState){
+  function isLinkTooltipCommand(state: EditorState) {
     const selection = state.getSelection();
     const contentState = state.getCurrentContent();
     const anchorKey = contentState.getBlockForKey(selection.getAnchorKey());
-    const blockWithLinkAtBeginning = anchorKey
-    const blockWithLinkAtEnd = contentState.getBlockForKey(selection.getFocusKey())
-    const entityKeyAtStart = blockWithLinkAtBeginning.getEntityAt(selection.getStartOffset())
-    const entityKeyAtEnd = blockWithLinkAtEnd.getEntityAt(selection.getEndOffset())
+    const blockWithLinkAtBeginning = anchorKey;
+    const blockWithLinkAtEnd = contentState.getBlockForKey(
+      selection.getFocusKey(),
+    );
+    const entityKeyAtStart = blockWithLinkAtBeginning.getEntityAt(
+      selection.getStartOffset(),
+    );
+    const entityKeyAtEnd = blockWithLinkAtEnd.getEntityAt(
+      selection.getEndOffset(),
+    );
     // Check if selection is inside a LINK entity
-    if ((entityKeyAtStart && contentState.getEntity(entityKeyAtStart).getType() === "LINK") || (entityKeyAtEnd && contentState.getEntity(entityKeyAtEnd).getType()=== "LINK")) return true
-      return false
-    }
+    if (
+      (entityKeyAtStart &&
+        contentState.getEntity(entityKeyAtStart).getType() === 'LINK') ||
+      (entityKeyAtEnd &&
+        contentState.getEntity(entityKeyAtEnd).getType() === 'LINK')
+    )
+      return true;
+    return false;
+  }
 
   return (
     <DraftailEditor
@@ -823,9 +835,9 @@ function CommentableEditor({
             if (isCommentShortcut(e)) {
               return 'comment';
             }
-            if(e?.keyCode === LINK_TOOLTIP_KEYCODE && hasCommandModifier(e)){
-              e.stopPropagation()
-              return "link-tooltip"
+            if (e?.keyCode === LINK_TOOLTIP_KEYCODE && hasCommandModifier(e)) {
+              e.stopPropagation();
+              return 'link-tooltip';
             }
             return undefined;
           },
@@ -871,16 +883,23 @@ function CommentableEditor({
               );
               return 'handled';
             }
-            if(command === "link-tooltip"){
-              const commandTriggeredInLinkEntity = isLinkTooltipCommand(state)
+            if (command === 'link-tooltip') {
+              const commandTriggeredInLinkEntity = isLinkTooltipCommand(state);
 
-              if(commandTriggeredInLinkEntity){
-                const currentParent = window.getSelection()?.focusNode?.parentElement?.closest('[data-draftail-trigger]')
+              if (commandTriggeredInLinkEntity) {
+                const currentParent = window
+                  .getSelection()
+                  ?.focusNode?.parentElement?.closest(
+                    '[data-draftail-trigger]',
+                  );
                 // trigger mouseEvent to Activate tooltip
-                const mouseUpEvent = new MouseEvent('mouseup', {bubbles: true, cancelable: true });
+                const mouseUpEvent = new MouseEvent('mouseup', {
+                  bubbles: true,
+                  cancelable: true,
+                });
                 currentParent?.dispatchEvent(mouseUpEvent);
 
-                return "handled"
+                return 'handled';
               }
             }
             return 'not-handled';
