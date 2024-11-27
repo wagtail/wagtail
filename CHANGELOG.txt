@@ -46,6 +46,7 @@ Changelog
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
  * Docs: Fix link to `HTTPMethod` in `Page.handle_options_request()` docs (Sage Abdullah)
  * Docs: Improve the Pages Theory page with added & more consistent section headings and admonitions to aid in readability (Clifford Gama)
+ * Docs: Fix non-functional link to the community guidelines in the Your first contribution page (Ankit Kumar)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)

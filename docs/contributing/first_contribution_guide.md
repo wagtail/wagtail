@@ -49,12 +49,12 @@ Below is a checklist. There are many like these you can copy for yourself as you
 
 Make an account on [Wagtail Slack](https://github.com/wagtail/wagtail/wiki/Slack) server, this is the way many of the community interact day to day. Introduce yourself on `#new-contributors` and join some of the other channels, remember to keep your intro short and be nice to others. After this, join [GitHub](https://github.com/) and set up your profile. It's really helpful to the community if your name can be added to your profiles in both communities and an image. It does not have to be your public name or a real image if you want to keep that private but please avoid it staying as the 'default avatar'.
 
-You may also want to join StackOverflow and [follow the Wagtail tag](https://stackoverflow.com/questions/tagged/wagtail), this way you can upvote great answers to questions you have or maybe consider contributing answers yourself.
+You may also want to join StackOverflow and [follow the Wagtail tag](https://stackoverflow.com/questions/tagged/wagtail), this way you can upvote great answers to questions you have or maybe consider contributing answers yourself. Before you dive in, take a moment to review the [community guidelines](https://github.com/wagtail/wagtail/blob/main/CODE_OF_CONDUCT.md) to get a grasp on the expectations for participation.
 
 #### Checklist
 
 ```markdown
--   [ ] Read the [community guidelines](https://github.com/wagtail/wagtail/blob/main/CODE_OF_CONDUCT.md)
+-   [ ] Read the community guidelines
 -   [ ] Join GitHub
 -   [ ] Add your preferred name and image to your GitHub profile
 -   [ ] Join Slack
