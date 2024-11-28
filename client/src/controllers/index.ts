@@ -14,7 +14,6 @@ import { DrilldownController } from './DrilldownController';
 import { DropdownController } from './DropdownController';
 import { InitController } from './InitController';
 import { KeyboardController } from './KeyboardController';
-import { LinkController } from './LinkController';
 import { OrderableController } from './OrderableController';
 import { PreviewController } from './PreviewController';
 import { ProgressController } from './ProgressController';
@@ -51,7 +50,6 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
   { controllerConstructor: InitController, identifier: 'w-init' },
   { controllerConstructor: KeyboardController, identifier: 'w-kbd' },
-  { controllerConstructor: LinkController, identifier: 'w-link' },
   { controllerConstructor: OrderableController, identifier: 'w-orderable' },
   { controllerConstructor: PreviewController, identifier: 'w-preview' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
