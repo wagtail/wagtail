@@ -72,6 +72,7 @@ Changelog
  * Maintenance: Add unit tests, Storybook stories & JSDoc items for the Stimulus `DrilldownController` (Srishti Jaiswal)
  * Maintenance: Enhance sidebar preview performance by eliminating duplicate asset loads on preview error (Sage Abdullah)
  * Maintenance: Remove unused `LinkController` (`w-link`) (Sage Abdullah)
+ * Maintenance: Refactor settings `EditView` to make better use of generic `EditView` (Sage Abdullah)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT

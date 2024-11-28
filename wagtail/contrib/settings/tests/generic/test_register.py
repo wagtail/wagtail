@@ -21,4 +21,4 @@ class GenericSettingRegisterTestCase(WagtailTestUtils, TestCase):
 
     def test_icon(self):
         admin = self.client.get(reverse("wagtailadmin_home"))
-        self.assertContains(admin, "icon-setting-tag")
+        self.assertContains(admin, '"tag"')
