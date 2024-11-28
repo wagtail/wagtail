@@ -989,7 +989,7 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
             "wagtailsearchpromotions/search_terms_report_results.html",
         )
         self.assertBreadcrumbs(
-            [{"url": "", "label": "Search Terms"}],
+            [{"url": "", "label": "Search terms"}],
             response.content,
         )
 
@@ -997,7 +997,7 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
 
         soup = self.get_soup(response.content)
         self.assertActiveFilterNotRendered(soup)
-        self.assertPageTitle(soup, "Search Terms - Wagtail")
+        self.assertPageTitle(soup, "Search terms - Wagtail")
 
     def test_get_with_no_permissions(self):
         self.user.is_superuser = False
