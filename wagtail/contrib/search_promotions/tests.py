@@ -1036,14 +1036,18 @@ class TestFilteredQueryHitsView(BaseReportViewTestCase):
 
     def setUp(self):
         self.user = self.login()
-        self.query_hit = Query.get("Found")
+        self.query_hit = Query.get("This will be found")
         self.query_hit.add_hit(timezone.now())
 
-    def test_filter_by_query_string(self):
-        response = self.get(params={"query_string": "Found"})
+    def test_search_by_query_string(self):
+        response = self.get(params={"q": "Found"})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Found")
+        self.assertContains(response, "this will be found")
+        self.assertNotContains(response, "There are no results.")
+        self.assertActiveFilterNotRendered(self.get_soup(response.content))
 
-        response = self.get(params={"query_string": "Not found"})
+        response = self.get(params={"q": "Not found"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no results.")
+        self.assertNotContains(response, "this will be found")
+        self.assertActiveFilterNotRendered(self.get_soup(response.content))
