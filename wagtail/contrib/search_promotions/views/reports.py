@@ -27,11 +27,12 @@ class SearchTermsReportView(ReportView):
     is_searchable = True
     search_fields = ["query_string"]
     filterset_class = SearchTermsReportFilterSet
+    default_ordering = "-_hits"
     index_url_name = "wagtailsearchpromotions:search_terms"
     index_results_url_name = "wagtailsearchpromotions:search_terms_results"
     columns = [
-        Column("query_string", label=_("Search term(s)")),
-        Column("_hits", label=_("Views")),
+        Column("query_string", label=_("Search term(s)"), sort_key="query_string"),
+        Column("_hits", label=_("Views"), sort_key="_hits"),
     ]
     export_headings = {
         "query_string": _("Search term(s)"),
