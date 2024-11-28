@@ -1037,7 +1037,8 @@ class TestFilteredQueryHitsView(BaseReportViewTestCase):
     def setUp(self):
         self.user = self.login()
         self.query_hit = Query.get("This will be found")
-        self.query_hit.add_hit(timezone.now())
+        self.date = timezone.now().date()
+        self.query_hit.add_hit(date=self.date)
 
     def test_search_by_query_string(self):
         response = self.get(params={"q": "Found"})
@@ -1051,3 +1052,23 @@ class TestFilteredQueryHitsView(BaseReportViewTestCase):
         self.assertContains(response, "There are no results.")
         self.assertNotContains(response, "this will be found")
         self.assertActiveFilterNotRendered(self.get_soup(response.content))
+
+    def test_filter_by_date(self):
+        params = {
+            "hit_date_from": self.date.replace(day=1, month=1),
+        }
+        response = self.get(params=params)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "this will be found")
+        self.assertNotContains(response, "There are no results.")
+        self.assertActiveFilter(
+            self.get_soup(response.content), "hit_date_from", params["hit_date_from"]
+        )
+
+        params["hit_date_from"] = self.date.replace(year=self.date.year + 1)
+        params["hit_date_to"] = self.date.replace(year=self.date.year + 2)
+
+        response = self.get(params=params)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There are no results.")
+        self.assertNotContains(response, "this will be found")
