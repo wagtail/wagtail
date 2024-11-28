@@ -233,11 +233,8 @@ class TestGenericSettingEditView(BaseTestGenericSettingView):
     def test_register_with_icon(self):
         edit_url = reverse("wagtailsettings:edit", args=("tests", "IconGenericSetting"))
         edit_response = self.client.get(edit_url, follow=True)
-
-        self.assertContains(
-            edit_response,
-            """<svg class="icon icon-icon-setting-tag w-header__glyph" aria-hidden="true"><use href="#icon-icon-setting-tag"></use></svg>""",
-        )
+        soup = self.get_soup(edit_response.content)
+        self.assertIsNotNone(soup.select_one("h2 svg use[href='#icon-tag']"))
 
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})

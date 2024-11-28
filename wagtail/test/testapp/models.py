@@ -1839,12 +1839,12 @@ class ImportantPagesGenericSetting(BaseGenericSetting):
         verbose_name_plural = _("Important pages settings")
 
 
-@register_setting(icon="icon-setting-tag")
+@register_setting(icon="tag")
 class IconSiteSetting(BaseSiteSetting):
     pass
 
 
-@register_setting(icon="icon-setting-tag")
+@register_setting(icon="tag")
 class IconGenericSetting(BaseGenericSetting):
     pass
 
