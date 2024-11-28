@@ -998,7 +998,7 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         self.assertTemplateUsed(response, "wagtailadmin/reports/base_report.html")
         self.assertTemplateUsed(
             response,
-            "wagtailsearchpromotions/search_terms_report_results.html",
+            "wagtailadmin/reports/base_report_results.html",
         )
         self.assertBreadcrumbs(
             [{"url": "", "label": "Search terms"}],

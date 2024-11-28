@@ -21,7 +21,6 @@ class SearchTermsReportFilterSet(WagtailFilterSet):
 
 
 class SearchTermsReportView(ReportView):
-    results_template_name = "wagtailsearchpromotions/search_terms_report_results.html"
     page_title = _("Search terms")
     header_icon = "search"
     is_searchable = True
