@@ -70,6 +70,7 @@ Changelog
  * Maintenance: Add support for for a `delay` value in `TagController` to debounce async autocomplete tag fetch requests (Aayushman Singh)
  * Maintenance: Add unit tests, Storybook stories & JSDoc items for the Stimulus `DrilldownController` (Srishti Jaiswal)
  * Maintenance: Enhance sidebar preview performance by eliminating duplicate asset loads on preview error (Sage Abdullah)
+ * Maintenance: Remove unused `LinkController` (`w-link`) (Sage Abdullah)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
