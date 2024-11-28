@@ -980,6 +980,18 @@ class TestQueryPopularity(TestCase):
 class TestQueryHitsReportView(BaseReportViewTestCase):
     url_name = "wagtailsearchpromotions:search_terms"
 
+    @classmethod
+    def setUpTestData(self):
+        self.query = Query.get("A query with three hits")
+        self.query.add_hit()
+        self.query.add_hit()
+        self.query.add_hit()
+        Query.get("a query with no hits")
+        Query.get("A query with one hit").add_hit()
+        query = Query.get("A query with two hits")
+        query.add_hit()
+        query.add_hit()
+
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
@@ -993,9 +1005,21 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
             response.content,
         )
 
-        self.assertContains(response, "There are no results.")
-
         soup = self.get_soup(response.content)
+        trs = soup.select("main tr")
+
+        # Default ordering should be by hits descending
+        self.assertEqual(
+            [[cell.text.strip() for cell in tr.select("th,td")] for tr in trs],
+            [
+                ["Search term(s)", "Views"],
+                ["a query with three hits", "3"],
+                ["a query with two hits", "2"],
+                ["a query with one hit", "1"],
+            ],
+        )
+
+        self.assertNotContains(response, "There are no results.")
         self.assertActiveFilterNotRendered(soup)
         self.assertPageTitle(soup, "Search terms - Wagtail")
 
@@ -1016,8 +1040,16 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         response = self.get(params={"export": "csv"})
         self.assertEqual(response.status_code, 200)
 
-        data_lines = response.getvalue().decode().split("\n")
-        self.assertEqual(data_lines[0], "Search term(s),Views\r")
+        data_lines = response.getvalue().decode().splitlines()
+        self.assertEqual(
+            data_lines,
+            [
+                "Search term(s),Views",
+                "a query with three hits,3",
+                "a query with two hits,2",
+                "a query with one hit,1",
+            ],
+        )
 
     def test_xlsx_export(self):
         response = self.get(params={"export": "xlsx"})
@@ -1026,9 +1058,48 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
         worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
         cell_array = [[cell.value for cell in row] for row in worksheet.rows]
         self.assertEqual(
-            cell_array[0],
-            ["Search term(s)", "Views"],
+            cell_array,
+            [
+                ["Search term(s)", "Views"],
+                ["a query with three hits", 3],
+                ["a query with two hits", 2],
+                ["a query with one hit", 1],
+            ],
         )
+
+    def test_ordering(self):
+        cases = {
+            "query_string": [
+                ["a query with one hit", "1"],
+                ["a query with three hits", "3"],
+                ["a query with two hits", "2"],
+            ],
+            "-query_string": [
+                ["a query with two hits", "2"],
+                ["a query with three hits", "3"],
+                ["a query with one hit", "1"],
+            ],
+            "_hits": [
+                ["a query with one hit", "1"],
+                ["a query with two hits", "2"],
+                ["a query with three hits", "3"],
+            ],
+            "-_hits": [
+                ["a query with three hits", "3"],
+                ["a query with two hits", "2"],
+                ["a query with one hit", "1"],
+            ],
+        }
+        for ordering, results in cases.items():
+            with self.subTest(ordering=ordering):
+                response = self.get(params={"ordering": ordering})
+                self.assertEqual(response.status_code, 200)
+                soup = self.get_soup(response.content)
+                trs = soup.select("main tbody tr")
+                self.assertEqual(
+                    [[cell.text.strip() for cell in tr.select("td")] for tr in trs],
+                    results,
+                )
 
 
 class TestFilteredQueryHitsView(BaseReportViewTestCase):
