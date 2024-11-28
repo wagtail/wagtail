@@ -1,4 +1,4 @@
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django_filters import CharFilter, DateFromToRangeFilter
 
 from wagtail.admin.auth import permission_denied
@@ -29,7 +29,7 @@ class SearchTermsReportFilterSet(WagtailFilterSet):
 
 class SearchTermsReportView(ReportView):
     results_template_name = "wagtailsearchpromotions/search_terms_report_results.html"
-    page_title = _("Search Terms")
+    page_title = _("Search terms")
     header_icon = "search"
     filterset_class = SearchTermsReportFilterSet
     index_url_name = "wagtailsearchpromotions:search_terms"
