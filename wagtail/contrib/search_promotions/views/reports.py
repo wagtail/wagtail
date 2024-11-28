@@ -9,7 +9,7 @@ from wagtail.contrib.search_promotions.models import Query
 
 
 class SearchTermsReportFilterSet(WagtailFilterSet):
-    created_at = DateFromToRangeFilter(
+    hit_date = DateFromToRangeFilter(
         label=_("Date"),
         field_name="daily_hits__date",
         widget=DateRangePickerWidget,
