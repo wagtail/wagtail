@@ -1,7 +1,7 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, JsonResponse
 from taggit.models import Tag, TagBase
-from django.conf import settings
 
 WAGTAIL_TAGS_AUTOCOMPLETE_LIMIT = getattr(settings, "WAGTAIL_TAGS_AUTOCOMPLETE_LIMIT", 10)
 
