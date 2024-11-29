@@ -166,4 +166,141 @@ describe('ZoneController', () => {
       expect(element.classList.contains('hovered')).toBe(false);
     });
   });
+
+  describe('initial mode value based on class', () => {
+    it('should set mode value to active when initial class matches active class', async () => {
+      await setup(`
+        <div
+          class="mode-zone"
+          data-controller="w-zone"
+          data-w-zone-active-class="mode-zone"
+          data-w-zone-inactive-class="w-hidden"
+        ></div>
+      `);
+      const element = document.querySelector('div');
+      await jest.runAllTimersAsync();
+      expect(element.getAttribute('data-w-zone-mode-value')).toBe('active');
+    });
+
+    it('should set mode value to empty when initial class matches inactive class', async () => {
+      await setup(`
+        <div
+          class="inactive"
+          data-controller="w-zone"
+          data-w-zone-active-class="mode-zone"
+          data-w-zone-inactive-class="inactive"
+        ></div>
+      `);
+
+      const element = document.querySelector('div');
+      await jest.runAllTimersAsync();
+      expect(element.getAttribute('data-w-zone-mode-value')).toBe('');
+    });
+  });
+
+  describe('switch method', () => {
+    it('should add active classes & remove inactive classes when key is truthy', async () => {
+      await setup(`
+        <div
+          class="switch-zone w-hidden"
+          data-controller="w-zone"
+          data-action="custom-event->w-zone#switch"
+          data-w-zone-active-class=""
+          data-w-zone-inactive-class="w-hidden"
+          data-w-zone-switch-key-value="active"
+        ></div>
+      `);
+
+      const element = document.querySelector('.switch-zone');
+      const event = new CustomEvent('custom-event', {
+        detail: { active: true },
+      });
+      element.dispatchEvent(event);
+      await jest.runAllTimersAsync();
+      expect(element.className).toBe('switch-zone');
+    });
+
+    it('should add inactive classes & remove active classes when key is falsy', async () => {
+      await setup(`
+        <div
+          class="switch-zone"
+          data-controller="w-zone"
+          data-action="custom-event->w-zone#switch"
+          data-w-zone-active-class=""
+          data-w-zone-inactive-class="w-hidden"
+          data-w-zone-switch-key-value="active"
+        ></div>
+      `);
+
+      const element = document.querySelector('.switch-zone');
+      const event = new CustomEvent('custom-event', {
+        detail: { active: false },
+      });
+      element.dispatchEvent(event);
+      await jest.runAllTimersAsync();
+      expect(element.className).toBe('switch-zone w-hidden');
+    });
+
+    it('should add inactive classes & remove active classes when key is negated & event-detail key is truthy', async () => {
+      await setup(`
+        <div
+          class="switch-zone"
+          data-controller="w-zone"
+          data-w-zone-inactive-class="w-hidden"
+          data-action="custom-event->w-zone#switch"
+          data-w-zone-switch-key-value="!active"
+        ></div>
+      `);
+
+      const element = document.querySelector('.switch-zone');
+      const event = new CustomEvent('custom-event', {
+        detail: { active: true },
+      });
+      element.dispatchEvent(event);
+      await jest.runAllTimersAsync();
+      expect(element.className).toBe('switch-zone w-hidden'); // Negated key means truthy value results in inactive
+    });
+
+    it('should use the fallback key of active when no key is provided', async () => {
+      await setup(`
+        <div
+          class="switch-zone w-hidden"
+          data-controller="w-zone"
+          data-w-zone-active-class=""
+          data-w-zone-inactive-class="w-hidden"
+          data-action="custom-event->w-zone#switch"
+        ></div>
+      `);
+
+      const element = document.querySelector('.switch-zone');
+      const event = new CustomEvent('custom-event', {
+        detail: { active: true },
+      });
+      element.dispatchEvent(event);
+      await jest.runAllTimersAsync();
+      expect(element.className).toBe('switch-zone');
+    });
+
+    it('should prioritize event-detail over params when both are present', async () => {
+      await setup(`
+        <div
+          class="switch-zone w-hidden"
+          data-controller="w-zone"
+          data-w-zone-active-class=""
+          data-w-zone-inactive-class="w-hidden"
+          data-action="custom-event->w-zone#switch"
+        ></div>
+      `);
+
+      const element = document.querySelector('.switch-zone');
+      const event = new CustomEvent('custom-event', {
+        detail: { active: true },
+      });
+      event.params = { active: false };
+
+      element.dispatchEvent(event);
+      await jest.runAllTimersAsync();
+      expect(element.className).toBe('switch-zone'); // event-detail take precedence
+    });
+  });
 });
