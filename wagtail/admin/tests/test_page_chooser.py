@@ -371,11 +371,21 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
         return self.client.get(reverse("wagtailadmin_choose_page_search"), params or {})
 
     def test_simple(self):
-        response = self.get({"q": "foobarbaz"})
+        response = self.get({"q": "foobarbaz", "allow_external_link": "true"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
         self.assertContains(response, "There is 1 match")
         self.assertContains(response, "foobarbaz")
+
+        # parent page link should preserve the allow_external_link parameter
+        expected_url = (
+            reverse("wagtailadmin_choose_page_child", args=[self.root_page.id])
+            + "?allow_external_link=true"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{expected_url}" class="navigate-parent">{self.root_page.title}</a>',
+        )
 
     def test_partial_match(self):
         response = self.get({"q": "fooba"})
