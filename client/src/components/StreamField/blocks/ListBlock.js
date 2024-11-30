@@ -20,7 +20,7 @@ import {
 class ListChild extends BaseSequenceChild {
   getState() {
     return {
-      id: this.id,
+      id: this.id || null,
       value: this.block.getState(),
     };
   }
@@ -31,7 +31,7 @@ class ListChild extends BaseSequenceChild {
 
   setState({ value, id }) {
     this.block.setState(value);
-    this.id = id;
+    this.id = id === undefined ? null : id;
   }
 
   setValue(value) {
@@ -142,7 +142,8 @@ export class ListBlock extends BaseSequenceBlock {
   setState(blocks) {
     this.clear();
     blocks.forEach(({ value, id }, i) => {
-      this.insert(value, i, { id: id || uuidv4() });
+      const validId = id === undefined ? uuidv4() : id;
+      this.insert(value, i, { id: id || validId });
     });
   }
 
@@ -154,7 +155,7 @@ export class ListBlock extends BaseSequenceBlock {
   _getChildDataForInsertion() {
     const blockDef = this.blockDef.childBlockDef;
     const initialState = this.blockDef.initialChildState;
-    return [blockDef, initialState];
+    return [blockDef, initialState, uuidv4()];
   }
 
   _createChild(
