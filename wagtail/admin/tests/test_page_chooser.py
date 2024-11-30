@@ -65,11 +65,19 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
 
         checkbox_value = str(self.child_page.id)
         decoded_content = response.content.decode()
+        response_json = json.loads(decoded_content)
+        self.assertEqual(response_json["step"], "browse")
+        response_html = response_json["html"]
 
-        self.assertIn(f'value=\\"{checkbox_value}\\"', decoded_content)
+        self.assertIn(f'value="{checkbox_value}"', response_html)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        soup = self.get_soup(response_html)
+        search_url = soup.find("form", role="search")["action"]
+        search_query_params = parse_qs(urlsplit(search_url).query)
+        self.assertEqual(search_query_params["multiple"], ["1"])
 
     @override_settings(USE_THOUSAND_SEPARATOR=False)
     def test_multiple_chooser_view_without_thousand_separator(self):

@@ -11,7 +11,7 @@
     - `search_results_url` - URL to be used for async requests to search results, if not provided, the form's action URL will be used
     - `search_target` - A selector string to be used as the target for the search results to be swapped into. Defaults to '#listing-results'
     - `search_disable_async` - If True, the default header async search functionality will not be used
-    - `query_parameters` - a query string (without the '?') to be placed after the search URL
+    - `query_parameters` - a query string (with or without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
     - `merged` - if true, add the classname 'w-header--merged'
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
@@ -42,7 +42,7 @@
             {% if search_url %}
                 <form
                     class="col search-form"
-                    action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}"
+                    action="{% url search_url %}{% if query_parameters %}{% if query_parameters.0 != '?' %}?{% endif %}{{ query_parameters }}{% endif %}"
                     method="get"
                     novalidate
                     role="search"
