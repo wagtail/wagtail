@@ -44,8 +44,9 @@ class AdminTagWidget(TagWidget):
 
         # Handle TAG_SPACES_ALLOWED with backward compatibility
         tag_spaces_allowed = getattr(
-            settings, "WAGTAIL_TAGS_SPACES_ALLOWED",
-            getattr(settings, "TAG_SPACES_ALLOWED", True)  
+            settings,
+            "WAGTAIL_TAGS_SPACES_ALLOWED",
+            getattr(settings, "TAG_SPACES_ALLOWED", True),
         )
 
         if hasattr(settings, "TAG_SPACES_ALLOWED"):
@@ -55,9 +56,10 @@ class AdminTagWidget(TagWidget):
                 RemovedInWagtail70Warning,
             )
         tag_spaces_allowed = getattr(
-            settings, "WAGTAIL_TAGS_SPACES_ALLOWED",
-            getattr(settings, "TAG_SPACES_ALLOWED", True)  # Fallback to old setting
-            )
+            settings,
+            "WAGTAIL_TAGS_SPACES_ALLOWED",
+            getattr(settings, "TAG_SPACES_ALLOWED", True),  # Fallback to old setting
+        )
 
         if tag_spaces_allowed:
             help_text = _(
@@ -66,17 +68,15 @@ class AdminTagWidget(TagWidget):
         else:
             help_text = _("Tags can only consist of a single word, no spaces allowed.")
 
-            
         if hasattr(settings, "TAG_LIMIT"):
             warn(
-            "The setting 'TAG_LIMIT' is deprecated. "
-            "Please use 'WAGTAIL_TAGS_LIMIT' instead.",
-            RemovedInWagtail70Warning,
-        )
+                "The setting 'TAG_LIMIT' is deprecated. "
+                "Please use 'WAGTAIL_TAGS_LIMIT' instead.",
+                RemovedInWagtail70Warning,
+            )
         # Handle TAG_LIMIT with backward compatibility
         tag_limit = getattr(
-            settings, "WAGTAIL_TAGS_LIMIT",
-            getattr(settings, "TAG_LIMIT", None)
+            settings, "WAGTAIL_TAGS_LIMIT", getattr(settings, "TAG_LIMIT", None)
         )
 
         context["widget"]["help_text"] = help_text

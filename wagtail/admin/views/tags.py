@@ -4,6 +4,7 @@ from taggit.models import Tag, TagBase
 
 TAGS_AUTOCOMPLETE_LIMIT = 10
 
+
 def autocomplete(request, app_name=None, model_name=None):
     if app_name and model_name:
         try:

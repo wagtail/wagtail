@@ -570,6 +570,7 @@ class TestAdminTagWidget(TestCase):
                 {"allowSpaces": False, "tagLimit": 3, "autocompleteOnly": False},
             ],
         )
+
     @override_settings(TAG_SPACES_ALLOWED=False)
     def test_tag_spaces_allowed_deprecation_warning(self):
         """Checks that a deprecation warning is raised for TAG_SPACES_ALLOWED"""
@@ -579,7 +580,13 @@ class TestAdminTagWidget(TestCase):
             widget = widgets.AdminTagWidget()
             widget.render("tags", None, attrs={"id": "alpha"})
 
-            self.assertTrue(any(issubclass(warning.category, RemovedInWagtail70Warning) for warning in w))
+            self.assertTrue(
+                any(
+                    issubclass(warning.category, RemovedInWagtail70Warning)
+                    for warning in w
+                )
+            )
+
 
 class TestTagField(TestCase):
     def setUp(self):
