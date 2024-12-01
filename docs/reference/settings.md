@@ -800,7 +800,7 @@ Tags can only consist of a single word, no spaces allowed. The default setting i
 WAGTAIL_TAG_LIMIT = 5
 ```
 
-Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is `10`, meaning a limit of 10 on tags.
+Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is `None`, meaning no limit on tags.
 
 ## Static files
 
