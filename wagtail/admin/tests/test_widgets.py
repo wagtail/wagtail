@@ -2,6 +2,7 @@ import json
 import re
 from html import unescape
 from warnings import warn
+
 from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -12,8 +13,8 @@ from wagtail.admin.forms.tags import TagField
 from wagtail.models import Page
 from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
-
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
+
 
 class TestAdminPageChooserWidget(TestCase):
     @classmethod
