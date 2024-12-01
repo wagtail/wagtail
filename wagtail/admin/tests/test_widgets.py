@@ -1,7 +1,7 @@
 import json
 import re
 from html import unescape
-from warnings import warn
+import warnings
 
 from django import forms
 from django.test import TestCase
@@ -574,8 +574,8 @@ class TestAdminTagWidget(TestCase):
     @override_settings(TAG_SPACES_ALLOWED=False)
     def test_tag_spaces_allowed_deprecation_warning(self):
         """Checks that a deprecation warning is raised for TAG_SPACES_ALLOWED"""
-        with warn.catch_warnings(record=True) as w:
-            warn.simplefilter("always")
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
 
             widget = widgets.AdminTagWidget()
             widget.render("tags", None, attrs={"id": "alpha"})
