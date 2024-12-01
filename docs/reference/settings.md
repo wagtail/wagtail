@@ -778,10 +778,10 @@ See [](private_pages) for more details.
 
 ## Tags
 
-### `WAGTAIL_TAGGIT_CASE_INSENSITIVE`
+### `TAGGIT_CASE_INSENSITIVE`
 
 ```python
-WAGTAIL_TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_CASE_INSENSITIVE = True
 ```
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behavior is preferable.
