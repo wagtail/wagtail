@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import Http404, JsonResponse
 from taggit.models import Tag, TagBase
 
-WAGTAIL_TAGS_AUTOCOMPLETE_LIMIT = getattr(settings, "WAGTAIL_TAGS_AUTOCOMPLETE_LIMIT", 10)
+WAGTAIL_TAGS_AUTOCOMPLETE_LIMIT = 10
 
 def autocomplete(request, app_name=None, model_name=None):
     if app_name and model_name:
