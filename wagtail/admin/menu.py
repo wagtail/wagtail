@@ -43,9 +43,6 @@ class MenuItem(metaclass=MediaDefiningClass):
         """
         return True
 
-    def is_active(self, request):
-        return request.path.startswith(str(self.url))
-
     def render_component(self, request):
         return LinkMenuItemComponent(
             self.name,
@@ -121,13 +118,6 @@ class Menu:
 
         return items
 
-    def active_menu_items(self, request):
-        return [
-            item
-            for item in self.menu_items_for_request(request)
-            if item.is_active(request)
-        ]
-
     @property
     def media(self):
         media = Media()
@@ -153,9 +143,6 @@ class SubmenuMenuItem(MenuItem):
     def is_shown(self, request):
         # show the submenu if one or more of its children is shown
         return bool(self.menu.menu_items_for_request(request))
-
-    def is_active(self, request):
-        return bool(self.menu.active_menu_items(request))
 
     def render_component(self, request):
         return SubMenuItemComponent(

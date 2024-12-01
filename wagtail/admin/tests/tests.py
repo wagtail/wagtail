@@ -401,10 +401,6 @@ class TestMenuItem(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.request = response.wsgi_request
 
-    def test_menuitem_reverse_lazy_url_pass(self):
-        menuitem = MenuItem(_("Test"), reverse_lazy("wagtailadmin_home"))
-        self.assertIs(menuitem.is_active(self.request), True)
-
     def test_menuitem_with_classname(self):
         menuitem = MenuItem(
             _("Test"),
