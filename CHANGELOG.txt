@@ -81,6 +81,7 @@ Changelog
  * Maintenance: Enhance the Stimulus `ZoneController` (`w-zone`) to support inactive class and a mechanism to switch the mode based on data within events (Ayaan Qadri)
  * Maintenance: Use the Stimulus `ZoneController` (`w-zone`) to remove ad-hoc jQuery for the privacy switch when toggling visibility of private/public elements (Ayaan Qadri)
  * Maintenance: Remove unused `is_active` & `active_menu_items` from `wagtail.admin.menu.MenuItem` (Srishti Jaiswal)
+ * Maintenance: Only call `openpyxl` at runtime to improve performance for projects that do not use `ReportView`, `SpreadsheetExportMixin` and `wagtail.contrib.redirects` (Sébastien Corbin)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
