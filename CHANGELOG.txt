@@ -74,7 +74,7 @@ Changelog
  * Maintenance: Remove unused `LinkController` (`w-link`) (Sage Abdullah)
  * Maintenance: Refactor settings `EditView` to make better use of generic `EditView` (Sage Abdullah)
  * Maintenance: Add a new Stimulus `RulesController` (`w-rules`) to support declarative conditional field enabling from other field values in a form (LB (Ben) Johnston)
- * Maintenance: Migrate the conditional enabling of fields in the image URL builder view away from ad-hoc jQuery to use the `RulesController (`w-rules`) approach (LB (Ben) Johnston)
+ * Maintenance: Migrate the conditional enabling of fields in the image URL builder view away from ad-hoc jQuery to use the `RulesController` (`w-rules`) approach (LB (Ben) Johnston)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
