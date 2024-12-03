@@ -857,6 +857,7 @@
 * Clifford Gama
 * Noah van der Meer
 * Strapchay
+* Alex Fulcher
 
 ## Translators
 
