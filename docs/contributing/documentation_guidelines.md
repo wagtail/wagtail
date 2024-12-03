@@ -89,7 +89,7 @@ Use **bold** and _italic_ sparingly and inline `code` when relevant.
 Use **bold** and _italic_ sparingly and inline `code` when relevant.
 ```
 
-Keep in mind that in reStructuredText, italic is written with `*`, and inline code must be written with double backticks, like ``` ``code`` ```.
+Keep in mind that in reStructuredText, italic is written with `*`, and inline code must be written with double backticks, like ` ``code`` `.
 
 ```rst
 Use **bold** and *italic* sparingly and inline ``code`` when relevant.
@@ -180,8 +180,6 @@ print("Hello, world!")
 ```
 ````
 `````
-
-
 
 <details>
 
