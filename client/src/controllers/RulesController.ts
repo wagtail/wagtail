@@ -72,7 +72,7 @@ export class RulesController extends Controller<
   /** True if there is at least one show target, used to ensure rules do not run if not needed. */
   declare readonly hasShowTarget: boolean;
 
-  declare form;
+  declare formCache: HTMLFormElement | null;
   declare rulesCache: Record<
     string,
     { match: Match; rules: [string, string[]][] }
@@ -81,14 +81,25 @@ export class RulesController extends Controller<
   initialize() {
     this.rulesCache = {};
     this.resolve = debounce(this.resolve.bind(this), 50);
-    this.form = this.findForm();
   }
 
-  findForm() {
+  /**
+   * Cache the form element found on the controller to avoid
+   * DOM thrashing when multiple resolves happen.
+   */
+  get form() {
+    if (this.formCache) return this.formCache;
     const element = this.element;
-    if (element instanceof HTMLFormElement) return element;
-    if ('form' in element) return element.form;
-    return element.closest('form');
+    if (element instanceof HTMLFormElement) {
+      this.formCache = element;
+    } else {
+      const form = 'form' in element ? element.form : element.closest('form');
+      if (form) {
+        this.formCache = form;
+      }
+    }
+    if (this.formCache) return this.formCache;
+    throw new Error('Form not found.');
   }
 
   /**
