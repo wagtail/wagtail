@@ -52,15 +52,14 @@ export class RulesController extends Controller<
   initialize() {
     this.rulesCache = {};
     this.resolve = debounce(this.resolve.bind(this), 50);
+    this.form = this.findForm();
+  }
 
+  findForm() {
     const element = this.element;
-    if (element instanceof HTMLFormElement) {
-      this.form = element;
-    } else if ('form' in element) {
-      this.form = element.form;
-    } else {
-      this.form = element.closest('form');
-    }
+    if (element instanceof HTMLFormElement) return element;
+    if ('form' in element) return element.form;
+    return element.closest('form');
   }
 
   /**
