@@ -174,7 +174,6 @@ describe('ZoneController', () => {
           class="mode-zone"
           data-controller="w-zone"
           data-w-zone-active-class="mode-zone"
-          data-w-zone-inactive-class="w-hidden"
         ></div>
       `);
       const element = document.querySelector('div');
@@ -187,7 +186,6 @@ describe('ZoneController', () => {
         <div
           class="inactive"
           data-controller="w-zone"
-          data-w-zone-active-class="mode-zone"
           data-w-zone-inactive-class="inactive"
         ></div>
       `);

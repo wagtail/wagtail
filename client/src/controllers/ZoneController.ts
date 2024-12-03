@@ -95,6 +95,8 @@ export class ZoneController extends Controller {
         )
       ) {
         this.modeValue = ZoneMode.Active;
+        // Allow further execution if `activeClasses` is empty
+        if (activeClasses.length !== 0) return;
       }
 
       if (
@@ -103,9 +105,9 @@ export class ZoneController extends Controller {
         )
       ) {
         this.modeValue = ZoneMode.Inactive;
+        // Prevent further execution because above setter will trigger the callback again.
+        return;
       }
-      // Changing the modeValue will trigger this method again with the correct previous value.
-      return;
     }
 
     // If the mode has changed, update the classes accordingly.
