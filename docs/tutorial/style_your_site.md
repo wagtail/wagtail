@@ -10,38 +10,38 @@ To style your site, navigate to your `mysite/static/css/mysite.css` file and add
 *,
 ::before,
 ::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif, Apple Color Emoji, "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif, Apple Color Emoji, "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 body {
-  min-height: 100vh;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 10px;
-  display: grid;
-  gap: 3vw;
-  grid-template-rows: min-content 1fr min-content;
+    min-height: 100vh;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    display: grid;
+    gap: 3vw;
+    grid-template-rows: min-content 1fr min-content;
 }
 
 a {
-  color: currentColor;
+    color: currentColor;
 }
 
 footer {
-  border-top: 2px dotted;
-  text-align: center;
+    border-top: 2px dotted;
+    text-align: center;
 }
 
 header {
-  border-bottom: 2px dotted;
+    border-bottom: 2px dotted;
 }
 
 .template-homepage main {
-  text-align: center;
+    text-align: center;
 }
 ```
 
@@ -164,12 +164,12 @@ To add a skip-link, add the following styles to your `mysite/static/css/mysite.c
 
 ```css
 .skip-link {
-  position: absolute;
-  top: -30px;
+    position: absolute;
+    top: -30px;
 }
 
 .skip-link:focus-visible {
-  top: 5px;
+    top: 5px;
 }
 ```
 
