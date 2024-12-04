@@ -85,6 +85,12 @@ To replace the welcome message on the dashboard, create a template file `dashboa
 {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 ```
 
+(custom_user_profile_avatar)=
+
+## Custom user profile avatar
+
+To render a different `UserProfile` avatar with one coming from somewhere other than that model or from [gravatar](https://gravatar.com/), you can use the [`get_avatar_url`](#get_avatar_url) hook and resolve the avatar's image url as you see fit.
+
 (custom_user_interface_fonts)=
 
 ## Custom user interface fonts

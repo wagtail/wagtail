@@ -1,3 +1,5 @@
+import os
+
 from django import forms
 from django.http import HttpResponse
 from django.utils.safestring import mark_safe
@@ -432,3 +434,10 @@ def register_animated_advert_chooser_viewset():
 @hooks.register("register_admin_viewset")
 def register_event_page_listing_viewset():
     return event_page_listing_viewset
+
+
+@hooks.register("get_avatar_url")
+def register_avatar_intercept_url(user, size):
+    if os.environ.get("AVATAR_INTERCEPT"):
+        return "/some/avatar/fred.png"
+    return None

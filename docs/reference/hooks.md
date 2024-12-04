@@ -102,6 +102,28 @@ depth: 1
 ---
 ```
 
+## Appearance
+
+Hooks for modifying the display and appearance of basic CMS features and furniture.
+
+(get_avatar_url)=
+
+### `get_avatar_url`
+
+There is an existing `avatar` field on the Wagtail `UserProfile` model, which, although it cannot be altered on the model level, can be intercepted at the view level and made to point to some other image before it is rendered. Just define the hook and resolve the value to whatever image url you want to see taking the place of the `UserProfile` (or gravatar) image.
+
+For example, you might have an avatar on a `Profile` model in your own application that is keyed to the `auth.User` model in the familiar way. In that case, you could register your hook as:
+
+```python
+@hooks.register('get_avatar_url')
+def get_profile_avatar(user, size):
+    return user.profile.avatar
+```
+
+And the `UserProfile` avatar will be replaced with your own `Profile` avatar accordingly.
+
+Additionally, you can use the default `size` parameter that is passed in to the hook if you need to do any further processing before retrieving your url.
+
 ## Admin modules
 
 Hooks for building new areas of the admin interface (alongside pages, images, documents, and so on).
