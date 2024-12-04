@@ -1,7 +1,6 @@
 from collections.abc import Mapping
+from django.core.files import File
 from io import BytesIO
-
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from PIL import Image
 
 
@@ -46,47 +45,35 @@ def flatten_choices(choices):
     return ret
 
 
-def reduce_image_size(avatar, size_bound, max_dimensions=(400, 400)):
+def reduce_image_dimension(image, max_dimensions=(400, 400)):
     """
-    Reduce an image's file size to a size_bound in kilobytes.
+    Reduce an image's dimension to specified max_dimesions if lower
+    higher than the provided max_dimensions.
 
-    :param avatar: The original image gotten from the image field of the form
-    :param size_bound: Desired size in KB
-    :param max_dimensions: Maximum dimensions for resizing
+    :param image: The image to be computed on. Expects an image object
+    :param max_dimensions: Maximum dimensions for resizing (width: int, height: int)
     """
-    temp_buffer = BytesIO()
-    kilobyte = 1024
-    with Image.open(avatar) as img:
+    img_ext = image.name.split(".")[-1]
+
+    with Image.open(image) as img:
+        width, height = img.width, img.height
+        if width <= max_dimensions[0] and height <= max_dimensions[1]:
+            return image
+
+        temp_buffer = BytesIO()
         if img.mode == "RGBA":
             img = img.convert("RGB")
         img.thumbnail(max_dimensions, Image.LANCZOS)
-        img_ext = avatar.name.split(".")[-1]
-
-        quality = 95
-        step = 5
-
-        while quality > 10:
-            temp_buffer.seek(0)
-            img.save(
-                temp_buffer,
-                format="JPEG" if img_ext != "png" else "PNG",
-                quality=quality,
-                optimize=True,
-            )
-            file_size_kb = temp_buffer.tell() / kilobyte
-
-            if file_size_kb <= size_bound:
-                break
-
-            quality -= step
+        temp_buffer.seek(0)
+        img.save(
+            temp_buffer,
+            format=img.format or img_ext.upper(),
+            optimize=True,
+        )
 
         temp_buffer.seek(0)
-        in_mem_avatar = InMemoryUploadedFile(
+        image_file = File(
             file=temp_buffer,
-            field_name="ImageField",
-            name=avatar.name,
-            content_type="image/jpeg" if img_ext != "png" else "PNG",
-            size=temp_buffer.tell(),
-            charset=None,
+            name=image.name,
         )
-        return in_mem_avatar
+        return image_file

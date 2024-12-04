@@ -16,13 +16,9 @@ from wagtail.admin.localization import (
 from wagtail.admin.widgets import SwitchInput
 from wagtail.permissions import page_permission_policy
 from wagtail.users.models import UserProfile
-from wagtail.utils.utils import reduce_image_size
+from wagtail.utils.utils import reduce_image_dimension
 
 User = get_user_model()
-
-WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND = getattr(
-    settings, "WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND", 1024
-)
 
 
 class NotificationPreferencesForm(forms.ModelForm):
@@ -140,11 +136,9 @@ class AvatarPreferencesForm(forms.ModelForm):
 
             # check and reduce cleaned_data avatar if more than the image size bound specified to the bound
             avatar = self.cleaned_data["avatar"]
-            avatar_size = avatar.size / 1024
-            if avatar_size > WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND:
-                updated_avatar = reduce_image_size(
-                    avatar=avatar, size_bound=WAGTAIL_USER_PROFILE_IMAGE_SIZE_BOUND
-                )
+            updated_avatar = reduce_image_dimension(
+                image=avatar, max_dimensions=(400,400)
+            )
 
         if updated_avatar is not None:
             object = super().save(commit=False)
