@@ -102,6 +102,30 @@ depth: 1
 ---
 ```
 
+## Appearance
+
+Hooks for modifying the display and appearance of basic CMS features and furniture.
+
+(get_avatar_url)=
+
+### `get_avatar_url`
+
+Specify a custom user avatar to be displayed in the Wagtail admin. The callable passed to this hook should accept a `user` object and a `size` parameter that can be used in any resize or thumbnail processing you might need to do.
+
+```python
+from datetime import datetime
+
+@hooks.register('get_avatar_url')
+def get_profile_avatar(user, size):
+    today = datetime.now()
+    is_christmas_day = today.month == 12 and today.day == 25
+
+    if is_christmas_day:
+      return '/static/images/santa.png'
+
+    return None
+```
+
 ## Admin modules
 
 Hooks for building new areas of the admin interface (alongside pages, images, documents, and so on).
