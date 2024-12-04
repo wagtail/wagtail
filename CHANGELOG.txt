@@ -29,6 +29,7 @@ Changelog
  * Fix: Ensure the accessible labels and tooltips reflect the correct private/public status on the live link button within pages after changing the privacy (Ayaan Qadri)
  * Fix: Fix empty `th` (table heading) elements that are not compliant with accessibility standards (Jai Vignesh J)
  * Fix: Ensure `MultipleChooserPanel` using images or documents work when nested within an `InlinePanel` when no other choosers are in use within the model (Elhussein Almasri)
+ * Fix: Ensure `MultipleChooserPanel` works after doing a search in the page chooser modal (Matt Westcott)
  * Fix: Ensure new `ListBlock` instances get created with unique IDs in the admin client for accessibility and mini-map element references (Srishti Jaiswal)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
