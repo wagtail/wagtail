@@ -99,14 +99,6 @@ export class RulesController extends Controller<
     this.dispatch('resolved', { bubbles: true, cancelable: false });
   }
 
-  enableTargetDisconnected() {
-    this.resolve();
-  }
-
-  enableTargetConnected() {
-    this.resolve();
-  }
-
   /**
    * Finds & parses the rules for the provided target by the rules attribute,
    * which is determined via the identifier (e.g. `data-w-rules`).
@@ -145,5 +137,15 @@ export class RulesController extends Controller<
     this.rulesCache[rulesRaw] = rules;
 
     return rules;
+  }
+
+  /* Target disconnection & reconnection */
+
+  enableTargetConnected() {
+    this.resolve();
+  }
+
+  enableTargetDisconnected() {
+    this.resolve();
   }
 }
