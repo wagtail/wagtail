@@ -688,4 +688,183 @@ describe('RulesController', () => {
       expect(continueButton.disabled).toBe(true);
     });
   });
+
+  describe('conditionally showing a target', () => {
+    it('should provide a way to conditionally show a target', async () => {
+      await setup(`
+    <form id="form" data-controller="w-rules" data-action="change->w-rules#resolve">
+      <div
+        id="alert"
+        data-w-rules-target="show"
+        data-w-rules="${_({ email: '' })}"
+      >
+        Please enter your email before continuing.
+      </div>
+      <input type="email" id="email-field" name="email" />
+      <input type="text" id="name-field" name="name" />
+    </form>`);
+
+      const nameField = document.getElementById('name-field');
+      const emailField = document.getElementById('email-field');
+
+      const alert = document.getElementById('alert');
+      expect(alert.hidden).toBe(false);
+
+      // add a non-empty email value
+      emailField.value = 'joe@email.co';
+
+      emailField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(alert.hidden).toBe(true);
+
+      // reset the value to empty
+      emailField.value = '';
+
+      emailField.dispatchEvent(new Event('change', { bubbles: true }));
+      await jest.runAllTimersAsync();
+
+      expect(alert.hidden).toBe(false);
+    });
+
+    it('should ensure that the hidden attribute will be synced with the desired match once connected', async () => {
+      await setup(`
+    <form id="form" data-controller="w-rules">
+      <fieldset>
+        <input type="password" name="password" />
+        <input type="email" name="email" />
+        <input type="checkbox" name="remember" id="remember-me-field" />
+      </fieldset>
+      <label for="">This is my device.</label>
+      <div
+        id="alert"
+        data-w-rules-target="show"
+        data-w-rules="${_({ remember: 'on' })}"
+      >
+        Cookies will be saved to this device.
+      </div>
+      <button type="button">Continue</button>
+    </form>`);
+
+      // The checkbox is not checked, #alert is also not set with hidden (in supplied DOM)
+      // Should update once connected
+      expect(document.getElementById('alert').hidden).toBe(true);
+    });
+
+    describe('using as a filtered-select', () => {
+      beforeEach(async () => {
+        await setup(`
+  <form
+    data-controller="w-rules"
+    data-action="change->w-rules#resolve"
+  >
+    <label for="continent-field">Continent</label>
+    <select id="continent-field" name="continent">
+      <option value="">--------</option>
+      <option value="1">Europe</option>
+      <option value="2">Africa</option>
+      <option value="3">Asia</option>
+    </select>
+    <label for="country-field">Country</label>
+    <select id="country-field" name="country">
+      <option value="">--------</option>
+      <option
+        value="1"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 3] })}'
+      >
+        China
+      </option>
+      <option
+        value="2"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 2] })}'
+      >
+        Egypt
+      </option>
+      <option
+        value="3"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1] })}'
+      >
+        France
+      </option>
+      <option
+        value="4"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1] })}'
+      >
+        Germany
+      </option>
+      <option
+        value="5"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 3] })}'
+      >
+        Japan
+      </option>
+      <option
+        value="6"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1, 3] })}'
+      >
+        Russia
+      </option>
+      <option
+        value="7"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 2] })}'
+      >
+        South
+       Africa</option>
+      <option
+        value="8"
+        data-w-rules-target="show"
+        data-w-rules='${_({ continent: ['', 1, 3] })}'
+      >
+        Turkey
+      </option>
+    </select>
+  </form>`);
+      });
+
+      const getShownOptions = () =>
+        Array.from(document.getElementById('country-field').options)
+          .filter((option) => !option.hidden)
+          .map((option) => option.value);
+
+      const allOptions = ['', '1', '2', '3', '4', '5', '6', '7', '8'];
+
+      it('it should show all options by default', async () => {
+        expect(getShownOptions()).toEqual(allOptions);
+      });
+
+      it('it should hide some options based on the selection within another field', async () => {
+        const continentField = document.getElementById('continent-field');
+
+        expect(getShownOptions()).toEqual(allOptions);
+
+        continentField.value = '2'; // Africa
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        expect(getShownOptions()).toEqual(['', '2', '7']);
+
+        continentField.value = 1; // Europe - intentionally using int
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        expect(getShownOptions()).toEqual(['', '3', '4', '6', '8']);
+
+        continentField.value = ''; // clear selection
+
+        continentField.dispatchEvent(new Event('change', { bubbles: true }));
+        await jest.runAllTimersAsync();
+
+        expect(getShownOptions()).toEqual(allOptions);
+      });
+    });
+  });
 });
