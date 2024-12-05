@@ -26,7 +26,7 @@ def user_can_delete_user(current_user, user_to_delete):
 
 
 def get_gravatar_url(email, size=50):
-    default = "mm"
+    default = "mp"
     size = (
         int(size) * 2
     )  # requested at retina size by default and scaled down at point of use with css
