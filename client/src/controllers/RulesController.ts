@@ -7,6 +7,7 @@ import { debounce } from '../utils/debounce';
 
 enum Effect {
   Enable = 'enable',
+  Show = 'show',
 }
 
 enum Match {
@@ -30,7 +31,7 @@ type FormControlElement =
 
 /**
  * Adds the ability for a controlled form element to conditionally
- * enable targeted elements based on the data from the controlled form
+ * enable or show targeted elements based on the data from the controlled form
  * along with a set of rules to match against that data.
  *
  * @example - Enable a button if a specific value is chosen
@@ -46,16 +47,32 @@ type FormControlElement =
  *   </button>
  * </form>
  * ```
+ *
+ * @example - Show an additional checkbox a value is chosen
+ * ```html
+ * <form data-controller="w-rules" data-action="change->w-rules#resolve">
+ *   <select name="fav-drink" required>
+ *     <option value="">Select a drink</option>
+ *     <option value="coffee">Coffee</option>
+ *     <option value="other">Other</option>
+ *   </select>
+ *   <input type="text" name="other-drink" data-w-rules-target="show" data-w-rules='{"fav-drink": ["other"]}'>
+ * </form>
+ * ```
  */
 export class RulesController extends Controller<
   HTMLFormElement | FormControlElement
 > {
-  static targets = ['enable'];
+  static targets = ['enable', 'show'];
 
   /** Targets will be enabled if the target's rule matches the scoped form data, otherwise will be disabled. */
   declare readonly enableTargets: FormControlElement[];
   /** True if there is at least one enable target, used to ensure rules do not run if not needed. */
   declare readonly hasEnableTarget: boolean;
+  /** Targets will be be set to `hidden=false` if the target's rule matches the scoped form data, otherwise will be hidden with `hidden=true`. */
+  declare readonly showTargets: HTMLElement[];
+  /** True if there is at least one show target, used to ensure rules do not run if not needed. */
+  declare readonly hasShowTarget: boolean;
 
   declare form;
   declare rulesCache: Record<
@@ -81,7 +98,7 @@ export class RulesController extends Controller<
    * rule attributes and the controlled element's form data.
    */
   resolve() {
-    if (!this.hasEnableTarget) return;
+    if (!this.hasEnableTarget && !this.hasShowTarget) return;
 
     const formData = new FormData(this.form);
 
@@ -112,6 +129,27 @@ export class RulesController extends Controller<
       if (event.defaultPrevented) return;
 
       target.disabled = !enable;
+    });
+
+    this.showTargets.forEach((target) => {
+      const effect = Effect.Show;
+      const { match, rules } = this.parseRules(target, effect);
+
+      const show =
+        match === Match.Any ? rules.some(checkFn) : rules.every(checkFn);
+
+      if (show === !target.hidden) return;
+
+      const event = this.dispatch('effect', {
+        bubbles: true,
+        cancelable: true,
+        detail: { effect, show },
+        target,
+      });
+
+      if (event.defaultPrevented) return;
+
+      target.hidden = !show;
     });
 
     this.dispatch('resolved', { bubbles: true, cancelable: false });
@@ -196,6 +234,14 @@ export class RulesController extends Controller<
   }
 
   enableTargetDisconnected() {
+    this.resolve();
+  }
+
+  showTargetConnected() {
+    this.resolve();
+  }
+
+  showTargetDisconnected() {
     this.resolve();
   }
 }
