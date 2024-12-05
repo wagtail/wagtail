@@ -56,6 +56,12 @@ describe('RulesController', () => {
         '0.error.message',
         expect.stringContaining("Expected property name or '}' in JSON"),
       );
+      expect(errors).toHaveProperty(
+        '1.message',
+        expect.stringContaining(
+          "Unable to parse rule at the attribute 'data-w-rules'",
+        ),
+      );
     });
 
     it('should gracefully handle different empty structures', async () => {
@@ -272,6 +278,34 @@ describe('RulesController', () => {
       await jest.runAllTimersAsync();
 
       expect(document.getElementById('continue').disabled).toBe(false);
+    });
+
+    it('should attempt to read the specific attribute for the effect if found', async () => {
+      await setup(`
+    <form data-controller="w-rules" data-action="change->w-rules#resolve">
+      <input type="text" name="title" value="bad" />
+      <input type="text" name="subtitle" value="good" />
+      <textarea
+        id="signature"
+        data-w-rules-target="enable"
+        data-w-rules="${_({ title: 'good' } /* should be ignored */)}"
+        data-w-rules-enable="${_({ subtitle: 'good' })}"
+        >
+      </textarea>
+    </form>
+    `);
+
+      const signature = document.getElementById('signature');
+      const subtitle = document.querySelector('[name="subtitle"]');
+
+      expect(signature.disabled).toBe(false);
+
+      subtitle.value = 'bad';
+      subtitle.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(signature.disabled).toBe(true);
     });
   });
 
