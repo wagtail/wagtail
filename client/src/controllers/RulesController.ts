@@ -9,6 +9,11 @@ enum Effect {
   Enable = 'enable',
 }
 
+enum Match {
+  All = 'all', // Default
+  Any = 'any',
+}
+
 /**
  * Form control elements that can support the `disabled` attribute.
  *
@@ -53,7 +58,10 @@ export class RulesController extends Controller<
   declare readonly hasEnableTarget: boolean;
 
   declare form;
-  declare rulesCache: Record<string, [string, string[]][]>;
+  declare rulesCache: Record<
+    string,
+    { match: Match; rules: [string, string[]][] }
+  >;
 
   initialize() {
     this.rulesCache = {};
@@ -87,8 +95,10 @@ export class RulesController extends Controller<
 
     this.enableTargets.forEach((target) => {
       const effect = Effect.Enable;
-      const rules = this.parseRules(target, effect);
-      const enable = rules.every(checkFn);
+      const { match, rules } = this.parseRules(target, effect);
+
+      const enable =
+        match === Match.Any ? rules.some(checkFn) : rules.every(checkFn);
 
       if (enable === !target.disabled) return;
 
@@ -99,9 +109,9 @@ export class RulesController extends Controller<
         target,
       });
 
-      if (!event.defaultPrevented) {
-        target.disabled = !enable;
-      }
+      if (event.defaultPrevented) return;
+
+      target.disabled = !enable;
     });
 
     this.dispatch('resolved', { bubbles: true, cancelable: false });
@@ -121,7 +131,7 @@ export class RulesController extends Controller<
    * for consistent comparison to FormData values.
    */
   parseRules(target: Element, effect: Effect = Effect.Enable) {
-    const emptyRules = [];
+    const emptyRules = { match: Match.All, rules: [] };
     if (!target) return emptyRules;
 
     let attribute = `data-${this.identifier}-${effect}`;
@@ -158,9 +168,25 @@ export class RulesController extends Controller<
         castArray(validValues).map(String),
       ]) as [string, string[]][];
 
-    this.rulesCache[rulesRaw] = rules;
+    const [, [match = Match.All] = []] =
+      rules.find(([key]) => key === '') || [];
 
-    return rules;
+    if (!Object.values(Match).includes(match as Match)) {
+      this.context.handleError(
+        new Error(`Invalid match value: '${match}'.`),
+        `Match value must be one of: '${Object.values(Match).join("', '")}'.`,
+      );
+      return emptyRules;
+    }
+
+    const newRules = {
+      match: match as Match,
+      rules: rules.filter(([key]) => key),
+    };
+
+    this.rulesCache[rulesRaw] = newRules;
+
+    return newRules;
   }
 
   /* Target disconnection & reconnection */
