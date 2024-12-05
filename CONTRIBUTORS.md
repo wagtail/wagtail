@@ -858,6 +858,7 @@
 * Noah van der Meer
 * Strapchay
 * Alex Fulcher
+* Harsh Dange
 
 ## Translators
 
