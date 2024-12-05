@@ -222,8 +222,18 @@
                     }
                 });
             }
-
             // Events.
+            this.tagInput.bind('paste', function (event) {
+                // Set short timeout so .val() will have a value
+                setTimeout(function () {
+                    var tagArray = that.tagInput.val().split(/[\n,]+/);
+                    if (tagArray.length > 1) {
+                        for (var i = 0; i < tagArray.length; i++) {
+                            that.createTag(tagArray[i]);
+                        }
+                    }
+                }, 100);
+            });
             this.tagInput
                 .on('keydown', function(event) {
                     // Backspace is not detected within a keypress, so it must use keydown.
