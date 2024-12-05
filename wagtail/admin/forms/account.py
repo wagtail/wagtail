@@ -3,7 +3,6 @@ from operator import itemgetter
 
 import l18n
 from django import forms
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import get_language_info
@@ -137,7 +136,7 @@ class AvatarPreferencesForm(forms.ModelForm):
             # check and reduce cleaned_data avatar if more than the image size bound specified to the bound
             avatar = self.cleaned_data["avatar"]
             updated_avatar = reduce_image_dimension(
-                image=avatar, max_dimensions=(400,400)
+                image=avatar, max_dimensions=(400, 400)
             )
 
         if updated_avatar is not None:

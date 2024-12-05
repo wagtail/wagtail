@@ -1,6 +1,7 @@
 from collections.abc import Mapping
-from django.core.files import File
 from io import BytesIO
+
+from django.core.files import File
 from PIL import Image
 
 
@@ -56,13 +57,11 @@ def reduce_image_dimension(image, max_dimensions=(400, 400)):
     dimension passed in .e.g (800, 400) -> (400, 200) to maintain
     aspect ratio
     """
-    print("the image value", image)
     img_ext = image.name.split(".")[-1]
 
     with Image.open(image) as img:
         width, height = img.width, img.height
         if width <= max_dimensions[0] and height <= max_dimensions[1]:
-            print("returning the image")
             return image
 
         temp_buffer = BytesIO()
