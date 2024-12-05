@@ -64,6 +64,29 @@ describe('RulesController', () => {
       );
     });
 
+    it('should throw an error if an invalid match value is provided', async () => {
+      expect(errors.length).toBe(0);
+
+      await setup(`
+      <form data-controller="w-rules" data-action="change->w-rules#resolve">
+        <input type="text" name="title" value="bad" />
+        <input type="text" name="subtitle" data-w-rules-target="enable" data-w-rules='{"":"_INVALID_","title":""}' />
+      </form>`);
+
+      expect(errors.length).toEqual(1);
+
+      const [{ error, message }] = errors;
+
+      expect(error).toHaveProperty(
+        'message',
+        "Invalid match value: '_INVALID_'.",
+      );
+
+      expect(message).toEqual(
+        "Error Match value must be one of: 'all', 'any'.",
+      );
+    });
+
     it('should gracefully handle different empty structures', async () => {
       await setup(`
       <form data-controller="w-rules" data-action="change->w-rules#resolve">
@@ -616,6 +639,53 @@ describe('RulesController', () => {
       expect(widthField.disabled).toBe(true);
       expect(heightField.disabled).toBe(true);
       expect(closenessField.disabled).toBe(true);
+    });
+
+    it('should support the ability to to trigger an effect if any (not all) field rule matches', async () => {
+      await setup(`
+      <form data-controller="w-rules" data-action="change->w-rules#resolve">
+        <fieldset>
+          <legend>Enter the registration number or opt to create a new number to continue.</legend>
+          <input id="number" name="number" type="text" />
+          <input id="create" name="create" type="checkbox" />
+        </fieldset>
+        <input
+          id="continue"
+          type="button"
+          name="continue"
+          data-w-rules-target="enable"
+          data-w-rules-enable="${_({ '': 'any', 'create': ['on'], 'number': ['1701', '74656', '74913'] })}" />
+      </form>`);
+
+      const numberField = document.getElementById('number');
+      const createField = document.getElementById('create');
+      const continueButton = document.getElementById('continue');
+
+      expect(continueButton.disabled).toBe(true); // disabled by default
+
+      numberField.value = '1701';
+      numberField.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(continueButton.disabled).toBe(false);
+
+      numberField.value = '99999';
+      createField.checked = true;
+
+      numberField.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(continueButton.disabled).toBe(false);
+
+      createField.checked = false;
+
+      numberField.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await jest.runAllTimersAsync();
+
+      expect(continueButton.disabled).toBe(true);
     });
   });
 });
