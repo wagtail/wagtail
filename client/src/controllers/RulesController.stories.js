@@ -79,4 +79,48 @@ const EnableTemplate = ({ debug = false }) => (
   </StimulusWrapper>
 );
 
+const ShowTemplate = ({ debug = false }) => (
+  <StimulusWrapper debug={debug} definitions={definitions}>
+    <form
+      method="get"
+      data-controller="w-rules"
+      // avoid accidental submissions with preventing submit
+      data-action="change->w-rules#resolve submit->w-rules#resolve:prevent"
+    >
+      <div className="w-field__wrapper">
+        <label className="w-field__label" htmlFor="drink">
+          Choose your favorite drink:
+          <div className="w-field w-field--choice_field w-field--select">
+            <div className="w-field__input">
+              <select className="w-min-w-full" name="drink">
+                <option value="">-------</option>
+                <option value="coffee">Coffee ☕</option>
+                <option value="tea">Tea 🍵</option>
+                <option value="milo">Milo 🍫</option>
+                <option value="other">Other ❓</option>
+              </select>
+            </div>
+          </div>
+        </label>
+      </div>
+      <div
+        className="w-field__wrapper"
+        data-w-rules-target="show"
+        data-w-rules='{"drink":"other"}'
+      >
+        <label className="w-field__label" htmlFor="other">
+          Other
+          <div className="w-field w-field--choice_field w-field--select">
+            <div className="w-field__input">
+              <input type="text" name="other" />
+            </div>
+          </div>
+        </label>
+      </div>
+    </form>
+  </StimulusWrapper>
+);
+
 export const Enable = EnableTemplate.bind({});
+
+export const Show = ShowTemplate.bind({});
