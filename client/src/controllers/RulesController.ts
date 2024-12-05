@@ -3,6 +3,10 @@ import { Controller } from '@hotwired/stimulus';
 import { castArray } from '../utils/castArray';
 import { debounce } from '../utils/debounce';
 
+enum Effect {
+  Enable = 'enable',
+}
+
 /**
  * Form control elements that can support the `disabled` attribute.
  *
@@ -71,23 +75,25 @@ export class RulesController extends Controller<
 
     const formData = new FormData(this.form);
 
-    this.enableTargets.forEach((target) => {
-      const rules = this.parseRules(target);
+    const checkFn = ([fieldName, allowedValues]) => {
+      // Forms can have multiple values for the same field name
+      const values = formData.getAll(fieldName);
+      // Checkbox fields will NOT appear in FormData unless checked, support this when validValues are also empty
+      if (allowedValues.length === 0 && values.length === 0) return true;
+      return allowedValues.some((validValue) => values.includes(validValue));
+    };
 
-      const enable = rules.every(([fieldName, allowedValues]) => {
-        // Forms can have multiple values for the same field name
-        const values = formData.getAll(fieldName);
-        // Checkbox fields will NOT appear in FormData unless checked, support this when validValues are also empty
-        if (allowedValues.length === 0 && values.length === 0) return true;
-        return allowedValues.some((validValue) => values.includes(validValue));
-      });
+    this.enableTargets.forEach((target) => {
+      const effect = Effect.Enable;
+      const rules = this.parseRules(target, effect);
+      const enable = rules.every(checkFn);
 
       if (enable === !target.disabled) return;
 
       const event = this.dispatch('effect', {
         bubbles: true,
         cancelable: true,
-        detail: { effect: 'enable', enable },
+        detail: { effect, enable },
         target,
       });
 
@@ -101,17 +107,33 @@ export class RulesController extends Controller<
 
   /**
    * Finds & parses the rules for the provided target by the rules attribute,
-   * which is determined via the identifier (e.g. `data-w-rules`).
-   * Check the rules cache first, then parse the rules for caching if not found.
+   * which is determined via the identifier and the provided effect name,
+   * (e.g. `data-w-rules-enable`). Falling back to the generic attribute
+   * if not found (e.g. `data-w-rules`).
+   *
+   * With the found rules, check the rules cache first,
+   * then parse the rules for caching if not found.
    *
    * When parsing the rule, assume an `Object.entries` format or convert an
    * object to this format. Then ensure each value is an array of strings
    * for consistent comparison to FormData values.
+   *
+   * Support an override of the match value, via a rule entry with a string that
+   * is an empty string, as this will not be a valid field `name`.
    */
-  parseRules(target: Element) {
-    if (!target) return [];
-    const rulesRaw = target.getAttribute(`data-${this.identifier}`);
-    if (!rulesRaw) return [];
+  parseRules(target: Element, effect: Effect = Effect.Enable) {
+    const emptyRules = [];
+    if (!target) return emptyRules;
+
+    let attribute = `data-${this.identifier}-${effect}`;
+    let rulesRaw = target.getAttribute(attribute);
+
+    if (!rulesRaw) {
+      attribute = `data-${this.identifier}`;
+      rulesRaw = target.getAttribute(attribute);
+    }
+
+    if (!rulesRaw) return emptyRules;
 
     const cachedRule = this.rulesCache[rulesRaw];
     if (cachedRule) return cachedRule;
@@ -121,8 +143,11 @@ export class RulesController extends Controller<
     try {
       parsedRules = JSON.parse(rulesRaw);
     } catch (error) {
-      this.context.handleError(error, 'Unable to parse rule.');
-      return [];
+      this.context.handleError(
+        error,
+        `Unable to parse rule at the attribute '${attribute}'.`,
+      );
+      return emptyRules;
     }
 
     const rules = (
