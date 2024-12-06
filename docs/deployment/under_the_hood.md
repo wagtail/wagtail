@@ -64,6 +64,8 @@ If a remote ("cloud") storage backend is used, the serve method will default to 
 
 If these limitations are not acceptable, you may set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and ensure that the documents are not publicly accessible using the cloud service's file url.
 
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed and which storage backend is used. For the `'serve_view` method, a `Content-Security-Policy` header is automatically set for you (unless disabled via [](wagtaildocs_block_embedded_content)) to prevent the execution of scripts embedded in documents.
+
 #### Cloud storage
 
 Be aware that setting up remote storage will not entirely offload file handling tasks from the application server - some Wagtail functionality requires files to be read back by the application server.
