@@ -4870,7 +4870,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         self.assertEqual(self.snippet.live_revision, self.snippet.latest_revision)
 
 
-class TestCompareRevisions(WagtailTestUtils, TestCase):
+class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     # Actual tests for the comparison classes can be found in test_compare.py
 
     def setUp(self):
@@ -4907,6 +4907,32 @@ class TestCompareRevisions(WagtailTestUtils, TestCase):
             '<span class="deletion">Initial revision</span><span class="addition">First edit</span>',
             html=True,
         )
+
+        index_url = reverse("wagtailsnippets_tests_revisablemodel:list", args=[])
+        edit_url = reverse(
+            "wagtailsnippets_tests_revisablemodel:edit",
+            args=(self.snippet.id,),
+        )
+        history_url = reverse(
+            "wagtailsnippets_tests_revisablemodel:history",
+            args=(self.snippet.id,),
+        )
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+                {"url": index_url, "label": "Revisable models"},
+                {"url": edit_url, "label": str(self.snippet)},
+                {"url": history_url, "label": "History"},
+                {"url": "", "label": "Compare", "sublabel": str(self.snippet)},
+            ],
+            response.content,
+        )
+
+        soup = self.get_soup(response.content)
+        edit_button = soup.select_one(f"a.w-header-button[href='{edit_url}']")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(edit_button.text.strip(), "Edit")
 
     def test_compare_revisions_earliest(self):
         response = self.get("earliest", self.edit_revision.pk)
