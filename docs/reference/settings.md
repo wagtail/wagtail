@@ -501,6 +501,20 @@ WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
 
 A list of MIME content types that will be shown inline in the browser (by serving the HTTP header `Content-Disposition: inline`) rather than served as a download, when using the `serve_view` method. Defaults to `application/pdf`.
 
+(wagtaildocs_block_embedded_content)=
+
+### `WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT`
+
+```python
+WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT = True
+```
+
+Wagtail serves a restrictive Content-Security policy for documents which ensures embedded content (such as the Javascript in a HTML file) is not executed. This functionality can be disabled by setting this to `False`.
+
+This does not affect Javascript embedded in PDFs, however this is already executed in an isolated environment.
+
+Unless absolutely necessary, it's strongly recommended not to change this setting.
+
 (wagtaildocs_extensions)=
 
 ### `WAGTAILDOCS_EXTENSIONS`
