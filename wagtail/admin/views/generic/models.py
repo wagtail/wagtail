@@ -1183,12 +1183,46 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
 
 class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
     edit_handler = None
+    index_url_name = None
     edit_url_name = None
     history_url_name = None
     edit_label = gettext_lazy("Edit")
     history_label = gettext_lazy("History")
+    page_title = gettext_lazy("Compare")
     template_name = "wagtailadmin/generic/revisions/compare.html"
+    _show_breadcrumbs = True
     model = None
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if (index_url := self.get_index_url()) and self.model:
+            items.append(
+                {
+                    "url": index_url,
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        if edit_url := self.get_edit_url():
+            items.append({"url": edit_url, "label": self.get_page_subtitle()})
+        if history_url := self.get_history_url():
+            items.append({"url": history_url, "label": self.history_label})
+        items.append(
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
+        return self.breadcrumbs_items + items
+
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        if edit_url := self.get_edit_url():
+            buttons.append(
+                HeaderButton(self.edit_label, url=edit_url, icon_name="edit")
+            )
+        return buttons
 
     def setup(self, request, pk, revision_id_a, revision_id_b, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -1207,6 +1241,10 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
 
     def get_history_url(self):
         if self.history_url_name:
@@ -1269,10 +1307,6 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         context.update(
             {
                 "object": self.object,
-                "history_label": self.history_label,
-                "edit_label": self.edit_label,
-                "history_url": self.get_history_url(),
-                "edit_url": self.get_edit_url(),
                 "revision_a": revision_a,
                 "revision_a_heading": revision_a_heading,
                 "revision_b": revision_b,
