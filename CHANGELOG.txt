@@ -18,6 +18,7 @@ Changelog
  * Add `get_avatar_url` hook to customise user avatars (jhrr)
  * Set content security policy (CSP) headers to block embedded content when serving images and documents (Jake Howard, with thanks to Ali İltizar for the initial report)
  * Add `page` as a third parameter to the `construct_wagtail_userbar` hook (claudobahn)
+ * Enable breadcrumbs in revisions compare view (Sage Abdullah)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
