@@ -7,6 +7,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from wagtail import hooks
 from wagtail.forms import PasswordViewRestrictionForm
 from wagtail.models import Page, PageViewRestriction
+from wagtail.renderers import PageRendererNotFoundError, get_page_renderer_for_request
 
 
 def serve(request, path):
@@ -21,7 +22,12 @@ def serve(request, path):
         if isinstance(result, HttpResponse):
             return result
 
-    return page.serve(request, *args, **kwargs)
+    try:
+        renderer, media_type = get_page_renderer_for_request(request)
+    except PageRendererNotFoundError:
+        return HttpResponse(status=406)
+
+    return renderer.render(request, media_type, page, args, kwargs)
 
 
 def authenticate_with_password(request, page_view_restriction_id, page_id):

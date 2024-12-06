@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.models import Page, PageViewRestriction, Site
+from wagtail.models import Page, Site
 
 from .filters import (
     AncestorOfFilter,
@@ -28,6 +28,7 @@ from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
     BadRequestError,
+    get_base_queryset,
     get_object_detail_url,
     page_models_from_string,
     parse_fields_parameter,
@@ -489,66 +490,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
         return Site.find_for_request(self.request).root_page
 
     def get_base_queryset(self):
-        """
-        Returns a queryset containing all pages that can be seen by this user.
-
-        This is used as the base for get_queryset and is also used to find the
-        parent pages when using the child_of and descendant_of filters as well.
-        """
-
-        request = self.request
-
-        # Get all live pages
-        queryset = Page.objects.all().live()
-
-        # Exclude pages that the user doesn't have access to
-        restricted_pages = [
-            restriction.page
-            for restriction in PageViewRestriction.objects.all().select_related("page")
-            if not restriction.accept_request(self.request)
-        ]
-
-        # Exclude the restricted pages and their descendants from the queryset
-        for restricted_page in restricted_pages:
-            queryset = queryset.not_descendant_of(restricted_page, inclusive=True)
-
-        # Check if we have a specific site to look for
-        if "site" in request.GET:
-            # Optionally allow querying by port
-            if ":" in request.GET["site"]:
-                (hostname, port) = request.GET["site"].split(":", 1)
-                query = {
-                    "hostname": hostname,
-                    "port": port,
-                }
-            else:
-                query = {
-                    "hostname": request.GET["site"],
-                }
-            try:
-                site = Site.objects.get(**query)
-            except Site.MultipleObjectsReturned:
-                raise BadRequestError(
-                    "Your query returned multiple sites. Try adding a port number to your site filter."
-                )
-        else:
-            # Otherwise, find the site from the request
-            site = Site.find_for_request(self.request)
-
-        if site:
-            base_queryset = queryset
-            queryset = base_queryset.descendant_of(site.root_page, inclusive=True)
-
-            # If internationalisation is enabled, include pages from other language trees
-            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                for translation in site.root_page.get_translations():
-                    queryset |= base_queryset.descendant_of(translation, inclusive=True)
-
-        else:
-            # No sites configured
-            queryset = queryset.none()
-
-        return queryset
+        return get_base_queryset(self.request)
 
     def get_queryset(self):
         request = self.request
