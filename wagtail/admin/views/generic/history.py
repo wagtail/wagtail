@@ -415,7 +415,6 @@ class WorkflowHistoryDetailView(
     page_title = gettext_lazy("Workflow progress")
     header_icon = "list-ul"
     object_icon = "doc-empty-inverse"
-    _show_breadcrumbs = True
 
     @cached_property
     def index_url(self):
