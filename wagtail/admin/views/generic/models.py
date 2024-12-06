@@ -1403,6 +1403,7 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
         'Version %(revision_id)s of "%(object)s" unscheduled.'
     )
     template_name = "wagtailadmin/shared/revisions/confirm_unschedule.html"
+    page_title = gettext_lazy("Unschedule")
 
     def setup(self, request, pk, revision_id, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -1416,6 +1417,9 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
             raise Http404
         return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
+    def get_breadcrumbs_items(self):
+        return []
+
     def get_revision(self):
         return get_object_or_404(self.object.revisions, id=self.revision_id)
 
@@ -1426,7 +1430,7 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
         )
 
     def get_object_display_title(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_success_message(self):
         if self.success_message is None:
@@ -1456,10 +1460,13 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
         return reverse(self.history_url_name, args=(quote(self.object.pk),))
 
     def get_page_subtitle(self):
-        return _('revision %(revision_id)s of "%(object)s"') % {
-            "revision_id": self.revision.id,
-            "object": self.get_object_display_title(),
-        }
+        return capfirst(
+            _('revision %(revision_id)s of "%(object)s"')
+            % {
+                "revision_id": self.revision.id,
+                "object": self.get_object_display_title(),
+            }
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1467,8 +1474,6 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
             {
                 "object": self.object,
                 "revision": self.revision,
-                "subtitle": self.get_page_subtitle(),
-                "object_display_title": self.get_object_display_title(),
                 "revisions_unschedule_url": self.get_revisions_unschedule_url(),
                 "next_url": self.get_next_url(),
             }
