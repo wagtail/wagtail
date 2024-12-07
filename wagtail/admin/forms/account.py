@@ -15,6 +15,7 @@ from wagtail.admin.localization import (
 from wagtail.admin.widgets import SwitchInput
 from wagtail.permissions import page_permission_policy
 from wagtail.users.models import UserProfile
+from wagtail.utils.utils import reduce_image_dimension
 
 User = get_user_model()
 
@@ -116,6 +117,7 @@ class AvatarPreferencesForm(forms.ModelForm):
         self._original_avatar = self.instance.avatar
 
     def save(self, commit=True):
+        updated_avatar = None
         if (
             commit
             and self._original_avatar
@@ -130,7 +132,19 @@ class AvatarPreferencesForm(forms.ModelForm):
                 warnings.warn(
                     "Failed to delete old avatar file: %s" % self._original_avatar.name
                 )
-        super().save(commit=commit)
+
+            # check and reduce cleaned_data avatar if more than the image size bound specified to the bound
+            avatar = self.cleaned_data["avatar"]
+            updated_avatar = reduce_image_dimension(
+                image=avatar, max_dimensions=(400, 400)
+            )
+
+        if updated_avatar is not None:
+            object = super().save(commit=False)
+            object.avatar = updated_avatar
+            object.save()
+        else:
+            super().save(commit=commit)
 
     class Meta:
         model = UserProfile
