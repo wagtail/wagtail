@@ -12,7 +12,7 @@ const WagtailLogo = ({ className, slim }: WagtailLogoProps) => {
   return (
     <svg
       style={{
-        left: slim ? '-1.125rem' : '-1.75rem',
+        left: slim ? '-0.6rem' : '-0.5rem',
       }}
       className={`
          sidebar-wagtail-branding__icon
