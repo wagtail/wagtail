@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy
 
 from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.admin.panels import FieldPanel, InlinePanel, ObjectList
 from wagtail.admin.widgets.workflows import AdminTaskChooser
 from wagtail.coreutils import get_content_type_label, get_model_string
@@ -121,19 +122,7 @@ class WorkflowPageForm(forms.ModelForm):
             )
 
 
-class BaseWorkflowPagesFormSet(forms.BaseInlineFormSet):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for form in self.forms:
-            form.fields["DELETE"].widget = forms.HiddenInput()
-
-    @property
-    def empty_form(self):
-        empty_form = super().empty_form
-        empty_form.fields["DELETE"].widget = forms.HiddenInput()
-        return empty_form
-
+class BaseWorkflowPagesFormSet(BaseFormSetMixin, forms.BaseInlineFormSet):
     def clean(self):
         """Checks that no two forms refer to the same page object"""
         if any(self.errors):
