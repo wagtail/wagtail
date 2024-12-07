@@ -32,6 +32,7 @@ export class RevealController extends Controller<HTMLElement> {
     closed: { default: false, type: Boolean },
     peeking: { default: false, type: Boolean },
     peekTarget: { default: '', type: String },
+    store: { default: '', type: String },
   };
 
   declare closedValue: boolean;
@@ -52,6 +53,7 @@ export class RevealController extends Controller<HTMLElement> {
   declare readonly openedContentClasses: string[];
   declare readonly openIconClass: string;
   declare readonly peekTargetValue: string;
+  declare readonly storeValue: string;
   declare readonly toggleTarget: HTMLButtonElement;
   declare readonly toggleTargets: HTMLButtonElement[];
 
@@ -127,6 +129,7 @@ export class RevealController extends Controller<HTMLElement> {
       });
       this.element.classList.remove(...closedClasses);
       this.element.classList.add(...openedClasses);
+      this.stored = true;
       this.dispatch('opened', { cancelable: false });
     }
 
@@ -215,6 +218,37 @@ export class RevealController extends Controller<HTMLElement> {
           useElement.setAttribute('href', `#${closeIconClass}`);
         }
       });
+  }
+
+  get stored() {
+    const storeValue = this.storeValue;
+    const key = `wagtail:${this.identifier}:opened`;
+    if (storeValue) {
+      try {
+        const storedValue = localStorage.getItem(key);
+        if (storedValue === storeValue) {
+          return true;
+        }
+      } catch (error) {
+        // Ignore if localStorage is not available
+      }
+    }
+    return false;
+  }
+
+  set stored(isOpened) {
+    const storeValue = this.storeValue;
+    const key = `wagtail:${this.identifier}:opened`;
+
+    try {
+      if (isOpened) {
+        localStorage.setItem(key, storeValue);
+      } else {
+        localStorage.removeItem(key);
+      }
+    } catch (error) {
+      // Ignore if localStorage is not available
+    }
   }
 
   disconnect() {
