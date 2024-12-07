@@ -50,7 +50,6 @@ class GenericPageBreadcrumbsMixin:
     item of the generic view's generated breadcrumbs items.
     """
 
-    _show_breadcrumbs = True
     breadcrumbs_items_to_take = 1
 
     @cached_property
