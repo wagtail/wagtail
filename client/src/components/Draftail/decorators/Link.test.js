@@ -317,4 +317,20 @@ describe('onPasteLink', () => {
       raw.blocks.map(({ entityRanges }) => entityRanges[0].length),
     ).toEqual(expectedLength);
   });
+
+  it('converts external links to internal links', () => {
+    const input = 'https://external.com';
+    const raw = testOnPasteOutput(input, null);
+    expect(raw.blocks[0]).toMatchObject({
+      text: `${input}hello`,
+      entityRanges: [{ offset: 0, length: input.length, key: 0 }],
+    });
+    expect(raw.entityMap).toMatchObject({
+      0: {
+        type: 'LINK',
+        mutability: 'MUTABLE',
+        data: { url: 'https://internal.com' },
+      },
+    });
+  });
 });
