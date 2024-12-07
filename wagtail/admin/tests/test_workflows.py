@@ -314,7 +314,7 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["object_list"]), 20)
         self.assertContains(response, url + "?p=1")
-        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=2")
         self.assertContains(response, url + "?p=3")
 
         response = self.get({"p": 4})
@@ -1231,7 +1231,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["object_list"]), 50)
         self.assertContains(response, url + "?p=1")
-        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=2")
         self.assertContains(response, url + "?p=3")
 
         response = self.get({"p": 4})
