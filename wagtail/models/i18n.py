@@ -174,6 +174,231 @@ class Locale(models.Model):
             return self.is_default
 
 
+class TranslatableQuerySetMixin:
+    """
+    QuerySet mixin for translatable models.
+
+    This mixin provides methods for query sets of translatable models. If your
+    translatable model inherits from
+    :py:class:`TranslatableMixin <wagtail.models.TranslatableMixin>` and defines a
+    custom manager that inherits from ``models.QuerySet``, be sure to also inherit
+    from this queryset mixin to retain the features of this mixin.
+
+    .. code-block:: python
+
+        class MyTranslatableModelQuerySet(TranslatableQuerySetMixin, models.QuerySet):
+            pass
+
+        class MyTranslatableModel(TranslatableMixin):
+            objects = MyTranslatableModelQuerySet.as_manager()
+
+    If your translatable model does not define a custom manager or queryset, you won't
+    need this mixin. The ``TranslatableMixin`` already provides a manager that inherits
+    from this mixin.
+    """
+
+    def localized(
+        self: models.QuerySet,
+        preserve_order: bool = False,
+        include_draft_translations: bool = False,
+        include_only_translations: bool = False,
+    ):
+        """
+        Return a localized version of this queryset.
+
+        A localized queryset is one where objects are replaced with versions translated
+        into the active locale. Where a translation isn't available for an object, the
+        original is retained instead. The resulting queryset will be of the same length
+        as the original.
+
+        This method is the queryset equivalent of the
+        :py:attr:`.localized <wagtail.models.TranslatableMixin.localized>` property
+        on the :py:class:`TranslatableMixin <wagtail.models.TranslatableMixin>`.
+
+        A translation of an instance will have the same ``translation_key`` as the
+        original but a different ``locale`` than the original instance.
+
+        By default, the same ordering definition as in the original queryset is applied
+        to the localized queryset. This means that the translated values are being
+        considered during ordering. The consideration of the translated values can lead
+        to the localized queryset having a different order than the original queryset,
+        meaning, the translation keys in the localized queryset are not in the same
+        order as they were in the original queryset. If you want to ensure that the
+        translation keys are in the same order in the localized queryset as they were in
+        the original queryset, you need to pass ``preserve_order=True``.
+
+        If a model inherits from
+        :py:class:`DraftStateMixin <wagtail.models.DraftStateMixin>`,
+        then a translation of an instance in the original queryset could exist, but
+        be in a draft state (i.e. ``live=False``). By default, draft translations are
+        not considered when compiling the translated instances. In that case, the
+        original instance is used in the localized queryset. To override this behavior
+        and allow draft translations in the localized queryset, pass
+        ``include_draft_translations=True``. Regardless of this option, the resulting
+        localized queryset will be the same length as the original.
+
+        Note: The draft state of an original instance is not considered when determining
+        if the original or the translation should be included in the localized queryset.
+        In the default configuration (``include_draft_translations=False``), draft
+        translations are not considered as translated. In a situation where the
+        original instance is in draft and its translation is also in draft, the original
+        instance will be used in the localized queryset (regardless of its draft state)
+        because the existence of the draft translation is ignored. This means the
+        original instance is considered not translated and is used in the localized
+        queryset. To exclude original draft instances from the localized queryset, the
+        original queryset should be filtered to only include live instances.
+
+        By default, the localized queryset will fall back to the original (untranslated)
+        instances if no translation into the active locale is available. This fallback
+        behaviour can be disabled by passing ``include_only_translations=True``. With
+        this option, only translated instances will be included in the resulting
+        queryset. That means that the resulting queryset can be shorter than the
+        original when not all instances are translated.
+
+        Note: If localization is disabled via the ``WAGTAIL_I18N_ENABLED`` setting, this
+        method returns the original queryset unchanged.
+
+        Note: This method returns a new queryset that is not a subset of the original
+        queryset. Because of that, effects of methods like ``select_related`` and
+        ``prefetch_related`` are not retained. If you want to use them on the resulting
+        queryset, you should apply them after ``.localized()``.
+        """
+        # Skip localization if i18n is not enabled. This behavior is consistent with
+        # the behavior of the `localized` property on `TranslatableMixin`.
+        if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            return self
+
+        # Get all instances that are available in the active locale. We can find these
+        # by getting all model instances that have a translation key from the original
+        # queryset and that are available in the active locale.
+        active_locale = Locale.get_active()
+        original_translation_keys = self.values_list("translation_key", flat=True)
+        translated_instances = self.model._default_manager.filter(
+            locale_id=pk(active_locale),
+            translation_key__in=original_translation_keys,
+        )
+
+        # Don't consider draft translations. If a translation is in draft, we want to
+        # use the original instance instead. To do so, we exclude draft translations.
+        # This only applies if the model has a `live` field. We allow bypassing this
+        # behavior by passing `include_draft_translations=True`.
+        from wagtail.models import DraftStateMixin
+
+        if issubclass(self.model, DraftStateMixin) and not include_draft_translations:
+            translated_instances = translated_instances.exclude(live=False)
+
+        if include_only_translations:
+            # If we only want to include translations, we can use the translated
+            # instances as the localized queryset.
+            localized_queryset = translated_instances
+        else:
+            # Otherwise, we need to combine the translated instances with the
+            # untranslated instance.
+
+            # Get all instances that are not available in the active locale, these are
+            # the untranslated instances. We can find these by excluding the translation
+            # keys for which translations exist from the original queryset.
+            translated_translation_keys = translated_instances.values_list(
+                "translation_key", flat=True
+            )
+            untranslated_instances = self.exclude(
+                translation_key__in=translated_translation_keys,
+            )
+
+            # Combine the translated and untranslated querysets to get the localized
+            # queryset.
+            localized_queryset = self.model._default_manager.filter(
+                models.Q(pk__in=translated_instances)
+                | models.Q(pk__in=untranslated_instances)
+            )
+
+        # Add annotations and aliases from the original queryset to the localized one.
+        # This allows the ordering and other operations (like ordering) that need
+        # annotations or aliases to be applied to the localized queryset as it would
+        # have been to the original queryset.
+        localized_queryset = self._copy_annotations_and_aliases_to_queryset(
+            queryset=localized_queryset,
+        )
+
+        if not preserve_order:
+            # If we don't need to preserve the original order, we apply the same
+            # `order_by` as in the original queryset. This does not mean that the order
+            # of the items is retained. Rather, the same fields are used for ordering.
+            # However, the ordering is likely to be different because the translated
+            # values are used.
+            return localized_queryset.order_by(*self.query.order_by)
+        else:
+            # However, if we want to keep the same order as in the original queryset we
+            # need to transfer the order from the original to the localized queryset.
+            # To do so, we annotate the localized queryset with the original order of
+            # the translation keys, and then order by that annotation.
+            ordering_when_clauses = [
+                models.When(translation_key=tk, then=models.Value(index))
+                for index, tk in enumerate(original_translation_keys)
+            ]
+
+            # If the original queryset is empty, there won't be any ordering clauses. In
+            # that case we just return the localized queryset as is.
+            if not ordering_when_clauses:
+                return localized_queryset
+
+            # Otherwise, we annotate the localized queryset with the original order.
+            localized_annotated_queryset = localized_queryset.annotate(
+                original_order=models.Case(*ordering_when_clauses)
+            )
+            # And order by the original order.
+            return localized_annotated_queryset.order_by("original_order")
+
+    def _copy_annotations_and_aliases_to_queryset(
+        self,
+        queryset: models.QuerySet,
+    ) -> models.QuerySet:
+        """
+        Copy all annotations and aliases from this queryset to another.
+
+        Both, annotations and alias definitions are stored in `self.query.annotations`.
+        The difference between an alias and an annotation is that annotations are
+        added to the returned objects, they are part of the `SELECT` clause. Aliases,
+        on the other hand, are not added to the returned objects, they are only used
+        in other query operations. We can find the difference between the two by
+        checking if the key from `self.query.annotations` is also in
+        `self.query.annotation_select`, which defines which of the annotations should be
+        part of the `SELECT`.
+
+        See also:
+        * https://docs.djangoproject.com/en/4.2/ref/models/querysets#django.db.models.query.QuerySet.alias  # noqa: E501
+        * https://github.com/django/django/blob/0ee2b8c326d47387bacb713a3ab369fa9a7a22ee/django/db/models/sql/query.py#L2492-L2510  # noqa: E501
+
+        """
+        annotations = {}
+        aliases = {}
+        for k, v in self.query.annotations.items():
+            if k in self.query.annotation_select:
+                annotations[k] = v
+            else:
+                aliases[k] = v
+        queryset = queryset.annotate(**annotations)
+        queryset = queryset.alias(**aliases)
+        return queryset
+
+
+class TranslatableQuerySet(TranslatableQuerySetMixin, models.QuerySet):
+    """
+    Default QuerySet class for translatable models.
+
+    This class inherits from ``TranslatableQuerySetMixin`` and ``models.QuerySet``.
+    It is meant only as the default queryset class for translatable models that do not
+    define a custom manager.
+
+    If your translatable model defines a custom manager that inherits from
+    ``models.QuerySet``, make sure to also inherit from
+    `:py:class:`TranslatableQuerySetMixin <wagtail.models.i18n.TranslatableQuerySetMixin>`
+    to retain its features.
+    """
+
+    pass
+
+
 class TranslatableMixin(models.Model):
     translation_key = models.UUIDField(default=uuid.uuid4, editable=False)
     locale = models.ForeignKey(
@@ -184,6 +409,8 @@ class TranslatableMixin(models.Model):
         verbose_name=_("locale"),
     )
     locale.wagtail_reference_index_ignore = True
+
+    objects = TranslatableQuerySet.as_manager()
 
     class Meta:
         abstract = True
