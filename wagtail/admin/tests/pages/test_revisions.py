@@ -14,6 +14,7 @@ from wagtail.test.testapp.models import (
     SecretPage,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import local_datetime
 
 
@@ -199,9 +200,10 @@ class TestStreamRevisions(WagtailTestUtils, TestCase):
         )
 
 
-class TestCompareRevisions(WagtailTestUtils, TestCase):
+class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     # Actual tests for the comparison classes can be found in test_compare.py
 
+    base_breadcrumb_items = []
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -245,6 +247,33 @@ class TestCompareRevisions(WagtailTestUtils, TestCase):
             '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll give it to someone special</span>',
             html=True,
         )
+
+        history_url = reverse(
+            "wagtailadmin_pages:history", args=(self.christmas_event.id,)
+        )
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {
+                    "url": reverse("wagtailadmin_explore_root")
+                    if page.is_root()
+                    else reverse("wagtailadmin_explore", args=(page.pk,)),
+                    "label": page.get_admin_display_title(),
+                }
+                for page in self.christmas_event.get_ancestors(inclusive=True)
+            ]
+            + [
+                {"url": history_url, "label": "History"},
+                {"url": "", "label": "Compare", "sublabel": "This Christmas"},
+            ],
+            response.content,
+        )
+
+        soup = self.get_soup(response.content)
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.christmas_event.id,))
+        edit_button = soup.select_one(f"a.w-header-button[href='{edit_url}']")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(edit_button.text.strip(), "Edit")
 
     def test_compare_revisions_earliest(self):
         compare_url = reverse(

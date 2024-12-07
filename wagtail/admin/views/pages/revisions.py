@@ -8,7 +8,6 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
@@ -25,6 +24,7 @@ from wagtail.admin.views.generic.models import (
     RevisionsUnscheduleView,
 )
 from wagtail.admin.views.generic.preview import PreviewRevision
+from wagtail.admin.views.pages.utils import GenericPageBreadcrumbsMixin
 from wagtail.models import Page
 from wagtail.utils.timestamps import render_timestamp
 
@@ -163,12 +163,11 @@ class RevisionsView(PreviewRevision):
         return page
 
 
-class RevisionsCompare(RevisionsCompareView):
-    history_label = gettext_lazy("Page history")
-    edit_label = gettext_lazy("Edit this page")
+class RevisionsCompare(GenericPageBreadcrumbsMixin, RevisionsCompareView):
     history_url_name = "wagtailadmin_pages:history"
     edit_url_name = "wagtailadmin_pages:edit"
     header_icon = "doc-empty-inverse"
+    breadcrumbs_items_to_take = 2
 
     @method_decorator(user_passes_test(user_has_any_page_permission))
     def dispatch(self, request, *args, **kwargs):
