@@ -42,15 +42,18 @@ class BatchRedirectCreator(BatchCreator):
 
         batch.purge()
 
-
-def autocreate_redirects_on_slug_change(
-    instance_before: Page, instance: Page, **kwargs
-):
+def autocreate_redirects_on_slug_change(instance_before: Page, instance: Page, **kwargs):
     # NB: `page_slug_changed` provides specific page instances,
-    # so we do not need to 'upcast' them for create_redirects here
+    # so we do not need to 'upcast' them for create_redirects here.
 
     if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
         return None
+
+    # Determine if this is a draft page
+    if not instance.live:
+        # Check if redirects should be created for draft pages
+        if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE_ON_DRAFT", False):
+            return None
 
     # Determine sites to create redirects for
     sites = Site.objects.filter(
@@ -60,7 +63,16 @@ def autocreate_redirects_on_slug_change(
         ]
     ).exclude(root_page=instance)
 
-    create_redirects(page=instance, page_old=instance_before, sites=sites)
+    # Create redirects
+    for site in sites:
+        old_url = instance_before.url_path
+        if old_url != instance.url_path:  # Only create redirect if URL has changed
+            Redirect.objects.create(
+                old_path=old_url,
+                site=site,
+                redirect_page=instance,
+                automatically_created=True
+            )
 
 
 def autocreate_redirects_on_page_move(
