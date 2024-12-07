@@ -29,15 +29,17 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
  * ```
  */
 export class CountController extends Controller<HTMLFormElement> {
-  static classes = ['active'];
+  static classes = ['active', 'max', 'over'];
 
-  static targets = ['label', 'total'];
+  static targets = ['label', 'total', 'remainder', 'over'];
 
   static values = {
     container: { default: '', type: String },
     find: { default: DEFAULT_ERROR_SELECTOR, type: String },
     labels: { default: [], type: Array },
+    max: { default: Infinity, type: Number },
     min: { default: 0, type: Number },
+    offset: { default: 0, type: Number },
     total: { default: 0, type: Number },
   };
 
@@ -46,9 +48,14 @@ export class CountController extends Controller<HTMLFormElement> {
   /** Selector string, used to find the elements to count within the container. */
   declare findValue: string;
   /** Override pluralisation strings, e.g. `data-w-count-labels-value='["One item","Many items"]'`. */
+  /** Override pluralization strings, e.g. `data-w-count-labels-value='["One item","Many items"]'`. */
   declare labelsValue: string[];
+  /** Maximum value, anything equal or over will trigger the 'max' class, anything over will also trigger the 'over' class. */
+  declare maxValue: number;
   /** Minimum value, anything equal or below will trigger blank labels in the UI. */
   declare minValue: number;
+  /** Offset value to add to the total count when doing calculations */
+  declare offsetValue: number;
   /** Total current count of found elements. */
   declare totalValue: number;
 
@@ -57,22 +64,33 @@ export class CountController extends Controller<HTMLFormElement> {
   declare readonly hasLabelTarget: boolean;
   declare readonly hasTotalTarget: boolean;
   declare readonly labelTarget: HTMLElement;
+  declare readonly maxClass: string;
+  declare readonly hasMaxClass: boolean;
+  declare readonly overClass: string;
+  declare readonly hasOverClass: boolean;
   declare readonly totalTarget: HTMLElement;
+  declare readonly hasOverTarget: boolean;
+  declare readonly overTarget: HTMLElement;
+  declare readonly hasRemainderTarget: boolean;
+  declare readonly remainderTarget: HTMLElement;
 
   connect() {
-    document.addEventListener('change', () => this.count());
+    this.count();
   }
 
   count() {
+    const offset = this.offsetValue;
     const containerSelector = this.containerValue;
 
     const containers = containerSelector
       ? [...document.querySelectorAll(containerSelector)]
       : [this.element];
 
-    this.totalValue = containers
-      .map((element) => element.querySelectorAll(this.findValue).length)
-      .reduce((total, subTotal) => total + subTotal, 0);
+    this.totalValue =
+      offset +
+      containers
+        .map((element) => element.querySelectorAll(this.findValue).length)
+        .reduce((total, subTotal) => total + subTotal, 0);
 
     return this.totalValue;
   }
@@ -95,14 +113,37 @@ export class CountController extends Controller<HTMLFormElement> {
 
   totalValueChanged(total: number) {
     const min = this.minValue;
+    const max = this.maxValue;
     if (this.hasActiveClass) {
       this.element.classList.toggle(this.activeClass, total > min);
+    }
+    if (this.hasMaxClass && this.hasOverClass) {
+      const maxElem = this.element.querySelector(
+        `.${this.maxClass}`,
+      ) as HTMLElement;
+      const overElem = this.element.querySelector(
+        `.${this.overClass}`,
+      ) as HTMLElement;
+
+      if (max >= total) {
+        maxElem.style.display = 'block';
+        overElem.style.display = 'none';
+      } else {
+        maxElem.style.display = 'none';
+        overElem.style.display = 'block';
+      }
     }
     if (this.hasLabelTarget) {
       this.labelTarget.textContent = total > min ? this.getLabel(total) : '';
     }
     if (this.hasTotalTarget) {
-      this.totalTarget.textContent = total > min ? `${total}` : '';
+      this.totalTarget.textContent = total > min ? `${total}` : '0';
+    }
+    if (this.hasRemainderTarget) {
+      this.remainderTarget.textContent = (max - total).toString();
+    }
+    if (this.hasOverTarget) {
+      this.overTarget.textContent = (total - max).toString();
     }
   }
 }

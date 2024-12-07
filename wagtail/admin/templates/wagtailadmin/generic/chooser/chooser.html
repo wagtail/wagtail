@@ -48,26 +48,33 @@
                 <form
                     action="{{ chosen_multiple_url }}"
                     method="GET"
-                    data-controller="w-count w-bulk" data-action="w-count#count" data-w-count-find-value="input:checked" data-w-count-container-value="[data-multiple-choice-form]"
+                    data-controller="w-count w-bulk"
+                    data-action="change->w-count#count"
                     data-multiple-choice-form
+                    data-w-count-active-class="active"
+                    data-w-count-find-value="input:checked"
+                    data-w-count-max-class="active-max"
+                    data-w-count-max-value="{{ max_forms }}"
+                    data-w-count-offset-value="{{ max_forms_offset }}"
+                    data-w-count-over-class="over-max"
                 >
                     {% if max_forms %}
-                        <div id ="max_forms_pass" style="display: block;" class="help-block help-info">
+                        <div class="help-block help-info active-max">
                             {% icon name='help' %}
                             <p>
-                                {% blocktrans with max=max_forms %}This is <span id="max-forms-remainder"> {{ selected_items }} </span> by {{ max }}{% endblocktrans %}
+                                {% blocktrans with max=max_forms %}This is <span data-w-count-target="total"></span> by {{ max }}{% endblocktrans %}
                                 {% blocktrans trimmed %}
                                     <p>An overall total of <data value={{max_forms}}>{{max_forms}}</data> items can be selected.</p>
-                                    <p>Select up to <span id="remaining-items">{{max_forms_remainder}}</span> additional items from the choices below.</p>
+                                    <p>Select up to <span data-w-count-target="remainder"></span> additional items from the choices below.</p>
                                 {% endblocktrans %}
                             </p>
                         </div>
 
-                        <div id ="max_forms_fail" style="display: none;" class="help-block help-warning">
+                        <div class="help-block help-warning over-max">
                             {% icon name='warning' %}
                             <p>
                                 {% blocktrans trimmed %}
-                                    <p><span id="over-maximum"></span> items selected over maximum, these will not be applied upon confirming selection.</p>
+                                    <p><span data-w-count-target="over"></span> items selected over maximum, these will not be applied upon confirming selection.</p>
                                 {% endblocktrans %}
                             </p>
                         </div>
@@ -91,29 +98,3 @@
         {% endif %}
     </div>
 </div>
-
-
-<script>
-    document.addEventListener("click", () => {
-        setTimeout(() => {
-            const maxForms = '{{ max_forms }}';
-            const remainder = '{{max_forms_remainder }}';
-            const maxFormsRemainder = document.getElementById('max-forms-remainder');
-            const countCheckboxes = document.querySelector('form[data-w-count-total-value]')?.getAttribute('data-w-count-total-value');
-            const remainingItems = document.getElementById("remaining-items");
-            const overMaximum = document.getElementById("over-maximum");
-
-            if (maxFormsRemainder && remainingItems && Number(remainder) >= Number(countCheckboxes)) {
-                document.getElementById('max_forms_pass').style.display = 'block';
-                document.getElementById('max_forms_fail').style.display = 'none';
-                maxFormsRemainder.innerHTML = Number(maxForms) - Number(remainder) + Number(countCheckboxes);
-                remainingItems.innerHTML = Number(remainder) - Number(countCheckboxes);
-            }
-            else if (overMaximum && Number(countCheckboxes) > Number(remainder)) {
-                document.getElementById('max_forms_pass').style.display = 'none';
-                document.getElementById('max_forms_fail').style.display = 'block';
-                overMaximum.innerHTML = Number(countCheckboxes) - Number(remainder);
-            }
-        });
-    });
-</script>

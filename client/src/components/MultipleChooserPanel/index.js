@@ -18,9 +18,7 @@ export class MultipleChooserPanel extends InlinePanel {
       const queryParams = { multiple: true };
       if (opts.maxForms && opts.maxForms !== 1000) {
         queryParams.maxForms = opts.maxForms;
-        queryParams.maxFormsRemainder = this.isFirstChildEmpty()
-          ? opts.maxForms - this.getChildCount() + 1
-          : opts.maxForms - this.getChildCount();
+        queryParams.maxFormsRemainder = opts.maxForms - this.getChildCount();
       }
 
       this.chooserWidgetFactory.openModal((result) => {
