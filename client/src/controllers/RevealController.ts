@@ -37,22 +37,19 @@ export class RevealController extends Controller<HTMLElement> {
   declare closedValue: boolean;
   declare peekingValue: boolean;
 
-  declare readonly closedClass: string;
   declare readonly closedClasses: string[];
   declare readonly closeIconClass: string;
-  declare readonly contentTarget: HTMLElement;
-  declare readonly contentTargets: HTMLElement[];
-  declare readonly hasClosedClass: boolean;
   declare readonly hasCloseIconClass: string;
-  declare readonly hasContentTarget: boolean;
   declare readonly hasOpenIconClass: string;
-  declare readonly hasToggleTarget: boolean;
-  declare readonly initialClasses: string[];
   declare readonly openedClasses: string[];
   declare readonly openedContentClasses: string[];
   declare readonly openIconClass: string;
+
+  /** Content element target, to be shown/hidden with classes when opened/closed. */
+  declare readonly contentTargets: HTMLElement[];
+  /** Global selector string to be used to determine the container to add the mouseleave listener to. */
   declare readonly peekTargetValue: string;
-  declare readonly toggleTarget: HTMLButtonElement;
+  /**  Toggle button element(s) to have their classes and aria attributes updated. */
   declare readonly toggleTargets: HTMLButtonElement[];
 
   cleanUpPeekListener?: () => void;
@@ -89,6 +86,11 @@ export class RevealController extends Controller<HTMLElement> {
     });
   }
 
+  /**
+   * Handles changes to the closed state,updating element classes and `aria-expanded` attributes accordingly.
+   *
+   * Note: This may not trigger when clicking the toggle button if the element is already open in peeking mode.
+   */
   closedValueChanged(shouldClose: boolean, previouslyClosed?: boolean) {
     if (previouslyClosed === shouldClose) return;
 
@@ -143,10 +145,16 @@ export class RevealController extends Controller<HTMLElement> {
     });
   }
 
+  /**
+   * Close (hide) the reveal content.
+   */
   close() {
     this.closedValue = true;
   }
 
+  /**
+   * Open (show) the reveal content.
+   */
   open() {
     this.closedValue = false;
   }
