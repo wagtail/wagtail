@@ -1344,6 +1344,55 @@ def workflow_status_with_date(workflow_state):
     return _("%(status_display)s %(task_name)s %(started_at)s") % translation_context
 
 
+def get_keyboard_key_by_user_agent(user_agent):
+    """
+    Returns the standard keyboard keys based on user device
+    """
+    is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
+
+    if is_mac:
+        return {
+            "command/control": "⌘",
+            "option/alt": "⌥",
+            "escape": "Esc",
+            "shift": "Shift",
+            "enter/return": "Return",
+            "delete/backspace": "Delete",
+            "tab": "Tab"
+        }
+    else:
+        return {
+            "command/control": "Ctrl",
+            "option/alt": "Alt",
+            "escape": "Esc",
+            "shift": "Shift",
+            "enter/return": "Enter",
+            "delete/backspace": "Backspace",
+            "tab": "Tab"
+        }
+
+
+def get_wagtail_keyboard_actions(keyboard_keys):
+    """
+    Returns the wagtail specific keyboard shortcuts based on various user settings
+    """
+    comments_enable = get_comments_enabled()
+
+    actions = [
+        (_("Save changes"), f"{keyboard_keys["command/control"]} + s"),
+        (_("Preview"), f"{keyboard_keys["command/control"]} + p"),
+    ]
+
+    if comments_enable:
+        actions.append(
+            (_("Comments"), f"{keyboard_keys["command/control"]} + "
+                            f"{keyboard_keys["option/alt"]}"
+                            f" + m"),
+        )
+
+    return actions
+
+
 @register.inclusion_tag(
     "wagtailadmin/shared/keyboard_shortcuts_dialog.html",
     takes_context=True,
@@ -1357,41 +1406,41 @@ def keyboard_shortcuts_dialog(context):
 
     user_agent = context["request"].headers.get("User-Agent", "")
     is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
-    modifier = "⌘" if is_mac else "Ctrl"
+    keyboard_keys = get_keyboard_key_by_user_agent(user_agent)
 
     return {
         "shortcuts": {
             ("actions-common", _("Common actions")): [
-                (_("Copy"), f"{modifier} + c"),
-                (_("Cut"), f"{modifier} + x"),
-                (_("Paste"), f"{modifier} + v"),
+                (_("Copy"), f"{keyboard_keys["command/control"]} + c"),
+                (_("Cut"), f"{keyboard_keys["command/control"]} + x"),
+                (_("Paste"), f"{keyboard_keys["command/control"]} + v"),
                 (
-                    _("Paste and match style")
-                    if is_mac
+                    _("Paste and match style") if is_mac
                     else _("Paste without formatting"),
-                    f"{modifier} + Shift + v",
+                    f"{keyboard_keys["command/control"]} + Shift + v",
                 ),
-                (_("Undo"), f"{modifier} + z"),
+                (_("Undo"), f"{keyboard_keys["command/control"]} + z"),
                 (
                     _("Redo"),
-                    f"{modifier} + Shift + z" if is_mac else f"{modifier} + y",
+                    f"{keyboard_keys["command/control"]}"
+                    f" + {keyboard_keys["shift"]} "
+                    f"+ z" if is_mac
+                    else f"{keyboard_keys["command/control"]} + y",
                 ),
             ],
-            ("actions-model", _("Actions")): [
-                (_("Save changes"), f"{modifier} + s"),
-                (_("Preview"), f"{modifier} + p"),
-            ],
+            ("actions-model", _("Actions")): get_wagtail_keyboard_actions(
+                keyboard_keys),
             ("rich-text-content", _("Text content")): [
-                (_("Insert or edit a link"), f"{modifier} + k")
+                (_("Insert or edit a link"), f"{keyboard_keys["command/control"]} + k")
             ],
             ("rich-text-formatting", _("Text formatting")): [
-                (_("Bold"), f"{modifier} + b"),
-                (_("Italic"), f"{modifier} + i"),
-                (_("Underline"), f"{modifier} + u"),
-                (_("Monospace (code)"), f"{modifier} + j"),
-                (_("Strike-through"), f"{modifier} + x"),
-                (_("Superscript"), f"{modifier} + ."),
-                (_("Subscript"), f"{modifier} + ,"),
+                (_("Bold"), f"{keyboard_keys["command/control"]} + b"),
+                (_("Italic"), f"{keyboard_keys["command/control"]} + i"),
+                (_("Underline"), f"{keyboard_keys["command/control"]} + u"),
+                (_("Monospace (code)"), f"{keyboard_keys["command/control"]} + j"),
+                (_("Strike-through"), f"{keyboard_keys["command/control"]} + x"),
+                (_("Superscript"), f"{keyboard_keys["command/control"]} + ."),
+                (_("Subscript"), f"{keyboard_keys["command/control"]} + ,"),
             ],
         }
     }

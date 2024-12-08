@@ -1,10 +1,13 @@
 import json
 import re
 
+from unittest.mock import patch
+
 from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 
+from wagtail.admin.templatetags.wagtailadmin_tags import get_wagtail_keyboard_actions
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -53,6 +56,26 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
             "All keyboard shortcuts", shortcuts_dialog.find("caption").prettify()
         )
         self.assertIn("Keyboard shortcut", shortcuts_dialog.find("thead").prettify())
+
+    def test_get_wagtail_keyboard_actions_with_comments(self):
+        with patch("wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled",
+                   return_value=True):
+
+            keyboard_keys = {"command/control": "Ctrl", "option/alt": "Alt"}
+            actions = get_wagtail_keyboard_actions(keyboard_keys)
+
+            self.assertIn(("Comments", "Ctrl + Alt + m"), actions)
+
+
+
+    def test_get_wagtail_keyboard_actions_without_comments(self):
+        with patch("wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled",
+                   return_value=False):
+
+            keyboard_keys = {"command/control": "Ctrl", "option/alt": "Alt"}
+            actions = get_wagtail_keyboard_actions(keyboard_keys)
+
+            self.assertNotIn(("Comments", "Ctrl + Alt + m"), actions)
 
 
 class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
