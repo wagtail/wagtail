@@ -24,16 +24,16 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
         <div class="typed-table-block__wrapper">
           <table>
             <thead>
-              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" title="Insert column">
+              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button><input type="text" name="mytable-column-0-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
-      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" title="Insert column">
+      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button><input type="text" name="mytable-column-1-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button></th><th class="control-cell">
-                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
+                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" aria-expanded="false" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
                 </th></tr>
             </thead>
             <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
@@ -130,16 +130,16 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError passe
         <div class="typed-table-block__wrapper">
           <table>
             <thead>
-              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" title="Insert column">
+              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button><input type="text" name="mytable-column-0-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
-      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" title="Insert column">
+      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button><input type="text" name="mytable-column-1-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button></th><th class="control-cell">
-                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
+                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" aria-expanded="false" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
                 </th></tr>
             </thead>
             <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
@@ -236,16 +236,16 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock setError shows
         <div class="typed-table-block__wrapper">
           <table>
             <thead>
-              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" title="Insert column">
+              <tr><th aria-hidden="true"></th><th><input type="hidden" name="mytable-column-0-type" value="test_block_a"><input type="hidden" name="mytable-column-0-order" value="0"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button><input type="text" name="mytable-column-0-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
-      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" title="Insert column">
+      </button></th><th><input type="hidden" name="mytable-column-1-type" value="test_block_b"><input type="hidden" name="mytable-column-1-order" value="1"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-column" aria-label="Insert column" aria-expanded="false" title="Insert column">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button><input type="text" name="mytable-column-1-heading" class="column-heading" placeholder="Column heading"><button type="button" class="button button-secondary button-small button--icon text-replace no delete-column" aria-label="Delete column" title="Delete column">
         <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button></th><th class="control-cell">
-                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
+                  <button type="button" class="button button-small button-secondary append-column button--icon text-replace white" aria-expanded="false" data-append-column="" aria-label="Add column" title="Add column"><svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg></button>
                 </th></tr>
             </thead>
             <tbody><tr><td class="control-cell"><button type="button" class="button button-secondary button-small button--icon text-replace prepend-row" aria-label="Insert row" title="Insert row">
