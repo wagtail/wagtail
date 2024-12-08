@@ -1,6 +1,5 @@
 import json
 import re
-
 from unittest.mock import patch
 
 from django.test import TestCase
@@ -58,20 +57,20 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         self.assertIn("Keyboard shortcut", shortcuts_dialog.find("thead").prettify())
 
     def test_get_wagtail_keyboard_actions_with_comments(self):
-        with patch("wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled",
-                   return_value=True):
-
+        with patch(
+            "wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled",
+            return_value=True,
+        ):
             keyboard_keys = {"command/control": "Ctrl", "option/alt": "Alt"}
             actions = get_wagtail_keyboard_actions(keyboard_keys)
 
             self.assertIn(("Comments", "Ctrl + Alt + m"), actions)
 
-
-
     def test_get_wagtail_keyboard_actions_without_comments(self):
-        with patch("wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled",
-                   return_value=False):
-
+        with patch(
+            "wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled",
+            return_value=False,
+        ):
             keyboard_keys = {"command/control": "Ctrl", "option/alt": "Alt"}
             actions = get_wagtail_keyboard_actions(keyboard_keys)
 
