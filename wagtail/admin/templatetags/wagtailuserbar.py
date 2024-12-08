@@ -1,7 +1,8 @@
+from warnings import warn
+
 from django import template
 from django.template.loader import render_to_string
 from django.utils import translation
-from warnings import warn
 
 from wagtail import hooks
 from wagtail.admin.userbar import (
@@ -95,7 +96,7 @@ def wagtailuserbar(context, position="bottom-right"):
             ]
 
         for fn in hooks.get_hooks("construct_wagtail_userbar"):
-            if accepts_kwarg(fn, 'page'):
+            if accepts_kwarg(fn, "page"):
                 fn(request, items, page)
             else:
                 warn(
