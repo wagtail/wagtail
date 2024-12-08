@@ -466,7 +466,7 @@ describe('RevealController', () => {
       jest.restoreAllMocks();
     });
 
-    it('should save state if expanded', async () => {
+    it('should get save state if expanded', async () => {
       localStorage.getItem.mockImplementation(() => 'header');
 
       await setup(`
@@ -480,6 +480,24 @@ describe('RevealController', () => {
       await jest.advanceTimersByTime(0);
 
       expect(localStorage.getItem('wagtail:w-breadcrumbs:opened')).toBe(
+        'header',
+      );
+    });
+
+    it('should save state if expanded', async () => {
+      localStorage.setItem.mockImplementation(() => 'header');
+
+      await setup(`
+      <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-store-value="header">
+        <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+      </section>`);
+
+      const toggleButton = document.querySelector('button');
+
+      await Promise.resolve(toggleButton.click());
+      await jest.advanceTimersByTime(0);
+
+      expect(localStorage.setItem('wagtail:w-breadcrumbs:opened')).toBe(
         'header',
       );
     });
