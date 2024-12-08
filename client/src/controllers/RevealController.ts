@@ -217,9 +217,13 @@ export class RevealController extends Controller<HTMLElement> {
       });
   }
 
+  get localStorageKey() {
+    return `wagtail:${this.identifier}:opened`;
+  }
+
   get stored() {
     const storeValue = this.storeValue;
-    const key = `wagtail:${this.identifier}:opened`;
+    const key = this.localStorageKey;
     if (storeValue) {
       try {
         const storedValue = localStorage.getItem(key);
