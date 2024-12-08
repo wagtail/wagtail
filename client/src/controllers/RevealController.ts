@@ -126,7 +126,6 @@ export class RevealController extends Controller<HTMLElement> {
       });
       this.element.classList.remove(...closedClasses);
       this.element.classList.add(...openedClasses);
-      this.stored = true;
       this.dispatch('opened', { cancelable: false });
     }
 
@@ -145,10 +144,12 @@ export class RevealController extends Controller<HTMLElement> {
 
   close() {
     this.closedValue = true;
+    this.stored = false;
   }
 
   open() {
     this.closedValue = false;
+    this.stored = true;
   }
 
   peek() {
@@ -221,7 +222,7 @@ export class RevealController extends Controller<HTMLElement> {
     return `wagtail:${this.identifier}:opened`;
   }
 
-  get stored() {
+  get stored(): boolean {
     const storeValue = this.storeValue;
     const key = this.localStorageKey;
     if (storeValue) {
@@ -237,7 +238,7 @@ export class RevealController extends Controller<HTMLElement> {
     return false;
   }
 
-  set stored(isOpened) {
+  set stored(isOpened: boolean) {
     const storeValue = this.storeValue;
     const key = `wagtail:${this.identifier}:opened`;
 
