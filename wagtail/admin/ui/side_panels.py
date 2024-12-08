@@ -329,8 +329,9 @@ class ChecksSidePanel(BaseSidePanel):
     def get_axe_configuration(self):
         # Retrieve the Axe configuration from the userbar.
         userbar_items = [AccessibilityItem()]
+        page = self.object if issubclass(self.model, Page) else None
         for fn in hooks.get_hooks("construct_wagtail_userbar"):
-            fn(self.request, userbar_items)
+            fn(self.request, userbar_items, page)
 
         for item in userbar_items:
             if isinstance(item, AccessibilityItem):
