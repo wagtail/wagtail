@@ -59,6 +59,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -124,6 +126,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -216,6 +220,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -269,6 +275,8 @@ jobs:
           node port: 9300
           discovery type: 'single-node'
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -324,6 +332,9 @@ jobs:
         with:
           stack-version: 7.6.1
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -374,6 +385,8 @@ jobs:
         with:
           opensearch-version: 2
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -411,6 +424,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
