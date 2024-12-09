@@ -61,6 +61,9 @@ class TestServeView(TestCase):
     def test_content_security_policy(self):
         self.assertEqual(self.get()["Content-Security-Policy"], "default-src 'none'")
 
+        with self.settings(WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT=False):
+            self.assertNotIn("Content-Security-Policy", self.get().headers)
+
     def test_no_sniff_content_type(self):
         self.assertEqual(self.get()["X-Content-Type-Options"], "nosniff")
 

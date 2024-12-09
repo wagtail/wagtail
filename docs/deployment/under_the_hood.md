@@ -62,7 +62,9 @@ The alternative serve methods `'direct'` and `'redirect'` work by serving the do
 
 If a remote ("cloud") storage backend is used, the serve method will default to `'redirect'` and the document will be served directly from the cloud storage file url. In this case, users may be able to bypass permission checks, and scripts within documents may be executed (depending on the cloud storage service's configuration). However, the impact of cross-site scripting attacks is reduced, as the document is served from a different domain to the main site.
 
-If these limitations are not acceptable, you may set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and ensure that the documents are not publicly accessible using the cloud service's file url. A Content Security Policy is also automatically set for you.
+If these limitations are not acceptable, you may set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and ensure that the documents are not publicly accessible using the cloud service's file url.
+
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed and which storage backend is used. For the `'serve_view` method, a `Content-Security-Policy` header is automatically set for you (unless disabled via [](wagtaildocs_block_embedded_content)) to prevent the execution of scripts embedded in documents.
 
 #### Cloud storage
 

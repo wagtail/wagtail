@@ -108,7 +108,8 @@ def serve(request, document_id, document_filename):
         response["Content-Length"] = doc.file.size
 
     # Add a CSP header to prevent inline execution
-    response["Content-Security-Policy"] = "default-src 'none'"
+    if getattr(settings, "WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT", True):
+        response["Content-Security-Policy"] = "default-src 'none'"
 
     # Prevent browsers from auto-detecting the content-type of a document
     response["X-Content-Type-Options"] = "nosniff"
