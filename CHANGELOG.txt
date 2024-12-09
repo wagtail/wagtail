@@ -93,6 +93,7 @@ Changelog
  * Maintenance: Only call `openpyxl` at runtime to improve performance for projects that do not use `ReportView`, `SpreadsheetExportMixin` and `wagtail.contrib.redirects` (Sébastien Corbin)
  * Maintenance: Adopt the update value `mp` instead of `mm` for 'mystery person' as the default Gravatar if no avatar found (Harsh Dange)
  * Maintenance: Refactor search promotions views to use generic views and templates (Sage Abdullah, Rohit Sharma)
+ * Maintenance: Use built-in `venv` instead of `pipenv` in CircleCI (Sage Abdullah)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
