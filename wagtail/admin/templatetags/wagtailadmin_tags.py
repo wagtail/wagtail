@@ -4,6 +4,7 @@ import re
 from urllib.parse import urljoin
 from warnings import warn
 
+from wagtail.core import hooks
 from django import template
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -648,14 +649,22 @@ def _abs(val):
 def admin_urlquote(value):
     return quote(value)
 
-
 @register.simple_tag
 def avatar_url(user, size=50, gravatar_only=False):
     """
-    A template tag that receives a user and size and return
-    the appropriate avatar url for that user.
+    A template tag that receives a user and size and returns
+    the appropriate avatar URL for that user.
     Example usage: {% avatar_url request.user 50 %}
     """
+    # Custom hook logic
+    for hook_fn in hooks.get_hooks("get_avatar_url"):
+        url = hook_fn(user, size)
+        if url:
+            return url
+
+    # Default logic
+    # Existing logic for gravatar or static avatar URL
+    ...
 
     if (
         not gravatar_only
