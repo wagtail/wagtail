@@ -174,8 +174,7 @@ export class TypedTableBlock {
   }
 
   showAddColumnMenu(triggeredElement, callback) {
-    this.addColumnMenuTrigger &&
-      this.addColumnMenuTrigger.attr('aria-expanded', 'false');
+    this.addColumnMenuTrigger?.attr('aria-expanded', 'false');
     this.addColumnMenuTrigger = triggeredElement;
     triggeredElement.after(this.addColumnMenu);
     triggeredElement.attr('aria-expanded', 'true');
