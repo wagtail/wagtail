@@ -365,7 +365,7 @@ class DateBlock(FieldBlock):
         from wagtail.admin.widgets import AdminDateInput
 
         field_kwargs = {
-            "widget": AdminDateInput(format=self.format),
+            "widget": AdminDateInput(format=self.format,attrs={"class": "w-field--admin_date_chooser"}),
         }
         field_kwargs.update(self.field_options)
         return forms.DateField(**field_kwargs)
@@ -399,7 +399,7 @@ class TimeBlock(FieldBlock):
     def field(self):
         from wagtail.admin.widgets import AdminTimeInput
 
-        field_kwargs = {"widget": AdminTimeInput(format=self.format)}
+        field_kwargs = {"widget": AdminTimeInput(format=self.format, attrs={"class": "w-field--admin_time_chooser"})}
         field_kwargs.update(self.field_options)
         return forms.TimeField(**field_kwargs)
 
@@ -430,7 +430,7 @@ class DateTimeBlock(FieldBlock):
         from wagtail.admin.widgets import AdminDateTimeInput
 
         field_kwargs = {
-            "widget": AdminDateTimeInput(format=self.format),
+            "widget": AdminDateTimeInput(format=self.format,attrs={"class": "w-field--admin_date_time_chooser"}),
         }
         field_kwargs.update(self.field_options)
         return forms.DateTimeField(**field_kwargs)
