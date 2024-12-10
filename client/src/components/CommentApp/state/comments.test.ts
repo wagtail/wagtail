@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { legacy_createStore as createStore } from 'redux';
 import { basicCommentsState } from '../__fixtures__/state';
 import {
   Comment,
