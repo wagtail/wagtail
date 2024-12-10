@@ -565,7 +565,7 @@ If a user navigates directly to the URL of the SVG file embedded scripts may be 
 -   setting `Content-Security-Policy: default-src 'none'` will prevent scripts from being loaded or executed (as well as other resources - a more relaxed policy of `script-src 'none'` may also be suitable); and
 -   setting `Content-Disposition: attachment` will cause the file to be downloaded rather than being immediately rendered in the browser, meaning scripts will not be executed (note: this will not prevent scripts from running if a user downloads and subsequently opens the SVG file in their browser).
 
-The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed.
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed. For the built-in [](using_images_outside_wagtail), a Content-Security-Policy header is automatically set for you.
 
 (heic_heif_images)=
 
