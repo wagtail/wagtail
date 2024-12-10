@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest import mock
 from urllib.error import HTTPError, URLError
 
@@ -17,7 +18,7 @@ from wagtail.contrib.frontend_cache.backends import (
     HTTPBackend,
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.test.testapp.models import EventIndex
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
@@ -25,6 +26,7 @@ from .utils import (
     PurgeBatch,
     purge_page_from_cache,
     purge_pages_from_cache,
+    purge_site,
     purge_url_from_cache,
     purge_urls_from_cache,
 )
@@ -417,12 +419,36 @@ class TestBackendConfiguration(SimpleTestCase):
         self.assertEqual(backends["default"].cache_netloc, "localhost:8000")
 
 
-PURGED_URLS = set()
+PURGED_URLS = []
+PURGED_HOSTNAMES = []
+EVERYTHING_PURGES = []
 
 
 class MockBackend(BaseBackend):
+    def __init__(self, params):
+        self._hostname_purge_supported = params.pop("HOSTNAME_PURGING_SUPPORTED", False)
+        self._everything_purge_supported = params.pop(
+            "EVERYTHING_PURGING_SUPPORTED", False
+        )
+        super().__init__(params)
+
     def purge(self, url):
-        PURGED_URLS.add(url)
+        PURGED_URLS.append(url)
+
+    def purge_batch(self, urls):
+        PURGED_URLS.extend(urls)
+
+    def purge_hostname(self, hostname):
+        PURGED_HOSTNAMES.append(hostname)
+
+    def purge_all(self):
+        EVERYTHING_PURGES.append(datetime.now())
+
+    def hostname_purge_supported(self):
+        return self._hostname_purge_supported
+
+    def allow_everything_purge_for_hostname(self, hostname):
+        return self._everything_purge_supported
 
 
 class MockCloudflareBackend(CloudflareBackend):
@@ -435,36 +461,52 @@ class MockCloudflareBackend(CloudflareBackend):
 
 @override_settings(
     WAGTAILFRONTENDCACHE={
-        "varnish": {
+        "default": {
             "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
         },
-    }
+    },
+    WAGTAILFRONTENDCACHE_FIXED_SITE_PATHS=["/signup/", "/login/"],
+    CACHES={
+        "default": {
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        }
+    },
 )
 class TestCachePurgingFunctions(TestCase):
     fixtures = ["test.json"]
 
     def setUp(self):
         PURGED_URLS.clear()
+        PURGED_HOSTNAMES.clear()
+        EVERYTHING_PURGES.clear()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.site = Site.objects.select_related("root_page").get()
 
     def test_purge_url_from_cache(self):
         purge_url_from_cache("http://localhost/foo")
-        self.assertEqual(PURGED_URLS, {"http://localhost/foo"})
+        self.assertEqual(PURGED_URLS, ["http://localhost/foo"])
 
     def test_purge_urls_from_cache(self):
         purge_urls_from_cache(["http://localhost/foo", "http://localhost/bar"])
-        self.assertEqual(PURGED_URLS, {"http://localhost/foo", "http://localhost/bar"})
+        self.assertEqual(
+            set(PURGED_URLS), {"http://localhost/foo", "http://localhost/bar"}
+        )
 
     def test_purge_page_from_cache(self):
         page = EventIndex.objects.get(url_path="/home/events/")
         purge_page_from_cache(page)
         self.assertEqual(
-            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
+            set(PURGED_URLS),
+            {"http://localhost/events/", "http://localhost/events/past/"},
         )
 
     def test_purge_pages_from_cache(self):
         purge_pages_from_cache(EventIndex.objects.all())
         self.assertEqual(
-            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
+            set(PURGED_URLS),
+            {"http://localhost/events/", "http://localhost/events/past/"},
         )
 
     def test_purge_batch(self):
@@ -475,7 +517,7 @@ class TestCachePurgingFunctions(TestCase):
         batch.purge()
 
         self.assertEqual(
-            PURGED_URLS,
+            set(PURGED_URLS),
             {
                 "http://localhost/events/",
                 "http://localhost/events/past/",
@@ -485,7 +527,7 @@ class TestCachePurgingFunctions(TestCase):
 
     @override_settings(
         WAGTAILFRONTENDCACHE={
-            "varnish": {
+            "default": {
                 "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
                 "HOSTNAMES": ["example.com"],
             },
@@ -495,14 +537,164 @@ class TestCachePurgingFunctions(TestCase):
         with self.assertLogs(level="INFO") as log_output:
             purge_url_from_cache("http://localhost/foo")
 
-        self.assertEqual(PURGED_URLS, set())
+        self.assertFalse(PURGED_URLS)
         self.assertIn(
             "Unable to find purge backend for localhost",
             log_output.output[0],
         )
 
         purge_url_from_cache("http://example.com/foo")
-        self.assertEqual(PURGED_URLS, {"http://example.com/foo"})
+        self.assertEqual(PURGED_URLS, ["http://example.com/foo"])
+
+    def assertMessageLogged(self, message, log_record):
+        self.assertIn(f"INFO:wagtail.frontendcache:{message}", log_record.output)
+
+    def test_purge_site_default(self):
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(2):
+                purge_site(self.site)
+
+        self.assertMessageLogged("Purging 18 page URLs for localhost", log_output)
+        self.assertMessageLogged("Purging 2 fixed site paths for localhost", log_output)
+
+        # More efficient methods of purging are not supported
+        self.assertFalse(PURGED_HOSTNAMES)
+        self.assertFalse(EVERYTHING_PURGES)
+
+        # So, the backend should resort to purging URLs in batches
+        self.assertEqual(len(PURGED_URLS), 21)
+
+        # Fixed site paths should have been included alongside page URLs
+        self.assertIn("http://localhost/signup/", PURGED_URLS)
+        self.assertIn("http://localhost/login/", PURGED_URLS)
+
+    def test_purge_site_progress_reporting(self):
+        with self.assertLogs(level="INFO") as log_output:
+            purge_site(self.site, url_batch_chunk_size=5)
+
+        self.assertMessageLogged("Progress: 5/18", log_output)
+        self.assertMessageLogged("Progress: 10/18", log_output)
+        self.assertMessageLogged("Progress: 15/18", log_output)
+        self.assertMessageLogged("Progress: 18/18", log_output)
+        self.assertMessageLogged("Purging 2 fixed site paths for localhost", log_output)
+
+    @override_settings(
+        WAGTAILFRONTENDCACHE={
+            "default": {
+                "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+                "HOSTNAMES": ["example.com"],
+            },
+        }
+    )
+    def test_purge_site_when_hostname_not_recognised(self):
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
+
+        self.assertIn(
+            "Unable to find purge backend for localhost",
+            log_output.output[0],
+        )
+        self.assertFalse(PURGED_URLS)
+
+    @override_settings(
+        WAGTAILFRONTENDCACHE={
+            "default": {
+                "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+                "HOSTNAMES": ["localhost"],
+                "HOSTNAME_PURGING_SUPPORTED": True,
+            },
+        }
+    )
+    def test_purge_site_when_hostname_purging_supported(self):
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
+
+        # A hostname purge should have been made successfully
+        self.assertIn(
+            "Purging hostname via backend: default",
+            log_output.output[0],
+        )
+        self.assertEqual(PURGED_HOSTNAMES, ["localhost"])
+
+        # And there is no need for purging of individual URLs or everything
+        self.assertFalse(EVERYTHING_PURGES)
+        self.assertFalse(PURGED_URLS)
+
+    @override_settings(
+        WAGTAILFRONTENDCACHE={
+            "default": {
+                "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+                "HOSTNAMES": ["example.com"],
+                "HOSTNAME_PURGING_SUPPORTED": True,
+            },
+        }
+    )
+    def test_purge_site_when_hostname_purging_supported_but_not_hostname_not_recognised_by_backends(
+        self,
+    ):
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
+
+        self.assertIn(
+            "Unable to find purge backend for localhost",
+            log_output.output[0],
+        )
+        self.assertFalse(PURGED_URLS)
+        self.assertFalse(PURGED_HOSTNAMES)
+        self.assertFalse(EVERYTHING_PURGES)
+
+    @override_settings(
+        WAGTAILFRONTENDCACHE={
+            "default": {
+                "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+                "EVERYTHING_PURGING_SUPPORTED": True,
+            },
+        }
+    )
+    def test_purge_site_when_only_everything_purging_supported(self):
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
+
+        # An everything purge should have been made successfully
+        self.assertIn(
+            "Purging everything via backend: default",
+            log_output.output[0],
+        )
+        self.assertEqual(len(EVERYTHING_PURGES), 1)
+
+        # And there is no need for purging of the hostname or individual URLs
+        self.assertFalse(PURGED_URLS)
+        self.assertFalse(PURGED_HOSTNAMES)
+
+    @override_settings(
+        WAGTAILFRONTENDCACHE={
+            "default": {
+                "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
+                "HOSTNAME_PURGING_SUPPORTED": True,
+                "EVERYTHING_PURGING_SUPPORTED": True,
+            },
+        }
+    )
+    def test_purge_site_when_hostname_or_everything_purging_supported(self):
+        with self.assertLogs(level="INFO") as log_output:
+            with self.assertNumQueries(0):
+                purge_site(self.site)
+
+        # A hostname purge should have been made successfully,
+        # because it's safer than an everything purge
+        self.assertIn(
+            "Purging hostname via backend: default",
+            log_output.output[0],
+        )
+        self.assertEqual(PURGED_HOSTNAMES, ["localhost"])
+
+        # And there is no need for purging of individual URLs or everything
+        self.assertFalse(EVERYTHING_PURGES)
+        self.assertFalse(PURGED_URLS)
 
 
 @override_settings(
@@ -525,7 +717,7 @@ class TestCloudflareCachePurgingFunctions(TestCase):
         batch.add_urls(urls)
         batch.purge()
 
-        self.assertCountEqual(PURGED_URLS, set(urls))
+        self.assertCountEqual(set(PURGED_URLS), set(urls))
 
 
 @override_settings(
@@ -546,14 +738,16 @@ class TestCachePurgingSignals(TestCase):
         page = EventIndex.objects.get(url_path="/home/events/")
         page.save_revision().publish()
         self.assertEqual(
-            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
+            set(PURGED_URLS),
+            {"http://localhost/events/", "http://localhost/events/past/"},
         )
 
     def test_purge_on_unpublish(self):
         page = EventIndex.objects.get(url_path="/home/events/")
         page.unpublish()
         self.assertEqual(
-            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
+            set(PURGED_URLS),
+            {"http://localhost/events/", "http://localhost/events/past/"},
         )
 
     def test_purge_with_unroutable_page(self):
@@ -561,7 +755,7 @@ class TestCachePurgingSignals(TestCase):
         page = EventIndex(title="new top-level page")
         root.add_child(instance=page)
         page.save_revision().publish()
-        self.assertEqual(PURGED_URLS, set())
+        self.assertFalse(PURGED_URLS)
 
     @override_settings(
         ROOT_URLCONF="wagtail.test.urls_multilang",
@@ -573,7 +767,7 @@ class TestCachePurgingSignals(TestCase):
         page.save_revision().publish()
 
         self.assertEqual(
-            PURGED_URLS,
+            set(PURGED_URLS),
             {
                 "http://localhost/en/events/",
                 "http://localhost/en/events/past/",
@@ -595,7 +789,7 @@ class TestCachePurgingSignals(TestCase):
         page.save_revision().publish()
 
         self.assertEqual(
-            PURGED_URLS,
+            set(PURGED_URLS),
             {
                 "http://localhost/en/events/",
                 "http://localhost/en/events/past/",
@@ -614,7 +808,7 @@ class TestCachePurgingSignals(TestCase):
         page = EventIndex.objects.get(url_path="/home/events/")
         page.save_revision().publish()
         self.assertEqual(
-            PURGED_URLS,
+            set(PURGED_URLS),
             {"http://localhost/en/events/", "http://localhost/en/events/past/"},
         )
 
