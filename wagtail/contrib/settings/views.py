@@ -84,7 +84,6 @@ class EditView(generic.EditView):
     edit_url_name = "wagtailsettings:edit"
     error_message = gettext_lazy("The setting could not be saved due to errors.")
     permission_required = "change"
-    _show_breadcrumbs = True
 
     def setup(self, request, app_name, model_name, *args, **kwargs):
         self.app_name = app_name
