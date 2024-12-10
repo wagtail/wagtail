@@ -1,10 +1,13 @@
 import json
+from warnings import warn
 
 from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from taggit.forms import TagWidget
 from taggit.models import Tag
+
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class AdminTagWidget(TagWidget):
@@ -39,7 +42,25 @@ class AdminTagWidget(TagWidget):
         else:
             free_tagging = self.free_tagging
 
-        tag_spaces_allowed = getattr(settings, "TAG_SPACES_ALLOWED", True)
+        # Handle TAG_SPACES_ALLOWED with backward compatibility
+        tag_spaces_allowed = getattr(
+            settings,
+            "WAGTAIL_TAGS_SPACES_ALLOWED",
+            getattr(settings, "TAG_SPACES_ALLOWED", True),
+        )
+
+        if hasattr(settings, "TAG_SPACES_ALLOWED"):
+            warn(
+                "The setting 'TAG_SPACES_ALLOWED' is deprecated. "
+                "Please use 'WAGTAIL_TAGS_SPACES_ALLOWED' instead.",
+                RemovedInWagtail70Warning,
+            )
+        tag_spaces_allowed = getattr(
+            settings,
+            "WAGTAIL_TAGS_SPACES_ALLOWED",
+            getattr(settings, "TAG_SPACES_ALLOWED", True),  # Fallback to old setting
+        )
+
         if tag_spaces_allowed:
             help_text = _(
                 'Multi-word tags with spaces will automatically be enclosed in double quotes (").'
@@ -47,13 +68,24 @@ class AdminTagWidget(TagWidget):
         else:
             help_text = _("Tags can only consist of a single word, no spaces allowed.")
 
+        if hasattr(settings, "TAG_LIMIT"):
+            warn(
+                "The setting 'TAG_LIMIT' is deprecated. "
+                "Please use 'WAGTAIL_TAGS_LIMIT' instead.",
+                RemovedInWagtail70Warning,
+            )
+        # Handle TAG_LIMIT with backward compatibility
+        tag_limit = getattr(
+            settings, "WAGTAIL_TAGS_LIMIT", getattr(settings, "TAG_LIMIT", None)
+        )
+
         context["widget"]["help_text"] = help_text
         context["widget"]["attrs"]["data-w-tag-delay-value"] = 200
         context["widget"]["attrs"]["data-w-tag-url-value"] = autocomplete_url
         context["widget"]["attrs"]["data-w-tag-options-value"] = json.dumps(
             {
-                "allowSpaces": getattr(settings, "TAG_SPACES_ALLOWED", True),
-                "tagLimit": getattr(settings, "TAG_LIMIT", None),
+                "allowSpaces": tag_spaces_allowed,
+                "tagLimit": tag_limit,
                 "autocompleteOnly": not free_tagging,
             }
         )
