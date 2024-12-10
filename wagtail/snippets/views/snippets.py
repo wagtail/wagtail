@@ -358,18 +358,6 @@ class PreviewRevisionView(PermissionCheckedMixin, PreviewRevision):
 class RevisionsCompareView(PermissionCheckedMixin, generic.RevisionsCompareView):
     permission_required = "change"
 
-    @property
-    def edit_label(self):
-        return _("Edit this %(model_name)s") % {
-            "model_name": self.model._meta.verbose_name
-        }
-
-    @property
-    def history_label(self):
-        return _("%(model_name)s history") % {
-            "model_name": self.model._meta.verbose_name
-        }
-
 
 class UnpublishView(PermissionCheckedMixin, generic.UnpublishView):
     permission_required = "publish"
