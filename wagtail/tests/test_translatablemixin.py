@@ -105,7 +105,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         cls.instance_with_draft_trans_fr = cls.create_fr_translation(
             cls.instance_with_draft_trans_en,
             title="Draft translation",
-            live=False,  # This makes the translation a draft.
+            live=False,  # This marks the translation a draft.
         )
 
     def test_example_model_queryset_class(self):
