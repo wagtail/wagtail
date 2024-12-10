@@ -15,20 +15,29 @@ def _get_redirect(request, path):
         return None
 
     site = Site.find_for_request(request)
-    try:
-        return models.Redirect.get_for_site(site).get(old_path=path)
-    except models.Redirect.MultipleObjectsReturned:
+    redirects = models.Redirect.get_for_site(site).filter(old_path=path)
+    if len(redirects) == 1:
+        return redirects[0]
+    elif len(redirects) > 1:
         # We have a site-specific and a site-ambivalent redirect; prefer the specific one
-        return models.Redirect.objects.get(site=site, old_path=path)
-    except models.Redirect.DoesNotExist:
+        for redirect in redirects:
+            if redirect.site == site:
+                return redirect
+    else:
         return None
 
 
-def get_redirect(request, path):
+def get_redirect(request, path, *, exact_match=True):
+    path = models.Redirect.normalise_path(path)
     redirect = _get_redirect(request, path)
-    if not redirect:
+    if redirect is None:
         # try unencoding the path
         redirect = _get_redirect(request, uri_to_iri(path))
+    if redirect is None and not exact_match:
+        # Get the path without the query string or params
+        path_without_query = urlparse(path).path
+        if path != path_without_query:
+            redirect = get_redirect(request, path_without_query)
     return redirect
 
 
@@ -40,21 +49,12 @@ class RedirectMiddleware(MiddlewareMixin):
             return response
 
         # Get the path
-        path = models.Redirect.normalise_path(request.get_full_path())
+        path = request.get_full_path()
 
         # Find redirect
-        redirect = get_redirect(request, path)
+        redirect = get_redirect(request, path, exact_match=False)
         if redirect is None:
-            # Get the path without the query string or params
-            path_without_query = urlparse(path).path
-
-            if path == path_without_query:
-                # don't try again if we know we will get the same response
-                return response
-
-            redirect = get_redirect(request, path_without_query)
-            if redirect is None:
-                return response
+            return response
 
         if redirect.link is None:
             return response
