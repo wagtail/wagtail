@@ -184,7 +184,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
         return json.loads(self.get_script().string)
 
     def get_hook(self, item_class):
-        def customise_accessibility_checker(request, items):
+        def customise_accessibility_checker(request, items, page):
             items[:] = [
                 item_class() if isinstance(item, AccessibilityItem) else item
                 for item in items
@@ -454,6 +454,25 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
         # Check that the userbar is not rendered
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, '<template id="wagtail-userbar-template">')
+
+    def test_construct_wagtail_userbar_hook_passes_page(self):
+        kwargs = {}
+
+        def construct_wagtail_userbar(request, items, page):
+            kwargs["page"] = page
+            return items
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            construct_wagtail_userbar,
+        ):
+            response = self.page.serve(self.request)
+            response.render()
+
+            self.assertEqual(
+                kwargs["page"] if "page" in kwargs else None,
+                self.page,
+            )
 
 
 class TestUserbarAddLink(WagtailTestUtils, TestCase):
