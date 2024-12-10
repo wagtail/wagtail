@@ -5048,6 +5048,7 @@ class TestStaticBlock(unittest.TestCase):
 
 
 class TestDateBlock(TestCase):
+
     def test_adapt(self):
         from wagtail.admin.widgets.datetime import AdminDateInput
 
@@ -5065,7 +5066,7 @@ class TestDateBlock(TestCase):
                 "label": "Test dateblock",
                 "required": True,
                 "icon": "date",
-                "classname": "w-field w-field--date_field w-field--admin_date_input",
+                "classname": "w-field w-field--date_field w-field--admin_date_input w-field--admin_date_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -5098,7 +5099,7 @@ class TestTimeBlock(TestCase):
                 "label": "Test timeblock",
                 "required": True,
                 "icon": "time",
-                "classname": "w-field w-field--time_field w-field--admin_time_input",
+                "classname": "w-field w-field--time_field w-field--admin_time_input w-field--admin_time_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -5131,7 +5132,7 @@ class TestDateTimeBlock(TestCase):
                 "label": "Test datetimeblock",
                 "required": True,
                 "icon": "date",
-                "classname": "w-field w-field--date_time_field w-field--admin_date_time_input",
+                "classname": "w-field w-field--date_time_field w-field--admin_date_time_input w-field--admin_date_time_chooser",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
