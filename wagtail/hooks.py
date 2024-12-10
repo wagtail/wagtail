@@ -113,3 +113,4 @@ def get_hooks(hook_name):
     hooks = _hooks.get(hook_name, [])
     hooks = sorted(hooks, key=itemgetter(1))
     return [hook[0] for hook in hooks]
+
