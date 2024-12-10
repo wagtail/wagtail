@@ -35,6 +35,7 @@ import type { CommentApp } from '../../CommentApp/main';
 import { gettext } from '../../../utils/gettext';
 
 import Icon from '../../Icon/Icon';
+import { onPasteLink } from '../decorators/Link'; // P3750
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const DraftEditorLeaf = require('draft-js/lib/DraftEditorLeaf.react');
@@ -852,6 +853,15 @@ function CommentableEditor({
               setEditorState(
                 addNewComment(state, fieldNode, commentApp, contentPath),
               );
+              return 'handled';
+            }
+            return 'not-handled';
+          },
+          handlePastedText: (text, html, editorState, { setEditorState }) => {
+            const result = onPasteLink(text, html, editorState, {
+              setEditorState,
+            });
+            if (result === 'handled') {
               return 'handled';
             }
             return 'not-handled';
