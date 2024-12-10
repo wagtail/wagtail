@@ -121,7 +121,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         the active locale.
         """
         queryset_en = self.example_model.objects.filter(locale=self.locale_en)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -137,7 +137,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_AZ_fr,
@@ -160,7 +160,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         queryset_en = self.example_model.objects.filter(
             pk__in=[self.instance_AZ_en.id, self.instance_BX_en.id]
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -175,7 +175,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_AZ_fr,
@@ -194,7 +194,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         """
         untranslated_instance = self.create_en_instance(title="Untranslated")
         queryset_en = self.example_model.objects.filter(locale=self.locale_en)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -211,7 +211,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_AZ_fr,
@@ -238,7 +238,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         queryset_en = self.example_model.objects.filter(locale=self.locale_en).exclude(
             pk=untranslated_instance.id
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -254,7 +254,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_AZ_fr,
@@ -285,7 +285,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 untranslated_instance.id,
             ],
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -301,7 +301,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 # Call `repr` to evaluate the queryset.
                 repr(queryset_localized)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_AZ_fr,
@@ -323,7 +323,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
             "title"
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -336,7 +336,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized()
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             # These are ordered by the French titles.
             [
@@ -362,7 +362,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             .order_by("shmitle")
         )
         self.assertEqual(queryset_en[0].shmitle, "SHMA")
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -375,7 +375,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized()
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_BX_fr,
@@ -406,7 +406,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
             )
             .order_by("smitle_alias")
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -421,7 +421,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized()
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_BX_fr,
@@ -437,7 +437,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
             "id"
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_CY_en,
@@ -450,7 +450,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized().order_by("title")
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             # These are ordered by the French titles not their French IDs.
             [
@@ -466,7 +466,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
             "title"
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -479,7 +479,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized(preserve_order=True)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             # These are still ordered by the English titles.
             [
@@ -500,7 +500,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
             "title"
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -515,7 +515,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 "id"
             )
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             # These are ordered by the French IDs not the English titles.
             [
@@ -538,7 +538,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         and can be in a draft state.
         """
         queryset_en = self.draft_example_model.objects.filter(locale=self.locale_en)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_with_live_trans_en,
@@ -550,7 +550,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized()
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_with_live_trans_fr,
@@ -577,7 +577,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         and can be in a draft state.
         """
         queryset_en = self.draft_example_model.objects.filter(locale=self.locale_en)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_with_live_trans_en,
@@ -589,7 +589,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized(include_draft_translations=True)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             [
                 self.instance_with_live_trans_fr,
@@ -608,7 +608,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
                 untranslated_instance.id,
             ],
         )
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -620,7 +620,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized(include_only_translations=True)
 
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_localized,
             # The untranslated instance is not included.
             [
@@ -633,7 +633,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
     def test_localized_queryset_with_i18n_disabled(self):
         """Test method when i18n is disabled."""
         queryset_en = self.example_model.objects.filter(locale=self.locale_en)
-        self.assertQuerysetEqual(
+        self.assertQuerySetEqual(
             queryset_en,
             [
                 self.instance_AZ_en,
@@ -646,7 +646,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized()
 
-        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
 
     def test_query_count_without_resolving_original_queryset_first(self):
         """
@@ -663,7 +663,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
 
                 queryset_localized = queryset_en.localized()
 
-                self.assertQuerysetEqual(
+                self.assertQuerySetEqual(
                     queryset_localized,
                     [
                         self.instance_AZ_fr,
@@ -680,7 +680,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized()
 
-        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
 
     def test_empty_queryset_preserve_order_true(self):
         """Test localization of an empty queryset with preserved order."""
@@ -689,7 +689,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized(preserve_order=True)
 
-        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
 
     def test_empty_queryset_include_draft_translations_true(self):
         """Test localization of an empty queryset with draft translations."""
@@ -698,7 +698,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized(include_draft_translations=True)
 
-        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
 
     def test_empty_queryset_include_only_translations_true(self):
         """Test localization of an empty queryset with only translations."""
@@ -707,7 +707,7 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
         with translation.override("fr"):
             queryset_localized = queryset_en.localized(include_only_translations=True)
 
-        self.assertQuerysetEqual(queryset_localized, queryset_en, ordered=False)
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
