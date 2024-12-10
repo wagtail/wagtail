@@ -39,9 +39,9 @@ class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
 
     "To localize" in this context means to convert a queryset of translatable objects
     into a queryset of the same length where each object is either the translated
-    version  of the original object or the original object itself. The translation of
+    version of the original object or the original object itself. The translation of
     interest is the one for active locale. If there is a translation for the active
-    locale, the translated version is used, otherwise the original object is used.
+    locale, the translated version is used. Otherwise, the original object is used.
     """
 
     example_model = TestModel
