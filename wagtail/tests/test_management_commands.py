@@ -225,7 +225,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exclude(approved_go_live_at__isnull=True)
                 .exists()
             )
-            with self.assertNumQueries(44):
+            with self.assertNumQueries(45):
                 management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
@@ -282,7 +282,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            with self.assertNumQueries(44):
+            with self.assertNumQueries(45):
                 management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
@@ -318,7 +318,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         page.title = "Goodbye world!"
         page.save_revision()
 
-        with self.assertNumQueries(44):
+        with self.assertNumQueries(45):
             management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
@@ -346,7 +346,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        with self.assertNumQueries(42):
+        with self.assertNumQueries(43):
             management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
@@ -382,7 +382,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
 
-            with self.assertNumQueries(26):
+            with self.assertNumQueries(27):
                 management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
@@ -410,7 +410,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(7):
             management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
@@ -458,7 +458,7 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            with self.assertNumQueries(15):
+            with self.assertNumQueries(16):
                 management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
@@ -506,7 +506,7 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            with self.assertNumQueries(15):
+            with self.assertNumQueries(16):
                 management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
@@ -535,7 +535,7 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         self.snippet.text = "Goodbye world!"
         self.snippet.save_revision()
 
-        with self.assertNumQueries(15):
+        with self.assertNumQueries(16):
             management.call_command("publish_scheduled")
 
         self.snippet.refresh_from_db()
@@ -559,7 +559,7 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(15):
             management.call_command("publish_scheduled")
 
         self.assertFalse(self.snippet.live)
@@ -587,7 +587,7 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
 
-            with self.assertNumQueries(10):
+            with self.assertNumQueries(11):
                 management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
@@ -608,7 +608,7 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         self.snippet.refresh_from_db()
         self.assertTrue(self.snippet.live)
 
-        with self.assertNumQueries(6):
+        with self.assertNumQueries(7):
             management.call_command("publish_scheduled")
 
         self.snippet.refresh_from_db()
