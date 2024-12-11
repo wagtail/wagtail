@@ -399,8 +399,7 @@ class TimeBlock(FieldBlock):
     def field(self):
         from wagtail.admin.widgets import AdminTimeInput
 
-        field_kwargs = {"widget": AdminTimeInput(format=self.format),
-        }
+        field_kwargs = {"widget": AdminTimeInput(format=self.format)}
         field_kwargs.update(self.field_options)
         return forms.TimeField(**field_kwargs)
 
