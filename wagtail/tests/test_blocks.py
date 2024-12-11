@@ -5048,7 +5048,6 @@ class TestStaticBlock(unittest.TestCase):
 
 
 class TestDateBlock(TestCase):
-
     def test_adapt(self):
         from wagtail.admin.widgets.datetime import AdminDateInput
 
