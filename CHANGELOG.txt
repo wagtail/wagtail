@@ -15,6 +15,7 @@ Changelog
  * Only allow selection of valid new parents within the copy Page view (Mauro Soche)
  * Add `on_serve_page` hook to modify the serving chain of pages (Krystian Magdziarz, Dawid Bugajewski)
  * Add support for `WAGTAIL_GRAVATAR_PROVIDER_URL` URLs with query string parameters (Ayaan Qadri, Guilhem Saurel)
+ * Add `page` as a third parameter to the `construct_wagtail_userbar` hook (claudobahn)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
