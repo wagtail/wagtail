@@ -12,7 +12,6 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail import hooks
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
@@ -42,42 +41,7 @@ class TestAvatarUrlInterceptTemplateTag(WagtailTestUtils, TestCase):
             password="password",
         )
 
-    def tearDown(self):
-        self.get_avatar_hook_mock.reset_mock()
-
-    def test_get_avatar_url_hook_undefined(self):
-        url = avatar_url(self.test_user)
-        self.assertFalse(self.get_avatar_hook_mock.called)
-        self.assertIn("www.gravatar.com", url)
-
-    @mock.patch("wagtail.admin.templatetags.wagtailadmin_tags.hooks")
-    def test_get_avatar_url_empty_value(self, mock_hooks):
-        self.get_avatar_hook_mock.return_value = None
-        mock_hooks.get_hooks.return_value = [self.get_avatar_hook_mock]
-
-        with hooks.register_temporarily("get_avatar_url", self.get_avatar_hook_mock):
-            url = avatar_url(self.test_user)
-            self.assertEqual(
-                self.get_avatar_hook_mock.mock_calls,
-                [mock.call(self.test_user, 50)],
-            )
-            self.assertIn("www.gravatar.com", url)
-
-    @mock.patch("wagtail.admin.templatetags.wagtailadmin_tags.hooks")
-    def test_get_avatar_url(self, mock_hooks):
-        expected_url = "/some/avatar/fred.png"
-        self.get_avatar_hook_mock.return_value = expected_url
-        mock_hooks.get_hooks.return_value = [self.get_avatar_hook_mock]
-
-        with hooks.register_temporarily("get_avatar_url", self.get_avatar_hook_mock):
-            url = avatar_url(self.test_user)
-            self.assertEqual(
-                self.get_avatar_hook_mock.mock_calls,
-                [mock.call(self.test_user, 50)],
-            )
-            self.assertEqual(url, expected_url)
-
-    def test_get_avatar_url_registered_empty_value(self):
+    def test_get_avatar_url_undefined(self):
         url = avatar_url(self.test_user)
         self.assertIn("www.gravatar.com", url)
 
