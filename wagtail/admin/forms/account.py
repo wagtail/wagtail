@@ -1,9 +1,15 @@
 import warnings
+from contextlib import contextmanager
+from functools import partial
+from io import BytesIO
 from operator import itemgetter
 
 import l18n
+import willow
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.files import File
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import get_language_info
 from django.utils.translation import gettext_lazy as _
@@ -13,9 +19,9 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.admin.widgets import SwitchInput
+from wagtail.images.image_operations import ImageTransform, ScaleToPercentOperation
 from wagtail.permissions import page_permission_policy
 from wagtail.users.models import UserProfile
-from wagtail.utils.utils import reduce_image_dimension
 
 User = get_user_model()
 
@@ -116,8 +122,56 @@ class AvatarPreferencesForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self._original_avatar = self.instance.avatar
 
+    @contextmanager
+    def create_avatar_context(self, avatar):
+        avatar_context = willow.Image.open(avatar)
+        yield avatar_context
+
+    def reduce_avatar(self, avatar):
+        default_avatar_size = (400, 400)
+
+        with self.create_avatar_context(avatar) as willow_image:
+            width, height = willow_image.get_size()
+
+            should_reduce_avatar = (
+                width > default_avatar_size[0] or height > default_avatar_size[1]
+            )
+
+            if should_reduce_avatar:
+                temp_buffer = BytesIO()
+                temp_buffer.seek(0)
+                original_format = (
+                    willow_image.format_name or willow_image.name.split(".")[-1].lower()
+                )
+                quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 80)
+
+                transform = ImageTransform(size=default_avatar_size)
+                operation = ScaleToPercentOperation(None, default_avatar_size[0])
+                transform = operation.run(transform, avatar)
+                clone_img = willow_image.resize(transform.size)
+
+                img_kwargs = {}
+                if original_format not in ["ico", "svg", "gif", "png"]:
+                    img_kwargs["quality"] = quality
+                if original_format in ["jpeg", "png"]:
+                    img_kwargs["optimize"] = True
+
+                temp_buffer.seek(0)
+
+                # get the method to save the image as based on its format, pass in the args and call it
+                partial(
+                    getattr(clone_img, f"save_as_{original_format}"),
+                    temp_buffer,
+                    **img_kwargs,
+                )()
+
+                # wrap the temp file in a File wrapper
+                reduced_avatar = File(file=temp_buffer, name=avatar.name)
+                return reduced_avatar
+        return None
+
     def save(self, commit=True):
-        updated_avatar = None
+        reduced_avatar = None
         if (
             commit
             and self._original_avatar
@@ -135,13 +189,13 @@ class AvatarPreferencesForm(forms.ModelForm):
 
             # check and reduce cleaned_data avatar if more than the image size bound specified to the bound
             avatar = self.cleaned_data["avatar"]
-            updated_avatar = reduce_image_dimension(
-                image=avatar, max_dimensions=(400, 400)
-            )
 
-        if updated_avatar is not None:
+            # would be none is no operation is performed
+            reduced_avatar = self.reduce_avatar(avatar)
+
+        if reduced_avatar is not None:
             object = super().save(commit=False)
-            object.avatar = updated_avatar
+            object.avatar = reduced_avatar
             object.save()
         else:
             super().save(commit=commit)

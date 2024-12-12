@@ -7,7 +7,6 @@ from PIL import Image, ImageDraw
 
 from wagtail.admin.forms.account import AvatarPreferencesForm
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
-from wagtail.utils.utils import reduce_image_dimension
 
 
 class CustomLoginForm(LoginForm):
@@ -43,8 +42,10 @@ class CustomAvatarPreferenceForm(AvatarPreferencesForm):
 
     def save(self):
         avatar = self.cleaned_data["avatar"]
-        updated_avatar = reduce_image_dimension(image=avatar, max_dimensions=(400, 400))
-        return updated_avatar
+        updated_avatar = self.reduce_avatar(avatar)
+        if updated_avatar is not None:
+            return updated_avatar
+        return avatar
 
 
 class TestLoginForm(TestCase):

@@ -1,8 +1,4 @@
 from collections.abc import Mapping
-from io import BytesIO
-
-from django.core.files import File
-from PIL import Image
 
 
 def deep_update(source, overrides):
@@ -44,40 +40,3 @@ def flatten_choices(choices):
             # choice (key, display value)
             ret[str(key)] = value
     return ret
-
-
-def reduce_image_dimension(image, max_dimensions=(400, 400)):
-    """
-    Reduce an image's dimension to specified max_dimesions if lower
-    higher than the provided max_dimensions.
-
-    :param image: The image to be computed on. Expects an image object
-    :param max_dimensions: Maximum dimensions for resizing (width: int, height: int)
-    NOTE: This scales the image dimension relative to the image
-    dimension passed in .e.g (800, 400) -> (400, 200) to maintain
-    aspect ratio
-    """
-    img_ext = image.name.split(".")[-1]
-
-    with Image.open(image) as img:
-        width, height = img.width, img.height
-        if width <= max_dimensions[0] and height <= max_dimensions[1]:
-            return image
-
-        temp_buffer = BytesIO()
-        if img.mode == "RGBA":
-            img = img.convert("RGB")
-        img.thumbnail(max_dimensions, Image.LANCZOS)
-        temp_buffer.seek(0)
-        img.save(
-            temp_buffer,
-            format=img.format or img_ext.upper(),
-            optimize=True,
-        )
-
-        temp_buffer.seek(0)
-        image_file = File(
-            file=temp_buffer,
-            name=image.name,
-        )
-        return image_file
