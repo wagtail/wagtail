@@ -100,6 +100,7 @@ Changelog
  * Maintenance: Use built-in `venv` instead of `pipenv` in CircleCI (Sage Abdullah)
  * Maintenance: Add a new Stimulus `FormsetController` (`w-formset`) to support dynamic formset insertion/deletion behavior (LB (Ben) Johnston)
  * Maintenance: Enable breadcrumbs by default on admin views using generic templates (Sage Abdullah)
+ * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
