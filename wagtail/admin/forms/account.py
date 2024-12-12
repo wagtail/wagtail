@@ -139,7 +139,6 @@ class AvatarPreferencesForm(forms.ModelForm):
 
             if should_reduce_avatar:
                 temp_buffer = BytesIO()
-                temp_buffer.seek(0)
                 original_format = (
                     willow_image.format_name or willow_image.name.split(".")[-1].lower()
                 )
