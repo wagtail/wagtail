@@ -251,6 +251,7 @@ class EditView(generic.EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["usage_count_val"] = self.object.get_usage().count()
         context["filesize"] = self.object.get_file_size()
         context["next"] = self.next_url
         return context
