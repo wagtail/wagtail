@@ -120,12 +120,17 @@ class TestRevisions(WagtailTestUtils, TestCase):
         # Form should show the content of the revision, not the current draft
         self.assertContains(response, "Last Christmas I gave you my heart")
 
-        # Form should include a hidden 'revision' field
-        revision_field = (
-            """<input type="hidden" name="revision" value="%d" />"""
-            % self.last_christmas_revision.id
+        # Form should use the revisions revert URL as the action
+        soup = self.get_soup(response.content)
+        form = soup.select_one("form[data-edit-form]")
+        self.assertIsNotNone(form)
+        self.assertEqual(
+            form.get("action"),
+            reverse(
+                "wagtailadmin_pages:revisions_revert",
+                args=(self.christmas_event.id, self.last_christmas_revision.id),
+            ),
         )
-        self.assertContains(response, revision_field)
 
         # Buttons should be relabelled
         self.assertContains(response, "Replace current draft")

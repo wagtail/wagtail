@@ -374,12 +374,14 @@ class TestAuditLogAdmin(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.login(user=self.administrator)
         response = self.client.post(
-            reverse("wagtailadmin_pages:edit", args=(self.hello_page.id,)),
+            reverse(
+                "wagtailadmin_pages:revisions_revert",
+                args=(self.hello_page.id, revision.id),
+            ),
             {
                 "title": "Hello World!",
                 "content": "another hello",
                 "slug": "hello-world",
-                "revision": revision.id,
                 "action-publish": "action-publish",
             },
             follow=True,

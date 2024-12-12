@@ -106,7 +106,7 @@ urlpatterns = [
     ),
     path(
         "<int:page_id>/revisions/<int:revision_id>/revert/",
-        revisions.revisions_revert,
+        revisions.RevisionsRevertView.as_view(),
         name="revisions_revert",
     ),
     path(
