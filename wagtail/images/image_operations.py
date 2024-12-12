@@ -359,11 +359,6 @@ class ScaleOperation(TransformOperation):
         return transform.resize((width, height))
 
 
-class ScaleToPercentOperation(ScaleOperation):
-    def run(self, transform, image):
-        return transform.resize((int(self.percent), int(self.percent)))
-
-
 # Filters
 
 
