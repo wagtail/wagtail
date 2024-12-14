@@ -135,7 +135,7 @@ After the server starts, go to <http://127.0.0.1:8000> to see Wagtail’s welcom
 
 ```{note}
 This tutorial uses `http://127.0.0.1:8000` as the URL for your development server but depending on your setup, this could be a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct URL for your local site.
-It is common for the default port to be in use; in such cases, try using an alternative port like 8001, 8002, or others to resolve the issue.
+It is common for the default port to be in use; in such cases, try using an alternative port like 8001, 8002, or others by running the command `python manage.py runserver 8001` to resolve the issue.
 ```
 
 You can now access the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) by logging into <http://127.0.0.1:8000/admin> with the username and password that you entered while creating an admin user with `createsuperuser`.
