@@ -33,13 +33,13 @@ If none of the preceding commands return a version number, or return a version l
 This tutorial recommends using a virtual environment, which isolates installed dependencies from other projects.
 This tutorial uses [`venv`](inv:python#tutorial/venv), which is packaged with Python 3. On Ubuntu, it may be necessary to run `sudo apt install python3-venv` to install it.
 
-**On Windows** (cmd.exe), run the following commands:
+**On Windows** (cmd.exe), run the following command to create a virtual environment:
 
 ```doscon
 py -m venv mysite\env
-
-# then
-
+```
+Activate this virtual environment using:
+```doscon
 mysite\env\Scripts\activate.bat
 
 # if mysite\env\Scripts\activate.bat doesn't work, run:
@@ -49,11 +49,15 @@ mysite\env\Scripts\activate
 
 **On GNU/Linux or MacOS** (bash):
 
+Create the virtual environment using:  
 ```sh
 python -m venv mysite/env
-# Then:
+```
+Activate the virtual environment using:
+```sh
 source mysite/env/bin/activate
 ```
+Upon activation, your command line will show (env) to indicate that you're now working within this virtual environment.
 
 **For other shells** see the [`venv` documentation](inv:python#tutorial/venv).
 
