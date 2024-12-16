@@ -449,6 +449,7 @@ class ListBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "icon": block.meta.icon,
             "blockDefId": block.definition_prefix,
             "classname": block.meta.form_classname,

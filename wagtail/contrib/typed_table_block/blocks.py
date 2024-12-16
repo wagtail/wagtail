@@ -332,6 +332,7 @@ class TypedTableBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
             "blockDefId": block.definition_prefix,
