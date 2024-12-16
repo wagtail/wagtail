@@ -571,6 +571,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
                 "label": "Test tableblock",
                 "required": True,
                 "icon": "table",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--char_field w-field--table_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},

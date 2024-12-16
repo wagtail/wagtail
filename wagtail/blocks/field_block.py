@@ -112,6 +112,7 @@ class FieldBlockAdapter(Adapter):
             "label": block.label,
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
             "classname": " ".join(classname),
             "showAddCommentButton": getattr(
                 block.field.widget, "show_add_comment_button", True

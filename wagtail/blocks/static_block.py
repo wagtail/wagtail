@@ -58,6 +58,7 @@ class StaticBlockAdapter(Adapter):
                 text_or_html: admin_text,
                 "icon": block.meta.icon,
                 "label": block.label,
+                "blockDefId": block.definition_prefix,
             },
         ]
 
