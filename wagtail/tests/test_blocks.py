@@ -57,6 +57,11 @@ class TestBlock(SimpleTestCase):
         obj = object()
         self.assertIs(blocks.Block().normalize(obj), obj)
 
+    def test_block_definition_registry(self):
+        """Instantiating a Block should register it in the definition registry"""
+        block = blocks.Block()
+        self.assertIs(blocks.Block.definition_registry[block.definition_prefix], block)
+
 
 class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
     def test_charfield_render(self):
@@ -64,6 +69,13 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         html = block.render("Hello world!")
 
         self.assertEqual(html, "Hello world!")
+
+    def test_block_definition_registry(self):
+        block = blocks.CharBlock(label="Test block")
+        registered_block = blocks.Block.definition_registry[block.definition_prefix]
+        self.assertIsInstance(registered_block, blocks.CharBlock)
+        self.assertEqual(registered_block.meta.label, "Test block")
+        self.assertIs(registered_block, block)
 
     def test_charfield_render_with_template(self):
         block = blocks.CharBlock(template="tests/blocks/heading_block.html")
