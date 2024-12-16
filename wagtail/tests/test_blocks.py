@@ -98,6 +98,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "helpText": "Some helpful text",
                 "required": True,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--char_field w-field--text_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -204,6 +205,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--choice_field w-field--select",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -613,6 +615,7 @@ class TestRichTextBlock(TestCase):
                 "classname": "w-field w-field--char_field w-field--custom_rich_text_area",
                 "icon": "pilcrow",
                 "label": "Test richtextblock",
+                "blockDefId": block.definition_prefix,
                 "required": True,
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -635,6 +638,7 @@ class TestRichTextBlock(TestCase):
                 "label": "Test richtextblock",
                 "required": True,
                 "icon": "pilcrow",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -657,6 +661,7 @@ class TestRichTextBlock(TestCase):
                 "label": "Test richtextblock",
                 "required": True,
                 "icon": "pilcrow",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -772,6 +777,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--choice_field w-field--select",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -1173,6 +1179,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "label": "Test choiceblock",
                 "required": True,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--multiple_choice_field w-field--select_multiple",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -1609,6 +1616,7 @@ class TestRawHTMLBlock(unittest.TestCase):
                 "label": "Test rawhtmlblock",
                 "required": True,
                 "icon": "code",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--char_field w-field--textarea",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -1951,6 +1959,7 @@ class TestStructBlock(SimpleTestCase):
                 "label": "Test structblock",
                 "required": False,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "struct-block",
             },
         )
@@ -1980,6 +1989,7 @@ class TestStructBlock(SimpleTestCase):
                 "label": "Test structblock",
                 "required": False,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "struct-block",
                 "formTemplate": "<div>Hello</div>",
             },
@@ -2004,6 +2014,7 @@ class TestStructBlock(SimpleTestCase):
                 "label": "Test structblock",
                 "required": False,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "struct-block",
                 "formTemplate": "<div>Hello</div>",
             },
@@ -2037,6 +2048,7 @@ class TestStructBlock(SimpleTestCase):
                 "label": "Test structblock",
                 "required": False,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "struct-block",
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
@@ -2062,6 +2074,7 @@ class TestStructBlock(SimpleTestCase):
                 "label": "Test structblock",
                 "required": False,
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "struct-block",
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
@@ -2690,6 +2703,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             {
                 "label": "Test listblock",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": None,
                 "collapsed": False,
                 "strings": {
@@ -2720,6 +2734,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             {
                 "label": "Test listblock",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": None,
                 "collapsed": False,
                 "minNum": 2,
@@ -2894,6 +2909,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             {
                 "label": "Test listblock",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "special-list-class",
                 "collapsed": False,
                 "strings": {
@@ -2927,6 +2943,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             {
                 "label": "Test listblock",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": "custom-list-class",
                 "collapsed": False,
                 "strings": {
@@ -3564,6 +3581,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {
                 "label": "Test streamblock",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "classname": None,
                 "collapsed": False,
                 "maxNum": None,
@@ -4290,6 +4308,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {
                 "label": "Test streamblock",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "minNum": None,
                 "maxNum": None,
                 "blockCounts": {},
@@ -4392,6 +4411,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {
                 "label": "Test streamblock",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "minNum": None,
                 "maxNum": None,
                 "blockCounts": {},
@@ -4737,6 +4757,7 @@ class TestPageChooserBlock(TestCase):
                 "label": "Test pagechooserblock",
                 "required": True,
                 "icon": "doc-empty-inverse",
+                "blockDefId": block.definition_prefix,
                 "helpText": "pick a page, any page",
                 "classname": "w-field w-field--model_choice_field w-field--admin_page_chooser",
                 "showAddCommentButton": True,
@@ -4940,6 +4961,7 @@ class TestStaticBlock(unittest.TestCase):
             {
                 "text": "Latest posts - This block doesn't need to be configured, it will be displayed automatically",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
             },
         )
@@ -4961,6 +4983,7 @@ class TestStaticBlock(unittest.TestCase):
             {
                 "text": "Latest posts - This block doesn't need to be configured, it will be displayed automatically",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
             },
         )
@@ -4981,6 +5004,7 @@ class TestStaticBlock(unittest.TestCase):
             {
                 "text": "Latest posts: this block has no options.",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "label": "Latest posts",
             },
         )
@@ -5002,6 +5026,7 @@ class TestStaticBlock(unittest.TestCase):
             {
                 "text": "Posts static block: this block has no options.",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
             },
         )
@@ -5023,6 +5048,7 @@ class TestStaticBlock(unittest.TestCase):
             {
                 "html": "<b>Latest posts</b> - This block doesn't need to be configured, it will be displayed automatically",
                 "icon": "placeholder",
+                "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
             },
         )
@@ -5077,6 +5103,7 @@ class TestDateBlock(TestCase):
                 "label": "Test dateblock",
                 "required": True,
                 "icon": "date",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--date_field w-field--admin_date_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -5110,6 +5137,7 @@ class TestTimeBlock(TestCase):
                 "label": "Test timeblock",
                 "required": True,
                 "icon": "time",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--time_field w-field--admin_time_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -5143,6 +5171,7 @@ class TestDateTimeBlock(TestCase):
                 "label": "Test datetimeblock",
                 "required": True,
                 "icon": "date",
+                "blockDefId": block.definition_prefix,
                 "classname": "w-field w-field--date_time_field w-field--admin_date_time_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
