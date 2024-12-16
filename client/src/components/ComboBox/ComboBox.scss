@@ -3,15 +3,21 @@
 $spacing: theme('spacing.[2.5]');
 $spacing-sm: theme('spacing.5');
 
-.w-combobox {
-  width: min(400px, 80vw);
+.w-combobox-container {
   @include dark-theme() {
     background-color: theme('colors.surface-tooltip');
   }
+
+  display: grid;
+  grid-template-columns: 1fr;
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: min(400px, 80vw) 1fr;
+  }
+
+  min-height: min(320px, 70vh);
   background: theme('colors.surface-page');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
-  font-size: theme('fontSize.18');
   box-shadow: theme('boxShadow.md');
   outline: 10px solid transparent;
 }
@@ -19,6 +25,7 @@ $spacing-sm: theme('spacing.5');
 .w-combobox__field {
   padding: $spacing;
   padding-bottom: 0;
+  font-size: theme('fontSize.18');
 
   @include media-breakpoint-up(sm) {
     padding: $spacing-sm;
@@ -48,7 +55,7 @@ $spacing-sm: theme('spacing.5');
   padding-top: 0;
 
   @include media-breakpoint-up(sm) {
-    width: 400px;
+    width: 100%;
     padding: $spacing-sm;
     padding-top: 0;
   }
