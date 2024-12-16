@@ -55,6 +55,7 @@ class BaseBlock(type):
 class Block(metaclass=BaseBlock):
     name = ""
     creation_counter = 0
+    definition_registry = {}
 
     TEMPLATE_VAR = "value"
 
@@ -92,8 +93,9 @@ class Block(metaclass=BaseBlock):
 
         # Increase the creation counter, and save our local copy.
         self.creation_counter = Block.creation_counter
-        Block.creation_counter += 1
         self.definition_prefix = "blockdef-%d" % self.creation_counter
+        Block.creation_counter += 1
+        Block.definition_registry[self.definition_prefix] = self
 
         self.label = self.meta.label or ""
 
