@@ -293,6 +293,9 @@ class Block(metaclass=BaseBlock):
             return self.normalize(self.meta.preview_value)
         return self.get_default()
 
+    def get_description(self):
+        return getattr(self.meta, "description", "")
+
     def get_api_representation(self, value, context=None):
         """
         Can be used to customise the API response and defaults to the value returned by get_prep_value.

@@ -558,7 +558,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         self.assertIs(block_3_opts["allowEmpty"], False)
 
     def test_adapt(self):
-        block = TableBlock()
+        block = TableBlock(description="A table to display data.")
 
         block.set_name("test_tableblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -569,6 +569,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
             js_args[2],
             {
                 "label": "Test tableblock",
+                "description": "A table to display data.",
                 "required": True,
                 "icon": "table",
                 "blockDefId": block.definition_prefix,

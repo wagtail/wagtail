@@ -360,6 +360,9 @@ class BaseStructBlock(Block):
         )
         return mark_safe(render_to_string(self.meta.form_template, context))
 
+    def get_description(self):
+        return super().get_description() or getattr(self.meta, "help_text", "")
+
     def get_form_context(self, value, prefix="", errors=None):
         return {
             "children": collections.OrderedDict(
@@ -401,6 +404,7 @@ class StructBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
             "blockDefId": block.definition_prefix,
