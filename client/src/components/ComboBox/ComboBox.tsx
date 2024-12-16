@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 
 import { gettext } from '../../utils/gettext';
+import ComboBoxPreview from '../ComboBoxPreview/ComboBoxPreview';
 import Icon from '../Icon/Icon';
 
 import findMatches from './findMatches';
@@ -21,6 +22,7 @@ export interface ComboBoxItem {
   label?: string | null;
   description?: string | null;
   icon?: string | JSX.Element | null;
+  blockDefId?: string;
   category?: string;
   render?: (props: { option: ComboBoxItem }) => JSX.Element | string;
 }
@@ -84,6 +86,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     getMenuProps,
     getInputProps,
     getItemProps,
+    highlightedIndex,
     setHighlightedIndex,
     setInputValue,
     openMenu,
@@ -151,6 +154,9 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     },
   });
 
+  const [lastHighlightedIndex, setLastHighlightedIndex] =
+    useState(highlightedIndex);
+
   useEffect(() => {
     if (inputValue) {
       openMenu();
@@ -170,96 +176,111 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     }
   }, [inputValue]);
 
+  if (
+    inputItems[highlightedIndex] &&
+    highlightedIndex !== lastHighlightedIndex
+  ) {
+    setLastHighlightedIndex(highlightedIndex);
+  }
+
+  const selectedBlock =
+    inputItems[highlightedIndex] || inputItems[lastHighlightedIndex];
+
   return (
-    <div className="w-combobox">
-      {/* downshift does the label-field association itself. */}
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label {...getLabelProps()} className="w-sr-only">
-        {label}
-      </label>
-      <div className="w-combobox__field">
-        <input
-          {...getInputProps()}
-          type="text"
-          // Prevent the field from receiving focus if it’s not visible.
-          disabled={inlineCombobox}
-          placeholder={placeholder}
-        />
-      </div>
-      {noResults ? (
-        <div className="w-combobox__status">{noResultsText}</div>
-      ) : null}
-      <div {...getMenuProps()} className="w-combobox__menu">
-        {categories.map((category) => {
-          const categoryItems = (category.items || []).filter((item) =>
-            inputItems.find((i) => i.type === item.type),
-          );
-          const itemColumns = Math.ceil(categoryItems.length / 2);
+    <div className="w-combobox-container">
+      <div className="w-combobox">
+        {/* downshift does the label-field association itself. */}
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <label {...getLabelProps()} className="w-sr-only">
+          {label}
+        </label>
+        <div className="w-combobox__field">
+          <input
+            {...getInputProps()}
+            type="text"
+            // Prevent the field from receiving focus if it’s not visible.
+            disabled={inlineCombobox}
+            placeholder={placeholder}
+          />
+        </div>
+        {noResults ? (
+          <div className="w-combobox__status">{noResultsText}</div>
+        ) : null}
+        <div {...getMenuProps()} className="w-combobox__menu">
+          {categories.map((category) => {
+            const categoryItems = (category.items || []).filter((item) =>
+              inputItems.find((i) => i.type === item.type),
+            );
+            const itemColumns = Math.ceil(categoryItems.length / 2);
 
-          if (categoryItems.length === 0) {
-            return null;
-          }
+            if (categoryItems.length === 0) {
+              return null;
+            }
 
-          return (
-            <div className="w-combobox__optgroup" key={category.type}>
-              {category.label ? (
-                <div className="w-combobox__optgroup-label">
-                  {category.label}
-                </div>
-              ) : null}
-              {categoryItems.map((item, index) => {
-                const itemLabel = getItemLabel(item.type, item);
-                const description = getItemDescription(item);
-                const itemIndex = inputItems.findIndex(
-                  (i) => i.type === item.type,
-                );
-                const itemColumn = index + 1 <= itemColumns ? 1 : 2;
-                const hasIcon =
-                  typeof item.icon !== 'undefined' && item.icon !== null;
-                let icon: JSX.Element | null | undefined = null;
-
-                if (hasIcon) {
-                  if (Array.isArray(item.icon)) {
-                    icon = (
-                      <Icon name="custom" viewBox="0 0 1024 1024">
-                        {item.icon.map((pathData: string) => (
-                          <path key={pathData} d={pathData} />
-                        ))}
-                      </Icon>
-                    );
-                  } else {
-                    icon =
-                      typeof item.icon === 'string' ? (
-                        <Icon name={item.icon} />
-                      ) : (
-                        item.icon
-                      );
-                  }
-                }
-
-                return (
-                  <div
-                    key={item.type}
-                    {...getItemProps({ item, index: itemIndex })}
-                    className={`w-combobox__option w-combobox__option--col${itemColumn}`}
-                  >
-                    <div className="w-combobox__option-icon">
-                      {icon}
-                      {/* Support for rich text options using text as an icon (for example "B" for bold). */}
-                      {itemLabel && !hasIcon ? <span>{itemLabel}</span> : null}
-                    </div>
-                    <div className="w-combobox__option-text">
-                      {item.render
-                        ? item.render({ option: item })
-                        : description}
-                    </div>
+            return (
+              <div className="w-combobox__optgroup" key={category.type}>
+                {category.label ? (
+                  <div className="w-combobox__optgroup-label">
+                    {category.label}
                   </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                ) : null}
+                {categoryItems.map((item, index) => {
+                  const itemLabel = getItemLabel(item.type, item);
+                  const description = getItemDescription(item);
+                  const itemIndex = inputItems.findIndex(
+                    (i) => i.type === item.type,
+                  );
+                  const itemColumn = index + 1 <= itemColumns ? 1 : 2;
+                  const hasIcon =
+                    typeof item.icon !== 'undefined' && item.icon !== null;
+                  let icon: JSX.Element | null | undefined = null;
+
+                  if (hasIcon) {
+                    if (Array.isArray(item.icon)) {
+                      icon = (
+                        <Icon name="custom" viewBox="0 0 1024 1024">
+                          {item.icon.map((pathData: string) => (
+                            <path key={pathData} d={pathData} />
+                          ))}
+                        </Icon>
+                      );
+                    } else {
+                      icon =
+                        typeof item.icon === 'string' ? (
+                          <Icon name={item.icon} />
+                        ) : (
+                          item.icon
+                        );
+                    }
+                  }
+
+                  return (
+                    <div
+                      key={item.type}
+                      {...getItemProps({ item, index: itemIndex })}
+                      className={`w-combobox__option w-combobox__option--col${itemColumn}`}
+                    >
+                      <div className="w-combobox__option-icon">
+                        {icon}
+                        {/* Support for rich text options using text as an icon (for example "B" for bold). */}
+                        {itemLabel && !hasIcon ? (
+                          <span>{itemLabel}</span>
+                        ) : null}
+                      </div>
+                      <div className="w-combobox__option-text">
+                        {item.render
+                          ? item.render({ option: item })
+                          : description}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
+      {selectedBlock ? <ComboBoxPreview item={selectedBlock} /> : null}
     </div>
   );
 }
