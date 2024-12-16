@@ -95,6 +95,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             js_args[2],
             {
                 "label": "Test block",
+                "description": "Some helpful text",
                 "helpText": "Some helpful text",
                 "required": True,
                 "icon": "placeholder",
@@ -185,7 +186,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 )
             )
 
-        block = ChoiceBlock()
+        block = ChoiceBlock(description="A selection of two choices")
 
         block.set_name("test_choiceblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -203,6 +204,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             js_args[2],
             {
                 "label": "Test choiceblock",
+                "description": "A selection of two choices",
                 "required": True,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -615,6 +617,7 @@ class TestRichTextBlock(TestCase):
                 "classname": "w-field w-field--char_field w-field--custom_rich_text_area",
                 "icon": "pilcrow",
                 "label": "Test richtextblock",
+                "description": "",
                 "blockDefId": block.definition_prefix,
                 "required": True,
                 "showAddCommentButton": True,
@@ -636,6 +639,7 @@ class TestRichTextBlock(TestCase):
             js_args[2],
             {
                 "label": "Test richtextblock",
+                "description": "",
                 "required": True,
                 "icon": "pilcrow",
                 "blockDefId": block.definition_prefix,
@@ -659,6 +663,7 @@ class TestRichTextBlock(TestCase):
             js_args[2],
             {
                 "label": "Test richtextblock",
+                "description": "",
                 "required": True,
                 "icon": "pilcrow",
                 "blockDefId": block.definition_prefix,
@@ -775,6 +780,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             js_args[2],
             {
                 "label": "Test choiceblock",
+                "description": "",
                 "required": True,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -1177,6 +1183,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             js_args[2],
             {
                 "label": "Test choiceblock",
+                "description": "",
                 "required": True,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -1614,6 +1621,7 @@ class TestRawHTMLBlock(unittest.TestCase):
             js_args[2],
             {
                 "label": "Test rawhtmlblock",
+                "description": "",
                 "required": True,
                 "icon": "code",
                 "blockDefId": block.definition_prefix,
@@ -1957,6 +1965,7 @@ class TestStructBlock(SimpleTestCase):
             js_args[2],
             {
                 "label": "Test structblock",
+                "description": "",
                 "required": False,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -1987,6 +1996,7 @@ class TestStructBlock(SimpleTestCase):
             js_args[2],
             {
                 "label": "Test structblock",
+                "description": "",
                 "required": False,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -2012,6 +2022,7 @@ class TestStructBlock(SimpleTestCase):
             js_args[2],
             {
                 "label": "Test structblock",
+                "description": "",
                 "required": False,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -2046,6 +2057,7 @@ class TestStructBlock(SimpleTestCase):
             js_args[2],
             {
                 "label": "Test structblock",
+                "description": "Self-promotion is encouraged",
                 "required": False,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -2072,6 +2084,7 @@ class TestStructBlock(SimpleTestCase):
             js_args[2],
             {
                 "label": "Test structblock",
+                "description": "Self-promotion is encouraged",
                 "required": False,
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
@@ -2702,6 +2715,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             js_args[3],
             {
                 "label": "Test listblock",
+                "description": "",
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "classname": None,
@@ -2733,6 +2747,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             js_args[3],
             {
                 "label": "Test listblock",
+                "description": "",
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "classname": None,
@@ -2908,6 +2923,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             js_args[3],
             {
                 "label": "Test listblock",
+                "description": "",
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "classname": "special-list-class",
@@ -2942,6 +2958,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             js_args[3],
             {
                 "label": "Test listblock",
+                "description": "",
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "classname": "custom-list-class",
@@ -3580,6 +3597,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             js_args[3],
             {
                 "label": "Test streamblock",
+                "description": "",
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "classname": None,
@@ -4307,6 +4325,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             js_args[3],
             {
                 "label": "Test streamblock",
+                "description": "",
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "minNum": None,
@@ -4410,6 +4429,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             js_args[3],
             {
                 "label": "Test streamblock",
+                "description": "",
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "minNum": None,
@@ -4742,7 +4762,9 @@ class TestPageChooserBlock(TestCase):
     def test_adapt(self):
         from wagtail.admin.widgets.chooser import AdminPageChooser
 
-        block = blocks.PageChooserBlock(help_text="pick a page, any page")
+        block = blocks.PageChooserBlock(
+            help_text="pick a page, any page", description="A featured page"
+        )
 
         block.set_name("test_pagechooserblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -4755,6 +4777,7 @@ class TestPageChooserBlock(TestCase):
             js_args[2],
             {
                 "label": "Test pagechooserblock",
+                "description": "A featured page",
                 "required": True,
                 "icon": "doc-empty-inverse",
                 "blockDefId": block.definition_prefix,
@@ -4963,6 +4986,7 @@ class TestStaticBlock(unittest.TestCase):
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
+                "description": "",
             },
         )
 
@@ -4985,6 +5009,7 @@ class TestStaticBlock(unittest.TestCase):
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
+                "description": "",
             },
         )
 
@@ -5006,6 +5031,7 @@ class TestStaticBlock(unittest.TestCase):
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "label": "Latest posts",
+                "description": "",
             },
         )
 
@@ -5028,6 +5054,7 @@ class TestStaticBlock(unittest.TestCase):
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
+                "description": "",
             },
         )
 
@@ -5050,6 +5077,7 @@ class TestStaticBlock(unittest.TestCase):
                 "icon": "placeholder",
                 "blockDefId": block.definition_prefix,
                 "label": "Posts static block",
+                "description": "",
             },
         )
 
@@ -5101,6 +5129,7 @@ class TestDateBlock(TestCase):
             js_args[2],
             {
                 "label": "Test dateblock",
+                "description": "",
                 "required": True,
                 "icon": "date",
                 "blockDefId": block.definition_prefix,
@@ -5135,6 +5164,7 @@ class TestTimeBlock(TestCase):
             js_args[2],
             {
                 "label": "Test timeblock",
+                "description": "",
                 "required": True,
                 "icon": "time",
                 "blockDefId": block.definition_prefix,
@@ -5169,6 +5199,7 @@ class TestDateTimeBlock(TestCase):
             js_args[2],
             {
                 "label": "Test datetimeblock",
+                "description": "",
                 "required": True,
                 "icon": "date",
                 "blockDefId": block.definition_prefix,

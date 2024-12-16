@@ -5522,7 +5522,11 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
     def test_adapt(self):
-        block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
+        block = SnippetChooserBlock(
+            Advert,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the sidebar.",
+        )
 
         block.set_name("test_snippetchooserblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -5534,6 +5538,7 @@ class TestSnippetChooserBlock(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the sidebar.",
                 "required": True,
                 "icon": "snippet",
                 "blockDefId": block.definition_prefix,
@@ -5830,7 +5835,9 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
 
     def test_adapt(self):
         block = SnippetChooserBlock(
-            AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert"
+            AdvertWithCustomPrimaryKey,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the footer.",
         )
 
         block.set_name("test_snippetchooserblock")
@@ -5843,6 +5850,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the footer.",
                 "required": True,
                 "icon": "snippet",
                 "blockDefId": block.definition_prefix,
