@@ -450,6 +450,7 @@ class ListBlockAdapter(Adapter):
         meta = {
             "label": block.label,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
             "classname": block.meta.form_classname,
             "collapsed": block.meta.collapsed,
             "strings": {
