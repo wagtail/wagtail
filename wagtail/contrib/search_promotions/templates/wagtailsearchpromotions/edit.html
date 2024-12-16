@@ -1,37 +1,14 @@
-{% extends "wagtailadmin/generic/form.html" %}
+{% extends "wagtailadmin/generic/edit.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans trimmed with query=query.query_string %}Editing {{ query }}{% endblocktrans %}{% endblock %}
-{% block content %}
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=query.query_string icon="pick"  %}
-
-    <form action="{% url 'wagtailsearchpromotions:edit' query.id %}" method="POST" class="nice-padding" novalidate>
-        {% csrf_token %}
-
-        <ul class="fields">
-            <li>
-                {% include "wagtailsearchpromotions/queries/chooser_field.html" with field=query_form.query_string only %}
-            </li>
-            <li>
-                {% include "wagtailsearchpromotions/includes/searchpromotions_formset.html" with formset=searchpicks_formset only %}
-            </li>
-        </ul>
-
-        {% block footer %}
-            {{ block.super }}
-        {% endblock %}
-    </form>
-{% endblock %}
-
-{% block extra_actions %}
-    {% comment %}
-        The view hasn't extended from generic EditView, so we cannot use the new
-        header buttons in the breadcrumbs for the Delete button. Instead, we'll
-        add a Delete button to the footer actions.
-    {% endcomment %}
-    {% if can_delete %}
-        <a href="{{ delete_url }}" class="button">{{ delete_item_label }}</a>
-    {% endif %}
+{% block form_content %}
+    <ul class="fields">
+        <li>
+            {% include "wagtailsearchpromotions/queries/chooser_field.html" with field=form.query_string only %}
+        </li>
+        <li>
+            {% include "wagtailsearchpromotions/includes/searchpromotions_formset.html" with formset=searchpicks_formset only %}
+        </li>
+    </ul>
 {% endblock %}
 
 {% block extra_js %}
@@ -43,7 +20,7 @@
         {% include "wagtailsearchpromotions/queries/chooser_field.js" only %}
 
         $(function() {
-            createQueryChooser('{{ query_form.query_string.auto_id }}');
+            createQueryChooser('{{ form.query_string.auto_id }}');
         });
     </script>
 {% endblock %}

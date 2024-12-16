@@ -857,6 +857,11 @@
 * Clifford Gama
 * Noah van der Meer
 * Strapchay
+* Alex Fulcher
+* Harsh Dange
+* Mauro Soche
+* Krystian Magdziarz
+* Guilhem Saurel
 
 ## Translators
 

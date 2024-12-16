@@ -1131,6 +1131,40 @@ def block_googlebot(page, request, serve_args, serve_kwargs):
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 ```
 
+(on_serve_page)=
+
+### `on_serve_page`
+
+Called when Wagtail is serving a page, after `before_serve_page` but before the page's `serve()` method is called. Unlike `before_serve_page`, this hook allows you to modify the serving chain rather than just returning an alternative response.
+
+The callable passed to this hook must accept a function as its argument and return a new function that will be used in its place. The passed-in function will be the next callable in the serving chain.
+
+For example, to add custom cache headers to the response:
+
+```python
+from wagtail import hooks
+
+@hooks.register('on_serve_page')
+def add_custom_headers(next_serve_page):
+    def wrapper(page, request, args, kwargs):
+        response = next_serve_page(page, request, args, kwargs)
+        response['Custom-Header'] = 'value'
+        return response
+    return wrapper
+```
+
+Parameters passed to the function:
+- `page` - the Page object being served
+- `request` - the request object
+- `args` - positional arguments that will be passed to the page's serve method
+- `kwargs` - keyword arguments that will be passed to the page's serve method
+
+This hook is particularly useful for:
+- Adding/modifying response headers
+- Implementing access restrictions
+- Modifying the response content
+- Adding logging or monitoring
+
 ## Document serving
 
 (before_serve_document)=

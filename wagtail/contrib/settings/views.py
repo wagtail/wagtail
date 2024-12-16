@@ -81,8 +81,10 @@ def redirect_to_relevant_instance(request, app_name, model_name):
 
 class EditView(generic.EditView):
     template_name = "wagtailsettings/edit.html"
+    edit_url_name = "wagtailsettings:edit"
     error_message = gettext_lazy("The setting could not be saved due to errors.")
     permission_required = "change"
+    _show_breadcrumbs = True
 
     def setup(self, request, app_name, model_name, *args, **kwargs):
         self.app_name = app_name
@@ -92,6 +94,9 @@ class EditView(generic.EditView):
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
 
+    def get_header_icon(self):
+        return registry._model_icons.get(self.model)
+
     def get_object(self, queryset=None):
         self.site = None
         if issubclass(self.model, BaseSiteSetting):
@@ -100,12 +105,12 @@ class EditView(generic.EditView):
         else:
             return get_object_or_404(self.model, pk=self.pk)
 
-    def get_form_class(self):
-        return get_setting_edit_handler(self.model).get_form_class()
+    def get_panel(self):
+        return get_setting_edit_handler(self.model)
 
     def get_edit_url(self):
         return reverse(
-            "wagtailsettings:edit",
+            self.edit_url_name,
             args=(self.app_name, self.model_name, self.pk),
         )
 
@@ -121,27 +126,9 @@ class EditView(generic.EditView):
         site_switcher = None
         if self.site and Site.objects.count() > 1:
             site_switcher = SiteSwitchForm(self.site, self.model)
-            media = context.get("media") + site_switcher.media
+            context["media"] += site_switcher.media
 
-        form = self.get_form()
-
-        edit_handler = get_setting_edit_handler(self.model).get_bound_panel(
-            instance=self.object, request=self.request, form=form
-        )
-
-        media = form.media + edit_handler.media
-
-        header_icon = registry._model_icons.get(self.model)
-
-        context.update(
-            {
-                "edit_handler": edit_handler,
-                "site_switcher": site_switcher,
-                "media": media,
-                "header_icon": header_icon,
-            }
-        )
-
+        context["site_switcher"] = site_switcher
         return context
 
     def get_success_url(self):

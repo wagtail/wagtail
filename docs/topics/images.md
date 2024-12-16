@@ -230,7 +230,7 @@ Wagtail does not allow deforming or stretching images. Image dimension ratios wi
 
 Wagtail provides two shortcuts to give greater control over the `img` element:
 
-### 1. Adding attributes to the {% image %} tag
+### 1. Adding attributes to the `{% image %}` tag
 
 Extra attributes can be specified with the syntax `attribute="value"`:
 

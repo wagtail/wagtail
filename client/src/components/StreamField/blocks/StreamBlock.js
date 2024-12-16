@@ -35,7 +35,7 @@ class StreamChild extends BaseSequenceChild {
     return {
       type: this.type,
       value: this.block.getState(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
@@ -49,14 +49,14 @@ class StreamChild extends BaseSequenceChild {
   setState({ type, value, id }) {
     this.type = type;
     this.block.setState(value);
-    this.id = id;
+    this.id = id === undefined ? null : id;
   }
 
   getValue() {
     return {
       type: this.type,
       value: this.block.getValue(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
@@ -389,7 +389,7 @@ export class StreamBlock extends BaseSequenceBlock {
     );
     child.setState({
       type: initialState.type,
-      id: initialState.id,
+      id: initialState.id || null,
       value: valueBefore,
     });
     const oldContentPath = child.getContentPath();

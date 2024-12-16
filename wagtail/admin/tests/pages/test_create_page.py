@@ -2037,11 +2037,14 @@ class TestCreateViewChildPagePrivacy(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, '<div class="" data-privacy-sidebar-private>')
+        soup = self.get_soup(response.content)
 
-        self.assertContains(
-            response, '<div class="w-hidden" data-privacy-sidebar-public>'
-        )
+        public_div = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
+        private_div = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+
+        self.assertEqual(private_div["class"], ["!w-my-0"])
+
+        self.assertEqual(public_div["class"], ["w-hidden"])
 
     def test_sidebar_public(self):
         response = self.client.get(
@@ -2053,8 +2056,11 @@ class TestCreateViewChildPagePrivacy(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, '<div class="w-hidden" data-privacy-sidebar-private>'
-        )
+        soup = self.get_soup(response.content)
 
-        self.assertContains(response, '<div class="" data-privacy-sidebar-public>')
+        public_div = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
+        private_div = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+
+        self.assertEqual(public_div["class"], [])
+
+        self.assertEqual(private_div["class"], ["!w-my-0", "w-hidden"])

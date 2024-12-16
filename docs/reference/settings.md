@@ -636,6 +636,14 @@ WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
 
+Any provided query string will merge with the default parameters. For example, using the setting `//www.gravatar.com/avatar?d=robohash` will use the `robohash` override instead of the default `mp` (mystery person). The `s` parameter will be ignored as this is specified depending on location within the admin interface.
+
+See the [Gravatar images URL documentation](https://docs.gravatar.com/api/avatars/images/) for more details.
+
+```{versionchanged} 6.4
+Added query string merging.
+```
+
 (wagtail_user_time_zones)=
 
 ### `WAGTAIL_USER_TIME_ZONES`

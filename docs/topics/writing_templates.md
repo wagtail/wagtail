@@ -138,7 +138,7 @@ See [](responsive_images) for full documentation.
 
 ## Rich text (filter)
 
-This filter takes a chunk of HTML content and renders it as safe HTML on the page. Importantly, it also expands internal shorthand references to embedded images and links made in the Wagtail editor, into fully-baked HTML ready for display.
+The `richtext` filter takes a chunk of HTML content and renders it as safe HTML on the page. Importantly, it also expands internal shorthand references to embedded images and links made in the Wagtail editor, into fully-baked HTML ready for display.
 
 Only fields using `RichTextField` need this applied in the template.
 
@@ -241,7 +241,7 @@ Like `pageurl`, this will try to provide a relative link if possible but will de
 
 ## Static files (tag)
 
-Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, such as when moving from development to a live environment.
+The `static` tag is used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, such as when moving from development to a live environment.
 
 ```html+django
 {% load static %}
@@ -269,7 +269,7 @@ Returns the Site object corresponding to the current request.
 
 ## Wagtail user bar
 
-This tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
+The `wagtailuserbar` tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
 
 This tag may be used on standard Django views, without page object. The user bar will contain one item pointing to the admin.
 
