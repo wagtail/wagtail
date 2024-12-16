@@ -225,7 +225,7 @@ class TestTableBlock(TestCase):
         self.assertIn("<td>FR</td>", html)
 
     def test_adapt(self):
-        block = TypedTableBlock()
+        block = TypedTableBlock(description="A table of countries and their food")
 
         block.set_name("test_typedtableblock")
         js_args = TypedTableBlockAdapter().js_args(block)
@@ -235,6 +235,7 @@ class TestTableBlock(TestCase):
             js_args[-1],
             {
                 "label": "Test typedtableblock",
+                "description": "A table of countries and their food",
                 "required": False,
                 "icon": "table",
                 "blockDefId": block.definition_prefix,
