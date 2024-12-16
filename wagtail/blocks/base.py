@@ -271,6 +271,17 @@ class Block(metaclass=BaseBlock):
 
         return mark_safe(render_to_string(template, new_context))
 
+    def get_preview_context(self, value, parent_context=None):
+        return self.get_context(value, parent_context)
+
+    def get_preview_template(self, value, context=None):
+        return getattr(self.meta, "preview_template", None)
+
+    def get_preview_value(self):
+        if hasattr(self.meta, "preview_value"):
+            return self.normalize(self.meta.preview_value)
+        return self.get_default()
+
     def get_api_representation(self, value, context=None):
         """
         Can be used to customise the API response and defaults to the value returned by get_prep_value.
