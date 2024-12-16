@@ -1,4 +1,4 @@
-# Your first Wagtail site
+# Your first Wagtail site 
 
 This tutorial shows you how to build a blog using Wagtail. Also, the tutorial gives you hands-on experience with some of Wagtail's features.
 
@@ -158,9 +158,7 @@ from wagtail.admin.panels import FieldPanel
 class HomePage(Page):
     body = RichTextField(blank=True)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('body'),
-    ]
+    content_panels = Page.content_panels + ["body"]
 ```
 
 `body` is a `RichTextField`, a special Wagtail field. When `blank=True`,
@@ -291,9 +289,7 @@ from wagtail.admin.panels import FieldPanel
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('intro')
-    ]
+    content_panels = Page.content_panels + ["intro"]
 ```
 
 Since you added a new model to your app, you must create and run a database migration:
@@ -371,11 +367,7 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
-    content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        FieldPanel('intro'),
-        FieldPanel('body'),
-    ]
+    content_panels = Page.content_panels + ["date", "intro", "body"]
 ```
 
 In the model above, you import `index` as this makes the model searchable. You then list fields that you want to be searchable for the user.
@@ -569,11 +561,7 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
-    content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        FieldPanel('intro'),
-        FieldPanel('body'),
-
+    content_panels = Page.content_panels + ["date", "intro", "body"] + [
         # Add this:
         InlinePanel('gallery_images', label="Gallery images"),
     ]
@@ -586,10 +574,7 @@ class BlogPageGalleryImage(Orderable):
     )
     caption = models.CharField(blank=True, max_length=250)
 
-    panels = [
-        FieldPanel('image'),
-        FieldPanel('caption'),
-    ]
+    panels = ["image", "caption"]
 ```
 
 Run `python manage.py makemigrations` and `python manage.py migrate`.
@@ -659,10 +644,8 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
-    content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        FieldPanel('intro'),
-        FieldPanel('body'),
+    content_panels = Page.content_panels + ["date", "intro", "body"] + [
+        # Add this:
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 ```
@@ -712,10 +695,7 @@ class Author(models.Model):
         on_delete=models.SET_NULL, related_name='+'
     )
 
-    panels = [
-        FieldPanel('name'),
-        FieldPanel('author_image'),
-    ]
+    panels = ["name", "author_image"]
 
     def __str__(self):
         return self.name
@@ -754,6 +734,40 @@ class BlogPage(Page):
 
     # ... Keep the main_image method and search_fields definition. Modify your content_panels:
     content_panels = Page.content_panels + [
+        MultiFieldPanel(['date', 'authors'], heading="Blog information"),
+    ] + ["intro", "body", "gallery_images"]
+```
+
+Here you have used the  `MultiFieldPanel` in `content_panels` to group  the `date` and `Authors` fields together for readability. By doing this, you are creating a single panel object that encapsulates multiple fields within a list or tuple into a single `heading` string. This feature is particularly useful for organizing related fields in the admin interface, making the UI more intuitive for content editors.
+
+Migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`, and then go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) . Notice how the list of available authors does not look very good.
+
+!["Blog" page, with blog information and authors field](../_static/images/tutorial/ugly-list-of-authors.png)
+
+Well, you can improve this by specifying the author field as a panel object of type FieldPanel. This will allow you to pass in the widget argument to change the default look of the list of authors. Even without a secondary argument like widget (which is optional), you can still wrap all other fields in the FieldPanel object, as shown below:
+
+```python
+# New imports added for forms and ParentalManyToManyField, and MultiFieldPanel
+from django import forms
+from django.db import models
+
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.search import index
+from wagtail.snippets.models import register_snippet
+
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+
+    # Add this:
+    authors = ParentalManyToManyField('blog.Author', blank=True)
+
+    # ... Keep the main_image method and search_fields definition. Modify your content_panels:
+    content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
@@ -762,11 +776,20 @@ class BlogPage(Page):
         FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
+
 ```
 
-In the preceding model modification, you used the `widget` keyword argument on the `FieldPanel` definition to specify a more user-friendly checkbox-based widget instead of the default multiple select boxes. Also, you used a `MultiFieldPanel` in `content_panels` to group the `date` and `Authors` fields together for readability.
+In the preceding model modification, you used the widget keyword argument in the FieldPanel definition to specify a more user-friendly checkbox-based widget instead of the default list.
 
-Finally, migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, update the `blog_page.html` template to display the Authors:
+```{note}
+ A plain string in a panel definition is equivalent to a FieldPanel or InlinePanel with no arguments. check [panel](https://docs.wagtail.org/en/stable/reference/pages/panels.html) documentation
+```
+
+Migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, go to your admin interface and you should see the author list now being a checklist.
+
+!["Blog" page, with blog information and authors field](../_static/images/tutorial/author-list-beautify.png)
+
+Update the `blog_page.html` template to display the Authors:
 
 ```html+django
 {% block content %}
