@@ -6,8 +6,8 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.models import Locale, Page, TranslatableMixin
-from wagtail.snippets.widgets import SnippetListingButton
 
 from .views import SubmitPageTranslationView, SubmitSnippetTranslationView
 
@@ -112,14 +112,7 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
                 "simple_translation:submit_snippet_translation",
                 args=[model._meta.app_label, model._meta.model_name, quote(snippet.pk)],
             )
-            yield SnippetListingButton(
-                _("Translate"),
-                url,
-                attrs={
-                    "aria-label": _("Translate '%(title)s'") % {"title": str(snippet)}
-                },
-                priority=100,
-            )
+            yield MenuItem(_("Translate"), url, order=100)
 
 
 @hooks.register("construct_translated_pages_to_cascade_actions")
