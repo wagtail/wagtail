@@ -373,6 +373,37 @@ class TestImageBlock(TestImageChooserBlock):
         )
         self.assertIsNone(block.clean(value))
 
+    def test_get_block_by_content_path(self):
+        field = StreamPage._meta.get_field("body")
+        page = StreamPage(
+            body=field.stream_block.to_python(
+                [
+                    {
+                        "id": "123",
+                        "type": "image_with_alt",
+                        "value": {
+                            "image": self.image.id,
+                            "alt_text": "Sample alt text",
+                            "decorative": False,
+                        },
+                    },
+                ]
+            )
+        )
+        bound_block = field.get_block_by_content_path(page.body, ["123"])
+        self.assertEqual(bound_block.block.name, "image_with_alt")
+        self.assertIsInstance(bound_block.value, Image)
+        self.assertEqual(bound_block.value.id, self.image.id)
+
+        bound_block = field.get_block_by_content_path(page.body, ["123", "alt_text"])
+        self.assertEqual(bound_block.block.name, "alt_text")
+        self.assertEqual(bound_block.value, "Sample alt text")
+
+        bound_block = field.get_block_by_content_path(
+            page.body, ["123", "does_not_exist"]
+        )
+        self.assertIsNone(bound_block)
+
 
 class TestImageBlockComparison(TestCase):
     comparison_class = compare.StreamFieldComparison
