@@ -492,6 +492,51 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
             self.assertTrue(kwargs.get("called"))
 
 
+class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.homepage = Page.objects.get(id=2).specific
+
+    def test_construct_wagtail_userbar_hook_passes_page(self):
+        kwargs = {}
+
+        def construct_wagtail_userbar(request, items, page):
+            kwargs["called"] = True
+            return items
+
+        with hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            construct_wagtail_userbar,
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(kwargs.get("called"))
+
+    def test_deprecated_construct_wagtail_userbar_hook_without_page(self):
+        kwargs = {}
+
+        def construct_wagtail_userbar(request, items):
+            kwargs["called"] = True
+            return items
+
+        with self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position",
+        ), hooks.register_temporarily(
+            "construct_wagtail_userbar",
+            construct_wagtail_userbar,
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(kwargs.get("called"))
+
+
 class TestUserbarAddLink(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
