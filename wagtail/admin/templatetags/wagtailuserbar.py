@@ -1,23 +1,17 @@
-from warnings import warn
-
 from django import template
 from django.template.loader import render_to_string
 from django.utils import translation
 
-from wagtail import hooks
 from wagtail.admin.userbar import (
     AccessibilityItem,
     AddPageItem,
     AdminItem,
     EditPageItem,
     ExplorePageItem,
-)
-from wagtail.coreutils import (
-    accepts_kwarg,
+    apply_userbar_hooks,
 )
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 register = template.Library()
 
@@ -95,16 +89,7 @@ def wagtailuserbar(context, position="bottom-right"):
                 AccessibilityItem(),
             ]
 
-        for fn in hooks.get_hooks("construct_wagtail_userbar"):
-            if accepts_kwarg(fn, "page"):
-                fn(request, items, page)
-            else:
-                warn(
-                    "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position -"
-                    f" {fn.__module__}.{fn.__name__} needs to be updated",
-                    category=RemovedInWagtail70Warning,
-                )
-                fn(request, items)
+        apply_userbar_hooks(request, items, page)
 
         # Render the items
         rendered_items = [item.render(request) for item in items]
