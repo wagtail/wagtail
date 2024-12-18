@@ -51,7 +51,7 @@ class Phrase(SearchQuery):
 
 class Fuzzy(SearchQuery):
     OPERATORS = ["and", "or"]
-    DEFAULT_OPERATOR = "and"
+    DEFAULT_OPERATOR = "or"
 
     def __init__(self, query_string: str, operator: str = DEFAULT_OPERATOR):
         self.query_string = query_string
