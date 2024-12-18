@@ -197,10 +197,17 @@ For example:
 >>> from wagtail.search.query import Fuzzy
 
 >>> Page.objects.search(Fuzzy("Hallo"))
-[<Page: Hello World>]
+[<Page: Hello World>, <Page: Hello>]
 ```
 
 Fuzzy matching is supported by the Elasticsearch search backend only.
+
+The `operator` keyword argument is also supported on `Fuzzy` objects, defaulting to "or":
+
+```python
+>>> Page.objects.search(Fuzzy("Hallo wurld", operator="and"))
+[<Page: Hello World>]
+```
 
 (wagtailsearch_complex_queries)=
 
