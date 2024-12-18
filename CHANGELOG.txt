@@ -110,6 +110,7 @@ Changelog
 
  * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Ensure Draftail features wrap when a large amount of features are added (Bart Cieliński)
+ * Fix: Implement `get_block_by_content_path` on `ImageBlock` to prevent errors on commenting (Matt Westcott)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
 
 
