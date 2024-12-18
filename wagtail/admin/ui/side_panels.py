@@ -5,9 +5,8 @@ from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy, ngettext
 
-from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.admin.userbar import AccessibilityItem
+from wagtail.admin.userbar import AccessibilityItem, apply_userbar_hooks
 from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
@@ -330,8 +329,7 @@ class ChecksSidePanel(BaseSidePanel):
         # Retrieve the Axe configuration from the userbar.
         userbar_items = [AccessibilityItem()]
         page = self.object if issubclass(self.model, Page) else None
-        for fn in hooks.get_hooks("construct_wagtail_userbar"):
-            fn(self.request, userbar_items, page)
+        apply_userbar_hooks(self.request, userbar_items, page)
 
         for item in userbar_items:
             if isinstance(item, AccessibilityItem):
