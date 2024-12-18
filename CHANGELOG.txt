@@ -27,6 +27,7 @@ Changelog
  * Skip loading of unused JavaScript to speed up 404 page rendering (Sage Abdullah)
  * Replace l18n library with JavaScript Intl API for time zone options in Account view (Sage Abdullah)
  * Use explicit label for defaulting to server language in account settings (Sage Abdullah)
+ * Add support for specifying an operator on `Fuzzy` queries (Tom Usher)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
