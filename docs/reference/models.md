@@ -190,6 +190,37 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: find_for_request
 
+    .. method:: get_default_privacy_setting(request)
+     
+        Set the default privacy setting for the page.
+
+        Returns a dict with the privacy option type and related info
+
+        - none: The page is public and can be accessed by anyone. (default) - `{"type": "none"}`
+
+        - login: The page is private and can only be accessed by authenticated users. - `{"type":"login"}`
+
+        - password: The page is private and can only be accessed by users with a shared password. - `{"type": "password", "password": "P@ssw0rd123!"}`
+
+        - groups: The page is private and can only be accessed by users in specific groups. - `{"type": "groups", "groups": [moderators, editors]}`
+
+        Example
+
+        .. code-block:: python
+
+            class BreadsIndexPage(Page):
+                ...
+
+                def get_default_privacy_setting(request):
+                    # if the editor has the foo.add_bar permission set the default to groups with the moderators and editors group checked 
+                    if request.user.has_perm("foo.add_bar"):
+                        moderators = Group.objects.filter(name="Moderators").first()
+                        editors = Group.objects.filter(name="Editors").first()
+                        return {"type": "groups", "groups":[moderators,editors]}
+                    else:
+                        return {"type": "none"}
+
+
     .. autoattribute:: context_object_name
 
         Custom name for page instance in page's ``Context``.

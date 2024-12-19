@@ -72,6 +72,28 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 
 To integrate Wagtail into a Django site with an existing login mechanism, setting `WAGTAIL_FRONTEND_LOGIN_URL = LOGIN_URL` will usually be sufficient.
 
+## Setting the default privacy restriction
+
+You can modify the default privacy restriction of a page by overriding the {meth}`~wagtail.models.Page.get_default_privacy_setting` method in the Page model. This is often done to make a page require login by default, but it can also be used for more complex configurations, such as adjusting the default privacy setting based on the user or using an auto-generated shared password.
+
+```python
+class BlogPage(Page):
+    ...
+    def get_default_privacy_setting(self, request):
+        # set default to group
+        from django.contrib.auth.models import Group
+        moderators = Group.objects.filter(name="Moderators").first()
+        editors = Group.objects.filter(name="Editors").first()
+        return {'type':'groups','groups':[moderators,editors]}
+
+class SecretPage(Page):
+    ...
+    def get_default_privacy_setting(self, request):
+        # set default to auto-generated password
+        import secrets
+        return {'type':'password',"password":secrets.token_urlsafe(32)}
+```
+
 ## Setting up a global "password required" page
 
 By setting `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` in your Django settings file, you can specify the path of a template which will be used for all "password required" forms on the site (except for page types that specifically override it - see below):
