@@ -3,5 +3,5 @@
 
 {% block chosen_icon %}
     {# Empty alt because the chosen item’s title is already displayed next to the image. #}
-    <img class="chooser__image show-transparency" data-chooser-image alt="" decoding="async" height="{{ preview.height|unlocalize }}" src="{{ preview.url }}" width="{{ preview.width|unlocalize }}">
+    <img class="chooser__image show-transparency" data-chooser-image alt="" data-default-alt-text="{{ default_alt_text }}" decoding="async" height="{{ preview.height|unlocalize }}" src="{{ preview.url }}" width="{{ preview.width|unlocalize }}">
 {% endblock chosen_icon %}
