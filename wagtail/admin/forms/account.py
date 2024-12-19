@@ -1,9 +1,14 @@
 import warnings
+from contextlib import contextmanager
 from operator import itemgetter
+from tempfile import SpooledTemporaryFile
 
 import l18n
+import willow
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.files import File
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.translation import get_language_info
 from django.utils.translation import gettext_lazy as _
@@ -17,6 +22,9 @@ from wagtail.permissions import page_permission_policy
 from wagtail.users.models import UserProfile
 
 User = get_user_model()
+WAGTAIL_USER_AVATAR_IMAGE_SIZE_BOUND = getattr(
+    settings, "WAGTAIL_USER_AVATAR_IMAGE_SIZE_BOUND", (400, 400)
+)
 
 
 class NotificationPreferencesForm(forms.ModelForm):
@@ -114,8 +122,46 @@ class AvatarPreferencesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._original_avatar = self.instance.avatar
+        self.avatar_quality = 80
+
+    @contextmanager
+    def create_avatar_context(self, avatar):
+        avatar_context = willow.Image.open(avatar)
+        yield avatar_context
+
+    def reduce_avatar(self, avatar):
+        with self.create_avatar_context(avatar) as willow_image:
+            width, height = willow_image.get_size()
+
+            should_reduce_avatar = (
+                width > WAGTAIL_USER_AVATAR_IMAGE_SIZE_BOUND[0]
+                or height > WAGTAIL_USER_AVATAR_IMAGE_SIZE_BOUND[1]
+            )
+
+            if should_reduce_avatar:
+                original_format = (
+                    willow_image.format_name or willow_image.name.split(".")[-1].lower()
+                )
+                output = SpooledTemporaryFile(
+                    max_size=settings.FILE_UPLOAD_MAX_MEMORY_SIZE
+                )
+                clone_img = willow_image.resize(WAGTAIL_USER_AVATAR_IMAGE_SIZE_BOUND)
+
+                img_kwargs = {}
+                if original_format not in ["ico", "svg", "gif", "png"]:
+                    img_kwargs["quality"] = self.avatar_quality
+                if original_format in ["jpeg", "png"]:
+                    img_kwargs["optimize"] = True
+
+                # get the method to save the image as based on its format, pass in the args and call it
+                getattr(clone_img, f"save_as_{original_format}")(output, **img_kwargs)
+
+                # wrap the temp file in a File wrapper
+                return File(file=output, name=avatar.name)
+        return None
 
     def save(self, commit=True):
+        reduced_avatar = None
         if (
             commit
             and self._original_avatar
@@ -130,7 +176,20 @@ class AvatarPreferencesForm(forms.ModelForm):
                 warnings.warn(
                     "Failed to delete old avatar file: %s" % self._original_avatar.name
                 )
-        super().save(commit=commit)
+
+            # check and reduce cleaned_data avatar if more than the image size bound specified to the bound
+            avatar = self.cleaned_data["avatar"]
+
+            # would be none is no operation is performed
+            reduced_avatar = self.reduce_avatar(avatar)
+
+        if reduced_avatar is not None:
+            object = super().save(commit=False)
+            object.avatar = reduced_avatar
+            if commit:
+                object.save()
+        else:
+            super().save(commit=commit)
 
     class Meta:
         model = UserProfile
