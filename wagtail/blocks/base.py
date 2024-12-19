@@ -55,6 +55,7 @@ class BaseBlock(type):
 class Block(metaclass=BaseBlock):
     name = ""
     creation_counter = 0
+    definition_registry = {}
 
     TEMPLATE_VAR = "value"
 
@@ -94,6 +95,7 @@ class Block(metaclass=BaseBlock):
         self.creation_counter = Block.creation_counter
         Block.creation_counter += 1
         self.definition_prefix = "blockdef-%d" % self.creation_counter
+        Block.definition_registry[self.definition_prefix] = self
 
         self.label = self.meta.label or ""
 
@@ -157,7 +159,7 @@ class Block(metaclass=BaseBlock):
         model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.normalize(self.meta.default)
+        return self.normalize(getattr(self.meta, "default", None))
 
     def clean(self, value):
         """
@@ -268,6 +270,31 @@ class Block(metaclass=BaseBlock):
             new_context = self.get_context(value, parent_context=dict(context))
 
         return mark_safe(render_to_string(template, new_context))
+
+    def get_preview_context(self, value, parent_context=None):
+        # We do not fall back to `get_context` here, because the preview context
+        # will be used for a complete view, not just the block. Instead, the
+        # default preview context uses `{% include_block %}`, which will use
+        # `get_context`.
+        return parent_context or {}
+
+    def get_preview_template(self, value=None, context=None):
+        # We do not fall back to `get_template` here, because the template will
+        # be used for a complete view, not just the block. In most cases, the
+        # block's template cannot stand alone for the preview, as it would be
+        # missing the necessary static assets.
+        #
+        # Instead, the default preview template uses `{% include_block %}`,
+        # which will use `get_template` if a template is defined.
+        return getattr(self.meta, "preview_template", None)
+
+    def get_preview_value(self):
+        if hasattr(self.meta, "preview_value"):
+            return self.normalize(self.meta.preview_value)
+        return self.get_default()
+
+    def get_description(self):
+        return getattr(self.meta, "description", "")
 
     def get_api_representation(self, value, context=None):
         """

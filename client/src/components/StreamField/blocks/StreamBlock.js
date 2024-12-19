@@ -104,6 +104,7 @@ class StreamBlockMenu extends BaseInsertionControl {
       content: this.combobox,
       trigger: 'click',
       interactive: true,
+      maxWidth: 'none',
       theme: 'dropdown',
       arrow: false,
       placement: 'bottom',
@@ -120,7 +121,9 @@ class StreamBlockMenu extends BaseInsertionControl {
       const groupItems = blockDefs.map((blockDef) => ({
         type: blockDef.name,
         label: blockDef.meta.label,
+        description: blockDef.meta.description,
         icon: blockDef.meta.icon,
+        blockDefId: blockDef.meta.blockDefId,
       }));
 
       return {

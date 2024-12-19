@@ -1,0 +1,21 @@
+.w-combobox-preview {
+  padding: theme('spacing.5');
+  display: flex;
+  flex-direction: column;
+  gap: theme('spacing.5');
+  min-height: min(320px, 70vh);
+}
+
+.w-combobox-preview__iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.w-combobox-preview__label {
+  @apply w-label-1;
+}
+
+.w-combobox-preview__description {
+  @apply w-help-text;
+  margin-bottom: 0;
+}
