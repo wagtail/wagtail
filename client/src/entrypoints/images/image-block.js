@@ -15,6 +15,11 @@ class ImageBlockDefinition extends window.wagtailStreamField.blocks
     updateStateInput();
     isDecorativeField.addEventListener('change', updateStateInput);
 
+    const imageChooserWidget = block.childBlocks.image.widget;
+    imageChooserWidget.on('chosen', (data) => {
+      altTextField.value = data.default_alt_text;
+    });
+
     return block;
   }
 }
