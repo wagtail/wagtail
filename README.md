@@ -22,6 +22,9 @@
     <a href="https://fosstodon.org/@wagtail">
         <img src="https://img.shields.io/mastodon/follow/109308882653647818?domain=https%3A%2F%2Ffosstodon.org&style=social" alt="Follow @wagtail@fosstodon.org">
     </a>
+    <a href="https://gurubase.io/g/wagtail">
+        <img src="https://img.shields.io/badge/Gurubase-Ask%20Wagtail%20Guru-006BFF" alt="Gurubase" />
+    </a>
 </p>
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
