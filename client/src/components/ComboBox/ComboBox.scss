@@ -3,8 +3,12 @@
 $spacing: theme('spacing.[2.5]');
 $spacing-sm: theme('spacing.5');
 
+.w-combobox-container {
+  display: grid;
+  grid-template-columns: min(400px, 80vw) 1fr;
+}
+
 .w-combobox {
-  width: min(400px, 80vw);
   @include dark-theme() {
     background-color: theme('colors.surface-tooltip');
   }

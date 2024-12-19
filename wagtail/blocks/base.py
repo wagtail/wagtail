@@ -55,6 +55,7 @@ class BaseBlock(type):
 class Block(metaclass=BaseBlock):
     name = ""
     creation_counter = 0
+    definition_registry = {}
 
     TEMPLATE_VAR = "value"
 
@@ -92,8 +93,9 @@ class Block(metaclass=BaseBlock):
 
         # Increase the creation counter, and save our local copy.
         self.creation_counter = Block.creation_counter
-        Block.creation_counter += 1
         self.definition_prefix = "blockdef-%d" % self.creation_counter
+        Block.creation_counter += 1
+        Block.definition_registry[self.definition_prefix] = self
 
         self.label = self.meta.label or ""
 
@@ -268,6 +270,20 @@ class Block(metaclass=BaseBlock):
             new_context = self.get_context(value, parent_context=dict(context))
 
         return mark_safe(render_to_string(template, new_context))
+
+    def get_preview_context(self, value, parent_context=None):
+        return self.get_context(value, parent_context)
+
+    def get_preview_template(self, value, context=None):
+        return getattr(self.meta, "preview_template", None)
+
+    def get_preview_value(self):
+        if hasattr(self.meta, "preview_value"):
+            return self.normalize(self.meta.preview_value)
+        return self.get_default()
+
+    def get_description(self):
+        return getattr(self.meta, "description", "")
 
     def get_api_representation(self, value, context=None):
         """
