@@ -1,29 +1,31 @@
-# Page QuerySet reference
+# QuerySet reference
+
+## `PageQuerySet`
 
 All models that inherit from {class}`~wagtail.models.Page` are given some extra QuerySet methods accessible from their `.objects` attribute.
 
-## Examples
+### Examples
 
-### Selecting only live pages
+#### Selecting only live pages
 
 ```python
 live_pages = Page.objects.live()
 ```
 
-### Selecting published EventPages that are descendants of events_index
+#### Selecting published EventPages that are descendants of events_index
 
 ```python
 events = EventPage.objects.live().descendant_of(events_index)
 ```
 
-### Getting a list of menu items
+#### Getting a list of menu items
 
 ```python
 # This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
 menu_items = homepage.get_children().live().in_menu()
 ```
 
-## Reference
+### Reference
 
 ```{eval-rst}
 .. automodule:: wagtail.query
@@ -303,4 +305,30 @@ menu_items = homepage.get_children().live().in_menu()
         `allow_subtypes` is set on the parent, limiting the results to a small number of
         page types. Or, where the `type()` or `not_type()` filters have been applied to
         restrict the queryset to a small number of specific types.
+
+    .. automethod:: localized
+
+        Example:
+
+        .. code-block:: python
+
+            # Get the localized version for all pages in a queryset. 
+            homepage.related_pages.all().localized()
+
+        See also: :py:attr:`Page.localized <wagtail.models.Page.localized>`
+```
+
+
+## `TranslatableQuerySetMixin`
+
+For translatable models that define a custom queryset or manager, you can use the `TranslatableQuerySetMixin` to add extra methods for dealing with querysets of translatable models. 
+
+### Reference
+
+```{eval-rst}
+.. autoclass:: TranslatableQuerySetMixin
+
+    .. automethod:: localized
+
+        See also: :py:attr:`TranslatableMixin.localized <wagtail.models.TranslatableMixin.localized>`
 ```
