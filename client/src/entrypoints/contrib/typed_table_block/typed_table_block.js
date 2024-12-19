@@ -219,6 +219,7 @@ export class TypedTableBlock {
       .text(this.blockDef.meta.strings.ADD_COLUMN)
       .removeClass('button--icon text-replace white')
       .removeAttr('aria-label')
+      .attr('aria-expanded', 'false')
       .removeAttr('title');
 
     // delete all body rows
@@ -333,8 +334,6 @@ export class TypedTableBlock {
       .html(
         '<svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>',
       )
-      .addClass('button--icon text-replace white')
-      .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
       .addClass('button--icon text-replace white')
       .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
       .attr('aria-expanded', 'false')
