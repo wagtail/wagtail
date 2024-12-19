@@ -261,7 +261,7 @@ menu_items = homepage.get_children().live().in_menu()
 
         .. code-block:: python
 
-            # Get the specific instance of all children of the hompage,
+            # Get the specific instance of all children of the homepage,
             # in a minimum number of database queries.
             homepage.get_children().specific()
 
