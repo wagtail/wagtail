@@ -12,8 +12,8 @@
     "last 2 ChromeAndroid versions",
     "last 2 Edge versions",
     "last 1 Firefox version",
-    "iOS >= 16",
-    "Safari >= 15",
+    "iOS >= 17",
+    "Safari >= 16",
     "not ie 11"
   ],
   "jest": {
