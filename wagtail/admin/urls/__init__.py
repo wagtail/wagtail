@@ -19,6 +19,7 @@ from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
 from wagtail.admin.views import account, chooser, dismissibles, home, tags
 from wagtail.admin.views.bulk_action import index as bulk_actions
+from wagtail.admin.views.generic.preview import StreamFieldBlockPreview
 from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
@@ -117,6 +118,11 @@ urlpatterns = [
             wagtailadmin_editing_sessions_urls,
             namespace="wagtailadmin_editing_sessions",
         ),
+    ),
+    path(
+        "block-preview/",
+        StreamFieldBlockPreview.as_view(),
+        name="wagtailadmin_block_preview",
     ),
 ]
 
