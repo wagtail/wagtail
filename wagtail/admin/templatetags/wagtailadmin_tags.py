@@ -1391,6 +1391,7 @@ def keyboard_shortcuts_dialog(context):
             ("actions-model", _("Actions")): [
                 (_("Save changes"), f"{modifier} + s"),
                 (_("Preview"), f"{modifier} + p"),
+                (_("Main menu"), f"{modifier} + ["),
             ],
             ("rich-text-content", _("Text content")): [
                 (_("Insert or edit a link"), f"{modifier} + k")

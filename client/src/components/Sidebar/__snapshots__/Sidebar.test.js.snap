@@ -6,6 +6,9 @@ exports[`Sidebar should render with the minimum required props 1`] = `
     aria-expanded="false"
     aria-label="Toggle sidebar"
     className="button sidebar-nav-toggle"
+    data-controller="w-kbd"
+    data-w-kbd-key-value="mod+["
+    data-w-kbd-scope-value="global"
     onClick={[Function]}
     type="button"
   >
@@ -38,6 +41,9 @@ exports[`Sidebar should render with the minimum required props 1`] = `
                 hover:opacity-100
                 more-contrast:w-border-border-interactive-more-contrast-dark-bg
                 hover:more-contrast:w-border-border-interactive-more-contrast-dark-bg-hover"
+          data-controller="w-kbd"
+          data-w-kbd-key-value="mod+["
+          data-w-kbd-scope-value="global"
           onClick={[Function]}
           type="button"
         >
