@@ -219,7 +219,6 @@ export class TypedTableBlock {
       .text(this.blockDef.meta.strings.ADD_COLUMN)
       .removeClass('button--icon text-replace white')
       .removeAttr('aria-label')
-      .attr('aria-expanded', 'false')
       .removeAttr('title');
 
     // delete all body rows
