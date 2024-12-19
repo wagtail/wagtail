@@ -1871,6 +1871,7 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         self.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
+            description="Test description",
         )
 
     def get(self, params={}):
@@ -1885,6 +1886,12 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "chosen")
         self.assertEqual(response_json["result"]["title"], "Test image")
+        self.assertEqual(
+            set(response_json["result"]["preview"].keys()), {"url", "width", "height"}
+        )
+        self.assertEqual(
+            response_json["result"]["default_alt_text"], "Test description"
+        )
 
     def test_with_multiple_flag(self):
         # if 'multiple' is passed as a URL param, the result should be returned as a single-item list
@@ -1895,6 +1902,13 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
         self.assertEqual(len(response_json["result"]), 1)
         self.assertEqual(response_json["result"][0]["title"], "Test image")
+        self.assertEqual(
+            set(response_json["result"][0]["preview"].keys()),
+            {"url", "width", "height"},
+        )
+        self.assertEqual(
+            response_json["result"][0]["default_alt_text"], "Test description"
+        )
 
 
 class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
@@ -1905,15 +1919,18 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.image1 = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
+            description="Test description",
         )
         self.image2 = Image.objects.create(
             title="Another test image",
             file=get_test_image_file(),
+            description="Another test description",
         )
 
         self.image3 = Image.objects.create(
             title="Unchosen test image",
             file=get_test_image_file(),
+            description="Unchosen test description",
         )
 
     def get(self, params={}):
@@ -1935,6 +1952,8 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response_json["result"]), 2)
         titles = {item["title"] for item in response_json["result"]}
         self.assertEqual(titles, {"Test image", "Another test image"})
+        alt_texts = {item["default_alt_text"] for item in response_json["result"]}
+        self.assertEqual(alt_texts, {"Test description", "Another test description"})
 
 
 class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):
