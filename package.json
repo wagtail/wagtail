@@ -13,8 +13,7 @@
     "last 2 Edge versions",
     "last 1 Firefox version",
     "iOS >= 17",
-    "Safari >= 16",
-    "not ie 11"
+    "Safari >= 16"
   ],
   "jest": {
     "moduleFileExtensions": [
