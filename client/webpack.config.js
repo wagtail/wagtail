@@ -197,6 +197,22 @@ module.exports = function exports(env, argv) {
           exclude: /node_modules/,
         },
         {
+          test: /axe\.js$/,
+          loader: path.resolve(__dirname, 'string-replaceall-loader.js'),
+          options: {
+            replace: {
+              "!('hasOwn' in Object)": 'false',
+              "!('values' in Object)": 'false',
+              "!('Promise' in window)": 'false',
+              "!('Uint32Array' in window)": 'false',
+              "!('some' in window.Uint32Array.prototype)": 'false',
+              "!('reduce' in window.Uint32Array.prototype)": 'false',
+              "typeof Object.assign !== 'function'": 'false',
+              'if (!Array.from)': 'if (false)',
+            },
+          },
+        },
+        {
           test: /\.(svg)$/i,
           type: 'asset/inline',
         },
