@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { DefinePlugin } = require('webpack');
 
 // Generates a path to the output bundle to be loaded in the browser.
 const getOutputPath = (app, folder, filename) => {
@@ -146,6 +147,14 @@ module.exports = function exports(env, argv) {
     },
 
     plugins: [
+      new DefinePlugin({
+        'Array.prototype.find': 'true',
+        'Array.prototype.findIndex': 'true',
+        'Array.prototype.flat': 'true',
+        'Array.prototype.includes': 'true',
+        'Array.prototype.some': 'true',
+        'String.prototype.includes': 'true',
+      }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
