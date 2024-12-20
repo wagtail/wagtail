@@ -115,7 +115,9 @@ export class DropdownController extends Controller<HTMLElement> {
   tippy?: Instance<Props>;
 
   connect() {
-    this.tippy = tippy(this.toggleTarget, this.options);
+    if (!this.tippy) {
+      this.tippy = tippy(this.toggleTarget, this.options);
+    }
   }
 
   hide() {
@@ -307,6 +309,6 @@ export class DropdownController extends Controller<HTMLElement> {
   }
 
   disconnect() {
-    this.tippy?.destroy();
+    this.tippy?.hide();
   }
 }
