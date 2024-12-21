@@ -42,22 +42,16 @@ class AdminTagWidget(TagWidget):
         else:
             free_tagging = self.free_tagging
 
-        # Handle TAG_SPACES_ALLOWED with backward compatibility
-        tag_spaces_allowed = getattr(
-            settings,
-            "WAGTAIL_TAGS_SPACES_ALLOWED",
-            getattr(settings, "TAG_SPACES_ALLOWED", True),
-        )
-
         if hasattr(settings, "TAG_SPACES_ALLOWED"):
             warn(
                 "The setting 'TAG_SPACES_ALLOWED' is deprecated. "
-                "Please use 'WAGTAIL_TAGS_SPACES_ALLOWED' instead.",
+                "Please use 'WAGTAIL_TAG_SPACES_ALLOWED' instead.",
                 RemovedInWagtail70Warning,
             )
+
         tag_spaces_allowed = getattr(
             settings,
-            "WAGTAIL_TAGS_SPACES_ALLOWED",
+            "WAGTAIL_TAG_SPACES_ALLOWED",  # Make sure this matches your override setting name
             getattr(settings, "TAG_SPACES_ALLOWED", True),  # Fallback to old setting
         )
 
@@ -71,12 +65,12 @@ class AdminTagWidget(TagWidget):
         if hasattr(settings, "TAG_LIMIT"):
             warn(
                 "The setting 'TAG_LIMIT' is deprecated. "
-                "Please use 'WAGTAIL_TAGS_LIMIT' instead.",
+                "Please use 'WAGTAIL_TAG_LIMIT' instead.",
                 RemovedInWagtail70Warning,
             )
         # Handle TAG_LIMIT with backward compatibility
         tag_limit = getattr(
-            settings, "WAGTAIL_TAGS_LIMIT", getattr(settings, "TAG_LIMIT", None)
+            settings, "WAGTAIL_TAG_LIMIT", getattr(settings, "TAG_LIMIT", None)
         )
 
         context["widget"]["help_text"] = help_text
