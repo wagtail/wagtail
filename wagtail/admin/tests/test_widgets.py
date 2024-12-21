@@ -571,7 +571,7 @@ class TestAdminTagWidget(TestCase):
             ],
         )
 
-    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
+    @override_settings(TAG_SPACES_ALLOWED=False)
     def test_tag_spaces_allowed_deprecation_warning(self):
         """Checks that a deprecation warning is raised for TAG_SPACES_ALLOWED"""
         with warnings.catch_warnings(record=True) as w:
