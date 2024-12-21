@@ -1,7 +1,7 @@
 import json
 import re
-from html import unescape
 import warnings
+from html import unescape
 
 from django import forms
 from django.test import TestCase
