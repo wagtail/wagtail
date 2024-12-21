@@ -242,6 +242,14 @@ class ImageBlock(StructBlock):
     def render_basic(self, value, context=None):
         return self.child_blocks["image"].render_basic(value, context=context)
 
+    def get_block_by_content_path(self, value, path_elements):
+        if path_elements:
+            return super().get_block_by_content_path(
+                self._image_to_struct_value(value), path_elements
+            )
+        else:
+            return self.bind(value)
+
     class Meta:
         icon = "image"
         template = "wagtailimages/widgets/image.html"

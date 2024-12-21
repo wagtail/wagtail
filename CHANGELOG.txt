@@ -15,6 +15,10 @@ Changelog
  * Only allow selection of valid new parents within the copy Page view (Mauro Soche)
  * Add `on_serve_page` hook to modify the serving chain of pages (Krystian Magdziarz, Dawid Bugajewski)
  * Add support for `WAGTAIL_GRAVATAR_PROVIDER_URL` URLs with query string parameters (Ayaan Qadri, Guilhem Saurel)
+ * Add `get_avatar_url` hook to customise user avatars (James Harrington)
+ * Set content security policy (CSP) headers to block embedded content when serving images and documents (Jake Howard, with thanks to Ali İltizar for the initial report)
+ * Add `page` as a third parameter to the `construct_wagtail_userbar` hook (claudobahn)
+ * Enable breadcrumbs in revisions compare view (Sage Abdullah)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
@@ -35,6 +39,8 @@ Changelog
  * Fix: Ensure `MultipleChooserPanel` works after doing a search in the page chooser modal (Matt Westcott)
  * Fix: Ensure new `ListBlock` instances get created with unique IDs in the admin client for accessibility and mini-map element references (Srishti Jaiswal)
  * Fix: Return never-cache HTTP headers when serving pages and documents with view restrictions (Krystian Magdziarz, Dawid Bugajewski)
+ * Fix: Implement `get_block_by_content_path` on `ImageBlock` to prevent errors on commenting (Matt Westcott)
+ * Fix: Add `aria-expanded` attribute to new column button on `TypedTableBlock` to reflect menu state (Ayaan Qadri, Scott Cranfill)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -61,6 +67,7 @@ Changelog
  * Docs: Introduce tags and filters by name in "Writing templates" docs (Clifford Gama)
  * Docs: Add a new headless section to the documentation, incorporating parts of the 'are we headless' website content (Sævar Öfjörð Magnússon, Alex Fulcher)
  * Docs: Fix Django HTML syntax formatting issue on the documents overview page (LB (Ben) Johnston)
+ * Docs: Separate virtual environment creation and activation steps in tutorial (Ankit Kumar)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
@@ -95,6 +102,9 @@ Changelog
  * Maintenance: Refactor search promotions views to use generic views and templates (Sage Abdullah, Rohit Sharma)
  * Maintenance: Use built-in `venv` instead of `pipenv` in CircleCI (Sage Abdullah)
  * Maintenance: Add a new Stimulus `FormsetController` (`w-formset`) to support dynamic formset insertion/deletion behavior (LB (Ben) Johnston)
+ * Maintenance: Enable breadcrumbs by default on admin views using generic templates (Sage Abdullah)
+ * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
+ * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
 
 
 6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -102,6 +112,7 @@ Changelog
 
  * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Ensure Draftail features wrap when a large amount of features are added (Bart Cieliński)
+ * Fix: Implement `get_block_by_content_path` on `ImageBlock` to prevent errors on commenting (Matt Westcott)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
 
 

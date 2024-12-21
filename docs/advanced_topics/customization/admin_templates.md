@@ -85,6 +85,22 @@ To replace the welcome message on the dashboard, create a template file `dashboa
 {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 ```
 
+(custom_user_profile_avatar)=
+
+## Custom user profile avatar
+
+To render a user avatar other than the one sourced from the `UserProfile` model or from [gravatar](https://gravatar.com/), you can use the [`get_avatar_url`](#get_avatar_url) hook and resolve the avatar's image url as you see fit.
+
+For example, you might have an avatar on a `Profile` model in your own application that is keyed to the `auth.User` model in the familiar pattern. In that case, you could register your hook as the in following example, and the Wagtail admin avatar will be replaced with your own `Profile` avatar accordingly.
+
+```python
+@hooks.register('get_avatar_url')
+def get_profile_avatar(user, size):
+    return user.profile.avatar
+```
+
+Additionally, you can use the default `size` parameter that is passed in to the hook if you need to attach it to a request or do any further processing on your image.
+
 (custom_user_interface_fonts)=
 
 ## Custom user interface fonts
