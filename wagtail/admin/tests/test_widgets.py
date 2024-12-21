@@ -554,7 +554,7 @@ class TestAdminTagWidget(TestCase):
             html,
         )
 
-    @override_settings(TAG_SPACES_ALLOWED=False, TAG_LIMIT=3)
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False, WAGTAIL_TAG_LIMIT=3)
     def test_render_js_init_with_legacy_settings(self):
         """Checks that the 'w-tag' controller attributes are correctly added to the tag widgets using legacy TAG_* settings"""
         widget = widgets.AdminTagWidget()
@@ -571,7 +571,7 @@ class TestAdminTagWidget(TestCase):
             ],
         )
 
-    @override_settings(TAG_SPACES_ALLOWED=False)
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
     def test_tag_spaces_allowed_deprecation_warning(self):
         """Checks that a deprecation warning is raised for TAG_SPACES_ALLOWED"""
         with warnings.catch_warnings(record=True) as w:
