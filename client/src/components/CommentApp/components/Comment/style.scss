@@ -1,6 +1,8 @@
+@use '../../../../../scss/tools' as tools;
+
 .comment {
   @include box;
-  @include more-contrast-interactive();
+  @include tools.more-contrast-interactive();
 
   width: 300px;
   display: block;

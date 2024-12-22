@@ -1,3 +1,6 @@
+@use '../../settings' as *;
+@use '../../tools' as *;
+
 $header-icon-size: theme('spacing.4');
 $icon-center-offset: 2px;
 $guide-line-bottom-margin: calc($form-field-spacing / 3);

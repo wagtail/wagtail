@@ -1,3 +1,6 @@
+@use '../../tools' as *;
+@use '../../settings' as *;
+
 // file drop zones
 .drop-zone {
   border-radius: 5px;

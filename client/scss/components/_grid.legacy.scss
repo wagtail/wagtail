@@ -1,3 +1,6 @@
+@use '../settings' as *;
+@use '../tools' as *;
+
 .wrapper {
   @include clearfix();
   @apply w-transition-sidebar;

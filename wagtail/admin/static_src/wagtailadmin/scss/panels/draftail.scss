@@ -1,4 +1,4 @@
-@import '../../../../../../client/scss/settings';
-@import '../../../../../../client/scss/tools';
+@use '../../../../../../client/scss/settings' as *;
+@use '../../../../../../client/scss/tools' as *;
 @import '../../../../../../client/scss/components/forms/input-base';
 @import '../../../../../../client/src/components/Draftail/Draftail';

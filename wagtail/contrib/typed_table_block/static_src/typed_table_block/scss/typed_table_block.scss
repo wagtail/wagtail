@@ -1,5 +1,5 @@
-@import '../../../../../../client/scss/settings';
-@import '../../../../../../client/scss/tools';
+@use '../../../../../../client/scss/settings' as *;
+@use '../../../../../../client/scss/tools' as *;
 
 .typed-table-block {
   // Layout is handled by the table markup.

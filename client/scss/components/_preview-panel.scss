@@ -1,3 +1,9 @@
+@use '../tools' as *;
+<<<<<<< HEAD
+@use '../../src/components/CommentApp/main.scss' as *;
+=======
+>>>>>>> cd25f75c3d... Ah , Everything is Ok so far.
+
 .w-preview {
   --w-preview-background-color: var(--w-color-white);
   --preview-width-ratio: min(

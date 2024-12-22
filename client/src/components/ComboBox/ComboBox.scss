@@ -1,5 +1,7 @@
 // Ensure consistent spacing across the whole component.
 // With the scrolling and show/hide of the field, correct spacing is critical.
+
+@use '../../../scss/tools' as *;
 $spacing: theme('spacing.[2.5]');
 $spacing-sm: theme('spacing.5');
 

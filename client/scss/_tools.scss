@@ -3,8 +3,13 @@ These are functions and mixins.
 No CSS should be produced by these files.
 */
 
-@import 'tools/functions.breakpoints';
-@import 'tools/mixins.breakpoints';
-@import 'tools/mixins.general';
-@import 'tools/mixins.grid';
-@import 'tools/mixins.guide-line';
+@forward 'tools/functions.breakpoints';
+@forward 'tools/mixins.breakpoints';
+@forward 'tools/mixins.general';
+@forward 'tools/mixins.grid';
+@forward 'tools/mixins.guide-line';
+@use 'tools/functions.breakpoints' as *;
+@use 'tools/mixins.breakpoints' as *;
+@use 'tools/mixins.general' as *;
+@use 'tools/mixins.grid' as *;
+@use 'tools/mixins.guide-line' as *;

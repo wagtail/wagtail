@@ -25,6 +25,10 @@ $draftail-block-hoverable-area-offset: 40px;
 
 $draftail-editor-font-family: theme('fontFamily.sans');
 
+@use '../../../scss/components/forms/input-base' as *;
+@use '../../../scss/settings' as *;
+@use '../../../scss/tools' as *;
+
 @import '../../../../node_modules/draft-js/dist/Draft';
 @import '../../../../node_modules/draftail/src/index';
 

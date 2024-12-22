@@ -5,6 +5,9 @@
 // it can be included in any file without accidentally producing output
 
 // Turns on font-smoothing when used. Use sparingly.
+
+@use '../settings' as *;
+
 @mixin font-smoothing {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

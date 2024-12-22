@@ -3,7 +3,9 @@ $menu-footer-height: 50px;
 
 @use 'sass:map';
 
-@import 'PageExplorerItem';
+@use 'PageExplorerItem';
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
 
 .c-page-explorer {
   @apply w-bg-surface-menu-item-active;

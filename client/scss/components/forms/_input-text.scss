@@ -1,3 +1,6 @@
+@use './input-base' as *;
+@use './../../settings' as *;
+
 // All HTML5 input types, with irrelevant ones commented out.
 // input[type="button"],
 // input[type="checkbox"],

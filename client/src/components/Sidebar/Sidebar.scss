@@ -1,6 +1,9 @@
 $sidebar-toggle-spacing: 12px;
 $sidebar-toggle-size: 35px;
 
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+
 @mixin sidebar-toggle() {
   @include transition(background-color $menu-transition-duration ease);
 
@@ -107,9 +110,9 @@ $sidebar-toggle-size: 35px;
   }
 }
 
-// stylelint-disable no-invalid-position-at-import-rule
-@import 'SidebarPanel';
-@import 'menu/MenuItem';
-@import 'menu/SubMenuItem';
-@import 'modules/MainMenu';
-@import 'modules/WagtailBranding';
+// stylelint-disable no-invalid-position-at-use-rule
+@use 'SidebarPanel';
+@use 'menu/MenuItem';
+@use 'menu/SubMenuItem';
+@use 'modules/MainMenu';
+@use 'modules/WagtailBranding';

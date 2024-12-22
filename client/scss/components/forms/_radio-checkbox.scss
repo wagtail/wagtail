@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use './input-base' as *;
+@use '../../settings' as *;
 
 // 24px input widget size.
 $size: 1.5rem;

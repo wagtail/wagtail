@@ -1,6 +1,9 @@
 $header-icon-size: theme('spacing.4');
 $header-button-size: theme('spacing.6');
 
+@use '../tools' as *;
+@use '../settings' as *;
+
 .w-panel {
   --header-gap: 0;
   margin-bottom: calc(

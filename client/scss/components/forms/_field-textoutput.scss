@@ -1,4 +1,6 @@
 @use 'sass:map';
+@use './input-base' as *;
+@use '../../settings' as *;
 
 /**
  * A container for rendering human-readable field values in forms in a way
