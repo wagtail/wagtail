@@ -212,11 +212,12 @@ module.exports = function exports(env, argv) {
             {
               loader: 'sass-loader',
               options: {
+                implementation: require('sass-embedded'),
                 sassOptions: {
                   // Manually set Sass output so it’s identical in production and development. See:
                   // https://github.com/tailwindlabs/tailwindcss/issues/11027
                   // https://github.com/webpack-contrib/sass-loader/issues/1129
-                  outputStyle: 'expanded',
+                  style: 'expanded',
                 },
               },
             },
