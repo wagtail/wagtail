@@ -21,7 +21,7 @@ export interface ComboBoxItem {
   type?: string;
   label?: string | null;
   description?: string | null;
-  icon?: string | JSX.Element | null;
+  icon?: string | JSX.Element | string[] | null;
   blockDefId?: string;
   category?: string;
   render?: (props: { option: ComboBoxItem }) => JSX.Element | string;
@@ -44,6 +44,23 @@ export interface ComboBoxProps<ComboBoxOption> {
   getSearchFields: (item: ComboBoxOption) => (string | null | undefined)[];
   onSelect: (change: UseComboboxStateChange<ComboBoxOption>) => void;
   noResultsText?: string;
+}
+
+function getOptionIcon(item: ComboBoxItem, itemLabel?: string | null) {
+  // Support for rich text options using text as an icon (for example "B" for bold).
+  if (!item.icon) return itemLabel ? <span>{itemLabel}</span> : null;
+
+  if (Array.isArray(item.icon)) {
+    return (
+      <Icon name="custom" viewBox="0 0 1024 1024">
+        {item.icon.map((pathData: string) => (
+          <path key={pathData} d={pathData} />
+        ))}
+      </Icon>
+    );
+  }
+
+  return typeof item.icon === 'string' ? <Icon name={item.icon} /> : item.icon;
 }
 
 /**
@@ -231,28 +248,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                     (i) => i.type === item.type,
                   );
                   const itemColumn = index + 1 <= itemColumns ? 1 : 2;
-                  const hasIcon =
-                    typeof item.icon !== 'undefined' && item.icon !== null;
-                  let icon: JSX.Element | null | undefined = null;
-
-                  if (hasIcon) {
-                    if (Array.isArray(item.icon)) {
-                      icon = (
-                        <Icon name="custom" viewBox="0 0 1024 1024">
-                          {item.icon.map((pathData: string) => (
-                            <path key={pathData} d={pathData} />
-                          ))}
-                        </Icon>
-                      );
-                    } else {
-                      icon =
-                        typeof item.icon === 'string' ? (
-                          <Icon name={item.icon} />
-                        ) : (
-                          item.icon
-                        );
-                    }
-                  }
+                  const icon = getOptionIcon(item, itemLabel);
 
                   return (
                     <div
@@ -260,13 +256,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                       {...getItemProps({ item, index: itemIndex })}
                       className={`w-combobox__option w-combobox__option--col${itemColumn}`}
                     >
-                      <div className="w-combobox__option-icon">
-                        {icon}
-                        {/* Support for rich text options using text as an icon (for example "B" for bold). */}
-                        {itemLabel && !hasIcon ? (
-                          <span>{itemLabel}</span>
-                        ) : null}
-                      </div>
+                      <div className="w-combobox__option-icon">{icon}</div>
                       <div className="w-combobox__option-text">
                         {item.render
                           ? item.render({ option: item })
@@ -280,7 +270,17 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
           })}
         </div>
       </div>
-      {selectedBlock ? <ComboBoxPreview item={selectedBlock} /> : null}
+      {selectedBlock ? (
+        <ComboBoxPreview
+          item={{
+            ...selectedBlock,
+            icon: getOptionIcon(
+              selectedBlock,
+              getItemLabel(selectedBlock.type, selectedBlock),
+            ),
+          }}
+        />
+      ) : null}
     </div>
   );
 }
