@@ -19,13 +19,13 @@ const getOutputPath = (app, folder, filename) => {
 
 // Mapping from package name to exposed global variable.
 const exposedDependencies = {
-  // expose-loader is not yet supported,
+  // expose-loader may have caveats in Rspack,
   // see https://github.com/web-infra-dev/rspack/issues/5479
-  // 'focus-trap-react': 'FocusTrapReact',
-  // 'react': 'React',
-  // 'react-dom': 'ReactDOM',
-  // 'react-transition-group/CSSTransitionGroup': 'CSSTransitionGroup',
-  // 'draft-js': 'DraftJS',
+  'focus-trap-react': 'FocusTrapReact',
+  'react': 'React',
+  'react-dom': 'ReactDOM',
+  'react-transition-group/CSSTransitionGroup': 'CSSTransitionGroup',
+  'draft-js': 'DraftJS',
 };
 
 /**
