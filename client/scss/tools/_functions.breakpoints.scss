@@ -1,5 +1,6 @@
 @use 'sass:list';
 @use 'sass:map';
+@use '../settings' as variable;
 // Based upon the fine work and thoughts from Bootstrap v4.
 // Copyright 2011-2018 The Bootstrap Authors
 // Copyright 2011-2018 Twitter, Inc.
@@ -9,7 +10,7 @@
 //    >> breakpoint-next(sm)
 //    md
 @function breakpoint-next($name) {
-  $breakpoint-names: map.keys($breakpoints);
+  $breakpoint-names: map.keys(variable.$breakpoints);
   $n: list.index($breakpoint-names, $name);
   @return if(
     $n < list.length($breakpoint-names),
@@ -22,7 +23,7 @@
 //    >> breakpoint-min(sm)
 //    50em
 @function breakpoint-min($name) {
-  $min: map.get($breakpoints, $name);
+  $min: map.get(variable.$breakpoints, $name);
   @return if($min != 0, $min, null);
 }
 

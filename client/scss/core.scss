@@ -41,7 +41,7 @@ These are variables, maps, and fonts.
 * No CSS should be produced by these files
 */
 
-@import 'settings';
+@use 'settings' as variable;
 
 /* TOOLS
 These are functions and mixins.

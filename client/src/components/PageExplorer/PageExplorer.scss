@@ -2,6 +2,7 @@ $c-page-explorer-bg-active: theme('colors.black-50');
 $menu-footer-height: 50px;
 
 @use 'sass:map';
+@use '../../../scss/settings' as variable;
 
 @import 'PageExplorerItem';
 
@@ -43,8 +44,8 @@ $explorer-header-horizontal-padding: 10px;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  margin-inline-start: $mobile-nav-indent;
-  height: $mobile-nav-indent;
+  margin-inline-start: variable.$mobile-nav-indent;
+  height: variable.$mobile-nav-indent;
 
   @include media-breakpoint-up(sm) {
     margin-inline-start: initial;
