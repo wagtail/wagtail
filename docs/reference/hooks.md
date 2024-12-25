@@ -102,6 +102,30 @@ depth: 1
 ---
 ```
 
+## Appearance
+
+Hooks for modifying the display and appearance of basic CMS features and furniture.
+
+(get_avatar_url)=
+
+### `get_avatar_url`
+
+Specify a custom user avatar to be displayed in the Wagtail admin. The callable passed to this hook should accept a `user` object and a `size` parameter that can be used in any resize or thumbnail processing you might need to do.
+
+```python
+from datetime import datetime
+
+@hooks.register('get_avatar_url')
+def get_profile_avatar(user, size):
+    today = datetime.now()
+    is_christmas_day = today.month == 12 and today.day == 25
+
+    if is_christmas_day:
+      return '/static/images/santa.png'
+
+    return None
+```
+
 ## Admin modules
 
 Hooks for building new areas of the admin interface (alongside pages, images, documents, and so on).
@@ -846,7 +870,7 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object and a list of menu objects, `items`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks
@@ -857,7 +881,7 @@ class UserbarPuppyLinkItem:
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
 @hooks.register('construct_wagtail_userbar')
-def add_puppy_link_item(request, items):
+def add_puppy_link_item(request, items, page):
     return items.append( UserbarPuppyLinkItem() )
 ```
 

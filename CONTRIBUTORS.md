@@ -862,6 +862,7 @@
 * Mauro Soche
 * Krystian Magdziarz
 * Guilhem Saurel
+* James Harrington
 
 ## Translators
 

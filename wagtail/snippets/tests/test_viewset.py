@@ -95,7 +95,7 @@ class TestCustomIcon(BaseSnippetViewSetTests):
             (
                 "revisions_compare",
                 [pk, self.revision_1.id, self.revision_2.id],
-                "header.html",
+                "headers/slim_header.html",
             ),
             ("revisions_unschedule", [pk, self.revision_2.id], "header.html"),
         ]
