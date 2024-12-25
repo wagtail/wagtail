@@ -79,3 +79,15 @@ class TestPagesSummary(WagtailTestUtils, TestCase):
         self.user.save()
         self.user.groups.add(self.test_page_group)
         self.assertSummaryContains("1 Page")
+
+    def test_user_with_only_unlock_permission_sees_proper_page_count(self):
+        self.user.is_superuser = False
+        self.user.save()
+        test_page_group_with_only_unlock = Group.objects.create(name="Test page unlock")
+        GroupPagePermission.objects.create(
+            group=test_page_group_with_only_unlock,
+            page=self.test_page,
+            permission_type="unlock",
+        )
+        self.user.groups.add(test_page_group_with_only_unlock)
+        self.assertSummaryContains("1 Page")
