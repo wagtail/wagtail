@@ -11,7 +11,9 @@ $sidebar-toggle-size: 35px;
 @use 'modules/WagtailBranding';
 
 @mixin sidebar-toggle() {
-  @include mixin.transition(background-color variable.$menu-transition-duration ease);
+  @include mixin.transition(
+    background-color variable.$menu-transition-duration ease
+  );
 
   position: absolute;
   top: $sidebar-toggle-spacing;
@@ -116,5 +118,3 @@ $sidebar-toggle-size: 35px;
     @apply w-fixed hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
   }
 }
-
-

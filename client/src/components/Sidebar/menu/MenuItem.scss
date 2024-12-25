@@ -3,7 +3,9 @@
 
 .sidebar-menu-item {
   $root: &;
-  @include mixin.transition(border-color variable.$menu-transition-duration ease);
+  @include mixin.transition(
+    border-color variable.$menu-transition-duration ease
+  );
   position: relative;
 
   &__link {

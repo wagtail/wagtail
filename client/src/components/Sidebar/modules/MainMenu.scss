@@ -51,7 +51,9 @@
   }
 
   > ul {
-    @include mixin.transition(max-height variable.$menu-transition-duration ease);
+    @include mixin.transition(
+      max-height variable.$menu-transition-duration ease
+    );
     visibility: hidden;
 
     max-height: 0;

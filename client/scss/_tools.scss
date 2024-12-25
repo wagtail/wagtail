@@ -7,8 +7,6 @@ No CSS should be produced by these files.
 @forward 'tools/mixins.grid';
 @forward 'tools/mixins.guide-line';
 
-
-
 // stylelint-disable no-invalid-position-at-import-rule
 @import 'tools/functions.breakpoints';
 @import 'tools/mixins.breakpoints';

@@ -169,10 +169,14 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   color: theme('colors.text-button-outline-default');
   width: $icon-size;
   height: $icon-size;
-  margin-inline-end: calc(variable.$nested-field-indent-sm - $icon-size / 2 - 2px);
+  margin-inline-end: calc(
+    variable.$nested-field-indent-sm - $icon-size / 2 - 2px
+  );
 
   @include mixin.media-breakpoint-up(sm) {
-    margin-inline-end: calc(variable.$nested-field-indent - $icon-size / 2 - 2px);
+    margin-inline-end: calc(
+      variable.$nested-field-indent - $icon-size / 2 - 2px
+    );
   }
 
   // Increase the hoverable area of the trigger button
