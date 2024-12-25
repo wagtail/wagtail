@@ -1,3 +1,6 @@
+@use '../tools' as *;
+@use '../settings' as *;
+
 $header-icon-size: theme('spacing.4');
 $header-button-size: theme('spacing.6');
 

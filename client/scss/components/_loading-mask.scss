@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use '../settings' as *;
 // Loading mask: overlays a certain area with a loading spinner and a faded out cover to prevent interaction
 .loading-mask {
   &.loading {

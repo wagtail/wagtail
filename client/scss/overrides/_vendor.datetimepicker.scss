@@ -1,5 +1,6 @@
 // stylelint-disable selector-max-combinators, max-nesting-depth
 @use 'sass:map';
+@use '../settings' as *;
 
 .xdsoft_datetimepicker {
   box-shadow: 0 5px 10px -5px theme('colors.black-35');

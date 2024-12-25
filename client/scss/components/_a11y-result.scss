@@ -1,3 +1,6 @@
+@use '../tools' as *;
+@use '../../src/components/CommentApp/main.scss' as *;
+
 .w-a11y-result__row {
   @include box;
   padding: theme('spacing.4');

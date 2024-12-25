@@ -1,3 +1,5 @@
+@use '../../../scss/tools' as *;
+
 .w-minimap__collapse-all {
   @include more-contrast-interactive();
   display: none;
