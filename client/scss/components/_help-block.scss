@@ -36,10 +36,10 @@
   position: relative;
 
   .icon {
-    @include svg-icon(1rem);
     position: absolute;
     inset-inline-start: 1.125rem;
     top: 0.8125rem;
+    @include svg-icon(1rem);
   }
 }
 

@@ -36,9 +36,9 @@ $logo-size: 110px;
 
   // Reduce overall size when in slim mode
   .sidebar--slim & {
-    @include show-focus-outline-inside();
     width: 40px;
     height: 110px;
+    @include show-focus-outline-inside();
   }
 
   // Remove background on 404 page

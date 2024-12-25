@@ -35,11 +35,11 @@
   }
 
   &__img {
-    @include invalid-image-fallback;
     display: block;
     width: 256px;
     height: auto;
     pointer-events: none;
+    @include invalid-image-fallback;
   }
 
   &__fallback {

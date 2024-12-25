@@ -1,7 +1,7 @@
 .report {
-  @include nice-margin();
   display: grid;
   grid-column-gap: theme('spacing.12');
+  @include nice-margin();
 
   &__results {
     &--text {

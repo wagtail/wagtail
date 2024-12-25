@@ -4,11 +4,11 @@
   padding-top: theme('spacing.1');
 
   .w-summary__list {
-    @include unlist();
-
     display: flex;
     flex-wrap: wrap;
     column-gap: theme('spacing.8');
+
+    @include unlist();
   }
 
   /* Summary item */
@@ -21,8 +21,8 @@
   }
 
   .icon {
-    @include svg-icon(1.375rem);
     color: theme('colors.icon-primary');
+    @include svg-icon(1.375rem);
   }
 
   a {

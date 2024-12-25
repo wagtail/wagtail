@@ -5,12 +5,11 @@
   opacity: 0;
 
   &.active {
-    @include transition(opacity 0.3s ease);
     opacity: 1;
+    @include transition(opacity 0.3s ease);
   }
 
   .bar {
-    @include transition(width 0.3s ease);
     border-radius: 1.5em;
     overflow: hidden;
     text-align: end;
@@ -20,6 +19,7 @@
     background-color: theme('colors.surface-button-default');
     height: 1.2em;
     padding-inline-end: 1em;
+    @include transition(width 0.3s ease);
 
     @media (forced-colors: active) {
       background-color: ButtonText;

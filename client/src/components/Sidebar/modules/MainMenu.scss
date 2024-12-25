@@ -48,10 +48,11 @@
   }
 
   > ul {
-    @include transition(max-height $menu-transition-duration ease);
     visibility: hidden;
 
     max-height: 0;
+    @include transition(max-height $menu-transition-duration ease);
+    
 
     a {
       border-inline-start: 3px solid transparent;

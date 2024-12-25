@@ -1,9 +1,10 @@
 .w-field-row {
-  @include max-form-width();
   gap: theme('spacing.5');
   // For mobile viewports, we attempt to display all items in the row side by side even if not at the desired size.
   display: flex;
   flex-wrap: wrap;
+  @include max-form-width();
+  
 
   @include media-breakpoint-up(md) {
     display: grid;

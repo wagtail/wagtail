@@ -69,10 +69,10 @@ $tooltip-color-no: theme('colors.critical.100');
   }
 
   &__link {
-    @include font-smoothing;
     font-size: 0.875rem;
     margin-inline-end: $controls-spacing * 4;
     display: inline-block;
+    @include font-smoothing;
 
     &,
     &:hover {

@@ -1,16 +1,16 @@
 .sidebar-sub-menu-trigger-icon {
   $root: &;
-
-  @include transition(
-    transform $menu-transition-duration ease,
-    width $menu-transition-duration ease,
-    height $menu-transition-duration ease
-  );
   display: block;
   width: 1rem;
   height: 1rem;
   inset-inline-end: 15px;
   margin-inline-start: auto;
+  @include transition(
+    transform $menu-transition-duration ease,
+    width $menu-transition-duration ease,
+    height $menu-transition-duration ease
+  );
+  
 
   &--open {
     transform-origin: 50% 50%;
@@ -40,8 +40,8 @@
   }
 
   ul > li {
-    @include transition(border-color $menu-transition-duration ease);
     position: relative;
+    @include transition(border-color $menu-transition-duration ease);
   }
 
   > ul {

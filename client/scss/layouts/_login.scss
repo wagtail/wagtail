@@ -1,4 +1,12 @@
 @mixin login-fullscreen-background() {
+  // support older browsers that do not support radial gradient 'at' usage
+  background: theme('colors.surface-menus');
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  background: var(
+    --w-login-fullscreen-background,
+    theme('colors.primary.DEFAULT')
+  );
+
   @at-root {
     :root {
       --w-login-fullscreen-background: radial-gradient(
@@ -11,20 +19,13 @@
       );
     }
   }
-
-  // support older browsers that do not support radial gradient 'at' usage
-  background: theme('colors.surface-menus');
-  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
-  background: var(
-    --w-login-fullscreen-background,
-    theme('colors.primary.DEFAULT')
-  );
+  
 }
 
 .login {
+  color: theme('colors.text-label');
   @include login-fullscreen-background;
 
-  color: theme('colors.text-label');
 
   .wrapper {
     align-items: center;

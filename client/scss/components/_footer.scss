@@ -1,12 +1,12 @@
 @use 'sass:math';
 
 .footer {
-  @include transition(bottom 0.5s ease 1s);
-  @include row();
   margin-top: $mobile-nice-padding;
   margin-inline-start: $mobile-nice-padding;
   margin-inline-end: $mobile-nice-padding;
   z-index: 20;
+  @include transition(bottom 0.5s ease 1s);
+  @include row();
 
   @include media-breakpoint-up(sm) {
     margin-top: 0;

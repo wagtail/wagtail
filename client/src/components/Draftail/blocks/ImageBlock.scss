@@ -6,11 +6,11 @@
 }
 
 .ImageBlock__field {
-  @include wagtail-label-overrides;
   display: block;
   margin-bottom: $button-spacing * 2;
   color: theme('colors.surface-page');
   cursor: pointer;
+  @include wagtail-label-overrides;
 }
 
 @mixin wagtail-input-overrides {
@@ -19,10 +19,10 @@
 }
 
 .ImageBlock__field__input {
-  @include wagtail-input-overrides;
   font-size: 1rem;
   background-color: theme('colors.surface-field');
   color: theme('colors.text-context');
+  @include wagtail-input-overrides;
 
   &[readonly] {
     color: theme('colors.border-field-inactive');
@@ -30,6 +30,6 @@
 }
 
 .ImageBlock__alt {
-  @include font-smoothing;
   font-size: 0.875rem;
+  @include font-smoothing;
 }

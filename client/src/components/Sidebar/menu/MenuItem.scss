@@ -1,14 +1,9 @@
 .sidebar-menu-item {
   $root: &;
-  @include transition(border-color $menu-transition-duration ease);
   position: relative;
+  @include transition(border-color $menu-transition-duration ease);
 
   &__link {
-    @apply w-text-14 w-leading-none w-transition;
-    @include transition(
-      border-color $menu-transition-duration ease,
-      background-color $menu-transition-duration ease
-    );
     position: relative;
     display: flex;
     justify-content: flex-start;
@@ -25,6 +20,12 @@
     padding: 13px 15px 13px 20px;
     font-weight: 400;
     overflow: visible;
+    @apply w-text-14 w-leading-none w-transition;
+    @include transition(
+      border-color $menu-transition-duration ease,
+      background-color $menu-transition-duration ease
+    );
+    
 
     // Note, font-weights lower than normal,
     // and font-size smaller than 1em (80% ~= 12.8px),
@@ -69,12 +70,12 @@
 }
 
 .menuitem-label {
-  @include transition(opacity $menu-transition-duration ease);
   margin-inline-start: 0.875rem;
   line-height: 1.25;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  @include transition(opacity $menu-transition-duration ease);
 }
 
 .sidebar--slim {

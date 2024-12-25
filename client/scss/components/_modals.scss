@@ -1,8 +1,8 @@
 $zindex-modal-background: 500;
 
 .fade {
-  @include transition(opacity 0.15s linear);
   opacity: 0;
+  @include transition(opacity 0.15s linear);
 
   &.in {
     opacity: 1;
