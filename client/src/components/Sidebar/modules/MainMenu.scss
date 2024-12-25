@@ -1,3 +1,6 @@
+@use '../../../../scss/tools' as mixin;
+@use '../../../../scss/settings' as variable;
+
 .sidebar-main-menu {
   overflow: auto;
   overflow-x: hidden;
@@ -9,7 +12,7 @@
   }
 
   *:focus {
-    @include show-focus-outline-inside;
+    @include mixin.show-focus-outline-inside;
   }
 
   .icon--submenu-header {
@@ -23,18 +26,18 @@
   > ul > li > a {
     // Need !important to override body.ready class
     // stylelint-disable-next-line declaration-no-important
-    transition: padding $menu-transition-duration ease !important;
+    transition: padding variable.$menu-transition-duration ease !important;
   }
 
   .menuitem-label {
-    transition: opacity $menu-transition-duration ease;
+    transition: opacity variable.$menu-transition-duration ease;
   }
 }
 
 .sidebar-footer {
   @apply w-bg-surface-menus w-mt-auto;
   // stylelint-disable-next-line declaration-no-important
-  transition: width $menu-transition-duration ease !important; // Override body.ready
+  transition: width variable.$menu-transition-duration ease !important; // Override body.ready
 
   > ul,
   ul > li {
@@ -48,7 +51,7 @@
   }
 
   > ul {
-    @include transition(max-height $menu-transition-duration ease);
+    @include mixin.transition(max-height variable.$menu-transition-duration ease);
     visibility: hidden;
 
     max-height: 0;
@@ -62,7 +65,7 @@
   }
 
   &__account {
-    @include show-focus-outline-inside();
+    @include mixin.show-focus-outline-inside();
 
     &-toggle {
       @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;

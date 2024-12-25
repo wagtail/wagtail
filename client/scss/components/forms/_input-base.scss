@@ -1,9 +1,11 @@
+@use '../../tools' as mixin;
+
 /**
  * Field styles reusable across **all** fields, including:
  * Text input, textarea, checkbox, radio, select, etc.
  */
 @mixin input-base() {
-  @include more-contrast-interactive();
+  @include mixin.more-contrast-interactive();
   appearance: none;
   border-radius: theme('borderRadius.DEFAULT');
   color: theme('colors.text-context');

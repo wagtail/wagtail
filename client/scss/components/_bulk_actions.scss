@@ -1,3 +1,5 @@
+@use '../tools' as mixin;
+
 .bulk-actions-filter-checkbox {
   .table-headers & {
     > div {
@@ -19,7 +21,7 @@
 
 .bulk-actions-choices {
   &.footer {
-    @include transition(transform 0.1s ease 0.1s);
+    @include mixin.transition(transform 0.1s ease 0.1s);
 
     &.hidden {
       transform: translateY(200px);
@@ -45,7 +47,7 @@
     }
 
     .bulk-actions-buttons {
-      @include unlistimmediate();
+      @include mixin.unlistimmediate();
       display: flex;
       gap: theme('spacing.4');
       border-inline-start: 1px solid theme('colors.icon-secondary');

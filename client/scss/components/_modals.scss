@@ -1,7 +1,9 @@
 $zindex-modal-background: 500;
 
+@use '../tools' as mixin;
+
 .fade {
-  @include transition(opacity 0.15s linear);
+  @include mixin.transition(opacity 0.15s linear);
   opacity: 0;
 
   &.in {
@@ -127,7 +129,7 @@ $zindex-modal-background: 500;
   }
 }
 
-@include media-breakpoint-up(sm) {
+@include mixin.media-breakpoint-up(sm) {
   .modal-dialog {
     margin-inline-end: theme('spacing.20');
     margin-inline-start: theme('spacing.20');
@@ -141,7 +143,7 @@ $zindex-modal-background: 500;
   }
 }
 
-@include media-breakpoint-up(xl) {
+@include mixin.media-breakpoint-up(xl) {
   .modal-dialog {
     margin-inline-end: auto;
     margin-inline-start: auto;

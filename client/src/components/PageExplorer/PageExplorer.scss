@@ -3,8 +3,9 @@ $menu-footer-height: 50px;
 
 @use 'sass:map';
 @use '../../../scss/settings' as variable;
+@use '../../../scss/tools' as mixin;
 
-@import 'PageExplorerItem';
+@use 'PageExplorerItem';
 
 .c-page-explorer {
   @apply w-bg-surface-menu-item-active;
@@ -15,10 +16,10 @@ $menu-footer-height: 50px;
   flex: 1;
 
   *:focus {
-    @include show-focus-outline-inside;
+    @include mixin.show-focus-outline-inside;
   }
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     width: 485px;
     box-shadow: 2px 2px 5px $c-page-explorer-bg-active;
   }
@@ -47,7 +48,7 @@ $explorer-header-horizontal-padding: 10px;
   margin-inline-start: variable.$mobile-nav-indent;
   height: variable.$mobile-nav-indent;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     margin-inline-start: initial;
     height: initial;
   }
@@ -79,7 +80,7 @@ $explorer-header-horizontal-padding: 10px;
     vertical-align: text-top;
   }
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     padding: 1em 1.5em;
   }
 }
@@ -128,7 +129,7 @@ $explorer-header-horizontal-padding: 10px;
   padding: 1em;
   color: theme('colors.text-label-menus-default');
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     padding: 1em 1.75em;
   }
 }
@@ -149,11 +150,11 @@ $explorer-header-horizontal-padding: 10px;
     color: theme('colors.text-label-menus-active');
   }
 
-  @include hover {
+  @include mixin.hover {
     background: $c-page-explorer-bg-active;
   }
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     padding: 1em 1.75em;
     height: $menu-footer-height;
   }

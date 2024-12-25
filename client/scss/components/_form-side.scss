@@ -1,6 +1,8 @@
 @use 'sass:color';
 @use 'sass:map';
 @use 'sass:math';
+@use '../tools' as mixin;
+@use '../../src/components/CommentApp/main.scss' as main-mixin;
 
 .side-panel-open {
   @apply w-overflow-y-hidden sm:w-overflow-y-auto;
@@ -41,7 +43,7 @@
   z-index: calc(theme('zIndex.header') - 10);
   width: var(--side-panel-width, 100%);
 
-  @include media-breakpoint-up(md) {
+  @include mixin.media-breakpoint-up(md) {
     width: var(--side-panel-width, theme('width.[1/3]'));
   }
 
@@ -83,13 +85,13 @@
     }
 
     &:focus-within:has(:focus-visible) {
-      @include focus-outline;
+      @include main-mixin.focus-outline;
     }
 
     @supports not selector(:focus-visible) {
       &:focus-within {
         /* Fallback for browsers without :focus-visible support */
-        @include focus-outline;
+        @include main-mixin.focus-outline;
       }
     }
   }

@@ -1,6 +1,9 @@
+@use '../../../scss/tools' as mixin;
+@use '../../../scss/settings' as variable;
+
 .sidebar-panel {
   // With CSS variable allows panels with different widths to animate properly
-  --width: #{$menu-width};
+  --width: #{variable.$menu-width};
   @apply w-transition-sidebar;
 
   visibility: hidden;
@@ -15,7 +18,7 @@
   flex-direction: column;
   overflow: hidden;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     z-index: var(--z-index);
     width: var(--width);
   }
@@ -36,9 +39,9 @@
     transform: translateX(0);
   }
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     @at-root .sidebar--slim #{&} {
-      inset-inline-start: $menu-width-slim;
+      inset-inline-start: variable.$menu-width-slim;
     }
     // Don't apply this to nested submenus though
     @at-root .sidebar--slim .sidebar-panel #{&} {
@@ -46,12 +49,12 @@
     }
 
     &--open {
-      inset-inline-start: $menu-width;
+      inset-inline-start: variable.$menu-width;
       transform: translateX(0);
 
       // Don't apply this to nested submenus though
       @at-root .sidebar--slim .sidebar-panel #{&} {
-        inset-inline-start: $menu-width-slim;
+        inset-inline-start: variable.$menu-width-slim;
         transform: translateX(0);
       }
     }

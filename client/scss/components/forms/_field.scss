@@ -1,4 +1,6 @@
 @use 'sass:map';
+@use '../../tools' as mixin;
+@use '../../settings' as variable;
 
 /**
  * The field component handles form fields’ layout and ancillary elements such as error messages and help text.
@@ -45,11 +47,11 @@
 }
 
 .w-field__wrapper {
-  @include max-form-width();
+  @include mixin.max-form-width();
   // This is primarily helpful to add margins between fields, but fields can often
   // be wrapped into groups (for example a row), so it’s safer to add a margin regardless
   // of what the next element is.
-  margin-bottom: $form-field-spacing;
+  margin-bottom: variable.$form-field-spacing;
 
   // Inside of listing tables we don't need margins because the table row will handle them.
   table.listing td & {
@@ -68,7 +70,7 @@
 
 .w-field__icon {
   $size: theme('spacing.4');
-  $offset: calc($text-input-height / 2 - $size / 2);
+  $offset: calc(variable.$text-input-height / 2 - $size / 2);
   width: $size;
   height: $size;
   color: theme('colors.icon-primary');
@@ -80,6 +82,6 @@
 
   + input {
     // Allows for a nice square around the icon.
-    padding-inline-start: $text-input-height;
+    padding-inline-start: variable.$text-input-height;
   }
 }

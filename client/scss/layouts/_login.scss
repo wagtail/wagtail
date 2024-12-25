@@ -1,3 +1,5 @@
+@use '../tools' as mixin;
+
 @mixin login-fullscreen-background() {
   @at-root {
     :root {
@@ -41,7 +43,7 @@
     margin-bottom: theme('spacing.8');
 
     ul {
-      @include unlist();
+      @include mixin.unlist();
 
       li {
         border-radius: theme('borderRadius.sm');
@@ -62,7 +64,7 @@
     margin-bottom: 15vh; // should appear slightly above centre
     max-width: calc(theme('spacing.32') * 3.15);
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       max-width: calc(theme('spacing.32') * 3.5);
       padding: theme('spacing.12') theme('spacing.14');
     }

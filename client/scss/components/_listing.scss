@@ -1,7 +1,9 @@
+@use '../tools' as mixin;
+
 /* stylelint-disable selector-max-combinators */
 // General listings, like for pages, images or snippets
 ul.listing {
-  @include unlist();
+  @include mixin.unlist();
 }
 
 .listing {
@@ -30,7 +32,7 @@ ul.listing {
     text-align: start;
     padding: calc(1em * var(--w-density-factor)) 0.3em;
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       padding: calc(1em * var(--w-density-factor)) 1em;
     }
 
@@ -43,7 +45,7 @@ ul.listing {
   th {
     padding: 0.6em 0.3em;
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       padding: 0.6em 1em;
     }
   }
@@ -150,7 +152,7 @@ ul.listing {
     }
 
     tbody .title a {
-      @include transition(none);
+      @include mixin.transition(none);
       display: block;
     }
 
@@ -363,7 +365,7 @@ ul.listing {
   }
 
   &.images img {
-    @include transition(border-color 0.2s ease);
+    @include mixin.transition(border-color 0.2s ease);
     border: 3px solid theme('colors.surface-page');
   }
 
@@ -413,7 +415,7 @@ ul.listing {
       float: inline-end;
     }
 
-    @include media-breakpoint-down(md) {
+    @include mixin.media-breakpoint-down(md) {
       display: grid;
 
       tr {
@@ -461,7 +463,7 @@ table.listing {
 
 // Use consistent spacing to the left and right of the header.
 .page-explorer .w-slim-header {
-  @include media-breakpoint-up(md) {
+  @include mixin.media-breakpoint-up(md) {
     padding-inline-end: theme('spacing.6');
   }
 }
@@ -483,7 +485,7 @@ table.listing {
   }
 
   ul {
-    @include unlist();
+    @include mixin.unlist();
     margin-top: -1.7em;
   }
 
@@ -508,7 +510,7 @@ table.listing {
 
 // listing filters
 .listing-filter {
-  @include clearfix();
+  @include mixin.clearfix();
   background-color: theme('colors.surface-header');
   border-width: 1px 0;
   margin: 3em 0;
@@ -523,8 +525,8 @@ table.listing {
 }
 
 .filter-options {
-  @include unlist();
-  @include clearfix();
+  @include mixin.unlist();
+  @include mixin.clearfix();
   overflow: hidden;
 
   li {
@@ -542,7 +544,7 @@ table.listing {
   }
 }
 
-@include media-breakpoint-up(sm) {
+@include mixin.media-breakpoint-up(sm) {
   .listing {
     &.horiz {
       display: grid;
@@ -723,12 +725,12 @@ table.listing {
 .listing {
   .children,
   .no-children {
-    @include transition(background-color 0.2s ease);
+    @include mixin.transition(background-color 0.2s ease);
   }
 
   .children a,
   .no-children a {
-    @include transition(all 0.2s ease);
+    @include mixin.transition(all 0.2s ease);
   }
 }
 
@@ -752,11 +754,11 @@ table.listing {
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     max-width: 30ch;
   }
 
-  @include media-breakpoint-up(md) {
+  @include mixin.media-breakpoint-up(md) {
     max-width: none;
   }
 }

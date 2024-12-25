@@ -1,3 +1,5 @@
+@use '../tools' as mixin;
+
 .progress {
   border-radius: 1.2em;
   background-color: theme('colors.surface-button-hover');
@@ -5,12 +7,12 @@
   opacity: 0;
 
   &.active {
-    @include transition(opacity 0.3s ease);
+    @include mixin.transition(opacity 0.3s ease);
     opacity: 1;
   }
 
   .bar {
-    @include transition(width 0.3s ease);
+    @include mixin.transition(width 0.3s ease);
     border-radius: 1.5em;
     overflow: hidden;
     text-align: end;

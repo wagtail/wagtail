@@ -1,14 +1,17 @@
-.nice-padding {
-  padding-inline-start: $mobile-nice-padding;
-  padding-inline-end: $mobile-nice-padding;
+@use '../tools' as mixin;
+@use '../settings' as variable;
 
-  @include media-breakpoint-up(sm) {
-    padding-inline-start: $desktop-nice-padding;
-    padding-inline-end: $desktop-nice-padding;
+.nice-padding {
+  padding-inline-start: variable.$mobile-nice-padding;
+  padding-inline-end: variable.$mobile-nice-padding;
+
+  @include mixin.media-breakpoint-up(sm) {
+    padding-inline-start: variable.$desktop-nice-padding;
+    padding-inline-end: variable.$desktop-nice-padding;
   }
 }
 
 // Show a transparency grid in background
 .show-transparency {
-  background: url('#{$images-root}transparency.svg');
+  background: url('#{variable.$images-root}transparency.svg');
 }

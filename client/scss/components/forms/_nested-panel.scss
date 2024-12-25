@@ -1,6 +1,10 @@
+@use '../../tools' as mixin;
+@use '../../settings' as variable;
+
 $header-icon-size: theme('spacing.4');
 $icon-center-offset: 2px;
-$guide-line-bottom-margin: calc($form-field-spacing / 3);
+$guide-line-bottom-margin: calc(variable.$form-field-spacing / 3);
+
 
 /**
  * Panel styles shared between StreamField and InlinePanel,
@@ -11,20 +15,20 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
 
 // Styles for the top-level panel, and any panel within.
 .w-panel--nested {
-  --nesting-indent: #{$nested-field-indent-sm};
+  --nesting-indent: #{variable.$nested-field-indent-sm};
 
-  @include media-breakpoint-up(sm) {
-    --nesting-indent: #{$nested-field-indent};
+  @include mixin.media-breakpoint-up(sm) {
+    --nesting-indent: #{variable.$nested-field-indent};
   }
 
   .w-panel__content {
-    @include guide-line-vertical();
+    @include mixin.guide-line-vertical();
     // Center the vertical line.
     margin-inline-start: calc(-1 * var(--nesting-indent));
     padding-inline-start: var(--nesting-indent);
     margin-bottom: $guide-line-bottom-margin;
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       // Extra pixels for better alignment with center of icon.
       margin-inline-start: calc(
         -1 * var(--nesting-indent) + $icon-center-offset
@@ -40,7 +44,7 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
   .w-field__wrapper {
     // Reduced field spacing for nested panels.
     // Using both padding and margin so the field guide line extends below.
-    padding-bottom: calc($form-field-spacing / 2);
+    padding-bottom: calc(variable.$form-field-spacing / 2);
     margin-bottom: $guide-line-bottom-margin;
   }
 }
@@ -48,13 +52,13 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
 // Styles for nested panels at the top level only.
 .w-panel--nested:not(.w-panel .w-panel) {
   > .w-panel__content {
-    @include guide-line-vertical-stop();
+    @include mixin.guide-line-vertical-stop();
   }
 }
 
 // Styles for nested panels excluding the top level.
 .w-panel--nested .w-panel {
-  @include guide-line-nested();
+  @include mixin.guide-line-nested();
   margin-inline-start: var(--nesting-indent);
   margin-bottom: 0;
 
@@ -72,7 +76,7 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
       calc(var(--w-direction-factor) * -1 * var(--nesting-indent))
     );
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       transform: translateX(
         calc(var(--w-direction-factor) * theme('spacing.1'))
       );
@@ -80,7 +84,7 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
   }
 
   .w-panel__divider {
-    @include guide-line-horizontal();
+    @include mixin.guide-line-horizontal();
     // Slightly nicer text alignment.
     margin-top: 1px;
   }

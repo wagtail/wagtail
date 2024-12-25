@@ -2,6 +2,9 @@
 $separator: 1px solid theme('colors.white-15');
 $radius: theme('borderRadius.sm');
 
+@use '../tools' as mixin;
+@use '../settings' as variable;
+
 .w-dropdown-button {
   // Cosmetic details based on live tooltip placement,
   // implemented CSS-only by using Tippy.js `data-placement` and `:has`.
@@ -63,12 +66,12 @@ $radius: theme('borderRadius.sm');
   border-start-end-radius: 0;
   border-end-start-radius: var(--primary-button-radius-bottom);
   border-end-end-radius: 0;
-  min-height: $text-input-height;
+  min-height: variable.$text-input-height;
 }
 
 .w-dropdown-button .button.w-dropdown__toggle {
   width: theme('spacing.8');
-  height: $text-input-height;
+  height: variable.$text-input-height;
   padding: 0 theme('spacing.2');
   background-color: theme('colors.surface-button-default');
   color: theme('colors.text-button');
@@ -89,9 +92,9 @@ $radius: theme('borderRadius.sm');
 
 // Use a generic selector to support all types of links / buttons.
 .w-dropdown-button .w-dropdown__content :is(a, button) {
-  @include show-focus-outline-inside();
+  @include mixin.show-focus-outline-inside();
   height: auto;
-  min-height: $text-input-height;
+  min-height: variable.$text-input-height;
   margin: 0;
   white-space: normal;
   border-radius: 0;

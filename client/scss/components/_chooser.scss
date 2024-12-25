@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use '../tools' as mixin;
 
 $preview-size: 2.625rem; // 42px
 
@@ -15,7 +16,7 @@ $preview-size: 2.625rem; // 42px
 // Very subdued button style specifically for choosers, as there can be a lot of
 // chooser fields left unused on a page editing form.
 .button.chooser__choose-button {
-  @include more-contrast-interactive();
+  @include mixin.more-contrast-interactive();
   @apply w-label-3;
   display: flex;
   align-items: center;
@@ -24,7 +25,7 @@ $preview-size: 2.625rem; // 42px
   padding: theme('spacing.[1.5]');
 
   .icon {
-    @include svg-icon(theme('spacing.4'), initial);
+    @include mixin.svg-icon(theme('spacing.4'), initial);
     color: inherit;
     margin-inline-end: 5px;
   }

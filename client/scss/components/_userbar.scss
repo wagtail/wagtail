@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use 'sass:math';
 @use 'sass:string';
+@use '../tools' as mixin;
 
 // =============================================================================
 // Variables
@@ -54,7 +55,7 @@ $positions: (
   height: auto;
 
   &-icon {
-    @include svg-icon(2em);
+    @include mixin.svg-icon(2em);
   }
 }
 
@@ -185,7 +186,7 @@ $positions: (
     }
 
     &-icon {
-      @include svg-icon(1em, middle);
+      @include mixin.svg-icon(1em, middle);
       margin-inline-end: 0.5em;
       fill: currentColor;
       opacity: 0.4;

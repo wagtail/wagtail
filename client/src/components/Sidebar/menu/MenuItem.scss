@@ -1,13 +1,16 @@
+@use '../../../../scss/tools' as mixin;
+@use '../../../../scss/settings' as variable;
+
 .sidebar-menu-item {
   $root: &;
-  @include transition(border-color $menu-transition-duration ease);
+  @include mixin.transition(border-color variable.$menu-transition-duration ease);
   position: relative;
 
   &__link {
     @apply w-text-14 w-leading-none w-transition;
-    @include transition(
-      border-color $menu-transition-duration ease,
-      background-color $menu-transition-duration ease
+    @include mixin.transition(
+      border-color variable.$menu-transition-duration ease,
+      background-color variable.$menu-transition-duration ease
     );
     position: relative;
     display: flex;
@@ -69,7 +72,7 @@
 }
 
 .menuitem-label {
-  @include transition(opacity $menu-transition-duration ease);
+  @include mixin.transition(opacity variable.$menu-transition-duration ease);
   margin-inline-start: 0.875rem;
   line-height: 1.25;
   text-overflow: ellipsis;

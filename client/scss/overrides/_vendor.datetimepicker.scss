@@ -1,5 +1,6 @@
 // stylelint-disable selector-max-combinators, max-nesting-depth
 @use 'sass:map';
+@use '../settings' as variable;
 
 .xdsoft_datetimepicker {
   box-shadow: 0 5px 10px -5px theme('colors.black-35');
@@ -93,7 +94,7 @@
     float: inline-start;
 
     &:before {
-      mask-image: url('#{$images-root}icons/arrow-left.svg');
+      mask-image: url('#{variable.$images-root}icons/arrow-left.svg');
     }
   }
 
@@ -102,7 +103,7 @@
     margin-inline-start: 5px;
 
     &:before {
-      mask-image: url('#{$images-root}icons/home.svg');
+      mask-image: url('#{variable.$images-root}icons/home.svg');
     }
   }
 
@@ -110,7 +111,7 @@
     float: inline-end;
 
     &:before {
-      mask-image: url('#{$images-root}icons/arrow-right.svg');
+      mask-image: url('#{variable.$images-root}icons/arrow-right.svg');
     }
   }
 
@@ -132,11 +133,11 @@
     }
 
     .xdsoft_prev:before {
-      mask-image: url('#{$images-root}icons/arrow-up.svg');
+      mask-image: url('#{variable.$images-root}icons/arrow-up.svg');
     }
 
     .xdsoft_next:before {
-      mask-image: url('#{$images-root}icons/arrow-down.svg');
+      mask-image: url('#{variable.$images-root}icons/arrow-down.svg');
     }
 
     .xdsoft_time_box {

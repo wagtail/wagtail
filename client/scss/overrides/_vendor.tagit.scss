@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use '../settings' as variable;
 
 // taggit tagging
 .tagit {
@@ -79,7 +80,7 @@
     width: 16px;
     height: 16px;
     background: theme('colors.icon-secondary');
-    mask-image: url('#{$images-root}icons/cross.svg');
+    mask-image: url('#{variable.$images-root}icons/cross.svg');
     mask-repeat: no-repeat;
   }
 }

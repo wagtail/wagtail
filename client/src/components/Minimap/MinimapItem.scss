@@ -1,3 +1,5 @@
+@use '../../../scss/tools' as mixin;
+
 .w-minimap-item {
   @apply w-label-3 w-outline-offset-inside;
   display: inline-flex;
@@ -8,7 +10,7 @@
   font-weight: theme('fontWeight.normal');
   border-inline-start: 1px solid transparent;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     padding-inline-start: theme('spacing.2');
     padding-inline-end: theme('spacing.2');
   }
@@ -36,7 +38,7 @@
       border-inline-start-width: 3px;
     }
 
-    @include more-contrast() {
+    @include mixin.more-contrast() {
       border-inline-start-width: 3px;
     }
   }

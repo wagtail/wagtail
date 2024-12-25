@@ -1,5 +1,7 @@
+@use './input-base' as input-mixin;
+
 .tagit {
-  @include input-base();
+  @include input-mixin.input-base();
 
   input[type='text'] {
     min-height: 0;

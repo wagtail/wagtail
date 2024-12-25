@@ -2,10 +2,12 @@
 $icon-size: theme('spacing.4');
 $button-padding: theme('spacing.2');
 
+@use '../../tools' as mixin;
+
 .w-field__comment-button {
   $root: &;
 
-  @include transition(opacity 0.2s ease);
+  @include mixin.transition(opacity 0.2s ease);
   position: absolute;
   color: theme('colors.text-button-outline-default');
   background: none;
