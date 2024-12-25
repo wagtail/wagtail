@@ -54,6 +54,7 @@ module.exports = function exports(env, argv) {
       'wagtailadmin',
       'workflow-action',
       'bulk-actions',
+      'seo_char_count',
     ],
     'images': [
       'image-chooser',

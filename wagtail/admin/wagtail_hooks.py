@@ -1207,3 +1207,11 @@ for action_class in [
     UnpublishBulkAction,
 ]:
     hooks.register("register_bulk_action", action_class)
+
+
+@hooks.register("insert_global_admin_js")
+def global_admin_js():
+    """
+    Adds the SEO character count JavaScript globally in the admin interface.
+    """
+    return '<script defer src="/static/wagtailadmin/js/seo_char_count.js"></script>'
