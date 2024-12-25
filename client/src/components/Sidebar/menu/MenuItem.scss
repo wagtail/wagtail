@@ -4,6 +4,7 @@
   @include transition(border-color $menu-transition-duration ease);
 
   &__link {
+    @apply w-text-14 w-leading-none w-transition;
     position: relative;
     display: flex;
     justify-content: flex-start;
@@ -20,7 +21,6 @@
     padding: 13px 15px 13px 20px;
     font-weight: 400;
     overflow: visible;
-    @apply w-text-14 w-leading-none w-transition;
     @include transition(
       border-color $menu-transition-duration ease,
       background-color $menu-transition-duration ease

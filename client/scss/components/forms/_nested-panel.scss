@@ -23,7 +23,6 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
     padding-inline-start: var(--nesting-indent);
     margin-bottom: $guide-line-bottom-margin;
     @include guide-line-vertical();
-    
 
     @include media-breakpoint-up(sm) {
       // Extra pixels for better alignment with center of icon.
@@ -59,7 +58,6 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
   margin-bottom: 0;
   @include guide-line-nested();
   
-
   .w-panel__content {
     margin-inline-start: calc(
       -1 * (var(--nesting-indent) + $icon-center-offset - var(--header-gap) / 2)

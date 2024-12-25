@@ -1,8 +1,8 @@
 .wrapper {
+
+  @apply w-transition-sidebar;
   height: 100vh;
   @include clearfix();
-  @apply w-transition-sidebar;
-
   @include media-breakpoint-up(sm) {
     transform: none;
     padding-inline-start: $menu-width;
@@ -43,6 +43,7 @@
   min-height: 100%;
   position: relative; // yuk. necessary for positions for jquery ui widgets
   @include row();
+  
   @include media-breakpoint-up(sm) {
     padding-bottom: 4em;
   }
