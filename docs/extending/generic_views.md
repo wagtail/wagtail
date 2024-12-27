@@ -223,7 +223,7 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('country'),
-        FieldPanel('person', widget=PersonChooserWidget(linked_fields={
+        FieldPanel('author', widget=PersonChooserWidget(linked_fields={
             # pass the country selected in the id_country input to the person chooser
             # as a URL parameter `country`
             'country': '#id_country',
