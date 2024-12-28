@@ -159,4 +159,25 @@ export class CloneController extends Controller<HTMLElement> {
     const content = template.content.firstElementChild?.cloneNode(true);
     return content instanceof HTMLElement ? content : null;
   }
+
+  /**
+   * If called with an event, finds the first error item in the minimap,
+   * scrolls to it, and focuses on it and announces the action for screen readers.
+   */
+
+  jumpToError(event?: Event) {
+    event?.preventDefault();
+    const firstErrorItem = document.querySelector(
+      '.w-minimap-item--error',
+    ) as HTMLElement;
+
+    const anchor = firstErrorItem.getAttribute('href')!;
+    const targetElement = document.querySelector(anchor) as HTMLElement;
+
+    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!targetElement.hasAttribute('tabindex')) {
+      targetElement.setAttribute('tabindex', '-1');
+    }
+    targetElement.focus();
+  }
 }
