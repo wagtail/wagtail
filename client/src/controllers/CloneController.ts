@@ -162,7 +162,7 @@ export class CloneController extends Controller<HTMLElement> {
 
   /**
    * If called with an event, finds the first error item in the minimap,
-   * scrolls to it, and focuses on it and announces the action for screen readers.
+   * scrolls to it, and focuses on it.
    */
 
   jumpToError(event?: Event) {
