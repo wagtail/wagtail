@@ -30,6 +30,7 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+from wagtail.test.utils.timestamps import local_datetime
 
 
 class TestDocumentIndexView(WagtailTestUtils, TestCase):
@@ -95,7 +96,7 @@ class TestDocumentIndexView(WagtailTestUtils, TestCase):
         )
 
     def test_ordering(self):
-        orderings = ["title", "-created_at"]
+        orderings = ["title", "created_at", "-created_at"]
         for ordering in orderings:
             response = self.get({"ordering": ordering})
             self.assertEqual(response.status_code, 200)
@@ -370,6 +371,39 @@ class TestDocumentIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         # that have the "one" tag and "test" in the title.
         response = self.get({"tag": "one", "q": "test"})
         self.assertEqual(response.context["page_obj"].paginator.count, 2)
+
+    def test_search_and_order_by_created_at(self):
+        # Create Documents, change their created_at dates after creation as
+        # the field has auto_now_add=True
+        doc1 = models.Document.objects.create(title="recent good Document")
+        doc1.created_at = local_datetime(2024, 1, 1)
+        doc1.save()
+
+        doc2 = models.Document.objects.create(title="latest ok Document")
+        doc2.created_at = local_datetime(2025, 1, 1)
+        doc2.save()
+
+        doc3 = models.Document.objects.create(title="oldest good document")
+        doc3.created_at = local_datetime(2023, 1, 1)
+        doc3.save()
+
+        cases = [
+            ("created_at", [doc3, doc1]),
+            ("-created_at", [doc1, doc3]),
+        ]
+
+        for ordering, expected_docs in cases:
+            with self.subTest(ordering=ordering):
+                response = self.get({"q": "good", "ordering": ordering})
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.context["query_string"], "good")
+
+                # Check that the documents are filtered by the search query
+                # and are in the correct order
+                documents = list(response.context["page_obj"].object_list)
+                self.assertEqual(documents, expected_docs)
+                self.assertIn("ordering", response.context)
+                self.assertEqual(response.context["ordering"], ordering)
 
 
 class TestDocumentIndexResultsView(WagtailTestUtils, TransactionTestCase):
