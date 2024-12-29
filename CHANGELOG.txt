@@ -46,6 +46,7 @@ Changelog
  * Fix: Fix crash when loading the dashboard with only the "unlock" or "bulk delete" page permissions (Unyime Emmanuel Udoh, Sage Abdullah)
  * Fix: Improve deprecation warning for `WidgetWithScript` by raising it with `stacklevel=3` (Joren Hammudoglu)
  * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+ * Fix: Add missing `FilterField("created_at")` to `AbstractDocument` to fix ordering by `created_at` after searching in the documents index view (Srishti Jaiswal)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
