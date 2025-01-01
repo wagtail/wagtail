@@ -11,7 +11,7 @@ from django.utils.translation import gettext_noop
 from wagtail import hooks
 from wagtail.admin.models import Admin
 from wagtail.coreutils import accepts_kwarg
-from wagtail.users.permission_order import CONTENT_TYPE_ORDER
+from wagtail.users.permission_order import content_type_order
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 register = template.Library()
@@ -98,7 +98,7 @@ def format_permissions(permission_bound_field):
     # from the queryset, and the stability of sorted().
     content_type_ids = sorted(
         dict.fromkeys(permissions.values_list("content_type_id", flat=True)),
-        key=lambda ct: CONTENT_TYPE_ORDER.get(ct, float("inf")),
+        key=lambda ct: content_type_order.get(ct, float("inf")),
     )
 
     # iterate over permission_bound_field to build a lookup of individual renderable
