@@ -167,6 +167,7 @@ Coen van der Kamp <cvanderkamp.gmail.com>
 Franklin Kingma <franklin.statix.net>
 Harmen <sigmo.sigmo.nl>
 Huib Keemink <huib.creativedutchmen.com>
+Joeri Vlekken
 Kees Hink <keeshink.gmail.com>
 Loic Teixeira
 Maarten Kling <kling.maarten.gmail.com>
