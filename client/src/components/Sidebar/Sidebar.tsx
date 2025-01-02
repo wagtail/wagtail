@@ -193,6 +193,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
         }
         type="button"
         ref={mobileNavToggleRef}
+        data-controller="w-kbd"
+        data-w-kbd-key-value="mod+["
+        data-w-kbd-scope-value="global"
       >
         {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>
@@ -233,6 +236,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
                 hover:opacity-100
                 more-contrast:w-border-border-interactive-more-contrast-dark-bg
                 hover:more-contrast:w-border-border-interactive-more-contrast-dark-bg-hover`}
+              data-controller="w-kbd"
+              data-w-kbd-key-value="mod+["
+              data-w-kbd-scope-value="global"
             >
               <Icon
                 name="expand-right"
