@@ -107,7 +107,7 @@ Changelog
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
 
 
-6.3.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.2 (02.01.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
