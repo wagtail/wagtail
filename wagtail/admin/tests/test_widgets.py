@@ -1,5 +1,6 @@
 import json
 import re
+import warnings
 from html import unescape
 
 from django import forms
@@ -12,6 +13,7 @@ from wagtail.admin.forms.tags import TagField
 from wagtail.models import Page
 from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestAdminPageChooserWidget(TestCase):
@@ -430,9 +432,9 @@ class TestAdminTagWidget(TestCase):
             ],
         )
 
-    @override_settings(TAG_SPACES_ALLOWED=False)
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
     def test_render_js_init_no_spaces_allowed(self):
-        """Checks that the 'w-tag' controller attributes are correctly added to the tag widgets based  on TAG_SPACES_ALLOWED in settings"""
+        """Checks that the 'w-tag' controller attributes are correctly added to the tag widgets based  on WAGTAIL_TAG_SPACES_ALLOWED in settings"""
         widget = widgets.AdminTagWidget()
 
         html = widget.render("tags", None, attrs={"id": "alpha"})
@@ -447,9 +449,9 @@ class TestAdminTagWidget(TestCase):
             ],
         )
 
-    @override_settings(TAG_LIMIT=5)
+    @override_settings(WAGTAIL_TAG_LIMIT=5)
     def test_render_js_init_with_tag_limit(self):
-        """Checks that the 'w-tag' controller attributes are correctly added to the tag widget using options based on TAG_LIMIT in settings"""
+        """Checks that the 'w-tag' controller attributes are correctly added to the tag widget using options based on WAGTAIL_TAG_LIMIT in settings"""
 
         widget = widgets.AdminTagWidget()
 
@@ -517,9 +519,9 @@ class TestAdminTagWidget(TestCase):
             ],
         )
 
-    @override_settings(TAG_SPACES_ALLOWED=True)
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=True)
     def test_tags_help_text_spaces_allowed(self):
-        """Checks that the tags help text html element content is correct when TAG_SPACES_ALLOWED is True"""
+        """Checks that the tags help text html element content is correct when WAGTAIL_TAG_SPACES_ALLOWED is True"""
         widget = widgets.AdminTagWidget()
         help_text = widget.get_context(None, None, {})["widget"]["help_text"]
 
@@ -535,9 +537,9 @@ class TestAdminTagWidget(TestCase):
             html,
         )
 
-    @override_settings(TAG_SPACES_ALLOWED=False)
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False)
     def test_tags_help_text_no_spaces_allowed(self):
-        """Checks that the tags help text html element content is correct when TAG_SPACES_ALLOWED is False"""
+        """Checks that the tags help text html element content is correct when WAGTAIL_TAG_SPACES_ALLOWED is False"""
         widget = widgets.AdminTagWidget()
         help_text = widget.get_context(None, None, {})["widget"]["help_text"]
 
@@ -551,6 +553,39 @@ class TestAdminTagWidget(TestCase):
             """<p class="help">%s</p>""" % escape(help_text),
             html,
         )
+
+    @override_settings(WAGTAIL_TAG_SPACES_ALLOWED=False, WAGTAIL_TAG_LIMIT=3)
+    def test_render_js_init_with_legacy_settings(self):
+        """Checks that the 'w-tag' controller attributes are correctly added to the tag widgets using legacy TAG_* settings"""
+        widget = widgets.AdminTagWidget()
+
+        html = widget.render("tags", None, attrs={"id": "alpha"})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            [
+                "alpha",
+                "/admin/tag-autocomplete/",
+                {"allowSpaces": False, "tagLimit": 3, "autocompleteOnly": False},
+            ],
+        )
+
+    @override_settings(TAG_SPACES_ALLOWED=False)
+    def test_tag_spaces_allowed_deprecation_warning(self):
+        """Checks that a deprecation warning is raised for TAG_SPACES_ALLOWED"""
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+
+            widget = widgets.AdminTagWidget()
+            widget.render("tags", None, attrs={"id": "alpha"})
+
+            self.assertTrue(
+                any(
+                    issubclass(warning.category, RemovedInWagtail70Warning)
+                    for warning in w
+                )
+            )
 
 
 class TestTagField(TestCase):
