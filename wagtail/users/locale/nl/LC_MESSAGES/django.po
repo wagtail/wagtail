@@ -4,6 +4,7 @@
 #
 # Translators:
 # Harmen <sigmo@sigmo.nl>, 2022
+# Joeri Vlekken, 2024
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2023
 # Storm Heg <storm@stormbase.digital>, 2021-2024
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Last-Translator: Joeri Vlekken, 2024\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -130,7 +131,7 @@ msgid "Dark"
 msgstr "Donker"
 
 msgid "admin theme"
-msgstr "admine thema"
+msgstr "admin thema"
 
 msgid "More contrast"
 msgstr "Meer contrast"
@@ -185,7 +186,7 @@ msgstr[0] "Verwijder 1 gebruiker"
 msgstr[1] "Verwijder %(counter)s gebruikers"
 
 msgid "Delete"
-msgstr "Mag verwijderen"
+msgstr "Verwijder"
 
 msgid "Are you sure you want to delete these users?"
 msgstr "Weet je zeker dat je deze gebruikers wilt verwijderen?"

@@ -1,7 +1,7 @@
 #
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2022
-# Loic Teixeira, 2024
+# Loic Teixeira, 2022
 # X Bello <xbello@gmail.com>, 2024
 #
 msgid ""
@@ -200,16 +200,16 @@ msgstr "Partir bloque"
 
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
-msgstr "O editor acaba de cascar. O contido volveu á ultima versión gardada."
+msgstr "O editor acaba de caerse. O contido volveu á ultima versión gardada."
 
 msgid "The maximum number of items is %(max_num)d"
-msgstr "O máximo número de ítems é %(max_num)d"
+msgstr "O máximo número de elementos é %(max_num)d"
 
 msgid "The minimum number of items is %(min_num)d"
-msgstr "O mínimo número de ítems é %(min_num)d"
+msgstr "O mínimo número de elementos é %(min_num)d"
 
 msgid "This field is required."
-msgstr "Este campo é requirido."
+msgstr "Este campo é requerido."
 
 msgid "Toggle side panel"
 msgstr "Permutar panel lateral"
