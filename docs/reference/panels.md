@@ -52,8 +52,25 @@ Here are some built-in panel types that you can use in your panel definitions. T
     .. attribute:: FieldPanel.attrs (optional)
 
         Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
-
 ```
+
+```{note}
+ A plain string in a panel definition is equivalent to a FieldPanel with no arguments.
+```
+
+Use this:
+
+```python
+    content_panels = Page.content_panels + ["title", "body"]
+```
+Instead of
+```python
+    content_panels = Page.content_panels + [
+        FieldPanel('title'),
+        FieldPanel('body'),
+    ]
+```
+
 
 (multiFieldPanel)=
 
@@ -111,6 +128,22 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
         Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.
 
+```
+
+```{note}
+ A plain string in a panel definition is equivalent to an InlinePanel with no arguments.
+```
+
+Use this:
+
+```python
+    content_panels = Page.content_panels + ["gallery_images"]
+```
+Instead of
+```python
+    content_panels = Page.content_panels + [
+        InlinePanel('gallery_images'),
+    ]
 ```
 
 (inline_panel_events)=
