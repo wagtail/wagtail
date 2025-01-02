@@ -1,8 +1,19 @@
 $sidebar-toggle-spacing: 12px;
 $sidebar-toggle-size: 35px;
 
+@use '../../../scss/tools' as mixin;
+@use '../../../scss/settings' as variable;
+
+@use 'SidebarPanel';
+@use 'menu/MenuItem';
+@use 'menu/SubMenuItem';
+@use 'modules/MainMenu';
+@use 'modules/WagtailBranding';
+
 @mixin sidebar-toggle() {
-  @include transition(background-color $menu-transition-duration ease);
+  @include mixin.transition(
+    background-color variable.$menu-transition-duration ease
+  );
 
   position: absolute;
   top: $sidebar-toggle-spacing;
@@ -21,7 +32,7 @@ $sidebar-toggle-size: 35px;
     height: 16px;
   }
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     position: static;
     inset-inline-end: $sidebar-toggle-spacing;
     inset-inline-start: initial;
@@ -30,7 +41,7 @@ $sidebar-toggle-size: 35px;
   .has-messages & {
     top: $sidebar-toggle-spacing + 70px;
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       top: $sidebar-toggle-spacing;
     }
   }
@@ -39,13 +50,13 @@ $sidebar-toggle-size: 35px;
 .sidebar,
 .sidebar-loading {
   @apply w-fixed w-flex w-flex-col w-h-full w-bg-surface-menus w-z-sidebar w-transition-sidebar;
-  width: $menu-width;
+  width: variable.$menu-width;
   inset-inline-start: 0;
 
   @media (forced-colors: active) {
     border-inline-end: 1px solid transparent;
   }
-  @include dark-theme-more-contrast() {
+  @include mixin.dark-theme-more-contrast() {
     border-inline-end: 1px solid theme('colors.border-furniture-more-contrast');
   }
 
@@ -58,12 +69,13 @@ $sidebar-toggle-size: 35px;
   }
 
   &--slim {
-    width: $menu-width-slim;
+    width: variable.$menu-width-slim;
   }
 
   // The sidebar can move completely off-screen in mobile mode for extra room
   &--hidden {
-    inset-inline-start: -$menu-width;
+    $neg-menu-width: -(variable.$menu-width);
+    inset-inline-start: $neg-menu-width;
   }
 
   // When sidebar is completely closed and animations have finished
@@ -88,7 +100,7 @@ $sidebar-toggle-size: 35px;
 }
 
 .sidebar-collapsed .sidebar-loading {
-  width: $menu-width-slim;
+  width: variable.$menu-width-slim;
 }
 
 // This is a separate component as it needs to display in the header
@@ -106,10 +118,3 @@ $sidebar-toggle-size: 35px;
     @apply w-fixed hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
   }
 }
-
-// stylelint-disable no-invalid-position-at-import-rule
-@import 'SidebarPanel';
-@import 'menu/MenuItem';
-@import 'menu/SubMenuItem';
-@import 'modules/MainMenu';
-@import 'modules/WagtailBranding';

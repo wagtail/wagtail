@@ -1,5 +1,7 @@
 @use 'sass:math';
 @use 'sass:color';
+@use '../tools' as mixin;
+@use '../settings' as variable;
 
 .w-header {
   @apply w-text-text-label;
@@ -45,7 +47,7 @@
   }
 
   &.w-header--merged .w-breadcrumbs {
-    padding-inline-start: $mobile-nav-indent;
+    padding-inline-start: variable.$mobile-nav-indent;
   }
 
   .col {
@@ -101,11 +103,11 @@
   }
 }
 
-@include media-breakpoint-up(sm) {
+@include mixin.media-breakpoint-up(sm) {
   .w-header {
     .row {
-      padding-inline-start: $desktop-nice-padding;
-      padding-inline-end: $desktop-nice-padding;
+      padding-inline-start: variable.$desktop-nice-padding;
+      padding-inline-end: variable.$desktop-nice-padding;
       padding-top: theme('spacing.10');
     }
 
@@ -133,7 +135,7 @@
     }
 
     .col3 {
-      @include column(3);
+      @include mixin.column(3);
     }
 
     .col3.actionbutton {
@@ -141,17 +143,17 @@
     }
 
     .col6 {
-      @include column(6);
+      @include mixin.column(6);
     }
 
     .col9 {
-      @include column(9);
+      @include mixin.column(9);
     }
   }
 }
 
 .w-slim-header {
-  @include more-contrast() {
+  @include mixin.more-contrast() {
     border-color: theme('colors.border-furniture-more-contrast');
   }
 

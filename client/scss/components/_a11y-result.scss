@@ -1,5 +1,8 @@
+@use '../tools' as mixin;
+@use '../../src/components/CommentApp/main.scss' as main-mixin;
+
 .w-a11y-result__row {
-  @include box;
+  @include main-mixin.box;
   padding: theme('spacing.4');
   display: flex;
   justify-content: space-between;
@@ -9,7 +12,7 @@
     display: block;
   }
 
-  @include more-contrast() {
+  @include mixin.more-contrast() {
     border-color: theme('colors.border-furniture-more-contrast');
   }
 }

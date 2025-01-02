@@ -1,3 +1,5 @@
+@use '../tools' as mixin;
+
 // user avatars
 .avatar {
   border-radius: 100%;
@@ -32,7 +34,7 @@
     width: 60px;
     height: 60px;
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       width: 80px;
       height: 80px;
     }

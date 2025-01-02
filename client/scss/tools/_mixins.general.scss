@@ -4,6 +4,8 @@
 // Please note that the mixins partial shouldn't include any classes. This is so
 // it can be included in any file without accidentally producing output
 
+@use '../settings' as variable;
+
 // Turns on font-smoothing when used. Use sparingly.
 @mixin font-smoothing {
   -webkit-font-smoothing: antialiased;
@@ -75,7 +77,7 @@
 // Where included, show the focus outline within focusable items instead of around them.
 // This is useful when focusable items are tightly packed and there is no space in-between.
 @mixin show-focus-outline-inside {
-  outline-offset: -1 * $focus-outline-width;
+  outline-offset: -1 * variable.$focus-outline-width;
 }
 
 /**

@@ -1,4 +1,6 @@
 @use 'sass:map';
+@use '../../settings' as variable;
+@use './input-base' as input-mixin;
 
 /**
  * A container for rendering human-readable field values in forms in a way
@@ -6,12 +8,12 @@
  */
 
 .w-field__textoutput {
-  @include input-base();
+  @include input-mixin.input-base();
   @apply w-body-text-large;
   background-color: theme('colors.surface-field-inactive');
   width: 100%;
   padding: theme('spacing.[1.5]') theme('spacing.5');
-  min-height: $text-input-height;
+  min-height: variable.$text-input-height;
   position: relative;
   overflow: hidden;
   overflow-wrap: break-word;

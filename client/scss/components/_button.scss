@@ -3,6 +3,8 @@
 // Core button styles
 
 @use 'sass:color';
+@use '../tools' as mixin;
+@use '../settings' as variable;
 
 .button {
   border-radius: theme('borderRadius.sm');
@@ -16,7 +18,7 @@
   display: inline-block;
   background-color: theme('colors.surface-button-default');
   border: 1px solid theme('colors.surface-button-default');
-  outline-offset: $focus-outline-width;
+  outline-offset: variable.$focus-outline-width;
   color: theme('colors.text-button');
   text-decoration: none;
   white-space: nowrap;
@@ -41,7 +43,7 @@
 
   &.button--icon {
     .icon {
-      @include svg-icon();
+      @include mixin.svg-icon();
     }
   }
 
@@ -108,7 +110,7 @@
 
     &.button--icon {
       .icon {
-        @include svg-icon();
+        @include mixin.svg-icon();
       }
     }
 
@@ -145,7 +147,7 @@
       }
 
       &.button--icon .icon {
-        @include svg-icon(0.9rem);
+        @include mixin.svg-icon(0.9rem);
         padding: 0.25em;
       }
 
@@ -186,7 +188,7 @@
     }
 
     svg.icon-spinner {
-      @include transition(all 0.3s ease);
+      @include mixin.transition(all 0.3s ease);
       display: none;
     }
   }
@@ -196,7 +198,7 @@
     align-items: center;
 
     svg.icon-spinner {
-      @include svg-icon();
+      @include mixin.svg-icon();
       display: inline-block;
       opacity: 0.8;
       padding: 0;
@@ -263,7 +265,7 @@
       }
 
       .icon {
-        @include svg-icon(1rem, middle);
+        @include mixin.svg-icon(1rem, middle);
 
         font-size: initial;
         padding: 0.5em;
@@ -279,7 +281,7 @@
       }
     }
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       &.icon {
         &.button-small {
           width: 1.75em;
@@ -291,7 +293,7 @@
 
   // Larger viewport width adjustments
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     font-size: theme('fontSize.14');
     padding: 0 1.4em;
     height: 3em;
@@ -321,7 +323,7 @@
 }
 
 .w-header-button {
-  @include more-contrast-interactive();
+  @include mixin.more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;

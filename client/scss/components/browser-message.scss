@@ -1,4 +1,6 @@
-@include media-breakpoint-up(sm) {
+@use '../tools' as mixin;
+
+@include mixin.media-breakpoint-up(sm) {
   .browsermessage {
     margin: 0 0 0 -150px;
   }

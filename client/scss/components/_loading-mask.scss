@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use '../settings' as variable;
 // Loading mask: overlays a certain area with a loading spinner and a faded out cover to prevent interaction
 .loading-mask {
   &.loading {
@@ -28,7 +29,7 @@
       inset-inline-start: 50%;
       top: 50%;
       animation: spin-wag 0.5s infinite linear;
-      mask-image: url('#{$images-root}icons/spinner.svg');
+      mask-image: url('#{variable.$images-root}icons/spinner.svg');
       mask-repeat: no-repeat;
       z-index: 2;
       background: theme('colors.surface-button-default');

@@ -1,7 +1,9 @@
 @use 'sass:map';
 @use 'sass:math';
+@use '../../settings' as variable;
+@use './input-base' as input-mixin;
 
-$select-size: $text-input-height;
+$select-size: variable.$text-input-height;
 $chevron-size: 0.375rem;
 $chevron-offset: math.div($select-size - $chevron-size, 2);
 
@@ -36,7 +38,7 @@ $chevron-offset: math.div($select-size - $chevron-size, 2);
 }
 
 select {
-  @include input-base();
+  @include input-mixin.input-base();
   @include select-arrow();
   @apply w-body-text-large;
   // Firefox workaround – Set a large line height (but smaller than min height) so the field’s text has enough top padding.

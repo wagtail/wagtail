@@ -1,11 +1,13 @@
+@use '../../tools' as mixin;
+
 .w-field-row {
-  @include max-form-width();
+  @include mixin.max-form-width();
   gap: theme('spacing.5');
   // For mobile viewports, we attempt to display all items in the row side by side even if not at the desired size.
   display: flex;
   flex-wrap: wrap;
 
-  @include media-breakpoint-up(md) {
+  @include mixin.media-breakpoint-up(md) {
     display: grid;
     grid-auto-flow: column;
     // All columns will be the same size.
@@ -38,7 +40,7 @@
 
 // Each column will be as wide as its widest member.
 .w-field-row--max-content {
-  @include media-breakpoint-up(md) {
+  @include mixin.media-breakpoint-up(md) {
     grid-auto-columns: minmax(min-content, max-content);
   }
 }

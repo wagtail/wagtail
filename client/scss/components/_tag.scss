@@ -1,4 +1,7 @@
 @use 'sass:map';
+@use '../tools' as mixin;
+@use '../settings' as variable;
+
 // free tagging tags from taggit
 .tag {
   border-radius: 2px;
@@ -15,7 +18,7 @@
     padding-inline-end: 0.5rem;
     width: 16px;
     height: 16px;
-    mask-image: url('#{$images-root}icons/tag.svg');
+    mask-image: url('#{variable.$images-root}icons/tag.svg');
     mask-repeat: no-repeat;
     transform: translateY(3px);
   }
@@ -37,8 +40,8 @@ a.tag:hover {
 
 .tagfilter {
   legend {
-    @include media-breakpoint-up(sm) {
-      @include column(2);
+    @include mixin.media-breakpoint-up(sm) {
+      @include mixin.column(2);
       padding-inline-start: 0;
     }
 

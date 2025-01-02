@@ -1,10 +1,12 @@
+@use '../tools' as mixin;
+
 .workflow-timeline {
   @apply w-label-3;
   padding: 0;
   margin-top: theme('spacing.8');
   margin-bottom: theme('spacing.3');
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     margin-top: theme('spacing.10');
     margin-bottom: theme('spacing.10');
   }
@@ -67,7 +69,7 @@
   }
 
   &__footer-link {
-    @include transition(color 0.15s ease);
+    @include mixin.transition(color 0.15s ease);
     font-size: theme('fontSize.14');
     color: theme('colors.text-link-default');
     text-decoration: none;

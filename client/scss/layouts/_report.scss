@@ -1,5 +1,7 @@
+@use '../tools' as mixin;
+
 .report {
-  @include nice-margin();
+  @include mixin.nice-margin();
   display: grid;
   grid-column-gap: theme('spacing.12');
 
@@ -22,7 +24,7 @@
     margin-inline-end: theme('spacing.3');
   }
 
-  @include media-breakpoint-down(md) {
+  @include mixin.media-breakpoint-down(md) {
     form {
       margin-bottom: theme('spacing.3');
     }

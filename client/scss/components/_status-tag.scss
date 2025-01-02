@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use '../settings' as variable;
 
 .w-status {
   border-radius: 2px;
@@ -15,7 +16,7 @@
   font-size: 0.8em;
   margin: 0 0.5em 0.5em;
   background: theme('colors.surface-page')
-    url('#{$images-root}bg-dark-diag.svg');
+    url('#{variable.$images-root}bg-dark-diag.svg');
 
   &.w-status--primary {
     color: theme('colors.text-meta');

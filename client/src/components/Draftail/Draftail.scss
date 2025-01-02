@@ -25,6 +25,10 @@ $draftail-block-hoverable-area-offset: 40px;
 
 $draftail-editor-font-family: theme('fontFamily.sans');
 
+@use '../../../scss/tools' as mixin;
+@use '../../../scss/settings' as variable;
+@use '../../../scss/components/forms/input-base' as input-mixin;
+
 @import '../../../../node_modules/draft-js/dist/Draft';
 @import '../../../../node_modules/draftail/src/index';
 
@@ -80,10 +84,10 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   // Number used inside a `calc` function, which doesn’t support unitless zero.
   // stylelint-disable-next-line length-zero-no-unit
   --draftail-offset-inline-start: 0px;
-  @include input-base();
+  @include input-mixin.input-base();
 
   &--focus {
-    outline: $focus-outline-width solid theme('colors.focus');
+    outline: variable.$focus-outline-width solid theme('colors.focus');
   }
 }
 
@@ -110,13 +114,13 @@ $draftail-editor-font-family: theme('fontFamily.sans');
     color: $draftail-editor-text;
     top: calc(theme('spacing.slim-header') * 2);
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       top: theme('spacing.slim-header');
     }
   }
 
   .Draftail-ToolbarButton--active {
-    @include light-theme() {
+    @include mixin.light-theme() {
       background-color: theme('colors.surface-header');
       border-color: theme('colors.border-furniture');
 
@@ -165,10 +169,14 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   color: theme('colors.text-button-outline-default');
   width: $icon-size;
   height: $icon-size;
-  margin-inline-end: calc($nested-field-indent-sm - $icon-size / 2 - 2px);
+  margin-inline-end: calc(
+    variable.$nested-field-indent-sm - $icon-size / 2 - 2px
+  );
 
-  @include media-breakpoint-up(sm) {
-    margin-inline-end: calc($nested-field-indent - $icon-size / 2 - 2px);
+  @include mixin.media-breakpoint-up(sm) {
+    margin-inline-end: calc(
+      variable.$nested-field-indent - $icon-size / 2 - 2px
+    );
   }
 
   // Increase the hoverable area of the trigger button
@@ -220,7 +228,7 @@ $draftail-editor-font-family: theme('fontFamily.sans');
 }
 
 .Draftail-ToolbarButton {
-  @include more-contrast-interactive();
+  @include mixin.more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;

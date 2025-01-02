@@ -1,13 +1,16 @@
 $header-icon-size: theme('spacing.4');
 $header-button-size: theme('spacing.6');
 
+@use '../tools' as mixin;
+@use '../settings' as variable;
+
 .w-panel {
   --header-gap: 0;
   margin-bottom: calc(
     theme('spacing.5') + theme('spacing.5') * var(--w-density-factor)
   );
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     --header-gap: theme('spacing.4');
   }
 
@@ -25,9 +28,9 @@ $header-button-size: theme('spacing.6');
   display: flex;
   align-items: center;
   margin-bottom: theme('spacing.[0.5]');
-  margin-inline-start: calc(-1 * #{$mobile-nice-padding});
+  margin-inline-start: calc(-1 * #{variable.$mobile-nice-padding});
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     margin-inline-start: calc(
       -1 * ((2 * $header-button-size) + var(--header-gap))
     );
@@ -48,7 +51,7 @@ $header-button-size: theme('spacing.6');
     cursor: pointer;
   }
 
-  @include media-breakpoint-up(md) {
+  @include mixin.media-breakpoint-up(md) {
     padding-inline-end: theme('spacing.5');
   }
 }
@@ -60,8 +63,8 @@ $header-button-size: theme('spacing.6');
 .w-panel__anchor,
 .w-panel__toggle,
 .w-panel__controls .button.button--icon {
-  @include show-focus-outline-inside();
-  @include more-contrast-interactive();
+  @include mixin.show-focus-outline-inside();
+  @include mixin.more-contrast-interactive();
   display: inline-grid;
   justify-content: center;
   align-content: center;
@@ -105,7 +108,7 @@ $header-button-size: theme('spacing.6');
 
 // The suffix anchor is intended for small viewports only.
 .w-panel__anchor--suffix {
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     display: none;
   }
 }
@@ -114,7 +117,7 @@ $header-button-size: theme('spacing.6');
 .w-panel__anchor--prefix {
   display: none;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     display: inline-grid;
   }
 }
@@ -152,14 +155,14 @@ $header-button-size: theme('spacing.6');
   margin-inline-end: calc(-1 * theme('spacing.8'));
   margin-inline-start: 0;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     margin: calc(-1 * theme('spacing.4'));
     margin-inline-start: 0;
   }
 }
 
 .w-panel__wrapper {
-  @include max-form-width();
+  @include mixin.max-form-width();
 }
 
 .w-panel--dashboard {
@@ -174,7 +177,7 @@ $header-button-size: theme('spacing.6');
     padding: theme('spacing.5');
     margin-inline-start: 0;
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       margin-inline-start: calc(-1 * theme('spacing.5'));
     }
   }

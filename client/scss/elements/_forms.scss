@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use '../tools' as mixin;
 // Legacy form reset styles. Avoid adding any new styles here.
 form {
   // Historically, Wagtail forms rendered all fields as list items.
@@ -28,7 +29,7 @@ input[type='button'],
 button {
   padding: 0 1em;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     &.button-small {
       height: 2em;
     }

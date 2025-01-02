@@ -1,4 +1,6 @@
 @use 'sass:string';
+@use '../tools' as mixin;
+@use '../settings' as variable;
 
 // Set SVG icons to use the current text color in the location they appear as
 // their default fill color. Can be overridden for a specific icon by either
@@ -25,7 +27,7 @@ $icons-after: ('arrow-down', 'arrow-up');
 @each $icon in $icons-after {
   .icon-#{$icon}-after::after {
     content: '';
-    mask-image: url('#{$images-root}icons/#{$icon}.svg');
+    mask-image: url('#{variable.$images-root}icons/#{$icon}.svg');
     width: 1em;
     height: 1em;
     display: inline-block;
@@ -51,7 +53,7 @@ use[href='#icon-spinner'] {
   overflow: hidden;
 
   .icon {
-    @include svg-icon(1rem, middle);
+    @include mixin.svg-icon(1rem, middle);
   }
 }
 
@@ -68,15 +70,15 @@ use[href='#icon-spinner'] {
 // stylelint-disable-next-line no-duplicate-selectors
 .icon {
   &.initial {
-    @include svg-icon(1em, $position: initial);
+    @include mixin.svg-icon(1em, $position: initial);
   }
 
   &.default {
-    @include svg-icon(1.5em);
+    @include mixin.svg-icon(1.5em);
   }
 
   &.middle {
-    @include svg-icon(1.5em, $position: middle);
+    @include mixin.svg-icon(1.5em, $position: middle);
   }
 
   &--flipped {

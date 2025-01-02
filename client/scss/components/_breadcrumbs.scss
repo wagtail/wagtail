@@ -1,3 +1,5 @@
+@use '../tools' as mixin;
+
 .w-breadcrumbs:not(.editor-view .w-breadcrumbs) {
   @apply sm:w-py-2.5;
 
@@ -7,7 +9,7 @@
       font-size: theme('fontSize.18');
       font-weight: theme('fontWeight.extrabold');
 
-      @include media-breakpoint-up(md) {
+      @include mixin.media-breakpoint-up(md) {
         font-size: theme('fontSize.22');
       }
     }

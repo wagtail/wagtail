@@ -1,5 +1,6 @@
 @use 'sass:color';
 @use 'sass:map';
+@use '../tools' as mixin;
 // Help text formatters
 .help-block {
   padding: 1em;
@@ -36,7 +37,7 @@
   position: relative;
 
   .icon {
-    @include svg-icon(1rem);
+    @include mixin.svg-icon(1rem);
     position: absolute;
     inset-inline-start: 1.125rem;
     top: 0.8125rem;

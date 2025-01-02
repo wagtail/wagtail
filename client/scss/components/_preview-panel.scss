@@ -1,3 +1,6 @@
+@use '../tools' as mixin;
+@use '../../src/components/CommentApp/main.scss' as main-mixin;
+
 .w-preview {
   --w-preview-background-color: var(--w-color-white);
   --preview-width-ratio: min(
@@ -61,7 +64,7 @@
     margin-bottom: 1rem;
     padding-inline: 1rem;
 
-    @include more-contrast() {
+    @include mixin.more-contrast() {
       border-color: theme('colors.border-furniture-more-contrast');
     }
   }
@@ -84,19 +87,19 @@
     }
 
     &:focus-within:has(:focus-visible) {
-      @include focus-outline;
+      @include main-mixin.focus-outline;
     }
 
     .icon {
-      @include svg-icon(1rem);
+      @include mixin.svg-icon(1rem);
 
       &.icon-tablet-alt,
       &.icon-desktop {
-        @include svg-icon(1.25rem);
+        @include mixin.svg-icon(1.25rem);
       }
 
       &.icon-link-external {
-        @include svg-icon(0.9rem);
+        @include mixin.svg-icon(0.9rem);
       }
     }
   }

@@ -1,3 +1,5 @@
+@use '../tools' as mixin;
+
 .w-dialog {
   --w-dialog-close-icon-color: theme('colors.icon-primary');
 
@@ -35,7 +37,7 @@
     border-radius: theme('borderRadius.md');
     animation: theme('animation.fade-in');
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       width: 600px;
     }
     @media (forced-colors: active) {
@@ -69,11 +71,11 @@
     max-height: calc(100vh - 180px);
     min-height: min(100vh - 180px, 320px);
 
-    @include media-breakpoint-up(sm) {
+    @include mixin.media-breakpoint-up(sm) {
       padding: theme('spacing.12');
     }
 
-    @include media-breakpoint-up(md) {
+    @include mixin.media-breakpoint-up(md) {
       padding-inline-start: theme('spacing.20');
       padding-inline-end: theme('spacing.20');
     }
@@ -89,7 +91,7 @@
     transform: translateY(theme('spacing.2'));
     inset-inline-start: calc(0 - theme('spacing.10'));
 
-    @include media-breakpoint-up(md) {
+    @include mixin.media-breakpoint-up(md) {
       display: block;
     }
   }

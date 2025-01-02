@@ -1,4 +1,7 @@
 @use 'sass:math';
+@use '../settings' as variable;
+@use '../tools/mixins.breakpoints' as mixin-breakpoints;
+@use '../tools/mixins.general' as mixin-general;
 
 // grid settings
 $grid-columns: 12;
@@ -9,7 +12,7 @@ $padding: math.div($grid-gutter-width, 2);
 
 // Our row container
 @mixin row($padding: 0) {
-  @include clearfix();
+  @include mixin-general.clearfix();
   display: block;
   margin-inline-end: auto;
   margin-inline-start: auto;
@@ -34,25 +37,25 @@ $padding: math.div($grid-gutter-width, 2);
 // only used in places where padding not applied to same elements as row or row-flush
 // most of the time this class should be applied directly to the html elements
 @mixin nice-padding {
-  padding-inline-start: $mobile-nice-padding;
-  padding-inline-end: $mobile-nice-padding;
+  padding-inline-start: variable.$mobile-nice-padding;
+  padding-inline-end: variable.$mobile-nice-padding;
 
-  @include media-breakpoint-up(sm) {
-    padding-inline-start: $desktop-nice-padding;
-    padding-inline-end: $desktop-nice-padding;
+  @include mixin-breakpoints.media-breakpoint-up(sm) {
+    padding-inline-start: variable.$desktop-nice-padding;
+    padding-inline-end: variable.$desktop-nice-padding;
   }
 }
 
 @mixin nice-margin {
-  margin-inline-start: $mobile-nice-padding;
-  margin-inline-end: $mobile-nice-padding;
+  margin-inline-start: variable.$mobile-nice-padding;
+  margin-inline-end: variable.$mobile-nice-padding;
 
-  @include media-breakpoint-up(sm) {
-    margin-inline-start: $desktop-nice-padding;
-    margin-inline-end: $desktop-nice-padding;
+  @include mixin-breakpoints.media-breakpoint-up(sm) {
+    margin-inline-start: variable.$desktop-nice-padding;
+    margin-inline-end: variable.$desktop-nice-padding;
   }
 }
 
 @mixin max-form-width {
-  max-width: $max-form-width;
+  max-width: variable.$max-form-width;
 }

@@ -1,14 +1,17 @@
+@use '../tools' as mixin;
+@use '../settings' as variable;
+
 .wrapper {
-  @include clearfix();
+  @include mixin.clearfix();
   @apply w-transition-sidebar;
   height: 100vh;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     transform: none;
-    padding-inline-start: $menu-width;
+    padding-inline-start: variable.$menu-width;
 
     .sidebar-collapsed & {
-      padding-inline-start: $menu-width-slim;
+      padding-inline-start: variable.$menu-width-slim;
     }
   }
 }
@@ -22,7 +25,7 @@
   // For mobile viewports, expect a sticky header over two rows.
   scroll-padding-top: calc(theme('spacing.slim-header') * 2 + $gap);
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     scroll-padding-top: calc(theme('spacing.slim-header') + $gap);
   }
 }
@@ -38,18 +41,18 @@
 }
 
 .content {
-  @include row();
+  @include mixin.row();
   background: theme('colors.surface-page');
   border-top: 0 solid transparent; // this top border provides space for the floating logo to toggle the menu
   min-height: 100%;
   position: relative; // yuk. necessary for positions for jquery ui widgets
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     padding-bottom: 4em;
   }
 }
 
-@include media-breakpoint-up(sm) {
+@include mixin.media-breakpoint-up(sm) {
   .content {
     border-top: 0;
     padding-top: 0;
@@ -57,63 +60,63 @@
 }
 
 .row {
-  @include clearfix();
+  @include mixin.clearfix();
 }
 
-@include media-breakpoint-up(sm) {
+@include mixin.media-breakpoint-up(sm) {
   .col1 {
-    @include column(1);
+    @include mixin.column(1);
   }
 
   .col2 {
-    @include column(2);
+    @include mixin.column(2);
   }
 
   .col3 {
-    @include column(3);
+    @include mixin.column(3);
   }
 
   .col4 {
-    @include column(4);
+    @include mixin.column(4);
   }
 
   .col5 {
-    @include column(5);
+    @include mixin.column(5);
   }
 
   .col6 {
-    @include column(6);
+    @include mixin.column(6);
   }
 
   .col7 {
-    @include column(7);
+    @include mixin.column(7);
   }
 
   .col8 {
-    @include column(8);
+    @include mixin.column(8);
   }
 
   .col9 {
-    @include column(9);
+    @include mixin.column(9);
   }
 
   .col10 {
-    @include column(10);
+    @include mixin.column(10);
   }
 
   .col11 {
-    @include column(11);
+    @include mixin.column(11);
   }
 
   .col12 {
-    @include column(12);
+    @include mixin.column(12);
   }
 
   .row {
-    @include row();
+    @include mixin.row();
   }
 
   .row-flush {
-    @include row-flush();
+    @include mixin.row-flush();
   }
 }

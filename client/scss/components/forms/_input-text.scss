@@ -1,3 +1,6 @@
+@use '../../settings' as variable;
+@use './input-base' as input-mixin;
+
 // All HTML5 input types, with irrelevant ones commented out.
 // input[type="button"],
 // input[type="checkbox"],
@@ -22,11 +25,11 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 textarea {
-  @include input-base();
+  @include input-mixin.input-base();
   @apply w-body-text-large;
   width: 100%;
   padding: theme('spacing.[1.5]') theme('spacing.5');
-  min-height: $text-input-height;
+  min-height: variable.$text-input-height;
 }
 
 // Multiline text fields have larger top-bottom padding.

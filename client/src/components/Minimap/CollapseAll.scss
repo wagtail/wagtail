@@ -1,5 +1,7 @@
+@use '../../../scss/tools' as mixin;
+
 .w-minimap__collapse-all {
-  @include more-contrast-interactive();
+  @include mixin.more-contrast-interactive();
   display: none;
   // Keep the icon at a stable position and reduce the amount of shifting of the button.
   min-width: 110px;
@@ -14,7 +16,7 @@
     background-color: theme('colors.surface-page');
   }
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     display: inline-flex;
   }
 

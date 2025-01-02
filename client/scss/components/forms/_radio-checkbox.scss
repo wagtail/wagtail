@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use '../../settings' as variable;
+@use './input-base' as input-mixin;
 
 // 24px input widget size.
 $size: 1.5rem;
@@ -9,7 +11,7 @@ $radio-checkbox-label-gap: theme('spacing.[2.5]');
 
 // Both input types are very similar in appearance and layout.
 @mixin radio-checkbox-base() {
-  @include input-base();
+  @include input-mixin.input-base();
   display: inline-block;
   position: relative;
   height: $size;
@@ -43,7 +45,7 @@ input[type='radio'] {
   border-radius: theme('borderRadius.full');
 
   &:checked::before {
-    mask-image: url('#{$images-root}icons/radio-full.svg');
+    mask-image: url('#{variable.$images-root}icons/radio-full.svg');
   }
 }
 
@@ -54,6 +56,6 @@ input[type='checkbox'] {
   vertical-align: bottom;
 
   &:checked::before {
-    mask-image: url('#{$images-root}icons/check.svg');
+    mask-image: url('#{variable.$images-root}icons/check.svg');
   }
 }

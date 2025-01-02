@@ -1,10 +1,13 @@
+@use '../../../../scss/tools' as mixin;
+@use '../../../../scss/settings' as variable;
+
 .sidebar-sub-menu-trigger-icon {
   $root: &;
 
-  @include transition(
-    transform $menu-transition-duration ease,
-    width $menu-transition-duration ease,
-    height $menu-transition-duration ease
+  @include mixin.transition(
+    transform variable.$menu-transition-duration ease,
+    width variable.$menu-transition-duration ease,
+    height variable.$menu-transition-duration ease
   );
   display: block;
   width: 1rem;
@@ -27,11 +30,11 @@
 
 .sidebar-sub-menu-panel {
   @apply w-flex w-flex-col w-bg-surface-menu-item-active w-h-screen w-transition-sidebar;
-  width: $menu-width;
+  width: variable.$menu-width;
 
   > h2,
   &__list {
-    width: $menu-width;
+    width: variable.$menu-width;
   }
 
   > h2 {
@@ -40,7 +43,9 @@
   }
 
   ul > li {
-    @include transition(border-color $menu-transition-duration ease);
+    @include mixin.transition(
+      border-color variable.$menu-transition-duration ease
+    );
     position: relative;
   }
 
@@ -74,17 +79,17 @@
   }
 
   &--open {
-    transform: translate3d($menu-width, 0, 0);
+    transform: translate3d(variable.$menu-width, 0, 0);
 
     // If another submenu is opening, display this menu behind it
     z-index: -1;
 
     @at-root .sidebar--slim #{&} {
-      transform: translate3d($menu-width-slim, 0, 0);
+      transform: translate3d(variable.$menu-width-slim, 0, 0);
     }
     // Don't apply this to nested submenus though
     @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
-      transform: translate3d($menu-width, 0, 0);
+      transform: translate3d(variable.$menu-width, 0, 0);
     }
   }
 }

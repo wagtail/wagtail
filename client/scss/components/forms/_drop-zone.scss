@@ -1,8 +1,10 @@
+@use '../../settings' as variable;
+
 // file drop zones
 .drop-zone {
   border-radius: 5px;
   border: 2px dashed theme('colors.border-furniture');
-  padding: $mobile-nice-padding;
+  padding: variable.$mobile-nice-padding;
   background-color: theme('colors.surface-header');
   margin-bottom: 1em;
   text-align: center;

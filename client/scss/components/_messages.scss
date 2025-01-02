@@ -1,3 +1,5 @@
+@use '../tools' as mixin;
+
 // Messages are specific to Django's 'Messaging' system which adds messages into the session,
 // for display on the next page visited. These appear as an animated banner at the top of the page.
 // For inline help text, see typography.scss
@@ -10,7 +12,7 @@
   }
 
   > ul {
-    @include unlistimmediate();
+    @include mixin.unlistimmediate();
     position: relative;
     top: -100px;
     opacity: 0;
@@ -23,7 +25,7 @@
   }
 
   > ul > li:before {
-    @include font-smoothing;
+    @include mixin.font-smoothing;
     margin-inline-end: 0.5em;
     font-size: 1.5em;
     vertical-align: middle;
@@ -59,7 +61,7 @@
     background-color: theme('colors.warning.100');
     color: theme('colors.grey.600');
 
-    @include more-contrast() {
+    @include mixin.more-contrast() {
       background-color: theme('colors.warning.75');
     }
   }
@@ -94,7 +96,7 @@
   top: 0;
 }
 
-@include media-breakpoint-up(sm) {
+@include mixin.media-breakpoint-up(sm) {
   .messages > ul > li {
     padding-inline-start: 1.6em;
     padding-inline-end: 3em;

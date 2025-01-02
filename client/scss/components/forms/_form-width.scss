@@ -1,8 +1,11 @@
+@use '../../tools' as mixin;
+@use '../../settings' as variable;
+
 .w-form-width {
-  @include max-form-width();
+  @include mixin.max-form-width();
 }
 
-@include media-breakpoint-up(md) {
+@include mixin.media-breakpoint-up(md) {
   .minimap-open {
     .w-form-width {
       max-width: theme('width.[4/5]');
@@ -32,7 +35,7 @@
 
 .fields {
   // Apply the desired form width for legacy `fields` container.
-  max-width: $max-form-width;
+  max-width: variable.$max-form-width;
 
   // Remove any spacing in legacy fields markup.
   > li {

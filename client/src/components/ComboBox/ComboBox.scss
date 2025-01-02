@@ -3,9 +3,11 @@
 $spacing: theme('spacing.[2.5]');
 $spacing-sm: theme('spacing.5');
 
+@use '../../../scss/tools' as mixin;
+
 .w-combobox {
   width: min(400px, 80vw);
-  @include dark-theme() {
+  @include mixin.dark-theme() {
     background-color: theme('colors.surface-tooltip');
   }
   background: theme('colors.surface-page');
@@ -20,7 +22,7 @@ $spacing-sm: theme('spacing.5');
   padding: $spacing;
   padding-bottom: 0;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     padding: $spacing-sm;
     padding-bottom: 0;
   }
@@ -47,7 +49,7 @@ $spacing-sm: theme('spacing.5');
   padding: $spacing;
   padding-top: 0;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     width: 400px;
     padding: $spacing-sm;
     padding-top: 0;
@@ -61,7 +63,7 @@ $spacing-sm: theme('spacing.5');
   font-size: 1rem;
   font-weight: 700;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     margin-bottom: $spacing-sm;
   }
 

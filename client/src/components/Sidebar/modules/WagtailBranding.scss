@@ -2,6 +2,9 @@
 
 $logo-size: 110px;
 
+@use '../../../../scss/tools' as mixin;
+@use '../../../../scss/settings' as variable;
+
 // Wagging animation
 @keyframes tail-wag {
   from {
@@ -25,18 +28,18 @@ $logo-size: 110px;
   height: $logo-size;
   transition:
     transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
-    width $menu-transition-duration ease,
-    height $menu-transition-duration ease,
-    padding-top $menu-transition-duration ease;
+    width variable.$menu-transition-duration ease,
+    height variable.$menu-transition-duration ease,
+    padding-top variable.$menu-transition-duration ease;
   border-radius: 100%;
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     margin-top: 0.5rem;
   }
 
   // Reduce overall size when in slim mode
   .sidebar--slim & {
-    @include show-focus-outline-inside();
+    @include mixin.show-focus-outline-inside();
     width: 40px;
     height: 110px;
   }
@@ -95,7 +98,7 @@ $logo-size: 110px;
   margin: 2em auto;
   text-align: center;
   padding: 10px 0;
-  transition: padding $menu-transition-duration ease;
+  transition: padding variable.$menu-transition-duration ease;
 
   &:hover {
     color: theme('colors.text-label-menus-active');

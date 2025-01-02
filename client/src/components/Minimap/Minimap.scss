@@ -6,6 +6,8 @@ $minimap-collapsed-width: 30px;
 $minimap-overflow: theme('spacing.2');
 $minimap-z-index: calc(theme('zIndex.header') - 20);
 
+@use '../../../scss/tools' as mixin;
+
 @import './CollapseAll';
 @import './MinimapItem';
 
@@ -22,7 +24,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
     calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width-mobile))
   );
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     transform: translateX(
       calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width))
     );
@@ -54,7 +56,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   color: theme('colors.icon-primary');
   transform: rotate(180deg);
 
-  @include media-breakpoint-up(sm) {
+  @include mixin.media-breakpoint-up(sm) {
     margin-top: 18px;
     padding: theme('spacing.[1.5]');
   }
