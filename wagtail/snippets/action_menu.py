@@ -50,6 +50,13 @@ class ActionMenuItem(Component):
         context = parent_context.copy()
         url = self.get_url(parent_context)
 
+        instance = parent_context.get("instance")
+        is_scheduled = (
+            parent_context.get("draftstate_enabled")
+            and instance
+            and instance.go_live_at
+        )
+
         context.update(
             {
                 "label": self.label,
@@ -57,7 +64,7 @@ class ActionMenuItem(Component):
                 "name": self.name,
                 "classname": self.classname,
                 "icon_name": self.icon_name,
-                "request": parent_context["request"],
+                "request": is_scheduled,
                 "is_revision": parent_context["view"] == "revisions_revert",
             }
         )

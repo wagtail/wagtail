@@ -87,6 +87,8 @@ class PublishMenuItem(ActionMenuItem):
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
+        page = context.get("page")
+        context["is_scheduled"] = page and page.go_live_at
         context["is_revision"] = context["view"] == "revisions_revert"
         return context
 
