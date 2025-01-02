@@ -5,6 +5,7 @@ import { ActionController } from './ActionController';
 import { AutosizeController } from './AutosizeController';
 import { BlockController } from './BlockController';
 import { BulkController } from './BulkController';
+import { CleanController } from './CleanController';
 import { ClipboardController } from './ClipboardController';
 import { CloneController } from './CloneController';
 import { CountController } from './CountController';
@@ -22,7 +23,6 @@ import { RevealController } from './RevealController';
 import { RulesController } from './RulesController';
 import { SessionController } from './SessionController';
 import { SkipLinkController } from './SkipLinkController';
-import { SlugController } from './SlugController';
 import { SubmitController } from './SubmitController';
 import { SwapController } from './SwapController';
 import { SyncController } from './SyncController';
@@ -42,6 +42,8 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: AutosizeController, identifier: 'w-autosize' },
   { controllerConstructor: BlockController, identifier: 'w-block' },
   { controllerConstructor: BulkController, identifier: 'w-bulk' },
+  { controllerConstructor: CleanController, identifier: 'w-clean' },
+  { controllerConstructor: CleanController, identifier: 'w-slug' },
   { controllerConstructor: ClipboardController, identifier: 'w-clipboard' },
   { controllerConstructor: CloneController, identifier: 'w-clone' },
   { controllerConstructor: CloneController, identifier: 'w-messages' },
@@ -61,7 +63,6 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: RulesController, identifier: 'w-rules' },
   { controllerConstructor: SessionController, identifier: 'w-session' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
-  { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: SwapController, identifier: 'w-swap' },
   { controllerConstructor: SyncController, identifier: 'w-sync' },
