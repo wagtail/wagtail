@@ -826,8 +826,10 @@ class StreamBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
             "classname": block.meta.form_classname,
             "maxNum": block.meta.max_num,
             "minNum": block.meta.min_num,

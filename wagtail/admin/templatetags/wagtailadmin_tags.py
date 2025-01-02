@@ -983,6 +983,7 @@ def wagtail_config(context):
         "ADMIN_URLS": {
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
             "PAGES": reverse("wagtailadmin_explore_root"),
+            "BLOCK_PREVIEW": reverse("wagtailadmin_block_preview"),
         },
         "I18N_ENABLED": i18n_enabled(),
         "LOCALES": locales(serialize=False),
