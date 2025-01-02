@@ -1,6 +1,7 @@
+const rspack = require('@rspack/core');
 const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const isDev = process.env.NODE_ENV === 'development';
 
 // Generates a path to the output bundle to be loaded in the browser.
 const getOutputPath = (app, folder, filename) => {
@@ -18,6 +19,8 @@ const getOutputPath = (app, folder, filename) => {
 
 // Mapping from package name to exposed global variable.
 const exposedDependencies = {
+  // expose-loader may have caveats in Rspack,
+  // see https://github.com/web-infra-dev/rspack/issues/5479
   'focus-trap-react': 'FocusTrapReact',
   'react': 'React',
   'react-dom': 'ReactDOM',
@@ -25,9 +28,10 @@ const exposedDependencies = {
   'draft-js': 'DraftJS',
 };
 
+/**
+ * @type {import('@rspack/cli').Configuration}
+ */
 module.exports = function exports(env, argv) {
-  const isProduction = argv.mode === 'production';
-
   const entrypoints = {
     'admin': [
       'chooser-modal',
@@ -146,10 +150,10 @@ module.exports = function exports(env, argv) {
     },
 
     plugins: [
-      new MiniCssExtractPlugin({
+      new rspack.CssExtractRspackPlugin({
         filename: '[name].css',
       }),
-      new CopyPlugin({
+      new rspack.CopyRspackPlugin({
         patterns: [
           {
             from: 'wagtail/admin/static_src/',
@@ -183,9 +187,50 @@ module.exports = function exports(env, argv) {
     module: {
       rules: [
         {
-          test: /\.(js|ts)x?$/,
-          loader: 'ts-loader',
-          exclude: /node_modules/,
+          test: /\.(ts)x?$/,
+          exclude: [/node_modules/],
+          loader: 'builtin:swc-loader',
+          options: {
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+                jsx: true,
+              },
+              transform: {
+                react: {
+                  pragma: 'React.createElement',
+                  pragmaFrag: 'React.Fragment',
+                  throwIfNamespace: true,
+                  development: false,
+                  useBuiltins: false,
+                },
+              },
+            },
+          },
+          type: 'javascript/auto',
+        },
+        {
+          test: /\.(js)x?$/,
+          exclude: [/node_modules/],
+          loader: 'builtin:swc-loader',
+          options: {
+            jsc: {
+              parser: {
+                syntax: 'ecmascript',
+                jsx: true,
+              },
+              transform: {
+                react: {
+                  pragma: 'React.createElement',
+                  pragmaFrag: 'React.Fragment',
+                  throwIfNamespace: true,
+                  development: false,
+                  useBuiltins: false,
+                },
+              },
+            },
+          },
+          type: 'javascript/auto',
         },
         {
           test: /\.(svg)$/i,
@@ -194,13 +239,6 @@ module.exports = function exports(env, argv) {
         {
           test: /\.(scss|css)$/,
           use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                url: false,
-              },
-            },
             {
               loader: 'postcss-loader',
               options: {
@@ -221,6 +259,7 @@ module.exports = function exports(env, argv) {
               },
             },
           ],
+          type: 'css',
         },
       ].concat(
         Object.keys(exposedDependencies).map((name) => {
@@ -259,7 +298,11 @@ module.exports = function exports(env, argv) {
     },
 
     // See https://webpack.js.org/configuration/devtool/.
-    devtool: isProduction ? false : 'eval-cheap-module-source-map',
+    devtool: isDev ? 'eval-cheap-module-source-map' : false,
+
+    experiments: {
+      css: true,
+    },
 
     // For development mode only.
     watchOptions: {
@@ -269,9 +312,9 @@ module.exports = function exports(env, argv) {
 
     // Disable performance hints – currently there are much more valuable
     // optimizations for us to do outside of Webpack
-    performance: {
-      hints: false,
-    },
+    // performance: {
+    //   hints: false,
+    // },
 
     stats: {
       // Add chunk information (setting this to `false` allows for a less verbose output)
