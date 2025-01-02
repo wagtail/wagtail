@@ -68,6 +68,15 @@ class TestMySQLSearchBackend(BackendTests, TransactionTestCase):
             all_other_titles | {"JavaScript: The Definitive Guide"},
         )
 
+        # Tests multiple words with a special character in between surrounded by spaces so it becomes a separate word, which should be removed by the MySQL backend before the query is executed and therefore should not affect the results or break the query
+        results = self.backend.search(
+            ~PlainText("javascript & parts"), models.Book.objects.all()
+        )
+        self.assertSetEqual(
+            {r.title for r in results},
+            all_other_titles | {"JavaScript: The Definitive Guide"},
+        )
+
     @skip(
         "The MySQL backend doesn't support choosing individual fields for the search, only (body, title) or (autocomplete) fields may be searched."
     )
