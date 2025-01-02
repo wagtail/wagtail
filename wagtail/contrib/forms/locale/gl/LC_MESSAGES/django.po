@@ -6,14 +6,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
-# X Bello <xbello@gmail.com>, 2022
+# X Bello <xbello@gmail.com>, 2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022,2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -77,7 +77,7 @@ msgid "Hidden field"
 msgstr "Campo oculto"
 
 msgid "submit time"
-msgstr "Hora de envío"
+msgstr "hora de envío"
 
 msgid "form submission"
 msgstr "formulario de envío"
@@ -102,7 +102,7 @@ msgid "field type"
 msgstr "tipo de campo"
 
 msgid "required"
-msgstr "obligatorio"
+msgstr "obrigatorio"
 
 msgid "choices"
 msgstr "seleccións"
