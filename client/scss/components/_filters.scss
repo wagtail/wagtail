@@ -25,7 +25,6 @@
 }
 
 .w-filter-button {
-  @include more-contrast-interactive();
   position: relative;
   width: theme('spacing.10');
   height: theme('spacing.10');
@@ -34,6 +33,7 @@
   border-radius: theme('borderRadius.sm');
   color: theme('colors.text-link-default');
   background-color: theme('backgroundColor.surface-header');
+  @include more-contrast-interactive();
 
   .icon {
     width: theme('fontSize.16');

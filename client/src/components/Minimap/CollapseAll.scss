@@ -1,5 +1,4 @@
 .w-minimap__collapse-all {
-  @include more-contrast-interactive();
   display: none;
   // Keep the icon at a stable position and reduce the amount of shifting of the button.
   min-width: 110px;
@@ -8,6 +7,7 @@
   justify-content: space-between;
   border-color: theme('colors.border-button-small-outline-default');
   z-index: calc($minimap-z-index + 1);
+  @include more-contrast-interactive();
 
   &.button-secondary {
     // Important for overlap with "Comment notifications" switch.

@@ -18,12 +18,11 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
   }
 
   .w-panel__content {
-    @include guide-line-vertical();
     // Center the vertical line.
     margin-inline-start: calc(-1 * var(--nesting-indent));
     padding-inline-start: var(--nesting-indent);
     margin-bottom: $guide-line-bottom-margin;
-
+    @include guide-line-vertical();
     @include media-breakpoint-up(sm) {
       // Extra pixels for better alignment with center of icon.
       margin-inline-start: calc(
@@ -54,9 +53,9 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
 
 // Styles for nested panels excluding the top level.
 .w-panel--nested .w-panel {
-  @include guide-line-nested();
   margin-inline-start: var(--nesting-indent);
   margin-bottom: 0;
+  @include guide-line-nested();
 
   .w-panel__content {
     margin-inline-start: calc(
@@ -80,9 +79,9 @@ $guide-line-bottom-margin: calc($form-field-spacing / 3);
   }
 
   .w-panel__divider {
+      // Slightly nicer text alignment.
+      margin-top: 1px;
     @include guide-line-horizontal();
-    // Slightly nicer text alignment.
-    margin-top: 1px;
   }
 
   .w-panel__heading--label {

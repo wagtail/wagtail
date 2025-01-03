@@ -6,10 +6,10 @@
 }
 
 .EditorFallback__textarea {
-  @include wagtail-textarea-overrides;
   min-height: 150px;
   margin-top: 1rem;
   resize: vertical;
+  @include wagtail-textarea-overrides;
 }
 
 .EditorFallback__error {

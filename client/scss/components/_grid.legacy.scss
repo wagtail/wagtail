@@ -1,7 +1,7 @@
 .wrapper {
-  @include clearfix();
   @apply w-transition-sidebar;
   height: 100vh;
+  @include clearfix();
 
   @include media-breakpoint-up(sm) {
     transform: none;
@@ -28,21 +28,21 @@
 }
 
 .content-wrapper {
-  @include slim-header-scroll-offset();
   scroll-behavior: smooth;
   width: 100%;
   height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action
   float: inline-start;
   position: relative;
   border-bottom: 1px solid theme('colors.border-furniture');
+  @include slim-header-scroll-offset();
 }
 
 .content {
-  @include row();
   background: theme('colors.surface-page');
   border-top: 0 solid transparent; // this top border provides space for the floating logo to toggle the menu
   min-height: 100%;
   position: relative; // yuk. necessary for positions for jquery ui widgets
+  @include row();
 
   @include media-breakpoint-up(sm) {
     padding-bottom: 4em;

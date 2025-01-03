@@ -1,7 +1,4 @@
 .comment {
-  @include box;
-  @include more-contrast-interactive();
-
   width: 300px;
   display: block;
   transition:
@@ -11,6 +8,9 @@
   pointer-events: auto;
   padding-bottom: 0;
   inset-inline-end: 0;
+  
+  @include box;
+  @include more-contrast-interactive();
 
   &--focused {
     inset-inline-end: 25px;

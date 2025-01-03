@@ -45,12 +45,11 @@
 }
 
 .w-field__wrapper {
-  @include max-form-width();
   // This is primarily helpful to add margins between fields, but fields can often
   // be wrapped into groups (for example a row), so it’s safer to add a margin regardless
   // of what the next element is.
   margin-bottom: $form-field-spacing;
-
+  @include max-form-width();
   // Inside of listing tables we don't need margins because the table row will handle them.
   table.listing td & {
     margin-bottom: 0;

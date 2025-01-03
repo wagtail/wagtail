@@ -5,7 +5,6 @@ $button-padding: theme('spacing.2');
 .w-field__comment-button {
   $root: &;
 
-  @include transition(opacity 0.2s ease);
   position: absolute;
   color: theme('colors.text-button-outline-default');
   background: none;
@@ -17,7 +16,8 @@ $button-padding: theme('spacing.2');
   // Only show the buttons when commenting is enabled.
   display: none;
   opacity: 0;
-
+  @include transition(opacity 0.2s ease);
+  
   .icon {
     width: $icon-size;
     height: $icon-size;

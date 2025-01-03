@@ -6,7 +6,6 @@
  */
 
 .w-field__textoutput {
-  @include input-base();
   @apply w-body-text-large;
   background-color: theme('colors.surface-field-inactive');
   width: 100%;
@@ -15,7 +14,8 @@
   position: relative;
   overflow: hidden;
   overflow-wrap: break-word;
-
+  @include input-base();
+  
   &,
   &:hover {
     border-color: theme('colors.border-field-inactive');

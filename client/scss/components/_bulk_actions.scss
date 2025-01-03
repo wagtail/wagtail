@@ -45,11 +45,11 @@
     }
 
     .bulk-actions-buttons {
-      @include unlistimmediate();
       display: flex;
       gap: theme('spacing.4');
       border-inline-start: 1px solid theme('colors.icon-secondary');
       padding-inline-start: 1.5em;
+      @include unlistimmediate();
 
       .bulk-action-btn {
         max-width: 160px;

@@ -220,7 +220,6 @@ $draftail-editor-font-family: theme('fontFamily.sans');
 }
 
 .Draftail-ToolbarButton {
-  @include more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,6 +227,7 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   min-width: 1.875rem;
   padding: 0;
   margin-inline-end: 0.625rem;
+  @include more-contrast-interactive();
 
   .Draftail-ToolbarGroup:last-of-type &:last-of-type {
     margin-inline-end: 0;

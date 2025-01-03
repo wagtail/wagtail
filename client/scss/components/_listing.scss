@@ -363,8 +363,8 @@ ul.listing {
   }
 
   &.images img {
-    @include transition(border-color 0.2s ease);
     border: 3px solid theme('colors.surface-page');
+    @include transition(border-color 0.2s ease);
   }
 
   &--dashboard {
@@ -483,8 +483,8 @@ table.listing {
   }
 
   ul {
-    @include unlist();
     margin-top: -1.7em;
+    @include unlist();
   }
 
   li {
@@ -508,10 +508,10 @@ table.listing {
 
 // listing filters
 .listing-filter {
-  @include clearfix();
   background-color: theme('colors.surface-header');
   border-width: 1px 0;
   margin: 3em 0;
+  @include clearfix();
 }
 
 .filter-title {
@@ -523,10 +523,10 @@ table.listing {
 }
 
 .filter-options {
+  overflow: hidden;
   @include unlist();
   @include clearfix();
-  overflow: hidden;
-
+  
   li {
     padding: 0.8em;
     float: inline-start;

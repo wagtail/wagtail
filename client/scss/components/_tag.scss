@@ -36,17 +36,17 @@ a.tag:hover {
 }
 
 .tagfilter {
-  legend {
-    @include media-breakpoint-up(sm) {
-      @include column(2);
-      padding-inline-start: 0;
-    }
-
-    font-weight: 700;
+  font-weight: 700;
     color: theme('colors.text-context');
     font-size: 1.1em;
     display: block;
     padding: 0 0 0.8em;
+
+  legend {
+    @include media-breakpoint-up(sm) {
+      padding-inline-start: 0;
+      @include column(2);
+    }
   }
 
   a {

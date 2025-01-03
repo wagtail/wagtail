@@ -145,8 +145,8 @@
       }
 
       &.button--icon .icon {
-        @include svg-icon(0.9rem);
         padding: 0.25em;
+        @include svg-icon(0.9rem);
       }
 
       &.button-secondary {
@@ -186,8 +186,8 @@
     }
 
     svg.icon-spinner {
-      @include transition(all 0.3s ease);
       display: none;
+      @include transition(all 0.3s ease);
     }
   }
 
@@ -196,11 +196,11 @@
     align-items: center;
 
     svg.icon-spinner {
-      @include svg-icon();
       display: inline-block;
       opacity: 0.8;
       padding: 0;
       margin-inline-end: 0.5em;
+      @include svg-icon();
     }
 
     .button-longrunning__icon {
@@ -263,11 +263,11 @@
       }
 
       .icon {
-        @include svg-icon(1rem, middle);
-
         font-size: initial;
         padding: 0.5em;
         box-sizing: content-box;
+
+        @include svg-icon(1rem, middle);
       }
 
       &.button-small {
@@ -321,7 +321,6 @@
 }
 
 .w-header-button {
-  @include more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;
@@ -336,7 +335,8 @@
   font-size: theme('fontSize.14');
   font-weight: theme('fontWeight.medium');
   cursor: pointer;
-
+  @include more-contrast-interactive();
+  
   .icon {
     width: theme('spacing.4');
     height: theme('spacing.4');

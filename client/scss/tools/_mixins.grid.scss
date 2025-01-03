@@ -9,12 +9,12 @@ $padding: math.div($grid-gutter-width, 2);
 
 // Our row container
 @mixin row($padding: 0) {
-  @include clearfix();
   display: block;
   margin-inline-end: auto;
   margin-inline-start: auto;
   padding-inline-end: $padding;
   padding-inline-start: $padding;
+  @include clearfix();
 }
 
 @mixin row-flush() {

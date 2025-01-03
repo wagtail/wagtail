@@ -15,18 +15,18 @@ $preview-size: 2.625rem; // 42px
 // Very subdued button style specifically for choosers, as there can be a lot of
 // chooser fields left unused on a page editing form.
 .button.chooser__choose-button {
-  @include more-contrast-interactive();
   @apply w-label-3;
   display: flex;
   align-items: center;
   color: theme('colors.text-button-outline-default');
   border-color: transparent;
   padding: theme('spacing.[1.5]');
+  @include more-contrast-interactive();
 
   .icon {
-    @include svg-icon(theme('spacing.4'), initial);
     color: inherit;
     margin-inline-end: 5px;
+    @include svg-icon(theme('spacing.4'), initial);
   }
 
   &:hover,

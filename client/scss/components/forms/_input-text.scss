@@ -22,11 +22,11 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 textarea {
-  @include input-base();
   @apply w-body-text-large;
   width: 100%;
   padding: theme('spacing.[1.5]') theme('spacing.5');
   min-height: $text-input-height;
+  @include input-base();
 }
 
 // Multiline text fields have larger top-bottom padding.

@@ -7,6 +7,7 @@
 /build/
 /MANIFEST
 /wagtail.egg-info/
+/mysite/
 /docs/_build/
 /.tox/
 /.venv

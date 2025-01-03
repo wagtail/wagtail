@@ -89,13 +89,13 @@ $radius: theme('borderRadius.sm');
 
 // Use a generic selector to support all types of links / buttons.
 .w-dropdown-button .w-dropdown__content :is(a, button) {
-  @include show-focus-outline-inside();
   height: auto;
   min-height: $text-input-height;
   margin: 0;
   white-space: normal;
   border-radius: 0;
-
+  @include show-focus-outline-inside();
+  
   &:nth-child(n + 2) {
     border-top: $separator;
   }

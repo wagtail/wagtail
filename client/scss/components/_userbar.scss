@@ -185,10 +185,10 @@ $positions: (
     }
 
     &-icon {
-      @include svg-icon(1em, middle);
       margin-inline-end: 0.5em;
       fill: currentColor;
       opacity: 0.4;
+      @include svg-icon(1em, middle);
     }
 
     .w-a11y-result__count {

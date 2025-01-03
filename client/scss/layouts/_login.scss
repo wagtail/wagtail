@@ -11,21 +11,22 @@
       );
     }
   }
-
-  // support older browsers that do not support radial gradient 'at' usage
-  background: theme('colors.surface-menus');
-  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
-  background: var(
-    --w-login-fullscreen-background,
-    theme('colors.primary.DEFAULT')
-  );
+  
+  &{
+    // support older browsers that do not support radial gradient 'at' usage
+    background: theme('colors.surface-menus');
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+    background: var(
+      --w-login-fullscreen-background,
+      theme('colors.primary.DEFAULT')
+    );
+  }
 }
 
 .login {
-  @include login-fullscreen-background;
-
   color: theme('colors.text-label');
-
+  @include login-fullscreen-background;
+  
   .wrapper {
     align-items: center;
     display: flex;

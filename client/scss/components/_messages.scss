@@ -10,10 +10,10 @@
   }
 
   > ul {
-    @include unlistimmediate();
     position: relative;
     top: -100px;
     opacity: 0;
+    @include unlistimmediate();
   }
 
   > ul > li {
@@ -23,10 +23,10 @@
   }
 
   > ul > li:before {
-    @include font-smoothing;
     margin-inline-end: 0.5em;
     font-size: 1.5em;
     vertical-align: middle;
+    @include font-smoothing;
   }
 
   &-icon {

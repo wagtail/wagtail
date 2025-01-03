@@ -2,8 +2,6 @@ $sidebar-toggle-spacing: 12px;
 $sidebar-toggle-size: 35px;
 
 @mixin sidebar-toggle() {
-  @include transition(background-color $menu-transition-duration ease);
-
   position: absolute;
   top: $sidebar-toggle-spacing;
   inset-inline-start: $sidebar-toggle-spacing;
@@ -15,6 +13,8 @@ $sidebar-toggle-size: 35px;
   padding: 0;
   border-radius: 50%;
   border: 1px solid transparent;
+
+  @include transition(background-color $menu-transition-duration ease);
 
   svg {
     width: 15px;
@@ -94,8 +94,8 @@ $sidebar-toggle-size: 35px;
 // This is a separate component as it needs to display in the header
 .sidebar-nav-toggle {
   @apply w-z-sidebar-toggle;
-  @include sidebar-toggle;
   display: none; // Nav toggle is for mobile only
+  @include sidebar-toggle;
 
   &--mobile {
     @apply w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active;

@@ -1,9 +1,9 @@
 .w-a11y-result__row {
-  @include box;
   padding: theme('spacing.4');
   display: flex;
   justify-content: space-between;
-
+  @include box;
+  
   // Shows additional details within the CMS only.
   .form-side--checks & {
     display: block;

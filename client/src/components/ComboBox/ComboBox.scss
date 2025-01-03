@@ -5,15 +5,15 @@ $spacing-sm: theme('spacing.5');
 
 .w-combobox {
   width: min(400px, 80vw);
-  @include dark-theme() {
-    background-color: theme('colors.surface-tooltip');
-  }
   background: theme('colors.surface-page');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
   font-size: theme('fontSize.18');
   box-shadow: theme('boxShadow.md');
   outline: 10px solid transparent;
+  @include dark-theme() {
+    background-color: theme('colors.surface-tooltip');
+  }
 }
 
 .w-combobox__field {
