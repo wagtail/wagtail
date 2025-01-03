@@ -161,5 +161,5 @@ class TestIssue12627(WagtailTestUtils, TestCase):
         self.assertEqual(len(results), 4)
         self.assertTrue(results[0].id, doc4.id)
         self.assertTrue(results[1].id, doc2.id)
-        self.assertTrue(results[0].id, doc3.id)
-        self.assertTrue(results[1].id, doc1.id)
+        self.assertTrue(results[2].id, doc3.id)
+        self.assertTrue(results[3].id, doc1.id)
