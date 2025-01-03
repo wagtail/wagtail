@@ -588,6 +588,22 @@ class TestAccountSection(
             sorted(zoneinfo.available_timezones()),
         )
 
+        response = self.client.get(reverse("wagtailadmin_account"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        select = soup.select_one('select[name="locale-current_time_zone"]')
+        self.assertIsNotNone(select)
+        self.assertEqual(select.get("data-controller"), "w-init w-locale")
+        self.assertEqual(
+            select.get("data-action"),
+            "w-init:ready->w-locale#localizeTimeZoneOptions",
+        )
+        self.assertEqual(
+            select.get("data-w-locale-server-time-zone-param"),
+            settings.TIME_ZONE,
+        )
+
     @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(WAGTAIL_USER_TIME_ZONES=["Europe/London"])
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):

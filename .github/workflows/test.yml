@@ -167,10 +167,6 @@ jobs:
           tee -a testproject/settings/local.py << EOF
           from warnings import filterwarnings
           SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
-          # Remove when l18n dependency is updated or removed
-          filterwarnings(
-              "ignore", "'locale.getdefaultlocale' is deprecated .*"
-          )
           # Remove when all experimental jobs use Django >= 6.0
           filterwarnings(
               "ignore", "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated."
