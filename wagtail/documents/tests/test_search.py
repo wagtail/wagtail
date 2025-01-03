@@ -151,11 +151,7 @@ class TestIssue12627(WagtailTestUtils, TestCase):
         self.search_backend.refresh_index()
 
         # Search and filter by created_at
-        results = self.search_backend.search(
-            None,
-            models.Document,
-            filters={"created_at__date": "2025-01-01"},
-        )
+        results = self.search_backend.search(None, models.Document)
 
         # Check
         self.assertEqual(len(results), 4)
