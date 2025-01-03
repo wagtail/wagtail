@@ -14,7 +14,6 @@ from wagtail.test.utils import WagtailTestUtils
 @override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=["elasticsearch"])
 class TestIssue613(WagtailTestUtils, TestCase):
     def get_elasticsearch_backend(self):
-
         if "elasticsearch" not in settings.WAGTAILSEARCH_BACKENDS:
             raise unittest.SkipTest("No elasticsearch backend active")
 
@@ -107,9 +106,9 @@ class TestIssue613(WagtailTestUtils, TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0].id, document.id)
 
+
 class TestIssue12627(WagtailTestUtils, TestCase):
     def get_elasticsearch_backend(self):
-
         if "elasticsearch" not in settings.WAGTAILSEARCH_BACKENDS:
             raise unittest.SkipTest("No elasticsearch backend active")
 
@@ -160,8 +159,7 @@ class TestIssue12627(WagtailTestUtils, TestCase):
 
         # Check
         self.assertEqual(len(results), 4)
-        self.assertTrue(results[0].id ,doc4.id ) 
-        self.assertTrue(results[1].id ,doc2.id )
-        self.assertTrue(results[0].id ,doc3.id ) 
-        self.assertTrue(results[1].id ,doc1.id )
-
+        self.assertTrue(results[0].id, doc4.id)
+        self.assertTrue(results[1].id, doc2.id)
+        self.assertTrue(results[0].id, doc3.id)
+        self.assertTrue(results[1].id, doc1.id)
