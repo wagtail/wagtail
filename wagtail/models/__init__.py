@@ -128,6 +128,7 @@ from .media import (  # noqa: F401
     UploadedFile,
     get_root_collection_id,
 )
+from .panels import CommentPanelPlaceholder, PanelPlaceholder
 from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
@@ -1405,11 +1406,40 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         COMMENTS_RELATION_NAME,
     ]
 
-    # Define these attributes early to avoid masking errors. (Issue #3078)
-    # The canonical definition is in wagtailadmin.panels.
-    content_panels = []
-    promote_panels = []
-    settings_panels = []
+    # Real panel classes are defined in wagtail.admin.panels, which we can't import here
+    # because it would create a circular import. Instead, define them with placeholders
+    # to be replaced with the real classes by `wagtail.admin.panels.model_utils.expand_panel_list`.
+    content_panels = [
+        PanelPlaceholder("wagtail.admin.panels.TitleFieldPanel", ["title"], {}),
+    ]
+    promote_panels = [
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "slug",
+                    "seo_title",
+                    "search_description",
+                ],
+                _("For search engines"),
+            ],
+            {},
+        ),
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "show_in_menus",
+                ],
+                _("For site menus"),
+            ],
+            {},
+        ),
+    ]
+    settings_panels = [
+        PanelPlaceholder("wagtail.admin.panels.PublishingPanel", [], {}),
+        CommentPanelPlaceholder(),
+    ]
 
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
