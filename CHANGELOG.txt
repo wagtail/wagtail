@@ -41,6 +41,7 @@ Changelog
  * Fix: Return never-cache HTTP headers when serving pages and documents with view restrictions (Krystian Magdziarz, Dawid Bugajewski)
  * Fix: Implement `get_block_by_content_path` on `ImageBlock` to prevent errors on commenting (Matt Westcott)
  * Fix: Add `aria-expanded` attribute to new column button on `TypedTableBlock` to reflect menu state (Ayaan Qadri, Scott Cranfill)
+ * Fix: Allow page models to extend base `Page` panel definitions without importing `wagtail.admin` (Matt Westcott)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
