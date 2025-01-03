@@ -1,5 +1,4 @@
 import datetime
-import unittest
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
@@ -428,7 +427,6 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertRedirects(response, "/admin/")
 
-    @unittest.expectedFailure
     def test_create_page_defined_before_admin_load(self):
         """
         Test that a page model defined before wagtail.admin is loaded has all fields present

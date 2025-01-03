@@ -30,6 +30,7 @@ from wagtail.admin.panels import (
     PublishingPanel,
     TabbedInterface,
     TitleFieldPanel,
+    expand_panel_list,
     extract_panel_definitions_from_model_class,
     get_form_for_model,
 )
@@ -1726,7 +1727,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         Test that the comment panel is missing if WAGTAILADMIN_COMMENTS_ENABLED=False
         """
         self.assertFalse(
-            any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
+            any(
+                isinstance(panel, CommentPanel)
+                for panel in expand_panel_list(Page, Page.settings_panels)
+            )
         )
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
@@ -1737,7 +1741,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         Test that the comment panel is present by default
         """
         self.assertTrue(
-            any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
+            any(
+                isinstance(panel, CommentPanel)
+                for panel in expand_panel_list(Page, Page.settings_panels)
+            )
         )
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
@@ -2024,7 +2031,10 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
         Test that the publishing panel is present by default
         """
         self.assertTrue(
-            any(isinstance(panel, PublishingPanel) for panel in Page.settings_panels)
+            any(
+                isinstance(panel, PublishingPanel)
+                for panel in expand_panel_list(Page, Page.settings_panels)
+            )
         )
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
