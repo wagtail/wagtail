@@ -1,4 +1,4 @@
-# Your first Wagtail site 
+# Your first Wagtail site
 
 This tutorial shows you how to build a blog using Wagtail. Also, the tutorial gives you hands-on experience with some of Wagtail's features.
 
@@ -152,7 +152,6 @@ from django.db import models
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel
 
 
 class HomePage(Page):
@@ -283,7 +282,6 @@ from django.db import models
 # Add these:
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel
 
 
 class BlogIndexPage(Page):
@@ -350,7 +348,6 @@ Now create a model and template for your blog posts. Edit `blog/models.py` to in
 from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel
 
 # add this:
 from wagtail.search import index
@@ -540,13 +537,12 @@ The next feature that you need to add is the ability to attach an image gallery 
 Now modify your `BlogPage` model and add a new `BlogPageGalleryImage` model to `blog/models.py`:
 
 ```python
-# New imports added for ParentalKey, Orderable, InlinePanel
+# New imports added for ParentalKey, Orderable
 
 from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.search import index
 
 # ... Keep the definition of BlogIndexPage, update the content_panels of BlogPage, and add a new BlogPageGalleryImage model:
@@ -561,10 +557,12 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
-    content_panels = Page.content_panels + ["date", "intro", "body"] + [
-        # Add this:
-        InlinePanel('gallery_images', label="Gallery images"),
-    ]
+    content_panels = Page.content_panels + [
+        "date", "intro", "body",
+
+        # Add this
+         "gallery_images",
+        ] 
 
 
 class BlogPageGalleryImage(Orderable):
@@ -644,10 +642,7 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
-    content_panels = Page.content_panels + ["date", "intro", "body"] + [
-        # Add this:
-        InlinePanel('gallery_images', label="Gallery images"),
-    ]
+    content_panels = Page.content_panels + ["date", "intro", "body", "gallery_images"]
 ```
 
 This method is now available from your templates. Update `blog_index_page.html` to load the `wagtailimages_tags` library and include the main image as a thumbnail alongside each post:
@@ -720,7 +715,7 @@ from django.db import models
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import MultiFieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -740,14 +735,14 @@ class BlogPage(Page):
 
 Here you have used the  `MultiFieldPanel` in `content_panels` to group  the `date` and `Authors` fields together for readability. By doing this, you are creating a single panel object that encapsulates multiple fields within a list or tuple into a single `heading` string. This feature is particularly useful for organizing related fields in the admin interface, making the UI more intuitive for content editors.
 
-Migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`, and then go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) . Notice how the list of available authors does not look very good.
+Migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`, and then go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) . Notice that the list of authors is presented as a multiple select box. This is the default representation for a multiple choice field - however, users often find a set of checkboxes to be more familiar and easier to work with.
 
 !["Blog" page, with blog information and authors field](../_static/images/tutorial/ugly-list-of-authors.png)
 
-Well, you can improve this by specifying the author field as a panel object of type FieldPanel. This will allow you to pass in the widget argument to change the default look of the list of authors. Even without a secondary argument like widget (which is optional), you can still wrap all other fields in the FieldPanel object, as shown below:
+You can do this by replacing the definition of "authors" in content_panels with a FieldPanel object. FieldPanel("authors") is equivalent to writing "authors", but allows passing additional optional arguments such as widget:
 
 ```python
-# New imports added for forms and ParentalManyToManyField, and MultiFieldPanel
+# New imports added for forms and FieldPanel, ParentalManyToManyField, and MultiFieldPanel
 from django import forms
 from django.db import models
 
@@ -769,14 +764,11 @@ class BlogPage(Page):
     # ... Keep the main_image method and search_fields definition. Modify your content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('date'),
+            'date',
             FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
         ], heading="Blog information"),
-        FieldPanel('intro'),
-        FieldPanel('body'),
-        InlinePanel('gallery_images', label="Gallery images"),
-    ]
-
+            'intro', 'body', 'gallery_images'
+        ]
 ```
 
 In the preceding model modification, you used the widget keyword argument in the FieldPanel definition to specify a more user-friendly checkbox-based widget instead of the default list.
@@ -878,16 +870,14 @@ class BlogPage(Page):
     # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('date'),
+            'date',
             FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
 
             # Add this:
-            FieldPanel('tags'),
+            'tags',
         ], heading="Blog information"),
-        FieldPanel('intro'),
-        FieldPanel('body'),
-        InlinePanel('gallery_images', label="Gallery images"),
-    ]
+            'intro', 'body', 'gallery_images'
+        ]
 ```
 
 Run `python manage.py makemigrations` and `python manage.py migrate`.
