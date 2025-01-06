@@ -863,6 +863,7 @@
 * Krystian Magdziarz
 * Guilhem Saurel
 * James Harrington
+* Unyime Emmanuel Udoh
 
 ## Translators
 

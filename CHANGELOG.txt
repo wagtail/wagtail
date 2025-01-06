@@ -68,6 +68,7 @@ Changelog
  * Docs: Add a new headless section to the documentation, incorporating parts of the 'are we headless' website content (Sævar Öfjörð Magnússon, Alex Fulcher)
  * Docs: Fix Django HTML syntax formatting issue on the documents overview page (LB (Ben) Johnston)
  * Docs: Separate virtual environment creation and activation steps in tutorial (Ankit Kumar)
+ * Docs: Update tutorial to use plain strings in place of `FieldPanel` / `InlinePanel` where appropriate (Unyime Emmanuel Udoh)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
