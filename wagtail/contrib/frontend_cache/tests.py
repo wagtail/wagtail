@@ -18,7 +18,7 @@ from wagtail.contrib.frontend_cache.backends import (
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
-from wagtail.test.testapp.models import EventIndex
+from wagtail.test.testapp.models import EventIndex, EventPage
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .utils import (
@@ -616,6 +616,33 @@ class TestCachePurgingSignals(TestCase):
         self.assertEqual(
             PURGED_URLS,
             {"http://localhost/en/events/", "http://localhost/en/events/past/"},
+        )
+
+    def test_purge_on_move(self):
+        page = EventPage.objects.get(url_path="/home/events/christmas/")
+        target = Page.objects.get(url_path="/home/events/saint-patrick/")
+
+        page.move(target, pos="first-child")
+
+        self.assertEqual(
+            PURGED_URLS,
+            {
+                "http://localhost/events/saint-patrick/christmas/",
+                "http://localhost/events/christmas/",
+            },
+        )
+
+    def test_purge_on_slug_change(self):
+        page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        page.slug = "crimbo"
+
+        with self.captureOnCommitCallbacks(execute=True):
+            page.save()
+
+        self.assertEqual(
+            PURGED_URLS,
+            {"http://localhost/events/christmas/", "http://localhost/events/crimbo/"},
         )
 
 

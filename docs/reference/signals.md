@@ -88,6 +88,8 @@ The following arguments are emitted for both signals:
 -   `url_path_after` - The value of `instance.url_path` **after** moving.
 -   `kwargs` - Any other arguments passed to `pre_page_move.send()` or `post_page_move.send()`.
 
+Additionally, `post_page_move` receives `instance_before`, which is the specific `Page` instance from before the move (as passed as `instance` to `pre_page_move`).
+
 ### Distinguishing between a 'move' and a 'reorder'
 
 The signal can be emitted as a result of a page being moved to a different section (a 'move'), or as a result of a page being moved to a different position within the same section (a 'reorder'). Knowing the difference between the two can be particularly useful, because only a 'move' affects a page's URL (and that of its descendants), whereas a 'reorder' only affects the natural page order; which is probably less impactful.
