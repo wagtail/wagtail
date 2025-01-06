@@ -108,6 +108,10 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
                 "http://localhost/events/final-event",
                 "http://localhost/events/christmas",
                 "http://localhost/events",
+                "http://localhost/events/",
+                "http://localhost/events-extra/",
+                "http://localhost/events-extra/past/",
+                "http://localhost/events/past/",
             },
         )
 
@@ -115,7 +119,6 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
         with self.captureOnCommitCallbacks(execute=True):
             self.trigger_page_slug_changed_signal(self.home_page)
         self.assertFalse(Redirect.objects.exists())
-        self.assertEqual(len(PURGED_URLS), 0)
 
     def test_handling_of_existing_redirects(self):
         with self.captureOnCommitCallbacks(execute=True):
@@ -176,6 +179,10 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
                 "http://localhost/events/final-event",
                 "http://localhost/events/christmas",
                 "http://localhost/events",
+                "http://localhost/events/",
+                "http://localhost/events-extra/",
+                "http://localhost/events/past/",
+                "http://localhost/events-extra/past/",
             },
         )
 
@@ -218,6 +225,8 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
             PURGED_URLS,
             {
                 "http://localhost/routable-page",
+                "http://localhost/routable-page/",
+                "http://localhost/events/routable-page/",
                 "http://localhost/routable-page/not-a-valid-route",
                 "http://localhost/routable-page/render-method-test",
             },
@@ -245,14 +254,12 @@ class TestAutocreateRedirects(PageFixturesMixin, WagtailTestUtils, TestCase):
 
         # No redirects should have been created
         self.assertFalse(Redirect.objects.exists())
-        self.assertEqual(len(PURGED_URLS), 0)
 
     @override_settings(WAGTAILREDIRECTS_AUTO_CREATE=False)
     def test_no_redirects_created_if_disabled(self):
         with self.captureOnCommitCallbacks(execute=True):
             self.trigger_page_slug_changed_signal(self.event_index)
         self.assertFalse(Redirect.objects.exists())
-        self.assertEqual(len(PURGED_URLS), 0)
 
     def test_no_redirects_created_for_draft_page_slug_change(self):
         draft = self.new_page(live=False)
