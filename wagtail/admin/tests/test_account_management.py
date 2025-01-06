@@ -19,6 +19,7 @@ from wagtail.admin.localization import (
 from wagtail.admin.views.account import AccountView, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 
 
@@ -238,7 +239,9 @@ class TestAccountSectionUtilsMixin:
         return self.client.post(reverse("wagtailadmin_account"), post_data)
 
 
-class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixin):
+class TestAccountSection(
+    AdminTemplateTestUtils, TestAccountSectionUtilsMixin, WagtailTestUtils, TestCase
+):
     """
     This tests that the accounts section is working
     """
@@ -281,6 +284,14 @@ class TestAccountSection(WagtailTestUtils, TestCase, TestAccountSectionUtilsMixi
 
         # Check if the default title exists
         self.assertContains(response, "Name and Email")
+
+        soup = self.get_soup(response.content)
+        self.assertBreadcrumbsItemsRendered(
+            [{"url": "", "label": "Account"}], response.content
+        )
+        heading = soup.select_one("main h2")
+        self.assertIsNotNone(heading)
+        self.assertEqual(heading.text.strip(), "Account")
 
     def test_change_name_post(self):
         response = self.post_form(
