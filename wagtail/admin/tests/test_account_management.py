@@ -532,6 +532,17 @@ class TestAccountSection(
             get_available_admin_languages(), WAGTAILADMIN_PROVIDED_LANGUAGES
         )
 
+    @override_settings(LANGUAGE_CODE="id")
+    def test_default_language_follows_server_setting(self):
+        response = self.client.get(reverse("wagtailadmin_account"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        option = soup.select_one(
+            'select[name="locale-preferred_language"] option[value=""]'
+        )
+        self.assertIsNotNone(option)
+        self.assertEqual(option.text.strip(), "Use server language: Bahasa Indonesia")
+
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")])
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.get(reverse("wagtailadmin_account"))
