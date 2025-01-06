@@ -712,8 +712,7 @@ Migrate this change by running `python manage.py makemigrations` and `python man
 You can now add authors to the `BlogPage` model, as a many-to-many field. The field type to use for this is `ParentalManyToManyField`. This field is a variation of the standard Django `ManyToManyField` that ensures the selected objects are properly associated with the page record in the revision history. It operates in a similar manner to how `ParentalKey` replaces `ForeignKey` for one-to-many relations. To add authors to the `BlogPage`, modify `models.py` in your blog app folder:
 
 ```python
-# New imports added for forms and ParentalManyToManyField, and MultiFieldPanel
-from django import forms
+# New imports added for ParentalManyToManyField, and MultiFieldPanel
 from django.db import models
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -733,27 +732,28 @@ class BlogPage(Page):
 
     # ... Keep the main_image method and search_fields definition. Modify your content_panels:
     content_panels = Page.content_panels + [
-        MultiFieldPanel(['date', 'authors'], heading="Blog information"),
-    ] + ["intro", "body", "gallery_images"]
+        MultiFieldPanel(["date", "authors"], heading="Blog information"),
+        "intro", "body", "gallery_images"
+    ]
 ```
 
-Here you have used the  `MultiFieldPanel` in `content_panels` to group  the `date` and `Authors` fields together for readability. By doing this, you are creating a single panel object that encapsulates multiple fields within a list or tuple into a single `heading` string. This feature is particularly useful for organizing related fields in the admin interface, making the UI more intuitive for content editors.
+Here you have used the  `MultiFieldPanel` in `content_panels` to group  the `date` and `authors` fields together for readability. By doing this, you are creating a single panel object that encapsulates multiple fields within a list or tuple into a single `heading` string. This feature is particularly useful for organizing related fields in the admin interface, making the UI more intuitive for content editors.
 
 Migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`, and then go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) . Notice that the list of authors is presented as a multiple select box. This is the default representation for a multiple choice field - however, users often find a set of checkboxes to be more familiar and easier to work with.
 
 !["Blog" page, with blog information and authors field](../_static/images/tutorial/ugly-list-of-authors.png)
 
-You can do this by replacing the definition of "authors" in content_panels with a FieldPanel object. FieldPanel("authors") is equivalent to writing "authors", but allows passing additional optional arguments such as widget:
+You can do this by replacing the definition of `"authors"` in content_panels with a `FieldPanel` object. `FieldPanel("authors")` is equivalent to writing `"authors"`, but allows passing additional optional arguments such as `widget`:
 
 ```python
-# New imports added for forms and FieldPanel, ParentalManyToManyField, and MultiFieldPanel
+# New imports added for forms, and FieldPanel
 from django import forms
 from django.db import models
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -762,30 +762,23 @@ class BlogPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
-    # Add this:
     authors = ParentalManyToManyField('blog.Author', blank=True)
 
-    # ... Keep the main_image method and search_fields definition. Modify your content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            'date',
-            FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
+            "date",
+            # Change this:
+            FieldPanel("authors", widget=forms.CheckboxSelectMultiple),
         ], heading="Blog information"),
-            'intro', 'body', 'gallery_images'
-        ]
+        "intro", "body", "gallery_images"
+    ]
 ```
 
-In the preceding model modification, you used the widget keyword argument in the FieldPanel definition to specify a more user-friendly checkbox-based widget instead of the default list.
+In the preceding model modification, you used the `widget` keyword argument on the `FieldPanel` definition to specify a more user-friendly checkbox-based widget instead of the default list. Now go to your admin interface and you should see the author list displayed as a checklist.
 
-```{note}
- A plain string in a panel definition is equivalent to a FieldPanel or InlinePanel with no arguments. check [panel](https://docs.wagtail.org/en/stable/reference/pages/panels.html) documentation
-```
+!["Blog" page, with authors presented as a checklist](../_static/images/tutorial/author-list-beautify.png)
 
-Migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`. After migrating your database, go to your admin interface and you should see the author list now being a checklist.
-
-!["Blog" page, with blog information and authors field](../_static/images/tutorial/author-list-beautify.png)
-
-Update the `blog_page.html` template to display the Authors:
+Update the `blog_page.html` template to display the authors:
 
 ```html+django
 {% block content %}
@@ -823,7 +816,7 @@ Update the `blog_page.html` template to display the Authors:
 {% endblock %}
 ```
 
-Now go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface), in the [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar), you can see the new **Snippets** option. Click this to create your authors. After creating your authors, go to your blog posts and add authors to them. Clicking on your blog posts from your blog index page should now give you a page similar to this image:
+Add some authors to your blog posts, and publish them. Clicking on your blog posts from your blog index page should now give you a page similar to this image:
 
 !["Second Post" page, with title, date, authors, intro, body, and a gallery of three images](../_static/images/tutorial/tutorial_10.png)
 
@@ -874,13 +867,13 @@ class BlogPage(Page):
     # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            'date',
-            FieldPanel('authors', widget=forms.CheckboxSelectMultiple),
+            "date",
+            FieldPanel("authors", widget=forms.CheckboxSelectMultiple),
 
             # Add this:
-            'tags',
+            "tags",
         ], heading="Blog information"),
-            'intro', 'body', 'gallery_images'
+            "intro", "body", "gallery_images"
         ]
 ```
 
