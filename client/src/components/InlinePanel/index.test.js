@@ -30,6 +30,7 @@ describe('InlinePanel', () => {
         <p>Form for inline child</p>
         <button type="button" data-inline-panel-child-move-up>Move up</button>
         <button type="button" data-inline-panel-child-move-down>Move down</button>
+        <button type="button" data-inline-panel-child-drag>Drag</button>
         <button type="button" id="id_${childPrefix}-DELETE-button">Delete</button>
         <input type="hidden" name="${childPrefix}-ORDER" id="id_${childPrefix}-ORDER">
         <input type="hidden" name="${childPrefix}-DELETE" id="id_${childPrefix}-DELETE">
@@ -115,5 +116,30 @@ describe('InlinePanel', () => {
     ).toHaveLength(1);
 
     expect(handleRemovedEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it('updates order values after drag-and-drop', () => {
+    const addBtn = document.getElementById('id_person_cafe_relationship-ADD');
+    addBtn.click();
+    addBtn.click();
+
+    // Simulate drag-and-drop by manually moving an element.
+    const forms = document.querySelectorAll(
+      '[data-inline-panel-child]:not(.deleted)',
+    );
+    forms[0].parentElement.insertBefore(forms[0], forms[2]);
+    panel.handleDragEnd({ oldIndex: 0, newIndex: 2 });
+
+    expect(
+      Array.from(
+        document.querySelectorAll(
+          '[data-inline-panel-child]:not(.deleted) [name$="-ORDER"]',
+        ),
+      ).map((field) => [field.name, field.value]),
+    ).toEqual([
+      ['person_cafe_relationship-2-ORDER', '1'],
+      ['person_cafe_relationship-1-ORDER', '2'],
+      ['person_cafe_relationship-3-ORDER', '3'],
+    ]);
   });
 });
