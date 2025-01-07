@@ -1,6 +1,7 @@
 import hashlib
 import pickle
 import unittest
+import warnings
 from io import BytesIO
 from pathlib import Path
 
@@ -27,6 +28,7 @@ from wagtail.coreutils import (
     string_to_ascii,
 )
 from wagtail.models import Page, Site
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.file import hash_filelike
 from wagtail.utils.utils import deep_update, flatten_choices
 from wagtail.utils.version import get_main_version
@@ -615,4 +617,24 @@ class TestFlattenChoices(SimpleTestCase):
                 "tennis": "Tennis",
                 "unknown": "Unknown",
             },
+        )
+
+
+class TestWidgetWithScript(TestCase):
+    def test_deprecation(self):
+        message = "The usage of `WidgetWithScript` hook is deprecated. Use external scripts instead."
+
+        with unittest.mock.patch("warnings.warn", wraps=warnings.warn) as warn_mock:
+            with self.assertWarnsMessage(RemovedInWagtail70Warning, message):
+                from wagtail.utils.widgets import WidgetWithScript
+
+                class MyWidget(WidgetWithScript):
+                    pass
+
+        # Make sure warn was called with stacklevel=3, so the actual caller
+        # that imports WidgetWithScript is shown in the warning message
+        warn_mock.assert_called_with(
+            message,
+            category=RemovedInWagtail70Warning,
+            stacklevel=3,
         )

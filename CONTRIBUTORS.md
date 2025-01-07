@@ -864,6 +864,7 @@
 * Guilhem Saurel
 * James Harrington
 * Unyime Emmanuel Udoh
+* Joren Hammudoglu
 
 ## Translators
 

@@ -43,6 +43,7 @@ Changelog
  * Fix: Add `aria-expanded` attribute to new column button on `TypedTableBlock` to reflect menu state (Ayaan Qadri, Scott Cranfill)
  * Fix: Allow page models to extend base `Page` panel definitions without importing `wagtail.admin` (Matt Westcott)
  * Fix: Fix crash when loading the dashboard with only the "unlock" or "bulk delete" page permissions (Unyime Emmanuel Udoh, Sage Abdullah)
+ * Fix: Improve deprecation warning for `WidgetWithScript` by raising it with `stacklevel=3` (Joren Hammudoglu)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
