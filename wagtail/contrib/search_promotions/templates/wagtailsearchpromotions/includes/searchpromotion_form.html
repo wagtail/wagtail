@@ -7,6 +7,7 @@
     {% fragment as header_controls %}
         <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-up>{% icon name="arrow-up" %}{% trans "Move up" %}</button>
         <button type="button" class="button button--icon text-replace" data-inline-panel-child-move-down>{% icon name="arrow-down" %}{% trans "Move down" %}</button>
+        <button type="button" class="button button--icon text-replace" data-inline-panel-child-drag>{% icon name="grip" %}{% trans "Drag" %}</button>
         <button type="button" class="button button--icon text-replace" id="{{ form.DELETE.id_for_label }}-button">{% icon name="bin" %}{% trans "Delete" %}</button>
     {% endfragment %}
 
