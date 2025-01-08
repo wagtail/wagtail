@@ -87,6 +87,10 @@ $preview-size: 2.625rem; // 42px
 .w-field--admin_page_chooser,
 .w-field--document_chooser_widget,
 .w-field--admin_image_chooser,
-.w-field--admin_snippet_chooser {
+.w-field--admin_snippet_chooser,
+.w-field--admin_date_time_input,
+.w-field--admin_date_input,
+.w-field--admin_time_input,
+.w-field--typed_choice_field {
   display: inline-block;
 }
