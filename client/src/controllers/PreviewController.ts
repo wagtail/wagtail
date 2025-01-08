@@ -1,5 +1,3 @@
-import axe from 'axe-core';
-
 import { Controller } from '@hotwired/stimulus';
 import type { ContextObject } from 'axe-core';
 import {
@@ -19,6 +17,7 @@ import type { ProgressController } from './ProgressController';
 import { setOptionalInterval } from '../utils/interval';
 
 const runContentChecks = async () => {
+  const axe = await import('axe-core');
   axe.registerPlugin(wagtailPreviewPlugin);
 
   const contentMetrics = await getPreviewContentMetrics({

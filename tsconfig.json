@@ -14,7 +14,8 @@
     "skipLibCheck": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "target": "ES2023"
+    "target": "ES2023",
+    "module": "ES2022"
   },
   "files": [
     "client/src/index.ts",

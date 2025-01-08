@@ -1,4 +1,4 @@
-import axe from 'axe-core';
+import type { AxePlugin } from 'axe-core';
 import { ngettext } from '../utils/gettext';
 
 export const getWordCount = (lang: string, text: string): number => {
@@ -79,11 +79,12 @@ export const contentMetricsPluginInstance = {
  * Calls the `getMetrics` method in the `metrics` plugin instance of the `wagtailPreview` registry.
  * Wrapped in a promise so we can use async/await syntax instead of callbacks
  */
-export const getPreviewContentMetrics = (
+export const getPreviewContentMetrics = async (
   options: ContentMetricsOptions,
-): Promise<ContentMetrics> =>
-  new Promise((resolve) => {
-    axe.plugins.wagtailPreview.run(
+): Promise<ContentMetrics> => {
+  const axe = await import('axe-core');
+  return new Promise((resolve) => {
+    (axe.plugins.wagtailPreview as AxePlugin).run(
       'metrics',
       'getMetrics',
       options,
@@ -92,6 +93,7 @@ export const getPreviewContentMetrics = (
       },
     );
   });
+};
 
 export const renderContentMetrics = ({
   wordCount,

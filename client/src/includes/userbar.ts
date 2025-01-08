@@ -1,5 +1,3 @@
-import axe from 'axe-core';
-
 import A11yDialog from 'a11y-dialog';
 import { Application } from '@hotwired/stimulus';
 import {
@@ -309,6 +307,7 @@ export class Userbar extends HTMLElement {
 
   // Initialise Axe
   async initialiseAxe() {
+    const axe = await import('axe-core');
     // Collect content data from the live preview via Axe plugin for content metrics calculation
     axe.registerPlugin(wagtailPreviewPlugin);
     axe.plugins.wagtailPreview.add(contentMetricsPluginInstance);
