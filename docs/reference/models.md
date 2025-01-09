@@ -437,6 +437,11 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: copy
 
+    .. method:: move(new_parent, pos=None)
+
+        Move a page and all its decendants to a new parent.
+        See (django-treebeard)[https://django-treebeard.readthedocs.io/en/latest/api.html#treebeard.models.Node.move] for more information
+
     .. automethod:: create_alias
 
     .. automethod:: update_aliases
