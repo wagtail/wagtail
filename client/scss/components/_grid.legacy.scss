@@ -24,6 +24,8 @@
 
   @include media-breakpoint-up(sm) {
     scroll-padding-top: calc(theme('spacing.slim-header') + $gap);
+    // Increase the scroll offset to account for pages with sticky bottom button
+    scroll-padding-bottom: 100px;
   }
 }
 
