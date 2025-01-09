@@ -336,6 +336,7 @@ class TypedTableBlockAdapter(Adapter):
             "required": block.required,
             "icon": block.meta.icon,
             "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "strings": {
                 "CAPTION": _("Caption"),
                 "CAPTION_HELP_TEXT": _(

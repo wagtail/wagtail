@@ -82,7 +82,7 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         )
         self.user.save()
 
-        block = blocks.CharBlock()
+        block = blocks.CharBlock(preview_value="Hello, world!")
         response = self.get(block)
         self.assertEqual(response.status_code, 200)
 
@@ -93,7 +93,7 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         main = soup.select_one("main")
         self.assertIsNotNone(main)
-        self.assertEqual(main.text.strip(), "None")
+        self.assertEqual(main.text.strip(), "Preview not available")
 
     def test_preview_value_falls_back_to_default(self):
         block = blocks.IntegerBlock(default=42)

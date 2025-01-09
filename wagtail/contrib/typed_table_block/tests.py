@@ -239,6 +239,7 @@ class TestTableBlock(TestCase):
                 "required": False,
                 "icon": "table",
                 "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "strings": {
                     "CAPTION": "Caption",
                     "CAPTION_HELP_TEXT": (
