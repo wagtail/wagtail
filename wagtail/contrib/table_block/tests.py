@@ -573,6 +573,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
                 "required": True,
                 "icon": "table",
                 "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--table_input",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},

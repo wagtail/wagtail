@@ -293,6 +293,25 @@ class Block(metaclass=BaseBlock):
             return self.normalize(self.meta.preview_value)
         return self.get_default()
 
+    @cached_property
+    def is_previewable(self):
+        # To prevent showing a broken preview if the block preview has not been
+        # configured, consider the block to be previewable if either:
+        # - a preview template, preview value, or default value is defined
+        # - a preview method is overridden
+        # which are the intended ways to configure block previews.
+        #
+        # If a block is made previewable by other means, the `is_previewable`
+        # property should be overridden to return `True`.
+        return (
+            hasattr(self.meta, "preview_template")
+            or hasattr(self.meta, "preview_value")
+            or getattr(self.meta, "default", None) is not None
+            or self.__class__.get_preview_context is not Block.get_preview_context
+            or self.__class__.get_preview_template is not Block.get_preview_template
+            or self.__class__.get_preview_value is not Block.get_preview_value
+        )
+
     def get_description(self):
         return getattr(self.meta, "description", "")
 

@@ -452,6 +452,7 @@ class ListBlockAdapter(Adapter):
             "description": block.get_description(),
             "icon": block.meta.icon,
             "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
             "collapsed": block.meta.collapsed,
             "strings": {
