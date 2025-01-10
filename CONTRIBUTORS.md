@@ -866,6 +866,7 @@
 * Unyime Emmanuel Udoh
 * Joren Hammudoglu
 * Rishabh Sharma
+* Mike Gifford
 
 ## Translators
 
