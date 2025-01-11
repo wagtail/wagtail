@@ -30,6 +30,11 @@ class CustomImage(AbstractImage):
         # 'caption',
     )
 
+    @property
+    def default_alt_text(self):
+        # Force editors to add specific alt text if description is empty.
+        # Do not use image title which is typically derived from file name.
+        return getattr(self, "description", None)
 
 class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
