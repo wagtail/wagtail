@@ -79,7 +79,7 @@ def get_text_for_indexing(richtext):
 
 
 def clear_input_from_scripts(input_value):
-    value_as_html = BeautifulSoup(str(input_value), "html")
+    value_as_html = BeautifulSoup(str(input_value), 'html')
     for element in value_as_html.find_all(["script", "svg"]):
         element.decompose()
 
