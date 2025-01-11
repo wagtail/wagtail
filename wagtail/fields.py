@@ -15,6 +15,7 @@ from wagtail.rich_text import (
     RichTextMaxLengthValidator,
     extract_references_from_rich_text,
     get_text_for_indexing,
+    clear_input_from_scripts,
 )
 
 
@@ -34,6 +35,11 @@ class RichTextField(models.TextField):
         kwargs["features"] = self.features
         kwargs["editor"] = self.editor
         return self.__class__(*args, **kwargs)
+
+    def clean(self, value, model_instance):
+        validated_value = super().clean(value, model_instance)
+        cleaned_xml_value = clear_input_from_scripts(validated_value)
+        return cleaned_xml_value
 
     def formfield(self, **kwargs):
         from wagtail.admin.rich_text import get_rich_text_editor_widget

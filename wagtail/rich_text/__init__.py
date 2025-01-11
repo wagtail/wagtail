@@ -1,4 +1,5 @@
 import re
+from bs4 import BeautifulSoup
 from functools import lru_cache
 from html import unescape
 
@@ -75,6 +76,31 @@ def get_text_for_indexing(richtext):
     # also insert space after <br /> and <hr />
     richtext = re.sub(r"(<(br|hr)\s*/>)", r"\1 ", richtext, flags=re.IGNORECASE)
     return unescape(strip_tags(richtext).strip())
+
+
+def clear_input_from_scripts(input_value):
+    value_as_html = BeautifulSoup(str(input_value), "html")
+    for element in value_as_html.find_all(["script", "svg"]):
+        element.decompose()
+
+    for element in value_as_html.find_all(True):
+        copy_attrs = element.attrs.copy()
+
+        for attr in element.attrs:
+            att_name = attr.lower()
+
+            if att_name.startswith('on'):
+                del copy_attrs[attr]
+
+            if att_name == "href" or att_name == "src":
+                if element[attr].lower().startswith('javascript:'):
+                    del copy_attrs[attr]
+
+        element.attrs = copy_attrs
+
+    cleaned_value = RichText(value_as_html.prettify())
+
+    return cleaned_value
 
 
 class RichText:
