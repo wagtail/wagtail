@@ -133,6 +133,8 @@ export class ListBlock extends BaseSequenceBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    this.initDragNDrop();
   }
 
   /**
