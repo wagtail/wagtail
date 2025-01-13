@@ -224,6 +224,8 @@ export class StreamBlock extends BaseSequenceBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    this.initDragNDrop();
   }
 
   getBlockGroups() {
