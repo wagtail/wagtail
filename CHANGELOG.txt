@@ -1,6 +1,11 @@
 Changelog
 =========
 
+6.3.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+* Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+
 6.3.2 (02.01.2025)
 ~~~~~~~~~~~~~~~~~~
 
