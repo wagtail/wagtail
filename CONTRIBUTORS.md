@@ -849,6 +849,7 @@
 * Sumana Sree Angajala
 * Ayaan Qadri
 * Clifford Gama
+* Rishabh Sharma
 
 ## Translators
 
