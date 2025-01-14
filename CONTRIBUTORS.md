@@ -865,6 +865,7 @@
 * James Harrington
 * Unyime Emmanuel Udoh
 * Joren Hammudoglu
+* Rishabh Sharma
 
 ## Translators
 
