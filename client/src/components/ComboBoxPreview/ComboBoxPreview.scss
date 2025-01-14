@@ -3,11 +3,12 @@
   display: grid;
   grid-template-rows: 6fr 4fr;
   gap: theme('spacing.5');
+  min-height: 0;
   background-color: theme('colors.surface-header');
   border-block-start: 1px solid theme('colors.border-furniture');
   border-end-end-radius: inherit;
   border-end-start-radius: inherit;
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     border-block-start: 0;
     border-start-end-radius: inherit;
     border-end-start-radius: 0;
@@ -28,6 +29,10 @@
   @include more-contrast() {
     border-color: theme('colors.border-furniture-more-contrast');
   }
+}
+
+.w-combobox-preview__details {
+  overflow: auto;
 }
 
 .w-combobox-preview__label {

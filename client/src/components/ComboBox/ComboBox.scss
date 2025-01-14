@@ -10,16 +10,28 @@ $spacing-sm: theme('spacing.5');
 
   display: grid;
   grid-template-columns: 1fr;
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     grid-template-columns: min(400px, 80vw) 1fr;
   }
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: min(512px, 80vw) 1fr;
+  }
 
-  min-height: min(320px, 70vh);
+  width: max-content;
+  max-width: min(1024px, 75vw);
+  max-height: min(768px, 75vh);
   background: theme('colors.surface-page');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
   box-shadow: theme('boxShadow.md');
   outline: 10px solid transparent;
+
+  // Only apply min-height if at least one block has a preview.
+  // We don't target `.w-combobox-preview` as the preview component only renders
+  // when a preview is present.
+  &:has(.w-combobox__option-preview) {
+    min-height: min(320px, 70vh);
+  }
 }
 
 .w-combobox__field {
