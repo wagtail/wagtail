@@ -120,6 +120,7 @@ Changelog
  * Maintenance: Enable breadcrumbs by default on admin views using generic templates (Sage Abdullah)
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
+ * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
 6.3.2 (02.01.2025)
