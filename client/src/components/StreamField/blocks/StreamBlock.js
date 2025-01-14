@@ -124,6 +124,7 @@ class StreamBlockMenu extends BaseInsertionControl {
         description: blockDef.meta.description,
         icon: blockDef.meta.icon,
         blockDefId: blockDef.meta.blockDefId,
+        isPreviewable: blockDef.meta.isPreviewable,
       }));
 
       return {

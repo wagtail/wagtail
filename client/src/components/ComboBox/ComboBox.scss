@@ -77,6 +77,31 @@ $spacing-sm: theme('spacing.5');
   }
 }
 
+.w-combobox__option-row {
+  display: grid;
+  grid-template-columns: 1fr theme('spacing.6');
+}
+
+.w-combobox__option-preview {
+  background: none;
+  padding: 0;
+  width: 100%;
+
+  .icon {
+    color: theme('colors.icon-secondary');
+    width: theme('spacing.3');
+    height: theme('spacing.3');
+  }
+}
+
+.w-combobox__option-row--col1 {
+  grid-column: 1 / span 1;
+}
+
+.w-combobox__option-row--col2 {
+  grid-column: 2 / span 1;
+}
+
 .w-combobox__option {
   display: grid;
   grid-template-columns: theme('spacing.8') 1fr;
@@ -98,14 +123,6 @@ $spacing-sm: theme('spacing.5');
       color: HighlightText;
     }
   }
-}
-
-.w-combobox__option--col1 {
-  grid-column: 1 / span 1;
-}
-
-.w-combobox__option--col2 {
-  grid-column: 2 / span 1;
 }
 
 .w-combobox__option-icon {
