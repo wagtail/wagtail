@@ -10,6 +10,7 @@ import findMatches from './findMatches';
 export const comboBoxTriggerLabel = gettext('Insert a block');
 export const comboBoxLabel = gettext('Search options…');
 export const comboBoxNoResults = gettext('No results');
+const comboBoxPreviewLabel = gettext('Preview');
 
 export interface ComboBoxCategory<ItemType> {
   type: string;
@@ -23,6 +24,7 @@ export interface ComboBoxItem {
   description?: string | null;
   icon?: string | JSX.Element | null;
   blockDefId?: string;
+  isPreviewable?: boolean;
   category?: string;
   render?: (props: { option: ComboBoxItem }) => JSX.Element | string;
 }
@@ -183,7 +185,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     setLastHighlightedIndex(highlightedIndex);
   }
 
-  const selectedBlock =
+  const previewedBlock =
     inputItems[highlightedIndex] || inputItems[lastHighlightedIndex];
 
   return (
@@ -257,21 +259,36 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                   return (
                     <div
                       key={item.type}
-                      {...getItemProps({ item, index: itemIndex })}
-                      className={`w-combobox__option w-combobox__option--col${itemColumn}`}
+                      className={`w-combobox__option-row w-combobox__option-row--col${itemColumn}`}
                     >
-                      <div className="w-combobox__option-icon">
-                        {icon}
-                        {/* Support for rich text options using text as an icon (for example "B" for bold). */}
-                        {itemLabel && !hasIcon ? (
-                          <span>{itemLabel}</span>
-                        ) : null}
+                      <div
+                        {...getItemProps({ item, index: itemIndex })}
+                        className="w-combobox__option"
+                      >
+                        <div className="w-combobox__option-icon">
+                          {icon}
+                          {/* Support for rich text options using text as an icon (for example "B" for bold). */}
+                          {itemLabel && !hasIcon ? (
+                            <span>{itemLabel}</span>
+                          ) : null}
+                        </div>
+                        <div className="w-combobox__option-text">
+                          {item.render
+                            ? item.render({ option: item })
+                            : description}
+                        </div>
                       </div>
-                      <div className="w-combobox__option-text">
-                        {item.render
-                          ? item.render({ option: item })
-                          : description}
-                      </div>
+
+                      {item.isPreviewable ? (
+                        <button
+                          className="w-combobox__option-preview"
+                          aria-label={comboBoxPreviewLabel}
+                          type="button"
+                          onClick={() => setHighlightedIndex(itemIndex)}
+                        >
+                          <Icon name="view" />
+                        </button>
+                      ) : null}
                     </div>
                   );
                 })}
@@ -280,7 +297,12 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
           })}
         </div>
       </div>
-      {selectedBlock ? <ComboBoxPreview item={selectedBlock} /> : null}
+      {previewedBlock?.isPreviewable ? (
+        <ComboBoxPreview
+          item={previewedBlock}
+          previewLabel={comboBoxPreviewLabel}
+        />
+      ) : null}
     </div>
   );
 }

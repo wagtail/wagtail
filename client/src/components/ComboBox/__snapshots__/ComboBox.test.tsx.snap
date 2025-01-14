@@ -53,134 +53,154 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
           Blocks
         </div>
         <div
-          aria-selected="false"
-          className="w-combobox__option w-combobox__option--col1"
-          id="downshift-1-item-0"
+          className="w-combobox__option-row w-combobox__option-row--col1"
           key="blockquote"
-          onClick={[Function]}
-          onMouseDown={[Function]}
-          onMouseMove={[Function]}
-          role="option"
         >
           <div
-            className="w-combobox__option-icon"
+            aria-selected="false"
+            className="w-combobox__option"
+            id="downshift-1-item-0"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
           >
-            <Icon
-              name="blockquote"
-            />
-          </div>
-          <div
-            className="w-combobox__option-text"
-          >
-            Blockquote
+            <div
+              className="w-combobox__option-icon"
+            >
+              <Icon
+                name="blockquote"
+              />
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Blockquote
+            </div>
           </div>
         </div>
         <div
-          aria-selected="false"
-          className="w-combobox__option w-combobox__option--col1"
-          id="downshift-1-item-1"
+          className="w-combobox__option-row w-combobox__option-row--col1"
           key="paragraph"
-          onClick={[Function]}
-          onMouseDown={[Function]}
-          onMouseMove={[Function]}
-          role="option"
         >
           <div
-            className="w-combobox__option-icon"
+            aria-selected="false"
+            className="w-combobox__option"
+            id="downshift-1-item-1"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
           >
-            <span
-              className="my-icon"
+            <div
+              className="w-combobox__option-icon"
             >
-              P
-            </span>
-          </div>
-          <div
-            className="w-combobox__option-text"
-          >
-            Paragraph
+              <span
+                className="my-icon"
+              >
+                P
+              </span>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Paragraph
+            </div>
           </div>
         </div>
         <div
-          aria-selected="false"
-          className="w-combobox__option w-combobox__option--col1"
-          id="downshift-1-item-2"
+          className="w-combobox__option-row w-combobox__option-row--col1"
           key="heading-one"
-          onClick={[Function]}
-          onMouseDown={[Function]}
-          onMouseMove={[Function]}
-          role="option"
         >
           <div
-            className="w-combobox__option-icon"
+            aria-selected="false"
+            className="w-combobox__option"
+            id="downshift-1-item-2"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
           >
-            <Icon
-              name="custom"
-              viewBox="0 0 1024 1024"
+            <div
+              className="w-combobox__option-icon"
             >
-              <path
-                d="M 83.625 "
-                key="M 83.625 "
-              />
-              <path
-                d="L 232.535156 "
-                key="L 232.535156 "
-              />
-            </Icon>
-          </div>
-          <div
-            className="w-combobox__option-text"
-          >
-            Heading 1
+              <Icon
+                name="custom"
+                viewBox="0 0 1024 1024"
+              >
+                <path
+                  d="M 83.625 "
+                  key="M 83.625 "
+                />
+                <path
+                  d="L 232.535156 "
+                  key="L 232.535156 "
+                />
+              </Icon>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Heading 1
+            </div>
           </div>
         </div>
         <div
-          aria-selected="false"
-          className="w-combobox__option w-combobox__option--col2"
-          id="downshift-1-item-3"
+          className="w-combobox__option-row w-combobox__option-row--col2"
           key="heading-two"
-          onClick={[Function]}
-          onMouseDown={[Function]}
-          onMouseMove={[Function]}
-          role="option"
         >
           <div
-            className="w-combobox__option-icon"
+            aria-selected="false"
+            className="w-combobox__option"
+            id="downshift-1-item-3"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
           >
-            <span>
-              H2
-            </span>
-          </div>
-          <div
-            className="w-combobox__option-text"
-          >
-            <span
-              className="custom-text"
+            <div
+              className="w-combobox__option-icon"
             >
-              H2
-            </span>
+              <span>
+                H2
+              </span>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              <span
+                className="custom-text"
+              >
+                H2
+              </span>
+            </div>
           </div>
         </div>
         <div
-          aria-selected="false"
-          className="w-combobox__option w-combobox__option--col2"
-          id="downshift-1-item-4"
+          className="w-combobox__option-row w-combobox__option-row--col2"
           key="link"
-          onClick={[Function]}
-          onMouseDown={[Function]}
-          onMouseMove={[Function]}
-          role="option"
         >
           <div
-            className="w-combobox__option-icon"
+            aria-selected="false"
+            className="w-combobox__option"
+            id="downshift-1-item-4"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+            onMouseMove={[Function]}
+            role="option"
           >
-            <span>
-              🔗
-            </span>
-          </div>
-          <div
-            className="w-combobox__option-text"
-          >
-            Link
+            <div
+              className="w-combobox__option-icon"
+            >
+              <span>
+                🔗
+              </span>
+            </div>
+            <div
+              className="w-combobox__option-text"
+            >
+              Link
+            </div>
           </div>
         </div>
       </div>

@@ -10,10 +10,12 @@ interface ComboBoxItem {
 
 export interface ComboBoxPreviewProps {
   item: ComboBoxItem;
+  previewLabel: string;
 }
 
 export default function ComboBoxPreview({
   item: { label, description, blockDefId },
+  previewLabel,
 }: ComboBoxPreviewProps) {
   const previewURL = blockDefId
     ? new URL(WAGTAIL_CONFIG.ADMIN_URLS.BLOCK_PREVIEW, window.location.href)
@@ -23,13 +25,15 @@ export default function ComboBoxPreview({
     <div className="w-combobox-preview">
       <iframe
         className="w-combobox-preview__iframe"
-        title="Preview"
+        title={previewLabel}
         src={previewURL?.toString()}
       />
-      <div className="w-combobox-preview__label">{label}</div>
-      {description ? (
-        <p className="w-combobox-preview__description">{description}</p>
-      ) : null}
+      <div className="w-combobox-preview__details">
+        <div className="w-combobox-preview__label">{label}</div>
+        {description ? (
+          <p className="w-combobox-preview__description">{description}</p>
+        ) : null}
+      </div>
     </div>
   );
 }
