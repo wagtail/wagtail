@@ -212,7 +212,6 @@ module.exports = function exports(env, argv) {
             {
               loader: 'sass-loader',
               options: {
-                implementation: require('sass-embedded'),
                 sassOptions: {
                   // Manually set Sass output so it’s identical in production and development. See:
                   // https://github.com/tailwindlabs/tailwindcss/issues/11027
