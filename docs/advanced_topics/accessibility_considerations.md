@@ -153,19 +153,22 @@ from wagtail.admin.userbar import AccessibilityItem
 
 
 class CustomAccessibilityItem(AccessibilityItem):
-    axe_custom_checks = [
-        {
-	    # Flag heading-like paragraphs based only on font weight compared to surroundings.
-            "id": "p-as-heading",
-            "options": {
-                "margins": [
-                    { "weight": 150 },
-                ],
-                "passLength": 1,
-                "failLength": 0.5
+    def get_axe_custom_checks(self, request):
+        checks = super().get_axe_custom_checks(request)
+        # Flag heading-like paragraphs based only on font weight compared to surroundings.
+        checks.append(
+            {
+                "id": "p-as-heading",
+                "options": {
+                    "margins": [
+                        { "weight": 150 },
+                    ],
+                    "passLength": 1,
+                    "failLength": 0.5
+                },
             },
-        },
-    ]
+        )
+        return checks
 
 
 @hooks.register('construct_wagtail_userbar')
