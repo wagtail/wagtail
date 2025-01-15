@@ -20,6 +20,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
     "BaseBlock",
@@ -297,20 +298,27 @@ class Block(metaclass=BaseBlock):
     def is_previewable(self):
         # To prevent showing a broken preview if the block preview has not been
         # configured, consider the block to be previewable if either:
-        # - a preview template, preview value, or default value is defined
-        # - a preview method is overridden
+        # - a specific preview template is configured for the block
+        # - a preview value is provided and the global template has been overridden
         # which are the intended ways to configure block previews.
         #
         # If a block is made previewable by other means, the `is_previewable`
         # property should be overridden to return `True`.
-        return (
+        has_specific_template = (
             hasattr(self.meta, "preview_template")
-            or hasattr(self.meta, "preview_value")
+            or self.__class__.get_preview_template is not Block.get_preview_template
+        )
+        has_preview_value = (
+            hasattr(self.meta, "preview_value")
             or getattr(self.meta, "default", None) is not None
             or self.__class__.get_preview_context is not Block.get_preview_context
-            or self.__class__.get_preview_template is not Block.get_preview_template
             or self.__class__.get_preview_value is not Block.get_preview_value
         )
+        has_global_template = template_is_overridden(
+            "wagtailcore/shared/block_preview.html",
+            "templates",
+        )
+        return has_specific_template or (has_preview_value and has_global_template)
 
     def get_description(self):
         return getattr(self.meta, "description", "")
