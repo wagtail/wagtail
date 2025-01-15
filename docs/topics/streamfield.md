@@ -494,6 +494,22 @@ class EventBlock(blocks.StructBlock):
 
 In this example, the variable `is_happening_today` will be made available within the block template. The `parent_context` keyword argument is available when the block is rendered through an `{% include_block %}` tag, and is a dict of variables passed from the calling template.
 
+Similarly, a `get_template` method can be defined to dynamically select a template based on the block value:
+
+```python
+import datetime
+
+class EventBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    date = blocks.DateBlock()
+
+    def get_template(self, value, context=None):
+        if value['date'] > datetime.date.today():
+            return 'myapp/blocks/future_event.html'
+        else:
+            return 'myapp/blocks/event.html'
+```
+
 All block types, not just `StructBlock`, support the `template` property. However, for blocks that handle basic Python data types, such as `CharBlock` and `IntegerBlock`, there are some limitations on where the template will take effect. For further details, see [](boundblocks_and_values).
 
 ## Customizations
