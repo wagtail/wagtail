@@ -59,6 +59,7 @@ class Block(metaclass=BaseBlock):
     definition_registry = {}
 
     TEMPLATE_VAR = "value"
+    DEFAULT_PREVIEW_TEMPLATE = "wagtailcore/shared/block_preview.html"
 
     class Meta:
         label = None
@@ -287,7 +288,10 @@ class Block(metaclass=BaseBlock):
         #
         # Instead, the default preview template uses `{% include_block %}`,
         # which will use `get_template` if a template is defined.
-        return getattr(self.meta, "preview_template", None)
+        return (
+            getattr(self.meta, "preview_template", None)
+            or self.DEFAULT_PREVIEW_TEMPLATE
+        )
 
     def get_preview_value(self):
         if hasattr(self.meta, "preview_value"):
@@ -315,7 +319,7 @@ class Block(metaclass=BaseBlock):
             or self.__class__.get_preview_value is not Block.get_preview_value
         )
         has_global_template = template_is_overridden(
-            "wagtailcore/shared/block_preview.html",
+            self.DEFAULT_PREVIEW_TEMPLATE,
             "templates",
         )
         return has_specific_template or (has_preview_value and has_global_template)
