@@ -3,6 +3,7 @@ import collections
 import copy
 import json
 import unittest
+import unittest.mock
 from decimal import Decimal
 
 # non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
@@ -75,18 +76,70 @@ class TestBlock(SimpleTestCase):
             def get_preview_value(self):
                 return "foo"
 
+        variants = {
+            "no_config": [
+                blocks.Block(),
+            ],
+            "specific_template": [
+                blocks.Block(preview_template="foo.html"),
+                CustomTemplateBlock(),
+            ],
+            "custom_value": [
+                blocks.Block(preview_value="foo"),
+                blocks.Block(default="bar"),
+                CustomContextBlock(),
+                CustomValueBlock(),
+            ],
+            "specific_template_and_custom_value": [
+                blocks.Block(preview_template="foo.html", preview_value="bar"),
+            ],
+        }
+
+        # Test without a global template override
         cases = [
-            (blocks.Block(), False),
-            (blocks.Block(preview_template="foo.html"), True),
-            (blocks.Block(preview_value="foo"), True),
-            (blocks.Block(default="bar"), True),
-            (CustomContextBlock(), True),
-            (CustomTemplateBlock(), True),
-            (CustomValueBlock(), True),
+            # Unconfigured block should not be previewable
+            ("no_config", False),
+            # Providing a specific preview template should make the block
+            # previewable even without a custom preview value, as the content
+            # may be hardcoded in the template
+            ("specific_template", True),
+            # Providing a preview value without a custom template should not
+            # make the block previewable, as it may be missing the static assets
+            ("custom_value", False),
+            # Providing both a preview template and value also makes the block
+            # previewable, this is the same as providing a custom template only
+            ("specific_template_and_custom_value", True),
         ]
-        for block, is_previewable in cases:
-            with self.subTest(block=block):
-                self.assertEqual(block.is_previewable, is_previewable)
+        for variant, is_previewable in cases:
+            with self.subTest(variant=variant, custom_global_template=False):
+                for block in variants[variant]:
+                    self.assertIs(block.is_previewable, is_previewable)
+
+        # Test with a global template override
+        with unittest.mock.patch(
+            "wagtail.blocks.base.template_is_overridden",
+            return_value=True,
+        ):
+            cases = [
+                # Global template override + no preview value = not previewable,
+                # since it's unlikely the global template alone will provide a
+                # useful preview
+                ("no_config", False),
+                # Unchanged – specific template always makes the block previewable
+                ("specific_template", True),
+                # Global template override + custom preview value = previewable.
+                # We assume the global template will provide the static assets,
+                # and the custom value (and the block's real template via
+                # {% include_block %}) will provide the content.
+                ("custom_value", True),
+                # Unchanged – providing both also makes the block previewable
+                ("specific_template_and_custom_value", True),
+            ]
+            for variant, is_previewable in cases:
+                with self.subTest(variant=variant, custom_global_template=True):
+                    for block in variants[variant]:
+                        del block.is_previewable  # Clear cached_property
+                        self.assertIs(block.is_previewable, is_previewable)
 
 
 class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
