@@ -170,7 +170,7 @@ class PreviewRevision(View):
 
 @method_decorator(xframe_options_sameorigin_override, name="get")
 class StreamFieldBlockPreview(TemplateView):
-    template_name = "wagtailadmin/generic/streamfield_block_preview.html"
+    template_name = "wagtailcore/shared/block_preview.html"
     http_method_names = ("get",)
 
     @cached_property
