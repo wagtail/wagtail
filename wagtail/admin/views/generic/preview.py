@@ -170,7 +170,6 @@ class PreviewRevision(View):
 
 @method_decorator(xframe_options_sameorigin_override, name="get")
 class StreamFieldBlockPreview(TemplateView):
-    template_name = "wagtailcore/shared/block_preview.html"
     http_method_names = ("get",)
 
     @cached_property
@@ -207,12 +206,7 @@ class StreamFieldBlockPreview(TemplateView):
         }
 
     def get_template_names(self):
-        templates = [self.template_name]
-        if preview_template := self.block_def.get_preview_template(
-            self.block_value, self.base_context
-        ):
-            templates.insert(0, preview_template)
-        return templates
+        return self.block_def.get_preview_template(self.block_value, self.base_context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
