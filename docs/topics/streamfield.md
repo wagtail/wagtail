@@ -504,10 +504,10 @@ class EventBlock(blocks.StructBlock):
     date = blocks.DateBlock()
 
     def get_template(self, value, context=None):
-        if value['date'] > datetime.date.today():
-            return 'myapp/blocks/future_event.html'
+        if value["date"] > datetime.date.today():
+            return "myapp/blocks/future_event.html"
         else:
-            return 'myapp/blocks/event.html'
+            return "myapp/blocks/event.html"
 ```
 
 All block types, not just `StructBlock`, support the `template` property. However, for blocks that handle basic Python data types, such as `CharBlock` and `IntegerBlock`, there are some limitations on where the template will take effect. For further details, see [](boundblocks_and_values).
