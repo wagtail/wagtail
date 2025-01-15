@@ -16,6 +16,7 @@ import logging
 import posixpath
 import uuid
 from io import StringIO
+from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
 from warnings import warn
 
@@ -39,7 +40,10 @@ from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
-from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed
+from django.http import Http404, HttpResponse, HttpResponseNotAllowed
+
+# HACK: Sphinx trips up on type annotations referencing HttpRequest if it is imported under its standard name
+from django.http import HttpRequest as DjangoHttpRequest
 from django.http.request import validate_host
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
@@ -132,6 +136,9 @@ from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest
 
 logger = logging.getLogger("wagtail")
 
@@ -2253,7 +2260,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         site_id, root_path, root_url, language_code = possible_sites[0]
 
         unique_site_ids = {values[0] for values in possible_sites}
-        if len(unique_site_ids) > 1 and isinstance(request, HttpRequest):
+        if len(unique_site_ids) > 1 and isinstance(request, DjangoHttpRequest):
             # The page somehow belongs to more than one site (rare, but possible).
             # If 'request' is indeed a HttpRequest, use it to identify the 'current'
             # site and prefer an option matching that (where present).
