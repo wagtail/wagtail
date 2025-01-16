@@ -82,6 +82,15 @@ class OrderingColumn(BaseColumn):
     cell_template_name = "wagtailadmin/pages/listing/_ordering_cell.html"
 
 
+class PageTypeColumn(Column):
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        # Cannot order by page type while searching, due to
+        # https://github.com/wagtail/wagtail/issues/6616
+        context["is_orderable"] = not parent_context.get("is_searching")
+        return context
+
+
 class NavigateToChildrenColumn(BaseColumn):
     cell_template_name = "wagtailadmin/pages/listing/_navigation_explore.html"
 
