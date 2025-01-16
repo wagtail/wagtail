@@ -6041,7 +6041,7 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
 
         warning = checks.Warning(
             "StandardSnippet.content_panels will have no effect on snippets editing",
-            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels`\
+            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no\
  Content tab for the content_panels to render in.""",

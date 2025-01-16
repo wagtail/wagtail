@@ -867,6 +867,7 @@
 * Joren Hammudoglu
 * Rishabh Sharma
 * Mike Gifford
+* Stéphane Blondon
 
 ## Translators
 
