@@ -121,6 +121,9 @@ jobs:
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
+            install_extras: |
+              pip uninstall -y django-modelcluster
+              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
