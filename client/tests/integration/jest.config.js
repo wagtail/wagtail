@@ -3,4 +3,7 @@ module.exports = {
   globalTeardown: './teardown.js',
   testEnvironment: './PuppeteerEnvironment.js',
   setupFilesAfterEnv: ['expect-puppeteer', '@wordpress/jest-puppeteer-axe'],
+  fakeTimers: {
+    enableGlobally: true,
+  },
 };
