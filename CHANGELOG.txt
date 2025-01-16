@@ -88,6 +88,7 @@ Changelog
  * Docs: Separate virtual environment creation and activation steps in tutorial (Ankit Kumar)
  * Docs: Update tutorial to use plain strings in place of `FieldPanel` / `InlinePanel` where appropriate (Unyime Emmanuel Udoh)
  * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
+ * Docs: Document `get_template` method on StreamField blocks (Matt Westcott)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
