@@ -1,13 +1,6 @@
 Changelog
 =========
 
-6.3.3 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~
-
-* Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
-* Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
-* Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
-
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
@@ -127,6 +120,14 @@ Changelog
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+
+6.3.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+* Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+* Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
+* Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
 
 
 6.3.2 (02.01.2025)
