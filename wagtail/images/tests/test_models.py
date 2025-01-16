@@ -2,6 +2,7 @@ import unittest
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.core import checks
 from django.core.cache import caches
 from django.core.files import File
 from django.core.files.storage import Storage, default_storage, storages
@@ -23,6 +24,7 @@ from wagtail.images.models import (
 from wagtail.images.rect import Rect
 from wagtail.models import Collection, GroupCollectionPermission, Page, ReferenceIndex
 from wagtail.test.testapp.models import (
+    CustomRendition,
     EventPage,
     EventPageCarouselItem,
     ReimportedImageModel,
@@ -519,6 +521,37 @@ class TestRenditions(TestCase):
 
     def test_get_rendition_model(self):
         self.assertIs(Image.get_rendition_model(), Rendition)
+
+    def test_stock_rendition_contains_unique_together_constraint(self):
+        self.assertEqual([], Rendition.check())
+
+    def test_custom_rendition_may_have_unique_constraint(self):
+        self.assertEqual([], CustomRendition.check())
+
+    def test_custom_rendition_without_unique_constraint_raises_error(self):
+        custom_rendition_constraints = CustomRendition._meta.constraints
+        try:
+            CustomRendition._meta.constraints = []
+            errors = CustomRendition.check()
+        finally:
+            CustomRendition._meta.constraints = custom_rendition_constraints
+
+        self.assertEqual(CustomRendition._meta.unique_together, ())
+        self.assertEqual(len(errors), 1)
+        self.assertIsInstance(errors[0], checks.Error)
+        self.assertEqual(errors[0].id, "wagtailimages.E001")
+        self.assertEqual(errors[0].obj, CustomRendition)
+        self.assertEqual(
+            errors[0].msg,
+            "Custom rendition model 'tests.CustomRendition' must include a unique "
+            "constraint on the 'image', 'filter_spec', and 'focal_point_key' fields.",
+        )
+        self.assertEqual(
+            errors[0].hint,
+            "Add models.UniqueConstraint(fields={"
+            '"image", "filter_spec", "focal_point_key"}, '
+            'name="unique_rendition") to CustomRendition.Meta.constraints.',
+        )
 
     def test_minification(self):
         rendition = self.image.get_rendition("width-400")
