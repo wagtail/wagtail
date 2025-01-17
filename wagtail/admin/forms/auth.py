@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import PasswordChangeForm as DjangoPasswordChangeForm
 from django.contrib.auth.forms import PasswordResetForm as DjangoPasswordResetForm
 from django.utils.translation import gettext_lazy
-
+from django.contrib.auth import authenticate
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=254, widget=forms.TextInput())
@@ -25,6 +25,17 @@ class LoginForm(AuthenticationForm):
             "Your %(username_field)s and password didn't match. Please try again."
         ),
     }
+
+
+def validate_login(email, password):
+    if not email or '@' not in email:
+        return {"success": False, "error": "Invalid email format"}
+    if len(password) < 8:
+        return {"success": False, "error": "Password must be at least 8 characters"}
+    user = authenticate(username=email, password=password)
+    if user is None:
+        return {"success": False, "error": "Invalid email or password"}
+    return {"success": True}
 
     def __init__(self, request=None, *args, **kwargs):
         super().__init__(request=request, *args, **kwargs)

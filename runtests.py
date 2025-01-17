@@ -24,6 +24,7 @@ def make_parser():
     parser.add_argument("--emailuser", action="store_true")
     parser.add_argument("--disabletimezone", action="store_true")
     parser.add_argument("--bench", action="store_true")
+    parser.add_argument("--testeptoss", action="store_true")
     return parser
 
 
@@ -75,7 +76,8 @@ def runtests():
 
     if args.disabletimezone:
         os.environ["DISABLE_TIMEZONE"] = "1"
-
+    if args.testeptoss:
+        argv = [sys.argv[0], "test", "wagtail.admin.tests.test_login"] + rest
     if args.bench:
         benchmarks = [
             "wagtail.admin.tests.benches",
