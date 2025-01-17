@@ -4,15 +4,19 @@ from django.conf import settings
 from django.core import checks
 from django.db import models
 from django.test import TestCase, override_settings
+from django.utils import translation
 
 from wagtail.models import Locale
+from wagtail.models.i18n import TranslatableQuerySet
 from wagtail.test.i18n.models import (
     ClusterableTestModel,
     ClusterableTestModelChild,
     ClusterableTestModelTranslatableChild,
     InheritedTestModel,
+    TestDraftModel,
     TestModel,
 )
+from wagtail.test.utils import WagtailTestUtils
 
 
 def make_test_instance(model=None, **kwargs):
@@ -20,6 +24,690 @@ def make_test_instance(model=None, **kwargs):
         model = TestModel
 
     return model.objects.create(**kwargs)
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestTranslatableQuerySetMixinLocalized(WagtailTestUtils, TestCase):
+    """
+    Test class for tests of the `localized` method of the `TranslatableQuerySetMixin`.
+
+    These test rely on the `TestModel` inheriting from the `TranslatableMixin`.
+
+    The `localized` method on the `TranslatableQuerySet` is the equivalent of the
+    `localize` property on the `TranslatableMixin` but for a queryset instead of a
+    single instance.
+
+    "To localize" in this context means to convert a queryset of translatable objects
+    into a queryset of the same length where each object is either the translated
+    version of the original object or the original object itself. The translation of
+    interest is the one for active locale. If there is a translation for the active
+    locale, the translated version is used. Otherwise, the original object is used.
+    """
+
+    example_model = TestModel
+    draft_example_model = TestDraftModel
+
+    @classmethod
+    def create_en_instance(cls, model=None, **kwargs):
+        model = model or cls.example_model
+        return make_test_instance(model=model, locale=cls.locale_en, **kwargs)
+
+    @classmethod
+    def create_fr_translation(cls, instance, **kwargs):
+        """
+        Create a French translation for the given instance.
+
+        This is achieved by creating a new instance with the same translation key as the
+        given instance.
+        """
+        return instance.__class__.objects.create(
+            locale=cls.locale_fr,
+            translation_key=instance.translation_key,
+            **kwargs,
+        )
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.locale_en = Locale.objects.get(language_code="en")
+        cls.locale_fr = Locale.objects.create(language_code="fr")
+
+        # Create example instances with different titles for the locales simulating a
+        # translation. Additionally, the titles differ between the locales so that
+        # ordering by `title` leads to a different sort order between the locales.
+        # Furthermore, the instances are created in an order so that their IDs should
+        # not match the alphabetical ordering in either locale.
+        cls.instance_CY_en = cls.create_en_instance(title="C")
+        cls.instance_CY_fr = cls.create_fr_translation(cls.instance_CY_en, title="Y")
+
+        cls.instance_AZ_en = cls.create_en_instance(title="A")
+        cls.instance_AZ_fr = cls.create_fr_translation(cls.instance_AZ_en, title="Z")
+
+        cls.instance_BX_en = cls.create_en_instance(title="B")
+        cls.instance_BX_fr = cls.create_fr_translation(cls.instance_BX_en, title="X")
+
+        # Create example instances with different draft and live states. This is to test
+        # that the draft/live state of the translation is taken into account correctly.
+        cls.instance_with_live_trans_en = cls.create_en_instance(
+            model=cls.draft_example_model,
+            title="Instance with live translation",
+            live=True,
+        )
+        cls.instance_with_live_trans_fr = cls.create_fr_translation(
+            cls.instance_with_live_trans_en,
+            title="Live translation",
+            live=True,
+        )
+        cls.instance_with_draft_trans_en = cls.create_en_instance(
+            model=cls.draft_example_model,
+            title="Instance with draft translation",
+            live=True,
+        )
+        cls.instance_with_draft_trans_fr = cls.create_fr_translation(
+            cls.instance_with_draft_trans_en,
+            title="Draft translation",
+            live=False,  # This marks the translation a draft.
+        )
+
+    def test_example_model_queryset_class(self):
+        """Test that the example model uses the expected queryset class."""
+        self.assertIsInstance(self.example_model.objects.all(), TranslatableQuerySet)
+
+    def test_all_translated_all_in_queryset(self):
+        """
+        Test when all instances are translated and all instances are in the queryset.
+
+        Localization in this situation could be achieved by returning all instances of
+        the model in the active locale. All instances in the localized queryset are of
+        the active locale.
+        """
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized()
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+            ],
+            ordered=False,
+        )
+
+    def test_all_translated_subset_in_queryset(self):
+        """
+        Test when all instances are translated but only a subset of instances is in the
+        queryset.
+
+        Localization in this situation could be achieved by returning all instances of
+        the model in the active locale and filtering for the translation keys in the
+        original queryset. All instances in the localized queryset are of the active
+        locale.
+        """
+        queryset_en = self.example_model.objects.filter(
+            pk__in=[self.instance_AZ_en.id, self.instance_BX_en.id]
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized()
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+            ],
+            ordered=False,
+        )
+
+    def test_subset_translated_all_in_queryset(self):
+        """
+        Test when a subset of instances is translated but all instances are in the
+        queryset.
+
+        This situation will need real localization where some instances in the localized
+        queryset are of the active locale and some are not.
+        """
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized()
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+    def test_subset_translated_subset_in_queryset_same_subsets(self):
+        """
+        Test when a subset of instances is translated and the same subset is in the
+        queryset.
+
+        This means that all translated instances are in the queryset. There is an
+        untranslated instance, but it is not in the queryset.
+
+        Localization in this situation could be achieved by returning all instances of
+        the model in the active locale. All instances in the localized queryset are of
+        the active locale.
+        """
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).exclude(
+            pk=untranslated_instance.id
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized()
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+            ],
+            ordered=False,
+        )
+        # Just being double explicit here.
+        self.assertNotIn(untranslated_instance, queryset_localized)
+
+    def test_subset_translated_subset_in_queryset_different_subsets(self):
+        """
+        Test when a subset of instances is translated and a different subset is in the
+        queryset.
+
+        This means that not all translated instances are in the queryset. Additionally,
+        there is an untranslated instance and it is in the queryset.
+
+        This situation will need real localization where some instances in the localized
+        queryset are of the active locale and some are not.
+        """
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = self.example_model.objects.filter(
+            pk__in=[
+                self.instance_AZ_en.id,
+                self.instance_BX_en.id,
+                untranslated_instance.id,
+            ],
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_localized = queryset_en.localized()
+                # Call `repr` to evaluate the queryset.
+                repr(queryset_localized)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+    def test_original_queryset_ordered_by_title(self):
+        """
+        Test the effect of localization on the order of a queryset that is ordered by
+        title.
+
+        By default, the same ordering is applied. This does not mean that the order of
+        the items is retained. Rather, the same fields are used for ordering. However,
+        the ordering is likely to be different because the translated values are used.
+        """
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "title"
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            # These are ordered by the French titles.
+            [
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+            ],
+            ordered=True,
+        )
+
+    def test_original_queryset_ordered_by_annotation(self):
+        """
+        Test localization of a queryset that is ordered by an annotation.
+
+        When the same ordering definition is applied, we need to make sure that the
+        annotation is available on the localized queryset.
+        """
+        queryset_en = (
+            self.example_model.objects.filter(locale=self.locale_en)
+            .annotate(
+                shmitle=models.functions.Concat(models.Value("SHM"), models.F("title"))
+            )
+            .order_by("shmitle")
+        )
+        self.assertEqual(queryset_en[0].shmitle, "SHMA")
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+            ],
+            ordered=True,
+        )
+        self.assertEqual(queryset_localized[0].shmitle, "SHMX")
+
+    def test_original_queryset_ordered_by_alias(self):
+        """
+        Test localization of a queryset that is ordered by an alias.
+
+        When the same ordering definition is applied, we need to make sure that the
+        alias is available on the localized queryset.
+
+        `alias` is basically the same as `annotate` but it does not add any fields to
+        the instances. Its values can only be used in other operations, i.e. `order_by`.
+        See also: https://docs.djangoproject.com/en/4.2/ref/models/querysets#django.db.models.query.QuerySet.alias  # noqa: E501
+        """
+        queryset_en = (
+            self.example_model.objects.filter(locale=self.locale_en)
+            .alias(
+                smitle_alias=models.functions.Concat(
+                    models.Value("SHM"), models.F("title")
+                )
+            )
+            .order_by("smitle_alias")
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+        # Aliases are not added to the instances.
+        self.assertFalse(hasattr(queryset_en[0], "smitle_alias"))
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+            ],
+            ordered=True,
+        )
+        self.assertFalse(hasattr(queryset_localized[0], "smitle_alias"))
+
+    def test_explicitly_set_different_order_on_localized_queryset(self):
+        """Test explicitly setting a different order on the localized queryset."""
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "id"
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_CY_en,
+                self.instance_AZ_en,
+                self.instance_BX_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized().order_by("title")
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            # These are ordered by the French titles not their French IDs.
+            [
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+            ],
+            ordered=True,
+        )
+
+    def test_preserve_order_of_original_queryset_via_argument(self):
+        """Test keeping the order of the original queryset via an argument."""
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "title"
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(preserve_order=True)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            # These are still ordered by the English titles.
+            [
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+                self.instance_CY_fr,
+            ],
+            ordered=True,
+        )
+
+    def test_override_preserved_order(self):
+        """
+        Test overriding the preserved order of the original queryset by explicitly
+        ordering the localized queryset.
+
+        Mostly a sanity check.
+        """
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en).order_by(
+            "title"
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=True,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(preserve_order=True).order_by(
+                "id"
+            )
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            # These are ordered by the French IDs not the English titles.
+            [
+                self.instance_CY_fr,
+                self.instance_AZ_fr,
+                self.instance_BX_fr,
+            ],
+            ordered=True,
+        )
+
+    def test_translation_is_draft(self):
+        """
+        Test when the translation is a draft.
+
+        If a model can have a draft state, then a translation of an instance can exist
+        but be in draft state. This case is tested here.
+
+        This test is using the `TestDraftModel` model instead of the `TestModel` model.
+        This is because the `TestDraftModel` model inherits from the `DraftStateMixin`
+        and can be in a draft state.
+        """
+        queryset_en = self.draft_example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_with_live_trans_en,
+                self.instance_with_draft_trans_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_with_live_trans_fr,
+                # This is still the English instance because the French translation is
+                # a draft.
+                self.instance_with_draft_trans_en,
+            ],
+            ordered=False,
+        )
+
+    def test_include_draft_translations(self):
+        """
+        Test when the translation is a draft and `include_draft_translations=True` is
+        passed.
+
+        If a model can have a draft state, then a translation of an instance can exist
+        but be in draft state. By default, translations that are "draft" are not used
+        when localizing a queryset. In that case, the original instance is used instead.
+        However, this behavior can be overridden by setting the
+        `include_draft_translations` argument to `True`.
+
+        This test is using the `TestDraftModel` model instead of the `TestModel` model.
+        This is because the `TestDraftModel` model inherits from the `DraftStateMixin`
+        and can be in a draft state.
+        """
+        queryset_en = self.draft_example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_with_live_trans_en,
+                self.instance_with_draft_trans_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_draft_translations=True)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            [
+                self.instance_with_live_trans_fr,
+                # This is included although it is draft.
+                self.instance_with_draft_trans_fr,
+            ],
+            ordered=False,
+        )
+
+    def test_include_only_translations(self):
+        """Test method with argument `include_draft_translations=True`."""
+        untranslated_instance = self.create_en_instance(title="Untranslated")
+        queryset_en = self.example_model.objects.filter(
+            pk__in=[
+                self.instance_AZ_en.id,
+                untranslated_instance.id,
+            ],
+        )
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                untranslated_instance,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_only_translations=True)
+
+        self.assertQuerySetEqual(
+            queryset_localized,
+            # The untranslated instance is not included.
+            [
+                self.instance_AZ_fr,
+            ],
+            ordered=False,
+        )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_localized_queryset_with_i18n_disabled(self):
+        """Test method when i18n is disabled."""
+        queryset_en = self.example_model.objects.filter(locale=self.locale_en)
+        self.assertQuerySetEqual(
+            queryset_en,
+            [
+                self.instance_AZ_en,
+                self.instance_BX_en,
+                self.instance_CY_en,
+            ],
+            ordered=False,
+        )
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
+
+    def test_query_count_without_resolving_original_queryset_first(self):
+        """
+        Test query count without resolving the original queryset first.
+
+        The other tests explicitly check the contents of the original queryset. This
+        will resolve that queryset. This test checks the query count without resolving
+        the original queryset first.
+
+        """
+        with translation.override("fr"):
+            with self.assertNumQueries(2):
+                queryset_en = self.example_model.objects.filter(locale=self.locale_en)
+
+                queryset_localized = queryset_en.localized()
+
+                self.assertQuerySetEqual(
+                    queryset_localized,
+                    [
+                        self.instance_AZ_fr,
+                        self.instance_BX_fr,
+                        self.instance_CY_fr,
+                    ],
+                    ordered=False,
+                )
+
+    def test_empty_queryset(self):
+        """Test localization of an empty queryset."""
+        queryset_en = self.example_model.objects.none()
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized()
+
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
+
+    def test_empty_queryset_preserve_order_true(self):
+        """Test localization of an empty queryset with preserved order."""
+        queryset_en = self.example_model.objects.none()
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(preserve_order=True)
+
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
+
+    def test_empty_queryset_include_draft_translations_true(self):
+        """Test localization of an empty queryset with draft translations."""
+        queryset_en = self.example_model.objects.none()
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_draft_translations=True)
+
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
+
+    def test_empty_queryset_include_only_translations_true(self):
+        """Test localization of an empty queryset with only translations."""
+        queryset_en = self.example_model.objects.none()
+
+        with translation.override("fr"):
+            queryset_localized = queryset_en.localized(include_only_translations=True)
+
+        self.assertQuerySetEqual(queryset_localized, queryset_en, ordered=False)
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)

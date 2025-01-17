@@ -543,6 +543,8 @@ database queries making them unable to be edited or viewed.
 `TranslatableMixin` is an abstract model that can be added to any non-page Django model to make it translatable.
 Pages already include this mixin, so there is no need to add it.
 
+If your model defines a custom manager, be sure to also consider the use of {class}`~wagtail.query.TranslatableQuerySetMixin`.
+
 ### Database fields
 
 ```{eval-rst}
