@@ -4,6 +4,7 @@ Changelog
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Support for background tasks using `django-tasks` (Jake Howard)
  * Add search terms report (Noah van der Meer, Sage Abdullah)
  * Add the ability to apply basic Page QuerySet optimizations to `specific()` sub-queries using `select_related` & `prefetch_related` (Andy Babic)
  * Increase `DATA_UPLOAD_MAX_NUMBER_FIELDS` in project template (Matt Westcott)
