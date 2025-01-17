@@ -18,11 +18,7 @@
     <body>
         <main>
             {% block content %}
-                {% if block_def.is_previewable %}
-                    {% include_block bound_block %}
-                {% else %}
-                    {% translate 'Preview not available' %}
-                {% endif %}
+                {% include_block bound_block %}
             {% endblock %}
         </main>
 
