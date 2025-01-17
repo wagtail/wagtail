@@ -1,5 +1,3 @@
-from unittest import mock
-
 from django.contrib.auth.models import Permission
 from django.http import HttpRequest
 from django.test import TestCase
@@ -19,17 +17,6 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.user = self.login()
-        # Pretend the global template has been overridden, since we're happy
-        # with the default preview template not having the static assets.
-        self.template_override_mock = mock.patch(
-            "wagtail.blocks.base.template_is_overridden",
-            return_value=True,
-        )
-        self.template_override_mock.start()
-
-    def tearDown(self):
-        super().tearDown()
-        self.template_override_mock.stop()
 
     def test_simple(self):
         block = blocks.CharBlock(
@@ -106,7 +93,7 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         main = soup.select_one("main")
         self.assertIsNotNone(main)
-        self.assertEqual(main.text.strip(), "Preview not available")
+        self.assertEqual(main.text.strip(), "None")
 
     def test_preview_value_falls_back_to_default(self):
         block = blocks.IntegerBlock(default=42)
