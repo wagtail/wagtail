@@ -15,13 +15,15 @@
         {% endblock %}
     </head>
     <body>
-        <main>
-            {% block content %}
-                {% include_block bound_block %}
-            {% endblock %}
-        </main>
+        {% block body %}
+            <main>
+                {% block content %}
+                    {% include_block bound_block %}
+                {% endblock %}
+            </main>
 
-        {% block js %}
+            {% block js %}
+            {% endblock %}
         {% endblock %}
     </body>
 </html>
