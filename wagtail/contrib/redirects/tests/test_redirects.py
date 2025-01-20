@@ -801,14 +801,15 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailredirects/add.html")
 
     def test_add(self):
-        response = self.post(
-            {
-                "old_path": "/test",
-                "site": "",
-                "is_permanent": "on",
-                "redirect_link": "http://www.test.com/",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "site": "",
+                    "is_permanent": "on",
+                    "redirect_link": "http://www.test.com/",
+                }
+            )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailredirects:index"))
@@ -827,15 +828,16 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
         self.assertEqual(PURGED_URLS, {"http://localhost/test"})
 
     def test_add_with_site(self):
-        localhost = Site.objects.get(hostname="localhost")
-        response = self.post(
-            {
-                "old_path": "/test",
-                "site": localhost.id,
-                "is_permanent": "on",
-                "redirect_link": "http://www.test.com/",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            localhost = Site.objects.get(hostname="localhost")
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "site": localhost.id,
+                    "is_permanent": "on",
+                    "redirect_link": "http://www.test.com/",
+                }
+            )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailredirects:index"))
@@ -849,72 +851,76 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
         self.assertEqual(PURGED_URLS, {"http://localhost/test"})
 
     def test_add_validation_error(self):
-        response = self.post(
-            {
-                "old_path": "",
-                "site": "",
-                "is_permanent": "on",
-                "redirect_link": "http://www.test.com/",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.post(
+                {
+                    "old_path": "",
+                    "site": "",
+                    "is_permanent": "on",
+                    "redirect_link": "http://www.test.com/",
+                }
+            )
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
         self.assertEqual(PURGED_URLS, set())
 
     def test_cannot_add_duplicate_with_no_site(self):
-        models.Redirect.objects.create(
-            old_path="/test", site=None, redirect_link="http://elsewhere.com/"
-        )
-        response = self.post(
-            {
-                "old_path": "/test",
-                "site": "",
-                "is_permanent": "on",
-                "redirect_link": "http://www.test.com/",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            models.Redirect.objects.create(
+                old_path="/test", site=None, redirect_link="http://elsewhere.com/"
+            )
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "site": "",
+                    "is_permanent": "on",
+                    "redirect_link": "http://www.test.com/",
+                }
+            )
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
         self.assertEqual(PURGED_URLS, set())
 
     def test_cannot_add_duplicate_on_same_site(self):
-        localhost = Site.objects.get(hostname="localhost")
-        models.Redirect.objects.create(
-            old_path="/test", site=localhost, redirect_link="http://elsewhere.com/"
-        )
-        response = self.post(
-            {
-                "old_path": "/test",
-                "site": localhost.pk,
-                "is_permanent": "on",
-                "redirect_link": "http://www.test.com/",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            localhost = Site.objects.get(hostname="localhost")
+            models.Redirect.objects.create(
+                old_path="/test", site=localhost, redirect_link="http://elsewhere.com/"
+            )
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "site": localhost.pk,
+                    "is_permanent": "on",
+                    "redirect_link": "http://www.test.com/",
+                }
+            )
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
         self.assertEqual(PURGED_URLS, set())
 
     def test_can_reuse_path_on_other_site(self):
-        localhost = Site.objects.get(hostname="localhost")
-        contact_page = Page.objects.get(url_path="/home/contact-us/")
-        other_site = Site.objects.create(
-            hostname="other.example.com", port=80, root_page=contact_page
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            localhost = Site.objects.get(hostname="localhost")
+            contact_page = Page.objects.get(url_path="/home/contact-us/")
+            other_site = Site.objects.create(
+                hostname="other.example.com", port=80, root_page=contact_page
+            )
 
-        models.Redirect.objects.create(
-            old_path="/test", site=localhost, redirect_link="http://elsewhere.com/"
-        )
-        response = self.post(
-            {
-                "old_path": "/test",
-                "site": other_site.pk,
-                "is_permanent": "on",
-                "redirect_link": "http://www.test.com/",
-            }
-        )
+            models.Redirect.objects.create(
+                old_path="/test", site=localhost, redirect_link="http://elsewhere.com/"
+            )
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "site": other_site.pk,
+                    "is_permanent": "on",
+                    "redirect_link": "http://www.test.com/",
+                }
+            )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailredirects:index"))
@@ -926,14 +932,15 @@ class TestRedirectsAddView(WagtailTestUtils, TestCase):
         self.assertEqual(PURGED_URLS, redirects.get().old_links())
 
     def test_add_long_redirect(self):
-        response = self.post(
-            {
-                "old_path": "/test",
-                "site": "",
-                "is_permanent": "on",
-                "redirect_link": "https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "site": "",
+                    "is_permanent": "on",
+                    "redirect_link": "https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist",
+                }
+            )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailredirects:index"))
@@ -1002,14 +1009,15 @@ class TestRedirectsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
 
     def test_edit(self):
-        response = self.post(
-            {
-                "old_path": "/test",
-                "is_permanent": "on",
-                "site": "",
-                "redirect_link": "http://www.test.com/ive-been-edited",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "is_permanent": "on",
+                    "site": "",
+                    "redirect_link": "http://www.test.com/ive-been-edited",
+                }
+            )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailredirects:index"))
@@ -1025,16 +1033,17 @@ class TestRedirectsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(PURGED_URLS, {"http://localhost/test"})
 
     def test_edit_with_site(self):
-        localhost = Site.objects.get(hostname="localhost")
+        with self.captureOnCommitCallbacks(execute=True):
+            localhost = Site.objects.get(hostname="localhost")
 
-        response = self.post(
-            {
-                "old_path": "/test",
-                "is_permanent": "on",
-                "site": localhost.id,
-                "redirect_link": "http://www.test.com/ive-been-edited",
-            }
-        )
+            response = self.post(
+                {
+                    "old_path": "/test",
+                    "is_permanent": "on",
+                    "site": localhost.id,
+                    "redirect_link": "http://www.test.com/ive-been-edited",
+                }
+            )
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailredirects:index"))
@@ -1049,31 +1058,33 @@ class TestRedirectsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(PURGED_URLS, {"http://localhost/test"})
 
     def test_edit_validation_error(self):
-        response = self.post(
-            {
-                "old_path": "",
-                "is_permanent": "on",
-                "site": "",
-                "redirect_link": "http://www.test.com/ive-been-edited",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.post(
+                {
+                    "old_path": "",
+                    "is_permanent": "on",
+                    "site": "",
+                    "redirect_link": "http://www.test.com/ive-been-edited",
+                }
+            )
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
         self.assertEqual(PURGED_URLS, set())
 
     def test_edit_duplicate(self):
-        models.Redirect.objects.create(
-            old_path="/othertest", site=None, redirect_link="http://elsewhere.com/"
-        )
-        response = self.post(
-            {
-                "old_path": "/othertest",
-                "is_permanent": "on",
-                "site": "",
-                "redirect_link": "http://www.test.com/ive-been-edited",
-            }
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            models.Redirect.objects.create(
+                old_path="/othertest", site=None, redirect_link="http://elsewhere.com/"
+            )
+            response = self.post(
+                {
+                    "old_path": "/othertest",
+                    "is_permanent": "on",
+                    "site": "",
+                    "redirect_link": "http://www.test.com/ive-been-edited",
+                }
+            )
 
         # Should not redirect to index
         self.assertEqual(response.status_code, 200)
@@ -1153,7 +1164,8 @@ class TestRedirectsDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
 
     def test_delete(self):
-        response = self.post()
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.post()
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailredirects:index"))

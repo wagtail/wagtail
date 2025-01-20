@@ -4129,9 +4129,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertContains(response, delete_url)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -4186,9 +4187,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -5522,7 +5524,11 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
     def test_adapt(self):
-        block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
+        block = SnippetChooserBlock(
+            Advert,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the sidebar.",
+        )
 
         block.set_name("test_snippetchooserblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -5534,8 +5540,11 @@ class TestSnippetChooserBlock(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the sidebar.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -5829,7 +5838,9 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
 
     def test_adapt(self):
         block = SnippetChooserBlock(
-            AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert"
+            AdvertWithCustomPrimaryKey,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the footer.",
         )
 
         block.set_name("test_snippetchooserblock")
@@ -5842,8 +5853,11 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the footer.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -6041,7 +6055,7 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
 
         warning = checks.Warning(
             "StandardSnippet.content_panels will have no effect on snippets editing",
-            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels`\
+            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no\
  Content tab for the content_panels to render in.""",

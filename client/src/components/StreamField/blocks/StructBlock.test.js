@@ -366,6 +366,7 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
@@ -415,6 +416,7 @@ describe('telepath: wagtail.blocks.StructBlock in stream block', () => {
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',

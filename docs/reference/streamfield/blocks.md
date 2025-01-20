@@ -47,6 +47,21 @@ All block definitions accept the following optional keyword arguments:
 -   `group`
     -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
+(block_preview_arguments)=
+
+[StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following optional keyword arguments:
+
+-   `description`
+    -   The description of the block. For [](field_block_types), it will fall back to `help_text` if not provided.
+-   `preview_value`
+    -   The placeholder value that will be used for rendering the preview. If not provided, it will fall back to the `default` value.
+-   `preview_template`
+    -   The template that is used to render the preview. If not provided, it will use the `wagtailcore/shared/block_preview.html` base template that reuses the block's real `template`.
+
+```{versionadded} 6.4
+The `description`, `preview_value`, and `preview_template` keyword arguments were added.
+```
+
 (field_block_types)=
 
 ## Field block types

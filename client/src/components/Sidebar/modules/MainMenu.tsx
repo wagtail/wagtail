@@ -239,7 +239,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
       const sidebar = document.querySelector('[data-wagtail-sidebar]');
 
       const isInside = sidebar && sidebar.contains(e.target as Node);
-      if (!isInside) {
+      if (!isInside && state.navigationPath !== '') {
         dispatch({
           type: 'set-navigation-path',
           path: '',
@@ -256,7 +256,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
       document.removeEventListener('mousedown', onClickOutside);
       document.removeEventListener('touchend', onClickOutside);
     };
-  }, []);
+  }, [state.navigationPath]);
 
   const onClickAccountSettings = () => {
     // Pass account expand information to Sidebar component

@@ -31,11 +31,13 @@ class AdminImageChooser(BaseChooser):
             "width": preview_image.width,
             "height": preview_image.height,
         }
+        data["default_alt_text"] = instance.default_alt_text
         return data
 
     def get_context(self, name, value_data, attrs):
         context = super().get_context(name, value_data, attrs)
         context["preview"] = value_data.get("preview", {})
+        context["default_alt_text"] = value_data.get("default_alt_text", "")
         return context
 
     @property

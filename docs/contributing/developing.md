@@ -206,14 +206,14 @@ Wagtail is meant to be used on a wide variety of devices and browsers. Supported
 
 | Browser       | Device/OS  | Version(s)         |
 | ------------- | ---------- | ------------------ |
-| Mobile Safari | iOS Phone  | Last 2: 16, 17     |
-| Mobile Safari | iOS Tablet | Last 2: 16, 17     |
+| Mobile Safari | iOS Phone  | Last 2: 17, 18     |
+| Mobile Safari | iOS Tablet | Last 2: 17, 18     |
 | Chrome        | Android    | Last 2             |
 | Chrome        | Desktop    | Last 2             |
 | MS Edge       | Windows    | Last 2             |
 | Firefox       | Desktop    | Latest             |
-| Firefox ESR   | Desktop    | Latest             |
-| Safari        | macOS      | Last 3: 15, 16, 17 |
+| Firefox ESR   | Desktop    | Latest: 128        |
+| Safari        | macOS      | Last 3: 16, 17, 18 |
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
 

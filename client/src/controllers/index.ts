@@ -32,6 +32,7 @@ import { TooltipController } from './TooltipController';
 import { UnsavedController } from './UnsavedController';
 import { UpgradeController } from './UpgradeController';
 import { ZoneController } from './ZoneController';
+import { LocaleController } from './LocaleController';
 
 /**
  * Important: Only add default core controllers that should load with the base admin JS bundle.
@@ -53,6 +54,7 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: FormsetController, identifier: 'w-formset' },
   { controllerConstructor: InitController, identifier: 'w-init' },
   { controllerConstructor: KeyboardController, identifier: 'w-kbd' },
+  { controllerConstructor: LocaleController, identifier: 'w-locale' },
   { controllerConstructor: OrderableController, identifier: 'w-orderable' },
   { controllerConstructor: PreviewController, identifier: 'w-preview' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },

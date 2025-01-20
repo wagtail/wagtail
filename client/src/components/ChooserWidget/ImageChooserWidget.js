@@ -34,6 +34,9 @@ export class ImageChooser extends Chooser {
         width: this.previewImage.getAttribute('width'),
         height: this.previewImage.getAttribute('height'),
       };
+      state.default_alt_text = this.previewImage.getAttribute(
+        'data-default-alt-text',
+      );
     }
     return state;
   }
@@ -42,6 +45,10 @@ export class ImageChooser extends Chooser {
     super.renderState(newState);
     this.previewImage.setAttribute('src', newState.preview.url);
     this.previewImage.setAttribute('width', newState.preview.width);
+    this.previewImage.setAttribute(
+      'data-default-alt-text',
+      newState.default_alt_text,
+    );
   }
 }
 

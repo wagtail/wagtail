@@ -447,32 +447,37 @@ class TestCachePurgingFunctions(TestCase):
         PURGED_URLS.clear()
 
     def test_purge_url_from_cache(self):
-        purge_url_from_cache("http://localhost/foo")
+        with self.captureOnCommitCallbacks(execute=True):
+            purge_url_from_cache("http://localhost/foo")
         self.assertEqual(PURGED_URLS, {"http://localhost/foo"})
 
     def test_purge_urls_from_cache(self):
-        purge_urls_from_cache(["http://localhost/foo", "http://localhost/bar"])
+        with self.captureOnCommitCallbacks(execute=True):
+            purge_urls_from_cache(["http://localhost/foo", "http://localhost/bar"])
         self.assertEqual(PURGED_URLS, {"http://localhost/foo", "http://localhost/bar"})
 
     def test_purge_page_from_cache(self):
-        page = EventIndex.objects.get(url_path="/home/events/")
-        purge_page_from_cache(page)
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventIndex.objects.get(url_path="/home/events/")
+            purge_page_from_cache(page)
         self.assertEqual(
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )
 
     def test_purge_pages_from_cache(self):
-        purge_pages_from_cache(EventIndex.objects.all())
+        with self.captureOnCommitCallbacks(execute=True):
+            purge_pages_from_cache(EventIndex.objects.all())
         self.assertEqual(
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )
 
     def test_purge_batch(self):
-        batch = PurgeBatch()
-        page = EventIndex.objects.get(url_path="/home/events/")
-        batch.add_page(page)
-        batch.add_url("http://localhost/foo")
-        batch.purge()
+        with self.captureOnCommitCallbacks(execute=True):
+            batch = PurgeBatch()
+            page = EventIndex.objects.get(url_path="/home/events/")
+            batch.add_page(page)
+            batch.add_url("http://localhost/foo")
+            batch.purge()
 
         self.assertEqual(
             PURGED_URLS,
@@ -493,7 +498,8 @@ class TestCachePurgingFunctions(TestCase):
     )
     def test_invalidate_specific_location(self):
         with self.assertLogs(level="INFO") as log_output:
-            purge_url_from_cache("http://localhost/foo")
+            with self.captureOnCommitCallbacks(execute=True):
+                purge_url_from_cache("http://localhost/foo")
 
         self.assertEqual(PURGED_URLS, set())
         self.assertIn(
@@ -501,7 +507,8 @@ class TestCachePurgingFunctions(TestCase):
             log_output.output[0],
         )
 
-        purge_url_from_cache("http://example.com/foo")
+        with self.captureOnCommitCallbacks(execute=True):
+            purge_url_from_cache("http://example.com/foo")
         self.assertEqual(PURGED_URLS, {"http://example.com/foo"})
 
 
@@ -520,10 +527,11 @@ class TestCloudflareCachePurgingFunctions(TestCase):
         PURGED_URLS.clear()
 
     def test_cloudflare_purge_batch_chunked(self):
-        batch = PurgeBatch()
-        urls = [f"https://localhost/foo{i}" for i in range(1, 65)]
-        batch.add_urls(urls)
-        batch.purge()
+        with self.captureOnCommitCallbacks(execute=True):
+            batch = PurgeBatch()
+            urls = [f"https://localhost/foo{i}" for i in range(1, 65)]
+            batch.add_urls(urls)
+            batch.purge()
 
         self.assertCountEqual(PURGED_URLS, set(urls))
 
@@ -543,24 +551,27 @@ class TestCachePurgingSignals(TestCase):
         PURGED_URLS.clear()
 
     def test_purge_on_publish(self):
-        page = EventIndex.objects.get(url_path="/home/events/")
-        page.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventIndex.objects.get(url_path="/home/events/")
+            page.save_revision().publish()
         self.assertEqual(
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )
 
     def test_purge_on_unpublish(self):
-        page = EventIndex.objects.get(url_path="/home/events/")
-        page.unpublish()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventIndex.objects.get(url_path="/home/events/")
+            page.unpublish()
         self.assertEqual(
             PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
         )
 
     def test_purge_with_unroutable_page(self):
-        root = Page.objects.get(url_path="/")
-        page = EventIndex(title="new top-level page")
-        root.add_child(instance=page)
-        page.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            root = Page.objects.get(url_path="/")
+            page = EventIndex(title="new top-level page")
+            root.add_child(instance=page)
+            page.save_revision().publish()
         self.assertEqual(PURGED_URLS, set())
 
     @override_settings(
@@ -569,8 +580,9 @@ class TestCachePurgingSignals(TestCase):
         WAGTAILFRONTENDCACHE_LANGUAGES=["en", "fr", "pt-br"],
     )
     def test_purge_on_publish_in_multilang_env(self):
-        page = EventIndex.objects.get(url_path="/home/events/")
-        page.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventIndex.objects.get(url_path="/home/events/")
+            page.save_revision().publish()
 
         self.assertEqual(
             PURGED_URLS,
@@ -591,8 +603,9 @@ class TestCachePurgingSignals(TestCase):
         WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
     )
     def test_purge_on_publish_with_i18n_enabled(self):
-        page = EventIndex.objects.get(url_path="/home/events/")
-        page.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventIndex.objects.get(url_path="/home/events/")
+            page.save_revision().publish()
 
         self.assertEqual(
             PURGED_URLS,
@@ -610,9 +623,10 @@ class TestCachePurgingSignals(TestCase):
         WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
     )
     def test_purge_on_publish_without_i18n_enabled(self):
-        # It should ignore WAGTAIL_CONTENT_LANGUAGES as WAGTAIL_I18N_ENABLED isn't set
-        page = EventIndex.objects.get(url_path="/home/events/")
-        page.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            # It should ignore WAGTAIL_CONTENT_LANGUAGES as WAGTAIL_I18N_ENABLED isn't set
+            page = EventIndex.objects.get(url_path="/home/events/")
+            page.save_revision().publish()
         self.assertEqual(
             PURGED_URLS,
             {"http://localhost/en/events/", "http://localhost/en/events/past/"},
@@ -696,7 +710,8 @@ class TestPurgeBatchClass(TestCase):
         batch.add_url("http://localhost/events/")
 
         with self.assertLogs(level="ERROR") as log_output:
-            batch.purge(backend_settings=backend_settings)
+            with self.captureOnCommitCallbacks(execute=True):
+                batch.purge(backend_settings=backend_settings)
 
         self.assertIn(
             "Couldn't purge 'http://localhost/events/' from Cloudflare. HTTPError: 500",

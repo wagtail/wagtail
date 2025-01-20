@@ -865,11 +865,15 @@
 * James Harrington
 * Unyime Emmanuel Udoh
 * Joren Hammudoglu
+* Rishabh Sharma
+* Mike Gifford
+* Stéphane Blondon
+* Jatin Bhardwaj
 
 ## Translators
 
 * Afrikaans: Jaco du Plessis, Jared Osborn
-* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
+* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Tarek Berkane, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
 * Armenian: Vachagan
 * Azerbaijani: Mirza Iskandarov
 * Bangla: Mahmud Abdur Rahman
