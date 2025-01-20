@@ -32,15 +32,20 @@
 }
 
 .w-combobox-preview__details {
-  overflow: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .w-combobox-preview__label {
   @apply w-label-1;
+  max-height: 25%;
+  overflow: auto;
 }
 
 .w-combobox-preview__description {
   @apply w-help-text;
   margin-top: theme('spacing.3');
   margin-bottom: 0;
+  overflow: auto;
 }
