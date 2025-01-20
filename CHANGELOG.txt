@@ -27,6 +27,7 @@ Changelog
  * Remove support for Safari 15 (Thibaud Colas)
  * Populate the ImageBlock alt text from the image’s default alt text when selecting a new image (Matt Westcott)
  * Prevent main menu from re-rendering when clicking outside while the menu is closed (Sage Abdullah)
+ * Fill in the ImageBlock alt text from the image’s default alt text when converting from ImageChooserBlock (Cynthia Kiser)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
