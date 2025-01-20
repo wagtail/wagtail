@@ -59,6 +59,7 @@ Changelog
  * Fix: Prevent redundant calls to `Site.find_for_request()` from `Page.get_url_parts()` (Andy Babic)
  * Fix: Prevent error on listings when searching and filtering by locale (Matt Westcott, Sage Abdullah)
  * Fix: Add missing space in panels check warning message (Stéphane Blondon)
+ * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -134,6 +135,7 @@ Changelog
 
 * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
 * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
+* Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
 * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
 
 
