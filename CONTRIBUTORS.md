@@ -868,6 +868,7 @@
 * Rishabh Sharma
 * Mike Gifford
 * Stéphane Blondon
+* Jatin Bhardwaj
 
 ## Translators
 
