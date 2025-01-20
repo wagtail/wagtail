@@ -25,6 +25,12 @@ export class InlinePanel extends ExpandingFormset {
         handle: '[data-inline-panel-child-drag]',
         animation: 200,
         onEnd: this.handleDragEnd.bind(this),
+        setData: (dataTransfer) => {
+          dataTransfer.setData(
+            'application/vnd.wagtail.type',
+            'inlinepanel-child',
+          );
+        },
       });
     }
 

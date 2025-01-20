@@ -601,6 +601,9 @@ export class BaseSequenceBlock {
           this.moveBlock(oldDraggableIndex, newDraggableIndex);
         }
       },
+      setData: (dataTransfer) => {
+        dataTransfer.setData('application/vnd.wagtail.type', 'sf-block');
+      },
     });
   }
 
