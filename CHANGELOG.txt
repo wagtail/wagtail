@@ -7,6 +7,7 @@ Changelog
 * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
 * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
 * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
+* Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
 
 6.3.2 (02.01.2025)
 ~~~~~~~~~~~~~~~~~~
