@@ -537,7 +537,7 @@ You can also set `preview_value`, `preview_template`, and `description` as attri
 ```py
 class QuoteBlock(blocks.StructBlock):
     text = blocks.TextBlock()
-    attribute_name = blocks.CharBlock()
+    source = blocks.CharBlock()
 
     class Meta:
         preview_value = {"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"}
