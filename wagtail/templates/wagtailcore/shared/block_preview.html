@@ -1,0 +1,29 @@
+{% load wagtailcore_tags i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+    <head>
+        {% block head %}
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="robots" content="noindex" />
+            <title>{{ page_title }}</title>
+
+            {% block css %}
+            {% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <main>
+                {% block content %}
+                    {% include_block bound_block %}
+                {% endblock %}
+            </main>
+
+            {% block js %}
+            {% endblock %}
+        {% endblock %}
+    </body>
+</html>

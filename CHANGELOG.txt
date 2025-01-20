@@ -4,6 +4,7 @@ Changelog
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Support for background tasks using `django-tasks` (Jake Howard)
  * Add search terms report (Noah van der Meer, Sage Abdullah)
  * Add the ability to apply basic Page QuerySet optimizations to `specific()` sub-queries using `select_related` & `prefetch_related` (Andy Babic)
  * Increase `DATA_UPLOAD_MAX_NUMBER_FIELDS` in project template (Matt Westcott)
@@ -19,6 +20,17 @@ Changelog
  * Set content security policy (CSP) headers to block embedded content when serving images and documents (Jake Howard, with thanks to Ali İltizar for the initial report)
  * Add `page` as a third parameter to the `construct_wagtail_userbar` hook (claudobahn)
  * Enable breadcrumbs in revisions compare view (Sage Abdullah)
+ * Skip loading of unused JavaScript to speed up 404 page rendering (Sage Abdullah)
+ * Replace l18n library with JavaScript Intl API for time zone options in Account view (Sage Abdullah)
+ * Use explicit label for defaulting to server language in account settings (Sage Abdullah)
+ * Add support for specifying an operator on `Fuzzy` queries (Tom Usher)
+ * Remove support for Safari 15 (Thibaud Colas)
+ * Populate the ImageBlock alt text from the image’s default alt text when selecting a new image (Matt Westcott)
+ * Prevent main menu from re-rendering when clicking outside while the menu is closed (Sage Abdullah)
+ * Fill in the ImageBlock alt text from the image’s default alt text when converting from ImageChooserBlock (Cynthia Kiser)
+ * Make sure typing text at the bottom of the page editor always scrolls enough to keep the text into view (Jatin Bhardwaj)
+ * Add StreamField and InlinePanel interfaces support for drag-and-drop reordering of items (Thibaud Colas, Sage Abdullah)
+ * Add previews support for StreamField blocks inside the block picker (Sage Abdullah, Thibaud Colas)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
  * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
@@ -44,6 +56,13 @@ Changelog
  * Fix: Allow page models to extend base `Page` panel definitions without importing `wagtail.admin` (Matt Westcott)
  * Fix: Fix crash when loading the dashboard with only the "unlock" or "bulk delete" page permissions (Unyime Emmanuel Udoh, Sage Abdullah)
  * Fix: Improve deprecation warning for `WidgetWithScript` by raising it with `stacklevel=3` (Joren Hammudoglu)
+ * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+ * Fix: Add missing heading and breadcrumbs in Account view (Sage Abdullah)
+ * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
+ * Fix: Prevent redundant calls to `Site.find_for_request()` from `Page.get_url_parts()` (Andy Babic)
+ * Fix: Prevent error on listings when searching and filtering by locale (Matt Westcott, Sage Abdullah)
+ * Fix: Add missing space in panels check warning message (Stéphane Blondon)
+ * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -72,6 +91,9 @@ Changelog
  * Docs: Fix Django HTML syntax formatting issue on the documents overview page (LB (Ben) Johnston)
  * Docs: Separate virtual environment creation and activation steps in tutorial (Ankit Kumar)
  * Docs: Update tutorial to use plain strings in place of `FieldPanel` / `InlinePanel` where appropriate (Unyime Emmanuel Udoh)
+ * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
+ * Docs: Document `get_template` method on StreamField blocks (Matt Westcott)
+ * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
@@ -109,6 +131,17 @@ Changelog
  * Maintenance: Enable breadcrumbs by default on admin views using generic templates (Sage Abdullah)
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
+ * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+
+6.3.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+* Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+* Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
+* Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
+* Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
+* Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
 
 
 6.3.2 (02.01.2025)

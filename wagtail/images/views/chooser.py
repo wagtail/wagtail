@@ -43,6 +43,7 @@ class ImageChosenResponseMixin(ChosenResponseMixin):
             "width": preview_image.width,
             "height": preview_image.height,
         }
+        response_data["default_alt_text"] = image.default_alt_text
         return response_data
 
 

@@ -57,6 +57,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
             ],
         ),
         index.FilterField("uploaded_by_user"),
+        index.FilterField("created_at"),
     ]
 
     def clean(self):

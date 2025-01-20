@@ -236,7 +236,7 @@ class TestImageBlock(TestImageChooserBlock):
         value = block.to_python(self.image.id)
 
         self.assertEqual(value.id, self.image.id)
-        self.assertEqual(value.contextual_alt_text, None)
+        self.assertEqual(value.contextual_alt_text, "Test image")  # Defaulted to title
         self.assertFalse(value.decorative)
 
     def test_to_python_with_dict(self):
@@ -267,8 +267,9 @@ class TestImageBlock(TestImageChooserBlock):
 
     def test_bulk_to_python_with_list_of_ints(self):
         block = ImageBlock(required=False)
+        single_image = block.to_python(self.image.id)
         result = block.bulk_to_python([None, self.image.id, self.image.id])
-        self.assertEqual(result, [None, self.image, self.image])
+        self.assertEqual(result, [None, single_image, single_image])
 
     def test_bulk_to_python_with_list_of_dicts(self):
         block = ImageBlock(required=False)

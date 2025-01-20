@@ -8,6 +8,7 @@ export interface WagtailConfig {
   ADMIN_URLS: {
     DISMISSIBLES: string;
     PAGES: string;
+    BLOCK_PREVIEW: string;
   };
   CSRF_HEADER_NAME: string;
   CSRF_TOKEN: string;
