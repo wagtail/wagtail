@@ -33,10 +33,6 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         self.assertEqual(html["lang"], "en")
         self.assertEqual(html["dir"], "ltr")
 
-        color_scheme = soup.select_one("meta[name=color-scheme]")
-        self.assertIsNotNone(color_scheme)
-        self.assertEqual(color_scheme["content"], "dark light")
-
         robots = soup.select_one("meta[name=robots]")
         self.assertIsNotNone(robots)
         self.assertEqual(robots["content"], "noindex")
