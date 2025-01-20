@@ -79,7 +79,12 @@ def get_text_for_indexing(richtext):
 
 
 def clear_input_from_scripts(input_value):
-    value_as_html = BeautifulSoup(str(input_value), 'html')
+    value_as_html = BeautifulSoup(str(input_value), "html")
+    scheme = ["javascript:", "data:", "vbscript:"]
+
+    if not input_value:
+        return input_value
+
     for element in value_as_html.find_all(["script", "svg"]):
         element.decompose()
 
@@ -92,8 +97,8 @@ def clear_input_from_scripts(input_value):
             if att_name.startswith('on'):
                 del copy_attrs[attr]
 
-            if att_name == "href" or att_name == "src":
-                if element[attr].lower().startswith('javascript:'):
+            if att_name in ["href", "src"]:
+                if any(element[attr].lower().startswith(scheme)):
                     del copy_attrs[attr]
 
         element.attrs = copy_attrs
