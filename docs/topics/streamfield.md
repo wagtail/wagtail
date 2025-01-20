@@ -512,6 +512,62 @@ class EventBlock(blocks.StructBlock):
 
 All block types, not just `StructBlock`, support the `template` property. However, for blocks that handle basic Python data types, such as `CharBlock` and `IntegerBlock`, there are some limitations on where the template will take effect. For further details, see [](boundblocks_and_values).
 
+(configuring_block_previews)=
+
+## Configuring block previews
+
+StreamField blocks can have previews that will be shown inside the block picker when you add a block in the editor. To enable this feature, you must configure the preview value and template. You can also add a description to help users pick the right block for their content.
+
+You can do so by [passing the keyword arguments](block_preview_arguments) `preview_value`, `preview_template`, and `description` when instantiating a block:
+
+```py
+("quote", blocks.StructBlock(
+    [
+        ("text", blocks.TextBlock()),
+        ("source", blocks.CharBlock()),
+    ],
+    preview_value={"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"}
+    preview_template="myapp/previews/blocks/quote.html",
+    description="A quote with attribution to the source, rendered as a blockquote."
+))
+```
+
+You can also set `preview_value`, `preview_template`, and `description` as attributes in the `Meta` class of the block. For example:
+
+```py
+class QuoteBlock(blocks.StructBlock):
+    text = blocks.TextBlock()
+    attribute_name = blocks.CharBlock()
+
+    class Meta:
+        preview_value = {"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"}
+        preview_template = "myapp/previews/blocks/quote.html"
+        description = "A quote with attribution to the source, rendered as a blockquote."
+```
+
+Alternatively, you can also override the `get_preview_value`, `get_preview_context`, and `get_preview_template` methods to achieve the desired results.
+
+In many cases, you likely want to use the block's real template that you already configure via `template` or `get_template` as described in [](streamfield_per_block_templates). Wagtail provides a default preview template for all blocks that makes use of the `{% include_block %}` tag (as described in [](streamfield_template_rendering)), which will reuse your block's specific template.
+
+However, the default template does not include any static assets that may be necessary to render your blocks properly. If you only need to add static assets to the preview page, you can skip specifying `preview_template` and instead override the default template globally. You can do so by creating a `wagtailcore/shared/block_preview.html` template inside one of your `templates` directories (with a higher precedence than the `wagtail` app) with the following content:
+
+```html+django
+{% extends "wagtailcore/shared/block_preview.html" %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/my-styles.css' %}">
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/my-script.js' %}"></script>
+{% endblock %}
+```
+
+For more details on overriding templates, see also Django's guide on [](inv:django#howto/overriding-templates).
+
 ## Customizations
 
 All block types implement a common API for rendering their front-end and form representations, and storing and retrieving values to and from the database. By subclassing the various block classes and overriding these methods, all kinds of customizations are possible, from modifying the layout of StructBlock form fields to implementing completely new ways of combining blocks. For further details, see [](custom_streamfield_blocks).
