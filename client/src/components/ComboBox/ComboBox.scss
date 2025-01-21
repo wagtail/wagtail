@@ -2,12 +2,21 @@
 // With the scrolling and show/hide of the field, correct spacing is critical.
 $spacing: theme('spacing.[2.5]');
 $spacing-sm: theme('spacing.5');
+$width: min(1000px, 75vw);
 
 .w-combobox-container {
   @include dark-theme() {
     background-color: theme('colors.surface-tooltip');
   }
 
+  background: theme('colors.surface-page');
+  color: theme('colors.text-context');
+  border-radius: theme('borderRadius.DEFAULT');
+  box-shadow: theme('boxShadow.md');
+  outline: 10px solid transparent;
+
+  // Use a single column grid on smaller screens,
+  // and two columns on larger screens.
   display: grid;
   grid-template-columns: 1fr;
   @include media-breakpoint-up(md) {
@@ -17,20 +26,36 @@ $spacing-sm: theme('spacing.5');
     grid-template-columns: min(512px, 80vw) 1fr;
   }
 
+  // Case 1: base case
+  // Use max-content width to minimize shifting due to content wrapping,
+  // while also ensuring it's not wider than 75% of the viewport.
   width: max-content;
-  max-width: min(1024px, 75vw);
-  max-height: min(768px, 75vh);
-  background: theme('colors.surface-page');
-  color: theme('colors.text-context');
-  border-radius: theme('borderRadius.DEFAULT');
-  box-shadow: theme('boxShadow.md');
-  outline: 10px solid transparent;
+  max-width: 75vw;
 
-  // Only apply min-height if at least one block has a preview.
-  // We don't target `.w-combobox-preview` as the preview component only renders
-  // when a preview is present.
+  // Case 2: there's a previewable block, but the preview may or may not be active
+  // On smaller screens, the preview will be shown below. We don't want the
+  // combobox to change width when the preview is shown or hidden (e.g. due to
+  // a long description), so set a fixed width. It's OK that this will take up
+  // more than the necessary width for the combobox, as we know it's not going
+  // to be wider than 75% of the small screen anyway.
   &:has(.w-combobox__option-preview) {
-    min-height: min(320px, 70vh);
+    width: $width;
+
+    @include media-breakpoint-up(md) {
+      // On medium-up screens, the preview will be shown to the right. Revert
+      // the width back to max-content so it doesn't take up the whole `$width`
+      // when the preview is not active.
+      width: max-content;
+    }
+  }
+
+  // Case 3: the preview is currently active
+  &:has(.w-combobox-preview) {
+    @include media-breakpoint-up(md) {
+      // On larger screens, use the fixed `$width` so the width doesn't change
+      // for different blocks, which may have different description lengths.
+      width: $width;
+    }
   }
 }
 
