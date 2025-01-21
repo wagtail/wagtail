@@ -33,7 +33,7 @@ For more information, see the Django documentation for the [application director
 
 ### Page content
 
-The data/content entered into each page is accessed/output through Django's `{{ double-brace }}` notation. Each field from the model must be accessed by prefixing `page.`. For example the page title `{{ page.title }}` or another field `{{ page.author }}`.
+The data/content entered into each page is accessed/output through Django's `{{ double-brace }}` notation. Each field from the model must be accessed by prefixing `page.`. For example the page title `{{ page.title }}` or an author field `{{ page.author }}`.
 
 A custom variable name can be configured on the page model {attr}`wagtail.models.Page.context_object_name`. If a custom name is defined, `page` is still available for use in shared templates.
 
