@@ -18,7 +18,15 @@
         {% block body %}
             <main>
                 {% block content %}
-                    {% include_block bound_block %}
+                    {% comment %}
+                        StreamBlock renders each child block in a `div` wrapper
+                        like the following. Since we are rendering the block
+                        directly (without a StreamBlock), add the div wrapper
+                        here in case the styles rely on the `block-` CSS class.
+                    {% endcomment %}
+                    <div class="block-{{ block_def.name }}">
+                        {% include_block bound_block %}
+                    </div>
                 {% endblock %}
             </main>
 
