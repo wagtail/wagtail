@@ -56,6 +56,7 @@ module.exports = {
           'none',
           'unset',
           'transparent',
+          'normal',
           // System colors for forced-colors styling.
           // See https://drafts.csswg.org/css-color-4/#css-system-colors.
           'Canvas',

@@ -14,21 +14,23 @@
 }
 
 /**
- * Increase the scroll offset to account for pages with a sticky header.
+ * Increase the scroll offset to account for pages with sticky areas - header or footer.
  * We apply this to all pages for simplicity.
  */
-@mixin slim-header-scroll-offset() {
+@mixin sticky-areas-scroll-offset() {
   $gap: theme('spacing.4');
   // For mobile viewports, expect a sticky header over two rows.
   scroll-padding-top: calc(theme('spacing.slim-header') * 2 + $gap);
 
   @include media-breakpoint-up(sm) {
     scroll-padding-top: calc(theme('spacing.slim-header') + $gap);
+    // Increase the scroll offset to account for pages with sticky bottom button
+    scroll-padding-bottom: 100px;
   }
 }
 
 .content-wrapper {
-  @include slim-header-scroll-offset();
+  @include sticky-areas-scroll-offset();
   scroll-behavior: smooth;
   width: 100%;
   height: 100%; // this has no effect on desktop, but on mobile it helps aesthetics of menu popout action

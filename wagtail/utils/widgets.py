@@ -10,6 +10,7 @@ class WidgetWithScript(Widget):
     warn(
         "The usage of `WidgetWithScript` hook is deprecated. Use external scripts instead.",
         category=RemovedInWagtail70Warning,
+        stacklevel=3,
     )
 
     def render_html(self, name, value, attrs):

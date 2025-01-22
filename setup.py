@@ -31,11 +31,11 @@ install_requires = [
     "beautifulsoup4>=4.8,<4.13",
     "Willow[heif]>=1.8.0,<2",
     "requests>=2.11.1,<3.0",
-    "l18n>=2018.5",
     "openpyxl>=3.0.10,<4.0",
     "anyascii>=0.1.5",
     "telepath>=0.3.1,<1",
     "laces>=0.1,<0.2",
+    "django-tasks>=0.6.1,<0.7",
 ]
 
 # Testing dependencies

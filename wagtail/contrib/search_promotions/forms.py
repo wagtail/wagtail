@@ -6,7 +6,7 @@ from wagtail.admin.widgets import AdminPageChooser
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 
 
-class QueryForm(forms.Form):
+class QueryForm(forms.ModelForm):
     query_string = forms.CharField(
         label=_("Search term(s)/phrase"),
         help_text=_(
@@ -17,6 +17,17 @@ class QueryForm(forms.Form):
         required=True,
     )
 
+    def clean(self):
+        # We allow using an existing query string on the CreateView, so we need
+        # to skip the unique validation on `query_string`. This can be done by
+        # overriding the `clean()` method without calling `super().clean()`:
+        # https://docs.djangoproject.com/en/stable/topics/forms/modelforms/#overriding-the-clean-method
+        pass
+
+    class Meta:
+        model = Query
+        fields = ["query_string"]
+
 
 class SearchPromotionForm(forms.ModelForm):
     sort_order = forms.IntegerField(required=False)
@@ -24,6 +35,49 @@ class SearchPromotionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["page"].widget = AdminPageChooser()
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Use the raw value instead of from form.cleaned_data so we don't
+        # consider an invalid field as empty. For example, leaving the
+        # page field empty and entering an invalid external_link_url
+        # shouldn't raise an error about needing to enter a page or URL,
+        # since the user *has* entered (or tried to enter) a URL.
+        page = self["page"].value()
+        external_link_url = self["external_link_url"].value()
+        external_link_text = self["external_link_text"].value()
+
+        # Must supply a page or external_link_url (but not both)
+        if page is None:
+            if external_link_url:
+                # if an external_link_url is supplied,
+                # then external_link_text is also required
+                if not external_link_text:
+                    self.add_error(
+                        "external_link_text",
+                        forms.ValidationError(
+                            _(
+                                "You must enter an external link text if you enter an external link URL."
+                            )
+                        ),
+                    )
+            else:
+                self.add_error(
+                    None,
+                    forms.ValidationError(
+                        _("You must recommend a page OR an external link.")
+                    ),
+                )
+        elif external_link_url:
+            self.add_error(
+                None,
+                forms.ValidationError(
+                    _("Please only select a page OR enter an external link.")
+                ),
+            )
+
+        return cleaned_data
 
     class Meta:
         model = SearchPromotion
@@ -73,31 +127,6 @@ class SearchPromotionsFormSet(SearchPromotionsFormSetBase):
         non_empty_forms = 0
         for i in range(0, self.total_form_count()):
             form = self.forms[i]
-
-            page = form.cleaned_data["page"]
-            external_link_url = form.cleaned_data["external_link_url"]
-            external_link_text = form.cleaned_data["external_link_text"]
-
-            # only a page or external_link_url can be supplied
-            if page is None:
-                if external_link_url:
-                    # if an external_link_url then external_link_text is also required
-                    if not external_link_text:
-                        raise forms.ValidationError(
-                            _(
-                                "You must enter an external link text if you enter an external link URL."
-                            )
-                        )
-                else:
-                    raise forms.ValidationError(
-                        _("You must recommend a page OR an external link.")
-                    )
-            else:
-                if external_link_url:
-                    raise forms.ValidationError(
-                        _("Please only select a page OR enter an external link.")
-                    )
-
             if self.can_delete and self._should_delete_form(form):
                 non_deleted_forms -= 1
             if not (form.instance.id is None and not form.has_changed()):

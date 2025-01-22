@@ -35,7 +35,7 @@ class StreamChild extends BaseSequenceChild {
     return {
       type: this.type,
       value: this.block.getState(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
@@ -49,14 +49,14 @@ class StreamChild extends BaseSequenceChild {
   setState({ type, value, id }) {
     this.type = type;
     this.block.setState(value);
-    this.id = id;
+    this.id = id === undefined ? null : id;
   }
 
   getValue() {
     return {
       type: this.type,
       value: this.block.getValue(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
@@ -104,6 +104,7 @@ class StreamBlockMenu extends BaseInsertionControl {
       content: this.combobox,
       trigger: 'click',
       interactive: true,
+      maxWidth: 'none',
       theme: 'dropdown',
       arrow: false,
       placement: 'bottom',
@@ -120,7 +121,10 @@ class StreamBlockMenu extends BaseInsertionControl {
       const groupItems = blockDefs.map((blockDef) => ({
         type: blockDef.name,
         label: blockDef.meta.label,
+        description: blockDef.meta.description,
         icon: blockDef.meta.icon,
+        blockDefId: blockDef.meta.blockDefId,
+        isPreviewable: blockDef.meta.isPreviewable,
       }));
 
       return {
@@ -224,6 +228,8 @@ export class StreamBlock extends BaseSequenceBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    this.initDragNDrop();
   }
 
   getBlockGroups() {
@@ -389,7 +395,7 @@ export class StreamBlock extends BaseSequenceBlock {
     );
     child.setState({
       type: initialState.type,
-      id: initialState.id,
+      id: initialState.id || null,
       value: valueBefore,
     });
     const oldContentPath = child.getContentPath();

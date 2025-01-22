@@ -99,6 +99,9 @@ msgstr "هل أنت متأكد من أنك تريد حذف إعادة التوج
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
+msgid "Cancel"
+msgstr "إلغاء"
+
 msgid "Preview"
 msgstr "نظر مقدم"
 

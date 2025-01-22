@@ -9,6 +9,7 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTable,
     TypedTableBlock,
+    TypedTableBlockAdapter,
     TypedTableBlockValidationError,
 )
 
@@ -222,6 +223,38 @@ class TestTableBlock(TestCase):
         self.assertIn('<th scope="col">Country</th>', html)
         # rendering should use the block renderings of the child blocks ('FR' not 'fr')
         self.assertIn("<td>FR</td>", html)
+
+    def test_adapt(self):
+        block = TypedTableBlock(description="A table of countries and their food")
+
+        block.set_name("test_typedtableblock")
+        js_args = TypedTableBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_typedtableblock")
+        self.assertEqual(
+            js_args[-1],
+            {
+                "label": "Test typedtableblock",
+                "description": "A table of countries and their food",
+                "required": False,
+                "icon": "table",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
+                "strings": {
+                    "CAPTION": "Caption",
+                    "CAPTION_HELP_TEXT": (
+                        "A heading that identifies the overall topic of the table, and is useful for screen reader users."
+                    ),
+                    "ADD_COLUMN": "Add column",
+                    "ADD_ROW": "Add row",
+                    "COLUMN_HEADING": "Column heading",
+                    "INSERT_COLUMN": "Insert column",
+                    "DELETE_COLUMN": "Delete column",
+                    "INSERT_ROW": "Insert row",
+                    "DELETE_ROW": "Delete row",
+                },
+            },
+        )
 
     def test_validation_error_as_json(self):
         error = TypedTableBlockValidationError(

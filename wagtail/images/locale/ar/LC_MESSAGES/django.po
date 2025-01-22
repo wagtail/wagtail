@@ -177,6 +177,10 @@ msgstr "جديد"
 msgid "Latest images"
 msgstr "احد الصور"
 
+#, python-format
+msgid "Select %(title)s"
+msgstr "إختر %(title)s"
+
 msgid "Choose a format"
 msgstr "اختر شكلا"
 

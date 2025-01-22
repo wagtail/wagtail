@@ -231,6 +231,8 @@ This adds two fields to the API (other fields omitted for brevity):
 }
 ```
 
+(api_v2_images)=
+
 ### Images in the API
 
 The `ImageRenditionField` serializer

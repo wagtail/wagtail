@@ -14,8 +14,6 @@ from django.utils.formats import get_format
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
-from openpyxl import Workbook
-from openpyxl.cell import WriteOnlyCell
 
 from wagtail.admin.widgets.button import Button
 from wagtail.coreutils import multigetattr
@@ -208,6 +206,8 @@ class SpreadsheetExportMixin:
 
     def generate_xlsx_row(self, worksheet, row_dict, date_format=None):
         """Generate cells to append to the worksheet"""
+        from openpyxl.cell import WriteOnlyCell
+
         for field, value in row_dict.items():
             cell = WriteOnlyCell(
                 worksheet, self.preprocess_field_value(field, value, self.FORMAT_XLSX)
@@ -246,6 +246,8 @@ class SpreadsheetExportMixin:
 
     def write_xlsx(self, queryset, output):
         """Write an xlsx workbook from a queryset"""
+        from openpyxl import Workbook
+
         workbook = Workbook(write_only=True, iso_dates=True)
 
         worksheet = workbook.create_sheet(title="Sheet1")

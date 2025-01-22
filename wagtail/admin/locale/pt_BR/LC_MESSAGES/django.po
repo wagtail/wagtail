@@ -1260,6 +1260,10 @@ msgstr[1] "Também excluirá %(translation_count)s traduções."
 msgstr[2] "Também excluirá %(translation_count)s traduções."
 
 #, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "Esta ação irá apagar o total de <b>%(total_pages)s</b> páginas."
+
+#, python-format
 msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
 msgstr "Por favor digite <b>%(wagtail_site_name)s</b> para confirmar."
 
@@ -1631,6 +1635,10 @@ msgstr "Sistema"
 
 msgid "Refresh"
 msgstr "Atualizar"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s tem alterações não salvas"
 
 msgid "Currently viewing"
 msgstr "Visualizando atualmente"
@@ -2289,11 +2297,23 @@ msgstr "Use texto significativo para usuários de leitores de tela"
 msgid "Empty heading found"
 msgstr "Cabeçalho vazio encontrado"
 
+msgid "Incorrect heading hierarchy"
+msgstr "Hierarquia de títulos incorreta"
+
 msgid "Avoid skipping levels"
 msgstr "Evite pular níveis"
 
 msgid "Link text is empty"
 msgstr "O texto do link está vazio"
+
+msgid "Use proper heading tags"
+msgstr "Use tags de título adequadas"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "O texto alternativo da imagem tem um padrão inapropriado"
+
+msgid "Use meaningful text"
+msgstr "Use texto significativo"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -2569,6 +2589,9 @@ msgstr ""
 
 msgid "Dashboard"
 msgstr "Painel"
+
+msgid "Search all pages…"
+msgstr "Pesquisar todas as páginas…"
 
 msgid "Delete selected pages"
 msgstr "Excluir páginas selecionadas"
@@ -2928,11 +2951,17 @@ msgstr "Tipo de página/snippet"
 msgid "Page/Snippet Title"
 msgstr "Título da página/snippet"
 
+msgid "By task"
+msgstr "Por tarefa"
+
 msgid "Workflow tasks"
 msgstr "Tarefas de fluxo de trabalho"
 
 msgid "Requested By"
 msgstr "Solicitado por"
+
+msgid "By workflow"
+msgstr "Por fluxo de trabalho"
 
 msgid "Show disabled"
 msgstr "Mostrar desativado"

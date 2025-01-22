@@ -10,6 +10,7 @@ from wagtail.admin.models import popular_tags_for_model
 from wagtail.admin.utils import get_user_display_name
 from wagtail.admin.widgets import AdminDateInput, BooleanRadioSelect, FilteredSelect
 from wagtail.coreutils import get_content_languages, get_content_type_label
+from wagtail.models import Locale
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
@@ -93,7 +94,8 @@ class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
 class LocaleFilter(django_filters.ChoiceFilter):
     def filter(self, qs, language_code):
         if language_code:
-            return qs.filter(locale__language_code=language_code)
+            locale = Locale.objects.filter(language_code=language_code)
+            return qs.filter(locale_id=locale.values_list("pk", flat=True)[:1])
         return qs
 
 

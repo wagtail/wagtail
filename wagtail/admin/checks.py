@@ -152,7 +152,7 @@ There are no tabs on non-Page model editing within InlinePanels.""".format(
                 class_name, panel_name
             )
         else:
-            error_hint = """Ensure that {} uses `panels` instead of `{}`\
+            error_hint = """Ensure that {} uses `panels` instead of `{}` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no \
 {} tab for the {} to render in.""".format(

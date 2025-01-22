@@ -605,6 +605,10 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             "query": query.query_string,
             "fuzziness": "AUTO",
         }
+
+        if query.operator != "or":
+            match_query["operator"] = query.operator
+
         if len(fields) == 1:
             if fields[0].boost != 1.0:
                 match_query["boost"] = fields[0].boost

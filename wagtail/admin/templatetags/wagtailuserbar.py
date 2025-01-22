@@ -2,13 +2,13 @@ from django import template
 from django.template.loader import render_to_string
 from django.utils import translation
 
-from wagtail import hooks
 from wagtail.admin.userbar import (
     AccessibilityItem,
     AddPageItem,
     AdminItem,
     EditPageItem,
     ExplorePageItem,
+    apply_userbar_hooks,
 )
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Revision
 from wagtail.users.models import UserProfile
@@ -89,8 +89,7 @@ def wagtailuserbar(context, position="bottom-right"):
                 AccessibilityItem(),
             ]
 
-        for fn in hooks.get_hooks("construct_wagtail_userbar"):
-            fn(request, items)
+        apply_userbar_hooks(request, items, page)
 
         # Render the items
         rendered_items = [item.render(request) for item in items]

@@ -7,7 +7,7 @@
         <div class="nice-padding w-mt-8">
             <h2 class="w-relative w-h1" id="header-title">
                 {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
-                {{ page_subtitle }}
+                {{ page_subtitle|default:page_title }}
             </h2>
         </div>
     {% else %}

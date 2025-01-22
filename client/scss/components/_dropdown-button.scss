@@ -26,16 +26,6 @@ $radius: theme('borderRadius.sm');
     width: 100%;
   }
 
-  @supports not selector(:has(*)) {
-    // Use no corner radius and always-on borders if `:has` is not supported.
-    --primary-button-radius-top: 0;
-    --primary-button-radius-bottom: 0;
-    --toggle-button-radius-top: 0;
-    --toggle-button-radius-bottom: 0;
-    --first-item-border-top: #{$separator};
-    --last-item-border-top: #{$separator};
-  }
-
   &:has(:not([hidden]) > [data-placement^='bottom']) {
     --primary-button-radius-top: #{$radius};
     --primary-button-radius-bottom: 0;

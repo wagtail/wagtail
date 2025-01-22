@@ -1,3 +1,5 @@
+(image_focal_points)=
+
 # Focal points
 
 Focal points are used to indicate to Wagtail the area of an image that contains the subject.

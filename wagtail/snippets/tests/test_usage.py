@@ -74,15 +74,16 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertEqual(sublabel.get_text(strip=True), "Draft-enabled Bar, In Draft")
 
     def test_usage(self):
-        # resave so that usage count gets updated
-        page = Page.objects.get(pk=2)
-        page.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            # resave so that usage count gets updated
+            page = Page.objects.get(pk=2)
+            page.save()
 
-        gfk_page = GenericSnippetPage(
-            title="Foobar Title",
-            snippet_content_object=Advert.objects.get(pk=1),
-        )
-        page.add_child(instance=gfk_page)
+            gfk_page = GenericSnippetPage(
+                title="Foobar Title",
+                snippet_content_object=Advert.objects.get(pk=1),
+            )
+            page.add_child(instance=gfk_page)
 
         response = self.client.get(
             reverse(
@@ -124,9 +125,10 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailadmin_home"))
 
     def test_usage_without_edit_permission_on_page(self):
-        # resave so that usage count gets updated
-        page = Page.objects.get(pk=2)
-        page.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            # resave so that usage count gets updated
+            page = Page.objects.get(pk=2)
+            page.save()
 
         # Create a user with edit access to snippets but not pages
         user = self.create_user(
@@ -157,9 +159,10 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Advert</li>", html=True)
 
     def test_usage_with_describe_on_delete_cascade(self):
-        # resave so that usage count gets updated
-        page = Page.objects.get(pk=2)
-        page.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            # resave so that usage count gets updated
+            page = Page.objects.get(pk=2)
+            page.save()
 
         response = self.client.get(
             reverse("wagtailsnippets_tests_advert:usage", args=["1"])
@@ -173,9 +176,10 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertContains(response, ": the advert placement will also be deleted")
 
     def test_usage_with_describe_on_delete_set_null(self):
-        # resave so that usage count gets updated
-        page = EventPage.objects.first()
-        page.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            # resave so that usage count gets updated
+            page = EventPage.objects.first()
+            page.save()
 
         self.assertEqual(page.feed_image.get_usage().count(), 1)
 
@@ -191,13 +195,14 @@ class TestSnippetUsageView(WagtailTestUtils, TestCase):
         self.assertContains(response, ": will unset the reference")
 
     def test_usage_with_describe_on_delete_gfk(self):
-        advert = Advert.objects.get(pk=1)
+        with self.captureOnCommitCallbacks(execute=True):
+            advert = Advert.objects.get(pk=1)
 
-        gfk_page = GenericSnippetPage(
-            title="Foobar Title",
-            snippet_content_object=advert,
-        )
-        Page.objects.get(pk=1).add_child(instance=gfk_page)
+            gfk_page = GenericSnippetPage(
+                title="Foobar Title",
+                snippet_content_object=advert,
+            )
+            Page.objects.get(pk=1).add_child(instance=gfk_page)
 
         self.assertEqual(ReferenceIndex.get_grouped_references_to(advert).count(), 1)
 

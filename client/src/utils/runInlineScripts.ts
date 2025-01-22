@@ -12,6 +12,9 @@ const runScript = (script: HTMLScriptElement) => {
   }
 };
 
+/**
+ * Finds and runs any inline scripts contained within the given DOM element or fragment.
+ */
 const runInlineScripts = (element: HTMLElement | DocumentFragment) => {
   const selector = 'script:not([src])';
   if (element instanceof HTMLElement && element.matches(selector)) {

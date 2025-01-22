@@ -16,7 +16,6 @@ import logging
 import posixpath
 import uuid
 from io import StringIO
-from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
 from warnings import warn
 
@@ -40,7 +39,7 @@ from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
-from django.http import Http404, HttpResponse, HttpResponseNotAllowed
+from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.http.request import validate_host
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
@@ -128,13 +127,11 @@ from .media import (  # noqa: F401
     UploadedFile,
     get_root_collection_id,
 )
+from .panels import CommentPanelPlaceholder, PanelPlaceholder
 from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
-
-if TYPE_CHECKING:
-    from django.http import HttpRequest
 
 logger = logging.getLogger("wagtail")
 
@@ -1405,11 +1402,40 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         COMMENTS_RELATION_NAME,
     ]
 
-    # Define these attributes early to avoid masking errors. (Issue #3078)
-    # The canonical definition is in wagtailadmin.panels.
-    content_panels = []
-    promote_panels = []
-    settings_panels = []
+    # Real panel classes are defined in wagtail.admin.panels, which we can't import here
+    # because it would create a circular import. Instead, define them with placeholders
+    # to be replaced with the real classes by `wagtail.admin.panels.model_utils.expand_panel_list`.
+    content_panels = [
+        PanelPlaceholder("wagtail.admin.panels.TitleFieldPanel", ["title"], {}),
+    ]
+    promote_panels = [
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "slug",
+                    "seo_title",
+                    "search_description",
+                ],
+                _("For search engines"),
+            ],
+            {},
+        ),
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "show_in_menus",
+                ],
+                _("For site menus"),
+            ],
+            {},
+        ),
+    ]
+    settings_panels = [
+        PanelPlaceholder("wagtail.admin.panels.PublishingPanel", [], {}),
+        CommentPanelPlaceholder(),
+    ]
 
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
@@ -2222,15 +2248,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not possible_sites:
             return None
 
+        # Thanks to the ordering applied by Site.get_site_root_paths(),
+        # the first item is ideal in the vast majority of setups.
         site_id, root_path, root_url, language_code = possible_sites[0]
 
-        site = Site.find_for_request(request)
-        if site:
-            for site_id, root_path, root_url, language_code in possible_sites:
-                if site_id == site.pk:
-                    break
-            else:
-                site_id, root_path, root_url, language_code = possible_sites[0]
+        unique_site_ids = {values[0] for values in possible_sites}
+        if len(unique_site_ids) > 1 and isinstance(request, HttpRequest):
+            # The page somehow belongs to more than one site (rare, but possible).
+            # If 'request' is indeed a HttpRequest, use it to identify the 'current'
+            # site and prefer an option matching that (where present).
+            site = Site.find_for_request(request)
+            if site:
+                for values in possible_sites:
+                    if values[0] == site.pk:
+                        site_id, root_path, root_url, language_code = values
+                        break
 
         use_wagtail_i18n = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 

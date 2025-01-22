@@ -3,22 +3,41 @@
 $spacing: theme('spacing.[2.5]');
 $spacing-sm: theme('spacing.5');
 
-.w-combobox {
-  width: min(400px, 80vw);
+.w-combobox-container {
   @include dark-theme() {
     background-color: theme('colors.surface-tooltip');
   }
+
+  display: grid;
+  grid-template-columns: 1fr;
+  @include media-breakpoint-up(md) {
+    grid-template-columns: min(400px, 80vw) 1fr;
+  }
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: min(512px, 80vw) 1fr;
+  }
+
+  width: max-content;
+  max-width: min(1024px, 75vw);
+  max-height: min(768px, 75vh);
   background: theme('colors.surface-page');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
-  font-size: theme('fontSize.18');
   box-shadow: theme('boxShadow.md');
   outline: 10px solid transparent;
+
+  // Only apply min-height if at least one block has a preview.
+  // We don't target `.w-combobox-preview` as the preview component only renders
+  // when a preview is present.
+  &:has(.w-combobox__option-preview) {
+    min-height: min(320px, 70vh);
+  }
 }
 
 .w-combobox__field {
   padding: $spacing;
   padding-bottom: 0;
+  font-size: theme('fontSize.18');
 
   @include media-breakpoint-up(sm) {
     padding: $spacing-sm;
@@ -48,7 +67,7 @@ $spacing-sm: theme('spacing.5');
   padding-top: 0;
 
   @include media-breakpoint-up(sm) {
-    width: 400px;
+    width: 100%;
     padding: $spacing-sm;
     padding-top: 0;
   }
@@ -68,6 +87,31 @@ $spacing-sm: theme('spacing.5');
   @media (forced-colors: active) {
     color: GrayText;
   }
+}
+
+.w-combobox__option-row {
+  display: grid;
+  grid-template-columns: 1fr theme('spacing.6');
+}
+
+.w-combobox__option-preview {
+  background: none;
+  padding: 0;
+  width: 100%;
+
+  .icon {
+    color: theme('colors.icon-secondary');
+    width: theme('spacing.3');
+    height: theme('spacing.3');
+  }
+}
+
+.w-combobox__option-row--col1 {
+  grid-column: 1 / span 1;
+}
+
+.w-combobox__option-row--col2 {
+  grid-column: 2 / span 1;
 }
 
 .w-combobox__option {
@@ -91,14 +135,6 @@ $spacing-sm: theme('spacing.5');
       color: HighlightText;
     }
   }
-}
-
-.w-combobox__option--col1 {
-  grid-column: 1 / span 1;
-}
-
-.w-combobox__option--col2 {
-  grid-column: 2 / span 1;
 }
 
 .w-combobox__option-icon {

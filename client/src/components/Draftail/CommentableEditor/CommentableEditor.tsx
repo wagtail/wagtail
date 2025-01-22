@@ -824,6 +824,14 @@ function CommentableEditor({
 
             handleArrowAtContentEnd(getEditorState(), setEditorState, 'RTL');
           },
+          handleDrop: (
+            _: SelectionState,
+            dataTransfer: { data: DataTransfer; types: string[] },
+          ) => {
+            if (dataTransfer.types.includes('application/vnd.wagtail.type'))
+              return 'handled';
+            return undefined;
+          },
           handleKeyCommand: (command: string, state: EditorState) => {
             if (command === 'comment') {
               // Open the comments side panel

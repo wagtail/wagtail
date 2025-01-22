@@ -37,7 +37,6 @@ module.exports = function exports(env, argv) {
       'core',
       'date-time-chooser',
       'draftail',
-      'expanding-formset',
       'filtered-select',
       'icons',
       'modal-workflow',
@@ -177,11 +176,6 @@ module.exports = function exports(env, argv) {
             to: 'wagtail/contrib/search_promotions/static/',
             globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
           },
-          {
-            from: 'wagtail/users/static_src/',
-            to: 'wagtail/users/static/',
-            globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] },
-          },
         ],
       }),
     ],
@@ -222,7 +216,7 @@ module.exports = function exports(env, argv) {
                   // Manually set Sass output so it’s identical in production and development. See:
                   // https://github.com/tailwindlabs/tailwindcss/issues/11027
                   // https://github.com/webpack-contrib/sass-loader/issues/1129
-                  outputStyle: 'expanded',
+                  style: 'expanded',
                 },
               },
             },

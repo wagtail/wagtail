@@ -12,9 +12,8 @@
     "last 2 ChromeAndroid versions",
     "last 2 Edge versions",
     "last 1 Firefox version",
-    "iOS >= 16",
-    "Safari >= 15",
-    "not ie 11"
+    "iOS >= 17",
+    "Safari >= 16"
   ],
   "jest": {
     "moduleFileExtensions": [
@@ -95,7 +94,7 @@
     "react-test-renderer": "^16.14.0",
     "redux-mock-store": "^1.5.5",
     "sass": "^1.80.6",
-    "sass-loader": "^14.1.0",
+    "sass-loader": "^16.0.4",
     "storybook": "^7.6.14",
     "storybook-django": "^0.5.1",
     "stylelint": "^15.11.0",

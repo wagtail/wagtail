@@ -13,6 +13,7 @@
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Tarek Berkane, 2025
 # ultraify media <ultraify@gmail.com>, 2018
 # Waseem Kntar, 2023
 # Younes Oumakhou, 2022
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Mahmoud Marayef, 2023\n"
+"Last-Translator: Tarek Berkane, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +84,9 @@ msgstr "التاريخ من"
 
 msgid "Date to"
 msgstr "تاريخ لـ"
+
+msgid "Locale"
+msgstr "الإعدادات المحلية"
 
 msgid "All"
 msgstr "الكل"
@@ -352,6 +356,12 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
 
+msgid "Reset to default"
+msgstr "إعادة التعيين إلى الوضع الافتراضي"
+
+msgid "Default avatar"
+msgstr "الصورة الرمزية الافتراضية"
+
 msgid "Upload a profile picture:"
 msgstr "رَفع صورة الملف الشخصي"
 
@@ -360,6 +370,9 @@ msgstr "الشريط الجانبي"
 
 msgid "Go back"
 msgstr "رجوع"
+
+msgid "Select"
+msgstr "إختر"
 
 msgid "Select row"
 msgstr "تحديد صف"
@@ -395,6 +408,15 @@ msgstr "اختر"
 msgid "Choose a page"
 msgstr "اختر صفحة"
 
+msgid "Confirm selection"
+msgstr "تأكيد الاختيار"
+
+msgid "Convert to internal link"
+msgstr "حول إلى رابط داخلي"
+
+msgid "Use external link"
+msgstr "إستعمل رابط خارجي"
+
 msgid "Add an email link"
 msgstr "أضف حلقة إلكترونية"
 
@@ -403,6 +425,13 @@ msgstr "أدخل حلقة"
 
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
+
+msgid "Add a phone link"
+msgstr "أضف رابط الهاتف"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "إختر %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -419,6 +448,9 @@ msgstr "يمكنك تحرير إعدادات الخصوصية على:"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Change privacy"
+msgstr "تغيير إعدادات الخصوصية"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -445,6 +477,9 @@ msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"
 
+msgid "There are no results."
+msgstr "لا توجد نتائج."
+
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
@@ -460,6 +495,13 @@ msgstr "نعك ألغ نشره"
 
 msgid "No, don't unpublish"
 msgstr "لا ,ألغ النشر"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "هل مازلت تود نشر %(model_name)s ؟"
+
+msgid "Cancel"
+msgstr "إلغاء"
 
 msgid "Actions"
 msgstr "النشاطات"
@@ -498,6 +540,9 @@ msgstr "صفحاتُك المقفلة"
 
 msgid "Status"
 msgstr "رتبة"
+
+msgid "Locked at"
+msgstr "تم الغلق في"
 
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
@@ -877,6 +922,15 @@ msgstr "Bold"
 msgid "Italic"
 msgstr "Italic"
 
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+msgid "Name and Email"
+msgstr "الإسم و البريد الإلكتروني"
+
+msgid "Profile picture"
+msgstr "صورة الملف الشخصي"
+
 msgid "Password"
 msgstr "كلمة السر"
 
@@ -1095,6 +1149,19 @@ msgstr "كود"
 
 msgid "Reports"
 msgstr "التقارير"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "ما الجديد في Wagtail %(version)s"
+
+msgid "Editor Guide"
+msgstr "دليل المحرر"
+
+msgid "Shortcuts"
+msgstr "إختصارات"
+
+msgid "Help"
+msgstr "المساعدة"
 
 msgid "Choose an item"
 msgstr "اختيار عنصر"

@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/generic/edit.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n %}
 
 {% block before_form %}
     {% if site_switcher %}
@@ -10,8 +10,4 @@
             {{ site_switcher.site }}
         </form>
     {% endif %}
-{% endblock %}
-
-{% block form_content %}
-    {{ edit_handler.render_form_content }}
 {% endblock %}

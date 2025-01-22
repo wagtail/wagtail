@@ -3,7 +3,6 @@ from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
 from . import checks, get_image_model  # NOQA: F401
-from .signal_handlers import register_signal_handlers
 
 
 class WagtailImagesAppConfig(AppConfig):
@@ -14,6 +13,8 @@ class WagtailImagesAppConfig(AppConfig):
     default_attrs = {}
 
     def ready(self):
+        from .signal_handlers import register_signal_handlers
+
         register_signal_handlers()
 
         # Set up model forms to use AdminImageChooser for any ForeignKey to the image model

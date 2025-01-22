@@ -9,7 +9,7 @@ callables
 camelCase
 CDN
 Cloudflare
-Cloudfront
+CloudFront
 contrib
 CSP
 Ctrl

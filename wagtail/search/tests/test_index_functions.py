@@ -160,9 +160,10 @@ class TestRemoveObject(WagtailTestUtils, TestCase):
 class TestSignalHandlers(WagtailTestUtils, TestCase):
     def test_index_on_create(self, backend):
         backend().reset_mock()
-        obj = models.Book.objects.create(
-            title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            obj = models.Book.objects.create(
+                title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
+            )
         backend().add.assert_called_with(obj)
 
     def test_index_on_update(self, backend):
@@ -172,7 +173,8 @@ class TestSignalHandlers(WagtailTestUtils, TestCase):
 
         backend().reset_mock()
         obj.title = "Updated test"
-        obj.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            obj.save()
 
         self.assertEqual(backend().add.call_count, 1)
         indexed_object = backend().add.call_args[0][0]
@@ -184,7 +186,8 @@ class TestSignalHandlers(WagtailTestUtils, TestCase):
         )
 
         backend().reset_mock()
-        obj.delete()
+        with self.captureOnCommitCallbacks(execute=True):
+            obj.delete()
         backend().delete.assert_called_with(obj)
 
     def test_do_not_index_fields_omitted_from_update_fields(self, backend):
@@ -195,7 +198,8 @@ class TestSignalHandlers(WagtailTestUtils, TestCase):
         backend().reset_mock()
         obj.title = "Updated test"
         obj.publication_date = date(2001, 10, 19)
-        obj.save(update_fields=["title"])
+        with self.captureOnCommitCallbacks(execute=True):
+            obj.save(update_fields=["title"])
 
         self.assertEqual(backend().add.call_count, 1)
         indexed_object = backend().add.call_args[0][0]
