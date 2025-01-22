@@ -784,7 +784,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             path__startswith=self.root_page.path, slug="hello-world"
         ).specific
 
-        self.assertTrue(PageViewRestriction.objects.filter(page=page).count() == 0)
+        self.assertEqual(PageViewRestriction.objects.filter(page=page).count(), 0)
 
     def test_create_default_privacy_page_logged_in(self):
         original_default_privacy_setting = SimplePage.get_default_privacy_setting
@@ -813,11 +813,11 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             path__startswith=self.root_page.path, slug="hello-world"
         ).specific
 
-        self.assertTrue(
+        self.assertEqual(
             PageViewRestriction.objects.filter(
                 page=page, restriction_type="login"
-            ).count()
-            == 1
+            ).count(),
+            1,
         )
 
         SimplePage.get_default_privacy_setting = original_default_privacy_setting
@@ -849,11 +849,11 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             path__startswith=self.root_page.path, slug="hello-world"
         ).specific
 
-        self.assertTrue(
+        self.assertEqual(
             PageViewRestriction.objects.filter(
                 page=page, restriction_type="password"
-            ).count()
-            == 1
+            ).count(),
+            1,
         )
 
         SimplePage.get_default_privacy_setting = original_default_privacy_setting
@@ -885,11 +885,11 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             path__startswith=self.root_page.path, slug="hello-world"
         ).specific
 
-        self.assertTrue(
+        self.assertEqual(
             PageViewRestriction.objects.filter(
                 page=page, restriction_type="groups"
-            ).count()
-            == 1
+            ).count(),
+            1,
         )
 
         SimplePage.get_default_privacy_setting = original_default_privacy_setting
