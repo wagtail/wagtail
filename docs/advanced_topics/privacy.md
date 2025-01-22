@@ -90,8 +90,8 @@ class SecretPage(Page):
     ...
     def get_default_privacy_setting(self, request):
         # set default to auto-generated password
-        import secrets
-        return {'type':'password',"password":secrets.token_urlsafe(32)}
+        from django.utils.crypto import get_random_string
+        return {'type':'password',"password":django.utils.crypto.get_random_string(length=32)}
 ```
 
 ## Setting up a global "password required" page
