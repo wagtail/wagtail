@@ -785,7 +785,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertEqual(PageViewRestriction.objects.filter(page=page).count(), 0)
 
     @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
-    def test_create_default_privacy_page_logged_in(self, mock_get_default_privacy_setting):
+    def test_create_default_privacy_page_logged_in(
+        self, mock_get_default_privacy_setting
+    ):
         mock_get_default_privacy_setting.return_value = {"type": "login"}
 
         post_data = {
@@ -816,8 +818,13 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
     @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
-    def test_create_default_privacy_page_shared_password(self,mock_get_default_privacy_setting):
-        mock_get_default_privacy_setting.return_value = {"type": "password", "password": "password"}
+    def test_create_default_privacy_page_shared_password(
+        self, mock_get_default_privacy_setting
+    ):
+        mock_get_default_privacy_setting.return_value = {
+            "type": "password",
+            "password": "password",
+        }
         post_data = {
             "title": "New page!",
             "content": "Some content",
@@ -846,7 +853,9 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
     @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
-    def test_create_default_privacy_page_user_groups(self, mock_get_default_privacy_setting):
+    def test_create_default_privacy_page_user_groups(
+        self, mock_get_default_privacy_setting
+    ):
         mock_get_default_privacy_setting.return_value = {"type": "groups", "groups": []}
         # original_default_privacy_setting = SimplePage.get_default_privacy_setting
         post_data = {
