@@ -494,6 +494,8 @@ class EventBlock(blocks.StructBlock):
 
 In this example, the variable `is_happening_today` will be made available within the block template. The `parent_context` keyword argument is available when the block is rendered through an `{% include_block %}` tag, and is a dict of variables passed from the calling template.
 
+(streamfield_get_template)=
+
 Similarly, a `get_template` method can be defined to dynamically select a template based on the block value:
 
 ```python
