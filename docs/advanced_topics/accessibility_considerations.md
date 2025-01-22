@@ -20,7 +20,7 @@ As part of defining your site’s models, here are areas to pay special attentio
 
 ### Alt text for images
 
-Wherever an image is used, the content editor should be able to mark the image as decorative or provide a context-specific text alternative. The image embed in our rich text editor supports this behavior.  Wagtail 6.3 added [`ImageBlock`](streamfield_imageblock) to provide this behavior for images within StreamFields.
+Wherever an image is used, the content editor should be able to mark the image as decorative or provide a context-specific text alternative. The image embed in our rich text editor supports this behavior. Wagtail 6.3 added [`ImageBlock`](streamfield_imageblock) to provide this behavior for images within StreamFields.
 
 Wagtail 6.3 also added an optional `description` field to the Wagtail image model and to custom image models inheriting from `wagtail.images.models.AbstractImage`. Text in that field will be offered as the default alt text when inserting images in rich text or using ImageBlock. If the description field is empty, the title field will be used instead. If you would like to customize this behavior, [override the `default_alt_text` property](custom_image_model) in your image model.
 
