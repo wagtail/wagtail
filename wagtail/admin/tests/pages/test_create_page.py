@@ -780,9 +780,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
 
         # Find the page and check it
-        page = Page.objects.get(
-            path__startswith=self.root_page.path, slug="hello-world"
-        ).specific
+        page = self.root_page.get_children().filter(slug="hello-world").first()
 
         self.assertEqual(PageViewRestriction.objects.filter(page=page).count(), 0)
 
