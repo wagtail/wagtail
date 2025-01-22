@@ -41,7 +41,7 @@ Changelog
  * Fix: Normalize `StreamField.get_default()` to prevent creation forms from breaking (Matt Westcott)
  * Fix: Prevent out-of-order migrations from skipping creation of image/document choose permissions (Matt Westcott)
  * Fix: Use correct connections on multi-database setups in database search backends (Jake Howard)
- * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
+ * Fix: Ensure CloudFront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Show the correct privacy status in the sidebar when creating a new page (Joel William)
  * Fix: Prevent generic model edit view from unquoting non-integer primary keys multiple times (Matt Westcott)
  * Fix: Ensure comments are functional when editing Page models with `read_only` `Fieldpanel`s in use (Strapchay)
@@ -149,7 +149,7 @@ Changelog
 6.3.2 (02.01.2025)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
+ * Fix: Ensure CloudFront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Ensure Draftail features wrap when a large amount of features are added (Bart Cieliński)
  * Fix: Implement `get_block_by_content_path` on `ImageBlock` to prevent errors on commenting (Matt Westcott)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
