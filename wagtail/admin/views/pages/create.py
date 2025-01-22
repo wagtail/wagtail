@@ -192,9 +192,8 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         # privacy setting options BaseViewRestriction.RESTRICTION_CHOICES
         default_privacy_setting = self.page.get_default_privacy_setting(self.request)
 
-        if (
-            default_privacy_setting["type"] == BaseViewRestriction.NONE
-        ):  # default privacy setting is public no need to do anything
+        if (default_privacy_setting["type"] == BaseViewRestriction.NONE):
+            # default privacy setting is public no need to do anything
             pass
         elif default_privacy_setting["type"] == BaseViewRestriction.LOGIN:
             PageViewRestriction.objects.create(
