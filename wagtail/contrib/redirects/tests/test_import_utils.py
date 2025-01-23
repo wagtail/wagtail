@@ -5,12 +5,12 @@ from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.test import TestCase, override_settings
 
+from wagtail.contrib.redirects.tmp_storages import CacheStorage
 from wagtail.contrib.redirects.utils import (
     get_file_storage,
     get_import_formats,
     write_to_file_storage,
 )
-from wagtail.contrib.redirects.tmp_storages import CacheStorage
 
 TEST_ROOT = os.path.abspath(os.path.dirname(__file__))
 
