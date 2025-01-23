@@ -877,7 +877,7 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self, mock_get_default_privacy_setting
     ):
         mock_get_default_privacy_setting.return_value = {"type": "groups", "groups": []}
-        # original_default_privacy_setting = SimplePage.get_default_privacy_setting
+
         post_data = {
             "title": "New page!",
             "content": "Some content",

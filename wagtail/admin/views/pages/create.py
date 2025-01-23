@@ -214,7 +214,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             groups_page_restriction.groups.set(default_privacy_setting["groups"])
         else:
             raise ValueError(
-                f"Invalid privacy setting '{default_privacy_setting.get("type"),"Unknown"}'. Choose one of the following: 'none', 'password', 'groups', 'login'."
+                "Invalid privacy setting '" + default_privacy_setting.get("type"),
+                "Unknown"
+                + "'. Choose one of the following: 'none', 'password', 'groups', 'login'.",
             )
 
     def save_action(self):
