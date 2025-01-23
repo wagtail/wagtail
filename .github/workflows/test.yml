@@ -53,9 +53,9 @@ jobs:
             django: 'Django>=4.1,<5.0'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -70,10 +70,11 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   test-postgres:
     runs-on: ubuntu-latest
@@ -120,9 +121,9 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -144,10 +145,11 @@ jobs:
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
           DISABLE_TIMEZONE: ${{ matrix.notz }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   test-mysql:
     runs-on: ubuntu-latest
@@ -174,9 +176,9 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --cap-add=sys_nice
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -194,10 +196,11 @@ jobs:
           DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: root
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   # https://github.com/elastic/elastic-github-actions doesn't work for Elasticsearch 5,
   # but https://github.com/getong/elasticsearch-action does
@@ -224,9 +227,9 @@ jobs:
           host node port: 9300
           node port: 9300
           discovery type: 'single-node'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -244,10 +247,11 @@ jobs:
         env:
           DATABASE_ENGINE: django.db.backends.sqlite3
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   test-sqlite-elasticsearch8:
     runs-on: ubuntu-latest
@@ -272,9 +276,9 @@ jobs:
           host node port: 9300
           node port: 9300
           discovery type: 'single-node'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -292,10 +296,11 @@ jobs:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   # https://github.com/getong/elasticsearch-action doesn't work for Elasticsearch 6,
   # but https://github.com/elastic/elastic-github-actions does
@@ -327,9 +332,9 @@ jobs:
       - uses: elastic/elastic-github-actions/elasticsearch@master
         with:
           stack-version: 6.8.13
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -352,10 +357,11 @@ jobs:
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   test-postgres-elasticsearch7:
     runs-on: ubuntu-latest
@@ -386,9 +392,9 @@ jobs:
       - uses: elastic/elastic-github-actions/elasticsearch@master
         with:
           stack-version: 7.6.1
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -410,10 +416,11 @@ jobs:
           DATABASE_PASSWORD: postgres
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   test-sqlite-opensearch2:
     runs-on: ubuntu-latest
@@ -435,9 +442,9 @@ jobs:
       - uses: ankane/setup-opensearch@v1
         with:
           opensearch-version: 2
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
@@ -455,10 +462,11 @@ jobs:
           DATABASE_ENGINE: django.db.backends.sqlite3
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
+          include-hidden-files: true
 
   coverage:
     needs:
@@ -473,10 +481,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -486,9 +494,10 @@ jobs:
           pip install coverage
 
       - name: Download coverage data
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: coverage-data
+          pattern: coverage-data-*
+          merge-multiple: true
 
       - name: Combine coverage data
         run: |
@@ -500,12 +509,15 @@ jobs:
           coverage html --skip-covered --skip-empty
 
       - name: Upload HTML report as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage_html_report
+          include-hidden-files: true
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
+          fail_ci_if_error: true
           flags: backend
+          token: ${{ secrets.CODECOV_TOKEN }}
