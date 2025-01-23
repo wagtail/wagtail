@@ -188,6 +188,11 @@ class BaseTypedTableBlock(Block):
                 "caption": "",
             }
 
+    def normalize(self, value):
+        if value is None or isinstance(value, TypedTable):
+            return value
+        return self.to_python(value)
+
     def to_python(self, value):
         if value:
             columns = [
