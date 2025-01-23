@@ -49,7 +49,7 @@ class TestImportUtils(TestCase):
 
     @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE="cache")
     def test_cache_storage_remove_uses_prefix(self):
-        storage = CacheStorage('test_key')
+        storage = CacheStorage(name='test_key')
         storage.save('test_content')
         self.assertEqual(storage.read(), 'test_content')
 
