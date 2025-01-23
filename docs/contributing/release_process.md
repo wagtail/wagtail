@@ -45,7 +45,7 @@ be "yes."
 
 Certain feature releases will be designated as long-term support (LTS)
 releases. These releases will get security and data loss fixes applied for
-a guaranteed period of time, typically six months.
+a guaranteed period of time, typically eighteen months.
 
 ## Release cadence
 
