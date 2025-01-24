@@ -526,6 +526,28 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     });
     parentCapabilities = new Map();
     parentCapabilities.set('split', { enabled: true, fn: jest.fn() });
+    parentCapabilities.set('addSibling', {
+      enabled: true,
+      getBlockMax: () => 5,
+      blockGroups: [
+        [
+          'Media',
+          [
+            {
+              name: 'image_block',
+              meta: {
+                icon: 'image',
+                label: 'Image',
+                blockDefId: 'blockdef-1234',
+                isPreviewable: true,
+                description: 'Full-width image',
+              },
+            },
+          ],
+        ],
+      ],
+      fn: jest.fn(),
+    });
     const inputId = 'the-id';
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -616,9 +638,21 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: true }),
     );
-    expect(inputElement.draftailEditor.props.commands).toHaveLength(3);
-    expect(inputElement.draftailEditor.props.commands[2].items[0].type).toBe(
+    expect(inputElement.draftailEditor.props.commands).toHaveLength(4);
+    expect(inputElement.draftailEditor.props.commands[3].items[0].type).toBe(
       'split',
+    );
+  });
+
+  test('configures the block chooser based on siblings capability', () => {
+    expect(inputElement.draftailEditor.props.commands[2].items[0]).toEqual(
+      expect.objectContaining({
+        icon: 'image',
+        label: 'Image',
+        blockDefId: 'blockdef-1234',
+        isPreviewable: true,
+        description: 'Full-width image',
+      }),
     );
   });
 });
