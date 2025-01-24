@@ -38,10 +38,10 @@ class BaseStorage:
         self.read_mode = kwargs.get("read_mode", "r")
         self.encoding = kwargs.get("encoding", None)
 
-    def save(self, data, mode="w"):
+    def save(self, data):
         raise NotImplementedError
 
-    def read(self, read_mode="r"):
+    def read(self):
         raise NotImplementedError
 
     def remove(self):
@@ -49,7 +49,7 @@ class BaseStorage:
 
 
 class TempFolderStorage(BaseStorage):
-    def save(self, data, mode="w"):
+    def save(self, data):
         with self._open(mode="w") as file:
             file.write(data)
 
@@ -80,7 +80,7 @@ class CacheStorage(BaseStorage):
     CACHE_LIFETIME = 86400
     CACHE_PREFIX = "django-import-export-"
 
-    def save(self, data, mode=None):
+    def save(self, data):
         if not self.name:
             self.name = uuid4().hex
         cache.set(self.CACHE_PREFIX + self.name, data, self.CACHE_LIFETIME)

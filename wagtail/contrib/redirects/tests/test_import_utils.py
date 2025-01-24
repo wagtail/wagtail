@@ -57,8 +57,8 @@ class TestImportUtils(TestCase):
         self.assertIsNone(storage.read())
 
         # Verify that the cache key includes the prefix explicitly
-        prefix = getattr(storage, 'CACHE_PREFIX', '')
-        self.assertFalse(cache.get(prefix + 'test_key'))
+        prefix = storage.CACHE_PREFIX
+        self.assertIsNone(cache.get(prefix + 'test_key'))  
 
     def test_that_temp_folder_storage_are_returned_as_default(self):
         FileStorage = get_file_storage()
