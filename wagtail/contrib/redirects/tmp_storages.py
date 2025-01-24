@@ -30,7 +30,6 @@ from uuid import uuid4
 
 from django.core.cache import cache
 from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 
 
 class BaseStorage:
@@ -55,7 +54,7 @@ class TempFolderStorage(BaseStorage):
             file.write(data)
 
     def read(self, read_mode="r"):
-        with self._open(mode=self.read_mode) as file:
+        with self._open(mode=read_mode) as file:
             return file.read()
 
     def remove(self):
@@ -96,21 +95,26 @@ class MediaStorage(BaseStorage):
     _storage = None
 
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._configure_storage()
         self.MEDIA_FOLDER = kwargs.get("MEDIA_FOLDER", "django-import-export")
         kwargs.update({"read_mode": "rb"})
         super().__init__(**kwargs)
-        self._configure_storage()
 
     def _configure_storage(self):
+        from django.core.files.storage import StorageHandler
 
-        self._storage = default_storage
+        sh = StorageHandler()
+        self._storage = (
+            sh["import_export"] if "import_export" in sh.backends else sh["default"]
+        )
 
     def save(self, data):
         if not self.name:
             self.name = uuid4().hex
         self._storage.save(self.get_full_path(), ContentFile(data))
 
-    def read(self, read_mode="rb"):
+    def read(self):
         with self._storage.open(self.get_full_path(), mode=self.read_mode) as f:
             return f.read()
 
@@ -118,4 +122,6 @@ class MediaStorage(BaseStorage):
         self._storage.delete(self.get_full_path())
 
     def get_full_path(self):
-        return os.path.join(self.MEDIA_FOLDER, self.name)
+        if self.MEDIA_FOLDER is not None:
+            return os.path.join(self.MEDIA_FOLDER, self.name)
+        return self.name
