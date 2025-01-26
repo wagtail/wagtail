@@ -6,7 +6,7 @@ import { DialogController } from './DialogController';
 describe('DialogController', () => {
   let application;
 
-  describe('basic behaviour', () => {
+  describe('basic behavior', () => {
     beforeEach(() => {
       application?.stop();
 

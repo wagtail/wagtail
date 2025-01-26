@@ -1,11 +1,13 @@
+import EventEmitter from 'events';
 import { ChooserModal } from '../../includes/chooserModal';
 
-export class Chooser {
+export class Chooser extends EventEmitter {
   chooserModalClass = ChooserModal;
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
   editUrlStateKey = 'edit_url'; // key used in the 'state' dictionary to hold the URL of the edit page
 
   constructor(id, opts = {}) {
+    super();
     this.opts = opts;
     this.initHTMLElements(id);
     this.state = this.getStateFromHTML();
@@ -83,6 +85,7 @@ export class Chooser {
 
   setStateFromModalData(data) {
     this.setState(data);
+    this.emit('chosen', data);
   }
 
   clear() {
@@ -210,8 +213,10 @@ export class ChooserFactory {
     this.modal.open(options, callback);
   }
 
+  /**
+   * retrieve the widget object corresponding to the given HTML ID
+   */
   getById(id) {
-    /* retrieve the widget object corresponding to the given HTML ID */
     return document.getElementById(`${id}-chooser`).widget;
   }
 }

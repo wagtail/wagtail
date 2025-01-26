@@ -34,6 +34,7 @@ from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
+    DeleteMenuItem,
     get_base_snippet_action_menu_items,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -62,10 +63,12 @@ from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
     AdvertWithTabbedInterface,
+    CustomPreviewSizesModel,
     DraftStateCustomPrimaryKeyModel,
     DraftStateModel,
     FullFeaturedSnippet,
     MultiPreviewModesModel,
+    PreviewableModel,
     RevisableChildModel,
     RevisableModel,
     SnippetChooserModel,
@@ -807,6 +810,33 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
         self.assertNotContains(response, 'role="tablist"', html=True)
 
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            "false",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
+
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(
             reverse("wagtailsnippets_tests_advertwithtabbedinterface:add")
@@ -845,6 +875,34 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         self.assertContains(response, "The advert could not be created due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
+
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            # The form is invalid, we want to force it to be "dirty" on initial load
+            "true",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
 
     def test_create(self):
         response = self.post(
@@ -964,7 +1022,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
@@ -981,7 +1039,7 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -1002,10 +1060,14 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
+
+            class Media:
+                js = ["js/some-default-item.js"]
+                css = {"all": ["css/some-default-item.css"]}
 
         def hook_func(menu_items, request, context):
             self.assertIsInstance(menu_items, list)
@@ -1019,12 +1081,28 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
         with self.register_hook("construct_snippet_action_menu", hook_func):
             response = self.get()
 
-        self.assertContains(
-            response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
-            html=True,
-        )
-        self.assertNotContains(response, "<em>'Save'</em>")
+        soup = self.get_soup(response.content)
+        custom_action = soup.select_one("form button[name='test']")
+        self.assertIsNotNone(custom_action)
+
+        # We're replacing the save button, so it should not be in a dropdown
+        # as it's the main action
+        dropdown_parent = custom_action.find_parent(attrs={"class": "w-dropdown"})
+        self.assertIsNone(dropdown_parent)
+
+        self.assertEqual(custom_action.text.strip(), "Test")
+        self.assertEqual(custom_action.attrs.get("class"), ["button", "custom-class"])
+        icon = custom_action.select_one("svg use[href='#icon-check']")
+        self.assertIsNotNone(icon)
+
+        # Should contain media files
+        js = soup.select_one("script[src='/static/js/some-default-item.js']")
+        self.assertIsNotNone(js)
+        css = soup.select_one("link[href='/static/css/some-default-item.css']")
+        self.assertIsNotNone(css)
+
+        save_item = soup.select_one("form button[name='action-save']")
+        self.assertIsNone(save_item)
 
 
 class TestSnippetCopyView(WagtailTestUtils, TestCase):
@@ -1667,6 +1745,33 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             allow_extra_attrs=True,
         )
 
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            "false",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
+
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/snippets/tests/advert/edit/%d/" % self.test_snippet.pk
         self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
@@ -1705,6 +1810,34 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertContains(response, "The advert could not be saved due to errors.")
         self.assertContains(response, "error-message", count=1)
         self.assertContains(response, "This field is required", count=1)
+
+        soup = self.get_soup(response.content)
+
+        # Should have the unsaved controller set up
+        editor_form = soup.select_one("#w-editor-form")
+        self.assertIsNotNone(editor_form)
+        self.assertIn("w-unsaved", editor_form.attrs.get("data-controller").split())
+        self.assertTrue(
+            {
+                "w-unsaved#submit",
+                "beforeunload@window->w-unsaved#confirm",
+                "change->w-unsaved#check",
+                "keyup->w-unsaved#check",
+            }.issubset(editor_form.attrs.get("data-action").split())
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-confirmation-value"),
+            "true",
+        )
+        self.assertEqual(
+            editor_form.attrs.get("data-w-unsaved-force-value"),
+            # The form is invalid, we want to force it to be "dirty" on initial load
+            "true",
+        )
+        self.assertIn(
+            "edits",
+            editor_form.attrs.get("data-w-unsaved-watch-value").split(),
+        )
 
     def test_edit(self):
         response = self.post(
@@ -1797,7 +1930,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             label = "Test"
             name = "test"
             icon_name = "check"
-            classname = "action-secondary"
+            classname = "custom-class"
 
             def is_shown(self, context):
                 return True
@@ -1814,7 +1947,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertContains(
             response,
-            '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
+            '<button type="submit" name="test" value="Test" class="button custom-class"><svg class="icon icon-check icon" aria-hidden="true"><use href="#icon-check"></use></svg>Test</button>',
             html=True,
         )
 
@@ -1833,6 +1966,75 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             response = self.get()
 
         self.assertNotContains(response, "<em>Save</em>")
+
+    def test_register_deprecated_delete_menu_item(self):
+        def hook_func(model):
+            return DeleteMenuItem(order=900)
+
+        get_base_snippet_action_menu_items.cache_clear()
+        with self.register_hook(
+            "register_snippet_action_menu_item", hook_func
+        ), self.assertWarnsMessage(
+            RemovedInWagtail70Warning,
+            "DeleteMenuItem is deprecated. "
+            "The delete option is now provided via EditView.get_header_more_buttons().",
+        ):
+            response = self.get()
+
+        get_base_snippet_action_menu_items.cache_clear()
+
+        delete_url = reverse(
+            self.test_snippet.snippet_viewset.get_url_name("delete"),
+            args=(quote(self.test_snippet.pk),),
+        )
+        self.assertContains(
+            response,
+            f'<a class="button" href="{ delete_url }"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
+            html=True,
+        )
+
+    def test_previewable_snippet(self):
+        self.test_snippet = PreviewableModel.objects.create(
+            text="Preview-enabled snippet"
+        )
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        radios = soup.select('input[type="radio"][name="preview-size"]')
+        self.assertEqual(len(radios), 3)
+
+        self.assertEqual(
+            [
+                "Preview in mobile size",
+                "Preview in tablet size",
+                "Preview in desktop size",
+            ],
+            [radio["aria-label"] for radio in radios],
+        )
+
+        self.assertEqual("375", radios[0]["data-device-width"])
+        self.assertTrue(radios[0].has_attr("checked"))
+
+    def test_custom_preview_sizes(self):
+        self.test_snippet = CustomPreviewSizesModel.objects.create(
+            text="Preview-enabled with custom sizes",
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        radios = soup.select('input[type="radio"][name="preview-size"]')
+        self.assertEqual(len(radios), 2)
+
+        self.assertEqual("412", radios[0]["data-device-width"])
+        self.assertEqual("Custom mobile preview", radios[0]["aria-label"])
+        self.assertFalse(radios[0].has_attr("checked"))
+
+        self.assertEqual("1280", radios[1]["data-device-width"])
+        self.assertEqual("Original desktop", radios[1]["aria-label"])
+        self.assertTrue(radios[1].has_attr("checked"))
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
@@ -2001,7 +2203,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
 
@@ -2402,7 +2604,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertNotContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertNotContains(response, "Unpublish")
 
@@ -2438,7 +2640,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertContains(response, "Unpublish")
 
@@ -2476,7 +2678,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
+            f'<a class="button" href="{unpublish_url}">',
         )
         self.assertContains(response, "Unpublish")
 
@@ -3927,9 +4129,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertContains(response, delete_url)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -3984,9 +4187,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -4447,15 +4651,24 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        soup = self.get_soup(response.content)
 
         # The save button should be labelled "Replace current draft"
-        self.assertContains(response, "Replace current draft")
-        # The publish button should exist
-        self.assertContains(response, "Publish this version")
-        # The publish button should have name="action-publish"
-        self.assertContains(
-            response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning warning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
+        footer = soup.select_one("footer")
+        save_button = footer.select_one(
+            'button[type="submit"]:not([name="action-publish"])'
+        )
+        self.assertIsNotNone(save_button)
+        self.assertEqual(save_button.text.strip(), "Replace current draft")
+        # The publish button should exist and have name="action-publish"
+        publish_button = footer.select_one(
+            'button[type="submit"][name="action-publish"]'
+        )
+        self.assertIsNotNone(publish_button)
+        self.assertEqual(publish_button.text.strip(), "Publish this version")
+        self.assertEqual(
+            set(publish_button.get("class")),
+            {"button", "action-save", "button-longrunning"},
         )
 
         # Should not show the Unpublish action menu item
@@ -4463,11 +4676,8 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
             "wagtailsnippets_tests_draftstatemodel:unpublish",
             args=(quote(self.snippet.pk),),
         )
-        self.assertNotContains(
-            response,
-            f'<a class="button action-secondary" href="{unpublish_url}">',
-        )
-        self.assertNotContains(response, "Unpublish")
+        unpublish_button = footer.select_one(f'a[href="{unpublish_url}"]')
+        self.assertIsNone(unpublish_button)
 
     def test_get_with_previewable_snippet(self):
         self.snippet = MultiPreviewModesModel.objects.create(text="Preview-enabled foo")
@@ -4662,7 +4872,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         self.assertEqual(self.snippet.live_revision, self.snippet.latest_revision)
 
 
-class TestCompareRevisions(WagtailTestUtils, TestCase):
+class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     # Actual tests for the comparison classes can be found in test_compare.py
 
     def setUp(self):
@@ -4699,6 +4909,32 @@ class TestCompareRevisions(WagtailTestUtils, TestCase):
             '<span class="deletion">Initial revision</span><span class="addition">First edit</span>',
             html=True,
         )
+
+        index_url = reverse("wagtailsnippets_tests_revisablemodel:list", args=[])
+        edit_url = reverse(
+            "wagtailsnippets_tests_revisablemodel:edit",
+            args=(self.snippet.id,),
+        )
+        history_url = reverse(
+            "wagtailsnippets_tests_revisablemodel:history",
+            args=(self.snippet.id,),
+        )
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+                {"url": index_url, "label": "Revisable models"},
+                {"url": edit_url, "label": str(self.snippet)},
+                {"url": history_url, "label": "History"},
+                {"url": "", "label": "Compare", "sublabel": str(self.snippet)},
+            ],
+            response.content,
+        )
+
+        soup = self.get_soup(response.content)
+        edit_button = soup.select_one(f"a.w-header-button[href='{edit_url}']")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(edit_button.text.strip(), "Edit")
 
     def test_compare_revisions_earliest(self):
         response = self.get("earliest", self.edit_revision.pk)
@@ -5288,7 +5524,11 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
     def test_adapt(self):
-        block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
+        block = SnippetChooserBlock(
+            Advert,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the sidebar.",
+        )
 
         block.set_name("test_snippetchooserblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -5300,8 +5540,11 @@ class TestSnippetChooserBlock(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the sidebar.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -5414,6 +5657,9 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         self.snippet_a = StandardSnippetWithCustomPrimaryKey.objects.create(
             snippet_id="snippet/01", text="Hello"
         )
+        self.snippet_b = StandardSnippetWithCustomPrimaryKey.objects.create(
+            snippet_id="abc_407269_1", text="Goodbye"
+        )
 
     def get(self, snippet, params={}):
         args = [quote(snippet.pk)]
@@ -5436,9 +5682,11 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
     def test_show_edit_view(self):
-        response = self.get(self.snippet_a)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        for snippet in [self.snippet_a, self.snippet_b]:
+            with self.subTest(snippet=snippet):
+                response = self.get(snippet)
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
 
     def test_edit_invalid(self):
         response = self.post(self.snippet_a, post_data={"foo": "bar"})
@@ -5461,8 +5709,10 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
-        self.assertEqual(snippets.count(), 2)
-        self.assertEqual(snippets.last().snippet_id, "snippet_id_edited")
+        self.assertEqual(snippets.count(), 3)
+        self.assertEqual(
+            snippets.order_by("snippet_id").last().snippet_id, "snippet_id_edited"
+        )
 
     def test_create(self):
         response = self.create(
@@ -5477,40 +5727,48 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
         )
 
         snippets = StandardSnippetWithCustomPrimaryKey.objects.all()
-        self.assertEqual(snippets.count(), 2)
-        self.assertEqual(snippets.last().text, "test snippet")
+        self.assertEqual(snippets.count(), 3)
+        self.assertEqual(snippets.order_by("snippet_id").last().text, "test snippet")
 
     def test_get_delete(self):
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
-                args=[quote(self.snippet_a.pk)],
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
+        for snippet in [self.snippet_a, self.snippet_b]:
+            with self.subTest(snippet=snippet):
+                response = self.client.get(
+                    reverse(
+                        "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
+                        args=[quote(snippet.pk)],
+                    )
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/generic/confirm_delete.html"
+                )
 
     def test_usage_link(self):
-        response = self.client.get(
-            reverse(
-                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
-                args=[quote(self.snippet_a.pk)],
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
-        self.assertContains(
-            response,
-            "This standard snippet with custom primary key is referenced 0 times",
-        )
-        self.assertContains(
-            response,
-            reverse(
-                "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:usage",
-                args=[quote(self.snippet_a.pk)],
-            )
-            + "?describe_on_delete=1",
-        )
+        for snippet in [self.snippet_a, self.snippet_b]:
+            with self.subTest(snippet=snippet):
+                response = self.client.get(
+                    reverse(
+                        "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:delete",
+                        args=[quote(snippet.pk)],
+                    )
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/generic/confirm_delete.html"
+                )
+                self.assertContains(
+                    response,
+                    "This standard snippet with custom primary key is referenced 0 times",
+                )
+                self.assertContains(
+                    response,
+                    reverse(
+                        "wagtailsnippets_snippetstests_standardsnippetwithcustomprimarykey:usage",
+                        args=[quote(snippet.pk)],
+                    )
+                    + "?describe_on_delete=1",
+                )
 
     def test_redirect_to_edit(self):
         with self.assertWarnsRegex(
@@ -5580,7 +5838,9 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
 
     def test_adapt(self):
         block = SnippetChooserBlock(
-            AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert"
+            AdvertWithCustomPrimaryKey,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the footer.",
         )
 
         block.set_name("test_snippetchooserblock")
@@ -5593,8 +5853,11 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the footer.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -5792,7 +6055,7 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
 
         warning = checks.Warning(
             "StandardSnippet.content_panels will have no effect on snippets editing",
-            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels`\
+            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no\
  Content tab for the content_panels to render in.""",

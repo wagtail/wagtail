@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -274,12 +274,6 @@ msgstr "Gwall 404"
 msgid "Go to Wagtail admin"
 msgstr "Ewch i Wagtail Admin"
 
-msgid "Account"
-msgstr "Cyfrif"
-
-msgid "Save account details"
-msgstr "Cadw manylion cyfrif"
-
 msgid "Reset password"
 msgstr "Ailosod cyfrinair"
 
@@ -298,11 +292,18 @@ msgstr "Mynd yn ôl"
 msgid "Select all"
 msgstr "Dewiswch bob un"
 
+msgid "External link"
+msgstr "Linc allanol"
+
 msgid "Choose"
 msgstr "Dewis"
 
 msgid "Choose a page"
 msgstr "Dewisiwch tudalen"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "Dewis %(title)s"
 
 msgid "Save"
 msgstr "Cadw"
@@ -319,14 +320,23 @@ msgstr "Na, peidiwch a ddileu"
 msgid "Cancel"
 msgstr "Canslo"
 
-msgid "Comment"
-msgstr "Sylw"
-
 msgid "Actions"
 msgstr "Gweithredoedd"
 
+msgid "Comment"
+msgstr "Sylw"
+
 msgid "Update"
 msgstr "Diweddariad"
+
+msgid "Account"
+msgstr "Cyfrif"
+
+msgid "Language"
+msgstr "Iaith"
+
+msgid "Status"
+msgstr "Statws"
 
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
@@ -340,9 +350,6 @@ msgstr "Drafft"
 msgid "Live"
 msgstr "Yn fyw"
 
-msgid "Status"
-msgstr "Statws"
-
 msgid "Date"
 msgstr "Dyddiad"
 
@@ -352,8 +359,20 @@ msgstr "Cau"
 msgid "Preview"
 msgstr "Rhagolwg"
 
+msgid "Publishing…"
+msgstr "Yn Cyhoeddi..."
+
+msgid "Publish this version"
+msgstr "Cyhoeddi fersiwn newydd"
+
 msgid "Saving…"
 msgstr "Cadw…"
+
+msgid "Replace current draft"
+msgstr "Amnewid y drafft hon"
+
+msgid "Save draft"
+msgstr "Cadw drafft"
 
 msgid "Yes, convert it"
 msgstr "Ia, ei drosi"
@@ -384,6 +403,9 @@ msgstr "Math"
 
 msgid "Pages"
 msgstr "Tudalennau"
+
+msgid "Locked"
+msgstr "Wedi' gloi"
 
 msgid "Name"
 msgstr "Enw"
@@ -421,6 +443,9 @@ msgstr "Yn ol"
 msgid "History"
 msgstr "Hanes"
 
+msgid "Minimap"
+msgstr "Map fychan"
+
 msgid "Lock"
 msgstr "Clo"
 
@@ -440,6 +465,9 @@ msgstr "Tudalen"
 
 msgid "New"
 msgstr "Newydd"
+
+msgid "Existing"
+msgstr "Presennol"
 
 msgid "Published"
 msgstr "Wedi cyhoeddi"
@@ -473,15 +501,16 @@ msgstr "Archwilio"
 msgid "Delete '%(title)s'"
 msgstr "Dileu '%(title)s'"
 
+#, python-format
+msgid "More options for '%(title)s'"
+msgstr "Fwy o opsiynau i '%(title)s'"
+
 msgid "Editing"
 msgstr "Golygu"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' wedi'i ddileu."
-
-msgid "Inspecting"
-msgstr "Arolygu"
 
 #, python-format
 msgid "Edit this %(object)s"

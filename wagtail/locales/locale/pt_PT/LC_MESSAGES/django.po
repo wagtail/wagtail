@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Portuguese (Portugal) (https://app.transifex.com/torchbox/"
@@ -73,12 +73,12 @@ msgstr "Região '%(object)s' atualizada."
 msgid "The locale could not be saved due to errors."
 msgstr "A região não pôde ser gravada devido a erros."
 
-msgid "Delete locale"
-msgstr "Apagar região"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "Região '%(object)s' apagada."
+
+msgid "Delete locale"
+msgstr "Apagar região"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Tem a certeza que quer apagar esta região?"

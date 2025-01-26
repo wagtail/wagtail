@@ -710,7 +710,7 @@ class StreamValue(MutableSequence):
         raw_values = OrderedDict(
             (i, raw_item["value"])
             for i, raw_item in enumerate(self._raw_data)
-            if raw_item["type"] == type_name and self._bound_blocks[i] is None
+            if self._bound_blocks[i] is None and raw_item["type"] == type_name
         )
         # pass the raw block values to bulk_to_python as a list
         converted_values = child_block.bulk_to_python(raw_values.values())
@@ -826,8 +826,11 @@ class StreamBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
             "maxNum": block.meta.max_num,
             "minNum": block.meta.min_num,
@@ -836,6 +839,7 @@ class StreamBlockAdapter(Adapter):
             "strings": {
                 "MOVE_UP": _("Move up"),
                 "MOVE_DOWN": _("Move down"),
+                "DRAG": _("Drag"),
                 "DUPLICATE": _("Duplicate"),
                 "DELETE": _("Delete"),
                 "ADD": _("Add"),

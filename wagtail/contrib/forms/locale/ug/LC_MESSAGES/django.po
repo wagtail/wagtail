@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -182,6 +182,9 @@ msgstr "ئاخىرقى يوللانما"
 #, python-format
 msgid "Submissions of %(form_title)s"
 msgstr "%(form_title)s نىڭ يوللانمىسى"
+
+msgid "Page type"
+msgstr "بەت تۈرى"
 
 msgid "Forms"
 msgstr "كۆزنەك"

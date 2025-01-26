@@ -31,7 +31,7 @@ from wagtail.admin.localization import (
     get_available_admin_languages,
     get_available_admin_time_zones,
 )
-from wagtail.admin.views.generic import WagtailAdminTemplateMixin
+from wagtail.admin.views.generic import EditView, WagtailAdminTemplateMixin
 from wagtail.log_actions import log
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
@@ -232,13 +232,23 @@ class AccountView(WagtailAdminTemplateMixin, TemplateView):
     page_title = gettext_lazy("Account")
     header_icon = "user"
 
+    def get_breadcrumbs_items(self):
+        return super().get_breadcrumbs_items() + [
+            {"url": "", "label": self.get_page_title()}
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         panels = self.get_panels()
         context["panels_by_tab"] = self.get_panels_by_tab(panels)
         context["menu_items"] = self.get_menu_items()
         context["media"] = self.get_media(panels)
+        context["form_is_multipart"] = True
         context["user"] = self.request.user
+        # Remove these when this view is refactored to a generic.EditView subclass.
+        # Avoid defining new translatable strings.
+        context["submit_button_label"] = EditView.submit_button_label
+        context["submit_button_active_label"] = EditView.submit_button_active_label
         return context
 
     def get_panels(self):

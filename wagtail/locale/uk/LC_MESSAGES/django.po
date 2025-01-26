@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2024\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -682,24 +682,24 @@ msgid "Copied for translation"
 msgstr "Скопійовано для перекладу"
 
 msgid "Create alias"
-msgstr "Створити псевдонім"
+msgstr "Створити пов'язану копію"
 
 #, python-format
 msgid "Created an alias of %(title)s"
-msgstr "Створено псевдонім %(title)s"
+msgstr "Створено пов'язану копію %(title)s"
 
 msgid "Created an alias"
-msgstr "Створено псевдонім"
+msgstr "Створено пов'язану копію"
 
 msgid "Convert alias into ordinary page"
-msgstr "Конвертувати псевдонім на звичайну сторінку"
+msgstr "Конвертувати пов'язану копію на звичайну сторінку"
 
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
-msgstr "Конвертовано псевдонім '%(title)s' на звичайну сторінку"
+msgstr "Конвертовано пов'язану копію '%(title)s' на звичайну сторінку"
 
 msgid "Converted an alias into an ordinary page"
-msgstr "Конвертовано псевдонім на звичайну сторінку"
+msgstr "Конвертовано пов'язану копію на звичайну сторінку"
 
 msgid "Move"
 msgstr "Перемістити"

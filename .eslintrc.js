@@ -132,14 +132,14 @@ module.exports = {
       files: [
         'client/extract-translatable-strings.js',
         'client/tests/**',
-        'webpack.config.js',
         'tailwind.config.js',
-        'storybook/**/*',
-        '*.test.ts',
-        '*.test.tsx',
-        '*.test.js',
+        'webpack.config.js',
         '*.stories.js',
         '*.stories.tsx',
+        '*.test.js',
+        '*.test.ts',
+        '*.test.tsx',
+        '**/storybook/**',
       ],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
@@ -167,7 +167,6 @@ module.exports = {
         'wagtail/images/static_src/wagtailimages/js/add-multiple.js',
         'wagtail/images/static_src/wagtailimages/js/focal-point-chooser.js',
         'wagtail/images/static_src/wagtailimages/js/image-url-generator.js',
-        'wagtail/users/static_src/wagtailusers/js/group-form.js',
       ],
       globals: { $: 'readonly', jQuery: 'readonly' },
     },
@@ -175,7 +174,6 @@ module.exports = {
     {
       files: ['wagtail/**/**'],
       globals: {
-        buildExpandingFormset: 'readonly',
         escapeHtml: 'readonly',
         ModalWorkflow: 'readonly',
         DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS: 'writable',

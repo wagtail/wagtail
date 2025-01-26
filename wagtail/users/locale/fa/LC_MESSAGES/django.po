@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Bardia, 2024\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,15 +170,6 @@ msgstr "حذف این گروه باعث لغو مجوزهای گروه از تم
 msgid "Are you sure you want to delete this group?"
 msgstr "آیا میخواهید این گروه را حذف کنید؟"
 
-msgid "Add group"
-msgstr "افزودن گروه"
-
-msgid "Save"
-msgstr "ذخیره"
-
-msgid "Delete group"
-msgstr "حذف گروه"
-
 msgid "Object permissions"
 msgstr "مجوزهای شی"
 
@@ -190,15 +181,6 @@ msgstr "افزودن"
 
 msgid "Change"
 msgstr "تغییر"
-
-msgid "Publish"
-msgstr "انتشار"
-
-msgid "Lock"
-msgstr "قفل"
-
-msgid "Unlock"
-msgstr "حذف قفل"
 
 msgid "Other permissions"
 msgstr "مجوزهای دیگر"
@@ -233,12 +215,6 @@ msgstr "حساب"
 msgid "Roles"
 msgstr "نقش‌ها"
 
-msgid "Add user"
-msgstr "افزودن کاربر"
-
-msgid "Delete user"
-msgstr "حذف کاربر"
-
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
@@ -262,6 +238,9 @@ msgstr "افزودن گروه"
 msgid "Search groups"
 msgstr "جستجوی گروه‌ها"
 
+msgid "Add group"
+msgstr "افزودن گروه"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "گروه '%(object)s' ایجاد شد."
@@ -276,6 +255,9 @@ msgstr "به دلیل بروز خطا گروه ذخیره نشد."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "گروه '%(object)s' حذف شد."
+
+msgid "Delete group"
+msgstr "حذف گروه"
 
 msgid "Last login"
 msgstr "آخرین ورود"
@@ -298,12 +280,18 @@ msgstr "راهبر"
 msgid "Status"
 msgstr "وضعیت"
 
+msgid "Add user"
+msgstr "افزودن کاربر"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "کاربر  '%(object)s' بروزرسانی شد."
 
 msgid "The user could not be saved due to errors."
 msgstr "به دلیل بروز خطا کاربر ذخیره نشد"
+
+msgid "Delete user"
+msgstr "حذف کاربر"
 
 #, python-format
 msgid "User '%(object)s' deleted."

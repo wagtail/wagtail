@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail pildid"
+
+msgid "Alt text"
+msgstr "Alt-tekst"
 
 #, python-format
 msgid ""
@@ -70,9 +73,6 @@ msgstr "Paremale joondatud"
 
 msgid "Collection"
 msgstr "Kogumine"
-
-msgid "Alt text"
-msgstr "Alt-tekst"
 
 msgid "Filter"
 msgstr "Filtreeri"
@@ -124,6 +124,9 @@ msgstr "pealkiri"
 
 msgid "file"
 msgstr "faili"
+
+msgid "description"
+msgstr "kirjeldus"
 
 msgid "width"
 msgstr "laius"
@@ -182,21 +185,11 @@ msgstr "Pildifaili muutmine:"
 msgid "Add an image"
 msgstr "Lisage pilt"
 
-msgid "Add image"
-msgstr "Lisa pilt"
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
 
-msgid "Save"
-msgstr "Salvesta"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "%(title)s redigeerimine"
-
-msgid "Editing"
-msgstr "Redigeerimine"
-
-msgid "Delete image"
-msgstr "Kustuta pilt"
+msgid "Upload"
+msgstr "Laadi üles"
 
 msgid "URL Generator"
 msgstr "URL-i generaator"
@@ -261,9 +254,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "Lisage mitu pilti"
 
-msgid "Add images"
-msgstr "Lisage pilte"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Kohe üleslaadimiseks lohistage pilte sellesse piirkonda."
 
@@ -300,12 +290,6 @@ msgstr "Lisage pildiluba"
 msgid "Delete"
 msgstr "Kustuta"
 
-msgid "Upload"
-msgstr "Laadi üles"
-
-msgid "Uploading…"
-msgstr "Üleslaadimine ..."
-
 msgid "Choose an image"
 msgstr "Valige pilt"
 
@@ -315,31 +299,34 @@ msgstr "Muutke seda pilti"
 msgid "Images"
 msgstr "Kujutised"
 
+msgid "The image could not be saved due to errors."
+msgstr "Pilti ei õnnestunud vigade tõttu salvestada."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Pilt „%(image_title)s” on värskendatud."
-
-msgid "Edit again"
-msgstr "Muuda uuesti"
-
-msgid "The image could not be saved due to errors."
-msgstr "Pilti ei õnnestunud vigade tõttu salvestada."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "Allikapildifaili ei leitud. Palun muutke allikat või kustutage pilt."
 
+msgid "Delete image"
+msgstr "Kustuta pilt"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Pilt '%(image_title)s' on kustutatud."
+
+msgid "The image could not be created due to errors."
+msgstr "Pilti ei saanud vigade tõttu luua."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Pilt '%(image_title)s' on lisatud."
 
-msgid "The image could not be created due to errors."
-msgstr "Pilti ei saanud vigade tõttu luua."
+msgid "Add images"
+msgstr "Lisage pilte"
 
 msgid "Image"
 msgstr "Pilt"

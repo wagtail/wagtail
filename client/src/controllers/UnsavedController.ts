@@ -153,6 +153,9 @@ export class UnsavedController extends Controller<HTMLFormElement> {
    * original state of the form after making edits.
    */
   check() {
+    // If we don't have initial form data, we can't compare changes
+    if (!this.initialFormData) return;
+
     const { long: longDuration, short: shortDuration } = this.durationsValue;
 
     if (this.runningCheck) {
@@ -161,17 +164,12 @@ export class UnsavedController extends Controller<HTMLFormElement> {
 
     this.runningCheck = debounce(
       () => {
-        if (!this.initialFormData) {
-          this.hasEditsValue = false;
-          return;
-        }
-
         this.hasEditsValue = this.initialFormData !== this.formData;
       },
       this.hasEditsValue ? longDuration : shortDuration,
     );
 
-    return this.runningCheck();
+    this.runningCheck();
   }
 
   /**

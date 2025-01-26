@@ -54,7 +54,6 @@ class CreateView(generic.CreateView):
 class EditView(generic.EditView):
     success_message = gettext_lazy("Locale '%(object)s' updated.")
     error_message = gettext_lazy("The locale could not be saved due to errors.")
-    delete_item_label = gettext_lazy("Delete locale")
     context_object_name = "locale"
     queryset = Locale.all_objects.all()
 
@@ -103,6 +102,10 @@ class LocaleViewSet(ModelViewSet):
     add_view_class = CreateView
     edit_view_class = EditView
     delete_view_class = DeleteView
+
+    # It does not make sense to copy Locale objects as they only contain the
+    # language code and are meant to be unique.
+    copy_view_enabled = False
 
     template_prefix = "wagtaillocales/"
 

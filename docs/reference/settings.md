@@ -203,7 +203,7 @@ If a `'default'` editor is not specified, rich text fields that do not specify a
 WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
 ```
 
-Customize Wagtail's behavior when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
+Customize Wagtail's behavior when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm'`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
 
 If the url is relative, Wagtail will not convert the link if there are more than one {class}`~wagtail.models.Site` instances. This is to avoid accidentally matching coincidentally named pages on different sites.
 
@@ -217,7 +217,7 @@ WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
 WAGTAIL_TIME_FORMAT = '%H:%M'
 ```
 
-Specifies the date, time, and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior) and must be one of the recognized formats listed in the `DATE_INPUT_FORMATS`, `TIME_INPUT_FORMATS`, or `DATETIME_INPUT_FORMATS` setting respectively (see [DATE_INPUT_FORMATS](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS)).
+Specifies the date, time, and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](inv:python#format-codes) and must be one of the recognized formats listed in the [`DATE_INPUT_FORMATS`](inv:django#DATE_INPUT_FORMATS), [`TIME_INPUT_FORMATS`](inv:django#TIME_INPUT_FORMATS), or [`DATETIME_INPUT_FORMATS`](inv:django#DATETIME_INPUT_FORMATS) setting respectively.
 
 For example, to use US Imperial style date and time format (AM/PM times) in the Wagtail Admin, you'll need to override the Django format for your site's locale.
 
@@ -420,7 +420,7 @@ WAGTAILIMAGES_RENDITION_STORAGE = 'myapp.backends.MyCustomStorage'
 WAGTAILIMAGES_RENDITION_STORAGE = MyCustomStorage()
 ```
 
-This setting allows image renditions to be stored using an alternative storage configuration. It is recommended to use a storage alias defined in [Django's STORAGES setting](https://docs.djangoproject.com/en/stable/ref/settings/#std-setting-STORAGES). Alternatively, this setting also accepts a dotted module path to a `Storage` subclass, or an instance of such a subclass. The default is `None`, meaning renditions will use the project's default storage.
+This setting allows image renditions to be stored using an alternative storage configuration. It is recommended to use a storage alias defined in [Django's `STORAGES` setting](inv:django#STORAGES). Alternatively, this setting also accepts a dotted module path to a `Storage` subclass, or an instance of such a subclass. The default is `None`, meaning renditions will use the project's default storage.
 
 Custom storage classes should subclass `django.core.files.storage.Storage`. See the {doc}`Django file storage API <django:ref/files/storage>` for more information.
 
@@ -500,6 +500,20 @@ WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
 ```
 
 A list of MIME content types that will be shown inline in the browser (by serving the HTTP header `Content-Disposition: inline`) rather than served as a download, when using the `serve_view` method. Defaults to `application/pdf`.
+
+(wagtaildocs_block_embedded_content)=
+
+### `WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT`
+
+```python
+WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT = True
+```
+
+Wagtail serves a restrictive Content-Security policy for documents which ensures embedded content (such as the Javascript in a HTML file) is not executed. This functionality can be disabled by setting this to `False`.
+
+This does not affect Javascript embedded in PDFs, however this is already executed in an isolated environment.
+
+Unless absolutely necessary, it's strongly recommended not to change this setting.
 
 (wagtaildocs_extensions)=
 
@@ -635,6 +649,14 @@ WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
 ```
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
+
+Any provided query string will merge with the default parameters. For example, using the setting `//www.gravatar.com/avatar?d=robohash` will use the `robohash` override instead of the default `mp` (mystery person). The `s` parameter will be ignored as this is specified depending on location within the admin interface.
+
+See the [Gravatar images URL documentation](https://docs.gravatar.com/api/avatars/images/) for more details.
+
+```{versionchanged} 6.4
+Added query string merging.
+```
 
 (wagtail_user_time_zones)=
 

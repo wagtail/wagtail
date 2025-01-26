@@ -71,7 +71,10 @@ class PanelGroup(Panel):
         return options
 
     def on_model_bound(self):
-        self.children = [child.bind_to_model(self.model) for child in self.children]
+        from .model_utils import expand_panel_list
+
+        child_panels = expand_panel_list(self.model, self.children)
+        self.children = [child.bind_to_model(self.model) for child in child_panels]
 
     @cached_property
     def child_identifiers(self):

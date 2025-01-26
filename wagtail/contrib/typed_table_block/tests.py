@@ -9,15 +9,19 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTable,
     TypedTableBlock,
+    TypedTableBlockAdapter,
     TypedTableBlockValidationError,
 )
 
 
 class CountryChoiceBlock(blocks.ChoiceBlock):
-    """A ChoiceBlock with a custom rendering, to check that block rendering is honoured"""
+    """A ChoiceBlock with a custom rendering and API representation, to check that block rendering is honoured"""
 
     def render_basic(self, value, context=None):
         return value.upper() if value else value
+
+    def get_api_representation(self, value, context=None):
+        return f".{value}" if value else value
 
 
 class TestTableBlock(TestCase):
@@ -72,6 +76,18 @@ class TestTableBlock(TestCase):
             "rows": [
                 {"values": ["nl", "A small country with stroopwafels"]},
                 {"values": ["fr", "A large country with baguettes"]},
+            ],
+            "caption": "Countries and their food",
+        }
+
+        self.api_data = {
+            "columns": [
+                {"type": "country", "heading": "Country"},
+                {"type": "text", "heading": "Description"},
+            ],
+            "rows": [
+                {"values": [".nl", "A small country with stroopwafels"]},
+                {"values": [".fr", "A large country with baguettes"]},
             ],
             "caption": "Countries and their food",
         }
@@ -174,6 +190,14 @@ class TestTableBlock(TestCase):
         table_data = self.block.get_prep_value(table)
         self.assertEqual(table_data, self.db_data)
 
+    def test_get_api_representation(self):
+        """
+        Test that the API representation honours custom representations of child blocks
+        """
+        table = self.block.to_python(self.db_data)
+        table_api_representation = self.block.get_api_representation(table)
+        self.assertEqual(table_api_representation, self.api_data)
+
     def test_clean(self):
         table = self.block.value_from_datadict(self.form_data, {}, "table")
         # cleaning a valid table should return a TypedTable instance
@@ -199,6 +223,38 @@ class TestTableBlock(TestCase):
         self.assertIn('<th scope="col">Country</th>', html)
         # rendering should use the block renderings of the child blocks ('FR' not 'fr')
         self.assertIn("<td>FR</td>", html)
+
+    def test_adapt(self):
+        block = TypedTableBlock(description="A table of countries and their food")
+
+        block.set_name("test_typedtableblock")
+        js_args = TypedTableBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_typedtableblock")
+        self.assertEqual(
+            js_args[-1],
+            {
+                "label": "Test typedtableblock",
+                "description": "A table of countries and their food",
+                "required": False,
+                "icon": "table",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
+                "strings": {
+                    "CAPTION": "Caption",
+                    "CAPTION_HELP_TEXT": (
+                        "A heading that identifies the overall topic of the table, and is useful for screen reader users."
+                    ),
+                    "ADD_COLUMN": "Add column",
+                    "ADD_ROW": "Add row",
+                    "COLUMN_HEADING": "Column heading",
+                    "INSERT_COLUMN": "Insert column",
+                    "DELETE_COLUMN": "Delete column",
+                    "INSERT_ROW": "Insert row",
+                    "DELETE_ROW": "Delete row",
+                },
+            },
+        )
 
     def test_validation_error_as_json(self):
         error = TypedTableBlockValidationError(

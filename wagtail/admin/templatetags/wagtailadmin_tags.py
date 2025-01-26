@@ -585,7 +585,14 @@ def bulk_action_choices(context, app_label, model_name):
 
 
 @register.inclusion_tag("wagtailadmin/shared/avatar.html")
-def avatar(user=None, classname=None, size=None, tooltip=None, tooltip_html=None):
+def avatar(
+    user=None,
+    classname=None,
+    size=None,
+    tooltip=None,
+    tooltip_html=None,
+    edit_link=False,
+):
     """
     Displays a user avatar using the avatar template
     Usage:
@@ -596,6 +603,7 @@ def avatar(user=None, classname=None, size=None, tooltip=None, tooltip_html=None
     :param size: default None (None|'small'|'large'|'square')
     :param tooltip: Optional tooltip to display under the avatar (string)
     :param tooltip_html: Optional tooltip as an HTML element for rich content (string)
+    :param edit_link: Optional edit link to display underneath the avatar (boolean)
     :return: Rendered template snippet
     """
     return {
@@ -604,6 +612,7 @@ def avatar(user=None, classname=None, size=None, tooltip=None, tooltip_html=None
         "size": size,
         "tooltip": tooltip,
         "tooltip_html": tooltip_html,
+        "edit_link": edit_link,
     }
 
 
@@ -645,8 +654,19 @@ def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
     the appropriate avatar url for that user.
+
+    If the 'get_avatar_url' hook is defined, then that will intercept this
+    logic and point to whatever resource that function returns. In this way,
+    users can swap out the Wagtail UserProfile avatar for some other image or
+    field of their own choosing without needing to alter anything on the
+    existing models.
+
     Example usage: {% avatar_url request.user 50 %}
+
     """
+    for hook_fn in hooks.get_hooks("get_avatar_url"):
+        if url := hook_fn(user, size):
+            return url
 
     if (
         not gravatar_only
@@ -674,12 +694,18 @@ def admin_theme_classname(context):
         if hasattr(user, "wagtail_userprofile")
         else "system"
     )
+    contrast_name = (
+        user.wagtail_userprofile.contrast
+        if hasattr(user, "wagtail_userprofile")
+        else "system"
+    )
     density_name = (
         user.wagtail_userprofile.density
         if hasattr(user, "wagtail_userprofile")
         else "default"
     )
-    return f"w-theme-{theme_name} w-density-{density_name}"
+    contrast_name = contrast_name.split("_")[0]
+    return f"w-theme-{theme_name} w-density-{density_name} w-contrast-{contrast_name}"
 
 
 @register.simple_tag
@@ -957,6 +983,7 @@ def wagtail_config(context):
         "ADMIN_URLS": {
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
             "PAGES": reverse("wagtailadmin_explore_root"),
+            "BLOCK_PREVIEW": reverse("wagtailadmin_block_preview"),
         },
         "I18N_ENABLED": i18n_enabled(),
         "LOCALES": locales(serialize=False),

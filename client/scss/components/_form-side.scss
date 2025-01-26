@@ -36,7 +36,8 @@
       sm:w-max-w-[22.5rem]
       md:w-max-w-[35.937rem]
       lg:w-max-w-[31.25rem]
-      xl:w-max-w-[46.875rem];
+      xl:w-max-w-[46.875rem]
+      more-contrast:w-border-border-furniture-more-contrast;
   z-index: calc(theme('zIndex.header') - 10);
   width: var(--side-panel-width, 100%);
 
@@ -83,13 +84,6 @@
 
     &:focus-within:has(:focus-visible) {
       @include focus-outline;
-    }
-
-    @supports not selector(:focus-visible) {
-      &:focus-within {
-        /* Fallback for browsers without :focus-visible support */
-        @include focus-outline;
-      }
     }
   }
 

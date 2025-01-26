@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Adeline Link, 2022\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -66,21 +66,11 @@ msgstr "插入图片"
 msgid "Add an image"
 msgstr "添加一个图片"
 
-msgid "Add image"
-msgstr "添加图片"
+msgid "Uploading…"
+msgstr "上传中"
 
-msgid "Save"
-msgstr "保存"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "编辑图片 %(title)s"
-
-msgid "Editing"
-msgstr "编辑"
-
-msgid "Delete image"
-msgstr "删除图片"
+msgid "Upload"
+msgstr "上传"
 
 msgid "Filesize"
 msgstr "文件大小"
@@ -103,12 +93,6 @@ msgstr "标签"
 msgid "Delete"
 msgstr "删除"
 
-msgid "Upload"
-msgstr "上传"
-
-msgid "Uploading…"
-msgstr "上传中"
-
 msgid "Choose an image"
 msgstr "选择一个图片"
 
@@ -118,20 +102,23 @@ msgstr "选择另外一个图片"
 msgid "Images"
 msgstr "图片"
 
+msgid "The image could not be saved due to errors."
+msgstr "图片 因为有错不能被保存"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "图片 '%(image_title)s' 已更新"
 
-msgid "The image could not be saved due to errors."
-msgstr "图片 因为有错不能被保存"
+msgid "Delete image"
+msgstr "删除图片"
 
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "图片 '%(image_title)s' 已删除."
 
+msgid "The image could not be created due to errors."
+msgstr "图片因为有错不能被创建"
+
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "图片 '%(image_title)s' 已添加."
-
-msgid "The image could not be created due to errors."
-msgstr "图片因为有错不能被创建"

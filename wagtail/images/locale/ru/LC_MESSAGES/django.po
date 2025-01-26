@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Andrei Satsevich, 2024\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -46,6 +46,16 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Изображения Wagtail"
+
+msgid "Image is decorative"
+msgstr "Изображение декоративное"
+
+msgid "Alt text"
+msgstr "Текст подсказки"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Добавьте замещающий текст для изображения или отметьте его как декоративное."
 
 #, python-format
 msgid ""
@@ -107,16 +117,6 @@ msgstr "Коллекция"
 msgid "Format"
 msgstr "Формат"
 
-msgid "Image is decorative"
-msgstr "Изображение декоративное"
-
-msgid "Alt text"
-msgstr "Текст подсказки"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Добавьте замещающий текст для изображения или отметьте его как декоративное."
-
 msgid "Filter"
 msgstr "Фильтр"
 
@@ -170,6 +170,9 @@ msgstr "заголовок"
 
 msgid "file"
 msgstr "файл"
+
+msgid "description"
+msgstr "описание"
 
 msgid "width"
 msgstr "ширина"
@@ -344,23 +347,21 @@ msgstr "Вставить изображение"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Изборажение <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Изображение <span class=\"w-sr-only\">создано на %(site_name)s</"
+"span>"
 msgstr[1] ""
-"<span>%(total)s</span> Изображения <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Изображения <span class=\"w-sr-only\">создано на %(site_name)s</"
+"span>"
 msgstr[2] ""
-"<span>%(total)s</span> Изображений <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Изображений <span class=\"w-sr-only\">создано на %(site_name)s</"
+"span>"
 msgstr[3] ""
-"<span>%(total)s</span>Изображений <span class=\"w-sr-only\">создано на "
-"%(site_name)s</span>"
+"%(total)s Изображений <span class=\"w-sr-only\">создано на %(site_name)s</"
+"span>"
 
 msgid "Change image file:"
 msgstr "Изменить файл изображения:"
@@ -368,27 +369,17 @@ msgstr "Изменить файл изображения:"
 msgid "Add an image"
 msgstr "Добавить изображение"
 
-msgid "Add image"
-msgstr "Добавить изображение"
+msgid "Uploading…"
+msgstr "Загрузка..."
 
-msgid "Save"
-msgstr "Сохранить"
+msgid "Upload"
+msgstr "Загрузка"
 
 msgid "Keep new image"
 msgstr "Оставить новое изображение"
 
 msgid "Delete new image"
 msgstr "Удалить новое изображение"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Редактирование изображения %(title)s"
-
-msgid "Editing"
-msgstr "Редактирование"
-
-msgid "Delete image"
-msgstr "Удалить изображение"
 
 msgid "Image focal point"
 msgstr "Центр внимания изображения"
@@ -475,9 +466,6 @@ msgstr "Копирование в буфер обмена не удалось"
 msgid "Add multiple images"
 msgstr "Добавить несколько изображений"
 
-msgid "Add images"
-msgstr "Добавить изображения"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Перетяните изображения в эту область для немедленной загрузки."
 
@@ -486,6 +474,13 @@ msgstr "Или выберите на вашем компьютере"
 
 msgid "Add to collection:"
 msgstr "Добавить в коллекцию:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"Пожалуйста, предоставьте описание изображения, чтобы соответствовать лучшим "
+"практикам доступности."
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -570,12 +565,6 @@ msgstr[1] "%(num_parent_objects)d изображений было удалено
 msgstr[2] "%(num_parent_objects)d изображений было удалено"
 msgstr[3] "%(num_parent_objects)d  изображений было удалено"
 
-msgid "Upload"
-msgstr "Загрузка"
-
-msgid "Uploading…"
-msgstr "Загрузка..."
-
 msgid "Choose an image"
 msgstr "Выберите изображение"
 
@@ -606,15 +595,12 @@ msgstr "Размер файла: (от большого к меньшему)"
 msgid "Images"
 msgstr "Изображения"
 
+msgid "The image could not be saved due to errors."
+msgstr "Это изображение не может быть сохранено из-за ошибок."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Изображение '%(image_title)s' обновлено."
-
-msgid "Edit again"
-msgstr "Править снова"
-
-msgid "The image could not be saved due to errors."
-msgstr "Это изображение не может быть сохранено из-за ошибок."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -623,16 +609,25 @@ msgstr ""
 "Файл исходного изображения не найден. Пожалуйста, измените или удалите "
 "изображение."
 
+msgid "Generate URL"
+msgstr "Сгенерировать URL"
+
+msgid "Delete image"
+msgstr "Удалить изображение"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Изображение '%(image_title)s' удалено."
+
+msgid "The image could not be created due to errors."
+msgstr "Это изображение не может быть создано из-за ошибок."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Изображение '%(image_title)s' добавлено."
 
-msgid "The image could not be created due to errors."
-msgstr "Это изображение не может быть создано из-за ошибок."
+msgid "Add images"
+msgstr "Добавить изображения"
 
 msgid "Image"
 msgstr "Изображение"

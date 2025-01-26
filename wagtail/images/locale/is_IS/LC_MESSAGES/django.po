@@ -4,15 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021-2024
-# saevarom <saevar@saevar.is>, 2015,2019-2022
+# saevarom <saevar@saevar.is>, 2015,2019-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2021-2024\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2015,2019-2022,2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +22,16 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail myndir"
+
+msgid "Image is decorative"
+msgstr "Myndin er skraut"
+
+msgid "Alt text"
+msgstr "Alt eigindi"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Vinsamlegast bætið við alt-eigindi fyrir myndina eða merkið hana sem skraut"
 
 #, python-format
 msgid ""
@@ -84,16 +93,6 @@ msgstr "Safn"
 msgid "Format"
 msgstr "Snið"
 
-msgid "Image is decorative"
-msgstr "Myndin er skraut"
-
-msgid "Alt text"
-msgstr "Alt eigindi"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Vinsamlegast bætið við alt-eigindi fyrir myndina eða merkið hana sem skraut"
-
 msgid "Filter"
 msgstr "Sía"
 
@@ -147,6 +146,9 @@ msgstr "titill"
 
 msgid "file"
 msgstr "skrá"
+
+msgid "description"
+msgstr "lýsing"
 
 msgid "width"
 msgstr "breidd"
@@ -296,17 +298,14 @@ msgstr "Setja inn mynd"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> mynd <span class=\"w-sr-only\">búin til í "
-"%(site_name)s</span>"
+"%(total)s Mynd <span class=\"w-sr-only\"> búin til undir %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> myndir <span class=\"w-sr-only\">búnar til í "
-"%(site_name)s</span>"
+"%(total)s Myndir <span class=\"w-sr-only\">búnar til undir %(site_name)s</"
+"span>"
 
 msgid "Change image file:"
 msgstr "Breyta um myndaskrá:"
@@ -314,27 +313,17 @@ msgstr "Breyta um myndaskrá:"
 msgid "Add an image"
 msgstr "Bæta við mynd"
 
-msgid "Add image"
-msgstr "Bæta við mynd"
+msgid "Uploading…"
+msgstr "Hleð upp..."
 
-msgid "Save"
-msgstr "Vista"
+msgid "Upload"
+msgstr "Hlaða upp"
 
 msgid "Keep new image"
 msgstr "Halda nýju myndinni"
 
 msgid "Delete new image"
 msgstr "Eyða nýju myndinni"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Breyti mynd %(title)s"
-
-msgid "Editing"
-msgstr "Breyti"
-
-msgid "Delete image"
-msgstr "Eyða mynd"
 
 msgid "Image focal point"
 msgstr "Fókuspunktur myndar"
@@ -420,9 +409,6 @@ msgstr "Ekki tókst að afrita á klemmuspjald"
 msgid "Add multiple images"
 msgstr "Bæta við mörgum myndum"
 
-msgid "Add images"
-msgstr "Bæta við myndum"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Dragðu myndir hingað til að hlaða þeim upp."
 
@@ -431,6 +417,13 @@ msgstr "Eða veldu þær úr tölvunni þinni"
 
 msgid "Add to collection:"
 msgstr "Bæta í safn"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"Vinsamlegast skrifaðu lýsingu á myndinni til að geta komið efninu sem best "
+"til skila fyrir þá sem nota t.d. skjálesara."
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -507,12 +500,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "%(num_parent_objects)d mynd hefur verið eytt"
 msgstr[1] "%(num_parent_objects)d myndum hefur verið eytt"
 
-msgid "Upload"
-msgstr "Hlaða upp"
-
-msgid "Uploading…"
-msgstr "Hleð upp..."
-
 msgid "Choose an image"
 msgstr "Veldu mynd"
 
@@ -543,15 +530,12 @@ msgstr "Skráarstærð: (stórar fyrst)"
 msgid "Images"
 msgstr "Myndir"
 
+msgid "The image could not be saved due to errors."
+msgstr "Ekki var hægt að vista myndina þar sem hún stóðst ekki villuprófanir"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Mynd '%(image_title)s' uppfærð."
-
-msgid "Edit again"
-msgstr "Breyta aftur"
-
-msgid "The image could not be saved due to errors."
-msgstr "Ekki var hægt að vista myndina þar sem hún stóðst ekki villuprófanir"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -559,16 +543,25 @@ msgid ""
 msgstr ""
 "Upprunamyndin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
+msgid "Generate URL"
+msgstr "Búa til vefslóð"
+
+msgid "Delete image"
+msgstr "Eyða mynd"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Mynd '%(image_title)s' eydd."
+
+msgid "The image could not be created due to errors."
+msgstr "Ekki var hægt að búa myndina til þar sem hún stóðst ekki villuprófanir"
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Mynd '%(image_title)s' bætt við."
 
-msgid "The image could not be created due to errors."
-msgstr "Ekki var hægt að búa myndina til þar sem hún stóðst ekki villuprófanir"
+msgid "Add images"
+msgstr "Bæta við myndum"
 
 msgid "Image"
 msgstr "Mynd"

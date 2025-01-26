@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -127,6 +127,12 @@ msgstr "Oscuro"
 msgid "admin theme"
 msgstr "tema do admin"
 
+msgid "More contrast"
+msgstr "Máis contraste"
+
+msgid "contrast"
+msgstr "contraste"
+
 msgid "Default"
 msgstr "Por defecto"
 
@@ -231,15 +237,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "¿Seguro que queres eliminar este grupo?"
 
-msgid "Add group"
-msgstr "Engadir grupo"
-
-msgid "Save"
-msgstr "Gardar"
-
-msgid "Delete group"
-msgstr "Eliminar grupo"
-
 msgid "Object permissions"
 msgstr "Permisos do obxecto"
 
@@ -251,15 +248,6 @@ msgstr "Engadir"
 
 msgid "Change"
 msgstr "Cambiar"
-
-msgid "Publish"
-msgstr "Publicar"
-
-msgid "Lock"
-msgstr "Bloquear"
-
-msgid "Unlock"
-msgstr "Desbloquear"
 
 msgid "Custom permissions"
 msgstr "Permisos a medida"
@@ -275,15 +263,6 @@ msgstr "Elixir tódolos permisos de cambio"
 
 msgid "Toggle all delete permissions"
 msgstr "Elixir tódolos permisos de borrado"
-
-msgid "Toggle all publish permissions"
-msgstr "Elixir tódolos permisos de publicar"
-
-msgid "Toggle all lock permissions"
-msgstr "Elixir tódolos permisos de bloqueo"
-
-msgid "Toggle all unlock permissions"
-msgstr "Elixir tódolos permisos de desbloqueo"
 
 msgid "Toggle all custom permissions"
 msgstr "Elixir tódolos permisos personalizados"
@@ -320,12 +299,6 @@ msgstr "Conta"
 
 msgid "Roles"
 msgstr "Roles"
-
-msgid "Add user"
-msgstr "Engadir usuario"
-
-msgid "Delete user"
-msgstr "Eliminar usuario"
 
 msgid "Select all users in listing"
 msgstr "Seleccionar tódolos usuarios no listado"
@@ -399,6 +372,9 @@ msgstr "Engadir un grupo"
 msgid "Search groups"
 msgstr "Procurar grupos"
 
+msgid "Add group"
+msgstr "Engadir grupo"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupo '%(object)s' creado."
@@ -416,6 +392,9 @@ msgstr "Ver usuarios neste grupo"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupo '%(object)s' eliminado."
+
+msgid "Delete group"
+msgstr "Eliminar grupo"
 
 msgid "Last login"
 msgstr "Entróu por última vez"
@@ -449,12 +428,18 @@ msgstr "Máis opcións para '%(title)s'"
 msgid "User '%(object)s' created."
 msgstr "Usuario '%(object)s' creado."
 
+msgid "Add user"
+msgstr "Engadir usuario"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Usuario '%(object)s' actualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O usuario non puido ser gardado debido a erros."
+
+msgid "Delete user"
+msgstr "Eliminar usuario"
 
 #, python-format
 msgid "User '%(object)s' deleted."

@@ -11,7 +11,7 @@
 
 -   [Python 3](https://www.python.org/downloads/).
 -   **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
-    See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+    See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
 ## Install Wagtail
 
@@ -28,8 +28,7 @@ wagtail start mysite
 ```
 
 Running the command creates a new folder `mysite`, which is a template containing everything you need to get started.
-More information on this template is available in
-[the project template reference](/reference/project_template).
+More information on this template is available in [the project template reference](/reference/project_template).
 
 Inside your `mysite` folder, run the setup steps necessary for any Django project:
 
@@ -70,4 +69,4 @@ python3 -m pip install --upgrade pip
 > command not found: python3
 ```
 
-If this error occurs, [the `python3` can be replaced with `py`](https://docs.python.org/3/faq/windows.html#how-do-i-run-a-python-program-under-windows).
+If this error occurs, [the `python3` can be replaced with `py`](inv:python#faq-run-program-under-windows).

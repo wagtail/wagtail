@@ -30,6 +30,11 @@ class CustomImage(AbstractImage):
         # 'caption',
     )
 
+    @property
+    def default_alt_text(self):
+        # Force editors to add specific alt text if description is empty.
+        # Do not use image title which is typically derived from file name.
+        return getattr(self, "description", None)
 
 class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
@@ -89,4 +94,4 @@ The following methods can be overridden on your custom `Image` or `Rendition` mo
     .. automethod:: get_upload_to
 ```
 
-Refer to the Django [`FileField.upload_to`](https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.FileField.upload_to) function to further understand how the function works.
+Refer to the Django [`FileField.upload_to`](django.db.models.FileField.upload_to) function to further understand how the function works.

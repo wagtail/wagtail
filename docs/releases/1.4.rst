@@ -67,7 +67,7 @@ Minor features
 ~~~~~~~~~~~~~~
 
 * The page search interface now searches all fields instead of just the title (Kait Crawford)
-* Snippets now support a custom ``edit_handler`` property; this can be used to implement a tabbed interface, for example. See :ref:`customising_the_tabbed_interface` (Mikalai Radchuk)
+* Snippets now support a custom ``edit_handler`` property; this can be used to implement a tabbed interface, for example. See :ref:`customizing_the_tabbed_interface` (Mikalai Radchuk)
 * Date/time pickers now respect the locale's 'first day of week' setting (Peter Quade)
 * Refactored the way forms are constructed for the page editor, to allow custom forms to be used
 * Notification message on publish now indicates whether the page is being published now or scheduled for publication in future (Chris Rogers)
@@ -76,7 +76,7 @@ Minor features
 * Added a hook :ref:`construct_explorer_page_queryset` for customizing the set of pages displayed in the page explorer
 * Page models now perform field validation, including testing slugs for uniqueness within a parent page, at the model level on saving
 * Page slugs are now auto-generated at the model level on page creation if one has not been specified explicitly
-* The ``Page`` model now has two new methods ``get_site()`` and ``get_url_parts()`` to aid with customising the page URL generation logic
+* The ``Page`` model now has two new methods ``get_site()`` and ``get_url_parts()`` to aid with customizing the page URL generation logic
 * Upgraded jQuery to 2.2.1 (Charlie Choiniere)
 * Multiple homepage summary items (``construct_homepage_summary_items`` hook) now better vertically spaced (Nicolas Kuttler)
 * Email notifications can now be sent in HTML format. See :ref:`email_notifications` (Mike Dingjan)

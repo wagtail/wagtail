@@ -4,15 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2024
-# saevarom <saevar@saevar.is>, 2017-2022
+# saevarom <saevar@saevar.is>, 2017-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2016,2018,2024\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2017-2022,2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -171,27 +170,11 @@ msgstr "Breyta skrá"
 msgid "Add a document"
 msgstr "Bæta við skrá"
 
-msgid "Add document"
-msgstr "Bæta við skrá"
-
 msgid "Uploading…"
 msgstr "Hleð upp..."
 
 msgid "Upload"
 msgstr "Hlaða upp"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Breyti %(title)s"
-
-msgid "Editing"
-msgstr "Er að breyta"
-
-msgid "Save"
-msgstr "Vista"
-
-msgid "Delete document"
-msgstr "Eyða skrá"
 
 msgid "Filesize"
 msgstr "Skráarstærð"
@@ -227,23 +210,16 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> skrá <span class=\"w-sr-only\">búin til í "
-"%(site_name)s</span>"
+"%(total)s Skjal <span class=\"w-sr-only\">búið til undir %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> skrár <span class=\"w-sr-only\">búnar til í "
-"%(site_name)s</span>"
+"%(total)s Skjöl <span class=\"w-sr-only\">búin til undir %(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Bæta við mörgum skrám"
-
-msgid "Add documents"
-msgstr "Bæta við skrá"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Dragðu skrár hingað til að hlaða þeim upp."
@@ -338,6 +314,9 @@ msgstr "Skrár"
 msgid "Title"
 msgstr "Titill"
 
+msgid "The document could not be created due to errors."
+msgstr "Ekki var hægt að búa til skjalið þar sem villur komu upp."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Skrá '%(document_title)s' bætt við."
@@ -353,9 +332,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
+msgid "Delete document"
+msgstr "Eyða skrá"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Skrá '%(document_title)s' hefur verið eytt."
+
+msgid "Add documents"
+msgstr "Bæta við skrá"
 
 msgid "Document"
 msgstr "Skrá"

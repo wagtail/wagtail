@@ -11,6 +11,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# Krzysztof Jeziorny <github@jeziorny.net>, 2024
 # Matthias Martin, 2019
 # Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
@@ -29,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2024\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2024\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -203,27 +204,11 @@ msgstr "Dokument ändern:"
 msgid "Add a document"
 msgstr "Ein Dokument hinzufügen"
 
-msgid "Add document"
-msgstr "Dokument hinzufügen"
-
 msgid "Uploading…"
 msgstr "Lade hoch…"
 
 msgid "Upload"
 msgstr "Hochladen"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Bearbeite %(title)s"
-
-msgid "Editing"
-msgstr "Bearbeite"
-
-msgid "Save"
-msgstr "Speichern"
-
-msgid "Delete document"
-msgstr "Dokument löschen"
 
 msgid "Filesize"
 msgstr "Dateigrösse"
@@ -262,23 +247,17 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Dokument <span class=\"w-sr-only\">erstellt in "
-"%(site_name)s</span>"
+"%(total)s Dokument <span class=\"w-sr-only\">erstellt in %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Dokumente <span class=\"w-sr-only\">erstellt in "
-"%(site_name)s</span>"
+"%(total)s Dokumente <span class=\"w-sr-only\">erstellt in %(site_name)s</"
+"span>"
 
 msgid "Add multiple documents"
 msgstr "Mehrere Dokumente hinzufügen"
-
-msgid "Add documents"
-msgstr "Dokumente hinzufügen"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Ziehen Sie Dokumente in diesen Bereich, um sie sofort hochzuladen."
@@ -375,6 +354,9 @@ msgstr "Dokumente"
 msgid "Title"
 msgstr "Titel"
 
+msgid "The document could not be created due to errors."
+msgstr "Aufgrund eines Fehlers konnte das Dokument nicht erstellt werden."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokument ‚%(document_title)s‘ wurde hinzugefügt."
@@ -392,9 +374,15 @@ msgstr ""
 "Die Datei konnte nicht gefunden werden. Bitte ändern Sie die Quelle oder "
 "löschen Sie das Dokument "
 
+msgid "Delete document"
+msgstr "Dokument löschen"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument ‚%(document_title)s‘ gelöscht."
+
+msgid "Add documents"
+msgstr "Dokumente hinzufügen"
 
 msgid "Document"
 msgstr "Dokument"

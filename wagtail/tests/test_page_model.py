@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from django.http import Http404
 from django.test import Client, TestCase, override_settings
 from django.test.client import RequestFactory
+from django.urls import reverse
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
@@ -325,6 +326,12 @@ class TestSiteRouting(TestCase):
             self.assertEqual(
                 Site.find_for_request(request), self.alternate_port_events_site
             )
+
+    def test_site_with_disallowed_host(self):
+        request = get_dummy_request()
+        request.META["HTTP_HOST"] = "disallowed:80"
+        with self.assertNumQueries(1):
+            self.assertEqual(Site.find_for_request(request), self.default_site)
 
 
 class TestRouting(TestCase):
@@ -3994,3 +4001,64 @@ class TestPageCachedParentObjExists(TestCase):
             "_cached_parent_obj_exists",
             "Page.get_parent() (treebeard) no longer uses _cached_parent_obj to cache the parent object",
         )
+
+
+class TestPageServeWithPasswordRestriction(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+        self.test_page = Page(
+            title="Test Page",
+            slug="test",
+        )
+        self.root_page.add_child(instance=self.test_page)
+
+        self.password_restriction = PageViewRestriction.objects.create(
+            page=self.test_page,
+            restriction_type=PageViewRestriction.PASSWORD,
+            password="password123",
+        )
+
+    def test_page_with_password_restriction_authenticated_has_cache_headers(self):
+        auth_url = reverse(
+            "wagtailcore_authenticate_with_password",
+            args=[self.password_restriction.id, self.test_page.id],
+        )
+
+        post_response = self.client.post(
+            auth_url,
+            {
+                "password": "password123",
+                "return_url": "/test/",
+            },
+        )
+
+        self.assertRedirects(post_response, "/test/")
+
+        response = self.client.get("/test/")
+
+        self.assertTrue("Cache-Control" in response)
+        self.assertIn("max-age=0", response["Cache-Control"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("private", response["Cache-Control"])
+        self.assertTrue("Expires" in response)
+
+    def test_page_with_password_restriction_has_cache_headers(self):
+        response = self.client.get("/test/")
+
+        self.assertTrue("Cache-Control" in response)
+        self.assertIn("max-age=0", response["Cache-Control"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        self.assertIn("no-store", response["Cache-Control"])
+        self.assertIn("must-revalidate", response["Cache-Control"])
+        self.assertIn("private", response["Cache-Control"])
+        self.assertTrue("Expires" in response)
+
+    def test_page_without_password_restriction_has_no_cache_headers(self):
+        self.password_restriction.delete()
+
+        response = self.client.get("/test/")
+
+        self.assertFalse("Cache-Control" in response)
+        self.assertFalse("Expires" in response)

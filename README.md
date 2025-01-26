@@ -19,8 +19,8 @@
     <a href="https://pypi.python.org/pypi/wagtail/">
         <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
     </a>
-    <a href="https://x.com/WagtailCMS">
-        <img src="https://img.shields.io/twitter/follow/WagtailCMS?style=social&logo=twitter" alt="follow on X">
+    <a href="https://fosstodon.org/@wagtail">
+        <img src="https://img.shields.io/mastodon/follow/109308882653647818?domain=https%3A%2F%2Ffosstodon.org&style=social" alt="Follow @wagtail@fosstodon.org">
     </a>
 </p>
 
@@ -70,7 +70,7 @@ Wagtail is used by [NASA](https://www.nasa.gov/), [Google](https://www.google.co
 
 ### 📖 Documentation
 
-[docs.wagtail.org](https://docs.wagtail.org/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside release notes and our roadmap.
+[docs.wagtail.org](https://docs.wagtail.org/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside [release notes](https://docs.wagtail.org/en/stable/releases/) and our [roadmap](https://wagtail.org/roadmap/).
 
 For those who are **new to Wagtail**, the [Zen of Wagtail](https://docs.wagtail.org/en/stable/getting_started/the_zen_of_wagtail.html) will help you understand what Wagtail is, and what Wagtail is _not_.
 
@@ -85,7 +85,7 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 Wagtail supports:
 
 -   Django 4.2.x, 5.0.x and 5.1.x
--   Python 3.9, 3.10, 3.11 and 3.12
+-   Python 3.9, 3.10, 3.11, 3.12 and 3.13
 -   PostgreSQL, MySQL, MariaDB and SQLite (with JSON1) as database backends
 
 [Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7, 3.8 and earlier Django versions.

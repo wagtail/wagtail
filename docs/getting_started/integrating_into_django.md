@@ -12,7 +12,7 @@ Wagtail is currently compatible with Django 4.2, 5.0 and 5.1. First, install the
 pip install wagtail
 ```
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation.html#external-libraries).
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).
 
 ## Settings
 
@@ -52,6 +52,12 @@ Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project doesn't have these al
 ```python
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+```
+
+Set the `DATA_UPLOAD_MAX_NUMBER_FIELDS` setting to 10000 or higher. This specifies the maximum number of fields allowed in a form submission, and it is recommended to increase this from Django's default of 1000, as particularly complex page models can exceed this limit within Wagtail's page editor:
+
+```python
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 ```
 
 Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the Wagtail admin backend:
@@ -115,7 +121,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](inv:django#howto/static-files/deployment).
+Note that this only works in development mode (`DEBUG = True`); in production, you have to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](<inv:django#howto/static-files/index:serving files uploaded by a user during development>) and [Deploying static files](inv:django#howto/static-files/deployment).
 
 With this configuration in place, you are ready to run `python manage.py migrate` to create the database tables used by Wagtail.
 

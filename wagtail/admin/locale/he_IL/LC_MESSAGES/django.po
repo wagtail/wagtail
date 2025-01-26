@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -218,9 +218,6 @@ msgstr "כותרת"
 msgid "Page title"
 msgstr "כותרת העמוד"
 
-msgid "Account"
-msgstr "חשבון"
-
 msgid "Reset password"
 msgstr "איתחול סיסמה"
 
@@ -301,14 +298,16 @@ msgstr "כן, בטל את הפרסום"
 msgid "Update"
 msgstr "עדכן"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "ברוך הבא לנחליאלי CMS של %(site_name)s"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
+
+msgid "Account"
+msgstr "חשבון"
+
+msgid "Status"
+msgstr "מצב"
 
 msgid "Edit this page"
 msgstr "ערכו עמוד זה"
@@ -321,9 +320,6 @@ msgstr "חי"
 
 msgid "Your most recent edits"
 msgstr "עריכות אחרונות"
-
-msgid "Status"
-msgstr "מצב"
 
 msgid "Date"
 msgstr "תאריך"
@@ -370,9 +366,6 @@ msgstr "העמוד \"%(title)s\" נדחה"
 
 msgid "You can preview the page here:"
 msgstr "ניתן לראות תצוגה מקדימה של העמוד כאן"
-
-msgid "This page has been made private by a parent page."
-msgstr "עמוד זה הוגדר כפרטי על ידי עמוד הורה"
 
 msgid "Publishing…"
 msgstr "מפרסם..."
@@ -471,9 +464,6 @@ msgstr "הוספת תת-עמוד"
 
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
-
-msgid "No pages use"
-msgstr "אף עמוד בשימוש"
 
 #, python-format
 msgid "Add %(label)s"

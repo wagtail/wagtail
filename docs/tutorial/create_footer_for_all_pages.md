@@ -29,14 +29,14 @@ from wagtail.contrib.settings.models import (
 
 @register_setting
 class NavigationSettings(BaseGenericSetting):
-    twitter_url = models.URLField(verbose_name="Twitter URL", blank=True)
+    linkedin_url = models.URLField(verbose_name="LinkedIn URL", blank=True)
     github_url = models.URLField(verbose_name="GitHub URL", blank=True)
     mastodon_url = models.URLField(verbose_name="Mastodon URL", blank=True)
 
     panels = [
         MultiFieldPanel(
             [
-                FieldPanel("twitter_url"),
+                FieldPanel("linkedin_url"),
                 FieldPanel("github_url"),
                 FieldPanel("mastodon_url"),
             ],
@@ -100,15 +100,15 @@ Create an `includes` folder in your `mysite/templates` folder. Then in your newl
 <footer>
     <p>Built with Wagtail</p>
 
-    {% with twitter_url=settings.base.NavigationSettings.twitter_url github_url=settings.base.NavigationSettings.github_url mastodon_url=settings.base.NavigationSettings.mastodon_url %}
-        {% if twitter_url or github_url or mastodon_url %}
+    {% with linkedin_url=settings.base.NavigationSettings.linkedin_url github_url=settings.base.NavigationSettings.github_url mastodon_url=settings.base.NavigationSettings.mastodon_url %}
+        {% if linkedin_url or github_url or mastodon_url %}
             <p>
                 Follow me on:
                 {% if github_url %}
                     <a href="{{ github_url }}">GitHub</a>
                 {% endif %}
-                {% if twitter_url %}
-                    <a href="{{ twitter_url }}">Twitter</a>
+                {% if linkedin_url %}
+                    <a href="{{ linkedin_url }}">LinkedIn</a>
                 {% endif %}
                 {% if mastodon_url %}
                     <a href="{{ mastodon_url }}">Mastodon</a>
@@ -218,7 +218,7 @@ Since your `FooterText` model is a Wagtail snippet, you must manually add `Mixin
 
 `TranslatableMixin` is an abstract model you can add to any non-page Django model to make it translatable.
 
-Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. You can use the `PublishingPanel()` method to schedule `revisions` in your `FooterText`.
+Also, with Wagtail, you can set publishing schedules for changes you made to a Snippet. You can use a `PublishingPanel` to schedule revisions in your `FooterText`.
 
 The `__str__` method defines a human-readable string representation of an instance of the `FooterText` class. It returns the string "Footer text".
 
@@ -302,15 +302,15 @@ Add your `footer_text` template to your footer by modifying your `mysite/templat
 <footer>
     <p>Built with Wagtail</p>
 
-    {% with twitter_url=settings.base.NavigationSettings.twitter_url github_url=settings.base.NavigationSettings.github_url mastodon_url=settings.base.NavigationSettings.mastodon_url %}
-        {% if twitter_url or github_url or mastodon_url %}
+    {% with linkedin_url=settings.base.NavigationSettings.linkedin_url github_url=settings.base.NavigationSettings.github_url mastodon_url=settings.base.NavigationSettings.mastodon_url %}
+        {% if linkedin_url or github_url or mastodon_url %}
             <p>
                 Follow me on:
                 {% if github_url %}
                     <a href="{{ github_url }}">GitHub</a>
                 {% endif %}
-                {% if twitter_url %}
-                    <a href="{{ twitter_url }}">Twitter</a>
+                {% if linkedin_url %}
+                    <a href="{{ linkedin_url }}">LinkedIn</a>
                 {% endif %}
                 {% if mastodon_url %}
                     <a href="{{ mastodon_url }}">Mastodon</a>

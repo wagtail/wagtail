@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -21,6 +21,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "รูปภาพ Wagtail"
+
+msgid "Alt text"
+msgstr "ข้อความอย่างอื่น"
 
 #, python-format
 msgid ""
@@ -57,9 +60,6 @@ msgstr "แนวราบ-ด้านขวา"
 
 msgid "Collection"
 msgstr "ชุด"
-
-msgid "Alt text"
-msgstr "ข้อความอย่างอื่น"
 
 msgid "Filter"
 msgstr "กรอง"
@@ -111,6 +111,9 @@ msgstr "หัวเรื่อง,หัวข้อ"
 
 msgid "file"
 msgstr "ไฟล์,แฟ้ม"
+
+msgid "description"
+msgstr "ลักษณะ"
 
 msgid "width"
 msgstr "ความกว้าง"
@@ -166,21 +169,11 @@ msgstr "เปลี่ยนแฟ้มรูปภาพ:"
 msgid "Add an image"
 msgstr "เพิ่มรูปภาพ"
 
-msgid "Add image"
-msgstr "เพิ่มรูปภาพ"
+msgid "Uploading…"
+msgstr "กำลังอัพโหลด...."
 
-msgid "Save"
-msgstr "เซฟ"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "รูปภาพกำลังแก้ไข %(title)s"
-
-msgid "Editing"
-msgstr "กำลังแก้ไข"
-
-msgid "Delete image"
-msgstr "ลบรูปภาพ"
+msgid "Upload"
+msgstr "อัพโหลด"
 
 msgid "URL Generator"
 msgstr "โปรแกรมก่อกำเนิดURL"
@@ -243,9 +236,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "แก้ไขหลายรูปภาพ"
 
-msgid "Add images"
-msgstr "เพิ่มรูปภาพ"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "ลากรูปภาพลงมาในพื้นที่อัพโหลดนี้ทันที"
 
@@ -281,12 +271,6 @@ msgstr "เพิ่มการอนุญาตรูปภาพ"
 msgid "Delete"
 msgstr "ลบ"
 
-msgid "Upload"
-msgstr "อัพโหลด"
-
-msgid "Uploading…"
-msgstr "กำลังอัพโหลด...."
-
 msgid "Choose an image"
 msgstr "เลือกรูปภาพ"
 
@@ -296,31 +280,34 @@ msgstr "แก้ไขรูปภาพนี้"
 msgid "Images"
 msgstr "รูปภาพ"
 
+msgid "The image could not be saved due to errors."
+msgstr "รูปภาพไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "รูปภาพ'%(image_title)s'ถูกอัพเดทแล้ว"
-
-msgid "Edit again"
-msgstr "แก้ไขอีกครั้ง"
-
-msgid "The image could not be saved due to errors."
-msgstr "รูปภาพไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "ไม่สามารถพบต้นฉบับของไฟล์รูป กรุณาเปลี่ยนต้นฉบับหรือลบรูปทิ้ง"
 
+msgid "Delete image"
+msgstr "ลบรูปภาพ"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "รูปภาพ'%(image_title)s'ถูกลบแล้ว"
+
+msgid "The image could not be created due to errors."
+msgstr "รูปภาพไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "รูปภาพ'%(image_title)s' ถูกเพิ่มเรียบร้อยแล้ว"
 
-msgid "The image could not be created due to errors."
-msgstr "รูปภาพไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
+msgid "Add images"
+msgstr "เพิ่มรูปภาพ"
 
 msgid "Image"
 msgstr "รูปภาพ"

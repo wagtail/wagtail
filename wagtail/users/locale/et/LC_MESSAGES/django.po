@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -127,15 +127,6 @@ msgstr "Selle grupi kustutamine tühistab selle grupi kõik kasutajate õigused.
 msgid "Are you sure you want to delete this group?"
 msgstr "Kas soovite kindlasti selle grupi kustutada?"
 
-msgid "Add group"
-msgstr "Lisa rühm"
-
-msgid "Save"
-msgstr "Salvesta"
-
-msgid "Delete group"
-msgstr "Kustuta grupp"
-
 msgid "Object permissions"
 msgstr "Objekti load"
 
@@ -147,15 +138,6 @@ msgstr "Lisama"
 
 msgid "Change"
 msgstr "Muuda"
-
-msgid "Publish"
-msgstr "Avalda"
-
-msgid "Lock"
-msgstr "Lukusta"
-
-msgid "Unlock"
-msgstr "Ava"
 
 msgid "Other permissions"
 msgstr "Muud load"
@@ -190,12 +172,6 @@ msgstr "Konto"
 msgid "Roles"
 msgstr "Rollid"
 
-msgid "Add user"
-msgstr "Lisa kasutaja"
-
-msgid "Delete user"
-msgstr "Kustuta kasutaja"
-
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
@@ -219,6 +195,9 @@ msgstr "Lisage rühm"
 msgid "Search groups"
 msgstr "Gruppide otsimine"
 
+msgid "Add group"
+msgstr "Lisa rühm"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupp '%(object)s' on loodud."
@@ -237,6 +216,9 @@ msgstr "Kuva selle grupi kasutajad"
 msgid "Group '%(object)s' deleted."
 msgstr "Grupp '%(object)s' on kustutatud."
 
+msgid "Delete group"
+msgstr "Kustuta grupp"
+
 msgid "Add a user"
 msgstr "Kasutaja lisamine"
 
@@ -252,12 +234,18 @@ msgstr "Administraator"
 msgid "Status"
 msgstr "Staatus"
 
+msgid "Add user"
+msgstr "Lisa kasutaja"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Kasutaja '%(object)s' on värskendatud."
 
 msgid "The user could not be saved due to errors."
 msgstr "Kasutajat ei õnnestunud vigade tõttu salvestada."
+
+msgid "Delete user"
+msgstr "Kustuta kasutaja"
 
 #, python-format
 msgid "User '%(object)s' deleted."

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Oumayma el bez, 2023\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -108,27 +108,11 @@ msgstr "غير الوثيقة"
 msgid "Add a document"
 msgstr "!ضف وثيقة"
 
-msgid "Add document"
-msgstr "ّضف وثيقة"
-
 msgid "Uploading…"
 msgstr "يتم الرفع…"
 
 msgid "Upload"
 msgstr "انقل إلى الحاسوب"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "يتم التحرير %(title)s"
-
-msgid "Editing"
-msgstr "تحرير"
-
-msgid "Save"
-msgstr "احفظ"
-
-msgid "Delete document"
-msgstr "احذف وثيقة"
 
 msgid "Filesize"
 msgstr "حجم الملف"
@@ -161,9 +145,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "إضافة مستندات متعددة"
-
-msgid "Add documents"
-msgstr "!ضف وثيقة"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "اسحب المستندات وأفلتها في هذا الجزء لتحميلها على الفور."
@@ -234,9 +215,15 @@ msgid ""
 msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
 
+msgid "Delete document"
+msgstr "احذف وثيقة"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "حذف '%(document_title)s' مستند"
+
+msgid "Add documents"
+msgstr "!ضف وثيقة"
 
 msgid "Document"
 msgstr "مستند"

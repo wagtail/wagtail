@@ -19,8 +19,12 @@ def autocomplete(request, app_name=None, model_name=None):
 
     term = request.GET.get("term", None)
     if term:
-        tags = tag_model.objects.filter(name__istartswith=term).order_by("name")
+        tags = (
+            tag_model.objects.filter(name__istartswith=term)
+            .order_by("name")
+            .values_list("name", flat=True)[:10]
+        )
     else:
         tags = tag_model.objects.none()
 
-    return JsonResponse([tag.name for tag in tags], safe=False)
+    return JsonResponse(list(tags), safe=False)

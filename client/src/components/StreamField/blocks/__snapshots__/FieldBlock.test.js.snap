@@ -51,7 +51,7 @@ exports[`telepath: wagtail.blocks.FieldBlock with comments enabled it renders co
           <div class="w-field__help" id="the-prefix-helptext" data-field-help=""><p class="help">drink <em>more</em> water</p></div>
           <div class="w-field__input" data-field-input="">
             <p name="the-prefix" id="the-prefix">The widget</p>
-          <button type="button" aria-label="Add Comment" data-comment-add="" class="w-field__comment-button w-field__comment-button--add"><svg class="icon icon-comment-add " aria-hidden="true"><use href="#icon-comment-add"></use></svg><svg class="icon icon-comment-add-reversed " aria-hidden="true"><use href="#icon-comment-add-reversed"></use></svg></button></div>
+          <button type="button" aria-label="Add Comment" data-comment-add="" class="w-field__comment-button w-field__comment-button--add"><svg class="icon icon-comment-add" aria-hidden="true"><use href="#icon-comment-add"></use></svg><svg class="icon icon-comment-add-reversed" aria-hidden="true"><use href="#icon-comment-add-reversed"></use></svg></button></div>
         </div>
       </div>"
 `;

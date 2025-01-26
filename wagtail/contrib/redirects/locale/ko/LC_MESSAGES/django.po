@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2017,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -87,9 +87,6 @@ msgstr "리다이렉트"
 
 msgid "Add redirect"
 msgstr "리다이렉트 추가"
-
-msgid "Save"
-msgstr "저장"
 
 msgid "Redirects"
 msgstr "리다이렉트"

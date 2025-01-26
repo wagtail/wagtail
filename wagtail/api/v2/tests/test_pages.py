@@ -1822,7 +1822,7 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertEqual(content["body"][0]["value"], "foo")
         self.assertTrue(content["body"][0]["id"])
 
-    def test_image_block(self):
+    def test_image_chooser_block(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
         response_url = reverse("wagtailapi_v2:pages:detail", args=(stream_page.id,))
@@ -1833,7 +1833,7 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertEqual(content["body"][0]["type"], "image")
         self.assertEqual(content["body"][0]["value"], 1)
 
-    def test_image_block_with_custom_get_api_representation(self):
+    def test_image_chooser_block_with_custom_get_api_representation(self):
         stream_page = self.make_stream_page('[{"type": "image", "value": 1}]')
 
         response_url = "{}?extended=1".format(
@@ -1847,6 +1847,19 @@ class TestPageDetailWithStreamField(TestCase):
         self.assertEqual(
             content["body"][0]["value"], {"id": 1, "title": "A missing image"}
         )
+
+    def test_image_block(self):
+        stream_page = self.make_stream_page(
+            '[{"type": "image_with_alt", "value": {"image": 1, "alt_text": "Some alt text", "decorative": false}}]'
+        )
+
+        response_url = reverse("wagtailapi_v2:pages:detail", args=(stream_page.id,))
+        response = self.client.get(response_url)
+        content = json.loads(response.content.decode("utf-8"))
+
+        self.assertEqual(content["body"][0]["type"], "image_with_alt")
+        self.assertEqual(content["body"][0]["value"]["image"], 1)
+        self.assertEqual(content["body"][0]["value"]["alt_text"], "Some alt text")
 
 
 @override_settings(
@@ -1873,22 +1886,26 @@ class TestPageCacheInvalidation(TestCase):
         signal_handlers.unregister_signal_handlers()
 
     def test_republish_page_purges(self, purge):
-        Page.objects.get(id=2).specific.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision().publish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_unpublish_page_purges(self, purge):
-        Page.objects.get(id=2).unpublish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).unpublish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_delete_page_purges(self, purge):
-        Page.objects.get(id=16).delete()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=16).delete()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/16/")
 
     def test_save_draft_doesnt_purge(self, purge):
-        Page.objects.get(id=2).specific.save_revision()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision()
 
         purge.assert_not_called()
 

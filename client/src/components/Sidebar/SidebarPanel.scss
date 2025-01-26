@@ -13,6 +13,7 @@
   z-index: 400;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   @include media-breakpoint-up(sm) {
     z-index: var(--z-index);

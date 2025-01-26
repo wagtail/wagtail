@@ -2,7 +2,7 @@
 
 # Private pages
 
-Users with publish permission on a page can set it to be private by clicking the 'Privacy' control in the top right corner of the page explorer or editing interface. This sets a restriction on who is allowed to view the page and its sub-pages. Several different kinds of restrictions are available:
+Users with publish permission on a page can set it to be private by clicking the 'Privacy' control in the top right corner of the page explorer or editing interface. This sets a restriction on who is allowed to view the page and its subpages. Several different kinds of restrictions are available:
 
 -   **Accessible to any logged-in users:** The user must log in to view the page. All user accounts are granted access, regardless of permission level.
 -   **Accessible with a shared password:** The user must enter the given shared password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.

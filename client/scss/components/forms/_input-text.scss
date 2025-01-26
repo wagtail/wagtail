@@ -39,11 +39,15 @@ textarea {
   resize: none;
 }
 
-// Make non-text field types with custom widgets have a smaller width.
 .w-field--date_field,
 .w-field--date_time_field,
 .w-field--time_field {
+  // Make sure comment buttons are as close as possible.
+  display: inline-block;
+
+  // Make non-text field types with custom widgets have a smaller width.
   input {
     width: auto;
+    max-width: 100%;
   }
 }

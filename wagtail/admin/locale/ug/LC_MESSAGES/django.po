@@ -5,11 +5,12 @@
 # Translators:
 # Abduqadir Abliz <sahranbay@gmail.com>, 2024
 # Azat, 2024
+# Azat, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,55 +25,55 @@ msgid "Publish"
 msgstr "تارقات"
 
 msgid "Submit for moderation"
-msgstr "تەستىقلىتىش ئۈچۈن يوللاش"
+msgstr "تەستىقلاشقا تاپشۇر"
 
 #, python-format
 msgid "Resubmit to %(task_name)s"
-msgstr "%(task_name)s غا قايتا يوللاش"
+msgstr "%(task_name)s غا قايتا تاپشۇر"
 
 #, python-format
 msgid "Submit to %(workflow_name)s"
-msgstr "%(workflow_name)s غا يوللاش"
+msgstr "%(workflow_name)s غا تاپشۇر"
 
 msgid "Restart workflow "
-msgstr "خىزمەت ئېقىمىنى قايتا قوزغىتىڭ"
+msgstr "خىزمەت ئېقىمىنى قايتا قوزغات "
 
 msgid "Cancel workflow "
-msgstr "خىزمەت ئېقىمىنى بىكار قىلىڭ"
+msgstr "خىزمەت ئېقىمىنى بىكار قىل "
 
 msgid "Unpublish"
-msgstr "نەشىردىن ئېلىپ تاشلاش"
+msgstr "تارقاتما"
 
 msgid "Save Draft"
-msgstr "لايىھەنى ساقلاش"
+msgstr "دەسلەپكى نۇسخا ساقلا"
 
 msgid "Page locked"
 msgstr "بەت قۇلۇپلاندى"
 
 #, python-format
 msgid "%(label)s and Publish"
-msgstr "%(label)s ۋە نەشىر قىلىش"
+msgstr "%(label)s ۋە تارقات"
 
 msgid "Wagtail admin"
 msgstr "Wagtail باشقۇرۇش سەھىپىسى"
 
 msgid "Sorry, you do not have permission to access this area."
-msgstr "كەچۈرۈڭ ، بۇ رايوننى زىيارەت قىلىش ھوقۇقىڭىز يوق."
+msgstr "كەچۈرۈڭ، بۇ رايوننى زىيارەت قىلىش ئىجازىتىڭىز يوق."
 
 msgid "You do not have permission to access the admin"
-msgstr "سىز باشقۇرۇش سەھىپىسىگە كىرىش ھوقۇقىڭىز يوق"
+msgstr "سىزنىڭ باشقۇرۇش سەھىپىسىگە كىرىش ئىجازىتىڭىز يوق"
 
 msgid "None"
 msgstr "يوق"
 
 msgid "Date from"
-msgstr "مۇددەت باشلىنىشى"
+msgstr "باشلانغان چېسلا"
 
 msgid "Date to"
-msgstr "مۇددەت پۈتۈشى"
+msgstr "ئاخىرلىشىدىغان چېسلا"
 
 msgid "Locale"
-msgstr "تىل تەڭشەش"
+msgstr "يەرلىك تىل"
 
 msgid "All"
 msgstr "ھەممىسى"
@@ -84,10 +85,10 @@ msgid "Tag"
 msgstr "بەلگە"
 
 msgid "Filter by up to ten most popular tags."
-msgstr "ئەڭ كۆپ ئىشلىتىلگەن بەلگىلەرنىڭ ئون تۈرىگە قەدەر سۈزگۈچتىن ئۆتكۈزۈڭ."
+msgstr "ئالقىشلىق بەلگىدىن كۆپ بولغاندا ئونغىچە سۈزىدۇ."
 
 msgid "Preferred language"
-msgstr "تاللانغان تىل"
+msgstr "تىل مايىللىقى"
 
 msgid "Current time zone"
 msgstr "ھازىرقى ۋاقىت رايونى"
@@ -96,39 +97,39 @@ msgid "First Name"
 msgstr "ئىسىم"
 
 msgid "Last Name"
-msgstr "فامىلە"
+msgstr "تەگئات"
 
 msgid "Email"
 msgstr "ئېلخەت"
 
 msgid "Upload a profile picture"
-msgstr "تەرجىمىھال رەسىمى يۈكلەش"
+msgstr "تەرجىمىھال رەسىمى يۈكلەيدۇ"
 
 msgid "Enter password"
-msgstr "پارول كىرگۈزۈڭ"
+msgstr "ئىم كىرگۈزۈلىدۇ"
 
 #, python-format
 msgid "Your %(username_field)s and password didn't match. Please try again."
-msgstr "سىزنىڭ %(username_field)s ۋە پارولىڭىز ماس كەلمىدى. قايتا سىناپ بېقىڭ."
+msgstr "سىز كىرگۈزگەن %(username_field)s ۋە ئىم ماس كەلمىدى. قايتا سىناڭ."
 
 #, python-format
 msgid "Enter your %(username_field_name)s"
 msgstr "%(username_field_name)s نى كىرگۈزۈڭ"
 
 msgid "Enter your email address to reset your password"
-msgstr "پارولىڭىزنى قايتا تەڭشەش ئۈچۈن ئېلخەت ئادرېسىڭىزنى كىرگۈزۈڭ"
+msgstr "ئىم ئەسلىگە قايتۇرۇش ئۈچۈن ئېلخەت ئادرېسىڭىزنى كىرگۈزۈڭ"
 
 msgid "URL"
-msgstr "URL"
+msgstr "تور ئادرېسى"
 
 msgid "Search term"
 msgstr "ئىزدەش ئاتالغۇسى"
 
 msgid "Search"
-msgstr "ئىزدەش"
+msgstr "ئىزدە"
 
 msgid "All collections"
-msgstr "ھەممە توپلاملار"
+msgstr "ھەممە توپلام"
 
 msgid "Parent"
 msgstr "ئانا تۈر"
@@ -137,20 +138,21 @@ msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
 msgstr ""
-"پەرتىبەتلىك ئورۇنى تاللاڭ. ئىزاھات: بىر توپلام ئۆزىنىڭ ياكى بۇرۇنقى ئىنكىس "
-"سۈپىتىدە بالىلاشماسلىقى كېرەك."
+"قاتلاملىق ئورۇن تاللىنىدۇ. ئەسكەرتىش: بىر توپلام ئۆزىنىڭ تارمىقى ياكى "
+"ئۆزىنىڭ داۋامى بولالمايدۇ."
 
 msgid "Please select another parent"
 msgstr "باشقا ئانا تۈرىنى تاللاڭ"
 
 msgid "You cannot have multiple permission records for the same collection."
-msgstr "بىرلا توپلام ئۈچۈن بىر نەچچە ھوقۇق خۇججىتى بولمىسى كېرەك."
+msgstr ""
+"سىز ئوخشاش بىر توپلامنىڭ بىر نەچچە ئىجازەت خاتىرىسىگە ئىگە بولالمايسىز.."
 
 msgid "Add"
 msgstr "قوش"
 
 msgid "Add collections"
-msgstr "توپلاملارنى قوش"
+msgstr "توپلام قوش"
 
 msgid "Edit"
 msgstr "تەھرىر"
@@ -162,58 +164,369 @@ msgid "Delete"
 msgstr "ئۆچۈر"
 
 msgid "Delete collections"
-msgstr "توپلامنى ئۆچۈر"
+msgstr "توپلام ئۆچۈر"
 
 msgid "You cannot edit another user's comment."
-msgstr "باشقا بىر ئىشلەتكۈچىنىڭ ئىزاھاتىنى تەھرىرلىيەلمەيسىز."
+msgstr "باشقا بىر ئىشلەتكۈچىنىڭ ئىنكاسىنى تەھرىرلىيەلمەيسىز."
 
 msgid "Go live date/time must be before expiry date/time"
-msgstr "ئۇچۇر كۈچكە ئىگە بولىدىغان ۋاقىت نىشان ۋاقتىدىن بۇرۇن بولۇشى كېرەك"
+msgstr ""
+"بىۋاسىتە تارقىتىدىغان چېسلا/ۋاقىت قەرەلى توشىدىغان چېسلا/ۋاقىتتىن ئىلگىرى "
+"بولۇشى كېرەك"
 
 msgid "Expiry date/time must be in the future"
-msgstr "ئەمەلدىن قېلىش ۋاقتى كەلگۈسىدە بولۇشى كېرەك"
+msgstr "قەرەلى توشىدىغان چېسلا/ۋاقىت چوقۇم كەلگۈسىدە بولۇشى كېرەك"
 
 msgid "New title"
 msgstr "يېڭى ماۋزۇ"
 
 msgid "New slug"
-msgstr "يېڭى ئۇل قايسا"
+msgstr "يېڭى قىسقارتىلما"
 
 msgid "New parent page"
 msgstr "يېڭى ئانا بەت"
 
+msgid "This copy will be a child of this given parent page."
+msgstr "بۇ نۇسخا بېرىلگەن ئانا بەتنىڭ بالا بېتى بولىدۇ."
+
+msgid "Copy subpages"
+msgstr "تارماق بەتنى كۆچۈر"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "%(count)s تارماق بەتنى كۆچۈرىدۇ."
+msgstr[1] "%(count)s تارماق بەتنى كۆچۈرىدۇ."
+
+msgid "Publish copied page"
+msgstr "كۆچۈرگەن بەتنى تارقات"
+
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "بۇ بەت توردا. ئۇنىڭ كۆچۈرۈلمىسىنىمۇ تارقىتامسىز؟"
+
+msgid "Publish copies"
+msgstr "كۆچۈرۈلمىسىنى تارقات"
+
+#, python-format
+msgid ""
+"%(count)s of the pages being copied is live. Would you like to publish its "
+"copy?"
+msgid_plural ""
+"%(count)s of the pages being copied are live. Would you like to publish "
+"their copies?"
+msgstr[0] ""
+"%(count)s بەتنىڭ كۆچۈرۈلمىسى توردا. ئۇنىڭ كۆچۈرۈلمىسىنى تارقىتامسىز؟"
+msgstr[1] ""
+"%(count)s بەتنىڭ كۆچۈرۈلمىسى توردا. ئۇنىڭ كۆچۈرۈلمىسىنى تارقىتامسىز؟"
+
+msgid "Alias"
+msgstr "تەخەللۇس"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "يېڭى بەتنى كەلگۈسىدىكى ئۆزگىرىش بىلەن يېڭىلاپ تۇرىدۇ"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "سىزنىڭ «%(page_title)s» بەتكە كۆچۈرۈش ئىجازىتىڭىز يوق"
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page "
+"\"%(parent_page_title)s\""
+msgstr ""
+"بۇ قىسقارتىلما ئۆزىنىڭ ئانا بېتى «%(parent_page_title)s» نىڭ مەزمۇنىدا "
+"ئىشلىتىلىۋاتىدۇ"
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr "تارماق بەتنى كۆچۈرۈۋاتقاندا بەتنى ئۆزىنىڭ ئىچىگە كۆچۈرەلمەيسىز"
+
+#, python-format
+msgid "The slug '%(page_slug)s' is already in use within the parent page"
+msgstr "بۇ قىسقارتىلما «%(page_slug)s» ئانا بەتتە ئىشلىتىلىۋاتىدۇ"
+
+msgid "Select a new parent for this page."
+msgstr "بۇ بەتنىڭ يېڭى ئانا بېتى تاللىنىدۇ."
+
 msgid "Parent page"
 msgstr "ئانا بەت"
+
+msgid "The new page will be a child of this given parent page."
+msgstr "بۇ يېڭى بەت بېرىلگەن مەزكۇر ئانا بەتنىڭ بالا بېتى بولىدۇ."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr "«%(page_title)s» نىڭ ئاستىدا بەت قۇرۇش ئىجازىتىڭىز يوق."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"«%(page_title)s» نىڭ ئاستىدا «%(page_type)s» تىپتىكى بەت قۇرۇش ئىجازىتىڭىز "
+"يوق."
+
+msgid "Search…"
+msgstr "ئىزدە…"
+
+#, python-format
+msgid "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+msgstr "%(value_too_long)s بەلگە %(max_tag_length)d ھەرپتىن ئېشىپ كەتتى"
+
+msgid "Visibility"
+msgstr "كۆرۈشچانلىقى"
 
 msgid "This field is required."
 msgstr "بۇ بۆلەك زۆرۈر."
 
+msgid "Please select at least one group."
+msgstr "كەم دېگەندە بىر گۇرۇپپا تاللاڭ."
+
+msgid "All types"
+msgstr "بارلىق تىپ"
+
+#, python-format
+msgid "This page already has workflow '%(workflow_name)s' assigned."
+msgstr "بۇ بەتكە «%(workflow_name)s» خىزمەت ئېقىمى تەقسىملەنگەن."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "بۇ خىزمەت ئېقىمىنى ئوخشاش بىر بەتكە كۆپ قېتىم تەقسىملىيەلمەيسىز."
+
+#, python-format
+msgid ""
+"Snippet '%(content_type)s' already has workflow '%(workflow_name)s' assigned."
+msgstr ""
+"«%(content_type)s» پۇرۇچقا «%(workflow_name)s» خىزمەت ئېقىمى تەقسىملەنگەن."
+
+msgid "Give your workflow a name"
+msgstr "خىزمەت ئېقىمىڭىزغا ئات قويۇڭ"
+
+msgid "Add tasks to your workflow"
+msgstr "خىزمەت ئېقىمىزغا ۋەزىپە قوشىدۇ"
+
+msgid "Task"
+msgstr "ۋەزىپە"
+
+msgid "1 page selected"
+msgstr "1 بەت تاللاندى"
+
+#, python-format
+msgid "%(objects)s pages selected"
+msgstr "%(objects)s بەت تاللاندى"
+
+#, python-format
+msgid "All %(objects)s pages on this screen selected"
+msgstr "بۇ ئېكراندىكى %(objects)s بەتنىڭ ھەممىسى تاللاندى"
+
+msgid "All pages in listing selected"
+msgstr "تىزىمدىكى ھەممە بەت تاللاندى"
+
+msgid "1 document selected"
+msgstr "1 پۈتۈك تاللاندى"
+
+#, python-format
+msgid "%(objects)s documents selected"
+msgstr "%(objects)s پۈتۈك تاللاندى"
+
+#, python-format
+msgid "All %(objects)s documents on this screen selected"
+msgstr "بۇ ئېكراندىكى %(objects)s پۈتۈكنىڭ ھەممىسى تاللاندى"
+
+msgid "All documents in listing selected"
+msgstr "تىزىمدىكى ھەممە پۈتۈك تاللاندى"
+
 msgid "1 image selected"
 msgstr "1 سۈرەت تاللاندى"
+
+#, python-format
+msgid "%(objects)s images selected"
+msgstr "%(objects)s سۈرەت تاللاندى"
+
+#, python-format
+msgid "All %(objects)s images on this screen selected"
+msgstr "بۇ ئېكراندىكى %(objects)s سۈرەتنىڭ ھەممىسى تاللاندى"
+
+msgid "All images in listing selected"
+msgstr "تىزىمدىكى ھەممە سۈرەت تاللاندى"
+
+msgid "1 user selected"
+msgstr "1 ئىشلەتكۈچى تاللاندى"
+
+#, python-format
+msgid "%(objects)s users selected"
+msgstr "%(objects)s ئىشلەتكۈچى تاللاندى"
+
+#, python-format
+msgid "All %(objects)s users on this screen selected"
+msgstr "بۇ ئېكراندىكى %(objects)s سۈرەتنىڭ ھەممىسى تاللاندى"
+
+msgid "All users in listing selected"
+msgstr "تىزىمدىكى ھەممە ئىشلەتكۈچى تاللاندى"
+
+msgid "1 snippet selected"
+msgstr "1 پۇرۇچ تاللاندى"
+
+#, python-format
+msgid "%(objects)s snippets selected"
+msgstr "%(objects)s پۇرۇچ تاللاندى"
+
+#, python-format
+msgid "All %(objects)s snippets on this screen selected"
+msgstr "بۇ ئېكراندىكى %(objects)s پۇرۇچنىڭ ھەممىسى تاللاندى"
+
+msgid "All snippets in listing selected"
+msgstr "تىزىمدىكى ھەممە پۇرۇچ تاللاندى"
+
+msgid "1 item selected"
+msgstr "1 تۈر تاللاندى"
+
+#, python-format
+msgid "%(objects)s items selected"
+msgstr "%(objects)s تۈر تاللاندى"
+
+#, python-format
+msgid "All %(objects)s items on this screen selected"
+msgstr "بۇ ئېكراندىكى %(objects)s تۈرنىڭ ھەممىسى تاللاندى"
+
+msgid "All items in listing selected"
+msgstr "تىزىمدىكى ھەممە تۈر تاللاندى"
+
+msgid "Can access Wagtail admin"
+msgstr "Wagtail باشقۇرغۇچىنى زىيارەت قىلالايدۇ"
+
+msgid "For search engines"
+msgstr "ئىزدەش موتورى"
+
+msgid "For site menus"
+msgstr "بېكەت تىزىملىكى ئۈچۈن"
 
 msgid "Content"
 msgstr "مەزمۇن"
 
+msgid "Promote"
+msgstr "ئۆستۈر"
+
 msgid "Settings"
-msgstr "تەكشەك"
+msgstr "تەڭشەك"
 
 msgid "Title"
 msgstr "ماۋزۇ"
 
-msgid "Account"
-msgstr "ھېسابات"
+msgid "Page title"
+msgstr "بەت ماۋزۇسى"
+
+msgid "Error 404: Page not found"
+msgstr "404 خاتالىق: بەت تېپىلمىدى"
+
+msgid "Error 404"
+msgstr "404 خاتالىق"
+
+msgid "The requested page could not be found."
+msgstr "ئىلتىماس قىلغان بەت تېپىلمىدى."
+
+msgid "Go to Wagtail admin"
+msgstr "Wagtail باشقۇرغۇچىغا يۆتكەل"
 
 msgid "More actions"
 msgstr "تېخىمۇ كۆپ مەشغۇلات"
 
+msgid "Reset password"
+msgstr "ئىمنى ئەسلىگە قايتۇر"
+
+msgid "Password change successful"
+msgstr "ئىم مۇۋەپپەقىيەتلىك ئۆزگەردى"
+
+msgid "Login"
+msgstr "تىزىمغا كىرىڭ"
+
+msgid "Set your new password"
+msgstr "يېڭى ئىمنى تەڭشەڭ"
+
+msgid "Invalid password reset link"
+msgstr "ئىناۋەتسىز ئىم ئەسلىگە قايتۇرۇش ئۇلانمىسى"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"ئىم ئەسلىگە قايتۇرۇش ئۇلانمىسى ئىناۋەتسىز ئىكەن، سەۋەبى ئۇ ئىشلىتىلىپ بوپتۇ."
+
+msgid "Request a new password reset"
+msgstr "يېڭى ئىم ئەسلىگە قايتۇرۇش ئىلتىماسى"
+
+msgid "Check your email"
+msgstr "ئېلخەتىڭىزنى تەكشۈرۈڭ"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"ئەگەر بۇ ئادرېستىكى ھېسابات مەۋجۇت بولسا ئىمنى ئەسلىگە قايتۇرىدىغان ئۇلانما "
+"بار ئېلخەت يوللاندى."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "ئىمنى ئەسلىگە قايتۇرۇش ئۈچۈن تۆۋەندىكى ئۇلانمىغا ئەگىشىڭ:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "ئىشلەتكۈچى ئاتىڭىز (سىز ئۇنۇتقاندا):"
+
+msgid "Password reset"
+msgstr "ئىمنى ئەسلىگە قايتۇر"
+
+msgid "Reset your password"
+msgstr "ئىمنى ئەسلىگە قايتۇرىدۇ"
+
+msgid "Reset to default"
+msgstr "كۆڭۈلدىكىگە قايتۇر"
+
+msgid "Default avatar"
+msgstr "كۆڭۈلدىكى سىما"
+
+msgid "Upload a profile picture:"
+msgstr "تەرجىمىھال رەسىمى يۈكلەش:"
+
+msgid "Sidebar"
+msgstr "يان بالداق"
+
 msgid "Go back"
 msgstr "كەينىگە"
+
+msgid "Bulk actions"
+msgstr "توپ مەشغۇلات"
+
+msgid "Select"
+msgstr "تاللا"
+
+msgid "Select row"
+msgstr "قۇر تاللا"
 
 msgid "Select all"
 msgstr "ھەممىنى تاللا"
 
+msgid "Internal link"
+msgstr "ئىچكى ئۇلانما"
+
 msgid "External link"
 msgstr "سىرتقى ئۇلانما"
+
+msgid "Email link"
+msgstr "ئېلخەت ئۇلانمىسى"
+
+msgid "Phone link"
+msgstr "تېلېفون ئۇلانمىسى"
+
+msgid "Anchor link"
+msgstr "لەڭگەر ئۇلانمىسى"
+
+#, python-format
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
+msgstr[0] "ماسلاشقاندىن %(counter)s بار"
+msgstr[1] "ماسلاشقاندىن %(counter)s بار"
+
+msgid "Add an anchor link"
+msgstr "بىر لەڭگەر ئۇلانمىسى قوش"
+
+msgid "Insert anchor"
+msgstr "لەڭگەر قىستۇر"
 
 msgid "Choose"
 msgstr "تاللا"
@@ -222,14 +535,124 @@ msgid "Choose a page"
 msgstr "بەت تاللىنىدۇ"
 
 #, python-format
+msgid ""
+"Only pages of type \"%(type)s\" may be chosen for this field. Search results "
+"will exclude pages of other types."
+msgid_plural ""
+"Only the following page types may be chosen for this field: %(type)s. Search "
+"results will exclude pages of other types."
+msgstr[0] ""
+"بۇ بۆلەككە پەقەت «%(type)s» تىپتىكى بەتنىلا تاللىغىلى بولۇشى مۇمكىن. ئىزدەش "
+"نەتىجىسى باشقا تىپتىكى بەتنى ئۆز ئىچىگە ئالمايدۇ."
+msgstr[1] ""
+"بۇ بۆلەككە پەقەت تۆۋەندىكىدەك «%(type)s» تىپتىكى بەتنىلا تاللىغىلى بولۇشى "
+"مۇمكىن. ئىزدەش نەتىجىسى باشقا تىپتىكى بەتنى ئۆز ئىچىگە ئالمايدۇ."
+
+msgid "Confirm selection"
+msgstr "تاللاش جەزملە"
+
+msgid "Convert to internal link"
+msgstr "ئىچكى ئۇلانمىغا ئايلاندۇر"
+
+#, python-format
+msgid ""
+"The URL you entered, <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a>, looks like it matches the "
+"internal page %(page)s, which has the URL <a target=\"_blank\" "
+"rel=\"noreferrer\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+msgstr ""
+"سىز كىرگۈزگەن تور ئادرېسى، <a target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(submitted_url)s\">%(submitted_url)s</a> تور ئادرېسى <a "
+"target=\"_blank\" rel=\"noreferrer\" "
+"href=\"%(internal_url)s\">%(internal_url)s</a> بار ئىچى بەت %(page)s غا ماس "
+"كېلىدىغاندەك قىلىدۇ."
+
+#, python-format
+msgid ""
+"Converting this to an internal link to %(page)s would make the link "
+"automatically update if the underlying page changes its URL. Would you like "
+"to do this?"
+msgstr ""
+"ئەگەر ئاستىنقى بەت ئۆزىنىڭ تور ئادرېسىنى ئۆزگەرتسە، بۇنى ئىچكى ئۇلانمىغا "
+"ئايلاندۇرىدۇ %(page)s ئۇلانمىنى ئۆزلۈكىدىن يېڭىلىشى مۇمكىن. شۇنداق قىلامسىز؟"
+
+msgid "Use external link"
+msgstr "سىرتقى ئۇلانما ئىشلەت"
+
+msgid "Add an email link"
+msgstr "ئېلخەت ئۇلانمىسى قوش"
+
+msgid "Insert link"
+msgstr "ئۇلانما قىستۇر"
+
+msgid "Add an external link"
+msgstr "سىرتقى ئۇلانما قوش"
+
+msgid "Add a phone link"
+msgstr "تېلېفون ئۇلانمىسى قوش"
+
+#, python-format
 msgid "Select %(title)s"
 msgstr "%(title)s تاللىنىدۇ"
 
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "«%(title)s» نىڭ تارماق بەتلىرىنى كۆرسىتىدۇ"
+
+msgid "Explore"
+msgstr "كۆرسەت"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "بۇ توپلامنى ئانا توپلىمى شەخسىيلەشتۈرگەن."
+
+msgid "You can edit the privacy settings on:"
+msgstr "شەخسىيەت تەڭشىكىنى تەھرىرلىيەلەيسىز:"
+
 msgid "Save"
-msgstr "ساقلاش"
+msgstr "ساقلا"
+
+msgid "Change privacy"
+msgstr "شەخسىيەت ئۆزگەرت"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"شەخسىيەت تەڭشىكى بۇ توپلامدىكى پۈتۈكلەرنى كىملەرنىڭ كۆرەلەيدىغانلىقىنى "
+"بەلگىلەيدۇ."
+
+msgid "Privacy"
+msgstr "شەخسىيەت"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "توپلام شەخسىيەت تەڭشىكى. نۆۋەتتىكى ھالىتى: ئاشكارا"
 
 msgid "Public"
-msgstr "ئاممىۋى"
+msgstr "ئاشكارا"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "توپلام شەخسىيەت تەڭشىكى. نۆۋەتتىكى ھالىتى: شەخسىي"
+
+msgid "Private"
+msgstr "شەخسىي"
+
+msgid ""
+"This collection cannot be deleted, because it is not empty. It contains:"
+msgstr "بۇ توپلامنى ئۆچۈرگىلى بولمايدۇ، چۈنكى ئۇ بوش ئەمەس. ئۇنىڭدا:"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a "
+"href=\"%(add_collection_url)s\">add one</a>?"
+msgstr ""
+"ھېچقانداق توپلام قۇرۇلمىغان. نېمىشقا <a href=\"%(add_collection_url)s\"> "
+"بىرنى قوش</a>مايسىز؟"
+
+#, python-format
+msgid "Sorry, there are no matches for \"<em>%(search_query)s</em>\""
+msgstr "كەچۈرۈڭ، «<em>%(search_query)s</em>» غا ھېچنېمە ماس كەلمىدى"
+
+msgid "There are no results."
+msgstr "نەتىجە يوق."
 
 msgid "Yes, delete"
 msgstr "ھەئە، ئۆچۈر"
@@ -237,14 +660,134 @@ msgstr "ھەئە، ئۆچۈر"
 msgid "No, don't delete"
 msgstr "ياق، ئۆچۈرمە"
 
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "%(title)s تارقاتما"
+
+#, python-format
+msgid "Are you sure you want to unpublish this %(model_name)s?"
+msgstr "بۇ %(model_name)s نى راستتىنلا تارقاتمامسىز؟"
+
+msgid "Yes, unpublish it"
+msgstr "ھەئە، تارقاتما"
+
+msgid "No, don't unpublish"
+msgstr "ياق، تارقات"
+
+#, python-format
+msgid "Publish %(model_name)s"
+msgstr "%(model_name)s تارقات"
+
+#, python-format
+msgid ""
+"This %(model_name)s was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>."
+msgstr ""
+"بۇ %(model_name)s غا <strong>%(workflow)s</strong> دىكى <strong>%(task)s</"
+"strong> نى ئۆزگەرتىش كېرەك دەپ بەلگە قويۇلغان."
+
+#, python-format
+msgid ""
+"This %(model_name)s is currently at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"بۇ  %(model_name)s نۆۋەتتە <strong>%(workflow)s</strong> دىكى "
+"<strong>%(task)s</strong>."
+
+#, python-format
+msgid "Publishing this %(model_name)s will cancel the current workflow."
+msgstr "بۇ %(model_name)s تارقىتىلسا نۆۋەتتىكى خىزمەت ئېقىمىنى بىكار قىلىدۇ."
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "بۇ %(model_name)s نى ئېلان قىلىۋېرەمسىز؟"
+
 msgid "Cancel"
 msgstr "ۋاز كەچ"
+
+msgid "Actions"
+msgstr "مەشغۇلات"
 
 msgid "Comment"
 msgstr "ئىنكاس"
 
-msgid "Actions"
-msgstr "مەشغۇلات"
+#, python-format
+msgid ""
+"There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
+"one</a>?"
+msgstr ""
+"كۆرسىتىدىغان ھېچقانداق %(model_name)s يوق. نېمىشقا <a "
+"href=\"%(add_url)s\">بىرنى قوش</a>مايسىز؟"
+
+msgid "Update"
+msgstr "يېڭىلا"
+
+msgid "Preview not available"
+msgstr "ئالدىن كۆزىتەلمەيدۇ"
+
+msgid ""
+"Preview cannot display due to validation errors. <br /> Click save to "
+"highlight the relevant fields."
+msgstr ""
+"دەلىللەش خاتالىقى سەۋەبىدىن ئالدىن كۆزىتەلمەيدۇ. <br /> ساقلا چېكىلسە "
+"مۇناسىۋەتلىك بۆلەكنى يورۇتىدۇ."
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "%(title)s سېلىشتۇرۇۋاتىدۇ"
+
+msgid "Comparing"
+msgstr "سېلىشتۇرۇۋاتىدۇ"
+
+msgid "Fields"
+msgstr "بۆلەك"
+
+msgid "Changes"
+msgstr "ئۆزگىرىش"
+
+#, python-format
+msgid "Moved down 1 place."
+msgid_plural "Moved down %(counter)s places."
+msgstr[0] "ئاستىغا 1 ئورۇن يۆتكىدى."
+msgstr[1] "ئاستىغا %(counter)s ئورۇن تۆۋەنلىتىدۇ."
+
+#, python-format
+msgid "Moved up 1 place."
+msgid_plural "Moved up %(counter)s places."
+msgstr[0] "ئۈستىگە 1 ئورۇن يۆتكىدى."
+msgstr[1] "ئۈستىگە %(counter)s ئورۇن يۆتكىدى."
+
+msgid "There are no differences between these two versions"
+msgstr "ئىككى تۈزىتىلمە ئارىسىدا ھېچقانداق پەرق يوق"
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"بۇ سىز قۇرغان مەزمۇن توغرىسىدىكى پايدىلىق ئۇچۇرلار كۆرسىتىلىدىغان باشقۇرۇش "
+"تاختىڭىز."
+
+msgid "Account"
+msgstr "ھېسابات"
+
+#, python-format
+msgid "Wagtail %(current_version)s editor guide"
+msgstr "Wagtail %(current_version)s تەھرىرلىگۈچ يېتەكچىسى"
+
+msgid "Your locked pages"
+msgstr "قۇلۇپلانغان بېتىڭىز"
+
+msgid "Language"
+msgstr "تىل"
+
+msgid "Privacy and access"
+msgstr "شەخسىيەت ۋە زىيارەت"
+
+msgid "Status"
+msgstr "ھالەت"
+
+msgid "Locked at"
+msgstr "قۇلۇپلانغان ۋاقتى"
 
 msgid "Edit this page"
 msgstr "بەت تەھرىرلەيدۇ"
@@ -252,17 +795,376 @@ msgstr "بەت تەھرىرلەيدۇ"
 msgid "Unlock"
 msgstr "قۇلۇپ ئاچ"
 
-msgid "Status"
-msgstr "ھالەت"
+msgid "Draft"
+msgstr "دەسلەپكى نۇسخا"
+
+msgid "Live"
+msgstr "نەق مەيدان"
+
+msgid "Your most recent edits"
+msgstr "يېقىنقى تەھرىرلىگەنلىرىڭىز"
 
 msgid "Date"
 msgstr "چېسلا"
 
+msgid "Site summary"
+msgstr "بېكەت قىسقىچە مەزمۇنى"
+
+#, python-format
+msgid ""
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s بەت <span class=\"w-sr-only\">%(site_name)s دا قۇرۇلدى</span>"
+msgstr[1] "%(total)s بەت %(site_name)s دا قۇرۇلدى</span>"
+
+msgid "Wagtail upgrade available"
+msgstr "Wagtail نى يۈكسەلتكىلى بولىدۇ"
+
+#, python-format
+msgid ""
+"Your version: <strong>%(current_version)s</strong>. New version: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
+msgstr ""
+"نەشرىڭىز: <strong>%(current_version)s</strong>. يېڭى نەشرى: <strong data-w-"
+"upgrade-target=\"latestVersion\"></strong>."
+
+msgid "Read the release notes."
+msgstr "تارقىتىش باياناتىنى ئوقۇڭ."
+
+msgid "Your pages and snippets in a workflow"
+msgstr "خىزمەت ئېقىمىدىكى بەت ۋە پۇرۇچلىرىڭىز"
+
+msgid "Task started"
+msgstr "ۋەزىپە قوزغىتىلدى"
+
+msgid "Changes requested at"
+msgstr "ئۆزگەرتىش ئىلتىماس قىلىنغان ۋاقىت"
+
+msgid "Awaiting"
+msgstr "كۈتۈۋاتىدۇ"
+
 msgid "Close"
 msgstr "ياپ"
 
+#, python-format
+msgid "Things in Wagtail %(version)s have changed!"
+msgstr "Wagtail %(version)s دىكى ئىشلار ئۆزگەردى!"
+
+#, python-format
+msgid ""
+"Don't worry, we've got your back. Check out the <a class=\"w-whats-"
+"new__link\" href=\"%(editor_guide_link)s\" target=\"_blank\" "
+"rel=\"noreferrer\">Wagtail Editor Guide</a> to get the low down on what's "
+"changed and some exciting new features!"
+msgstr ""
+"ئەنسىرىمەڭ، بىز قايتىپ كەلدۇق. <a class=\"w-whats-new__link\" "
+"href=\"%(editor_guide_link)s\" target=\"_blank\" rel=\"noreferrer\"> Wagtail "
+"تەھرىرلىگۈچ قوللانمىسى </a> نى تەكشۈرۈڭ. كىشىنى ھاياجانغا سالىدىغان يېڭى "
+"ئىقتىدارلار!"
+
+msgid "Awaiting your review"
+msgstr "باھايىڭىزنى كۈتۈۋاتىدۇ"
+
+msgid "Tasks"
+msgstr "ۋەزىپە"
+
+msgid "Task submitted by"
+msgstr "ۋەزىپە تاپشۇرغۇچى"
+
 msgid "Preview"
 msgstr "ئالدىن كۆزەت"
+
+msgid "Compare with live version"
+msgstr "توردىكى نەشرى بىلەن سېلىشتۇر"
+
+msgid "Compare with previous version"
+msgstr "ئالدىنقى نەشرى بىلەن سېلىشتۇر"
+
+msgid "Sign in"
+msgstr "تىزىمغا كىرىڭ"
+
+msgid "Sign in to Wagtail"
+msgstr "Wagtail غا تىزىمغا كىرىڭ"
+
+msgid "Forgotten password?"
+msgstr "ئىم ئۇنتۇلۇش؟"
+
+msgid "Remember me"
+msgstr "مېنى ئەستە ساقلىسۇن"
+
+msgid "Signing in…"
+msgstr "تىزىمغا كىرىۋاتىدۇ…"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved."
+msgstr "«%(title)s» بەت تەستىقلاندى."
+
+msgid "You can view the page here:"
+msgstr "بۇ جايدا بەتنى كۆرەلەيسىز:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved"
+msgstr "«%(title)s» بەت تەستىقلاندى"
+
+#, python-format
+msgid "Hello %(username)s,"
+msgstr "سالام %(username)s،"
+
+msgid "Edit your notification preferences here:"
+msgstr "بۇ جايدا ئۇقتۇرۇش مايىللىقىڭىزنى تەھرىرلىيەلەيسىز:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected."
+msgstr "«%(title)s» بەت رەت قىلىندى."
+
+msgid "You can edit the page here:"
+msgstr "بۇ جايدا بەتنى تەھرىرلىيەلەيسىز:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected"
+msgstr "«%(title)s» بەت رەت قىلىندى"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "«%(title)s» بەت «%(task)s» تەستىقلاش باسقۇچىدا تەستىقلانغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"«%(task)s» تەستىقلاش باسقۇچىدا  %(model_name)s دىكى «%(title)s» تەستىقلانغان."
+
+#, python-format
+msgid "You can edit the %(model_name)s here:"
+msgstr "بۇ جايدا %(model_name)s نى تەھرىرلىيەلەيسىز:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "«%(title)s» بەت «%(task)s» دا تەستىقلانغان."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "«%(task)s» دا  %(model_name)s دىكى «%(title)s» تەستىقلانغان."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "«%(title)s» بەت «%(task)s» تەستىقلاش باسقۇچىدا رەت قىلىنغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"«%(task)s» تەستىقلاش باسقۇچىدا  %(model_name)s دىكى «%(title)s» رەت قىلىنغان."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "«%(title)s» بەت «%(task)s» دا رەت قىلىنغان."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "«%(task)s» دا  %(model_name)s دىكى «%(title)s» رەت قىلىنغان."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"«%(title)s» بەت «%(task)s» تەستىقلاش باسقۇچىغا تەستىقلاش ئۈچۈن تاپشۇرۇلغان."
+
+msgid "You can preview the page here:"
+msgstr "بۇ جيادا بەتنى ئالدىن كۆزىتەلەيسىز:"
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(task)s» تەستىقلاش باسقۇچىغا تەستىقلاش "
+"ئۈچۈن تاپشۇرغان."
+
+#, python-format
+msgid "You can preview the %(model_name)s here:"
+msgstr "بۇ جايدا %(model_name)s نى ئالدىن كۆزىتەلەيسىز:"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"«%(title)s» بەت «%(task)s» تەستىقلاش باسقۇچىغا تەستىقلاش ئۈچۈن تاپشۇرۇلغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval to "
+"moderation stage \"%(task)s\"."
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(task)s» تەستىقلاش باسقۇچىغا تەستىقلاش "
+"ئۈچۈن تاپشۇرغان."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\""
+msgstr ""
+"«%(title)s» بەت «%(task)s» تەستىقلاش باسقۇچىغا تەستىقلاش ئۈچۈن تاپشۇرۇلغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for approval in "
+"moderation stage \"%(task)s\""
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(task)s» تەستىقلاش باسقۇچىغا تەستىقلاش "
+"ئۈچۈن تاپشۇرغان."
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s «%(title)s» دىكى  ئىنكاسنى يېڭىلىدى."
+
+msgid "New comments"
+msgstr "يېڭى ئىنكاس"
+
+msgid "Resolved comments"
+msgstr "ھەل قىلىنغان ئىنكاس"
+
+msgid "Deleted comments"
+msgstr "ئۆچۈرۈلگەن ئىنكاس"
+
+msgid "New replies"
+msgstr "يېڭى جاۋاب"
+
+msgid "New replies to:"
+msgstr "يېڭى جاۋاب:"
+
+msgid "New comments:"
+msgstr "يېڭى ئىنكاس:"
+
+msgid "Resolved comments:"
+msgstr "ھەل قىلىنغان ئىنكاس:"
+
+msgid "Deleted comments:"
+msgstr "ئۆچۈرۈلگەن ئىنكاس:"
+
+msgid "New replies:"
+msgstr "يېڭى جاۋاب:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s «%(title)s» دىكى  ئىنكاسنى يېڭىلىدى."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "«%(title)s» بەت «%(workflow)s» خىزمەت ئېقىمىدا تەستىقلانغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been approved in workflow "
+"\"%(workflow)s\"."
+msgstr "«%(workflow)s» دا  %(model_name)s دىكى «%(title)s» تەستىقلانغان."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "«%(title)s» بەت «%(workflow)s» دا تەستىقلانغان."
+
+#, python-format
+msgid "The %(model_name)s \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "«%(workflow)s» دا  %(model_name)s دىكى «%(title)s» تەستىقلانغان."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"«%(title)s» بەت «%(workflow)s» خىزمەت ئېقىمىدىكى «%(task)s» جەريانىدا "
+"%(rejector)s رەت قىلغان."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"«%(title)s» بەت «%(workflow)s» خىزمەت ئېقىمىدىكى «%(task)s» جەريانىدا رەت "
+"قىلغان."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "تۆۋەندىكى ئىنكاس قالدۇرۇلغان: «%(comment)s»"
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(workflow)s» خىزمەت ئېقىمىدىكى "
+"«%(task)s» جەريانىدا %(rejector)s رەت قىلغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(task)s\" in "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(workflow)s» خىزمەت ئېقىمىدىكى "
+"«%(task)s» جەريانىدا رەت قىلغان."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "«%(title)s» بەت «%(workflow)s» خىزمەت ئېقىمى جەريانىدا رەت قىلىنغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(workflow)s» خىزمەت ئېقىمى جەريانىدا "
+"رەت قىلىنغان."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"«%(title)s» بەت «%(workflow)s» خىزمەت ئېقىمىغا تەستىقلاشقا يوللانغاندا "
+"%(requester)s رەت قىلغان."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr "«%(title)s» بەت «%(workflow)s» خىزمەت ئېقىمىغا تەستىقلاشقا يوللانغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\" by %(requester)s."
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(workflow)s» خىزمەت ئېقىمىغا "
+"%(requester)s تەستىقلاشقا يوللىغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted for moderation to "
+"workflow \"%(workflow)s\"."
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(workflow)s» خىزمەت ئېقىمىغا "
+"تەستىقلاشقا يوللانغان."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
+msgstr "«%(title)s» بەت «%(workflow)s» خىزمەت ئېقىمىغا يوللانغان."
+
+#, python-format
+msgid ""
+"The %(model_name)s \"%(title)s\" has been submitted to workflow "
+"\"%(workflow)s\""
+msgstr ""
+"%(model_name)s دىكى «%(title)s» نى «%(workflow)s» خىزمەت ئېقىمىغا يوللانغان."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "بۇ بەتنىڭ شەخسىيىتىنى ئۆزگەرتىش چەكلەنگەن."
 
 msgid "Publishing…"
 msgstr "تارقىتىلىۋاتىدۇ…"
@@ -271,7 +1173,7 @@ msgid "Publish this version"
 msgstr "بۇ نەشرىنى تارقات"
 
 msgid "Saving…"
-msgstr "ساقلاۋاتىدۇ..."
+msgstr "ساقلاۋاتىدۇ…"
 
 msgid "Replace current draft"
 msgstr "نۆۋەتتىكى دەسلەپكى نۇسخىنى ئالماشتۇر"
@@ -279,17 +1181,502 @@ msgstr "نۆۋەتتىكى دەسلەپكى نۇسخىنى ئالماشتۇر"
 msgid "Save draft"
 msgstr "دەسلەپكى نۇسخا ساقلا"
 
+#, python-format
+msgid "Create a page in %(title)s"
+msgstr "%(title)s دا يېڭى بەت قۇرىدۇ"
+
+msgid "Create a page in"
+msgstr "بەتتىن بىرنى قۇر"
+
+msgid "Choose which type of page you'd like to create."
+msgstr "قۇرماقچى بولغان بەت تۈرىڭىز تاللىنىدۇ."
+
+msgid "Sorry, you cannot create a page at this location."
+msgstr "كەچۈرۈڭ، بۇ جايدا بەت قۇرالمايسىز."
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "بەت %(page_type)s نى ئىشلىتىدۇ"
+
+#, python-format
+msgid "Delete 1 page"
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "1 بەت ئۆچۈر"
+msgstr[1] "%(counter)s بەت ئۆچۈر"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "بۇ بەتلەرنى راستتىنلا ئۆچۈرەمسىز؟"
+
+#, python-format
+msgid "This will also delete one more subpage."
+msgid_plural "This will also delete %(counter)s more subpages."
+msgstr[0] "بىر تارماق بەتنىمۇ ئۆچۈرىدۇ."
+msgstr[1] "%(counter)s تارماق بەتنىمۇ ئۆچۈرىدۇ."
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "بۇ  بەتنى ئۆچۈرۈش ئىجازىتىڭىز يوق"
+msgstr[1] "بۇ  بەتنى ئۆچۈرۈش ئىجازىتىڭىز يوق"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "1 بەت يۆتكە"
+msgstr[1] "%(counter)s  بەت يۆتكە"
+
 msgid "Move"
 msgstr "يۆتكە"
 
+msgid "Are you sure you want to move these pages?"
+msgstr "بۇ بەتلەرنى راستتىنلا يۆتكەمسىز؟"
+
+#, python-format
+msgid "This page has one child page"
+msgid_plural "This page has %(counter)s child pages"
+msgstr[0] "بۇ بەتنىڭ بىر بالا بېتى بار"
+msgstr[1] "بۇ بەتنىڭ %(counter)s بالا بېتى بار"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "بۇ  بەتنى يۆتكەش ئىجازىتىڭىز يوق"
+msgstr[1] "بۇ  بەتنى يۆتكەش ئىجازىتىڭىز يوق"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s"
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "تۆۋەندىكى بەتنى %(dest_title)s غا يۆتكىيەلمەيدۇ"
+msgstr[1] "تۆۋەندىكى بەتنى %(dest_title)s غا يۆتكىيەلمەيدۇ"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] "تەكرار قىسقارتىلما سەۋەبىدىن تۆۋەندىكى بەتنى يۆتكىيەلمەيدۇ"
+msgstr[1] "تەكرار قىسقارتىلما سەۋەبىدىن تۆۋەندىكى بەتنى يۆتكىيەلمەيدۇ"
+
+msgid "There is no valid destination page for these pages"
+msgstr "بۇ بەتلەرنىڭ ئىناۋەتلىك نىشان بېتى يوق"
+
+msgid "Yes, move these pages"
+msgstr "ھە، بەتنى يۆتكە"
+
+msgid "No, don't move"
+msgstr "ياق، يۆتكىمە"
+
+#, python-format
+msgid "Publish 1 page"
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "1 بەتنى تارقات"
+msgstr[1] "%(counter)s بەتنى تارقات"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "بۇ بەتلەرنى راستتىنلا تارقىتامسىز؟"
+
+#, python-format
+msgid "This page has one unpublished subpage"
+msgid_plural "This page has %(counter)s unpublished subpages"
+msgstr[0] "بۇ بەتنىڭ تېخى تارقىتىلمىغان بىر تارماق بېتى بار"
+msgstr[1] "بۇ بەتنىڭ تېخى تارقىتىلمىغان %(counter)s تارماق بېتى بار"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "بۇ  بەتنى تارقىتىش ئىجازىتىڭىز يوق"
+msgstr[1] "بۇ  بەتنى تارقىتىش ئىجازىتىڭىز يوق"
+
+msgid "Yes, publish"
+msgstr "ھەئە، تارقات"
+
+msgid "No, don't publish"
+msgstr "ياق، تارقاتما"
+
+#, python-format
+msgid "Unpublish 1 page"
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "تارقىتىلمىغان 1 بەت"
+msgstr[1] "تارقىتىلمىغان %(counter)s بەت"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "بۇ بەتلەرنى راستتىنلا تارقاتمامسىز؟"
+
+#, python-format
+msgid "This page has one subpage"
+msgid_plural "This page has %(counter)s subpages"
+msgstr[0] "بۇ بەتنىڭ بىر تارماق بېتى بار"
+msgstr[1] "بۇ بەتنىڭ %(counter)s تارماق بېتى بار"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "بۇ بەتنى تارقاتماسلىق ئىجازىتىڭىز يوق"
+msgstr[1] "بۇ بەتنى تارقاتماسلىق ئىجازىتىڭىز يوق"
+
+msgid "Yes, unpublish"
+msgstr "ھەئە، تارقاتما"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "باشقا ئىسىمغا ئايلاندۇر %(title)s"
+
+msgid "Convert alias"
+msgstr "باشقا ئىسىمغا ئايلاندۇر"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "بۇ باشقا ئىسىمنى ئادەتتىكى بەتكە ئايلاندۇرامسىز؟"
+
+msgid "This action cannot be undone."
+msgstr "بۇ مەشغۇلاتنى ئەسلىگە كەلتۈرگىلى بولمايدۇ."
+
 msgid "Yes, convert it"
-msgstr "ھەئە، قاپلىۋەت"
+msgstr "ھەئە، ئايلاندۇر"
+
+msgid "No, leave it as an alias"
+msgstr "ياق، باشقا ئات سۈپىتىدە قالدۇر"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "%(title)s نى ئۆچۈر"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "بۇ بەتنى راستتىنلا ئۆچۈرەمسىز؟"
+
+#, python-format
+msgid "Deleting this page will also delete %(descendant_count)s child page."
+msgid_plural ""
+"Deleting this page will also delete %(descendant_count)s more child pages."
+msgstr[0] "بۇ بەت ئۆچۈرۈلسە %(descendant_count)s بالا بەتمۇ ئۆچۈرۈلىدۇ."
+msgstr[1] "بۇ بەت ئۆچۈرۈلسە %(descendant_count)s بالا بەتمۇ ئۆچۈرۈلىدۇ."
+
+#, python-format
+msgid ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"1 تەرجىمە ۋە بىرلەشتۈرۈلگەن %(translation_descendant_count)s تەرجىمە "
+"قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+msgstr[1] ""
+"1 تەرجىمە ۋە بىرلەشتۈرۈلگەن %(translation_descendant_count)s تەرجىمە "
+"قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+
+#, python-format
+msgid ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"It will also delete %(translation_count)s translations and their combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"%(translation_count)s تەرجىمە ۋە بىرلەشتۈرۈلگەن "
+"%(translation_descendant_count)s تەرجىمە قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+msgstr[1] ""
+"%(translation_count)s تەرجىمە ۋە بىرلەشتۈرۈلگەن "
+"%(translation_descendant_count)s تەرجىمە قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+
+#, python-format
+msgid "It will also delete %(translation_count)s translation."
+msgid_plural "It will also delete %(translation_count)s translations."
+msgstr[0] "%(translation_count)s تەرجىمىمۇ ئۆچۈرۈلىدۇ."
+msgstr[1] "%(translation_count)s تەرجىمىمۇ ئۆچۈرۈلىدۇ."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete 1 translation and its combined "
+"%(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"بۇ بەت ئۆچۈرۈلسە 1 تەرجىمە ۋە بىرلەشتۈرۈلگەن "
+"%(translation_descendant_count)s تەرجىمە قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+msgstr[1] ""
+"بۇ بەت ئۆچۈرۈلسە 1 تەرجىمە ۋە بىرلەشتۈرۈلگەن "
+"%(translation_descendant_count)s تەرجىمە قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child page."
+msgid_plural ""
+"Deleting this page will also delete %(translation_count)s translations and "
+"their combined %(translation_descendant_count)s translated child pages."
+msgstr[0] ""
+"بۇ بەت ئۆچۈرۈلسە %(translation_count)s تەرجىمە ۋە بىرلەشتۈرۈلگەن "
+"%(translation_descendant_count)s تەرجىمە قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+msgstr[1] ""
+"بۇ بەت ئۆچۈرۈلسە %(translation_count)s تەرجىمە ۋە بىرلەشتۈرۈلگەن "
+"%(translation_descendant_count)s تەرجىمە قىلىنغان بالا بەتمۇ ئۆچۈرۈلىدۇ."
+
+#, python-format
+msgid ""
+"Deleting this page will also delete %(translation_count)s translation of "
+"this page."
+msgid_plural ""
+"This will also delete %(descendant_count)s more child pages. Deleting this "
+"page will also delete %(translation_count)s translations of this page."
+msgstr[0] ""
+"بۇ بەت ئۆچۈرۈلسە مەزكۇر بەتنىڭ %(translation_count)s تەرجىمىسىمۇ ئۆچۈرۈلىدۇ."
+msgstr[1] ""
+"%(descendant_count)s بالا بەتمۇ ئۆچۈرۈلىدۇ. بۇ بەت ئۆچۈرۈلسە مەزكۇر بەتنىڭ "
+"%(translation_count)s تەرجىمىسىمۇ ئۆچۈرۈلىدۇ."
+
+#, python-format
+msgid "This action will delete total <b>%(total_pages)s</b> pages."
+msgstr "بۇ مەشغۇلات جەمئىي <b>%(total_pages)s</b> بەتنى ئۆچۈرىدۇ."
+
+#, python-format
+msgid "Please type <b>%(wagtail_site_name)s</b> to confirm."
+msgstr "<b>%(wagtail_site_name)s</b> نى كىرگۈزۈپ جەزملەڭ."
+
+msgid "Yes, delete it"
+msgstr "ھەئە، ئۆچۈر"
+
+msgid "No, don't delete it"
+msgstr "ياق، ئۆچۈرمە"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"ئۇنىڭدىن باشقا <a href=\"%(unpublish_url)s\">بەتنى تارقاتما</a>سلىقنى ئىجرا "
+"قىلالايسىز. بۇنداق بولغاندا بۇ بەت ئاشكارا كۆرۈنۈشتىن چىقىرىۋېتىلىدۇ ھەمدە "
+"ئۇنى تەھرىرلەپ ياكى كېيىن قايتا تارقىتالايسىز."
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "%(title)s نى يۆتكە"
+
+#, python-format
+msgid "Are you sure you want to move this page into '%(title)s'?"
+msgstr "بۇ بەتنى راستتىنلا «%(title)s» غا يۆتكەمسىز؟"
+
+#, python-format
+msgid ""
+"Are you sure you want to move this page and all of its children into "
+"'%(title)s'?"
+msgstr ""
+"بۇ بەت ۋە ئۇنىڭ بارلىق بالا بەتلىرىنى راستتىنلا «%(title)s» غا يۆتكەمسىز؟"
+
+#, python-format
+msgid "This will also move one translation of this page and its child pages"
+msgid_plural ""
+"This will also move %(translations_to_move_count)s translations of this page "
+"and their child pages"
+msgstr[0] "بۇ بەتنىڭ بىر تەرجىمىسى ۋە ئۇنىڭ بالا بەتلىرىنىمۇ يۆتكەيدۇ"
+msgstr[1] ""
+"بۇ بەتنىڭ %(translations_to_move_count)s تەرجىمىسى ۋە ئۇنىڭ بالا بەتلىرىنىمۇ "
+"يۆتكەيدۇ"
+
+msgid "Yes, move this page"
+msgstr "ھەئە، بۇ بەتنى يۆتكە"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "راستتىنلا بۇ بەتنى تارقاتمامسىز؟"
+
+#, python-format
+msgid "This will also unpublish one translation of the page."
+msgid_plural ""
+"This will also unpublish all %(translation_count)s translations of the page."
+msgstr[0] "بۇ بەتنىڭ بىر تەرجىمىسىنىمۇ تارقاتمايدۇ."
+msgstr[1] "بۇ بەتنىڭ بارلىق %(translation_count)s تەرجىمىسىنىمۇ تارقاتمايدۇ."
+
+#, python-format
+msgid ""
+"This page has one subpage and its translations have a combined one "
+"translated child page. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined one translated child page. Unpublish these too"
+msgstr[0] ""
+"بۇ بەتنىڭ بىر بالا بېتى بار ۋە ئۇنىڭ تەرجىمىسى تەرجىمە قىلىنغان بىر بالا "
+"بەتكە بىرلەشتۈرۈلىدۇ. ئۇلارنىمۇ تارقاتمايدۇ"
+msgstr[1] ""
+"بۇ بەتنىڭ %(live_descendant_count)s بالا بېتى بار ۋە ئۇنىڭ تەرجىمىسى تەرجىمە "
+"قىلىنغان بىر بالا بەتكە بىرلەشتۈرۈلىدۇ. ئۇلارنىمۇ تارقاتمايدۇ"
+
+#, python-format
+msgid ""
+"This page has one child page and its translations have a combined "
+"%(translation_descendant_count)s translated child pages. Unpublish these too"
+msgid_plural ""
+"This page has %(live_descendant_count)s child pages and its translations "
+"have a combined %(translation_descendant_count)s translated child pages. "
+"Unpublish these too"
+msgstr[0] ""
+"بۇ بەتنىڭ بىر بالا بېتى بار ۋە ئۇنىڭ تەرجىمىسى تەرجىمە قىلىنغان "
+"%(translation_descendant_count)s بالا بەتكە بىرلەشتۈرۈلىدۇ. ئۇلارنىمۇ "
+"تارقاتمايدۇ"
+msgstr[1] ""
+"بۇ بەتنىڭ %(live_descendant_count)s بالا بېتى بار ۋە ئۇنىڭ تەرجىمىسى تەرجىمە "
+"قىلىنغان %(translation_descendant_count)s بالا بەتكە بىرلەشتۈرۈلىدۇ. "
+"ئۇلارنىمۇ تارقاتمايدۇ"
+
+#, python-format
+msgid "This page has one subpage. Unpublish this too"
+msgid_plural ""
+"This page has %(live_descendant_count)s subpages. Unpublish these too"
+msgstr[0] "بۇ بەتنىڭ بىر تارماق بېتى بار. بۇ بەتنىمۇ تارقاتمايدۇ"
+msgstr[1] ""
+"بۇ بەتنىڭ %(live_descendant_count)s تارماق بېتى بار. بۇ بەتنىمۇ تارقاتمايدۇ"
+
+msgid "Publish page"
+msgstr "بەتنى تارقات"
+
+#, python-format
+msgid ""
+"This page was marked as needing changes at <strong>%(task)s</strong> in "
+"<strong>%(workflow)s</strong>."
+msgstr ""
+"بۇ بەتكە <strong>%(workflow)s</strong> دىكى <strong>%(task)s</strong> دا "
+"ئۆزگەرتىش كېرەك دەپ بەلگە قويۇلغان."
+
+#, python-format
+msgid ""
+"This page is currently at <strong>%(task)s</strong> in <strong>%(workflow)s</"
+"strong>."
+msgstr ""
+"بۇ بەت ھازىر <strong>%(workflow)s</strong> دىكى <strong>%(task)s</strong> دا."
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "بۇ بەت تارقىتىلسا نۆۋەتتىكى خىزمەت ئېقىمى بىكار قىلىنىدۇ."
+
+msgid "Would you still like to publish this page?"
+msgstr "بۇ بەتنى يەنىلا تارقىتىۋېرەمسىز؟"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "%(title)s نى كۆچۈر"
 
 msgid "Copy"
 msgstr "كۆچۈر"
 
+msgid "Copy this page"
+msgstr "بۇ بەتنى كۆچۈر"
+
+msgid "This page is an alias of another page."
+msgstr "بۇ بەت يەنە بىر بەتنىڭ باشقىچە ئاتىلىشى."
+
+msgid "Edit original page"
+msgstr "ئەسلى بەتنى تەھرىرلەيدۇ"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "باشقا ئاتنى ئادەتتىكى بىر بەتكە ئايلاندۇرىدۇ"
+
+msgid ""
+"The root level is where you can add new sites to your Wagtail installation. "
+"Pages created here will not be accessible at any URL until they are "
+"associated with a site."
+msgstr ""
+"غول دەرىجە Wagtail ئورنىتىشىدا قوشقان يېڭى تور بېكەتنى كۆرسىتىدۇ. بۇ جايدا "
+"قۇرۇلغان بەتلەرنى بىر بېكەت بىلەن مۇناسىۋەتلىك بولماي تۇرۇپ ھەر قانداق تور "
+"ئادرېسى بىلەن زىيارەت قىلغىلى بولمايدۇ."
+
+msgid "Configure a site now."
+msgstr "ھازىر تور بېكەتنى سەپلەيدۇ."
+
+msgid ""
+"If you just want to add pages to an existing site, create them as children "
+"of the homepage instead."
+msgstr ""
+"ئەگەر بەتنى مەۋجۇت تور بېكەتكە قوشماقچى بولسىڭىز، ئۇنىڭ ئورنىغا باش بەتنىڭ "
+"بالا بېتى سۈپىتىدە قۇرۇڭ."
+
+msgid ""
+"Pages created here will not be accessible at any URL. To add pages to an "
+"existing site, create them as children of the homepage."
+msgstr ""
+"بۇ جايدا قۇرۇلغان بەتنى ھەر قانداق تور ئادرېسى ئارقىلىق زىيارەت قىلغىلى "
+"بولمايدۇ. بەتنى مەۋجۇت تور بېكەتكە قوشۇشتا، ئۇلارنى باش بەتنىڭ بالا بېتى "
+"سۈپىتىدە قۇرۇش كېرەك."
+
+msgid ""
+"There is no site set up for this location. Pages created here will not be "
+"accessible at any URL until a site is associated with this location."
+msgstr ""
+"بۇ ئورۇنغا ھېچقانداق تور بېكەت تەڭشەلمىگەن. بۇ جايغا قۇرۇلغان بەت بىرەر تور "
+"بېكەتكە تەۋە بولمىغۇچە بۇ جاينى ھەر قانداق تور ئادرېسى ئارقىلىق زىيارەت "
+"قىلغىلى بولمايدۇ."
+
+msgid ""
+"There is no site record for this location. Pages created here will not be "
+"accessible at any URL."
+msgstr ""
+"بۇ جايغا ھېچقانداق تور بېكەت خاتىرىلەنمىگەن. بۇ جايدا قۇرۇلغان بەتنى ھەر "
+"قانداق تور ئادرېسى ئارقىلىق زىيارەت قىلغىلى بولمايدۇ."
+
+msgid "Select all pages in listing"
+msgstr "تىزىمدىكى ھەممە بەتنى تاللا"
+
+msgid "This page is locked, by you, to further editing"
+msgstr "بۇ بەتنى تەھرىرلەش ئۈچۈن سىز قۇلۇپلىغان"
+
+msgid "This page is locked to further editing"
+msgstr "بۇ بەت تەھرىرلەش ئۈچۈن قۇلۇپلانغان"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "«%(title)s» نىڭ بالا بېتىنى ئىزدەيدۇ"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "«%(title)s» غا بالا بەتتىن بىرنى قوشىدۇ"
+
+msgid "Drag"
+msgstr "سۆرە"
+
+#, python-format
+msgid "Item %(index)s of %(total)s"
+msgstr "%(index)s/%(total)s تۈر"
+
+msgid "Disable ordering of child pages"
+msgstr "بالا بەت تەرتىپلەشنى چەكلە"
+
+msgid "Sort"
+msgstr "تەرتىپلە"
+
+msgid "Enable ordering of child pages"
+msgstr "بالا بەت تەرتىپلەشنى چەكلە"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
+msgstr "پۈتكۈل تور بېكەتتە %(start_index)s-%(end_index)s / %(items_count)s."
+
+msgid "No results across entire site."
+msgstr "پۈتكۈل تور بېكەتتە ھېچقانداق نەتىجە يوق."
+
+#, python-format
+msgid "Search in '<span class=\"w-title-ellipsis\">%(title)s</span>'"
+msgstr "«<span class=\"w-title-ellipsis\">%(title)s</span>» دىن ئىزدە"
+
+#, python-format
+msgid ""
+"%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
+"ellipsis\">%(title)s</span>'."
+msgstr ""
+"«<span class=\"w-title-ellipsis\">%(title)s</span>» دىكى %(start_index)s-"
+"%(end_index)s / %(items_count)s."
+
+#, python-format
+msgid "No results in '<span class=\"w-title-ellipsis\">%(title)s</span>'."
+msgstr ""
+"«<span class=\"w-title-ellipsis\">%(title)s</span>» دا ھېچقانداق نەتىجە يوق."
+
+msgid "Search the whole site"
+msgstr "پۈتكۈل تور بېكەتنى ئىزدە"
+
+#, python-format
+msgid "%(start_index)s-%(end_index)s of %(items_count)s"
+msgstr "%(start_index)s-%(end_index)s / %(items_count)s"
+
+msgid "Sites menu"
+msgstr "بېكەت تىزىملىك"
+
 msgid "Pagination"
 msgstr "بەتكە ئايرىش"
+
+#, python-format
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "%(page_number)s / %(num_pages)s بەت."
 
 msgid "Previous"
 msgstr "ئالدىنقى"
@@ -297,8 +1684,34 @@ msgstr "ئالدىنقى"
 msgid "Next"
 msgstr "كېيىنكى"
 
+msgid "This page is protected from public view"
+msgstr "بۇ بەت ئاشكارا كۆرۈنۈشتىن قوغدالغان"
+
 msgid "Confirm"
 msgstr "جەزملە"
+
+msgid "Add child page"
+msgstr "بالا بەت قوش"
+
+msgid "Page types"
+msgstr "بەت تۈرى"
+
+#, python-format
+msgid "There is one matching page"
+msgid_plural "There are %(counter)s matching pages"
+msgstr[0] "ماس كەلگەن بىر بەت بار"
+msgstr[1] "ماس كەلگەن %(counter)s بەت بار"
+
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "كەچۈرۈڭ، <em>%(query_string)s</em> غا ھېچقانداق بەت ماس كەلمىدى"
+
+msgid "Enter a search term above"
+msgstr "ئىزدىمەكچى بولغان ئاتالغۇ ئۈستىدە كىرگۈزۈلىدۇ"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "%(label)s قوش"
 
 msgid "Move up"
 msgstr "يۇقىرىغا"
@@ -306,14 +1719,92 @@ msgstr "يۇقىرىغا"
 msgid "Move down"
 msgstr "تۆۋەنگە"
 
+#, python-format
+msgid "Choose when this %(model_name)s should go live and/or expire"
+msgstr ""
+"بۇ %(model_name)s بىۋاسىتە تارقىتىلغاندا ۋە ياكى ۋاقتى ئۆتكەندە تاللىنىدۇ"
+
+msgid "Choose when this page should go live and/or expire"
+msgstr "بۇ بەت بىۋاسىتە تارقىتىلغاندا ۋە ياكى ۋاقتى ئۆتكەندە تاللىنىدۇ"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Publish\" option"
+msgstr ""
+"بۇ تارقىتىش كۈنتەرتىپى پەقەت «تارقات» تاللانمىسى تاللانغاندىن كېيىن ئاندىن "
+"كۈچكە ئىگە بولىدۇ"
+
+msgid "Anyone with editing permissions can create schedules"
+msgstr "تەھرىرلەش ئىجازىتى بار ھەر كىم كۈنتەرتىپ قۇرالايدۇ"
+
+msgid "But only those with publishing permissions can make them effective."
+msgstr "ئەمما تارقىتىش ئىجازىتى بارلارلا ئۇلارنى ئۈنۈملۈك قىلالايدۇ."
+
+msgid "Set publishing schedule"
+msgstr "تارقىتىش كۈنتەرتىپ تەڭشىكى"
+
+msgid "Save schedule"
+msgstr "كۈنتەرتىپنى ساقلا"
+
+msgid "Collection management permissions"
+msgstr "توپلام باشقۇرۇش ئىجازىتى"
+
+msgid "Add a collection permission"
+msgstr "توپلام ئىجازىتى قوش"
+
+msgid "Last published"
+msgstr "ئاخىرقى تارقىتىلغان ۋاقىت"
+
+msgid "Last published by"
+msgstr "ئاخىرقى تارقاتقۇچى"
+
 msgid "Type"
 msgstr "تۈرى"
+
+msgid "No pages found."
+msgstr "ھېچقانداق بەت تېپىلمىدى."
+
+msgid "No pages match this report's criteria."
+msgstr "ھېچقانداق بەت بۇ دوكلاتنىڭ ئۆلچىمىگە ماس كەلمەيدۇ."
+
+msgid "Updated"
+msgstr "يېڭىلاندى"
+
+msgid "App"
+msgstr "ئەپ"
 
 msgid "Pages"
 msgstr "بەت"
 
+msgid "Last edited page"
+msgstr "ئاخىرقى قېتىم تەھرىرلەنگەن بەت"
+
+msgid "Last edit"
+msgstr "ئاخىرقى تەھرىرلەنگىنى"
+
+msgid "Locking status"
+msgstr "قۇلۇپ ھالىتى"
+
+#, python-format
+msgid "Locked by <b>you</b> at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> دا <b>سىز</b> قۇلۇپلىغان"
+
+#, python-format
+msgid "Locked by <b>%(locked_by)s</b> at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> دا <b>%(locked_by)s</b> قۇلۇپلىغان"
+
+#, python-format
+msgid "Locked at <b>%(locking_date)s</b>"
+msgstr "<b>%(locking_date)s</b> دا قۇلۇپلانغان"
+
 msgid "Locked"
-msgstr "قۇلۇپلاندى"
+msgstr "قۇلۇپلانغان"
+
+msgid "No locked pages found."
+msgstr "ھېچقانداق قۇلۇپلانغان بەت تېپىلمىدى."
+
+msgid "No page types found."
+msgstr "ھېچقانداق بەت تۈرى تېپىلمىدى."
 
 msgid "Name"
 msgstr "ئاتى"
@@ -321,14 +1812,139 @@ msgstr "ئاتى"
 msgid "Action"
 msgstr "مەشغۇلات"
 
+msgid "User"
+msgstr "ئىشلەتكۈچى"
+
+msgid "Date / Time"
+msgstr "چېسلا/ۋاقىت"
+
+msgid "Edit this item"
+msgstr "بۇ تۈرنى تەھرىرلەيدۇ"
+
+msgid "No log entries found."
+msgstr "ئۇزۇن خاتىرە تېپىلمىدى."
+
+msgid "Workflow"
+msgstr "خىزمەت ئېقىمى"
+
+msgid "Page/Snippet"
+msgstr "بەت/پۇرۇچ"
+
+msgid "Requested by"
+msgstr "ئىلتىماس قىلغۇچى"
+
+msgid "Started at"
+msgstr "باشلانغان ۋاقىت"
+
+msgid "Incomplete task"
+msgstr "تاماملانمىغان ۋەزىپە"
+
+msgid "No pages/snippets have been submitted for moderation yet"
+msgstr "تەستىقلاشقا ھېچقانداق بەت/پۇرۇچ تاپشۇرۇلمىغان"
+
+msgid "Completed at"
+msgstr "تاماملانغان ۋاقىت"
+
+msgid "Clear"
+msgstr "تازىلا"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "%(page_num)s / %(total_pages)s بەت."
+
+msgid "Edit account avatar"
+msgstr "ھېسابات سىماسىنى تەھرىرلەيدۇ"
+
+msgid "Toggle breadcrumbs"
+msgstr "بەلگە ئىزىنى ئالماشتۇر"
+
+msgid "Breadcrumb"
+msgstr "بەلگە ئىزى"
+
+msgid "Close dialog"
+msgstr "سۆزلەشكۈنى ياپ"
+
+msgid "You saved a new version in another window"
+msgstr "يېڭى نەشرىنى باشقا كۆزنەكتە ساقلىدىڭىز"
+
+msgid "System"
+msgstr "سىستېما"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s يېڭى نەشرىنى ساقلىدى"
+
+msgid "Refresh"
+msgstr "يېڭىلا"
+
+msgid "You have unsaved changes in another window"
+msgstr "باشقا كۆزنەكتە ساقلىمىغان ئۆزگەرتىشلىرىڭىز بار"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s ساقلىمىغان ئۆزگەرتىشى بار"
+
+msgid "Currently viewing"
+msgstr "ھازىر كۆرۈۋاتىدۇ"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "ھازىر باشقا بىر ئىشلەتكۈچى كۆرۈۋاتىدۇ"
+msgstr[1] "ھازىر باشقا %(num_user)s ئىشلەتكۈچى كۆرۈۋاتىدۇ"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"داۋاملاشتۇرۇش ئۇ كۆزنەكتە قىلغان ئۆزگەرتىشلىرىڭىزنى قاپلىۋېتىدۇ. بەتنى "
+"يېڭىلاش سىزگە يېڭى ئۆزگىرىشلەرنى كۆرسىتىپ بېرىدۇ ئەمما نۆۋەتتىكى كۆزنەكتىكى "
+"تېخى ساقلانمىغان ئۆزگەرتىشلىرىڭىزنى يوقىتىسىز."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"داۋاملاشتۇرۇش ئۇ كۆزنەكتە %(user_name)s قىلغان ئۆزگەرتىشلەرنى قاپلىۋېتىدۇ. "
+"بەتنى يېڭىلاش سىزگە يېڭى ئۆزگىرىشلەرنى كۆرسىتىپ بېرىدۇ ئەمما نۆۋەتتىكى "
+"كۆزنەكتىكى تېخى ساقلانمىغان ئۆزگەرتىشلىرىڭىزنى يوقىتىسىز."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr ""
+"بەتنى يېڭىلاش ساقلانمىغان ئۆزگەرتىشلەرنى يوقىتىدىغانلىقىڭىزنى بىلدۈرىدۇ"
+
+msgid "Refresh page"
+msgstr "بەتنى يېڭىلا"
+
 msgid "Continue"
 msgstr "داۋاملاشتۇر"
+
+msgid "Refresh the page"
+msgstr "بۇ بەتنى يېڭىلا"
+
+msgid "Download XLSX"
+msgstr "XLSX نى چۈشۈر"
+
+msgid "Download CSV"
+msgstr "CSV نى چۈشۈر"
 
 msgid "Filter"
 msgstr "سۈزگۈچ"
 
+msgid "Apply filters"
+msgstr "سۈزگۈچ قوللان"
+
 msgid "Add comment"
 msgstr "ئىنكاس قوش"
+
+msgid "Show filters"
+msgstr "سۈزگۈچنى كۆرسەت"
+
+msgid "Filter by"
+msgstr "سۈزگۈچى"
 
 msgid "Back"
 msgstr "قايت"
@@ -336,17 +1952,132 @@ msgstr "قايت"
 msgid "History"
 msgstr "تارىخ"
 
+msgid "Keyboard shortcuts"
+msgstr "ھەرپتاختا تېزلەتمىسى"
+
+msgid "All keyboard shortcuts"
+msgstr "بارلىق ھەرپتاختا تېزلەتمىسى"
+
+msgid "Section"
+msgstr "دائىرە"
+
+msgid "Keyboard shortcut"
+msgstr "ھەرپتاختا تېزلەتمىسى"
+
+msgid "Current page status:"
+msgstr "نۆۋەتتىكى بەت ھالىتى:"
+
+msgid "Visit the live page"
+msgstr "شۇئان بەت زىيارىتى"
+
+msgid "Visible to all. Visit the live page"
+msgstr "ھەممەيلەن كۆرەلەيدۇ. شۇئان بەت زىيارىتى"
+
+msgid "Private. Visit the live page"
+msgstr "شەخسىي. شۇئان بەت زىيارىتى"
+
+msgid "Visible to all"
+msgstr "ھەممەيلەن كۆرەلەيدۇ"
+
+msgid "Toggle section"
+msgstr "بۆلەك ئالماشتۇر"
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "%(title)s نىڭ كۈنتەرتىپكە تىزىلمىغان %(revision.id)s تۈزىتىلمىسى"
+
+msgid "Unschedule"
+msgstr "كۈنتەرتىپكە تىزىلمىغان"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "بۇ تۈزىتىلمىنى كۈنتەرتىپكە راستىنلا تىزمامسىز؟"
+
+msgid "Yes, unschedule"
+msgstr "ھەئە، كۈنتەرتىپكە تىزما"
+
+msgid "No, don't unschedule"
+msgstr "ياق، كۈنتەرتىپكە تىز"
+
+msgid "Other searches"
+msgstr "باشقا ئىزدەش"
+
 msgid "Minimap"
 msgstr "كىچىك خەرىتە"
+
+msgid "Side panels"
+msgstr "يان  تاختا"
 
 msgid "Toggle side panel"
 msgstr "يان تاختىنى ئالماشتۇر"
 
+msgid "Side panel width"
+msgstr "يان تاختا كەڭلىكى"
+
+msgid "Show issue"
+msgstr "مەسىلىنى كۆرسەت"
+
+msgid "Content metrics"
+msgstr "نۆۋەتتىكى ئۆلچەم"
+
+msgid "Words"
+msgstr "سۆز"
+
+msgid "Reading time"
+msgstr "ئوقۇش ۋاقتى"
+
+msgid "Issues found"
+msgstr "تېپىلغان مەسىلە"
+
+msgid "Comment notifications"
+msgstr "ئىنكاس ئۇقتۇرۇشى"
+
+msgid "Locale: "
+msgstr "يەرلىك تىل: "
+
+#, python-format
+msgid "Available in %(translations_total)s locales"
+msgstr "%(translations_total)s يەرلىك تىلدا ئىشلەتكىلى بولىدۇ"
+
+msgid "No other translations"
+msgstr "باشقا تەرجىمە يوق"
+
+msgid "Switch locales"
+msgstr "يەرلىك تىلنى ئالماشتۇر"
+
+msgid "Locking: "
+msgstr "قۇلۇپلانغان ۋاقتى: "
+
 msgid "Unlocked"
 msgstr "قۇلۇپ ئېچىلغان"
 
+#, python-format
+msgid ""
+"Anyone can edit this %(model_name)s – lock it to prevent others from editing"
+msgstr ""
+"ھەر قانداق ئادەم بۇ %(model_name)s نى تەھرىرلىيەلەيدۇ - قۇلۇپلانسا "
+"باشقىلارنىڭ تەھرىرلىشىنىڭ ئالدىنى ئالىدۇ"
+
+#, python-format
+msgid "Anyone can edit this %(model_name)s"
+msgstr "ھەر قانداق ئادەم بۇ %(model_name)s نى تەھرىرلىيەلەيدۇ"
+
 msgid "Lock"
 msgstr "قۇلۇپلا"
+
+msgid "Page visibility: "
+msgstr "بەت كۆرۈنۈشچانلىقى: "
+
+msgid "Once live anyone can view"
+msgstr "نەق مەيدان تارقىتىلسىلا ھەر قانداق ئادەم كۆرەلەيدۇ"
+
+msgid "Not visible to the public"
+msgstr "ئاممىغا كۆرۈنمەيدۇ"
+
+msgid "Choose who can view the live version of this page"
+msgstr "بۇ بەتنىڭ نەق مەيدان نۇسخىسىنى كىم كۆرەلەيدىغانلىقى تاللىنىدۇ"
+
+msgid "Privacy changes apply to all children of this page too."
+msgstr "شەخسىيەت ئۆزگىرىشى بۇ بەت ۋە ئۇنىڭ بارلىق بالا بەتلىرىگە قوللىنىلىدۇ."
 
 msgid "Usage"
 msgstr "ئىشلىتىلىشى"
@@ -357,17 +2088,282 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s قېتىم ئىشلىتىلدى"
 msgstr[1] "%(usage_count)s قېتىم ئىشلىتىلدى"
 
+msgid "Status: "
+msgstr "ھالەت: "
+
+msgid "Expiry:"
+msgstr "مۇددىتى:"
+
+msgid "Edit schedule"
+msgstr "كۈنتەرتىپ تەھرىر"
+
+msgid "In Moderation"
+msgstr "تەستىق كۈتۈۋاتىدۇ"
+
+msgid "View details"
+msgstr "تەپسىلاتىنى كۆرسەت"
+
+#, python-format
+msgid "by %(user)s"
+msgstr "%(user)s ئىشلەتكۈچى"
+
+msgid "View history"
+msgstr "تارىخ كۆرسەت"
+
+msgid "Invalid schedule"
+msgstr "ئىناۋەتسىز كۈنتەرتىپ"
+
+msgid "Go-live:"
+msgstr "نەق مەيدانغا يۆتكەل:"
+
+msgid "Once published:"
+msgstr "تارقىتىلغان:"
+
+msgid "No publishing schedule set"
+msgstr "تارقىتىش كۈنتەرتىپى تەڭشەلمىگەن"
+
+msgid "Set schedule"
+msgstr "كۈنتەرتىپ تەڭشىكى"
+
+msgid "Preview in new tab"
+msgstr "يېڭى بەتتە ئالدىن كۆزەت"
+
+msgid "Loading"
+msgstr "يۈكلەۋاتىدۇ"
+
+msgid "Refreshing…"
+msgstr "يېڭىلاۋاتىدۇ…"
+
+msgid "Preview is out of date"
+msgstr "ئالدىن كۆزىتىشنىڭ ۋاقتى ئۆتتى"
+
+msgid ""
+"Correct the validation errors to resume preview (saving will highlight "
+"errors)"
+msgstr ""
+"ئالدىن كۆزىتىش ئەسلىگە كەلتۈرۈش ئۈچۈن دەلىللەش خاتالىقىنى تۈزىتىش كېرەك "
+"(ساقلاش خاتالىقلارنى گەۋدىلەندۈرىدۇ)"
+
+msgid "Preview mode"
+msgstr "ئالدىن كۆزىتىش ھالىتى"
+
+msgid "First published"
+msgstr "تۇنجى تارقىتىلغان ۋاقىت"
+
+msgid "Save your changes before leaving"
+msgstr "ئايرىلىشتىن ئىلگىرى ئۆزگەرتىشىڭىزنى ساقلايدۇ"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "<span>ساقلىمىغان تەھرىرلەش</span>لىرىڭىز بار"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "<span>ساقلىمىغان ئىنكاس</span>لىرىڭىز بار"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "<span>ساقلىمىغان تەھرىرلەش</span> ۋە <span>ئىنكاس</span>لىرىڭىز بار"
+
+#, python-format
+msgid "This %(model_name)s is referenced %(usage_count)s time."
+msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
+msgstr[0] "بۇ %(model_name)s جەمئىي %(usage_count)s قېتىم نەقىل ئېلىندى."
+msgstr[1] "بۇ %(model_name)s جەمئىي %(usage_count)s قېتىم نەقىل ئېلىندى."
+
+#, python-format
+msgid ""
+"One or more references to this %(model_name)s prevent it from being deleted."
+msgstr ""
+"بۇ %(model_name)s نىڭ بىر ياكى بىر قانچە نەقىلى ئۇنىڭ ئۆچۈرۈلۈشىنىڭ ئالدىنى "
+"ئالىدۇ."
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "ئىلتىماس قىلغۇچى <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "باشلانغان ۋاقتى <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status %(status)s"
+msgstr "ھالىتى %(status)s"
+
+msgid "Timeline"
+msgstr "ۋاقىت سىزىقى"
+
+msgid "Initial Revision"
+msgstr "دەسلەپكى تۈزىتىلمە"
+
 msgid "Edited"
-msgstr "تەھرىرلەنگەن ۋاقىت"
+msgstr "تەھرىرلەنگەن"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b> at <b>%(at)s</b>"
+msgstr "<b>%(at)s</b> دا <b>%(who)s</b> %(action)s"
+
+#, python-format
+msgid "%(action)s at <b>%(at)s</b>"
+msgstr "<b>%(at)s</b> %(action)s"
+
+msgid "with comment:"
+msgstr "ئىنكاس بىلەن:"
 
 msgid "Workflow started"
 msgstr "خىزمەت ئېقىمى باشلاندى"
 
-msgid "Create"
-msgstr "قۇر"
+msgid "Workflow completed"
+msgstr "خىزمەت ئېقىمى تاماملاندى"
+
+#, python-format
+msgid "%(action)s by <b>%(who)s</b>"
+msgstr "<b>%(who)s</b> %(action)s"
+
+msgid "Approved task"
+msgstr "تەستىقلانغان ۋەزىپە"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "بۇ بەت تېخى تەستىقلاشقا يوللانمىدى"
+
+#, python-format
+msgid "This %(model_name)s hasn't been submitted for moderation yet"
+msgstr "بۇ %(model_name)s تېخى تەستىقلاشقا يوللانمىدى"
+
+msgid ""
+"JavaScript is required to use Wagtail, but it is currently disabled.<br /> "
+"Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noreferrer\">instructions how to enable JavaScript "
+"in your web browser</a>."
+msgstr ""
+"Wagtail ئىشلىتىش ئۈچۈن JavaScript زۆرۈر ئەمما نۆۋەتتە چەكلەنگەن.<br />بۇ "
+"جايدا <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noreferrer\">توركۆرگۈڭىزدە JavaScript نى قانداق قوزغىتىش كۆرسەتمىسى</"
+"a> بار."
+
+msgid "Skip to main content"
+msgstr "ئاساسىي مەزمۇنغا ئاتلا"
+
+msgid "View Wagtail quick actions"
+msgstr "Wagtail تېز مەشغۇلاتىنى كۆرسىتىدۇ"
+
+msgid "Accessibility"
+msgstr "قوشۇمچە ئىقتىدار"
+
+msgid "Warnings"
+msgstr "ئاگاھلاندۇرۇش"
+
+msgid "Add a child page"
+msgstr "بالا بەت قوش"
+
+msgid "Show in Explorer"
+msgstr "مەنبە باشقۇرغۇچتا كۆرسەت"
+
+#, python-format
+msgid ""
+"This workflow is currently in progress on %(workflow_states_in_progress)s "
+"pages. Deleting this workflow will cancel moderation on these page. Are you "
+"sure you want to delete this workflow?"
+msgstr ""
+"بۇ خىزمەت ئېقىمى نۆۋەتتە %(workflow_states_in_progress)s بەتتە "
+"داۋاملىشىۋاتىدۇ. بۇ خىزمەت ئېقىمى ئۆچۈرۈلسە بۇ بەتتىكى تەستىقلاش ئەمەلدىن "
+"قالدۇرۇلىدۇ. بۇ خىزمەت ئېقىمىنى راستتىنلا ئۆچۈرەمسىز؟"
+
+msgid "No"
+msgstr "ياق"
+
+msgid "Are you sure you want to disable this workflow?"
+msgstr "بۇ خىزمەت ئېقىمىنى راستتىنلا چەكلەمسىز؟"
+
+msgid "Yes, disable"
+msgstr "ھەئە، چەكلە"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "بۇ  ۋەزىپىنى راستتىنلا چەكلەمسىز؟"
+
+msgid "Assign your workflow to pages"
+msgstr "خىزمەت ئېقىمىڭىزنى بەتكە تەقسىملەيدۇ"
+
+msgid "Assign your workflow to snippets"
+msgstr "خىزمەت ئېقىمىڭىزنى پۇرۇچقا تەقسىملەيدۇ"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a "
+"href=\"%(workflow_pages_url)s\">the list of the pages</a> your workflow "
+"applies to."
+msgstr ""
+"خىزمەت ئېقىمى بالا بەتكىمۇ قوللىنىلىدۇ. ئەگەر بۇ يەردىن ئانا بەتنى "
+"تاللىسىڭىز، ئۇنىڭ بالا بېتىمۇ بۇ خىزمەت ئېقىمىنى ئىشلىتىدۇ. خىزمەت "
+"ئېقىمىڭىزغا ماس كېلىدىغان <a href=\"%(workflow_pages_url)s\"> بەت تىزىمى </"
+"a> غا قاراڭ."
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr ""
+"بۇ خىزمەت ئېقىمى چەكلەنگەن، شۇڭا ئۇنى ھېچقانداق بەتكە تەقسىملىگىلى بولمايدۇ."
+
+msgid "This workflow is disabled so it cannot be assigned to any snippets."
+msgstr ""
+"بۇ خىزمەت ئېقىمى چەكلەنگەن، شۇڭا ئۇنى ھېچقانداق پۇرۇچقا تەقسىملىگىلى "
+"بولمايدۇ."
+
+msgid "Used on the following active workflows"
+msgstr "تۆۋەندىكى ئاكتىپ خىزمەت ئېقىمىغا ئىشلىتىلىدۇ"
+
+msgid "Not used"
+msgstr "ئىشلىتىلمىگەن"
+
+msgid "Disabled"
+msgstr "چەكلەنگەن"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s تېخىمۇ كۆپ"
+msgstr[1] "+%(counter)s تېخىمۇ كۆپ"
+
+msgid "Assigned pages"
+msgstr "تەقسىملەنگەن بەت"
 
 msgid "Page"
 msgstr "بەت"
+
+msgid "Assign to another page"
+msgstr "باشقا بەتكە تەقسىملىنىدۇ"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "%(step_number)s-قەدەم"
+
+#, python-format
+msgid "1 page"
+msgid_plural "%(counter)s pages"
+msgstr[0] "1 بەت"
+msgstr[1] "%(counter)s بەت"
+
+#, python-format
+msgid "1 snippet type"
+msgid_plural "%(counter)s snippet types"
+msgstr[0] "1 پۇرۇچ تۈرى"
+msgstr[1] "%(counter)s پۇرۇچ تۈرى"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"ھېچقانداق خىزمەت ئېقىمى قۇرۇلمىدى. نېمىشقا <a href=\"%(add_url)s\">بىرنى "
+"قوش</a>مايسىز؟"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"قوزغىتىلغان خىزمەت ئېقىمى يوق. نېمىشقا <a href=\"%(add_url)s\">بىرنى قوش</"
+"a>مايسىز؟"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "قۇرماقچى بولغان ۋەزىپە تۈرىڭىز تاللىنىدۇ."
+
+msgid "Choose a task"
+msgstr "بىر ۋەزىپە تاللىنىدۇ"
 
 msgid "New"
 msgstr "يېڭى"
@@ -375,17 +2371,358 @@ msgstr "يېڭى"
 msgid "Existing"
 msgstr "مەۋجۇت"
 
+msgid "Choose a different task type"
+msgstr "پەرقلىق ۋەزىپە تۈرى تاللىنىدۇ"
+
+msgid "Creating…"
+msgstr "قۇرۇۋاتىدۇ…"
+
+msgid "Create"
+msgstr "قۇر"
+
+msgid "Task type"
+msgstr "ۋەزىپە تۈرى"
+
+msgid "Used on"
+msgstr "ئىشلىتىلگەن"
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "كەچۈرۈڭ، ھېچقانداق ۋەزىپە «<em>%(query_string)s</em>» غا ماس كەلمىدى"
+
+msgid "You haven't created any tasks."
+msgstr "سىز ھېچقانداق ۋەزىپە قۇرمىدىڭىز."
+
+msgid ""
+"Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
+"trigger>create one now</a>?"
+msgstr ""
+"نېمىشقا <a class=\"create-one-now\" href=\"#tab-new\" data-tab-trigger>ھازىر "
+"بىرنى قۇر</a>مايسىز؟"
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"ھېچقانداق ۋەزىپە قۇرۇلمىدى. نېمىشقا <a href=\"%(add_url)s\">بىرنى قوش</"
+"a>مايسىز؟"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"قوزغىتىلغان ۋەزىپە يوق. نېمىشقا <a href=\"%(add_url)s\">بىرنى قوش</a>مايسىز؟"
+
+msgid "Submitted"
+msgstr "تاپشۇرۇلدى"
+
 msgid "Not started"
 msgstr "باشلىمىدى"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "%(requested_by)s  ئۆزگەرتىشنى ئىلتىماس قىلدى"
+
+msgid "Changes requested"
+msgstr "ئۆزگەرتىش ئىلتىماس قىلىندى"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "%(approved_by)s تەستىقلىدى"
 
 msgid "Published"
 msgstr "يوللانغان ۋاقىت"
 
+msgid "See full history"
+msgstr "تولۇق تارىخىنى كۆرسەت"
+
+msgid "More"
+msgstr "تېخىمۇ كۆپ"
+
+msgid "More bulk actions"
+msgstr "تېخىمۇ كۆپ توپ مەشغۇلات"
+
+msgid "0 minutes"
+msgstr "0 مىنۇت"
+
+msgid "just now"
+msgstr "ھازىرلا"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ئىلگىرى"
+
+#, python-format
+msgid "at %(time)s by %(user_display_name)s"
+msgstr "%(time)s دا %(user_display_name)s"
+
+#, python-format
+msgid "at %(time)s"
+msgstr "%(time)s"
+
+#, python-format
+msgid "%(time)s by %(user_display_name)s"
+msgstr "%(time)s دا %(user_display_name)s"
+
+#, python-format
+msgid "%(time_period)s ago by %(user_display_name)s"
+msgstr "%(time_period)s ئىلگىرى %(user_display_name)s"
+
+msgid "Log out"
+msgstr "تىزىمدىن چىقىڭ"
+
+#, python-format
+msgid "Changes requested %(finished_at)s"
+msgstr "%(finished_at)s ئۆزگەرتىش ئىلتىماس قىلىندى"
+
+#, python-format
+msgid "Sent to %(task_name)s %(started_at)s"
+msgstr "%(task_name)s %(started_at)s غا يوللا"
+
+#, python-format
+msgid "%(status_display)s %(task_name)s %(started_at)s"
+msgstr "%(status_display)s %(task_name)s %(started_at)s"
+
+msgid "Common actions"
+msgstr "ئادەتتىكى مەشغۇلات"
+
+msgid "Cut"
+msgstr "كەس"
+
+msgid "Paste"
+msgstr "چاپلا"
+
+msgid "Paste and match style"
+msgstr "چاپلاپ ئۇسلۇبقا ماسلاش"
+
+msgid "Paste without formatting"
+msgstr "پىچىمسىز چاپلا"
+
+msgid "Undo"
+msgstr "يېنىۋال"
+
+msgid "Redo"
+msgstr "قايتىلا"
+
+msgid "Save changes"
+msgstr "ئۆزگەرتكەننى ساقلا"
+
+msgid "Text content"
+msgstr "تېكىست مەزمۇن"
+
+msgid "Insert or edit a link"
+msgstr "ئۇلانما  قىستۇر ياكى تەھرىر"
+
+msgid "Text formatting"
+msgstr "تېكىست پىچىمى"
+
+msgid "Bold"
+msgstr "توم"
+
+msgid "Italic"
+msgstr "يانتۇ"
+
+msgid "Underline"
+msgstr "ئاستى سىزىق"
+
+msgid "Monospace (code)"
+msgstr "تەڭ كەڭلىكتىكى بوشلۇق (كود)"
+
+msgid "Strike-through"
+msgstr "ئۆچۈرۈش سىزىقى"
+
+msgid "Superscript"
+msgstr "يۇقىرى ئىندېكىس"
+
+msgid "Subscript"
+msgstr "تۆۋەنكى ئىندېكىس"
+
+msgid "Toggle status"
+msgstr "ھالەتنى ئالماشتۇر"
+
+#, python-format
+msgid "Referenced %(count)s time"
+msgid_plural "Referenced %(count)s times"
+msgstr[0] "%(count)s قېتىم نەقىل ئېلىنغان"
+msgstr[1] "%(count)s قېتىم نەقىل ئېلىنغان"
+
+msgid "Toggle comments"
+msgstr "ئىنكاس ئالماشتۇر"
+
+msgid "Comments"
+msgstr "ئىنكاس"
+
+msgid "Toggle checks"
+msgstr "تەكشۈرۈشنى ئالماشتۇر"
+
+msgid "Checks"
+msgstr "\"تەكشۈرۈش"
+
+msgid "Toggle preview"
+msgstr "ئالدىن كۆزىتىشنى ئالماشتۇر"
+
+#, python-format
+msgid "Sort by '%(label)s' in ascending order."
+msgstr "«%(label)s» بويىچە ئۆسكۈچى تەرتىپتە تەرتىپلەيدۇ."
+
+#, python-format
+msgid "Sort by '%(label)s' in descending order."
+msgstr "«%(label)s» بويىچە كېمەيگۈچى تەرتىپتە تەرتىپلەيدۇ."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"«%(parent)s» نىڭ ئىچىدىكى بالا بەتلەرنى «%(label)s» بويىچە ئۆسكۈچى تەرتىپتە "
+"تەرتىپلەيدۇ."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"«%(parent)s» نىڭ ئىچىدىكى بالا بەتلەرنى «%(label)s» بويىچە كېمەيگۈچى "
+"تەرتىپتە تەرتىپلەيدۇ."
+
+msgid "Button text is empty"
+msgstr "توپچە تېكىستى بوش"
+
+msgid "Use meaningful text for screen reader users"
+msgstr "ئېكران ئوقۇغۇچ ئىشلەتكۈچىلەر ئۈچۈن مەنىلىك تېكىست ئىشلىتىدۇ"
+
+msgid "Empty heading found"
+msgstr "بوش ماۋزۇ بايقالدى"
+
+msgid "Table header text is empty"
+msgstr "جەدۋەل ماۋزۇ تېكىستى بوش"
+
+msgid "Empty frame title found"
+msgstr "بوش رامكا ماۋزۇسى بايقالدى"
+
+msgid "Use a meaningful title for screen reader users"
+msgstr "ئېكران ئوقۇغۇچ ئىشلەتكۈچىلەر ئۈچۈن مەنىلىك ماۋزۇ ئىشلىتىدۇ"
+
+msgid "Incorrect heading hierarchy"
+msgstr "ناتوغرا ماۋزۇ قاتلىمى"
+
+msgid "Avoid skipping levels"
+msgstr "دەرىجە ئاتلاشتىن ساقلىنىدۇ"
+
+msgid "Input button text is empty"
+msgstr "كىرگۈزۈش توپچە تېكىستى بوش"
+
+msgid "Link text is empty"
+msgstr "ئۇلانما تېكىستى بوش"
+
+msgid "Misusing paragraphs as headings"
+msgstr "ماۋزۇ سۈپىتىدە خاتا ئىشلىتىلگەن ئابزاس"
+
+msgid "Use proper heading tags"
+msgstr "مۇۋاپىق ماۋزۇ بەلگىسى ئىشلىتىدۇ"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "سۈرەتنىڭ ئورنىغا ئالماشتۇرىدىغان تېكىستتە نامۇۋاپىق ئەندىزە بار"
+
+msgid "Use meaningful text"
+msgstr "مەنىلىك تېكىست ئىشلىتىلىدۇ"
+
+msgid "Profile"
+msgstr "تەرجىمىھال"
+
+msgid "Notifications"
+msgstr "ئۇقتۇرۇش"
+
+msgid "Name and Email"
+msgstr "ئىسىم ۋە ئېلخەت"
+
+msgid "Profile picture"
+msgstr "تەرجىمىھال رەسىمى"
+
+msgid "Theme preferences"
+msgstr "ئۆرنەك مايىللىقى"
+
 msgid "Password"
 msgstr "ئىم"
 
+msgid "Your account settings have been changed successfully!"
+msgstr "ھېسابات تەڭشىكىڭىز مۇۋەپپەقىيەتلىك ئۆزگەرتىلدى!"
+
+msgid "You have been successfully logged out."
+msgstr "مۇۋەپپەقىيەتلىك تىزىمدىن چىقتىڭىز."
+
+msgid "Collections"
+msgstr "توپلام"
+
+msgid "Add a collection"
+msgstr "بىر توپلام قوش"
+
+msgid "Add collection"
+msgstr "توپلام قوش"
+
+#, python-format
+msgid "Collection '%(object)s' created."
+msgstr "«%(object)s» توپلام قۇرۇلدى."
+
+#, python-format
+msgid "Collection '%(object)s' updated."
+msgstr "«%(object)s» توپلام يېڭىلاندى."
+
+msgid "The collection could not be saved due to errors."
+msgstr "خاتالىق سەۋەبىدىن توپلامنى ساقلىغىلى بولمىدى."
+
+#, python-format
+msgid "Collection '%(object)s' deleted."
+msgstr "«%(object)s» توپلام ئۆچۈرۈلدى."
+
+msgid "Delete collection"
+msgstr "توپلامنى ئۆچۈر"
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "بۇ توپلامنى راستتىنلا ئۆچۈرەمسىز؟"
+
 msgid "Home"
 msgstr "باش بەت"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "سۈرۈشتۈرۈشىڭىزگە  %(model_name)s ماس كەلمىدى."
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "كۆرسىتىدىغان ھېچقانداق %(model_name)s يوق."
+
+msgid "Live version"
+msgstr "توردىكى نەشرى"
+
+msgid "Current draft"
+msgstr "نۆۋەتتىكى دەسلەپكى نۇسخا"
+
+msgid "Review this version"
+msgstr "بۇ نەشرىنى تەكشۈر"
+
+msgid "Compare with current version"
+msgstr "نۆۋەتتىكى نەشرى بىلەن سېلىشتۇر"
+
+msgid "Cancel scheduled publish"
+msgstr "كۈنتەرتىپتىكى تارقىتىشتىن ۋاز كەچ"
+
+msgid "Workflow history"
+msgstr "خىزمەت ئېقىمى تارىخى"
+
+msgid "Workflow progress"
+msgstr "خىزمەت ئېقىمى ئىلگىرىلىشى"
+
+msgid "Edit / Review"
+msgstr "تەھرىر / تەكشۈر"
+
+#, python-format
+msgid "%(model_name)s '%(title)s' is now unlocked."
+msgstr "ھازىر %(model_name)s دىكى «%(title)s» نىڭ قۇلۇپى ئېچىلدى."
+
+#, python-format
+msgid "The %(model_name)s could not be saved as it is locked"
+msgstr "قۇلۇپلانغانلىقتىن %(model_name)s نى ساقلىيالمايدۇ"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -396,41 +2733,735 @@ msgid "%(model_name)s '%(object)s' created."
 msgstr "%(model_name)s دىكى «%(object)s» قۇرۇلدى."
 
 #, python-format
+msgid "%(model_name)s '%(object)s' has been scheduled for publishing."
+msgstr "%(model_name)s دىكى «%(object)s» تارقىتىش كۈنتەرتىپىگە تىزىلغان."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and scheduled for publishing."
+msgstr ""
+"%(model_name)s دىكى «%(object)s» قۇرۇلۇپ ۋە تارقىتىش كۈنتەرتىپىگە تىزىلغان."
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' is live and this version has been scheduled for "
+"publishing."
+msgstr ""
+"%(model_name)s دىكى «%(object)s» توردا ۋە بۇ نەشرى تارقىتىش كۈنتەرتىپىگە "
+"تىزىلغان."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' updated and published."
+msgstr "%(model_name)s دىكى «%(object)s» يېڭىلاندى ۋە تارقىتىلدى."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and published."
+msgstr "%(model_name)s دىكى «%(object)s» قۇرۇلدى ۋە تارقىتىلدى."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' has been submitted for moderation."
+msgstr "%(model_name)s دىكى «%(object)s» تەستىقلاشقا يوللاندى."
+
+#, python-format
+msgid "%(model_name)s '%(object)s' created and submitted for moderation."
+msgstr "%(model_name)s دىكى «%(object)s» قۇرۇلدى ۋە تەستىقلاشقا يوللاندى."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been restarted."
+msgstr "%(model_name)s خىزمەت ئېقىمىدىكى «%(object)s» قايتا قوزغىتىلدى."
+
+#, python-format
+msgid "Workflow on %(model_name)s '%(object)s' has been cancelled."
+msgstr "%(model_name)s خىزمەت ئېقىمىدىكى «%(object)s» بىكار قىلىندى."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this %(model_name)s from "
+"<b>%(created_at)s</b> by %(user)s"
+msgstr ""
+"كۆرۈۋاتقىنىڭىز %(model_name)s نىڭ %(user)s  <b>%(created_at)s</b> ئالدىنقى "
+"نەشرى"
+
+#, python-format
+msgid ""
+"%(model_name)s '%(object)s' has been replaced with version from "
+"%(timestamp)s."
+msgstr ""
+"%(model_name)s دىكى «%(object)s» نى %(timestamp)s دىكى نەشرى بىلەن "
+"ئالماشتۇردى."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been published."
+msgstr ""
+"%(model_name)s دىكى «%(object)s» نىڭ %(timestamp)s دىكى نەشرى تارقىتىلغان."
+
+#, python-format
+msgid ""
+"Version from %(timestamp)s of %(model_name)s '%(object)s' has been scheduled "
+"for publishing."
+msgstr ""
+"%(model_name)s دىكى «%(object)s» نىڭ %(timestamp)s دىكى نەشرى تارقىتىش ئۈچۈن "
+"كۈنتەرتىپكە تىزىلغان."
+
+#, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "«%(title)s» تەھرىر"
+
+#, python-format
+msgid "Copy '%(title)s'"
+msgstr "«%(title)s » نى كۆچۈر"
 
 msgid "Inspect"
 msgstr "تەكشۈر"
 
 #, python-format
+msgid "Inspect '%(title)s'"
+msgstr "«%(title)s» نى تەكشۈر"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "«%(title)s» نى ئۆچۈر"
+
+#, python-format
 msgid "More options for '%(title)s'"
 msgstr "«%(title)s» نىڭ تېخىمۇ كۆپ تاللانمىسى"
+
+#, python-format
+msgid "Add %(model_name)s"
+msgstr "%(model_name)s قوش"
+
+#, python-format
+msgid "The %(model_name)s could not be created due to errors."
+msgstr "خاتالىق سەۋەبىدىن %(model_name)s نى قۇرغىلى بولمىدى."
+
+#, python-format
+msgid "New: %(model_name)s"
+msgstr "يېڭى: %(model_name)s"
 
 msgid "Editing"
 msgstr "تەھرىرلەش"
 
 #, python-format
-msgid "%(model_name)s '%(object)s' deleted."
-msgstr "%(model_name)s «%(object)s» ئۆچۈرۈلدى"
+msgid "The %(model_name)s could not be saved due to errors."
+msgstr "خاتالىق سەۋەبىدىن %(model_name)s نى ساقلىغىلى بولمىدى."
 
-msgid "Inspecting"
-msgstr "تەكشۈرۈش"
+#, python-format
+msgid "%(model_name)s '%(object)s' deleted."
+msgstr "%(model_name)s «%(object)s» ئۆچۈرۈلدى."
+
+#, python-format
+msgid "Are you sure you want to delete this %(model_name)s?"
+msgstr "بۇ %(model_name)s نى راستتىنلا ئۆچۈرەمسىز؟"
+
+msgid "Earliest"
+msgstr "ئەڭ بالدۇر"
+
+msgid "Latest"
+msgstr "ئەڭ ئاخىرقى"
+
+#, python-format
+msgid "'%(object)s' unpublished."
+msgstr "«%(object)s» تارقىتىلمىدى."
+
+#, python-format
+msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
+msgstr "«%(object)s» نىڭ %(revision_id)s نەشرى كۈنتەرتىپتىن قالدۇرۇلدى."
+
+#, python-format
+msgid "revision %(revision_id)s of \"%(object)s\""
+msgstr "«%(object)s» نىڭ %(revision_id)s تۈزىتىلمىسى"
+
+msgid "If you confirm deletion"
+msgstr "ئەگەر ئۆچۈرۈشنى جەزملىسىڭىز"
+
+msgid "Field"
+msgstr "بۆلەك"
+
+#, python-format
+msgid "(Private %(object)s)"
+msgstr "(شەخسىي %(object)s)"
 
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "%(object)s تەھرىر"
 
+#, python-format
+msgid "The %(model_name)s '%(title)s' is not currently awaiting moderation."
+msgstr "ھازىر %(model_name)s دىكى «%(title)s» تەستىق كۆتۈۋاتىدۇ."
+
+#, python-format
+msgid ""
+"The %(model_name)s '%(title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"ھازىر %(model_name)s دىكى «%(title)s» «%(task_name)s» ۋەزىپىدە تەستىق "
+"كۆتمەيۋاتىدۇ."
+
 msgid "Dashboard"
 msgstr "باشقۇرۇش تاختىسى"
+
+msgid "Search all pages…"
+msgstr "ھەممە بەتنى ئىزدە…"
+
+#, python-format
+msgid "Privacy is inherited from the ancestor page - %(ancestor_page)s"
+msgstr "شەخسىيەتكە ئانا بەتتىن ۋارىسلىق قىلىدۇ - %(ancestor_page)s"
+
+msgid "Delete selected pages"
+msgstr "تاللانغان بەتنى ئۆچۈر"
+
+msgid "1 page has been deleted"
+msgstr "1 بەت ئۆچۈرۈلدى"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "1 بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
+msgstr[1] "1 بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d بەت ئۆچۈرۈلدى"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
+msgstr[1] ""
+"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
+
+msgid "Select a new parent page"
+msgstr "يېڭى ئانا بەت تاللىنىدۇ"
+
+msgid "Move selected pages"
+msgstr "تاللانغان بەتنى يۆتكە"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d بەت يۆتكەلدى"
+msgstr[1] "%(num_pages)d بەت يۆتكەلدى"
+
+msgid "Publish selected pages"
+msgstr "تاللانغان بەتنى تارقات"
+
+msgid "1 page has been published"
+msgstr "1 بەت تارقىتىلدى"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
+msgstr[1] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d بەت تارقىتىلدى"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] ""
+"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
+msgstr[1] ""
+"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
+
+msgid "Unpublish selected pages"
+msgstr "تاللانغان بەتنى تارقاتما"
+
+msgid "1 page has been unpublished"
+msgstr "1 بەت تارقىتىلمىدى"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
+msgstr[1] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d بەت تارقىتىلمىدى"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
+msgstr[1] ""
+"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
+
+msgid "Choose parent"
+msgstr "ئانا بەت تاللىنىدۇ"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "يېڭىدىن %(model_name)s نى قۇرىدۇ"
+
+#, python-format
+msgid "Page '%(page_title)s' has been converted into an ordinary page."
+msgstr "«%(page_title)s» بەت ئادەتتىكى بەتكە ئۆزگەرتىلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
+msgstr "«%(page_title)s» بەت ۋە %(subpages_count)s تاماق بەت كۆچۈرۈلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' copied."
+msgstr "«%(page_title)s» بەت كۆچۈرۈلدى."
+
+msgid "View draft"
+msgstr "دەسلەپكى نۇسخىنى كۆرسەت"
 
 msgid "View live"
 msgstr "شۇئان كۆرسەت"
 
+#, python-format
+msgid "Page '%(page_title)s' created."
+msgstr "«%(page_title)s» بەت قۇرۈلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' created and scheduled for publishing."
+msgstr "«%(page_title)s» بەت قۇرۇلۇپ ۋە تارقىتىش كۈنتەرتىپىگە تىزىلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' created and published."
+msgstr "«%(page_title)s» بەت قۇرۇلۇپ ۋە تارقىتىلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' created and submitted for moderation."
+msgstr "«%(page_title)s» بەت قۇرۇلۇپ ۋە تەستىقلاشقا يوللاندى."
+
+msgid "The page could not be created due to validation errors"
+msgstr "دەلىللەش خاتالىقى سەۋەبىدىن بەتنى قۇرغىلى بولمىدى"
+
+#, python-format
+msgid "Page '%(page_title)s' deleted."
+msgstr "«%(page_title)s» بەت ئۆچۈرۈلدى."
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "%(page_type)s تەھرىرلەۋاتىدۇ"
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' has been replaced with version from "
+"%(previous_revision_datetime)s."
+msgstr ""
+"«%(page_title)s» بەتنى %(previous_revision_datetime)s دىكى نەشرى بىلەن "
+"ئالماشتۇردى."
+
+#, python-format
+msgid "Page '%(page_title)s' has been updated."
+msgstr "«%(page_title)s» بەت يېڭىلاندى."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been cancelled."
+msgstr "«%(page_title)s» بەتتىكى خىزمەت ئېقىمى بىكار قىلىندى."
+
+#, python-format
+msgid ""
+"Version from %(previous_revision_datetime)s of page '%(page_title)s' has "
+"been scheduled for publishing."
+msgstr ""
+"«%(page_title)s» بەتنىڭ %(previous_revision_datetime)s دىكى نەشرى تارقىتىش "
+"ئۈچۈن كۈنتەرتىپكە تىزىلغان."
+
+#, python-format
+msgid ""
+"Page '%(page_title)s' is live and this version has been scheduled for "
+"publishing."
+msgstr "«%(page_title)s» توردا ۋە بۇ نەشرى تارقىتىش كۈنتەرتىپىگە تىزىلغان."
+
+#, python-format
+msgid "Page '%(page_title)s' has been scheduled for publishing."
+msgstr "«%(page_title)s» بەت تارقىتىش كۈنتەرتىپىگە تىزىلدى."
+
+#, python-format
+msgid "Version from %(datetime)s of page '%(page_title)s' has been published."
+msgstr "«%(page_title)s» بەتنىڭ %(datetime)s دىكى نەشرى تارقىتىلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' has been published."
+msgstr "«%(page_title)s» بەت تارقىتىلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' has been submitted for moderation."
+msgstr "«%(page_title)s» بەت تەستىقلاشقا يوللاندى."
+
+#, python-format
+msgid "Workflow on page '%(page_title)s' has been restarted."
+msgstr "«%(page_title)s» بەتتىكى خىزمەت ئېقىمى قايتا قوزغىتىلدى."
+
+msgid "The page could not be saved as it is locked"
+msgstr "قۇلۇپلانغانلىقتىن بۇ بەتنى ساقلىغىلى بولمىدى"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "دەلىللەش خاتالىقى سەۋەبىدىن بەتنى ساقلىغىلى بولمىدى"
+
+msgid "Is commenting action"
+msgstr "ئىنكاس مەشغۇلاتى"
+
+msgid "Date updated"
+msgstr "چېسلا يېڭىلاندى"
+
+msgid "Owner"
+msgstr "ئىگىدار"
+
+msgid "Edited by"
+msgstr "تەھرىرلىگۈچى"
+
 msgid "Site"
 msgstr "بېكەت"
+
+msgid "Has child pages"
+msgstr "بالا بېتى بار"
+
+msgid "Any"
+msgstr "خالىغان"
+
+msgid "Yes"
+msgstr "ھەئە"
+
+msgid "Page type"
+msgstr "بەت تۈرى"
+
+msgid "Exploring"
+msgstr "كۆرسىتىش"
+
+msgid ""
+"Focus on the drag button and press up or down arrows to move the item, then "
+"press enter to submit the change."
+msgstr ""
+"سۆرەش توپچىغا دىققەتنى مەركەزلەشتۈرۈپ، ئاستى ياكى ئۈستى يا ئوقنى بېسىپ تۈرنى "
+"يۆتكىگىلى بولىدۇ، ئاندىن Enter نى بېسىپ ئۆزگەرتىشنى يوللىغىلى بولىدۇ."
+
+#, python-format
+msgid "'%(page_title)s' has been moved successfully."
+msgstr "«%(page_title)s» مۇۋەپپەقىيەتلىك يۆتكەلدى."
+
+#, python-format
+msgid "Page '%(page_title)s' is now unlocked."
+msgstr "ھازىر «%(page_title)s» نىڭ قۇلۇپى ئېچىلدى."
+
+#, python-format
+msgid ""
+"The slug '%(page_slug)s' is already in use at the selected parent page. Make "
+"sure the slug is unique and try again"
+msgstr ""
+"تاللانغان ئانا بەتتە «%(page_slug)s» قىسقارتىلما ئاللىقاچان ئىشلىتىلگەن. "
+"قىسقارتىلمىنىڭ بىردىنبىر ئىكەنلىكىنى جەزملەپ، قايتا سىناڭ"
+
+#, python-format
+msgid "Page '%(page_title)s' moved."
+msgstr "«%(page_title)s» بەت يۆتكەلدى."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"كۆرۈۋاتقىنىڭىز %(user)s قۇرغان <b>%(created_at)s</b> بەتنىڭ ئالدىنقى نەشرى"
+
+msgid "Page history"
+msgstr "بەت تارىخى"
+
+#, python-format
+msgid "Page '%(page_title)s' unpublished."
+msgstr "«%(page_title)s» بەت تارقىتىلمىدى."
+
+msgid "Pages using"
+msgstr "بەت ئىشلىتىۋاتىدۇ"
+
+msgid "Page types usage"
+msgstr "بەت تۈرى ئىشلىتىلىشى"
+
+#, python-format
+msgid "The page '%(page_title)s' is not currently awaiting moderation."
+msgstr "ھازىر «%(page_title)s» بەت تەستىق كۆتمەيۋاتىدۇ."
+
+#, python-format
+msgid ""
+"The page '%(page_title)s' is not currently awaiting moderation in task "
+"'%(task_name)s'."
+msgstr ""
+"ھازىر «%(task_name)s» ۋەزىپىدىكى «%(page_title)s» بەت تەستىق كۆتمەيۋاتىدۇ."
+
+msgid "Last published before"
+msgstr "ئاخىرقى تارقىتىلغان ۋاقىتتىن ئىلگىرى"
+
+msgid "Aging pages"
+msgstr "كونىرىغان بەت"
+
+msgid "Last published at"
+msgstr "ئاخىرقى تارقىتىلغان ۋاقىت"
+
+msgid "Site history"
+msgstr "بېكەت تارىخى"
+
+msgid "ID"
+msgstr "كىملىك"
+
+msgid "Action type"
+msgstr "مەشغۇلات تۈرى"
+
+msgid "Date/Time"
+msgstr "چېسلا/ۋاقىت"
+
+msgid "Locked pages"
+msgstr "قۇلۇپلانغان بەت"
+
+msgid "Show"
+msgstr "كۆرسەت"
+
+msgid "Awaiting my review"
+msgstr "تەكشۈرۈشۈمنى كۈتۈۋاتىدۇ"
+
+msgid "Workflows"
+msgstr "خىزمەت ئېقىمى"
+
+msgid "Page/Snippet ID"
+msgstr "بەت/پۇرۇچ كىملىكى"
+
+msgid "Page/Snippet Type"
+msgstr "بەت/پۇرۇچ تۈرى"
+
+msgid "Page/Snippet Title"
+msgstr "بەت/پۇرۇچ ماۋزۇسى"
+
+msgid "By task"
+msgstr "ۋەزىپە بويىچە"
+
+msgid "Workflow tasks"
+msgstr "خىزمەت ئېقىمى ۋەزىپىسى"
+
+msgid "Requested By"
+msgstr "ئىلتىماس قىلغۇچى"
+
+msgid "By workflow"
+msgstr "خىزمەت ئېقىمى بويىچە"
+
+msgid "Show disabled"
+msgstr "كۆرسىتىش چەكلەنگەن"
+
+msgid "Add a workflow"
+msgstr "خىزمەت ئېقىمى قوش"
+
+msgid "Used by"
+msgstr "ئىشلەتكۈچى"
+
+msgid "New workflow"
+msgstr "يېڭى خىزمەت ئېقىمى"
+
+#, python-format
+msgid "Workflow '%(object)s' created."
+msgstr "«%(object)s» خىزمەت ئېقىمى قۇرۇلدى."
+
+msgid "Editing workflow"
+msgstr "خىزمەت ئېقىمىنى تەھرىرلەۋاتىدۇ"
+
+#, python-format
+msgid "Workflow '%(object)s' updated."
+msgstr "«%(object)s» خىزمەت ئېقىمى يېڭىلاندى."
 
 msgid "Disable"
 msgstr "چەكلە"
 
 msgid "Enable"
 msgstr "قوزغات"
+
+msgid "Disable workflow"
+msgstr "خىزمەت ئېقىمىنى چەكلە"
+
+#, python-format
+msgid "Workflow '%(object)s' disabled."
+msgstr "«%(object)s» خىزمەت ئېقىمى چەكلەندى."
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page/snippet. "
+"Disabling this workflow will cancel moderation on this page/snippet."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages/snippets. "
+"Disabling this workflow will cancel moderation on these pages/snippets."
+msgstr[0] ""
+"بۇ خىزمەت ئېقىمى %(states_in_progress)d بەت/پۇرۇچتا داۋاملىشىۋاتىدۇ. بۇ "
+"خىزمەت ئېقىمى چەكلەنسە مەزكۇر بەت/پۇرۇچنى تەستىقلاش بىكار قىلىنىدۇ."
+msgstr[1] ""
+"بۇ خىزمەت ئېقىمى %(states_in_progress)d بەت/پۇرۇچتا داۋاملىشىۋاتىدۇ. بۇ "
+"خىزمەت ئېقىمى چەكلەنسە مەزكۇر بەت/پۇرۇچنى تەستىقلاش بىكار قىلىنىدۇ."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' enabled."
+msgstr "«%(workflow_name)s» خىزمەت ئېقىمى قوزغىتىلدى."
+
+#, python-format
+msgid "Workflow removed from Page '%(page_title)s'."
+msgstr "خىزمەت ئېقىمى «%(page_title)s» بەتتىن چىقىرىۋېتىلدى."
+
+msgid "New workflow task"
+msgstr "يېڭى خىزمەت ئېقىمى ۋەزىپىسى"
+
+#, python-format
+msgid "Task '%(object)s' created."
+msgstr "«%(object)s» ۋەزىپە قۇرۇلدى."
+
+msgid "Editing workflow task"
+msgstr "يېڭى خىزمەت ئېقىمى ۋەزىپىسىنى تەھرىرلەۋاتىدۇ"
+
+#, python-format
+msgid "Task '%(object)s' updated."
+msgstr "«%(object)s» ۋەزىپە يېڭىلاندى."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s تەھرىرلەۋاتىدۇ"
+
+msgid "Disable task"
+msgstr "ۋەزىپىنى چەكلە"
+
+#, python-format
+msgid "Task '%(object)s' disabled."
+msgstr "«%(object)s» ۋەزىپە چەكلەندى."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page/snippet. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages/snippets. Disabling "
+"this task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"بۇ ۋەزىپە %(states_in_progress)d بەت/پۇرۇچتا داۋاملىشىۋاتىدۇ. بۇ ۋەزىپە "
+"چەكلەنسە تەستىق كۈتۈۋاتقان خىزمەت ئېقىمىدىن ئاتلاپ كېتىدۇ ھەمدە خىزمەت "
+"ئېقىمىنى تەھرىرلىگەندە تاللاش ئۈچۈن تىزىلمايدۇ."
+msgstr[1] ""
+"بۇ ۋەزىپە %(states_in_progress)d بەت/پۇرۇچتا داۋاملىشىۋاتىدۇ. بۇ ۋەزىپە "
+"چەكلەنسە تەستىق كۈتۈۋاتقان خىزمەت ئېقىمىدىن ئاتلاپ كېتىدۇ ھەمدە خىزمەت "
+"ئېقىمىنى تەھرىرلىگەندە تاللاش ئۈچۈن تىزىلمايدۇ."
+
+#, python-format
+msgid "Task '%(task_name)s' enabled."
+msgstr "«%(task_name)s» ۋەزىپە قوزغىتىلدى."
+
+msgid "Choose another"
+msgstr "باشقىسى تاللىنىدۇ"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "«%(title)s» نىڭ دەسلەپكى نۇسخىسىنى ئالدىن كۆزىتىدۇ"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "«%(title)s» نىڭ توردىكى نەشرىنى كۆرسىتىدۇ"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "«%(title)s» بەتنى يۆتكە"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "«%(title)s» بەتنى كۆچۈر"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "«%(title)s» بەتنى ئۆچۈر"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "«%(title)s» بەتنى تارقاتما"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "%(title)s نىڭ بەت تارىخىنى كۆرسەت"
+
+msgid "Sort menu order"
+msgstr "تىزىملىك تەرتىپىنى تەرتىپلە"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "«%(title)s» نىڭ بالا بېتىنىڭ تەرتىپىنى ئۆزگەرتىدۇ"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "%(level)d ماۋزۇ"
+
+msgid "Bulleted list"
+msgstr "بەلگە تىزىم"
+
+msgid "Numbered list"
+msgstr "رەقەملىك تىزىم"
+
+msgid "Blockquote"
+msgstr "بۆلەك نەقىل"
+
+msgid "Link"
+msgstr "ئۇلانما"
+
+msgid "Strikethrough"
+msgstr "ئۆچۈرۈش سىزىقى"
+
+msgid "Code"
+msgstr "كودى"
+
+msgid "Reports"
+msgstr "دوكلات"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "Wagtail %(version)s دىكى يېڭىلىق"
+
+msgid "Editor Guide"
+msgstr "تەھرىر قوللانمىسى"
+
+msgid "Shortcuts"
+msgstr "قىسقا يول"
+
+msgid "Help"
+msgstr "ياردەم"
+
+msgid "Choose an item"
+msgstr "تۈر تاللىنىدۇ"
+
+msgid "Choose another item"
+msgstr "باشقا تۈر تاللىنىدۇ"
+
+msgid "Clear choice"
+msgstr "تاللاشنى تازىلا"
+
+msgid "Choose another page"
+msgstr "باشقا بەت تاللىنىدۇ"
+
+msgid ""
+"Multi-word tags with spaces will automatically be enclosed in double quotes "
+"(\")."
+msgstr ""
+"بوشلۇق بار كۆپ سۆزلۈك بەلگە ئاپتوماتىك ھالدا قوش تىرناق ئىچىگە ئېلىنىدۇ (\")."
+
+msgid "Tags can only consist of a single word, no spaces allowed."
+msgstr "بەلگە پەقەت يەككە سۆزدىن تەشكىل تاپىدۇ، بوش ئورۇنغا يول قويۇلمايدۇ."
+
+msgid "Choose another task"
+msgstr "باشقا ۋەزىپە تاللىنىدۇ"
+
+msgid "Edit this task"
+msgstr "ۋەزىپە تەھرىرلەش"

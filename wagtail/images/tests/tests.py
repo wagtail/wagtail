@@ -366,6 +366,8 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
+        self.assertEqual(response["X-Content-Type-Options"], "nosniff")
         # Ensure the file can actually be read
         image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, PNGImageFile)
@@ -385,6 +387,8 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/svg+xml")
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
+        self.assertEqual(response["X-Content-Type-Options"], "nosniff")
         # Ensure the file can actually be read
         image = willow.Image.open(BytesIO(b"".join(response.streaming_content)))
         self.assertIsInstance(image, SvgImageFile)
@@ -462,6 +466,8 @@ class TestFrontendServeView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
+        self.assertEqual(response["X-Content-Type-Options"], "nosniff")
         # Ensure the file can actually be read
         image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, PNGImageFile)
@@ -627,6 +633,8 @@ class TestFrontendSendfileView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "image/png")
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
+        self.assertEqual(response["X-Content-Type-Options"], "nosniff")
 
     @override_settings(SENDFILE_BACKEND="sendfile.backends.development")
     def test_sendfile_dummy_backend(self):
@@ -640,6 +648,8 @@ class TestFrontendSendfileView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.content, msg="Dummy backend response")
+        self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
+        self.assertEqual(response["X-Content-Type-Options"], "nosniff")
 
 
 class TestRect(TestCase):
@@ -722,6 +732,7 @@ class TestGetImageForm(WagtailTestUtils, TestCase):
             [
                 "title",
                 "file",
+                "description",
                 "collection",
                 "tags",
                 "focal_point_x",
@@ -739,6 +750,7 @@ class TestGetImageForm(WagtailTestUtils, TestCase):
             [
                 "title",
                 "file",
+                "description",
                 "collection",
                 "tags",
                 "focal_point_x",
@@ -844,11 +856,13 @@ class TestDifferentUpload(TestCase):
     def test_upload_path(self):
         image = CustomImageFilePath.objects.create(
             title="Test image",
+            description="A test description",
             file=get_test_image_file(),
         )
 
         second_image = CustomImageFilePath.objects.create(
             title="Test Image",
+            description="A test description",
             file=get_test_image_file(colour="black"),
         )
 

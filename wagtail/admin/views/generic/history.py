@@ -165,6 +165,7 @@ class ActionColumn(Column):
 
         if (
             (url_name := self.url_names.get("revisions_unschedule"))
+            and instance.revision
             and instance.revision.approved_go_live_at
             and self.user_can_unschedule
         ):
@@ -414,7 +415,6 @@ class WorkflowHistoryDetailView(
     page_title = gettext_lazy("Workflow progress")
     header_icon = "list-ul"
     object_icon = "doc-empty-inverse"
-    _show_breadcrumbs = True
 
     @cached_property
     def index_url(self):

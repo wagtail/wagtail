@@ -66,7 +66,7 @@ Other features
 * Added new StreamField block type ``BlockQuoteBlock`` (Scot Hacker)
 * Updated Cloudflare cache module to use the v4 API (Albert O'Connor)
 * Added ``exclude_from_explorer`` attribute to the ``ModelAdmin`` class to allow hiding instances of a page type from Wagtail's explorer views (Andy Babic)
-* Added ``above_login``, ``below_login``, ``fields`` and ``login_form`` customisation blocks to the login page template - see :doc:`/advanced_topics/customisation/admin_templates` (Tim Heap)
+* Added ``above_login``, ``below_login``, ``fields`` and ``login_form`` customization blocks to the login page template - see :doc:`/advanced_topics/customization/admin_templates` (Tim Heap)
 * ``ChoiceBlock`` now accepts a callable as the choices list (Mikalai Radchuk)
 * Redundant action buttons are now omitted from the root page in the explorer (Nick Smith)
 * Locked pages are now disabled from editing at the browser level (Edd Baldry)

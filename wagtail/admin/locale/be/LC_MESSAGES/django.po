@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -254,9 +254,6 @@ msgstr "Старонка не можа быць знойдзена"
 msgid "Go to Wagtail admin"
 msgstr "Перайсці да адміністратара Wagtail"
 
-msgid "Account"
-msgstr "Аккаунт"
-
 msgid "Reset password"
 msgstr "Заменя пароля"
 
@@ -430,11 +427,11 @@ msgstr "Не, не публікаваць"
 msgid "Cancel"
 msgstr "Адмена"
 
-msgid "Comment"
-msgstr "Каментар"
-
 msgid "Actions"
 msgstr "Дзеянні"
+
+msgid "Comment"
+msgstr "Каментар"
 
 msgid "Update"
 msgstr "Аднаўленне"
@@ -452,10 +449,6 @@ msgstr "Палі"
 msgid "Changes"
 msgstr "Змены"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Вітаем %(site_name)s у Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -463,8 +456,17 @@ msgstr ""
 "Гэта ваша панэль кіравання. На ёй адлюстроўваецца  карысная інфармацыю пра "
 "створаны вамі змест."
 
+msgid "Account"
+msgstr "Аккаунт"
+
 msgid "Your locked pages"
 msgstr "Заблакаваныя старонкі"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "Status"
+msgstr "Статус"
 
 msgid "Locked at"
 msgstr "Зачынены ў"
@@ -483,9 +485,6 @@ msgstr "Размешчана"
 
 msgid "Your most recent edits"
 msgstr "Самыя апошнія змены"
-
-msgid "Status"
-msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"
@@ -542,9 +541,6 @@ msgstr "Старонка \"%(title)s\" была адхілена"
 
 msgid "You can preview the page here:"
 msgstr "Вы можаце праглядзець старонку вось тут:"
-
-msgid "This page has been made private by a parent page."
-msgstr "Гэтая старонка была зачынена бацькоўскай старонкай"
 
 msgid "Publishing…"
 msgstr "Апублікаваць..."
@@ -636,9 +632,6 @@ msgstr "Скапіяваць"
 msgid "Copy this page"
 msgstr "Скапіяваць гэтую старонку"
 
-msgid "This page has unsaved changes."
-msgstr "На гэтай старонцы засталіся незахаваных часткі."
-
 msgid "Configure a site now."
 msgstr "Наладзіць сайт."
 
@@ -691,9 +684,6 @@ msgstr "Тыпы старонак"
 
 msgid "Enter a search term above"
 msgstr "Калі ласка, увядзіце крытэр пошуку вышэй"
-
-msgid "No pages use"
-msgstr "Няма старонак выкарыстоўваюць"
 
 #, python-format
 msgid "Add %(label)s"
@@ -937,12 +927,12 @@ msgstr "Калекцыя '%(object)s' абноўлена."
 msgid "The collection could not be saved due to errors."
 msgstr "Калекцыя не можа быць захавана з-за памылак."
 
-msgid "Delete collection"
-msgstr "Выдаліць калекцыю"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Калекцыя '%(object)s' выдаленая."
+
+msgid "Delete collection"
+msgstr "Выдаліць калекцыю"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Вы ўпэўнены, што жадаеце выдаліць гэтую калекцыю?"

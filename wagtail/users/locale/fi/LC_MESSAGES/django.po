@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -130,6 +130,12 @@ msgstr "Tumma"
 msgid "admin theme"
 msgstr "admin-teema"
 
+msgid "More contrast"
+msgstr "Enemmän kontrastia"
+
+msgid "contrast"
+msgstr "kontrasti"
+
 msgid "Default"
 msgstr "Oletus"
 
@@ -232,15 +238,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Haluatko varmasti poistaa tämän ryhmän?"
 
-msgid "Add group"
-msgstr "Lisää ryhmä"
-
-msgid "Save"
-msgstr "Tallenna"
-
-msgid "Delete group"
-msgstr "Poista ryhmä"
-
 msgid "Object permissions"
 msgstr "Kohteen oikeudet"
 
@@ -252,15 +249,6 @@ msgstr "Lisää"
 
 msgid "Change"
 msgstr "Muuta"
-
-msgid "Publish"
-msgstr "Julkaise"
-
-msgid "Lock"
-msgstr "Lukitse"
-
-msgid "Unlock"
-msgstr "Avaa lukitus"
 
 msgid "Custom permissions"
 msgstr "Mukautetut oikeudet"
@@ -276,15 +264,6 @@ msgstr "Muokkausoikeudet päällä/pois"
 
 msgid "Toggle all delete permissions"
 msgstr "Poisto-oikeudet päällä/pois"
-
-msgid "Toggle all publish permissions"
-msgstr "Julkaisuoikeudet päällä/pois"
-
-msgid "Toggle all lock permissions"
-msgstr "Lukitusoikeudet päällä/pois"
-
-msgid "Toggle all unlock permissions"
-msgstr "Lukituksen avauksen oikeudet päällä/pois"
 
 msgid "Toggle all custom permissions"
 msgstr "Kaikki mukautetut oikeudet päällä/pois"
@@ -322,12 +301,6 @@ msgstr "Tili"
 msgid "Roles"
 msgstr "Roolit"
 
-msgid "Add user"
-msgstr "Lisää käyttäjä"
-
-msgid "Delete user"
-msgstr "Poista käyttäjä"
-
 msgid "Select all users in listing"
 msgstr "Valitse listauksen kaikki käyttäjät"
 
@@ -341,6 +314,9 @@ msgid ""
 msgstr ""
 "Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a "
 "href=\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+
+msgid "Can view"
+msgstr "Voi katsoa"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -397,6 +373,9 @@ msgstr "Lisää ryhmä"
 msgid "Search groups"
 msgstr "Hae ryhmiä"
 
+msgid "Add group"
+msgstr "Lisää ryhmä"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Ryhmä '%(object)s' luotu."
@@ -414,6 +393,9 @@ msgstr "Näytä tämän ryhmän käyttäjät"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Ryhmä '%(object)s' poistettu."
+
+msgid "Delete group"
+msgstr "Poista ryhmä"
 
 msgid "Last login"
 msgstr "Viimeksi kirjautunut"
@@ -443,12 +425,18 @@ msgstr "Tila"
 msgid "User '%(object)s' created."
 msgstr "Käyttäjä '%(object)s' luotu."
 
+msgid "Add user"
+msgstr "Lisää käyttäjä"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Käyttäjä '%(object)s' päivitetty."
 
 msgid "The user could not be saved due to errors."
 msgstr "Käyttäjää ei voitu tallentaa virheiden vuoksi."
+
+msgid "Delete user"
+msgstr "Poista käyttäjä"
 
 #, python-format
 msgid "User '%(object)s' deleted."

@@ -6,9 +6,11 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.views.pages.preview import PreviewOnEdit
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.test.testapp.models import (
+    CustomPreviewSizesPage,
     EventCategory,
     MultiPreviewModesPage,
     SimplePage,
@@ -158,6 +160,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_create_with_invalid_data(self):
         preview_url = reverse(
@@ -197,6 +200,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_create_with_m2m_field(self):
         preview_url = reverse(
@@ -227,7 +231,70 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_with_incorrect_site_hostname(self):
+        # Failing to set a valid hostname in the Site record (as determined by ALLOWED_HOSTS)
+        # should not prevent the preview from being generated.
+        Site.objects.filter(is_default_site=True).update(hostname="bad.example.com")
+
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "eventpage", self.home_page.id),
+        )
+        response = self.client.post(preview_url, self.post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
+            self.home_page.id
+        )
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Beach party")
+        self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
     def test_preview_on_edit_with_m2m_field(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+        response = self.client.post(preview_url, self.post_data)
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        preview_session_key = f"wagtail-preview-{self.event_page.id}"
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Beach party")
+        self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_with_incorrect_site_hostname(self):
+        # Failing to set a valid hostname in the Site record (as determined by ALLOWED_HOSTS)
+        # should not prevent the preview from being generated.
+        Site.objects.filter(is_default_site=True).update(hostname="bad.example.com")
+
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
         )
@@ -354,6 +421,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_on_edit_clear_preview_data(self):
         preview_session_key = f"wagtail-preview-{self.event_page.id}"
@@ -389,6 +457,7 @@ class TestPreview(WagtailTestUtils, TestCase):
             '<h1 class="preview-error__title">Preview not available</h1>',
             html=True,
         )
+        self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
     def test_preview_modes(self):
         preview_url = reverse(
@@ -414,6 +483,26 @@ class TestPreview(WagtailTestUtils, TestCase):
                 response = self.client.get(preview_url + params)
                 self.assertEqual(response.status_code, 200)
                 self.assertTemplateUsed(response, template)
+
+    def test_preview_sizes(self):
+        page = CustomPreviewSizesPage(title="Custom preview size")
+        self.home_page.add_child(instance=page)
+        edit_url = reverse("wagtailadmin_pages:edit", args=(page.id,))
+
+        response = self.client.get(edit_url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        radios = soup.select('input[type="radio"][name="preview-size"]')
+        self.assertEqual(len(radios), 2)
+
+        self.assertEqual("412", radios[0]["data-device-width"])
+        self.assertEqual("Custom mobile preview", radios[0]["aria-label"])
+        self.assertFalse(radios[0].has_attr("checked"))
+
+        self.assertEqual("1280", radios[1]["data-device-width"])
+        self.assertEqual("Original desktop", radios[1]["aria-label"])
+        self.assertTrue(radios[1].has_attr("checked"))
 
 
 class TestEnablePreview(WagtailTestUtils, TestCase):

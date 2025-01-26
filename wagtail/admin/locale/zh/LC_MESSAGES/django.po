@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,9 +88,6 @@ msgstr "标题"
 msgid "Page title"
 msgstr "页面标题"
 
-msgid "Account"
-msgstr "账号"
-
 msgid "Reset password"
 msgstr "重置密码"
 
@@ -155,14 +152,16 @@ msgstr "是的，停止发布"
 msgid "Update"
 msgstr "更新"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "欢迎来到%(site_name)s的Wagtail内容管理系统"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "这是您的仪表盘，会显示对您已创建的内容有帮助的信息"
+
+msgid "Account"
+msgstr "账号"
+
+msgid "Status"
+msgstr "状态"
 
 msgid "Edit this page"
 msgstr "编辑这个页面"
@@ -172,9 +171,6 @@ msgstr "草稿"
 
 msgid "Your most recent edits"
 msgstr "你最近的编辑"
-
-msgid "Status"
-msgstr "状态"
 
 msgid "Date"
 msgstr "日期"

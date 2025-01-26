@@ -19,22 +19,3 @@
         {% endif %}
     {% endblock %}
 {% endblock %}
-
-{% block content %}
-    {{ block.super }}
-
-    {% block footer %}
-        {% if edit_url or delete_url %}
-            <footer class="footer">
-                <div class="footer__container">
-                    {% if edit_url %}
-                        <a href="{{ edit_url }}" class="button">{% trans 'Edit' %}</a>
-                    {% endif %}
-                    {% if delete_url %}
-                        <a href="{{ delete_url }}" class="button serious">{% trans 'Delete' %}</a>
-                    {% endif %}
-                </div>
-            </footer>
-        {% endif %}
-    {% endblock %}
-{% endblock %}

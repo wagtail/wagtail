@@ -288,7 +288,7 @@ class MyPageTest(WagtailPageTestCase):
 ### Using `dumpdata`
 
 Creating [fixtures](inv:django#howto/initial-data) for tests is best done by creating content in a development
-environment, and using Django's [dumpdata](https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-dumpdata) command.
+environment, and using Django's [`dumpdata`](inv:django#dumpdata) command.
 
 Note that by default `dumpdata` will represent `content_type` by the primary key; this may cause consistency issues when adding / removing models, as content types are populated separately from fixtures. To prevent this, use the `--natural-foreign` switch, which represents content types by `["app", "model"]` instead.
 
@@ -329,4 +329,4 @@ You could create such a homepage in a fixture with:
 Filling in the `path` / `numchild` / `depth` fields is necessary for tree operations like `get_parent()` to work correctly.
 `url_path` is another field that can cause errors in some uncommon cases if it isn't filled in.
 
-The [Treebeard docs](https://django-treebeard.readthedocs.io/en/latest/mp_tree.html) might help in understanding how this works.
+The [Treebeard docs](inv:treebeard:std:doc#mp_tree) might help in understanding how this works.

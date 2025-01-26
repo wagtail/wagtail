@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Thiago Cangussu <cangussu.thg@gmail.com>, 2014\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
@@ -30,6 +30,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imagens do Wagtail"
+
+msgid "Image is decorative"
+msgstr "A imagem é decorativa"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Por favor adicione um texto alternativo para a sua imagem ou marque-a como "
+"decorativa"
 
 #, python-format
 msgid ""
@@ -84,17 +95,6 @@ msgstr "Coleção"
 msgid "Format"
 msgstr "Formato"
 
-msgid "Image is decorative"
-msgstr "A imagem é decorativa"
-
-msgid "Alt text"
-msgstr "Texto alternativo"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Por favor adicione um texto alternativo para a sua imagem ou marque-a como "
-"decorativa"
-
 msgid "Filter"
 msgstr "Filtro"
 
@@ -148,6 +148,9 @@ msgstr "título"
 
 msgid "file"
 msgstr "ficheiro"
+
+msgid "description"
+msgstr "descrição"
 
 msgid "width"
 msgstr "largura"
@@ -276,21 +279,11 @@ msgstr "Alterar ficheiro de imagem:"
 msgid "Add an image"
 msgstr "Adicionar uma imagem"
 
-msgid "Add image"
-msgstr "Adicionar imagem"
+msgid "Uploading…"
+msgstr "A carregar…"
 
-msgid "Save"
-msgstr "Gravar"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "A alterar imagem %(title)s"
-
-msgid "Editing"
-msgstr "A alterar"
-
-msgid "Delete image"
-msgstr "Apagar imagem"
+msgid "Upload"
+msgstr "Carregar"
 
 msgid "URL Generator"
 msgstr "Gerador de URL"
@@ -357,9 +350,6 @@ msgstr "URL"
 
 msgid "Add multiple images"
 msgstr "Adicionar múltiplas imagens"
-
-msgid "Add images"
-msgstr "Adicionar imagens"
 
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Arraste e largue imagens nesta área para carregar imediatamente."
@@ -442,12 +432,6 @@ msgstr[0] "%(num_parent_objects)dimagem foi apagada"
 msgstr[1] "%(num_parent_objects)dimagens foram apagadas"
 msgstr[2] "%(num_parent_objects)dimagens foram apagadas"
 
-msgid "Upload"
-msgstr "Carregar"
-
-msgid "Uploading…"
-msgstr "A carregar…"
-
 msgid "Choose an image"
 msgstr "Escolher uma imagem"
 
@@ -460,15 +444,12 @@ msgstr "Alterar esta imagem"
 msgid "Images"
 msgstr "Imagens"
 
+msgid "The image could not be saved due to errors."
+msgstr "A imagem não pôde ser guardada devido a erros."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imagem '%(image_title)s' atualizada."
-
-msgid "Edit again"
-msgstr "Alterar de novo"
-
-msgid "The image could not be saved due to errors."
-msgstr "A imagem não pôde ser guardada devido a erros."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -477,16 +458,22 @@ msgstr ""
 "O ficheiro de origem da imagem não foi encontrado. Por favor altere a fonte "
 "ou apague a imagem."
 
+msgid "Delete image"
+msgstr "Apagar imagem"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imagem '%(image_title)s' apagada."
+
+msgid "The image could not be created due to errors."
+msgstr "A imagem não pôde ser criada devido a erros."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imagem '%(image_title)s' adicionada."
 
-msgid "The image could not be created due to errors."
-msgstr "A imagem não pôde ser criada devido a erros."
+msgid "Add images"
+msgstr "Adicionar imagens"
 
 msgid "Image"
 msgstr "Imagem"

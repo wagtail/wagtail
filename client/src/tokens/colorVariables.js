@@ -22,7 +22,7 @@ const calcHSLDifference = (refVariable, refValue, value, unit = '') => {
 };
 
 /**
- * Generate customisable CSS variables for a color palette, with override-able HSL components.
+ * Generate customizable CSS variables for a color palette, with override-able HSL components.
  *
  * For each shade of a color, we want to generate four variables:
  * - One for each HSL component of the color (Hue, Saturation, Lightness).

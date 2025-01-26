@@ -26,15 +26,16 @@ import {
 /* global $ */
 
 class StreamChild extends BaseSequenceChild {
-  /*
-  wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
-  such as id
-  */
+  /**
+   * wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
+   * such as id
+   * @returns {Object} - The state of the child block
+   */
   getState() {
     return {
       type: this.type,
       value: this.block.getState(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
@@ -48,14 +49,14 @@ class StreamChild extends BaseSequenceChild {
   setState({ type, value, id }) {
     this.type = type;
     this.block.setState(value);
-    this.id = id;
+    this.id = id === undefined ? null : id;
   }
 
   getValue() {
     return {
       type: this.type,
       value: this.block.getValue(),
-      id: this.id,
+      id: this.id || null,
     };
   }
 
@@ -103,6 +104,7 @@ class StreamBlockMenu extends BaseInsertionControl {
       content: this.combobox,
       trigger: 'click',
       interactive: true,
+      maxWidth: 'none',
       theme: 'dropdown',
       arrow: false,
       placement: 'bottom',
@@ -119,7 +121,10 @@ class StreamBlockMenu extends BaseInsertionControl {
       const groupItems = blockDefs.map((blockDef) => ({
         type: blockDef.name,
         label: blockDef.meta.label,
+        description: blockDef.meta.description,
         icon: blockDef.meta.icon,
+        blockDefId: blockDef.meta.blockDefId,
+        isPreviewable: blockDef.meta.isPreviewable,
       }));
 
       return {
@@ -223,6 +228,8 @@ export class StreamBlock extends BaseSequenceBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    this.initDragNDrop();
   }
 
   getBlockGroups() {
@@ -255,9 +262,8 @@ export class StreamBlock extends BaseSequenceBlock {
     this.childBlockCounts.set(type, currentBlockCount);
   }
 
-  /*
+  /**
    * Called whenever a block is added or removed
-   *
    * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
    */
   blockCountChanged() {
@@ -355,11 +361,13 @@ export class StreamBlock extends BaseSequenceBlock {
     return this._insert(childBlockDef, value, id, index, opts);
   }
 
+  /**
+   * Called when an 'insert new block' action is triggered: given a dict of data from the insertion control.
+   * For a StreamBlock, the dict of data consists of 'type' (the chosen block type name, as a string).
+   *
+   * @returns {Array} - The block definition, initial state, and id for the new block
+   */
   _getChildDataForInsertion({ type }) {
-    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
-    return the block definition and initial state to be used for the new block.
-    For a StreamBlock, the dict of data consists of 'type' (the chosen block type name, as a string).
-    */
     const blockDef = this.blockDef.childBlockDefsByName[type];
     const initialState = this.blockDef.initialChildStates[type];
     return [blockDef, initialState, uuidv4()];
@@ -387,7 +395,7 @@ export class StreamBlock extends BaseSequenceBlock {
     );
     child.setState({
       type: initialState.type,
-      id: initialState.id,
+      id: initialState.id || null,
       value: valueBefore,
     });
     const oldContentPath = child.getContentPath();

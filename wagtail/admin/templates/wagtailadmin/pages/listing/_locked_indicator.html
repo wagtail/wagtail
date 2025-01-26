@@ -8,7 +8,7 @@
 
 {% if page.locked %}
     <span
-        class="indicator locked-indicator {% if page.locked_by_id == request.user.pk %}indicator--is-inverse{% endif %}"
+        class="indicator {% if page.locked_by_id != request.user.pk %}indicator--is-dimmed{% endif %}"
         title="{% if page.locked_by_id == request.user.pk %}{% trans 'This page is locked, by you, to further editing' %}{% else %}{% trans 'This page is locked to further editing' %}{% endif %}"
     >
         {% icon name="lock" classname="initial" %}

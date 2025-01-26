@@ -44,7 +44,7 @@
                         {% status task_state.get_status_display classname="w-status--primary" %}
                     </td>
                     <td>{{ task_state.started_at }}</td>
-                    <td>{{ task_state.finished_at }}</td>
+                    <td>{{ task_state.finished_at|default:"-" }}</td>
                 </tr>
             {% endfor %}
         </tbody>

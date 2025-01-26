@@ -101,7 +101,7 @@ const renderMinimap = (container: HTMLElement) => {
 };
 
 /**
- * Initialise the minimap within the target element,
+ * Initialize the minimap within the target element,
  * making sure it re-renders when the visible content changes.
  */
 export const initMinimap = (

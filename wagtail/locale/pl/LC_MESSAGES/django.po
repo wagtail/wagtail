@@ -5,7 +5,7 @@
 # Translators:
 # Dominik Lech, 2022
 # Dominik Lech, 2022
-# Krzysztof Jeziorny <github@jeziorny.net>, 2023
+# Krzysztof Jeziorny <github@jeziorny.net>, 2023-2024
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2017
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023-2024\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgid "Wagtail sitemaps"
 msgstr "Mapa strony Wagtail"
 
 msgid "Unknown content type"
-msgstr "Nieznany typ zawartości"
+msgstr "Nieznany typ treści"
 
 msgid "Password"
 msgstr "Hasło"
@@ -212,6 +212,15 @@ msgstr "opublikowane + szkic"
 msgid "Default"
 msgstr "Domyślny"
 
+msgid "Preview in mobile size"
+msgstr "Podgląd strony w wersji wielkości komórki"
+
+msgid "Preview in tablet size"
+msgstr "Podgląd strony w wersji wielkości tableta"
+
+msgid "Preview in desktop size"
+msgstr "Podgląd strony w wersji wielkości desktopa"
+
 msgid "locked"
 msgstr "zablokowany"
 
@@ -277,7 +286,7 @@ msgstr ""
 "[my-slug]/"
 
 msgid "content type"
-msgstr "rodzaj zawartości"
+msgstr "typ treści"
 
 msgid "URL path"
 msgstr "Ścieżka URL"
@@ -557,6 +566,9 @@ msgstr "wpis loga modelu"
 msgid "model log entries"
 msgstr "wpisy loga modelu"
 
+msgid "locale"
+msgstr "lokalizacja"
+
 msgid "collection"
 msgstr "kolekcja"
 
@@ -574,6 +586,9 @@ msgstr "uprawnienia kolekcji grup"
 
 msgid "group collection permissions"
 msgstr "uprawnienia kolekcji grup"
+
+msgid "for content type"
+msgstr "dla typu treści"
 
 msgid "uploaded by user"
 msgstr "wgrane przez użytkownika"

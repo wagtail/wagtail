@@ -162,7 +162,6 @@ class CreateView(generic.CreateView):
     error_message = gettext_lazy("The document could not be created due to errors.")
     template_name = "wagtaildocs/documents/add.html"
     header_icon = "doc-full-inverse"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -197,8 +196,6 @@ class EditView(generic.EditView):
     delete_url_name = "wagtaildocs:delete"
     header_icon = "doc-full-inverse"
     context_object_name = "document"
-    delete_item_label = gettext_lazy("Delete document")
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -254,6 +251,7 @@ class EditView(generic.EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["usage_count_val"] = self.object.get_usage().count()
         context["filesize"] = self.object.get_file_size()
         context["next"] = self.next_url
         return context

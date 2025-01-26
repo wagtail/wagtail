@@ -1973,6 +1973,52 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
             text="There is another field with the label Test field, please change one of them.",
         )
 
+    def test_adding_duplicate_form_labels_with_custom_related_name(self):
+        """
+        Ensure duplicate field names are checked, even if a custom related_name is used.
+        ``FormPageWithCustomSubmission`` uses the related_name `custom_form_fields`.
+        """
+
+        post_data = {
+            "title": "Drink selection",
+            "content": "Some content",
+            "slug": "drink-selection",
+            "custom_form_fields-TOTAL_FORMS": "3",
+            "custom_form_fields-INITIAL_FORMS": "3",
+            "custom_form_fields-MIN_NUM_FORMS": "0",
+            "custom_form_fields-MAX_NUM_FORMS": "1000",
+            # Duplicate field labels
+            "custom_form_fields-0-id": "",
+            "custom_form_fields-0-label": "chocolate",
+            "custom_form_fields-0-field_type": "singleline",
+            "custom_form_fields-1-id": "",
+            "custom_form_fields-1-label": "chocolate",
+            "custom_form_fields-1-field_type": "singleline",
+            # Unique field label
+            "custom_form_fields-2-id": "",
+            "custom_form_fields-2-label": "coffee",
+            "custom_form_fields-2-field_type": "singleline",
+        }
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=(
+                    "tests",
+                    "formpagewithcustomsubmission",
+                    self.root_page.id,
+                ),
+            ),
+            post_data,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            text="There is another field with the label chocolate, please change one of them.",
+        )
+
 
 class TestPreview(WagtailTestUtils, TestCase):
     post_data = {
@@ -2083,6 +2129,35 @@ class TestFormPageCreate(WagtailTestUtils, TestCase):
         # Should be redirected to edit page
         self.assertRedirects(
             response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+    def test_form_page_creation_error_with_custom_clean_method(self):
+        """
+        CustomFormPageSubmission uses a custom `base_form_class` with a clean method
+        that will raise a ValidationError if the from email contains 'example.com'.
+        """
+
+        post_data = {
+            "title": "Drink selection",
+            "slug": "drink-selection",
+            "from_address": "bad@example.com",
+        }
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpagewithcustomsubmission", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response, "The page could not be created due to validation errors"
+        )
+        self.assertContains(
+            response, "<li>Email cannot be from example.com</li>", count=1
         )
 
 

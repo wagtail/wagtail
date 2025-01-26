@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: yossi lalum <lyosefh@gmail.com>, 2017\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -101,15 +101,6 @@ msgstr "מחיקת קבוצה זו תשלול את ההרשאות עבור כל 
 msgid "Are you sure you want to delete this group?"
 msgstr "האם אתם בטוחים כי ברצונכם למחוק קבוצה זו?"
 
-msgid "Add group"
-msgstr "הוסף קבוצה"
-
-msgid "Save"
-msgstr "שמור"
-
-msgid "Delete group"
-msgstr "מחק קבוצה"
-
 msgid "Object permissions"
 msgstr "הרשאות אובייקט"
 
@@ -121,9 +112,6 @@ msgstr "הוסף"
 
 msgid "Change"
 msgstr "שנה"
-
-msgid "Publish"
-msgstr "פרסם"
 
 msgid "Other permissions"
 msgstr "הרשאות אחרות "
@@ -146,12 +134,6 @@ msgstr "חשבון"
 msgid "Roles"
 msgstr "תפקידים"
 
-msgid "Add user"
-msgstr "הוספת משתמש"
-
-msgid "Delete user"
-msgstr "מחק משתמש"
-
 msgid "Active"
 msgstr "מופעל"
 
@@ -167,6 +149,9 @@ msgstr "הוספת קבוצה"
 msgid "Search groups"
 msgstr "חיפוש קבוצות"
 
+msgid "Add group"
+msgstr "הוסף קבוצה"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "קבוצה '%(object)s' נוצרה"
@@ -181,6 +166,9 @@ msgstr "לא ניתן לשמור את הקבוצה עקב שגיאות"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "קבוצה '%(object)s' נמחקה"
+
+msgid "Delete group"
+msgstr "מחק קבוצה"
 
 msgid "Group"
 msgstr "קבוצה "
@@ -200,9 +188,15 @@ msgstr "מנהל"
 msgid "Status"
 msgstr "מצב"
 
+msgid "Add user"
+msgstr "הוספת משתמש"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "משתמש '%(object)s' עודכן "
 
 msgid "The user could not be saved due to errors."
 msgstr "לא ניתן לשמור את המשתמש עקב שגיאות"
+
+msgid "Delete user"
+msgstr "מחק משתמש"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,9 +53,6 @@ msgstr "ค้าหาโปรโมชั่นเพิ่ม"
 
 msgid "Add search pick"
 msgstr "เพิ่มคำที่เราจะค้นหา"
-
-msgid "Save"
-msgstr "เซฟ,บันทึก"
 
 #, python-format
 msgid "Delete %(query)s"

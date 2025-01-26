@@ -62,13 +62,13 @@ Wagtail's edit views for pages and snippets use `WagtailAdminModelForm` as stand
 
 Panels (also known as edit handlers until Wagtail 3.0) are Wagtail's mechanism for specifying the content and layout of a model form without having to write a template. They are used for the editing interface for pages and snippets, as well as the [site settings](/reference/contrib/settings) contrib module.
 
-See [](/reference/pages/panels) for the set of panel types provided by Wagtail. All panels inherit from the base class `wagtail.admin.panels.Panel`. A single panel object (usually `ObjectList` or `TabbedInterface`) exists at the top level and is the only one directly accessed by the view code; panels containing child panels inherit from the base class `wagtail.admin.panels.PanelGroup` and take care of recursively calling methods on their child panels where appropriate.
+See [](/reference/panels) for the set of panel types provided by Wagtail. All panels inherit from the base class `wagtail.admin.panels.Panel`. A single panel object (usually `ObjectList` or `TabbedInterface`) exists at the top level and is the only one directly accessed by the view code; panels containing child panels inherit from the base class `wagtail.admin.panels.PanelGroup` and take care of recursively calling methods on their child panels where appropriate.
 
 A view performs the following steps to render a model form through the panels mechanism:
 
 -   The top-level panel object for the model is retrieved. Usually, this is done by looking up the model's `edit_handler` property and falling back on an `ObjectList` consisting of children given by the model's `panels` property. However, it may come from elsewhere - for example, snippets can define their panels via the `SnippetViewSet` class.
 -   If the `PanelsGroup`s permissions do not allow a user to see this panel, then nothing more will be done.
-    -   This can be modified using the `permission` keyword argument, see examples of this usage in [](customising_the_tabbed_interface) and [](panels_permissions).
+    -   This can be modified using the `permission` keyword argument, see examples of this usage in [](customizing_the_tabbed_interface) and [](panels_permissions).
 -   The view calls `bind_to_model` on the top-level panel, passing the model class, and this returns a clone of the panel with a `model` property. As part of this process, the `on_model_bound` method is invoked on each child panel, to allow it to perform additional initialization that requires access to the model (for example, this is where `FieldPanel` retrieves the model field definition).
 -   The view then calls `get_form_class` on the top-level panel to retrieve a ModelForm subclass that can be used to edit the model. This proceeds as follows:
     -   Retrieve a base form class from the model's `base_form_class` property, falling back on `wagtail.admin.forms.WagtailAdminModelForm`
@@ -77,4 +77,4 @@ A view performs the following steps to render a model form through the panels me
 -   An instance of the form class is created as per a normal Django form view.
 -   The view then calls `get_bound_panel` on the top-level panel, passing `instance`, `form` and `request` as keyword arguments. This returns a `BoundPanel` object, which follows [the template component API](/extending/template_components). Finally, the `BoundPanel` object (and its media definition) is rendered onto the template.
 
-New panel types can be defined by subclassing `wagtail.admin.panels.Panel` - see [](/reference/panel_api).
+New panel types can be defined by subclassing `wagtail.admin.panels.Panel` - see [](panels_api).

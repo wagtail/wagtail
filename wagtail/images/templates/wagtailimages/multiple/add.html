@@ -10,7 +10,13 @@
 {% endblock %}
 
 {% block main_content %}
-    <div class="drop-zone w-mt-8">
+    <div
+        class="drop-zone w-mt-8"
+        data-controller="w-zone"
+        data-action="dragover@document->w-zone#noop:prevent drop@document->w-zone#noop:prevent dragover->w-zone#activate drop->w-zone#deactivate dragleave->w-zone#deactivate dragend->w-zone#deactivate"
+        data-w-zone-active-class="hovered"
+        data-w-zone-delay-value="10"
+    >
         <p>{% trans "Drag and drop images into this area to upload immediately." %}</p>
         <p>{{ help_text }}</p>
 
@@ -64,6 +70,7 @@
                 </div>
             </div>
             <div class="right col9">
+                <p class="error-message">{% trans "Please provide an image description to comply with best practices for accessibility." %}</p>
                 <p class="status-msg success">{% trans "Upload successful. Please update this image with a more appropriate title, if necessary. You may also delete the image completely if the upload wasn't required." %}</p>
                 <p class="status-msg warning">
                     {% trans "Upload successful. However, your new image seems to be a duplicate of this existing image. You may delete it if it wasn't required." %}
@@ -88,7 +95,6 @@
 
     <!-- this exact order of plugins is vital -->
     <script src="{% versioned_static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
-    <script src="{% versioned_static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>

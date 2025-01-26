@@ -145,6 +145,23 @@ class TestImage(TestCase):
         )
         self.assertIsNone(image.get_suggested_focal_point())
 
+    def test_default_with_description(self):
+        # Primary default should be description
+        image = Image.objects.create(
+            title="Test Image",
+            description="This is a test description",
+            file=get_test_image_file(),
+        )
+        self.assertEqual(image.default_alt_text, image.description)
+
+    def test_default_without_description(self):
+        # Secondary default should be title
+        image = Image.objects.create(
+            title="Test Image",
+            file=get_test_image_file(),
+        )
+        self.assertEqual(image.default_alt_text, image.title)
+
 
 class TestImageQuerySet(TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -787,6 +804,9 @@ class TestRenditions(TestCase):
             prefetched_rendition = fresh_image.get_rendition("width-500")
         self.assertFalse(hasattr(prefetched_rendition, "_mark"))
 
+        # Check that the image instance is the same as the retrieved rendition
+        self.assertIs(new_rendition.image, self.image)
+
         # changing the image file should invalidate the cache
         self.image.file = get_test_image_file(colour="green")
         self.image.save()
@@ -964,11 +984,12 @@ class TestUsageCount(TestCase):
         self.assertEqual(self.image.get_usage().count(), 0)
 
     def test_used_image_document_usage_count(self):
-        page = EventPage.objects.get(id=4)
-        event_page_carousel_item = EventPageCarouselItem()
-        event_page_carousel_item.page = page
-        event_page_carousel_item.image = self.image
-        event_page_carousel_item.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventPage.objects.get(id=4)
+            event_page_carousel_item = EventPageCarouselItem()
+            event_page_carousel_item.page = page
+            event_page_carousel_item.image = self.image
+            event_page_carousel_item.save()
         self.assertEqual(self.image.get_usage().count(), 1)
 
 
@@ -985,11 +1006,12 @@ class TestGetUsage(TestCase):
         self.assertEqual(list(self.image.get_usage()), [])
 
     def test_used_image_document_get_usage(self):
-        page = EventPage.objects.get(id=4)
-        event_page_carousel_item = EventPageCarouselItem()
-        event_page_carousel_item.page = page
-        event_page_carousel_item.image = self.image
-        event_page_carousel_item.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            page = EventPage.objects.get(id=4)
+            event_page_carousel_item = EventPageCarouselItem()
+            event_page_carousel_item.page = page
+            event_page_carousel_item.image = self.image
+            event_page_carousel_item.save()
 
         self.assertIsInstance(self.image.get_usage()[0], tuple)
         self.assertIsInstance(self.image.get_usage()[0][0], Page)

@@ -6,13 +6,14 @@
 # Adam Hughes <adamhughes31@gmail.com>, 2020
 # Philip Crisp, 2022
 # Philip Crisp, 2022
+# Philip Lindsay-Crisp, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2016-05-11 20:23+0000\n"
-"Last-Translator: Philip Crisp, 2022\n"
+"Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +29,36 @@ msgstr "Bloc bwrdd Wagtail"
 msgid "Row header"
 msgstr "Pennawd rhes"
 
+msgid "Table headers"
+msgstr "Penawdau tabl"
+
+msgid "Display the first row as a header"
+msgstr "Dangoswch y rhes gyntaf fel pennawd"
+
+msgid "Display the first column as a header"
+msgstr "Dangoswch y colofn gyntaf fel pennawd"
+
 msgid "Column header"
 msgstr "Pennawd colofn"
 
+msgid "Display the first row AND first column as headers"
+msgstr "Dangoswch y rhes gyntaf A'R golofn gyntaf fel pennawd"
+
+msgid "No headers"
+msgstr "Dim penawdau"
+
+msgid "Which cells should be displayed as headers?"
+msgstr "Pa gelloedd ddylai gael eu harddangos fel penawd?"
+
 msgid "Table caption"
 msgstr "Pennawd bwrdd"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users."
+msgstr ""
+"Pennawd sy'n nodi pwnc cyffredinol y tabl, ac sy'n ddefnyddiol i ddefnyddwyr "
+"efo darllenwyr sgrin."
 
 msgid "Table"
 msgstr "Bwrdd"

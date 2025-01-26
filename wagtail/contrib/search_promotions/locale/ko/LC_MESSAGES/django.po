@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -66,9 +66,6 @@ msgstr ""
 "<p>아래의 \"검색 용어(들)/구\" 영역에는 맞춤법 오류/사용자 오류를 <em>포함</"
 "em>하여 권장 결과를 제공하려는 전체적이고 정확한 검색이 포함되어야 합니다. 사"
 "이트 사용자에게 인기 있는 검색어 중에서 선택할 수 있습니다.</p>"
-
-msgid "Save"
-msgstr "저장"
 
 #, python-format
 msgid "Delete %(query)s"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -66,15 +66,6 @@ msgstr "Dzēst"
 msgid "Are you sure you want to delete this group?"
 msgstr "Vai esat drošs, ka vēlaties dzēst šo grupu?"
 
-msgid "Add group"
-msgstr "Pievienot grupu"
-
-msgid "Save"
-msgstr "Saglabāt"
-
-msgid "Delete group"
-msgstr "Dzēst grupu"
-
 msgid "Name"
 msgstr "Vārds"
 
@@ -83,15 +74,6 @@ msgstr "Pievienot"
 
 msgid "Change"
 msgstr "Mainīt"
-
-msgid "Publish"
-msgstr "Publicēt"
-
-msgid "Lock"
-msgstr "Slēgt"
-
-msgid "Unlock"
-msgstr "Atslēgt"
 
 msgid "Other permissions"
 msgstr "Citas atļaujas"
@@ -119,9 +101,6 @@ msgstr "Konts"
 msgid "Roles"
 msgstr "Lomas"
 
-msgid "Add user"
-msgstr "Pievienot lietotāju"
-
 msgid "Active"
 msgstr "Aktīvs"
 
@@ -137,6 +116,9 @@ msgstr "PIevienot grupu"
 msgid "Search groups"
 msgstr "Meklēt grupas"
 
+msgid "Add group"
+msgstr "Pievienot grupu"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupa '%(object)s' izveidota"
@@ -151,6 +133,9 @@ msgstr "Grupu nevarēja saglabāt kļūdu dēļ."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupa '%(object)s' dzēsta."
+
+msgid "Delete group"
+msgstr "Dzēst grupu"
 
 msgid "Group"
 msgstr "Grupa"
@@ -169,6 +154,9 @@ msgstr "Administrators"
 
 msgid "Status"
 msgstr "Statuss"
+
+msgid "Add user"
+msgstr "Pievienot lietotāju"
 
 #, python-format
 msgid "User '%(object)s' updated."

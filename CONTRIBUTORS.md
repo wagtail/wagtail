@@ -5,7 +5,7 @@
 * Cynthia Kiser (Caltech)
 * Dan Braghis (Torchbox)
 * Dawn Wages (The Wharton School)
-* Jacob Topp-Mugglestone (Torchbox)
+* Emily Topp-Mugglestone (Torchbox)
 * Jake Howard (Torchbox)
 * Kalob Taulien
 * LB Johnston
@@ -743,7 +743,6 @@
 * Sandro Rodrigues
 * Brian Mugo
 * Panagiotis H.M. Issaris
-* Damilola Oladele
 * Olumide Micheal
 * Chiemezuo Akujobi
 * Krish Soni
@@ -836,12 +835,46 @@
 * Shubham Mukati
 * Matthew Scouten
 * Ishwari8104
-* rahulsamant37
+* Rahul Samant
+* Gabriel Getzie
+* Rohit Singh
+* Robin Varghese
+* Victoria Ottah
+* Bart Cieliński
+* alexkiro
+* Ankit Kumar
+* Frank Yiu
+* Shaurya Panchal
+* Sumana Sree Angajala
+* Srishti Jaiswal
+* Alessandro Chitarrini
+* Joel William
+* Ataf Fazledin Ahamed
+* Ayaan Qadri
+* manu
+* Aayushman Singh
+* Steven Steinwand
+* Clifford Gama
+* Noah van der Meer
+* Strapchay
+* Alex Fulcher
+* Harsh Dange
+* Mauro Soche
+* Krystian Magdziarz
+* Guilhem Saurel
+* James Harrington
+* Unyime Emmanuel Udoh
+* Joren Hammudoglu
+* Rishabh Sharma
+* Mike Gifford
+* Stéphane Blondon
+* Jatin Bhardwaj
+* Mohamed Rabiaa
 
 ## Translators
 
 * Afrikaans: Jaco du Plessis, Jared Osborn
-* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
+* Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Amr Awad, Tarek Berkane, Mohammed Abdul Gadir, Mohamed HossamElDin, Ahmad Kiswani, Waseem Kntar, Mahmoud Marayef, Mohamed Mayla, Ahmed Miske Sidi Med, Younes Oumakhou, Ultraify Media
 * Armenian: Vachagan
 * Azerbaijani: Mirza Iskandarov
 * Bangla: Mahmud Abdur Rahman
@@ -857,11 +890,11 @@
 * Czech: Ales Dvorak, Jan Feřtek, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Kryštof Pilnáček, Tomáš Podivínský, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Benjamin Bach, Mads Kronborg, MRostgaard, Asger Sørensen
 * Divehi: Fauzaan Gasim
-* Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp, Richard Voorhorst
+* Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp, Joeri Vlekken, Richard Voorhorst
 * English (India): Neeraj PY, Apoorv Saini
 * Estonian: Erlend Eelmets, Martin, Ragnar Rebase
 * Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Sébastien Corbin, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Aurel Pere, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Christophe Chauvet, Sébastien Corbin, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Aurel Pere, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: X Bello, Amós Oviedo
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Bohreromir, Matti Borchers, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
@@ -899,4 +932,4 @@
 * Ukrainian: Yuri Fabirovsky, Vladislav Herasimenko, Mikolai Incognito, Anastasiia La, Sergiy Shkodenko, Viktor Shytiuk, Ivan Tyshchenko, Zoriana Zaiats, Mykola Zamkovoi
 * Uyghur: Abduqadir Abliz, Azat
 * Vietnamese: Amelia Dao, Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham, stdpi
-* Welsh: Philip Crisp, Adam Hughes
+* Welsh: Philip Lindsay-Crisp, Adam Hughes

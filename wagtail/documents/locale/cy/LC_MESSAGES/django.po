@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -142,21 +142,18 @@ msgstr "Ia, dileu"
 msgid "No, don't delete"
 msgstr "Na, peidiwch a ddileu"
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"Beth am <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>uwchlwytho un rwan</a>?"
+
 msgid "Uploading…"
 msgstr "Wrthi'n uwchlwytho…"
 
 msgid "Upload"
 msgstr "Uwchlwytho"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Golygu %(title)s"
-
-msgid "Editing"
-msgstr "Golygu"
-
-msgid "Save"
-msgstr "Cadw"
 
 msgid "Filesize"
 msgstr "Maint ffeil"
@@ -175,6 +172,9 @@ msgstr "Ychwanegu at y casgliad:"
 
 msgid "Sorry, upload failed."
 msgstr "Mae'n ddrwg gennym, ni fu modd uwchlwytho."
+
+msgid "Tags"
+msgstr "Tagiau"
 
 msgid "Tag"
 msgstr "Tag"

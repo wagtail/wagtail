@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022,2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -179,27 +179,11 @@ msgstr "Vaihda dokumentti:"
 msgid "Add a document"
 msgstr "Lisää dokumentti"
 
-msgid "Add document"
-msgstr "Lisää dokumentti"
-
 msgid "Uploading…"
 msgstr "Lähetetään…"
 
 msgid "Upload"
 msgstr "Lähetä"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Muokataan %(title)s"
-
-msgid "Editing"
-msgstr "Muokataan"
-
-msgid "Save"
-msgstr "Tallenna"
-
-msgid "Delete document"
-msgstr "Poista dokumentti"
 
 msgid "Filesize"
 msgstr "Tiedostokoko"
@@ -237,23 +221,18 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> dokumentti <span class=\"w-sr-only\">luotu sivustolla "
+"%(total)s dokumentti <span class=\"w-sr-only\">luotu sivustolla "
 "%(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> dokumenttia <span class=\"w-sr-only\">luotu "
-"sivustolla %(site_name)s</span>"
+"%(total)s dokumenttia <span class=\"w-sr-only\">luotu sivustolla "
+"%(site_name)s</span>"
 
 msgid "Add multiple documents"
 msgstr "Lisää useampi dokumentti"
-
-msgid "Add documents"
-msgstr "Lisää dokumentteja"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Raahaa ja pudota dokumentteja tälle alueelle lähettääksesi ne heti."
@@ -350,6 +329,9 @@ msgstr "Dokumentit"
 msgid "Title"
 msgstr "Otsikko"
 
+msgid "The document could not be created due to errors."
+msgstr "Dokumenttia ei voitu luoda virheiden vuoksi."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Dokumentti '%(document_title)s' lisätty."
@@ -365,9 +347,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
 
+msgid "Delete document"
+msgstr "Poista dokumentti"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentti '%(document_title)s' poistettu."
+
+msgid "Add documents"
+msgstr "Lisää dokumentteja"
 
 msgid "Document"
 msgstr "Dokumentti"

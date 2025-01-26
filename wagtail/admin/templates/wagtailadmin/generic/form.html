@@ -7,7 +7,7 @@
         <div class="nice-padding w-mt-8">
             <h2 class="w-relative w-h1" id="header-title">
                 {% icon classname="w-absolute w-top-1 -w-left-11 w-max-w-[1em] w-max-h-[1em]" name=header_icon %}
-                {{ page_subtitle }}
+                {{ page_subtitle|default:page_title }}
             </h2>
         </div>
     {% else %}
@@ -17,10 +17,22 @@
 
 {% block main_content %}
     {% block before_form %}{% endblock %}
-    <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %} data-edit-form>
+    <form
+        id="w-editor-form"
+        action="{{ action_url }}"
+        method="POST"
+        novalidate
+        {% if form_is_multipart or form.is_multipart %} enctype="multipart/form-data"{% endif %}
+        data-edit-form
+        data-controller="w-unsaved"
+        data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check keyup->w-unsaved#check"
+        data-w-unsaved-confirmation-value="true"
+        data-w-unsaved-force-value="{{ has_unsaved_changes|yesno:'true,false' }}"
+        data-w-unsaved-watch-value="edits"
+    >
         {% csrf_token %}
 
-        {% block fields %}
+        {% block form_content %}
             {% if panel %}
                 {{ panel.render_form_content }}
             {% else %}
@@ -38,8 +50,37 @@
             {% endif %}
         {% endblock %}
 
-        {% block actions %}
-            <button type="submit" class="button">{{ submit_button_label }}</button>
+        {% block footer %}
+            <footer class="footer w-grid md:w-grid-flow-col">
+                <nav class="actions actions--primary footer__container" aria-label="{% trans 'Actions' %}">
+                    {% block actions %}
+                        {% fragment as main_action %}
+                            {% block main_action %}
+                                <button
+                                    type="submit"
+                                    class="button button-longrunning"
+                                    data-controller="w-progress w-kbd"
+                                    data-action="w-progress#activate"
+                                    data-w-kbd-key-value="mod+s"
+                                    data-w-kbd-scope-value="global"
+                                    data-w-progress-active-value="{{ submit_button_active_label }}"
+                                >
+                                    {% icon name="spinner" %}
+                                    <em data-w-progress-target="label">{{ submit_button_label }}</em>
+                                </button>
+                            {% endblock %}
+                        {% endfragment %}
+
+                        {% fragment stripped as extra_actions %}{% block extra_actions %}{% endblock %}{% endfragment %}
+
+                        {% include "wagtailadmin/shared/action_menu/menu.html" with show_menu=extra_actions default_menu_item=main_action menu_items_fragment=extra_actions %}
+
+                    {% endblock %}
+                </nav>
+                {% block unsaved_changes_warning %}
+                    {% include "wagtailadmin/shared/unsaved_changes_warning.html" %}
+                {% endblock%}
+            </footer>
         {% endblock %}
     </form>
 {% endblock %}

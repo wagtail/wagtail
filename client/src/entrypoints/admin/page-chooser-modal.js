@@ -69,6 +69,16 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       $(this).data('timer', wait);
     });
 
+    function updateMultipleChoiceSubmitEnabledState() {
+      // update the enabled state of the multiple choice submit button depending on whether
+      // any items have been selected
+      if ($('[data-multiple-choice-select]:checked', modal.body).length) {
+        $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
+      } else {
+        $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
+      }
+    }
+
     /* Set up behaviour of choose-page links in the newly-loaded search results,
     to pass control back to the calling page */
     function ajaxifySearchResults() {
@@ -95,16 +105,11 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         modal.loadUrl(this.href);
         return false;
       });
-    }
 
-    function updateMultipleChoiceSubmitEnabledState() {
-      // update the enabled state of the multiple choice submit button depending on whether
-      // any items have been selected
-      if ($('[data-multiple-choice-select]:checked', modal.body).length) {
-        $('[data-multiple-choice-submit]', modal.body).removeAttr('disabled');
-      } else {
-        $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
-      }
+      updateMultipleChoiceSubmitEnabledState();
+      $('[data-multiple-choice-select]', modal.body).on('change', () => {
+        updateMultipleChoiceSubmitEnabledState();
+      });
     }
 
     function ajaxifyBrowseResults() {

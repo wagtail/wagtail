@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -58,12 +58,12 @@ msgstr "No s'ha pogut desar el lloc a causa d'errors."
 msgid "Site '%(object)s' updated."
 msgstr "Lloc '%(object)s' actualitzat."
 
-msgid "Delete site"
-msgstr "Eliminar lloc"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Lloc '%(object)s' eliminat."
+
+msgid "Delete site"
+msgstr "Eliminar lloc"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Segur que voleu eliminar aquest lloc?"

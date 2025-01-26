@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -93,27 +93,11 @@ msgstr "ドキュメントを変更"
 msgid "Add a document"
 msgstr "ドキュメントを追加"
 
-msgid "Add document"
-msgstr "ドキュメントを追加"
-
 msgid "Uploading…"
 msgstr "アップロード中…"
 
 msgid "Upload"
 msgstr "アップロード"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)s を編集"
-
-msgid "Editing"
-msgstr "編集中"
-
-msgid "Save"
-msgstr "保存"
-
-msgid "Delete document"
-msgstr "ドキュメントを削除"
 
 msgid "Filesize"
 msgstr "ファイルサイズ"
@@ -146,9 +130,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "複数のドキュメントを追加"
-
-msgid "Add documents"
-msgstr "ドキュメントを追加"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr ""
@@ -224,9 +205,15 @@ msgstr ""
 "ファイルが見つかりませんでした。ソースを変更するかドキュメントを削除してくだ"
 "さい。"
 
+msgid "Delete document"
+msgstr "ドキュメントを削除"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s'のドキュメントを削除しました。"
+
+msgid "Add documents"
+msgstr "ドキュメントを追加"
 
 msgid "Document"
 msgstr "ドキュメント"

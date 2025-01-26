@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, "
 "2016-2018,2020-2021,2024\n"
@@ -215,6 +215,15 @@ msgstr "online + rascunho"
 
 msgid "Default"
 msgstr "Padrão"
+
+msgid "Preview in mobile size"
+msgstr "Pré-visualização no tamanho mobile"
+
+msgid "Preview in tablet size"
+msgstr "Pré-visualização no tamanho do tablet"
+
+msgid "Preview in desktop size"
+msgstr "Pré-visualização no tamanho de Desktop"
 
 msgid "locked"
 msgstr "trancado"

@@ -126,9 +126,9 @@ class TestImagesSummary(WagtailTestUtils, TestCase):
 
     def test_user_sees_proper_image_count(self):
         cases = (
-            (self.superuser, "<span>3</span> Images"),
-            (self.bird_adder, "<span>2</span> Images"),
-            (self.bird_chooser, "<span>2</span> Images"),
+            (self.superuser, "3 Images"),
+            (self.bird_adder, "2 Images"),
+            (self.bird_chooser, "2 Images"),
         )
         for user, content in cases:
             with self.subTest(user=user):

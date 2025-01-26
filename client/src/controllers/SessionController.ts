@@ -149,7 +149,7 @@ export class SessionController extends Controller<HTMLElement> {
    *
    * The interception can be controlled dynamically via the `interceptValue`
    * so that we can temporarily disable it when the user confirms the overwrite
-   * and immediately reenable it without having to remove and re-add the event
+   * and immediately re-enable it without having to remove and re-add the event
    * listener. This is useful for events that are triggered by a multi-step
    * process, such as a workflow action, which may have its own dialogs and may
    * be cancelled in the middle of the process.
@@ -161,7 +161,7 @@ export class SessionController extends Controller<HTMLElement> {
     // trigger it again after the user confirms the dialog.
     this.lastActionButton = event.target as HTMLButtonElement;
 
-    // Allow us to proceed with the original behaviour (i.e. form submission or
+    // Allow us to proceed with the original behavior (i.e. form submission or
     // workflow action modal) after the user confirms the dialog.
     if (!this.interceptValue || !this.hasWDialogOutlet) return;
 

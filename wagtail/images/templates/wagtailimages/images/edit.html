@@ -10,7 +10,7 @@
     <script src="{% versioned_static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
 {% endblock %}
 
-{% block fields %}
+{% block form_content %}
     <div class="w-grid w-grid-cols-1 sm:w-grid-cols-2 w-gap-8">
         <div>
             <input type="hidden" value="{{ next }}" name="next">
@@ -63,9 +63,7 @@
 
                         <dt>{% trans "Usage" %}</dt>
                         <dd>
-                            {% with image.get_usage.count as usage_count_val %}
-                                <a href="{{ image.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-                            {% endwith %}
+                            <a href="{{ image.usage_url }}">{% blocktrans trimmed with usage_count=usage_count_val|intcomma count usage_count_val=usage_count_val %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
                         </dd>
                     </dl>
                 </div>

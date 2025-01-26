@@ -1,3 +1,5 @@
+/* global ModalWorkflow */
+
 import $ from 'jquery';
 import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
@@ -86,7 +88,7 @@ const initPrefillTitleFromFilename = (
         parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
       const data = { title: filename.replace(/\.[^.]+$/, '') };
 
-      // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
+      // allow an event handler to customize data or call event.preventDefault to stop any title pre-filling
       const form = fileWidget.closest('form').get(0);
 
       if (eventName) {
@@ -356,7 +358,6 @@ class ChooserModal {
   }
 
   open(opts, callback) {
-    // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getURL(opts || {}),
       urlParams: this.getURLParams(opts || {}),

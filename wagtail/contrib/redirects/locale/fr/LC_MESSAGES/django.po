@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -116,9 +116,6 @@ msgstr "règles de redirection"
 
 msgid "Add redirect"
 msgstr "Ajouter une règle de redirection"
-
-msgid "Save"
-msgstr "Enregistrer"
 
 msgid "Redirects"
 msgstr "Règles de Redirection"

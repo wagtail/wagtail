@@ -88,7 +88,7 @@ Minor features
 * Spinner was added to Save button on site settings (Liam Brenner)
 * Added success message after logout from Admin (Liam Brenner)
 * Added ``get_upload_to`` method to ``AbstractRendition`` which, when overridden, allows control over where image renditions are stored (Rob Moggach and Matt Westcott)
-* Added a mechanism to customize the add / edit user forms for custom user models - see :doc:`/advanced_topics/customisation/custom_user_models` (Nigel Fletton)
+* Added a mechanism to customize the add / edit user forms for custom user models - see :doc:`/advanced_topics/customization/custom_user_models` (Nigel Fletton)
 * Added internal provision for swapping in alternative rich text editors (Karl Hobley)
 
 Bug fixes

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Bardia, 2024\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -414,14 +414,8 @@ msgstr "صفحه‌ی مورد نظر یافت نشد."
 msgid "Go to Wagtail admin"
 msgstr "رفتن به صفحه ادمین وگتیل"
 
-msgid "Account"
-msgstr "حساب کاربری"
-
 msgid "More actions"
 msgstr "اعمال بیشتر"
-
-msgid "Save account details"
-msgstr "ذخیره جزئیات حساب"
 
 msgid "Reset password"
 msgstr "بازنشانی رمزعبور"
@@ -674,11 +668,11 @@ msgstr "آیا هنوز مایل به انتشار %(model_name)s هستید؟"
 msgid "Cancel"
 msgstr "لغو"
 
-msgid "Comment"
-msgstr "نظر"
-
 msgid "Actions"
 msgstr "اعمال"
+
+msgid "Comment"
+msgstr "نظر"
 
 msgid "Update"
 msgstr "بروزرسانی"
@@ -721,10 +715,6 @@ msgstr[1] "%(counter)s پله حرکت به بالا"
 msgid "There are no differences between these two versions"
 msgstr "تفاوتی بین این دو نسخه وجود ندارد"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "به وگتیل %(site_name)s خوش آمدید"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -732,8 +722,14 @@ msgstr ""
 "اینجا پیشخوان شماست و در آن اطلاعات مفیدی مربوط به محتوایی که تولید کرده اید "
 "نمایش داده میشود."
 
+msgid "Account"
+msgstr "حساب کاربری"
+
 msgid "Your locked pages"
 msgstr "صفحات قفل شده"
+
+msgid "Status"
+msgstr "وضعیت"
 
 msgid "Locked at"
 msgstr "قفل شده در"
@@ -753,23 +749,11 @@ msgstr "منتشر شده"
 msgid "Your most recent edits"
 msgstr "ویرایش‌های اخیر شما"
 
-msgid "Status"
-msgstr "وضعیت"
-
 msgid "Date"
 msgstr "تاریخ"
 
 msgid "Site summary"
 msgstr "خلاصه سایت"
-
-#, python-format
-msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
-msgstr ""
-"بروز رسانی وگتیل در دسترس است. نسخه شما: <strong>%(current_version)s</"
-"strong>. نسخه جدید: <strong data-w-upgrade-target=\"latestVersion\"></strong>"
 
 msgid "Read the release notes."
 msgstr "خواندن یادداشت های انتشار."
@@ -905,21 +889,6 @@ msgstr "پاسخ های جدید:"
 #, python-format
 msgid "%(editor)s has updated comments on \"%(title)s\""
 msgstr "%(editor)s نظرات \"%(title)s\" را بروز کرده است"
-
-msgid "This page has been made private by a parent page."
-msgstr "این صفحه توسط صفحه والد شخصی شده."
-
-msgid "Save the page before leaving"
-msgstr "پیش از ترک کردن، صفحه را ذخیره کن"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "شما دارای <span>تغییرات ذخیره نشده</span> هستید  "
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "شما دارای <span>نظرات ذخیره نشده</span> هستید  "
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "شما دارای <span>تغییرات</span> و <span>نظرات</span> ذخیره نشده هستید  "
 
 msgid "Publishing…"
 msgstr "درحال انتشار"
@@ -1060,17 +1029,14 @@ msgstr "کپی"
 msgid "Copy this page"
 msgstr "کپی این صفحه"
 
-msgid "This page has unsaved changes."
-msgstr "این صفحه تغییرات ذخیره نشده دارد."
-
 msgid "Edit original page"
 msgstr "ویرایش صفحه اصلی"
 
-msgid "Select all pages in listing"
-msgstr "انتخاب تمامی صفحات در لیست"
-
 msgid "Configure a site now."
 msgstr "پیکربندی یک سایت"
+
+msgid "Select all pages in listing"
+msgstr "انتخاب تمامی صفحات در لیست"
 
 msgid "This page is locked to further editing"
 msgstr "این صفحه برای ویرایش در آینده قفل شده"
@@ -1121,9 +1087,6 @@ msgstr "انواع صفحه"
 
 msgid "Enter a search term above"
 msgstr "عبارت جستجو را وارد نمایید"
-
-msgid "No pages use"
-msgstr "صفحه ای استفاده نمی‌کند"
 
 #, python-format
 msgid "Add %(label)s"
@@ -1255,8 +1218,14 @@ msgstr ""
 msgid "Preview mode"
 msgstr "حالت پیش نمایش"
 
-msgid "Edit / Review"
-msgstr "ویرایش / بازنگری"
+msgid "You have <span>unsaved edits</span>"
+msgstr "شما دارای <span>تغییرات ذخیره نشده</span> هستید  "
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "شما دارای <span>نظرات ذخیره نشده</span> هستید  "
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "شما دارای <span>تغییرات</span> و <span>نظرات</span> ذخیره نشده هستید  "
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -1293,12 +1262,6 @@ msgstr "افزودن صفحه فرزند"
 msgid "Show in Explorer"
 msgstr "نمایش در کاوشگر"
 
-msgid "Creating…"
-msgstr "در حال ساخت..."
-
-msgid "Create"
-msgstr "ساختن"
-
 msgid "Not used"
 msgstr "استفاده نشده"
 
@@ -1310,6 +1273,12 @@ msgstr "وظایفی که میخواهید ایجاد کنید را انتخاب
 
 msgid "New"
 msgstr "جدید"
+
+msgid "Creating…"
+msgstr "در حال ساخت..."
+
+msgid "Create"
+msgstr "ساختن"
 
 msgid ""
 "Why not <a class=\"create-one-now\" href=\"#tab-new\" data-tab-"
@@ -1396,12 +1365,12 @@ msgstr "مجموعه '%(object)s' بروزرسانی شد."
 msgid "The collection could not be saved due to errors."
 msgstr "به دلیل بروز خطا امکان ذخیره مجموعه وجود ندارد."
 
-msgid "Delete collection"
-msgstr "حذف مجموعه"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "مجموعه  '%(object)s' حذف شد."
+
+msgid "Delete collection"
+msgstr "حذف مجموعه"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
@@ -1423,6 +1392,9 @@ msgstr "مقایسه با نسخه‌ی فعلی"
 
 msgid "Cancel scheduled publish"
 msgstr "لغو انتشار زمانبندی شده"
+
+msgid "Edit / Review"
+msgstr "ویرایش / بازنگری"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
@@ -1498,9 +1470,6 @@ msgstr "بازرسی"
 
 msgid "Editing"
 msgstr "ویرایش"
-
-msgid "Inspecting"
-msgstr "بازرسی"
 
 msgid "Earliest"
 msgstr "اولین"

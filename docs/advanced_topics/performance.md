@@ -100,7 +100,7 @@ This optimization is already handled for you for images in the admin site.
 
 ## Template fragment caching
 
-Django supports [template fragment caching](https://docs.djangoproject.com/en/stable/topics/cache/#template-fragment-caching), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags: [`{% wagtailcache %}`](wagtailcache) and [`{% wagtailpagecache %}`](wagtailpagecache) which both avoid these issues.
+Django supports [template fragment caching](<inv:django:std:label#topics/cache:template fragment caching>), which allows caching portions of a template. Using Django's `{% cache %}` tag natively with Wagtail can be [dangerous](https://github.com/wagtail/wagtail/issues/5074) as it can result in preview content being shown to end users. Instead, Wagtail provides 2 extra template tags: [`{% wagtailcache %}`](wagtailcache) and [`{% wagtailpagecache %}`](wagtailpagecache) which both avoid these issues.
 
 (page_cache_key)=
 

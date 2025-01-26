@@ -2,12 +2,12 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2022
-# Andrej Marsetič, 2023
 # Loic Teixeira, 2024
+# Andrej Marsetič, 2024
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Andrej Marsetič, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +30,13 @@ msgstr[0] "%(num)s napaka"
 msgstr[1] "%(num)s napaki"
 msgstr[2] "%(num)s napak"
 msgstr[3] "%(num)s napak"
+
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s minuta"
+msgstr[1] "%(num)s minuti"
+msgstr[2] "%(num)s minut"
+msgstr[3] "%(num)s minut"
 
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"

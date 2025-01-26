@@ -100,6 +100,8 @@ interface PreviewDataResponse {
   is_available: boolean;
 }
 
+const PREVIEW_UNAVAILABLE_WIDTH = 375;
+
 /**
  * Controls the preview panel component to submit the current form state and
  * update the preview iframe if the form is valid.
@@ -166,6 +168,9 @@ export class PreviewController extends Controller<HTMLElement> {
   };
 
   static outlets = ['w-progress'];
+
+  /** The device size width to use when the preview is not available. */
+  static fallbackWidth = PREVIEW_UNAVAILABLE_WIDTH.toString();
 
   // Classes
 
@@ -301,24 +306,10 @@ export class PreviewController extends Controller<HTMLElement> {
   updatePromise: Promise<boolean> | null = null;
 
   /**
-   * The default size input element.
-   * This is the size input element with the `data-default-size` data attribute.
-   * If no input element has this attribute, the first size input element will be used.
-   */
-  get defaultSizeInput(): HTMLInputElement {
-    return (
-      this.sizeTargets.find((input) => 'defaultSize' in input.dataset) ||
-      this.sizeTargets[0]
-    );
-  }
-
-  /**
    * The currently active device size input element. Falls back to the default size input.
    */
-  get activeSizeInput(): HTMLInputElement {
-    return (
-      this.sizeTargets.find((input) => input.checked) || this.defaultSizeInput
-    );
+  get activeSizeInput(): HTMLInputElement | null {
+    return this.sizeTargets.find((input) => input.checked) || null;
   }
 
   /**
@@ -400,9 +391,10 @@ export class PreviewController extends Controller<HTMLElement> {
     }
     const lastDeviceInput =
       this.sizeTargets.find((input) => input.value === lastDevice) ||
-      this.defaultSizeInput;
+      this.activeSizeInput ||
+      this.sizeTargets[0];
     lastDeviceInput.click();
-    // If lastDeviceInput resolves to the defaultSizeInput, the click event will
+    // If lastDeviceInput resolves to the default input, the click event will
     // not trigger the togglePreviewSize method, so we need to apply the
     // selected size class manually.
     this.applySelectedSizeClass(lastDeviceInput.value);
@@ -513,12 +505,14 @@ export class PreviewController extends Controller<HTMLElement> {
     let deviceWidth = width;
     if (!width) {
       // Restore width using the currently active device size input
-      deviceWidth = this.activeSizeInput.dataset.deviceWidth;
+      deviceWidth =
+        this.activeSizeInput?.dataset.deviceWidth ||
+        PreviewController.fallbackWidth;
     }
 
     if (!this.available) {
       // Ensure the 'Preview not available' message is not scaled down
-      deviceWidth = this.defaultSizeInput.dataset.deviceWidth;
+      deviceWidth = PreviewController.fallbackWidth;
     }
 
     this.element.style.setProperty(
@@ -809,7 +803,6 @@ export class PreviewController extends Controller<HTMLElement> {
    * @returns whether the data is valid
    */
   async openPreviewInNewTab(event: MouseEvent) {
-    event.preventDefault();
     const link = event.currentTarget as HTMLAnchorElement;
 
     const valid = await this.setPreviewDataWithAlert();

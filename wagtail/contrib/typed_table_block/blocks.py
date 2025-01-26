@@ -163,6 +163,31 @@ class BaseTypedTableBlock(Block):
                 "caption": "",
             }
 
+    def get_api_representation(self, table, context=None):
+        if table:
+            return {
+                "columns": [
+                    {"type": col["block"].name, "heading": col["heading"]}
+                    for col in table.columns
+                ],
+                "rows": [
+                    {
+                        "values": [
+                            column["block"].get_api_representation(val, context=context)
+                            for column, val in zip(table.columns, row["values"])
+                        ]
+                    }
+                    for row in table.row_data
+                ],
+                "caption": table.caption,
+            }
+        else:
+            return {
+                "columns": [],
+                "rows": [],
+                "caption": "",
+            }
+
     def to_python(self, value):
         if value:
             columns = [
@@ -307,8 +332,11 @@ class TypedTableBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "strings": {
                 "CAPTION": _("Caption"),
                 "CAPTION_HELP_TEXT": _(

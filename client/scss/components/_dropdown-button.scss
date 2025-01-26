@@ -26,17 +26,7 @@ $radius: theme('borderRadius.sm');
     width: 100%;
   }
 
-  @supports not selector(:has(*)) {
-    // Use no corner radius and always-on borders if `:has` is not supported.
-    --primary-button-radius-top: 0;
-    --primary-button-radius-bottom: 0;
-    --toggle-button-radius-top: 0;
-    --toggle-button-radius-bottom: 0;
-    --first-item-border-top: #{$separator};
-    --last-item-border-top: #{$separator};
-  }
-
-  &:has([data-placement^='bottom']) {
+  &:has(:not([hidden]) > [data-placement^='bottom']) {
     --primary-button-radius-top: #{$radius};
     --primary-button-radius-bottom: 0;
     --toggle-button-radius-top: #{$radius};
@@ -46,7 +36,7 @@ $radius: theme('borderRadius.sm');
     --first-item-border-top: #{$separator};
   }
 
-  &:has([data-placement^='top']) {
+  &:has(:not([hidden]) > [data-placement^='top']) {
     --primary-button-radius-top: 0;
     --primary-button-radius-bottom: #{$radius};
     --toggle-button-radius-top: 0;
@@ -124,9 +114,4 @@ $radius: theme('borderRadius.sm');
     border-top-color: theme('colors.warning.100');
     border-bottom-color: theme('colors.warning.100');
   }
-}
-
-// Reduces the visibility of secondary actions like "Unpublish" or "Delete".
-.w-dropdown-button .action-secondary {
-  color: theme('colors.text-label-menus-default');
 }

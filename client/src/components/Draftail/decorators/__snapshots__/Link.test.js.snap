@@ -67,3 +67,47 @@ exports[`Link works 1`] = `
   test
 </TooltipEntity>
 `;
+
+exports[`onPasteLink skips linking punctuation chars 1`] = `
+[
+  "http://a.co/t./.",
+  "http://a.co/t?/?",
+  "http://a.co/t!/!",
+  "http://a.co/t:/:",
+  "http://a.co/t;/;",
+  "http://a.co/t,/,",
+  "http://a.co/t܌/܌",
+  "http://a.co/t؟/؟",
+  "http://a.co/t،/،",
+  "http://a.co/t‼/‼",
+  "http://a.co/t﹒/﹒",
+  "http://a.co/t…/…",
+  "http://a.co/t-/-",
+  "http://a.co/t_/_",
+  "http://a.co/t–/–",
+  "http://a.co/t+/+",
+  "http://a.co/t=/=hello",
+]
+`;
+
+exports[`onPasteLink skips linking punctuation chars 2`] = `
+[
+  "http://a.co/t./",
+  "http://a.co/t?/",
+  "http://a.co/t!/",
+  "http://a.co/t:/",
+  "http://a.co/t;/",
+  "http://a.co/t,/",
+  "http://a.co/t܌/",
+  "http://a.co/t؟/",
+  "http://a.co/t،/",
+  "http://a.co/t‼/",
+  "http://a.co/t﹒/",
+  "http://a.co/t…/…",
+  "http://a.co/t-/-",
+  "http://a.co/t_/_",
+  "http://a.co/t–/–",
+  "http://a.co/t+/+",
+  "http://a.co/t=/=",
+]
+`;

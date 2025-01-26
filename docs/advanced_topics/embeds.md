@@ -3,11 +3,11 @@
 # Embedded content
 
 Wagtail supports generating embed code from URLs to content on external
-providers such as YouTube or Twitter. By default, Wagtail will fetch the embed
+providers such as YouTube or Reddit. By default, Wagtail will fetch the embed
 code directly from the relevant provider's site using the oEmbed protocol.
 
 Wagtail has a built-in list of the most common providers and this list can be
-changed [with a setting](customising_embed_providers). Wagtail also supports
+changed [with a setting](customizing_embed_providers). Wagtail also supports
 fetching embed code using [Embedly](embedly) and [custom embed finders](custom_embed_finders).
 
 ## Embedding content on your site
@@ -112,7 +112,7 @@ following link:
 
 <https://github.com/wagtail/wagtail/blob/main/wagtail/embeds/oembed_providers.py>
 
-(customising_embed_providers)=
+(customizing_embed_providers)=
 
 #### Customizing the provider list
 

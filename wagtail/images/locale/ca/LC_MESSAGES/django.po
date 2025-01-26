@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,15 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imatges de Wagtail"
+
+msgid "Image is decorative"
+msgstr "La imatge és decorativa"
+
+msgid "Alt text"
+msgstr "Text alternatiu"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "Afegiu un text alternatiu a la imatge o marqueu-la com a decorativa"
 
 #, python-format
 msgid ""
@@ -83,15 +92,6 @@ msgstr "Col·lecció"
 msgid "Format"
 msgstr "Format"
 
-msgid "Image is decorative"
-msgstr "La imatge és decorativa"
-
-msgid "Alt text"
-msgstr "Text alternatiu"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr "Afegiu un text alternatiu a la imatge o marqueu-la com a decorativa"
-
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -145,6 +145,9 @@ msgstr "títol"
 
 msgid "file"
 msgstr "fitxer"
+
+msgid "description"
+msgstr "descripció"
 
 msgid "width"
 msgstr "amplada"
@@ -298,17 +301,13 @@ msgstr "Insereix una imatge"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Image <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Images <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Imatge <span class=\"w-sr-only\">creada a "
-"%(site_name)s</span>"
+"%(total)s Imatge <span class=\"w-sr-only\">creada a %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Imatges <span class=\"w-sr-only\">creades a "
-"%(site_name)s</span>"
+"%(total)s Imatges <span class=\"w-sr-only\">creades a %(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Canviar fitxer d'imatge:"
@@ -316,27 +315,17 @@ msgstr "Canviar fitxer d'imatge:"
 msgid "Add an image"
 msgstr "Afegeix una imatge"
 
-msgid "Add image"
-msgstr "Afegeix imatge"
+msgid "Uploading…"
+msgstr "Pujant…"
 
-msgid "Save"
-msgstr "Desa"
+msgid "Upload"
+msgstr "Puja"
 
 msgid "Keep new image"
 msgstr "Mantenir la nova imatge"
 
 msgid "Delete new image"
 msgstr "Esborrar la nova imatge"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Editant imatge %(title)s"
-
-msgid "Editing"
-msgstr "Editant"
-
-msgid "Delete image"
-msgstr "Esborra imatge"
 
 msgid "Image focal point"
 msgstr "Punt focal de la imatge"
@@ -422,9 +411,6 @@ msgstr "Ha fallat la còpia al porta-retalls"
 msgid "Add multiple images"
 msgstr "Afegir diverses imatges"
 
-msgid "Add images"
-msgstr "Afegir imatges"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
 "Arrossegueu i deixeu anar imatges en aquesta àrea per pujar-les "
@@ -435,6 +421,13 @@ msgstr "O trieu del vostre ordinador"
 
 msgid "Add to collection:"
 msgstr "Afegir a la col·lecció:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr ""
+"Proporcioneu una descripció de la imatge per complir amb les bones "
+"pràctiques d'accessibilitat."
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -512,12 +505,6 @@ msgid_plural "%(num_parent_objects)d images have been deleted"
 msgstr[0] "S'ha esborrat %(num_parent_objects)d imatge"
 msgstr[1] "S'han esborrat %(num_parent_objects)d imatges"
 
-msgid "Upload"
-msgstr "Puja"
-
-msgid "Uploading…"
-msgstr "Pujant…"
-
 msgid "Choose an image"
 msgstr "Escull una imatge"
 
@@ -548,15 +535,12 @@ msgstr "Mida de fitxer: (major a menor)"
 msgid "Images"
 msgstr "Imatges"
 
+msgid "The image could not be saved due to errors."
+msgstr "No s'ha pogut desar la imatge."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Imatge '%(image_title)s' actualitzada."
-
-msgid "Edit again"
-msgstr "Tornar a editar"
-
-msgid "The image could not be saved due to errors."
-msgstr "No s'ha pogut desar la imatge."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -565,16 +549,25 @@ msgstr ""
 "No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la "
 "imatge."
 
+msgid "Generate URL"
+msgstr "Generar URL"
+
+msgid "Delete image"
+msgstr "Esborra imatge"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Imatge '%(image_title)s' eliminada."
+
+msgid "The image could not be created due to errors."
+msgstr "No s'ha pogut crear la imatge."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Imatge '%(image_title)s' afegida."
 
-msgid "The image could not be created due to errors."
-msgstr "No s'ha pogut crear la imatge."
+msgid "Add images"
+msgstr "Afegir imatges"
 
 msgid "Image"
 msgstr "Imatge"

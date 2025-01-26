@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2024\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -102,9 +102,6 @@ msgstr ""
 "resultats recomanats, <em>incloent</em> qualsevol error ortogràfic o "
 "d'usuari. Per ajudar-vos, podeu triar entre termes de cerca que han estat "
 "populars entre els usuaris del vostre lloc.</p>"
-
-msgid "Save"
-msgstr "Desa"
 
 #, python-format
 msgid "Delete %(query)s"

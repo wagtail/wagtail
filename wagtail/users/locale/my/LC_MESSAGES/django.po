@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>, 2019\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -83,15 +83,6 @@ msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
 msgid "Are you sure you want to delete this group?"
 msgstr "ဤအဖွဲ့ကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
 
-msgid "Add group"
-msgstr "အဖွဲ့ထည့်ပါ"
-
-msgid "Save"
-msgstr "သိမ်းဆည်းပါ"
-
-msgid "Delete group"
-msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
-
 msgid "Name"
 msgstr "အမည်"
 
@@ -110,12 +101,6 @@ msgstr "ဤအသုံးပြုသူကို ဖျက်သိမ်း�
 msgid "Account"
 msgstr "အကောင့်"
 
-msgid "Add user"
-msgstr "အသုံးပြုသူထည့်ပါ"
-
-msgid "Delete user"
-msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
-
 msgid "Groups"
 msgstr "အဖွဲ့များ"
 
@@ -124,6 +109,9 @@ msgstr "အဖွဲ့တစ်ခုထည့်ပါ"
 
 msgid "Search groups"
 msgstr "အဖွဲ့များကို ရှာပါ"
+
+msgid "Add group"
+msgstr "အဖွဲ့ထည့်ပါ"
 
 #, python-format
 msgid "Group '%(object)s' created."
@@ -140,8 +128,14 @@ msgstr "အမှားအယွင်းများကြောင့် အ�
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s'အဖွဲ့ကို ဖျက်သိမ်းပြီးပါပြီ။"
 
+msgid "Delete group"
+msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
+
 msgid "Status"
 msgstr "အခြေအနေ"
+
+msgid "Add user"
+msgstr "အသုံးပြုသူထည့်ပါ"
 
 #, python-format
 msgid "User '%(object)s' updated."
@@ -149,6 +143,9 @@ msgstr "'%(object)s'အသုံးပြုသူကို မြှင့်�
 
 msgid "The user could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အသုံးပြုသူကို မသိမ်းဆည်းနိုင်ပါ။"
+
+msgid "Delete user"
+msgstr "အသုံးပြုသူဖျက်သိမ်းပါ"
 
 #, python-format
 msgid "User '%(object)s' deleted."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -120,15 +120,6 @@ msgstr "Ae, muku"
 msgid "No, don't delete"
 msgstr "Kao, kaua e muku"
 
-msgid "Add group"
-msgstr "Tāpiri he rōpū"
-
-msgid "Save"
-msgstr "Puritia"
-
-msgid "Delete group"
-msgstr "Mukuhia te rōpu"
-
 msgid "Object permissions"
 msgstr "Whakaae-a-ahanoa"
 
@@ -140,15 +131,6 @@ msgstr "Tāpiri"
 
 msgid "Change"
 msgstr "Panoni"
-
-msgid "Publish"
-msgstr "Perehi"
-
-msgid "Lock"
-msgstr "Raka"
-
-msgid "Unlock"
-msgstr "Iriti"
 
 msgid "Other permissions"
 msgstr "Ē rā atu ahanoa"
@@ -168,12 +150,6 @@ msgstr "Rongorua"
 msgid "Roles"
 msgstr "Ngā whakatau"
 
-msgid "Add user"
-msgstr "Tāpiri he kai-whakamahi"
-
-msgid "Delete user"
-msgstr "Mukuhia kai-whakamahi"
-
 msgid "Active"
 msgstr "hohe"
 
@@ -183,8 +159,14 @@ msgstr "Koretake"
 msgid "Add a group"
 msgstr "Tāpiri he rōpū"
 
+msgid "Add group"
+msgstr "Tāpiri he rōpū"
+
 msgid "View users in this group"
 msgstr "Kitea ngā kai-whakamahi ki roto i tēnei rōpū"
+
+msgid "Delete group"
+msgstr "Mukuhia te rōpu"
 
 msgid "Add a user"
 msgstr "Tāpiri he kai-whakamahi"
@@ -201,5 +183,11 @@ msgstr "Kaiwhakahaere"
 msgid "Status"
 msgstr "Tūnga"
 
+msgid "Add user"
+msgstr "Tāpiri he kai-whakamahi"
+
 msgid "The user could not be saved due to errors."
 msgstr "Ehara tēnei kaiwhakamahi e taea ki te puritia, he raruraru "
+
+msgid "Delete user"
+msgstr "Mukuhia kai-whakamahi"

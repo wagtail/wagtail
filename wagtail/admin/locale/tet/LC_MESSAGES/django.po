@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -219,9 +219,6 @@ msgstr "Deskulpa! Ita boot husu ba pajina, maibee ami la hetan."
 msgid "Go to Wagtail admin"
 msgstr "Ba administrasaun Wagtail"
 
-msgid "Account"
-msgstr "Konta"
-
 msgid "Reset password"
 msgstr "Inisiu troka seña"
 
@@ -391,15 +388,17 @@ msgstr "Attributu sira"
 msgid "Changes"
 msgstr "Troka sira"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Benvindu ba %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
 "Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
+
+msgid "Account"
+msgstr "Konta"
+
+msgid "Status"
+msgstr "Estadu"
 
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
@@ -412,9 +411,6 @@ msgstr "Ativu"
 
 msgid "Your most recent edits"
 msgstr "Ita boot nia troka sira"
-
-msgid "Status"
-msgstr "Estadu"
 
 msgid "Date"
 msgstr "Data"
@@ -468,9 +464,6 @@ msgstr "Pájina \"%(title)s\" rejeita ona "
 
 msgid "You can preview the page here:"
 msgstr "Ita-boot bele prevee pájina neʼe:"
-
-msgid "This page has been made private by a parent page."
-msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
 
 msgid "Publishing…"
 msgstr "Publika hela..."
@@ -555,9 +548,6 @@ msgstr "Kópia "
 msgid "Copy this page"
 msgstr "Kópia pájina ne'e   "
 
-msgid "This page has unsaved changes."
-msgstr "Pajina ne'e iha sasan troka la salva ona."
-
 msgid "Configure a site now."
 msgstr "Konfigura situs ida agora"
 
@@ -607,9 +597,6 @@ msgstr "Tipu pajina sira"
 
 msgid "Enter a search term above"
 msgstr "Hatama termu buka iha leten"
-
-msgid "No pages use"
-msgstr "Laiha pajina nebee uza"
 
 #, python-format
 msgid "Add %(label)s"
@@ -748,12 +735,12 @@ msgstr "Koleksaun '%(object)s' hadia ona."
 msgid "The collection could not be saved due to errors."
 msgstr "Koleksaun iha erru, labele rai"
 
-msgid "Delete collection"
-msgstr "Hamoos Koleksaun"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Koleksaun '%(object)s' hamoos ona."
+
+msgid "Delete collection"
+msgstr "Hamoos Koleksaun"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Ita boot serteza hamoos koleksaun nee?"
@@ -791,9 +778,6 @@ msgstr "Hadia hela"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' hamoos ona."
-
-msgid "Inspecting"
-msgstr "Inspeksaun tiha ona"
 
 msgid "Latest"
 msgstr " Mak tardi liu"

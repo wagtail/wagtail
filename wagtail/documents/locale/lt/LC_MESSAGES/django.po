@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Naglis Jonaitis, 2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -97,27 +97,11 @@ msgstr "Keisti dokumentą:"
 msgid "Add a document"
 msgstr "Pridėti dokumentą"
 
-msgid "Add document"
-msgstr "Pridėti dokumentą"
-
 msgid "Uploading…"
 msgstr "Įkeliama..."
 
 msgid "Upload"
 msgstr "Įkelti"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Redaguojama %(title)s"
-
-msgid "Editing"
-msgstr "Redaguojama"
-
-msgid "Save"
-msgstr "Išsaugoti"
-
-msgid "Delete document"
-msgstr "Ištrinti dokumentą"
 
 msgid "Filesize"
 msgstr "Bylos dydis"
@@ -150,9 +134,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Pridėti daug dokumentų"
-
-msgid "Add documents"
-msgstr "Pridėti dokumentus"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Tempkite ir meskite dokumentus į šią zoną, kad iškart juos įkeltumėte."
@@ -217,9 +198,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Byla nebuvo rasta. Prašome pakeisti šaltinį arba ištrinti dokumentą"
 
+msgid "Delete document"
+msgstr "Ištrinti dokumentą"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokumentas '%(document_title)s' ištrintas."
+
+msgid "Add documents"
+msgstr "Pridėti dokumentus"
 
 msgid "Document"
 msgstr "Dokumentas"

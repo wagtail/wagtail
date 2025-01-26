@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2024\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -29,6 +29,17 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail obrázky"
+
+msgid "Image is decorative"
+msgstr "Obrázek je dekorační"
+
+msgid "Alt text"
+msgstr "Alternativní text"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Prosím buď zadejte alternativní text pro váš obrázek a nebo jej označte jako "
+"dekorační"
 
 #, python-format
 msgid ""
@@ -89,17 +100,6 @@ msgstr "Soubor (kolekce)"
 msgid "Format"
 msgstr "Formát"
 
-msgid "Image is decorative"
-msgstr "Obrázek je dekorační"
-
-msgid "Alt text"
-msgstr "Alternativní text"
-
-msgid "Please add some alt text for your image or mark it as decorative"
-msgstr ""
-"Prosím buď zadejte alternativní text pro váš obrázek a nebo jej označte jako "
-"dekorační"
-
 msgid "Filter"
 msgstr "Filtr"
 
@@ -153,6 +153,9 @@ msgstr "název"
 
 msgid "file"
 msgstr "soubor"
+
+msgid "description"
+msgstr "popis"
 
 msgid "width"
 msgstr "šířka"
@@ -255,21 +258,11 @@ msgstr "Změnit soubor obrázku:"
 msgid "Add an image"
 msgstr "Přidat obrázek"
 
-msgid "Add image"
-msgstr "Přidat obrázek"
+msgid "Uploading…"
+msgstr "Nahrávání…"
 
-msgid "Save"
-msgstr "Uložit"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Úprava obrázku %(title)s"
-
-msgid "Editing"
-msgstr "Úprava"
-
-msgid "Delete image"
-msgstr "Smazat obrázek"
+msgid "Upload"
+msgstr "Nahrát"
 
 msgid "URL Generator"
 msgstr "Generátor URL"
@@ -337,9 +330,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "Přidat více obrázků"
 
-msgid "Add images"
-msgstr "Přidat obrázky"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr ""
 "Chcete-li nahrát obrázky na server, přetáhněte je myší do této oblasti."
@@ -379,12 +369,6 @@ msgstr "Tagy"
 msgid "Delete"
 msgstr "Smazat"
 
-msgid "Upload"
-msgstr "Nahrát"
-
-msgid "Uploading…"
-msgstr "Nahrávání…"
-
 msgid "Choose an image"
 msgstr "Zvolit obrázek"
 
@@ -415,15 +399,12 @@ msgstr "Velikost souboru (sestupně)"
 msgid "Images"
 msgstr "Obrázky"
 
+msgid "The image could not be saved due to errors."
+msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Obrázek '%(image_title)s' byl upraven."
-
-msgid "Edit again"
-msgstr "Upravit znovu"
-
-msgid "The image could not be saved due to errors."
-msgstr "Obrázek nelze uložit, zkontrolujte správné vyplnění polí."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -432,16 +413,22 @@ msgstr ""
 "Zdrojový soubor obrázku není možné nalézt. Prosím změňte zdroj nebo obrázek "
 "smažte."
 
+msgid "Delete image"
+msgstr "Smazat obrázek"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Obrázek '%(image_title)s' byl smazán."
+
+msgid "The image could not be created due to errors."
+msgstr "Obrázek nelze vytvořit, zkontrolujte správné vyplnění polí."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Obrázek '%(image_title)s' byl přidán."
 
-msgid "The image could not be created due to errors."
-msgstr "Obrázek nelze vytvořit, zkontrolujte správné vyplnění polí."
+msgid "Add images"
+msgstr "Přidat obrázky"
 
 msgid "Image"
 msgstr "Obrázek"

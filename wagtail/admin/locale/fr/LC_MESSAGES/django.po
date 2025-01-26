@@ -12,6 +12,7 @@
 # Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018,2023-2024
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2024
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # Fabien Le Frapper <contact@fabienlefrapper.me>, 2020
@@ -35,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -462,14 +463,8 @@ msgstr "La page demandée est introuvable."
 msgid "Go to Wagtail admin"
 msgstr "Aller sur l’administration de Wagtail"
 
-msgid "Account"
-msgstr "Compte"
-
 msgid "More actions"
 msgstr "Plus d'actions"
-
-msgid "Save account details"
-msgstr "Enregistrer les informations du compte"
 
 msgid "Reset password"
 msgstr "Réinitialiser le mot de passe"
@@ -756,15 +751,11 @@ msgstr "Êtes vous sûr(e) de toujours vouloir publier ce(tte) %(model_name)s ?"
 msgid "Cancel"
 msgstr "Annuler"
 
-msgid "Comment"
-msgstr "Commenter"
-
 msgid "Actions"
 msgstr "Actions"
 
-#, python-format
-msgid "No %(model_name)s match your query."
-msgstr "Aucun(e) %(model_name)s ne correspond à votre requête."
+msgid "Comment"
+msgstr "Commenter"
 
 #, python-format
 msgid ""
@@ -773,10 +764,6 @@ msgid ""
 msgstr ""
 "Il n'y a aucun(e) %(model_name)s à afficher. Pourquoi ne pas <a "
 "href=\"%(add_url)s\">en ajouter un(e)</a> ?"
-
-#, python-format
-msgid "There are no %(model_name)s to display."
-msgstr "Il n'y a aucun(e) %(model_name)s à afficher."
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -822,10 +809,6 @@ msgstr[2] "Monter de %(counter)s positions."
 msgid "There are no differences between these two versions"
 msgstr "Il n'y a aucune différence entre les deux versions"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Bienvenue sur le CMS Wagtail %(site_name)s"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -833,8 +816,24 @@ msgstr ""
 "Ceci est votre tableau de bord sur lequel des informations importantes sur "
 "le contenu que vous avez créé seront affichées."
 
+msgid "Account"
+msgstr "Compte"
+
+#, python-format
+msgid "Wagtail %(current_version)s editor guide"
+msgstr "Guide de l'éditeur pour Wagtail %(current_version)s"
+
 msgid "Your locked pages"
 msgstr "Vos pages verrouillées"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Privacy and access"
+msgstr "Confidentialité et accès"
+
+msgid "Status"
+msgstr "Statut"
 
 msgid "Locked at"
 msgstr "Verrouillé à"
@@ -854,9 +853,6 @@ msgstr "Publié"
 msgid "Your most recent edits"
 msgstr "Vos modifications les plus récentes"
 
-msgid "Status"
-msgstr "Statut"
-
 msgid "Date"
 msgstr "Date"
 
@@ -865,30 +861,26 @@ msgstr "Sommaire du site"
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Page <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Page <span class=\"w-sr-only\">créée dans %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
-"%(site_name)s</span>"
+"%(total)s Pages <span class=\"w-sr-only\">créées dans%(site_name)s</span>"
 msgstr[2] ""
-"<span>%(total)s</span> Pages <span class=\"w-sr-only\">créees dans "
-"%(site_name)s</span>"
+"%(total)s Pages <span class=\"w-sr-only\">crées dans %(site_name)s</span>"
+
+msgid "Wagtail upgrade available"
+msgstr "Mise à jour Wagtail disponible"
 
 #, python-format
 msgid ""
-"Wagtail upgrade available. Your version: <strong>%(current_version)s</"
-"strong>. New version: <strong data-w-upgrade-target=\"latestVersion\"></"
-"strong>."
+"Your version: <strong>%(current_version)s</strong>. New version: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
 msgstr ""
-"Une mise à jour de Wagtail est disponible. Votre version : "
-"<strong>%(current_version)s</strong>. Nouvelle version : <strong data-w-"
-"upgrade-target=\"latestVersion\"></strong>."
+"Votre version : <strong>%(current_version)s</strong>. Nouvelle version : "
+"<strong data-w-upgrade-target=\"latestVersion\"></strong>."
 
 msgid "Read the release notes."
 msgstr "Lire les notes de mise à jour."
@@ -1231,25 +1223,8 @@ msgstr ""
 "%(model_name)s « %(title)s » a été soumis(e) dans le workflow "
 "« %(workflow)s »."
 
-msgid "This page has been made private by a parent page."
-msgstr "Cette page a été rendue privée par une page parente."
-
 msgid "Changing the privacy for this page has been disabled."
 msgstr "La modification de confidentialité pour cette page a été désactivée."
-
-msgid "Save the page before leaving"
-msgstr "Enregistrer la page avant de quitter"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "Vous avez des <span>modifications non enregistrées</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Vous avez des <span>commentaires non enregistrés</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr ""
-"Vous avez <span>des modifications</span> et <span>des commentaires non "
-"enregistrés</span> "
 
 msgid "Publishing…"
 msgstr "Publication..."
@@ -1703,9 +1678,6 @@ msgstr "Copier"
 msgid "Copy this page"
 msgstr "Copier cette page"
 
-msgid "This page has unsaved changes."
-msgstr "Cette page contient des changements non enregistrés."
-
 msgid "This page is an alias of another page."
 msgstr "Cette page est l'alias d'une autre page"
 
@@ -1714,9 +1686,6 @@ msgstr "Modifier la page originale"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Convertir cet alias en une page ordinaire"
-
-msgid "Select all pages in listing"
-msgstr "Sélectionner toutes les pages dans la liste"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1760,6 +1729,9 @@ msgstr ""
 "Il n'y a pas d'enregistrement de site pour cet emplacement. Les pages créées "
 "ici ne seront pas accessibles par URL."
 
+msgid "Select all pages in listing"
+msgstr "Sélectionner toutes les pages dans la liste"
+
 msgid "This page is locked, by you, to further editing"
 msgstr ""
 "Cette page est verrouillée, par vous, pour toute modification ultérieure"
@@ -1794,8 +1766,7 @@ msgstr "Activer le tri des sous-pages"
 #, python-format
 msgid "%(start_index)s-%(end_index)s of %(items_count)s across entire site."
 msgstr ""
-"%(start_index)s-%(end_index)s sur %(items_count)s entités pour la totalite "
-"du site."
+"%(start_index)s-%(end_index)s sur %(items_count)s pour la totalité du site."
 
 msgid "No results across entire site."
 msgstr "Aucun résultat dans l'ensemble du site."
@@ -1809,7 +1780,7 @@ msgid ""
 "%(start_index)s-%(end_index)s of %(items_count)s in '<span class=\"w-title-"
 "ellipsis\">%(title)s</span>'."
 msgstr ""
-"%(start_index)s-%(end_index)s sur %(items_count)sitems dans '<span class=\"w-"
+"%(start_index)s-%(end_index)s sur %(items_count)s dans '<span class=\"w-"
 "title-ellipsis\">%(title)s</span>'."
 
 #, python-format
@@ -1849,6 +1820,9 @@ msgstr "Confirmer"
 msgid "Add child page"
 msgstr "Ajouter une sous-page"
 
+msgid "Page types"
+msgstr "Type de pages"
+
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1856,18 +1830,12 @@ msgstr[0] "Il y a une page correspondante"
 msgstr[1] "Il y a %(counter)s pages correspondantes"
 msgstr[2] "Il y a %(counter)s pages correspondantes"
 
-msgid "Page types"
-msgstr "Type de pages"
-
 #, python-format
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
 msgstr "Désolé, aucune page ne correspond à « <em>%(query_string)s</em> »"
 
 msgid "Enter a search term above"
 msgstr "Entrez un terme de recherche ci-dessus"
-
-msgid "No pages use"
-msgstr "Aucune page utilisée"
 
 #, python-format
 msgid "Add %(label)s"
@@ -2015,6 +1983,9 @@ msgstr "Effacer"
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Page %(page_num)s sur %(total_pages)s."
+
+msgid "Edit account avatar"
+msgstr "Modifier l'avatar du compte"
 
 msgid "Toggle breadcrumbs"
 msgstr "Afficher/masquer le fil d'Ariane"
@@ -2291,20 +2262,14 @@ msgstr "Aucune programmation de publication"
 msgid "Set schedule"
 msgstr "Programmer"
 
-msgid "Preview in mobile size"
-msgstr "Prévisualiser au format mobile"
-
-msgid "Preview in tablet size"
-msgstr "Prévisualiser au format tablette"
-
-msgid "Preview in desktop size"
-msgstr "Prévisualiser au format ordinateur de bureau"
-
 msgid "Preview in new tab"
 msgstr "Prévisualiser dans un nouvel onglet"
 
 msgid "Loading"
 msgstr "Chargement…"
+
+msgid "Refreshing…"
+msgstr "Rafraîchissement..."
 
 msgid "Preview is out of date"
 msgstr "La prévisualisation n'est pas à jour"
@@ -2322,6 +2287,20 @@ msgstr "Mode prévisualisation"
 msgid "First published"
 msgstr "Première publication"
 
+msgid "Save your changes before leaving"
+msgstr "Enregistrer vos changements avant de quitter"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Vous avez des <span>modifications non enregistrées</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Vous avez des <span>commentaires non enregistrés</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"Vous avez <span>des modifications</span> et <span>des commentaires non "
+"enregistrés</span> "
+
 #, python-format
 msgid "This %(model_name)s is referenced %(usage_count)s time."
 msgid_plural "This %(model_name)s is referenced %(usage_count)s times."
@@ -2335,12 +2314,6 @@ msgid ""
 msgstr ""
 "Une ou plusieurs références vers ce(tte) %(model_name)s l'empêche d'être "
 "supprimé(e)."
-
-msgid "Edit / Review"
-msgstr "Modifier / Vérifier"
-
-msgid "Workflow history"
-msgstr "Historique du workflow"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -2383,13 +2356,6 @@ msgstr "Workflow terminé"
 #, python-format
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "%(action)s par <b>%(who)s</b>"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Historique du workflow pour %(title)s"
-
-msgid "Workflow history for"
-msgstr "Historique du workflow pour"
 
 msgid "Approved task"
 msgstr "Tâche approuvée"
@@ -2457,12 +2423,6 @@ msgstr "Assignez votre workflow à des pages"
 
 msgid "Assign your workflow to snippets"
 msgstr "Assignez votre workflow à des fragments"
-
-msgid "Creating…"
-msgstr "En cours de création..."
-
-msgid "Create"
-msgstr "Créer"
 
 #, python-format
 msgid ""
@@ -2554,6 +2514,12 @@ msgstr "Existant"
 msgid "Choose a different task type"
 msgstr "Choisir un type de tâche différent"
 
+msgid "Creating…"
+msgstr "En cours de création..."
+
+msgid "Create"
+msgstr "Créer"
+
 msgid "Task type"
 msgstr "Type de tâche"
 
@@ -2587,13 +2553,6 @@ msgid ""
 msgstr ""
 "Il n'y a pas de tâche d'activer. Pourquoi ne pas <a href=\"%(add_url)s\">en "
 "ajouter une</a> ?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "Pages qui utilisent ce workflow « %(name)s »"
-
-msgid "Pages that use workflow"
-msgstr "Pages qui utilisent un workflow"
 
 msgid "Submitted"
 msgstr "Soumis"
@@ -2853,18 +2812,26 @@ msgstr "Collection « %(object)s » mise à jour."
 msgid "The collection could not be saved due to errors."
 msgstr "La collection ne peut être enregistrée du fait d'erreurs."
 
-msgid "Delete collection"
-msgstr "Supprimer la collection"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Collection « %(object)s » supprimée."
+
+msgid "Delete collection"
+msgstr "Supprimer la collection"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 
 msgid "Home"
 msgstr "Accueil"
+
+#, python-format
+msgid "No %(model_name)s match your query."
+msgstr "Aucun(e) %(model_name)s ne correspond à votre requête."
+
+#, python-format
+msgid "There are no %(model_name)s to display."
+msgstr "Il n'y a aucun(e) %(model_name)s à afficher."
 
 msgid "Live version"
 msgstr "Version publiée"
@@ -2881,8 +2848,14 @@ msgstr "Comparer avec la version actuelle"
 msgid "Cancel scheduled publish"
 msgstr "Annuler la publication programmée"
 
+msgid "Workflow history"
+msgstr "Historique du workflow"
+
 msgid "Workflow progress"
 msgstr "Avancée du workflow"
+
+msgid "Edit / Review"
+msgstr "Modifier / Vérifier"
 
 #, python-format
 msgid "%(model_name)s '%(title)s' is now unlocked."
@@ -3027,9 +3000,6 @@ msgstr "%(model_name)s « %(object)s » supprimé(e)."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ce(tte) %(model_name)s ?"
 
-msgid "Inspecting"
-msgstr "Inspection"
-
 msgid "Earliest"
 msgstr "Première"
 
@@ -3076,6 +3046,13 @@ msgstr ""
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
+
+msgid "Search all pages…"
+msgstr "Rechercher toutes les pages..."
+
+#, python-format
+msgid "Privacy is inherited from the ancestor page - %(ancestor_page)s"
+msgstr "La confidentialité est héritée de la page parente - %(ancestor_page)s"
 
 msgid "Delete selected pages"
 msgstr "Supprimer les pages sélectionnées"
@@ -3341,7 +3318,7 @@ msgid ""
 "press enter to submit the change."
 msgstr ""
 "Utiliser le bouton de défilement et appuyer sur les touches haut ou bas pour "
-"bouger l'item, puis appuyer sur entrée pour soumettre la modification"
+"déplacer l'élément, puis appuyer sur entrée pour soumettre la modification."
 
 #, python-format
 msgid "'%(page_title)s' has been moved successfully."
@@ -3381,6 +3358,9 @@ msgstr "Page « %(page_title)s » dépubliée."
 msgid "Pages using"
 msgstr "Pages utilisant"
 
+msgid "Page types usage"
+msgstr "Utilisation des types de page"
+
 #, python-format
 msgid "The page '%(page_title)s' is not currently awaiting moderation."
 msgstr "La page « %(page_title)s » est actuellement en attente de modération."
@@ -3416,9 +3396,6 @@ msgstr "Date/Heure"
 
 msgid "Locked pages"
 msgstr "Pages verrouillées"
-
-msgid "Page types usage"
-msgstr "Utilisation des types de page"
 
 msgid "Show"
 msgstr "Afficher"

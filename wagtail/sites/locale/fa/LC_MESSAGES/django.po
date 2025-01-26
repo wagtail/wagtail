@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -54,12 +54,12 @@ msgstr "ذخیره این سایت به دلایلی امکان‌پذیر نم�
 msgid "Site '%(object)s' updated."
 msgstr "سایت '%(object)s' به‌روز شد."
 
-msgid "Delete site"
-msgstr "حذف سایت"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "سایت '%(object)s' حذف شد"
+
+msgid "Delete site"
+msgstr "حذف سایت"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "از حذف این سایت اطمینان دارید؟"

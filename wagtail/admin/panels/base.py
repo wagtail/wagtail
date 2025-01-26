@@ -57,8 +57,8 @@ class Panel:
     with the field list and other parameters collated from all panels in the structure.
     It then handles rendering that form as HTML.
 
-    The following parameters can be used to customise how the panel is displayed.
-    For more details, see :ref:`customising_panels`.
+    The following parameters can be used to customize how the panel is displayed.
+    For more details, see :ref:`customizing_panels`.
 
     :param heading: The heading text to display for the panel.
     :param classname: A CSS class name to add to the panel's HTML element.

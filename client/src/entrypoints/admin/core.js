@@ -1,7 +1,7 @@
-import $ from 'jquery';
 import * as StimulusModule from '@hotwired/stimulus';
 
 import { Icon, Portal } from '../..';
+import { ExpandingFormset } from '../../components/ExpandingFormset';
 import { coreControllerDefinitions } from '../../controllers';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
@@ -11,7 +11,7 @@ import { initStimulus } from '../../includes/initStimulus';
 import { urlify } from '../../utils/urlify';
 import { escapeHtml } from '../../utils/text';
 
-/** Expose a global to allow for customisations and packages to build with Stimulus. */
+/** Expose a global to allow for customizations and packages to build with Stimulus. */
 window.StimulusModule = StimulusModule;
 
 /**
@@ -59,13 +59,12 @@ window.MultipleChooserPanel = MultipleChooserPanel;
 window.URLify = (str, numChars = 255, allowUnicode = false) =>
   urlify(str, { numChars, allowUnicode });
 
-$(() => {
-  /* Dropzones */
-  $('.drop-zone')
-    .on('dragover', function onDragOver() {
-      $(this).addClass('hovered');
-    })
-    .on('dragleave dragend drop', function onDragLeave() {
-      $(this).removeClass('hovered');
-    });
-});
+/**
+ * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.
+ * @deprecated RemovedInWagtail70
+ */
+function buildExpandingFormset(prefix, opts = {}) {
+  return new ExpandingFormset(prefix, opts);
+}
+
+window.buildExpandingFormset = buildExpandingFormset;

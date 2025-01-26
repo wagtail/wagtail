@@ -27,15 +27,15 @@ install_requires = [
     "djangorestframework>=3.15.1,<4.0",
     "django-filter>=23.3,<25",
     "draftjs_exporter>=2.1.5,<6.0",
-    "Pillow>=9.1.0,<11.0.0",
+    "Pillow>=9.1.0,<12.0.0",
     "beautifulsoup4>=4.8,<4.13",
     "Willow[heif]>=1.8.0,<2",
     "requests>=2.11.1,<3.0",
-    "l18n>=2018.5",
     "openpyxl>=3.0.10,<4.0",
     "anyascii>=0.1.5",
     "telepath>=0.3.1,<1",
     "laces>=0.1,<0.2",
+    "django-tasks>=0.6.1,<0.7",
 ]
 
 # Testing dependencies
@@ -72,9 +72,8 @@ documentation_extras = [
     "sphinxcontrib-spelling>=7,<8",
     "Sphinx>=7.3",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==6.3.0",
+    "sphinx-wagtail-theme==6.4.0",
     "myst_parser==2.0.0",
-    "sphinx_copybutton>=0.5,<1.0",
 ]
 
 setup(
@@ -111,6 +110,7 @@ https://github.com/wagtail/wagtail/.",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Framework :: Django",
         "Framework :: Django :: 4.2",
         "Framework :: Django :: 5.0",

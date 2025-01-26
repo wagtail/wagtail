@@ -1,4 +1,5 @@
-/* eslint-disable no-underscore-dangle */
+/* global $ */
+
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -13,15 +14,13 @@ import {
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
 
-/* global $ */
-
+/**
+ * Wrapper for an item inside a ListBlock
+ */
 class ListChild extends BaseSequenceChild {
-  /*
-  wrapper for an item inside a ListBlock
-  */
   getState() {
     return {
-      id: this.id,
+      id: this.id || null,
       value: this.block.getState(),
     };
   }
@@ -32,7 +31,7 @@ class ListChild extends BaseSequenceChild {
 
   setState({ value, id }) {
     this.block.setState(value);
-    this.id = id;
+    this.id = id === undefined ? null : id;
   }
 
   setValue(value) {
@@ -50,12 +49,13 @@ class ListChild extends BaseSequenceChild {
   }
 }
 
+/**
+ * Represents a position in the DOM where a new list item can be inserted.
+ *
+ * @description
+ * This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
+ */
 class InsertPosition extends BaseInsertionControl {
-  /*
-  Represents a position in the DOM where a new list item can be inserted.
-
-  This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
-  */
   constructor(placeholder, opts) {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
@@ -133,25 +133,31 @@ export class ListBlock extends BaseSequenceBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    this.initDragNDrop();
   }
 
+  /**
+   * State for a ListBlock is a list of {id, value} objects, but
+   * ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
+   */
   setState(blocks) {
-    // State for a ListBlock is a list of {id, value} objects, but
-    // ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
     this.clear();
     blocks.forEach(({ value, id }, i) => {
-      this.insert(value, i, { id: id || uuidv4() });
+      const validId = id === undefined ? uuidv4() : id;
+      this.insert(value, i, { id: id || validId });
     });
   }
 
+  /**
+   * Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
+   * return the block definition and initial state to be used for the new block.
+   * For a ListBlock, no data is passed from the insertion control, as there is a single fixed child block definition.
+   */
   _getChildDataForInsertion() {
-    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
-    return the block definition and initial state to be used for the new block.
-    For a ListBlock, no data is passed from the insertion control, as there is a single fixed child block definition.
-    */
     const blockDef = this.blockDef.childBlockDef;
     const initialState = this.blockDef.initialChildState;
-    return [blockDef, initialState];
+    return [blockDef, initialState, uuidv4()];
   }
 
   _createChild(
@@ -180,7 +186,7 @@ export class ListBlock extends BaseSequenceBlock {
     return new InsertPosition(placeholder, opts);
   }
 
-  /*
+  /**
    * Called whenever a block is added or removed
    *
    * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
@@ -219,6 +225,7 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   insert(value, index, opts) {
+    // eslint-disable-next-line no-underscore-dangle
     return this._insert(
       this.blockDef.childBlockDef,
       value,

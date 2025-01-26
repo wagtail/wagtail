@@ -7,7 +7,7 @@ import logging
 import os.path
 import re
 import time
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict, defaultdict, namedtuple
 from collections.abc import Iterable
 from contextlib import contextmanager
 from io import BytesIO
@@ -39,7 +39,6 @@ from wagtail.images.exceptions import (
     InvalidFilterSpecError,
     UnknownOutputImageFormatError,
 )
-from wagtail.images.fields import image_format_name_to_content_type
 from wagtail.images.image_operations import (
     FilterOperation,
     FormatOperation,
@@ -63,6 +62,7 @@ IMAGE_FORMAT_EXTENSIONS = {
     "webp": ".webp",
     "svg": ".svg",
     "ico": ".ico",
+    "heic": ".heic",
 }
 
 
@@ -263,6 +263,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         width_field="width",
         height_field="height",
     )
+    description = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name=_("description"),
+        default="",
+    )
     width = models.IntegerField(verbose_name=_("width"), editable=False)
     height = models.IntegerField(verbose_name=_("height"), editable=False)
     created_at = models.DateTimeField(
@@ -292,6 +298,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     )
 
     objects = ImageQuerySet.as_manager()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.decorative = False
+        self.contextual_alt_text = None
 
     def _set_file_hash(self):
         with self.open_file() as f:
@@ -365,6 +376,36 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def __str__(self):
         return self.title
+
+    def __eq__(self, other):
+        """
+        Customise the definition of equality so that two Image instances referring to the same
+        image but different contextual alt text or decorative status are considered different.
+        All other aspects are copied from Django's base `Model` implementation.
+        """
+        if not isinstance(other, models.Model):
+            return NotImplemented
+
+        if self._meta.concrete_model != other._meta.concrete_model:
+            return False
+
+        my_pk = self.pk
+        if my_pk is None:
+            return self is other
+
+        return (
+            my_pk == other.pk
+            and other.contextual_alt_text == self.contextual_alt_text
+            and other.decorative == self.decorative
+        )
+
+    def __hash__(self):
+        """
+        Match the semantics of the custom equality definition.
+        """
+        if self.pk is None:
+            raise TypeError("Model instances without primary key value are unhashable")
+        return hash((self.pk, self.contextual_alt_text, self.decorative))
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -620,6 +661,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             ]
             for rendition in Rendition.cache_backend.get_many(cache_keys).values():
                 filter = filters_by_spec[rendition.filter_spec]
+                # The retrieved rendition needs to be associated with the current image instance, so that any
+                # locally-set properties such as contextual_alt_text are respected
+                rendition.image = self
                 found[filter] = rendition
 
             # For items not found in the cache, look in the database
@@ -824,9 +868,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
     @property
     def default_alt_text(self):
         # by default the alt text field (used in rich text insertion) is populated
-        # from the title. Subclasses might provide a separate alt field, and
-        # override this
-        return self.title
+        # from the description. In the absence of that, it is populated from the title.
+        # Subclasses might provide a separate alt field, and override this
+        return getattr(self, "description", None) or self.title
 
     def is_editable_by_user(self, user):
         from wagtail.images.permissions import permission_policy
@@ -841,6 +885,7 @@ class Image(AbstractImage):
     admin_form_fields = (
         "title",
         "file",
+        "description",
         "collection",
         "tags",
         "focal_point_x",
@@ -992,11 +1037,12 @@ class Filter:
                 # Developer specified an output format
                 output_format = env["output-format"]
             else:
-                # Convert bmp and webp to png by default
+                # Convert avif, bmp and webp to png, and heic to jpg, by default
                 default_conversions = {
                     "avif": "png",
                     "bmp": "png",
                     "webp": "png",
+                    "heic": "jpeg",
                 }
 
                 # Convert unanimated GIFs to PNG as well
@@ -1055,6 +1101,20 @@ class Filter:
                 else:
                     quality = getattr(settings, "WAGTAILIMAGES_AVIF_QUALITY", 80)
                 return willow.save_as_avif(output, quality=quality)
+            elif output_format == "heic":
+                # Allow changing of HEIC compression quality. Safari is the only browser that supports HEIC,
+                # so there is little value in outputting it - for that reason, we make it work if someone
+                # explicitly requests it, but these settings are not documented.
+                if (
+                    "output-format-options" in env
+                    and "lossless" in env["output-format-options"]
+                ):
+                    return willow.save_as_heic(output, lossless=True)
+                elif "heic-quality" in env:
+                    quality = env["heic-quality"]
+                else:
+                    quality = getattr(settings, "WAGTAILIMAGES_HEIC_QUALITY", 80)
+                return willow.save_as_heic(output, quality=quality)
             elif output_format == "svg":
                 return willow.save_as_svg(output)
             elif output_format == "ico":
@@ -1125,13 +1185,22 @@ class ResponsiveImage:
         return False
 
 
+FileFormat = namedtuple("FileFormat", ["name", "mime_type"])
+
+
 class Picture(ResponsiveImage):
     # Keep this separate from FormatOperation.supported_formats,
     # as the order our formats are defined in is essential for the picture tag.
     # Defines the order of <source> elements in the tag when format operations
     # are in use, and the priority order to identify the "fallback" format.
     # The browser will pick the first supported format in this list.
-    source_format_order = ["avif", "webp", "jpeg", "png", "gif"]
+    source_format_order = [
+        FileFormat("avif", "image/avif"),
+        FileFormat("webp", "image/webp"),
+        FileFormat("jpeg", "image/jpeg"),
+        FileFormat("png", "image/png"),
+        FileFormat("gif", "image/gif"),
+    ]
 
     def __init__(
         self,
@@ -1164,8 +1233,8 @@ class Picture(ResponsiveImage):
 
     def get_fallback_format(self):
         for fmt in reversed(self.source_format_order):
-            if fmt in self.formats:
-                return fmt
+            if fmt.name in self.formats:
+                return fmt.name
 
     def __html__(self):
         # If there aren’t multiple formats, render a vanilla img tag with srcset.
@@ -1181,9 +1250,9 @@ class Picture(ResponsiveImage):
         sources = []
 
         for fmt in self.source_format_order:
-            if fmt != fallback_format and fmt in self.formats:
-                srcset = self.get_width_srcset(self.formats[fmt])
-                mime = image_format_name_to_content_type(fmt)
+            if fmt.name != fallback_format and fmt.name in self.formats:
+                srcset = self.get_width_srcset(self.formats[fmt.name])
+                mime = fmt.mime_type
                 sources.append(f'<source srcset="{srcset}" {sizes}type="{mime}">')
 
         if len(fallback_renditions) > 1:
@@ -1218,7 +1287,16 @@ class AbstractRendition(ImageFileMixin, models.Model):
 
     @property
     def alt(self):
-        return self.image.default_alt_text
+        # 'decorative' and 'contextual_alt_text' exist only for ImageBlock
+        if hasattr(self.image, "decorative") and self.image.decorative:
+            return ""
+        elif (
+            hasattr(self.image, "contextual_alt_text")
+            and self.image.contextual_alt_text
+        ):
+            return self.image.contextual_alt_text
+        else:
+            return self.image.default_alt_text
 
     @property
     def attrs(self):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -56,12 +56,12 @@ msgstr "此站點無法儲存，出現錯誤。"
 msgid "Site '%(object)s' updated."
 msgstr "站點 '%(object)s' 已更新。"
 
-msgid "Delete site"
-msgstr "刪除站點"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "站點 '%(object)s' 已刪除。"
+
+msgid "Delete site"
+msgstr "刪除站點"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "確定刪除此站點？"

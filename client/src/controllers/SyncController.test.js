@@ -325,7 +325,7 @@ describe('SyncController', () => {
     });
   });
 
-  describe('ability to use sync for other field behaviour', () => {
+  describe('ability to use sync for other field behavior', () => {
     beforeAll(() => {
       application?.stop();
     });

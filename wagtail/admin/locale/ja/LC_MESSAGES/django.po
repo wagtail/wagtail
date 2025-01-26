@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: okosama star, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -294,14 +294,8 @@ msgstr "要求されたページが見つかりませんでした"
 msgid "Go to Wagtail admin"
 msgstr "Wagtail管理画面へ移動"
 
-msgid "Account"
-msgstr "アカウント"
-
 msgid "More actions"
 msgstr "他のアクション"
-
-msgid "Save account details"
-msgstr "アカウントの詳細を保存"
 
 msgid "Reset password"
 msgstr "パスワードを再設定"
@@ -464,11 +458,11 @@ msgstr "いいえ、非公開にしません"
 msgid "Cancel"
 msgstr "キャンセル"
 
-msgid "Comment"
-msgstr "コメント"
-
 msgid "Actions"
 msgstr "操作"
+
+msgid "Comment"
+msgstr "コメント"
 
 msgid "Update"
 msgstr "アップデート"
@@ -486,10 +480,6 @@ msgstr "フィールド"
 msgid "Changes"
 msgstr "変更"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "%(site_name)sのWagtail CMSへようこそ"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -497,8 +487,14 @@ msgstr ""
 "これがあなたのダッシュボードです。ここにあなたが作成したコンテンツに関する役"
 "立つ情報が表示されます。"
 
+msgid "Account"
+msgstr "アカウント"
+
 msgid "Your locked pages"
 msgstr "あなたのロックされているページ"
+
+msgid "Status"
+msgstr "ステータス"
 
 msgid "Locked at"
 msgstr "ロック時刻"
@@ -517,9 +513,6 @@ msgstr "公開"
 
 msgid "Your most recent edits"
 msgstr "最近の編集"
-
-msgid "Status"
-msgstr "ステータス"
 
 msgid "Date"
 msgstr "日付"
@@ -625,12 +618,6 @@ msgstr "削除されたコメント"
 msgid "New replies:"
 msgstr "新しい返信"
 
-msgid "This page has been made private by a parent page."
-msgstr "このページは親ページにより非公開に設定されています。"
-
-msgid "Save the page before leaving"
-msgstr "離れる前に保存してください"
-
 msgid "Publishing…"
 msgstr "公開中..."
 
@@ -725,9 +712,6 @@ msgstr "複製"
 msgid "Copy this page"
 msgstr "このページを複製"
 
-msgid "This page has unsaved changes."
-msgstr "このページは変更が保存されなかった"
-
 msgid "Edit original page"
 msgstr "元ページを編集"
 
@@ -783,9 +767,6 @@ msgstr "ページタイプ"
 
 msgid "Enter a search term above"
 msgstr "検索語を入力"
-
-msgid "No pages use"
-msgstr "この語を使用するページはありません。"
 
 #, python-format
 msgid "Add %(label)s"
@@ -912,15 +893,8 @@ msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s回使用"
 
-msgid "Workflow history"
-msgstr "ワークフローの履歴"
-
 msgid "Edited"
 msgstr "編集"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "%(title)sのワークフロー履歴"
 
 msgid "Add a child page"
 msgstr "子ページを追加"
@@ -928,14 +902,14 @@ msgstr "子ページを追加"
 msgid "Show in Explorer"
 msgstr "エクスプローラーに表示"
 
-msgid "Create"
-msgstr "作成"
-
 msgid "Page"
 msgstr "ページ"
 
 msgid "New"
 msgstr "新規作成"
+
+msgid "Create"
+msgstr "作成"
 
 msgid "More"
 msgstr "詳細表示"
@@ -1006,12 +980,12 @@ msgstr "'%(object)s'コレクションを更新済み"
 msgid "The collection could not be saved due to errors."
 msgstr "エラーが発生したため、コレクションを保存できませんでした。"
 
-msgid "Delete collection"
-msgstr "コレクションを削除します"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "'%(object)s'コレクションを削除済み"
+
+msgid "Delete collection"
+msgstr "コレクションを削除します"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "コレクションを完全に削除しますか"
@@ -1028,6 +1002,9 @@ msgstr "現在の下書き"
 msgid "Cancel scheduled publish"
 msgstr "予定された公開を取り消す"
 
+msgid "Workflow history"
+msgstr "ワークフローの履歴"
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s'を編集します"
@@ -1037,9 +1014,6 @@ msgstr "詳細"
 
 msgid "Editing"
 msgstr "編集中"
-
-msgid "Inspecting"
-msgstr "詳細"
 
 msgid "Earliest"
 msgstr "最も早い"

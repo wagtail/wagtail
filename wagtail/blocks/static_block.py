@@ -33,6 +33,9 @@ class StaticBlock(Block):
     def normalize(self, value):
         return None
 
+    def render_basic(self, value, context=None):
+        return ""
+
     class Meta:
         admin_text = None
         default = None
@@ -55,6 +58,9 @@ class StaticBlockAdapter(Adapter):
                 text_or_html: admin_text,
                 "icon": block.meta.icon,
                 "label": block.label,
+                "description": block.get_description(),
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
             },
         ]
 

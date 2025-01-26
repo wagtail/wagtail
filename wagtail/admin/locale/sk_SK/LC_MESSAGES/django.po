@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -224,9 +224,6 @@ msgstr "Stránka, ktorú požadujete, nebola nájdená."
 msgid "Go to Wagtail admin"
 msgstr "Choď do administrátorskej časti"
 
-msgid "Account"
-msgstr "Účet"
-
 msgid "Reset password"
 msgstr "Resetovať heslo"
 
@@ -355,16 +352,18 @@ msgstr "Polia"
 msgid "Changes"
 msgstr "Zmeny"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Vitajte v  %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr ""
 "Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
 "ktorý ste vytvorili."
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "Status"
+msgstr "Stav"
 
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
@@ -377,9 +376,6 @@ msgstr "Live"
 
 msgid "Your most recent edits"
 msgstr "Vaše posledné úpravy"
-
-msgid "Status"
-msgstr "Stav"
 
 msgid "Date"
 msgstr "Dátum"
@@ -433,9 +429,6 @@ msgstr "Stránka \"%(title)s\" bola zamietnutá"
 
 msgid "You can preview the page here:"
 msgstr "Tu môžete vidieť stránku:"
-
-msgid "This page has been made private by a parent page."
-msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou."
 
 msgid "Saving…"
 msgstr "Ukladám…"
@@ -517,9 +510,6 @@ msgstr "Kopírovať"
 msgid "Copy this page"
 msgstr "Kopírovať túto stránku"
 
-msgid "This page has unsaved changes."
-msgstr "Táto stránka má neuložené zmeny."
-
 msgid "Configure a site now."
 msgstr "Nastavte webové sídlo."
 
@@ -560,9 +550,6 @@ msgstr "Pridať podstránku"
 
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
-
-msgid "No pages use"
-msgstr "Nepoužívajú žiadne stránky"
 
 msgid "Move up"
 msgstr "Posunúť vyššie"
@@ -670,12 +657,12 @@ msgstr "Kolekcia '%(object)s' bola aktualizovaná."
 msgid "The collection could not be saved due to errors."
 msgstr "Kolekcia nemôže byť uložená kvôli chybám."
 
-msgid "Delete collection"
-msgstr "Zmazať kolekciu"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Kolekcia '%(object)s' bola zmazaná."
+
+msgid "Delete collection"
+msgstr "Zmazať kolekciu"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Naozaj chcete zmazať túto kolekciu?"
@@ -698,9 +685,6 @@ msgstr "Skontrolovať"
 
 msgid "Editing"
 msgstr "Editácia"
-
-msgid "Inspecting"
-msgstr "Kontrola %s"
 
 msgid "Earliest"
 msgstr "Najstaršie"

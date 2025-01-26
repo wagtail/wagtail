@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -117,6 +117,9 @@ msgstr "titulok"
 msgid "file"
 msgstr "súbor"
 
+msgid "description"
+msgstr "popis"
+
 msgid "width"
 msgstr "šírka"
 
@@ -168,21 +171,11 @@ msgstr "Zmeniť obrázok:"
 msgid "Add an image"
 msgstr "Pridať obrázok"
 
-msgid "Add image"
-msgstr "Pridať obrázok"
+msgid "Uploading…"
+msgstr "Odosielam…"
 
-msgid "Save"
-msgstr "Uložiť"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Úprava obrázka %(title)s"
-
-msgid "Editing"
-msgstr "Upraviť obrázok"
-
-msgid "Delete image"
-msgstr "Zmazať obrázok"
+msgid "Upload"
+msgstr "Nahrať"
 
 msgid "URL Generator"
 msgstr "URL Generátor"
@@ -233,9 +226,6 @@ msgstr "URL adresa"
 msgid "Add multiple images"
 msgstr "Pridať viacero obrázkov"
 
-msgid "Add images"
-msgstr "Pridať obrázky"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Potiahni a pusti obrázky do tejto plochy pre okamžité nahrávanie."
 
@@ -281,12 +271,6 @@ msgstr "Pridať do kolekcie"
 msgid "Delete"
 msgstr "Vymazať"
 
-msgid "Upload"
-msgstr "Nahrať"
-
-msgid "Uploading…"
-msgstr "Odosielam…"
-
 msgid "Choose an image"
 msgstr "Vybrať obrázok"
 
@@ -299,15 +283,12 @@ msgstr "Upraviť tento obrázok"
 msgid "Images"
 msgstr "Obrázky"
 
+msgid "The image could not be saved due to errors."
+msgstr "Obrázok nemôže byť uložený kvôli chybám."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Obrázok '%(image_title)s' bol aktualizovaný."
-
-msgid "Edit again"
-msgstr "Upraviť znovu"
-
-msgid "The image could not be saved due to errors."
-msgstr "Obrázok nemôže byť uložený kvôli chybám."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -315,16 +296,22 @@ msgid ""
 msgstr ""
 "Zdroj obrázku nebol nájdený. Prosím aktualizujte zdroj alebo zmažte obrázok."
 
+msgid "Delete image"
+msgstr "Zmazať obrázok"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Obrázok '%(image_title)s' bol zmazaný."
+
+msgid "The image could not be created due to errors."
+msgstr "Obrázok nemôže byť vytvorený kvôli chybám."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Obrázok '%(image_title)s' bol pridaný."
 
-msgid "The image could not be created due to errors."
-msgstr "Obrázok nemôže byť vytvorený kvôli chybám."
+msgid "Add images"
+msgstr "Pridať obrázky"
 
 #, python-format
 msgid "%(count)s image"

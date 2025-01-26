@@ -5,7 +5,7 @@
 # Translators:
 # Dominik Lech, 2022
 # Dominik Lech, 2022
-# Krzysztof Jeziorny <github@jeziorny.net>, 2023
+# Krzysztof Jeziorny <github@jeziorny.net>, 2023-2024
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023-2024\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -135,8 +135,22 @@ msgstr "Ciemny"
 msgid "admin theme"
 msgstr "wygląd stron administracyjnych"
 
+msgid "More contrast"
+msgstr "Powiększ kontrast"
+
+msgid "contrast"
+msgstr "kontrast"
+
 msgid "Default"
 msgstr "Domyślny"
+
+msgid "Snug"
+msgstr "Ścisły"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "zwartość"
 
 msgid "user profile"
 msgstr "profil użytkownika"
@@ -249,15 +263,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Czy na pewno chcesz usunąć tą grupę?"
 
-msgid "Add group"
-msgstr "Dodaj grupę"
-
-msgid "Save"
-msgstr "Zapisz"
-
-msgid "Delete group"
-msgstr "Usuń grupę"
-
 msgid "Object permissions"
 msgstr "Uprawnienia obiektu"
 
@@ -270,17 +275,11 @@ msgstr "Dodaj"
 msgid "Change"
 msgstr "Zmień"
 
-msgid "Publish"
-msgstr "Opublikuj"
-
-msgid "Lock"
-msgstr "Zablokuj"
-
-msgid "Unlock"
-msgstr "Odblokuj"
-
 msgid "Custom permissions"
 msgstr "Uprawnienia niestandardowe"
+
+msgid "Toggle all"
+msgstr "Przełącz wszystkie"
 
 msgid "Other permissions"
 msgstr "Inne uprawnienia"
@@ -315,14 +314,11 @@ msgstr "Konto"
 msgid "Roles"
 msgstr "Role"
 
-msgid "Add user"
-msgstr "Dodaj użytkownika"
-
-msgid "Delete user"
-msgstr "Usuń użytkownika"
-
 msgid "Select all users in listing"
 msgstr "Wybierz wszystkich użytkowników z listy"
+
+msgid "Sorry, no users match your query"
+msgstr "Przykro nam, brak użytkowników pasujących do wyszukiwania"
 
 #, python-format
 msgid ""
@@ -331,6 +327,9 @@ msgid ""
 msgstr ""
 "Brak użytkowników. Czemu nie <a href=\"%(wagtailusers_add_url)s\">dodasz "
 "kilku</a>?"
+
+msgid "Can view"
+msgstr "Dostęp do wglądu"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -398,6 +397,9 @@ msgstr "Dodaj do grupy"
 msgid "Search groups"
 msgstr "Przeszukaj grupy"
 
+msgid "Add group"
+msgstr "Dodaj grupę"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grupa '%(object)s' utworzona."
@@ -415,6 +417,15 @@ msgstr "Pokaż użytkowników w tej grupie"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grupa '%(object)s' została usunięta."
+
+msgid "Delete group"
+msgstr "Usuń grupę"
+
+msgid "Last login"
+msgstr "Ostatnie logowanie"
+
+msgid "Group"
+msgstr "Grupa"
 
 msgid "Add a user"
 msgstr "Dodaj użytkownika"
@@ -442,12 +453,18 @@ msgstr "Więcej opcji dla '%(title)s'"
 msgid "User '%(object)s' created."
 msgstr "Użytkownik '%(object)s' utworzony."
 
+msgid "Add user"
+msgstr "Dodaj użytkownika"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Użytkownik '%(object)s' zaktualizowany."
 
 msgid "The user could not be saved due to errors."
 msgstr "Użytkownik nie mógł zostać zapisany z powodu błędów."
+
+msgid "Delete user"
+msgstr "Usuń użytkownika"
 
 #, python-format
 msgid "User '%(object)s' deleted."

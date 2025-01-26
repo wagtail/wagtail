@@ -1,6 +1,6 @@
 (api_v2_configuration)=
 
-# Wagtail API v2 Configuration Guide
+# Wagtail API v2 configuration guide
 
 This section of the docs will show you how to set up a public API for your
 Wagtail site.
@@ -230,6 +230,8 @@ This adds two fields to the API (other fields omitted for brevity):
     "published_date_display": "Thursday 06 April 2017"
 }
 ```
+
+(api_v2_images)=
 
 ### Images in the API
 

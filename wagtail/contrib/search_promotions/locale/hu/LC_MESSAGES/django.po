@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, "
 "2019-2020,2022-2023\n"
@@ -99,9 +99,6 @@ msgstr ""
 "kifejezést kell, hogy tartalmazza, <em>beleértve</em> bármiféle elgépelést, "
 "hibát. Segítségképp a rendszer felkínálja a legnépszerűbb keresési "
 "kifejezéseket.</p>"
-
-msgid "Save"
-msgstr "Mentés"
 
 #, python-format
 msgid "Delete %(query)s"

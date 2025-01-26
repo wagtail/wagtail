@@ -9,5 +9,11 @@ python:
       path: .
       extra_requirements:
         - docs
+formats: all
 sphinx:
+  configuration: docs/conf.py
   fail_on_warning: True
+search:
+  ranking:
+    releases/*: -1
+    releases/upgrading.html: 0

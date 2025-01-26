@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -215,6 +215,15 @@ msgstr "objavljeno + osnutek"
 
 msgid "Default"
 msgstr "Privzeta"
+
+msgid "Preview in mobile size"
+msgstr "Predogled v mobilni velikosti"
+
+msgid "Preview in tablet size"
+msgstr "Predogled v velikosti tablice"
+
+msgid "Preview in desktop size"
+msgstr "Predogled v namizni velikosti"
 
 msgid "locked"
 msgstr "zaklenjeno"
@@ -563,6 +572,9 @@ msgstr "vnos v dnevnik modela"
 
 msgid "model log entries"
 msgstr "vnosi v dnevnik modela"
+
+msgid "locale"
+msgstr "lokalno"
 
 msgid "collection"
 msgstr "zbirka"

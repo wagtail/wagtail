@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -67,6 +67,9 @@ msgstr "ތި ނަން ކިޔާ ގްރޫޕެއް މިހާރުވެސް އެބަހ�
 msgid "You cannot have multiple permission records for the same page."
 msgstr "އެއް ޞަފްޙާއަކަށް ތަފާތު ހުއްދަތަކުގެ ރެކޯޑެއް ނުބެހެއްޓޭނެ"
 
+msgid "submitted notifications"
+msgstr "ހުށަހެޅިފައިވާ އެންގުންތައް"
+
 msgid "Default"
 msgstr "ޑީފޯލްޓް"
 
@@ -79,23 +82,11 @@ msgstr "ލައްބަ! ފުހެލާ"
 msgid "No, don't delete"
 msgstr "ނޫން! ފުހެނުލާތި"
 
-msgid "Save"
-msgstr "ސޭވްކުރޭ"
-
 msgid "Name"
 msgstr "ނަން"
 
 msgid "Add"
 msgstr "އިތުރު"
-
-msgid "Publish"
-msgstr "ޕަބްލިޝް"
-
-msgid "Lock"
-msgstr "ތަޅުލާ"
-
-msgid "Unlock"
-msgstr "ތަޅު ހުޅުވާ"
 
 msgid "Page permissions"
 msgstr "ސަފްހާގެ ހުއްދަތައް"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -24,6 +24,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Wagtail gambar"
+
+msgid "Alt text"
+msgstr "Teks alt"
 
 #, python-format
 msgid ""
@@ -64,9 +67,6 @@ msgstr "Rata kanan"
 
 msgid "Collection"
 msgstr "Koleksi"
-
-msgid "Alt text"
-msgstr "Teks alt"
 
 msgid "Filter"
 msgstr "Saring"
@@ -119,6 +119,9 @@ msgstr "judul"
 msgid "file"
 msgstr "berkas"
 
+msgid "description"
+msgstr "deskripsi"
+
 msgid "width"
 msgstr "lebar"
 
@@ -169,21 +172,11 @@ msgstr "Ubah berkas gambar:"
 msgid "Add an image"
 msgstr "Tambah sebuah gambar"
 
-msgid "Add image"
-msgstr "Tambah gambar"
+msgid "Uploading…"
+msgstr "Mengunggah..."
 
-msgid "Save"
-msgstr "Simpan"
-
-#, python-format
-msgid "Editing image %(title)s"
-msgstr "Mengubah gambar %(title)s"
-
-msgid "Editing"
-msgstr "Mengubah"
-
-msgid "Delete image"
-msgstr "Hapus gambar"
+msgid "Upload"
+msgstr "Unggah"
 
 msgid "URL Generator"
 msgstr "Generator URL"
@@ -236,9 +229,6 @@ msgstr "URL"
 msgid "Add multiple images"
 msgstr "Tambah beberapa gambar"
 
-msgid "Add images"
-msgstr "Tambah gambar"
-
 msgid "Drag and drop images into this area to upload immediately."
 msgstr "Seret dan lepaskan gambar ke area ini untuk langsung diunggah."
 
@@ -275,12 +265,6 @@ msgstr "Tambahkan izin gambar"
 msgid "Delete"
 msgstr "Hapus"
 
-msgid "Upload"
-msgstr "Unggah"
-
-msgid "Uploading…"
-msgstr "Mengunggah..."
-
 msgid "Choose an image"
 msgstr "Pilih sebuah gambar"
 
@@ -290,15 +274,12 @@ msgstr "Ubah gambar ini"
 msgid "Images"
 msgstr "Gambar"
 
+msgid "The image could not be saved due to errors."
+msgstr "Gambar tidak dapat disimpan karena suatu kesalahan."
+
 #, python-format
 msgid "Image '%(image_title)s' updated."
 msgstr "Gambar '%(image_title)s' telah diperbarui."
-
-msgid "Edit again"
-msgstr "Ubah kembali"
-
-msgid "The image could not be saved due to errors."
-msgstr "Gambar tidak dapat disimpan karena suatu kesalahan."
 
 msgid ""
 "The source image file could not be found. Please change the source or delete "
@@ -307,16 +288,22 @@ msgstr ""
 "Sumber berkas gambar tidak dapat ditemukan. Mohon untuk mengganti suber atau "
 "hapus gambar."
 
+msgid "Delete image"
+msgstr "Hapus gambar"
+
 #, python-format
 msgid "Image '%(image_title)s' deleted."
 msgstr "Gambar '%(image_title)s' dihapus."
+
+msgid "The image could not be created due to errors."
+msgstr "Gambar tidak dapat dibuat karena suatu kesalahan."
 
 #, python-format
 msgid "Image '%(image_title)s' added."
 msgstr "Gambar '%(image_title)s' ditambahkan."
 
-msgid "The image could not be created due to errors."
-msgstr "Gambar tidak dapat dibuat karena suatu kesalahan."
+msgid "Add images"
+msgstr "Tambah gambar"
 
 msgid "Image"
 msgstr "Gambar"

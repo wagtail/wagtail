@@ -38,7 +38,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     tags = TaggableManager(help_text=None, blank=True, verbose_name=_("tags"))
 
-    file_size = models.PositiveIntegerField(null=True, editable=False)
+    file_size = models.PositiveBigIntegerField(null=True, editable=False)
     # A SHA-1 hash of the file contents
     file_hash = models.CharField(max_length=40, blank=True, editable=False)
 
@@ -57,6 +57,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
             ],
         ),
         index.FilterField("uploaded_by_user"),
+        index.FilterField("created_at"),
     ]
 
     def clean(self):

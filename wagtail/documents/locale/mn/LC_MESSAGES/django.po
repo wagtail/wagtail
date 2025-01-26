@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -88,27 +88,11 @@ msgstr "Файлыг солих"
 msgid "Add a document"
 msgstr "Файл нэмэх"
 
-msgid "Add document"
-msgstr "Файл нэмэх"
-
 msgid "Uploading…"
 msgstr "Хуулж байна..."
 
 msgid "Upload"
 msgstr "Хуулах"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "%(title)sзасч байна"
-
-msgid "Editing"
-msgstr "Засч байна"
-
-msgid "Save"
-msgstr "Хадгалах"
-
-msgid "Delete document"
-msgstr "Файл устгах"
 
 msgid "Filesize"
 msgstr "Файлын хэмжээ"
@@ -134,9 +118,6 @@ msgstr ""
 
 msgid "Add multiple documents"
 msgstr "Олон файл нэмэх"
-
-msgid "Add documents"
-msgstr "Файл нэмэх"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Энэ хэсэгт файлуудаа чирж оруулж сайт руу хуулна уу."
@@ -198,9 +179,15 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл устгана уу"
 
+msgid "Delete document"
+msgstr "Файл устгах"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "'%(document_title)s' файл устлаа."
+
+msgid "Add documents"
+msgstr "Файл нэмэх"
 
 msgid "Document"
 msgstr "Файл"

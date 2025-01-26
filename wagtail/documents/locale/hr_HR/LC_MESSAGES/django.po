@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -185,27 +185,11 @@ msgstr "Promijeni dokument:"
 msgid "Add a document"
 msgstr "Dodaj dokument"
 
-msgid "Add document"
-msgstr "Dodaj dokument"
-
 msgid "Uploading…"
 msgstr "Prijenos u tijeku..."
 
 msgid "Upload"
 msgstr "Prijenos"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Uređivanje %(title)s"
-
-msgid "Editing"
-msgstr "Uređivanje"
-
-msgid "Save"
-msgstr "Spremi"
-
-msgid "Delete document"
-msgstr "Izbriši dokument"
 
 msgid "Filesize"
 msgstr "Veličina datoteke"
@@ -241,28 +225,8 @@ msgstr ""
 "Nemate dokumenata. Zašto ne <a "
 "href=\"%(wagtaildocs_add_document_url)s\">dodate jedan</a>?"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> Dokument <span class=\"w-sr-only\">je stvoren u "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> Dokumenata <span class=\"w-sr-only\">je stvoreno u "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> Dokumenata <span class=\"w-sr-only\">je stvoreno u "
-"%(site_name)s</span>"
-
 msgid "Add multiple documents"
 msgstr "Dodaj više dokumenata"
-
-msgid "Add documents"
-msgstr "Dodaj dokumente"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Dovucite dokumente ovdje kako bi ih prenijeli."
@@ -376,9 +340,15 @@ msgid ""
 msgstr ""
 "Datoteka nije pronađena. Molimo promijenite izvor ili izbrišite dokument."
 
+msgid "Delete document"
+msgstr "Izbriši dokument"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' je izbrisan."
+
+msgid "Add documents"
+msgstr "Dodaj dokumente"
 
 msgid "Document"
 msgstr "Dokument"

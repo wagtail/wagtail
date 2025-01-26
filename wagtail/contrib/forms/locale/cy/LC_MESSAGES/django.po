@@ -6,13 +6,14 @@
 # Adam Hughes <adamhughes31@gmail.com>, 2017
 # Philip Crisp, 2022
 # Philip Crisp, 2022
+# Philip Lindsay-Crisp, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Philip Crisp, 2022\n"
+"Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -106,8 +107,21 @@ msgstr "ofynnol"
 msgid "choices"
 msgstr "dewisiadau"
 
+msgid ""
+"Comma or new line separated list of choices. Only applicable in checkboxes, "
+"radio and dropdown."
+msgstr ""
+"Coma neu restr o ddewisiadau wedi'u gwahanu â llinell newydd. Dim ond yn "
+"berthnasol mewn blychau ticio, radio a'r gwymplen."
+
 msgid "default value"
 msgstr "gwerth rhagosodedig"
+
+msgid ""
+"Default value. Comma or new line separated values supported for checkboxes."
+msgstr ""
+"Gwerth diofyn. Cefnogir atalnod neu werthoedd gwahanu llinell newydd ar "
+"gyfer blychau ticio."
 
 msgid "help text"
 msgstr "testun cymorth"
@@ -148,6 +162,17 @@ msgstr "Dileu data'r ffurflen%(title)s"
 msgid "Delete form data"
 msgstr "Dileu data'r ffurflen"
 
+msgid "Are you sure you want to delete this form submission?"
+msgid_plural "Are you sure you want to delete these form submissions?"
+msgstr[0] ""
+"Ydych chi'n siŵr eich fod chi am ddileu cyflwyniadau'r ffurflen hon?"
+msgstr[1] ""
+"Ydych chi'n siŵr eich fod chi am ddileu'r cyflwyniadau ffurflen hyn?"
+msgstr[2] ""
+"Ydych chi'n siŵr eich fod chi am ddileu'r cyflwyniadau ffurflen hyn?"
+msgstr[3] ""
+"Ydych chi'n siŵr eich fod chi am ddileu'r cyflwyniadau ffurflen hyn?"
+
 msgid "Delete"
 msgstr "Dileu"
 
@@ -187,3 +212,6 @@ msgstr[0] "Mae un cyflwyniad wedi'u dileu."
 msgstr[1] "Mae %(count)d cyflwyniad wedi'u dileu."
 msgstr[2] "Mae %(count)d cyflwyniad wedi'u dileu."
 msgstr[3] "Mae %(count)d cyflwyniad wedi'u dileu."
+
+msgid "Form data"
+msgstr "Data ffurflen"

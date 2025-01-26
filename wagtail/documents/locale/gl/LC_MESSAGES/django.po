@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022,2024\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -174,27 +174,11 @@ msgstr "Cambiar documento:"
 msgid "Add a document"
 msgstr "Engadir un documento"
 
-msgid "Add document"
-msgstr "Engadir documento"
-
 msgid "Uploading…"
 msgstr "Subindo…"
 
 msgid "Upload"
 msgstr "Subir"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Editando %(title)s"
-
-msgid "Editing"
-msgstr "Editando"
-
-msgid "Save"
-msgstr "Gardar"
-
-msgid "Delete document"
-msgstr "Eliminar documento"
 
 msgid "Filesize"
 msgstr "Tamaño do arquivo"
@@ -230,23 +214,17 @@ msgstr ""
 
 #, python-format
 msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Document <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
+"%(total)s Documents <span class=\"w-sr-only\">created in %(site_name)s</span>"
 msgstr[0] ""
-"<span>%(total)s</span> Documento <span class=\"w-sr-only\">creado en "
-"%(site_name)s</span>"
+"%(total)s Documento <span class=\"w-sr-only\">creado en %(site_name)s</span>"
 msgstr[1] ""
-"<span>%(total)s</span> Documentos <span class=\"w-sr-only\">creados en "
-"%(site_name)s</span>"
+"%(total)s Documentos <span class=\"w-sr-only\">creados en %(site_name)s</"
+"span>"
 
 msgid "Add multiple documents"
 msgstr "Engadir múltiples documentos"
-
-msgid "Add documents"
-msgstr "Engadir documentos"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Arrastrar e soltar documentos nesta área para subir inmediatamente"
@@ -342,6 +320,9 @@ msgstr "Documentos"
 msgid "Title"
 msgstr "Título"
 
+msgid "The document could not be created due to errors."
+msgstr "O documento non puido ser creado debido a erros."
+
 #, python-format
 msgid "Document '%(document_title)s' added."
 msgstr "Documento '%(document_title)s' engadido."
@@ -359,9 +340,15 @@ msgstr ""
 "O arquivo non puido ser atopado. Por favor, cambia a fonte ou elimina o "
 "documento."
 
+msgid "Delete document"
+msgstr "Eliminar documento"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Documento '%(document_title)s' eliminado."
+
+msgid "Add documents"
+msgstr "Engadir documentos"
 
 msgid "Document"
 msgstr "Documento"

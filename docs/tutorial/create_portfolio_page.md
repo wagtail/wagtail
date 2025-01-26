@@ -39,17 +39,17 @@ from wagtail.blocks import (
     StructBlock,
 )
 from wagtail.embeds.blocks import EmbedBlock
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.blocks import ImageBlock
 
 
-class ImageBlock(StructBlock):
-    image = ImageChooserBlock(required=True)
+class CaptionedImageBlock(StructBlock):
+    image = ImageBlock(required=True)
     caption = CharBlock(required=False)
     attribution = CharBlock(required=False)
 
     class Meta:
         icon = "image"
-        template = "base/blocks/image_block.html"
+        template = "base/blocks/captioned_image_block.html"
 
 
 class HeadingBlock(StructBlock):
@@ -73,7 +73,7 @@ class HeadingBlock(StructBlock):
 class BaseStreamBlock(StreamBlock):
     heading_block = HeadingBlock()
     paragraph_block = RichTextBlock(icon="pilcrow")
-    image_block = ImageBlock()
+    image_block = CaptionedImageBlock()
     embed_block = EmbedBlock(
         help_text="Insert a URL to embed. For example, https://www.youtube.com/watch?v=SGJFWirQ3ks",
         icon="media",
@@ -82,21 +82,21 @@ class BaseStreamBlock(StreamBlock):
 
 In the preceding code, you created reusable Wagtail custom blocks for different content types in your general-purpose app. You can use these blocks across your site in any order. Let's take a closer look at each of these blocks.
 
-First, `ImageBlock` is a block that editors can use to add images to a StreamField section.
+First, `CaptionedImageBlock` is a block that editors can use to add images to a StreamField section.
 
 ```python
-class ImageBlock(StructBlock):
-    image = ImageChooserBlock(required=True)
+class CaptionedImageBlock(StructBlock):
+    image = ImageBlock(required=True)
     caption = CharBlock(required=False)
     attribution = CharBlock(required=False)
     class Meta:
         icon = "image"
-        template = "base/blocks/image_block.html"
+        template = "base/blocks/captioned_image_block.html"
 ```
 
-`ImageBlock` inherits from `StructBlock`. With `StructBlock`, you can group several child blocks together under a single parent block. Your `ImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageChooserBlock` field block type. With `ImageChooserBlock`, editors can select an existing image or upload a new one. Its `required` argument has a value of `true`, which means that you must provide an image for the block to work. The `caption` and `attribution` child blocks use the `CharBlock` field block type, which provides single-line text inputs for adding captions and attributions to your images. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. That means you can leave them empty in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) if you want to.
+`CaptionedImageBlock` inherits from `StructBlock`. With `StructBlock`, you can group several child blocks together under a single parent block. Your `CaptionedImageBlock` has three child blocks. The first child block, `Image`, uses the `ImageBlock` field block type. With `ImageBlock`, editors can select an existing image or upload a new one. Its `required` argument has a value of `true`, which means that you must provide an image for the block to work. The `caption` and `attribution` child blocks use the `CharBlock` field block type, which provides single-line text inputs for adding captions and attributions to your images. Your `caption` and `attribution` child blocks have their `required` attributes set to `false`. That means you can leave them empty in your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) if you want to.
 
-Just like `ImageBlock`, your `HeadingBlock` also inherits from `StructBlock`. It has two child blocks. Let's look at those.
+Just like `CaptionedImageBlock`, your `HeadingBlock` also inherits from `StructBlock`. It has two child blocks. Let's look at those.
 
 ```python
 class HeadingBlock(StructBlock):
@@ -124,24 +124,24 @@ Your `BaseStreamBlock` class inherits from `StreamBlock`. `StreamBlock` defines 
 class BaseStreamBlock(StreamBlock):
     heading_block = HeadingBlock()
     paragraph_block = RichTextBlock(icon="pilcrow")
-    image_block = ImageBlock()
+    image_block = CaptionedImageBlock()
     embed_block = EmbedBlock(
         help_text="Insert a URL to embed. For example, https://www.youtube.com/watch?v=SGJFWirQ3ks",
         icon="media",
     )
 ```
 
-Your `BaseStreamBlock` has four child blocks. The `heading_block` uses the previously defined `HeadingBlock`. `paragraph_block` uses `RichTextBlock`, which provides a WYSIWYG editor for creating formatted text. `image_block` uses the previously defined `ImageBlock` class. `embed_block` is a block for embedding external content like videos. It uses the Wagtail `EmbedBlock`. To discover more field block types that you can use, read the [documentation on Field block types](field_block_types).
+Your `BaseStreamBlock` has four child blocks. The `heading_block` uses the previously defined `HeadingBlock`. `paragraph_block` uses `RichTextBlock`, which provides a WYSIWYG editor for creating formatted text. `image_block` uses the previously defined `CaptionedImageBlock` class. `embed_block` is a block for embedding external content like videos. It uses the Wagtail `EmbedBlock`. To discover more field block types that you can use, read the [documentation on Field block types](field_block_types).
 
-Also, you defined a `Meta` class within your `ImageBlock` and `HeadingBlock` blocks. The `Meta` classes provide metadata for the blocks, including icons to visually represent them in the admin interface. The `Meta` classes also include custom templates for rendering your `ImageBlock` and `HeadingBlock` blocks.
+Also, you defined a `Meta` class within your `CaptionedImageBlock` and `HeadingBlock` blocks. The `Meta` classes provide metadata for the blocks, including icons to visually represent them in the admin interface. The `Meta` classes also include custom templates for rendering your `CaptionedImageBlock` and `HeadingBlock` blocks.
 
 ```{note}
 Wagtail provides built-in templates to render each block. However, you can override the built-in template with a custom template.
 ```
 
-Finally, you must add the custom templates that you defined in the `Meta` classes of your `ImageBlock` and `HeadingBlock` blocks.
+Finally, you must add the custom templates that you defined in the `Meta` classes of your `CaptionedImageBlock` and `HeadingBlock` blocks.
 
-To add the custom template of your `ImageBlock`, create a `base/templates/base/blocks/image_block.html` file and add the following to it:
+To add the custom template of your `CaptionedImageBlock`, create a `base/templates/base/blocks/captioned_image_block.html` file and add the following to it:
 
 ```html+django
 {% load wagtailimages_tags %}
@@ -245,8 +245,8 @@ from wagtail.blocks import (
     StructBlock,
 )
 
-# import ImageChooserBlock:
-from wagtail.images.blocks import ImageChooserBlock
+# import ImageBlock:
+from wagtail.images.blocks import ImageBlock
 
 from base.blocks import BaseStreamBlock
 
@@ -254,7 +254,7 @@ from base.blocks import BaseStreamBlock
 class CardBlock(StructBlock):
     heading = CharBlock()
     text = RichTextBlock(features=["bold", "italic", "link"])
-    image = ImageChooserBlock(required=False)
+    image = ImageBlock(required=False)
 
     class Meta:
         icon = "form"
@@ -331,28 +331,27 @@ To add your resume to your portfolio site, follow these steps:
 
 1. Create a **Portfolio Page** as a child page of **Home** by following these steps:
 
-    a. Restart your server.  
-    b. Go to your admin interface.  
-    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).  
-    d. Click `Home`.  
-    e. Click the `...` icon at the top of the resulting page.  
-    f. Click `add child page`.  
-    g. Click `Portfolio Page`.
+    a. Restart your server.
+    b. Go to your admin interface.
+    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+    d. Click `Home`.
+    e. Click the `+` icon (Add child page) at the top of the resulting page.
+    f. Click `Portfolio Page`.
 
 2. Add your resume data by following these steps:  
-   a. Use "Resume" as your page title.  
-   b. Click **+** to expand your body section.  
-   c. Click **Paragraph block**.  
+   a. Use "Resume" as your page title.
+   b. Click **+** to expand your body section.
+   c. Click **Paragraph block**.
    d. Copy and paste the following text in your new **Paragraph block**:
 
     ```text
     I'm a Wagtail Developer with a proven track record of developing and maintaining complex web applications. I have experience writing custom code to extend Wagtail applications, collaborating with other developers, and integrating third-party services and APIs.
     ```
 
-    e. Click **+** below your preceding Paragraph block, and then click **Paragraph block** to add a new Paragraph Block.  
-    f. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.  
-    g. Use "Work Experience" as your Heading 2.  
-    h. Type "/" below your Heading 2 and click **H3 Heading 3**.  
+    e. Click **+** below your preceding Paragraph block, and then click **Paragraph block** to add a new Paragraph Block.
+    f. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.
+    g. Use "Work Experience" as your Heading 2.
+    h. Type "/" below your Heading 2 and click **H3 Heading 3**.
     i. Use the following as your Heading 3:
 
     ```
@@ -374,10 +373,10 @@ To add your resume to your portfolio site, follow these steps:
     By starting your sentences with "-", you're writing out your work experience as a Bulletted list. You can achieve the same result by typing "/" in the input field of your Paragraph block and then clicking **Bulleted list**.
     ```
 
-    k. Click **+** below your Work experience.  
-    l. Click **Paragraph block** to add another Paragraph block.  
-    m. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.  
-    n. Use "Skills" as the Heading 2 of your new Paragraph block.  
+    k. Click **+** below your Work experience.
+    l. Click **Paragraph block** to add another Paragraph block.
+    m. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.
+    n. Use "Skills" as the Heading 2 of your new Paragraph block.
     o. Copy and paste the following after your Heading 2:
 
     ```text

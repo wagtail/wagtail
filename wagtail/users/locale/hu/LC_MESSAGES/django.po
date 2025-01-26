@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -226,15 +226,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Biztosan törli a csoportot?"
 
-msgid "Add group"
-msgstr "Csoport hozzáadása"
-
-msgid "Save"
-msgstr "Mentés"
-
-msgid "Delete group"
-msgstr "Csoport törlése"
-
 msgid "Object permissions"
 msgstr "Rekord jogosultságok"
 
@@ -246,15 +237,6 @@ msgstr "Hozzáadás"
 
 msgid "Change"
 msgstr "Megváltoztatás"
-
-msgid "Publish"
-msgstr "Közzététel"
-
-msgid "Lock"
-msgstr "Zárol"
-
-msgid "Unlock"
-msgstr "Feloldás"
 
 msgid "Custom permissions"
 msgstr "Egyedi engedélyek"
@@ -293,12 +275,6 @@ msgstr "Fiók"
 
 msgid "Roles"
 msgstr "Szerepkörök"
-
-msgid "Add user"
-msgstr "Felhasználó hozzáadása"
-
-msgid "Delete user"
-msgstr "Felhasználó törlése"
 
 msgid "Select all users in listing"
 msgstr "Összes felhasználó kiválasztása a listában"
@@ -366,6 +342,9 @@ msgstr "Csoport hozzáadása"
 msgid "Search groups"
 msgstr "Csoportok keresése"
 
+msgid "Add group"
+msgstr "Csoport hozzáadása"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Csoport létrehozva: '%(object)s'"
@@ -383,6 +362,9 @@ msgstr "Csoport tagjainak megtekintése"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Csoport törölve: '%(object)s'"
+
+msgid "Delete group"
+msgstr "Csoport törlése"
 
 msgid "Add a user"
 msgstr "Felhasználó hozzáadása"
@@ -410,12 +392,18 @@ msgstr "'%(title)s' további lehetőségei"
 msgid "User '%(object)s' created."
 msgstr "Felhasználó létrehozva: '%(object)s'."
 
+msgid "Add user"
+msgstr "Felhasználó hozzáadása"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Felhasználó frissítve: '%(object)s'"
 
 msgid "The user could not be saved due to errors."
 msgstr "Hiba történt a felhasználó mentése közben."
+
+msgid "Delete user"
+msgstr "Felhasználó törlése"
 
 #, python-format
 msgid "User '%(object)s' deleted."

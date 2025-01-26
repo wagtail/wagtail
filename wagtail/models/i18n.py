@@ -56,7 +56,7 @@ class Locale(models.Model):
     @classmethod
     def get_default(cls):
         """
-        Returns the default Locale based on the site's LANGUAGE_CODE setting
+        Returns the default Locale based on the site's ``LANGUAGE_CODE`` setting.
         """
         return cls.objects.get_for_language(settings.LANGUAGE_CODE)
 
@@ -309,7 +309,7 @@ class TranslatableMixin(models.Model):
         """
         Finds the translation in the specified locale.
 
-        If there is no translation in that locale, this returns None.
+        If there is no translation in that locale, this returns ``None``.
         """
         try:
             return self.get_translation(locale)

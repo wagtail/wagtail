@@ -147,11 +147,17 @@ class SpecificQuerySetMixin:
         super().__init__(*args, **kwargs)
         # set by PageQuerySet.defer_streamfields()
         self._defer_streamfields = False
+        self._specific_select_related_fields = ()
+        self._specific_prefetch_related_lookups = ()
 
     def _clone(self):
         """Ensure clones inherit custom attribute values."""
         clone = super()._clone()
         clone._defer_streamfields = self._defer_streamfields
+        clone._specific_select_related_fields = self._specific_select_related_fields
+        clone._specific_prefetch_related_lookups = (
+            self._specific_prefetch_related_lookups
+        )
         return clone
 
     def specific(self, defer=False):
@@ -178,6 +184,137 @@ class SpecificQuerySetMixin:
             self._iterable_class,
             (SpecificIterable, DeferredSpecificIterable),
         )
+
+    def select_related(self, *fields, for_specific_subqueries: bool = False):
+        """
+        Overrides Django's native :meth:`~django.db.models.query.QuerySet.select_related`
+        to allow related objects to be fetched by the subqueries made when a specific
+        queryset is evaluated.
+
+        When ``for_specific_subqueries`` is ``False`` (the default), the method functions
+        exactly like the original method. However, when ``True``, ``fields`` are
+        **required**, and must match names of ForeignKey fields on all specific models
+        that might be included in the result (which can include fields inherited from
+        concrete parents). Unlike when ``for_specific_subqueries`` is ``False``, no
+        validation is applied to ``fields`` when the method is called. Rather, that when
+        the method is called. Instead, that validation is applied for each individual
+        subquery when the queryset is evaluated. This difference in behaviour should be
+        taken into account when experimenting with ``for_specific_subqueries=True`` .
+
+        As with Django's native implementation, you chain multiple applications of
+        ``select_related()`` with ``for_specific_subqueries=True`` to progressively add
+        to the list of fields to be fetched. For example:
+
+        .. code-block:: python
+
+            # Fetch 'author' when retrieving specific page data
+            queryset = Page.objects.specific().select_related("author", for_specific_subqueries=True)
+
+            # We're rendering cards with images, so fetch the listing image too
+            queryset = queryset.select_related("listing_image", for_specific_subqueries=True)
+
+            # Fetch some key taxonomy data too
+            queryset = queryset.select_related("topic", "target_audience", for_specific_subqueries=True)
+
+        As with Django's native implementation, ``None`` can be supplied in place of
+        ``fields`` to negate a previous application of ``select_related()``. By default,
+        this will only work for cases where ``select_related()`` was called without
+        ``for_specific_subqueries``, or with ``for_specific_subqueries=False``. However,
+        you can use ``for_specific_subqueries=True`` to negate subquery-specific
+        applications too. For example:
+
+        .. code-block:: python
+
+            # Fetch 'author' and 'listing_image' when retrieving specific page data
+            queryset = Page.objects.specific().select_related(
+                "author",
+                "listing_image",
+                for_specific_subqueries=True
+            )
+
+            # I've changed my mind. Do not fetch any additional data
+            queryset = queryset.select_related(None, for_specific_subqueries=True)
+        """
+
+        if not for_specific_subqueries:
+            return super().select_related(*fields)
+        if not fields:
+            raise ValueError(
+                "'fields' must be specified when calling select_related() with for_specific_subqueries=True"
+            )
+        clone = self._chain()
+        if fields == (None,):
+            clone._specific_select_related_fields = ()
+        else:
+            clone._specific_select_related_fields = (
+                self._specific_select_related_fields + fields
+            )
+        return clone
+
+    def prefetch_related(self, *lookups, for_specific_subqueries: bool = False):
+        """
+        Overrides Django's native :meth:`~django.db.models.query.QuerySet.prefetch_related`
+        implementation to allow related objects to be fetched alongside the subqueries made
+        when a specific queryset is evaluated.
+
+        When ``for_specific_subqueries`` is ``False`` (the default), the method functions
+        exactly like the original method. However, when ``True``, ``lookups`` are
+        **required**, and must match names of related fields on all specific models that
+        might be included in the result (which can include relationships inherited from
+        concrete parents). Unlike when ``for_specific_subqueries`` is ``False``, no
+        validation is applied to ``lookups`` when the method is called. Instead, that
+        validation is applied for each individual subquery when the queryset is
+        evaluated. This difference in behaviour should be taken into account when
+        experimenting with ``for_specific_subqueries=True``.
+
+        As with Django's native implementation, you chain multiple applications of
+        ``prefetch_related()`` with ``for_specific_subqueries=True`` to progressively
+        add to the list of lookups to be made. For example:
+
+        .. code-block:: python
+
+            # Fetch 'contributors' when retrieving specific page data
+            queryset = Page.objects.specific().prefetch_related("contributors", for_specific_subqueries=True)
+
+            # We're rendering cards with images, so prefetch listing image renditions too
+            queryset = queryset.prefetch_related("listing_image__renditions", for_specific_subqueries=True)
+
+            # Fetch some key taxonomy data also
+            queryset = queryset.prefetch_related("tags", for_specific_subqueries=True)
+
+        As with Django's native implementation, ``None`` can be supplied in place of
+        ``lookups`` to negate a previous application of ``prefetch_related()``. By default,
+        this will only work for cases where ``prefetch_related()`` was called without
+        ``for_specific_subqueries``, or with ``for_specific_subqueries=False``. However,
+        you can use ``for_specific_subqueries=True`` to negate subquery-specific
+        applications too. For example:
+
+        .. code-block:: python
+
+            # Fetch 'contributors' and 'listing_image' renditions when retrieving specific page data
+            queryset = Page.objects.specific().prefetch_related(
+                "contributors",
+                "listing_image__renditions",
+                for_specific_subqueries=True
+            )
+
+            # I've changed my mind. Do not make any additional queries
+            queryset = queryset.prefetch_related(None, for_specific_subqueries=True)
+        """
+        if not for_specific_subqueries:
+            return super().prefetch_related(*lookups)
+        if not lookups:
+            raise ValueError(
+                "'lookups' must be provided when calling prefetch_related() with for_specific_subqueries=True"
+            )
+        clone = self._chain()
+        if lookups == (None,):
+            clone._specific_prefetch_related_lookups = ()
+        else:
+            clone._specific_prefetch_related_lookups = (
+                self._specific_prefetch_related_lookups + lookups
+            )
+        return clone
 
 
 class PageQuerySet(SearchableQuerySetMixin, SpecificQuerySetMixin, TreeQuerySet):
@@ -560,6 +697,14 @@ class SpecificIterable(ModelIterable):
                 # model (i.e. Page) if the more specific one is missing
                 model = content_types[content_type].model_class() or qs.model
                 items = model.objects.filter(pk__in=pks)
+
+                if qs._specific_select_related_fields:
+                    items = items.select_related(*qs._specific_select_related_fields)
+
+                if qs._specific_prefetch_related_lookups:
+                    items = items.prefetch_related(
+                        *qs._specific_prefetch_related_lookups
+                    )
 
                 if qs._defer_streamfields and hasattr(items, "defer_streamfields"):
                     items = items.defer_streamfields()

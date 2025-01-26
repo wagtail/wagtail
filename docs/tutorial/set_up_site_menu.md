@@ -21,7 +21,7 @@ def get_site_root(context):
     return Site.find_for_request(context["request"]).root_page
 ```
 
-In the preceding code, you used the `get_site_root` template tag to retrieve the root page of your site, which is your `HomePage` in this case.
+In the preceding code, you created the `get_site_root` template tag to retrieve the root page of your site, which is your `HomePage` in this case.
 
 Now, create `mysite/templates/includes/header.html` file and add the following to it:
 

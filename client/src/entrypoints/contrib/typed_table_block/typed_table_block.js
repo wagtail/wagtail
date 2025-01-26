@@ -76,9 +76,9 @@ export class TypedTableBlock {
           <table>
             <thead>
               <tr>
-                <th></th>
+                <th aria-hidden="true"></th>
                 <th class="control-cell">
-                  <button type="button" class="button button-small button-secondary append-column" data-append-column>
+                  <button type="button" class="button button-small button-secondary append-column" aria-expanded="false" data-append-column>
                     ${h(strings.ADD_COLUMN)}
                   </button>
                 </th>
@@ -148,12 +148,12 @@ export class TypedTableBlock {
       ).text(childBlockDef.meta.label);
       columnTypeButton.on('click', () => {
         if (this.addColumnCallback) this.addColumnCallback(childBlockDef);
-        this.hideAddColumnMenu();
+        this.hideAddColumnMenu(this.addColumnMenuTrigger);
       });
       const li = $('<li></li>').append(columnTypeButton);
       this.addColumnMenu.append(li);
     });
-    this.addColumnMenuBaseElement = null; // the element the add-column menu is attached to
+    this.addColumnMenuTrigger = null; // the element the add-column menu is attached to
 
     this.appendColumnButton.on('click', () => {
       this.toggleAddColumnMenu(this.appendColumnButton, (chosenBlockDef) => {
@@ -173,23 +173,26 @@ export class TypedTableBlock {
     }
   }
 
-  showAddColumnMenu(baseElement, callback) {
-    this.addColumnMenuBaseElement = baseElement;
-    baseElement.after(this.addColumnMenu);
+  showAddColumnMenu(triggeredElement, callback) {
+    this.addColumnMenuTrigger?.attr('aria-expanded', 'false');
+    this.addColumnMenuTrigger = triggeredElement;
+    triggeredElement.after(this.addColumnMenu);
+    triggeredElement.attr('aria-expanded', 'true');
     this.addColumnMenu.show();
     this.addColumnCallback = callback;
   }
 
-  hideAddColumnMenu() {
+  hideAddColumnMenu(triggeredElement) {
+    triggeredElement.attr('aria-expanded', 'false');
     this.addColumnMenu.hide();
-    this.addColumnMenuBaseElement = null;
+    this.addColumnMenuTrigger = null;
   }
 
-  toggleAddColumnMenu(baseElement, callback) {
-    if (this.addColumnMenuBaseElement === baseElement) {
-      this.hideAddColumnMenu();
+  toggleAddColumnMenu(triggeredElement, callback) {
+    if (this.addColumnMenuTrigger === triggeredElement) {
+      this.hideAddColumnMenu(triggeredElement);
     } else {
-      this.showAddColumnMenu(baseElement, callback);
+      this.showAddColumnMenu(triggeredElement, callback);
     }
   }
 
@@ -271,10 +274,13 @@ export class TypedTableBlock {
     const prependColumnButton = $(`<button type="button"
       class="button button-secondary button-small button--icon text-replace prepend-column"
       aria-label="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
+      aria-expanded="false"
       title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}">
         <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>`);
+
     $(newHeaderCell).append(prependColumnButton);
+
     prependColumnButton.on('click', () => {
       this.toggleAddColumnMenu(prependColumnButton, (chosenBlockDef) => {
         this.insertColumn(column.position, chosenBlockDef, {
@@ -329,8 +335,7 @@ export class TypedTableBlock {
       )
       .addClass('button--icon text-replace white')
       .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
-      .addClass('button--icon text-replace white')
-      .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
+      .attr('aria-expanded', 'false')
       .attr('title', this.blockDef.meta.strings.ADD_COLUMN);
 
     if (opts && opts.addInitialRow && this.tbody.children.length === 0) {

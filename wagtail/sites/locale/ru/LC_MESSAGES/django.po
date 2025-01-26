@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>, 2020\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -62,12 +62,12 @@ msgstr "Сайт не может быть сохранен из-за ошибо�
 msgid "Site '%(object)s' updated."
 msgstr "Сайт '%(object)s' обновлен."
 
-msgid "Delete site"
-msgstr "Удалить сайт"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Сайт '%(object)s' удален."
+
+msgid "Delete site"
+msgstr "Удалить сайт"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Вы уверены, что хотите удалить этот сайт?"

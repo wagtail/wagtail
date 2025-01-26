@@ -5,13 +5,14 @@
 # Translators:
 # Philip Crisp, 2022
 # Philip Crisp, 2022
+# Philip Lindsay-Crisp, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
-"Last-Translator: Philip Crisp, 2022\n"
+"Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -103,17 +104,28 @@ msgstr "dros dro"
 msgid "redirect"
 msgstr "ailgyfeirio"
 
+msgid "redirects"
+msgstr "ailgyfeirio"
+
 msgid "Add redirect"
 msgstr "Ychwanegu ailgyfeiriad"
-
-msgid "Save"
-msgstr "Cadw"
 
 msgid "Redirects"
 msgstr "Ailgyfeiriadau"
 
 msgid "Import redirects"
 msgstr "Mewnforio ailgyfeiriadau"
+
+msgid ""
+"<p>Select a file where redirects are separated into rows and contains the "
+"columns representing <code>from</code> and <code>to</code> (they can be "
+"named anything).</p> <p>After submitting you will be taken to a confirmation "
+"view where you can customize your redirects before import.</p>"
+msgstr ""
+"<p>Dewiswch ffeil lle mae ailgyfeiriadau wedi'u gwahanu'n rhesi ac yn "
+"cynnwys y colofnau sy'n cynrychioli <code>o</code> a <code>i</code> (gellir "
+"eu henwi yn unrhyw beth).</p> <p>Ar ôl cyflwyno byddwch yn cael eich tywys i "
+"olwg cadarnhau lle gallwch addasu eich ailgyfeiriadau cyn mewnforio.</p>"
 
 msgid "Import"
 msgstr "Mewnforio"

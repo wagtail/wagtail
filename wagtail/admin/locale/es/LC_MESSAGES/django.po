@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -423,14 +423,8 @@ msgstr "La página solicitada no pudo ser encontrada."
 msgid "Go to Wagtail admin"
 msgstr "Ir al Administrador Wagtail"
 
-msgid "Account"
-msgstr "Cuenta"
-
 msgid "More actions"
 msgstr "Más acciones"
-
-msgid "Save account details"
-msgstr "Guardar detalles de la cuenta"
 
 msgid "Reset password"
 msgstr "Restablecer contraseña"
@@ -691,11 +685,11 @@ msgstr "¿Aún te gustaría publicar este %(model_name)s?"
 msgid "Cancel"
 msgstr "Cancelar"
 
-msgid "Comment"
-msgstr "Comentario"
-
 msgid "Actions"
 msgstr "Acciones"
+
+msgid "Comment"
+msgstr "Comentario"
 
 msgid "Update"
 msgstr "Actualizar"
@@ -740,10 +734,6 @@ msgstr[2] "Movido %(counter)sposiciones hacia arriba."
 msgid "There are no differences between these two versions"
 msgstr "No hay diferencias entre estas dos versiones."
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Bienvenido al CMS Wagtail %(site_name)s"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -751,8 +741,17 @@ msgstr ""
 "Este es tu panel de control donde aparecerá información útil sobre el "
 "contenido que has creado."
 
+msgid "Account"
+msgstr "Cuenta"
+
 msgid "Your locked pages"
 msgstr "Tus páginas bloqueadas"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Status"
+msgstr "Estado"
 
 msgid "Locked at"
 msgstr "Bloqueado el"
@@ -771,9 +770,6 @@ msgstr "En vivo"
 
 msgid "Your most recent edits"
 msgstr "Tus ediciones más recientes"
-
-msgid "Status"
-msgstr "Estado"
 
 msgid "Date"
 msgstr "Fecha"
@@ -1015,21 +1011,6 @@ msgstr ""
 msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\""
 msgstr ""
 "La página \"%(title)s\" ha sido enviada al flujo de trabajo \"%(workflow)s\""
-
-msgid "This page has been made private by a parent page."
-msgstr "Esta página fue convertida en privada por una página padre."
-
-msgid "Save the page before leaving"
-msgstr "Guardar la página antes de salir"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "Tienes <span>ediciones no guardadas</span>"
-
-msgid "You have <span>unsaved comments</span>"
-msgstr "Tienes <span>comentarios no guardados</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "Tienes <span>ediciones no guardadas</span> y <span>comentarios</span>"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -1483,9 +1464,6 @@ msgstr "Copiar"
 msgid "Copy this page"
 msgstr "Copiar esta página"
 
-msgid "This page has unsaved changes."
-msgstr "Esta página tiene cambios que no se han guardado."
-
 msgid "This page is an alias of another page."
 msgstr "Esta página es una alias de otra página."
 
@@ -1494,9 +1472,6 @@ msgstr "Editar página original"
 
 msgid "Convert this alias into an ordinary page"
 msgstr "Convertir este alias en una página ordinaria"
-
-msgid "Select all pages in listing"
-msgstr "Seleccionar todas las páginas de la lista"
 
 msgid ""
 "The root level is where you can add new sites to your Wagtail installation. "
@@ -1537,6 +1512,9 @@ msgid ""
 msgstr ""
 "No hay sitio registrado para esta ubicación. Las páginas creadas aquí no "
 "serán accesibles desde ninguna URL."
+
+msgid "Select all pages in listing"
+msgstr "Seleccionar todas las páginas de la lista"
 
 msgid "This page is locked, by you, to further editing"
 msgstr "Esta página está bloqueada, por ti, y no permite edición"
@@ -1589,6 +1567,9 @@ msgstr "Confirmar"
 msgid "Add child page"
 msgstr "Añadir página hija"
 
+msgid "Page types"
+msgstr "Tipos de página"
+
 #, python-format
 msgid "There is one matching page"
 msgid_plural "There are %(counter)s matching pages"
@@ -1596,18 +1577,12 @@ msgstr[0] "Hay una página coincidente"
 msgstr[1] "Hay %(counter)s páginas coincidentes"
 msgstr[2] "Hay %(counter)s páginas coincidentes"
 
-msgid "Page types"
-msgstr "Tipos de página"
-
 #, python-format
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
 msgstr "Lo sentimos, ninguna página contiene <em>%(query_string)s</em>"
 
 msgid "Enter a search term above"
 msgstr "Introduce el término de búsqueda arriba"
-
-msgid "No pages use"
-msgstr "Páginas sin uso"
 
 #, python-format
 msgid "Add %(label)s"
@@ -1897,15 +1872,6 @@ msgstr "No hay fecha de publicación establecida"
 msgid "Set schedule"
 msgstr "Establece fecha de publicación"
 
-msgid "Preview in mobile size"
-msgstr "Vista previa en tamaño móvil"
-
-msgid "Preview in tablet size"
-msgstr "Vista previa en tamaño tableta"
-
-msgid "Preview in desktop size"
-msgstr "Vista previa en tamaño escritorio"
-
 msgid "Preview in new tab"
 msgstr "Vista previa en nueva pestaña"
 
@@ -1925,11 +1891,14 @@ msgstr ""
 msgid "Preview mode"
 msgstr "Modo vista previa"
 
-msgid "Edit / Review"
-msgstr "Editar / Revisar"
+msgid "You have <span>unsaved edits</span>"
+msgstr "Tienes <span>ediciones no guardadas</span>"
 
-msgid "Workflow history"
-msgstr "Historial de flujo de trabajo"
+msgid "You have <span>unsaved comments</span>"
+msgstr "Tienes <span>comentarios no guardados</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Tienes <span>ediciones no guardadas</span> y <span>comentarios</span>"
 
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
@@ -1972,13 +1941,6 @@ msgstr "Flujo de trabajo completado"
 #, python-format
 msgid "%(action)s by <b>%(who)s</b>"
 msgstr "%(action)s por <b>%(who)s</b>"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "Historial de flujo de trabajo para %(title)s"
-
-msgid "Workflow history for"
-msgstr "Historial de flujo de trabajo para"
 
 msgid "Approved task"
 msgstr "Tarea aprobada"
@@ -2036,12 +1998,6 @@ msgstr "¿Seguro que quieres deshabilitar esta tarea?"
 
 msgid "Assign your workflow to pages"
 msgstr "Asignar tu flujo de trabajo a páginas"
-
-msgid "Creating…"
-msgstr "Creando..."
-
-msgid "Create"
-msgstr "Crear"
 
 #, python-format
 msgid ""
@@ -2125,6 +2081,12 @@ msgstr "Existentes"
 msgid "Choose a different task type"
 msgstr "Seleccionar un tipo de tarea diferente"
 
+msgid "Creating…"
+msgstr "Creando..."
+
+msgid "Create"
+msgstr "Crear"
+
 msgid "Task type"
 msgstr "Tipo de tarea"
 
@@ -2158,13 +2120,6 @@ msgid ""
 msgstr ""
 "No hay tareas habilitadas. ¿Por qué no <a href=\"%(add_url)s\">añadir una</"
 "a>?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "Páginas que usan el flujo de trabajo '%(name)s'"
-
-msgid "Pages that use workflow"
-msgstr "Páginas que usan flujo de trabajo"
 
 msgid "Submitted"
 msgstr "Enviado"
@@ -2323,12 +2278,12 @@ msgstr "Colección '%(object)s' actualizada."
 msgid "The collection could not be saved due to errors."
 msgstr "La colección no puede ser guardada debido a errores."
 
-msgid "Delete collection"
-msgstr "Eliminar colección"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Colección '%(object)s' eliminada."
+
+msgid "Delete collection"
+msgstr "Eliminar colección"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Estás seguro de que deseas eliminar esta colección?"
@@ -2351,8 +2306,14 @@ msgstr "Comparar con versión actual"
 msgid "Cancel scheduled publish"
 msgstr "Cancelar publicación programada"
 
+msgid "Workflow history"
+msgstr "Historial de flujo de trabajo"
+
 msgid "Workflow progress"
 msgstr "Progreso de flujo de trabajo"
+
+msgid "Edit / Review"
+msgstr "Editar / Revisar"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -2438,9 +2399,6 @@ msgstr "Editando"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' eliminado."
-
-msgid "Inspecting"
-msgstr "Inspeccionar"
 
 msgid "Earliest"
 msgstr "Primeros"

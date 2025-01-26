@@ -101,6 +101,11 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   background-color: $draftail-editor-background;
   color: $draftail-placeholder-text;
 
+  &--pin {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .Draftail-Editor--focus & {
     color: $draftail-editor-text;
     top: calc(theme('spacing.slim-header') * 2);
@@ -205,11 +210,20 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   }
 }
 
+.Draftail-ToolbarGroup {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .Draftail-ToolbarGroup::before {
   display: none;
 }
 
 .Draftail-ToolbarButton {
+  @include more-contrast-interactive();
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 1.875rem;
   min-width: 1.875rem;
   padding: 0;
@@ -257,6 +271,7 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   .Draftail-Toolbar & {
     border-color: theme('colors.border-field-default');
     background-color: theme('colors.surface-page');
+    color: currentColor;
     border-top-width: 0;
     border-inline-end-width: 0;
 

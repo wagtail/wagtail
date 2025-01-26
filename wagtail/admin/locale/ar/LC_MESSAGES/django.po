@@ -13,6 +13,7 @@
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Tarek Berkane, 2025
 # ultraify media <ultraify@gmail.com>, 2018
 # Waseem Kntar, 2023
 # Younes Oumakhou, 2022
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Mahmoud Marayef, 2023\n"
+"Last-Translator: Tarek Berkane, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +84,9 @@ msgstr "التاريخ من"
 
 msgid "Date to"
 msgstr "تاريخ لـ"
+
+msgid "Locale"
+msgstr "الإعدادات المحلية"
 
 msgid "All"
 msgstr "الكل"
@@ -303,14 +307,8 @@ msgstr "الصفحة المطلوبة لم تعد متوفرة"
 msgid "Go to Wagtail admin"
 msgstr "اذهب الى لوحة تحكم Wagtail"
 
-msgid "Account"
-msgstr "حساب"
-
 msgid "More actions"
 msgstr "المزيد من الإجراءات"
-
-msgid "Save account details"
-msgstr "حِفظ تفاصيل الحساب"
 
 msgid "Reset password"
 msgstr "غير كلمة السر"
@@ -358,6 +356,12 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
 
+msgid "Reset to default"
+msgstr "إعادة التعيين إلى الوضع الافتراضي"
+
+msgid "Default avatar"
+msgstr "الصورة الرمزية الافتراضية"
+
 msgid "Upload a profile picture:"
 msgstr "رَفع صورة الملف الشخصي"
 
@@ -366,6 +370,9 @@ msgstr "الشريط الجانبي"
 
 msgid "Go back"
 msgstr "رجوع"
+
+msgid "Select"
+msgstr "إختر"
 
 msgid "Select row"
 msgstr "تحديد صف"
@@ -401,6 +408,15 @@ msgstr "اختر"
 msgid "Choose a page"
 msgstr "اختر صفحة"
 
+msgid "Confirm selection"
+msgstr "تأكيد الاختيار"
+
+msgid "Convert to internal link"
+msgstr "حول إلى رابط داخلي"
+
+msgid "Use external link"
+msgstr "إستعمل رابط خارجي"
+
 msgid "Add an email link"
 msgstr "أضف حلقة إلكترونية"
 
@@ -409,6 +425,13 @@ msgstr "أدخل حلقة"
 
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
+
+msgid "Add a phone link"
+msgstr "أضف رابط الهاتف"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "إختر %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -425,6 +448,9 @@ msgstr "يمكنك تحرير إعدادات الخصوصية على:"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Change privacy"
+msgstr "تغيير إعدادات الخصوصية"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -451,6 +477,9 @@ msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"
 
+msgid "There are no results."
+msgstr "لا توجد نتائج."
+
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
@@ -467,11 +496,18 @@ msgstr "نعك ألغ نشره"
 msgid "No, don't unpublish"
 msgstr "لا ,ألغ النشر"
 
-msgid "Comment"
-msgstr "تعليق"
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "هل مازلت تود نشر %(model_name)s ؟"
+
+msgid "Cancel"
+msgstr "إلغاء"
 
 msgid "Actions"
 msgstr "النشاطات"
+
+msgid "Comment"
+msgstr "تعليق"
 
 msgid "Update"
 msgstr "حدث"
@@ -489,10 +525,6 @@ msgstr "حقل"
 msgid "Changes"
 msgstr "تغيرات"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "اهلا بك في %(site_name)s"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -500,8 +532,17 @@ msgstr ""
 "هذه هي لوحة التحكم الخاصة بك والتي سيتم عرض معلومات مفيدة حول المحتوى الذي "
 "قمت بإنشائها."
 
+msgid "Account"
+msgstr "حساب"
+
 msgid "Your locked pages"
 msgstr "صفحاتُك المقفلة"
+
+msgid "Status"
+msgstr "رتبة"
+
+msgid "Locked at"
+msgstr "تم الغلق في"
 
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
@@ -517,9 +558,6 @@ msgstr "مباشر"
 
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
-
-msgid "Status"
-msgstr "رتبة"
 
 msgid "Date"
 msgstr "تاريخ"
@@ -576,9 +614,6 @@ msgstr "الصفحة \"%(title)s\" تم رفضها."
 
 msgid "You can preview the page here:"
 msgstr "يمكن النظر المقدم في الصفحة هنا"
-
-msgid "This page has been made private by a parent page."
-msgstr "لقد تم جعل هذه الصفحة خاصة بواسطة صفحة رئيسية."
 
 msgid "Publishing…"
 msgstr "يتم النشر..."
@@ -700,9 +735,6 @@ msgstr "انسخ"
 msgid "Copy this page"
 msgstr "انسخ هذه الصفحة"
 
-msgid "This page has unsaved changes."
-msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
-
 msgid "Configure a site now."
 msgstr "تكوين موقع الآن."
 
@@ -752,9 +784,6 @@ msgstr "انواع الصفحة"
 
 msgid "Enter a search term above"
 msgstr "أدخل مصطلح البحث أعلاه"
-
-msgid "No pages use"
-msgstr "لا توجد صفحات تستخدم"
 
 #, python-format
 msgid "Add %(label)s"
@@ -859,14 +888,14 @@ msgstr "إضافة صفحة فرعية"
 msgid "Show in Explorer"
 msgstr "اعرض في المستكشف"
 
-msgid "Creating…"
-msgstr "يتم إنشاء..."
-
 msgid "Page"
 msgstr "صفحة"
 
 msgid "New"
 msgstr "جديد"
+
+msgid "Creating…"
+msgstr "يتم إنشاء..."
 
 msgid "Published"
 msgstr "تم نشره"
@@ -892,6 +921,15 @@ msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
+
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+msgid "Name and Email"
+msgstr "الإسم و البريد الإلكتروني"
+
+msgid "Profile picture"
+msgstr "صورة الملف الشخصي"
 
 msgid "Password"
 msgstr "كلمة السر"
@@ -919,12 +957,12 @@ msgstr "تم تحديث المجموعة '%(object)s'."
 msgid "The collection could not be saved due to errors."
 msgstr "لا يمكن حفظ المجموعة بسبب الأخطاء."
 
-msgid "Delete collection"
-msgstr "حذف المجموعة"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "المجموعة '%(object)s' محذوفة."
+
+msgid "Delete collection"
+msgstr "حذف المجموعة"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
@@ -962,9 +1000,6 @@ msgstr "جاري التعديل"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "تم حذف '%(object)s' '%(model_name)s'."
-
-msgid "Inspecting"
-msgstr "يتم الفحص"
 
 msgid "Earliest"
 msgstr "السابقة"
@@ -1114,6 +1149,19 @@ msgstr "كود"
 
 msgid "Reports"
 msgstr "التقارير"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "ما الجديد في Wagtail %(version)s"
+
+msgid "Editor Guide"
+msgstr "دليل المحرر"
+
+msgid "Shortcuts"
+msgstr "إختصارات"
+
+msgid "Help"
+msgstr "المساعدة"
 
 msgid "Choose an item"
 msgstr "اختيار عنصر"

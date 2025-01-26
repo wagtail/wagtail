@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2022\n"
 "Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
@@ -71,12 +71,12 @@ msgstr "A(z) '%(object)s' területi beállítás frissítve."
 msgid "The locale could not be saved due to errors."
 msgstr "Hiba történt a területi beállítás mentése során."
 
-msgid "Delete locale"
-msgstr "Nyelvi beállítás törlése"
-
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr "A(z) '%(object)s' területi beállítás törölve lett."
+
+msgid "Delete locale"
+msgstr "Nyelvi beállítás törlése"
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Biztosan törölni kívánja ezt a területi beállítást?"

@@ -26,13 +26,14 @@ concurrency:
 # - django 5.0, python 3.11, sqlite, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 5.1, python 3.12, mysql:8.4, parallel, USE_EMAIL_USER_MODEL=yes
 # - django 5.1, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.12, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.12, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
+# - django 5.1, python 3.13, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 5.1, python 3.13, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.1.x, python 3.11, postgres:15, psycopg 3 (allow failures)
-# - django main, python 3.12, postgres:latest, psycopg 3, parallel (allow failures)
+# - django stable/5.2.x, python 3.12, postgres:15, psycopg 3 (allow failures)
+# - django main, python 3.13, postgres:latest, psycopg 3, parallel (allow failures)
 # - elasticsearch 7, django 4.2, python 3.9, postgres:latest, psycopg 2
 # - opensearch 2, django 5.0, python 3.10, sqlite
-# - elasticsearch 8, django 5.1, python 3.12, sqlite, USE_EMAIL_USER_MODEL=yes
+# - elasticsearch 8, django 5.1, python 3.13, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
 # When running tests in parallel, some errors cannot be pickled and result in
@@ -52,13 +53,15 @@ jobs:
           - python: '3.11'
             django: 'Django>=5.0,<5.1'
             check_template_number_format: '1'
-          - python: '3.12'
+          - python: '3.13'
             django: 'Django>=5.1,<5.2'
             emailuser: emailuser
             parallel: '--parallel'
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -95,7 +98,7 @@ jobs:
             psycopg: 'psycopg2>=2.6'
             experimental: false
             parallel: '--parallel'
-          - python: '3.12'
+          - python: '3.13'
             django: 'Django>=5.0,<5.1'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
@@ -108,11 +111,19 @@ jobs:
             postgres: 'postgres:15'
             experimental: true
           - python: '3.12'
+            django: 'git+https://github.com/django/django.git@stable/5.2.x#egg=Django'
+            psycopg: 'psycopg>=3.1.8'
+            postgres: 'postgres:15'
+            experimental: true
+          - python: '3.13'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
+            install_extras: |
+              pip uninstall -y django-modelcluster
+              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
@@ -124,6 +135,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -153,6 +166,25 @@ jobs:
           name: coverage-data-${{ github.job }}-${{ strategy.job-index }}
           path: .coverage.*
           include-hidden-files: true
+      - name: Test project template
+        if: ${{ matrix.experimental }}
+        env:
+          PYTHONWARNINGS: error
+        run: |
+          wagtail start testproject
+          cd testproject
+          tee -a testproject/settings/local.py << EOF
+          from warnings import filterwarnings
+          SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
+          # Remove when all experimental jobs use Django >= 6.0
+          filterwarnings(
+              "ignore", "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated."
+          )
+          FORMS_URLFIELD_ASSUME_HTTPS = True
+          EOF
+          python manage.py makemigrations --check --dry-run
+          python manage.py migrate
+          python manage.py check --fail-level WARNING
 
   test-mysql:
     runs-on: ubuntu-latest
@@ -193,6 +225,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -227,7 +261,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.12'
+          - python: '3.13'
             django: 'Django>=5.1,<5.2'
             emailuser: emailuser
     steps:
@@ -246,6 +280,8 @@ jobs:
           node port: 9300
           discovery type: 'single-node'
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -301,6 +337,9 @@ jobs:
         with:
           stack-version: 7.6.1
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -351,6 +390,8 @@ jobs:
         with:
           opensearch-version: 2
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v5
         with:
@@ -388,6 +429,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5

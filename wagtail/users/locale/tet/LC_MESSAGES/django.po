@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -128,15 +128,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Ita boot prontu dunik ita boot hakarak hamoos grupu nee?"
 
-msgid "Add group"
-msgstr "Hatama grupu"
-
-msgid "Save"
-msgstr "Rai"
-
-msgid "Delete group"
-msgstr "Hamoos grupu"
-
 msgid "Object permissions"
 msgstr "Permisaun sira ba Objetu"
 
@@ -148,12 +139,6 @@ msgstr "Hatama"
 
 msgid "Change"
 msgstr "Troka"
-
-msgid "Publish"
-msgstr "Publika"
-
-msgid "Lock"
-msgstr "Xavi"
 
 msgid "Other permissions"
 msgstr "Permisaun sira seluk"
@@ -188,12 +173,6 @@ msgstr "Konta"
 msgid "Roles"
 msgstr "Knar"
 
-msgid "Add user"
-msgstr "Hatama usuariu"
-
-msgid "Delete user"
-msgstr "Hamoos usuariu"
-
 msgid "Active"
 msgstr "Ativu"
 
@@ -208,6 +187,9 @@ msgstr "Hatama grupu"
 
 msgid "Search groups"
 msgstr "Buka grupu sira"
+
+msgid "Add group"
+msgstr "Hatama grupu"
 
 #, python-format
 msgid "Group '%(object)s' created."
@@ -224,6 +206,9 @@ msgstr "Grupu labele rai tamba erru."
 msgid "Group '%(object)s' deleted."
 msgstr "Grupu '%(object)s' hamoos ona."
 
+msgid "Delete group"
+msgstr "Hamoos grupu"
+
 msgid "Add a user"
 msgstr "Hatama usuariu"
 
@@ -239,12 +224,18 @@ msgstr "Administrasaun"
 msgid "Status"
 msgstr "Estatus"
 
+msgid "Add user"
+msgstr "Hatama usuariu"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Usuariu '%(object)s' troka ona"
 
 msgid "The user could not be saved due to errors."
 msgstr "Usuariu labele rai tamba erru."
+
+msgid "Delete user"
+msgstr "Hamoos usuariu"
 
 #, python-format
 msgid "User '%(object)s' deleted."

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -198,27 +198,11 @@ msgstr "Spremeni dokument:"
 msgid "Add a document"
 msgstr "Dodaj dokument"
 
-msgid "Add document"
-msgstr "Dodaj dokument"
-
 msgid "Uploading…"
 msgstr "Nalagam..."
 
 msgid "Upload"
 msgstr "Prenos"
-
-#, python-format
-msgid "Editing %(title)s"
-msgstr "Urejanje %(title)s"
-
-msgid "Editing"
-msgstr "Urejanje"
-
-msgid "Save"
-msgstr "Shrani"
-
-msgid "Delete document"
-msgstr "Izbriši dokument"
 
 msgid "Filesize"
 msgstr "Velikost"
@@ -252,31 +236,8 @@ msgstr ""
 "Naložen ni še noben dokument. Zakaj ga ne bi <a "
 "href=\"%(wagtaildocs_add_document_url)s\">naložili</a> sedaj?"
 
-#, python-format
-msgid ""
-"<span>%(total)s</span> Document <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgid_plural ""
-"<span>%(total)s</span> Documents <span class=\"w-sr-only\">created in "
-"%(site_name)s</span>"
-msgstr[0] ""
-"<span>%(total)s</span> dokument <span class=\"w-sr-only\"> ustvarjen v "
-"%(site_name)s</span>"
-msgstr[1] ""
-"<span>%(total)s</span> dokumenta <span class=\"w-sr-only\">ustvarjena na "
-"%(site_name)s</span>"
-msgstr[2] ""
-"<span>%(total)s</span> dokumenti <span class=\"w-sr-only\">ustvarjeni na "
-"%(site_name)s</span>"
-msgstr[3] ""
-"<span>%(total)s</span> dokumentov <span class=\"w-sr-only\">narejenih v "
-"%(site_name)s</span>"
-
 msgid "Add multiple documents"
 msgstr "Dodaj več dokumentov"
-
-msgid "Add documents"
-msgstr "Dodaj dokumente"
 
 msgid "Drag and drop documents into this area to upload immediately."
 msgstr "Povlecite in spustite dokumente v tem delu za takojšnji prenos."
@@ -395,9 +356,15 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvor datoteke, ali izbrišite "
 "dokument"
 
+msgid "Delete document"
+msgstr "Izbriši dokument"
+
 #, python-format
 msgid "Document '%(document_title)s' deleted."
 msgstr "Dokument '%(document_title)s' izbrisan."
+
+msgid "Add documents"
+msgstr "Dodaj dokumente"
 
 msgid "Document"
 msgstr "Dokument"

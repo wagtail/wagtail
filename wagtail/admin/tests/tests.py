@@ -29,7 +29,7 @@ class TestHome(WagtailTestUtils, TestCase):
     def test_simple(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Welcome to the Test Site Wagtail CMS")
+        self.assertContains(response, "Test Site")
 
     def test_admin_menu(self):
         response = self.client.get(reverse("wagtailadmin_home"))
@@ -374,16 +374,32 @@ class TestTagsAutocomplete(WagtailTestUtils, TestCase):
 
         self.assertEqual(data, [])
 
+    def test_tags_autocomplete_limit(self):
+        tags = [Tag(name=f"Tag {i}", slug=f"tag-{i}") for i in range(15)]
+        Tag.objects.bulk_create(tags)
+
+        # Send a request to the autocomplete endpoint with a broad search term
+        response = self.client.get(
+            reverse("wagtailadmin_tag_autocomplete"), {"term": "Tag"}
+        )
+
+        # Confirm the response is successful
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+
+        data = json.loads(response.content.decode("utf-8"))
+
+        # The results should be limited to avoid performance issues (#12415)
+        self.assertEqual(len(data), 10)
+        sorted_tags = sorted(tags, key=lambda t: t.name)
+        self.assertEqual(data, [tag.name for tag in sorted_tags[:10]])
+
 
 class TestMenuItem(WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
         response = self.client.get(reverse("wagtailadmin_home"))
         self.request = response.wsgi_request
-
-    def test_menuitem_reverse_lazy_url_pass(self):
-        menuitem = MenuItem(_("Test"), reverse_lazy("wagtailadmin_home"))
-        self.assertIs(menuitem.is_active(self.request), True)
 
     def test_menuitem_with_classname(self):
         menuitem = MenuItem(
@@ -492,6 +508,9 @@ class Test404(WagtailTestUtils, TestCase):
             # Check 404 error after CommonMiddleware redirect
             self.assertEqual(response.status_code, 404)
             self.assertTemplateUsed(response, "wagtailadmin/404.html")
+            soup = self.get_soup(response.content)
+            self.assertFalse(soup.select("script"))
+            self.assertFalse(soup.select("[data-sprite]"))
 
     def test_not_logged_in_redirect(self):
         response = self.client.get("/admin/sdfgdsfgdsfgsdf/")

@@ -1,4 +1,4 @@
-# Wagtail Deployment: Under the Hood
+# Deployment: Under the hood
 
 This doc provides a technical deep-dive into Wagtail hosting concepts. Most likely, you'll want to [choose a hosting provider](index.md) instead.
 
@@ -29,7 +29,7 @@ We recommend enabling [ManifestStaticFilesStorage](django.contrib.staticfiles.st
 Wagtail follows [Django's conventions for managing uploaded files](inv:django#topics/files).
 So by default, Wagtail uses Django's built-in `FileSystemStorage` class which stores files on your site's server, in the directory specified by the `MEDIA_ROOT` setting.
 Alternatively, Wagtail can be configured to store uploaded images and documents on a cloud storage service such as Amazon S3;
-this is done through the [`STORAGES["default"]`](https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STORAGES)
+this is done through the [`STORAGES["default"]`](inv:django#STORAGES)
 setting in conjunction with an add-on package such as [django-storages](https://django-storages.readthedocs.io/).
 
 #### Security
@@ -63,6 +63,8 @@ The alternative serve methods `'direct'` and `'redirect'` work by serving the do
 If a remote ("cloud") storage backend is used, the serve method will default to `'redirect'` and the document will be served directly from the cloud storage file url. In this case, users may be able to bypass permission checks, and scripts within documents may be executed (depending on the cloud storage service's configuration). However, the impact of cross-site scripting attacks is reduced, as the document is served from a different domain to the main site.
 
 If these limitations are not acceptable, you may set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and ensure that the documents are not publicly accessible using the cloud service's file url.
+
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed and which storage backend is used. For the `'serve_view` method, a `Content-Security-Policy` header is automatically set for you (unless disabled via [](wagtaildocs_block_embedded_content)) to prevent the execution of scripts embedded in documents.
 
 #### Cloud storage
 

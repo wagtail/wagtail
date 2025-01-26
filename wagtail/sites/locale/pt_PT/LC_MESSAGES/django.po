@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-10-03 15:24+0000\n"
 "Last-Translator: 425fe09b3064b9f906f637fff94056ae_a00ea56 "
 "<0fa3588fa89906bfcb3a354600956e0e_308047>, 2015\n"
@@ -65,12 +65,12 @@ msgstr "O site não pôde ser gravado devido a erros."
 msgid "Site '%(object)s' updated."
 msgstr "Site '%(object)s' atualizado."
 
-msgid "Delete site"
-msgstr "Apagar site"
-
 #, python-format
 msgid "Site '%(object)s' deleted."
 msgstr "Site '%(object)s' apagado."
+
+msgid "Delete site"
+msgstr "Apagar site"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Tem a certeza que quer apagar este site?"

@@ -1,3 +1,5 @@
+/* global ModalWorkflow */
+
 import $ from 'jquery';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 
@@ -11,7 +13,10 @@ function addHiddenInput(form, name, val) {
 // eslint-disable-next-line no-underscore-dangle
 window._addHiddenInput = addHiddenInput;
 
-/* When a workflow action button is clicked, either show a modal or make a POST request to the workflow action view */
+/**
+ * When a workflow action button is clicked,
+ * either show a modal or make a POST request to the workflow action view
+ */
 function ActivateWorkflowActionsForDashboard() {
   const workflowActionElements = document.querySelectorAll(
     '[data-workflow-action-url]',
@@ -26,7 +31,6 @@ function ActivateWorkflowActionsForDashboard() {
         e.preventDefault();
 
         if ('launchModal' in buttonElement.dataset) {
-          // eslint-disable-next-line no-undef
           ModalWorkflow({
             url: buttonElement.dataset.workflowActionUrl,
             onload: {
@@ -83,7 +87,6 @@ function ActivateWorkflowActionsForEditView(formSelector) {
           e.stopPropagation();
 
           // open the modal at the given URL
-          // eslint-disable-next-line no-undef
           ModalWorkflow({
             url: buttonElement.dataset.workflowActionModalUrl,
             onload: {

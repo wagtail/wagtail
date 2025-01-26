@@ -28,4 +28,4 @@ If your bug report is a security issue, **do not** report it with an issue. Plea
 
 ## Torchbox
 
-Finally, if you have a query which isn't relevant for any of the above forums, feel free to contact the Wagtail team at Torchbox directly, on [hello@wagtail.org](mailto:hello@wagtail.org) or [@wagtailcms](https://x.com/wagtailcms).
+Finally, if you have a query which isn't relevant for any of the above forums, feel free to contact the Wagtail team at Torchbox directly, on [hello@wagtail.org](mailto:hello@wagtail.org) or [@wagtail@fosstodon.org](https://fosstodon.org/@wagtail).

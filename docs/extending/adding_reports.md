@@ -2,26 +2,17 @@
 
 # Adding reports
 
-Reports are views with listings of pages matching a specific query. They can also export these listings in spreadsheet format.
+Reports are views with listings of pages or any non-page model (such as snippets) matching a specific query. Reports can also export these listings in spreadsheet format.
 They are found in the _Reports_ submenu: by default, the _Locked pages_ report is provided, allowing an overview of locked pages on the site.
 
-It is possible to create your own custom reports in the Wagtail admin. Two base classes are provided:
-`wagtail.admin.views.reports.ReportView`, which provides basic listing and spreadsheet export functionality, and
-`wagtail.admin.views.reports.PageReportView`, which additionally provides a default set of fields suitable for page listings.
-For this example, we'll add a report which shows any pages with unpublished changes.
-We will register this view using the `unpublished_changes_report` name for the URL pattern.
+It is possible to create your own custom reports in the Wagtail admin with two base classes provided:
 
-```python
-# <project>/views.py
-from wagtail.admin.views.reports import PageReportView
+-   `wagtail.admin.views.reports.ReportView` - Provides the basic listing (with a single column) and spreadsheet export functionality.
+-   `wagtail.admin.views.reports.PageReportView` - Extends the `ReportView` and provides a default set of fields suitable for page listings.
 
+## Reporting reference
 
-class UnpublishedChangesReportView(PageReportView):
-    index_url_name = "unpublished_changes_report"
-    index_results_url_name = "unpublished_changes_report_results"
-```
-
-## Defining your report
+### `get_queryset`
 
 The most important attributes and methods to customize to define your report are:
 
@@ -29,20 +20,33 @@ The most important attributes and methods to customize to define your report are
 .. method:: get_queryset(self)
 ```
 
-This retrieves the queryset of pages for your report. For our example:
+This retrieves the queryset of pages or other models for your report, two examples below.
 
 ```python
 # <project>/views.py
 
-from wagtail.admin.views.reports import PageReportView
+from wagtail.admin.views.reports import ReportView, PageReportView
 from wagtail.models import Page
+
+from .models import MySnippetModel
 
 
 class UnpublishedChangesReportView(PageReportView):
+    # includes common page fields by default
 
     def get_queryset(self):
         return Page.objects.filter(has_unpublished_changes=True)
+
+
+class CustomModelReport(ReportView):
+    # includes string representation as a single column only
+
+    def get_queryset(self):
+        return MySnippetModel.objects.all()
+
 ```
+
+### Other attributes
 
 ```{eval-rst}
 
@@ -56,11 +60,6 @@ The listing table should be implemented in a separate template specified by ``re
 Unless you want to customize the overall view, you will rarely need to change this template.
 To customize the listing, change the ``results_template_name`` instead.
 
-.. versionchanged:: 6.2
-   The default ``template_name`` attribute for ``PageReportView`` was changed from ``"wagtailadmin/reports/base_page_report.html"`` to ``"wagtailadmin/reports/base_report.html"``.
-
-   Additionally, customization of the ``template_name`` should generally be replaced with a ``results_template_name`` customization, unless you intend to completely override the view template and not just the listing table.
-
 .. attribute:: results_template_name
 
 (string)
@@ -73,18 +72,12 @@ which provides a default table layout based on the explorer views,
 displaying action buttons, as well as the title, time of the last update, status, and specific type of any pages.
 In this example, we'll change this to a new template in a later section.
 
-.. versionadded:: 6.2
-   The ``results_template_name`` attribute was added to support updating the listing via AJAX upon filtering and to allow the use of the ``wagtail.admin.ui.tables`` framework.
-
 .. attribute:: page_title
 
 (string)
 
 The name of your report, which will be displayed in the header. For our example, we'll set it to
 ``"Pages with unpublished changes"``.
-
-.. versionchanged:: 6.2
-   The ``title`` attribute was renamed to ``page_title``.
 
 .. attribute:: header_icon
 
@@ -105,12 +98,9 @@ The name of the URL pattern registered for the report view.
 
 The name of the URL pattern registered for the results view (the report view with ``.as_view(results_only=True)``).
 
-.. versionadded:: 6.2
-   The ``index_results_url_name`` attribute was added to support updating the listing via AJAX upon filtering.
-
 ```
 
-## Spreadsheet exports
+### Spreadsheet exports
 
 ```{eval-rst}
 
@@ -157,13 +147,23 @@ preprocessing, set the preprocessing_function to ``None``.
 
 ```
 
-## Customizing templates
+## Example report for pages with unpublished changes
+
+For this example, we'll add a report which shows any pages with unpublished changes.
+We will register this view using the `unpublished_changes_report` name for the URL pattern.
+
+```python
+# <project>/views.py
+from wagtail.admin.views.reports import PageReportView
+
+class UnpublishedChangesReportView(PageReportView):
+    index_url_name = "unpublished_changes_report"
+    index_results_url_name = "unpublished_changes_report_results"
+```
+
+### Customizing templates
 
 For this example \"pages with unpublished changes\" report, we'll add an extra column to the listing template, showing the last publication date for each page. To do this, we'll extend two templates: `wagtailadmin/reports/base_page_report_results.html`, and `wagtailadmin/reports/listing/_list_page_report.html`.
-
-```{versionchanged} 6.2
-Extending `wagtailadmin/reports/base_page_report.html` was changed in favor of extending `wagtailadmin/reports/base_page_report_results.html`. The `listing` and `no_results` blocks were renamed to `results` and `no_results_message`, respectively.
-```
 
 ```html+django
 {# <project>/templates/reports/unpublished_changes_report_results.html #}
@@ -197,7 +197,7 @@ Extending `wagtailadmin/reports/base_page_report.html` was changed in favor of e
 
 Finally, we'll set `UnpublishedChangesReportView.results_template_name` to this new template: `'reports/unpublished_changes_report_results.html'`.
 
-## Adding a menu item and admin URL
+### Adding a menu item and admin URL
 
 To add a menu item for your new report to the _Reports_ submenu, you will need to use the `register_reports_menu_item` hook (see: [Register Reports Menu Item](register_reports_menu_item)). To add an admin url for the report, you will need to use the `register_admin_urls` hook (see: [Register Admin URLs](register_admin_urls)). This can be done as follows:
 
@@ -226,7 +226,7 @@ def register_unpublished_changes_report_url():
 
 Here, we use the `AdminOnlyMenuItem` class to ensure our report icon is only shown to superusers. To make the report visible to all users, you could replace this with `MenuItem`.
 
-## Setting up permission restriction
+### Setting up permission restriction
 
 Even with the menu item hidden, it would still be possible for any user to visit the report's URL directly, and so it is necessary to set up a permission restriction on the report view itself. This can be done by adding a `dispatch` method to the existing `UnpublishedChangesReportView` view:
 
@@ -239,7 +239,7 @@ Even with the menu item hidden, it would still be possible for any user to visit
         return super().dispatch(request, *args, **kwargs)
 ```
 
-## The full code
+### The full code
 
 ```python
 # <project>/views.py

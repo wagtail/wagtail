@@ -25,7 +25,7 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ], block_counts={
     'heading': {'min_num': 1},
     'image': {'max_num': 5},
@@ -46,6 +46,21 @@ All block definitions accept the following optional keyword arguments:
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
     -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+
+(block_preview_arguments)=
+
+[StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following optional keyword arguments:
+
+-   `description`
+    -   The description of the block. For [](field_block_types), it will fall back to `help_text` if not provided.
+-   `preview_value`
+    -   The placeholder value that will be used for rendering the preview. If not provided, it will fall back to the `default` value.
+-   `preview_template`
+    -   The template that is used to render the preview. If not provided, it will use the `wagtailcore/shared/block_preview.html` base template that reuses the block's real `template`.
+
+```{versionadded} 6.4
+The `description`, `preview_value`, and `preview_template` keyword arguments were added.
+```
 
 (field_block_types)=
 
@@ -68,7 +83,7 @@ All block definitions accept the following optional keyword arguments:
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -83,7 +98,7 @@ All block definitions accept the following optional keyword arguments:
     :param help_text: Help text to display alongside the field.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param rows: Number of rows to show on the textarea (defaults to 1).
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -94,7 +109,7 @@ All block definitions accept the following optional keyword arguments:
 
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -107,7 +122,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_value: The maximum allowed numeric value of the field.
     :param min_value: The minimum allowed numeric value of the field.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -119,7 +134,7 @@ All block definitions accept the following optional keyword arguments:
     :param required: If true (the default), the field cannot be left blank.
     :param max_value: The maximum allowed numeric value of the field.
     :param min_value: The minimum allowed numeric value of the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -134,7 +149,7 @@ All block definitions accept the following optional keyword arguments:
     :param min_value: The minimum allowed numeric value of the field.
     :param max_digits: The maximum number of digits allowed in the number. This number must be greater than or equal to ``decimal_places``.
     :param decimal_places: The number of decimal places to store with the number.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -157,7 +172,7 @@ All block definitions accept the following optional keyword arguments:
     :param help_text: Help text to display alongside the field.
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -170,7 +185,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -189,10 +204,10 @@ All block definitions accept the following optional keyword arguments:
 
     A date picker. The following keyword arguments are accepted in addition to the standard ones:
 
-    :param format: Date format. This must be one of the recognized formats listed in the `DATE_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATE_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATE_FORMAT`` setting with fallback to '%Y-%m-%d'.
+    :param format: Date format. This must be one of the recognized formats listed in the :std:setting:`django:DATE_INPUT_FORMATS` setting. If not specified Wagtail will use the ``WAGTAIL_DATE_FORMAT`` setting with fallback to ``"%Y-%m-%d"``.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -201,9 +216,10 @@ All block definitions accept the following optional keyword arguments:
 
     A time picker. The following keyword arguments are accepted in addition to the standard ones:
 
+    :param format: Time format. This must be one of the recognized formats listed in the :std:setting:`django:TIME_INPUT_FORMATS` setting. If not specified Wagtail will use the ``WAGTAIL_TIME_FORMAT`` setting with fallback to ``"%H:%M"``.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -212,10 +228,10 @@ All block definitions accept the following optional keyword arguments:
 
     A combined date/time picker. The following keyword arguments are accepted in addition to the standard ones:
 
-    :param format: Date/time format. This must be one of the recognized formats listed in the `DATETIME_INPUT_FORMATS <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DATETIME_INPUT_FORMATS>`_ setting. If not specified Wagtail will use the ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to '%Y-%m-%d %H:%M'.
+    :param format: Date/time format. This must be one of the recognized formats listed in the :std:setting:`django:DATETIME_INPUT_FORMATS` setting. If not specified Wagtail will use the ``WAGTAIL_DATETIME_FORMAT`` setting with fallback to ``"%Y-%m-%d %H:%M"``.
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -230,7 +246,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -243,7 +259,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
     .. WARNING::
@@ -259,7 +275,7 @@ All block definitions accept the following optional keyword arguments:
     :param max_length: The maximum allowed length of the field.
     :param min_length: The minimum allowed length of the field.
     :param help_text: Help text to display alongside the field.
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -272,8 +288,8 @@ All block definitions accept the following optional keyword arguments:
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
-    :param widget: The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param widget: The form widget to render the field with (see :doc:`Django Widgets <django:ref/forms/widgets>`).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
     ``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
@@ -317,8 +333,8 @@ All block definitions accept the following optional keyword arguments:
     :param required: If true (the default), the field cannot be left blank.
     :param help_text: Help text to display alongside the field.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
-    :param widget: The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
-    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+    :param widget: The form widget to render the field with (see :doc:`Django Widgets <django:ref/forms/widgets>`).
+    :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
@@ -338,8 +354,27 @@ All block definitions accept the following optional keyword arguments:
     A control to allow the editor to select an existing document object, or upload a new one. The following additional keyword argument is accepted:
 
     :param required: If true (the default), the field cannot be left blank.
+```
 
+(streamfield_imageblock)=
 
+```{eval-rst}
+
+.. autoclass:: wagtail.images.blocks.ImageBlock
+    :show-inheritance:
+
+    An accessibility-focused control to allow the editor to select an existing image, or upload a new one. This has provision for adding alt text and indicating whether images are purely decorative, and is the Wagtail-recommended approach to uploading images. The following additional keyword argument is accepted:
+
+    :param required: If true (the default), the field cannot be left blank.
+
+    ``ImageBlock`` incorporates backwards compatibility with ``ImageChooserBlock``. A block initially defined as ``ImageChooserBlock`` can be directly replaced with ``ImageBlock`` - existing data created with ``ImageChooserBlock`` will be handled automatically and changed to ``ImageBlock``'s data format when the field is resaved.
+```
+
+```{versionadded} 6.3
+The `ImageBlock` block type was added. Blocks previously defined as `ImageChooserBlock` can be directly replaced with `ImageBlock` to benefit from the alt text support, with no data migration or template changes required.
+```
+
+```{eval-rst}
 .. autoclass:: wagtail.images.blocks.ImageChooserBlock
     :show-inheritance:
 
@@ -412,7 +447,7 @@ All block definitions accept the following optional keyword arguments:
            ('person', blocks.StructBlock([
                ('first_name', blocks.CharBlock()),
                ('surname', blocks.CharBlock()),
-               ('photo', ImageChooserBlock(required=False)),
+               ('photo', ImageBlock(required=False)),
                ('biography', blocks.RichTextBlock()),
            ], icon='user')),
        ])
@@ -426,7 +461,7 @@ All block definitions accept the following optional keyword arguments:
        class PersonBlock(blocks.StructBlock):
            first_name = blocks.CharBlock()
            surname = blocks.CharBlock()
-           photo = ImageChooserBlock(required=False)
+           photo = ImageBlock(required=False)
            biography = blocks.RichTextBlock()
 
            class Meta:
@@ -442,7 +477,7 @@ All block definitions accept the following optional keyword arguments:
        body = StreamField([
            ('heading', blocks.CharBlock(form_classname="title")),
            ('paragraph', blocks.RichTextBlock()),
-           ('image', ImageChooserBlock()),
+           ('image', ImageBlock()),
            ('person', PersonBlock()),
        ])
 
@@ -504,7 +539,7 @@ All block definitions accept the following optional keyword arguments:
            # ...
            ('carousel', blocks.StreamBlock(
                [
-                   ('image', ImageChooserBlock()),
+                   ('image', ImageBlock()),
                    ('quotation', blocks.StructBlock([
                        ('text', blocks.TextBlock()),
                        ('author', blocks.CharBlock()),
@@ -521,7 +556,7 @@ All block definitions accept the following optional keyword arguments:
     .. code-block:: python
 
        class CarouselBlock(blocks.StreamBlock):
-           image = ImageChooserBlock()
+           image = ImageBlock()
            quotation = blocks.StructBlock([
                ('text', blocks.TextBlock()),
                ('author', blocks.CharBlock()),

@@ -1,6 +1,6 @@
 (image_feature_detection)=
 
-# Feature Detection
+# Feature detection
 
 Wagtail has the ability to automatically detect faces and features inside your images and crop the images to those features.
 
@@ -84,7 +84,7 @@ import rustface.willow
 registry.register_plugin(rustface.willow)
 ```
 
-For example, in an app's [AppConfig.ready](https://docs.djangoproject.com/en/stable/ref/applications/#django.apps.AppConfig.ready).
+For example, in an app's [`AppConfig.ready`](django.apps.AppConfig.ready).
 
 ## Cropping
 

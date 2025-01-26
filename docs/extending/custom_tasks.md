@@ -129,7 +129,7 @@ class UserApprovalTask(Task):
 
 (custom_tasks_behavior)=
 
-## Customising behavior
+## Customizing behavior
 
 Both `Task` and `TaskState` have a number of methods that can be overridden to implement custom behavior. Here are some of the most useful:
 
@@ -304,9 +304,4 @@ class MyAppConfig(AppConfig):
     def ready(self):
         from .signal_handlers import register_signal_handlers
         register_signal_handlers()
-```
-
-```{note}
-In Django versions before 3.2 your `AppConfig` subclass needs to be set as `default_app_config` in `<project>/__init__.py`.
-See the [relevant section in the Django docs](https://docs.djangoproject.com/en/3.1/ref/applications/#for-application-authors) for the version you are using.
 ```

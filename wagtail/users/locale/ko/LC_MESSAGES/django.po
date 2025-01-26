@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2024-10-21 17:53+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -125,15 +125,6 @@ msgstr "이 그룹을 지우면 그룹 안의 모든 구성원들의 권한도 �
 msgid "Are you sure you want to delete this group?"
 msgstr "이 그룹을 정말 삭제할까요?"
 
-msgid "Add group"
-msgstr "그룹 추가"
-
-msgid "Save"
-msgstr "저장"
-
-msgid "Delete group"
-msgstr "그룹 삭제"
-
 msgid "Object permissions"
 msgstr "오브젝트 권한"
 
@@ -145,15 +136,6 @@ msgstr "추가"
 
 msgid "Change"
 msgstr "변화"
-
-msgid "Publish"
-msgstr "게시"
-
-msgid "Lock"
-msgstr "잠금"
-
-msgid "Unlock"
-msgstr "잠금 풀기"
 
 msgid "Other permissions"
 msgstr "다른 권한"
@@ -188,12 +170,6 @@ msgstr "계정"
 msgid "Roles"
 msgstr "역할"
 
-msgid "Add user"
-msgstr "사용자 추가"
-
-msgid "Delete user"
-msgstr "사용자 삭제"
-
 msgid "Active"
 msgstr "활성화"
 
@@ -209,6 +185,9 @@ msgstr "그룹 추가"
 msgid "Search groups"
 msgstr "그룹 검색"
 
+msgid "Add group"
+msgstr "그룹 추가"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "'%(object)s' 그룹이 생성 되었습니다."
@@ -223,6 +202,9 @@ msgstr "에러로 인해 그룹이 생성될 수 없습니다."
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "'%(object)s' 그룹이 삭제 되었습니다."
+
+msgid "Delete group"
+msgstr "그룹 삭제"
 
 msgid "Group"
 msgstr "그룹"
@@ -242,12 +224,18 @@ msgstr "관리자"
 msgid "Status"
 msgstr "상태"
 
+msgid "Add user"
+msgstr "사용자 추가"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "'%(object)s' 사용자가 업데이트 되었습니다."
 
 msgid "The user could not be saved due to errors."
 msgstr "에러로 인해 사용자를 저장할 수 없습니다."
+
+msgid "Delete user"
+msgstr "사용자 삭제"
 
 #, python-format
 msgid "User '%(object)s' deleted."

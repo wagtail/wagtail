@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Count, OuterRef, Prefetch
+from django.db.models import Count, Prefetch
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -43,7 +43,6 @@ from wagtail.models import (
     Task,
     TaskState,
     Workflow,
-    WorkflowContentType,
     WorkflowState,
     WorkflowTask,
 )
@@ -151,10 +150,7 @@ class Index(IndexView):
 
     def get_base_queryset(self):
         queryset = super().get_base_queryset()
-        content_types = WorkflowContentType.objects.filter(
-            workflow=OuterRef("pk")
-        ).values_list("pk", flat=True)
-        queryset = queryset.annotate(content_types=Count(content_types))
+        queryset = queryset.annotate(content_types=Count("workflow_content_types"))
         return queryset.prefetch_related(
             "workflow_pages",
             "workflow_pages__page",
@@ -179,7 +175,6 @@ class Create(CreateView):
     index_url_name = "wagtailadmin_workflows:index"
     header_icon = "tasks"
     edit_handler = None
-    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -264,9 +259,9 @@ class Edit(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable"
     header_icon = "tasks"
+    header_more_buttons = []
     edit_handler = None
     MAX_PAGES = 5
-    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -307,7 +302,6 @@ class Edit(EditView):
         pages_formset = self.get_pages_formset()
         context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
-        context["pages_formset"] = pages_formset
         context["has_workflow_enabled_models"] = bool(get_workflow_enabled_models())
         context["content_type_form"] = self.get_content_type_form()
         context["can_disable"] = (
@@ -318,7 +312,14 @@ class Edit(EditView):
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
         ) and not self.object.active
-        context["media"] = bound_panel.media + form.media + pages_formset.media
+        context["media"] = bound_panel.media + form.media
+
+        # Only add the pages_formset if the workflow is active
+        if self.object.active:
+            pages_formset = self.get_pages_formset()
+            context["pages_formset"] = pages_formset
+            context["media"] += pages_formset.media
+
         return context
 
     @property
@@ -644,7 +645,6 @@ class CreateTask(CreateView):
     edit_url_name = "wagtailadmin_workflows:edit_task"
     index_url_name = "wagtailadmin_workflows:task_index"
     header_icon = "thumbtack"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -706,7 +706,7 @@ class EditTask(EditView):
     enable_item_label = _("Enable")
     enable_url_name = "wagtailadmin_workflows:enable_task"
     header_icon = "thumbtack"
-    _show_breadcrumbs = True
+    header_more_buttons = []
 
     @cached_property
     def model(self):

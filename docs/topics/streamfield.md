@@ -19,7 +19,7 @@ from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail import blocks
 from wagtail.admin.panels import FieldPanel
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.blocks import ImageBlock
 
 class BlogPage(Page):
     author = models.CharField(max_length=255)
@@ -27,7 +27,7 @@ class BlogPage(Page):
     body = StreamField([
         ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', ImageBlock()),
     ])
 
     content_panels = Page.content_panels + [
@@ -118,12 +118,12 @@ body = StreamField([
     ('person', blocks.StructBlock([
         ('first_name', blocks.CharBlock()),
         ('surname', blocks.CharBlock()),
-        ('photo', ImageChooserBlock(required=False)),
+        ('photo', ImageBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ])),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -153,7 +153,7 @@ Placing a StructBlock's list of child blocks inside a `StreamField` definition c
 class PersonBlock(blocks.StructBlock):
     first_name = blocks.CharBlock()
     surname = blocks.CharBlock()
-    photo = ImageChooserBlock(required=False)
+    photo = ImageBlock(required=False)
     biography = blocks.RichTextBlock()
 ```
 
@@ -164,7 +164,7 @@ body = StreamField([
     ('person', PersonBlock()),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -181,12 +181,12 @@ body = StreamField([
     ('person', blocks.StructBlock([
         ('first_name', blocks.CharBlock()),
         ('surname', blocks.CharBlock()),
-        ('photo', ImageChooserBlock(required=False)),
+        ('photo', ImageBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ], icon='user')),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -196,7 +196,7 @@ body = StreamField([
 class PersonBlock(blocks.StructBlock):
     first_name = blocks.CharBlock()
     surname = blocks.CharBlock()
-    photo = ImageChooserBlock(required=False)
+    photo = ImageBlock(required=False)
     biography = blocks.RichTextBlock()
 
     class Meta:
@@ -213,10 +213,10 @@ For a list of icons available out of the box, see our [icons overview](icons). P
 :emphasize-lines: 2
 
 body = StreamField([
-    ('gallery', blocks.ListBlock(ImageChooserBlock())),
+    ('gallery', blocks.ListBlock(ImageBlock())),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -247,12 +247,12 @@ When reading back the content of a StreamField (such as when rendering a templat
 
 body = StreamField([
     ('carousel', blocks.StreamBlock([
-        ('image', ImageChooserBlock()),
+        ('image', ImageBlock()),
         ('video', EmbedBlock()),
     ])),
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ])
 ```
 
@@ -260,7 +260,7 @@ body = StreamField([
 
 ```python
 class CarouselBlock(blocks.StreamBlock):
-    image = ImageChooserBlock()
+    image = ImageBlock()
     video = EmbedBlock()
 
     class Meta:
@@ -273,7 +273,7 @@ A StreamBlock subclass defined in this way can also be passed to a `StreamField`
 class CommonContentBlock(blocks.StreamBlock):
     heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageBlock()
 
 
 class BlogPage(Page):
@@ -310,7 +310,7 @@ By default, a StreamField can contain an unlimited number of blocks. The `min_nu
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ], min_num=2, max_num=5)
 ```
 
@@ -320,7 +320,7 @@ Or equivalently:
 class CommonContentBlock(blocks.StreamBlock):
     heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageBlock()
 
     class Meta:
         min_num = 2
@@ -333,7 +333,7 @@ The `block_counts` option can be used to set a minimum or maximum count for spec
 body = StreamField([
     ('heading', blocks.CharBlock(form_classname="title")),
     ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+    ('image', ImageBlock()),
 ], block_counts={
     'heading': {'min_num': 1, 'max_num': 3},
 })
@@ -345,7 +345,7 @@ Or equivalently:
 class CommonContentBlock(blocks.StreamBlock):
     heading = blocks.CharBlock(form_classname="title")
     paragraph = blocks.RichTextBlock()
-    image = ImageChooserBlock()
+    image = ImageBlock()
 
     class Meta:
         block_counts = {
@@ -364,7 +364,7 @@ By default, each block is rendered using simple, minimal HTML markup, or no mark
     [
         ('first_name', blocks.CharBlock()),
         ('surname', blocks.CharBlock()),
-        ('photo', ImageChooserBlock(required=False)),
+        ('photo', ImageBlock(required=False)),
         ('biography', blocks.RichTextBlock()),
     ],
     template='myapp/blocks/person.html',
@@ -378,7 +378,7 @@ Or, when defined as a subclass of StructBlock:
 class PersonBlock(blocks.StructBlock):
     first_name = blocks.CharBlock()
     surname = blocks.CharBlock()
-    photo = ImageChooserBlock(required=False)
+    photo = ImageBlock(required=False)
     biography = blocks.RichTextBlock()
 
     class Meta:
@@ -494,9 +494,83 @@ class EventBlock(blocks.StructBlock):
 
 In this example, the variable `is_happening_today` will be made available within the block template. The `parent_context` keyword argument is available when the block is rendered through an `{% include_block %}` tag, and is a dict of variables passed from the calling template.
 
+(streamfield_get_template)=
+
+Similarly, a `get_template` method can be defined to dynamically select a template based on the block value:
+
+```python
+import datetime
+
+class EventBlock(blocks.StructBlock):
+    title = blocks.CharBlock()
+    date = blocks.DateBlock()
+
+    def get_template(self, value, context=None):
+        if value["date"] > datetime.date.today():
+            return "myapp/blocks/future_event.html"
+        else:
+            return "myapp/blocks/event.html"
+```
+
 All block types, not just `StructBlock`, support the `template` property. However, for blocks that handle basic Python data types, such as `CharBlock` and `IntegerBlock`, there are some limitations on where the template will take effect. For further details, see [](boundblocks_and_values).
 
-## Customisations
+(configuring_block_previews)=
+
+## Configuring block previews
+
+StreamField blocks can have previews that will be shown inside the block picker when you add a block in the editor. To enable this feature, you must configure the preview value and template. You can also add a description to help users pick the right block for their content.
+
+You can do so by [passing the keyword arguments](block_preview_arguments) `preview_value`, `preview_template`, and `description` when instantiating a block:
+
+```py
+("quote", blocks.StructBlock(
+    [
+        ("text", blocks.TextBlock()),
+        ("source", blocks.CharBlock()),
+    ],
+    preview_value={"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"}
+    preview_template="myapp/previews/blocks/quote.html",
+    description="A quote with attribution to the source, rendered as a blockquote."
+))
+```
+
+You can also set `preview_value`, `preview_template`, and `description` as attributes in the `Meta` class of the block. For example:
+
+```py
+class QuoteBlock(blocks.StructBlock):
+    text = blocks.TextBlock()
+    source = blocks.CharBlock()
+
+    class Meta:
+        preview_value = {"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"}
+        preview_template = "myapp/previews/blocks/quote.html"
+        description = "A quote with attribution to the source, rendered as a blockquote."
+```
+
+Alternatively, you can also override the `get_preview_value`, `get_preview_context`, and `get_preview_template` methods to achieve the desired results.
+
+In many cases, you likely want to use the block's real template that you already configure via `template` or `get_template` as described in [](streamfield_per_block_templates). Wagtail provides a default preview template for all blocks that makes use of the `{% include_block %}` tag (as described in [](streamfield_template_rendering)), which will reuse your block's specific template.
+
+However, the default template does not include any static assets that may be necessary to render your blocks properly. If you only need to add static assets to the preview page, you can skip specifying `preview_template` and instead override the default template globally. You can do so by creating a `wagtailcore/shared/block_preview.html` template inside one of your `templates` directories (with a higher precedence than the `wagtail` app) with the following content:
+
+```html+django
+{% extends "wagtailcore/shared/block_preview.html" %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/my-styles.css' %}">
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/my-script.js' %}"></script>
+{% endblock %}
+```
+
+For more details on overriding templates, see also Django's guide on [](inv:django#howto/overriding-templates).
+
+## Customizations
 
 All block types implement a common API for rendering their front-end and form representations, and storing and retrieving values to and from the database. By subclassing the various block classes and overriding these methods, all kinds of customizations are possible, from modifying the layout of StructBlock form fields to implementing completely new ways of combining blocks. For further details, see [](custom_streamfield_blocks).
 
