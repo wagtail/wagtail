@@ -24,7 +24,7 @@
 {# Z index 99 to ensure header is always above  #}
 <div class="w-sticky w-top-0 w-z-header">
     <header class="w-slim-header w-bg-surface-header w-border-b w-border-border-furniture w-px-0 w-py-0 w-mb-0 w-relative w-top-0 w-z-header sm:w-sticky w-min-h-slim-header">
-        <div class="w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between">
+        <div class="w-flex w-flex-row w-items-center w-justify-between">
             {# Padding left on mobile to give space for navigation toggle, #}
             <div class="w-pl-slim-header sm:w-pl-5 w-min-h-slim-header sm:w-pr-2 w-w-full w-flex-1 w-overflow-x-auto w-box-border">
                 <div class="w-flex w-flex-1 w-items-center w-overflow-hidden">
@@ -55,7 +55,7 @@
                         {% endfragment %}
                         {% if actions %}
                             {# Actions divider #}
-                            <div class="w-w-px w-h-[30px] w-ml-auto sm:w-ml-0 w-bg-border-furniture"></div>
+                            <div class="w-w-px w-h-[30px] w-ml-0 w-bg-border-furniture"></div>
                             <div id="w-slim-header-buttons" class="w-flex w-items-center w-ml-2.5 w-gap-1">
                                 {{ actions }}
                             </div>
@@ -114,7 +114,7 @@
                 {% endif %}
             {% endblock %}
 
-            <div class="w-w-full w-overflow-auto sm:w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 w-px-2 sm:w-pr-4 sm:w-justify-end">
+            <div class="w-w-full w-overflow-auto w-w-min w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-0 sm:w-py-0 w-px-2 sm:w-pr-4 sm:w-justify-end">
                 {% block editing_sessions %}
                     {% if editing_sessions %}
                         {% component editing_sessions %}
