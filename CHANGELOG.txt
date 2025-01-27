@@ -142,6 +142,7 @@ Changelog
  * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
  * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
  * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
  * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
  * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
 
