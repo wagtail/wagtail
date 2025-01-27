@@ -74,16 +74,7 @@ class RedirectMiddleware(MiddlewareMixin):
         # Find redirect
         redirect = get_redirect(request, path)
         if redirect is None:
-            # Get the path without the query string or params
-            path_without_query = urlparse(path).path
-
-            if path == path_without_query:
-                # don't try again if we know we will get the same response
-                return response
-
-            redirect = get_redirect(request, path_without_query)
-            if redirect is None:
-                return response
+            return response
 
         if redirect.link is None:
             return response
