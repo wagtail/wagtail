@@ -26,10 +26,12 @@ class RedirectsAPIViewSet(BaseAPIViewSet):
 
     def find_object(self, queryset, request):
         if "html_path" in request.GET:
-            redirect = get_redirect(
-                request,
-                request.GET["html_path"],
-            )
+            try:
+                path = Redirect.normalise_path(request.GET["html_path"])
+            except ValueError:
+                raise Http404
+
+            redirect = get_redirect(request, path)
 
             if redirect is None:
                 raise Http404
