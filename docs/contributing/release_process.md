@@ -50,8 +50,8 @@ A feature release will usually stop receiving patch release updates when the nex
 
 Certain feature releases will be designated as long-term support releases. These
 releases will get security and data loss fixes applied for a guaranteed period
-of time. Typically, a long-term support release will happen once every four feature releases and receive updates for five feature releases, giving a support
-period of fifteen months with a three month overlap.
+of time. Typically, a long-term support release will happen once every four feature releases and receive updates for six feature releases, giving a support
+period of eighteen months with a six month overlap.
 
 Also, long-term support releases will ensure compatibility with at least one
 [Django long-term support release](https://www.djangoproject.com/download/#supported-versions).
