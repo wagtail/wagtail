@@ -64,6 +64,7 @@ Changelog
  * Fix: Add missing space in panels check warning message (Stéphane Blondon)
  * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
  * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
