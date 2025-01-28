@@ -9,7 +9,7 @@ from wagtail.contrib.redirects import models
 from wagtail.models import Site
 
 
-def get_redirect(request, path):
+def get_redirect(request, path, accept_path_only_matches=False):
     if "\0" in path:
         # reject paths with null characters, which crash on Postgres (#4496)
         return None
@@ -18,11 +18,13 @@ def get_redirect(request, path):
 
     encoded_path = iri_to_uri(path)
     match_paths = [path, encoded_path]
-    path_without_query = urlparse(path).path
-    if path_without_query != path:
-        encoded_path_without_query = iri_to_uri(path_without_query)
-        match_paths.extend([path_without_query, encoded_path_without_query])
+    if accept_path_only_matches:
+        path_without_query = urlparse(path).path
+        if path_without_query != path:
+            encoded_path_without_query = iri_to_uri(path_without_query)
+            match_paths.extend([path_without_query, encoded_path_without_query])
     else:
+        path_without_query = path
         encoded_path_without_query = encoded_path
 
     queryset = models.Redirect.objects.filter(old_path__in=match_paths)
@@ -72,7 +74,7 @@ class RedirectMiddleware(MiddlewareMixin):
         path = models.Redirect.normalise_path(request.get_full_path())
 
         # Find redirect
-        redirect = get_redirect(request, path)
+        redirect = get_redirect(request, path, accept_path_only_matches=True)
         if redirect is None:
             return response
 
