@@ -338,7 +338,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(query, PlainText):
             terms = query.query_string.split()
             if not terms:
-                return None
+                return SearchQuery("")
 
             last_term = terms.pop()
 

@@ -68,6 +68,25 @@ class TestMySQLSearchBackend(BackendTests, TransactionTestCase):
             all_other_titles | {"JavaScript: The Definitive Guide"},
         )
 
+    def test_empty_search(self):
+        results = self.backend.search("", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+        results = self.backend.search(" ", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+        results = self.backend.search("*", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
     @skip(
         "The MySQL backend doesn't support choosing individual fields for the search, only (body, title) or (autocomplete) fields may be searched."
     )
