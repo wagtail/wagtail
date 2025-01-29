@@ -19,6 +19,7 @@ Changelog
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
  * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
+ * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
 
 
 6.4.1 (21.02.2025)
