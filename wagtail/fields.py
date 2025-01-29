@@ -31,7 +31,8 @@ class RichTextField(models.TextField):
 
     def clone(self):
         name, path, args, kwargs = self.deconstruct()
-        # add back the 'features' and 'editor' kwargs that were not preserved by deconstruct()
+        # add back the 'features' and 'editor' kwargs
+        # that were not preserved by deconstruct()
         kwargs["features"] = self.features
         kwargs["editor"] = self.editor
         return self.__class__(*args, **kwargs)

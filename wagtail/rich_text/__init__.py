@@ -79,6 +79,18 @@ def get_text_for_indexing(richtext):
 
 
 def clear_input_from_scripts(input_value):
+    """
+        1- remove the clear scripts nodes totally
+            with their included tags/scripts
+
+        2- HTML/XML  tags themself may have JS events,
+            like (`onmouseover`, `onmouseout`, .. )
+            so remove them
+
+        3- HTML/XML  tags themself may have Links to External Js code
+           inside (`href`, `src`), so remove them
+    """
+
     value_as_html = BeautifulSoup(str(input_value), "html")
     scheme = ["javascript:", "data:", "vbscript:"]
 
