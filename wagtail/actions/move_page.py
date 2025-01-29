@@ -1,7 +1,7 @@
 import logging
 
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
+from django.db import connection, transaction
 from treebeard.mp_tree import MP_MoveHandler
 
 from wagtail.log_actions import log
@@ -59,8 +59,11 @@ class MovePageAction:
             MP_MoveHandler(page, target, self.pos).process()
 
             # Treebeard's move method doesn't actually update the in-memory instance,
-            # so we need to work with a freshly loaded one now
-            new_page = Page.objects.get(id=page.id)
+            # so we need to work with a freshly loaded one now. We must retrieve the page
+            # instance from the current transaction's database connection, as the changes
+            # are not yet committed and any other database connection will still see the
+            # old state.
+            new_page = Page.objects.using(connection.alias).get(id=page.id)
             new_page.url_path = new_url_path
             new_page.save()
 
