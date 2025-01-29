@@ -243,8 +243,11 @@ class DraftailInsertBlockCommand {
 
     this.blockMax = addSibling.getBlockMax(blockDef.name);
     this.icon = blockDef.meta.icon;
-    this.description = blockDef.meta.label;
+    this.label = blockDef.meta.label;
     this.type = blockDef.name;
+    this.blockDefId = blockDef.meta.blockDefId;
+    this.isPreviewable = blockDef.meta.isPreviewable;
+    this.description = blockDef.meta.description;
   }
 
   render({ option }) {
@@ -255,7 +258,7 @@ class DraftailInsertBlockCommand {
             this.blockMax
           })`
         : '';
-    return `${option.description}${limitText}`;
+    return `${option.label}${limitText}`;
   }
 
   onSelect({ editorState }) {

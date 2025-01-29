@@ -153,29 +153,29 @@ class StreamChildrenToListBlockOperation(BaseBlockOperation):
         super().__init__()
         self.block_name = block_name
         self.list_block_name = list_block_name
-        self.temp_blocks = []
 
     def apply(self, block_value):
+        candidate_blocks = []
         mapped_block_value = []
         for child_block in block_value:
             if child_block["type"] == self.block_name:
-                self.temp_blocks.append(child_block)
+                candidate_blocks.append(child_block)
             else:
                 mapped_block_value.append(child_block)
 
-        self.map_temp_blocks_to_list_items()
+        list_items = self.map_temp_blocks_to_list_items(candidate_blocks)
 
-        if self.temp_blocks:
-            new_list_block = {"type": self.list_block_name, "value": self.temp_blocks}
+        if list_items:
+            new_list_block = {"type": self.list_block_name, "value": list_items}
             mapped_block_value.append(new_list_block)
 
         return mapped_block_value
 
-    def map_temp_blocks_to_list_items(self):
-        new_temp_blocks = []
-        for block in self.temp_blocks:
-            new_temp_blocks.append({**block, "type": "item"})
-        self.temp_blocks = new_temp_blocks
+    def map_temp_blocks_to_list_items(self, blocks):
+        list_items = []
+        for block in blocks:
+            list_items.append({**block, "type": "item"})
+        return list_items
 
     @property
     def operation_name_fragment(self):

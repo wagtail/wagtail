@@ -130,7 +130,7 @@ These are added to the search index but are not used for full-text searches. Ins
 
 This allows you to index fields from related objects. It works on all types of related fields, including their reverse accessors.
 
-For example, if we have a book that has a `ForeignKey` to its author, we can nest the author's `name` and `date_of_birth` fields inside the book:
+For example, if we have a book that has a `ForeignKey` to its author, we can nest the author's `name` field inside the book:
 
 ```python
 from wagtail.search import index
@@ -144,7 +144,6 @@ class Book(models.Model, index.Indexed):
 
         index.RelatedFields('author', [
             index.SearchField('name'),
-            index.FilterField('date_of_birth'),
         ]),
     ]
 ```
@@ -165,14 +164,13 @@ class Author(models.Model, index.Indexed):
 
         index.RelatedFields('books', [
             index.SearchField('title'),
-            index.FilterField('published_date'),
         ]),
     ]
 ```
 
 #### Filtering on `index.RelatedFields`
 
-It's not possible to filter on any `index.FilterFields` within `index.RelatedFields` using the `QuerySet` API. However, the fields are indexed, so it should be possible to use them by querying Elasticsearch manually.
+It's not possible to filter on any `index.FilterFields` within `index.RelatedFields` using the `QuerySet` API. Placing `index.FilterField` inside `index.RelatedFields` is valid, and will cause the appropriate field data to be stored at indexing time, but the `QuerySet` API does not currently support filters that span relations, and so there is no way to access these fields. However, it should be possible to use them by querying Elasticsearch manually.
 
 Filtering on `index.RelatedFields` with the `QuerySet` API is planned for a future release of Wagtail.
 
