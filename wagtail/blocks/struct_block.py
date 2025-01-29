@@ -382,6 +382,10 @@ class BaseStructBlock(Block):
             "prefix": prefix,
         }
 
+    @cached_property
+    def _has_default(self):
+        return self.meta.default is not BaseStructBlock._meta_class.default
+
     class Meta:
         default = {}
         form_classname = "struct-block"
