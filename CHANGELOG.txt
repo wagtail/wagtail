@@ -102,6 +102,7 @@ Changelog
  * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
  * Docs: Document `get_template` method on StreamField blocks (Matt Westcott)
  * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
+ * Docs: Revert incorrect example of appending a `RichTextBlock` to a `StreamField` (Matt Westcott)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
