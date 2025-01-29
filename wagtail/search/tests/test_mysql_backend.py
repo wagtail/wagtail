@@ -143,6 +143,28 @@ class TestMySQLSearchBackend(BackendTests, TransactionTestCase):
             {"JavaScript: The good parts"},
         )
 
+    def test_lexeme_validation(self):
+        from wagtail.search.backends.database.mysql.query import Lexeme
+
+        with self.assertRaisesMessage(ValueError, "Lexeme value cannot be empty."):
+            Lexeme("")
+
+        Lexeme("hello")  # no error
+
+        with self.assertRaises(
+            ValueError,
+            "Lexeme value 'hello world' must consist of alphanumeric characters "
+            "and '_' only.",
+        ):
+            Lexeme("hello world")
+
+        with self.assertRaises(
+            ValueError,
+            "Lexeme value 'hello world' must consist of alphanumeric characters "
+            "and '_' only.",
+        ):
+            Lexeme("rimsky@korsakov")
+
     @skip(
         "The MySQL backend doesn't support choosing individual fields for the search, only (body, title) or (autocomplete) fields may be searched."
     )
