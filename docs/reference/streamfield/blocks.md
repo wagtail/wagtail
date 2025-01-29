@@ -370,10 +370,6 @@ The `description`, `preview_value`, and `preview_template` keyword arguments wer
     ``ImageBlock`` incorporates backwards compatibility with ``ImageChooserBlock``. A block initially defined as ``ImageChooserBlock`` can be directly replaced with ``ImageBlock`` - existing data created with ``ImageChooserBlock`` will be handled automatically and changed to ``ImageBlock``'s data format when the field is resaved.
 ```
 
-```{versionadded} 6.3
-The `ImageBlock` block type was added. Blocks previously defined as `ImageChooserBlock` can be directly replaced with `ImageBlock` to benefit from the alt text support, with no data migration or template changes required.
-```
-
 ```{eval-rst}
 .. autoclass:: wagtail.images.blocks.ImageChooserBlock
     :show-inheritance:

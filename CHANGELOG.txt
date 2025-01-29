@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * ...
+
+
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
@@ -41,7 +47,7 @@ Changelog
  * Fix: Normalize `StreamField.get_default()` to prevent creation forms from breaking (Matt Westcott)
  * Fix: Prevent out-of-order migrations from skipping creation of image/document choose permissions (Matt Westcott)
  * Fix: Use correct connections on multi-database setups in database search backends (Jake Howard)
- * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
+ * Fix: Ensure CloudFront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Show the correct privacy status in the sidebar when creating a new page (Joel William)
  * Fix: Prevent generic model edit view from unquoting non-integer primary keys multiple times (Matt Westcott)
  * Fix: Ensure comments are functional when editing Page models with `read_only` `Fieldpanel`s in use (Strapchay)
@@ -63,6 +69,8 @@ Changelog
  * Fix: Prevent error on listings when searching and filtering by locale (Matt Westcott, Sage Abdullah)
  * Fix: Add missing space in panels check warning message (Stéphane Blondon)
  * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
+ * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -137,17 +145,19 @@ Changelog
 6.3.3 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
-* Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
-* Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
-* Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
-* Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
-* Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
+ * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+ * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
+ * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
+ * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
+ * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
 
 
 6.3.2 (02.01.2025)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
+ * Fix: Ensure CloudFront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Ensure Draftail features wrap when a large amount of features are added (Bart Cieliński)
  * Fix: Implement `get_block_by_content_path` on `ImageBlock` to prevent errors on commenting (Matt Westcott)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
@@ -723,6 +733,13 @@ Changelog
  * Maintenance: Deprecated `WidgetWithScript` base widget class (LB (Ben) Johnston)
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
 
+
+5.2.8 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Fix: Handle StreamField migrations where the field value is null (Joshua Munn)
+ * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
 
 5.2.7 (01.11.2024)
 ~~~~~~~~~~~~~~~~~~
