@@ -516,9 +516,15 @@ class TestFrontendServeView(TestCase):
 
         # Check response
         self.assertEqual(response.status_code, 200)
+
         # Ensure the file can actually be read
         image = willow.Image.open(b"".join(response.streaming_content))
         self.assertIsInstance(image, PNGImageFile)
+
+        # Check cache control headers
+        self.assertEqual(
+            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+        )
 
     def test_get_with_custom_key_using_default_key(self):
         """
@@ -539,11 +545,11 @@ class TestFrontendServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 403)
+        self.assertContains(response, "Invalid signature", status_code=400)
 
     def test_get_invalid_signature(self):
         """
-        Test that an invalid signature returns a 403 response
+        Test that an invalid signature returns a 400 response
         """
         # Generate a signature for the incorrect image id
         signature = generate_signature(self.image.id + 1, "fill-800x600")
@@ -556,7 +562,12 @@ class TestFrontendServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 403)
+        self.assertContains(response, "Invalid signature", status_code=400)
+
+        # Check cache control headers
+        self.assertEqual(
+            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+        )
 
     def test_get_invalid_filter_spec(self):
         """
@@ -579,7 +590,12 @@ class TestFrontendServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 400)
+        self.assertContains(response, "Invalid filter spec: bad-filter-spec", status_code=400)
+
+        # Check cache control headers
+        self.assertEqual(
+            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+        )
 
     def test_get_missing_source_image_file(self):
         """
@@ -600,17 +616,12 @@ class TestFrontendServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 410)
+        self.assertContains(response, "Source image file not found", status_code=410)
 
-    def test_get_cache_control(self):
-        signature = generate_signature(self.image.id, "fill-800x600")
-        response = self.client.get(
-            reverse(
-                "wagtailimages_serve_action_serve",
-                args=(signature, self.image.id, "fill-800x600"),
-            )
+        # Check cache control headers
+        self.assertEqual(
+            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
         )
-        self.assertEqual(response["Cache-Control"], "max-age=3600, public")
 
 
 class TestFrontendSendfileView(TestCase):
