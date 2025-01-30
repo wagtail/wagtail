@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from typing import TYPE_CHECKING, Optional
 
 from django.core.exceptions import ImproperlyConfigured
@@ -70,7 +71,7 @@ class ServeView(View):
         if not verify_signature(
             signature.encode(), image_id, filter_spec, key=self.key
         ):
-            return self.get_error_response("Invalid signature", 400)
+            return self.get_error_response("Invalid signature", HTTPStatus.BAD_REQUEST)
 
         image = self.get_image(image_id)
 
@@ -78,9 +79,13 @@ class ServeView(View):
         try:
             rendition = image.get_rendition(filter_spec)
         except SourceImageIOError:
-            return self.get_error_response("Source image file not found", 410)
+            return self.get_error_response(
+                "Source image file not found", HTTPStatus.GONE
+            )
         except InvalidFilterSpecError:
-            return self.get_error_response(f"Invalid filter spec: {filter_spec}", 400)
+            return self.get_error_response(
+                f"Invalid filter spec: {filter_spec}", HTTPStatus.BAD_REQUEST
+            )
         # Make the image object available without an additional query
         rendition.image = image
 
@@ -94,8 +99,8 @@ class ServeView(View):
     ) -> "HttpResponseBase":
         return getattr(self, self.action)(rendition)
 
-    def get_error_response(self, message: str, status_code: int) -> HttpResponse:
-        response = HttpResponse(message, content_type="text/plain", status=status_code)
+    def get_error_response(self, message: str, status: HTTPStatus) -> HttpResponse:
+        response = HttpResponse(message, content_type="text/plain", status=status)
         if self.error_cache_control_headers:
             patch_cache_control(response, **self.error_cache_control_headers)
         return response

@@ -1,5 +1,6 @@
 import os
 import unittest
+from http import HTTPStatus
 from io import BytesIO
 
 import willow
@@ -75,7 +76,7 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
         self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
@@ -96,7 +97,7 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/svg+xml")
         self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
@@ -118,7 +119,7 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/avif")
         # Ensure the file can actually be read
@@ -141,7 +142,7 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
         # Ensure the file can actually be read
@@ -164,7 +165,7 @@ class TestServeView(TestCase):
         )
 
         # URL pattern should not match
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_get_with_serve_action(self):
         signature = generate_signature(self.image.id, "fill-800x600")
@@ -175,7 +176,7 @@ class TestServeView(TestCase):
             )
         )
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTrue(response.streaming)
         self.assertEqual(response["Content-Type"], "image/png")
         self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
@@ -227,7 +228,7 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # Ensure the file can actually be read
         image = willow.Image.open(b"".join(response.streaming_content))
@@ -257,7 +258,9 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertContains(response, "Invalid signature", status_code=400)
+        self.assertContains(
+            response, "Invalid signature", status_code=HTTPStatus.BAD_REQUEST
+        )
 
     def test_get_invalid_signature(self):
         """
@@ -274,7 +277,9 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertContains(response, "Invalid signature", status_code=400)
+        self.assertContains(
+            response, "Invalid signature", status_code=HTTPStatus.BAD_REQUEST
+        )
 
         # Check cache control headers
         self.assertEqual(
@@ -303,7 +308,9 @@ class TestServeView(TestCase):
 
         # Check response
         self.assertContains(
-            response, "Invalid filter spec: bad-filter-spec", status_code=400
+            response,
+            "Invalid filter spec: bad-filter-spec",
+            status_code=HTTPStatus.BAD_REQUEST,
         )
 
         # Check cache control headers
@@ -330,7 +337,9 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertContains(response, "Source image file not found", status_code=410)
+        self.assertContains(
+            response, "Source image file not found", status_code=HTTPStatus.GONE
+        )
 
         # Check cache control headers
         self.assertEqual(
@@ -356,7 +365,7 @@ class TestSendFileView(TestCase):
             )
         )
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response["Content-Type"], "image/png")
         self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
         self.assertEqual(response["X-Content-Type-Options"], "nosniff")
@@ -376,7 +385,7 @@ class TestSendFileView(TestCase):
             )
         )
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTrue(response.content, msg="Dummy backend response")
         self.assertEqual(response["Content-Security-Policy"], "default-src 'none'")
         self.assertEqual(response["X-Content-Type-Options"], "nosniff")
