@@ -235,7 +235,7 @@ class TestServeView(TestCase):
 
         # Check cache control headers
         self.assertEqual(
-            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+            response["Cache-Control"], "max-age=3600, s-maxage=3600, public"
         )
 
     def test_get_with_custom_key_using_default_key(self):
@@ -278,7 +278,7 @@ class TestServeView(TestCase):
 
         # Check cache control headers
         self.assertEqual(
-            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+            response["Cache-Control"], "max-age=3600, s-maxage=3600, public"
         )
 
     def test_get_invalid_filter_spec(self):
@@ -302,11 +302,13 @@ class TestServeView(TestCase):
         )
 
         # Check response
-        self.assertContains(response, "Invalid filter spec: bad-filter-spec", status_code=400)
+        self.assertContains(
+            response, "Invalid filter spec: bad-filter-spec", status_code=400
+        )
 
         # Check cache control headers
         self.assertEqual(
-            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+            response["Cache-Control"], "max-age=3600, s-maxage=3600, public"
         )
 
     def test_get_missing_source_image_file(self):
@@ -332,7 +334,7 @@ class TestServeView(TestCase):
 
         # Check cache control headers
         self.assertEqual(
-            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+            response["Cache-Control"], "max-age=3600, s-maxage=3600, public"
         )
 
 
@@ -361,7 +363,7 @@ class TestSendFileView(TestCase):
 
         # Check cache control headers
         self.assertEqual(
-            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+            response["Cache-Control"], "max-age=3600, s-maxage=3600, public"
         )
 
     @override_settings(SENDFILE_BACKEND="sendfile.backends.development")
@@ -381,5 +383,5 @@ class TestSendFileView(TestCase):
 
         # Check cache control headers
         self.assertEqual(
-            response["Cache-Control"], "max-age=3600, s_maxage=3600, public"
+            response["Cache-Control"], "max-age=3600, s-maxage=3600, public"
         )
