@@ -101,12 +101,9 @@ class ServeView(View):
         return response
 
     def serve(self, rendition: "AbstractRendition") -> "FileResponse":
-        with rendition.get_willow_image() as willow_image:
-            mime_type = willow_image.mime_type
-
         # Serve the file
         rendition.file.open("rb")
-        response = FileResponse(rendition.file, content_type=mime_type)
+        response = FileResponse(rendition.file, content_type=rendition.get_mime_type())
 
         # Add a CSP header to prevent inline execution
         response["Content-Security-Policy"] = "default-src 'none'"
