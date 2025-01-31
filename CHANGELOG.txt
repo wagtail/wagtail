@@ -4,7 +4,7 @@ Changelog
 6.5 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
 
 
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
