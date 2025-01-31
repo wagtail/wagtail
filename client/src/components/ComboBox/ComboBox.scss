@@ -137,6 +137,15 @@ $width: clamp(300px, 75vw, 1000px);
   &:hover {
     color: theme('colors.icon-secondary-hover');
   }
+
+  &[aria-expanded='true'] {
+    color: theme('colors.text-link-default');
+
+    @media (forced-colors: active) {
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
 }
 
 .w-combobox__option-row--col1 {
