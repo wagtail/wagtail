@@ -737,6 +737,7 @@ Changelog
  * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
  * Fix: Handle StreamField migrations where the field value is null (Joshua Munn)
  * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
 
 5.2.7 (01.11.2024)
 ~~~~~~~~~~~~~~~~~~
