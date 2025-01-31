@@ -67,7 +67,7 @@ class ServeView(View):
         image_id: int,
         filter_spec: str,
         filename: Optional[str] = None,
-    ):
+    ) -> "HttpResponseBase":
         if not verify_signature(
             signature.encode(), image_id, filter_spec, key=self.key
         ):
