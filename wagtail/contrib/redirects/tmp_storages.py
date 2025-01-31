@@ -88,7 +88,8 @@ class CacheStorage(BaseStorage):
         return cache.get(self.CACHE_PREFIX + self.name)
 
     def remove(self):
-        cache.delete(self.name)
+        cache.delete(self.CACHE_PREFIX + self.name)  # ✅ Now correctly deletes the cached entry
+
 
 
 class MediaStorage(BaseStorage):
