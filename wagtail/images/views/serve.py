@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, ClassVar, Optional
 
 from django.core.exceptions import ImproperlyConfigured
 from django.http import FileResponse, HttpResponse
@@ -34,17 +34,17 @@ class ServeView(View):
     action = "serve"
     key = None
 
-    serve_cache_control_headers = {
+    serve_cache_control_headers: ClassVar[dict[str, Any]] = {
         "max_age": 3600,
         "s_maxage": 3600,
         "public": True,
     }
-    error_cache_control_headers = {
+    error_cache_control_headers: ClassVar[dict[str, Any]] = {
         "max_age": 3600,
         "s_maxage": 3600,
         "public": True,
     }
-    redirect_cache_control_headers = {
+    redirect_cache_control_headers: ClassVar[dict[str, Any]] = {
         "max_age": 3600,
         "s_maxage": 3600,
         "public": True,
