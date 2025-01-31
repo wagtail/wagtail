@@ -33,7 +33,7 @@ Changelog
  * Add previews support for StreamField blocks inside the block picker (Sage Abdullah, Thibaud Colas)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
- * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
  * Fix: Fix sub-menus within the main menu cannot be closed on mobile (Bojan Mihelac)
  * Fix: Fix animation overflow transition when navigating through subpages in the sidebar page explorer (manu)
  * Fix: Ensure form builder supports custom admin form validation (John-Scott Atlakson, LB (Ben) Johnston)
