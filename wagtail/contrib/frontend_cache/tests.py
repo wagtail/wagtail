@@ -476,10 +476,10 @@ class TestCachePurgingFunctions(TestCase):
         with self.captureOnCommitCallbacks(execute=True):
             with self.assertNumQueries(1):
                 purge_page_from_cache(page)
-            self.assertEqual(
-                PURGED_URLS,
-                {"http://localhost/events/", "http://localhost/events/past/"},
-            )
+        self.assertEqual(
+            PURGED_URLS,
+            {"http://localhost/events/", "http://localhost/events/past/"},
+        )
 
     def test_purge_page_from_cache_with_shared_cache_object(self):
         page = EventIndex.objects.get(url_path="/home/events/")
@@ -494,10 +494,10 @@ class TestCachePurgingFunctions(TestCase):
             with self.assertNumQueries(0):
                 purge_page_from_cache(page, cache_object=page)
 
-            self.assertEqual(
-                PURGED_URLS,
-                {"http://localhost/events/", "http://localhost/events/past/"},
-            )
+        self.assertEqual(
+            PURGED_URLS,
+            {"http://localhost/events/", "http://localhost/events/past/"},
+        )
 
     def test_purge_pages_from_cache(self):
         pages = list(Page.objects.all().type(EventPage))
