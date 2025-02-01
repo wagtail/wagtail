@@ -476,6 +476,7 @@ class BaseStreamBlock(Block):
         max_num = None
         block_counts = {}
         collapsed = False
+        value_class = StreamValue
 
     MUTABLE_META_ATTRIBUTES = [
         "required",
@@ -483,6 +484,7 @@ class BaseStreamBlock(Block):
         "max_num",
         "block_counts",
         "collapsed",
+        "value_class",
     ]
 
 
