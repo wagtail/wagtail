@@ -30,3 +30,20 @@ class SectionBlock(blocks.StructBlock):
     class Meta:
         icon = "form"
         template = "tests/blocks/section_block.html"
+
+
+class CustomStreamValue(blocks.StreamValue):
+    pass
+
+
+class CustomValueStreamBlock(blocks.StreamBlock):
+    h2 = blocks.CharBlock()
+    rich_text = blocks.RichTextBlock()
+
+    class Meta:
+        value_class = CustomStreamValue
+
+
+class RegularStreamBlock(blocks.StreamBlock):
+    h2 = blocks.CharBlock()
+    rich_text = blocks.RichTextBlock()

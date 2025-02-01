@@ -86,6 +86,7 @@ from wagtail.search import index
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from .blocks import CustomStreamValue, CustomValueStreamBlock, RegularStreamBlock
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
 EVENT_AUDIENCE_CHOICES = (
@@ -2034,6 +2035,29 @@ class RichTextFieldWithFeaturesPage(Page):
     content_panels = [
         FieldPanel("title", classname="title"),
         FieldPanel("body"),
+    ]
+
+
+class CustomStreamValuesPage(Page):
+    body = StreamField(
+        CustomValueStreamBlock,
+        blank=True,
+    )
+    body_2 = StreamField(
+        [("h2", CharBlock()), ("rich_text", RichTextBlock())],
+        blank=True,
+        value_class=CustomStreamValue,
+    )
+    body_3 = StreamField(
+        RegularStreamBlock(value_class=CustomStreamValue),
+        blank=True,
+    )
+
+    content_panels = [
+        FieldPanel("title", classname="title"),
+        FieldPanel("body"),
+        FieldPanel("body_2"),
+        FieldPanel("body_3"),
     ]
 
 
