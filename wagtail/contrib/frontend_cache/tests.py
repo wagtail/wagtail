@@ -475,6 +475,8 @@ class TestCachePurgingFunctions(TestCase):
         page = EventIndex.objects.get(url_path="/home/events/")
         with self.captureOnCommitCallbacks(execute=True):
             with self.assertNumQueries(1):
+                # Because no cache object is provided, a query is needed to
+                # fetch site root paths in order to derive page urls
                 purge_page_from_cache(page)
         self.assertEqual(
             PURGED_URLS,
@@ -504,7 +506,7 @@ class TestCachePurgingFunctions(TestCase):
         with self.captureOnCommitCallbacks(execute=True):
             with self.assertNumQueries(1):
                 # Because no cache object is provided, a query is needed to
-                # identify the site root paths
+                # fetch site root paths in order to derive page urls
                 purge_pages_from_cache(pages)
         self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
@@ -530,8 +532,8 @@ class TestCachePurgingFunctions(TestCase):
         page = EventIndex.objects.get(url_path="/home/events/")
         batch = PurgeBatch()
 
-        # Because the batch has no cache object, adding a page will
-        # result in a query to fetch the site root paths
+        # Because no cache object is provided, a query is needed to
+        # fetch site root paths in order to derive page urls
         with self.assertNumQueries(1):
             batch.add_page(page)
 
@@ -553,8 +555,8 @@ class TestCachePurgingFunctions(TestCase):
         pages = list(Page.objects.all().type(EventPage))
         batch = PurgeBatch()
 
-        # Because the batch has no cache object, adding pages will
-        # result in a query to fetch the site root paths
+        # Because the batch has no cache object, a query is needed to
+        # fetch site root paths in order to derive page urls
         with self.assertNumQueries(1):
             batch.add_pages(pages)
 
