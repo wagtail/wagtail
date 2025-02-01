@@ -662,7 +662,8 @@ class StreamValue(MutableSequence):
         Create a StreamChild instance from a (type, value, id) or (type, value) tuple,
         or return item if it's already a StreamChild
         """
-        if isinstance(item, StreamValue.StreamChild):
+        streamchild_class = type(self).StreamChild
+        if isinstance(item, streamchild_class):
             return item
 
         try:
@@ -672,7 +673,7 @@ class StreamValue(MutableSequence):
             block_id = None
 
         block_def = self.stream_block.child_blocks[type_name]
-        return StreamValue.StreamChild(block_def, value, id=block_id)
+        return streamchild_class(block_def, value, id=block_id)
 
     def __getitem__(self, i):
         if isinstance(i, slice):
@@ -698,7 +699,7 @@ class StreamValue(MutableSequence):
 
     @cached_property
     def raw_data(self):
-        return StreamValue.RawDataView(self)
+        return type(self).RawDataView(self)
 
     def _prefetch_blocks(self, type_name):
         """
@@ -721,8 +722,9 @@ class StreamValue(MutableSequence):
 
         # reunite the converted values with their stream indexes, along with the block ID
         # if one exists
+        streamchild_class = type(self).StreamChild
         for i, value in zip(raw_values.keys(), converted_values):
-            self._bound_blocks[i] = StreamValue.StreamChild(
+            self._bound_blocks[i] = streamchild_class(
                 child_block, value, id=self._raw_data[i].get("id")
             )
 
@@ -749,21 +751,23 @@ class StreamValue(MutableSequence):
         return prep_value
 
     def blocks_by_name(self, block_name=None):
-        lookup = StreamValue.BlockNameLookup(self, find_all=True)
+        lookup_class = type(self).BlockNameLookup
+        lookup = lookup_class(self, find_all=True)
         if block_name:
             return lookup[block_name]
         else:
             return lookup
 
     def first_block_by_name(self, block_name=None):
-        lookup = StreamValue.BlockNameLookup(self, find_all=False)
+        lookup_class = type(self).BlockNameLookup
+        lookup = lookup_class(self, find_all=False)
         if block_name:
             return lookup[block_name]
         else:
             return lookup
 
     def __eq__(self, other):
-        if not isinstance(other, StreamValue) or len(other) != len(self):
+        if not isinstance(other, type(self)) or len(other) != len(self):
             return False
 
         # scan both lists for non-matching items
@@ -810,7 +814,7 @@ class StreamValue(MutableSequence):
             stream_field = self._stream_field
         except AttributeError:
             raise PickleError(
-                "StreamValue can only be pickled if it is associated with a StreamField"
+                f"{type(self).__name__} can only be pickled if it is associated with a StreamField"
             )
 
         return (
