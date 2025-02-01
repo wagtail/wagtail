@@ -101,7 +101,7 @@ class StreamField(models.Field):
 
         # extract kwargs that are to be passed on to the block, not handled by super
         self.block_opts = {}
-        for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
+        for arg in ["min_num", "max_num", "block_counts", "collapsed", "value_class"]:
             if arg in kwargs:
                 self.block_opts[arg] = kwargs.pop(arg)
 
