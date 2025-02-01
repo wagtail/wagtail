@@ -4,7 +4,7 @@ import pickle
 from django.apps import apps
 from django.db import connection, models
 from django.template import Context, Template, engines
-from django.test import TestCase, skipUnlessDBFeature
+from django.test import SimpleTestCase, TestCase, skipUnlessDBFeature
 from django.utils.safestring import SafeString
 
 from wagtail import blocks
@@ -15,8 +15,10 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Page
 from wagtail.rich_text import RichText
 from wagtail.signal_handlers import disable_reference_index_auto_update
+from wagtail.test.testapp.blocks import CustomStreamValue
 from wagtail.test.testapp.models import (
     ComplexDefaultStreamPage,
+    CustomStreamValuesPage,
     JSONBlockCountsStreamModel,
     JSONMinMaxCountStreamModel,
     JSONStreamModel,
@@ -1016,3 +1018,35 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
                 },
             },
         )
+
+
+class TestStreamFieldWithCustomValue(SimpleTestCase):
+    def setUp(self):
+        self.empty_values_page = CustomStreamValuesPage(
+            id=998,
+            title="Test page",
+        )
+
+        block_vals = [
+            {"type": "h2", "value": "Hello", "id": "123"},
+            {"type": "rich_text", "value": "<p>Hello</p>", "id": "456"},
+        ]
+        self.populated_values_page = CustomStreamValuesPage(
+            id=999,
+            title="Test page",
+            body=block_vals,
+            body_2=block_vals,
+            body_3=block_vals,
+        )
+
+    def test_value_class_defined_in_streamblock_meta(self):
+        self.assertIsInstance(self.empty_values_page.body, CustomStreamValue)
+        self.assertIsInstance(self.populated_values_page.body, CustomStreamValue)
+
+    def test_value_class_specified_as_streamfield_option(self):
+        self.assertIsInstance(self.empty_values_page.body_2, CustomStreamValue)
+        self.assertIsInstance(self.populated_values_page.body_2, CustomStreamValue)
+
+    def test_value_class_specified_as_streamblock_option(self):
+        self.assertIsInstance(self.empty_values_page.body_3, CustomStreamValue)
+        self.assertIsInstance(self.populated_values_page.body_3, CustomStreamValue)
