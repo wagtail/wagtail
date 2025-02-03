@@ -5,12 +5,12 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
 # Thijs Kramer <thijskramer@gmail.com>, 2023
-# Loic Teixeira, 2024
 # Storm Heg <storm@stormbase.digital>, 2024
+# Loic Teixeira, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2024\n"
+"Last-Translator: Loic Teixeira, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -141,6 +141,9 @@ msgstr "Pagina's"
 
 msgid "Pin toolbar"
 msgstr "Toolbar vastzetten"
+
+msgid "Preview"
+msgstr "Voorvertoning"
 
 msgid "Reload saved content"
 msgstr "Herlaad opgeslagen inhoud"

@@ -7,14 +7,14 @@
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2022
-# X Bello <xbello@gmail.com>, 2022-2024
+# X Bello <xbello@gmail.com>, 2022-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022-2024\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +88,13 @@ msgstr "Etiqueta"
 
 msgid "Filter by up to ten most popular tags."
 msgstr "Filtrar ata as dez etiquetas máis populares."
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Usar linguaxe do servidor: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Usar zona horaria do servidor"
 
 msgid "Preferred language"
 msgstr "Idioma preferido"
@@ -400,12 +407,6 @@ msgstr "Seleccionados tódolos ítems do listado"
 msgid "Can access Wagtail admin"
 msgstr "Pode entrar no admin de Wagtail"
 
-msgid "For search engines"
-msgstr "Para os motores de busca"
-
-msgid "For site menus"
-msgstr "Para os menús de sitio"
-
 msgid "Content"
 msgstr "Contido"
 
@@ -670,10 +671,6 @@ msgid "No, don't delete"
 msgstr "Non, non eliminar."
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Non publicar %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Seguro que queres despublicar este %(model_name)s?"
 
@@ -740,13 +737,6 @@ msgid ""
 msgstr ""
 "A vista previa non pode amosarse porque hai erros de validación. <br /> "
 "Pulsa gardar para resaltar os campos afectados."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparando %(title)s"
-
-msgid "Comparing"
-msgstr "Comparando"
 
 msgid "Fields"
 msgstr "Campos"
@@ -2000,21 +1990,14 @@ msgstr "Visitar a páxina en vivo"
 msgid "Visible to all. Visit the live page"
 msgstr "Visible para todos. Visitar a páxina en vivo"
 
-msgid "Private. Visit the live page"
-msgstr "Privada. Visitar a páxina en vivo"
-
 msgid "Visible to all"
 msgstr "Visible para todos"
 
+msgid "Private. Visit the live page"
+msgstr "Privada. Visitar a páxina en vivo"
+
 msgid "Toggle section"
 msgstr "Permutar sección"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Desadiar a Revisión %(revision.id)s para %(title)s"
-
-msgid "Unschedule"
-msgstr "Desadiar"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Estás seguro de que queres desadiar esta revisión?"
@@ -2882,6 +2865,9 @@ msgstr "%(model_name)s '%(object)s' eliminada"
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Seguro que queres borar este %(model_name)s?"
 
+msgid "Compare"
+msgstr "Comparar"
+
 msgid "Earliest"
 msgstr "Primeira"
 
@@ -2896,9 +2882,16 @@ msgstr "'%(object)s' despublicado."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Desadiada a versión %(revision_id)s de \"%(object)s\"."
 
+msgid "Unschedule"
+msgstr "Desadiar"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revisión %(revision_id)s de \"%(object)s\""
+
+#, python-format
+msgid "Preview for %(block_label)s (%(block_type)s)"
+msgstr "Vista previa para %(block_label)s (%(block_type)s)"
 
 msgid "If you confirm deletion"
 msgstr "Se confirmas o borrado"
@@ -2939,32 +2932,17 @@ msgstr "A Privacidade heredouse da páxina ancestra - %(ancestor_page)s"
 msgid "Delete selected pages"
 msgstr "Eliminar as páxinas seleccionadas"
 
-msgid "1 page has been deleted"
-msgstr "Eliminouse 1 páxina"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been deleted"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been deleted"
+msgstr "Elimináronse %(parent_pages)s e %(child_pages)s"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "Eliminouse 1 páxina e %(num_child_objects)d páxina filla"
-msgstr[1] "Elimináronse 1 páxina e %(num_child_objects)d páxinas fillas"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "Elimináronse %(num_parent_objects)d páxinas"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"Elimináronse %(num_parent_objects)d páxinas e %(num_child_objects)d páxina "
-"filla"
-msgstr[1] ""
-"Elimináronse %(num_parent_objects)d páxinas e %(num_child_objects)d páxinas "
-"fillas"
+msgid "%(num_parent_objects)d page has been deleted"
+msgid_plural "%(num_parent_objects)d pages have been deleted"
+msgstr[0] "Eliminouse %(num_parent_objects)d páxina"
+msgstr[1] "Elimináronse %(num_parent_objects)d páxinas"
 
 msgid "Select a new parent page"
 msgstr "Selecciona unha nova páxina nai"
@@ -2978,66 +2956,47 @@ msgid_plural "%(num_pages)d pages have been moved"
 msgstr[0] "Moveuse %(num_pages)d páxina"
 msgstr[1] "Movéronse %(num_pages)d páxinas"
 
+#, python-format
+msgid "%(num_parent_objects)d page"
+msgid_plural "%(num_parent_objects)d pages"
+msgstr[0] "%(num_parent_objects)d páxina"
+msgstr[1] "%(num_parent_objects)d páxinas"
+
+#, python-format
+msgid "%(num_child_objects)d child page"
+msgid_plural "%(num_child_objects)d child pages"
+msgstr[0] "%(num_child_objects)d páxina filla"
+msgstr[1] "%(num_child_objects)d páxinas fillas"
+
 msgid "Publish selected pages"
 msgstr "Publicar as páxinas seleccionadas"
 
-msgid "1 page has been published"
-msgstr "Publicouse 1 páxina"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been published"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been published"
+msgstr "Publicáronse %(parent_pages)s e %(child_pages)s"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "Publicouse 1 páxina e %(num_child_objects)d páxina filla"
-msgstr[1] "Publicouse 1 páxina e %(num_child_objects)d páxinas fillas"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "Publicáronse %(num_parent_objects)d páxinas"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"Publicáronse %(num_parent_objects)d páxinas e %(num_child_objects)d páxina "
-"filla"
-msgstr[1] ""
-"Publicáronse %(num_parent_objects)d páxinas e %(num_child_objects)d páxinas "
-"fillas"
+msgid "%(num_parent_objects)d page has been published"
+msgid_plural "%(num_parent_objects)d pages have been published"
+msgstr[0] "Publicouse %(num_parent_objects)d páxina"
+msgstr[1] "Publicáronse %(num_parent_objects)d páxinas"
 
 msgid "Unpublish selected pages"
 msgstr "Despublicar as páxinas seleccionadas"
 
-msgid "1 page has been unpublished"
-msgstr "Despublicouse 1 páxina"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been unpublished"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been unpublished"
+msgstr "Despublicáronse %(parent_pages)s e %(child_pages)s"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "Despublicouse 1 páxina e %(num_child_objects)d páxina filla"
-msgstr[1] "Despublicouse 1 páxina e %(num_child_objects)d páxinas fillas"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "Despublicáronse %(num_parent_objects)d páxinas"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"Despublicáronse %(num_parent_objects)d páxinas e %(num_child_objects)d "
-"páxina filla"
-msgstr[1] ""
-"Despublicáronse %(num_parent_objects)d páxinas e %(num_child_objects)d "
-"páxinas fillas"
+msgid "%(num_parent_objects)d page has been unpublished"
+msgid_plural "%(num_parent_objects)d pages have been unpublished"
+msgstr[0] "Despublicouse %(num_parent_objects)d páxina"
+msgstr[1] "Despublicáronse %(num_parent_objects)d páxinas"
 
 msgid "Choose parent"
 msgstr "Elixir nai"
@@ -3213,9 +3172,6 @@ msgid ""
 msgstr ""
 "Estás vendo unha versión anterior desta páxina de <b>%(created_at)s</b> por "
 "%(user)s"
-
-msgid "Page history"
-msgstr "Historial da páxina"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -401,12 +401,6 @@ msgstr "Allir hlutir valdir"
 msgid "Can access Wagtail admin"
 msgstr "Hefur aðgang að stjórnkerfi Wagtail"
 
-msgid "For search engines"
-msgstr "Fyrir leitarvélar"
-
-msgid "For site menus"
-msgstr "Fyrir valmyndir"
-
 msgid "Content"
 msgstr "Efni"
 
@@ -671,10 +665,6 @@ msgid "No, don't delete"
 msgstr "Nei, ekki eyða"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Taka %(title)s úr loftinu"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Ertu viss um að þú viljir taka %(model_name)s úr loftinu?"
 
@@ -741,13 +731,6 @@ msgid ""
 msgstr ""
 "Ekki hægt að forskoða vegna þess að villur komu upp. <br /> Smelltu á vista "
 "til að sýna reitina sem eru að valda villum."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Bera saman %(title)s"
-
-msgid "Comparing"
-msgstr "Ber saman"
 
 msgid "Fields"
 msgstr "Reitir"
@@ -2002,21 +1985,14 @@ msgstr "Skoða birta útgáfu síðunnar"
 msgid "Visible to all. Visit the live page"
 msgstr "Sýnilegt öllum. Skoða birta síðu"
 
-msgid "Private. Visit the live page"
-msgstr "Læst. Skoða birta síðu"
-
 msgid "Visible to all"
 msgstr "Sýnilegt öllum"
 
+msgid "Private. Visit the live page"
+msgstr "Læst. Skoða birta síðu"
+
 msgid "Toggle section"
 msgstr "Sýna/fela síðuhluta"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hætta við tímasetta birtingu útgáfu %(revision.id)s fyrir %(title)s"
-
-msgid "Unschedule"
-msgstr "Hætta við tímasetta birtingu"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ertu viss um að þú viljir hætta við birtingu á þessari útgáfu?"
@@ -2901,6 +2877,9 @@ msgstr "'%(object)s' tekið úr loftinu."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Útgáfa %(revision_id)s af \"%(object)s\" tekin úr tímastillingu."
 
+msgid "Unschedule"
+msgstr "Hætta við tímasetta birtingu"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "útgáfa %(revision_id)s af \"%(object)s\""
@@ -2944,33 +2923,6 @@ msgstr "Stillingar erfast frá yfirsíðu - %(ancestor_page)s"
 msgid "Delete selected pages"
 msgstr "Eyða völdum síðu"
 
-msgid "1 page has been deleted"
-msgstr "1 síðu hefur verið eytt"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 síðu og %(num_child_objects)d undirsíðu hefur verið eytt"
-msgstr[1] "1 síðu og %(num_child_objects)d undirsíðum hefur verið eytt"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d síðum hefur verið eytt"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d síðum og %(num_child_objects)d undirsíðu hefur verið "
-"eytt"
-msgstr[1] ""
-"%(num_parent_objects)d síðum og %(num_child_objects)d undirsíðum hefur verið "
-"eytt"
-
 msgid "Select a new parent page"
 msgstr "Veldu nýja yfirsíðu"
 
@@ -2986,67 +2938,8 @@ msgstr[1] "%(num_pages)d síður hafa verið færðar"
 msgid "Publish selected pages"
 msgstr "Setja valdar síður í lofti"
 
-msgid "1 page has been published"
-msgstr "1 síða hefur verið sett í loftið"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] ""
-"1 síða og %(num_child_objects)d undirsíða hafa verið settar í loftið"
-msgstr[1] ""
-"1 síða og %(num_child_objects)d undirsíður hafa verið settar í loftið"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d síður hafa verið settar í loftið"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíða hafa verið "
-"settar í loftið"
-msgstr[1] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
-"settar í loftið"
-
 msgid "Unpublish selected pages"
 msgstr "Taka valdar síður úr loftinu"
-
-msgid "1 page has been unpublished"
-msgstr "1 síða hefur verið tekin úr loftinu"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"1 síða og %(num_child_objects)d undirsíða hafa verið teknar úr loftinu"
-msgstr[1] ""
-"1 síða og %(num_child_objects)d undirsíður hafa verið teknar úr loftinu"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d síður hafa verið teknar úr loftin"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
-"teknar úr loftinu"
-msgstr[1] ""
-"%(num_parent_objects)d síður og %(num_child_objects)d undirsíður hafa verið "
-"teknar úr loftinu"
 
 msgid "Choose parent"
 msgstr "Veldu yfirsíðu"
@@ -3225,9 +3118,6 @@ msgid ""
 msgstr ""
 "Þú ert að skoða eldri útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
 "%(user)s"
-
-msgid "Page history"
-msgstr "Saga síðu"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

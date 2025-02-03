@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -383,12 +383,6 @@ msgstr "Mind a(z) %(objects)s elem kiválasztva ezen a képernyőn"
 msgid "All items in listing selected"
 msgstr "Minden elem kiválasztva a listában"
 
-msgid "For search engines"
-msgstr "Keresőmotorok számára"
-
-msgid "For site menus"
-msgstr "Oldal menük számára"
-
 msgid "Content"
 msgstr "Tartalom"
 
@@ -651,10 +645,6 @@ msgid "No, don't delete"
 msgstr "Nem, ne töröljük"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s visszavonása"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Biztosan visszavonja a(z) %(model_name)s tartalmat? "
 
@@ -723,13 +713,6 @@ msgid ""
 msgstr ""
 "Az előnézet a kitöltési hibák miatt nem elérhető. <br /> Kattintson a mentés "
 "gombra a hibás mezők megjelöléséhez."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s összevetése"
-
-msgid "Comparing"
-msgstr "Összevetés"
 
 msgid "Fields"
 msgstr "Mezők"
@@ -1895,21 +1878,14 @@ msgstr "Élő oldal megtekintése"
 msgid "Visible to all. Visit the live page"
 msgstr "Mindenkinek látható. Élő oldal megtekintése"
 
-msgid "Private. Visit the live page"
-msgstr "Privát. Élő oldal megtekintése"
-
 msgid "Visible to all"
 msgstr "Látható mindenkinek"
 
+msgid "Private. Visit the live page"
+msgstr "Privát. Élő oldal megtekintése"
+
 msgid "Toggle section"
 msgstr "Szekció kapcsolása"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s oldal %(revision.id)s verziója időzítésének visszavonása"
-
-msgid "Unschedule"
-msgstr "Időzítés visszavonása"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Biztosan visszavonja a verzió időzített megjelenítését?"
@@ -2695,6 +2671,9 @@ msgstr "'%(object)s' visszavonva."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "'%(object)s' %(revision_id)s verziójának időzítése visszavonva."
 
+msgid "Unschedule"
+msgstr "Időzítés visszavonása"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "\"%(object)s\" %(revision_id)s verziója"
@@ -2731,31 +2710,6 @@ msgstr "Műszerfal"
 msgid "Delete selected pages"
 msgstr "Kiválasztott oldalak törlése"
 
-msgid "1 page has been deleted"
-msgstr "1 oldal törölve lett"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 oldal és %(num_child_objects)d aloldala törölve lett"
-msgstr[1] "1 oldal és %(num_child_objects)daloldala törölve lett"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d oldal törölve lett"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d oldal, és %(num_child_objects)d aloldal törölve lett"
-msgstr[1] ""
-"%(num_parent_objects)d oldal, és %(num_child_objects)d aloldal törölve lett"
-
 msgid "Select a new parent page"
 msgstr "Új szülő oldal kiválasztása"
 
@@ -2771,59 +2725,8 @@ msgstr[1] "%(num_pages)d oldal átmozgatva"
 msgid "Publish selected pages"
 msgstr "Kiválasztott oldalak közzététele"
 
-msgid "1 page has been published"
-msgstr "1 oldal közzétéve"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 oldal és %(num_child_objects)d aloldal közzétéve"
-msgstr[1] "1 oldal és %(num_child_objects)d aloldal közzétéve"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d oldal közzétéve"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal közzétéve"
-msgstr[1] ""
-"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal közzétéve"
-
 msgid "Unpublish selected pages"
 msgstr "Kiválasztott oldalak visszavonása"
-
-msgid "1 page has been unpublished"
-msgstr "1 oldal visszavonva"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 oldal és %(num_child_objects)d aloldal visszavonva"
-msgstr[1] "1 oldal és %(num_child_objects)d aloldal visszavonva"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d oldal visszavonva"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
-msgstr[1] ""
-"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2990,9 +2893,6 @@ msgid ""
 msgstr ""
 "Az oldal egy korábbi verzióját látja, amelyet %(user)s készített ekkor: "
 "<b>%(created_at)s</b>"
-
-msgid "Page history"
-msgstr "Oldaltörténet"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

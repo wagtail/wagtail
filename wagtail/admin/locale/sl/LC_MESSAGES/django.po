@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -406,12 +406,6 @@ msgstr "Izbrani so vsi elementi na seznamu"
 msgid "Can access Wagtail admin"
 msgstr "Lahko dostopa do upravitelja Wagtail"
 
-msgid "For search engines"
-msgstr "Za iskalnike"
-
-msgid "For site menus"
-msgstr "Za menije strani"
-
 msgid "Content"
 msgstr "Vsebina"
 
@@ -682,10 +676,6 @@ msgid "No, don't delete"
 msgstr "Ne, ne izbriši"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Umakni '%(title)s' iz objave"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Ali ste prepričani, da želite preklicati objavo %(model_name)s?"
 
@@ -744,13 +734,6 @@ msgid ""
 msgstr ""
 "Predogleda ni mogoče prikazati zaradi napak pri preverjanju. <br /> Kliknite "
 "Shrani, da označite ustrezna polja."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Primerjam %(title)s"
-
-msgid "Comparing"
-msgstr "Primerjam"
 
 msgid "Fields"
 msgstr "Polja"
@@ -1701,21 +1684,14 @@ msgstr "Obiščite stran v živo"
 msgid "Visible to all. Visit the live page"
 msgstr "Vidno vsem. Obiščite stran v živo"
 
-msgid "Private. Visit the live page"
-msgstr "Zasebno. Obiščite stran v živo"
-
 msgid "Visible to all"
 msgstr "Vidno vsem"
 
+msgid "Private. Visit the live page"
+msgstr "Zasebno. Obiščite stran v živo"
+
 msgid "Toggle section"
 msgstr "Preklop razdelka"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Odstrani planirano revizijo %(revision.id)s za %(title)s"
-
-msgid "Unschedule"
-msgstr "Prekliči urnik"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ali ste prepričani, da želite preklicati to revizijo?"
@@ -2514,6 +2490,9 @@ msgstr "'%(object)s' iz objave."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Verzija %(revision_id)s od \"%(object)s\" ni več načrtovana."
 
+msgid "Unschedule"
+msgstr "Prekliči urnik"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "Revizija %(revision_id)s od \"%(object)s\""
@@ -2538,13 +2517,6 @@ msgstr "Nadzorna plošča"
 msgid "Delete selected pages"
 msgstr "Izbriši izbrane strani"
 
-msgid "1 page has been deleted"
-msgstr "1 stran je bila izbrisana"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d strani je bilo izbrisanih"
-
 msgid "Select a new parent page"
 msgstr "Izberite novo nadrejeno stran"
 
@@ -2562,22 +2534,8 @@ msgstr[3] "%(num_pages)d strani so bile premaknjene"
 msgid "Publish selected pages"
 msgstr "Objavi izbrane strani"
 
-msgid "1 page has been published"
-msgstr "Objavljena je 1 stran"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d strani je bilo objavljenih"
-
 msgid "Unpublish selected pages"
 msgstr "Prekliči objavo izbranih strani"
-
-msgid "1 page has been unpublished"
-msgstr "1 stran je bila preklicana"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d strani je bilo neobjavljenih"
 
 msgid "Choose parent"
 msgstr "Izberite starša"
@@ -2729,9 +2687,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Ogledate si prejšnjo različico te strani iz <b>%(created_at)s</b> od %(user)s"
-
-msgid "Page history"
-msgstr "Zgodovina strani"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

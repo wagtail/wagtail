@@ -6,14 +6,14 @@
 # Antoni Aloy <aaloy@apsl.net>, 2016,2022
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2024
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2024\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -87,6 +87,13 @@ msgstr "Etiqueta"
 
 msgid "Filter by up to ten most popular tags."
 msgstr "Filtrar per fins a 10 de les etiquetes més populars."
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Utilitzar llengua del servidor: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Utilitzar zona horària del servidor"
 
 msgid "Preferred language"
 msgstr "Llengua preferida"
@@ -399,12 +406,6 @@ msgstr "S'ha seleccionat tots els elements del llistat"
 msgid "Can access Wagtail admin"
 msgstr "Pot accedir a l'administració de Wagtail"
 
-msgid "For search engines"
-msgstr "Per motors de cerca"
-
-msgid "For site menus"
-msgstr "Per menús de lloc web"
-
 msgid "Content"
 msgstr "Contingut"
 
@@ -670,10 +671,6 @@ msgid "No, don't delete"
 msgstr "No suprimir"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Anul·lar la publicació de %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Segur que voleu anul·lar la publicació d'aquest/a %(model_name)s?"
 
@@ -741,13 +738,6 @@ msgid ""
 msgstr ""
 "No es pot mostrar la previsualització per causa d'error de validació. <br /> "
 "Feu clic a desar per ressaltar els camps rellevants."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparant %(title)s"
-
-msgid "Comparing"
-msgstr "Comparant"
 
 msgid "Fields"
 msgstr "Camps"
@@ -2012,21 +2002,14 @@ msgstr "Visitar la pàgina En viu"
 msgid "Visible to all. Visit the live page"
 msgstr "Visible per a tothom. Visitar la pàgina En viu"
 
-msgid "Private. Visit the live page"
-msgstr "Privada. Visitar la pàgina En viu"
-
 msgid "Visible to all"
 msgstr "Visible per tothom"
 
+msgid "Private. Visit the live page"
+msgstr "Privada. Visitar la pàgina En viu"
+
 msgid "Toggle section"
 msgstr "Commutar secció"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Desprogramar la Revisió %(revision.id)s per %(title)s"
-
-msgid "Unschedule"
-msgstr "Desprogramar"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Segur que voleu desprogramar aquesta revisió?"
@@ -2896,6 +2879,9 @@ msgstr "%(model_name)s '%(object)s' esborrat."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Segur que voleu esborrar aquest/a %(model_name)s?"
 
+msgid "Compare"
+msgstr "Comparar"
+
 msgid "Earliest"
 msgstr "La més antiga"
 
@@ -2911,9 +2897,16 @@ msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr ""
 "S'ha anul·lat la programació de la versió%(revision_id)s de \"%(object)s\"."
 
+msgid "Unschedule"
+msgstr "Desprogramar"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revisió %(revision_id)s de \"%(object)s\""
+
+#, python-format
+msgid "Preview for %(block_label)s (%(block_type)s)"
+msgstr "Previsualització per %(block_label)s (%(block_type)s)"
 
 msgid "If you confirm deletion"
 msgstr "Si confirmeu l'esborrat"
@@ -2954,32 +2947,17 @@ msgstr "La privacitat és heretada de la pàgina antecesora - %(ancestor_page)s"
 msgid "Delete selected pages"
 msgstr "Esborrar les pàgines seleccionades"
 
-msgid "1 page has been deleted"
-msgstr "S'ha esborrat 1 pàgina"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been deleted"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been deleted"
+msgstr "S'ha esborrat %(parent_pages)s i %(child_pages)s"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "S'ha esborrat 1 pàgina i %(num_child_objects)d pàgina filla"
-msgstr[1] "S'ha esborrat 1 pàgina i %(num_child_objects)d pàgines filles"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "S'han esborrat %(num_parent_objects)d pàgines"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"S'han esborrat %(num_parent_objects)d pàgines i  %(num_child_objects)d "
-"pàgina filla"
-msgstr[1] ""
-"S'han esborrat %(num_parent_objects)d pàgines i %(num_child_objects)d "
-"pàgines filles"
+msgid "%(num_parent_objects)d page has been deleted"
+msgid_plural "%(num_parent_objects)d pages have been deleted"
+msgstr[0] "S'ha esborrat %(num_parent_objects)d pàgina"
+msgstr[1] "S'han esborrat %(num_parent_objects)d pàgines"
 
 msgid "Select a new parent page"
 msgstr "Seleccinoeu una nova pàgina pare"
@@ -2993,67 +2971,47 @@ msgid_plural "%(num_pages)d pages have been moved"
 msgstr[0] "S'ha mogut %(num_pages)d pàgina"
 msgstr[1] "S'ha mogut %(num_pages)d pàgina"
 
+#, python-format
+msgid "%(num_parent_objects)d page"
+msgid_plural "%(num_parent_objects)d pages"
+msgstr[0] "%(num_parent_objects)d pàgina"
+msgstr[1] "%(num_parent_objects)d pàgines"
+
+#, python-format
+msgid "%(num_child_objects)d child page"
+msgid_plural "%(num_child_objects)d child pages"
+msgstr[0] "%(num_child_objects)d pàgina filla"
+msgstr[1] "%(num_child_objects)d pàgines filles"
+
 msgid "Publish selected pages"
 msgstr "Publicar les pàgines seleccionades"
 
-msgid "1 page has been published"
-msgstr "S'ha publicat 1 pàgina"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been published"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been published"
+msgstr "S'ha publicat %(parent_pages)s i %(child_pages)s"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "S'ha publicat 1 pàgina i %(num_child_objects)d pàgina filla"
-msgstr[1] "S'ha publicat 1 pàgina i %(num_child_objects)d pàgines filles"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "S'han publicat %(num_parent_objects)d pàgines"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"S'han publicat %(num_parent_objects)d i %(num_child_objects)d pàgina filla"
-msgstr[1] ""
-"S'han publicat %(num_parent_objects)d pàgines i %(num_child_objects)d "
-"pàgines filles"
+msgid "%(num_parent_objects)d page has been published"
+msgid_plural "%(num_parent_objects)d pages have been published"
+msgstr[0] "S'ha publicat %(num_parent_objects)d pàgina"
+msgstr[1] "S'han publicat %(num_parent_objects)d pàgines"
 
 msgid "Unpublish selected pages"
 msgstr "Anul·lar la publicació de les pàgines seleccionades"
 
-msgid "1 page has been unpublished"
-msgstr "S'ha anul·lat la publicació d'1 pàgina"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been unpublished"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been unpublished"
+msgstr "S'ha anul·lat la publicació de %(parent_pages)s i %(child_pages)s  "
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"S'ha anul·lat la publicació d'1 pàgina i %(num_child_objects)d pàgina filla"
-msgstr[1] ""
-"S'ha anul·lat la publicació d'1 pàgina i %(num_child_objects)d pàgines filles"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "S'ha anul·lat la publicació de %(num_parent_objects)d pàgines"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"S'ha anul·lat la publicació de %(num_parent_objects)d pàgines i  "
-"%(num_child_objects)d pàgina filla"
-msgstr[1] ""
-"S'ha anul·lat la publicació de %(num_parent_objects)d pàgines i  "
-"%(num_child_objects)d pàgines filles"
+msgid "%(num_parent_objects)d page has been unpublished"
+msgid_plural "%(num_parent_objects)d pages have been unpublished"
+msgstr[0] "S'ha anul·lat la publicació de %(num_parent_objects)d pàgina"
+msgstr[1] "S'ha anul·lat la publicació de %(num_parent_objects)d pàgines"
 
 msgid "Choose parent"
 msgstr "Triar el pare"
@@ -3231,9 +3189,6 @@ msgid ""
 msgstr ""
 "Esteu veient una versió anterior d'aquesta pàgina del  <b>%(created_at)s</b> "
 "per %(user)s"
-
-msgid "Page history"
-msgstr "Historial de pàgina"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

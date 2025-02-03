@@ -6,13 +6,13 @@
 # Hector Garcia <torkoff@gmail.com>, 2022
 # José Luis <alagunajs@gmail.com>, 2022
 # Antoni Aloy <aaloy@apsl.net>, 2022
-# Amós Oviedo <amos.oviedo@gmail.com>, 2022
 # X Bello <xbello@gmail.com>, 2023
 # Loic Teixeira, 2024
+# Amós Oviedo <amos.oviedo@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/torchbox/teams/8009/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es\n"
@@ -126,6 +126,9 @@ msgstr "Explorador de página"
 
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Preview"
+msgstr "Vista previa"
 
 msgid "Reload saved content"
 msgstr "Recargar contenido guardado"

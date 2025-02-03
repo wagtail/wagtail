@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2023\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -241,12 +241,6 @@ msgstr "Visi tipai"
 msgid "Task"
 msgstr "Užduotis"
 
-msgid "For search engines"
-msgstr "Paieškos varikliams"
-
-msgid "For site menus"
-msgstr "Tinklalapio meniu"
-
 msgid "Content"
 msgstr "Turinys"
 
@@ -427,10 +421,6 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Nebepublikuoti %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Taip, nebepublikuoti"
 
@@ -448,13 +438,6 @@ msgstr "Komentaras"
 
 msgid "Update"
 msgstr "Atnaujinti"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Lyginami %(title)s"
-
-msgid "Comparing"
-msgstr "Palyginama"
 
 msgid "Fields"
 msgstr "Laukai"
@@ -850,13 +833,6 @@ msgstr "Istorija"
 msgid "Current page status:"
 msgstr "Dabartinė puslapio būsena:"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
-
-msgid "Unschedule"
-msgstr "Neplanuoti"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ar tikrai norite neplanuoti šios revizijos?"
 
@@ -1066,6 +1042,9 @@ msgstr "Naujausias"
 msgid "Latest"
 msgstr "Vėliausias"
 
+msgid "Unschedule"
+msgstr "Neplanuoti"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Redaguoti šį %(object)s"
@@ -1144,9 +1123,6 @@ msgstr "Puslapis '%(page_title)s' dabar atrakintas."
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Puslapis '%(page_title)s' buvo perkeltas."
-
-msgid "Page history"
-msgstr "Puslapio istorija"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

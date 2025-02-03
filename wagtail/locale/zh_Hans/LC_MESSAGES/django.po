@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
@@ -54,6 +54,9 @@ msgstr "上移"
 
 msgid "Move down"
 msgstr "下移"
+
+msgid "Drag"
+msgstr "拖曳"
 
 msgid "Duplicate"
 msgstr "创建副本"
@@ -242,6 +245,12 @@ msgstr "显示在搜索引擎结果中，位于标题之下的描述性文字。
 
 msgid "latest revision created at"
 msgstr "最近修订版本创建于"
+
+msgid "For search engines"
+msgstr "用于搜索引擎"
+
+msgid "For site menus"
+msgstr "用于站点菜单"
 
 msgid "page"
 msgstr "页面"

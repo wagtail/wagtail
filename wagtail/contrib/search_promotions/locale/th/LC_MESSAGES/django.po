@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -48,38 +48,25 @@ msgstr "ลักษณะ"
 msgid "search promotion"
 msgstr "ค้าหาโปรโมชั่น"
 
-msgid "Add search promotion"
-msgstr "ค้าหาโปรโมชั่นเพิ่ม"
-
-msgid "Add search pick"
-msgstr "เพิ่มคำที่เราจะค้นหา"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "ลบ %(query)s"
 
-msgid "Delete"
-msgstr "ลบ"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr "คุณแน่ใจว่าคุณต้องการจะลบผลของการค้าหาโปรโมชั่นทั้งหมดนี้?"
-
-msgid "Yes, delete"
-msgstr "ใช่,ลบทิ้ง"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "กำลังแก้ไข %(query)s"
-
-msgid "Editing"
-msgstr "แก้ไข"
 
 msgid "Move up"
 msgstr "เลื่อนขึ้น,ขยับขึ้น"
 
 msgid "Move down"
 msgstr "เลื่อนลง,ขยับลง"
+
+msgid "Drag"
+msgstr "ลาก"
+
+msgid "Delete"
+msgstr "ลบ"
 
 msgid "Promoted search results"
 msgstr "ผลการค้นหาที่โปรโมทแล้ว"
@@ -120,24 +107,24 @@ msgstr "ลิงค์ภายนอก"
 msgid "None"
 msgstr "ไม่มี,ไม่"
 
-msgid "Search Terms"
-msgstr "คำที่ต้องการค้นหา"
-
-msgid "Add new promoted result"
-msgstr "เพิ่มผลการโปรโมทอันใหม่"
+msgid "Date"
+msgstr "วันที่"
 
 msgid "Search term(s)"
 msgstr "ค้นหาคำ(s)"
 
+msgid "Add new promoted result"
+msgstr "เพิ่มผลการโปรโมทอันใหม่"
+
 msgid "Promoted results"
 msgstr "ผลที่โปรโมท"
+
+msgid "Promoted search result"
+msgstr "ผลการค้นหาที่โปรโมท"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "สิ่งที่โปรแกรมการจัดการข้อมูล'%(query)s'ถูกสร้างขึ้นแล้ว"
-
-msgid "Edit"
-msgstr "แก้ไข"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "คำแนะนำไม่สามารถถูกสร้างขึ้นได้ในขณะที่มีข้อผิดพลาด"

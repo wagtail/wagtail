@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,18 +53,9 @@ msgstr "περιγραφή"
 msgid "search promotion"
 msgstr "αναζήτηση προώθησης"
 
-msgid "Add search promotion"
-msgstr "Προσθήκη αναζήτησης προώθησης"
-
-msgid "Add search pick"
-msgstr "Προσθήκη search pick"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Διαγραφή %(query)s"
-
-msgid "Delete"
-msgstr "Διαγραφή"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -72,21 +63,17 @@ msgstr ""
 "Είστε σίγουρος ότι θέλετε να διαγράψετε όλες τις επιλογές συντακτών για τον "
 "εν λόγω όρο αναζήτησης;"
 
-msgid "Yes, delete"
-msgstr "Ναι, να διαγραφεί"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Επεξεργασία %(query)s"
-
-msgid "Editing"
-msgstr "Διόρθωση"
-
 msgid "Move up"
 msgstr "Πάνω"
 
 msgid "Move down"
 msgstr "Κάτω"
+
+msgid "Drag"
+msgstr "Τραβήξτε"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Promoted search results"
 msgstr "Προωθουνται τα αποτέλεσματα αναζήτησης"
@@ -129,24 +116,24 @@ msgstr "Εξωτερική σύνδεση"
 msgid "None"
 msgstr "Καμία"
 
-msgid "Search Terms"
+msgid "Date"
+msgstr "Ημερομηνία"
+
+msgid "Search term(s)"
 msgstr "Όροι αναζήτησης"
 
 msgid "Add new promoted result"
 msgstr "Προσθήκη νέου προωθείμενου αποτελέσματος"
 
-msgid "Search term(s)"
-msgstr "Όροι αναζήτησης"
-
 msgid "Promoted results"
 msgstr "Προωθημενα αποτελέσματα"
+
+msgid "Promoted search result"
+msgstr "Προωθείται το αποτέλεσμα αναζήτησης"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Επιτυχής δημιουργία επιλογή συντακτών για το '%(query)s'."
-
-msgid "Edit"
-msgstr "Επεξεργασία"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Οι συστάσεις δεν έχουν δημιουργηθεί λόγω σφαλμάτων"

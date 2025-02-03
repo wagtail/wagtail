@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -409,12 +409,6 @@ msgstr "Tutti i %(objects)s elementi in questa schermata selezionati"
 msgid "All items in listing selected"
 msgstr "Tutti gli elementi in lista selezionati"
 
-msgid "For search engines"
-msgstr "Per i motori di ricerca"
-
-msgid "For site menus"
-msgstr "Per i menu del sito"
-
 msgid "Content"
 msgstr "Contenuto"
 
@@ -684,10 +678,6 @@ msgid "No, don't delete"
 msgstr "No, non eliminarlo"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Annulla pubblicazione %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr ""
 "Sei sicuro di voler annullare la pubblicazione per questo %(model_name)s?"
@@ -756,13 +746,6 @@ msgid ""
 msgstr ""
 "Non è possibile visualizzare l'anteprima a causa di errori di convalida. "
 "<br /> Clicca su salva per evidenziare i campi pertinenti."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Compara %(title)s"
-
-msgid "Comparing"
-msgstr "Compara"
 
 msgid "Fields"
 msgstr "Campi"
@@ -1922,21 +1905,14 @@ msgstr "Vai alla pagina sul sito"
 msgid "Visible to all. Visit the live page"
 msgstr "Visibile a tutti. Visita la pagina live"
 
-msgid "Private. Visit the live page"
-msgstr "Privata. Visita la pagina live"
-
 msgid "Visible to all"
 msgstr "Visibile a tutti"
 
+msgid "Private. Visit the live page"
+msgstr "Privata. Visita la pagina live"
+
 msgid "Toggle section"
 msgstr "Attiva/disattiva sezione"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Annulla programmazione per la revisione %(revision.id)s di %(title)s"
-
-msgid "Unschedule"
-msgstr "Annulla programmazione"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Sei sicuro di voler annullare la programmazione per questa revisione?"
@@ -2680,6 +2656,9 @@ msgstr "Ultimi"
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' sbubblicato."
 
+msgid "Unschedule"
+msgstr "Annulla programmazione"
+
 msgid "If you confirm deletion"
 msgstr "Se confermi l'eliminazione"
 
@@ -2700,37 +2679,6 @@ msgstr "Dashboard"
 msgid "Delete selected pages"
 msgstr "Elimina le pagine selezionate"
 
-msgid "1 page has been deleted"
-msgstr "1 pagina è stata eliminata"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 pagina e %(num_child_objects)d pagina figlio sono state eliminate"
-msgstr[1] "1 pagina e %(num_child_objects)d pagine figlio sono state eliminate"
-msgstr[2] "1 pagina e %(num_child_objects)d pagine figlio sono state eliminate"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d pagine sono state eliminate"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d pagine e %(num_child_objects)d pagina figlio sono "
-"state eliminate"
-msgstr[1] ""
-"%(num_parent_objects)d pagine e %(num_child_objects)d pagine figlio sono "
-"state eliminate"
-msgstr[2] ""
-"%(num_parent_objects)d pagine e %(num_child_objects)d pagine figlio sono "
-"state eliminate"
-
 msgid "Select a new parent page"
 msgstr "Seleziona una nuova pagina padre"
 
@@ -2747,80 +2695,8 @@ msgstr[2] "%(num_pages)d pagine sono state spostate"
 msgid "Publish selected pages"
 msgstr "Pubblica le pagine selezionate"
 
-msgid "1 page has been published"
-msgstr "1 pagina è stata pubblicata"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] ""
-"1 pagina e %(num_child_objects)d pagina figlio sono state pubblicate"
-msgstr[1] ""
-"1 pagina e %(num_child_objects)d pagine figlio sono state pubblicate"
-msgstr[2] ""
-"1 pagina e %(num_child_objects)d pagine figlio sono state pubblicate"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d pagine sono state pubblicate"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)dpagine e %(num_child_objects)d pagina figlio sono "
-"state pubblicate"
-msgstr[1] ""
-"%(num_parent_objects)d pagine e %(num_child_objects)d pagine figlio sono "
-"state pubblicate"
-msgstr[2] ""
-"%(num_parent_objects)d pagine e %(num_child_objects)d pagine figlio sono "
-"state pubblicate"
-
 msgid "Unpublish selected pages"
 msgstr "Annulla pubblicazione per le pagine selezionate"
-
-msgid "1 page has been unpublished"
-msgstr "Per 1 pagina è stata annullata la pubblicazione"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"Per 1 pagina e %(num_child_objects)d sotto pagina è stata annullata la "
-"pubblicazione"
-msgstr[1] ""
-"Per 1 pagina e %(num_child_objects)d pagine figlio è stata annullata la "
-"pubblicazione"
-msgstr[2] ""
-"Per 1 pagina e %(num_child_objects)d pagine figlio è stata annullata la "
-"pubblicazione"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "Per %(num_parent_objects)d pagine è stata annullata la pubblicazione"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"Per %(num_parent_objects)d pagine %(num_child_objects)d pagina figlio è "
-"stata annullata la pubblicazione"
-msgstr[1] ""
-"Per %(num_parent_objects)d pagine %(num_child_objects)d pagine figlio è "
-"stata annullata la pubblicazione"
-msgstr[2] ""
-"Per %(num_parent_objects)d pagine %(num_child_objects)d pagine figlio è "
-"stata annullata la pubblicazione"
 
 msgid "Choose parent"
 msgstr "Scegli un genitore"
@@ -2984,9 +2860,6 @@ msgid ""
 msgstr ""
 "Stai visualizzando una versione precedente di questa pagina di "
 "<b>%(created_at)s</b> da %(user)s"
-
-msgid "Page history"
-msgstr "Storico pagina"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

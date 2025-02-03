@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -399,10 +399,6 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tühista %(title)s avaldamine"
-
 msgid "Yes, unpublish it"
 msgstr "Jah, tühista selle avaldamine"
 
@@ -420,13 +416,6 @@ msgstr "Kommentaar"
 
 msgid "Update"
 msgstr "Uuenda"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s võrdlemine"
-
-msgid "Comparing"
-msgstr "Võrreldes"
 
 msgid "Fields"
 msgstr "Väljad"
@@ -876,13 +865,6 @@ msgstr "Lehe praegune olek:"
 msgid "Visit the live page"
 msgstr "Külastage reaalajas lehte"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Tühista ajaversiooni %(revision.id)s %(title)s jaoks"
-
-msgid "Unschedule"
-msgstr "Ajakava tühistamine"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Kas olete kindel, et soovite selle redigeerimise ajakava tühistada?"
 
@@ -1229,6 +1211,9 @@ msgstr "Varaseim"
 msgid "Latest"
 msgstr "Uusim"
 
+msgid "Unschedule"
+msgstr "Ajakava tühistamine"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Muutke seda %(object)s"
@@ -1362,9 +1347,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> kasutajalt%(user)s"
-
-msgid "Page history"
-msgstr "Lehe ajalugu"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

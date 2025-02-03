@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -35,9 +35,6 @@ msgstr ""
 "Vnesite polni iskalni niz za ujemanje. Za uspešen prikaz priporočenih "
 "strani, je potrebno popolno ujemanje, nadomestni znaki (*) niso dovoljeni."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr "Prosim določite vsaj eno priporočilo za ta iskalni niz"
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 "Če vnesete URL zunanje povezave, morate vnesti besedilo zunanje povezave."
@@ -47,6 +44,9 @@ msgstr "Priporočiti morate stran ALI zunanjo povezavo."
 
 msgid "Please only select a page OR enter an external link."
 msgstr "Izberite samo stran ALI vnesite zunanjo povezavo."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Prosim določite vsaj eno priporočilo za ta iskalni niz"
 
 msgid "Query Daily Hits"
 msgstr "Dnevni zadetki za iskalni niz"
@@ -71,12 +71,6 @@ msgstr "Velja za notranjo stran ali zunanjo povezavo"
 
 msgid "search promotion"
 msgstr "promoviran rezultat"
-
-msgid "Add search promotion"
-msgstr "Dodaj promoviran rezultat"
-
-msgid "Add search pick"
-msgstr "Dodaj promoviran rezultat"
 
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
@@ -105,30 +99,23 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "Izbriši %(query)s"
 
-msgid "Delete"
-msgstr "Izbriši"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Ali ste prepričani, da želite izbrisati vse promovirane rezultati za iskalni "
 "niz?"
 
-msgid "Yes, delete"
-msgstr "Da, izbriši"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Uredi %(query)s"
-
-msgid "Editing"
-msgstr "Urejanje"
-
 msgid "Move up"
 msgstr "Premakni gor"
 
 msgid "Move down"
 msgstr "Premakni navzdol"
+
+msgid "Drag"
+msgstr "Povleci"
+
+msgid "Delete"
+msgstr "Izbriši"
 
 msgid "Recommended search result"
 msgstr "Priporočeni rezultat iskanja"
@@ -180,24 +167,24 @@ msgstr "Zunanja povezava"
 msgid "None"
 msgstr "/"
 
-msgid "Search Terms"
-msgstr "Iskalni nizi"
-
-msgid "Add new promoted result"
-msgstr "Dodaj nov promoviran rezultat"
+msgid "Date"
+msgstr "Datum"
 
 msgid "Search term(s)"
 msgstr "Iskalni niz(i)"
 
+msgid "Add new promoted result"
+msgstr "Dodaj nov promoviran rezultat"
+
 msgid "Promoted results"
 msgstr "Promovirani rezultati"
+
+msgid "Promoted search result"
+msgstr "Promovirani rezultati iskanja"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Promoviran rezultat za '%(query)s' ustvarjen."
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno ustvariti."

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -350,12 +350,6 @@ msgstr "Kaikki listauksen tietueet valittu"
 msgid "Can access Wagtail admin"
 msgstr "Pääsy Wagtail-ylläpitoon"
 
-msgid "For search engines"
-msgstr "Hakukoneille"
-
-msgid "For site menus"
-msgstr "Sivustovalikoille"
-
 msgid "Content"
 msgstr "Sisältö"
 
@@ -579,10 +573,6 @@ msgstr "Kyllä, poista"
 msgid "No, don't delete"
 msgstr "Ei, älä poista"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Piilota %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Kyllä, piilota"
 
@@ -607,13 +597,6 @@ msgstr "Päivitä"
 
 msgid "Preview not available"
 msgstr "Esikatselu ei ole saatavilla"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Vertaillaan %(title)s"
-
-msgid "Comparing"
-msgstr "Vertaillaan"
 
 msgid "Fields"
 msgstr "Kentät"
@@ -1377,18 +1360,11 @@ msgstr "Vieraile sivulla"
 msgid "Visible to all. Visit the live page"
 msgstr "Näkyvissä kaikille. Käy livesivulla"
 
-msgid "Private. Visit the live page"
-msgstr "Yksityinen. Käy livesivulla"
-
 msgid "Visible to all"
 msgstr "Näkyvissä kaikille"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Poista ajastus sivun %(title)s versiolta %(revision.id)s"
-
-msgid "Unschedule"
-msgstr "Poista ajastus"
+msgid "Private. Visit the live page"
+msgstr "Yksityinen. Käy livesivulla"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Haluatko varmasti poistaa ajastuksen tältä revisiolta?"
@@ -2013,6 +1989,9 @@ msgstr "Aikaisin"
 msgid "Latest"
 msgstr "Viimeisin"
 
+msgid "Unschedule"
+msgstr "Poista ajastus"
+
 msgid "If you confirm deletion"
 msgstr "Jos vahvistat poistamisen"
 
@@ -2033,13 +2012,6 @@ msgstr "Kojelauta"
 msgid "Delete selected pages"
 msgstr "Poista valitut sivut"
 
-msgid "1 page has been deleted"
-msgstr "1 sivu on poistettu"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d sivua on poistettu"
-
 msgid "Select a new parent page"
 msgstr "Valitse uusi isäntäsivu"
 
@@ -2054,13 +2026,6 @@ msgstr[1] "%(num_pages)d sivua on siirretty"
 
 msgid "Publish selected pages"
 msgstr "Julkaise valitut sivut"
-
-msgid "1 page has been published"
-msgstr "1 sivu on julkaistu"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d sivua on julkaistu"
 
 #, python-format
 msgid "Create a new %(model_name)s"
@@ -2187,9 +2152,6 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Sivu '%(page_title)s' siirretty."
-
-msgid "Page history"
-msgstr "Sivun historia"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
