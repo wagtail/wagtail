@@ -51,15 +51,15 @@ All block definitions accept the following optional keyword arguments or `Meta` 
 
 [StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following options:
 
--   `description`
-    -   The description of the block. For [](field_block_types), it will fall back to `help_text` if not provided.
 -   `preview_value`
-    -   The placeholder value that will be used for rendering the preview. If not provided, it will fall back to the `default` value.
+    -   The placeholder value that will be used for rendering the preview. See {meth}`~wagtail.blocks.Block.get_preview_value` for more details.
 -   `preview_template`
-    -   The template that is used to render the preview. If not provided, it will use the `wagtailcore/shared/block_preview.html` base template that reuses the block's real `template`.
+    -   The template that is used to render the preview. See {meth}`~wagtail.blocks.Block.get_preview_template` for more details.
+-   `description`
+    -   The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
 
 ```{versionadded} 6.4
-The `description`, `preview_value`, and `preview_template` keyword arguments were added.
+The `preview_value`, `preview_template`, and `description` keyword arguments were added.
 ```
 
 All block definitions have the following methods that can be overridden:
@@ -69,6 +69,10 @@ All block definitions have the following methods that can be overridden:
 
     .. automethod:: wagtail.blocks.Block.get_context
     .. automethod:: wagtail.blocks.Block.get_template
+    .. automethod:: wagtail.blocks.Block.get_preview_value
+    .. automethod:: wagtail.blocks.Block.get_preview_context
+    .. automethod:: wagtail.blocks.Block.get_preview_template
+    .. automethod:: wagtail.blocks.Block.get_description
 ```
 
 (field_block_types)=
