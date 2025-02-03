@@ -595,7 +595,7 @@ Changelog
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
 
 
-5.2.8 (xx.xx.xxxx) - IN DEVELOPMENT
+5.2.8 (03.02.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
