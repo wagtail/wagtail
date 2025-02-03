@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -479,10 +479,6 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, nemoj izbrisati"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odjavi %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Da, odjavi"
 
@@ -500,13 +496,6 @@ msgstr "Komentar"
 
 msgid "Update"
 msgstr "Ažuriraj"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Usporedba %(title)s"
-
-msgid "Comparing"
-msgstr "Usporedba"
 
 msgid "Fields"
 msgstr "Polja"
@@ -985,13 +974,6 @@ msgstr "Trenutni status stranice"
 msgid "Visit the live page"
 msgstr "Posjetite stranicu uživo"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Odjavi reviziju %(revision.id)s za %(title)s"
-
-msgid "Unschedule"
-msgstr "Otkaži"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Jeste li sigurni da želite otkazati ovu reviziju?"
 
@@ -1347,6 +1329,9 @@ msgstr "Najranije"
 msgid "Latest"
 msgstr "Najnovije"
 
+msgid "Unschedule"
+msgstr "Otkaži"
+
 msgid "Field"
 msgstr "Polje"
 
@@ -1451,9 +1436,6 @@ msgid ""
 msgstr ""
 "Gledate prijašnju verziju ove stranice iz <b>%(created_at)s</b> korisnika "
 "%(user)s"
-
-msgid "Page history"
-msgstr "Povijest stranice"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

@@ -8,14 +8,14 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2022
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2022
 # aw.wunderweiss, 2022
-# Oliver Engel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2023
 # Loic Teixeira, 2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2024
+# Oliver Engel <codeangel@posteo.de>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2024\n"
+"Last-Translator: Oliver Engel <codeangel@posteo.de>, 2025\n"
 "Language-Team: German (https://app.transifex.com/torchbox/teams/8009/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
@@ -146,6 +146,9 @@ msgstr "Seiten"
 
 msgid "Pin toolbar"
 msgstr "Werkzeugleiste anheften"
+
+msgid "Preview"
+msgstr "Vorschau"
 
 msgid "Reload saved content"
 msgstr "Gespeicherten Inhalt erneut laden"

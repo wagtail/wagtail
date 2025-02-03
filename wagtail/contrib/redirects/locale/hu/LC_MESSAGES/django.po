@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -103,9 +103,6 @@ msgstr "átirányítás"
 msgid "redirects"
 msgstr "átirányítások"
 
-msgid "Add redirect"
-msgstr "Átírányítás hozzáadása"
-
 msgid "Redirects"
 msgstr "Átirányítások"
 
@@ -131,14 +128,8 @@ msgstr "Importálás"
 msgid "Delete redirect %(title)s"
 msgstr "%(title)s átirányítás törlése"
 
-msgid "Delete"
-msgstr "Törlés"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Biztosan törli ezt az átirányítást?"
-
-msgid "Yes, delete"
-msgstr "Igen, törlés"
 
 msgid "Confirm import"
 msgstr "Importálás megerősítése"
@@ -188,6 +179,9 @@ msgstr ""
 "Még nincs átirányítás létrehozva. Miért nem <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">ad hozzá egyet</a>?"
 
+msgid "Add redirect"
+msgstr "Átírányítás hozzáadása"
+
 msgid "Site"
 msgstr "Webhely"
 
@@ -202,15 +196,12 @@ msgstr "'%(redirect_title)s' átirányítás módosítva."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "'%(redirect_title)s' átirányítás törölve. "
 
+msgid "The redirect could not be created due to errors."
+msgstr "Hiba történt az átirányítás létrehozása közben."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "'%(redirect_title)s' átirányítás hozzáadva."
-
-msgid "Edit"
-msgstr "Szerkeszt"
-
-msgid "The redirect could not be created due to errors."
-msgstr "Hiba történt az átirányítás létrehozása közben."
 
 msgid "Search redirects"
 msgstr "Átirányítások keresése"

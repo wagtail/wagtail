@@ -1,14 +1,14 @@
 #
 # Translators:
-# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2022
 # Umut Bektaş <info@umutbektas.com>, 2022
 # Ragıp Ünal <ragip@ragipunal.com>, 2022
 # Py Data Geek <pydatageek@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2025\n"
 "Language-Team: Turkish (https://app.transifex.com/torchbox/teams/8009/tr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: tr\n"
@@ -58,6 +58,9 @@ msgstr "Sayfa bulucu"
 
 msgid "Pages"
 msgstr "Sayfalar"
+
+msgid "Preview"
+msgstr "Önizleme"
 
 msgid "Reload saved content"
 msgstr "Kayıtlı içeriği yeniden yükle"

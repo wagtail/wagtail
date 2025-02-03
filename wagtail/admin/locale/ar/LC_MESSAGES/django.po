@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Tarek Berkane, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -274,12 +274,6 @@ msgstr "تم تحديد %(objects)s مُستخدم"
 msgid "1 item selected"
 msgstr "تم تحديد 1 عنصر"
 
-msgid "For search engines"
-msgstr "خاص بمحركات البحث"
-
-msgid "For site menus"
-msgstr "خاص بقوائم الموقع"
-
 msgid "Content"
 msgstr "محتوى"
 
@@ -486,10 +480,6 @@ msgstr "نعم احذف"
 msgid "No, don't delete"
 msgstr "لا, لا تحذف"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "الغ نشر %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "نعك ألغ نشره"
 
@@ -511,13 +501,6 @@ msgstr "تعليق"
 
 msgid "Update"
 msgstr "حدث"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "مقارنة %(title)s"
-
-msgid "Comparing"
-msgstr "مقارنة"
 
 msgid "Fields"
 msgstr "حقل"
@@ -838,13 +821,6 @@ msgstr "تنزيل ملف CSV"
 msgid "Filter"
 msgstr "فلتر"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Unschedule Revision %(revision.id)s for %(title)s"
-
-msgid "Unschedule"
-msgstr "غير مجدولة"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "هل أنت متأكد من أنك تريد إلغاء هذه المراجعة؟"
 
@@ -1006,6 +982,9 @@ msgstr "السابقة"
 
 msgid "Latest"
 msgstr "اللاحقة"
+
+msgid "Unschedule"
+msgstr "غير مجدولة"
 
 #, python-format
 msgid "Edit this %(object)s"

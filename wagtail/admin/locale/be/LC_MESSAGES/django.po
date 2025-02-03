@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Andrei Satsevich, 2023-2024\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -414,10 +414,6 @@ msgstr "Так. Выдаліць"
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Адмяніць публікацыю %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Так, апублікаваць"
 
@@ -435,13 +431,6 @@ msgstr "Каментар"
 
 msgid "Update"
 msgstr "Аднаўленне"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Параўноўваем %(title)s"
-
-msgid "Comparing"
-msgstr "Параўноўваем"
 
 msgid "Fields"
 msgstr "Палі"
@@ -768,13 +757,6 @@ msgstr "Бягучы статус старонкі:"
 msgid "Visit the live page"
 msgstr "Наведаць старонку"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Адмена версіі %(revision.id)s для %(title)s"
-
-msgid "Unschedule"
-msgstr "Адмяніць часовую публікацыю"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Вы ўпэўненыя, што жадаеце адмяніць гэтую версію?"
 
@@ -961,6 +943,9 @@ msgstr "Ранні"
 
 msgid "Latest"
 msgstr "Апошні"
+
+msgid "Unschedule"
+msgstr "Адмяніць часовую публікацыю"
 
 #, python-format
 msgid "Edit this %(object)s"

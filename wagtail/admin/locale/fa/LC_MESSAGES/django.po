@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Bardia, 2024\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -381,12 +381,6 @@ msgstr "همه آیتم های فهرست انتخاب شدند"
 msgid "Can access Wagtail admin"
 msgstr "دسترسی برای رفتن به صفحه ادمین وگتیل"
 
-msgid "For search engines"
-msgstr "برای موتور های جست و جو"
-
-msgid "For site menus"
-msgstr "برای منو های سایت"
-
 msgid "Content"
 msgstr "محتوا"
 
@@ -644,10 +638,6 @@ msgid "No, don't delete"
 msgstr "نه، حذف نکن"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "لغو انتشار %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "آیا مطمئن هستید میخواهید %(model_name)s را از انتشار خارج کنید؟"
 
@@ -686,13 +676,6 @@ msgid ""
 msgstr ""
 "پیش نمایش به دلیل خطای اعتبار سنجی قابل نمایش نیست. <br /> بر بروی ذخیره "
 "کلیک کنید تا فیلد های مربوطه برجسته شوند."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "مقایسه %(title)s"
-
-msgid "Comparing"
-msgstr "مقایسه"
 
 msgid "Fields"
 msgstr "فیلدها"
@@ -1168,13 +1151,6 @@ msgstr "وضعیت فعلی صفحه"
 msgid "Visit the live page"
 msgstr "دیدن صفحه منتشر شده"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "حذف زمانبندی بازنگری %(revision.id)s برای %(title)s"
-
-msgid "Unschedule"
-msgstr "حذف زمانبندی"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "آیا مطمئن هستید که می‌خواهید زمانبندی این بازنگری را حذف کنید؟"
 
@@ -1485,6 +1461,9 @@ msgstr "'%(object)s' لغو انتشار شد."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "نسخه %(revision_id)s از \"%(object)s\" از زمانبندی خارج شد."
 
+msgid "Unschedule"
+msgstr "حذف زمانبندی"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "نسخه %(revision_id)s از \"%(object)s\""
@@ -1498,31 +1477,6 @@ msgstr "داشبورد"
 
 msgid "Delete selected pages"
 msgstr "حذف صفحات انتخاب شده"
-
-msgid "1 page has been deleted"
-msgstr "1 صفحه حذف شد"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
-msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d صفحه حذف شدند"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
-msgstr[1] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند حذف شدند"
 
 msgid "Select a new parent page"
 msgstr "انتخاب یک صفحه والد جدید"
@@ -1539,61 +1493,8 @@ msgstr[1] "%(num_pages)d صفحه جابجا شدند "
 msgid "Publish selected pages"
 msgstr "انتشار صفحات انتخاب شده"
 
-msgid "1 page has been published"
-msgstr "1 صفحه منتشر شد"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d صفحه منتشر شدند"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-msgstr[1] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند منتشر شدند"
-
 msgid "Unpublish selected pages"
 msgstr "لغو انتشار صفحات انتخاب شده"
-
-msgid "1 page has been unpublished"
-msgstr "1 صفحه لغو انتشار شد"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار شدند"
-msgstr[1] "1 صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار شدند"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d صفحه لغو انتشار شدند"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار "
-"شدند"
-msgstr[1] ""
-"%(num_parent_objects)d صفحه و %(num_child_objects)d صفحه فرزند لغو انتشار "
-"شدند"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -1713,9 +1614,6 @@ msgid ""
 msgstr ""
 "شما در حال دیدن نسخه قبلی این صفحه در <b>%(created_at)s</b> توسط %(user)s "
 "هستید"
-
-msgid "Page history"
-msgstr "تاریخچه‌ی صفحه"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

@@ -27,16 +27,16 @@
 # Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
-# Storm Heg <storm@stormbase.digital>, 2021-2024
+# Storm Heg <storm@stormbase.digital>, 2021-2025
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2020,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -110,6 +110,13 @@ msgstr "Tag"
 
 msgid "Filter by up to ten most popular tags."
 msgstr "Filter op maximaal tien meest populaire tags."
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Gebruik server taal: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Gebruik server tijdzone"
 
 msgid "Preferred language"
 msgstr "Voorkeurstaal"
@@ -427,12 +434,6 @@ msgstr "Alle items in lijst geselecteerd"
 msgid "Can access Wagtail admin"
 msgstr "Toegang tot Wagtail admin"
 
-msgid "For search engines"
-msgstr "Voor zoekmachines"
-
-msgid "For site menus"
-msgstr "Voor site menu's"
-
 msgid "Content"
 msgstr "Inhoud"
 
@@ -699,10 +700,6 @@ msgid "No, don't delete"
 msgstr "Nee, niet verwijderen"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Publicatie intrekken van %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Weet u zeker dat u de publicatie van %(model_name)s wilt intrekken?"
 
@@ -768,13 +765,6 @@ msgid ""
 msgstr ""
 "Voortvertoning kon niet worden getoond vanwege validatiefouten.<br />Klik op "
 "opslaan om de relevante velden te markeren."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Vergelijk %(title)s"
-
-msgid "Comparing"
-msgstr "Vergelijk"
 
 msgid "Fields"
 msgstr "Velden"
@@ -2043,21 +2033,14 @@ msgstr "Bezoek de live pagina"
 msgid "Visible to all. Visit the live page"
 msgstr "Zichtbaar voor iedereen. Bekijk de live-versie."
 
-msgid "Private. Visit the live page"
-msgstr "Afgeschermd. Bekijk de live-versie."
-
 msgid "Visible to all"
 msgstr "Zichtbaar voor iedereen"
 
+msgid "Private. Visit the live page"
+msgstr "Afgeschermd. Bekijk de live-versie."
+
 msgid "Toggle section"
 msgstr "Toon/verberg sectie"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Stop geplande publicatie versie %(revision.id)s voor %(title)s"
-
-msgid "Unschedule"
-msgstr "Stop publicatie planning"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Weet je zeker dat je deze versie niet meer wilt inplannen?"
@@ -2927,6 +2910,9 @@ msgstr "%(model_name)s '%(object)s' verwijderd."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "%(model_name)s zal worden verwijdert. Weet u het zeker?"
 
+msgid "Compare"
+msgstr "Vergelijk"
+
 msgid "Earliest"
 msgstr "Eerste"
 
@@ -2941,9 +2927,16 @@ msgstr "Publicatie van '%(object)s' ingetrokken."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Versie %(revision_id)s van '%(object)s' planning ongedaan gemaakt."
 
+msgid "Unschedule"
+msgstr "Stop publicatie planning"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revisie %(revision_id)s van '%(object)s'"
+
+#, python-format
+msgid "Preview for %(block_label)s (%(block_type)s)"
+msgstr "Voorbeeld van %(block_label)s (%(block_type)s)"
 
 msgid "If you confirm deletion"
 msgstr "Als je verwijdering bevestigt"
@@ -2986,34 +2979,17 @@ msgstr ""
 msgid "Delete selected pages"
 msgstr "Verwijder geselecteerde pagina's"
 
-msgid "1 page has been deleted"
-msgstr "1 pagina verwijderd"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been deleted"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been deleted"
+msgstr "%(parent_pages)s en %(child_pages)s zijn verwijderd"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] ""
-"1 pagina en %(num_child_objects)d onderliggende pagina zijn verwijderd"
-msgstr[1] ""
-"1 pagina en %(num_child_objects)d onderliggende pagina's zijn verwijderd"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d pagina's zijn verwijderd"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
-"pagina zijn verwijderd"
-msgstr[1] ""
-"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
-"pagina's zijn verwijderd"
+msgid "%(num_parent_objects)d page has been deleted"
+msgid_plural "%(num_parent_objects)d pages have been deleted"
+msgstr[0] "%(num_parent_objects)d pagina is verwijderd"
+msgstr[1] "%(num_parent_objects)d pagina's zijn verwijderd"
 
 msgid "Select a new parent page"
 msgstr "Kies een nieuwe bovenliggende pagina"
@@ -3027,72 +3003,47 @@ msgid_plural "%(num_pages)d pages have been moved"
 msgstr[0] "%(num_pages)d pagina is verplaatst"
 msgstr[1] "%(num_pages)d pagina's zijn verplaatst"
 
+#, python-format
+msgid "%(num_parent_objects)d page"
+msgid_plural "%(num_parent_objects)d pages"
+msgstr[0] "%(num_parent_objects)d pagina"
+msgstr[1] "%(num_parent_objects)d pagina's"
+
+#, python-format
+msgid "%(num_child_objects)d child page"
+msgid_plural "%(num_child_objects)d child pages"
+msgstr[0] "%(num_child_objects)d onderliggende pagina"
+msgstr[1] "%(num_child_objects)d onderliggende pagina's"
+
 msgid "Publish selected pages"
 msgstr "Publiceer geselecteerde pagina's"
 
-msgid "1 page has been published"
-msgstr "1 pagina is gepubliceerd"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been published"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been published"
+msgstr "%(parent_pages)s en %(child_pages)s zijn gepubliceerd"
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] ""
-"1 pagina en %(num_child_objects)d onderliggende pagina zijn gepubliceerd"
-msgstr[1] ""
-"1 pagina en %(num_child_objects)d onderliggende pagina's zijn gepubliceerd"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d pagina's zijn gepubliceerd"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
-"pagina zijn gepubliceerd"
-msgstr[1] ""
-"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
-"pagina's zijn gepubliceerd"
+msgid "%(num_parent_objects)d page has been published"
+msgid_plural "%(num_parent_objects)d pages have been published"
+msgstr[0] "%(num_parent_objects)d pagina is gepubliceerd"
+msgstr[1] "%(num_parent_objects)d pagina's zijn gepubliceerd"
 
 msgid "Unpublish selected pages"
 msgstr "Publicatie van geselecteerd pagina's intrekken"
 
-msgid "1 page has been unpublished"
-msgstr "Publicatie van 1 pagina ongedaan gemaakt"
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been unpublished"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been unpublished"
+msgstr "Publicatie van %(parent_pages)s en %(child_pages)s ingetrokken "
 
 #, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"Publicatie van 1 pagina en %(num_child_objects)d onderliggende pagina is "
-"ongedaan gemaakt"
-msgstr[1] ""
-"Publicatie van 1 pagina en %(num_child_objects)d onderliggende pagina's zijn "
-"ongedaan gemaakt"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "Publicatie van %(num_parent_objects)d pagina's ongedaan gemaakt"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"Publicatie van %(num_parent_objects)d pagina's en %(num_child_objects)d "
-"onderliggende pagina ongedaan gemaakt"
-msgstr[1] ""
-"Publicatie van %(num_parent_objects)d pagina's en %(num_child_objects)d "
-"onderliggende pagina's ongedaan gemaakt"
+msgid "%(num_parent_objects)d page has been unpublished"
+msgid_plural "%(num_parent_objects)d pages have been unpublished"
+msgstr[0] "Publicatie van %(num_parent_objects)d pagina ingetrokken"
+msgstr[1] " Publicatie %(num_parent_objects)d pagina's ingetrokken"
 
 msgid "Choose parent"
 msgstr "Kies bovenliggende pagina"
@@ -3270,9 +3221,6 @@ msgid ""
 msgstr ""
 "Je bekijkt nu een vorige versie van deze pagina van <b>%(created_at)s</b> "
 "door %(user)s"
-
-msgid "Page history"
-msgstr "Pagina-geschiedenis"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

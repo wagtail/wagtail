@@ -1,15 +1,15 @@
 #
 # Translators:
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2022
-# Mariano de Deus <dedeus_mariano@yahoo.com>, 2022
 # Mario <mario@catalpa.io>, 2022
 # Joanico Barros <joanico@catalpa.io>, 2022
 # Peter Coward <peter@catalpa.io>, 2022
 # Loic Teixeira, 2024
+# Mariano de Deus <dedeus_mariano@yahoo.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>, 2025\n"
 "Language-Team: Tetum (Tetun) (https://app.transifex.com/torchbox/teams/8009/"
 "tet/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,6 +60,9 @@ msgstr "Explora pajina"
 
 msgid "Pages"
 msgstr "Pajina sira"
+
+msgid "Preview"
+msgstr "Pré-visualizasaun"
 
 msgid "Reload saved content"
 msgstr "Reload konteúdu ne'ebe salva ona"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Dan Braghis, 2016,2019-2020,2022,2024\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -36,9 +36,6 @@ msgstr ""
 "pentru a afișa selecțiile \n"
 "dvs. editoriale. Metacaractere NU sunt permise."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr "Introduceți cel puțin o recomandare pentru acest termen de căutare."
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 "Trebuie să introduceți un text pentru link extern dacă introduceți un URL "
@@ -49,6 +46,9 @@ msgstr "Trebuie să recomandați o pagină SAU un link extern."
 
 msgid "Please only select a page OR enter an external link."
 msgstr "Selectați doar o pagină SAU un link extern."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Introduceți cel puțin o recomandare pentru acest termen de căutare."
 
 msgid "Query Daily Hits"
 msgstr "Interogări zilnice"
@@ -73,12 +73,6 @@ msgstr "Se aplică la pagina internă sau linkul extern"
 
 msgid "search promotion"
 msgstr "căutare promovată"
-
-msgid "Add search promotion"
-msgstr "Adaugă căutare promovată"
-
-msgid "Add search pick"
-msgstr "Adaugă selecție de căutare"
 
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
@@ -106,30 +100,23 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "Șterge %(query)s"
 
-msgid "Delete"
-msgstr "Șterge"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Sigur doriți să ștergeți toate rezultatele promovate pentru acest termen de "
 "căutare?"
 
-msgid "Yes, delete"
-msgstr "Da, șterge"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Editare %(query)s"
-
-msgid "Editing"
-msgstr "Editare"
-
 msgid "Move up"
 msgstr "Deplasează în sus"
 
 msgid "Move down"
 msgstr "Deplasează în jos"
+
+msgid "Drag"
+msgstr "Glisează"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Recommended search result"
 msgstr "Rezultate de căutare recomandate"
@@ -178,24 +165,24 @@ msgstr "Link extern"
 msgid "None"
 msgstr "Nici una"
 
-msgid "Search Terms"
-msgstr "Termeni de căutare"
-
-msgid "Add new promoted result"
-msgstr "Adaugă rezultat promovat"
+msgid "Date"
+msgstr "Dată"
 
 msgid "Search term(s)"
 msgstr "Termen de căutare"
 
+msgid "Add new promoted result"
+msgstr "Adaugă rezultat promovat"
+
 msgid "Promoted results"
 msgstr "Rezultate promovate"
+
+msgid "Promoted search result"
+msgstr "Rezultat de căutare promovat"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Selecțiile editoriale pentru '%(query)s' au fost create."
-
-msgid "Edit"
-msgstr "Editează"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Recomandările nu au fost create din cauza erorilor."

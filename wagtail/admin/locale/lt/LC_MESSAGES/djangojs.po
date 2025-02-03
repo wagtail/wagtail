@@ -1,12 +1,12 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2022
-# Naglis Jonaitis, 2022
 # Loic Teixeira, 2024
+# Naglis Jonaitis, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Naglis Jonaitis, 2025\n"
 "Language-Team: Lithuanian (https://app.transifex.com/torchbox/teams/8009/"
 "lt/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,6 +83,9 @@ msgstr "Puslapių naršyklė"
 
 msgid "Pages"
 msgstr "Puslapiai"
+
+msgid "Preview"
+msgstr "Peržiūrėti"
 
 msgid "Reload saved content"
 msgstr "Įkelti išsaugotą turinį iš naujo"

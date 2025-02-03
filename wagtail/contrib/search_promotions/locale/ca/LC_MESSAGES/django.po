@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2024
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2024\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2023-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -35,9 +35,6 @@ msgstr ""
 "requereix una coincidència per a que els Resultats Promocionats siguin "
 "mostrats. L'ús de comodins NO està permès."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr "Especifiqueu com a mínim una recomanació per a aquest terme de cerca."
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 "Heu d'escriure un text d'enllaç extern si introduïu una URL d'enllaç extern."
@@ -47,6 +44,9 @@ msgstr "Heu de recomanar una pàgina O un enllaç extern. "
 
 msgid "Please only select a page OR enter an external link."
 msgstr "Seleccioneu només una pàgina O un enllaç extern."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Especifiqueu com a mínim una recomanació per a aquest terme de cerca."
 
 msgid "Query Daily Hits"
 msgstr "Consultar Visites Diàries"
@@ -72,12 +72,6 @@ msgstr "S'aplica a una pàgina interna o un enllaç extern"
 
 msgid "search promotion"
 msgstr "promoció de cerca"
-
-msgid "Add search promotion"
-msgstr "Afegir promoció de cerca"
-
-msgid "Add search pick"
-msgstr "Afegir triar de cercar"
 
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
@@ -107,30 +101,23 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "Esborra %(query)s"
 
-msgid "Delete"
-msgstr "Esborra"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Segur que voleu eliminar tots els resultats promocionats per a aquest terme "
 "de cerca?"
 
-msgid "Yes, delete"
-msgstr "Si, esborra"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Editant %(query)s"
-
-msgid "Editing"
-msgstr "Editant"
-
 msgid "Move up"
 msgstr "Puja"
 
 msgid "Move down"
 msgstr "Baixa"
+
+msgid "Drag"
+msgstr "Agafa"
+
+msgid "Delete"
+msgstr "Esborra"
 
 msgid "Recommended search result"
 msgstr "Resultat de cerca recomanat"
@@ -182,24 +169,30 @@ msgstr "Enllaç extern"
 msgid "None"
 msgstr "Cap"
 
-msgid "Search Terms"
-msgstr "Termes de cerca"
+msgid "Date"
+msgstr "Data"
 
-msgid "Add new promoted result"
-msgstr "Afegir un nou resultat promocionat"
+msgid "Search terms"
+msgstr "Termes de cerca"
 
 msgid "Search term(s)"
 msgstr "Cerca paraula(es)"
 
+msgid "Views"
+msgstr "Visualitzacions"
+
+msgid "Add new promoted result"
+msgstr "Afegir un nou resultat promocionat"
+
 msgid "Promoted results"
 msgstr "Resultats promocionats"
+
+msgid "Promoted search result"
+msgstr "Resultat de carca promocionada"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Selecció de l'editor per a '%(query)s' creada."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "No s'han creat les recomanacions a causa d'errors"

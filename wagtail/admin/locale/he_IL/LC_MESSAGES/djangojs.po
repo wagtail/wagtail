@@ -2,11 +2,11 @@
 # Translators:
 # Karl Hobley <karl@torchbox.com>, 2022
 # Adi Ron <adi@bnop.co>, 2022
-# lior abazon <abazon@v15.org.il>, 2022
+# lior abazon <abazon@v15.org.il>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: lior abazon <abazon@v15.org.il>, 2022\n"
+"Last-Translator: lior abazon <abazon@v15.org.il>, 2025\n"
 "Language-Team: Hebrew (Israel) (https://app.transifex.com/torchbox/"
 "teams/8009/he_IL/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +28,9 @@ msgstr "עמוד"
 
 msgid "Pages"
 msgstr "עמודים"
+
+msgid "Preview"
+msgstr "תצוגה מקדימה "
 
 msgid "Save"
 msgstr "שמור"

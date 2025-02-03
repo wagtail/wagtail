@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, "
 "2019-2020,2022-2023\n"
@@ -34,10 +34,6 @@ msgstr ""
 "népszerűsített eredmények megjelenítéshez, a helyettesítő karakterek NEM "
 "engedélyezettek."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-"Kérjük adjon meg legalább egy javaslatot ehhez a keresési kifejezéshez."
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr "Külső hivatkozás esetén meg kell adni a link szövegét is."
 
@@ -47,6 +43,10 @@ msgstr "Az ajánláshoz szükséges egy oldal VAGY külső hivatkozás."
 msgid "Please only select a page OR enter an external link."
 msgstr ""
 "Kérjük VAGY válasszon egy oldalt, VAGY adjon meg egy külső hivatkozást."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Kérjük adjon meg legalább egy javaslatot ehhez a keresési kifejezéshez."
 
 msgid "Query Daily Hits"
 msgstr "Napi találatok lekérdezése"
@@ -71,12 +71,6 @@ msgstr "Belső oldalra és külső hivatkozásra is vonatkozik"
 
 msgid "search promotion"
 msgstr "kiemelt keresés"
-
-msgid "Add search promotion"
-msgstr "Kiemelt keresés hozzáadása"
-
-msgid "Add search pick"
-msgstr "Keresési választás hozzáadása"
 
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
@@ -104,30 +98,23 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "%(query)s törlése"
 
-msgid "Delete"
-msgstr "Törlés"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Biztosan törölni szeretné az összes kiemelt találatot a keresési "
 "kifejezéshez?"
 
-msgid "Yes, delete"
-msgstr "Igen, törlés"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "%(query)s szerkesztése"
-
-msgid "Editing"
-msgstr "Szerkesztés"
-
 msgid "Move up"
 msgstr "Mozgatás felfelé"
 
 msgid "Move down"
 msgstr "Mozgatás lefelé"
+
+msgid "Drag"
+msgstr "Megragadás"
+
+msgid "Delete"
+msgstr "Törlés"
 
 msgid "Recommended search result"
 msgstr "Kiemelt keresés találat"
@@ -176,24 +163,24 @@ msgstr "Külső link"
 msgid "None"
 msgstr "Üres"
 
-msgid "Search Terms"
-msgstr "Keresési kifejezések"
-
-msgid "Add new promoted result"
-msgstr "Új kiemelt keresés találat hozzáadása"
+msgid "Date"
+msgstr "Dátum"
 
 msgid "Search term(s)"
 msgstr "Keresési kifejezés(ek)"
 
+msgid "Add new promoted result"
+msgstr "Új kiemelt keresés találat hozzáadása"
+
 msgid "Promoted results"
 msgstr "Kiemelt találatok"
+
+msgid "Promoted search result"
+msgstr "Kiemelt keresés találat"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Szerkesztői ajánlat létrehozva ehhez: '%(query)s'"
-
-msgid "Edit"
-msgstr "Szerkeszt"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Hiba történt a javaslatok mentése közben"

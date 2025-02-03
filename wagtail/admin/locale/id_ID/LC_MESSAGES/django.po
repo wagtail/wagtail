@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -368,10 +368,6 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tarik publikasi %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Ya, tarik publikasi"
 
@@ -383,13 +379,6 @@ msgstr "Komentar"
 
 msgid "Update"
 msgstr "Perbarui"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Membandingkan %(title)s"
-
-msgid "Comparing"
-msgstr "Membandingkan"
 
 msgid "Fields"
 msgstr "Kolom-kolom"
@@ -666,13 +655,6 @@ msgstr "Unduh CSV"
 msgid "Filter"
 msgstr "Saring"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
-
-msgid "Unschedule"
-msgstr "Hapus Jadwal"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
 
@@ -803,6 +785,9 @@ msgstr "Paling awal"
 
 msgid "Latest"
 msgstr "Paling akhir"
+
+msgid "Unschedule"
+msgstr "Hapus Jadwal"
 
 #, python-format
 msgid "Edit this %(object)s"

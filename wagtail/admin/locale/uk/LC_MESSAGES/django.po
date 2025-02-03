@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
 "2020,2022-2024\n"
@@ -368,12 +368,6 @@ msgstr "Обрано всі %(objects)s об'єктів на цьому екра
 msgid "All items in listing selected"
 msgstr "Обрано всі об'єкти у списку"
 
-msgid "For search engines"
-msgstr "Для пошукових систем"
-
-msgid "For site menus"
-msgstr "Для меню сайту"
-
 msgid "Content"
 msgstr "Контент"
 
@@ -593,10 +587,6 @@ msgid "No, don't delete"
 msgstr "Ні, не видаляти"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Зняти з публікації %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Ви впевнені, що хочете зняти з публікації цей %(model_name)s?"
 
@@ -635,13 +625,6 @@ msgid ""
 msgstr ""
 "Попередній перегляд неможливий через помилки валідації. <br /> Натисніть "
 "зберегти щоб підсвітити відповідні поля"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Порівняння %(title)s"
-
-msgid "Comparing"
-msgstr "Порівняння"
 
 msgid "Fields"
 msgstr "Поля"
@@ -1398,13 +1381,6 @@ msgstr "Поточний статус сторінки:"
 msgid "Visit the live page"
 msgstr "Відвідати сторінку"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
-
-msgid "Unschedule"
-msgstr "Зняти з розкладу"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ви впевнені,  що хочете зняти з розкладу цю ревізію?"
 
@@ -1885,6 +1861,9 @@ msgstr "Останнє"
 msgid "'%(object)s' unpublished."
 msgstr "'%(object)s' знято з публікації"
 
+msgid "Unschedule"
+msgstr "Зняти з розкладу"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Редагувати %(object)s"
@@ -1894,41 +1873,6 @@ msgstr "Панель"
 
 msgid "Delete selected pages"
 msgstr "Видалити обрані сторінки"
-
-msgid "1 page has been deleted"
-msgstr "1 сторінка було видалено"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "Видалено 1 сторінку і %(num_child_objects)d дочірню сторінку"
-msgstr[1] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[2] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[3] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d сторінок було видалено"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірню "
-"сторінку"
-msgstr[1] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
-"сторінок"
-msgstr[2] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
-"сторінок"
-msgstr[3] ""
-"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
-"сторінок"
 
 msgid "Select a new parent page"
 msgstr "Обрати нову батьківську сторінку"
@@ -1947,83 +1891,8 @@ msgstr[3] "%(num_pages)d сторінок було перенесено"
 msgid "Publish selected pages"
 msgstr "Опублікувати обрані сторінки"
 
-msgid "1 page has been published"
-msgstr "1 сторінку було опубліковано"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "Опубліковано 1 сторінку і %(num_child_objects)d дочірню сторінку"
-msgstr[1] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[2] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[3] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d сторінок було знято з публікації"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d дочірня "
-"сторінка"
-msgstr[1] ""
-"Опубліковано %(num_parent_objects)d сторінку і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[2] ""
-"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[3] ""
-"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-
 msgid "Unpublish selected pages"
 msgstr "Зняти з публікації обрані сторінки"
-
-msgid "1 page has been unpublished"
-msgstr "1 сторінку було знято з публікації"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірню сторінку"
-msgstr[1] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[2] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-msgstr[3] ""
-"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d сторінок було знято з публікації"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірня сторінка"
-msgstr[1] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[2] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
-msgstr[3] ""
-"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
-"дочірніх сторінок"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2164,9 +2033,6 @@ msgid ""
 msgstr ""
 "Ви переглядаєте колишню версію цієї сторінки від <b>%(created_at)s</b> "
 "створену %(user)s "
-
-msgid "Page history"
-msgstr "Історія змін"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
