@@ -299,6 +299,10 @@ class Block(metaclass=BaseBlock):
         return self.get_default()
 
     @cached_property
+    def _has_default(self):
+        return getattr(self.meta, "default", None) is not None
+
+    @cached_property
     def is_previewable(self):
         # To prevent showing a broken preview if the block preview has not been
         # configured, consider the block to be previewable if either:
@@ -314,7 +318,7 @@ class Block(metaclass=BaseBlock):
         )
         has_preview_value = (
             hasattr(self.meta, "preview_value")
-            or getattr(self.meta, "default", None) is not None
+            or self._has_default
             or self.__class__.get_preview_context is not Block.get_preview_context
             or self.__class__.get_preview_value is not Block.get_preview_value
         )

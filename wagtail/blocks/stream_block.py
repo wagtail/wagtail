@@ -460,6 +460,10 @@ class BaseStreamBlock(Block):
 
         return errors
 
+    @cached_property
+    def _has_default(self):
+        return self.meta.default is not BaseStreamBlock._meta_class.default
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your

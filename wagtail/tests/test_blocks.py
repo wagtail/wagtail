@@ -93,6 +93,11 @@ class TestBlock(SimpleTestCase):
             "specific_template_and_custom_value": [
                 blocks.Block(preview_template="foo.html", preview_value="bar"),
             ],
+            "unset_default_not_none": [
+                blocks.ListBlock(blocks.Block()),
+                blocks.StreamBlock(),
+                blocks.StructBlock(),
+            ],
         }
 
         # Test without a global template override
@@ -109,6 +114,9 @@ class TestBlock(SimpleTestCase):
             # Providing both a preview template and value also makes the block
             # previewable, this is the same as providing a custom template only
             ("specific_template_and_custom_value", True),
+            # These blocks define their own unset default value that is not
+            # `None`, and that value should not make it previewable
+            ("unset_default_not_none", False),
         ]
         for variant, is_previewable in cases:
             with self.subTest(variant=variant, custom_global_template=False):
@@ -134,6 +142,9 @@ class TestBlock(SimpleTestCase):
                 ("custom_value", True),
                 # Unchanged – providing both also makes the block previewable
                 ("specific_template_and_custom_value", True),
+                # Unchanged – even after providing a global template override,
+                # these blocks should not be previewable
+                ("unset_default_not_none", False),
             ]
             for variant, is_previewable in cases:
                 with self.subTest(variant=variant, custom_global_template=True):

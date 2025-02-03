@@ -68,6 +68,81 @@ class TestMySQLSearchBackend(BackendTests, TransactionTestCase):
             all_other_titles | {"JavaScript: The Definitive Guide"},
         )
 
+    def test_empty_search(self):
+        results = self.backend.search("", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+        results = self.backend.search(" ", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+        results = self.backend.search("*", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+    def test_empty_autocomplete(self):
+        results = self.backend.autocomplete("", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+        results = self.backend.autocomplete(" ", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+        results = self.backend.autocomplete("*", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+    def test_symbols_in_search_term(self):
+        # symbols as their own tokens should be ignored
+        results = self.backend.search("javascript @ parts", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            {"JavaScript: The good parts"},
+        )
+
+        results = self.backend.search("javascript parts @", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            {"JavaScript: The good parts"},
+        )
+
+        results = self.backend.search("@ javascript parts", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            {"JavaScript: The good parts"},
+        )
+
+        # tokens containing both symbols and alphanumerics should not be discarded
+        # or treated as equivalent to the same token without symbols
+        results = self.backend.search("java@script parts", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            set(),
+        )
+
+    def test_autocomplete_with_symbols(self):
+        # the * is not part of the autocomplete mechanism, but if someone includes it
+        # we want it to be gracefully ignored
+        results = self.backend.autocomplete("parts javasc*", models.Book.objects.all())
+        self.assertSetEqual(
+            {r.title for r in results},
+            {"JavaScript: The good parts"},
+        )
+
     @skip(
         "The MySQL backend doesn't support choosing individual fields for the search, only (body, title) or (autocomplete) fields may be searched."
     )

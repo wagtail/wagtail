@@ -1,3 +1,4 @@
+import re
 import warnings
 from collections import OrderedDict
 
@@ -344,9 +345,12 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def build_search_query_content(self, query, invert=False):
         if isinstance(query, PlainText):
-            terms = query.query_string.split()
+            # For Boolean full text search queries in MySQL,
+            # non-alphanumeric characters act as separators
+            terms = [term for term in re.split(r"\W+", query.query_string) if term]
+
             if not terms:
-                return None
+                return SearchQuery("")
 
             last_term = terms.pop()
 

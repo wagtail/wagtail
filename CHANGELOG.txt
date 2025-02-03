@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
+
+
 6.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
@@ -33,7 +39,7 @@ Changelog
  * Add previews support for StreamField blocks inside the block picker (Sage Abdullah, Thibaud Colas)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
- * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
  * Fix: Fix sub-menus within the main menu cannot be closed on mobile (Bojan Mihelac)
  * Fix: Fix animation overflow transition when navigating through subpages in the sidebar page explorer (manu)
  * Fix: Ensure form builder supports custom admin form validation (John-Scott Atlakson, LB (Ben) Johnston)
@@ -64,6 +70,8 @@ Changelog
  * Fix: Add missing space in panels check warning message (Stéphane Blondon)
  * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
  * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Fix: Prevent syntax error on MySQL search when query includes symbols (Matt Westcott)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -95,6 +103,7 @@ Changelog
  * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
  * Docs: Document `get_template` method on StreamField blocks (Matt Westcott)
  * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
+ * Docs: Revert incorrect example of appending a `RichTextBlock` to a `StreamField` (Matt Westcott)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
@@ -142,8 +151,12 @@ Changelog
  * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
  * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
  * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
+ * Fix: Prevent syntax error on MySQL search when query includes symbols (Matt Westcott)
  * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
  * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
+ * Docs: Revert incorrect example of appending a `RichTextBlock` to a `StreamField` (Matt Westcott)
 
 
 6.3.2 (02.01.2025)
@@ -724,6 +737,16 @@ Changelog
  * Maintenance: Use Django's `FileResponse` when serving files such as Images or Documents (Jake Howard)
  * Maintenance: Deprecated `WidgetWithScript` base widget class (LB (Ben) Johnston)
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
+
+
+5.2.8 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Fix: Handle StreamField migrations where the field value is null (Joshua Munn)
+ * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
+ * Fix: Prevent syntax error on MySQL search when query includes symbols (Matt Westcott)
 
 
 5.2.7 (01.11.2024)

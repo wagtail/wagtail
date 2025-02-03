@@ -24,6 +24,7 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
             description="A single line of text",
             preview_value="Hello, world!",
         )
+        block.set_name("single_line_text")
         response = self.get(block)
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
@@ -44,6 +45,9 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         main = soup.select_one("main")
         self.assertIsNotNone(main)
         self.assertEqual(main.text.strip(), "Hello, world!")
+
+        wrapper = main.select_one("div.block-single_line_text")
+        self.assertIsNotNone(wrapper)
 
     def test_nonexisting_block(self):
         response = self.client.get(reverse("wagtailadmin_block_preview"))
