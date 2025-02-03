@@ -4009,12 +4009,10 @@ class TestMultipleUsersEditingWarning(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
         self.page = self.root_page.add_child(instance=Page(title="Test Page"))
         self.page.save_revision().publish()
-        self.page.save()
-        self.page.initial_revision_id = self.page.get_latest_revision().id
 
     def test_warning_on_concurrent_edit(self):
-        TIMESTAMP_1 = datetime.datetime(2020, 1, 1, 11, 59, 51)
-        TIMESTAMP_2 = datetime.datetime(2020, 1, 1, 11, 59, 52)
+        TIMESTAMP_1 = str(datetime.datetime(2020, 1, 1, 11, 59, 51))
+        TIMESTAMP_2 = str(datetime.datetime(2020, 1, 1, 11, 59, 52))
 
         EditingSession.objects.create(
             user=self.user_a,
@@ -4042,7 +4040,7 @@ class TestMultipleUsersEditingWarning(TestCase, WagtailTestUtils):
             follow=True,
         )
 
-        user_a_revision_id = self.page.get_latest_revision().id
+        user_a_revision_id = str(self.page.get_latest_revision().id)
 
         self.client.login(username="userB", password="testpass")
 
@@ -4069,7 +4067,7 @@ class TestMultipleUsersEditingWarning(TestCase, WagtailTestUtils):
             break
 
     def test_no_warning_on_single_user_edit(self):
-        TIMESTAMP_1 = datetime.datetime(2020, 1, 1, 11, 59, 51)
+        TIMESTAMP_1 = str(datetime.datetime(2020, 1, 1, 11, 59, 51))
         EditingSession.objects.create(
             user=self.user_a,
             content_type=ContentType.objects.get_for_model(Advert),
