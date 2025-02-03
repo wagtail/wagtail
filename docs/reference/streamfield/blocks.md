@@ -2,7 +2,7 @@
 
 # StreamField block reference
 
-This document details the block types provided by Wagtail for use in [StreamField](streamfield), and how they can be combined into new block types.
+This document details the block types provided by Wagtail for use in [StreamField](streamfield_topic), and how they can be combined into new block types.
 
 ```{note}
    While block definitions look similar to model fields, they are not the same thing. Blocks are only valid within a StreamField - using them in place of a model field will not work.
@@ -32,16 +32,16 @@ body = StreamField([
 })
 ```
 
-## Block options
+## Block options and methods
 
-All block definitions accept the following optional keyword arguments:
+All block definitions accept the following optional keyword arguments or `Meta` class attributes:
 
 -   `default`
     -   The default value that a new 'empty' block should receive.
 -   `label`
     -   The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a `ListBlock` - the empty string).
 -   `icon`
-    -   The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding `wagtail.contrib.styleguide` to your project’s `INSTALLED_APPS`.
+    -   The name of the icon to display for this block type in the editor. For more details, see our [icons overview](icons).
 -   `template`
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
@@ -49,7 +49,7 @@ All block definitions accept the following optional keyword arguments:
 
 (block_preview_arguments)=
 
-[StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following optional keyword arguments:
+[StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following options:
 
 -   `description`
     -   The description of the block. For [](field_block_types), it will fall back to `help_text` if not provided.
@@ -60,6 +60,15 @@ All block definitions accept the following optional keyword arguments:
 
 ```{versionadded} 6.4
 The `description`, `preview_value`, and `preview_template` keyword arguments were added.
+```
+
+All block definitions have the following methods that can be overridden:
+
+```{eval-rst}
+.. autoclass:: wagtail.blocks.Block
+
+    .. automethod:: wagtail.blocks.Block.get_context
+    .. automethod:: wagtail.blocks.Block.get_template
 ```
 
 (field_block_types)=
