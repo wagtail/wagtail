@@ -197,6 +197,8 @@ class StreamFieldBlockPreview(TemplateView):
     def base_context(self):
         # Do NOT use the name `block` in the context, as it will conflict with
         # the current block inside a template {% block %} tag.
+        # If any changes are made here that needs to be publicly documented,
+        # make sure to update the docs for `Block.get_preview_context`.
         return {
             "request": self.request,
             "block_def": self.block_def,

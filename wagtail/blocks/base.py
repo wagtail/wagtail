@@ -273,26 +273,59 @@ class Block(metaclass=BaseBlock):
         return mark_safe(render_to_string(template, new_context))
 
     def get_preview_context(self, value, parent_context=None):
-        # We do not fall back to `get_context` here, because the preview context
-        # will be used for a complete view, not just the block. Instead, the
-        # default preview context uses `{% include_block %}`, which will use
-        # `get_context`.
+        """
+        Return a dict of context variables to be used as the template context
+        when rendering the block's preview. The ``value`` argument is the value
+        returned by :meth:`get_preview_value`. The ``parent_context`` argument
+        contains the following variables:
+
+        - ``request``: The current request object.
+        - ``block_def``: The block instance.
+        - ``block_class``: The block class.
+        - ``bound_block``: A ``BoundBlock`` instance representing the block and its value.
+
+        If :ref:`the global preview template <streamfield_global_preview_template>`
+        is used, the block will be rendered as the main content using
+        ``{% include_block %}``, which in turn uses :meth:`get_context`. As a
+        result, the context returned by this method will be available as the
+        ``parent_context`` for ``get_context()`` when the preview is rendered.
+        """
+        # NOTE: see StreamFieldBlockPreview.base_context for the context variables
+        # that can be documented.
         return parent_context or {}
 
     def get_preview_template(self, value, context=None):
-        # We do not fall back to `get_template` here, because the template will
-        # be used for a complete view, not just the block. In most cases, the
-        # block's template cannot stand alone for the preview, as it would be
-        # missing the necessary static assets.
-        #
-        # Instead, the default preview template uses `{% include_block %}`,
-        # which will use `get_template` if a template is defined.
+        """
+        Return the template to use for rendering the block's preview. The ``value``
+        argument is the value returned by :meth:`get_preview_value`. The ``context``
+        argument contains the variables listed for the ``parent_context`` argument
+        of :meth:`get_preview_context` above (and not the context returned by that
+        method itself).
+
+        Note that the preview template is used to render a complete HTML page of
+        the preview, not just an HTML fragment for the block. The method returns
+        the ``preview_template`` attribute from the block's options if provided,
+        and falls back to
+        :ref:`the global preview template <streamfield_global_preview_template>`
+        otherwise.
+
+        If the global preview template is used, the block will be rendered as the
+        main content using ``{% include_block %}``, which in turn uses
+        :meth:`get_template`.
+        """
         return (
             getattr(self.meta, "preview_template", None)
             or self.DEFAULT_PREVIEW_TEMPLATE
         )
 
     def get_preview_value(self):
+        """
+        Return the placeholder value that will be used for rendering the block's
+        preview. By default, the value is the ``preview_value`` from the block's
+        options if provided, otherwise the ``default`` is used as fallback. This
+        method can be overridden to provide a dynamic preview value, such as
+        from the database.
+        """
         if hasattr(self.meta, "preview_value"):
             return self.normalize(self.meta.preview_value)
         return self.get_default()
@@ -328,6 +361,11 @@ class Block(metaclass=BaseBlock):
         return has_specific_template or (has_preview_value and has_global_template)
 
     def get_description(self):
+        """
+        Return the description of the block to be shown to editors as part of the preview.
+        For :ref:`field block types <field_block_types>`, it will fall back to
+        ``help_text`` if not provided.
+        """
         return getattr(self.meta, "description", "")
 
     def get_api_representation(self, value, context=None):

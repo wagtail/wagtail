@@ -555,11 +555,31 @@ class QuoteBlock(blocks.StructBlock):
         description = "A quote with attribution to the source, rendered as a blockquote."
 ```
 
-Alternatively, you can also override the `get_preview_value`, `get_preview_context`, and `get_preview_template` methods to achieve the desired results.
+For more details on the preview options, see the corresponding {meth}`~wagtail.blocks.Block.get_preview_value`, {meth}`~wagtail.blocks.Block.get_preview_template`, and  {meth}`~wagtail.blocks.Block.get_description` methods, as well as the {meth}`~wagtail.blocks.Block.get_preview_context` method.
 
-In many cases, you likely want to use the block's real template that you already configure via `template` or `get_template` as described in [](streamfield_per_block_templates). Wagtail provides a default preview template for all blocks that makes use of the `{% include_block %}` tag (as described in [](streamfield_template_rendering)), which will reuse your block's specific template.
+In particular, the `get_preview_value()` method can be overridden to provide a dynamic preview value, such as from the database:
 
-However, the default preview template does not include any static assets that may be necessary to render your blocks properly. If you only need to add static assets to the preview page, you can skip specifying `preview_template` and instead override the default template globally. You can do so by creating a `wagtailcore/shared/block_preview.html` template inside one of your `templates` directories (with a higher precedence than the `wagtail` app) with the following content:
+```python
+from myapp.models import Quote
+
+
+class QuoteBlock(blocks.StructBlock):
+    ...
+
+    def get_preview_value(self, value):
+        quote = Quote.objects.first()
+        return {"text": quote.text, "source": quote.source}
+```
+
+(streamfield_global_preview_template)=
+
+### Overriding the global preview template
+
+In many cases, you likely want to use the block's real template that you already configure via `template` or `get_template` as described in [](streamfield_per_block_templates). However, such templates are only an HTML fragment for the block, whereas the preview requires a complete HTML document as the template.
+
+To avoid having to specify `preview_template` for each block, Wagtail provides a default preview template for all blocks. This template makes use of the `{% include_block %}` tag (as described in [](streamfield_template_rendering)), which will reuse your block's specific template.
+
+Note that the default preview template does not include any static assets that may be necessary to render your blocks properly. If you only need to add static assets to the default preview template, you can skip specifying `preview_template` for each block and instead override the default template globally. You can do so by creating a `wagtailcore/shared/block_preview.html` template inside one of your `templates` directories (with a higher precedence than the `wagtail` app) with the following content:
 
 ```html+django
 {% extends "wagtailcore/shared/block_preview.html" %}
