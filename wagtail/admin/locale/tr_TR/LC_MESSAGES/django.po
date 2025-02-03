@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Umut Bektaş <info@umutbektas.com>, 2019\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -371,10 +371,6 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s yayından kaldır"
-
 msgid "Yes, unpublish it"
 msgstr "Evet, yayından kaldır"
 
@@ -386,13 +382,6 @@ msgstr "Eylemler"
 
 msgid "Update"
 msgstr "Güncelle"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s karşılaştırılıyor"
-
-msgid "Comparing"
-msgstr "Karşılaştırılıyor"
 
 msgid "Fields"
 msgstr "Alanlar"
@@ -692,13 +681,6 @@ msgstr "Şimdiki sayfa durumu:"
 msgid "Visit the live page"
 msgstr "Yayındaki sayfayı gör"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
-
-msgid "Unschedule"
-msgstr "Planı kaldır"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Bu değişiklik planını kaldırmak istediğinizden emin misiniz?"
 
@@ -864,6 +846,9 @@ msgstr "En eski"
 
 msgid "Latest"
 msgstr "En yeni"
+
+msgid "Unschedule"
+msgstr "Planı kaldır"
 
 #, python-format
 msgid "Edit this %(object)s"

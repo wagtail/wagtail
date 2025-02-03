@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matas Dailyda <matas@dailyda.com>, 2017\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -47,18 +47,9 @@ msgstr "apibūdinimas"
 msgid "search promotion"
 msgstr "paieškos reklama"
 
-msgid "Add search promotion"
-msgstr "Pridėti paieškos reklamą"
-
-msgid "Add search pick"
-msgstr "Pridėti paieškos pasirinkimą"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Ištrinti %(query)s"
-
-msgid "Delete"
-msgstr "Ištrinti"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -66,21 +57,17 @@ msgstr ""
 "Ar tikrai norite ištrinti visus reklamuojamus rezultatus šiam paieškos "
 "terminui?"
 
-msgid "Yes, delete"
-msgstr "Taip, ištrinti"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Redaguojama %(query)s"
-
-msgid "Editing"
-msgstr "Redagavimas"
-
 msgid "Move up"
 msgstr "Perkelti aukštyn"
 
 msgid "Move down"
 msgstr "Perkelti žemyn"
+
+msgid "Drag"
+msgstr "Tempti"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "Promoted search results"
 msgstr "Reklamuojami paieškos rezultatai"
@@ -123,24 +110,24 @@ msgstr "Išorinė nuoroda"
 msgid "None"
 msgstr "Joks"
 
-msgid "Search Terms"
-msgstr "Paieškos terminai"
-
-msgid "Add new promoted result"
-msgstr "Pridėti naują reklamuojamą rezultatą"
+msgid "Date"
+msgstr "Data"
 
 msgid "Search term(s)"
 msgstr "Paieškos terminas(ai)"
 
+msgid "Add new promoted result"
+msgstr "Pridėti naują reklamuojamą rezultatą"
+
 msgid "Promoted results"
 msgstr "Reklamuojami rezultatai"
+
+msgid "Promoted search result"
+msgstr "Reklamuojamas paieškos rezultatas"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Redaktoriaus pasirinkimai '%(query)s' sukurti."
-
-msgid "Edit"
-msgstr "Redaguoti"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendacijos nebuvo sukurtos dėl klaidų"

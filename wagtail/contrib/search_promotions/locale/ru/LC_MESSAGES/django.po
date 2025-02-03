@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andrei Satsevich, 2023-2024
+# Andrei Satsevich, 2023-2025
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2015
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Andrei Satsevich, 2023-2024\n"
+"Last-Translator: Andrei Satsevich, 2023-2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -44,11 +44,6 @@ msgstr ""
 "требуется для отображения вашей Выборки Редактора, подстановки не "
 "допускаются."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-"Пожалуйста, сформулируйте по крайней мере одну рекомендацию по этому "
-"поисковому запросу."
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 "При вводе URL-адреса внешней ссылки Вам необходимо ввести текст внешней "
@@ -59,6 +54,11 @@ msgstr "Вы должны порекомендовать страницу ИЛИ
 
 msgid "Please only select a page OR enter an external link."
 msgstr "Пожалуйста, выберите только страницу ИЛИ введите внешнюю ссылку."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr ""
+"Пожалуйста, сформулируйте по крайней мере одну рекомендацию по этому "
+"поисковому запросу."
 
 msgid "Query Daily Hits"
 msgstr "Запрос Ежедневных Хитов"
@@ -84,12 +84,6 @@ msgstr "Применяется к внутренней странице или �
 
 msgid "search promotion"
 msgstr "поисковое продвижение"
-
-msgid "Add search promotion"
-msgstr "Добавить поисковое продвижение"
-
-msgid "Add search pick"
-msgstr "Добавить поисковую подборку"
 
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
@@ -119,30 +113,23 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "Удалить %(query)s"
 
-msgid "Delete"
-msgstr "Удалить"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Вы уверены что вы хотите удалить все продвигаемые результаты поиска для "
 "этого поискового запроса?"
 
-msgid "Yes, delete"
-msgstr "Да, удалить"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Редактирование %(query)s"
-
-msgid "Editing"
-msgstr "Редактирование"
-
 msgid "Move up"
 msgstr "Двигать вверх"
 
 msgid "Move down"
 msgstr "Двигать вниз"
+
+msgid "Drag"
+msgstr "Перетянуть"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Recommended search result"
 msgstr "Рекомендуемый результат поиска"
@@ -194,24 +181,30 @@ msgstr "Внешняя ссылка"
 msgid "None"
 msgstr "Ничего"
 
-msgid "Search Terms"
-msgstr "Поисковые запросы"
+msgid "Date"
+msgstr "Дата"
 
-msgid "Add new promoted result"
-msgstr "Добавить новый продвигаемый результат"
+msgid "Search terms"
+msgstr "Поисковые запросы"
 
 msgid "Search term(s)"
 msgstr "Критерии поиска"
 
+msgid "Views"
+msgstr "Просмотров"
+
+msgid "Add new promoted result"
+msgstr "Добавить новый продвигаемый результат"
+
 msgid "Promoted results"
 msgstr "Продвигаемые результаты"
+
+msgid "Promoted search result"
+msgstr "Продвигаемый результат поиска"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Подборка для '%(query)s' создана."
-
-msgid "Edit"
-msgstr "Редактировать"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Рекомендации не были созданы из-за ошибок"

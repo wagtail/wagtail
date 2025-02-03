@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ivan Waginger <ivan.waginger@gmail.com>, 2024\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -323,10 +323,6 @@ msgstr "Áno, zmazať"
 msgid "No, don't delete"
 msgstr "Nie, nezmazať"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odpublikovať %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
 
@@ -338,13 +334,6 @@ msgstr "Akcie"
 
 msgid "Update"
 msgstr "Aktualizovať"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porovnať %(title)s"
-
-msgid "Comparing"
-msgstr "Porovnať"
 
 msgid "Fields"
 msgstr "Polia"

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -327,12 +327,6 @@ msgstr "Všechny %(objects)s obrázky na této obrazovce vybrány"
 msgid "1 user selected"
 msgstr "1 uživatel vybrán"
 
-msgid "For search engines"
-msgstr "Pro vyhledávače"
-
-msgid "For site menus"
-msgstr "Pro menu webu"
-
 msgid "Content"
 msgstr "Obsah"
 
@@ -521,10 +515,6 @@ msgstr "Ano, smazat"
 msgid "No, don't delete"
 msgstr "Ne, nemazat"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Zrušit publikaci %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Ano, zrušit publikaci"
 
@@ -545,13 +535,6 @@ msgstr "Uložit"
 
 msgid "Preview not available"
 msgstr "Náhled není dostupný"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porovnání %(title)s"
-
-msgid "Comparing"
-msgstr "Porovnání"
 
 msgid "Fields"
 msgstr "Pole"
@@ -1091,13 +1074,6 @@ msgstr "Navštívit publikovanou stránku"
 msgid "Toggle section"
 msgstr "Přepnout výběr"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Zruš plánovanou publikaci verze %(revision.id)s %(title)s"
-
-msgid "Unschedule"
-msgstr "Zrušit naplánované publikování"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Opravdu chcete zrušit naplánovanou publikaci této verze?"
 
@@ -1493,6 +1469,9 @@ msgstr "Nejstarší"
 msgid "Latest"
 msgstr "Nejnovější"
 
+msgid "Unschedule"
+msgstr "Zrušit naplánované publikování"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Edituj %(object)s"
@@ -1631,9 +1610,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Prohlížíte předchozí verzi této stránky z <b>%(created_at)s</b> od %(user)s"
-
-msgid "Page history"
-msgstr "Historie stránky"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

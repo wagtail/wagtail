@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Jonathan D, 2023\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -369,12 +369,6 @@ msgstr "Alle %(objects)s elementer på skjermen valg"
 msgid "All items in listing selected"
 msgstr "Alle elementer i listen valgt"
 
-msgid "For search engines"
-msgstr "For søkemotorer"
-
-msgid "For site menus"
-msgstr "For sidemenyer"
-
 msgid "Content"
 msgstr "Innhold"
 
@@ -636,10 +630,6 @@ msgid "No, don't delete"
 msgstr "Nei, ikke slett"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Avpublisér %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Er du sikker på at du vil avpublisere denne %(model_name)s?"
 
@@ -687,13 +677,6 @@ msgid ""
 msgstr ""
 "Forhåndsvisning kan ikke vises på grunn av valideringsfeil. <br /> Klikk på "
 "lagre for å markere de relevante feltene."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Sammenligner %(title)s"
-
-msgid "Comparing"
-msgstr "Sammenligner"
 
 msgid "Fields"
 msgstr "Felt"
@@ -1117,13 +1100,6 @@ msgstr "Nåværende sidestatus:"
 msgid "Visit the live page"
 msgstr "Se den publiserte siden"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Avbryt planlagt publisering av revisjon %(revision.id)s for %(title)s"
-
-msgid "Unschedule"
-msgstr "Avbryt planlagt publisering"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr ""
 "Er du sikker på at du vil avbryte den planlagte publiseringen av denne "
@@ -1303,6 +1279,9 @@ msgstr "Tidligste"
 
 msgid "Latest"
 msgstr "Siste"
+
+msgid "Unschedule"
+msgstr "Avbryt planlagt publisering"
 
 #, python-format
 msgid "Edit this %(object)s"

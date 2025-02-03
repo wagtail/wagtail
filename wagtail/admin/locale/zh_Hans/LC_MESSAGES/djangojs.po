@@ -8,12 +8,12 @@
 # Ed <724195301@qq.com>, 2022
 # Favo Yang <favoyang@gmail.com>, 2022
 # Yin Guanhao <sopium@mysterious.site>, 2022
-# Ford Guo <agile.guo@gmail.com>, 2023
 # Loic Teixeira, 2024
+# Ford Guo <agile.guo@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/torchbox/"
 "teams/8009/zh_CN/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,6 +112,9 @@ msgstr "页面"
 
 msgid "Pin toolbar"
 msgstr "固定工具栏"
+
+msgid "Preview"
+msgstr "预览"
 
 msgid "Reload saved content"
 msgstr "重新加载已保存内容"

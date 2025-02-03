@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: okosama star, 2023\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -261,12 +261,6 @@ msgstr "ワークフローにタスクを追加"
 msgid "Task"
 msgstr "タスク"
 
-msgid "For search engines"
-msgstr "検索エンジンのため"
-
-msgid "For site menus"
-msgstr "サイトメニューのため"
-
 msgid "Content"
 msgstr "コンテンツ"
 
@@ -445,10 +439,6 @@ msgstr "はい、削除します"
 msgid "No, don't delete"
 msgstr "いいえ、削除しません"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)sを非公開に設定"
-
 msgid "Yes, unpublish it"
 msgstr "はい、非公開に設定します。"
 
@@ -466,13 +456,6 @@ msgstr "コメント"
 
 msgid "Update"
 msgstr "アップデート"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)sを比較"
-
-msgid "Comparing"
-msgstr "比較"
 
 msgid "Fields"
 msgstr "フィールド"
@@ -854,13 +837,6 @@ msgstr "現在のページ状況："
 msgid "Visit the live page"
 msgstr "ライブページを訪れる。"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)sのリビジョン%(revision.id)sのスケジュールを解除"
-
-msgid "Unschedule"
-msgstr "予定外"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "この改定を予定外のものにしますか？"
 
@@ -1021,6 +997,9 @@ msgstr "最も早い"
 msgid "Latest"
 msgstr "最新"
 
+msgid "Unschedule"
+msgstr "予定外"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "%(object)sを編集"
@@ -1119,9 +1098,6 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "ページ：'%(page_title)s' が除去されました。"
-
-msgid "Page history"
-msgstr "ページの履歴"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

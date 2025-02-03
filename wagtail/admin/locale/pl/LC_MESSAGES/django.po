@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022-2024\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -414,12 +414,6 @@ msgstr "Wszystkie pozycje na liście zaznaczone"
 msgid "Can access Wagtail admin"
 msgstr "Dostęp do administracji Wagtail"
 
-msgid "For search engines"
-msgstr "Dla silników wyszukiwania"
-
-msgid "For site menus"
-msgstr "Dla menu serwisów"
-
 msgid "Content"
 msgstr "Treść"
 
@@ -692,10 +686,6 @@ msgid "No, don't delete"
 msgstr "Nie usuwaj"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Cofnij publikację %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Czy na pewno chcesz cofnąć publikację %(model_name)s?"
 
@@ -755,13 +745,6 @@ msgid ""
 msgstr ""
 "Podgląd jest niemożliwy z powodu błędów poprawności. <br /> Naciśnij Zapisz "
 "aby podświetlić odpowiednie pola."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porównywanie %(title)s"
-
-msgid "Comparing"
-msgstr "Porównywanie"
 
 msgid "Fields"
 msgstr "Pola"
@@ -1947,21 +1930,14 @@ msgstr "Odwiedź stronę \"na żywo\""
 msgid "Visible to all. Visit the live page"
 msgstr "Widoczna dla wszystkich. Odwiedź stronę online"
 
-msgid "Private. Visit the live page"
-msgstr "Prywatna. Odwiedź stronę online"
-
 msgid "Visible to all"
 msgstr "Widoczna dla wszystkich"
 
+msgid "Private. Visit the live page"
+msgstr "Prywatna. Odwiedź stronę online"
+
 msgid "Toggle section"
 msgstr "Przełącz sekcję"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Wyłącz z planu rewizję %(revision.id)s dla %(title)s"
-
-msgid "Unschedule"
-msgstr "Wyłącz z planu"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Czy na pewno chcesz wyłączyć z planu tą rewizję?"
@@ -2735,6 +2711,9 @@ msgstr "Publikacja '%(object)s' cofnięta."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Wersja %(revision_id)s \"%(object)s\" odplanowana."
 
+msgid "Unschedule"
+msgstr "Wyłącz z planu"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "wersja %(revision_id)s \"%(object)s\""
@@ -2762,21 +2741,6 @@ msgstr "Szukaj wszytkich stron…"
 msgid "Delete selected pages"
 msgstr "Usuń wybrane strony"
 
-msgid "1 page has been deleted"
-msgstr "1 strona została usunięta"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 strona i %(num_child_objects)d strona podrzędna zostały usunięte"
-msgstr[1] "1 strona i %(num_child_objects)d strony podrzędne zostały usunięte"
-msgstr[2] "1 strona i %(num_child_objects)d stron podrzędnych zostały usunięte"
-msgstr[3] "1 strona i %(num_child_objects)d stron podrzędnych zostały usunięte"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d stron zostało usunięte"
-
 msgid "Select a new parent page"
 msgstr "Wybierz nową stronę nadrzędną"
 
@@ -2794,46 +2758,8 @@ msgstr[3] "%(num_pages)d strony zostały przeniesione"
 msgid "Publish selected pages"
 msgstr "Opublikuj wybrane strony"
 
-msgid "1 page has been published"
-msgstr "1 strona została opublikowana"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] ""
-"1 strona i %(num_child_objects)d strona podrzędna zostały opublikowane"
-msgstr[1] ""
-"1 strona i %(num_child_objects)d strony podrzędne zostały opublikowane"
-msgstr[2] ""
-"1 strona i %(num_child_objects)d stron podrzędnych zostały opublikowane"
-msgstr[3] ""
-"1 strona i %(num_child_objects)d stron podrzędnych zostały opublikowane"
-
 msgid "Unpublish selected pages"
 msgstr "Odpublikuj wybrane strony"
-
-msgid "1 page has been unpublished"
-msgstr "Publikacja 1 strony została cofnięta."
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"Publikacja %(num_parent_objects)d strony i %(num_child_objects)d strony "
-"podrzędnej została cofnięta."
-msgstr[1] ""
-"Publikacja %(num_parent_objects)d stron i %(num_child_objects)d stron "
-"podrzędnych została cofnięta."
-msgstr[2] ""
-"Publikacja %(num_parent_objects)d stron i %(num_child_objects)d stron "
-"podrzędnych została cofnięta."
-msgstr[3] ""
-"Publikacja %(num_parent_objects)d stron i %(num_child_objects)d stron "
-"podrzędnych została cofnięta."
 
 msgid "Choose parent"
 msgstr "Wybierz nadrzędną"
@@ -2997,9 +2923,6 @@ msgid ""
 msgstr ""
 "Oglądasz wcześniejszą wersję strony z <b>%(created_at)s</b> autorstwa "
 "%(user)s"
-
-msgid "Page history"
-msgstr "Historia strony"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

@@ -4,10 +4,11 @@
 # Stein Strindhaug <stein.strindhaug@gmail.com>, 2022
 # Jonathan D, 2023
 # Loic Teixeira, 2024
+# Eirik Krogstad <eirikkr@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/torchbox/"
 "teams/8009/nb/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,6 +65,9 @@ msgstr "Sideutforsker"
 
 msgid "Pages"
 msgstr "Sider"
+
+msgid "Preview"
+msgstr "Forhåndsvis"
 
 msgid "Reload saved content"
 msgstr "Oppdater lagret innhold"

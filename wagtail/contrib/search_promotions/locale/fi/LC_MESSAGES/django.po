@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020,2022-2023\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -52,38 +52,25 @@ msgstr "kuvaus"
 msgid "search promotion"
 msgstr "hakupromootio"
 
-msgid "Add search promotion"
-msgstr "Lisää hakupromootio"
-
-msgid "Add search pick"
-msgstr "Lisää hakuvalinta"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Poista %(query)s"
 
-msgid "Delete"
-msgstr "Poista"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr "Haluatko varmasti poistaa kaikki nostetut tulokset tältä hakutermiltä?"
-
-msgid "Yes, delete"
-msgstr "Kyllä, poista"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Muokataan %(query)s"
-
-msgid "Editing"
-msgstr "Muokataan"
 
 msgid "Move up"
 msgstr "Siirrä ylös"
 
 msgid "Move down"
 msgstr "Siirrä alas"
+
+msgid "Drag"
+msgstr "Vedä"
+
+msgid "Delete"
+msgstr "Poista"
 
 msgid "Recommended search result"
 msgstr "Suositeltu hakutulos"
@@ -132,24 +119,24 @@ msgstr "Ulkoinen linkki"
 msgid "None"
 msgstr "Ei mitään"
 
-msgid "Search Terms"
-msgstr "Hakutermit"
-
-msgid "Add new promoted result"
-msgstr "Lisää uusi nostettu tulos"
+msgid "Date"
+msgstr "Pvm"
 
 msgid "Search term(s)"
 msgstr "Hakutermi(t)"
 
+msgid "Add new promoted result"
+msgstr "Lisää uusi nostettu tulos"
+
 msgid "Promoted results"
 msgstr "Nostetut tulokset"
+
+msgid "Promoted search result"
+msgstr "Nostettu hakutulos"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Toimituksen valinnat kohteelle '%(query)s' luotu."
-
-msgid "Edit"
-msgstr "Muokkaa"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Suosituksia ei voitu luoda virheiden vuoksi"

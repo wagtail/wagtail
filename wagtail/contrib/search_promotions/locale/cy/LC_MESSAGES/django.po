@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -36,9 +36,6 @@ msgstr ""
 "i'ch Canlyniadau Hyrwyddedig gael eu harddangos, NI chaniateir cardiau "
 "chwilio."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr "Nodwch o leiaf un argymhelliad ar gyfer y term chwilio hwn."
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 "Rhaid i chi nodi testun cyswllt allanol os ydych chi'n nodi URL cyswllt "
@@ -49,6 +46,9 @@ msgstr "Rhaid i chi argymell tudalen NEU ddolen allanol."
 
 msgid "Please only select a page OR enter an external link."
 msgstr "Dewiswch dudalen yn unig NEU rhowch linc allanol."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Nodwch o leiaf un argymhelliad ar gyfer y term chwilio hwn."
 
 msgid "Query Daily Hits"
 msgstr "Ymholiad Trawiadau Dyddiol"
@@ -73,12 +73,6 @@ msgstr "Yn berthnasol i dudalen fewnol neu linc allanol"
 
 msgid "search promotion"
 msgstr "hyrwyddo chwilio"
-
-msgid "Add search promotion"
-msgstr "Ychwanegwch hyrwyddo chwilio"
-
-msgid "Add search pick"
-msgstr "Ychwanegu dewis chwilio"
 
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
@@ -107,30 +101,20 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "Dileu %(query)s"
 
-msgid "Delete"
-msgstr "Dileu"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Ydych chi'n siŵr eich bod am ddileu'r holl ganlyniadau a hyrwyddir ar gyfer "
 "y term chwilio hwn?"
 
-msgid "Yes, delete"
-msgstr "Ia, dileu"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Golygu %(query)s"
-
-msgid "Editing"
-msgstr "Golygu"
-
 msgid "Move up"
 msgstr "Symyd i fyny"
 
 msgid "Move down"
 msgstr "Symyd i lawr"
+
+msgid "Delete"
+msgstr "Dileu"
 
 msgid "Recommended search result"
 msgstr "Canlyniad chwilio a argymhellir"
@@ -182,24 +166,24 @@ msgstr "Linc allanol"
 msgid "None"
 msgstr "Ddim"
 
-msgid "Search Terms"
-msgstr "Termau Chwilio"
-
-msgid "Add new promoted result"
-msgstr "Ychwanegu canlyniad newydd a hyrwyddir"
+msgid "Date"
+msgstr "Dyddiad"
 
 msgid "Search term(s)"
 msgstr "Term(au) chwilio"
 
+msgid "Add new promoted result"
+msgstr "Ychwanegu canlyniad newydd a hyrwyddir"
+
 msgid "Promoted results"
 msgstr "Canlyniadau a hyrwyddir"
+
+msgid "Promoted search result"
+msgstr "Canlyniad chwilio wedi'i hyrwyddo"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Dewisiadau'r golygydd ar gyfer '%(query)s' wedi'i creu."
-
-msgid "Edit"
-msgstr "Golygu"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Nid yw argymhellion wedi'u creu oherwydd gwallau"

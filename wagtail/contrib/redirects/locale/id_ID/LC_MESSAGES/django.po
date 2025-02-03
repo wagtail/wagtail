@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -72,9 +72,6 @@ msgstr "sementara"
 msgid "redirect"
 msgstr "pengalihan"
 
-msgid "Add redirect"
-msgstr "Tambah pengalihan"
-
 msgid "Redirects"
 msgstr "Pengalihan"
 
@@ -82,14 +79,8 @@ msgstr "Pengalihan"
 msgid "Delete redirect %(title)s"
 msgstr "Hapus pengalihan %(title)s"
 
-msgid "Delete"
-msgstr "Hapus"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Apakah Anda yakin untuk menghapus pengalihan ini?"
-
-msgid "Yes, delete"
-msgstr "Ya, hapus"
 
 msgid "Preview"
 msgstr "Pratinjau"
@@ -116,6 +107,9 @@ msgstr ""
 "Tidak ada pengalihan yang dibuat. Mengapa tidak <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">menambahnya</a>?"
 
+msgid "Add redirect"
+msgstr "Tambah pengalihan"
+
 msgid "Site"
 msgstr "Situs"
 
@@ -130,15 +124,12 @@ msgstr "Pengalihan '%(redirect_title)s' diperbarui."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Pengalihan '%(redirect_title)s' dihapus."
 
+msgid "The redirect could not be created due to errors."
+msgstr "Pengalihan tidak dapat dibuat karena suatu kesalahan."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Pengalihan '%(redirect_title)s' ditambah."
-
-msgid "Edit"
-msgstr "Ubah"
-
-msgid "The redirect could not be created due to errors."
-msgstr "Pengalihan tidak dapat dibuat karena suatu kesalahan."
 
 msgid "Search redirects"
 msgstr "Pengalihan pencarian"

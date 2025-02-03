@@ -3,12 +3,12 @@
 # Yu Hsun Lee <andylee0914.tw@gmail.com>, 2022
 # Yeh Yen-Ke <yyken@outlook.com>, 2022
 # Brian Xu, 2022
-# Chih Wang <ihcgno@icloud.com>, 2022
 # Loic Teixeira, 2024
+# Chih Wang <ihcgno@icloud.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Chih Wang <ihcgno@icloud.com>, 2025\n"
 "Language-Team: Chinese Traditional (https://app.transifex.com/torchbox/"
 "teams/8009/zh-Hant/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,6 +80,9 @@ msgstr "頁面瀏覽器"
 
 msgid "Pages"
 msgstr "頁面"
+
+msgid "Preview"
+msgstr "預覽"
 
 msgid "Reload saved content"
 msgstr "重新加載已保存內容"

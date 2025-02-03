@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -25,24 +25,17 @@ msgstr "搜索关键词"
 msgid "Delete %(query)s"
 msgstr "删除Delete %(query)s"
 
-msgid "Delete"
-msgstr "删除"
-
-msgid "Yes, delete"
-msgstr "是的，删除"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "编辑%(query)s"
-
-msgid "Editing"
-msgstr "编辑"
-
 msgid "Move up"
 msgstr "向上移动"
 
 msgid "Move down"
 msgstr "向下移动"
+
+msgid "Drag"
+msgstr "拖动"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Popular search terms"
 msgstr "流行的搜索关键词"
@@ -65,8 +58,8 @@ msgstr "外部链接"
 msgid "None"
 msgstr "没有"
 
-msgid "Search Terms"
-msgstr "搜索关键词"
+msgid "Date"
+msgstr "日期"
 
 msgid "Search term(s)"
 msgstr "搜索关键词"
@@ -74,9 +67,6 @@ msgstr "搜索关键词"
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "编辑精选'%(query)s'已创建。"
-
-msgid "Edit"
-msgstr "编辑"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."

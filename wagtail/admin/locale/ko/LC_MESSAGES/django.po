@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: mirusu400, 2024\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -351,12 +351,6 @@ msgstr "이 화면 안의 모든 %(objects)s 물건이 선택됨"
 msgid "All items in listing selected"
 msgstr "목록 안의 모든 물건이 선택됨"
 
-msgid "For search engines"
-msgstr "엔진을 검색하기 위해"
-
-msgid "For site menus"
-msgstr "메뉴를 배치하기 위해"
-
 msgid "Content"
 msgstr "콘텐츠"
 
@@ -583,10 +577,6 @@ msgstr "네, 지우겠습니다"
 msgid "No, don't delete"
 msgstr "아니오, 지우지 않습니다"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s 게시 해제"
-
 msgid "Yes, unpublish it"
 msgstr "네, 게시를 해제합니다"
 
@@ -604,13 +594,6 @@ msgstr "댓글"
 
 msgid "Update"
 msgstr "업데이트"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s와 비교"
-
-msgid "Comparing"
-msgstr "비교"
 
 msgid "Fields"
 msgstr "필드"
@@ -1355,18 +1338,11 @@ msgstr "활성 페이지 보기"
 msgid "Visible to all. Visit the live page"
 msgstr "모두에게 공개. 라이브 페이지 초대"
 
-msgid "Private. Visit the live page"
-msgstr "공개제한. 라이브 페이지를 방문하시오."
-
 msgid "Visible to all"
 msgstr "모두에게 공개"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s에 수정안 %(revision.id)s 예약 취소"
-
-msgid "Unschedule"
-msgstr "예약 취소"
+msgid "Private. Visit the live page"
+msgstr "공개제한. 라이브 페이지를 방문하시오."
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "이 수정안의 예약 게시를 취소하시겠습니까?"
@@ -1829,6 +1805,9 @@ msgstr "최초"
 msgid "Latest"
 msgstr "최근"
 
+msgid "Unschedule"
+msgstr "예약 취소"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "이 %(object)s 수정하기"
@@ -1838,28 +1817,6 @@ msgstr "대시보드"
 
 msgid "Delete selected pages"
 msgstr "선택된 페이지 삭제"
-
-msgid "1 page has been deleted"
-msgstr "1 페이지가 삭제됨"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1페이지와 %(num_child_objects)d파생 페이지가 삭제되었습니다"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d페이지가 삭제됨"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 삭제됨"
 
 msgid "Select a new parent page"
 msgstr "새로운 근원 페이지를 선택하시오"
@@ -1875,53 +1832,8 @@ msgstr[0] "%(num_pages)d페이지가 이동됨"
 msgid "Publish selected pages"
 msgstr "선택된 페이지를 게시함"
 
-msgid "1 page has been published"
-msgstr "1 페이지가 게시됨"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 페이지와 %(num_child_objects)d 파생 페이지가 게시됨"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d페이지가 게시됨"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 게시됨"
-
 msgid "Unpublish selected pages"
 msgstr "선택 페이지를 게시 안 함"
-
-msgid "1 page has been unpublished"
-msgstr "1 페이지가 게시되지 않음"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 페이지와 %(num_child_objects)d 파생 페이지가 게시됨"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d페이지 게시가 취소됨"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d페이지와 %(num_child_objects)d파생 페이지가 게시취소됨"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2053,9 +1965,6 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr "당신은 <b>%(created_at)s</b>의 이전 버전을 %(user)s에서 보고 있습니다."
-
-msgid "Page history"
-msgstr "페이지 히스토리"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

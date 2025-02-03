@@ -2,12 +2,12 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2022
 # Kyu Choi, 2022
-# Kyungil Choi <hanpama@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Kyungil Choi <hanpama@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2025\n"
 "Language-Team: Korean (https://app.transifex.com/torchbox/teams/8009/ko/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ko\n"
@@ -87,6 +87,9 @@ msgstr "페이지 탐색"
 
 msgid "Pages"
 msgstr "페이지"
+
+msgid "Preview"
+msgstr "미리보기"
 
 msgid "Reload saved content"
 msgstr "저장된 컨텐츠 다시 불러오기"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,9 +32,6 @@ msgstr ""
 "ئىزدەيدىغان تولۇق ھەرپ تىزىقى كىرگۈزۈلىدۇ. ئالىي ئىزدەش نەتىجىسىنى "
 "كۆرسىتىشتە تولۇق ماس كېلىشى زۆرۈر، ئورتاق بەلگە ئىشلىتىشكە يول قويۇلمايدۇ."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr "بۇ ئىزدەيدىغان ئىبارىگە كەم دېگەندە بىر تەۋسىيە بەلگىلەڭ."
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 "ئەگەر سىرتقى ئۇلانمىدىكى تور ئادرېسىنى كىرگۈزسىڭىز چوقۇم سىرتقى ئۇلانما "
@@ -45,6 +42,9 @@ msgstr "چوقۇم بىر بەت ياكى سىرتقى ئۇلانمىنى تەۋ
 
 msgid "Please only select a page OR enter an external link."
 msgstr "پەقەت بىر بەتنى تاللاڭ ياكى سىرتقى ئۇلىنىشنى كىرگۈزۈڭ."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "بۇ ئىزدەيدىغان ئىبارىگە كەم دېگەندە بىر تەۋسىيە بەلگىلەڭ."
 
 msgid "Query Daily Hits"
 msgstr "كۈندىلىك چېكىلىشىنى سۈرۈشتۈرۈش"
@@ -69,12 +69,6 @@ msgstr "ئىچكى بەت ياكى سىرتقى ئۇلانمىنى قوللىن�
 
 msgid "search promotion"
 msgstr "ئالىي ئىزدەش"
-
-msgid "Add search promotion"
-msgstr "ئالىي ئىزدەش قوش"
-
-msgid "Add search pick"
-msgstr "ئىزدەشكە خىللاش قوش"
 
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
@@ -103,28 +97,21 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "%(query)s نى ئۆچۈر"
 
-msgid "Delete"
-msgstr "ئۆچۈر"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr "بۇ ئاتالغۇنىڭ بارلىق ئالىي ئىزدەش نەتىجىسىنى راستتىنلا ئۆچۈرەمسىز؟"
-
-msgid "Yes, delete"
-msgstr "ھەئە، ئۆچۈر"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "%(query)s تەھرىرلەۋاتىدۇ"
-
-msgid "Editing"
-msgstr "تەھرىرلەش"
 
 msgid "Move up"
 msgstr "يۇقىرىغا"
 
 msgid "Move down"
 msgstr "تۆۋەنگە"
+
+msgid "Drag"
+msgstr "سۆرە"
+
+msgid "Delete"
+msgstr "ئۆچۈر"
 
 msgid "Recommended search result"
 msgstr "تەۋسىيە ئىزدەش نەتىجىسى"
@@ -176,14 +163,14 @@ msgstr "سىرتقى ئۇلانما"
 msgid "None"
 msgstr "يوق"
 
-msgid "Search Terms"
+msgid "Date"
+msgstr "چېسلا"
+
+msgid "Search term(s)"
 msgstr "ئىزدەيدىغان ئاتالغۇ"
 
 msgid "Add new promoted result"
 msgstr "يېڭى ئالىي ئىزدەش نەتىجىسىنى قوش"
-
-msgid "Search term(s)"
-msgstr "ئىزدەيدىغان ئاتالغۇ"
 
 msgid "Promoted results"
 msgstr "ئالىي نەتىجە"
@@ -191,9 +178,6 @@ msgstr "ئالىي نەتىجە"
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "«%(query)s» ئۈچۈن تەھرىرلىگۈچ خىللىغانلىرى قۇرۇلدى."
-
-msgid "Edit"
-msgstr "تەھرىر"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "خاتالىق سەۋەبىدىن تەۋسىيەنى قۇرغىلى بولمىدى"
