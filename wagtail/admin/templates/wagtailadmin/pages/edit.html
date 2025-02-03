@@ -27,7 +27,7 @@
             data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
         >
             {% csrf_token %}
-            <input type="hidden" name="page_revision_id" value="{{ latest_revision.id |intcomma }}">
+            <input type="hidden" name="page_revision_id" value="{{ latest_revision.id |unlocalize }}">
             <input type="hidden" name="next" value="{{ next }}">
             {{ edit_handler.render_form_content }}
 
