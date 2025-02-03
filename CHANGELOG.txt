@@ -138,7 +138,7 @@ Changelog
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
-6.3.3 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.3 (03.02.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
