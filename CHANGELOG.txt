@@ -7,7 +7,7 @@ Changelog
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
 
 
-6.4 (xx.xx.xxxx) - IN DEVELOPMENT
+6.4 (03.02.2025)
 ~~~~~~~~~~~~~~~~
 
  * Support for background tasks using `django-tasks` (Jake Howard)
