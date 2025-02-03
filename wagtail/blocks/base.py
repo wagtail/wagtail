@@ -224,8 +224,9 @@ class Block(metaclass=BaseBlock):
 
     def get_context(self, value, parent_context=None):
         """
-        Return a dict of context variables (derived from the block value and combined with the parent_context)
-        to be used as the template context when rendering this value through a template.
+        Return a dict of context variables (derived from the block ``value`` and combined with the
+        ``parent_context``) to be used as the template context when rendering this value through a
+        template. See :ref:`the usage example <streamfield_get_context>` for more details.
         """
 
         context = parent_context or {}
@@ -239,11 +240,9 @@ class Block(metaclass=BaseBlock):
 
     def get_template(self, value=None, context=None):
         """
-        Return the template to use for rendering the block if specified on meta class.
-        This extraction was added to make dynamic templates possible if you override this method
-
-        value contains the current value of the block, allowing overridden methods to
-        select the proper template based on the actual block value.
+        Return the template to use for rendering the block if specified.
+        This method allows for dynamic templates based on the block instance and a given ``value``.
+        See :ref:`the usage example <streamfield_get_template>` for more details.
         """
         return getattr(self.meta, "template", None)
 
