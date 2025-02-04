@@ -870,6 +870,7 @@
 * Stéphane Blondon
 * Jatin Bhardwaj
 * Mohamed Rabiaa
+* Bernhard Bliem
 
 ## Translators
 
