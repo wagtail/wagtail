@@ -941,3 +941,13 @@ WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the workflow continues to provide less urgent feedback.
+
+## Pagination
+
+### `WAGTAILADMIN_PAGINATOR_CLASS`
+
+```python
+WAGTAILADMIN_PAGINATOR_CLASS = 'myapp.Paginator'
+```
+
+This setting lets you provide your own Paginator class to use in views that subclass BaseListingView or BaseChooseView. This class should be a subclass of `django.core.paginator.Paginator`, or a class that implements `get_paginator` and `get_elided_page_range` functions.
