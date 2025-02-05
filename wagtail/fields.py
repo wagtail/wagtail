@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
-from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
+from wagtail.blocks import Block, BlockField, StreamBlock
 from wagtail.blocks.definition_lookup import (
     BlockDefinitionLookup,
     BlockDefinitionLookupBuilder,
@@ -101,7 +101,7 @@ class StreamField(models.Field):
 
         # extract kwargs that are to be passed on to the block, not handled by super
         self.block_opts = {}
-        for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
+        for arg in ["min_num", "max_num", "block_counts", "collapsed", "value_class"]:
             if arg in kwargs:
                 self.block_opts[arg] = kwargs.pop(arg)
 
@@ -183,10 +183,14 @@ class StreamField(models.Field):
         result._stream_field = self
         return result
 
+    @property
+    def value_class(self):
+        return self.stream_block.meta.value_class
+
     def get_prep_value(self, value):
         value = super().get_prep_value(value)
         if (
-            isinstance(value, StreamValue)
+            isinstance(value, self.value_class)
             and not (value)
             and value.raw_text is not None
         ):
@@ -195,7 +199,7 @@ class StreamField(models.Field):
             # for reverse migrations that convert StreamField data back into plain text
             # fields.)
             return value.raw_text
-        elif isinstance(value, StreamValue):
+        elif isinstance(value, self.value_class):
             # StreamValue instances must be prepared first.
             return self.stream_block.get_prep_value(value)
         else:
