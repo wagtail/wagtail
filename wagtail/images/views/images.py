@@ -134,7 +134,6 @@ class EditView(generic.EditView):
     url_generator_url_name = "wagtailimages:url_generator"
     header_icon = "image"
     context_object_name = "image"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -186,6 +185,7 @@ class EditView(generic.EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["next"] = self.next_url
+        context["usage_count_val"] = self.object.get_usage().count()
 
         try:
             context["filesize"] = self.object.get_file_size()
@@ -212,7 +212,6 @@ class URLGeneratorView(generic.InspectView):
     template_name = "wagtailimages/images/url_generator.html"
     index_url_name = "wagtailimages:index"
     edit_url_name = "wagtailimages:edit"
-    _show_breadcrumbs = True
 
     def get_page_subtitle(self):
         return self.object.title
@@ -346,7 +345,6 @@ class CreateView(generic.CreateView):
     error_message = gettext_lazy("The image could not be created due to errors.")
     template_name = "wagtailimages/images/add.html"
     header_icon = "image"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):

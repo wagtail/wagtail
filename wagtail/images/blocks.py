@@ -138,9 +138,13 @@ class ImageBlock(StructBlock):
 
     def to_python(self, value):
         # For backward compatibility with ImageChooserBlock
-        if isinstance(value, int):
+        if value is None or isinstance(value, int):
             image = self.child_blocks["image"].to_python(value)
-            struct_value = {"image": image, "decorative": False, "alt_text": None}
+            struct_value = {
+                "image": image,
+                "decorative": False,
+                "alt_text": (image.default_alt_text if image else ""),
+            }
         else:
             struct_value = super().to_python(value)
         return self._struct_value_to_image(struct_value)
@@ -148,23 +152,24 @@ class ImageBlock(StructBlock):
     def bulk_to_python(self, values):
         values = list(values)
 
-        if any(isinstance(value, int) for value in values):
-            # `values` is a list of image IDs (as we might encounter if an ImageChooserBlock has been
-            # changed to an ImageBlock with no data migration)
+        if values and all(value is None or isinstance(value, int) for value in values):
+            # `values` looks like a list of image IDs and/or None values (as we might encounter
+            # if an ImageChooserBlock has been changed to an ImageBlock with no data migration)
             image_values = self.child_blocks["image"].bulk_to_python(values)
 
             struct_values = [
                 {
                     "image": image,
                     "decorative": False,
-                    "alt_text": None,
+                    "alt_text": (image.default_alt_text if image else ""),
                 }
                 for image in image_values
             ]
 
         else:
-            # assume `values` is a (possibly empty) list of dicts containing
-            # `image`, `decorative` and `alt_text` keys to be handled by the StructBlock superclass
+            # Treat `values` as the standard ImageBlock representation - a (possibly empty) list of
+            # dicts containing `image`, `decorative` and `alt_text` keys to be handled by the
+            # StructBlock superclass
             struct_values = super().bulk_to_python(values)
 
         return [
@@ -240,6 +245,14 @@ class ImageBlock(StructBlock):
 
     def render_basic(self, value, context=None):
         return self.child_blocks["image"].render_basic(value, context=context)
+
+    def get_block_by_content_path(self, value, path_elements):
+        if path_elements:
+            return super().get_block_by_content_path(
+                self._image_to_struct_value(value), path_elements
+            )
+        else:
+            return self.bind(value)
 
     class Meta:
         icon = "image"

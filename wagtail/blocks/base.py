@@ -20,6 +20,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
     "BaseBlock",
@@ -55,8 +56,10 @@ class BaseBlock(type):
 class Block(metaclass=BaseBlock):
     name = ""
     creation_counter = 0
+    definition_registry = {}
 
     TEMPLATE_VAR = "value"
+    DEFAULT_PREVIEW_TEMPLATE = "wagtailcore/shared/block_preview.html"
 
     class Meta:
         label = None
@@ -94,6 +97,7 @@ class Block(metaclass=BaseBlock):
         self.creation_counter = Block.creation_counter
         Block.creation_counter += 1
         self.definition_prefix = "blockdef-%d" % self.creation_counter
+        Block.definition_registry[self.definition_prefix] = self
 
         self.label = self.meta.label or ""
 
@@ -157,7 +161,7 @@ class Block(metaclass=BaseBlock):
         model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.normalize(self.meta.default)
+        return self.normalize(getattr(self.meta, "default", None))
 
     def clean(self, value):
         """
@@ -220,8 +224,9 @@ class Block(metaclass=BaseBlock):
 
     def get_context(self, value, parent_context=None):
         """
-        Return a dict of context variables (derived from the block value and combined with the parent_context)
-        to be used as the template context when rendering this value through a template.
+        Return a dict of context variables (derived from the block ``value`` and combined with the
+        ``parent_context``) to be used as the template context when rendering this value through a
+        template. See :ref:`the usage example <streamfield_get_context>` for more details.
         """
 
         context = parent_context or {}
@@ -235,11 +240,9 @@ class Block(metaclass=BaseBlock):
 
     def get_template(self, value=None, context=None):
         """
-        Return the template to use for rendering the block if specified on meta class.
-        This extraction was added to make dynamic templates possible if you override this method
-
-        value contains the current value of the block, allowing overridden methods to
-        select the proper template based on the actual block value.
+        Return the template to use for rendering the block if specified.
+        This method allows for dynamic templates based on the block instance and a given ``value``.
+        See :ref:`the usage example <streamfield_get_template>` for more details.
         """
         return getattr(self.meta, "template", None)
 
@@ -268,6 +271,102 @@ class Block(metaclass=BaseBlock):
             new_context = self.get_context(value, parent_context=dict(context))
 
         return mark_safe(render_to_string(template, new_context))
+
+    def get_preview_context(self, value, parent_context=None):
+        """
+        Return a dict of context variables to be used as the template context
+        when rendering the block's preview. The ``value`` argument is the value
+        returned by :meth:`get_preview_value`. The ``parent_context`` argument
+        contains the following variables:
+
+        - ``request``: The current request object.
+        - ``block_def``: The block instance.
+        - ``block_class``: The block class.
+        - ``bound_block``: A ``BoundBlock`` instance representing the block and its value.
+
+        If :ref:`the global preview template <streamfield_global_preview_template>`
+        is used, the block will be rendered as the main content using
+        ``{% include_block %}``, which in turn uses :meth:`get_context`. As a
+        result, the context returned by this method will be available as the
+        ``parent_context`` for ``get_context()`` when the preview is rendered.
+        """
+        # NOTE: see StreamFieldBlockPreview.base_context for the context variables
+        # that can be documented.
+        return parent_context or {}
+
+    def get_preview_template(self, value, context=None):
+        """
+        Return the template to use for rendering the block's preview. The ``value``
+        argument is the value returned by :meth:`get_preview_value`. The ``context``
+        argument contains the variables listed for the ``parent_context`` argument
+        of :meth:`get_preview_context` above (and not the context returned by that
+        method itself).
+
+        Note that the preview template is used to render a complete HTML page of
+        the preview, not just an HTML fragment for the block. The method returns
+        the ``preview_template`` attribute from the block's options if provided,
+        and falls back to
+        :ref:`the global preview template <streamfield_global_preview_template>`
+        otherwise.
+
+        If the global preview template is used, the block will be rendered as the
+        main content using ``{% include_block %}``, which in turn uses
+        :meth:`get_template`.
+        """
+        return (
+            getattr(self.meta, "preview_template", None)
+            or self.DEFAULT_PREVIEW_TEMPLATE
+        )
+
+    def get_preview_value(self):
+        """
+        Return the placeholder value that will be used for rendering the block's
+        preview. By default, the value is the ``preview_value`` from the block's
+        options if provided, otherwise the ``default`` is used as fallback. This
+        method can be overridden to provide a dynamic preview value, such as
+        from the database.
+        """
+        if hasattr(self.meta, "preview_value"):
+            return self.normalize(self.meta.preview_value)
+        return self.get_default()
+
+    @cached_property
+    def _has_default(self):
+        return getattr(self.meta, "default", None) is not None
+
+    @cached_property
+    def is_previewable(self):
+        # To prevent showing a broken preview if the block preview has not been
+        # configured, consider the block to be previewable if either:
+        # - a specific preview template is configured for the block
+        # - a preview value is provided and the global template has been overridden
+        # which are the intended ways to configure block previews.
+        #
+        # If a block is made previewable by other means, the `is_previewable`
+        # property should be overridden to return `True`.
+        has_specific_template = (
+            hasattr(self.meta, "preview_template")
+            or self.__class__.get_preview_template is not Block.get_preview_template
+        )
+        has_preview_value = (
+            hasattr(self.meta, "preview_value")
+            or self._has_default
+            or self.__class__.get_preview_context is not Block.get_preview_context
+            or self.__class__.get_preview_value is not Block.get_preview_value
+        )
+        has_global_template = template_is_overridden(
+            self.DEFAULT_PREVIEW_TEMPLATE,
+            "templates",
+        )
+        return has_specific_template or (has_preview_value and has_global_template)
+
+    def get_description(self):
+        """
+        Return the description of the block to be shown to editors as part of the preview.
+        For :ref:`field block types <field_block_types>`, it will fall back to
+        ``help_text`` if not provided.
+        """
+        return getattr(self.meta, "description", "")
 
     def get_api_representation(self, value, context=None):
         """

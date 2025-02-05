@@ -653,6 +653,24 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertIn("Simple page", page_type_labels)
         self.assertNotIn("Page", page_type_labels)
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_filter_by_locale_and_search(self):
+        fr_locale = Locale.objects.create(language_code="fr")
+        self.root_page.copy_for_translation(fr_locale, copy_parents=True)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"locale": "en", "q": "hello"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertIn(self.child_page.id, page_ids)
+        self.assertContainsActiveFilter(
+            response,
+            "Locale: English",
+            "locale=en",
+        )
+
     def test_filter_by_date_updated(self):
         new_page_child = SimplePage(
             title="New page child",

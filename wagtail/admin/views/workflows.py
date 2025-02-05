@@ -175,7 +175,6 @@ class Create(CreateView):
     index_url_name = "wagtailadmin_workflows:index"
     header_icon = "tasks"
     edit_handler = None
-    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -263,7 +262,6 @@ class Edit(EditView):
     header_more_buttons = []
     edit_handler = None
     MAX_PAGES = 5
-    _show_breadcrumbs = True
 
     def get_edit_handler(self):
         if not self.edit_handler:
@@ -304,7 +302,6 @@ class Edit(EditView):
         pages_formset = self.get_pages_formset()
         context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
-        context["pages_formset"] = pages_formset
         context["has_workflow_enabled_models"] = bool(get_workflow_enabled_models())
         context["content_type_form"] = self.get_content_type_form()
         context["can_disable"] = (
@@ -315,7 +312,14 @@ class Edit(EditView):
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
         ) and not self.object.active
-        context["media"] = bound_panel.media + form.media + pages_formset.media
+        context["media"] = bound_panel.media + form.media
+
+        # Only add the pages_formset if the workflow is active
+        if self.object.active:
+            pages_formset = self.get_pages_formset()
+            context["pages_formset"] = pages_formset
+            context["media"] += pages_formset.media
+
         return context
 
     @property
@@ -641,7 +645,6 @@ class CreateTask(CreateView):
     edit_url_name = "wagtailadmin_workflows:edit_task"
     index_url_name = "wagtailadmin_workflows:task_index"
     header_icon = "thumbtack"
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):
@@ -704,7 +707,6 @@ class EditTask(EditView):
     enable_url_name = "wagtailadmin_workflows:enable_task"
     header_icon = "thumbtack"
     header_more_buttons = []
-    _show_breadcrumbs = True
 
     @cached_property
     def model(self):

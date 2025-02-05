@@ -331,28 +331,27 @@ To add your resume to your portfolio site, follow these steps:
 
 1. Create a **Portfolio Page** as a child page of **Home** by following these steps:
 
-    a. Restart your server.  
-    b. Go to your admin interface.  
-    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).  
-    d. Click `Home`.  
-    e. Click the `...` icon at the top of the resulting page.  
-    f. Click `add child page`.  
-    g. Click `Portfolio Page`.
+    a. Restart your server.
+    b. Go to your admin interface.
+    c. Click `Pages` in your [Sidebar](https://guide.wagtail.org/en-latest/how-to-guides/find-your-way-around/#the-sidebar).
+    d. Click `Home`.
+    e. Click the `+` icon (Add child page) at the top of the resulting page.
+    f. Click `Portfolio Page`.
 
 2. Add your resume data by following these steps:  
-   a. Use "Resume" as your page title.  
-   b. Click **+** to expand your body section.  
-   c. Click **Paragraph block**.  
+   a. Use "Resume" as your page title.
+   b. Click **+** to expand your body section.
+   c. Click **Paragraph block**.
    d. Copy and paste the following text in your new **Paragraph block**:
 
     ```text
     I'm a Wagtail Developer with a proven track record of developing and maintaining complex web applications. I have experience writing custom code to extend Wagtail applications, collaborating with other developers, and integrating third-party services and APIs.
     ```
 
-    e. Click **+** below your preceding Paragraph block, and then click **Paragraph block** to add a new Paragraph Block.  
-    f. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.  
-    g. Use "Work Experience" as your Heading 2.  
-    h. Type "/" below your Heading 2 and click **H3 Heading 3**.  
+    e. Click **+** below your preceding Paragraph block, and then click **Paragraph block** to add a new Paragraph Block.
+    f. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.
+    g. Use "Work Experience" as your Heading 2.
+    h. Type "/" below your Heading 2 and click **H3 Heading 3**.
     i. Use the following as your Heading 3:
 
     ```
@@ -374,10 +373,10 @@ To add your resume to your portfolio site, follow these steps:
     By starting your sentences with "-", you're writing out your work experience as a Bulletted list. You can achieve the same result by typing "/" in the input field of your Paragraph block and then clicking **Bulleted list**.
     ```
 
-    k. Click **+** below your Work experience.  
-    l. Click **Paragraph block** to add another Paragraph block.  
-    m. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.  
-    n. Use "Skills" as the Heading 2 of your new Paragraph block.  
+    k. Click **+** below your Work experience.
+    l. Click **Paragraph block** to add another Paragraph block.
+    m. Type "/" in the input field of your new Paragraph block and then click **H2 Heading 2**.
+    n. Use "Skills" as the Heading 2 of your new Paragraph block.
     o. Copy and paste the following after your Heading 2:
 
     ```text

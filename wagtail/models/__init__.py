@@ -16,7 +16,6 @@ import logging
 import posixpath
 import uuid
 from io import StringIO
-from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
 from warnings import warn
 
@@ -40,7 +39,7 @@ from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
-from django.http import Http404
+from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.http.request import validate_host
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
@@ -69,6 +68,7 @@ from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.publish_revision import PublishRevisionAction
 from wagtail.actions.unpublish import UnpublishAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
+from wagtail.compat import HTTPMethod
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
@@ -127,13 +127,11 @@ from .media import (  # noqa: F401
     UploadedFile,
     get_root_collection_id,
 )
+from .panels import CommentPanelPlaceholder, PanelPlaceholder
 from .reference_index import ReferenceIndex  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
-
-if TYPE_CHECKING:
-    from django.http import HttpRequest
 
 logger = logging.getLogger("wagtail")
 
@@ -1404,14 +1402,56 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         COMMENTS_RELATION_NAME,
     ]
 
-    # Define these attributes early to avoid masking errors. (Issue #3078)
-    # The canonical definition is in wagtailadmin.panels.
-    content_panels = []
-    promote_panels = []
-    settings_panels = []
+    # Real panel classes are defined in wagtail.admin.panels, which we can't import here
+    # because it would create a circular import. Instead, define them with placeholders
+    # to be replaced with the real classes by `wagtail.admin.panels.model_utils.expand_panel_list`.
+    content_panels = [
+        PanelPlaceholder("wagtail.admin.panels.TitleFieldPanel", ["title"], {}),
+    ]
+    promote_panels = [
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "slug",
+                    "seo_title",
+                    "search_description",
+                ],
+                _("For search engines"),
+            ],
+            {},
+        ),
+        PanelPlaceholder(
+            "wagtail.admin.panels.MultiFieldPanel",
+            [
+                [
+                    "show_in_menus",
+                ],
+                _("For site menus"),
+            ],
+            {},
+        ),
+    ]
+    settings_panels = [
+        PanelPlaceholder("wagtail.admin.panels.PublishingPanel", [], {}),
+        CommentPanelPlaceholder(),
+    ]
 
     # Privacy options for page
     private_page_options = ["password", "groups", "login"]
+
+    # Allows page types to specify a list of HTTP method names that page instances will
+    # respond to. When the request type doesn't match, Wagtail should return a response
+    # with a status code of 405.
+    allowed_http_methods = [
+        HTTPMethod.DELETE,
+        HTTPMethod.GET,
+        HTTPMethod.HEAD,
+        HTTPMethod.OPTIONS,
+        HTTPMethod.PATCH,
+        HTTPMethod.POST,
+        HTTPMethod.PUT,
+    ]
 
     @staticmethod
     def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
@@ -1449,6 +1489,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         result = Page.route_for_request(request, path)
         if result is not None:
             return result[0]
+
+    @classmethod
+    def allowed_http_method_names(cls):
+        return [
+            method.value if hasattr(method, "value") else method
+            for method in cls.allowed_http_methods
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -2115,6 +2162,38 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             self.get_context(request, *args, **kwargs),
         )
 
+    def check_request_method(self, request, *args, **kwargs):
+        """
+        Checks the ``method`` attribute of the request against those supported
+        by the page (as defined by :attr:`allowed_http_methods`) and responds
+        accordingly.
+
+        If supported, ``None`` is returned, and the request is processed
+        normally. If not, a warning is logged and an ``HttpResponseNotAllowed``
+        is returned, and any further request handling is terminated.
+        """
+        allowed_methods = self.allowed_http_method_names()
+        if request.method not in allowed_methods:
+            logger.warning(
+                "Method Not Allowed (%s): %s",
+                request.method,
+                request.path,
+                extra={"status_code": 405, "request": request},
+            )
+            return HttpResponseNotAllowed(allowed_methods)
+
+    def handle_options_request(self, request, *args, **kwargs):
+        """
+        Returns an ``HttpResponse`` with an ``"Allow"`` header containing the list of
+        supported HTTP methods for this page. This method is used instead of
+        :meth:`serve` to handle requests when the ``OPTIONS`` HTTP verb is
+        detected (and :class:`HTTPMethod.OPTIONS <python:http.HTTPMethod>` is
+        present in :attr:`allowed_http_methods` for this type of page).
+        """
+        return HttpResponse(
+            headers={"Allow": ", ".join(self.allowed_http_method_names())}
+        )
+
     def is_navigable(self):
         """
         Return true if it's meaningful to browse subpages of this page -
@@ -2169,15 +2248,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not possible_sites:
             return None
 
+        # Thanks to the ordering applied by Site.get_site_root_paths(),
+        # the first item is ideal in the vast majority of setups.
         site_id, root_path, root_url, language_code = possible_sites[0]
 
-        site = Site.find_for_request(request)
-        if site:
-            for site_id, root_path, root_url, language_code in possible_sites:
-                if site_id == site.pk:
-                    break
-            else:
-                site_id, root_path, root_url, language_code = possible_sites[0]
+        unique_site_ids = {values[0] for values in possible_sites}
+        if len(unique_site_ids) > 1 and isinstance(request, HttpRequest):
+            # The page somehow belongs to more than one site (rare, but possible).
+            # If 'request' is indeed a HttpRequest, use it to identify the 'current'
+            # site and prefer an option matching that (where present).
+            site = Site.find_for_request(request)
+            if site:
+                for values in possible_sites:
+                    if values[0] == site.pk:
+                        site_id, root_path, root_url, language_code = values
+                        break
 
         use_wagtail_i18n = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 

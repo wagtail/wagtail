@@ -1,9 +1,4 @@
 $(function () {
-  // prevents browser default drag/drop
-  $(document).on('drop dragover', function (e) {
-    e.preventDefault();
-  });
-
   $('#fileupload').fileupload({
     dataType: 'html',
     sequentialUploads: true,

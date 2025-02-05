@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -258,9 +258,6 @@ msgstr "Taotletud lehte ei leitud."
 msgid "Go to Wagtail admin"
 msgstr "Minge Wagtail administraatori juurde"
 
-msgid "Account"
-msgstr "Konto"
-
 msgid "Reset password"
 msgstr "Lähtesta parool"
 
@@ -402,10 +399,6 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tühista %(title)s avaldamine"
-
 msgid "Yes, unpublish it"
 msgstr "Jah, tühista selle avaldamine"
 
@@ -415,21 +408,14 @@ msgstr "Ei, ärge avaldamist tühistage"
 msgid "Cancel"
 msgstr "Tühista"
 
-msgid "Comment"
-msgstr "Kommentaar"
-
 msgid "Actions"
 msgstr "Toimingud"
 
+msgid "Comment"
+msgstr "Kommentaar"
+
 msgid "Update"
 msgstr "Uuenda"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s võrdlemine"
-
-msgid "Comparing"
-msgstr "Võrreldes"
 
 msgid "Fields"
 msgstr "Väljad"
@@ -440,10 +426,6 @@ msgstr "Muutused"
 msgid "There are no differences between these two versions"
 msgstr "Nende kahe versiooni vahel pole erinevusi"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Tere tulemast %(site_name)s Wagtail CMS-i"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
@@ -451,8 +433,17 @@ msgstr ""
 "See on teie juhtpaneel, kus kuvatakse teie loodud sisu kohta kasulikku "
 "teavet."
 
+msgid "Account"
+msgstr "Konto"
+
 msgid "Your locked pages"
 msgstr "Teie lukustatud lehed"
+
+msgid "Language"
+msgstr "Keel"
+
+msgid "Status"
+msgstr "Staatus"
 
 msgid "Locked at"
 msgstr "Lukustatud kell"
@@ -471,9 +462,6 @@ msgstr "Otseülekanne"
 
 msgid "Your most recent edits"
 msgstr "Teie viimased muudatused"
-
-msgid "Status"
-msgstr "Staatus"
 
 msgid "Date"
 msgstr "Kuupäev"
@@ -623,9 +611,6 @@ msgid ""
 msgstr ""
 "Leht \"%(title)s\" on edastatud töövoo \"%(workflow)s\" modereerimiseks."
 
-msgid "This page has been made private by a parent page."
-msgstr "Vanemaleht on selle lehe privaatseks muutnud."
-
 msgid "Publishing…"
 msgstr "Avaldamine ..."
 
@@ -722,9 +707,6 @@ msgstr "Kopeeri"
 msgid "Copy this page"
 msgstr "Kopeeri see leht"
 
-msgid "This page has unsaved changes."
-msgstr "Sellel lehel on salvestamata muudatusi."
-
 msgid "Configure a site now."
 msgstr "Saidi konfigureerimine kohe."
 
@@ -781,9 +763,6 @@ msgstr "Kahjuks ei vasta ükski leht <em>%(query_string)s</em>"
 
 msgid "Enter a search term above"
 msgstr "Sisestage ülal otsingutermin"
-
-msgid "No pages use"
-msgstr "Ühtegi lehte ei kasutata"
 
 #, python-format
 msgid "Add %(label)s"
@@ -886,13 +865,6 @@ msgstr "Lehe praegune olek:"
 msgid "Visit the live page"
 msgstr "Külastage reaalajas lehte"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Tühista ajaversiooni %(revision.id)s %(title)s jaoks"
-
-msgid "Unschedule"
-msgstr "Ajakava tühistamine"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Kas olete kindel, et soovite selle redigeerimise ajakava tühistada?"
 
@@ -923,12 +895,6 @@ msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Kasutatud %(usage_count)s korda"
 msgstr[1] "Kasutatud %(usage_count)s korda"
 
-msgid "Edit / Review"
-msgstr "Redigeerimine / ülevaade"
-
-msgid "Workflow history"
-msgstr "Töövoo ajalugu"
-
 #, python-format
 msgid "Requested by <b>%(modified_by)s</b>"
 msgstr "Taotleb <b>%(modified_by)s</b>"
@@ -954,13 +920,6 @@ msgstr "Töövoog algas"
 
 msgid "Workflow completed"
 msgstr "Töövoog on lõpule viidud"
-
-#, python-format
-msgid "Workflow history for %(title)s"
-msgstr "%(title)s töövoo ajalugu"
-
-msgid "Workflow history for"
-msgstr "Töövoo ajalugu"
 
 msgid "Approved task"
 msgstr "Kinnitatud ülesanne"
@@ -991,12 +950,6 @@ msgstr "Kas soovite selle ülesande kindlasti keelata?"
 
 msgid "Assign your workflow to pages"
 msgstr "Määrake oma töövoog lehtedele"
-
-msgid "Creating…"
-msgstr "Loomine ..."
-
-msgid "Create"
-msgstr "Loo"
 
 #, python-format
 msgid ""
@@ -1065,6 +1018,12 @@ msgstr "Olemasolev"
 msgid "Choose a different task type"
 msgstr "Valige mõni muu ülesande tüüp"
 
+msgid "Creating…"
+msgstr "Loomine ..."
+
+msgid "Create"
+msgstr "Loo"
+
 msgid "Task type"
 msgstr "Ülesande tüüp"
 
@@ -1090,13 +1049,6 @@ msgid ""
 "There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
 "Lubatud ülesandeid pole. Miks mitte <a href=\"%(add_url)s\">lisada üks</a>?"
-
-#, python-format
-msgid "Pages that use workflow '%(name)s'"
-msgstr "Lehed, mis kasutavad töövoogu '%(name)s'"
-
-msgid "Pages that use workflow"
-msgstr "Töövoogu kasutavad lehed"
 
 msgid "Submitted"
 msgstr "Esitatud"
@@ -1194,12 +1146,12 @@ msgstr "Kogu '%(object)s' on värskendatud."
 msgid "The collection could not be saved due to errors."
 msgstr "Kogu ei õnnestunud vigade tõttu salvestada."
 
-msgid "Delete collection"
-msgstr "Kustuta kogu"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Kogu '%(object)s' on kustutatud."
+
+msgid "Delete collection"
+msgstr "Kustuta kogu"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Kas olete kindel, et soovite selle kogu kustutada?"
@@ -1222,8 +1174,14 @@ msgstr "Võrdle praeguse versiooniga"
 msgid "Cancel scheduled publish"
 msgstr "Ajastatud avaldamise tühistamine"
 
+msgid "Workflow history"
+msgstr "Töövoo ajalugu"
+
 msgid "Workflow progress"
 msgstr "Töövoo edenemine"
+
+msgid "Edit / Review"
+msgstr "Redigeerimine / ülevaade"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' updated."
@@ -1247,14 +1205,14 @@ msgstr "Redigeerimine"
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' on kustutatud."
 
-msgid "Inspecting"
-msgstr "Ülevaatus"
-
 msgid "Earliest"
 msgstr "Varaseim"
 
 msgid "Latest"
 msgstr "Uusim"
+
+msgid "Unschedule"
+msgstr "Ajakava tühistamine"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1389,9 +1347,6 @@ msgid ""
 "by %(user)s"
 msgstr ""
 "Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> kasutajalt%(user)s"
-
-msgid "Page history"
-msgstr "Lehe ajalugu"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

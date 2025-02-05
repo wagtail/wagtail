@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -250,12 +250,6 @@ msgstr "Mae angen y'r ffild hon."
 msgid "Please select at least one group."
 msgstr "Dewiswch o leiaf un grwp os gwelwch yn dda."
 
-msgid "For search engines"
-msgstr "Ar gyfer peiriannau chwilio"
-
-msgid "For site menus"
-msgstr "Ar gyfer ddewislen safle"
-
 msgid "Content"
 msgstr "Cynnwys"
 
@@ -273,12 +267,6 @@ msgstr "Gwall 404"
 
 msgid "Go to Wagtail admin"
 msgstr "Ewch i Wagtail Admin"
-
-msgid "Account"
-msgstr "Cyfrif"
-
-msgid "Save account details"
-msgstr "Cadw manylion cyfrif"
 
 msgid "Reset password"
 msgstr "Ailosod cyfrinair"
@@ -326,14 +314,23 @@ msgstr "Na, peidiwch a ddileu"
 msgid "Cancel"
 msgstr "Canslo"
 
-msgid "Comment"
-msgstr "Sylw"
-
 msgid "Actions"
 msgstr "Gweithredoedd"
 
+msgid "Comment"
+msgstr "Sylw"
+
 msgid "Update"
 msgstr "Diweddariad"
+
+msgid "Account"
+msgstr "Cyfrif"
+
+msgid "Language"
+msgstr "Iaith"
+
+msgid "Status"
+msgstr "Statws"
 
 msgid "Edit this page"
 msgstr "Golygu tudalen hon"
@@ -346,9 +343,6 @@ msgstr "Drafft"
 
 msgid "Live"
 msgstr "Yn fyw"
-
-msgid "Status"
-msgstr "Statws"
 
 msgid "Date"
 msgstr "Dyddiad"
@@ -511,9 +505,6 @@ msgstr "Golygu"
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."
 msgstr "%(model_name)s '%(object)s' wedi'i ddileu."
-
-msgid "Inspecting"
-msgstr "Arolygu"
 
 #, python-format
 msgid "Edit this %(object)s"

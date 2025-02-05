@@ -113,8 +113,8 @@ describe('ComboBox', () => {
 
     it('combines two categories into one, with two columns', () => {
       expect(wrapper.find('.w-combobox__optgroup-label')).toHaveLength(1);
-      expect(wrapper.find('.w-combobox__option--col1')).toHaveLength(3);
-      expect(wrapper.find('.w-combobox__option--col2')).toHaveLength(2);
+      expect(wrapper.find('.w-combobox__option-row--col1')).toHaveLength(3);
+      expect(wrapper.find('.w-combobox__option-row--col2')).toHaveLength(2);
     });
   });
 });

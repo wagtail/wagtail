@@ -212,6 +212,7 @@ $draftail-editor-font-family: theme('fontFamily.sans');
 
 .Draftail-ToolbarGroup {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .Draftail-ToolbarGroup::before {

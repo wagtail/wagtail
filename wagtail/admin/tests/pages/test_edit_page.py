@@ -289,7 +289,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(len(actions), 0)
 
     def test_usage_count_information_shown(self):
-        PageChooserModel.objects.create(page=self.event_page)
+        with self.captureOnCommitCallbacks(execute=True):
+            PageChooserModel.objects.create(page=self.event_page)
 
         # Tests that the edit page loads
         response = self.client.get(

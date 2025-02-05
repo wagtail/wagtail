@@ -1,4 +1,5 @@
 import json
+import os
 import unittest
 from datetime import datetime, timedelta
 from datetime import timezone as dt_timezone
@@ -29,6 +30,24 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
+
+
+class TestAvatarUrlInterceptTemplateTag(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.test_user = self.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            password="password",
+        )
+
+    def test_get_avatar_url_undefined(self):
+        url = avatar_url(self.test_user)
+        self.assertIn("www.gravatar.com", url)
+
+    @mock.patch.dict(os.environ, {"AVATAR_INTERCEPT": "True"}, clear=True)
+    def test_get_avatar_url_registered(self):
+        url = avatar_url(self.test_user)
+        self.assertEqual(url, "/some/avatar/fred.png")
 
 
 class TestAvatarTemplateTag(WagtailTestUtils, TestCase):

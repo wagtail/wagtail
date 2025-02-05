@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -49,6 +49,9 @@ msgstr "Sposta su"
 
 msgid "Move down"
 msgstr "Sposta giù"
+
+msgid "Drag"
+msgstr "Trascina"
 
 msgid "Duplicate"
 msgstr "Duplica"
@@ -169,6 +172,15 @@ msgstr "live + bozza"
 msgid "Default"
 msgstr "Default"
 
+msgid "Preview in mobile size"
+msgstr "Anteprima in formato mobile"
+
+msgid "Preview in tablet size"
+msgstr "Anteprima in formato tablet"
+
+msgid "Preview in desktop size"
+msgstr "Anteprima in formato desktop"
+
 msgid "locked"
 msgstr "bloccata"
 
@@ -271,6 +283,12 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "ultima revisione creata"
+
+msgid "For search engines"
+msgstr "Per i motori di ricerca"
+
+msgid "For site menus"
+msgstr "Per i menu del sito"
 
 msgid "page"
 msgstr "pagina"

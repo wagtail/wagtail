@@ -4,7 +4,7 @@ import { CountController } from './CountController';
 describe('CountController', () => {
   let application;
 
-  describe('basic behaviour', () => {
+  describe('basic behavior', () => {
     beforeAll(() => {
       application?.stop();
 

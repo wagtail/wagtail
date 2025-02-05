@@ -401,10 +401,6 @@ class TestMenuItem(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.request = response.wsgi_request
 
-    def test_menuitem_reverse_lazy_url_pass(self):
-        menuitem = MenuItem(_("Test"), reverse_lazy("wagtailadmin_home"))
-        self.assertIs(menuitem.is_active(self.request), True)
-
     def test_menuitem_with_classname(self):
         menuitem = MenuItem(
             _("Test"),
@@ -512,6 +508,9 @@ class Test404(WagtailTestUtils, TestCase):
             # Check 404 error after CommonMiddleware redirect
             self.assertEqual(response.status_code, 404)
             self.assertTemplateUsed(response, "wagtailadmin/404.html")
+            soup = self.get_soup(response.content)
+            self.assertFalse(soup.select("script"))
+            self.assertFalse(soup.select("[data-sprite]"))
 
     def test_not_logged_in_redirect(self):
         response = self.client.get("/admin/sdfgdsfgdsfgsdf/")

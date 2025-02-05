@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -250,9 +250,6 @@ msgstr "Tidak dapat menemukan halaman yang diminta."
 msgid "Go to Wagtail admin"
 msgstr "Pergi ke pengelolaan Wagtail"
 
-msgid "Account"
-msgstr "Akun"
-
 msgid "Reset password"
 msgstr "Atur ulang kata sandi"
 
@@ -371,10 +368,6 @@ msgstr ""
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tarik publikasi %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Ya, tarik publikasi"
 
@@ -387,22 +380,11 @@ msgstr "Komentar"
 msgid "Update"
 msgstr "Perbarui"
 
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Membandingkan %(title)s"
-
-msgid "Comparing"
-msgstr "Membandingkan"
-
 msgid "Fields"
 msgstr "Kolom-kolom"
 
 msgid "Changes"
 msgstr "Perubahan"
-
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "Selamat datang di %(site_name)s Wagtail CMS"
 
 msgid ""
 "This is your dashboard on which helpful information about content you've "
@@ -410,6 +392,12 @@ msgid ""
 msgstr ""
 "Ini adalah dasbor Anda. Di sini akan ditampilkan informasi yang berguna "
 "mengenai konten yang Anda buat,"
+
+msgid "Account"
+msgstr "Akun"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Edit this page"
 msgstr "Ubah halaman ini"
@@ -425,9 +413,6 @@ msgstr "Terpublikasi"
 
 msgid "Your most recent edits"
 msgstr "Perubahan terakhir yang anda lakukan"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Tanggal"
@@ -490,10 +475,6 @@ msgstr "Halaman \"%(title)s\" ditolak"
 
 msgid "You can preview the page here:"
 msgstr "Anda dapat meninjau halaman tersebut disini:"
-
-msgid "This page has been made private by a parent page."
-msgstr ""
-"Halaman ini telah dibuat menjadi bersifat pribadi oleh halaman induknya."
 
 msgid "Publishing…"
 msgstr "Mempublikasikan..."
@@ -580,9 +561,6 @@ msgstr "Salin"
 msgid "Copy this page"
 msgstr "Salin halaman ini"
 
-msgid "This page has unsaved changes."
-msgstr "Terdapat perubahan yang belum disimpan dalam halaman ini."
-
 msgid "Configure a site now."
 msgstr "Atur sebuah situs sekarang."
 
@@ -626,9 +604,6 @@ msgstr "Jenis Halaman"
 
 msgid "Enter a search term above"
 msgstr "Masukkan kata kunci pencarian di atas"
-
-msgid "No pages use"
-msgstr "Tidak ada halaman yang menggunakan"
 
 #, python-format
 msgid "Add %(label)s"
@@ -679,13 +654,6 @@ msgstr "Unduh CSV"
 
 msgid "Filter"
 msgstr "Saring"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
-
-msgid "Unschedule"
-msgstr "Hapus Jadwal"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
@@ -780,12 +748,12 @@ msgstr "Koleksi '%(object)s' diperbarui."
 msgid "The collection could not be saved due to errors."
 msgstr "Koleksi tidak dapat disimpan karena suatu galat."
 
-msgid "Delete collection"
-msgstr "Hapus koleksi"
-
 #, python-format
 msgid "Collection '%(object)s' deleted."
 msgstr "Koleksi '%(object)s' telah dihapus."
+
+msgid "Delete collection"
+msgstr "Hapus koleksi"
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Apakah anda yakin akan menghapus koleksi ini?"
@@ -812,14 +780,14 @@ msgstr "Periksa"
 msgid "Editing"
 msgstr "Mengubah"
 
-msgid "Inspecting"
-msgstr "Memeriksa"
-
 msgid "Earliest"
 msgstr "Paling awal"
 
 msgid "Latest"
 msgstr "Paling akhir"
+
+msgid "Unschedule"
+msgstr "Hapus Jadwal"
 
 #, python-format
 msgid "Edit this %(object)s"

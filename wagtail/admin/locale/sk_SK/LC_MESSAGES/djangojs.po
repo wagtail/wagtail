@@ -1,12 +1,12 @@
 #
 # Translators:
-# dellax <michalnebbia@gmail.com>, 2022
 # Martin Janšto <mato@jansto.sk>, 2022
 # Loic Teixeira, 2024
+# dellax <michalnebbia@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>, 2025\n"
 "Language-Team: Slovak (Slovakia) (https://app.transifex.com/torchbox/"
 "teams/8009/sk_SK/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,6 +37,9 @@ msgstr "Stránka"
 
 msgid "Pages"
 msgstr "Stránky"
+
+msgid "Preview"
+msgstr "Náhľad"
 
 msgid "Save"
 msgstr "Uložiť"

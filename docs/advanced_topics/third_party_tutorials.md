@@ -6,12 +6,20 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Create a blog in Django with Wagtail (video)](https://www.youtube.com/watch?v=3aVvAGj1joo) (20 January 2025)
+-   [Finding (StreamField) Blocks Across a Wagtail Site](https://code.informatikamihelac.com/en/finding-blocks-across-a-wagtail-site/) (6 December 2024)
+-   [Blog Site with Django + Wagtail CMS - Beginner Friendly Guide (video)](https://www.youtube.com/watch?v=xzdPGUDBslk) (25 November 2024)
+-   [Setting up Wagtail on Docker with PostgreSQL](https://dev.to/hari_shanmugam/wagtail-on-docker-2dfb) (24 November 2024)
+-   [Importing and Synchronizing Pages with Wagtail and Wagtail Localize](https://code-on.be/en/blog/how-to-import-your-existing-translated-content-with-wagtail-localize/) (20 November 2024)
+-   [How to Build No-Code Modal Components for Wagtail CMS Content Editors](https://blog.adonissimo.com/how-to-build-no-code-modal-components-for-wagtail-cms-content-editors) (17 November 2024)
+-   [How to Set Up GDPR-Compliant Analytics in Wagtail CMS: Cookie Consent with Clarity and Google Analytics](https://blog.adonissimo.com/how-to-set-up-gdpr-compliant-analytics-in-wagtail-cms-cookie-consent-with-clarity-and-google-analytics) (10 November 2024)
 -   [Adding Wagtail to a Django project to support content](https://medium.com/@zalun/base-6-wagtail-cms-for-the-content-f60d8ec7ac9e) (29 September 2024)
 -   [A simple block pattern for Wagtail CMS](https://lincolnloop.com/insights/simple-block-pattern-wagtail-cms/) (29 August 2024)
 -   [Django and Wagtail site building comparison tutorial video](https://www.youtube.com/watch?v=qodE7XyWCVw) (9 July 2024)
 -   [An introduction to Wagtail tutorial](https://medium.com/@dogung51290/wagtail-cms-tutorial-5bd39e08ad44) (17 June 2024)
 -   [Unleashing the Power of Custom Wagtail Models](https://www.linkedin.com/pulse/unleashing-power-custom-wagtail-models-kgothatso-phooko-70tcf) (9 June 2024)
 -   [Deploying Wagtail on Divio](https://docs.divio.com/en/latest/introduction/wagtail/) (~June 2024)
+-   [How to Deploy Wagtail To AWS EC2 and Digital Ocean](https://appliku.com/post/how-deploy-wagtail-aws-ec2-and-digital-ocean/) (12 May 2024)
 -   [Upgrading Wagtail (from 2.5 to 6.0)](https://learnwagtail.com/blog/category/upgrading-wagtail/) (18 April 2024)
 -   [Using Wagtail Form Templates in Software Development Projects](https://devcodef1.com/news/1211030/wagtail-form-templates-in-sd-projects) (9 April 2024)
 -   [Build an Intuitive Link StructBlock in Wagtail: Simplifying Link Management for Content Editors](https://enzedonline.com/en/tech-blog/build-an-intuitive-link-structblock-in-wagtail-simplifying-link-management-for-content-editors/) (9 March 2024)

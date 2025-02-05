@@ -166,7 +166,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             return Page.objects.filter(depth=1)
         else:
             codenames = self._get_permission_codenames(
-                {"add", "change", "publish", "lock"}
+                {"add", "change", "publish", "lock", "unlock", "bulk_delete"}
             )
             return [
                 perm.page
@@ -195,7 +195,7 @@ class PagePermissionPolicy(OwnershipPermissionPolicy):
             return base_queryset
 
         explorable_pages = self.instances_user_has_any_permission_for(
-            user, {"add", "change", "publish", "lock"}
+            user, {"add", "change", "publish", "lock", "unlock", "bulk_delete"}
         )
 
         # For all pages with specific permissions, add their ancestors as

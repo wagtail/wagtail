@@ -11,7 +11,6 @@ wagtail/images/static
 wagtail/embeds/static
 wagtail/search/static
 wagtail/snippets/static
-wagtail/users/static
 wagtail/contrib/*/static
 .mypy_cache
 /storybook-static

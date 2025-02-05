@@ -1453,7 +1453,8 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.image)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/images/confirm_delete.html")
@@ -1476,7 +1477,8 @@ class TestImageDeleteView(WagtailTestUtils, TestCase):
         )
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(protected_image=self.image)
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(protected_image=self.image)
         response = self.post()
         self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertTrue(Image.objects.filter(id=self.image.id).exists())
@@ -1493,18 +1495,19 @@ class TestUsage(WagtailTestUtils, TestCase):
         )
 
     def test_usage_page(self):
-        home_page = Page.objects.get(id=2)
-        home_page.add_child(
-            instance=EventPage(
-                title="Christmas",
-                slug="christmas",
-                feed_image=self.image,
-                date_from=datetime.date.today(),
-                audience="private",
-                location="Test",
-                cost="Test",
-            )
-        ).save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            home_page = Page.objects.get(id=2)
+            home_page.add_child(
+                instance=EventPage(
+                    title="Christmas",
+                    slug="christmas",
+                    feed_image=self.image,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            ).save_revision().publish()
 
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
@@ -1521,9 +1524,10 @@ class TestUsage(WagtailTestUtils, TestCase):
         self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_no_tags(self):
-        # tags should not count towards an image's references
-        self.image.tags.add("illustration")
-        self.image.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            # tags should not count towards an image's references
+            self.image.tags.add("illustration")
+            self.image.save()
         response = self.client.get(
             reverse("wagtailimages:image_usage", args=[self.image.id])
         )
@@ -1531,18 +1535,19 @@ class TestUsage(WagtailTestUtils, TestCase):
         self.assertNotContains(response, '<table class="listing">')
 
     def test_usage_page_with_only_change_permission(self):
-        home_page = Page.objects.get(id=2)
-        home_page.add_child(
-            instance=EventPage(
-                title="Christmas",
-                slug="christmas",
-                feed_image=self.image,
-                date_from=datetime.date.today(),
-                audience="private",
-                location="Test",
-                cost="Test",
-            )
-        ).save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            home_page = Page.objects.get(id=2)
+            home_page.add_child(
+                instance=EventPage(
+                    title="Christmas",
+                    slug="christmas",
+                    feed_image=self.image,
+                    date_from=datetime.date.today(),
+                    audience="private",
+                    location="Test",
+                    cost="Test",
+                )
+            ).save_revision().publish()
 
         # Create a user with change_image permission but not add_image
         user = self.create_user(
@@ -1871,6 +1876,7 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         self.image = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
+            description="Test description",
         )
 
     def get(self, params={}):
@@ -1885,6 +1891,12 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json["step"], "chosen")
         self.assertEqual(response_json["result"]["title"], "Test image")
+        self.assertEqual(
+            set(response_json["result"]["preview"].keys()), {"url", "width", "height"}
+        )
+        self.assertEqual(
+            response_json["result"]["default_alt_text"], "Test description"
+        )
 
     def test_with_multiple_flag(self):
         # if 'multiple' is passed as a URL param, the result should be returned as a single-item list
@@ -1895,6 +1907,13 @@ class TestImageChooserChosenView(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "chosen")
         self.assertEqual(len(response_json["result"]), 1)
         self.assertEqual(response_json["result"][0]["title"], "Test image")
+        self.assertEqual(
+            set(response_json["result"][0]["preview"].keys()),
+            {"url", "width", "height"},
+        )
+        self.assertEqual(
+            response_json["result"][0]["default_alt_text"], "Test description"
+        )
 
 
 class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
@@ -1905,15 +1924,18 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.image1 = Image.objects.create(
             title="Test image",
             file=get_test_image_file(),
+            description="Test description",
         )
         self.image2 = Image.objects.create(
             title="Another test image",
             file=get_test_image_file(),
+            description="Another test description",
         )
 
         self.image3 = Image.objects.create(
             title="Unchosen test image",
             file=get_test_image_file(),
+            description="Unchosen test description",
         )
 
     def get(self, params={}):
@@ -1935,6 +1957,8 @@ class TestImageChooserChosenMultipleView(WagtailTestUtils, TestCase):
         self.assertEqual(len(response_json["result"]), 2)
         titles = {item["title"] for item in response_json["result"]}
         self.assertEqual(titles, {"Test image", "Another test image"})
+        alt_texts = {item["default_alt_text"] for item in response_json["result"]}
+        self.assertEqual(alt_texts, {"Test description", "Another test description"})
 
 
 class TestImageChooserSelectFormatView(WagtailTestUtils, TestCase):

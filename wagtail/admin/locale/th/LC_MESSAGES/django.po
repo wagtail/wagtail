@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -267,9 +267,6 @@ msgstr "ไม่พบหน้าที่ต้องการหา"
 msgid "Go to Wagtail admin"
 msgstr "ไปยังหน้า Wagtail admin"
 
-msgid "Account"
-msgstr "ชื่อบัญชี"
-
 msgid "Reset password"
 msgstr "ตั้งรหัสใหม่อีกครั้ง"
 
@@ -397,10 +394,6 @@ msgstr ""
 "ลบ"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "ยกเลิกการเผยแพร่ %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "คุณแน่ใจว่าต้องการจะยุติการเผยแพร่ %(model_name)s นี้หรือไม่?"
 
@@ -425,27 +418,22 @@ msgstr "คุณยังต้องการจะเผยแพร่ %(mod
 msgid "Update"
 msgstr "ล่าสุด"
 
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "กำลังเปรียบเทียบ %(title)s"
-
-msgid "Comparing"
-msgstr "กำลังเปรียบเทียบ"
-
 msgid "Fields"
 msgstr "หัวข้อ"
 
 msgid "Changes"
 msgstr "เปลี่ยน"
 
-#, python-format
-msgid "Welcome to the %(site_name)s Wagtail CMS"
-msgstr "ยินดีต้อนรับสู่ %(site_name)s Wagtail CMS"
-
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "นี่คือหน้าจอที่ช่วยในการให้ข้อมูลเกี่ยวกับการแสดงเนื้อหาที่คุณสร้าง"
+
+msgid "Account"
+msgstr "ชื่อบัญชี"
+
+msgid "Status"
+msgstr "สถานะ"
 
 msgid "Edit this page"
 msgstr "แก้ไขหน้านี้"
@@ -458,9 +446,6 @@ msgstr "กำลังเผยแพร่"
 
 msgid "Your most recent edits"
 msgstr "ที่คุณแก้ไขล่าสุด"
-
-msgid "Status"
-msgstr "สถานะ"
 
 msgid "Date"
 msgstr "วันที่"
@@ -517,18 +502,6 @@ msgstr "หน้านี้ \"%(title)s\"ไม่ผ่านการอน�
 
 msgid "You can preview the page here:"
 msgstr "คุณสามารถดูภาพตัวอย่างได้จากตรงนี้"
-
-msgid "This page has been made private by a parent page."
-msgstr "หน้านี้ถูกตั้งค่าส่วนตัวโดยหน้าหลัก"
-
-msgid "Save the page before leaving"
-msgstr "บันทึกหน้านี้ก่อนออกไป"
-
-msgid "You have <span>unsaved edits</span>"
-msgstr "คุณมี <span>การแก้ไขที่ยังไม่ได้บันทึก</span>"
-
-msgid "You have <span>unsaved edits</span> and <span>comments</span>"
-msgstr "คุณมี <span>การแก้ไข</span> และ <span>ความคิดเห็น</span> ที่ยังไม่ได้บันทึก"
 
 msgid "Publishing…"
 msgstr "กำลังเผยแพร่..."
@@ -668,9 +641,6 @@ msgstr "ก๊อปปี้ , คัดลอก"
 msgid "Copy this page"
 msgstr "ก๊อปปี้หน้านี้ , คัดลอกหน้านี้"
 
-msgid "This page has unsaved changes."
-msgstr "หน้านี้มีการเปลี่ยนแปลงที่ยังไม่ได้เซฟเอาไว้"
-
 msgid "Configure a site now."
 msgstr "โครงสร้างเว็บไซด์ในขณะนี้"
 
@@ -714,9 +684,6 @@ msgstr "รูปแบบหน้า"
 
 msgid "Enter a search term above"
 msgstr "เข้าสู่การค้นหาคำที่หาอยู่"
-
-msgid "No pages use"
-msgstr "ไม่มีหน้าท่ีใช้"
 
 #, python-format
 msgid "Add %(label)s"
@@ -776,13 +743,6 @@ msgstr "คัดกรอง"
 msgid "Visit the live page"
 msgstr "ไปยังหน้าที่เผยแพร่"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
-
-msgid "Unschedule"
-msgstr "ยกเลิกตาราง"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "คุณแน่ใจว่าคุณอยากจะยกเลิกการแก้ไขนี้"
 
@@ -822,6 +782,12 @@ msgstr "ไม่ได้ตั้งกำหนดการเผยแพร
 
 msgid "First published"
 msgstr "เผยแพร่ครั้งแรก"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "คุณมี <span>การแก้ไขที่ยังไม่ได้บันทึก</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "คุณมี <span>การแก้ไข</span> และ <span>ความคิดเห็น</span> ที่ยังไม่ได้บันทึก"
 
 msgid "Edited"
 msgstr "ถูกแก้ไขเรีบยร้อยแล้ว"
@@ -940,14 +906,14 @@ msgstr "ตรวจ"
 msgid "Editing"
 msgstr "กำลังแก้ไข"
 
-msgid "Inspecting"
-msgstr "กำลังตรวจ"
-
 msgid "Earliest"
 msgstr "ที่เก่าแก่ที่สุด"
 
 msgid "Latest"
 msgstr "ล่าสุด"
+
+msgid "Unschedule"
+msgstr "ยกเลิกตาราง"
 
 #, python-format
 msgid "Edit this %(object)s"

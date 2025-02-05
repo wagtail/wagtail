@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:06+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
 "Last-Translator: Philip Lindsay-Crisp, 2024\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -245,15 +245,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Ydych chi'n siŵr eich bod am ddileu'r grŵp hwn?"
 
-msgid "Add group"
-msgstr "Ychwanegu grwp"
-
-msgid "Save"
-msgstr "Cadw"
-
-msgid "Delete group"
-msgstr "Dileu grwp"
-
 msgid "Object permissions"
 msgstr "Caniatadau gwrthrych"
 
@@ -265,15 +256,6 @@ msgstr "Ychwanegu"
 
 msgid "Change"
 msgstr "Newid"
-
-msgid "Publish"
-msgstr "Cyhoeddi"
-
-msgid "Lock"
-msgstr "Clo"
-
-msgid "Unlock"
-msgstr "Datgloi"
 
 msgid "Custom permissions"
 msgstr "Caniatadau personol"
@@ -289,15 +271,6 @@ msgstr "Toglo pob caniatâd i newid"
 
 msgid "Toggle all delete permissions"
 msgstr "Toglo pob caniatâd i dileu"
-
-msgid "Toggle all publish permissions"
-msgstr "Toglo pob caniatâd i cyhoeddi"
-
-msgid "Toggle all lock permissions"
-msgstr "Toglo pob caniatâd i gloi"
-
-msgid "Toggle all unlock permissions"
-msgstr "Toglo pob caniatâd i datgloi"
 
 msgid "Toggle all custom permissions"
 msgstr "Toglo pob caniatâd nghwstwm"
@@ -334,12 +307,6 @@ msgstr "Cyfrif"
 
 msgid "Roles"
 msgstr "Rolau"
-
-msgid "Add user"
-msgstr "Ychwanegu defnyddiwr"
-
-msgid "Delete user"
-msgstr "Dileu defnyddiwr"
 
 msgid "Select all users in listing"
 msgstr "Dewiswch yr holl ddefnyddwyr wrth restru"
@@ -426,6 +393,9 @@ msgstr "Ychwanegu grwp"
 msgid "Search groups"
 msgstr "Chwilio grwpiau"
 
+msgid "Add group"
+msgstr "Ychwanegu grwp"
+
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr "Grwp '%(object)s' wedi'i creu."
@@ -443,6 +413,9 @@ msgstr "Gweld defnyddwyr yn y grŵp hwn"
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr "Grwp '%(object)s' wedi'i dileu."
+
+msgid "Delete group"
+msgstr "Dileu grwp"
 
 msgid "Last login"
 msgstr "Mewngofnod diwethaf"
@@ -476,12 +449,18 @@ msgstr "Fwy o opsiynau i '%(title)s'"
 msgid "User '%(object)s' created."
 msgstr "Defnyddiwr '%(object)s' wedi' greu"
 
+msgid "Add user"
+msgstr "Ychwanegu defnyddiwr"
+
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr "Defnyddiwr '%(object)s' wedi'i diweddaru."
 
 msgid "The user could not be saved due to errors."
 msgstr "Nid oedd modd cadw'r defnyddiwr oherwydd gwallau."
+
+msgid "Delete user"
+msgstr "Dileu defnyddiwr"
 
 #, python-format
 msgid "User '%(object)s' deleted."

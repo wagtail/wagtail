@@ -4,15 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021,2023-2024
-# saevarom <saevar@saevar.is>, 2019-2023
+# saevarom <saevar@saevar.is>, 2019-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2020-2021,2023-2024\n"
+"Last-Translator: saevarom <saevar@saevar.is>, 2019-2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +42,9 @@ msgstr "Færa upp"
 
 msgid "Move down"
 msgstr "Færa niður"
+
+msgid "Drag"
+msgstr "Draga"
 
 msgid "Duplicate"
 msgstr "Afrita"
@@ -213,6 +215,15 @@ msgstr "í birtingu + uppkast"
 msgid "Default"
 msgstr "Sjálfgefið"
 
+msgid "Preview in mobile size"
+msgstr "Forskoða í farsíma stærð"
+
+msgid "Preview in tablet size"
+msgstr "Forskoða í spjaldtölvu stærð"
+
+msgid "Preview in desktop size"
+msgstr "Forskoða í borðtölvu stærð"
+
 msgid "locked"
 msgstr "læst"
 
@@ -311,6 +322,12 @@ msgstr "Lýsandi texti sem birtist undir fyrirsögn í leitarvélum."
 
 msgid "latest revision created at"
 msgstr "síðasta útgáfa búin til"
+
+msgid "For search engines"
+msgstr "Fyrir leitarvélar"
+
+msgid "For site menus"
+msgstr "Fyrir valmyndir"
 
 #, python-format
 msgid ""
@@ -556,6 +573,9 @@ msgstr "atburðaskráning gagnamódels"
 
 msgid "model log entries"
 msgstr "atburðaskráningar gagnamódels"
+
+msgid "locale"
+msgstr "tungumál"
 
 msgid "collection"
 msgstr "safn"

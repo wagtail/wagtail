@@ -1,12 +1,12 @@
 #
 # Translators:
 # Luka Matijević <lumatijev@gmail.com>, 2022
-# Dino Aljević <dino8890@protonmail.com>, 2023
 # Loic Teixeira, 2024
+# Dino Aljević <dino8890@protonmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2025\n"
 "Language-Team: Croatian (Croatia) (https://app.transifex.com/torchbox/"
 "teams/8009/hr_HR/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,6 +91,9 @@ msgstr "Stranice"
 
 msgid "Pin toolbar"
 msgstr "Prikači alatnu traku"
+
+msgid "Preview"
+msgstr "Pregled"
 
 msgid "Reload saved content"
 msgstr "Ponovno učitaj sačuvani sadržaj"

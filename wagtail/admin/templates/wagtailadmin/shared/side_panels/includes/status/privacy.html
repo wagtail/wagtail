@@ -2,10 +2,16 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
-    {% test_page_is_public page as is_public %}
+    {% if page.id %}{% test_page_is_public page as is_public %}{% else %}{% test_page_is_public parent_page as is_public %}{% endif %}
 
     {# The swap between public and private text is done using JS inside of privacy-switch.js when the response from the modal comes back #}
-    <div class="{% if not is_public %}w-hidden{% endif %}" data-privacy-sidebar-public>
+    <div
+        class="{% if not is_public %}w-hidden{% endif %}"
+        data-controller="w-zone"
+        data-action="w-privacy:changed@document->w-zone#switch"
+        data-w-zone-inactive-class="w-hidden"
+        data-w-zone-switch-key-value="isPublic"
+    >
         {% trans 'Page visibility: ' as screen_reader_title_prefix %}
         {% trans 'Visible to all' as title %}
         {% trans 'Once live anyone can view' as help_text %}
@@ -13,7 +19,13 @@
             {{ block.super }}
         {% endwith %}
     </div>
-    <div class="{% if is_public %}w-hidden{% endif %}" data-privacy-sidebar-private>
+    <div
+        class="!w-my-0 {% if is_public %}w-hidden{% endif %}"
+        data-controller="w-zone"
+        data-action="w-privacy:changed@document->w-zone#switch"
+        data-w-zone-inactive-class="w-hidden"
+        data-w-zone-switch-key-value="!isPublic"
+    >
         {% trans 'Private' as title %}
         {% trans 'Not visible to the public' as help_text %}
         {% with icon_name='no-view' %}

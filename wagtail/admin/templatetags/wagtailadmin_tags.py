@@ -654,8 +654,19 @@ def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
     the appropriate avatar url for that user.
+
+    If the 'get_avatar_url' hook is defined, then that will intercept this
+    logic and point to whatever resource that function returns. In this way,
+    users can swap out the Wagtail UserProfile avatar for some other image or
+    field of their own choosing without needing to alter anything on the
+    existing models.
+
     Example usage: {% avatar_url request.user 50 %}
+
     """
+    for hook_fn in hooks.get_hooks("get_avatar_url"):
+        if url := hook_fn(user, size):
+            return url
 
     if (
         not gravatar_only
@@ -972,6 +983,7 @@ def wagtail_config(context):
         "ADMIN_URLS": {
             "DISMISSIBLES": reverse("wagtailadmin_dismissibles"),
             "PAGES": reverse("wagtailadmin_explore_root"),
+            "BLOCK_PREVIEW": reverse("wagtailadmin_block_preview"),
         },
         "I18N_ENABLED": i18n_enabled(),
         "LOCALES": locales(serialize=False),

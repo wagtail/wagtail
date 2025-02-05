@@ -1,3 +1,5 @@
+(api)=
+
 # Wagtail API
 
 The API module provides a public-facing, JSON-formatted API to allow retrieving
@@ -6,7 +8,7 @@ non-web clients (such as a mobile phone app) or pulling content out of Wagtail
 for use in another site.
 
 See [RFC 8: Wagtail API](https://github.com/wagtail/rfcs/blob/main/text/008-wagtail-api.md#12---stable-and-unstable-versions)
-for full details on our stabilisation policy.
+for full details on our stabilization policy.
 
 ```{toctree}
 ---

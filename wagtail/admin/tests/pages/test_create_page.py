@@ -9,7 +9,13 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.models import GroupPagePermission, Locale, Page, Revision
+from wagtail.models import (
+    GroupPagePermission,
+    Locale,
+    Page,
+    PageViewRestriction,
+    Revision,
+)
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     BusinessChild,
@@ -420,6 +426,26 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             )
         )
         self.assertRedirects(response, "/admin/")
+
+    def test_create_page_defined_before_admin_load(self):
+        """
+        Test that a page model defined before wagtail.admin is loaded has all fields present
+        """
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("earlypage", "earlypage", self.root_page.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/create.html")
+        # Title field should be present and have TitleFieldPanel behaviour
+        # including syncing with slug
+        self.assertContains(response, 'data-w-sync-target-value="#id_slug"')
+        # SEO title should be present in promote tab
+        self.assertContains(
+            response, "The name of the page displayed on search engine results"
+        )
 
     def test_create_simplepage_post(self):
         post_data = {
@@ -1975,3 +2001,86 @@ class TestCommenting(WagtailTestUtils, TestCase):
         self.assertEqual("page-edit-form", form["id"])
         self.assertIn("w-init", form["data-controller"])
         self.assertEqual("", form["data-w-init-event-value"])
+
+
+class TestCreateViewChildPagePrivacy(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+        self.homepage = Page.objects.get(id=2)
+
+        self.private_parent_page = self.homepage.add_child(
+            instance=SimplePage(
+                title="Private Parent page",
+                content="hello",
+                live=True,
+            )
+        )
+
+        PageViewRestriction.objects.create(
+            page=self.private_parent_page,
+            restriction_type="password",
+            password="password123",
+        )
+
+        self.private_child_page = self.private_parent_page.add_child(
+            instance=SimplePage(
+                title="child page",
+                content="hello",
+                live=True,
+            )
+        )
+
+        self.public_parent_page = self.homepage.add_child(
+            instance=SimplePage(
+                title="Public Parent page",
+                content="hello",
+                live=True,
+            )
+        )
+
+        self.public_child_page = self.public_parent_page.add_child(
+            instance=SimplePage(
+                title="public page",
+                content="hello",
+                live=True,
+            )
+        )
+
+    def test_sidebar_private(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.private_child_page.id),
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+
+        public_div = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
+        private_div = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+
+        self.assertEqual(private_div["class"], ["!w-my-0"])
+
+        self.assertEqual(public_div["class"], ["w-hidden"])
+
+    def test_sidebar_public(self):
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.public_child_page.id),
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+
+        public_div = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
+        private_div = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+
+        self.assertEqual(public_div["class"], [])
+
+        self.assertEqual(private_div["class"], ["!w-my-0", "w-hidden"])

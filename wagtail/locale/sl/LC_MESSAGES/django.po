@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-07 10:05+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2024\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -49,6 +49,9 @@ msgstr "Premakni navzgor"
 
 msgid "Move down"
 msgstr "Premakni navzdol"
+
+msgid "Drag"
+msgstr "Povleci"
 
 msgid "Duplicate"
 msgstr "Podvoji"
@@ -216,6 +219,15 @@ msgstr "objavljeno + osnutek"
 msgid "Default"
 msgstr "Privzeta"
 
+msgid "Preview in mobile size"
+msgstr "Predogled v mobilni velikosti"
+
+msgid "Preview in tablet size"
+msgstr "Predogled v velikosti tablice"
+
+msgid "Preview in desktop size"
+msgstr "Predogled v namizni velikosti"
+
 msgid "locked"
 msgstr "zaklenjeno"
 
@@ -318,6 +330,12 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "zadnja različica ustvarjena"
+
+msgid "For search engines"
+msgstr "Za iskalnike"
+
+msgid "For site menus"
+msgstr "Za menije strani"
 
 #, python-format
 msgid ""

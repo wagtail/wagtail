@@ -176,7 +176,7 @@ const demoStyles = `
 `;
 
 const warningComment =
-  '<!-- Auto-generated with Storybook. See https://github.com/wagtail/wagtail/blob/main/client/src/tokens/colors.stories.tsx. Copy this comment’s parent section to update the `custom_user_interface_colours` documentation. -->';
+  '<!-- Auto-generated with Storybook. See https://github.com/wagtail/wagtail/blob/main/client/src/tokens/colors.stories.tsx. Copy this comment’s parent section to update the `custom_user_interface_colors` documentation. -->';
 
 const colorCustomisationsDemo = (
   <section>

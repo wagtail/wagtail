@@ -1,10 +1,10 @@
 #
 # Translators:
-# Fauzaan Gasim, 2024
+# Fauzaan Gasim, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Fauzaan Gasim, 2024\n"
+"Last-Translator: Fauzaan Gasim, 2025\n"
 "Language-Team: Divehi (https://app.transifex.com/torchbox/teams/8009/dv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: dv\n"
@@ -42,6 +42,9 @@ msgstr "ސަފްހާ"
 
 msgid "Pages"
 msgstr "ސަފްހާތައް"
+
+msgid "Preview"
+msgstr "ޕްރިވިއު"
 
 msgid ""
 "Report this error to your website administrator with the following "

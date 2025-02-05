@@ -5,12 +5,12 @@
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Loic Teixeira, 2024
 # Sébastien Corbin <seb.corbin@gmail.com>, 2024
+# Loic Teixeira, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
+"Last-Translator: Loic Teixeira, 2025\n"
 "Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -147,8 +147,11 @@ msgstr "Pages"
 msgid "Pin toolbar"
 msgstr "Épingler la barre d'outils"
 
+msgid "Preview"
+msgstr "Prévisualiser"
+
 msgid "Reload saved content"
-msgstr "Recharger le contenu sauvegardé"
+msgstr "Recharger le contenu enregistré"
 
 msgid "Reload the page"
 msgstr "Recharger la page"
@@ -210,8 +213,8 @@ msgstr "Scinder le bloc"
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
-"L’éditeur a rencontré un problème. Le dernier contenu sauvegardé a été "
-"restauré."
+"L’éditeur a rencontré un problème. Le contenu a été réinitialisé à la "
+"dernière version enregistrée."
 
 msgid "The maximum number of items is %(max_num)d"
 msgstr "Le nombre maximum d'éléments est %(max_num)d"

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 
 import { gettext } from '../../utils/gettext';
+import ComboBoxPreview from '../ComboBoxPreview/ComboBoxPreview';
 import Icon from '../Icon/Icon';
 
 import findMatches from './findMatches';
@@ -9,6 +10,7 @@ import findMatches from './findMatches';
 export const comboBoxTriggerLabel = gettext('Insert a block');
 export const comboBoxLabel = gettext('Search options…');
 export const comboBoxNoResults = gettext('No results');
+const comboBoxPreviewLabel = gettext('Preview');
 
 export interface ComboBoxCategory<ItemType> {
   type: string;
@@ -21,6 +23,8 @@ export interface ComboBoxItem {
   label?: string | null;
   description?: string | null;
   icon?: string | JSX.Element | null;
+  blockDefId?: string;
+  isPreviewable?: boolean;
   category?: string;
   render?: (props: { option: ComboBoxItem }) => JSX.Element | string;
 }
@@ -64,6 +68,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     (category) => category.items || [],
   );
   const [inputItems, setInputItems] = useState<ComboBoxOption[]>(flatItems);
+  const [previewedIndex, setPreviewedIndex] = useState<number>(-1);
   // Re-create the categories so the two-column layout flows as expected.
   const categories = items.reduce<ComboBoxCategory<ComboBoxOption>[]>(
     (cats, cat, index) => {
@@ -134,6 +139,9 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     },
 
     onInputValueChange: (changes) => {
+      // Hide any preview when the user types or clears the search input.
+      setPreviewedIndex(-1);
+
       const { inputValue: val } = changes;
       if (!val) {
         setInputItems(flatItems);
@@ -170,96 +178,129 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     }
   }, [inputValue]);
 
+  const previewedBlock =
+    previewedIndex >= 0 ? inputItems[previewedIndex] : null;
+
   return (
-    <div className="w-combobox">
-      {/* downshift does the label-field association itself. */}
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label {...getLabelProps()} className="w-sr-only">
-        {label}
-      </label>
-      <div className="w-combobox__field">
-        <input
-          {...getInputProps()}
-          type="text"
-          // Prevent the field from receiving focus if it’s not visible.
-          disabled={inlineCombobox}
-          placeholder={placeholder}
-        />
-      </div>
-      {noResults ? (
-        <div className="w-combobox__status">{noResultsText}</div>
-      ) : null}
-      <div {...getMenuProps()} className="w-combobox__menu">
-        {categories.map((category) => {
-          const categoryItems = (category.items || []).filter((item) =>
-            inputItems.find((i) => i.type === item.type),
-          );
-          const itemColumns = Math.ceil(categoryItems.length / 2);
+    <div className="w-combobox-container">
+      <div className="w-combobox">
+        {/* downshift does the label-field association itself. */}
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <label {...getLabelProps()} className="w-sr-only">
+          {label}
+        </label>
+        <div className="w-combobox__field">
+          <input
+            {...getInputProps()}
+            type="text"
+            // Prevent the field from receiving focus if it’s not visible.
+            disabled={inlineCombobox}
+            placeholder={placeholder}
+          />
+        </div>
+        {noResults ? (
+          <div className="w-combobox__status">{noResultsText}</div>
+        ) : null}
+        <div {...getMenuProps()} className="w-combobox__menu">
+          {categories.map((category) => {
+            const categoryItems = (category.items || []).filter((item) =>
+              inputItems.find((i) => i.type === item.type),
+            );
+            const itemColumns = Math.ceil(categoryItems.length / 2);
 
-          if (categoryItems.length === 0) {
-            return null;
-          }
+            if (categoryItems.length === 0) {
+              return null;
+            }
 
-          return (
-            <div className="w-combobox__optgroup" key={category.type}>
-              {category.label ? (
-                <div className="w-combobox__optgroup-label">
-                  {category.label}
-                </div>
-              ) : null}
-              {categoryItems.map((item, index) => {
-                const itemLabel = getItemLabel(item.type, item);
-                const description = getItemDescription(item);
-                const itemIndex = inputItems.findIndex(
-                  (i) => i.type === item.type,
-                );
-                const itemColumn = index + 1 <= itemColumns ? 1 : 2;
-                const hasIcon =
-                  typeof item.icon !== 'undefined' && item.icon !== null;
-                let icon: JSX.Element | null | undefined = null;
-
-                if (hasIcon) {
-                  if (Array.isArray(item.icon)) {
-                    icon = (
-                      <Icon name="custom" viewBox="0 0 1024 1024">
-                        {item.icon.map((pathData: string) => (
-                          <path key={pathData} d={pathData} />
-                        ))}
-                      </Icon>
-                    );
-                  } else {
-                    icon =
-                      typeof item.icon === 'string' ? (
-                        <Icon name={item.icon} />
-                      ) : (
-                        item.icon
-                      );
-                  }
-                }
-
-                return (
-                  <div
-                    key={item.type}
-                    {...getItemProps({ item, index: itemIndex })}
-                    className={`w-combobox__option w-combobox__option--col${itemColumn}`}
-                  >
-                    <div className="w-combobox__option-icon">
-                      {icon}
-                      {/* Support for rich text options using text as an icon (for example "B" for bold). */}
-                      {itemLabel && !hasIcon ? <span>{itemLabel}</span> : null}
-                    </div>
-                    <div className="w-combobox__option-text">
-                      {item.render
-                        ? item.render({ option: item })
-                        : description}
-                    </div>
+            return (
+              <div className="w-combobox__optgroup" key={category.type}>
+                {category.label ? (
+                  <div className="w-combobox__optgroup-label">
+                    {category.label}
                   </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                ) : null}
+                {categoryItems.map((item, index) => {
+                  const itemLabel = getItemLabel(item.type, item);
+                  const description = getItemDescription(item);
+                  const itemIndex = inputItems.findIndex(
+                    (i) => i.type === item.type,
+                  );
+                  const itemColumn = index + 1 <= itemColumns ? 1 : 2;
+                  const hasIcon =
+                    typeof item.icon !== 'undefined' && item.icon !== null;
+                  let icon: JSX.Element | null | undefined = null;
+
+                  if (hasIcon) {
+                    if (Array.isArray(item.icon)) {
+                      icon = (
+                        <Icon name="custom" viewBox="0 0 1024 1024">
+                          {item.icon.map((pathData: string) => (
+                            <path key={pathData} d={pathData} />
+                          ))}
+                        </Icon>
+                      );
+                    } else {
+                      icon =
+                        typeof item.icon === 'string' ? (
+                          <Icon name={item.icon} />
+                        ) : (
+                          item.icon
+                        );
+                    }
+                  }
+
+                  return (
+                    <div
+                      key={item.type}
+                      className={`w-combobox__option-row w-combobox__option-row--col${itemColumn}`}
+                    >
+                      <div
+                        {...getItemProps({ item, index: itemIndex })}
+                        className="w-combobox__option"
+                      >
+                        <div className="w-combobox__option-icon">
+                          {icon}
+                          {/* Support for rich text options using text as an icon (for example "B" for bold). */}
+                          {itemLabel && !hasIcon ? (
+                            <span>{itemLabel}</span>
+                          ) : null}
+                        </div>
+                        <div className="w-combobox__option-text">
+                          {item.render
+                            ? item.render({ option: item })
+                            : description}
+                        </div>
+                      </div>
+
+                      {item.isPreviewable ? (
+                        <button
+                          className="w-combobox__option-preview"
+                          aria-label={comboBoxPreviewLabel}
+                          aria-expanded={previewedIndex === itemIndex}
+                          type="button"
+                          onClick={() =>
+                            setPreviewedIndex(
+                              previewedIndex === itemIndex ? -1 : itemIndex,
+                            )
+                          }
+                        >
+                          <Icon name="view" />
+                        </button>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
+      {previewedBlock?.isPreviewable ? (
+        <ComboBoxPreview
+          item={previewedBlock}
+          previewLabel={comboBoxPreviewLabel}
+        />
+      ) : null}
     </div>
   );
 }

@@ -102,6 +102,30 @@ depth: 1
 ---
 ```
 
+## Appearance
+
+Hooks for modifying the display and appearance of basic CMS features and furniture.
+
+(get_avatar_url)=
+
+### `get_avatar_url`
+
+Specify a custom user avatar to be displayed in the Wagtail admin. The callable passed to this hook should accept a `user` object and a `size` parameter that can be used in any resize or thumbnail processing you might need to do.
+
+```python
+from datetime import datetime
+
+@hooks.register('get_avatar_url')
+def get_profile_avatar(user, size):
+    today = datetime.now()
+    is_christmas_day = today.month == 12 and today.day == 25
+
+    if is_christmas_day:
+      return '/static/images/santa.png'
+
+    return None
+```
+
 ## Admin modules
 
 Hooks for building new areas of the admin interface (alongside pages, images, documents, and so on).
@@ -846,7 +870,7 @@ def make_publish_default_action(menu_items, request, context):
 
 ### `construct_wagtail_userbar`
 
-Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object and a list of menu objects, `items`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
+Add or remove items from the Wagtail [user bar](wagtailuserbar_tag). Actions for adding and editing are provided by default. The callable passed into the hook must take the `request` object, a list of menu objects `items`, and an instance of page object `page`. The menu item objects must have a `render` method which can take a `request` object and return the HTML string representing the menu item. See the userbar templates and menu item classes for more information. See also the {class}`~wagtail.admin.userbar.AccessibilityItem` class for the accessibility checker item in particular.
 
 ```python
 from wagtail import hooks
@@ -857,7 +881,7 @@ class UserbarPuppyLinkItem:
             + 'target="_parent" role="menuitem" class="action">Puppies!</a></li>'
 
 @hooks.register('construct_wagtail_userbar')
-def add_puppy_link_item(request, items):
+def add_puppy_link_item(request, items, page):
     return items.append( UserbarPuppyLinkItem() )
 ```
 
@@ -1130,6 +1154,42 @@ def block_googlebot(page, request, serve_args, serve_kwargs):
     if request.META.get('HTTP_USER_AGENT') == 'GoogleBot':
         return HttpResponse("<h1>bad googlebot no cookie</h1>")
 ```
+
+(on_serve_page)=
+
+### `on_serve_page`
+
+Called when Wagtail is serving a page, after `before_serve_page` but before the page's `serve()` method is called. Unlike `before_serve_page`, this hook allows you to modify the serving chain rather than just returning an alternative response.
+
+The callable passed to this hook must accept a function as its argument and return a new function that will be used in its place. The passed-in function will be the next callable in the serving chain.
+
+For example, to add custom cache headers to the response:
+
+```python
+from wagtail import hooks
+
+@hooks.register('on_serve_page')
+def add_custom_headers(next_serve_page):
+    def wrapper(page, request, args, kwargs):
+        response = next_serve_page(page, request, args, kwargs)
+        response['Custom-Header'] = 'value'
+        return response
+    return wrapper
+```
+
+Parameters passed to the function:
+
+-   `page` - the Page object being served
+-   `request` - the request object
+-   `args` - positional arguments that will be passed to the page's serve method
+-   `kwargs` - keyword arguments that will be passed to the page's serve method
+
+This hook is particularly useful for:
+
+-   Adding/modifying response headers
+-   Implementing access restrictions
+-   Modifying the response content
+-   Adding logging or monitoring
 
 ## Document serving
 

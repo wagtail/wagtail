@@ -375,7 +375,7 @@ describe('PreviewController', () => {
     });
   });
 
-  describe('basic behaviour', () => {
+  describe('basic behavior', () => {
     it('should initialize the preview when the side panel is opened', async () => {
       expect(global.fetch).not.toHaveBeenCalled();
       expect(events.ready).toHaveLength(0);
@@ -1000,7 +1000,7 @@ describe('PreviewController', () => {
       application.register(identifier, PreviewController);
       await Promise.resolve();
 
-      // Simulate Firefox's behaviour where the initial iframe without the src
+      // Simulate Firefox's behavior where the initial iframe without the src
       // attribute immediately dispatches the load event
       let iframes = document.querySelectorAll('iframe');
       expect(iframes.length).toEqual(1);

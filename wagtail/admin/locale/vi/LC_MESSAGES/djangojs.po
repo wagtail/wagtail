@@ -1,13 +1,13 @@
 #
 # Translators:
 # Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2022
-# Vu Pham, 2022
 # Luan Nguyen <lihavim@gmail.com>, 2022
 # Loic Teixeira, 2022
+# Vu Pham, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Vu Pham, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/torchbox/teams/8009/"
 "vi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,6 +52,9 @@ msgstr "Trang"
 
 msgid "Pages"
 msgstr "Trang"
+
+msgid "Preview"
+msgstr "Xem trước"
 
 msgid "Save"
 msgstr "Lưu"

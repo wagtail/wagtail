@@ -42,9 +42,17 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     page_title = ""
     page_subtitle = ""
     header_icon = ""
-    # Breadcrumbs are opt-in until we have a design that can be consistently applied
-    _show_breadcrumbs = False
+
     breadcrumbs_items = [{"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")}]
+    """
+    The base set of breadcrumbs items to be displayed on the page.
+    The property can be overridden by subclasses and viewsets to provide
+    custom base items, e.g. page tree breadcrumbs or add the "Snippets" item.
+
+    Views should copy and append to this list in :meth:`get_breadcrumbs_items()`
+    to define the path to the current view.
+    """
+
     template_name = "wagtailadmin/generic/base.html"
     header_buttons = []
     header_more_buttons = []
@@ -66,6 +74,12 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         return self.header_icon
 
     def get_breadcrumbs_items(self):
+        """
+        Define the current path to the view by copying the base
+        :attr:`breadcrumbs_items` and appending the list.
+
+        If breadcrumbs are not required, return an empty list.
+        """
         return self.breadcrumbs_items
 
     def get_header_buttons(self):
@@ -93,14 +107,11 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
         context["page_title"] = self.get_page_title()
         context["page_subtitle"] = self.get_page_subtitle()
         context["header_icon"] = self.get_header_icon()
-
-        # Once all appropriate views use "wagtailadmin/generic/base.html" and
-        # the slim_header.html, _show_breadcrumbs can be removed
         context["header_title"] = self.get_header_title()
-        context["breadcrumbs_items"] = None
-        if self._show_breadcrumbs:
-            context["breadcrumbs_items"] = self.get_breadcrumbs_items()
-            context["header_buttons"] = self.get_header_buttons()
+
+        # Breadcrumbs are enabled by default.
+        context["breadcrumbs_items"] = self.get_breadcrumbs_items()
+        context["header_buttons"] = self.get_header_buttons()
         return context
 
     def get_template_names(self):
@@ -204,7 +215,6 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     default_ordering = None
     filterset_class = None
     verbose_name_plural = None
-    _show_breadcrumbs = True
     paginator_class = get_wagtail_paginator_class()
 
     def get_template_names(self):

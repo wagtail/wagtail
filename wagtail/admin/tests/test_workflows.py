@@ -431,6 +431,40 @@ class TestWorkflowsCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase
             response.content,
         )
 
+        # Check the correct data attributes have been set on the form
+        soup = self.get_soup(response.content)
+        workflow_pages_panel = soup.find(id="workflow-pages-section")
+        self.assertIn(
+            "w-formset",
+            workflow_pages_panel.attrs["data-controller"],
+        )
+        self.assertEqual(
+            "totalFormsInput",
+            workflow_pages_panel.find(id="id_pages-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            workflow_pages_panel.find("template").attrs["data-w-formset-target"],
+        )
+
+        tbody = workflow_pages_panel.find("table").find("tbody")
+        self.assertEqual(
+            "forms",
+            tbody.attrs["data-w-formset-target"],
+        )
+
+        row = tbody.find("tr")
+        self.assertEqual(
+            "child",
+            row.attrs["data-w-formset-target"],
+        )
+        self.assertEqual(
+            "deleteInput",
+            row.find(id="id_pages-0-DELETE").attrs["data-w-formset-target"],
+        )
+
     def test_post(self):
         response = self.post(
             {
@@ -662,6 +696,41 @@ class TestWorkflowsEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         # Check that the list of pages has the page to which this workflow is assigned
         self.assertContains(response, self.page.title)
+
+        # Check the correct data attributes have been set on the form
+        soup = self.get_soup(response.content)
+
+        workflow_pages_panel = soup.find(id="workflow-pages-section")
+        self.assertIn(
+            "w-formset",
+            workflow_pages_panel.attrs["data-controller"],
+        )
+        self.assertEqual(
+            "totalFormsInput",
+            workflow_pages_panel.find(id="id_pages-TOTAL_FORMS").attrs[
+                "data-w-formset-target"
+            ],
+        )
+        self.assertEqual(
+            "template",
+            workflow_pages_panel.find("template").attrs["data-w-formset-target"],
+        )
+
+        tbody = workflow_pages_panel.find("table").find("tbody")
+        self.assertEqual(
+            "forms",
+            tbody.attrs["data-w-formset-target"],
+        )
+
+        row = tbody.find("tr")
+        self.assertEqual(
+            "child",
+            row.attrs["data-w-formset-target"],
+        )
+        self.assertEqual(
+            "deleteInput",
+            row.find(id="id_pages-0-DELETE").attrs["data-w-formset-target"],
+        )
 
     def test_post(self):
         response = self.post(

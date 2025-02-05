@@ -12,13 +12,14 @@ import { DialogController } from './DialogController';
 import { DismissibleController } from './DismissibleController';
 import { DrilldownController } from './DrilldownController';
 import { DropdownController } from './DropdownController';
+import { FormsetController } from './FormsetController';
 import { InitController } from './InitController';
 import { KeyboardController } from './KeyboardController';
-import { LinkController } from './LinkController';
 import { OrderableController } from './OrderableController';
 import { PreviewController } from './PreviewController';
 import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
+import { RulesController } from './RulesController';
 import { SessionController } from './SessionController';
 import { SkipLinkController } from './SkipLinkController';
 import { SlugController } from './SlugController';
@@ -30,6 +31,8 @@ import { TeleportController } from './TeleportController';
 import { TooltipController } from './TooltipController';
 import { UnsavedController } from './UnsavedController';
 import { UpgradeController } from './UpgradeController';
+import { ZoneController } from './ZoneController';
+import { LocaleController } from './LocaleController';
 
 /**
  * Important: Only add default core controllers that should load with the base admin JS bundle.
@@ -48,14 +51,16 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: DismissibleController, identifier: 'w-dismissible' },
   { controllerConstructor: DrilldownController, identifier: 'w-drilldown' },
   { controllerConstructor: DropdownController, identifier: 'w-dropdown' },
+  { controllerConstructor: FormsetController, identifier: 'w-formset' },
   { controllerConstructor: InitController, identifier: 'w-init' },
   { controllerConstructor: KeyboardController, identifier: 'w-kbd' },
-  { controllerConstructor: LinkController, identifier: 'w-link' },
+  { controllerConstructor: LocaleController, identifier: 'w-locale' },
   { controllerConstructor: OrderableController, identifier: 'w-orderable' },
   { controllerConstructor: PreviewController, identifier: 'w-preview' },
   { controllerConstructor: ProgressController, identifier: 'w-progress' },
   { controllerConstructor: RevealController, identifier: 'w-breadcrumbs' },
   { controllerConstructor: RevealController, identifier: 'w-reveal' },
+  { controllerConstructor: RulesController, identifier: 'w-rules' },
   { controllerConstructor: SessionController, identifier: 'w-session' },
   { controllerConstructor: SkipLinkController, identifier: 'w-skip-link' },
   { controllerConstructor: SlugController, identifier: 'w-slug' },
@@ -67,4 +72,5 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: TooltipController, identifier: 'w-tooltip' },
   { controllerConstructor: UnsavedController, identifier: 'w-unsaved' },
   { controllerConstructor: UpgradeController, identifier: 'w-upgrade' },
+  { controllerConstructor: ZoneController, identifier: 'w-zone' },
 ];

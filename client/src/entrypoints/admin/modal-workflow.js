@@ -1,29 +1,29 @@
-/* A framework for modal popups that are loaded via AJAX, allowing navigation to other
-subpages to happen within the lightbox, and returning a response to the calling page,
-possibly after several navigation steps
-*/
-
 import $ from 'jquery';
 
 import { noop } from '../../utils/noop';
 import { gettext } from '../../utils/gettext';
 
-/* eslint-disable */
+/**
+ * ModalWorkflow - A framework for modal popups that are loaded via AJAX.
+ *
+ * @description
+ * Allows navigation to other subpages to happen within the modal.
+ * Supports returning a response to the calling page, which may happen after several navigation steps.
+ *
+ * @param {object} opts
+ * @param {string} opts.url - A URL to the view that will be loaded into the dialog.
+ *   If not provided and `dialogId` is given, the dialog component's `data-url` attribute is used instead.
+ * @param {string=} opts.dialogId - The id of the dialog component to use instead of the Bootstrap modal.
+ * @param {Object.<string, function>=} opts.responses - A object of callbacks to be called when the modal content calls `modal.respond(callbackName, params)`
+ * @param {Object.<string, function>=} opts.onload - A object of callbacks to be called when loading a step of the workflow.
+ *   The 'step' field in the response identifies the callback to call, passing it the
+ *   modal object and response data as arguments.
+ * @param {HTMLElement=} opts.triggerElement - Element that triggered the modal.
+ *   It will be disabled while the modal is shown.
+ *   If not provided, defaults to `document.activeElement` (which may not work as expected in Safari).
+ * @returns {object}
+ */
 function ModalWorkflow(opts) {
-  /* options passed in 'opts':
-    'url' (required): URL to the view that will be loaded into the dialog.
-      If not provided and dialogId is given, the dialog component's data-url attribute is used instead.
-    'dialogId' (optional): the id of the dialog component to use instead of the Bootstrap modal
-    'responses' (optional): dict of callbacks to be called when the modal content
-      calls modal.respond(callbackName, params)
-    'onload' (optional): dict of callbacks to be called when loading a step of the workflow.
-      The 'step' field in the response identifies the callback to call, passing it the
-      modal object and response data as arguments
-    'triggerElement' (optional): element that triggered the modal.
-      It will be disabled while the modal is shown.
-      If not provided, defaults to `document.activeElement` (which may not work as expected in Safari).
-  */
-
   const self = {};
   const responseCallbacks = opts.responses || {};
   const errorCallback = opts.onError || noop;
@@ -73,7 +73,7 @@ function ModalWorkflow(opts) {
     });
 
     // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
-    self.container.on('hidden.bs.modal', function () {
+    self.container.on('hidden.bs.modal', () => {
       self.triggerElement.focus();
       self.container.remove();
     });
@@ -82,24 +82,24 @@ function ModalWorkflow(opts) {
     self.body = self.container.find('.modal-body');
   }
 
-  self.loadUrl = function (url, urlParams) {
+  self.loadUrl = function loadUrl(url, urlParams) {
     $.get(url, urlParams, self.loadResponseText, 'text').fail(errorCallback);
   };
 
-  self.postForm = function (url, formData) {
+  self.postForm = function postForm(url, formData) {
     $.post(url, formData, self.loadResponseText, 'text').fail(errorCallback);
   };
 
-  self.ajaxifyForm = function (formSelector) {
-    $(formSelector).each(function () {
+  self.ajaxifyForm = function ajaxifyForm(formSelector) {
+    $(formSelector).each(function ajaxifyFormInner() {
       const action = this.action;
       if (this.method.toLowerCase() === 'get') {
-        $(this).on('submit', function () {
+        $(this).on('submit', function handleSubmit() {
           self.loadUrl(action, $(this).serialize());
           return false;
         });
       } else {
-        $(this).on('submit', function () {
+        $(this).on('submit', function handleSubmit() {
           self.postForm(action, $(this).serialize());
           return false;
         });
@@ -107,12 +107,12 @@ function ModalWorkflow(opts) {
     });
   };
 
-  self.loadResponseText = function (responseText) {
+  self.loadResponseText = function loadResponseText(responseText) {
     const response = JSON.parse(responseText);
     self.loadBody(response);
   };
 
-  self.loadBody = function (response) {
+  self.loadBody = function loadBody(response) {
     if (response.html) {
       // if response contains an 'html' item, replace modal body with it
       if (useDialog) {
@@ -130,14 +130,14 @@ function ModalWorkflow(opts) {
     }
   };
 
-  self.respond = function (responseType) {
+  self.respond = function handleResponse(responseType) {
     if (responseType in responseCallbacks) {
-      const args = Array.prototype.slice.call(arguments, 1);
+      const args = Array.prototype.slice.call(arguments, 1); // eslint-disable-line prefer-rest-params
       responseCallbacks[responseType].apply(self, args);
     }
   };
 
-  self.close = function () {
+  self.close = function handleClose() {
     if (useDialog) {
       self.dialog.dispatchEvent(new CustomEvent('w-dialog:hide'));
     } else {
@@ -149,4 +149,5 @@ function ModalWorkflow(opts) {
 
   return self;
 }
+
 window.ModalWorkflow = ModalWorkflow;

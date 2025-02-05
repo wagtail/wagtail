@@ -15,7 +15,7 @@ class TestGenericIndexView(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         response_object_count = response.context_data["object_list"].count()
-        self.assertEqual(response_object_count, 3)
+        self.assertEqual(response_object_count, 4)
         self.assertContains(response, "first modelwithstringtypeprimarykey model")
         self.assertContains(response, "second modelwithstringtypeprimarykey model")
         soup = self.get_soup(response.content)
@@ -34,7 +34,7 @@ class TestGenericIndexViewWithoutModel(WagtailTestUtils, TestCase):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         response_object_count = response.context_data["object_list"].count()
-        self.assertEqual(response_object_count, 3)
+        self.assertEqual(response_object_count, 4)
 
 
 class TestGenericEditView(WagtailTestUtils, TestCase):
@@ -58,19 +58,29 @@ class TestGenericEditView(WagtailTestUtils, TestCase):
             response, "non-url-safe pk modelwithstringtypeprimarykey model"
         )
 
-    def test_using_quote_in_edit_url(self):
-        object_pk = 'string-pk-:#?;@&=+$,"[]<>%'
+    def test_unquote_sensitive_primary_key(self):
+        object_pk = "web_407269_1"
         response = self.get(quote(object_pk))
-        edit_url = response.context_data["action_url"]
-        edit_url_pk = edit_url.split("/")[-2]
-        self.assertEqual(edit_url_pk, quote(object_pk))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "unquote-sensitive modelwithstringtypeprimarykey model"
+        )
+
+    def test_using_quote_in_edit_url(self):
+        for object_pk in ('string-pk-:#?;@&=+$,"[]<>%', "web_407269_1"):
+            with self.subTest(object_pk=object_pk):
+                response = self.get(quote(object_pk))
+                edit_url = response.context_data["action_url"]
+                edit_url_pk = edit_url.split("/")[-2]
+                self.assertEqual(edit_url_pk, quote(object_pk))
 
     def test_using_quote_in_delete_url(self):
-        object_pk = 'string-pk-:#?;@&=+$,"[]<>%'
-        response = self.get(quote(object_pk))
-        delete_url = response.context_data["delete_url"]
-        delete_url_pk = delete_url.split("/")[-2]
-        self.assertEqual(delete_url_pk, quote(object_pk))
+        for object_pk in ('string-pk-:#?;@&=+$,"[]<>%', "web_407269_1"):
+            with self.subTest(object_pk=object_pk):
+                response = self.get(quote(object_pk))
+                delete_url = response.context_data["delete_url"]
+                delete_url_pk = delete_url.split("/")[-2]
+                self.assertEqual(delete_url_pk, quote(object_pk))
 
 
 class TestGenericDeleteView(WagtailTestUtils, TestCase):
@@ -87,5 +97,10 @@ class TestGenericDeleteView(WagtailTestUtils, TestCase):
 
     def test_with_non_url_safe_primary_key(self):
         object_pk = 'string-pk-:#?;@&=+$,"[]<>%'
+        response = self.get(quote(object_pk))
+        self.assertEqual(response.status_code, 200)
+
+    def test_with_unquote_sensitive_primary_key(self):
+        object_pk = "web_407269_1"
         response = self.get(quote(object_pk))
         self.assertEqual(response.status_code, 200)

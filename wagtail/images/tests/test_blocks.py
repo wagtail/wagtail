@@ -236,7 +236,7 @@ class TestImageBlock(TestImageChooserBlock):
         value = block.to_python(self.image.id)
 
         self.assertEqual(value.id, self.image.id)
-        self.assertEqual(value.contextual_alt_text, None)
+        self.assertEqual(value.contextual_alt_text, "Test image")  # Defaulted to title
         self.assertFalse(value.decorative)
 
     def test_to_python_with_dict(self):
@@ -248,15 +248,28 @@ class TestImageBlock(TestImageChooserBlock):
         self.assertEqual(result.contextual_alt_text, "Sample text")
         self.assertFalse(result.decorative)
 
+    def test_to_python_with_none(self):
+        # Like the test_to_python_with_int case, this can occur when a non-required
+        # ImageChooserBlock has been changed to an ImageBlock
+        block = ImageBlock(required=False)
+        value = block.to_python(None)
+        self.assertIsNone(value)
+
     def test_bulk_to_python_with_empty_list(self):
         block = ImageBlock(required=False)
         result = block.bulk_to_python([])
         self.assertEqual(result, [])
 
+    def test_bulk_to_python_with_list_of_none(self):
+        block = ImageBlock(required=False)
+        result = block.bulk_to_python([None])
+        self.assertEqual(result, [None])
+
     def test_bulk_to_python_with_list_of_ints(self):
         block = ImageBlock(required=False)
+        single_image = block.to_python(self.image.id)
         result = block.bulk_to_python([None, self.image.id, self.image.id])
-        self.assertEqual(result, [None, self.image, self.image])
+        self.assertEqual(result, [None, single_image, single_image])
 
     def test_bulk_to_python_with_list_of_dicts(self):
         block = ImageBlock(required=False)
@@ -360,6 +373,37 @@ class TestImageBlock(TestImageChooserBlock):
             }
         )
         self.assertIsNone(block.clean(value))
+
+    def test_get_block_by_content_path(self):
+        field = StreamPage._meta.get_field("body")
+        page = StreamPage(
+            body=field.stream_block.to_python(
+                [
+                    {
+                        "id": "123",
+                        "type": "image_with_alt",
+                        "value": {
+                            "image": self.image.id,
+                            "alt_text": "Sample alt text",
+                            "decorative": False,
+                        },
+                    },
+                ]
+            )
+        )
+        bound_block = field.get_block_by_content_path(page.body, ["123"])
+        self.assertEqual(bound_block.block.name, "image_with_alt")
+        self.assertIsInstance(bound_block.value, Image)
+        self.assertEqual(bound_block.value.id, self.image.id)
+
+        bound_block = field.get_block_by_content_path(page.body, ["123", "alt_text"])
+        self.assertEqual(bound_block.block.name, "alt_text")
+        self.assertEqual(bound_block.value, "Sample alt text")
+
+        bound_block = field.get_block_by_content_path(
+            page.body, ["123", "does_not_exist"]
+        )
+        self.assertIsNone(bound_block)
 
 
 class TestImageBlockComparison(TestCase):
