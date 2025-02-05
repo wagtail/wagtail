@@ -7,6 +7,7 @@ Changelog
  * Fix: Prevent error when filtering by locale and searching with Elasticsearch (Sage Abdullah)
  * Fix: Support searching `none()` querysets (Matt Westcott)
  * Fix: Correctly handle UUID primary keys when invoking background tasks (Matt Westcott)
+ * Fix: Fix regression where nested sub-menu items would not be visible (Sage Abdullah)
  * Maintenance: Remove upper version boundary for django-filter. (Dan Braghis)
  * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
 

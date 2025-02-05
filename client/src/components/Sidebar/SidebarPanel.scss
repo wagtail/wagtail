@@ -13,7 +13,6 @@
   z-index: 400;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 
   @include media-breakpoint-up(sm) {
     z-index: var(--z-index);
@@ -28,6 +27,10 @@
   &--visible {
     visibility: visible;
     box-shadow: 2px 0 2px theme('colors.black-35');
+  }
+
+  .sidebar-page-explorer-item & {
+    overflow: hidden;
   }
 
   // Showing the submenu options panel in mobile mode
