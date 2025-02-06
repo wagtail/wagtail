@@ -1409,10 +1409,15 @@ class AbstractRendition(ImageFileMixin, models.Model):
             if not in_unique_together and not in_unique_constraint:
                 errors.append(
                     checks.Error(
-                        "Custom rendition model %r has an invalid unique_together setting"
-                        % cls,
-                        hint="Custom rendition models must include the constraint "
-                        "('image', 'filter_spec', 'focal_point_key') in their unique_together definition, or as part of a unique constraint.",
+                        "Custom rendition model '%s' must include a unique constraint "
+                        "on the 'image', 'filter_spec', and 'focal_point_key' fields."
+                        % cls._meta.label,
+                        hint=(
+                            "Add models.UniqueConstraint(fields={"
+                            '"image", "filter_spec", "focal_point_key"}, '
+                            'name="unique_rendition") to %s.Meta.constraints.'
+                            % (cls.__name__,)
+                        ),
                         obj=cls,
                         id="wagtailimages.E001",
                     )
