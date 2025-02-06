@@ -58,6 +58,10 @@ jobs:
             check_template_number_format: '1'
             parallel: '--parallel'
             os: windows-latest
+    env:
+      DATABASE_ENGINE: django.db.backends.sqlite3
+      USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
 
     steps:
       - uses: actions/checkout@v4
@@ -73,14 +77,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
-      - name: Test
-        run: |
-          WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
-          coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
+      - name: Check
+        run: django-admin check
         env:
-          DATABASE_ENGINE: django.db.backends.sqlite3
-          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
-          WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
+          WAGTAIL_FAIL_ON_VERSIONED_STATIC: "1"
+          DJANGO_SETTINGS_MODULE: wagtail.test.settings
+      - name: Test
+        run: coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
       - name: Upload coverage data
         uses: actions/upload-artifact@v4
         with:
