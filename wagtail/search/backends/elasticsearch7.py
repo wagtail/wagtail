@@ -1141,13 +1141,13 @@ class Elasticsearch7SearchBackend(BaseSearchBackend):
                 "analyzer": {
                     "ngram_analyzer": {
                         "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "ngram"],
+                        "tokenizer": "standard",
+                        "filter": ["asciifolding", "lowercase", "ngram"],
                     },
                     "edgengram_analyzer": {
                         "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "edgengram"],
+                        "tokenizer": "standard",
+                        "filter": ["asciifolding", "lowercase", "edgengram"],
                     },
                 },
                 "tokenizer": {
