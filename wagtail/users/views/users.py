@@ -1,3 +1,6 @@
+import operator
+from functools import reduce
+
 import django_filters
 from django.contrib.auth import (
     get_user_model,
@@ -33,6 +36,8 @@ from wagtail.admin.widgets.button import (
     ButtonWithDropdown,
 )
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.search.backends import get_search_backend
+from wagtail.search.index import class_is_indexed
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 
@@ -53,6 +58,13 @@ delete_user_perm = "{}.delete_{}".format(
 
 def get_users_filter_query(q, model_fields):
     conditions = Q()
+    custom_fields_lookups = {}
+
+    if hasattr(User, "search_fields"):
+        custom_fields_lookups = [
+            "%s__icontains" % str(search_field.field_name)
+            for search_field in User.search_fields
+        ]
 
     for term in q.split():
         if "username" in model_fields:
@@ -67,6 +79,11 @@ def get_users_filter_query(q, model_fields):
         if "email" in model_fields:
             conditions |= Q(email__icontains=term)
 
+        if len(custom_fields_lookups) > 0:
+            or_queries = [
+                Q(**{custom_field: term}) for custom_field in custom_fields_lookups
+            ]
+            conditions |= reduce(operator.or_, or_queries)
     return conditions
 
 
@@ -234,6 +251,14 @@ class IndexView(generic.IndexView):
 
     def search_queryset(self, queryset):
         if self.is_searching:
+            # Filtering by related fields is not supported in search backend yet
+            # https://docs.wagtail.org/en/stable/topics/search/indexing.html#filtering-on-index-relatedfields
+            if class_is_indexed(User) and not self.filters.form.cleaned_data.get(
+                "group"
+            ):
+                search_backend = get_search_backend(self.search_backend_name)
+                return search_backend.search(self.search_query, User.objects.filter())
+
             conditions = get_users_filter_query(self.search_query, self.model_fields)
             return queryset.filter(conditions)
         return queryset
