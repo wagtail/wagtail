@@ -7,6 +7,7 @@ Changelog
  * Add `WAGTAIL_` prefix to Wagtail-specific tag settings (Aayushman Singh)
  * Implement `normalize` on `TypedTableBlock` to assist with setting `default` and `preview_value` (Sage Abdullah)
  * Apply normalization when modifying a `StreamBlock`'s value to assist with programmatic changes to `StreamField` (Matt Westcott)
+ * Allow a custom image rendition model to define its unique constraint with `models.UniqueConstraint` instead of `unique_together` (Oliver Parker, Cynthia Kiser, Sage Abdullah)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
 
