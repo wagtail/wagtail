@@ -239,6 +239,50 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         results = response.context["users"]
         self.assertIn(self.test_user, results)
 
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "customuser.CustomUser",
+        "Only applicable to CustomUser",
+    )
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm",
+        WAGTAIL_USER_CUSTOM_FIELDS=["country", "document"],
+    )
+    def test_search_query_one_searchable_field(self):
+        custom_user_with_country = self.create_user(
+            username="testjoe",
+            email="testjoe@email.com",
+            password="password",
+            first_name="Joe",
+            last_name="Doe",
+            country="testcountry",
+        )
+        response = self.get({"q": "country"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertIn(custom_user_with_country, results)
+
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "customuser.CustomUser",
+        "Only applicable to CustomUser",
+    )
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm",
+        WAGTAIL_USER_CUSTOM_FIELDS=["country", "document"],
+    )
+    def test_search_query_searchable_multiple_fields(self):
+        custom_user_with_country = self.create_user(
+            username="testjoe",
+            email="testjoe@email.com",
+            password="password",
+            first_name="Joe",
+            last_name="Doe",
+            country="testcountry",
+        )
+        response = self.get({"q": "country joe doe"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertIn(custom_user_with_country, results)
+
     def test_search_query_multiple_fields(self):
         response = self.get({"q": "first name last name"})
         self.assertEqual(response.status_code, 200)
