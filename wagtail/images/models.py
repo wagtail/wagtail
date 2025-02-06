@@ -24,7 +24,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files import File
 from django.core.files.storage import InvalidStorageError, default_storage, storages
 from django.db import models
-from django.db.models import Q, UniqueConstraint
+from django.db.models import Q
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property, classproperty
@@ -1384,28 +1384,20 @@ class AbstractRendition(ImageFileMixin, models.Model):
     def check(cls, **kwargs):
         errors = super().check(**kwargs)
         if not cls._meta.abstract:
+            # Allow unique constraint to be defined via `unique_together` or
+            # a `UniqueConstraint` in `constraints`.
+            unique_constraint_fields = {"image", "filter_spec", "focal_point_key"}
             in_unique_together = any(
-                set(constraint) == {"image", "filter_spec", "focal_point_key"}
+                set(constraint) == unique_constraint_fields
                 for constraint in cls._meta.unique_together
             )
-
-            # We only include fields to check if they are a UniqueConstraint, and
-            # they have no conditions on them.
-            unique_constraint_fields = [
-                constraint.fields
-                for constraint in cls._meta.constraints
-                if (
-                    isinstance(constraint, UniqueConstraint)
-                    and constraint.condition is None
-                )
-            ]
             in_unique_constraint = any(
-                set(constraint) == {"image", "filter_spec", "focal_point_key"}
-                for constraint in unique_constraint_fields
+                isinstance(constraint, models.UniqueConstraint)
+                and constraint.condition is None
+                and set(constraint.fields) == unique_constraint_fields
+                for constraint in cls._meta.constraints
             )
 
-            # We check for some kind of unique constraint, whether in unique together or
-            # as part of the constraints.
             if not in_unique_together and not in_unique_constraint:
                 errors.append(
                     checks.Error(
