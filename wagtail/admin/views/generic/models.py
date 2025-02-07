@@ -620,12 +620,16 @@ class CreateView(
         if self.sort_order_field:
             sort_order_field = getattr(instance, self.sort_order_field)
             if sort_order_field is None:
-                instance.sort_order_field = (
-                    self.model.objects.aggregate(models.Max(self.sort_order_field)).get(
-                        self.sort_order_field + "__max", 0
-                    )
-                    + 1
+                max_order = (
+                    self.model.objects.aggregate(
+                        max_order=models.Max(self.sort_order_field)
+                    )["max_order"]
+                    or 0
                 )
+                instance_order = max_order + 1
+                instance.__setattr__(self.sort_order_field, instance_order)
+                instance.save(update_fields=[self.sort_order_field])
+
         log(instance=instance, action="wagtail.create", content_changed=True)
         return instance
 

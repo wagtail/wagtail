@@ -507,7 +507,6 @@ class CreateEditViewOptionalFeaturesMixin:
             instance = self.form.save(
                 commit=self.view_name == "edit" and not self.object.live
             )
-
             # If DraftStateMixin is applied, only save to the database in CreateView,
             # and make sure the live field is set to False.
             if self.view_name == "create":
@@ -517,8 +516,23 @@ class CreateEditViewOptionalFeaturesMixin:
         else:
             instance = self.form.save()
 
-        self.has_content_changes = self.view_name == "create" or self.form.has_changed()
+        # Handle sort order if field is defined
+        if hasattr(self, "sort_order_field") and self.sort_order_field:
+            sort_order_field = getattr(instance, self.sort_order_field)
+            if sort_order_field is None:
+                # Get the maximum value, defaulting to 0 if no records exist
+                max_order = (
+                    self.model.objects.aggregate(
+                        max_order=models.Max(self.sort_order_field)
+                    )["max_order"]
+                    or 0
+                )
 
+                instance_order = max_order + 1
+                instance.__setattr__(self.sort_order_field, instance_order)
+                instance.save(update_fields=[self.sort_order_field])
+
+        self.has_content_changes = self.view_name == "create" or self.form.has_changed()
         # Save revision if the model inherits from RevisionMixin
         self.new_revision = None
         if self.revision_enabled:
@@ -532,7 +546,6 @@ class CreateEditViewOptionalFeaturesMixin:
             revision=self.new_revision,
             content_changed=self.has_content_changes,
         )
-
         return instance
 
     def publish_action(self):
