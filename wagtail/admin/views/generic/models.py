@@ -51,6 +51,7 @@ from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
+from wagtail.models.orderable import set_max_order
 from wagtail.search.index import class_is_indexed
 
 from .base import BaseListingView, WagtailAdminTemplateMixin
@@ -484,6 +485,7 @@ class CreateView(
     submit_button_label = gettext_lazy("Create")
     submit_button_active_label = gettext_lazy("Creating…")
     actions = ["create"]
+    sort_order_field = None
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -635,6 +637,10 @@ class CreateView(
         and returns the new object. Override this to implement custom save logic.
         """
         instance = self.form.save()
+        # Apply max order number if the model uses custom ordering and the
+        # sort_order_field is not set.
+        if self.sort_order_field and getattr(instance, self.sort_order_field) is None:
+            set_max_order(instance, self.sort_order_field)
         log(instance=instance, action="wagtail.create", content_changed=True)
         return instance
 
