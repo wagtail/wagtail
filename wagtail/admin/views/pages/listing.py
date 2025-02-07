@@ -20,6 +20,7 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.ui.components import MediaContainer
+from wagtail.admin.ui.ordering import OrderingColumn
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
@@ -27,7 +28,6 @@ from wagtail.admin.ui.tables import DateColumn
 from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
     NavigateToChildrenColumn,
-    OrderingColumn,
     PageStatusColumn,
     PageTable,
     PageTitleColumn,
@@ -396,26 +396,8 @@ class ExplorableIndexView(IndexView):
 
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
-        kwargs["use_row_ordering_attributes"] = self.show_ordering_column
+        kwargs["use_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
-
-        if self.show_ordering_column:
-            kwargs["caption"] = _(
-                "Focus on the drag button and press up or down arrows to move the item, then press enter to submit the change."
-            )
-            kwargs["attrs"] = {
-                "data-controller": "w-orderable",
-                "data-w-orderable-active-class": "w-orderable--active",
-                "data-w-orderable-chosen-class": "w-orderable__item--active",
-                "data-w-orderable-container-value": "tbody",
-                "data-w-orderable-message-value": _(
-                    "'%(page_title)s' has been moved successfully."
-                )
-                % {"page_title": "__LABEL__"},
-                "data-w-orderable-url-value": reverse(
-                    "wagtailadmin_pages:set_page_position", args=[999999]
-                ),
-            }
         return kwargs
 
     def get_valid_orderings(self):

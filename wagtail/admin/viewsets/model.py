@@ -13,6 +13,7 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.panels.group import ObjectList
+from wagtail.admin.ui.tables.viewset import ViewSetModelTable
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
@@ -53,6 +54,9 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the usage view; must be a subclass of ``wagtail.admin.views.generic.usage.UsageView``.
     usage_view_class = usage.UsageView
 
+    #: The view class to use for the reorder view; must be a subclass of ``wagtail.admin.views.generic.ReorderView``.
+    reorder_view_class = generic.ReorderView
+
     #: The view class to use for the copy view; must be a subclass of ``wagtail.admin.views.generic.CopyView``.
     copy_view_class = generic.CopyView
 
@@ -92,6 +96,9 @@ class ModelViewSet(ViewSet):
     #: Whether to enable the copy view. Defaults to ``True``.
     copy_view_enabled = True
 
+    #: ToDo: Document this.
+    sort_order_field = None
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
         if not self.model:
@@ -103,6 +110,10 @@ class ModelViewSet(ViewSet):
         self.model_opts = self.model._meta
         self.app_label = self.model_opts.app_label
         self.model_name = self.model_opts.model_name
+
+        # Auto-detect sort_order_field from model if using Orderable mixin
+        if not self.sort_order_field and hasattr(self.model, "sort_order_field"):
+            self.sort_order_field = self.model.sort_order_field
 
     @property
     def permission_policy(self):
@@ -151,19 +162,25 @@ class ModelViewSet(ViewSet):
             "search_fields": self.search_fields,
             "search_backend_name": self.search_backend_name,
             "paginate_by": self.list_per_page,
+            "table_class": ViewSetModelTable,
             **kwargs,
         }
         if self.ordering:
             view_kwargs["default_ordering"] = self.ordering
+        if self.sort_order_field:
+            view_kwargs["sort_order_field"] = self.sort_order_field
         return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):
-        return {
+        view_kwargs = {
             "panel": self._edit_handler,
             "form_class": self.get_form_class(),
             "template_name": self.create_template_name,
             **kwargs,
         }
+        if self.sort_order_field:
+            view_kwargs["sort_order_field"] = self.sort_order_field
+        return view_kwargs
 
     def get_edit_view_kwargs(self, **kwargs):
         return {
@@ -254,6 +271,14 @@ class ModelViewSet(ViewSet):
     def inspect_view(self):
         return self.construct_view(
             self.inspect_view_class, **self.get_inspect_view_kwargs()
+        )
+
+    @property
+    def reorder_view(self):
+        return self.construct_view(
+            self.reorder_view_class,
+            model=self.model,
+            sort_order_field=self.sort_order_field,
         )
 
     @property
@@ -619,6 +644,7 @@ class ModelViewSet(ViewSet):
                 name="history_results",
             ),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
+            path("reorder/<str:pk>/", self.reorder_view, name="reorder"),
         ]
 
         if self.inspect_view_enabled:

@@ -176,10 +176,13 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
 
     @cached_property
     def columns(self):
-        return [
-            BulkActionsCheckboxColumn("bulk_actions", obj_type="snippet"),
-            *super().columns,
-        ]
+        buttons = super().columns
+        extra_columns = []
+        if not self.show_ordering_column:
+            extra_columns = [
+                BulkActionsCheckboxColumn("bulk_actions", obj_type="snippet")
+            ]
+        return [*extra_columns, *buttons]
 
     def _get_title_column(self, *args, **kwargs):
         return super()._get_title_column(
@@ -376,6 +379,10 @@ class RevisionsUnscheduleView(PermissionCheckedMixin, generic.RevisionsUnschedul
     permission_required = "publish"
 
 
+class ReorderView(PermissionCheckedMixin, generic.ReorderView):
+    permission_required = "change"
+
+
 class LockView(PermissionCheckedMixin, lock.LockView):
     permission_required = "lock"
 
@@ -549,6 +556,9 @@ class SnippetViewSet(ModelViewSet):
 
     #: The ViewSet class to use for the chooser views; must be a subclass of ``wagtail.snippets.views.chooser.SnippetChooserViewSet``.
     chooser_viewset_class = SnippetChooserViewSet
+
+    #: The view class to use for the reorder view; must be a subclass of ``wagtail.admin.views.generic.ReorderView``.
+    reorder_view_class = generic.ReorderView
 
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = "wagtailsnippets/snippets/"
@@ -1040,6 +1050,7 @@ class SnippetViewSet(ModelViewSet):
             path("edit/<str:pk>/", self.edit_view, name="edit"),
             path("delete/<str:pk>/", self.delete_view, name="delete"),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
+            path("reorder/<str:pk>/", self.reorder_view, name="reorder"),
             path("history/<str:pk>/", self.history_view, name="history"),
             path(
                 "history-results/<str:pk>/",
