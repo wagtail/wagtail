@@ -1,0 +1,12 @@
+{% load i18n wagtailadmin_tags %}
+<th class="ord{% if is_ascending %} ord--active{% endif %}">
+    {% if is_ascending %}
+        <a href="{{ table.base_url }}{% querystring p=None ordering=None %}" title="{% trans 'Disable ordering of child pages' %}">
+            {% icon name="order" %}{% trans 'Sort' %}
+        </a>
+    {% else %}
+        <a href="{{ table.base_url }}{% querystring p=None ordering=column.sort_key %}" title="{% trans 'Enable ordering of child pages' %}">
+            {% icon name="order" %}{% trans 'Sort' %}
+        </a>
+    {% endif %}
+</th>
