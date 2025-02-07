@@ -146,6 +146,30 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
         self.test_show_ordering_column()
 
 
+class TestCreateViewReordering(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        FullFeaturedSnippet.objects.create(text="Toy 1", sort_order=0)
+        FullFeaturedSnippet.objects.create(text="Toy 2", sort_order=1)
+        FullFeaturedSnippet.objects.create(text="Toy 3", sort_order=2)
+
+    def test_create_sets_max_sort_order(self):
+        response = self.client.post(
+            reverse(FullFeaturedSnippet.snippet_viewset.get_url_name("add")),
+            data={"text": "New Toy"},
+        )
+        new_toy = FullFeaturedSnippet.objects.get(text="New Toy")
+        self.assertRedirects(
+            response,
+            reverse(
+                FullFeaturedSnippet.snippet_viewset.get_url_name("edit"),
+                args=(quote(new_toy.pk),),
+            ),
+        )
+        new_toy = FullFeaturedSnippet.objects.get(text="New Toy")
+        self.assertEqual(new_toy.sort_order, 3)
+
+
 class TestReorderView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()

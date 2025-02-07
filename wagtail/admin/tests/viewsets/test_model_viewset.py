@@ -1969,6 +1969,36 @@ class TestIndexViewReordering(WagtailTestUtils, TestCase):
         self.test_show_ordering_column()
 
 
+class TestCreateViewReordering(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        FeatureCompleteToy.objects.bulk_create(
+            [
+                FeatureCompleteToy(name="Toy 1", sort_order=0),
+                FeatureCompleteToy(name="Toy 2", sort_order=1),
+                FeatureCompleteToy(name="Toy 3", sort_order=2),
+            ]
+        )
+
+    def test_create_sets_max_sort_order(self):
+        response = self.client.post(
+            reverse("feature_complete_toy:add"),
+            data={"name": "New Toy", "release_date": "2025-08-17"},
+        )
+        self.assertRedirects(response, reverse("feature_complete_toy:index"))
+        new_toy = FeatureCompleteToy.objects.get(name="New Toy")
+        self.assertEqual(new_toy.sort_order, 3)
+
+    def test_create_does_not_set_max_sort_order_without_sort_order_field(self):
+        response = self.client.post(
+            reverse("fctoy-alt2:add"),
+            data={"name": "New Toy", "release_date": "2025-08-17", "strid": "foo"},
+        )
+        self.assertRedirects(response, reverse("fctoy-alt2:index"))
+        new_toy = FeatureCompleteToy.objects.get(name="New Toy")
+        self.assertIsNone(new_toy.sort_order)
+
+
 class TestReorderView(WagtailTestUtils, TestCase):
     def setUp(self):
         self.user = self.login()
