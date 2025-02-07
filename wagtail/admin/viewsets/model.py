@@ -440,7 +440,7 @@ class ModelViewSet(ViewSet):
         If set to ``None`` and :attr:`search_backend_name` is set to use a Wagtail search backend,
         the ``search_fields`` attribute of the model will be used instead.
         """
-        return self.index_view_class.search_fields
+        return self.UNDEFINED
 
     @cached_property
     def search_backend_name(self):
