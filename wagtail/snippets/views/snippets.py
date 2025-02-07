@@ -1048,6 +1048,11 @@ class SnippetViewSet(ModelViewSet):
             ),
         ]
 
+        if self.sort_order_field:
+            urlpatterns += [
+                path("reorder/<str:pk>/", self.reorder_view, name="reorder")
+            ]
+
         if self.copy_view_enabled:
             urlpatterns += [path("copy/<str:pk>/", self.copy_view, name="copy")]
 

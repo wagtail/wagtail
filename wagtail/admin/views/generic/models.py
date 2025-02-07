@@ -38,6 +38,7 @@ from wagtail.admin.ui.tables import (
     TitleColumn,
     UpdatedAtColumn,
 )
+from wagtail.admin.ui.tables.orderable import OrderableTableMixin
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
@@ -71,9 +72,11 @@ class IndexView(
     copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
+    reorder_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
     list_filter = None
     show_other_searches = False
+    sort_order_field = None
 
     @cached_property
     def is_searchable(self):
@@ -104,6 +107,24 @@ class IndexView(
             (WagtailFilterSet,),
             {"Meta": Meta},
         )
+
+    @cached_property
+    def table_class(self):
+        table_class = super().table_class
+        if self.show_ordering_column:
+            return type(
+                f"{self.model.__name__}Table",
+                (OrderableTableMixin, table_class),
+                {},
+            )
+        return table_class
+
+    def get_table_kwargs(self):
+        kwargs = super().get_table_kwargs()
+        if self.show_ordering_column:
+            kwargs["sort_order_field"] = self.sort_order_field
+            kwargs["reorder_url"] = self.get_reorder_url()
+        return kwargs
 
     def _annotate_queryset_updated_at(self, queryset):
         # Annotate the objects' updated_at, use _ prefix to avoid name collision
@@ -138,9 +159,11 @@ class IndexView(
         if has_updated_at_column:
             queryset = self._annotate_queryset_updated_at(queryset)
 
+        if self.show_ordering_column:
+            return queryset.order_by(self.sort_order_field)
         # Explicitly handle null values for the updated at column to ensure consistency
         # across database backends and match the behaviour in page explorer
-        if self.ordering == "_updated_at":
+        elif self.ordering == "_updated_at":
             return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
         elif self.ordering == "-_updated_at":
             return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
@@ -276,6 +299,10 @@ class IndexView(
         if self.delete_url_name and self.user_has_permission("delete"):
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
 
+    def get_reorder_url(self):
+        if self.reorder_url_name and self.user_has_permission("change"):
+            return reverse(self.reorder_url_name, args=(999999,))
+
     def get_add_url(self):
         if self.add_url_name and self.user_has_permission("add"):
             return self._set_locale_query_param(reverse(self.add_url_name))
@@ -298,6 +325,19 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
+                )
+            )
+        return buttons
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = super().header_more_buttons
+        if self.get_reorder_url():
+            buttons.append(
+                Button(
+                    _("Sort item order"),
+                    url=self.index_url + f"?ordering={self.sort_order_field}",
+                    icon_name="list-ul",
                 )
             )
         return buttons
@@ -381,6 +421,26 @@ class IndexView(
         if self.model:
             return self.model._meta.verbose_name_plural
         return None
+
+    @cached_property
+    def show_ordering_column(self):
+        return self.sort_order_field and (self.ordering == self.sort_order_field)
+
+    def get_paginate_by(self, queryset):
+        if self.show_ordering_column:
+            # Don't paginate if sorting by custom order - all items must be shown
+            # to allow drag-and-drop reordering
+            return None
+        return super().get_paginate_by(queryset)
+
+    def get_valid_orderings(self):
+        valid_orderings = super().get_valid_orderings()
+
+        if self.sort_order_field and not (self.is_searching or self.is_filtering):
+            # ordering by custom order is only available when not searching/filtering
+            valid_orderings.append(self.sort_order_field)
+
+        return valid_orderings
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
