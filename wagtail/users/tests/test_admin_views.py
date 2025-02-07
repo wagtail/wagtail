@@ -126,11 +126,7 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         settings.AUTH_USER_MODEL == "customuser.CustomUser",
         "Only applicable to CustomUser",
     )
-    @override_settings(
-        WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm",
-        WAGTAIL_USER_CUSTOM_FIELDS=["country", "document"],
-    )
-    def test_search_query_one_searchable_field(self):
+    def test_search_query_with_search_backend(self):
         custom_user_with_country = self.create_user(
             username="testjoe",
             email="testjoe@email.com",
@@ -139,35 +135,56 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             last_name="Doe",
             country="testcountry",
         )
-        response = self.get({"q": "country"})
+        response = self.get({"q": "testco"})
         self.assertEqual(response.status_code, 200)
         results = response.context["users"]
-        self.assertIn(custom_user_with_country, results)
+        self.assertEqual(list(results), [custom_user_with_country])
+
+        response = self.get({"q": "jo"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertEqual(list(results), [custom_user_with_country])
+
+        response = self.get({"q": "nonexistent"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertEqual(list(results), [])
 
     @unittest.skipUnless(
         settings.AUTH_USER_MODEL == "customuser.CustomUser",
         "Only applicable to CustomUser",
     )
-    @override_settings(
-        WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm",
-        WAGTAIL_USER_CUSTOM_FIELDS=["country", "document"],
-    )
-    def test_search_query_searchable_multiple_fields(self):
-        custom_user_with_country = self.create_user(
-            username="testjoe",
-            email="testjoe@email.com",
+    def test_search_and_filter_by_group(self):
+        user_in_group = self.create_user(
+            username="raz",
+            email="raz@email.com",
             password="password",
-            first_name="Joe",
-            last_name="Doe",
-            country="testcountry",
+            first_name="Razputin",
+            last_name="Aquato",
+            country="Grulovia",
         )
-        response = self.get({"q": "country joe doe"})
+        self.create_user(
+            username="mirtala",
+            email="mirtala@email.com",
+            password="password",
+            first_name="Mirtala",
+            last_name="Aquato",
+            country="Grulovia",
+        )
+        psychonauts = Group.objects.create(name="Psychonauts")
+        user_in_group.groups.add(psychonauts)
+
+        response = self.get({"q": "gru", "group": psychonauts.pk})
         self.assertEqual(response.status_code, 200)
         results = response.context["users"]
-        self.assertIn(custom_user_with_country, results)
+        self.assertEqual(list(results), [user_in_group])
 
     def test_search_query_multiple_fields(self):
-        response = self.get({"q": "first name last name"})
+        response = self.get({"q": "first nam"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertIn(self.test_user, results)
+        response = self.get({"q": "last na"})
         self.assertEqual(response.status_code, 200)
         results = response.context["users"]
         self.assertIn(self.test_user, results)

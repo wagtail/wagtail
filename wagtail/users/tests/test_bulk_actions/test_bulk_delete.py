@@ -1,3 +1,6 @@
+import unittest
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.http import HttpRequest, HttpResponse
@@ -201,3 +204,48 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
 
         # Check that the user is still here
         self.assertTrue(User.objects.filter(pk=protected.pk).exists())
+
+    def test_with_search(self):
+        self.create_user(
+            username="raz",
+            email="raz@email.com",
+            password="password",
+            first_name="Razputin",
+            last_name="Aquato",
+        )
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(User._meta.app_label, User._meta.model_name, "delete"),
+            ),
+            {"q": "raz", "id": "all"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Razputin")
+        self.assertNotContains(response, "testuser")
+
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "customuser.CustomUser",
+        "Only applicable to CustomUser",
+    )
+    def test_with_search_backend(self):
+        self.create_user(
+            username="raz",
+            email="raz@email.com",
+            password="password",
+            first_name="Razputin",
+            last_name="Aquato",
+            country="Grulovia",
+        )
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(User._meta.app_label, User._meta.model_name, "delete"),
+            ),
+            # The country field is defined in the model's search_fields,
+            # which only works with an indexed model
+            {"q": "gru", "id": "all"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Razputin")
+        self.assertNotContains(response, "testuser")
