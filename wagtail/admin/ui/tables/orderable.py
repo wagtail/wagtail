@@ -15,15 +15,16 @@ class OrderingColumn(BaseColumn):
 class OrderableTableMixin:
     success_message = gettext_lazy("'%(page_title)s' has been moved successfully.")
 
-    def __init__(self, *args, reorder_url=None, **kwargs):
+    def __init__(self, *args, sort_order_field=None, reorder_url=None, **kwargs):
         super().__init__(*args, **kwargs)
+        self.sort_order_field = sort_order_field
         self.reorder_url = reorder_url
         if self.reorder_url:
             self._add_ordering_column()
 
     @cached_property
     def ordering_column(self):
-        return OrderingColumn("ordering", width="80px", sort_key="ord")
+        return OrderingColumn("ordering", width="80px", sort_key=self.sort_order_field)
 
     def _add_ordering_column(self):
         self.columns = OrderedDict(
