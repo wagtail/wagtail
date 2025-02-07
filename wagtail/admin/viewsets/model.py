@@ -172,12 +172,15 @@ class ModelViewSet(ViewSet):
         return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):
-        return {
+        view_kwargs = {
             "panel": self._edit_handler,
             "form_class": self.get_form_class(),
             "template_name": self.create_template_name,
             **kwargs,
         }
+        if self.sort_order_field:
+            view_kwargs["sort_order_field"] = self.sort_order_field
+        return view_kwargs
 
     def get_edit_view_kwargs(self, **kwargs):
         return {
