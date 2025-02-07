@@ -309,6 +309,9 @@ class ExplorableIndexView(IndexView):
     index_results_url_name = "wagtailadmin_explore_results"
     page_title = _("Exploring")
     filterset_class = GenericPageFilterSet
+    # This is not a real field on the model, but it allows reuse of ordering
+    # logic from generic IndexView
+    sort_order_field = "ord"
 
     @classproperty
     def columns(cls):
@@ -393,23 +396,13 @@ class ExplorableIndexView(IndexView):
         if permissions.can_view_revisions():
             return reverse("wagtailadmin_pages:history", args=[self.parent_page.id])
 
+    def get_reorder_url(self):
+        return reverse("wagtailadmin_pages:set_page_position", args=[999999])
+
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
         kwargs["parent_page"] = self.parent_page
-        if self.show_ordering_column:
-            kwargs["reorder_url"] = reverse(
-                "wagtailadmin_pages:set_page_position", args=[999999]
-            )
         return kwargs
-
-    def get_valid_orderings(self):
-        valid_orderings = super().get_valid_orderings()
-
-        if not (self.is_searching or self.is_filtering):
-            # ordering by page order is only available when not searching or filtering
-            valid_orderings.append("ord")
-
-        return valid_orderings
 
     def get_ordering(self):
         if self.is_searching and not self.is_explicitly_ordered:
@@ -424,19 +417,10 @@ class ExplorableIndexView(IndexView):
 
         return ordering
 
-    def get_paginate_by(self, queryset):
-        if self.ordering == "ord":
-            # Don't paginate if sorting by page order - all pages must be shown to
-            # allow drag-and-drop reordering
-            return None
-        else:
-            return self.paginate_by
-
     def get_page_subtitle(self):
         return self.parent_page.get_admin_display_title()
 
     def get_context_data(self, **kwargs):
-        self.show_ordering_column = self.ordering == "ord"
         context = super().get_context_data(**kwargs)
 
         if self.is_searching:

@@ -59,6 +59,9 @@ class ModelViewSet(ViewSet):
     #: The view class to use for the inspect view; must be a subclass of ``wagtail.admin.views.generic.InspectView``.
     inspect_view_class = generic.InspectView
 
+    #: The view class to use for the reorder view; must be a subclass of ``wagtail.admin.views.generic.ReorderView``.
+    reorder_view_class = generic.ReorderView
+
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = ""
 
@@ -92,6 +95,10 @@ class ModelViewSet(ViewSet):
     #: Whether to enable the copy view. Defaults to ``True``.
     copy_view_enabled = True
 
+    #: The name of an integer field on the model to use for ordering items
+    #: in the index view.
+    sort_order_field = None
+
     def __init__(self, name=None, **kwargs):
         super().__init__(name=name, **kwargs)
         if not self.model:
@@ -103,6 +110,10 @@ class ModelViewSet(ViewSet):
         self.model_opts = self.model._meta
         self.app_label = self.model_opts.app_label
         self.model_name = self.model_opts.model_name
+
+        # Auto-detect sort_order_field from the model, e.g. from Orderable mixin
+        if not self.sort_order_field and hasattr(self.model, "sort_order_field"):
+            self.sort_order_field = self.model.sort_order_field
 
     @property
     def permission_policy(self):
@@ -155,6 +166,9 @@ class ModelViewSet(ViewSet):
         }
         if self.ordering:
             view_kwargs["default_ordering"] = self.ordering
+        if self.sort_order_field:
+            view_kwargs["sort_order_field"] = self.sort_order_field
+            view_kwargs["reorder_url_name"] = self.get_url_name("reorder")
         return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):
@@ -205,6 +219,12 @@ class ModelViewSet(ViewSet):
 
     def get_copy_view_kwargs(self, **kwargs):
         return self.get_add_view_kwargs(**kwargs)
+
+    def get_reorder_view_kwargs(self, **kwargs):
+        return {
+            "sort_order_field": self.sort_order_field,
+            **kwargs,
+        }
 
     @property
     def index_view(self):
@@ -259,6 +279,12 @@ class ModelViewSet(ViewSet):
     @property
     def copy_view(self):
         return self.construct_view(self.copy_view_class, **self.get_copy_view_kwargs())
+
+    @property
+    def reorder_view(self):
+        return self.construct_view(
+            self.reorder_view_class, **self.get_reorder_view_kwargs()
+        )
 
     def get_templates(self, name="index", fallback=""):
         """
@@ -620,6 +646,11 @@ class ModelViewSet(ViewSet):
             ),
             path("usage/<str:pk>/", self.usage_view, name="usage"),
         ]
+
+        if self.sort_order_field:
+            urlpatterns.append(
+                path("reorder/<str:pk>/", self.reorder_view, name="reorder")
+            )
 
         if self.inspect_view_enabled:
             urlpatterns.append(
