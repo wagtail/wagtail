@@ -84,7 +84,13 @@ class CustomUser(index.Indexed, AbstractBaseUser, PermissionsMixin):
     ]
 
     search_fields = [
-        index.SearchField("country", partial_match=True),
+        index.SearchField("country"),
         index.SearchField("first_name"),
         index.SearchField("last_name"),
+        index.AutocompleteField("country"),
+        index.AutocompleteField("first_name"),
+        index.AutocompleteField("last_name"),
+        # The PK must be added as FilterField to allow searching
+        # and filtering by group
+        index.FilterField("identifier"),
     ]
