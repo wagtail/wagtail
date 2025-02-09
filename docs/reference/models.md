@@ -191,18 +191,18 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
     .. automethod:: find_for_request
 
     .. method:: get_default_privacy_setting(request)
-     
+
         Set the default privacy setting for the page.
 
-        Returns a dict with the privacy option type and related info
+        The method must return a dictionary with at least a 'type' key. The value must be one of the following values from :class:`~wagtail.models.PageViewRestriction`'s :attr:`~wagtail.models.PageViewRestriction.restriction_type`:
 
-        - none: The page is public and can be accessed by anyone. (default) - `{"type": "none"}`
+        - ``none``: The page is public and can be accessed by anyone. (default) - '{"type": "none"}'
 
-        - login: The page is private and can only be accessed by authenticated users. - `{"type":"login"}`
+        - ``login``: The page is private and can only be accessed by authenticated users. - '{"type":"login"}'
 
-        - password: The page is private and can only be accessed by users with a shared password. - `{"type": "password", "password": "P@ssw0rd123!"}`
+        - ``password``: The page is private and can only be accessed by users with a shared password.(requires additional ``password`` key in the dictionary) - '{"type": "password", "password": "P@ssw0rd123!"}'
 
-        - groups: The page is private and can only be accessed by users in specific groups. - `{"type": "groups", "groups": [moderators, editors]}`
+        - ``groups``: The page is private and can only be accessed by users in specific groups. (requires additional ``groups`` key with list of Group objects) - '{"type": "groups", "groups": [moderators, editors]}'
 
         Example
 
