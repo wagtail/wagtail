@@ -197,31 +197,61 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
             for form in forms:
                 form.is_valid()
 
-            # Use existing clean_name or generate for new fields,
-            # raise an error if there are duplicate resolved clean names.
-            # Note: `clean_name` is set in `FormField.save`.
+            seen_names = set()
+            duplicate_names = set()
 
-            clean_names = [
-                f.instance.clean_name or f.instance.get_field_clean_name()
-                for f in forms
-            ]
-            duplicate_clean_name = next(
-                (n for n in clean_names if clean_names.count(n) > 1), None
-            )
-            if duplicate_clean_name:
-                duplicate_form_field = next(
-                    f
-                    for f in self.formsets[related_name].forms
-                    if f.instance.get_field_clean_name() == duplicate_clean_name
+            # Find duplicates
+            for form in forms:
+                if form.cleaned_data.get("DELETE", False):
+                    continue
+
+                # Use existing clean_name or generate for new fields,
+                # raise an error if there are duplicate resolved clean names.
+                # Note: `clean_name` is set in `FormField.save`.
+                clean_name = (
+                    form.instance.clean_name or form.instance.get_field_clean_name()
                 )
-                duplicate_form_field.add_error(
-                    "label",
-                    django.forms.ValidationError(
-                        _(
-                            "There is another field with the label %(label_name)s, please change one of them."
-                        )
-                        % {"label_name": duplicate_form_field.instance.label}
-                    ),
-                )
+
+                if clean_name in seen_names:
+                    duplicate_names.add(clean_name)
+                else:
+                    seen_names.add(clean_name)
+
+            # Add validation errors to forms with duplicate clean names
+            if duplicate_names:
+                for form in forms:
+                    if form.cleaned_data.get("DELETE", False):
+                        continue
+
+                    clean_name = (
+                        form.instance.clean_name or form.instance.get_field_clean_name()
+                    )
+
+                    if clean_name in duplicate_names:
+                        if form.instance.clean_name:
+                            form.add_error(
+                                "label",
+                                django.forms.ValidationError(
+                                    _(
+                                        "The name '%(duplicate_clean_name)s' is "
+                                        "already assigned to this field and cannot be "
+                                        "changed. Please enter a different label for "
+                                        "the conflicting field."
+                                    )
+                                    % {"duplicate_clean_name": clean_name}
+                                ),
+                            )
+                        else:
+                            form.add_error(
+                                "label",
+                                django.forms.ValidationError(
+                                    _(
+                                        "Field name '%(duplicate_clean_name)s' "
+                                        "conflicts with another field. Please "
+                                        "change the label."
+                                    )
+                                    % {"duplicate_clean_name": clean_name}
+                                ),
+                            )
 
         return cleaned_data
