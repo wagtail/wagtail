@@ -177,6 +177,7 @@ export class OrderableController extends Controller<HTMLElement> {
     newIndex: number;
   }) {
     let url = this.urlValue.replace('999999', id);
+
     if (newIndex !== null) {
       url += '?position=' + newIndex;
     }
@@ -186,11 +187,9 @@ export class OrderableController extends Controller<HTMLElement> {
       label,
     );
 
-    const formElement = this.element.closest('form');
-
-    const CSRFElement =
-      formElement &&
-      formElement.querySelector('input[name="csrfmiddlewaretoken"]');
+    const CSRFElement = document.querySelector(
+      'input[name="csrfmiddlewaretoken"]',
+    );
 
     if (CSRFElement instanceof HTMLInputElement) {
       const CSRFToken: string = CSRFElement.value;
