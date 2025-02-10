@@ -94,8 +94,15 @@ class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
 class LocaleFilter(django_filters.ChoiceFilter):
     def filter(self, qs, language_code):
         if language_code:
-            locale = Locale.objects.filter(language_code=language_code)
-            return qs.filter(locale_id=locale.values_list("pk", flat=True)[:1])
+            try:
+                locale_id = (
+                    Locale.objects.filter(language_code=language_code)
+                    .values_list("pk", flat=True)
+                    .get()
+                )
+            except Locale.DoesNotExist:
+                return qs.none()
+            return qs.filter(locale_id=locale_id)
         return qs
 
 
