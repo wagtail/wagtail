@@ -869,6 +869,7 @@
 * Mike Gifford
 * Stéphane Blondon
 * Jatin Bhardwaj
+* Mahmoud Nasser
 
 ## Translators
 
