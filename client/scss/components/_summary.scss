@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .w-summary {
   color: theme('colors.text-link-default');
   margin-bottom: theme('spacing.3');

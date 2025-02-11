@@ -1,3 +1,5 @@
+@use '../../../scss/tools' as *;
+
 .w-minimap-item {
   @apply w-label-3 w-outline-offset-inside;
   display: inline-flex;

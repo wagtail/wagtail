@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .report {
   @include nice-margin();
   display: grid;

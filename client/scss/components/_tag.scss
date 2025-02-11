@@ -1,4 +1,7 @@
 @use 'sass:map';
+@use '../tools' as *;
+@use '../settings' as *;
+
 // free tagging tags from taggit
 .tag {
   border-radius: 2px;

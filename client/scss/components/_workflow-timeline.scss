@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .workflow-timeline {
   @apply w-label-3;
   padding: 0;

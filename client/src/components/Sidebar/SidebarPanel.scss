@@ -1,3 +1,6 @@
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+
 .sidebar-panel {
   // With CSS variable allows panels with different widths to animate properly
   --width: #{$menu-width};

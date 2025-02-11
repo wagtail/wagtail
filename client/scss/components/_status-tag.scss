@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use '../settings' as *;
 
 .w-status {
   border-radius: 2px;

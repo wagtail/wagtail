@@ -1,3 +1,5 @@
+@use '../../../../../scss/tools' as *;
+
 .comment {
   @include box;
   @include more-contrast-interactive();

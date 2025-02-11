@@ -6,6 +6,8 @@ $minimap-collapsed-width: 30px;
 $minimap-overflow: theme('spacing.2');
 $minimap-z-index: calc(theme('zIndex.header') - 20);
 
+@use '../../../scss/tools' as *;
+
 @import './CollapseAll';
 @import './MinimapItem';
 
