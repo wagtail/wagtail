@@ -714,11 +714,13 @@ export class PreviewController extends Controller<HTMLElement> {
     // not run the replacement logic in this case.
     if (!newIframe.src) return;
 
-    // Restore scroll position
-    newIframe.contentWindow?.scroll(
-      this.iframeTarget.contentWindow?.scrollX as number,
-      this.iframeTarget.contentWindow?.scrollY as number,
-    );
+    // Restore scroll position with instant scroll to avoid flickering if the
+    // previewed page has scroll-behavior: smooth.
+    newIframe.contentWindow?.scroll({
+      top: this.iframeTarget.contentWindow?.scrollY as number,
+      left: this.iframeTarget.contentWindow?.scrollX as number,
+      behavior: 'instant',
+    });
 
     // Remove any other existing iframes. Normally there are two iframes at this
     // point, the old one and the new one. However, the `load` event may be fired
