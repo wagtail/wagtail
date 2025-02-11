@@ -48,18 +48,15 @@ Find out more at [wagtail.org](https://wagtail.org/).
 
 Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-To get started with using Wagtail, run the following in a [virtual environment](https://docs.python.org/3/tutorial/venv.html):
-
-![Installing Wagtail](.github/install-animation.gif)
+To get started with using Wagtail, run the following in an activated [virtual environment](https://docs.astral.sh/uv/pip/environments/):
 
 ```sh
-pip install wagtail
-wagtail start mysite
+uv pip install wagtail
+uv run wagtail start mysite
 cd mysite
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+uv run manage.py migrate
+uv run manage.py createsuperuser
+uv run manage.py runserver
 ```
 
 For detailed installation and setup docs, see [the getting started tutorial](https://docs.wagtail.org/en/stable/getting_started/tutorial.html).

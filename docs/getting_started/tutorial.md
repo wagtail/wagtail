@@ -17,26 +17,22 @@ View the [compatible versions of Python](compatible_django_python_versions) that
 To check if you have an appropriate version of Python 3, run the following command:
 
 ```sh
-python --version
-# Or:
-python3 --version
-# **On Windows** (cmd.exe, with the Python Launcher for Windows):
-py --version
+uv python list
 ```
 
-If none of the preceding commands return a version number, or return a version lower than 3.9, then [install Python 3](https://www.python.org/downloads/).
+If the preceding command doesn't return an installed Python interpreter, or returns an activated version lower than 3.9, then [install Python 3](https://docs.astral.sh/uv/concepts/python-versions/#installing-a-python-version).
 
 (virtual_environment_creation)=
 
 ### Create and activate a virtual environment
 
 This tutorial recommends using a virtual environment, which isolates installed dependencies from other projects.
-This tutorial uses [`venv`](inv:python#tutorial/venv), which is packaged with Python 3. On Ubuntu, it may be necessary to run `sudo apt install python3-venv` to install it.
+This tutorial uses [`venv`](https://docs.astral.sh/uv/pip/environments/), which is packaged with [`uv`](https://docs.astral.sh/uv).
 
 **On Windows** (cmd.exe), run the following command to create a virtual environment:
 
 ```doscon
-py -m venv mysite\env
+uv venv mysite\env
 ```
 
 Activate this virtual environment using:
@@ -54,7 +50,7 @@ mysite\env\Scripts\activate
 Create the virtual environment using:
 
 ```sh
-python -m venv mysite/env
+uv venv mysite/env
 ```
 
 Activate the virtual environment using:
@@ -65,29 +61,29 @@ source mysite/env/bin/activate
 
 Upon activation, your command line will show `(env)` to indicate that you're now working within this virtual environment.
 
-**For other shells** see the [`venv` documentation](inv:python#tutorial/venv).
+**For other shells** see the [`venv` documentation](https://docs.astral.sh/uv/pip/environments/#using-a-virtual-environment).
 
 ```{note}
 If you're using version control such as git, then `mysite` is the directory for your project.
-You must exclude the `env` directory from any version control.
+You must exclude the `.[v]env` directory from any version control.
 ```
 
 ### Install Wagtail
 
-To install Wagtail and its dependencies, use pip, which is packaged with Python:
+To install Wagtail and its dependencies, use pip, which is packaged with [`uv`](https://docs.astral.sh/uv):
 
 ```sh
-pip install wagtail
+uv pip install wagtail
 ```
 
 ### Generate your site
 
-Wagtail provides a `start` command similar to `django-admin startproject`. Running `wagtail start mysite` in your project generates a new `mysite` folder with a few Wagtail-specific extras, including the required project settings, a "home" app with a blank `HomePage` model and basic templates, and a sample "search" app.
+Wagtail provides a `start` command similar to `django-admin startproject`. Running `uv run wagtail start mysite` in your project generates a new `mysite` folder with a few Wagtail-specific extras, including the required project settings, a "home" app with a blank `HomePage` model and basic templates, and a sample "search" app.
 
-Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
+Because the folder `mysite` was already created by `venv`, run `uv run wagtail start` with an additional argument to specify the destination directory:
 
 ```sh
-wagtail start mysite mysite
+uv run wagtail start mysite
 ```
 
 Here is the generated project structure:
@@ -109,7 +105,7 @@ mysite/
 
 ```sh
 cd mysite
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
 This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project that you've just created.
@@ -120,7 +116,7 @@ The `requirements.txt` file contains all the dependencies needed to run the proj
 By default, your database is SQLite. To match your database tables with your project's models, run the following command:
 
 ```sh
-python manage.py migrate
+uv run manage.py migrate
 ```
 
 This command ensures that the tables in your database match the models in your project. Every time you alter your model, then you must run the `python manage.py migrate` command to update the database. For example, if you add a field to a model, then you must run the command.
@@ -128,7 +124,7 @@ This command ensures that the tables in your database match the models in your p
 ### Create an admin user
 
 ```sh
-python manage.py createsuperuser
+uv run manage.py createsuperuser
 ```
 
 This prompts you to create a new admin user account with full permissions. It's important to note that for security reasons, the password text won’t be visible while typing.
@@ -136,7 +132,7 @@ This prompts you to create a new admin user account with full permissions. It's 
 ### Start the server
 
 ```sh
-python manage.py runserver
+uv run manage.py runserver
 ```
 
 After the server starts, go to <http://127.0.0.1:8000> to see Wagtail’s welcome page:
@@ -177,10 +173,10 @@ Run:
 
 ```sh
 # Creates the migrations file.
-python manage.py makemigrations
+uv run manage.py makemigrations
 
 # Executes the migrations and updates the database with your model changes.
-python manage.py migrate
+uv run manage.py migrate
 ```
 
 You must run the preceding commands each time you make changes to the model definition. Here is the expected output from the terminal:
@@ -259,7 +255,7 @@ template that uses Wagtail's tags. If the tags aren't loaded, Django throws a `T
 You are now ready to create a blog, use the following command line to create a new app in your Wagtail project.
 
 ```sh
-python manage.py startapp blog
+uv run manage.py startapp blog
 ```
 
 Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
@@ -303,8 +299,8 @@ class BlogIndexPage(Page):
 Since you added a new model to your app, you must create and run a database migration:
 
 ```sh
-python manage.py makemigrations
-python manage.py migrate
+uv run manage.py makemigrations
+uv run manage.py migrate
 ```
 
 Also, since the model name is `BlogIndexPage`, the default template name,
@@ -382,8 +378,8 @@ In the model above, you import `index` as this makes the model searchable. You t
 You have to migrate your database again because of the new changes in your `models.py` file:
 
 ```sh
-python manage.py makemigrations
-python manage.py migrate
+uv run manage.py makemigrations
+uv run manage.py migrate
 ```
 
 Create a new template file at the location `blog/templates/blog/blog_page.html`. Now add the following content to your `blog_page.html` file:
@@ -585,7 +581,7 @@ class BlogPageGalleryImage(Orderable):
     panels = ["image", "caption"]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run `uv run manage.py makemigrations` and `uv run manage.py migrate`.
 
 There are a few new concepts here:
 
@@ -713,7 +709,7 @@ class Author(models.Model):
 Note that you are using `panels` rather than `content_panels` here. Since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs. So there is no need to distinguish between 'content panels' and 'promote panels'.
 ```
 
-Migrate this change by running `python manage.py makemigrations` and `python manage.py migrate`. Create a few authors through the **Snippets** area which now appears in your Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface).
+Migrate this change by running `uv run manage.py makemigrations` and `uv run manage.py migrate`. Create a few authors through the **Snippets** area which now appears in your Wagtail [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface).
 
 You can now add authors to the `BlogPage` model, as a many-to-many field. The field type to use for this is `ParentalManyToManyField`. This field is a variation of the standard Django `ManyToManyField` that ensures the selected objects are properly associated with the page record in the revision history. It operates in a similar manner to how `ParentalKey` replaces `ForeignKey` for one-to-many relations. To add authors to the `BlogPage`, modify `models.py` in your blog app folder:
 
@@ -883,7 +879,7 @@ class BlogPage(Page):
         ]
 ```
 
-Run `python manage.py makemigrations` and `python manage.py migrate`.
+Run `uv run manage.py makemigrations` and `uv run manage.py migrate`.
 
 The changes you made can be summarized as follows:
 
@@ -940,7 +936,7 @@ Wagtail ecosystem, so that you can give it a title and URL in the
 admin. You can also override its `get_context()` method to add a
 QuerySet to the context dictionary, making it available to the template.
 
-Migrate this by running `python manage.py makemigrations` and then `python manage.py migrate`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Blog` in the admin interface.
+Migrate this by running `uv run manage.py makemigrations` and then `uv run manage.py migrate`. After migrating the new changes, create a new `BlogTagIndexPage` in the admin interface. To create the `BlogTagIndexPage`, follow the same process you followed in creating the `BlogIndexPage` and give it the slug "tags" on the Promote tab. This means the `BlogTagIndexPage` is a child of the home page and parallel to `Blog` in the admin interface.
 
 Access `/tags` and Django will tell you what you probably already knew.
 You need to create the template, `blog/templates/blog/blog_tag_index_page.html` and add the following content to it:
