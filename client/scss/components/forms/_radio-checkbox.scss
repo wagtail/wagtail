@@ -11,7 +11,6 @@ $radio-checkbox-label-gap: theme('spacing.[2.5]');
 
 // Both input types are very similar in appearance and layout.
 @mixin radio-checkbox-base() {
-  @include input-base();
   display: inline-block;
   position: relative;
   height: $size;
@@ -20,6 +19,8 @@ $radio-checkbox-label-gap: theme('spacing.[2.5]');
   margin-inline-end: $radio-checkbox-label-gap;
   // Prevent the checkbox or radio button from shrinking when the label is long.
   flex-shrink: 0;
+
+  @include input-base();
 
   &::before {
     content: '';
@@ -41,8 +42,10 @@ $radio-checkbox-label-gap: theme('spacing.[2.5]');
 
 input[type='radio'] {
   @include radio-checkbox-base();
-  display: inline-block;
-  border-radius: theme('borderRadius.full');
+
+  & {
+    border-radius: theme('borderRadius.full');
+  }
 
   &:checked::before {
     mask-image: url('#{$images-root}icons/radio-full.svg');
@@ -51,9 +54,12 @@ input[type='radio'] {
 
 input[type='checkbox'] {
   @include radio-checkbox-base();
-  border-radius: theme('borderRadius.sm');
-  // Legacy alignment for checkboxes, particularly within listings.
-  vertical-align: bottom;
+
+  & {
+    border-radius: theme('borderRadius.sm');
+    // Legacy alignment for checkboxes, particularly within listings.
+    vertical-align: bottom;
+  }
 
   &:checked::before {
     mask-image: url('#{$images-root}icons/check.svg');

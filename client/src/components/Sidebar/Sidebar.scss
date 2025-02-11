@@ -98,8 +98,9 @@ $sidebar-toggle-size: 35px;
 // This is a separate component as it needs to display in the header
 .sidebar-nav-toggle {
   @apply w-z-sidebar-toggle;
-  @include sidebar-toggle;
   display: none; // Nav toggle is for mobile only
+
+  @include sidebar-toggle;
 
   &--mobile {
     @apply w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active;

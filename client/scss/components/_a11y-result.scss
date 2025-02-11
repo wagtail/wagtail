@@ -3,9 +3,12 @@
 
 .w-a11y-result__row {
   @include box;
-  padding: theme('spacing.4');
-  display: flex;
-  justify-content: space-between;
+
+  & {
+    padding: theme('spacing.4');
+    display: flex;
+    justify-content: space-between;
+  }
 
   // Shows additional details within the CMS only.
   .form-side--checks & {
