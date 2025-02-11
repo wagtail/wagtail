@@ -117,10 +117,15 @@ class OrderingFilter(BaseFilterBackend):
             queryset = queryset.order_by(*order_by_fields)
 
             # Reverse order if needed
-            if reverse_order:
-                queryset = queryset.reverse()
+            order_by_fields = []
+            for order_by in order_by_list:
+                if order_by.startswith("-"):
+                    order_by_fields.append(order_by) 
+                else:
+                    order_by_fields.append(order_by)
 
-        return queryset
+
+        return queryset.order_by(*order_by_fields)
 
 
 class SearchFilter(BaseFilterBackend):
