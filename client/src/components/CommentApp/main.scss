@@ -1,4 +1,4 @@
-@import '../../../scss/settings/variables';
+@use '../../../scss/settings/variables' as *;
 
 $color-comment-separator: theme('colors.border-furniture');
 

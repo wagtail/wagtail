@@ -3,6 +3,8 @@
 // Core button styles
 
 @use 'sass:color';
+@use '../tools' as *;
+@use '../settings' as *;
 
 .button {
   border-radius: theme('borderRadius.sm');

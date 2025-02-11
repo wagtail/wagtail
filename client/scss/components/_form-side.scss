@@ -1,6 +1,8 @@
 @use 'sass:color';
 @use 'sass:map';
 @use 'sass:math';
+@use '../tools' as *;
+@use '../../src/components/CommentApp/main.scss' as *;
 
 .side-panel-open {
   @apply w-overflow-y-hidden sm:w-overflow-y-auto;
