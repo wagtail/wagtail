@@ -18,6 +18,7 @@
 
   @include input-base();
 
+  // stylelint-disable-next-line no-duplicate-selectors, scss/selector-no-redundant-nesting-selector
   & {
     background-color: theme('colors.surface-field-inactive');
   }

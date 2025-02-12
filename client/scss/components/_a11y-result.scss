@@ -4,6 +4,7 @@
 .w-a11y-result__row {
   @include box;
 
+  // stylelint-disable-next-line no-duplicate-selectors, scss/selector-no-redundant-nesting-selector
   & {
     padding: theme('spacing.4');
     display: flex;
