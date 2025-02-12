@@ -7,7 +7,7 @@ from taggit.managers import TaggableManager
 from wagtail.models import Locale, Page
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
-
+from django.core.exceptions import FieldError
 from .utils import BadRequestError, parse_boolean
 
 
@@ -95,37 +95,14 @@ class OrderingFilter(BaseFilterBackend):
 
                 return queryset.order_by("?")
 
-            order_by_fields = []
-            for order_by in order_by_list:
-                # Check if reverse ordering is set
-                if order_by.startswith("-"):
-                    reverse_order = True
-                    order_by = order_by[1:]
-                else:
-                    reverse_order = False
+             # Apply ordering and catch invalid field errors
+            try:
+                return queryset.order_by(*order_by_list)
+            except FieldError as e:
+                raise BadRequestError(f"Invalid ordering field: {e}")
 
-                # Add ordering
-                if order_by in view.get_available_fields(queryset.model):
-                    order_by_fields.append(order_by)
-                else:
-                    # Unknown field
-                    raise BadRequestError(
-                        "cannot order by '%s' (unknown field)" % order_by
-                    )
+        return queryset
 
-            # Apply ordering to the queryset
-            queryset = queryset.order_by(*order_by_fields)
-
-            # Reverse order if needed
-            order_by_fields = []
-            for order_by in order_by_list:
-                if order_by.startswith("-"):
-                    order_by_fields.append(order_by) 
-                else:
-                    order_by_fields.append(order_by)
-
-
-        return queryset.order_by(*order_by_fields)
 
 
 class SearchFilter(BaseFilterBackend):
