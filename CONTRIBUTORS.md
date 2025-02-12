@@ -872,6 +872,7 @@
 * Mohamed Rabiaa
 * Bernhard Bliem
 * Mahmoud Nasser
+* Prabhpreet Kaur
 
 ## Translators
 

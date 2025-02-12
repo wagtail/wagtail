@@ -14,6 +14,7 @@ Changelog
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
+ * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
 
 
 6.4 (03.02.2025)
