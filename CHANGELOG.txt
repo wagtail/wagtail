@@ -15,6 +15,7 @@ Changelog
  * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
+ * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
 
 
 6.4 (03.02.2025)
