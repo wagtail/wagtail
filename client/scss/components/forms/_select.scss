@@ -38,7 +38,6 @@ $chevron-offset: math.div($select-size - $chevron-size, 2);
 }
 
 select {
-  @include input-base();
   @include select-arrow();
   @apply w-body-text-large;
   // Firefox workaround – Set a large line height (but smaller than min height) so the field’s text has enough top padding.
@@ -48,6 +47,8 @@ select {
   padding-inline-end: $select-size;
   // Prevent the element from overflowing the container.
   max-width: 100%;
+
+  @include input-base();
 
   @media (forced-colors: active) {
     appearance: auto;

@@ -323,7 +323,6 @@
 }
 
 .w-header-button {
-  @include more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;
@@ -338,6 +337,8 @@
   font-size: theme('fontSize.14');
   font-weight: theme('fontWeight.medium');
   cursor: pointer;
+
+  @include more-contrast-interactive();
 
   .icon {
     width: theme('spacing.4');
