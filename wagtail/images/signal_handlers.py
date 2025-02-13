@@ -27,7 +27,7 @@ def post_save_image_feature_detection(instance, **kwargs):
         if kwargs["raw"] is False and not instance.has_focal_point():
             # Set the focal point
             set_image_focal_point_task.enqueue(
-                instance._meta.app_label, instance._meta.model_name, instance.pk
+                instance._meta.app_label, instance._meta.model_name, str(instance.pk)
             )
 
 
