@@ -603,7 +603,7 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
             return {"multi_match": match_query}
 
-    def _compile_fuzzy_query(self, query, fields):
+    def _compile_fuzzy_query(self, query, fields, boost=1.0):
         match_query = {
             "query": query.query_string,
             "fuzziness": "AUTO",
@@ -614,33 +614,36 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
 
         if len(fields) == 1:
             if fields[0].boost != 1.0:
-                match_query["boost"] = fields[0].boost
+                match_query["boost"] = boost * fields[0].boost
             return {"match": {fields[0].field_name: match_query}}
         else:
+            if fields[0].boost != 1.0:
+                match_query["boost"] = boost
             match_query["fields"] = [field.field_name_with_boost for field in fields]
             return {"multi_match": match_query}
 
-    def _compile_phrase_query(self, query, fields):
+    def _compile_phrase_query(self, query, fields, boost=1.0):
         if len(fields) == 1:
             if fields[0].boost != 1.0:
                 return {
                     "match_phrase": {
                         fields[0].field_name: {
                             "query": query.query_string,
-                            "boost": fields[0].boost,
+                            "boost": boost * fields[0].boost,
                         }
                     }
                 }
             else:
                 return {"match_phrase": {fields[0].field_name: query.query_string}}
         else:
-            return {
-                "multi_match": {
-                    "query": query.query_string,
-                    "fields": [field.field_name_with_boost for field in fields],
-                    "type": "phrase",
-                }
+            multi_match_query = {
+                "query": query.query_string,
+                "fields": [field.field_name_with_boost for field in fields],
+                "type": "phrase",
             }
+            if boost != 1.0:
+                multi_match_query["boost"] = boost
+            return {"multi_match": multi_match_query}
 
     def _compile_query(self, query, field, boost=1.0):
         if isinstance(query, MatchAll):
@@ -680,10 +683,10 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             return self._compile_plaintext_query(query, [field], boost)
 
         elif isinstance(query, Fuzzy):
-            return self._compile_fuzzy_query(query, [field])
+            return self._compile_fuzzy_query(query, [field], boost)
 
         elif isinstance(query, Phrase):
-            return self._compile_phrase_query(query, [field])
+            return self._compile_phrase_query(query, [field], boost)
 
         elif isinstance(query, Boost):
             return self._compile_query(query.subquery, field, boost * query.boost)
