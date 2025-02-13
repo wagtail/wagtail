@@ -1006,7 +1006,7 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 register_snippet(AdvertWithCustomPrimaryKey)
 
 
-class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
+class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
     advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
@@ -1016,6 +1016,10 @@ class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
         FieldPanel("url"),
         FieldPanel("text"),
         FieldPanel("page"),
+    ]
+
+    search_fields = [
+        index.SearchField("text"),
     ]
 
     def __str__(self):
