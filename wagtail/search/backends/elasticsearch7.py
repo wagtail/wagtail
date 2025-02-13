@@ -565,6 +565,9 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 }
             }
 
+    def _process_match_none(self):
+        return {"bool": {"mustNot": {"match_all": {}}}}
+
     def _connect_filters(self, filters, connector, negated):
         if filters:
             if len(filters) == 1:
