@@ -250,6 +250,19 @@ class TestCreateOrUpdateForObject(TestCase):
         refs = ReferenceIndex.get_references_to(content_type)
         self.assertEqual(refs.count(), 0)
 
+    def test_model_with_uuid_primary_key(self):
+        refs = ReferenceIndex.get_references_to(self.event_page)
+        self.assertEqual(refs.count(), 0)
+
+        with self.captureOnCommitCallbacks(execute=True):
+            AdvertWithCustomUUIDPrimaryKey.objects.create(
+                text="An advertisement",
+                page=self.event_page,
+            )
+
+        refs = ReferenceIndex.get_references_to(self.event_page)
+        self.assertEqual(refs.count(), 1)
+
     def test_rebuild_references_index_no_verbosity(self):
         stdout = StringIO()
         management.call_command(

@@ -1010,10 +1010,12 @@ class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
     advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
+    page = models.ForeignKey(Page, null=True, blank=True, on_delete=models.SET_NULL)
 
     panels = [
         FieldPanel("url"),
         FieldPanel("text"),
+        FieldPanel("page"),
     ]
 
     def __str__(self):
