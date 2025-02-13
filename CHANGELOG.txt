@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.4.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when filtering by locale and searching with Elasticsearch (Sage Abdullah)
+
+
 6.4 (03.02.2025)
 ~~~~~~~~~~~~~~~~
 
