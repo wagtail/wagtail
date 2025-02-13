@@ -638,6 +638,13 @@ class BackendTests(WagtailTestUtils):
             ],
         )
 
+    def test_filter_none(self):
+        results = self.backend.search(MATCH_ALL, models.Book.objects.none())
+        self.assertListEqual(list(results), [])
+
+        results = self.backend.search("JavaScript", models.Book.objects.none())
+        self.assertListEqual(list(results), [])
+
     # FACET TESTS
 
     def test_facet(self):
