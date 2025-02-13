@@ -22,7 +22,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error when filtering by locale and searching with Elasticsearch (Sage Abdullah)
-
+ * Fix: Support searching `none()` querysets (Matt Westcott)
 
 6.4 (03.02.2025)
 ~~~~~~~~~~~~~~~~

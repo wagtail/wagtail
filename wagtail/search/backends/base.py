@@ -5,7 +5,7 @@ from django.db.models.functions.datetime import Extract as ExtractDate
 from django.db.models.functions.datetime import ExtractYear
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
-from django.db.models.sql.where import SubqueryConstraint, WhereNode
+from django.db.models.sql.where import NothingNode, SubqueryConstraint, WhereNode
 
 from wagtail.search.index import class_is_indexed, get_indexed_models
 from wagtail.search.query import MATCH_ALL, PlainText
@@ -67,6 +67,9 @@ class BaseSearchQueryCompiler:
         return field
 
     def _process_lookup(self, field, lookup, value):
+        raise NotImplementedError
+
+    def _process_match_none(self):
         raise NotImplementedError
 
     def _connect_filters(self, filters, connector, negated):
@@ -178,6 +181,9 @@ class BaseSearchQueryCompiler:
             return self._process_filter(
                 field_attname, lookup, value, check_only=check_only
             )
+
+        elif isinstance(where_node, NothingNode):
+            return self._process_match_none()
 
         elif isinstance(where_node, SubqueryConstraint):
             raise FilterError(
