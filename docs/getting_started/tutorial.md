@@ -667,7 +667,7 @@ This method is now available from your templates. Update `blog_index_page.html` 
         <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
 
         <!-- Add this: -->
-        {% with post.main_image as main_image %}
+        {% with post.specific.main_image as main_image %}
             {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
         {% endwith %}
 
