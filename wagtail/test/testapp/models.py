@@ -932,6 +932,65 @@ class CustomFormBuilder(FormBuilder):
         return forms.GenericIPAddressField(**options)
 
 
+class FormBuilderWithCustomWidget(FormBuilder):
+    """
+    A form builder that customizes all default field type and
+    passes a `widget` parameter in the options to the parent class.
+    """
+
+    def create_singleline_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_singleline_field(field, options)
+
+    def create_multiline_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_multiline_field(field, options)
+
+    def create_email_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_email_field(field, options)
+
+    def create_number_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_number_field(field, options)
+
+    def create_url_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_url_field(field, options)
+
+    def create_checkbox_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_checkbox_field(field, options)
+
+    def create_checkboxes_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_checkboxes_field(field, options)
+
+    def create_dropdown_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_dropdown_field(field, options)
+
+    def create_multiselect_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_multiselect_field(field, options)
+
+    def create_radio_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_radio_field(field, options)
+
+    def create_date_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_date_field(field, options)
+
+    def create_datetime_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_datetime_field(field, options)
+
+    def create_hidden_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_hidden_field(field, options)
+
+
 class FormPageWithCustomFormBuilder(AbstractEmailForm):
     """
     A Form page that has a custom form builder and uses a custom
