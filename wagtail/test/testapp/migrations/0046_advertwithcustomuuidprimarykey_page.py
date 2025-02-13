@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0046_alter_custom_rendition_to_unique_constraint"),
+        ("tests", "0045_alter_streampage_body"),
         ("wagtailcore", "0094_alter_page_locale"),
     ]
 
