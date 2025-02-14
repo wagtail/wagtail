@@ -47,7 +47,7 @@ class TestRevisionDeletion(CommentTestingUtils, TestCase):
 
 class TestContentPath(WagtailTestUtils, CommentTestingUtils, TestCase):
     def setUp(self):
-        self.root_page = Page.objects.get(title="Welcome to the Wagtail test site!")
+        self.root_page = Page.objects.get(id=2)
 
         self.child_page = StreamPage(
             title="stream page",
@@ -62,7 +62,7 @@ class TestContentPath(WagtailTestUtils, CommentTestingUtils, TestCase):
         )
 
         self.root_page.add_child(instance=self.child_page)
-        self.child_page.save_revision().publish()
+        self.revision_1 = self.child_page.save_revision()
         self.user = self.login()
 
     def test_streamfield_supports_nested_paths(self):
