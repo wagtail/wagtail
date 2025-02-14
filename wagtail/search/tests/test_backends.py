@@ -301,6 +301,23 @@ class BackendTests(WagtailTestUtils):
             [r.title for r in results], ["The Return of the King"]
         )
 
+    def test_filter_exact_values_list_subquery(self):
+        protagonist = (
+            models.Character.objects.filter(name="Frodo Baggins")
+            .order_by("novel_id")
+            .values_list("pk", flat=True)[:1]
+        )
+
+        results = self.backend.search(
+            MATCH_ALL,
+            models.Novel.objects.filter(protagonist_id=protagonist),
+        )
+
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["The Fellowship of the Ring"],
+        )
+
     def test_filter_lt(self):
         results = self.backend.search(
             MATCH_ALL, models.Book.objects.filter(number_of_pages__lt=440)
