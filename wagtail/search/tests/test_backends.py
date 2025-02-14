@@ -429,20 +429,26 @@ class BackendTests(WagtailTestUtils):
         values = models.Book.objects.filter(number_of_pages__lt=440).values_list(
             "number_of_pages", flat=True
         )
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(number_of_pages__in=values)
-        )
+        cases = {
+            "implicit": values,
+            "explicit": Subquery(values),
+        }
+        for case, subquery in cases.items():
+            with self.subTest(case=case):
+                results = self.backend.search(
+                    MATCH_ALL, models.Book.objects.filter(number_of_pages__in=subquery)
+                )
 
-        self.assertUnsortedListEqual(
-            [r.title for r in results],
-            [
-                "The Hobbit",
-                "JavaScript: The good parts",
-                "The Fellowship of the Ring",
-                "Foundation",
-                "The Two Towers",
-            ],
-        )
+                self.assertUnsortedListEqual(
+                    [r.title for r in results],
+                    [
+                        "The Hobbit",
+                        "JavaScript: The good parts",
+                        "The Fellowship of the Ring",
+                        "Foundation",
+                        "The Two Towers",
+                    ],
+                )
 
     def test_filter_isnull_true(self):
         # Note: We don't know the birth dates of any of the programming guide authors
