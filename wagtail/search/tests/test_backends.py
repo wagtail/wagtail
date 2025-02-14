@@ -7,6 +7,7 @@ from unittest import mock
 from django.conf import settings
 from django.core import management
 from django.db import connection
+from django.db.models import Subquery
 from django.test import TestCase
 from django.test.utils import override_settings
 from taggit.models import Tag
@@ -307,16 +308,22 @@ class BackendTests(WagtailTestUtils):
             .order_by("novel_id")
             .values_list("pk", flat=True)[:1]
         )
+        cases = {
+            "implicit": protagonist,
+            "explicit": Subquery(protagonist),
+        }
 
-        results = self.backend.search(
-            MATCH_ALL,
-            models.Novel.objects.filter(protagonist_id=protagonist),
-        )
+        for case, subquery in cases.items():
+            with self.subTest(case=case):
+                results = self.backend.search(
+                    MATCH_ALL,
+                    models.Novel.objects.filter(protagonist_id=subquery),
+                )
 
-        self.assertUnsortedListEqual(
-            [r.title for r in results],
-            ["The Fellowship of the Ring"],
-        )
+                self.assertUnsortedListEqual(
+                    [r.title for r in results],
+                    ["The Fellowship of the Ring"],
+                )
 
     def test_filter_lt(self):
         results = self.backend.search(
