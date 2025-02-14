@@ -561,9 +561,10 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
         if lookup == "in":
-            if isinstance(value, Query):
+            if isinstance(value, (Query, Subquery)):
                 db_alias = self.queryset._db or DEFAULT_DB_ALIAS
-                resultset = value.get_compiler(db_alias).execute_sql(result_type=MULTI)
+                query = value.query if isinstance(value, Subquery) else value
+                resultset = query.get_compiler(db_alias).execute_sql(result_type=MULTI)
                 value = [row[0] for chunk in resultset for row in chunk]
 
             elif not isinstance(value, list):
