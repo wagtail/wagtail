@@ -551,10 +551,8 @@ table.listing {
     }
     margin: 0 0.5rem;
   }
-}
 
-@include dark-theme() {
-  .pagination {
+  @include dark-theme() {
     li {
       &.pagination-page-number {
         a {
