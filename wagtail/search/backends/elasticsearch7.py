@@ -565,6 +565,9 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                 }
             }
 
+    def _process_match_none(self):
+        return {"bool": {"mustNot": {"match_all": {}}}}
+
     def _connect_filters(self, filters, connector, negated):
         if filters:
             if len(filters) == 1:
@@ -1141,13 +1144,13 @@ class Elasticsearch7SearchBackend(BaseSearchBackend):
                 "analyzer": {
                     "ngram_analyzer": {
                         "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "ngram"],
+                        "tokenizer": "standard",
+                        "filter": ["asciifolding", "lowercase", "ngram"],
                     },
                     "edgengram_analyzer": {
                         "type": "custom",
-                        "tokenizer": "lowercase",
-                        "filter": ["asciifolding", "edgengram"],
+                        "tokenizer": "standard",
+                        "filter": ["asciifolding", "lowercase", "edgengram"],
                     },
                 },
                 "tokenizer": {

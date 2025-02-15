@@ -1,3 +1,7 @@
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+@use '../../../scss/components/forms/input-base' as *;
+
 $draftail-editor-text: theme('colors.text-context');
 $draftail-placeholder-text: theme('colors.text-placeholder');
 // w-body-text-large
@@ -220,7 +224,6 @@ $draftail-editor-font-family: theme('fontFamily.sans');
 }
 
 .Draftail-ToolbarButton {
-  @include more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,6 +231,8 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   min-width: 1.875rem;
   padding: 0;
   margin-inline-end: 0.625rem;
+
+  @include more-contrast-interactive();
 
   .Draftail-ToolbarGroup:last-of-type &:last-of-type {
     margin-inline-end: 0;

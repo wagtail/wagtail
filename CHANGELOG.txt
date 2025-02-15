@@ -6,8 +6,24 @@ Changelog
 
  * Add `WAGTAIL_` prefix to Wagtail-specific tag settings (Aayushman Singh)
  * Implement `normalize` on `TypedTableBlock` to assist with setting `default` and `preview_value` (Sage Abdullah)
+ * Apply normalization when modifying a `StreamBlock`'s value to assist with programmatic changes to `StreamField` (Matt Westcott)
+ * Allow a custom image rendition model to define its unique constraint with `models.UniqueConstraint` instead of `unique_together` (Oliver Parker, Cynthia Kiser, Sage Abdullah)
+ * Default to the `standard` tokenizer on Elasticsearch, to correctly handle numbers as tokens (Matt Westcott)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
+ * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
+ * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
+ * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
+ * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
+ * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
+
+
+6.4.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when filtering by locale and searching with Elasticsearch (Sage Abdullah)
+ * Fix: Support searching `none()` querysets (Matt Westcott)
+ * Fix: Correctly handle UUID primary keys when invoking background tasks (Matt Westcott)
 
 
 6.4 (03.02.2025)

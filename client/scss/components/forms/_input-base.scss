@@ -1,14 +1,17 @@
+@use '../../tools' as *;
+
 /**
  * Field styles reusable across **all** fields, including:
  * Text input, textarea, checkbox, radio, select, etc.
  */
 @mixin input-base() {
-  @include more-contrast-interactive();
   appearance: none;
   border-radius: theme('borderRadius.DEFAULT');
   color: theme('colors.text-context');
   background-color: theme('colors.surface-field');
   border: 1px solid theme('colors.border-field-default');
+
+  @include more-contrast-interactive();
 
   &:hover {
     border-color: theme('colors.border-field-hover');

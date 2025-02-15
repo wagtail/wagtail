@@ -6,7 +6,7 @@ from django.test import TestCase, override_settings
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail.test.search import models
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import AdvertWithCustomUUIDPrimaryKey, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -166,6 +166,12 @@ class TestSignalHandlers(WagtailTestUtils, TestCase):
             )
         backend().add.assert_called_with(obj)
 
+    def test_index_on_create_with_uuid_primary_key(self, backend):
+        backend().reset_mock()
+        with self.captureOnCommitCallbacks(execute=True):
+            obj = AdvertWithCustomUUIDPrimaryKey.objects.create(text="Test")
+        backend().add.assert_called_with(obj)
+
     def test_index_on_update(self, backend):
         obj = models.Book.objects.create(
             title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
@@ -180,10 +186,30 @@ class TestSignalHandlers(WagtailTestUtils, TestCase):
         indexed_object = backend().add.call_args[0][0]
         self.assertEqual(indexed_object.title, "Updated test")
 
+    def test_index_on_update_with_uuid_primary_key(self, backend):
+        obj = AdvertWithCustomUUIDPrimaryKey.objects.create(text="Test")
+
+        backend().reset_mock()
+        obj.text = "Updated test"
+        with self.captureOnCommitCallbacks(execute=True):
+            obj.save()
+
+        self.assertEqual(backend().add.call_count, 1)
+        indexed_object = backend().add.call_args[0][0]
+        self.assertEqual(indexed_object.text, "Updated test")
+
     def test_index_on_delete(self, backend):
         obj = models.Book.objects.create(
             title="Test", publication_date=date(2017, 10, 18), number_of_pages=100
         )
+
+        backend().reset_mock()
+        with self.captureOnCommitCallbacks(execute=True):
+            obj.delete()
+        backend().delete.assert_called_with(obj)
+
+    def test_index_on_delete_with_uuid_primary_key(self, backend):
+        obj = AdvertWithCustomUUIDPrimaryKey.objects.create(text="Test")
 
         backend().reset_mock()
         with self.captureOnCommitCallbacks(execute=True):
