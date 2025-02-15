@@ -551,6 +551,22 @@ table.listing {
   }
 }
 
+@include dark-theme() {
+  .pagination {
+    li {
+      &.pagination-page-number {
+        a {
+          &.current,
+          &:hover,
+          &:focus {
+            background-color: var(--w-color-secondary);
+          }
+        }
+      }
+    }
+  }
+}
+
 .listing.full-width + .pagination {
   margin-top: 3em;
   border-top: 1px dashed theme('colors.border-furniture');
