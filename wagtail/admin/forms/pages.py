@@ -221,6 +221,15 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
                 )
 
         return cleaned_data
+    
+    @property
+    def media(self):
+        media = super().media
+        if self.show_comments_toggle:
+            media += forms.Media(
+                js=["wagtailadmin/js/comments.js"],
+            )
+        return media
 
 
 class MoveForm(forms.Form):
