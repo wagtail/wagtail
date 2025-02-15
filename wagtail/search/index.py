@@ -317,12 +317,13 @@ class FilterField(BaseField):
 
 
 class RelatedFields:
-    def __init__(self, field_name, fields):
+    def __init__(self, field_name, fields, model_field_name=None):
         self.field_name = field_name
         self.fields = fields
+        self.model_field_name = model_field_name or field_name
 
     def get_field(self, cls):
-        return cls._meta.get_field(self.field_name)
+        return cls._meta.get_field(self.model_field_name)
 
     def get_definition_model(self, cls):
         field = self.get_field(cls)
@@ -332,7 +333,7 @@ class RelatedFields:
         field = self.get_field(obj.__class__)
 
         if isinstance(field, (RelatedField, ForeignObjectRel)):
-            return getattr(obj, self.field_name)
+            return getattr(obj, self.model_field_name)
 
     def select_on_queryset(self, queryset):
         """
