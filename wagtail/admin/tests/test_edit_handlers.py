@@ -1778,6 +1778,15 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
                 for panel in expand_panel_list(Page, Page.settings_panels)
             )
         )
+
+        self.login()
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[3]))
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        scripts = soup.select("script[src='/static/wagtailadmin/js/comments.js']")
+        self.assertEqual(len(scripts), 0)
+
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
         self.assertFalse(form.show_comments_toggle)
@@ -1792,6 +1801,15 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
                 for panel in expand_panel_list(Page, Page.settings_panels)
             )
         )
+
+        self.login()
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[3]))
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        scripts = soup.select("script[src='/static/wagtailadmin/js/comments.js']")
+        self.assertEqual(len(scripts), 1)
+
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
         self.assertTrue(form.show_comments_toggle)
