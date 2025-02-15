@@ -111,7 +111,7 @@ class Indexed:
         errors = []
         for field in cls.get_search_fields():
             message = "{model}.search_fields contains non-existent field '{name}'"
-            if not cls._has_field(field.field_name):
+            if not cls._has_field(field.model_field_name):
                 errors.append(
                     checks.Warning(
                         message.format(model=cls.__name__, name=field.field_name),
@@ -213,14 +213,24 @@ def remove_object(instance):
 
 
 class BaseField:
-    def __init__(self, field_name, **kwargs):
+    def __init__(
+        self,
+        field_name,
+        *,
+        model_field_name=None,
+        **kwargs,
+    ):
         self.field_name = field_name
         self.kwargs = kwargs
+        self.model_field_name = model_field_name or field_name
 
     def get_field(self, cls):
-        return cls._meta.get_field(self.field_name)
+        return cls._meta.get_field(self.model_field_name)
 
     def get_attname(self, cls):
+        if self.model_field_name != self.field_name:
+            return self.field_name
+
         try:
             field = self.get_field(cls)
             return field.attname
@@ -283,13 +293,13 @@ class BaseField:
                     value = remote_field.get_searchable_content(value)
             return value
         except FieldDoesNotExist:
-            value = getattr(obj, self.field_name, None)
+            value = getattr(obj, self.model_field_name, None)
             if hasattr(value, "__call__"):
                 value = value()
             return value
 
     def __repr__(self):
-        return f"<{self.__class__.__name__}: {self.field_name}>"
+        return f"<{self.__class__.__name__}: {self.field_name} {self.model_field_name}>"
 
 
 class SearchField(BaseField):
