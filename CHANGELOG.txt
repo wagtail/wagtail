@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.3.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Remove upper version boundary for django-filter. (Dan Braghis)
+
+
 6.3.3 (03.02.2025)
 ~~~~~~~~~~~~~~~~~~
 
@@ -14,6 +20,7 @@ Changelog
  * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
  * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
  * Docs: Revert incorrect example of appending a `RichTextBlock` to a `StreamField` (Matt Westcott)
+
 
 6.3.2 (02.01.2025)
 ~~~~~~~~~~~~~~~~~~
