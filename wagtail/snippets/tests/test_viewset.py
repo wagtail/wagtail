@@ -174,7 +174,7 @@ class TestSnippetChooserBlockWithIcon(TestCase):
         mock_model = mock.MagicMock()
         mock_model.snippet_viewset = mock_viewset
         block = SnippetChooserBlock(target_model=mock_model)
-        #Here since custom icon is not defined, it should be "snippet"
+        # Here since custom icon is not defined, it should be "snippet"
         self.assertEqual(block.meta.icon, "snippet")
 
 
