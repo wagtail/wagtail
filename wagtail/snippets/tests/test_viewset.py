@@ -164,6 +164,19 @@ class TestSnippetChooserBlockWithIcon(TestCase):
         # It should not add any extra kwargs for the icon
         self.assertEqual(kwargs, {"required": False})
 
+    def test_snippet_icon_override_if_custom_icon_is_defined(self):
+        # Snippet icon is overridden if it is defined, FullFeaturedSnippet has a custom icon as "cog"
+        chooser_block = SnippetChooserBlock(FullFeaturedSnippet)
+        self.assertEqual(chooser_block.target_model.snippet_viewset.icon, "cog")
+
+    def test_snippet_icon_override_if_custom_icon_is_not_defined(self):
+        mock_viewset = mock.MagicMock()
+        mock_model = mock.MagicMock()
+        mock_model.snippet_viewset = mock_viewset
+        block = SnippetChooserBlock(target_model=mock_model)
+        #Here since custom icon is not defined, it should be "snippet"
+        self.assertEqual(block.meta.icon, "snippet")
+
 
 class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
     def setUp(self):
