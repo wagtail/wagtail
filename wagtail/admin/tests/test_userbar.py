@@ -479,12 +479,16 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
             kwargs["called"] = True
             return items
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position",
-        ), hooks.register_temporarily(
-            "construct_wagtail_userbar",
-            construct_wagtail_userbar,
+        with (
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "`construct_wagtail_userbar` hook functions should accept a "
+                "`page` argument in third position",
+            ),
+            hooks.register_temporarily(
+                "construct_wagtail_userbar",
+                construct_wagtail_userbar,
+            ),
         ):
             response = self.page.serve(self.request)
             response.render()
@@ -522,12 +526,16 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
             kwargs["called"] = True
             return items
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position",
-        ), hooks.register_temporarily(
-            "construct_wagtail_userbar",
-            construct_wagtail_userbar,
+        with (
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "`construct_wagtail_userbar` hook functions should accept a "
+                "`page` argument in third position",
+            ),
+            hooks.register_temporarily(
+                "construct_wagtail_userbar",
+                construct_wagtail_userbar,
+            ),
         ):
             response = self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))

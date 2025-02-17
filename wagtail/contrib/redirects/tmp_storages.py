@@ -23,6 +23,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+
 # Copied from: https://raw.githubusercontent.com/django-import-export/django-import-export/5795e114210adf250ac6e146db2fa413f38875de/import_export/tmp_storages.py
 import os
 import tempfile

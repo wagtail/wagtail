@@ -654,8 +654,7 @@ class TestSearchPromotionsAddView(AdminTemplateTestUtils, WagtailTestUtils, Test
             response.context["searchpicks_formset"],
             0,
             "page",
-            "Select a valid choice. "
-            "That choice is not one of the available choices.",
+            "Select a valid choice. That choice is not one of the available choices.",
         )
         # Should not raise an error anywhere else
         self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
@@ -992,8 +991,7 @@ class TestSearchPromotionsEditView(AdminTemplateTestUtils, WagtailTestUtils, Tes
             response.context["searchpicks_formset"],
             1,
             "page",
-            "Select a valid choice. "
-            "That choice is not one of the available choices.",
+            "Select a valid choice. That choice is not one of the available choices.",
         )
         # Should not raise an error anywhere else
         self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
@@ -1560,7 +1558,8 @@ class TestQueryStringNormalisation(TestCase):
     def test_different_queries(self):
         queries = [
             "HelloWorld",
-            "HelloWorld!" "  Hello  World!  ",
+            "HelloWorld!",
+            "  Hello  World  ",
             "Hello",
         ]
 
