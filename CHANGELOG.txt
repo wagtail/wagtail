@@ -16,6 +16,7 @@ Changelog
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
  * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
+ * Maintenance: Remove upper version boundary for django-filter. (Dan Braghis)
 
 
 6.4.1 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -24,6 +25,7 @@ Changelog
  * Fix: Prevent error when filtering by locale and searching with Elasticsearch (Sage Abdullah)
  * Fix: Support searching `none()` querysets (Matt Westcott)
  * Fix: Correctly handle UUID primary keys when invoking background tasks (Matt Westcott)
+ * Maintenance: Remove upper version boundary for django-filter. (Dan Braghis)
 
 
 6.4 (03.02.2025)
@@ -161,6 +163,12 @@ Changelog
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+
+6.3.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Maintenance: Remove upper version boundary for django-filter. (Dan Braghis)
 
 
 6.3.3 (03.02.2025)
