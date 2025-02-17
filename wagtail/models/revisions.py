@@ -1,3 +1,5 @@
+import logging
+
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -8,11 +10,18 @@ from django.db.models.expressions import OuterRef, Subquery
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from modelcluster.models import (
+    get_serializable_data_for_fields,
+    model_from_serializable_data,
+)
 
 from wagtail.log_actions import log
 from wagtail.utils.timestamps import ensure_utc
 
 from .content_types import get_default_page_content_type
+from .i18n import TranslatableMixin
+
+logger = logging.getLogger("wagtail")
 
 
 class RevisionQuerySet(models.QuerySet):
@@ -234,3 +243,191 @@ class Revision(models.Model):
                 name="base_content_object_idx",
             ),
         ]
+
+
+class RevisionMixin(models.Model):
+    """A mixin that allows a model to have revisions."""
+
+    latest_revision = models.ForeignKey(
+        "wagtailcore.Revision",
+        related_name="+",
+        verbose_name=_("latest revision"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+    )
+
+    # An array of additional field names that will not be included when the object is copied.
+    default_exclude_fields_in_copy = [
+        "latest_revision",
+    ]
+
+    @property
+    def revisions(self):
+        """
+        Returns revisions that belong to the object.
+
+        Subclasses should define a
+        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
+        :class:`~wagtail.models.Revision` and override this property to return
+        that ``GenericRelation``. This allows subclasses to customize the
+        ``related_query_name`` of the ``GenericRelation`` and add custom logic
+        (e.g. to always use the specific instance in ``Page``).
+        """
+        return Revision.objects.filter(
+            content_type=self.get_content_type(),
+            object_id=self.pk,
+        )
+
+    def get_base_content_type(self):
+        parents = self._meta.get_parent_list()
+        # Get the last non-abstract parent in the MRO as the base_content_type.
+        # Note: for_concrete_model=False means that the model can be a proxy model.
+        if parents:
+            return ContentType.objects.get_for_model(
+                parents[-1], for_concrete_model=False
+            )
+        # This model doesn't inherit from a non-abstract model,
+        # use it as the base_content_type.
+        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+
+    def get_content_type(self):
+        return ContentType.objects.get_for_model(self, for_concrete_model=False)
+
+    def get_latest_revision(self):
+        return self.latest_revision
+
+    def get_latest_revision_as_object(self):
+        """
+        Returns the latest revision of the object as an instance of the model.
+        If no latest revision exists, returns the object itself.
+        """
+        latest_revision = self.get_latest_revision()
+        if latest_revision:
+            return latest_revision.as_object()
+        return self
+
+    def serializable_data(self):
+        try:
+            return super().serializable_data()
+        except AttributeError:
+            return get_serializable_data_for_fields(self)
+
+    @classmethod
+    def from_serializable_data(cls, data, check_fks=True, strict_fks=False):
+        try:
+            return super().from_serializable_data(data, check_fks, strict_fks)
+        except AttributeError:
+            return model_from_serializable_data(
+                cls, data, check_fks=check_fks, strict_fks=strict_fks
+            )
+
+    def with_content_json(self, content):
+        """
+        Returns a new version of the object with field values updated to reflect changes
+        in the provided ``content`` (which usually comes from a previously-saved revision).
+
+        Certain field values are preserved in order to prevent errors if the returned
+        object is saved, such as ``id``. The following field values are also preserved,
+        as they are considered to be meaningful to the object as a whole, rather than
+        to a specific revision:
+
+        * ``latest_revision``
+
+        If :class:`~wagtail.models.TranslatableMixin` is applied, the following field values
+        are also preserved:
+
+        * ``translation_key``
+        * ``locale``
+        """
+        obj = self.from_serializable_data(content)
+
+        # This should definitely never change between revisions
+        obj.pk = self.pk
+
+        # Ensure other values that are meaningful for the object as a whole
+        # (rather than to a specific revision) are preserved
+        obj.latest_revision = self.latest_revision
+
+        if isinstance(self, TranslatableMixin):
+            obj.translation_key = self.translation_key
+            obj.locale = self.locale
+
+        return obj
+
+    def _update_from_revision(self, revision, changed=True):
+        self.latest_revision = revision
+        self.save(update_fields=["latest_revision"])
+
+    def save_revision(
+        self,
+        user=None,
+        approved_go_live_at=None,
+        changed=True,
+        log_action=False,
+        previous_revision=None,
+        clean=True,
+    ):
+        """
+        Creates and saves a revision.
+
+        :param user: The user performing the action.
+        :param approved_go_live_at: The date and time the revision is approved to go live.
+        :param changed: Indicates whether there were any content changes.
+        :param log_action: Flag for logging the action. Pass ``True`` to also create a log entry. Can be passed an action string.
+            Defaults to ``"wagtail.edit"`` when no ``previous_revision`` param is passed, otherwise ``"wagtail.revert"``.
+        :param previous_revision: Indicates a revision reversal. Should be set to the previous revision instance.
+        :type previous_revision: Revision
+        :param clean: Set this to ``False`` to skip cleaning object content before saving this revision.
+        :return: The newly created revision.
+        """
+        if clean:
+            self.full_clean()
+
+        revision = Revision.objects.create(
+            content_object=self,
+            base_content_type=self.get_base_content_type(),
+            user=user,
+            approved_go_live_at=approved_go_live_at,
+            content=self.serializable_data(),
+            object_str=str(self),
+        )
+
+        self._update_from_revision(revision, changed)
+
+        logger.info(
+            'Edited: "%s" pk=%d revision_id=%d', str(self), self.pk, revision.id
+        )
+        if log_action:
+            if not previous_revision:
+                log(
+                    instance=self,
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.edit",
+                    user=user,
+                    revision=revision,
+                    content_changed=changed,
+                )
+            else:
+                log(
+                    instance=self,
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.revert",
+                    user=user,
+                    data={
+                        "revision": {
+                            "id": previous_revision.id,
+                            "created": ensure_utc(previous_revision.created_at),
+                        }
+                    },
+                    revision=revision,
+                    content_changed=changed,
+                )
+
+        return revision
+
+    class Meta:
+        abstract = True
