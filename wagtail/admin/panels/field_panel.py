@@ -110,8 +110,7 @@ class FieldPanel(Panel):
             labels = dict(choices)
             display_values = [
                 str(labels.get(v, v))  # Use raw value if no match found
-                for v in
-                (
+                for v in (
                     # Account for single AND multiple choice fields
                     tuple(value) if isinstance(value, (list, tuple)) else (value,)
                 )

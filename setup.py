@@ -51,7 +51,7 @@ testing_extras = [
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
     "doc8==0.8.1",
-    "ruff==0.1.5",
+    "ruff==0.9.6",
     # For enforcing string formatting mechanism in source files
     "semgrep==1.40.0",
     # For templates linting
