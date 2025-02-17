@@ -110,9 +110,7 @@ class UserForm(UsernameForm):
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
         required=False,
-        help_text=_(
-            "Administrators have full access to manage any object " "or setting."
-        ),
+        help_text=_("Administrators have full access to manage any object or setting."),
     )
 
     def __init__(self, *args, **kwargs):
