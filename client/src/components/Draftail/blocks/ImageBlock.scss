@@ -1,4 +1,6 @@
 @use 'sass:color';
+@use '../../../../../client/scss/tools' as *;
+
 @mixin wagtail-label-overrides {
   float: none;
   width: initial;
