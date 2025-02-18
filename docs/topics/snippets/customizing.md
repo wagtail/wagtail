@@ -26,7 +26,9 @@ class Member(models.Model):
         EXTRA_LARGE = "XL", "Extra Large"
 
     name = models.CharField(max_length=255)
-    shirt_size = models.CharField(max_length=5, choices=ShirtSize.choices, default=ShirtSize.MEDIUM)
+    shirt_size = models.CharField(
+        max_length=5, choices=ShirtSize.choices, default=ShirtSize.MEDIUM
+    )
 
     def get_shirt_size_display(self):
         return self.ShirtSize(self.shirt_size).label
@@ -68,10 +70,13 @@ class MemberViewSet(SnippetViewSet):
     # or
     # list_filter = {"shirt_size": ["exact"], "name": ["icontains"]}
 
-    edit_handler = TabbedInterface([
-        ObjectList([FieldPanel("name")], heading="Details"),
-        ObjectList([FieldPanel("shirt_size")], heading="Preferences"),
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("name")], heading="Details"),
+            ObjectList([FieldPanel("shirt_size")], heading="Preferences"),
+        ]
+    )
+
 
 register_snippet(MemberViewSet)
 ```

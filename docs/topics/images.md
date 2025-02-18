@@ -493,7 +493,7 @@ WAGTAILIMAGES_WEBP_QUALITY = 45
 
 Note that this won't affect any previously generated images so you may want to delete all renditions so they can regenerate with the new setting. This can be done from the Django shell:
 
-```python
+```pycon
 # Replace this with your custom rendition model if you use one
 >>> from wagtail.images.models import Rendition
 >>> Rendition.objects.all().delete()

@@ -208,6 +208,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
             from http import HTTPMethod
 
+
             class MyPage(Page):
                 allowed_http_methods = [HTTPMethod.GET, HTTPMethod.OPTIONS]
 
@@ -275,7 +276,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
            class BreadsIndexPage(Page):
                def get_admin_default_ordering(self):
                    if Page.objects.child_of(self).count() < 20:
-                       return 'title'
+                       return "title"
                    return self.admin_default_ordering
 
     .. attribute:: admin_default_ordering
@@ -297,7 +298,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
         .. code-block:: python
 
             class BlogIndex(Page):
-                subpage_types = ['mysite.BlogPage', 'mysite.BlogArchivePage']
+                subpage_types = ["mysite.BlogPage", "mysite.BlogArchivePage"]
 
         The creation of child pages can be blocked altogether for a given page by setting its subpage_types attribute to an empty array:
 
@@ -313,7 +314,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
         .. code-block:: python
 
             class BlogPage(Page):
-                parent_page_types = ['mysite.BlogIndexPage']
+                parent_page_types = ["mysite.BlogIndexPage"]
 
         Pages can block themselves from being created at all by setting parent_page_types to an empty array (this is useful for creating unique pages that should only be created once):
 
@@ -327,7 +328,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
         .. code-block:: python
 
             class HomePage(Page):
-                parent_page_types = ['wagtailcore.Page']
+                parent_page_types = ["wagtailcore.Page"]
 
     .. automethod:: can_exist_under
 
@@ -369,13 +370,13 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
                 ...
 
                 # default
-                private_page_options = ['password', 'groups', 'login']
+                private_page_options = ["password", "groups", "login"]
 
                 # disable shared password
-                private_page_options = ['groups', 'login']
+                private_page_options = ["groups", "login"]
 
                 # only shared password
-                private_page_options = ['password']
+                private_page_options = ["password"]
 
                 # no privacy options for this page model
                 private_page_options = []
@@ -388,7 +389,7 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
         .. code-block:: python
 
             class BlogPage(Page):
-                exclude_fields_in_copy = ['special_relation', 'custom_uuid']
+                exclude_fields_in_copy = ["special_relation", "custom_uuid"]
 
         The following fields will always be excluded in a copy - `['id', 'path', 'depth', 'numchild', 'url_path', 'path']`.
 

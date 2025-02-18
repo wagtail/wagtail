@@ -16,9 +16,8 @@ The `searchpromotions` module is not enabled by default. To install it, add `wag
 
 ```python
 INSTALLED_APPS = [
-    ...
-
-    'wagtail.contrib.search_promotions',
+    # ...
+    "wagtail.contrib.search_promotions",
 ]
 ```
 

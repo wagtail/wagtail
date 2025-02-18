@@ -60,14 +60,14 @@ Here are some built-in panel types that you can use in your panel definitions. T
 Use this:
 
 ```python
-    content_panels = Page.content_panels + ["title", "body"]
+content_panels = Page.content_panels + ["title", "body"]
 ```
 Instead of
 ```python
-    content_panels = Page.content_panels + [
-        FieldPanel('title'),
-        FieldPanel('body'),
-    ]
+content_panels = Page.content_panels + [
+    FieldPanel("title"),
+    FieldPanel("body"),
+]
 ```
 ````
 
@@ -135,13 +135,13 @@ Instead of
 Use this:
 
 ```python
-    content_panels = Page.content_panels + ["gallery_images"]
+content_panels = Page.content_panels + ["gallery_images"]
 ```
 Instead of
 ```python
-    content_panels = Page.content_panels + [
-        InlinePanel('gallery_images'),
-    ]
+content_panels = Page.content_panels + [
+    InlinePanel("gallery_images"),
+]
 ```
 ````
 
@@ -161,12 +161,12 @@ class CustomInlinePanel(InlinePanel):
 
 
 class BlogPage(Page):
-        # .. fields
+    # .. fields
 
-        content_panels = Page.content_panels + [
-               CustomInlinePanel("blog_person_relationship"),
-              # ... other panels
-        ]
+    content_panels = Page.content_panels + [
+        CustomInlinePanel("blog_person_relationship"),
+        # ... other panels
+    ]
 ```
 
 Using JavaScript is as follows.
@@ -206,24 +206,26 @@ For example, given a child model that provides a gallery of images on `BlogPage`
 
 ```python
 class BlogPageGalleryImage(Orderable):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
+    page = ParentalKey(
+        BlogPage, on_delete=models.CASCADE, related_name="gallery_images"
+    )
     image = models.ForeignKey(
-        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
     )
     caption = models.CharField(blank=True, max_length=250)
 
     panels = [
-        FieldPanel('image'),
-        FieldPanel('caption'),
+        FieldPanel("image"),
+        FieldPanel("caption"),
     ]
 ```
 
 The `MultipleChooserPanel` definition on `BlogPage` would be:
 
 ```python
-        MultipleChooserPanel(
-            'gallery_images', label="Gallery images", chooser_field_name="image"
-        )
+MultipleChooserPanel(
+    "gallery_images", label="Gallery images", chooser_field_name="image"
+)
 ```
 
 ````
@@ -287,22 +289,22 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
         class BookPage(Page):
             related_page = models.ForeignKey(
-                'wagtailcore.Page',
+                "wagtailcore.Page",
                 null=True,
                 blank=True,
                 on_delete=models.SET_NULL,
-                related_name='+',
+                related_name="+",
             )
 
             content_panels = Page.content_panels + [
-                PageChooserPanel('related_page', 'demo.PublisherPage'),
+                PageChooserPanel("related_page", "demo.PublisherPage"),
             ]
 
     ``PageChooserPanel`` takes one required argument, the field name. Optionally, specifying a page type (in the form of an ``"appname.modelname"`` string) will filter the chooser to display only pages of that type. A list or tuple of page types can also be passed in, to allow choosing a page that matches any of those page types:
 
     .. code-block:: python
 
-        PageChooserPanel('related_page', ['demo.PublisherPage', 'demo.AuthorPage'])
+        PageChooserPanel("related_page", ["demo.PublisherPage", "demo.AuthorPage"])
 
     Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable since the tree root is never a usable page, but in some specialized cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a ``PageChooserPanel`` to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 ```
@@ -321,6 +323,7 @@ The `MultipleChooserPanel` definition on `BlogPage` would be:
 
         from wagtail.contrib.forms.models import AbstractForm
         from wagtail.contrib.forms.panels import FormSubmissionsPanel
+
 
         class ContactFormPage(AbstractForm):
             content_panels = [
@@ -369,17 +372,17 @@ The `title` class can be used to make the input stand out with a bigger font siz
 The `collapsed` class will load the editor page with the panel collapsed under its heading.
 
 ```python
-    content_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('cover'),
-                FieldPanel('book_file'),
-                FieldPanel('publisher'),
-            ],
-            heading="Collection of Book Fields",
-            classname="collapsed",
-        ),
-    ]
+content_panels = [
+    MultiFieldPanel(
+        [
+            FieldPanel("cover"),
+            FieldPanel("book_file"),
+            FieldPanel("publisher"),
+        ],
+        heading="Collection of Book Fields",
+        classname="collapsed",
+    ),
+]
 ```
 
 ### Help text
@@ -394,8 +397,9 @@ For example, to customize placeholders for a `Book` snippet model:
 
 ```python
 # models.py
-from django import forms            # the default Django widgets live here
-from wagtail.admin import widgets   # to use Wagtail's special datetime widget
+from django import forms  # the default Django widgets live here
+from wagtail.admin import widgets  # to use Wagtail's special datetime widget
+
 
 class Book(models.Model):
     title = models.CharField(max_length=256)
@@ -403,22 +407,17 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
 
     # You can create them separately
-    title_widget = forms.TextInput(
-        attrs = {
-            'placeholder': 'Enter Full Title'
-        }
-    )
+    title_widget = forms.TextInput(attrs={"placeholder": "Enter Full Title"})
     # using the correct widget for your field type and desired effect
-    date_widget = widgets.AdminDateInput(
-        attrs = {
-            'placeholder': 'dd-mm-yyyy'
-        }
-    )
+    date_widget = widgets.AdminDateInput(attrs={"placeholder": "dd-mm-yyyy"})
 
     panels = [
-        TitleFieldPanel('title', widget=title_widget), # then add them as a variable
-        FieldPanel('release_date', widget=date_widget),
-        FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
+        TitleFieldPanel("title", widget=title_widget),  # then add them as a variable
+        FieldPanel("release_date", widget=date_widget),
+        FieldPanel(
+            "price",
+            widget=forms.NumberInput(attrs={"placeholder": "Retail price on release"}),
+        ),  # or directly inline
     ]
 ```
 
@@ -440,19 +439,19 @@ See [](permissions_overview) for details about working with permissions in Wagta
 In this example, 'notes' will be visible to all editors, 'cost' and 'details' will only be visible to those with the `submit` permission, 'budget approval' will be visible to super users only. Note that super users will have access to all fields.
 
 ```python
-    content_panels = [
-        FieldPanel("notes"),
-        MultiFieldPanel(
-            [
-                FieldPanel("cost"),
-                FieldPanel("details"),
-            ],
-            heading="Budget details",
-            classname="collapsed",
-            permission="submit"
-        ),
-        FieldPanel("budget_approval", permission="superuser"),
-    ]
+content_panels = [
+    FieldPanel("notes"),
+    MultiFieldPanel(
+        [
+            FieldPanel("cost"),
+            FieldPanel("details"),
+        ],
+        heading="Budget details",
+        classname="collapsed",
+        permission="submit",
+    ),
+    FieldPanel("budget_approval", permission="superuser"),
+]
 ```
 
 (panels_attrs)=
@@ -464,18 +463,18 @@ Use the `attrs` parameter to add custom attributes to the HTML element of the pa
 For example, you can use the `attrs` parameter to integrate your Stimulus controller into the panel:
 
 ```python
-    content_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel('cover'),
-                FieldPanel('book_file'),
-                FieldPanel('publisher', attrs={'data-my-controller-target': 'myTarget'}),
-            ],
-            heading="Collection of Book Fields",
-            classname="collapsed",
-            attrs={'data-controller': 'my-controller'},
-        ),
-    ]
+content_panels = [
+    MultiFieldPanel(
+        [
+            FieldPanel("cover"),
+            FieldPanel("book_file"),
+            FieldPanel("publisher", attrs={"data-my-controller-target": "myTarget"}),
+        ],
+        heading="Collection of Book Fields",
+        classname="collapsed",
+        attrs={"data-controller": "my-controller"},
+    ),
+]
 ```
 
 (panels_api)=

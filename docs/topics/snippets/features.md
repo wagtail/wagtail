@@ -13,6 +13,7 @@ If a snippet model inherits from {class}`~wagtail.models.PreviewableMixin`, Wagt
 ```python
 # ...
 from wagtail.models import PreviewableMixin
+
 # ...
 
 
@@ -21,8 +22,8 @@ class Advert(PreviewableMixin, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     def get_preview_template(self, request, mode_name):
@@ -52,6 +53,7 @@ Similar to pages, you can define multiple preview modes by overriding the {attr}
 ```python
 # ...
 from wagtail.models import PreviewableMixin
+
 # ...
 
 
@@ -60,8 +62,8 @@ class Advert(PreviewableMixin, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     @property
@@ -91,6 +93,7 @@ If a snippet model inherits from `wagtail.search.index.Indexed`, as described in
 ```python
 # ...
 from wagtail.search import index
+
 # ...
 
 
@@ -99,13 +102,13 @@ class Advert(index.Indexed, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     search_fields = [
-        index.SearchField('text'),
-        index.AutocompleteField('text'),
+        index.SearchField("text"),
+        index.AutocompleteField("text"),
     ]
 ```
 
@@ -123,6 +126,7 @@ For example, the `Advert` snippet could be made revisable as follows:
 # ...
 from django.contrib.contenttypes.fields import GenericRelation
 from wagtail.models import RevisionMixin
+
 # ...
 
 
@@ -133,8 +137,8 @@ class Advert(RevisionMixin, models.Model):
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     @property
@@ -151,6 +155,7 @@ from django.db import models
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
 from wagtail.models import RevisionMixin
+
 # ...
 
 
@@ -168,7 +173,9 @@ class ShirtCategory(models.Model):
 
 class Shirt(RevisionMixin, ClusterableModel):
     name = models.CharField(max_length=255)
-    colour = models.ForeignKey("shirts.ShirtColour", on_delete=models.SET_NULL, blank=True, null=True)
+    colour = models.ForeignKey(
+        "shirts.ShirtColour", on_delete=models.SET_NULL, blank=True, null=True
+    )
     categories = ParentalManyToManyField("shirts.ShirtCategory", blank=True)
     revisions = GenericRelation("wagtailcore.Revision", related_query_name="shirt")
 
@@ -182,7 +189,9 @@ class Shirt(RevisionMixin, ClusterableModel):
 
 class ShirtImage(models.Model):
     shirt = ParentalKey("shirts.Shirt", related_name="images")
-    image = models.ForeignKey("wagtailimages.Image", on_delete=models.CASCADE, related_name="+")
+    image = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
+    )
     caption = models.CharField(max_length=255, blank=True)
     panels = [
         FieldPanel("image"),
@@ -213,6 +222,7 @@ For example, the `Advert` snippet could save draft changes and publishing schedu
 from django.contrib.contenttypes.fields import GenericRelation
 from wagtail.admin.panels import PublishingPanel
 from wagtail.models import DraftStateMixin, RevisionMixin
+
 # ...
 
 
@@ -222,8 +232,8 @@ class Advert(DraftStateMixin, RevisionMixin, models.Model):
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
         PublishingPanel(),
     ]
 
@@ -259,6 +269,7 @@ For example, instances of the `Advert` snippet could be locked by defining it as
 ```python
 # ...
 from wagtail.models import LockableMixin
+
 # ...
 
 
@@ -267,8 +278,8 @@ class Advert(LockableMixin, models.Model):
     text = models.CharField(max_length=255)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 ```
 
@@ -293,10 +304,13 @@ For example, workflows (with locking) can be enabled for the `Advert` snippet by
 ```python
 # ...
 from wagtail.models import DraftStateMixin, LockableMixin, RevisionMixin, WorkflowMixin
+
 # ...
 
 
-class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, models.Model):
+class Advert(
+    WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, models.Model
+):
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
     _revisions = GenericRelation("wagtailcore.Revision", related_query_name="advert")
@@ -309,8 +323,8 @@ class Advert(WorkflowMixin, DraftStateMixin, LockableMixin, RevisionMixin, model
     )
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('text'),
+        FieldPanel("url"),
+        FieldPanel("text"),
     ]
 
     @property
@@ -334,11 +348,14 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from taggit.models import TaggedItemBase
 from taggit.managers import TaggableManager
+
 # ...
 
 
 class AdvertTag(TaggedItemBase):
-    content_object = ParentalKey('demo.Advert', on_delete=models.CASCADE, related_name='tagged_items')
+    content_object = ParentalKey(
+        "demo.Advert", on_delete=models.CASCADE, related_name="tagged_items"
+    )
 
 
 class Advert(ClusterableModel):
@@ -347,7 +364,7 @@ class Advert(ClusterableModel):
 
     panels = [
         # ...
-        FieldPanel('tags'),
+        FieldPanel("tags"),
     ]
 ```
 
@@ -374,10 +391,7 @@ class BandMember(Orderable):
 @register_snippet
 class Band(ClusterableModel):
     name = models.CharField(max_length=255)
-    panels = [
-        FieldPanel("name"),
-        InlinePanel("members")
-    ]
+    panels = [FieldPanel("name"), InlinePanel("members")]
 ```
 
 The [documentation on how to use inline models with pages](inline_models) provides more information that is also applicable to snippets.

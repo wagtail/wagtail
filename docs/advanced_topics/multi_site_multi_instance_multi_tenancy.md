@@ -33,9 +33,9 @@ Assume the domains a.com and b.com. Settings files can be `base.py`, `acom.py`, 
 ```python
 # settings/acom.py
 
-from base import \* # noqa
+from base import *  # noqa
 
-ALLOWED_HOSTS = ['a.com']
+ALLOWED_HOSTS = ["a.com"]
 DATABASES["NAME"] = "acom"
 DATABASES["PASSWORD"] = "password-for-acom"
 MEDIA_DIR = BASE_DIR / "acom-media"

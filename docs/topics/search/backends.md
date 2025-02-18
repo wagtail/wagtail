@@ -8,8 +8,8 @@ You can configure which backend to use with the `WAGTAILSEARCH_BACKENDS` setting
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.database',
+    "default": {
+        "BACKEND": "wagtail.search.backends.database",
     }
 }
 ```
@@ -24,9 +24,9 @@ The `AUTO_UPDATE` setting allows you to disable this on a per-index basis:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': ...,
-        'AUTO_UPDATE': False,
+    "default": {
+        "BACKEND": ...,
+        "AUTO_UPDATE": False,
     }
 }
 ```
@@ -77,13 +77,13 @@ The backend is configured in settings:
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch8',
-        'URLS': ['https://localhost:9200'],
-        'INDEX': 'wagtail',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
+    "default": {
+        "BACKEND": "wagtail.search.backends.elasticsearch8",
+        "URLS": ["https://localhost:9200"],
+        "INDEX": "wagtail",
+        "TIMEOUT": 5,
+        "OPTIONS": {},
+        "INDEX_SETTINGS": {},
     }
 }
 ```
@@ -94,10 +94,10 @@ A username and password may be optionally supplied to the `URL` field to provide
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        ...
-        'URLS': ['https://username:password@localhost:9200'],
-        ...
+    "default": {
+        # ...
+        "URLS": ["https://username:password@localhost:9200"],
+        # ...
     }
 }
 ```
@@ -106,23 +106,18 @@ WAGTAILSEARCH_BACKENDS = {
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        ...,
-        'INDEX_SETTINGS': {
-            'settings': {
-                'index': {
-                    'number_of_shards': 1,
+    "default": {
+        # ...,
+        "INDEX_SETTINGS": {
+            "settings": {
+                "index": {
+                    "number_of_shards": 1,
                 },
-                'analysis': {
-                    'analyzer': {
-                        'default': {
-                            'type': 'italian'
-                        }
-                    }
-                }
+                "analysis": {"analyzer": {"default": {"type": "italian"}}},
             }
         }
     }
+}
 ```
 
 If you prefer not to run an Elasticsearch server in development or production, there are many hosted services available, including [Bonsai](https://bonsai.io/), which offers a free account suitable for testing and development. To use Bonsai:
@@ -147,19 +142,21 @@ from elasticsearch import RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch7',
-        'INDEX': 'wagtail',
-        'TIMEOUT': 5,
-        'HOSTS': [{
-            'host': 'YOURCLUSTER.REGION.es.amazonaws.com',
-            'port': 443,
-            'use_ssl': True,
-            'verify_certs': True,
-            'http_auth': AWS4Auth('ACCESS_KEY', 'SECRET_KEY', 'REGION', 'es'),
-        }],
-        'OPTIONS': {
-            'connection_class': RequestsHttpConnection,
+    "default": {
+        "BACKEND": "wagtail.search.backends.elasticsearch7",
+        "INDEX": "wagtail",
+        "TIMEOUT": 5,
+        "HOSTS": [
+            {
+                "host": "YOURCLUSTER.REGION.es.amazonaws.com",
+                "port": 443,
+                "use_ssl": True,
+                "verify_certs": True,
+                "http_auth": AWS4Auth("ACCESS_KEY", "SECRET_KEY", "REGION", "es"),
+            }
+        ],
+        "OPTIONS": {
+            "connection_class": RequestsHttpConnection,
         },
     }
 }

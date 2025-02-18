@@ -39,14 +39,13 @@ However, it may make incorrect assumptions about how you're using Python (for ex
 
 Test the installation:
 
-```python
-python3
+```pycon
 >>> import cv2
 ```
 
 An error such as:
 
-```python
+```
 ImportError: libSM.so.6: cannot open shared object file: No such file or directory
 ```
 
@@ -54,7 +53,7 @@ indicates that a required system library (in this case `libsm6`) has not been in
 
 On the other hand,
 
-```python
+```
 ModuleNotFoundError: No module named 'cv2'
 ```
 

@@ -24,8 +24,7 @@ Django settings file:
 
 ```python
 INSTALLED_APPS = [
-    ...
-
+    # ...
     "django.contrib.sitemaps",
 ]
 ```
@@ -38,12 +37,9 @@ sitemap:
 from wagtail.contrib.sitemaps.views import sitemap
 
 urlpatterns = [
-    ...
-
-    path('sitemap.xml', sitemap),
-
-    ...
-
+    # ...
+    path("sitemap.xml", sitemap),
+    # ...
     # Ensure that the 'sitemap' line appears above the default Wagtail page serving route
     path("", include(wagtail_urls)),
 ]

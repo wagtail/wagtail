@@ -33,9 +33,8 @@ the default URL from Wagtail, or it will try to find `/amp` as a page:
 
 urlpatterns += [
     # Add this line just before the default ``include(wagtail_urls)`` line
-    path('amp/', include(wagtail_urls)),
-
-    path('', include(wagtail_urls)),
+    path("amp/", include(wagtail_urls)),
+    path("", include(wagtail_urls)),
 ]
 ```
 
@@ -85,6 +84,7 @@ from asgiref.local import Local
 
 _amp_mode_active = Local()
 
+
 @contextmanager
 def activate_amp_mode():
     """
@@ -96,11 +96,12 @@ def activate_amp_mode():
     finally:
         del _amp_mode_active.value
 
+
 def amp_mode_active():
     """
     Returns True if AMP mode is currently active
     """
-    return hasattr(_amp_mode_active, 'value')
+    return hasattr(_amp_mode_active, "value")
 ```
 
 This module defines two functions:
@@ -120,6 +121,7 @@ from django.template.response import SimpleTemplateResponse
 from wagtail.views import serve as wagtail_serve
 
 from .amp_utils import activate_amp_mode
+
 
 def serve(request, path):
     with activate_amp_mode():
@@ -142,9 +144,7 @@ from wagtail.urls import serve_pattern
 
 from . import amp_views
 
-urlpatterns = [
-    re_path(serve_pattern, amp_views.serve, name='wagtail_amp_serve')
-]
+urlpatterns = [re_path(serve_pattern, amp_views.serve, name="wagtail_amp_serve")]
 ```
 
 Finally, we need to update the project's main `urls.py` to use this new URLs
@@ -157,9 +157,8 @@ from myapp import amp_urls as wagtail_amp_urls
 
 urlpatterns += [
     # Change this line to point at your amp_urls instead of Wagtail's urls
-    path('amp/', include(wagtail_amp_urls)),
-
-    re_path(r'', include(wagtail_urls)),
+    path("amp/", include(wagtail_amp_urls)),
+    re_path(r"", include(wagtail_urls)),
 ]
 ```
 
@@ -179,9 +178,10 @@ following:
 
 from .amp_utils import amp_mode_active
 
+
 def amp(request):
     return {
-        'amp_mode_active': amp_mode_active(),
+        "amp_mode_active": amp_mode_active(),
     }
 ```
 
@@ -193,13 +193,11 @@ Now add the path to this context processor to the
 
 TEMPLATES = [
     {
-        ...
-
-        'OPTIONS': {
-            'context_processors': [
-                ...
+        # ...
+        "OPTIONS": {
+            "context_processors": [
                 # Add this after other context processors
-                'myapp.amp_context_processors.amp',
+                "myapp.amp_context_processors.amp",
             ],
         },
     },
@@ -231,13 +229,14 @@ import os.path
 
 ...
 
+
 class PageAMPTemplateMixin:
 
     @property
     def amp_template(self):
         # Get the default template name and insert `_amp` before the extension
         name, ext = os.path.splitext(self.template)
-        return name + '_amp' + ext
+        return name + "_amp" + ext
 
     def get_template(self, request):
         if amp_mode_active():
@@ -253,8 +252,8 @@ Now add this mixin to any page model, for example:
 
 from .amp_utils import PageAMPTemplateMixin
 
-class MyPageModel(PageAMPTemplateMixin, Page):
-    ...
+
+class MyPageModel(PageAMPTemplateMixin, Page): ...
 ```
 
 When AMP mode is active, the template at `app_label/mypagemodel_amp.html`
@@ -268,8 +267,9 @@ If you have a different naming convention, you can override the
 
 from .amp_utils import PageAMPTemplateMixin
 
+
 class MyPageModel(PageAMPTemplateMixin, Page):
-    amp_template = 'my_custom_amp_template.html'
+    amp_template = "my_custom_amp_template.html"
 ```
 
 ## Overriding the `{% image %}` tag to output `<amp-img>` tags
@@ -293,15 +293,16 @@ from wagtail.images.models import AbstractRendition
 
 ...
 
+
 class CustomRendition(AbstractRendition):
     def img_tag(self, extra_attributes):
         attrs = self.attrs_dict.copy()
         attrs.update(extra_attributes)
 
         if amp_mode_active():
-            return mark_safe('<amp-img{}>'.format(flatatt(attrs)))
+            return mark_safe("<amp-img{}>".format(flatatt(attrs)))
         else:
-            return mark_safe('<img{}>'.format(flatatt(attrs)))
+            return mark_safe("<img{}>".format(flatatt(attrs)))
 
     ...
 ```
@@ -316,6 +317,7 @@ from django.utils.safestring import mark_safe
 
 from wagtail.images.models import Rendition
 
+
 def img_tag(rendition, extra_attributes={}):
     """
     Replacement implementation for Rendition.img_tag
@@ -326,9 +328,10 @@ def img_tag(rendition, extra_attributes={}):
     attrs.update(extra_attributes)
 
     if amp_mode_active():
-        return mark_safe('<amp-img{}>'.format(flatatt(attrs)))
+        return mark_safe("<amp-img{}>".format(flatatt(attrs)))
     else:
-        return mark_safe('<img{}>'.format(flatatt(attrs)))
+        return mark_safe("<img{}>".format(flatatt(attrs)))
+
 
 Rendition.img_tag = img_tag
 ```

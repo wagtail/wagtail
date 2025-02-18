@@ -17,6 +17,7 @@ The {class}`~wagtail.admin.viewsets.model.ModelViewSet` class provides the views
 ```python
 from django.db import models
 
+
 class Person(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -218,39 +219,48 @@ The chooser widget now needs to be configured to pass these URL parameters when 
 
 ```python
 class BlogPage(Page):
-    country = models.ForeignKey(Country, null=True, blank=True, on_delete=models.SET_NULL)
+    country = models.ForeignKey(
+        Country, null=True, blank=True, on_delete=models.SET_NULL
+    )
     author = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
 
     content_panels = Page.content_panels + [
-        FieldPanel('country'),
-        FieldPanel('author', widget=PersonChooserWidget(linked_fields={
-            # pass the country selected in the id_country input to the person chooser
-            # as a URL parameter `country`
-            'country': '#id_country',
-        })),
+        FieldPanel("country"),
+        FieldPanel(
+            "author",
+            widget=PersonChooserWidget(
+                linked_fields={
+                    # pass the country selected in the id_country input to the person chooser
+                    # as a URL parameter `country`
+                    "country": "#id_country",
+                }
+            ),
+        ),
     ]
 ```
 
 A number of other lookup mechanisms are available:
 
 ```python
-PersonChooserWidget(linked_fields={
-    'country': {'selector': '#id_country'}  # equivalent to 'country': '#id_country'
-})
+PersonChooserWidget(
+    linked_fields={
+        "country": {"selector": "#id_country"}  # equivalent to 'country': '#id_country'
+    }
+)
 
 # Look up by ID
-PersonChooserWidget(linked_fields={
-    'country': {'id': 'id_country'}
-})
+PersonChooserWidget(linked_fields={"country": {"id": "id_country"}})
 
 # Regexp match, for use in StreamFields and InlinePanels where IDs are dynamic:
 # 1) Match the ID of the current widget's form element (the PersonChooserWidget)
 #      against the regexp '^id_blog_person_relationship-\d+-'
 # 2) Append 'country' to the matched substring
 # 3) Retrieve the input field with that ID
-PersonChooserWidget(linked_fields={
-    'country': {'match': r'^id_blog_person_relationship-\d+-', 'append': 'country'},
-})
+PersonChooserWidget(
+    linked_fields={
+        "country": {"match": r"^id_blog_person_relationship-\d+-", "append": "country"},
+    }
+)
 ```
 
 (chooser_viewsets_non_model_data)=
@@ -278,15 +288,19 @@ class Pokemon(APIModel):
     @classmethod
     def from_query_data(cls, data):
         return cls(
-            id=int(re.match(r'https://pokeapi.co/api/v2/pokemon/(\d+)/', data['url']).group(1)),
-            name=data['name'],
+            id=int(
+                re.match(
+                    r"https://pokeapi.co/api/v2/pokemon/(\d+)/", data["url"]
+                ).group(1)
+            ),
+            name=data["name"],
         )
 
     @classmethod
     def from_individual_data(cls, data):
         return cls(
-            id=data['id'],
-            name=data['name'],
+            id=data["id"],
+            name=data["name"],
         )
 
     def __str__(self):

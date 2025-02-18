@@ -43,7 +43,6 @@ class CustomModelReport(ReportView):
 
     def get_queryset(self):
         return MySnippetModel.objects.all()
-
 ```
 
 ### Other attributes
@@ -156,6 +155,7 @@ We will register this view using the `unpublished_changes_report` name for the U
 # <project>/views.py
 from wagtail.admin.views.reports import PageReportView
 
+
 class UnpublishedChangesReportView(PageReportView):
     index_url_name = "unpublished_changes_report"
     index_results_url_name = "unpublished_changes_report_results"
@@ -211,16 +211,31 @@ from wagtail import hooks
 
 from .views import UnpublishedChangesReportView
 
-@hooks.register('register_reports_menu_item')
-def register_unpublished_changes_report_menu_item():
-    return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), icon_name=UnpublishedChangesReportView.header_icon, order=700)
 
-@hooks.register('register_admin_urls')
+@hooks.register("register_reports_menu_item")
+def register_unpublished_changes_report_menu_item():
+    return AdminOnlyMenuItem(
+        "Pages with unpublished changes",
+        reverse("unpublished_changes_report"),
+        icon_name=UnpublishedChangesReportView.header_icon,
+        order=700,
+    )
+
+
+@hooks.register("register_admin_urls")
 def register_unpublished_changes_report_url():
     return [
-        path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
+        path(
+            "reports/unpublished-changes/",
+            UnpublishedChangesReportView.as_view(),
+            name="unpublished_changes_report",
+        ),
         # Add a results-only view to add support for AJAX-based filtering
-        path('reports/unpublished-changes/results/', UnpublishedChangesReportView.as_view(results_only=True), name='unpublished_changes_report_results'),
+        path(
+            "reports/unpublished-changes/results/",
+            UnpublishedChangesReportView.as_view(results_only=True),
+            name="unpublished_changes_report_results",
+        ),
     ]
 ```
 
@@ -231,12 +246,11 @@ Here, we use the `AdminOnlyMenuItem` class to ensure our report icon is only sho
 Even with the menu item hidden, it would still be possible for any user to visit the report's URL directly, and so it is necessary to set up a permission restriction on the report view itself. This can be done by adding a `dispatch` method to the existing `UnpublishedChangesReportView` view:
 
 ```python
-
-    # add the below dispatch method to the existing UnpublishedChangesReportView view
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.is_superuser:
-            return permission_denied(request)
-        return super().dispatch(request, *args, **kwargs)
+# add the below dispatch method to the existing UnpublishedChangesReportView view
+def dispatch(self, request, *args, **kwargs):
+    if not self.request.user.is_superuser:
+        return permission_denied(request)
+    return super().dispatch(request, *args, **kwargs)
 ```
 
 ### The full code
@@ -248,15 +262,18 @@ from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.reports import PageReportView
 from wagtail.models import Page
 
+
 class UnpublishedChangesReportView(PageReportView):
     index_url_name = "unpublished_changes_report"
     index_results_url_name = "unpublished_changes_report_results"
-    header_icon = 'doc-empty-inverse'
-    results_template_name = 'reports/unpublished_changes_report_results.html'
+    header_icon = "doc-empty-inverse"
+    results_template_name = "reports/unpublished_changes_report_results.html"
     page_title = "Pages with unpublished changes"
 
-    list_export = PageReportView.list_export + ['last_published_at']
-    export_headings = dict(last_published_at='Last Published', **PageReportView.export_headings)
+    list_export = PageReportView.list_export + ["last_published_at"]
+    export_headings = dict(
+        last_published_at="Last Published", **PageReportView.export_headings
+    )
 
     def get_queryset(self):
         return Page.objects.filter(has_unpublished_changes=True)
@@ -277,15 +294,30 @@ from wagtail import hooks
 
 from .views import UnpublishedChangesReportView
 
-@hooks.register('register_reports_menu_item')
-def register_unpublished_changes_report_menu_item():
-    return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), icon_name=UnpublishedChangesReportView.header_icon, order=700)
 
-@hooks.register('register_admin_urls')
+@hooks.register("register_reports_menu_item")
+def register_unpublished_changes_report_menu_item():
+    return AdminOnlyMenuItem(
+        "Pages with unpublished changes",
+        reverse("unpublished_changes_report"),
+        icon_name=UnpublishedChangesReportView.header_icon,
+        order=700,
+    )
+
+
+@hooks.register("register_admin_urls")
 def register_unpublished_changes_report_url():
     return [
-        path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
-        path('reports/unpublished-changes/results/', UnpublishedChangesReportView.as_view(results_only=True), name='unpublished_changes_report_results'),
+        path(
+            "reports/unpublished-changes/",
+            UnpublishedChangesReportView.as_view(),
+            name="unpublished_changes_report",
+        ),
+        path(
+            "reports/unpublished-changes/results/",
+            UnpublishedChangesReportView.as_view(results_only=True),
+            name="unpublished_changes_report_results",
+        ),
     ]
 ```
 

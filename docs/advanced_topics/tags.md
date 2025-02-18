@@ -20,16 +20,19 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+
 class BlogPageTag(TaggedItemBase):
-    content_object = ParentalKey('demo.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
+    content_object = ParentalKey(
+        "demo.BlogPage", on_delete=models.CASCADE, related_name="tagged_items"
+    )
+
 
 class BlogPage(Page):
-    ...
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
     promote_panels = Page.promote_panels + [
-        ...
-        FieldPanel('tags'),
+        # ...
+        FieldPanel("tags"),
     ]
 ```
 
@@ -40,8 +43,10 @@ We can now make use of the many-to-many tag relationship in our views and templa
 ```python
 from django.shortcuts import render
 
+
 class BlogIndexPage(Page):
     ...
+
     def get_context(self, request):
         context = super().get_context(request)
 
@@ -49,11 +54,11 @@ class BlogIndexPage(Page):
         blog_entries = BlogPage.objects.child_of(self).live()
 
         # Filter by tag
-        tag = request.GET.get('tag')
+        tag = request.GET.get("tag")
         if tag:
             blog_entries = blog_entries.filter(tags__name=tag)
 
-        context['blog_entries'] = blog_entries
+        context["blog_entries"] = blog_entries
         return context
 ```
 
@@ -79,6 +84,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TagBase, ItemBase
 
+
 class BlogTag(TagBase):
     class Meta:
         verbose_name = "blog tag"
@@ -90,14 +96,13 @@ class TaggedBlog(ItemBase):
         BlogTag, related_name="tagged_blogs", on_delete=models.CASCADE
     )
     content_object = ParentalKey(
-        to='demo.BlogPage',
-        on_delete=models.CASCADE,
-        related_name='tagged_items'
+        to="demo.BlogPage", on_delete=models.CASCADE, related_name="tagged_items"
     )
+
 
 class BlogPage(Page):
     ...
-    tags = ClusterTaggableManager(through='demo.TaggedBlog', blank=True)
+    tags = ClusterTaggableManager(through="demo.TaggedBlog", blank=True)
 ```
 
 Within the admin, the tag field will automatically recognize the custom tag model being used and will offer autocomplete suggestions taken from that tag model.
@@ -109,6 +114,7 @@ By default, tag fields work on a "free tagging" basis: editors can enter anythin
 ```python
 from taggit.models import TagBase
 from wagtail.snippets.models import register_snippet
+
 
 @register_snippet
 class BlogTag(TagBase):
@@ -145,6 +151,7 @@ class TagsSnippetViewSet(SnippetViewSet):
     menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
     list_display = ["name", "slug"]
     search_fields = ("name",)
+
 
 register_snippet(TagsSnippetViewSet)
 ```

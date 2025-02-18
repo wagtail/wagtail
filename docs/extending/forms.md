@@ -44,14 +44,17 @@ from django.db.models import ForeignKey
 
 
 class WagtailVideosAppConfig(AppConfig):
-    name = 'wagtail.videos'
-    label = 'wagtailvideos'
+    name = "wagtail.videos"
+    label = "wagtailvideos"
 
     def ready(self):
         from wagtail.admin.forms.models import register_form_field_override
         from .models import Video
         from .widgets import VideoChooser
-        register_form_field_override(ForeignKey, to=Video, override={'widget': VideoChooser})
+
+        register_form_field_override(
+            ForeignKey, to=Video, override={"widget": VideoChooser}
+        )
 ```
 
 Wagtail's edit views for pages and snippets use `WagtailAdminModelForm` as standard, so this change will take effect across the Wagtail admin; a foreign key to `Video` on a page model will automatically use the `VideoChooser` widget, with no need to specify this explicitly.

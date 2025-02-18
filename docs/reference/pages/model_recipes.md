@@ -14,18 +14,23 @@ class EventPage(Page):
 
     def serve(self, request):
         if "format" in request.GET:
-            if request.GET['format'] == 'ical':
+            if request.GET["format"] == "ical":
                 # Export to ical format
                 response = HttpResponse(
-                    export_event(self, 'ical'),
-                    content_type='text/calendar',
+                    export_event(self, "ical"),
+                    content_type="text/calendar",
                 )
-                response['Content-Disposition'] = 'attachment; filename=' + self.slug + '.ics'
+                response["Content-Disposition"] = (
+                    "attachment; filename=" + self.slug + ".ics"
+                )
                 return response
             else:
                 # Unrecognised format error
-                message = 'Could not export event\n\nUnrecognised format: ' + request.GET['format']
-                return HttpResponse(message, content_type='text/plain')
+                message = (
+                    "Could not export event\n\nUnrecognised format: "
+                    + request.GET["format"]
+                )
+                return HttpResponse(message, content_type="text/plain")
         else:
             # Display event page as usual
             return super().serve(request)
@@ -91,12 +96,13 @@ from wagtail.models import Page
 
 # ...
 
+
 class Echoer(Page):
 
     def route(self, request, path_components):
         if path_components:
             # tell Wagtail to call self.serve() with an additional 'path_components' kwarg
-            return RouteResult(self, kwargs={'path_components': path_components})
+            return RouteResult(self, kwargs={"path_components": path_components})
         else:
             if self.live:
                 # tell Wagtail to call self.serve() with no further args
@@ -105,10 +111,14 @@ class Echoer(Page):
                 raise Http404
 
     def serve(self, path_components=[]):
-        return render(request, self.template, {
-            'page': self,
-            'echo': ' '.join(path_components),
-            })
+        return render(
+            request,
+            self.template,
+            {
+                "page": self,
+                "echo": " ".join(path_components),
+            },
+        )
 ```
 
 This model, `Echoer`, doesn't define any properties, but does subclass `Page` so objects will be able to have a custom title and slug. The template just has to display our `{{ echo }}` property.
@@ -129,5 +139,5 @@ Be careful if you're introducing new required arguments to the `serve()` method 
 
 ```python
 def serve_preview(self, request, mode_name):
-    return self.serve(request, variant='radiant')
+    return self.serve(request, variant="radiant")
 ```

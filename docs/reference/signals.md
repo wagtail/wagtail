@@ -24,16 +24,19 @@ import requests
 
 # Let everyone know when a new page is published
 def send_to_slack(sender, **kwargs):
-    instance = kwargs['instance']
-    url = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+    instance = kwargs["instance"]
+    url = (
+        "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    )
     values = {
-        "text" : "%s was published by %s " % (instance.title, instance.owner.username),
+        "text": "%s was published by %s " % (instance.title, instance.owner.username),
         "channel": "#publish-notifications",
         "username": "the squid of content",
-        "icon_emoji": ":octopus:"
+        "icon_emoji": ":octopus:",
     }
 
     response = requests.post(url, values)
+
 
 # Register a receiver
 page_published.connect(send_to_slack)
@@ -49,10 +52,12 @@ wish to do something when a new blog post is published:
 from wagtail.signals import page_published
 from mysite.models import BlogPostPage
 
+
 # Do something clever for each model type
 def receiver(sender, **kwargs):
     # Do something with blog posts
     pass
+
 
 # Register listeners for each page model class
 page_published.connect(receiver, sender=BlogPostPage)
@@ -98,16 +103,18 @@ The best way to distinguish between a 'move' and 'reorder' is to compare the `ur
 from wagtail.signals import pre_page_move
 from wagtail.contrib.frontend_cache.utils import purge_page_from_cache
 
+
 # Clear a page's old URLs from the cache when it moves to a different section
 def clear_page_url_from_cache_on_move(sender, **kwargs):
 
-    if kwargs['url_path_before'] == kwargs['url_path_after']:
+    if kwargs["url_path_before"] == kwargs["url_path_after"]:
         # No URLs are changing :) nothing to do here!
         return
 
     # The page is moving to a new section (possibly even a new site)
     # so clear old URL(s) from the cache
-    purge_page_from_cache(kwargs['instance'])
+    purge_page_from_cache(kwargs["instance"])
+
 
 # Register a receiver
 pre_page_move.connect(clear_old_page_urls_from_cache)

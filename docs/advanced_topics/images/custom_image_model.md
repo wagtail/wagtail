@@ -36,11 +36,14 @@ class CustomImage(AbstractImage):
         # Do not use image title which is typically derived from file name.
         return getattr(self, "description", None)
 
+
 class CustomRendition(AbstractRendition):
-    image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
+    image = models.ForeignKey(
+        CustomImage, on_delete=models.CASCADE, related_name="renditions"
+    )
 
     class Meta:
-       constraints = [
+        constraints = [
             models.UniqueConstraint(
                 fields={"image", "filter_spec", "focal_point_key"},
                 name="unique_rendition",
@@ -51,7 +54,7 @@ class CustomRendition(AbstractRendition):
 Then set the `WAGTAILIMAGES_IMAGE_MODEL` setting to point to it:
 
 ```python
-WAGTAILIMAGES_IMAGE_MODEL = 'images.CustomImage'
+WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
 ```
 
 ## Migrating from the builtin image model
