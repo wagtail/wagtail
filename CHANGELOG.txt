@@ -11,6 +11,7 @@ Changelog
  * Default to the `standard` tokenizer on Elasticsearch, to correctly handle numbers as tokens (Matt Westcott)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
+ * Fix: Ensure the top of the minimap correctly adjusts when resizing the browser viewport (Thibaud Colas)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
