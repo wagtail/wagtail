@@ -127,7 +127,7 @@ export const initMinimap = (
     container.style.setProperty('--offset-top', `${container.offsetTop}px`);
   const updateOffsetTop = debounce(setOffsetTop, 100);
 
-  document.addEventListener('resize', updateOffsetTop);
+  window.addEventListener('resize', updateOffsetTop);
 
   setOffsetTop();
   updateMinimap(container);
