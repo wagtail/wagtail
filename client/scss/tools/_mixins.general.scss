@@ -169,3 +169,7 @@
     }
   }
 }
+
+@mixin focus-outline {
+  outline: $focus-outline-width solid theme('colors.focus');
+}

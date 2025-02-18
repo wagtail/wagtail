@@ -1,4 +1,5 @@
 @use '../../../scss/settings/variables' as *;
+@use '../../../scss/tools' as *;
 
 $color-comment-separator: theme('colors.border-furniture');
 
@@ -9,10 +10,6 @@ $color-box-border-focused: theme('colors.border-field-hover');
 $color-box-text: theme('colors.text-context');
 $box-border-radius: 5px;
 $box-padding: 20px;
-
-@mixin focus-outline {
-  outline: theme('colors.focus') solid 3px;
-}
 
 @mixin box {
   background-color: $color-box-background;
