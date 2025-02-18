@@ -17,7 +17,6 @@ import posixpath
 import uuid
 from warnings import warn
 
-from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericRelation
@@ -125,7 +124,9 @@ from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 from .workflows import (  # noqa: F401
+    AbstractGroupApprovalTask,
     AbstractWorkflow,
+    GroupApprovalTask,
     Task,
     TaskManager,
     TaskQuerySet,
@@ -2703,97 +2704,6 @@ class WorkflowPage(models.Model):
     class Meta:
         verbose_name = _("workflow page")
         verbose_name_plural = _("workflow pages")
-
-
-class AbstractGroupApprovalTask(Task):
-    groups = models.ManyToManyField(
-        Group,
-        verbose_name=_("groups"),
-        help_text=_(
-            "Pages/snippets at this step in a workflow will be moderated or approved by these groups of users"
-        ),
-    )
-
-    admin_form_fields = Task.admin_form_fields + ["groups"]
-    admin_form_widgets = {
-        "groups": forms.CheckboxSelectMultiple,
-    }
-
-    def start(self, workflow_state, user=None):
-        if (
-            isinstance(workflow_state.content_object, LockableMixin)
-            and workflow_state.content_object.locked_by
-        ):
-            # If the person who locked the object isn't in one of the groups, unlock the object
-            if not workflow_state.content_object.locked_by.groups.filter(
-                id__in=self.groups.all()
-            ).exists():
-                workflow_state.content_object.locked = False
-                workflow_state.content_object.locked_by = None
-                workflow_state.content_object.locked_at = None
-                workflow_state.content_object.save(
-                    update_fields=["locked", "locked_by", "locked_at"]
-                )
-
-        return super().start(workflow_state, user=user)
-
-    def _user_in_groups(self, user):
-        # Cache the check whether "this user is in any of this
-        # GroupApprovalTask's groups" on the user object, in case we do it
-        # against the same user and task multiple times in a request.
-        # Use a dict to map the task id to the check result, in case we also
-        # check against different GroupApprovalTasks for the same user.
-        cache_attr = "_group_approval_task_checks"
-        if not (checks_cache := getattr(user, cache_attr, {})):
-            setattr(user, cache_attr, checks_cache)
-
-        if self.pk not in checks_cache:
-            checks_cache[self.pk] = self.groups.filter(
-                id__in=user.groups.all()
-            ).exists()
-
-        return checks_cache[self.pk]
-
-    def user_can_access_editor(self, obj, user):
-        return user.is_superuser or self._user_in_groups(user)
-
-    def locked_for_user(self, obj, user):
-        return not (user.is_superuser or self._user_in_groups(user))
-
-    def user_can_lock(self, obj, user):
-        return self._user_in_groups(user)
-
-    def user_can_unlock(self, obj, user):
-        return False
-
-    def get_actions(self, obj, user):
-        if user.is_superuser or self._user_in_groups(user):
-            return [
-                ("reject", _("Request changes"), True),
-                ("approve", _("Approve"), False),
-                ("approve", _("Approve with comment"), True),
-            ]
-
-        return []
-
-    def get_task_states_user_can_moderate(self, user, **kwargs):
-        if user.is_superuser or self._user_in_groups(user):
-            return self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS)
-        else:
-            return TaskState.objects.none()
-
-    @classmethod
-    def get_description(cls):
-        return _("Members of the chosen Wagtail Groups can approve this task")
-
-    class Meta:
-        abstract = True
-        verbose_name = _("Group approval task")
-        verbose_name_plural = _("Group approval tasks")
-
-
-class GroupApprovalTask(AbstractGroupApprovalTask):
-    pass
 
 
 class BaseTaskStateManager(models.Manager):
