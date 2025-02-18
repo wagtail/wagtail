@@ -112,6 +112,7 @@ from .media import (  # noqa: F401
     UploadedFile,
     get_root_collection_id,
 )
+from .orderable import Orderable
 from .panels import CommentPanelPlaceholder, PanelPlaceholder
 from .preview import PreviewableMixin
 from .reference_index import ReferenceIndex  # noqa: F401
@@ -2260,15 +2261,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for codename, _, name in PAGE_PERMISSION_TYPES
             if codename not in {"add_page", "change_page", "delete_page", "view_page"}
         ]
-
-
-class Orderable(models.Model):
-    sort_order = models.IntegerField(null=True, blank=True, editable=False)
-    sort_order_field = "sort_order"
-
-    class Meta:
-        abstract = True
-        ordering = ["sort_order"]
 
 
 class GroupPagePermissionManager(models.Manager):
