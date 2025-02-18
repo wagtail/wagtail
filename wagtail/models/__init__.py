@@ -24,7 +24,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import (
     FieldDoesNotExist,
-    PermissionDenied,
     ValidationError,
 )
 from django.db import models, transaction
@@ -35,7 +34,6 @@ from django.dispatch import receiver
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseNotAllowed
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
-from django.utils import timezone
 from django.utils import translation as translation
 from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
@@ -65,15 +63,12 @@ from wagtail.coreutils import (
 from wagtail.fields import StreamField
 from wagtail.locks import WorkflowLock
 from wagtail.log_actions import log
-from wagtail.query import PageQuerySet, SpecificQuerySetMixin
+from wagtail.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
     page_published,
     page_slug_changed,
     pre_validate_delete,
-    task_approved,
-    task_cancelled,
-    task_rejected,
 )
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -126,10 +121,14 @@ from .view_restrictions import BaseViewRestriction
 from .workflows import (  # noqa: F401
     AbstractGroupApprovalTask,
     AbstractWorkflow,
+    BaseTaskStateManager,
     GroupApprovalTask,
     Task,
     TaskManager,
     TaskQuerySet,
+    TaskState,
+    TaskStateManager,
+    TaskStateQuerySet,
     Workflow,
     WorkflowContentType,
     WorkflowState,
@@ -2704,259 +2703,6 @@ class WorkflowPage(models.Model):
     class Meta:
         verbose_name = _("workflow page")
         verbose_name_plural = _("workflow pages")
-
-
-class BaseTaskStateManager(models.Manager):
-    def reviewable_by(self, user):
-        tasks = Task.objects.filter(active=True).specific()
-        states = TaskState.objects.none()
-        for task in tasks:
-            states = states | task.get_task_states_user_can_moderate(user=user)
-        return states
-
-
-class TaskStateQuerySet(SpecificQuerySetMixin, models.QuerySet):
-    def for_instance(self, instance):
-        """
-        Filters to only TaskStates for the given instance
-        """
-        try:
-            # Use RevisionMixin.get_base_content_type() if available
-            return self.filter(
-                workflow_state__base_content_type=instance.get_base_content_type(),
-                workflow_state__object_id=str(instance.pk),
-            )
-        except AttributeError:
-            # Fallback to ContentType for the model
-            return self.filter(
-                workflow_state__content_type=ContentType.objects.get_for_model(
-                    instance, for_concrete_model=False
-                ),
-                workflow_state__object_id=str(instance.pk),
-            )
-
-
-TaskStateManager = BaseTaskStateManager.from_queryset(TaskStateQuerySet)
-
-
-class TaskState(SpecificMixin, models.Model):
-    """Tracks the status of a given Task for a particular revision."""
-
-    STATUS_IN_PROGRESS = "in_progress"
-    STATUS_APPROVED = "approved"
-    STATUS_REJECTED = "rejected"
-    STATUS_SKIPPED = "skipped"
-    STATUS_CANCELLED = "cancelled"
-    STATUS_CHOICES = (
-        (STATUS_IN_PROGRESS, _("In progress")),
-        (STATUS_APPROVED, _("Approved")),
-        (STATUS_REJECTED, _("Rejected")),
-        (STATUS_SKIPPED, _("Skipped")),
-        (STATUS_CANCELLED, _("Cancelled")),
-    )
-
-    workflow_state = models.ForeignKey(
-        "WorkflowState",
-        on_delete=models.CASCADE,
-        verbose_name=_("workflow state"),
-        related_name="task_states",
-    )
-    revision = models.ForeignKey(
-        "Revision",
-        on_delete=models.CASCADE,
-        verbose_name=_("revision"),
-        related_name="task_states",
-    )
-    task = models.ForeignKey(
-        "Task",
-        on_delete=models.CASCADE,
-        verbose_name=_("task"),
-        related_name="task_states",
-    )
-    status = models.fields.CharField(
-        choices=STATUS_CHOICES,
-        verbose_name=_("status"),
-        max_length=50,
-        default=STATUS_IN_PROGRESS,
-    )
-    started_at = models.DateTimeField(verbose_name=_("started at"), auto_now_add=True)
-    finished_at = models.DateTimeField(
-        verbose_name=_("finished at"), blank=True, null=True
-    )
-    finished_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name=_("finished by"),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="finished_task_states",
-    )
-    comment = models.TextField(blank=True)
-    content_type = models.ForeignKey(
-        ContentType,
-        verbose_name=_("content type"),
-        related_name="wagtail_task_states",
-        on_delete=models.CASCADE,
-    )
-    exclude_fields_in_copy = []
-    default_exclude_fields_in_copy = ["id"]
-
-    objects = TaskStateManager()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not self.id:
-            # this model is being newly created
-            # rather than retrieved from the db;
-            if not self.content_type_id:
-                # set content type to correctly represent the model class
-                # that this was created as
-                self.content_type = ContentType.objects.get_for_model(self)
-
-    def __str__(self):
-        return _("Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s") % {
-            "task_name": self.task,
-            "revision_info": self.revision,
-            "status": self.status,
-        }
-
-    @transaction.atomic
-    def approve(self, user=None, update=True, comment=""):
-        """
-        Approve the task state and update the workflow state.
-        """
-        if self.status != self.STATUS_IN_PROGRESS:
-            raise PermissionDenied
-        self.status = self.STATUS_APPROVED
-        self.finished_at = timezone.now()
-        self.finished_by = user
-        self.comment = comment
-        self.save()
-
-        self.log_state_change_action(user, "approve")
-        if update:
-            self.workflow_state.update(user=user)
-        task_approved.send(
-            sender=self.specific.__class__, instance=self.specific, user=user
-        )
-        return self
-
-    @transaction.atomic
-    def reject(self, user=None, update=True, comment=""):
-        """
-        Reject the task state and update the workflow state.
-        """
-        if self.status != self.STATUS_IN_PROGRESS:
-            raise PermissionDenied
-        self.status = self.STATUS_REJECTED
-        self.finished_at = timezone.now()
-        self.finished_by = user
-        self.comment = comment
-        self.save()
-
-        self.log_state_change_action(user, "reject")
-        if update:
-            self.workflow_state.update(user=user)
-        task_rejected.send(
-            sender=self.specific.__class__, instance=self.specific, user=user
-        )
-
-        return self
-
-    @cached_property
-    def task_type_started_at(self):
-        """
-        Finds the first chronological started_at for successive TaskStates - ie started_at if the task had not been restarted.
-        """
-        task_states = (
-            TaskState.objects.filter(workflow_state=self.workflow_state)
-            .order_by("-started_at")
-            .select_related("task")
-        )
-        started_at = None
-        for task_state in task_states:
-            if task_state.task == self.task:
-                started_at = task_state.started_at
-            elif started_at:
-                break
-        return started_at
-
-    @transaction.atomic
-    def cancel(self, user=None, resume=False, comment=""):
-        """
-        Cancel the task state and update the workflow state.
-        If ``resume`` is set to True, then upon update the workflow state is passed the current task as ``next_task``,
-        causing it to start a new task state on the current task if possible.
-        """
-        self.status = self.STATUS_CANCELLED
-        self.finished_at = timezone.now()
-        self.comment = comment
-        self.finished_by = user
-        self.save()
-        if resume:
-            self.workflow_state.update(user=user, next_task=self.task.specific)
-        else:
-            self.workflow_state.update(user=user)
-        task_cancelled.send(
-            sender=self.specific.__class__, instance=self.specific, user=user
-        )
-        return self
-
-    def copy(self, update_attrs=None, exclude_fields=None):
-        """
-        Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes
-        to values specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs.
-        """
-        exclude_fields = (
-            self.default_exclude_fields_in_copy
-            + self.exclude_fields_in_copy
-            + (exclude_fields or [])
-        )
-        instance, child_object_map = _copy(self.specific, exclude_fields, update_attrs)
-        instance.save()
-        _copy_m2m_relations(self, instance, exclude_fields=exclude_fields)
-        return instance
-
-    def get_comment(self):
-        """
-        Returns a string that is displayed in workflow history.
-
-        This could be a comment by the reviewer, or generated.
-        Use mark_safe to return HTML.
-        """
-        return self.comment
-
-    def log_state_change_action(self, user, action):
-        """Log the approval/rejection action"""
-        obj = self.revision.as_object()
-        next_task = self.workflow_state.get_next_task()
-        next_task_data = None
-        if next_task:
-            next_task_data = {"id": next_task.id, "title": next_task.name}
-        log(
-            instance=obj,
-            action=f"wagtail.workflow.{action}",
-            user=user,
-            data={
-                "workflow": {
-                    "id": self.workflow_state.workflow.id,
-                    "title": self.workflow_state.workflow.name,
-                    "status": self.status,
-                    "task_state_id": self.id,
-                    "task": {
-                        "id": self.task.id,
-                        "title": self.task.name,
-                    },
-                    "next": next_task_data,
-                },
-                "comment": self.get_comment(),
-            },
-            revision=self.revision,
-        )
-
-    class Meta:
-        verbose_name = _("Task state")
-        verbose_name_plural = _("Task states")
 
 
 class PageLogEntryQuerySet(LogEntryQuerySet):
