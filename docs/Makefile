@@ -188,3 +188,9 @@ pseudoxml:
 livehtml: SPHINXOPTS = -W -n -jauto
 livehtml:
 	sphinx-autobuild --port 4000 --host 0.0.0.0 -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+
+black:
+	@git ls-files -z -- '*.md' | xargs -0 blacken-docs --rst-literal-blocks
+
+black-check:
+	git ls-files -z -- '*.md' | xargs -0 blacken-docs --rst-literal-blocks --check
