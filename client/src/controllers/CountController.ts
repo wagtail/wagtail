@@ -44,7 +44,8 @@ export class CountController extends Controller<HTMLFormElement> {
   declare readonly totalTarget: HTMLElement;
 
   connect() {
-    this.count();
+    /** Delay setup to give a chance for client-side validation to inject elements */
+    setTimeout(() => this.count(), 200);
   }
 
   count() {
