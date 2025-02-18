@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.db.models.expressions import OuterRef, Subquery
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
+from modelcluster.fields import ParentalKey
 from modelcluster.models import (
     ClusterableModel,
 )
@@ -21,6 +22,7 @@ from wagtail.signals import (
 )
 
 from .locking import LockableMixin
+from .orderable import Orderable
 from .revisions import Revision
 
 
@@ -616,3 +618,24 @@ class AbstractWorkflow(ClusterableModel):
 
 class Workflow(AbstractWorkflow):
     pass
+
+
+class WorkflowTask(Orderable):
+    workflow = ParentalKey(
+        "Workflow",
+        on_delete=models.CASCADE,
+        verbose_name=_("workflow_tasks"),
+        related_name="workflow_tasks",
+    )
+    task = models.ForeignKey(
+        "Task",
+        on_delete=models.CASCADE,
+        verbose_name=_("task"),
+        related_name="workflow_tasks",
+        limit_choices_to={"active": True},
+    )
+
+    class Meta(Orderable.Meta):
+        unique_together = [("workflow", "task")]
+        verbose_name = _("workflow task order")
+        verbose_name_plural = _("workflow task orders")

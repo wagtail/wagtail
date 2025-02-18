@@ -112,7 +112,7 @@ from .media import (  # noqa: F401
     UploadedFile,
     get_root_collection_id,
 )
-from .orderable import Orderable
+from .orderable import Orderable  # noqa: F401
 from .panels import CommentPanelPlaceholder, PanelPlaceholder
 from .preview import PreviewableMixin
 from .reference_index import ReferenceIndex  # noqa: F401
@@ -133,6 +133,7 @@ from .workflows import (  # noqa: F401
     WorkflowState,
     WorkflowStateManager,
     WorkflowStateQuerySet,
+    WorkflowTask,
 )
 
 logger = logging.getLogger("wagtail")
@@ -2701,27 +2702,6 @@ class WorkflowPage(models.Model):
     class Meta:
         verbose_name = _("workflow page")
         verbose_name_plural = _("workflow pages")
-
-
-class WorkflowTask(Orderable):
-    workflow = ParentalKey(
-        "Workflow",
-        on_delete=models.CASCADE,
-        verbose_name=_("workflow_tasks"),
-        related_name="workflow_tasks",
-    )
-    task = models.ForeignKey(
-        "Task",
-        on_delete=models.CASCADE,
-        verbose_name=_("task"),
-        related_name="workflow_tasks",
-        limit_choices_to={"active": True},
-    )
-
-    class Meta(Orderable.Meta):
-        unique_together = [("workflow", "task")]
-        verbose_name = _("workflow task order")
-        verbose_name_plural = _("workflow task orders")
 
 
 class TaskQuerySet(SpecificQuerySetMixin, models.QuerySet):
