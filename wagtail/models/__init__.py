@@ -64,7 +64,6 @@ from wagtail.coreutils import (
     safe_md5,
 )
 from wagtail.fields import StreamField
-from wagtail.forms import TaskStateCommentForm
 from wagtail.locks import WorkflowLock
 from wagtail.log_actions import log
 from wagtail.query import PageQuerySet, SpecificQuerySetMixin
@@ -76,7 +75,6 @@ from wagtail.signals import (
     task_approved,
     task_cancelled,
     task_rejected,
-    task_submitted,
 )
 from wagtail.url_routing import RouteResult
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -128,6 +126,9 @@ from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
 from .workflows import (  # noqa: F401
     AbstractWorkflow,
+    Task,
+    TaskManager,
+    TaskQuerySet,
     Workflow,
     WorkflowContentType,
     WorkflowState,
@@ -2702,176 +2703,6 @@ class WorkflowPage(models.Model):
     class Meta:
         verbose_name = _("workflow page")
         verbose_name_plural = _("workflow pages")
-
-
-class TaskQuerySet(SpecificQuerySetMixin, models.QuerySet):
-    def active(self):
-        return self.filter(active=True)
-
-
-TaskManager = models.Manager.from_queryset(TaskQuerySet)
-
-
-class Task(SpecificMixin, models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("name"))
-    content_type = models.ForeignKey(
-        ContentType,
-        verbose_name=_("content type"),
-        related_name="wagtail_tasks",
-        on_delete=models.CASCADE,
-    )
-    active = models.BooleanField(
-        verbose_name=_("active"),
-        default=True,
-        help_text=_(
-            "Active tasks can be added to workflows. Deactivating a task does not remove it from existing workflows."
-        ),
-    )
-    objects = TaskManager()
-
-    admin_form_fields = ["name"]
-    admin_form_readonly_on_edit_fields = ["name"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not self.id:
-            # this model is being newly created
-            # rather than retrieved from the db;
-            if not self.content_type_id:
-                # set content type to correctly represent the model class
-                # that this was created as
-                self.content_type = ContentType.objects.get_for_model(self)
-
-    def __str__(self):
-        return self.name
-
-    @property
-    def workflows(self):
-        """
-        Returns all ``Workflow`` instances that use this task.
-        """
-        return Workflow.objects.filter(workflow_tasks__task=self)
-
-    @property
-    def active_workflows(self):
-        """
-        Return a ``QuerySet``` of active workflows that this task is part of.
-        """
-        return Workflow.objects.active().filter(workflow_tasks__task=self)
-
-    @classmethod
-    def get_verbose_name(cls):
-        """
-        Returns the human-readable "verbose name" of this task model e.g "Group approval task".
-        """
-        # This is similar to doing cls._meta.verbose_name.title()
-        # except this doesn't convert any characters to lowercase
-        return capfirst(cls._meta.verbose_name)
-
-    task_state_class = None
-
-    @classmethod
-    def get_task_state_class(self):
-        return self.task_state_class or TaskState
-
-    def start(self, workflow_state, user=None):
-        """
-        Start this task on the provided workflow state by creating an instance of TaskState.
-        """
-        task_state = self.get_task_state_class()(workflow_state=workflow_state)
-        task_state.status = TaskState.STATUS_IN_PROGRESS
-        task_state.revision = workflow_state.content_object.get_latest_revision()
-        task_state.task = self
-        task_state.save()
-        task_submitted.send(
-            sender=task_state.specific.__class__,
-            instance=task_state.specific,
-            user=user,
-        )
-        return task_state
-
-    @transaction.atomic
-    def on_action(self, task_state, user, action_name, **kwargs):
-        """
-        Performs an action on a task state determined by the ``action_name`` string passed.
-        """
-        if action_name == "approve":
-            task_state.approve(user=user, **kwargs)
-        elif action_name == "reject":
-            task_state.reject(user=user, **kwargs)
-
-    def user_can_access_editor(self, obj, user):
-        """
-        Returns ``True`` if a user who would not normally be able to access the editor for the
-        object should be able to if the object is currently on this task.
-        Note that returning ``False`` does not remove permissions from users who would otherwise have them.
-        """
-        return False
-
-    def locked_for_user(self, obj, user):
-        """
-        Returns ``True`` if the object should be locked to a given user's edits.
-        This can be used to prevent editing by non-reviewers.
-        """
-        return False
-
-    def user_can_lock(self, obj, user):
-        """
-        Returns ``True`` if a user who would not normally be able to lock the object should be able to
-        if the object is currently on this task.
-        Note that returning ``False`` does not remove permissions from users who would otherwise have them.
-        """
-        return False
-
-    def user_can_unlock(self, obj, user):
-        """
-        Returns ``True`` if a user who would not normally be able to unlock the object should be able to
-        if the object is currently on this task.
-        Note that returning ``False`` does not remove permissions from users who would otherwise have them.
-        """
-        return False
-
-    def get_actions(self, obj, user):
-        """
-        Get the list of action strings (name, verbose_name, whether the action requires additional data - see
-        ``get_form_for_action``) for actions the current user can perform for this task on the given object.
-        These strings should be the same as those able to be passed to ``on_action``.
-        """
-        return []
-
-    def get_form_for_action(self, action):
-        return TaskStateCommentForm
-
-    def get_template_for_action(self, action):
-        return ""
-
-    def get_task_states_user_can_moderate(self, user, **kwargs):
-        """Returns a ``QuerySet`` of the task states the current user can moderate"""
-        return TaskState.objects.none()
-
-    @classmethod
-    def get_description(cls):
-        """
-        Returns the task description.
-        """
-        return ""
-
-    @transaction.atomic
-    def deactivate(self, user=None):
-        """
-        Set ``active`` to False and cancel all in progress task states linked to this task.
-        """
-        self.active = False
-        self.save()
-        in_progress_states = TaskState.objects.filter(
-            task=self, status=TaskState.STATUS_IN_PROGRESS
-        )
-        for state in in_progress_states:
-            state.cancel(user=user)
-
-    class Meta:
-        verbose_name = _("task")
-        verbose_name_plural = _("tasks")
 
 
 class AbstractGroupApprovalTask(Task):
