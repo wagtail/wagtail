@@ -1,11 +1,34 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from modelcluster.models import (
     ClusterableModel,
 )
 
+from wagtail.coreutils import get_content_type_label
 from wagtail.log_actions import log
 from wagtail.signals import workflow_submitted
+
+
+class WorkflowContentType(models.Model):
+    content_type = models.OneToOneField(
+        ContentType,
+        related_name="wagtail_workflow_content_type",
+        verbose_name=_("content type"),
+        on_delete=models.CASCADE,
+        primary_key=True,
+        unique=True,
+    )
+    workflow = models.ForeignKey(
+        "Workflow",
+        related_name="workflow_content_types",
+        verbose_name=_("workflow"),
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        content_type_label = get_content_type_label(self.content_type)
+        return f"WorkflowContentType: {content_type_label} - {self.workflow}"
 
 
 class WorkflowManager(models.Manager):
@@ -88,7 +111,7 @@ class AbstractWorkflow(ClusterableModel):
         """
         Sets the workflow as inactive, and cancels all in progress instances of ``WorkflowState`` linked to this workflow.
         """
-        from wagtail.models import WorkflowContentType, WorkflowPage, WorkflowState
+        from wagtail.models import WorkflowPage, WorkflowState
 
         self.active = False
         in_progress_states = WorkflowState.objects.filter(

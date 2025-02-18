@@ -60,7 +60,6 @@ from wagtail.compat import HTTPMethod
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
-    get_content_type_label,
     get_supported_content_language_variant,
     resolve_model_string,
     safe_md5,
@@ -130,7 +129,7 @@ from .revisions import (  # noqa: F401
 from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin
 from .view_restrictions import BaseViewRestriction
-from .workflows import AbstractWorkflow, Workflow  # noqa: F401
+from .workflows import AbstractWorkflow, Workflow, WorkflowContentType  # noqa: F401
 
 logger = logging.getLogger("wagtail")
 
@@ -2707,27 +2706,6 @@ class WorkflowPage(models.Model):
     class Meta:
         verbose_name = _("workflow page")
         verbose_name_plural = _("workflow pages")
-
-
-class WorkflowContentType(models.Model):
-    content_type = models.OneToOneField(
-        ContentType,
-        related_name="wagtail_workflow_content_type",
-        verbose_name=_("content type"),
-        on_delete=models.CASCADE,
-        primary_key=True,
-        unique=True,
-    )
-    workflow = models.ForeignKey(
-        "Workflow",
-        related_name="workflow_content_types",
-        verbose_name=_("workflow"),
-        on_delete=models.CASCADE,
-    )
-
-    def __str__(self):
-        content_type_label = get_content_type_label(self.content_type)
-        return f"WorkflowContentType: {content_type_label} - {self.workflow}"
 
 
 class WorkflowTask(Orderable):
