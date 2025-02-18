@@ -1,4 +1,5 @@
 @use '../../../../scss/tools' as *;
+@use '../../../../../node_modules/draftail/src/index' as *;
 
 .MediaBlock {
   display: inline-block;
