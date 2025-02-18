@@ -191,6 +191,3 @@ livehtml:
 
 black:
 	@git ls-files -z -- '*.md' | xargs -0 blacken-docs --rst-literal-blocks
-
-black-check:
-	git ls-files -z -- '*.md' | xargs -0 blacken-docs --rst-literal-blocks --check
