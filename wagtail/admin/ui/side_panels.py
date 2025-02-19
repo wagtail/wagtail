@@ -286,7 +286,7 @@ class PageStatusSidePanel(StatusSidePanel):
         else:
             # set is_public context for new pages based on parent page settings and default privacy setting
             # this gets set in the template if the page is not new
-            if page.get_default_privacy_setting(self.request)["type"] != "none":
+            if page.get_default_privacy_setting(self.request)["type"] != BaseViewRestriction.NONE:
                 context.update({"is_public": False})
             else:
                 context.update(
