@@ -85,15 +85,18 @@ jobs:
   test-postgres:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
+    name: 'Postgres: ${{ matrix.python }} ${{ matrix.label }} ${{ matrix.postgres }}'
     strategy:
       matrix:
         include:
           - python: '3.9'
+            label: 'Django 4.2'
             django: 'Django>=4.2,<4.3'
             psycopg: 'psycopg2>=2.6'
             experimental: false
             parallel: '--parallel'
           - python: '3.13'
+            label: 'Django 5.1'
             django: 'Django>=5.1,<5.2'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
@@ -101,11 +104,13 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.12'
+            label: 'Django main'
             django: 'git+https://github.com/django/django.git@stable/5.2.x#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
           - python: '3.13'
+            label: 'Django main, modelcuster main'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             experimental: true
@@ -179,22 +184,27 @@ jobs:
   test-mysql:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
+    name: 'MySQL:    ${{ matrix.python }} ${{ matrix.label }} ${{ matrix.mysql }}'
     strategy:
       matrix:
         include:
           - python: '3.10'
+            label: 'Django 4.2'
             django: 'Django>=4.2,<4.3'
             experimental: false
           - python: '3.11'
+            label: 'Django 4.2'
             django: 'Django>=4.2,<4.3'
             experimental: false
             mysql: 'mariadb:10.5'
           - python: '3.12'
+            label: 'Django 5.1'
             django: 'Django>=5.1,<5.2'
             experimental: false
             mysql: 'mariadb:11.4'
             emailuser: emailuser
           - python: '3.12'
+            label: 'Django 5.1'
             django: 'Django>=5.1,<5.2'
             experimental: false
             parallel: '--parallel'
