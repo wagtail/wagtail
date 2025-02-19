@@ -153,7 +153,7 @@ Changelog
 6.3.4 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
- * Maintenance: Remove upper version boundary for django-filter. (Dan Braghis)
+ * Maintenance: Remove upper version boundary for django-filter (Dan Braghis)
 
 
 6.3.3 (03.02.2025)
