@@ -625,9 +625,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return self.admin_default_ordering
 
-    def full_clean(self, *args, **kwargs):
-        # Apply fixups that need to happen before per-field validation occurs
-
+    def _set_core_field_defaults(self):
+        """
+        Set default values for core fields (slug, draft_title, locale) that need to be
+        in place before validating or saving
+        """
         if not self.slug:
             # Try to auto-populate slug from title
             allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
@@ -644,6 +646,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if self.locale_id is None:
             self.locale = self.get_default_locale()
 
+    def full_clean(self, *args, **kwargs):
+        self._set_core_field_defaults()
         super().full_clean(*args, **kwargs)
 
     def clean(self):
@@ -695,6 +699,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         if clean:
             self.full_clean()
+        else:
+            self._set_core_field_defaults()
 
         slug_changed = False
         is_new = self.id is None
