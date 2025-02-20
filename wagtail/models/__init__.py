@@ -2700,7 +2700,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         .. note::
 
             If using ``RoutablePageMixin``, you may want to override this method
-            to include the paths of popualar routes.
+            to include the paths of popular routes.
 
         .. note::
 
