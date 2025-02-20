@@ -873,6 +873,7 @@
 * Bernhard Bliem
 * Mahmoud Nasser
 * Prabhpreet Kaur
+* Baptiste Mispelon
 
 ## Translators
 
