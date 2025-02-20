@@ -103,7 +103,10 @@ def formfield_for_dbfield(db_field, **kwargs):
 class WagtailAdminModelFormOptions(PermissionedFormOptionsMixin, ClusterFormOptions):
     # Container for the options set in the inner 'class Meta' of a model form, supporting
     # extensions for both ClusterForm ('formsets') and PermissionedForm ('field_permissions').
-    pass
+
+    def __init__(self, options=None):
+        super().__init__(options)
+        self.defer_required_on_fields = getattr(options, "defer_required_on_fields", [])
 
 
 class WagtailAdminModelFormMetaclass(PermissionedFormMetaclass, ClusterFormMetaclass):
@@ -124,6 +127,13 @@ class WagtailAdminModelForm(
         # keep hold of the `for_user` kwarg as well as passing it on to PermissionedForm
         self.for_user = kwargs.get("for_user")
         super().__init__(*args, **kwargs)
+
+    def defer_required_fields(self):
+        for field_name in self._meta.defer_required_on_fields:
+            try:
+                self.fields[field_name].required = False
+            except KeyError:
+                pass
 
     class Meta:
         formfield_callback = formfield_for_dbfield
