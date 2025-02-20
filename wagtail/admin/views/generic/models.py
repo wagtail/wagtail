@@ -1105,8 +1105,13 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return capfirst(label_for_field(field_name, model=self.model))
 
     def get_field_display_value(self, field_name, field):
-        # First we check for a 'get_fieldname_display' property/method on
+        # First we check for a `get_fieldname_display_value` method on the InspectView
+        # then for a 'get_fieldname_display' property/method on
         # the model, and return the value of that, if present.
+        value_func = getattr(self, f"get_{field_name}_display_value", None)
+        if value_func is not None and callable(value_func):
+            return value_func()
+
         value_func = getattr(self.object, "get_%s_display" % field_name, None)
         if value_func is not None:
             if callable(value_func):

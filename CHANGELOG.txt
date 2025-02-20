@@ -23,6 +23,7 @@ Changelog
  * Introduce new designs for listings and chooser pagination (except page chooser) (Jordan Teichmann, Sage Abdullah)
  * Add default "Locale" column to listings of translatable models (Dan Braghis, Sage Abdullah)
  * Hide add locale button when no more languages are available (Dan Braghis)
+ * Allow customizing `InspectView` field display value via methods on the view (Dan Braghis)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
  * Fix: Support simple subqueries for `in` and `exact` lookup on Elasticsearch (Sage Abdullah)
