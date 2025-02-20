@@ -11,6 +11,7 @@ Changelog
  * Fix: Ensure the top of the minimap correctly adjusts when resizing the browser viewport (Thibaud Colas)
  * Fix: Remove obsolete SubqueryConstraint check in search backends, for provisional Django 5.2 compatibility (Sage Abdullah)
  * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
+ * Docs: Fix typo in `Page.get_route_paths` docstring (Baptiste Mispelon)
  * Docs: Upgrade sphinx-wagtail-theme to v6.5.0 (Sage Abdullah)
  * Maintenance: Remove upper version boundary for django-filter (Dan Braghis)
  * Maintenance: Relax upper version boundaries for django-taggit and beautifulsoup4 (Matt Westcott)

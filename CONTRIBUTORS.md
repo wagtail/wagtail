@@ -870,6 +870,7 @@
 * Stéphane Blondon
 * Jatin Bhardwaj
 * Mahmoud Nasser
+* Baptiste Mispelon
 
 ## Translators
 
