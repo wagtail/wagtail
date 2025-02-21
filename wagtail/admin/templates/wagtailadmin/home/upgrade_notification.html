@@ -23,6 +23,7 @@
     <button
         type="button"
         data-action="w-dismissible#toggle"
+        aria-label="Dismiss upgrade notice"
         {% if dismissible_value %}data-w-dismissible-value-param="{{ dismissible_value }}"{% endif %}
         data-w-upgrade-target="dismiss"
         aria-label="{% trans 'Close' %}"
