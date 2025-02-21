@@ -1359,6 +1359,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     search_fields = [
         index.SearchField("title", boost=2),
+        index.SearchField("seo_title"),
         index.AutocompleteField("title"),
         index.FilterField("title"),
         index.FilterField("id"),
