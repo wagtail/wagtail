@@ -3438,7 +3438,7 @@ msgid "View page history for '%(title)s'"
 msgstr "Bekijk de versiegeschiedenis voor '%(title)s'"
 
 msgid "Sort menu order"
-msgstr "Sorteer menu volgorde"
+msgstr "Sortering aanpassen"
 
 #, python-format
 msgid "Change ordering of child pages of '%(title)s'"
