@@ -246,10 +246,10 @@ def test_collection_is_public(context, collection):
     DB queries on repeated calls.
     """
     if "all_collection_view_restrictions" not in context:
-        context[
-            "all_collection_view_restrictions"
-        ] = CollectionViewRestriction.objects.select_related("collection").values_list(
-            "collection__name", flat=True
+        context["all_collection_view_restrictions"] = (
+            CollectionViewRestriction.objects.select_related("collection").values_list(
+                "collection__name", flat=True
+            )
         )
 
     is_private = collection.name in context["all_collection_view_restrictions"]
@@ -1269,9 +1269,9 @@ def formattedfield(
 
     if field:
         context["rendered_field"] = rendered_field or render_with_errors(field)
-        context[
-            "field_classname"
-        ] = f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+        context["field_classname"] = (
+            f"w-field--{fieldtype(field)} w-field--{widgettype(field)}"
+        )
 
         errors = field.errors
         has_errors = bool(errors)

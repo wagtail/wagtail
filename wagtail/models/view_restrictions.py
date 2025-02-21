@@ -67,9 +67,9 @@ class BaseViewRestriction(models.Model):
         )
         if self.id not in passed_restrictions:
             passed_restrictions.append(self.id)
-            request.session[
-                self.passed_view_restrictions_session_key
-            ] = passed_restrictions
+            request.session[self.passed_view_restrictions_session_key] = (
+                passed_restrictions
+            )
         if not has_existing_session:
             # if this is a session we've created, set it to expire at the end
             # of the browser session

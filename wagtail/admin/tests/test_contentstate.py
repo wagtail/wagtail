@@ -14,7 +14,7 @@ from wagtail.embeds.models import Embed
 
 def content_state_equal(v1, v2, match_keys=False):
     "Test whether two contentState structures are equal, ignoring 'key' properties if match_keys=False"
-    if type(v1) != type(v2):
+    if type(v1) is not type(v2):
         return False
 
     if isinstance(v1, dict):

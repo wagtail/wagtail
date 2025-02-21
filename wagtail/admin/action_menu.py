@@ -1,4 +1,5 @@
 """Handles rendering of the list of actions in the footer of the page create/edit views."""
+
 from django.conf import settings
 from django.forms import Media
 from django.template.loader import render_to_string

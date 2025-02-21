@@ -1,3 +1,14 @@
+exclude = [
+  "wagtail/project_template/*",
+  "node_modules",
+  "venv",
+  ".venv",
+  "migrations",
+]
+line-length = 88
+target-version = "py39" # minimum target version
+
+[lint]
 # D100: Missing docstring in public module
 # D101: Missing docstring in public class
 # D102: Missing docstring in public method
@@ -5,11 +16,7 @@
 # D105: Missing docstring in magic method
 # N806: Variable in function should be lowercase
 # E501: Line too long
-ignore = ["D100","D101","D102","D103","D105","N806","E501"]
-exclude = ["wagtail/project_template/*","node_modules","venv",".venv","migrations"]
-line-length = 88
-
-target-version = "py38"  # minimum target version
+ignore = ["D100", "D101", "D102", "D103", "D105", "N806", "E501"]
 
 # E: pycodestyle errors
 # F: Pyflakes

@@ -305,10 +305,10 @@ class BaseAPIViewSet(GenericViewSet):
                 child_endpoint_class = (
                     child_endpoint_class[1] if child_endpoint_class else BaseAPIViewSet
                 )
-                child_serializer_classes[
-                    field_name
-                ] = child_endpoint_class._get_serializer_class(
-                    router, child_model, child_sub_fields, nested=True
+                child_serializer_classes[field_name] = (
+                    child_endpoint_class._get_serializer_class(
+                        router, child_model, child_sub_fields, nested=True
+                    )
                 )
 
             else:

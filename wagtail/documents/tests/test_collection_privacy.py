@@ -111,7 +111,7 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE="tests/custom_docs_password_required.html"
     )
     def test_anonymous_user_must_authenticate_with_custom_password_required_template(
-        self
+        self,
     ):
         secret_document = Document.objects.create(
             title="Test document",
