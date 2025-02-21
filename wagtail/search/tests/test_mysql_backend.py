@@ -160,7 +160,7 @@ class TestMySQLSearchBackend(BackendTests, TransactionTestCase):
 
         with self.assertRaisesMessage(
             ValueError,
-            "Lexeme value 'hello world' must consist of alphanumeric characters "
+            "Lexeme value 'rimsky@korsakov' must consist of alphanumeric characters "
             "and '_' only.",
         ):
             Lexeme("rimsky@korsakov")
