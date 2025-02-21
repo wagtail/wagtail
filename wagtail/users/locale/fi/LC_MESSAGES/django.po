@@ -33,8 +33,8 @@ msgstr "Vaadittu. Vain kirjaimia, numeroita ja merkkejä @/./+/-/_."
 
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
-"Arvo voi sisältää ainoastaan kirjaimia, numeroita ja @/./+/-/_ -"
-"erikoismerkkejä."
+"Arvo voi sisältää ainoastaan kirjaimia, numeroita ja @/./+/-/_ "
+"-erikoismerkkejä."
 
 msgid "A user with that username already exists."
 msgstr "Käyttäjä tällä käyttäjänimellä on jo olemassa."
