@@ -650,8 +650,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         self._set_core_field_defaults()
         super().full_clean(*args, **kwargs)
 
-    def clean(self):
-        super().clean()
+    def _check_slug_is_unique(self):
         parent_page = self.get_parent()
         if not Page._slug_is_available(self.slug, parent_page, self):
             raise ValidationError(
@@ -662,6 +661,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     % {"page_slug": self.slug, "parent_url_path": parent_page.url}
                 }
             )
+
+    def clean(self):
+        super().clean()
+        self._check_slug_is_unique()
+
+    def minimal_clean(self):
+        self._set_core_field_defaults()
+        self.title = self._meta.get_field("title").clean(self.title, self)
+        self._check_slug_is_unique()
 
     def is_site_root(self):
         """
@@ -682,25 +690,35 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, clean=True, user=None, log_action=False, **kwargs):
         """
-        Overrides default method behavior to make additional updates unique to pages,
-        such as updating the ``url_path`` value of descendant page to reflect changes
-        to this page's slug.
+        Writes the page to the database, performing additional housekeeping tasks to ensure data
+        integrity:
 
-        New pages should generally be saved via the :meth:`~treebeard.mp_tree.MP_Node.add_child`
-        or :meth:`~treebeard.mp_tree.MP_Node.add_sibling`
-        method of an existing page, which will correctly set the ``path`` and ``depth``
-        fields on the new page before saving it.
+        * ``locale``, ``draft_title`` and ``slug`` are set to default values if not provided, with ``slug``
+          being generated from the title with a suffix to ensure uniqueness within the parent page
+          where necessary
+        * The ``url_path`` field is set based on the ``slug`` and the parent page
+        * If the ``slug`` has changed, the ``url_path`` of this page and all descendants is updated and
+          a :ref:`page_slug_changed` signal is sent
 
-        By default, pages are validated using ``full_clean()`` before attempting to
-        save changes to the database, which helps to preserve validity when restoring
-        pages from historic revisions (which might not necessarily reflect the current
-        model state). This validation step can be bypassed by calling the method with
-        ``clean=False``.
+        New pages should be saved by passing the unsaved page instance to the
+        :meth:`~treebeard.mp_tree.MP_Node.add_child`
+        or :meth:`~treebeard.mp_tree.MP_Node.add_sibling` method of an existing page, which will correctly update
+        the fields responsible for tracking the page's location in the tree.
+
+        If ``clean=False`` is passed, the page is saved without validation. This is appropriate for updates that only
+        change metadata such as `latest_revision` while keeping content and page location unchanged.
+
+        If ``clean=True`` is passed (the default), and the page has ``live=True`` set, the page is validated using
+        :meth:`~django.db.models.Model.full_clean` before saving.
+
+        If ``clean=True`` is passed, and the page has `live=False` set, only the title and slug fields are validated.
         """
         if clean:
-            self.full_clean()
-        else:
-            self._set_core_field_defaults()
+            if self.live:
+                self.full_clean()
+            else:
+                # Saving as draft; only perform the minimal validation to satisfy data integrity
+                self.minimal_clean()
 
         slug_changed = False
         is_new = self.id is None
