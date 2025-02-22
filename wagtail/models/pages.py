@@ -2013,6 +2013,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ]
 
 
+# set module path of Page so that when Sphinx autodoc sees Page in type annotations
+# it won't complain that there's no target for wagtail.models.pages.Page
+Page.__module__ = "wagtail.models"
+
+
 class GroupPagePermissionManager(models.Manager):
     def create(self, **kwargs):
         # Simplify creation of GroupPagePermission objects by allowing one
