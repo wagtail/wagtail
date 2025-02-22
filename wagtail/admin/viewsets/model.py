@@ -393,7 +393,7 @@ class ModelViewSet(ViewSet):
         - An instance of the ``wagtail.admin.ui.tables.Column`` class.
 
         If the name refers to a database field, the ability to sort the listing
-        by the database column will be offerred and the field's verbose name
+        by the database column will be offered and the field's verbose name
         will be used as the column header.
 
         If the name refers to a callable or property, an ``admin_order_field``
@@ -404,7 +404,11 @@ class ModelViewSet(ViewSet):
         This list will be passed to the ``list_display`` attribute of the index
         view. If left unset, the ``list_display`` attribute of the index view
         will be used instead, which by default is defined as
-        ``["__str__", wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+        ``["__str__", wagtail.admin.ui.tables.LocaleColumn(), wagtail.admin.ui.tables.UpdatedAtColumn()]``.
+
+        Note that if WAGTAIL_I18N_ENABLED = False, or the model is not translatable
+        (i.e. does not inherit from TranslatableMixin), then the LocaleColumn is
+        excluded by the default IndexView.columns property.
         """
         return self.index_view_class.list_display
 

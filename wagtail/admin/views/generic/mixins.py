@@ -106,6 +106,12 @@ class BeforeAfterHookMixin(HookResponseMixin):
 
 class LocaleMixin:
     @cached_property
+    def i18n_enabled(self) -> bool:
+        return getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        )
+
+    @cached_property
     def locale(self):
         return self.get_locale()
 
@@ -117,8 +123,7 @@ class LocaleMixin:
         if not getattr(self, "model", None):
             return None
 
-        i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if not i18n_enabled or not issubclass(self.model, TranslatableMixin):
+        if not self.i18n_enabled:
             return None
 
         if hasattr(self, "object") and self.object:
