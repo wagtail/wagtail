@@ -35,6 +35,7 @@ from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
     ButtonsColumnMixin,
     Column,
+    LocaleColumn,
     TitleColumn,
     UpdatedAtColumn,
 )
@@ -74,7 +75,9 @@ class IndexView(
     delete_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
     columns = None  # If not explicitly specified, will be derived from list_display
-    list_display = ["__str__", UpdatedAtColumn()]
+    # note: the LocaleColumn is included by default but excluded from the columns
+    # property if i18n is disabled or the model is not translatable.
+    list_display = ["__str__", LocaleColumn(), UpdatedAtColumn()]
     list_filter = None
     show_other_searches = False
 
@@ -149,6 +152,13 @@ class IndexView(
             .values("timestamp")[:1]
         )
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
+
+    def get_base_queryset(self):
+        base_queryset = super().get_base_queryset()
+        if self.i18n_enabled:
+            base_queryset = base_queryset.prefetch_related("locale")
+
+        return base_queryset
 
     def order_queryset(self, queryset):
         has_updated_at_column = any(
@@ -257,7 +267,7 @@ class IndexView(
         )
 
     @cached_property
-    def columns(self):
+    def columns(self) -> list[Column]:
         columns = []
         for i, field in enumerate(self.list_display):
             if isinstance(field, Column):
@@ -266,6 +276,10 @@ class IndexView(
                 column = self._get_title_column(field)
             else:
                 column = self._get_custom_column(field)
+
+            if isinstance(column, LocaleColumn) and not self.i18n_enabled:
+                continue
+
             columns.append(column)
 
         return columns
