@@ -309,7 +309,6 @@ class ReferenceIndex(models.Model):
                                 object instance where the reference was found
         """
         for field in object._meta.get_fields(include_hidden=True):
-
             # New: Process custom extract_references first
             if hasattr(field, "extract_references"):
                 value = field.value_from_object(object)
@@ -321,7 +320,9 @@ class ReferenceIndex(models.Model):
                             f"{field.name}.{model_path}",
                             f"{field.name}.{content_path}",
                         )
-                        for to_model, to_object_id, model_path, content_path in field.extract_references(value)
+                        for to_model, to_object_id, model_path, content_path in field.extract_references(
+                            value
+                        )
                     )
                 continue
 

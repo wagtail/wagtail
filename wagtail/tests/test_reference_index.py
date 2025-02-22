@@ -505,6 +505,7 @@ class TestDescribeOnDelete(TestCase):
 
 # New tests for custom extract_references precedence
 
+
 class TestCustomExtractReferences(TestCase):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
@@ -514,7 +515,7 @@ class TestCustomExtractReferences(TestCase):
             location="the moon",
             audience="public",
             cost="free",
-            date_from="2001-01-01"
+            date_from="2001-01-01",
         )
         self.root_page.add_child(instance=self.test_page)
 
@@ -529,6 +530,7 @@ class TestCustomExtractReferences(TestCase):
 
     def test_custom_extract_precedence(self):
         """Test that custom extract_references takes precedence over many-to-one."""
+
         class CustomField:
             def __init__(self, name, test_page):
                 self.name = name
@@ -551,13 +553,13 @@ class TestCustomExtractReferences(TestCase):
             ReferenceIndex._get_base_content_type(EventPage).id,
             str(self.test_page.id),
             "test_field.custom_path",
-            "test_field.custom_content"
+            "test_field.custom_content",
         )
         default_ref = (
             ReferenceIndex._get_base_content_type(EventPage).id,
             str(self.test_page.id),
             "test_field",
-            "test_field"
+            "test_field",
         )
 
         self.assertIn(custom_ref, references)
@@ -566,6 +568,7 @@ class TestCustomExtractReferences(TestCase):
 
     def test_custom_extract_returns_empty(self):
         """Test various empty return values from extract_references."""
+
         class CustomField:
             def __init__(self, name, test_page):
                 self.name = name
@@ -578,7 +581,7 @@ class TestCustomExtractReferences(TestCase):
                 return self.test_page
 
             def extract_references(self, value):
-                return [] 
+                return []
 
         field = CustomField("test_field", self.test_page)
         test_obj = self.create_test_model(field)
@@ -587,6 +590,7 @@ class TestCustomExtractReferences(TestCase):
 
     def test_default_handling_without_custom_extract(self):
         """Test default many-to-one handling without extract_references."""
+
         class DefaultField:
             def __init__(self, name, test_page):
                 self.name = name
@@ -601,12 +605,12 @@ class TestCustomExtractReferences(TestCase):
         field = DefaultField("test_field", self.test_page)
         test_obj = self.create_test_model(field)
         references = set(ReferenceIndex._extract_references_from_object(test_obj))
-        
+
         expected_ref = (
             ReferenceIndex._get_base_content_type(EventPage).id,
-            str(self.test_page.id), 
+            str(self.test_page.id),
             "test_field",
-            "test_field"
+            "test_field",
         )
 
         self.assertIn(expected_ref, references)
