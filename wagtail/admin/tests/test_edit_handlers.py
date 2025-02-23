@@ -1735,8 +1735,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         )
 
         self.login()
-        res = self.client.get(reverse("wagtailadmin_pages:edit", args=[3]))
-        soup = self.get_soup(res.content)
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[3]))
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
         scripts = soup.select(f"script[src='/static/wagtailadmin/js/comments.js']")
         self.assertEqual(len(scripts), 0)
 
@@ -1756,8 +1758,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         )
         
         self.login()
-        res = self.client.get(reverse("wagtailadmin_pages:edit", args=[3]))
-        soup = self.get_soup(res.content)
+        response = self.client.get(reverse("wagtailadmin_pages:edit", args=[3]))
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
         scripts = soup.select(f"script[src='/static/wagtailadmin/js/comments.js']")
         self.assertEqual(len(scripts), 1)
 
