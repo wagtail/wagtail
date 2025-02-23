@@ -13,7 +13,6 @@ from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.html import escape, json_script
-from wagtail.admin.staticfiles import versioned_static
 from freezegun import freeze_time
 
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
@@ -1739,7 +1738,7 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         soup = self.get_soup(response.content)
-        scripts = soup.select(f"script[src='/static/wagtailadmin/js/comments.js']")
+        scripts = soup.select("script[src='/static/wagtailadmin/js/comments.js']")
         self.assertEqual(len(scripts), 0)
 
         form_class = Page.get_edit_handler().get_form_class()
@@ -1762,7 +1761,7 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         soup = self.get_soup(response.content)
-        scripts = soup.select(f"script[src='/static/wagtailadmin/js/comments.js']")
+        scripts = soup.select("script[src='/static/wagtailadmin/js/comments.js']")
         self.assertEqual(len(scripts), 1)
 
         form_class = Page.get_edit_handler().get_form_class()
