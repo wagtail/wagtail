@@ -226,7 +226,7 @@ ul.listing {
   }
 
   .title {
-    word-break: break-word;
+    overflow-wrap: anywhere;
 
     .title-wrapper,
     h2 {
@@ -448,7 +448,7 @@ ul.listing {
   display: block;
   color: inherit;
   overflow-wrap: break-word;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
