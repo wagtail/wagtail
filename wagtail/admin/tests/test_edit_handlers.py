@@ -1755,7 +1755,7 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
                 for panel in expand_panel_list(Page, Page.settings_panels)
             )
         )
-        
+
         self.login()
         response = self.client.get(reverse("wagtailadmin_pages:edit", args=[3]))
         self.assertEqual(response.status_code, 200)

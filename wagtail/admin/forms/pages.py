@@ -221,7 +221,7 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
                 )
 
         return cleaned_data
-    
+
     @property
     def media(self):
         media = super().media
