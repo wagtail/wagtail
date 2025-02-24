@@ -25,6 +25,7 @@ class FieldPanel(Panel):
         disable_comments=None,
         permission=None,
         read_only=False,
+        required_on_save=False,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -33,6 +34,7 @@ class FieldPanel(Panel):
         self.disable_comments = disable_comments
         self.permission = permission
         self.read_only = read_only
+        self.required_on_save = required_on_save
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
@@ -42,6 +44,7 @@ class FieldPanel(Panel):
             disable_comments=self.disable_comments,
             permission=self.permission,
             read_only=self.read_only,
+            required_on_save=self.required_on_save,
         )
         return kwargs
 
@@ -52,6 +55,9 @@ class FieldPanel(Panel):
         opts = {
             "fields": [self.field_name],
         }
+        if not self.required_on_save:
+            opts["defer_required_on_fields"] = [self.field_name]
+
         if self.widget:
             opts["widgets"] = {self.field_name: self.widget}
 

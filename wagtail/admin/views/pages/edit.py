@@ -489,6 +489,9 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
 
+        if self.action_name == "save":
+            self.form.defer_required_fields()
+
         if self.form.is_valid() and not self.locked_for_user:
             return self.form_valid(self.form)
         else:
@@ -551,6 +554,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
             previous_revision=self.previous_revision,
+            clean=False,
         )
 
         self.add_save_confirmation_message()
