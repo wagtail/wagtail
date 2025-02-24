@@ -18,6 +18,7 @@ Changelog
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
+ * Maintenance: Refactor styles for Draftail, minimap, and comments to fix remaining Sass migration warnings (Thibaud Colas)
  * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
  * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
  * Maintenance: Split up `wagtail.models` module into submodules (Matt Westcott)
