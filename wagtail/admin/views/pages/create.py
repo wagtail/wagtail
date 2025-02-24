@@ -151,6 +151,8 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             parent_page=self.parent_page,
             for_user=self.request.user,
         )
+        if self.action_name == "save":
+            self.form.defer_required_fields()
 
         if self.form.is_valid():
             return self.form_valid(self.form)
@@ -243,7 +245,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         self.set_default_privacy_setting()
 
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=True)
+        self.page.save_revision(user=self.request.user, log_action=True, clean=False)
 
         # Save subscription settings
         self.subscription.page = self.page
