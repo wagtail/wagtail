@@ -707,6 +707,23 @@ def admin_theme_classname(context):
     contrast_name = contrast_name.split("_")[0]
     return f"w-theme-{theme_name} w-density-{density_name} w-contrast-{contrast_name}"
 
+@register.simple_tag(takes_context=True)
+def admin_theme_user(context):
+    """
+    Retrives theme of current user
+    """
+    user = context["request"].user
+    theme_name = (
+            user.wagtail_userprofile.theme
+            if hasattr(user,"wagtail_userprofile")
+            else "system"
+            )
+    if theme_name == "dark":
+        return "dark light"
+    elif theme_name == "light":
+        return "light dark"
+    else :
+        return "dark light"
 
 @register.simple_tag
 def js_translation_strings():
