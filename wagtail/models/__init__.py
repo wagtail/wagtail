@@ -101,6 +101,7 @@ from .workflows import (  # noqa: F401
     TaskStateQuerySet,
     Workflow,
     WorkflowContentType,
+    WorkflowManager,
     WorkflowMixin,
     WorkflowState,
     WorkflowStateManager,
