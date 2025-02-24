@@ -173,6 +173,7 @@ class TestPageMove(WagtailTestUtils, TestCase):
             parent_page_after=self.section_b,
             url_path_before="/home/section-a/hello-world/",
             url_path_after="/home/section-b/hello-world/",
+            instance_before=Page.objects.get(pk=self.test_page_a.pk).specific,
         )
 
     def test_before_move_page_hook(self):
