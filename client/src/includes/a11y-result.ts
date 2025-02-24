@@ -1,4 +1,4 @@
-import axe, {
+import type {
   AxeResults,
   ElementContext,
   NodeResult,
@@ -135,6 +135,7 @@ interface A11yReport {
 export const getA11yReport = async (
   config: WagtailAxeConfiguration,
 ): Promise<A11yReport> => {
+  const axe = await import('axe-core');
   axe.configure(addCustomChecks(config.spec));
   // Initialise Axe based on the context and options defined in Python.
   const results = await axe.run(config.context, config.options);
