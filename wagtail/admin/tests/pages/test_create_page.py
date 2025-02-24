@@ -482,6 +482,96 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
+    def test_create_simplepage_post_with_blank_title(self):
+        post_data = {
+            "title": "",
+            "content": "Some content",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+    def test_create_simplepage_post_with_blank_content(self):
+        """
+        Saving a page as draft with blank content should be allowed, as this skips
+        required=True validation
+        """
+        post_data = {
+            "title": "New page",
+            "content": "",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.title, post_data["title"])
+        self.assertEqual(page.draft_title, post_data["title"])
+        self.assertIsInstance(page, SimplePage)
+        self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_publish_simplepage_post_with_blank_content(self):
+        post_data = {
+            "title": "New page",
+            "content": "",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "content", "This field is required."
+        )
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+        # page should not be created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="hello-world"
+            ).exists()
+        )
+
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)
