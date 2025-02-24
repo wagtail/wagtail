@@ -615,10 +615,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             ).exists()
         )
 
-        # Should show the draft go_live_at and expire_at under the "Once published" label
+        # Should show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -639,7 +639,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            'This publishing schedule will only take effect after you select the "Publish" option',
+            'This publishing schedule will only take effect after you select the "Schedule to publish" option',
         )
 
     def test_edit_post_scheduled_custom_timezone(self):
@@ -692,11 +692,11 @@ class TestPageEdit(WagtailTestUtils, TestCase):
                 ).exists()
             )
 
-        # Should show the draft go_live_at under the "Once published" label
+        # Should show the draft go_live_at under the "Once scheduled" label
         # and should be in the user's timezone
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -719,7 +719,7 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         self.assertContains(
             response,
-            'This publishing schedule will only take effect after you select the "Publish" option',
+            'This publishing schedule will only take effect after you select the "Schedule to publish" option',
         )
 
     def test_schedule_panel_without_publish_permission(self):
@@ -848,10 +848,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # No new revision should have been created
         self.assertEqual(child_page_new.latest_revision_id, latest_revision.pk)
 
-        # Should not show the draft go_live_at and expire_at under the "Once published" label
+        # Should not show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertNotContains(
@@ -1037,10 +1037,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -1201,10 +1201,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -1384,10 +1384,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             count=1,
         )
 
-        # Should also show the draft go_live_at and expire_at under the "Once published" label
+        # Should also show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -1478,10 +1478,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             html=True,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -1582,10 +1582,10 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             count=1,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
