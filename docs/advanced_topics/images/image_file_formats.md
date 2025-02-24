@@ -8,7 +8,7 @@ The [picture element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/
 can be used with the `format-<type>` image operation to specify different
 image formats and let the browser choose the one it prefers. For example:
 
-```python
+```html+django
 {% load wagtailimages_tags %}
 
 <picture>
@@ -39,11 +39,11 @@ to an output type.
 For example:
 
 ```python
-    WAGTAILIMAGES_FORMAT_CONVERSIONS = {
-        'avif': 'avif',
-        'bmp': 'jpeg',
-        'webp': 'webp',
-    }
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {
+    "avif": "avif",
+    "bmp": "jpeg",
+    "webp": "webp",
+}
 ```
 
 will convert `bmp` images to `jpeg` and disable the default `avif` and `webp`

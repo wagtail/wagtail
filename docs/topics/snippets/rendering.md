@@ -18,12 +18,13 @@ register = template.Library()
 
 # ...
 
+
 # Advert snippets
-@register.inclusion_tag('demo/tags/adverts.html', takes_context=True)
+@register.inclusion_tag("demo/tags/adverts.html", takes_context=True)
 def adverts(context):
     return {
-        'adverts': Advert.objects.all(),
-        'request': context['request'],
+        "adverts": Advert.objects.all(),
+        "request": context["request"],
     }
 ```
 
@@ -62,20 +63,20 @@ Then, in your own page templates, you can include your snippet template tag with
 In the above example, the list of adverts is a fixed list that is displayed via the custom template tag independent of any other content on the page. This might be what you want for a common panel in a sidebar, but, in another scenario, you might wish to display just one specific instance of a snippet on a particular page. This can be accomplished by defining a foreign key to the snippet model within your page model and adding a {class}`~wagtail.admin.panels.FieldPanel` to the page's `content_panels` list. For example, if you wanted to display a specific advert on a `BookPage` instance:
 
 ```python
-  # ...
-  class BookPage(Page):
-      advert = models.ForeignKey(
-          'demo.Advert',
-          null=True,
-          blank=True,
-          on_delete=models.SET_NULL,
-          related_name='+'
-      )
+# ...
+class BookPage(Page):
+    advert = models.ForeignKey(
+        "demo.Advert",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
 
-      content_panels = Page.content_panels + [
-          FieldPanel('advert'),
-          # ...
-      ]
+    content_panels = Page.content_panels + [
+        FieldPanel("advert"),
+        # ...
+    ]
 ```
 
 The snippet could then be accessed within your template as `page.advert`.
@@ -91,16 +92,21 @@ from modelcluster.fields import ParentalKey
 
 # ...
 
+
 class BookPageAdvertPlacement(Orderable, models.Model):
-    page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='advert_placements')
-    advert = models.ForeignKey('demo.Advert', on_delete=models.CASCADE, related_name='+')
+    page = ParentalKey(
+        "demo.BookPage", on_delete=models.CASCADE, related_name="advert_placements"
+    )
+    advert = models.ForeignKey(
+        "demo.Advert", on_delete=models.CASCADE, related_name="+"
+    )
 
     class Meta(Orderable.Meta):
         verbose_name = "advert placement"
         verbose_name_plural = "advert placements"
 
     panels = [
-        FieldPanel('advert'),
+        FieldPanel("advert"),
     ]
 
     def __str__(self):
@@ -111,7 +117,7 @@ class BookPage(Page):
     # ...
 
     content_panels = Page.content_panels + [
-        InlinePanel('advert_placements', label="Adverts"),
+        InlinePanel("advert_placements", label="Adverts"),
         # ...
     ]
 ```

@@ -12,8 +12,7 @@ Firstly, add `"wagtail.contrib.frontend_cache"` to your `INSTALLED_APPS`:
 
 ```python
 INSTALLED_APPS = [
-    ...
-
+    # ...
     "wagtail.contrib.frontend_cache"
 ]
 ```
@@ -28,9 +27,9 @@ Add a new item into the `WAGTAILFRONTENDCACHE` setting and set the `BACKEND` par
 # settings.py
 
 WAGTAILFRONTENDCACHE = {
-    'varnish': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
-        'LOCATION': 'http://localhost:8000',
+    "varnish": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.HTTPBackend",
+        "LOCATION": "http://localhost:8000",
     },
 }
 WAGTAILFRONTENDCACHE_LANGUAGES = []
@@ -65,11 +64,11 @@ With an API key:
 # settings.py
 
 WAGTAILFRONTENDCACHE = {
-    'cloudflare': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
-        'EMAIL': 'your-cloudflare-email-address@example.com',
-        'API_KEY': 'your cloudflare api key',
-        'ZONEID': 'your cloudflare domain zone id',
+    "cloudflare": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+        "EMAIL": "your-cloudflare-email-address@example.com",
+        "API_KEY": "your cloudflare api key",
+        "ZONEID": "your cloudflare domain zone id",
     },
 }
 ```
@@ -80,10 +79,10 @@ With an API token:
 # settings.py
 
 WAGTAILFRONTENDCACHE = {
-    'cloudflare': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
-        'BEARER_TOKEN': 'your cloudflare bearer token',
-        'ZONEID': 'your cloudflare domain zone id',
+    "cloudflare": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+        "BEARER_TOKEN": "your cloudflare bearer token",
+        "ZONEID": "your cloudflare domain zone id",
     },
 }
 ```
@@ -98,9 +97,9 @@ Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `
 
 ```python
 WAGTAILFRONTENDCACHE = {
-    'cloudfront': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
-        'DISTRIBUTION_ID': 'your-distribution-id',
+    "cloudfront": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
+        "DISTRIBUTION_ID": "your-distribution-id",
     },
 }
 ```
@@ -129,12 +128,12 @@ To specify credentials manually, pass them as additional parameters:
 
 ```python
 WAGTAILFRONTENDCACHE = {
-    'cloudfront': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
-        'DISTRIBUTION_ID': 'your-distribution-id',
-        'AWS_ACCESS_KEY_ID': os.environ['FRONTEND_CACHE_AWS_ACCESS_KEY_ID'],
-        'AWS_SECRET_ACCESS_KEY': os.environ['FRONTEND_CACHE_AWS_SECRET_ACCESS_KEY'],
-        'AWS_SESSION_TOKEN': os.environ['FRONTEND_CACHE_AWS_SESSION_TOKEN']
+    "cloudfront": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
+        "DISTRIBUTION_ID": "your-distribution-id",
+        "AWS_ACCESS_KEY_ID": os.environ["FRONTEND_CACHE_AWS_ACCESS_KEY_ID"],
+        "AWS_SECRET_ACCESS_KEY": os.environ["FRONTEND_CACHE_AWS_SECRET_ACCESS_KEY"],
+        "AWS_SESSION_TOKEN": os.environ["FRONTEND_CACHE_AWS_SESSION_TOKEN"],
     },
 }
 ```
@@ -158,14 +157,14 @@ Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `
 -   `CDN_ENDPOINT_NAME` - the name of the endpoint you want to be purged.
 
 ```python
-    WAGTAILFRONTENDCACHE = {
-        'azure_cdn': {
-            'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureCdnBackend',
-            'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
-            'CDN_PROFILE_NAME': 'wagtailio',
-            'CDN_ENDPOINT_NAME': 'wagtailio-cdn-endpoint-123',
-        },
-    }
+WAGTAILFRONTENDCACHE = {
+    "azure_cdn": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureCdnBackend",
+        "RESOURCE_GROUP_NAME": "MY-WAGTAIL-RESOURCE-GROUP",
+        "CDN_PROFILE_NAME": "wagtailio",
+        "CDN_ENDPOINT_NAME": "wagtailio-cdn-endpoint-123",
+    },
+}
 ```
 
 By default the credentials will use `azure.identity.DefaultAzureCredential`. To modify the credential object used, please use `CREDENTIALS` setting. Read about your options on the [Azure documentation](https://learn.microsoft.com/en-us/azure/developer/python/sdk/authentication-overview).
@@ -174,15 +173,15 @@ By default the credentials will use `azure.identity.DefaultAzureCredential`. To 
 from azure.common.credentials import ServicePrincipalCredentials
 
 WAGTAILFRONTENDCACHE = {
-    'azure_cdn': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureCdnBackend',
-        'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
-        'CDN_PROFILE_NAME': 'wagtailio',
-        'CDN_ENDPOINT_NAME': 'wagtailio-cdn-endpoint-123',
-        'CREDENTIALS': ServicePrincipalCredentials(
-            client_id='your client id',
-            secret='your client secret',
-        )
+    "azure_cdn": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureCdnBackend",
+        "RESOURCE_GROUP_NAME": "MY-WAGTAIL-RESOURCE-GROUP",
+        "CDN_PROFILE_NAME": "wagtailio",
+        "CDN_ENDPOINT_NAME": "wagtailio-cdn-endpoint-123",
+        "CREDENTIALS": ServicePrincipalCredentials(
+            client_id="your client id",
+            secret="your client secret",
+        ),
     },
 }
 ```
@@ -208,10 +207,10 @@ Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `
 
 ```python
 WAGTAILFRONTENDCACHE = {
-    'azure_front_door': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend',
-        'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
-        'FRONT_DOOR_NAME': 'wagtail-io-front-door',
+    "azure_front_door": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend",
+        "RESOURCE_GROUP_NAME": "MY-WAGTAIL-RESOURCE-GROUP",
+        "FRONT_DOOR_NAME": "wagtail-io-front-door",
     },
 }
 ```
@@ -222,14 +221,14 @@ By default the credentials will use `azure.identity.DefaultAzureCredential`. To 
 from azure.common.credentials import ServicePrincipalCredentials
 
 WAGTAILFRONTENDCACHE = {
-    'azure_front_door': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend',
-        'RESOURCE_GROUP_NAME': 'MY-WAGTAIL-RESOURCE-GROUP',
-        'FRONT_DOOR_NAME': 'wagtail-io-front-door',
-        'CREDENTIALS': ServicePrincipalCredentials(
-            client_id='your client id',
-            secret='your client secret',
-        )
+    "azure_front_door": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.AzureFrontDoorBackend",
+        "RESOURCE_GROUP_NAME": "MY-WAGTAIL-RESOURCE-GROUP",
+        "FRONT_DOOR_NAME": "wagtail-io-front-door",
+        "CREDENTIALS": ServicePrincipalCredentials(
+            client_id="your client id",
+            secret="your client secret",
+        ),
     },
 }
 ```
@@ -246,16 +245,16 @@ By default, a backend will attempt to invalidate all invalidation requests. To o
 
 ```python
 WAGTAILFRONTENDCACHE = {
-    'main-site': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
-        'LOCATION': 'http://localhost:8000',
-        'HOSTNAMES': ['example.com']
+    "main-site": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.HTTPBackend",
+        "LOCATION": "http://localhost:8000",
+        "HOSTNAMES": ["example.com"],
     },
-    'cdn': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
-        'BEARER_TOKEN': 'your cloudflare bearer token',
-        'ZONEID': 'your cloudflare domain zone id',
-        'HOSTNAMES': ['cdn.example.com']
+    "cdn": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+        "BEARER_TOKEN": "your cloudflare bearer token",
+        "ZONEID": "your cloudflare domain zone id",
+        "HOSTNAMES": ["cdn.example.com"],
     },
 }
 ```
@@ -263,19 +262,18 @@ WAGTAILFRONTENDCACHE = {
 In the above example, invalidations for `cdn.example.com/foo` will be invalidated by Cloudflare, whilst `example.com/foo` will be invalidated with the `main-site` backend. This allows different configuration to be used for each backend, for example by changing the `ZONEID` for the Cloudflare backend:
 
 ```python
-
 WAGTAILFRONTENDCACHE = {
-    'main-site': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
-        'BEARER_TOKEN': os.environ["CLOUDFLARE_BEARER_TOKEN"],
-        'ZONEID': 'example.com zone id',
-        'HOSTNAMES': ['example.com']
+    "main-site": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+        "BEARER_TOKEN": os.environ["CLOUDFLARE_BEARER_TOKEN"],
+        "ZONEID": "example.com zone id",
+        "HOSTNAMES": ["example.com"],
     },
-    'other-site': {
-        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
-        'BEARER_TOKEN': os.environ["CLOUDFLARE_BEARER_TOKEN"],
-        'ZONEID': 'example.net zone id',
-        'HOSTNAMES': ['example.net']
+    "other-site": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudflareBackend",
+        "BEARER_TOKEN": os.environ["CLOUDFLARE_BEARER_TOKEN"],
+        "ZONEID": "example.net zone id",
+        "HOSTNAMES": ["example.net"],
     },
 }
 ```
@@ -300,11 +298,11 @@ class BlogIndexPage(Page):
 
     def get_cached_paths(self):
         # Yield the main URL
-        yield '/'
+        yield "/"
 
         # Yield one URL per page in the paginator to make sure all pages are purged
         for page_number in range(1, self.get_blog_items().num_pages + 1):
-            yield '/?page=' + str(page_number)
+            yield "/?page=" + str(page_number)
 ```
 
 ### Invalidating index pages
@@ -328,6 +326,7 @@ from wagtail.signals import page_published
 from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
 ...
+
 
 def blog_page_changed(blog_page):
     # Find all the live BlogIndexPages that contain this blog_page
@@ -364,7 +363,7 @@ from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
 # Purge the first page of the blog index
 batch = PurgeBatch()
-batch.add_url(blog_index.url + '?page=1')
+batch.add_url(blog_index.url + "?page=1")
 batch.purge()
 ```
 

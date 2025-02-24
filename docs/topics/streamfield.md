@@ -21,19 +21,22 @@ from wagtail import blocks
 from wagtail.admin.panels import FieldPanel
 from wagtail.images.blocks import ImageBlock
 
+
 class BlogPage(Page):
     author = models.CharField(max_length=255)
     date = models.DateField("Post date")
-    body = StreamField([
-        ('heading', blocks.CharBlock(form_classname="title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageBlock()),
-    ])
+    body = StreamField(
+        [
+            ("heading", blocks.CharBlock(form_classname="title")),
+            ("paragraph", blocks.RichTextBlock()),
+            ("image", ImageBlock()),
+        ]
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel('author'),
-        FieldPanel('date'),
-        FieldPanel('body'),
+        FieldPanel("author"),
+        FieldPanel("date"),
+        FieldPanel("body"),
     ]
 ```
 
@@ -160,12 +163,14 @@ class PersonBlock(blocks.StructBlock):
 `PersonBlock` can then be used in a `StreamField` definition in the same way as the built-in block types:
 
 ```python
-body = StreamField([
-    ('person', PersonBlock()),
-    ('heading', blocks.CharBlock(form_classname="title")),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageBlock()),
-])
+body = StreamField(
+    [
+        ("person", PersonBlock()),
+        ("heading", blocks.CharBlock(form_classname="title")),
+        ("paragraph", blocks.RichTextBlock()),
+        ("image", ImageBlock()),
+    ]
+)
 ```
 
 (block_icons)=
@@ -264,7 +269,7 @@ class CarouselBlock(blocks.StreamBlock):
     video = EmbedBlock()
 
     class Meta:
-        icon = 'image'
+        icon = "image"
 ```
 
 A StreamBlock subclass defined in this way can also be passed to a `StreamField` definition, instead of passing a list of block types. This allows setting up a common set of block types to be used on multiple page types:
@@ -307,11 +312,15 @@ When reading back the content of a StreamField, the value of a StreamBlock is a 
 By default, a StreamField can contain an unlimited number of blocks. The `min_num` and `max_num` options on `StreamField` or `StreamBlock` allow you to set a minimum or a maximum number of blocks:
 
 ```python
-body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="title")),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageBlock()),
-], min_num=2, max_num=5)
+body = StreamField(
+    [
+        ("heading", blocks.CharBlock(form_classname="title")),
+        ("paragraph", blocks.RichTextBlock()),
+        ("image", ImageBlock()),
+    ],
+    min_num=2,
+    max_num=5,
+)
 ```
 
 Or equivalently:
@@ -330,13 +339,16 @@ class CommonContentBlock(blocks.StreamBlock):
 The `block_counts` option can be used to set a minimum or maximum count for specific block types. This accepts a dict, mapping block names to a dict containing either or both `min_num` and `max_num`. For example, to permit between 1 and 3 'heading' blocks:
 
 ```python
-body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="title")),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageBlock()),
-], block_counts={
-    'heading': {'min_num': 1, 'max_num': 3},
-})
+body = StreamField(
+    [
+        ("heading", blocks.CharBlock(form_classname="title")),
+        ("paragraph", blocks.RichTextBlock()),
+        ("image", ImageBlock()),
+    ],
+    block_counts={
+        "heading": {"min_num": 1, "max_num": 3},
+    },
+)
 ```
 
 Or equivalently:
@@ -349,7 +361,7 @@ class CommonContentBlock(blocks.StreamBlock):
 
     class Meta:
         block_counts = {
-            'heading': {'min_num': 1, 'max_num': 3},
+            "heading": {"min_num": 1, "max_num": 3},
         }
 ```
 
@@ -360,16 +372,19 @@ class CommonContentBlock(blocks.StreamBlock):
 By default, each block is rendered using simple, minimal HTML markup, or no markup at all. For example, a CharBlock value is rendered as plain text, while a ListBlock outputs its child blocks in a `<ul>` wrapper. To override this with your own custom HTML rendering, you can pass a `template` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock:
 
 ```python
-('person', blocks.StructBlock(
-    [
-        ('first_name', blocks.CharBlock()),
-        ('surname', blocks.CharBlock()),
-        ('photo', ImageBlock(required=False)),
-        ('biography', blocks.RichTextBlock()),
-    ],
-    template='myapp/blocks/person.html',
-    icon='user'
-))
+(
+    "person",
+    blocks.StructBlock(
+        [
+            ("first_name", blocks.CharBlock()),
+            ("surname", blocks.CharBlock()),
+            ("photo", ImageBlock(required=False)),
+            ("biography", blocks.RichTextBlock()),
+        ],
+        template="myapp/blocks/person.html",
+        icon="user",
+    ),
+)
 ```
 
 Or, when defined as a subclass of StructBlock:
@@ -382,8 +397,8 @@ class PersonBlock(blocks.StructBlock):
     biography = blocks.RichTextBlock()
 
     class Meta:
-        template = 'myapp/blocks/person.html'
-        icon = 'user'
+        template = "myapp/blocks/person.html"
+        icon = "user"
 ```
 
 Within the template, the block value is accessible as the variable `value`:
@@ -479,17 +494,18 @@ As well as passing variables from the parent template, block subclasses can pass
 ```python
 import datetime
 
+
 class EventBlock(blocks.StructBlock):
     title = blocks.CharBlock()
     date = blocks.DateBlock()
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context=parent_context)
-        context['is_happening_today'] = (value['date'] == datetime.date.today())
+        context["is_happening_today"] = value["date"] == datetime.date.today()
         return context
 
     class Meta:
-        template = 'myapp/blocks/event.html'
+        template = "myapp/blocks/event.html"
 ```
 
 In this example, the variable `is_happening_today` will be made available within the block template. The `parent_context` keyword argument is available when the block is rendered through an `{% include_block %}` tag, and is a dict of variables passed from the calling template.
@@ -500,6 +516,7 @@ Similarly, a `get_template` method can be defined to dynamically select a templa
 
 ```python
 import datetime
+
 
 class EventBlock(blocks.StructBlock):
     title = blocks.CharBlock()
@@ -612,13 +629,13 @@ A StreamField's value behaves as a list, and blocks can be inserted, overwritten
 
 ```python
 # Replace the first block with a new block of type 'heading'
-my_page.body[0] = ('heading', "My story")
+my_page.body[0] = ("heading", "My story")
 
 # Delete the last block
 del my_page.body[-1]
 
 # Append a rich text block to the stream
-my_page.body.append(('paragraph', "<p>And they all lived happily ever after.</p>"))
+my_page.body.append(("paragraph", "<p>And they all lived happily ever after.</p>"))
 
 # Save the updated data back to the database
 my_page.save()
@@ -627,24 +644,24 @@ my_page.save()
 If a block extending a StructBlock is to be used inside of the StreamField's value, the value of this block can be provided as a Python dict (similar to what is accepted by the block's `.to_python` method).
 
 ```python
-
 from wagtail import blocks
 
+
 class UrlWithTextBlock(blocks.StructBlock):
-   url = blocks.URLBlock()
-   text = blocks.TextBlock()
+    url = blocks.URLBlock()
+    text = blocks.TextBlock()
+
 
 # using this block inside the content
 
 data = {
-    'url': 'https://github.com/wagtail/',
-    'text': 'A very interesting and useful repo'
+    "url": "https://github.com/wagtail/",
+    "text": "A very interesting and useful repo",
 }
 
 # append the new block to the stream as a tuple with the defined index for this block type
-my_page.body.append(('url', data))
+my_page.body.append(("url", data))
 my_page.save()
-
 ```
 
 (streamfield_retrieving_blocks_by_name)=
@@ -654,7 +671,7 @@ my_page.save()
 StreamField values provide a `blocks_by_name` method for retrieving all blocks of a given name:
 
 ```python
-my_page.body.blocks_by_name('heading')  # returns a list of 'heading' blocks
+my_page.body.blocks_by_name("heading")  # returns a list of 'heading' blocks
 ```
 
 Calling `blocks_by_name` with no arguments returns a `dict`-like object, mapping block names to the list of blocks of that name. This is particularly useful in template code, where passing arguments isn't possible:
@@ -687,11 +704,13 @@ hero_image = my_page.body.first_block_by_name('image')
 Like any other field, content in a StreamField can be made searchable by adding the field to the model's search_fields definition - see {ref}`wagtailsearch_indexing_fields`. By default, all text content from the stream will be added to the search index. If you wish to exclude certain block types from being indexed, pass the keyword argument `search_index=False` as part of the block's definition. For example:
 
 ```python
-body = StreamField([
-    ('normal_text', blocks.RichTextBlock()),
-    ('pull_quote', blocks.RichTextBlock(search_index=False)),
-    ('footnotes', blocks.ListBlock(blocks.CharBlock(), search_index=False)),
-])
+body = StreamField(
+    [
+        ("normal_text", blocks.RichTextBlock()),
+        ("pull_quote", blocks.RichTextBlock(search_index=False)),
+        ("footnotes", blocks.ListBlock(blocks.CharBlock(), search_index=False)),
+    ]
+)
 ```
 
 ## Custom validation

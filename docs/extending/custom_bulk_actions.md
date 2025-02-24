@@ -11,7 +11,7 @@ from wagtail.admin.views.bulk_action import BulkAction
 from wagtail import hooks
 
 
-@hooks.register('register_bulk_action')
+@hooks.register("register_bulk_action")
 class CustomDeleteBulkAction(BulkAction):
     display_name = _("Delete")
     aria_label = _("Delete selected objects")
@@ -23,7 +23,10 @@ class CustomDeleteBulkAction(BulkAction):
     def execute_action(cls, objects, **kwargs):
         for obj in objects:
             do_something(obj)
-        return num_parent_objects, num_child_objects  # return the count of updated objects
+        return (
+            num_parent_objects,
+            num_child_objects,
+        )  # return the count of updated objects
 ```
 
 The attributes are as follows:
@@ -102,7 +105,7 @@ The `execute_action` classmethod is the only method that must be overridden for 
 @classmethod
 def execute_action(cls, objects, **kwargs):
     # the kwargs here is the output of the get_execution_context method
-    user = kwargs.get('user', None)
+    user = kwargs.get("user", None)
     num_parent_objects, num_child_objects = 0, 0
     # you could run the action per object or run them in bulk using django's bulk update and delete methods
     for obj in objects:
@@ -117,7 +120,7 @@ The `get_execution_context` method can be overridden to provide context to the `
 
 ```python
 def get_execution_context(self):
-    return { 'user': self.request.user }
+    return {"user": self.request.user}
 ```
 
 The `get_context_data` method can be overridden to pass additional context to the confirmation template.
@@ -125,7 +128,7 @@ The `get_context_data` method can be overridden to pass additional context to th
 ```python
 def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
-    context['new_key'] = some_value
+    context["new_key"] = some_value
     return context
 ```
 
@@ -133,14 +136,18 @@ The `check_perm` method can be overridden to check if an object has some permiss
 
 ```python
 def check_perm(self, obj):
-    return obj.has_perm('some_perm')  # returns True or False
+    return obj.has_perm("some_perm")  # returns True or False
 ```
 
 The success message shown on the admin can be customized by overriding the `get_success_message` method.
 
 ```python
 def get_success_message(self, num_parent_objects, num_child_objects):
-    return _("{} objects, including {} child objects have been updated".format(num_parent_objects, num_child_objects))
+    return _(
+        "{} objects, including {} child objects have been updated".format(
+            num_parent_objects, num_child_objects
+        )
+    )
 ```
 
 ## Adding bulk actions to the page explorer
@@ -154,9 +161,8 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 from wagtail import hooks
 
 
-@hooks.register('register_bulk_action')
-class CustomPageBulkAction(PageBulkAction):
-    ...
+@hooks.register("register_bulk_action")
+class CustomPageBulkAction(PageBulkAction): ...
 ```
 
 ## Adding bulk actions to the Images listing
@@ -170,9 +176,8 @@ from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 from wagtail import hooks
 
 
-@hooks.register('register_bulk_action')
-class CustomImageBulkAction(ImageBulkAction):
-    ...
+@hooks.register("register_bulk_action")
+class CustomImageBulkAction(ImageBulkAction): ...
 ```
 
 ## Adding bulk actions to the documents listing
@@ -186,9 +191,8 @@ from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBu
 from wagtail import hooks
 
 
-@hooks.register('register_bulk_action')
-class CustomDocumentBulkAction(DocumentBulkAction):
-    ...
+@hooks.register("register_bulk_action")
+class CustomDocumentBulkAction(DocumentBulkAction): ...
 ```
 
 ## Adding bulk actions to the user listing
@@ -202,9 +206,8 @@ from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 from wagtail import hooks
 
 
-@hooks.register('register_bulk_action')
-class CustomUserBulkAction(UserBulkAction):
-    ...
+@hooks.register("register_bulk_action")
+class CustomUserBulkAction(UserBulkAction): ...
 ```
 
 (wagtailsnippets_custom_bulk_actions)=
@@ -221,9 +224,8 @@ from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail import hooks
 
 
-@hooks.register('register_bulk_action')
-class CustomSnippetBulkAction(SnippetBulkAction):
-    # ...
+@hooks.register("register_bulk_action")
+class CustomSnippetBulkAction(SnippetBulkAction): ...
 ```
 
 If you want to apply an action only to certain snippets, override the `models` list in the action class
@@ -233,7 +235,7 @@ from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail import hooks
 
 
-@hooks.register('register_bulk_action')
+@hooks.register("register_bulk_action")
 class CustomSnippetBulkAction(SnippetBulkAction):
     models = [SnippetA, SnippetB]
     # ...

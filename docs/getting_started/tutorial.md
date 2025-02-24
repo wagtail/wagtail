@@ -266,7 +266,7 @@ Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
 ```python
 INSTALLED_APPS = [
-    "blog", # <- Our new blog app.
+    "blog",  # <- Our new blog app.
     "home",
     "search",
     "wagtail.contrib.forms",
@@ -274,7 +274,7 @@ INSTALLED_APPS = [
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
-    #... other packages
+    # ... other packages
 ]
 ```
 
@@ -364,14 +364,15 @@ from wagtail.search import index
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
+
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField("intro"),
+        index.SearchField("body"),
     ]
 
     content_panels = Page.content_panels + ["date", "intro", "body"]
@@ -516,12 +517,13 @@ Modify your `BlogIndexPage` model:
 ```python
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
+
     # add the get_context method:
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
         context = super().get_context(request)
-        blogpages = self.get_children().live().order_by('-first_published_at')
-        context['blogpages'] = blogpages
+        blogpages = self.get_children().live().order_by("-first_published_at")
+        context["blogpages"] = blogpages
         return context
 
     # ...
@@ -557,28 +559,32 @@ from wagtail.search import index
 
 # ... Keep the definition of BlogIndexPage, update the content_panels of BlogPage, and add a new BlogPageGalleryImage model:
 
+
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField("intro"),
+        index.SearchField("body"),
     ]
 
     content_panels = Page.content_panels + [
-        "date", "intro", "body",
-
+        "date",
+        "intro",
+        "body",
         # Add this
-         "gallery_images",
-        ]
+        "gallery_images",
+    ]
 
 
 class BlogPageGalleryImage(Orderable):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
+    page = ParentalKey(
+        BlogPage, on_delete=models.CASCADE, related_name="gallery_images"
+    )
     image = models.ForeignKey(
-        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
     )
     caption = models.CharField(blank=True, max_length=250)
 
@@ -639,6 +645,7 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
+
     # Add the main_image method:
     def main_image(self):
         gallery_item = self.gallery_images.first()
@@ -648,8 +655,8 @@ class BlogPage(Page):
             return None
 
     search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField("intro"),
+        index.SearchField("body"),
     ]
 
     content_panels = Page.content_panels + ["date", "intro", "body", "gallery_images"]
@@ -691,13 +698,17 @@ To create Authors and give each author an author image as well as a name, add th
 # Add this to the top of the file
 from wagtail.snippets.models import register_snippet
 
+
 # ... Keep BlogIndexPage, BlogPage, BlogPageGalleryImage models, and then add the Author model:
 @register_snippet
 class Author(models.Model):
     name = models.CharField(max_length=255)
     author_image = models.ForeignKey(
-        'wagtailimages.Image', null=True, blank=True,
-        on_delete=models.SET_NULL, related_name='+'
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
     )
 
     panels = ["name", "author_image"]
@@ -706,7 +717,7 @@ class Author(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Authors'
+        verbose_name_plural = "Authors"
 ```
 
 ```{note}
@@ -728,18 +739,21 @@ from wagtail.admin.panels import MultiFieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
+
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
     # Add this:
-    authors = ParentalManyToManyField('blog.Author', blank=True)
+    authors = ParentalManyToManyField("blog.Author", blank=True)
 
     # ... Keep the main_image method and search_fields definition. Modify your content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel(["date", "authors"], heading="Blog information"),
-        "intro", "body", "gallery_images"
+        "intro",
+        "body",
+        "gallery_images",
     ]
 ```
 
@@ -763,20 +777,26 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
+
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
-    authors = ParentalManyToManyField('blog.Author', blank=True)
+    authors = ParentalManyToManyField("blog.Author", blank=True)
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            "date",
-            # Change this:
-            FieldPanel("authors", widget=forms.CheckboxSelectMultiple),
-        ], heading="Blog information"),
-        "intro", "body", "gallery_images"
+        MultiFieldPanel(
+            [
+                "date",
+                # Change this:
+                FieldPanel("authors", widget=forms.CheckboxSelectMultiple),
+            ],
+            heading="Blog information",
+        ),
+        "intro",
+        "body",
+        "gallery_images",
     ]
 ```
 
@@ -855,32 +875,35 @@ from wagtail.search import index
 # ... Keep the definition of BlogIndexPage model and add a new BlogPageTag model
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
-        'BlogPage',
-        related_name='tagged_items',
-        on_delete=models.CASCADE
+        "BlogPage", related_name="tagged_items", on_delete=models.CASCADE
     )
+
 
 # Modify the BlogPage model:
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-    authors = ParentalManyToManyField('blog.Author', blank=True)
+    authors = ParentalManyToManyField("blog.Author", blank=True)
 
     # Add this:
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
     # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            "date",
-            FieldPanel("authors", widget=forms.CheckboxSelectMultiple),
-
-            # Add this:
-            "tags",
-        ], heading="Blog information"),
-            "intro", "body", "gallery_images"
-        ]
+        MultiFieldPanel(
+            [
+                "date",
+                FieldPanel("authors", widget=forms.CheckboxSelectMultiple),
+                # Add this:
+                "tags",
+            ],
+            heading="Blog information",
+        ),
+        "intro",
+        "body",
+        "gallery_images",
+    ]
 ```
 
 Run `python manage.py makemigrations` and `python manage.py migrate`.
@@ -925,12 +948,12 @@ class BlogTagIndexPage(Page):
     def get_context(self, request):
 
         # Filter by tag
-        tag = request.GET.get('tag')
+        tag = request.GET.get("tag")
         blogpages = BlogPage.objects.filter(tags__name=tag)
 
         # Update template context
         context = super().get_context(request)
-        context['blogpages'] = blogpages
+        context["blogpages"] = blogpages
         return context
 ```
 

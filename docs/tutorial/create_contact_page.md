@@ -43,7 +43,7 @@ from wagtail.snippets.models import register_snippet
 
 # ... keep the definition of NavigationSettings and FooterText. Add FormField and FormPage:
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -52,16 +52,21 @@ class FormPage(AbstractEmailForm):
 
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
-        FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address'),
-                FieldPanel('to_address'),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields", label="Form fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address"),
+                        FieldPanel("to_address"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 ```
 

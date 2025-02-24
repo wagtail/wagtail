@@ -48,6 +48,7 @@ If the code needs to use something that changed in a version of Django many time
 ```python
 import django
 
+
 def related_field(field):
     if DJANGO_VERSION >= (1, 9):
         return field.rel

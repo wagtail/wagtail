@@ -7,12 +7,9 @@ You need to create a `templates/wagtailadmin/` folder within one of your apps - 
 ```python
 INSTALLED_APPS = (
     # ...
-
-    'dashboard',
-
-    'wagtail',
-    'wagtail.admin',
-
+    "dashboard",
+    "wagtail",
+    "wagtail.admin",
     # ...
 )
 ```
@@ -94,7 +91,7 @@ To render a user avatar other than the one sourced from the `UserProfile` model 
 For example, you might have an avatar on a `Profile` model in your own application that is keyed to the `auth.User` model in the familiar pattern. In that case, you could register your hook as the in following example, and the Wagtail admin avatar will be replaced with your own `Profile` avatar accordingly.
 
 ```python
-@hooks.register('get_avatar_url')
+@hooks.register("get_avatar_url")
 def get_profile_avatar(user, size):
     return user.profile.avatar
 ```

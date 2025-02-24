@@ -35,6 +35,7 @@ For example:
 ```python
 from wagtail.embeds.blocks import EmbedBlock
 
+
 class MyStreamField(blocks.StreamBlock):
     ...
 
@@ -72,7 +73,7 @@ from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedException
 
 try:
-    embed = get_embed('https://www.youtube.com/watch?v=Ffu-2jEdLPw')
+    embed = get_embed("https://www.youtube.com/watch?v=Ffu-2jEdLPw")
 
     print(embed.html)
 except EmbedException:
@@ -94,11 +95,7 @@ successfully returns an embed:
 The default configuration is:
 
 ```python
-WAGTAILEMBEDS_FINDERS = [
-    {
-        'class': 'wagtail.embeds.finders.oembed'
-    }
-]
+WAGTAILEMBEDS_FINDERS = [{"class": "wagtail.embeds.finders.oembed"}]
 ```
 
 (oEmbed)=
@@ -131,16 +128,16 @@ from wagtail.embeds.oembed_providers import youtube, vimeo
 # - 'endpoint' is the URL of the oEmbed endpoint that Wagtail will call
 # - 'urls' specifies which patterns
 my_custom_provider = {
-    'endpoint': 'https://customvideosite.com/oembed',
-    'urls': [
-        '^http(?:s)?://(?:www\\.)?customvideosite\\.com/[^#?/]+/videos/.+$',
-    ]
+    "endpoint": "https://customvideosite.com/oembed",
+    "urls": [
+        "^http(?:s)?://(?:www\\.)?customvideosite\\.com/[^#?/]+/videos/.+$",
+    ],
 }
 
 WAGTAILEMBEDS_FINDERS = [
     {
-        'class': 'wagtail.embeds.finders.oembed',
-        'providers': [youtube, vimeo, my_custom_provider],
+        "class": "wagtail.embeds.finders.oembed",
+        "providers": [youtube, vimeo, my_custom_provider],
     }
 ]
 ```
@@ -161,15 +158,14 @@ WAGTAILEMBEDS_FINDERS = [
     # Fetches YouTube videos but puts ``?scheme=https`` in the GET parameters
     # when calling YouTube's oEmbed endpoint
     {
-        'class': 'wagtail.embeds.finders.oembed',
-        'providers': [youtube],
-        'options': {'scheme': 'https'}
+        "class": "wagtail.embeds.finders.oembed",
+        "providers": [youtube],
+        "options": {"scheme": "https"},
     },
-
     # Handles all other oEmbed providers the default way
     {
-        'class': 'wagtail.embeds.finders.oembed',
-    }
+        "class": "wagtail.embeds.finders.oembed",
+    },
 ]
 ```
 
@@ -210,20 +206,19 @@ the App ID and App Secret from your app:
 ```python
 WAGTAILEMBEDS_FINDERS = [
     {
-        'class': 'wagtail.embeds.finders.facebook',
-        'app_id': 'YOUR FACEBOOK APP_ID HERE',
-        'app_secret': 'YOUR FACEBOOK APP_SECRET HERE',
+        "class": "wagtail.embeds.finders.facebook",
+        "app_id": "YOUR FACEBOOK APP_ID HERE",
+        "app_secret": "YOUR FACEBOOK APP_SECRET HERE",
     },
     {
-        'class': 'wagtail.embeds.finders.instagram',
-        'app_id': 'YOUR INSTAGRAM APP_ID HERE',
-        'app_secret': 'YOUR INSTAGRAM APP_SECRET HERE',
+        "class": "wagtail.embeds.finders.instagram",
+        "app_id": "YOUR INSTAGRAM APP_ID HERE",
+        "app_secret": "YOUR INSTAGRAM APP_SECRET HERE",
     },
-
     # Handles all other oEmbed providers the default way
     {
-        'class': 'wagtail.embeds.finders.oembed',
-    }
+        "class": "wagtail.embeds.finders.oembed",
+    },
 ]
 ```
 
@@ -254,10 +249,7 @@ Now add an embed finder to your `WAGTAILEMBEDS_FINDERS` setting that uses the
 
 ```python
 WAGTAILEMBEDS_FINDERS = [
-    {
-        'class': 'wagtail.embeds.finders.embedly',
-        'key': 'YOUR EMBED.LY KEY HERE'
-    }
+    {"class": "wagtail.embeds.finders.embedly", "key": "YOUR EMBED.LY KEY HERE"}
 ]
 ```
 
@@ -296,14 +288,14 @@ class ExampleFinder(EmbedFinder):
         # TODO: Perform the request
 
         return {
-            'title': "Title of the content",
-            'author_name': "Author name",
-            'provider_name': "Provider name (such as YouTube, Vimeo, etc)",
-            'type': "Either 'photo', 'video', 'link' or 'rich'",
-            'thumbnail_url': "URL to thumbnail image",
-            'width': width_in_pixels,
-            'height': height_in_pixels,
-            'html': "<h2>The Embed HTML</h2>",
+            "title": "Title of the content",
+            "author_name": "Author name",
+            "provider_name": "Provider name (such as YouTube, Vimeo, etc)",
+            "type": "Either 'photo', 'video', 'link' or 'rich'",
+            "thumbnail_url": "URL to thumbnail image",
+            "width": width_in_pixels,
+            "height": height_in_pixels,
+            "html": "<h2>The Embed HTML</h2>",
         }
 ```
 
@@ -313,7 +305,7 @@ Once you've implemented all of those methods, you just need to add it to your
 ```python
 WAGTAILEMBEDS_FINDERS = [
     {
-        'class': 'path.to.your.finder.class.here',
+        "class": "path.to.your.finder.class.here",
         # Any other options will be passed as kwargs to the __init__ method
     }
 ]
