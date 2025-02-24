@@ -18,13 +18,13 @@
 Run the following commands in a virtual environment of your choice:
 
 ```sh
-pip install wagtail
+uv pip install wagtail
 ```
 
 Once installed, Wagtail provides a `wagtail start` command to generate a new project:
 
 ```sh
-wagtail start mysite
+uv run wagtail start mysite
 ```
 
 Running the command creates a new folder `mysite`, which is a template containing everything you need to get started.
@@ -33,10 +33,9 @@ More information on this template is available in [the project template referenc
 Inside your `mysite` folder, run the setup steps necessary for any Django project:
 
 ```sh
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+uv run manage.py migrate
+uv run manage.py createsuperuser
+uv run manage.py runserver
 ```
 
 Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.

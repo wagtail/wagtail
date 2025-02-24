@@ -9,7 +9,7 @@ We highly recommend working through the [Getting Started tutorial](tutorial), ev
 Wagtail is currently compatible with Django 4.2 and 5.1. First, install the `wagtail` package from PyPI:
 
 ```sh
-pip install wagtail
+uv pip install wagtail
 ```
 
 or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.io/en/stable/installation/building-from-source.html#external-libraries).

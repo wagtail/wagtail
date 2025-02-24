@@ -66,11 +66,11 @@ Elasticsearch versions 7 and 8 are supported. Use the appropriate backend for yo
 Prerequisites are the [Elasticsearch](https://www.elastic.co/downloads/elasticsearch) service itself and, via pip, the [elasticsearch-py](https://elasticsearch-py.readthedocs.io/) package. The major version of the package must match the installed version of Elasticsearch:
 
 ```sh
-pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x
+uv pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x
 ```
 
 ```sh
-pip install "elasticsearch>=8.0.0,<9.0.0"  # for Elasticsearch 8.x
+uv pip install "elasticsearch>=8.0.0,<9.0.0"  # for Elasticsearch 8.x
 ```
 
 The backend is configured in settings:
