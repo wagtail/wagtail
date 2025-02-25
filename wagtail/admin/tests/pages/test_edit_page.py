@@ -547,6 +547,37 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
 
+    def test_required_field_validation_skipped_when_saving_draft(self):
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "",
+            "slug": "hello-unpublished-world-edited",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+        )
+        self.unpublished_page.refresh_from_db()
+        self.assertEqual(self.unpublished_page.content, "")
+
+    def test_required_field_validation_enforced_on_publish(self):
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "",
+            "slug": "hello-unpublished-world-edited",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+
     def test_page_edit_post_when_locked(self):
         # Tests that trying to edit a locked page results in an error
 
