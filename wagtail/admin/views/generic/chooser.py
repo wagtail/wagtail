@@ -238,6 +238,12 @@ class BaseChooseView(
             "select", label=_("Select"), width="1%", accessor="pk"
         )
 
+    @cached_property
+    def verbose_name_plural(self):
+        if self.model_class:
+            return self.model_class._meta.verbose_name_plural
+        return None
+
     def get_results(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
@@ -294,6 +300,8 @@ class BaseChooseView(
         )
         if self.is_multiple_choice:
             context["chosen_multiple_url"] = self.get_chosen_multiple_url()
+        if self.verbose_name_plural:
+            context["verbose_name_plural"] = self.verbose_name_plural
         return context
 
     def render_to_response(self):
