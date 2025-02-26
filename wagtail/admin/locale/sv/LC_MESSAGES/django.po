@@ -2623,9 +2623,29 @@ msgstr "Sortera menyordning"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Ändra sortering på undersidor till '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Rubrik %(level)d"
+msgid "Heading 1"
+msgstr "Rubrik 1"
+
+
+msgid "Heading 2"
+msgstr "Rubrik 2"
+
+
+msgid "Heading 3"
+msgstr "Rubrik 3"
+
+
+msgid "Heading 4"
+msgstr "Rubrik 4"
+
+
+msgid "Heading 5"
+msgstr "Rubrik 5"
+
+
+msgid "Heading 6"
+msgstr "Rubrik 6"
+
 
 msgid "Bulleted list"
 msgstr "Punktlista"

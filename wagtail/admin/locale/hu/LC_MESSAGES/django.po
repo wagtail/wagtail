@@ -3106,9 +3106,29 @@ msgstr "Menü sorrend rendezése"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Fejléc %(level)d"
+msgid "Heading 1"
+msgstr "Fejléc 1"
+
+
+msgid "Heading 2"
+msgstr "Fejléc 2"
+
+
+msgid "Heading 3"
+msgstr "Fejléc 3"
+
+
+msgid "Heading 4"
+msgstr "Fejléc 4"
+
+
+msgid "Heading 5"
+msgstr "Fejléc 5"
+
+
+msgid "Heading 6"
+msgstr "Fejléc 6"
+
 
 msgid "Bulleted list"
 msgstr "Lista"

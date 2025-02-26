@@ -5,7 +5,7 @@ from django.db.models.functions.datetime import Extract as ExtractDate
 from django.db.models.functions.datetime import ExtractYear
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
-from django.db.models.sql.where import NothingNode, SubqueryConstraint, WhereNode
+from django.db.models.sql.where import NothingNode, WhereNode
 
 from wagtail.search.index import class_is_indexed, get_indexed_models
 from wagtail.search.query import MATCH_ALL, PlainText
@@ -184,11 +184,6 @@ class BaseSearchQueryCompiler:
 
         elif isinstance(where_node, NothingNode):
             return self._process_match_none()
-
-        elif isinstance(where_node, SubqueryConstraint):
-            raise FilterError(
-                "Could not apply filter on search results: Subqueries are not allowed."
-            )
 
         elif isinstance(where_node, WhereNode):
             # Get child filters

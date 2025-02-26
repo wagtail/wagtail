@@ -4,8 +4,9 @@ from copy import deepcopy
 from urllib.parse import urlparse
 
 from django.db import DEFAULT_DB_ALIAS, models
+from django.db.models import Subquery
 from django.db.models.sql import Query
-from django.db.models.sql.constants import MULTI
+from django.db.models.sql.constants import MULTI, SINGLE
 from django.utils.crypto import get_random_string
 from elasticsearch import VERSION as ELASTICSEARCH_VERSION
 from elasticsearch import Elasticsearch, NotFoundError
@@ -505,6 +506,14 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
                     }
                 }
             else:
+                if isinstance(value, (Query, Subquery)):
+                    db_alias = self.queryset._db or DEFAULT_DB_ALIAS
+                    query = value.query if isinstance(value, Subquery) else value
+                    value = query.get_compiler(db_alias).execute_sql(result_type=SINGLE)
+                    # The result is either a tuple with one element or None
+                    if value:
+                        value = value[0]
+
                 return {
                     "term": {
                         column_name: value,
@@ -552,9 +561,10 @@ class Elasticsearch7SearchQueryCompiler(BaseSearchQueryCompiler):
             }
 
         if lookup == "in":
-            if isinstance(value, Query):
+            if isinstance(value, (Query, Subquery)):
                 db_alias = self.queryset._db or DEFAULT_DB_ALIAS
-                resultset = value.get_compiler(db_alias).execute_sql(result_type=MULTI)
+                query = value.query if isinstance(value, Subquery) else value
+                resultset = query.get_compiler(db_alias).execute_sql(result_type=MULTI)
                 value = [row[0] for chunk in resultset for row in chunk]
 
             elif not isinstance(value, list):

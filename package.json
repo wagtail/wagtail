@@ -114,7 +114,7 @@
     "axe-core": "^4.10.2",
     "downshift": "^9.0.8",
     "draft-js": "^0.10.5",
-    "draftail": "^2.0.0-rc.6",
+    "draftail": "^2.0.1",
     "draftjs-filters": "^3.0.1",
     "focus-trap-react": "^10.3.1",
     "immer": "^10.1.1",

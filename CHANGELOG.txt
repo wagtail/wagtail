@@ -11,19 +11,35 @@ Changelog
  * Default to the `standard` tokenizer on Elasticsearch, to correctly handle numbers as tokens (Matt Westcott)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
+ * Fix: Support simple subqueries for `in` and `exact` lookup on Elasticsearch (Sage Abdullah)
+ * Fix: Force preview panel scroll behavior to instant to avoid flickering (Sage Abdullah)
+ * Fix: Support translating with the preferred language for rich text formatting labels (Bernhard Bliem, Sage Abdullah)
+ * Fix: Make "Actions" label translatable within the rich text toolbar (Bernhard Bliem, Sage Abdullah)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
- * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
+ * Maintenance: Refactor styles for Draftail, minimap, and comments to fix remaining Sass migration warnings (Thibaud Colas)
  * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
+ * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
+ * Maintenance: Split up `wagtail.models` module into submodules (Matt Westcott)
 
 
-6.4.1 (xx.xx.xxxx) - IN DEVELOPMENT
+6.4.1 (21.02.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error when filtering by locale and searching with Elasticsearch (Sage Abdullah)
  * Fix: Support searching `none()` querysets (Matt Westcott)
  * Fix: Correctly handle UUID primary keys when invoking background tasks (Matt Westcott)
+ * Fix: Fix regression where nested sub-menu items would not be visible (Sage Abdullah)
+ * Fix: Ensure the top of the minimap correctly adjusts when resizing the browser viewport (Thibaud Colas)
+ * Fix: Remove obsolete SubqueryConstraint check in search backends, for provisional Django 5.2 compatibility (Sage Abdullah)
+ * Fix: Add missing “Close” label to the upgrade notification dismiss button (Sage Abdullah)
+ * Fix: Fix white text on white background in previews for sites that use color-scheme without a background-color (Sage Abdullah)
+ * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
+ * Docs: Fix typo in `Page.get_route_paths` docstring (Baptiste Mispelon)
+ * Docs: Upgrade sphinx-wagtail-theme to v6.5.0 (Sage Abdullah)
+ * Maintenance: Remove upper version boundary for django-filter (Dan Braghis)
+ * Maintenance: Relax upper version boundaries for django-taggit and beautifulsoup4 (Matt Westcott)
 
 
 6.4 (03.02.2025)
@@ -161,6 +177,14 @@ Changelog
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+
+6.3.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Add missing “Close” label to the upgrade notification dismiss button (Sage Abdullah)
+ * Fix: Fix white text on white background in previews for sites that use color-scheme without a background-color (Sage Abdullah)
+ * Maintenance: Remove upper version boundary for django-filter (Dan Braghis)
 
 
 6.3.3 (03.02.2025)
