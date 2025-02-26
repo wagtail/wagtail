@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0047_advertwithcustomuuidprimarykey_page"),
+        ("tests", "0050_headcountrelatedmodelusingpk_related_page"),
         ("wagtailcore", "0094_alter_page_locale"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
