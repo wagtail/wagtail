@@ -80,6 +80,7 @@ from wagtail.models import (
     PreviewableMixin,
     RevisionMixin,
     Task,
+    TaskState,
     TranslatableMixin,
     WorkflowMixin,
 )
@@ -2339,6 +2340,65 @@ class TaggedRestaurant(ItemBase):
 
 class SimpleTask(Task):
     pass
+
+
+class UserApprovalTaskState(TaskState):
+    pass
+
+
+class UserApprovalTask(Task):
+    """
+    Based on https://docs.wagtail.org/en/stable/extending/custom_tasks.html.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False
+    )
+
+    admin_form_fields = Task.admin_form_fields + ["user"]
+
+    task_state_class = UserApprovalTaskState
+
+    # prevent editing of `user` after the task is created
+    # by default, this attribute contains the 'name' field to prevent tasks from being renamed
+    admin_form_readonly_on_edit_fields = Task.admin_form_readonly_on_edit_fields + [
+        "user"
+    ]
+
+    def user_can_access_editor(self, page, user):
+        return user == self.user
+
+    def page_locked_for_user(self, page, user):
+        return user != self.user
+
+    def get_actions(self, page, user):
+        if user == self.user:
+            return [
+                ("approve", "Approve", False),
+                ("reject", "Reject", False),
+                ("cancel", "Cancel", False),
+            ]
+        else:
+            return []
+
+    def on_action(self, task_state, user, action_name, **kwargs):
+        if action_name == "cancel":
+            return task_state.workflow_state.cancel(user=user)
+        else:
+            return super().on_action(task_state, user, action_name, **kwargs)
+
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        if user == self.user:
+            # get all task states linked to the (base class of) current task
+            return TaskState.objects.filter(
+                status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
+            )
+        else:
+            return TaskState.objects.none()
+
+    @classmethod
+    def get_description(cls):
+        return "Only a specific user can approve this task"
 
 
 # StreamField media definitions must not be evaluated at startup (e.g. during system checks) -
