@@ -185,9 +185,12 @@ class TestTableBlock(TestCase):
         normalized_table = self.block.normalize(table)
         self.assertIs(normalized_table, table)
 
-        # Should normalize None as-is
+        # Should normalize None to an empty TypedTable
         none_value = self.block.normalize(None)
-        self.assertIs(none_value, None)
+        self.assertIsInstance(none_value, TypedTable)
+        self.assertEqual(none_value.columns, [])
+        self.assertEqual(none_value.row_data, [])
+        self.assertEqual(none_value.caption, "")
 
     def test_to_python(self):
         """
