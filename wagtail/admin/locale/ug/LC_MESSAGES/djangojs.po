@@ -1,11 +1,11 @@
 #
 # Translators:
 # Azat, 2024
-# Abduqadir Abliz <sahranbay@gmail.com>, 2024
+# Abduqadir Abliz <sahranbay@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2025\n"
 "Language-Team: Uyghur (https://app.transifex.com/torchbox/teams/8009/ug/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ug\n"
@@ -136,6 +136,9 @@ msgstr "بەت"
 
 msgid "Pin toolbar"
 msgstr "قورال بالداقنى مىخلا"
+
+msgid "Preview"
+msgstr "ئالدىن كۆزەت"
 
 msgid "Reload saved content"
 msgstr "ساقلانغان مەزمۇننى قايتا يۈكلە"

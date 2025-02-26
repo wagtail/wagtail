@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Burmese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -27,12 +27,6 @@ msgstr "နေ့စဥ်စုံစမ်းမှုအရေအတွက်
 msgid "Delete"
 msgstr "ဖျက်သိမ်းပါ"
 
-msgid "Yes, delete"
-msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
-
-msgid "Editing"
-msgstr "ပြင်ဆင်နေသည်"
-
 msgid "Popular search terms"
 msgstr "ခေတ်စားသောရှာဖွေရေးအသုံးအနှုန်းများ"
 
@@ -51,5 +45,5 @@ msgstr "ဘယ်ရလဒ်မှ ရှာမတွေ့ပါ"
 msgid "Choose from popular search terms"
 msgstr "ခေတ်စားသောရှာဖွေရေးအသုံးအနှုန်းများမှ ရွေးချယ်ပါ"
 
-msgid "Edit"
-msgstr "ပြင်ဆင်ပါ"
+msgid "Date"
+msgstr "နေ့စွဲ"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
@@ -52,39 +52,26 @@ msgstr "popis"
 msgid "search promotion"
 msgstr "upřednostňování hledání"
 
-msgid "Add search promotion"
-msgstr "Přidat upřednostněné hledání"
-
-msgid "Add search pick"
-msgstr "Přidat volbu hledání"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Smazat %(query)s"
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Opravdu chcete smazat všechny upřednostněné výsledky pro tento hledaný výraz?"
 
-msgid "Yes, delete"
-msgstr "Ano, smazat"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Úprava %(query)s"
-
-msgid "Editing"
-msgstr "Úprava"
-
 msgid "Move up"
 msgstr "Posunout nahoru"
 
 msgid "Move down"
 msgstr "Posunout dolů"
+
+msgid "Drag"
+msgstr "Přetáhnout myší"
+
+msgid "Delete"
+msgstr "Smazat"
 
 msgid "Promoted search results"
 msgstr "Upřednostněné výsledky hledání"
@@ -127,24 +114,24 @@ msgstr "Externí odkaz"
 msgid "None"
 msgstr "Nic"
 
-msgid "Search Terms"
-msgstr "Hledat výrazy"
-
-msgid "Add new promoted result"
-msgstr "Přidat nový upřednostněný výsledek"
+msgid "Date"
+msgstr "Datum"
 
 msgid "Search term(s)"
 msgstr "Hledaný výraz(y)"
 
+msgid "Add new promoted result"
+msgstr "Přidat nový upřednostněný výsledek"
+
 msgid "Promoted results"
 msgstr "Upřednostněné výsledky"
+
+msgid "Promoted search result"
+msgstr "Upřednostněný výsledek hledání"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Editorův výběr pro '%(query)s' byl vytvořen."
-
-msgid "Edit"
-msgstr "Upravit"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Doporučení nelze vytvořit, zkontrolujte správné vyplnění polí."

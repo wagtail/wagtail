@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -48,18 +48,9 @@ msgstr "kirjeldus"
 msgid "search promotion"
 msgstr "otsingu kuulutamine"
 
-msgid "Add search promotion"
-msgstr "Lisa otsingu kuulutus"
-
-msgid "Add search pick"
-msgstr "Lisa otsingu valik"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Kustuta %(query)s"
-
-msgid "Delete"
-msgstr "Kustuta"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -67,21 +58,17 @@ msgstr ""
 "Kas soovite kindlasti kustutada selle otsingutermini kõik reklaamitud "
 "tulemused?"
 
-msgid "Yes, delete"
-msgstr "Jah, kustuta"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Muudan %(query)s"
-
-msgid "Editing"
-msgstr "Muutmine"
-
 msgid "Move up"
 msgstr "Mine üles"
 
 msgid "Move down"
 msgstr "Mine alla"
+
+msgid "Drag"
+msgstr "Vedama"
+
+msgid "Delete"
+msgstr "Kustuta"
 
 msgid "Promoted search results"
 msgstr "Reklaamitud otsingutulemus"
@@ -124,24 +111,24 @@ msgstr "Väline link"
 msgid "None"
 msgstr "mitte ühtegi"
 
-msgid "Search Terms"
-msgstr "Otsinguterminid"
-
-msgid "Add new promoted result"
-msgstr "Lisa uus reklaamitud otsingutulemus"
+msgid "Date"
+msgstr "Kuupäev"
 
 msgid "Search term(s)"
 msgstr "Otsingutermin(id)"
 
+msgid "Add new promoted result"
+msgstr "Lisa uus reklaamitud otsingutulemus"
+
 msgid "Promoted results"
 msgstr "Reklaamitud tulemused"
+
+msgid "Promoted search result"
+msgstr "Reklaamitud otsingutulemus"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Toimetaja valikud '%(query)s' jaoks loodi."
-
-msgid "Edit"
-msgstr "Muuda"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Soovitusi ei loodud vigade tõttu."

@@ -162,6 +162,33 @@ class TestTableBlock(TestCase):
             ["fr", "68000000", "A large country with baguettes"],
         )
 
+    def test_normalize(self):
+        # Should be able to handle JSONish data from the database, which can be
+        # useful when defining a default value for a TypedTableBlock
+        table = self.block.normalize(self.db_data)
+        self.assertEqual(table.caption, "Countries and their food")
+        self.assertIsInstance(table, TypedTable)
+        self.assertEqual(len(table.columns), 2)
+        self.assertEqual(table.columns[0]["heading"], "Country")
+        self.assertEqual(table.columns[1]["heading"], "Description")
+        rows = list(table.rows)
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(
+            [block.value for block in rows[0]],
+            ["nl", "A small country with stroopwafels"],
+        )
+        self.assertEqual(
+            [block.value for block in rows[1]], ["fr", "A large country with baguettes"]
+        )
+
+        # For a TypedTable instance, normalize should return the instance as-is
+        normalized_table = self.block.normalize(table)
+        self.assertIs(normalized_table, table)
+
+        # Should normalize None as-is
+        none_value = self.block.normalize(None)
+        self.assertIs(none_value, None)
+
     def test_to_python(self):
         """
         Test that we can turn JSONish data from the database into a TypedTable instance

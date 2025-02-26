@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2016\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -74,9 +74,6 @@ msgstr "geçici"
 msgid "redirect"
 msgstr "yönlendir"
 
-msgid "Add redirect"
-msgstr "Yönlendirme ekle"
-
 msgid "Redirects"
 msgstr "Yönlendirmeler"
 
@@ -84,14 +81,8 @@ msgstr "Yönlendirmeler"
 msgid "Delete redirect %(title)s"
 msgstr "%(title)s yönlendirmesini sil"
 
-msgid "Delete"
-msgstr "Sil"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Bu yönlendirmeyi silmek istediğinizden emin misiniz?"
-
-msgid "Yes, delete"
-msgstr "Evet, sil"
 
 msgid "Preview"
 msgstr "Önizleme"
@@ -117,6 +108,9 @@ msgstr ""
 "Hiç yönedirme oluşturulmadı. Neden <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">bir tane eklemiyorsunuz</a>?"
 
+msgid "Add redirect"
+msgstr "Yönlendirme ekle"
+
 msgid "Site"
 msgstr "Site"
 
@@ -131,15 +125,12 @@ msgstr "'%(redirect_title)s' yönlendirmesi güncellendi."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "'%(redirect_title)s' yönlendirmesi silindi."
 
+msgid "The redirect could not be created due to errors."
+msgstr "Hata nedeniyle yönlendirme oluşturulamadı."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "'%(redirect_title)s' yönlendirmesi eklendi."
-
-msgid "Edit"
-msgstr "Düzenle"
-
-msgid "The redirect could not be created due to errors."
-msgstr "Hata nedeniyle yönlendirme oluşturulamadı."
 
 msgid "Search redirects"
 msgstr "Arama yönlendirmeleri"

@@ -3,11 +3,11 @@
 # Aarni Koskela, 2022
 # Valter Maasalo <vmaasalo@gmail.com>, 2022
 # Loic Teixeira, 2024
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2024
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2024\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -138,6 +138,9 @@ msgstr "Sivut"
 
 msgid "Pin toolbar"
 msgstr "Kiinnitä työkalupalkki"
+
+msgid "Preview"
+msgstr "Esikatsele"
 
 msgid "Reload saved content"
 msgstr "Lataa tallennettu sisältö"

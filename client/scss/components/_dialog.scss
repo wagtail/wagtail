@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .w-dialog {
   --w-dialog-close-icon-color: theme('colors.icon-primary');
 

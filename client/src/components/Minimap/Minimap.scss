@@ -1,22 +1,21 @@
-// If unset, default to the "mobile" height of the slim header.
-$minimap-top-offset: var(--offset-top, calc(theme('spacing.slim-header') * 2));
 $minimap-width: 260px;
 $minimap-collapsed-width-mobile: 20px;
 $minimap-collapsed-width: 30px;
 $minimap-overflow: theme('spacing.2');
-$minimap-z-index: calc(theme('zIndex.header') - 20);
 
-@import './CollapseAll';
-@import './MinimapItem';
+@use '../../../scss/tools' as *;
+
+@use './CollapseAll';
+@use './MinimapItem';
 
 .w-minimap {
   position: absolute;
-  top: $minimap-top-offset;
+  top: var(--offset-top);
   inset-inline-end: 0;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 100%);
-  z-index: $minimap-z-index;
+  z-index: theme('zIndex.minimap');
   width: $minimap-width;
   transform: translateX(
     calc(var(--w-direction-factor) * (100% - $minimap-collapsed-width-mobile))
@@ -35,7 +34,7 @@ $minimap-z-index: calc(theme('zIndex.header') - 20);
   &--expanded {
     transform: translateX(0);
     // Take up the whole height so overlap with the page looks better.
-    height: calc(100vh - $minimap-top-offset);
+    height: calc(100vh - var(--offset-top));
     // Only transition when opening, so the closing animation doesn’t interfere with "hover to open".
     transition: transform 0.3s ease;
   }

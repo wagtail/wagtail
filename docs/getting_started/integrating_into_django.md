@@ -6,7 +6,7 @@ Wagtail provides the `wagtail start` command and project template to get you sta
 We highly recommend working through the [Getting Started tutorial](tutorial), even if you are not planning to create a standalone Wagtail project. This will ensure you have a good understanding of Wagtail concepts.
 ```
 
-Wagtail is currently compatible with Django 4.2, 5.0 and 5.1. First, install the `wagtail` package from PyPI:
+Wagtail is currently compatible with Django 4.2 and 5.1. First, install the `wagtail` package from PyPI:
 
 ```sh
 pip install wagtail

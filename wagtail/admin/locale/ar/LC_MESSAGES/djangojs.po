@@ -7,10 +7,11 @@
 # Younes Oumakhou, 2022
 # Loic Teixeira, 2024
 # Tarek Berkane, 2025
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Tarek Berkane, 2025\n"
+"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ar\n"
@@ -70,6 +71,9 @@ msgstr "مستكشف الصفحة"
 
 msgid "Pages"
 msgstr "صفحات"
+
+msgid "Preview"
+msgstr "نظر مقدم"
 
 msgid "Reload saved content"
 msgstr "اعادة تحميل المحتوى المحفوظ"

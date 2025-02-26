@@ -51,13 +51,17 @@ class Lexeme(LexemeCombinable, Value):
         self.prefix = prefix
         self.invert = invert
         self.weight = weight
+
+        if not value:
+            raise ValueError("Lexeme value cannot be empty.")
+        if re.search(r"\W+", value):
+            raise ValueError(
+                f"Lexeme value '{value}' must consist of alphanumeric characters and '_' only."
+            )
         super().__init__(value, output_field=output_field)
 
     def as_sql(self, compiler, connection):
-        param = re.sub(
-            r"\W+", " ", self.value
-        )  # Remove non-word characters. This is done to disallow the usage of full text search operators in the MATCH clause, because MySQL doesn't include these kinds of characters in FULLTEXT indexes.
-
+        param = self.value
         template = "%s"
 
         if self.prefix:

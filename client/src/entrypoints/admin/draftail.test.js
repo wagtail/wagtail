@@ -116,6 +116,8 @@ describe('importing the module multiple times', () => {
 
     // Subsequent imports (e.g. in AJAX responses)
     jest.isolateModules(() => {
+      // Ensure stubs are loaded in the new isolated context
+      require('../../../tests/stubs');
       require('./draftail');
     });
 

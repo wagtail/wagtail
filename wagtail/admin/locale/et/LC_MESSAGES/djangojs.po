@@ -1,12 +1,12 @@
 #
 # Translators:
 # Ragnar Rebase <rrebase@gmail.com>, 2022
-# Erlend Eelmets <debcf78e@opayq.com>, 2022
 # Loic Teixeira, 2024
+# Erlend Eelmets <debcf78e@opayq.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>, 2025\n"
 "Language-Team: Estonian (https://app.transifex.com/torchbox/teams/8009/et/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: et\n"
@@ -62,6 +62,9 @@ msgstr "Leheuurija"
 
 msgid "Pages"
 msgstr "Lehed"
+
+msgid "Preview"
+msgstr "Eelvaade"
 
 msgid "Reload saved content"
 msgstr "Salvestatud sisu uuesti laadimine"

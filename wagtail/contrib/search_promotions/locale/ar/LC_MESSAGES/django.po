@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -47,38 +47,25 @@ msgstr "وصف"
 msgid "search promotion"
 msgstr "ترويج البحث"
 
-msgid "Add search promotion"
-msgstr "إضافة ترويج البحث"
-
-msgid "Add search pick"
-msgstr "أضف البحث المحتار"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "حذف %(query)s"
 
-msgid "Delete"
-msgstr "احذف"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr "أتريد فعلا أن تحذف كل النتائج الموجودة لهذا المصطلح المبحوث؟"
-
-msgid "Yes, delete"
-msgstr "نعم احذف"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "يتم تحرير %(query)s"
-
-msgid "Editing"
-msgstr "تحرير"
 
 msgid "Move up"
 msgstr "تقدم إلى فوق "
 
 msgid "Move down"
 msgstr "تقدم إلى تحت"
+
+msgid "Drag"
+msgstr "اسحب"
+
+msgid "Delete"
+msgstr "احذف"
 
 msgid "Promoted search results"
 msgstr "نتائج البحث المطلوب"
@@ -119,24 +106,24 @@ msgstr "حلقة خارجية"
 msgid "None"
 msgstr "لا أحد"
 
-msgid "Search Terms"
-msgstr "مصطلحات البحث"
-
-msgid "Add new promoted result"
-msgstr "أضف نتيجة البحث"
+msgid "Date"
+msgstr "تاريخ"
 
 msgid "Search term(s)"
 msgstr "مصطلح , مصطلحات البحث"
 
+msgid "Add new promoted result"
+msgstr "أضف نتيجة البحث"
+
 msgid "Promoted results"
 msgstr "النتائج المطلوبة"
+
+msgid "Promoted search result"
+msgstr "نتيجة البحث المطلوب"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "اختيارات المحرر لـ '%(query)s' تم إنشاؤها."
-
-msgid "Edit"
-msgstr "تحرير"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "لم تنشأ توصيات بسسبب أخطاء"

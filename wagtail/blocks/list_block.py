@@ -147,7 +147,8 @@ class ListBlock(Block):
         else:
             self.child_block = child_block
 
-        if not hasattr(self.meta, "default"):
+        self._has_default = hasattr(self.meta, "default")
+        if not self._has_default:
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 

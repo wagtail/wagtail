@@ -1,12 +1,12 @@
 #
 # Translators:
-# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
 # Andrei Satsevich, 2023
 # Loic Teixeira, 2024
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2025\n"
 "Language-Team: Belarusian (https://app.transifex.com/torchbox/teams/8009/"
 "be/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,6 +68,9 @@ msgstr "Агляд старонак"
 
 msgid "Pages"
 msgstr "Старонкі"
+
+msgid "Preview"
+msgstr "Папярэдні прагляд"
 
 msgid "Reload saved content"
 msgstr " Обнавиць захаваны змест"

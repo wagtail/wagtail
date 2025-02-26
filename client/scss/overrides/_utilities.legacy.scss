@@ -1,3 +1,6 @@
+@use '../tools' as *;
+@use '../settings' as *;
+
 .nice-padding {
   padding-inline-start: $mobile-nice-padding;
   padding-inline-end: $mobile-nice-padding;

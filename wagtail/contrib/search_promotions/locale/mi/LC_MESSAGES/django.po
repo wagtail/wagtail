@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (http://app.transifex.com/torchbox/wagtail/language/"
@@ -48,18 +48,9 @@ msgstr "whakaaturanga"
 msgid "search promotion"
 msgstr "Haha whakatuarā"
 
-msgid "Add search promotion"
-msgstr "Tāpiri he haha whakatuarā"
-
-msgid "Add search pick"
-msgstr "Tāpiri haha whawhaki"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Muku %(query)s"
-
-msgid "Delete"
-msgstr "Muku"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -67,21 +58,14 @@ msgstr ""
 "E pirangi ana koe kī te mukuhia I ēnei tukunga iho mō tēnei karangatanga-a-"
 "haha?"
 
-msgid "Yes, delete"
-msgstr "Ae, muku"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "E Whakarerekē %(query)s"
-
-msgid "Editing"
-msgstr "Whakarerekē"
-
 msgid "Move up"
 msgstr "Mū ki runga"
 
 msgid "Move down"
 msgstr "Mū ki raro"
+
+msgid "Delete"
+msgstr "Muku"
 
 msgid "Popular search terms"
 msgstr "Karangatanga rongonui"
@@ -107,5 +91,5 @@ msgstr "Hono mōwaho"
 msgid "None"
 msgstr "Kore"
 
-msgid "Edit"
-msgstr "Whakarerekē"
+msgid "Date"
+msgstr "Rā"

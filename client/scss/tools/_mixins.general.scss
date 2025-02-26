@@ -4,6 +4,8 @@
 // Please note that the mixins partial shouldn't include any classes. This is so
 // it can be included in any file without accidentally producing output
 
+@use '../settings' as *;
+
 // Turns on font-smoothing when used. Use sparingly.
 @mixin font-smoothing {
   -webkit-font-smoothing: antialiased;
@@ -166,4 +168,8 @@
       border-style: dashed;
     }
   }
+}
+
+@mixin focus-outline {
+  outline: $focus-outline-width solid theme('colors.focus');
 }

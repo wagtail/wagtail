@@ -15,6 +15,7 @@
 * Sævar Öfjörð Magnússon (Overcast)
 * Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
+* Sébastien Corbin
 * Stefan Hammer (wunderweiss)
 * Storm Heg
 * Thibaud Colas (Torchbox)
@@ -719,7 +720,6 @@
 * Kevin Chung (kev-odin)
 * valnuro
 * Vitaly Babiy
-* Sébastien Corbin
 * Sahil Jangra
 * Henry Harutyunyan
 * Alex Morega
@@ -870,6 +870,10 @@
 * Stéphane Blondon
 * Jatin Bhardwaj
 * Mohamed Rabiaa
+* Bernhard Bliem
+* Mahmoud Nasser
+* Prabhpreet Kaur
+* Baptiste Mispelon
 
 ## Translators
 

@@ -1,10 +1,13 @@
 import functools
+import types
 
 import zoneinfo
 from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR
+from django.utils.timezone import override as override_tz
 from django.utils.translation import gettext as _
+from django.utils.translation import override
 
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
@@ -117,3 +120,41 @@ def get_available_admin_time_zones():
     return getattr(
         settings, "WAGTAIL_USER_TIME_ZONES", sorted(zoneinfo.available_timezones())
     )
+
+
+def get_localized_response(view_func, request, *args, **kwargs):
+    user = request.user
+    preferred_language = None
+    if hasattr(user, "wagtail_userprofile"):
+        preferred_language = user.wagtail_userprofile.get_preferred_language()
+        time_zone = user.wagtail_userprofile.get_current_time_zone()
+    else:
+        time_zone = settings.TIME_ZONE
+    with override_tz(time_zone):
+        if preferred_language:
+            with override(preferred_language):
+                response = view_func(request, *args, **kwargs)
+        else:
+            response = view_func(request, *args, **kwargs)
+
+        if hasattr(response, "render"):
+            # If the response has a render() method, Django treats it
+            # like a TemplateResponse, so we should do the same
+            # In this case, we need to guarantee that when the TemplateResponse
+            # is rendered, it is done within the override context manager
+            # or the user preferred_language/timezone will not be used
+            # (this could be replaced with simply rendering the TemplateResponse
+            # for simplicity but this does remove some of its middleware modification
+            # potential)
+            render = response.render
+
+            def overridden_render(response):
+                with override_tz(time_zone):
+                    if preferred_language:
+                        with override(preferred_language):
+                            return render()
+                    return render()
+
+            response.render = types.MethodType(overridden_render, response)
+            # decorate the response render method with the override context manager
+        return response

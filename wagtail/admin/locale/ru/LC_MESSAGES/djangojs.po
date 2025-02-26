@@ -6,16 +6,16 @@
 # sergeybe <sergeybe@gmail.com>, 2022
 # Eugene <eugene.mechanism@gmail.com>, 2022
 # Мирон Левицкий <miron200504@gmail.com>, 2022
-# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
 # Влад <integration.into.society@gmail.com>, 2023
 # Paul Bid (Павел Бид) <paulbid@protonmail.com>, 2023
 # Loic Teixeira, 2024
 # Andrei Satsevich, 2024
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrei Satsevich, 2024\n"
+"Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
@@ -154,6 +154,9 @@ msgstr "Страницы"
 
 msgid "Pin toolbar"
 msgstr "Закрепить панель инструментов"
+
+msgid "Preview"
+msgstr "Предварительный просмотр"
 
 msgid "Reload saved content"
 msgstr "Перезагрузить сохранённое содержание"

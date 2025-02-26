@@ -78,6 +78,7 @@ class TestUpgradeNotificationPanel(WagtailTestUtils, TestCase):
         )
         toggle = soup.select_one("[data-action='w-dismissible#toggle']")
         self.assertIsNotNone(toggle)
+        self.assertEqual(toggle.get("aria-label"), "Close")
         self.assertIsNone(toggle.get(self.ATTR_LAST_DISMISSED_VALUE))
 
     @override_settings(WAGTAIL_ENABLE_UPDATE_CHECK=False)
@@ -115,6 +116,7 @@ class TestUpgradeNotificationPanel(WagtailTestUtils, TestCase):
                 )
                 toggle = soup.select_one("[data-action='w-dismissible#toggle']")
                 self.assertIsNotNone(toggle)
+                self.assertEqual(toggle.get("aria-label"), "Close")
                 self.assertIsNone(toggle.get(self.ATTR_LAST_DISMISSED_VALUE))
 
     def test_render_html_dismissed_version(self):
@@ -140,6 +142,7 @@ class TestUpgradeNotificationPanel(WagtailTestUtils, TestCase):
         )
         toggle = soup.select_one("[data-action='w-dismissible#toggle']")
         self.assertIsNotNone(toggle)
+        self.assertEqual(toggle.get("aria-label"), "Close")
         self.assertEqual(
             toggle.get(self.ATTR_LAST_DISMISSED_VALUE),
             "6.2.2",

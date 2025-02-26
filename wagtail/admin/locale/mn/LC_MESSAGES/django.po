@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -449,10 +449,6 @@ msgstr "Тийм, устга"
 msgid "No, don't delete"
 msgstr "Үгүй, устгахгүй"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s нийтлэхийг болиулах"
-
 msgid "Yes, unpublish it"
 msgstr "Тийм, Нийтлэхгүй болго"
 
@@ -461,13 +457,6 @@ msgstr "Үгүй"
 
 msgid "Update"
 msgstr "Шинэчлэх"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s-г харьцуулж байна"
-
-msgid "Comparing"
-msgstr "Харьцуулж байна"
 
 msgid "Fields"
 msgstr "Талбарууд"
@@ -819,9 +808,6 @@ msgstr "Шүүлтүүр"
 msgid "History"
 msgstr "Түүх"
 
-msgid "Unschedule"
-msgstr "Төлөвлөгөөг болиулах"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Энэ хувилбарын төлөвлөгөөг болиулахдаа итгэлтэй байна уу?"
 
@@ -958,6 +944,9 @@ msgstr "Хамгийн эхний"
 
 msgid "Latest"
 msgstr "Хамгийн сүүлийн"
+
+msgid "Unschedule"
+msgstr "Төлөвлөгөөг болиулах"
 
 #, python-format
 msgid "Edit this %(object)s"

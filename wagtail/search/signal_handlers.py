@@ -6,7 +6,7 @@ from .tasks import insert_or_update_object_task
 
 def post_save_signal_handler(instance, **kwargs):
     insert_or_update_object_task.enqueue(
-        instance._meta.app_label, instance._meta.model_name, instance.pk
+        instance._meta.app_label, instance._meta.model_name, str(instance.pk)
     )
 
 
