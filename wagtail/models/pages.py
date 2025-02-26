@@ -1429,6 +1429,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         except self.specific_class.DoesNotExist:
             return None
 
+    def get_default_privacy_setting(self, request: HttpRequest):
+        """Set the default privacy setting for a page."""
+        return {"type": BaseViewRestriction.NONE}
+
     @classmethod
     def clean_subpage_models(cls):
         """
