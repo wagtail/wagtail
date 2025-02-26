@@ -11,7 +11,7 @@
 {% with items.paginator.num_pages|intcomma as total_pages %}
     <nav class="pagination w-flex w-justify-between w-flex-wrap sm:w-flex-nowrap" aria-label="{% trans 'Pagination' %}">
         <div class="pagination__start">
-            <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=total_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+            <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=total_pages %}Page {{ page_num }} of {{ total_pages }}{% endblocktrans %}</p>
         </div>
         <ul>
             <li class="prev">
@@ -38,6 +38,10 @@
                 </a>
             </li>
         </ul>
-        <div class="pagination__end"></div>
+        <div class="pagination__end">
+            {% if verbose_name_plural and items.paginator.count > 1 %}
+                {{ items.paginator.count|intcomma }} {{ verbose_name_plural|capfirst }}
+            {% endif %}
+        </div>
     </nav>
 {% endwith %}

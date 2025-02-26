@@ -489,6 +489,10 @@ table.listing {
     }
   }
 
+  &__end {
+    justify-content: end;
+  }
+
   p {
     margin: 0;
   }
