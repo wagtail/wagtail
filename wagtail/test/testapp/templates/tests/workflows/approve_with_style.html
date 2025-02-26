@@ -1,0 +1,6 @@
+{% include "wagtailadmin/shared/header.html" with title=action_verbose icon="clipboard-list" %}
+
+<form class="nice-padding" action="{{ submit_url }}" method="POST" novalidate>
+    {% csrf_token %}
+    <button class="button" type="submit">Ship it!</button>
+</form>

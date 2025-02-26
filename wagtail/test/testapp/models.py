@@ -2301,11 +2301,20 @@ class UserApprovalTask(Task):
         if user == self.user:
             return [
                 ("approve", "Approve", False),
+                ("approve", "Approve with style", True),
                 ("reject", "Reject", False),
                 ("cancel", "Cancel", False),
             ]
         else:
             return []
+
+    def get_template_for_action(self, action):
+        # https://github.com/wagtail/wagtail/issues/12222
+        # This will be used for "Approve with style" which has the third value
+        # (action_requires_additional_data_from_modal) set to True.
+        if action == "approve":
+            return "tests/workflows/approve_with_style.html"
+        return super().get_template_for_action(action)
 
     def on_action(self, task_state, user, action_name, **kwargs):
         if action_name == "cancel":
