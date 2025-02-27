@@ -372,8 +372,8 @@ class EventPageForm(WagtailAdminPageForm):
         cleaned_data = super().clean()
 
         # Make sure that the event starts before it ends
-        start_date = cleaned_data["date_from"]
-        end_date = cleaned_data["date_to"]
+        start_date = cleaned_data.get("date_from")
+        end_date = cleaned_data.get("date_to")
         if start_date and end_date and start_date > end_date:
             raise ValidationError("The end date must be after the start date")
 
