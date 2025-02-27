@@ -572,6 +572,106 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             ).exists()
         )
 
+    def test_create_eventpage_post_with_blank_start_date(self):
+        """
+        EventPage.date_from has null=True and blank=False; the latter is not enforced when
+        saving as draft, so an empty date_from should be allowed
+        """
+        post_data = {
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "London",
+            "cost": "Free",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="event-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.date_from, None)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_eventpage_post_with_blank_start_date(self):
+        """
+        EventPage.date_from has null=True and blank=False; the latter is enforced when
+        publishing, so an empty date_from should not be allowed
+        """
+        post_data = {
+            "action-publish": "Publish",
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "London",
+            "cost": "Free",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "date_from", "This field is required."
+        )
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="event-page"
+            ).exists()
+        )
+
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)
