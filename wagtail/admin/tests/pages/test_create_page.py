@@ -482,6 +482,227 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
+    def test_create_simplepage_post_with_blank_title(self):
+        post_data = {
+            "title": "",
+            "content": "Some content",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+    def test_create_simplepage_post_with_blank_content(self):
+        """
+        Saving a page as draft with blank content should be allowed, as this skips
+        required=True validation
+        """
+        post_data = {
+            "title": "New page",
+            "content": "",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.title, post_data["title"])
+        self.assertEqual(page.draft_title, post_data["title"])
+        self.assertIsInstance(page, SimplePage)
+        self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_publish_simplepage_post_with_blank_content(self):
+        post_data = {
+            "title": "New page",
+            "content": "",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "content", "This field is required."
+        )
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+        # page should not be created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="hello-world"
+            ).exists()
+        )
+
+    def test_create_eventpage_post_with_blank_start_date(self):
+        """
+        EventPage.date_from has null=True and blank=False; the latter is not enforced when
+        saving as draft, so an empty date_from should be allowed
+        """
+        post_data = {
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "London",
+            "cost": "Free",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="event-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.date_from, None)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_eventpage_post_with_blank_start_date(self):
+        """
+        EventPage.date_from has null=True and blank=False; the latter is enforced when
+        publishing, so an empty date_from should not be allowed
+        """
+        post_data = {
+            "action-publish": "Publish",
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "London",
+            "cost": "Free",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "date_from", "This field is required."
+        )
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="event-page"
+            ).exists()
+        )
+
+    def test_cannot_create_page_with_blank_required_date(self):
+        """
+        A non-nullable, non-text field cannot be saved with a blank value, so we should
+        enforce requiredness even when saving as draft
+        """
+        post_data = {
+            "title": "Page with missing date",
+            "deadline": "",
+            "slug": "missing-date",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "requireddatepage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "deadline", "This field is required."
+        )
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="missing-date"
+            ).exists()
+        )
+
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)

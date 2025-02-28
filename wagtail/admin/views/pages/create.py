@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic.base import View
@@ -144,25 +145,39 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             parent_page=self.parent_page,
             for_user=self.request.user,
         )
+        if self.action_name == "save":
+            self.form.defer_required_fields()
 
         if self.form.is_valid():
             return self.form_valid(self.form)
         else:
             return self.form_invalid(self.form)
 
-    def form_valid(self, form):
+    @cached_property
+    def action_name_and_method(self):
         if (
             bool(self.request.POST.get("action-publish"))
             and self.parent_page_perms.can_publish_subpage()
         ):
-            return self.publish_action()
+            return ("publish", self.publish_action)
         elif (
             bool(self.request.POST.get("action-submit"))
             and self.parent_page.has_workflow
         ):
-            return self.submit_action()
+            return ("submit", self.submit_action)
         else:
-            return self.save_action()
+            return ("save", self.save_action)
+
+    @property
+    def action_name(self):
+        return self.action_name_and_method[0]
+
+    @property
+    def action_method(self):
+        return self.action_name_and_method[1]
+
+    def form_valid(self, form):
+        return self.action_method()
 
     def get_page_subtitle(self):
         return self.page_class.get_verbose_name()
@@ -190,7 +205,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         self.parent_page.add_child(instance=self.page)
 
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=True)
+        self.page.save_revision(user=self.request.user, log_action=True, clean=False)
 
         # Save subscription settings
         self.subscription.page = self.page
