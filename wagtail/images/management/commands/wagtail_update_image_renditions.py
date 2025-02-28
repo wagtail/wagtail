@@ -41,15 +41,13 @@ class Command(BaseCommand):
         Rendition = get_image_model().get_rendition_model()
 
         renditions = Rendition.objects.all()
+        num_renditions = renditions.count()
 
         purge_only = options["purge_only"]
 
-        if not renditions.exists():
+        if num_renditions == 0:
             self.stdout.write(self.style.WARNING("No image renditions found."))
             return
-
-        rendition_ids = list(renditions.values_list("id", flat=True))
-        num_renditions = len(rendition_ids)
 
         if purge_only:
             self.stdout.write(
