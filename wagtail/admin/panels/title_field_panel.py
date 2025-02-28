@@ -32,7 +32,6 @@ class TitleFieldPanel(FieldPanel):
         **kwargs,
     ):
         kwargs["classname"] = classname
-        kwargs.setdefault("required_on_save", True)
         self.apply_if_live = apply_if_live
         self.placeholder = placeholder
         self.targets = targets
