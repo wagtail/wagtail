@@ -1728,6 +1728,22 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
                     results,
                 )
 
+    def test_hits_column_localized(self):
+        _add_N_hits(self.query, 10_000)
+
+        def _get_hits(lang):
+            response = self.get(headers={"accept-language": lang})
+            soup = self.get_soup(response.content)
+            trs = soup.select("main tr")
+            self.assertEqual(len(trs), 4)  # 1 header + 3 body rows
+            _, hits = trs[1].select("td")
+            return hits.text.strip()
+
+        for lang, expected in [("en", "10,003"), ("fr", "10\N{NO-BREAK SPACE}003")]:
+            with self.subTest(lang=lang):
+                hits = _get_hits(lang=lang)
+                self.assertEqual(hits, expected)
+
 
 class TestFilteredQueryHitsView(BaseReportViewTestCase):
     url_name = "wagtailsearchpromotions:search_terms"
