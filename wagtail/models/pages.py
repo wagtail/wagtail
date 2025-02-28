@@ -283,6 +283,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public"),
     )
+    title.required_on_save = True
     # to reflect title of a current draft in the admin UI
     draft_title = models.CharField(max_length=255, editable=False)
     slug = models.SlugField(
