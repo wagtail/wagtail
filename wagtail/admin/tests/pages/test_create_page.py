@@ -672,6 +672,37 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             ).exists()
         )
 
+    def test_cannot_create_page_with_blank_required_date(self):
+        """
+        A non-nullable, non-text field cannot be saved with a blank value, so we should
+        enforce requiredness even when saving as draft
+        """
+        post_data = {
+            "title": "Page with missing date",
+            "deadline": "",
+            "slug": "missing-date",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "requireddatepage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "deadline", "This field is required."
+        )
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="missing-date"
+            ).exists()
+        )
+
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
         expire_at = timezone.now() + datetime.timedelta(days=2)

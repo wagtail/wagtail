@@ -2487,3 +2487,12 @@ class CustomPermissionModel(models.Model):
 
 
 register_snippet(CustomPermissionModel)
+
+
+class RequiredDatePage(Page):
+    deadline = models.DateField()
+
+    content_panels = [
+        TitleFieldPanel("title", classname="title"),
+        FieldPanel("deadline"),
+    ]

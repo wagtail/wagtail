@@ -67,7 +67,10 @@ class FieldPanel(Panel):
             except FieldDoesNotExist:
                 required_on_save = False
             else:
-                required_on_save = getattr(db_field, "required_on_save", False)
+                required_on_save = getattr(db_field, "required_on_save", False) or (
+                    db_field.null is False
+                    and db_field.get_internal_type() not in ("CharField", "TextField")
+                )
 
         if not required_on_save:
             opts["defer_required_on_fields"] = [self.field_name]
