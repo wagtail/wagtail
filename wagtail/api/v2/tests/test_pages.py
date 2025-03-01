@@ -908,7 +908,9 @@ class TestPageListing(WagtailTestUtils, TestCase):
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, ["Invalid ordering field"])
+        self.assertEqual(
+            content, {"message": "cannot order by '-random' (unknown field)"}
+        )
 
     def test_ordering_by_random_with_offset_gives_error(self):
         response = self.get_response(order="random", offset=10)
@@ -945,7 +947,9 @@ class TestPageListing(WagtailTestUtils, TestCase):
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, ["Invalid ordering field"])
+        self.assertEqual(
+            content, {"message": "cannot order by 'not_a_field' (unknown field)"}
+        )
 
     def test_random_ordering_with_unknown_field_gives_error(self):
         response = self.get_response(order=["random,id"])

@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.exceptions import FieldError
 from django.db import models
 from django.shortcuts import get_object_or_404
-from rest_framework.exceptions import ValidationError
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
@@ -98,8 +97,8 @@ class OrderingFilter(BaseFilterBackend):
 
         try:
             return queryset.order_by(*order_by_list)
-        except FieldError:
-            raise ValidationError("Invalid ordering field")
+        except FieldError as e:
+            raise BadRequestError(f"cannot order by '{order_param}' (unknown field)")
 
 
 class SearchFilter(BaseFilterBackend):
