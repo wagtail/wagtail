@@ -97,7 +97,7 @@ class OrderingFilter(BaseFilterBackend):
 
         try:
             return queryset.order_by(*order_by_list)
-        except FieldError as e:
+        except FieldError:
             raise BadRequestError(f"cannot order by '{order_param}' (unknown field)")
 
 
