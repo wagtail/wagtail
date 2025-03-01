@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import FieldError
 from django.db import models
 from django.shortcuts import get_object_or_404
 from rest_framework.filters import BaseFilterBackend
@@ -78,49 +79,35 @@ class OrderingFilter(BaseFilterBackend):
         And random ordering
         Eg: ?order=random
         """
-        if "order" in request.GET:
-            order_by_list = request.GET["order"].split(",")
+        order_param = request.GET.get("order")
+        if not order_param:
+            return queryset
 
-            # Random ordering
-            if "random" in order_by_list:
-                if len(order_by_list) > 1:
-                    raise BadRequestError(
-                        "random ordering cannot be combined with other fields"
-                    )
-                # Prevent ordering by random with offset
-                if "offset" in request.GET:
-                    raise BadRequestError(
-                        "random ordering with offset is not supported"
-                    )
+        order_by_list = order_param.split(",")
 
-                return queryset.order_by("?")
+        # Handle random ordering separately
+        if "random" in order_by_list:
+            if len(order_by_list) > 1:
+                raise BadRequestError(
+                    "random ordering cannot be combined with other fields"
+                )
+            if "offset" in request.GET:
+                raise BadRequestError("random ordering with offset is not supported")
+            return queryset.order_by("?")
 
-            order_by_fields = []
-            for order_by in order_by_list:
-                # Check if reverse ordering is set
-                if order_by.startswith("-"):
-                    reverse_order = True
-                    order_by = order_by[1:]
-                else:
-                    reverse_order = False
+        allowed_fields = view.get_available_fields(queryset.model, db_fields_only=True)
+        validated_fields = []
 
-                # Add ordering
-                if order_by in view.get_available_fields(queryset.model):
-                    order_by_fields.append(order_by)
-                else:
-                    # Unknown field
-                    raise BadRequestError(
-                        "cannot order by '%s' (unknown field)" % order_by
-                    )
+        for field in order_by_list:
+            field_name = field.lstrip("-")
+            if field_name not in allowed_fields:
+                raise BadRequestError(f"cannot order by '{field}' (unknown field)")
+            validated_fields.append(field)
 
-            # Apply ordering to the queryset
-            queryset = queryset.order_by(*order_by_fields)
-
-            # Reverse order if needed
-            if reverse_order:
-                queryset = queryset.reverse()
-
-        return queryset
+        try:
+            return queryset.order_by(*validated_fields)
+        except FieldError:
+            raise BadRequestError(f"cannot order by '{order_param}' (invalid field)")
 
 
 class SearchFilter(BaseFilterBackend):
