@@ -982,6 +982,20 @@ class TestSaveRevision(TestCase):
             "page.save_revision() must be called on the specific version of the page. Call page.specific.save_revision() instead.",
         )
 
+    def test_validate_on_save_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.date_from = None
+        with self.assertRaises(ValidationError):
+            christmas_event.save_revision()
+
+    def test_validate_on_schedule_revision(self):
+        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_event.date_from = None
+        with self.assertRaises(ValidationError):
+            christmas_event.save_revision(
+                approved_go_live_at=timezone.now() + datetime.timedelta(days=1)
+            )
+
 
 class TestLiveRevision(TestCase):
     fixtures = ["test.json"]
