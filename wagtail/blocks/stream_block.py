@@ -460,6 +460,10 @@ class BaseStreamBlock(Block):
 
         return errors
 
+    @cached_property
+    def _has_default(self):
+        return self.meta.default is not BaseStreamBlock._meta_class.default
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
@@ -668,7 +672,9 @@ class StreamValue(MutableSequence):
             block_id = None
 
         block_def = self.stream_block.child_blocks[type_name]
-        return StreamValue.StreamChild(block_def, value, id=block_id)
+        return StreamValue.StreamChild(
+            block_def, block_def.normalize(value), id=block_id
+        )
 
     def __getitem__(self, i):
         if isinstance(i, slice):
@@ -826,8 +832,11 @@ class StreamBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
             "maxNum": block.meta.max_num,
             "minNum": block.meta.min_num,
@@ -836,6 +845,7 @@ class StreamBlockAdapter(Adapter):
             "strings": {
                 "MOVE_UP": _("Move up"),
                 "MOVE_DOWN": _("Move down"),
+                "DRAG": _("Drag"),
                 "DUPLICATE": _("Duplicate"),
                 "DELETE": _("Delete"),
                 "ADD": _("Add"),

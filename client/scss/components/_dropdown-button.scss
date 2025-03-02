@@ -1,4 +1,7 @@
 // stylelint-disable selector-attribute-name-disallowed-list
+@use '../tools' as *;
+@use '../settings' as *;
+
 $separator: 1px solid theme('colors.white-15');
 $radius: theme('borderRadius.sm');
 
@@ -24,16 +27,6 @@ $radius: theme('borderRadius.sm');
   [data-tippy-root] {
     // Make sure the tooltip within will match this element’s width.
     width: 100%;
-  }
-
-  @supports not selector(:has(*)) {
-    // Use no corner radius and always-on borders if `:has` is not supported.
-    --primary-button-radius-top: 0;
-    --primary-button-radius-bottom: 0;
-    --toggle-button-radius-top: 0;
-    --toggle-button-radius-bottom: 0;
-    --first-item-border-top: #{$separator};
-    --last-item-border-top: #{$separator};
   }
 
   &:has(:not([hidden]) > [data-placement^='bottom']) {

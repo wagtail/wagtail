@@ -1,6 +1,7 @@
 """
 Draftail / contentstate conversion
 """
+
 from draftjs_exporter.dom import DOM
 
 from wagtail.admin.rich_text.converters.contentstate_models import Entity

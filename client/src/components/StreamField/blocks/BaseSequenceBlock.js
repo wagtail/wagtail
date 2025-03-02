@@ -4,6 +4,7 @@
 
 import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
+import Sortable from 'sortablejs';
 import { escapeHtml as h } from '../../../utils/text';
 import {
   initCollapsiblePanel,
@@ -21,9 +22,7 @@ class ActionButton {
       this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
 
     this.dom = $(`
-      <button type="button" class="button button--icon text-replace white" title="${h(
-        label,
-      )}">
+      <button type="button" class="button button--icon text-replace white" data-streamfield-action="${this.labelIdentifier}" title="${h(label)}">
         <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
           <use href="#icon-${h(this.icon)}"></use>
         </svg>
@@ -87,6 +86,14 @@ class MoveDownButton extends ActionButton {
   }
 }
 
+class DragButton extends ActionButton {
+  enableEvent = 'enableDrag';
+  disableEvent = 'disableDrag';
+  initiallyDisabled = false;
+  icon = 'grip';
+  labelIdentifier = 'DRAG';
+}
+
 class DuplicateButton extends ActionButton {
   enableEvent = 'enableDuplication';
   disableEvent = 'disableDuplication';
@@ -138,7 +145,7 @@ export class BaseSequenceChild extends EventEmitter {
     const blockTypeLabel = h(this.blockDef.meta.label);
 
     const dom = $(`
-      <div ${
+      <div data-streamfield-child ${
         this.id
           ? `data-contentpath="${h(this.id)}"`
           : 'data-contentpath-disabled'
@@ -198,6 +205,7 @@ export class BaseSequenceChild extends EventEmitter {
 
     this.addActionButton(new MoveUpButton(this));
     this.addActionButton(new MoveDownButton(this));
+    this.addActionButton(new DragButton(this));
     this.addActionButton(new DuplicateButton(this));
     this.addActionButton(new DeleteButton(this));
 
@@ -578,6 +586,25 @@ export class BaseSequenceBlock {
     }
 
     this.blockCountChanged();
+  }
+
+  initDragNDrop() {
+    this.sortable = Sortable.create(this.sequenceContainer.get(0), {
+      handle: '[data-streamfield-action="DRAG"]',
+      animation: 200,
+      // Only drag blocks, not insertion controls.
+      draggable: '[data-streamfield-child]',
+      onEnd: (e) => {
+        // Only consider StreamField blocks, not the insertion controls.
+        const { oldDraggableIndex, newDraggableIndex } = e;
+        if (oldDraggableIndex !== newDraggableIndex) {
+          this.moveBlock(oldDraggableIndex, newDraggableIndex);
+        }
+      },
+      setData: (dataTransfer) => {
+        dataTransfer.setData('application/vnd.wagtail.type', 'sf-block');
+      },
+    });
   }
 
   moveBlock(oldIndex, newIndex) {

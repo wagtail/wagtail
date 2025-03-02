@@ -427,6 +427,26 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertRedirects(response, "/admin/")
 
+    def test_create_page_defined_before_admin_load(self):
+        """
+        Test that a page model defined before wagtail.admin is loaded has all fields present
+        """
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("earlypage", "earlypage", self.root_page.id),
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/pages/create.html")
+        # Title field should be present and have TitleFieldPanel behaviour
+        # including syncing with slug
+        self.assertContains(response, 'data-w-sync-target-value="#id_slug"')
+        # SEO title should be present in promote tab
+        self.assertContains(
+            response, "The name of the page displayed on search engine results"
+        )
+
     def test_create_simplepage_post(self):
         post_data = {
             "title": "New page!",

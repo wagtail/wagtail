@@ -81,6 +81,9 @@ class FieldBlock(Block):
             self.field.prepare_value(self.value_for_form(value))
         )
 
+    def get_description(self):
+        return super().get_description() or self.field.help_text or ""
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
@@ -110,8 +113,11 @@ class FieldBlockAdapter(Adapter):
 
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "classname": " ".join(classname),
             "showAddCommentButton": getattr(
                 block.field.widget, "show_add_comment_button", True

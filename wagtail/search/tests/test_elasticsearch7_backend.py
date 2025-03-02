@@ -840,6 +840,27 @@ class TestElasticsearch7SearchQuery(TestCase):
         }
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
+    def test_fuzzy_query_with_operator(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(
+            models.Book.objects.all(),
+            Fuzzy("Hello world", operator="and"),
+        )
+
+        # Check it
+        expected_result = {
+            "multi_match": {
+                "fields": [
+                    "_all_text",
+                    "_all_text_boost_2_0^2.0",
+                ],
+                "query": "Hello world",
+                "fuzziness": "AUTO",
+                "operator": "and",
+            }
+        }
+        self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
+
     def test_year_filter(self):
         # Create a query
         query_compiler = self.query_compiler_class(

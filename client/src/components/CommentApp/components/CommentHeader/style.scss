@@ -1,3 +1,5 @@
+@use '../../../../../scss/tools' as *;
+
 .comment-header {
   position: relative;
 
@@ -40,7 +42,6 @@
 
     > button,
     > details > summary {
-      @include more-contrast-interactive();
       border-radius: theme('borderRadius.sm');
       list-style-type: none; // Hides triangle on Firefox
       width: 30px;
@@ -49,6 +50,8 @@
       background-color: unset;
       border: unset;
       padding: 0;
+
+      @include more-contrast-interactive();
 
       &::-webkit-details-marker {
         display: none; // Hides triangle on Chrome

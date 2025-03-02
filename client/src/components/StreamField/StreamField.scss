@@ -1,4 +1,4 @@
-@import 'scss/components/c-sf-add-button';
+@use 'scss/components/c-sf-add-button';
 
 [aria-expanded='true'] + .w-panel__heading .c-sf-block__title {
   @apply w-sr-only;
@@ -15,5 +15,5 @@
 .c-sf-help .help {
   // StreamField block help text is above the blocks rather than below.
   margin-top: 0;
-  margin-bottom: theme('spacing.6');
+  margin-bottom: theme('spacing.4');
 }

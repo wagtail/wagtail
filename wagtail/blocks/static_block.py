@@ -58,6 +58,9 @@ class StaticBlockAdapter(Adapter):
                 text_or_html: admin_text,
                 "icon": block.meta.icon,
                 "label": block.label,
+                "description": block.get_description(),
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
             },
         ]
 

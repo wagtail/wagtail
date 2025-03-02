@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020,2024\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
@@ -53,12 +53,6 @@ msgstr "beskrivning"
 msgid "search promotion"
 msgstr "Premierad sökning"
 
-msgid "Add search promotion"
-msgstr "Lägg till premierad sökning"
-
-msgid "Add search pick"
-msgstr "Lägg till sökträff"
-
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
 "search for which you wish to provide recommended results, <em>including</em> "
@@ -74,30 +68,23 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "Radera %(query)s"
 
-msgid "Delete"
-msgstr "Radera"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
 "Är du säker på att du vill radera alla premierade resultat för den här "
 "söktermen?"
 
-msgid "Yes, delete"
-msgstr "Ja, radera"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Redigerar %(query)s"
-
-msgid "Editing"
-msgstr "Redigerar"
-
 msgid "Move up"
 msgstr "Flytta upp"
 
 msgid "Move down"
 msgstr "Flytta ner"
+
+msgid "Drag"
+msgstr "Dra"
+
+msgid "Delete"
+msgstr "Radera"
 
 msgid "Promoted search results"
 msgstr "Premierade sökresultat"
@@ -138,24 +125,24 @@ msgstr "Extern länk"
 msgid "None"
 msgstr "Ingen"
 
-msgid "Search Terms"
-msgstr "Söktermer"
-
-msgid "Add new promoted result"
-msgstr "Lägg till ett nytt premierat resultat"
+msgid "Date"
+msgstr "Datum"
 
 msgid "Search term(s)"
 msgstr "Sökterm(er)"
 
+msgid "Add new promoted result"
+msgstr "Lägg till ett nytt premierat resultat"
+
 msgid "Promoted results"
 msgstr "Premierade resultat"
+
+msgid "Promoted search result"
+msgstr "Premierat sökresultat"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Redaktörens val för '%(query)s' skapad. "
-
-msgid "Edit"
-msgstr "Redigera"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekommendationer kunde inte läggas till p.g.a. fel"

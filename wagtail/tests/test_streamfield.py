@@ -225,6 +225,17 @@ class TestStreamValueAccess(TestCase):
         self.assertIsInstance(fetched_body[0].value, RichText)
         self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
 
+    def test_normalize_on_assign(self):
+        self.json_body.body = [("rich_text", "<h2>hello world</h2>")]
+        self.json_body.save()
+
+        # the body should now be a stream consisting of a single rich_text block
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 1)
+        self.assertIsInstance(fetched_body[0].value, RichText)
+        self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
+
     def test_can_append(self):
         self.json_body.body.append(("text", "bar"))
         self.json_body.save()
@@ -236,6 +247,30 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(fetched_body[0].value, "foo")
         self.assertEqual(fetched_body[1].block_type, "text")
         self.assertEqual(fetched_body[1].value, "bar")
+
+    def test_normalize_on_append(self):
+        self.json_body.body.append(("rich_text", "<h2>hello world</h2>"))
+        self.json_body.save()
+
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 2)
+        self.assertEqual(fetched_body[0].block_type, "text")
+        self.assertEqual(fetched_body[0].value, "foo")
+        self.assertEqual(fetched_body[1].block_type, "rich_text")
+        self.assertIsInstance(fetched_body[1].value, RichText)
+        self.assertEqual(fetched_body[1].value.source, "<h2>hello world</h2>")
+
+    def test_normalize_on_replace(self):
+        self.json_body.body[0] = ("rich_text", "<h2>hello world</h2>")
+        self.json_body.save()
+
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 1)
+        self.assertEqual(fetched_body[0].block_type, "rich_text")
+        self.assertIsInstance(fetched_body[0].value, RichText)
+        self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
 
     def test_can_append_on_queried_instance(self):
         # The test is analog to test_can_append(), but instead of working with the

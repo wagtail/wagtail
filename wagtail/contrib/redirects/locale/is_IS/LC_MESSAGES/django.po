@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2015,2019,2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -105,9 +105,6 @@ msgstr "tilvísun"
 msgid "redirects"
 msgstr "tilvísanir"
 
-msgid "Add redirect"
-msgstr "Bæta við tilvísun"
-
 msgid "Redirects"
 msgstr "Tilvísanir"
 
@@ -132,14 +129,8 @@ msgstr "Lesa inn"
 msgid "Delete redirect %(title)s"
 msgstr "Eyða tilvísun %(title)s"
 
-msgid "Delete"
-msgstr "Eyða"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Ertu viss um að þú viljir eyða þessari tilvísun?"
-
-msgid "Yes, delete"
-msgstr "Já, eyða"
 
 msgid "Confirm import"
 msgstr "Staðfesta innlestur"
@@ -188,6 +179,9 @@ msgstr ""
 "Engar tilvísanir hér. Viltu <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">búa til tilvísun</a>?"
 
+msgid "Add redirect"
+msgstr "Bæta við tilvísun"
+
 msgid "Site"
 msgstr "Vefsvæði"
 
@@ -203,16 +197,13 @@ msgstr "Tilvísun '%(redirect_title)s' uppfærð."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Tilvísun '%(redirect_title)s' eytt."
 
-#, python-format
-msgid "Redirect '%(redirect_title)s' added."
-msgstr "Tilvísun '%(redirect_title)s' var bætt við."
-
-msgid "Edit"
-msgstr "Breyta"
-
 msgid "The redirect could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
+
+#, python-format
+msgid "Redirect '%(redirect_title)s' added."
+msgstr "Tilvísun '%(redirect_title)s' var bætt við."
 
 msgid "Search redirects"
 msgstr "Leita í tilvísunum"

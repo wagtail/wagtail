@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Siramol Khunchai, 2024\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
@@ -394,10 +394,6 @@ msgstr ""
 "ลบ"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "ยกเลิกการเผยแพร่ %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "คุณแน่ใจว่าต้องการจะยุติการเผยแพร่ %(model_name)s นี้หรือไม่?"
 
@@ -421,13 +417,6 @@ msgstr "คุณยังต้องการจะเผยแพร่ %(mod
 
 msgid "Update"
 msgstr "ล่าสุด"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "กำลังเปรียบเทียบ %(title)s"
-
-msgid "Comparing"
-msgstr "กำลังเปรียบเทียบ"
 
 msgid "Fields"
 msgstr "หัวข้อ"
@@ -754,13 +743,6 @@ msgstr "คัดกรอง"
 msgid "Visit the live page"
 msgstr "ไปยังหน้าที่เผยแพร่"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
-
-msgid "Unschedule"
-msgstr "ยกเลิกตาราง"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "คุณแน่ใจว่าคุณอยากจะยกเลิกการแก้ไขนี้"
 
@@ -929,6 +911,9 @@ msgstr "ที่เก่าแก่ที่สุด"
 
 msgid "Latest"
 msgstr "ล่าสุด"
+
+msgid "Unschedule"
+msgstr "ยกเลิกตาราง"
 
 #, python-format
 msgid "Edit this %(object)s"
