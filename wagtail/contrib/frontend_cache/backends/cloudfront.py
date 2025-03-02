@@ -41,7 +41,12 @@ class CloudfrontBackend(BaseBackend):
             distribution_id = self.cloudfront_distribution_id
 
             if distribution_id:
-                paths_by_distribution_id[distribution_id].add(url_parsed.path)
+                path = url_parsed.path or "/"
+                if url_parsed.query:
+                    path += "?" + url_parsed.query
+                # Only append if the path is not already in the list
+                if path not in paths_by_distribution_id[distribution_id]:
+                    paths_by_distribution_id[distribution_id].add(path)
 
         for distribution_id, paths in paths_by_distribution_id.items():
             self._create_invalidation(distribution_id, list(paths))
