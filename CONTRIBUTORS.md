@@ -882,6 +882,7 @@
 * Aditya (megatrron)
 * Arthur Tripp
 * Ian Meigh
+* Jigyasu Rajput
 
 ## Translators
 
