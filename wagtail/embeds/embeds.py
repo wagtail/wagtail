@@ -20,7 +20,12 @@ def get_finder_for_embed(url, max_width=None, max_height=None):
     raise EmbedUnsupportedProviderException
 
 
-def get_embed(url, max_width=None, max_height=None, finder=get_finder_for_embed):
+def get_embed(url, max_width=None, max_height=None):
+    """
+    Retrieve an embed for the given URL using the configured finders.
+
+    Note: The 'finder' parameter has been removed (see GitHub issue #7287).
+    """
     embed_hash = get_embed_hash(url, max_width, max_height)
 
     # Check database
@@ -29,7 +34,7 @@ def get_embed(url, max_width=None, max_height=None, finder=get_finder_for_embed)
     except Embed.DoesNotExist:
         pass
 
-    embed_dict = finder(url, max_width, max_height)
+    embed_dict = get_finder_for_embed(url, max_width, max_height)
 
     # Make sure width and height are valid integers before inserting into database
     try:
