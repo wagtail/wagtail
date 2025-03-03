@@ -171,12 +171,10 @@ class TestSnippetChooserBlockWithIcon(TestCase):
         self.assertEqual(chooser_block.meta.icon, "cog")
 
     def test_snippet_icon_override_if_custom_icon_is_not_defined(self):
-        mock_viewset = mock.MagicMock()
-        mock_model = mock.MagicMock()
-        mock_model.snippet_viewset = mock_viewset
-        block = SnippetChooserBlock(target_model=mock_model)
+        chooser_block = SnippetChooserBlock(Advert)
+        _ = chooser_block.widget
         # Here since custom icon is not defined, it should be "snippet"
-        self.assertEqual(block.meta.icon, "snippet")
+        self.assertEqual(chooser_block.meta.icon, "snippet")
 
 
 class TestSnippetChooserPanelWithIcon(BaseSnippetViewSetTests):
