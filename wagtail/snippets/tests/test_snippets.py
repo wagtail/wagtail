@@ -414,6 +414,55 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             html=True,
         )
 
+    def test_use_fallback_for_blank_string_representation(self):
+        snippet = DraftStateModel.objects.create(text="", live=False)
+
+        response = self.client.get(
+            reverse("wagtailsnippets_tests_draftstatemodel:list"),
+        )
+
+        edit_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:edit",
+            args=[quote(snippet.pk)],
+        )
+        title = f"DraftStateModel object ({snippet.pk})"
+
+        self.assertContains(
+            response,
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    {title}
+                </span>
+            </a>
+            """,
+            html=True,
+        )
+
+    def test_use_fallback_for_blank_title_field(self):
+        # FullFeaturedSnippet's listing view uses the "text" field as the title column,
+        # rather than the str() representation. If this is blank, we show "(blank)" so that
+        # there is something to click on
+        snippet = FullFeaturedSnippet.objects.create(text="", live=False)
+        response = self.client.get(
+            reverse("some_namespace:list"),
+        )
+        edit_url = reverse(
+            "some_namespace:edit",
+            args=[quote(snippet.pk)],
+        )
+        self.assertContains(
+            response,
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    (blank)
+                </span>
+            </a>
+            """,
+            html=True,
+        )
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
@@ -3630,6 +3679,25 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             count=1,
         )
         self.assertSchedulingDialogRendered(response)
+
+    def test_use_fallback_for_blank_string_representation(self):
+        self.snippet = DraftStateModel.objects.create(text="", live=False)
+
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_draftstatemodel:edit",
+                args=[quote(self.snippet.pk)],
+            ),
+        )
+
+        title = f"DraftStateModel object ({self.snippet.pk})"
+
+        soup = self.get_soup(response.content)
+        h2 = soup.select_one("#header-title")
+        self.assertEqual(h2.text.strip(), title)
+
+        sublabel = soup.select_one(".w-breadcrumbs li:last-of-type")
+        self.assertEqual(sublabel.get_text(strip=True), title)
 
 
 class TestScheduledForPublishLock(BaseTestSnippetEditView):
