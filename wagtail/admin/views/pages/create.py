@@ -157,6 +157,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         if self.form.is_valid():
             return self.form_valid(self.form)
         else:
+            self.form.restore_required_fields()
             return self.form_invalid(self.form)
 
     @cached_property
