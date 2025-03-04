@@ -56,3 +56,13 @@ class TestDeferRequiredFields(TestCase):
         )
         form.defer_required_fields()
         self.assertTrue(form.is_valid())
+
+        form = AdvertForm(
+            {
+                "url": "https://www.example.com",
+                "text": "",
+            }
+        )
+        form.defer_required_fields()
+        form.restore_required_fields()
+        self.assertFalse(form.is_valid())
