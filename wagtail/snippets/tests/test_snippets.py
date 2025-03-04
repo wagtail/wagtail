@@ -1401,6 +1401,25 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         self.assertEqual(log_entry.revision, snippet.latest_revision)
         self.assertEqual(log_entry.label, f"DraftStateModel object ({snippet.pk})")
 
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        response = self.client.post(
+            reverse("some_namespace:add"),
+            {"text": "", "country_code": "UK", "some_number": "meef"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # The empty text should not cause a validation error, but the invalid number should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a whole number.", count=1)
+
+        soup = self.get_soup(response.content)
+        self.assertTrue(soup.select_one('label[for="id_text"] > span.w-required-mark'))
+
     def test_create_will_not_publish_invalid_snippet(self):
         response = self.post(
             post_data={"text": "", "action-publish": "Publish"},
@@ -2373,6 +2392,30 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             log_entry.label,
             f"DraftStateCustomPrimaryKeyModel object ({self.test_snippet.pk})",
         )
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        snippet = FullFeaturedSnippet.objects.create(
+            text="Hello world",
+            country_code="UK",
+            some_number=42,
+        )
+        response = self.client.post(
+            reverse("some_namespace:edit", args=[snippet.pk]),
+            {"text": "", "country_code": "UK", "some_number": "meef"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # The empty text should not cause a validation error, but the invalid number should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a whole number.", count=1)
+
+        soup = self.get_soup(response.content)
+        self.assertTrue(soup.select_one('label[for="id_text"] > span.w-required-mark'))
 
     def test_cannot_publish_invalid(self):
         # Connect a mock signal handler to published signal

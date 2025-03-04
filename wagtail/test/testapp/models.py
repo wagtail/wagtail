@@ -1255,6 +1255,8 @@ class FullFeaturedSnippet(
         for_concrete_model=False,
     )
 
+    panels = ["text", "country_code", "some_number"]
+
     search_fields = [
         index.SearchField("text"),
         index.AutocompleteField("text"),

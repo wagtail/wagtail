@@ -495,6 +495,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         if self.form.is_valid() and not self.locked_for_user:
             return self.form_valid(self.form)
         else:
+            self.form.restore_required_fields()
             return self.form_invalid(self.form)
 
     def workflow_action_is_valid(self):

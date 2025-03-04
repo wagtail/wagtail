@@ -751,8 +751,12 @@ class CreateEditViewOptionalFeaturesMixin:
         # If saving as draft, do not enforce full validation
         if self.saving_as_draft and isinstance(form, WagtailAdminModelForm):
             form.defer_required_fields()
+            form_is_valid = form.is_valid()
+            form.restore_required_fields()
+        else:
+            form_is_valid = form.is_valid()
 
-        if form.is_valid():
+        if form_is_valid:
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
