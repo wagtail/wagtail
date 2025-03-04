@@ -30,10 +30,16 @@ def get_latest_str(obj):
     from wagtail.models import DraftStateMixin, Page
 
     if isinstance(obj, Page):
-        return obj.specific_deferred.get_admin_display_title()
-    if isinstance(obj, DraftStateMixin) and obj.latest_revision:
-        return obj.latest_revision.object_str
-    return str(obj)
+        result = obj.specific_deferred.get_admin_display_title()
+    elif isinstance(obj, DraftStateMixin) and obj.latest_revision:
+        result = obj.latest_revision.object_str
+    else:
+        result = str(obj)
+
+    if result.strip() == "":
+        result = f"{obj.__class__.__name__} object ({obj.pk})"
+
+    return result
 
 
 def get_user_display_name(user):
