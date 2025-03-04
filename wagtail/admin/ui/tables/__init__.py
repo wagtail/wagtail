@@ -211,6 +211,8 @@ class TitleColumn(Column):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
+        if not str(context["value"]).strip():
+            context["value"] = "(blank)"
         context["link_attrs"] = self.get_link_attrs(instance, parent_context)
         context["link_attrs"]["href"] = context["link_url"] = self.get_link_url(
             instance, parent_context
