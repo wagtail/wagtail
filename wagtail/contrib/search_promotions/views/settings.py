@@ -53,7 +53,7 @@ class IndexView(generic.IndexView):
         ),
         Column(
             "views",
-            label=gettext_lazy("Views (past week)"),
+            label=gettext_lazy("Views"),
             width="20%",
             sort_key="views",
         ),
