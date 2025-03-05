@@ -39,6 +39,7 @@ module.exports = function exports(env, argv) {
       'draftail',
       'filtered-select',
       'icons',
+      'inline-panel',
       'modal-workflow',
       'page-chooser-modal',
       'page-chooser',

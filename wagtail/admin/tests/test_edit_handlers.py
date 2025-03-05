@@ -1414,9 +1414,6 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
 
-        # rendered panel must include the JS initializer
-        self.assertIn("var panel = new InlinePanel({", result)
-
         # rendered panel must have data-contentpath-disabled attribute by default
         self.assertIn("data-contentpath-disabled", result)
 
@@ -1504,9 +1501,6 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             allow_extra_attrs=True,
         )
 
-        # render_js_init must provide the JS initializer
-        self.assertIn("var panel = new InlinePanel({", panel.render_html())
-
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):
         """
@@ -1535,7 +1529,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             instance=event_page, form=form, request=self.request
         )
 
-        self.assertIn("maxForms: 1000", panel.render_html())
+        self.assertIn('data-max-forms="1000"', panel.render_html())
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
