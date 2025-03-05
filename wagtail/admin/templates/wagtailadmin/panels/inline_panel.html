@@ -1,4 +1,4 @@
-{% load i18n l10n wagtailadmin_tags %}
+{% load i18n l10n static wagtailadmin_tags %}
 
 {{ self.formset.management_form }}
 
@@ -14,13 +14,11 @@
     {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
 {% endif %}
 
-<div id="id_{{ self.formset.prefix }}-FORMS">
-    {% comment %}
-
-    Child elements of this div will become orderable elements. Do not place additional
-    "furniture" elements here unless you intend them to be part of the child ordering.
-
-    {% endcomment %}
+<div id="id_{{ self.formset.prefix }}-FORMS"
+     data-formset-prefix="id_{{ self.formset.prefix }}"
+     data-empty-child-form-prefix="{{ self.empty_child.form.prefix }}"
+     data-can-order="{% if can_order %}true{% else %}false{% endif %}"
+     data-max-forms="{{ self.formset.max_num|unlocalize }}">
 
     {% for child in self.children %}
         {% include "wagtailadmin/panels/inline_panel_child.html" %}
@@ -34,21 +32,31 @@
 {# Align with guiding line of the preceding child panel. #}
 <div class="w-mb-4 -w-ml-4">
     {% block add_button %}
-        <button type="button" class="button button-small button-secondary chooser__choose-button" id="id_{{ self.formset.prefix }}-ADD">
-            {% icon name=icon|default:"plus-inverse" %}{% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+        <button type="button" class="button button-small button-secondary chooser__choose-button"
+                id="id_{{ self.formset.prefix }}-ADD">
+            {% icon name=icon|default:"plus-inverse" %}
+            {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
         </button>
     {% endblock %}
 </div>
 
+
 {% block js_init %}
     <script>
-        (function() {
-            var panel = new InlinePanel({
-                formsetPrefix: "id_{{ self.formset.prefix }}",
-                emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
-                canOrder: {% if can_order %}true{% else %}false{% endif %},
-                maxForms: {{ self.formset.max_num|unlocalize }}
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("[id$='-FORMS']").forEach((panelElement) => {
+                const formsetPrefix = panelElement.dataset.formsetPrefix;
+                const emptyChildFormPrefix = panelElement.dataset.emptyChildFormPrefix;
+                const canOrder = panelElement.dataset.canOrder === "true";
+                const maxForms = parseInt(panelElement.dataset.maxForms, 10);
+
+                new InlinePanel({
+                    formsetPrefix,
+                    emptyChildFormPrefix,
+                    canOrder,
+                    maxForms,
+                });
             });
-        })();
+        });
     </script>
 {% endblock %}
