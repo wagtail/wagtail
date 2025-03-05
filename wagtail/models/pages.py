@@ -1281,7 +1281,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
-        Return ``None`` if the page is not routable.
+        Return ``None`` if the page is not routable, or return
+        ``(site_id, None, None)`` if ``NoReverseMatch`` exception is raised.
 
         This is used internally by the ``full_url``, ``url``, ``relative_url``
         and ``get_site`` properties and methods; pages with custom URL routing

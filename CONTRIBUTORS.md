@@ -880,6 +880,7 @@
 * Sylvain Boissel
 * Jordan Teichmann
 * Aditya (megatrron)
+* Arthur Tripp
 
 ## Translators
 
