@@ -21,13 +21,6 @@ class BaseItem:
 class AdminItem(BaseItem):
     template = "wagtailadmin/userbar/item_admin.html"
 
-    def render(self, request):
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        return super().render(request)
-
 
 class AccessibilityItem(BaseItem):
     """A userbar item that runs the accessibility checker."""
@@ -214,13 +207,6 @@ class AccessibilityItem(BaseItem):
             "axe_configuration": self.get_axe_configuration(request),
         }
 
-    def render(self, request):
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        return super().render(request)
-
 
 class AddPageItem(BaseItem):
     template = "wagtailadmin/userbar/item_page_add.html"
@@ -232,10 +218,6 @@ class AddPageItem(BaseItem):
     def render(self, request):
         # Don't render if the page doesn't have an id
         if not self.page.id:
-            return ""
-
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if user doesn't have ability to add children here
@@ -256,10 +238,6 @@ class ExplorePageItem(BaseItem):
     def render(self, request):
         # Don't render if the page doesn't have an id
         if not self.page.id:
-            return ""
-
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if user doesn't have ability to edit or publish subpages on the parent page
@@ -291,10 +269,6 @@ class EditPageItem(BaseItem):
                 return ""
         except AttributeError:
             pass
-
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
 
         # Don't render if the user doesn't have permission to edit this page
         permission_checker = self.page.permissions_for_user(request.user)
