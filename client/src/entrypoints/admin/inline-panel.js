@@ -1,15 +1,14 @@
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("[id$='-FORMS']").forEach((panelElement) => {
-        const formsetPrefix = panelElement.dataset.formsetPrefix;
-        const emptyChildFormPrefix = panelElement.dataset.emptyChildFormPrefix;
-        const canOrder = panelElement.dataset.canOrder === "true";
-        const maxForms = parseInt(panelElement.dataset.maxForms, 10);
+const inlinePanelInstances = new Map();
 
-        new InlinePanel({
-            formsetPrefix,
-            emptyChildFormPrefix,
-            canOrder,
-            maxForms,
-        });
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll("[id$='-FORMS']").forEach((panelElement) => {
+    const panel = new window.InlinePanel({
+      formsetPrefix: panelElement.dataset.formsetPrefix,
+      emptyChildFormPrefix: panelElement.dataset.emptyChildFormPrefix,
+      canOrder: panelElement.dataset.canOrder === 'true',
+      maxForms: parseInt(panelElement.dataset.maxForms, 10),
     });
+
+    inlinePanelInstances.set(panelElement, panel);
+  });
 });
