@@ -105,6 +105,11 @@ module.exports = {
       'slim-header': '50px',
     },
     extend: {
+      textAlign: {
+        end: 'end',
+        left: 'left',
+        right: 'right',
+      },
       outlineOffset: {
         inside: '-3px',
       },
