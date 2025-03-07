@@ -6,6 +6,7 @@ Changelog
 
  * Add iHeart oembed provider (Storm Heg)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
+ * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
 
 
 7.0 LTS (xx.xx.xxxx) - IN DEVELOPMENT

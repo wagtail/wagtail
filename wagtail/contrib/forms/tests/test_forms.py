@@ -230,7 +230,17 @@ class TestFormBuilder(TestCase):
         """
         field_types = ["multiselect", "dropdown", "checkboxes", "radio"]
         testdata = [
+            ("red\ngreen\nblue", ["red", "green", "blue"]),
+            ("red\rgreen\rblue", ["red", "green", "blue"]),
             ("red\r\ngreen\r\nblue", ["red", "green", "blue"]),
+            ("red\r\ngreen\nblue", ["red", "green", "blue"]),
+            ("red\ngreen\nblue\n", ["red", "green", "blue"]),
+            ("\nred\ngreen\nblue", ["red", "green", "blue"]),
+            ("red,\ngreen \n blue", ["red", "green", "blue"]),
+            ("red  ,\ngreen \n blue", ["red", "green", "blue"]),
+            ("  red  \ngreen\nblue", ["red", "green", "blue"]),
+            ("red\n,green\nblue", ["red", ",green", "blue"]),
+            ("red\ngreen, blue\nyellow", ["red", "green, blue", "yellow"]),
         ]
         for field_type, (choices, expected) in itertools.product(field_types, testdata):
             field = FormField(field_type=field_type, choices=choices, label="test")
@@ -247,7 +257,13 @@ class TestFormBuilder(TestCase):
         Ensure that default values can be separated by newlines.
         """
         for choices, default_value, expected in [
+            ("a\nb\nc", "a", ["a"]),
+            ("a\nb\nc", "a\nc", ["a", "c"]),
+            ("a\rb\rc", "a\rc", ["a", "c"]),
             ("a\r\nb\r\nc", "a\r\nc", ["a", "c"]),
+            ("a\nb\nc", "a\r\nc", ["a", "c"]),
+            ("a\nb\rc", "a\r\nc", ["a", "c"]),
+            ("a\nb\nc", "a\nd", ["a", "d"]),
         ]:
             field = FormField(
                 label="test",
