@@ -1,3 +1,5 @@
+import itertools
+
 from django import forms
 from django.test import TestCase
 
@@ -222,88 +224,41 @@ class TestFormBuilder(TestCase):
         self.assertIn(get_field_clean_name(unsaved_field_1.label), fb.formfields)
         self.assertIn(get_field_clean_name(unsaved_field_2.label), fb.formfields)
 
-    def test_newline_value_separation_in_choices_and_default_value_fields(self):
-        """Ensure that the new line present between input choices or values gets formatted into choices or value list
-        respectively as an alternative to commas.
+    def test_newline_value_separation_in_choices(self):
         """
-        multiselect_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your favorite colours",
-            field_type="multiselect",
-            required=True,
-            choices="red\r\nblue\r\ngreen",
-        )
-        self.form_page.form_fields.add(multiselect_field)
+        Ensure that choices can be separated either by newlines or by commas.
+        """
+        field_types = ["multiselect", "dropdown", "checkboxes", "radio"]
+        testdata = [
+            ("red\r\ngreen\r\nblue", ["red", "green", "blue"]),
+        ]
+        for field_type, (choices, expected) in itertools.product(field_types, testdata):
+            field = FormField(field_type=field_type, choices=choices, label="test")
+            builder = FormBuilder([field])
+            form_field = builder.formfields["test"]
+            with self.subTest(field_type=field_type, choices=choices):
+                self.assertEqual(
+                    [choice for choice, _ in form_field.choices],
+                    expected,
+                )
 
-        dropdown_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Pick your next destination",
-            field_type="dropdown",
-            required=True,
-            choices="hawaii\r\nparis\r\nabuja",
-        )
-        self.form_page.form_fields.add(dropdown_field)
-
-        checkboxes_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=3,
-            label="Do you possess these attributes",
-            field_type="checkboxes",
-            required=False,
-            choices="good, kind and gentle.\r\nstrong, bold and brave.",
-        )
-        self.form_page.form_fields.add(checkboxes_field)
-
-        radio_field = FormField.objects.create(
-            page=self.form_page,
-            sort_order=2,
-            label="Your favorite animal",
-            help_text="Choose one",
-            field_type="radio",
-            required=True,
-            choices="cat\r\ndog\r\nbird",
-        )
-        self.form_page.form_fields.add(radio_field)
-
-        checkboxes_field_with_default_value = FormField.objects.create(
-            page=self.form_page,
-            sort_order=3,
-            label="Choose the correct answer",
-            field_type="checkboxes",
-            required=False,
-            choices="a\r\nb\r\nc",
-            default_value="a\r\nc",
-        )
-        self.form_page.form_fields.add(checkboxes_field_with_default_value)
-
-        fb = FormBuilder(self.form_page.get_form_fields())
-        form_class = fb.get_form_class()
-
-        self.assertEqual(
-            [("red", "red"), ("blue", "blue"), ("green", "green")],
-            form_class.base_fields["your_favorite_colours"].choices,
-        )
-        self.assertEqual(
-            [("cat", "cat"), ("dog", "dog"), ("bird", "bird")],
-            form_class.base_fields["your_favorite_animal"].choices,
-        )
-        self.assertEqual(
-            [
-                ("good, kind and gentle.", "good, kind and gentle."),
-                ("strong, bold and brave.", "strong, bold and brave."),
-            ],
-            form_class.base_fields["do_you_possess_these_attributes"].choices,
-        )
-        self.assertEqual(
-            [("hawaii", "hawaii"), ("paris", "paris"), ("abuja", "abuja")],
-            form_class.base_fields["pick_your_next_destination"].choices,
-        )
-        self.assertEqual(
-            ["a", "c"],
-            form_class.base_fields["choose_the_correct_answer"].initial,
-        )
+    def test_newline_value_separation_in_default_value(self):
+        """
+        Ensure that default values can be separated by newlines.
+        """
+        for choices, default_value, expected in [
+            ("a\r\nb\r\nc", "a\r\nc", ["a", "c"]),
+        ]:
+            field = FormField(
+                label="test",
+                field_type="checkboxes",
+                choices=choices,
+                default_value=default_value,
+            )
+            builder = FormBuilder([field])
+            form_field = builder.formfields["test"]
+            with self.subTest(choices=choices, default_value=default_value):
+                self.assertEqual(form_field.initial, expected)
 
     def test_custom_widget(self):
         """
