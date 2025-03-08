@@ -17,7 +17,7 @@ interface LatestVersionData extends VersionData {
  * is out of date.
  *
  * Expected JSON payload:
- *
+ * ```json
  * {
  *     "version": "2.15.2",
  *     "url":     "https://docs.wagtail.io/en/stable/releases/2.15.2.html",
@@ -28,6 +28,18 @@ interface LatestVersionData extends VersionData {
  *         "minorUrl": "https://docs.wagtail.io/en/stable/releases/2.12.html"
  *     }
  * }
+ * ```
+ *
+ * @example
+ * ```html
+ * <div
+ *   data-controller="w-upgrade"
+ *   data-w-upgrade-current-version-value="6.3.1"
+ *   data-w-upgrade-url-value="https://path.to/latest.txt"
+ * >
+ *   <p>A new version of Wagtail is available!</p>
+ * </div>
+ * ```
  */
 export class UpgradeController extends Controller<HTMLElement> {
   static targets = ['latestVersion', 'link', 'dismiss'];

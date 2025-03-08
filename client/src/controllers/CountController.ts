@@ -9,10 +9,12 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
  * to `body.`
  *
  * @example
+ * ```html
  * <div data-controller="w-count">
- *  <span data-w-count-target="label"></span>
- *  <span class="error-message">An error</span>
+ *   <span data-w-count-target="label"></span>
+ *   <span class="error-message">An error</span>
  * </div>
+ * ```
  */
 export class CountController extends Controller<HTMLFormElement> {
   static classes = ['active'];

@@ -14,6 +14,7 @@ type ToggleAllOptions = ToggleOptions & {
  * Adds the ability to collectively toggle a set of (non-disabled) checkboxes.
  *
  * @example - Basic usage
+ * ```html
  * <div data-controller="w-bulk">
  *   <input type="checkbox" data-action="w-bulk#toggleAll" data-w-bulk-target="all">
  *   <div>
@@ -26,6 +27,7 @@ type ToggleAllOptions = ToggleOptions & {
  * </div>
  *
  * @example - Showing and hiding an actions container
+ * ```html
  * <div data-controller="w-bulk" data-w-bulk-action-inactive-class="w-invisible">
  *   <div class="w-invisible" data-w-bulk-target="action" id="inner-actions">
  *     <button type="button">Some action</button>
@@ -37,8 +39,10 @@ type ToggleAllOptions = ToggleOptions & {
  *     <input data-action="w-bulk#toggle" data-w-bulk-target="item" type="checkbox" />
  *   </div>
  * </div>
+ * ```
  *
  * @example - Using groups to allow toggles to be controlled separately or together
+ * ```html
  * <table data-controller="w-bulk">
  *   <thead>
  *     <tr>
@@ -74,7 +78,7 @@ type ToggleAllOptions = ToggleOptions & {
  *     </td>
  *    </tfoot>
  * </table>
- *
+ * ```
  */
 export class BulkController extends Controller<HTMLElement> {
   static classes = ['actionInactive'];

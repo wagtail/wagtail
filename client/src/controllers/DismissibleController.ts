@@ -34,13 +34,15 @@ export const updateDismissibles = (
  * that are rendered by the client (e.g. React) needs to be handled separately.
  *
  * @example
+ * ```html
  * <section
  *  data-controller="w-dismissible"
  *  data-w-dismissible-dismissed-class="w-dismissible--dismissed"
  *  data-w-dismissible-id-value="Whats new in Wagtail"
  * >
- *  <button type="button" data-action="w-dismiss#dismissible">Close</button>
+ *   <button type="button" data-action="w-dismiss#dismissible">Close</button>
  * </section>
+ * ```
  */
 export class DismissibleController extends Controller<HTMLElement> {
   static classes = ['dismissed'];
