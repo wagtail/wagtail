@@ -15,6 +15,7 @@ import { DropdownController } from './DropdownController';
 import { FormsetController } from './FormsetController';
 import { InitController } from './InitController';
 import { KeyboardController } from './KeyboardController';
+import { LocaleController } from './LocaleController';
 import { OrderableController } from './OrderableController';
 import { PreviewController } from './PreviewController';
 import { ProgressController } from './ProgressController';
@@ -32,7 +33,6 @@ import { TooltipController } from './TooltipController';
 import { UnsavedController } from './UnsavedController';
 import { UpgradeController } from './UpgradeController';
 import { ZoneController } from './ZoneController';
-import { LocaleController } from './LocaleController';
 
 /**
  * Important: Only add default core controllers that should load with the base admin JS bundle.
