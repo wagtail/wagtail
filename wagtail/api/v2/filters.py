@@ -100,7 +100,6 @@ class OrderingFilter(BaseFilterBackend):
                 # Check if reverse ordering is set
                 if order_by.startswith("-"):
                     reverse_order = True
-                    order_by = order_by[1:]
                 else:
                     reverse_order = False
 
