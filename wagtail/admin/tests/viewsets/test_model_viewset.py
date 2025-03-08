@@ -1828,3 +1828,129 @@ class TestHeaderButtons(WagtailTestUtils, TestCase):
             [(a.text.strip(), a.get("href")) for a in header_buttons],
             expected_buttons,
         )
+
+
+class TestReorderView(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+        # Create test data with safer strid values
+        self.toy1 = FeatureCompleteToy.objects.create(
+            name="Toy 1", sort_order=0, strid="toy1"
+        )
+        self.toy2 = FeatureCompleteToy.objects.create(
+            name="Toy 2", sort_order=1, strid="toy2"
+        )
+        self.toy3 = FeatureCompleteToy.objects.create(
+            name="Toy 3", sort_order=2, strid="toy3"
+        )
+
+    def test_get_request_does_not_alter_order(self):
+        """
+        Test that GET requests to reorder view don't alter the item order.
+        """
+        # Use quote() to properly URL-encode the strid
+        response = self.client.get(
+            reverse("feature_complete_toy:reorder", args=(quote(self.toy1.strid),))
+        )
+        self.assertEqual(response.status_code, 405)
+
+        # Ensure item order does not change
+        toy_names = list(
+            FeatureCompleteToy.objects.order_by("sort_order").values_list(
+                "name", flat=True
+            )
+        )
+        self.assertListEqual(toy_names, ["Toy 1", "Toy 2", "Toy 3"])
+
+    def test_post_request_without_position_argument_moves_to_the_end(self):
+        """
+        Test that POST requests without a position parameter move the item to the end.
+        """
+        response = self.client.post(
+            reverse("feature_complete_toy:reorder", args=(quote(self.toy1.strid),))
+        )
+        self.assertEqual(response.status_code, 400)
+
+        # Ensure item order does not change because we're handling missing position differently
+        toy_names = list(
+            FeatureCompleteToy.objects.order_by("sort_order").values_list(
+                "name", flat=True
+            )
+        )
+        self.assertListEqual(toy_names, ["Toy 1", "Toy 2", "Toy 3"])
+
+    def test_move_position_up(self):
+        """
+        Test moving an item up in the list.
+        """
+        # Move toy3 to the first position
+        response = self.client.post(
+            reverse("feature_complete_toy:reorder", args=(quote(self.toy3.strid),))
+            + "?position=0"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check if toy3 is now the first item
+        toy_names = list(
+            FeatureCompleteToy.objects.order_by("sort_order").values_list(
+                "name", flat=True
+            )
+        )
+        self.assertListEqual(toy_names, ["Toy 3", "Toy 1", "Toy 2"])
+
+    def test_move_position_down(self):
+        """
+        Test moving an item down in the list.
+        """
+        # Move toy1 to the second position
+        response = self.client.post(
+            reverse("feature_complete_toy:reorder", args=(quote(self.toy1.strid),))
+            + "?position=1"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check if toy1 is now the second item
+        toy_names = list(
+            FeatureCompleteToy.objects.order_by("sort_order").values_list(
+                "name", flat=True
+            )
+        )
+        self.assertListEqual(toy_names, ["Toy 2", "Toy 1", "Toy 3"])
+
+    def test_move_position_to_same_position(self):
+        """
+        Test moving an item to its current position.
+        """
+        # Move toy1 to position 0 (where it already is)
+        response = self.client.post(
+            reverse("feature_complete_toy:reorder", args=(quote(self.toy1.strid),))
+            + "?position=0"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Ensure item order does not change
+        toy_names = list(
+            FeatureCompleteToy.objects.order_by("sort_order").values_list(
+                "name", flat=True
+            )
+        )
+        self.assertListEqual(toy_names, ["Toy 1", "Toy 2", "Toy 3"])
+
+    def test_move_position_with_invalid_target_position(self):
+        """
+        Test moving an item to an invalid position.
+        """
+        response = self.client.post(
+            reverse("feature_complete_toy:reorder", args=(quote(self.toy1.strid),))
+            + "?position=99"
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # The item will be moved to the last position
+        toy_names = list(
+            FeatureCompleteToy.objects.order_by("sort_order").values_list(
+                "name", flat=True
+            )
+        )
+        self.assertListEqual(toy_names, ["Toy 2", "Toy 3", "Toy 1"])

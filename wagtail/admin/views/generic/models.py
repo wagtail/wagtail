@@ -1578,7 +1578,7 @@ class ReorderView(View):
         return self.model.objects.all().order_by(self.sort_order_field)
 
     def post(self, request, *args, **kwargs):
-        item_to_move = get_object_or_404(self.model, id=kwargs.get("pk"))
+        item_to_move = get_object_or_404(self.model, pk=kwargs.get("pk"))
         new_position = request.GET.get("position")
 
         if new_position is None:
