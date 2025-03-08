@@ -3,14 +3,15 @@ import { Controller } from '@hotwired/stimulus';
 /**
  * Adds the ability for a field to trigger an automatic submission of its attached form.
  *
- * @example
- * // once any change is made to the below select field, the form will be auto submitted
+ * @example - Once any change is made to the below select field, the form will be auto submitted
+ * ```html
  * <form>
  *   <select name="order" data-controller="w-submit" data-action="change->w-submit#submit">
  *     <option value="A-Z">A to Z</option>
  *     <option value="Z-A">Z to A</option>
  *   </select>
  * </form>
+ * ```
  */
 export class SubmitController extends Controller<
   HTMLInputElement | HTMLSelectElement

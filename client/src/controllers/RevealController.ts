@@ -8,10 +8,12 @@ import { Controller } from '@hotwired/stimulus';
  * @see https://w3c.github.io/aria/#aria-expanded
  *
  * @example
+ * ```html
  * <section data-controller="w-reveal">
- *  <button type="button" data-action="w-reveal#toggle" data-w-reveal-target="toggle" aria-controls="my-content" type="button">Toggle</button>
- *  <div id="my-content">CONTENT</div>
+ *   <button type="button" data-action="w-reveal#toggle" data-w-reveal-target="toggle" aria-controls="my-content" type="button">Toggle</button>
+ *   <div id="my-content">CONTENT</div>
  * </section>
+ * ```
  */
 export class RevealController extends Controller<HTMLElement> {
   static classes = [

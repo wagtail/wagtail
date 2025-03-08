@@ -8,7 +8,9 @@ type SlugMethods = 'slugify' | 'urlify';
  * Adds ability to slugify the value of an input element.
  *
  * @example
+ * ```html
  * <input type="text" name="slug" data-controller="w-slug" data-action="blur->w-slug#slugify" />
+ * ```
  */
 export class SlugController extends Controller<HTMLInputElement> {
   static values = {

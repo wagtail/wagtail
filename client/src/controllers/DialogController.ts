@@ -9,12 +9,14 @@ const FLOATING = 'floating';
  * scroll when the dialog is open.
  *
  * @example
+ * ```html
  * <div
- *    data-controller="w-dialog"
- *    data-w-dialog-theme-value="floating"
+ *   data-controller="w-dialog"
+ *   data-w-dialog-theme-value="floating"
  *   >
  *    <div data-w-dialog-target="body"></div>
- *  </div>
+ * </div>
+ * ```
  */
 export class DialogController extends Controller<HTMLElement> {
   static values = {
