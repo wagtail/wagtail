@@ -50,7 +50,7 @@
     </template>
 
     <p class="add">
-        <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button" data-action="w-formset#add">{% icon name="plus" wrapped=1 %}{% trans "Add a page permission" %}</button>
+        <button class="button bicolor button--icon" id="id_{{ formset.prefix }}-ADD" value="Add" type="button" data-action="w-formset#add" data-w-formset-target="add">{% icon name="plus" wrapped=1 %}{% trans "Add a page permission" %}</button>
     </p>
 
 {% endpanel %}

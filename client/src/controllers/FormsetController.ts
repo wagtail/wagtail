@@ -1,7 +1,11 @@
+/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["disabled"] }] */
+
 import { Controller } from '@hotwired/stimulus';
 
-import { transition } from '../utils/transition';
+import { debounce } from '../utils/debounce';
+import { forceFocus } from '../utils/forceFocus';
 import { runInlineScripts } from '../utils/runInlineScripts';
+import { transition } from '../utils/transition';
 
 /**
  * Adds the ability for a dynamic, expanding, formset leveraging the Django
@@ -18,20 +22,20 @@ import { runInlineScripts } from '../utils/runInlineScripts';
  *     <li data-w-formset-target="child">
  *       <input type="text" name="form-0-name">
  *       <input type="hidden" name="form-0-DELETE" data-w-formset-target="deleteInput">
- *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *       <button type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
  *     </li>
  *     <li data-w-formset-target="child">
  *       <input type="text" name="form-1-name">
  *       <input type="hidden" name="form-1-DELETE" data-w-formset-target="deleteInput">
- *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *       <button type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
  *     </li>
  *   </ul>
- *   <button type="button" data-action="w-formset#add">Add</button>
+ *   <button type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
  *   <template data-w-formset-target="template">
  *     <li data-w-formset-target="child">
  *       <input type="text" name="form-__prefix__-name">
  *       <input type="hidden" name="form-__prefix__-DELETE" data-w-formset-target="deleteInput">
- *       <button type="button" data-action="w-formset#delete">Delete</button>
+ *       <button type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
  *     </li>
  *   </template>
  * </form>
@@ -41,12 +45,15 @@ export class FormsetController extends Controller<HTMLElement> {
   static classes = ['deleted'];
 
   static targets = [
+    'add',
     'child',
+    'delete',
     'deleted',
     'deleteInput',
     'forms',
-    'minFormsInput',
     'maxFormsInput',
+    'minFormsInput',
+    'orderInput',
     'template',
     'totalFormsInput',
   ];
@@ -57,8 +64,12 @@ export class FormsetController extends Controller<HTMLElement> {
     total: { default: 0, Number },
   };
 
+  /** Elements that trigger the adding of a child. */
+  declare readonly addTargets: HTMLButtonElement[];
   /** Active child form elements. */
   declare readonly childTargets: HTMLElement[];
+  /** Elements that trigger the deleting of a child. */
+  declare readonly deleteTargets: HTMLButtonElement[];
   /** Classes to append when transitioning from an active child to a deleted form. */
   declare readonly deletedClasses: string[];
   /** Tracking of deleted child form elements. */
@@ -71,6 +82,8 @@ export class FormsetController extends Controller<HTMLElement> {
   declare readonly minFormsInputTarget: HTMLInputElement;
   /** Hidden input to read for the value for max forms. */
   declare readonly maxFormsInputTarget: HTMLInputElement;
+  /** Hidden input to track a specific form's order, if ordering is enabled. */
+  declare readonly orderInputTargets: HTMLInputElement[];
   /** Target element that has the template content to clone for new forms.
    * `__prefix__` will be replaced with the next formIndex value upon creation. */
   declare readonly templateTarget: HTMLTemplateElement;
@@ -86,12 +99,26 @@ export class FormsetController extends Controller<HTMLElement> {
   elementPrefixRegex = /__prefix__(.*?['"])/g;
 
   initialize() {
+    this.updateOrdering = debounce(this.updateOrdering.bind(this), 50);
     this.totalValue = parseInt(this.totalFormsInputTarget.value, 10);
     this.minValue = parseInt(this.minFormsInputTarget.value, 10);
     this.maxValue = parseInt(this.maxFormsInputTarget.value, 10);
   }
 
+  /**
+   * Ensure that any deleted containers are hidden when connected (from HTML response)
+   * and remove any error message elements so that it doesn't count towards the number
+   * of errors on the tab at the top of the page.
+   * @todo - check this actually works for any timing issues from w-count controller.
+   */
   connect() {
+    this.deletedTargets.forEach((target) => {
+      target.classList.add(...this.deletedClasses);
+      target.querySelectorAll('.error-message').forEach((el) => el.remove());
+    });
+
+    this.updateOrdering();
+
     this.dispatch('ready', {
       cancelable: false,
       detail: {
@@ -103,7 +130,7 @@ export class FormsetController extends Controller<HTMLElement> {
   }
 
   /**
-   * Add a new child form from the template content.
+   * Add a new child form from the template content and set focus to it.
    */
   add() {
     if (this.childTargets.length >= this.maxValue) return;
@@ -117,12 +144,12 @@ export class FormsetController extends Controller<HTMLElement> {
       return;
     }
 
-    this.formsTarget.appendChild(this.newChild);
+    forceFocus(this.formsTarget.appendChild(this.newChild));
   }
 
   /**
    * Find the event's target's closest child target and remove it by
-   * removing the 'child' target and adding a 'child-removed' target.
+   * removing the 'child' target and adding a 'deleted' target.
    */
   delete(event: Event) {
     const target = this.childTargets.find((child) =>
@@ -148,7 +175,7 @@ export class FormsetController extends Controller<HTMLElement> {
     target.setAttribute(
       targetAttrName,
       (target.getAttribute(targetAttrName)?.split(' ') ?? [])
-        .filter((name) => name !== 'child')
+        // .filter((name) => name !== 'child')
         .concat(['deleted'])
         .join(' '),
     );
@@ -158,10 +185,14 @@ export class FormsetController extends Controller<HTMLElement> {
    * When a new child is added, update the total count and dispatch an added event.
    */
   childTargetConnected(target: HTMLElement) {
+    this.updateOrdering();
+
     const totalFormsCount =
       this.childTargets.length + this.deletedTargets.length;
     if (totalFormsCount === this.totalValue) return;
+
     this.totalValue = totalFormsCount;
+
     this.dispatch('added', {
       target,
       cancelable: false,
@@ -173,7 +204,19 @@ export class FormsetController extends Controller<HTMLElement> {
    * When removed, add the class and update the total count.
    * Also update the DELETE input for this form.
    */
-  childTargetDisconnected(target: HTMLElement) {
+  deletedTargetConnected(target: HTMLElement) {
+    // only run if the target was previously a child (non-deleted) target
+    if (!this.childTargets.find((child) => child === target)) return;
+
+    const targetAttrName = `data-${this.identifier}-target`;
+
+    target.setAttribute(
+      targetAttrName,
+      (target.getAttribute(targetAttrName)?.split(' ') ?? [])
+        .filter((name) => name !== 'child')
+        .join(' '),
+    );
+
     const deletedClasses = this.deletedClasses;
 
     target.classList.add(...deletedClasses);
@@ -199,20 +242,37 @@ export class FormsetController extends Controller<HTMLElement> {
     if (deleteInput.value === '1') return;
 
     deleteInput.value = '1';
+
     this.dispatch('change', {
       prefix: '',
       target: deleteInput,
       cancelable: false,
     });
+
+    this.updateOrdering();
   }
 
   /**
    * When the totalValue changes, update the management fields and dispatch
    * a change event for the TOTAL_FORMS input.
+   *
+   * Disable any add or delete buttons based on the min/max values and current total,
+   * even if the total value has not changed (e.g. on initial load).
    */
   totalValueChanged(currentValue: number, previousValue: number | undefined) {
     if (currentValue === previousValue || previousValue === undefined) return;
     const totalFormsInput = this.totalFormsInputTarget;
+
+    const disableAdd = currentValue >= this.maxValue;
+    const disableDelete = currentValue <= this.minValue;
+
+    this.addTargets.forEach((button) => {
+      button.disabled = disableAdd;
+    });
+
+    this.deleteTargets.forEach((button) => {
+      button.disabled = disableDelete;
+    });
 
     if (totalFormsInput.value === `${currentValue}`) return;
 
@@ -222,6 +282,50 @@ export class FormsetController extends Controller<HTMLElement> {
       target: totalFormsInput,
       cancelable: false,
     });
+  }
+
+  /**
+   * If the orderInputTargets are present, update the value of each input
+   * to match the current order of the child elements.
+   */
+  updateOrdering() {
+    const orderInputTargets = this.orderInputTargets;
+    if (!orderInputTargets.length) return;
+
+    let orderChanged = false;
+
+    this.childTargets.forEach((child, index) => {
+      const order = `${index + 1}`;
+
+      const orderInput = orderInputTargets.find((input) =>
+        child.contains(input),
+      );
+
+      if (!orderInput) {
+        throw new Error(
+          `Could not find "orderInput" target within form. ${child.nodeName} with id '${child.id}'.`,
+        );
+      }
+
+      if (orderInput.value === order) return;
+
+      orderChanged = true;
+
+      orderInput.value = order;
+      this.dispatch('change', {
+        bubbles: true,
+        cancelable: false,
+        prefix: '',
+        target: orderInput,
+      });
+    });
+
+    if (orderChanged) {
+      this.dispatch('ordered', {
+        bubbles: true,
+        cancelable: false,
+      });
+    }
   }
 
   /**
