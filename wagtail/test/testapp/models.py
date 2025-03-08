@@ -2541,7 +2541,7 @@ def random_quotable_pk():
 
 
 # Models to be registered with a ModelViewSet
-class FeatureCompleteToy(index.Indexed, Orderable):
+class FeatureCompleteToy(index.Indexed, models.Model):
     strid = models.CharField(
         max_length=255,
         primary_key=True,
@@ -2549,6 +2549,7 @@ class FeatureCompleteToy(index.Indexed, Orderable):
     )
     name = models.CharField(max_length=255)
     release_date = models.DateField(default=datetime.date.today)
+    sort_order = models.IntegerField(null=True, blank=True)
 
     search_fields = [
         index.SearchField("name"),
@@ -2567,7 +2568,7 @@ class FeatureCompleteToy(index.Indexed, Orderable):
     def __str__(self):
         return f"{self.name} ({self.release_date})"
 
-    class Meta(Orderable.Meta):
+    class Meta:
         permissions = [("can_set_release_date", "Can set release date")]
 
 

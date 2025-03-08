@@ -1,3 +1,4 @@
+from django.contrib.admin.utils import quote
 from django.utils.translation import gettext
 
 from wagtail.admin.ui.tables import Table
@@ -30,8 +31,8 @@ class ViewSetModelTable(Table):
     def get_row_attrs(self, instance):
         attrs = super().get_row_attrs(instance)
         if self.use_ordering_attributes:
-            attrs["id"] = "item_%d" % instance.id
-            attrs["data-w-orderable-item-id"] = instance.id
+            attrs["id"] = "item_%s" % quote(instance.pk)
+            attrs["data-w-orderable-item-id"] = quote(instance.pk)
             attrs["data-w-orderable-item-label"] = str(instance)
             attrs["data-w-orderable-target"] = "item"
         return attrs

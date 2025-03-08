@@ -283,7 +283,8 @@ class IndexView(
 
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
-        kwargs["use_ordering_attributes"] = True
+        if self.sort_order_field:
+            kwargs["use_ordering_attributes"] = True
         return kwargs
 
     def get_edit_url(self, instance):
@@ -332,7 +333,8 @@ class IndexView(
 
     @cached_property
     def header_more_buttons(self):
-        buttons = []
+        # SpreadsheetExportMixin comes with a header_more_buttons property, so we should call super() to include those buttons.
+        buttons = super().header_more_buttons.copy()
         if self.sort_order_field and self.user_has_permission("change"):
             buttons.append(
                 Button(
@@ -1578,7 +1580,7 @@ class ReorderView(View):
         return self.model.objects.all().order_by(self.sort_order_field)
 
     def post(self, request, *args, **kwargs):
-        item_to_move = get_object_or_404(self.model, pk=kwargs.get("pk"))
+        item_to_move = get_object_or_404(self.model, pk=unquote(kwargs.get("pk")))
         new_position = request.GET.get("position")
 
         if new_position is None:
