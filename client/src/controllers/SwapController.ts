@@ -12,41 +12,46 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  * values.
  *
  * @example - A form that will update the results based on the form's input
- *  <div id="results"></div>
- *  <form
- *    data-controller="w-swap"
- *    data-action="input->w-swap#submitLazy"
- *    data-w-swap-src-value="path/to/search"
- *    data-w-swap-target-value="#results"
- *  >
- *  <input id="search" type="text" name="query" />
- *  <input id="filter" type="text" name="filter" />
+ * ```html
+ * <div id="results"></div>
+ * <form
+ *   data-controller="w-swap"
+ *   data-action="input->w-swap#submitLazy"
+ *   data-w-swap-src-value="path/to/search"
+ *   data-w-swap-target-value="#results"
+ * >
+ *   <input id="search" type="text" name="query" />
+ *   <input id="filter" type="text" name="filter" />
  * </form>
+ * ```
  *
  * @example - A single input that will update the results & the URL
- *  <div id="results"></div>
- *  <input
- *    id="search"
- *    type="text"
- *    name="q"
- *    data-controller="w-swap"
- *    data-action="input->w-swap#searchLazy"
- *    data-w-swap-src-value="path/to/search"
- *    data-w-swap-target-value="#listing-results"
- *  />
+ * ```html
+ * <div id="results"></div>
+ * <input
+ *   id="search"
+ *   type="text"
+ *   name="q"
+ *   data-controller="w-swap"
+ *   data-action="input->w-swap#searchLazy"
+ *   data-w-swap-src-value="path/to/search"
+ *   data-w-swap-target-value="#listing-results"
+ * />
+ * ```
  *
  * @example - A single button that will update the results
- *  <div id="results"></div>
- *  <button
- *    id="clear"
- *    data-controller="w-swap"
- *    data-action="input->w-swap#replaceLazy"
- *    data-w-swap-src-value="path/to/results/?type=bar"
- *    data-w-swap-target-value="#results"
- *  >
- *    Clear owner filter
- *  </button>
- *
+ * ```html
+ * <div id="results"></div>
+ * <button
+ *   id="clear"
+ *   data-controller="w-swap"
+ *   data-action="input->w-swap#replaceLazy"
+ *   data-w-swap-src-value="path/to/results/?type=bar"
+ *   data-w-swap-target-value="#results"
+ * >
+ *   Clear owner filter
+ * </button>
+ * ```
  */
 export class SwapController extends Controller<
   HTMLFormElement | HTMLInputElement | HTMLButtonElement
