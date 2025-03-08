@@ -91,7 +91,7 @@ export class SwapController extends Controller<
   replaceLazy?: { (...args: any[]): void; cancel(): void };
   /** Debounced function to search results and then replace the DOM */
   searchLazy?: { (...args: any[]): void; cancel(): void };
-  /** Debounced function to submit the serialised form and then replace the DOM */
+  /** Debounced function to submit the serialized form and then replace the DOM */
   submitLazy?: { (...args: any[]): void; cancel(): void };
   /** A function that writes the HTML to the target */
   writeDeferred?: () => Promise<string>;
@@ -227,7 +227,7 @@ export class SwapController extends Controller<
 
   /**
    * Update the target element's content with the response from a request based on the input's form
-   * values serialised. Do not account for anything in the main location/URL, simply replace the content within
+   * values serialized. Do not account for anything in the main location/URL, simply replace the content within
    * the target element.
    */
   submit() {
@@ -235,7 +235,7 @@ export class SwapController extends Controller<
     let data: FormData | undefined = new FormData(form);
 
     let url = this.srcValue;
-    // serialise the form to a query string if it's a GET request
+    // serialize the form to a query string if it's a GET request
     if (form.getAttribute('method')?.toUpperCase() === 'GET') {
       // cast as any to avoid https://github.com/microsoft/TypeScript/issues/43797
       url += '?' + new URLSearchParams(data as any).toString();
