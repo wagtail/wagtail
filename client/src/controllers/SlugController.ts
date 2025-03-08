@@ -79,7 +79,7 @@ export class SlugController extends Controller<HTMLInputElement> {
    * or can be used to simply return the transformed value.
    *
    * The urlify (Django port) function performs extra processing on the string &
-   * is more suitable for creating a slug from the title, rather than sanitising manually.
+   * is more suitable for creating a slug from the title, rather than sanitizing manually.
    * If the urlify util returns an empty string it will fall back to the slugify method.
    *
    * If a custom event with detail.value is provided, that value will be used

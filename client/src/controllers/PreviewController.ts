@@ -557,7 +557,7 @@ export class PreviewController extends Controller<HTMLElement> {
    * @returns whether the data is valid
    */
   async checkAndUpdatePreview() {
-    // Small performance optimisation: the hasChanges() method will not be called
+    // Small performance optimization: the hasChanges() method will not be called
     // if there is a pending update due to the || operator short-circuiting
     if (this.updatePromise || !this.hasChanges()) return undefined;
     return this.setPreviewData();
