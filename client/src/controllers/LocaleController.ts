@@ -2,6 +2,15 @@ import { Controller } from '@hotwired/stimulus';
 
 /**
  * Localizes elements in the current locale.
+ *
+ * @example
+ * ```html
+ * <select data-controller="w-locale" data-action="w-locale#localizeTimeZoneOptions">
+ *   <option value="" selected>Use server time zone</option>
+ *   <option value="Asia/Jakarta">Asia/Jakarta</option>
+ *   <option value="Asia/Tokyo">Asia/Tokyo</option>
+ * </select>
+ * ```
  */
 export class LocaleController extends Controller<HTMLSelectElement> {
   /**

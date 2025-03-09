@@ -86,10 +86,12 @@ type TippyTheme = 'dropdown' | 'drilldown' | 'dropdown-button';
  * A Tippy.js tooltip with interactive "dropdown" options.
  *
  * @example
+ * ```html
  * <div data-controller="w-dropdown" data-w-dropdown-hide-on-click-value-"true">
- *  <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
- *  <div data-w-dropdown-target="content">[…]</div>
+ *   <button type="button" data-w-dropdown-target="toggle" aria-label="Actions"></button>
+ *   <div data-w-dropdown-target="content">[…]</div>
  * </div>
+ * ```
  */
 export class DropdownController extends Controller<HTMLElement> {
   static targets = ['toggle', 'content'];
