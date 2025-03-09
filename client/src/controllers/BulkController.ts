@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["checked"] }] */
+
 import { Controller } from '@hotwired/stimulus';
 
 type ToggleOptions = {
@@ -183,7 +185,6 @@ export class BulkController extends Controller<HTMLElement> {
 
       activeItems.forEach((target, index) => {
         if (index >= start && index <= end) {
-          // eslint-disable-next-line no-param-reassign
           target.checked = !!activeItems[lastClickedIndex].checked;
           this.dispatch('change', { target, bubbles: true });
         }
@@ -198,7 +199,6 @@ export class BulkController extends Controller<HTMLElement> {
     const isAllChecked = totalCheckedItems === activeItems.length;
 
     this.getValidTargets(group, this.allTargets).forEach((target) => {
-      // eslint-disable-next-line no-param-reassign
       target.checked = isAllChecked;
     });
 
@@ -242,7 +242,6 @@ export class BulkController extends Controller<HTMLElement> {
 
     this.getValidTargets(group).forEach((target) => {
       if (target.checked !== isChecked) {
-        // eslint-disable-next-line no-param-reassign
         target.checked = isChecked;
         target.dispatchEvent(new Event('change', { bubbles: true }));
       }
