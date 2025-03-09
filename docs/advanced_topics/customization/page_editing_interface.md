@@ -292,3 +292,176 @@ class BlogPage(Page):
         FieldPanel('body'),
     ]
 ```
+
+(customizing_slug_widget)=
+
+## Customizing Page slug generation
+
+The `SlugInput` accepts additional kwargs or can be extended for custom slug generation.
+
+Django's `models.SlugField` fields will automatically use the Wagtail admin's `SlugInput`, you will first need to override the widget.
+
+```python
+# models.py
+
+# ... imports
+
+class MyPage(Page):
+    promote_panels = [
+        FieldPanel("slug"), # automatically uses `SlugInput`
+        # ... other panels
+    ]
+```
+
+### Overriding `SlugInput`
+
+There are multiple ways to override the `SlugInput`, depending on your use case and admin setup.
+
+#### Via `promote_panels`
+
+The simplest, if have already set custom `promote_panels`, is to leverage the `FieldPanel` widget kwarg as follows.
+
+```python
+from wagtail.admin.widgets.slug import SlugInput
+# ... other imports
+
+class MyPage(Page):
+    promote_panels = [
+        FieldPanel("slug", widget=SlugInput(locale="uk-UK")), # force a specific locale for this page's slug only
+        # ... other panels need to be declared
+    ]
+```
+
+#### Via a custom form using `base_form_class`
+
+If you do not want to re-declare the `promote_panels`, the `base_form_class` can reference a form class that sets the widget override.
+
+```py
+# models.py
+
+from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.widgets import SlugInput
+from wagtail.models import Page
+# ... other imports
+
+
+class MyPageForm(WagtailAdminPageForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # force a specific locale for this page's slug only
+        self.fields["slug"].widget = SlugInput(locale="uk-UK")
+
+
+class MyPage(Page):
+    base_form_class = MyPageForm
+    # other fields
+    # no need to declare `promote_panels`
+```
+
+#### Globally, via `register_form_field_override`
+
+If you want to override the `models.SlugField` widget for the entire admin, this can be done using the Wagtail admin util.
+
+It's best to add this to a `wagtail_hooks.py` file as this will get run at the right time.
+
+```py
+# wagtail_hooks.py
+
+from django.db import models
+from wagtail.admin.forms.models import register_form_field_override
+from wagtail.admin import widgets
+
+# .. other imports & hooks
+
+
+register_form_field_override(
+    models.SlugField,
+    override={"widget": widgets.SlugInput(locale="uk-UK")},
+)
+```
+
+The following sections will only focus on the `SlugInput(...` usage and not where to override this.
+
+### Overriding the default locale behavior via `locale`
+
+The `SlugInput` is locale aware and will adjust the transliteration (Unicode to ASCII conversion) based on the most suitable locale, only when [`ALLOW_UNICODE_SLUGS`](wagtail_allow_unicode_slugs) is `False`.
+
+The locale will be determined from the target translation locale if ()[internationalisation] is enabled.
+
+If Internationalization is not in use, it will be based on the language of the admin for the current logged in user. This can be overridden, see below.
+
+#### Examples
+
+| `SlugInput`                                             | Description                                                                                                                                          |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SlugInput(locale="uk-UK")` or `SlugInput(locale="uk")` | Override the locale for a specific language code only (Ukrainian in this example)                                                                    |
+| `SlugInput(locale=False)`                               | Avoid the default logic for determining the locale and do not attempt to be locale aware, transliteration will still apply but use a basic approach. |
+| `SlugInput(locale=my_page_instance.locale)`             | Use a [`Locale`](locale_model_ref) instance from some other model source.                                                                            |
+
+### Adding custom formatters via `formatters`
+
+`SlugInput` also accepts a `formatters` kwarg, allowing a list of custom formatters to be applied, each formatter item can be one of the following.
+
+1. A regex pattern or string (for example `r"\d"`, `re.compile(r"\d")`)
+2. A list-like value containing a regex pattern/string and a replacement string (for example `[r"\d", "n"]`)
+3. A list-like value containing a regex pattern/string and a replacement string & custom base JavaScript regex flags (for example `[r"\d", "n", "u"]`)
+
+A reminder to ensure that regex strings are appropriately escaped.
+
+As an example below, here's a formatter that will remove common stop words from the slug. If the title is entered as `The weather and the times`, this will produce a slug of `weather-times`.
+
+```py
+# models.py
+
+from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.widgets import SlugInput
+from wagtail.models import Page
+# ... other imports
+
+
+class MyPageForm(WagtailAdminPageForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["slug"].widget = SlugInput(
+            formatters = [
+                r"(?i)\b(?:and|or|the|in|of|to)\b", # remove common stop words
+            ]
+        )
+
+
+class MyPage(Page):
+    base_form_class = MyPageForm
+```
+
+#### Examples
+
+| `SlugInput`                                                                            | Description                                                     | Input (title)                             | Output (slug)                                  |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------- |
+| `SlugInput(formatters=[r"\d"])`                                                        | Remove digits before generating the slug.                       | `3 train rides`                           | `train-rides`                                  |
+| `SlugInput(formatters=[[r"ABC", "Acme Building Company"]])`                            | Replace company abbreviation with the full name.                | `ABC retreat`                             | `acme-building-company-retreat`                |
+| `SlugInput(formatters=[[r"the", '', "u"]])`                                            | Replace the first found occurrence of 'the' with a blank space. | `The Great Gatsby review`                 | `great-gatsby-review`                          |
+| `SlugInput(formatters=[re.compile(r"(?i)\b(?:and\|or\|the\|in\|of\|to)\b")])`          | Replace common stop words, case insensitive.                    | `The joy of living green`                 | `joy-living-green`                             |
+| `SlugInput(formatters=[[re.compile(r"^(?!blog[-\s])", flags=re.MULTILINE), 'blog-']])` | Enforce a prefix of `blog-` for every slug.                     | `Last week in Spain` / `Blog about a dog` | `blog-last-week-in-spain` / `blog-about-a-dog` |
+| `SlugInput(formatters=[[[r"(?<!\S)Й", "Y"], [r"(?<!\S)Є", "Ye"]]])`                    | Replace specific characters at the start of words only.         | `Єєвропа`                                 | `yeivropa`                                     |
+
+#### Considerations
+
+There are some considerations to make when using the formatters, if you need to reach for more complex customizations it may make sense to override the Stimulus controller.
+
+##### Changing slug formatters or locale for existing slug values
+
+A caveat of changing these after a page is created is that the title & slug sync may no longer be in sync, meaning that if the page is not published and there is already a slug that was created from different logic, subsequent changes to the title will not be reflected on the slug.
+
+To work around this, users can clear the slug field manually, then click & click away on the title field, this will re-create the new slug based on the new logic.
+
+This is intentional behavior so that manual changes to slugs do not normally get overwritten by subsequent changes to the title.
+
+##### Regex conversion
+
+The regex formatters run in JavaScript so some differences need to be considered (such as word boundaries accounting for unicode in Python).
+
+In addition, some Python regex features are not supported (such as `re.VERBOSE`, named capture groups) as these cannot be easily converted to their JavaScript equivalent.
+
+When working with the `formatters`, be sure to check the browser console within the admin for any conversion issues that may occur.
