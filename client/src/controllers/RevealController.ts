@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["hidden"] }] */
+
 import { Controller } from '@hotwired/stimulus';
 
 /**
@@ -108,7 +110,6 @@ export class RevealController extends Controller<HTMLElement> {
       });
       contentTargets.forEach((content) => {
         content.classList.remove(...openedContentClasses);
-        // eslint-disable-next-line no-param-reassign
         content.hidden = true;
       });
       this.element.classList.add(...closedClasses);
@@ -122,7 +123,7 @@ export class RevealController extends Controller<HTMLElement> {
       });
       contentTargets.forEach((content) => {
         content.classList.add(...openedContentClasses);
-        content.hidden = false; // eslint-disable-line no-param-reassign
+        content.hidden = false;
       });
       this.element.classList.remove(...closedClasses);
       this.element.classList.add(...openedClasses);
