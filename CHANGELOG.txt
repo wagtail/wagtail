@@ -16,6 +16,7 @@ Changelog
  * Fix: Support translating with the preferred language for rich text formatting labels (Bernhard Bliem, Sage Abdullah)
  * Fix: Make "Actions" label translatable within the rich text toolbar (Bernhard Bliem, Sage Abdullah)
  * Fix: Fix incorrect "Views (past week)" heading on promoted search results listing (Baptiste Mispelon)
+ * Fix: Ensure `InlinePanel` will be correctly ordered after the first save when `min_num` is used (Elhussein Almasri, Joel William)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
