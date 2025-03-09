@@ -309,7 +309,7 @@ class ReferenceIndex(models.Model):
                                 object instance where the reference was found
         """
         for field in object._meta.get_fields(include_hidden=True):
-            # New: Process custom extract_references first
+            # First - Extract references from fields with custom extract_references method
             if hasattr(field, "extract_references"):
                 value = field.value_from_object(object)
                 if value is not None:
@@ -326,7 +326,7 @@ class ReferenceIndex(models.Model):
                     )
                 continue
 
-            # Existing many-to-one handling now only for fields without extract_references
+            # Second - Process many-to-one relations for fields without extract_references
             if field.is_relation and field.many_to_one:
                 if getattr(field, "wagtail_reference_index_ignore", False):
                     continue

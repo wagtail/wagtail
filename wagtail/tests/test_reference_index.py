@@ -503,10 +503,16 @@ class TestDescribeOnDelete(TestCase):
             )
 
 
-# New tests for custom extract_references precedence
-
-
 class TestCustomExtractReferences(TestCase):
+    """
+    Tests for the custom extract_references functionality in ReferenceIndex.
+
+    This test class verifies that:
+    1. Fields with custom extract_references methods take precedence over default many-to-one handling
+    2. Empty results from extract_references are handled properly
+    3. Fields without extract_references still use the default many-to-one handling
+    """
+
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
         self.test_page = EventPage(
