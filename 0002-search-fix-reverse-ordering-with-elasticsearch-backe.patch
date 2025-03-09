@@ -1,0 +1,24 @@
+From f3544e0ebefbcbf9d7870eaf1ef21d243446458a Mon Sep 17 00:00:00 2001
+From: Pranjal Kole <pranjal.kole7@gmail.com>
+Date: Mon, 17 Feb 2025 08:17:52 +0530
+Subject: [PATCH 2/2] search: fix reverse ordering with elasticsearch backend
+
+---
+ wagtail/api/v2/filters.py | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/wagtail/api/v2/filters.py b/wagtail/api/v2/filters.py
+index e9b54e17c3..5cb02b3b70 100644
+--- a/wagtail/api/v2/filters.py
++++ b/wagtail/api/v2/filters.py
+@@ -100,7 +100,6 @@ class OrderingFilter(BaseFilterBackend):
+                 # Check if reverse ordering is set
+                 if order_by.startswith("-"):
+                     reverse_order = True
+-                    order_by = order_by[1:]
+                 else:
+                     reverse_order = False
+ 
+-- 
+2.48.1
+
