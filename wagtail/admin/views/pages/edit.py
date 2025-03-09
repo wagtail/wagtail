@@ -835,9 +835,14 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 self.request, _("The page could not be saved as it is locked")
             )
         else:
+            error_message = format_html(
+                '{} <span class="buttons"><button type="button" class="button button-small button-secondary" data-action="click->w-messages#jumpToError">{}</button></span>',
+                _("The page could not be saved due to validation errors."),
+                _("Jump to the Error"),
+            )
             messages.validation_error(
                 self.request,
-                _("The page could not be saved due to validation errors"),
+                error_message,
                 self.form,
             )
         self.errors_debug = repr(self.form.errors) + repr(
