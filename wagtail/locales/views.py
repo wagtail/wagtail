@@ -21,10 +21,11 @@ class LanguageTitleColumn(TitleColumn):
 class UsageColumn(Column):
     def get_value(self, locale):
         num_pages, num_others = get_locale_usage(locale)
-        # TODO: make this translatable
-        val = "%d pages" % num_pages
         if num_others:
-            val += " + %d others" % num_others
+            val = gettext_lazy(
+                    "%(num_pages)d pages + %(num_others)d others") % {"num_pages": num_pages, "num_others": num_others}
+        else:
+            val = gettext_lazy("%(num_pages)d pages") % {"num_pages": num_pages}
         return val
 
 

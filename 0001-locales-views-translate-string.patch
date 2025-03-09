@@ -1,0 +1,31 @@
+From c11e392aea686d82c6840723a6f22187148ec9dd Mon Sep 17 00:00:00 2001
+From: Pranjal Kole <pranjal.kole7@gmail.com>
+Date: Mon, 17 Feb 2025 06:52:27 +0530
+Subject: [PATCH 1/2] locales/views: translate string
+
+---
+ wagtail/locales/views.py | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/wagtail/locales/views.py b/wagtail/locales/views.py
+index d1a887a246..e9422f93e9 100644
+--- a/wagtail/locales/views.py
++++ b/wagtail/locales/views.py
+@@ -21,10 +21,11 @@ class LanguageTitleColumn(TitleColumn):
+ class UsageColumn(Column):
+     def get_value(self, locale):
+         num_pages, num_others = get_locale_usage(locale)
+-        # TODO: make this translatable
+-        val = "%d pages" % num_pages
+         if num_others:
+-            val += " + %d others" % num_others
++            val = gettext_lazy(
++                    "%(num_pages)d pages + %(num_others)d others") % {"num_pages": num_pages, "num_others": num_others}
++        else:
++            val = gettext_lazy("%(num_pages)d pages") % {"num_pages": num_pages}
+         return val
+ 
+ 
+-- 
+2.48.1
+
