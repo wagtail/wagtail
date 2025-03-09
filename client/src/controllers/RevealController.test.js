@@ -455,4 +455,65 @@ describe('RevealController', () => {
       expect(document.querySelector('header').outerHTML).toEqual(previousHTML);
     });
   });
+
+  describe('save the expanded state of breadcrumbs to local storage', () => {
+    beforeEach(async () => {
+      jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
+      jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('should get save state if expanded', async () => {
+      localStorage.getItem.mockImplementation(() => 'header');
+
+      await setup(`
+      <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-store-value="header">
+        <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+      </section>`);
+
+      const toggleButton = document.querySelector('button');
+
+      await Promise.resolve(toggleButton.click());
+      await jest.advanceTimersByTime(0);
+
+      expect(localStorage.getItem('wagtail:w-breadcrumbs:opened')).toBe(
+        'header',
+      );
+    });
+
+    it('should save state if expanded', async () => {
+      localStorage.setItem.mockImplementation(() => 'header');
+
+      await setup(`
+      <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-store-value="header">
+        <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+      </section>`);
+
+      const toggleButton = document.querySelector('button');
+
+      await Promise.resolve(toggleButton.click());
+      await jest.advanceTimersByTime(0);
+
+      expect(localStorage.setItem('wagtail:w-breadcrumbs:opened')).toBe(
+        'header',
+      );
+    });
+
+    it('should not load and save state if disabled', async () => {
+      await setup(`
+      <section class="w-breadcrumbs" data-controller="w-breadcrumbs">
+        <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+      </section>`);
+
+      expect(localStorage.getItem).not.toHaveBeenCalled();
+
+      const toggleButton = document.querySelector('button');
+      await Promise.resolve(toggleButton.click());
+
+      expect(localStorage.setItem).not.toHaveBeenCalled();
+    });
+  });
 });
