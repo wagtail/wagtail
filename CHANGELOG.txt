@@ -26,6 +26,7 @@ Changelog
  * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
  * Maintenance: Split up `wagtail.models` module into submodules (Matt Westcott)
  * Maintenance: Update `ruff` to 0.9.6 (Sage Abdullah)
+ * Maintenance: Fix up `stubs` & `adapter` contents to better support Jest testing (LB (Ben) Johnston)
 
 
 6.4.1 (21.02.2025)
