@@ -1,7 +1,6 @@
 /* global ModalWorkflow */
 
 import $ from 'jquery';
-import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
 
 const validateCreationForm = (form) => {
@@ -229,9 +228,6 @@ class ChooserModalOnloadHandlerFactory {
       return false;
     });
 
-    // Reinitialize tabs to hook up tab event listeners in the modal
-    if (this.modalHasTabs(modal)) initTabs();
-
     this.updateMultipleChoiceSubmitEnabledState(modal);
     $('[data-multiple-choice-select]', containerElement).on('change', () => {
       this.updateMultipleChoiceSubmitEnabledState(modal);
@@ -246,10 +242,6 @@ class ChooserModalOnloadHandlerFactory {
     } else {
       $('[data-multiple-choice-submit]', modal.body).attr('disabled', true);
     }
-  }
-
-  modalHasTabs(modal) {
-    return $('[data-tabs]', modal.body).length;
   }
 
   ajaxifyCreationForm(modal) {
@@ -311,7 +303,7 @@ class ChooserModalOnloadHandlerFactory {
     $(this.creationFormTabSelector, modal.body).replaceWith(
       jsonData.htmlFragment,
     );
-    if (this.modalHasTabs(modal)) initTabs();
+
     this.ajaxifyCreationForm(modal);
   }
 
