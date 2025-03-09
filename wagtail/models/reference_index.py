@@ -308,8 +308,25 @@ class ReferenceIndex(models.Model):
             content_path (str): The path to the piece of content on the source
                                 object instance where the reference was found
         """
-        # Extract references from fields
-        for field in object._meta.get_fields():
+        for field in object._meta.get_fields(include_hidden=True):
+            # First - Extract references from fields with custom extract_references method
+            if hasattr(field, "extract_references"):
+                value = field.value_from_object(object)
+                if value is not None:
+                    yield from (
+                        (
+                            cls._get_base_content_type(to_model).id,
+                            str(to_object_id),
+                            f"{field.name}.{model_path}",
+                            f"{field.name}.{content_path}",
+                        )
+                        for to_model, to_object_id, model_path, content_path in field.extract_references(
+                            value
+                        )
+                    )
+                continue
+
+            # Second - Process many-to-one relations for fields without extract_references
             if field.is_relation and field.many_to_one:
                 if getattr(field, "wagtail_reference_index_ignore", False):
                     continue
@@ -355,21 +372,6 @@ class ReferenceIndex(models.Model):
                         str(value),
                         field.name,
                         field.name,
-                    )
-
-            if hasattr(field, "extract_references"):
-                value = field.value_from_object(object)
-                if value is not None:
-                    yield from (
-                        (
-                            cls._get_base_content_type(to_model).id,
-                            to_object_id,
-                            f"{field.name}.{model_path}",
-                            f"{field.name}.{content_path}",
-                        )
-                        for to_model, to_object_id, model_path, content_path in field.extract_references(
-                            value
-                        )
                     )
 
         # Extract references from child relations
