@@ -69,7 +69,8 @@ class FieldPanel(Panel):
             else:
                 required_on_save = getattr(db_field, "required_on_save", False) or (
                     db_field.null is False
-                    and db_field.get_internal_type() not in ("CharField", "TextField")
+                    and db_field.get_internal_type()
+                    not in ("CharField", "TextField", "JSONField")
                 )
 
         if not required_on_save:
