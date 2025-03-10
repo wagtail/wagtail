@@ -756,10 +756,22 @@ class BlockField(forms.Field):
         super().__init__(**kwargs)
 
     def clean(self, value):
-        # Pass required flag to the top-level block, so that dynamically setting it on the
-        # field (e.g. by defer_required_fields) is respected by the block.
-        self.block.set_meta_options({"required": self.required})
-        return self.block.clean(value)
+        from wagtail.blocks.stream_block import StreamBlock
+
+        if isinstance(self.block, StreamBlock):
+            # StreamBlock is the only block type that is formally-supported as the top level block
+            # of a BlockField, but it's possible that other block types could be used, so check
+            # this explicitly.
+            # self.block has a `required` attribute that is consistent with the StreamField's `blank`
+            # attribute and thus the `required` attribute of BlockField - but if the latter has been
+            # assigned dynamically (e.g. by defer_required_fields) we want this to take precedence.
+            # We do this through the `ignore_required_constraints` flag recognised by
+            # StreamBlock.clean.
+            return self.block.clean(
+                value, ignore_required_constraints=not self.required
+            )
+        else:
+            return self.block.clean(value)
 
     def has_changed(self, initial_value, data_value):
         return self.block.get_prep_value(initial_value) != self.block.get_prep_value(
