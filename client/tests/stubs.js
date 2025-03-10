@@ -57,9 +57,6 @@ global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'document' };
 class PageChooserModal {}
 global.PageChooserModal = PageChooserModal;
 
-/** Mock window.scrollTo as not provided via JSDom */
-window.scrollTo = () => {};
-
 /** Mock console.warn to filter out warnings from React due to Draftail legacy Component API usage.
  * Draftail/Draft-js is unlikely to support these and the warnings are not useful for unit test output.
  */

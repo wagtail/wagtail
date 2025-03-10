@@ -33,20 +33,20 @@ describe('FormsetController', () => {
       <li data-w-formset-target="child">
         <input type="text" name="form-0-name">
         <input type="hidden" name="form-0-DELETE" data-w-formset-target="deleteInput">
-        <button type="button" value="Delete" data-action="w-formset#delete">Delete</button>
+        <button type="button" value="Delete" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
       <li data-w-formset-target="child">
         <input type="text" name="form-1-name">
         <input type="hidden" name="form-1-DELETE" data-w-formset-target="deleteInput">
-        <button type="button" value="Delete" data-action="w-formset#delete">Delete</button>
+        <button type="button" value="Delete" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
     </ul>
-    <button id="add" type="button" data-action="w-formset#add">Add</button>
+    <button id="add" type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
     <template data-w-formset-target="template">
       <li data-w-formset-target="child">
         <input type="text" name="form-__prefix__-name">
         <input type="hidden" name="form-__prefix__-DELETE" data-w-formset-target="deleteInput">
-        <button type="button" value="Delete" data-action="w-formset#delete">Delete</button>
+        <button type="button" value="Delete" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
         <script>document.dispatchEvent(new CustomEvent('custom:event', { detail: { field: document.querySelector('[name="form-__prefix__-name"]') } }), { bubbles: true, cancelable: false });</script>
       </li>
     </template>
@@ -171,7 +171,7 @@ describe('FormsetController', () => {
           <input type="hidden" name="form-MIN_NUM_FORMS" value="0" data-w-formset-target="minFormsInput">
           <input type="hidden" name="form-MAX_NUM_FORMS" value="10" data-w-formset-target="maxFormsInput">
           <ul data-w-formset-target="forms"></ul>
-          <button id="add" type="button" data-action="w-formset#add">Add</button>
+          <button id="add" type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
           <template data-w-formset-target="template">
             _NOT_CORRECT_
           </template>
@@ -203,7 +203,7 @@ describe('FormsetController', () => {
               <input type="text" name="form-0-name">
               <input type="hidden" name="form-0-DELETE">
             </li>
-            <button id="item-0-delete" type="button" value="Delete" data-action="w-formset#delete">Delete</button>
+            <button id="item-0-delete" type="button" value="Delete" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
           </ul>
         </form>`);
 
@@ -254,7 +254,7 @@ describe('FormsetController', () => {
       ).toEqual([
         '<input type="text" name="form-2-name">',
         '<input type="hidden" name="form-2-DELETE" data-w-formset-target="deleteInput">',
-        '<button type="button" value="Delete" data-action="w-formset#delete">Delete</button>',
+        '<button type="button" value="Delete" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>',
         expect.stringContaining(
           // script snippet
           `{ field: document.querySelector('[name="form-2-name"]') }`,
@@ -310,7 +310,7 @@ describe('FormsetController', () => {
       expect(document.querySelectorAll('li')).toHaveLength(3);
     });
 
-    it('should limit the addition once the MAX_NUM has been reached', async () => {
+    it.only('should limit the addition once the MAX_NUM has been reached', async () => {
       // max is 5
 
       await setup();
@@ -565,22 +565,22 @@ describe('FormsetController', () => {
       <li data-w-formset-target="child">
         <input type="text" name="form-0-name">
         <input type="hidden" name="form-0-DELETE" data-w-formset-target="deleteInput">
-        <button id="form-0-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-0-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
       <li data-w-formset-target="deleted" hidden>
         <input type="text" name="form-1-name">
         <input type="hidden" name="form-1-DELETE" value="1" data-w-formset-target="deleteInput">
-        <button id="form-1-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-1-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
       <li data-w-formset-target="child">
         <input type="text" name="form-2-name">
         <input type="hidden" name="form-2-DELETE" data-w-formset-target="deleteInput">
-        <button id="form-2-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-2-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
       <li data-w-formset-target="deleted" hidden>
         <input type="text" name="form-3-name">
         <input type="hidden" name="form-3-DELETE"  value="1" data-w-formset-target="deleteInput">
-        <button id="form-3-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-3-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
     </ul>
   </form>`);
@@ -600,22 +600,22 @@ describe('FormsetController', () => {
       <li data-w-formset-target="child">
         <input type="text" name="form-0-name">
         <input type="hidden" name="form-0-DELETE" data-w-formset-target="deleteInput">
-        <button id="form-0-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-0-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
       <li data-w-formset-target="child">
         <input type="text" name="form-1-name">
         <input type="hidden" name="form-1-DELETE" data-w-formset-target="deleteInput">
-        <button id="form-1-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-1-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
       <li data-w-formset-target="child">
         <input type="text" name="form-2-name">
         <input type="hidden" name="form-2-DELETE" data-w-formset-target="deleteInput">
-        <button id="form-2-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-2-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
       <li data-w-formset-target="deleted" hidden>
         <input type="text" name="form-3-name">
         <input type="hidden" name="form-3-DELETE" value="1" data-w-formset-target="deleteInput">
-        <button id="form-3-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+        <button id="form-3-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
       </li>
     </ul>
   </form>`);
@@ -779,40 +779,40 @@ describe('FormsetController', () => {
         <div id="group-item-0" data-w-formset-target="child">
           <input type="email" name="group-0-email">
           <input type="text" name="group-0-name">
-          <button id="group-0-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+          <button id="group-0-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
           <fieldset id="group-0-checklist" data-controller="w-formset">
             <legend>Inner checklist</legend>
             <input type="hidden" name="group-0-TOTAL_FORMS" value="4" data-w-formset-target="totalFormsInput"
             <input type="hidden" name="group-0-INITIAL_FORMS" value="4">
             <input type="hidden" name="group-0-MIN_NUM_FORMS" value="0">
             <input type="hidden" name="group-0-MAX_NUM_FORMS" value="10">
-            <button id="add-checklist-item-group-0" type="button" data-action="w-formset#add">Add</button>
+            <button id="add-checklist-item-group-0" type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
             <ul data-w-formset-target="forms">
               <li id="group-0-item-0-item" data-w-formset-target="child">
                 <input id="group-0-item-0-detail" type="text" name="group-0-item-0">
                 <input type="hidden" name="group-0-item-0-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-0-item-0-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-0-item-0-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
               <li id="group-0-item-1-item" data-w-formset-target="child">
                 <input id="group-0-item-1-detail" type="text" name="group-0-item-1">
                 <input type="hidden" name="group-0-item-1-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-0-item-1-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-0-item-1-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
               <li id="group-0-item-2-item" data-w-formset-target="child">
                 <input id="group-0-item-2-detail" type="text" name="group-0-item-2">
                 <input type="hidden" name="group-0-item-2-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-0-item-2-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-0-item-2-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
               <li id="group-0-item-3-item" data-w-formset-target="child">
                 <input id="group-0-item-3-detail" type="text" name="group-0-item-3">
                 <input type="hidden" name="group-0-item-3-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-0-item-3-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-0-item-3-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
             </ul>
             <template data-w-formset-target="template">
               <li id="group-0-item-__prefix__-item" data-w-formset-target="child">
                 <input id="group-0-item-__prefix__-detail" type="text" name="group-0-item-__prefix__">
-                <button id="group-0-item-__prefix__-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-0-item-__prefix__-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
             </template>
           </fieldset>
@@ -822,66 +822,66 @@ describe('FormsetController', () => {
           <input type="hidden" name="group-1-DELETE" data-w-formset-target="deleteInput" data-test-comment="Intentionally first">
           <input type="email" name="group-1-email">
           <input type="text" name="group-1-name">
-          <button id="group-1-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+          <button id="group-1-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
           <fieldset id="group-1-checklist" data-controller="w-formset">
             <legend>Inner checklist</legend>
             <input type="hidden" name="group-1-TOTAL_FORMS" value="3" data-w-formset-target="totalFormsInput">
             <input type="hidden" name="group-1-INITIAL_FORMS" value="3">
             <input type="hidden" name="group-1-MIN_NUM_FORMS" value="0">
             <input type="hidden" name="group-1-MAX_NUM_FORMS" value="10">
-            <button id="add-checklist-item-group-1" type="button" data-action="w-formset#add">Add</button>
+            <button id="add-checklist-item-group-1" type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
             <ul data-w-formset-target="forms">
               <li id="group-1-item-0-item" data-w-formset-target="child">
                 <input id="group-1-item-0-detail" type="text" name="group-1-item-0">
                 <input type="hidden" name="group-1-item-0-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-1-item-0-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-1-item-0-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
               <li id="group-1-item-0-item" data-w-formset-target="child">
                 <input id="group-1-item-1-detail" type="text" name="group-1-item-1">
                 <input type="hidden" name="group-1-item-1-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-1-item-1-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-1-item-1-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
               <li id="group-1-item-0-item" data-w-formset-target="child">
                 <input id="group-1-item-2-detail" type="text" name="group-1-item-2">
                 <input type="hidden" name="group-1-item-2-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-1-item-2-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-1-item-2-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
             </ul>
             <template data-w-formset-target="template">
               <li id="group-1-item-__prefix__-item" data-w-formset-target="child">
                 <input id="group-1-item-__prefix__-detail" type="text" name="group-1-item-__prefix__">
-                <button id="group-1-item-__prefix__-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-1-item-__prefix__-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
             </template>
           </fieldset>
         </div>
       </section>
-      <button id="add-section" type="button" data-action="w-formset#add">Add</button>
+      <button id="add-section" type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
       <template data-w-formset-target="template">
         <div id="group-item-__prefix__" data-w-formset-target="child">
           <input type="hidden" name="group-__prefix__-DELETE" data-w-formset-target="deleteInput">
           <input type="email" name="group-__prefix__-email">
           <input type="text" name="group-__prefix__-name">
-          <button id="group-__prefix__-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+          <button id="group-__prefix__-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
           <fieldset id="group-__prefix__-checklist" data-controller="w-formset">
             <legend>Inner checklist</legend>
             <input type="hidden" name="group-__prefix__-TOTAL_FORMS" value="1" data-w-formset-target="totalFormsInput">
             <input type="hidden" name="group-__prefix__-INITIAL_FORMS" value="1">
             <input type="hidden" name="group-__prefix__-MIN_NUM_FORMS" value="0">
             <input type="hidden" name="group-__prefix__-MAX_NUM_FORMS" value="10">
-            <button id="add-checklist-item-group-__prefix__" type="button" data-action="w-formset#add">Add</button>
+            <button id="add-checklist-item-group-__prefix__" type="button" data-action="w-formset#add" data-w-formset-target="add">Add</button>
             <ul data-w-formset-target="forms">
               <li id="group-__prefix__-item-0-item" data-w-formset-target="child">
                 <input id="group-__prefix__-item-0-detail" type="text" name="group-__prefix__-item-0">
                 <input type="hidden" name="group-__prefix__-item-0-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-__prefix__-item-0-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-__prefix__-item-0-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
             </ul>
             <template data-w-formset-target="template">
               <li id="group-__prefix__-item-__prefix__-item" data-w-formset-target="child">
                 <input id="group-__prefix__-item-__prefix__-detail" type="text" name="group-__prefix__-item-__prefix__">
                 <input type="hidden" name="group-__prefix__-item-__prefix__-DELETE" data-w-formset-target="deleteInput">
-                <button id="group-__prefix__-item-__prefix__-delete-button" type="button" data-action="w-formset#delete">Delete</button>
+                <button id="group-__prefix__-item-__prefix__-delete-button" type="button" data-action="w-formset#delete" data-w-formset-target="delete">Delete</button>
               </li>
             </template>
           </fieldset>
