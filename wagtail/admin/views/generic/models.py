@@ -73,7 +73,6 @@ class IndexView(
     inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
-    columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
     show_other_searches = False
@@ -258,6 +257,7 @@ class IndexView(
 
     @cached_property
     def columns(self):
+        # If not explicitly overridden, derive from list_display
         columns = []
         for i, field in enumerate(self.list_display):
             if isinstance(field, Column):

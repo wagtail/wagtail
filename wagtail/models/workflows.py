@@ -1169,8 +1169,7 @@ class WorkflowMixin:
     def _check_draftstate_and_revision_mixins(cls):
         mro = cls.mro()
         error = checks.Error(
-            "WorkflowMixin requires DraftStateMixin and RevisionMixin "
-            "(in that order).",
+            "WorkflowMixin requires DraftStateMixin and RevisionMixin (in that order).",
             hint=(
                 "Make sure your model's inheritance order is as follows: "
                 "WorkflowMixin, DraftStateMixin, RevisionMixin."

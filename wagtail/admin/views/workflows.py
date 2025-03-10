@@ -637,7 +637,6 @@ def select_task_type(request):
 
 class CreateTask(CreateView):
     permission_policy = task_permission_policy
-    model = None
     page_title = _("New workflow task")
     template_name = "wagtailadmin/workflows/create_task.html"
     success_message = _("Task '%(object)s' created.")
@@ -694,8 +693,6 @@ class CreateTask(CreateView):
 
 class EditTask(EditView):
     permission_policy = task_permission_policy
-    model = None
-    page_title = _("Editing workflow task")
     template_name = "wagtailadmin/workflows/edit_task.html"
     success_message = _("Task '%(object)s' updated.")
     add_url_name = "wagtailadmin_workflows:select_task_type"

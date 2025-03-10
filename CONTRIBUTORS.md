@@ -874,6 +874,7 @@
 * Mahmoud Nasser
 * Prabhpreet Kaur
 * Baptiste Mispelon
+* Mohammad Fathi Rahman
 
 ## Translators
 
