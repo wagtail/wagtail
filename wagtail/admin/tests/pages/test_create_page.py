@@ -32,6 +32,7 @@ from wagtail.test.testapp.models import (
     StandardIndex,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 
 
@@ -752,6 +753,68 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertFalse(
             Page.objects.filter(
                 path__startswith=self.root_page.path, slug="missing-date"
+            ).exists()
+        )
+
+    def test_create_streampage_post_with_blank_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield([]),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="stream-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(len(page.body), 0)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_streampage_with_blank_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield([]),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised. The actual message as rendered
+        # ("This field is required.") is passed to the StreamBlock as part of
+        # StreamBlockValidationError.non_block_errors, whereas assertFormError
+        # only considers the message attribute (which is a generic error).
+        self.assertFormError(
+            response.context["form"], "body", "Validation error in StreamBlock"
+        )
+        self.assertContains(response, "This field is required.")
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="stream-page"
             ).exists()
         )
 

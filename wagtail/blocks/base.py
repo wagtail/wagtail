@@ -756,6 +756,9 @@ class BlockField(forms.Field):
         super().__init__(**kwargs)
 
     def clean(self, value):
+        # Pass required flag to the top-level block, so that dynamically setting it on the
+        # field (e.g. by defer_required_fields) is respected by the block.
+        self.block.set_meta_options({"required": self.required})
         return self.block.clean(value)
 
     def has_changed(self, initial_value, data_value):
