@@ -160,7 +160,7 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
-    def clean(self, value):
+    def clean(self, value, ignore_required_constraints=False):
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
@@ -179,7 +179,7 @@ class BaseStreamBlock(Block):
                     % {"min_num": self.meta.min_num}
                 )
             )
-        elif self.required and len(value) == 0:
+        elif self.required and not ignore_required_constraints and len(value) == 0:
             non_block_errors.append(ValidationError(_("This field is required.")))
 
         if self.meta.max_num is not None and self.meta.max_num < len(value):
