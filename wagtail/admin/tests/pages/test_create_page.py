@@ -783,6 +783,128 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, 'data-w-unsaved-force-value="true"')
 
+    def test_create_default_privacy_page_public(self):
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = self.root_page.get_children().filter(slug="hello-world").first()
+
+        self.assertEqual(PageViewRestriction.objects.filter(page=page).count(), 0)
+
+    @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
+    def test_create_default_privacy_page_logged_in(
+        self, mock_get_default_privacy_setting
+    ):
+        mock_get_default_privacy_setting.return_value = {"type": "login"}
+
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="login"
+            ).count(),
+            1,
+        )
+
+    @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
+    def test_create_default_privacy_page_shared_password(
+        self, mock_get_default_privacy_setting
+    ):
+        mock_get_default_privacy_setting.return_value = {
+            "type": "password",
+            "password": "password",
+        }
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="password"
+            ).count(),
+            1,
+        )
+
+    @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
+    def test_create_default_privacy_page_user_groups(
+        self, mock_get_default_privacy_setting
+    ):
+        mock_get_default_privacy_setting.return_value = {"type": "groups", "groups": []}
+
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="groups"
+            ).count(),
+            1,
+        )
+
     def test_create_nonexistantparent(self):
         response = self.client.get(
             reverse("wagtailadmin_pages:add", args=("tests", "simplepage", 100000))
