@@ -9,9 +9,7 @@ from wagtail.models import Page, Site
 
 
 class Redirect(models.Model):
-    old_path = models.CharField(
-        verbose_name=_("redirect from"), max_length=255, db_index=True
-    )
+    old_path = models.CharField(verbose_name=_("redirect from"), max_length=2000)
     site = models.ForeignKey(
         "wagtailcore.Site",
         verbose_name=_("site"),
