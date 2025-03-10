@@ -12,7 +12,7 @@ Wagtail search is built on Django's [QuerySet API](inv:django#ref/models/queryse
 
 Wagtail provides a shortcut for searching pages: the `.search()` `QuerySet` method. You can call this on any `PageQuerySet`. For example:
 
-```python
+```pycon
 # Search future EventPages
 >>> from wagtail.models import EventPage
 >>> EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
@@ -20,7 +20,7 @@ Wagtail provides a shortcut for searching pages: the `.search()` `QuerySet` meth
 
 All other methods of `PageQuerySet` can be used with `search()`. For example:
 
-```python
+```pycon
 # Search all live EventPages that are under the events index
 >>> EventPage.objects.live().descendant_of(events_index).search("Event")
 [<EventPage: Event 1>, <EventPage: Event 2>]
@@ -36,7 +36,7 @@ The standard behavior of the `search` method is to only return matches for compl
 
 Wagtail provides a separate method which performs partial matching on specific autocomplete fields. This is primarily useful for suggesting pages to the user in real-time as they type their query - it is not recommended for ordinary searches, as the autocompletion will tend to add unwanted results beyond the specific term being searched for.
 
-```python
+```pycon
 >>> EventPage.objects.live().autocomplete("Eve")
 [<EventPage: Event 1>, <EventPage: Event 2>]
 ```
@@ -47,7 +47,7 @@ Wagtail provides a separate method which performs partial matching on specific a
 
 Wagtail's document and image models provide a `search` method on their QuerySets, just as pages do:
 
-```python
+```pycon
 >>> from wagtail.images.models import Image
 
 >>> Image.objects.filter(uploaded_by_user=user).search("Hello")
@@ -56,7 +56,7 @@ Wagtail's document and image models provide a `search` method on their QuerySets
 
 [Custom models](wagtailsearch_indexing_models) can be searched by using the `search` method on the search backend directly:
 
-```python
+```pycon
 >>> from myapp.models import Book
 >>> from wagtail.search.backends import get_search_backend
 
@@ -68,7 +68,7 @@ Wagtail's document and image models provide a `search` method on their QuerySets
 
 You can also pass a QuerySet into the `search` method, which allows you to add filters to your search results:
 
-```python
+```pycon
 >>> from myapp.models import Book
 >>> from wagtail.search.backends import get_search_backend
 
@@ -86,7 +86,7 @@ By default, Wagtail will search all fields that have been indexed using `index.S
 
 This can be limited to a certain set of fields by using the `fields` keyword argument:
 
-```python
+```pycon
 # Search just the title field
 >>> EventPage.objects.search("Event", fields=["title"])
 [<EventPage: Event 1>, <EventPage: Event 2>]
@@ -106,7 +106,7 @@ of references descending.
 
 For example, to find the most common page types in the search results:
 
-```python
+```pycon
 >>> Page.objects.search("Test").facet("content_type_id")
 
 # Note: The keys correspond to the ID of a ContentType object; the values are the
@@ -132,7 +132,7 @@ We recommend using the "or" operator when ordering by relevance and the "and" op
 
 Here's an example of using the `operator` keyword argument:
 
-```python
+```pycon
 # The database contains a "Thing" model with the following items:
 # - Hello world
 # - Hello
@@ -157,7 +157,7 @@ Here's an example of using the `operator` keyword argument:
 
 For page, image, and document models, the `operator` keyword argument is also supported on the QuerySet's `search` method:
 
-```python
+```pycon
 >>> Page.objects.search("Hello world", operator="or")
 
 # All pages containing either "hello" or "world" are returned
@@ -171,7 +171,7 @@ The terms must appear together and in the same order.
 
 For example:
 
-```python
+```pycon
 >>> from wagtail.search.query import Phrase
 
 >>> Page.objects.search(Phrase("Hello world"))
@@ -193,7 +193,7 @@ A maximum of one edit (transposition, insertion, or removal of a character) is p
 
 For example:
 
-```python
+```pycon
 >>> from wagtail.search.query import Fuzzy
 
 >>> Page.objects.search(Fuzzy("Hallo"))
@@ -204,7 +204,7 @@ Fuzzy matching is supported by the Elasticsearch search backend only.
 
 The `operator` keyword argument is also supported on `Fuzzy` objects, defaulting to "or":
 
-```python
+```pycon
 >>> Page.objects.search(Fuzzy("Hallo wurld", operator="and"))
 [<Page: Hello World>]
 ```
@@ -225,7 +225,7 @@ It takes a query string, operator and boost.
 
 For example:
 
-```python
+```pycon
 >>> from wagtail.search.query import PlainText
 >>> Page.objects.search(PlainText("Hello world"))
 
@@ -239,7 +239,7 @@ This class wraps a string containing a phrase. See the previous section for how 
 
 For example:
 
-```python
+```pycon
 # This example will match both the phrases "hello world" and "Hello earth"
 >>> Page.objects.search(Phrase("Hello world") | Phrase("Hello earth"))
 ```
@@ -250,7 +250,7 @@ This class boosts the score of another query.
 
 For example:
 
-```python
+```pycon
 >>> from wagtail.search.query import PlainText, Boost
 
 # This example will match both the phrases "hello world" and "Hello earth" but matches for "hello world" will be ranked higher
@@ -272,9 +272,12 @@ typed and returns a query object and a [QueryDict](inv:django#django.http.QueryD
 
 For example:
 
-```python
+```pycon
 >>> from wagtail.search.utils import parse_query_string
->>> filters, query = parse_query_string('my query string "this is a phrase" this_is_a:filter key:value1 key:value2', operator='and')
+>>> filters, query = parse_query_string(
+...     'my query string "this is a phrase" this_is_a:filter key:value1 key:value2',
+...     operator="and",
+... )
 
 # Alternatively..
 # filters, query = parse_query_string("my query string 'this is a phrase' this_is_a:filter key:test1 key:test2", operator='and')
@@ -283,7 +286,7 @@ For example:
 <QueryDict: {'this_is_a': ['filter'], 'key': ['value1', 'value2']}>>
 
 # Get a list of values associated with a particular key using the getlist method
->>> filters.getlist('key')
+>>> filters.getlist("key")
 ['value1', 'value2']
 
 # Get a dict representation using the dict method
@@ -306,25 +309,26 @@ Here's an example of how this function can be used in a search view:
 ```python
 from wagtail.search.utils import parse_query_string
 
+
 def search(request):
-    query_string = request.GET['query']
+    query_string = request.GET["query"]
 
     # Parse query
-    filters, query = parse_query_string(query_string, operator='and')
+    filters, query = parse_query_string(query_string, operator="and")
 
     # Published filter
     # An example filter that accepts either `published:yes` or `published:no` and filters the pages accordingly
-    published_filter = filters.get('published')
+    published_filter = filters.get("published")
     published_filter = published_filter and published_filter.lower()
-    if published_filter in ['yes', 'true']:
+    if published_filter in ["yes", "true"]:
         pages = pages.filter(live=True)
-    elif published_filter in ['no', 'false']:
+    elif published_filter in ["no", "false"]:
         pages = pages.filter(live=False)
 
     # Search
     pages = pages.search(query)
 
-    return render(request, 'search_results.html', {'pages': pages})
+    return render(request, "search_results.html", {"pages": pages})
 ```
 
 ### Custom ordering
@@ -333,9 +337,9 @@ By default, search results are ordered by relevance if the backend supports it. 
 
 For example:
 
-```python
+```pycon
 # Get a list of events ordered by date
->>> EventPage.objects.order_by('date').search("Event", order_by_relevance=False)
+>>> EventPage.objects.order_by("date").search("Event", order_by_relevance=False)
 
 # Events ordered by date
 [<EventPage: Easter>, <EventPage: Halloween>, <EventPage: Christmas>]
@@ -356,10 +360,10 @@ score to each result by calling the `.annotate_score(field)` method on the
 
 For example:
 
-```python
+```pycon
 >>> events = EventPage.objects.search("Event").annotate_score("_score")
 >>> for event in events:
-...    print(event.title, event._score)
+...     print(event.title, event._score)
 ...
 ("Easter", 2.5),
 ("Halloween", 1.7),
@@ -386,7 +390,7 @@ from wagtail.contrib.search_promotions.models import Query
 
 def search(request):
     # Search
-    search_query = request.GET.get('query', None)
+    search_query = request.GET.get("query", None)
     if search_query:
         search_results = Page.objects.live().search(search_query)
 
@@ -396,10 +400,14 @@ def search(request):
         search_results = Page.objects.none()
 
     # Render template
-    return render(request, 'search_results.html', {
-        'search_query': search_query,
-        'search_results': search_results,
-    })
+    return render(
+        request,
+        "search_results.html",
+        {
+            "search_query": search_query,
+            "search_results": search_results,
+        },
+    )
 ```
 
 And here's a template to go with it:

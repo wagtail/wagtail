@@ -19,7 +19,7 @@ Add `"wagtail.contrib.simple_translation"` to `INSTALLED_APPS` in your settings 
 
 ```python
 INSTALLED_APPS = [
-    ...
+    # ...
     "wagtail.contrib.simple_translation",
 ]
 ```

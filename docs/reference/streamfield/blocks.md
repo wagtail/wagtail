@@ -22,14 +22,17 @@ This document details the block types provided by Wagtail for use in [StreamFiel
 ```
 
 ```python
-body = StreamField([
-    ('heading', blocks.CharBlock(form_classname="title")),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageBlock()),
-], block_counts={
-    'heading': {'min_num': 1},
-    'image': {'max_num': 5},
-})
+body = StreamField(
+    [
+        ("heading", blocks.CharBlock(form_classname="title")),
+        ("paragraph", blocks.RichTextBlock()),
+        ("image", ImageBlock()),
+    ],
+    block_counts={
+        "heading": {"min_num": 1},
+        "image": {"max_num": 5},
+    },
+)
 ```
 
 ## Block options and methods
@@ -173,9 +176,9 @@ All block definitions have the following methods that can be overridden:
 
     .. code-block:: python
 
-       blocks.RegexBlock(regex=r'^[0-9]{3}$', error_messages={
-           'invalid': "Not a valid library card number."
-       })
+       blocks.RegexBlock(
+           regex=r"^[0-9]{3}$", error_messages={"invalid": "Not a valid library card number."}
+       )
 
     The following keyword arguments are accepted in addition to the standard ones:
 
@@ -309,10 +312,13 @@ All block definitions have the following methods that can be overridden:
 
     .. code-block:: python
 
-       blocks.ChoiceBlock(choices=[
-           ('tea', 'Tea'),
-           ('coffee', 'Coffee'),
-       ], icon='cup')
+       blocks.ChoiceBlock(
+           choices=[
+               ("tea", "Tea"),
+               ("coffee", "Coffee"),
+           ],
+           icon="cup",
+       )
 
 
     Could be rewritten as a subclass of ChoiceBlock:
@@ -322,12 +328,12 @@ All block definitions have the following methods that can be overridden:
 
        class DrinksChoiceBlock(blocks.ChoiceBlock):
            choices = [
-               ('tea', 'Tea'),
-               ('coffee', 'Coffee'),
+               ("tea", "Tea"),
+               ("coffee", "Coffee"),
            ]
 
            class Meta:
-               icon = 'cup'
+               icon = "cup"
 
 
     ``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
@@ -427,9 +433,10 @@ All block definitions have the following methods that can be overridden:
     .. code-block:: python
 
        blocks.StaticBlock(
-           admin_text='Latest posts: no configuration needed.',
+           admin_text="Latest posts: no configuration needed.",
            # or admin_text=mark_safe('<b>Latest posts</b>: no configuration needed.'),
-           template='latest_posts.html')
+           template="latest_posts.html",
+       )
 
     ``StaticBlock`` can also be subclassed to produce a reusable block with the same configuration everywhere it is used:
 
@@ -438,10 +445,10 @@ All block definitions have the following methods that can be overridden:
 
        class LatestPostsStaticBlock(blocks.StaticBlock):
            class Meta:
-               icon = 'user'
-               label = 'Latest posts'
-               admin_text = '{label}: configured elsewhere'.format(label=label)
-               template = 'latest_posts.html'
+               icon = "user"
+               label = "Latest posts"
+               admin_text = "{label}: configured elsewhere".format(label=label)
+               template = "latest_posts.html"
 
 
 .. autoclass:: wagtail.blocks.StructBlock
@@ -451,15 +458,23 @@ All block definitions have the following methods that can be overridden:
 
     .. code-block:: python
 
-       body = StreamField([
-           # ...
-           ('person', blocks.StructBlock([
-               ('first_name', blocks.CharBlock()),
-               ('surname', blocks.CharBlock()),
-               ('photo', ImageBlock(required=False)),
-               ('biography', blocks.RichTextBlock()),
-           ], icon='user')),
-       ])
+       body = StreamField(
+           [
+               # ...
+               (
+                   "person",
+                   blocks.StructBlock(
+                       [
+                           ("first_name", blocks.CharBlock()),
+                           ("surname", blocks.CharBlock()),
+                           ("photo", ImageBlock(required=False)),
+                           ("biography", blocks.RichTextBlock()),
+                       ],
+                       icon="user",
+                   ),
+               ),
+           ]
+       )
 
 
     Alternatively, StructBlock can be subclassed to specify a reusable set of sub-blocks:
@@ -474,7 +489,7 @@ All block definitions have the following methods that can be overridden:
            biography = blocks.RichTextBlock()
 
            class Meta:
-               icon = 'user'
+               icon = "user"
 
     The ``Meta`` class supports the properties ``default``, ``label``, ``icon`` and ``template``, which have the same meanings as when they are passed to the block's constructor.
 
@@ -483,12 +498,14 @@ All block definitions have the following methods that can be overridden:
 
     .. code-block:: python
 
-       body = StreamField([
-           ('heading', blocks.CharBlock(form_classname="title")),
-           ('paragraph', blocks.RichTextBlock()),
-           ('image', ImageBlock()),
-           ('person', PersonBlock()),
-       ])
+       body = StreamField(
+           [
+               ("heading", blocks.CharBlock(form_classname="title")),
+               ("paragraph", blocks.RichTextBlock()),
+               ("image", ImageBlock()),
+               ("person", PersonBlock()),
+           ]
+       )
 
 
     The following additional options are available as either keyword arguments or Meta class attributes:
@@ -508,10 +525,12 @@ All block definitions have the following methods that can be overridden:
 
     .. code-block:: python
 
-       body = StreamField([
-           # ...
-           ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient"))),
-       ])
+       body = StreamField(
+           [
+               # ...
+               ("ingredients_list", blocks.ListBlock(blocks.CharBlock(label="Ingredient"))),
+           ]
+       )
 
 
 
@@ -519,13 +538,22 @@ All block definitions have the following methods that can be overridden:
 
     .. code-block:: python
 
-       body = StreamField([
-           # ...
-           ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
-               ('ingredient', blocks.CharBlock()),
-               ('amount', blocks.CharBlock(required=False)),
-           ]))),
-       ])
+       body = StreamField(
+           [
+               # ...
+               (
+                   "ingredients_list",
+                   blocks.ListBlock(
+                       blocks.StructBlock(
+                           [
+                               ("ingredient", blocks.CharBlock()),
+                               ("amount", blocks.CharBlock(required=False)),
+                           ]
+                       )
+                   ),
+               ),
+           ]
+       )
 
 
     The following additional options are available as either keyword arguments or Meta class attributes:
@@ -544,20 +572,30 @@ All block definitions have the following methods that can be overridden:
 
     .. code-block:: python
 
-       body = StreamField([
-           # ...
-           ('carousel', blocks.StreamBlock(
-               [
-                   ('image', ImageBlock()),
-                   ('quotation', blocks.StructBlock([
-                       ('text', blocks.TextBlock()),
-                       ('author', blocks.CharBlock()),
-                   ])),
-                   ('video', EmbedBlock()),
-               ],
-               icon='cogs'
-           )),
-       ])
+       body = StreamField(
+           [
+               # ...
+               (
+                   "carousel",
+                   blocks.StreamBlock(
+                       [
+                           ("image", ImageBlock()),
+                           (
+                               "quotation",
+                               blocks.StructBlock(
+                                   [
+                                       ("text", blocks.TextBlock()),
+                                       ("author", blocks.CharBlock()),
+                                   ]
+                               ),
+                           ),
+                           ("video", EmbedBlock()),
+                       ],
+                       icon="cogs",
+                   ),
+               ),
+           ]
+       )
 
 
     As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock:
@@ -566,14 +604,16 @@ All block definitions have the following methods that can be overridden:
 
        class CarouselBlock(blocks.StreamBlock):
            image = ImageBlock()
-           quotation = blocks.StructBlock([
-               ('text', blocks.TextBlock()),
-               ('author', blocks.CharBlock()),
-           ])
+           quotation = blocks.StructBlock(
+               [
+                   ("text", blocks.TextBlock()),
+                   ("author", blocks.CharBlock()),
+               ]
+           )
            video = EmbedBlock()
 
            class Meta:
-               icon='cogs'
+               icon = "cogs"
 
     Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set of block types without repeating definitions:
 
@@ -581,7 +621,7 @@ All block definitions have the following methods that can be overridden:
 
         class HomePage(Page):
             carousel = StreamField(
-                CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
+                CarouselBlock(max_num=10, block_counts={"video": {"max_num": 2}}),
             )
 
     ``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
@@ -597,13 +637,21 @@ All block definitions have the following methods that can be overridden:
     .. code-block:: python
         :emphasize-lines: 6
 
-        body = StreamField([
-            # ...
-            ('event_promotions', blocks.StreamBlock([
-                ('hashtag', blocks.CharBlock()),
-                ('post_date', blocks.DateBlock()),
-            ], form_classname='event-promotions')),
-        ])
+        body = StreamField(
+            [
+                # ...
+                (
+                    "event_promotions",
+                    blocks.StreamBlock(
+                        [
+                            ("hashtag", blocks.CharBlock()),
+                            ("post_date", blocks.DateBlock()),
+                        ],
+                        form_classname="event-promotions",
+                    ),
+                ),
+            ]
+        )
 
     .. code-block:: python
         :emphasize-lines: 6
@@ -613,5 +661,5 @@ All block definitions have the following methods that can be overridden:
             post_date = blocks.DateBlock()
 
             class Meta:
-                form_classname = 'event-promotions'
+                form_classname = "event-promotions"
 ```

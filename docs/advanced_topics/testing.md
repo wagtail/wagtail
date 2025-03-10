@@ -13,9 +13,9 @@ Wagtail comes with some utilities that simplify writing tests for your site.
 from wagtail.test.utils import WagtailPageTestCase
 from myapp.models import MyPage
 
+
 class MyPageTests(WagtailPageTestCase):
-    def test_can_create_a_page(self):
-        ...
+    def test_can_create_a_page(self): ...
 ```
 
 **assertPageIsRoutable(_page, route_path="/", msg=None_)**
@@ -30,6 +30,7 @@ This assertion is great for getting coverage on custom routing logic for page ty
 from wagtail.test.utils import WagtailPageTestCase
 from myapp.models import EventListPage
 
+
 class EventListPageRoutabilityTests(WagtailPageTestCase):
     @classmethod
     def setUpTestData(cls):
@@ -43,7 +44,6 @@ class EventListPageRoutabilityTests(WagtailPageTestCase):
         # NOTE: Despite this page type raising a 404 when no events exist for
         # the specified year, routing should still be successful
         self.assertPageIsRoutable(self.page, "archive/year/1984/")
-
 ```
 
 **assertPageIsRenderable(_page, route_path="/", query_data=None, post_data=None, user=None, accept_404=False, accept_redirect=False, msg=None_)**
@@ -66,13 +66,17 @@ This assertion is great for getting coverage on custom rendering logic for page 
 def test_default_route_rendering(self):
     self.assertPageIsRenderable(self.page)
 
+
 def test_year_archive_route_with_zero_matches(self):
     # NOTE: Should raise a 404 when no events exist for the specified year
     self.assertPageIsRenderable(self.page, "archive/year/1984/", accept_404=True)
 
+
 def test_month_archive_route_with_zero_matches(self):
     # NOTE: Should redirect to year-specific view when no events exist for the specified month
-    self.assertPageIsRenderable(self.page, "archive/year/1984/07/", accept_redirect=True)
+    self.assertPageIsRenderable(
+        self.page, "archive/year/1984/07/", accept_redirect=True
+    )
 ```
 
 **assertPageIsEditable(_page, post_data=None, user=None, msg=None_)**
@@ -89,6 +93,7 @@ This assertion is great for getting coverage on custom fields, panel configurati
 def test_editability(self):
     self.assertPageIsEditable(self.page)
 
+
 def test_editability_on_post(self):
     self.assertPageIsEditable(
         self.page,
@@ -98,7 +103,7 @@ def test_editability_on_post(self):
             "show_featured": True,
             "show_expired": False,
             "action-publish": "",
-        }
+        },
     )
 ```
 
@@ -117,6 +122,7 @@ This assertion is great for getting coverage on custom preview modes, or getting
 ```python
 def test_general_previewability(self):
     self.assertPageIsPreviewable(self.page)
+
 
 def test_archive_previewability(self):
     self.assertPageIsPreviewable(self.page, mode="year-archive")
@@ -150,17 +156,26 @@ Assert that a child of the given Page type can be created under the parent, usin
 ```python
 from wagtail.test.utils.form_data import nested_form_data, streamfield
 
+
 def test_can_create_content_page(self):
     # Get the HomePage
     root_page = HomePage.objects.get(pk=2)
 
     # Assert that a ContentPage can be made here, with this POST data
-    self.assertCanCreate(root_page, ContentPage, nested_form_data({
-        'title': 'About us',
-        'body': streamfield([
-            ('text', 'Lorem ipsum dolor sit amet'),
-        ])
-    }))
+    self.assertCanCreate(
+        root_page,
+        ContentPage,
+        nested_form_data(
+            {
+                "title": "About us",
+                "body": streamfield(
+                    [
+                        ("text", "Lorem ipsum dolor sit amet"),
+                    ]
+                ),
+            }
+        ),
+    )
 ```
 
 See [](form_data_test_helpers) for a set of functions useful for constructing POST data.
@@ -174,12 +189,10 @@ The list of allowed parent models may differ from those set in `Page.parent_page
 def test_content_page_parent_pages(self):
     # A ContentPage can only be created under a HomePage
     # or another ContentPage
-    self.assertAllowedParentPageTypes(
-        ContentPage, {HomePage, ContentPage})
+    self.assertAllowedParentPageTypes(ContentPage, {HomePage, ContentPage})
 
     # An EventPage can only be created under an EventIndex
-    self.assertAllowedParentPageTypes(
-        EventPage, {EventIndex})
+    self.assertAllowedParentPageTypes(EventPage, {EventIndex})
 ```
 
 **assertAllowedSubpageTypes(_parent_model, child_models, msg=None_)**
@@ -190,12 +203,10 @@ The list of allowed child models may differ from those set in `Page.subpage_type
 ```python
 def test_content_page_subpages(self):
     # A ContentPage can only have other ContentPage children
-    self.assertAllowedSubpageTypes(
-        ContentPage, {ContentPage})
+    self.assertAllowedSubpageTypes(ContentPage, {ContentPage})
 
     # A HomePage can have ContentPage and EventIndex children
-    self.assertAllowedSubpageTypes(
-        HomePage, {ContentPage, EventIndex})
+    self.assertAllowedSubpageTypes(HomePage, {ContentPage, EventIndex})
 ```
 
 (form_data_test_helpers)=
@@ -260,6 +271,7 @@ You will likely want to test the content of your page. If it includes a `StreamF
 ```python
 ...
 from wagtail.rich_text import RichText
+
 
 class MyPageTest(WagtailPageTestCase):
     @classmethod

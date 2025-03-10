@@ -8,7 +8,7 @@ Add `"wagtail.contrib.typed_table_block"` to your `INSTALLED_APPS`:
 
 ```python
 INSTALLED_APPS = [
-    ...
+    # ...
     "wagtail.contrib.typed_table_block",
 ]
 ```
@@ -22,34 +22,44 @@ from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
+
 class DemoStreamBlock(blocks.StreamBlock):
     title = blocks.CharBlock()
     paragraph = blocks.RichTextBlock()
-    table = TypedTableBlock([
-        ('text', blocks.CharBlock()),
-        ('numeric', blocks.FloatBlock()),
-        ('rich_text', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock())
-    ])
+    table = TypedTableBlock(
+        [
+            ("text", blocks.CharBlock()),
+            ("numeric", blocks.FloatBlock()),
+            ("rich_text", blocks.RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ]
+    )
 ```
 
 To keep the UI as simple as possible for authors, it's generally recommended to use Wagtail's basic built-in block types as column types, as above. However, all custom block types and parameters are supported. For example, to define a 'country' column type consisting of a dropdown of country choices:
 
 ```python
-table = TypedTableBlock([
-    ('text', blocks.CharBlock()),
-    ('numeric', blocks.FloatBlock()),
-    ('rich_text', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
-    ('country', ChoiceBlock(choices=[
-        ('be', 'Belgium'),
-        ('fr', 'France'),
-        ('de', 'Germany'),
-        ('nl', 'Netherlands'),
-        ('pl', 'Poland'),
-        ('uk', 'United Kingdom'),
-    ])),
-])
+table = TypedTableBlock(
+    [
+        ("text", blocks.CharBlock()),
+        ("numeric", blocks.FloatBlock()),
+        ("rich_text", blocks.RichTextBlock()),
+        ("image", ImageChooserBlock()),
+        (
+            "country",
+            ChoiceBlock(
+                choices=[
+                    ("be", "Belgium"),
+                    ("fr", "France"),
+                    ("de", "Germany"),
+                    ("nl", "Netherlands"),
+                    ("pl", "Poland"),
+                    ("uk", "United Kingdom"),
+                ]
+            ),
+        ),
+    ]
+)
 ```
 
 On your page template, the `{% include_block %}` tag (called on either the individual block, or the StreamField value as a whole) will render any typed table blocks as an HTML `<table>` element.
@@ -81,7 +91,10 @@ As with other blocks, validation logic on `TypedTableBlock` can be customized by
 ```python
 from django.core.exceptions import ValidationError
 from wagtail.blocks import IntegerBlock
-from wagtail.contrib.typed_table_block.blocks import TypedTableBlock, TypedTableBlockValidationError
+from wagtail.contrib.typed_table_block.blocks import (
+    TypedTableBlock,
+    TypedTableBlockValidationError,
+)
 
 
 class LuckyTableBlock(TypedTableBlock):
@@ -93,9 +106,11 @@ class LuckyTableBlock(TypedTableBlock):
         print(result.row_data)
         for row_num, row in enumerate(result.row_data):
             row_errors = {}
-            for col_num, cell in enumerate(row['values']):
+            for col_num, cell in enumerate(row["values"]):
                 if cell == 13:
-                    row_errors[col_num] = ValidationError("Table cannot contain the number 13")
+                    row_errors[col_num] = ValidationError(
+                        "Table cannot contain the number 13"
+                    )
             if row_errors:
                 errors[row_num] = row_errors
 

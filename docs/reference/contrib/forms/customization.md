@@ -13,16 +13,15 @@ You can do this as shown below.
 
 ```python
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
-)
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='custom_form_fields')
+    page = ParentalKey(
+        "FormPage", on_delete=models.CASCADE, related_name="custom_form_fields"
+    )
 
 
 class FormPage(AbstractEmailForm):
@@ -30,16 +29,21 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('custom_form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("custom_form_fields", label="Form fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 
     def get_form_fields(self):
@@ -62,16 +66,17 @@ import json
 from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
-)
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.contrib.forms.models import (
+    AbstractEmailForm,
+    AbstractFormField,
+    AbstractFormSubmission,
+)
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -79,16 +84,21 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields", label="Form fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 
     def get_submission_class(self):
@@ -96,8 +106,7 @@ class FormPage(AbstractEmailForm):
 
     def process_form_submission(self, form):
         return self.get_submission_class().objects.create(
-            form_data=form.cleaned_data,
-            page=self, user=form.user
+            form_data=form.cleaned_data, page=self, user=form.user
         )
 
 
@@ -121,16 +130,17 @@ import json
 from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
-)
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.contrib.forms.models import (
+    AbstractEmailForm,
+    AbstractFormField,
+    AbstractFormSubmission,
+)
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -138,21 +148,26 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields", label="Form fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 
     def get_data_fields(self):
         data_fields = [
-            ('username', 'Username'),
+            ("username", "Username"),
         ]
         data_fields += super().get_data_fields()
 
@@ -163,8 +178,7 @@ class FormPage(AbstractEmailForm):
 
     def process_form_submission(self, form):
         return self.get_submission_class().objects.create(
-            form_data=form.cleaned_data,
-            page=self, user=form.user
+            form_data=form.cleaned_data, page=self, user=form.user
         )
 
 
@@ -173,9 +187,11 @@ class CustomFormSubmission(AbstractFormSubmission):
 
     def get_data(self):
         form_data = super().get_data()
-        form_data.update({
-            'username': self.user.username,
-        })
+        form_data.update(
+            {
+                "username": self.user.username,
+            }
+        )
 
         return form_data
 ```
@@ -194,16 +210,17 @@ from django.conf import settings
 from django.db import models
 from django.shortcuts import render
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
-)
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractFormSubmission
+from wagtail.contrib.forms.models import (
+    AbstractEmailForm,
+    AbstractFormField,
+    AbstractFormSubmission,
+)
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -211,25 +228,30 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields", label="Form fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 
     def serve(self, request, *args, **kwargs):
-        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
-            return render(
-                request,
-                self.template,
-                self.get_context(request)
-            )
+        if (
+            self.get_submission_class()
+            .objects.filter(page=self, user__pk=request.user.pk)
+            .exists()
+        ):
+            return render(request, self.template, self.get_context(request))
 
         return super().serve(request, *args, **kwargs)
 
@@ -238,8 +260,7 @@ class FormPage(AbstractEmailForm):
 
     def process_form_submission(self, form):
         return self.get_submission_class().objects.create(
-            form_data=form.cleaned_data,
-            page=self, user=form.user
+            form_data=form.cleaned_data, page=self, user=form.user
         )
 
 
@@ -247,7 +268,7 @@ class CustomFormSubmission(AbstractFormSubmission):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('page', 'user')
+        unique_together = ("page", "user")
 ```
 
 Your template should look like this:
@@ -287,16 +308,13 @@ The following example shows how to create a multi-step form.
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
-)
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -304,16 +322,21 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields", label="Form fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 
     def get_form_class_for_step(self, step):
@@ -327,9 +350,9 @@ class FormPage(AbstractEmailForm):
         When the last step is submitted correctly, saves the whole form into a DB.
         """
 
-        session_key_data = 'form_data-%s' % self.pk
+        session_key_data = "form_data-%s" % self.pk
         is_last_step = False
-        step_number = request.GET.get('p', 1)
+        step_number = request.GET.get("p", 1)
 
         paginator = Paginator(self.get_form_fields(), per_page=1)
         try:
@@ -340,11 +363,13 @@ class FormPage(AbstractEmailForm):
             step = paginator.page(paginator.num_pages)
             is_last_step = True
 
-        if request.method == 'POST':
+        if request.method == "POST":
             # The first step will be submitted with step_number == 2,
             # so we need to get a form from the previous step
             # Edge case - submission of the last step
-            prev_step = step if is_last_step else paginator.page(step.previous_page_number())
+            prev_step = (
+                step if is_last_step else paginator.page(step.previous_page_number())
+            )
 
             # Create a form only for submitted step
             prev_form_class = self.get_form_class_for_step(prev_step)
@@ -362,8 +387,7 @@ class FormPage(AbstractEmailForm):
                 else:
                     # If there is no next step, create form for all fields
                     form = self.get_form(
-                        request.session[session_key_data],
-                        page=self, user=request.user
+                        request.session[session_key_data], page=self, user=request.user
                     )
 
                     if form.is_valid():
@@ -373,7 +397,9 @@ class FormPage(AbstractEmailForm):
                         form_submission = self.process_form_submission(form)
                         del request.session[session_key_data]
                         # render the landing page
-                        return self.render_landing_page(request, form_submission, *args, **kwargs)
+                        return self.render_landing_page(
+                            request, form_submission, *args, **kwargs
+                        )
             else:
                 # If data for step is invalid
                 # we will need to display form again with errors,
@@ -386,13 +412,9 @@ class FormPage(AbstractEmailForm):
             form = form_class(page=self, user=request.user)
 
         context = self.get_context(request)
-        context['form'] = form
-        context['fields_step'] = step
-        return render(
-            request,
-            self.template,
-            context
-        )
+        context["form"] = form
+        context["fields_step"] = step
+        return render(request, self.template, context)
 ```
 
 Your template for this form page should look like this:
@@ -429,16 +451,13 @@ First, you need to collect results as shown below:
 
 ```python
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import (
-    FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
-)
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -446,16 +465,21 @@ class FormPage(AbstractEmailForm):
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
+        FieldPanel("intro"),
+        InlinePanel("form_fields", label="Form fields"),
+        FieldPanel("thank_you_text"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 
     def get_context(self, request, *args, **kwargs):
@@ -467,8 +491,7 @@ class FormPage(AbstractEmailForm):
         results = dict()
         # Get information about form fields
         data_fields = [
-            (field.clean_name, field.label)
-            for field in self.get_form_fields()
+            (field.clean_name, field.label) for field in self.get_form_fields()
         ]
 
         # Get all submissions for current page
@@ -488,15 +511,17 @@ class FormPage(AbstractEmailForm):
 
                 if type(answer) is list:
                     # Answer is a list if the field type is 'Checkboxes'
-                    answer = u', '.join(answer)
+                    answer = ", ".join(answer)
 
                 question_stats = results.get(label, {})
                 question_stats[answer] = question_stats.get(answer, 0) + 1
                 results[label] = question_stats
 
-        context.update({
-            'results': results,
-        })
+        context.update(
+            {
+                "results": results,
+            }
+        )
         return context
 ```
 
@@ -548,16 +573,17 @@ from django.shortcuts import redirect
 from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm
 
+
 class FormPage(AbstractEmailForm):
 
     # intro, thank_you_text, ...
 
     thank_you_page = models.ForeignKey(
-        'wagtailcore.Page',
+        "wagtailcore.Page",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
     def render_landing_page(self, request, form_submission=None, *args, **kwargs):
@@ -566,23 +592,28 @@ class FormPage(AbstractEmailForm):
             # if a form_submission instance is available, append the id to URL
             # when previewing landing page, there will not be a form_submission instance
             if form_submission:
-                url += '?id=%s' % form_submission.id
+                url += "?id=%s" % form_submission.id
             return redirect(url, permanent=False)
         # if no thank_you_page is set, render default landing page
         return super().render_landing_page(request, form_submission, *args, **kwargs)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields'),
-        FieldPanel('thank_you_text'),
-        FieldPanel('thank_you_page'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname='col6'),
-                FieldPanel('to_address', classname='col6'),
-            ]),
-            FieldPanel('subject'),
-        ], 'Email'),
+        FieldPanel("intro"),
+        InlinePanel("form_fields"),
+        FieldPanel("thank_you_text"),
+        FieldPanel("thank_you_page"),
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("from_address", classname="col6"),
+                        FieldPanel("to_address", classname="col6"),
+                    ]
+                ),
+                FieldPanel("subject"),
+            ],
+            "Email",
+        ),
     ]
 ```
 
@@ -603,18 +634,22 @@ from wagtail.contrib.forms.views import SubmissionsListView
 
 class CustomSubmissionsListView(SubmissionsListView):
     paginate_by = 50  # show more submissions per page, default is 20
-    default_ordering = ('submit_time',)  # order submissions by oldest first, normally newest first
-    ordering_csv = ('-submit_time',)  # order csv export by newest first, normally oldest first
+    default_ordering = (
+        "submit_time",
+    )  # order submissions by oldest first, normally newest first
+    ordering_csv = (
+        "-submit_time",
+    )  # order csv export by newest first, normally oldest first
 
     # override the method to generate csv filename
     def get_csv_filename(self):
-        """ Returns the filename for CSV file with page slug at start"""
+        """Returns the filename for CSV file with page slug at start"""
         filename = super().get_csv_filename()
-        return self.form_page.slug + '-' + filename
+        return self.form_page.slug + "-" + filename
 
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', related_name='form_fields')
+    page = ParentalKey("FormPage", related_name="form_fields")
 
 
 class FormPage(AbstractEmailForm):
@@ -653,21 +688,24 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
-    AbstractEmailForm, AbstractFormField, FORM_FIELD_CHOICES)
+    AbstractEmailForm,
+    AbstractFormField,
+    FORM_FIELD_CHOICES,
+)
 
 
 class FormField(AbstractFormField):
     # extend the built-in field type choices
     # our field type key will be 'ipaddress'
-    CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
+    CHOICES = FORM_FIELD_CHOICES + (("ipaddress", "IP Address"),)
 
-    page = ParentalKey('FormPage', related_name='form_fields')
+    page = ParentalKey("FormPage", related_name="form_fields")
     # override the field_type field with extended choices
     field_type = models.CharField(
-        verbose_name='field type',
+        verbose_name="field type",
         max_length=16,
         # use the choices tuple defined above
-        choices=CHOICES
+        choices=CHOICES,
     )
 
 
@@ -702,6 +740,7 @@ Example:
 
 ```python
 from datetime import date
+
 # ... additional wagtail imports
 from wagtail.contrib.forms.models import AbstractEmailForm
 
@@ -714,19 +753,19 @@ class FormPage(AbstractEmailForm):
         email_content = super().render_email(form)
 
         # Add a title (not part of the original method)
-        title = '{}: {}'.format('Form', self.title)
+        title = "{}: {}".format("Form", self.title)
 
-        content = [title, '', email_content, '']
+        content = [title, "", email_content, ""]
 
         # Add a link to the form page
-        content.append('{}: {}'.format('Submitted Via', self.full_url))
+        content.append("{}: {}".format("Submitted Via", self.full_url))
 
         # Add the date the form was submitted
-        submitted_date_str = date.today().strftime('%x')
-        content.append('{}: {}'.format('Submitted on', submitted_date_str))
+        submitted_date_str = date.today().strftime("%x")
+        content.append("{}: {}".format("Submitted on", submitted_date_str))
 
         # Content is joined with a new line to separate each text line
-        content = '\n'.join(content)
+        content = "\n".join(content)
 
         return content
 ```
@@ -745,6 +784,7 @@ Example:
 
 ```python
 from datetime import date
+
 # ... additional wagtail imports
 from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.models import AbstractEmailForm
@@ -757,13 +797,18 @@ class FormPage(AbstractEmailForm):
         # `self` is the FormPage, `form` is the form's POST data on submit
 
         # Email addresses are parsed from the FormPage's addresses field
-        addresses = [x.strip() for x in self.to_address.split(',')]
+        addresses = [x.strip() for x in self.to_address.split(",")]
 
         # Subject can be adjusted (adding submitted date), be sure to include the form's defined subject field
-        submitted_date_str = date.today().strftime('%x')
+        submitted_date_str = date.today().strftime("%x")
         subject = f"{self.subject} - {submitted_date_str}"
 
-        send_mail(subject, self.render_email(form), addresses, self.from_address,)
+        send_mail(
+            subject,
+            self.render_email(form),
+            addresses,
+            self.from_address,
+        )
 ```
 
 ## Custom `clean_name` generation
@@ -776,26 +821,27 @@ class FormPage(AbstractEmailForm):
 -   This method gets called for form previews and also validation of duplicate labels.
 
 ```python
-    import uuid
+import uuid
 
-    from django.db import models
-    from modelcluster.fields import ParentalKey
+from django.db import models
+from modelcluster.fields import ParentalKey
 
-    # ... other field and edit_handler imports
-    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-
-
-    class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
-
-        def get_field_clean_name(self):
-            clean_name = super().get_field_clean_name()
-            id = str(uuid.uuid4())[:8] # short uuid
-            return f"{id}_{clean_name}"
+# ... other field and edit_handler imports
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
-    class FormPage(AbstractEmailForm):
-        # ... page definitions
+class FormField(AbstractFormField):
+    page = ParentalKey("FormPage", on_delete=models.CASCADE, related_name="form_fields")
+
+    def get_field_clean_name(self):
+        clean_name = super().get_field_clean_name()
+        id = str(uuid.uuid4())[:8]  # short uuid
+        return f"{id}_{clean_name}"
+
+
+class FormPage(AbstractEmailForm):
+    # page definitions
+    ...
 ```
 
 (form_builder_mixins)=
@@ -816,14 +862,15 @@ class BasePage(Page):
 
     # ...
 
+
 class FormPage(FormMixin, BasePage):
     intro = RichTextField(blank=True)
     # ...
 
+
 class EmailFormPage(EmailFormMixin, FormMixin, BasePage):
     intro = RichTextField(blank=True)
     # ...
-
 ```
 
 (form_builder_custom_admin_validation)=

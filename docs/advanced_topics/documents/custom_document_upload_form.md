@@ -6,7 +6,7 @@ Here's an example:
 
 ```python
 # settings.py
-WAGTAILDOCS_DOCUMENT_FORM_BASE = 'myapp.forms.CustomDocumentForm'
+WAGTAILDOCS_DOCUMENT_FORM_BASE = "myapp.forms.CustomDocumentForm"
 ```
 
 ```python
@@ -14,6 +14,7 @@ WAGTAILDOCS_DOCUMENT_FORM_BASE = 'myapp.forms.CustomDocumentForm'
 from django import forms
 
 from wagtail.documents.forms import BaseDocumentForm
+
 
 class CustomDocumentForm(BaseDocumentForm):
     terms_and_conditions = forms.BooleanField(

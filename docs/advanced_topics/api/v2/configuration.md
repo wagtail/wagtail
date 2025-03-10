@@ -19,11 +19,9 @@ Add `wagtail.api.v2` to `INSTALLED_APPS` in your Django project settings:
 # settings.py
 
 INSTALLED_APPS = [
-    ...
-
-    'wagtail.api.v2',
-
-    ...
+    # ...
+    "wagtail.api.v2",
+    # ...
 ]
 ```
 
@@ -55,9 +53,11 @@ from rest_framework.renderers import JSONRenderer
 
 # ...
 
+
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     renderer_classes = [JSONRenderer]
     name = "pages"
+
 
 api_router.register_endpoint("pages", CustomPagesAPIViewSet)
 ```
@@ -68,6 +68,7 @@ Or changing the desired model to use for page results.
 from rest_framework.renderers import JSONRenderer
 
 # ...
+
 
 class PostPagesAPIViewSet(PagesAPIViewSet):
     model = models.BlogPage
@@ -91,15 +92,15 @@ from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 
 # Create the router. "wagtailapi" is the URL namespace
-api_router = WagtailAPIRouter('wagtailapi')
+api_router = WagtailAPIRouter("wagtailapi")
 
 # Add the three endpoints using the "register_endpoint" method.
 # The first parameter is the name of the endpoint (such as pages, images). This
 # is used in the URL of the endpoint
 # The second parameter is the endpoint class that handles the requests
-api_router.register_endpoint('pages', PagesAPIViewSet)
-api_router.register_endpoint('images', ImagesAPIViewSet)
-api_router.register_endpoint('documents', DocumentsAPIViewSet)
+api_router.register_endpoint("pages", PagesAPIViewSet)
+api_router.register_endpoint("images", ImagesAPIViewSet)
+api_router.register_endpoint("documents", DocumentsAPIViewSet)
 ```
 
 Next, register the URLs so Django can route requests into the API:
@@ -110,14 +111,11 @@ Next, register the URLs so Django can route requests into the API:
 from .api import api_router
 
 urlpatterns = [
-    ...
-
-    path('api/v2/', api_router.urls),
-
-    ...
-
+    # ...
+    path("api/v2/", api_router.urls),
+    # ...
     # Ensure that the api_router line appears above the default Wagtail page serving route
-    re_path(r'^', include(wagtail_urls)),
+    re_path(r"^", include(wagtail_urls)),
 ]
 ```
 
@@ -139,27 +137,34 @@ For example:
 
 from wagtail.api import APIField
 
+
 class BlogPageAuthor(Orderable):
-    page = models.ForeignKey('blog.BlogPage', on_delete=models.CASCADE, related_name='authors')
+    page = models.ForeignKey(
+        "blog.BlogPage", on_delete=models.CASCADE, related_name="authors"
+    )
     name = models.CharField(max_length=255)
 
     api_fields = [
-        APIField('name'),
+        APIField("name"),
     ]
 
 
 class BlogPage(Page):
     published_date = models.DateTimeField()
     body = RichTextField()
-    feed_image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, null=True, ...)
+    feed_image = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.SET_NULL, null=True, ...
+    )
     private_field = models.CharField(max_length=255)
 
     # Export fields over the API
     api_fields = [
-        APIField('published_date'),
-        APIField('body'),
-        APIField('feed_image'),
-        APIField('authors'),  # This will nest the relevant BlogPageAuthor objects in the API response
+        APIField("published_date"),
+        APIField("body"),
+        APIField("feed_image"),
+        APIField(
+            "authors"
+        ),  # This will nest the relevant BlogPageAuthor objects in the API response
     ]
 ```
 
@@ -177,10 +182,11 @@ If you have a FormBuilder page called `FormPage` this is an example of how you w
 ```python
 from wagtail.api import APIField
 
+
 class FormPage(AbstractEmailForm):
-    #...
+    # ...
     api_fields = [
-        APIField('form_fields'),
+        APIField("form_fields"),
     ]
 ```
 
@@ -193,13 +199,14 @@ JSON format. You can override the serializer for any field using the
 ```python
 from rest_framework.fields import DateField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Change the format of the published_date field to "Thursday 06 April 2017"
-        APIField('published_date', serializer=DateField(format='%A %d %B %Y')),
-        ...
+        APIField("published_date", serializer=DateField(format="%A %d %B %Y")),
+        ...,
     ]
 ```
 
@@ -209,16 +216,19 @@ to add API fields that have a different field name or no underlying field at all
 ```python
 from rest_framework.fields import DateField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Date in ISO8601 format (the default)
-        APIField('published_date'),
-
+        APIField("published_date"),
         # A separate published_date_display field with a different format
-        APIField('published_date_display', serializer=DateField(format='%A %d %B %Y', source='published_date')),
-        ...
+        APIField(
+            "published_date_display",
+            serializer=DateField(format="%A %d %B %Y", source="published_date"),
+        ),
+        ...,
     ]
 ```
 
@@ -246,16 +256,19 @@ For example:
 from wagtail.api import APIField
 from wagtail.images.api.fields import ImageRenditionField
 
+
 class BlogPage(Page):
     ...
 
     api_fields = [
         # Adds information about the source image (eg, title) into the API
-        APIField('feed_image'),
-
+        APIField("feed_image"),
         # Adds a URL to a rendered thumbnail of the image to the API
-        APIField('feed_image_thumbnail', serializer=ImageRenditionField('fill-100x100', source='feed_image')),
-        ...
+        APIField(
+            "feed_image_thumbnail",
+            serializer=ImageRenditionField("fill-100x100", source="feed_image"),
+        ),
+        ...,
     ]
 ```
 
@@ -303,6 +316,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # ...
 
+
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     name = "pages"
     permission_classes = (IsAuthenticated,)
@@ -317,11 +331,9 @@ Extend settings with
 # settings.py
 
 INSTALLED_APPS = [
-    ...
-
-    'rest_framework.authtoken',
-
-    ...
+    # ...
+    "rest_framework.authtoken",
+    # ...
 ]
 
 ...

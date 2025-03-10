@@ -89,6 +89,7 @@ class CaptionedImageBlock(StructBlock):
     image = ImageBlock(required=True)
     caption = CharBlock(required=False)
     attribution = CharBlock(required=False)
+
     class Meta:
         icon = "image"
         template = "base/blocks/captioned_image_block.html"
@@ -111,6 +112,7 @@ class HeadingBlock(StructBlock):
         blank=True,
         required=False,
     )
+
     class Meta:
         icon = "title"
         template = "base/blocks/heading_block.html"
@@ -178,6 +180,7 @@ Now create a `portfolio/blocks.py` file and import the block you intend to use a
 
 ```python
 from base.blocks import BaseStreamBlock
+
 
 class PortfolioStreamBlock(BaseStreamBlock):
     pass
@@ -250,6 +253,7 @@ from wagtail.images.blocks import ImageBlock
 
 from base.blocks import BaseStreamBlock
 
+
 # add CardBlock:
 class CardBlock(StructBlock):
     heading = CharBlock()
@@ -260,6 +264,7 @@ class CardBlock(StructBlock):
         icon = "form"
         template = "portfolio/blocks/card_block.html"
 
+
 # add FeaturedPostsBlock:
 class FeaturedPostsBlock(StructBlock):
     heading = CharBlock()
@@ -269,6 +274,7 @@ class FeaturedPostsBlock(StructBlock):
     class Meta:
         icon = "folder-open-inverse"
         template = "portfolio/blocks/featured_posts_block.html"
+
 
 class PortfolioStreamBlock(BaseStreamBlock):
     # delete the pass statement

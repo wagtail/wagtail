@@ -28,6 +28,7 @@ from django.apps import AppConfig
 
 class SprocketAppConfig(AppConfig):
     ...
+
     def ready(self):
         from wagtail.models.reference_index import ReferenceIndex
 

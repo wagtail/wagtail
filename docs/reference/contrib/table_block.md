@@ -10,8 +10,7 @@ Add `"wagtail.contrib.table_block"` to your INSTALLED_APPS:
 
 ```python
 INSTALLED_APPS = [
-    ...
-
+    # ...
     "wagtail.contrib.table_block",
 ]
 ```
@@ -58,30 +57,30 @@ When defining a TableBlock, Wagtail provides the ability to pass an optional `ta
 
 ```python
 default_table_options = {
-    'minSpareRows': 0,
-    'startRows': 3,
-    'startCols': 3,
-    'colHeaders': False,
-    'rowHeaders': False,
-    'contextMenu': [
-        'row_above',
-        'row_below',
-        '---------',
-        'col_left',
-        'col_right',
-        '---------',
-        'remove_row',
-        'remove_col',
-        '---------',
-        'undo',
-        'redo'
+    "minSpareRows": 0,
+    "startRows": 3,
+    "startCols": 3,
+    "colHeaders": False,
+    "rowHeaders": False,
+    "contextMenu": [
+        "row_above",
+        "row_below",
+        "---------",
+        "col_left",
+        "col_right",
+        "---------",
+        "remove_row",
+        "remove_col",
+        "---------",
+        "undo",
+        "redo",
     ],
-    'editor': 'text',
-    'stretchH': 'all',
-    'height': 108,
-    'language': language,
-    'renderer': 'text',
-    'autoColumnSize': False,
+    "editor": "text",
+    "stretchH": "all",
+    "height": 108,
+    "language": language,
+    "renderer": "text",
+    "autoColumnSize": False,
 }
 ```
 
@@ -113,19 +112,20 @@ To change the default table options just pass a new table_options dictionary whe
 
 ```python
 new_table_options = {
-    'minSpareRows': 0,
-    'startRows': 6,
-    'startCols': 4,
-    'colHeaders': False,
-    'rowHeaders': False,
-    'contextMenu': True,
-    'editor': 'text',
-    'stretchH': 'all',
-    'height': 216,
-    'language': 'en',
-    'renderer': 'text',
-    'autoColumnSize': False,
+    "minSpareRows": 0,
+    "startRows": 6,
+    "startCols": 4,
+    "colHeaders": False,
+    "rowHeaders": False,
+    "contextMenu": True,
+    "editor": "text",
+    "stretchH": "all",
+    "height": 216,
+    "language": "en",
+    "renderer": "text",
+    "autoColumnSize": False,
 }
+
 
 class DemoStreamBlock(StreamBlock):
     ...
@@ -142,25 +142,26 @@ HTML classes set by handsontable will be kept on the rendered block. You'll then
 
 ```python
 new_table_options = {
-    'contextMenu': [
-        'row_above',
-        'row_below',
-        '---------',
-        'col_left',
-        'col_right',
-        '---------',
-        'remove_row',
-        'remove_col',
-        '---------',
-        'undo',
-        'redo',
-        '---------',
-        'copy',
-        'cut',
-        '---------',
-        'alignment',
+    "contextMenu": [
+        "row_above",
+        "row_below",
+        "---------",
+        "col_left",
+        "col_right",
+        "---------",
+        "remove_row",
+        "remove_col",
+        "---------",
+        "undo",
+        "redo",
+        "---------",
+        "copy",
+        "cut",
+        "---------",
+        "alignment",
     ],
 }
+
 
 class DemoStreamBlock(StreamBlock):
     ...

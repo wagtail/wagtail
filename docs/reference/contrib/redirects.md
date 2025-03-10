@@ -15,15 +15,13 @@ The `redirects` module is not enabled by default. To install it, add `wagtail.co
 ```python
 INSTALLED_APPS = [
     # ...
-
-    'wagtail.contrib.redirects',
+    "wagtail.contrib.redirects",
 ]
 
 MIDDLEWARE = [
     # ...
     # all other django middleware first
-
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 ```
 
@@ -107,7 +105,7 @@ Add the following code to add the redirects endpoint:
 ```python
 from wagtail.contrib.redirects.api import RedirectsAPIViewSet
 
-api_router.register_endpoint('redirects', RedirectsAPIViewSet)
+api_router.register_endpoint("redirects", RedirectsAPIViewSet)
 ```
 
 With this configuration, redirects will be available at `/api/v2/redirects/`.
