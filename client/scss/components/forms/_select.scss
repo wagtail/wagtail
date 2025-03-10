@@ -64,3 +64,8 @@ select[multiple] {
     padding: 0 theme('spacing.5');
   }
 }
+
+.w-field--select {
+  // Make sure comment buttons are as close as possible.
+  display: inline-block;
+}
