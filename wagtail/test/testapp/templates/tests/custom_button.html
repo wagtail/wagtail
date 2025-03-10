@@ -1,0 +1,9 @@
+{% load wagtailadmin_tags %}
+<form action="{{ button.url }}" method="post">
+    <input type="hidden" name="user_pk" value="{{ user_pk }}">
+    {% csrf_token %}
+    <button type="submit" class="{{ button.classname }}" {{ button.base_attrs_string }}>
+        {% icon name=button.icon_name %}
+        {{ button.label }}
+    </button>
+</form>
