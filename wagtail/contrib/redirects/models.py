@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 
 from django.db import models
 from django.urls import Resolver404
+from django.utils.encoding import uri_to_iri
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
@@ -185,6 +186,10 @@ class Redirect(models.Model):
         if query_string:
             path = path + "?" + query_string
 
+        # Reverse url-encoding so that unicode characters are written
+        # to the database as such
+        path = uri_to_iri(path)
+
         return path
 
     @staticmethod
@@ -201,6 +206,10 @@ class Redirect(models.Model):
             return ""
         elif not path.startswith("/"):
             path = "/" + path
+
+        # Reverse url-encoding so that unicode characters are written
+        # to the database as such
+        path = uri_to_iri(path)
 
         return path
 
