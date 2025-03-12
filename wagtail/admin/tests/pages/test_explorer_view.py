@@ -167,13 +167,26 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
 
     def test_ordering_by_content_type(self):
+        # Delete the child_page to avoid nondeterministic ordering with the
+        # new_page when ordering by content type, as they are the same type
+        self.child_page.delete()
+
+        event_page = SingleEventPage(
+            title="Wagtail Space 2025",
+            location="virtual",
+            audience="public",
+            cost="free",
+            date_from="2025-06-16",
+        )
+        self.root_page.add_child(instance=event_page)
+
         orderings = {
             "content_type": (
-                [self.child_page.id, self.new_page.id, self.old_page.id],
+                [self.new_page.id, self.old_page.id, event_page.id],
                 "-content_type",
             ),
             "-content_type": (
-                [self.old_page.id, self.child_page.id, self.new_page.id],
+                [event_page.id, self.old_page.id, self.new_page.id],
                 "content_type",
             ),
         }
