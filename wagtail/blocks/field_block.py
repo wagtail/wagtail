@@ -17,6 +17,7 @@ from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
     RichText,
     RichTextMaxLengthValidator,
+    RichTextMinLengthValidator,
     extract_references_from_rich_text,
     get_text_for_indexing,
 )
@@ -675,6 +676,7 @@ class RichTextBlock(FieldBlock):
         editor="default",
         features=None,
         max_length=None,
+        min_length=None,
         validators=(),
         search_index=True,
         **kwargs,
@@ -682,6 +684,10 @@ class RichTextBlock(FieldBlock):
         if max_length is not None:
             validators = list(validators) + [
                 RichTextMaxLengthValidator(max_length),
+            ]
+        if min_length is not None:
+            validators = list(validators) + [
+                RichTextMinLengthValidator(min_length),
             ]
         self.field_options = {
             "required": required,
