@@ -172,15 +172,16 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = e
 
-        if self.meta.min_num is not None and self.meta.min_num > len(value):
-            non_block_errors.append(
-                ValidationError(
-                    _("The minimum number of items is %(min_num)d")
-                    % {"min_num": self.meta.min_num}
+        if self.required and not ignore_required_constraints:
+            if self.meta.min_num is not None and self.meta.min_num > len(value):
+                non_block_errors.append(
+                    ValidationError(
+                        _("The minimum number of items is %(min_num)d")
+                        % {"min_num": self.meta.min_num}
+                    )
                 )
-            )
-        elif self.required and not ignore_required_constraints and len(value) == 0:
-            non_block_errors.append(ValidationError(_("This field is required.")))
+            elif len(value) == 0:
+                non_block_errors.append(ValidationError(_("This field is required.")))
 
         if self.meta.max_num is not None and self.meta.max_num < len(value):
             non_block_errors.append(
