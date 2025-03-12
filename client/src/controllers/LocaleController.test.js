@@ -13,6 +13,39 @@ afterEach(() => {
   }
 });
 
+const OriginalDateTimeFormat = Intl.DateTimeFormat;
+
+beforeAll(() => {
+ 
+  jest.spyOn(Intl, 'DateTimeFormat').mockImplementation((locale, options) => {
+  const formatter = new OriginalDateTimeFormat(locale, options);
+
+  if (options?.timeZoneName) {
+    return {
+      ...formatter,
+      formatToParts(date) {
+        return formatter.formatToParts(date).map((part) =>
+          part.type === 'timeZoneName'
+            ? {
+                ...part,
+                value: `${part.value} [${locale}]`,
+              }
+            : part,
+        );
+      },
+    };
+  }
+
+  return formatter;
+});
+
+});
+
+afterAll(() => {
+  Intl.DateTimeFormat.mockRestore();
+});
+
+
 describe('LocaleController', () => {
   let app;
   let select;
@@ -73,9 +106,12 @@ describe('LocaleController', () => {
       const selected = select.selectedOptions[0];
       expect(selected).toBeTruthy();
       expect(selected.value).toEqual('');
+
       expect(selected.textContent).toEqual(
-        'Use server time zone: GMT (Greenwich Mean Time)',
-      );
+  'Use server time zone: GMT [en-US] (Greenwich Mean Time [en-US])',
+);
+
+
       expect(select).toMatchSnapshot();
     });
   });
@@ -96,9 +132,11 @@ describe('LocaleController', () => {
     const selected = select.selectedOptions[0];
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
-    expect(selected.textContent).toEqual(
-      'Use server time zone: WIB (Waktu Indonesia Barat)',
-    );
+  expect(selected.textContent).toEqual(
+  'Use server time zone: WIB [id-ID] (Waktu Indonesia Barat [id-ID])',
+);
+
+
     expect(select).toMatchSnapshot();
   });
 
@@ -140,9 +178,15 @@ describe('LocaleController', () => {
     const selected = select.selectedOptions[0];
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
-    expect(selected.textContent).toEqual(
-      'Use server time zone: GMT+9 (Waktu Standar Jepang)',
-    );
+    
+
+ expect(selected.textContent).toEqual(
+  'Use server time zone: GMT+9 [id-ID] (Waktu Standar Jepang [id-ID])',
+);
+
+
+
+
     expect(select).toMatchSnapshot();
   });
 
@@ -171,9 +215,15 @@ describe('LocaleController', () => {
     const selected = select.selectedOptions[0];
     expect(selected).toBeTruthy();
     expect(selected.value).toEqual('');
-    expect(selected.textContent).toBe(
-      'Use server time zone : UTC+1 (heure normale d’Europe centrale)',
-    );
+   
+
+ expect(selected.textContent).toEqual(
+  'Use server time zone : UTC+1 [fr-FR] (heure normale d’Europe centrale [fr-FR])',
+);
+
+
+
     expect(select).toMatchSnapshot();
   });
 });
+
