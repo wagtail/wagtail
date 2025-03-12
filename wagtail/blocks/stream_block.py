@@ -161,6 +161,7 @@ class BaseStreamBlock(Block):
         return self.meta.required
 
     def clean(self, value, ignore_required_constraints=False):
+        required = self.required and not ignore_required_constraints
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
@@ -172,7 +173,7 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = e
 
-        if self.required and not ignore_required_constraints:
+        if required:
             if self.meta.min_num is not None and self.meta.min_num > len(value):
                 non_block_errors.append(
                     ValidationError(
@@ -201,7 +202,7 @@ class BaseStreamBlock(Block):
                 max_num = min_max.get("max_num", None)
                 min_num = min_max.get("min_num", None)
                 block_count = block_counts[block_name]
-                if min_num is not None and min_num > block_count:
+                if required and min_num is not None and min_num > block_count:
                     non_block_errors.append(
                         ValidationError(
                             "{}: {}".format(
