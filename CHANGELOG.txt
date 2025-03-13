@@ -9,6 +9,7 @@ Changelog
  * Apply normalization when modifying a `StreamBlock`'s value to assist with programmatic changes to `StreamField` (Matt Westcott)
  * Allow a custom image rendition model to define its unique constraint with `models.UniqueConstraint` instead of `unique_together` (Oliver Parker, Cynthia Kiser, Sage Abdullah)
  * Default to the `standard` tokenizer on Elasticsearch, to correctly handle numbers as tokens (Matt Westcott)
+ * Add color-scheme meta tag to Wagtail admin (Ashish Nagmoti)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
  * Fix: Support simple subqueries for `in` and `exact` lookup on Elasticsearch (Sage Abdullah)
@@ -26,6 +27,9 @@ Changelog
  * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
  * Maintenance: Split up `wagtail.models` module into submodules (Matt Westcott)
  * Maintenance: Update `ruff` to 0.9.6 (Sage Abdullah)
+ * Maintenance: Fix up `stubs` & `adapter` contents to better support Jest testing (LB (Ben) Johnston)
+ * Maintenance: Cleanup Stimulus controller imports, JSDoc & linting (LB (Ben) Johnston)
+ * Maintenance: Rename `SkipLinkController` to `FocusController` with improved reusability, updated unit tests, and added story (LB (Ben) Johnston)
 
 
 6.4.1 (21.02.2025)

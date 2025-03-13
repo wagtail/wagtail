@@ -708,6 +708,19 @@ def admin_theme_classname(context):
     return f"w-theme-{theme_name} w-density-{density_name} w-contrast-{contrast_name}"
 
 
+@register.simple_tag(takes_context=True)
+def admin_theme_color_scheme(context):
+    """
+    Retrieves the color-scheme of the active theme for current user.
+    """
+    user = context["request"].user
+    profile = getattr(user, "wagtail_userprofile", None)
+    theme_name = profile.theme if profile else "system"
+    if theme_name == "system":
+        return "dark light"
+    return theme_name
+
+
 @register.simple_tag
 def js_translation_strings():
     warn(
