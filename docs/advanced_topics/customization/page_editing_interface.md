@@ -78,7 +78,7 @@ class BookPage(Page):
 
 `RichTextField` inherits from Django's basic `TextField` field, so you can pass any field parameters into `RichTextField` as if using a normal Django field. This field does not need a special panel and can be defined with `FieldPanel`. However, template output from `RichTextField` is special and needs to be filtered in order to preserve embedded content. See [](rich_text_filter).
 
-If `max_length` is specified, length validation will automatically ignore any rich text formatting. To enforce minimum length in the same manner, pass an instance of `wagtail.rich_text.RichTextMinLengthValidator` in the `validators` field parameter.
+If `max_length` is specified, length validation will automatically ignore any rich text formatting. To enforce minimum length in the same manner, pass an instance of `wagtail.rich_text.RichTextMinLengthValidator` as part of the `validators` argument.
 
 (rich_text_features)=
 
