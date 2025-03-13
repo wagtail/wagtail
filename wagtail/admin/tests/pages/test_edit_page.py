@@ -2987,12 +2987,33 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, "The page could not be saved due to validation errors"
+        soup = self.get_soup(response.content)
+
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be saved
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The page could not be saved due to validation errors", message.get_text()
         )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(
+            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
         # the error should only appear once: against the field, not in the header message
-        self.assertContains(response, "error-message", count=1)
-        self.assertContains(response, "This field is required", count=1)
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(
+            error_message.parent["id"], "panel-child-content-child-title-errors"
+        )
+        self.assertIn("This field is required", error_message.get_text())
 
     def test_non_field_error(self):
         """Non-field errors should be shown in the header message"""
@@ -3071,19 +3092,45 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(
-            response, "The page could not be saved due to validation errors"
+        soup = self.get_soup(response.content)
+
+        # there should be top level messages should indicate that the page could not be saved alongside other messages
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+        self.assertEqual(len(header_messages), 3)
+
+        # the first header message should indicate that the page could not be saved & contain a go to error button
+        self.assertIn(
+            "The page could not be saved due to validation errors",
+            header_messages[0].get_text(),
         )
-        self.assertContains(
-            response, "<li>The end date must be after the start date</li>", count=1
+        buttons = header_messages[0].find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(
+            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
+        # the second should be a general message about the title, no go to error button
+        self.assertIn(
+            "Title: This field is required",
+            header_messages[1].get_text(),
+        )
+        self.assertEqual(len(header_messages[1].find_all("button")), 0)
+
+        # the third header message should be the non-field error
+        self.assertIn(
+            "The end date must be after the start date",
+            header_messages[2].get_text(),
         )
 
         # Error on title shown against the title field
-        self.assertContains(response, "error-message", count=1)
-        # Error on title shown in the header message
-        self.assertContains(
-            response, "<li>Title: This field is required.</li>", count=1
+        error_messages = soup.css.select(".error-message")
+        self.assertEqual(len(error_messages), 1)
+        error_message = error_messages[0]
+        self.assertEqual(
+            error_message.parent["id"], "panel-child-content-child-title-errors"
         )
+        self.assertIn("This field is required.", error_message.get_text())
 
 
 class TestNestedInlinePanel(WagtailTestUtils, TestCase):
