@@ -544,6 +544,24 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             post_data,
         )
 
+        soup = self.get_soup(response.content)
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be created
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The page could not be created due to validation errors", message.get_text()
+        )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(
+            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
+
         # Check that a form error was raised
         self.assertFormError(
             response.context["form"], "title", "This field is required."
@@ -759,6 +777,24 @@ class TestPageCreation(WagtailTestUtils, TestCase):
             post_data,
         )
         self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        header_messages = soup.css.select(".messages[role='status'] ul > li")
+
+        # the top level message should indicate that the page could not be created
+        self.assertEqual(len(header_messages), 1)
+        message = header_messages[0]
+        self.assertIn(
+            "The page could not be created due to validation errors", message.get_text()
+        )
+
+        # the top level message should provide a go to error button
+        buttons = message.find_all("button")
+        self.assertEqual(len(buttons), 1)
+        self.assertEqual(
+            buttons[0].attrs["data-controller"], "w-count w-focus w-tooltip"
+        )
+        self.assertIn("Go to the first error", buttons[0].get_text())
 
         # Check that a form error was raised
         self.assertFormError(
