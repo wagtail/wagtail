@@ -1,11 +1,66 @@
 import json
 import re
 
-from django.test import TestCase
+from django.test import RequestFactory, TestCase, override_settings
 from django.test.client import Client
 from django.urls import reverse
 
+from wagtail.admin.utils import get_keyboard_key_labels_from_request
 from wagtail.test.utils import WagtailTestUtils
+
+
+class TestGetKeyboardKeyLabelsFromRequestUtil(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.client = Client()
+
+    def test_get_keyboard_key_labels_for_default(self):
+        """
+        Test the default case for keyboard key labels where no User-Agent is provided.
+        This simulates an edge case where the request does not contain a User-Agent.
+        """
+        request = self.factory.get("/")
+        key_labels = get_keyboard_key_labels_from_request(request)
+
+        self.assertEqual(key_labels.ALT, "Alt")
+        self.assertEqual(key_labels.CMD, "Ctrl")
+        self.assertEqual(key_labels.CTRL, "Ctrl")
+        self.assertEqual(key_labels.MOD, "Ctrl")
+
+    def test_get_keyboard_key_labels_for_mac_os(self):
+        """
+        Test the keyboard key labels with a Mac user agent.
+        """
+        self.client.defaults["HTTP_USER_AGENT"] = (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+        )
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        key_labels = get_keyboard_key_labels_from_request(response.wsgi_request)
+
+        self.assertEqual(key_labels.ALT, "⌥")
+        self.assertEqual(key_labels.CMD, "⌘")
+        self.assertEqual(key_labels.CTRL, "^")
+        self.assertEqual(key_labels.ENTER, "Return")
+        self.assertEqual(key_labels.MOD, "⌘")
+
+    def test_get_keyboard_key_labels_for_windows(self):
+        """
+        Test the keyboard key labels with a Windows user agent.
+        """
+        self.client.defaults["HTTP_USER_AGENT"] = (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+        )
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        key_labels = get_keyboard_key_labels_from_request(response.wsgi_request)
+
+        self.assertEqual(key_labels.ALT, "Alt")
+        self.assertEqual(key_labels.CMD, "Ctrl")
+        self.assertEqual(key_labels.CTRL, "Ctrl")
+        self.assertEqual(key_labels.MOD, "Ctrl")
 
 
 class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
