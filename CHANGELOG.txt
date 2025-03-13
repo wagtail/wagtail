@@ -36,6 +36,7 @@
  * Add toggle from grid to list layout for image listings (Joel William)
  * Add support for opt-in collapsible `StructBlock`s (Sage Abdullah)
  * Add `form_attrs` support to all StreamField blocks (Sage Abdullah)
+ * Update project template documentation to include testing instructions and include starting test file in template (Aditya (megatrron))
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
