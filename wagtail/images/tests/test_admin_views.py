@@ -446,7 +446,7 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         answer_list = []
         for i in range(10):
             self.image = Image.objects.create(
-                title=f"{title_list[i%2]} {i}",
+                title=f"{title_list[i % 2]} {i}",
                 file=get_test_image_file(size=(1, 1)),
                 collection=child_collection[i % 2],
             )

@@ -16,7 +16,7 @@ def progress_bar(current, total, bar_length=50):
 
     ending = "\n" if current == total else "\r"
 
-    return (f"Progress: [{arrow}{padding}] {int(fraction*100)}%", ending)
+    return (f"Progress: [{arrow}{padding}] {int(fraction * 100)}%", ending)
 
 
 class Command(BaseCommand):

@@ -15,13 +15,18 @@ Changelog
  * Fix: Force preview panel scroll behavior to instant to avoid flickering (Sage Abdullah)
  * Fix: Support translating with the preferred language for rich text formatting labels (Bernhard Bliem, Sage Abdullah)
  * Fix: Make "Actions" label translatable within the rich text toolbar (Bernhard Bliem, Sage Abdullah)
+ * Fix: Fix incorrect "Views (past week)" heading on promoted search results listing (Baptiste Mispelon)
+ * Fix: Ensure `InlinePanel` will be correctly ordered after the first save when `min_num` is used (Elhussein Almasri, Joel William)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
+ * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
  * Maintenance: Refactor styles for Draftail, minimap, and comments to fix remaining Sass migration warnings (Thibaud Colas)
  * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
  * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
  * Maintenance: Split up `wagtail.models` module into submodules (Matt Westcott)
+ * Maintenance: Update `ruff` to 0.9.6 (Sage Abdullah)
+ * Maintenance: Fix up `stubs` & `adapter` contents to better support Jest testing (LB (Ben) Johnston)
 
 
 6.4.1 (21.02.2025)

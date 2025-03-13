@@ -36,8 +36,7 @@ class TestRevisions(WagtailTestUtils, TestCase):
         self.christmas_event.title = "This Christmas"
         self.christmas_event.date_from = "2014-12-25"
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, "
-            "I'll give it to someone special</p>"
+            "<p>This year, to save me from tears, I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
         self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
@@ -226,8 +225,7 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.christmas_event.title = "This Christmas"
         self.christmas_event.date_from = "2014-12-25"
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, "
-            "I'll give it to someone special</p>"
+            "<p>This year, to save me from tears, I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
         self.this_christmas_revision.created_at = local_datetime(2014, 12, 25)
@@ -311,7 +309,7 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_compare_revisions_live(self):
         # Mess with the live version, bypassing revisions
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, " "I'll just feed it to the dog</p>"
+            "<p>This year, to save me from tears, I'll just feed it to the dog</p>"
         )
         self.christmas_event.save(update_fields=["body"])
 
@@ -480,8 +478,7 @@ class TestRevisionsUnschedule(WagtailTestUtils, TestCase):
         self.christmas_event.title = "This Christmas"
         self.christmas_event.date_from = "2014-12-25"
         self.christmas_event.body = (
-            "<p>This year, to save me from tears, "
-            "I'll give it to someone special</p>"
+            "<p>This year, to save me from tears, I'll give it to someone special</p>"
         )
         self.this_christmas_revision = self.christmas_event.save_revision()
         self.this_christmas_revision.created_at = local_datetime(2014, 12, 24)
