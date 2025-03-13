@@ -295,6 +295,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
     FTS_TABLE_FIELDS = ["title", "body"]
+    HANDLES_ORDER_BY_EXPRESSIONS = True
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

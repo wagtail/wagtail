@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db.models import F
 from django.test import TestCase
 
 from wagtail.models import Page
@@ -38,6 +39,13 @@ class PageSearchTests:
             Page.objects.order_by("title").search(
                 "blah", order_by_relevance=False, backend=self.backend_name
             )
+        )
+
+    def test_order_by_last_published_at_with_drafts_first(self):
+        list(
+            Page.objects.order_by(
+                F("last_published_at").asc(nulls_first=True)
+            ).autocomplete("blah", order_by_relevance=False, backend=self.backend_name)
         )
 
     def test_search_specific_queryset(self):

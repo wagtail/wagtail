@@ -1,6 +1,7 @@
 import datetime
 from warnings import warn
 
+from django.db.models import OrderBy
 from django.db.models.functions.datetime import Extract as ExtractDate
 from django.db.models.functions.datetime import ExtractYear
 from django.db.models.lookups import Lookup
@@ -35,6 +36,7 @@ class OrderByFieldError(FieldError):
 
 class BaseSearchQueryCompiler:
     DEFAULT_OPERATOR = "or"
+    HANDLES_ORDER_BY_EXPRESSIONS = False
 
     def __init__(
         self,
@@ -216,25 +218,37 @@ class BaseSearchQueryCompiler:
         for field_name in self.queryset.query.order_by:
             reverse = False
 
-            if field_name.startswith("-"):
-                reverse = True
-                field_name = field_name[1:]
+            if isinstance(field_name, OrderBy):
+                if self.HANDLES_ORDER_BY_EXPRESSIONS:
+                    continue
+                else:
+                    raise OrderByFieldError(
+                        'Cannot sort search results with "'
+                        + field_name
+                        + '". Please use a search backend that handles these '
+                        "(e.g. database backend) or specify simple fields.",
+                        field_name=field_name,
+                    )
+            else:
+                if field_name.startswith("-"):
+                    reverse = True
+                    field_name = field_name[1:]
 
-            field = self._get_filterable_field(field_name)
+                field = self._get_filterable_field(field_name)
 
-            if field is None:
-                raise OrderByFieldError(
-                    'Cannot sort search results with field "'
-                    + field_name
-                    + "\". Please add index.FilterField('"
-                    + field_name
-                    + "') to "
-                    + self.queryset.model.__name__
-                    + ".search_fields.",
-                    field_name=field_name,
-                )
+                if field is None:
+                    raise OrderByFieldError(
+                        'Cannot sort search results with field "'
+                        + field_name
+                        + "\". Please add index.FilterField('"
+                        + field_name
+                        + "') to "
+                        + self.queryset.model.__name__
+                        + ".search_fields.",
+                        field_name=field_name,
+                    )
 
-            yield reverse, field
+                yield reverse, field
 
     def check(self):
         # Check search fields
