@@ -28,6 +28,7 @@ Changelog
  * Maintenance: Update `ruff` to 0.9.6 (Sage Abdullah)
  * Maintenance: Fix up `stubs` & `adapter` contents to better support Jest testing (LB (Ben) Johnston)
  * Maintenance: Cleanup Stimulus controller imports, JSDoc & linting (LB (Ben) Johnston)
+ * Maintenance: Rename `SkipLinkController` to `FocusController` with improved reusability, updated unit tests, and added story (LB (Ben) Johnston)
 
 
 6.4.1 (21.02.2025)
