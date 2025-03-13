@@ -85,6 +85,22 @@ To replace the welcome message on the dashboard, create a template file `dashboa
 {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 ```
 
+(custom_user_profile_avatar)=
+
+## Custom user profile avatar
+
+To render a user avatar other than the one sourced from the `UserProfile` model or from [gravatar](https://gravatar.com/), you can use the [`get_avatar_url`](#get_avatar_url) hook and resolve the avatar's image url as you see fit.
+
+For example, you might have an avatar on a `Profile` model in your own application that is keyed to the `auth.User` model in the familiar pattern. In that case, you could register your hook as the in following example, and the Wagtail admin avatar will be replaced with your own `Profile` avatar accordingly.
+
+```python
+@hooks.register('get_avatar_url')
+def get_profile_avatar(user, size):
+    return user.profile.avatar
+```
+
+Additionally, you can use the default `size` parameter that is passed in to the hook if you need to attach it to a request or do any further processing on your image.
+
 (custom_user_interface_fonts)=
 
 ## Custom user interface fonts
@@ -131,12 +147,14 @@ For static colors, either set each color separately (for example `--w-color-prim
 To customize information density of the admin user interface, inject a CSS file using the hook [](insert_global_admin_css). Set the `--w-density-factor` CSS variable to increase or reduce the UI density. The default value is `1`, the "snug" UI theming uses `0.5`. Here are example overrides:
 
 ```css
-:root, :host {
+:root,
+:host {
     /* Reduce the UI density by 20% for users of the default theme. */
     --w-density-factor: 0.8;
 }
 
-:root, :host {
+:root,
+:host {
     /* Increase the UI density by 20% for users of the default theme. */
     --w-density-factor: 1.2;
 }

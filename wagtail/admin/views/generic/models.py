@@ -73,7 +73,6 @@ class IndexView(
     inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
-    columns = None  # If not explicitly specified, will be derived from list_display
     list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
     show_other_searches = False
@@ -258,6 +257,7 @@ class IndexView(
 
     @cached_property
     def columns(self):
+        # If not explicitly overridden, derive from list_display
         columns = []
         for i, field in enumerate(self.list_display):
             if isinstance(field, Column):
@@ -479,7 +479,7 @@ class CreateView(
             {
                 "url": "",
                 "label": _("New: %(model_name)s")
-                % {"model_name": capfirst(self.model._meta.verbose_name)},
+                % {"model_name": self.get_page_subtitle()},
             }
         )
         return self.breadcrumbs_items + items
@@ -1183,12 +1183,46 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
 
 class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
     edit_handler = None
+    index_url_name = None
     edit_url_name = None
     history_url_name = None
     edit_label = gettext_lazy("Edit")
     history_label = gettext_lazy("History")
+    page_title = gettext_lazy("Compare")
     template_name = "wagtailadmin/generic/revisions/compare.html"
+    _show_breadcrumbs = True
     model = None
+
+    def get_breadcrumbs_items(self):
+        items = []
+        if (index_url := self.get_index_url()) and self.model:
+            items.append(
+                {
+                    "url": index_url,
+                    "label": capfirst(self.model._meta.verbose_name_plural),
+                }
+            )
+        if edit_url := self.get_edit_url():
+            items.append({"url": edit_url, "label": self.get_page_subtitle()})
+        if history_url := self.get_history_url():
+            items.append({"url": history_url, "label": self.history_label})
+        items.append(
+            {
+                "url": "",
+                "label": self.get_page_title(),
+                "sublabel": self.get_page_subtitle(),
+            }
+        )
+        return self.breadcrumbs_items + items
+
+    @cached_property
+    def header_buttons(self):
+        buttons = []
+        if edit_url := self.get_edit_url():
+            buttons.append(
+                HeaderButton(self.edit_label, url=edit_url, icon_name="edit")
+            )
+        return buttons
 
     def setup(self, request, pk, revision_id_a, revision_id_b, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -1207,6 +1241,10 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
 
     def get_page_subtitle(self):
         return str(self.object)
+
+    def get_index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
 
     def get_history_url(self):
         if self.history_url_name:
@@ -1269,10 +1307,6 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
         context.update(
             {
                 "object": self.object,
-                "history_label": self.history_label,
-                "edit_label": self.edit_label,
-                "history_url": self.get_history_url(),
-                "edit_url": self.get_edit_url(),
                 "revision_a": revision_a,
                 "revision_a_heading": revision_a_heading,
                 "revision_b": revision_b,
@@ -1290,6 +1324,7 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     edit_url_name = None
     unpublish_url_name = None
     usage_url_name = None
+    page_title = gettext_lazy("Unpublish")
     success_message = gettext_lazy("'%(object)s' unpublished.")
     template_name = "wagtailadmin/generic/confirm_unpublish.html"
 
@@ -1310,12 +1345,15 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
     def get_usage(self):
         return ReferenceIndex.get_grouped_references_to(self.object)
 
+    def get_breadcrumbs_items(self):
+        return []
+
     def get_objects_to_unpublish(self):
         # Hook to allow child classes to have more objects to unpublish (e.g. page descendants)
         return [self.object]
 
-    def get_object_display_title(self):
-        return str(self.object)
+    def get_page_subtitle(self):
+        return get_latest_str(self.object)
 
     def get_success_message(self):
         if self.success_message is None:
@@ -1381,7 +1419,6 @@ class UnpublishView(HookResponseMixin, WagtailAdminTemplateMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["model_opts"] = self.object._meta
         context["object"] = self.object
-        context["object_display_title"] = self.get_object_display_title()
         context["unpublish_url"] = self.get_unpublish_url()
         context["next_url"] = self.get_next_url()
         context["usage_url"] = self.get_usage_url()
@@ -1400,6 +1437,7 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
         'Version %(revision_id)s of "%(object)s" unscheduled.'
     )
     template_name = "wagtailadmin/shared/revisions/confirm_unschedule.html"
+    page_title = gettext_lazy("Unschedule")
 
     def setup(self, request, pk, revision_id, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -1413,6 +1451,9 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
             raise Http404
         return get_object_or_404(self.model, pk=unquote(str(self.pk)))
 
+    def get_breadcrumbs_items(self):
+        return []
+
     def get_revision(self):
         return get_object_or_404(self.object.revisions, id=self.revision_id)
 
@@ -1423,7 +1464,7 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
         )
 
     def get_object_display_title(self):
-        return str(self.object)
+        return get_latest_str(self.object)
 
     def get_success_message(self):
         if self.success_message is None:
@@ -1453,10 +1494,13 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
         return reverse(self.history_url_name, args=(quote(self.object.pk),))
 
     def get_page_subtitle(self):
-        return _('revision %(revision_id)s of "%(object)s"') % {
-            "revision_id": self.revision.id,
-            "object": self.get_object_display_title(),
-        }
+        return capfirst(
+            _('revision %(revision_id)s of "%(object)s"')
+            % {
+                "revision_id": self.revision.id,
+                "object": self.get_object_display_title(),
+            }
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1464,8 +1508,6 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
             {
                 "object": self.object,
                 "revision": self.revision,
-                "subtitle": self.get_page_subtitle(),
-                "object_display_title": self.get_object_display_title(),
                 "revisions_unschedule_url": self.get_revisions_unschedule_url(),
                 "next_url": self.get_next_url(),
             }

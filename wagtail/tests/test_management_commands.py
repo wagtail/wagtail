@@ -225,8 +225,9 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exclude(approved_go_live_at__isnull=True)
                 .exists()
             )
-            with self.assertNumQueries(44):
-                management.call_command("publish_scheduled_pages")
+            with self.assertNumQueries(49):
+                with self.captureOnCommitCallbacks(execute=True):
+                    management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
@@ -282,8 +283,9 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
                 .exists()
             )
 
-            with self.assertNumQueries(44):
-                management.call_command("publish_scheduled_pages")
+            with self.assertNumQueries(49):
+                with self.captureOnCommitCallbacks(execute=True):
+                    management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
@@ -318,8 +320,9 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         page.title = "Goodbye world!"
         page.save_revision()
 
-        with self.assertNumQueries(44):
-            management.call_command("publish_scheduled_pages")
+        with self.assertNumQueries(49):
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
@@ -346,8 +349,9 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        with self.assertNumQueries(42):
-            management.call_command("publish_scheduled_pages")
+        with self.assertNumQueries(47):
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
         self.assertFalse(p.live)
@@ -382,8 +386,9 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             p = Page.objects.get(slug="hello-world")
             self.assertTrue(p.live)
 
-            with self.assertNumQueries(26):
-                management.call_command("publish_scheduled_pages")
+            with self.assertNumQueries(29):
+                with self.captureOnCommitCallbacks(execute=True):
+                    management.call_command("publish_scheduled_pages")
 
             p = Page.objects.get(slug="hello-world")
             self.assertFalse(p.live)
@@ -411,7 +416,8 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
         self.assertTrue(p.live)
 
         with self.assertNumQueries(6):
-            management.call_command("publish_scheduled_pages")
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled_pages")
 
         p = Page.objects.get(slug="hello-world")
         self.assertTrue(p.live)
@@ -459,7 +465,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
             )
 
             with self.assertNumQueries(15):
-                management.call_command("publish_scheduled")
+                with self.captureOnCommitCallbacks(execute=True):
+                    management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
@@ -507,7 +514,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
             )
 
             with self.assertNumQueries(15):
-                management.call_command("publish_scheduled")
+                with self.captureOnCommitCallbacks(execute=True):
+                    management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
             self.assertTrue(self.snippet.live)
@@ -536,7 +544,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         self.snippet.save_revision()
 
         with self.assertNumQueries(15):
-            management.call_command("publish_scheduled")
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled")
 
         self.snippet.refresh_from_db()
         self.assertTrue(self.snippet.live)
@@ -560,7 +569,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         )
 
         with self.assertNumQueries(14):
-            management.call_command("publish_scheduled")
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled")
 
         self.assertFalse(self.snippet.live)
         self.assertTrue(
@@ -588,7 +598,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
             self.assertTrue(self.snippet.live)
 
             with self.assertNumQueries(10):
-                management.call_command("publish_scheduled")
+                with self.captureOnCommitCallbacks(execute=True):
+                    management.call_command("publish_scheduled")
 
             self.snippet.refresh_from_db()
             self.assertFalse(self.snippet.live)
@@ -609,7 +620,8 @@ class TestPublishScheduledCommand(WagtailTestUtils, TestCase):
         self.assertTrue(self.snippet.live)
 
         with self.assertNumQueries(6):
-            management.call_command("publish_scheduled")
+            with self.captureOnCommitCallbacks(execute=True):
+                management.call_command("publish_scheduled")
 
         self.snippet.refresh_from_db()
         self.assertTrue(self.snippet.live)

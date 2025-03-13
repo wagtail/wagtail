@@ -1886,22 +1886,26 @@ class TestPageCacheInvalidation(TestCase):
         signal_handlers.unregister_signal_handlers()
 
     def test_republish_page_purges(self, purge):
-        Page.objects.get(id=2).specific.save_revision().publish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision().publish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_unpublish_page_purges(self, purge):
-        Page.objects.get(id=2).unpublish()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).unpublish()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/2/")
 
     def test_delete_page_purges(self, purge):
-        Page.objects.get(id=16).delete()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=16).delete()
 
         purge.assert_any_call("http://api.example.com/api/main/pages/16/")
 
     def test_save_draft_doesnt_purge(self, purge):
-        Page.objects.get(id=2).specific.save_revision()
+        with self.captureOnCommitCallbacks(execute=True):
+            Page.objects.get(id=2).specific.save_revision()
 
         purge.assert_not_called()
 

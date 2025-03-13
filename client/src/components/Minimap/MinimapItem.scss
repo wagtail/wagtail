@@ -1,8 +1,9 @@
+@use '../../../scss/tools' as *;
+
 .w-minimap-item {
   @apply w-label-3 w-outline-offset-inside;
   display: inline-flex;
   align-items: center;
-  width: $minimap-width;
   height: theme('spacing.8');
   gap: theme('spacing[2.5]');
   font-weight: theme('fontWeight.normal');

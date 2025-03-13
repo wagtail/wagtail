@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: src/components/Sidebar/menu/SubMenuItem.tsx:121
+#: src/components/Sidebar/menu/SubMenuItem.tsx:122
 msgid "(%(number)s new items in this menu)"
 msgstr ""
 
-#: src/components/Sidebar/menu/SubMenuItem.tsx:120
+#: src/components/Sidebar/menu/SubMenuItem.tsx:121
 msgid "(1 new item in this menu)"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:407
+#: src/entrypoints/admin/telepath/widgets.js:411
 msgid "Blocks"
 msgstr ""
 
@@ -70,6 +70,7 @@ msgstr ""
 msgid "Character count:"
 msgstr ""
 
+#: src/components/Sidebar/menu/SubMenuCloseButton.tsx:30
 #: src/entrypoints/admin/modal-workflow.js:56
 msgid "Close"
 msgstr ""
@@ -144,7 +145,7 @@ msgstr ""
 msgid "Horizontal line"
 msgstr ""
 
-#: src/components/ComboBox/ComboBox.tsx:9
+#: src/components/ComboBox/ComboBox.tsx:10
 msgid "Insert a block"
 msgstr ""
 
@@ -168,7 +169,7 @@ msgstr ""
 msgid "More actions"
 msgstr ""
 
-#: src/components/ComboBox/ComboBox.tsx:11
+#: src/components/ComboBox/ComboBox.tsx:12
 #: src/components/Draftail/index.js:241
 #: src/components/PageExplorer/PageExplorerPanel.tsx:84
 msgid "No results"
@@ -191,6 +192,10 @@ msgstr ""
 msgid "Pin toolbar"
 msgstr ""
 
+#: src/components/ComboBox/ComboBox.tsx:13
+msgid "Preview"
+msgstr ""
+
 #: src/components/Draftail/EditorFallback/EditorFallback.js:96
 msgid "Reload saved content"
 msgstr ""
@@ -203,7 +208,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-#: src/includes/chooserModal.js:51
+#: src/includes/chooserModal.js:53
 msgid "Report this error to your website administrator with the following information:"
 msgstr ""
 
@@ -252,7 +257,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: src/components/ComboBox/ComboBox.tsx:10
+#: src/components/ComboBox/ComboBox.tsx:11
 msgid "Search options…"
 msgstr ""
 
@@ -262,7 +267,7 @@ msgstr ""
 
 #: src/components/Draftail/sources/ModalWorkflowSource.js:63
 #: src/components/PageExplorer/PageExplorerPanel.tsx:112
-#: src/includes/chooserModal.js:61
+#: src/includes/chooserModal.js:63
 msgid "Server Error"
 msgstr ""
 
@@ -274,7 +279,7 @@ msgstr ""
 msgid "Show latest content"
 msgstr ""
 
-#: src/entrypoints/admin/telepath/widgets.js:298
+#: src/entrypoints/admin/telepath/widgets.js:303
 msgid "Split block"
 msgstr ""
 
@@ -282,19 +287,19 @@ msgstr ""
 msgid "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: src/components/StreamField/blocks/ListBlock.js:196
-#: src/components/StreamField/blocks/StreamBlock.js:271
-#: src/components/StreamField/blocks/StreamBlock.js:295
+#: src/components/StreamField/blocks/ListBlock.js:202
+#: src/components/StreamField/blocks/StreamBlock.js:277
+#: src/components/StreamField/blocks/StreamBlock.js:301
 msgid "The maximum number of items is %(max_num)d"
 msgstr ""
 
-#: src/components/StreamField/blocks/ListBlock.js:207
-#: src/components/StreamField/blocks/StreamBlock.js:279
-#: src/components/StreamField/blocks/StreamBlock.js:309
+#: src/components/StreamField/blocks/ListBlock.js:213
+#: src/components/StreamField/blocks/StreamBlock.js:285
+#: src/components/StreamField/blocks/StreamBlock.js:315
 msgid "The minimum number of items is %(min_num)d"
 msgstr ""
 
-#: src/includes/chooserModal.js:21
+#: src/includes/chooserModal.js:23
 msgid "This field is required."
 msgstr ""
 

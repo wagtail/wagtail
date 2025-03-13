@@ -7,6 +7,7 @@
         {% if can_order %}
             <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-up title="{% trans 'Move up' %}">{% icon name="arrow-up" %}</button>
             <button type="button" class="button button--icon text-replace white" data-inline-panel-child-move-down title="{% trans 'Move down' %}">{% icon name="arrow-down" %}</button>
+            <button type="button" class="button button--icon text-replace white" data-inline-panel-child-drag title="{% trans 'Drag' %}">{% icon name="grip" %}</button>
         {% endif %}
         <button type="button" class="button button--icon text-replace white" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% icon name="bin" %}</button>
     {% endfragment %}

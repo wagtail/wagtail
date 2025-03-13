@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -36,6 +36,9 @@ msgstr "حرکت به بالا"
 
 msgid "Move down"
 msgstr "حرکت به پایین"
+
+msgid "Drag"
+msgstr "کشیدن"
 
 msgid "Delete"
 msgstr "حذف"
@@ -162,6 +165,12 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "آخرین بازبینی ایجاد شده در"
+
+msgid "For search engines"
+msgstr "برای موتور های جست و جو"
+
+msgid "For site menus"
+msgstr "برای منو های سایت"
 
 msgid "page"
 msgstr "صفحه"

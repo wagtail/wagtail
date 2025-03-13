@@ -27,7 +27,6 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
     template_name = "wagtailimages/multiple/add.html"
     header_icon = "image"
     page_title = gettext_lazy("Add images")
-    _show_breadcrumbs = True
 
     index_url_name = "wagtailimages:index"
     edit_object_url_name = "wagtailimages:edit_multiple"

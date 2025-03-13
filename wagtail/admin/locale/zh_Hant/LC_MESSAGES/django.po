@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -511,10 +511,6 @@ msgstr "確認刪除"
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "取消發佈%(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "是，取消發佈"
 
@@ -532,13 +528,6 @@ msgstr "評論"
 
 msgid "Update"
 msgstr "更新"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "比較 %(title)s"
-
-msgid "Comparing"
-msgstr "正在比較"
 
 msgid "Fields"
 msgstr "欄位"
@@ -1073,13 +1062,6 @@ msgstr "目前頁面狀態："
 msgid "Visit the live page"
 msgstr "查看線上頁面"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
-
-msgid "Unschedule"
-msgstr "取消預定發佈"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "確定要取消這個修訂版本的預定發佈嗎？"
 
@@ -1401,6 +1383,9 @@ msgstr "最早的"
 msgid "Latest"
 msgstr "最近的"
 
+msgid "Unschedule"
+msgstr "取消預定發佈"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "編輯此 %(object)s"
@@ -1498,9 +1483,6 @@ msgstr "頁面 '%(page_title)s'已解鎖。"
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "頁面 '%(page_title)s' 已移動。"
-
-msgid "Page history"
-msgstr "頁面歷史"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

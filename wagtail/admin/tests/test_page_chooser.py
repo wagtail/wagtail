@@ -65,11 +65,19 @@ class TestChooserBrowse(WagtailTestUtils, TestCase):
 
         checkbox_value = str(self.child_page.id)
         decoded_content = response.content.decode()
+        response_json = json.loads(decoded_content)
+        self.assertEqual(response_json["step"], "browse")
+        response_html = response_json["html"]
 
-        self.assertIn(f'value=\\"{checkbox_value}\\"', decoded_content)
+        self.assertIn(f'value="{checkbox_value}"', response_html)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/browse.html")
+
+        soup = self.get_soup(response_html)
+        search_url = soup.find("form", role="search")["action"]
+        search_query_params = parse_qs(urlsplit(search_url).query)
+        self.assertEqual(search_query_params["multiple"], ["1"])
 
     @override_settings(USE_THOUSAND_SEPARATOR=False)
     def test_multiple_chooser_view_without_thousand_separator(self):
@@ -241,6 +249,35 @@ class TestChooserBrowseChild(WagtailTestUtils, TestCase):
         self.assertIn(event_page.id, pages)
         self.assertTrue(pages[self.child_page.id].can_choose)
 
+    def test_with_multiple_specific_page_types_display_warning(self):
+        # Add a page that is not a SimplePage
+        event_page = EventPage(
+            title="event",
+            location="the moon",
+            audience="public",
+            cost="free",
+            date_from="2001-01-01",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        # Send request
+        response = self.get({"page_type": "tests.simplepage,tests.eventpage"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["page_type_names"], ["Simple page", "Event page"]
+        )
+
+        html = response.json().get("html")
+        expected = """
+            <p class="help-block help-warning">
+                <svg class="icon icon-warning icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+                Only the following page types may be chosen for this field: Simple page, Event page. Search results will exclude pages of other types.
+            </p>
+        """
+
+        self.assertTagInHTML(expected, html)
+
     def test_with_unknown_page_type(self):
         response = self.get({"page_type": "foo.bar"})
         self.assertEqual(response.status_code, 404)
@@ -363,11 +400,21 @@ class TestChooserSearch(WagtailTestUtils, TransactionTestCase):
         return self.client.get(reverse("wagtailadmin_choose_page_search"), params or {})
 
     def test_simple(self):
-        response = self.get({"q": "foobarbaz"})
+        response = self.get({"q": "foobarbaz", "allow_external_link": "true"})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/chooser/_search_results.html")
         self.assertContains(response, "There is 1 match")
         self.assertContains(response, "foobarbaz")
+
+        # parent page link should preserve the allow_external_link parameter
+        expected_url = (
+            reverse("wagtailadmin_choose_page_child", args=[self.root_page.id])
+            + "?allow_external_link=true"
+        )
+        self.assertContains(
+            response,
+            f'<a href="{expected_url}" class="navigate-parent">{self.root_page.title}</a>',
+        )
 
     def test_partial_match(self):
         response = self.get({"q": "fooba"})
@@ -912,7 +959,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
                 "external-link-chooser-link_text": "about",
             }
         )
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(10):
             response = self.post(
                 {
                     "external-link-chooser-url": f"http://localhost/{self.prefix}about/",
@@ -950,7 +997,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
     def test_convert_external_link_with_query_parameters_to_internal_link_with_serve_path(
-        self
+        self,
     ):
         # https://github.com/wagtail/wagtail/issues/11996
         # New behaviour: when using a non-root serve path, entering a full
@@ -1020,7 +1067,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
 
     @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="")
     def test_no_conversion_external_to_internal_link_when_disabled_with_serve_path(
-        self
+        self,
     ):
         url = f"http://localhost/{self.prefix}about/"
         title = "about"

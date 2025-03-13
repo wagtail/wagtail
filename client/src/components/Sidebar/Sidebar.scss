@@ -1,3 +1,6 @@
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+
 $sidebar-toggle-spacing: 12px;
 $sidebar-toggle-size: 35px;
 
@@ -63,7 +66,8 @@ $sidebar-toggle-size: 35px;
 
   // The sidebar can move completely off-screen in mobile mode for extra room
   &--hidden {
-    inset-inline-start: -$menu-width;
+    $neg-menu-width: -($menu-width);
+    inset-inline-start: $neg-menu-width;
   }
 
   // When sidebar is completely closed and animations have finished
@@ -94,8 +98,9 @@ $sidebar-toggle-size: 35px;
 // This is a separate component as it needs to display in the header
 .sidebar-nav-toggle {
   @apply w-z-sidebar-toggle;
-  @include sidebar-toggle;
   display: none; // Nav toggle is for mobile only
+
+  @include sidebar-toggle;
 
   &--mobile {
     @apply w-bg-surface-menus w-top-0 w-left-0 w-h-slim-header w-w-slim-header w-rounded-none hover:w-bg-surface-menu-item-active;
@@ -106,10 +111,3 @@ $sidebar-toggle-size: 35px;
     @apply w-fixed hover:w-bg-surface-menu-item-active hover:w-text-text-label-menus-active;
   }
 }
-
-// stylelint-disable no-invalid-position-at-import-rule
-@import 'SidebarPanel';
-@import 'menu/MenuItem';
-@import 'menu/SubMenuItem';
-@import 'modules/MainMenu';
-@import 'modules/WagtailBranding';

@@ -354,12 +354,15 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             self.assertEqual(user, self.user)
             self.assertEqual(context, {})
 
-        with hooks.register_temporarily(
-            "construct_snippet_listing_buttons",
-            register_snippet_listing_button_item,
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "construct_snippet_listing_buttons hook no longer accepts a context argument",
+        with (
+            hooks.register_temporarily(
+                "construct_snippet_listing_buttons",
+                register_snippet_listing_button_item,
+            ),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "construct_snippet_listing_buttons hook no longer accepts a context argument",
+            ),
         ):
             response = self.get()
 
@@ -536,8 +539,10 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         for i in range(1, 10):
-            advert = Advert.objects.create(text=f"{i*'a'}dvert {i}")
-            draft = DraftStateModel.objects.create(text=f"{i*'d'}raft {i}", live=False)
+            advert = Advert.objects.create(text=f"{i * 'a'}dvert {i}")
+            draft = DraftStateModel.objects.create(
+                text=f"{i * 'd'}raft {i}", live=False
+            )
             if i % 2 == 0:
                 ModelLogEntry.objects.create(
                     content_type=ContentType.objects.get_for_model(Advert),
@@ -1972,12 +1977,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             return DeleteMenuItem(order=900)
 
         get_base_snippet_action_menu_items.cache_clear()
-        with self.register_hook(
-            "register_snippet_action_menu_item", hook_func
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "DeleteMenuItem is deprecated. "
-            "The delete option is now provided via EditView.get_header_more_buttons().",
+        with (
+            self.register_hook("register_snippet_action_menu_item", hook_func),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "DeleteMenuItem is deprecated. "
+                "The delete option is now provided via EditView.get_header_more_buttons().",
+            ),
         ):
             response = self.get()
 
@@ -1989,7 +1995,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button" href="{ delete_url }"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
+            f'<a class="button" href="{delete_url}"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
             html=True,
         )
 
@@ -4129,9 +4135,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertContains(response, delete_url)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -4186,9 +4193,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -4870,7 +4878,7 @@ class TestSnippetRevisions(WagtailTestUtils, TestCase):
         self.assertEqual(self.snippet.live_revision, self.snippet.latest_revision)
 
 
-class TestCompareRevisions(WagtailTestUtils, TestCase):
+class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     # Actual tests for the comparison classes can be found in test_compare.py
 
     def setUp(self):
@@ -4907,6 +4915,32 @@ class TestCompareRevisions(WagtailTestUtils, TestCase):
             '<span class="deletion">Initial revision</span><span class="addition">First edit</span>',
             html=True,
         )
+
+        index_url = reverse("wagtailsnippets_tests_revisablemodel:list", args=[])
+        edit_url = reverse(
+            "wagtailsnippets_tests_revisablemodel:edit",
+            args=(self.snippet.id,),
+        )
+        history_url = reverse(
+            "wagtailsnippets_tests_revisablemodel:history",
+            args=(self.snippet.id,),
+        )
+
+        self.assertBreadcrumbsItemsRendered(
+            [
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+                {"url": index_url, "label": "Revisable models"},
+                {"url": edit_url, "label": str(self.snippet)},
+                {"url": history_url, "label": "History"},
+                {"url": "", "label": "Compare", "sublabel": str(self.snippet)},
+            ],
+            response.content,
+        )
+
+        soup = self.get_soup(response.content)
+        edit_button = soup.select_one(f"a.w-header-button[href='{edit_url}']")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(edit_button.text.strip(), "Edit")
 
     def test_compare_revisions_earliest(self):
         response = self.get("earliest", self.edit_revision.pk)
@@ -5496,7 +5530,11 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
     def test_adapt(self):
-        block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
+        block = SnippetChooserBlock(
+            Advert,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the sidebar.",
+        )
 
         block.set_name("test_snippetchooserblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -5508,8 +5546,11 @@ class TestSnippetChooserBlock(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the sidebar.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -5803,7 +5844,9 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
 
     def test_adapt(self):
         block = SnippetChooserBlock(
-            AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert"
+            AdvertWithCustomPrimaryKey,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the footer.",
         )
 
         block.set_name("test_snippetchooserblock")
@@ -5816,8 +5859,11 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the footer.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -6015,7 +6061,7 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
 
         warning = checks.Warning(
             "StandardSnippet.content_panels will have no effect on snippets editing",
-            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels`\
+            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no\
  Content tab for the content_panels to render in.""",

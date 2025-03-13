@@ -30,6 +30,7 @@ from wagtail.admin.panels import (
     PublishingPanel,
     TabbedInterface,
     TitleFieldPanel,
+    expand_panel_list,
     extract_panel_definitions_from_model_class,
     get_form_for_model,
 )
@@ -1530,6 +1531,29 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         # Label is the singular term, derived from the related model's verbose_name
         self.assertEqual(panel.label, "Social link")
 
+    def test_inline_panel_order_with_min_num(self):
+        event_page = EventPage.objects.get(slug="christmas")
+
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers", min_num=2)]
+        ).bind_to_model(EventPage)
+
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+
+        bound_panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        formset = bound_panel.children[0].formset
+
+        for index, form in enumerate(formset.forms):
+            self.assertEqual(
+                str(form.fields["ORDER"].widget.attrs.get("value")),
+                str(index + 1),
+                f"Initial form at index {index} should have ORDER value {index + 1}",
+            )
+
 
 class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -1726,7 +1750,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         Test that the comment panel is missing if WAGTAILADMIN_COMMENTS_ENABLED=False
         """
         self.assertFalse(
-            any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
+            any(
+                isinstance(panel, CommentPanel)
+                for panel in expand_panel_list(Page, Page.settings_panels)
+            )
         )
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
@@ -1737,7 +1764,10 @@ class TestCommentPanel(WagtailTestUtils, TestCase):
         Test that the comment panel is present by default
         """
         self.assertTrue(
-            any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
+            any(
+                isinstance(panel, CommentPanel)
+                for panel in expand_panel_list(Page, Page.settings_panels)
+            )
         )
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()
@@ -2024,7 +2054,10 @@ class TestPublishingPanel(WagtailTestUtils, TestCase):
         Test that the publishing panel is present by default
         """
         self.assertTrue(
-            any(isinstance(panel, PublishingPanel) for panel in Page.settings_panels)
+            any(
+                isinstance(panel, PublishingPanel)
+                for panel in expand_panel_list(Page, Page.settings_panels)
+            )
         )
         form_class = Page.get_edit_handler().get_form_class()
         form = form_class()

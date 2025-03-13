@@ -12,15 +12,17 @@ import { runInlineScripts } from '../utils/runInlineScripts';
  * Depending on location of the controlled element.
  *
  * @example
+ * ```html
  * <aside>
  *   <template
- *    data-controller="w-teleport"
- *    data-w-teleport-target-value="#other-location"
+ *     data-controller="w-teleport"
+ *     data-w-teleport-target-value="#other-location"
  *   >
- *    <div class="content-to-clone">Some content</div>
+ *     <div class="content-to-clone">Some content</div>
  *   </template>
  *   <div id="other-location"></div>
  * </aside>
+ * ```
  */
 export class TeleportController extends Controller<HTMLTemplateElement> {
   static values = {

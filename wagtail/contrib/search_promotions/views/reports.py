@@ -1,42 +1,37 @@
-from django.utils.translation import gettext as _
-from django_filters import CharFilter, DateFromToRangeFilter
+from django.utils.translation import gettext_lazy as _
+from django_filters import DateFromToRangeFilter
 
 from wagtail.admin.auth import permission_denied
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.ui.tables import Column
 from wagtail.admin.views.reports import ReportView
 from wagtail.contrib.search_promotions.models import Query
-from wagtail.models import ContentType
 
 
 class SearchTermsReportFilterSet(WagtailFilterSet):
-    query_string = CharFilter(
-        label=_("Search term"),
-        field_name="query_string",
-        lookup_expr="icontains",
-    )
-
-    created_at = DateFromToRangeFilter(
+    hit_date = DateFromToRangeFilter(
         label=_("Date"),
         field_name="daily_hits__date",
         widget=DateRangePickerWidget,
     )
 
     class Meta:
-        model = ContentType
-        fields = ["query_string", "created_at"]
+        model = Query
+        fields = []
 
 
 class SearchTermsReportView(ReportView):
-    results_template_name = "wagtailsearchpromotions/search_terms_report_results.html"
-    page_title = _("Search Terms")
+    page_title = _("Search terms")
     header_icon = "search"
+    is_searchable = True
+    search_fields = ["query_string"]
     filterset_class = SearchTermsReportFilterSet
+    default_ordering = "-_hits"
     index_url_name = "wagtailsearchpromotions:search_terms"
     index_results_url_name = "wagtailsearchpromotions:search_terms_results"
     columns = [
-        Column("query_string", label=_("Search term(s)")),
-        Column("_hits", label=_("Views")),
+        Column("query_string", label=_("Search term(s)"), sort_key="query_string"),
+        Column("_hits", label=_("Views"), sort_key="_hits"),
     ]
     export_headings = {
         "query_string": _("Search term(s)"),
@@ -47,11 +42,13 @@ class SearchTermsReportView(ReportView):
         "_hits",
     ]
 
-    def get_queryset(self):
-        qs = Query.get_most_popular()
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["queryset"] = self.get_base_queryset()
+        return kwargs
 
-        filterset = self.filterset_class(self.request.GET, queryset=qs)
-        return filterset.qs
+    def get_base_queryset(self):
+        return Query.get_most_popular()
 
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_superuser:

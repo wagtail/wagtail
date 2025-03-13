@@ -283,7 +283,7 @@ class TestAdaptMainMenuModule(WagtailTestUtils, DjangoTestCase):
                     ],
                     {
                         "name": user.first_name or user.get_username(),
-                        "avatarUrl": "//www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=100&d=mm",
+                        "avatarUrl": "//www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?d=mp&s=100",
                     },
                 ],
             },

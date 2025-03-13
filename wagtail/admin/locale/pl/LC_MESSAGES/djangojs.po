@@ -1,13 +1,13 @@
 #
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2022
-# Miłosz Miśkiewicz, 2022
 # Loic Teixeira, 2024
 # Krzysztof Jeziorny <github@jeziorny.net>, 2024
+# Miłosz Miśkiewicz, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2024\n"
+"Last-Translator: Miłosz Miśkiewicz, 2025\n"
 "Language-Team: Polish (https://app.transifex.com/torchbox/teams/8009/pl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pl\n"
@@ -146,6 +146,9 @@ msgstr "Strony"
 
 msgid "Pin toolbar"
 msgstr "Zakotwicz pasek narzędzi"
+
+msgid "Preview"
+msgstr "Podgląd"
 
 msgid "Reload saved content"
 msgstr "Odśwież zapisaną zawartość"

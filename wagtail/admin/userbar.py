@@ -1,5 +1,11 @@
+from warnings import warn
+
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+
+from wagtail import hooks
+from wagtail.coreutils import accepts_kwarg
+from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class BaseItem:
@@ -55,6 +61,7 @@ class AccessibilityItem(BaseItem):
         "input-button-name",
         "link-name",
         "p-as-heading",
+        "alt-text-quality",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,
@@ -297,3 +304,16 @@ class EditPageItem(BaseItem):
             return ""
 
         return super().render(request)
+
+
+def apply_userbar_hooks(request, items, page):
+    for fn in hooks.get_hooks("construct_wagtail_userbar"):
+        if accepts_kwarg(fn, "page"):
+            fn(request, items, page)
+        else:
+            warn(
+                "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position -"
+                f" {fn.__module__}.{fn.__name__} needs to be updated",
+                category=RemovedInWagtail70Warning,
+            )
+            fn(request, items)

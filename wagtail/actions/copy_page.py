@@ -215,10 +215,10 @@ class CopyPageAction:
                             self.reset_translation_key
                             and "translation_key" in child_object
                         ):
-                            child_object[
-                                "translation_key"
-                            ] = self.generate_translation_key(
-                                child_object["translation_key"]
+                            child_object["translation_key"] = (
+                                self.generate_translation_key(
+                                    child_object["translation_key"]
+                                )
                             )
 
                 for exclude_field in specific_page.exclude_fields_in_copy:

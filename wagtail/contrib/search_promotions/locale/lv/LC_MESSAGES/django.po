@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -44,24 +44,17 @@ msgstr "lapa"
 msgid "Delete %(query)s"
 msgstr "Dzēst %(query)s"
 
-msgid "Delete"
-msgstr "Dzēst"
-
-msgid "Yes, delete"
-msgstr "Dzēst"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Labo %(query)s"
-
-msgid "Editing"
-msgstr "Labošana"
-
 msgid "Move up"
 msgstr "Uz augšu"
 
 msgid "Move down"
 msgstr "Uz leju"
+
+msgid "Drag"
+msgstr "Pārvilkt"
+
+msgid "Delete"
+msgstr "Dzēst"
 
 msgid "Popular search terms"
 msgstr "Populāri meklēšanas termini"
@@ -87,14 +80,11 @@ msgstr "Ārēja saite"
 msgid "None"
 msgstr "Nav"
 
-msgid "Search Terms"
-msgstr "Meklēšanas termini"
+msgid "Date"
+msgstr "Datums"
 
 msgid "Search term(s)"
 msgstr "Meklēšanas termins(i)"
-
-msgid "Edit"
-msgstr "Labot"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Ieteikumus nevarēja izveidot kļūdu dēļ"

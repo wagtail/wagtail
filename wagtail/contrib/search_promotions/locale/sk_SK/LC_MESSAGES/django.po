@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -51,18 +51,9 @@ msgstr "popis"
 msgid "search promotion"
 msgstr "propagovanie vyhladávania"
 
-msgid "Add search promotion"
-msgstr "Propagovať vyhladávanie"
-
-msgid "Add search pick"
-msgstr "Pridať voľbu vyhladávania"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Zmazať %(query)s"
-
-msgid "Delete"
-msgstr "Vymazať"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -70,21 +61,17 @@ msgstr ""
 "Naozaj chcete odstrániť všetky propagované výsledky pre tento vyhľadávací "
 "výraz?"
 
-msgid "Yes, delete"
-msgstr "Áno, zmazať"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Úprava %(query)s"
-
-msgid "Editing"
-msgstr "Upraviť obrázok"
-
 msgid "Move up"
 msgstr "Posunúť vyššie"
 
 msgid "Move down"
 msgstr "Posunúť nižšie"
+
+msgid "Drag"
+msgstr "Potiahnuť"
+
+msgid "Delete"
+msgstr "Vymazať"
 
 msgid "Promoted search results"
 msgstr "Propagované výsledky vyhladávania"
@@ -128,14 +115,14 @@ msgstr "Externý odkaz"
 msgid "None"
 msgstr "Žiadne"
 
-msgid "Search Terms"
-msgstr "Výrazy vyhladávania"
-
-msgid "Add new promoted result"
-msgstr "Pridať nový propagovaný výsledok"
+msgid "Date"
+msgstr "Dátum"
 
 msgid "Search term(s)"
 msgstr "Hľadané výrazy"
+
+msgid "Add new promoted result"
+msgstr "Pridať nový propagovaný výsledok"
 
 msgid "Promoted results"
 msgstr "Propagované výsledky"
@@ -143,9 +130,6 @@ msgstr "Propagované výsledky"
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Výbery Editora pre '%(query)s' boli vytvorené."
-
-msgid "Edit"
-msgstr "Upraviť"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Odporúčania nemôžu byť vytvorené kvôli chybám."

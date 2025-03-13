@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -48,15 +48,9 @@ msgstr "Deskrisaun"
 msgid "search promotion"
 msgstr "Buka promosaun"
 
-msgid "Add search promotion"
-msgstr "Aumenta buka promosaun"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Hamoos %(query)s"
-
-msgid "Delete"
-msgstr "Hamoos"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -64,21 +58,17 @@ msgstr ""
 "Ita iha serteza katak ita hakarak hamoos rezultadu hotu-hotu ne ' ebé "
 "promove rezultadu ba termu peskiza ida-ne'e ka lae?"
 
-msgid "Yes, delete"
-msgstr "Sin, hamoos"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Hadia %(query)s"
-
-msgid "Editing"
-msgstr "Hadia"
-
 msgid "Move up"
 msgstr "Muda ba leten"
 
 msgid "Move down"
 msgstr "Muda ba karik"
+
+msgid "Drag"
+msgstr "Rasta"
+
+msgid "Delete"
+msgstr "Hamoos"
 
 msgid "Promoted search results"
 msgstr "Promove rezultadu peskiza"
@@ -111,24 +101,24 @@ msgstr "Ligasaun externa"
 msgid "None"
 msgstr "La iha"
 
-msgid "Search Terms"
-msgstr "Termu peskiza"
-
-msgid "Add new promoted result"
-msgstr "Aumenta rezultadu foun ne'ebé promove"
+msgid "Date"
+msgstr "Data"
 
 msgid "Search term(s)"
 msgstr "Termu(s) peskiza"
 
+msgid "Add new promoted result"
+msgstr "Aumenta rezultadu foun ne'ebé promove"
+
 msgid "Promoted results"
 msgstr "Rezultadu ne'ebé promove"
+
+msgid "Promoted search result"
+msgstr "Promove rezultadu peskiza"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Hadia nain hatudu katak ba '%(query)s' kria tiha ona."
-
-msgid "Edit"
-msgstr "Hadia"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendasaun la kria tiha ona tanba erru sira"

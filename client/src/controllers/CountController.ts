@@ -9,10 +9,12 @@ const DEFAULT_ERROR_SELECTOR = '.error-message,.help-critical';
  * to `body.`
  *
  * @example
+ * ```html
  * <div data-controller="w-count">
- *  <span data-w-count-target="label"></span>
- *  <span class="error-message">An error</span>
+ *   <span data-w-count-target="label"></span>
+ *   <span class="error-message">An error</span>
  * </div>
+ * ```
  */
 export class CountController extends Controller<HTMLFormElement> {
   static classes = ['active'];
@@ -29,7 +31,7 @@ export class CountController extends Controller<HTMLFormElement> {
   declare containerValue: string;
   /** selector string, used to find the elements to count within the container */
   declare findValue: string;
-  /** override pluralisation strings, e.g. `data-w-count-labels-value='["One item","Many items"]'` */
+  /** override pluralization strings, e.g. `data-w-count-labels-value='["One item","Many items"]'` */
   declare labelsValue: string[];
   /** minimum value, anything equal or below will trigger blank labels in the UI */
   declare minValue: number;

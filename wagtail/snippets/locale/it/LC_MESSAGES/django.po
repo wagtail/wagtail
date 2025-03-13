@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2023\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -164,14 +164,6 @@ msgstr "Istanze"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Più opzioni per '%(title)s'"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Modifica questo %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "storico %(model_name)s"
 
 msgid "Home"
 msgstr "Home"

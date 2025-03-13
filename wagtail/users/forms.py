@@ -15,6 +15,7 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.forms.formsets import BaseFormSetMixin
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.models import (
     PAGE_PERMISSION_CODENAMES,
@@ -109,9 +110,7 @@ class UserForm(UsernameForm):
     is_superuser = forms.BooleanField(
         label=_("Administrator"),
         required=False,
-        help_text=_(
-            "Administrators have full access to manage any object " "or setting."
-        ),
+        help_text=_("Administrators have full access to manage any object or setting."),
     )
 
     def __init__(self, *args, **kwargs):
@@ -319,7 +318,7 @@ class PagePermissionsForm(forms.Form):
     )
 
 
-class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
+class BaseGroupPagePermissionFormSet(BaseFormSetMixin, forms.BaseFormSet):
     # defined here for easy access from templates
     permission_types = PAGE_PERMISSION_TYPES
 
@@ -350,14 +349,6 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
             )
 
         super().__init__(data, files, initial=initial_data, prefix=prefix)
-        for form in self.forms:
-            form.fields["DELETE"].widget = forms.HiddenInput()
-
-    @property
-    def empty_form(self):
-        empty_form = super().empty_form
-        empty_form.fields["DELETE"].widget = forms.HiddenInput()
-        return empty_form
 
     def clean(self):
         """Checks that no two forms refer to the same page object"""

@@ -76,9 +76,9 @@ STORAGES = {
 }
 
 if os.environ.get("STATICFILES_STORAGE", "") == "manifest":
-    STORAGES["staticfiles"][
-        "BACKEND"
-    ] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    STORAGES["staticfiles"]["BACKEND"] = (
+        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    )
 
 
 USE_TZ = not os.environ.get("DISABLE_TIMEZONE")
@@ -135,6 +135,9 @@ MIDDLEWARE = (
 )
 
 INSTALLED_APPS = [
+    # Place wagtail.test.earlypage first, to test the behaviour of page models
+    # that are defined before wagtail.admin is loaded
+    "wagtail.test.earlypage",
     # Install wagtailredirects with its appconfig
     # There's nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly

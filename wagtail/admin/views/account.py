@@ -232,6 +232,11 @@ class AccountView(WagtailAdminTemplateMixin, TemplateView):
     page_title = gettext_lazy("Account")
     header_icon = "user"
 
+    def get_breadcrumbs_items(self):
+        return super().get_breadcrumbs_items() + [
+            {"url": "", "label": self.get_page_title()}
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         panels = self.get_panels()

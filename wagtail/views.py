@@ -9,6 +9,10 @@ from wagtail.forms import PasswordViewRestrictionForm
 from wagtail.models import Page, PageViewRestriction
 
 
+def serve_chain(page, request, args, kwargs):
+    return page.serve(request, *args, **kwargs)
+
+
 def serve(request, path):
     route_result = Page.route_for_request(request, path)
     if route_result is None:
@@ -16,12 +20,16 @@ def serve(request, path):
     else:
         page, args, kwargs = route_result
 
+    on_serve_chain = serve_chain
+    for fn in reversed(hooks.get_hooks("on_serve_page")):
+        on_serve_chain = fn(on_serve_chain)
+
     for fn in hooks.get_hooks("before_serve_page"):
         result = fn(page, request, args, kwargs)
         if isinstance(result, HttpResponse):
             return result
 
-    return page.serve(request, *args, **kwargs)
+    return on_serve_chain(page, request, args, kwargs)
 
 
 def authenticate_with_password(request, page_view_restriction_id, page_id):

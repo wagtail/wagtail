@@ -1,0 +1,639 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocaleController localizing time zone options should append localized time zone labels to the options 1`] = `
+<select
+  data-action="w-init:ready->w-locale#localizeTimeZoneOptions"
+  data-controller="w-locale"
+  data-w-locale-server-time-zone-param="Europe/London"
+  name="locale-current_time_zone"
+>
+  
+      
+  <option
+    selected=""
+    value=""
+  >
+    Use server time zone: GMT (Greenwich Mean Time)
+  </option>
+  
+      
+  <option
+    value="Africa/Abidjan"
+  >
+    Africa/Abidjan: GMT (Greenwich Mean Time)
+  </option>
+  
+      
+  <option
+    value="America/Argentina/Jujuy"
+  >
+    America/Argentina/Jujuy: GMT-3 (Argentina Standard Time)
+  </option>
+  
+      
+  <option
+    value="America/Indiana/Knox"
+  >
+    America/Indiana/Knox: CST (Central Standard Time)
+  </option>
+  
+      
+  <option
+    value="Antarctica/Rothera"
+  >
+    Antarctica/Rothera: GMT-3 (Rothera Time)
+  </option>
+  
+      
+  <option
+    value="Arctic/Longyearbyen"
+  >
+    Arctic/Longyearbyen: GMT+1 (Central European Standard Time)
+  </option>
+  
+      
+  <option
+    value="Asia/Katmandu"
+  >
+    Asia/Katmandu: GMT+5:45 (Nepal Time)
+  </option>
+  
+      
+  <option
+    value="Atlantic/Canary"
+  >
+    Atlantic/Canary: GMT (Western European Standard Time)
+  </option>
+  
+      
+  <option
+    value="Australia/South"
+  >
+    Australia/South: GMT+10:30 (Australian Central Daylight Time)
+  </option>
+  
+      
+  <option
+    value="Brazil/East"
+  >
+    Brazil/East: GMT-3 (Brasilia Standard Time)
+  </option>
+  
+      
+  <option
+    value="Canada/Atlantic"
+  >
+    Canada/Atlantic: AST (Atlantic Standard Time)
+  </option>
+  
+      
+  <option
+    value="Chile/Continental"
+  >
+    Chile/Continental: GMT-3 (Chile Summer Time)
+  </option>
+  
+      
+  <option
+    value="EST"
+  >
+    EST: EST (Eastern Standard Time)
+  </option>
+  
+      
+  <option
+    value="Etc/GMT-7"
+  >
+    Etc/GMT-7: GMT+7 (GMT+07:00)
+  </option>
+  
+      
+  <option
+    value="Europe/Brussels"
+  >
+    Europe/Brussels: GMT+1 (Central European Standard Time)
+  </option>
+  
+      
+  <option
+    value="GMT"
+  >
+    GMT: UTC (Coordinated Universal Time)
+  </option>
+  
+      
+  <option
+    value="Indian/Maldives"
+  >
+    Indian/Maldives: GMT+5 (Maldives Time)
+  </option>
+  
+      
+  <option
+    value="Pacific/Tarawa"
+  >
+    Pacific/Tarawa: GMT+12 (Gilbert Islands Time)
+  </option>
+  
+      
+  <option
+    value="UTC"
+  >
+    UTC: UTC (Coordinated Universal Time)
+  </option>
+  
+      
+  <option
+    value="Universal"
+  >
+    Universal: UTC (Coordinated Universal Time)
+  </option>
+  
+      
+  <option
+    value="Zulu"
+  >
+    Zulu: UTC (Coordinated Universal Time)
+  </option>
+  
+    
+</select>
+`;
+
+exports[`LocaleController should allow updating the time zone options on an uncontrolled select element via events 1`] = `
+<select
+  data-action="custom:event->w-locale#localizeTimeZoneOptions"
+  data-w-locale-server-time-zone-param="Asia/Tokyo"
+  name="locale-current_time_zone"
+>
+  
+      
+  <option
+    selected=""
+    value=""
+  >
+    Use server time zone: GMT+9 (Waktu Standar Jepang)
+  </option>
+  
+      
+  <option
+    value="Africa/Abidjan"
+  >
+    Africa/Abidjan: GMT (Greenwich Mean Time)
+  </option>
+  
+      
+  <option
+    value="America/Argentina/Jujuy"
+  >
+    America/Argentina/Jujuy: GMT-3 (Waktu Standar Argentina)
+  </option>
+  
+      
+  <option
+    value="America/Indiana/Knox"
+  >
+    America/Indiana/Knox: CST (Waktu Standar Tengah)
+  </option>
+  
+      
+  <option
+    value="Antarctica/Rothera"
+  >
+    Antarctica/Rothera: GMT-3 (Waktu Rothera)
+  </option>
+  
+      
+  <option
+    value="Arctic/Longyearbyen"
+  >
+    Arctic/Longyearbyen: GMT+1 (Waktu Standar Eropa Tengah)
+  </option>
+  
+      
+  <option
+    value="Asia/Katmandu"
+  >
+    Asia/Katmandu: GMT+5.45 (Waktu Nepal)
+  </option>
+  
+      
+  <option
+    value="Atlantic/Canary"
+  >
+    Atlantic/Canary: GMT (Waktu Standar Eropa Barat)
+  </option>
+  
+      
+  <option
+    value="Australia/South"
+  >
+    Australia/South: GMT+10.30 (Waktu Musim Panas Tengah Australia)
+  </option>
+  
+      
+  <option
+    value="Brazil/East"
+  >
+    Brazil/East: GMT-3 (Waktu Standar Brasil)
+  </option>
+  
+      
+  <option
+    value="Canada/Atlantic"
+  >
+    Canada/Atlantic: AST (Waktu Standar Atlantik)
+  </option>
+  
+      
+  <option
+    value="Chile/Continental"
+  >
+    Chile/Continental: GMT-3 (Waktu Musim Panas Cile)
+  </option>
+  
+      
+  <option
+    value="EST"
+  >
+    EST: EST (Waktu Standar Timur)
+  </option>
+  
+      
+  <option
+    value="Etc/GMT-7"
+  >
+    Etc/GMT-7: GMT+7 (GMT+07.00)
+  </option>
+  
+      
+  <option
+    value="Europe/Brussels"
+  >
+    Europe/Brussels: GMT+1 (Waktu Standar Eropa Tengah)
+  </option>
+  
+      
+  <option
+    value="GMT"
+  >
+    GMT: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+      
+  <option
+    value="Indian/Maldives"
+  >
+    Indian/Maldives: GMT+5 (Waktu Maladewa)
+  </option>
+  
+      
+  <option
+    value="Pacific/Tarawa"
+  >
+    Pacific/Tarawa: GMT+12 (Waktu Kep. Gilbert)
+  </option>
+  
+      
+  <option
+    value="UTC"
+  >
+    UTC: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+      
+  <option
+    value="Universal"
+  >
+    Universal: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+      
+  <option
+    value="Zulu"
+  >
+    Zulu: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+    
+</select>
+`;
+
+exports[`LocaleController should localize to the current HTML locale and use the server time zone param for the default 1`] = `
+<select
+  data-action="w-init:ready->w-locale#localizeTimeZoneOptions"
+  data-controller="w-locale"
+  data-w-locale-server-time-zone-param="Asia/Jakarta"
+  name="locale-current_time_zone"
+>
+  
+      
+  <option
+    selected=""
+    value=""
+  >
+    Use server time zone: WIB (Waktu Indonesia Barat)
+  </option>
+  
+      
+  <option
+    value="Africa/Abidjan"
+  >
+    Africa/Abidjan: GMT (Greenwich Mean Time)
+  </option>
+  
+      
+  <option
+    value="America/Argentina/Jujuy"
+  >
+    America/Argentina/Jujuy: GMT-3 (Waktu Standar Argentina)
+  </option>
+  
+      
+  <option
+    value="America/Indiana/Knox"
+  >
+    America/Indiana/Knox: CST (Waktu Standar Tengah)
+  </option>
+  
+      
+  <option
+    value="Antarctica/Rothera"
+  >
+    Antarctica/Rothera: GMT-3 (Waktu Rothera)
+  </option>
+  
+      
+  <option
+    value="Arctic/Longyearbyen"
+  >
+    Arctic/Longyearbyen: GMT+1 (Waktu Standar Eropa Tengah)
+  </option>
+  
+      
+  <option
+    value="Asia/Katmandu"
+  >
+    Asia/Katmandu: GMT+5.45 (Waktu Nepal)
+  </option>
+  
+      
+  <option
+    value="Atlantic/Canary"
+  >
+    Atlantic/Canary: GMT (Waktu Standar Eropa Barat)
+  </option>
+  
+      
+  <option
+    value="Australia/South"
+  >
+    Australia/South: GMT+10.30 (Waktu Musim Panas Tengah Australia)
+  </option>
+  
+      
+  <option
+    value="Brazil/East"
+  >
+    Brazil/East: GMT-3 (Waktu Standar Brasil)
+  </option>
+  
+      
+  <option
+    value="Canada/Atlantic"
+  >
+    Canada/Atlantic: AST (Waktu Standar Atlantik)
+  </option>
+  
+      
+  <option
+    value="Chile/Continental"
+  >
+    Chile/Continental: GMT-3 (Waktu Musim Panas Cile)
+  </option>
+  
+      
+  <option
+    value="EST"
+  >
+    EST: EST (Waktu Standar Timur)
+  </option>
+  
+      
+  <option
+    value="Etc/GMT-7"
+  >
+    Etc/GMT-7: GMT+7 (GMT+07.00)
+  </option>
+  
+      
+  <option
+    value="Europe/Brussels"
+  >
+    Europe/Brussels: GMT+1 (Waktu Standar Eropa Tengah)
+  </option>
+  
+      
+  <option
+    value="GMT"
+  >
+    GMT: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+      
+  <option
+    value="Indian/Maldives"
+  >
+    Indian/Maldives: GMT+5 (Waktu Maladewa)
+  </option>
+  
+      
+  <option
+    value="Pacific/Tarawa"
+  >
+    Pacific/Tarawa: GMT+12 (Waktu Kep. Gilbert)
+  </option>
+  
+      
+  <option
+    value="UTC"
+  >
+    UTC: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+      
+  <option
+    value="Universal"
+  >
+    Universal: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+      
+  <option
+    value="Zulu"
+  >
+    Zulu: UTC (Waktu Universal Terkoordinasi)
+  </option>
+  
+    
+</select>
+`;
+
+exports[`LocaleController should skip updating the default option if server time zone is not provided 1`] = `
+<select
+  data-action="w-init:ready->w-locale#localizeTimeZoneOptions"
+  data-controller="w-locale"
+  name="locale-current_time_zone"
+>
+  
+      
+  <option
+    selected=""
+    value=""
+  >
+    Use server time zone
+  </option>
+  
+      
+  <option
+    value="Africa/Abidjan"
+  >
+    Africa/Abidjan: غرينتش (توقيت غرينتش)
+  </option>
+  
+      
+  <option
+    value="America/Argentina/Jujuy"
+  >
+    America/Argentina/Jujuy: غرينتش-٣ (توقيت الأرجنتين الرسمي)
+  </option>
+  
+      
+  <option
+    value="America/Indiana/Knox"
+  >
+    America/Indiana/Knox: غرينتش-٦ (التوقيت الرسمي المركزي لأمريكا الشمالية)
+  </option>
+  
+      
+  <option
+    value="Antarctica/Rothera"
+  >
+    Antarctica/Rothera: غرينتش-٣ (توقيت روثيرا)
+  </option>
+  
+      
+  <option
+    value="Arctic/Longyearbyen"
+  >
+    Arctic/Longyearbyen: غرينتش+١ (توقيت وسط أوروبا الرسمي)
+  </option>
+  
+      
+  <option
+    value="Asia/Katmandu"
+  >
+    Asia/Katmandu: غرينتش+٥:٤٥ (توقيت نيبال)
+  </option>
+  
+      
+  <option
+    value="Atlantic/Canary"
+  >
+    Atlantic/Canary: غرينتش (توقيت غرب أوروبا الرسمي)
+  </option>
+  
+      
+  <option
+    value="Australia/South"
+  >
+    Australia/South: غرينتش+١٠:٣٠ (توقيت وسط أستراليا الصيفي)
+  </option>
+  
+      
+  <option
+    value="Brazil/East"
+  >
+    Brazil/East: غرينتش-٣ (توقيت برازيليا الرسمي)
+  </option>
+  
+      
+  <option
+    value="Canada/Atlantic"
+  >
+    Canada/Atlantic: غرينتش-٤ (التوقيت الرسمي الأطلسي)
+  </option>
+  
+      
+  <option
+    value="Chile/Continental"
+  >
+    Chile/Continental: غرينتش-٣ (توقيت تشيلي الصيفي)
+  </option>
+  
+      
+  <option
+    value="EST"
+  >
+    EST: غرينتش-٥ (التوقيت الرسمي الشرقي لأمريكا الشمالية)
+  </option>
+  
+      
+  <option
+    value="Etc/GMT-7"
+  >
+    Etc/GMT-7: غرينتش+٧ (غرينتش+٠٧:٠٠)
+  </option>
+  
+      
+  <option
+    value="Europe/Brussels"
+  >
+    Europe/Brussels: غرينتش+١ (توقيت وسط أوروبا الرسمي)
+  </option>
+  
+      
+  <option
+    value="GMT"
+  >
+    GMT: UTC (التوقيت العالمي المنسق)
+  </option>
+  
+      
+  <option
+    value="Indian/Maldives"
+  >
+    Indian/Maldives: غرينتش+٥ (توقيت جزر المالديف)
+  </option>
+  
+      
+  <option
+    value="Pacific/Tarawa"
+  >
+    Pacific/Tarawa: غرينتش+١٢ (توقيت جزر جيلبرت)
+  </option>
+  
+      
+  <option
+    value="UTC"
+  >
+    UTC: UTC (التوقيت العالمي المنسق)
+  </option>
+  
+      
+  <option
+    value="Universal"
+  >
+    Universal: UTC (التوقيت العالمي المنسق)
+  </option>
+  
+      
+  <option
+    value="Zulu"
+  >
+    Zulu: UTC (التوقيت العالمي المنسق)
+  </option>
+  
+    
+</select>
+`;

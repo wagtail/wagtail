@@ -6,10 +6,11 @@
 # fekioh, 2022
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2022
 # Loic Teixeira, 2024
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2025\n"
 "Language-Team: Greek (https://app.transifex.com/torchbox/teams/8009/el/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: el\n"
@@ -74,6 +75,9 @@ msgstr "Σελίδα"
 
 msgid "Pages"
 msgstr "Σελίδες"
+
+msgid "Preview"
+msgstr "Προεπισκόπηση"
 
 msgid "Reload saved content"
 msgstr "Επαναφόρτωση αποθηκευμένου περιεχόμενου"

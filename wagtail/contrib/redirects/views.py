@@ -145,7 +145,6 @@ class EditView(generic.EditView):
     pk_url_kwarg = "redirect_id"
     error_message = gettext_lazy("The redirect could not be saved due to errors.")
     header_icon = "redirect"
-    _show_breadcrumbs = True
 
     def get_success_message(self):
         return _("Redirect '%(redirect_title)s' updated.") % {
@@ -196,7 +195,6 @@ class CreateView(generic.CreateView):
     edit_url_name = "wagtailredirects:edit"
     error_message = gettext_lazy("The redirect could not be created due to errors.")
     header_icon = "redirect"
-    _show_breadcrumbs = True
 
     def get_success_message(self, instance):
         return _("Redirect '%(redirect_title)s' added.") % {

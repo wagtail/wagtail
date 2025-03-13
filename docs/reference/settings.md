@@ -501,6 +501,20 @@ WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
 
 A list of MIME content types that will be shown inline in the browser (by serving the HTTP header `Content-Disposition: inline`) rather than served as a download, when using the `serve_view` method. Defaults to `application/pdf`.
 
+(wagtaildocs_block_embedded_content)=
+
+### `WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT`
+
+```python
+WAGTAILDOCS_BLOCK_EMBEDDED_CONTENT = True
+```
+
+Wagtail serves a restrictive Content-Security policy for documents which ensures embedded content (such as the Javascript in a HTML file) is not executed. This functionality can be disabled by setting this to `False`.
+
+This does not affect Javascript embedded in PDFs, however this is already executed in an isolated environment.
+
+Unless absolutely necessary, it's strongly recommended not to change this setting.
+
 (wagtaildocs_extensions)=
 
 ### `WAGTAILDOCS_EXTENSIONS`
@@ -635,6 +649,14 @@ WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
 ```
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
+
+Any provided query string will merge with the default parameters. For example, using the setting `//www.gravatar.com/avatar?d=robohash` will use the `robohash` override instead of the default `mp` (mystery person). The `s` parameter will be ignored as this is specified depending on location within the admin interface.
+
+See the [Gravatar images URL documentation](https://docs.gravatar.com/api/avatars/images/) for more details.
+
+```{versionchanged} 6.4
+Added query string merging.
+```
 
 (wagtail_user_time_zones)=
 
@@ -786,18 +808,26 @@ TAGGIT_CASE_INSENSITIVE = True
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behavior is preferable.
 
-### `TAG_SPACES_ALLOWED`
+### `WAGTAIL_TAG_SPACES_ALLOWED`
+
+```{versionchanged} 6.5
+The setting was renamed from `TAG_SPACES_ALLOWED` to `WAGTAIL_TAG_SPACES_ALLOWED`.
+```
 
 ```python
-TAG_SPACES_ALLOWED = False
+WAGTAIL_TAG_SPACES_ALLOWED = False
 ```
 
 Tags can only consist of a single word, no spaces allowed. The default setting is `True` (spaces in tags are allowed).
 
-### `TAG_LIMIT`
+### `WAGTAIL_TAG_LIMIT`
+
+```{versionchanged} 6.5
+The setting was renamed from `TAG_LIMIT` to `WAGTAIL_TAG_LIMIT`.
+```
 
 ```python
-TAG_LIMIT = 5
+WAGTAIL_TAG_LIMIT = 5
 ```
 
 Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is `None`, meaning no limit on tags.

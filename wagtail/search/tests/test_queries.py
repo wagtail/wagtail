@@ -180,8 +180,8 @@ class TestParseQueryString(SimpleTestCase):
         self.assertEqual(filters.dict(), {"a" * 60_000: "foo bar"})
 
     def test_long_filter_value(self):
-        filters, _ = parse_query_string(f'foo:ba{"r" * 60_000}')
-        self.assertEqual(filters.dict(), {"foo": f'ba{"r" * 60_000}'})
+        filters, _ = parse_query_string(f"foo:ba{'r' * 60_000}")
+        self.assertEqual(filters.dict(), {"foo": f"ba{'r' * 60_000}"})
 
     def test_joined_filters(self):
         filters, query = parse_query_string("foo:bar:baz")
