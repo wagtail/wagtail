@@ -46,14 +46,14 @@ class PageSearchTests:
         )
 
     def test_order_by_last_published_at_with_drafts_first(self):
-        qs = Page.objects.order_by(
-            F("last_published_at").asc(nulls_first=True)
-        ).autocomplete("blah", order_by_relevance=False, backend=self.backend_name)
+        qs = Page.objects.order_by(F("last_published_at").asc(nulls_first=True))
         if self.backend.query_compiler_class.HANDLES_ORDER_BY_EXPRESSIONS:
-            list(qs)
+            qs.autocomplete("blah", order_by_relevance=False, backend=self.backend_name)
         else:
             with self.assertRaises(OrderByFieldError):
-                list(qs)
+                qs.autocomplete(
+                    "blah", order_by_relevance=False, backend=self.backend_name
+                )
 
     def test_search_specific_queryset(self):
         list(Page.objects.specific().search("bread", backend=self.backend_name))
