@@ -37,6 +37,7 @@ from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
 from wagtail.admin.utils import (
     get_admin_base_url,
+    get_keyboard_key_labels_from_request,
     get_latest_str,
     get_user_display_name,
     get_valid_next_url_from_request,
@@ -1382,41 +1383,51 @@ def keyboard_shortcuts_dialog(context):
 
     user_agent = context["request"].headers.get("User-Agent", "")
     is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
-    modifier = "⌘" if is_mac else "Ctrl"
+    KEYS = get_keyboard_key_labels_from_request(context["request"])
+
+    comments_enabled = get_comments_enabled()
 
     return {
         "shortcuts": {
             ("actions-common", _("Common actions")): [
-                (_("Copy"), f"{modifier} + c"),
-                (_("Cut"), f"{modifier} + x"),
-                (_("Paste"), f"{modifier} + v"),
+                (_("Copy"), f"{KEYS.CMD} + c"),
+                (_("Cut"), f"{KEYS.CMD} + x"),
+                (_("Paste"), f"{KEYS.CMD} + v"),
                 (
                     _("Paste and match style")
                     if is_mac
                     else _("Paste without formatting"),
-                    f"{modifier} + Shift + v",
+                    f"{KEYS.CMD} + Shift + v",
                 ),
-                (_("Undo"), f"{modifier} + z"),
+                (_("Undo"), f"{KEYS.CMD} + z"),
                 (
                     _("Redo"),
-                    f"{modifier} + Shift + z" if is_mac else f"{modifier} + y",
+                    f"{KEYS.CMD} + {KEYS.SHIFT} + z" if is_mac else f"{KEYS.CMD} + y",
                 ),
             ],
             ("actions-model", _("Actions")): [
-                (_("Save changes"), f"{modifier} + s"),
-                (_("Preview"), f"{modifier} + p"),
+                (_("Save changes"), f"{KEYS.CMD} + s"),
+                (_("Preview"), f"{KEYS.CMD} + p"),
+                (
+                    _("Comments"),
+                    f"{KEYS.CMD} + {KEYS.ALT} + m",
+                ),
+            ]
+            if comments_enabled
+            else [
+                (_("Save changes"), f"{KEYS.CMD} + s"),
+                (_("Preview"), f"{KEYS.CMD} + p"),
             ],
             ("rich-text-content", _("Text content")): [
-                (_("Insert or edit a link"), f"{modifier} + k")
+                (_("Insert or edit a link"), f"{KEYS.CMD} + k")
             ],
             ("rich-text-formatting", _("Text formatting")): [
-                (_("Bold"), f"{modifier} + b"),
-                (_("Italic"), f"{modifier} + i"),
-                (_("Underline"), f"{modifier} + u"),
-                (_("Monospace (code)"), f"{modifier} + j"),
-                (_("Strike-through"), f"{modifier} + x"),
-                (_("Superscript"), f"{modifier} + ."),
-                (_("Subscript"), f"{modifier} + ,"),
+                (_("Italic"), f"{KEYS.CMD} + i"),
+                (_("Underline"), f"{KEYS.CMD} + u"),
+                (_("Monospace (code)"), f"{KEYS.CMD} + j"),
+                (_("Strike-through"), f"{KEYS.CMD} + x"),
+                (_("Superscript"), f"{KEYS.CMD} + ."),
+                (_("Subscript"), f"{KEYS.CMD} + ,"),
             ],
         }
     }

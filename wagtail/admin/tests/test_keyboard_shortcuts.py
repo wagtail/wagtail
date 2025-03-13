@@ -1,5 +1,6 @@
 import json
 import re
+from unittest.mock import patch
 
 from django.test import TestCase
 from django.test.client import Client
@@ -54,6 +55,34 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         )
         self.assertIn("Keyboard shortcut", shortcuts_dialog.find("thead").prettify())
 
+    @patch("wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled")
+    def test_keyboard_shortcuts_comments_visibility(self, mock_comments_enabled):
+        """
+        Test the presence or absence of the 'Comments' shortcut based on settings.
+        """
+
+        for is_enabled in [True, False]:
+            with self.subTest(comments_enabled=is_enabled):
+                mock_comments_enabled.return_value = is_enabled
+
+                response = self.client.get(reverse("wagtailadmin_home"))
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/shared/keyboard_shortcuts_dialog.html"
+                )
+
+                soup = self.get_soup(response.content)
+
+                shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+                all_shortcuts_text = [
+                    kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
+                ]
+
+                if is_enabled:
+                    self.assertIn("Ctrl + Alt + m", all_shortcuts_text)
+                else:
+                    self.assertNotIn("Ctrl + Alt + m", all_shortcuts_text)
+
 
 class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -82,3 +111,31 @@ class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         for shortcut in all_shortcuts:
             # All shortcuts should have the ⌘ symbol
             self.assertIn("⌘", shortcut.prettify())
+
+    @patch("wagtail.admin.templatetags.wagtailadmin_tags.get_comments_enabled")
+    def test_keyboard_shortcuts_comments_visibility(self, mock_comments_enabled):
+        """
+        Test the presence or absence of the 'Comments' shortcut based on settings.
+        """
+
+        for is_enabled in [True, False]:
+            with self.subTest(comments_enabled=is_enabled):
+                mock_comments_enabled.return_value = is_enabled
+
+                response = self.client.get(reverse("wagtailadmin_home"))
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/shared/keyboard_shortcuts_dialog.html"
+                )
+
+                soup = self.get_soup(response.content)
+
+                shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+                all_shortcuts_text = [
+                    kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
+                ]
+
+                if is_enabled:
+                    self.assertIn("⌘ + ⌥ + m", all_shortcuts_text)
+                else:
+                    self.assertNotIn("⌘ + ⌥ + m", all_shortcuts_text)
