@@ -37,6 +37,7 @@ from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
 from wagtail.admin.utils import (
     get_admin_base_url,
+    get_keyboard_key_labels_from_request,
     get_latest_str,
     get_user_display_name,
     get_valid_next_url_from_request,
@@ -1382,24 +1383,24 @@ def keyboard_shortcuts_dialog(context):
 
     user_agent = context["request"].headers.get("User-Agent", "")
     is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
-    modifier = "⌘" if is_mac else "Ctrl"
+    KEYS = get_keyboard_key_labels_from_request(context["request"])
 
     return {
         "shortcuts": {
             ("actions-common", _("Common actions")): [
-                (_("Copy"), f"{modifier} + c"),
-                (_("Cut"), f"{modifier} + x"),
-                (_("Paste"), f"{modifier} + v"),
+                (_("Copy"), f"{KEYS.MOD} + c"),
+                (_("Cut"), f"{KEYS.MOD} + x"),
+                (_("Paste"), f"{KEYS.MOD} + v"),
                 (
                     _("Paste and match style")
                     if is_mac
                     else _("Paste without formatting"),
-                    f"{modifier} + Shift + v",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + v",
                 ),
-                (_("Undo"), f"{modifier} + z"),
+                (_("Undo"), f"{KEYS.MOD} + z"),
                 (
                     _("Redo"),
-                    f"{modifier} + Shift + z" if is_mac else f"{modifier} + y",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + z" if is_mac else f"{KEYS.MOD} + y",
                 ),
             ],
             ("actions-model", _("Actions")): [
@@ -1407,16 +1408,15 @@ def keyboard_shortcuts_dialog(context):
                 (_("Preview"), f"{modifier} + p"),
             ],
             ("rich-text-content", _("Text content")): [
-                (_("Insert or edit a link"), f"{modifier} + k")
+                (_("Insert or edit a link"), f"{KEYS.MOD} + k")
             ],
             ("rich-text-formatting", _("Text formatting")): [
-                (_("Bold"), f"{modifier} + b"),
-                (_("Italic"), f"{modifier} + i"),
-                (_("Underline"), f"{modifier} + u"),
-                (_("Monospace (code)"), f"{modifier} + j"),
-                (_("Strike-through"), f"{modifier} + x"),
-                (_("Superscript"), f"{modifier} + ."),
-                (_("Subscript"), f"{modifier} + ,"),
+                (_("Italic"), f"{KEYS.MOD} + i"),
+                (_("Underline"), f"{KEYS.MOD} + u"),
+                (_("Monospace (code)"), f"{KEYS.MOD} + j"),
+                (_("Strike-through"), f"{KEYS.MOD} + x"),
+                (_("Superscript"), f"{KEYS.MOD} + ."),
+                (_("Subscript"), f"{KEYS.MOD} + ,"),
             ],
         }
     }
