@@ -85,7 +85,7 @@ class OrderingFilter(BaseFilterBackend):
 
         order_by_list = order_param.split(",")
 
-        # Handle the random ordering separately
+        # Handle random ordering separately
         if "random" in order_by_list:
             if len(order_by_list) > 1:
                 raise BadRequestError(
