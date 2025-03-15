@@ -9,7 +9,7 @@ try:
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME = AUTH_USER_MODEL.rsplit(".", 1)
 except ValueError:
     raise ImproperlyConfigured(
-        "AUTH_USER_MODEL must be of the form" " 'app_label.model_name'"
+        "AUTH_USER_MODEL must be of the form 'app_label.model_name'"
     )
 
 
