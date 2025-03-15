@@ -27,6 +27,7 @@ jobs:
       - run: git ls-files '*.html' | xargs djhtml --check
       - run: curlylint --parse-only wagtail
       - run: doc8 docs
+      - run: git ls-files -z -- 'docs/*.md' | xargs -0 blacken-docs --rst-literal-blocks --check
       - run:
           name: Run tests
           command: |

@@ -43,9 +43,10 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
+
 @hooks.register("insert_global_admin_js")
 def get_global_admin_js():
-    script_url = static('js/title_with_extension.js')
+    script_url = static("js/title_with_extension.js")
     return format_html('<script src="{}"></script>', script_url)
 ```
 
@@ -73,9 +74,10 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
+
 @hooks.register("insert_editor_js")
 def get_editor_js():
-    script_url = static('js/remove_dashes_underscores.js')
+    script_url = static("js/remove_dashes_underscores.js")
     return format_html('<script src="{}"></script>', script_url)
 ```
 
@@ -102,9 +104,10 @@ from django.utils.html import format_html
 
 from wagtail import hooks
 
+
 @hooks.register("insert_global_admin_js")
 def insert_stop_prefill_js():
-    script_url = static('js/stop_title_prefill.js')
+    script_url = static("js/stop_title_prefill.js")
     return format_html('<script src="{}"></script>', script_url)
 ```
 

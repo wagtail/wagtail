@@ -9,7 +9,7 @@ To install the styleguide module on your site, add it to the list of `INSTALLED_
 ```python
 INSTALLED_APPS = (
     # ...
-    'wagtail.contrib.styleguide',
+    "wagtail.contrib.styleguide",
     # ...
 )
 ```

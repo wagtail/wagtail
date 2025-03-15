@@ -16,8 +16,8 @@ class PersonBlock(blocks.StructBlock):
     biography = blocks.RichTextBlock()
 
     class Meta:
-        icon = 'user'
-        form_classname = 'person-block struct-block'
+        icon = "user"
+        form_classname = "person-block struct-block"
 ```
 
 You can then provide custom CSS for this block, targeted at the specified classname, by using the [](insert_global_admin_css) hook.
@@ -52,14 +52,14 @@ class PersonBlock(blocks.StructBlock):
     photo = ImageChooserBlock(required=False)
     biography = blocks.RichTextBlock()
 
-    def get_form_context(self, value, prefix='', errors=None):
+    def get_form_context(self, value, prefix="", errors=None):
         context = super().get_form_context(value, prefix=prefix, errors=errors)
-        context['suggested_first_names'] = ['John', 'Paul', 'George', 'Ringo']
+        context["suggested_first_names"] = ["John", "Paul", "George", "Ringo"]
         return context
 
     class Meta:
-        icon = 'user'
-        form_template = 'myapp/block_forms/person.html'
+        icon = "user"
+        form_template = "myapp/block_forms/person.html"
 ```
 
 A form template for a StructBlock must include the output of `render_form` for each child block in the `children` dict, inside a container element with a `data-contentpath` attribute equal to the block's name. This attribute is used by the commenting framework to attach comments to the correct fields. The StructBlock's form template is also responsible for rendering labels for each field, but this (and all other HTML markup) can be customized as you see fit. The template below replicates the default StructBlock form rendering:
@@ -99,11 +99,13 @@ class AddressBlock(StructBlock):
     street = CharBlock()
     town = CharBlock()
     state = CharBlock(required=False)
-    country = ChoiceBlock(choices=[
-        ('us', 'United States'),
-        ('ca', 'Canada'),
-        ('mx', 'Mexico'),
-    ])
+    country = ChoiceBlock(
+        choices=[
+            ("us", "United States"),
+            ("ca", "Canada"),
+            ("mx", "Mexico"),
+        ]
+    )
 ```
 
 we may wish to disable the 'state' field when a country other than United States is selected. Since new blocks can be added dynamically, we need to integrate with StreamField's own front-end logic to ensure that our custom JavaScript code is executed when a new block is initialized.
@@ -124,16 +126,18 @@ from wagtail.telepath import register
 from django import forms
 from django.utils.functional import cached_property
 
+
 class AddressBlockAdapter(StructBlockAdapter):
-    js_constructor = 'myapp.blocks.AddressBlock'
+    js_constructor = "myapp.blocks.AddressBlock"
 
     @cached_property
     def media(self):
         structblock_media = super().media
         return forms.Media(
-            js=structblock_media._js + ['js/address-block.js'],
-            css=structblock_media._css
+            js=structblock_media._js + ["js/address-block.js"],
+            css=structblock_media._css,
         )
+
 
 register(AddressBlockAdapter(), AddressBlock)
 ```
@@ -207,8 +211,8 @@ from wagtail.blocks import StructValue
 
 class LinkStructValue(StructValue):
     def url(self):
-        external_url = self.get('external_url')
-        page = self.get('page')
+        external_url = self.get("external_url")
+        page = self.get("page")
         return external_url or page.url
 ```
 

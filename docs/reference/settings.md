@@ -7,7 +7,7 @@ Wagtail makes use of the following settings, in addition to [Django's core setti
 ### `WAGTAIL_SITE_NAME`
 
 ```python
-WAGTAIL_SITE_NAME = 'Stark Industries Skunkworks'
+WAGTAIL_SITE_NAME = "Stark Industries Skunkworks"
 ```
 
 This is the human-readable name of your Wagtail install which welcomes users upon login to the Wagtail admin.
@@ -17,7 +17,7 @@ This is the human-readable name of your Wagtail install which welcomes users upo
 ### `WAGTAILADMIN_BASE_URL`
 
 ```python
-WAGTAILADMIN_BASE_URL = 'http://example.com'
+WAGTAILADMIN_BASE_URL = "http://example.com"
 ```
 
 This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
@@ -51,10 +51,7 @@ If you use the ``False`` setting, keep in mind that serving your pages both with
 
 ```python
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.elasticsearch8',
-        'INDEX': 'myapp'
-    }
+    "default": {"BACKEND": "wagtail.search.backends.elasticsearch8", "INDEX": "myapp"}
 }
 ```
 
@@ -98,8 +95,8 @@ For example:
 
 ```python
 WAGTAIL_CONTENT_LANGUAGES = [
-    ('en', _("English")),
-    ('fr', _("French")),
+    ("en", _("English")),
+    ("fr", _("French")),
 ]
 ```
 
@@ -111,10 +108,10 @@ This setting follows the same structure as Django's `LANGUAGES` setting, so they
 
 ```python
 LANGUAGES = WAGTAIL_CONTENT_LANGUAGES = [
-    ('en-gb', _("English (United Kingdom)")),
-    ('en-us', _("English (United States)")),
-    ('es-es', _("Spanish (Spain)")),
-    ('es-mx', _("Spanish (Mexico)")),
+    ("en-gb", _("English (United Kingdom)")),
+    ("en-us", _("English (United States)")),
+    ("es-es", _("Spanish (Spain)")),
+    ("es-mx", _("Spanish (Mexico)")),
 ]
 ```
 
@@ -122,16 +119,16 @@ However having them separate allows you to configure many different regions on y
 
 ```python
 LANGUAGES = [
-    ('en', _("English (United Kingdom)")),
-    ('en-us', _("English (United States)")),
-    ('es', _("Spanish (Spain)")),
-    ('es-mx', _("Spanish (Mexico)")),
+    ("en", _("English (United Kingdom)")),
+    ("en-us", _("English (United States)")),
+    ("es", _("Spanish (Spain)")),
+    ("es-mx", _("Spanish (Mexico)")),
 ]
 
 
 WAGTAIL_CONTENT_LANGUAGES = [
-    ('en', _("English")),
-    ('es', _("Spanish")),
+    ("en", _("English")),
+    ("es", _("Spanish")),
 ]
 ```
 
@@ -176,15 +173,13 @@ This setting lets you change the number of items shown at 'Your most recent edit
 
 ```python
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
-    'default': {
-        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
-        'OPTIONS': {
-            'features': ['h2', 'bold', 'italic', 'link', 'document-link']
-        }
+    "default": {
+        "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
+        "OPTIONS": {"features": ["h2", "bold", "italic", "link", "document-link"]},
     },
-    'secondary': {
-        'WIDGET': 'some.external.RichTextEditor',
-    }
+    "secondary": {
+        "WIDGET": "some.external.RichTextEditor",
+    },
 }
 ```
 
@@ -200,7 +195,7 @@ If a `'default'` editor is not specified, rich text fields that do not specify a
 ### `WAGTAILADMIN_EXTERNAL_LINK_CONVERSION`
 
 ```python
-WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
+WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = "exact"
 ```
 
 Customize Wagtail's behavior when an internal page url is entered in the external link chooser. Possible values for this setting are `'all'`, `'exact'`, `'confirm'`, or `''`. The default, `'all'`, means that Wagtail will automatically convert submitted urls that exactly match page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then Wagtail will confirm the conversion with the user. `'exact'` means that any inexact matches will be left as external urls, and the confirmation step will be skipped. `'confirm'` means that every link conversion will be confirmed with the user, even if the match is exact. `''` means that Wagtail will not attempt to convert any urls entered to internal page links.
@@ -212,9 +207,9 @@ If the url is relative, Wagtail will not convert the link if there are more than
 ### `WAGTAIL_DATE_FORMAT`, `WAGTAIL_DATETIME_FORMAT`, `WAGTAIL_TIME_FORMAT`
 
 ```python
-WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
-WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
-WAGTAIL_TIME_FORMAT = '%H:%M'
+WAGTAIL_DATE_FORMAT = "%d.%m.%Y."
+WAGTAIL_DATETIME_FORMAT = "%d.%m.%Y. %H:%M"
+WAGTAIL_TIME_FORMAT = "%H:%M"
 ```
 
 Specifies the date, time, and datetime format to be used in input fields in the Wagtail admin. The format is specified in [Python datetime module syntax](inv:python#format-codes) and must be one of the recognized formats listed in the [`DATE_INPUT_FORMATS`](inv:django#DATE_INPUT_FORMATS), [`TIME_INPUT_FORMATS`](inv:django#TIME_INPUT_FORMATS), or [`DATETIME_INPUT_FORMATS`](inv:django#DATETIME_INPUT_FORMATS) setting respectively.
@@ -224,8 +219,8 @@ For example, to use US Imperial style date and time format (AM/PM times) in the 
 ```python
 # settings.py
 WAGTAIL_TIME_FORMAT = "%I:%M %p"  # 03:00 PM
-WAGTAIL_DATE_FORMAT = '%m/%d/%Y'  # 01/31/2004
-WAGTAIL_DATETIME_FORMAT = '%m/%d/%Y %I:%M %p'  # 01/31/2004 03:00 PM
+WAGTAIL_DATE_FORMAT = "%m/%d/%Y"  # 01/31/2004
+WAGTAIL_DATETIME_FORMAT = "%m/%d/%Y %I:%M %p"  # 01/31/2004 03:00 PM
 
 # Django uses formatting based on the system locale.
 # Therefore we must specify a locale and then override the date
@@ -344,7 +339,7 @@ This setting enables an additional confirmation step when deleting a page with a
 ### `WAGTAILIMAGES_IMAGE_MODEL`
 
 ```python
-WAGTAILIMAGES_IMAGE_MODEL = 'myapp.MyImage'
+WAGTAILIMAGES_IMAGE_MODEL = "myapp.MyImage"
 ```
 
 This setting lets you provide your own image model for use in Wagtail, which should extend the built-in `AbstractImage` class.
@@ -352,7 +347,7 @@ This setting lets you provide your own image model for use in Wagtail, which sho
 ### `WAGTAILIMAGES_IMAGE_FORM_BASE`
 
 ```python
-WAGTAILIMAGES_IMAGE_FORM_BASE = 'myapp.forms.MyImageBaseForm'
+WAGTAILIMAGES_IMAGE_FORM_BASE = "myapp.forms.MyImageBaseForm"
 ```
 
 This setting lets you provide your own image base form for use in Wagtail, which should extend the built-in `BaseImageForm` class.
@@ -414,9 +409,9 @@ Specifies the number of images shown per page in the image chooser modal.
 
 ```python
 # Recommended
-WAGTAILIMAGES_RENDITION_STORAGE = 'my_custom_storage'
+WAGTAILIMAGES_RENDITION_STORAGE = "my_custom_storage"
 # Or
-WAGTAILIMAGES_RENDITION_STORAGE = 'myapp.backends.MyCustomStorage'
+WAGTAILIMAGES_RENDITION_STORAGE = "myapp.backends.MyCustomStorage"
 WAGTAILIMAGES_RENDITION_STORAGE = MyCustomStorage()
 ```
 
@@ -427,7 +422,7 @@ Custom storage classes should subclass `django.core.files.storage.Storage`. See 
 ### `WAGTAILIMAGES_EXTENSIONS`
 
 ```python
-WAGTAILIMAGES_EXTENSIONS = ['png', 'jpg']
+WAGTAILIMAGES_EXTENSIONS = ["png", "jpg"]
 ```
 
 A list of allowed image extensions that will be validated during image uploading.
@@ -440,7 +435,7 @@ be renamed to have an extension no matter what data they contain.
 ### `WAGTAILDOCS_DOCUMENT_MODEL`
 
 ```python
-WAGTAILDOCS_DOCUMENT_MODEL = 'myapp.MyDocument'
+WAGTAILDOCS_DOCUMENT_MODEL = "myapp.MyDocument"
 ```
 
 This setting lets you provide your own document model for use in Wagtail, which should extend the built-in `AbstractDocument` class.
@@ -450,7 +445,7 @@ This setting lets you provide your own document model for use in Wagtail, which 
 ### `WAGTAILDOCS_DOCUMENT_FORM_BASE`
 
 ```python
-WAGTAILDOCS_DOCUMENT_FORM_BASE = 'myapp.forms.MyDocumentBaseForm'
+WAGTAILDOCS_DOCUMENT_FORM_BASE = "myapp.forms.MyDocumentBaseForm"
 ```
 
 This setting lets you provide your own Document base form for use in Wagtail, which should extend the built-in `BaseDocumentForm` class.
@@ -461,7 +456,7 @@ You can use it to specify or override the widgets to use in the admin form.
 ### `WAGTAILDOCS_SERVE_METHOD`
 
 ```python
-WAGTAILDOCS_SERVE_METHOD = 'redirect'
+WAGTAILDOCS_SERVE_METHOD = "redirect"
 ```
 
 Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform privacy checks (see [Collection Privacy settings](https://guide.wagtail.org/en-latest/how-to-guides/manage-collections/#privacy-settings)) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
@@ -484,8 +479,8 @@ Allowing direct access to document URLs within `MEDIA_ROOT` may present a securi
 
 ```python
 WAGTAILDOCS_CONTENT_TYPES = {
-    'pdf': 'application/pdf',
-    'txt': 'text/plain',
+    "pdf": "application/pdf",
+    "txt": "text/plain",
 }
 ```
 
@@ -496,7 +491,7 @@ Specifies the MIME content type that will be returned for the given file extensi
 ### `WAGTAILDOCS_INLINE_CONTENT_TYPES`
 
 ```python
-WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
+WAGTAILDOCS_INLINE_CONTENT_TYPES = ["application/pdf", "text/plain"]
 ```
 
 A list of MIME content types that will be shown inline in the browser (by serving the HTTP header `Content-Disposition: inline`) rather than served as a download, when using the `serve_view` method. Defaults to `application/pdf`.
@@ -520,7 +515,7 @@ Unless absolutely necessary, it's strongly recommended not to change this settin
 ### `WAGTAILDOCS_EXTENSIONS`
 
 ```python
-WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
+WAGTAILDOCS_EXTENSIONS = ["pdf", "docx"]
 ```
 
 A list of allowed document extensions that will be validated during document uploading.
@@ -577,7 +572,7 @@ This specifies whether users are allowed to change their email (enabled by defau
 ### `WAGTAILADMIN_USER_PASSWORD_RESET_FORM`
 
 ```python
-WAGTAILADMIN_USER_PASSWORD_RESET_FORM = 'users.forms.PasswordResetForm'
+WAGTAILADMIN_USER_PASSWORD_RESET_FORM = "users.forms.PasswordResetForm"
 ```
 
 Allows the default `PasswordResetForm` to be extended with extra fields.
@@ -587,7 +582,7 @@ Allows the default `PasswordResetForm` to be extended with extra fields.
 ### `WAGTAIL_USER_EDIT_FORM`
 
 ```python
-WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
+WAGTAIL_USER_EDIT_FORM = "users.forms.CustomUserEditForm"
 ```
 
 Allows the default `UserEditForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user edit form.
@@ -599,7 +594,7 @@ This setting has been deprecated in favor of customizing the form classes via `U
 ### `WAGTAIL_USER_CREATION_FORM`
 
 ```python
-WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
+WAGTAIL_USER_CREATION_FORM = "users.forms.CustomUserCreationForm"
 ```
 
 Allows the default `UserCreationForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user creation form.
@@ -611,7 +606,7 @@ This setting has been deprecated in favor of customizing the form classes via `U
 ### `WAGTAIL_USER_CUSTOM_FIELDS`
 
 ```python
-WAGTAIL_USER_CUSTOM_FIELDS = ['country']
+WAGTAIL_USER_CUSTOM_FIELDS = ["country"]
 ```
 
 A list of the extra custom fields to be appended to the default list. The resulting list is passed to {class}`~django.forms.ModelForm`'s `Meta.fields` to generate the form fields.
@@ -623,7 +618,7 @@ This setting has been deprecated in favor of customizing the form classes via `U
 ### `WAGTAILADMIN_USER_LOGIN_FORM`
 
 ```python
-WAGTAILADMIN_USER_LOGIN_FORM = 'users.forms.LoginForm'
+WAGTAILADMIN_USER_LOGIN_FORM = "users.forms.LoginForm"
 ```
 
 Allows the default `LoginForm` to be extended with extra fields.
@@ -633,7 +628,7 @@ Allows the default `LoginForm` to be extended with extra fields.
 ### `WAGTAILADMIN_LOGIN_URL`
 
 ```python
-WAGTAILADMIN_LOGIN_URL = 'http://example.com/login/'
+WAGTAILADMIN_LOGIN_URL = "http://example.com/login/"
 ```
 
 This specifies the URL to redirect when a user attempts to access a Wagtail admin page without being logged in. If omitted, Wagtail will fall back to using the standard login view (typically `/admin/login/`).
@@ -645,7 +640,7 @@ This specifies the URL to redirect when a user attempts to access a Wagtail admi
 ### `WAGTAIL_GRAVATAR_PROVIDER_URL`
 
 ```python
-WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
+WAGTAIL_GRAVATAR_PROVIDER_URL = "//www.gravatar.com/avatar"
 ```
 
 If a user has not uploaded a profile picture, Wagtail will look for an avatar linked to their email address on gravatar.com. This setting allows you to specify an alternative provider such as like robohash.org, or can be set to `None` to disable the use of remote avatars completely.
@@ -670,7 +665,7 @@ It is possible to override this list via the `WAGTAIL_USER_TIME_ZONES` setting.
 If there is zero or one-time zone permitted, the account settings form will be hidden.
 
 ```python
-WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
+WAGTAIL_USER_TIME_ZONES = ["America/Chicago", "Australia/Sydney", "Europe/Rome"]
 ```
 
 (wagtailadmin_permitted_languages)=
@@ -680,14 +675,13 @@ WAGTAIL_USER_TIME_ZONES = ['America/Chicago', 'Australia/Sydney', 'Europe/Rome']
 Users can choose between several languages for the admin interface in the account settings. The list of languages is by default all the available languages in Wagtail with at least 90% coverage. To change it, set `WAGTAILADMIN_PERMITTED_LANGUAGES`:
 
 ```python
-WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
-                                    ('pt', 'Portuguese')]
+WAGTAILADMIN_PERMITTED_LANGUAGES = [("en", "English"), ("pt", "Portuguese")]
 ```
 
 Since the syntax is the same as Django `LANGUAGES`, you can do this so users can only choose between front office languages:
 
 ```python
-LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'), ('pt', 'Portuguese')]
+LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [("en", "English"), ("pt", "Portuguese")]
 ```
 
 ## Email notifications
@@ -695,7 +689,7 @@ LANGUAGES = WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'), ('pt', 'Portu
 ### `WAGTAILADMIN_NOTIFICATION_FROM_EMAIL`
 
 ```python
-WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
+WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = "wagtail@myhost.io"
 ```
 
 Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's `DEFAULT_FROM_EMAIL` setting.
@@ -747,7 +741,7 @@ For new releases, Wagtail may show a notification banner on the dashboard that h
 ### `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
+WAGTAIL_PASSWORD_REQUIRED_TEMPLATE = "myapp/password_required.html"
 ```
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the [](private_pages) documentation.
@@ -755,7 +749,7 @@ This is the path to the Django template which will be used to display the "passw
 ### `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE`
 
 ```python
-WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = "myapp/document_password_required.html"
 ```
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
@@ -765,7 +759,7 @@ As above, but for password restrictions on documents. For more details, see the 
 The basic login page can be customized with a custom template.
 
 ```python
-WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
+WAGTAIL_FRONTEND_LOGIN_TEMPLATE = "myapp/login.html"
 ```
 
 ### `WAGTAIL_FRONTEND_LOGIN_URL`
@@ -773,7 +767,7 @@ WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
 Or the login page can be a redirect to an external or internal URL.
 
 ```python
-WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
+WAGTAIL_FRONTEND_LOGIN_URL = "/accounts/login/"
 ```
 
 For more details, see the [](login_page) documentation.
@@ -849,7 +843,7 @@ For full documentation on API configuration, including these settings, see [](ap
 ### `WAGTAILAPI_BASE_URL`
 
 ```python
-WAGTAILAPI_BASE_URL = 'http://api.example.com/'
+WAGTAILAPI_BASE_URL = "http://api.example.com/"
 ```
 
 Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.
@@ -885,12 +879,12 @@ For full documentation on frontend cache invalidation, including these settings,
 ### `WAGTAILFRONTENDCACHE`
 
 ```python
-  WAGTAILFRONTENDCACHE = {
-      'varnish': {
-          'BACKEND': 'wagtail.contrib.frontend_cache.backends.HTTPBackend',
-          'LOCATION': 'http://localhost:8000',
-      },
-  }
+WAGTAILFRONTENDCACHE = {
+    "varnish": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.HTTPBackend",
+        "LOCATION": "http://localhost:8000",
+    },
+}
 ```
 
 See the documentation linked above for the full options available.
@@ -912,13 +906,13 @@ Default is an empty list, there must be a list of languages to also purge the ur
 ### `WAGTAIL_REDIRECTS_FILE_STORAGE`
 
 ```python
-WAGTAIL_REDIRECTS_FILE_STORAGE = 'tmp_file'
+WAGTAIL_REDIRECTS_FILE_STORAGE = "tmp_file"
 ```
 
 By default the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases, you can use the built-in cache to store the file instead.
 
 ```python
-WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
+WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
 ```
 
 ## Form builder
@@ -958,7 +952,7 @@ Moderation workflows can be used in two modes. The first is to require that all 
 ### `WAGTAIL_FINISH_WORKFLOW_ACTION`
 
 ```python
-WAGTAIL_FINISH_WORKFLOW_ACTION = 'wagtail.workflows.publish_workflow_state'
+WAGTAIL_FINISH_WORKFLOW_ACTION = "wagtail.workflows.publish_workflow_state"
 ```
 
 This sets the function to be called when a workflow completes successfully - by default, `wagtail.workflows.publish_workflow_state`,which publishes the page. The function must accept a `WorkflowState` object as its only positional argument.

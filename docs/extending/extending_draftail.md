@@ -16,46 +16,49 @@ All of these extensions are created with a similar baseline, which we can demons
 
 ```python
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    InlineStyleElementHandler,
+)
 from wagtail import hooks
 
+
 # 1. Use the register_rich_text_features hook.
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def register_mark_feature(features):
     """
     Registering the `mark` feature, which uses the `MARK` Draft.js inline style type,
     and is stored as HTML with a `<mark>` tag.
     """
-    feature_name = 'mark'
-    type_ = 'MARK'
-    tag = 'mark'
+    feature_name = "mark"
+    type_ = "MARK"
+    tag = "mark"
 
     # 2. Configure how Draftail handles the feature in its toolbar.
     control = {
-        'type': type_,
-        'label': '☆',
-        'description': 'Mark',
+        "type": type_,
+        "label": "☆",
+        "description": "Mark",
         # This isn’t even required – Draftail has predefined styles for MARK.
         # 'style': {'textDecoration': 'line-through'},
     }
 
     # 3. Call register_editor_plugin to register the configuration for Draftail.
     features.register_editor_plugin(
-        'draftail', feature_name, draftail_features.InlineStyleFeature(control)
+        "draftail", feature_name, draftail_features.InlineStyleFeature(control)
     )
 
     # 4.configure the content transform from the DB to the editor and back.
     db_conversion = {
-        'from_database_format': {tag: InlineStyleElementHandler(type_)},
-        'to_database_format': {'style_map': {type_: tag}},
+        "from_database_format": {tag: InlineStyleElementHandler(type_)},
+        "to_database_format": {"style_map": {type_: tag}},
     }
 
     # 5. Call register_converter_rule to register the content transformation conversion.
-    features.register_converter_rule('contentstate', feature_name, db_conversion)
+    features.register_converter_rule("contentstate", feature_name, db_conversion)
 
     # 6. (optional) Add the feature to the default features list to make it available
     # on rich text fields that do not specify an explicit 'features' list
-    features.default_features.append('mark')
+    features.default_features.append("mark")
 ```
 
 These steps will always be the same for all Draftail plugins. The important parts are to:
@@ -85,31 +88,44 @@ import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail import hooks
 
-@hooks.register('register_rich_text_features')
+
+@hooks.register("register_rich_text_features")
 def register_help_text_feature(features):
     """
     Registering the `help-text` feature, which uses the `help-text` Draft.js block type,
     and is stored as HTML with a `<div class="help-text">` tag.
     """
-    feature_name = 'help-text'
-    type_ = 'help-text'
+    feature_name = "help-text"
+    type_ = "help-text"
 
     control = {
-        'type': type_,
-        'label': '?',
-        'description': 'Help text',
+        "type": type_,
+        "label": "?",
+        "description": "Help text",
         # Optionally, we can tell Draftail what element to use when displaying those blocks in the editor.
-        'element': 'div',
+        "element": "div",
     }
 
     features.register_editor_plugin(
-        'draftail', feature_name, draftail_features.BlockFeature(control, css={'all': ['help-text.css']})
+        "draftail",
+        feature_name,
+        draftail_features.BlockFeature(control, css={"all": ["help-text.css"]}),
     )
 
-    features.register_converter_rule('contentstate', feature_name, {
-        'from_database_format': {'div[class=help-text]': BlockElementHandler(type_)},
-        'to_database_format': {'block_map': {type_: {'element': 'div', 'props': {'class': 'help-text'}}}},
-    })
+    features.register_converter_rule(
+        "contentstate",
+        feature_name,
+        {
+            "from_database_format": {
+                "div[class=help-text]": BlockElementHandler(type_)
+            },
+            "to_database_format": {
+                "block_map": {
+                    type_: {"element": "div", "props": {"class": "help-text"}}
+                }
+            },
+        },
+    )
 ```
 
 Here are the main differences:
@@ -167,35 +183,43 @@ Those tokens are then saved in the rich text on publish. When the news article i
 In order to achieve this, we start with registering the rich text feature like for inline styles and blocks:
 
 ```python
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def register_stock_feature(features):
-    features.default_features.append('stock')
+    features.default_features.append("stock")
     """
     Registering the `stock` feature, which uses the `STOCK` Draft.js entity type,
     and is stored as HTML with a `<span data-stock>` tag.
     """
-    feature_name = 'stock'
-    type_ = 'STOCK'
+    feature_name = "stock"
+    type_ = "STOCK"
 
     control = {
-        'type': type_,
-        'label': '$',
-        'description': 'Stock',
+        "type": type_,
+        "label": "$",
+        "description": "Stock",
     }
 
     features.register_editor_plugin(
-        'draftail', feature_name, draftail_features.EntityFeature(
-            control,
-            js=['stock.js'],
-            css={'all': ['stock.css']}
-        )
+        "draftail",
+        feature_name,
+        draftail_features.EntityFeature(
+            control, js=["stock.js"], css={"all": ["stock.css"]}
+        ),
     )
 
-    features.register_converter_rule('contentstate', feature_name, {
-        # Note here that the conversion is more complicated than for blocks and inline styles.
-        'from_database_format': {'span[data-stock]': StockEntityElementHandler(type_)},
-        'to_database_format': {'entity_decorators': {type_: stock_entity_decorator}},
-    })
+    features.register_converter_rule(
+        "contentstate",
+        feature_name,
+        {
+            # Note here that the conversion is more complicated than for blocks and inline styles.
+            "from_database_format": {
+                "span[data-stock]": StockEntityElementHandler(type_)
+            },
+            "to_database_format": {
+                "entity_decorators": {type_: stock_entity_decorator}
+            },
+        },
+    )
 ```
 
 The `js` and `css` keyword arguments on `EntityFeature` can be used to specify additional JS and CSS files to load when this feature is active. Both are optional. Their values are added to a `Media` object, more documentation on these objects is available in the [Django Form Assets documentation](inv:django#topics/forms/media).
@@ -204,16 +228,23 @@ Since entities hold data, the conversion to/from database format is more complic
 
 ```python
 from draftjs_exporter.dom import DOM
-from wagtail.admin.rich_text.converters.html_to_contentstate import InlineEntityElementHandler
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    InlineEntityElementHandler,
+)
+
 
 def stock_entity_decorator(props):
     """
     Draft.js ContentState to database HTML.
     Converts the STOCK entities into a span tag.
     """
-    return DOM.create_element('span', {
-        'data-stock': props['stock'],
-    }, props['children'])
+    return DOM.create_element(
+        "span",
+        {
+            "data-stock": props["stock"],
+        },
+        props["children"],
+    )
 
 
 class StockEntityElementHandler(InlineEntityElementHandler):
@@ -221,13 +252,14 @@ class StockEntityElementHandler(InlineEntityElementHandler):
     Database HTML to Draft.js ContentState.
     Converts the span tag into a STOCK entity, with the right data.
     """
-    mutability = 'IMMUTABLE'
+
+    mutability = "IMMUTABLE"
 
     def get_attribute_data(self, attrs):
         """
         Take the `stock` value from the `data-stock` HTML attribute.
         """
-        return { 'stock': attrs['data-stock'] }
+        return {"stock": attrs["data-stock"]}
 ```
 
 Note how they both do similar conversions, but use different APIs. `to_database_format` is built with the [Draft.js exporter](https://github.com/springload/draftjs_exporter) components API, whereas `from_database_format` uses a Wagtail API.
@@ -360,18 +392,19 @@ from wagtail.admin.rich_text.editors.draftail.features import ControlFeature
 from wagtail import hooks
 
 
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def register_sentences_counter(features):
-    feature_name = 'sentences'
+    feature_name = "sentences"
     features.default_features.append(feature_name)
 
     features.register_editor_plugin(
-        'draftail',
+        "draftail",
         feature_name,
-        ControlFeature({
-            'type': feature_name,
-        },
-        js=['draftail_sentences.js'],
+        ControlFeature(
+            {
+                "type": feature_name,
+            },
+            js=["draftail_sentences.js"],
         ),
     )
 ```
@@ -406,10 +439,10 @@ For example:
 
 ```python
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
-    'default': {
-        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
-        'OPTIONS': {
-            'features': ['bold', 'italic', 'link', 'sentences'],  # Add 'sentences' here
+    "default": {
+        "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
+        "OPTIONS": {
+            "features": ["bold", "italic", "link", "sentences"],  # Add 'sentences' here
         },
     },
 }
@@ -431,18 +464,19 @@ from wagtail.admin.rich_text.editors.draftail.features import DecoratorFeature
 from wagtail import hooks
 
 
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def register_punctuation_highlighter(features):
-    feature_name = 'punctuation'
+    feature_name = "punctuation"
     features.default_features.append(feature_name)
 
     features.register_editor_plugin(
-        'draftail',
+        "draftail",
         feature_name,
-        DecoratorFeature({
-            'type': feature_name,
-        },
-            js=['draftail_punctuation.js'],
+        DecoratorFeature(
+            {
+                "type": feature_name,
+            },
+            js=["draftail_punctuation.js"],
         ),
     )
 ```
@@ -487,18 +521,19 @@ Draftail supports plugins following the [Draft.js Plugins](https://www.draft-js-
 A common scenario where this API can help is to add bespoke copy-paste processing. Here is a simple example, automatically converting URL anchor hash references to links. First, let’s register the extension in Python:
 
 ```python
-@hooks.register('register_rich_text_features')
+@hooks.register("register_rich_text_features")
 def register_anchorify(features):
-    feature_name = 'anchorify'
+    feature_name = "anchorify"
     features.default_features.append(feature_name)
 
     features.register_editor_plugin(
-        'draftail',
+        "draftail",
         feature_name,
-        PluginFeature({
-            'type': feature_name,
-        },
-            js=['draftail_anchorify.js'],
+        PluginFeature(
+            {
+                "type": feature_name,
+            },
+            js=["draftail_anchorify.js"],
         ),
     )
 ```

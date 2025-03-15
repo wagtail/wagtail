@@ -153,19 +153,22 @@ class CustomAccessibilityItem(AccessibilityItem):
                 "id": "p-as-heading",
                 "options": {
                     "margins": [
-                        { "weight": 150 },
+                        {"weight": 150},
                     ],
                     "passLength": 1,
-                    "failLength": 0.5
+                    "failLength": 0.5,
                 },
             },
         )
         return checks
 
 
-@hooks.register('construct_wagtail_userbar')
+@hooks.register("construct_wagtail_userbar")
 def replace_userbar_accessibility_item(request, items, page):
-    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
+    items[:] = [
+        CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item
+        for item in items
+    ]
 ```
 
 The checks you run in production should be restricted to issues your content editors can fix themselves; warnings about things out of their control will only teach them to ignore all warnings. However, it may be useful for you to run additional checks in your development environment.
@@ -191,16 +194,19 @@ class CustomAccessibilityItem(AccessibilityItem):
     }
 
     def get_axe_run_only(self, request):
-        if env.bool('DEBUG', default=False):
+        if env.bool("DEBUG", default=False):
             return self.axe_rules_in_dev
         else:
             # In production, run Wagtail's default accessibility rules for authored content only
             return self.axe_run_only
 
 
-@hooks.register('construct_wagtail_userbar')
+@hooks.register("construct_wagtail_userbar")
 def replace_userbar_accessibility_item(request, items, page):
-    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
+    items[:] = [
+        CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item
+        for item in items
+    ]
 ```
 
 #### AccessibilityItem reference

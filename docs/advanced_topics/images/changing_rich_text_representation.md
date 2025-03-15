@@ -16,16 +16,20 @@ from wagtail.images.formats import Format, register_image_format
 class SubclassedImageFormat(Format):
 
     def image_to_html(self, image, alt_text, extra_attributes=None):
-
-        custom_html = # the custom HTML representation of your image here
-                        # in Format, the image's rendition.img_tag(extra_attributes) is used to generate the HTML
-                        # representation
+        custom_html = ""  # the custom HTML representation of your image here
+        # in Format, the image's rendition.img_tag(extra_attributes) is used to generate the HTML
+        # representation
 
         return custom_html
 
 
 register_image_format(
-    SubclassedImageFormat('subclassed_format', 'Subclassed Format', 'image-classes object-contain', filter_spec)
+    SubclassedImageFormat(
+        "subclassed_format",
+        "Subclassed Format",
+        "image-classes object-contain",
+        filter_spec,
+    )
 )
 ```
 
@@ -47,7 +51,9 @@ class CaptionedImageFormat(Format):
 
 
 register_image_format(
-    CaptionedImageFormat('captioned_fullwidth', 'Full width captioned', 'bodytext-image', 'width-750')
+    CaptionedImageFormat(
+        "captioned_fullwidth", "Full width captioned", "bodytext-image", "width-750"
+    )
 )
 ```
 

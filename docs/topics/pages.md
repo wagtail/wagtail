@@ -33,50 +33,47 @@ class BlogPage(Page):
     body = RichTextField()
     date = models.DateField("Post date")
     feed_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
-
 
     # Search index configuration
 
     search_fields = Page.search_fields + [
-        index.SearchField('body'),
-        index.FilterField('date'),
+        index.SearchField("body"),
+        index.FilterField("date"),
     ]
-
 
     # Editor panels configuration
 
     content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        FieldPanel('body'),
-        InlinePanel('related_links', heading="Related links", label="Related link"),
+        FieldPanel("date"),
+        FieldPanel("body"),
+        InlinePanel("related_links", heading="Related links", label="Related link"),
     ]
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        FieldPanel('feed_image'),
+        FieldPanel("feed_image"),
     ]
-
 
     # Parent page / subpage type rules
 
-    parent_page_types = ['blog.BlogIndex']
+    parent_page_types = ["blog.BlogIndex"]
     subpage_types = []
 
 
 class BlogPageRelatedLink(Orderable):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name="related_links")
     name = models.CharField(max_length=255)
     url = models.URLField()
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('url'),
+        FieldPanel("name"),
+        FieldPanel("url"),
     ]
 ```
 
@@ -186,7 +183,7 @@ The `Page.get_url_parts(request)` method will not typically be called directly, 
 When overriding `get_url_parts()`, you should accept `*args, **kwargs`:
 
 ```python
-def get_url_parts(self, *args, **kwargs):
+def get_url_parts(self, *args, **kwargs): ...
 ```
 
 and pass those through at the point where you are calling `get_url_parts` on `super` (if applicable), for example:
@@ -245,7 +242,7 @@ class BlogIndexPage(Page):
         context = super().get_context(request, *args, **kwargs)
 
         # Add extra variables and return the updated context
-        context['blog_entries'] = BlogPage.objects.child_of(self).live()
+        context["blog_entries"] = BlogPage.objects.child_of(self).live()
         return context
 ```
 
@@ -267,7 +264,7 @@ Set the `template` attribute on the class to use a different template file:
 class BlogPage(Page):
     ...
 
-    template = 'other_template.html'
+    template = "other_template.html"
 ```
 
 #### Dynamically choosing the template
@@ -282,9 +279,9 @@ class BlogPage(Page):
 
     def get_template(self, request, *args, **kwargs):
         if self.use_other_template:
-            return 'blog/other_blog_page.html'
+            return "blog/other_blog_page.html"
 
-        return 'blog/blog_page.html'
+        return "blog/blog_page.html"
 ```
 
 In this example, pages that have the `use_other_template` boolean field set will use the `blog/other_blog_page.html` template. All other pages will use the default `blog/blog_page.html`.
@@ -297,8 +294,8 @@ If you want to add AJAX functionality to a page, such as a paginated listing tha
 class BlogPage(Page):
     ...
 
-    ajax_template = 'other_template_fragment.html'
-    template = 'other_template.html'
+    ajax_template = "other_template_fragment.html"
+    template = "other_template.html"
 ```
 
 ### More control over page rendering
@@ -317,14 +314,15 @@ class BlogPage(Page):
     ...
 
     def serve(self, request):
-        return JsonResponse({
-            'title': self.title,
-            'body': self.body,
-            'date': self.date,
-
-            # Resizes the image to 300px width and gets a URL to it
-            'feed_image': self.feed_image.get_rendition('width-300').url,
-        })
+        return JsonResponse(
+            {
+                "title": self.title,
+                "body": self.body,
+                "date": self.date,
+                # Resizes the image to 300px width and gets a URL to it
+                "feed_image": self.feed_image.get_rendition("width-300").url,
+            }
+        )
 ```
 
 (inline_models)=
@@ -355,13 +353,13 @@ from wagtail.models import Orderable
 
 
 class BlogPageRelatedLink(Orderable):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name="related_links")
     name = models.CharField(max_length=255)
     url = models.URLField()
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('url'),
+        FieldPanel("name"),
+        FieldPanel("url"),
     ]
 ```
 
@@ -369,9 +367,8 @@ To add this to the admin interface, use the `InlinePanel` edit panel class:
 
 ```python
 content_panels = [
-    ...
-
-    InlinePanel('related_links', label="Related links"),
+    # ...
+    InlinePanel("related_links", label="Related links"),
 ]
 ```
 
@@ -387,36 +384,40 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.models import Orderable
 
+
 # The abstract model for related links, complete with panels
 class RelatedLink(models.Model):
     name = models.CharField(max_length=255)
     url = models.URLField()
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('url'),
+        FieldPanel("name"),
+        FieldPanel("url"),
     ]
 
     class Meta:
         abstract = True
 
+
 # The real model which extends the abstract model with a ParentalKey relation back to the page model.
 # This can be repeated for each page type where the relation is to be added
 # (for example, NewsPageRelatedLink, PublicationPageRelatedLink and so on).
-class BlogPageRelatedLink(Orderable,RelatedLink):
-    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='related_links')
+class BlogPageRelatedLink(Orderable, RelatedLink):
+    page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name="related_links")
 ```
 
 Alternatively, if RelatedLink is going to appear on a significant number of the page types defined in your project, it may be more appropriate to set up a single `RelatedLink` model pointing to the base `wagtailcore.Page` model:
 
 ```python
 class RelatedLink(Orderable):
-    page = ParentalKey("wagtailcore.Page", on_delete=models.CASCADE, related_name='related_links')
+    page = ParentalKey(
+        "wagtailcore.Page", on_delete=models.CASCADE, related_name="related_links"
+    )
     name = models.CharField(max_length=255)
     url = models.URLField()
     panels = [
-        FieldPanel('name'),
-        FieldPanel('url'),
+        FieldPanel("name"),
+        FieldPanel("url"),
     ]
 ```
 
@@ -432,7 +433,7 @@ Pages can exist in Python code in two forms, an instance of `Page` or an instanc
 
 When working with multiple page types together, you will typically use instances of Wagtail's `Page` model, which don't give you access to any fields specific to their type.
 
-```python
+```pycon
 # Get all pages in the database
 >>> from wagtail.models import Page
 >>> Page.objects.all()
@@ -441,7 +442,7 @@ When working with multiple page types together, you will typically use instances
 
 When working with a single page type, you can work with instances of the user-defined model. These give access to all the fields available in `Page`, along with any user-defined fields for that type.
 
-```python
+```pycon
 # Get all blog entries in the database
 >>> BlogPage.objects.all()
 [<BlogPage: A Blog post>, <BlogPage: Another Blog post>]
@@ -449,7 +450,7 @@ When working with a single page type, you can work with instances of the user-de
 
 You can convert a `Page` object to its more specific user-defined equivalent using the `.specific` property. This may cause an additional database lookup.
 
-```python
+```pycon
 >>> page = Page.objects.get(title="A Blog post")
 >>> page
 <Page: A Blog post>
@@ -486,13 +487,13 @@ class NewsItemPage(Page):
     ...
 
     class Meta:
-        ordering = ('-publication_date', )  # will not work
+        ordering = ("-publication_date",)  # will not work
 ```
 
 This is because `Page` enforces ordering QuerySets by path. Instead, you must apply the ordering explicitly when constructing a QuerySet:
 
 ```python
-news_items = NewsItemPage.objects.live().order_by('-publication_date')
+news_items = NewsItemPage.objects.live().order_by("-publication_date")
 ```
 
 (custom_page_managers)=
@@ -505,8 +506,10 @@ You can add a custom `Manager` to your `Page` class. Any custom Managers should 
 from django.db import models
 from wagtail.models import Page, PageManager
 
+
 class EventPageManager(PageManager):
-    """ Custom manager for Event pages """
+    """Custom manager for Event pages"""
+
 
 class EventPage(Page):
     start_date = models.DateField()
@@ -521,12 +524,15 @@ from django.db import models
 from django.utils import timezone
 from wagtail.models import Page, PageManager, PageQuerySet
 
+
 class EventPageQuerySet(PageQuerySet):
     def future(self):
         today = timezone.localtime(timezone.now()).date()
         return self.filter(start_date__gte=today)
 
+
 EventPageManager = PageManager.from_queryset(EventPageQuerySet)
+
 
 class EventPage(Page):
     start_date = models.DateField()

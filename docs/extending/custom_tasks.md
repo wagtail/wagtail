@@ -42,9 +42,11 @@ from wagtail.models import Task
 
 
 class UserApprovalTask(Task):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False
+    )
 
-    admin_form_fields = Task.admin_form_fields + ['user']
+    admin_form_fields = Task.admin_form_fields + ["user"]
 ```
 
 Any fields that shouldn't be edited after task creation - for example, anything that would fundamentally change the meaning of the task in any history logs - can be added to `admin_form_readonly_on_edit_fields`. For example:
@@ -58,13 +60,17 @@ from wagtail.models import Task
 
 
 class UserApprovalTask(Task):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False
+    )
 
-    admin_form_fields = Task.admin_form_fields + ['user']
+    admin_form_fields = Task.admin_form_fields + ["user"]
 
     # prevent editing of `user` after the task is created
     # by default, this attribute contains the 'name' field to prevent tasks from being renamed
-    admin_form_readonly_on_edit_fields = Task.admin_form_readonly_on_edit_fields + ['user']
+    admin_form_readonly_on_edit_fields = Task.admin_form_readonly_on_edit_fields + [
+        "user"
+    ]
 ```
 
 Wagtail will choose a default form widget to use based on the field type. But you can override the form widget using the `admin_form_widgets` attribute:
@@ -80,12 +86,14 @@ from .widgets import CustomUserChooserWidget
 
 
 class UserApprovalTask(Task):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False
+    )
 
-    admin_form_fields = Task.admin_form_fields + ['user']
+    admin_form_fields = Task.admin_form_fields + ["user"]
 
     admin_form_widgets = {
-        'user': CustomUserChooserWidget,
+        "user": CustomUserChooserWidget,
     }
 ```
 
@@ -120,9 +128,11 @@ class UserApprovalTaskState(TaskState):
 
 
 class UserApprovalTask(Task):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False
+    )
 
-    admin_form_fields = Task.admin_form_fields + ['user']
+    admin_form_fields = Task.admin_form_fields + ["user"]
 
     task_state_class = UserApprovalTaskState
 ```
@@ -163,9 +173,9 @@ For example:
 def get_actions(self, obj, user):
     if user == self.user:
         return [
-            ('approve', "Approve", False),
-            ('reject', "Reject", False),
-            ('cancel', "Cancel", False),
+            ("approve", "Approve", False),
+            ("reject", "Reject", False),
+            ("cancel", "Cancel", False),
         ]
     else:
         return []
@@ -187,7 +197,7 @@ For example, let's say we wanted to add an additional option: canceling the enti
 
 ```python
 def on_action(self, task_state, user, action_name):
-    if action_name == 'cancel':
+    if action_name == "cancel":
         return task_state.workflow_state.cancel(user=user)
     else:
         return super().on_action(task_state, user, workflow_state)
@@ -203,7 +213,9 @@ For example:
 def get_task_states_user_can_moderate(self, user, **kwargs):
     if user == self.user:
         # get all task states linked to the (base class of) current task
-        return TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr)
+        return TaskState.objects.filter(
+            status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
+        )
     else:
         return TaskState.objects.none()
 ```
@@ -245,15 +257,21 @@ class BaseUserApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
         super().__init__((UserApprovalTaskState, TaskState))
 
     def can_handle(self, instance, **kwargs):
-        if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, UserApprovalTask):
+        if super().can_handle(instance, **kwargs) and isinstance(
+            instance.task.specific, UserApprovalTask
+        ):
             # Don't send notifications if a Task has been canceled and then resumed - when object was updated to a new revision
-            return not TaskState.objects.filter(workflow_state=instance.workflow_state, task=instance.task, status=TaskState.STATUS_CANCELLED).exists()
+            return not TaskState.objects.filter(
+                workflow_state=instance.workflow_state,
+                task=instance.task,
+                status=TaskState.STATUS_CANCELLED,
+            ).exists()
         return False
 
     def get_context(self, task_state, **kwargs):
         context = super().get_context(task_state, **kwargs)
-        context['object'] = task_state.workflow_state.content_object
-        context['task'] = task_state.task.specific
+        context["object"] = task_state.workflow_state.content_object
+        context["task"] = task_state.task.specific
         return context
 
     def get_recipient_users(self, task_state, **kwargs):
@@ -266,10 +284,12 @@ class BaseUserApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
         return recipients
 
 
-class UserApprovalTaskStateSubmissionEmailNotifier(BaseUserApprovalTaskStateEmailNotifier):
+class UserApprovalTaskStateSubmissionEmailNotifier(
+    BaseUserApprovalTaskStateEmailNotifier
+):
     """A notifier to send updates for UserApprovalTask submission events"""
 
-    notification = 'submitted'
+    notification = "submitted"
 ```
 
 Similarly, you could define notifier subclasses for approval and rejection notifications.
@@ -285,8 +305,12 @@ from .mail import UserApprovalTaskStateSubmissionEmailNotifier
 
 task_submission_email_notifier = UserApprovalTaskStateSubmissionEmailNotifier()
 
+
 def register_signal_handlers():
-    task_submitted.connect(user_approval_task_submission_email_notifier, dispatch_uid='user_approval_task_submitted_email_notification')
+    task_submitted.connect(
+        user_approval_task_submission_email_notifier,
+        dispatch_uid="user_approval_task_submitted_email_notification",
+    )
 ```
 
 `register_signal_handlers()` should then be run on loading the app: for example, by adding it to the `ready()` method in your `AppConfig`.
@@ -297,11 +321,12 @@ from django.apps import AppConfig
 
 
 class MyAppConfig(AppConfig):
-    name = 'myappname'
-    label = 'myapplabel'
-    verbose_name = 'My verbose app name'
+    name = "myappname"
+    label = "myapplabel"
+    verbose_name = "My verbose app name"
 
     def ready(self):
         from .signal_handlers import register_signal_handlers
+
         register_signal_handlers()
 ```

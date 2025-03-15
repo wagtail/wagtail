@@ -7,7 +7,7 @@
 ### MigrateStreamData
 
 ```python
-class MigrateStreamData(RunPython)
+class MigrateStreamData(RunPython): ...
 ```
 
 Subclass of RunPython for `StreamField` data migration operations
@@ -15,13 +15,15 @@ Subclass of RunPython for `StreamField` data migration operations
 #### \_\_init\_\_
 
 ```python
-def __init__(app_name,
-             model_name,
-             field_name,
-             operations_and_block_paths,
-             revisions_from=None,
-             chunk_size=1024,
-             **kwargs)
+def __init__(
+    app_name,
+    model_name,
+    field_name,
+    operations_and_block_paths,
+    revisions_from=None,
+    chunk_size=1024,
+    **kwargs
+): ...
 ```
 
 MigrateStreamData constructor
@@ -49,7 +51,7 @@ MigrateStreamData(
     operations_and_block_paths=[
         (RenameStreamChildrenOperation(old_name="field1", new_name="block1"), ""),
     ],
-    revisions_from=datetime.datetime(2022, 7, 25)
+    revisions_from=datetime.datetime(2022, 7, 25),
 )
 ```
 
@@ -60,7 +62,7 @@ MigrateStreamData(
 ### RenameStreamChildrenOperation
 
 ```python
-class RenameStreamChildrenOperation(BaseBlockOperation)
+class RenameStreamChildrenOperation(BaseBlockOperation): ...
 ```
 
 Renames all `StreamBlock` children of the given type
@@ -79,7 +81,7 @@ The `block_path_str` when using this operation should point to the parent `Strea
 ### RenameStructChildrenOperation
 
 ```python
-class RenameStructChildrenOperation(BaseBlockOperation)
+class RenameStructChildrenOperation(BaseBlockOperation): ...
 ```
 
 Renames all `StructBlock` children of the given type
@@ -98,7 +100,7 @@ The `block_path_str` when using this operation should point to the parent `Struc
 ### RemoveStreamChildrenOperation
 
 ```python
-class RemoveStreamChildrenOperation(BaseBlockOperation)
+class RemoveStreamChildrenOperation(BaseBlockOperation): ...
 ```
 
 Removes all `StreamBlock` children of the given type
@@ -116,7 +118,7 @@ The `block_path_str` when using this operation should point to the parent `Strea
 ### RemoveStructChildrenOperation
 
 ```python
-class RemoveStructChildrenOperation(BaseBlockOperation)
+class RemoveStructChildrenOperation(BaseBlockOperation): ...
 ```
 
 Removes all `StructBlock` children of the given type
@@ -134,7 +136,7 @@ The `block_path_str` when using this operation should point to the parent `Struc
 ### StreamChildrenToListBlockOperation
 
 ```python
-class StreamChildrenToListBlockOperation(BaseBlockOperation)
+class StreamChildrenToListBlockOperation(BaseBlockOperation): ...
 ```
 
 Combines `StreamBlock` children of the given type into a new `ListBlock`
@@ -153,7 +155,7 @@ The `block_path_str` when using this operation should point to the parent `Strea
 ### StreamChildrenToStreamBlockOperation
 
 ```python
-class StreamChildrenToStreamBlockOperation(BaseBlockOperation)
+class StreamChildrenToStreamBlockOperation(BaseBlockOperation): ...
 ```
 
 Combines `StreamBlock` children of the given types into a new `StreamBlock`
@@ -172,7 +174,7 @@ The `block_path_str` when using this operation should point to the parent `Strea
 ### AlterBlockValueOperation
 
 ```python
-class AlterBlockValueOperation(BaseBlockOperation)
+class AlterBlockValueOperation(BaseBlockOperation): ...
 ```
 
 Alters the value of each block to the given value
@@ -186,7 +188,7 @@ Alters the value of each block to the given value
 ### StreamChildrenToStructBlockOperation
 
 ```python
-class StreamChildrenToStructBlockOperation(BaseBlockOperation)
+class StreamChildrenToStructBlockOperation(BaseBlockOperation): ...
 ```
 
 Move each `StreamBlock` child of the given type inside a new `StructBlock`
@@ -198,17 +200,17 @@ A new `StructBlock` will be created as a child of the parent `StreamBlock` for e
 Consider the following `StreamField` definition:
 
 ```python
-mystream = StreamField([("char1", CharBlock()), ...], ...)
+mystream = StreamField([("char1", CharBlock())])
 ```
 
 Then the stream data would look like the following:
 
 ```python
 [
-    ...,
-    { "type": "char1", "value": "Value1", ... },
-    { "type": "char1", "value": "Value2", ... },
-    ...
+    # ...,
+    {"type": "char1", "value": "Value1"},
+    {"type": "char1", "value": "Value2"},
+    # ...
 ]
 ```
 
@@ -223,8 +225,8 @@ Our altered stream data would look like this:
 ```python
 [
     ...,
-    { "type": "struct1", "value": { "char1": "Value1" } },
-    { "type": "struct1", "value": { "char1": "Value2" } },
+    {"type": "struct1", "value": {"char1": "Value1"}},
+    {"type": "struct1", "value": {"char1": "Value2"}},
     ...,
 ]
 ```
@@ -244,7 +246,7 @@ Our altered stream data would look like this:
 ### InvalidBlockDefError
 
 ```python
-class InvalidBlockDefError(Exception)
+class InvalidBlockDefError(Exception): ...
 ```
 
 Exception for invalid block definitions
@@ -252,7 +254,7 @@ Exception for invalid block definitions
 #### map_block_value
 
 ```python
-def map_block_value(block_value, block_def, block_path, operation, **kwargs)
+def map_block_value(block_value, block_def, block_path, operation, **kwargs): ...
 ```
 
 Maps the value of a block.
@@ -271,8 +273,7 @@ Transformed value
 #### map_struct_block_value
 
 ```python
-def map_struct_block_value(struct_block_value, block_def, block_path,
-                           **kwargs)
+def map_struct_block_value(struct_block_value, block_def, block_path, **kwargs): ...
 ```
 
 Maps each child block in a `StructBlock` value.
@@ -290,7 +291,7 @@ Maps each child block in a `StructBlock` value.
 #### map_list_block_value
 
 ```python
-def map_list_block_value(list_block_value, block_def, block_path, **kwargs)
+def map_list_block_value(list_block_value, block_def, block_path, **kwargs): ...
 ```
 
 Maps each child block in a `ListBlock` value.
@@ -308,8 +309,9 @@ Maps each child block in a `ListBlock` value.
 #### apply_changes_to_raw_data
 
 ```python
-def apply_changes_to_raw_data(raw_data, block_path_str, operation, streamfield,
-                              **kwargs)
+def apply_changes_to_raw_data(
+    raw_data, block_path_str, operation, streamfield, **kwargs
+): ...
 ```
 
 Applies changes to raw stream data

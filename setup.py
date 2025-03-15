@@ -74,6 +74,7 @@ documentation_extras = [
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==6.5.0",
     "myst_parser==2.0.0",
+    "blacken-docs==1.19.1"
 ]
 
 setup(

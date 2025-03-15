@@ -33,23 +33,20 @@ When adding logging, you need to log the action or actions that happen to the ob
 ```
 
 ```python
+# mypackage/views.py
+from wagtail.log_actions import log
 
-    # mypackage/views.py
-    from wagtail.log_actions import log
 
-    def copy_for_translation(page):
-        # ...
-        page.copy(log_action='mypackage.copy_for_translation')
+def copy_for_translation(page):
+    # ...
+    page.copy(log_action="mypackage.copy_for_translation")
 
-    def my_method(request, page):
-        # ..
-        # Manually log an action
-        data = {
-            'make': {'it': 'so'}
-        }
-        log(
-            instance=page, action='mypackage.custom_action', data=data
-        )
+
+def my_method(request, page):
+    # ..
+    # Manually log an action
+    data = {"make": {"it": "so"}}
+    log(instance=page, action="mypackage.custom_action", data=data)
 ```
 
 ## Log actions provided by Wagtail
@@ -90,11 +87,11 @@ such as import scripts:
 ```python
 from wagtail.log_actions import LogContext
 
-with LogContext(user=User.objects.get(username='admin')):
+with LogContext(user=User.objects.get(username="admin")):
     # ...
-    log(page, 'wagtail.edit')
+    log(page, "wagtail.edit")
     # ...
-    log(page, 'wagtail.publish')
+    log(page, "wagtail.publish")
 ```
 
 All `log` calls within the block will then be attributed to the specified user, and assigned a common UUID. A log context is created automatically for views within the Wagtail admin.
@@ -112,9 +109,11 @@ model, and registering that model with the log registry's `register_model` metho
 
 ```python
 from myapp.models import Sprocket, SprocketLogEntry
+
 # here SprocketLogEntry is a subclass of BaseLogEntry
 
-@hooks.register('register_log_actions')
+
+@hooks.register("register_log_actions")
 def sprocket_log_model(actions):
     actions.register_model(Sprocket, SprocketLogEntry)
 ```

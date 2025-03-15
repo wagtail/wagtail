@@ -24,8 +24,8 @@ Wagtail provides the [WAGTAILDOCS_CONTENT_TYPES](wagtaildocs_content_types) sett
 
 ```python
 WAGTAILDOCS_CONTENT_TYPES = {
-    'pdf': 'application/pdf',
-    'txt': 'text/plain',
+    "pdf": "application/pdf",
+    "txt": "text/plain",
 }
 ```
 
@@ -36,7 +36,7 @@ Inline content types can be specified using [WAGTAILDOCS_INLINE_CONTENT_TYPES](w
 For example:
 
 ```python
-WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
+WAGTAILDOCS_INLINE_CONTENT_TYPES = ["application/pdf", "text/plain"]
 ```
 
 ## File extensions
@@ -46,7 +46,7 @@ Wagtail allows you to specify the permitted file extensions for document uploads
 It also validates the extensions using Django's {class}`~django.core.validators.FileExtensionValidator`. For example:
 
 ```python
-WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
+WAGTAILDOCS_EXTENSIONS = ["pdf", "docx"]
 ```
 
 ## Document password required template
@@ -56,5 +56,5 @@ Wagtail provides the `WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE` setting to use a c
 Here's an example:
 
 ```python
-WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
+WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = "myapp/document_password_required.html"
 ```
