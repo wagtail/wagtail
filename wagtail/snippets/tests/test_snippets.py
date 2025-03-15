@@ -414,6 +414,55 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             html=True,
         )
 
+    def test_use_fallback_for_blank_string_representation(self):
+        snippet = DraftStateModel.objects.create(text="", live=False)
+
+        response = self.client.get(
+            reverse("wagtailsnippets_tests_draftstatemodel:list"),
+        )
+
+        edit_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:edit",
+            args=[quote(snippet.pk)],
+        )
+        title = f"DraftStateModel object ({snippet.pk})"
+
+        self.assertContains(
+            response,
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    {title}
+                </span>
+            </a>
+            """,
+            html=True,
+        )
+
+    def test_use_fallback_for_blank_title_field(self):
+        # FullFeaturedSnippet's listing view uses the "text" field as the title column,
+        # rather than the str() representation. If this is blank, we show "(blank)" so that
+        # there is something to click on
+        snippet = FullFeaturedSnippet.objects.create(text="", live=False)
+        response = self.client.get(
+            reverse("some_namespace:list"),
+        )
+        edit_url = reverse(
+            "some_namespace:edit",
+            args=[quote(snippet.pk)],
+        )
+        self.assertContains(
+            response,
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    (blank)
+                </span>
+            </a>
+            """,
+            html=True,
+        )
+
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
 class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
@@ -1324,6 +1373,64 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
 
         # The revision content should contain the data
         self.assertEqual(snippet.latest_revision.content["text"], "Draft-enabled Foo")
+
+        # A log entry should be created
+        log_entry = ModelLogEntry.objects.for_instance(snippet).get(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entry.revision, snippet.latest_revision)
+        self.assertEqual(log_entry.label, "Draft-enabled Foo")
+
+    def test_create_skips_validation_when_saving_draft(self):
+        response = self.post(post_data={"text": ""})
+        snippet = DraftStateModel.objects.get(text="")
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailsnippets_tests_draftstatemodel:edit", args=[quote(snippet.pk)]
+            ),
+        )
+
+        self.assertFalse(snippet.live)
+
+        # A log entry should be created (with a fallback label)
+        log_entry = ModelLogEntry.objects.for_instance(snippet).get(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entry.revision, snippet.latest_revision)
+        self.assertEqual(log_entry.label, f"DraftStateModel object ({snippet.pk})")
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        response = self.client.post(
+            reverse("some_namespace:add"),
+            {"text": "", "country_code": "UK", "some_number": "meef"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # The empty text should not cause a validation error, but the invalid number should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a whole number.", count=1)
+
+        soup = self.get_soup(response.content)
+        self.assertTrue(soup.select_one('label[for="id_text"] > span.w-required-mark'))
+
+    def test_create_will_not_publish_invalid_snippet(self):
+        response = self.post(
+            post_data={"text": "", "action-publish": "Publish"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "The draft state model could not be created due to errors."
+        )
+
+        snippets = DraftStateModel.objects.filter(text="")
+        self.assertEqual(snippets.count(), 0)
 
     def test_publish(self):
         # Connect a mock signal handler to published signal
@@ -2237,6 +2344,108 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # The revision content should contain the new data
         self.assertEqual(latest_revision.content["text"], "Draft-enabled Bar")
+
+        # A log entry should be created
+        log_entry = (
+            ModelLogEntry.objects.for_instance(self.test_snippet)
+            .filter(action="wagtail.edit")
+            .order_by("-timestamp")
+            .first()
+        )
+        self.assertEqual(log_entry.revision, self.test_snippet.latest_revision)
+        self.assertEqual(log_entry.label, "Draft-enabled Bar")
+
+    def test_skip_validation_on_save_draft(self):
+        response = self.post(post_data={"text": ""})
+        self.test_snippet.refresh_from_db()
+        revisions = Revision.objects.for_instance(self.test_snippet)
+        latest_revision = self.test_snippet.latest_revision
+
+        self.assertRedirects(response, self.get_edit_url())
+
+        # The instance should be updated, since it is still a draft
+        self.assertEqual(self.test_snippet.text, "")
+
+        # The instance should be a draft
+        self.assertFalse(self.test_snippet.live)
+        self.assertTrue(self.test_snippet.has_unpublished_changes)
+        self.assertIsNone(self.test_snippet.first_published_at)
+        self.assertIsNone(self.test_snippet.last_published_at)
+        self.assertIsNone(self.test_snippet.live_revision)
+
+        # The revision should be created and set as latest_revision
+        self.assertEqual(revisions.count(), 1)
+        self.assertEqual(latest_revision, revisions.first())
+
+        # The revision content should contain the new data
+        self.assertEqual(latest_revision.content["text"], "")
+
+        # A log entry should be created (with a fallback label)
+        log_entry = (
+            ModelLogEntry.objects.for_instance(self.test_snippet)
+            .filter(action="wagtail.edit")
+            .order_by("-timestamp")
+            .first()
+        )
+        self.assertEqual(log_entry.revision, self.test_snippet.latest_revision)
+        self.assertEqual(
+            log_entry.label,
+            f"DraftStateCustomPrimaryKeyModel object ({self.test_snippet.pk})",
+        )
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        snippet = FullFeaturedSnippet.objects.create(
+            text="Hello world",
+            country_code="UK",
+            some_number=42,
+        )
+        response = self.client.post(
+            reverse("some_namespace:edit", args=[snippet.pk]),
+            {"text": "", "country_code": "UK", "some_number": "meef"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # The empty text should not cause a validation error, but the invalid number should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a whole number.", count=1)
+
+        soup = self.get_soup(response.content)
+        self.assertTrue(soup.select_one('label[for="id_text"] > span.w-required-mark'))
+
+    def test_cannot_publish_invalid(self):
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
+        try:
+            response = self.post(
+                post_data={
+                    "text": "",
+                    "action-publish": "action-publish",
+                }
+            )
+
+            self.test_snippet.refresh_from_db()
+
+            self.assertEqual(response.status_code, 200)
+            self.assertContains(
+                response,
+                "The draft state custom primary key model could not be saved due to errors.",
+            )
+
+            # The instance should be unchanged
+            self.assertEqual(self.test_snippet.text, "Draft-enabled Foo")
+            self.assertFalse(self.test_snippet.live)
+
+            # The published signal should not have been fired
+            self.assertEqual(mock_handler.call_count, 0)
+        finally:
+            published.disconnect(mock_handler)
 
     def test_publish(self):
         # Connect a mock signal handler to published signal
@@ -3513,6 +3722,25 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             count=1,
         )
         self.assertSchedulingDialogRendered(response)
+
+    def test_use_fallback_for_blank_string_representation(self):
+        self.snippet = DraftStateModel.objects.create(text="", live=False)
+
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_draftstatemodel:edit",
+                args=[quote(self.snippet.pk)],
+            ),
+        )
+
+        title = f"DraftStateModel object ({self.snippet.pk})"
+
+        soup = self.get_soup(response.content)
+        h2 = soup.select_one("#header-title")
+        self.assertEqual(h2.text.strip(), title)
+
+        sublabel = soup.select_one(".w-breadcrumbs li:last-of-type")
+        self.assertEqual(sublabel.get_text(strip=True), title)
 
 
 class TestScheduledForPublishLock(BaseTestSnippetEditView):
