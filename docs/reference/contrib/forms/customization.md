@@ -629,6 +629,54 @@ class FormPage(AbstractEmailForm):
     # content_panels = ...
 ```
 
+## Customizing the widget of an existing field type
+
+When rendering a form, different field types will be rendered using the
+appropriate fields and widgets . But sometimes you need
+an extra bit of customization and want to 
+
+The `wagtailforms` will use the appropriate field and widget when rendering
+different field types (an email field will use Django's `EmailField`
+and its corresponding `EmailInput` widget for example). But sometimes you need
+an extra bit of customization and in those cases you might want to be able
+to use a custom widget for a given field type.
+
+Say for example you've made your own checkbox widget that has all the right
+logic and template customizations you like. We'll call it `CustomCheckboxWidget`.
+To have your forms use that widget, you need to create a custom form builder
+class, and override the `get_checkbox_field()` method
+
+```python
+from wagtail.contrib.forms.forms import FormBuilder
+
+from yourproject.widgets import CustomCheckboxWidget
+
+
+class CustomFormBuilder(FormBuilder):
+    # replace `checkbox` with the field type you want to customize
+    # (singleline, email, ...)
+    def create_checkbox_field(self, field, options):
+        options["widget"] = CustomCheckboxWidget
+        return super().create_checkbox_field(field, options)
+```
+
+Once you have that custom form builder class you can tell your form to
+use it by setting the `form_builder` attribute on it:
+
+```python
+from wagtail.contrib.forms.models import AbstractEmailForm
+
+
+class FormPage(AbstractEmailForm):
+    # intro, thank_you_text, edit_handlers, etc...
+
+    # use custom form builder defined above
+    form_builder = CustomFormBuilder
+```
+
+And voila, now any checkbox created on the form page will be rendered using
+our custom widget!
+
 ## Adding a custom field type
 
 First, make the new field type available in the page editor by changing your `FormField` model.
