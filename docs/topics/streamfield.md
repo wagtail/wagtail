@@ -555,7 +555,7 @@ class QuoteBlock(blocks.StructBlock):
         description = "A quote with attribution to the source, rendered as a blockquote."
 ```
 
-For more details on the preview options, see the corresponding {meth}`~wagtail.blocks.Block.get_preview_value`, {meth}`~wagtail.blocks.Block.get_preview_template`, and  {meth}`~wagtail.blocks.Block.get_description` methods, as well as the {meth}`~wagtail.blocks.Block.get_preview_context` method.
+For more details on the preview options, see the corresponding {meth}`~wagtail.blocks.Block.get_preview_value`, {meth}`~wagtail.blocks.Block.get_preview_template`, and {meth}`~wagtail.blocks.Block.get_description` methods, as well as the {meth}`~wagtail.blocks.Block.get_preview_context` method.
 
 In particular, the `get_preview_value()` method can be overridden to provide a dynamic preview value, such as from the database:
 
