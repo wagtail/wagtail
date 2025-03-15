@@ -18,7 +18,7 @@ from wagtail.contrib.frontend_cache.backends import (
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
-from wagtail.test.testapp.models import EventIndex
+from wagtail.test.testapp.models import EventIndex, EventPage
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .utils import (
@@ -28,6 +28,16 @@ from .utils import (
     purge_url_from_cache,
     purge_urls_from_cache,
 )
+
+EVENTPAGE_URLS = {
+    "http://localhost/events/final-event/",
+    "http://localhost/events/christmas/",
+    "http://localhost/events/saint-patrick/",
+    "http://localhost/events/tentative-unpublished-event/",
+    "http://localhost/events/someone-elses-event/",
+    "http://localhost/events/tentative-unpublished-event/",
+    "http://localhost/secret-plans/steal-underpants/",
+}
 
 
 class TestBackendConfiguration(SimpleTestCase):
@@ -438,7 +448,12 @@ class MockCloudflareBackend(CloudflareBackend):
         "varnish": {
             "BACKEND": "wagtail.contrib.frontend_cache.tests.MockBackend",
         },
-    }
+    },
+    CACHES={
+        "default": {
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        }
+    },
 )
 class TestCachePurgingFunctions(TestCase):
     fixtures = ["test.json"]
@@ -457,26 +472,74 @@ class TestCachePurgingFunctions(TestCase):
         self.assertEqual(PURGED_URLS, {"http://localhost/foo", "http://localhost/bar"})
 
     def test_purge_page_from_cache(self):
+        page = EventIndex.objects.get(url_path="/home/events/")
         with self.captureOnCommitCallbacks(execute=True):
-            page = EventIndex.objects.get(url_path="/home/events/")
-            purge_page_from_cache(page)
+            with self.assertNumQueries(1):
+                # Because no cache object is provided, a query is needed to
+                # fetch site root paths in order to derive page urls
+                purge_page_from_cache(page)
         self.assertEqual(
-            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
+            PURGED_URLS,
+            {"http://localhost/events/", "http://localhost/events/past/"},
+        )
+
+    def test_purge_page_from_cache_with_shared_cache_object(self):
+        page = EventIndex.objects.get(url_path="/home/events/")
+
+        # Ensure site root paths are already cached, which should result in
+        # zero additional queries being incurred by this test
+        page._get_relevant_site_root_paths()
+
+        with self.captureOnCommitCallbacks(execute=True):
+            # Because site root paths are already available via the cache_object,
+            # no further queries should be needed to derive page urls
+            with self.assertNumQueries(0):
+                purge_page_from_cache(page, cache_object=page)
+
+        self.assertEqual(
+            PURGED_URLS,
+            {"http://localhost/events/", "http://localhost/events/past/"},
         )
 
     def test_purge_pages_from_cache(self):
+        pages = list(Page.objects.all().type(EventPage))
         with self.captureOnCommitCallbacks(execute=True):
-            purge_pages_from_cache(EventIndex.objects.all())
-        self.assertEqual(
-            PURGED_URLS, {"http://localhost/events/", "http://localhost/events/past/"}
-        )
+            with self.assertNumQueries(1):
+                # Because no cache object is provided, a query is needed to
+                # fetch site root paths in order to derive page urls
+                purge_pages_from_cache(pages)
+        self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
+
+    def test_purge_pages_from_cache_with_shared_cache_object(self):
+        pages = list(Page.objects.all().type(EventPage))
+
+        # Use the first page as the cache object for the operation
+        cache_object = pages[0]
+
+        # Ensure site root paths are already cached, which should result in
+        # zero additional queries being incurred by this test
+        cache_object._get_relevant_site_root_paths()
+
+        with self.captureOnCommitCallbacks(execute=True):
+            # Because site root paths are already available via the cache_object,
+            # no further queries should be needed to derive page urls
+            with self.assertNumQueries(0):
+                purge_pages_from_cache(pages, cache_object=cache_object)
+
+        self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
 
     def test_purge_batch(self):
-        with self.captureOnCommitCallbacks(execute=True):
-            batch = PurgeBatch()
-            page = EventIndex.objects.get(url_path="/home/events/")
+        page = EventIndex.objects.get(url_path="/home/events/")
+        batch = PurgeBatch()
+
+        # Because no cache object is provided, a query is needed to
+        # fetch site root paths in order to derive page urls
+        with self.assertNumQueries(1):
             batch.add_page(page)
-            batch.add_url("http://localhost/foo")
+
+        batch.add_url("http://localhost/foo")
+
+        with self.captureOnCommitCallbacks(execute=True):
             batch.purge()
 
         self.assertEqual(
@@ -487,6 +550,43 @@ class TestCachePurgingFunctions(TestCase):
                 "http://localhost/foo",
             },
         )
+
+    def test_purge_batch_with_multiple_pages(self):
+        pages = list(Page.objects.all().type(EventPage))
+        batch = PurgeBatch()
+
+        # Because the batch has no cache object, a query is needed to
+        # fetch site root paths in order to derive page urls
+        with self.assertNumQueries(1):
+            batch.add_pages(pages)
+
+        with self.captureOnCommitCallbacks(execute=True):
+            batch.purge()
+
+        self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
+
+    def test_multiple_purge_batches_with_shared_cache_object(self):
+        pages = list(Page.objects.all().type(EventPage))
+
+        # Use the first page as the cache object for the batch
+        cache_object = pages[0]
+
+        # Ensure site root paths are already cached, which should result in
+        # zero additional queries being incurred by this test
+        cache_object._get_relevant_site_root_paths()
+
+        batch = PurgeBatch(cache_object=cache_object)
+
+        with self.assertNumQueries(0):
+            # Because site root paths are already available via the cache_object,
+            # no queries should be needed to derive page urls
+            batch.add_pages(pages)
+
+        with self.captureOnCommitCallbacks(execute=True):
+            batch.purge()
+
+        self.assertEqual(PURGED_URLS, EVENTPAGE_URLS)
+        PURGED_URLS.clear()
 
     @override_settings(
         WAGTAILFRONTENDCACHE={
