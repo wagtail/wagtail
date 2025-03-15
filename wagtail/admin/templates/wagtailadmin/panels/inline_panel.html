@@ -15,32 +15,44 @@
 {% endif %}
 
 <div id="id_{{ self.formset.prefix }}-FORMS"
+     data-controller="w-formset"
      data-formset-prefix="id_{{ self.formset.prefix }}"
-     data-empty-child-form-prefix="{{ self.empty_child.form.prefix }}"
-     data-can-order="{% if can_order %}true{% else %}false{% endif %}"
-     data-max-forms="{{ self.formset.max_num|unlocalize }}">
+     data-w-formset-min-forms-input-value="{{ self.formset.min_num|unlocalize }}"
+     data-w-formset-max-forms-input-value="{{ self.formset.max_num|unlocalize }}"
+     data-can-order="{% if can_order %}true{% else %}false{% endif %}">
 
-    {% for child in self.children %}
-        {% include "wagtailadmin/panels/inline_panel_child.html" %}
-    {% endfor %}
+    <input type="hidden" 
+           name="{{ self.formset.management_form.TOTAL_FORMS.name }}" 
+           value="{{ self.formset.management_form.TOTAL_FORMS.value }}"
+           data-w-formset-target="totalFormsInput">
+    <input type="hidden" 
+           name="{{ self.formset.management_form.MIN_NUM_FORMS.name }}" 
+           value="{{ self.formset.management_form.MIN_NUM_FORMS.value }}"
+           data-w-formset-target="minFormsInput">
+    <input type="hidden" 
+           name="{{ self.formset.management_form.MAX_NUM_FORMS.name }}" 
+           value="{{ self.formset.management_form.MAX_NUM_FORMS.value }}"
+           data-w-formset-target="maxFormsInput">
+
+    <div data-w-formset-target="forms">
+        {% for child in self.children %}
+            {% include "wagtailadmin/panels/inline_panel_child.html" %}
+        {% endfor %}
+    </div>
+
+    <div class="w-mb-4 -w-ml-4">
+        {% block add_button %}
+            <button type="button" 
+                    class="button button-small button-secondary chooser__choose-button"
+                    data-action="w-formset#add"
+                    data-w-formset-target="add">
+                {% icon name=icon|default:"plus-inverse" %}
+                {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+            </button>
+        {% endblock %}
+    </div>
+
+    <template data-w-formset-target="template">
+        {% include "wagtailadmin/panels/inline_panel_child.html" with child=self.empty_child %}
+    </template>
 </div>
-
-<template id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
-    {% include "wagtailadmin/panels/inline_panel_child.html" with child=self.empty_child %}
-</template>
-
-{# Align with guiding line of the preceding child panel. #}
-<div class="w-mb-4 -w-ml-4">
-    {% block add_button %}
-        <button type="button" class="button button-small button-secondary chooser__choose-button"
-                id="id_{{ self.formset.prefix }}-ADD">
-            {% icon name=icon|default:"plus-inverse" %}
-            {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
-        </button>
-    {% endblock %}
-</div>
-
-
-{% block js_init %}
-    <script src="{% static 'wagtailadmin/js/inline-panel.js' %}"></script>
-{% endblock %}
