@@ -146,6 +146,23 @@ After the server starts, go to <http://127.0.0.1:8000> to see Wagtail’s welcom
 ```{note}
 This tutorial uses `http://127.0.0.1:8000` as the URL for your development server but depending on your setup, this could be a different IP address or port. Please read the console output of `manage.py runserver` to determine the correct URL for your local site.
 ```
+### Running and Writing Tests
+
+When you create a new project using `wagtail start`, there will be a set of basic tests included in the `home/tests.py` file.
+
+These tests check:
+
+-   If the _root `Page`_ (ID=1) is automatically created.
+-   If the _home `Page`_ is created as a child of the root page.
+-   If a `BlogIndexPage` (or other page types) can be added.
+
+#### Running the Tests
+
+To run the tests, navigate to your project folder and run:
+
+```sh
+python manage.py test home
+```
 
 You can now access the [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) by logging into <http://127.0.0.1:8000/admin> with the username and password that you entered while creating an admin user with `createsuperuser`.
 
