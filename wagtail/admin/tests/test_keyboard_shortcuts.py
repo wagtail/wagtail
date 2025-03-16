@@ -109,6 +109,48 @@ class TestKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         )
         self.assertIn("Keyboard shortcut", shortcuts_dialog.find("thead").prettify())
 
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=True)
+    def test_keyboard_shortcuts_with_comments_enabled(self):
+        """
+        Test the presence of a comments shortcut if Comments enabled
+        """
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/keyboard_shortcuts_dialog.html"
+        )
+
+        soup = self.get_soup(response.content)
+
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        all_shortcuts_text = [
+            kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
+        ]
+
+        self.assertIn("Add or show comments", shortcuts_dialog.prettify())
+        self.assertIn("Ctrl + Alt + m", all_shortcuts_text)
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_keyboard_shortcuts_with_comments_disabled(self):
+        """
+        Test the absence of a comments shortcut if Comments disabled
+        """
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/keyboard_shortcuts_dialog.html"
+        )
+
+        soup = self.get_soup(response.content)
+
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        all_shortcuts_text = [
+            kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
+        ]
+
+        self.assertNotIn("comments", shortcuts_dialog.prettify())
+        self.assertNotIn("Ctrl + Alt + m", all_shortcuts_text)
+
 
 class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -133,7 +175,46 @@ class TestMacKeyboardShortcutsDialog(WagtailTestUtils, TestCase):
         # Check that the keyboard shortcuts dialog has Mac-specific content
         soup = self.get_soup(response.content)
         shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
-        all_shortcuts = shortcuts_dialog.select("kbd")
-        for shortcut in all_shortcuts:
-            # All shortcuts should have the ⌘ symbol
-            self.assertIn("⌘", shortcut.prettify())
+        self.assertIn("⌘", shortcuts_dialog.prettify())
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=True)
+    def test_keyboard_shortcuts_with_comments_enabled(self):
+        """
+        Test the presence comments shortcut if Comments enabled
+        """
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/keyboard_shortcuts_dialog.html"
+        )
+
+        soup = self.get_soup(response.content)
+
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        all_shortcuts_text = [
+            kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
+        ]
+
+        self.assertIn("Add or show comments", shortcuts_dialog.prettify())
+        self.assertIn("^ + ⌥ + m", all_shortcuts_text)
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_keyboard_shortcuts_with_comments_disabled(self):
+        """
+        Test the absence comments shortcut if Comments disabled
+        """
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/keyboard_shortcuts_dialog.html"
+        )
+
+        soup = self.get_soup(response.content)
+
+        shortcuts_dialog = soup.select_one("#keyboard-shortcuts-dialog")
+        all_shortcuts_text = [
+            kbd.string.strip() for kbd in shortcuts_dialog.select("kbd")
+        ]
+
+        self.assertNotIn("comments", shortcuts_dialog.prettify())
+        self.assertNotIn("^ + ⌥ + m", all_shortcuts_text)
