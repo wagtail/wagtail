@@ -54,7 +54,6 @@ from wagtail.coreutils import (
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import (
-    CollectionViewRestriction,
     Locale,
     Page,
     PageViewRestriction,
@@ -237,24 +236,14 @@ def classnames(*classes):
     return " ".join([classname.strip() for classname in flattened if classname])
 
 
-@register.simple_tag(takes_context=True)
-def test_collection_is_public(context, collection):
+@register.simple_tag()
+def test_collection_is_public(collection):
     """
     Usage: {% test_collection_is_public collection as is_public %}
-    Sets 'is_public' to True iff there are no collection view restrictions in place
+    Sets 'is_public' to True if there are no collection view restrictions in place
     on this collection.
-    Caches the list of collection view restrictions in the context, to avoid repeated
-    DB queries on repeated calls.
     """
-    if "all_collection_view_restrictions" not in context:
-        context["all_collection_view_restrictions"] = (
-            CollectionViewRestriction.objects.select_related("collection").values_list(
-                "collection__name", flat=True
-            )
-        )
-
-    is_private = collection.name in context["all_collection_view_restrictions"]
-
+    is_private = collection.get_view_restrictions().exists()
     return not is_private
 
 
