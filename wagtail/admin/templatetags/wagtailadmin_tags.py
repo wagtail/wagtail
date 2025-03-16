@@ -53,7 +53,6 @@ from wagtail.coreutils import (
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import (
-    CollectionViewRestriction,
     Locale,
     Page,
     PageViewRestriction,
