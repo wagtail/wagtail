@@ -1381,6 +1381,7 @@ def keyboard_shortcuts_dialog(context):
     Note: Shortcut keys are intentionally not translated.
     """
 
+    comments_enabled = get_comments_enabled()
     user_agent = context["request"].headers.get("User-Agent", "")
     is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
     KEYS = get_keyboard_key_labels_from_request(context["request"])
@@ -1404,8 +1405,17 @@ def keyboard_shortcuts_dialog(context):
                 ),
             ],
             ("actions-model", _("Actions")): [
-                (_("Save changes"), f"{modifier} + s"),
-                (_("Preview"), f"{modifier} + p"),
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
+                (
+                    _("Add or show comments"),
+                    f"{KEYS.CTRL} + {KEYS.ALT} + m",
+                ),
+            ]
+            if comments_enabled
+            else [
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
             ],
             ("rich-text-content", _("Text content")): [
                 (_("Insert or edit a link"), f"{KEYS.MOD} + k")
