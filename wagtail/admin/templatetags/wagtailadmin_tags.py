@@ -1390,44 +1390,44 @@ def keyboard_shortcuts_dialog(context):
     return {
         "shortcuts": {
             ("actions-common", _("Common actions")): [
-                (_("Copy"), f"{KEYS.CMD} + c"),
-                (_("Cut"), f"{KEYS.CMD} + x"),
-                (_("Paste"), f"{KEYS.CMD} + v"),
+                (_("Copy"), f"{KEYS.MOD} + c"),
+                (_("Cut"), f"{KEYS.MOD} + x"),
+                (_("Paste"), f"{KEYS.MOD} + v"),
                 (
                     _("Paste and match style")
                     if is_mac
                     else _("Paste without formatting"),
-                    f"{KEYS.CMD} + Shift + v",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + v",
                 ),
-                (_("Undo"), f"{KEYS.CMD} + z"),
+                (_("Undo"), f"{KEYS.MOD} + z"),
                 (
                     _("Redo"),
-                    f"{KEYS.CMD} + {KEYS.SHIFT} + z" if is_mac else f"{KEYS.CMD} + y",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + z" if is_mac else f"{KEYS.MOD} + y",
                 ),
             ],
             ("actions-model", _("Actions")): [
-                (_("Save changes"), f"{KEYS.CMD} + s"),
-                (_("Preview"), f"{KEYS.CMD} + p"),
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
                 (
                     _("Comments"),
-                    f"{KEYS.CMD} + {KEYS.ALT} + m",
+                    f"{KEYS.MOD} + {KEYS.ALT} + m",
                 ),
             ]
             if comments_enabled
             else [
-                (_("Save changes"), f"{KEYS.CMD} + s"),
-                (_("Preview"), f"{KEYS.CMD} + p"),
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
             ],
             ("rich-text-content", _("Text content")): [
-                (_("Insert or edit a link"), f"{KEYS.CMD} + k")
+                (_("Insert or edit a link"), f"{KEYS.MOD} + k")
             ],
             ("rich-text-formatting", _("Text formatting")): [
-                (_("Italic"), f"{KEYS.CMD} + i"),
-                (_("Underline"), f"{KEYS.CMD} + u"),
-                (_("Monospace (code)"), f"{KEYS.CMD} + j"),
-                (_("Strike-through"), f"{KEYS.CMD} + x"),
-                (_("Superscript"), f"{KEYS.CMD} + ."),
-                (_("Subscript"), f"{KEYS.CMD} + ,"),
+                (_("Italic"), f"{KEYS.MOD} + i"),
+                (_("Underline"), f"{KEYS.MOD} + u"),
+                (_("Monospace (code)"), f"{KEYS.MOD} + j"),
+                (_("Strike-through"), f"{KEYS.MOD} + x"),
+                (_("Superscript"), f"{KEYS.MOD} + ."),
+                (_("Subscript"), f"{KEYS.MOD} + ,"),
             ],
         }
     }

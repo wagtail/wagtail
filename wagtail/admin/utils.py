@@ -93,6 +93,7 @@ def get_keyboard_key_labels_from_request(request):
         "DEL": "Delete",
         "ENTER": "Return" if is_mac_os else "Enter",
         "ESC": "Esc",
+        "MOD": "⌘" if is_mac_os else "Ctrl",
         "SHIFT": "Shift",
         "TAB": "Tab",
     }
