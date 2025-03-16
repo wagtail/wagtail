@@ -1774,12 +1774,31 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return hasher.hexdigest()
 
     def get_sitemap_urls(self, request=None):
+        def _get_lastmod(page):
+            # fall back on latest_revision_created_at if last_published_at is null
+            # (for backwards compatibility from before last_published_at was added)
+            return page.last_published_at or page.latest_revision_created_at
+
+        if len(getattr(self, "_translations_cache", [])) > 1:
+            alternates = [
+                {
+                    "location": translation.get_full_url(request),
+                    "lang_code": translation.locale.language_code,
+                }
+                for translation in self._translations_cache
+            ]
+            return [
+                {
+                    "location": page.get_full_url(request),
+                    "lastmod": _get_lastmod(page),
+                    "alternates": alternates,
+                }
+                for page in self._translations_cache
+            ]
         return [
             {
                 "location": self.get_full_url(request),
-                # fall back on latest_revision_created_at if last_published_at is null
-                # (for backwards compatibility from before last_published_at was added)
-                "lastmod": (self.last_published_at or self.latest_revision_created_at),
+                "lastmod": _get_lastmod(self),
             }
         ]
 
