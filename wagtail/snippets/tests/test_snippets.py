@@ -927,7 +927,8 @@ class TestSnippetCreateView(WagtailTestUtils, TestCase):
     def test_create_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The advert could not be created due to errors.")
-        self.assertContains(response, "error-message", count=1)
+        self.assertContains(response, "error-message", count=2)
+        self.assertContains(response, "Go to the error", count=1)
         self.assertContains(response, "This field is required", count=1)
 
         soup = self.get_soup(response.content)
@@ -1920,7 +1921,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The advert could not be saved due to errors.")
-        self.assertContains(response, "error-message", count=1)
+        self.assertContains(response, "error-message", count=2)
+        self.assertContains(response, "Go to the error", count=1)
         self.assertContains(response, "This field is required", count=1)
 
         soup = self.get_soup(response.content)

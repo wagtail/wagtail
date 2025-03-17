@@ -2961,7 +2961,8 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
             response, "The page could not be saved due to validation errors"
         )
         # the error should only appear once: against the field, not in the header message
-        self.assertContains(response, "error-message", count=1)
+        self.assertContains(response, "error-message", count=2)
+        self.assertContains(response, "Go to the error", count=1)
         self.assertContains(response, "This field is required", count=1)
 
     def test_non_field_error(self):
@@ -3049,7 +3050,8 @@ class TestValidationErrorMessages(WagtailTestUtils, TestCase):
         )
 
         # Error on title shown against the title field
-        self.assertContains(response, "error-message", count=1)
+        self.assertContains(response, "error-message", count=2)
+        self.assertContains(response, "Go to the error", count=1)
         # Error on title shown in the header message
         self.assertContains(
             response, "<li>Title: This field is required.</li>", count=1
