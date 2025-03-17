@@ -39,8 +39,11 @@ class RedirectMiddleware(MiddlewareMixin):
         if response.status_code != 404:
             return response
 
-        # Get the path
-        path = models.Redirect.normalise_path(request.get_full_path())
+        # Normalise the path, but without decoding unicode characters. get_redirect() will take care of that
+        # if it cannot find a match for the path that was actually requested.
+        path = models.Redirect.normalise_path(
+            request.get_full_path(), decode_unicode=False
+        )
 
         # Find redirect
         redirect = get_redirect(request, path)
