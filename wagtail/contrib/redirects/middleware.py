@@ -27,8 +27,9 @@ def _get_redirect(request, path):
 def get_redirect(request, path):
     redirect = _get_redirect(request, path)
     if not redirect:
-        # try unencoding the path
-        redirect = _get_redirect(request, uri_to_iri(path))
+        decoded_path = uri_to_iri(path)
+        if decoded_path != path:
+            redirect = _get_redirect(request, decoded_path)
     return redirect
 
 
