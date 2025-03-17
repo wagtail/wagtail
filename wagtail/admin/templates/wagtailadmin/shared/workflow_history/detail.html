@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="tab-content">
-            <section id="tab-tasks" role="tabpanel" aria-labelledby="tab-label-tasks" data-w-tabs-target="panel" hidden>
+            <section id="tab-tasks" role="tabpanel" hidden aria-labelledby="tab-label-tasks" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
                 <table class="workflow-progress-table workflow-progress-table--tasks">
                     <colgroup width="20%"></colgroup>
                     {% for task in tasks %}
@@ -87,7 +87,7 @@
                 </table>
             </section>
 
-            <section id="tab-timeline" role="tabpanel" aria-labelledby="tab-label-timeline" data-w-tabs-target="panel" hidden>
+            <section id="tab-timeline" role="tabpanel" hidden aria-labelledby="tab-label-timeline" data-w-tabs-target="panel" data-action="w-focus:focus->w-tabs#selectInside">
                 <table class="workflow-progress-table workflow-progress-table--timeline">
                     <colgroup width="20%"></colgroup>
                     <colgroup width="80%"></colgroup>
