@@ -11,6 +11,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.views.generic import TemplateView, View
 
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.blocks.base import Block
 from wagtail.models import PreviewableMixin, RevisionMixin
@@ -77,10 +78,15 @@ class PreviewOnEdit(View):
             post_data = ""
         return QueryDict(post_data)
 
+    def validate_form(self, form):
+        if isinstance(form, WagtailAdminModelForm):
+            form.defer_required_fields()
+        return form.is_valid()
+
     def post(self, request, *args, **kwargs):
         self.remove_old_preview_data()
         form = self.get_form(request.POST)
-        is_valid = form.is_valid()
+        is_valid = self.validate_form(form)
 
         if is_valid:
             # TODO: Handle request.FILES.
@@ -89,7 +95,7 @@ class PreviewOnEdit(View):
         else:
             # Check previous data in session to determine preview availability
             form = self.get_form(self._get_data_from_session())
-            is_available = form.is_valid()
+            is_available = self.validate_form(form)
 
         return JsonResponse({"is_valid": is_valid, "is_available": is_available})
 
@@ -104,7 +110,7 @@ class PreviewOnEdit(View):
     def get(self, request, *args, **kwargs):
         form = self.get_form(self._get_data_from_session())
 
-        if not form.is_valid():
+        if not self.validate_form(form):
             return self.error_response()
 
         form.save(commit=False)
