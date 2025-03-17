@@ -24,11 +24,12 @@ def _get_redirect(request, path):
         return None
 
 
-def get_redirect(request, path):
-    redirect = _get_redirect(request, path)
-    if not redirect:
-        # try unencoding the path
-        redirect = _get_redirect(request, uri_to_iri(path))
+def get_redirect(request, encoded_path):
+    # Receives the ASCII percent-encoded path as obtained from request.get_full_path()
+    decoded_path = uri_to_iri(encoded_path)
+    redirect = _get_redirect(request, decoded_path)
+    if not redirect and decoded_path != encoded_path:
+        redirect = _get_redirect(request, encoded_path)
     return redirect
 
 
