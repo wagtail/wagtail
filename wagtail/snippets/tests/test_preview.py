@@ -65,7 +65,7 @@ class TestPreview(WagtailTestUtils, TestCase):
     def test_preview_on_create_with_invalid_data(self):
         self.assertNotIn(self.session_key_prefix, self.client.session)
 
-        response = self.client.post(self.preview_on_add_url, {"text": ""})
+        response = self.client.post(self.preview_on_add_url, {"categories": [999999]})
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
@@ -116,6 +116,36 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_with_deferred_required_fields(self):
+        response = self.client.post(
+            self.preview_on_add_url,
+            {"categories": [self.holidays_category.id]},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        self.assertIn(self.session_key_prefix, self.client.session)
+
+        response = self.client.get(self.preview_on_add_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+
+        # The text is empty
+        self.assertContains(response, "<title>(Default Preview)</title>", html=True)
+        self.assertContains(response, "<h1></h1>", html=True)
+
+        # The category is Holidays (only)
+        self.assertNotContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
     def test_preview_on_edit_with_m2m_field(self):
         response = self.client.post(self.preview_on_edit_url, self.post_data)
 
@@ -150,7 +180,7 @@ class TestPreview(WagtailTestUtils, TestCase):
 
         # Send an invalid update request
         response = self.client.post(
-            self.preview_on_edit_url, {**self.post_data, "text": ""}
+            self.preview_on_edit_url, {**self.post_data, "categories": [999999]}
         )
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(
@@ -168,6 +198,36 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "tests/previewable_model.html")
         self.assertContains(response, "An edited previewable snippet")
         self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_with_deferred_required_fields(self):
+        response = self.client.post(
+            self.preview_on_edit_url,
+            {"categories": [self.holidays_category.id]},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        self.assertIn(self.edit_session_key, self.client.session)
+
+        response = self.client.get(self.preview_on_edit_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+
+        # The text is empty
+        self.assertContains(response, "<title>(Default Preview)</title>", html=True)
+        self.assertContains(response, "<h1></h1>", html=True)
+
+        # The category is Holidays (only)
+        self.assertNotContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
     def test_preview_on_edit_expiry(self):
