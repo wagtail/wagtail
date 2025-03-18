@@ -23,6 +23,7 @@ from wagtail.admin.widgets import (
     AdminTimeInput,
     SwitchInput,
 )
+from wagtail.compat import URLField
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
 from wagtail.models import Page
@@ -72,7 +73,7 @@ class ExampleForm(forms.Form):
     text = forms.CharField(required=True, help_text="help text")
     auto_height_text = forms.CharField(required=True)
     default_rich_text = forms.CharField(required=True)
-    url = forms.URLField(required=True)
+    url = URLField(required=True)
     email = forms.EmailField(max_length=254)
     date = forms.DateField()
     time = forms.TimeField()
