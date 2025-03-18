@@ -712,7 +712,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         If ``clean=True`` is passed (the default), and the page has ``live=True`` set, the page is validated using
         :meth:`~django.db.models.Model.full_clean` before saving.
 
-        If ``clean=True`` is passed, and the page has `live=False` set, only the title and slug fields are validated.
+        If ``clean=True`` is passed, and the page has ``live=False`` set, only the title and slug fields are validated.
+
+        .. versionchanged:: 6.5
+           ``clean=True`` now only performs full validation when the page is live. When the page is not live, only
+           the title and slug fields are validated. Previously, full validation was always performed.
         """
         if clean:
             if self.live:
