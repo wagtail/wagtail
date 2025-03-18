@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Any, Optional
 from unittest import mock
 
+from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -215,6 +216,22 @@ class TestGetFormForModel(TestCase):
 
         self.assertEqual(type(form.fields["date_from"]), forms.DateField)
         self.assertEqual(type(form.fields["date_from"].widget), forms.PasswordInput)
+
+    def test_urlfield_assume_scheme_override(self):
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["signup_link"],
+        )
+        form = EventPageForm()
+
+        field = form.fields["signup_link"]
+        self.assertEqual(type(field), forms.URLField)
+
+        # Remove the condition and keep the assertion when the minimum Django
+        # version is >= 5.0.
+        if DJANGO_VERSION >= (5, 0):
+            self.assertEqual(field.assume_scheme, "https")
 
     def test_tag_widget_is_passed_tag_model(self):
         RestaurantPageForm = get_form_for_model(

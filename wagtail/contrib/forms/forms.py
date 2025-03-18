@@ -6,6 +6,7 @@ from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.compat import URLField
 
 
 class BaseForm(django.forms.Form):
@@ -40,7 +41,7 @@ class FormBuilder:
         return django.forms.EmailField(**options)
 
     def create_url_field(self, field, options):
-        return django.forms.URLField(**options)
+        return URLField(**options)
 
     def create_number_field(self, field, options):
         return django.forms.DecimalField(**options)
