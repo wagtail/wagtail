@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -45,38 +45,25 @@ msgstr "描述"
 msgid "search promotion"
 msgstr "搜索推廣"
 
-msgid "Add search promotion"
-msgstr "增加搜索推廣"
-
-msgid "Add search pick"
-msgstr "增加搜索精選"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "刪除%(query)s"
 
-msgid "Delete"
-msgstr "刪除"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr "確定刪除此搜索詞條下的所有推廣結果？"
-
-msgid "Yes, delete"
-msgstr "是，刪除"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "編輯%(query)s"
-
-msgid "Editing"
-msgstr "編輯"
 
 msgid "Move up"
 msgstr "上移"
 
 msgid "Move down"
 msgstr "下移"
+
+msgid "Drag"
+msgstr "拖曳"
+
+msgid "Delete"
+msgstr "刪除"
 
 msgid "Promoted search results"
 msgstr "推廣搜索結果"
@@ -117,24 +104,24 @@ msgstr "外部連結"
 msgid "None"
 msgstr "無"
 
-msgid "Search Terms"
-msgstr "檢索詞"
-
-msgid "Add new promoted result"
-msgstr "新增推廣結果"
+msgid "Date"
+msgstr "日期"
 
 msgid "Search term(s)"
 msgstr "搜索詞條(s)"
 
+msgid "Add new promoted result"
+msgstr "新增推廣結果"
+
 msgid "Promoted results"
 msgstr "推廣結果"
+
+msgid "Promoted search result"
+msgstr "推廣搜索結果"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "為'%(query)s'的編輯精選已被創建。"
-
-msgid "Edit"
-msgstr "編輯"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "無法創建推薦，出現錯誤。"

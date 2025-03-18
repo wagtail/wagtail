@@ -3,12 +3,12 @@
 # Bogdan Mateescu, 2022
 # Julian C <jcuotpc@gmail.com>, 2022
 # Alex Morega, 2023
-# Dan Braghis, 2023
 # Loic Teixeira, 2024
+# Dan Braghis, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Dan Braghis, 2025\n"
 "Language-Team: Romanian (https://app.transifex.com/torchbox/teams/8009/ro/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ro\n"
@@ -137,6 +137,9 @@ msgstr "Pagini"
 
 msgid "Pin toolbar"
 msgstr "Fixează bara de instrumente"
+
+msgid "Preview"
+msgstr "Examinare"
 
 msgid "Reload saved content"
 msgstr "Reîncarcă conținutul salvat"

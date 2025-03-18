@@ -21,6 +21,7 @@ const DEFAULT_DURATIONS = {
  * are about to move away from the page with potentially unsaved changes.
  *
  * @example - Warn the user when there are unsaved edits
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
@@ -29,8 +30,10 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  *
  * @example - Watch comments for changes in addition to edits (default is edits only)
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
@@ -40,8 +43,10 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  *
  * @example - Force the confirmation dialog
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm change->w-unsaved#check"
@@ -51,8 +56,10 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  *
  * @example - Force the confirmation dialog without watching for edits/comments
+ * ```html
  * <form
  *   data-controller="w-unsaved"
  *   data-action="w-unsaved#submit beforeunload@window->w-unsaved#confirm"
@@ -63,6 +70,7 @@ const DEFAULT_DURATIONS = {
  *   <input type="text" value="something" />
  *   <button>Submit</submit>
  * </form>
+ * ```
  */
 export class UnsavedController extends Controller<HTMLFormElement> {
   static values = {

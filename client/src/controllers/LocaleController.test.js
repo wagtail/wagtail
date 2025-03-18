@@ -2,6 +2,10 @@ import { Application } from '@hotwired/stimulus';
 import { LocaleController } from './LocaleController';
 import { InitController } from './InitController';
 
+// Ensure the labels are consistent with the snapshot regardless of DST.
+jest.useFakeTimers();
+jest.setSystemTime(new Date('2025-01-11'));
+
 describe('LocaleController', () => {
   let app;
   let select;

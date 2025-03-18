@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Alex Morega, 2023\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -106,9 +106,6 @@ msgstr "redirecționare"
 msgid "redirects"
 msgstr "redirecționări"
 
-msgid "Add redirect"
-msgstr "Adaugă redirecționare"
-
 msgid "Redirects"
 msgstr "Redirecționări"
 
@@ -133,14 +130,8 @@ msgstr "Importează"
 msgid "Delete redirect %(title)s"
 msgstr "Șterge redirecționarea %(title)s"
 
-msgid "Delete"
-msgstr "Șterge"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Sigur doriți să ștergeți această redirecționare?"
-
-msgid "Yes, delete"
-msgstr "Da, șterge"
 
 msgid "Confirm import"
 msgstr "Confirmă importare"
@@ -190,6 +181,9 @@ msgstr ""
 "Nu a fost creată nici o redirecție. De ce să nu <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">adăugați una</a>?"
 
+msgid "Add redirect"
+msgstr "Adaugă redirecționare"
+
 msgid "Site"
 msgstr "Sait"
 
@@ -204,15 +198,12 @@ msgstr "Redirecționarea '%(redirect_title)s' a fost actualizată."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Redirecționarea '%(redirect_title)s' a fost ștearsă."
 
+msgid "The redirect could not be created due to errors."
+msgstr "Redirecționarea nu a fost creată din cauza erorilor."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Redirecționarea '%(redirect_title)s' a fost adăugată."
-
-msgid "Edit"
-msgstr "Editează"
-
-msgid "The redirect could not be created due to errors."
-msgstr "Redirecționarea nu a fost creată din cauza erorilor."
 
 msgid "Search redirects"
 msgstr "Caută redirecționări"

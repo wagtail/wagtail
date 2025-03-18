@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Andrej Marsetič, 2022-2023\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -108,9 +108,6 @@ msgstr "preusmeritev"
 msgid "redirects"
 msgstr "preusmeritve"
 
-msgid "Add redirect"
-msgstr "Dodaj preusmeritev"
-
 msgid "Redirects"
 msgstr "Preusmeritve"
 
@@ -135,14 +132,8 @@ msgstr "preusmeri"
 msgid "Delete redirect %(title)s"
 msgstr "Izbriši preusmeritev %(title)s"
 
-msgid "Delete"
-msgstr "Izbriši"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Ali ste prepričani, da želite izbrisati preusmeritev?"
-
-msgid "Yes, delete"
-msgstr "Da, izbriši"
 
 msgid "Confirm import"
 msgstr "Potrdite uvoz"
@@ -191,6 +182,9 @@ msgstr ""
 "Dodana ni še nobena preusmeritev. Zakaj je nebi <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">dodali</a>?"
 
+msgid "Add redirect"
+msgstr "Dodaj preusmeritev"
+
 msgid "Site"
 msgstr "Spletno mesto"
 
@@ -205,15 +199,12 @@ msgstr "Preusmeritev '%(redirect_title)s' posodobljena."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Preusmeritev '%(redirect_title)s' izbrisana."
 
+msgid "The redirect could not be created due to errors."
+msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Preusmeritev '%(redirect_title)s' dodana."
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "The redirect could not be created due to errors."
-msgstr "Preusmeritve, zaradi napak, ni bilo možno ustvariti."
 
 msgid "Search redirects"
 msgstr "Iskanje po preusmeritvah"

@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .bulk-actions-filter-checkbox {
   .table-headers & {
     > div {

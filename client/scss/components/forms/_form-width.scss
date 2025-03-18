@@ -1,3 +1,6 @@
+@use '../../tools' as *;
+@use '../../settings' as *;
+
 .w-form-width {
   @include max-form-width();
 }

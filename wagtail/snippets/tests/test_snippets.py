@@ -354,12 +354,15 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             self.assertEqual(user, self.user)
             self.assertEqual(context, {})
 
-        with hooks.register_temporarily(
-            "construct_snippet_listing_buttons",
-            register_snippet_listing_button_item,
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "construct_snippet_listing_buttons hook no longer accepts a context argument",
+        with (
+            hooks.register_temporarily(
+                "construct_snippet_listing_buttons",
+                register_snippet_listing_button_item,
+            ),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "construct_snippet_listing_buttons hook no longer accepts a context argument",
+            ),
         ):
             response = self.get()
 
@@ -536,8 +539,10 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         for i in range(1, 10):
-            advert = Advert.objects.create(text=f"{i*'a'}dvert {i}")
-            draft = DraftStateModel.objects.create(text=f"{i*'d'}raft {i}", live=False)
+            advert = Advert.objects.create(text=f"{i * 'a'}dvert {i}")
+            draft = DraftStateModel.objects.create(
+                text=f"{i * 'd'}raft {i}", live=False
+            )
             if i % 2 == 0:
                 ModelLogEntry.objects.create(
                     content_type=ContentType.objects.get_for_model(Advert),
@@ -1972,12 +1977,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             return DeleteMenuItem(order=900)
 
         get_base_snippet_action_menu_items.cache_clear()
-        with self.register_hook(
-            "register_snippet_action_menu_item", hook_func
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "DeleteMenuItem is deprecated. "
-            "The delete option is now provided via EditView.get_header_more_buttons().",
+        with (
+            self.register_hook("register_snippet_action_menu_item", hook_func),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "DeleteMenuItem is deprecated. "
+                "The delete option is now provided via EditView.get_header_more_buttons().",
+            ),
         ):
             response = self.get()
 
@@ -1989,7 +1995,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button" href="{ delete_url }"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
+            f'<a class="button" href="{delete_url}"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
             html=True,
         )
 

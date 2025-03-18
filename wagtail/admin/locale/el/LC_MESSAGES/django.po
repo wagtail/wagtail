@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -291,12 +291,6 @@ msgstr "Όλα τα αρχεία της λίστας επιλέχθηκαν"
 msgid "1 image selected"
 msgstr "1 εικόνα επιλέχθηκε"
 
-msgid "For search engines"
-msgstr "Για μηχανές αναζήτησης"
-
-msgid "For site menus"
-msgstr "Για τα μενού του ιστότοπου"
-
 msgid "Content"
 msgstr "Περιεχόμενο"
 
@@ -436,10 +430,6 @@ msgstr "Ναι, να διαγραφεί"
 msgid "No, don't delete"
 msgstr "Ακύρωση διαγραφής"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Απόεκδοστε τη σελίδα %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Ναι, να αποεκδοθεί"
 
@@ -457,13 +447,6 @@ msgstr "Σχόλιο"
 
 msgid "Update"
 msgstr "Ενημέρωση"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Σύγκριση %(title)s"
-
-msgid "Comparing"
-msgstr "Σύγκριση"
 
 msgid "Fields"
 msgstr "Πεδία"
@@ -1027,33 +1010,6 @@ msgstr "Πίνακας ελέγχου"
 msgid "Delete selected pages"
 msgstr "Διαγραφή επιλεγμένων σελίδων"
 
-msgid "1 page has been deleted"
-msgstr "1 σελίδα διαγράφηκε"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 σελίδα και %(num_child_objects)d υποσελίδες της διαγράφηκαν"
-msgstr[1] "1 σελίδα και %(num_child_objects)d υποσελίδες της διαγράφηκαν"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d σελίδες διαγράφηκαν"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d σελίδες και %(num_child_objects)d υποσελίδες της "
-"διαγράφηκαν"
-msgstr[1] ""
-"%(num_parent_objects)d σελίδες και %(num_child_objects)d υποσελίδες της "
-"διαγράφηκαν"
-
 msgid "Select a new parent page"
 msgstr "Επιλογή νέας πατρικής σελίδας"
 
@@ -1069,24 +1025,8 @@ msgstr[1] "%(num_pages)d σελίδες μετακινήθηκαν"
 msgid "Publish selected pages"
 msgstr "Δημοσίευση επιλεγμένων σελίδων"
 
-msgid "1 page has been published"
-msgstr "1 σελίδα δημοσιεύθηκε"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 σελίδα και %(num_child_objects)d υποσελίδες της δημοσιεύθηκαν"
-msgstr[1] "1 σελίδα και %(num_child_objects)d υποσελίδες της δημοσιεύθηκαν"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d σελίδες δημοσιεύθηκαν"
-
 msgid "Unpublish selected pages"
 msgstr "Αποδημοσίευση επιλεγμένων σελιδων"
-
-msgid "1 page has been unpublished"
-msgstr "1 σελίδα αποδημοσιεύτηκε"
 
 #, python-format
 msgid "Page '%(page_title)s' and %(subpages_count)s subpages copied."
@@ -1165,9 +1105,6 @@ msgstr "Η σελίδα '%(page_title)s' είναι τώρα ξεκλειδωμ�
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Έγινε η μετακίνηση της σελίδας '%(page_title)s'."
-
-msgid "Page history"
-msgstr "Ιστορικό σελίδας"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

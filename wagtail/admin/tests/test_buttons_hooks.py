@@ -87,11 +87,16 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
                 priority=10,
             )
 
-        with hooks.register_temporarily(
-            "register_page_listing_more_buttons", page_listing_more_buttons
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`register_page_listing_more_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+        with (
+            hooks.register_temporarily(
+                "register_page_listing_more_buttons",
+                page_listing_more_buttons,
+            ),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "`register_page_listing_more_buttons` hook functions should "
+                "accept a `user` argument instead of `page_perms`",
+            ),
         ):
             response = self.client.get(
                 reverse("wagtailadmin_explore", args=(self.root_page.id,))
@@ -173,14 +178,20 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
                 priority=10,
             )
 
-        with hooks.register_temporarily(
-            "register_page_listing_buttons", page_custom_listing_buttons
-        ), hooks.register_temporarily(
-            "register_page_listing_one_more_more_buttons",
-            page_custom_listing_more_buttons,
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`register_page_listing_one_more_more_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+        with (
+            hooks.register_temporarily(
+                "register_page_listing_buttons",
+                page_custom_listing_buttons,
+            ),
+            hooks.register_temporarily(
+                "register_page_listing_one_more_more_buttons",
+                page_custom_listing_more_buttons,
+            ),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "`register_page_listing_one_more_more_buttons` hook functions "
+                "should accept a `user` argument instead of `page_perms`",
+            ),
         ):
             response = self.client.get(
                 reverse("wagtailadmin_explore", args=(self.root_page.id,))
@@ -220,11 +231,15 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
                 priority=10,
             )
 
-        with hooks.register_temporarily(
-            "register_page_listing_buttons", page_custom_listing_buttons
-        ), hooks.register_temporarily(
-            "register_page_listing_one_more_more_buttons",
-            page_custom_listing_more_buttons,
+        with (
+            hooks.register_temporarily(
+                "register_page_listing_buttons",
+                page_custom_listing_buttons,
+            ),
+            hooks.register_temporarily(
+                "register_page_listing_one_more_more_buttons",
+                page_custom_listing_more_buttons,
+            ),
         ):
             response = self.client.get(
                 reverse("wagtailadmin_explore", args=(self.root_page.id,))
@@ -327,11 +342,16 @@ class TestPageHeaderButtonsHooks(TestButtonsHooks):
                 "Another useless header button", "/custom-url", priority=10
             )
 
-        with hooks.register_temporarily(
-            "register_page_header_buttons", custom_page_header_buttons
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms`",
+        with (
+            hooks.register_temporarily(
+                "register_page_header_buttons",
+                custom_page_header_buttons,
+            ),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "`register_page_header_buttons` hook functions should accept a "
+                "`user` argument instead of `page_perms`",
+            ),
         ):
             response = self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.root_page.id,))

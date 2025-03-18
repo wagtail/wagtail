@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -37,6 +37,9 @@ msgstr "Flytt opp"
 
 msgid "Move down"
 msgstr "Flytt ned"
+
+msgid "Drag"
+msgstr "Dra"
 
 msgid "Delete"
 msgstr "Slett"
@@ -179,6 +182,12 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "siste utgave opprettet"
+
+msgid "For search engines"
+msgstr "For søkemotorer"
+
+msgid "For site menus"
+msgstr "For sidemenyer"
 
 msgid "page"
 msgstr "side"

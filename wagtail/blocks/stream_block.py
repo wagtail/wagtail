@@ -672,7 +672,9 @@ class StreamValue(MutableSequence):
             block_id = None
 
         block_def = self.stream_block.child_blocks[type_name]
-        return StreamValue.StreamChild(block_def, value, id=block_id)
+        return StreamValue.StreamChild(
+            block_def, block_def.normalize(value), id=block_id
+        )
 
     def __getitem__(self, i):
         if isinstance(i, slice):

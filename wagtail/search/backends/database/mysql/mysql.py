@@ -522,6 +522,9 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
         lhs = field.get_attname(self.queryset.model) + "__" + lookup
         return Q(**{lhs: value})
 
+    def _process_match_none(self):
+        return Q(pk__in=[])
+
     def _connect_filters(self, filters, connector, negated):
         if connector == "AND":
             q = Q(*filters)

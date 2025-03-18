@@ -53,7 +53,7 @@ class TestStringToAscii(TestCase):
     def test_string_to_ascii(self):
         test_cases = [
             ("30 \U0001d5c4\U0001d5c6/\U0001d5c1", "30 km/h"),
-            ("\u5317\u4EB0", "BeiJing"),
+            ("\u5317\u4eb0", "BeiJing"),
             ("ぁ あ ぃ い ぅ う ぇ", "a a i i u u e"),
             (
                 "Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն",

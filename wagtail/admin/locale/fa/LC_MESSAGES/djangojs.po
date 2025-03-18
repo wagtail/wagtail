@@ -7,10 +7,11 @@
 # Amir Mahmoodi, 2023
 # Bardia, 2024
 # Loic Teixeira, 2024
+# Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2025\n"
 "Language-Team: Persian (https://app.transifex.com/torchbox/teams/8009/fa/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fa\n"
@@ -69,6 +70,9 @@ msgstr "کاوشگر صفحه"
 
 msgid "Pages"
 msgstr "صفحه ها"
+
+msgid "Preview"
+msgstr "پیش‌نمایش"
 
 msgid "Reload saved content"
 msgstr "بارگذاری مجدد محتوای ذخیره شده"

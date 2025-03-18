@@ -1,12 +1,12 @@
 #
 # Translators:
-# Walaksawan Vervoort <nula_wala@yahoo.com>, 2022
 # Siramol Khunchai, 2024
 # Loic Teixeira, 2024
+# Walaksawan Vervoort <nula_wala@yahoo.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2025\n"
 "Language-Team: Thai (https://app.transifex.com/torchbox/teams/8009/th/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: th\n"
@@ -53,6 +53,9 @@ msgstr "หน้า"
 
 msgid "Pages"
 msgstr "หลายหน้า"
+
+msgid "Preview"
+msgstr "ภาพตัวอย่าง"
 
 msgid "Reload saved content"
 msgstr "โหลดเนื้อหาที่คุณเซฟใหม่อีกครั้ง"

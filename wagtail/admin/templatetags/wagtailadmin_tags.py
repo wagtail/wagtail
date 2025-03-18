@@ -246,10 +246,10 @@ def test_collection_is_public(context, collection):
     DB queries on repeated calls.
     """
     if "all_collection_view_restrictions" not in context:
-        context[
-            "all_collection_view_restrictions"
-        ] = CollectionViewRestriction.objects.select_related("collection").values_list(
-            "collection__name", flat=True
+        context["all_collection_view_restrictions"] = (
+            CollectionViewRestriction.objects.select_related("collection").values_list(
+                "collection__name", flat=True
+            )
         )
 
     is_private = collection.name in context["all_collection_view_restrictions"]
@@ -706,6 +706,19 @@ def admin_theme_classname(context):
     )
     contrast_name = contrast_name.split("_")[0]
     return f"w-theme-{theme_name} w-density-{density_name} w-contrast-{contrast_name}"
+
+
+@register.simple_tag(takes_context=True)
+def admin_theme_color_scheme(context):
+    """
+    Retrieves the color-scheme of the active theme for current user.
+    """
+    user = context["request"].user
+    profile = getattr(user, "wagtail_userprofile", None)
+    theme_name = profile.theme if profile else "system"
+    if theme_name == "system":
+        return "dark light"
+    return theme_name
 
 
 @register.simple_tag
@@ -1269,9 +1282,9 @@ def formattedfield(
 
     if field:
         context["rendered_field"] = rendered_field or render_with_errors(field)
-        context[
-            "field_classname"
-        ] = f"w-field--{ fieldtype(field) } w-field--{ widgettype(field) }"
+        context["field_classname"] = (
+            f"w-field--{fieldtype(field)} w-field--{widgettype(field)}"
+        )
 
         errors = field.errors
         has_errors = bool(errors)

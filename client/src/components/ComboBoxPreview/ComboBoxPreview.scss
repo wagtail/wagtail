@@ -1,3 +1,5 @@
+@use '../../../scss/tools' as *;
+
 .w-combobox-preview {
   padding: theme('spacing.5');
   display: flex;

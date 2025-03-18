@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .workflow-timeline {
   @apply w-label-3;
   padding: 0;
@@ -41,13 +43,14 @@
     position: relative;
     flex-shrink: 0;
     background: theme('colors.surface-page');
-    @media (forced-colors: active) {
-      background: Canvas;
-    }
     margin-inline-end: theme('spacing.[2.5]');
     width: theme('spacing.5');
     height: theme('spacing.5');
     z-index: theme('zIndex.10');
+
+    @media (forced-colors: active) {
+      background: Canvas;
+    }
   }
 
   &__line {

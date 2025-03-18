@@ -120,7 +120,8 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         )
         html = response.json()["html"]
         self.assertIn(
-            f'<span>Privacy is inherited from the ancestor page - <a href="{parent_edit_url }">Private page (simple page)</a></span>',
+            f"<span>Privacy is inherited from the ancestor page - "
+            f'<a href="{parent_edit_url}">Private page (simple page)</a></span>',
             html,
         )
 

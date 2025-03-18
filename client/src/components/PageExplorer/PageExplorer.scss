@@ -1,9 +1,10 @@
+@use 'sass:map';
+@use '../../../scss/settings' as *;
+@use '../../../scss/tools' as *;
+@use 'PageExplorerItem';
+
 $c-page-explorer-bg-active: theme('colors.black-50');
 $menu-footer-height: 50px;
-
-@use 'sass:map';
-
-@import 'PageExplorerItem';
 
 .c-page-explorer {
   @apply w-bg-surface-menu-item-active;

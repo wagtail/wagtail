@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -51,12 +51,6 @@ msgstr "설명"
 msgid "search promotion"
 msgstr "검색 프로모션"
 
-msgid "Add search promotion"
-msgstr "검색 프로모션 추가"
-
-msgid "Add search pick"
-msgstr "검색 선별 추가"
-
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
 "search for which you wish to provide recommended results, <em>including</em> "
@@ -71,28 +65,21 @@ msgstr ""
 msgid "Delete %(query)s"
 msgstr "%(query)s 삭제"
 
-msgid "Delete"
-msgstr "삭제"
-
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr "이 검색어와 관련된 모든 프로모션 결과들을 정말 삭제할까요?"
-
-msgid "Yes, delete"
-msgstr "네, 지우겠습니다."
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "%(query)s 수정"
-
-msgid "Editing"
-msgstr "수정중"
 
 msgid "Move up"
 msgstr "위로 이동"
 
 msgid "Move down"
 msgstr "아래로 이동"
+
+msgid "Drag"
+msgstr "끌기"
+
+msgid "Delete"
+msgstr "삭제"
 
 msgid "Promoted search results"
 msgstr "프로모션 검색 결과"
@@ -134,24 +121,24 @@ msgstr "외부 링크"
 msgid "None"
 msgstr "없음"
 
-msgid "Search Terms"
+msgid "Date"
+msgstr "날짜"
+
+msgid "Search term(s)"
 msgstr "검색어"
 
 msgid "Add new promoted result"
 msgstr "새로운 프로모션 결과 추가"
 
-msgid "Search term(s)"
-msgstr "검색어"
-
 msgid "Promoted results"
 msgstr "프로모션 결과"
+
+msgid "Promoted search result"
+msgstr "프로모션 검색 결과"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "'%(query)s' 를 위한 에디터의 선택이 추가 되었습니다."
-
-msgid "Edit"
-msgstr "수정"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "에러로 인해 추천 결과를 생성할 수 없습니다"

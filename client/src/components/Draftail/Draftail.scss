@@ -1,42 +1,44 @@
-$draftail-editor-text: theme('colors.text-context');
-$draftail-placeholder-text: theme('colors.text-placeholder');
-// w-body-text-large
-$draftail-editor-font-size: theme('fontSize.19');
-$draftail-editor-line-height: theme('lineHeight.normal');
+@use '../../../scss/tools' as *;
+@use '../../../scss/settings' as *;
+@use '../../../scss/components/forms/input-base' as *;
 
-$draftail-editor-chrome: theme('colors.surface-menus');
-$draftail-editor-chrome-text: theme('colors.text-button');
-// This needs to remain a Sass value due to a limitation in Draftail.
-// $draftail-editor-chrome-active: theme('colors.surface-page');
-$draftail-editor-chrome-active: #fff;
-$draftail-editor-chrome-accent: transparent;
+@use '../../../../node_modules/draft-js/dist/Draft';
+@use '../../../../node_modules/draftail/src/index' as * with (
+  $draftail-editor-text: theme('colors.text-context'),
+  $draftail-placeholder-text: theme('colors.text-placeholder'),
+  // w-body-text-large
+  $draftail-editor-font-size: theme('fontSize.19'),
+  $draftail-editor-line-height: theme('lineHeight.normal'),
+  $draftail-editor-chrome: theme('colors.surface-menus'),
+  $draftail-editor-chrome-text: theme('colors.text-button'),
+  // This needs to remain a Sass value due to a limitation in Draftail.
+  // $draftail-editor-chrome-active: theme('colors.surface-page'),
+  $draftail-editor-chrome-active: #fff,
+  $draftail-editor-chrome-accent: transparent,
 
-$draftail-base-spacing: 0.375rem;
-$draftail-editor-radius: 0;
-$draftail-editor-border: 0;
-$draftail-editor-padding: theme('spacing.[2.5]') theme('spacing.5');
-$draftail-editor-background: theme('colors.surface-field');
-$draftail-block-spacing: theme('spacing.[2.5]');
-$draftail-toolbar-radius: theme('borderRadius.DEFAULT');
+  $draftail-base-spacing: 0.375rem,
+  $draftail-editor-radius: 0,
+  $draftail-editor-border: 0,
+  $draftail-editor-padding: theme('spacing.[2.5]') theme('spacing.5'),
+  $draftail-editor-background: theme('colors.surface-field'),
+  $draftail-block-spacing: theme('spacing.[2.5]'),
+  $draftail-toolbar-radius: theme('borderRadius.DEFAULT'),
+  $draftail-editor-font-family: theme('fontFamily.sans')
+);
+
+@use './Tooltip/Tooltip';
+@use './CommentableEditor/CommentableEditor';
+@use './EditorFallback/EditorFallback';
+
+@use './decorators/TooltipEntity';
+
+@use './blocks/MediaBlock';
+@use './blocks/ImageBlock';
+@use './blocks/EmbedBlock';
+
 $draftail-toolbar-icon-size: 1em;
-
 $draftail-trigger-additional-size: 30px;
 $draftail-block-hoverable-area-offset: 40px;
-
-$draftail-editor-font-family: theme('fontFamily.sans');
-
-@import '../../../../node_modules/draft-js/dist/Draft';
-@import '../../../../node_modules/draftail/src/index';
-
-@import './Tooltip/Tooltip';
-@import './CommentableEditor/CommentableEditor';
-@import './EditorFallback/EditorFallback';
-
-@import './decorators/TooltipEntity';
-
-@import './blocks/MediaBlock';
-@import './blocks/ImageBlock';
-@import './blocks/EmbedBlock';
 
 @include draftail-richtext-styles {
   h1,
@@ -220,7 +222,6 @@ $draftail-editor-font-family: theme('fontFamily.sans');
 }
 
 .Draftail-ToolbarButton {
-  @include more-contrast-interactive();
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,6 +229,8 @@ $draftail-editor-font-family: theme('fontFamily.sans');
   min-width: 1.875rem;
   padding: 0;
   margin-inline-end: 0.625rem;
+
+  @include more-contrast-interactive();
 
   .Draftail-ToolbarGroup:last-of-type &:last-of-type {
     margin-inline-end: 0;

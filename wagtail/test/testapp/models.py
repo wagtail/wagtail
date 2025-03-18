@@ -1006,14 +1006,20 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 register_snippet(AdvertWithCustomPrimaryKey)
 
 
-class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
+class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
     advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
+    page = models.ForeignKey(Page, null=True, blank=True, on_delete=models.SET_NULL)
 
     panels = [
         FieldPanel("url"),
         FieldPanel("text"),
+        FieldPanel("page"),
+    ]
+
+    search_fields = [
+        index.SearchField("text"),
     ]
 
     def __str__(self):
@@ -1538,7 +1544,12 @@ class CustomRendition(AbstractRendition):
     )
 
     class Meta:
-        unique_together = (("image", "filter_spec", "focal_point_key"),)
+        constraints = [
+            models.UniqueConstraint(
+                fields={"image", "filter_spec", "focal_point_key"},
+                name="unique_rendition",
+            )
+        ]
 
 
 # Custom image model with a required field

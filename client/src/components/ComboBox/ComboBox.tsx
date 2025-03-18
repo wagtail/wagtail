@@ -139,6 +139,9 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     },
 
     onInputValueChange: (changes) => {
+      // Hide any preview when the user types or clears the search input.
+      setPreviewedIndex(-1);
+
       const { inputValue: val } = changes;
       if (!val) {
         setInputItems(flatItems);
@@ -153,8 +156,6 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
       setInputItems(filtered);
       // Always reset the first item to highlighted on filtering, to speed up selection.
       setHighlightedIndex(0);
-      // Hide any preview when the user starts typing.
-      setPreviewedIndex(-1);
     },
   });
 

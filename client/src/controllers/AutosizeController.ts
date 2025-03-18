@@ -7,7 +7,9 @@ import { debounce } from '../utils/debounce';
  * types in the field so that it expands to show all content.
  *
  * @example
+ * ```html
  * <textarea data-controller="w-autosize"></textarea>
+ * ```
  */
 export class AutosizeController extends Controller<HTMLTextAreaElement> {
   resizeObserver?: ResizeObserver;

@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .w-breadcrumbs:not(.editor-view .w-breadcrumbs) {
   @apply sm:w-py-2.5;
 

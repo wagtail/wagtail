@@ -1,13 +1,13 @@
 #
 # Translators:
 # Reinis Rozenbergs <reinisr@gmail.com>, 2022
-# Maris Serzans <maris.serzans@gmail.com>, 2022
 # Aleksandrs Korņijenko <ubarbariska@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Maris Serzans <maris.serzans@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/torchbox/teams/8009/lv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: lv\n"
@@ -61,6 +61,9 @@ msgstr "Lapu pārlūks"
 
 msgid "Pages"
 msgstr "Lapas"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
 
 msgid "Reload saved content"
 msgstr "Pārlādēt saglabāto saturu"

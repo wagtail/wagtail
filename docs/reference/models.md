@@ -190,6 +190,38 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: find_for_request
 
+    .. method:: get_default_privacy_setting(request)
+
+        Set the default privacy setting for the page.
+
+        The method must return a dictionary with at least a 'type' key. The value must be one of the following values from :class:`~wagtail.models.PageViewRestriction`'s :attr:`~wagtail.models.PageViewRestriction.restriction_type`:
+
+        - ``BaseViewRestriction.NONE``: The page is public and can be accessed by anyone. (default) - '{"type": BaseViewRestriction.NONE}'
+
+        - ``BaseViewRestriction.LOGIN``: The page is private and can only be accessed by authenticated users. - '{"type": BaseViewRestriction.LOGIN}'
+
+        - ``BaseViewRestriction.PASSWORD``: The page is private and can only be accessed by users with a shared password. (requires additional ``password`` key in the dictionary) - '{"type": BaseViewRestriction.PASSWORD, "password": "P@ssw0rd123!"}'
+
+        - ``BaseViewRestriction.GROUPS``: The page is private and can only be accessed by users in specific groups. (requires additional ``groups`` key with list of Group objects) - '{"type": BaseViewRestriction.GROUPS, "groups": [moderators, editors]}'
+
+        Example
+
+        .. code-block:: python
+
+            class BreadsIndexPage(Page):
+                #...
+
+                def get_default_privacy_setting(request):
+                    from wagtail.models import BaseViewRestriction
+                    # if the editor has the foo.add_bar permission set the default to groups with the moderators and editors group checked
+                    if request.user.has_perm("foo.add_bar"):
+                        moderators = Group.objects.filter(name="Moderators").first()
+                        editors = Group.objects.filter(name="Editors").first()
+                        return {"type": BaseViewRestriction.GROUPS, "groups": [moderators,editors]}
+                    else:
+                        return {"type": BaseViewRestriction.NONE}
+
+
     .. autoattribute:: context_object_name
 
         Custom name for page instance in page's ``Context``.

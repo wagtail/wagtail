@@ -7,6 +7,7 @@ from unittest import mock
 from django.conf import settings
 from django.core import management
 from django.db import connection
+from django.db.models import Subquery
 from django.test import TestCase
 from django.test.utils import override_settings
 from taggit.models import Tag
@@ -301,6 +302,29 @@ class BackendTests(WagtailTestUtils):
             [r.title for r in results], ["The Return of the King"]
         )
 
+    def test_filter_exact_values_list_subquery(self):
+        protagonist = (
+            models.Character.objects.filter(name="Frodo Baggins")
+            .order_by("novel_id")
+            .values_list("pk", flat=True)[:1]
+        )
+        cases = {
+            "implicit": protagonist,
+            "explicit": Subquery(protagonist),
+        }
+
+        for case, subquery in cases.items():
+            with self.subTest(case=case):
+                results = self.backend.search(
+                    MATCH_ALL,
+                    models.Novel.objects.filter(protagonist_id=subquery),
+                )
+
+                self.assertUnsortedListEqual(
+                    [r.title for r in results],
+                    ["The Fellowship of the Ring"],
+                )
+
     def test_filter_lt(self):
         results = self.backend.search(
             MATCH_ALL, models.Book.objects.filter(number_of_pages__lt=440)
@@ -405,20 +429,26 @@ class BackendTests(WagtailTestUtils):
         values = models.Book.objects.filter(number_of_pages__lt=440).values_list(
             "number_of_pages", flat=True
         )
-        results = self.backend.search(
-            MATCH_ALL, models.Book.objects.filter(number_of_pages__in=values)
-        )
+        cases = {
+            "implicit": values,
+            "explicit": Subquery(values),
+        }
+        for case, subquery in cases.items():
+            with self.subTest(case=case):
+                results = self.backend.search(
+                    MATCH_ALL, models.Book.objects.filter(number_of_pages__in=subquery)
+                )
 
-        self.assertUnsortedListEqual(
-            [r.title for r in results],
-            [
-                "The Hobbit",
-                "JavaScript: The good parts",
-                "The Fellowship of the Ring",
-                "Foundation",
-                "The Two Towers",
-            ],
-        )
+                self.assertUnsortedListEqual(
+                    [r.title for r in results],
+                    [
+                        "The Hobbit",
+                        "JavaScript: The good parts",
+                        "The Fellowship of the Ring",
+                        "Foundation",
+                        "The Two Towers",
+                    ],
+                )
 
     def test_filter_isnull_true(self):
         # Note: We don't know the birth dates of any of the programming guide authors
@@ -637,6 +667,13 @@ class BackendTests(WagtailTestUtils):
                 "A Game of Thrones",
             ],
         )
+
+    def test_filter_none(self):
+        results = self.backend.search(MATCH_ALL, models.Book.objects.none())
+        self.assertListEqual(list(results), [])
+
+        results = self.backend.search("JavaScript", models.Book.objects.none())
+        self.assertListEqual(list(results), [])
 
     # FACET TESTS
 

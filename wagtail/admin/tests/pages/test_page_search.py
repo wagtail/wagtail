@@ -284,6 +284,16 @@ class TestPageSearch(WagtailTestUtils, TransactionTestCase):
                     f"{url}?q=&amp;content_type=tests.eventindex",
                 )
 
+                # The type column should not contain a link to order by content type
+                soup = self.get_soup(response.content)
+                headings = soup.select("main table thead th")
+                type_th = None
+                for heading in headings:
+                    if heading.text.strip() == "Type":
+                        type_th = heading
+                self.assertIsNotNone(type_th)
+                self.assertIsNone(type_th.select_one("a"))
+
     def test_empty_search_with_content_type_filter(self):
         root_page = Page.objects.get(id=2)
         event_index = EventIndex(

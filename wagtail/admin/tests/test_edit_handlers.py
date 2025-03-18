@@ -1531,6 +1531,29 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         # Label is the singular term, derived from the related model's verbose_name
         self.assertEqual(panel.label, "Social link")
 
+    def test_inline_panel_order_with_min_num(self):
+        event_page = EventPage.objects.get(slug="christmas")
+
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers", min_num=2)]
+        ).bind_to_model(EventPage)
+
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+
+        bound_panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        formset = bound_panel.children[0].formset
+
+        for index, form in enumerate(formset.forms):
+            self.assertEqual(
+                str(form.fields["ORDER"].widget.attrs.get("value")),
+                str(index + 1),
+                f"Initial form at index {index} should have ORDER value {index + 1}",
+            )
+
 
 class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]

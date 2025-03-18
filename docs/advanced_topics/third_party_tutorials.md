@@ -28,6 +28,7 @@ the latest Wagtail versions.
 -   [An overview of a Wagtail website stack](https://learnwagtail.com/blog/a-peek-inside-our-tech-stack/) (15 February 2024)
 -   [Efficient Cascading Choices in Wagtail Admin: A Smart Chooser Panel Solution](https://enzedonline.com/en/tech-blog/efficient-cascading-choices-in-wagtail-admin-a-smart-chooser-panel-solution/) (27 January 2024)
 -   [How to add an edit link to `wagtail-autocomplete` items](https://dev.to/ordigital/how-to-add-edit-link-in-wagtail-autocomplete-4kg1) (30 January 2024)
+-   [Deploying Django/Wagtail on Ubuntu with Gunicorn and Nginx](https://serverguy.dev/web-server/deploying-django-wagtail-on-ubuntu-with-gunicorn-and-nginx/) (24 January 2024)
 -   [Programmatically Creating a Wagtail page with StreamField](https://usercomp.com/news/1080620/create-wagtail-page-programmatically) (19 December 2023)
 -   [Adding reCAPTCHA V3 to Wagtail's Form Builder Pages](https://enzedonline.com/en/tech-blog/protecting-your-django-forms-implementing-google-recaptcha-v3-for-enhanced-security/) (19 December 2023)
 -   [Guide for managing a complex multi-tenancy setup with Wagtail](https://cynthiakiser.com/blog/2023/11/01/multitenancy-with-wagtail.html) (1 November 2023)

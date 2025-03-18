@@ -57,7 +57,7 @@ GraphQL is a newer API technology than REST. Unlike REST, GraphQL isn't an archi
 -   You will need to install a library package to use GraphQL.
 -   There are currently fewer tools and resources available for supporting GraphQL.
 -   Fewer developers are familiar with GraphQL.
--   GraphQL can introduce performance additional security and considerations due to their flexibility.
+-   GraphQL can introduce additional performance and security considerations due to its flexibility.
 
 #### GraphQL libraries compatible with Wagtail
 

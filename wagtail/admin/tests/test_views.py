@@ -6,6 +6,7 @@ from wagtail.admin.forms.auth import PasswordResetForm
 from wagtail.admin.tests.test_forms import CustomLoginForm, CustomPasswordResetForm
 from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.users.models import UserProfile
 
 
 class TestLoginView(WagtailTestUtils, TestCase):
@@ -224,10 +225,24 @@ class TestPasswordResetView(TestCase):
         )
 
 
-class TestJsi18nView(TestCase):
+class TestJsi18nView(WagtailTestUtils, TestCase):
     def test_jsi18n_does_not_require_login(self):
         response = self.client.get(reverse("wagtailadmin_javascript_catalog"))
         self.assertEqual(response.status_code, 200)
         # get content type header without the "charset" suffix
         content_type = response["content-type"].split(";")[0]
         self.assertEqual(content_type, "text/javascript")
+
+    def test_jsi18n_is_localized(self):
+        user = self.login()
+        profile = UserProfile.get_for_user(user)
+        # If a non-default language is activated, the response should contain this:
+        pattern = "const newcatalog = "
+        # If the preferred language is the default language, the catalog should be empty
+        response = self.client.get(reverse("wagtailadmin_javascript_catalog"))
+        self.assertNotContains(response, pattern)
+        # Changing the language should make the catalog appear
+        profile.preferred_language = "de"
+        profile.save()
+        response = self.client.get(reverse("wagtailadmin_javascript_catalog"))
+        self.assertContains(response, pattern)

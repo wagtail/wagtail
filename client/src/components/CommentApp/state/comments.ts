@@ -1,8 +1,7 @@
-import produce, { enableMapSet, enableES5 } from 'immer';
+import { enableMapSet, produce } from 'immer';
 import type { Annotation } from '../utils/annotation';
 import * as actions from '../actions/comments';
 
-enableES5();
 enableMapSet();
 
 export interface Author {

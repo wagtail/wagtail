@@ -23,7 +23,7 @@ from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
-from wagtail.admin.ui.tables import Column, DateColumn
+from wagtail.admin.ui.tables import DateColumn
 from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
     NavigateToChildrenColumn,
@@ -31,6 +31,7 @@ from wagtail.admin.ui.tables.pages import (
     PageStatusColumn,
     PageTable,
     PageTitleColumn,
+    PageTypeColumn,
     ParentPageColumn,
 )
 from wagtail.admin.views import generic
@@ -147,7 +148,7 @@ class PageListingMixin:
             sort_key="latest_revision_created_at",
             width="12%",
         ),
-        Column(
+        PageTypeColumn(
             "type",
             label=_("Type"),
             accessor="page_type_display_name",

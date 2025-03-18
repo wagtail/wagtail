@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use '../tools' as *;
+@use '../settings' as *;
 
 .footer {
   @include transition(bottom 0.5s ease 1s);

@@ -1,3 +1,5 @@
+@use '../../../scss/tools' as *;
+
 // Ensure consistent spacing across the whole component.
 // With the scrolling and show/hide of the field, correct spacing is critical.
 $spacing: theme('spacing.[2.5]');
@@ -5,10 +7,6 @@ $spacing-sm: theme('spacing.4');
 $width: clamp(300px, 75vw, 1000px);
 
 .w-combobox-container {
-  @include dark-theme() {
-    background-color: theme('colors.surface-tooltip');
-  }
-
   background: theme('colors.surface-page');
   color: theme('colors.text-context');
   border-radius: theme('borderRadius.DEFAULT');
@@ -19,18 +17,18 @@ $width: clamp(300px, 75vw, 1000px);
   // and two columns on larger screens.
   display: grid;
   grid-template-columns: 1fr;
+  // Case 1: base case
+  // Use max-content width to minimize shifting due to content wrapping,
+  // constraining width to 75% of viewport for devices above 400px width.
+  width: max-content;
+  max-width: max(300px, 75vw);
+
   @include media-breakpoint-up(md) {
     grid-template-columns: min(400px, 80vw) 1fr;
   }
   @include media-breakpoint-up(lg) {
     grid-template-columns: min(512px, 80vw) 1fr;
   }
-
-  // Case 1: base case
-  // Use max-content width to minimize shifting due to content wrapping,
-  // constraining width to 75% of viewport for devices above 400px width.
-  width: max-content;
-  max-width: max(300px, 75vw);
 
   // Case 2: there's a previewable block, but the preview may or may not be active
   // On smaller screens, the preview will be shown below. We don't want the
@@ -56,6 +54,10 @@ $width: clamp(300px, 75vw, 1000px);
       // for different blocks, which may have different description lengths.
       width: $width;
     }
+  }
+
+  @include dark-theme() {
+    background-color: theme('colors.surface-tooltip');
   }
 }
 
@@ -121,13 +123,14 @@ $width: clamp(300px, 75vw, 1000px);
 }
 
 .w-combobox__option-preview {
-  @include more-contrast-interactive();
   @include show-focus-outline-inside();
   color: theme('colors.icon-secondary');
   background: none;
   border: 1px solid transparent;
   padding: 0;
   width: 100%;
+
+  @include more-contrast-interactive();
 
   .icon {
     width: theme('spacing.3');

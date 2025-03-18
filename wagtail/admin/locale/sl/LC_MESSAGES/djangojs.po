@@ -1,13 +1,13 @@
 #
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2022
-# Mitja Pagon <mitja.pagon@inueni.com>, 2022
 # Loic Teixeira, 2024
 # Andrej Marsetič, 2024
+# Mitja Pagon <mitja.pagon@inueni.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Andrej Marsetič, 2024\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2025\n"
 "Language-Team: Slovenian (https://app.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,6 +146,9 @@ msgstr "Strani"
 
 msgid "Pin toolbar"
 msgstr "Pripni orodno vrstico"
+
+msgid "Preview"
+msgstr "Predogled"
 
 msgid "Reload saved content"
 msgstr "Ponovno naložite shranjeno vsebino"

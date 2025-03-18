@@ -30,9 +30,11 @@ export const hideTooltipOnEsc = {
  * A Tippy.js tooltip with simple popover content.
  *
  * @example
+ * ```html
  * <button type="button" data-controller="w-tooltip" data-w-tooltip-content-value="More detail here">
- *  A button with a tooltip
+ *   A button with a tooltip
  * </button>
+ * ```
  */
 export class TooltipController extends Controller<HTMLElement> {
   static values = {

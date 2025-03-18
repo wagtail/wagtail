@@ -105,7 +105,9 @@ class InlinePanel(Panel):
 
                 # ditto for the ORDER field, if present
                 if self.formset.can_order:
-                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
+                        attrs={"value": index + 1}
+                    )
 
                 self.children.append(
                     self.child_edit_handler.get_bound_panel(

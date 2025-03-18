@@ -1384,16 +1384,32 @@ class AbstractRendition(ImageFileMixin, models.Model):
     def check(cls, **kwargs):
         errors = super().check(**kwargs)
         if not cls._meta.abstract:
-            if not any(
-                set(constraint) == {"image", "filter_spec", "focal_point_key"}
+            # Allow unique constraint to be defined via `unique_together` or
+            # a `UniqueConstraint` in `constraints`.
+            unique_constraint_fields = {"image", "filter_spec", "focal_point_key"}
+            in_unique_together = any(
+                set(constraint) == unique_constraint_fields
                 for constraint in cls._meta.unique_together
-            ):
+            )
+            in_unique_constraint = any(
+                isinstance(constraint, models.UniqueConstraint)
+                and constraint.condition is None
+                and set(constraint.fields) == unique_constraint_fields
+                for constraint in cls._meta.constraints
+            )
+
+            if not in_unique_together and not in_unique_constraint:
                 errors.append(
                     checks.Error(
-                        "Custom rendition model %r has an invalid unique_together setting"
-                        % cls,
-                        hint="Custom rendition models must include the constraint "
-                        "('image', 'filter_spec', 'focal_point_key') in their unique_together definition.",
+                        "Custom rendition model '%s' must include a unique constraint "
+                        "on the 'image', 'filter_spec', and 'focal_point_key' fields."
+                        % cls._meta.label,
+                        hint=(
+                            "Add models.UniqueConstraint(fields={"
+                            '"image", "filter_spec", "focal_point_key"}, '
+                            'name="unique_rendition") to %s.Meta.constraints.'
+                            % (cls.__name__,)
+                        ),
                         obj=cls,
                         id="wagtailimages.E001",
                     )

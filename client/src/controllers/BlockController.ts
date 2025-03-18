@@ -12,21 +12,25 @@ declare global {
  * Used to initialize the top-level element of a BlockWidget (the form widget for a StreamField).
  *
  * @example
+ * ```html
  * <div
- *  id="some-id"
- *  data-controller="w-block"
- *  data-w-block-data-value='{"_args":["..."], "_type": "wagtail.blocks.StreamBlock"}'
+ *   id="some-id"
+ *   data-controller="w-block"
+ *   data-w-block-data-value='{"_args":["..."], "_type": "wagtail.blocks.StreamBlock"}'
  * >
  * </div>
+ * ```
  *
- * @example - with initial arguments
+ * @example - With initial arguments
+ * ```html
  * <div
- *  id="some-id"
- *  data-controller="w-block"
- *  data-w-block-data-value='{"_args":["..."], "_type": "wagtail.blocks.StreamBlock"}'
- *  data-w-block-arguments-value='[[{ type: "paragraph_block", value: "..."}], {messages:["An error..."]}]'
+ *   id="some-id"
+ *   data-controller="w-block"
+ *   data-w-block-data-value='{"_args":["..."], "_type": "wagtail.blocks.StreamBlock"}'
+ *   data-w-block-arguments-value='[[{ type: "paragraph_block", value: "..."}], {messages:["An error..."]}]'
  * >
  * </div>
+ * ```
  */
 export class BlockController extends Controller<HTMLElement> {
   static values = {
