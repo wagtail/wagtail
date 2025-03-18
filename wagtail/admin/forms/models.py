@@ -1,5 +1,6 @@
 import copy
 
+from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
@@ -89,6 +90,13 @@ register_form_field_override(
     models.SlugField,
     override={"widget": widgets.SlugInput},
 )
+
+# Remove the following block when the minimum Django version is >= 5.0.
+if (5, 0) <= DJANGO_VERSION < (6, 0):
+    register_form_field_override(
+        models.URLField,
+        override={"assume_scheme": "https"},
+    )
 
 
 # Callback to allow us to override the default form fields provided for each model field.
