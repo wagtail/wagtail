@@ -34,6 +34,7 @@ Changelog
  * Maintenance: Cleanup Stimulus controller imports, JSDoc & linting (LB (Ben) Johnston)
  * Maintenance: Rename `SkipLinkController` to `FocusController` with improved reusability, updated unit tests, and added story (LB (Ben) Johnston)
  * Maintenance: Fix CI testing issues with the Stimulus `LocaleController` time zones & non-deterministic page ordering tests (Sage Abdullah)
+ * Maintenance: Make GitHub highlight `.html` files as Django templates (Jake Howard)
 
 
 6.4.1 (21.02.2025)
