@@ -141,6 +141,7 @@ class Column(BaseColumn):
     """A column that displays a single field of data from the model"""
 
     cell_template_name = "wagtailadmin/tables/cell.html"
+    empty_value_display = ""
 
     def get_value(self, instance):
         """
@@ -163,7 +164,11 @@ class Column(BaseColumn):
             # on templates to be explicitly localized or unlocalized. For numeric table cells, we
             # unlocalize them by default; developers may subclass Column to obtain formatted numbers.
             value = unlocalize(value)
-        context["value"] = value
+
+        if not str(value).strip():
+            context["value"] = self.empty_value_display
+        else:
+            context["value"] = value
         return context
 
 
@@ -185,6 +190,7 @@ class TitleColumn(Column):
     """A column where data is styled as a title and wrapped in a link or <label>"""
 
     cell_template_name = "wagtailadmin/tables/title_cell.html"
+    empty_value_display = gettext_lazy("(blank)")
 
     def __init__(
         self,
@@ -211,8 +217,6 @@ class TitleColumn(Column):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        if not str(context["value"]).strip():
-            context["value"] = "(blank)"
         context["link_attrs"] = self.get_link_attrs(instance, parent_context)
         context["link_attrs"]["href"] = context["link_url"] = self.get_link_url(
             instance, parent_context
