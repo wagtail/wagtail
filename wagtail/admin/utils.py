@@ -2,6 +2,7 @@ from urllib.parse import parse_qs, urlsplit, urlunsplit
 
 from django.conf import settings
 from django.utils.http import url_has_allowed_host_and_scheme, urlencode
+from django.utils.translation import gettext
 
 
 def get_admin_base_url():
@@ -37,7 +38,10 @@ def get_latest_str(obj):
         result = str(obj)
 
     if result.strip() == "":
-        result = f"{obj.__class__.__name__} object ({obj.pk})"
+        result = gettext("%(classname)s object (%(id)s)") % {
+            "classname": obj.__class__.__name__,
+            "id": obj.pk,
+        }
 
     return result
 
