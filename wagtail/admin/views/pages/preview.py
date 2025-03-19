@@ -1,7 +1,10 @@
+import uuid
+
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext
 
 from wagtail.admin.views.generic.preview import PreviewOnEdit as GenericPreviewOnEdit
 from wagtail.models import Page
@@ -42,6 +45,16 @@ class PreviewOnEdit(GenericPreviewOnEdit):
                 parent_page=parent_page,
                 for_user=self.request.user,
             )
+
+        query_dict = query_dict.copy()
+
+        if not query_dict.get("title"):
+            query_dict["title"] = gettext("Placeholder title")
+
+        # Generate a random slug if one is not provided, use UUID to ensure
+        # uniqueness without needing to hit the database
+        if not query_dict.get("slug"):
+            query_dict["slug"] = str(uuid.uuid4())
 
         return form_class(
             query_dict,
