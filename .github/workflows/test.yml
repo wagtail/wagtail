@@ -171,6 +171,10 @@ jobs:
               "ignore", "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated."
           )
           FORMS_URLFIELD_ASSUME_HTTPS = True
+          # Remove when https://github.com/wagtail/Willow/issues/166 is resolved
+          filterwarnings(
+              "ignore", "The AVIF support in this library is marked as deprecated"
+          )
           EOF
           python manage.py makemigrations --check --dry-run
           python manage.py migrate
