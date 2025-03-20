@@ -4,13 +4,11 @@
     name="{{ name }}"
     value="{{ name }}"
     class="button action-save button-longrunning"
-    data-controller="w-progress w-kbd"
+    data-controller="w-progress"
     data-action="w-progress#activate"
-    data-w-kbd-key-value="mod+s"
-    data-w-kbd-scope-value="global"
-    data-w-progress-active-value="{% trans 'Publishing…' %}"
+    data-w-progress-active-value="{% if is_scheduled %}{% trans 'Scheduling…' %}{% else %}{% trans 'Publishing…' %}{% endif %}"
 >
     {% icon name=icon_name classname="button-longrunning__icon" %}
     {% icon name="spinner" %}
-    <em data-w-progress-target="label">{% if is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
+    <em data-w-progress-target="label">{% if is_scheduled %}{% trans "Schedule to publish" %}{% elif is_revision %}{% trans 'Publish this version' %}{% else %}{% trans 'Publish' %}{% endif %}</em>
 </button>
