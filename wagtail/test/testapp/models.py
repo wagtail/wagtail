@@ -245,12 +245,13 @@ class PageWithExcludedCopyField(Page):
 
     # Exclude this field from being copied
     special_field = models.CharField(blank=True, max_length=255, default="Very Special")
-    exclude_fields_in_copy = ["special_field"]
+    exclude_fields_in_copy = ["special_field", "related_manager"]
 
     content_panels = [
         TitleFieldPanel("title", classname="title"),
         FieldPanel("special_field"),
         FieldPanel("content"),
+        MultipleChooserPanel("related_manager", chooser_field_name="image"),
     ]
 
 
@@ -2375,6 +2376,12 @@ class GalleryPage(Page):
 class GalleryPageImage(Orderable):
     page = ParentalKey(
         "tests.GalleryPage", related_name="gallery_images", on_delete=models.CASCADE
+    )
+    exclude_field = ParentalKey(
+        "tests.PageWithExcludedCopyField",
+        related_name="related_manager",
+        on_delete=models.CASCADE,
+        null=True,
     )
     image = models.ForeignKey(
         "wagtailimages.Image",
