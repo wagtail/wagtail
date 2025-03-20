@@ -2479,6 +2479,7 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
             "advert_placements-0-advert": "1",
             "advert_placements-0-colour": "",  # should fail as colour is a required field
             "advert_placements-0-id": "",
+            "action-publish": "Publish",
         }
         response = self.client.post(
             reverse(

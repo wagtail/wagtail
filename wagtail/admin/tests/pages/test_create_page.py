@@ -32,7 +32,7 @@ from wagtail.test.testapp.models import (
     StandardIndex,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.test.utils.form_data import nested_form_data, streamfield
+from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 
 
@@ -817,6 +817,91 @@ class TestPageCreation(WagtailTestUtils, TestCase):
                 path__startswith=self.root_page.path, slug="stream-page"
             ).exists()
         )
+
+    def test_can_create_form_page_with_blank_fields_in_inline_children(self):
+        post_data = nested_form_data(
+            {
+                "title": "Form page",
+                "slug": "form-page",
+                "form_fields": inline_formset(
+                    [
+                        {
+                            "label": "some field",
+                            "help_text": "",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                        {
+                            "label": "",
+                            "help_text": "haven't decided on a label yet",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="form-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.form_fields.count(), 2)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_form_page_with_blank_fields_in_inline_children(self):
+        post_data = nested_form_data(
+            {
+                "title": "Form page",
+                "slug": "form-page",
+                "form_fields": inline_formset(
+                    [
+                        {
+                            "label": "some field",
+                            "help_text": "",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                        {
+                            "label": "",
+                            "help_text": "haven't decided on a label yet",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                    ]
+                ),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
 
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
