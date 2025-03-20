@@ -127,6 +127,7 @@ class WagtailAdminModelForm(
         # keep hold of the `for_user` kwarg as well as passing it on to PermissionedForm
         self.for_user = kwargs.get("for_user")
         self.deferred_required_fields = []
+        self.deferred_formset_min_nums = {}
         super().__init__(*args, **kwargs)
 
     def defer_required_fields(self):
@@ -142,14 +143,20 @@ class WagtailAdminModelForm(
             except KeyError:
                 pass
 
-        for formset in self.formsets.values():
+        for name, formset in self.formsets.items():
             for form in formset:
                 form.defer_required_fields()
+            if formset.min_num is not None:
+                self.deferred_formset_min_nums[name] = formset.min_num
+                formset.min_num = 0
 
     def restore_required_fields(self):
-        for formset in self.formsets.values():
+        for name, formset in self.formsets.items():
             for form in formset:
                 form.restore_required_fields()
+            if name in self.deferred_formset_min_nums:
+                formset.min_num = self.deferred_formset_min_nums[name]
+        self.deferred_formset_min_nums = {}
 
         for field_name in self.deferred_required_fields:
             self.fields[field_name].required = True

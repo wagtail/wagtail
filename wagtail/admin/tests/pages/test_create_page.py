@@ -18,6 +18,7 @@ from wagtail.models import (
 )
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
+    Advert,
     BusinessChild,
     BusinessIndex,
     BusinessSubIndex,
@@ -902,6 +903,89 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "This field is required.")
+
+    def test_can_create_page_with_less_than_min_inline_panels(self):
+        # min_num constraints on inline panels should not be enforced when saving as draft
+        post_data = nested_form_data(
+            {
+                "title": "Promotional page",
+                "slug": "promotional-page",
+                "advert_placements": inline_formset([]),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "promotionalpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="promotional-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.advert_placements.count(), 0)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_page_with_less_than_min_inline_panels(self):
+        # min_num constraints on inline panels should not be enforced when saving as draft
+        post_data = nested_form_data(
+            {
+                "title": "Promotional page",
+                "slug": "promotional-page",
+                "advert_placements": inline_formset([]),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "promotionalpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Please submit at least 1 form.")
+
+    def test_can_publish_page_with_enough_inline_panels(self):
+        advert = Advert.objects.create(text="Red Bull gives you wings")
+        # min_num constraints on inline panels should not be enforced when saving as draft
+        post_data = nested_form_data(
+            {
+                "title": "Promotional page",
+                "slug": "promotional-page",
+                "advert_placements": inline_formset(
+                    [
+                        {
+                            "advert": advert.id,
+                            "colour": "red",
+                        },
+                    ]
+                ),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "promotionalpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="promotional-page"
+        ).specific
+        self.assertTrue(page.live)
+        self.assertEqual(page.advert_placements.count(), 1)
 
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
