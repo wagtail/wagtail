@@ -150,7 +150,15 @@ class WagtailAdminModelForm(
             except KeyError:
                 pass
 
+        for formset in self.formsets.values():
+            for form in formset:
+                form.defer_required_fields()
+
     def restore_required_fields(self):
+        for formset in self.formsets.values():
+            for form in formset:
+                form.restore_required_fields()
+
         for field_name in self.deferred_required_fields:
             self.fields[field_name].required = True
         self.deferred_required_fields = []
