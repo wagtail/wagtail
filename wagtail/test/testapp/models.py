@@ -459,6 +459,12 @@ class HeadCountRelatedModelUsingPK(models.Model):
     event_page = ParentalKey(
         EventPage, on_delete=models.CASCADE, related_name="head_counts"
     )
+    related_page = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE,
+        related_name="head_count_relations",
+        null=True,
+    )
     head_count = models.IntegerField()
     panels = [FieldPanel("head_count")]
 
