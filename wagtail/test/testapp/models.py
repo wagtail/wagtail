@@ -1396,6 +1396,12 @@ class StandardIndex(Page):
     promote_panels = []
 
 
+class PromotionalPage(Page):
+    content_panels = Page.content_panels + [
+        InlinePanel("advert_placements", label="Adverts", min_num=1),
+    ]
+
+
 class StandardChild(Page):
     pass
 
