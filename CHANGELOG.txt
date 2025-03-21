@@ -29,6 +29,7 @@ Changelog
  * Fix: Ensure `ImproperlyConfigured` is thrown from `db_field` on unbound `FieldPanel`s as intended (Matt Westcott)
  * Fix: Refine the positioning of the add comment button next to select, radio, checkbox fields and between field row columns (Srishti Jaiswal)
  * Fix: Show the correct privacy status for child collections of private collections (Shlomo Markowitz)
+ * Fix: Ensure reference index correctly handles models with primary keys not named `id` (Sage Abdullah)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
  * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)

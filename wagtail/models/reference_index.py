@@ -384,7 +384,7 @@ class ReferenceIndex(models.Model):
                             to_content_type_id,
                             to_object_id,
                             f"{relation_name}.item.{model_path}",
-                            f"{relation_name}.{str(child_object.id)}.{content_path}",
+                            f"{relation_name}.{str(child_object.pk)}.{content_path}",
                         )
                         for to_content_type_id, to_object_id, model_path, content_path in cls._extract_references_from_object(
                             child_object
