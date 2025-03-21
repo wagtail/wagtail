@@ -166,11 +166,6 @@ jobs:
           tee -a testproject/settings/local.py << EOF
           from warnings import filterwarnings
           SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
-          # Remove when all experimental jobs use Django >= 6.0
-          filterwarnings(
-              "ignore", "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated."
-          )
-          FORMS_URLFIELD_ASSUME_HTTPS = True
           # Remove when https://github.com/wagtail/Willow/issues/166 is resolved
           filterwarnings(
               "ignore", "The AVIF support in this library is marked as deprecated"
