@@ -21,6 +21,7 @@ from wagtail.test.testapp.models import (
     GenericSnippetNoFieldIndexPage,
     GenericSnippetNoIndexPage,
     GenericSnippetPage,
+    HeadCountRelatedModelUsingPK,
     ModelWithNullableParentalKey,
     VariousOnDeleteModel,
 )
@@ -280,6 +281,31 @@ class TestCreateOrUpdateForObject(TestCase):
         )
         self.assertIn(" 3  wagtail.images.models.Image", stdout.getvalue())
         self.assertIn(" 4  wagtail.test.testapp.models.EventPage", stdout.getvalue())
+
+    def test_inline_custom_pk_model(self):
+        related_page = EventPage(
+            title="Related page",
+            slug="related-page",
+            location="the moon",
+            audience="public",
+            cost="free",
+            date_from="2025-03-21",
+        )
+        with self.captureOnCommitCallbacks(execute=True):
+            self.root_page.add_child(instance=related_page)
+
+        refs = ReferenceIndex.get_references_to(related_page)
+        self.assertEqual(refs.count(), 0)
+
+        with self.captureOnCommitCallbacks(execute=True):
+            HeadCountRelatedModelUsingPK.objects.create(
+                head_count=1234,
+                event_page=self.event_page,
+                related_page=related_page,
+            )
+
+        refs = ReferenceIndex.get_references_to(related_page)
+        self.assertEqual(refs.count(), 1)
 
 
 class TestDescribeOnDelete(TestCase):
