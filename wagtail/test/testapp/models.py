@@ -1614,7 +1614,7 @@ class CustomRendition(AbstractRendition):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields={"image", "filter_spec", "focal_point_key"},
+                fields=("image", "filter_spec", "focal_point_key"),
                 name="unique_rendition",
             )
         ]
