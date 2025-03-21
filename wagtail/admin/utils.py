@@ -1,3 +1,5 @@
+import re
+from types import SimpleNamespace
 from urllib.parse import parse_qs, urlsplit, urlunsplit
 
 from django.conf import settings
@@ -80,3 +82,30 @@ def set_query_params(url: str, params: dict):
     querydict = {key: value for key, value in querydict.items() if value is not None}
     query = urlencode(querydict, doseq=True)
     return urlunsplit((scheme, netloc, path, query, fragment))
+
+
+def get_keyboard_key_labels_from_request(request):
+    """
+    Returns an instance of SimpleNamespace based on the user's keyboard layout
+    based on the User-Agent header in the request.
+
+    These are intentionally not translated, as they are key labels that are assumed
+    to be consistent across all languages.
+    """
+
+    user_agent = request.headers.get("User-Agent", "")
+    is_mac_os = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
+
+    labels = {
+        "ALT": "⌥" if is_mac_os else "Alt",
+        "CMD": "⌘" if is_mac_os else "Ctrl",
+        "CTRL": "^" if is_mac_os else "Ctrl",
+        "DEL": "Delete",
+        "ENTER": "Return" if is_mac_os else "Enter",
+        "ESC": "Esc",
+        "MOD": "⌘" if is_mac_os else "Ctrl",
+        "SHIFT": "Shift",
+        "TAB": "Tab",
+    }
+
+    return SimpleNamespace(**labels)
