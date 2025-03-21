@@ -47,6 +47,11 @@ class BaseWorkflowFormView(BaseObjectMixin, View):
     def get_form_class(self):
         return self.task.get_form_for_action(self.action_name)
 
+    def get_template_names(self):
+        if template := self.task.get_template_for_action(self.action_name):
+            return [template]
+        return [self.template_name]
+
     def add_not_in_moderation_error(self):
         messages.error(
             self.request,
@@ -103,7 +108,7 @@ class BaseWorkflowFormView(BaseObjectMixin, View):
     def render_modal_form(self, request, form):
         return render_modal_workflow(
             request,
-            self.template_name,
+            self.get_template_names(),
             None,
             self.get_context_data(form=form),
             json_data={"step": "action"},
@@ -195,6 +200,11 @@ class ConfirmWorkflowCancellation(BaseObjectMixin, View):
                 json_data={"step": "no_confirmation_needed"},
             )
 
+        # This confirmation step is specific to the
+        # `WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH` setting that happens when a user
+        # publishes a page with a workflow in progress, which is different from
+        # a "cancel" action on the task. So, we use `self.template_name`
+        # directly and not make it customisable.
         return render_modal_workflow(
             request,
             self.template_name,
