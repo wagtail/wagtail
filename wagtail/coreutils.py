@@ -5,7 +5,7 @@ import re
 import unicodedata
 from collections.abc import Iterable
 from hashlib import md5
-from typing import TYPE_CHECKING, Any, Union
+from typing import TYPE_CHECKING, Any, List, Optional, Union
 from warnings import warn
 
 from anyascii import anyascii
@@ -579,3 +579,59 @@ def make_wagtail_template_fragment_key(fragment_name, page, site, vary_on=None):
         vary_on = []
     vary_on.extend([page.cache_key, site.id])
     return make_template_fragment_key(fragment_name, vary_on)
+
+
+def get_js_regex(
+    regex: Optional[Union[re.Pattern, str, bytes]] = None,
+    base_js_flags: Optional[str] = "gu",
+) -> List[str]:
+    """
+    Converts a Python regex (or pattern string) to an array of
+    JavaScript regex params list, that can be used for ``new RegExp(..._)``.
+
+    It assumes that any provided pattern string is already correctly escaped.
+
+    JavaScript does not have a 'default' flag like re.UNICODE,
+    in addition, the global flag is required for finding all occurrences.
+    So the ``base_js_flags`` argument is used to set the assumed common flags
+    and defaults to 'gu' (global, unicode) which would cover common usage.
+    """
+    if not regex:
+        # When calling new RegExp()/RegExp('') in JavaScript with no arguments, it will match nothing.
+        return []
+
+    if isinstance(regex, re.Pattern):
+        flags = regex.flags
+
+    else:
+        # compile the regex, assuming it's a string (or bytestring when attempting to use re.LOCALE)
+        regex = re.compile(regex)
+        flags = regex.flags
+
+    flag_map = {
+        re.IGNORECASE: "i",  # Ignore case
+        re.MULTILINE: "m",  # Multiline mode
+        re.DOTALL: "s",  # Dot (.) matches newlines
+    }
+
+    # Throw an error if unsupported flags are provided
+    if flags & re.LOCALE:
+        # Python re.LOCALE flag is not supported in JavaScript and it's not encouraged in the Python docs.
+        raise ValueError("Python re.LOCALE flag is not supported in JavaScript.")
+    if flags & re.VERBOSE:
+        # Python re.VERBOSE flag is not supported in JavaScript, unless we add custom cleaning logic in the future.
+        raise ValueError("Python re.VERBOSE flag is not supported in JavaScript.")
+
+    js_flags = []
+
+    for py_flag, js_flag in flag_map.items():
+        if flags & py_flag:
+            js_flags.append(js_flag)
+
+    # Add base flags, remove duplicates, and sort to ensure consistent order
+    final_flags = "".join(sorted(set(base_js_flags + "".join(js_flags))))
+
+    # Clean the pattern of any inline flags, these are not supported in JavaScript
+    pattern = re.sub(r"(?i)(\(\?[a-z]+\))", "", regex.pattern)
+
+    return [pattern, final_flags]
