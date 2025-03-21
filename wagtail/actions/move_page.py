@@ -76,6 +76,7 @@ class MovePageAction:
             parent_page_after=parent_after,
             url_path_before=old_url_path,
             url_path_after=new_url_path,
+            instance_before=page,
         )
 
         # Log
