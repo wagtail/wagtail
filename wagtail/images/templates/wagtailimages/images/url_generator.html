@@ -1,13 +1,6 @@
 {% extends "wagtailadmin/generic/base.html" %}
 {% load wagtailimages_tags wagtailadmin_tags i18n %}
 
-{% block extra_css %}
-    <style>
-        .loading-mask {
-            max-height: clamp(25rem, 50vh, 50rem);
-        }
-    </style>
-{% endblock %}
 
 {% block main_content %}
     <div class="w-image-url-generator w-mt-8" data-generator-url="{% url 'wagtailimages:generate_url' object.id '__filterspec__' %}">
@@ -23,7 +16,7 @@
         {% trans "Preview" as heading %}
         {% panel id="preview" icon="view" heading=heading %}
             <div class="w-image-url-generator__preview">
-                <div class="loading-mask w-block w-border-2 w-border-border-furniture w-overflow-scroll w-p-4 w-rounded-sm">
+                <div class="loading-mask w-block w-border-2 w-border-border-furniture w-overflow-scroll w-p-4 w-rounded-sm w-max-h-[clamp(25rem,50vh,50rem)]">
                     <img class="preview w-max-w-none" src="" alt="{% trans 'Preview' %}" />
                 </div>
             </div>
