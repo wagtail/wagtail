@@ -8,6 +8,17 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.forms import WagtailAdminPageForm
 
 
+def _split_by_newline_or_comma(value):
+    """
+    Split the given string either by new lines, or if no new line is present then
+    by comma.
+    """
+    if len(lines := value.strip().splitlines()) > 1:
+        return [line.strip().rstrip(",").strip() for line in lines]
+    else:
+        return list(map(str.strip, value.split(",")))
+
+
 class BaseForm(django.forms.Form):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("label_suffix", "")
@@ -100,19 +111,7 @@ class FormBuilder:
         Split the provided choices into a list, separated by new lines.
         If no new lines in the provided choices, split by commas.
         """
-
-        if "\n" in field.choices:
-            choices = (
-                (
-                    x.strip().rstrip(",").strip(),
-                    x.strip().rstrip(",").strip(),
-                )
-                for x in field.choices.split("\r\n")
-            )
-        else:
-            choices = ((x.strip(), x.strip()) for x in field.choices.split(","))
-
-        return choices
+        return [(x, x) for x in _split_by_newline_or_comma(field.choices)]
 
     def get_formatted_field_initial(self, field):
         """
@@ -120,15 +119,7 @@ class FormBuilder:
         Split the supplied default values into a list, separated by new lines.
         If no new lines in the provided default values, split by commas.
         """
-
-        if "\n" in field.default_value:
-            values = [
-                x.strip().rstrip(",").strip() for x in field.default_value.split("\r\n")
-            ]
-        else:
-            values = [x.strip() for x in field.default_value.split(",")]
-
-        return values
+        return _split_by_newline_or_comma(field.default_value)
 
     @property
     def formfields(self):
