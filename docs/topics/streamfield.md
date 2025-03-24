@@ -534,9 +534,9 @@ You can do so by [passing the keyword arguments](block_preview_arguments) `previ
         ("text", blocks.TextBlock()),
         ("source", blocks.CharBlock()),
     ],
-    preview_value={"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"}
+    preview_value={"text": "This is the coolest CMS ever.", "source": "Willie Wagtail"},
     preview_template="myapp/previews/blocks/quote.html",
-    description="A quote with attribution to the source, rendered as a blockquote."
+    description="A quote with attribution to the source, rendered as a blockquote.",
 ))
 ```
 
