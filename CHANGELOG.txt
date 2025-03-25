@@ -13,6 +13,7 @@ Changelog
  * Add color-scheme meta tag to Wagtail admin (Ashish Nagmoti)
  * Add the ability to set the default privacy restriction for new pages using `get_default_privacy_setting` (Shlomo Markowitz)
  * Improve performance of batch purging page urls in the frontend cache, avoiding n+1 query issues (Andy Babic)
+ * Add better support and documentation for overriding or extending icons used in the in the userbar (Sébastien Corbin)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
  * Fix: Support simple subqueries for `in` and `exact` lookup on Elasticsearch (Sage Abdullah)
