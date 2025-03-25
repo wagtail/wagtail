@@ -706,9 +706,9 @@ class RichTextBlock(FieldBlock):
         return value.source
 
     def normalize(self, value):
-        if isinstance(value, RichText):
+        if not value or isinstance(value, RichText):
             return value
-        return RichText(value)
+        return RichText(force_str(value))
 
     @cached_property
     def field(self):
