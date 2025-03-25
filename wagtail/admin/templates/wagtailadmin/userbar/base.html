@@ -10,14 +10,16 @@
 
                 <svg class="w-hidden">
                     <defs>
-                        {% include "wagtailadmin/icons/wagtail.svg" %}
-                        {% include "wagtailadmin/icons/key.svg" %}
-                        {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
-                        {% include "wagtailadmin/icons/edit.svg" %}
-                        {% include "wagtailadmin/icons/plus.svg" %}
-                        {% include "wagtailadmin/icons/check.svg" %}
-                        {% include "wagtailadmin/icons/cross.svg" %}
-                        {% include "wagtailadmin/icons/crosshairs.svg" %}
+                        {% block icons %}
+                            {% include "wagtailadmin/icons/wagtail.svg" %}
+                            {% include "wagtailadmin/icons/key.svg" %}
+                            {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
+                            {% include "wagtailadmin/icons/edit.svg" %}
+                            {% include "wagtailadmin/icons/plus.svg" %}
+                            {% include "wagtailadmin/icons/check.svg" %}
+                            {% include "wagtailadmin/icons/cross.svg" %}
+                            {% include "wagtailadmin/icons/crosshairs.svg" %}
+                        {% endblock %}
                     </defs>
                 </svg>
 
