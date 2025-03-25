@@ -108,14 +108,12 @@ class FieldPanel(Panel):
 
     @cached_property
     def db_field(self):
-        try:
-            model = self.model
-        except AttributeError:
+        if self.model is None:
             raise ImproperlyConfigured(
                 "%r must be bound to a model before calling db_field" % self
             )
 
-        return model._meta.get_field(self.field_name)
+        return self.model._meta.get_field(self.field_name)
 
     @property
     def clean_name(self):

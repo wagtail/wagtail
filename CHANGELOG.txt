@@ -22,6 +22,7 @@ Changelog
  * Fix: Ensure `InlinePanel` will be correctly ordered after the first save when `min_num` is used (Elhussein Almasri, Joel William)
  * Fix: Avoid deprecation warnings about URLField `assume_scheme` on Django 5.x (Sage Abdullah)
  * Fix: Fix setup.cfg syntax for setuptools v78 (Sage Abdullah)
+ * Fix: Ensure `ImproperlyConfigured` is thrown from `db_field` on unbound `FieldPanel`s as intended (Matt Westcott)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
  * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)

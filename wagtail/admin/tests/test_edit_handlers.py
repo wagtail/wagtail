@@ -886,6 +886,12 @@ class TestFieldPanel(TestCase):
             instance=self.event,
         )
 
+    def test_accessing_db_field_before_bind(self):
+        field_panel = FieldPanel("barbecue")
+
+        with self.assertRaises(ImproperlyConfigured):
+            field_panel.db_field
+
     def test_non_model_field(self):
         # defining a FieldPanel for a field which isn't part of a model is OK,
         # because it might be defined on the form instead
