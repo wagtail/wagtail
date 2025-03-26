@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from wagtail import __version__
-from wagtail.utils.setup import assets, check_bdist_egg, sdist
+from wagtail.utils.setup import sdist
 
 try:
     from setuptools import find_packages, setup
@@ -127,9 +127,5 @@ https://github.com/wagtail/wagtail/.",
             wagtail=wagtail.bin.wagtail:main
     """,
     zip_safe=False,
-    cmdclass={
-        "sdist": sdist,
-        "bdist_egg": check_bdist_egg,
-        "assets": assets,
-    },
+    cmdclass={"sdist": sdist},
 )
