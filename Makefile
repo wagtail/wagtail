@@ -14,7 +14,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 develop: clean-pyc
-	pip install -e .[testing,docs]
+	pip install -e .[testing,docs] --config-settings editable-mode=strict
 	npm install --no-save && npm run build
 
 lint-server:
