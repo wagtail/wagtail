@@ -58,6 +58,7 @@ Documentation = "https://docs.wagtail.org"
 Repository = "https://github.com/wagtail/wagtail"
 Changelog = "https://github.com/wagtail/wagtail/blob/main/CHANGELOG.txt"
 "Issue Tracker" = "https://github.com/wagtail/wagtail/issues"
+Funding = "https://wagtail.org/sponsor/"
 
 [project.optional-dependencies]
 testing = [
