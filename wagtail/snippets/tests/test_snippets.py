@@ -1296,7 +1296,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
         )
         # The status side panel should be rendered so that the
         # publishing schedule can be configured
@@ -2294,7 +2294,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
         )
 
         # The status side panel should show "No publishing schedule set" info
@@ -2967,10 +2967,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Get the edit page again
         response = self.get()
 
-        # Should show the draft go_live_at and expire_at under the "Once published" label
+        # Should show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -3082,10 +3082,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # No new revision should have been created
         self.assertEqual(self.test_snippet.latest_revision_id, latest_revision.pk)
 
-        # Should not show the draft go_live_at and expire_at under the "Once published" label
+        # Should not show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertNotContains(
@@ -3190,10 +3190,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3333,10 +3333,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3507,10 +3507,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             count=1,
         )
 
-        # Should also show the draft go_live_at and expire_at under the "Once published" label
+        # Should also show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -3604,10 +3604,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             html=True,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3703,10 +3703,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             count=1,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3778,10 +3778,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at without the "Once published" label
+        # Should show the go_live_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
 
@@ -3845,10 +3845,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at without the "Once published" label
+        # Should show the go_live_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
 

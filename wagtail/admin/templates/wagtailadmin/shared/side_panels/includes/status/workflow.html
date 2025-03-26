@@ -143,7 +143,7 @@
                                 <div><span class="w-text-grey-600">{% trans 'Expiry:' %}</span> {{ scheduled_expire_at }}</div>
                             {% endif %}
                             {% if draft_go_live_at or draft_expire_at %}
-                                <div class="w-label-3 w-text-primary">{% trans 'Once published:' %}</div>
+                                <div class="w-label-3 w-text-primary">{% trans 'Once scheduled:' %}</div>
                                 {% if draft_go_live_at %}
                                     <div><span class="w-text-grey-600">{% trans 'Go-live:' %}</span> {{ draft_go_live_at }}</div>
                                 {% endif %}
