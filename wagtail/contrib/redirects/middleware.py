@@ -1,6 +1,8 @@
+import fnmatch
 from urllib.parse import urlparse
 
 from django import http
+from django.db.models.functions import Length
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.encoding import uri_to_iri
 
@@ -17,11 +19,20 @@ def _get_redirect(request, path):
     site = Site.find_for_request(request)
     try:
         return models.Redirect.get_for_site(site).get(old_path=path)
+    except models.Redirect.DoesNotExist:
+        wildcard_redirects = (
+            models.Redirect.get_for_site(site)
+            .filter(old_path__contains="*")
+            .order_by(Length("old_path"))
+        )
+
+        for redirect in wildcard_redirects.iterator():
+            if fnmatch.fnmatchcase(path, redirect.old_path):
+                return redirect
+        return None
     except models.Redirect.MultipleObjectsReturned:
         # We have a site-specific and a site-ambivalent redirect; prefer the specific one
         return models.Redirect.objects.get(site=site, old_path=path)
-    except models.Redirect.DoesNotExist:
-        return None
 
 
 def get_redirect(request, path):
