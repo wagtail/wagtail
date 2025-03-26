@@ -353,12 +353,12 @@ Sometimes it may be necessary to install Wagtail from a fork. For example your s
 
 The Wagtail release process includes steps for static asset building and translations updated which means you cannot update your requirements file to point a particular git commit in the main repository.
 
-To install from your fork, from the root of your Wagtail git checkout (and assuming the tooling for building the static assets has previously been installed using `npm install`), run:
+To install from your fork, ensure you have installed `build` (`python -m pip install build`) and the tooling for building the static assets (`npm install`). Then, from the root of your Wagtail git checkout, run:
 
 ```sh
-python ./setup.py sdist
+python -m build
 ```
 
-This will create a `.tar.gz` package within `dist/,` which can be installed with `pip`.
+This will create a `.tar.gz` and `.whl` packages within `dist/,` which can be installed with `pip`.
 
 For remote deployments, it's usually most convenient to upload this to a public URL somewhere and place that URL in your project's requirements in place of the standard `wagtail` line.
