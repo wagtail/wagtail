@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name="customrendition",
             constraint=models.UniqueConstraint(
-                fields={"image", "filter_spec", "focal_point_key"},
+                fields=("image", "filter_spec", "focal_point_key"),
                 name="unique_rendition",
             ),
         ),
