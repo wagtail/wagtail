@@ -1,5 +1,4 @@
 import warnings
-from collections import namedtuple
 
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import ImproperlyConfigured
@@ -22,6 +21,7 @@ from django_filters.filters import (
 )
 
 from wagtail.admin import messages
+from wagtail.admin.filters import ActiveFilter
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.paginator import WagtailPaginator
 from wagtail.admin.ui.tables import Column, Table
@@ -190,12 +190,6 @@ class BaseOperationView(BaseObjectMixin, View):
         self.perform_operation()
         self.add_success_message()
         return redirect(self.get_success_url())
-
-
-# Represents a django-filters filter that is currently in force on a listing queryset
-ActiveFilter = namedtuple(
-    "ActiveFilter", ["auto_id", "field_label", "value", "removed_filter_url"]
-)
 
 
 class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
