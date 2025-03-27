@@ -6,22 +6,14 @@ from django.db import models
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.utils.formats import date_format
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 from django.views.generic.list import BaseListView
-from django_filters.filters import (
-    ChoiceFilter,
-    DateFromToRangeFilter,
-    ModelChoiceFilter,
-    ModelMultipleChoiceFilter,
-    MultipleChoiceFilter,
-)
 
 from wagtail.admin import messages
-from wagtail.admin.filters import ActiveFilter
+from wagtail.admin.active_filters import filter_adapter_class_registry
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.paginator import WagtailPaginator
 from wagtail.admin.ui.tables import Column, Table
@@ -29,7 +21,6 @@ from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets.button import ButtonWithDropdown
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
-from wagtail.utils.utils import flatten_choices
 
 
 class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
@@ -313,41 +304,17 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             queryset = self.filters.filter_queryset(queryset)
         return queryset
 
-    def get_url_without_filter_param(self, param):
-        """
-        Return the index URL with the given filter parameter removed from the query string
-        """
-        base_url = self.index_results_url.split("?")[0]
-        query_dict = self.request.GET.copy()
-        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
-        if isinstance(param, (list, tuple)):
-            for p in param:
-                query_dict.pop(p, None)
-        else:
-            query_dict.pop(param, None)
-        query_dict["_w_filter_fragment"] = 1
-        return base_url + "?" + query_dict.urlencode()
-
-    def get_url_without_filter_param_value(self, param, value):
-        """
-        Return the index URL where the filter parameter with the given value has been removed
-        from the query string, preserving all other values for that parameter
-        """
-        base_url = self.index_results_url.split("?")[0]
-        query_dict = self.request.GET.copy()
-        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
-        query_dict.setlist(
-            param, [v for v in query_dict.getlist(param) if v != str(value)]
-        )
-        query_dict["_w_filter_fragment"] = 1
-        return base_url + "?" + query_dict.urlencode()
-
     @cached_property
     def active_filters(self):
         filters = []
 
         if not self.filters:
             return filters
+
+        base_url = self.index_results_url.split("?")[0]
+        query_dict = self.request.GET.copy()
+        query_dict.pop(self.page_kwarg, None)  # reset pagination to first page
+        query_dict["_w_filter_fragment"] = 1
 
         for field_name in self.filters.form.changed_data:
             filter_def = self.filters.filters[field_name]
@@ -360,76 +327,11 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
             if value == bound_field.initial:
                 continue  # filter value is the same as the default
 
-            if isinstance(filter_def, ModelMultipleChoiceFilter):
-                field = filter_def.field
-                for item in value:
-                    filters.append(
-                        ActiveFilter(
-                            bound_field.auto_id,
-                            filter_def.label,
-                            field.label_from_instance(item),
-                            self.get_url_without_filter_param_value(
-                                field_name, item.pk
-                            ),
-                        )
-                    )
-            elif isinstance(filter_def, MultipleChoiceFilter):
-                choices = flatten_choices(filter_def.field.choices)
-                for item in value:
-                    filters.append(
-                        ActiveFilter(
-                            bound_field.auto_id,
-                            filter_def.label,
-                            choices.get(str(item), str(item)),
-                            self.get_url_without_filter_param_value(field_name, item),
-                        )
-                    )
-            elif isinstance(filter_def, ModelChoiceFilter):
-                field = filter_def.field
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        field.label_from_instance(value),
-                        self.get_url_without_filter_param(field_name),
-                    )
-                )
-            elif isinstance(filter_def, DateFromToRangeFilter):
-                start_date_display = date_format(value.start) if value.start else ""
-                end_date_display = date_format(value.stop) if value.stop else ""
-                widget = filter_def.field.widget
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        f"{start_date_display} - {end_date_display}",
-                        self.get_url_without_filter_param(
-                            [
-                                widget.suffixed(field_name, suffix)
-                                for suffix in widget.suffixes
-                            ]
-                        ),
-                    )
-                )
-            elif isinstance(filter_def, ChoiceFilter):
-                choices = flatten_choices(filter_def.field.choices)
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        choices.get(str(value), str(value)),
-                        self.get_url_without_filter_param(field_name),
-                    )
-                )
-            else:
-                filters.append(
-                    ActiveFilter(
-                        bound_field.auto_id,
-                        filter_def.label,
-                        str(value),
-                        self.get_url_without_filter_param(field_name),
-                    )
-                )
+            filter_adapter_class = filter_adapter_class_registry.get(filter_def)
+            filter_adapter = filter_adapter_class(
+                filter_def, bound_field, value, base_url, query_dict
+            )
+            filters.extend(filter_adapter.get_active_filters())
 
         return filters
 
