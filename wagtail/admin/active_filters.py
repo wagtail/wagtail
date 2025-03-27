@@ -122,16 +122,19 @@ class ModelMultipleChoiceFilterAdapter(BaseFilterAdapter):
         )
 
 
-class DateFromToRangeFilterAdapter(BaseFilterAdapter):
+class RangeFilterAdapter(BaseFilterAdapter):
+    def format_value(self, value):
+        return str(value) if value is not None else ""
+
     def get_active_filters(self):
-        start_date_display = date_format(self.value.start) if self.value.start else ""
-        end_date_display = date_format(self.value.stop) if self.value.stop else ""
+        start_value_display = self.format_value(self.value.start)
+        end_value_display = self.format_value(self.value.stop)
         widget = self.filter.field.widget
         yield (
             ActiveFilter(
                 self.bound_field.auto_id,
                 self.filter.label,
-                f"{start_date_display} - {end_date_display}",
+                f"{start_value_display} - {end_value_display}",
                 self.get_url_without_filter_param(
                     [
                         widget.suffixed(self.bound_field.name, suffix)
@@ -140,6 +143,11 @@ class DateFromToRangeFilterAdapter(BaseFilterAdapter):
                 ),
             )
         )
+
+
+class DateFromToRangeFilterAdapter(RangeFilterAdapter):
+    def format_value(self, value):
+        return date_format(value) if value is not None else ""
 
 
 filter_adapter_class_registry = ObjectTypeRegistry()
@@ -189,6 +197,10 @@ register_filter_adapter_class(
 register_filter_adapter_class(
     django_filters.ModelMultipleChoiceFilter,
     ModelMultipleChoiceFilterAdapter,
+)
+register_filter_adapter_class(
+    django_filters.RangeFilter,
+    RangeFilterAdapter,
 )
 register_filter_adapter_class(
     django_filters.DateFromToRangeFilter,
