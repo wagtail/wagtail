@@ -425,10 +425,10 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
 
     def create_test_snippets(self):
         FullFeaturedSnippet.objects.create(
-            text="Nasi goreng from Indonesia", country_code="ID"
+            text="Nasi goreng from Indonesia", country_code="ID", some_number=123
         )
         FullFeaturedSnippet.objects.create(
-            text="Fish and chips from the UK", country_code="UK"
+            text="Fish and chips from the UK", country_code="UK", some_number=456
         )
 
     def test_get_include_filters_form_media(self):
@@ -510,6 +510,29 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
         url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
         self.assertEqual(url, self.get_url("list_results"))
         self.assertNotIn("country_code=ID", params)
+
+    def test_range_filter(self):
+        self.create_test_snippets()
+        response = self.get({"some_number_min": 100, "some_number_max": 200})
+        self.assertContains(response, "Nasi goreng from Indonesia")
+        self.assertNotContains(response, "Fish and chips from the UK")
+        self.assertContains(response, "There is 1 match")
+        # Should render the active filters
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active-filters")
+        self.assertIsNotNone(active_filters)
+        pill = active_filters.select_one(".w-pill")
+        self.assertIsNotNone(pill)
+        self.assertEqual(
+            pill.get_text(separator=" ", strip=True),
+            "Number range: 100 - 200",
+        )
+        clear = pill.select_one(".w-pill__remove")
+        self.assertIsNotNone(clear)
+        url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+        self.assertEqual(url, self.get_url("list_results"))
+        self.assertNotIn("some_number_min=100", params)
+        self.assertNotIn("some_number_max=200", params)
 
 
 class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
