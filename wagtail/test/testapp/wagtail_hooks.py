@@ -1,5 +1,6 @@
 import os
 
+import django_filters
 from django import forms
 from django.http import HttpResponse
 from django.utils.safestring import mark_safe
@@ -262,6 +263,11 @@ def register_toy_viewset():
 
 
 class FullFeaturedSnippetFilterSet(WagtailFilterSet):
+    some_number = django_filters.RangeFilter(
+        field_name="some_number",
+        label="Number range",
+    )
+
     class Meta:
         model = FullFeaturedSnippet
         fields = ["country_code", "some_date"]
