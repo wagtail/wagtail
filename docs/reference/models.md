@@ -814,6 +814,8 @@ For a non-page model to have workflow features in the admin, it must also be [re
 
     .. automethod:: get_workflow
 
+    .. autoattribute:: _workflow_states
+
     .. autoattribute:: workflow_states
 
     .. autoattribute:: workflow_in_progress

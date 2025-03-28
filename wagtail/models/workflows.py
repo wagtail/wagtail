@@ -1167,6 +1167,22 @@ class WorkflowMixin(models.Model):
         object_id_field="object_id",
         for_concrete_model=False,
     )
+    """
+    A default ``GenericRelation`` for the purpose of automatically deleting
+    workflow states when the object is deleted. This is not used to query the
+    object's workflow states. Instead, the :meth:`workflow_states` property is
+    used for that purpose. As such, this default relation is considered private.
+
+    This ``GenericRelation`` does not have a
+    :attr:`~django.contrib.contenttypes.fields.GenericRelation.related_query_name`,
+    so it cannot be used for reverse-related queries from ``WorkflowState`` back
+    to this model. If the feature is desired, subclasses can define their own
+    ``GenericRelation`` to ``WorkflowState`` with a custom
+    ``related_query_name``.
+
+    .. versionadded:: 7.1
+        The default ``GenericRelation`` :attr:`~wagtail.models.WorkflowMixin._workflow_states` was added.
+    """
 
     class Meta:
         abstract = True
@@ -1249,15 +1265,13 @@ class WorkflowMixin(models.Model):
     @property
     def workflow_states(self):
         """
-        Returns workflow states that belong to the object.
-
-        To allow filtering ``WorkflowState`` queries by the object,
-        subclasses should define a
-        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
-        :class:`~wagtail.models.WorkflowState` with the desired
-        ``related_query_name``. This property can be replaced with the
-        ``GenericRelation`` or overridden to allow custom logic, which can be
-        useful if the model has inheritance.
+        Returns workflow states that belong to the object. For non-page models,
+        this is done by querying the :class:`~wagtail.models.WorkflowState`
+        model directly rather than using a
+        :class:`~django.contrib.contenttypes.fields.GenericRelation`, to avoid
+        `a known limitation <https://code.djangoproject.com/ticket/31269>`_ in
+        Django for models with multi-table inheritance where the relation's
+        content type may not match the instance's type.
         """
         return WorkflowState.objects.for_instance(self)
 

@@ -295,7 +295,15 @@ If a snippet model inherits from {class}`~wagtail.models.WorkflowMixin`, Wagtail
 
 Since the `WorkflowMixin` utilizes revisions and publishing mechanisms in Wagtail, inheriting from this mixin also requires inheriting from `RevisionMixin` and `DraftStateMixin`. It is also recommended to enable locking by inheriting from `LockableMixin`, so that the snippet instance can be locked and only editable by reviewers when it is in a workflow. See the above sections for more details.
 
-In addition to inheriting the mixins, it is highly recommended to define a {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.WorkflowState` model so that you can do related queries and that the workflow-related data is properly cleaned up when the snippet instance is deleted.
+The mixin defines a `workflow_states` property that gives you a queryset of all workflow states for the snippet instance. It also comes with a default {class}`~django.contrib.contenttypes.fields.GenericRelation` to the {class}`~wagtail.models.WorkflowState` model so that the workflow states are properly cleaned up when the snippet instance is deleted.
+
+The default `GenericRelation` does not have a {attr}`~django.contrib.contenttypes.fields.GenericRelation.related_query_name`, so it does not give you the ability to query and filter from the `WorkflowState` model back to the snippet model. If you would like this feature, you can define your own `GenericRelation` with a custom `related_query_name`.
+
+For more details, see the default `GenericRelation` {attr}`~wagtail.models.WorkflowMixin._workflow_states` and the property {attr}`~wagtail.models.WorkflowMixin.workflow_states`.
+
+```{versionadded} 7.1
+The default `GenericRelation` {attr}`~wagtail.models.WorkflowMixin._workflow_states` was added.
+```
 
 For example, workflows (with locking) can be enabled for the `Advert` snippet by defining it as follows:
 
