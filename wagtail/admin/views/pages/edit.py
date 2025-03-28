@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db.models import Prefetch, Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -326,7 +326,11 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
     def get_edit_url(self):
         return reverse("wagtailadmin_pages:edit", args=(self.page.id,))
 
+    def json_error_response(self, message):
+        return JsonResponse({"error": message}, status=400)
+
     def dispatch(self, request, page_id, **kwargs):
+        self.expects_json_response = not self.request.accepts("text/html")
         self.real_page_record = get_object_or_404(
             Page.objects.prefetch_workflow_states(), id=page_id
         )
@@ -370,7 +374,16 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         response = self.run_hook("before_edit_page", self.request, self.page)
         if response:
-            return response
+            if (
+                self.expects_json_response
+                and response.headers.get("Content-Type") != "application/json"
+            ):
+                # Hook response is not suitable for a JSON response, so construct our own error response
+                return self.json_error_response(
+                    "Request to edit page was blocked by hook"
+                )
+            else:
+                return response
 
         self.subscription, created = PageSubscription.objects.get_or_create(
             page=self.page,
@@ -559,7 +572,8 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             clean=False,
         )
 
-        self.add_save_confirmation_message()
+        if not self.expects_json_response:
+            self.add_save_confirmation_message()
 
         if self.has_content_changes and "comments" in self.form.formsets:
             changes = self.get_commenting_changes()
@@ -568,10 +582,21 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         response = self.run_hook("after_edit_page", self.request, self.page)
         if response:
-            return response
+            if (
+                self.expects_json_response
+                and response.headers.get("Content-Type") != "application/json"
+            ):
+                # Hook response is not suitable for a JSON response, so ignore it and just use
+                # the standard one
+                pass
+            else:
+                return response
 
         # Just saving - remain on edit page for further edits
-        return self.redirect_and_remain()
+        if self.expects_json_response:
+            return JsonResponse({"success": True})
+        else:
+            return self.redirect_and_remain()
 
     def publish_action(self):
         self.page = self.form.save(commit=not self.page.live)
@@ -851,15 +876,25 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
                 self.request.user
             )
         elif self.locked_for_user:
-            messages.error(
-                self.request, _("The page could not be saved as it is locked.")
-            )
+            if self.expects_json_response:
+                return self.json_error_response(
+                    "The page could not be saved as it is locked."
+                )
+            else:
+                messages.error(
+                    self.request, _("The page could not be saved as it is locked.")
+                )
         else:
-            messages.validation_error(
-                self.request,
-                _("The page could not be saved due to validation errors."),
-                self.form,
-            )
+            if self.expects_json_response:
+                return self.json_error_response(
+                    "The page could not be saved due to validation errors."
+                )
+            else:
+                messages.validation_error(
+                    self.request,
+                    _("The page could not be saved due to validation errors."),
+                    self.form,
+                )
         self.errors_debug = repr(self.form.errors) + repr(
             [
                 (name, formset.errors)
