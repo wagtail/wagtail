@@ -43,7 +43,7 @@ class MoveBulkAction(PageBulkAction):
 
     def get_form_kwargs(self):
         ctx = super().get_form_kwargs()
-        ctx["destination"] = self.destination or Page.get_first_root_node()
+        ctx["destination"] = self.destination
         ctx["target_parent_models"] = self.target_parent_models
         ctx["pages_to_move"] = self.pages_to_move
         return ctx
