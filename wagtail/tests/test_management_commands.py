@@ -349,7 +349,7 @@ class TestPublishScheduledPagesCommand(WagtailTestUtils, TestCase):
             .exists()
         )
 
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(42):
             with self.captureOnCommitCallbacks(execute=True):
                 management.call_command("publish_scheduled_pages")
 
