@@ -10,6 +10,7 @@ from .mixins import (  # noqa: F401
     CreateEditViewOptionalFeaturesMixin,
     HookResponseMixin,
     IndexViewOptionalFeaturesMixin,
+    JsonPostResponseMixin,
     LocaleMixin,
     PanelMixin,
     RevisionsRevertMixin,

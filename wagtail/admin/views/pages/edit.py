@@ -29,7 +29,7 @@ from wagtail.admin.ui.side_panels import (
     PreviewSidePanel,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request
-from wagtail.admin.views.generic import HookResponseMixin
+from wagtail.admin.views.generic import HookResponseMixin, JsonPostResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
@@ -45,7 +45,9 @@ from wagtail.models import (
 from wagtail.utils.timestamps import render_timestamp
 
 
-class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
+class EditView(
+    WagtailAdminTemplateMixin, HookResponseMixin, JsonPostResponseMixin, View
+):
     def get_page_title(self):
         return _("Editing %(page_type)s") % {
             "page_type": self.page_class.get_verbose_name()
@@ -326,11 +328,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
     def get_edit_url(self):
         return reverse("wagtailadmin_pages:edit", args=(self.page.id,))
 
-    def json_error_response(self, message):
-        return JsonResponse({"error": message}, status=400)
-
     def dispatch(self, request, page_id, **kwargs):
-        self.expects_json_response = not self.request.accepts("text/html")
         self.real_page_record = get_object_or_404(
             Page.objects.prefetch_workflow_states(), id=page_id
         )
