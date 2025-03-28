@@ -7,6 +7,7 @@ from freezegun import freeze_time
 from wagtail.models import Page, Revision, get_default_page_content_type
 from wagtail.test.testapp.models import (
     FullFeaturedSnippet,
+    RevisableChildModel,
     RevisableGrandChildModel,
     RevisableModel,
     SimplePage,
@@ -90,17 +91,32 @@ class TestRevisableModel(TestCase):
         self.assertEqual(instance.get_base_content_type(), base_content_type)
         self.assertEqual(instance.get_content_type(), content_type)
 
-        # The for_instance() method should return the revision,
-        # whether we're using the specific instance
+        # The `for_instance()` method of `Revision.objects` and the model's
+        # `revisions` property should return the revision,
+        # whether we're using the most specific instance
         self.assertIsInstance(instance, RevisableModel)
+        self.assertIsInstance(instance, RevisableChildModel)
         self.assertIsInstance(instance, RevisableGrandChildModel)
         self.assertEqual(Revision.objects.for_instance(instance).first(), revision)
+        self.assertEqual(instance.revisions.first(), revision)
+
+        # the intermediary instance
+        intermediary_instance = RevisableChildModel.objects.get(pk=instance.pk)
+        self.assertIsInstance(intermediary_instance, RevisableModel)
+        self.assertIsInstance(intermediary_instance, RevisableChildModel)
+        self.assertNotIsInstance(intermediary_instance, RevisableGrandChildModel)
+        self.assertEqual(
+            Revision.objects.for_instance(intermediary_instance).first(),
+            revision,
+        )
+        self.assertEqual(intermediary_instance.revisions.first(), revision)
 
         # or the base instance
         base_instance = RevisableModel.objects.get(pk=instance.pk)
         self.assertIsInstance(base_instance, RevisableModel)
         self.assertNotIsInstance(base_instance, RevisableGrandChildModel)
         self.assertEqual(Revision.objects.for_instance(base_instance).first(), revision)
+        self.assertEqual(base_instance.revisions.first(), revision)
 
     def test_content_type_for_page_model(self):
         hello_page = self.create_page()
@@ -119,17 +135,20 @@ class TestRevisableModel(TestCase):
         self.assertEqual(hello_page.get_base_content_type(), base_content_type)
         self.assertEqual(hello_page.get_content_type(), content_type)
 
-        # The for_instance() method should return the revision,
+        # The `for_instance()` method of `Revision.objects` and the model's
+        # `revisions` property should return the revision,
         # whether we're using the specific instance
         self.assertIsInstance(hello_page, SimplePage)
         self.assertIsInstance(hello_page, Page)
         self.assertEqual(Revision.objects.for_instance(hello_page).first(), revision)
+        self.assertEqual(hello_page.revisions.first(), revision)
 
         # or the base instance
         base_instance = Page.objects.get(pk=hello_page.pk)
         self.assertIsInstance(base_instance, Page)
         self.assertNotIsInstance(base_instance, SimplePage)
         self.assertEqual(Revision.objects.for_instance(base_instance).first(), revision)
+        self.assertEqual(base_instance.revisions.first(), revision)
 
     def test_as_object(self):
         self.instance.text = "updated"

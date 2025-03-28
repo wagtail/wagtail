@@ -293,10 +293,7 @@ class RevisionMixin(models.Model):
         ``related_query_name`` of the ``GenericRelation`` and add custom logic
         (e.g. to always use the specific instance in ``Page``).
         """
-        return Revision.objects.filter(
-            content_type=self.get_content_type(),
-            object_id=self.pk,
-        )
+        return Revision.objects.for_instance(self)
 
     def get_base_content_type(self):
         parents = self._meta.get_parent_list()
