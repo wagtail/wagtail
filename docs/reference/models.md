@@ -796,6 +796,8 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.
 
     .. automethod:: get_workflow
 
+    .. autoattribute:: _workflow_states
+
     .. autoattribute:: workflow_states
 
     .. autoattribute:: workflow_in_progress
