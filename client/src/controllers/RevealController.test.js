@@ -466,39 +466,61 @@ describe('RevealController', () => {
       jest.restoreAllMocks();
     });
 
-    it('should get save state if expanded', async () => {
-      localStorage.getItem.mockImplementation(() => 'header');
+    it('should get saved state if expanded', async () => {
+      localStorage.getItem.mockImplementation(() => 'opened');
 
       await setup(`
-      <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-store-value="header">
-        <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
-      </section>`);
+        <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-storage-key-value="header">
+          <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+        </section>`);
 
       const toggleButton = document.querySelector('button');
-
       await Promise.resolve(toggleButton.click());
       await jest.advanceTimersByTime(0);
 
-      expect(localStorage.getItem('wagtail:w-breadcrumbs:opened')).toBe(
-        'header',
+      expect(localStorage.getItem('wagtail:w-breadcrumbs:header')).toBe(
+        'opened',
       );
     });
 
     it('should save state if expanded', async () => {
-      localStorage.setItem.mockImplementation(() => 'header');
-
+      // console.log(localStorage.setItem.mock.calls);
       await setup(`
-      <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-store-value="header">
-        <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
-      </section>`);
+        <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-storage-key-value="header">
+          <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+        </section>`);
 
       const toggleButton = document.querySelector('button');
-
+      // console.log('Before click:', toggleButton.getAttribute('aria-expanded'));
+      
       await Promise.resolve(toggleButton.click());
-      await jest.advanceTimersByTime(0);
+      await jest.advanceTimersByTime(10);
+      // console.log('After click:', toggleButton.getAttribute('aria-expanded'));
 
-      expect(localStorage.setItem('wagtail:w-breadcrumbs:opened')).toBe(
-        'header',
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        'wagtail:w-breadcrumbs:header',
+        'opened',
+      );
+    });
+
+    it('should save state as closed when collapsed', async () => {
+      // console.log(localStorage.setItem.mock.calls);
+      await setup(`
+        <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-storage-key-value="header">
+          <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="true">Toggle</button>
+        </section>`);
+
+      const toggleButton = document.querySelector('button');
+      // console.log('Button exists:', toggleButton !== null);
+      // console.log('aria-expanded before click:', toggleButton?.getAttribute('aria-expanded'));
+      // console.log('Before click:', toggleButton.getAttribute('aria-expanded'));
+      await Promise.resolve(toggleButton.click());
+      await jest.advanceTimersByTime(10);
+      // console.log('After click:', toggleButton.getAttribute('aria-expanded'));
+
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        'wagtail:w-breadcrumbs:header',
+        'closed',
       );
     });
 
