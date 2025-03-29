@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 from django.core.management.base import BaseCommand
 
@@ -73,7 +73,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        src = options["src"]
+        src = Path(options["src"]).resolve()
         from_index = options.pop("from")
         to_index = options.pop("to")
         site_id = options.pop("site", None)
@@ -94,14 +94,13 @@ class Command(BaseCommand):
         if site_id:
             site = Site.objects.get(id=site_id)
 
-        if not os.path.exists(src):
-            raise Exception(f"Missing file '{src}'")
+        if not src.is_file():
+            raise Exception(f"Missing file '{src.name}'")
 
-        if not os.path.getsize(src) > 0:
+        if not src.stat().st_size > 0:
             raise Exception(f"File '{src}' is empty")
 
-        _, extension = os.path.splitext(src)
-        extension = extension.lstrip(".")
+        extension = src.suffix.lstrip(".")
 
         if not format_:
             format_ = extension
@@ -112,85 +111,83 @@ class Command(BaseCommand):
         input_format = import_format_cls()
 
         if extension in ["xls", "xlsx"]:
-            mode = "rb"
+            imported_data = input_format.create_dataset(src.read_bytes())
         else:
-            mode = "r"
+            imported_data = input_format.create_dataset(src.read_text())
 
-        with open(src, mode) as fh:
-            imported_data = input_format.create_dataset(fh.read())
-            sample_data = Dataset(imported_data[:4], imported_data.headers)
+        sample_data = Dataset(imported_data[:4], imported_data.headers)
 
-            self.stdout.write("Sample data:")
-            self.stdout.write(str(sample_data))
+        self.stdout.write("Sample data:")
+        self.stdout.write(str(sample_data))
 
-            self.stdout.write("--------------")
+        self.stdout.write("--------------")
+
+        if site:
+            self.stdout.write(f"Using site: {site.hostname}")
+
+        self.stdout.write("Importing redirects:")
+
+        if offset:
+            imported_data = imported_data[offset:]
+        if limit:
+            imported_data = imported_data[:limit]
+
+        for row in imported_data:
+            total += 1
+
+            from_link = row[from_index]
+            to_link = row[to_index]
+
+            data = {
+                "old_path": from_link,
+                "redirect_link": to_link,
+                "is_permanent": permanent,
+            }
 
             if site:
-                self.stdout.write(f"Using site: {site.hostname}")
+                data["site"] = site.pk
 
-            self.stdout.write("Importing redirects:")
-
-            if offset:
-                imported_data = imported_data[offset:]
-            if limit:
-                imported_data = imported_data[:limit]
-
-            for row in imported_data:
-                total += 1
-
-                from_link = row[from_index]
-                to_link = row[to_index]
-
-                data = {
-                    "old_path": from_link,
-                    "redirect_link": to_link,
-                    "is_permanent": permanent,
-                }
-
-                if site:
-                    data["site"] = site.pk
-
-                form = RedirectForm(data)
-                if not form.is_valid():
-                    error = form.errors.as_text().replace("\n", "")
-                    self.stdout.write(
-                        "{}. Error: {} -> {} (Reason: {})".format(
-                            total,
-                            from_link,
-                            to_link,
-                            error,
-                        )
+            form = RedirectForm(data)
+            if not form.is_valid():
+                error = form.errors.as_text().replace("\n", "")
+                self.stdout.write(
+                    "{}. Error: {} -> {} (Reason: {})".format(
+                        total,
+                        from_link,
+                        to_link,
+                        error,
                     )
-                    errors.append(error)
+                )
+                errors.append(error)
+                continue
+
+            if ask:
+                answer = get_input(
+                    "{}. Found {} -> {} Create? Y/n: ".format(
+                        total,
+                        from_link,
+                        to_link,
+                    )
+                )
+
+                if answer != "Y":
+                    skipped += 1
                     continue
-
-                if ask:
-                    answer = get_input(
-                        "{}. Found {} -> {} Create? Y/n: ".format(
-                            total,
-                            from_link,
-                            to_link,
-                        )
+            else:
+                self.stdout.write(
+                    "{}. {} -> {}".format(
+                        total,
+                        from_link,
+                        to_link,
                     )
+                )
 
-                    if answer != "Y":
-                        skipped += 1
-                        continue
-                else:
-                    self.stdout.write(
-                        "{}. {} -> {}".format(
-                            total,
-                            from_link,
-                            to_link,
-                        )
-                    )
-
-                if dry_run:
-                    successes += 1
-                    continue
-
-                form.save()
+            if dry_run:
                 successes += 1
+                continue
+
+            form.save()
+            successes += 1
 
         self.stdout.write("\n")
         self.stdout.write(f"Found: {total}")
