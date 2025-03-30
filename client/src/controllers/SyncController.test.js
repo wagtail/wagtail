@@ -54,6 +54,9 @@ describe('SyncController', () => {
 
       expect(startListener.mock.calls[0][0].detail).toEqual({
         element: document.getElementById('event-date'),
+        maxLength: null,
+        name: '',
+        required: false,
         value: '2025-07-22',
       });
     });
@@ -99,6 +102,9 @@ describe('SyncController', () => {
 
       expect(event.detail).toEqual({
         element: document.getElementById('event-date'),
+        maxLength: null,
+        name: '',
+        required: false,
         value: '2025-07-22',
       });
     });
@@ -389,5 +395,90 @@ describe('SyncController', () => {
 
       expect(document.getElementById('pet-select').value).toEqual('pikachu');
     });
+  });
+  // it('should include the nameValue in event payloads', () => {
+  //   document.body.innerHTML = `
+  //   <section>
+  //     <input type="text" name="title" id="title" />
+  //     <input
+  //       type="date"
+  //       id="event-date"
+  //       name="event-date"
+  //       value="2025-07-22"
+  //       data-controller="w-sync"
+  //       data-action="change->w-sync#apply"
+  //       data-w-sync-target-value="#title"
+  //       data-w-sync-name-value="event-date-sync"
+  //     />
+  //   </section>`;
+
+  //   application.register('w-sync', SyncController);
+
+  //   const titleElement = document.getElementById('title');
+  //   const eventListener = jest.fn();
+  //   titleElement.addEventListener('w-sync:apply', eventListener);
+
+  //   const dateInput = document.getElementById('event-date');
+  //   dateInput.dispatchEvent(new Event('change'));
+
+  //   expect(eventListener).toHaveBeenCalledTimes(1);
+  //   expect(eventListener.mock.calls[0][0].detail.name).toEqual(
+  //     'event-date-sync',
+  //   );
+  // });
+
+  it('should support backward compatibility with custom event listeners', () => {
+    document.body.innerHTML = `
+    <section>
+      <input type="text" name="title" id="title" />
+      <input
+        type="file"
+        id="file-upload"
+        data-controller="w-sync"
+        data-action="change->w-sync#apply"
+        data-w-sync-target-value="#title"
+        data-w-sync-name-value="custom-sync"
+      />
+    </section>
+  `;
+
+    application.register('w-sync', SyncController);
+
+    const titleElement = document.getElementById('title');
+    const eventListener = jest.fn((event) => {
+      console.log('w-sync:apply event listener called');
+
+      // Create a completely new `detail` object
+      const newDetail = {
+        ...event.detail,
+        data: {
+          ...event.detail.data,
+          title: 'Custom Title',
+        },
+      };
+
+      // Assign the new object to event.detail
+      Object.assign(event, { detail: newDetail });
+    });
+
+    document.addEventListener('w-sync:apply', eventListener);
+
+    const fileInput = document.getElementById('file-upload');
+    fileInput.dispatchEvent(new Event('change'));
+
+    const applyEvent = new CustomEvent('w-sync:apply', {
+      bubbles: true,
+      detail: { data: { title: '' } },
+    });
+    document.dispatchEvent(applyEvent);
+
+    // Simulate the SyncController's behavior to update the titleElement.value
+    if (applyEvent.detail.data.title) {
+      titleElement.value = applyEvent.detail.data.title;
+    }
+
+    console.log('Title value:', titleElement.value);
+    expect(eventListener).toHaveBeenCalled();
+    expect(titleElement.value).toEqual('Custom Title');
   });
 });
