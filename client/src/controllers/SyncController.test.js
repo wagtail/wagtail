@@ -447,25 +447,15 @@ describe('SyncController', () => {
     const titleElement = document.getElementById('title');
     const eventListener = jest.fn((event) => {
       console.log('w-sync:apply event listener called');
-
-      // Create a completely new `detail` object
-      const newDetail = {
-        ...event.detail,
-        data: {
-          ...event.detail.data,
-          title: 'Custom Title',
-        },
-      };
-
-      // Assign the new object to event.detail
-      Object.assign(event, { detail: newDetail });
+      event.detail.data.title = 'Custom Title';
     });
-
     document.addEventListener('w-sync:apply', eventListener);
 
+    // Simulate the change event on the file input
     const fileInput = document.getElementById('file-upload');
     fileInput.dispatchEvent(new Event('change'));
 
+    // Manually dispatch the w-sync:apply event
     const applyEvent = new CustomEvent('w-sync:apply', {
       bubbles: true,
       detail: { data: { title: '' } },
@@ -478,7 +468,7 @@ describe('SyncController', () => {
     }
 
     console.log('Title value:', titleElement.value);
-    expect(eventListener).toHaveBeenCalled();
-    expect(titleElement.value).toEqual('Custom Title');
+    expect(eventListener).toHaveBeenCalled(); // Ensure the listener was called
+    expect(titleElement.value).toEqual('Custom Title'); // Ensure the value was updated
   });
 });
