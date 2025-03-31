@@ -52,7 +52,10 @@ ul.listing {
 
   td {
     vertical-align: middle;
-    overflow-wrap: anywhere;
+    
+    a.nolink[download] {
+      overflow-wrap: anywhere;
+    }
   }
 
   td.title {
