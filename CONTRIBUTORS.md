@@ -894,6 +894,7 @@
 * Charan T M
 * Andrew Hosgood
 * mubarak-mustopha
+* Ziyao Yan
 
 ## Translators
 
