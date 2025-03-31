@@ -479,6 +479,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         HTTPMethod.PUT,
     ]
 
+    # Allows prefetching of related objects for admin views
+    prefetch_related_objects = []
+    select_related_objects = []
+
     @staticmethod
     def route_for_request(request: HttpRequest, path: str) -> RouteResult | None:
         """

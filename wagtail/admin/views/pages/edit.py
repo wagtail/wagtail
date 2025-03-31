@@ -333,6 +333,15 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         self.scheduled_revision = self.real_page_record.scheduled_revision
         self.page_content_type = self.real_page_record.cached_content_type
         self.page_class = self.real_page_record.specific_class
+        self.prefetch_related = self.page_class.prefetch_related
+        self.select_related = self.page_class.select_related
+        self.real_page_record = get_object_or_404(
+            self.page_class.objects.select_related(
+                *self.select_related,
+            ).prefetch_related(
+                *self.prefetch_related,
+            ),
+        )
 
         if self.page_class is None:
             raise PageClassNotFoundError(
