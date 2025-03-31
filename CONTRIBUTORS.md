@@ -877,6 +877,7 @@
 * Mohammad Fathi Rahman
 * Ashish Nagmoti
 * Dhruvi Patel
+* Sylvain Boissel
 
 ## Translators
 
