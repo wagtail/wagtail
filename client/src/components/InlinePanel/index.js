@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Sortable from 'sortablejs';
 import { initCollapsiblePanels } from '../../includes/panels';
 import { ExpandingFormset } from '../ExpandingFormset';
 
@@ -18,6 +19,20 @@ export class InlinePanel extends ExpandingFormset {
   constructor(opts) {
     super(opts.formsetPrefix, opts);
     this.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
+
+    if (this.opts.canOrder) {
+      this.sortable = Sortable.create(this.formsElt.get(0), {
+        handle: '[data-inline-panel-child-drag]',
+        animation: 200,
+        onEnd: this.handleDragEnd.bind(this),
+        setData: (dataTransfer) => {
+          dataTransfer.setData(
+            'application/vnd.wagtail.type',
+            'inlinepanel-child',
+          );
+        },
+      });
+    }
 
     for (let i = 0; i < this.formCount; i += 1) {
       const childPrefix = this.opts.emptyChildFormPrefix.replace(
@@ -314,5 +329,25 @@ export class InlinePanel extends ExpandingFormset {
         detail: { formIndex, ...this.opts },
       }),
     );
+  }
+
+  /**
+   * Update fields based on the current DOM order.
+   */
+  updateOrderValues() {
+    const forms = this.formsElt.children(':not(.deleted)');
+    forms.each((index, form) => {
+      const prefix = form.id.replace('inline_child_', '');
+      const orderInput = $(form).find(`[name="${prefix}-ORDER"]`);
+      orderInput.val(index + 1);
+    });
+  }
+
+  handleDragEnd(e) {
+    const { oldIndex, newIndex } = e;
+    if (oldIndex !== newIndex) {
+      this.updateOrderValues();
+      this.updateControlStates();
+    }
   }
 }

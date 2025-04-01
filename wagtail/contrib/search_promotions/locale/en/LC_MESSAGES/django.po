@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,20 +32,20 @@ msgid ""
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
 
-#: forms.py:56
-msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-
-#: forms.py:88
+#: forms.py:61
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 
-#: forms.py:93
+#: forms.py:69
 msgid "You must recommend a page OR an external link."
 msgstr ""
 
-#: forms.py:98
+#: forms.py:76
 msgid "Please only select a page OR enter an external link."
+msgstr ""
+
+#: forms.py:110
+msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
 #: models.py:92 models.py:93
@@ -80,15 +80,7 @@ msgstr ""
 msgid "search promotion"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/add.html:3
-msgid "Add search promotion"
-msgstr ""
-
-#: templates/wagtailsearchpromotions/add.html:5
-msgid "Add search pick"
-msgstr ""
-
-#: templates/wagtailsearchpromotions/add.html:11
+#: templates/wagtailsearchpromotions/add.html:7
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
 "external links that might not organically come high up in search results. E."
@@ -96,7 +88,7 @@ msgid ""
 "common term \"<em>giving</em>\".</p>"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/add.html:15
+#: templates/wagtailsearchpromotions/add.html:11
 msgid ""
 "<p>The \"Search term(s)/phrase\" field below must contain the full and exact "
 "search for which you wish to provide recommended results, <em>including</em> "
@@ -110,26 +102,8 @@ msgid "Delete %(query)s"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/confirm_delete.html:5
-#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:10
-msgid "Delete"
-msgstr ""
-
-#: templates/wagtailsearchpromotions/confirm_delete.html:9
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
-msgstr ""
-
-#: templates/wagtailsearchpromotions/confirm_delete.html:12
-msgid "Yes, delete"
-msgstr ""
-
-#: templates/wagtailsearchpromotions/edit.html:3
-#, python-format
-msgid "Editing %(query)s"
-msgstr ""
-
-#: templates/wagtailsearchpromotions/edit.html:5
-msgid "Editing"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:8
@@ -140,12 +114,20 @@ msgstr ""
 msgid "Move down"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:13
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:10
+msgid "Drag"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:11
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/includes/searchpromotion_form.html:14
 msgid "Recommended search result"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/includes/searchpromotions_formset.html:4
-#: views.py:81 wagtail_hooks.py:36
+#: views/settings.py:31 wagtail_hooks.py:36
 msgid "Promoted search results"
 msgstr ""
 
@@ -184,7 +166,7 @@ msgid "Terms"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/queries/chooser/results.html:10
-#: views.py:58
+#: views/settings.py:56
 msgid "Views (past week)"
 msgstr ""
 
@@ -204,44 +186,52 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: views.py:33
-msgid "Search Terms"
+#: views/reports.py:13
+msgid "Date"
 msgstr ""
 
-#: views.py:42
-msgid "Add new promoted result"
+#: views/reports.py:24 wagtail_hooks.py:47
+msgid "Search terms"
 msgstr ""
 
-#: views.py:46
+#: views/reports.py:33 views/reports.py:37 views/settings.py:44
 msgid "Search term(s)"
 msgstr ""
 
-#: views.py:53
+#: views/reports.py:34 views/reports.py:38
+msgid "Views"
+msgstr ""
+
+#: views/settings.py:40
+msgid "Add new promoted result"
+msgstr ""
+
+#: views/settings.py:51
 msgid "Promoted results"
 msgstr ""
 
-#: views.py:144
+#: views/settings.py:91
+msgid "Promoted search result"
+msgstr ""
+
+#: views/settings.py:180
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
-#: views.py:148 views.py:212
-msgid "Edit"
-msgstr ""
-
-#: views.py:166
+#: views/settings.py:181
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views.py:208
+#: views/settings.py:190
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
-#: views.py:228
+#: views/settings.py:191
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views.py:267
+#: views/settings.py:200
 msgid "Editor's picks deleted."
 msgstr ""

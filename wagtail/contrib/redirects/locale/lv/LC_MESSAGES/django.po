@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -40,21 +40,12 @@ msgstr "Atbalstītie formāti: %(supported_formats)s."
 msgid "site"
 msgstr "vietne"
 
-msgid "Add redirect"
-msgstr "Pievienot novirzījumu"
-
 msgid "Redirects"
 msgstr "Novirzījumi"
 
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Dzēst novirzījumu %(title)s"
-
-msgid "Delete"
-msgstr "Dzēst"
-
-msgid "Yes, delete"
-msgstr "Dzēst"
 
 msgid "Preview"
 msgstr "Priekšskatīt"
@@ -68,6 +59,9 @@ msgstr "Līdz"
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr "Nav novirzījumu, kas atbilst \"<em>%(query_string)s</em>\""
+
+msgid "Add redirect"
+msgstr "Pievienot novirzījumu"
 
 msgid "Site"
 msgstr "Vietne"
@@ -83,9 +77,6 @@ msgstr "Novirzījums '%(redirect_title)s' dzēsts."
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Novirzījums '%(redirect_title)s' pievienots."
-
-msgid "Edit"
-msgstr "Labot"
 
 msgid "Search redirects"
 msgstr "Meklēt novirzījumus"

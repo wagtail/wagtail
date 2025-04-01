@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy, ngettext
 from wagtail.admin.ui.components import Component
 from wagtail.admin.userbar import AccessibilityItem, apply_userbar_hooks
 from wagtail.models import DraftStateMixin, LockableMixin, Page, ReferenceIndex
+from wagtail.models.view_restrictions import BaseViewRestriction
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
@@ -272,9 +273,6 @@ class PageStatusSidePanel(StatusSidePanel):
         context = super().get_context_data(parent_context)
         page = self.object
 
-        if self.parent_page:
-            context["parent_page"] = self.parent_page
-
         if page.id:
             context.update(
                 {
@@ -286,6 +284,19 @@ class PageStatusSidePanel(StatusSidePanel):
                     "unlock_url": reverse("wagtailadmin_pages:unlock", args=(page.id,)),
                 }
             )
+        else:
+            # set is_public context for new pages based on parent page settings and default privacy setting
+            # this gets set in the template if the page is not new
+            if (
+                page.get_default_privacy_setting(self.request)["type"]
+                != BaseViewRestriction.NONE
+            ):
+                context.update({"is_public": False})
+            else:
+                is_public = (
+                    Page.objects.filter(id=self.parent_page.id).public().exists()
+                )
+                context.update({"is_public": is_public})
 
         context.update(
             {

@@ -209,6 +209,10 @@ describe('PreviewController', () => {
     expect(newIframe.src).toEqual(expectedUrl);
     expect(newIframe.classList.contains('w-preview__proxy')).toBe(true);
 
+    // Pretend the old iframe has scrolled
+    oldIframe.contentWindow.scrollX = 200;
+    oldIframe.contentWindow.scrollY = 100;
+
     // Simulate the iframe loading
     const mockScroll = jest.fn();
     newIframe.contentWindow.scroll = mockScroll;
@@ -221,10 +225,11 @@ describe('PreviewController', () => {
     expect(newIframe.id).toEqual(oldIframeId);
     expect(newIframe.src).toEqual(expectedUrl);
     expect(newIframe.getAttribute('style')).toBeNull();
-    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-      oldIframe.contentWindow.scrollX,
-      oldIframe.contentWindow.scrollY,
-    );
+    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
+      top: oldIframe.contentWindow.scrollY,
+      left: oldIframe.contentWindow.scrollX,
+      behavior: 'instant',
+    });
 
     // Clear the fetch call history
     fetch.mockClear();
@@ -443,10 +448,11 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-        oldIframe.contentWindow.scrollX,
-        oldIframe.contentWindow.scrollY,
-      );
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: oldIframe.contentWindow.scrollY,
+        left: oldIframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
 
       // Should set the device width property to the selected size (the default)
       const element = document.querySelector('[data-controller="w-preview"]');
@@ -564,10 +570,11 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-        oldIframe.contentWindow.scrollX,
-        oldIframe.contentWindow.scrollY,
-      );
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: oldIframe.contentWindow.scrollY,
+        left: oldIframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
 
       // Should set the has-errors class on the controlled element
       expect(element.classList).toContain('w-preview--has-errors');
@@ -715,10 +722,11 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-        oldIframe.contentWindow.scrollX,
-        oldIframe.contentWindow.scrollY,
-      );
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: oldIframe.contentWindow.scrollY,
+        left: oldIframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
 
       // Should set the has-errors class on the controlled element
       expect(element.classList).toContain('w-preview--has-errors');
@@ -915,10 +923,11 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith(
-        oldIframe.contentWindow.scrollX,
-        oldIframe.contentWindow.scrollY,
-      );
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: oldIframe.contentWindow.scrollY,
+        left: oldIframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
       // The spinner should be hidden after the iframe loads
       expect(spinnerElement.hidden).toBe(true);
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,63 +22,63 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:55
+#: forms.py:56
 msgid "Required. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:60
+#: forms.py:61
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:86
+#: forms.py:87
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:87
+#: forms.py:88
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:90
+#: forms.py:91
 msgid "Email"
 msgstr ""
 
-#: forms.py:91
+#: forms.py:92
 msgid "First Name"
 msgstr ""
 
-#: forms.py:92
+#: forms.py:93
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:95
+#: forms.py:96
 msgid "Password"
 msgstr ""
 
-#: forms.py:98
+#: forms.py:99
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:102
+#: forms.py:103
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:105
+#: forms.py:106
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:110 forms.py:247 views/users.py:110
+#: forms.py:111 forms.py:248 views/users.py:110
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:113 forms.py:249
+#: forms.py:114 forms.py:250
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:243
+#: forms.py:244
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:378
+#: forms.py:371
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
@@ -400,7 +400,7 @@ msgstr ""
 msgid "Can view"
 msgstr ""
 
-#: utils.py:53
+#: utils.py:85
 #, python-format
 msgid "user %(id)s (deleted)"
 msgstr ""

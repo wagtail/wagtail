@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic.base import View
@@ -24,7 +25,13 @@ from wagtail.admin.ui.side_panels import (
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
-from wagtail.models import Locale, Page, PageSubscription
+from wagtail.models import (
+    BaseViewRestriction,
+    Locale,
+    Page,
+    PageSubscription,
+    PageViewRestriction,
+)
 
 
 def add_subpage(request, parent_page_id):
@@ -144,25 +151,40 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             parent_page=self.parent_page,
             for_user=self.request.user,
         )
+        if self.action_name == "save":
+            self.form.defer_required_fields()
 
         if self.form.is_valid():
             return self.form_valid(self.form)
         else:
+            self.form.restore_required_fields()
             return self.form_invalid(self.form)
 
-    def form_valid(self, form):
+    @cached_property
+    def action_name_and_method(self):
         if (
             bool(self.request.POST.get("action-publish"))
             and self.parent_page_perms.can_publish_subpage()
         ):
-            return self.publish_action()
+            return ("publish", self.publish_action)
         elif (
             bool(self.request.POST.get("action-submit"))
             and self.parent_page.has_workflow
         ):
-            return self.submit_action()
+            return ("submit", self.submit_action)
         else:
-            return self.save_action()
+            return ("save", self.save_action)
+
+    @property
+    def action_name(self):
+        return self.action_name_and_method[0]
+
+    @property
+    def action_method(self):
+        return self.action_name_and_method[1]
+
+    def form_valid(self, form):
+        return self.action_method()
 
     def get_page_subtitle(self):
         return self.page_class.get_verbose_name()
@@ -182,6 +204,37 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
     def get_view_live_message_button(self):
         return messages.button(self.page.url, _("View live"), new_window=False)
 
+    def set_default_privacy_setting(self):
+        # privacy setting options BaseViewRestriction.RESTRICTION_CHOICES
+        default_privacy_setting = self.page.get_default_privacy_setting(self.request)
+
+        if default_privacy_setting["type"] == BaseViewRestriction.NONE:
+            # default privacy setting is public no need to do anything
+            pass
+        elif default_privacy_setting["type"] == BaseViewRestriction.LOGIN:
+            PageViewRestriction.objects.create(
+                page=self.page,
+                restriction_type=BaseViewRestriction.LOGIN,
+            )
+        elif default_privacy_setting["type"] == BaseViewRestriction.PASSWORD:
+            PageViewRestriction.objects.create(
+                page=self.page,
+                restriction_type=BaseViewRestriction.PASSWORD,
+                password=default_privacy_setting["password"],
+            )
+        elif default_privacy_setting["type"] == BaseViewRestriction.GROUPS:
+            # Create a page view restriction for groups
+            groups_page_restriction = PageViewRestriction.objects.create(
+                page=self.page,
+                restriction_type=BaseViewRestriction.GROUPS,
+            )
+            # add groups to the page view restriction
+            groups_page_restriction.groups.set(default_privacy_setting["groups"])
+        else:
+            raise ValueError(
+                f"Invalid privacy setting {default_privacy_setting.get('type')!r}"
+            )
+
     def save_action(self):
         self.page = self.form.save(commit=False)
         self.page.live = False
@@ -189,8 +242,11 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         # Save page
         self.parent_page.add_child(instance=self.page)
 
+        # Set page privacy setting
+        self.set_default_privacy_setting()
+
         # Save revision
-        self.page.save_revision(user=self.request.user, log_action=True)
+        self.page.save_revision(user=self.request.user, log_action=True, clean=False)
 
         # Save subscription settings
         self.subscription.page = self.page
@@ -215,6 +271,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         # Save page
         self.parent_page.add_child(instance=self.page)
+
+        # Set page privacy setting
+        self.set_default_privacy_setting()
 
         # Save revision
         revision = self.page.save_revision(user=self.request.user, log_action=True)
@@ -269,6 +328,9 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
 
         # Save page
         self.parent_page.add_child(instance=self.page)
+
+        # Set page privacy setting
+        self.set_default_privacy_setting()
 
         # Save revision
         self.page.save_revision(user=self.request.user, log_action=True)

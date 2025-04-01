@@ -5,6 +5,7 @@ page types, it can be difficult to construct this data structure by hand;
 the ``wagtail.test.utils.form_data`` module provides a set of helper
 functions to assist with this.
 """
+
 import bs4
 from django.http import QueryDict
 

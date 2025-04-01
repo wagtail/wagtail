@@ -71,7 +71,6 @@ Instead of
 ```
 ````
 
-
 (multiFieldPanel)=
 
 ### MultiFieldPanel

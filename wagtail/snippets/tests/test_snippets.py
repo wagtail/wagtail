@@ -354,12 +354,15 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             self.assertEqual(user, self.user)
             self.assertEqual(context, {})
 
-        with hooks.register_temporarily(
-            "construct_snippet_listing_buttons",
-            register_snippet_listing_button_item,
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "construct_snippet_listing_buttons hook no longer accepts a context argument",
+        with (
+            hooks.register_temporarily(
+                "construct_snippet_listing_buttons",
+                register_snippet_listing_button_item,
+            ),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "construct_snippet_listing_buttons hook no longer accepts a context argument",
+            ),
         ):
             response = self.get()
 
@@ -405,6 +408,55 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
             <a href="{edit_url}">
                 <span id="snippet_{quote(snippet.pk)}_title">
                     Draft-enabled Bar, In Draft
+                </span>
+            </a>
+            """,
+            html=True,
+        )
+
+    def test_use_fallback_for_blank_string_representation(self):
+        snippet = DraftStateModel.objects.create(text="", live=False)
+
+        response = self.client.get(
+            reverse("wagtailsnippets_tests_draftstatemodel:list"),
+        )
+
+        edit_url = reverse(
+            "wagtailsnippets_tests_draftstatemodel:edit",
+            args=[quote(snippet.pk)],
+        )
+        title = f"DraftStateModel object ({snippet.pk})"
+
+        self.assertContains(
+            response,
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    {title}
+                </span>
+            </a>
+            """,
+            html=True,
+        )
+
+    def test_use_fallback_for_blank_title_field(self):
+        # FullFeaturedSnippet's listing view uses the "text" field as the title column,
+        # rather than the str() representation. If this is blank, we show "(blank)" so that
+        # there is something to click on
+        snippet = FullFeaturedSnippet.objects.create(text="", live=False)
+        response = self.client.get(
+            reverse("some_namespace:list"),
+        )
+        edit_url = reverse(
+            "some_namespace:edit",
+            args=[quote(snippet.pk)],
+        )
+        self.assertContains(
+            response,
+            f"""
+            <a href="{edit_url}">
+                <span id="snippet_{quote(snippet.pk)}_title">
+                    (blank)
                 </span>
             </a>
             """,
@@ -536,8 +588,10 @@ class TestListViewOrdering(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         for i in range(1, 10):
-            advert = Advert.objects.create(text=f"{i*'a'}dvert {i}")
-            draft = DraftStateModel.objects.create(text=f"{i*'d'}raft {i}", live=False)
+            advert = Advert.objects.create(text=f"{i * 'a'}dvert {i}")
+            draft = DraftStateModel.objects.create(
+                text=f"{i * 'd'}raft {i}", live=False
+            )
             if i % 2 == 0:
                 ModelLogEntry.objects.create(
                     content_type=ContentType.objects.get_for_model(Advert),
@@ -1320,6 +1374,64 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         # The revision content should contain the data
         self.assertEqual(snippet.latest_revision.content["text"], "Draft-enabled Foo")
 
+        # A log entry should be created
+        log_entry = ModelLogEntry.objects.for_instance(snippet).get(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entry.revision, snippet.latest_revision)
+        self.assertEqual(log_entry.label, "Draft-enabled Foo")
+
+    def test_create_skips_validation_when_saving_draft(self):
+        response = self.post(post_data={"text": ""})
+        snippet = DraftStateModel.objects.get(text="")
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "wagtailsnippets_tests_draftstatemodel:edit", args=[quote(snippet.pk)]
+            ),
+        )
+
+        self.assertFalse(snippet.live)
+
+        # A log entry should be created (with a fallback label)
+        log_entry = ModelLogEntry.objects.for_instance(snippet).get(
+            action="wagtail.create"
+        )
+        self.assertEqual(log_entry.revision, snippet.latest_revision)
+        self.assertEqual(log_entry.label, f"DraftStateModel object ({snippet.pk})")
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        response = self.client.post(
+            reverse("some_namespace:add"),
+            {"text": "", "country_code": "UK", "some_number": "meef"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # The empty text should not cause a validation error, but the invalid number should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a whole number.", count=1)
+
+        soup = self.get_soup(response.content)
+        self.assertTrue(soup.select_one('label[for="id_text"] > span.w-required-mark'))
+
+    def test_create_will_not_publish_invalid_snippet(self):
+        response = self.post(
+            post_data={"text": "", "action-publish": "Publish"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, "The draft state model could not be created due to errors."
+        )
+
+        snippets = DraftStateModel.objects.filter(text="")
+        self.assertEqual(snippets.count(), 0)
+
     def test_publish(self):
         # Connect a mock signal handler to published signal
         mock_handler = mock.MagicMock()
@@ -1972,12 +2084,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             return DeleteMenuItem(order=900)
 
         get_base_snippet_action_menu_items.cache_clear()
-        with self.register_hook(
-            "register_snippet_action_menu_item", hook_func
-        ), self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "DeleteMenuItem is deprecated. "
-            "The delete option is now provided via EditView.get_header_more_buttons().",
+        with (
+            self.register_hook("register_snippet_action_menu_item", hook_func),
+            self.assertWarnsMessage(
+                RemovedInWagtail70Warning,
+                "DeleteMenuItem is deprecated. "
+                "The delete option is now provided via EditView.get_header_more_buttons().",
+            ),
         ):
             response = self.get()
 
@@ -1989,7 +2102,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         )
         self.assertContains(
             response,
-            f'<a class="button" href="{ delete_url }"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
+            f'<a class="button" href="{delete_url}"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
             html=True,
         )
 
@@ -2231,6 +2344,108 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         # The revision content should contain the new data
         self.assertEqual(latest_revision.content["text"], "Draft-enabled Bar")
+
+        # A log entry should be created
+        log_entry = (
+            ModelLogEntry.objects.for_instance(self.test_snippet)
+            .filter(action="wagtail.edit")
+            .order_by("-timestamp")
+            .first()
+        )
+        self.assertEqual(log_entry.revision, self.test_snippet.latest_revision)
+        self.assertEqual(log_entry.label, "Draft-enabled Bar")
+
+    def test_skip_validation_on_save_draft(self):
+        response = self.post(post_data={"text": ""})
+        self.test_snippet.refresh_from_db()
+        revisions = Revision.objects.for_instance(self.test_snippet)
+        latest_revision = self.test_snippet.latest_revision
+
+        self.assertRedirects(response, self.get_edit_url())
+
+        # The instance should be updated, since it is still a draft
+        self.assertEqual(self.test_snippet.text, "")
+
+        # The instance should be a draft
+        self.assertFalse(self.test_snippet.live)
+        self.assertTrue(self.test_snippet.has_unpublished_changes)
+        self.assertIsNone(self.test_snippet.first_published_at)
+        self.assertIsNone(self.test_snippet.last_published_at)
+        self.assertIsNone(self.test_snippet.live_revision)
+
+        # The revision should be created and set as latest_revision
+        self.assertEqual(revisions.count(), 1)
+        self.assertEqual(latest_revision, revisions.first())
+
+        # The revision content should contain the new data
+        self.assertEqual(latest_revision.content["text"], "")
+
+        # A log entry should be created (with a fallback label)
+        log_entry = (
+            ModelLogEntry.objects.for_instance(self.test_snippet)
+            .filter(action="wagtail.edit")
+            .order_by("-timestamp")
+            .first()
+        )
+        self.assertEqual(log_entry.revision, self.test_snippet.latest_revision)
+        self.assertEqual(
+            log_entry.label,
+            f"DraftStateCustomPrimaryKeyModel object ({self.test_snippet.pk})",
+        )
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        snippet = FullFeaturedSnippet.objects.create(
+            text="Hello world",
+            country_code="UK",
+            some_number=42,
+        )
+        response = self.client.post(
+            reverse("some_namespace:edit", args=[snippet.pk]),
+            {"text": "", "country_code": "UK", "some_number": "meef"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # The empty text should not cause a validation error, but the invalid number should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a whole number.", count=1)
+
+        soup = self.get_soup(response.content)
+        self.assertTrue(soup.select_one('label[for="id_text"] > span.w-required-mark'))
+
+    def test_cannot_publish_invalid(self):
+        # Connect a mock signal handler to published signal
+        mock_handler = mock.MagicMock()
+        published.connect(mock_handler)
+
+        try:
+            response = self.post(
+                post_data={
+                    "text": "",
+                    "action-publish": "action-publish",
+                }
+            )
+
+            self.test_snippet.refresh_from_db()
+
+            self.assertEqual(response.status_code, 200)
+            self.assertContains(
+                response,
+                "The draft state custom primary key model could not be saved due to errors.",
+            )
+
+            # The instance should be unchanged
+            self.assertEqual(self.test_snippet.text, "Draft-enabled Foo")
+            self.assertFalse(self.test_snippet.live)
+
+            # The published signal should not have been fired
+            self.assertEqual(mock_handler.call_count, 0)
+        finally:
+            published.disconnect(mock_handler)
 
     def test_publish(self):
         # Connect a mock signal handler to published signal
@@ -3508,6 +3723,25 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         )
         self.assertSchedulingDialogRendered(response)
 
+    def test_use_fallback_for_blank_string_representation(self):
+        self.snippet = DraftStateModel.objects.create(text="", live=False)
+
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets_tests_draftstatemodel:edit",
+                args=[quote(self.snippet.pk)],
+            ),
+        )
+
+        title = f"DraftStateModel object ({self.snippet.pk})"
+
+        soup = self.get_soup(response.content)
+        h2 = soup.select_one("#header-title")
+        self.assertEqual(h2.text.strip(), title)
+
+        sublabel = soup.select_one(".w-breadcrumbs li:last-of-type")
+        self.assertEqual(sublabel.get_text(strip=True), title)
+
 
 class TestScheduledForPublishLock(BaseTestSnippetEditView):
     def setUp(self):
@@ -4129,9 +4363,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertContains(response, delete_url)
 
     def test_delete_get_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -4186,9 +4421,10 @@ class TestSnippetDelete(WagtailTestUtils, TestCase):
         self.assertEqual(Advert.objects.filter(text="test_advert").count(), 0)
 
     def test_delete_post_with_protected_reference(self):
-        VariousOnDeleteModel.objects.create(
-            text="Undeletable", on_delete_protect=self.test_snippet
-        )
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable", on_delete_protect=self.test_snippet
+            )
         delete_url = reverse(
             "wagtailsnippets_tests_advert:delete",
             args=[quote(self.test_snippet.pk)],
@@ -5522,7 +5758,11 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
     def test_adapt(self):
-        block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
+        block = SnippetChooserBlock(
+            Advert,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the sidebar.",
+        )
 
         block.set_name("test_snippetchooserblock")
         js_args = FieldBlockAdapter().js_args(block)
@@ -5534,8 +5774,11 @@ class TestSnippetChooserBlock(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the sidebar.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -5829,7 +6072,9 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
 
     def test_adapt(self):
         block = SnippetChooserBlock(
-            AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert"
+            AdvertWithCustomPrimaryKey,
+            help_text="pick an advert, any advert",
+            description="An advert to be displayed on the footer.",
         )
 
         block.set_name("test_snippetchooserblock")
@@ -5842,8 +6087,11 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
             js_args[2],
             {
                 "label": "Test snippetchooserblock",
+                "description": "An advert to be displayed on the footer.",
                 "required": True,
                 "icon": "snippet",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
                 "helpText": "pick an advert, any advert",
                 "classname": "w-field w-field--model_choice_field w-field--admin_snippet_chooser",
                 "showAddCommentButton": True,
@@ -6041,7 +6289,7 @@ class TestPanelConfigurationChecks(WagtailTestUtils, TestCase):
 
         warning = checks.Warning(
             "StandardSnippet.content_panels will have no effect on snippets editing",
-            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels`\
+            hint="""Ensure that StandardSnippet uses `panels` instead of `content_panels` \
 or set up an `edit_handler` if you want a tabbed editing interface.
 There are no default tabs on non-Page models so there will be no\
  Content tab for the content_panels to render in.""",

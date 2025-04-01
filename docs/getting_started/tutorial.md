@@ -38,7 +38,9 @@ This tutorial uses [`venv`](inv:python#tutorial/venv), which is packaged with Py
 ```doscon
 py -m venv mysite\env
 ```
+
 Activate this virtual environment using:
+
 ```doscon
 mysite\env\Scripts\activate.bat
 
@@ -49,14 +51,18 @@ mysite\env\Scripts\activate
 
 **On GNU/Linux or MacOS** (bash):
 
-Create the virtual environment using:  
+Create the virtual environment using:
+
 ```sh
 python -m venv mysite/env
 ```
+
 Activate the virtual environment using:
+
 ```sh
 source mysite/env/bin/activate
 ```
+
 Upon activation, your command line will show `(env)` to indicate that you're now working within this virtual environment.
 
 **For other shells** see the [`venv` documentation](inv:python#tutorial/venv).
@@ -566,7 +572,7 @@ class BlogPage(Page):
 
         # Add this
          "gallery_images",
-        ] 
+        ]
 
 
 class BlogPageGalleryImage(Orderable):
@@ -737,7 +743,7 @@ class BlogPage(Page):
     ]
 ```
 
-Here you have used the  `MultiFieldPanel` in `content_panels` to group  the `date` and `authors` fields together for readability. By doing this, you are creating a single panel object that encapsulates multiple fields within a list or tuple into a single `heading` string. This feature is particularly useful for organizing related fields in the admin interface, making the UI more intuitive for content editors.
+Here you have used the  `MultiFieldPanel` in `content_panels` to group the `date` and `authors` fields together for readability. By doing this, you are creating a single panel object that encapsulates multiple fields within a list or tuple into a single `heading` string. This feature is particularly useful for organizing related fields in the admin interface, making the UI more intuitive for content editors.
 
 Migrate your database by running `python manage.py makemigrations` and `python manage.py migrate`, and then go to your [admin interface](https://guide.wagtail.org/en-latest/concepts/wagtail-interfaces/#admin-interface) . Notice that the list of authors is presented as a multiple select box. This is the default representation for a multiple choice field - however, users often find a set of checkboxes to be more familiar and easier to work with.
 

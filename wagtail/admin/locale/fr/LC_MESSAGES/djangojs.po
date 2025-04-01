@@ -5,12 +5,12 @@
 # incognitae <pierre@onoffdesign.com>, 2022
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2022
 # Aurélien Debord <contact@aureliendebord.com>, 2022
-# Loic Teixeira, 2024
 # Sébastien Corbin <seb.corbin@gmail.com>, 2024
+# Loic Teixeira, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2024\n"
+"Last-Translator: Loic Teixeira, 2025\n"
 "Language-Team: French (https://app.transifex.com/torchbox/teams/8009/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fr\n"
@@ -146,6 +146,9 @@ msgstr "Pages"
 
 msgid "Pin toolbar"
 msgstr "Épingler la barre d'outils"
+
+msgid "Preview"
+msgstr "Prévisualiser"
 
 msgid "Reload saved content"
 msgstr "Recharger le contenu enregistré"

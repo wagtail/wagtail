@@ -56,6 +56,9 @@ class DatabaseSearchQueryCompiler(BaseSearchQueryCompiler):
             **{field.get_attname(self.queryset.model) + "__" + lookup: value}
         )
 
+    def _process_match_none(self):
+        return models.Q(pk__in=[])
+
     def _connect_filters(self, filters, connector, negated):
         if connector == "AND":
             q = models.Q(*filters)

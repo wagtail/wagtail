@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -37,6 +37,9 @@ msgstr "위로 이동"
 
 msgid "Move down"
 msgstr "아래로 이동"
+
+msgid "Drag"
+msgstr "끌기"
 
 msgid "Delete"
 msgstr "삭제"
@@ -181,6 +184,12 @@ msgstr "이 페이지에 대한 링크가 자동적으로 생성된 메뉴에 �
 
 msgid "latest revision created at"
 msgstr "최근 수정안 작성일:"
+
+msgid "For search engines"
+msgstr "엔진을 검색하기 위해"
+
+msgid "For site menus"
+msgstr "메뉴를 배치하기 위해"
 
 msgid "page"
 msgstr "페이지"

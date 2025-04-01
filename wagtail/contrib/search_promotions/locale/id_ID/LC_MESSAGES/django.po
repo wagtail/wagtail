@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>, 2018\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -49,18 +49,9 @@ msgstr "deskripsi"
 msgid "search promotion"
 msgstr "promosi pencarian"
 
-msgid "Add search promotion"
-msgstr "Tambah promosi pencarian"
-
-msgid "Add search pick"
-msgstr "Tambah pilihan pencarian"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Hapus %(query)s"
-
-msgid "Delete"
-msgstr "Hapus"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -68,21 +59,17 @@ msgstr ""
 "Apakah anda yakin untuk menghapus semua hasil terpromosi untuk kata kunci "
 "pencarian ini?"
 
-msgid "Yes, delete"
-msgstr "Ya, hapus"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Mengubah %(query)s"
-
-msgid "Editing"
-msgstr "Mengubah"
-
 msgid "Move up"
 msgstr "Geser ke atas"
 
 msgid "Move down"
 msgstr "Geser ke bawah"
+
+msgid "Drag"
+msgstr "Seret"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Promoted search results"
 msgstr "Hasil pencarian terpromosi"
@@ -125,24 +112,24 @@ msgstr "Tautan luar"
 msgid "None"
 msgstr "Tidak ada"
 
-msgid "Search Terms"
-msgstr "Kata kunci pencarian"
-
-msgid "Add new promoted result"
-msgstr "Tambah hasil terpromosi baru"
+msgid "Date"
+msgstr "Tanggal"
 
 msgid "Search term(s)"
 msgstr "Kata kunci pencarian()"
 
+msgid "Add new promoted result"
+msgstr "Tambah hasil terpromosi baru"
+
 msgid "Promoted results"
 msgstr "Hasil terpromosi"
+
+msgid "Promoted search result"
+msgstr "Hasil pencarian terpromosi"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Pilihan editor untuk '%(query)s' telah dibuat."
-
-msgid "Edit"
-msgstr "Ubah"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendasi tidak dapat dibuat karena suatu kesalahan."

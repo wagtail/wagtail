@@ -7,7 +7,7 @@ from django.utils.text import capfirst
 
 from wagtail.admin import compare
 
-from .base import Panel
+from .base import Panel, get_form_for_model
 from .group import MultiFieldPanel
 from .model_utils import extract_panel_definitions_from_model_class
 
@@ -61,17 +61,32 @@ class InlinePanel(Panel):
 
     def get_form_options(self):
         child_form_opts = self.child_edit_handler.get_form_options()
+
+        formset_opts = {
+            "fields": child_form_opts.get("fields", []),
+            "widgets": child_form_opts.get("widgets", {}),
+            "min_num": self.min_num,
+            "validate_min": self.min_num is not None,
+            "max_num": self.max_num,
+            "validate_max": self.max_num is not None,
+            "formsets": child_form_opts.get("formsets"),
+        }
+
+        defer_required_on_fields = child_form_opts.get("defer_required_on_fields")
+        if defer_required_on_fields:
+            # Options inside `formsets` are processed by django-modelcluster's
+            # ClusterForm, which doesn't recognise the `defer_required_on_fields`
+            # option. Instead, we'll use get_form_for_model to build a form class
+            # with that option baked in, and pass that as the `form` option.
+            base_form = get_form_for_model(
+                self.db_field.related_model,
+                defer_required_on_fields=defer_required_on_fields,
+            )
+            formset_opts["form"] = base_form
+
         return {
             "formsets": {
-                self.relation_name: {
-                    "fields": child_form_opts.get("fields", []),
-                    "widgets": child_form_opts.get("widgets", {}),
-                    "min_num": self.min_num,
-                    "validate_min": self.min_num is not None,
-                    "max_num": self.max_num,
-                    "validate_max": self.max_num is not None,
-                    "formsets": child_form_opts.get("formsets"),
-                }
+                self.relation_name: formset_opts,
             }
         }
 
@@ -105,7 +120,9 @@ class InlinePanel(Panel):
 
                 # ditto for the ORDER field, if present
                 if self.formset.can_order:
-                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
+                        attrs={"value": index + 1}
+                    )
 
                 self.children.append(
                     self.child_edit_handler.get_bound_panel(

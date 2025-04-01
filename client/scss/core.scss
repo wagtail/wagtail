@@ -33,22 +33,22 @@ BEM: https://getbem.com/
 /* Legacy vendor styles. Do not add new styles here. */
 @use 'generic/normalize';
 @use 'vendor/jquery-ui-1.10.3.verdant';
-@use 'vendor/jquery.tagit' as tagit;
-@use 'vendor/jquery.Jcrop.min' as jcrop;
+@use 'vendor/jquery.tagit' as jquery-tagit;
+@use 'vendor/jquery.Jcrop.min' as jquery-jcrop;
 
 /* SETTINGS
 These are variables, maps, and fonts.
 * No CSS should be produced by these files
 */
 
-@import 'settings';
+@use 'settings';
 
 /* TOOLS
 These are functions and mixins.
 * No CSS should be produced by these files.
 */
 
-@import 'tools';
+@use 'tools';
 
 /* GENERIC
 This is for resets and other rules that affect large collections of bare elements.
@@ -60,14 +60,9 @@ These are base styles for bare HTML elements.
 * Changes to them should be very rare.
 */
 
-// These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
-// Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
-// https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
-@tailwind base;
-@tailwind components;
-@import 'elements/elements';
-@import 'elements/typography';
-@import 'elements/forms';
+@use 'elements/elements';
+@use 'elements/typography';
+@use 'elements/forms';
 
 /* COMPONENTS
 These are classes for components.
@@ -76,81 +71,87 @@ These are classes for components.
   which is the preferred pattern over housing them in the scss folder.
 */
 
-@import '../src/components/Transition/Transition';
-@import '../src/components/LoadingSpinner/LoadingSpinner';
-@import '../src/components/PublicationStatus/PublicationStatus';
-@import '../src/components/ComboBox/ComboBox';
-@import '../src/components/PageExplorer/PageExplorer';
-@import '../src/components/CommentApp/main';
+@use '../src/components/Transition/Transition';
+@use '../src/components/LoadingSpinner/LoadingSpinner';
+@use '../src/components/PublicationStatus/PublicationStatus';
+@use '../src/components/ComboBox/ComboBox';
+@use '../src/components/ComboBoxPreview/ComboBoxPreview';
+@use '../src/components/PageExplorer/PageExplorer';
+@use '../src/components/CommentApp/main';
 
-@import 'components/avatar';
-@import 'components/icons';
-@import 'components/forms/input-base';
-@import 'components/forms/input-text';
-@import 'components/forms/radio-checkbox';
-@import 'components/forms/select';
-@import 'components/forms/tagit';
-@import 'components/forms/radio-checkbox-multiple';
-@import 'components/forms/error-message';
-@import 'components/forms/required-mark';
-@import 'components/forms/help';
-@import 'components/forms/drop-zone';
-@import 'components/forms/daterange';
-@import 'components/forms/file';
-@import 'components/forms/publishing';
-@import 'components/forms/switch';
-@import 'components/forms/title';
-@import 'components/forms/field';
-@import 'components/forms/field-row';
-@import 'components/forms/field-comment-control';
-@import 'components/forms/field-textoutput';
-@import 'components/forms/form-width';
-@import 'components/forms/nested-panel';
-@import 'components/tabs';
-@import 'components/panel';
-@import 'components/dialog';
-@import 'components/dismissible';
-@import 'components/drilldown';
-@import 'components/dropdown';
-@import 'components/dropdown-button';
-@import 'components/help-block';
-@import 'components/button';
-@import 'components/keyboard-shortcuts';
-@import 'components/modals';
-@import 'components/chooser';
-@import 'components/tag';
-@import 'components/listing';
-@import 'components/filters';
-@import 'components/messages';
-@import 'components/messages.capability';
-@import 'components/messages.status';
-@import 'components/header';
-@import 'components/progressbar';
-@import 'components/summary';
-@import 'components/whats-new';
-@import 'components/grid.legacy';
-@import 'components/footer';
-@import 'components/loading-mask';
-@import 'components/human-readable-date';
-@import 'components/link.legacy';
-@import 'components/indicator';
-@import 'components/status-tag';
-@import 'components/skiplink';
-@import 'components/workflow-tasks';
-@import 'components/workflow-timeline';
-@import 'components/bulk_actions';
-@import 'components/preview-panel';
-@import 'components/preview-error';
-@import 'components/form-side';
-@import 'components/a11y-result';
-@import 'components/userbar';
-@import 'components/breadcrumbs';
-@import 'components/pill';
-@import 'components/ping';
-@import 'components/editing-sessions';
+@use 'components/avatar';
+@use 'components/icons';
+@use 'components/forms/input-base';
+@use 'components/forms/input-text';
+@use 'components/forms/radio-checkbox';
+@use 'components/forms/select';
+@use 'components/forms/tagit';
+@use 'components/forms/radio-checkbox-multiple';
+@use 'components/forms/error-message';
+@use 'components/forms/required-mark';
+@use 'components/forms/help';
+@use 'components/forms/drop-zone';
+@use 'components/forms/daterange';
+@use 'components/forms/file';
+@use 'components/forms/publishing';
+@use 'components/forms/switch';
+@use 'components/forms/title';
+@use 'components/forms/field';
+@use 'components/forms/field-row';
+@use 'components/forms/field-comment-control';
+@use 'components/forms/field-textoutput';
+@use 'components/forms/form-width';
+@use 'components/forms/nested-panel';
+@use 'components/tabs';
+@use 'components/panel';
+@use 'components/dialog';
+@use 'components/dismissible';
+@use 'components/drilldown';
+@use 'components/dropdown';
+@use 'components/dropdown-button';
+@use 'components/help-block';
+@use 'components/button';
+@use 'components/keyboard-shortcuts';
+@use 'components/modals';
+@use 'components/chooser';
+@use 'components/tag';
+@use 'components/listing';
+@use 'components/filters';
+@use 'components/messages';
+@use 'components/messages.capability' as messages-capability;
+@use 'components/messages.status' as messages-status;
+@use 'components/header';
+@use 'components/progressbar';
+@use 'components/summary';
+@use 'components/whats-new';
+@use 'components/grid.legacy';
+@use 'components/footer';
+@use 'components/loading-mask';
+@use 'components/human-readable-date';
+@use 'components/link.legacy';
+@use 'components/indicator';
+@use 'components/status-tag';
+@use 'components/skiplink';
+@use 'components/workflow-tasks';
+@use 'components/workflow-timeline';
+@use 'components/bulk_actions';
+@use 'components/preview-panel';
+@use 'components/preview-error';
+@use 'components/form-side';
+@use 'components/a11y-result';
+@use 'components/userbar';
+@use 'components/breadcrumbs';
+@use 'components/pill';
+@use 'components/ping';
+@use 'components/editing-sessions';
 
-@import '../src/components/Sidebar/Sidebar';
-@import '../src/components/Minimap/Minimap';
+@use '../src/components/Sidebar/Sidebar';
+@use '../src/components/Sidebar/SidebarPanel';
+@use '../src/components/Sidebar/menu/MenuItem';
+@use '../src/components/Sidebar/menu/SubMenuItem';
+@use '../src/components/Sidebar/modules/MainMenu';
+@use '../src/components/Sidebar/modules/WagtailBranding';
+@use '../src/components/Minimap/Minimap';
 
 /* OVERRIDES
 These are classes that provide overrides.
@@ -158,29 +159,28 @@ These are classes that provide overrides.
 */
 
 // VENDOR: overrides of vendor styles.
-@import 'overrides/vendor.datetimepicker';
-@import 'overrides/vendor.handsontable';
-@import 'overrides/vendor.tagit';
-@import 'overrides/vendor.tippy';
+@use 'overrides/vendor.datetimepicker' as vendor-datetimepicker;
+@use 'overrides/vendor.handsontable' as vendor-handsontable;
+@use 'overrides/vendor.tagit' as vendor-tagit;
+@use 'overrides/vendor.tippy' as vendor-tippy;
 
 // UTILITIES: classes that do one simple thing.
-@import 'overrides/utilities.focus';
+@use 'overrides/utilities.focus' as utilities-focus;
 
 // Legacy utilities
-@import 'overrides/utilities.legacy';
-
+@use 'overrides/utilities.legacy' as utilities-legacy;
 // TAILWIND: This is at the bottom so it can take precedence over other css classes
-@tailwind utilities;
+@use 'overrides/utilities.tailwind' as utilities-tailwind;
 
 /* Legacy layout-specific styles. Do not add new styles here. */
 
-@import 'layouts/404';
-@import 'layouts/compare-revisions';
-@import 'layouts/login';
-@import 'layouts/account';
-@import 'layouts/workflow-progress';
-@import 'layouts/report';
-@import 'layouts/add-multiple';
-@import 'layouts/chooser-duplicate-upload';
-@import 'layouts/focal-point-chooser';
-@import 'layouts/redirects';
+@use 'layouts/404' as layout-404;
+@use 'layouts/compare-revisions';
+@use 'layouts/login';
+@use 'layouts/account';
+@use 'layouts/workflow-progress';
+@use 'layouts/report';
+@use 'layouts/add-multiple';
+@use 'layouts/chooser-duplicate-upload';
+@use 'layouts/focal-point-chooser';
+@use 'layouts/redirects';

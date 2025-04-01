@@ -9,6 +9,7 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTable,
     TypedTableBlock,
+    TypedTableBlockAdapter,
     TypedTableBlockValidationError,
 )
 
@@ -161,6 +162,33 @@ class TestTableBlock(TestCase):
             ["fr", "68000000", "A large country with baguettes"],
         )
 
+    def test_normalize(self):
+        # Should be able to handle JSONish data from the database, which can be
+        # useful when defining a default value for a TypedTableBlock
+        table = self.block.normalize(self.db_data)
+        self.assertEqual(table.caption, "Countries and their food")
+        self.assertIsInstance(table, TypedTable)
+        self.assertEqual(len(table.columns), 2)
+        self.assertEqual(table.columns[0]["heading"], "Country")
+        self.assertEqual(table.columns[1]["heading"], "Description")
+        rows = list(table.rows)
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(
+            [block.value for block in rows[0]],
+            ["nl", "A small country with stroopwafels"],
+        )
+        self.assertEqual(
+            [block.value for block in rows[1]], ["fr", "A large country with baguettes"]
+        )
+
+        # For a TypedTable instance, normalize should return the instance as-is
+        normalized_table = self.block.normalize(table)
+        self.assertIs(normalized_table, table)
+
+        # Should normalize None as-is
+        none_value = self.block.normalize(None)
+        self.assertIs(none_value, None)
+
     def test_to_python(self):
         """
         Test that we can turn JSONish data from the database into a TypedTable instance
@@ -222,6 +250,38 @@ class TestTableBlock(TestCase):
         self.assertIn('<th scope="col">Country</th>', html)
         # rendering should use the block renderings of the child blocks ('FR' not 'fr')
         self.assertIn("<td>FR</td>", html)
+
+    def test_adapt(self):
+        block = TypedTableBlock(description="A table of countries and their food")
+
+        block.set_name("test_typedtableblock")
+        js_args = TypedTableBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_typedtableblock")
+        self.assertEqual(
+            js_args[-1],
+            {
+                "label": "Test typedtableblock",
+                "description": "A table of countries and their food",
+                "required": False,
+                "icon": "table",
+                "blockDefId": block.definition_prefix,
+                "isPreviewable": block.is_previewable,
+                "strings": {
+                    "CAPTION": "Caption",
+                    "CAPTION_HELP_TEXT": (
+                        "A heading that identifies the overall topic of the table, and is useful for screen reader users."
+                    ),
+                    "ADD_COLUMN": "Add column",
+                    "ADD_ROW": "Add row",
+                    "COLUMN_HEADING": "Column heading",
+                    "INSERT_COLUMN": "Insert column",
+                    "DELETE_COLUMN": "Delete column",
+                    "INSERT_ROW": "Insert row",
+                    "DELETE_ROW": "Delete row",
+                },
+            },
+        )
 
     def test_validation_error_as_json(self):
         error = TypedTableBlockValidationError(

@@ -9,6 +9,7 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="noindex" />
+        <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
 
         {% block css %}{% endblock %}
 
@@ -32,7 +33,7 @@
 
         {% block js %}{% endblock %}
 
-        <a class="skiplink button" href="#main" data-controller="w-skip-link" data-action="w-skip-link#skip">{% trans 'Skip to main content' %}</a>
+        <a class="skiplink button" href="#main" data-controller="w-focus" data-action="w-focus#focus:prevent">{% trans 'Skip to main content' %}</a>
 
         <div class="wrapper">
             {% block furniture %}{% endblock %}

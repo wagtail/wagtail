@@ -793,13 +793,14 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
     def test_decorated_queryset(self):
         # Ensure that decorate_paginated_queryset is only called with the queryset for the current
         # page, instead of all objects over all pages.
-        with mock.patch.object(
-            LogEntriesView,
-            "decorate_paginated_queryset",
-            side_effect=LogEntriesView.decorate_paginated_queryset,
-            autospec=True,
-        ) as decorate_paginated_queryset, mock.patch.object(
-            LogEntriesView, "paginate_by", return_value=1
+        with (
+            mock.patch.object(
+                LogEntriesView,
+                "decorate_paginated_queryset",
+                side_effect=LogEntriesView.decorate_paginated_queryset,
+                autospec=True,
+            ) as decorate_paginated_queryset,
+            mock.patch.object(LogEntriesView, "paginate_by", return_value=1),
         ):
             response = self.get()
             decorate_paginated_queryset.assert_called_once()
@@ -810,16 +811,19 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
 
     def test_deprecated_title_attribute(self):
         # Remove this test when the deprecation ends
-        with mock.patch.object(
-            LogEntriesView,
-            "page_title",
-            return_value=None,
-            new_callable=mock.PropertyMock,
-        ), mock.patch.object(
-            LogEntriesView,
-            "title",
-            return_value="Deprecated page title",
-            new_callable=mock.PropertyMock,
+        with (
+            mock.patch.object(
+                LogEntriesView,
+                "page_title",
+                return_value=None,
+                new_callable=mock.PropertyMock,
+            ),
+            mock.patch.object(
+                LogEntriesView,
+                "title",
+                return_value="Deprecated page title",
+                new_callable=mock.PropertyMock,
+            ),
         ):
             with self.assertWarnsMessage(
                 RemovedInWagtail70Warning,

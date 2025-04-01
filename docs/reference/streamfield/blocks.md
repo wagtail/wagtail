@@ -2,7 +2,7 @@
 
 # StreamField block reference
 
-This document details the block types provided by Wagtail for use in [StreamField](streamfield), and how they can be combined into new block types.
+This document details the block types provided by Wagtail for use in [StreamField](streamfield_topic), and how they can be combined into new block types.
 
 ```{note}
    While block definitions look similar to model fields, they are not the same thing. Blocks are only valid within a StreamField - using them in place of a model field will not work.
@@ -32,20 +32,48 @@ body = StreamField([
 })
 ```
 
-## Block options
+## Block options and methods
 
-All block definitions accept the following optional keyword arguments:
+All block definitions accept the following optional keyword arguments or `Meta` class attributes:
 
 -   `default`
     -   The default value that a new 'empty' block should receive.
 -   `label`
     -   The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a `ListBlock` - the empty string).
 -   `icon`
-    -   The name of the icon to display for this block type in the menu of available block types. For a list of icon names, see the Wagtail style guide, which can be enabled by adding `wagtail.contrib.styleguide` to your project’s `INSTALLED_APPS`.
+    -   The name of the icon to display for this block type in the editor. For more details, see our [icons overview](icons).
 -   `template`
     -   The path to a Django template that will be used to render this block on the front end. See [Template rendering](streamfield_template_rendering)
 -   `group`
     -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
+
+(block_preview_arguments)=
+
+[StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following options:
+
+-   `preview_value`
+    -   The placeholder value that will be used for rendering the preview. See {meth}`~wagtail.blocks.Block.get_preview_value` for more details.
+-   `preview_template`
+    -   The template that is used to render the preview. See {meth}`~wagtail.blocks.Block.get_preview_template` for more details.
+-   `description`
+    -   The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
+
+```{versionadded} 6.4
+The `preview_value`, `preview_template`, and `description` keyword arguments were added.
+```
+
+All block definitions have the following methods that can be overridden:
+
+```{eval-rst}
+.. autoclass:: wagtail.blocks.Block
+
+    .. automethod:: wagtail.blocks.Block.get_context
+    .. automethod:: wagtail.blocks.Block.get_template
+    .. automethod:: wagtail.blocks.Block.get_preview_value
+    .. automethod:: wagtail.blocks.Block.get_preview_context
+    .. automethod:: wagtail.blocks.Block.get_preview_template
+    .. automethod:: wagtail.blocks.Block.get_description
+```
 
 (field_block_types)=
 
@@ -353,10 +381,6 @@ All block definitions accept the following optional keyword arguments:
     :param required: If true (the default), the field cannot be left blank.
 
     ``ImageBlock`` incorporates backwards compatibility with ``ImageChooserBlock``. A block initially defined as ``ImageChooserBlock`` can be directly replaced with ``ImageBlock`` - existing data created with ``ImageChooserBlock`` will be handled automatically and changed to ``ImageBlock``'s data format when the field is resaved.
-```
-
-```{versionadded} 6.3
-The `ImageBlock` block type was added. Blocks previously defined as `ImageChooserBlock` can be directly replaced with `ImageBlock` to benefit from the alt text support, with no data migration or template changes required.
 ```
 
 ```{eval-rst}

@@ -1,5 +1,5 @@
-@import '../scss/settings';
-@import '../scss/tools';
+@use '../scss/settings' as *;
+@use '../scss/tools' as *;
 
 body {
   font-size: 1rem;

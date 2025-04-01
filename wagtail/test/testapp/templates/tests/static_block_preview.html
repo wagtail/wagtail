@@ -1,0 +1,5 @@
+{% extends "wagtailcore/shared/block_preview.html" %}
+{% load static %}
+{% block content %}
+    <img src="{% static image_path %}" alt="{{ image_description }}" />
+{% endblock %}

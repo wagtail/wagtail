@@ -34,6 +34,7 @@ from wagtail.admin.panels import (
     ObjectList,
     PublishingPanel,
     TabbedInterface,
+    TitleFieldPanel,
 )
 from wagtail.blocks import (
     CharBlock,
@@ -197,7 +198,7 @@ class SimplePage(Page):
     page_description = "A simple page description"
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("content"),
     ]
 
@@ -247,7 +248,7 @@ class PageWithExcludedCopyField(Page):
     exclude_fields_in_copy = ["special_field"]
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("special_field"),
         FieldPanel("content"),
     ]
@@ -282,7 +283,7 @@ class FilePage(Page):
     file_field = models.FileField()
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         HelpPanel("remember to check for viruses"),
         FieldPanel("file_field"),
     ]
@@ -371,8 +372,8 @@ class EventPageForm(WagtailAdminPageForm):
         cleaned_data = super().clean()
 
         # Make sure that the event starts before it ends
-        start_date = cleaned_data["date_from"]
-        end_date = cleaned_data["date_to"]
+        start_date = cleaned_data.get("date_from")
+        end_date = cleaned_data.get("date_to")
         if start_date and end_date and start_date > end_date:
             raise ValidationError("The end date must be after the start date")
 
@@ -414,7 +415,7 @@ class EventPage(Page):
     base_form_class = EventPageForm
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         "date_from",
         "date_to",
         "time_from",
@@ -469,7 +470,7 @@ class FormClassAdditionalFieldPage(Page):
     body = RichTextField(blank=True)
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("location"),
         FieldPanel("body"),
         FieldPanel("code"),  # not in model, see set base_form_class
@@ -566,7 +567,7 @@ class EventIndex(Page):
         return super().get_cached_paths() + ["/past/"]
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("intro"),
     ]
 
@@ -589,7 +590,7 @@ class FormPage(AbstractEmailForm):
     submissions_list_view_class = SubmissionsListView
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
@@ -648,7 +649,7 @@ class JadeFormPage(AbstractEmailForm):
     template = "tests/form_page.jade"
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
@@ -694,7 +695,7 @@ class FormPageWithRedirect(AbstractEmailForm):
         return super().render_landing_page(request, form_submission, *args, **kwargs)
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("thank_you_redirect_page"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
@@ -797,7 +798,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         return super().serve(request, *args, **kwargs)
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("intro"),
         InlinePanel("custom_form_fields", label="Form fields"),
         FieldPanel("thank_you_text"),
@@ -868,7 +869,7 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
         return data_fields
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("intro"),
         InlinePanel("form_fields", label="Form fields"),
         FieldPanel("thank_you_text"),
@@ -940,7 +941,7 @@ class FormPageWithCustomFormBuilder(AbstractEmailForm):
     form_builder = CustomFormBuilder
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
@@ -1006,14 +1007,20 @@ class AdvertWithCustomPrimaryKey(ClusterableModel):
 register_snippet(AdvertWithCustomPrimaryKey)
 
 
-class AdvertWithCustomUUIDPrimaryKey(ClusterableModel):
+class AdvertWithCustomUUIDPrimaryKey(index.Indexed, ClusterableModel):
     advert_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     url = models.URLField(null=True, blank=True)
     text = models.CharField(max_length=255)
+    page = models.ForeignKey(Page, null=True, blank=True, on_delete=models.SET_NULL)
 
     panels = [
         FieldPanel("url"),
         FieldPanel("text"),
+        FieldPanel("page"),
+    ]
+
+    search_fields = [
+        index.SearchField("text"),
     ]
 
     def __str__(self):
@@ -1248,6 +1255,8 @@ class FullFeaturedSnippet(
         for_concrete_model=False,
     )
 
+    panels = ["text", "country_code", "some_number"]
+
     search_fields = [
         index.SearchField("text"),
         index.AutocompleteField("text"),
@@ -1378,13 +1387,19 @@ class StandardIndex(Page):
     # A custom panel setup where all Promote fields are placed in the Content tab instead;
     # we use this to test that the 'promote' tab is left out of the output when empty
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("seo_title"),
         FieldPanel("slug"),
         InlinePanel("advert_placements", label="Adverts"),
     ]
 
     promote_panels = []
+
+
+class PromotionalPage(Page):
+    content_panels = Page.content_panels + [
+        InlinePanel("advert_placements", label="Adverts", min_num=1),
+    ]
 
 
 class StandardChild(Page):
@@ -1451,7 +1466,7 @@ class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("tags"),
     ]
 
@@ -1538,7 +1553,12 @@ class CustomRendition(AbstractRendition):
     )
 
     class Meta:
-        unique_together = (("image", "filter_spec", "focal_point_key"),)
+        constraints = [
+            models.UniqueConstraint(
+                fields={"image", "filter_spec", "focal_point_key"},
+                name="unique_rendition",
+            )
+        ]
 
 
 # Custom image model with a required field
@@ -1668,7 +1688,7 @@ class StreamPage(Page):
     api_fields = ("body",)
 
     content_panels = [
-        FieldPanel("title"),
+        TitleFieldPanel("title"),
         FieldPanel("body"),
     ]
 
@@ -1686,7 +1706,7 @@ class DefaultStreamPage(Page):
     )
 
     content_panels = [
-        FieldPanel("title"),
+        TitleFieldPanel("title"),
         FieldPanel("body"),
     ]
 
@@ -1716,7 +1736,7 @@ class ComplexDefaultStreamPage(Page):
     )
 
     content_panels = [
-        FieldPanel("title"),
+        TitleFieldPanel("title"),
         FieldPanel("body"),
     ]
 
@@ -1991,7 +2011,7 @@ class DefaultRichTextFieldPage(Page):
     body = RichTextField()
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -2010,7 +2030,7 @@ class CustomRichTextFieldPage(Page):
     body = RichTextField(editor="custom")
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -2023,7 +2043,7 @@ class CustomRichBlockFieldPage(Page):
     )
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -2032,7 +2052,7 @@ class RichTextFieldWithFeaturesPage(Page):
     body = RichTextField(features=["quotation", "embed", "made-up-feature"])
 
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         FieldPanel("body"),
     ]
 
@@ -2050,7 +2070,7 @@ class SectionedRichTextPageSection(Orderable):
 
 class SectionedRichTextPage(Page):
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         InlinePanel("sections"),
     ]
 
@@ -2071,7 +2091,7 @@ class InlineStreamPageSection(Orderable):
 
 class InlineStreamPage(Page):
     content_panels = [
-        FieldPanel("title", classname="title"),
+        TitleFieldPanel("title", classname="title"),
         InlinePanel("sections"),
     ]
 
@@ -2475,3 +2495,12 @@ class CustomPermissionModel(models.Model):
 
 
 register_snippet(CustomPermissionModel)
+
+
+class RequiredDatePage(Page):
+    deadline = models.DateField()
+
+    content_panels = [
+        TitleFieldPanel("title", classname="title"),
+        FieldPanel("deadline"),
+    ]

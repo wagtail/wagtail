@@ -6,8 +6,9 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
+      - run: python --version > .python_version
       - restore_cache:
-          key: &venv-cache venv-v1-{{ checksum "setup.py" }}
+          key: &venv-cache venv-v1-{{ checksum "setup.py" }}-{{ checksum ".python_version" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
@@ -71,8 +72,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/project
+      - run: python --version > .python_version
       - restore_cache:
-          key: &ui_tests-venv-cache ui_tests-venv-v1-{{ checksum "setup.py" }}
+          key: &ui_tests-venv-cache ui_tests-venv-v1-{{ checksum "setup.py" }}-{{ checksum ".python_version" }}
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then

@@ -117,6 +117,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
@@ -338,6 +339,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
       strings: {
         MOVE_UP: 'Move up',
         MOVE_DOWN: 'Move down',
+        DRAG: 'Drag',
         DELETE: 'Delete',
         DUPLICATE: 'Duplicate',
         ADD: 'Add',
@@ -474,6 +476,7 @@ describe('telepath: wagtail.blocks.ListBlock with minNum set', () => {
       strings: {
         MOVE_UP: 'Move up',
         MOVE_DOWN: 'Move down',
+        DRAG: 'Drag',
         DELETE: 'Delete',
         DUPLICATE: 'Duplicate',
         ADD: 'Add',
@@ -579,6 +582,7 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
           strings: {
             MOVE_UP: 'Move up',
             MOVE_DOWN: 'Move down',
+            DRAG: 'Drag',
             DELETE: 'Delete',
             DUPLICATE: 'Duplicate',
             ADD: 'Add',
@@ -595,6 +599,7 @@ describe('telepath: wagtail.blocks.ListBlock with StreamBlock child', () => {
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
@@ -660,6 +665,7 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
@@ -684,6 +690,7 @@ describe('telepath: wagtail.blocks.ListBlock inside a StreamBlock', () => {
         strings: {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
+          DRAG: 'Drag',
           DELETE: 'Delete',
           DUPLICATE: 'Duplicate',
           ADD: 'Add',

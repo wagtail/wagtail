@@ -4,10 +4,11 @@
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2022
 # Ronggo Radityo <radityo3000@yahoo.com>, 2022
 # Loic Teixeira, 2024
+# Sutrisno Efendi <kangfend@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Sutrisno Efendi <kangfend@gmail.com>, 2025\n"
 "Language-Team: Indonesian (Indonesia) (https://app.transifex.com/torchbox/"
 "teams/8009/id_ID/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,6 +56,9 @@ msgstr "Perambah halaman"
 
 msgid "Pages"
 msgstr "Halaman"
+
+msgid "Preview"
+msgstr "Pratinjau"
 
 msgid "Reload saved content"
 msgstr "Muat ulang konten tersimpan"

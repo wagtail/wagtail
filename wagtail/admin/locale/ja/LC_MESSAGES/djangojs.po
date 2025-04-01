@@ -9,10 +9,11 @@
 # kojikojikojikoji, 2022
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/torchbox/teams/8009/ja/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ja\n"
@@ -86,6 +87,9 @@ msgstr "ページ探索"
 
 msgid "Pages"
 msgstr "ページ"
+
+msgid "Preview"
+msgstr "プレビュー"
 
 msgid "Reload saved content"
 msgstr "保存した内容をリロードします"

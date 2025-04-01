@@ -2,14 +2,14 @@
 # Translators:
 # Andreas Lans <andreas.lans@gmail.com>, 2022
 # Philip Andersen <renegadevi@codeofmagi.net>, 2022
-# Thomas Kunambi <kunambi@gmail.com>, 2022
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2022
 # Martin Sandström <martin@marteinn.se>, 2024
 # Loic Teixeira, 2024
+# Thomas Kunambi <kunambi@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2025\n"
 "Language-Team: Swedish (https://app.transifex.com/torchbox/teams/8009/sv/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: sv\n"
@@ -132,6 +132,9 @@ msgstr "Sidutforskare"
 
 msgid "Pages"
 msgstr "Sidor"
+
+msgid "Preview"
+msgstr "Förhandsgranska"
 
 msgid "Reload saved content"
 msgstr "Ladda om sparat innehåll"

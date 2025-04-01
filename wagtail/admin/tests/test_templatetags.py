@@ -1068,3 +1068,53 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertEqual(len(invalid_icons), 0)
         icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
         self.assertIsNotNone(icon)
+
+
+class ThemeColorSchemeTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.request = get_dummy_request()
+        self.user = self.login()
+        self.request.user = self.user
+        self.profile = UserProfile.get_for_user(self.user)
+
+    def test_default_mode(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark light")
+
+    def test_dark_mode(self):
+        self.profile.theme = "dark"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark")
+
+    def test_light_mode(self):
+        self.profile.theme = "light"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "light")

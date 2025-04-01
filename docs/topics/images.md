@@ -298,7 +298,7 @@ Image height after resizing.
 
 ### `alt`
 
-Alternative text for the image, typically taken from the image title.
+Alternative text for the image, contextual alt text or `default_alt_text` if not.
 
 ### `attrs`
 

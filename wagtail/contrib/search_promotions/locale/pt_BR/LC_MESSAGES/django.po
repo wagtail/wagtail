@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021,2024\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
@@ -38,9 +38,6 @@ msgstr ""
 "exata é necessário para os seus resultados promovidos ser exibido, curingas "
 "não são permitidos."
 
-msgid "Please specify at least one recommendation for this search term."
-msgstr "Especifique pelo menos uma recomendação para este termo de busca."
-
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 "Você deverá inserir um texto de link externo se inserir um URL de link "
@@ -51,6 +48,9 @@ msgstr "Você deve recomendar uma página OU um link externo."
 
 msgid "Please only select a page OR enter an external link."
 msgstr "Selecione apenas uma página OU insira um link externo."
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Especifique pelo menos uma recomendação para este termo de busca."
 
 msgid "Query Daily Hits"
 msgstr "Acessos diários da query"
@@ -76,18 +76,9 @@ msgstr "Aplica-se à página interna ou link externo"
 msgid "search promotion"
 msgstr "promoção de pesquisa"
 
-msgid "Add search promotion"
-msgstr "Adicionar promoção de pesquisa"
-
-msgid "Add search pick"
-msgstr "Adicionar sugestão de pesquisa"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Excluir %(query)s"
-
-msgid "Delete"
-msgstr "Excluir"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -95,21 +86,17 @@ msgstr ""
 "Você tem certeza que você quer excluir todos os resultados promovidos para "
 "este termo?"
 
-msgid "Yes, delete"
-msgstr "Sim, apague"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Editando %(query)s"
-
-msgid "Editing"
-msgstr "Editando"
-
 msgid "Move up"
 msgstr "Mover para cima"
 
 msgid "Move down"
 msgstr "Mover para baixo"
+
+msgid "Drag"
+msgstr "Arrastar"
+
+msgid "Delete"
+msgstr "Excluir"
 
 msgid "Recommended search result"
 msgstr "Resultado de pesquisa recomendado"
@@ -159,24 +146,24 @@ msgstr "Link externo"
 msgid "None"
 msgstr "Nenhum"
 
-msgid "Search Terms"
-msgstr "Procurar Termos"
-
-msgid "Add new promoted result"
-msgstr "Adicionar um novo resultado promovido"
+msgid "Date"
+msgstr "Data"
 
 msgid "Search term(s)"
 msgstr "Procurar termo(s)"
 
+msgid "Add new promoted result"
+msgstr "Adicionar um novo resultado promovido"
+
 msgid "Promoted results"
 msgstr "Resultados promovidos"
+
+msgid "Promoted search result"
+msgstr "Resultado promovido"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Sugestões dos editores para '%(query)s' criados."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendações não poderiam ser criadas devido a erros"

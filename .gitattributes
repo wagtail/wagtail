@@ -1,0 +1,2 @@
+# Make GitHub highlight html files as Django templates
+*.html linguist-language=django

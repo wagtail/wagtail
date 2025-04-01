@@ -289,7 +289,8 @@ class TestPageEdit(WagtailTestUtils, TestCase):
         self.assertEqual(len(actions), 0)
 
     def test_usage_count_information_shown(self):
-        PageChooserModel.objects.create(page=self.event_page)
+        with self.captureOnCommitCallbacks(execute=True):
+            PageChooserModel.objects.create(page=self.event_page)
 
         # Tests that the edit page loads
         response = self.client.get(
@@ -545,6 +546,89 @@ class TestPageEdit(WagtailTestUtils, TestCase):
 
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
+
+    def test_required_field_validation_skipped_when_saving_draft(self):
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "",
+            "slug": "hello-unpublished-world-edited",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+        self.assertRedirects(
+            response,
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+        )
+        self.unpublished_page.refresh_from_db()
+        self.assertEqual(self.unpublished_page.content, "")
+
+    def test_required_field_validation_enforced_on_publish(self):
+        post_data = {
+            "title": "Hello unpublished world! edited",
+            "content": "",
+            "slug": "hello-unpublished-world-edited",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,)),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        post_data = {
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "",
+            "cost": "Free",
+            "signup_link": "Not a valid URL",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:edit",
+                args=[self.event_page.id],
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Empty fields should not cause a validation error, but the invalid URL should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a valid URL.", count=1)
+
+        # Asterisks should still show against required fields
+        soup = self.get_soup(response.content)
+        self.assertTrue(
+            soup.select_one('label[for="id_date_from"] > span.w-required-mark')
+        )
+        self.assertTrue(
+            soup.select_one('label[for="id_location"] > span.w-required-mark')
+        )
 
     def test_page_edit_post_when_locked(self):
         # Tests that trying to edit a locked page results in an error
@@ -2395,6 +2479,7 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
             "advert_placements-0-advert": "1",
             "advert_placements-0-colour": "",  # should fail as colour is a required field
             "advert_placements-0-id": "",
+            "action-publish": "Publish",
         }
         response = self.client.post(
             reverse(

@@ -1,4 +1,5 @@
 """Handles rendering of the list of actions in the footer of the snippet create/edit views."""
+
 from functools import lru_cache
 from warnings import warn
 

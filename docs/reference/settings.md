@@ -808,18 +808,26 @@ TAGGIT_CASE_INSENSITIVE = True
 
 Tags are case-sensitive by default ('music' and 'Music' are treated as distinct tags). In many cases the reverse behavior is preferable.
 
-### `TAG_SPACES_ALLOWED`
+### `WAGTAIL_TAG_SPACES_ALLOWED`
+
+```{versionchanged} 6.5
+The setting was renamed from `TAG_SPACES_ALLOWED` to `WAGTAIL_TAG_SPACES_ALLOWED`.
+```
 
 ```python
-TAG_SPACES_ALLOWED = False
+WAGTAIL_TAG_SPACES_ALLOWED = False
 ```
 
 Tags can only consist of a single word, no spaces allowed. The default setting is `True` (spaces in tags are allowed).
 
-### `TAG_LIMIT`
+### `WAGTAIL_TAG_LIMIT`
+
+```{versionchanged} 6.5
+The setting was renamed from `TAG_LIMIT` to `WAGTAIL_TAG_LIMIT`.
+```
 
 ```python
-TAG_LIMIT = 5
+WAGTAIL_TAG_LIMIT = 5
 ```
 
 Limit the number of tags that can be added to (django-taggit) Tag model. Default setting is `None`, meaning no limit on tags.

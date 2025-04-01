@@ -1,10 +1,13 @@
 import hashlib
+import os
 import pickle
+import tempfile
 import unittest
 import warnings
 from io import BytesIO
 from pathlib import Path
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -30,6 +33,7 @@ from wagtail.coreutils import (
 from wagtail.models import Page, Site
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.file import hash_filelike
+from wagtail.utils.templates import template_is_overridden
 from wagtail.utils.utils import deep_update, flatten_choices
 from wagtail.utils.version import get_main_version
 
@@ -49,7 +53,7 @@ class TestStringToAscii(TestCase):
     def test_string_to_ascii(self):
         test_cases = [
             ("30 \U0001d5c4\U0001d5c6/\U0001d5c1", "30 km/h"),
-            ("\u5317\u4EB0", "BeiJing"),
+            ("\u5317\u4eb0", "BeiJing"),
             ("ぁ あ ぃ い ぅ う ぇ", "a a i i u u e"),
             (
                 "Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն",
@@ -578,6 +582,41 @@ class HashFileLikeTestCase(SimpleTestCase):
             hash_filelike(FakeLargeFile()),
             "bd36f0c5a02cd6e9e34202ea3ff8db07b533e025",
         )
+
+
+class TestTemplateIsOverridden(SimpleTestCase):
+    def setUp(self):
+        template_is_overridden.cache_clear()
+
+    def test_template_is_overridden_false(self):
+        self.assertIs(
+            template_is_overridden(
+                "wagtailcore/shared/block_preview.html",
+                "templates",
+            ),
+            False,
+        )
+
+    def test_template_is_overridden_true(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = os.path.join(temp_dir, "wagtailcore/shared")
+            os.makedirs(path, exist_ok=True)
+            with open(os.path.join(path, "block_preview.html"), "w") as f:
+                f.write("Custom file")
+
+            with self.settings(
+                TEMPLATES=[
+                    {**settings.TEMPLATES[0], "DIRS": [temp_dir], "NAME": "tmp"},
+                    *settings.TEMPLATES,
+                ]
+            ):
+                self.assertIs(
+                    template_is_overridden(
+                        "wagtailcore/shared/block_preview.html",
+                        "templates",
+                    ),
+                    True,
+                )
 
 
 class TestVersion(SimpleTestCase):

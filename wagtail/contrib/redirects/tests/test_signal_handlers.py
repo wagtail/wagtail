@@ -41,28 +41,29 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
             page.save(log_action="wagtail.publish", user=self.user, clean=False)
 
     def test_golden_path(self):
-        # the page we'll be triggering the change for here is...
-        test_subject = self.event_index
+        with self.captureOnCommitCallbacks(execute=True):
+            # the page we'll be triggering the change for here is...
+            test_subject = self.event_index
 
-        # identify 'draft' pages in this section
-        drafts = test_subject.get_descendants().not_live()
-        self.assertEqual(len(drafts), 4)
+            # identify 'draft' pages in this section
+            drafts = test_subject.get_descendants().not_live()
+            self.assertEqual(len(drafts), 4)
 
-        # gather urls for 'live' pages in this branch
-        request = get_dummy_request()
-        branch_urls = []
-        for page in (
-            test_subject.get_descendants(inclusive=True)
-            .live()
-            .specific(defer=True)
-            .iterator()
-        ):
-            main_url = page.get_url(request).rstrip("/")
-            branch_urls.extend(
-                main_url + path.rstrip("/") for path in page.get_cached_paths()
-            )
+            # gather urls for 'live' pages in this branch
+            request = get_dummy_request()
+            branch_urls = []
+            for page in (
+                test_subject.get_descendants(inclusive=True)
+                .live()
+                .specific(defer=True)
+                .iterator()
+            ):
+                main_url = page.get_url(request).rstrip("/")
+                branch_urls.extend(
+                    main_url + path.rstrip("/") for path in page.get_cached_paths()
+                )
 
-        self.trigger_page_slug_changed_signal(test_subject)
+            self.trigger_page_slug_changed_signal(test_subject)
 
         # gather all of the redirects that were created
         redirects = Redirect.objects.all()
@@ -97,32 +98,34 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
         )
 
     def test_no_redirects_created_when_page_is_root_for_all_sites_it_belongs_to(self):
-        self.trigger_page_slug_changed_signal(self.home_page)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.trigger_page_slug_changed_signal(self.home_page)
         self.assertFalse(Redirect.objects.exists())
         self.assertEqual(len(PURGED_URLS), 0)
 
     def test_handling_of_existing_redirects(self):
-        # the page we'll be triggering the change for here is...
-        test_subject = self.event_index
+        with self.captureOnCommitCallbacks(execute=True):
+            # the page we'll be triggering the change for here is...
+            test_subject = self.event_index
 
-        descendants = test_subject.get_descendants().live()
+            descendants = test_subject.get_descendants().live()
 
-        # but before we do, let's add some redirects that we'll expect to conflict
-        # with ones created by the signal handler
-        redirect1 = Redirect.objects.create(
-            old_path=Redirect.normalise_path(descendants.first().specific.url),
-            site=self.site,
-            redirect_link="/some-place",
-            automatically_created=False,
-        )
-        redirect2 = Redirect.objects.create(
-            old_path=Redirect.normalise_path(descendants.last().specific.url),
-            site=self.site,
-            redirect_link="/some-other-place",
-            automatically_created=True,
-        )
+            # but before we do, let's add some redirects that we'll expect to conflict
+            # with ones created by the signal handler
+            redirect1 = Redirect.objects.create(
+                old_path=Redirect.normalise_path(descendants.first().specific.url),
+                site=self.site,
+                redirect_link="/some-place",
+                automatically_created=False,
+            )
+            redirect2 = Redirect.objects.create(
+                old_path=Redirect.normalise_path(descendants.last().specific.url),
+                site=self.site,
+                redirect_link="/some-other-place",
+                automatically_created=True,
+            )
 
-        self.trigger_page_slug_changed_signal(test_subject)
+            self.trigger_page_slug_changed_signal(test_subject)
 
         # pre-existing manually-created redirects should be preserved
         from_db = Redirect.objects.get(id=redirect1.id)
@@ -163,17 +166,18 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
         )
 
     def test_redirect_creation_for_custom_route_paths(self):
-        # Add a page that has overridden get_route_paths()
-        homepage = Page.objects.get(id=2)
-        routable_page = homepage.add_child(
-            instance=RoutablePageTest(
-                title="Routable Page",
-                live=True,
+        with self.captureOnCommitCallbacks(execute=True):
+            # Add a page that has overridden get_route_paths()
+            homepage = Page.objects.get(id=2)
+            routable_page = homepage.add_child(
+                instance=RoutablePageTest(
+                    title="Routable Page",
+                    live=True,
+                )
             )
-        )
 
-        # Move from below the homepage to below the event index
-        routable_page.move(self.event_index, pos="last-child")
+            # Move from below the homepage to below the event index
+            routable_page.move(self.event_index, pos="last-child")
 
         # Redirects should have been created for each path returned by get_route_paths()
         self.assertEqual(
@@ -206,23 +210,24 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
         )
 
     def test_no_redirects_created_when_pages_are_moved_to_a_different_site(self):
-        # Add a new home page
-        homepage_2 = Page(
-            title="Second home",
-            slug="second-home",
-        )
-        root_page = Page.objects.get(depth=1)
-        root_page.add_child(instance=homepage_2)
+        with self.captureOnCommitCallbacks(execute=True):
+            # Add a new home page
+            homepage_2 = Page(
+                title="Second home",
+                slug="second-home",
+            )
+            root_page = Page.objects.get(depth=1)
+            root_page.add_child(instance=homepage_2)
 
-        # Create a site with the above as the root_page
-        Site.objects.create(
-            root_page=homepage_2,
-            hostname="newsite.com",
-            port=80,
-        )
+            # Create a site with the above as the root_page
+            Site.objects.create(
+                root_page=homepage_2,
+                hostname="newsite.com",
+                port=80,
+            )
 
-        # Move the event index to the new site
-        self.event_index.move(homepage_2, pos="last-child")
+            # Move the event index to the new site
+            self.event_index.move(homepage_2, pos="last-child")
 
         # No redirects should have been created
         self.assertFalse(Redirect.objects.exists())
@@ -230,6 +235,7 @@ class TestAutocreateRedirects(WagtailTestUtils, TestCase):
 
     @override_settings(WAGTAILREDIRECTS_AUTO_CREATE=False)
     def test_no_redirects_created_if_disabled(self):
-        self.trigger_page_slug_changed_signal(self.event_index)
+        with self.captureOnCommitCallbacks(execute=True):
+            self.trigger_page_slug_changed_signal(self.event_index)
         self.assertFalse(Redirect.objects.exists())
         self.assertEqual(len(PURGED_URLS), 0)

@@ -31,6 +31,22 @@ class TestHome(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Test Site")
 
+    def test_accessible_skip_link_exists(self):
+        response = self.client.get(reverse("wagtailadmin_home"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        # Check that the skip link is present and has the correct attributes
+        skip_link = soup.select_one(".skiplink")
+        self.assertIsNotNone(skip_link)
+        self.assertEqual(skip_link["href"], "#main")
+        self.assertEqual(skip_link["data-controller"], "w-focus")
+        self.assertEqual(skip_link["data-action"], "w-focus#focus:prevent")
+
+        # Check that the main content area has the correct ID
+        main_content = soup.select_one("#main")
+        self.assertIsNotNone(main_content)
+
     def test_admin_menu(self):
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertEqual(response.status_code, 200)
@@ -508,6 +524,9 @@ class Test404(WagtailTestUtils, TestCase):
             # Check 404 error after CommonMiddleware redirect
             self.assertEqual(response.status_code, 404)
             self.assertTemplateUsed(response, "wagtailadmin/404.html")
+            soup = self.get_soup(response.content)
+            self.assertFalse(soup.select("script"))
+            self.assertFalse(soup.select("[data-sprite]"))
 
     def test_not_logged_in_redirect(self):
         response = self.client.get("/admin/sdfgdsfgdsfgsdf/")

@@ -61,6 +61,7 @@ class AccessibilityItem(BaseItem):
         "input-button-name",
         "link-name",
         "p-as-heading",
+        "alt-text-quality",
     ]
 
     #: A dictionary that maps axe-core rule IDs to a dictionary of rule options,

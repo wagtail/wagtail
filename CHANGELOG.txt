@@ -1,9 +1,67 @@
 Changelog
 =========
 
-6.4 (xx.xx.xxxx) - IN DEVELOPMENT
+6.5 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add `WAGTAIL_` prefix to Wagtail-specific tag settings (Aayushman Singh)
+ * Implement `normalize` on `TypedTableBlock` to assist with setting `default` and `preview_value` (Sage Abdullah)
+ * Apply normalization when modifying a `StreamBlock`'s value to assist with programmatic changes to `StreamField` (Matt Westcott)
+ * Allow a custom image rendition model to define its unique constraint with `models.UniqueConstraint` instead of `unique_together` (Oliver Parker, Cynthia Kiser, Sage Abdullah)
+ * Default to the `standard` tokenizer on Elasticsearch, to correctly handle numbers as tokens (Matt Westcott)
+ * Add color-scheme meta tag to Wagtail admin (Ashish Nagmoti)
+ * Add the ability to set the default privacy restriction for new pages using `get_default_privacy_setting` (Shlomo Markowitz)
+ * Improve performance of batch purging page urls in the frontend cache, avoiding n+1 query issues (Andy Babic)
+ * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
+ * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
+ * Fix: Support simple subqueries for `in` and `exact` lookup on Elasticsearch (Sage Abdullah)
+ * Fix: Force preview panel scroll behavior to instant to avoid flickering (Sage Abdullah)
+ * Fix: Support translating with the preferred language for rich text formatting labels (Bernhard Bliem, Sage Abdullah)
+ * Fix: Make "Actions" label translatable within the rich text toolbar (Bernhard Bliem, Sage Abdullah)
+ * Fix: Fix incorrect "Views (past week)" heading on promoted search results listing (Baptiste Mispelon)
+ * Fix: Ensure `InlinePanel` will be correctly ordered after the first save when `min_num` is used (Elhussein Almasri, Joel William)
+ * Fix: Avoid deprecation warnings about URLField `assume_scheme` on Django 5.x (Sage Abdullah)
+ * Fix: Fix setup.cfg syntax for setuptools v78 (Sage Abdullah)
+ * Fix: Ensure `ImproperlyConfigured` is thrown from `db_field` on unbound `FieldPanel`s as intended (Matt Westcott)
+ * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
+ * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
+ * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)
+ * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
+ * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
+ * Maintenance: Refactor styles for Draftail, minimap, and comments to fix remaining Sass migration warnings (Thibaud Colas)
+ * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
+ * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
+ * Maintenance: Split up `wagtail.models` module into submodules (Matt Westcott)
+ * Maintenance: Update `ruff` to 0.9.6 (Sage Abdullah)
+ * Maintenance: Fix up `stubs` & `adapter` contents to better support Jest testing (LB (Ben) Johnston)
+ * Maintenance: Cleanup Stimulus controller imports, JSDoc & linting (LB (Ben) Johnston)
+ * Maintenance: Rename `SkipLinkController` to `FocusController` with improved reusability, updated unit tests, and added story (LB (Ben) Johnston)
+ * Maintenance: Fix CI testing issues with the Stimulus `LocaleController` time zones & non-deterministic page ordering tests (Sage Abdullah)
+ * Maintenance: Make GitHub highlight `.html` files as Django templates (Jake Howard)
+
+
+6.4.1 (21.02.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when filtering by locale and searching with Elasticsearch (Sage Abdullah)
+ * Fix: Support searching `none()` querysets (Matt Westcott)
+ * Fix: Correctly handle UUID primary keys when invoking background tasks (Matt Westcott)
+ * Fix: Fix regression where nested sub-menu items would not be visible (Sage Abdullah)
+ * Fix: Ensure the top of the minimap correctly adjusts when resizing the browser viewport (Thibaud Colas)
+ * Fix: Remove obsolete SubqueryConstraint check in search backends, for provisional Django 5.2 compatibility (Sage Abdullah)
+ * Fix: Add missing “Close” label to the upgrade notification dismiss button (Sage Abdullah)
+ * Fix: Fix white text on white background in previews for sites that use color-scheme without a background-color (Sage Abdullah)
+ * Docs: Fix typo in the headless documentation page (Mahmoud Nasser)
+ * Docs: Fix typo in `Page.get_route_paths` docstring (Baptiste Mispelon)
+ * Docs: Upgrade sphinx-wagtail-theme to v6.5.0 (Sage Abdullah)
+ * Maintenance: Remove upper version boundary for django-filter (Dan Braghis)
+ * Maintenance: Relax upper version boundaries for django-taggit and beautifulsoup4 (Matt Westcott)
+
+
+6.4 (03.02.2025)
+~~~~~~~~~~~~~~~~
+
+ * Support for background tasks using `django-tasks` (Jake Howard)
  * Add search terms report (Noah van der Meer, Sage Abdullah)
  * Add the ability to apply basic Page QuerySet optimizations to `specific()` sub-queries using `select_related` & `prefetch_related` (Andy Babic)
  * Increase `DATA_UPLOAD_MAX_NUMBER_FIELDS` in project template (Matt Westcott)
@@ -19,9 +77,20 @@ Changelog
  * Set content security policy (CSP) headers to block embedded content when serving images and documents (Jake Howard, with thanks to Ali İltizar for the initial report)
  * Add `page` as a third parameter to the `construct_wagtail_userbar` hook (claudobahn)
  * Enable breadcrumbs in revisions compare view (Sage Abdullah)
+ * Skip loading of unused JavaScript to speed up 404 page rendering (Sage Abdullah)
+ * Replace l18n library with JavaScript Intl API for time zone options in Account view (Sage Abdullah)
+ * Use explicit label for defaulting to server language in account settings (Sage Abdullah)
+ * Add support for specifying an operator on `Fuzzy` queries (Tom Usher)
+ * Remove support for Safari 15 (Thibaud Colas)
+ * Populate the ImageBlock alt text from the image’s default alt text when selecting a new image (Matt Westcott)
+ * Prevent main menu from re-rendering when clicking outside while the menu is closed (Sage Abdullah)
+ * Fill in the ImageBlock alt text from the image’s default alt text when converting from ImageChooserBlock (Cynthia Kiser)
+ * Make sure typing text at the bottom of the page editor always scrolls enough to keep the text into view (Jatin Bhardwaj)
+ * Add StreamField and InlinePanel interfaces support for drag-and-drop reordering of items (Thibaud Colas, Sage Abdullah)
+ * Add previews support for StreamField blocks inside the block picker (Sage Abdullah, Thibaud Colas)
  * Fix: Improve handling of translations for bulk page action confirmation messages (Matt Westcott)
  * Fix: Ensure custom rich text feature icons are correctly handled when provided as a list of SVG paths (Temidayo Azeez, Joel William, LB (Ben) Johnston)
- * Fix: Ensure manual edits to `StreamField` values do not throw an error (Stefan Hammer)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
  * Fix: Fix sub-menus within the main menu cannot be closed on mobile (Bojan Mihelac)
  * Fix: Fix animation overflow transition when navigating through subpages in the sidebar page explorer (manu)
  * Fix: Ensure form builder supports custom admin form validation (John-Scott Atlakson, LB (Ben) Johnston)
@@ -29,7 +98,7 @@ Changelog
  * Fix: Normalize `StreamField.get_default()` to prevent creation forms from breaking (Matt Westcott)
  * Fix: Prevent out-of-order migrations from skipping creation of image/document choose permissions (Matt Westcott)
  * Fix: Use correct connections on multi-database setups in database search backends (Jake Howard)
- * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
+ * Fix: Ensure CloudFront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Show the correct privacy status in the sidebar when creating a new page (Joel William)
  * Fix: Prevent generic model edit view from unquoting non-integer primary keys multiple times (Matt Westcott)
  * Fix: Ensure comments are functional when editing Page models with `read_only` `Fieldpanel`s in use (Strapchay)
@@ -44,6 +113,16 @@ Changelog
  * Fix: Allow page models to extend base `Page` panel definitions without importing `wagtail.admin` (Matt Westcott)
  * Fix: Fix crash when loading the dashboard with only the "unlock" or "bulk delete" page permissions (Unyime Emmanuel Udoh, Sage Abdullah)
  * Fix: Improve deprecation warning for `WidgetWithScript` by raising it with `stacklevel=3` (Joren Hammudoglu)
+ * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+ * Fix: Add missing heading and breadcrumbs in Account view (Sage Abdullah)
+ * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
+ * Fix: Prevent redundant calls to `Site.find_for_request()` from `Page.get_url_parts()` (Andy Babic)
+ * Fix: Prevent error on listings when searching and filtering by locale (Matt Westcott, Sage Abdullah)
+ * Fix: Add missing space in panels check warning message (Stéphane Blondon)
+ * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
+ * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Fix: Prevent syntax error on MySQL search when query includes symbols (Matt Westcott)
  * Docs: Move the model reference page from reference/pages to the references section as it covers all Wagtail core models (Srishti Jaiswal)
  * Docs: Move the panels reference page from references/pages to the references section as panels are available for any model editing, merge panels API into this page (Srishti Jaiswal)
  * Docs: Move the tags documentation to standalone advanced topic, instead of being inside the reference/pages section (Srishti Jaiswal)
@@ -72,6 +151,10 @@ Changelog
  * Docs: Fix Django HTML syntax formatting issue on the documents overview page (LB (Ben) Johnston)
  * Docs: Separate virtual environment creation and activation steps in tutorial (Ankit Kumar)
  * Docs: Update tutorial to use plain strings in place of `FieldPanel` / `InlinePanel` where appropriate (Unyime Emmanuel Udoh)
+ * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
+ * Docs: Document `get_template` method on StreamField blocks (Matt Westcott)
+ * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
+ * Docs: Revert incorrect example of appending a `RichTextBlock` to a `StreamField` (Matt Westcott)
  * Maintenance: Close open files when reading within utils/setup.py (Ataf Fazledin Ahamed)
  * Maintenance: Avoid redundant `ALLOWED_HOSTS` check in `Site.find_for_request` (Jake Howard)
  * Maintenance: Update `CloneController` to ensure that `added`/`cleared` events are not dispatched as cancelable (LB (Ben) Johnston)
@@ -109,12 +192,36 @@ Changelog
  * Maintenance: Enable breadcrumbs by default on admin views using generic templates (Sage Abdullah)
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
+ * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+
+6.3.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Add missing “Close” label to the upgrade notification dismiss button (Sage Abdullah)
+ * Fix: Fix white text on white background in previews for sites that use color-scheme without a background-color (Sage Abdullah)
+ * Maintenance: Remove upper version boundary for django-filter (Dan Braghis)
+
+
+6.3.3 (03.02.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Correctly place comment buttons next to date / datetime / time fields. (Srishti Jaiswal)
+ * Fix: Reduce confusing spacing below StreamField blocks help text (Rishabh Sharma)
+ * Fix: Make sure alt text quality check is on by default as documented (Thibaud Colas)
+ * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
+ * Fix: Prevent syntax error on MySQL search when query includes symbols (Matt Westcott)
+ * Docs: Update example for customizing "p-as-heading" accessibility check without overriding built-in checks (Cynthia Kiser)
+ * Docs: Update accessibility considerations on alt text in light of contextual alt text improvements (Cynthia Kiser)
+ * Docs: Revert incorrect example of appending a `RichTextBlock` to a `StreamField` (Matt Westcott)
 
 
 6.3.2 (02.01.2025)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: Ensure Cloudfront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
+ * Fix: Ensure CloudFront cache invalidation is called with a list, for compatibility with current botocore versions (Jake Howard)
  * Fix: Ensure Draftail features wrap when a large amount of features are added (Bart Cieliński)
  * Fix: Implement `get_block_by_content_path` on `ImageBlock` to prevent errors on commenting (Matt Westcott)
  * Docs: Update tutorial to reflect the move of the "Add child page" action to a top-level button in the header as a '+' icon (Clifford Gama)
@@ -689,6 +796,16 @@ Changelog
  * Maintenance: Use Django's `FileResponse` when serving files such as Images or Documents (Jake Howard)
  * Maintenance: Deprecated `WidgetWithScript` base widget class (LB (Ben) Johnston)
  * Maintenance: Remove support for Django 4.1 and below (Sage Abdullah)
+
+
+5.2.8 (03.02.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent database error when calling permission_order.register on app ready (Daniel Kirkham, Matt Westcott)
+ * Fix: Handle StreamField migrations where the field value is null (Joshua Munn)
+ * Fix: Prevent `StreamChildrenToListBlockOperation` from duplicating data across multiple StreamField instances (Joshua Munn)
+ * Fix: Prevent error on lazily loading StreamField blocks after the stream has been modified (Stefan Hammer)
+ * Fix: Prevent syntax error on MySQL search when query includes symbols (Matt Westcott)
 
 
 5.2.7 (01.11.2024)

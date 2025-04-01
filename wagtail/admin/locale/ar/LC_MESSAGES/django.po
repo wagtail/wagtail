@@ -13,6 +13,7 @@
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# Tarek Berkane, 2025
 # ultraify media <ultraify@gmail.com>, 2018
 # Waseem Kntar, 2023
 # Younes Oumakhou, 2022
@@ -21,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Mahmoud Marayef, 2023\n"
+"Last-Translator: Tarek Berkane, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -83,6 +84,9 @@ msgstr "التاريخ من"
 
 msgid "Date to"
 msgstr "تاريخ لـ"
+
+msgid "Locale"
+msgstr "الإعدادات المحلية"
 
 msgid "All"
 msgstr "الكل"
@@ -270,12 +274,6 @@ msgstr "تم تحديد %(objects)s مُستخدم"
 msgid "1 item selected"
 msgstr "تم تحديد 1 عنصر"
 
-msgid "For search engines"
-msgstr "خاص بمحركات البحث"
-
-msgid "For site menus"
-msgstr "خاص بقوائم الموقع"
-
 msgid "Content"
 msgstr "محتوى"
 
@@ -352,6 +350,12 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
 
+msgid "Reset to default"
+msgstr "إعادة التعيين إلى الوضع الافتراضي"
+
+msgid "Default avatar"
+msgstr "الصورة الرمزية الافتراضية"
+
 msgid "Upload a profile picture:"
 msgstr "رَفع صورة الملف الشخصي"
 
@@ -360,6 +364,9 @@ msgstr "الشريط الجانبي"
 
 msgid "Go back"
 msgstr "رجوع"
+
+msgid "Select"
+msgstr "إختر"
 
 msgid "Select row"
 msgstr "تحديد صف"
@@ -395,6 +402,15 @@ msgstr "اختر"
 msgid "Choose a page"
 msgstr "اختر صفحة"
 
+msgid "Confirm selection"
+msgstr "تأكيد الاختيار"
+
+msgid "Convert to internal link"
+msgstr "حول إلى رابط داخلي"
+
+msgid "Use external link"
+msgstr "إستعمل رابط خارجي"
+
 msgid "Add an email link"
 msgstr "أضف حلقة إلكترونية"
 
@@ -403,6 +419,13 @@ msgstr "أدخل حلقة"
 
 msgid "Add an external link"
 msgstr "أضف حلقة خارجية"
+
+msgid "Add a phone link"
+msgstr "أضف رابط الهاتف"
+
+#, python-format
+msgid "Select %(title)s"
+msgstr "إختر %(title)s"
 
 #, python-format
 msgid "Explore subpages of '%(title)s'"
@@ -419,6 +442,9 @@ msgstr "يمكنك تحرير إعدادات الخصوصية على:"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Change privacy"
+msgstr "تغيير إعدادات الخصوصية"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -445,21 +471,27 @@ msgstr ""
 "لم يتم إنشاء أي مجموعات. لماذا لا <a href=\"%(add_collection_url)s\">تضيف "
 "واحدة</a>؟"
 
+msgid "There are no results."
+msgstr "لا توجد نتائج."
+
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
 msgid "No, don't delete"
 msgstr "لا, لا تحذف"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "الغ نشر %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "نعك ألغ نشره"
 
 msgid "No, don't unpublish"
 msgstr "لا ,ألغ النشر"
+
+#, python-format
+msgid "Would you still like to publish this %(model_name)s?"
+msgstr "هل مازلت تود نشر %(model_name)s ؟"
+
+msgid "Cancel"
+msgstr "إلغاء"
 
 msgid "Actions"
 msgstr "النشاطات"
@@ -469,13 +501,6 @@ msgstr "تعليق"
 
 msgid "Update"
 msgstr "حدث"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "مقارنة %(title)s"
-
-msgid "Comparing"
-msgstr "مقارنة"
 
 msgid "Fields"
 msgstr "حقل"
@@ -498,6 +523,9 @@ msgstr "صفحاتُك المقفلة"
 
 msgid "Status"
 msgstr "رتبة"
+
+msgid "Locked at"
+msgstr "تم الغلق في"
 
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
@@ -793,13 +821,6 @@ msgstr "تنزيل ملف CSV"
 msgid "Filter"
 msgstr "فلتر"
 
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Unschedule Revision %(revision.id)s for %(title)s"
-
-msgid "Unschedule"
-msgstr "غير مجدولة"
-
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "هل أنت متأكد من أنك تريد إلغاء هذه المراجعة؟"
 
@@ -877,6 +898,15 @@ msgstr "Bold"
 msgid "Italic"
 msgstr "Italic"
 
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+msgid "Name and Email"
+msgstr "الإسم و البريد الإلكتروني"
+
+msgid "Profile picture"
+msgstr "صورة الملف الشخصي"
+
 msgid "Password"
 msgstr "كلمة السر"
 
@@ -952,6 +982,9 @@ msgstr "السابقة"
 
 msgid "Latest"
 msgstr "اللاحقة"
+
+msgid "Unschedule"
+msgstr "غير مجدولة"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1077,9 +1110,29 @@ msgstr "حذف الصفحة '%(title)s'"
 msgid "Unpublish page '%(title)s'"
 msgstr "إلغاء نشر الصفحة '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "ترويسة %(level)d"
+msgid "Heading 1"
+msgstr "ترويسة 1"
+
+
+msgid "Heading 2"
+msgstr "ترويسة 2"
+
+
+msgid "Heading 3"
+msgstr "ترويسة 3"
+
+
+msgid "Heading 4"
+msgstr "ترويسة 4"
+
+
+msgid "Heading 5"
+msgstr "ترويسة 5"
+
+
+msgid "Heading 6"
+msgstr "ترويسة 6"
+
 
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"
@@ -1095,6 +1148,19 @@ msgstr "كود"
 
 msgid "Reports"
 msgstr "التقارير"
+
+#, python-format
+msgid "What's new in Wagtail %(version)s"
+msgstr "ما الجديد في Wagtail %(version)s"
+
+msgid "Editor Guide"
+msgstr "دليل المحرر"
+
+msgid "Shortcuts"
+msgstr "إختصارات"
+
+msgid "Help"
+msgstr "المساعدة"
 
 msgid "Choose an item"
 msgstr "اختيار عنصر"

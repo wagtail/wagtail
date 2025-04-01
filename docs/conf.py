@@ -72,8 +72,7 @@ autodoc_type_aliases = {
 nitpick_ignore = [
     # Sphinx currently cannot resolve type hint names, warns "target not found":
     ("py:class", "wagtail.images.models.Filter"),
-    ("py:class", "HttpRequest"),
-    ("py:class", "RouteResult"),
+    ("py:class", "wagtail.url_routing.RouteResult"),
     ("py:class", "wagtail.blocks.base.Block"),
     ("py:class", "wagtail.blocks.field_block.BaseChoiceBlock"),
     ("py:class", "wagtail.blocks.field_block.ChooserBlock"),
@@ -400,3 +399,9 @@ def setup(app):
         rolename="lookup",
         indextemplate="pair: %s; field lookup type",
     )
+
+    # Stop Sphinx from looking in the wrong place for HttpRequest when resolving
+    # type annotations - see https://github.com/wagtail/wagtail/pull/12777
+    from django.http import HttpRequest
+
+    HttpRequest.__module__ = "django.http"
