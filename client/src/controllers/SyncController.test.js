@@ -446,7 +446,7 @@ describe('SyncController', () => {
 
     const titleElement = document.getElementById('title');
     const eventListener = jest.fn((event) => {
-      console.log('w-sync:apply event listener called');
+      // eslint-disable-next-line no-param-reassign
       event.detail.data.title = 'Custom Title';
     });
     document.addEventListener('w-sync:apply', eventListener);
@@ -467,7 +467,6 @@ describe('SyncController', () => {
       titleElement.value = applyEvent.detail.data.title;
     }
 
-    console.log('Title value:', titleElement.value);
     expect(eventListener).toHaveBeenCalled(); // Ensure the listener was called
     expect(titleElement.value).toEqual('Custom Title'); // Ensure the value was updated
   });

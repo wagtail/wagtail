@@ -605,7 +605,7 @@ class TestFormPageWithCustomFormBuilder(WagtailTestUtils, TestCase):
         # check ip address field has rendered
         self.assertContains(
             response,
-            '<input type="text" name="device_ip_address" required id="id_device_ip_address" />',
+            '<input type="text" name="device_ip_address" maxlength="39" required id="id_device_ip_address" />',
             html=True,
         )
 
