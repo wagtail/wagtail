@@ -879,6 +879,7 @@
 * Dhruvi Patel
 * Sylvain Boissel
 * Jordan Teichmann
+* Aditya (megatrron)
 
 ## Translators
 
