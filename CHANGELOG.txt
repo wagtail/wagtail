@@ -20,8 +20,12 @@ Changelog
  * Fix: Make "Actions" label translatable within the rich text toolbar (Bernhard Bliem, Sage Abdullah)
  * Fix: Fix incorrect "Views (past week)" heading on promoted search results listing (Baptiste Mispelon)
  * Fix: Ensure `InlinePanel` will be correctly ordered after the first save when `min_num` is used (Elhussein Almasri, Joel William)
+ * Fix: Avoid deprecation warnings about URLField `assume_scheme` on Django 5.x (Sage Abdullah)
+ * Fix: Fix setup.cfg syntax for setuptools v78 (Sage Abdullah)
+ * Fix: Ensure `ImproperlyConfigured` is thrown from `db_field` on unbound `FieldPanel`s as intended (Matt Westcott)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
+ * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
  * Maintenance: Refactor styles for Draftail, minimap, and comments to fix remaining Sass migration warnings (Thibaud Colas)
@@ -33,6 +37,7 @@ Changelog
  * Maintenance: Cleanup Stimulus controller imports, JSDoc & linting (LB (Ben) Johnston)
  * Maintenance: Rename `SkipLinkController` to `FocusController` with improved reusability, updated unit tests, and added story (LB (Ben) Johnston)
  * Maintenance: Fix CI testing issues with the Stimulus `LocaleController` time zones & non-deterministic page ordering tests (Sage Abdullah)
+ * Maintenance: Make GitHub highlight `.html` files as Django templates (Jake Howard)
 
 
 6.4.1 (21.02.2025)
