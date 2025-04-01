@@ -17,6 +17,7 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import messages
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
@@ -254,6 +255,11 @@ class CreateEditViewOptionalFeaturesMixin:
         self.lock = self.get_lock()
         self.locked_for_user = self.lock and self.lock.for_user(request.user)
         super().setup(request, *args, **kwargs)
+        self.saving_as_draft = (
+            self.draftstate_enabled
+            and request.method == "POST"
+            and self.action in ("create", "edit")
+        )
 
     @cached_property
     def workflow(self):
@@ -502,7 +508,9 @@ class CreateEditViewOptionalFeaturesMixin:
         # Save revision if the model inherits from RevisionMixin
         self.new_revision = None
         if self.revision_enabled:
-            self.new_revision = instance.save_revision(user=self.request.user)
+            self.new_revision = instance.save_revision(
+                user=self.request.user, clean=not self.saving_as_draft
+            )
 
         log(
             instance=instance,
@@ -723,9 +731,9 @@ class CreateEditViewOptionalFeaturesMixin:
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
         context["workflow_history_url"] = self.get_workflow_history_url()
-        context[
-            "confirm_workflow_cancellation_url"
-        ] = self.get_confirm_workflow_cancellation_url()
+        context["confirm_workflow_cancellation_url"] = (
+            self.get_confirm_workflow_cancellation_url()
+        )
         context["publishing_will_cancel_workflow"] = getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)
@@ -735,8 +743,20 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
+
         # Make sure object is not locked
-        if not self.locked_for_user and form.is_valid():
+        if self.locked_for_user:
+            return self.form_invalid(form)
+
+        # If saving as draft, do not enforce full validation
+        if self.saving_as_draft and isinstance(form, WagtailAdminModelForm):
+            form.defer_required_fields()
+            form_is_valid = form.is_valid()
+            form.restore_required_fields()
+        else:
+            form_is_valid = form.is_valid()
+
+        if form_is_valid:
             return self.form_valid(form)
         else:
             return self.form_invalid(form)

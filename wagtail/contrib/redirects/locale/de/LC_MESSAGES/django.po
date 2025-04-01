@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -126,9 +126,6 @@ msgstr "Weiterleitung"
 msgid "redirects"
 msgstr "Weiterleitungen"
 
-msgid "Add redirect"
-msgstr "Weiterleitung hinzufügen"
-
 msgid "Redirects"
 msgstr "Weiterleitungen"
 
@@ -155,14 +152,8 @@ msgstr "Import"
 msgid "Delete redirect %(title)s"
 msgstr "Weiterleitung %(title)s löschen"
 
-msgid "Delete"
-msgstr "Löschen"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Sind Sie sicher, dass Sie diese Weiterleitung löschen wollen?"
-
-msgid "Yes, delete"
-msgstr "Ja, löschen"
 
 msgid "Confirm import"
 msgstr "Import bestätigen"
@@ -213,6 +204,9 @@ msgstr ""
 "href=\"%(wagtailredirects_add_redirect_url)s\">Erstellen Sie doch jetzt eine!"
 "</a>"
 
+msgid "Add redirect"
+msgstr "Weiterleitung hinzufügen"
+
 msgid "Site"
 msgstr "Seite"
 
@@ -228,15 +222,12 @@ msgstr "Weiterleitung ‚%(redirect_title)s‘ aktualisiert."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Weiterleitung ‚%(redirect_title)s‘ gelöscht."
 
+msgid "The redirect could not be created due to errors."
+msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Weiterleitung ‚%(redirect_title)s‘ hinzugefügt"
-
-msgid "Edit"
-msgstr "Bearbeiten"
-
-msgid "The redirect could not be created due to errors."
-msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."
 
 msgid "Search redirects"
 msgstr "Such-Umleitungen"

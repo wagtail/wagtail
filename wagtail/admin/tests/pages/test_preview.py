@@ -173,7 +173,10 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
         self.assertNotIn(preview_session_key, self.client.session)
 
-        response = self.client.post(preview_url, {**self.post_data, "title": ""})
+        response = self.client.post(
+            preview_url,
+            {**self.post_data, "date_from": "2025-02-31"},
+        )
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
@@ -264,6 +267,98 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_with_deferred_required_fields(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "eventpage", self.home_page.id),
+        )
+
+        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
+            self.home_page.id
+        )
+        self.assertNotIn(preview_session_key, self.client.session)
+
+        response = self.client.post(
+            preview_url,
+            {
+                "title": "Bare minimum",
+                "slug": "bare-minimum",
+                "carousel_items-TOTAL_FORMS": 0,
+                "carousel_items-INITIAL_FORMS": 0,
+                "speakers-TOTAL_FORMS": 0,
+                "speakers-INITIAL_FORMS": 0,
+                "related_links-TOTAL_FORMS": 0,
+                "related_links-INITIAL_FORMS": 0,
+                "head_counts-TOTAL_FORMS": 0,
+                "head_counts-INITIAL_FORMS": 0,
+            },
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
+            self.home_page.id
+        )
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Bare minimum")
+
+    def test_preview_on_create_without_title_and_slug(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_add",
+            args=("tests", "eventpage", self.home_page.id),
+        )
+
+        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
+            self.home_page.id
+        )
+        self.assertNotIn(preview_session_key, self.client.session)
+
+        response = self.client.post(
+            preview_url,
+            {
+                "carousel_items-TOTAL_FORMS": 0,
+                "carousel_items-INITIAL_FORMS": 0,
+                "speakers-TOTAL_FORMS": 0,
+                "speakers-INITIAL_FORMS": 0,
+                "related_links-TOTAL_FORMS": 0,
+                "related_links-INITIAL_FORMS": 0,
+                "head_counts-TOTAL_FORMS": 0,
+                "head_counts-INITIAL_FORMS": 0,
+            },
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
+            self.home_page.id
+        )
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Placeholder title")
+
     def test_preview_on_edit_with_m2m_field(self):
         preview_url = reverse(
             "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
@@ -334,7 +429,10 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
 
         # Send an invalid update request
-        response = self.client.post(preview_url, {**self.post_data, "title": ""})
+        response = self.client.post(
+            preview_url,
+            {**self.post_data, "date_to": "1234-56-78"},
+        )
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(
             response.content.decode(),
@@ -353,6 +451,82 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "Beach party")
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_with_deferred_required_fields(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+
+        response = self.client.post(
+            preview_url,
+            {
+                "title": "Bare minimum",
+                "slug": "bare-minimum",
+                "carousel_items-TOTAL_FORMS": 0,
+                "carousel_items-INITIAL_FORMS": 0,
+                "speakers-TOTAL_FORMS": 0,
+                "speakers-INITIAL_FORMS": 0,
+                "related_links-TOTAL_FORMS": 0,
+                "related_links-INITIAL_FORMS": 0,
+                "head_counts-TOTAL_FORMS": 0,
+                "head_counts-INITIAL_FORMS": 0,
+            },
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        preview_session_key = f"wagtail-preview-{self.event_page.id}"
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Bare minimum")
+
+    def test_preview_on_edit_without_title_and_slug(self):
+        preview_url = reverse(
+            "wagtailadmin_pages:preview_on_edit", args=(self.event_page.id,)
+        )
+
+        response = self.client.post(
+            preview_url,
+            {
+                "carousel_items-TOTAL_FORMS": 0,
+                "carousel_items-INITIAL_FORMS": 0,
+                "speakers-TOTAL_FORMS": 0,
+                "speakers-INITIAL_FORMS": 0,
+                "related_links-TOTAL_FORMS": 0,
+                "related_links-INITIAL_FORMS": 0,
+                "head_counts-TOTAL_FORMS": 0,
+                "head_counts-INITIAL_FORMS": 0,
+            },
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        preview_session_key = f"wagtail-preview-{self.event_page.id}"
+        self.assertIn(preview_session_key, self.client.session)
+
+        response = self.client.get(preview_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/event_page.html")
+        self.assertContains(response, "Placeholder title")
 
     def test_preview_on_edit_expiry(self):
         initial_datetime = timezone.now()

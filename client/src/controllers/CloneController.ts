@@ -19,6 +19,7 @@ type AddOptions = {
  * Additionally, it will allow for clearing all previously added elements.
  *
  * @example - Using with the w-messages identifier
+ * ```html
  * <div
  *   data-controller="w-messages"
  *   data-action="w-messages:add@document->w-messages#add"
@@ -28,8 +29,9 @@ type AddOptions = {
  *   <ul data-w-messages-target="container"></ul>
  *   <template data-w-messages-target="template">
  *     <li data-message-status="error-or-success"><span></span></li>
- *  </template>
+ *   </template>
  * </div>
+ * ```
  *
  * @example - Using to show a temporary element with auto-clearing
  * ```html
@@ -39,12 +41,12 @@ type AddOptions = {
  *  data-w-clone-auto-clear-value="5_000"
  * >
  *   <div data-w-clone-target="container"></div>
- *   <template data-w-clone-target="template">
- *     <p>Page has loaded, this will be removed in 5 seconds.</p>
- *   </template>
+ *     <template data-w-clone-target="template">
+ *       <p>Page has loaded, this will be removed in 5 seconds.</p>
+ *     </template>
  *   </div>
  * </div>
- *
+ * ```
  */
 export class CloneController extends Controller<HTMLElement> {
   static classes = ['added', 'hide', 'show'];

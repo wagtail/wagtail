@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
@@ -51,18 +51,9 @@ msgstr "апісанне"
 msgid "search promotion"
 msgstr "пошукавае прасоўванне"
 
-msgid "Add search promotion"
-msgstr "Дадаць пошукавае прасоўванне"
-
-msgid "Add search pick"
-msgstr "Дадаць пошуковую падборку"
-
 #, python-format
 msgid "Delete %(query)s"
 msgstr "Выдаліць %(query)s"
-
-msgid "Delete"
-msgstr "Выдаліць"
 
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
@@ -70,21 +61,17 @@ msgstr ""
 "Вы ўпэўнены, што жадаеце выдаліць усе прасунутыя вынікі па гэтым пошукаваму "
 "запыту?"
 
-msgid "Yes, delete"
-msgstr "Так, выдаліць"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "Рэдактаванне %(query)s"
-
-msgid "Editing"
-msgstr "Рэдактаванне"
-
 msgid "Move up"
 msgstr "Перамясціць уверх"
 
 msgid "Move down"
 msgstr "Перамясціць уніз"
+
+msgid "Drag"
+msgstr "Перацягнуць"
+
+msgid "Delete"
+msgstr "Выдаліць"
 
 msgid "Promoted search results"
 msgstr "Высокі вынік пошуку"
@@ -125,24 +112,24 @@ msgstr "Знешняя спасылка"
 msgid "None"
 msgstr "Нікодны"
 
-msgid "Search Terms"
-msgstr "Умовы пошуку"
-
-msgid "Add new promoted result"
-msgstr "Дадаць новы высокі вынік пошуку"
+msgid "Date"
+msgstr "Дата"
 
 msgid "Search term(s)"
 msgstr "Пошукавы(я) запыт(ы)"
 
+msgid "Add new promoted result"
+msgstr "Дадаць новы высокі вынік пошуку"
+
 msgid "Promoted results"
 msgstr "Рэклама вынікаў"
+
+msgid "Promoted search result"
+msgstr "Высокі вынік пошуку"
 
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr "Зроблена падборка для '%(query)s'."
-
-msgid "Edit"
-msgstr "Рэдактаваць"
 
 msgid "Recommendations have not been created due to errors"
 msgstr "Рэкамендацыі не былі створаны з-за памылкі"

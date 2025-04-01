@@ -1178,16 +1178,18 @@ def add_custom_headers(next_serve_page):
 ```
 
 Parameters passed to the function:
-- `page` - the Page object being served
-- `request` - the request object
-- `args` - positional arguments that will be passed to the page's serve method
-- `kwargs` - keyword arguments that will be passed to the page's serve method
+
+-   `page` - the Page object being served
+-   `request` - the request object
+-   `args` - positional arguments that will be passed to the page's serve method
+-   `kwargs` - keyword arguments that will be passed to the page's serve method
 
 This hook is particularly useful for:
-- Adding/modifying response headers
-- Implementing access restrictions
-- Modifying the response content
-- Adding logging or monitoring
+
+-   Adding/modifying response headers
+-   Implementing access restrictions
+-   Modifying the response content
+-   Adding logging or monitoring
 
 ## Document serving
 

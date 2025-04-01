@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["hidden"] }] */
+
 import { Controller } from '@hotwired/stimulus';
 
 /**
@@ -8,10 +10,12 @@ import { Controller } from '@hotwired/stimulus';
  * @see https://w3c.github.io/aria/#aria-expanded
  *
  * @example
+ * ```html
  * <section data-controller="w-reveal">
- *  <button type="button" data-action="w-reveal#toggle" data-w-reveal-target="toggle" aria-controls="my-content" type="button">Toggle</button>
- *  <div id="my-content">CONTENT</div>
+ *   <button type="button" data-action="w-reveal#toggle" data-w-reveal-target="toggle" aria-controls="my-content" type="button">Toggle</button>
+ *   <div id="my-content">CONTENT</div>
  * </section>
+ * ```
  */
 export class RevealController extends Controller<HTMLElement> {
   static classes = [
@@ -106,7 +110,6 @@ export class RevealController extends Controller<HTMLElement> {
       });
       contentTargets.forEach((content) => {
         content.classList.remove(...openedContentClasses);
-        // eslint-disable-next-line no-param-reassign
         content.hidden = true;
       });
       this.element.classList.add(...closedClasses);
@@ -120,7 +123,7 @@ export class RevealController extends Controller<HTMLElement> {
       });
       contentTargets.forEach((content) => {
         content.classList.add(...openedContentClasses);
-        content.hidden = false; // eslint-disable-line no-param-reassign
+        content.hidden = false;
       });
       this.element.classList.remove(...closedClasses);
       this.element.classList.add(...openedClasses);

@@ -1,4 +1,7 @@
 @use 'sass:math';
+@use '../settings' as *;
+@use '../tools/mixins.breakpoints' as *;
+@use '../tools/mixins.general' as *;
 
 // grid settings
 $grid-columns: 12;

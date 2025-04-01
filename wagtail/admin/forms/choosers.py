@@ -5,6 +5,7 @@ from django.core import validators
 from django.forms.widgets import TextInput
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.compat import URLField
 from wagtail.models import Locale
 from wagtail.search.backends import get_search_backend
 
@@ -21,7 +22,7 @@ class URLOrAbsolutePathValidator(validators.URLValidator):
             return super().__call__(value)
 
 
-class URLOrAbsolutePathField(forms.URLField):
+class URLOrAbsolutePathField(URLField):
     widget = TextInput
     default_validators = [URLOrAbsolutePathValidator()]
 

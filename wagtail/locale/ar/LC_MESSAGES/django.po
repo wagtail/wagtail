@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -39,6 +39,9 @@ msgstr "تقدم إلى فوق "
 
 msgid "Move down"
 msgstr "تقدم إلى تحت"
+
+msgid "Drag"
+msgstr "اسحب"
 
 msgid "Delete"
 msgstr "حذف"
@@ -166,6 +169,12 @@ msgstr ""
 
 msgid "latest revision created at"
 msgstr "أحدث نسخة تم إنشاؤها في"
+
+msgid "For search engines"
+msgstr "خاص بمحركات البحث"
+
+msgid "For site menus"
+msgstr "خاص بقوائم الموقع"
 
 msgid "page"
 msgstr "صفحة"

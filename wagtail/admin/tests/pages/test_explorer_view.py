@@ -166,6 +166,50 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
         )
 
+    def test_ordering_by_content_type(self):
+        # Delete the child_page to avoid nondeterministic ordering with the
+        # new_page when ordering by content type, as they are the same type
+        self.child_page.delete()
+
+        event_page = SingleEventPage(
+            title="Wagtail Space 2025",
+            location="virtual",
+            audience="public",
+            cost="free",
+            date_from="2025-06-16",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        orderings = {
+            "content_type": (
+                [self.new_page.id, self.old_page.id, event_page.id],
+                "-content_type",
+            ),
+            "-content_type": (
+                [event_page.id, self.old_page.id, self.new_page.id],
+                "content_type",
+            ),
+        }
+        url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        for ordering, (pages, reverse_param) in orderings.items():
+            with self.subTest(ordering=ordering):
+                response = self.client.get(url, {"ordering": ordering})
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/pages/explorable_index.html"
+                )
+                self.assertEqual(response.context["ordering"], ordering)
+
+                # Child pages should be ordered by content type
+                page_ids = [page.id for page in response.context["pages"]]
+                self.assertEqual(page_ids, pages)
+
+                # The type column should contain a link to order by content type
+                soup = self.get_soup(response.content)
+                thead = soup.select_one("main table thead")
+                link = thead.select_one(f"a[href='{url}?ordering={reverse_param}']")
+                self.assertIsNotNone(link)
+
     def test_ordering_search_results_by_created_at(self):
         response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.root_page.id,)),
@@ -187,6 +231,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # The type column should not contain a link to order by content type
+        soup = self.get_soup(response.content)
+        headings = soup.select("main table thead th")
+        type_th = None
+        for heading in headings:
+            if heading.text.strip() == "Type":
+                type_th = heading
+        self.assertIsNotNone(type_th)
+        self.assertIsNone(type_th.select_one("a"))
 
     def test_change_default_child_page_ordering_attribute(self):
         # save old get_default_order to reset at end of test
@@ -652,6 +706,24 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         }
         self.assertIn("Simple page", page_type_labels)
         self.assertNotIn("Page", page_type_labels)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_filter_by_locale_and_search(self):
+        fr_locale = Locale.objects.create(language_code="fr")
+        self.root_page.copy_for_translation(fr_locale, copy_parents=True)
+
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,)),
+            {"locale": "en", "q": "hello"},
+        )
+        self.assertEqual(response.status_code, 200)
+        page_ids = {page.id for page in response.context["pages"]}
+        self.assertIn(self.child_page.id, page_ids)
+        self.assertContainsActiveFilter(
+            response,
+            "Locale: English",
+            "locale=en",
+        )
 
     def test_filter_by_date_updated(self):
         new_page_child = SimplePage(

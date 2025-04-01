@@ -30,7 +30,7 @@ enum ZoneMode {
  *   data-w-zone-active-class="public"
  *   data-w-zone-inactive-class="private"
  *   data-w-zone-switch-key-value="isPublic"
- *>
+ * >
  *  Content
  * </div>
  * ```

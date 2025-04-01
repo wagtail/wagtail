@@ -20,33 +20,22 @@ As part of defining your site’s models, here are areas to pay special attentio
 
 ### Alt text for images
 
-The default behavior for Wagtail images is to use the `title` field as the alt text ([#4945](https://github.com/wagtail/wagtail/issues/4945)).
-This is inappropriate, as it’s not communicated in the CMS interface, and the image upload form uses the image’s filename as the title by default.
+Wherever an image is used, the content editor should be able to mark the image as decorative or provide a context-specific text alternative. The image embed in our rich text editor supports this behavior. Wagtail 6.3 added [`ImageBlock`](streamfield_imageblock) to provide this behavior for images within StreamFields.
 
-Ideally, always add an optional “alt text” field wherever an image is used, alongside the image field:
-
--   For normal fields, add an alt text field to your image’s panel.
--   For StreamField, add an extra field to your image block.
--   For rich text – Wagtail already makes it possible to customize alt text for rich text images.
-
-When defining the alt text fields, make sure they are optional so editors can choose to not write any alt text for decorative images. Take the time to provide `help_text` with appropriate guidance.
-For example, linking to [established resources on alt text](https://axesslab.com/alt-texts/).
+Wagtail 6.3 also added an optional `description` field to the Wagtail image model and to custom image models inheriting from `wagtail.images.models.AbstractImage`. Text in that field will be offered as the default alt text when inserting images in rich text or using ImageBlock. If the description field is empty, the title field will be used instead. If you would like to customize this behavior, [override the `default_alt_text` property](custom_image_model) in your image model.
 
 ```{note}
-Should I add an alt text field on the Image model for my site?
+Important considerations
 
-It’s better than nothing to have a dedicated alt field on the Image model ([#5789](https://github.com/wagtail/wagtail/pull/5789)), and may be appropriate for some websites, but we recommend to have it inline with the content because ideally alt text should be written for the context the image is used in:
-
+- Alt text should be written based on the context the image is displayed in.
+- When specifying alt text fields, make sure they are optional so editors can choose to not write any alt text for decorative images. An image might be decorative in some cases but not in others. For example, thumbnails in page listings can often be considered decorative.
 - If the alt text’s content is already part of the rest of the page, ideally the image should not repeat the same content.
-- Ideally, the alt text should be written based on the context the image is displayed in.
-- An image might be decorative in some cases but not in others. For example, thumbnails in page listings can often be considered decorative.
+- Take the time to provide `help_text` with appropriate guidance. For example, linking to [established resources on alt text](https://axesslab.com/alt-texts/).
 ```
-
-See [RFC 51: Contextual alt text](https://github.com/wagtail/rfcs/pull/51) for a long-term solution to this problem.
 
 ### Embeds title
 
-Missing embed titles are common failures in accessibility audits of Wagtail websites. In some cases, Wagtail embeds’ iframe doesn’t have a `title` attribute set. This is generally a problem with OEmbed providers like YouTube ([#5982](https://github.com/wagtail/wagtail/issues/5982)).
+Missing embed titles are common failures in accessibility audits of Wagtail websites. In some cases, Wagtail embeds’ iframe doesn’t have a `title` attribute set. This is often a problem with OEmbed providers.
 This is very problematic for screen reader users, who rely on the title to understand what the embed is, and whether to interact with it or not.
 
 If your website relies on embeds that have missing titles, make sure to either:
@@ -73,8 +62,9 @@ If this is a concern to you, you can change which tags are used when saving cont
 
 ### TableBlock
 
-The [TableBlock](../reference/contrib/table_block) default implementation makes it too easy for end-users to miss they need either row or column headers ([#5989](https://github.com/wagtail/wagtail/issues/5989>)). Make sure to always have either row headers or column headers set.
-Always add a Caption, so screen reader users navigating the site’s tables know where they are.
+Screen readers will use row and column headers to announce the context of each table cell. Please encourage editors to set row headers and/or column headers as appropriate for their table.
+
+Always add a Caption, so screen reader users navigating the site’s tables get an overview of the table content before it is read.
 
 (accessibility_in_templates)=
 
@@ -84,17 +74,17 @@ Here are common gotchas to be aware of to make the site’s templates as accessi
 
 ### Alt text in templates
 
-See the [content modelling](content_modeling) section above. Additionally, make sure to [customize images’ alt text](image_tag_alt), either setting it to the relevant field, or to an empty string for decorative images, or images where the alt text would be a repeat of other content.
+See the [content modeling](content_modeling) section above. Additionally, make sure to [customize images’ alt text](image_tag_alt), either setting it to the relevant field, or to an empty string for decorative images, or images where the alt text would be a repeat of other content.
 Even when your images have alt text coming directly from the image model, you still need to decide whether there should be alt text for the particular context the image is used in. For example, avoid alt text in listings where the alt text just repeats the listing items’ title.
 
 ### Empty heading tags
 
-In both rich text and custom StreamField blocks, it’s sometimes easy for editors to create a heading block but not add any content to it. If this is a problem for your site,
+In both rich text and custom StreamField blocks, it’s easy for editors to create a heading block but not add any content to it. The [built-in accessibility checker](built_in_accessibility_checker) will highlight empty headings so editors can find and fix them. If you need stricter enforcement:
 
 -   Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the [StreamField](../topics/streamfield) `CharBlock` which is required by default.
--   Consider adding similar validation rules for rich text fields ([#6526](https://github.com/wagtail/wagtail/issues/6526)).
+-   Consider adding similar validation rules for rich text fields.
 
-Additionally, you can hide empty heading blocks with CSS:
+Alternately, you can hide empty heading blocks with CSS:
 
 ```css
 h1:empty,
@@ -126,6 +116,8 @@ Make sure to test your forms’ implementation with assistive technologies, and 
 
 A number of built-in tools and additional resources are available to help create accessible content.
 
+(built_in_accessibility_checker)=
+
 ### Built-in accessibility checker
 
 Wagtail includes an accessibility checker built into the [user bar](wagtailuserbar_tag) and editing views supporting previews. The checker can help authors create more accessible websites following best practices and accessibility standards like [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/).
@@ -153,19 +145,22 @@ from wagtail.admin.userbar import AccessibilityItem
 
 
 class CustomAccessibilityItem(AccessibilityItem):
-    axe_custom_checks = [
-        {
-	    # Flag heading-like paragraphs based only on font weight compared to surroundings.
-            "id": "p-as-heading",
-            "options": {
-                "margins": [
-                    { "weight": 150 },
-                ],
-                "passLength": 1,
-                "failLength": 0.5
+    def get_axe_custom_checks(self, request):
+        checks = super().get_axe_custom_checks(request)
+        # Flag heading-like paragraphs based only on font weight compared to surroundings.
+        checks.append(
+            {
+                "id": "p-as-heading",
+                "options": {
+                    "margins": [
+                        { "weight": 150 },
+                    ],
+                    "passLength": 1,
+                    "failLength": 0.5
+                },
             },
-        },
-    ]
+        )
+        return checks
 
 
 @hooks.register('construct_wagtail_userbar')

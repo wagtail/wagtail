@@ -23,12 +23,7 @@ module.exports = {
     // Would be valuable for strict BEM components but is too hard to enforce with legacy code.
     'no-descending-specificity': null,
     // Refined ordering to align with media mixin usage - see https://github.com/wagtail/stylelint-config-wagtail/issues/37
-    'order/order': [
-      'dollar-variables',
-      'custom-properties',
-      { type: 'at-rule', hasBlock: false }, // @-rules that have no nesting.
-      'declarations',
-    ],
+    'order/order': ['dollar-variables', 'custom-properties', 'declarations'],
     // Some parts of declaration-strict-value commented out until we are in a position to enforce them.
     'scale-unlimited/declaration-strict-value': [
       [
@@ -56,6 +51,7 @@ module.exports = {
           'none',
           'unset',
           'transparent',
+          'normal',
           // System colors for forced-colors styling.
           // See https://drafts.csswg.org/css-color-4/#css-system-colors.
           'Canvas',

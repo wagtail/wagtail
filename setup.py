@@ -22,20 +22,20 @@ install_requires = [
     "Django>=4.2,<6.0",
     "django-modelcluster>=6.2.1,<7.0",
     "django-permissionedforms>=0.1,<1.0",
-    "django-taggit>=5.0,<6.2",
+    "django-taggit>=5.0,<7",
     "django-treebeard>=4.5.1,<5.0",
     "djangorestframework>=3.15.1,<4.0",
-    "django-filter>=23.3,<25",
+    "django-filter>=23.3",
     "draftjs_exporter>=2.1.5,<6.0",
     "Pillow>=9.1.0,<12.0.0",
-    "beautifulsoup4>=4.8,<4.13",
+    "beautifulsoup4>=4.8,<5",
     "Willow[heif]>=1.8.0,<2",
     "requests>=2.11.1,<3.0",
-    "l18n>=2018.5",
     "openpyxl>=3.0.10,<4.0",
     "anyascii>=0.1.5",
     "telepath>=0.3.1,<1",
     "laces>=0.1,<0.2",
+    "django-tasks>=0.6.1,<0.7",
 ]
 
 # Testing dependencies
@@ -51,7 +51,7 @@ testing_extras = [
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
     "doc8==0.8.1",
-    "ruff==0.1.5",
+    "ruff==0.9.6",
     # For enforcing string formatting mechanism in source files
     "semgrep==1.40.0",
     # For templates linting
@@ -72,7 +72,7 @@ documentation_extras = [
     "sphinxcontrib-spelling>=7,<8",
     "Sphinx>=7.3",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==6.4.0",
+    "sphinx-wagtail-theme==6.5.0",
     "myst_parser==2.0.0",
 ]
 

@@ -23,15 +23,14 @@ concurrency:
 # - django 4.2, python 3.9, postgres:12, psycopg 2, parallel
 # - django 4.2, python 3.10, mysql:8.0
 # - django 4.2, python 3.11, mariadb:10.5
-# - django 5.0, python 3.11, sqlite, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 5.1, python 3.12, mysql:8.4, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 5.1, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
 # - django 5.1, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.13, sqlite, parallel, USE_EMAIL_USER_MODEL=yes
+# - django 5.1, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
 # - django 5.1, python 3.13, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
-# - django stable/5.1.x, python 3.11, postgres:15, psycopg 3 (allow failures)
+# - django stable/5.2.x, python 3.12, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.13, postgres:latest, psycopg 3, parallel (allow failures)
 # - elasticsearch 7, django 4.2, python 3.9, postgres:latest, psycopg 2
-# - opensearch 2, django 5.0, python 3.10, sqlite
+# - opensearch 2, django 5.1, python 3.10, sqlite
 # - elasticsearch 8, django 5.1, python 3.13, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
@@ -49,12 +48,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: '3.11'
-            django: 'Django>=5.0,<5.1'
-            check_template_number_format: '1'
           - python: '3.13'
             django: 'Django>=5.1,<5.2'
-            emailuser: emailuser
+            check_template_number_format: '1'
             parallel: '--parallel'
 
     steps:
@@ -98,14 +94,14 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.13'
-            django: 'Django>=5.0,<5.1'
+            django: 'Django>=5.1,<5.2'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             notz: notz
             experimental: false
             parallel: '--parallel'
-          - python: '3.11'
-            django: 'git+https://github.com/django/django.git@stable/5.1.x#egg=Django'
+          - python: '3.12'
+            django: 'git+https://github.com/django/django.git@stable/5.2.x#egg=Django'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             experimental: true
@@ -115,6 +111,9 @@ jobs:
             experimental: true
             postgres: 'postgres:latest'
             parallel: '--parallel'
+            install_extras: |
+              pip uninstall -y django-modelcluster
+              pip install "git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster"
     services:
       postgres:
         image: ${{ matrix.postgres || 'postgres:12' }}
@@ -167,15 +166,10 @@ jobs:
           tee -a testproject/settings/local.py << EOF
           from warnings import filterwarnings
           SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W001"]
-          # Remove when l18n dependency is updated or removed
+          # Remove when https://github.com/wagtail/Willow/issues/166 is resolved
           filterwarnings(
-              "ignore", "'locale.getdefaultlocale' is deprecated .*"
+              "ignore", "The AVIF support in this library is marked as deprecated"
           )
-          # Remove when all experimental jobs use Django >= 6.0
-          filterwarnings(
-              "ignore", "The FORMS_URLFIELD_ASSUME_HTTPS transitional setting is deprecated."
-          )
-          FORMS_URLFIELD_ASSUME_HTTPS = True
           EOF
           python manage.py makemigrations --check --dry-run
           python manage.py migrate
@@ -202,7 +196,6 @@ jobs:
           - python: '3.12'
             django: 'Django>=5.1,<5.2'
             experimental: false
-            parallel: '--parallel'
             mysql: 'mysql:8.4'
             emailuser: emailuser
     services:
@@ -371,7 +364,7 @@ jobs:
       matrix:
         include:
           - python: '3.10'
-            django: 'Django>=5.0,<5.1'
+            django: 'Django>=5.1,<5.2'
             experimental: false
 
     steps:

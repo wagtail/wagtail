@@ -160,7 +160,8 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
-    def clean(self, value):
+    def clean(self, value, ignore_required_constraints=False):
+        required = self.required and not ignore_required_constraints
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
@@ -172,15 +173,16 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = e
 
-        if self.meta.min_num is not None and self.meta.min_num > len(value):
-            non_block_errors.append(
-                ValidationError(
-                    _("The minimum number of items is %(min_num)d")
-                    % {"min_num": self.meta.min_num}
+        if required:
+            if self.meta.min_num is not None and self.meta.min_num > len(value):
+                non_block_errors.append(
+                    ValidationError(
+                        _("The minimum number of items is %(min_num)d")
+                        % {"min_num": self.meta.min_num}
+                    )
                 )
-            )
-        elif self.required and len(value) == 0:
-            non_block_errors.append(ValidationError(_("This field is required.")))
+            elif len(value) == 0:
+                non_block_errors.append(ValidationError(_("This field is required.")))
 
         if self.meta.max_num is not None and self.meta.max_num < len(value):
             non_block_errors.append(
@@ -200,7 +202,7 @@ class BaseStreamBlock(Block):
                 max_num = min_max.get("max_num", None)
                 min_num = min_max.get("min_num", None)
                 block_count = block_counts[block_name]
-                if min_num is not None and min_num > block_count:
+                if required and min_num is not None and min_num > block_count:
                     non_block_errors.append(
                         ValidationError(
                             "{}: {}".format(
@@ -460,6 +462,10 @@ class BaseStreamBlock(Block):
 
         return errors
 
+    @cached_property
+    def _has_default(self):
+        return self.meta.default is not BaseStreamBlock._meta_class.default
+
     class Meta:
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
@@ -668,7 +674,9 @@ class StreamValue(MutableSequence):
             block_id = None
 
         block_def = self.stream_block.child_blocks[type_name]
-        return StreamValue.StreamChild(block_def, value, id=block_id)
+        return StreamValue.StreamChild(
+            block_def, block_def.normalize(value), id=block_id
+        )
 
     def __getitem__(self, i):
         if isinstance(i, slice):
@@ -826,8 +834,11 @@ class StreamBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             "label": block.label,
+            "description": block.get_description(),
             "required": block.required,
             "icon": block.meta.icon,
+            "blockDefId": block.definition_prefix,
+            "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
             "maxNum": block.meta.max_num,
             "minNum": block.meta.min_num,
@@ -836,6 +847,7 @@ class StreamBlockAdapter(Adapter):
             "strings": {
                 "MOVE_UP": _("Move up"),
                 "MOVE_DOWN": _("Move down"),
+                "DRAG": _("Drag"),
                 "DUPLICATE": _("Duplicate"),
                 "DELETE": _("Delete"),
                 "ADD": _("Add"),

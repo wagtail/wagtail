@@ -1,11 +1,11 @@
 #
 # Translators:
-# Awatea Randall <awatea@octave.nz>, 2022
 # Loic Teixeira, 2024
+# Awatea Randall <awatea@octave.nz>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>, 2025\n"
 "Language-Team: Maori (https://app.transifex.com/torchbox/teams/8009/mi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: mi\n"
@@ -58,6 +58,9 @@ msgstr "Kaihōpara-a-whārangi"
 
 msgid "Pages"
 msgstr "Ngā whārangi"
+
+msgid "Preview"
+msgstr "Titiro"
 
 msgid "Reload saved content"
 msgstr "Uta anō tē rārangi take e puritia."

@@ -5,6 +5,7 @@ from django.db.models.fields.reverse_related import ManyToOneRel
 from django.forms.models import fields_for_model
 
 from wagtail.admin.forms.models import formfield_for_dbfield
+from wagtail.models import PanelPlaceholder
 
 from .base import Panel
 from .field_panel import FieldPanel
@@ -61,6 +62,10 @@ def expand_panel_list(model, panels):
     for panel in panels:
         if isinstance(panel, Panel):
             result.append(panel)
+
+        elif isinstance(panel, PanelPlaceholder):
+            if real_panel := panel.construct():
+                result.append(real_panel)
 
         elif isinstance(panel, str):
             field = model._meta.get_field(panel)

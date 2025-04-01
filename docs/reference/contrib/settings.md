@@ -147,6 +147,8 @@ def view(request):
     ...
 ```
 
+The `request_or_site` argument is optional - if this is passed, and is a request object, the result will be cached on the request to avoid repeated database lookups within the same request.
+
 (site_settings)=
 
 #### Site-specific settings

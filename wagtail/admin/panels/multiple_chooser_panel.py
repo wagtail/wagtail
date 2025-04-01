@@ -38,9 +38,9 @@ class MultipleChooserPanel(InlinePanel):
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["chooser_field_name"] = self.panel.chooser_field_name
-            context[
-                "chooser_widget_definition"
-            ] = self.chooser_widget_telepath_definition
+            context["chooser_widget_definition"] = (
+                self.chooser_widget_telepath_definition
+            )
             return context
 
         @property

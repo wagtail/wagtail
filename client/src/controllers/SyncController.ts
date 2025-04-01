@@ -7,6 +7,7 @@ import { debounce } from '../utils/debounce';
  * or more targeted other inputs.
  *
  * @example
+ * ```html
  * <section>
  *   <input type="text" name="title" id="title" />
  *   <input
@@ -19,6 +20,7 @@ import { debounce } from '../utils/debounce';
  *     data-w-sync-target-value="#title"
  *   />
  * </section>
+ * ```
  */
 export class SyncController extends Controller<HTMLInputElement> {
   static values = {

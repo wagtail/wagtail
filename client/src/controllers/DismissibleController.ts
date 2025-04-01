@@ -3,7 +3,7 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 /**
  * Updates the server, using a PATCH request when the toggle is clicked on a dismissible
- * element initialised by DismissibleController
+ * element initialized by DismissibleController
  *
  * @param data - The dismissible represented as an object with keys as
  * the id and its new state: whether it is dismissed (boolean)
@@ -29,18 +29,20 @@ export const updateDismissibles = (
 
 /**
  * Adds the ability to make an element dismissible so that it updates it's class and makes an async request.
- * Initialise such elements with a default handler that performs the dismissal.
- * This only initialises elements that are rendered by the server (if they have the data attr), so elements
+ * Initialize such elements with a default handler that performs the dismissal.
+ * This only initializes elements that are rendered by the server (if they have the data attr), so elements
  * that are rendered by the client (e.g. React) needs to be handled separately.
  *
  * @example
+ * ```html
  * <section
  *  data-controller="w-dismissible"
  *  data-w-dismissible-dismissed-class="w-dismissible--dismissed"
  *  data-w-dismissible-id-value="Whats new in Wagtail"
  * >
- *  <button type="button" data-action="w-dismiss#dismissible">Close</button>
+ *   <button type="button" data-action="w-dismiss#dismissible">Close</button>
  * </section>
+ * ```
  */
 export class DismissibleController extends Controller<HTMLElement> {
   static classes = ['dismissed'];

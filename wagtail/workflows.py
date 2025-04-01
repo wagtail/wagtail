@@ -1,5 +1,3 @@
-from wagtail.models import Task
-
 TASK_TYPES = []
 
 
@@ -15,6 +13,8 @@ def get_concrete_descendants(model_class, inclusive=True):
 
 
 def get_task_types(task_class=None):
+    from wagtail.models import Task
+
     global TASK_TYPES
     if TASK_TYPES:
         return TASK_TYPES

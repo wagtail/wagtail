@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -374,12 +374,6 @@ msgstr "ލިސްޓިންގގައިވާ ހުރިހާ އެއްޗެއް ހޮވާފ�
 msgid "Can access Wagtail admin"
 msgstr "ވެގްޓޭލް އެޑްމިން އަށް އެކްސެސް ކުރެވޭ"
 
-msgid "For search engines"
-msgstr "ސަރޗް އިންޖީނުތަކަށްޓަކައެވެ"
-
-msgid "For site menus"
-msgstr "ސައިޓް މެނޫތަކަށްޓަކައެވެ"
-
 msgid "Content"
 msgstr "މައިގަނޑު ކޮންޓެންޓް"
 
@@ -634,9 +628,6 @@ msgid ""
 "Preview cannot display due to validation errors. <br /> Click save to "
 "highlight the relevant fields."
 msgstr "ވެލިޑޭޝަން އެރަރސް ގެ ސަބަބުން ޕްރިވިއު ނުފެނެއެވެ.<br /> ކަމާބެހޭ ދާއިރާތައް ހައިލައިޓް ކުރުމަށް ސޭވް އަށް ފިތާލާށެވެ."
-
-msgid "Comparing"
-msgstr "އަޅާކިޔުމެވެ"
 
 msgid "Fields"
 msgstr "ދަނޑުތަކެވެ"
@@ -1433,21 +1424,14 @@ msgstr "ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
 msgid "Visible to all. Visit the live page"
 msgstr "އެންމެންނަށް ފެންނަން ހުރެއެވެ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
 
-msgid "Private. Visit the live page"
-msgstr "އަމިއްލަ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
-
 msgid "Visible to all"
 msgstr "އެންމެންނަށް ފެންނަން ހުރެއެވެ"
 
+msgid "Private. Visit the live page"
+msgstr "އަމިއްލަ. ލައިވް ޕޭޖަށް ޒިޔާރަތް ކުރައްވާ"
+
 msgid "Toggle section"
 msgstr "ޓޮގްލް ސެކްޝަން"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s އަށް ރިވިޝަން %(revision.id)s ޝެޑިއުލް ނުކުރުން"
-
-msgid "Unschedule"
-msgstr "ޝެޑިއުލް ނުކޮށް"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "މި އިސްލާހު އަންޝެޑިއުލް ކުރަން ބޭނުންވާކަން ޔަގީން ހެއްޔެވެ؟"
@@ -2059,6 +2043,9 @@ msgstr "&#39;%(object)s&#39; ޝާއިޢު ނުކުރެވިފައިވެއެވެ."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "\\&quot;%(object)s\\&quot; ގެ ވަރޝަން %(revision_id)s ޝެޑިއުލް ނުކުރެވިފައިވެއެވެ."
 
+msgid "Unschedule"
+msgstr "ޝެޑިއުލް ނުކޮށް"
+
 msgid "If you confirm deletion"
 msgstr "ޑިލީޓް ކޮންފަރމް ކޮށްފިނަމަ"
 
@@ -2079,13 +2066,6 @@ msgstr "ޑޭޝްބޯޑެވެ"
 msgid "Delete selected pages"
 msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ޑިލީޓްކުރުން"
 
-msgid "1 page has been deleted"
-msgstr "1 ޞަފްޙާ ޑިލީޓް ކުރެވިއްޖެއެވެ"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d ޕޭޖްތައް ޑިލީޓްކޮށްފިއެވެ"
-
 msgid "Select a new parent page"
 msgstr "އާ ބެލެނިވެރި ޕޭޖެއް ހޮވާށެވެ"
 
@@ -2095,22 +2075,8 @@ msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ބަދަލުކުރުން"
 msgid "Publish selected pages"
 msgstr "ހޮވާފައިވާ ޞަފްޙާތައް ޝާއިޢުކުރުން"
 
-msgid "1 page has been published"
-msgstr "1 ޞަފްޙާ ޝާއިޢުކުރެވިއްޖެއެވެ"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d ޞަފްޙާތައް ޝާއިޢުކޮށްފައިވެއެވެ"
-
 msgid "Unpublish selected pages"
 msgstr "ހޮވާފައިވާ ޞަފްޙާތައް އަންޕަބްލިޝްކުރުން"
-
-msgid "1 page has been unpublished"
-msgstr "1 ޞަފްޙާ ވަނީ ޝާއިޢު ނުކުރެވިފައެވެ"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d ޞަފްޙާތައް ޝާއިޢު ނުކުރެވިފައިވެއެވެ"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2253,9 +2219,6 @@ msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr "ތިޔަ ބަލަނީ މި ޞަފްޙާގެ ކުރީގެ ވަރޝަނެއް 1 އިންނެވެ <b>%(created_at)s</b> by %(user)s"
-
-msgid "Page history"
-msgstr "ޞަފްޙާގެ ތާރީޚެވެ"
 
 #, python-format
 msgid "Page '%(page_title)s' unpublished."

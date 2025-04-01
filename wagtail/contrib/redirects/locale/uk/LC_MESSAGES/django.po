@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2023-2024\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -100,9 +100,6 @@ msgstr "перенаправлення"
 msgid "redirects"
 msgstr "перенаправлення"
 
-msgid "Add redirect"
-msgstr "Додати перенарпавлення"
-
 msgid "Redirects"
 msgstr "Список перенаправлень"
 
@@ -116,14 +113,8 @@ msgstr "Імпортувати"
 msgid "Delete redirect %(title)s"
 msgstr "Видалити перенаправлення %(title)s"
 
-msgid "Delete"
-msgstr "Видалити"
-
 msgid "Are you sure you want to delete this redirect?"
 msgstr "Ви впевнені, що бажаєте видалити це перенаправлення?"
-
-msgid "Yes, delete"
-msgstr "Так, видалити"
 
 msgid "Confirm import"
 msgstr "Підтвердити імпорт"
@@ -172,6 +163,9 @@ msgstr ""
 "Ще немає жодного перенаправлення. Чому б не <a "
 "href=\"%(wagtailredirects_add_redirect_url)s\">створити якесь</a>?"
 
+msgid "Add redirect"
+msgstr "Додати перенарпавлення"
+
 msgid "Site"
 msgstr "Сайт"
 
@@ -186,15 +180,12 @@ msgstr "Перенаправлення '%(redirect_title)s' оновлено."
 msgid "Redirect '%(redirect_title)s' deleted."
 msgstr "Перенаправлення '%(redirect_title)s' видалено."
 
+msgid "The redirect could not be created due to errors."
+msgstr "Перенаправлення не може бути створене через помилки."
+
 #, python-format
 msgid "Redirect '%(redirect_title)s' added."
 msgstr "Перенаправлення '%(redirect_title)s' додано."
-
-msgid "Edit"
-msgstr "Редагувати"
-
-msgid "The redirect could not be created due to errors."
-msgstr "Перенаправлення не може бути створене через помилки."
 
 msgid "Search redirects"
 msgstr "Пошук перенаправлень"

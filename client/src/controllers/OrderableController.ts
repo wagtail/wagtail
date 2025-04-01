@@ -12,6 +12,15 @@ enum Direction {
  *
  * Once re-ordering is completed an async request will be made to the
  * provided URL to submit the update per item.
+ *
+ * @example
+ * ```html
+ * <fieldset data-controller="w-orderable" data-w-orderable-url-value="/path/to/orderable/">
+ *   <input type="button" data-w-orderable-target="item" data-w-orderable-item-id="1" value="Item 1"/>
+ *   <input type="button" data-w-orderable-target="item" data-w-orderable-item-id="2" value="Item 2"/>
+ *   <input type="button" data-w-orderable-target="item" data-w-orderable-item-id="3" value="Item 3"/>
+ * </fieldset>
+ * ```
  */
 export class OrderableController extends Controller<HTMLElement> {
   static classes = ['active', 'chosen', 'drag', 'ghost'];

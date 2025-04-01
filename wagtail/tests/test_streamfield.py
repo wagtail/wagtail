@@ -8,6 +8,7 @@ from django.test import TestCase, skipUnlessDBFeature
 from django.utils.safestring import SafeString
 
 from wagtail import blocks
+from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.blocks import StreamBlockValidationError, StreamValue
 from wagtail.fields import StreamField
 from wagtail.images.models import Image
@@ -22,6 +23,7 @@ from wagtail.test.testapp.models import (
     JSONStreamModel,
     StreamPage,
 )
+from wagtail.test.utils.form_data import nested_form_data, rich_text, streamfield
 
 
 class TestLazyStreamField(TestCase):
@@ -225,6 +227,17 @@ class TestStreamValueAccess(TestCase):
         self.assertIsInstance(fetched_body[0].value, RichText)
         self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
 
+    def test_normalize_on_assign(self):
+        self.json_body.body = [("rich_text", "<h2>hello world</h2>")]
+        self.json_body.save()
+
+        # the body should now be a stream consisting of a single rich_text block
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 1)
+        self.assertIsInstance(fetched_body[0].value, RichText)
+        self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
+
     def test_can_append(self):
         self.json_body.body.append(("text", "bar"))
         self.json_body.save()
@@ -236,6 +249,30 @@ class TestStreamValueAccess(TestCase):
         self.assertEqual(fetched_body[0].value, "foo")
         self.assertEqual(fetched_body[1].block_type, "text")
         self.assertEqual(fetched_body[1].value, "bar")
+
+    def test_normalize_on_append(self):
+        self.json_body.body.append(("rich_text", "<h2>hello world</h2>"))
+        self.json_body.save()
+
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 2)
+        self.assertEqual(fetched_body[0].block_type, "text")
+        self.assertEqual(fetched_body[0].value, "foo")
+        self.assertEqual(fetched_body[1].block_type, "rich_text")
+        self.assertIsInstance(fetched_body[1].value, RichText)
+        self.assertEqual(fetched_body[1].value.source, "<h2>hello world</h2>")
+
+    def test_normalize_on_replace(self):
+        self.json_body.body[0] = ("rich_text", "<h2>hello world</h2>")
+        self.json_body.save()
+
+        fetched_body = JSONStreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 1)
+        self.assertEqual(fetched_body[0].block_type, "rich_text")
+        self.assertIsInstance(fetched_body[0].value, RichText)
+        self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
 
     def test_can_append_on_queried_instance(self):
         # The test is analog to test_can_append(), but instead of working with the
@@ -512,6 +549,57 @@ class TestStreamFieldCountValidation(TestCase):
         instance = JSONMinMaxCountStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
+    def test_minimum_count_disregarded_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONMinMaxCountStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("text", "Some text"),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertTrue(form.is_valid())
+
+    def test_maximum_count_respected_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONMinMaxCountStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertFalse(form.is_valid())
+
     def test_maximum_count(self):
         # 5 blocks okay
         body = [self.rich_text_body] * 5
@@ -591,6 +679,54 @@ class TestStreamFieldCountValidation(TestCase):
         body = [self.text_body, self.image_body, self.rich_text_body]
         instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+    def test_block_count_minimum_disregarded_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONBlockCountsStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("rich_text", rich_text("Some text")),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertTrue(form.is_valid())
+
+    def test_block_count_maximum_respected_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONBlockCountsStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("rich_text", rich_text("Some text")),
+                        ("rich_text", rich_text("Some text")),
+                        ("rich_text", rich_text("Some text")),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertFalse(form.is_valid())
 
     def test_streamfield_count_argument_precedence(self):
         class TestStreamBlock(blocks.StreamBlock):

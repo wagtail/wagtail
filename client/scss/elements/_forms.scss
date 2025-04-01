@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use '../tools' as *;
 // Legacy form reset styles. Avoid adding any new styles here.
 form {
   // Historically, Wagtail forms rendered all fields as list items.

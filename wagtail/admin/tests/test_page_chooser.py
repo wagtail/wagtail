@@ -959,7 +959,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
                 "external-link-chooser-link_text": "about",
             }
         )
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(10):
             response = self.post(
                 {
                     "external-link-chooser-url": f"http://localhost/{self.prefix}about/",
@@ -997,7 +997,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
         self.assertEqual(response_json["internal"]["id"], self.internal_page.pk)
 
     def test_convert_external_link_with_query_parameters_to_internal_link_with_serve_path(
-        self
+        self,
     ):
         # https://github.com/wagtail/wagtail/issues/11996
         # New behaviour: when using a non-root serve path, entering a full
@@ -1067,7 +1067,7 @@ class TestChooserExternalLinkWithNonRootServePath(TestChooserExternalLink):
 
     @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION="")
     def test_no_conversion_external_to_internal_link_when_disabled_with_serve_path(
-        self
+        self,
     ):
         url = f"http://localhost/{self.prefix}about/"
         title = "about"

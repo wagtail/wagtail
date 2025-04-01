@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -46,6 +46,9 @@ msgstr "上に移動"
 
 msgid "Move down"
 msgstr "下に移動"
+
+msgid "Drag"
+msgstr "ドラッグ"
 
 msgid "Duplicate"
 msgstr "複製"
@@ -189,6 +192,12 @@ msgstr "検索エンジンの検索結果でヘッドラインの下に表示さ
 
 msgid "latest revision created at"
 msgstr "最終更新日時"
+
+msgid "For search engines"
+msgstr "検索エンジンのため"
+
+msgid "For site menus"
+msgstr "サイトメニューのため"
 
 msgid "page"
 msgstr "ページ"
