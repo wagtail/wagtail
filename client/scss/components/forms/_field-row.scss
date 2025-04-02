@@ -2,7 +2,8 @@
 
 .w-field-row {
   @include max-form-width();
-  gap: theme('spacing.5');
+  // Ensure there is enough room for a comment button within the gap.
+  gap: theme('spacing.7');
   // For mobile viewports, we attempt to display all items in the row side by side even if not at the desired size.
   display: flex;
   flex-wrap: wrap;
