@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.5 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
  * Add formal support for Django 5.2 (Matt Westcott)
