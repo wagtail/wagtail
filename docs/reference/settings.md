@@ -810,7 +810,7 @@ Tags are case-sensitive by default ('music' and 'Music' are treated as distinct 
 
 ### `WAGTAIL_TAG_SPACES_ALLOWED`
 
-```{versionchanged} 6.5
+```{versionchanged} 7.0
 The setting was renamed from `TAG_SPACES_ALLOWED` to `WAGTAIL_TAG_SPACES_ALLOWED`.
 ```
 
@@ -822,7 +822,7 @@ Tags can only consist of a single word, no spaces allowed. The default setting i
 
 ### `WAGTAIL_TAG_LIMIT`
 
-```{versionchanged} 6.5
+```{versionchanged} 7.0
 The setting was renamed from `TAG_LIMIT` to `WAGTAIL_TAG_LIMIT`.
 ```
 
