@@ -10,7 +10,6 @@ from wagtail.admin.widgets.button import Button
 from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestButtonsHooks(WagtailTestUtils, TestCase):
@@ -28,31 +27,6 @@ class TestButtonsHooks(WagtailTestUtils, TestCase):
 
 
 class TestPageListingButtonsHooks(TestButtonsHooks):
-    def test_register_page_listing_buttons_old_signature(self):
-        def page_listing_buttons_old_signature(page, page_perms, next_url=None):
-            yield wagtailadmin_widgets.PageListingButton(
-                "Another useless page listing button", "/custom-url", priority=10
-            )
-
-        with hooks.register_temporarily(
-            "register_page_listing_buttons", page_listing_buttons_old_signature
-        ):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`register_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
-            ):
-                response = self.client.get(
-                    reverse("wagtailadmin_explore", args=(self.root_page.id,))
-                )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
-        )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
-
-        self.assertContains(response, "Another useless page listing button")
-
     def test_register_page_listing_buttons_new_signature(self):
         def page_listing_buttons_new_signature(page, user, next_url=None):
             if not isinstance(user, AbstractBaseUser):
@@ -79,39 +53,6 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
 
 
 class TestPageListingMoreButtonsHooks(TestButtonsHooks):
-    def test_register_page_listing_more_buttons_with_old_signature(self):
-        def page_listing_more_buttons(page, page_perms, next_url=None):
-            yield wagtailadmin_widgets.Button(
-                'Another useless button in default "More" dropdown',
-                "/custom-url",
-                priority=10,
-            )
-
-        with (
-            hooks.register_temporarily(
-                "register_page_listing_more_buttons",
-                page_listing_more_buttons,
-            ),
-            self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`register_page_listing_more_buttons` hook functions should "
-                "accept a `user` argument instead of `page_perms`",
-            ),
-        ):
-            response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
-            )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
-        )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
-
-        self.assertContains(
-            response, "Another useless button in default &quot;More&quot; dropdown"
-        )
-
     def test_register_page_listing_more_buttons_with_new_signature(self):
         def page_listing_more_buttons(page, user, next_url=None):
             if not isinstance(user, AbstractBaseUser):
@@ -138,75 +79,6 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
         self.assertContains(
             response, "Another useless button in default &quot;More&quot; dropdown"
-        )
-
-    def test_button_with_dropdown_from_hook_accepts_page_perms_argument(self):
-        page = self.root_page
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "ButtonWithDropdownFromHook should be passed a `user` argument instead of `page_perms`",
-        ):
-            button = wagtailadmin_widgets.ButtonWithDropdownFromHook(
-                "One more more button",
-                hook_name="register_page_listing_one_more_more_buttons",
-                page=page,
-                page_perms=page.permissions_for_user(self.user),
-                next_url="/custom-url",
-                attrs={"target": "_blank", "rel": "noreferrer"},
-                priority=50,
-            )
-
-        self.assertEqual(button.user, self.user)
-
-    def test_custom_button_with_dropdown_with_old_signature(self):
-        def page_custom_listing_buttons(page, user, next_url=None):
-            yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
-                "One more more button",
-                hook_name="register_page_listing_one_more_more_buttons",
-                page=page,
-                user=user,
-                next_url=next_url,
-                attrs={"target": "_blank", "rel": "noreferrer"},
-                priority=50,
-            )
-
-        def page_custom_listing_more_buttons(page, page_perms, next_url=None):
-            yield wagtailadmin_widgets.Button(
-                'Another useless dropdown button in "One more more button" dropdown',
-                "/custom-url",
-                priority=10,
-            )
-
-        with (
-            hooks.register_temporarily(
-                "register_page_listing_buttons",
-                page_custom_listing_buttons,
-            ),
-            hooks.register_temporarily(
-                "register_page_listing_one_more_more_buttons",
-                page_custom_listing_more_buttons,
-            ),
-            self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`register_page_listing_one_more_more_buttons` hook functions "
-                "should accept a `user` argument instead of `page_perms`",
-            ),
-        ):
-            response = self.client.get(
-                reverse("wagtailadmin_explore", args=(self.root_page.id,))
-            )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
-        )
-        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
-
-        self.assertContains(response, "One more more button")
-        self.assertContains(
-            response,
-            "Another useless dropdown button in &quot;One more more button&quot; dropdown",
         )
 
     def test_custom_button_with_dropdown_with_new_signature(self):
@@ -336,34 +208,6 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
 
 class TestPageHeaderButtonsHooks(TestButtonsHooks):
-    def test_register_page_header_buttons_old_signature(self):
-        def custom_page_header_buttons(page, page_perms, next_url=None):
-            yield wagtailadmin_widgets.Button(
-                "Another useless header button", "/custom-url", priority=10
-            )
-
-        with (
-            hooks.register_temporarily(
-                "register_page_header_buttons",
-                custom_page_header_buttons,
-            ),
-            self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`register_page_header_buttons` hook functions should accept a "
-                "`user` argument instead of `page_perms`",
-            ),
-        ):
-            response = self.client.get(
-                reverse("wagtailadmin_pages:edit", args=(self.root_page.id,))
-            )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(
-            response, "wagtailadmin/pages/listing/_page_header_buttons.html"
-        )
-
-        self.assertContains(response, "Another useless header button")
-
     def test_register_page_header_buttons_new_signature(self):
         def custom_page_header_buttons(page, user, view_name, next_url=None):
             if not isinstance(user, AbstractBaseUser):
