@@ -2,7 +2,6 @@ import { Controller } from '@hotwired/stimulus';
 
 declare global {
   interface Window {
-    initBlockWidget?: (id: string) => void;
     telepath: any;
   }
 }
@@ -60,31 +59,5 @@ export class BlockController extends Controller<HTMLElement> {
     const output = telepath.unpack(this.dataValue);
     output.render(element, id, ...this.argumentsValue);
     this.dispatch('ready', { detail: { ...output }, cancelable: false });
-  }
-
-  static afterLoad() {
-    /**
-     * Provide a backwards compatible version of the original window global function.
-     *
-     * @deprecated RemovedInWagtail70
-     */
-    window.initBlockWidget = (id: string) => {
-      const body = document.querySelector(
-        '#' + id + '[data-block]',
-      ) as HTMLElement;
-
-      if (!body) {
-        return;
-      }
-
-      const blockDefData = JSON.parse(body.dataset.data as string);
-      if (window.telepath) {
-        const blockDef = window.telepath.unpack(blockDefData);
-        const blockValue = JSON.parse(body.dataset.value as string);
-        const blockError = JSON.parse(body.dataset.error as string);
-
-        blockDef.render(body, id, blockValue, blockError);
-      }
-    };
   }
 }

@@ -1,7 +1,4 @@
-from warnings import warn
-
 import django_filters
-from django.conf import settings
 from django.contrib.auth import (
     get_user_model,
     update_session_auth_hash,
@@ -10,7 +7,6 @@ from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
 from django.db.models import Q
 from django.forms import CheckboxSelectMultiple
-from django.template import RequestContext
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
@@ -35,11 +31,8 @@ from wagtail.admin.widgets.button import (
     ButtonWithDropdown,
 )
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.coreutils import accepts_kwarg
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
-from wagtail.utils.loading import get_custom_form
 
 User = get_user_model()
 
@@ -54,32 +47,6 @@ change_user_perm = "{}.change_{}".format(
 delete_user_perm = "{}.delete_{}".format(
     AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower()
 )
-
-
-def get_user_creation_form():
-    form_setting = "WAGTAIL_USER_CREATION_FORM"
-    if hasattr(settings, form_setting):
-        warn(
-            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
-            "`UserViewSet` subclass and override `get_form_class()` instead.",
-            RemovedInWagtail70Warning,
-        )
-        return get_custom_form(form_setting)
-    else:
-        return UserCreationForm
-
-
-def get_user_edit_form():
-    form_setting = "WAGTAIL_USER_EDIT_FORM"
-    if hasattr(settings, form_setting):
-        warn(
-            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
-            "`UserViewSet` subclass and override `get_form_class()` instead.",
-            RemovedInWagtail70Warning,
-        )
-        return get_custom_form(form_setting)
-    else:
-        return UserEditForm
 
 
 def get_users_filter_query(q, model_fields):
@@ -219,16 +186,7 @@ class IndexView(generic.IndexView):
         list_buttons = []
 
         for hook in hooks.get_hooks("register_user_listing_buttons"):
-            if accepts_kwarg(hook, "request_user"):
-                hook_buttons = hook(user=instance, request_user=self.request.user)
-            else:
-                # old-style hook that accepts a context argument instead of request_user
-                hook_buttons = hook(RequestContext(self.request), instance)
-                warn(
-                    "`register_user_listing_buttons` hook functions should accept a `request_user` argument instead of `context` -"
-                    f" {hook.__module__}.{hook.__name__} needs to be updated",
-                    category=RemovedInWagtail70Warning,
-                )
+            hook_buttons = hook(user=instance, request_user=self.request.user)
 
             for button in hook_buttons:
                 if isinstance(button, BaseDropdownMenuButton):
@@ -414,8 +372,8 @@ class UserViewSet(ModelViewSet):
 
     def get_form_class(self, for_update=False):
         if for_update:
-            return get_user_edit_form()
-        return get_user_creation_form()
+            return UserEditForm
+        return UserCreationForm
 
     @cached_property
     def search_area_class(self):

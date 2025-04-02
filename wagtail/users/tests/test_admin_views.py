@@ -10,7 +10,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
-from django.template import RequestContext, Template
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -22,7 +21,6 @@ from wagtail.admin.models import Admin
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets.button import ButtonWithDropdown
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.coreutils import get_dummy_request
 from wagtail.log_actions import log
 from wagtail.models import (
     Collection,
@@ -43,7 +41,6 @@ from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import UserViewSet
 from wagtail.users.wagtail_hooks import get_viewset_cls
 from wagtail.users.widgets import UserListingButton
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 add_user_perm_codename = f"add_{AUTH_USER_MODEL_NAME.lower()}"
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
@@ -65,47 +62,6 @@ class CustomGroupViewSet(GroupViewSet):
 
     def get_form_class(self, for_update=False):
         return CustomGroupForm
-
-
-class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    def setUp(self):
-        # create a user that should be visible in the listing
-        self.test_user = self.create_user(
-            username="testuser",
-            email="testuser@email.com",
-            password="password",
-            first_name="First Name",
-            last_name="Last Name",
-        )
-        self.test_group = Group.objects.create(name="Test Group")
-        self.test_user.groups.add(self.test_group)
-        self.login()
-
-    def get(self, params={}, group_id=None):
-        return self.client.get(
-            reverse(
-                "wagtailusers_groups:users", args=(group_id or self.test_group.pk,)
-            ),
-            params,
-        )
-
-    def test_simple(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "Accessing the list of users in a group via "
-            f"/admin/groups/{self.test_group.pk}/users/ is deprecated, use "
-            f"/admin/users/?group={self.test_group.pk} instead.",
-        ):
-            response = self.get()
-
-        self.assertRedirects(
-            response,
-            reverse("wagtailusers_users:index") + f"?group={self.test_group.pk}",
-        )
-
-    def test_inexisting_group(self):
-        response = self.get(group_id=9999)
-        self.assertEqual(response.status_code, 404)
 
 
 class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -916,22 +872,6 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         url_finder = AdminURLFinder(self.current_user)
         self.assertEqual(url_finder.get_edit_url(self.test_user), edit_url)
-
-    def test_legacy_url_redirect(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            (
-                "UserViewSet's `/<pk>/` edit view URL pattern has been "
-                "deprecated in favour of /edit/<pk>/."
-            ),
-        ):
-            response = self.client.get(f"/admin/users/{self.test_user.pk}/")
-
-        self.assertRedirects(
-            response,
-            f"/admin/users/edit/{self.test_user.pk}/",
-            status_code=301,
-        )
 
     def test_nonexistent_redirect(self):
         invalid_id = (
@@ -2879,103 +2819,6 @@ class TestAuthorisationDeleteView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
         user = get_user_model().objects.filter(email="test_user@email.com")
         self.assertFalse(user.exists())
-
-
-class TestTemplateTags(WagtailTestUtils, TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.user = cls.create_superuser("admin")
-        cls.request = get_dummy_request()
-        cls.request.user = cls.user
-        cls.test_user = cls.create_user(
-            username="testuser",
-            email="testuser@email.com",
-            password="password",
-        )
-
-    def test_user_listing_buttons(self):
-        template = """
-            {% load wagtailusers_tags %}
-            {% for user in users %}
-                <ul class="actions">
-                    {% user_listing_buttons user %}
-                </ul>
-            {% endfor %}
-        """
-
-        def hook(user, request_user):
-            self.assertEqual(user, self.test_user)
-            self.assertEqual(request_user, self.user)
-            yield UserListingButton(
-                "Show profile",
-                f"/goes/to/a/url/{user.pk}",
-                priority=30,
-            )
-
-        with self.register_hook("register_user_listing_buttons", hook):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`user_listing_buttons` template tag is deprecated.",
-            ):
-                html = Template(template).render(
-                    RequestContext(self.request, {"users": [self.test_user]})
-                )
-
-        soup = self.get_soup(html)
-
-        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
-        top_level_custom_button = soup.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNotNone(top_level_custom_button)
-        self.assertEqual(
-            top_level_custom_button.text.strip(),
-            "Show profile",
-        )
-
-    def test_user_listing_buttons_with_deprecated_hook(self):
-        template = """
-            {% load wagtailusers_tags %}
-            {% for user in users %}
-                <ul class="actions">
-                    {% user_listing_buttons user %}
-                </ul>
-            {% endfor %}
-        """
-
-        def deprecated_hook(context, user):
-            self.assertEqual(user, self.test_user)
-            self.assertEqual(context.request.user, self.user)
-            yield UserListingButton(
-                "Show profile",
-                f"/goes/to/a/url/{user.pk}",
-                priority=30,
-            )
-
-        with self.register_hook("register_user_listing_buttons", deprecated_hook):
-            with self.assertWarns(RemovedInWagtail70Warning) as warning_manager:
-                html = Template(template).render(
-                    RequestContext(self.request, {"users": [self.test_user]})
-                )
-
-        self.assertEqual(
-            [str(w.message) for w in warning_manager.warnings],
-            [
-                # Deprecation of the template tag
-                "`user_listing_buttons` template tag is deprecated.",
-                # Deprecation of the hook signature
-                "`register_user_listing_buttons` hook functions should accept a "
-                "`request_user` argument instead of `context` - "
-                "wagtail.users.tests.test_admin_views.deprecated_hook needs to be updated",
-            ],
-        )
-
-        soup = self.get_soup(html)
-        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
-        top_level_custom_button = soup.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNotNone(top_level_custom_button)
-        self.assertEqual(
-            top_level_custom_button.text.strip(),
-            "Show profile",
-        )
 
 
 class TestAdminPermissions(WagtailTestUtils, TestCase):
