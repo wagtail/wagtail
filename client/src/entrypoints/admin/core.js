@@ -61,7 +61,7 @@ window.URLify = (str, numChars = 255, allowUnicode = false) =>
 
 /**
  * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.
- * @deprecated RemovedInWagtail70
+ * @deprecated RemovedInWagtail80
  */
 function buildExpandingFormset(prefix, opts = {}) {
   return new ExpandingFormset(prefix, opts);
