@@ -2722,65 +2722,99 @@ class TestGroupHistoryView(WagtailTestUtils, TestCase):
 
 
 class TestGroupViewSet(TestCase):
-    app_config_attr = "group_viewset"
-    default_viewset_cls = GroupViewSet
-    custom_viewset_cls = CustomGroupViewSet
-    create_form_cls = CustomGroupForm
-    edit_form_cls = CustomGroupForm
-
     def setUp(self):
         self.app_config = apps.get_app_config("wagtailusers")
 
     def test_get_viewset_cls(self):
         self.assertIs(
-            get_viewset_cls(self.app_config, self.app_config_attr),
-            self.default_viewset_cls,
+            get_viewset_cls(self.app_config, "group_viewset"),
+            GroupViewSet,
         )
 
     def test_get_viewset_cls_with_custom_form(self):
         with unittest.mock.patch.object(
             self.app_config,
-            self.app_config_attr,
-            new=f"wagtail.users.tests.{self.custom_viewset_cls.__name__}",
+            "group_viewset",
+            new="wagtail.users.tests.CustomGroupViewSet",
         ):
-            group_viewset = get_viewset_cls(self.app_config, self.app_config_attr)
-        self.assertIs(group_viewset, self.custom_viewset_cls)
+            group_viewset = get_viewset_cls(self.app_config, "group_viewset")
+        self.assertIs(group_viewset, CustomGroupViewSet)
         self.assertEqual(group_viewset.icon, "custom-icon")
         viewset = group_viewset()
-        self.assertIs(viewset.get_form_class(for_update=False), self.create_form_cls)
-        self.assertIs(viewset.get_form_class(for_update=True), self.edit_form_cls)
+        self.assertIs(viewset.get_form_class(for_update=False), CustomGroupForm)
+        self.assertIs(viewset.get_form_class(for_update=True), CustomGroupForm)
 
     def test_get_viewset_cls_custom_form_invalid_value(self):
         with unittest.mock.patch.object(
-            self.app_config, self.app_config_attr, new="asdfasdf"
+            self.app_config, "group_viewset", new="asdfasdf"
         ):
             with self.assertRaisesMessage(
                 ImproperlyConfigured,
-                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
+                "Invalid setting for WagtailUsersAppConfig.group_viewset: "
                 "asdfasdf doesn't look like a module path",
             ):
-                get_viewset_cls(self.app_config, self.app_config_attr)
+                get_viewset_cls(self.app_config, "group_viewset")
 
     def test_get_viewset_cls_custom_form_does_not_exist(self):
         with unittest.mock.patch.object(
             self.app_config,
-            self.app_config_attr,
+            "group_viewset",
             new="wagtail.users.tests.CustomClassDoesNotExist",
         ):
             with self.assertRaisesMessage(
                 ImproperlyConfigured,
-                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
+                "Invalid setting for WagtailUsersAppConfig.group_viewset: "
                 'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
             ):
-                get_viewset_cls(self.app_config, self.app_config_attr)
+                get_viewset_cls(self.app_config, "group_viewset")
 
 
-class TestUserViewSet(TestGroupViewSet):
-    app_config_attr = "user_viewset"
-    default_viewset_cls = UserViewSet
-    custom_viewset_cls = CustomUserViewSet
-    create_form_cls = CustomUserCreationForm
-    edit_form_cls = CustomUserEditForm
+class TestUserViewSet(TestCase):
+    def setUp(self):
+        self.app_config = apps.get_app_config("wagtailusers")
+
+    def test_get_viewset_cls(self):
+        self.assertIs(
+            get_viewset_cls(self.app_config, "user_viewset"),
+            UserViewSet,
+        )
+
+    def test_get_viewset_cls_with_custom_form(self):
+        with unittest.mock.patch.object(
+            self.app_config,
+            "user_viewset",
+            new="wagtail.users.tests.CustomUserViewSet",
+        ):
+            group_viewset = get_viewset_cls(self.app_config, "user_viewset")
+        self.assertIs(group_viewset, CustomUserViewSet)
+        self.assertEqual(group_viewset.icon, "custom-icon")
+        viewset = group_viewset()
+        self.assertIs(viewset.get_form_class(for_update=False), CustomUserCreationForm)
+        self.assertIs(viewset.get_form_class(for_update=True), CustomUserEditForm)
+
+    def test_get_viewset_cls_custom_form_invalid_value(self):
+        with unittest.mock.patch.object(
+            self.app_config, "user_viewset", new="asdfasdf"
+        ):
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                "Invalid setting for WagtailUsersAppConfig.user_viewset: "
+                "asdfasdf doesn't look like a module path",
+            ):
+                get_viewset_cls(self.app_config, "user_viewset")
+
+    def test_get_viewset_cls_custom_form_does_not_exist(self):
+        with unittest.mock.patch.object(
+            self.app_config,
+            "user_viewset",
+            new="wagtail.users.tests.CustomClassDoesNotExist",
+        ):
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                "Invalid setting for WagtailUsersAppConfig.user_viewset: "
+                'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
+            ):
+                get_viewset_cls(self.app_config, "user_viewset")
 
     def test_registered_permissions(self):
         group_ct = ContentType.objects.get_for_model(Group)
