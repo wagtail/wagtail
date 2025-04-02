@@ -712,7 +712,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         If ``clean=True`` is passed, and the page has ``live=False`` set, only the title and slug fields are validated.
 
-        .. versionchanged:: 6.5
+        .. versionchanged:: 7.0
            ``clean=True`` now only performs full validation when the page is live. When the page is not live, only
            the title and slug fields are validated. Previously, full validation was always performed.
         """
