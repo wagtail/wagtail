@@ -40,6 +40,8 @@ Changelog
  * Maintenance: Rename `SkipLinkController` to `FocusController` with improved reusability, updated unit tests, and added story (LB (Ben) Johnston)
  * Maintenance: Fix CI testing issues with the Stimulus `LocaleController` time zones & non-deterministic page ordering tests (Sage Abdullah)
  * Maintenance: Make GitHub highlight `.html` files as Django templates (Jake Howard)
+ * Maintenance: Remove admin JavaScript imports from shared template includes, moving the imports to the appropriate core admin inclusion locations (Sai Srikar Dumpeti)
+ * Maintenance: Remove non-editing view inclusions of the `insert_editor_js` hook output, deprecate the wrapper template tag `_editor_js.html` (Sai Srikar Dumpeti, LB (Ben) Johnston)
 
 
 6.4.1 (21.02.2025)
