@@ -8,7 +8,6 @@ import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
 import { initStimulus } from '../../includes/initStimulus';
 
-import { urlify } from '../../utils/urlify';
 import { escapeHtml } from '../../utils/text';
 
 /** Expose a global to allow for customizations and packages to build with Stimulus. */
@@ -43,21 +42,6 @@ window.escapeHtml = escapeHtml;
 window.InlinePanel = InlinePanel;
 
 window.MultipleChooserPanel = MultipleChooserPanel;
-
-/**
- * Support legacy global URLify which can be called with `allowUnicode` as a third param.
- * Was not documented and only used in modeladmin prepopulate JS.
- *
- * @deprecated RemovedInWagtail70
- * @see https://github.com/django/django/blob/main/django/contrib/admin/static/admin/js/urlify.js#L156
- *
- * @param {string} str
- * @param {number} numChars
- * @param {boolean} allowUnicode
- * @returns {string}
- */
-window.URLify = (str, numChars = 255, allowUnicode = false) =>
-  urlify(str, { numChars, allowUnicode });
 
 /**
  * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.

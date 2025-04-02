@@ -19,7 +19,6 @@ from wagtail.contrib.frontend_cache.backends import (
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex, EventPage
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .utils import (
     PurgeBatch,
@@ -340,45 +339,6 @@ class TestBackendConfiguration(SimpleTestCase):
                     },
                 }
             )
-
-    @mock.patch(
-        "wagtail.contrib.frontend_cache.backends.cloudfront.CloudfrontBackend._create_invalidation"
-    )
-    def test_cloudfront_distribution_id_mapping(self, _create_invalidation):
-        backends = get_backends(
-            backend_settings={
-                "cloudfront": {
-                    "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
-                    "DISTRIBUTION_ID": {
-                        "www.wagtail.org": "frontend",
-                    },
-                },
-            }
-        )
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "Using a `DISTRIBUTION_ID` mapping is deprecated - use `HOSTNAMES` in combination with multiple backends instead.",
-        ):
-            backends.get("cloudfront").purge(
-                "http://www.wagtail.org/home/events/christmas/"
-            )
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "Using a `DISTRIBUTION_ID` mapping is deprecated - use `HOSTNAMES` in combination with multiple backends instead.",
-        ):
-            backends.get("cloudfront").purge("http://torchbox.com/blog/")
-
-        _create_invalidation.assert_called_once_with(
-            "frontend", ["/home/events/christmas/"]
-        )
-
-        self.assertTrue(
-            backends.get("cloudfront").invalidates_hostname("www.wagtail.org")
-        )
-        self.assertFalse(
-            backends.get("cloudfront").invalidates_hostname("torchbox.com")
-        )
 
     def test_multiple(self):
         backends = get_backends(

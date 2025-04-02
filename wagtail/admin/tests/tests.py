@@ -16,9 +16,6 @@ from wagtail.admin.menu import MenuItem
 from wagtail.models import Page
 from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import (
-    RemovedInWagtail70Warning,
-)
 
 
 class TestHome(WagtailTestUtils, TestCase):
@@ -424,18 +421,6 @@ class TestMenuItem(WagtailTestUtils, TestCase):
             classname="highlight-item",
         )
         self.assertEqual(menuitem.classname, "highlight-item")
-
-    def test_menuitem_with_deprecated_classnames(self):
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "The `classnames` kwarg for MenuItem is deprecated - use `classname` instead.",
-        ):
-            menuitem = MenuItem(
-                _("Test"),
-                reverse_lazy("wagtailadmin_home"),
-                classnames="is-dimmed",
-            )
-        self.assertEqual(menuitem.classname, "is-dimmed")
 
 
 class TestUserPassesTestPermissionDecorator(WagtailTestUtils, TestCase):

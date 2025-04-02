@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -7,8 +5,6 @@ from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.coreutils import accepts_kwarg
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class Button(Component):
@@ -199,27 +195,13 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
         label,
         hook_name,
         page,
-        user=None,
-        page_perms=None,
+        user,
         next_url=None,
         **kwargs,
     ):
         self.hook_name = hook_name
         self.page = page
-
-        if user is None:
-            if page_perms is not None:
-                warn(
-                    "ButtonWithDropdownFromHook should be passed a `user` argument instead of `page_perms`",
-                    category=RemovedInWagtail70Warning,
-                    stacklevel=2,
-                )
-                self.user = page_perms.user
-            else:
-                raise TypeError("ButtonWithDropdownFromHook requires a `user` argument")
-        else:
-            self.user = user
-
+        self.user = user
         self.next_url = next_url
 
         super().__init__(label, **kwargs)
@@ -234,19 +216,7 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
 
         buttons = []
         for hook in button_hooks:
-            if accepts_kwarg(hook, "user"):
-                buttons.extend(
-                    hook(page=self.page, user=self.user, next_url=self.next_url)
-                )
-            else:
-                # old-style hook that accepts page_perms instead of user
-                warn(
-                    f"`{self.hook_name}` hook functions should accept a `user` argument instead of `page_perms` -"
-                    f" {hook.__module__}.{hook.__name__} needs to be updated",
-                    category=RemovedInWagtail70Warning,
-                )
-                page_perms = self.page.permissions_for_user(self.user)
-                buttons.extend(hook(self.page, page_perms, self.next_url))
+            buttons.extend(hook(page=self.page, user=self.user, next_url=self.next_url))
 
         buttons = [b for b in buttons if b.show]
         return buttons

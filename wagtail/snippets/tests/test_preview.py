@@ -15,7 +15,6 @@ from wagtail.test.testapp.models import (
     RevisableModel,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestPreview(WagtailTestUtils, TestCase):
@@ -560,41 +559,6 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
             self.single, "preview_on_edit", args=(self.multiple.pk,)
         )
         response = self.client.get(edit_url)
-
-        self.assertEqual(response.status_code, 200)
-
-        soup = self.get_soup(response.content)
-
-        # Should set the interval value on the controller
-        controller = soup.select_one('[data-controller="w-preview"]')
-        self.assertIsNotNone(controller)
-        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
-        interval_value = controller.get("data-w-preview-auto-update-interval-value")
-        self.assertEqual(interval_value, "0")
-
-        # Should not render the spinner
-        spinner = controller.select_one('[data-w-preview-target="spinner"]')
-        self.assertIsNone(spinner)
-
-        # Should render the refresh button with the w-progress controller
-        refresh_button = controller.select_one("button")
-        self.assertIsNotNone(refresh_button)
-        self.assertEqual(refresh_button.get("data-controller"), "w-progress")
-        self.assertEqual(refresh_button.text.strip(), "Refresh")
-
-    @override_settings(WAGTAIL_AUTO_UPDATE_PREVIEW=False)
-    def test_disable_auto_update_using_deprecated_setting(self):
-        edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
-        preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
-        )
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`WAGTAIL_AUTO_UPDATE_PREVIEW` is deprecated. "
-            "Set `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` to disable auto-update "
-            "for previews.",
-        ):
-            response = self.client.get(edit_url)
 
         self.assertEqual(response.status_code, 200)
 
