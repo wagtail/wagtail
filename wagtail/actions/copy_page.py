@@ -222,7 +222,11 @@ class CopyPageAction:
                             )
 
                 for exclude_field in specific_page.exclude_fields_in_copy:
-                    if exclude_field in revision_content and hasattr(
+                    if hasattr(page_copy, exclude_field) and hasattr(
+                        getattr(page_copy, exclude_field), "all"
+                    ):
+                        revision_content[exclude_field] = []
+                    elif exclude_field in revision_content and hasattr(
                         page_copy, exclude_field
                     ):
                         revision_content[exclude_field] = getattr(
