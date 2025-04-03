@@ -184,11 +184,18 @@ const insertContentWithLinks = (editorState, htmlOrText) => {
   return EditorState.push(editorState, content, 'insert-characters');
 };
 
+const convertExternalToInternalLink = (url) => {
+  // Placeholder function to convert external links to internal links
+  // Replace this with the actual logic for converting external links to internal links
+  return url;
+};
+
 export const onPasteLink = (text, html, editorState, { setEditorState }) => {
   const url = getValidLinkURL(text);
 
   if (url) {
-    setEditorState(insertSingleLink(editorState, text, url));
+    const internalUrl = convertExternalToInternalLink(url);
+    setEditorState(insertSingleLink(editorState, text, internalUrl));
     return 'handled';
   }
 
