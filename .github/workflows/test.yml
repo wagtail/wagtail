@@ -25,7 +25,7 @@ concurrency:
 # - django 4.2, python 3.11, mariadb:10.5
 # - django 5.1, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
 # - django 5.1, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - django 5.1, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1 (Windows and Linux)
 # - django 5.1, python 3.13, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.2.x, python 3.12, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.13, postgres:latest, psycopg 3, parallel (allow failures)
@@ -44,7 +44,7 @@ permissions:
 
 jobs:
   test-sqlite:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         include:
@@ -52,6 +52,16 @@ jobs:
             django: 'Django>=5.1,<5.2'
             check_template_number_format: '1'
             parallel: '--parallel'
+            os: ubuntu-latest
+          - python: '3.13'
+            django: 'Django>=5.1,<5.2'
+            check_template_number_format: '1'
+            parallel: '--parallel'
+            os: windows-latest
+    env:
+      DATABASE_ENGINE: django.db.backends.sqlite3
+      USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
+      WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
 
     steps:
       - uses: actions/checkout@v4
@@ -67,14 +77,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e '.[testing]' --config-settings editable_mode=strict
           pip install "${{ matrix.django }}"
-      - name: Test
-        run: |
-          WAGTAIL_FAIL_ON_VERSIONED_STATIC=1 DJANGO_SETTINGS_MODULE=wagtail.test.settings django-admin check
-          coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
+      - name: Check
+        run: django-admin check
         env:
-          DATABASE_ENGINE: django.db.backends.sqlite3
-          USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
-          WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT: ${{ matrix.check_template_number_format }}
+          WAGTAIL_FAIL_ON_VERSIONED_STATIC: "1"
+          DJANGO_SETTINGS_MODULE: wagtail.test.settings
+      - name: Test
+        run: coverage run --parallel-mode --source wagtail runtests.py ${{ matrix.parallel }}
       - name: Upload coverage data
         uses: actions/upload-artifact@v4
         with:
