@@ -27,7 +27,7 @@
                                 {% endif %}
                                 {{ message|safe }}
                                 {% if level_tag == "error" %}
-                                    <button type="button" class="button button-small button-secondary" data-controller="w-focus" data-w-focus-target-value=".error-message,.help-critical" data-action="click->w-focus#focus">{% trans 'Go to the error' %}</button>
+                                    <button type="button" class="button button-small button-secondary" data-controller="w-focus" data-action="click->w-focus#focus" data-w-focus-target-value=".error-message,.help-critical">{% trans 'Go to the error' %}</button>
                                 {% endif %}
                             </li>
                         {% endfor %}
