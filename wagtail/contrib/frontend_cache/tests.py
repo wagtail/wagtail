@@ -732,6 +732,33 @@ class TestCachePurgingSignals(TestCase):
             {"http://localhost/en/events/", "http://localhost/en/events/past/"},
         )
 
+    def test_purge_on_move(self):
+        page = EventPage.objects.get(url_path="/home/events/christmas/")
+        target = Page.objects.get(url_path="/home/events/saint-patrick/")
+
+        page.move(target, pos="first-child")
+
+        self.assertEqual(
+            PURGED_URLS,
+            {
+                "http://localhost/events/saint-patrick/christmas/",
+                "http://localhost/events/christmas/",
+            },
+        )
+
+    def test_purge_on_slug_change(self):
+        page = EventPage.objects.get(url_path="/home/events/christmas/")
+
+        page.slug = "crimbo"
+
+        with self.captureOnCommitCallbacks(execute=True):
+            page.save()
+
+        self.assertEqual(
+            PURGED_URLS,
+            {"http://localhost/events/christmas/", "http://localhost/events/crimbo/"},
+        )
+
 
 class TestPurgeBatchClass(TestCase):
     # Tests the .add_*() methods on PurgeBatch. The .purge() method is tested
