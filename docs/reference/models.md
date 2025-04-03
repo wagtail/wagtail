@@ -673,6 +673,8 @@ Pages already include this mixin, so there is no need to add it.
 .. class:: RevisionMixin
     :no-index:
 
+    .. autoattribute:: _revisions
+
     .. autoattribute:: revisions
 
     .. automethod:: save_revision
@@ -793,6 +795,8 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.
     .. autoattribute:: has_workflow
 
     .. automethod:: get_workflow
+
+    .. autoattribute:: _workflow_states
 
     .. autoattribute:: workflow_states
 
