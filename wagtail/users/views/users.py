@@ -8,7 +8,6 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.models import Group
 from django.core.exceptions import FieldDoesNotExist, PermissionDenied
-from django.db.models import Q
 from django.forms import CheckboxSelectMultiple
 from django.template import RequestContext
 from django.urls import reverse
@@ -17,7 +16,11 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
 from wagtail import hooks
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.filters import (
+    DateRangePickerWidget,
+    RelatedFilterMixin,
+    WagtailFilterSet,
+)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
@@ -36,6 +39,7 @@ from wagtail.admin.widgets.button import (
 )
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.coreutils import accepts_kwarg
+from wagtail.search import index
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.deprecation import RemovedInWagtail70Warning
@@ -82,27 +86,12 @@ def get_user_edit_form():
         return UserEditForm
 
 
-def get_users_filter_query(q, model_fields):
-    conditions = Q()
-
-    for term in q.split():
-        if "username" in model_fields:
-            conditions |= Q(username__icontains=term)
-
-        if "first_name" in model_fields:
-            conditions |= Q(first_name__icontains=term)
-
-        if "last_name" in model_fields:
-            conditions |= Q(last_name__icontains=term)
-
-        if "email" in model_fields:
-            conditions |= Q(email__icontains=term)
-
-    return conditions
-
-
 class UserColumn(TitleColumn):
     cell_template_name = "wagtailusers/users/user_cell.html"
+
+
+class GroupFilter(RelatedFilterMixin, django_filters.ModelMultipleChoiceFilter):
+    pass
 
 
 class UserFilterSet(WagtailFilterSet):
@@ -114,14 +103,10 @@ class UserFilterSet(WagtailFilterSet):
         label=gettext_lazy("Last login"),
         widget=DateRangePickerWidget,
     )
-    group = django_filters.ModelMultipleChoiceFilter(
-        field_name="groups",
-        queryset=Group.objects.all(),
-        label=gettext_lazy("Group"),
-        widget=CheckboxSelectMultiple,
-    )
 
-    def __init__(self, data=None, queryset=None, *, request=None, prefix=None):
+    def __init__(
+        self, data=None, queryset=None, *, request=None, prefix=None, is_searching=False
+    ):
         super().__init__(data, queryset, request=request, prefix=prefix)
         try:
             self._meta.model._meta.get_field("is_active")
@@ -134,6 +119,14 @@ class UserFilterSet(WagtailFilterSet):
                 widget=BooleanRadioSelect,
             )
             self.filters.move_to_end("is_active", last=False)
+
+        self.filters["group"] = GroupFilter(
+            field_name="groups",
+            queryset=Group.objects.all(),
+            label=gettext_lazy("Group"),
+            use_subquery=is_searching,
+            widget=CheckboxSelectMultiple,
+        )
 
     class Meta:
         model = User
@@ -149,9 +142,6 @@ class IndexView(generic.IndexView):
     results_template_name = "wagtailusers/users/index_results.html"
     add_item_label = gettext_lazy("Add a user")
     context_object_name = "users"
-    # We don't set search_fields and the model may not be indexed, but we override
-    # search_queryset, so we set is_searchable to True to enable search
-    is_searchable = True
     page_title = gettext_lazy("Users")
     show_other_searches = True
 
@@ -210,6 +200,18 @@ class IndexView(generic.IndexView):
     def model_fields(self):
         return {f.name for f in User._meta.get_fields()}
 
+    @cached_property
+    def search_fields(self):
+        # Use search_fields from the model if we're using Wagtail search
+        if index.class_is_indexed(User) and self.search_backend_name:
+            return None
+        return self.model_fields & {"username", "first_name", "last_name", "email"}
+
+    def get_filterset_kwargs(self):
+        kwargs = super().get_filterset_kwargs()
+        kwargs["is_searching"] = self.is_searching
+        return kwargs
+
     def get_delete_url(self, instance):
         if user_can_delete_user(self.request.user, instance):
             return super().get_delete_url(instance)
@@ -266,12 +268,6 @@ class IndexView(generic.IndexView):
         if self.ordering == "-name":
             return queryset.order_by("-last_name", "-first_name")
         return super().order_queryset(queryset)
-
-    def search_queryset(self, queryset):
-        if self.is_searching:
-            conditions = get_users_filter_query(self.search_query, self.model_fields)
-            return queryset.filter(conditions)
-        return queryset
 
 
 class CreateView(generic.CreateView):
