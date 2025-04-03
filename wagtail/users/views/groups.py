@@ -1,8 +1,5 @@
-from warnings import warn
-
 from django.contrib.auth.models import Group
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import re_path, reverse
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
@@ -14,7 +11,6 @@ from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.admin.widgets.button import HeaderButton
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 _permission_panel_classes = None
 
@@ -164,24 +160,6 @@ class GroupViewSet(ModelViewSet):
 
     template_prefix = "wagtailusers/groups/"
 
-    @property
-    def users_view(self):
-        def view(request, pk):
-            legacy_url = reverse(self.get_url_name("users"), args=(pk,))
-            new_url = set_query_params(
-                reverse("wagtailusers_users:index"),
-                {"group": get_object_or_404(Group, pk=pk).pk},
-            )
-
-            warn(
-                f"Accessing the list of users in a group via {legacy_url} is "
-                f"deprecated, use {new_url} instead.",
-                RemovedInWagtail70Warning,
-            )
-            return redirect(new_url)
-
-        return view
-
     def get_common_view_kwargs(self, **kwargs):
         return super().get_common_view_kwargs(
             **{
@@ -192,8 +170,3 @@ class GroupViewSet(ModelViewSet):
 
     def get_form_class(self, for_update=False):
         return GroupForm
-
-    def get_urlpatterns(self):
-        return super().get_urlpatterns() + [
-            re_path(r"(\d+)/users/$", self.users_view, name="users"),
-        ]

@@ -4,7 +4,6 @@ import functools
 import logging
 import posixpath
 import uuid
-from warnings import warn
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -59,7 +58,6 @@ from wagtail.signals import (
     pre_validate_delete,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
@@ -714,7 +712,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         If ``clean=True`` is passed, and the page has ``live=False`` set, only the title and slug fields are validated.
 
-        .. versionchanged:: 6.5
+        .. versionchanged:: 7.0
            ``clean=True`` now only performs full validation when the page is live. When the page is not live, only
            the title and slug fields are validated. Previously, full validation was always performed.
         """
@@ -1880,26 +1878,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ``action_url`` = URL that this form should be POSTed to
         """
 
-        password_required_template = self.password_required_template
-
-        if not password_required_template:
-            password_required_template = getattr(
-                settings,
-                "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
-                "wagtailcore/password_required.html",
-            )
-
-            if hasattr(settings, "PASSWORD_REQUIRED_TEMPLATE"):
-                warn(
-                    "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
-                    category=RemovedInWagtail70Warning,
-                )
-
-                password_required_template = getattr(
-                    settings,
-                    "PASSWORD_REQUIRED_TEMPLATE",
-                    password_required_template,
-                )
+        password_required_template = self.password_required_template or getattr(
+            settings,
+            "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
+            "wagtailcore/password_required.html",
+        )
 
         context = self.get_context(request)
         context["form"] = form
