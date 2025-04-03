@@ -164,10 +164,11 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
             ),
         )
 
-        self.assertContains(response, '<div class="w-tabs" data-tabs>')
-        self.assertContains(response, '<div class="tab-content">')
-
         soup = self.get_soup(response.content)
+
+        self.assertIsNotNone(soup.select_one('[data-controller~="w-tabs"]'))
+        self.assertIsNotNone(soup.select_one(".tab-content"))
+
         tasks = soup.select_one("#tab-tasks table")
         self.assertIsNotNone(tasks)
         cells = [
@@ -296,10 +297,11 @@ class TestWorkflowHistoryDetail(AdminTemplateTestUtils, WagtailTestUtils, TestCa
             ),
         )
 
-        self.assertContains(response, '<div class="w-tabs" data-tabs>')
-        self.assertContains(response, '<div class="tab-content">')
-
         soup = self.get_soup(response.content)
+
+        self.assertIsNotNone(soup.select_one('[data-controller~="w-tabs"]'))
+        self.assertIsNotNone(soup.select_one(".tab-content"))
+
         tasks = soup.select_one("#tab-tasks table")
         self.assertIsNotNone(tasks)
         cells = [

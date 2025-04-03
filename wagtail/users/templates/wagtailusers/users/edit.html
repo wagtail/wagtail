@@ -3,9 +3,9 @@
 {% load i18n %}
 
 {% block form_content %}
-    <div class="w-tabs" data-tabs>
+    <div class="w-tabs" data-controller="w-tabs" data-action="popstate@window->w-tabs#select" data-w-tabs-use-location-value="true">
         <div class="w-tabs__wrapper">
-            <div role="tablist" class="w-tabs__list">
+            <div role="tablist" class="w-tabs__list" data-action="keydown.right->w-tabs#selectNext keydown.left->w-tabs#selectPrevious keydown.home->w-tabs#selectFirst keydown.end->w-tabs#selectLast">
                 {% trans "Account" as account_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
                 {% trans "Roles" as roles_text %}
@@ -20,6 +20,7 @@
                 role="tabpanel"
                 hidden
                 aria-labelledby="tab-label-account"
+                data-w-tabs-target="panel"
             >
                 <ul class="fields">
                     {% block fields %}
@@ -49,6 +50,7 @@
                 role="tabpanel"
                 hidden
                 aria-labelledby="tab-label-roles"
+                data-w-tabs-target="panel"
             >
                 <ul class="fields">
                     {% if form.is_superuser %}

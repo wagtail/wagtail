@@ -1,11 +1,6 @@
 import React from 'react';
 import { Pattern, generateDocs } from 'storybook-django/src/react';
-import { initTabs } from '../../../../../client/src/includes/tabs';
 import template from './tabbed_interface.html';
-
-document.addEventListener('DOMContentLoaded', () => {
-  initTabs();
-});
 
 const { docs, argTypes } = generateDocs(template);
 
