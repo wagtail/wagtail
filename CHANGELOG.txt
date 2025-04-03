@@ -14,6 +14,7 @@ Changelog
  * Use `requests` to access oEmbed endpoints, for more robust SSL certificate handling (Matt Westcott)
  * Ensure that bulk deletion views respect protected foreign keys (Sage Abdullah)
  * Add minimum length validation for `RichTextBlock` and `RichTextField` (Alec Baron)
+ * Support `preserve-svg` in Jinja2 image tags (Vishesh Garg)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)

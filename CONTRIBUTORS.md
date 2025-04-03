@@ -887,6 +887,7 @@
 * Gorlik
 * manu
 * Maciek Baron
+* Vishesh Garg
 
 ## Translators
 
