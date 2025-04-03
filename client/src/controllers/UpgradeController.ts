@@ -102,9 +102,9 @@ export class UpgradeController extends Controller<HTMLElement> {
         const latestVersion = new VersionNumber(data.version);
         const versionDelta = currentVersion.howMuchBehind(latestVersion);
 
-        // Check with the last dismissed version if it exists, so we don't
-        // show the notification again if the user has already dismissed it.
-        if (!this.knownVersion.howMuchBehind(latestVersion)) {
+        // Do not show the notification if the current version is the latest
+        // or the last dismissed (known) version is the latest.
+        if (!versionDelta || !this.knownVersion.howMuchBehind(latestVersion)) {
           return;
         }
 
