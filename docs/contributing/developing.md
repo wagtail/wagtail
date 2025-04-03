@@ -29,7 +29,7 @@ cd wagtail
 **With your preferred [virtualenv activated](virtual_environment_creation),** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 ```sh
-pip install -e ."[testing,docs]" -U
+pip install -e ."[testing,docs]" --config-settings editable-mode=strict -U
 ```
 
 Install the tool chain for building static assets:
@@ -47,7 +47,7 @@ npm run build
 Any Wagtail sites you start up in this virtualenv will now run against this development instance of Wagtail. We recommend using the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/) as a basis for developing Wagtail. Keep in mind that the setup steps for a Wagtail site may include installing a release version of Wagtail, which will override the development version you've just set up. In this case, to install the local Wagtail development instance in your virtualenv for your Wagtail site:
 
 ```sh
-pip install -e path/to/wagtail"[testing, docs]" -U
+pip install -e path/to/wagtail"[testing, docs]" --config-settings editable-mode=strict -U
 ```
 
 Here, `path/to/wagtail` is the path to your local Wagtail copy.
@@ -291,7 +291,7 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 # Starting from the wagtail root directory:
 
 # Install the documentation dependencies
-pip install -e .[docs]
+pip install -e .[docs] --config-settings editable-mode=strict
 # or if using zsh as your shell:
 #    pip install -e '.[docs]' -U
 # Compile the docs
@@ -353,12 +353,12 @@ Sometimes it may be necessary to install Wagtail from a fork. For example your s
 
 The Wagtail release process includes steps for static asset building and translations updated which means you cannot update your requirements file to point a particular git commit in the main repository.
 
-To install from your fork, from the root of your Wagtail git checkout (and assuming the tooling for building the static assets has previously been installed using `npm install`), run:
+To install from your fork, ensure you have installed `build` (`python -m pip install build`) and the tooling for building the static assets (`npm install`). Then, from the root of your Wagtail git checkout, run:
 
 ```sh
-python ./setup.py sdist
+python -m build
 ```
 
-This will create a `.tar.gz` package within `dist/,` which can be installed with `pip`.
+This will create a `.tar.gz` and `.whl` packages within `dist/,` which can be installed with `pip`.
 
 For remote deployments, it's usually most convenient to upload this to a public URL somewhere and place that URL in your project's requirements in place of the standard `wagtail` line.
