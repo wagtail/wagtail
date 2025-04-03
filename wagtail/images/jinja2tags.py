@@ -17,7 +17,7 @@ def image(image, filterspec, preserve_svg=False, **attrs):
             "(given filter: {})".format(filterspec)
         )
 
-    #SVG support for jinja2
+    # SVG support for jinja2
     if preserve_svg and image.is_svg():
         filterspec = to_svg_safe_spec(filterspec)
 
@@ -39,7 +39,7 @@ def srcset_image(image, filterspec, preserve_svg=False, **attrs):
             "(given filter: {})".format(filterspec)
         )
 
-    #SVG support for jinja2
+    # SVG support for jinja2
     if preserve_svg and image.is_svg():
         filterspec = to_svg_safe_spec(filterspec)
 
@@ -59,7 +59,7 @@ def picture(image, filterspec, preserve_svg=False, **attrs):
             "(given filter: {})".format(filterspec)
         )
 
-        #SVG support for jinja2
+        # SVG support for jinja2
     if preserve_svg and image.is_svg:
         filterspec = to_svg_safe_spec(filterspec)
 
