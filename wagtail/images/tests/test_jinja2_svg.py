@@ -1,11 +1,11 @@
 from django.test import TestCase
 
+from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import (
     get_test_image_file,
     get_test_image_file_svg,
 )
-from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.test.utils import WagtailTestUtils
 
 
