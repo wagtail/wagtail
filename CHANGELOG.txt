@@ -4,6 +4,7 @@ Changelog
 6.5 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Add formal support for Django 5.2 (Matt Westcott)
  * Add `WAGTAIL_` prefix to Wagtail-specific tag settings (Aayushman Singh)
  * Implement `normalize` on `TypedTableBlock` to assist with setting `default` and `preview_value` (Sage Abdullah)
  * Apply normalization when modifying a `StreamBlock`'s value to assist with programmatic changes to `StreamField` (Matt Westcott)
@@ -42,6 +43,7 @@ Changelog
  * Maintenance: Make GitHub highlight `.html` files as Django templates (Jake Howard)
  * Maintenance: Remove admin JavaScript imports from shared template includes, moving the imports to the appropriate core admin inclusion locations (Sai Srikar Dumpeti)
  * Maintenance: Remove non-editing view inclusions of the `insert_editor_js` hook output, deprecate the wrapper template tag `_editor_js.html` (Sai Srikar Dumpeti, LB (Ben) Johnston)
+ * Maintenance: Remove upper bound on Django dependency (Matt Westcott)
 
 
 6.4.1 (21.02.2025)
