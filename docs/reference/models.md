@@ -575,6 +575,8 @@ database queries making them unable to be edited or viewed.
 `TranslatableMixin` is an abstract model that can be added to any non-page Django model to make it translatable.
 Pages already include this mixin, so there is no need to add it.
 
+For a non-page model to be translatable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](translatable_snippets).
+
 ### Database fields
 
 ```{eval-rst}
@@ -628,6 +630,8 @@ If your model defines a [`Meta` class](inv:django#ref/models/options) (either wi
 `PreviewableMixin` is a mixin class that can be added to any non-page Django model to allow previewing its instances.
 Pages already include this mixin, so there is no need to add it.
 
+For a non-page model to be previewable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_making_snippets_previewable).
+
 ### Methods and properties
 
 ```{eval-rst}
@@ -654,6 +658,8 @@ Pages already include this mixin, so there is no need to add it.
 
 `RevisionMixin` is an abstract model that can be added to any non-page Django model to allow saving revisions of its instances.
 Pages already include this mixin, so there is no need to add it.
+
+For a non-page model to be revisionable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_saving_revisions_of_snippets).
 
 ### Database fields
 
@@ -686,6 +692,8 @@ Pages already include this mixin, so there is no need to add it.
 
 `DraftStateMixin` is an abstract model that can be added to any non-page Django model to allow its instances to have unpublished changes.
 This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages already include this mixin, so there is no need to add it.
+
+For a non-page model to have publishing features in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_saving_draft_changes_of_snippets).
 
 ### Database fields
 
@@ -743,6 +751,8 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages 
 `LockableMixin` is an abstract model that can be added to any non-page Django model to allow its instances to be locked.
 Pages already include this mixin, so there is no need to add it. See [](wagtailsnippets_locking_snippets) for more details.
 
+For a non-page model to be lockable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_locking_snippets).
+
 ### Database fields
 
 ```{eval-rst}
@@ -782,6 +792,8 @@ Pages already include this mixin, so there is no need to add it. See [](wagtails
 
 `WorkflowMixin` is a mixin class that can be added to any non-page Django model to allow its instances to be submitted to workflows.
 This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.models.DraftStateMixin` to be applied. Pages already include this mixin, so there is no need to add it. See [](wagtailsnippets_enabling_workflows) for more details.
+
+For a non-page model to have workflow features in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_enabling_workflows).
 
 ### Methods and properties
 
