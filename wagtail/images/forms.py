@@ -51,7 +51,9 @@ class BaseImageForm(BaseCollectionMemberForm):
                 if isinstance(field, forms.BooleanField):
                     try:
                         model_field = self.instance._meta.get_field(field_name)
-                        if model_field.default is not models.NOT_PROVIDED:  # Check if this field has a default value in the model
+                        if (
+                            model_field.default is not models.NOT_PROVIDED
+                        ):  # Check if this field has a default value in the model
                             default_value = model_field.default
                             if callable(default_value):
                                 default_value = default_value()
