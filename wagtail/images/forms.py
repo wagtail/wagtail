@@ -2,6 +2,8 @@ import json
 
 from django import forms
 from django.conf import settings
+from django.core.exceptions import FieldDoesNotExist
+from django.db import models
 from django.forms.models import modelform_factory
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
@@ -43,6 +45,23 @@ class BaseImageForm(BaseCollectionMemberForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if not self.instance.pk:  # If this is a new instance
+            for field_name, field in self.fields.items():
+                if isinstance(field, forms.BooleanField):
+                    try:
+                        model_field = self.instance._meta.get_field(field_name)
+                        if model_field.default is not models.NOT_PROVIDED:  # Check if this field has a default value in the model
+                            default_value = model_field.default
+                            if callable(default_value):
+                                default_value = default_value()
+                            self.initial[field_name] = (
+                                default_value  # Set the initial value to match the model's default
+                            )
+                    except FieldDoesNotExist:
+                        # Field exists in form but not in model, skip it
+                        continue
+
         self.original_file = self.instance.file
 
     def save(self, commit=True):
