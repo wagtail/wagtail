@@ -234,7 +234,7 @@ class Index:
 
     def delete_stale_entries(self):
         for model in get_indexed_models():
-            # We don’t need to delete stale entries for non-root models,
+            # We don't need to delete stale entries for non-root models,
             # since we already delete them by deleting roots.
             if not model._meta.parents:
                 self.delete_stale_model_entries(model)
@@ -288,6 +288,15 @@ class Index:
             sql, params = value.as_sql(compiler, self.write_connection)
             body_sql.append(sql)
             data_params.extend(params)
+
+        # Ensure all lists are of equal length to prevent IndexError
+        if not (len(title_sql) == len(autocomplete_sql) == len(body_sql)):
+            max_length = max(len(title_sql), len(autocomplete_sql), len(body_sql))
+            # Add empty SQL entries if needed
+            empty_sql = "NULL"  # Using NULL as a safe default
+            title_sql.extend([empty_sql] * (max_length - len(title_sql)))
+            autocomplete_sql.extend([empty_sql] * (max_length - len(autocomplete_sql)))
+            body_sql.extend([empty_sql] * (max_length - len(body_sql)))
 
         data_sql = ", ".join(
             [
