@@ -1,4 +1,23 @@
 $(function () {
+  // initialize Stimulus controllers for bulk upload fields
+  const fileFields = document.querySelectorAll('[data-bulk-upload-file]');
+  fileFields.forEach((fileField) => {
+    fileField.setAttribute('data-controller', 'w-sync');
+    fileField.setAttribute('data-action', 'change->w-sync#apply');
+    fileField.setAttribute(
+      'data-w-sync-target-value',
+      '[data-bulk-upload-title]',
+    );
+    fileField.setAttribute('data-w-sync-normalize-value', 'true');
+    fileField.setAttribute('data-w-sync-name-value', 'wagtail:images-upload');
+  });
+
+  const titleFields = document.querySelectorAll('[data-bulk-upload-title]');
+  titleFields.forEach((titleField) => {
+    titleField.setAttribute('data-controller', 'w-clean');
+    titleField.setAttribute('data-action', 'blur->w-clean#slugify');
+  });
+
   $('#fileupload').fileupload({
     dataType: 'html',
     sequentialUploads: true,
@@ -53,80 +72,9 @@ $(function () {
         });
     },
 
-    processfail: function (e, data) {
-      var itemElement = $(data.context);
-      itemElement.removeClass('upload-uploading').addClass('upload-failure');
-    },
-
-    progress: function (e, data) {
-      if (e.isDefaultPrevented()) {
-        return false;
-      }
-
-      var progress = Math.floor((data.loaded / data.total) * 100);
-      data.context.each(function () {
-        $(this)
-          .find('.progress')
-          .addClass('active')
-          .attr('aria-valuenow', progress)
-          .find('.bar')
-          .css('width', progress + '%')
-          .html(progress + '%');
-      });
-    },
-
-    progressall: function (e, data) {
-      var progress = parseInt((data.loaded / data.total) * 100, 10);
-      $('#overall-progress')
-        .addClass('active')
-        .attr('aria-valuenow', progress)
-        .find('.bar')
-        .css('width', progress + '%')
-        .html(progress + '%');
-
-      if (progress >= 100) {
-        $('#overall-progress')
-          .removeClass('active')
-          .find('.bar')
-          .css('width', '0%');
-      }
-    },
-
-    /**
-     * Allow a custom title to be defined by an event handler for this form.
-     * If event.preventDefault is called, the original behavior of using the raw
-     * filename (with extension) as the title is preserved.
-     *
-     * @example
-     * document.addEventListener('wagtail:images-upload', function(event) {
-     *   // remove file extension
-     *   var newTitle = (event.detail.data.title || '').replace(/\.[^.]+$/, '');
-     *   event.detail.data.title = newTitle;
-     * });
-     *
-     * @param {HtmlElement[]} form
-     * @returns {{name: 'string', value: *}[]}
-     */
     formData: function (form) {
-      var filename = this.files[0].name;
-      var data = { title: filename.replace(/\.[^.]+$/, '') };
-
-      var event = form.get(0).dispatchEvent(
-        new CustomEvent('wagtail:images-upload', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            data: data,
-            filename: filename,
-            maxTitleLength: this.maxTitleLength,
-          },
-        }),
-      );
-
-      // default behaviour (title is just file name)
-      return event
-        ? form.serializeArray().concat({ name: 'title', value: data.title })
-        : form.serializeArray();
+      // let Stimulus handle the title generation
+      return form.serializeArray();
     },
 
     done: function (e, data) {
