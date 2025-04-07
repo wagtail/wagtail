@@ -69,49 +69,6 @@ const submitCreationForm = (modal, form, { errorContainerSelector }) => {
   });
 };
 
-const initPrefillTitleFromFilename = (
-  modal,
-  { fileFieldSelector, titleFieldSelector, eventName },
-) => {
-  const fileWidget = $(fileFieldSelector, modal.body);
-  fileWidget.on('change', () => {
-    const titleWidget = $(titleFieldSelector, modal.body);
-    const title = titleWidget.val();
-    // do not override a title that already exists (from manual editing or previous upload)
-    if (title === '') {
-      // The file widget value example: `C:\fakepath\image.jpg`
-      const parts = fileWidget.val().split('\\');
-      const filename = parts[parts.length - 1];
-
-      // allow event handler to override filename (used for title) & provide maxLength as int to event
-      const maxTitleLength =
-        parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
-      const data = { title: filename.replace(/\.[^.]+$/, '') };
-
-      // allow an event handler to customize data or call event.preventDefault to stop any title pre-filling
-      const form = fileWidget.closest('form').get(0);
-
-      if (eventName) {
-        const event = form.dispatchEvent(
-          new CustomEvent(eventName, {
-            bubbles: true,
-            cancelable: true,
-            detail: {
-              data: data,
-              filename: filename,
-              maxTitleLength: maxTitleLength,
-            },
-          }),
-        );
-
-        if (!event) return; // do not set a title if event.preventDefault(); is called by handler
-      }
-
-      titleWidget.val(data.title);
-    }
-  });
-};
-
 class SearchController {
   constructor(opts) {
     this.form = opts.form;
@@ -252,7 +209,7 @@ class ChooserModalOnloadHandlerFactory {
     return $('[data-tabs]', modal.body).length;
   }
 
-  ajaxifyCreationForm(modal) {
+    ajaxifyCreationForm(modal) {
     /* Convert the creation form to an AJAX submission */
     $(this.creationFormSelector, modal.body).on('submit', (event) => {
       if (validateCreationForm(event.currentTarget)) {
@@ -263,18 +220,28 @@ class ChooserModalOnloadHandlerFactory {
       return false;
     });
 
-    /* If this form has a file and title field, set up the title to be prefilled from the title */
     if (
       this.creationFormFileFieldSelector &&
       this.creationFormTitleFieldSelector
     ) {
-      initPrefillTitleFromFilename(modal, {
-        fileFieldSelector: this.creationFormFileFieldSelector,
-        titleFieldSelector: this.creationFormTitleFieldSelector,
-        eventName: this.creationFormEventName,
+      const fileField = $(this.creationFormFileFieldSelector, modal.body);
+      const titleField = $(this.creationFormTitleFieldSelector, modal.body);
+
+      fileField.attr({
+        'data-controller': 'w-sync',
+        'data-action': 'change->w-sync#apply',
+        'data-w-sync-target-value': this.creationFormTitleFieldSelector,
+        'data-w-sync-normalize-value': 'true',
+        'data-w-sync-name-value': this.creationFormEventName,
+      });
+
+      titleField.attr({
+        'data-controller': 'w-clean',
+        'data-action': 'blur->w-clean#slugify',
       });
     }
   }
+
 
   initSearchController(modal) {
     this.searchController = new SearchController({
@@ -374,7 +341,6 @@ class ChooserModal {
 export {
   validateCreationForm,
   submitCreationForm,
-  initPrefillTitleFromFilename,
   SearchController,
   ChooserModalOnloadHandlerFactory,
   chooserModalOnloadHandlers,
