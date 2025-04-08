@@ -8,6 +8,7 @@ dynamic = ["version"]
 description = "A Django content management system."
 readme = "README.md"
 license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 authors = [
   { name = "Wagtail core team + contributors", email = "hello@wagtail.org" },
 ]
