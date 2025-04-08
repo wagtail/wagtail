@@ -138,6 +138,48 @@ class SearchController {
   }
 }
 
+/**
+ * @deprecated Use w-sync/w-clean Stimulus controllers instead
+ * Temporary bridge for third-party code using filename-based title prefill
+ */
+function initPrefillTitleFromFilename({
+  fileInput,
+  titleInput,
+  creationFormEventName,
+}) {
+  if (creationFormEventName) {
+    const form = fileInput.closest('form');
+    if (form) {
+      form.addEventListener('change', (e) => {
+        if (e.target === fileInput) {
+          form.dispatchEvent(
+            new CustomEvent(creationFormEventName, {
+              bubbles: true,
+              cancelable: true,
+              detail: {
+                data: { title: '' }, // Let SyncController populate this
+                filename: fileInput.value
+                  .split('\\')
+                  .pop()
+                  .replace(/\.[^.]+$/, ''),
+                maxTitleLength: titleInput?.getAttribute('maxLength') || null,
+              },
+            }),
+          );
+        }
+      });
+    }
+  }
+  /*
+    console.warn(
+      'initPrefillTitleFromFilename is deprecated. Please use Stimulus controllers (w-sync, w-clean) instead.',
+    );
+  */
+}
+
+// Deprecated: for legacy support only
+window.initPrefillTitleFromFilename = initPrefillTitleFromFilename;
+
 class ChooserModalOnloadHandlerFactory {
   constructor(opts) {
     this.chooseStepName = opts?.chooseStepName || 'choose';
@@ -209,7 +251,7 @@ class ChooserModalOnloadHandlerFactory {
     return $('[data-tabs]', modal.body).length;
   }
 
-    ajaxifyCreationForm(modal) {
+  ajaxifyCreationForm(modal) {
     /* Convert the creation form to an AJAX submission */
     $(this.creationFormSelector, modal.body).on('submit', (event) => {
       if (validateCreationForm(event.currentTarget)) {
@@ -241,7 +283,6 @@ class ChooserModalOnloadHandlerFactory {
       });
     }
   }
-
 
   initSearchController(modal) {
     this.searchController = new SearchController({
