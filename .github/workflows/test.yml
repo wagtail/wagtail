@@ -25,12 +25,12 @@ concurrency:
 # - django 4.2, python 3.11, mariadb:10.5
 # - django 5.1, python 3.12, mysql:8.4, USE_EMAIL_USER_MODEL=yes
 # - django 5.1, python 3.12, mariadb:11.4, USE_EMAIL_USER_MODEL=yes
-# - django 5.1, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
-# - django 5.1, python 3.13, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
+# - django 5.2, python 3.13, sqlite, parallel, WAGTAIL_CHECK_TEMPLATE_NUMBER_FORMAT=1
+# - django 5.2, python 3.13, postgres:15, psycopg 3, parallel, DISABLE_TIMEZONE=yes
 # - django stable/5.2.x, python 3.12, postgres:15, psycopg 3 (allow failures)
 # - django main, python 3.13, postgres:latest, psycopg 3, parallel (allow failures)
 # - elasticsearch 7, django 4.2, python 3.9, postgres:latest, psycopg 2
-# - opensearch 2, django 5.1, python 3.10, sqlite
+# - opensearch 2, django 5.2, python 3.10, sqlite
 # - elasticsearch 8, django 5.1, python 3.13, sqlite, USE_EMAIL_USER_MODEL=yes
 
 # Some tests are run in parallel by passing --parallel to runtests.py.
@@ -49,7 +49,7 @@ jobs:
       matrix:
         include:
           - python: '3.13'
-            django: 'Django>=5.1,<5.2'
+            django: 'Django>=5.2,<5.3'
             check_template_number_format: '1'
             parallel: '--parallel'
 
@@ -94,7 +94,7 @@ jobs:
             experimental: false
             parallel: '--parallel'
           - python: '3.13'
-            django: 'Django>=5.1,<5.2'
+            django: 'Django>=5.2,<5.3'
             psycopg: 'psycopg>=3.1.8'
             postgres: 'postgres:15'
             notz: notz
@@ -250,7 +250,7 @@ jobs:
       matrix:
         include:
           - python: '3.13'
-            django: 'Django>=5.1,<5.2'
+            django: 'Django>=5.2,<5.3'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits

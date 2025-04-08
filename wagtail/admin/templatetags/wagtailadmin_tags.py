@@ -37,6 +37,7 @@ from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
 from wagtail.admin.utils import (
     get_admin_base_url,
+    get_keyboard_key_labels_from_request,
     get_latest_str,
     get_user_display_name,
     get_valid_next_url_from_request,
@@ -53,7 +54,6 @@ from wagtail.coreutils import (
 )
 from wagtail.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.models import (
-    CollectionViewRestriction,
     Locale,
     Page,
     PageViewRestriction,
@@ -236,24 +236,14 @@ def classnames(*classes):
     return " ".join([classname.strip() for classname in flattened if classname])
 
 
-@register.simple_tag(takes_context=True)
-def test_collection_is_public(context, collection):
+@register.simple_tag()
+def test_collection_is_public(collection):
     """
     Usage: {% test_collection_is_public collection as is_public %}
-    Sets 'is_public' to True iff there are no collection view restrictions in place
+    Sets 'is_public' to True if there are no collection view restrictions in place
     on this collection.
-    Caches the list of collection view restrictions in the context, to avoid repeated
-    DB queries on repeated calls.
     """
-    if "all_collection_view_restrictions" not in context:
-        context["all_collection_view_restrictions"] = (
-            CollectionViewRestriction.objects.select_related("collection").values_list(
-                "collection__name", flat=True
-            )
-        )
-
-    is_private = collection.name in context["all_collection_view_restrictions"]
-
+    is_private = collection.get_view_restrictions().exists()
     return not is_private
 
 
@@ -1380,43 +1370,52 @@ def keyboard_shortcuts_dialog(context):
     Note: Shortcut keys are intentionally not translated.
     """
 
+    comments_enabled = get_comments_enabled()
     user_agent = context["request"].headers.get("User-Agent", "")
     is_mac = re.search(r"Mac|iPod|iPhone|iPad", user_agent)
-    modifier = "⌘" if is_mac else "Ctrl"
+    KEYS = get_keyboard_key_labels_from_request(context["request"])
 
     return {
         "shortcuts": {
             ("actions-common", _("Common actions")): [
-                (_("Copy"), f"{modifier} + c"),
-                (_("Cut"), f"{modifier} + x"),
-                (_("Paste"), f"{modifier} + v"),
+                (_("Copy"), f"{KEYS.MOD} + c"),
+                (_("Cut"), f"{KEYS.MOD} + x"),
+                (_("Paste"), f"{KEYS.MOD} + v"),
                 (
                     _("Paste and match style")
                     if is_mac
                     else _("Paste without formatting"),
-                    f"{modifier} + Shift + v",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + v",
                 ),
-                (_("Undo"), f"{modifier} + z"),
+                (_("Undo"), f"{KEYS.MOD} + z"),
                 (
                     _("Redo"),
-                    f"{modifier} + Shift + z" if is_mac else f"{modifier} + y",
+                    f"{KEYS.MOD} + {KEYS.SHIFT} + z" if is_mac else f"{KEYS.MOD} + y",
                 ),
             ],
             ("actions-model", _("Actions")): [
-                (_("Save changes"), f"{modifier} + s"),
-                (_("Preview"), f"{modifier} + p"),
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
+                (
+                    _("Add or show comments"),
+                    f"{KEYS.CTRL} + {KEYS.ALT} + m",
+                ),
+            ]
+            if comments_enabled
+            else [
+                (_("Save changes"), f"{KEYS.MOD} + s"),
+                (_("Preview"), f"{KEYS.MOD} + p"),
             ],
             ("rich-text-content", _("Text content")): [
-                (_("Insert or edit a link"), f"{modifier} + k")
+                (_("Insert or edit a link"), f"{KEYS.MOD} + k")
             ],
             ("rich-text-formatting", _("Text formatting")): [
-                (_("Bold"), f"{modifier} + b"),
-                (_("Italic"), f"{modifier} + i"),
-                (_("Underline"), f"{modifier} + u"),
-                (_("Monospace (code)"), f"{modifier} + j"),
-                (_("Strike-through"), f"{modifier} + x"),
-                (_("Superscript"), f"{modifier} + ."),
-                (_("Subscript"), f"{modifier} + ,"),
+                (_("Italic"), f"{KEYS.MOD} + i"),
+                (_("Underline"), f"{KEYS.MOD} + u"),
+                (_("Monospace (code)"), f"{KEYS.MOD} + j"),
+                (_("Strike-through"), f"{KEYS.MOD} + x"),
+                (_("Superscript"), f"{KEYS.MOD} + ."),
+                (_("Subscript"), f"{KEYS.MOD} + ,"),
             ],
         }
     }
