@@ -21,7 +21,7 @@
                 </a>
             </li>
             {% for page_number in elided_page_range %}
-                <li class="pagination-page-number">
+                <li class="pagination__page-number">
                     {% if page_number == items.paginator.ELLIPSIS %}
                         <span>{{ page_number }}</span>
                     {% else %}
@@ -40,7 +40,9 @@
         </ul>
         <div class="pagination__end">
             {% if verbose_name_plural and items.paginator.count > 1 %}
-                {{ items.paginator.count|intcomma }} {{ verbose_name_plural|capfirst }}
+                {% blocktrans trimmed with count=items.paginator.count|intcomma verbose_name_plural=verbose_name_plural|capfirst %}
+                    {{ count }} {{ verbose_name_plural }}
+                {% endblocktrans %}
             {% endif %}
         </div>
     </nav>
