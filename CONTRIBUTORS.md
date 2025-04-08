@@ -876,6 +876,7 @@
 * Baptiste Mispelon
 * Mohammad Fathi Rahman
 * Ashish Nagmoti
+* Dhruvi Patel
 
 ## Translators
 

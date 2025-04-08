@@ -6,6 +6,7 @@ from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
     ExtendedFormField,
+    FormBuilderWithCustomWidget,
     FormField,
     FormPage,
     FormPageWithCustomFormBuilder,
@@ -303,6 +304,67 @@ class TestFormBuilder(TestCase):
             ["a", "c"],
             form_class.base_fields["choose_the_correct_answer"].initial,
         )
+
+    def test_custom_widget(self):
+        """
+        All builtin field types should be able to receive a custom widget
+        """
+        self.form_page.form_builder = FormBuilderWithCustomWidget
+        form = self.form_page.get_form(auto_id=None)
+        for fieldname, expected_render in [
+            (
+                "your_name",
+                '<input type="text" name="your_name" maxlength="255" class="custom">',
+            ),
+            ("your_message", '<input type="text" name="your_message" class="custom">'),
+            (
+                "your_birthday",
+                '<input type="text" name="your_birthday" class="custom">',
+            ),
+            (
+                "your_birthtime",
+                '<input type="text" name="your_birthtime" class="custom">',
+            ),
+            (
+                "your_email",
+                '<input type="text" name="your_email" maxlength="320" class="custom">',
+            ),
+            (
+                "your_homepage",
+                '<input type="text" name="your_homepage" class="custom">',
+            ),
+            (
+                "your_favourite_number",
+                '<input type="text" name="your_favourite_number" class="custom">',
+            ),
+            (
+                "your_favourite_text_editors",
+                '<input type="text" name="your_favourite_text_editors" class="custom">',
+            ),
+            (
+                "your_favourite_python_ides",
+                '<input type="text" name="your_favourite_python_ides" class="custom">',
+            ),
+            (
+                "u03a5our_favourite_u03a1ython_ixd0e",
+                '<input type="text" name="u03a5our_favourite_u03a1ython_ixd0e" class="custom">',
+            ),
+            (
+                "your_choices",
+                '<input type="text" name="your_choices" value="[\'\']" class="custom">',
+            ),
+            (
+                "i_agree_to_the_terms_of_use",
+                '<input type="text" name="i_agree_to_the_terms_of_use" class="custom">',
+            ),
+            (
+                "a_hidden_field",
+                '<input type="text" name="a_hidden_field" class="custom">',
+            ),
+        ]:
+            with self.subTest(field=fieldname):
+                form.fields[fieldname].required = False  # makes testing easier
+                self.assertHTMLEqual(form[fieldname].as_widget(), expected_render)
 
 
 class TestCustomFormBuilder(TestCase):
