@@ -5,46 +5,54 @@
 {% block extra_js %}
     {{ block.super }}
 
-    <script>
-        $(function() {
-            $('#id_file').on(
-                'change',
-                function() {
-                    var $titleField = $('#id_title');
+    <script type="module">
+        import { CleanController } from "../../../../../client/src/controllers/CleanController";
+        import { SyncController } from "../../../../../client/src/controllers/SyncController";
 
-                    // do not override a title that already exists (from manual editing or previous upload)
-                    if ($titleField.val()) return;
-
-                    // file widget value example: `C:\fakepath\image.jpg` - convert to just the filename part
-                    var filename = $(this).val().split('\\').slice(-1)[0];
-                    var data = { title: filename.replace(/\.[^.]+$/, '') };
-                    var maxTitleLength = parseInt($titleField.attr('maxLength') || '0', 10) || null;
-
-                    // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
-                    var form = $(this).closest('form').get(0);
-                    var event = form.dispatchEvent(new CustomEvent(
-                        'wagtail:documents-upload',
-                        { bubbles: true, cancelable: true, detail: { data: data, filename: filename, maxTitleLength: maxTitleLength } }
-                    ));
-
-                    if (!event) return; // do not set a title if event.preventDefault(); is called by handler
-
-                    $titleField.val(data.title);
-                }
-            );
-        });
+        const application = Stimulus.Application.start();
+        application.register('w-clean', CleanController);
+        application.register('w-sync', SyncController);
     </script>
 {% endblock %}
 
-{% block actions %}
-    <button
-        type="submit"
-        class="button button-longrunning"
-        data-controller="w-progress"
-        data-action="w-progress#activate"
-        data-w-progress-active-value="{% trans 'Uploading…' %}"
-    >
-        {% icon name="spinner" %}
-        <em data-w-progress-target="label">{% trans 'Upload' %}</em>
-    </button>
+{% block form %}
+    <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <input
+                type="file"
+                name="file"
+                id="id_file"
+                data-controller="w-sync"
+                data-action="change->w-sync#apply"
+                data-w-sync-target-value="#id_title"            
+                data-w-sync-normalize-value="true"              
+                data-w-sync-event-name-value="wagtail:documents-upload"      
+            >
+        </div>
+        <div>
+            <input
+                type="text"
+                name="title"
+                id="id_title"
+                data-controller="w-clean"
+                data-action="blur->w-clean#slugify"              
+                data-w-clean-regex-value="[^a-zA-Z0-9-]"         
+                data-w-clean-replacement-value=""                 
+            >
+        </div>
+        <div>
+            {% trans "Upload" as upload_label %}
+            <button
+                type="submit"
+                class="button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-active-value="{% trans 'Uploading…' %}"
+            >
+                {% icon name="spinner" %}
+                <em data-w-progress-target="label">{{ upload_label }}</em>
+            </button>
+        </div>
+    </form>
 {% endblock %}

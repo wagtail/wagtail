@@ -7,8 +7,8 @@
     {{ block.super }}
 
     <script type="module">
-        import { CleanController } from "./wagtail/client/src/controllers/CleanController";
-        import { SyncController } from './wagtail/client/src/controllers/SyncController';
+        import { CleanController } from "../../../../../client/src/controllers/CleanController";
+        import { SyncController } from '../../../../../client/src/controllers/SyncController';
 
         application.register('w-clean', CleanController);
         application.register('w-sync', SyncController);
