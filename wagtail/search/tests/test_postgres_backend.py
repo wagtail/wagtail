@@ -283,10 +283,6 @@ class TestPostgresSearchBackendUnequalLists(TestCase):
     
     def test_direct_sql_lists(self):
         """Test the list length equalization logic directly."""
-        from wagtail.search.backends.database.postgres.postgres import Index
-        
-        index = Index(self.backend)
-        
         title_sql = ["title1", "title2"]
         autocomplete_sql = ["autocomplete1"]
         body_sql = ["body1", "body2", "body3"]
