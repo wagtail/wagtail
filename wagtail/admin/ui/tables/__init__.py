@@ -4,6 +4,7 @@ from collections import OrderedDict
 from collections.abc import Mapping
 
 from django.contrib.admin.utils import quote
+from django.contrib.humanize.templatetags.humanize import intcomma
 from django.forms import MediaDefiningClass
 from django.template.loader import get_template
 from django.templatetags.l10n import unlocalize
@@ -170,6 +171,14 @@ class Column(BaseColumn):
         else:
             context["value"] = value
         return context
+
+
+class NumberColumn(Column):
+    """A specialised column that displays numbers with locale-aware formatting"""
+
+    def get_value(self, instance):
+        value = super().get_value(instance)
+        return intcomma(value)
 
 
 class ButtonsColumnMixin:
