@@ -618,7 +618,6 @@ class TestFormPageWithCustomFormBuilder(WagtailTestUtils, TestCase):
         self.assertEqual(input["required"], "")
         self.assertEqual(input["id"], "id_device_ip_address")
 
-
     def test_post_invalid_form(self):
         response = self.client.post(
             "/support-request/",
