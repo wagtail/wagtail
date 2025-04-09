@@ -93,6 +93,9 @@ export class RevealController extends Controller<HTMLElement> {
         isStoredAsClosed !== this.closedValue
       ) {
         this.closedValue = isStoredAsClosed;
+      } else {
+        // No value stored yet, so store default(close) state
+        this.stored = this.closedValue;
       }
     }
 
