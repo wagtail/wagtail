@@ -2,6 +2,11 @@
 
 import { Controller } from '@hotwired/stimulus';
 
+enum RevealState {
+  OPENED = 'opened',
+  CLOSED = 'closed',
+}
+
 /**
  * Adds the ability to make the controlled element be used as an
  * opening/closing (aka collapsing) element.
@@ -9,10 +14,18 @@ import { Controller } from '@hotwired/stimulus';
  *
  * @see https://w3c.github.io/aria/#aria-expanded
  *
- * @example
+ * @example - Basic usage
  * ```html
  * <section data-controller="w-reveal">
  *   <button type="button" data-action="w-reveal#toggle" data-w-reveal-target="toggle" aria-controls="my-content" type="button">Toggle</button>
+ *   <div id="my-content">CONTENT</div>
+ * </section>
+ * ```
+ *
+ * @example - Saving to local storage
+ * ```html
+ * <section data-controller="w-reveal" data-w-reveal-storage-key="saved-state">
+ *   <button type="button" aria-controls="my-content" type="button" data-action="w-reveal#toggle" data-w-reveal-target="toggle">Toggle</button>
  *   <div id="my-content">CONTENT</div>
  * </section>
  * ```
@@ -32,6 +45,7 @@ export class RevealController extends Controller<HTMLElement> {
     closed: { default: false, type: Boolean },
     peeking: { default: false, type: Boolean },
     peekTarget: { default: '', type: String },
+    storageKey: { default: '', type: String },
   };
 
   declare closedValue: boolean;
@@ -49,11 +63,19 @@ export class RevealController extends Controller<HTMLElement> {
   declare readonly contentTargets: HTMLElement[];
   /** Global selector string to be used to determine the container to add the mouseleave listener to. */
   declare readonly peekTargetValue: string;
+  /**  Local storage key to be used to backup the open state of this controller, this can be unique or shared across multiple controllers, it uses the controller identifier for the base.If not provided, the controller will not attempt to store the state to local storage. */
+  declare readonly storageKeyValue: string;
   /**  Toggle button element(s) to have their classes and aria attributes updated. */
   declare readonly toggleTargets: HTMLButtonElement[];
 
   cleanUpPeekListener?: () => void;
 
+  /**
+   * Connect the controller, setting up the peeking listener if required,
+   * and setting the initial state based on the stored value if available.
+   *
+   * Finally, dispatch the ready event to signal the controller is ready.
+   */
   connect() {
     // If peeking is being used, set up listener and its removal on disconnect
 
@@ -70,6 +92,21 @@ export class RevealController extends Controller<HTMLElement> {
       this.cleanUpPeekListener = () => {
         peekZone.removeEventListener('mouseleave', onMouseLeave);
       };
+    }
+
+    // Set initial state based on stored value if available
+
+    if (this.storageKeyValue) {
+      const isStoredAsClosed = this.stored;
+      if (
+        typeof isStoredAsClosed === 'boolean' &&
+        isStoredAsClosed !== this.closedValue
+      ) {
+        this.closedValue = isStoredAsClosed;
+      } else {
+        // No value stored yet, so store default(close) state
+        this.stored = this.closedValue;
+      }
     }
 
     // Dispatch initial event & class removal after timeout (allowing other JS content to load)
@@ -166,7 +203,13 @@ export class RevealController extends Controller<HTMLElement> {
     }
   }
 
+  /**
+   * Toggle the open/closed state of the controller, accounting for the peeking state (visually open, but not 'fixed' as open).
+   * The updated closed value will be stored in local storage if available.
+   */
   toggle() {
+    this.stored = this.peekingValue ? false : !this.closedValue;
+
     if (this.peekingValue) {
       this.peekingValue = false;
       // if peeking and toggle clicked, is already open
@@ -223,6 +266,51 @@ export class RevealController extends Controller<HTMLElement> {
           useElement.setAttribute('href', `#${closeIconClass}`);
         }
       });
+  }
+
+  /**
+   * Prepare a unique local storage key for this controller joined with the store value,
+   * if not provided then assume we do not want to store the state of this controller.
+   */
+  get localStorageKey() {
+    const storeValue = this.storageKeyValue;
+    if (!storeValue) return null;
+    return ['wagtail', this.identifier, storeValue].join(':');
+  }
+
+  /**
+   * Get the stored (closed) state of this controller from local storage.
+   * If the key is not available, return undefined.
+   */
+  get stored(): boolean | undefined {
+    const key = this.localStorageKey;
+    if (!key) return undefined;
+    try {
+      const value = localStorage.getItem(key);
+      if (value === null) return undefined;
+      return value === RevealState.CLOSED;
+    } catch (error) {
+      //  Ignore if localStorage is not available.
+    }
+    return undefined;
+  }
+
+  /**
+   * Set the stored state of this controller in the local storage.
+   * If the store key value is not set, do nothing.
+   */
+  set stored(isClosed: boolean) {
+    const key = this.localStorageKey;
+    if (!key) return;
+    try {
+      if (isClosed) {
+        localStorage.setItem(key, RevealState.CLOSED);
+      } else {
+        localStorage.setItem(key, RevealState.OPENED);
+      }
+    } catch (error) {
+      // Ignore if localStorage is not available
+    }
   }
 
   disconnect() {
