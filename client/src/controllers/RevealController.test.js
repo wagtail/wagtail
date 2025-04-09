@@ -474,9 +474,7 @@ describe('RevealController', () => {
           <button type="button" class="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
         </section>`);
 
-      const toggleButton = document.querySelector(
-        'button[data-w-breadcrumbs-target="toggle"][type="button"]',
-      );
+      const toggleButton = document.querySelector('button');
       expect(toggleButton).not.toBeNull();
       await Promise.resolve(toggleButton.click());
 
