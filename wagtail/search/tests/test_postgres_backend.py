@@ -223,34 +223,32 @@ class TestPostgresLanguageTextSearch(TestCase):
 class TestPostgresSearchBackendUnequalLists(TestCase):
     """
     Test the fix for list index out of range error when lists have different lengths.
-    
+
     This test addresses issue #12996, which occurred when indexing pages with empty fields,
     especially during locale synchronization.
     """
-    
+
     def setUp(self):
         self.book_with_title_only = models.Book.objects.create(
             title="Book with title only",
             summary="",
             publication_date="2025-01-01",
-            number_of_pages=100
+            number_of_pages=100,
         )
-        
+
         self.minimal_book = models.Book.objects.create(
-            title=" ",
-            summary=None,
-            publication_date="2025-01-01",
-            number_of_pages=0
+            title=" ", summary=None, publication_date="2025-01-01", number_of_pages=0
         )
-        
+
         from wagtail.search.backends import get_search_backend
+
         self.backend = get_search_backend()
-        
+
         self.assertEqual(
             self.backend.__class__.__module__,
-            "wagtail.search.backends.database.postgres.postgres"
+            "wagtail.search.backends.database.postgres.postgres",
         )
-    
+
     def test_indexing_with_empty_fields(self):
         """Test indexing objects with empty fields doesn't cause an IndexError."""
         try:
@@ -259,48 +257,50 @@ class TestPostgresSearchBackendUnequalLists(TestCase):
             success = True
         except IndexError:
             success = False
-        
+
         self.assertTrue(success, "Indexing with empty fields caused an IndexError")
-    
+
     def test_index_multiple_objects_with_empty_fields(self):
         """Test add_bulk with objects that have empty fields."""
         try:
-            self.backend.add_bulk(models.Book, [self.book_with_title_only, self.minimal_book])
+            self.backend.add_bulk(
+                models.Book, [self.book_with_title_only, self.minimal_book]
+            )
             success = True
         except IndexError:
             success = False
-        
+
         self.assertTrue(success, "Bulk indexing with empty fields caused an IndexError")
-    
+
     def test_search_after_indexing_empty_fields(self):
         """Test searching works correctly after indexing objects with empty fields."""
         self.backend.add(self.book_with_title_only)
         self.backend.add(self.minimal_book)
-        
+
         results = self.backend.search("Book with title only", models.Book)
         self.assertEqual(len(list(results)), 1)
         self.assertEqual(results[0].id, self.book_with_title_only.id)
-    
+
     def test_direct_sql_lists(self):
         """Test the list length equalization logic directly."""
         title_sql = ["title1", "title2"]
         autocomplete_sql = ["autocomplete1"]
         body_sql = ["body1", "body2", "body3"]
-        
+
         if not (len(title_sql) == len(autocomplete_sql) == len(body_sql)):
             max_length = max(len(title_sql), len(autocomplete_sql), len(body_sql))
             empty_sql = "NULL"
             title_sql.extend([empty_sql] * (max_length - len(title_sql)))
             autocomplete_sql.extend([empty_sql] * (max_length - len(autocomplete_sql)))
             body_sql.extend([empty_sql] * (max_length - len(body_sql)))
-        
+
         self.assertEqual(len(title_sql), len(autocomplete_sql))
         self.assertEqual(len(autocomplete_sql), len(body_sql))
         self.assertEqual(len(title_sql), 3)
-        
+
         self.assertEqual(title_sql, ["title1", "title2", "NULL"])
         self.assertEqual(autocomplete_sql, ["autocomplete1", "NULL", "NULL"])
         self.assertEqual(body_sql, ["body1", "body2", "body3"])
-        
+
         zipped = list(zip(title_sql, autocomplete_sql, body_sql))
         self.assertEqual(len(zipped), 3)
