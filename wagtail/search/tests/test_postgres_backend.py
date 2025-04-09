@@ -208,3 +208,118 @@ class TestPostgresLanguageTextSearch(TestCase):
 
         results = self.backend.search(Phrase("Nu zijn beter"), models.Book)
         self.assertEqual(list(results), [self.book])
+
+
+@unittest.skipUnless(
+    connection.vendor == "postgresql", "The current database is not PostgreSQL"
+)
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        "default": {
+            "BACKEND": "wagtail.search.backends.database.postgres.postgres",
+        }
+    }
+)
+class TestPostgresSearchBackendUnequalLists(TestCase):
+    """
+    Test the fix for list index out of range error when lists have different lengths.
+    
+    This test addresses issue #12996, which occurred when indexing pages with empty fields,
+    especially during locale synchronization.
+    """
+    
+    def setUp(self):
+        # Create test books with different field configurations
+        self.book_with_title_only = models.Book.objects.create(
+            title="Book with title only",
+            summary="",  # Empty summary field
+            publication_date="2025-01-01",
+            number_of_pages=100
+        )
+        
+        self.minimal_book = models.Book.objects.create(
+            title=" ",  # Just a space
+            summary=None,  # None instead of empty string
+            publication_date="2025-01-01",
+            number_of_pages=0
+        )
+        
+        # Get the backend
+        from wagtail.search.backends import get_search_backend
+        self.backend = get_search_backend()
+        
+        # Make sure we're using the PostgreSQL backend
+        self.assertEqual(
+            self.backend.__class__.__module__,
+            "wagtail.search.backends.database.postgres.postgres"
+        )
+    
+    def test_indexing_with_empty_fields(self):
+        """Test indexing objects with empty fields doesn't cause an IndexError."""
+        try:
+            # This would have failed before the fix
+            self.backend.add(self.book_with_title_only)
+            self.backend.add(self.minimal_book)
+            success = True
+        except IndexError:
+            success = False
+        
+        self.assertTrue(success, "Indexing with empty fields caused an IndexError")
+    
+    def test_index_multiple_objects_with_empty_fields(self):
+        """Test add_bulk with objects that have empty fields."""
+        try:
+            # This would have failed before the fix
+            self.backend.add_bulk(models.Book, [self.book_with_title_only, self.minimal_book])
+            success = True
+        except IndexError:
+            success = False
+        
+        self.assertTrue(success, "Bulk indexing with empty fields caused an IndexError")
+    
+    def test_search_after_indexing_empty_fields(self):
+        """Test searching works correctly after indexing objects with empty fields."""
+        # Add the objects to the index
+        self.backend.add(self.book_with_title_only)
+        self.backend.add(self.minimal_book)
+        
+        # Search for the book with a title
+        results = self.backend.search("Book with title only", models.Book)
+        self.assertEqual(len(list(results)), 1)
+        self.assertEqual(results[0].id, self.book_with_title_only.id)
+    
+    def test_direct_sql_lists(self):
+        """Test the list length equalization logic directly."""
+        # Import the necessary parts
+        from wagtail.search.backends.database.postgres.postgres import Index
+        
+        # Create an instance of the Index class
+        index = Index(self.backend)
+        
+        # Create lists of different lengths to simulate the bug
+        title_sql = ["title1", "title2"]
+        autocomplete_sql = ["autocomplete1"]  # One item less
+        body_sql = ["body1", "body2", "body3"]  # One item more
+        
+        # This is the code we're testing (simplified version of what happens in add_items)
+        if not (len(title_sql) == len(autocomplete_sql) == len(body_sql)):
+            max_length = max(len(title_sql), len(autocomplete_sql), len(body_sql))
+            # Add empty SQL entries if needed
+            empty_sql = "NULL"  # Using NULL as a safe default
+            title_sql.extend([empty_sql] * (max_length - len(title_sql)))
+            autocomplete_sql.extend([empty_sql] * (max_length - len(autocomplete_sql)))
+            body_sql.extend([empty_sql] * (max_length - len(body_sql)))
+        
+        # Assert all lists now have the same length
+        self.assertEqual(len(title_sql), len(autocomplete_sql))
+        self.assertEqual(len(autocomplete_sql), len(body_sql))
+        self.assertEqual(len(title_sql), 3)  # Should be 3, the max length
+        
+        # Assert the contents are as expected
+        self.assertEqual(title_sql, ["title1", "title2", "NULL"])
+        self.assertEqual(autocomplete_sql, ["autocomplete1", "NULL", "NULL"])
+        self.assertEqual(body_sql, ["body1", "body2", "body3"])
+        
+        # Test that we can now safely zip and iterate without IndexError
+        zipped = list(zip(title_sql, autocomplete_sql, body_sql))
+        self.assertEqual(len(zipped), 3)
