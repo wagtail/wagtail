@@ -132,6 +132,7 @@ class BaseChooseView(
     results_template_name = "wagtailadmin/generic/chooser/results.html"
     construct_queryset_hook_name = None
     url_filter_parameters = []
+    paginator_class = get_wagtail_paginator_class()
 
     def get_object_list(self):
         return self.model_class.objects.all()
@@ -244,18 +245,14 @@ class BaseChooseView(
             return self.model_class._meta.verbose_name_plural
         return None
 
-    def get_results(self, request):
+    def get_results_page(self, request):
         objects = self.get_object_list()
         objects = self.apply_object_list_ordering(objects)
         objects = self.filter_object_list(objects)
 
-        paginator_class = get_wagtail_paginator_class()
-        paginator = paginator_class(objects, per_page=self.per_page)
-        return paginator
-
-    def get_results_page(self, request):
+        self.paginator = self.paginator_class(objects, per_page=self.per_page)
         try:
-            return self.get_results(request).page(request.GET.get("p", 1))
+            return self.paginator.page(request.GET.get("p", 1))
         except InvalidPage:
             raise Http404
 
@@ -279,8 +276,7 @@ class BaseChooseView(
         # so that the pagination include can append its own parameters via the {% querystring %} template tag
         results_pagination_url = re.sub(r"\?.*$", "", results_url)
 
-        paginator = self.get_results(self.request)
-        elided_page_range = paginator.get_elided_page_range(
+        elided_page_range = self.paginator.get_elided_page_range(
             self.request.GET.get("p", 1)
         )
 
@@ -300,8 +296,6 @@ class BaseChooseView(
         )
         if self.is_multiple_choice:
             context["chosen_multiple_url"] = self.get_chosen_multiple_url()
-        if self.verbose_name_plural:
-            context["verbose_name_plural"] = self.verbose_name_plural
         return context
 
     def render_to_response(self):
