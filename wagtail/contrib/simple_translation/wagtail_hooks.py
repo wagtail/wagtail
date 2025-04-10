@@ -112,7 +112,7 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
                 "simple_translation:submit_snippet_translation",
                 args=[model._meta.app_label, model._meta.model_name, quote(snippet.pk)],
             )
-            yield MenuItem(_("Translate"), url, priority=100)
+            yield MenuItem(_("Translate"), url, icon_name="globe", priority=100)
 
 
 @hooks.register("construct_translated_pages_to_cascade_actions")

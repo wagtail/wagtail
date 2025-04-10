@@ -133,6 +133,7 @@ class TestWagtailHooksButtons(Utils):
                 args=(snippet._meta.app_label, snippet._meta.model_name, snippet.pk),
             ),
         )
+        self.assertEqual(buttons[0].icon_name, "globe")
 
 
 class TestConstructSyncedPageTreeListHook(Utils):
