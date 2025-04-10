@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.0 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~
+7.0 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~
 
  * Add formal support for Django 5.2 (Matt Westcott)
  * Add `WAGTAIL_` prefix to Wagtail-specific tag settings (Aayushman Singh)
