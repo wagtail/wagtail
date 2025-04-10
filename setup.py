@@ -14,7 +14,7 @@ class sdist(base_sdist):
 
     def run(self):
         self.compile_assets()
-        base_sdist.run(self)
+        super().run()
 
 
 setup(
