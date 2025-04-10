@@ -5,6 +5,7 @@ Release notes
    :maxdepth: 1
 
    upgrading
+   release_process
    7.0
    6.4.1
    6.4
