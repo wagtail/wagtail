@@ -52,6 +52,7 @@ Changelog
  * Maintenance: Remove non-editing view inclusions of the `insert_editor_js` hook output, deprecate the wrapper template tag `_editor_js.html` (Sai Srikar Dumpeti, LB (Ben) Johnston)
  * Maintenance: Remove upper bound on Django dependency (Matt Westcott)
  * Maintenance: Add `default_auto_field` setting to home app in project template (Sylvain Boissel)
+ * Maintenance: Migrate setuptools configuration from `setup.py` and `setup.cfg` to `pyproject.toml` (Sage Abdullah)
 
 
 6.4.1 (21.02.2025)
