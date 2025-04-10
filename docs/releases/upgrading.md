@@ -11,7 +11,7 @@ For dates of past and upcoming releases and support periods, see [Release schedu
 ## Required reading
 
 If it’s your first time doing an upgrade, it is highly recommended to read the
-guide on [](../contributing/release_process).
+guide on [](release_process).
 
 ## Upgrade process
 
