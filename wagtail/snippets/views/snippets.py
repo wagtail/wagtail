@@ -1,4 +1,5 @@
 from django.apps import apps
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
@@ -68,6 +69,19 @@ def get_snippet_model_from_url_params(app_name, model_name):
 # == Views ==
 
 
+def get_snippet_models_for_index_view():
+    models = get_snippet_models()
+
+    if getattr(settings, "WAGTAILSNIPPETS_MENU_SHOW_ALL", False):
+        return models
+
+    return [
+        model
+        for model in models
+        if not model.snippet_viewset.get_menu_item_is_registered()
+    ]
+
+
 class ModelIndexView(generic.BaseListingView):
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
@@ -86,7 +100,7 @@ class ModelIndexView(generic.BaseListingView):
                 "model": model,
                 "url": url,
             }
-            for model in get_snippet_models()
+            for model in get_snippet_models_for_index_view()
             if (url := self.get_list_url(model))
         ]
 
@@ -834,14 +848,23 @@ class SnippetViewSet(ModelViewSet):
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
 
-    @cached_property
+    @property
     def breadcrumbs_items(self):
         # Use reverse_lazy instead of reverse
         # because this will be passed to the view classes at startup
-        return [
+        breadcrumbs = [
             {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
-            {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
         ]
+
+        if (
+            getattr(settings, "WAGTAILSNIPPETS_MENU_SHOW_ALL", False)
+            or not self.get_menu_item_is_registered()
+        ):
+            breadcrumbs.append(
+                {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+            )
+
+        return breadcrumbs
 
     def get_queryset(self, request):
         """
