@@ -376,10 +376,12 @@ ul.listing {
       border-bottom: 0;
     }
 
+    th:first-child,
     td:first-child {
       padding-inline-start: theme('spacing.6');
     }
 
+    th:last-child,
     td:last-child {
       padding-inline-end: theme('spacing.6');
     }
