@@ -1,4 +1,25 @@
 $(function () {
+  const fileFields = document.querySelectorAll('[data-bulk-upload-file]');
+  fileFields.forEach((fileField) => {
+    fileField.setAttribute('data-controller', 'w-sync');
+    fileField.setAttribute('data-action', 'change->w-sync#apply');
+    fileField.setAttribute(
+      'data-w-sync-target-value',
+      '[data-bulk-upload-title]',
+    );
+    fileField.setAttribute('data-w-sync-normalize-value', 'true');
+    fileField.setAttribute(
+      'data-w-sync-name-value',
+      'wagtail:documents-upload',
+    );
+  });
+
+  const titleFields = document.querySelectorAll('[data-bulk-upload-title]');
+  titleFields.forEach((titleField) => {
+    titleField.setAttribute('data-controller', 'w-clean');
+    titleField.setAttribute('data-action', 'blur->w-clean#slugify');
+  });
+
   $('#fileupload').fileupload({
     dataType: 'html',
     sequentialUploads: true,
@@ -84,33 +105,10 @@ $(function () {
     },
 
     /**
-     * Allow a custom title to be defined by an event handler for this form.
-     * If event.preventDefault is called, the original behaviour of using the raw
-     * filename (with extension) as the title is preserved.
-     *
-     * @param {HtmlElement[]} form
-     * @returns {{name: 'string', value: *}[]}
+     * Let Stimulus handle the title generation
      */
     formData: function (form) {
-      var filename = this.files[0].name;
-      var data = { title: filename.replace(/\.[^.]+$/, '') };
-
-      var event = form.get(0).dispatchEvent(
-        new CustomEvent('wagtail:documents-upload', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            data: data,
-            filename: filename,
-            maxTitleLength: this.maxTitleLength,
-          },
-        }),
-      );
-
-      // default behaviour (title is just file name)
-      return event
-        ? form.serializeArray().concat({ name: 'title', value: data.title })
-        : form.serializeArray();
+      return form.serializeArray();
     },
 
     done: function (e, data) {
@@ -119,7 +117,6 @@ $(function () {
 
       if (response.success) {
         itemElement.addClass('upload-success');
-
         $('.right', itemElement).append(response.form);
       } else {
         itemElement.addClass('upload-failure');
