@@ -10,6 +10,7 @@ from wagtail.admin.widgets.button import Button
 from wagtail.models import Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class TestButtonsHooks(WagtailTestUtils, TestCase):
@@ -27,12 +28,43 @@ class TestButtonsHooks(WagtailTestUtils, TestCase):
 
 
 class TestPageListingButtonsHooks(TestButtonsHooks):
+    def test_register_page_listing_buttons_deprecated_class(self):
+        def page_listing_buttons_deprecated_class(page, user, next_url=None):
+            yield wagtailadmin_widgets.PageListingButton(
+                "Another useless page listing button", "/custom-url", priority=10
+            )
+
+        with (
+            hooks.register_temporarily(
+                "register_page_listing_buttons", page_listing_buttons_deprecated_class
+            ),
+            self.assertWarnsMessage(
+                RemovedInWagtail80Warning,
+                "`PageListingButton` is deprecated. "
+                "Use `wagtail.admin.widgets.button.ListingButton` instead.",
+            ),
+        ):
+            response = self.client.get(
+                reverse("wagtailadmin_explore", args=(self.root_page.id,))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
+        )
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        self.assertContains(response, "Another useless page listing button")
+
     def test_register_page_listing_buttons_new_signature(self):
         def page_listing_buttons_new_signature(page, user, next_url=None):
             if not isinstance(user, AbstractBaseUser):
                 raise TypeError("expected a user instance")
 
-            yield wagtailadmin_widgets.PageListingButton(
+            yield wagtailadmin_widgets.ListingButton(
                 "Another useless page listing button", "/custom-url", priority=10
             )
 
@@ -44,6 +76,9 @@ class TestPageListingButtonsHooks(TestButtonsHooks):
             )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
@@ -72,6 +107,9 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
             )
 
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
         self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
@@ -119,6 +157,9 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
+            response, "wagtailadmin/shared/button_with_dropdown.html"
+        )
+        self.assertTemplateUsed(
             response, "wagtailadmin/pages/listing/_button_with_dropdown.html"
         )
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
@@ -145,6 +186,27 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         delete_button = next(button for button in buttons if button.label == "Delete")
 
         self.assertEqual(delete_button.url, full_url)
+
+    def test_buttons_with_rel_attribute(self):
+        """
+        Ensure that PageMenuItem can specify a rel attribute for the link.
+        """
+        self.child_page.save_revision()
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        buttons = soup.select("td li [data-controller='w-dropdown'] a[rel]")
+        self.assertEqual(len(buttons), 2)
+        self.assertEqual(
+            {button.text.strip() for button in buttons},
+            {"View live", "View draft"},
+        )
+        self.assertEqual(
+            [button.get("rel") for button in buttons],
+            [["noreferrer"], ["noreferrer"]],
+        )
 
     def test_delete_button_with_invalid_next_url(self):
         """
@@ -184,7 +246,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         buttons = [
             button
             for button in page_listing_more_buttons(page, user=editor)
-            if button.show
+            if button.is_shown(user=editor)
         ]
         self.assertEqual(
             len([button for button in buttons if button.label == "Sort menu order"]), 0
@@ -198,7 +260,7 @@ class TestPageListingMoreButtonsHooks(TestButtonsHooks):
         buttons = [
             button
             for button in page_listing_more_buttons(page, user=publisher)
-            if button.show
+            if button.is_shown(user=publisher)
         ]
         reorder_button = next(
             button for button in buttons if button.label == "Sort menu order"
