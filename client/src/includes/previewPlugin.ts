@@ -1,4 +1,10 @@
-import axe, { AxePlugin } from 'axe-core';
+import type { AxePlugin } from 'axe-core';
+
+declare global {
+  interface Window {
+    axe: typeof import('axe-core');
+  }
+}
 
 /**
  * Axe plugin registry for interaction between the page editor and the live preview.
@@ -9,13 +15,14 @@ import axe, { AxePlugin } from 'axe-core';
  */
 export const wagtailPreviewPlugin: AxePlugin = {
   id: 'wagtailPreview',
-  run(id, action, options, callback) {
+  async run(id, action, options, callback) {
     // Outside the preview frame, we need to send the command to the preview iframe.
     const preview = document.getElementById(
       'w-preview-iframe',
     ) as HTMLIFrameElement;
 
     if (preview) {
+      const axe = await import('axe-core');
       // @ts-expect-error Not declared in the official Axe Utils API.
       axe.utils.sendCommandToFrame(
         preview,
@@ -40,7 +47,8 @@ export const wagtailPreviewPlugin: AxePlugin = {
   commands: [
     {
       id: 'run-wagtailPreview',
-      callback(data, callback) {
+      async callback(data, callback) {
+        const axe = await import('axe-core');
         return axe.plugins.wagtailPreview.run(
           data.parameter,
           data.action,
