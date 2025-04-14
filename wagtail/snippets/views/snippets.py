@@ -16,8 +16,8 @@ from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
-    Column,
     LiveStatusTagColumn,
+    NumberColumn,
     TitleColumn,
 )
 from wagtail.admin.views import generic
@@ -114,7 +114,7 @@ class ModelIndexView(generic.BaseListingView):
                 get_url=lambda type: type["url"],
                 sort_key="name",
             ),
-            Column(
+            NumberColumn(
                 "count",
                 label=_("Instances"),
                 sort_key="count",
