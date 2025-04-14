@@ -1,48 +1,55 @@
 {% extends "wagtailadmin/generic/form.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags static %}
+
 {% block titletag %}{% trans "Add a document" %}{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
-
-    <script type="module">
-        import { CleanController } from "../../../../../client/src/controllers/CleanController";
-        import { SyncController } from "../../../../../client/src/controllers/SyncController";
-
-        const application = Stimulus.Application.start();
-        application.register('w-clean', CleanController);
-        application.register('w-sync', SyncController);
-    </script>
 {% endblock %}
 
 {% block form %}
-    <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'wagtaildocs:add' %}" method="POST" enctype="multipart/form-data"
+          data-controller="w-form">
         {% csrf_token %}
-        <div>
+        
+        {# File Input with Sync Controller #}
+        <div class="field">
+            <label for="id_file">{% trans "Document file" %}</label>
             <input
                 type="file"
                 name="file"
                 id="id_file"
-                data-controller="w-sync"
-                data-action="change->w-sync#apply"
-                data-w-sync-target-value="#id_title"            
-                data-w-sync-normalize-value="true"              
-                data-w-sync-event-name-value="wagtail:documents-upload"      
+                required
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf"
+                data-action="change->w-sync#apply drop->w-sync#apply"
+                data-w-sync-target-value="#id_title"
+                data-w-sync-normalize-value="true"
+                data-w-sync-event-name-value="wagtail:documents-upload"
+                aria-describedby="file-help"
             >
+            <p id="file-help" class="help">
+                {% trans "Supported formats: PDF, Word, Excel, PowerPoint, Text" %}
+            </p>
         </div>
-        <div>
+        
+        {# Title Input with Clean Controller #}
+        <div class="field">
+            <label for="id_title">{% trans "Title" %}</label>
             <input
                 type="text"
                 name="title"
                 id="id_title"
-                data-controller="w-clean"
-                data-action="blur->w-clean#slugify"              
-                data-w-clean-regex-value="[^a-zA-Z0-9-]"         
-                data-w-clean-replacement-value=""                 
+                required
+                data-action="blur->w-clean#slugify input->w-clean#updatePreview"
+                data-w-clean-regex-value="[^a-zA-Z0-9-]"
+                data-w-clean-replacement-value=""
+                data-w-clean-preview-target-value="#filename-preview"
             >
+            <p id="filename-preview" class="help"></p>
         </div>
-        <div>
-            {% trans "Upload" as upload_label %}
+        
+        {# Submit Button #}
+        <div class="actions">
             <button
                 type="submit"
                 class="button button-longrunning"
@@ -51,7 +58,7 @@
                 data-w-progress-active-value="{% trans 'Uploading…' %}"
             >
                 {% icon name="spinner" %}
-                <em data-w-progress-target="label">{{ upload_label }}</em>
+                <em data-w-progress-target="label">{% trans 'Upload' %}</em>
             </button>
         </div>
     </form>
