@@ -284,21 +284,6 @@ WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
 
-(wagtail_auto_update_preview)=
-
-### `WAGTAIL_AUTO_UPDATE_PREVIEW`
-
-```python
-WAGTAIL_AUTO_UPDATE_PREVIEW = True
-```
-
-When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
-This behavior is enabled by default.
-
-```{versionchanged} 6.3
-This setting is deprecated. Set `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` to disable automatic preview updates instead.
-```
-
 (wagtail_auto_update_preview_interval)=
 
 ### `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL`
@@ -581,44 +566,6 @@ WAGTAILADMIN_USER_PASSWORD_RESET_FORM = 'users.forms.PasswordResetForm'
 ```
 
 Allows the default `PasswordResetForm` to be extended with extra fields.
-
-(user_form_settings)=
-
-### `WAGTAIL_USER_EDIT_FORM`
-
-```python
-WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
-```
-
-Allows the default `UserEditForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user edit form.
-
-```{versionchanged} 6.2
-This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
-```
-
-### `WAGTAIL_USER_CREATION_FORM`
-
-```python
-WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
-```
-
-Allows the default `UserCreationForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user creation form.
-
-```{versionchanged} 6.2
-This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
-```
-
-### `WAGTAIL_USER_CUSTOM_FIELDS`
-
-```python
-WAGTAIL_USER_CUSTOM_FIELDS = ['country']
-```
-
-A list of the extra custom fields to be appended to the default list. The resulting list is passed to {class}`~django.forms.ModelForm`'s `Meta.fields` to generate the form fields.
-
-```{versionchanged} 6.2
-This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
-```
 
 ### `WAGTAILADMIN_USER_LOGIN_FORM`
 
