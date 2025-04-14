@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-
 import { debounce } from '../utils/debounce';
 
 /**
@@ -70,9 +69,10 @@ export class SyncController extends Controller<HTMLInputElement> {
    * default.
    */
   connect() {
+    console.log('SyncController: Connected to element:', this.element);
     this.processTargetElements('start', { resetDisabledValue: true });
     this.apply = debounce(this.apply.bind(this), this.debounceValue);
-    console.log('SyncController connected to:', this.element);
+    console.log('SyncController: Debounced apply method initialized.');
   }
 
   /**
@@ -80,6 +80,7 @@ export class SyncController extends Controller<HTMLInputElement> {
    * whether this sync controller should be disabled.
    */
   check() {
+    console.log('SyncController: Checking target elements.');
     this.processTargetElements('check', { resetDisabledValue: true });
   }
 
@@ -92,23 +93,30 @@ export class SyncController extends Controller<HTMLInputElement> {
    * based on the controller's `delayValue`.
    */
   apply(event?: Event & { params?: { apply?: string } }) {
+    console.log('SyncController: Apply method called.');
     const value = this.prepareValue(event?.params?.apply || this.element.value);
-    console.log('apply method called');
+    console.log('SyncController: Prepared value:', value);
+
     const applyValue = (target) => {
-      /* use setter to correctly update value in non-inputs (e.g. select) */ // eslint-disable-next-line no-param-reassign
+      console.log('SyncController: Applying value to target:', target);
       target.value = value;
 
-      if (this.quietValue) return;
+      if (this.quietValue) {
+        console.log('SyncController: Quiet mode enabled, skipping dispatch.');
+        return;
+      }
 
       this.dispatch('change', {
         cancelable: false,
         prefix: '',
         target,
       });
+      console.log('SyncController: Dispatched change event to target:', target);
     };
 
     this.processTargetElements('apply', { value }).forEach((target) => {
       if (this.delayValue) {
+        console.log('SyncController: Applying value with delay:', this.delayValue);
         setTimeout(() => {
           applyValue(target);
         }, this.delayValue);
@@ -122,15 +130,21 @@ export class SyncController extends Controller<HTMLInputElement> {
    * Clears the value of the targeted elements.
    */
   clear() {
+    console.log('SyncController: Clear method called.');
     this.processTargetElements('clear').forEach((target) => {
+      console.log('SyncController: Clearing value for target:', target);
       setTimeout(() => {
         target.setAttribute('value', '');
-        if (this.quietValue) return;
+        if (this.quietValue) {
+          console.log('SyncController: Quiet mode enabled, skipping dispatch.');
+          return;
+        }
         this.dispatch('change', {
           cancelable: false,
           prefix: '',
           target: target as HTMLInputElement,
         });
+        console.log('SyncController: Dispatched change event to target:', target);
       }, this.delayValue);
     });
   }
@@ -139,17 +153,24 @@ export class SyncController extends Controller<HTMLInputElement> {
    * Simple method to dispatch a ping event to the targeted elements.
    */
   ping() {
+    console.log('SyncController: Ping method called.');
     this.processTargetElements('ping');
   }
 
   prepareValue(value: string) {
-    if (!this.normalizeValue) return value;
+    console.log('SyncController: Preparing value:', value);
+    if (!this.normalizeValue) {
+      console.log('SyncController: Normalization disabled, returning raw value.');
+      return value;
+    }
 
     if (this.element.type === 'file') {
-      return value
+      const normalizedValue = value
         .split('\\')
         .slice(-1)[0]
         .replace(/\.[^.]+$/, '');
+      console.log('SyncController: Normalized file value:', normalizedValue);
+      return normalizedValue;
     }
 
     return value;
@@ -164,16 +185,16 @@ export class SyncController extends Controller<HTMLInputElement> {
     eventName: string,
     { resetDisabledValue = false, value = this.element.value } = {},
   ) {
-    console.log('Processing target elements for event:', eventName);
+    console.log('SyncController: Processing target elements for event:', eventName);
     if (!resetDisabledValue && this.disabledValue) {
-      // console.log('Sync is disabled, skipping.');
+      console.log('SyncController: Sync is disabled, skipping.');
       return [];
     }
 
     const targetElements = [
       ...document.querySelectorAll<HTMLElement>(this.targetValue),
     ];
-    // console.log('Target elements found:', targetElements);
+    console.log('SyncController: Found target elements:', targetElements);
 
     const element = this.element;
     const name = this.nameValue;
@@ -183,19 +204,20 @@ export class SyncController extends Controller<HTMLInputElement> {
       const required = !!target.hasAttribute('required');
 
       const event = this.dispatch(eventName, {
-        bubbles: true, // Ensure this is true
+        bubbles: true,
         cancelable: true,
         detail: { element, maxLength, name, required, value },
         target,
       });
-      // console.log('Event dispatched:', event);
-      // console.log('Event target:', target);
+      console.log('SyncController: Dispatched event to target:', target);
+      console.log('SyncController: Event default prevented?', event.defaultPrevented);
 
       return !event.defaultPrevented;
     });
 
     if (resetDisabledValue) {
       this.disabledValue = targetElements.length > elements.length;
+      console.log('SyncController: Updated disabled value:', this.disabledValue);
     }
 
     return elements;
@@ -206,21 +228,11 @@ export class SyncController extends Controller<HTMLInputElement> {
    * 'wagtail:images|documents-upload' approach.
    */
   static afterLoad(identifier: string) {
-    // console.log('is this working?', { identifier });
-    if (identifier !== 'w-sync') return;
-
-    // domReady().then(() => {
-    // Why does domReady not work???
-
-    // console.log('is this working?');
-
-    /**
-     * Need to think this through.
-     * I only really want this on specific fields
-     * We could normalize all values but is that bad?
-     * Need to consider issues with bubbling actions
-     * Maybe... using Ping instead for now?
-     */
+    console.log('SyncController: afterLoad called for identifier:', identifier);
+    if (identifier !== 'w-sync') {
+      console.log('SyncController: Identifier does not match, skipping.');
+      return;
+    }
 
     const handleEvent = (
       event: CustomEvent<{
@@ -229,20 +241,27 @@ export class SyncController extends Controller<HTMLInputElement> {
         value: string;
       }>,
     ) => {
-      // console.log('sync apply! before', event);
+      console.log('SyncController: Handling w-sync:apply event:', event);
       const {
         /** Will be the target title field */
         target,
       } = event;
-      if (!target || !(target instanceof HTMLInputElement)) return;
+      if (!target || !(target instanceof HTMLInputElement)) {
+        console.log('SyncController: Invalid target, skipping.');
+        return;
+      }
       const form = target.closest('form');
-      if (!form) return;
-
-      // console.log('sync apply!', event);
+      if (!form) {
+        console.log('SyncController: Form not found, skipping.');
+        return;
+      }
 
       const { maxLength: maxTitleLength, name, value: title } = event.detail;
 
-      if (!name || !title) return;
+      if (!name || !title) {
+        console.log('SyncController: Missing name or title, skipping.');
+        return;
+      }
 
       const data = { title };
 
@@ -262,21 +281,18 @@ export class SyncController extends Controller<HTMLInputElement> {
       );
 
       if (!wrapperEvent) {
-        // Do not set a title if event.preventDefault(); is called by handler
-
+        console.log('SyncController: Wrapper event prevented, skipping title update.');
         event.preventDefault();
       }
 
       if (data.title !== title) {
-        // If the title has been modified through another listener, update the title field manually, ignoring the default behaviour
-        //  or we just always do this???
+        console.log('SyncController: Title modified, updating manually.');
         event.preventDefault();
         target.value = data.title;
-        // maybe dispatch change event - check what jQuery .val does out of the box & check docs!!
       }
     };
 
     document.addEventListener('w-sync:apply', handleEvent as EventListener);
-    // });
+    console.log('SyncController: Added event listener for w-sync:apply.');
   }
 }

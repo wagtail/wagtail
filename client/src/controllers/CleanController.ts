@@ -52,6 +52,9 @@ export class CleanController extends Controller<HTMLInputElement> {
    * @property {string} detail.sourceValue - The original value.
    */
   applyUpdate(action: Actions, cleanValue: string, sourceValue?: string) {
+    console.log('CleanController: Applying update. Action:', action);
+    console.log('CleanController: Source value:', sourceValue);
+    console.log('CleanController: Cleaned value:', cleanValue);
     this.element.value = cleanValue;
     this.dispatch('applied', {
       cancelable: false,
@@ -71,20 +74,28 @@ export class CleanController extends Controller<HTMLInputElement> {
       params?: { compareAs?: Actions };
     },
   ) {
+    console.log('CleanController: Comparing values.');
     // do not attempt to compare if the field is empty
-    if (!this.element.value) return true;
+    if (!this.element.value) {
+      console.log('CleanController: Element value is empty, skipping comparison.');
+      return true;
+    }
 
     const compareAs =
       event.detail?.compareAs || event.params?.compareAs || Actions.Slugify;
+    console.log('CleanController: Compare action:', compareAs);
 
     const compareValue = this[compareAs](
       { detail: { value: event.detail?.value || '' } },
       { ignoreUpdate: true },
     );
+    console.log('CleanController: Compare value:', compareValue);
 
     const valuesAreSame = this.compareValues(compareValue, this.element.value);
+    console.log('CleanController: Values are the same?', valuesAreSame);
 
     if (!valuesAreSame) {
+      console.log('CleanController: Values differ, preventing default.');
       event?.preventDefault();
     }
 
@@ -95,6 +106,7 @@ export class CleanController extends Controller<HTMLInputElement> {
    * Compares the provided strings, ensuring the values are the same.
    */
   compareValues(...values: string[]): boolean {
+    console.log('CleanController: Comparing values:', values);
     return new Set(values.map((value: string) => `${value}`)).size === 1;
   }
 
@@ -104,6 +116,7 @@ export class CleanController extends Controller<HTMLInputElement> {
    * is needed or comparison is required to always pass.
    */
   identity() {
+    console.log('CleanController: Identity method called.');
     const action = Actions.Identity;
     const value = this.element.value;
     this.applyUpdate(action, value, value);
@@ -114,7 +127,9 @@ export class CleanController extends Controller<HTMLInputElement> {
    * Prepares the value before being processed by an action method.
    */
   prepareValue(sourceValue = '') {
+    console.log('CleanController: Preparing value:', sourceValue);
     const value = this.trimValue ? sourceValue.trim() : sourceValue;
+    console.log('CleanController: Prepared value:', value);
     return value;
   }
 
@@ -128,13 +143,19 @@ export class CleanController extends Controller<HTMLInputElement> {
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     { ignoreUpdate = false } = {},
   ) {
+    console.log('CleanController: Slugify method called.');
     const { value: sourceValue = this.element.value } = event?.detail || {};
     const preparedValue = this.prepareValue(sourceValue);
-    if (!preparedValue) return '';
+    if (!preparedValue) {
+      console.log('CleanController: Prepared value is empty, skipping.');
+      return '';
+    }
 
     const allowUnicode = this.allowUnicodeValue;
+    console.log('CleanController: Allow Unicode?', allowUnicode);
 
     const cleanValue = slugify(preparedValue, { allowUnicode });
+    console.log('CleanController: Slugified value:', cleanValue);
 
     if (!ignoreUpdate) {
       this.applyUpdate(Actions.Slugify, cleanValue, sourceValue);
@@ -158,11 +179,16 @@ export class CleanController extends Controller<HTMLInputElement> {
     event: CustomEvent<{ value: string }> | { detail: { value: string } },
     { ignoreUpdate = false } = {},
   ) {
+    console.log('CleanController: Urlify method called.');
     const { value: sourceValue = this.element.value } = event?.detail || {};
     const preparedValue = this.prepareValue(sourceValue);
-    if (!preparedValue) return '';
+    if (!preparedValue) {
+      console.log('CleanController: Prepared value is empty, skipping.');
+      return '';
+    }
 
     const allowUnicode = this.allowUnicodeValue;
+    console.log('CleanController: Allow Unicode?', allowUnicode);
 
     const cleanValue =
       urlify(preparedValue, { allowUnicode }) ||
@@ -170,6 +196,7 @@ export class CleanController extends Controller<HTMLInputElement> {
         { detail: { value: preparedValue } },
         { ignoreUpdate: true },
       );
+    console.log('CleanController: Urlified value:', cleanValue);
 
     if (!ignoreUpdate) {
       this.applyUpdate(Actions.Urlify, cleanValue, sourceValue);

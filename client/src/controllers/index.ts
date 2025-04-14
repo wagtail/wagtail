@@ -23,7 +23,7 @@ import { ProgressController } from './ProgressController';
 import { RevealController } from './RevealController';
 import { RulesController } from './RulesController';
 import { SessionController } from './SessionController';
-import { SlugController } from './SlugController';
+import { CleanController } from './CleanController';
 import { SubmitController } from './SubmitController';
 import { SwapController } from './SwapController';
 import { SyncController } from './SyncController';
@@ -43,6 +43,8 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: AutosizeController, identifier: 'w-autosize' },
   { controllerConstructor: BlockController, identifier: 'w-block' },
   { controllerConstructor: BulkController, identifier: 'w-bulk' },
+  { controllerConstructor: CleanController, identifier: 'w-clean' },
+  { controllerConstructor: CleanController, identifier: 'w-slug' },
   { controllerConstructor: ClipboardController, identifier: 'w-clipboard' },
   { controllerConstructor: CloneController, identifier: 'w-clone' },
   { controllerConstructor: CloneController, identifier: 'w-messages' },
@@ -63,7 +65,6 @@ export const coreControllerDefinitions: Definition[] = [
   { controllerConstructor: RevealController, identifier: 'w-reveal' },
   { controllerConstructor: RulesController, identifier: 'w-rules' },
   { controllerConstructor: SessionController, identifier: 'w-session' },
-  { controllerConstructor: SlugController, identifier: 'w-slug' },
   { controllerConstructor: SubmitController, identifier: 'w-submit' },
   { controllerConstructor: SwapController, identifier: 'w-swap' },
   { controllerConstructor: SyncController, identifier: 'w-sync' },
