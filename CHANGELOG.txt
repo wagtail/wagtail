@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~~
 
  * Add formal support for Django 5.2 (Matt Westcott)
+ * Allow validation of required fields to be deferred on saving drafts (Matt Westcott, Sage Abdullah)
  * Add `WAGTAIL_` prefix to Wagtail-specific tag settings (Aayushman Singh)
  * Implement `normalize` on `TypedTableBlock` to assist with setting `default` and `preview_value` (Sage Abdullah)
  * Apply normalization when modifying a `StreamBlock`'s value to assist with programmatic changes to `StreamField` (Matt Westcott)
