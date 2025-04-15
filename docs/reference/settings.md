@@ -803,7 +803,7 @@ Required when using frontend cache invalidation, used to generate absolute URLs 
 WAGTAILAPI_LIMIT_MAX = 500
 ```
 
-Default is 20, used to change the maximum number of results a user can request at a time, set to `None` for no limit.
+Default is 20, used to change the maximum number of results a user can request at a time, set to `None` for no limit. Once this is set, combine with [`?limit` and `?offset` query parameters](apiv2_pagination) to retrieve the desired number of results.
 
 ### `WAGTAILAPI_SEARCH_ENABLED`
 

@@ -366,3 +366,4 @@ endpoints.
 
 This allows you to change the maximum number of results a user can request at a
 time. This applies to all endpoints. Set to `None` for no limit.
+Combine with [`?limit` and `?offset` query parameters](apiv2_pagination) to retrieve the desired number of results.
