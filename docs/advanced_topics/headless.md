@@ -61,7 +61,7 @@ GraphQL is a newer API technology than REST. Unlike REST, GraphQL isn't an archi
 
 #### GraphQL libraries compatible with Wagtail
 
--   [wagtail-grapple](https://github.com/GrappleGQL/wagtail-grapple) by GrappleGQL
+-   [wagtail-grapple](https://github.com/torchbox/wagtail-grapple) by Torchbox
 -   [strawberry-wagtail](https://github.com/patrick91/strawberry-wagtail) by Patrick Arminio
 
 ## Functionality
@@ -179,4 +179,4 @@ There is a plugin available currently that automatically pings Netlify to build 
 -   [Official Wagtail documentation on building a public-facing API](api)
 -   Wagtail API tutorial from [LearnWagtail.com](https://learnwagtail.com/tutorials/how-to-enable-the-v2-api-to-create-a-headless-cms/)
 -   [Using Wagtail, NuxtJS and Vuetify to build a fast and secure static site](https://www.nurseadvance.com/articles/using-wagtail-nuxtjs-and-vuetify-build-fast-and-secure-static-site/)
--   [Going Headless with Wagtail, Nuxt.js and GraphQL (PDF)](https://trs.jpl.nasa.gov/bitstream/handle/2014/54119/CL%2320-3292.pdf?sequence=1)
+-   [Going Headless with Wagtail, Nuxt.js and GraphQL (PDF)](https://dataverse.jpl.nasa.gov/dataset.xhtml?persistentId=hdl:2014/54119&version=2.0)
