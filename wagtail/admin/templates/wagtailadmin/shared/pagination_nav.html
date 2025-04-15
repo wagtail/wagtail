@@ -20,11 +20,11 @@
             </a>
         </li>
         {% for page_number in elided_page_range %}
-            <li class="pagination__page-number">
+            <li class="pagination__page-number{% if page_number == items.number %} pagination__page-number--current{% endif %}">
                 {% if page_number == items.paginator.ELLIPSIS %}
                     <span>{{ page_number }}</span>
                 {% else %}
-                    <a href="{{ url_path }}{% querystring p=page_number %}" class="{% if page_number == items.number %}current{% endif %}">
+                    <a href="{{ url_path }}{% querystring p=page_number %}">
                         {{ page_number|intcomma }}
                     </a>
                 {% endif %}
