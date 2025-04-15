@@ -58,6 +58,7 @@ Changelog
  * Maintenance: Add `default_auto_field` setting to home app in project template (Sylvain Boissel)
  * Maintenance: Migrate setuptools configuration from `setup.py` and `setup.cfg` to `pyproject.toml` (Sage Abdullah)
  * Maintenance: Refactor `move_choose_destination` to a class-based view (Chiemezuo Akujobi)
+ * Maintenance: Remove deprecated `wagtailadmin/shared/ajax_pagination_nav.html` template (Sage Abdullah)
 
 
 6.4.1 (21.02.2025)
