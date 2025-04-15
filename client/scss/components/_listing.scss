@@ -542,10 +542,12 @@ table.listing {
         border-radius: 3px;
         color: var(--w-color-text-label);
         margin: 0.1875rem;
+      }
 
-        &.current,
-        &:hover,
-        &:focus {
+      &.pagination__page-number--current,
+      &:hover,
+      &:focus-within {
+        a {
           background-color: var(--w-color-primary);
           border: 0;
           color: var(--w-color-text-button);
@@ -565,15 +567,13 @@ table.listing {
   }
 
   @include dark-theme() {
-    li {
-      &.pagination__page-number {
-        a {
-          &.current,
-          &:hover,
-          &:focus {
-            background-color: var(--w-color-secondary);
-          }
-        }
+    li.pagination__page-number:where(
+        .pagination__page-number--current,
+        :hover,
+        :focus-within
+      ) {
+      a {
+        background-color: var(--w-color-secondary);
       }
     }
   }
