@@ -479,7 +479,14 @@ table.listing {
 
 .pagination {
   text-align: center;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @include media-breakpoint-up(sm) {
+    flex-wrap: nowrap;
+  }
 
   &__start,
   &__end {
