@@ -133,6 +133,8 @@ those endpoints. But for projects that have customized image/document models,
 the `api_fields` attribute can be used to export any custom fields into the
 API.
 
+(apiv2_pagination)=
+
 ### Pagination
 
 The number of items in the response can be changed by using the `?limit`
