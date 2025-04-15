@@ -27,8 +27,7 @@ class RedirectsAPIViewSet(BaseAPIViewSet):
     def find_object(self, queryset, request):
         if "html_path" in request.GET:
             redirect = get_redirect(
-                request,
-                request.GET["html_path"],
+                request, request.GET["html_path"], exact_match=False
             )
 
             if redirect is None:
