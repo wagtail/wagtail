@@ -1164,7 +1164,6 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
     history_label = gettext_lazy("History")
     page_title = gettext_lazy("Compare")
     template_name = "wagtailadmin/generic/revisions/compare.html"
-    _show_breadcrumbs = True
     model = None
 
     def get_breadcrumbs_items(self):
