@@ -238,10 +238,11 @@ In the above example, we serialize the `body` field using Wagtail’s storage fo
 It’s also often useful for the API to directly provide a “display” representation, similarly to the `|richtext` template filter. This can be done with a custom serializer:
 
 ```python
+from rest_framework.fields import CharField
 from wagtail.rich_text import expand_db_html
 
 
-class RichTextSerializer(fields.CharField):
+class RichTextSerializer(CharField):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         return expand_db_html(representation)
