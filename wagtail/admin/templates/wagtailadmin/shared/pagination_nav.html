@@ -8,13 +8,13 @@
 {% endcomment %}
 {% resolve_url linkurl as url_path %}
 
-<nav class="pagination w-flex w-justify-between w-flex-wrap sm:w-flex-nowrap" aria-label="{% trans 'Pagination' %}">
+<nav class="pagination" aria-label="{% trans 'Pagination' %}">
     <div class="pagination__start">
         <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=items.paginator.num_pages|intcomma %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
     </div>
     <ul>
         <li class="prev">
-            <a{% if items.has_previous %} href="{{ url_path }}{% querystring p=items.previous_page_number %}"{% endif%}>
+            <a{% if items.has_previous %} href="{{ url_path }}{% querystring p=items.previous_page_number %}"{% endif %}>
                 {% icon name="arrow-left" classname="default" %}
                 {% trans 'Previous' %}
             </a>
