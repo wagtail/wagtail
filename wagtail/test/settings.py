@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
@@ -25,7 +27,8 @@ TIME_ZONE = "Asia/Tokyo"
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DATABASE_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("DATABASE_NAME", ":memory:"),
+        # "NAME": os.environ.get("DATABASE_NAME", ":memory:"),
+        "NAME": BASE_DIR / "db.sqlite3",
         "USER": os.environ.get("DATABASE_USER", ""),
         "PASSWORD": os.environ.get("DATABASE_PASSWORD", ""),
         "HOST": os.environ.get("DATABASE_HOST", ""),
@@ -280,3 +283,9 @@ MESSAGE_TAGS = {
     message_constants.WARNING: "my-custom-tag",
     message_constants.ERROR: "my-custom-tag",
 }
+CSRF_TRUSTED_ORIGINS = [
+    "https://localhost:8000",
+    "https://127.0.0.1:8000",
+]
+import logging
+
