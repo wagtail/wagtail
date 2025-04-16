@@ -1,0 +1,24 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon search_url=view.search_url %}
+
+    <div class="nice-padding">
+        {% block before_listing %}
+        {% if view.add_url and view.add_item_label and can_add_locale %}
+            {% if show_add_locale_button %}
+                <div class="actions">
+                    <a href="{{ view.add_url }}" class="button bicolor icon icon-plus">
+                        {{ view.add_item_label }}
+                    </a>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% endblock %}
+
+        {% block listing %}
+            {% include "wagtailadmin/generic/listing.html" %}
+        {% endblock %}
+    </div>
+{% endblock %}
