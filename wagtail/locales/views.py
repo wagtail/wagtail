@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy
-from django.conf import settings
+
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
@@ -27,6 +27,7 @@ class UsageColumn(Column):
             val += " + %d others" % num_others
         return val
 
+
 class IndexView(generic.IndexView):
     page_title = gettext_lazy("Locales")
     add_item_label = gettext_lazy("Add a locale")
@@ -43,22 +44,6 @@ class IndexView(generic.IndexView):
         ),
         UsageColumn("usage", label=gettext_lazy("Usage")),
     ]
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-       
-        existing_languages = {locale.language_code for locale in Locale.objects.all()}
-        
-       
-        all_languages = {lang[0] for lang in settings.LANGUAGES}
-        
-        if len(existing_languages) < len(all_languages):
-            context['show_add_locale_button'] = True
-        else:
-            context['show_add_locale_button'] = False
-        
-        return context
 
 
 class CreateView(generic.CreateView):
