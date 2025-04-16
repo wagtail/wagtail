@@ -575,12 +575,8 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
 
         if context["is_paginated"]:
             context["items_count"] = context["paginator"].count
-            try:
-                page_number = int(self.request.GET.get(self.page_kwarg, 1))
-            except (ValueError, TypeError):
-                page_number = 1
             context["elided_page_range"] = context["paginator"].get_elided_page_range(
-                page_number
+                self.request.GET.get(self.page_kwarg, 1)
             )
         else:
             context["items_count"] = len(context["object_list"])
