@@ -1,8 +1,42 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.utils.functional import cached_property
+from django.utils.translation import gettext as _
+from django.utils.translation import ngettext
 
 
 class WagtailPaginator(Paginator):
     num_page_buttons = 6
+
+    @cached_property
+    def model(self):
+        return getattr(self.object_list, "model", None)
+
+    @cached_property
+    def verbose_name(self):
+        if self.model:
+            return self.model._meta.verbose_name
+        return _("item")
+
+    @cached_property
+    def verbose_name_plural(self):
+        if self.model:
+            return self.model._meta.verbose_name_plural
+        return _("items")
+
+    @cached_property
+    def items_count_label(self):
+        label = ngettext(
+            # Translators: The label to use when displaying the number of items
+            # in a list, e.g. "1 image" or "2 images".
+            "%(count)d %(item_name)s",
+            "%(count)d %(item_name_plural)s",
+            self.count,
+        )
+        return label % {
+            "count": self.count,
+            "item_name": self.verbose_name,
+            "item_name_plural": self.verbose_name_plural,
+        }
 
     def get_elided_page_range(self, page_number):
         """
