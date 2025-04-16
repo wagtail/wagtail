@@ -1,6 +1,4 @@
-from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.utils.module_loading import import_string
 
 
 class WagtailPaginator(Paginator):
@@ -55,9 +53,8 @@ class WagtailPaginator(Paginator):
             yield self.ELLIPSIS
         elif number < self.num_pages - end_threshold:
             # Result: 1 [ … 5 6* 7 … ] 10
-            middle_size = (
-                self.num_page_buttons - 4
-            )  # 4 spaces are occupied by first/last page numbers and ellipses
+            # 4 spaces are occupied by first/last page numbers and ellipses
+            middle_size = self.num_page_buttons - 4
             offset = (middle_size - 1) // 2
             yield self.ELLIPSIS
             yield from range(number - offset, number + middle_size - offset)
@@ -71,18 +68,3 @@ class WagtailPaginator(Paginator):
 
         # Show the last page.
         yield self.num_pages
-
-
-def get_wagtail_paginator_class():
-    """
-    Get the paginator class from the ``WAGTAILADMIN_PAGINATOR_CLASS`` setting,
-    which allows developers to provide a custom paginator class.
-    Defaults to the ``WagtailPaginator`` class if not defined.
-    """
-    paginator_class_override = getattr(settings, "WAGTAILADMIN_PAGINATOR_CLASS", "")
-    if paginator_class_override:
-        paginator_class = import_string(paginator_class_override)
-    else:
-        paginator_class = WagtailPaginator
-
-    return paginator_class

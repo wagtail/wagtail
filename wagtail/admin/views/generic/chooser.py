@@ -28,7 +28,7 @@ from wagtail.admin.forms.choosers import (
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.paginator import get_wagtail_paginator_class
+from wagtail.admin.paginator import WagtailPaginator
 from wagtail.admin.ui.tables import Column, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
@@ -132,7 +132,7 @@ class BaseChooseView(
     results_template_name = "wagtailadmin/generic/chooser/results.html"
     construct_queryset_hook_name = None
     url_filter_parameters = []
-    paginator_class = get_wagtail_paginator_class()
+    paginator_class = WagtailPaginator
 
     def get_object_list(self):
         return self.model_class.objects.all()

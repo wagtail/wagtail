@@ -1,7 +1,6 @@
-from django.core.paginator import Paginator
-from django.test import TestCase, override_settings
+from django.test import TestCase
 
-from wagtail.admin.paginator import WagtailPaginator, get_wagtail_paginator_class
+from wagtail.admin.paginator import WagtailPaginator
 
 
 class TestWagtailPaginator(TestCase):
@@ -85,20 +84,3 @@ class TestWagtailPaginator(TestCase):
                 expected_elided_page_range,
                 f"Elided page range failed for total_pages={total_pages}, current_page={current_page}, num_page_buttons={num_page_buttons}",
             )
-
-
-class TestGetWagtailPaginatorClass(TestCase):
-    def test_default_paginator_class(self):
-        # Test that the default paginator is WagtailPaginator when no setting is provided
-        self.assertIs(get_wagtail_paginator_class(), WagtailPaginator)
-
-    @override_settings(WAGTAILADMIN_PAGINATOR_CLASS="django.core.paginator.Paginator")
-    def test_get_paginator_class(self):
-        # Test that the provided setting is a subclass of Paginator
-        self.assertIs(get_wagtail_paginator_class(), Paginator)
-
-    @override_settings(WAGTAILADMIN_PAGINATOR_CLASS="myapp.is.not.real.Paginator")
-    def test_invalid_paginator_class(self):
-        # Test handling of invalid class path
-        with self.assertRaises(ImportError):
-            get_wagtail_paginator_class()
