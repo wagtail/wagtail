@@ -23,7 +23,7 @@ from django_filters.filters import (
 
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
-from wagtail.admin.paginator import get_wagtail_paginator_class
+from wagtail.admin.paginator import WagtailPaginator
 from wagtail.admin.ui.tables import Column, Table
 from wagtail.admin.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets.button import ButtonWithDropdown
@@ -215,7 +215,7 @@ class BaseListingView(WagtailAdminTemplateMixin, BaseListView):
     default_ordering = None
     filterset_class = None
     verbose_name_plural = None
-    paginator_class = get_wagtail_paginator_class()
+    paginator_class = WagtailPaginator
 
     def get_template_names(self):
         if self.results_only:
