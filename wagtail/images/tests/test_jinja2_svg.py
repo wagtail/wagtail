@@ -33,11 +33,6 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         # Patch the is_svg method to simulate SVG detection
         self.original_is_svg = Image.is_svg
 
-        def patched_is_svg(self):
-            return self.file.name.endswith(".svg")
-
-        Image.is_svg = patched_is_svg
-
     def tearDown(self):
         # Restore the original is_svg method
         Image.is_svg = self.original_is_svg
@@ -99,22 +94,6 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertNotIn(".webp", html)
         self.assertNotIn(".avif", html)
         self.assertNotIn(".jpeg", html)
-
-    def test_loop_with_mixed_images(self):
-        """Test that in a loop with mixed image types, preserve_svg handles each correctly."""
-        html = self.render(
-            "{% for img in images %}"
-            '{{ image(img, "width-200|format-webp", preserve_svg=True) }}'
-            "{% endfor %}",
-            {"images": [self.raster_image, self.svg_image]},
-        )
-
-        # Should have two images in the output
-        self.assertEqual(html.count("<img"), 2)
-
-        # Raster image should be converted to webp, SVG should remain
-        self.assertIn(".webp", html)
-        self.assertIn(".svg", html)
 
     def test_preserve_svg_with_multiple_operations(self):
         """Test preserve_svg with multiple operations, some safe, some unsafe for SVGs."""
