@@ -38,10 +38,6 @@
         </li>
     </ul>
     <div class="pagination__end">
-        {% if verbose_name_plural and items.paginator.count > 1 %}
-            {% blocktrans trimmed with count=items.paginator.count|intcomma verbose_name_plural=verbose_name_plural|capfirst %}
-                {{ count }} {{ verbose_name_plural }}
-            {% endblocktrans %}
-        {% endif %}
+        {{ items.paginator.items_count_label|capfirst }}
     </div>
 </nav>
