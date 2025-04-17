@@ -1,267 +1,186 @@
 import { Controller } from '@hotwired/stimulus';
-import { debounce } from '../utils/debounce';
+import { slugify } from '../utils/slugify';
+import { urlify } from '../utils/urlify';
+
+enum Actions {
+  Identity = 'identity',
+  Slugify = 'slugify',
+  Urlify = 'urlify',
+}
 
 /**
- * Adds ability to sync the value or interactions with one input with one
- * or more targeted other inputs.
+ * Adds ability to clean values of an input element with methods such as slugify or urlify.
  *
- * @example
+ * @example - Using the slugify method
  * ```html
- * <section>
- *   <input type="text" name="title" id="title" />
- *   <input
- *     type="date"
- *     id="event-date"
- *     name="event-date"
- *     value="2025-07-22"
- *     data-controller="w-sync"
- *     data-action="change->w-sync#apply cut->w-sync#clear focus->w-sync#check"
- *     data-w-sync-target-value="#title"
- *   />
- * </section>
+ * <input type="text" name="slug" data-controller="w-clean" data-action="blur->w-clean#slugify" />
+ * <input type="text" name="slug-with-trim" data-controller="w-clean" data-action="blur->w-clean#slugify" data-w-slug-trim-value="true" />
+ * ```
+ *
+ * @example - Using the urlify method (registered as w-slug)
+ * ```html
+ * <input type="text" name="url-path" data-controller="w-slug" data-action="change->w-slug#urlify" />
+ * <input type="text" name="url-path-with-unicode" data-controller="w-slug" data-w-slug-allow-unicode="true" data-action="change->w-slug#urlify" />
  * ```
  */
-export class SyncController extends Controller<HTMLInputElement> {
+export class CleanController extends Controller<HTMLInputElement> {
   static values = {
-    debounce: { default: 100, type: Number },
-    delay: { default: 0, type: Number },
-    disabled: { default: false, type: Boolean },
-    name: { default: '', type: String },
-    normalize: { default: false, type: Boolean },
-    quiet: { default: false, type: Boolean },
-    target: { default: '', type: String },
+    allowUnicode: { default: false, type: Boolean },
+    trim: { default: false, type: Boolean },
   };
 
   /**
-   * The delay, in milliseconds, to wait before running apply if called multiple
-   * times consecutively.
+   * If true, unicode values in the cleaned values will be allowed.
+   * Otherwise unicode values will try to be transliterated.
+   * @see `WAGTAIL_ALLOW_UNICODE_SLUGS` in settings
    */
-  declare debounceValue: number;
-  /**
-   * The delay, in milliseconds, to wait before applying the value to the target elements.
-   */
-  declare delayValue: number;
-  /**
-   * If true, the sync controller will not apply the value to the target elements.
-   * Dynamically set when there are no valid target elements to sync with or when all
-   * target elements have the apply event prevented on either the `start` or `check` methods.
-   */
-  declare disabledValue: boolean;
-  /**
-   * A name value to support differentiation between events.
-   */
-  declare nameValue: string;
-  /**
-   * If true, the value to sync will be normalized.
-   * @example If the value is a file path, the normalized value will be the file name.
-   */
-  declare normalizeValue: boolean;
-  /**
-   * If true, the value will be set on the target elements without dispatching a change event.
-   */
-  declare quietValue: boolean;
-
-  declare readonly targetValue: string;
+  declare readonly allowUnicodeValue: boolean;
+  /** If true, value will be trimmed in all clean methods before being processed by that method. */
+  declare readonly trimValue: boolean;
 
   /**
-   * Dispatches an event to all target elements so that they can be notified
-   * that a sync has started, allowing them to disable the sync by preventing
-   * default.
-   */
-  connect() {
-    this.processTargetElements('start', { resetDisabledValue: true });
-    this.apply = debounce(this.apply.bind(this), this.debounceValue);
-  }
-
-  /**
-   * Allows for targeted elements to determine, via preventing the default event,
-   * whether this sync controller should be disabled.
-   */
-  check() {
-    this.processTargetElements('check', { resetDisabledValue: true });
-  }
-
-  /**
-   * Applies a value from the controlled element to the targeted
-   * elements. Calls to this method are debounced based on the
-   * controller's `debounceValue`.
+   * Writes the new value to the element & dispatches the applied event.
    *
-   * Applying of the value to the targets can be done with a delay,
-   * based on the controller's `delayValue`.
+   * @fires CleanController#applied - If a change applied to the input value, this event is dispatched.
+   *
+   * @event CleanController#applied
+   * @type {CustomEvent}
+   * @property {string} name - `w-slug:applied` | `w-clean:applied`
+   * @property {Object} detail
+   * @property {string} detail.action - The action that was applied (e.g. 'urlify' or 'slugify').
+   * @property {string} detail.cleanValue - The the cleaned value that is applied.
+   * @property {string} detail.sourceValue - The original value.
    */
-  apply(event?: Event & { params?: { apply?: string } }) {
-    const value = this.prepareValue(event?.params?.apply || this.element.value);
-
-    const applyValue = (target) => {
-      target.value = value;
-
-      if (this.quietValue) {
-        return;
-      }
-
-      this.dispatch('change', {
-        cancelable: false,
-        prefix: '',
-        target,
-      });
-    };
-
-    this.processTargetElements('apply', { value }).forEach((target) => {
-      if (this.delayValue) {
-        setTimeout(() => {
-          applyValue(target);
-        }, this.delayValue);
-      } else {
-        applyValue(target);
-      }
+  applyUpdate(action: Actions, cleanValue: string, sourceValue?: string) {
+    this.element.value = cleanValue;
+    this.dispatch('applied', {
+      cancelable: false,
+      detail: { action, cleanValue, sourceValue },
     });
   }
 
   /**
-   * Clears the value of the targeted elements.
+   * Allow for a comparison value to be provided so that a dispatched event can be
+   * prevented. This provides a way for other events to interact with this controller
+   * to block further updates if a value is not in sync.
+   * By default it will compare to the slugify method, this can be overridden by providing
+   * either a Stimulus param value on the element or the event's detail.
    */
-  clear() {
-    this.processTargetElements('clear').forEach((target) => {
-      setTimeout(() => {
-        target.setAttribute('value', '');
-        if (this.quietValue) {
-          return;
-        }
-        this.dispatch('change', {
-          cancelable: false,
-          prefix: '',
-          target: target as HTMLInputElement,
-        });
-      }, this.delayValue);
-    });
+  compare(
+    event: CustomEvent<{ compareAs?: Actions; value: string }> & {
+      params?: { compareAs?: Actions };
+    },
+  ) {
+    // do not attempt to compare if the field is empty
+    if (!this.element.value) {
+      return true;
+    }
+
+    const compareAs =
+      event.detail?.compareAs || event.params?.compareAs || Actions.Slugify;
+
+    const compareValue = this[compareAs](
+      { detail: { value: event.detail?.value || '' } },
+      { ignoreUpdate: true },
+    );
+
+    const valuesAreSame = this.compareValues(compareValue, this.element.value);
+
+    if (!valuesAreSame) {
+      event?.preventDefault();
+    }
+
+    return valuesAreSame;
   }
 
   /**
-   * Simple method to dispatch a ping event to the targeted elements.
+   * Compares the provided strings, ensuring the values are the same.
    */
-  ping() {
-    this.processTargetElements('ping');
+  compareValues(...values: string[]): boolean {
+    return new Set(values.map((value: string) => `${value}`)).size === 1;
   }
 
-  prepareValue(value: string) {
-    if (!this.normalizeValue) {
-      return value;
-    }
-
-    if (this.element.type === 'file') {
-      const normalizedValue = value
-        .split('\\')
-        .slice(-1)[0]
-        .replace(/\.[^.]+$/, '');
-
-      return normalizedValue;
-    }
-
+  /**
+   * Returns the element's value as is, without any modifications.
+   * Useful for identity fields or when no cleaning is required but the event
+   * is needed or comparison is required to always pass.
+   */
+  identity() {
+    const action = Actions.Identity;
+    const value = this.element.value;
+    this.applyUpdate(action, value, value);
     return value;
   }
 
   /**
-   * Returns the non-default prevented elements that are targets of this sync
-   * controller. Additionally allows this processing to enable or disable
-   * this controller instance's sync behaviour.
+   * Prepares the value before being processed by an action method.
    */
-  processTargetElements(
-    eventName: string,
-    { resetDisabledValue = false, value = this.element.value } = {},
-  ) {
-    if (!resetDisabledValue && this.disabledValue) {
-      return [];
-    }
-
-    const targetElements = [
-      ...document.querySelectorAll<HTMLElement>(this.targetValue),
-    ];
-
-    const element = this.element;
-    const name = this.nameValue;
-
-    const elements = targetElements.filter((target) => {
-      const maxLength = Number(target.getAttribute('maxlength')) || null;
-      const required = !!target.hasAttribute('required');
-
-      const event = this.dispatch(eventName, {
-        bubbles: true,
-        cancelable: true,
-        detail: { element, maxLength, name, required, value },
-        target,
-      });
-
-      return !event.defaultPrevented;
-    });
-
-    if (resetDisabledValue) {
-      this.disabledValue = targetElements.length > elements.length;
-    }
-
-    return elements;
+  prepareValue(sourceValue = '') {
+    const value = this.trimValue ? sourceValue.trim() : sourceValue;
+    return value;
   }
 
   /**
-   * Could use afterload or something to add backwards compatibility with documented
-   * 'wagtail:images|documents-upload' approach.
+   * Basic slugify of a string, updates the controlled element's value
+   * or can be used to simply return the transformed value.
+   * If a custom event with detail.value is provided, that value will be used
+   * instead of the field's value.
    */
-  static afterLoad(identifier: string) {
-    if (identifier !== 'w-sync') {
-      return;
+  slugify(
+    event: CustomEvent<{ value: string }> | { detail: { value: string } },
+    { ignoreUpdate = false } = {},
+  ) {
+    const { value: sourceValue = this.element.value } = event?.detail || {};
+    const preparedValue = this.prepareValue(sourceValue);
+    if (!preparedValue) {
+      return '';
     }
 
-    const handleEvent = (
-      event: CustomEvent<{
-        maxLength: number | null;
-        name: string;
-        value: string;
-      }>,
-    ) => {
-      const {
-        /** Will be the target title field */
-        target,
-      } = event;
-      if (!target || !(target instanceof HTMLInputElement)) {
-        return;
-      }
-      const form = target.closest('form');
-      if (!form) {
-        return;
-      }
+    const allowUnicode = this.allowUnicodeValue;
 
-      const { maxLength: maxTitleLength, name, value: title } = event.detail;
+    const cleanValue = slugify(preparedValue, { allowUnicode });
 
-      if (!name || !title) {
-        return;
-      }
+    if (!ignoreUpdate) {
+      this.applyUpdate(Actions.Slugify, cleanValue, sourceValue);
+    }
 
-      const data = { title };
+    return cleanValue;
+  }
 
-      const filename = target.value;
+  /**
+   * Advanced slugify of a string, updates the controlled element's value
+   * or can be used to simply return the transformed value.
+   *
+   * The urlify (Django port) function performs extra processing on the string &
+   * is more suitable for creating a slug from the title, rather than sanitizing manually.
+   * If the urlify util returns an empty string it will fall back to the slugify method.
+   *
+   * If a custom event with detail.value is provided, that value will be used
+   * instead of the field's value.
+   */
+  urlify(
+    event: CustomEvent<{ value: string }> | { detail: { value: string } },
+    { ignoreUpdate = false } = {},
+  ) {
+    const { value: sourceValue = this.element.value } = event?.detail || {};
+    const preparedValue = this.prepareValue(sourceValue);
+    if (!preparedValue) {
+      return '';
+    }
 
-      const wrapperEvent = form.dispatchEvent(
-        new CustomEvent(name, {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            ...event.detail,
-            data,
-            filename,
-            maxTitleLength,
-          },
-        }),
+    const allowUnicode = this.allowUnicodeValue;
+
+    const cleanValue =
+      urlify(preparedValue, { allowUnicode }) ||
+      this.slugify(
+        { detail: { value: preparedValue } },
+        { ignoreUpdate: true },
       );
 
-      if (!wrapperEvent) {
-        event.preventDefault();
-      }
+    if (!ignoreUpdate) {
+      this.applyUpdate(Actions.Urlify, cleanValue, sourceValue);
+    }
 
-      if (data.title !== title) {
-        event.preventDefault();
-        target.value = data.title;
-      }
-    };
-
-    document.addEventListener('w-sync:apply', handleEvent as EventListener);
+    return cleanValue;
   }
 }

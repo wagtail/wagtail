@@ -1,6 +1,8 @@
 {% extends "wagtailadmin/generic/form.html" %}
 {% load i18n wagtailadmin_tags static %}
 
+{% block titletag %}{% trans "Add a document" %}{% endblock %}
+
 {% block extra_js %}
     {{ block.super }}
     <script>
@@ -11,7 +13,7 @@
                 fileInput.setAttribute('data-controller', 'w-sync');
                 fileInput.setAttribute('data-w-sync-target-value', '#id_title');
                 fileInput.setAttribute('data-w-sync-normalize-value', 'true');
-                fileInput.setAttribute('data-w-sync-name-value', 'wagtail:images-upload');
+                fileInput.setAttribute('data-w-sync-name-value', 'wagtail:documents-upload');
                 fileInput.setAttribute('data-action', 'change->w-sync#apply');
               
             }
@@ -27,38 +29,39 @@
 {% endblock %}
 
 {% block form %}
-    {{ block.super }}
+        
+        <div class="field">
+            <label for="id_file">{% trans "Document file" %}</label>
+            <input
+                type="file"
+                name="file"
+                id="id_file"
+                required
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf"
+            />
+        </div>
 
-    <div class="field">
-        <label for="id_file">{% trans "Image file" %}</label>
-        <input 
-            type="file"
-            name="file"
-            id="id_file"
-            required
-            accept="image/*,.png,.jpg,.jpeg,.gif,.webp"
-        >
-        <p id="id_file-help">{% trans "Maximum file size: 10 MB. Supported formats: PNG, JPG, GIF, WebP." %}</p>
-    </div>
+        <div class="field">
+            <label for="id_title">{% trans "Title" %}</label>
+            <input
+                type="text"
+                name="title"
+                id="id_title"
+                required"
+            >
+        </div>
 
-    <div class="field">
-        <label for="id_title">{% trans "Title" %}</label>
-        <input 
-            type="text"
-            name="title"
-            id="id_title"
-            required
-        >
-    </div>
-{% endblock %}
-
-{% block form_actions %}
-    <button type="submit" class="button button-longrunning"
-        data-controller="w-progress"
-        data-action="w-progress#activate"
-        data-w-progress-active-value="{% trans 'Uploading…' %}">
-        {% icon name="spinner" %}
-        <em data-w-progress-target="label">{% trans 'Upload' %}</em>
-    </button>
-    {{ block.super }}
+        <div class="actions">
+            <button
+                type="submit"
+                class="button button-longrunning"
+                data-controller="w-progress"
+                data-action="w-progress#activate"
+                data-w-progress-active-value="{% trans 'Uploading…' %}"
+            >
+                {% icon name="spinner" %}
+                <em data-w-progress-target="label">{% trans 'Upload' %}</em>
+            </button>
+        </div>
+    
 {% endblock %}
