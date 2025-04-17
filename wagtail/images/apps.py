@@ -46,3 +46,18 @@ class WagtailImagesAppConfig(AppConfig):
         from wagtail.models.reference_index import ReferenceIndex
 
         ReferenceIndex.register_model(Image)
+
+        try:
+            from PIL import _plugins
+            from PIL.AvifImagePlugin import SUPPORTED
+            from pillow_heif.AvifImagePlugin import register_avif_opener
+
+            if not SUPPORTED:
+                # Pillow was built without AVIF support, so remove the plugin
+                # and register the plugin from pillow-heif instead.
+                _plugins[:] = [
+                    plugin for plugin in _plugins if plugin != "AvifImagePlugin"
+                ]
+                register_avif_opener()
+        except ImportError:
+            pass
