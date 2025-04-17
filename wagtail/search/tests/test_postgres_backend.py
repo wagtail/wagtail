@@ -4,7 +4,7 @@ from django.db import connection
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.search.query import Phrase
+from wagtail.search.query import MatchAll, Phrase
 from wagtail.search.tests.test_backends import BackendTests
 from wagtail.test.search import models
 
@@ -118,7 +118,6 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
         and do not generate a PostgreSQL syntax error.
         """
 
-        # Simple quote should be escaped inside each tsquery term.
         results = self.backend.autocomplete(
             "L'amour piqué par une abeille", models.Book
         )
@@ -132,7 +131,6 @@ class TestPostgresSearchBackend(BackendTests, TestCase):
         results = self.backend.autocomplete("triple quo'''te", models.Book)
         self.assertUnsortedListEqual([r.title for r in results], [])
 
-        # Backslashes should be escaped inside each tsquery term.
         results = self.backend.autocomplete("backslash\\", models.Book)
         self.assertUnsortedListEqual([r.title for r in results], [])
 
@@ -176,7 +174,6 @@ class TestPostgresLanguageTextSearch(TestCase):
     backend_path = "wagtail.search.backends.database.postgres.postgres"
 
     def setUp(self):
-        # get search backend by backend_path
         BackendTests.setUp(self)
 
         book = models.Book.objects.create(
@@ -194,11 +191,9 @@ class TestPostgresLanguageTextSearch(TestCase):
         results = self.backend.search("is beter", models.Book)
         self.assertEqual(list(results), [self.book])
 
-        # search deals even with variations
         results = self.backend.search("zijn beter", models.Book)
         self.assertEqual(list(results), [self.book])
 
-        # search deals even when there are minor typos
         results = self.backend.search("zij beter dan", models.Book)
         self.assertEqual(list(results), [self.book])
 
@@ -208,3 +203,109 @@ class TestPostgresLanguageTextSearch(TestCase):
 
         results = self.backend.search(Phrase("Nu zijn beter"), models.Book)
         self.assertEqual(list(results), [self.book])
+
+
+@unittest.skipUnless(
+    connection.vendor == "postgresql", "The current database is not PostgreSQL"
+)
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        "default": {
+            "BACKEND": "wagtail.search.backends.database.postgres.postgres",
+        }
+    }
+)
+class TestPostgresSearchBackendUnequalLists(TestCase):
+    """
+    Test that the PostgreSQL backend can handle objects with empty searchable fields.
+
+    These tests verify the fix for issue #12996, where indexing objects with empty
+    searchable fields would cause an IndexError when the lists of search values
+    had different lengths.
+    """
+
+    def setUp(self):
+        # Create a book with only title (empty summary)
+        self.book_with_title_only = models.Book.objects.create(
+            title="Book with title only",
+            summary="",
+            publication_date="2025-01-01",
+            number_of_pages=100,
+        )
+
+        # Create a book with multiple empty fields
+        self.minimal_book = models.Book.objects.create(
+            title=" ", summary="", publication_date="2025-01-01", number_of_pages=0
+        )
+
+        # Create a book with all fields populated
+        self.complete_book = models.Book.objects.create(
+            title="Complete Book",
+            summary="This book has all fields populated",
+            publication_date="2025-01-01",
+            number_of_pages=200,
+        )
+
+        from wagtail.search.backends import get_search_backend
+
+        self.backend = get_search_backend()
+
+        self.assertEqual(
+            self.backend.__class__.__module__,
+            "wagtail.search.backends.database.postgres.postgres",
+        )
+
+    def test_indexing_with_empty_fields(self):
+        """Test indexing objects with empty fields doesn't cause an IndexError."""
+
+        self.backend.add(self.minimal_book)
+
+        all_results = self.backend.search(MatchAll(), models.Book)
+        self.assertIn(self.minimal_book.id, [r.id for r in all_results])
+
+    def test_indexing_mixed_empty_fields(self):
+        """Test indexing a mix of objects with empty and populated fields."""
+
+        self.backend.add_bulk(
+            models.Book,
+            [self.minimal_book, self.book_with_title_only, self.complete_book],
+        )
+
+        all_results = list(self.backend.search("book", models.Book))
+        self.assertEqual(len(all_results), 2)
+
+        summary_results = list(self.backend.search("fields populated", models.Book))
+        self.assertEqual(len(summary_results), 1)
+        self.assertEqual(summary_results[0].id, self.complete_book.id)
+
+    def test_varying_field_content(self):
+        """Test indexing and searching objects with content in different fields."""
+
+        fantasy_book = models.Book.objects.create(
+            title="Fantasy Adventure",
+            summary="",
+            publication_date="2025-01-01",
+            number_of_pages=300,
+        )
+
+        sci_fi_book = models.Book.objects.create(
+            title="",
+            summary="Science fiction story about space travel",
+            publication_date="2025-01-01",
+            number_of_pages=250,
+        )
+
+        self.backend.add_bulk(models.Book, [fantasy_book, sci_fi_book])
+
+        title_results = list(self.backend.search("Fantasy", models.Book))
+        self.assertEqual(len(title_results), 1)
+        self.assertEqual(title_results[0].id, fantasy_book.id)
+
+        summary_results = list(self.backend.search("science fiction", models.Book))
+        self.assertEqual(len(summary_results), 1)
+        self.assertEqual(summary_results[0].id, sci_fi_book.id)
+
+        all_results = list(self.backend.search(MatchAll(), models.Book))
+        result_ids = [r.id for r in all_results]
+        self.assertIn(fantasy_book.id, result_ids)
+        self.assertIn(sci_fi_book.id, result_ids)
