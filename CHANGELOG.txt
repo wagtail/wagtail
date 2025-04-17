@@ -63,6 +63,12 @@ Changelog
  * Maintenance: Formally deprecate support for listing views with no breadcrumbs (Sage Abdullah)
 
 
+6.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Do not show upgrade notification if the installed version is the latest (Sage Abdullah)
+
+
 6.4.1 (21.02.2025)
 ~~~~~~~~~~~~~~~~~~
 
