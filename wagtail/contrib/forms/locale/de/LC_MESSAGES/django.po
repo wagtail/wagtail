@@ -24,15 +24,16 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-20 17:59+0000\n"
-"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"PO-Revision-Date: 2025-04-16 08:57+0200\n"
 "Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>, 2015\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
 
 msgid "Wagtail forms"
 msgstr "Wagtail Formulare"
@@ -168,7 +169,7 @@ msgstr "Betreff"
 
 #, python-format
 msgid "%(model_name)s submissions"
-msgstr "%(model_name)s Abgaben"
+msgstr "%(model_name)s Eingaben"
 
 #, python-format
 msgid "Delete form data %(title)s"
@@ -186,17 +187,17 @@ msgid "Delete"
 msgstr "Löschen"
 
 msgid "Delete selected submissions"
-msgstr "Ausgewählte Abgaben löschen"
+msgstr "Ausgewählte Eingaben löschen"
 
 #, python-format
 msgid "There have been no submissions of the '%(title)s' form."
 msgstr "Für ‚%(title)s‘ wurde bisher nichts eingereicht."
 
 msgid "Total submissions"
-msgstr "Anzahl Abgaben"
+msgstr "Anzahl Eingaben"
 
 msgid "Latest submission"
-msgstr "Neueste Abgabe"
+msgstr "Neueste Eingabe"
 
 #, python-format
 msgid "Submissions of %(form_title)s"
