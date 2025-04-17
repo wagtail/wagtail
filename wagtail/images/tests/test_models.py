@@ -1,3 +1,4 @@
+import hashlib
 import unittest
 
 from django.conf import settings
@@ -131,9 +132,11 @@ class TestImage(TestCase):
             self.image.get_file_size()
 
     def test_file_hash(self):
-        self.assertEqual(
-            self.image.get_file_hash(), "4dd0211870e130b7e1690d2ec53c499a54a48fef"
-        )
+        with self.image.file.open() as f:
+            loaded_hash = hashlib.sha1(f.read()).hexdigest()
+        # Ensure get_file_hash() (which does the hash by chunks) returns the
+        # same hash as the one calculated by loading the file into memory.
+        self.assertEqual(self.image.get_file_hash(), loaded_hash)
 
     def test_get_suggested_focal_point_svg(self):
         """
