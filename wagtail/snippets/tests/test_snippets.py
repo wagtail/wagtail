@@ -34,7 +34,6 @@ from wagtail.models import Locale, ModelLogEntry, Revision
 from wagtail.signals import published, unpublished
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
-    DeleteMenuItem,
     get_base_snippet_action_menu_items,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -78,7 +77,6 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import render_timestamp
 
 
@@ -345,29 +343,6 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
         self.assertNotContains(response, delete_url)
-
-    def test_construct_snippet_listing_buttons_hook_deprecated_context(self):
-        advert = Advert.objects.create(text="My Lovely advert")
-
-        def register_snippet_listing_button_item(buttons, snippet, user, context):
-            self.assertEqual(snippet, advert)
-            self.assertEqual(user, self.user)
-            self.assertEqual(context, {})
-
-        with (
-            hooks.register_temporarily(
-                "construct_snippet_listing_buttons",
-                register_snippet_listing_button_item,
-            ),
-            self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "construct_snippet_listing_buttons hook no longer accepts a context argument",
-            ),
-        ):
-            response = self.get()
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
 
     def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
         Advert.objects.create(text="My Lovely advert")
@@ -1296,7 +1271,7 @@ class TestCreateDraftStateSnippet(WagtailTestUtils, TestCase):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
         )
         # The status side panel should be rendered so that the
         # publishing schedule can be configured
@@ -2079,33 +2054,6 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertNotContains(response, "<em>Save</em>")
 
-    def test_register_deprecated_delete_menu_item(self):
-        def hook_func(model):
-            return DeleteMenuItem(order=900)
-
-        get_base_snippet_action_menu_items.cache_clear()
-        with (
-            self.register_hook("register_snippet_action_menu_item", hook_func),
-            self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "DeleteMenuItem is deprecated. "
-                "The delete option is now provided via EditView.get_header_more_buttons().",
-            ),
-        ):
-            response = self.get()
-
-        get_base_snippet_action_menu_items.cache_clear()
-
-        delete_url = reverse(
-            self.test_snippet.snippet_viewset.get_url_name("delete"),
-            args=(quote(self.test_snippet.pk),),
-        )
-        self.assertContains(
-            response,
-            f'<a class="button" href="{delete_url}"><svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>Delete</a>',
-            html=True,
-        )
-
     def test_previewable_snippet(self):
         self.test_snippet = PreviewableModel.objects.create(
             text="Preview-enabled snippet"
@@ -2294,7 +2242,7 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # The publish button should have name="action-publish"
         self.assertContains(
             response,
-            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress w-kbd"\n    data-action="w-progress#activate"\n    data-w-kbd-key-value="mod+s"\n',
+            '<button\n    type="submit"\n    name="action-publish"\n    value="action-publish"\n    class="button action-save button-longrunning"\n    data-controller="w-progress"\n    data-action="w-progress#activate"\n',
         )
 
         # The status side panel should show "No publishing schedule set" info
@@ -2967,10 +2915,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # Get the edit page again
         response = self.get()
 
-        # Should show the draft go_live_at and expire_at under the "Once published" label
+        # Should show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -3082,10 +3030,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
         # No new revision should have been created
         self.assertEqual(self.test_snippet.latest_revision_id, latest_revision.pk)
 
-        # Should not show the draft go_live_at and expire_at under the "Once published" label
+        # Should not show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertNotContains(
@@ -3190,10 +3138,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3333,10 +3281,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3507,10 +3455,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             count=1,
         )
 
-        # Should also show the draft go_live_at and expire_at under the "Once published" label
+        # Should also show the draft go_live_at and expire_at under the "Once scheduled" label
         self.assertContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
             count=1,
         )
@@ -3604,10 +3552,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             html=True,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3703,10 +3651,10 @@ class TestEditDraftStateSnippet(BaseTestSnippetEditView):
             count=1,
         )
 
-        # Should show the go_live_at and expire_at without the "Once published" label
+        # Should show the go_live_at and expire_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
         self.assertContains(
@@ -3778,10 +3726,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at without the "Once published" label
+        # Should show the go_live_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
 
@@ -3845,10 +3793,10 @@ class TestScheduledForPublishLock(BaseTestSnippetEditView):
 
         response = self.get()
 
-        # Should show the go_live_at without the "Once published" label
+        # Should show the go_live_at without the "Once scheduled" label
         self.assertNotContains(
             response,
-            '<div class="w-label-3 w-text-primary">Once published:</div>',
+            '<div class="w-label-3 w-text-primary">Once scheduled:</div>',
             html=True,
         )
 
@@ -6003,48 +5951,6 @@ class TestSnippetViewWithCustomPrimaryKey(WagtailTestUtils, TestCase):
                     )
                     + "?describe_on_delete=1",
                 )
-
-    def test_redirect_to_edit(self):
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
-        ):
-            response = self.client.get(
-                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/"
-            )
-        self.assertRedirects(
-            response,
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/edit/snippet_2F01/",
-            status_code=301,
-        )
-
-    def test_redirect_to_delete(self):
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
-        ):
-            response = self.client.get(
-                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/"
-            )
-        self.assertRedirects(
-            response,
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/delete/snippet_2F01/",
-            status_code=301,
-        )
-
-    def test_redirect_to_usage(self):
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/usage/` usage view URL pattern has been deprecated in favour of /usage/<pk>/.",
-        ):
-            response = self.client.get(
-                "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/"
-            )
-        self.assertRedirects(
-            response,
-            "/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/usage/snippet_2F01/",
-            status_code=301,
-        )
 
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):

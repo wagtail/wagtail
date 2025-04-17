@@ -80,6 +80,7 @@ from wagtail.models import (
     PreviewableMixin,
     RevisionMixin,
     Task,
+    TaskState,
     TranslatableMixin,
     WorkflowMixin,
 )
@@ -458,6 +459,12 @@ class HeadCountRelatedModelUsingPK(models.Model):
     custom_id = models.AutoField(primary_key=True)
     event_page = ParentalKey(
         EventPage, on_delete=models.CASCADE, related_name="head_counts"
+    )
+    related_page = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE,
+        related_name="head_count_relations",
+        null=True,
     )
     head_count = models.IntegerField()
     panels = [FieldPanel("head_count")]
@@ -930,6 +937,65 @@ class CustomFormBuilder(FormBuilder):
 
     def create_ipaddress_field(self, field, options):
         return forms.GenericIPAddressField(**options)
+
+
+class FormBuilderWithCustomWidget(FormBuilder):
+    """
+    A form builder that customizes all default field type and
+    passes a `widget` parameter in the options to the parent class.
+    """
+
+    def create_singleline_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_singleline_field(field, options)
+
+    def create_multiline_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_multiline_field(field, options)
+
+    def create_email_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_email_field(field, options)
+
+    def create_number_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_number_field(field, options)
+
+    def create_url_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_url_field(field, options)
+
+    def create_checkbox_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_checkbox_field(field, options)
+
+    def create_checkboxes_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_checkboxes_field(field, options)
+
+    def create_dropdown_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_dropdown_field(field, options)
+
+    def create_multiselect_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_multiselect_field(field, options)
+
+    def create_radio_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_radio_field(field, options)
+
+    def create_date_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_date_field(field, options)
+
+    def create_datetime_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_datetime_field(field, options)
+
+    def create_hidden_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom"})
+        return super().create_hidden_field(field, options)
 
 
 class FormPageWithCustomFormBuilder(AbstractEmailForm):
@@ -1555,7 +1621,7 @@ class CustomRendition(AbstractRendition):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields={"image", "filter_spec", "focal_point_key"},
+                fields=("image", "filter_spec", "focal_point_key"),
                 name="unique_rendition",
             )
         ]
@@ -2274,6 +2340,74 @@ class TaggedRestaurant(ItemBase):
 
 class SimpleTask(Task):
     pass
+
+
+class UserApprovalTaskState(TaskState):
+    pass
+
+
+class UserApprovalTask(Task):
+    """
+    Based on https://docs.wagtail.org/en/stable/extending/custom_tasks.html.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False
+    )
+
+    admin_form_fields = Task.admin_form_fields + ["user"]
+
+    task_state_class = UserApprovalTaskState
+
+    # prevent editing of `user` after the task is created
+    # by default, this attribute contains the 'name' field to prevent tasks from being renamed
+    admin_form_readonly_on_edit_fields = Task.admin_form_readonly_on_edit_fields + [
+        "user"
+    ]
+
+    def user_can_access_editor(self, page, user):
+        return user == self.user
+
+    def page_locked_for_user(self, page, user):
+        return user != self.user
+
+    def get_actions(self, page, user):
+        if user == self.user:
+            return [
+                ("approve", "Approve", False),
+                ("approve", "Approve with style", True),
+                ("reject", "Reject", False),
+                ("cancel", "Cancel", False),
+            ]
+        else:
+            return []
+
+    def get_template_for_action(self, action):
+        # https://github.com/wagtail/wagtail/issues/12222
+        # This will be used for "Approve with style" which has the third value
+        # (action_requires_additional_data_from_modal) set to True.
+        if action == "approve":
+            return "tests/workflows/approve_with_style.html"
+        return super().get_template_for_action(action)
+
+    def on_action(self, task_state, user, action_name, **kwargs):
+        if action_name == "cancel":
+            return task_state.workflow_state.cancel(user=user)
+        else:
+            return super().on_action(task_state, user, action_name, **kwargs)
+
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        if user == self.user:
+            # get all task states linked to the (base class of) current task
+            return TaskState.objects.filter(
+                status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
+            )
+        else:
+            return TaskState.objects.none()
+
+    @classmethod
+    def get_description(cls):
+        return "Only a specific user can approve this task"
 
 
 # StreamField media definitions must not be evaluated at startup (e.g. during system checks) -

@@ -29,7 +29,8 @@ class FormBuilder:
         return django.forms.CharField(**options)
 
     def create_multiline_field(self, field, options):
-        return django.forms.CharField(widget=django.forms.Textarea, **options)
+        options.setdefault("widget", django.forms.Textarea)
+        return django.forms.CharField(**options)
 
     def create_date_field(self, field, options):
         return django.forms.DateField(**options)
@@ -56,20 +57,21 @@ class FormBuilder:
 
     def create_radio_field(self, field, options):
         options["choices"] = self.get_formatted_field_choices(field)
-        return django.forms.ChoiceField(widget=django.forms.RadioSelect, **options)
+        options.setdefault("widget", django.forms.RadioSelect)
+        return django.forms.ChoiceField(**options)
 
     def create_checkboxes_field(self, field, options):
         options["choices"] = self.get_formatted_field_choices(field)
         options["initial"] = self.get_formatted_field_initial(field)
-        return django.forms.MultipleChoiceField(
-            widget=django.forms.CheckboxSelectMultiple, **options
-        )
+        options.setdefault("widget", django.forms.CheckboxSelectMultiple)
+        return django.forms.MultipleChoiceField(**options)
 
     def create_checkbox_field(self, field, options):
         return django.forms.BooleanField(**options)
 
     def create_hidden_field(self, field, options):
-        return django.forms.CharField(widget=django.forms.HiddenInput, **options)
+        options.setdefault("widget", django.forms.HiddenInput)
+        return django.forms.CharField(**options)
 
     def get_create_field_function(self, type):
         """

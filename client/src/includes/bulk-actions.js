@@ -12,17 +12,13 @@ const BULK_ACTION_NUM_OBJECTS_IN_LISTING =
   '[data-bulk-action-num-objects-in-listing]';
 
 /**
- * Get the bulk action item type from the DOM element, allowing the deprecated global to override until
- * this is fully removed in a future release.
+ * Get the bulk action item type from the DOM element.
  * This is used to determine the strings to display in the bulk action footer.
  * @type {string}
  */
-const BULK_ACTION_ITEM_TYPE =
-  /** @deprecated RemovedInWagtail70 - Use `data-bulk-action-footer="..."` instead of window.wagtailConfig.* */
-  (wagtailConfig || {}).BULK_ACTION_ITEM_TYPE ||
-  document
-    .querySelector(BULK_ACTION_FOOTER)
-    .getAttribute('data-bulk-action-footer');
+const BULK_ACTION_ITEM_TYPE = document
+  .querySelector(BULK_ACTION_FOOTER)
+  .getAttribute('data-bulk-action-footer');
 let checkedState = {};
 
 /**

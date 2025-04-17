@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.forms import TagWidget
 from taggit.models import Tag
 
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class AdminTagWidget(TagWidget):
@@ -46,12 +46,12 @@ class AdminTagWidget(TagWidget):
             warn(
                 "The setting 'TAG_SPACES_ALLOWED' is deprecated. "
                 "Please use 'WAGTAIL_TAG_SPACES_ALLOWED' instead.",
-                RemovedInWagtail70Warning,
+                RemovedInWagtail80Warning,
             )
         tag_spaces_allowed = getattr(
             settings,
             "WAGTAIL_TAG_SPACES_ALLOWED",
-            # RemovedInWagtail70Warning: Remove fallback to deprecated setting
+            # RemovedInWagtail80Warning: Remove fallback to deprecated setting
             getattr(settings, "TAG_SPACES_ALLOWED", True),
         )
 
@@ -66,12 +66,12 @@ class AdminTagWidget(TagWidget):
             warn(
                 "The setting 'TAG_LIMIT' is deprecated. "
                 "Please use 'WAGTAIL_TAG_LIMIT' instead.",
-                RemovedInWagtail70Warning,
+                RemovedInWagtail80Warning,
             )
         tag_limit = getattr(
             settings,
             "WAGTAIL_TAG_LIMIT",
-            # RemovedInWagtail70Warning: Remove fallback to deprecated setting
+            # RemovedInWagtail80Warning: Remove fallback to deprecated setting
             getattr(settings, "TAG_LIMIT", None),
         )
 

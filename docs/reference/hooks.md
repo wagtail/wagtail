@@ -514,7 +514,9 @@ def global_admin_css():
 
 ### `insert_editor_js`
 
-Add additional JavaScript files or code snippets to the page editor.
+Add additional JavaScript files or code snippets to page, snippets and ModelViewSet editing and creation views. This hook's output is also included in the [](styleguide) view to better test editing customizations.
+
+See [](extending_client_side) for more details about how to integrate these kinds of customizations.
 
 ```python
 # wagtail_hooks.py
@@ -562,6 +564,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 ### `insert_global_admin_js`
 
 Add additional JavaScript files or code snippets to all admin pages.
+
+See [](extending_client_side) for more details about how to integrate these kinds of customizations.
 
 ```python
 from django.utils.html import format_html
@@ -884,6 +888,8 @@ class UserbarPuppyLinkItem:
 def add_puppy_link_item(request, items, page):
     return items.append( UserbarPuppyLinkItem() )
 ```
+
+If you intend to use icons in your actions, you'll have to declare them by overriding the [userbar template](custom_icons_userbar).
 
 ## Admin workflow
 

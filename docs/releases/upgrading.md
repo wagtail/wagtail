@@ -11,7 +11,7 @@ For dates of past and upcoming releases and support periods, see [Release schedu
 ## Required reading
 
 If it’s your first time doing an upgrade, it is highly recommended to read the
-guide on [](../contributing/release_process).
+guide on [](release_process).
 
 ## Upgrade process
 
@@ -87,9 +87,9 @@ The compatible versions of Django and Python for each Wagtail release are:
 
 | Wagtail release | Compatible Django versions | Compatible Python versions  |
 | --------------- | -------------------------- | --------------------------- |
-| 6.5             | 4.2, 5.1                   | 3.9, 3.10, 3.11, 3.12, 3.13 |
-| 6.4             | 4.2, 5.0, 5.1              | 3.9, 3.10, 3.11, 3.12, 3.13 |
-| 6.3 LTS         | 4.2, 5.0, 5.1              | 3.9, 3.10, 3.11, 3.12, 3.13 |
+| 7.0             | 4.2, 5.1, 5.2              | 3.9, 3.10, 3.11, 3.12, 3.13 |
+| 6.4             | 4.2, 5.0, 5.1, 5.2         | 3.9, 3.10, 3.11, 3.12, 3.13 |
+| 6.3 LTS         | 4.2, 5.0, 5.1, 5.2[^*]     | 3.9, 3.10, 3.11, 3.12, 3.13 |
 | 6.2             | 4.2, 5.0                   | 3.8, 3.9, 3.10, 3.11, 3.12  |
 | 6.1             | 4.2, 5.0                   | 3.8, 3.9, 3.10, 3.11, 3.12  |
 | 6.0             | 4.2, 5.0                   | 3.8, 3.9, 3.10, 3.11, 3.12  |

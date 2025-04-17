@@ -17,7 +17,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestPageExplorer(WagtailTestUtils, TestCase):
@@ -377,30 +376,6 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.old_page.id, self.new_page.id, self.child_page.id]
         )
-
-    def test_construct_page_listing_buttons_hook_with_old_signature(self):
-        def add_dummy_button(buttons, page, page_perms, context=None):
-            item = Button(
-                label="Dummy Button",
-                url="/dummy-button",
-                priority=10,
-            )
-            buttons.append(item)
-
-        with hooks.register_temporarily(
-            "construct_page_listing_buttons", add_dummy_button
-        ):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
-            ):
-                response = self.client.get(
-                    reverse("wagtailadmin_explore", args=(self.root_page.id,))
-                )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
-        self.assertContains(response, "Dummy Button")
-        self.assertContains(response, "/dummy-button")
 
     def test_construct_page_listing_buttons_hook_with_new_signature(self):
         def add_dummy_button(buttons, page, user, context=None):

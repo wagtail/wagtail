@@ -49,6 +49,22 @@ Here are some built-in panel types that you can use in your panel definitions. T
 
         By default, field values from ``StreamField`` or ``RichTextField`` are redacted to prevent rendering of potentially insecure HTML mid-form. You can change this behavior for custom panel types by overriding ``Panel.format_value_for_display()``.
 
+    .. attribute:: FieldPanel.required_on_save (optional)
+
+        Specifies whether required constraints should be enforced on this field when saving as draft.
+
+        For page models, and snippets using :ref:`DraftStateMixin <wagtailsnippets_saving_draft_changes_of_snippets>`, saving as draft will skip validation of required fields by default - this allows editors to save drafts of items while they are still incomplete. Validation of required fields will be applied when the page or snippet is published, scheduled, or submitted to a workflow. To override this behaviour, and enforce validation when saving as draft, set ``required_on_save`` to ``True``. This can also be achieved by setting the attribute ``required_on_save`` on the model field:
+
+        .. code-block:: python
+
+            subtitle = models.CharField(max_length=255)
+            subtitle.required_on_save = True
+
+        Note that non-text-based fields (such as ``IntegerField`` and ``DateField``) that have not been defined as ``null=True`` do not permit saving blank values at the database level, and so these will always be enforced as required fields when saving drafts.
+
+        .. versionadded:: 7.0
+           The ability to leave required fields blank when saving drafts was introduced.
+
     .. attribute:: FieldPanel.attrs (optional)
 
         Allows a dictionary containing HTML attributes to be set on the rendered panel. If you assign a value of ``True`` or ``False`` to an attribute, it will be rendered as an HTML5 boolean attribute.

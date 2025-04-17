@@ -114,6 +114,7 @@ pre_page_move.connect(clear_old_page_urls_from_cache)
 ```
 
 (page_slug_changed)=
+
 ## `page_slug_changed`
 
 This signal is emitted from a `Page` when a change to its slug is published.

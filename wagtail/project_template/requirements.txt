@@ -1,2 +1,2 @@
-Django>=5.1,<5.2
-wagtail==6.5a0
+Django>=5.2,<5.3
+wagtail==7.0a0

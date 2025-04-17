@@ -11,7 +11,7 @@ from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class TestUserbarTag(WagtailTestUtils, TestCase):
@@ -481,7 +481,7 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
 
         with (
             self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
+                RemovedInWagtail80Warning,
                 "`construct_wagtail_userbar` hook functions should accept a "
                 "`page` argument in third position",
             ),
@@ -528,7 +528,7 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
 
         with (
             self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
+                RemovedInWagtail80Warning,
                 "`construct_wagtail_userbar` hook functions should accept a "
                 "`page` argument in third position",
             ),

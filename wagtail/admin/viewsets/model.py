@@ -1,11 +1,8 @@
-from warnings import warn
-
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
-from django.shortcuts import redirect
 from django.urls import path
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -20,7 +17,6 @@ from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
 from wagtail.permissions import ModelPermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .base import ViewSet, ViewSetGroup
 
@@ -235,36 +231,6 @@ class ModelViewSet(ViewSet):
         return self.construct_view(
             self.delete_view_class, **self.get_delete_view_kwargs()
         )
-
-    @property
-    def redirect_to_edit_view(self):
-        def redirect_to_edit(request, pk):
-            warn(
-                (
-                    "%s's `/<pk>/` edit view URL pattern has been "
-                    "deprecated in favour of /edit/<pk>/."
-                )
-                % (self.__class__.__name__),
-                category=RemovedInWagtail70Warning,
-            )
-            return redirect(self.get_url_name("edit"), pk, permanent=True)
-
-        return redirect_to_edit
-
-    @property
-    def redirect_to_delete_view(self):
-        def redirect_to_delete(request, pk):
-            warn(
-                (
-                    "%s's `/<pk>/delete/` delete view URL pattern has been "
-                    "deprecated in favour of /delete/<pk>/."
-                )
-                % (self.__class__.__name__),
-                category=RemovedInWagtail70Warning,
-            )
-            return redirect(self.get_url_name("delete"), pk, permanent=True)
-
-        return redirect_to_delete
 
     @property
     def history_view(self):
@@ -661,18 +627,7 @@ class ModelViewSet(ViewSet):
         if self.copy_view_enabled:
             urlpatterns.append(path("copy/<str:pk>/", self.copy_view, name="copy"))
 
-        # RemovedInWagtail70Warning: Remove legacy URL patterns
-        urlpatterns += self._legacy_urlpatterns
-
         return urlpatterns
-
-    @cached_property
-    def _legacy_urlpatterns(self):
-        # RemovedInWagtail70Warning: Remove legacy URL patterns
-        return [
-            path("<str:pk>/", self.redirect_to_edit_view),
-            path("<str:pk>/delete/", self.redirect_to_delete_view),
-        ]
 
     def on_register(self):
         super().on_register()
