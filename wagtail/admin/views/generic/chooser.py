@@ -29,7 +29,7 @@ from wagtail.admin.forms.choosers import (
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.paginator import WagtailPaginator
-from wagtail.admin.ui.tables import Column, Table, TitleColumn
+from wagtail.admin.ui.tables import Column, LocaleColumn, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
@@ -134,6 +134,14 @@ class BaseChooseView(
     url_filter_parameters = []
     paginator_class = WagtailPaginator
 
+    @cached_property
+    def i18n_enabled(self) -> bool:
+        return (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and self.model_class is not None
+            and issubclass(self.model_class, TranslatableMixin)
+        )
+
     def get_object_list(self):
         return self.model_class.objects.all()
 
@@ -162,8 +170,7 @@ class BaseChooseView(
                 if issubclass(self.model_class, CollectionMember):
                     bases.insert(0, CollectionFilterMixin)
 
-                i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-                if i18n_enabled and issubclass(self.model_class, TranslatableMixin):
+                if self.i18n_enabled:
                     bases.insert(0, LocaleFilterMixin)
 
             return type(
@@ -208,8 +215,11 @@ class BaseChooseView(
         return self.request.GET.get("multiple")
 
     @property
-    def columns(self):
-        return [self.title_column]
+    def columns(self) -> list[Column]:
+        columns = [self.title_column]
+        if self.i18n_enabled:
+            columns.append(LocaleColumn(sort_key=None))
+        return columns
 
     @property
     def title_column(self):
