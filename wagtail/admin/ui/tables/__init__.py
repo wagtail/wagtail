@@ -13,7 +13,8 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy
 
 from wagtail.admin.ui.components import Component
-from wagtail.coreutils import multigetattr
+from wagtail.coreutils import get_locales_display_names, multigetattr
+from wagtail.models import Locale
 
 
 class BaseColumn(metaclass=MediaDefiningClass):
@@ -303,6 +304,29 @@ class LiveStatusTagColumn(StatusTagColumn):
             primary=lambda instance: instance.live,
             **kwargs,
         )
+
+
+class LocaleColumn(StatusTagColumn):
+    """Represents a Locale tag."""
+
+    def __init__(self, **kwargs):
+        super().__init__(
+            "locale_id",
+            label=kwargs.pop("label", gettext("Locale")),
+            sort_key=kwargs.pop("sort_key", "locale"),
+            primary=False,
+            **kwargs,
+        )
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        value = self.get_value(instance)
+        if isinstance(value, int):
+            value = get_locales_display_names().get(value)
+        elif isinstance(value, Locale):
+            value = value.get_display_name()
+        context["value"] = value
+        return context
 
 
 class DateColumn(Column):

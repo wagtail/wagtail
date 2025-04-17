@@ -3,6 +3,7 @@
 import $ from 'jquery';
 import { initTabs } from './tabs';
 import { gettext } from '../utils/gettext';
+import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
 
 const validateCreationForm = (form) => {
   let hasErrors = false;
@@ -353,6 +354,13 @@ class ChooserModal {
     }
     if (opts.linkedFieldFilters) {
       Object.assign(urlParams, opts.linkedFieldFilters);
+    }
+    if (WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE) {
+      // The user is editing a piece of translated content.
+      // Pass the locale along as a request parameter. If this
+      // model is also translatable, the results will be
+      // pre-filtered by this locale.
+      urlParams.locale = WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE;
     }
     return urlParams;
   }
