@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-
 import { debounce } from '../utils/debounce';
 
 /**
@@ -27,14 +26,41 @@ export class SyncController extends Controller<HTMLInputElement> {
     debounce: { default: 100, type: Number },
     delay: { default: 0, type: Number },
     disabled: { default: false, type: Boolean },
+    name: { default: '', type: String },
+    normalize: { default: false, type: Boolean },
     quiet: { default: false, type: Boolean },
-    target: String,
+    target: { default: '', type: String },
   };
 
+  /**
+   * The delay, in milliseconds, to wait before running apply if called multiple
+   * times consecutively.
+   */
   declare debounceValue: number;
+  /**
+   * The delay, in milliseconds, to wait before applying the value to the target elements.
+   */
   declare delayValue: number;
+  /**
+   * If true, the sync controller will not apply the value to the target elements.
+   * Dynamically set when there are no valid target elements to sync with or when all
+   * target elements have the apply event prevented on either the `start` or `check` methods.
+   */
   declare disabledValue: boolean;
+  /**
+   * A name value to support differentiation between events.
+   */
+  declare nameValue: string;
+  /**
+   * If true, the value to sync will be normalized.
+   * @example If the value is a file path, the normalized value will be the file name.
+   */
+  declare normalizeValue: boolean;
+  /**
+   * If true, the value will be set on the target elements without dispatching a change event.
+   */
   declare quietValue: boolean;
+
   declare readonly targetValue: string;
 
   /**
@@ -43,7 +69,7 @@ export class SyncController extends Controller<HTMLInputElement> {
    * default.
    */
   connect() {
-    this.processTargetElements('start', true);
+    this.processTargetElements('start', { resetDisabledValue: true });
     this.apply = debounce(this.apply.bind(this), this.debounceValue);
   }
 
@@ -52,7 +78,7 @@ export class SyncController extends Controller<HTMLInputElement> {
    * whether this sync controller should be disabled.
    */
   check() {
-    this.processTargetElements('check', true);
+    this.processTargetElements('check', { resetDisabledValue: true });
   }
 
   /**
@@ -64,13 +90,14 @@ export class SyncController extends Controller<HTMLInputElement> {
    * based on the controller's `delayValue`.
    */
   apply(event?: Event & { params?: { apply?: string } }) {
-    const valueToApply = event?.params?.apply || this.element.value;
+    const value = this.prepareValue(event?.params?.apply || this.element.value);
 
     const applyValue = (target) => {
-      /* use setter to correctly update value in non-inputs (e.g. select) */ // eslint-disable-next-line no-param-reassign
-      target.value = valueToApply;
+      target.value = value;
 
-      if (this.quietValue) return;
+      if (this.quietValue) {
+        return;
+      }
 
       this.dispatch('change', {
         cancelable: false,
@@ -79,7 +106,7 @@ export class SyncController extends Controller<HTMLInputElement> {
       });
     };
 
-    this.processTargetElements('apply').forEach((target) => {
+    this.processTargetElements('apply', { value }).forEach((target) => {
       if (this.delayValue) {
         setTimeout(() => {
           applyValue(target);
@@ -97,7 +124,9 @@ export class SyncController extends Controller<HTMLInputElement> {
     this.processTargetElements('clear').forEach((target) => {
       setTimeout(() => {
         target.setAttribute('value', '');
-        if (this.quietValue) return;
+        if (this.quietValue) {
+          return;
+        }
         this.dispatch('change', {
           cancelable: false,
           prefix: '',
@@ -111,18 +140,34 @@ export class SyncController extends Controller<HTMLInputElement> {
    * Simple method to dispatch a ping event to the targeted elements.
    */
   ping() {
-    this.processTargetElements('ping', false, { bubbles: true });
+    this.processTargetElements('ping');
+  }
+
+  prepareValue(value: string) {
+    if (!this.normalizeValue) {
+      return value;
+    }
+
+    if (this.element.type === 'file') {
+      const normalizedValue = value
+        .split('\\')
+        .slice(-1)[0]
+        .replace(/\.[^.]+$/, '');
+
+      return normalizedValue;
+    }
+
+    return value;
   }
 
   /**
    * Returns the non-default prevented elements that are targets of this sync
    * controller. Additionally allows this processing to enable or disable
-   * this controller instance's sync behavior.
+   * this controller instance's sync behaviour.
    */
   processTargetElements(
     eventName: string,
-    resetDisabledValue = false,
-    options = {},
+    { resetDisabledValue = false, value = this.element.value } = {},
   ) {
     if (!resetDisabledValue && this.disabledValue) {
       return [];
@@ -132,13 +177,18 @@ export class SyncController extends Controller<HTMLInputElement> {
       ...document.querySelectorAll<HTMLElement>(this.targetValue),
     ];
 
+    const element = this.element;
+    const name = this.nameValue;
+
     const elements = targetElements.filter((target) => {
+      const maxLength = Number(target.getAttribute('maxlength')) || null;
+      const required = !!target.hasAttribute('required');
+
       const event = this.dispatch(eventName, {
-        bubbles: false,
+        bubbles: true,
         cancelable: true,
-        ...options, // allow overriding some options but not detail & target
-        detail: { element: this.element, value: this.element.value },
-        target: target as HTMLInputElement,
+        detail: { element, maxLength, name, required, value },
+        target,
       });
 
       return !event.defaultPrevented;
@@ -149,5 +199,69 @@ export class SyncController extends Controller<HTMLInputElement> {
     }
 
     return elements;
+  }
+
+  /**
+   * Could use afterload or something to add backwards compatibility with documented
+   * 'wagtail:images|documents-upload' approach.
+   */
+  static afterLoad(identifier: string) {
+    if (identifier !== 'w-sync') {
+      return;
+    }
+
+    const handleEvent = (
+      event: CustomEvent<{
+        maxLength: number | null;
+        name: string;
+        value: string;
+      }>,
+    ) => {
+      const {
+        /** Will be the target title field */
+        target,
+      } = event;
+      if (!target || !(target instanceof HTMLInputElement)) {
+        return;
+      }
+      const form = target.closest('form');
+      if (!form) {
+        return;
+      }
+
+      const { maxLength: maxTitleLength, name, value: title } = event.detail;
+
+      if (!name || !title) {
+        return;
+      }
+
+      const data = { title };
+
+      const filename = target.value;
+
+      const wrapperEvent = form.dispatchEvent(
+        new CustomEvent(name, {
+          bubbles: true,
+          cancelable: true,
+          detail: {
+            ...event.detail,
+            data,
+            filename,
+            maxTitleLength,
+          },
+        }),
+      );
+
+      if (!wrapperEvent) {
+        event.preventDefault();
+      }
+
+      if (data.title !== title) {
+        event.preventDefault();
+        target.value = data.title;
+      }
+    };
+
+    document.addEventListener('w-sync:apply', handleEvent as EventListener);
   }
 }

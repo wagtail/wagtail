@@ -1,8 +1,30 @@
 $(function () {
+  const fileFields = document.querySelectorAll('[data-bulk-upload-file]');
+  fileFields.forEach((fileField) => {
+    fileField.setAttribute('data-controller', 'w-sync');
+    fileField.setAttribute('data-action', 'change->w-sync#apply');
+    fileField.setAttribute(
+      'data-w-sync-target-value',
+      '[data-bulk-upload-title]',
+    );
+    fileField.setAttribute('data-w-sync-normalize-value', 'true');
+    fileField.setAttribute(
+      'data-w-sync-name-value',
+      'wagtail:documents-upload',
+    );
+  });
+
+  const titleFields = document.querySelectorAll('[data-bulk-upload-title]');
+  titleFields.forEach((titleField) => {
+    titleField.setAttribute('data-controller', 'w-clean');
+    titleField.setAttribute('data-action', 'blur->w-clean#slugify');
+  });
+
   $('#fileupload').fileupload({
     dataType: 'html',
     sequentialUploads: true,
     dropZone: $('.drop-zone'),
+
     add: function (e, data) {
       var $this = $(this);
       var that = $this.data('blueimp-fileupload') || $this.data('fileupload');
@@ -55,6 +77,7 @@ $(function () {
       }
 
       var progress = Math.floor((data.loaded / data.total) * 100);
+
       data.context.each(function () {
         $(this)
           .find('.progress')
@@ -68,6 +91,7 @@ $(function () {
 
     progressall: function (e, data) {
       var progress = parseInt((data.loaded / data.total) * 100, 10);
+
       $('#overall-progress')
         .addClass('active')
         .attr('aria-valuenow', progress)
@@ -83,34 +107,8 @@ $(function () {
       }
     },
 
-    /**
-     * Allow a custom title to be defined by an event handler for this form.
-     * If event.preventDefault is called, the original behaviour of using the raw
-     * filename (with extension) as the title is preserved.
-     *
-     * @param {HtmlElement[]} form
-     * @returns {{name: 'string', value: *}[]}
-     */
     formData: function (form) {
-      var filename = this.files[0].name;
-      var data = { title: filename.replace(/\.[^.]+$/, '') };
-
-      var event = form.get(0).dispatchEvent(
-        new CustomEvent('wagtail:documents-upload', {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            data: data,
-            filename: filename,
-            maxTitleLength: this.maxTitleLength,
-          },
-        }),
-      );
-
-      // default behaviour (title is just file name)
-      return event
-        ? form.serializeArray().concat({ name: 'title', value: data.title })
-        : form.serializeArray();
+      return form.serializeArray();
     },
 
     done: function (e, data) {
@@ -119,7 +117,6 @@ $(function () {
 
       if (response.success) {
         itemElement.addClass('upload-success');
-
         $('.right', itemElement).append(response.form);
       } else {
         itemElement.addClass('upload-failure');
@@ -138,10 +135,6 @@ $(function () {
     },
   });
 
-  /**
-   * ajax-enhance forms added on done()
-   * allows the user to modify the title, collection, tags and delete after upload
-   */
   $('#upload-list').on('submit', 'form', function (e) {
     var form = $(this);
     var formData = new FormData(this);
@@ -155,21 +148,25 @@ $(function () {
       processData: false,
       type: 'POST',
       url: this.action,
-    }).done(function (data) {
-      if (data.success) {
-        var text = $('.status-msg.update-success').first().text();
-        document.dispatchEvent(
-          new CustomEvent('w-messages:add', {
-            detail: { clear: true, text, type: 'success' },
-          }),
-        );
-        itemElement.slideUp(function () {
-          $(this).remove();
-        });
-      } else {
-        form.replaceWith(data.form);
-      }
-    });
+    })
+      .done(function (data) {
+        if (data.success) {
+          var text = $('.status-msg.update-success').first().text();
+          document.dispatchEvent(
+            new CustomEvent('w-messages:add', {
+              detail: { clear: true, text, type: 'success' },
+            }),
+          );
+          itemElement.slideUp(function () {
+            $(this).remove();
+          });
+        } else {
+          form.replaceWith(data.form);
+        }
+      })
+      .fail(function (xhr, status, error) {
+        // Handle failure
+      });
   });
 
   $('#upload-list').on('click', '.delete', function (e) {
@@ -186,6 +183,6 @@ $(function () {
           $(this).remove();
         });
       }
-    });
+    }).fail(function (xhr, status, error) {});
   });
 });
