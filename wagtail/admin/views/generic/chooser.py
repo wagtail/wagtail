@@ -28,7 +28,7 @@ from wagtail.admin.forms.choosers import (
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Column, Table, TitleColumn
+from wagtail.admin.ui.tables import Column, LocaleColumn, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
@@ -132,8 +132,17 @@ class BaseChooseView(
     construct_queryset_hook_name = None
     url_filter_parameters = []
 
+    @cached_property
+    def i18n_enabled(self) -> bool:
+        return getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        )
+
     def get_object_list(self):
-        return self.model_class.objects.all()
+        queryset = self.model_class.objects.all()
+        if self.i18n_enabled:
+            queryset.select_related("locale")
+        return queryset
 
     def apply_object_list_ordering(self, objects):
         if isinstance(self.ordering, (list, tuple)):
@@ -206,7 +215,9 @@ class BaseChooseView(
         return self.request.GET.get("multiple")
 
     @property
-    def columns(self):
+    def columns(self) -> list[Column]:
+        if self.i18n_enabled:
+            return [self.title_column, LocaleColumn()]
         return [self.title_column]
 
     @property
