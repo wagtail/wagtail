@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 
@@ -77,11 +78,6 @@ class BulkActionsColumn(BulkActionsCheckboxColumn):
         return context
 
 
-class OrderingColumn(BaseColumn):
-    header_template_name = "wagtailadmin/pages/listing/_ordering_header.html"
-    cell_template_name = "wagtailadmin/pages/listing/_ordering_cell.html"
-
-
 class PageTypeColumn(Column):
     def get_header_context_data(self, parent_context):
         context = super().get_header_context_data(parent_context)
@@ -113,7 +109,7 @@ class PageTable(Table):
     def __init__(
         self,
         *args,
-        use_row_ordering_attributes=False,
+        use_ordering_attributes=False,
         parent_page=None,
         show_locale_labels=False,
         actions_next_url=None,
@@ -121,8 +117,8 @@ class PageTable(Table):
     ):
         super().__init__(*args, **kwargs)
 
-        # If true, attributes will be added on the <tr> element to support reordering
-        self.use_row_ordering_attributes = use_row_ordering_attributes
+        # If true, extra attributes will be added for the stimulus controller.
+        self.use_ordering_attributes = use_ordering_attributes
 
         # The parent page of the pages being listed - used to add extra context to the title text
         # of the reordering links. Leave this undefined if the pages being listed do not share a
@@ -161,9 +157,37 @@ class PageTable(Table):
         else:
             return ""
 
+    def get_caption(self):
+        if not self.caption and self.use_ordering_attributes:
+            return gettext(
+                "Focus on the drag button and press up or down arrows to move the item, then press enter to submit the change."
+            )
+        return self.caption
+
+    @property
+    def attrs(self):
+        attrs = super().attrs
+        if self.use_ordering_attributes:
+            attrs = {
+                **attrs,
+                "data-controller": "w-orderable",
+                "data-w-orderable-active-class": "w-orderable--active",
+                "data-w-orderable-chosen-class": "w-orderable__item--active",
+                "data-w-orderable-container-value": "tbody",
+                "data-w-orderable-message-value": gettext(
+                    "'%(page_title)s' has been moved successfully."
+                )
+                % {"page_title": "__LABEL__"},
+                "data-w-orderable-url-value": reverse(
+                    "wagtailadmin_pages:set_page_position", args=[999999]
+                ),
+            }
+
+        return attrs
+
     def get_row_attrs(self, instance):
         attrs = super().get_row_attrs(instance)
-        if self.use_row_ordering_attributes:
+        if self.use_ordering_attributes:
             attrs["id"] = "page_%d" % instance.id
             attrs["data-w-orderable-item-id"] = instance.id
             attrs["data-w-orderable-item-label"] = instance.get_admin_display_title()
