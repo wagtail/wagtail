@@ -457,10 +457,19 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
+class TestLocaleElementsOnList(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.fr_locale = Locale.objects.create(language_code="fr")
+        cls.list_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
+        cls.add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+
     def setUp(self):
-        self.fr_locale = Locale.objects.create(language_code="fr")
         self.user = self.login()
+
+    def _add_snippets(self):
+        TranslatableSnippet.objects.create(text="English snippet")
+        TranslatableSnippet.objects.create(text="French snippet", locale=self.fr_locale)
 
     @override_settings(
         WAGTAIL_CONTENT_LANGUAGES=[
@@ -470,9 +479,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         ]
     )
     def test_locale_selector(self):
-        response = self.client.get(
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-        )
+        response = self.client.get(self.list_url)
         soup = self.get_soup(response.content)
 
         # Should only show languages that also have the corresponding Locale
@@ -484,10 +491,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         self.assertIsNotNone(french_input)
 
         # Check that the add URLs include the locale
-        add_url = (
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
-            + "?locale=en"
-        )
+        add_url = f"{self.add_url}?locale=en"
         add_buttons = soup.select(f'a[href="{add_url}"]')
         self.assertEqual(len(add_buttons), 2)
         self.assertContains(
@@ -499,9 +503,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
 
     def test_no_locale_filter_when_only_one_locale(self):
         self.fr_locale.delete()
-        response = self.client.get(
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-        )
+        response = self.client.get(self.list_url)
         soup = self.get_soup(response.content)
 
         locale_input = soup.select_one('input[name="locale"]')
@@ -514,16 +516,14 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
-        response = self.client.get(
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-        )
+        response = self.client.get(self.list_url)
         soup = self.get_soup(response.content)
 
         input_element = soup.select_one('input[name="locale"]')
         self.assertIsNone(input_element)
 
         # Check that the add URLs don't include the locale
-        add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+        add_url = self.add_url
         soup = self.get_soup(response.content)
         add_buttons = soup.select(f'a[href="{add_url}"]')
         self.assertEqual(len(add_buttons), 2)
@@ -551,6 +551,35 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
             f"""<p>There are no adverts to display.
             Why not <a href="{add_url}">add one</a>?</p>""",
             html=True,
+        )
+
+    def test_locale_column(self):
+        self._add_snippets()
+        response = self.client.get(self.list_url)
+
+        self.assertContains(
+            response, '<span class="w-status">English</span>', html=True
+        )
+        self.assertContains(response, '<span class="w-status">French</span>', html=True)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_column_not_present_with_i18n_disabled(self):
+        self._add_snippets()
+        response = self.client.get(self.list_url)
+
+        self.assertNotContains(
+            response, '<span class="w-status">English</span>', html=True
+        )
+        self.assertNotContains(
+            response, '<span class="w-status">French</span>', html=True
+        )
+
+    def test_locale_column_not_present_for_non_translatable_snippet(self):
+        response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
+        Advert.objects.create(text="English text")
+
+        self.assertNotContains(
+            response, '<span class="w-status">English</span>', html=True
         )
 
 
