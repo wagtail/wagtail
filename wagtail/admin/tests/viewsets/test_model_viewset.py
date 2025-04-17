@@ -1364,7 +1364,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             reverse("fctoy_alt1:inspect", args=(quote(self.object.pk),))
         )
         expected_fields = ["Name"]
-        expected_values = ["Test Toy"]
+        expected_values = [f"Test Toy ({self.object.pk})"]
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/inspect.html")
         soup = self.get_soup(response.content)
