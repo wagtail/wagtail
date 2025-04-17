@@ -20,7 +20,7 @@
             </a>
         </li>
         {% for page_number in elided_page_range %}
-            <li class="pagination__page-number{% if page_number == items.number %} pagination__page-number--current{% endif %}">
+            <li class="pagination__page-number{% if page_number == items.number %} pagination__page-number--current{% endif %}"{% if page_number == items.number %} aria-current="page"{% endif %}>
                 {% if page_number == items.paginator.ELLIPSIS %}
                     <span>{{ page_number }}</span>
                 {% else %}
