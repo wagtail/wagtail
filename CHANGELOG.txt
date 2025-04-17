@@ -19,6 +19,7 @@ Changelog
  * Add better support and documentation for overriding the default field widgets used within form pages (Baptiste Mispelon)
  * Allow workflow tasks to specify a template for the action modal via `get_template_for_action` (Sage Abdullah)
  * Change 'Publish' button label to 'Schedule to publish' if go-live schedule is set (Sage Abdullah)
+ * Exclude snippets that have their own menu items from the "Snippets" menu (Andy Chosak, Matt Westcott)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
  * Fix: Support simple subqueries for `in` and `exact` lookup on Elasticsearch (Sage Abdullah)
