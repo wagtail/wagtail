@@ -2,13 +2,14 @@ import json
 
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import translation
 
 from wagtail import hooks
 from wagtail.admin.userbar import AccessibilityItem
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
@@ -494,6 +495,23 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
             response.render()
 
             self.assertTrue(kwargs.get("called"))
+
+    @override_settings(
+        WAGTAIL_I18N_ENABLED=True,
+        WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
+        WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")],
+        LANGUAGE_CODE="en",
+    )
+    def test_userbar_rendered_in_admin_permitted_language_if_user_has_no_language(self):
+        french = Locale.objects.create(language_code="fr")
+        self.homepage.copy_for_translation(french)
+        french_page = self.page.copy_for_translation(french)
+
+        with translation.override("fr"):
+            response = french_page.serve(self.request)
+            response.render()
+
+        self.assertContains(response, "Go to Wagtail admin")
 
 
 class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
