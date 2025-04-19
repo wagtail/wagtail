@@ -40,6 +40,7 @@ Changelog
  * Fix: Show the correct privacy status for child collections of private collections (Shlomo Markowitz)
  * Fix: Ensure reference index correctly handles models with primary keys not named `id` (Sage Abdullah)
  * Fix: On "move page" bulk action, do not prefill the destination with the root page (Stefan Hammer)
+ * Fix: Ensure the default preferred language respects the `WAGTAILADMIN_PERMITTED_LANGUAGES` setting (Sébastien Corbin)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
  * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)
