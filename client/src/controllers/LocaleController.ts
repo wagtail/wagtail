@@ -58,7 +58,7 @@ export class LocaleController extends Controller<HTMLSelectElement> {
       if (!timeZone) return;
       const localized = LocaleController.getTZLabel(timeZone);
       const option = opt;
-      option.textContent = `${option.textContent}: ${localized}`;
+      option.textContent = `${option.textContent}\u00A0: ${localized}`;
     });
   }
 }
