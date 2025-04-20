@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import { gettext, interpolate } from '../utils/gettext';
 
 /**
  * Localizes elements in the current locale.
@@ -58,7 +59,10 @@ export class LocaleController extends Controller<HTMLSelectElement> {
       if (!timeZone) return;
       const localized = LocaleController.getTZLabel(timeZone);
       const option = opt;
-      option.textContent = `${option.textContent}: ${localized}`;
+      option.textContent = interpolate(gettext('%s: %s'), [
+        option.textContent,
+        localized,
+      ]);
     });
   }
 }
