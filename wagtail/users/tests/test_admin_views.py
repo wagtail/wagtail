@@ -1732,7 +1732,7 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_num_queries(self):
         # Warm up the cache
         self.get()
-        with self.assertNumQueries(30):
+        with self.assertNumQueries(32):
             self.get()
 
     def test_create_group(self):
@@ -2157,7 +2157,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_num_queries(self):
         # Warm up the cache
         self.get()
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(50):
             self.get()
 
     def test_nonexistent_group_redirect(self):

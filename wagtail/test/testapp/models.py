@@ -1967,6 +1967,22 @@ class FileGenericSetting(BaseGenericSetting):
     file = models.FileField()
 
 
+@register_setting
+class PreviewableSiteSetting(PreviewableMixin, BaseSiteSetting):
+    text = models.TextField()
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_setting.html"
+
+
+@register_setting
+class PreviewableGenericSetting(PreviewableMixin, BaseGenericSetting):
+    text = models.TextField()
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_setting.html"
+
+
 class BlogCategory(models.Model):
     name = models.CharField(unique=True, max_length=80)
 
