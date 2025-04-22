@@ -18,7 +18,7 @@ class TestWagtailPaginator(TestCase):
 
         test_cases = [
             # Format: (total pages, current page, num_page_buttons, [expected elided page range])
-            # Exmaples of test cases that should fail:
+            # Examples of test cases that should fail:
             # (3, 1, 6, [1, 2]), # Too few pages
             # (10, 1, 6, [1, 2, 3, 4, ellipsis, 9, 10]), # Too many pages
             # (10, 6, 6, [1, ellipsis, 5, 6, ellipsis, 10]), # Wrong middle position
