@@ -316,6 +316,7 @@ class LocaleColumn(Column):
             "locale_id",
             label=kwargs.pop("label", gettext("Locale")),
             sort_key=kwargs.pop("sort_key", "locale"),
+            classname=kwargs.pop("classname", "w-text-16"),
             **kwargs,
         )
 
