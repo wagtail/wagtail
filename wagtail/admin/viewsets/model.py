@@ -410,7 +410,7 @@ class ModelViewSet(ViewSet):
         (i.e. does not inherit from TranslatableMixin), then the LocaleColumn is
         excluded by the default IndexView.columns property.
         """
-        return self.index_view_class.list_display
+        return self.UNDEFINED
 
     @cached_property
     def list_filter(self):

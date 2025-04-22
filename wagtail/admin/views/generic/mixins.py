@@ -21,7 +21,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
-from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
@@ -223,6 +223,13 @@ class IndexViewOptionalFeaturesMixin:
             )
             return queryset
         return super()._annotate_queryset_updated_at(queryset)
+
+    @cached_property
+    def list_display(self):
+        list_display = super().list_display.copy()
+        if issubclass(self.model, DraftStateMixin):
+            list_display.append(LiveStatusTagColumn())
+        return list_display
 
 
 class CreateEditViewOptionalFeaturesMixin:

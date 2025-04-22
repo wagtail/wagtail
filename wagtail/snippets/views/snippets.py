@@ -18,7 +18,6 @@ from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
-    LiveStatusTagColumn,
     TitleColumn,
 )
 from wagtail.admin.views import generic
@@ -776,13 +775,6 @@ class SnippetViewSet(ModelViewSet):
             icon=self.icon,
             per_page=self.chooser_per_page,
         )
-
-    @cached_property
-    def list_display(self):
-        list_display = super().list_display.copy()
-        if self.draftstate_enabled:
-            list_display.append(LiveStatusTagColumn())
-        return list_display
 
     @cached_property
     def icon(self):
