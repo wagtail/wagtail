@@ -878,6 +878,7 @@
 * Ashish Nagmoti
 * Dhruvi Patel
 * Sylvain Boissel
+* Jordan Teichmann
 
 ## Translators
 
