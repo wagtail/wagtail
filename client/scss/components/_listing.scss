@@ -545,7 +545,7 @@ table.listing {
       }
 
       &.pagination__page-number--current a {
-        background-color: theme('colors.primary.DEFAULT');
+        background-color: theme('colors.surface-button-default');
         border-color: transparent;
         color: theme('colors.text-button');
       }
@@ -561,18 +561,6 @@ table.listing {
   .prev,
   .next {
     margin: 0 0.5rem;
-  }
-
-  @include dark-theme() {
-    li.pagination__page-number:where(
-        .pagination__page-number--current,
-        :hover
-      ) {
-      a {
-        background-color: theme('colors.secondary.DEFAULT');
-        color: theme('colors.text-button');
-      }
-    }
   }
 }
 
