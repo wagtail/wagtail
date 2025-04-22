@@ -129,13 +129,6 @@ class IndexView(
         )
         return queryset.annotate(_updated_at=models.Subquery(latest_log))
 
-    def get_base_queryset(self):
-        base_queryset = super().get_base_queryset()
-        if self.i18n_enabled:
-            base_queryset = base_queryset.prefetch_related("locale")
-
-        return base_queryset
-
     def order_queryset(self, queryset):
         has_updated_at_column = any(
             getattr(column, "accessor", None) == "_updated_at"
