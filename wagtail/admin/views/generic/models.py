@@ -71,9 +71,6 @@ class IndexView(
     inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
-    # note: the LocaleColumn is included by default but excluded from the columns
-    # property if i18n is disabled or the model is not translatable.
-    list_display = ["__str__", LocaleColumn(), UpdatedAtColumn()]
     list_filter = None
     show_other_searches = False
 
@@ -246,7 +243,14 @@ class IndexView(
         )
 
     @cached_property
-    def columns(self) -> list[Column]:
+    def list_display(self):
+        list_display = ["__str__", UpdatedAtColumn()]
+        if self.i18n_enabled:
+            list_display.insert(1, LocaleColumn())
+        return list_display
+
+    @cached_property
+    def columns(self):
         # If not explicitly overridden, derive from list_display
         columns = []
         for i, field in enumerate(self.list_display):
@@ -256,10 +260,6 @@ class IndexView(
                 column = self._get_title_column(field)
             else:
                 column = self._get_custom_column(field)
-
-            if isinstance(column, LocaleColumn) and not self.i18n_enabled:
-                continue
-
             columns.append(column)
 
         return columns

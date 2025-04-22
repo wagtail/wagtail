@@ -406,9 +406,7 @@ class ModelViewSet(ViewSet):
         will be used instead, which by default is defined as
         ``["__str__", wagtail.admin.ui.tables.LocaleColumn(), wagtail.admin.ui.tables.UpdatedAtColumn()]``.
 
-        Note that if WAGTAIL_I18N_ENABLED = False, or the model is not translatable
-        (i.e. does not inherit from TranslatableMixin), then the LocaleColumn is
-        excluded by the default IndexView.columns property.
+        Note that the ``LocaleColumn`` is only included if the model is translatable.
         """
         return self.UNDEFINED
 
