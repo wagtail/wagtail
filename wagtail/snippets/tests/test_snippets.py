@@ -457,7 +457,7 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleElementsOnList(WagtailTestUtils, TestCase):
+class TestLocaleFeaturesOnList(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.fr_locale = Locale.objects.create(language_code="fr")
@@ -556,31 +556,28 @@ class TestLocaleElementsOnList(WagtailTestUtils, TestCase):
     def test_locale_column(self):
         self._add_snippets()
         response = self.client.get(self.list_url)
-
-        self.assertContains(
-            response, '<span class="w-status">English</span>', html=True
+        soup = self.get_soup(response.content)
+        labels = soup.select("main table td .w-status--label")
+        self.assertEqual(len(labels), 2)
+        self.assertEqual(
+            sorted(label.text.strip() for label in labels),
+            ["English", "French"],
         )
-        self.assertContains(response, '<span class="w-status">French</span>', html=True)
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_column_not_present_with_i18n_disabled(self):
         self._add_snippets()
         response = self.client.get(self.list_url)
-
-        self.assertNotContains(
-            response, '<span class="w-status">English</span>', html=True
-        )
-        self.assertNotContains(
-            response, '<span class="w-status">French</span>', html=True
-        )
+        soup = self.get_soup(response.content)
+        labels = soup.select("main table td .w-status--label")
+        self.assertEqual(len(labels), 0)
 
     def test_locale_column_not_present_for_non_translatable_snippet(self):
         response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
         Advert.objects.create(text="English text")
-
-        self.assertNotContains(
-            response, '<span class="w-status">English</span>', html=True
-        )
+        soup = self.get_soup(response.content)
+        labels = soup.select("main table td .w-status--label")
+        self.assertEqual(len(labels), 0)
 
 
 class TestModelOrdering(WagtailTestUtils, TestCase):

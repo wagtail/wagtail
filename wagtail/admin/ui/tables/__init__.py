@@ -306,15 +306,16 @@ class LiveStatusTagColumn(StatusTagColumn):
         )
 
 
-class LocaleColumn(StatusTagColumn):
-    """Represents a Locale tag."""
+class LocaleColumn(Column):
+    """Represents a Locale label."""
+
+    cell_template_name = "wagtailadmin/tables/locale_cell.html"
 
     def __init__(self, **kwargs):
         super().__init__(
             "locale_id",
             label=kwargs.pop("label", gettext("Locale")),
             sort_key=kwargs.pop("sort_key", "locale"),
-            primary=False,
             **kwargs,
         )
 
