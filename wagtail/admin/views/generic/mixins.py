@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -107,8 +108,10 @@ class BeforeAfterHookMixin(HookResponseMixin):
 class LocaleMixin:
     @cached_property
     def i18n_enabled(self) -> bool:
-        return getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
+        return (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and (model := getattr(self, "model", None)) is not None
+            and issubclass(model, TranslatableMixin)
         )
 
     @cached_property
@@ -119,7 +122,7 @@ class LocaleMixin:
     def translations(self):
         return self.get_translations() if self.locale else []
 
-    def get_locale(self):
+    def get_locale(self) -> Optional[Locale]:
         if not getattr(self, "model", None):
             return None
 
