@@ -13,7 +13,7 @@ from wagtail.admin.panels import (
     ObjectList,
     extract_panel_definitions_from_model_class,
 )
-from wagtail.admin.ui.side_panels import PreviewSidePanel
+from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import preview
 from wagtail.models import PreviewableMixin, Site
@@ -189,6 +189,7 @@ class EditView(generic.EditView):
             side_panels.append(
                 PreviewSidePanel(self.object, self.request, preview_url=preview_url)
             )
+            side_panels.append(ChecksSidePanel(self.object, self.request))
         return side_panels
 
 

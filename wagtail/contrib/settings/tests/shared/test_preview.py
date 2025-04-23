@@ -148,6 +148,12 @@ class TestEnablePreviewGenericSetting(WagtailTestUtils, TestCase):
         self.assertEqual("w-tooltip w-kbd", toggle_button["data-controller"])
         self.assertEqual("mod+p", toggle_button["data-w-kbd-key-value"])
 
+        # Should have the checks side panel
+        soup = self.get_soup(response.content)
+        self.assertIsNotNone(soup.select_one('[data-side-panel="checks"]'))
+        toggle_button = soup.find("button", {"data-side-panel-toggle": "checks"})
+        self.assertIsNotNone(toggle_button)
+
         # Should set the preview URL value on the controller
         controller = soup.select_one('[data-controller="w-preview"]')
         self.assertIsNotNone(controller)
