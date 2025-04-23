@@ -26,6 +26,7 @@ class BaseFilterAdapter:
     ):
         self.filter = filter
         self.bound_field = bound_field
+        self.name = bound_field.name
         self.value = value
         self.base_url = base_url
         self.query_dict = query_dict
@@ -64,7 +65,7 @@ class BaseFilterAdapter:
             self.bound_field.auto_id,
             self.filter.label,
             str(self.value),
-            self.get_url_without_filter_param(self.bound_field.name),
+            self.get_url_without_filter_param(self.name),
         )
 
 
@@ -76,7 +77,7 @@ class ChoiceFilterAdapter(BaseFilterAdapter):
                 self.bound_field.auto_id,
                 self.filter.label,
                 choices.get(str(self.value), str(self.value)),
-                self.get_url_without_filter_param(self.bound_field.name),
+                self.get_url_without_filter_param(self.name),
             )
         )
 
@@ -89,7 +90,7 @@ class MultipleChoiceFilterAdapter(BaseFilterAdapter):
                 self.bound_field.auto_id,
                 self.filter.label,
                 choices.get(str(item), str(item)),
-                self.get_url_without_filter_param_value(self.bound_field.name, item),
+                self.get_url_without_filter_param_value(self.name, item),
             )
             for item in self.value
         )
@@ -103,7 +104,7 @@ class ModelChoiceFilterAdapter(BaseFilterAdapter):
                 self.bound_field.auto_id,
                 self.filter.label,
                 field.label_from_instance(self.value),
-                self.get_url_without_filter_param(self.bound_field.name),
+                self.get_url_without_filter_param(self.name),
             )
         )
 
@@ -116,7 +117,7 @@ class ModelMultipleChoiceFilterAdapter(BaseFilterAdapter):
                 self.bound_field.auto_id,
                 self.filter.label,
                 field.label_from_instance(item),
-                self.get_url_without_filter_param_value(self.bound_field.name, item.pk),
+                self.get_url_without_filter_param_value(self.name, item.pk),
             )
             for item in self.value
         )
@@ -136,10 +137,7 @@ class RangeFilterAdapter(BaseFilterAdapter):
                 self.filter.label,
                 f"{start_value_display} - {end_value_display}",
                 self.get_url_without_filter_param(
-                    [
-                        widget.suffixed(self.bound_field.name, suffix)
-                        for suffix in widget.suffixes
-                    ]
+                    [widget.suffixed(self.name, suffix) for suffix in widget.suffixes]
                 ),
             )
         )
