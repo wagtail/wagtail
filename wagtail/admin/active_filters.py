@@ -5,6 +5,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.forms import BoundField, ModelChoiceField
 from django.http import QueryDict
 from django.utils.formats import date_format
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from wagtail.utils.registry import ObjectTypeRegistry
 from wagtail.utils.utils import flatten_choices
@@ -124,8 +126,12 @@ class ModelMultipleChoiceFilterAdapter(BaseFilterAdapter):
 
 
 class RangeFilterAdapter(BaseFilterAdapter):
+    # Translators: A placeholder for a range filter value that has not been set,
+    # e.g. Some number: any - 1000
+    empty_value_label = gettext_lazy("any")
+
     def format_value(self, value):
-        return str(value) if value is not None else ""
+        return str(value) if value is not None else self.empty_value_label
 
     def get_active_filters(self):
         start_value_display = self.format_value(self.value.start)
@@ -135,7 +141,13 @@ class RangeFilterAdapter(BaseFilterAdapter):
             ActiveFilter(
                 self.bound_field.auto_id,
                 self.filter.label,
-                f"{start_value_display} - {end_value_display}",
+                # Translators: A label for a range filter value,
+                # e.g. Some number: 0 - 1000
+                _("%(range_start)s - %(range_end)s")
+                % {
+                    "range_start": start_value_display,
+                    "range_end": end_value_display,
+                },
                 self.get_url_without_filter_param(
                     [widget.suffixed(self.name, suffix) for suffix in widget.suffixes]
                 ),
@@ -145,7 +157,7 @@ class RangeFilterAdapter(BaseFilterAdapter):
 
 class DateFromToRangeFilterAdapter(RangeFilterAdapter):
     def format_value(self, value):
-        return date_format(value) if value is not None else ""
+        return date_format(value) if value is not None else self.empty_value_label
 
 
 filter_adapter_class_registry = ObjectTypeRegistry()
