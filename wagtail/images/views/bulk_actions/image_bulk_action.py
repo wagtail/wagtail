@@ -8,7 +8,7 @@ class ImageBulkAction(BulkAction):
     models = [get_image_model()]
 
     def get_all_objects_in_listing_query(self, parent_id):
-        listing_objects = images_permission_policy.instances_user_has_permission_for(
+        listing_objects = self.permission_policy.instances_user_has_permission_for(
             self.request.user, "change"
         )
         if parent_id is not None:
