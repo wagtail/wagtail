@@ -885,6 +885,7 @@
 * Jigyasu Rajput
 * Antoine Rodriguez
 * Gorlik
+* manu
 
 ## Translators
 

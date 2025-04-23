@@ -511,6 +511,7 @@ twitter = {
     "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}",
     "urls": [
         r"^https?://twitter\.com/(?:#!)?[^#?/]+/status/.+$",
+        r"^https?://x\.com/(?:#!)?[^#?/]+/status/.+$",
     ],
 }
 
