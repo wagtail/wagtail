@@ -162,7 +162,7 @@ Changelog
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
-6.3.4 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.4 (24.04.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Added support for Django 5.2
