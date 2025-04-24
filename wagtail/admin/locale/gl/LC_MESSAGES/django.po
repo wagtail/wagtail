@@ -3396,29 +3396,9 @@ msgstr "Axustar orde do menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambiar orde das páxinas fillas de '%(title)s'"
 
-msgid "Heading 1"
-msgstr "Cabeceira 1"
-
-
-msgid "Heading 2"
-msgstr "Cabeceira 2"
-
-
-msgid "Heading 3"
-msgstr "Cabeceira 3"
-
-
-msgid "Heading 4"
-msgstr "Cabeceira 4"
-
-
-msgid "Heading 5"
-msgstr "Cabeceira 5"
-
-
-msgid "Heading 6"
-msgstr "Cabeceira 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Cabeceira %(level)d"
 
 msgid "Bulleted list"
 msgstr "Lista de viñetas"

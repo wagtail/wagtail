@@ -116,7 +116,7 @@ msgstr "Filtrer jusqu'à dix mot-clés les plus populaires."
 
 #, python-format
 msgid "Use server language: %(language_name)s"
-msgstr "Utiliser la langue du serveur :%(language_name)s"
+msgstr "Utiliser la langue du serveur : %(language_name)s"
 
 msgid "Use server time zone"
 msgstr "Utiliser le fuseau horaire du serveur"
@@ -759,8 +759,8 @@ msgid ""
 "There are no %(model_name)s to display. Why not <a href=\"%(add_url)s\">add "
 "one</a>?"
 msgstr ""
-"Il n'y a aucun(e) %(model_name)s à afficher. Pourquoi ne pas <a "
-"href=\"%(add_url)s\">en ajouter un(e)</a> ?"
+"Il n'y a pas de %(model_name)s à afficher. Pourquoi ne pas <a "
+"href=\"%(add_url)s\">en ajouter</a> ?"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -2814,7 +2814,7 @@ msgstr "Aucun(e) %(model_name)s ne correspond à votre requête."
 
 #, python-format
 msgid "There are no %(model_name)s to display."
-msgstr "Il n'y a aucun(e) %(model_name)s à afficher."
+msgstr "Il n'y a pas de %(model_name)s à afficher."
 
 msgid "Live version"
 msgstr "Version publiée"
@@ -3529,29 +3529,9 @@ msgstr "Ordre de tri des sous-pages"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Modifier l'ordre des sous-pages de « %(title)s »"
 
-msgid "Heading 1"
-msgstr "En-tête 1 "
-
-
-msgid "Heading 2"
-msgstr "En-tête 2 "
-
-
-msgid "Heading 3"
-msgstr "En-tête 3 "
-
-
-msgid "Heading 4"
-msgstr "En-tête 4 "
-
-
-msgid "Heading 5"
-msgstr "En-tête 5 "
-
-
-msgid "Heading 6"
-msgstr "En-tête 6 "
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "En-tête %(level)d "
 
 msgid "Bulleted list"
 msgstr "Liste à puce"

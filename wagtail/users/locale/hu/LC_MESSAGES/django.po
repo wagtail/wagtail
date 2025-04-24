@@ -4,7 +4,7 @@
 #
 # Translators:
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023,2025
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2018-2023,2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -129,8 +129,22 @@ msgstr "Sötét"
 msgid "admin theme"
 msgstr "admin téma"
 
+msgid "More contrast"
+msgstr "Több kontraszt"
+
+msgid "contrast"
+msgstr "kontraszt"
+
 msgid "Default"
 msgstr "Alapértelmezett"
+
+msgid "Snug"
+msgstr "Tömör"
+
+#. Translators: "Density" is the term used to describe the amount of space
+#. between elements in the user interface
+msgid "density"
+msgstr "sűrűség"
 
 msgid "user profile"
 msgstr "felhasználói profil"
@@ -241,6 +255,21 @@ msgstr "Megváltoztatás"
 msgid "Custom permissions"
 msgstr "Egyedi engedélyek"
 
+msgid "Toggle all"
+msgstr "Összes kapcsolása"
+
+msgid "Toggle all add permissions"
+msgstr "Összes létrehozási jog kapcsolása"
+
+msgid "Toggle all change permissions"
+msgstr "Összes szerkesztési jog kapcsolása"
+
+msgid "Toggle all delete permissions"
+msgstr "Összes törlési jog kapcsolása"
+
+msgid "Toggle all custom permissions"
+msgstr "Összes egyedi jogosultság kapcsolása"
+
 msgid "Other permissions"
 msgstr "Egyéb engedélyek"
 
@@ -279,6 +308,10 @@ msgstr "Szerepkörök"
 msgid "Select all users in listing"
 msgstr "Összes felhasználó kiválasztása a listában"
 
+msgid "Sorry, no users match your query"
+msgstr ""
+"Sajnáljuk, de egyetlen felhasználó sem felel meg a keresési feltételeknek"
+
 #, python-format
 msgid ""
 "There are no users configured. Why not <a "
@@ -286,6 +319,9 @@ msgid ""
 msgstr ""
 "Nincs felhasználó létrehozva. Miért nem <a "
 "href=\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+
+msgid "Can view"
+msgstr "Megtekintheti"
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -365,6 +401,12 @@ msgstr "Csoport törölve: '%(object)s'"
 
 msgid "Delete group"
 msgstr "Csoport törlése"
+
+msgid "Last login"
+msgstr "Utolsó bejelentkezés"
+
+msgid "Group"
+msgstr "Csoport"
 
 msgid "Add a user"
 msgstr "Felhasználó hozzáadása"

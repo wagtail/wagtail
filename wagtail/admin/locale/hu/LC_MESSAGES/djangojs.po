@@ -27,6 +27,11 @@ msgid_plural "%(num)s errors"
 msgstr[0] "%(num)s hiba"
 msgstr[1] "%(num)s hiba"
 
+msgid "%(num)s min"
+msgid_plural "%(num)s mins"
+msgstr[0] "%(num)s perc"
+msgstr[1] "%(num)s perc"
+
 msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"

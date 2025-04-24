@@ -1758,29 +1758,9 @@ msgstr "Zrušit publikaci stránky %(title)s"
 msgid "View page history for '%(title)s'"
 msgstr "Zobrazit historii stránky '%(title)s'"
 
-msgid "Heading 1"
-msgstr "Hlavička 1"
-
-
-msgid "Heading 2"
-msgstr "Hlavička 2"
-
-
-msgid "Heading 3"
-msgstr "Hlavička 3"
-
-
-msgid "Heading 4"
-msgstr "Hlavička 4"
-
-
-msgid "Heading 5"
-msgstr "Hlavička 5"
-
-
-msgid "Heading 6"
-msgstr "Hlavička 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Hlavička %(level)d"
 
 msgid "Bulleted list"
 msgstr "Nečíslovaný seznam"

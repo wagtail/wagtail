@@ -974,29 +974,9 @@ msgstr "'%(title)s' sayfasını sil"
 msgid "Unpublish page '%(title)s'"
 msgstr "'%(title)s' sayfasını yayından kaldır"
 
-msgid "Heading 1"
-msgstr "Başlık 1"
-
-
-msgid "Heading 2"
-msgstr "Başlık 2"
-
-
-msgid "Heading 3"
-msgstr "Başlık 3"
-
-
-msgid "Heading 4"
-msgstr "Başlık 4"
-
-
-msgid "Heading 5"
-msgstr "Başlık 5"
-
-
-msgid "Heading 6"
-msgstr "Başlık 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Başlık %(level)d"
 
 msgid "Bulleted list"
 msgstr "Numarasız liste"

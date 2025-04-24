@@ -3157,29 +3157,9 @@ msgstr "Sortuj menu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Zmień kolejność stron podrzędnych od '%(title)s'"
 
-msgid "Heading 1"
-msgstr "Nagłówek 1"
-
-
-msgid "Heading 2"
-msgstr "Nagłówek 2"
-
-
-msgid "Heading 3"
-msgstr "Nagłówek 3"
-
-
-msgid "Heading 4"
-msgstr "Nagłówek 4"
-
-
-msgid "Heading 5"
-msgstr "Nagłówek 5"
-
-
-msgid "Heading 6"
-msgstr "Nagłówek 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Nagłówek %(level)d"
 
 msgid "Bulleted list"
 msgstr "Lista wypunktowana"

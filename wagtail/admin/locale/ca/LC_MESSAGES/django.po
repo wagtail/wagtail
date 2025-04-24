@@ -3413,29 +3413,9 @@ msgstr "Ordenar el menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Canviar l'ordre de les pàgines filles de '%(title)s'"
 
-msgid "Heading 1"
-msgstr "Capçalera 1"
-
-
-msgid "Heading 2"
-msgstr "Capçalera 2"
-
-
-msgid "Heading 3"
-msgstr "Capçalera 3"
-
-
-msgid "Heading 4"
-msgstr "Capçalera 4"
-
-
-msgid "Heading 5"
-msgstr "Capçalera 5"
-
-
-msgid "Heading 6"
-msgstr "Capçalera 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Capçalera %(level)d"
 
 msgid "Bulleted list"
 msgstr "Llista de pics"

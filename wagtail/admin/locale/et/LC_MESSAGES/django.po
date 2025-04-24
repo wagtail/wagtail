@@ -1494,29 +1494,9 @@ msgstr "Lehe ' %(title)s' avaldamise tühistamine"
 msgid "View page history for '%(title)s'"
 msgstr "Kuva lehe ajalugu: %(title)s"
 
-msgid "Heading 1"
-msgstr "Pealkiri 1"
-
-
-msgid "Heading 2"
-msgstr "Pealkiri 2"
-
-
-msgid "Heading 3"
-msgstr "Pealkiri 3"
-
-
-msgid "Heading 4"
-msgstr "Pealkiri 4"
-
-
-msgid "Heading 5"
-msgstr "Pealkiri 5"
-
-
-msgid "Heading 6"
-msgstr "Pealkiri 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Pealkiri %(level)d"
 
 msgid "Bulleted list"
 msgstr "Täppidega loend"

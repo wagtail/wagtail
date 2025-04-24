@@ -2917,29 +2917,9 @@ msgstr "Vrstni red menija"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Spremenite vrstni red podrejenih strani '%(title)s'"
 
-msgid "Heading 1"
-msgstr "Naslovnica1"
-
-
-msgid "Heading 2"
-msgstr "Naslovnica2"
-
-
-msgid "Heading 3"
-msgstr "Naslovnica3"
-
-
-msgid "Heading 4"
-msgstr "Naslovnica4"
-
-
-msgid "Heading 5"
-msgstr "Naslovnica5"
-
-
-msgid "Heading 6"
-msgstr "Naslovnica6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Naslovnica%(level)d"
 
 msgid "Bulleted list"
 msgstr "Označen seznam"

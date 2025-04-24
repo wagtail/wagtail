@@ -3444,29 +3444,9 @@ msgstr "Sortering aanpassen"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Verander volgorde van onderliggende pagina's van '%(title)s'"
 
-msgid "Heading 1"
-msgstr "Kop 1"
-
-
-msgid "Heading 2"
-msgstr "Kop 2"
-
-
-msgid "Heading 3"
-msgstr "Kop 3"
-
-
-msgid "Heading 4"
-msgstr "Kop 4"
-
-
-msgid "Heading 5"
-msgstr "Kop 5"
-
-
-msgid "Heading 6"
-msgstr "Kop 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Kop %(level)d"
 
 msgid "Bulleted list"
 msgstr "Lijst met opsommingstekens"

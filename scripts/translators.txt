@@ -256,6 +256,7 @@ German - de
 Benedikt Willi <ben.willi.gmail.com>
 Benjamin Kaspar <bennykaspar.gmail.com>
 Bohreromir
+Christian González <christian.gonzalez.nerdocs.at>
 Daniel Manser <me.danielmanser.com>
 Donald Buczek
 Ettore Atalan <atalanttore.googlemail.com>
@@ -412,6 +413,7 @@ Kyungil Choi <hanpama.gmail.com>
 Loic Teixeira
 Matt Westcott <matthew.torchbox.com>
 mirusu400
+sl kim <vizuan.gmail.com>
 
 Latvian - lv
 -----

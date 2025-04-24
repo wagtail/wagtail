@@ -3158,29 +3158,9 @@ msgstr "Sortează ordinea de meniu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Schimbă ordinea paginilor descendente la '%(title)s'"
 
-msgid "Heading 1"
-msgstr "Antet 1"
-
-
-msgid "Heading 2"
-msgstr "Antet 2"
-
-
-msgid "Heading 3"
-msgstr "Antet 3"
-
-
-msgid "Heading 4"
-msgstr "Antet 4"
-
-
-msgid "Heading 5"
-msgstr "Antet 5"
-
-
-msgid "Heading 6"
-msgstr "Antet 6"
-
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Antet %(level)d"
 
 msgid "Bulleted list"
 msgstr "Listă cu puncte"
