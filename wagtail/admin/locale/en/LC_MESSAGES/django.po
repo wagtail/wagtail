@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -546,22 +546,13 @@ msgstr ""
 msgid "Can access Wagtail admin"
 msgstr ""
 
-#: paginator.py:18
+#: paginator.py:17
 msgid "item"
 msgstr ""
 
-#: paginator.py:24
+#: paginator.py:23
 msgid "items"
 msgstr ""
-
-#. Translators: The label to use when displaying the number of items
-#. in a list, e.g. "1 image" or "2 images".
-#: paginator.py:31
-#, python-format
-msgid "%(count)d %(item_name)s"
-msgid_plural "%(count)d %(item_name_plural)s"
-msgstr[0] ""
-msgstr[1] ""
 
 #: panels/page_utils.py:25
 msgid "Content"
