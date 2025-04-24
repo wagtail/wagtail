@@ -1029,8 +1029,8 @@ msgid "Completed at"
 msgstr "完成時間"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁"
 
 msgid "Close dialog"
 msgstr "關閉對話框"

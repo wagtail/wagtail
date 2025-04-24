@@ -1832,8 +1832,8 @@ msgid "Clear"
 msgstr "تازىلا"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(page_num)s / %(total_pages)s بەت."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s / %(total_pages)s بەت"
 
 msgid "Edit account avatar"
 msgstr "ھېسابات سىماسىنى تەھرىرلەيدۇ"

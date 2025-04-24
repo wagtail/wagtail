@@ -2601,7 +2601,7 @@ msgstr ""
 
 #: templates/wagtailadmin/shared/pagination_nav.html:13
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr ""
 
 #: templates/wagtailadmin/shared/panel.html:30

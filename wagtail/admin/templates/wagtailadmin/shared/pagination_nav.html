@@ -10,7 +10,7 @@
 
 <nav class="pagination" aria-label="{% trans 'Pagination' %}">
     <div class="pagination__start">
-        <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=items.paginator.num_pages|intcomma %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed with page_num=items.number|intcomma total_pages=items.paginator.num_pages|intcomma %}Page {{ page_num }} of {{ total_pages }}{% endblocktrans %}</p>
     </div>
     <ul>
         <li class="prev">

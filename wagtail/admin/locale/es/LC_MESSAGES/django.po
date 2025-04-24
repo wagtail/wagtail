@@ -1682,8 +1682,8 @@ msgid "Clear"
 msgstr "Limpiar"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Página %(page_num)s de %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Página %(page_num)s de %(total_pages)s"
 
 msgid "Toggle breadcrumbs"
 msgstr "Alternar migas de pan"

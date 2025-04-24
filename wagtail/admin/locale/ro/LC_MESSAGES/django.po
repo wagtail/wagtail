@@ -1837,8 +1837,8 @@ msgid "Clear"
 msgstr "Curăță"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s din %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pagina %(page_num)s din %(total_pages)s"
 
 msgid "Toggle breadcrumbs"
 msgstr "Comută breadcrumb"

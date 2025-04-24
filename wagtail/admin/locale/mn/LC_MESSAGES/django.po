@@ -790,7 +790,7 @@ msgid "Edit this item"
 msgstr "Энэ зүйлийг засах"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
 
 msgid "Continue"

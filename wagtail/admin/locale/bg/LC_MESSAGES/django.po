@@ -271,8 +271,8 @@ msgid "Name"
 msgstr "Име"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Страница %(page_num)s от %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Страница %(page_num)s от %(total_pages)s"
 
 msgid "New"
 msgstr "Ново"

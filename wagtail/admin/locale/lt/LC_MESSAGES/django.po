@@ -800,8 +800,8 @@ msgid "Edit this item"
 msgstr "Redaguoti šį elementą"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Puslapis %(page_num)s iš %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Puslapis %(page_num)s iš %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "Naršymo kelias"

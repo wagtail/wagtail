@@ -1908,8 +1908,8 @@ msgid "Clear"
 msgstr "Leegmaken"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s van %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pagina %(page_num)s van %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Bewerk account avatar"

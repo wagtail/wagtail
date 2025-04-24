@@ -1888,7 +1888,7 @@ msgid "Clear"
 msgstr "Alapállapot"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "%(page_num)s/%(total_pages)s. oldal"
 
 msgid "Edit account avatar"

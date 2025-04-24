@@ -1601,8 +1601,8 @@ msgid "Clear"
 msgstr "Claro"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Página %(page_num)s de %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Página %(page_num)s de %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Editar avatar da conta"

@@ -1537,8 +1537,8 @@ msgid "Clear"
 msgstr "Rensa"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sida %(page_num)s av %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sida %(page_num)s av %(total_pages)s"
 
 msgid "Toggle breadcrumbs"
 msgstr "Växla sökvägsnavigering"

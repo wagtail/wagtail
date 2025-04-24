@@ -1862,8 +1862,8 @@ msgid "Clear"
 msgstr "Hreinsa"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Síða %(page_num)s af %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Síða %(page_num)s af %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Breyta táknmynd notanda"

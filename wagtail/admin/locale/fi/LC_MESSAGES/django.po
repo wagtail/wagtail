@@ -1121,8 +1121,8 @@ msgid "Pagination"
 msgstr "Sivutus"
 
 #, python-format
-msgid "Page %(page_number)s of %(num_pages)s."
-msgstr "Sivu %(page_number)s/%(num_pages)s."
+msgid "Page %(page_number)s of %(num_pages)s"
+msgstr "Sivu %(page_number)s/%(num_pages)s"
 
 msgid "Previous"
 msgstr "Edellinen"
@@ -1280,8 +1280,8 @@ msgid "Clear"
 msgstr "Tyhjennä"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta"
 
 msgid "Toggle breadcrumbs"
 msgstr "Murupolut päälle/pois"

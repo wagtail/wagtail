@@ -1572,8 +1572,8 @@ msgid "Clear"
 msgstr "Počisti"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Stran %(page_num)s od %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Stran %(page_num)s od %(total_pages)s"
 
 msgid "Toggle breadcrumbs"
 msgstr "Preklop navigacijske sledi"

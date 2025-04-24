@@ -935,8 +935,8 @@ msgid "Completed at"
 msgstr "Završeno u"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Stranica %(page_num)s od %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Stranica %(page_num)s od %(total_pages)s"
 
 msgid "Toggle breadcrumbs"
 msgstr "Prikaži/sakrij navigacijsku traku"

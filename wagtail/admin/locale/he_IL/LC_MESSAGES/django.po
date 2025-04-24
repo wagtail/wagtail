@@ -493,8 +493,8 @@ msgid "Edit this item"
 msgstr "ערוך פריט זה"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "עמוד %(page_num)s מתוך %(total_pages)s"
 
 msgid "Download CSV"
 msgstr "הורד CSV"

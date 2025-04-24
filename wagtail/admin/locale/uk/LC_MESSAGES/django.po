@@ -1280,8 +1280,8 @@ msgid "Completed at"
 msgstr "Завершено в"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Сторінка %(page_num)s з %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Сторінка %(page_num)s з %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "Ланцюжок навігації"

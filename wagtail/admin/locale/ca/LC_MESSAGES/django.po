@@ -1879,8 +1879,8 @@ msgid "Clear"
 msgstr "Netejar"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pàgina %(page_num)s de %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pàgina %(page_num)s de %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Editar l'avatar del compte"

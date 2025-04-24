@@ -804,7 +804,7 @@ msgid "Completed at"
 msgstr "完了時刻"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "%(total_pages)sページ中%(page_num)sページ目"
 
 msgid "Breadcrumb"

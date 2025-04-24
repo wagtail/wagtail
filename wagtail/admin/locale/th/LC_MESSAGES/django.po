@@ -728,8 +728,8 @@ msgid "Edit this item"
 msgstr "แก้ไขชิ้นนี้"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "หน้า %(page_num)s ของ%(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "หน้า %(page_num)s ของ%(total_pages)s"
 
 msgid "Continue"
 msgstr "ต่อ,ต่อเนื่อง"

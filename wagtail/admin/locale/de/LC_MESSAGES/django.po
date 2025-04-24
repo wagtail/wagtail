@@ -1970,8 +1970,8 @@ msgid "Clear"
 msgstr "Zurücksetzen"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Seite %(page_num)s von %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Seite %(page_num)s von %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Konto-Avatar bearbeiten"

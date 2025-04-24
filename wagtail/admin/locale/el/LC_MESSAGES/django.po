@@ -824,8 +824,8 @@ msgid "Workflow"
 msgstr "Ροή εργασιών"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Σελίδα %(page_num)s από %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Σελίδα %(page_num)s από %(total_pages)s"
 
 msgid "Continue"
 msgstr "Συνέχεια"

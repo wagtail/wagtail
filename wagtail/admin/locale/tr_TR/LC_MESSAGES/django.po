@@ -657,8 +657,8 @@ msgid "Edit this item"
 msgstr "Bu elemanı düzenle"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sayfa %(page_num)s / %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sayfa %(page_num)s / %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "İçerik haritası"

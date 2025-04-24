@@ -725,8 +725,8 @@ msgid "Completed at"
 msgstr "Pabeigts plkst."
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām"
 
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"

@@ -1076,8 +1076,8 @@ msgid "Clear"
 msgstr "Tøm"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Side %(page_num)s av %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Side %(page_num)s av %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "Brødsmuler"

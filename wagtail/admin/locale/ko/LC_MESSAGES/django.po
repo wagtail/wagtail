@@ -1312,7 +1312,7 @@ msgid "Completed at"
 msgstr "에 완료됨"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
 
 msgid "Toggle breadcrumbs"

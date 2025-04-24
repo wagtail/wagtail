@@ -613,7 +613,7 @@ msgid "Name"
 msgstr "Naran"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "Pajina %(page_num)s husi %(total_pages)s"
 
 msgid "Breadcrumb"

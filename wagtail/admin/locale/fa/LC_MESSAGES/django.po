@@ -1124,8 +1124,8 @@ msgid "Completed at"
 msgstr "پایان یافته در"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "صفحه %(page_num)s از %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "صفحه %(page_num)s از %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "خرده نان"

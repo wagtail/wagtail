@@ -832,8 +832,8 @@ msgid "Completed at"
 msgstr "Valmis kell"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Leht %(page_num)s lehtedest %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Leht %(page_num)s lehtedest %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "Riivsai"

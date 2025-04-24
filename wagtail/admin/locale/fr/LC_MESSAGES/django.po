@@ -1971,8 +1971,8 @@ msgid "Clear"
 msgstr "Effacer"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Page %(page_num)s sur %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Page %(page_num)s sur %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Modifier l'avatar du compte"

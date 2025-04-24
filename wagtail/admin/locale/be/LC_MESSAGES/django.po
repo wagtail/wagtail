@@ -724,8 +724,8 @@ msgid "Edit this item"
 msgstr "Рэдагаваць гэты элемент"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Старонка %(page_num)s з %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Старонка %(page_num)s з %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "Шлях па сайту"

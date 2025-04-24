@@ -306,7 +306,7 @@ msgid "Name"
 msgstr "名字"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "第%(page_num)s页 共%(total_pages)s页"
 
 msgid "Edited"

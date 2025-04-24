@@ -643,8 +643,8 @@ msgid "Completed at"
 msgstr "Diselesaikan pada"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Halaman %(page_num)s dari %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Halaman %(page_num)s dari %(total_pages)s"
 
 msgid "Continue"
 msgstr "Lanjut"

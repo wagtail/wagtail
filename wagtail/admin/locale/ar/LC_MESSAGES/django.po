@@ -806,7 +806,7 @@ msgid "Edit this item"
 msgstr "تحرير هذا العنصر"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "صفحة %(page_num)s من %(total_pages)s"
 
 msgid "Continue"
