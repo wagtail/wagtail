@@ -4,7 +4,7 @@ Changelog
 7.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
- * ...
+ * Add iHeart oembed provider (Storm Heg)
 
 
 7.0 LTS (xx.xx.xxxx) - IN DEVELOPMENT
