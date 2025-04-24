@@ -11,6 +11,7 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
 # Enrique Sánchez-Reboto García, 2023
+# Enrique Sánchez-Reboto García, 2023
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Hector Garcia <torkoff@gmail.com>, 2022
 # Joaquín T <joaquintita@gmail.com>, 2014
@@ -18,8 +19,9 @@
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
 # Lautaro Bringas, 2023
+# Lautaro Bringas, 2023
 # Matt Westcott <matthew@torchbox.com>, 2016
-# Matt Westcott <matthew@torchbox.com>, 2016,2024
+# Matt Westcott <matthew@torchbox.com>, 2016,2024-2025
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Oluwadamilare Ogunbanjo, 2022
@@ -33,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024-2025\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -763,6 +765,9 @@ msgstr "Resumen del sitio"
 msgid "Read the release notes."
 msgstr "Lea los detalles de la versión."
 
+msgid "Close"
+msgstr "Cerrar"
+
 msgid "Task started"
 msgstr "Tarea iniciada"
 
@@ -771,9 +776,6 @@ msgstr "Cambios solicitados el"
 
 msgid "Awaiting"
 msgstr "Esperando"
-
-msgid "Close"
-msgstr "Cerrar"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1681,10 +1683,6 @@ msgstr "Completado el"
 msgid "Clear"
 msgstr "Limpiar"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Página %(page_num)s de %(total_pages)s"
-
 msgid "Toggle breadcrumbs"
 msgstr "Alternar migas de pan"
 
@@ -1732,6 +1730,10 @@ msgstr "Visible para todos"
 
 msgid "Private. Visit the live page"
 msgstr "Privada. Visitar la página en vivo"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Página %(page_num)s de %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Alternar sección"
@@ -1838,9 +1840,6 @@ msgstr "Ver historial"
 
 msgid "Go-live:"
 msgstr "Publica:"
-
-msgid "Once published:"
-msgstr "Una vez publicado:"
 
 msgid "No publishing schedule set"
 msgstr "No hay fecha de publicación establecida"
@@ -2169,9 +2168,6 @@ msgstr "Deshacer"
 
 msgid "Redo"
 msgstr "Rehacer"
-
-msgid "Bold"
-msgstr "Negrilla"
 
 msgid "Italic"
 msgstr "Italica"
@@ -2676,9 +2672,6 @@ msgstr "Nueva tarea de flujo de trabajo"
 msgid "Task '%(object)s' created."
 msgstr "Tarea '%(object)s' creada."
 
-msgid "Editing workflow task"
-msgstr "Editando tarea de flujo de trabajo"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Tarea '%(object)s' actualizada."
@@ -2736,9 +2729,23 @@ msgstr "Ordenar menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambiar el orden de las páginas hijas de '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Encabezado %(level)d"
+msgid "Heading 1"
+msgstr "Encabezado 1"
+
+msgid "Heading 2"
+msgstr "Encabezado 2"
+
+msgid "Heading 3"
+msgstr "Encabezado 3"
+
+msgid "Heading 4"
+msgstr "Encabezado 4"
+
+msgid "Heading 5"
+msgstr "Encabezado 5"
+
+msgid "Heading 6"
+msgstr "Encabezado 6"
 
 msgid "Bulleted list"
 msgstr "Lista con viñetas"
@@ -2748,6 +2755,9 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Bloque de texto citado"
+
+msgid "Bold"
+msgstr "Negrilla"
 
 msgid "Link"
 msgstr "Enlace"

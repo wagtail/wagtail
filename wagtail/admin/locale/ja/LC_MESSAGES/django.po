@@ -4,6 +4,7 @@
 #
 # Translators:
 # bayside kent, 2022
+# bayside kent, 2022
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # Hiroki Sawano, 2021
 # Hiroki Sawano, 2021
@@ -13,6 +14,7 @@
 # kojikojikojikoji, 2021
 # Matt Westcott <matthew@torchbox.com>, 2023
 # kojikojikojikoji, 2021
+# okosama star, 2023
 # okosama star, 2023
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # shuhei hirota, 2019
@@ -26,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: okosama star, 2023\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -503,6 +505,9 @@ msgstr "日付"
 msgid "Site summary"
 msgstr "サイトの概要"
 
+msgid "Close"
+msgstr "閉じる"
+
 msgid "Task started"
 msgstr "タスク開始時刻"
 
@@ -511,9 +516,6 @@ msgstr "修正依頼"
 
 msgid "Awaiting"
 msgstr "待機中"
-
-msgid "Close"
-msgstr "閉じる"
 
 msgid "Awaiting your review"
 msgstr "あなたのレビューの待機中"
@@ -803,10 +805,6 @@ msgstr "開始時刻"
 msgid "Completed at"
 msgstr "完了時刻"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "%(total_pages)sページ中%(page_num)sページ目"
-
 msgid "Breadcrumb"
 msgstr "パンくず"
 
@@ -836,6 +834,10 @@ msgstr "現在のページ状況："
 
 msgid "Visit the live page"
 msgstr "ライブページを訪れる。"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(total_pages)sページ中%(page_num)sページ目"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "この改定を予定外のものにしますか？"
@@ -902,9 +904,6 @@ msgstr "取り消す"
 
 msgid "Redo"
 msgstr "やり直す"
-
-msgid "Bold"
-msgstr "太字"
 
 msgid "Italic"
 msgstr "斜体"
@@ -1150,9 +1149,6 @@ msgstr "ページ '%(page_title)s'から削除されたワークフロー"
 msgid "New workflow task"
 msgstr "ワークフローの新規タスク"
 
-msgid "Editing workflow task"
-msgstr "ワークフローのタスクを編集"
-
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"
 
@@ -1161,6 +1157,9 @@ msgstr "段落番号"
 
 msgid "Blockquote"
 msgstr "引用"
+
+msgid "Bold"
+msgstr "太字"
 
 msgid "Link"
 msgstr "リンク"

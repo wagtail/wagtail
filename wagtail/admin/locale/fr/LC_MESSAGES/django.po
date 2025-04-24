@@ -3,11 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # Adrien <laadrien@gmail.com>, 2014
 # André Bouatchidzé <a@anbz.net>, 2015
 # Antonin ENFRUN <anton@zorgameuh.org>, 2016
 # Aurélien Debord <contact@aureliendebord.com>, 2017
 # Aurel Pere, 2024
+# Aurel Pere, 2024
+# Axel H., 2016
 # Axel Haustant, 2016
 # Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
@@ -36,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
@@ -80,6 +83,17 @@ msgstr "Page verrouillée"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr " %(label)s et Publier"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "tout"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
 
 msgid "Wagtail admin"
 msgstr "Administration Wagtail"
@@ -436,6 +450,12 @@ msgstr "Tous les éléments dans la liste"
 
 msgid "Can access Wagtail admin"
 msgstr "Peut accéder à l'administration Wagtail"
+
+msgid "item"
+msgstr "élément"
+
+msgid "items"
+msgstr "éléments"
 
 msgid "Content"
 msgstr "Contenu"
@@ -875,6 +895,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lire les notes de mise à jour."
 
+msgid "Close"
+msgstr "Fermer"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Vos pages et fragments dans un workflow"
 
@@ -886,9 +909,6 @@ msgstr "Modifications demandées à"
 
 msgid "Awaiting"
 msgstr "En attente"
-
-msgid "Close"
-msgstr "Fermer"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1216,8 +1236,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "La modification de confidentialité pour cette page a été désactivée."
 
+msgid "Scheduling…"
+msgstr "En cours de programmation..."
+
 msgid "Publishing…"
 msgstr "Publication..."
+
+msgid "Schedule to publish"
+msgstr "Programmer pour publication"
 
 msgid "Publish this version"
 msgstr "Publier cette version"
@@ -1847,10 +1873,10 @@ msgstr "Choisissez quand cette page devra être publiée ou expirée"
 
 msgid ""
 "This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"\"Schedule to publish\" option"
 msgstr ""
 "Cette programmation de publication ne prendra effet que lorsque vous "
-"cliquerez sur l'option « Publier »"
+"sélectionnerez l'option \"Programmer pour publication\""
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr ""
@@ -1967,12 +1993,14 @@ msgstr "Aucune page ou fragment n'ont encore été soumis pour modération"
 msgid "Completed at"
 msgstr "Terminé à"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s :"
+
 msgid "Clear"
 msgstr "Effacer"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Page %(page_num)s sur %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Modifier l'avatar du compte"
@@ -2102,6 +2130,10 @@ msgstr "Visible pour tous"
 
 msgid "Private. Visit the live page"
 msgstr "Privée. Voir la page publiée"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Page %(page_num)s sur %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Afficher/masquer la section"
@@ -2236,7 +2268,7 @@ msgstr "Programmation invalide"
 msgid "Go-live:"
 msgstr "Publication :"
 
-msgid "Once published:"
+msgid "Once scheduled:"
 msgstr "Une fois publié :"
 
 msgid "No publishing schedule set"
@@ -2631,6 +2663,9 @@ msgstr "Rétablir"
 msgid "Save changes"
 msgstr "Enregistrer les changements"
 
+msgid "Add or show comments"
+msgstr "Ajouter ou afficher les commentaires"
+
 msgid "Text content"
 msgstr "Contenu texte"
 
@@ -2639,9 +2674,6 @@ msgstr "Insérer ou modifier un lien"
 
 msgid "Text formatting"
 msgstr "Formatage de texte"
-
-msgid "Bold"
-msgstr "Gras"
 
 msgid "Italic"
 msgstr "Italique"
@@ -2685,6 +2717,9 @@ msgstr "Vérifications"
 
 msgid "Toggle preview"
 msgstr "Afficher/masquer la prévisualisation"
+
+msgid "(blank)"
+msgstr "(vide)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2750,6 +2785,10 @@ msgstr "Le texte alternatif de l'image a un motif inapproprié"
 
 msgid "Use meaningful text"
 msgstr "Utiliser un texte parlant"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "objet %(classname)s (%(id)s)"
 
 msgid "Profile"
 msgstr "Compte"
@@ -3292,6 +3331,9 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "Page « %(page_title)s » déplacée."
 
+msgid "Placeholder title"
+msgstr "Titre provisoire"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
@@ -3444,9 +3486,6 @@ msgstr "Nouvelle tâche de workflow"
 msgid "Task '%(object)s' created."
 msgstr "La tâche « %(object)s » a été créée."
 
-msgid "Editing workflow task"
-msgstr "Modification de tâche de workflow"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "La tâche « %(object)s » a été mise à jour."
@@ -3529,9 +3568,23 @@ msgstr "Ordre de tri des sous-pages"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Modifier l'ordre des sous-pages de « %(title)s »"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "En-tête %(level)d "
+msgid "Heading 1"
+msgstr "Titre de niveau 1"
+
+msgid "Heading 2"
+msgstr "Titre de niveau 2"
+
+msgid "Heading 3"
+msgstr "Titre de niveau 3"
+
+msgid "Heading 4"
+msgstr "Titre de niveau 4"
+
+msgid "Heading 5"
+msgstr "Titre de niveau 5"
+
+msgid "Heading 6"
+msgstr "Titre de niveau 6"
 
 msgid "Bulleted list"
 msgstr "Liste à puce"
@@ -3541,6 +3594,9 @@ msgstr "Liste numérotée"
 
 msgid "Blockquote"
 msgstr "Bloc de citation"
+
+msgid "Bold"
+msgstr "Gras"
 
 msgid "Link"
 msgstr "Lien"

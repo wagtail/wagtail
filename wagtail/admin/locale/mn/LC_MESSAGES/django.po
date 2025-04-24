@@ -9,11 +9,12 @@
 # Soft Exim, 2022
 # visual, 2022
 # visual, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -504,14 +505,14 @@ msgstr "Огноо"
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
 
+msgid "Close"
+msgstr "Хаах"
+
 msgid "Changes requested at"
 msgstr "Өөрчлөлт хүссэн"
 
 msgid "Awaiting"
 msgstr "Хүлээгдэж байгаа"
-
-msgid "Close"
-msgstr "Хаах"
 
 msgid "Awaiting your review"
 msgstr "Таны хүсэлт хүлээгдэж байна"
@@ -789,10 +790,6 @@ msgstr "Үйлдэл"
 msgid "Edit this item"
 msgstr "Энэ зүйлийг засах"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
-
 msgid "Continue"
 msgstr "Үргэлжлүүлэх"
 
@@ -807,6 +804,10 @@ msgstr "Шүүлтүүр"
 
 msgid "History"
 msgstr "Түүх"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Нийт %(total_pages)s -с %(page_num)s -р хуудас"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Энэ хувилбарын төлөвлөгөөг болиулахдаа итгэлтэй байна уу?"
@@ -862,9 +863,6 @@ msgstr "Буцаах"
 
 msgid "Redo"
 msgstr "Давтах"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
@@ -1053,6 +1051,9 @@ msgstr "Дугаарласан жагсаалт"
 
 msgid "Blockquote"
 msgstr "Эшлэл"
+
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Link"
 msgstr "Холбоос"

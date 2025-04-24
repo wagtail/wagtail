@@ -5,6 +5,7 @@
 # Translators:
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Daniel Freira, 2024
+# Daniel Freira, 2024
 # Diogo Gomes, 2021
 # Diogo Gomes, 2021
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2020
@@ -17,6 +18,7 @@
 # Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Luís Tiago Favas <traducoes@favas.eu>, 2021
 # Luís Tiago Favas <traducoes@favas.eu>, 2020-2021
+# Matt Westcott <matthew@torchbox.com>, 2025
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Nuno Matos <tugassoft@gmail.com>, 2016
 # Rui Martins <rmartins16@gmail.com>, 2019
@@ -25,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Daniel Freira, 2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Portugal) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -734,6 +736,9 @@ msgstr "Data"
 msgid "Site summary"
 msgstr "Resumo do site"
 
+msgid "Close"
+msgstr "Fechar"
+
 msgid "Task started"
 msgstr "Tarefa iniciada"
 
@@ -742,9 +747,6 @@ msgstr "Mudanças solicitadas a"
 
 msgid "Awaiting"
 msgstr "A aguardar"
-
-msgid "Close"
-msgstr "Fechar"
 
 msgid "Awaiting your review"
 msgstr "À espera da sua revisão"
@@ -1312,10 +1314,6 @@ msgstr "Tarefa incompleta"
 msgid "Completed at"
 msgstr "Completado a"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Página %(page_num)s de %(total_pages)s"
-
 msgid "Breadcrumb"
 msgstr "Percurso"
 
@@ -1348,6 +1346,10 @@ msgstr "Estado atual da página:"
 
 msgid "Visit the live page"
 msgstr "Visitar a página publicada"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Página %(page_num)s de %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Tem a certeza que quer desmarcar esta versão?"
@@ -1598,9 +1600,6 @@ msgstr "Desfazer"
 
 msgid "Redo"
 msgstr "Refazer"
-
-msgid "Bold"
-msgstr "Negrito"
 
 msgid "Italic"
 msgstr "Itálico"
@@ -2018,9 +2017,6 @@ msgstr "Nova tarefa do fluxo de trabalho"
 msgid "Task '%(object)s' created."
 msgstr "Tarefa '%(object)s' criada."
 
-msgid "Editing workflow task"
-msgstr "A alterar a tarefa do fluxo de trabalho"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Tarefa '%(object)s' atualizada."
@@ -2075,9 +2071,23 @@ msgstr "Ordenar ordem de menu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Alterar a ordem das páginas-filha de '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Cabeçalho %(level)d"
+msgid "Heading 1"
+msgstr "Cabeçalho 1"
+
+msgid "Heading 2"
+msgstr "Cabeçalho 2"
+
+msgid "Heading 3"
+msgstr "Cabeçalho 3"
+
+msgid "Heading 4"
+msgstr "Cabeçalho 4"
+
+msgid "Heading 5"
+msgstr "Cabeçalho 5"
+
+msgid "Heading 6"
+msgstr "Cabeçalho 6"
 
 msgid "Bulleted list"
 msgstr "Lista de pontos"
@@ -2087,6 +2097,9 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Bloco de citação"
+
+msgid "Bold"
+msgstr "Negrito"
 
 msgid "Link"
 msgstr "Ligação"

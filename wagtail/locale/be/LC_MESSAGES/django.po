@@ -4,14 +4,15 @@
 #
 # Translators:
 # Andrei Satsevich, 2023
+# Andrei Satsevich, 2023
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 12:59+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Andrei Satsevich, 2023\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +83,9 @@ msgstr "Заблакавана"
 msgid "Unlocked"
 msgstr "Разблакавана"
 
+msgid "content type"
+msgstr "тып змесціва"
+
 msgid "live"
 msgstr "апублікавана"
 
@@ -115,9 +119,6 @@ msgstr "размешчана + запланаваная"
 msgid "live + draft"
 msgstr "апублікавана + чарнавік"
 
-msgid "Default"
-msgstr "Па змаўчанні"
-
 msgid "locked"
 msgstr "заблакавана"
 
@@ -126,6 +127,36 @@ msgstr "заблякаваны ў"
 
 msgid "locked by"
 msgstr "заблякаваны"
+
+msgid "collection"
+msgstr "калекцыя"
+
+msgid "collection view restriction"
+msgstr "абмежаванне на прагляд калекцыі"
+
+msgid "collection view restrictions"
+msgstr "абмежаванні на прагляд калекцыі"
+
+msgid "name"
+msgstr "імя"
+
+msgid "collections"
+msgstr "калекцыі"
+
+msgid "group"
+msgstr "група"
+
+msgid "permission"
+msgstr "права доступу"
+
+msgid "group collection permission"
+msgstr "права доступу да калекцыі ў гурта"
+
+msgid "group collection permissions"
+msgstr "правы доступу да калекцыі ў гурта"
+
+msgid "uploaded by user"
+msgstr "Запампована карыстальнікам"
 
 msgid "Add/edit pages you own"
 msgstr "Дадаць / рэдагаваць свае старонкі"
@@ -176,9 +207,6 @@ msgstr ""
 "Імя старонкі, якое будзе адлюстроўвацца ў URL, напрыклад http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "content type"
-msgstr "тып змесціва"
-
 msgid "URL path"
 msgstr "шлях URL"
 
@@ -203,24 +231,6 @@ msgstr "старонка"
 msgid "pages"
 msgstr "старонкі"
 
-msgid "created at"
-msgstr "створана"
-
-msgid "user"
-msgstr "карыстальнік"
-
-msgid "content JSON"
-msgstr "сожержимое JSON"
-
-msgid "approved go live at"
-msgstr "пацверджана да публікацыі"
-
-msgid "group"
-msgstr "група"
-
-msgid "permission"
-msgstr "права доступу"
-
 msgid "group page permission"
 msgstr "права на старонку ў гурта"
 
@@ -233,38 +243,23 @@ msgstr "абмежаванне на прагляд старонкі"
 msgid "page view restrictions"
 msgstr "абмежаванні на прагляд старонак"
 
-msgid "name"
-msgstr "імя"
-
-msgid "groups"
-msgstr "групы"
-
-msgid "Approve"
-msgstr "Пацвярдзіць"
-
 msgid "comment"
 msgstr "каментар"
 
-msgid "collection"
-msgstr "калекцыя"
+msgid "Default"
+msgstr "Па змаўчанні"
 
-msgid "collection view restriction"
-msgstr "абмежаванне на прагляд калекцыі"
+msgid "created at"
+msgstr "створана"
 
-msgid "collection view restrictions"
-msgstr "абмежаванні на прагляд калекцыі"
+msgid "user"
+msgstr "карыстальнік"
 
-msgid "collections"
-msgstr "калекцыі"
+msgid "content JSON"
+msgstr "сожержимое JSON"
 
-msgid "group collection permission"
-msgstr "права доступу да калекцыі ў гурта"
-
-msgid "group collection permissions"
-msgstr "правы доступу да калекцыі ў гурта"
-
-msgid "uploaded by user"
-msgstr "Запампована карыстальнікам"
+msgid "approved go live at"
+msgstr "пацверджана да публікацыі"
 
 msgid "hostname"
 msgstr "імя хаста"
@@ -324,11 +319,17 @@ msgstr "Публічна"
 msgid "Private, accessible to users in specific groups"
 msgstr "Прыватна, даступна для карыстальнікаў з названых груп"
 
+msgid "groups"
+msgstr "групы"
+
 msgid "view restriction"
 msgstr "абмежаванне на прагляд"
 
 msgid "view restrictions"
 msgstr "абмежаванні на прагляд"
+
+msgid "Approve"
+msgstr "Пацвярдзіць"
 
 msgid "Log in"
 msgstr "Увайсці"

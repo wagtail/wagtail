@@ -8,15 +8,19 @@
 # Loic Teixeira, 2024
 # Tarek Berkane, 2025
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2025
+# Ahmed Miske Sidi Med <boutien321@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2025\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/torchbox/teams/8009/ar/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Actions"
+msgstr "النشاطات"
 
 msgid "Alt text"
 msgstr "نص للمساعدة"

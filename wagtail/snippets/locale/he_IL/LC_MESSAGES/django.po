@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>, 2015\n"
 "Language-Team: Hebrew (Israel) (http://app.transifex.com/torchbox/wagtail/"
@@ -43,9 +43,6 @@ msgstr "ביטול תזרים עבודה"
 msgid "Unpublish"
 msgstr "ביטול פרסום"
 
-msgid "Delete"
-msgstr "מחק"
-
 msgid "Save"
 msgstr "שמור"
 
@@ -55,6 +52,9 @@ msgstr "נעול"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s ופרסום"
+
+msgid "Delete"
+msgstr "מחק"
 
 msgid "Yes, delete"
 msgstr "כן, מחק"

@@ -9,6 +9,7 @@
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020-2024
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015-2017,2020-2023
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2020-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Swedish (http://app.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -772,6 +773,9 @@ msgstr "Sajtsammanställning"
 msgid "Read the release notes."
 msgstr "Läs release notes"
 
+msgid "Close"
+msgstr "Stäng"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Dina sidor och snuttar i arbetsflöde"
 
@@ -783,9 +787,6 @@ msgstr "Förändringar begärdes vid"
 
 msgid "Awaiting"
 msgstr "Avvaktar"
-
-msgid "Close"
-msgstr "Stäng"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1536,10 +1537,6 @@ msgstr "Slutfördes vid"
 msgid "Clear"
 msgstr "Rensa"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Sida %(page_num)s av %(total_pages)s"
-
 msgid "Toggle breadcrumbs"
 msgstr "Växla sökvägsnavigering"
 
@@ -1602,6 +1599,10 @@ msgstr "Synlig för alla"
 
 msgid "Private. Visit the live page"
 msgstr "Privat. Besök live-sidan"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sida %(page_num)s av %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Växla sektion"
@@ -2043,9 +2044,6 @@ msgstr "Lägg till eller redigera länk"
 
 msgid "Text formatting"
 msgstr "Textformattering"
-
-msgid "Bold"
-msgstr "Fetstil"
 
 msgid "Italic"
 msgstr "Kursiv"
@@ -2563,9 +2561,6 @@ msgstr "Ny arbetsflödesuppgift"
 msgid "Task '%(object)s' created."
 msgstr "Uppgift '%(object)s' skapad."
 
-msgid "Editing workflow task"
-msgstr "Redigerar arbetsflödesuppgift"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Uppgift '%(object)s' uppdaterad."
@@ -2623,9 +2618,23 @@ msgstr "Sortera menyordning"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Ändra sortering på undersidor till '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Rubrik %(level)d"
+msgid "Heading 1"
+msgstr "Rubrik 1"
+
+msgid "Heading 2"
+msgstr "Rubrik 2"
+
+msgid "Heading 3"
+msgstr "Rubrik 3"
+
+msgid "Heading 4"
+msgstr "Rubrik 4"
+
+msgid "Heading 5"
+msgstr "Rubrik 5"
+
+msgid "Heading 6"
+msgstr "Rubrik 6"
 
 msgid "Bulleted list"
 msgstr "Punktlista"
@@ -2635,6 +2644,9 @@ msgstr "Numrerad lista"
 
 msgid "Blockquote"
 msgstr "Blockcitat"
+
+msgid "Bold"
+msgstr "Fetstil"
 
 msgid "Link"
 msgstr "Länk"

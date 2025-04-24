@@ -8,16 +8,17 @@
 # Kyu Choi, 2022
 # Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020,2022
-# Matt Westcott <matthew@torchbox.com>, 2018
+# Matt Westcott <matthew@torchbox.com>, 2018,2025
+# mirusu400, 2024
 # mirusu400, 2024
 # sl kim <vizuan@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -662,6 +663,9 @@ msgstr "날짜"
 msgid "Site summary"
 msgstr "사이트 요약"
 
+msgid "Close"
+msgstr "닫기"
+
 msgid "Task started"
 msgstr "업무 시작"
 
@@ -670,9 +674,6 @@ msgstr "변경이 로 요청되었습니다"
 
 msgid "Awaiting"
 msgstr "대기"
-
-msgid "Close"
-msgstr "닫기"
 
 msgid "Awaiting your review"
 msgstr "당신의 후기를 기다리는 중"
@@ -1311,10 +1312,6 @@ msgstr "업무 미완성"
 msgid "Completed at"
 msgstr "에 완료됨"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
-
 msgid "Toggle breadcrumbs"
 msgstr "부분 전환"
 
@@ -1371,6 +1368,10 @@ msgstr "모두에게 공개"
 
 msgid "Private. Visit the live page"
 msgstr "공개제한. 라이브 페이지를 방문하시오."
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "이 수정안의 예약 게시를 취소하시겠습니까?"
@@ -1700,9 +1701,6 @@ msgstr "재실행"
 
 msgid "Save changes"
 msgstr "변경점 저장"
-
-msgid "Bold"
-msgstr "굵게"
 
 msgid "Italic"
 msgstr "기울임꼴"
@@ -2124,9 +2122,6 @@ msgstr "새로운 워크플로우 작업"
 msgid "Task '%(object)s' created."
 msgstr "작업 '%(object)s' 생성됨"
 
-msgid "Editing workflow task"
-msgstr "워크플로우 작업 생성"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "작업 '%(object)s' 생성됨"
@@ -2181,9 +2176,23 @@ msgstr "메뉴 순서 분류"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "파생 페이지의 '%(title)s' 순서를 바꿈"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "머리말 %(level)d"
+msgid "Heading 1"
+msgstr "머리말 1"
+
+msgid "Heading 2"
+msgstr "머리말 2"
+
+msgid "Heading 3"
+msgstr "머리말 3"
+
+msgid "Heading 4"
+msgstr "머리말 4"
+
+msgid "Heading 5"
+msgstr "머리말 5"
+
+msgid "Heading 6"
+msgstr "머리말 6"
 
 msgid "Bulleted list"
 msgstr "머릿기호 목록"
@@ -2193,6 +2202,9 @@ msgstr "숫자 목록"
 
 msgid "Blockquote"
 msgstr "인용"
+
+msgid "Bold"
+msgstr "굵게"
 
 msgid "Link"
 msgstr "링크"

@@ -36,9 +36,10 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matthias Martin, 2019
 # Matthias Martin, 2019
+# mattibo, 2022
 # Matti Borchers, 2022
 # mattibo, 2022
-# Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015,2025
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Norman Uekermann <nue@melexis.com>, 2019
@@ -63,9 +64,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Christian González <christian.gonzalez@nerdocs.at>, 2025\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2015,2025\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -905,6 +906,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lesen Sie die Versionshinweise."
 
+msgid "Close"
+msgstr "Schließen"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Ihre Seiten und Schnipsel in einem Workflow"
 
@@ -916,9 +920,6 @@ msgstr "Änderungen angefordert bei"
 
 msgid "Awaiting"
 msgstr "Ausstehend"
-
-msgid "Close"
-msgstr "Schließen"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1846,13 +1847,6 @@ msgstr ""
 msgid "Choose when this page should go live and/or expire"
 msgstr "Wählen Sie aus, wann diese Seite live gehen und/oder ablaufen soll"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Dieser Veröffentlichungszeitplan tritt erst in Kraft, nachdem Sie die Option "
-"„Veröffentlichen“ ausgewählt haben"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Jeder mit Bearbeitungsberechtigungen kann Zeitpläne erstellen"
 
@@ -1968,10 +1962,6 @@ msgstr "Vervollständigt am"
 
 msgid "Clear"
 msgstr "Zurücksetzen"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Seite %(page_num)s von %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Konto-Avatar bearbeiten"
@@ -2102,6 +2092,10 @@ msgstr "Für alle sichtbar"
 
 msgid "Private. Visit the live page"
 msgstr "Privat. Live-Seite besuchen"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Seite %(page_num)s von %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Abschnitt ein-/ausblenden"
@@ -2236,9 +2230,6 @@ msgstr "Ungültiger Zeitplan"
 
 msgid "Go-live:"
 msgstr "Go-Live:"
-
-msgid "Once published:"
-msgstr "Sobald veröffentlicht:"
 
 msgid "No publishing schedule set"
 msgstr "Kein Veröffentlichungszeitplan festgelegt"
@@ -2642,9 +2633,6 @@ msgstr "Link einfügen oder bearbeiten"
 
 msgid "Text formatting"
 msgstr "Textformatierung"
-
-msgid "Bold"
-msgstr "Fett"
 
 msgid "Italic"
 msgstr "Kursiv"
@@ -3455,9 +3443,6 @@ msgstr "Neue Workflow-Aufgabe"
 msgid "Task '%(object)s' created."
 msgstr "Aufgabe ‚%(object)s‘ erstellt."
 
-msgid "Editing workflow task"
-msgstr "Bearbeite Workflow-Aufgabe"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Aufgabe ‚%(object)s‘ aktualisiert."
@@ -3535,9 +3520,23 @@ msgstr "Menüreihenfolge sortieren"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Reihenfolge der Unterseiten von %(title)s ändern"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Überschrift %(level)d"
+msgid "Heading 1"
+msgstr "Überschrift 1"
+
+msgid "Heading 2"
+msgstr "Überschrift 2"
+
+msgid "Heading 3"
+msgstr "Überschrift 3"
+
+msgid "Heading 4"
+msgstr "Überschrift 4"
+
+msgid "Heading 5"
+msgstr "Überschrift 5"
+
+msgid "Heading 6"
+msgstr "Überschrift 6"
 
 msgid "Bulleted list"
 msgstr "Aufzählung"
@@ -3547,6 +3546,9 @@ msgstr "Nummerierte Liste"
 
 msgid "Blockquote"
 msgstr "Blockzitat"
+
+msgid "Bold"
+msgstr "Fett"
 
 msgid "Link"
 msgstr "Link"

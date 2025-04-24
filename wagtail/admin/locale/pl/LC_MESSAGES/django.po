@@ -12,7 +12,7 @@
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Mateusz <undefined5102@gmail.com>, 2015
-# Matt Westcott <matthew@torchbox.com>, 2018
+# Matt Westcott <matthew@torchbox.com>, 2018,2025
 # Miłosz Miśkiewicz, 2017-2023
 # Miłosz Miśkiewicz, 2016-2017
 # Piotr Moskal <piotrmoskal2011@gmail.com>, 2022
@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2022-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -849,6 +849,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Przeczytaj notatki do wydania."
 
+msgid "Close"
+msgstr "Zamknij"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Twoje strony i skrawki w procesie"
 
@@ -860,9 +863,6 @@ msgstr "Zmiany zażądane dnia"
 
 msgid "Awaiting"
 msgstr "Oczekujące"
-
-msgid "Close"
-msgstr "Zamknij"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1823,10 +1823,6 @@ msgstr "Zakończono dnia"
 msgid "Clear"
 msgstr "Wyczyść"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Strona %(page_num)s z %(total_pages)s"
-
 msgid "Edit account avatar"
 msgstr "Edytuj awatar konta"
 
@@ -1935,6 +1931,10 @@ msgstr "Widoczna dla wszystkich"
 
 msgid "Private. Visit the live page"
 msgstr "Prywatna. Odwiedź stronę online"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Strona %(page_num)s z %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Przełącz sekcję"
@@ -2069,9 +2069,6 @@ msgstr "Niepoprawny plan"
 
 msgid "Go-live:"
 msgstr "Idź online:"
-
-msgid "Once published:"
-msgstr "Kiedy opublikowana:"
 
 msgid "No publishing schedule set"
 msgstr "Bez planu publikacji"
@@ -2465,9 +2462,6 @@ msgstr "Dodaj lub edytuj link"
 
 msgid "Text formatting"
 msgstr "Format tekstu"
-
-msgid "Bold"
-msgstr "Pogrubienie"
 
 msgid "Italic"
 msgstr "Kursywa"
@@ -3071,9 +3065,6 @@ msgstr "Nowe zadanie w procesie"
 msgid "Task '%(object)s' created."
 msgstr "Zadanie '%(object)s' utworzone."
 
-msgid "Editing workflow task"
-msgstr "Edycja zadań w procesie"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Zadanie '%(object)s' zaktualizowane."
@@ -3157,9 +3148,23 @@ msgstr "Sortuj menu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Zmień kolejność stron podrzędnych od '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Nagłówek %(level)d"
+msgid "Heading 1"
+msgstr "Nagłówek 1"
+
+msgid "Heading 2"
+msgstr "Nagłówek 2"
+
+msgid "Heading 3"
+msgstr "Nagłówek 3"
+
+msgid "Heading 4"
+msgstr "Nagłówek 4"
+
+msgid "Heading 5"
+msgstr "Nagłówek 5"
+
+msgid "Heading 6"
+msgstr "Nagłówek 6"
 
 msgid "Bulleted list"
 msgstr "Lista wypunktowana"
@@ -3169,6 +3174,9 @@ msgstr "Lista numeryczna"
 
 msgid "Blockquote"
 msgstr "Cytat"
+
+msgid "Bold"
+msgstr "Pogrubienie"
 
 msgid "Link"
 msgstr "Link"

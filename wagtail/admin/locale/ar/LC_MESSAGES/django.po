@@ -10,11 +10,15 @@
 # Amr Awad <amro.khir@gmail.com>, 2020
 # HossamElDin Mohamed <garo5070@gmail.com>, 2021
 # Mahmoud Marayef, 2023
+# Mahmoud Marayef, 2023
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # Tarek Berkane, 2025
+# Tarek Berkane, 2025
 # ultraify media <ultraify@gmail.com>, 2018
+# Waseem Kntar, 2023
 # Waseem Kntar, 2023
 # Younes Oumakhou, 2022
 # Younes Oumakhou, 2022
@@ -22,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Tarek Berkane, 2025\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -805,10 +809,6 @@ msgstr "مستعمل"
 msgid "Edit this item"
 msgstr "تحرير هذا العنصر"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "صفحة %(page_num)s من %(total_pages)s"
-
 msgid "Continue"
 msgstr "أكمل"
 
@@ -820,6 +820,10 @@ msgstr "تنزيل ملف CSV"
 
 msgid "Filter"
 msgstr "فلتر"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "صفحة %(page_num)s من %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "هل أنت متأكد من أنك تريد إلغاء هذه المراجعة؟"
@@ -891,9 +895,6 @@ msgstr "تراجع"
 
 msgid "Redo"
 msgstr "للامام"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
@@ -1110,15 +1111,32 @@ msgstr "حذف الصفحة '%(title)s'"
 msgid "Unpublish page '%(title)s'"
 msgstr "إلغاء نشر الصفحة '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "ترويسة %(level)d"
+msgid "Heading 1"
+msgstr "ترويسة 1"
+
+msgid "Heading 2"
+msgstr "ترويسة 2"
+
+msgid "Heading 3"
+msgstr "ترويسة 3"
+
+msgid "Heading 4"
+msgstr "ترويسة 4"
+
+msgid "Heading 5"
+msgstr "ترويسة 5"
+
+msgid "Heading 6"
+msgstr "ترويسة 6"
 
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"
 
 msgid "Numbered list"
 msgstr "قائمة مرقمة"
+
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Link"
 msgstr "رابط"

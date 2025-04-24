@@ -37,6 +37,9 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixel"
 
+msgid "Actions"
+msgstr "Akciók"
+
 msgid "Add a comment"
 msgstr "Megjegyzés hozzáadása"
 

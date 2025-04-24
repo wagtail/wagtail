@@ -7,6 +7,7 @@
 # Amir Mahmoodi, 2022-2023
 # Bardia, 2024
 # Bardia, 2024
+# Bardia, 2024
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2020
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Bardia, 2024\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -741,6 +742,9 @@ msgstr "خلاصه سایت"
 msgid "Read the release notes."
 msgstr "خواندن یادداشت های انتشار."
 
+msgid "Close"
+msgstr "بستن"
+
 msgid "Task started"
 msgstr "دستورالعمل آغاز شده"
 
@@ -749,9 +753,6 @@ msgstr "تغییرات درخواست شده در"
 
 msgid "Awaiting"
 msgstr "در انتظار"
-
-msgid "Close"
-msgstr "بستن"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1123,10 +1124,6 @@ msgstr "شروع شده در"
 msgid "Completed at"
 msgstr "پایان یافته در"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "صفحه %(page_num)s از %(total_pages)s"
-
 msgid "Breadcrumb"
 msgstr "خرده نان"
 
@@ -1150,6 +1147,10 @@ msgstr "وضعیت فعلی صفحه"
 
 msgid "Visit the live page"
 msgstr "دیدن صفحه منتشر شده"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "صفحه %(page_num)s از %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "آیا مطمئن هستید که می‌خواهید زمانبندی این بازنگری را حذف کنید؟"

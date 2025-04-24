@@ -4,11 +4,13 @@
 #
 # Translators:
 # Arthur Sturzbecher, 2024
+# Arthur Sturzbecher, 2024
 # Bruno Bertoldi <bruno.bertoldi@gmail.com>, 2017
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
 # Éder Brito <britoederr@gmail.com>, 2021
 # Ed Wurch <ewurch@gmail.com>, 2021
+# Felipe Lobato, 2023
 # Felipe Lobato, 2023
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gilson Filho <me@gilsondev.in>, 2014
@@ -17,19 +19,21 @@
 # Gustavo Simões, 2022
 # Gustavo Simões, 2022
 # Hernandison Da Silva Bispo, 2023
+# Hernandison Da Silva Bispo, 2023
 # Iuri L. Machado, 2021-2022
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024
 # Marcio Mazza <marciomazza@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Vitor Hugo da Silva Lima <silvalimavitorhugo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2021,2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -820,6 +824,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Leia as notas de lançamento."
 
+msgid "Close"
+msgstr "Fechar"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Suas páginas e snippets em um fluxo de trabalho"
 
@@ -831,9 +838,6 @@ msgstr "Alterações solicitadas em"
 
 msgid "Awaiting"
 msgstr "Aguardando"
-
-msgid "Close"
-msgstr "Fechar"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1478,13 +1482,6 @@ msgstr "Escolha quando isso %(model_name)s deve entrar no ar e/ou expirar"
 msgid "Choose when this page should go live and/or expire"
 msgstr "Escolha quando esta página deve entrar no ar e/ou expirar"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Este cronograma de publicação só entrará em vigor após você selecionar a "
-"opção \"Publicar\""
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Qualquer pessoa com permissão de edição pode criar conteúdo programado"
 
@@ -1600,10 +1597,6 @@ msgstr "Concluído em"
 msgid "Clear"
 msgstr "Claro"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Página %(page_num)s de %(total_pages)s"
-
 msgid "Edit account avatar"
 msgstr "Editar avatar da conta"
 
@@ -1695,6 +1688,10 @@ msgstr "Visível para todos"
 
 msgid "Private. Visit the live page"
 msgstr "Privado. Visite a página ao vivo"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Página %(page_num)s de %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Alternar seção"
@@ -1824,9 +1821,6 @@ msgstr "Agendamento inválido"
 
 msgid "Go-live:"
 msgstr "No ar:"
-
-msgid "Once published:"
-msgstr "Depois de publicado:"
 
 msgid "No publishing schedule set"
 msgstr "Nenhum cronograma de publicação definido"
@@ -2193,9 +2187,6 @@ msgstr "Inserir ou editar um link"
 
 msgid "Text formatting"
 msgstr "Formatação de texto"
-
-msgid "Bold"
-msgstr "Negrito"
 
 msgid "Italic"
 msgstr "Itálico"
@@ -2896,9 +2887,6 @@ msgstr "Nova tarefa de fluxo de trabalho"
 msgid "Task '%(object)s' created."
 msgstr "Tarefa '%(object)s' criada."
 
-msgid "Editing workflow task"
-msgstr "Editando tarefa de fluxo de trabalho"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Tarefa '%(object)s' atualizada."
@@ -2956,9 +2944,23 @@ msgstr "Ordem do menu de classificação "
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Alterar a ordem das páginas filhas de '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Cabeçalho %(level)d"
+msgid "Heading 1"
+msgstr "Cabeçalho 1"
+
+msgid "Heading 2"
+msgstr "Cabeçalho 2"
+
+msgid "Heading 3"
+msgstr "Cabeçalho 3"
+
+msgid "Heading 4"
+msgstr "Cabeçalho 4"
+
+msgid "Heading 5"
+msgstr "Cabeçalho 5"
+
+msgid "Heading 6"
+msgstr "Cabeçalho 6"
 
 msgid "Bulleted list"
 msgstr "Lista com marcadores"
@@ -2968,6 +2970,9 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Bloco de citação"
+
+msgid "Bold"
+msgstr "Negrito"
 
 msgid "Link"
 msgstr "Link"

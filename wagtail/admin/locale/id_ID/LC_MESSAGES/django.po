@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: atmosuwiryo <suwiryo.atmo@gmail.com>, 2019\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -420,11 +420,11 @@ msgstr "Tanggal"
 msgid "Site summary"
 msgstr "Ringkasan situs"
 
-msgid "Awaiting"
-msgstr "Menunggu"
-
 msgid "Close"
 msgstr "Tutup"
+
+msgid "Awaiting"
+msgstr "Menunggu"
 
 msgid "Awaiting your review"
 msgstr "Menunggu tinjauan anda"
@@ -642,10 +642,6 @@ msgstr "Dimulai pada"
 msgid "Completed at"
 msgstr "Diselesaikan pada"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Halaman %(page_num)s dari %(total_pages)s"
-
 msgid "Continue"
 msgstr "Lanjut"
 
@@ -654,6 +650,10 @@ msgstr "Unduh CSV"
 
 msgid "Filter"
 msgstr "Saring"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Halaman %(page_num)s dari %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Apakah Anda yakin untuk menghapus jadwal pada revisi ini?"
@@ -715,9 +715,6 @@ msgstr "Urungkan"
 
 msgid "Redo"
 msgstr "Ulangi"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
@@ -887,6 +884,9 @@ msgstr "Daftar Bullet"
 
 msgid "Numbered list"
 msgstr "Daftar Bernomor"
+
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Link"
 msgstr "Tautan"

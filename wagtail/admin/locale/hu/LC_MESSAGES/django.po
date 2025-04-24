@@ -9,15 +9,16 @@
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Patrik Radics, 2022
 # Patrik Radics, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -839,6 +840,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Frissítési dokumentáció megtekintése."
 
+msgid "Close"
+msgstr "Bezár"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Munkafolyamatban lévő oldalak és elemek"
 
@@ -850,9 +854,6 @@ msgstr "Változtatások kérése:"
 
 msgid "Awaiting"
 msgstr "Várakozik"
-
-msgid "Close"
-msgstr "Bezár"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1766,11 +1767,6 @@ msgstr ""
 msgid "Choose when this page should go live and/or expire"
 msgstr "Válassza ki, hogy az oldal mikor lesz közzétéve vagy eltüntetve"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr "Az időzítés csak akkor működik, ha az adott tartalom közzé van téve"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Bárki, akinek szerkesztési joga van, tud időzíteni"
 
@@ -1886,10 +1882,6 @@ msgstr "Befejezve: "
 
 msgid "Clear"
 msgstr "Alapállapot"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "%(page_num)s/%(total_pages)s. oldal"
 
 msgid "Edit account avatar"
 msgstr "Fiók profilkép szerkesztése"
@@ -2018,6 +2010,10 @@ msgstr "Látható mindenkinek"
 
 msgid "Private. Visit the live page"
 msgstr "Privát. Élő oldal megtekintése"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s/%(total_pages)s. oldal"
 
 msgid "Toggle section"
 msgstr "Szekció kapcsolása"
@@ -2150,9 +2146,6 @@ msgstr "Érvénytelen időzítés"
 
 msgid "Go-live:"
 msgstr "Megjelenés:"
-
-msgid "Once published:"
-msgstr "Egyszer közzétéve: "
 
 msgid "No publishing schedule set"
 msgstr "Nincs közzététel időzítve"
@@ -2550,9 +2543,6 @@ msgstr "Hivatkozás beillesztése vagy szerkesztése"
 
 msgid "Text formatting"
 msgstr "Szövegformázás"
-
-msgid "Bold"
-msgstr "Félkövér"
 
 msgid "Italic"
 msgstr "Dőlt"
@@ -3346,9 +3336,6 @@ msgstr "Új munkafolyamat feladat"
 msgid "Task '%(object)s' created."
 msgstr "'%(object)s' feladat létrehozva."
 
-msgid "Editing workflow task"
-msgstr "Munkafolyamat feladat szerkesztése"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "'%(object)s' feladat frissítve."
@@ -3424,9 +3411,23 @@ msgstr "Menü sorrend rendezése"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Fejléc %(level)d"
+msgid "Heading 1"
+msgstr "Fejléc 1"
+
+msgid "Heading 2"
+msgstr "Fejléc 2"
+
+msgid "Heading 3"
+msgstr "Fejléc 3"
+
+msgid "Heading 4"
+msgstr "Fejléc 4"
+
+msgid "Heading 5"
+msgstr "Fejléc 5"
+
+msgid "Heading 6"
+msgstr "Fejléc 6"
 
 msgid "Bulleted list"
 msgstr "Lista"
@@ -3436,6 +3437,9 @@ msgstr "Sorszámozott lista"
 
 msgid "Blockquote"
 msgstr "Idézet"
+
+msgid "Bold"
+msgstr "Félkövér"
 
 msgid "Link"
 msgstr "Link"

@@ -9,17 +9,18 @@
 # Andrej Marsetič, 2022-2024
 # andrej55 <andrej.marsetic@gmail.com>, 2022
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
-# UP, 2021
+# UP, 2021,2023
 # UP, 2021,2023
 # UP, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -806,6 +807,9 @@ msgstr "Povzetek spletnega mesta"
 msgid "Read the release notes."
 msgstr "Preberite opombe ob izdaji."
 
+msgid "Close"
+msgstr "Zapri"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Vaše strani in delci v procesu dela"
 
@@ -817,9 +821,6 @@ msgstr "Zahtevane spremembe na"
 
 msgid "Awaiting"
 msgstr "Čakanje"
-
-msgid "Close"
-msgstr "Zapri"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1452,11 +1453,6 @@ msgstr "Izberite, kdaj naj bo ta %(model_name)s aktiven in/ali poteče"
 msgid "Choose when this page should go live and/or expire"
 msgstr "Izberite, kdaj naj bo ta stran objavljena in/ali poteče"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr "Ta urnik objave bo začel veljati šele, ko izberete možnost »Objavi«."
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Vsakdo z dovoljenji za urejanje lahko načrtuje objavo"
 
@@ -1570,10 +1566,6 @@ msgstr "Zaključeno ob"
 
 msgid "Clear"
 msgstr "Počisti"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Stran %(page_num)s od %(total_pages)s"
 
 msgid "Toggle breadcrumbs"
 msgstr "Preklop navigacijske sledi"
@@ -1689,6 +1681,10 @@ msgstr "Vidno vsem"
 
 msgid "Private. Visit the live page"
 msgstr "Zasebno. Obiščite stran v živo"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Stran %(page_num)s od %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Preklop razdelka"
@@ -1821,9 +1817,6 @@ msgstr "Neveljaven urnik"
 
 msgid "Go-live:"
 msgstr "Objava v živo:"
-
-msgid "Once published:"
-msgstr "Ko je objavljeno: "
 
 msgid "No publishing schedule set"
 msgstr "Razpored objave ni nastavljen"
@@ -2184,9 +2177,6 @@ msgstr "Vstavljanje ali urejanje povezave"
 
 msgid "Text formatting"
 msgstr "Oblikovanje besedila"
-
-msgid "Bold"
-msgstr "Krepko"
 
 msgid "Italic"
 msgstr "Ležeče"
@@ -2831,9 +2821,6 @@ msgstr "Nova naloga poteka dela"
 msgid "Task '%(object)s' created."
 msgstr "Naloga '%(object)s' ustvarjena."
 
-msgid "Editing workflow task"
-msgstr "Urejanje nalog poteka dela"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Naloga '%(object)s' posodobljena."
@@ -2917,9 +2904,23 @@ msgstr "Vrstni red menija"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Spremenite vrstni red podrejenih strani '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Naslovnica%(level)d"
+msgid "Heading 1"
+msgstr "Naslovnica 1"
+
+msgid "Heading 2"
+msgstr "Naslovnica 2"
+
+msgid "Heading 3"
+msgstr "Naslovnica 3"
+
+msgid "Heading 4"
+msgstr "Naslovnica 4"
+
+msgid "Heading 5"
+msgstr "Naslovnica 5"
+
+msgid "Heading 6"
+msgstr "Naslovnica 6"
 
 msgid "Bulleted list"
 msgstr "Označen seznam"
@@ -2929,6 +2930,9 @@ msgstr "Oštevilčen seznam"
 
 msgid "Blockquote"
 msgstr "Blockquote"
+
+msgid "Bold"
+msgstr "Krepko"
 
 msgid "Link"
 msgstr "Povezava"

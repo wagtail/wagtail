@@ -4,6 +4,7 @@
 #
 # Translators:
 # 508284b2a01981502bb2ffa4487c4782_15a12bb <68ad71d10bcbf1844ad453a9a62b629b_337284>, 2015
+# 508284b2a01981502bb2ffa4487c4782_15a12bb <68ad71d10bcbf1844ad453a9a62b629b_337284>, 2015
 # Benjamin Van Renterghem <benjaaa.vr@gmail.com>, 2020
 # Benjamin Van Renterghem <benjaaa.vr@gmail.com>, 2020
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
@@ -17,12 +18,13 @@
 # Maarten Kling <kling.maarten@gmail.com>, 2023
 # mahulst, 2014
 # mahulst, 2014
-# Matt Westcott <matthew@torchbox.com>, 2022
+# Matt Westcott <matthew@torchbox.com>, 2022,2025
 # Meteor0id, 2019,2021
 # Meteor0id, 2021
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
 # Ramon de Jezus <rdejezus@leukeleu.nl>, 2020
+# Richard Voorhorst, 2024
 # Richard Voorhorst, 2024
 # Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
@@ -34,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2025\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022,2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -862,6 +864,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lees de release notes"
 
+msgid "Close"
+msgstr "Sluit"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Jouw pagina's en snippets in een workflow"
 
@@ -873,9 +878,6 @@ msgstr "Wijzigingsverzoek op"
 
 msgid "Awaiting"
 msgstr "In afwachting"
-
-msgid "Close"
-msgstr "Sluit"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1785,13 +1787,6 @@ msgstr "Kies wanneer '%(model_name)s' gepubliceerd moet worden en/of verloopt"
 msgid "Choose when this page should go live and/or expire"
 msgstr "Kies wanneer deze pagina live moet gaan en/of moet verlopen"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Dit publicatieschema wordt pas van kracht nadat je op 'publiceren' hebt "
-"geklikt"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Iedereen met bewerkingsrechten kan schema's maken"
 
@@ -1906,10 +1901,6 @@ msgstr "Afgerond op"
 
 msgid "Clear"
 msgstr "Leegmaken"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Pagina %(page_num)s van %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Bewerk account avatar"
@@ -2038,6 +2029,10 @@ msgstr "Zichtbaar voor iedereen"
 
 msgid "Private. Visit the live page"
 msgstr "Afgeschermd. Bekijk de live-versie."
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pagina %(page_num)s van %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Toon/verberg sectie"
@@ -2170,9 +2165,6 @@ msgstr "Publicatieschema is niet geldig"
 
 msgid "Go-live:"
 msgstr "Live-gang:"
-
-msgid "Once published:"
-msgstr "Eenmaal gepubliceerd:"
 
 msgid "No publishing schedule set"
 msgstr "Geen schema voor publicatie vastgesteld"
@@ -2569,9 +2561,6 @@ msgstr "Link invoegen of wijzigen"
 
 msgid "Text formatting"
 msgstr "Tekst opmaken"
-
-msgid "Bold"
-msgstr "Bold"
 
 msgid "Italic"
 msgstr "Italic"
@@ -3364,9 +3353,6 @@ msgstr "Nieuwe workflow taak"
 msgid "Task '%(object)s' created."
 msgstr "Taak '%(object)s' aangemaakt."
 
-msgid "Editing workflow task"
-msgstr "Workflow taak bewerken"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Taak '%(object)s' gewijzigd."
@@ -3444,9 +3430,23 @@ msgstr "Sortering aanpassen"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Verander volgorde van onderliggende pagina's van '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Kop %(level)d"
+msgid "Heading 1"
+msgstr "Kop 1"
+
+msgid "Heading 2"
+msgstr "Kop 2"
+
+msgid "Heading 3"
+msgstr "Kop 3"
+
+msgid "Heading 4"
+msgstr "Kop 4"
+
+msgid "Heading 5"
+msgstr "Kop 5"
+
+msgid "Heading 6"
+msgstr "Kop 6"
 
 msgid "Bulleted list"
 msgstr "Lijst met opsommingstekens"
@@ -3456,6 +3456,9 @@ msgstr "Genummerde lijst"
 
 msgid "Blockquote"
 msgstr "Blokquote"
+
+msgid "Bold"
+msgstr "Bold"
 
 msgid "Link"
 msgstr "Link"

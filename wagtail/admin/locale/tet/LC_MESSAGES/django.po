@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -612,10 +612,6 @@ msgstr "Xavi tiha ona"
 msgid "Name"
 msgstr "Naran"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Pajina %(page_num)s husi %(total_pages)s"
-
 msgid "Breadcrumb"
 msgstr "Hatudu dalan korta"
 
@@ -633,6 +629,10 @@ msgstr "Status pajina dadaun"
 
 msgid "Visit the live page"
 msgstr "Vizita pajina publiku"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pajina %(page_num)s husi %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ita serteza hakarak hamoos orariu revizaun nee?"

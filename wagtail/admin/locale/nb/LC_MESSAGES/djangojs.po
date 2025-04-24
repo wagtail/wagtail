@@ -1,19 +1,22 @@
 #
 # Translators:
 # Robin Skahjem-Eriksen <robinds@student.matnat.uio.no>, 2022
-# Stein Strindhaug <stein.strindhaug@gmail.com>, 2022
 # Jonathan D, 2023
 # Loic Teixeira, 2024
 # Eirik Krogstad <eirikkr@gmail.com>, 2025
+# Stein Strindhaug <stein.strindhaug@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2025\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>, 2025\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/torchbox/teams/"
 "8009/nb/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Actions"
+msgstr "Handlinger"
 
 msgid "Alt text"
 msgstr "Alt-tekst"

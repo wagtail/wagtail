@@ -4,15 +4,16 @@
 #
 # Translators:
 # Joren Štekeļs, 2024
+# Joren Štekeļs, 2024
 # Maris Serzans <maris.serzans@gmail.com>, 2015
 # Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Joren Štekeļs, 2024\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>, 2015\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -518,6 +519,9 @@ msgstr "Datums"
 msgid "Site summary"
 msgstr "Kopsavilkums"
 
+msgid "Close"
+msgstr "Aizvērt"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Jūsu lapas un fragmenti darbplūsmā"
 
@@ -529,9 +533,6 @@ msgstr "Pieprasītās izmaiņas"
 
 msgid "Awaiting"
 msgstr "Gaida"
-
-msgid "Close"
-msgstr "Aizvērt"
 
 msgid "Awaiting your review"
 msgstr "Gaida jūsu pārbaudi"
@@ -724,15 +725,15 @@ msgstr "Neviena lapa/fragments vēl netika iesniegts moderēšanai"
 msgid "Completed at"
 msgstr "Pabeigts plkst."
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām"
-
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"
 
 msgid "Filter"
 msgstr "Atsijāt"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s. lapa  no %(total_pages)s. lapām"
 
 msgid "Other searches"
 msgstr "Citi meklējumi"

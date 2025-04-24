@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: X Bello <xbello@gmail.com>, 2022-2025\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
@@ -55,6 +55,17 @@ msgstr "Páxina bloqueada"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s e Publicar"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "algo"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
 
 msgid "Wagtail admin"
 msgstr "Administrador de Wagtail"
@@ -406,6 +417,12 @@ msgstr "Seleccionados tódolos ítems do listado"
 
 msgid "Can access Wagtail admin"
 msgstr "Pode entrar no admin de Wagtail"
+
+msgid "item"
+msgstr "elemento"
+
+msgid "items"
+msgstr "elementos"
 
 msgid "Content"
 msgstr "Contido"
@@ -833,6 +850,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lee as notas da versión"
 
+msgid "Close"
+msgstr "Pechar"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "As túas páxinas e fragmentos nun fluxo de traballo"
 
@@ -844,9 +864,6 @@ msgstr "Cambios requeridos en"
 
 msgid "Awaiting"
 msgstr "Agardando"
-
-msgid "Close"
-msgstr "Pechar"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1178,8 +1195,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "O cambio de privacidade para esta páxina deshabilitouse."
 
+msgid "Scheduling…"
+msgstr "Axendando…"
+
 msgid "Publishing…"
 msgstr "Publicando..."
+
+msgid "Schedule to publish"
+msgstr "Axendar para publicar"
 
 msgid "Publish this version"
 msgstr "Publicar esta versión"
@@ -1747,10 +1770,10 @@ msgstr "Escolle cándo debería esta páxina verse en vivo e/ou caducar"
 
 msgid ""
 "This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"\"Schedule to publish\" option"
 msgstr ""
-"Este adiamento de publicación so terá efectos despóis de que selecciones a "
-"opción \"Publicar\""
+"Este aprazamento da publicación so terá efecto despóis de que escollas a "
+"opción \"Axendar para publicar\""
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Calquera con permisos de edición pode crear adiamentos"
@@ -1863,12 +1886,14 @@ msgstr "Aínda non se enviaron páxinas nin fragmentos á moderación."
 msgid "Completed at"
 msgstr "Completado o"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
+
 msgid "Clear"
 msgstr "Limpar"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Páxina %(page_num)s de %(total_pages)s"
 
 msgid "Edit account avatar"
 msgstr "Editar avatar da conta"
@@ -1995,6 +2020,10 @@ msgstr "Visible para todos"
 
 msgid "Private. Visit the live page"
 msgstr "Privada. Visitar a páxina en vivo"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Páxina %(page_num)s de %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Permutar sección"
@@ -2127,8 +2156,8 @@ msgstr "Adiamento inválido"
 msgid "Go-live:"
 msgstr "Verse en vivo:"
 
-msgid "Once published:"
-msgstr "Unha vez publicada:"
+msgid "Once scheduled:"
+msgstr "Unha vez axendado:"
 
 msgid "No publishing schedule set"
 msgstr "Non se configurou adiamento de publicación"
@@ -2518,6 +2547,9 @@ msgstr "Refacer"
 msgid "Save changes"
 msgstr "Gardar cambios"
 
+msgid "Add or show comments"
+msgstr "Engadir ou mostrar comentarios"
+
 msgid "Text content"
 msgstr "Contido de texto"
 
@@ -2526,9 +2558,6 @@ msgstr "Insertar ou editar un enlace"
 
 msgid "Text formatting"
 msgstr "Formatear texto"
-
-msgid "Bold"
-msgstr "Grosa"
 
 msgid "Italic"
 msgstr "Cursiva"
@@ -2571,6 +2600,9 @@ msgstr "Selecións"
 
 msgid "Toggle preview"
 msgstr "Permutar previsualización"
+
+msgid "(blank)"
+msgstr "(vacío)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2637,6 +2669,10 @@ msgstr "O texto alternativo da imaxe ten un patrón inapropiado"
 
 msgid "Use meaningful text"
 msgstr "Usa un texto con sentido"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "Obxeto %(classname)s (%(id)s)"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -3165,6 +3201,9 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "Páxina '%(page_title)s' movida."
 
+msgid "Placeholder title"
+msgstr "Marca de posición de título"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
@@ -3316,9 +3355,6 @@ msgstr "Nova tarefa de fluxo de traballo"
 msgid "Task '%(object)s' created."
 msgstr "Tarefa '%(object)s' creada."
 
-msgid "Editing workflow task"
-msgstr "Editando tarefa de fluxo de traballo"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Tarefa '%(object)s' actualizada."
@@ -3396,9 +3432,23 @@ msgstr "Axustar orde do menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambiar orde das páxinas fillas de '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Cabeceira %(level)d"
+msgid "Heading 1"
+msgstr "Encabezado 1"
+
+msgid "Heading 2"
+msgstr "Encabezado 2"
+
+msgid "Heading 3"
+msgstr "Encabezado 3"
+
+msgid "Heading 4"
+msgstr "Encabezado 4"
+
+msgid "Heading 5"
+msgstr "Encabezado 5"
+
+msgid "Heading 6"
+msgstr "Encabezado 6"
 
 msgid "Bulleted list"
 msgstr "Lista de viñetas"
@@ -3408,6 +3458,9 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Cita en bloque"
+
+msgid "Bold"
+msgstr "Grosa"
 
 msgid "Link"
 msgstr "Enlace"

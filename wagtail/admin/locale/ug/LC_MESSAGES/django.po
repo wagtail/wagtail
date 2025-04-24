@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Azat, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -816,6 +816,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "تارقىتىش باياناتىنى ئوقۇڭ."
 
+msgid "Close"
+msgstr "ياپ"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "خىزمەت ئېقىمىدىكى بەت ۋە پۇرۇچلىرىڭىز"
 
@@ -827,9 +830,6 @@ msgstr "ئۆزگەرتىش ئىلتىماس قىلىنغان ۋاقىت"
 
 msgid "Awaiting"
 msgstr "كۈتۈۋاتىدۇ"
-
-msgid "Close"
-msgstr "ياپ"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1710,13 +1710,6 @@ msgstr ""
 msgid "Choose when this page should go live and/or expire"
 msgstr "بۇ بەت بىۋاسىتە تارقىتىلغاندا ۋە ياكى ۋاقتى ئۆتكەندە تاللىنىدۇ"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"بۇ تارقىتىش كۈنتەرتىپى پەقەت «تارقات» تاللانمىسى تاللانغاندىن كېيىن ئاندىن "
-"كۈچكە ئىگە بولىدۇ"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "تەھرىرلەش ئىجازىتى بار ھەر كىم كۈنتەرتىپ قۇرالايدۇ"
 
@@ -1830,10 +1823,6 @@ msgstr "تاماملانغان ۋاقىت"
 
 msgid "Clear"
 msgstr "تازىلا"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "%(page_num)s / %(total_pages)s بەت"
 
 msgid "Edit account avatar"
 msgstr "ھېسابات سىماسىنى تەھرىرلەيدۇ"
@@ -1961,6 +1950,10 @@ msgstr "ھەممەيلەن كۆرەلەيدۇ"
 
 msgid "Private. Visit the live page"
 msgstr "شەخسىي. شۇئان بەت زىيارىتى"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s / %(total_pages)s بەت"
 
 msgid "Toggle section"
 msgstr "بۆلەك ئالماشتۇر"
@@ -2091,9 +2084,6 @@ msgstr "ئىناۋەتسىز كۈنتەرتىپ"
 
 msgid "Go-live:"
 msgstr "نەق مەيدانغا يۆتكەل:"
-
-msgid "Once published:"
-msgstr "تارقىتىلغان:"
 
 msgid "No publishing schedule set"
 msgstr "تارقىتىش كۈنتەرتىپى تەڭشەلمىگەن"
@@ -2491,9 +2481,6 @@ msgstr "ئۇلانما  قىستۇر ياكى تەھرىر"
 
 msgid "Text formatting"
 msgstr "تېكىست پىچىمى"
-
-msgid "Bold"
-msgstr "توم"
 
 msgid "Italic"
 msgstr "يانتۇ"
@@ -3223,9 +3210,6 @@ msgstr "يېڭى خىزمەت ئېقىمى ۋەزىپىسى"
 msgid "Task '%(object)s' created."
 msgstr "«%(object)s» ۋەزىپە قۇرۇلدى."
 
-msgid "Editing workflow task"
-msgstr "يېڭى خىزمەت ئېقىمى ۋەزىپىسىنى تەھرىرلەۋاتىدۇ"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "«%(object)s» ۋەزىپە يېڭىلاندى."
@@ -3301,10 +3285,6 @@ msgstr "تىزىملىك تەرتىپىنى تەرتىپلە"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "«%(title)s» نىڭ بالا بېتىنىڭ تەرتىپىنى ئۆزگەرتىدۇ"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "%(level)d ماۋزۇ"
-
 msgid "Bulleted list"
 msgstr "بەلگە تىزىم"
 
@@ -3313,6 +3293,9 @@ msgstr "رەقەملىك تىزىم"
 
 msgid "Blockquote"
 msgstr "بۆلەك نەقىل"
+
+msgid "Bold"
+msgstr "توم"
 
 msgid "Link"
 msgstr "ئۇلانما"

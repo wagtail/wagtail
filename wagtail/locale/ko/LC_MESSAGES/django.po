@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 12:59+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -82,6 +82,9 @@ msgstr "잠겨 있는"
 msgid "Unlocked"
 msgstr "잠금 풀림"
 
+msgid "content type"
+msgstr "콘텐트 타입"
+
 msgid "live"
 msgstr "라이브"
 
@@ -115,18 +118,6 @@ msgstr "라이브 + 예약됨"
 msgid "live + draft"
 msgstr "라이브 + 초안"
 
-msgid "Default"
-msgstr "기본값"
-
-msgid "Preview in mobile size"
-msgstr "모바일 미리보기"
-
-msgid "Preview in tablet size"
-msgstr "태블릿 미리보기"
-
-msgid "Preview in desktop size"
-msgstr "데스크탑 미리보기"
-
 msgid "locked"
 msgstr "잠김"
 
@@ -135,6 +126,36 @@ msgstr "잠긴 시간:"
 
 msgid "locked by"
 msgstr "잠근 사람:"
+
+msgid "collection"
+msgstr "모음"
+
+msgid "collection view restriction"
+msgstr "모음 보기 제한 사항"
+
+msgid "collection view restrictions"
+msgstr "모음 보기 제한 사항"
+
+msgid "name"
+msgstr "이름"
+
+msgid "collections"
+msgstr "모음"
+
+msgid "group"
+msgstr "그룹"
+
+msgid "permission"
+msgstr "권한"
+
+msgid "group collection permission"
+msgstr "그룹 모음 권한"
+
+msgid "group collection permissions"
+msgstr "그룹 모음 권한"
+
+msgid "uploaded by user"
+msgstr "업로드한 사용자:"
 
 msgid "Add/edit pages you own"
 msgstr "페이지 추가/수정"
@@ -185,9 +206,6 @@ msgstr ""
 "이 페이지의 이름은 URL에 표시될 것입니다. (예:http://domain.com/blog/[my-"
 "slug]/)"
 
-msgid "content type"
-msgstr "콘텐트 타입"
-
 msgid "URL path"
 msgstr "URL 경로"
 
@@ -232,24 +250,6 @@ msgstr "페이지"
 msgid "pages"
 msgstr "페이지"
 
-msgid "created at"
-msgstr "생성된 일시"
-
-msgid "user"
-msgstr "사용자"
-
-msgid "content JSON"
-msgstr "컨텐트 JSON"
-
-msgid "approved go live at"
-msgstr "라이브 승인 일시:"
-
-msgid "group"
-msgstr "그룹"
-
-msgid "permission"
-msgstr "권한"
-
 msgid "group page permission"
 msgstr "그룹 페이지 권한"
 
@@ -262,38 +262,29 @@ msgstr "페이지 보기 제한"
 msgid "page view restrictions"
 msgstr "페이지 보기 제한"
 
-msgid "name"
-msgstr "이름"
+msgid "Default"
+msgstr "기본값"
 
-msgid "groups"
-msgstr "그룹"
+msgid "Preview in mobile size"
+msgstr "모바일 미리보기"
 
-msgid "Approve"
-msgstr "승인"
+msgid "Preview in tablet size"
+msgstr "태블릿 미리보기"
 
-msgid "Not started"
-msgstr "시작되지 않음"
+msgid "Preview in desktop size"
+msgstr "데스크탑 미리보기"
 
-msgid "collection"
-msgstr "모음"
+msgid "created at"
+msgstr "생성된 일시"
 
-msgid "collection view restriction"
-msgstr "모음 보기 제한 사항"
+msgid "user"
+msgstr "사용자"
 
-msgid "collection view restrictions"
-msgstr "모음 보기 제한 사항"
+msgid "content JSON"
+msgstr "컨텐트 JSON"
 
-msgid "collections"
-msgstr "모음"
-
-msgid "group collection permission"
-msgstr "그룹 모음 권한"
-
-msgid "group collection permissions"
-msgstr "그룹 모음 권한"
-
-msgid "uploaded by user"
-msgstr "업로드한 사용자:"
+msgid "approved go live at"
+msgstr "라이브 승인 일시:"
 
 msgid "hostname"
 msgstr "호스트명"
@@ -352,11 +343,20 @@ msgstr "공개"
 msgid "Private, accessible to users in specific groups"
 msgstr "비공개, 특정한 그룹 안의 사용자들이 접근 가능"
 
+msgid "groups"
+msgstr "그룹"
+
 msgid "view restriction"
 msgstr "제한 사항 보기"
 
 msgid "view restrictions"
 msgstr "제한 사항 보기"
+
+msgid "Not started"
+msgstr "시작되지 않음"
+
+msgid "Approve"
+msgstr "승인"
 
 msgid "Log in"
 msgstr "로그인"

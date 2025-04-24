@@ -6,6 +6,7 @@
 # Anastasiia La, 2021
 # Anastasiia La, 2021
 # d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
@@ -18,10 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, "
-"2020,2022-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -694,6 +694,9 @@ msgstr "Дата"
 msgid "Site summary"
 msgstr "Резюме сайту"
 
+msgid "Close"
+msgstr "Закрити"
+
 msgid "Task started"
 msgstr "Завдання запущене"
 
@@ -702,9 +705,6 @@ msgstr "Вимагаються зміни"
 
 msgid "Awaiting"
 msgstr "В очікуванні"
-
-msgid "Close"
-msgstr "Закрити"
 
 msgid "Awaiting your review"
 msgstr "В очікуванні огляду"
@@ -1196,13 +1196,6 @@ msgstr "Пересунути вниз"
 msgid "Choose when this page should go live and/or expire"
 msgstr "Встановіть час автоматичної публікації / чи зняття з публікації"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Графік публікації почне працювати лише після того, як ви натиснете кнопку "
-"\"Опублікувати\""
-
 msgid "Set publishing schedule"
 msgstr "Задати графік публікації"
 
@@ -1278,10 +1271,6 @@ msgstr "Незавершене завдання"
 
 msgid "Completed at"
 msgstr "Завершено в"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Сторінка %(page_num)s з %(total_pages)s"
 
 msgid "Breadcrumb"
 msgstr "Ланцюжок навігації"
@@ -1380,6 +1369,10 @@ msgstr "Поточний статус сторінки:"
 
 msgid "Visit the live page"
 msgstr "Відвідати сторінку"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Сторінка %(page_num)s з %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ви впевнені,  що хочете зняти з розкладу цю ревізію?"
@@ -1688,9 +1681,6 @@ msgstr "Відмінити"
 
 msgid "Redo"
 msgstr "Повторити"
-
-msgid "Bold"
-msgstr "Жирний"
 
 msgid "Italic"
 msgstr "Курсив"
@@ -2131,9 +2121,6 @@ msgstr "Нове завдання робочого процесу"
 msgid "Task '%(object)s' created."
 msgstr "Завдання '%(object)s' створено."
 
-msgid "Editing workflow task"
-msgstr "Редагування завдання робочого процесу"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Завдання '%(object)s' оновлено."
@@ -2188,9 +2175,23 @@ msgstr "Сортувати порядок меню"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Заголовок %(level)d"
+msgid "Heading 1"
+msgstr "Заголовок 1"
+
+msgid "Heading 2"
+msgstr "Заголовок 2"
+
+msgid "Heading 3"
+msgstr "Заголовок 3"
+
+msgid "Heading 4"
+msgstr "Заголовок 4"
+
+msgid "Heading 5"
+msgstr "Заголовок 5"
+
+msgid "Heading 6"
+msgstr "Заголовок 6"
 
 msgid "Bulleted list"
 msgstr "Маркований список"
@@ -2200,6 +2201,9 @@ msgstr "Пронумерований список"
 
 msgid "Blockquote"
 msgstr "Цитата"
+
+msgid "Bold"
+msgstr "Жирний"
 
 msgid "Link"
 msgstr "Посилання"

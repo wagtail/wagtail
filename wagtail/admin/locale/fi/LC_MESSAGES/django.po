@@ -8,6 +8,7 @@
 # Eetu Häivälä, 2016-2017
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:01+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -691,6 +692,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lue julkaisutiedot."
 
+msgid "Close"
+msgstr "Sulje"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Sivusi ja pätkäsi työnkulussa"
 
@@ -699,9 +703,6 @@ msgstr "Tehtävä aloitettu"
 
 msgid "Awaiting"
 msgstr "Odottaa"
-
-msgid "Close"
-msgstr "Sulje"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1121,8 +1122,8 @@ msgid "Pagination"
 msgstr "Sivutus"
 
 #, python-format
-msgid "Page %(page_number)s of %(num_pages)s"
-msgstr "Sivu %(page_number)s/%(num_pages)s"
+msgid "Page %(page_number)s of %(num_pages)s."
+msgstr "Sivu %(page_number)s/%(num_pages)s."
 
 msgid "Previous"
 msgstr "Edellinen"
@@ -1279,10 +1280,6 @@ msgstr "Valmistunut"
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s"
-msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta"
-
 msgid "Toggle breadcrumbs"
 msgstr "Murupolut päälle/pois"
 
@@ -1365,6 +1362,10 @@ msgstr "Näkyvissä kaikille"
 
 msgid "Private. Visit the live page"
 msgstr "Yksityinen. Käy livesivulla"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Haluatko varmasti poistaa ajastuksen tältä revisiolta?"
@@ -1481,9 +1482,6 @@ msgstr "Virheellinen ajastus"
 
 msgid "Go-live:"
 msgstr "Siirry liveksi:"
-
-msgid "Once published:"
-msgstr "Kun julkaistu:"
 
 msgid "No publishing schedule set"
 msgstr "Julkaisuajastusta ei ole asetettu"
@@ -1794,9 +1792,6 @@ msgstr "Lisää linkki tai muokkaa sitä"
 
 msgid "Text formatting"
 msgstr "Tekstin muotoilu"
-
-msgid "Bold"
-msgstr "Lihavointi"
 
 msgid "Italic"
 msgstr "Kursiivi"
@@ -2257,9 +2252,6 @@ msgstr "Uusi työnkulun tehtävä"
 msgid "Task '%(object)s' created."
 msgstr "Tehtävä '%(object)s' luotu."
 
-msgid "Editing workflow task"
-msgstr "Muokataan työnkulun tehtävää"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Tehtävä '%(object)s' päivitetty."
@@ -2310,9 +2302,23 @@ msgstr "Peruuta sivun '%(title)s' julkaisu"
 msgid "View page history for '%(title)s'"
 msgstr "Näytä sivun '%(title)s' historia"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Otsikko %(level)d"
+msgid "Heading 1"
+msgstr "Otsikko 1"
+
+msgid "Heading 2"
+msgstr "Otsikko 2"
+
+msgid "Heading 3"
+msgstr "Otsikko 3"
+
+msgid "Heading 4"
+msgstr "Otsikko 4"
+
+msgid "Heading 5"
+msgstr "Otsikko 5"
+
+msgid "Heading 6"
+msgstr "Otsikko 6"
 
 msgid "Bulleted list"
 msgstr "Numeroimaton luettelo"
@@ -2322,6 +2328,9 @@ msgstr "Numeroitu luettelo"
 
 msgid "Blockquote"
 msgstr "Lainaus"
+
+msgid "Bold"
+msgstr "Lihavointi"
 
 msgid "Link"
 msgstr "Linkki"
