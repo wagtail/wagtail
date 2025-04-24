@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,32 +38,32 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: forms.py:12 forms.py:111
+#: forms.py:13 forms.py:112
 msgid "From site"
 msgstr ""
 
-#: forms.py:15 forms.py:114
+#: forms.py:16 forms.py:115
 msgid "All sites"
 msgstr ""
 
-#: forms.py:45
+#: forms.py:46
 msgid "A redirect with this path already exists."
 msgstr ""
 
-#: forms.py:55
+#: forms.py:56
 msgid "File to import"
 msgstr ""
 
-#: forms.py:66
+#: forms.py:67
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr ""
 
-#: forms.py:103
+#: forms.py:104
 msgid "From field"
 msgstr ""
 
-#: forms.py:107
+#: forms.py:108
 msgid "To field"
 msgstr ""
 

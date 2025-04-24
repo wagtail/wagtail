@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Wagtail locales"
 msgstr ""
 
-#: forms.py:11 views.py:41
+#: forms.py:11 views.py:58
 msgid "Language"
 msgstr ""
 
@@ -49,54 +49,66 @@ msgid ""
 "language or delete this locale."
 msgstr ""
 
-#: views.py:32 wagtail_hooks.py:26
+#: views.py:38
+#, python-format
+msgid "%(num_pages)d pages and %(num_others)d others"
+msgstr ""
+
+#: views.py:43
+#, python-format
+msgid "%(num_pages)d page"
+msgid_plural "%(num_pages)d pages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views.py:49 wagtail_hooks.py:26
 msgid "Locales"
 msgstr ""
 
-#: views.py:33
+#: views.py:50
 msgid "Add a locale"
 msgstr ""
 
-#: views.py:45
+#: views.py:62
 msgid "Usage"
 msgstr ""
 
-#: views.py:50
+#: views.py:73
 msgid "Add locale"
 msgstr ""
 
-#: views.py:51
+#: views.py:74
 #, python-format
 msgid "Locale '%(object)s' created."
 msgstr ""
 
-#: views.py:55
+#: views.py:87
 #, python-format
 msgid "Locale '%(object)s' updated."
 msgstr ""
 
-#: views.py:56
+#: views.py:88
 msgid "The locale could not be saved due to errors."
 msgstr ""
 
-#: views.py:62
+#: views.py:94
 #, python-format
 msgid "Locale '%(object)s' deleted."
 msgstr ""
 
-#: views.py:63
+#: views.py:95
 msgid "Delete locale"
 msgstr ""
 
-#: views.py:64
+#: views.py:96
 msgid "Are you sure you want to delete this locale?"
 msgstr ""
 
-#: views.py:70
+#: views.py:102
 msgid "This locale cannot be deleted because there are no other locales."
 msgstr ""
 
-#: views.py:76
+#: views.py:108
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."
