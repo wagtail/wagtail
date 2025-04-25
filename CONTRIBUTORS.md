@@ -881,6 +881,7 @@
 * Jordan Teichmann
 * Aditya (megatrron)
 * Arthur Tripp
+* Ian Meigh
 
 ## Translators
 
