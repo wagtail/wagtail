@@ -601,10 +601,6 @@ Any provided query string will merge with the default parameters. For example, u
 
 See the [Gravatar images URL documentation](https://docs.gravatar.com/api/avatars/images/) for more details.
 
-```{versionchanged} 6.4
-Added query string merging.
-```
-
 (wagtail_user_time_zones)=
 
 ### `WAGTAIL_USER_TIME_ZONES`
