@@ -337,6 +337,7 @@ Istvan Farkas <istvan.farkas.gmail.com>
 Kornel Novak Mergulhão <nkornel.gmail.com>
 Laszlo Molnar <lazlowmiller.gmail.com>
 Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
 Patrik Radics
 aaao <aron.santa.gmail.com>
 
@@ -427,6 +428,7 @@ Lithuanian - lt
 -----
 Loic Teixeira
 Matas Dailyda <matas.dailyda.com>
+Matt Westcott <matthew.torchbox.com>
 Naglis Jonaitis
 
 Mongolian - mn
@@ -450,6 +452,7 @@ Norwegian Bokmål - nb
 Eirik Krogstad <eirikkr.gmail.com>
 Jonathan D
 Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
 Ole Kristian Losvik <ole.losol.no>
 Robin Skahjem-Eriksen <robinds.student.matnat.uio.no>
 Stein Strindhaug <stein.strindhaug.gmail.com>
@@ -510,6 +513,7 @@ LB (Ben Johnston) <mail.lb.ee>
 Loic Teixeira
 Luiz Boaretto <lboaretto.gmail.com>
 Marcio Mazza <marciomazza.gmail.com>
+Matt Westcott <matthew.torchbox.com>
 Rodrigo Sottomaior Macedo <sottomaiormacedotec.sottomaiormacedo.tech>
 Thiago Cangussu <cangussu.thg.gmail.com>
 Thiago Cangussu <cng.thg.gmail.com>
@@ -530,6 +534,7 @@ Hugo Cachitas
 Jose Lourenco <jose.lourenco.ws>
 Loic Teixeira
 Luís Tiago Favas <traducoes.favas.eu>
+Matt Westcott <matthew.torchbox.com>
 Nuno Matos <tugassoft.gmail.com>
 Rui Martins <rmartins16.gmail.com>
 Thiago Cangussu <cangussu.thg.gmail.com>
@@ -543,6 +548,7 @@ Dan Braghis
 Julian C <jcuotpc.gmail.com>
 Loic Teixeira
 Madalin Popa
+Matt Westcott <matthew.torchbox.com>
 zerolab
 
 Russian - ru
@@ -719,6 +725,7 @@ Ukrainian - uk
 Anastasiia La
 Ivan Tyshchenko <iv.tihon.gmail.com>
 Loic Teixeira
+Matt Westcott <matthew.torchbox.com>
 Mykola Zamkovoi <nickzam.gmail.com>
 Sergiy Shkodenko <shkodenkosergiy.gmail.com>
 Viktor Shytiuk <VicHunting.yandex.ua>

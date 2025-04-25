@@ -25,7 +25,7 @@
 # Michael van Tellingen <michaelvantellingen@gmail.com>, 2015
 # Ramon de Jezus <rdejezus@leukeleu.nl>, 2020
 # Richard Voorhorst, 2024
-# Richard Voorhorst, 2024
+# Richard Voorhorst, 2024-2025
 # Rob Moorman <rob@moori.nl>, 2017
 # Samuel Leeuwenburg, 2014
 # Samuel Leeuwenburg, 2014
@@ -38,7 +38,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022,2025\n"
+"Last-Translator: Richard Voorhorst, 2024-2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -435,6 +435,12 @@ msgstr "Alle items in lijst geselecteerd"
 
 msgid "Can access Wagtail admin"
 msgstr "Toegang tot Wagtail admin"
+
+msgid "item"
+msgstr "item"
+
+msgid "items"
+msgstr "items"
 
 msgid "Content"
 msgstr "Inhoud"
@@ -1198,8 +1204,14 @@ msgstr "%(model_name)s '%(title)s' is ingediend in workflow '%(workflow)s'"
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Wijzigingen aan de pagina-privacy zijn uitgeschakeld."
 
+msgid "Scheduling…"
+msgstr "Inplannen"
+
 msgid "Publishing…"
 msgstr "Bezig met publiceren..."
+
+msgid "Schedule to publish"
+msgstr "Publicatie inplannen"
 
 msgid "Publish this version"
 msgstr "Publiceer deze versie"
@@ -1786,6 +1798,13 @@ msgstr "Kies wanneer '%(model_name)s' gepubliceerd moet worden en/of verloopt"
 
 msgid "Choose when this page should go live and/or expire"
 msgstr "Kies wanneer deze pagina live moet gaan en/of moet verlopen"
+
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Schedule to publish\" option"
+msgstr ""
+"De ingeplande publicaties worden pas van kracht na het selecteren van "
+"“Plannen om te publiceren”"
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Iedereen met bewerkingsrechten kan schema's maken"
