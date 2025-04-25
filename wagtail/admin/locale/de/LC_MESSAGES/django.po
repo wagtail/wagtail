@@ -66,7 +66,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2015,2025\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2021-2025\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -107,6 +107,17 @@ msgstr "Seite gesperrt"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s und Veröffentlichen"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "alle"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
 
 msgid "Wagtail admin"
 msgstr "Wagtail Admin-Interface"
@@ -469,6 +480,12 @@ msgstr "Alle Elemente der Auflistung ausgewählt"
 
 msgid "Can access Wagtail admin"
 msgstr "Kann auf Wagtail-Admin zugreifen"
+
+msgid "item"
+msgstr "Element"
+
+msgid "items"
+msgstr "Elemente"
 
 msgid "Content"
 msgstr "Inhalt"
@@ -1248,8 +1265,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Die Änderung der Privatsphäre für diese Seite wurde deaktiviert."
 
+msgid "Scheduling…"
+msgstr "Planung…"
+
 msgid "Publishing…"
 msgstr "Veröffentlichen..."
+
+msgid "Schedule to publish"
+msgstr "Zur Veröffentlichung einplanen"
 
 msgid "Publish this version"
 msgstr "Diese Version veröffentlichen"
@@ -1847,6 +1870,13 @@ msgstr ""
 msgid "Choose when this page should go live and/or expire"
 msgstr "Wählen Sie aus, wann diese Seite live gehen und/oder ablaufen soll"
 
+msgid ""
+"This publishing schedule will only take effect after you select the "
+"\"Schedule to publish\" option"
+msgstr ""
+"Dieser Veröffentlichungsplan wird erst wirksam, wenn Sie die Option „Zur "
+"Veröffentlichung einplanen“ ausgewählt haben."
+
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Jeder mit Bearbeitungsberechtigungen kann Zeitpläne erstellen"
 
@@ -1959,6 +1989,12 @@ msgstr "Es wurden noch keine Seiten/Schnipsel zur Moderation eingereicht"
 
 msgid "Completed at"
 msgstr "Vervollständigt am"
+
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
 
 msgid "Clear"
 msgstr "Zurücksetzen"
@@ -2230,6 +2266,9 @@ msgstr "Ungültiger Zeitplan"
 
 msgid "Go-live:"
 msgstr "Go-Live:"
+
+msgid "Once scheduled:"
+msgstr "Sobald geplant:"
 
 msgid "No publishing schedule set"
 msgstr "Kein Veröffentlichungszeitplan festgelegt"
@@ -2625,6 +2664,9 @@ msgstr "Wiederholen"
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
+msgid "Add or show comments"
+msgstr "Kommentare hinzufügen oder anzeigen"
+
 msgid "Text content"
 msgstr "Textinhalt"
 
@@ -2675,6 +2717,9 @@ msgstr "Überprüfungen"
 
 msgid "Toggle preview"
 msgstr "Vorschau umschalten"
+
+msgid "(blank)"
+msgstr "(leer)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2741,6 +2786,10 @@ msgstr "Bild-Alt-Text hat unpassendes Muster"
 
 msgid "Use meaningful text"
 msgstr "Verwenden Sie aussagekräftigen Text"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s-Objekt (%(id)s)"
 
 msgid "Profile"
 msgstr "Profil"
@@ -3291,6 +3340,9 @@ msgstr ""
 #, python-format
 msgid "Page '%(page_title)s' moved."
 msgstr "Seite ‚%(page_title)s‘ verschoben."
+
+msgid "Placeholder title"
+msgstr "Platzhaltertitel"
 
 #, python-format
 msgid ""

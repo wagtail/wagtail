@@ -6,6 +6,7 @@
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
+# Richard Voorhorst, 2025
 # Storm Heg <storm@stormbase.digital>, 2021-2024
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:03+0100\n"
+"POT-Creation-Date: 2025-04-24 18:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022\n"
+"Last-Translator: Richard Voorhorst, 2025\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -128,8 +129,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">Voeg er nu een toe</a>"
 
+msgid "Scheduling…"
+msgstr "Inplannen"
+
 msgid "Publishing…"
 msgstr "Bezig met publiceren..."
+
+msgid "Schedule to publish"
+msgstr "Publicatie inplannen"
 
 msgid "Publish this version"
 msgstr "Publiceer deze versie"
