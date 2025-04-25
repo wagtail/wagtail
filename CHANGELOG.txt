@@ -44,6 +44,7 @@ Changelog
  * Fix: Ensure the default preferred language respects the `WAGTAILADMIN_PERMITTED_LANGUAGES` setting (Sébastien Corbin)
  * Fix: Ensure there is consistent padding in homepage panels table headers (Aditya (megatrron))
  * Fix: Prevent redundant calls to context processors when rendering userbar (Ihor Marhitych)
+ * Fix: Fix validation of duplicate field names in form builder when fields have been deleted (Ian Meigh)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
  * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)
