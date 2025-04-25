@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 18:21+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -330,11 +330,11 @@ msgstr ""
 msgid "collections"
 msgstr ""
 
-#: models/media.py:164 models/pages.py:2054
+#: models/media.py:164 models/pages.py:2055
 msgid "group"
 msgstr ""
 
-#: models/media.py:175 models/pages.py:2066
+#: models/media.py:175 models/pages.py:2067
 msgid "permission"
 msgstr ""
 
@@ -472,69 +472,69 @@ msgid ""
 "'%(parent_url_path)s'"
 msgstr ""
 
-#: models/pages.py:2020 models/pages.py:2060 models/pages.py:2373
-#: models/pages.py:2440
+#: models/pages.py:2021 models/pages.py:2061 models/pages.py:2374
+#: models/pages.py:2441
 msgid "page"
 msgstr ""
 
-#: models/pages.py:2021
+#: models/pages.py:2022
 msgid "pages"
 msgstr ""
 
-#: models/pages.py:2079
+#: models/pages.py:2080
 msgid "group page permission"
 msgstr ""
 
-#: models/pages.py:2080
+#: models/pages.py:2081
 msgid "group page permissions"
 msgstr ""
 
-#: models/pages.py:2381
+#: models/pages.py:2382
 msgid "page view restriction"
 msgstr ""
 
-#: models/pages.py:2382
+#: models/pages.py:2383
 msgid "page view restrictions"
 msgstr ""
 
-#: models/pages.py:2448 models/workflows.py:57 models/workflows.py:129
+#: models/pages.py:2449 models/workflows.py:57 models/workflows.py:129
 #: models/workflows.py:614
 msgid "workflow"
 msgstr ""
 
-#: models/pages.py:2473
+#: models/pages.py:2474
 msgid "workflow page"
 msgstr ""
 
-#: models/pages.py:2474
+#: models/pages.py:2475
 msgid "workflow pages"
 msgstr ""
 
-#: models/pages.py:2541
+#: models/pages.py:2542
 msgid "page log entry"
 msgstr ""
 
-#: models/pages.py:2542
+#: models/pages.py:2543
 msgid "page log entries"
 msgstr ""
 
-#: models/pages.py:2560
+#: models/pages.py:2561
 msgid "Draft saved"
 msgstr ""
 
-#: models/pages.py:2608
+#: models/pages.py:2609
 msgid "comment"
 msgstr ""
 
-#: models/pages.py:2609
+#: models/pages.py:2610
 msgid "comments"
 msgstr ""
 
-#: models/pages.py:2704
+#: models/pages.py:2705
 msgid "comment reply"
 msgstr ""
 
-#: models/pages.py:2705
+#: models/pages.py:2706
 msgid "comment replies"
 msgstr ""
 
