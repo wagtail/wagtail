@@ -1,13 +1,15 @@
 from unittest import mock
 
-from django.test import TestCase
+from django.test import TestCase,override_settings
+from django.test.client import RequestFactory
 from django.urls import reverse
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site
+from wagtail.models import Page, Site,Locale
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.views import serve
+from wagtail.locales.views import IndexView
 
 
 class TestLoginView(WagtailTestUtils, TestCase):
@@ -98,3 +100,18 @@ class TestServeView(TestCase):
                     response_b = self.client.get("/simple/")
                 self.assertEqual(response_b.content, b"Intercepted")
                 self.assertEqual(m.call_count, 1)
+
+class TestIndexView(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+    
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[{'code': 'fa'}])
+    def test_get_add_url_none_when_locales_full(self):
+        Locale.objects.create(language_code='fa')
+
+        request = self.factory.get('/admin/locales/')
+        view = IndexView()
+        view.setup(request)
+        view.request = request
+
+        self.assertIsNone(view.get_add_url())
