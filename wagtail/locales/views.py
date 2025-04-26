@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy
-
+from django.conf import settings
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
@@ -44,7 +44,21 @@ class IndexView(generic.IndexView):
         ),
         UsageColumn("usage", label=gettext_lazy("Usage")),
     ]
-
+    
+    def get_add_url(self):
+        languages = getattr(settings,'WAGTAIL_CONTENT_LANGUAGES',None)
+        if languages is not None:
+            if Locale.objects.all().count() >= len(languages):
+                return None
+        return super().get_add_url()
+    
+    def get_header_action_url(self):
+        return self.get_add_url()
+    
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context["header_action_url"] = self.get_header_action_url()
+        return context
 
 class CreateView(generic.CreateView):
     page_title = gettext_lazy("Add locale")
