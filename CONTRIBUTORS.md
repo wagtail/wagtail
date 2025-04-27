@@ -883,6 +883,7 @@
 * Arthur Tripp
 * Ian Meigh
 * Jigyasu Rajput
+* Antoine Rodriguez
 
 ## Translators
 

@@ -419,7 +419,9 @@ class LoginView(auth_views.LoginView):
 
 
 class LogoutView(auth_views.LogoutView):
-    next_page = "wagtailadmin_login"
+    @property
+    def next_page(self):
+        return getattr(settings, "WAGTAILADMIN_LOGIN_URL", "wagtailadmin_login")
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
