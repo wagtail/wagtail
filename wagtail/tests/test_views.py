@@ -1,15 +1,15 @@
 from unittest import mock
 
-from django.test import TestCase,override_settings
+from django.test import TestCase, override_settings
 from django.test.client import RequestFactory
 from django.urls import reverse
 
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import Page, Site,Locale
+from wagtail.locales.views import IndexView
+from wagtail.models import Locale, Page, Site
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.views import serve
-from wagtail.locales.views import IndexView
 
 
 class TestLoginView(WagtailTestUtils, TestCase):

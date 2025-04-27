@@ -1,5 +1,6 @@
-from django.utils.translation import gettext_lazy
 from django.conf import settings
+from django.utils.translation import gettext_lazy
+
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
