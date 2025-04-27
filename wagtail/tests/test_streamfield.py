@@ -1200,3 +1200,17 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
                 },
             },
         )
+
+
+class TestBlockTypeValidation(TestCase):
+    def test_non_streamblock_raises_correct_error(self):
+        """stream_block raises useful error message when non-StreamBlock is provided."""
+        msg = (
+            "The top-level block must be a StreamBlock (got StructBlock). "
+            "Either pass a StreamBlock instance/class, or a list of block definitions "
+            "as (name, block) tuples."
+        )
+
+        with self.assertRaisesMessage(TypeError, msg):
+            field = StreamField(blocks.StructBlock([("name", blocks.CharBlock())]))
+            field.stream_block
