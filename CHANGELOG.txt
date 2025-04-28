@@ -82,6 +82,7 @@ Changelog
  * Maintenance: Refactor `move_choose_destination` to a class-based view (Chiemezuo Akujobi)
  * Maintenance: Remove deprecated `wagtailadmin/shared/ajax_pagination_nav.html` template (Sage Abdullah)
  * Maintenance: Formally deprecate support for listing views with no breadcrumbs (Sage Abdullah)
+ * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
 
 
 6.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
