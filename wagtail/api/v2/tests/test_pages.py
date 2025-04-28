@@ -1788,7 +1788,10 @@ class TestPageFind(TestCase):
 
         self.assertRedirects(
             response,
-            "http://localhost" + reverse("wagtailapi_v2:pages:detail", args=[8]),
+            "http://localhost"
+            + reverse(
+                "wagtailapi_v2:pages:detail", kwargs={"pk": 8, "fields": "_,id,type"}
+            ),
             fetch_redirect_response=False,
         )
         content = json.loads(response.content.decode("UTF-8"))
