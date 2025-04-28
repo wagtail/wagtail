@@ -1790,7 +1790,7 @@ class TestPageFind(TestCase):
             response,
             "http://localhost"
             + reverse(
-                "wagtailapi_v2:pages:detail", kwargs={"pk": 8, "fields": "_,id,type"}
+                "wagtailapi_v2:pages:detail", args=[8], query={"fields": "_,id,type"}
             ),
             fetch_redirect_response=False,
         )
