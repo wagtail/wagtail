@@ -1,13 +1,13 @@
 #
 # Translators:
 # Aarni Koskela, 2022
-# Valter Maasalo <vmaasalo@gmail.com>, 2022
 # Loic Teixeira, 2024
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2025
+# Valter Maasalo <vmaasalo@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2025\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2025\n"
 "Language-Team: Finnish (https://app.transifex.com/torchbox/teams/8009/fi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: fi\n"
@@ -36,6 +36,9 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pikseli"
 msgstr[1] "%(num)s pikseliä"
+
+msgid "Actions"
+msgstr "Toimet"
 
 msgid "Add a comment"
 msgstr "Lisää kommentti"

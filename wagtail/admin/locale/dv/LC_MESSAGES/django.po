@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -694,6 +694,9 @@ msgstr "ސައިޓްގެ ޚުލާސާ"
 msgid "Read the release notes."
 msgstr "ރިލީޒް ނޯޓްސް ކިޔާށެވެ."
 
+msgid "Close"
+msgstr "ލެއްޕުން"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "ވޯކްފްލޯއެއްގައި ތިބާގެ ޞަފްޙާތަކާއި ސްނިޕެޓްތައް"
 
@@ -705,9 +708,6 @@ msgstr "ބަދަލު ގެނައުމަށް އެދިފައިވަނީ ގދ"
 
 msgid "Awaiting"
 msgstr "އިންތިޒާރުގައެވެ"
-
-msgid "Close"
-msgstr "ލެއްޕުން"
 
 msgid "Awaiting your review"
 msgstr "ތިޔަބޭފުޅުންގެ ރިވިއުގެ އިންތިޒާރުގައެވެ"
@@ -1257,11 +1257,6 @@ msgstr "މި %(model_name)s ލައިވްވާންވީ ވަގުތު އަދި/ނު�
 msgid "Choose when this page should go live and/or expire"
 msgstr "މި ޕޭޖް ލައިވްވާންވީ ވަގުތު އަދި/ނުވަތަ މުއްދަތު ހަމަވާންވީ ވަގުތު ހޮވާށެވެ"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr "މި ޕަބްލިޝިންގ ޝެޑިއުލަށް އަމަލުކުރަން ފަށާނީ \"ޕަބްލިޝް\" އޮޕްޝަން ހޮވުމުންނެވެ"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "އެޑިޓް ކުރުމުގެ ހުއްދަ ލިބިފައިވާ ކޮންމެ މީހަކަށް ވެސް ޝެޑިއުލް ތައްޔާރު ކުރެވޭނެ އެވެ"
 
@@ -1536,9 +1531,6 @@ msgstr "ސައްހަ ނޫން ޝެޑިއުލެއް"
 
 msgid "Go-live:"
 msgstr "ގޯ-ލައިވް:"
-
-msgid "Once published:"
-msgstr "އެއްފަހަރު ޝާއިއު ކުރުމުން:"
 
 msgid "No publishing schedule set"
 msgstr "ޕަބްލިޝިންގ ޝެޑިއުލް ކަނޑައެޅިފައެއް ނުވެއެވެ"
@@ -1815,9 +1807,6 @@ msgstr "ބަދަލުތައް އެދިފައިވާ %(finished_at)s"
 #, python-format
 msgid "Sent to %(task_name)s %(started_at)s"
 msgstr "%(task_name)s %(started_at)s އަށް ފޮނުވާފައިވެއެވެ"
-
-msgid "Bold"
-msgstr "ބޯލްޑް"
 
 msgid "Italic"
 msgstr "އިޓަލިކް އެވެ"
@@ -2359,9 +2348,6 @@ msgstr "އައު ވޯކްފްލޯ ޓާސްކެއް"
 msgid "Task '%(object)s' created."
 msgstr "ޓާސްކް &#39;%(object)s&#39; އުފެއްދިއެވެ."
 
-msgid "Editing workflow task"
-msgstr "ވޯކްފްލޯ ޓާސްކް އެޑިޓްކުރުން"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "ޓާސްކް &#39;%(object)s&#39; އަޕްޑޭޓް ކޮށްފި."
@@ -2443,6 +2429,9 @@ msgstr "ނަންބަރު ޖަހާފައިވާ ލިސްޓެވެ"
 
 msgid "Blockquote"
 msgstr "ބްލޮކްކޯޓް"
+
+msgid "Bold"
+msgstr "ބޯލްޑް"
 
 msgid "Link"
 msgstr "ލިންކް"

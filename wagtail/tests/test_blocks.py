@@ -30,7 +30,6 @@ from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -677,6 +676,11 @@ class TestRichTextBlock(TestCase):
         default_value = blocks.RichTextBlock(default="<p>foo</p>").get_default()
         self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, "<p>foo</p>")
+
+    def test_get_default_with_localized_string(self):
+        default_value = blocks.RichTextBlock(default=_("<p>english</p>")).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, "<p>english</p>")
 
     def test_get_default_with_richtext_value(self):
         default_value = blocks.RichTextBlock(
@@ -5749,23 +5753,6 @@ class TestIncludeBlockTag(TestCase):
 
 
 class TestOverriddenGetTemplateBlockTag(TestCase):
-    def test_get_template_old_signature(self):
-        class BlockUsingGetTemplateMethod(blocks.Block):
-            my_new_template = "tests/blocks/heading_block.html"
-
-            def get_template(self, context=None):
-                return self.my_new_template
-
-        block = BlockUsingGetTemplateMethod(
-            template="tests/blocks/this_shouldnt_be_used.html"
-        )
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "BlockUsingGetTemplateMethod.get_template should accept a 'value' argument as first argument",
-        ):
-            html = block.render("Hello World")
-        self.assertEqual(html, "<h1>Hello World</h1>")
-
     def test_block_render_passes_the_value_argument_to_get_template(self):
         """verifies Block.render() passes the value to get_template"""
 

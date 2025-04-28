@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:24+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016,2022-2023\n"
+"Last-Translator: David Llop, 2014\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -45,9 +45,6 @@ msgstr "Cancel·lar fluxe de treball"
 msgid "Unpublish"
 msgstr "Despublicar"
 
-msgid "Delete"
-msgstr "Esborrar"
-
 msgid "Save"
 msgstr "Desar"
 
@@ -60,6 +57,9 @@ msgstr "%(label)si Publica"
 
 msgid "Wagtail snippets"
 msgstr "Fragments de Wagtail"
+
+msgid "Delete"
+msgstr "Esborrar"
 
 msgid "Delete selected snippets"
 msgstr "Esborrar els fragments seleccionats"
@@ -123,8 +123,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">crear-ne un ara</a>?"
 
+msgid "Scheduling…"
+msgstr "Programant..."
+
 msgid "Publishing…"
 msgstr "Publicant..."
+
+msgid "Schedule to publish"
+msgstr "Programar la publicació"
 
 msgid "Publish this version"
 msgstr "Publicar aquesta versió"

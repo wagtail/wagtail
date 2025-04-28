@@ -1,14 +1,14 @@
 #
 # Translators:
-# Bogdan Mateescu, 2022
 # Julian C <jcuotpc@gmail.com>, 2022
 # Alex Morega, 2023
 # Loic Teixeira, 2024
 # Dan Braghis, 2025
+# Bogdan Mateescu, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Dan Braghis, 2025\n"
+"Last-Translator: Bogdan Mateescu, 2025\n"
 "Language-Team: Romanian (https://app.transifex.com/torchbox/teams/8009/ro/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ro\n"
@@ -35,6 +35,9 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixeli"
 msgstr[2] "%(num)s de pixeli"
+
+msgid "Actions"
+msgstr "Acțiuni"
 
 msgid "Add a comment"
 msgstr "Adaugă un comentariu"

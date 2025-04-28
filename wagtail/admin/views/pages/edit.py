@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 from django.views.generic.base import View
@@ -465,6 +466,14 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             ],
         )
 
+    @cached_property
+    def is_cancelling_workflow(self):
+        return (
+            bool(self.request.POST.get("action-cancel-workflow"))
+            and self.workflow_state
+            and self.workflow_state.user_can_cancel(self.request.user)
+        )
+
     def post(self, request, *args, **kwargs):
         # Don't allow POST requests if the page is an alias
         if self.page.alias_of_id:
@@ -480,15 +489,13 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
 
-        self.is_cancelling_workflow = (
-            bool(self.request.POST.get("action-cancel-workflow"))
-            and self.workflow_state
-            and self.workflow_state.user_can_cancel(self.request.user)
-        )
+        if self.action_name == "save":
+            self.form.defer_required_fields()
 
         if self.form.is_valid() and not self.locked_for_user:
             return self.form_valid(self.form)
         else:
+            self.form.restore_required_fields()
             return self.form_invalid(self.form)
 
     def workflow_action_is_valid(self):
@@ -501,32 +508,43 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         ]
         return self.workflow_action in available_action_names
 
-    def form_valid(self, form):
-        self.has_content_changes = self.form.has_changed()
-
+    @cached_property
+    def action_name_and_method(self):
         if self.request.POST.get("action-publish") and self.page_perms.can_publish():
-            return self.publish_action()
+            return ("publish", self.publish_action)
         elif (
             self.request.POST.get("action-submit")
             and self.page_perms.can_submit_for_moderation()
         ):
-            return self.submit_action()
+            return ("submit", self.submit_action)
         elif (
             self.request.POST.get("action-restart-workflow")
             and self.page_perms.can_submit_for_moderation()
             and self.workflow_state
             and self.workflow_state.user_can_cancel(self.request.user)
         ):
-            return self.restart_workflow_action()
+            return ("restart_workflow", self.restart_workflow_action)
         elif (
             self.request.POST.get("action-workflow-action")
             and self.workflow_action_is_valid()
         ):
-            return self.perform_workflow_action()
+            return ("perform_workflow_action", self.perform_workflow_action)
         elif self.is_cancelling_workflow:
-            return self.cancel_workflow_action()
+            return ("cancel_workflow", self.cancel_workflow_action)
         else:
-            return self.save_action()
+            return ("save", self.save_action)
+
+    @property
+    def action_name(self):
+        return self.action_name_and_method[0]
+
+    @property
+    def action_method(self):
+        return self.action_name_and_method[1]
+
+    def form_valid(self, form):
+        self.has_content_changes = self.form.has_changed()
+        return self.action_method()
 
     def save_action(self):
         self.page = self.form.save(commit=not self.page.live)
@@ -537,6 +555,7 @@ class EditView(WagtailAdminTemplateMixin, HookResponseMixin, View):
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
             previous_revision=self.previous_revision,
+            clean=False,
         )
 
         self.add_save_confirmation_message()

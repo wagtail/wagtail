@@ -25,7 +25,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -950,41 +949,6 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
 
-class TestLegacyPatterns(WagtailTestUtils, TestCase):
-    # RemovedInWagtail70Warning: legacy integer pk-based URLs will be removed
-
-    def setUp(self):
-        self.user = self.login()
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.object = JSONStreamModel.objects.create(
-            body='[{"type": "text", "value": "foo"}]',
-        )
-
-    def test_legacy_edit(self):
-        edit_url = reverse("streammodel:edit", args=(quote(self.object.pk),))
-        legacy_edit_url = "/admin/streammodel/1/"
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
-        ):
-            response = self.client.get(legacy_edit_url)
-        self.assertEqual(edit_url, "/admin/streammodel/edit/1/")
-        self.assertRedirects(response, edit_url, 301)
-
-    def test_legacy_delete(self):
-        delete_url = reverse("streammodel:delete", args=(quote(self.object.pk),))
-        legacy_delete_url = "/admin/streammodel/1/delete/"
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
-        ):
-            response = self.client.get(legacy_delete_url)
-        self.assertEqual(delete_url, "/admin/streammodel/delete/1/")
-        self.assertRedirects(response, delete_url, 301)
-
-
 class TestHistoryView(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -1400,7 +1364,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             reverse("fctoy_alt1:inspect", args=(quote(self.object.pk),))
         )
         expected_fields = ["Name"]
-        expected_values = ["Test Toy"]
+        expected_values = [f"Test Toy ({self.object.pk})"]
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/inspect.html")
         soup = self.get_soup(response.content)

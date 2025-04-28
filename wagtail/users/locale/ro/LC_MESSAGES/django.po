@@ -4,6 +4,7 @@
 #
 # Translators:
 # Alex Morega, 2023
+# Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Dan Braghis, 2014-2022,2024\n"
+"Last-Translator: Dan Braghis, 2014\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"

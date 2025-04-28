@@ -22,9 +22,6 @@ if (!window.Draftail || !window.draftail) {
   // Expose module as a global.
   window.draftail = draftail;
 
-  /** @deprecated RemovedInWagtail70 - Ensure that any third party packages that use global.chooserUrls can still append to this global object until support is removed. */
-  window.chooserUrls = global.chooserUrls || {};
-
   // Plugins for the built-in entities.
   const entityTypes = [
     {

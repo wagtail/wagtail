@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 12:59+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Chih Wang <ihcgno@icloud.com>, 2020,2022\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -78,8 +78,18 @@ msgstr "已鎖定"
 msgid "Unlocked"
 msgstr "已解鎖"
 
-msgid "latest revision"
-msgstr "最新版本"
+msgid "content type"
+msgstr "內容類型"
+
+msgid "timestamp (UTC)"
+msgstr "時間標記 (UTC)"
+
+msgid "system"
+msgstr "系統"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "未知 %(action)s"
 
 msgid "live"
 msgstr "在用"
@@ -117,20 +127,41 @@ msgstr "在用 + 已預定"
 msgid "live + draft"
 msgstr "發佈+草稿"
 
-msgid "Default"
-msgstr "預設"
-
 msgid "locked"
 msgstr "已鎖定"
 
 msgid "locked at"
 msgstr "鎖定於"
 
-msgid "in moderation"
-msgstr "審核中"
+msgid "collection"
+msgstr "集合"
 
-msgid "live + in moderation"
-msgstr "上線 + 審核中"
+msgid "collection view restriction"
+msgstr "集合檢視限制"
+
+msgid "collection view restrictions"
+msgstr "集合檢視限制"
+
+msgid "name"
+msgstr "名稱"
+
+msgid "collections"
+msgstr "集合"
+
+msgid "group"
+msgstr "群組"
+
+msgid "permission"
+msgstr "權限"
+
+msgid "group collection permission"
+msgstr "群組集合權限"
+
+msgid "group collection permissions"
+msgstr "群組集合權限"
+
+msgid "uploaded by user"
+msgstr "使用者上傳"
 
 msgid "Add/edit pages you own"
 msgstr "新增/編輯所屬的頁面"
@@ -179,9 +210,6 @@ msgid ""
 "[my-slug]/"
 msgstr "用於URL的頁面名稱，如http://domain.com/work/[my-work]/"
 
-msgid "content type"
-msgstr "內容類型"
-
 msgid "URL path"
 msgstr "URL路徑"
 
@@ -207,30 +235,6 @@ msgstr "頁面"
 msgid "pages"
 msgstr "頁面"
 
-msgid "created at"
-msgstr "創建時間"
-
-msgid "user"
-msgstr "用戶"
-
-msgid "content JSON"
-msgstr "內容JSON"
-
-msgid "approved go live at"
-msgstr "批準上線時間"
-
-msgid "revision"
-msgstr "修訂版本"
-
-msgid "revisions"
-msgstr "修訂版本"
-
-msgid "group"
-msgstr "群組"
-
-msgid "permission"
-msgstr "權限"
-
 msgid "group page permission"
 msgstr "群組頁面權限"
 
@@ -252,107 +256,6 @@ msgstr "工作流程頁面"
 msgid "workflow pages"
 msgstr "工作流程頁面"
 
-msgid "workflow_tasks"
-msgstr "工作流程作業"
-
-msgid "task"
-msgstr "作業"
-
-msgid "workflow task order"
-msgstr "工作流程作業順序"
-
-msgid "workflow task orders"
-msgstr "工作流程作業順序"
-
-msgid "name"
-msgstr "名稱"
-
-msgid "active"
-msgstr "啟用"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr "啟用中的作業可添加至工作流程。停用作業不會將其由現有工作流程中移除。"
-
-msgid "tasks"
-msgstr "作業"
-
-msgid "workflows"
-msgstr "工作流程"
-
-msgid "groups"
-msgstr "組"
-
-msgid "Request changes"
-msgstr "變更請求"
-
-msgid "Approve"
-msgstr "核准"
-
-msgid "Approve with comment"
-msgstr "評論並核准"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "選擇的群組成員可核准此項作業"
-
-msgid "Group approval task"
-msgstr "群組審核作業"
-
-msgid "Group approval tasks"
-msgstr "群組審核作業"
-
-msgid "In progress"
-msgstr "進行中"
-
-msgid "Approved"
-msgstr "己核准"
-
-msgid "Needs changes"
-msgstr "需要修訂"
-
-msgid "Cancelled"
-msgstr "已取消"
-
-msgid "status"
-msgstr "狀態"
-
-msgid "requested by"
-msgstr "要求者"
-
-msgid "current task state"
-msgstr "目前作業狀態"
-
-msgid "Not started"
-msgstr "尚未開始"
-
-msgid "Workflow state"
-msgstr "工作流程狀態"
-
-msgid "Workflow states"
-msgstr "工作流程狀態"
-
-msgid "Rejected"
-msgstr "已拒絕"
-
-msgid "Skipped"
-msgstr "已略過"
-
-msgid "workflow state"
-msgstr "工作流程狀態"
-
-msgid "started at"
-msgstr "開始於"
-
-msgid "finished at"
-msgstr "完成於"
-
-msgid "Task state"
-msgstr "作業狀態"
-
-msgid "Task states"
-msgstr "作業狀態"
-
 msgid "Draft saved"
 msgstr "已儲存草稿"
 
@@ -368,36 +271,29 @@ msgstr "評論回覆"
 msgid "comment replies"
 msgstr "評論回覆"
 
-msgid "timestamp (UTC)"
-msgstr "時間標記 (UTC)"
+msgid "Default"
+msgstr "預設"
 
-msgid "system"
-msgstr "系統"
+msgid "created at"
+msgstr "創建時間"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "未知 %(action)s"
+msgid "user"
+msgstr "用戶"
 
-msgid "collection"
-msgstr "集合"
+msgid "content JSON"
+msgstr "內容JSON"
 
-msgid "collection view restriction"
-msgstr "集合檢視限制"
+msgid "approved go live at"
+msgstr "批準上線時間"
 
-msgid "collection view restrictions"
-msgstr "集合檢視限制"
+msgid "revision"
+msgstr "修訂版本"
 
-msgid "collections"
-msgstr "集合"
+msgid "revisions"
+msgstr "修訂版本"
 
-msgid "group collection permission"
-msgstr "群組集合權限"
-
-msgid "group collection permissions"
-msgstr "群組集合權限"
-
-msgid "uploaded by user"
-msgstr "使用者上傳"
+msgid "latest revision"
+msgstr "最新版本"
 
 msgid "hostname"
 msgstr "主機名稱"
@@ -453,11 +349,115 @@ msgstr "公開"
 msgid "Private, accessible to users in specific groups"
 msgstr "私有，特定用戶組中的用戶可訪問"
 
+msgid "groups"
+msgstr "組"
+
 msgid "view restriction"
 msgstr "查看限制"
 
 msgid "view restrictions"
 msgstr "查看限制"
+
+msgid "In progress"
+msgstr "進行中"
+
+msgid "Approved"
+msgstr "己核准"
+
+msgid "Needs changes"
+msgstr "需要修訂"
+
+msgid "Cancelled"
+msgstr "已取消"
+
+msgid "status"
+msgstr "狀態"
+
+msgid "requested by"
+msgstr "要求者"
+
+msgid "current task state"
+msgstr "目前作業狀態"
+
+msgid "Not started"
+msgstr "尚未開始"
+
+msgid "Workflow state"
+msgstr "工作流程狀態"
+
+msgid "Workflow states"
+msgstr "工作流程狀態"
+
+msgid "active"
+msgstr "啟用"
+
+msgid "workflows"
+msgstr "工作流程"
+
+msgid "workflow_tasks"
+msgstr "工作流程作業"
+
+msgid "task"
+msgstr "作業"
+
+msgid "workflow task order"
+msgstr "工作流程作業順序"
+
+msgid "workflow task orders"
+msgstr "工作流程作業順序"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr "啟用中的作業可添加至工作流程。停用作業不會將其由現有工作流程中移除。"
+
+msgid "tasks"
+msgstr "作業"
+
+msgid "Request changes"
+msgstr "變更請求"
+
+msgid "Approve"
+msgstr "核准"
+
+msgid "Approve with comment"
+msgstr "評論並核准"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "選擇的群組成員可核准此項作業"
+
+msgid "Group approval task"
+msgstr "群組審核作業"
+
+msgid "Group approval tasks"
+msgstr "群組審核作業"
+
+msgid "Rejected"
+msgstr "已拒絕"
+
+msgid "Skipped"
+msgstr "已略過"
+
+msgid "workflow state"
+msgstr "工作流程狀態"
+
+msgid "started at"
+msgstr "開始於"
+
+msgid "finished at"
+msgstr "完成於"
+
+msgid "Task state"
+msgstr "作業狀態"
+
+msgid "Task states"
+msgstr "作業狀態"
+
+msgid "in moderation"
+msgstr "審核中"
+
+msgid "live + in moderation"
+msgstr "上線 + 審核中"
 
 msgid "Log in"
 msgstr "登入"

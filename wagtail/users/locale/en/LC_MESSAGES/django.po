@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,162 +22,162 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:56
+#: forms.py:44
 msgid "Required. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:61
+#: forms.py:49
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:87
+#: forms.py:75
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:88
+#: forms.py:76
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:91
+#: forms.py:79
 msgid "Email"
 msgstr ""
 
-#: forms.py:92
+#: forms.py:80
 msgid "First Name"
 msgstr ""
 
-#: forms.py:93
+#: forms.py:81
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:96
+#: forms.py:84
 msgid "Password"
 msgstr ""
 
-#: forms.py:99
+#: forms.py:87
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:103
+#: forms.py:91
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:106
+#: forms.py:94
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:111 forms.py:248 views/users.py:110
+#: forms.py:99 forms.py:234 views/users.py:77
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:114 forms.py:250
+#: forms.py:101 forms.py:236
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:244
+#: forms.py:230
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:371
+#: forms.py:357
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
-#: models.py:28
+#: models.py:30
 msgid "submitted notifications"
 msgstr ""
 
-#: models.py:30
+#: models.py:32
 msgid "Receive notification when a page is submitted for moderation"
 msgstr ""
 
-#: models.py:34
+#: models.py:36
 msgid "approved notifications"
 msgstr ""
 
-#: models.py:36
+#: models.py:38
 msgid "Receive notification when your page edit is approved"
 msgstr ""
 
-#: models.py:40
+#: models.py:42
 msgid "rejected notifications"
 msgstr ""
 
-#: models.py:42
+#: models.py:44
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
-#: models.py:46
+#: models.py:48
 msgid "updated comments notifications"
 msgstr ""
 
-#: models.py:49
+#: models.py:51
 msgid ""
 "Receive notification when comments have been created, resolved, or deleted "
 "on a page that you have subscribed to receive comment notifications on"
 msgstr ""
 
-#: models.py:54
+#: models.py:56
 msgid "preferred language"
 msgstr ""
 
-#: models.py:56
+#: models.py:58
 msgid "Select language for the admin"
 msgstr ""
 
-#: models.py:61
+#: models.py:63
 msgid "current time zone"
 msgstr ""
 
-#: models.py:63
+#: models.py:65
 msgid "Select your current time zone"
 msgstr ""
 
-#: models.py:68
+#: models.py:70
 msgid "profile picture"
 msgstr ""
 
-#: models.py:76 models.py:88
+#: models.py:78 models.py:90
 msgid "System default"
 msgstr ""
 
-#: models.py:77
+#: models.py:79
 msgid "Light"
 msgstr ""
 
-#: models.py:78
+#: models.py:80
 msgid "Dark"
 msgstr ""
 
-#: models.py:81
+#: models.py:83
 msgid "admin theme"
 msgstr ""
 
-#: models.py:89
+#: models.py:91
 msgid "More contrast"
 msgstr ""
 
-#: models.py:92
+#: models.py:94
 msgid "contrast"
 msgstr ""
 
-#: models.py:99
+#: models.py:101
 msgid "Default"
 msgstr ""
 
-#: models.py:100
+#: models.py:102
 msgid "Snug"
 msgstr ""
 
 #. Translators: "Density" is the term used to describe the amount of space between elements in the user interface
-#: models.py:104
+#: models.py:106
 msgid "density"
 msgstr ""
 
-#: models.py:124
+#: models.py:130
 msgid "user profile"
 msgstr ""
 
-#: models.py:125
+#: models.py:131
 msgid "user profiles"
 msgstr ""
 
@@ -289,7 +289,7 @@ msgid ""
 "users."
 msgstr ""
 
-#: templates/wagtailusers/groups/confirm_delete.html:18 views/groups.py:143
+#: templates/wagtailusers/groups/confirm_delete.html:18 views/groups.py:139
 msgid "Are you sure you want to delete this group?"
 msgstr ""
 
@@ -300,7 +300,7 @@ msgstr ""
 
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:20
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:107
-#: views/groups.py:92 views/users.py:166
+#: views/groups.py:88 views/users.py:133
 msgid "Name"
 msgstr ""
 
@@ -396,7 +396,7 @@ msgid ""
 "href=\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 
-#: templatetags/wagtailusers_tags.py:64
+#: templatetags/wagtailusers_tags.py:60
 msgid "Can view"
 msgstr ""
 
@@ -427,12 +427,12 @@ msgid_plural "%(num_parent_objects)d users have been deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/bulk_actions/set_active_state.py:11 views/users.py:133
-#: views/users.py:191
+#: views/bulk_actions/set_active_state.py:11 views/users.py:100
+#: views/users.py:158
 msgid "Active"
 msgstr ""
 
-#: views/bulk_actions/set_active_state.py:11 views/users.py:193
+#: views/bulk_actions/set_active_state.py:11 views/users.py:160
 msgid "Inactive"
 msgstr ""
 
@@ -458,109 +458,109 @@ msgid_plural "%(num_parent_objects)d users have been marked as inactive"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/groups.py:82 views/groups.py:152
+#: views/groups.py:78 views/groups.py:148
 msgid "Groups"
 msgstr ""
 
-#: views/groups.py:83
+#: views/groups.py:79
 msgid "Add a group"
 msgstr ""
 
-#: views/groups.py:84
+#: views/groups.py:80
 msgid "Search groups"
 msgstr ""
 
-#: views/groups.py:100
+#: views/groups.py:96
 msgid "Add group"
 msgstr ""
 
-#: views/groups.py:101
+#: views/groups.py:97
 #, python-format
 msgid "Group '%(object)s' created."
 msgstr ""
 
-#: views/groups.py:114
+#: views/groups.py:110
 #, python-format
 msgid "Group '%(object)s' updated."
 msgstr ""
 
-#: views/groups.py:115
+#: views/groups.py:111
 msgid "The group could not be saved due to errors."
 msgstr ""
 
-#: views/groups.py:122
+#: views/groups.py:118
 msgid "View users in this group"
 msgstr ""
 
-#: views/groups.py:141
+#: views/groups.py:137
 #, python-format
 msgid "Group '%(object)s' deleted."
 msgstr ""
 
-#: views/groups.py:142
+#: views/groups.py:138
 msgid "Delete group"
 msgstr ""
 
-#: views/users.py:114 views/users.py:202
+#: views/users.py:81 views/users.py:169
 msgid "Last login"
 msgstr ""
 
-#: views/users.py:120
+#: views/users.py:87
 msgid "Group"
 msgstr ""
 
-#: views/users.py:150
+#: views/users.py:117
 msgid "Add a user"
 msgstr ""
 
-#: views/users.py:155 views/users.py:395 views/users.py:432
+#: views/users.py:122 views/users.py:353 views/users.py:390
 msgid "Users"
 msgstr ""
 
-#: views/users.py:176
+#: views/users.py:143
 msgid "Username"
 msgstr ""
 
-#: views/users.py:183
+#: views/users.py:150
 msgid "Admin"
 msgstr ""
 
-#: views/users.py:184
+#: views/users.py:151
 msgid "Access level"
 msgstr ""
 
-#: views/users.py:195
+#: views/users.py:162
 msgid "Status"
 msgstr ""
 
-#: views/users.py:247
+#: views/users.py:205
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/users.py:282
+#: views/users.py:240
 #, python-format
 msgid "User '%(object)s' created."
 msgstr ""
 
-#: views/users.py:283
+#: views/users.py:241
 msgid "Add user"
 msgstr ""
 
-#: views/users.py:304
+#: views/users.py:262
 #, python-format
 msgid "User '%(object)s' updated."
 msgstr ""
 
-#: views/users.py:305
+#: views/users.py:263
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:358
+#: views/users.py:316
 msgid "Delete user"
 msgstr ""
 
-#: views/users.py:359
+#: views/users.py:317
 #, python-format
 msgid "User '%(object)s' deleted."
 msgstr ""

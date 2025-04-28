@@ -1,11 +1,9 @@
-from warnings import warn
-
 from django.apps import apps
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.http import Http404
-from django.shortcuts import redirect
 from django.urls import path, re_path, reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -20,7 +18,6 @@ from wagtail.admin.ui.side_panels import ChecksSidePanel, PreviewSidePanel
 from wagtail.admin.ui.tables import (
     BulkActionsCheckboxColumn,
     Column,
-    LiveStatusTagColumn,
     TitleColumn,
 )
 from wagtail.admin.views import generic
@@ -49,7 +46,6 @@ from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import SnippetAdminURLFinder, get_snippet_models
 from wagtail.snippets.side_panels import SnippetStatusSidePanel
 from wagtail.snippets.views.chooser import SnippetChooserViewSet
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 # == Helper functions ==
@@ -72,6 +68,19 @@ def get_snippet_model_from_url_params(app_name, model_name):
 # == Views ==
 
 
+def get_snippet_models_for_index_view():
+    models = get_snippet_models()
+
+    if getattr(settings, "WAGTAILSNIPPETS_MENU_SHOW_ALL", False):
+        return models
+
+    return [
+        model
+        for model in models
+        if not model.snippet_viewset.get_menu_item_is_registered()
+    ]
+
+
 class ModelIndexView(generic.BaseListingView):
     page_title = gettext_lazy("Snippets")
     header_icon = "snippet"
@@ -90,7 +99,7 @@ class ModelIndexView(generic.BaseListingView):
                 "model": model,
                 "url": url,
             }
-            for model in get_snippet_models()
+            for model in get_snippet_models_for_index_view()
             if (url := self.get_list_url(model))
         ]
 
@@ -196,15 +205,7 @@ class IndexView(generic.IndexViewOptionalFeaturesMixin, generic.IndexView):
         # Pass the more_buttons to the construct hooks, as that's what contains
         # the default buttons and most buttons added via register_snippet_listing_buttons
         for hook in hooks.get_hooks("construct_snippet_listing_buttons"):
-            try:
-                hook(more_buttons, instance, self.request.user)
-            except TypeError:
-                warn(
-                    "construct_snippet_listing_buttons hook no longer accepts a context argument",
-                    RemovedInWagtail70Warning,
-                    stacklevel=2,
-                )
-                hook(more_buttons, instance, self.request.user, {})
+            hook(more_buttons, instance, self.request.user)
 
         if more_buttons:
             list_buttons.append(
@@ -766,21 +767,6 @@ class SnippetViewSet(ModelViewSet):
         )
 
     @property
-    def redirect_to_usage_view(self):
-        def redirect_to_usage(request, pk):
-            warn(
-                (
-                    "%s's `/<pk>/usage/` usage view URL pattern has been "
-                    "deprecated in favour of /usage/<pk>/."
-                )
-                % (self.__class__.__name__),
-                category=RemovedInWagtail70Warning,
-            )
-            return redirect(self.get_url_name("usage"), pk, permanent=True)
-
-        return redirect_to_usage
-
-    @property
     def chooser_viewset(self):
         return self.chooser_viewset_class(
             self.get_chooser_admin_url_namespace(),
@@ -789,13 +775,6 @@ class SnippetViewSet(ModelViewSet):
             icon=self.icon,
             per_page=self.chooser_per_page,
         )
-
-    @cached_property
-    def list_display(self):
-        list_display = super().list_display.copy()
-        if self.draftstate_enabled:
-            list_display.append(LiveStatusTagColumn())
-        return list_display
 
     @cached_property
     def icon(self):
@@ -861,14 +840,23 @@ class SnippetViewSet(ModelViewSet):
     def get_menu_item_is_registered(self):
         return self.menu_item_is_registered
 
-    @cached_property
+    @property
     def breadcrumbs_items(self):
         # Use reverse_lazy instead of reverse
         # because this will be passed to the view classes at startup
-        return [
+        breadcrumbs = [
             {"url": reverse_lazy("wagtailadmin_home"), "label": _("Home")},
-            {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
         ]
+
+        if (
+            getattr(settings, "WAGTAILSNIPPETS_MENU_SHOW_ALL", False)
+            or not self.get_menu_item_is_registered()
+        ):
+            breadcrumbs.append(
+                {"url": reverse_lazy("wagtailsnippets:index"), "label": _("Snippets")},
+            )
+
+        return breadcrumbs
 
     def get_queryset(self, request):
         """
@@ -1147,19 +1135,7 @@ class SnippetViewSet(ModelViewSet):
                     ),
                 ]
 
-        # RemovedInWagtail70Warning: Remove legacy URL patterns
-        return urlpatterns + self._legacy_urlpatterns
-
-    @cached_property
-    def _legacy_urlpatterns(self):
-        return [
-            # RemovedInWagtail70Warning: Remove legacy URL patterns
-            # legacy URLs that could potentially collide if the pk matches one of the reserved names above
-            # ('add', 'edit' etc) - redirect to the unambiguous version
-            path("<str:pk>/", self.redirect_to_edit_view),
-            path("<str:pk>/delete/", self.redirect_to_delete_view),
-            path("<str:pk>/usage/", self.redirect_to_usage_view),
-        ]
+        return urlpatterns
 
     def get_edit_handler(self):
         """

@@ -33,7 +33,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -808,44 +807,6 @@ class TestFilteredLogEntriesView(BaseReportViewTestCase):
             self.assertEqual(queryset.count(), 1)
 
         self.assertEqual(response.status_code, 200)
-
-    def test_deprecated_title_attribute(self):
-        # Remove this test when the deprecation ends
-        with (
-            mock.patch.object(
-                LogEntriesView,
-                "page_title",
-                return_value=None,
-                new_callable=mock.PropertyMock,
-            ),
-            mock.patch.object(
-                LogEntriesView,
-                "title",
-                return_value="Deprecated page title",
-                new_callable=mock.PropertyMock,
-            ),
-        ):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "The `title` attribute in `LogEntriesView` (a `ReportView` subclass) is "
-                "deprecated. Use `page_title` instead.",
-            ):
-                self.assertEqual(LogEntriesView.title, "Deprecated page title")
-                self.assertIsNone(LogEntriesView.page_title)
-                response = self.get()
-                self.assertEqual(response.status_code, 200)
-                self.assertPageTitle(
-                    self.get_soup(response.content),
-                    "Deprecated page title - Wagtail",
-                )
-                self.assertEqual(
-                    response.context["page_title"],
-                    "Deprecated page title",
-                )
-                self.assertEqual(
-                    response.context["title"],
-                    "Deprecated page title",
-                )
 
 
 class TestFilteredLogEntriesResultsView(TestFilteredLogEntriesView):

@@ -65,9 +65,6 @@ function ActivateWorkflowActionsForDashboard() {
     );
   });
 }
-/** @deprecated RemovedInWagtail70 - Remove global.ActivateWorkflowActionsForDashboard usage  */
-window.ActivateWorkflowActionsForDashboard =
-  ActivateWorkflowActionsForDashboard;
 
 function ActivateWorkflowActionsForEditView(formSelector) {
   const form = $(formSelector).get(0);
@@ -127,8 +124,6 @@ function ActivateWorkflowActionsForEditView(formSelector) {
     );
   });
 }
-/** @deprecated RemovedInWagtail70 - Remove global.ActivateWorkflowActionsForEditView usage  */
-window.ActivateWorkflowActionsForEditView = ActivateWorkflowActionsForEditView;
 
 const currentScript = document.currentScript;
 const activateTarget = currentScript.dataset.activate;

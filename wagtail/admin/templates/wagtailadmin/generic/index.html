@@ -2,6 +2,11 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block main_header %}
+    {% comment %}
+        RemovedInWagtail80Warning: This block override is for supporting listing
+        views that do not use breadcrumbs. There is no longer such a view in
+        Wagtail core, but we keep this block until the deprecation ends.
+    {% endcomment %}
     {% fragment as extra_actions %}
         {% block extra_actions %}
             {% if view.list_export %}
@@ -16,10 +21,10 @@
 
 {% block listing %}
     {% comment %}
-        DEPRECATED: This block override is for supporting views that have filters
+        RemovedInWagtail80Warning: This block override is for supporting views that have filters
         but not using breadcrumbs (thus have no slim_header to put the filters in).
         There is no longer such a view in Wagtail core, but we keep this block
-        until we can enforce the use of breadcrumbs in all listing views.
+        until the deprecation ends.
     {% endcomment %}
     {% if filters and not breadcrumbs_items %}
         <div class="filterable">

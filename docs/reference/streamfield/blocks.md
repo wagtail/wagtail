@@ -58,10 +58,6 @@ All block definitions accept the following optional keyword arguments or `Meta` 
 -   `description`
     -   The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
 
-```{versionadded} 6.4
-The `preview_value`, `preview_template`, and `description` keyword arguments were added.
-```
-
 All block definitions have the following methods that can be overridden:
 
 ```{eval-rst}

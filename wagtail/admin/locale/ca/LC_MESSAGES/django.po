@@ -6,12 +6,13 @@
 # Antoni Aloy <aaloy@apsl.net>, 2016,2022
 # David Llop, 2014
 # David Llop, 2014
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
@@ -54,6 +55,17 @@ msgstr "Pàgina bloquejada"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)si Publica"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "qualsevol"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
 
 msgid "Wagtail admin"
 msgstr "Administració de Wagtail"
@@ -405,6 +417,12 @@ msgstr "S'ha seleccionat tots els elements del llistat"
 
 msgid "Can access Wagtail admin"
 msgstr "Pot accedir a l'administració de Wagtail"
+
+msgid "item"
+msgstr "element"
+
+msgid "items"
+msgstr "elements"
 
 msgid "Content"
 msgstr "Contingut"
@@ -834,6 +852,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Llegiu les notes de publicació."
 
+msgid "Close"
+msgstr "Tanca"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Les vostres pàgines i fragments en un fluxe de treball"
 
@@ -845,9 +866,6 @@ msgstr "Canvis sol·licitats el"
 
 msgid "Awaiting"
 msgstr "En espera"
-
-msgid "Close"
-msgstr "Tanca"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1185,8 +1203,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "S'ha desactivat la modificació de la privacitat d'aquesta pàgina."
 
+msgid "Scheduling…"
+msgstr "Programant..."
+
 msgid "Publishing…"
 msgstr "Publicant..."
+
+msgid "Schedule to publish"
+msgstr "Programar la publicació"
 
 msgid "Publish this version"
 msgstr "Publicar aquesta versió"
@@ -1759,10 +1783,10 @@ msgstr "Trieu quan aquesta pàgina ha de passar a En viu i/o caducar"
 
 msgid ""
 "This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"\"Schedule to publish\" option"
 msgstr ""
-"Aquesta programació de publicació només serà efectiva quan seleccioneu "
-"l'opció \"Publicar\""
+"La programació de la publicació no serà efectiva fins que seleccioneu "
+"l'opció \"Programar la publicació\""
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Qualsevol usuari amb permís d'edició pot programar publicacions"
@@ -1875,12 +1899,14 @@ msgstr "No s'ha enviat a moderar cap pàgina/fragment"
 msgid "Completed at"
 msgstr "Completat el"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
+
 msgid "Clear"
 msgstr "Netejar"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pàgina %(page_num)s de %(total_pages)s."
 
 msgid "Edit account avatar"
 msgstr "Editar l'avatar del compte"
@@ -2007,6 +2033,10 @@ msgstr "Visible per tothom"
 
 msgid "Private. Visit the live page"
 msgstr "Privada. Visitar la pàgina En viu"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pàgina %(page_num)s de %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Commutar secció"
@@ -2140,8 +2170,8 @@ msgstr "Programació invàlida"
 msgid "Go-live:"
 msgstr "Passar a En viu"
 
-msgid "Once published:"
-msgstr "Un cop publicat:"
+msgid "Once scheduled:"
+msgstr "Un cop programat:"
 
 msgid "No publishing schedule set"
 msgstr "No s'ha establert la programació de publicació"
@@ -2530,6 +2560,9 @@ msgstr "Refés"
 msgid "Save changes"
 msgstr "Desar els canvis"
 
+msgid "Add or show comments"
+msgstr "Afegir o mostrar comentaris"
+
 msgid "Text content"
 msgstr "Contingut de text"
 
@@ -2538,9 +2571,6 @@ msgstr "Inserir o editar un enllaç"
 
 msgid "Text formatting"
 msgstr "Formatació del text"
-
-msgid "Bold"
-msgstr "Negreta"
 
 msgid "Italic"
 msgstr "Cursiva"
@@ -2583,6 +2613,9 @@ msgstr "Marques"
 
 msgid "Toggle preview"
 msgstr "Mostrar/ocultar previsualització"
+
+msgid "(blank)"
+msgstr "(en blanc)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2649,6 +2682,10 @@ msgstr "El text alternatiu de la imatge té un patró inadequat"
 
 msgid "Use meaningful text"
 msgstr "Utilitzar text amb significat"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s objecte (%(id)s)"
 
 msgid "Profile"
 msgstr "Perfil"
@@ -3182,6 +3219,9 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "Pàgina '%(page_title)s' moguda."
 
+msgid "Placeholder title"
+msgstr "Títol de marcador de posició"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
@@ -3333,9 +3373,6 @@ msgstr "Nova tasca de fluxe de treball"
 msgid "Task '%(object)s' created."
 msgstr "S'ha creat la tasca '%(object)s'."
 
-msgid "Editing workflow task"
-msgstr "Editant tasca de fluxe de treball"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "S'ha actualitzat la tasca '%(object)s'."
@@ -3416,26 +3453,20 @@ msgstr "Canviar l'ordre de les pàgines filles de '%(title)s'"
 msgid "Heading 1"
 msgstr "Capçalera 1"
 
-
 msgid "Heading 2"
 msgstr "Capçalera 2"
-
 
 msgid "Heading 3"
 msgstr "Capçalera 3"
 
-
 msgid "Heading 4"
 msgstr "Capçalera 4"
-
 
 msgid "Heading 5"
 msgstr "Capçalera 5"
 
-
 msgid "Heading 6"
 msgstr "Capçalera 6"
-
 
 msgid "Bulleted list"
 msgstr "Llista de pics"
@@ -3445,6 +3476,9 @@ msgstr "Llista numerada"
 
 msgid "Blockquote"
 msgstr "Cita de bloc"
+
+msgid "Bold"
+msgstr "Negreta"
 
 msgid "Link"
 msgstr "Enllaç"

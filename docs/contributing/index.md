@@ -87,5 +87,4 @@ documentation_modes
 translations
 security
 committing
-release_process
 ```

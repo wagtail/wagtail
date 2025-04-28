@@ -5,15 +5,15 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2024
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
-# Matt Westcott <matthew@torchbox.com>, 2018
+# Matt Westcott <matthew@torchbox.com>, 2018,2025
 # saevarom <saevar@saevar.is>, 2015,2017-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>, 2015,2017-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -828,6 +828,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lestu útgáfu tilkynninguna."
 
+msgid "Close"
+msgstr "Loka"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Þínar síður og snifsi í vinnuflæði"
 
@@ -839,9 +842,6 @@ msgstr "Breytingar umbeðnar "
 
 msgid "Awaiting"
 msgstr "Í bið"
-
-msgid "Close"
-msgstr "Loka"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1740,13 +1740,6 @@ msgid "Choose when this page should go live and/or expire"
 msgstr ""
 "Veldu hvenær þessi síða á að fara í loftið og/eða verða tekin úr loftinu"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Þessi útgáfu tímastilling mun aðeins fara að virka þegar búið er að velja "
-"\"Setja í loftið\""
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Allir sem eru með leyfi til breytinga get búið til tímastillingar"
 
@@ -1860,10 +1853,6 @@ msgstr "Lokið"
 
 msgid "Clear"
 msgstr "Hreinsa"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Síða %(page_num)s af %(total_pages)s."
 
 msgid "Edit account avatar"
 msgstr "Breyta táknmynd notanda"
@@ -1990,6 +1979,10 @@ msgstr "Sýnilegt öllum"
 
 msgid "Private. Visit the live page"
 msgstr "Læst. Skoða birta síðu"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Síða %(page_num)s af %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Sýna/fela síðuhluta"
@@ -2120,9 +2113,6 @@ msgstr "Ógild tímastilling"
 
 msgid "Go-live:"
 msgstr "Setja í loftið:"
-
-msgid "Once published:"
-msgstr "Þegar hún er komin í loftið:"
 
 msgid "No publishing schedule set"
 msgstr "Engar tímastillingar vistaðar"
@@ -2520,9 +2510,6 @@ msgstr "Bæta við eða breyta hlekk"
 
 msgid "Text formatting"
 msgstr "Aðlaga texta"
-
-msgid "Bold"
-msgstr "Feitletrun"
 
 msgid "Italic"
 msgstr "Skáletrun"
@@ -3260,9 +3247,6 @@ msgstr "Nýtt skref í vinnuflæði"
 msgid "Task '%(object)s' created."
 msgstr "Skref '%(object)s' búið til."
 
-msgid "Editing workflow task"
-msgstr "Breyti skrefi vinnuflæðis"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Skref '%(object)s' uppfært."
@@ -3341,26 +3325,20 @@ msgstr "Breyta röðun undirsíðna '%(title)s'"
 msgid "Heading 1"
 msgstr "Fyrirsögn 1"
 
-
 msgid "Heading 2"
 msgstr "Fyrirsögn 2"
-
 
 msgid "Heading 3"
 msgstr "Fyrirsögn 3"
 
-
 msgid "Heading 4"
 msgstr "Fyrirsögn 4"
-
 
 msgid "Heading 5"
 msgstr "Fyrirsögn 5"
 
-
 msgid "Heading 6"
 msgstr "Fyrirsögn 6"
-
 
 msgid "Bulleted list"
 msgstr "Ónúmeraður listi"
@@ -3370,6 +3348,9 @@ msgstr "Númeraður listi"
 
 msgid "Blockquote"
 msgstr "Inndregin textablokk"
+
+msgid "Bold"
+msgstr "Feitletrun"
 
 msgid "Link"
 msgstr "Hlekkur"

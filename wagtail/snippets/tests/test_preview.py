@@ -15,7 +15,6 @@ from wagtail.test.testapp.models import (
     RevisableModel,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestPreview(WagtailTestUtils, TestCase):
@@ -65,7 +64,7 @@ class TestPreview(WagtailTestUtils, TestCase):
     def test_preview_on_create_with_invalid_data(self):
         self.assertNotIn(self.session_key_prefix, self.client.session)
 
-        response = self.client.post(self.preview_on_add_url, {"text": ""})
+        response = self.client.post(self.preview_on_add_url, {"categories": [999999]})
 
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
@@ -116,6 +115,36 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
+    def test_preview_on_create_with_deferred_required_fields(self):
+        response = self.client.post(
+            self.preview_on_add_url,
+            {"categories": [self.holidays_category.id]},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        self.assertIn(self.session_key_prefix, self.client.session)
+
+        response = self.client.get(self.preview_on_add_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+
+        # The text is empty
+        self.assertContains(response, "<title>(Default Preview)</title>", html=True)
+        self.assertContains(response, "<h1></h1>", html=True)
+
+        # The category is Holidays (only)
+        self.assertNotContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
     def test_preview_on_edit_with_m2m_field(self):
         response = self.client.post(self.preview_on_edit_url, self.post_data)
 
@@ -150,7 +179,7 @@ class TestPreview(WagtailTestUtils, TestCase):
 
         # Send an invalid update request
         response = self.client.post(
-            self.preview_on_edit_url, {**self.post_data, "text": ""}
+            self.preview_on_edit_url, {**self.post_data, "categories": [999999]}
         )
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(
@@ -168,6 +197,36 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "tests/previewable_model.html")
         self.assertContains(response, "An edited previewable snippet")
         self.assertContains(response, "<li>Parties</li>")
+        self.assertContains(response, "<li>Holidays</li>")
+
+    def test_preview_on_edit_with_deferred_required_fields(self):
+        response = self.client.post(
+            self.preview_on_edit_url,
+            {"categories": [self.holidays_category.id]},
+        )
+
+        # Check the JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            response.content.decode(),
+            {"is_valid": True, "is_available": True},
+        )
+
+        # Check the user can refresh the preview
+        self.assertIn(self.edit_session_key, self.client.session)
+
+        response = self.client.get(self.preview_on_edit_url)
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+
+        # The text is empty
+        self.assertContains(response, "<title>(Default Preview)</title>", html=True)
+        self.assertContains(response, "<h1></h1>", html=True)
+
+        # The category is Holidays (only)
+        self.assertNotContains(response, "<li>Parties</li>")
         self.assertContains(response, "<li>Holidays</li>")
 
     def test_preview_on_edit_expiry(self):
@@ -500,41 +559,6 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
             self.single, "preview_on_edit", args=(self.multiple.pk,)
         )
         response = self.client.get(edit_url)
-
-        self.assertEqual(response.status_code, 200)
-
-        soup = self.get_soup(response.content)
-
-        # Should set the interval value on the controller
-        controller = soup.select_one('[data-controller="w-preview"]')
-        self.assertIsNotNone(controller)
-        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
-        interval_value = controller.get("data-w-preview-auto-update-interval-value")
-        self.assertEqual(interval_value, "0")
-
-        # Should not render the spinner
-        spinner = controller.select_one('[data-w-preview-target="spinner"]')
-        self.assertIsNone(spinner)
-
-        # Should render the refresh button with the w-progress controller
-        refresh_button = controller.select_one("button")
-        self.assertIsNotNone(refresh_button)
-        self.assertEqual(refresh_button.get("data-controller"), "w-progress")
-        self.assertEqual(refresh_button.text.strip(), "Refresh")
-
-    @override_settings(WAGTAIL_AUTO_UPDATE_PREVIEW=False)
-    def test_disable_auto_update_using_deprecated_setting(self):
-        edit_url = self.get_url(self.single, "edit", args=(self.single.pk,))
-        preview_url = self.get_url(
-            self.single, "preview_on_edit", args=(self.multiple.pk,)
-        )
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`WAGTAIL_AUTO_UPDATE_PREVIEW` is deprecated. "
-            "Set `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` to disable auto-update "
-            "for previews.",
-        ):
-            response = self.client.get(edit_url)
 
         self.assertEqual(response.status_code, 200)
 

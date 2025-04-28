@@ -15,6 +15,9 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Actions"
+msgstr "Veiksmai"
+
 msgid "Add a comment"
 msgstr "Pridėti komentarą"
 

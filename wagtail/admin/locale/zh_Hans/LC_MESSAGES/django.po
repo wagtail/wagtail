@@ -16,11 +16,15 @@
 # Yin Guanhao <sopium@mysterious.site>, 2020
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Monty NG, 2023
+# Monty NG, 2023
+# Terry Peng, 2023
 # Terry Peng, 2023
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
+# Yu Cheng, 2024
 # Yu Cheng, 2024
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
 # 汇民 王 <whuim@qq.com>, 2017-2021
@@ -31,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Yu Cheng, 2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -733,6 +737,9 @@ msgstr "日期"
 msgid "Site summary"
 msgstr "网站摘要"
 
+msgid "Close"
+msgstr "关闭"
+
 msgid "Task started"
 msgstr "任务已启动"
 
@@ -741,9 +748,6 @@ msgstr "请求的更改"
 
 msgid "Awaiting"
 msgstr "等待"
-
-msgid "Close"
-msgstr "关闭"
 
 msgid "Awaiting your review"
 msgstr "等待你的审查"
@@ -1320,10 +1324,6 @@ msgstr "完成于"
 msgid "Clear"
 msgstr "清除"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
-
 msgid "Toggle breadcrumbs"
 msgstr "面包屑开关"
 
@@ -1386,6 +1386,10 @@ msgstr "任何人可看"
 
 msgid "Private. Visit the live page"
 msgstr "私有. 查看已发布页"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "第 %(page_num)s 页，共 %(total_pages)s 页"
 
 msgid "Toggle section"
 msgstr "部件开关"
@@ -1712,9 +1716,6 @@ msgstr "撤销"
 
 msgid "Redo"
 msgstr "重复"
-
-msgid "Bold"
-msgstr "粗体"
 
 msgid "Italic"
 msgstr "斜体"
@@ -2145,9 +2146,6 @@ msgstr "新建工作流任务"
 msgid "Task '%(object)s' created."
 msgstr "任务 '%(object)s'已创建。"
 
-msgid "Editing workflow task"
-msgstr "正在编辑工作流任务"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "任务 '%(object)s' 已更新。"
@@ -2208,26 +2206,20 @@ msgstr "更改“%(title)s”的子页面顺序"
 msgid "Heading 1"
 msgstr "标题1"
 
-
 msgid "Heading 2"
 msgstr "标题2"
-
 
 msgid "Heading 3"
 msgstr "标题3"
 
-
 msgid "Heading 4"
 msgstr "标题4"
-
 
 msgid "Heading 5"
 msgstr "标题5"
 
-
 msgid "Heading 6"
 msgstr "标题6"
-
 
 msgid "Bulleted list"
 msgstr "项目列表"
@@ -2237,6 +2229,9 @@ msgstr "编号列表"
 
 msgid "Blockquote"
 msgstr "块引用"
+
+msgid "Bold"
+msgstr "粗体"
 
 msgid "Link"
 msgstr "链接"

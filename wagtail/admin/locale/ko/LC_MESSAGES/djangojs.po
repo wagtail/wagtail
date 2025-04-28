@@ -3,6 +3,7 @@
 # Jihan Chung <jihanchung20@gmail.com>, 2022
 # Kyu Choi, 2022
 # Loic Teixeira, 2024
+# sl kim <vizuan@gmail.com>, 2025
 # Kyungil Choi <hanpama@gmail.com>, 2025
 #
 msgid ""
@@ -12,6 +13,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Actions"
+msgstr "액션"
 
 msgid "Add a comment"
 msgstr "댓글 추가"
@@ -30,6 +34,9 @@ msgstr "취소"
 
 msgid "Close"
 msgstr "닫기"
+
+msgid "Collapse all"
+msgstr "모두 접기"
 
 msgid "Comment"
 msgstr "댓글"
@@ -54,6 +61,9 @@ msgstr "수정"
 
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' 수정"
+
+msgid "Expand all"
+msgstr "모두 펼치기"
 
 msgid "Focus comment"
 msgstr "인기 댓글"
@@ -87,6 +97,9 @@ msgstr "페이지 탐색"
 
 msgid "Pages"
 msgstr "페이지"
+
+msgid "Pin toolbar"
+msgstr "툴바 고정"
 
 msgid "Preview"
 msgstr "미리보기"
@@ -170,6 +183,9 @@ msgstr "사이드 전환"
 
 msgid "Unfocus comment"
 msgstr "비인기 댓글"
+
+msgid "Unpin toolbar"
+msgstr "툴바 고정 해제"
 
 msgid "View child pages of '%(title)s'"
 msgstr " '%(title)s' 페이지의 하위 페이지 보기"

@@ -780,6 +780,9 @@ class Task(SpecificMixin, models.Model):
         return TaskStateCommentForm
 
     def get_template_for_action(self, action):
+        """
+        Specifies a template for the workflow action modal.
+        """
         return ""
 
     def get_task_states_user_can_moderate(self, user, **kwargs):

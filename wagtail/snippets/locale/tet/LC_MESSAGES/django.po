@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -28,9 +28,6 @@ msgstr "Submete ba moderasaun"
 msgid "Unpublish"
 msgstr "La publika "
 
-msgid "Delete"
-msgstr "Hamoos"
-
 msgid "Save"
 msgstr "Rai"
 
@@ -39,6 +36,9 @@ msgstr "Xavi tiha ona"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
+
+msgid "Delete"
+msgstr "Hamoos"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."

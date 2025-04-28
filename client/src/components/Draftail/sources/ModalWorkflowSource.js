@@ -175,8 +175,6 @@ class ImageModalWorkflowSource extends ModalWorkflowSource {
     let urlParams;
     const { imageChooser } = {
       ...this.props.entityType?.chooserUrls,
-      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
-      ...global.chooserUrls,
     };
 
     if (entity) {
@@ -214,8 +212,6 @@ class EmbedModalWorkflowSource extends ModalWorkflowSource {
   getChooserConfig(entity) {
     const { embedsChooser } = {
       ...this.props.entityType?.chooserUrls,
-      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
-      ...global.chooserUrls,
     };
     const urlParams = {};
 
@@ -249,8 +245,6 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
   getChooserConfig(entity, selectedText) {
     const chooserUrls = {
       ...this.props.entityType?.chooserUrls,
-      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
-      ...global.chooserUrls,
     };
     let url = chooserUrls.pageChooser;
 
@@ -316,8 +310,6 @@ class DocumentModalWorkflowSource extends ModalWorkflowSource {
   getChooserConfig() {
     const { documentChooser } = {
       ...this.props.entityType?.chooserUrls,
-      /** @deprecated RemovedInWagtail70 - Remove global.chooserUrls usage  */
-      ...global.chooserUrls,
     };
 
     return {

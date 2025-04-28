@@ -12,6 +12,9 @@ msgstr ""
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Actions"
+msgstr "Toimingud"
+
 msgid "Alt text"
 msgstr "Alt-tekst"
 

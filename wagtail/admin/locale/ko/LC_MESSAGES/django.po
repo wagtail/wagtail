@@ -8,15 +8,17 @@
 # Kyu Choi, 2022
 # Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020,2022
-# Matt Westcott <matthew@torchbox.com>, 2018
+# Matt Westcott <matthew@torchbox.com>, 2018,2025
 # mirusu400, 2024
+# mirusu400, 2024
+# sl kim <vizuan@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: mirusu400, 2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -87,6 +89,9 @@ msgstr "모음"
 
 msgid "Tag"
 msgstr "테그"
+
+msgid "Use server time zone"
+msgstr "서버의 타임존 사용"
 
 msgid "Preferred language"
 msgstr "선호하는 언어"
@@ -442,6 +447,9 @@ msgstr "돌아가다"
 msgid "Bulk actions"
 msgstr "대부분의 움직임"
 
+msgid "Select"
+msgstr "선택"
+
 msgid "Select row"
 msgstr "로우를 선택하시오"
 
@@ -655,6 +663,9 @@ msgstr "날짜"
 msgid "Site summary"
 msgstr "사이트 요약"
 
+msgid "Close"
+msgstr "닫기"
+
 msgid "Task started"
 msgstr "업무 시작"
 
@@ -663,9 +674,6 @@ msgstr "변경이 로 요청되었습니다"
 
 msgid "Awaiting"
 msgstr "대기"
-
-msgid "Close"
-msgstr "닫기"
 
 msgid "Awaiting your review"
 msgstr "당신의 후기를 기다리는 중"
@@ -1186,6 +1194,9 @@ msgstr "다음"
 msgid "This page is protected from public view"
 msgstr "이 페이지는 다른 이들이 보지 못하도록 보호되었습니다"
 
+msgid "Confirm"
+msgstr "확인"
+
 msgid "Add child page"
 msgstr "하위 페이지 추가"
 
@@ -1241,6 +1252,12 @@ msgstr "업데이트됨"
 msgid "Pages"
 msgstr "페이지"
 
+msgid "Last edited page"
+msgstr "마지막으로 편집한 페이지"
+
+msgid "Last edit"
+msgstr "마지막 편집"
+
 msgid "Locking status"
 msgstr "잠금 상태"
 
@@ -1295,18 +1312,26 @@ msgstr "업무 미완성"
 msgid "Completed at"
 msgstr "에 완료됨"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
-
 msgid "Toggle breadcrumbs"
 msgstr "부분 전환"
 
 msgid "Breadcrumb"
 msgstr "브레드크럼"
 
+msgid "System"
+msgstr "시스템"
+
+msgid "Refresh"
+msgstr "새로고침"
+
+msgid "Refresh page"
+msgstr "페이지 새로고침"
+
 msgid "Continue"
 msgstr "계속"
+
+msgid "Refresh the page"
+msgstr "페이지 새로고침"
 
 msgid "Download XLSX"
 msgstr "XLSX 다운로드"
@@ -1343,6 +1368,10 @@ msgstr "모두에게 공개"
 
 msgid "Private. Visit the live page"
 msgstr "공개제한. 라이브 페이지를 방문하시오."
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "이 수정안의 예약 게시를 취소하시겠습니까?"
@@ -1402,6 +1431,9 @@ msgstr "상세 확인"
 
 msgid "View history"
 msgstr "히스토리 확인"
+
+msgid "Preview mode"
+msgstr "미리보기 모드"
 
 msgid "First published"
 msgstr "가장 먼저 게시됨"
@@ -1475,6 +1507,12 @@ msgstr "메인 컨텐츠로 이동"
 
 msgid "View Wagtail quick actions"
 msgstr "워그테일의 빠른 엑션 보기"
+
+msgid "Accessibility"
+msgstr "접근성"
+
+msgid "Warnings"
+msgstr "경고"
 
 msgid "Add a child page"
 msgstr "하위페이지 추가"
@@ -1649,17 +1687,26 @@ msgstr "%(time_period)s 전"
 msgid "Log out"
 msgstr "로그아웃"
 
+msgid "Cut"
+msgstr "잘라내기"
+
+msgid "Paste"
+msgstr "붙여넣기"
+
 msgid "Undo"
 msgstr "실행취소"
 
 msgid "Redo"
 msgstr "재실행"
 
-msgid "Bold"
-msgstr "굵게"
+msgid "Save changes"
+msgstr "변경점 저장"
 
 msgid "Italic"
 msgstr "기울임꼴"
+
+msgid "Underline"
+msgstr "밑줄"
 
 msgid "Superscript"
 msgstr "위첨자"
@@ -1699,13 +1746,16 @@ msgid "Profile"
 msgstr "프로필"
 
 msgid "Notifications"
-msgstr "알림서"
+msgstr "알림"
 
 msgid "Name and Email"
 msgstr "이름과 이메일"
 
 msgid "Profile picture"
 msgstr "프로필 사진"
+
+msgid "Theme preferences"
+msgstr "테마 설정"
 
 msgid "Password"
 msgstr "비밀번호"
@@ -2072,9 +2122,6 @@ msgstr "새로운 워크플로우 작업"
 msgid "Task '%(object)s' created."
 msgstr "작업 '%(object)s' 생성됨"
 
-msgid "Editing workflow task"
-msgstr "워크플로우 작업 생성"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "작업 '%(object)s' 생성됨"
@@ -2132,26 +2179,20 @@ msgstr "파생 페이지의 '%(title)s' 순서를 바꿈"
 msgid "Heading 1"
 msgstr "머리말 1"
 
-
 msgid "Heading 2"
 msgstr "머리말 2"
-
 
 msgid "Heading 3"
 msgstr "머리말 3"
 
-
 msgid "Heading 4"
 msgstr "머리말 4"
-
 
 msgid "Heading 5"
 msgstr "머리말 5"
 
-
 msgid "Heading 6"
 msgstr "머리말 6"
-
 
 msgid "Bulleted list"
 msgstr "머릿기호 목록"
@@ -2161,6 +2202,9 @@ msgstr "숫자 목록"
 
 msgid "Blockquote"
 msgstr "인용"
+
+msgid "Bold"
+msgstr "굵게"
 
 msgid "Link"
 msgstr "링크"
@@ -2173,6 +2217,15 @@ msgstr "코드"
 
 msgid "Reports"
 msgstr "리포트"
+
+msgid "Editor Guide"
+msgstr "에디터 사용법"
+
+msgid "Shortcuts"
+msgstr "단축키"
+
+msgid "Help"
+msgstr "도움말"
 
 msgid "Choose an item"
 msgstr "아이템 선택"

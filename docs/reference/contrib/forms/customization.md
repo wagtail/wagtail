@@ -629,6 +629,75 @@ class FormPage(AbstractEmailForm):
     # content_panels = ...
 ```
 
+(custom_form_field_type_widgets)=
+
+## Customizing the widget of built-in field types
+
+When rendering a form, each field type will be rendered using its default widget, the widget used can be overridden as follows.
+
+Define your custom widget, in this example we will override the email type with an enhanced `EmailInput` widget.
+
+```py
+# myapp/widgets.py
+from django import forms
+from django.utils.translation import gettext as _
+
+#... other imports
+
+class CustomEmailInputWidget(forms.EmailInput):
+    """
+    This is a custom input type for the email field, with refined
+    extra attributes for cross-browser compatibility.
+    """
+
+    def __init__(self, attrs={}):
+
+        attrs = {
+            "autocapitalize": "off",
+            "autocomplete": "email",
+            "autocorrect": "off",
+            "placeholder": _("email@example.com"),
+            "spellcheck": "false",
+            **attrs, # let supplied attrs override the new defaults
+        }
+
+        super().__init__(attrs=attrs)
+```
+
+Override the `create_TYPE_field` method for the `email` type, assigning the widget to the field's options that have been defined by user entry.
+
+```python
+from wagtail.contrib.forms.forms import FormBuilder
+
+from myapp.widgets import CustomEmailInputWidget
+
+
+class CustomFormBuilder(FormBuilder):
+    # Override any of the `create_TYPE_field` to apply to different field types
+    # e.g., create_singleline_field, create_checkboxes_field, create_url_field
+    def create_email_field(self, field, options):
+        options["widget"] = CustomEmailInputWidget
+        return super().create_checkbox_field(field, options)
+
+    # Alternatively, you can instantiate the widget directly with custom attributes
+    def create_singleline_field(self, field, options):
+        options["widget"] = forms.TextInput(attrs={"class": "custom-class"})
+        return super().create_singleline_field(field, options)
+```
+
+As per other customizations, ensure you have set the `form_builder` attribute on your form page model.
+
+```python
+from wagtail.contrib.forms.models import AbstractEmailForm
+
+
+class FormPage(AbstractEmailForm):
+    # intro, thank_you_text, edit_handlers, etc...
+
+    # use custom form builder defined above
+    form_builder = CustomFormBuilder
+```
+
 ## Adding a custom field type
 
 First, make the new field type available in the page editor by changing your `FormField` model.

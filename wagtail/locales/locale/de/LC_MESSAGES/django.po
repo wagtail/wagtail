@@ -8,15 +8,16 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2021
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Loic Teixeira, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2025
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:24+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Loic Teixeira, 2022\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2025\n"
 "Language-Team: German (https://app.transifex.com/torchbox/teams/8009/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +49,16 @@ msgid ""
 msgstr ""
 "Der Sprachcode dieser Locale wird nicht unterstützt. Bitte wählen Sie eine "
 "neue Sprache aus oder löschen Sie diese Locale."
+
+#, python-format
+msgid "%(num_pages)d pages and %(num_others)d others"
+msgstr "%(num_pages)d Seiten und %(num_others)d andere"
+
+#, python-format
+msgid "%(num_pages)d page"
+msgid_plural "%(num_pages)d pages"
+msgstr[0] "%(num_pages)d Seite"
+msgstr[1] "%(num_pages)d Seiten"
 
 msgid "Locales"
 msgstr "Locale"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -128,9 +128,6 @@ msgstr "Cerca"
 
 msgid "Terms"
 msgstr "Termini"
-
-msgid "Views (past week)"
-msgstr "Viste (scorsa settimana)"
 
 msgid "No results found"
 msgstr "Nessun risultato"

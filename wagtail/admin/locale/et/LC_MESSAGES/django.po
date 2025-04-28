@@ -5,15 +5,15 @@
 # Translators:
 # Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Erlend Eelmets <debcf78e@opayq.com>, 2020
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
 # Ragnar Rebase <rrebase@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -469,6 +469,9 @@ msgstr "Kuupäev"
 msgid "Site summary"
 msgstr "Saidi kokkuvõte"
 
+msgid "Close"
+msgstr "Sulge"
+
 msgid "Task started"
 msgstr "Ülesanne algas"
 
@@ -477,9 +480,6 @@ msgstr "Muudatused taotletud aadressil"
 
 msgid "Awaiting"
 msgstr "Ootan"
-
-msgid "Close"
-msgstr "Sulge"
 
 msgid "Awaiting your review"
 msgstr "Teie ülevaatuse ootamine"
@@ -831,10 +831,6 @@ msgstr "Mittetäielik ülesanne"
 msgid "Completed at"
 msgstr "Valmis kell"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Leht %(page_num)s lehtedest %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "Riivsai"
 
@@ -864,6 +860,10 @@ msgstr "Lehe praegune olek:"
 
 msgid "Visit the live page"
 msgstr "Külastage reaalajas lehte"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Leht %(page_num)s lehtedest %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Kas olete kindel, et soovite selle redigeerimise ajakava tühistada?"
@@ -1091,9 +1091,6 @@ msgstr "Võta tagasi"
 
 msgid "Redo"
 msgstr "Tee uuesti"
-
-msgid "Bold"
-msgstr "Julge"
 
 msgid "Italic"
 msgstr "Kursiiv"
@@ -1444,9 +1441,6 @@ msgstr "Uus töövoo ülesanne"
 msgid "Task '%(object)s' created."
 msgstr "Ülesanne '%(object)s' on loodud."
 
-msgid "Editing workflow task"
-msgstr "Töövoo ülesande muutmine"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Ülesanne '%(object)s' on värskendatud."
@@ -1497,26 +1491,20 @@ msgstr "Kuva lehe ajalugu: %(title)s"
 msgid "Heading 1"
 msgstr "Pealkiri 1"
 
-
 msgid "Heading 2"
 msgstr "Pealkiri 2"
-
 
 msgid "Heading 3"
 msgstr "Pealkiri 3"
 
-
 msgid "Heading 4"
 msgstr "Pealkiri 4"
-
 
 msgid "Heading 5"
 msgstr "Pealkiri 5"
 
-
 msgid "Heading 6"
 msgstr "Pealkiri 6"
-
 
 msgid "Bulleted list"
 msgstr "Täppidega loend"
@@ -1526,6 +1514,9 @@ msgstr "Numbriloend"
 
 msgid "Blockquote"
 msgstr "Blokeeri pakkumine"
+
+msgid "Bold"
+msgstr "Julge"
 
 msgid "Link"
 msgstr "Link"

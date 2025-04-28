@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,29 +22,29 @@ msgstr ""
 msgid "Wagtail search promotions"
 msgstr ""
 
-#: forms.py:11
+#: forms.py:12
 msgid "Search term(s)/phrase"
 msgstr ""
 
-#: forms.py:13
+#: forms.py:14
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
 
-#: forms.py:61
+#: forms.py:62
 msgid "You must enter an external link text if you enter an external link URL."
 msgstr ""
 
-#: forms.py:69
+#: forms.py:70
 msgid "You must recommend a page OR an external link."
 msgstr ""
 
-#: forms.py:76
+#: forms.py:77
 msgid "Please only select a page OR enter an external link."
 msgstr ""
 
-#: forms.py:110
+#: forms.py:111
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
@@ -76,16 +76,16 @@ msgstr ""
 msgid "Applies to internal page or external link"
 msgstr ""
 
-#: models.py:160
+#: models.py:154
 msgid "search promotion"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/add.html:7
 msgid ""
 "<p>Promoted search results are a means of recommending specific pages or "
-"external links that might not organically come high up in search results. E."
-"g recommending your primary donation page to a user searching with the less "
-"common term \"<em>giving</em>\".</p>"
+"external links that might not organically come high up in search results. "
+"E.g recommending your primary donation page to a user searching with the "
+"less common term \"<em>giving</em>\".</p>"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/add.html:11
@@ -166,8 +166,8 @@ msgid "Terms"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/queries/chooser/results.html:10
-#: views/settings.py:56
-msgid "Views (past week)"
+#: views/reports.py:34 views/reports.py:38 views/settings.py:56
+msgid "Views"
 msgstr ""
 
 #: templates/wagtailsearchpromotions/queries/chooser/results.html:24
@@ -198,10 +198,6 @@ msgstr ""
 msgid "Search term(s)"
 msgstr ""
 
-#: views/reports.py:34 views/reports.py:38
-msgid "Views"
-msgstr ""
-
 #: views/settings.py:40
 msgid "Add new promoted result"
 msgstr ""
@@ -210,28 +206,28 @@ msgstr ""
 msgid "Promoted results"
 msgstr ""
 
-#: views/settings.py:91
+#: views/settings.py:90
 msgid "Promoted search result"
 msgstr ""
 
-#: views/settings.py:180
+#: views/settings.py:179
 #, python-format
 msgid "Editor's picks for '%(query)s' created."
 msgstr ""
 
-#: views/settings.py:181
+#: views/settings.py:180
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views/settings.py:190
+#: views/settings.py:189
 #, python-format
 msgid "Editor's picks for '%(query)s' updated."
 msgstr ""
 
-#: views/settings.py:191
+#: views/settings.py:190
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views/settings.py:200
+#: views/settings.py:199
 msgid "Editor's picks deleted."
 msgstr ""

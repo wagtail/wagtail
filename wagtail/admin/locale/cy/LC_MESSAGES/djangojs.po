@@ -15,6 +15,9 @@ msgstr ""
 msgid "(New)"
 msgstr "(Newydd)"
 
+msgid "Actions"
+msgstr "Gweithredoedd"
+
 msgid "Alt text"
 msgstr "Testun amgen"
 

@@ -4,14 +4,14 @@
 #
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
+"Last-Translator: aaao <aron.santa@gmail.com>, 2019\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -298,6 +298,18 @@ msgstr "Formátum kiválasztása"
 msgid "Insert image"
 msgstr "Kép beillesztése"
 
+#, python-format
+msgid ""
+"%(total)s Image <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Images <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s kép <span class=\"w-sr-only\">létrehozva a weboldalon: "
+"%(site_name)s</span>"
+msgstr[1] ""
+"%(total)s kép  <span class=\"w-sr-only\">létrehozva a weboldalon: "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Kép cseréje:"
 
@@ -410,6 +422,11 @@ msgstr "Vagy válasszon számítógépéről"
 
 msgid "Add to collection:"
 msgstr "Hozzáadás gyűjteményhez:"
+
+msgid ""
+"Please provide an image description to comply with best practices for "
+"accessibility."
+msgstr "Kérjük, adjon hozzá egy kép leírást"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -528,6 +545,9 @@ msgid ""
 msgstr ""
 "A forrás kép nem található. Kérjük válasszon ki új forrás fájlt, vagy "
 "törölje a képet."
+
+msgid "Generate URL"
+msgstr "URL generálása"
 
 msgid "Delete image"
 msgstr "Kép törlése"

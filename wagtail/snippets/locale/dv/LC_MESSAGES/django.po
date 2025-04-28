@@ -4,11 +4,12 @@
 #
 # Translators:
 # Fauzaan Gasim, 2024
+# Fauzaan Gasim, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Fauzaan Gasim, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -42,9 +43,6 @@ msgstr "ވޯކްފްލޯ ކެންސަލް ކުރޭ"
 msgid "Unpublish"
 msgstr "އަންޕަބްލިޝް ކޮށްލާ"
 
-msgid "Delete"
-msgstr "ޑިލީޓްކުރެވޭ"
-
 msgid "Save"
 msgstr "ސޭވްކުރޭ"
 
@@ -54,6 +52,9 @@ msgstr "ތަޅުލެވިފައި"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s އަދި ހުށައަޅާ"
+
+msgid "Delete"
+msgstr "ޑިލީޓްކުރެވޭ"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."

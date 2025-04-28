@@ -1,10 +1,7 @@
-from warnings import warn
-
 from django.utils.html import escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.utils.apps import get_app_submodules
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .shortcuts import get_rendition_or_not_found
 
@@ -23,14 +20,6 @@ class Format:
 
     def __repr__(self):
         return f"Format({self})"
-
-    @property
-    def classnames(self):
-        warn(
-            "The class property `classnames` is deprecated - use `classname` instead.",
-            category=RemovedInWagtail70Warning,
-        )
-        return self.classname
 
     def editor_attributes(self, image, alt_text):
         """

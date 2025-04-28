@@ -13,6 +13,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.compat import URLField
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
     RichText,
@@ -318,7 +319,7 @@ class URLBlock(FieldBlock):
         validators=(),
         **kwargs,
     ):
-        self.field = forms.URLField(
+        self.field = URLField(
             required=required,
             help_text=help_text,
             max_length=max_length,
@@ -707,7 +708,7 @@ class RichTextBlock(FieldBlock):
     def normalize(self, value):
         if isinstance(value, RichText):
             return value
-        return RichText(value)
+        return RichText(value and force_str(value))
 
     @cached_property
     def field(self):

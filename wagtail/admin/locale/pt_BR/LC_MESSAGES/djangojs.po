@@ -43,6 +43,9 @@ msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixels"
 msgstr[2] "%(num)s pixels"
 
+msgid "Actions"
+msgstr "Ações"
+
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
 

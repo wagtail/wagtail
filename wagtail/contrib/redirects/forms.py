@@ -2,12 +2,13 @@ from django import forms
 from django.core.signing import BadSignature, Signer
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.models import Site
 
 
-class RedirectForm(forms.ModelForm):
+class RedirectForm(WagtailAdminModelForm):
     site = forms.ModelChoiceField(
         label=_("From site"),
         queryset=Site.objects.all(),
@@ -45,7 +46,7 @@ class RedirectForm(forms.ModelForm):
                     _("A redirect with this path already exists.")
                 )
 
-    class Meta:
+    class Meta(WagtailAdminModelForm.Meta):
         model = Redirect
         fields = ("old_path", "site", "is_permanent", "redirect_page", "redirect_link")
 

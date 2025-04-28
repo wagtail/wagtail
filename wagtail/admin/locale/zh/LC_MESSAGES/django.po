@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Orangle Liu <orangleliu@gmail.com>, 2017\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -306,7 +306,7 @@ msgid "Name"
 msgstr "名字"
 
 #, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
+msgid "Page %(page_num)s of %(total_pages)s"
 msgstr "第%(page_num)s页 共%(total_pages)s页"
 
 msgid "Edited"

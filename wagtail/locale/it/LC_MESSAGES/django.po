@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 12:59+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021-2022,2024\n"
+"Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2020\n"
 "Language-Team: Italian (http://app.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -130,8 +130,34 @@ msgstr "Sbloccata"
 msgid "Only reviewers can edit and approve the %(model_name)s"
 msgstr "Solo i revisori possono modificare e approvare %(model_name)s"
 
-msgid "latest revision"
-msgstr "ultima revisione"
+msgid "content type"
+msgstr "tipo contenuto"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp (UTC)"
+
+msgid "log entry"
+msgstr "log"
+
+msgid "log entries"
+msgstr "log"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "L'azione del log  '%(action_name)s' non è stata registrata."
+
+msgid "system"
+msgstr "sistema"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s sconosciuta"
+
+msgid "model log entry"
+msgstr "record del log del modello"
+
+msgid "model log entries"
+msgstr "log del modello"
 
 msgid "live"
 msgstr "live"
@@ -169,18 +195,6 @@ msgstr "live + programmate"
 msgid "live + draft"
 msgstr "live + bozza"
 
-msgid "Default"
-msgstr "Default"
-
-msgid "Preview in mobile size"
-msgstr "Anteprima in formato mobile"
-
-msgid "Preview in tablet size"
-msgstr "Anteprima in formato tablet"
-
-msgid "Preview in desktop size"
-msgstr "Anteprima in formato desktop"
-
 msgid "locked"
 msgstr "bloccata"
 
@@ -190,11 +204,35 @@ msgstr "bloccata"
 msgid "locked by"
 msgstr "bloccata da"
 
-msgid "in moderation"
-msgstr "in moderazione"
+msgid "collection"
+msgstr "raccolta"
 
-msgid "live + in moderation"
-msgstr "live + in moderazione"
+msgid "collection view restriction"
+msgstr "limitazione per la vista della raccolta"
+
+msgid "collection view restrictions"
+msgstr "limitazioni per la vista della raccolta"
+
+msgid "name"
+msgstr "nome"
+
+msgid "collections"
+msgstr "raccolte"
+
+msgid "group"
+msgstr "gruppo"
+
+msgid "permission"
+msgstr "permesso"
+
+msgid "group collection permission"
+msgstr "permesso di gruppo nella raccolta"
+
+msgid "group collection permissions"
+msgstr "Permessi di gruppo nella raccolta"
+
+msgid "uploaded by user"
+msgstr "caricato dall'utente"
 
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
@@ -245,9 +283,6 @@ msgstr ""
 "Il nome della pagina che comparirà nella URLs e.g http://domain.com/blog/[my-"
 "slug]/"
 
-msgid "content type"
-msgstr "tipo contenuto"
-
 msgid "URL path"
 msgstr "URL path"
 
@@ -296,33 +331,6 @@ msgstr "pagina"
 msgid "pages"
 msgstr "pagine"
 
-msgid "object id"
-msgstr "id elemento"
-
-msgid "created at"
-msgstr "creato alle"
-
-msgid "user"
-msgstr "utente"
-
-msgid "content JSON"
-msgstr "contenuto JSON"
-
-msgid "approved go live at"
-msgstr "approvato per la pubblicazione alle"
-
-msgid "revision"
-msgstr "revisione"
-
-msgid "revisions"
-msgstr "visioni"
-
-msgid "group"
-msgstr "gruppo"
-
-msgid "permission"
-msgstr "permesso"
-
 msgid "group page permission"
 msgstr "permesso della pagina del gruppo"
 
@@ -343,145 +351,6 @@ msgstr "pagina del flusso di lavoro"
 
 msgid "workflow pages"
 msgstr "pagine del flusso di lavoro"
-
-msgid "workflow_tasks"
-msgstr "Attività nei flussi di lavoro"
-
-msgid "task"
-msgstr "attività"
-
-msgid "workflow task order"
-msgstr "ordinamento attività nel flusso di lavoro"
-
-msgid "workflow task orders"
-msgstr "ordinamenti attività nel flusso di lavoro"
-
-msgid "name"
-msgstr "nome"
-
-msgid "active"
-msgstr "attivo"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Le attività attive possono essere aggiunte ai flussi di lavoro. Quando "
-"disattivi un'attività non viene rimossa dai flussi di lavoro esistenti."
-
-msgid "tasks"
-msgstr "attività"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"I flussi di lavoro attivi possono essere aggiunti alle pagine/snippet. "
-"Quando disattivi un flusso di lavoro non viene rimosso dalle pagine/snippet "
-"esistenti."
-
-msgid "workflows"
-msgstr "flussi di lavoro"
-
-msgid "groups"
-msgstr "gruppi"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Le pagine/snippet in questo passaggio di un flusso di lavoro saranno "
-"moderati o approvati da questi gruppi di utenti"
-
-msgid "Request changes"
-msgstr "Richiedi modifiche"
-
-msgid "Approve"
-msgstr "Approva"
-
-msgid "Approve with comment"
-msgstr "Approva con un commento"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "I membri dei gruppi Wagtail scelti possono approvare questa attività"
-
-msgid "Group approval task"
-msgstr "Attività gruppo di approvazione"
-
-msgid "Group approval tasks"
-msgstr "Attività gruppo di approvazione"
-
-msgid "In progress"
-msgstr "In corso"
-
-msgid "Approved"
-msgstr "Approvata"
-
-msgid "Needs changes"
-msgstr "Richiede modifiche"
-
-msgid "Cancelled"
-msgstr "Annullata"
-
-msgid "status"
-msgstr "stato"
-
-msgid "requested by"
-msgstr "richiesto da"
-
-msgid "current task state"
-msgstr "stato attività corrente"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Potrebbe essercene solo uno in corso o che necessita di modifiche allo stato "
-"del flusso di lavoro per la pagina/snippet."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"Flusso di lavoro '%(workflow_name)s' su %(model_name)s '%(title)s': "
-"%(status)s"
-
-msgid "Not started"
-msgstr "Non iniziato"
-
-msgid "Workflow state"
-msgstr "Stato flusso di lavoro"
-
-msgid "Workflow states"
-msgstr "Stati flusso di lavoro"
-
-msgid "Rejected"
-msgstr "Rifiutata"
-
-msgid "Skipped"
-msgstr "Saltato"
-
-msgid "workflow state"
-msgstr "stato flusso di lavoro"
-
-msgid "started at"
-msgstr "iniziata il"
-
-msgid "finished at"
-msgstr "conclusa il"
-
-msgid "finished by"
-msgstr "conclusa da"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Attività '%(task_name)s' nella revisione '%(revision_info)s': %(status)s"
-
-msgid "Task state"
-msgstr "Stato attività"
-
-msgid "Task states"
-msgstr "Stati attività"
 
 msgid "page log entry"
 msgstr "log della pagina"
@@ -504,52 +373,41 @@ msgstr "risposta al commento"
 msgid "comment replies"
 msgstr "risposte al commento"
 
-msgid "timestamp (UTC)"
-msgstr "timestamp (UTC)"
+msgid "Default"
+msgstr "Default"
 
-msgid "log entry"
-msgstr "log"
+msgid "Preview in mobile size"
+msgstr "Anteprima in formato mobile"
 
-msgid "log entries"
-msgstr "log"
+msgid "Preview in tablet size"
+msgstr "Anteprima in formato tablet"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "L'azione del log  '%(action_name)s' non è stata registrata."
+msgid "Preview in desktop size"
+msgstr "Anteprima in formato desktop"
 
-msgid "system"
-msgstr "sistema"
+msgid "object id"
+msgstr "id elemento"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "%(action)s sconosciuta"
+msgid "created at"
+msgstr "creato alle"
 
-msgid "model log entry"
-msgstr "record del log del modello"
+msgid "user"
+msgstr "utente"
 
-msgid "model log entries"
-msgstr "log del modello"
+msgid "content JSON"
+msgstr "contenuto JSON"
 
-msgid "collection"
-msgstr "raccolta"
+msgid "approved go live at"
+msgstr "approvato per la pubblicazione alle"
 
-msgid "collection view restriction"
-msgstr "limitazione per la vista della raccolta"
+msgid "revision"
+msgstr "revisione"
 
-msgid "collection view restrictions"
-msgstr "limitazioni per la vista della raccolta"
+msgid "revisions"
+msgstr "visioni"
 
-msgid "collections"
-msgstr "raccolte"
-
-msgid "group collection permission"
-msgstr "permesso di gruppo nella raccolta"
-
-msgid "group collection permissions"
-msgstr "Permessi di gruppo nella raccolta"
-
-msgid "uploaded by user"
-msgstr "caricato dall'utente"
+msgid "latest revision"
+msgstr "ultima revisione"
 
 msgid "hostname"
 msgstr "hostname"
@@ -620,11 +478,153 @@ msgstr ""
 "Le password condivise non devono essere utilizzate per proteggere contenuti "
 "sensibili. Chiunque abbia questa password potrà visualizzare il contenuto."
 
+msgid "groups"
+msgstr "gruppi"
+
 msgid "view restriction"
 msgstr "limitazione visualizzazioni"
 
 msgid "view restrictions"
 msgstr "limitazioni visualizzazione"
+
+msgid "In progress"
+msgstr "In corso"
+
+msgid "Approved"
+msgstr "Approvata"
+
+msgid "Needs changes"
+msgstr "Richiede modifiche"
+
+msgid "Cancelled"
+msgstr "Annullata"
+
+msgid "status"
+msgstr "stato"
+
+msgid "requested by"
+msgstr "richiesto da"
+
+msgid "current task state"
+msgstr "stato attività corrente"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Potrebbe essercene solo uno in corso o che necessita di modifiche allo stato "
+"del flusso di lavoro per la pagina/snippet."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Flusso di lavoro '%(workflow_name)s' su %(model_name)s '%(title)s': "
+"%(status)s"
+
+msgid "Not started"
+msgstr "Non iniziato"
+
+msgid "Workflow state"
+msgstr "Stato flusso di lavoro"
+
+msgid "Workflow states"
+msgstr "Stati flusso di lavoro"
+
+msgid "active"
+msgstr "attivo"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"I flussi di lavoro attivi possono essere aggiunti alle pagine/snippet. "
+"Quando disattivi un flusso di lavoro non viene rimosso dalle pagine/snippet "
+"esistenti."
+
+msgid "workflows"
+msgstr "flussi di lavoro"
+
+msgid "workflow_tasks"
+msgstr "Attività nei flussi di lavoro"
+
+msgid "task"
+msgstr "attività"
+
+msgid "workflow task order"
+msgstr "ordinamento attività nel flusso di lavoro"
+
+msgid "workflow task orders"
+msgstr "ordinamenti attività nel flusso di lavoro"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Le attività attive possono essere aggiunte ai flussi di lavoro. Quando "
+"disattivi un'attività non viene rimossa dai flussi di lavoro esistenti."
+
+msgid "tasks"
+msgstr "attività"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Le pagine/snippet in questo passaggio di un flusso di lavoro saranno "
+"moderati o approvati da questi gruppi di utenti"
+
+msgid "Request changes"
+msgstr "Richiedi modifiche"
+
+msgid "Approve"
+msgstr "Approva"
+
+msgid "Approve with comment"
+msgstr "Approva con un commento"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "I membri dei gruppi Wagtail scelti possono approvare questa attività"
+
+msgid "Group approval task"
+msgstr "Attività gruppo di approvazione"
+
+msgid "Group approval tasks"
+msgstr "Attività gruppo di approvazione"
+
+msgid "Rejected"
+msgstr "Rifiutata"
+
+msgid "Skipped"
+msgstr "Saltato"
+
+msgid "workflow state"
+msgstr "stato flusso di lavoro"
+
+msgid "started at"
+msgstr "iniziata il"
+
+msgid "finished at"
+msgstr "conclusa il"
+
+msgid "finished by"
+msgstr "conclusa da"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr ""
+"Attività '%(task_name)s' nella revisione '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Stato attività"
+
+msgid "Task states"
+msgstr "Stati attività"
+
+msgid "in moderation"
+msgstr "in moderazione"
+
+msgid "live + in moderation"
+msgstr "live + in moderazione"
 
 msgid "Log in"
 msgstr "Log in"

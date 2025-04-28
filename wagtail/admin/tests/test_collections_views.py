@@ -810,3 +810,63 @@ class TestSetCollectionPrivacy(CollectionInstanceTestUtils, WagtailTestUtils, Te
             args=(self.root_collection.pk,),
         )
         self.assertEqual(link.get("href"), parent_edit_url)
+
+
+class TestCollectionPrivacyStatusLabels(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+
+        self.root_collection = Collection.get_first_root_node()
+        self.public_collection = self.root_collection.add_child(name="Public_photos1")
+        self.private_collection = self.root_collection.add_child(name="Private_photos1")
+        CollectionViewRestriction.objects.create(
+            collection=self.private_collection,
+            restriction_type=CollectionViewRestriction.LOGIN,
+        )
+        self.root_collection.refresh_from_db()
+        self.private_collection.refresh_from_db()
+        self.public_collection.refresh_from_db()
+
+        self.sub_private_collection = self.private_collection.add_child(
+            name="Sub_private_photos1"
+        )
+
+        self.sub_public_collection = self.public_collection.add_child(
+            name="Sub_public_photos1"
+        )
+
+    def test_admin_displays_private_tag_for_private_base_collections(self):
+        request = self.client.get(
+            reverse("wagtailadmin_collections:edit", args=[self.private_collection.pk])
+        )
+
+        self.assertTrue('class="privacy-indicator private"' in str(request.content))
+        self.assertFalse('class="privacy-indicator "' in str(request.content))
+
+    def test_admin_displays_private_tag_for_private_sub_collections(self):
+        request = self.client.get(
+            reverse(
+                "wagtailadmin_collections:edit", args=[self.sub_private_collection.pk]
+            )
+        )
+
+        self.assertTrue('class="privacy-indicator private"' in str(request.content))
+        self.assertFalse('class="privacy-indicator public"' in str(request.content))
+
+    def test_admin_displays_public_tag_for_public_base_collections(self):
+        request = self.client.get(
+            reverse("wagtailadmin_collections:edit", args=[self.public_collection.pk])
+        )
+
+        self.assertTrue('class="privacy-indicator public"' in str(request.content))
+        self.assertFalse('class="privacy-indicator private"' in str(request.content))
+
+    def test_admin_displays_public_tag_for_public_sub_collections(self):
+        request = self.client.get(
+            reverse(
+                "wagtailadmin_collections:edit", args=[self.sub_public_collection.pk]
+            )
+        )
+
+        self.assertTrue('class="privacy-indicator public"' in str(request.content))
+        self.assertFalse('class="privacy-indicator private"' in str(request.content))

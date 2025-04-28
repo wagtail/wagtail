@@ -12,10 +12,11 @@
 # Loic Teixeira, 2024
 # Stefan Hammer <stefan@hammerworxx.com>, 2024
 # Oliver Engel <codeangel@posteo.de>, 2025
+# Bohreromir, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Oliver Engel <codeangel@posteo.de>, 2025\n"
+"Last-Translator: Bohreromir, 2025\n"
 "Language-Team: German (https://app.transifex.com/torchbox/teams/8009/de/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de\n"
@@ -44,6 +45,9 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s Pixel"
 msgstr[1] "%(num)s Pixel"
+
+msgid "Actions"
+msgstr "Aktionen"
 
 msgid "Add a comment"
 msgstr "Einen Kommentar hinzufügen"

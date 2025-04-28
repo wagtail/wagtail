@@ -123,6 +123,7 @@ class TestPageUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/listing.html")
-        self.assertContains(response, "Page 2 of 3.")
+        self.assertContains(response, "Page 2 of 3")
         self.assertContains(response, f"{usage_url}?p=1")
+        self.assertContains(response, f"{usage_url}?p=2")
         self.assertContains(response, f"{usage_url}?p=3")

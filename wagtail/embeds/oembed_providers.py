@@ -255,6 +255,13 @@ ifttt = {
     ],
 }
 
+iheart = {
+    "endpoint": "https://www.iheart.com/oembed/",
+    "urls": [
+        r"^https?://(?:www\.)?iheart\.com/.+$",
+    ],
+}
+
 issuu = {
     "endpoint": "https://issuu.com/oembed",
     "urls": [
@@ -654,6 +661,7 @@ all_providers = [
     hulu,
     ifixit,
     ifttt,
+    iheart,
     issuu,
     justin_tv,
     kickstarter,

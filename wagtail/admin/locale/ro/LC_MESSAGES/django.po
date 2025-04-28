@@ -8,13 +8,14 @@
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2024
 # Julian C <jcuotpc@gmail.com>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Dan Braghis, 2014-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -788,6 +789,9 @@ msgstr "Rezumat sait"
 msgid "Read the release notes."
 msgstr "Citește notele de lansare."
 
+msgid "Close"
+msgstr "Închideți"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Paginile și fragmentele Dvs. într-un flux de lucru"
 
@@ -799,9 +803,6 @@ msgstr "Modificări solicitate la"
 
 msgid "Awaiting"
 msgstr "Așteaptă"
-
-msgid "Close"
-msgstr "Închideți"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1724,13 +1725,6 @@ msgstr "Alege când acest %(model_name)s va fi publicat sau/și va expira"
 msgid "Choose when this page should go live and/or expire"
 msgstr "Alegeți când această pagină va deveni live sau/și va expira"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Acest program de publicare va fi aplicat numai după ce selectați opțiunea "
-"\"Publică\""
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Oricine are permisiuni de editare poate crea programări"
 
@@ -1836,10 +1830,6 @@ msgstr "Completat la"
 msgid "Clear"
 msgstr "Curăță"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s din %(total_pages)s."
-
 msgid "Toggle breadcrumbs"
 msgstr "Comută breadcrumb"
 
@@ -1902,6 +1892,10 @@ msgstr "Vizibilă tuturor"
 
 msgid "Private. Visit the live page"
 msgstr "Privată. Vizitează pagina live"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pagina %(page_num)s din %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Comută secțiunea"
@@ -2023,9 +2017,6 @@ msgstr "Program invalid"
 
 msgid "Go-live:"
 msgstr "Dată de lansare:"
-
-msgid "Once published:"
-msgstr "La publicare:"
 
 msgid "No publishing schedule set"
 msgstr "Nu a fost stabilit un program de publicare"
@@ -2424,9 +2415,6 @@ msgstr "Inserează sau editează un link"
 
 msgid "Text formatting"
 msgstr "Formatare text"
-
-msgid "Bold"
-msgstr "Caractere aldine"
 
 msgid "Italic"
 msgstr "Cursiv"
@@ -3073,9 +3061,6 @@ msgstr "Sarcină flux de lucru nouă"
 msgid "Task '%(object)s' created."
 msgstr "Sarcina '%(object)s' a fost creată."
 
-msgid "Editing workflow task"
-msgstr "Editare sarcină de flux de lucru"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Sarcina '%(object)s' a fost actualizată."
@@ -3161,26 +3146,20 @@ msgstr "Schimbă ordinea paginilor descendente la '%(title)s'"
 msgid "Heading 1"
 msgstr "Antet 1"
 
-
 msgid "Heading 2"
 msgstr "Antet 2"
-
 
 msgid "Heading 3"
 msgstr "Antet 3"
 
-
 msgid "Heading 4"
 msgstr "Antet 4"
-
 
 msgid "Heading 5"
 msgstr "Antet 5"
 
-
 msgid "Heading 6"
 msgstr "Antet 6"
-
 
 msgid "Bulleted list"
 msgstr "Listă cu puncte"
@@ -3190,6 +3169,9 @@ msgstr "Listă numerotată"
 
 msgid "Blockquote"
 msgstr "Citat"
+
+msgid "Bold"
+msgstr "Caractere aldine"
 
 msgid "Link"
 msgstr "Legătură"
