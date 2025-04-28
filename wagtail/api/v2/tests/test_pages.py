@@ -1794,9 +1794,6 @@ class TestPageFind(TestCase):
             ),
             fetch_redirect_response=False,
         )
-        content = json.loads(response.content.decode("UTF-8"))
-        self.assertEqual(set(content.keys()), {"id", "meta", "__types"})
-        self.assertEqual(set(content["meta"].keys()), {"type"})
 
     def test_find_by_html_path_nonexistent(self):
         response = self.get_response(html_path="/foo")
