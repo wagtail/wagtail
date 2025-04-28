@@ -280,8 +280,13 @@ class SpreadsheetExportMixin:
 
     def write_csv_response(self, queryset):
         stream = self.stream_csv(queryset)
+        # Add UTF-8 BOM to fix Excel showing '?????' for Arabic text
 
-        response = StreamingHttpResponse(stream, content_type="text/csv")
+        def bom_and_stream():
+          yield "\ufeff"  # UTF-8 BOM
+          yield from stream
+
+        response = StreamingHttpResponse(bom_and_stream(), content_type="text/csv")
         response["Content-Disposition"] = 'attachment; filename="{}.csv"'.format(
             self.get_filename()
         )
