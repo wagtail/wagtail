@@ -12,7 +12,6 @@ from django.utils import timezone
 from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import (
     TestPageDetail,
-    TestPageFind,
     TestPageListing,
     TestPageListingSearch,
 )
@@ -1105,24 +1104,6 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
             feed_image["meta"]["detail_url"],
             "http://localhost/admin/api/main/images/%d/" % feed_image["id"],
         )
-
-
-class TestAdminPageFind(AdminAPITestCase, TestPageFind):
-    fixtures = ["demosite.json"]
-
-    def get_response(self, html_path, **params):
-        return self.client.get(
-            reverse("wagtailadmin_api:pages:find", args=(html_path,)), params
-        )
-
-    def test_find_fields(self):
-        response = self.get_response(
-            "/home-page/blog-index/blog-post/", fields="_,id,type"
-        )
-        content = json.loads(response.content.decode("UTF-8"))
-
-        self.assertEqual(set(content.keys()), {"id", "meta", "__types"})
-        self.assertEqual(set(content["meta"].keys()), {"type"})
 
 
 class TestAdminPageListingSearch(AdminAPITestCase, TestPageListingSearch):

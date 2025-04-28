@@ -1781,6 +1781,20 @@ class TestPageFind(TestCase):
             fetch_redirect_response=False,
         )
 
+    def test_find_by_html_path_and_define_fields(self):
+        response = self.get_response(
+            html_path="/events-index/event-1/", fields="_,id,type"
+        )
+
+        self.assertRedirects(
+            response,
+            "http://localhost" + reverse("wagtailapi_v2:pages:detail", args=[8]),
+            fetch_redirect_response=False,
+        )
+        content = json.loads(response.content.decode("UTF-8"))
+        self.assertEqual(set(content.keys()), {"id", "meta", "__types"})
+        self.assertEqual(set(content["meta"].keys()), {"type"})
+
     def test_find_by_html_path_nonexistent(self):
         response = self.get_response(html_path="/foo")
 
