@@ -93,7 +93,7 @@ export class SyncController extends Controller<HTMLInputElement> {
     const value = this.prepareValue(event?.params?.apply || this.element.value);
 
     const applyValue = (target) => {
-      target.value = value;
+      const updatedTarget = { ...target, value };
 
       if (this.quietValue) {
         return;
@@ -102,7 +102,7 @@ export class SyncController extends Controller<HTMLInputElement> {
       this.dispatch('change', {
         cancelable: false,
         prefix: '',
-        target,
+        target: updatedTarget,
       });
     };
 
