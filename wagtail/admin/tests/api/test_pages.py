@@ -1110,11 +1110,15 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 class TestAdminPageFind(AdminAPITestCase, TestPageFind):
     fixtures = ["demosite.json"]
 
-    def get_response(self, **params):
-        return self.client.get(reverse("wagtailadmin_api:pages:find"), params)
+    def get_response(self, html_path, **params):
+        return self.client.get(
+            reverse("wagtailadmin_api:pages:find", args=(html_path,)), params
+        )
 
     def test_find_fields(self):
-        response = self.get_response(16, fields="_,id,type")
+        response = self.get_response(
+            "/home-page/blog-index/blog-post/", fields="_,id,type"
+        )
         content = json.loads(response.content.decode("UTF-8"))
 
         self.assertEqual(set(content.keys()), {"id", "meta", "__types"})
