@@ -101,6 +101,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "wagtail.test.context_processors.do_not_use_static_url",
                 "wagtail.contrib.settings.context_processors.settings",
+                "wagtail.test.context_processors.count_calls",
             ],
             "debug": True,  # required in order to catch template errors
         },
@@ -170,6 +171,7 @@ INSTALLED_APPS = [
     "wagtail",
     "taggit",
     "rest_framework",
+    "django_filters",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

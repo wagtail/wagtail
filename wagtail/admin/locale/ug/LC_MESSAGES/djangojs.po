@@ -35,6 +35,9 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s پىكسېل"
 msgstr[1] "%(num)s پىكسېل"
 
+msgid "Actions"
+msgstr "مەشغۇلات"
+
 msgid "Add a comment"
 msgstr "ئىنكاس قوش"
 

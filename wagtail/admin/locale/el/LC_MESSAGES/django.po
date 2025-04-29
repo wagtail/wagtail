@@ -6,6 +6,7 @@
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Dimitri Fekas, 2022
 # fekioh, 2022
+# fekioh, 2022
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014,2016
@@ -17,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://app.transifex.com/torchbox/wagtail/language/"
@@ -491,6 +492,9 @@ msgstr "Ημερομηνία"
 msgid "Site summary"
 msgstr "Κατάσταση site"
 
+msgid "Close"
+msgstr "Κλείσιμο"
+
 msgid "Task started"
 msgstr "Η εργασία ξεκίνησε"
 
@@ -499,9 +503,6 @@ msgstr "Αλλαγές ζητήθηκαν σε"
 
 msgid "Awaiting"
 msgstr "Αναμονή"
-
-msgid "Close"
-msgstr "Κλείσιμο"
 
 msgid "Awaiting your review"
 msgstr "Αναμονή ανασκόπησης"
@@ -823,10 +824,6 @@ msgstr "Επεξεργασία αυτού του στοιχείου"
 msgid "Workflow"
 msgstr "Ροή εργασιών"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Σελίδα %(page_num)s από %(total_pages)s."
-
 msgid "Continue"
 msgstr "Συνέχεια"
 
@@ -841,6 +838,10 @@ msgstr "Ιστορικό"
 
 msgid "Visit the live page"
 msgstr "Επισκεφτείτε την δημοσιευμένη σελίδα"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Σελίδα %(page_num)s από %(total_pages)s"
 
 msgid "Other searches"
 msgstr "Άλλες αναζητήσεις"

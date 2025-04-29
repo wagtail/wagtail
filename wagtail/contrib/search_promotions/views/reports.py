@@ -3,7 +3,7 @@ from django_filters import DateFromToRangeFilter
 
 from wagtail.admin.auth import permission_denied
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.admin.ui.tables import Column
+from wagtail.admin.ui.tables import Column, NumberColumn
 from wagtail.admin.views.reports import ReportView
 from wagtail.contrib.search_promotions.models import Query
 
@@ -31,7 +31,7 @@ class SearchTermsReportView(ReportView):
     index_results_url_name = "wagtailsearchpromotions:search_terms_results"
     columns = [
         Column("query_string", label=_("Search term(s)"), sort_key="query_string"),
-        Column("_hits", label=_("Views"), sort_key="_hits"),
+        NumberColumn("_hits", label=_("Views"), sort_key="_hits"),
     ]
     export_headings = {
         "query_string": _("Search term(s)"),

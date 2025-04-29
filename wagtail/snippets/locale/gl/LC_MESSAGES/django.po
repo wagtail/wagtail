@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: X Bello <xbello@gmail.com>, 2022-2023\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2022\n"
 "Language-Team: Galician (http://app.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -45,9 +45,6 @@ msgstr "Cancelar fluxo de traballo "
 msgid "Unpublish"
 msgstr "Cancelar publicación"
 
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Save"
 msgstr "Gardar"
 
@@ -60,6 +57,9 @@ msgstr "%(label)s e Publicar"
 
 msgid "Wagtail snippets"
 msgstr "Fragmentos de Wagtail"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Delete selected snippets"
 msgstr "Eliminar os fragmentos seleccionados"
@@ -123,8 +123,14 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">crear un agora</a>?"
 
+msgid "Scheduling…"
+msgstr "Axendando…"
+
 msgid "Publishing…"
 msgstr "Publicando..."
+
+msgid "Schedule to publish"
+msgstr "Axendar para publicar"
 
 msgid "Publish this version"
 msgstr "Publicar esta versión"

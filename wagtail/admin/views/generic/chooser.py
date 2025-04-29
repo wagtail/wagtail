@@ -8,7 +8,7 @@ from django.core.exceptions import (
     ObjectDoesNotExist,
     PermissionDenied,
 )
-from django.core.paginator import InvalidPage, Paginator
+from django.core.paginator import InvalidPage
 from django.db.models import Model
 from django.forms.models import modelform_factory
 from django.http import Http404
@@ -28,7 +28,8 @@ from wagtail.admin.forms.choosers import (
     SearchFilterMixin,
 )
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Column, Table, TitleColumn
+from wagtail.admin.paginator import WagtailPaginator
+from wagtail.admin.ui.tables import Column, LocaleColumn, Table, TitleColumn
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import CollectionMember, TranslatableMixin
 from wagtail.permission_policies import BlanketPermissionPolicy, ModelPermissionPolicy
@@ -131,6 +132,15 @@ class BaseChooseView(
     results_template_name = "wagtailadmin/generic/chooser/results.html"
     construct_queryset_hook_name = None
     url_filter_parameters = []
+    paginator_class = WagtailPaginator
+
+    @cached_property
+    def i18n_enabled(self) -> bool:
+        return (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and self.model_class is not None
+            and issubclass(self.model_class, TranslatableMixin)
+        )
 
     def get_object_list(self):
         return self.model_class.objects.all()
@@ -160,8 +170,7 @@ class BaseChooseView(
                 if issubclass(self.model_class, CollectionMember):
                     bases.insert(0, CollectionFilterMixin)
 
-                i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-                if i18n_enabled and issubclass(self.model_class, TranslatableMixin):
+                if self.i18n_enabled:
                     bases.insert(0, LocaleFilterMixin)
 
             return type(
@@ -206,8 +215,11 @@ class BaseChooseView(
         return self.request.GET.get("multiple")
 
     @property
-    def columns(self):
-        return [self.title_column]
+    def columns(self) -> list[Column]:
+        columns = [self.title_column]
+        if self.i18n_enabled:
+            columns.append(LocaleColumn(sort_key=None))
+        return columns
 
     @property
     def title_column(self):
@@ -242,9 +254,9 @@ class BaseChooseView(
         objects = self.apply_object_list_ordering(objects)
         objects = self.filter_object_list(objects)
 
-        paginator = Paginator(objects, per_page=self.per_page)
+        self.paginator = self.paginator_class(objects, per_page=self.per_page)
         try:
-            return paginator.page(request.GET.get("p", 1))
+            return self.paginator.page(request.GET.get("p", 1))
         except InvalidPage:
             raise Http404
 
@@ -268,12 +280,17 @@ class BaseChooseView(
         # so that the pagination include can append its own parameters via the {% querystring %} template tag
         results_pagination_url = re.sub(r"\?.*$", "", results_url)
 
+        elided_page_range = self.paginator.get_elided_page_range(
+            self.request.GET.get("p", 1)
+        )
+
         context.update(
             {
                 "results": self.results,
                 "table": self.table,
                 "results_url": results_url,
                 "results_pagination_url": results_pagination_url,
+                "elided_page_range": elided_page_range,
                 "is_searching": self.filter_form.is_searching,
                 "is_filtering_by_collection": self.filter_form.is_filtering_by_collection,
                 "is_multiple_choice": self.is_multiple_choice,

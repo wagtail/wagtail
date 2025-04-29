@@ -279,6 +279,10 @@ class BaseSearchResults:
         self._results_cache = None
         self._count_cache = None
         self._score_field = None
+        # Attach the model to mimic a QuerySet so that we can inspect it after
+        # doing a search, e.g. to get the model's name in a paginator.
+        # The query_compiler may be None, e.g. when using EmptySearchResults.
+        self.model = query_compiler.queryset.model if query_compiler else None
 
     def _set_limits(self, start=None, stop=None):
         if stop is not None:

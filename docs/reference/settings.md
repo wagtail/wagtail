@@ -601,10 +601,6 @@ Any provided query string will merge with the default parameters. For example, u
 
 See the [Gravatar images URL documentation](https://docs.gravatar.com/api/avatars/images/) for more details.
 
-```{versionchanged} 6.4
-Added query string merging.
-```
-
 (wagtail_user_time_zones)=
 
 ### `WAGTAIL_USER_TIME_ZONES`
@@ -918,3 +914,19 @@ WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the workflow continues to provide less urgent feedback.
+
+## Snippets
+
+(wagtailsnippets_menu_show_all)=
+
+### `WAGTAILSNIPPETS_MENU_SHOW_ALL`
+
+```python
+WAGTAILSNIPPETS_MENU_SHOW_ALL = False
+```
+
+The sidebar "Snippets" menu item is only shown if any snippet models exist
+[without their own menu items](wagtailsnippets_menu_item)
+and by default its view only contains those models.
+This setting can be set to `True` to always show the "Snippets" menu item
+and to have its view include all snippet models for which the user has permission to add, view, or change.

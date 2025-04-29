@@ -14,6 +14,7 @@
 # Benjamin Kaspar <bennykaspar@gmail.com>, 2021
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018-2019
 # Bohreromir, 2020
+# Christian González <christian.gonzalez@nerdocs.at>, 2025
 # Oliver Engel <codeangel@posteo.de>, 2021-2022
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019-2020,2023
@@ -35,9 +36,10 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matthias Martin, 2019
 # Matthias Martin, 2019
+# mattibo, 2022
 # Matti Borchers, 2022
 # mattibo, 2022
-# Matt Westcott <matthew@torchbox.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2015,2025
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Norman Uekermann <nue@melexis.com>, 2019
@@ -62,7 +64,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2021-2025\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
@@ -105,6 +107,17 @@ msgstr "Seite gesperrt"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s und Veröffentlichen"
+
+#. Translators: A placeholder for a range filter value that has not been set,
+#. e.g. Some number: any - 1000
+msgid "any"
+msgstr "alle"
+
+#. Translators: A label for a range filter value,
+#. e.g. Some number: 0 - 1000
+#, python-format
+msgid "%(range_start)s - %(range_end)s"
+msgstr "%(range_start)s - %(range_end)s"
 
 msgid "Wagtail admin"
 msgstr "Wagtail Admin-Interface"
@@ -467,6 +480,12 @@ msgstr "Alle Elemente der Auflistung ausgewählt"
 
 msgid "Can access Wagtail admin"
 msgstr "Kann auf Wagtail-Admin zugreifen"
+
+msgid "item"
+msgstr "Element"
+
+msgid "items"
+msgstr "Elemente"
 
 msgid "Content"
 msgstr "Inhalt"
@@ -904,6 +923,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Lesen Sie die Versionshinweise."
 
+msgid "Close"
+msgstr "Schließen"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Ihre Seiten und Schnipsel in einem Workflow"
 
@@ -915,9 +937,6 @@ msgstr "Änderungen angefordert bei"
 
 msgid "Awaiting"
 msgstr "Ausstehend"
-
-msgid "Close"
-msgstr "Schließen"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1246,8 +1265,14 @@ msgstr ""
 msgid "Changing the privacy for this page has been disabled."
 msgstr "Die Änderung der Privatsphäre für diese Seite wurde deaktiviert."
 
+msgid "Scheduling…"
+msgstr "Planung…"
+
 msgid "Publishing…"
 msgstr "Veröffentlichen..."
+
+msgid "Schedule to publish"
+msgstr "Zur Veröffentlichung einplanen"
 
 msgid "Publish this version"
 msgstr "Diese Version veröffentlichen"
@@ -1710,7 +1735,7 @@ msgid ""
 "accessible at any URL until a site is associated with this location."
 msgstr ""
 "Es ist keine Website für diesen Ort festgelegt. Seiten, die hier erstellt "
-"werden, sind über keine URL zu erreichen, solange keine Website für diesem "
+"werden, sind über keine URL zu erreichen, solange keine Website für diesen "
 "Ort festgelegt wurde."
 
 msgid ""
@@ -1847,10 +1872,10 @@ msgstr "Wählen Sie aus, wann diese Seite live gehen und/oder ablaufen soll"
 
 msgid ""
 "This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
+"\"Schedule to publish\" option"
 msgstr ""
-"Dieser Veröffentlichungszeitplan tritt erst in Kraft, nachdem Sie die Option "
-"„Veröffentlichen“ ausgewählt haben"
+"Dieser Veröffentlichungsplan wird erst wirksam, wenn Sie die Option „Zur "
+"Veröffentlichung einplanen“ ausgewählt haben."
 
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Jeder mit Bearbeitungsberechtigungen kann Zeitpläne erstellen"
@@ -1965,12 +1990,14 @@ msgstr "Es wurden noch keine Seiten/Schnipsel zur Moderation eingereicht"
 msgid "Completed at"
 msgstr "Vervollständigt am"
 
+#. Translators: A label for an active filtering field in listing views, e.g.
+#. "Date updated:". Some languages may require a space before the colon.
+#, python-format
+msgid "%(field_label)s:"
+msgstr "%(field_label)s:"
+
 msgid "Clear"
 msgstr "Zurücksetzen"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Seite %(page_num)s von %(total_pages)s."
 
 msgid "Edit account avatar"
 msgstr "Konto-Avatar bearbeiten"
@@ -2101,6 +2128,10 @@ msgstr "Für alle sichtbar"
 
 msgid "Private. Visit the live page"
 msgstr "Privat. Live-Seite besuchen"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Seite %(page_num)s von %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Abschnitt ein-/ausblenden"
@@ -2236,8 +2267,8 @@ msgstr "Ungültiger Zeitplan"
 msgid "Go-live:"
 msgstr "Go-Live:"
 
-msgid "Once published:"
-msgstr "Sobald veröffentlicht:"
+msgid "Once scheduled:"
+msgstr "Sobald geplant:"
 
 msgid "No publishing schedule set"
 msgstr "Kein Veröffentlichungszeitplan festgelegt"
@@ -2633,6 +2664,9 @@ msgstr "Wiederholen"
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
+msgid "Add or show comments"
+msgstr "Kommentare hinzufügen oder anzeigen"
+
 msgid "Text content"
 msgstr "Textinhalt"
 
@@ -2641,9 +2675,6 @@ msgstr "Link einfügen oder bearbeiten"
 
 msgid "Text formatting"
 msgstr "Textformatierung"
-
-msgid "Bold"
-msgstr "Fett"
 
 msgid "Italic"
 msgstr "Kursiv"
@@ -2686,6 +2717,9 @@ msgstr "Überprüfungen"
 
 msgid "Toggle preview"
 msgstr "Vorschau umschalten"
+
+msgid "(blank)"
+msgstr "(leer)"
 
 #, python-format
 msgid "Sort by '%(label)s' in ascending order."
@@ -2752,6 +2786,10 @@ msgstr "Bild-Alt-Text hat unpassendes Muster"
 
 msgid "Use meaningful text"
 msgstr "Verwenden Sie aussagekräftigen Text"
+
+#, python-format
+msgid "%(classname)s object (%(id)s)"
+msgstr "%(classname)s-Objekt (%(id)s)"
 
 msgid "Profile"
 msgstr "Profil"
@@ -3303,6 +3341,9 @@ msgstr ""
 msgid "Page '%(page_title)s' moved."
 msgstr "Seite ‚%(page_title)s‘ verschoben."
 
+msgid "Placeholder title"
+msgstr "Platzhaltertitel"
+
 #, python-format
 msgid ""
 "You are viewing a previous version of this page from <b>%(created_at)s</b> "
@@ -3454,9 +3495,6 @@ msgstr "Neue Workflow-Aufgabe"
 msgid "Task '%(object)s' created."
 msgstr "Aufgabe ‚%(object)s‘ erstellt."
 
-msgid "Editing workflow task"
-msgstr "Bearbeite Workflow-Aufgabe"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Aufgabe ‚%(object)s‘ aktualisiert."
@@ -3537,26 +3575,20 @@ msgstr "Reihenfolge der Unterseiten von %(title)s ändern"
 msgid "Heading 1"
 msgstr "Überschrift 1"
 
-
 msgid "Heading 2"
 msgstr "Überschrift 2"
-
 
 msgid "Heading 3"
 msgstr "Überschrift 3"
 
-
 msgid "Heading 4"
 msgstr "Überschrift 4"
-
 
 msgid "Heading 5"
 msgstr "Überschrift 5"
 
-
 msgid "Heading 6"
 msgstr "Überschrift 6"
-
 
 msgid "Bulleted list"
 msgstr "Aufzählung"
@@ -3566,6 +3598,9 @@ msgstr "Nummerierte Liste"
 
 msgid "Blockquote"
 msgstr "Blockzitat"
+
+msgid "Bold"
+msgstr "Fett"
 
 msgid "Link"
 msgstr "Link"

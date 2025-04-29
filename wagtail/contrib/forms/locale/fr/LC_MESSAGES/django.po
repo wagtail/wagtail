@@ -4,6 +4,7 @@
 #
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
+# Axel H., 2016
 # Axel Haustant, 2016
 # Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
@@ -20,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Tom Dyson <tom@torchbox.com>, 2015\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"

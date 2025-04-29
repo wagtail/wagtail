@@ -60,10 +60,10 @@ class BaseReportViewTestCase(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
     def setUp(self):
         self.user = self.login()
 
-    def get(self, params={}):
+    def get(self, params={}, **kwargs):
         if self.results_only:
             params["_w_filter_fragment"] = "true"
-        return self.client.get(self.url, params)
+        return self.client.get(self.url, params, **kwargs)
 
     def assertActiveFilter(self, soup, name, value):
         # Should render the export buttons inside the header "more" dropdown

@@ -67,7 +67,8 @@ class TestBaseSearchResults(TestCase):
     def test_get_item_no_results(self):
         # Ensure that, if there are no results, we do not attempt to get the entire search index.
         base_search_results = BaseSearchResults(
-            "BackendIrrelevant", BaseSearchQueryCompiler
+            "BackendIrrelevant",
+            BaseSearchQueryCompiler(Page.objects.none(), "query"),
         )
         obj = base_search_results[0:0]
         self.assertEqual(obj.start, 0)

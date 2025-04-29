@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 12:59+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>, 2022-2024\n"
+"Last-Translator: Zoriana Zaiats, 2018\n"
 "Language-Team: Ukrainian (http://app.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -130,8 +130,34 @@ msgstr "Заблоковано через графік публікації"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Зараз заблоковано і буде опубліковано у визначений час"
 
-msgid "latest revision"
-msgstr "остання ревізія"
+msgid "content type"
+msgstr "тип вмісту"
+
+msgid "timestamp (UTC)"
+msgstr "мітка часу (UTC) "
+
+msgid "log entry"
+msgstr "запис журналу"
+
+msgid "log entries"
+msgstr "записи журналу"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Дію журналу \"%(action_name)s\" не зареєстровано."
+
+msgid "system"
+msgstr "система"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Невідомо %(action)s"
+
+msgid "model log entry"
+msgstr "запис журналу моделі"
+
+msgid "model log entries"
+msgstr "записи журналу моделі"
 
 msgid "live"
 msgstr "наживо"
@@ -169,9 +195,6 @@ msgstr "наживо + заплановано"
 msgid "live + draft"
 msgstr "наживо + чернетка"
 
-msgid "Default"
-msgstr "Типовий"
-
 msgid "locked"
 msgstr "заблоковано"
 
@@ -181,11 +204,35 @@ msgstr "заблоковано в"
 msgid "locked by"
 msgstr "заблокований"
 
-msgid "in moderation"
-msgstr "на модерації"
+msgid "collection"
+msgstr "колекція"
 
-msgid "live + in moderation"
-msgstr "наживо + на модерації"
+msgid "collection view restriction"
+msgstr "обмеження показу колекції"
+
+msgid "collection view restrictions"
+msgstr "обмеження показу колекції"
+
+msgid "name"
+msgstr "ім'я"
+
+msgid "collections"
+msgstr "колекції"
+
+msgid "group"
+msgstr "група"
+
+msgid "permission"
+msgstr "дозвіл"
+
+msgid "group collection permission"
+msgstr "дозволи для групи колекцій "
+
+msgid "group collection permissions"
+msgstr "дозвіл для групи колекцій "
+
+msgid "uploaded by user"
+msgstr "надіслано користувачем"
 
 msgid "Add/edit pages you own"
 msgstr "Додавати/редагувати сторінки, які належать вам"
@@ -236,9 +283,6 @@ msgstr ""
 "Назва сторінки, що з'явиться в URLs (краще латиницею), наприклад: http://"
 "domain.com/blog/[nazva_storinky]/"
 
-msgid "content type"
-msgstr "тип вмісту"
-
 msgid "URL path"
 msgstr "рядок URL"
 
@@ -288,33 +332,6 @@ msgstr "сторінка"
 msgid "pages"
 msgstr "сторінки"
 
-msgid "object id"
-msgstr "ID об'єкту"
-
-msgid "created at"
-msgstr "створено о"
-
-msgid "user"
-msgstr "користувач"
-
-msgid "content JSON"
-msgstr "вміст JSON"
-
-msgid "approved go live at"
-msgstr "схвалено до публікації наживо о"
-
-msgid "revision"
-msgstr "ревізія"
-
-msgid "revisions"
-msgstr "ревізії"
-
-msgid "group"
-msgstr "група"
-
-msgid "permission"
-msgstr "дозвіл"
-
 msgid "group page permission"
 msgstr "дозвіл для групи сторінок "
 
@@ -335,112 +352,6 @@ msgstr "сторінка робочого процесу"
 
 msgid "workflow pages"
 msgstr "сторінки робочого процесу"
-
-msgid "workflow_tasks"
-msgstr "workflow_tasks"
-
-msgid "task"
-msgstr "завдання"
-
-msgid "workflow task order"
-msgstr "порядок завдань робочого процесу"
-
-msgid "workflow task orders"
-msgstr "порядки завдань робочого процесу"
-
-msgid "name"
-msgstr "ім'я"
-
-msgid "active"
-msgstr "активний"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Активні завдання можуть бути додані в робочий процес. Неактивне завдання не "
-"видаляється з існуючого робочого процесу. "
-
-msgid "tasks"
-msgstr "завдання"
-
-msgid "workflows"
-msgstr "робочі процеси"
-
-msgid "groups"
-msgstr "групи"
-
-msgid "Request changes"
-msgstr "Запит на зміни"
-
-msgid "Approve"
-msgstr "Схвалити"
-
-msgid "Approve with comment"
-msgstr "Схвалити з коментарем"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Члени вибраних груп можуть схвалити це завдання "
-
-msgid "Group approval task"
-msgstr "Група схвалення завдання"
-
-msgid "Group approval tasks"
-msgstr "Група схвалення завдань"
-
-msgid "In progress"
-msgstr "В процесі"
-
-msgid "Approved"
-msgstr "Схвалено"
-
-msgid "Needs changes"
-msgstr "Потребує змін"
-
-msgid "Cancelled"
-msgstr "Скасовано"
-
-msgid "status"
-msgstr "статус"
-
-msgid "requested by"
-msgstr "за вимогою"
-
-msgid "current task state"
-msgstr "поточний стан завдання"
-
-msgid "Not started"
-msgstr "Не запущено"
-
-msgid "Workflow state"
-msgstr "Стан робочого процесу"
-
-msgid "Workflow states"
-msgstr "Стани робочого процесу"
-
-msgid "Rejected"
-msgstr "Відхилено"
-
-msgid "Skipped"
-msgstr "Пропущено"
-
-msgid "workflow state"
-msgstr "стан робочого процесу"
-
-msgid "started at"
-msgstr "запущено о"
-
-msgid "finished at"
-msgstr "завершено о"
-
-msgid "finished by"
-msgstr "завершено"
-
-msgid "Task state"
-msgstr "Стан завдання"
-
-msgid "Task states"
-msgstr "Стани завдань"
 
 msgid "page log entry"
 msgstr "сторінка запису журналу"
@@ -463,52 +374,32 @@ msgstr "відповідь на коментар"
 msgid "comment replies"
 msgstr "відповіді на коментар"
 
-msgid "timestamp (UTC)"
-msgstr "мітка часу (UTC) "
+msgid "Default"
+msgstr "Типовий"
 
-msgid "log entry"
-msgstr "запис журналу"
+msgid "object id"
+msgstr "ID об'єкту"
 
-msgid "log entries"
-msgstr "записи журналу"
+msgid "created at"
+msgstr "створено о"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Дію журналу \"%(action_name)s\" не зареєстровано."
+msgid "user"
+msgstr "користувач"
 
-msgid "system"
-msgstr "система"
+msgid "content JSON"
+msgstr "вміст JSON"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Невідомо %(action)s"
+msgid "approved go live at"
+msgstr "схвалено до публікації наживо о"
 
-msgid "model log entry"
-msgstr "запис журналу моделі"
+msgid "revision"
+msgstr "ревізія"
 
-msgid "model log entries"
-msgstr "записи журналу моделі"
+msgid "revisions"
+msgstr "ревізії"
 
-msgid "collection"
-msgstr "колекція"
-
-msgid "collection view restriction"
-msgstr "обмеження показу колекції"
-
-msgid "collection view restrictions"
-msgstr "обмеження показу колекції"
-
-msgid "collections"
-msgstr "колекції"
-
-msgid "group collection permission"
-msgstr "дозволи для групи колекцій "
-
-msgid "group collection permissions"
-msgstr "дозвіл для групи колекцій "
-
-msgid "uploaded by user"
-msgstr "надіслано користувачем"
+msgid "latest revision"
+msgstr "остання ревізія"
 
 msgid "hostname"
 msgstr "ім'я хоста"
@@ -573,11 +464,120 @@ msgstr "Приватний, доступний для користувачів �
 msgid "shared password"
 msgstr "спільний пароль"
 
+msgid "groups"
+msgstr "групи"
+
 msgid "view restriction"
 msgstr "обмеження показу"
 
 msgid "view restrictions"
 msgstr "обмеження показу"
+
+msgid "In progress"
+msgstr "В процесі"
+
+msgid "Approved"
+msgstr "Схвалено"
+
+msgid "Needs changes"
+msgstr "Потребує змін"
+
+msgid "Cancelled"
+msgstr "Скасовано"
+
+msgid "status"
+msgstr "статус"
+
+msgid "requested by"
+msgstr "за вимогою"
+
+msgid "current task state"
+msgstr "поточний стан завдання"
+
+msgid "Not started"
+msgstr "Не запущено"
+
+msgid "Workflow state"
+msgstr "Стан робочого процесу"
+
+msgid "Workflow states"
+msgstr "Стани робочого процесу"
+
+msgid "active"
+msgstr "активний"
+
+msgid "workflows"
+msgstr "робочі процеси"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "завдання"
+
+msgid "workflow task order"
+msgstr "порядок завдань робочого процесу"
+
+msgid "workflow task orders"
+msgstr "порядки завдань робочого процесу"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Активні завдання можуть бути додані в робочий процес. Неактивне завдання не "
+"видаляється з існуючого робочого процесу. "
+
+msgid "tasks"
+msgstr "завдання"
+
+msgid "Request changes"
+msgstr "Запит на зміни"
+
+msgid "Approve"
+msgstr "Схвалити"
+
+msgid "Approve with comment"
+msgstr "Схвалити з коментарем"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Члени вибраних груп можуть схвалити це завдання "
+
+msgid "Group approval task"
+msgstr "Група схвалення завдання"
+
+msgid "Group approval tasks"
+msgstr "Група схвалення завдань"
+
+msgid "Rejected"
+msgstr "Відхилено"
+
+msgid "Skipped"
+msgstr "Пропущено"
+
+msgid "workflow state"
+msgstr "стан робочого процесу"
+
+msgid "started at"
+msgstr "запущено о"
+
+msgid "finished at"
+msgstr "завершено о"
+
+msgid "finished by"
+msgstr "завершено"
+
+msgid "Task state"
+msgstr "Стан завдання"
+
+msgid "Task states"
+msgstr "Стани завдань"
+
+msgid "in moderation"
+msgstr "на модерації"
+
+msgid "live + in moderation"
+msgstr "наживо + на модерації"
 
 msgid "Log in"
 msgstr "Увійдіть"

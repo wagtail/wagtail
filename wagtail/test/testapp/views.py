@@ -13,7 +13,7 @@ from wagtail.admin.auth import user_passes_test
 from wagtail.admin.filters import WagtailFilterSet
 from wagtail.admin.panels import FieldPanel
 from wagtail.admin.ui.tables import BooleanColumn, Column, UpdatedAtColumn
-from wagtail.admin.views.generic import DeleteView, EditView, IndexView
+from wagtail.admin.views.generic import DeleteView, EditView, IndexView, InspectView
 from wagtail.admin.viewsets.base import ViewSet, ViewSetGroup
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.viewsets.model import ModelViewSet, ModelViewSetGroup
@@ -238,12 +238,18 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     ]
 
 
+class FCToyAlt1InspectView(InspectView):
+    def get_name_display_value(self):
+        return f"{self.object.name} ({self.object.strid})"
+
+
 class FCToyAlt1ViewSet(ModelViewSet):
     model = FeatureCompleteToy
     icon = "media"
     list_filter = {"name": ["icontains"]}
     form_fields = ["name"]
     menu_label = "FC Toys Alt 1"
+    inspect_view_class = FCToyAlt1InspectView
     inspect_view_enabled = True
     inspect_view_fields_exclude = ["strid", "release_date"]
     copy_view_enabled = False

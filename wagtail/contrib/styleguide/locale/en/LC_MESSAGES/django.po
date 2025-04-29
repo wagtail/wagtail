@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,26 +34,26 @@ msgstr ""
 msgid "Delete image"
 msgstr ""
 
-#: views.py:113 wagtail_hooks.py:20
+#: views.py:114 wagtail_hooks.py:20
 msgid "Styleguide"
 msgstr ""
 
-#: views.py:121
+#: views.py:122
 msgid "Success message"
 msgstr ""
 
-#: views.py:123 views.py:131 views.py:139
+#: views.py:124 views.py:132 views.py:140
 msgid "View live"
 msgstr ""
 
-#: views.py:124 views.py:132 views.py:140
+#: views.py:125 views.py:133 views.py:141
 msgid "Edit"
 msgstr ""
 
-#: views.py:129
+#: views.py:130
 msgid "Warning message"
 msgstr ""
 
-#: views.py:137
+#: views.py:138
 msgid "Error message"
 msgstr ""
