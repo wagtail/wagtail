@@ -13,15 +13,15 @@
                 fileInput.setAttribute('data-w-sync-normalize-value', 'true');
                 fileInput.setAttribute('data-w-sync-name-value', 'wagtail:images-upload');
                 fileInput.setAttribute('data-action', 'change->w-sync#apply');
-              
+
             }
             if (titleInput) {
                 titleInput.setAttribute('data-controller', 'w-clean');
                 titleInput.setAttribute('data-w-clean-source-value', '#id_file');
                 titleInput.setAttribute('data-action', 'change->w-clean#slugify');
-              
+
             }
-                           
+
         });
     </script>
 {% endblock %}
@@ -31,7 +31,7 @@
 
     <div class="field">
         <label for="id_file">{% trans "Image file" %}</label>
-        <input 
+        <input
             type="file"
             name="file"
             id="id_file"
@@ -43,7 +43,7 @@
 
     <div class="field">
         <label for="id_title">{% trans "Title" %}</label>
-        <input 
+        <input
             type="text"
             name="title"
             id="id_title"
@@ -54,9 +54,9 @@
 
 {% block form_actions %}
     <button type="submit" class="button button-longrunning"
-        data-controller="w-progress"
-        data-action="w-progress#activate"
-        data-w-progress-active-value="{% trans 'Uploading…' %}">
+            data-controller="w-progress"
+            data-action="w-progress#activate"
+            data-w-progress-active-value="{% trans 'Uploading…' %}">
         {% icon name="spinner" %}
         <em data-w-progress-target="label">{% trans 'Upload' %}</em>
     </button>
