@@ -1,10 +1,12 @@
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail.admin.views.bulk_action.mixins import ReferenceIndexMixin
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 
 
-class DeleteBulkAction(PageBulkAction):
+class DeleteBulkAction(ReferenceIndexMixin, PageBulkAction):
     display_name = _("Delete")
     action_type = "delete"
     aria_label = _("Delete selected pages")
@@ -17,7 +19,7 @@ class DeleteBulkAction(PageBulkAction):
 
     def object_context(self, page):
         return {
-            "item": page,
+            **super().object_context(page),
             "descendant_count": page.get_descendant_count(),
         }
 
@@ -29,6 +31,12 @@ class DeleteBulkAction(PageBulkAction):
             num_child_objects += page.get_descendant_count()
             page.delete(user=user)
         return num_parent_objects, num_child_objects
+
+    def get_usage_url(self, item):
+        return (
+            reverse("wagtailadmin_pages:usage", args=(item.pk,))
+            + "?describe_on_delete=1"
+        )
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         if num_child_objects > 0:
