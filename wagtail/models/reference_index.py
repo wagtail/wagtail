@@ -2,6 +2,7 @@ import uuid
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, models
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
@@ -618,8 +619,24 @@ class ReferenceIndex(models.Model):
         """
         model_path_components = self.model_path.split(".")
         field_name = model_path_components[0]
-        field = self._content_type.model_class()._meta.get_field(field_name)
-        return field
+        model_class = self._content_type.model_class()
+        try:
+            field = model_class._meta.get_field(field_name)
+        except FieldDoesNotExist:
+            # For related fields, get_field() only works with the
+            # related_query_name, but we store the reference information using
+            # get_accessor_name() which uses the related_name. In the case where
+            # the two are different, we use get_fields() to find the field
+            # that matches the related_name.
+            for field in model_class._meta.get_fields():
+                if (
+                    isinstance(field, models.ForeignObjectRel)
+                    and field.related_name == field_name
+                ):
+                    return field
+            raise
+        else:
+            return field
 
     @cached_property
     def related_field(self):

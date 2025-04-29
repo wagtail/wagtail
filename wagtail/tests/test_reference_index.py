@@ -2,6 +2,7 @@ from io import StringIO
 
 from django.contrib.contenttypes.models import ContentType
 from django.core import management
+from django.core.exceptions import FieldDoesNotExist
 from django.test import TestCase
 from django.utils.functional import SimpleLazyObject
 
@@ -18,6 +19,7 @@ from wagtail.test.testapp.models import (
     EventPage,
     EventPageCarouselItem,
     EventPageRelatedLink,
+    EventPageSpeaker,
     GenericSnippetNoFieldIndexPage,
     GenericSnippetNoIndexPage,
     GenericSnippetPage,
@@ -526,3 +528,40 @@ class TestDescribeOnDelete(TestCase):
                 reference.describe_on_delete(),
                 "the advert placement will also be deleted",
             )
+
+    def test_parental_key_with_related_query_name(self):
+        # EventPageSpeaker has a ParentalKey to EventPage with a
+        # related_query_name that is different from the related_name, which
+        # causes a mismatch between the recorded model_path and the way we
+        # introspect the source field.
+        root_page = Page.objects.get(id=2)
+        speaker = EventPageSpeaker(
+            first_name="Willie", last_name="Wagtail", link_page=root_page
+        )
+        event_page = EventPage.objects.first()
+        event_page.speakers.add(speaker)
+        with self.captureOnCommitCallbacks(execute=True):
+            event_page.save()
+        refs = ReferenceIndex.get_references_to(root_page)
+        self.assertEqual(refs.count(), 1)
+        self.assertEqual(refs[0].describe_source_field(), "Link page")
+        self.assertEqual(
+            refs[0].describe_on_delete(),
+            "the event page speaker will also be deleted",
+        )
+
+    def test_nonexistent_field(self):
+        # Simulate a situation where the field does not exist on the model
+        # (e.g. due to a stale reference after the field was removed or renamed)
+        reference = ReferenceIndex.objects.create(
+            base_content_type=ReferenceIndex._get_base_content_type(self.advert),
+            content_type=ContentType.objects.get_for_model(self.advert),
+            object_id=self.advert.pk,
+            to_content_type=ContentType.objects.get_for_model(self.page),
+            to_object_id=self.page.pk,
+            model_path="nonexistent_field",
+            content_path="some_path",
+            content_path_hash=ReferenceIndex._get_content_path_hash("some_path"),
+        )
+        with self.assertRaises(FieldDoesNotExist):
+            reference.describe_source_field()
