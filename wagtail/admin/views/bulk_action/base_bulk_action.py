@@ -122,6 +122,7 @@ class BulkAction(ABC, FormView):
             **items_with_no_access,
             "next": self.next_url,
             "submit_url": self.request.path + "?" + self.request.META["QUERY_STRING"],
+            "model_opts": self.model._meta,
         }
 
     def prepare_action(self, objects, objects_without_access):
