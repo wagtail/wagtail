@@ -1789,9 +1789,8 @@ class TestPageFind(TestCase):
         self.assertRedirects(
             response,
             "http://localhost"
-            + reverse(
-                "wagtailapi_v2:pages:detail", args=[8], query={"fields": "_,id,type"}
-            ),
+            + reverse("wagtailapi_v2:pages:detail", args=[8])
+            + "?fields=_,id,type",
             fetch_redirect_response=False,
         )
 
