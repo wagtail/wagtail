@@ -67,6 +67,7 @@ class ViewSet(WagtailMenuRegisterable):
         def make_view_method(viewset_method):
             def _view_method(self, *args, **kwargs):
                 return viewset_method(*args, **kwargs)
+
             return _view_method
 
         for method_name in method_names:
