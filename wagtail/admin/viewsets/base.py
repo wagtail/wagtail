@@ -63,13 +63,16 @@ class ViewSet(WagtailMenuRegisterable):
         """
         viewset = self
         overrides = {}
+
+        def make_view_method(viewset_method):
+            def _view_method(self, *args, **kwargs):
+                return viewset_method(*args, **kwargs)
+            return _view_method
+
         for method_name in method_names:
             viewset_method = getattr(viewset, method_name, None)
             if viewset_method:
-
-                def view_method(self, *args, **kwargs):
-                    return viewset_method(*args, **kwargs)
-
+                view_method = make_view_method(viewset_method)
                 view_method.__name__ = method_name
                 overrides[method_name] = view_method
 
