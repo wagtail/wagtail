@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~
 
  * Add iHeart oembed provider (Storm Heg)
+ * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
@@ -82,6 +83,7 @@ Changelog
  * Maintenance: Refactor `move_choose_destination` to a class-based view (Chiemezuo Akujobi)
  * Maintenance: Remove deprecated `wagtailadmin/shared/ajax_pagination_nav.html` template (Sage Abdullah)
  * Maintenance: Formally deprecate support for listing views with no breadcrumbs (Sage Abdullah)
+ * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
 
 
 6.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
