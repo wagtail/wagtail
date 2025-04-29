@@ -111,8 +111,12 @@ class BulkAction(ABC, FormView):
                 objects.append(obj)
         return objects, {"items_with_no_access": items_with_no_access}
 
+    def annotate_items(self, items):
+        return items
+
     def get_context_data(self, **kwargs):
         items, items_with_no_access = self.get_actionable_objects()
+        items = self.annotate_items(items)
         _items = []
         for item in items:
             _items.append(self.object_context(item))
@@ -135,7 +139,7 @@ class BulkAction(ABC, FormView):
         request = self.request
         self.cleaned_form = form
         objects, objects_without_access = self.get_actionable_objects()
-        self.actionable_objects = objects
+        self.actionable_objects = self.annotate_items(objects)
         resp = self.prepare_action(objects, objects_without_access)
         if hasattr(resp, "status_code"):
             return resp
