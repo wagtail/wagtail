@@ -33,6 +33,7 @@ from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
     ButtonsColumnMixin,
     Column,
+    LocaleColumn,
     TitleColumn,
     UpdatedAtColumn,
 )
@@ -70,7 +71,6 @@ class IndexView(
     inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
-    list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
     show_other_searches = False
 
@@ -234,6 +234,13 @@ class IndexView(
             sort_key=sort_key,
             **kwargs,
         )
+
+    @cached_property
+    def list_display(self):
+        list_display = ["__str__", UpdatedAtColumn()]
+        if self.i18n_enabled:
+            list_display.insert(1, LocaleColumn())
+        return list_display
 
     @cached_property
     def columns(self):
@@ -1098,8 +1105,13 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return capfirst(label_for_field(field_name, model=self.model))
 
     def get_field_display_value(self, field_name, field):
-        # First we check for a 'get_fieldname_display' property/method on
+        # First we check for a `get_fieldname_display_value` method on the InspectView
+        # then for a 'get_fieldname_display' property/method on
         # the model, and return the value of that, if present.
+        value_func = getattr(self, f"get_{field_name}_display_value", None)
+        if value_func is not None and callable(value_func):
+            return value_func()
+
         value_func = getattr(self.object, "get_%s_display" % field_name, None)
         if value_func is not None:
             if callable(value_func):

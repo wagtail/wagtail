@@ -1,0 +1,4 @@
+{% load wagtailadmin_tags %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% status value classname="w-status--label" %}
+</td>

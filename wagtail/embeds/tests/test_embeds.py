@@ -44,6 +44,18 @@ except ImportError:
     no_embedly = True
 
 
+class DummyFinder:
+    def __init__(self, finder_func):
+        self.finder_func = finder_func
+
+    def accept(self, url):
+        # Always accept for test purposes.
+        return True
+
+    def find_embed(self, url, max_width=None, **kwargs):
+        return self.finder_func(url, max_width, **kwargs)
+
+
 class TestGetFinders(TestCase):
     def test_defaults_to_oembed(self):
         finders = get_finders()
@@ -147,7 +159,12 @@ class TestEmbeds(TestCase):
 
     @override_settings(WAGTAILEMBEDS_RESPONSIVE_HTML=True)
     def test_get_embed_responsive(self):
-        embed = get_embed("www.test.com/1234", max_width=400, finder=self.dummy_finder)
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders_mock:
+            # Configure get_finders to return our dummy finder properly
+            dummy_finder = DummyFinder(self.dummy_finder)
+            get_finders_mock.return_value = [dummy_finder]
+
+            embed = get_embed("www.test.com/1234", max_width=400)
 
         # Check that the embed is correct
         self.assertEqual(embed.title, "Test: www.test.com/1234")
@@ -164,19 +181,27 @@ class TestEmbeds(TestCase):
         self.assertEqual(self.hit_count, 1)
 
         # Look for the same embed again and check the hit count hasn't increased
-        get_embed("www.test.com/1234", max_width=400, finder=self.dummy_finder)
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders_mock:
+            get_finders_mock.return_value = [DummyFinder(self.dummy_finder)]
+            get_embed("www.test.com/1234", max_width=400)
         self.assertEqual(self.hit_count, 1)
 
         # Look for a different embed, hit count should increase
-        get_embed("www.test.com/4321", max_width=400, finder=self.dummy_finder)
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders_mock:
+            get_finders_mock.return_value = [DummyFinder(self.dummy_finder)]
+            get_embed("www.test.com/4321", max_width=400)
         self.assertEqual(self.hit_count, 2)
 
         # Look for the same embed with a different width, this should also increase hit count
-        get_embed("www.test.com/4321", finder=self.dummy_finder)
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders_mock:
+            get_finders_mock.return_value = [DummyFinder(self.dummy_finder)]
+            get_embed("www.test.com/4321")
         self.assertEqual(self.hit_count, 3)
 
     def test_get_embed_nonresponsive(self):
-        embed = get_embed("www.test.com/1234", max_width=400, finder=self.dummy_finder)
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders:
+            get_finders.return_value = [DummyFinder(self.dummy_finder)]
+            embed = get_embed("www.test.com/1234", max_width=400)
 
         # Check that the embed is correct
         self.assertEqual(embed.title, "Test: www.test.com/1234")
@@ -200,31 +225,30 @@ class TestEmbeds(TestCase):
         }
 
     def test_get_embed_cache_until(self):
-        embed = get_embed(
-            "www.test.com/1234", max_width=400, finder=self.dummy_cache_until_finder
-        )
-        self.assertEqual(embed.cache_until, make_aware(datetime.datetime(2001, 2, 3)))
-        self.assertEqual(self.hit_count, 1)
+        # Patch get_finders to always return our dummy_cache_until_finder
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders:
+            get_finders.return_value = [DummyFinder(self.dummy_cache_until_finder)]
+            embed = get_embed("www.test.com/1234", max_width=400)
+            self.assertEqual(
+                embed.cache_until, make_aware(datetime.datetime(2001, 2, 3))
+            )
+            self.assertEqual(self.hit_count, 1)
 
-        # expired cache_until should be ignored
-        embed_2 = get_embed(
-            "www.test.com/1234", max_width=400, finder=self.dummy_cache_until_finder
-        )
-        self.assertEqual(self.hit_count, 2)
+            # expired cache_until should be ignored
+            embed_2 = get_embed("www.test.com/1234", max_width=400)
+            self.assertEqual(self.hit_count, 2)
 
-        # future cache_until should not be ignored
-        future_dt = now() + datetime.timedelta(minutes=1)
-        embed.cache_until = future_dt
-        embed.save()
-        embed_3 = get_embed(
-            "www.test.com/1234", max_width=400, finder=self.dummy_cache_until_finder
-        )
-        self.assertEqual(self.hit_count, 2)
+            # future cache_until should not be ignored
+            future_dt = now() + datetime.timedelta(minutes=1)
+            embed.cache_until = future_dt
+            embed.save()
+            embed_3 = get_embed("www.test.com/1234", max_width=400)
+            self.assertEqual(self.hit_count, 2)
 
-        # ensure we've received the same embed
-        self.assertEqual(embed, embed_2)
-        self.assertEqual(embed, embed_3)
-        self.assertEqual(embed_3.cache_until, future_dt)
+            # ensure we've received the same embed
+            self.assertEqual(embed, embed_2)
+            self.assertEqual(embed, embed_3)
+            self.assertEqual(embed_3.cache_until, future_dt)
 
     def dummy_finder_invalid_width(self, url, max_width=None, max_height=None):
         # Return a record with an invalid width
@@ -238,9 +262,9 @@ class TestEmbeds(TestCase):
         }
 
     def test_invalid_width(self):
-        embed = get_embed(
-            "www.test.com/1234", max_width=400, finder=self.dummy_finder_invalid_width
-        )
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders:
+            get_finders.return_value = [DummyFinder(self.dummy_finder_invalid_width)]
+            embed = get_embed("www.test.com/1234", max_width=400)
 
         # Width must be set to None
         self.assertIsNone(embed.width)
@@ -254,7 +278,9 @@ class TestEmbeds(TestCase):
             embed["html"] = None
             return embed
 
-        embed = get_embed("www.test.com/1234", max_width=400, finder=no_html_finder)
+        with patch("wagtail.embeds.embeds.get_finders") as get_finders:
+            get_finders.return_value = [DummyFinder(no_html_finder)]
+            embed = get_embed("www.test.com/1234", max_width=400)
 
         self.assertEqual(embed.html, "")
 

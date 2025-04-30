@@ -14,7 +14,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpRequest, HttpResponse
-from django.test import RequestFactory, TestCase, TransactionTestCase
+from django.test import RequestFactory, SimpleTestCase, TestCase, TransactionTestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.timezone import make_aware, now
@@ -38,6 +38,7 @@ from wagtail.snippets.action_menu import (
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.snippets.views.snippets import get_snippet_models_for_index_view
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
     SnippetChooserAdapter,
@@ -78,6 +79,22 @@ from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.timestamps import submittable_timestamp
 from wagtail.utils.timestamps import render_timestamp
+
+
+class TestGetSnippetModelsForIndexView(SimpleTestCase):
+    def test_default_lists_all_snippets_without_menu_items(self):
+        self.assertEqual(
+            get_snippet_models_for_index_view(),
+            [
+                model
+                for model in SNIPPET_MODELS
+                if not model.snippet_viewset.get_menu_item_is_registered()
+            ],
+        )
+
+    @override_settings(WAGTAILSNIPPETS_MENU_SHOW_ALL=True)
+    def test_setting_allows_listing_of_all_snippet_models(self):
+        self.assertEqual(get_snippet_models_for_index_view(), SNIPPET_MODELS)
 
 
 class TestSnippetIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -440,10 +457,19 @@ class TestSnippetListView(WagtailTestUtils, TestCase):
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
-class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
+class TestLocaleFeaturesOnList(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.fr_locale = Locale.objects.create(language_code="fr")
+        cls.list_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
+        cls.add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+
     def setUp(self):
-        self.fr_locale = Locale.objects.create(language_code="fr")
         self.user = self.login()
+
+    def _add_snippets(self):
+        TranslatableSnippet.objects.create(text="English snippet")
+        TranslatableSnippet.objects.create(text="French snippet", locale=self.fr_locale)
 
     @override_settings(
         WAGTAIL_CONTENT_LANGUAGES=[
@@ -453,9 +479,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         ]
     )
     def test_locale_selector(self):
-        response = self.client.get(
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-        )
+        response = self.client.get(self.list_url)
         soup = self.get_soup(response.content)
 
         # Should only show languages that also have the corresponding Locale
@@ -467,10 +491,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
         self.assertIsNotNone(french_input)
 
         # Check that the add URLs include the locale
-        add_url = (
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
-            + "?locale=en"
-        )
+        add_url = f"{self.add_url}?locale=en"
         add_buttons = soup.select(f'a[href="{add_url}"]')
         self.assertEqual(len(add_buttons), 2)
         self.assertContains(
@@ -482,9 +503,7 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
 
     def test_no_locale_filter_when_only_one_locale(self):
         self.fr_locale.delete()
-        response = self.client.get(
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-        )
+        response = self.client.get(self.list_url)
         soup = self.get_soup(response.content)
 
         locale_input = soup.select_one('input[name="locale"]')
@@ -497,16 +516,14 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
-        response = self.client.get(
-            reverse("wagtailsnippets_snippetstests_translatablesnippet:list")
-        )
+        response = self.client.get(self.list_url)
         soup = self.get_soup(response.content)
 
         input_element = soup.select_one('input[name="locale"]')
         self.assertIsNone(input_element)
 
         # Check that the add URLs don't include the locale
-        add_url = reverse("wagtailsnippets_snippetstests_translatablesnippet:add")
+        add_url = self.add_url
         soup = self.get_soup(response.content)
         add_buttons = soup.select(f'a[href="{add_url}"]')
         self.assertEqual(len(add_buttons), 2)
@@ -535,6 +552,32 @@ class TestLocaleSelectorOnList(WagtailTestUtils, TestCase):
             Why not <a href="{add_url}">add one</a>?</p>""",
             html=True,
         )
+
+    def test_locale_column(self):
+        self._add_snippets()
+        response = self.client.get(self.list_url)
+        soup = self.get_soup(response.content)
+        labels = soup.select("main table td .w-status--label")
+        self.assertEqual(len(labels), 2)
+        self.assertEqual(
+            sorted(label.text.strip() for label in labels),
+            ["English", "French"],
+        )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_column_not_present_with_i18n_disabled(self):
+        self._add_snippets()
+        response = self.client.get(self.list_url)
+        soup = self.get_soup(response.content)
+        labels = soup.select("main table td .w-status--label")
+        self.assertEqual(len(labels), 0)
+
+    def test_locale_column_not_present_for_non_translatable_snippet(self):
+        response = self.client.get(reverse("wagtailsnippets_tests_advert:list"))
+        Advert.objects.create(text="English text")
+        soup = self.get_soup(response.content)
+        labels = soup.select("main table td .w-status--label")
+        self.assertEqual(len(labels), 0)
 
 
 class TestModelOrdering(WagtailTestUtils, TestCase):
@@ -5104,7 +5147,7 @@ class TestCompareRevisions(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         self.assertBreadcrumbsItemsRendered(
             [
-                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+                # "Snippets" index link is omitted as RevisableModel has its own menu item
                 {"url": index_url, "label": "Revisable models"},
                 {"url": edit_url, "label": str(self.snippet)},
                 {"url": history_url, "label": "History"},

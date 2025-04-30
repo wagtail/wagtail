@@ -718,7 +718,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
         self.assertContainsActiveFilter(
             response,
-            "Date updated: Jan. 1, 2015 -",
+            "Date updated: Jan. 1, 2015 - any",
             "latest_revision_created_at_from=2015-01-01",
         )
 

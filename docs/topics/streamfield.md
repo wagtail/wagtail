@@ -518,10 +518,6 @@ All block types, not just `StructBlock`, support the `template` property. Howeve
 
 ## Configuring block previews
 
-```{versionadded} 6.4
-The ability to have previews for StreamField blocks was added.
-```
-
 StreamField blocks can have previews that will be shown inside the block picker when you add a block in the editor. To enable this feature, you must configure the preview value and template. You can also add a description to help users pick the right block for their content.
 
 You can do so by [passing the keyword arguments](block_preview_arguments) `preview_value`, `preview_template`, and `description` when instantiating a block:

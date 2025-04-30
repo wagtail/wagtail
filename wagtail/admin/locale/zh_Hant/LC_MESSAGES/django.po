@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -579,14 +579,14 @@ msgstr "日期"
 msgid "Site summary"
 msgstr "網站摘要"
 
+msgid "Close"
+msgstr "關閉"
+
 msgid "Task started"
 msgstr "作業開始"
 
 msgid "Awaiting"
 msgstr "等待中"
-
-msgid "Close"
-msgstr "關閉"
 
 msgid "Awaiting your review"
 msgstr "待審中"
@@ -1028,10 +1028,6 @@ msgstr "未完成作業"
 msgid "Completed at"
 msgstr "完成時間"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
-
 msgid "Close dialog"
 msgstr "關閉對話框"
 
@@ -1061,6 +1057,10 @@ msgstr "目前頁面狀態："
 
 msgid "Visit the live page"
 msgstr "查看線上頁面"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "確定要取消這個修訂版本的預定發佈嗎？"
@@ -1257,9 +1257,6 @@ msgstr "復原"
 
 msgid "Redo"
 msgstr "取消復原"
-
-msgid "Bold"
-msgstr "粗體"
 
 msgid "Italic"
 msgstr "斜體"
@@ -1570,9 +1567,6 @@ msgstr "新增工作流程作業"
 msgid "Task '%(object)s' created."
 msgstr "已建立作業 '%(object)s'"
 
-msgid "Editing workflow task"
-msgstr "編輯工作流程作業"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "已更新作業 '%(object)s'"
@@ -1630,6 +1624,9 @@ msgstr "編號列表"
 
 msgid "Blockquote"
 msgstr "區塊引言"
+
+msgid "Bold"
+msgstr "粗體"
 
 msgid "Link"
 msgstr "超連接"

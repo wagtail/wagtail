@@ -3,7 +3,6 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2022
 # Nikita Tonkoshkur <humapen@gmail.com>, 2022
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2022
-# sergeybe <sergeybe@gmail.com>, 2022
 # Eugene <eugene.mechanism@gmail.com>, 2022
 # Мирон Левицкий <miron200504@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2022
@@ -12,10 +11,11 @@
 # Loic Teixeira, 2024
 # Andrei Satsevich, 2024
 # 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2025
+# sergeybe <sergeybe@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2025\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/torchbox/teams/8009/ru/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ru\n"
@@ -52,6 +52,9 @@ msgstr[0] "%(num)s пиксель"
 msgstr[1] "%(num)s пикселя"
 msgstr[2] "%(num)s пикселей"
 msgstr[3] "%(num)s пикселей"
+
+msgid "Actions"
+msgstr "Действия"
 
 msgid "Add a comment"
 msgstr "Добавить комментарий"

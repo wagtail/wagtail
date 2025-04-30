@@ -11,6 +11,9 @@ msgstr ""
 "Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Actions"
+msgstr "Hohenga"
+
 msgid "Alt text"
 msgstr "Manohi kuputuhi"
 

@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 12:59+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -180,8 +180,34 @@ msgstr "Vergrendeld vanwege geplande publicatie"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Momenteel vergrendeld en zal gepubliceerd worden op de geplande datum"
 
-msgid "latest revision"
-msgstr "Nieuwste revisie"
+msgid "content type"
+msgstr "inhoudstype"
+
+msgid "timestamp (UTC)"
+msgstr "aangemaakt op (UTC)"
+
+msgid "log entry"
+msgstr "logboekvermelding"
+
+msgid "log entries"
+msgstr "logboekvermeldingen"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "De logboek actie '%(action_name)s' is niet geregistreerd."
+
+msgid "system"
+msgstr "systeem"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Onbekend %(action)s"
+
+msgid "model log entry"
+msgstr "logboekvermelding"
+
+msgid "model log entries"
+msgstr "logboekvermeldingen"
 
 msgid "live"
 msgstr "live"
@@ -219,17 +245,8 @@ msgstr "live + gepland"
 msgid "live + draft"
 msgstr "live + concept"
 
-msgid "Default"
-msgstr "Default"
-
-msgid "Preview in mobile size"
-msgstr "Voorvertoning op mobiel formaat"
-
-msgid "Preview in tablet size"
-msgstr "Voorvertoning op tablet formaat"
-
-msgid "Preview in desktop size"
-msgstr "Voorvertoning op desktop formaat"
+msgid "locale"
+msgstr "taalregio"
 
 msgid "locked"
 msgstr "vergrendeld"
@@ -240,11 +257,38 @@ msgstr "vergrendeld op"
 msgid "locked by"
 msgstr "vergrendeld door"
 
-msgid "in moderation"
-msgstr "ter goedkeuring"
+msgid "collection"
+msgstr "collectie"
 
-msgid "live + in moderation"
-msgstr "live + ter goedkeuring"
+msgid "collection view restriction"
+msgstr "collectie bekijk restrictie"
+
+msgid "collection view restrictions"
+msgstr "collectie bekijk restricties"
+
+msgid "name"
+msgstr "naam"
+
+msgid "collections"
+msgstr "collecties"
+
+msgid "group"
+msgstr "groep"
+
+msgid "permission"
+msgstr "machtiging"
+
+msgid "group collection permission"
+msgstr "groepsmachtiging binnen collectie"
+
+msgid "group collection permissions"
+msgstr "groepsmachtigingen binnen collectie"
+
+msgid "for content type"
+msgstr "voor content type"
+
+msgid "uploaded by user"
+msgstr "geupload door gebruiker"
 
 msgid "Add/edit pages you own"
 msgstr "Eigen pagina's toevoegen/wijzigen"
@@ -294,9 +338,6 @@ msgid ""
 msgstr ""
 "De manier waarop de pagina in URL's getoond wordt, bijv. http://domein.nl/"
 "blog/[mijn-slug]/"
-
-msgid "content type"
-msgstr "inhoudstype"
 
 msgid "URL path"
 msgstr "URL pad"
@@ -355,33 +396,6 @@ msgstr "pagina"
 msgid "pages"
 msgstr "pagina's"
 
-msgid "object id"
-msgstr "object id"
-
-msgid "created at"
-msgstr "gemaakt op"
-
-msgid "user"
-msgstr "gebruiker"
-
-msgid "content JSON"
-msgstr "content JSON"
-
-msgid "approved go live at"
-msgstr "goedgekeurde publicatiedatum"
-
-msgid "revision"
-msgstr "revisie"
-
-msgid "revisions"
-msgstr "revisies"
-
-msgid "group"
-msgstr "groep"
-
-msgid "permission"
-msgstr "machtiging"
-
 msgid "group page permission"
 msgstr "groep pagina machtiging"
 
@@ -402,142 +416,6 @@ msgstr "workflow-pagina"
 
 msgid "workflow pages"
 msgstr "workflow-pagina's"
-
-msgid "workflow_tasks"
-msgstr "workflow"
-
-msgid "task"
-msgstr "taak"
-
-msgid "workflow task order"
-msgstr "workflow-taakvolgorde"
-
-msgid "workflow task orders"
-msgstr "workflow-taakvolgordes"
-
-msgid "name"
-msgstr "naam"
-
-msgid "active"
-msgstr "actieve"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Actieve taken kunnen aan workflows worden toegevoegd. Een taak deactiveren "
-"zal deze niet verwijderen van bestaande workflows."
-
-msgid "tasks"
-msgstr "taken"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Actieve workflows kunnen aan pagina's/snippets worden toegevoegd. Een "
-"workflow deactiveren zal deze niet verwijderen van bestaande pagina's/"
-"snippets."
-
-msgid "workflows"
-msgstr "workflows"
-
-msgid "groups"
-msgstr "groepen"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Pagina's/snippets in deze stap van de workflow zullen worden beoordeeld of "
-"goedgekeurd door deze groep gebruikers"
-
-msgid "Request changes"
-msgstr "Wijzigingsverzoek"
-
-msgid "Approve"
-msgstr "Goedkeuren"
-
-msgid "Approve with comment"
-msgstr "Goedkeuren met opmerking"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Leden van de gekozen groepen kunnen deze taak goedkeuren"
-
-msgid "Group approval task"
-msgstr "Groep-goedkeuringstaak"
-
-msgid "Group approval tasks"
-msgstr "Groep-goedkeuringstaken"
-
-msgid "In progress"
-msgstr "In behandeling"
-
-msgid "Approved"
-msgstr "Goedgekeurd"
-
-msgid "Needs changes"
-msgstr "Heeft wijziging nodig"
-
-msgid "Cancelled"
-msgstr "Geannuleerd"
-
-msgid "status"
-msgstr "status"
-
-msgid "requested by"
-msgstr "gevraagd door"
-
-msgid "current task state"
-msgstr "huidige status taak"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Er mag maar één 'in behandeling' of 'heeft wijziging nodig' workflow-status "
-"zijn per pagina/snippet."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr "Workflow '%(workflow_name)s' op %(model_name)s '%(title)s': %(status)s"
-
-msgid "Not started"
-msgstr "Niet gestart"
-
-msgid "Workflow state"
-msgstr "Workflow-status"
-
-msgid "Workflow states"
-msgstr "Workflow-statussen"
-
-msgid "Rejected"
-msgstr "Afgekeurd"
-
-msgid "Skipped"
-msgstr "Overgeslagen"
-
-msgid "workflow state"
-msgstr "workflow-status"
-
-msgid "started at"
-msgstr "Gestart op"
-
-msgid "finished at"
-msgstr "Afgerond op"
-
-msgid "finished by"
-msgstr "Afgerond door"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr "Taak '%(task_name)s' op revisie '%(revision_info)s': %(status)s"
-
-msgid "Task state"
-msgstr "Taak-status"
-
-msgid "Task states"
-msgstr "Taak-statussen"
 
 msgid "page log entry"
 msgstr "pagina-logboekvermelding"
@@ -560,58 +438,20 @@ msgstr "opmerking reactie"
 msgid "comment replies"
 msgstr "opmerking reacties"
 
-msgid "timestamp (UTC)"
-msgstr "aangemaakt op (UTC)"
+msgid "Default"
+msgstr "Default"
 
-msgid "log entry"
-msgstr "logboekvermelding"
+msgid "Preview in mobile size"
+msgstr "Voorvertoning op mobiel formaat"
 
-msgid "log entries"
-msgstr "logboekvermeldingen"
+msgid "Preview in tablet size"
+msgstr "Voorvertoning op tablet formaat"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "De logboek actie '%(action_name)s' is niet geregistreerd."
+msgid "Preview in desktop size"
+msgstr "Voorvertoning op desktop formaat"
 
-msgid "system"
-msgstr "systeem"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Onbekend %(action)s"
-
-msgid "model log entry"
-msgstr "logboekvermelding"
-
-msgid "model log entries"
-msgstr "logboekvermeldingen"
-
-msgid "locale"
-msgstr "taalregio"
-
-msgid "collection"
-msgstr "collectie"
-
-msgid "collection view restriction"
-msgstr "collectie bekijk restrictie"
-
-msgid "collection view restrictions"
-msgstr "collectie bekijk restricties"
-
-msgid "collections"
-msgstr "collecties"
-
-msgid "group collection permission"
-msgstr "groepsmachtiging binnen collectie"
-
-msgid "group collection permissions"
-msgstr "groepsmachtigingen binnen collectie"
-
-msgid "for content type"
-msgstr "voor content type"
-
-msgid "uploaded by user"
-msgstr "geupload door gebruiker"
+msgid "object id"
+msgstr "object id"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -636,6 +476,27 @@ msgstr "zal ingesteld worden op een door het systeem bepaalde %(model_name)s"
 
 msgid "will unset the reference"
 msgstr "zal de verwijzing weghalen"
+
+msgid "created at"
+msgstr "gemaakt op"
+
+msgid "user"
+msgstr "gebruiker"
+
+msgid "content JSON"
+msgstr "content JSON"
+
+msgid "approved go live at"
+msgstr "goedgekeurde publicatiedatum"
+
+msgid "revision"
+msgstr "revisie"
+
+msgid "revisions"
+msgstr "revisies"
+
+msgid "latest revision"
+msgstr "Nieuwste revisie"
 
 msgid "hostname"
 msgstr "hostname"
@@ -711,11 +572,150 @@ msgstr ""
 "inhoud. Iedereen die in het bezit is van het wachtwoord kan deze inhoud "
 "bekijken."
 
+msgid "groups"
+msgstr "groepen"
+
 msgid "view restriction"
 msgstr "bekijk restrictie"
 
 msgid "view restrictions"
 msgstr "bekijk restricties"
+
+msgid "In progress"
+msgstr "In behandeling"
+
+msgid "Approved"
+msgstr "Goedgekeurd"
+
+msgid "Needs changes"
+msgstr "Heeft wijziging nodig"
+
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "gevraagd door"
+
+msgid "current task state"
+msgstr "huidige status taak"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Er mag maar één 'in behandeling' of 'heeft wijziging nodig' workflow-status "
+"zijn per pagina/snippet."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr "Workflow '%(workflow_name)s' op %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "Niet gestart"
+
+msgid "Workflow state"
+msgstr "Workflow-status"
+
+msgid "Workflow states"
+msgstr "Workflow-statussen"
+
+msgid "active"
+msgstr "actieve"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Actieve workflows kunnen aan pagina's/snippets worden toegevoegd. Een "
+"workflow deactiveren zal deze niet verwijderen van bestaande pagina's/"
+"snippets."
+
+msgid "workflows"
+msgstr "workflows"
+
+msgid "workflow_tasks"
+msgstr "workflow"
+
+msgid "task"
+msgstr "taak"
+
+msgid "workflow task order"
+msgstr "workflow-taakvolgorde"
+
+msgid "workflow task orders"
+msgstr "workflow-taakvolgordes"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Actieve taken kunnen aan workflows worden toegevoegd. Een taak deactiveren "
+"zal deze niet verwijderen van bestaande workflows."
+
+msgid "tasks"
+msgstr "taken"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Pagina's/snippets in deze stap van de workflow zullen worden beoordeeld of "
+"goedgekeurd door deze groep gebruikers"
+
+msgid "Request changes"
+msgstr "Wijzigingsverzoek"
+
+msgid "Approve"
+msgstr "Goedkeuren"
+
+msgid "Approve with comment"
+msgstr "Goedkeuren met opmerking"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Leden van de gekozen groepen kunnen deze taak goedkeuren"
+
+msgid "Group approval task"
+msgstr "Groep-goedkeuringstaak"
+
+msgid "Group approval tasks"
+msgstr "Groep-goedkeuringstaken"
+
+msgid "Rejected"
+msgstr "Afgekeurd"
+
+msgid "Skipped"
+msgstr "Overgeslagen"
+
+msgid "workflow state"
+msgstr "workflow-status"
+
+msgid "started at"
+msgstr "Gestart op"
+
+msgid "finished at"
+msgstr "Afgerond op"
+
+msgid "finished by"
+msgstr "Afgerond door"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Taak '%(task_name)s' op revisie '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Taak-status"
+
+msgid "Task states"
+msgstr "Taak-statussen"
+
+msgid "in moderation"
+msgstr "ter goedkeuring"
+
+msgid "live + in moderation"
+msgstr "live + ter goedkeuring"
 
 msgid "Log in"
 msgstr "Inloggen"

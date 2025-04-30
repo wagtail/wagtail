@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 12:59+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -171,8 +171,34 @@ msgstr "كۈنتەرتىپ قۇلۇپلىغان"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "ھازىر قۇلۇپلاندى، كۈنتەرتىپتىكى ۋاقىتتا بىۋاسىتە تارقىتىلىدۇ"
 
-msgid "latest revision"
-msgstr "ئاخىرقى تۈزىتىلمە"
+msgid "content type"
+msgstr "مەزمۇن تۈرى"
+
+msgid "timestamp (UTC)"
+msgstr "ۋاقىت تامغىسى (UTC)"
+
+msgid "log entry"
+msgstr "خاتىرە مەزمۇنى"
+
+msgid "log entries"
+msgstr "خاتىرە مەزمۇنى"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "«%(action_name)s» خاتىرە مەشغۇلاتى تىزىملىتىلمىغان."
+
+msgid "system"
+msgstr "سىستېما"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "يوچۇن %(action)s"
+
+msgid "model log entry"
+msgstr "مودېل خاتىرە مەزمۇنى"
+
+msgid "model log entries"
+msgstr "مودېل خاتىرە مەزمۇنى"
 
 msgid "live"
 msgstr "بىۋاسىتە تارقىتىش"
@@ -210,17 +236,8 @@ msgstr "بىۋاسىتە تارقىتىش + كۈنتەرتىپكە قويۇلغ�
 msgid "live + draft"
 msgstr "بىۋاسىتە تارقىتىش + دەسلەپكى نۇسخا"
 
-msgid "Default"
-msgstr "كۆڭۈلدىكى"
-
-msgid "Preview in mobile size"
-msgstr "كۆچمە ئۈسكۈنە چوڭلۇقىدا ئالدىن كۆزەت"
-
-msgid "Preview in tablet size"
-msgstr "تاختا كومپيۇتېر چوڭلۇقىدا ئالدىن كۆزەت"
-
-msgid "Preview in desktop size"
-msgstr "ئۈستەل كومپيۇتېر چوڭلۇقىدا ئالدىن كۆزەت"
+msgid "locale"
+msgstr "يەرلىك"
 
 msgid "locked"
 msgstr "قۇلۇپلانغان"
@@ -231,11 +248,38 @@ msgstr "قۇلۇپلانغان ۋاقتى"
 msgid "locked by"
 msgstr "قۇلۇپلىغۇچى"
 
-msgid "in moderation"
-msgstr "تەستىق كۈتۈۋاتىدۇ"
+msgid "collection"
+msgstr "توپلام"
 
-msgid "live + in moderation"
-msgstr "بىۋاسىتە تارقىتىش + تەستىق كۈتۈۋاتىدۇ"
+msgid "collection view restriction"
+msgstr "توپلام كۆرۈش چەكلىمىسى"
+
+msgid "collection view restrictions"
+msgstr "توپلام كۆرۈش چەكلىمىسى"
+
+msgid "name"
+msgstr "ئاتى"
+
+msgid "collections"
+msgstr "توپلام"
+
+msgid "group"
+msgstr "گۇرۇپپا"
+
+msgid "permission"
+msgstr "ئىجازەت"
+
+msgid "group collection permission"
+msgstr "گۇرۇپپا توپلام ئىجازىتى"
+
+msgid "group collection permissions"
+msgstr "گۇرۇپپا توپلام ئىجازىتى"
+
+msgid "for content type"
+msgstr "مەزمۇن تۈرى"
+
+msgid "uploaded by user"
+msgstr "ئىشلەتكۈچى يۈكلىگەن"
 
 msgid "Add/edit pages you own"
 msgstr "ئۆزىڭىزنىڭ بېتىڭىزنى قوشىدۇ/تەھرىرلەيدۇ"
@@ -285,9 +329,6 @@ msgid ""
 msgstr ""
 "تور ئادرېسىدا كۆرۈنىدىغان بەتنىڭ ئىسمى مەسىلەن: http://domain.com/blog/[my-"
 "slug]/"
-
-msgid "content type"
-msgstr "مەزمۇن تۈرى"
 
 msgid "URL path"
 msgstr "تور ئادرېس يولى"
@@ -343,33 +384,6 @@ msgstr "بەت"
 msgid "pages"
 msgstr "بەت"
 
-msgid "object id"
-msgstr "ئوبيېكت كىملىكى"
-
-msgid "created at"
-msgstr "قۇرۇلغان ۋاقتى"
-
-msgid "user"
-msgstr "ئىشلەتكۈچى"
-
-msgid "content JSON"
-msgstr "JSON مەزمۇنى"
-
-msgid "approved go live at"
-msgstr "تەستىقلانغان بىۋاسىتە تارقىتىش ۋاقتى"
-
-msgid "revision"
-msgstr "تۈزىتىلمە"
-
-msgid "revisions"
-msgstr "تۈزىتىلمە"
-
-msgid "group"
-msgstr "گۇرۇپپا"
-
-msgid "permission"
-msgstr "ئىجازەت"
-
 msgid "group page permission"
 msgstr "گۇرۇپپا بېتى ئىجازىتى"
 
@@ -390,142 +404,6 @@ msgstr "خىزمەت ئېقىمى بېتى"
 
 msgid "workflow pages"
 msgstr "خىزمەت ئېقىمى بېتى"
-
-msgid "workflow_tasks"
-msgstr "workflow_tasks"
-
-msgid "task"
-msgstr "ۋەزىپە"
-
-msgid "workflow task order"
-msgstr "خىزمەت ئېقىمى ۋەزىپە تەرتىپى"
-
-msgid "workflow task orders"
-msgstr "خىزمەت ئېقىمى ۋەزىپە تەرتىپى"
-
-msgid "name"
-msgstr "ئاتى"
-
-msgid "active"
-msgstr "ئاكتىپ"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"خىزمەت ئېقىمىغا ئاكتىپ ۋەزىپىلەرنى قوشقىلى بولىدۇ. بىر ۋەزىپە ئەمەلدىن "
-"قالدۇرۇلسا ئۇنى ھازىرقى خىزمەت ئېقىمىدىن چىقىرىۋەتمەيدۇ."
-
-msgid "tasks"
-msgstr "ۋەزىپە"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"ئاكتىپ خىزمەت ئېقىمىنى بەت/پۇرۇچقا قوشقىلى بولىدۇ. بىر خىزمەت ئېقىمى "
-"ئەمەلدىن قالدۇرۇلسا ئۇنى ھازىرقى  بەت/پۇرۇچتىن چىقىرىۋەتمەيدۇ."
-
-msgid "workflows"
-msgstr "خىزمەت ئېقىمى"
-
-msgid "groups"
-msgstr "گۇرۇپپا"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"خىزمەت ئېقىمىنىڭ بۇ باسقۇچىدىكى بەت/پۇرۇچ تەستىقلاشقا يوللىنىدۇ ياكى بۇ "
-"گۇرۇپپىدىكى ئەزالار تەستىقلايدۇ"
-
-msgid "Request changes"
-msgstr "ئىلتىماس ئۆزگىرىشى"
-
-msgid "Approve"
-msgstr "تەستىقلا"
-
-msgid "Approve with comment"
-msgstr "ئىنكاس بىلەن تەستىقلا"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "تاللانغان Wagtail گۇرۇپپىسىنىڭ ئەزالىرى بۇ ۋەزىپىنى تەستىقلىيالايدۇ"
-
-msgid "Group approval task"
-msgstr "گۇرۇپپا تەستىقلايدىغان ۋەزىپە"
-
-msgid "Group approval tasks"
-msgstr "گۇرۇپپا تەستىقلايدىغان ۋەزىپە"
-
-msgid "In progress"
-msgstr "داۋاملىشىۋاتىدۇ"
-
-msgid "Approved"
-msgstr "تەستىقلاندى"
-
-msgid "Needs changes"
-msgstr "ئۆزگەرتىشكە موھتاج"
-
-msgid "Cancelled"
-msgstr "ئەمەلدىن قالدۇرۇلدى"
-
-msgid "status"
-msgstr "ھالەت"
-
-msgid "requested by"
-msgstr "ئىلتىماس قىلغۇچى"
-
-msgid "current task state"
-msgstr "ھازىرقى ۋەزىپە ھالىتى"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"بىرسىلا داۋاملىشىۋاتقان بولۇشى مۇمكىن ياكى ھەر بىر بەت/پۇرۇچنىڭ خىزمەت "
-"ئېقىمىنىڭ ھالىتىنى ئۆزگەرتىش زۆرۈر بولۇشى مۇمكىن."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"%(model_name)s «%(title)s» خىزمەت ئېقىمى «%(workflow_name)s»: %(status)s"
-
-msgid "Not started"
-msgstr "باشلىمىدى"
-
-msgid "Workflow state"
-msgstr "خىزمەت ئېقىمى ھالىتى"
-
-msgid "Workflow states"
-msgstr "خىزمەت ئېقىمى ھالىتى"
-
-msgid "Rejected"
-msgstr "رەت قىلىندى"
-
-msgid "Skipped"
-msgstr "ئاتلىدى"
-
-msgid "workflow state"
-msgstr "خىزمەت ئېقىمى ھالىتى"
-
-msgid "started at"
-msgstr "باشلانغان ۋاقىت"
-
-msgid "finished at"
-msgstr "تاماملانغان ۋاقىت"
-
-msgid "finished by"
-msgstr "تاماملىغۇچى"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr "«%(revision_info)s» تۈزىتىلمىدىكى «%(task_name)s» ۋەزىپە: %(status)s"
-
-msgid "Task state"
-msgstr "ۋەزىپە ھالىتى"
-
-msgid "Task states"
-msgstr "ۋەزىپە ھالىتى"
 
 msgid "page log entry"
 msgstr "بەت خاتىرە مەزمۇنى"
@@ -548,58 +426,20 @@ msgstr "ئىنكاسقا جاۋاب"
 msgid "comment replies"
 msgstr "ئىنكاسقا جاۋاب"
 
-msgid "timestamp (UTC)"
-msgstr "ۋاقىت تامغىسى (UTC)"
+msgid "Default"
+msgstr "كۆڭۈلدىكى"
 
-msgid "log entry"
-msgstr "خاتىرە مەزمۇنى"
+msgid "Preview in mobile size"
+msgstr "كۆچمە ئۈسكۈنە چوڭلۇقىدا ئالدىن كۆزەت"
 
-msgid "log entries"
-msgstr "خاتىرە مەزمۇنى"
+msgid "Preview in tablet size"
+msgstr "تاختا كومپيۇتېر چوڭلۇقىدا ئالدىن كۆزەت"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "«%(action_name)s» خاتىرە مەشغۇلاتى تىزىملىتىلمىغان."
+msgid "Preview in desktop size"
+msgstr "ئۈستەل كومپيۇتېر چوڭلۇقىدا ئالدىن كۆزەت"
 
-msgid "system"
-msgstr "سىستېما"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "يوچۇن %(action)s"
-
-msgid "model log entry"
-msgstr "مودېل خاتىرە مەزمۇنى"
-
-msgid "model log entries"
-msgstr "مودېل خاتىرە مەزمۇنى"
-
-msgid "locale"
-msgstr "يەرلىك"
-
-msgid "collection"
-msgstr "توپلام"
-
-msgid "collection view restriction"
-msgstr "توپلام كۆرۈش چەكلىمىسى"
-
-msgid "collection view restrictions"
-msgstr "توپلام كۆرۈش چەكلىمىسى"
-
-msgid "collections"
-msgstr "توپلام"
-
-msgid "group collection permission"
-msgstr "گۇرۇپپا توپلام ئىجازىتى"
-
-msgid "group collection permissions"
-msgstr "گۇرۇپپا توپلام ئىجازىتى"
-
-msgid "for content type"
-msgstr "مەزمۇن تۈرى"
-
-msgid "uploaded by user"
-msgstr "ئىشلەتكۈچى يۈكلىگەن"
+msgid "object id"
+msgstr "ئوبيېكت كىملىكى"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -624,6 +464,27 @@ msgstr "سىستېما %(model_name)s قىلىپ تەڭشەشنى بەلگىلە
 
 msgid "will unset the reference"
 msgstr "نەقىلنى تەڭشىمەيدۇ"
+
+msgid "created at"
+msgstr "قۇرۇلغان ۋاقتى"
+
+msgid "user"
+msgstr "ئىشلەتكۈچى"
+
+msgid "content JSON"
+msgstr "JSON مەزمۇنى"
+
+msgid "approved go live at"
+msgstr "تەستىقلانغان بىۋاسىتە تارقىتىش ۋاقتى"
+
+msgid "revision"
+msgstr "تۈزىتىلمە"
+
+msgid "revisions"
+msgstr "تۈزىتىلمە"
+
+msgid "latest revision"
+msgstr "ئاخىرقى تۈزىتىلمە"
 
 msgid "hostname"
 msgstr "مۇلازىمېتىر ئاتى"
@@ -698,11 +559,150 @@ msgstr ""
 "ھەمبەھىر ئىمنى سەزگۈر مەزمۇنلارنى قوغداشقا ئىشلىتىشكە بولمايدۇ. بۇ ئىم "
 "بارلار مەزمۇننى كۆرەلەيدۇ."
 
+msgid "groups"
+msgstr "گۇرۇپپا"
+
 msgid "view restriction"
 msgstr "كۆرۈش چەكلىمىسى"
 
 msgid "view restrictions"
 msgstr "كۆرۈش چەكلىمىسى"
+
+msgid "In progress"
+msgstr "داۋاملىشىۋاتىدۇ"
+
+msgid "Approved"
+msgstr "تەستىقلاندى"
+
+msgid "Needs changes"
+msgstr "ئۆزگەرتىشكە موھتاج"
+
+msgid "Cancelled"
+msgstr "ئەمەلدىن قالدۇرۇلدى"
+
+msgid "status"
+msgstr "ھالەت"
+
+msgid "requested by"
+msgstr "ئىلتىماس قىلغۇچى"
+
+msgid "current task state"
+msgstr "ھازىرقى ۋەزىپە ھالىتى"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"بىرسىلا داۋاملىشىۋاتقان بولۇشى مۇمكىن ياكى ھەر بىر بەت/پۇرۇچنىڭ خىزمەت "
+"ئېقىمىنىڭ ھالىتىنى ئۆزگەرتىش زۆرۈر بولۇشى مۇمكىن."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"%(model_name)s «%(title)s» خىزمەت ئېقىمى «%(workflow_name)s»: %(status)s"
+
+msgid "Not started"
+msgstr "باشلىمىدى"
+
+msgid "Workflow state"
+msgstr "خىزمەت ئېقىمى ھالىتى"
+
+msgid "Workflow states"
+msgstr "خىزمەت ئېقىمى ھالىتى"
+
+msgid "active"
+msgstr "ئاكتىپ"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"ئاكتىپ خىزمەت ئېقىمىنى بەت/پۇرۇچقا قوشقىلى بولىدۇ. بىر خىزمەت ئېقىمى "
+"ئەمەلدىن قالدۇرۇلسا ئۇنى ھازىرقى  بەت/پۇرۇچتىن چىقىرىۋەتمەيدۇ."
+
+msgid "workflows"
+msgstr "خىزمەت ئېقىمى"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "ۋەزىپە"
+
+msgid "workflow task order"
+msgstr "خىزمەت ئېقىمى ۋەزىپە تەرتىپى"
+
+msgid "workflow task orders"
+msgstr "خىزمەت ئېقىمى ۋەزىپە تەرتىپى"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"خىزمەت ئېقىمىغا ئاكتىپ ۋەزىپىلەرنى قوشقىلى بولىدۇ. بىر ۋەزىپە ئەمەلدىن "
+"قالدۇرۇلسا ئۇنى ھازىرقى خىزمەت ئېقىمىدىن چىقىرىۋەتمەيدۇ."
+
+msgid "tasks"
+msgstr "ۋەزىپە"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"خىزمەت ئېقىمىنىڭ بۇ باسقۇچىدىكى بەت/پۇرۇچ تەستىقلاشقا يوللىنىدۇ ياكى بۇ "
+"گۇرۇپپىدىكى ئەزالار تەستىقلايدۇ"
+
+msgid "Request changes"
+msgstr "ئىلتىماس ئۆزگىرىشى"
+
+msgid "Approve"
+msgstr "تەستىقلا"
+
+msgid "Approve with comment"
+msgstr "ئىنكاس بىلەن تەستىقلا"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "تاللانغان Wagtail گۇرۇپپىسىنىڭ ئەزالىرى بۇ ۋەزىپىنى تەستىقلىيالايدۇ"
+
+msgid "Group approval task"
+msgstr "گۇرۇپپا تەستىقلايدىغان ۋەزىپە"
+
+msgid "Group approval tasks"
+msgstr "گۇرۇپپا تەستىقلايدىغان ۋەزىپە"
+
+msgid "Rejected"
+msgstr "رەت قىلىندى"
+
+msgid "Skipped"
+msgstr "ئاتلىدى"
+
+msgid "workflow state"
+msgstr "خىزمەت ئېقىمى ھالىتى"
+
+msgid "started at"
+msgstr "باشلانغان ۋاقىت"
+
+msgid "finished at"
+msgstr "تاماملانغان ۋاقىت"
+
+msgid "finished by"
+msgstr "تاماملىغۇچى"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "«%(revision_info)s» تۈزىتىلمىدىكى «%(task_name)s» ۋەزىپە: %(status)s"
+
+msgid "Task state"
+msgstr "ۋەزىپە ھالىتى"
+
+msgid "Task states"
+msgstr "ۋەزىپە ھالىتى"
+
+msgid "in moderation"
+msgstr "تەستىق كۈتۈۋاتىدۇ"
+
+msgid "live + in moderation"
+msgstr "بىۋاسىتە تارقىتىش + تەستىق كۈتۈۋاتىدۇ"
 
 msgid "Log in"
 msgstr "تىزىمغا كىرىڭ"
