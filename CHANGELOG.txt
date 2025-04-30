@@ -6,6 +6,7 @@ Changelog
 
  * Add iHeart oembed provider (Storm Heg)
  * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
+ * Add ability for the header breadcrumbs to save their open/closed state across navigation & refresh (Srishti Jaiswal)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
