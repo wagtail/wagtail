@@ -1,4 +1,4 @@
- {% extends "wagtailadmin/generic/form.html" %}
+{% extends "wagtailadmin/generic/form.html" %}
 {% load i18n wagtailadmin_tags static %}
 
 {% block titletag %}{% trans "Add a document" %}{% endblock %}
@@ -48,12 +48,12 @@
             name="title"
             id="id_title"
             required"
-                                     >
-                                     </div>
+                                 >
+                                 </div>
 
-                                     <div class="actions">
-                                        <button
-                                        type="submit"
+                                 <div class="actions">
+                                                                     <button
+                                                                     type="submit"
                          class="button button-longrunning"
                                              data-controller="w-progress"
                                         data-action="w-progress#activate"
@@ -61,7 +61,7 @@
                                                                      >
                                                                      {% icon name="spinner" %}
                                                                      <em data-w-progress-target="label">{% trans 'Upload' %}</em>
-                                                              </button>
-                                                              </div>
+                                                                                                                   </button>
+                                                                                                                   </div>
 
-                                                  {% endblock %}
+                                                                                                       {% endblock %}
