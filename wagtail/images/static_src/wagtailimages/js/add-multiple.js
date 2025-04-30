@@ -165,3 +165,9 @@ $(function () {
     });
   });
 });
+
+document.addEventListener('wagtail:images-upload', (event) => {
+  if (event.detail?.data?.title) {
+    event.target.value = event.detail.data.title;
+  }
+});

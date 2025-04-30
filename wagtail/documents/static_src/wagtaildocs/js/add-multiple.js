@@ -164,9 +164,7 @@ $(function () {
           form.replaceWith(data.form);
         }
       })
-      .fail(function (xhr, status, error) {
-        // Handle failure
-      });
+      .fail(function (xhr, status, error) {});
   });
 
   $('#upload-list').on('click', '.delete', function (e) {
@@ -185,4 +183,10 @@ $(function () {
       }
     }).fail(function (xhr, status, error) {});
   });
+});
+
+document.addEventListener('wagtail:documents-upload', (event) => {
+  if (event.detail?.data?.title) {
+    event.target.value = event.detail.data.title;
+  }
 });
