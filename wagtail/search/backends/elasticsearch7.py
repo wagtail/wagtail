@@ -11,6 +11,7 @@ from django.utils.crypto import get_random_string
 from elasticsearch import VERSION as ELASTICSEARCH_VERSION
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
+from datetime import time
 
 from wagtail.search.backends.base import (
     BaseSearchBackend,
