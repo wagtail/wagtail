@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("wagtailforms", "0005_add_verbose_name_plural"),
+        ("wagtailforms", "0005_alter_formsubmission_form_data"),
     ]
 
     operations = [
