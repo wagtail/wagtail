@@ -78,7 +78,6 @@ class AbstractFormField(Orderable):
 
     clean_name = models.CharField(
         verbose_name=_("name"),
-        max_length=255,
         blank=True,
         default="",
         help_text=_(
