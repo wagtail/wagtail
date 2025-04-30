@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='abstractformfield',
+            model_name='formsubmission',
             name='clean_name',
             field=models.CharField(blank=True, default='', help_text='Safe name of the form field, the label converted to ascii_snake_case', verbose_name='name'),
         ),
