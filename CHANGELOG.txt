@@ -20,6 +20,7 @@ Changelog
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
  * Fix: Fix behaviour of `ViewSet.inject_view_methods` with multiple methods (Gorlik)
  * Fix: Preserve query strings in URLs submitted to CloudFront for invalidation (Jigyasu Rajput)
+ * Fix: Handle non-JSON-safe fields in `exclude_fields_in_copy` (Matt Westcott)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)

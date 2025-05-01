@@ -1,4 +1,5 @@
 import datetime
+import json
 import unittest
 from unittest.mock import Mock
 
@@ -49,6 +50,7 @@ from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     EventPageSpeaker,
+    ExcludedCopyPageNote,
     GenericSnippetPage,
     ManyToManyBlogPage,
     MTIBasePage,
@@ -1994,24 +1996,34 @@ class TestCopyPage(TestCase):
 
     def test_copy_page_with_additional_excluded_fields(self):
         homepage = Page.objects.get(url_path="/home/")
-        page = homepage.add_child(
-            instance=PageWithExcludedCopyField(
-                title="Discovery",
-                slug="disco",
-                content="NCC-1031",
-                special_field="Context is for Kings",
-            )
+        page = PageWithExcludedCopyField(
+            title="Discovery",
+            slug="disco",
+            content="NCC-1031",
+            special_field="Context is for Kings",
+            special_stream=[("item", "non-default item")],
         )
+        page.special_notes = [ExcludedCopyPageNote(note="Some note")]
+        homepage.add_child(instance=page)
         page.save_revision()
         new_page = page.copy(to=homepage, update_attrs={"slug": "disco-2"})
-        exclude_field = new_page.latest_revision.content["special_field"]
+        revision_content = new_page.latest_revision.content
 
         self.assertEqual(page.title, new_page.title)
         self.assertNotEqual(page.id, new_page.id)
         self.assertNotEqual(page.path, new_page.path)
-        # special_field is in the list to be excluded
-        self.assertNotEqual(page.special_field, new_page.special_field)
-        self.assertEqual(new_page.special_field, exclude_field)
+
+        # special_field and special_stream are in the list to be excluded,
+        # and should revert to the default
+        self.assertEqual(new_page.special_field, "Very Special")
+        self.assertEqual(revision_content["special_field"], "Very Special")
+        self.assertEqual(new_page.special_stream[0].value, "default item")
+        stream_data = json.loads(revision_content["special_stream"])
+        self.assertEqual(stream_data[0]["value"], "default item")
+
+        # The special_notes relation should be cleared on the new page
+        self.assertEqual(new_page.special_notes.count(), 0)
+        self.assertEqual(revision_content["special_notes"], [])
 
     def test_page_with_generic_relation(self):
         """Test that a page with a GenericRelation will have that relation ignored when
