@@ -215,8 +215,6 @@ This signal is emitted from a `CreateView` when a new page is initialized in the
 
 It's useful for pre-populating the page form programmatically when default values are not sufficient.
 
-Please note that this signal is imported from `wagtail.admin.signals` and not `wagtail.signals`.
-
 -   `sender` - `CreateView`
 -   `page` - The new page instance
 -   `parent_page` - The parent page of the new page
@@ -224,7 +222,7 @@ Please note that this signal is imported from `wagtail.admin.signals` and not `w
 Here's an example of how to use this signal to pre-populate a new page's title using the page's parent's title as a prefix:
 
 ```python
-from wagtail.admin.signals import init_new_page
+from wagtail.signals import init_new_page
 
 def prepopulate_page(sender, page, parent, **kwargs):
     if parent:
