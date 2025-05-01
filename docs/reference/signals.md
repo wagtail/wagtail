@@ -230,3 +230,5 @@ def prepopulate_page(sender, page, parent, **kwargs):
 
 init_new_page.connect(prepopulate_page)
 ```
+
+For more complex customizations of the page creation and editing forms, see [](custom_edit_handler_forms).
