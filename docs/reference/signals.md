@@ -207,6 +207,8 @@ A translatable model is a model that implements the [TranslatableMixin](wagtail.
 -   `source_obj` - The source object
 -   `target_obj` - The copy of the source object in the new locale
 
+(init_new_page_signal)=
+
 ## `init_new_page`
 
 This signal is emitted from a `CreateView` when a new page is initialized in the admin interface. In other words, it's emitted when a user navigates to a form to create a new page.
