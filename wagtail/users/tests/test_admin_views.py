@@ -32,6 +32,7 @@ from wagtail.models import (
 )
 from wagtail.test.customuser.forms import CustomUserCreationForm, CustomUserEditForm
 from wagtail.test.customuser.viewsets import CustomUserViewSet
+from wagtail.test.testapp.models import VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.forms import GroupForm
@@ -1374,6 +1375,58 @@ class TestUserHistoryView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed("wagtailadmin/generic/listing.html")
         self.assertContains(response, "Created")
         self.assertContains(response, "Edited")
+
+
+class TestUserUsageView(WagtailTestUtils, TestCase):
+    # More thorough tests are in test_model_viewset
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.test_user = cls.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            first_name="Original",
+            last_name="User",
+            password="password",
+        )
+        cls.url = reverse("wagtailusers_users:usage", args=(cls.test_user.pk,))
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_simple(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            referrer = VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        response = self.client.get(self.url)
+        self.assertTemplateUsed("wagtailadmin/generic/listing.html")
+        soup = self.get_soup(response.content)
+        tds = soup.select("main table td")
+        self.assertEqual(
+            [td.text.strip() for td in tds],
+            [str(referrer), capfirst(referrer._meta.verbose_name), "Protected user"],
+        )
+
+    def test_describe_on_delete(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            referrer = VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        response = self.client.get(self.url + "?describe_on_delete=1")
+        self.assertTemplateUsed("wagtailadmin/generic/listing.html")
+        soup = self.get_soup(response.content)
+        tds = soup.select("main table td")
+        self.assertEqual(
+            [td.text.strip() for td in tds],
+            [
+                str(referrer),
+                capfirst(referrer._meta.verbose_name),
+                "Protected user: prevents deletion",
+            ],
+        )
 
 
 class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):

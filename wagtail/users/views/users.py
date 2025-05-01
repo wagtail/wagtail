@@ -362,14 +362,6 @@ class UserViewSet(ModelViewSet):
 
     template_prefix = "wagtailusers/users/"
 
-    def get_common_view_kwargs(self, **kwargs):
-        return super().get_common_view_kwargs(
-            **{
-                "usage_url_name": None,
-                **kwargs,
-            }
-        )
-
     def get_form_class(self, for_update=False):
         if for_update:
             return UserEditForm
