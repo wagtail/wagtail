@@ -731,6 +731,55 @@ class TestUserDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_delete_get_with_protected_reference(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        model_name = User._meta.verbose_name
+        delete_url = reverse(
+            "wagtailusers_users:delete",
+            args=(self.test_user.pk,),
+        )
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, f"This {model_name} is referenced 1 time.")
+        self.assertContains(
+            response,
+            f"One or more references to this {model_name} prevent it "
+            "from being deleted.",
+        )
+        self.assertContains(
+            response,
+            reverse(
+                "wagtailusers_users:usage",
+                args=(self.test_user.pk,),
+            )
+            + "?describe_on_delete=1",
+        )
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, delete_url)
+
+    def test_delete_post_with_protected_reference(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        delete_url = reverse(
+            "wagtailusers_users:delete",
+            args=(self.test_user.pk,),
+        )
+        response = self.client.post(delete_url)
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Check that the user is still here
+        self.assertTrue(User.objects.filter(pk=self.test_user.pk).exists())
+
 
 class TestUserDeleteViewForNonSuperuser(
     AdminTemplateTestUtils, WagtailTestUtils, TestCase
