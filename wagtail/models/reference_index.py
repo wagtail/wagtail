@@ -649,8 +649,15 @@ class ReferenceIndex(models.Model):
 
         # ManyToOneRel (reverse accessor for ParentalKey) does not have a verbose name. So get the name of the child field instead
         if isinstance(field, models.ManyToOneRel):
-            child_field = field.related_model._meta.get_field(model_path_components[2])
-            return capfirst(child_field.verbose_name)
+            label = f"{capfirst(field.related_model._meta.verbose_name)}"
+            idx = 2
+            child_field = field.related_model._meta.get_field(model_path_components[idx])
+            while isinstance(child_field, models.ManyToOneRel):
+                label += f" → {capfirst(child_field.related_model._meta.verbose_name)}"
+                idx += 2
+                child_field = child_field.related_model._meta.get_field(model_path_components[idx])
+            label += f" → {capfirst(child_field.verbose_name)}"
+            return label
         elif isinstance(field, StreamField):
             label = f"{capfirst(field.verbose_name)}"
             block = field.stream_block
