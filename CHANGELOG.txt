@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.0 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+7.0 LTS (06.05.2025)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Add formal support for Django 5.2 (Matt Westcott)
