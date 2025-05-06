@@ -78,6 +78,7 @@ class IndexView(
     copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
+    reorder_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
     list_filter = None
     show_other_searches = False
@@ -112,6 +113,19 @@ class IndexView(
             (WagtailFilterSet,),
             {"Meta": Meta},
         )
+
+    def get_table(self, object_list):
+        if self.reorder_url_name:
+            # Ideally we could just override get_table_kwargs.
+            # But as of right now the super class itself does not call super().
+            table_kwargs = self.get_table_kwargs()
+            table_kwargs["reorder_url"] = self.get_reorder_url()
+            return self.table_class(
+                self.columns,
+                object_list,
+                **table_kwargs,
+            )
+        return super().get_table(object_list)
 
     def _annotate_queryset_updated_at(self, queryset):
         # Annotate the objects' updated_at, use _ prefix to avoid name collision
@@ -299,6 +313,10 @@ class IndexView(
         if self.delete_url_name and self.user_has_permission("delete"):
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
 
+    def get_reorder_url(self):
+        if self.reorder_url_name and self.user_has_permission("change"):
+            return reverse(self.reorder_url_name, args=(999999,))
+
     def get_add_url(self):
         if self.add_url_name and self.user_has_permission("add"):
             return self._set_locale_query_param(reverse(self.add_url_name))
@@ -327,7 +345,7 @@ class IndexView(
 
     @cached_property
     def header_more_buttons(self):
-        buttons = []
+        buttons = super().header_more_buttons
         if self.sort_order_field and self.user_has_permission("change"):
             buttons.append(
                 Button(

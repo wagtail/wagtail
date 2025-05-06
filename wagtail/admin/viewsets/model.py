@@ -175,6 +175,7 @@ class ModelViewSet(ViewSet):
             view_kwargs["default_ordering"] = self.ordering
         if self.sort_order_field:
             view_kwargs["sort_order_field"] = self.sort_order_field
+            view_kwargs["reorder_url_name"] = self.get_url_name("reorder")
         return view_kwargs
 
     def get_add_view_kwargs(self, **kwargs):

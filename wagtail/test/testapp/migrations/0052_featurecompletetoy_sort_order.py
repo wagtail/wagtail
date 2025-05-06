@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("tests", "0047_advertwithcustomuuidprimarykey_page"),
+        ("tests", "0051_userapprovaltaskstate_userapprovaltask"),
     ]
 
     operations = [

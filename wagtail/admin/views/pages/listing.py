@@ -395,7 +395,7 @@ class ExplorableIndexView(IndexView):
 
     def get_table_kwargs(self):
         kwargs = super().get_table_kwargs()
-        kwargs["use_ordering_attributes"] = self.show_ordering_column
+        kwargs["use_row_ordering_attributes"] = self.show_ordering_column
         kwargs["parent_page"] = self.parent_page
         return kwargs
 

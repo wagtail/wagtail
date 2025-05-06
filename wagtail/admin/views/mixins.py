@@ -15,7 +15,6 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
-from wagtail.admin.ui.tables import OrderableTableMixin, OrderingColumn, Table
 from wagtail.admin.widgets.button import Button
 from wagtail.coreutils import multigetattr
 
@@ -333,46 +332,4 @@ class SpreadsheetExportMixin:
                 )
             )
 
-        return buttons
-
-
-class OrderableMixin:
-    @property
-    def table_class(self):
-        if self.sort_order_field:
-            return type(f"{self.model.__name__}Table", (OrderableTableMixin, Table), {})
-        return Table
-
-    @cached_property
-    def columns(self):
-        self.show_ordering_column = False
-        columns = super().columns
-
-        if not self.sort_order_field:
-            return columns
-
-        # We can not access self.ordering here, as it would lead to a recursion error.
-        current_ordering = self.request.GET.get("ordering", self.default_ordering)
-        self.show_ordering_column = current_ordering == self.sort_order_field
-        if self.show_ordering_column:
-            columns.insert(
-                0,
-                OrderingColumn(
-                    "ordering", width="80px", sort_key=self.sort_order_field
-                ),
-            )
-
-        return columns
-
-    @cached_property
-    def header_more_buttons(self):
-        buttons = super().header_more_buttons.copy()
-        if self.sort_order_field and self.user_has_permission("change"):
-            buttons.append(
-                Button(
-                    _("Sort items"),
-                    url=self.index_url + f"?ordering={self.sort_order_field}",
-                    icon_name="list-ul",
-                )
-            )
         return buttons
