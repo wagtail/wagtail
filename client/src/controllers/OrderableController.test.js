@@ -151,6 +151,7 @@ describe('OrderableController', () => {
       expect(global.fetch).toHaveBeenCalledWith('/base/url/73?position=2', {
         body: expect.any(Object),
         method: 'POST',
+        headers: { 'x-xsrf-token': 'potato' },
       });
     });
 
@@ -257,11 +258,8 @@ describe('OrderableController', () => {
       expect(global.fetch).toHaveBeenCalledWith('/base/url/93?position=1', {
         body: expect.any(FormData),
         method: 'POST',
+        headers: { 'x-xsrf-token': 'potato' },
       });
-
-      expect(
-        global.fetch.mock.calls[0][1].body.get('csrfmiddlewaretoken'),
-      ).toEqual('__MOCK_CSRF__');
 
       await Promise.resolve();
 
