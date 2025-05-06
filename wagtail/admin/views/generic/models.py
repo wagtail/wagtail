@@ -36,12 +36,12 @@ from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
 from wagtail.admin.ui.menus import MenuItem
-from wagtail.admin.ui.ordering import OrderingColumn
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
     ButtonsColumnMixin,
     Column,
     LocaleColumn,
+    OrderingColumn,
     TitleColumn,
     UpdatedAtColumn,
 )
@@ -281,12 +281,6 @@ class IndexView(
 
         return columns
 
-    def get_table_kwargs(self):
-        kwargs = super().get_table_kwargs()
-        if self.sort_order_field:
-            kwargs["use_ordering_attributes"] = True
-        return kwargs
-
     def get_edit_url(self, instance):
         if self.edit_url_name and self.user_has_permission("change"):
             return reverse(self.edit_url_name, args=(quote(instance.pk),))
@@ -333,8 +327,7 @@ class IndexView(
 
     @cached_property
     def header_more_buttons(self):
-        # SpreadsheetExportMixin comes with a header_more_buttons property, so we should call super() to include those buttons.
-        buttons = super().header_more_buttons.copy()
+        buttons = []
         if self.sort_order_field and self.user_has_permission("change"):
             buttons.append(
                 Button(
@@ -623,13 +616,13 @@ class CreateView(
             sort_order_field = getattr(instance, self.sort_order_field)
             if sort_order_field is None:
                 max_order = (
-                    self.model.objects.aggregate(
+                    self.model._default_manager.aggregate(
                         max_order=models.Max(self.sort_order_field)
                     )["max_order"]
                     or 0
                 )
                 instance_order = max_order + 1
-                instance.__setattr__(self.sort_order_field, instance_order)
+                setattr(instance, self.sort_order_field, instance_order)
                 instance.save(update_fields=[self.sort_order_field])
 
         log(instance=instance, action="wagtail.create", content_changed=True)
@@ -1577,7 +1570,7 @@ class ReorderView(View):
     sort_order_field = None
 
     def get_queryset(self):
-        return self.model.objects.all().order_by(self.sort_order_field)
+        return self.model._default_manager.all().order_by(self.sort_order_field)
 
     def post(self, request, *args, **kwargs):
         item_to_move = get_object_or_404(self.model, pk=unquote(kwargs.get("pk")))
@@ -1612,7 +1605,7 @@ class ReorderView(View):
                 ).update(**{self.sort_order_field: F(self.sort_order_field) - 1})
 
             # Once the other items have been moved, update the actual item.
-            item_to_move.__setattr__(self.sort_order_field, new_position)
+            setattr(item_to_move, self.sort_order_field, new_position)
             item_to_move.save(update_fields=[self.sort_order_field])
 
         return JsonResponse({"success": True})

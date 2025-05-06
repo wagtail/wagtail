@@ -13,7 +13,7 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.panels.group import ObjectList
-from wagtail.admin.ui.tables.viewset import ViewSetModelTable
+from wagtail.admin.ui.tables import OrderableTableMixin, Table
 from wagtail.admin.views import generic
 from wagtail.admin.views.generic import history, usage
 from wagtail.models import ReferenceIndex
@@ -127,6 +127,12 @@ class ModelViewSet(ViewSet):
         """
         return self.model_name
 
+    @property
+    def table_class(self):
+        if self.sort_order_field:
+            return type(f"{self.model.__name__}Table", (OrderableTableMixin, Table), {})
+        return Table
+
     def get_common_view_kwargs(self, **kwargs):
         view_kwargs = super().get_common_view_kwargs(
             **{
@@ -162,7 +168,7 @@ class ModelViewSet(ViewSet):
             "search_fields": self.search_fields,
             "search_backend_name": self.search_backend_name,
             "paginate_by": self.list_per_page,
-            "table_class": ViewSetModelTable,
+            "table_class": self.table_class,
             **kwargs,
         }
         if self.ordering:

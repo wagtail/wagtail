@@ -573,3 +573,34 @@ class Table(Component):
         @cached_property
         def attrs(self):
             return self.table.get_row_attrs(self.instance)
+
+
+class OrderingColumn(BaseColumn):
+    header_template_name = "wagtailadmin/tables/ordering_header.html"
+    cell_template_name = "wagtailadmin/tables/ordering_cell.html"
+
+
+class OrderableTableMixin:
+    @property
+    def attrs(self):
+        attrs = super().attrs
+        attrs = {
+            **attrs,
+            "data-controller": "w-orderable",
+            "data-w-orderable-active-class": "w-orderable--active",
+            "data-w-orderable-chosen-class": "w-orderable__item--active",
+            "data-w-orderable-container-value": "tbody",
+            "data-w-orderable-message-value": gettext(
+                "Item has been moved successfully."
+            ),
+            "data-w-orderable-url-value": self.base_url + "reorder/999999/",
+        }
+        return attrs
+
+    def get_row_attrs(self, instance):
+        attrs = super().get_row_attrs(instance)
+        attrs["id"] = "item_%s" % quote(instance.pk)
+        attrs["data-w-orderable-item-id"] = quote(instance.pk)
+        attrs["data-w-orderable-item-label"] = str(instance)
+        attrs["data-w-orderable-target"] = "item"
+        return attrs

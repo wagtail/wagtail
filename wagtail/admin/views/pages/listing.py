@@ -20,11 +20,10 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.ui.components import MediaContainer
-from wagtail.admin.ui.ordering import OrderingColumn
 from wagtail.admin.ui.side_panels import (
     PageStatusSidePanel,
 )
-from wagtail.admin.ui.tables import DateColumn
+from wagtail.admin.ui.tables import DateColumn, OrderingColumn
 from wagtail.admin.ui.tables.pages import (
     BulkActionsColumn,
     NavigateToChildrenColumn,

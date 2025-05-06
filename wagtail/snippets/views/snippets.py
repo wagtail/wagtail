@@ -558,7 +558,7 @@ class SnippetViewSet(ModelViewSet):
     chooser_viewset_class = SnippetChooserViewSet
 
     #: The view class to use for the reorder view; must be a subclass of ``wagtail.admin.views.generic.ReorderView``.
-    reorder_view_class = generic.ReorderView
+    reorder_view_class = ReorderView
 
     #: The prefix of template names to look for when rendering the admin views.
     template_prefix = "wagtailsnippets/snippets/"

@@ -522,14 +522,14 @@ class CreateEditViewOptionalFeaturesMixin:
             if sort_order_field is None:
                 # Get the maximum value, defaulting to 0 if no records exist
                 max_order = (
-                    self.model.objects.aggregate(
+                    self.model._default_manager.aggregate(
                         max_order=models.Max(self.sort_order_field)
                     )["max_order"]
                     or 0
                 )
 
                 instance_order = max_order + 1
-                instance.__setattr__(self.sort_order_field, instance_order)
+                setattr(instance, self.sort_order_field, instance_order)
                 instance.save(update_fields=[self.sort_order_field])
 
         self.has_content_changes = self.view_name == "create" or self.form.has_changed()

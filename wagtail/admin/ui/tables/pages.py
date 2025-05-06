@@ -109,7 +109,7 @@ class PageTable(Table):
     def __init__(
         self,
         *args,
-        use_ordering_attributes=False,
+        use_row_ordering_attributes=False,
         parent_page=None,
         show_locale_labels=False,
         actions_next_url=None,
@@ -117,8 +117,8 @@ class PageTable(Table):
     ):
         super().__init__(*args, **kwargs)
 
-        # If true, extra attributes will be added for the stimulus controller.
-        self.use_ordering_attributes = use_ordering_attributes
+        # If true, attributes will be added on the <tr> elements to support reordering
+        self.use_ordering_attributes = use_row_ordering_attributes
 
         # The parent page of the pages being listed - used to add extra context to the title text
         # of the reordering links. Leave this undefined if the pages being listed do not share a
