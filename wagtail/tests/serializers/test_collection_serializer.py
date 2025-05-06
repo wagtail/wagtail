@@ -1,6 +1,8 @@
 import pytest
+
 from wagtail.models import Collection
 from wagtail.serializers.collection_serializer import CollectionSerializer
+
 
 @pytest.mark.django_db
 def test_collection():

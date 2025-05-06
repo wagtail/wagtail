@@ -1,5 +1,7 @@
 from rest_framework import serializers
+
 from wagtail.models.sites import Site
+
 
 class SiteSerializer(serializers.ModelSerializer):
     class Meta:

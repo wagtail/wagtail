@@ -1,9 +1,11 @@
 import pytest
+
 from wagtail.models import ContentType
-from wagtail.models.sites import Site
 from wagtail.models.pages import Page
-from wagtail.test.testapp.models import SimplePage
+from wagtail.models.sites import Site
 from wagtail.serializers.site_serializer import SiteSerializer
+from wagtail.test.testapp.models import SimplePage
+
 
 @pytest.mark.django_db
 def test_site_serializer():

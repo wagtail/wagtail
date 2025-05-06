@@ -1,5 +1,7 @@
 from rest_framework import serializers
+
 from wagtail.models.pages import Page
+
 
 class PageSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from wagtail.images import get_image_model
+
 Image = get_image_model()
 
 class ImageSerializer(serializers.ModelSerializer):

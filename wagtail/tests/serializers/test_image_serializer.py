@@ -1,10 +1,12 @@
+import tempfile
+
 import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
+from PIL import Image as PilImage
+
 from wagtail.images import get_image_model
 from wagtail.serializers.image_serializer import ImageSerializer
 
-from PIL import Image as PilImage
-import tempfile
 
 def generate_test_image():
     with tempfile.NamedTemporaryFile(suffix=".jpg") as f:

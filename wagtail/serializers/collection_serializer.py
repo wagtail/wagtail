@@ -1,5 +1,7 @@
 from rest_framework import serializers
+
 from wagtail.models.media import Collection
+
 
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:

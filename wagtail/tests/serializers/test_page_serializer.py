@@ -1,7 +1,9 @@
 import pytest
+
+from wagtail.models import ContentType, Page
 from wagtail.serializers.page_serializer import PageSerializer
 from wagtail.test.testapp.models import SimplePage
-from wagtail.models import Page,ContentType
+
 
 @pytest.mark.django_db
 def test_page_serializer():
