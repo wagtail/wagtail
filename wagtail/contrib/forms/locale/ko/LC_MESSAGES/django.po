@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Kyu Choi, 2022\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
@@ -31,14 +31,6 @@ msgstr "시작일"
 
 msgid "Date to"
 msgstr "종료일"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr ""
-"%(label_name)s 레이블을 사용하는 다른 필드가 있습니다. 그 중 하나는 다른 걸"
-"로 바꾸어 주세요."
 
 msgid "Single line text"
 msgstr "단일 라인 텍스트"
