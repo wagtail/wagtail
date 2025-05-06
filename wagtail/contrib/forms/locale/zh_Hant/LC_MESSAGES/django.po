@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 13:02+0100\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Ocin Leung, 2020\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -30,12 +30,6 @@ msgstr "起始日期"
 
 msgid "Date to"
 msgstr "結束日期"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr "%(label_name)s 標簽被其它欄位使用，請更換一個標簽。"
 
 msgid "Single line text"
 msgstr "單行文本"
