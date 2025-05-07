@@ -6,8 +6,8 @@ from wagtail.models.media import Collection
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = '__all__'
-    
+        fields = "__all__"
+
     @staticmethod
-    def natural_key(collection:Collection):
-        return (collection.name)
+    def natural_key(collection: Collection):
+        return collection.name
