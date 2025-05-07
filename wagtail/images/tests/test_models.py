@@ -551,8 +551,8 @@ class TestRenditions(TestCase):
         )
         self.assertEqual(
             errors[0].hint,
-            "Add models.UniqueConstraint(fields={"
-            '"image", "filter_spec", "focal_point_key"}, '
+            "Add models.UniqueConstraint(fields=("
+            '"image", "filter_spec", "focal_point_key"), '
             'name="unique_rendition") to CustomRendition.Meta.constraints.',
         )
 
