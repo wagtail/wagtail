@@ -8,6 +8,7 @@ Changelog
  * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
  * Add ability for the header breadcrumbs to save their open/closed state across navigation & refresh (Srishti Jaiswal)
  * Render listing buttons as template components (Sage Abdullah)
+ * Define default `GenericRelations` for `RevisionMixin` and `WorkflowMixin`, to avoid issues with deletion cascades (Sage Abdullah)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
