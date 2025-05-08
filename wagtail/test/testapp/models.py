@@ -1945,6 +1945,88 @@ class FileGenericSetting(BaseGenericSetting):
     file = models.FileField()
 
 
+@register_setting
+class NonPreviewableGenericSetting(PreviewableMixin, BaseGenericSetting):
+    text = models.TextField()
+
+    preview_modes = []
+
+    def __str__(self):
+        return self.text
+
+
+@register_setting
+class PreviewableGenericSetting(PreviewableMixin, BaseGenericSetting):
+    text = models.TextField()
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_setting.html"
+
+
+@register_setting
+class MultiPreviewModesGenericSetting(PreviewableMixin, BaseGenericSetting):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    @property
+    def preview_modes(self):
+        return [("", "Normal"), ("alt#1", "Alternate")]
+
+    @property
+    def default_preview_mode(self):
+        return "alt#1"
+
+    def get_preview_template(self, request, mode_name):
+        templates = {
+            "": "tests/previewable_setting.html",
+            "alt#1": "tests/previewable_setting_alt.html",
+        }
+        return templates.get(mode_name, templates[""])
+
+
+@register_setting
+class NonPreviewableSiteSetting(PreviewableMixin, BaseGenericSetting):
+    text = models.TextField()
+
+    preview_modes = []
+
+    def __str__(self):
+        return self.text
+
+
+@register_setting
+class PreviewableSiteSetting(PreviewableMixin, BaseSiteSetting):
+    text = models.TextField()
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_setting.html"
+
+
+@register_setting
+class MultiPreviewModesSiteSetting(PreviewableMixin, BaseSiteSetting):
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
+
+    @property
+    def preview_modes(self):
+        return [("", "Normal"), ("alt#1", "Alternate")]
+
+    @property
+    def default_preview_mode(self):
+        return "alt#1"
+
+    def get_preview_template(self, request, mode_name):
+        templates = {
+            "": "tests/previewable_setting.html",
+            "alt#1": "tests/previewable_setting_alt.html",
+        }
+        return templates.get(mode_name, templates[""])
+
+
 class BlogCategory(models.Model):
     name = models.CharField(unique=True, max_length=80)
 
