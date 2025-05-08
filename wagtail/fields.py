@@ -146,6 +146,13 @@ class StreamField(models.Field):
 
             block = StreamBlock(child_blocks)
 
+        if not isinstance(block, StreamBlock):
+            raise TypeError(
+                f"The top-level block must be a StreamBlock (got {type(block).__name__}). "
+                "Either pass a StreamBlock instance/class, or a list of block definitions "
+                "as (name, block) tuples."
+            )
+
         block.set_meta_options(self.block_opts)
         return block
 
