@@ -603,6 +603,13 @@ class TestFormPageWithCustomFormBuilder(WagtailTestUtils, TestCase):
             html=True,
         )
         # check ip address field has rendered
+
+        self.assertContains(
+            response,
+            '<input type="text" name="device_ip_address" maxlength="39" required id="id_device_ip_address" />',
+            html=True,
+        )
+
         # (not comparing HTML directly because https://docs.djangoproject.com/en/5.1/releases/5.1.5/
         # added a maxlength attribute)
         soup = self.get_soup(response.content)
