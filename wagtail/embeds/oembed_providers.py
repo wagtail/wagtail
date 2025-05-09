@@ -508,7 +508,7 @@ twenty_three_hq = {
 }
 
 twitter = {
-    "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}",
+    "endpoint": "https://publish.twitter.com/oembed",
     "urls": [
         r"^https?://twitter\.com/(?:#!)?[^#?/]+/status/.+$",
         r"^https?://x\.com/(?:#!)?[^#?/]+/status/.+$",
