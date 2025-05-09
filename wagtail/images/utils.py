@@ -131,4 +131,8 @@ def to_svg_safe_spec(filter_specs):
         for x in filter_specs
         if any(x.startswith(prefix) for prefix in svg_preserving_specs)
     ]
-    return "|".join(safe_specs)
+    # use 'original' if no non-rasterizing directives were included in filter
+    if safe_specs:
+        return "|".join(safe_specs)
+    else:
+        return "original"
