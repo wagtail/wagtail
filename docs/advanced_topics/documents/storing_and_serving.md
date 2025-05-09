@@ -40,11 +40,11 @@ The alternative serve methods `'direct'` and `'redirect'` work by serving the do
 -   The web server can be configured to return a `Content-Security-Policy: default-src 'none'` header for files within the `documents` subdirectory, which will prevent the execution of scripts in those files.
 -   The web server can be configured to return a `Content-Disposition: attachment` header for files within the `documents` subdirectory, which will force the browser to download the file rather than displaying it inline.
 
-If a remote ("cloud") storage backend is used, the serve method will default to `'redirect'` and the document will be served directly from the cloud storage file url. In this case (as with `'direct'`, Wagtail has less control over how the file is served and users may be able to bypass permission checks, and scripts within documents may be executed (depending on the cloud storage service's configuration). However, whilst cross-site scripts attacks are still possible, the impact is reduced as the document is usually served from a different domain to the main site.
+If a remote ("cloud") storage backend is used, the serve method will default to `'redirect'` and the document will be served directly from the cloud storage file url. In this case (as with `'direct'`), Wagtail has less control over how the file is served and users may be able to bypass permission checks, and scripts within documents may be executed (depending on the cloud storage service's configuration). However, whilst cross-site scripts attacks are still possible, the impact is reduced as the document is usually served from a different domain to the main site.
 
 If these limitations are not acceptable, you may set the `WAGTAILDOCS_SERVE_METHOD` to `serve_view` and ensure that the documents are not publicly accessible using the cloud service's file url.
 
-The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed and which storage backend is used. For the `'serve_view` method, a `Content-Security-Policy` header is automatically set for you (unless disabled via [](wagtaildocs_block_embedded_content)) to prevent the execution of scripts embedded in documents.
+The steps required to set headers for specific responses will vary, depending on how your Wagtail application is deployed and which storage backend is used. For the `serve_view` method, a `Content-Security-Policy` header is automatically set for you (unless disabled via [](wagtaildocs_block_embedded_content)) to prevent the execution of scripts embedded in documents.
 
 ## Content types
 
