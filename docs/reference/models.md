@@ -685,6 +685,8 @@ For a non-page model to be revisionable in the admin, it must also be [registere
 .. class:: RevisionMixin
     :no-index:
 
+    .. autoattribute:: _revisions
+
     .. autoattribute:: revisions
 
     .. automethod:: save_revision
@@ -811,6 +813,8 @@ For a non-page model to have workflow features in the admin, it must also be [re
     .. autoattribute:: has_workflow
 
     .. automethod:: get_workflow
+
+    .. autoattribute:: _workflow_states
 
     .. autoattribute:: workflow_states
 

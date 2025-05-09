@@ -56,6 +56,19 @@ A number of additional constraints apply to `<a linktype="...">` and `<embed emb
 -   `embed` elements must use XML self-closing tag syntax (those that end in `/>` instead of a closing `</embed>` tag)
 -   The only HTML entities permitted in attribute values are `&lt;`, `&gt;`, `&amp;` and `&quot;`
 
+(rich_text_manual_conversion)=
+
+### Manual conversion
+
+For scenarios where neither a `RichTextBlock` nor the `|richtext` filter are appropriate, directly use Wagtail’s `expand_db_html` utility function. It expands internal references to CMS content (images, embeds, documents, page links), to create HTML ready for display.
+
+```python
+from wagtail.rich_text import expand_db_html
+
+# Converts the stored rich text data format to HTML suitable for rendering.
+expand_db_html(page.body)
+```
+
 ## The feature registry
 
 Any app within your project can define extensions to Wagtail's rich text handling, such as new `linktype` and `embedtype` rules. An object known as the _feature registry_ serves as a central source of truth about how rich text should behave. This object can be accessed through the [Register Rich Text Features](register_rich_text_features) hook, which is called on startup to gather all definitions relating to rich text:

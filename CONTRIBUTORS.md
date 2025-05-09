@@ -884,6 +884,7 @@
 * Ian Meigh
 * Jigyasu Rajput
 * Antoine Rodriguez
+* Gorlik
 
 ## Translators
 

@@ -1405,8 +1405,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
                         "on the 'image', 'filter_spec', and 'focal_point_key' fields."
                         % cls._meta.label,
                         hint=(
-                            "Add models.UniqueConstraint(fields={"
-                            '"image", "filter_spec", "focal_point_key"}, '
+                            "Add models.UniqueConstraint(fields=("
+                            '"image", "filter_spec", "focal_point_key"), '
                             'name="unique_rendition") to %s.Meta.constraints.'
                             % (cls.__name__,)
                         ),

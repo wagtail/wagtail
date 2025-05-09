@@ -45,6 +45,7 @@ from wagtail.test.testapp.views import (
     ToyViewSetGroup,
     animated_advert_chooser_viewset,
     event_page_listing_viewset,
+    opera_viewset,
 )
 
 from .forms import FavouriteColourForm
@@ -440,6 +441,11 @@ def register_animated_advert_chooser_viewset():
 @hooks.register("register_admin_viewset")
 def register_event_page_listing_viewset():
     return event_page_listing_viewset
+
+
+@hooks.register("register_admin_viewset")
+def register_opera_viewset():
+    return opera_viewset
 
 
 @hooks.register("get_avatar_url")

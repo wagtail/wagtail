@@ -7,6 +7,7 @@ from django.template.response import TemplateResponse
 from django.urls import path
 from django.utils import timezone
 from django.utils.translation import gettext_lazy
+from django.views.generic import View
 
 from wagtail.admin import messages
 from wagtail.admin.auth import user_passes_test
@@ -329,3 +330,39 @@ class EventPageListingViewSet(PageListingViewSet):
 
 
 event_page_listing_viewset = EventPageListingViewSet("event_pages")
+
+
+class PlayView(View):
+    def hero(self):
+        return "Romeo"
+
+    def heroine(self):
+        return "Juliet"
+
+    def get(self, request):
+        return HttpResponse(f"{self.hero()} and {self.heroine()}")
+
+
+class PlayViewSet(ViewSet):
+    play_view_class = PlayView
+
+    @property
+    def play_view(self):
+        view_class = self.inject_view_methods(self.play_view_class, ["hero", "heroine"])
+        return self.construct_view(view_class)
+
+    def get_urlpatterns(self):
+        return super().get_urlpatterns() + [
+            path("", self.play_view, name="index"),
+        ]
+
+
+class OperaViewSet(PlayViewSet):
+    def hero(self):
+        return "Porgy"
+
+    def heroine(self):
+        return "Bess"
+
+
+opera_viewset = OperaViewSet("opera")

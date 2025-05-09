@@ -7,13 +7,21 @@ Changelog
  * Add iHeart oembed provider (Storm Heg)
  * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
  * Add ability for the header breadcrumbs to save their open/closed state across navigation & refresh (Srishti Jaiswal)
+ * Render listing buttons as template components (Sage Abdullah)
+ * Define default `GenericRelations` for `RevisionMixin` and `WorkflowMixin`, to avoid issues with deletion cascades (Sage Abdullah)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
+ * Fix: Fix behaviour of `ViewSet.inject_view_methods` with multiple methods (Gorlik)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
+ * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
 
+7.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
 
-7.0 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+ * Docs: Use tuple instead of set in `UniqueConstraint` examples for a custom rendition model to avoid spurious migrations (Alec Baron)
+
+7.0 LTS (06.05.2025)
 ~~~~~~~~~~~~~~~~~~~~
 
  * Add formal support for Django 5.2 (Matt Westcott)
@@ -57,6 +65,7 @@ Changelog
  * Fix: Ensure there is consistent padding in homepage panels table headers (Aditya (megatrron))
  * Fix: Prevent redundant calls to context processors when rendering userbar (Ihor Marhitych)
  * Fix: Fix validation of duplicate field names in form builder when fields have been deleted (Ian Meigh)
+ * Fix: Fix font size of footer action buttons when there is only one item (Sage Abdullah)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
  * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
  * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)
@@ -64,6 +73,10 @@ Changelog
  * Docs: Clarify that `insert_editor_js` hook applies to all core editing/creation views (LB (Ben) Johnston)
  * Docs: Clarify requirement for non-page models using model mixins to be registered as snippets (Sage Abdullah)
  * Docs: Clarify that `Page.get_url_parts` will return a tuple, not `None` for `NoReverseMatch` errors (Arthur Tripp)
+ * Docs: Add how-to Django Ninja to API documentation (Thibaud Colas)
+ * Docs: Document the `expand_db_html` utility function to create HTML ready for display (Thibaud Colas)
+ * Docs: Mention `expand_db_html` usage for rich text in REST framework API (Thibaud Colas)
+ * Docs: Further document usage of API `?limit` with `WAGTAILAPI_LIMIT_MAX` (Thibaud Colas)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
  * Maintenance: Refactor styles for Draftail, minimap, and comments to fix remaining Sass migration warnings (Thibaud Colas)
