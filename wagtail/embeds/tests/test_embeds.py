@@ -5,11 +5,13 @@ import urllib.request
 from unittest.mock import patch
 from urllib.error import HTTPError, URLError
 
+import responses
 from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.timezone import make_aware, now
+from responses import matchers
 
 from wagtail import blocks
 from wagtail.embeds import oembed_providers
@@ -477,60 +479,75 @@ class TestEmbedly(TestCase):
 
 
 class TestOembed(TestCase):
-    def setUp(self):
-        class DummyResponse:
-            def read(self):
-                return b"foo"
-
-        self.dummy_response = DummyResponse()
-
     def test_oembed_invalid_provider(self):
         self.assertRaises(EmbedNotFoundException, OEmbedFinder().find_embed, "foo")
 
+    @responses.activate
     def test_oembed_invalid_request(self):
-        config = {"side_effect": URLError("foo")}
-        with patch.object(urllib.request, "urlopen", **config):
-            self.assertRaises(
-                EmbedNotFoundException,
-                OEmbedFinder().find_embed,
-                "http://www.youtube.com/watch/",
-            )
+        # no response set up, so responses will raise a ConnectionError
+        self.assertRaises(
+            EmbedNotFoundException,
+            OEmbedFinder().find_embed,
+            "https://www.youtube.com/watch/",
+        )
 
-    @patch("urllib.request.urlopen")
-    def test_oembed_non_json_response(self, urlopen):
-        urlopen.return_value = self.dummy_response
+    @responses.activate
+    def test_oembed_non_json_response(self):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {
+                        "url": "https://www.youtube.com/watch?v=ReblZ7o7lu4",
+                        "format": "json",
+                    }
+                ),
+            ],
+            body="foo",
+        )
         self.assertRaises(
             EmbedNotFoundException,
             OEmbedFinder().find_embed,
             "https://www.youtube.com/watch?v=ReblZ7o7lu4",
         )
 
-    @patch("urllib.request.urlopen")
-    @patch("json.loads")
-    def test_oembed_photo_request(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {"type": "photo", "url": "http://www.example.com"}
-        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+    @responses.activate
+    def test_oembed_photo_request(self):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://www.youtube.com/watch/", "format": "json"}
+                ),
+            ],
+            json={"type": "photo", "url": "http://www.example.com"},
+        )
+        result = OEmbedFinder().find_embed("https://www.youtube.com/watch/")
         self.assertEqual(result["type"], "photo")
         self.assertEqual(result["html"], '<img src="http://www.example.com" alt="">')
-        loads.assert_called_with("foo")
 
-    @patch("urllib.request.urlopen")
-    @patch("json.loads")
-    def test_oembed_return_values(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {
-            "type": "something",
-            "url": "http://www.example.com",
-            "title": "test_title",
-            "author_name": "test_author",
-            "provider_name": "test_provider_name",
-            "thumbnail_url": "test_thumbail_url",
-            "width": "test_width",
-            "height": "test_height",
-            "html": "test_html",
-        }
-        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+    @responses.activate
+    def test_oembed_return_values(self):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://www.youtube.com/watch/", "format": "json"}
+                ),
+            ],
+            json={
+                "type": "something",
+                "url": "http://www.example.com",
+                "title": "test_title",
+                "author_name": "test_author",
+                "provider_name": "test_provider_name",
+                "thumbnail_url": "test_thumbail_url",
+                "width": "test_width",
+                "height": "test_height",
+                "html": "test_html",
+            },
+        )
+        result = OEmbedFinder().find_embed("https://www.youtube.com/watch/")
         self.assertEqual(
             result,
             {
@@ -546,24 +563,30 @@ class TestOembed(TestCase):
         )
 
     @patch("django.utils.timezone.now")
-    @patch("urllib.request.urlopen")
-    @patch("json.loads")
-    def test_oembed_cache_until(self, loads, urlopen, now):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {
-            "type": "something",
-            "url": "http://www.example.com",
-            "title": "test_title",
-            "author_name": "test_author",
-            "provider_name": "test_provider_name",
-            "thumbnail_url": "test_thumbail_url",
-            "width": "test_width",
-            "height": "test_height",
-            "html": "test_html",
-            "cache_age": 3600,
-        }
+    @responses.activate
+    def test_oembed_cache_until(self, now):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://www.youtube.com/watch/", "format": "json"}
+                ),
+            ],
+            json={
+                "type": "something",
+                "url": "http://www.example.com",
+                "title": "test_title",
+                "author_name": "test_author",
+                "provider_name": "test_provider_name",
+                "thumbnail_url": "test_thumbail_url",
+                "width": "test_width",
+                "height": "test_height",
+                "html": "test_html",
+                "cache_age": 3600,
+            },
+        )
         now.return_value = make_aware(datetime.datetime(2001, 2, 3))
-        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+        result = OEmbedFinder().find_embed("https://www.youtube.com/watch/")
         self.assertEqual(
             result,
             {
@@ -580,24 +603,30 @@ class TestOembed(TestCase):
         )
 
     @patch("django.utils.timezone.now")
-    @patch("urllib.request.urlopen")
-    @patch("json.loads")
-    def test_oembed_cache_until_as_string(self, loads, urlopen, now):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {
-            "type": "something",
-            "url": "http://www.example.com",
-            "title": "test_title",
-            "author_name": "test_author",
-            "provider_name": "test_provider_name",
-            "thumbnail_url": "test_thumbail_url",
-            "width": "test_width",
-            "height": "test_height",
-            "html": "test_html",
-            "cache_age": "3600",
-        }
+    @responses.activate
+    def test_oembed_cache_until_as_string(self, now):
+        responses.get(
+            url="https://www.youtube.com/oembed",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://www.youtube.com/watch/", "format": "json"}
+                ),
+            ],
+            json={
+                "type": "something",
+                "url": "http://www.example.com",
+                "title": "test_title",
+                "author_name": "test_author",
+                "provider_name": "test_provider_name",
+                "thumbnail_url": "test_thumbail_url",
+                "width": "test_width",
+                "height": "test_height",
+                "html": "test_html",
+                "cache_age": "3600",
+            },
+        )
         now.return_value = make_aware(datetime.datetime(2001, 2, 3))
-        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+        result = OEmbedFinder().find_embed("https://www.youtube.com/watch/")
         self.assertEqual(
             result,
             {
@@ -615,24 +644,25 @@ class TestOembed(TestCase):
 
     def test_oembed_accepts_known_provider(self):
         finder = OEmbedFinder(providers=[oembed_providers.youtube])
-        self.assertTrue(finder.accept("http://www.youtube.com/watch/"))
+        self.assertTrue(finder.accept("https://www.youtube.com/watch/"))
 
     def test_oembed_doesnt_accept_unknown_provider(self):
         finder = OEmbedFinder(providers=[oembed_providers.twitter])
-        self.assertFalse(finder.accept("http://www.youtube.com/watch/"))
+        self.assertFalse(finder.accept("https://www.youtube.com/watch/"))
 
-    @patch("urllib.request.urlopen")
-    @patch("json.loads")
-    def test_endpoint_with_format_param(self, loads, urlopen):
-        urlopen.return_value = self.dummy_response
-        loads.return_value = {"type": "video", "url": "http://www.example.com"}
+    @responses.activate
+    def test_endpoint_with_format_param(self):
+        responses.get(
+            url="https://www.vimeo.com/api/oembed.json",
+            match=[
+                matchers.query_param_matcher(
+                    {"url": "https://vimeo.com/217403396", "format": "json"}
+                ),
+            ],
+            json={"type": "video", "url": "http://www.example.com"},
+        )
         result = OEmbedFinder().find_embed("https://vimeo.com/217403396")
         self.assertEqual(result["type"], "video")
-        request = urlopen.call_args[0][0]
-        self.assertEqual(
-            request.get_full_url().split("?")[0],
-            "https://www.vimeo.com/api/oembed.json",
-        )
 
 
 class TestInstagramOEmbed(TestCase):

@@ -11,6 +11,7 @@ Changelog
  * Render listing buttons as template components (Sage Abdullah)
  * Define default `GenericRelations` for `RevisionMixin` and `WorkflowMixin`, to avoid issues with deletion cascades (Sage Abdullah)
  * Document and relocate the `init_new_page` signal (Maciek Baron)
+ * Use `requests` to access oEmbed endpoints, for more robust SSL certificate handling (Matt Westcott)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
