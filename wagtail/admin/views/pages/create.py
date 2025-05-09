@@ -13,7 +13,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic.base import View
 
-from wagtail.admin import messages, signals
+from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.ui.components import MediaContainer
 from wagtail.admin.ui.side_panels import (
@@ -32,6 +32,7 @@ from wagtail.models import (
     PageSubscription,
     PageViewRestriction,
 )
+from wagtail.signals import init_new_page
 
 
 def add_subpage(request, parent_page_id):
@@ -389,9 +390,7 @@ class CreateView(WagtailAdminTemplateMixin, HookResponseMixin, View):
         return self.render_to_response(self.get_context_data())
 
     def get(self, request):
-        signals.init_new_page.send(
-            sender=CreateView, page=self.page, parent=self.parent_page
-        )
+        init_new_page.send(sender=CreateView, page=self.page, parent=self.parent_page)
         self.form = self.form_class(
             instance=self.page,
             subscription=self.subscription,
