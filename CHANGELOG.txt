@@ -44,6 +44,7 @@ Changelog
  * Fix: Correctly handle ordering API results by mixed ascending and descending order (Rohit Sharma, Mahmoud Nasser)
  * Fix: Ensure that draft changes to an editable `first_published_at` field are preserved on reloading (Talha Rizwan)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
+ * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
