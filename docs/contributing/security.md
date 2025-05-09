@@ -40,6 +40,14 @@ Wagtail does not have a "Bug Bounty" program. Whilst we appreciate and accept re
 
 ["Beg Bounties"](https://www.troyhunt.com/beg-bounties/) are ever increasing among security researchers, and it's not something we condone or support.
 
+## CVE IDs
+
+When published, vulnerabilities in Wagtail are given a CVE (Common Vulnerability and Exposures) ID (eg `CVE-2020-15118`). The Wagtail project uses GitHub's [Security Advisories](https://github.com/wagtail/wagtail/security/advisories) to record vulnerabilities, request CVE IDs and track both upcoming and historical vulnerabilities. GitHub therefore acts as Wagtail's CNA (CVE Numbering Authority).
+
+If you have found a vulnerability in Wagtail, please report it using the information above - **do not** request a CVE ID. CVEs will be requested by the security team as part of the resolution process and correctly populated with details and credit where necessary, and **must not** be requested otherwise.
+
+Any CVEs issued for vulnerabilities not discussed with the Wagtail security team, or otherwise issued or requested erroneously will be disputed and may be later rejected.
+
 ## How Wagtail discloses security issues
 
 Our process for taking a security issue from private discussion to public disclosure involves multiple steps.
