@@ -27,7 +27,6 @@ class SnippetBulkAction(BulkAction):
     def get_context_data(self, **kwargs):
         kwargs.update(
             {
-                "model_opts": self.model._meta,
                 "header_icon": self.model.snippet_viewset.icon,
             }
         )

@@ -1404,6 +1404,20 @@ class VariousOnDeleteModel(models.Model):
         blank=True,
         related_name="+",
     )
+    protected_page = models.ForeignKey(
+        "wagtailcore.Page",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    protected_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
 
     cascading_toy = models.ForeignKey(
         "tests.FeatureCompleteToy",

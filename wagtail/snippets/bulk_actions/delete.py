@@ -5,13 +5,13 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail.admin.views.bulk_action.mixins import ReferenceIndexMixin
 from wagtail.admin.views.generic import BeforeAfterHookMixin
-from wagtail.models import ReferenceIndex
 from wagtail.snippets.bulk_actions.snippet_bulk_action import SnippetBulkAction
 from wagtail.snippets.permissions import get_permission_name
 
 
-class DeleteBulkAction(BeforeAfterHookMixin, SnippetBulkAction):
+class DeleteBulkAction(BeforeAfterHookMixin, ReferenceIndexMixin, SnippetBulkAction):
     display_name = _("Delete")
     action_type = "delete"
     aria_label = _("Delete selected snippets")
@@ -64,24 +64,14 @@ class DeleteBulkAction(BeforeAfterHookMixin, SnippetBulkAction):
         ).delete()
         return len(objects), 0
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add usage information to the context only if there is a single item
-        if len(context["items"]) == 1:
-            item_context = context["items"][0]
-            item = item_context["item"]
-            item_context.update(
-                {
-                    "usage_count": (
-                        ReferenceIndex.get_grouped_references_to(item).count()
-                    ),
-                    "usage_url": reverse(
-                        item.snippet_viewset.get_url_name("usage"),
-                        args=(quote(item.pk),),
-                    ),
-                }
+    def get_usage_url(self, snippet):
+        return (
+            reverse(
+                snippet.snippet_viewset.get_url_name("usage"),
+                args=(quote(snippet.pk),),
             )
-        return context
+            + "?describe_on_delete=1"
+        )
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         if num_parent_objects == 1:
