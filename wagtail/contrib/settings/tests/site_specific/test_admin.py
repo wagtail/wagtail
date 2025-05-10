@@ -81,7 +81,8 @@ class TestSiteSettingCreateView(BaseTestSiteSettingView):
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The setting could not be saved due to errors.")
-        self.assertContains(response, "error-message", count=2)
+        self.assertContains(response, "error-message", count=3)
+        self.assertContains(response, "Go to the error", count=1)
         self.assertContains(response, "This field is required", count=2)
 
     def test_edit(self):
@@ -236,7 +237,8 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The setting could not be saved due to errors.")
-        self.assertContains(response, "error-message", count=2)
+        self.assertContains(response, "error-message", count=3)
+        self.assertContains(response, "Go to the error", count=1)
         self.assertContains(response, "This field is required", count=2)
 
     def test_edit(self):
