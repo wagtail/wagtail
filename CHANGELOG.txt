@@ -16,6 +16,7 @@ Changelog
  * Fix: Fix behaviour of `ViewSet.inject_view_methods` with multiple methods (Gorlik)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
+ * Maintenance: Remove squash.io configuration (Sage Abdullah)
 
 7.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
