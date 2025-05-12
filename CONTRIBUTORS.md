@@ -886,6 +886,7 @@
 * Antoine Rodriguez
 * Gorlik
 * manu
+* Maciek Baron
 
 ## Translators
 
