@@ -23,6 +23,8 @@ Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_rovi
 
 export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
+  declare dialog: A11yDialog;
+  declare dialogBody: HTMLElement;
 
   connectedCallback() {
     const template = document.querySelector<HTMLTemplateElement>(
@@ -309,6 +311,7 @@ export class Userbar extends HTMLElement {
 
   // Initialise Axe
   async initialiseAxe() {
+    // Collect content data from the live preview via Axe plugin for content metrics calculation
     if (!this.shadowRoot) return;
 
     axe.registerPlugin(wagtailPreviewPlugin);
@@ -336,11 +339,17 @@ export class Userbar extends HTMLElement {
       },
     );
 
-    const { body: modalBody, dialog: modal } = await modalReady;
+    const { dialog, body } = await modalReady;
+    this.dialog = dialog;
+    this.dialogBody = body;
 
-    // Collect content data from the live preview via Axe plugin for content metrics calculation
+    await this.runAxe();
+  }
 
-    const accessibilityTrigger = this.shadowRoot?.getElementById(
+  async runAxe() {
+    if (!this.shadowRoot) return;
+
+    const accessibilityTrigger = this.shadowRoot.getElementById(
       'accessibility-trigger',
     );
     const config = getAxeConfiguration(this.shadowRoot);
@@ -367,6 +376,7 @@ export class Userbar extends HTMLElement {
       return;
     }
 
+    // Collect content data from the live preview via Axe plugin for content metrics calculation
     const { results, a11yErrorsNumber } = await getA11yReport(config);
 
     if (results.violations.length) {
@@ -450,17 +460,17 @@ export class Userbar extends HTMLElement {
 
     const toggleAxeResults = () => {
       if (accessibilityResultsBox.getAttribute('aria-hidden') === 'true') {
-        modal.show();
+        this.dialog.show();
 
         renderA11yResults(
-          modalBody,
+          this.dialogBody,
           results,
           config,
           a11yRowTemplate,
           onClickSelector,
         );
       } else {
-        modal.hide();
+        this.dialog.hide();
       }
     };
 
