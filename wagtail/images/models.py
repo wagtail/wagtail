@@ -1372,6 +1372,15 @@ class AbstractRendition(ImageFileMixin, models.Model):
     def __html__(self):
         return self.img_tag()
 
+    def get_mime_type(self):
+        """
+        Returns the MIME type of the rendition file.
+        """
+        # Without a pre-populated field value to return, the most reliable solution
+        # is to use willow to inspect the file
+        with self.get_willow_image() as willow_image:
+            return willow_image.mime_type
+
     def get_upload_to(self, filename):
         """
         Generates a file path within the "images" folder by combining the folder name and the validated filename.
