@@ -309,24 +309,10 @@ export class Userbar extends HTMLElement {
 
   // Initialise Axe
   async initialiseAxe() {
-    // Collect content data from the live preview via Axe plugin for content metrics calculation
+    if (!this.shadowRoot) return;
+
     axe.registerPlugin(wagtailPreviewPlugin);
     axe.plugins.wagtailPreview.add(contentMetricsPluginInstance);
-
-    const accessibilityTrigger = this.shadowRoot?.getElementById(
-      'accessibility-trigger',
-    );
-    const config = getAxeConfiguration(this.shadowRoot);
-    if (!this.shadowRoot || !accessibilityTrigger || !config) return;
-
-    const { results, a11yErrorsNumber } = await getA11yReport(config);
-
-    if (results.violations.length) {
-      const a11yErrorBadge = document.createElement('span');
-      a11yErrorBadge.textContent = String(a11yErrorsNumber);
-      a11yErrorBadge.classList.add('w-userbar-axe-count');
-      this.trigger.appendChild(a11yErrorBadge);
-    }
 
     const stimulus = Application.start(
       this.shadowRoot.firstElementChild as Element,
@@ -352,9 +338,13 @@ export class Userbar extends HTMLElement {
 
     const { body: modalBody, dialog: modal } = await modalReady;
 
-    // Disable TS linter check for legacy code in 3rd party `A11yDialog` element
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // Collect content data from the live preview via Axe plugin for content metrics calculation
+
+    const accessibilityTrigger = this.shadowRoot?.getElementById(
+      'accessibility-trigger',
+    );
+    const config = getAxeConfiguration(this.shadowRoot);
+
     const accessibilityResultsBox = this.shadowRoot.querySelector(
       '#accessibility-results',
     );
@@ -367,8 +357,23 @@ export class Userbar extends HTMLElement {
         '#w-a11y-result-outline-template',
       );
 
-    if (!accessibilityResultsBox || !a11yRowTemplate || !a11yOutlineTemplate) {
+    if (
+      !accessibilityTrigger ||
+      !config ||
+      !accessibilityResultsBox ||
+      !a11yRowTemplate ||
+      !a11yOutlineTemplate
+    ) {
       return;
+    }
+
+    const { results, a11yErrorsNumber } = await getA11yReport(config);
+
+    if (results.violations.length) {
+      const a11yErrorBadge = document.createElement('span');
+      a11yErrorBadge.textContent = String(a11yErrorsNumber);
+      a11yErrorBadge.classList.add('w-userbar-axe-count');
+      this.trigger.appendChild(a11yErrorBadge);
     }
 
     const innerErrorBadges = this.shadowRoot.querySelectorAll<HTMLSpanElement>(
