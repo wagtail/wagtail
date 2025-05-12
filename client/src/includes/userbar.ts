@@ -343,15 +343,26 @@ export class Userbar extends HTMLElement {
     this.dialog = dialog;
     this.dialogBody = body;
 
+    const accessibilityTrigger = this.shadowRoot.getElementById(
+      'accessibility-trigger',
+    );
+
+    const toggleAxeResults = () => {
+      if (!this.dialog.shown) {
+        this.dialog.show();
+      } else {
+        this.dialog.hide();
+      }
+    };
+
+    accessibilityTrigger?.addEventListener('click', toggleAxeResults);
+
     await this.runAxe();
   }
 
   async runAxe() {
     if (!this.shadowRoot) return;
 
-    const accessibilityTrigger = this.shadowRoot.getElementById(
-      'accessibility-trigger',
-    );
     const config = getAxeConfiguration(this.shadowRoot);
 
     const accessibilityResultsBox = this.shadowRoot.querySelector(
@@ -367,7 +378,6 @@ export class Userbar extends HTMLElement {
       );
 
     if (
-      !accessibilityTrigger ||
       !config ||
       !accessibilityResultsBox ||
       !a11yRowTemplate ||
@@ -379,10 +389,15 @@ export class Userbar extends HTMLElement {
     // Collect content data from the live preview via Axe plugin for content metrics calculation
     const { results, a11yErrorsNumber } = await getA11yReport(config);
 
+    this.trigger.querySelector('[data-w-userbar-axe-count]')?.remove();
     if (results.violations.length) {
       const a11yErrorBadge = document.createElement('span');
       a11yErrorBadge.textContent = String(a11yErrorsNumber);
       a11yErrorBadge.classList.add('w-userbar-axe-count');
+      a11yErrorBadge.setAttribute(
+        'data-w-userbar-axe-count',
+        String(a11yErrorsNumber),
+      );
       this.trigger.appendChild(a11yErrorBadge);
     }
 
@@ -458,22 +473,12 @@ export class Userbar extends HTMLElement {
       });
     };
 
-    const toggleAxeResults = () => {
-      if (accessibilityResultsBox.getAttribute('aria-hidden') === 'true') {
-        this.dialog.show();
-
-        renderA11yResults(
-          this.dialogBody,
-          results,
-          config,
-          a11yRowTemplate,
-          onClickSelector,
-        );
-      } else {
-        this.dialog.hide();
-      }
-    };
-
-    accessibilityTrigger.addEventListener('click', toggleAxeResults);
+    renderA11yResults(
+      this.dialogBody,
+      results,
+      config,
+      a11yRowTemplate,
+      onClickSelector,
+    );
   }
 }
