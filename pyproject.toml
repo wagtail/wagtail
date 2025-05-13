@@ -71,6 +71,7 @@ testing = [
   "azure-mgmt-cdn>=12.0,<13.0",
   "azure-mgmt-frontdoor>=1.0,<1.1",
   "django-pattern-library>=0.7",
+  "responses>=0.25,<1",
   # For coverage and PEP8 linting
   "coverage>=3.7.0",
   "doc8==1.1.2",

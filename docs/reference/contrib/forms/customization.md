@@ -677,7 +677,7 @@ class CustomFormBuilder(FormBuilder):
     # e.g., create_singleline_field, create_checkboxes_field, create_url_field
     def create_email_field(self, field, options):
         options["widget"] = CustomEmailInputWidget
-        return super().create_checkbox_field(field, options)
+        return super().create_email_field(field, options)
 
     # Alternatively, you can instantiate the widget directly with custom attributes
     def create_singleline_field(self, field, options):

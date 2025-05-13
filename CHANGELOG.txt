@@ -7,14 +7,18 @@ Changelog
  * Add iHeart oembed provider (Storm Heg)
  * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
  * Add ability for the header breadcrumbs to save their open/closed state across navigation & refresh (Srishti Jaiswal)
+ * Update Twitter oembed provider to recognise x.com links (manu)
  * Render listing buttons as template components (Sage Abdullah)
  * Define default `GenericRelations` for `RevisionMixin` and `WorkflowMixin`, to avoid issues with deletion cascades (Sage Abdullah)
+ * Document and relocate the `init_new_page` signal (Maciek Baron)
+ * Use `requests` to access oEmbed endpoints, for more robust SSL certificate handling (Matt Westcott)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
  * Fix: Fix behaviour of `ViewSet.inject_view_methods` with multiple methods (Gorlik)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
+ * Maintenance: Remove squash.io configuration (Sage Abdullah)
 
 7.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
