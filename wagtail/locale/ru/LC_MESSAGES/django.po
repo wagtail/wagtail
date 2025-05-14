@@ -3,11 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021
 # ajk, 2014
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrei Satsevich, 2023
+# Andrei Satsevich, 2023
 # Andrei Satsevich, 2023-2024
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
@@ -28,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Andrei Satsevich, 2023-2024\n"
+"Last-Translator: 2a01ec1f91c141c338f53ad8cc23abc6_8deca2d, 2021\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -63,6 +66,9 @@ msgstr "Двигать вверх"
 
 msgid "Move down"
 msgstr "Двигать вниз"
+
+msgid "Drag"
+msgstr "Перетянуть"
 
 msgid "Duplicate"
 msgstr "Дубликат"
@@ -191,8 +197,34 @@ msgid "Currently locked and will go live on the scheduled date"
 msgstr ""
 "В настоящее время заблокирован и будет опубликован в запланированный срок"
 
-msgid "latest revision"
-msgstr "последняя версия"
+msgid "content type"
+msgstr "тип содержимого"
+
+msgid "timestamp (UTC)"
+msgstr "отметка времени (UTC)"
+
+msgid "log entry"
+msgstr "запись в журнале"
+
+msgid "log entries"
+msgstr "записи в журнале"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Действие лога '%(action_name)s' не зарегистрировано."
+
+msgid "system"
+msgstr "система"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Неизвестное %(action)s"
+
+msgid "model log entry"
+msgstr "запись модели лога"
+
+msgid "model log entries"
+msgstr "записи модели лога"
 
 msgid "live"
 msgstr "опубликовано"
@@ -230,17 +262,8 @@ msgstr "размещена + запланированна"
 msgid "live + draft"
 msgstr "опубликовано + черновик"
 
-msgid "Default"
-msgstr "По умолчанию"
-
-msgid "Preview in mobile size"
-msgstr "Предварительный просмотр в формате смартфона"
-
-msgid "Preview in tablet size"
-msgstr "Предварительный просмотр в формате планшета"
-
-msgid "Preview in desktop size"
-msgstr "Предварительный просмотр в формате компьютера"
+msgid "locale"
+msgstr "локализация"
 
 msgid "locked"
 msgstr "заблокировано"
@@ -251,11 +274,38 @@ msgstr "заблокирован в"
 msgid "locked by"
 msgstr "заблокирован"
 
-msgid "in moderation"
-msgstr "на модерации"
+msgid "collection"
+msgstr "коллекция"
 
-msgid "live + in moderation"
-msgstr "опубликовано + на модерации"
+msgid "collection view restriction"
+msgstr "ограничение на просмотр коллекции"
+
+msgid "collection view restrictions"
+msgstr "ограничения на просмотр коллекции"
+
+msgid "name"
+msgstr "имя"
+
+msgid "collections"
+msgstr "коллекции"
+
+msgid "group"
+msgstr "группа"
+
+msgid "permission"
+msgstr "право доступа"
+
+msgid "group collection permission"
+msgstr "право доступа к коллекции у группы"
+
+msgid "group collection permissions"
+msgstr "права доступа к коллекции у группы"
+
+msgid "for content type"
+msgstr "для типа содержимого"
+
+msgid "uploaded by user"
+msgstr "загружено пользователем"
 
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"
@@ -306,9 +356,6 @@ msgstr ""
 "Имя страницы, которое будет отображаться в URL, например http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "content type"
-msgstr "тип содержимого"
-
 msgid "URL path"
 msgstr "Путь URL"
 
@@ -345,6 +392,12 @@ msgstr "Описание, отображаемое под заголовком �
 msgid "latest revision created at"
 msgstr "последняя версия создана"
 
+msgid "For search engines"
+msgstr "Для поисковых систем"
+
+msgid "For site menus"
+msgstr "Для меню сайта"
+
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use within the parent page at "
@@ -358,33 +411,6 @@ msgstr "страница"
 
 msgid "pages"
 msgstr "страницы"
-
-msgid "object id"
-msgstr "идентификатор объекта"
-
-msgid "created at"
-msgstr "создано"
-
-msgid "user"
-msgstr "пользователь"
-
-msgid "content JSON"
-msgstr "сожержимое JSON"
-
-msgid "approved go live at"
-msgstr "подтверждено к публикации"
-
-msgid "revision"
-msgstr "версия"
-
-msgid "revisions"
-msgstr "версии"
-
-msgid "group"
-msgstr "группа"
-
-msgid "permission"
-msgstr "право доступа"
 
 msgid "group page permission"
 msgstr "право на страницу у группы"
@@ -407,143 +433,6 @@ msgstr "страница рабочего процесса"
 msgid "workflow pages"
 msgstr "страницы рабочего процесса"
 
-msgid "workflow_tasks"
-msgstr "workflow_tasks"
-
-msgid "task"
-msgstr "задача"
-
-msgid "workflow task order"
-msgstr "порядок задачи рабочего процесса"
-
-msgid "workflow task orders"
-msgstr "порядки задач рабочего процесса"
-
-msgid "name"
-msgstr "имя"
-
-msgid "active"
-msgstr "активный"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Активные задачи могут быть добавлены в рабочий процесс. Неактивная задача не "
-"удаляется из существующего рабочего процесса."
-
-msgid "tasks"
-msgstr "задачи"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Активные рабочие процессы могут быть добавлены к страницам/ сниппетам. "
-"Деактивация рабочего процесса не приводит к его удалению с существующих "
-"страниц/сниппетов."
-
-msgid "workflows"
-msgstr "рабочие процессы"
-
-msgid "groups"
-msgstr "группы"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Страницы/ сниппеты на этом шаге рабочего процесса будут модерироваться или "
-"утверждаться такими группами пользователей"
-
-msgid "Request changes"
-msgstr "Запрос изменений"
-
-msgid "Approve"
-msgstr "Одобрить"
-
-msgid "Approve with comment"
-msgstr "Одобрить с комментарием"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Члены выбранных Wagtail групп могут одобрить эту задачу"
-
-msgid "Group approval task"
-msgstr "Задача группового утверждения"
-
-msgid "Group approval tasks"
-msgstr "Группа одобрения задач"
-
-msgid "In progress"
-msgstr "В ходе выполнения"
-
-msgid "Approved"
-msgstr "Одобрено"
-
-msgid "Needs changes"
-msgstr "Нужны изменения"
-
-msgid "Cancelled"
-msgstr "Отменено"
-
-msgid "status"
-msgstr "статус"
-
-msgid "requested by"
-msgstr "запрошен"
-
-msgid "current task state"
-msgstr "текущее состояние задачи"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Может быть только одно состояние рабочего процесса, в процессе выполнения "
-"или требующий изменений для каждой страницы/ сниппета."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"Рабочий процесс '%(workflow_name)s' на %(model_name)s'%(title)s':%(status)s"
-
-msgid "Not started"
-msgstr "Не запущен"
-
-msgid "Workflow state"
-msgstr "Состояние процесса выполнения"
-
-msgid "Workflow states"
-msgstr "Состояния процесса выполнения"
-
-msgid "Rejected"
-msgstr "Отклонено"
-
-msgid "Skipped"
-msgstr "Пропущено"
-
-msgid "workflow state"
-msgstr "состояние процесса выполнения"
-
-msgid "started at"
-msgstr "запущен в"
-
-msgid "finished at"
-msgstr "завершен в"
-
-msgid "finished by"
-msgstr "закончен"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr "Задача '%(task_name)s' на пересмотре '%(revision_info)s':%(status)s"
-
-msgid "Task state"
-msgstr "Статус задачи"
-
-msgid "Task states"
-msgstr "Статусы задачи"
-
 msgid "page log entry"
 msgstr "страница записи журнала"
 
@@ -565,58 +454,20 @@ msgstr "ответ на комментарий"
 msgid "comment replies"
 msgstr "ответы на комментарий"
 
-msgid "timestamp (UTC)"
-msgstr "отметка времени (UTC)"
+msgid "Default"
+msgstr "По умолчанию"
 
-msgid "log entry"
-msgstr "запись в журнале"
+msgid "Preview in mobile size"
+msgstr "Предварительный просмотр в формате смартфона"
 
-msgid "log entries"
-msgstr "записи в журнале"
+msgid "Preview in tablet size"
+msgstr "Предварительный просмотр в формате планшета"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Действие лога '%(action_name)s' не зарегистрировано."
+msgid "Preview in desktop size"
+msgstr "Предварительный просмотр в формате компьютера"
 
-msgid "system"
-msgstr "система"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Неизвестное %(action)s"
-
-msgid "model log entry"
-msgstr "запись модели лога"
-
-msgid "model log entries"
-msgstr "записи модели лога"
-
-msgid "locale"
-msgstr "локализация"
-
-msgid "collection"
-msgstr "коллекция"
-
-msgid "collection view restriction"
-msgstr "ограничение на просмотр коллекции"
-
-msgid "collection view restrictions"
-msgstr "ограничения на просмотр коллекции"
-
-msgid "collections"
-msgstr "коллекции"
-
-msgid "group collection permission"
-msgstr "право доступа к коллекции у группы"
-
-msgid "group collection permissions"
-msgstr "права доступа к коллекции у группы"
-
-msgid "for content type"
-msgstr "для типа содержимого"
-
-msgid "uploaded by user"
-msgstr "загружено пользователем"
+msgid "object id"
+msgstr "идентификатор объекта"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -641,6 +492,27 @@ msgstr "будет установлено значение %(model_name)s зад
 
 msgid "will unset the reference"
 msgstr "снимет значение ссылки"
+
+msgid "created at"
+msgstr "создано"
+
+msgid "user"
+msgstr "пользователь"
+
+msgid "content JSON"
+msgstr "сожержимое JSON"
+
+msgid "approved go live at"
+msgstr "подтверждено к публикации"
+
+msgid "revision"
+msgstr "версия"
+
+msgid "revisions"
+msgstr "версии"
+
+msgid "latest revision"
+msgstr "последняя версия"
 
 msgid "hostname"
 msgstr "имя хоста"
@@ -715,11 +587,151 @@ msgstr ""
 "Не следует использовать общие пароли для защиты конфиденциального "
 "содержимого. Любой, у кого есть такой пароль, сможет просмотреть содержимое."
 
+msgid "groups"
+msgstr "группы"
+
 msgid "view restriction"
 msgstr "ограничение на просмотр"
 
 msgid "view restrictions"
 msgstr "ограничения на просмотр"
+
+msgid "In progress"
+msgstr "В ходе выполнения"
+
+msgid "Approved"
+msgstr "Одобрено"
+
+msgid "Needs changes"
+msgstr "Нужны изменения"
+
+msgid "Cancelled"
+msgstr "Отменено"
+
+msgid "status"
+msgstr "статус"
+
+msgid "requested by"
+msgstr "запрошен"
+
+msgid "current task state"
+msgstr "текущее состояние задачи"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Может быть только одно состояние рабочего процесса, в процессе выполнения "
+"или требующий изменений для каждой страницы/ сниппета."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Рабочий процесс '%(workflow_name)s' на %(model_name)s'%(title)s':%(status)s"
+
+msgid "Not started"
+msgstr "Не запущен"
+
+msgid "Workflow state"
+msgstr "Состояние процесса выполнения"
+
+msgid "Workflow states"
+msgstr "Состояния процесса выполнения"
+
+msgid "active"
+msgstr "активный"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Активные рабочие процессы могут быть добавлены к страницам/ сниппетам. "
+"Деактивация рабочего процесса не приводит к его удалению с существующих "
+"страниц/сниппетов."
+
+msgid "workflows"
+msgstr "рабочие процессы"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "задача"
+
+msgid "workflow task order"
+msgstr "порядок задачи рабочего процесса"
+
+msgid "workflow task orders"
+msgstr "порядки задач рабочего процесса"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Активные задачи могут быть добавлены в рабочий процесс. Неактивная задача не "
+"удаляется из существующего рабочего процесса."
+
+msgid "tasks"
+msgstr "задачи"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Страницы/ сниппеты на этом шаге рабочего процесса будут модерироваться или "
+"утверждаться такими группами пользователей"
+
+msgid "Request changes"
+msgstr "Запрос изменений"
+
+msgid "Approve"
+msgstr "Одобрить"
+
+msgid "Approve with comment"
+msgstr "Одобрить с комментарием"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Члены выбранных Wagtail групп могут одобрить эту задачу"
+
+msgid "Group approval task"
+msgstr "Задача группового утверждения"
+
+msgid "Group approval tasks"
+msgstr "Группа одобрения задач"
+
+msgid "Rejected"
+msgstr "Отклонено"
+
+msgid "Skipped"
+msgstr "Пропущено"
+
+msgid "workflow state"
+msgstr "состояние процесса выполнения"
+
+msgid "started at"
+msgstr "запущен в"
+
+msgid "finished at"
+msgstr "завершен в"
+
+msgid "finished by"
+msgstr "закончен"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Задача '%(task_name)s' на пересмотре '%(revision_info)s':%(status)s"
+
+msgid "Task state"
+msgstr "Статус задачи"
+
+msgid "Task states"
+msgstr "Статусы задачи"
+
+msgid "in moderation"
+msgstr "на модерации"
+
+msgid "live + in moderation"
+msgstr "опубликовано + на модерации"
 
 msgid "Log in"
 msgstr "Войти"

@@ -5,7 +5,14 @@ Release notes
    :maxdepth: 1
 
    upgrading
+   release_process
+   7.1
+   7.0.1
+   7.0
+   6.4.2
+   6.4.1
    6.4
+   6.3.4
    6.3.3
    6.3.2
    6.3.1
@@ -25,6 +32,7 @@ Release notes
    6.0.2
    6.0.1
    6.0
+   5.2.8
    5.2.7
    5.2.6
    5.2.5

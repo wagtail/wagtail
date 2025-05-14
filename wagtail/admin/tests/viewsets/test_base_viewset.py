@@ -39,3 +39,8 @@ class TestBaseViewSet(WagtailTestUtils, TestCase):
         self.assertEqual(url, "/admin/greetingz/")
         self.assertContains(response, "Greetings")
         self.assertContains(response, "Welcome to this greetings page, Gordon Freeman!")
+
+    def test_method_injection(self):
+        response = self.client.get(reverse("opera:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Porgy and Bess")

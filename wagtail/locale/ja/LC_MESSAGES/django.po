@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -47,6 +47,9 @@ msgstr "上に移動"
 msgid "Move down"
 msgstr "下に移動"
 
+msgid "Drag"
+msgstr "ドラッグ"
+
 msgid "Duplicate"
 msgstr "複製"
 
@@ -76,6 +79,21 @@ msgstr "ロックあり"
 
 msgid "Unlocked"
 msgstr "ロックなし"
+
+msgid "content type"
+msgstr "コンテンツの種類"
+
+msgid "timestamp (UTC)"
+msgstr "タイムスタンプ（ UTC ）"
+
+msgid "log entry"
+msgstr "ログエントリー"
+
+msgid "log entries"
+msgstr "ログエントリー"
+
+msgid "system"
+msgstr "システム"
 
 msgid "live"
 msgstr "公開"
@@ -110,14 +128,41 @@ msgstr "公開 + 予定日"
 msgid "live + draft"
 msgstr "公開 + 下書き"
 
-msgid "Default"
-msgstr "デフォルト"
-
 msgid "locked"
 msgstr "ロックされています"
 
 msgid "locked at"
 msgstr "ロック日時"
+
+msgid "collection"
+msgstr "コレクション"
+
+msgid "collection view restriction"
+msgstr "コレクションページ閲覧の権限"
+
+msgid "collection view restrictions"
+msgstr "コレクションページ閲覧の権限"
+
+msgid "name"
+msgstr "名前"
+
+msgid "collections"
+msgstr "コレクション"
+
+msgid "group"
+msgstr "グループ"
+
+msgid "permission"
+msgstr "権限"
+
+msgid "group collection permission"
+msgstr "グループコレクションの権限"
+
+msgid "group collection permissions"
+msgstr "グループコレクションの権限"
+
+msgid "uploaded by user"
+msgstr "アップロードしたユーザ"
 
 msgid "Add/edit pages you own"
 msgstr "自分のページを追加/編集"
@@ -160,9 +205,6 @@ msgid ""
 "[my-slug]/"
 msgstr "URLに表示したいページ名（例：http://domain.com/blog/[my-slug]/）"
 
-msgid "content type"
-msgstr "コンテンツの種類"
-
 msgid "URL path"
 msgstr "URLパス"
 
@@ -190,29 +232,17 @@ msgstr "検索エンジンの検索結果でヘッドラインの下に表示さ
 msgid "latest revision created at"
 msgstr "最終更新日時"
 
+msgid "For search engines"
+msgstr "検索エンジンのため"
+
+msgid "For site menus"
+msgstr "サイトメニューのため"
+
 msgid "page"
 msgstr "ページ"
 
 msgid "pages"
 msgstr "ページ"
-
-msgid "created at"
-msgstr "作成日"
-
-msgid "user"
-msgstr "ユーザ"
-
-msgid "content JSON"
-msgstr "JSONコンテンツ"
-
-msgid "approved go live at"
-msgstr "承認済み・公開予定："
-
-msgid "group"
-msgstr "グループ"
-
-msgid "permission"
-msgstr "権限"
 
 msgid "group page permission"
 msgstr "グループページの権限"
@@ -235,63 +265,6 @@ msgstr "ワークフローページ"
 msgid "workflow pages"
 msgstr "ワークフローページ"
 
-msgid "task"
-msgstr "タスク"
-
-msgid "name"
-msgstr "名前"
-
-msgid "tasks"
-msgstr "タスク"
-
-msgid "workflows"
-msgstr "ワークフロー"
-
-msgid "groups"
-msgstr "グループ"
-
-msgid "Request changes"
-msgstr "変更をリクエスト"
-
-msgid "Approve"
-msgstr "承認"
-
-msgid "Approve with comment"
-msgstr "コメントを付けて承認"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "選択された Wagtail グループのメンバーがこのタスクを承認できます"
-
-msgid "In progress"
-msgstr "作業中"
-
-msgid "Approved"
-msgstr "承認済み"
-
-msgid "Needs changes"
-msgstr "要変更"
-
-msgid "Cancelled"
-msgstr "キャンセル済み"
-
-msgid "status"
-msgstr "ステータス"
-
-msgid "current task state"
-msgstr "現在のタスクの状態"
-
-msgid "Workflow state"
-msgstr "ワークフローの状態"
-
-msgid "Workflow states"
-msgstr "ワークフローの状態"
-
-msgid "Task state"
-msgstr "タスクの状態"
-
-msgid "Task states"
-msgstr "タスクの状態"
-
 msgid "page log entry"
 msgstr "ページログエントリー"
 
@@ -310,38 +283,20 @@ msgstr "コメント返信"
 msgid "comment replies"
 msgstr "コメント返信"
 
-msgid "timestamp (UTC)"
-msgstr "タイムスタンプ（ UTC ）"
+msgid "Default"
+msgstr "デフォルト"
 
-msgid "log entry"
-msgstr "ログエントリー"
+msgid "created at"
+msgstr "作成日"
 
-msgid "log entries"
-msgstr "ログエントリー"
+msgid "user"
+msgstr "ユーザ"
 
-msgid "system"
-msgstr "システム"
+msgid "content JSON"
+msgstr "JSONコンテンツ"
 
-msgid "collection"
-msgstr "コレクション"
-
-msgid "collection view restriction"
-msgstr "コレクションページ閲覧の権限"
-
-msgid "collection view restrictions"
-msgstr "コレクションページ閲覧の権限"
-
-msgid "collections"
-msgstr "コレクション"
-
-msgid "group collection permission"
-msgstr "グループコレクションの権限"
-
-msgid "group collection permissions"
-msgstr "グループコレクションの権限"
-
-msgid "uploaded by user"
-msgstr "アップロードしたユーザ"
+msgid "approved go live at"
+msgstr "承認済み・公開予定："
 
 msgid "hostname"
 msgstr "ホスト名"
@@ -400,11 +355,65 @@ msgstr "公開"
 msgid "Private, accessible to users in specific groups"
 msgstr "限定公開、特定のグループに属するユーザのみアクセス可能"
 
+msgid "groups"
+msgstr "グループ"
+
 msgid "view restriction"
 msgstr "閲覧権限"
 
 msgid "view restrictions"
 msgstr "閲覧権限"
+
+msgid "In progress"
+msgstr "作業中"
+
+msgid "Approved"
+msgstr "承認済み"
+
+msgid "Needs changes"
+msgstr "要変更"
+
+msgid "Cancelled"
+msgstr "キャンセル済み"
+
+msgid "status"
+msgstr "ステータス"
+
+msgid "current task state"
+msgstr "現在のタスクの状態"
+
+msgid "Workflow state"
+msgstr "ワークフローの状態"
+
+msgid "Workflow states"
+msgstr "ワークフローの状態"
+
+msgid "workflows"
+msgstr "ワークフロー"
+
+msgid "task"
+msgstr "タスク"
+
+msgid "tasks"
+msgstr "タスク"
+
+msgid "Request changes"
+msgstr "変更をリクエスト"
+
+msgid "Approve"
+msgstr "承認"
+
+msgid "Approve with comment"
+msgstr "コメントを付けて承認"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "選択された Wagtail グループのメンバーがこのタスクを承認できます"
+
+msgid "Task state"
+msgstr "タスクの状態"
+
+msgid "Task states"
+msgstr "タスクの状態"
 
 msgid "Log in"
 msgstr "ログイン"

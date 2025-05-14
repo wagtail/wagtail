@@ -46,6 +46,7 @@ from wagtail.test.testapp.models import (
     MultiPreviewModesPage,
     SimplePage,
     SimpleTask,
+    UserApprovalTask,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
@@ -314,7 +315,7 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["object_list"]), 20)
         self.assertContains(response, url + "?p=1")
-        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=2")
         self.assertContains(response, url + "?p=3")
 
         response = self.get({"p": 4})
@@ -1300,7 +1301,7 @@ class TestTaskIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["object_list"]), 50)
         self.assertContains(response, url + "?p=1")
-        self.assertNotContains(response, url + "?p=2")
+        self.assertContains(response, url + "?p=2")
         self.assertContains(response, url + "?p=3")
 
         response = self.get({"p": 4})
@@ -2705,6 +2706,62 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
         )
         self.assertIn("Comment", html)
 
+    def test_workflow_action_get_custom_template(self):
+        """
+        https://github.com/wagtail/wagtail/issues/12222
+        Custom tasks can override Task.get_template_for_action() to use a custom
+        template for the workflow action modal.
+        """
+        # Add a custom task to the workflow
+        custom_task = UserApprovalTask.objects.create(
+            name="user_approval_1",
+            user=self.moderator,
+        )
+        WorkflowTask.objects.create(
+            workflow=self.workflow,
+            task=custom_task,
+            sort_order=2,
+        )
+        self.approve()  # Approve the GroupApprovalTask
+
+        # Refresh from DB
+        self.object = self.object_class.objects.get(pk=self.object.pk)
+
+        response = self.client.get(
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/workflows/approve_with_style.html")
+        self.assertTemplateNotUsed(
+            response, "wagtailadmin/shared/workflow_action_modal.html"
+        )
+        html = json.loads(response.content)["html"]
+        soup = self.get_soup(html)
+        form = soup.select_one("form")
+        self.assertIsNotNone(form)
+        self.assertEqual(
+            form["action"],
+            self.get_url(
+                "workflow_action",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        submit = form.select_one("button[type=submit]")
+        self.assertIsNotNone(submit)
+        self.assertEqual(submit.text.strip(), "Ship it!")
+        self.assertNotIn("Comment", html)
+
     def test_workflow_action_view_bad_id(self):
         """
         This tests that the workflow action view handles invalid object ids correctly
@@ -2934,6 +2991,62 @@ class TestApproveRejectPageWorkflow(BasePageWorkflowTests):
             html,
         )
         self.assertIn("Comment", html)
+
+    def test_collect_workflow_action_data_get_custom_template(self):
+        """
+        https://github.com/wagtail/wagtail/issues/12222
+        Custom tasks can override Task.get_template_for_action() to use a custom
+        template for the workflow action modal.
+        """
+        # Add a custom task to the workflow
+        custom_task = UserApprovalTask.objects.create(
+            name="user_approval_1",
+            user=self.moderator,
+        )
+        WorkflowTask.objects.create(
+            workflow=self.workflow,
+            task=custom_task,
+            sort_order=2,
+        )
+        self.approve()  # Approve the GroupApprovalTask
+
+        # Refresh from DB
+        self.object = self.object_class.objects.get(pk=self.object.pk)
+
+        response = self.client.get(
+            self.get_url(
+                "collect_workflow_action_data",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/workflows/approve_with_style.html")
+        self.assertTemplateNotUsed(
+            response, "wagtailadmin/shared/workflow_action_modal.html"
+        )
+        html = json.loads(response.content)["html"]
+        soup = self.get_soup(html)
+        form = soup.select_one("form")
+        self.assertIsNotNone(form)
+        self.assertEqual(
+            form["action"],
+            self.get_url(
+                "collect_workflow_action_data",
+                args=(
+                    quote(self.object.pk),
+                    "approve",
+                    self.object.current_workflow_task_state.id,
+                ),
+            ),
+        )
+        submit = form.select_one("button[type=submit]")
+        self.assertIsNotNone(submit)
+        self.assertEqual(submit.text.strip(), "Ship it!")
+        self.assertNotIn("Comment", html)
 
     def test_collect_workflow_action_data_post(self):
         """
@@ -4633,7 +4746,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
         self.object.save_revision()
 
     def test_workflowstate_email_notifier_get_recipient_users__without_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -4648,7 +4761,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state = self.object.current_workflow_state
@@ -4664,7 +4777,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__without_requested_by(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state
@@ -4683,7 +4796,7 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
                 )
 
     def test_workflowstate_email_notifier_get_recipient_users__with_same_requested_by_and_triggering_user(
-        self
+        self,
     ):
         self.workflow.start(self.object, user=self.submitter)
         workflow_state: WorkflowState = self.object.current_workflow_state

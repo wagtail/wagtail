@@ -6,15 +6,16 @@
 # Amir Mahmoodi, 2022
 # Amir Mahmoodi, 2022
 # Bardia, 2024
+# Bardia, 2024
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Bardia, 2024\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>, 2017\n"
 "Language-Team: Persian (http://app.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -46,9 +47,6 @@ msgstr "لغو رویه کاری"
 msgid "Unpublish"
 msgstr "لغو انتشار"
 
-msgid "Delete"
-msgstr "حذف"
-
 msgid "Save"
 msgstr "ذخیره"
 
@@ -58,6 +56,9 @@ msgstr "قفل شده"
 #, python-format
 msgid "%(label)s and Publish"
 msgstr "%(label)s و انتشار"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "Delete "
 msgstr "حذف"

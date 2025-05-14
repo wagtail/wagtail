@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Chinese (http://app.transifex.com/torchbox/wagtail/language/"
@@ -23,6 +23,9 @@ msgstr "向上移动"
 
 msgid "Move down"
 msgstr "向下移动"
+
+msgid "Drag"
+msgstr "拖动"
 
 msgid "Delete"
 msgstr "删除"
@@ -57,9 +60,6 @@ msgstr "一个链接到这页的链接会显示在自动生成的菜单中"
 msgid "created at"
 msgstr "创建于"
 
-msgid "Approve"
-msgstr "通过"
-
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -73,6 +73,9 @@ msgid ""
 "have a site entry of their own"
 msgstr ""
 "如果是真的，这个网站将处理没有一个属于自己的主机名的其他所有主机名的请求"
+
+msgid "Approve"
+msgstr "通过"
 
 msgid "Your username and password didn't match. Please try again."
 msgstr "您的账号和密码不匹配，请重试。"

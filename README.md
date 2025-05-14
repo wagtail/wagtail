@@ -84,7 +84,7 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
--   Django 4.2.x, 5.0.x and 5.1.x
+-   Django 4.2.x and 5.1.x
 -   Python 3.9, 3.10, 3.11, 3.12 and 3.13
 -   PostgreSQL, MySQL, MariaDB and SQLite (with JSON1) as database backends
 
@@ -140,9 +140,6 @@ We thank the following organisations for their services used in Wagtail's develo
 
 [![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/browserstack-logo.svg)](https://www.browserstack.com/)<br>
 [BrowserStack](https://www.browserstack.com/) provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
-
-[![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/squash-logo.svg)](https://www.squash.io/)<br>
-[Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
 
 [![Assistiv Labs](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/assistivlabs-logo.png)](https://assistivlabs.com/)<br>
 [Assistiv Labs](https://assistivlabs.com/) provides the project with unlimited access to their remote testing with assistive technologies.

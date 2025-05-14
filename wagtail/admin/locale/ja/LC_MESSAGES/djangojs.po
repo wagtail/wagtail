@@ -1,6 +1,5 @@
 #
 # Translators:
-# 小口英昭 <oguchi@bluff-lab.com>, 2022
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2022
 # 溝江 智徳 <tomo.mizoe@gmail.com>, 2022
 # Daigo Shitara <stain.witness@gmail.com>, 2022
@@ -9,14 +8,19 @@
 # kojikojikojikoji, 2022
 # 山本 卓也 <takuya.miraidenshi@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2025
+# 小口英昭 <oguchi@bluff-lab.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/torchbox/teams/8009/ja/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Actions"
+msgstr "操作"
 
 msgid "Add a comment"
 msgstr "コメントを追加"
@@ -86,6 +90,9 @@ msgstr "ページ探索"
 
 msgid "Pages"
 msgstr "ページ"
+
+msgid "Preview"
+msgstr "プレビュー"
 
 msgid "Reload saved content"
 msgstr "保存した内容をリロードします"

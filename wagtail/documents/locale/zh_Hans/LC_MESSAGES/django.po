@@ -13,6 +13,7 @@
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2020-2021
 # Yu Cheng, 2024
+# Yu Cheng, 2024
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Yu Cheng, 2024\n"
+"Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2017\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"

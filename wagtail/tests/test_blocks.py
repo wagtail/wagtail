@@ -30,7 +30,6 @@ from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -93,6 +92,11 @@ class TestBlock(SimpleTestCase):
             "specific_template_and_custom_value": [
                 blocks.Block(preview_template="foo.html", preview_value="bar"),
             ],
+            "unset_default_not_none": [
+                blocks.ListBlock(blocks.Block()),
+                blocks.StreamBlock(),
+                blocks.StructBlock(),
+            ],
         }
 
         # Test without a global template override
@@ -109,6 +113,9 @@ class TestBlock(SimpleTestCase):
             # Providing both a preview template and value also makes the block
             # previewable, this is the same as providing a custom template only
             ("specific_template_and_custom_value", True),
+            # These blocks define their own unset default value that is not
+            # `None`, and that value should not make it previewable
+            ("unset_default_not_none", False),
         ]
         for variant, is_previewable in cases:
             with self.subTest(variant=variant, custom_global_template=False):
@@ -134,6 +141,9 @@ class TestBlock(SimpleTestCase):
                 ("custom_value", True),
                 # Unchanged – providing both also makes the block previewable
                 ("specific_template_and_custom_value", True),
+                # Unchanged – even after providing a global template override,
+                # these blocks should not be previewable
+                ("unset_default_not_none", False),
             ]
             for variant, is_previewable in cases:
                 with self.subTest(variant=variant, custom_global_template=True):
@@ -666,6 +676,11 @@ class TestRichTextBlock(TestCase):
         default_value = blocks.RichTextBlock(default="<p>foo</p>").get_default()
         self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, "<p>foo</p>")
+
+    def test_get_default_with_localized_string(self):
+        default_value = blocks.RichTextBlock(default=_("<p>english</p>")).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, "<p>english</p>")
 
     def test_get_default_with_richtext_value(self):
         default_value = blocks.RichTextBlock(
@@ -5738,23 +5753,6 @@ class TestIncludeBlockTag(TestCase):
 
 
 class TestOverriddenGetTemplateBlockTag(TestCase):
-    def test_get_template_old_signature(self):
-        class BlockUsingGetTemplateMethod(blocks.Block):
-            my_new_template = "tests/blocks/heading_block.html"
-
-            def get_template(self, context=None):
-                return self.my_new_template
-
-        block = BlockUsingGetTemplateMethod(
-            template="tests/blocks/this_shouldnt_be_used.html"
-        )
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "BlockUsingGetTemplateMethod.get_template should accept a 'value' argument as first argument",
-        ):
-            html = block.render("Hello World")
-        self.assertEqual(html, "<h1>Hello World</h1>")
-
     def test_block_render_passes_the_value_argument_to_get_template(self):
         """verifies Block.render() passes the value to get_template"""
 

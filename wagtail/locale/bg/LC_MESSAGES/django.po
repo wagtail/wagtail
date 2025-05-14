@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>, 2014\n"
 "Language-Team: Bulgarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -24,6 +24,9 @@ msgstr "Нагоре"
 
 msgid "Move down"
 msgstr "Надолу"
+
+msgid "Drag"
+msgstr "Плъзнете"
 
 msgid "Delete"
 msgstr "Изтрий"
@@ -52,9 +55,6 @@ msgid ""
 msgstr ""
 "Дали линк към тази страница ще се появи в автоматично генерираните менюта"
 
-msgid "Approve"
-msgstr "Одобрете"
-
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
@@ -70,6 +70,9 @@ msgid ""
 msgstr ""
 "Ако е Вярно, този сайт ще борави със заявки за всички останали хостове, "
 "които нямат собствен сайт."
+
+msgid "Approve"
+msgstr "Одобрете"
 
 msgid "Your username and password didn't match. Please try again."
 msgstr "Вашето потребителско име и парола не съвпадат. Моля опитайте пак."

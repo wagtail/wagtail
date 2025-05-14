@@ -4,14 +4,15 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Naglis Jonaitis, 2020-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Naglis Jonaitis, 2020-2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -241,12 +242,6 @@ msgstr "Visi tipai"
 msgid "Task"
 msgstr "Užduotis"
 
-msgid "For search engines"
-msgstr "Paieškos varikliams"
-
-msgid "For site menus"
-msgstr "Tinklalapio meniu"
-
 msgid "Content"
 msgstr "Turinys"
 
@@ -427,10 +422,6 @@ msgstr "Taip, ištrinti"
 msgid "No, don't delete"
 msgstr "Ne, neištrinti"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Nebepublikuoti %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Taip, nebepublikuoti"
 
@@ -448,13 +439,6 @@ msgstr "Komentaras"
 
 msgid "Update"
 msgstr "Atnaujinti"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Lyginami %(title)s"
-
-msgid "Comparing"
-msgstr "Palyginama"
 
 msgid "Fields"
 msgstr "Laukai"
@@ -505,14 +489,14 @@ msgstr "Data"
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
 
+msgid "Close"
+msgstr "Uždaryti"
+
 msgid "Task started"
 msgstr "Užduotis pradėta"
 
 msgid "Awaiting"
 msgstr "Laukiama"
-
-msgid "Close"
-msgstr "Uždaryti"
 
 msgid "Awaiting your review"
 msgstr "Laukia jūsų peržiūros"
@@ -816,10 +800,6 @@ msgstr "Data / laikas"
 msgid "Edit this item"
 msgstr "Redaguoti šį elementą"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Puslapis %(page_num)s iš %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "Naršymo kelias"
 
@@ -851,11 +831,8 @@ msgid "Current page status:"
 msgstr "Dabartinė puslapio būsena:"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
-
-msgid "Unschedule"
-msgstr "Neplanuoti"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Puslapis %(page_num)s iš %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ar tikrai norite neplanuoti šios revizijos?"
@@ -952,9 +929,6 @@ msgstr "Anuliuoti"
 
 msgid "Redo"
 msgstr "Atgrąžinti"
-
-msgid "Bold"
-msgstr "Stambus"
 
 msgid "Italic"
 msgstr "Pakreiptas"
@@ -1066,6 +1040,9 @@ msgstr "Naujausias"
 msgid "Latest"
 msgstr "Vėliausias"
 
+msgid "Unschedule"
+msgstr "Neplanuoti"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "Redaguoti šį %(object)s"
@@ -1145,9 +1122,6 @@ msgstr "Puslapis '%(page_title)s' dabar atrakintas."
 msgid "Page '%(page_title)s' moved."
 msgstr "Puslapis '%(page_title)s' buvo perkeltas."
 
-msgid "Page history"
-msgstr "Puslapio istorija"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Puslapis '%(page_title)s' nebepublikuojamas."
@@ -1209,9 +1183,23 @@ msgstr "Nebepublikuoti '%(title)s' puslapio"
 msgid "Sort menu order"
 msgstr "Meniu rikiavimo tvarka"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Antraštė %(level)d"
+msgid "Heading 1"
+msgstr "Antraštė 1"
+
+msgid "Heading 2"
+msgstr "Antraštė 2"
+
+msgid "Heading 3"
+msgstr "Antraštė 3"
+
+msgid "Heading 4"
+msgstr "Antraštė 4"
+
+msgid "Heading 5"
+msgstr "Antraštė 5"
+
+msgid "Heading 6"
+msgstr "Antraštė 6"
 
 msgid "Bulleted list"
 msgstr "Pažymėtas sąrašas"
@@ -1221,6 +1209,9 @@ msgstr "Numeruotas sąrašas"
 
 msgid "Blockquote"
 msgstr "Citata"
+
+msgid "Bold"
+msgstr "Stambus"
 
 msgid "Link"
 msgstr "Nuoroda"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
+"Last-Translator: Azat, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
 "ug/)\n"
 "MIME-Version: 1.0\n"
@@ -392,12 +392,6 @@ msgstr "تىزىمدىكى ھەممە تۈر تاللاندى"
 msgid "Can access Wagtail admin"
 msgstr "Wagtail باشقۇرغۇچىنى زىيارەت قىلالايدۇ"
 
-msgid "For search engines"
-msgstr "ئىزدەش موتورى"
-
-msgid "For site menus"
-msgstr "بېكەت تىزىملىكى ئۈچۈن"
-
 msgid "Content"
 msgstr "مەزمۇن"
 
@@ -661,10 +655,6 @@ msgid "No, don't delete"
 msgstr "ياق، ئۆچۈرمە"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s تارقاتما"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "بۇ %(model_name)s نى راستتىنلا تارقاتمامسىز؟"
 
@@ -731,13 +721,6 @@ msgid ""
 msgstr ""
 "دەلىللەش خاتالىقى سەۋەبىدىن ئالدىن كۆزىتەلمەيدۇ. <br /> ساقلا چېكىلسە "
 "مۇناسىۋەتلىك بۆلەكنى يورۇتىدۇ."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s سېلىشتۇرۇۋاتىدۇ"
-
-msgid "Comparing"
-msgstr "سېلىشتۇرۇۋاتىدۇ"
 
 msgid "Fields"
 msgstr "بۆلەك"
@@ -833,6 +816,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "تارقىتىش باياناتىنى ئوقۇڭ."
 
+msgid "Close"
+msgstr "ياپ"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "خىزمەت ئېقىمىدىكى بەت ۋە پۇرۇچلىرىڭىز"
 
@@ -844,9 +830,6 @@ msgstr "ئۆزگەرتىش ئىلتىماس قىلىنغان ۋاقىت"
 
 msgid "Awaiting"
 msgstr "كۈتۈۋاتىدۇ"
-
-msgid "Close"
-msgstr "ياپ"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1727,13 +1710,6 @@ msgstr ""
 msgid "Choose when this page should go live and/or expire"
 msgstr "بۇ بەت بىۋاسىتە تارقىتىلغاندا ۋە ياكى ۋاقتى ئۆتكەندە تاللىنىدۇ"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"بۇ تارقىتىش كۈنتەرتىپى پەقەت «تارقات» تاللانمىسى تاللانغاندىن كېيىن ئاندىن "
-"كۈچكە ئىگە بولىدۇ"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "تەھرىرلەش ئىجازىتى بار ھەر كىم كۈنتەرتىپ قۇرالايدۇ"
 
@@ -1847,10 +1823,6 @@ msgstr "تاماملانغان ۋاقىت"
 
 msgid "Clear"
 msgstr "تازىلا"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(page_num)s / %(total_pages)s بەت."
 
 msgid "Edit account avatar"
 msgstr "ھېسابات سىماسىنى تەھرىرلەيدۇ"
@@ -1973,21 +1945,18 @@ msgstr "شۇئان بەت زىيارىتى"
 msgid "Visible to all. Visit the live page"
 msgstr "ھەممەيلەن كۆرەلەيدۇ. شۇئان بەت زىيارىتى"
 
-msgid "Private. Visit the live page"
-msgstr "شەخسىي. شۇئان بەت زىيارىتى"
-
 msgid "Visible to all"
 msgstr "ھەممەيلەن كۆرەلەيدۇ"
 
-msgid "Toggle section"
-msgstr "بۆلەك ئالماشتۇر"
+msgid "Private. Visit the live page"
+msgstr "شەخسىي. شۇئان بەت زىيارىتى"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s نىڭ كۈنتەرتىپكە تىزىلمىغان %(revision.id)s تۈزىتىلمىسى"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s / %(total_pages)s بەت"
 
-msgid "Unschedule"
-msgstr "كۈنتەرتىپكە تىزىلمىغان"
+msgid "Toggle section"
+msgstr "بۆلەك ئالماشتۇر"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "بۇ تۈزىتىلمىنى كۈنتەرتىپكە راستىنلا تىزمامسىز؟"
@@ -2115,9 +2084,6 @@ msgstr "ئىناۋەتسىز كۈنتەرتىپ"
 
 msgid "Go-live:"
 msgstr "نەق مەيدانغا يۆتكەل:"
-
-msgid "Once published:"
-msgstr "تارقىتىلغان:"
 
 msgid "No publishing schedule set"
 msgstr "تارقىتىش كۈنتەرتىپى تەڭشەلمىگەن"
@@ -2516,9 +2482,6 @@ msgstr "ئۇلانما  قىستۇر ياكى تەھرىر"
 msgid "Text formatting"
 msgstr "تېكىست پىچىمى"
 
-msgid "Bold"
-msgstr "توم"
-
 msgid "Italic"
 msgstr "يانتۇ"
 
@@ -2871,6 +2834,9 @@ msgstr "«%(object)s» تارقىتىلمىدى."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "«%(object)s» نىڭ %(revision_id)s نەشرى كۈنتەرتىپتىن قالدۇرۇلدى."
 
+msgid "Unschedule"
+msgstr "كۈنتەرتىپكە تىزىلمىغان"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "«%(object)s» نىڭ %(revision_id)s تۈزىتىلمىسى"
@@ -2914,31 +2880,6 @@ msgstr "شەخسىيەتكە ئانا بەتتىن ۋارىسلىق قىلىدۇ
 msgid "Delete selected pages"
 msgstr "تاللانغان بەتنى ئۆچۈر"
 
-msgid "1 page has been deleted"
-msgstr "1 بەت ئۆچۈرۈلدى"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
-msgstr[1] "1 بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d بەت ئۆچۈرۈلدى"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
-msgstr[1] ""
-"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت ئۆچۈرۈلدى"
-
 msgid "Select a new parent page"
 msgstr "يېڭى ئانا بەت تاللىنىدۇ"
 
@@ -2954,59 +2895,8 @@ msgstr[1] "%(num_pages)d بەت يۆتكەلدى"
 msgid "Publish selected pages"
 msgstr "تاللانغان بەتنى تارقات"
 
-msgid "1 page has been published"
-msgstr "1 بەت تارقىتىلدى"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
-msgstr[1] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d بەت تارقىتىلدى"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
-msgstr[1] ""
-"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلدى"
-
 msgid "Unpublish selected pages"
 msgstr "تاللانغان بەتنى تارقاتما"
-
-msgid "1 page has been unpublished"
-msgstr "1 بەت تارقىتىلمىدى"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
-msgstr[1] "1 بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d بەت تارقىتىلمىدى"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
-msgstr[1] ""
-"%(num_parent_objects)d بەت ۋە %(num_child_objects)d بالا بەت تارقىتىلمىدى"
 
 msgid "Choose parent"
 msgstr "ئانا بەت تاللىنىدۇ"
@@ -3180,9 +3070,6 @@ msgid ""
 msgstr ""
 "كۆرۈۋاتقىنىڭىز %(user)s قۇرغان <b>%(created_at)s</b> بەتنىڭ ئالدىنقى نەشرى"
 
-msgid "Page history"
-msgstr "بەت تارىخى"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "«%(page_title)s» بەت تارقىتىلمىدى."
@@ -3323,9 +3210,6 @@ msgstr "يېڭى خىزمەت ئېقىمى ۋەزىپىسى"
 msgid "Task '%(object)s' created."
 msgstr "«%(object)s» ۋەزىپە قۇرۇلدى."
 
-msgid "Editing workflow task"
-msgstr "يېڭى خىزمەت ئېقىمى ۋەزىپىسىنى تەھرىرلەۋاتىدۇ"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "«%(object)s» ۋەزىپە يېڭىلاندى."
@@ -3401,10 +3285,6 @@ msgstr "تىزىملىك تەرتىپىنى تەرتىپلە"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "«%(title)s» نىڭ بالا بېتىنىڭ تەرتىپىنى ئۆزگەرتىدۇ"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "%(level)d ماۋزۇ"
-
 msgid "Bulleted list"
 msgstr "بەلگە تىزىم"
 
@@ -3413,6 +3293,9 @@ msgstr "رەقەملىك تىزىم"
 
 msgid "Blockquote"
 msgstr "بۆلەك نەقىل"
+
+msgid "Bold"
+msgstr "توم"
 
 msgid "Link"
 msgstr "ئۇلانما"

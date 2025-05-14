@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 .filterable {
   display: grid;
   grid-template-columns: 1fr minmax(theme('spacing.48'), theme('spacing.64'));
@@ -25,7 +27,6 @@
 }
 
 .w-filter-button {
-  @include more-contrast-interactive();
   position: relative;
   width: theme('spacing.10');
   height: theme('spacing.10');
@@ -34,6 +35,8 @@
   border-radius: theme('borderRadius.sm');
   color: theme('colors.text-link-default');
   background-color: theme('backgroundColor.surface-header');
+
+  @include more-contrast-interactive();
 
   .icon {
     width: theme('fontSize.16');

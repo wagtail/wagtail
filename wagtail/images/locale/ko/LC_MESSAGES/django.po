@@ -6,13 +6,14 @@
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020
+# sl kim <vizuan@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Jihan Chung <jihanchung20@gmail.com>, 2015\n"
+"Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -180,6 +181,13 @@ msgstr "신규"
 msgid "Latest images"
 msgstr "최근 이미지"
 
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"지금 <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>새로 "
+"업로드</a>를 해보는 건 어떨까요?"
+
 msgid "Choose a format"
 msgstr "포맷 선택"
 
@@ -258,6 +266,18 @@ msgstr "프리뷰"
 msgid "URL"
 msgstr "URL"
 
+msgid "Image URL"
+msgstr "이미지 URL"
+
+msgid "Copy URL"
+msgstr "URL 복사"
+
+msgid "Copied to clipboard"
+msgstr "클립보드에 복사"
+
+msgid "Copying to clipboard failed"
+msgstr "클립보드에 복사가 실패했습니다"
+
 msgid "Add multiple images"
 msgstr "복수 이미지 추가"
 
@@ -319,6 +339,12 @@ msgstr "다른 이미지 선택"
 msgid "Edit this image"
 msgstr "이 이미지 수정"
 
+msgid "Newest"
+msgstr "최신순"
+
+msgid "Oldest"
+msgstr "오래된순"
+
 msgid "Images"
 msgstr "이미지"
 
@@ -335,6 +361,9 @@ msgid ""
 msgstr ""
 "소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시"
 "기 바랍니다."
+
+msgid "Generate URL"
+msgstr "URL 생성"
 
 msgid "Delete image"
 msgstr "이미지 삭제"

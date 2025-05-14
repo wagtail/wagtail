@@ -13,7 +13,7 @@
 # Marek Turnovec <aesculap@gmail.com>, 2016,2020,2022
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2018
 # Martin Galda <martingalda9@gmail.com>, 2017-2018
-# Matt Westcott <matthew@torchbox.com>, 2018
+# Matt Westcott <matthew@torchbox.com>, 2018,2025
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 # IT Management <hudan@itmanagement.cz>, 2018
 # Tomáš Jeřábek <tomas@tomasjerabek.com>, 2020
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2018,2025\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -327,12 +327,6 @@ msgstr "Všechny %(objects)s obrázky na této obrazovce vybrány"
 msgid "1 user selected"
 msgstr "1 uživatel vybrán"
 
-msgid "For search engines"
-msgstr "Pro vyhledávače"
-
-msgid "For site menus"
-msgstr "Pro menu webu"
-
 msgid "Content"
 msgstr "Obsah"
 
@@ -521,10 +515,6 @@ msgstr "Ano, smazat"
 msgid "No, don't delete"
 msgstr "Ne, nemazat"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Zrušit publikaci %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Ano, zrušit publikaci"
 
@@ -545,13 +535,6 @@ msgstr "Uložit"
 
 msgid "Preview not available"
 msgstr "Náhled není dostupný"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Porovnání %(title)s"
-
-msgid "Comparing"
-msgstr "Porovnání"
 
 msgid "Fields"
 msgstr "Pole"
@@ -603,6 +586,9 @@ msgstr "Datum"
 msgid "Site summary"
 msgstr "Přehled obsahu"
 
+msgid "Close"
+msgstr "Zavřít"
+
 msgid "Task started"
 msgstr "Úkol spuštěn"
 
@@ -611,9 +597,6 @@ msgstr "Změny, o které bylo požádáno v"
 
 msgid "Awaiting"
 msgstr "Čeká se"
-
-msgid "Close"
-msgstr "Zavřít"
 
 msgid "Awaiting your review"
 msgstr "Očekává se vaše revize"
@@ -1051,10 +1034,6 @@ msgstr "Neúplná úloha"
 msgid "Completed at"
 msgstr "Dokončeno v"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Strana %(page_num)s z %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "Drobečková navigace"
 
@@ -1088,15 +1067,12 @@ msgstr "Aktuální stav stránky:"
 msgid "Visit the live page"
 msgstr "Navštívit publikovanou stránku"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Strana %(page_num)s z %(total_pages)s"
+
 msgid "Toggle section"
 msgstr "Přepnout výběr"
-
-#, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Zruš plánovanou publikaci verze %(revision.id)s %(title)s"
-
-msgid "Unschedule"
-msgstr "Zrušit naplánované publikování"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Opravdu chcete zrušit naplánovanou publikaci této verze?"
@@ -1354,9 +1330,6 @@ msgstr "Vrátit zpět"
 msgid "Redo"
 msgstr "Opakovat"
 
-msgid "Bold"
-msgstr "Tučné"
-
 msgid "Italic"
 msgstr "Šikmé"
 
@@ -1492,6 +1465,9 @@ msgstr "Nejstarší"
 
 msgid "Latest"
 msgstr "Nejnovější"
+
+msgid "Unschedule"
+msgstr "Zrušit naplánované publikování"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1632,9 +1608,6 @@ msgid ""
 msgstr ""
 "Prohlížíte předchozí verzi této stránky z <b>%(created_at)s</b> od %(user)s"
 
-msgid "Page history"
-msgstr "Historie stránky"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Stránce '%(page_title)s' byla zrušena publikace."
@@ -1732,9 +1705,6 @@ msgstr "Nová úloha v rámci postupu"
 msgid "Task '%(object)s' created."
 msgstr "Úloha '%(object)s' byla vytvořena."
 
-msgid "Editing workflow task"
-msgstr "Edituje se úloha postupu"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Úloha '%(object)s' byla aktualizována."
@@ -1782,9 +1752,23 @@ msgstr "Zrušit publikaci stránky %(title)s"
 msgid "View page history for '%(title)s'"
 msgstr "Zobrazit historii stránky '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Hlavička %(level)d"
+msgid "Heading 1"
+msgstr "Hlavička 1"
+
+msgid "Heading 2"
+msgstr "Hlavička 2"
+
+msgid "Heading 3"
+msgstr "Hlavička 3"
+
+msgid "Heading 4"
+msgstr "Hlavička 4"
+
+msgid "Heading 5"
+msgstr "Hlavička 5"
+
+msgid "Heading 6"
+msgstr "Hlavička 6"
 
 msgid "Bulleted list"
 msgstr "Nečíslovaný seznam"
@@ -1794,6 +1778,9 @@ msgstr "Číslovaný seznam"
 
 msgid "Blockquote"
 msgstr "Blockquote (Zvýrazněný blok)"
+
+msgid "Bold"
+msgstr "Tučné"
 
 msgid "Link"
 msgstr "Odkaz"

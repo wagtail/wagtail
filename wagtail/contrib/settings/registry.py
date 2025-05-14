@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.urls import reverse
@@ -12,20 +10,12 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .permissions import user_can_edit_setting_type
 
 
 class SettingMenuItem(MenuItem):
-    def __init__(self, model, icon="cog", classname="", classnames="", **kwargs):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for SettingMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
-        classname = classname or classnames
-
+    def __init__(self, model, icon="cog", classname="", **kwargs):
         self.model = model
         super().__init__(
             label=capfirst(model._meta.verbose_name),

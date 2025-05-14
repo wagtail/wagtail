@@ -4,6 +4,7 @@
 #
 # Translators:
 # Alex Morega, 2023
+# Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Alex Morega, 2023\n"
+"Last-Translator: Dan Braghis, 2014\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -48,9 +49,6 @@ msgstr "Anulează flux de lucru"
 msgid "Unpublish"
 msgstr "Anulare publicare"
 
-msgid "Delete"
-msgstr "Șterge"
-
 msgid "Save"
 msgstr "Salvează"
 
@@ -63,6 +61,9 @@ msgstr "%(label)s și publică"
 
 msgid "Wagtail snippets"
 msgstr "Fragment Wagtail"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Delete selected snippets"
 msgstr "Șterge fragmentele selectate"
@@ -166,14 +167,6 @@ msgstr "Instanțe"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Mai multe opțiuni pentru '%(title)s'"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Editează acest %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "Istoria %(model_name)s"
 
 msgid "Home"
 msgstr "Acasă"

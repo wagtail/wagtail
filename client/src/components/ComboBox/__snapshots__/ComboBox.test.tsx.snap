@@ -28,7 +28,7 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
         id="downshift-1-input"
         onBlur={[Function]}
         onChange={[Function]}
-        onFocus={[Function]}
+        onClick={[Function]}
         onKeyDown={[Function]}
         placeholder="Search options…"
         role="combobox"
@@ -57,7 +57,8 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
           key="blockquote"
         >
           <div
-            aria-selected="false"
+            aria-disabled={false}
+            aria-selected={false}
             className="w-combobox__option"
             id="downshift-1-item-0"
             onClick={[Function]}
@@ -84,7 +85,8 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
           key="paragraph"
         >
           <div
-            aria-selected="false"
+            aria-disabled={false}
+            aria-selected={false}
             className="w-combobox__option"
             id="downshift-1-item-1"
             onClick={[Function]}
@@ -113,7 +115,8 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
           key="heading-one"
         >
           <div
-            aria-selected="false"
+            aria-disabled={false}
+            aria-selected={false}
             className="w-combobox__option"
             id="downshift-1-item-2"
             onClick={[Function]}
@@ -150,7 +153,8 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
           key="heading-two"
         >
           <div
-            aria-selected="false"
+            aria-disabled={false}
+            aria-selected={false}
             className="w-combobox__option"
             id="downshift-1-item-3"
             onClick={[Function]}
@@ -181,7 +185,8 @@ exports[`ComboBox rendering matches the snapshot 1`] = `
           key="link"
         >
           <div
-            aria-selected="false"
+            aria-disabled={false}
+            aria-selected={false}
             className="w-combobox__option"
             id="downshift-1-item-4"
             onClick={[Function]}

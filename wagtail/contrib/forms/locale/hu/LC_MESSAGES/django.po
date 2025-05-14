@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
 "Last-Translator: Kornel Novak Mergulhão <nkornel@gmail.com>, 2016\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -30,14 +30,6 @@ msgstr "Dátumtól"
 
 msgid "Date to"
 msgstr "Dátumig"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr ""
-"Már van egy mező ezzel a címkével: %(label_name)s, kérjük változtassa meg "
-"valamelyiket!"
 
 msgid "Single line text"
 msgstr "Egysoros szöveg"

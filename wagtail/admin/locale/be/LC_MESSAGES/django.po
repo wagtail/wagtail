@@ -4,15 +4,15 @@
 #
 # Translators:
 # Andrei Satsevich, 2023-2024
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrei Satsevich, 2023-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -414,10 +414,6 @@ msgstr "Так. Выдаліць"
 msgid "No, don't delete"
 msgstr "Не, не выдаляць"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Адмяніць публікацыю %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Так, апублікаваць"
 
@@ -435,13 +431,6 @@ msgstr "Каментар"
 
 msgid "Update"
 msgstr "Аднаўленне"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Параўноўваем %(title)s"
-
-msgid "Comparing"
-msgstr "Параўноўваем"
 
 msgid "Fields"
 msgstr "Палі"
@@ -734,10 +723,6 @@ msgstr "Дата / час"
 msgid "Edit this item"
 msgstr "Рэдагаваць гэты элемент"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Старонка %(page_num)s з %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "Шлях па сайту"
 
@@ -769,11 +754,8 @@ msgid "Visit the live page"
 msgstr "Наведаць старонку"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Адмена версіі %(revision.id)s для %(title)s"
-
-msgid "Unschedule"
-msgstr "Адмяніць часовую публікацыю"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Старонка %(page_num)s з %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Вы ўпэўненыя, што жадаеце адмяніць гэтую версію?"
@@ -863,9 +845,6 @@ msgstr "Адмяніць дзеянне"
 
 msgid "Redo"
 msgstr "Абнавіць"
-
-msgid "Bold"
-msgstr "Тоўсты"
 
 msgid "Italic"
 msgstr "Нахільны"
@@ -961,6 +940,9 @@ msgstr "Ранні"
 
 msgid "Latest"
 msgstr "Апошні"
+
+msgid "Unschedule"
+msgstr "Адмяніць часовую публікацыю"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1098,9 +1080,23 @@ msgstr "Выдаліць старонку '%(title)s'"
 msgid "Unpublish page '%(title)s'"
 msgstr "Выдаліць з публікацыі '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Заголовак %(level)d"
+msgid "Heading 1"
+msgstr "Заголовак 1"
+
+msgid "Heading 2"
+msgstr "Заголовак 2"
+
+msgid "Heading 3"
+msgstr "Заголовак 3"
+
+msgid "Heading 4"
+msgstr "Заголовак 4"
+
+msgid "Heading 5"
+msgstr "Заголовак 5"
+
+msgid "Heading 6"
+msgstr "Заголовак 6"
 
 msgid "Bulleted list"
 msgstr "Маркіраваны спіс"
@@ -1110,6 +1106,9 @@ msgstr "Нумараваны спіс"
 
 msgid "Blockquote"
 msgstr "Цытата"
+
+msgid "Bold"
+msgstr "Тоўсты"
 
 msgid "Link"
 msgstr "Спасылка"

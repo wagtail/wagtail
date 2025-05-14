@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2023\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys), 2014,2021\n"
 "Language-Team: Polish (http://app.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -54,9 +54,6 @@ msgstr "Anuluj proces"
 msgid "Unpublish"
 msgstr "Cofnij publikację"
 
-msgid "Delete"
-msgstr "Usuń"
-
 msgid "Save"
 msgstr "Zapisz"
 
@@ -69,6 +66,9 @@ msgstr "%(label)s i Opublikuj"
 
 msgid "Wagtail snippets"
 msgstr "Skrawki Wagtail"
+
+msgid "Delete"
+msgstr "Usuń"
 
 msgid "Delete selected snippets"
 msgstr "Usuń wybrane skrawki"
@@ -173,14 +173,6 @@ msgstr "Instancje"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Więcej opcji dla '%(title)s'"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Edytuj ten %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "Historia %(model_name)s "
 
 msgid "Home"
 msgstr "Start"

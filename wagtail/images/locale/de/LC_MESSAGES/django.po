@@ -18,6 +18,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Krzysztof Jeziorny <github@jeziorny.net>, 2021,2024
 # afc855de1dd00c1e4f7aa3cae5754e5d_0bf750b <15c35d934145d5adf5690c1365dd87dc_240248>, 2014
+# mattibo, 2022
 # Matti Borchers, 2022
 # mattibo, 2022
 # Matt Westcott <matthew@torchbox.com>, 2022
@@ -38,9 +39,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>, 2021,2024\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e, 2015\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"

@@ -2,23 +2,26 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2022
 # 汇民 王 <whuim@qq.com>, 2022
-# First Last <abc+github@mynook.info>, 2022
 # 祝沙军 <zhushajun@gmail.com>, 2022
 # Vincent Zhao <zhaopu2008@gmail.com>, 2022
 # Ed <724195301@qq.com>, 2022
 # Favo Yang <favoyang@gmail.com>, 2022
 # Yin Guanhao <sopium@mysterious.site>, 2022
-# Ford Guo <agile.guo@gmail.com>, 2023
 # Loic Teixeira, 2024
+# Ford Guo <agile.guo@gmail.com>, 2025
+# First Last <abc+github@mynook.info>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
-"Language-Team: Chinese (China) (https://app.transifex.com/torchbox/"
-"teams/8009/zh_CN/)\n"
+"Last-Translator: First Last <abc+github@mynook.info>, 2025\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/torchbox/teams/"
+"8009/zh_CN/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Actions"
+msgstr "动作"
 
 msgid "Add a comment"
 msgstr "添加一个评论"
@@ -112,6 +115,9 @@ msgstr "页面"
 
 msgid "Pin toolbar"
 msgstr "固定工具栏"
+
+msgid "Preview"
+msgstr "预览"
 
 msgid "Reload saved content"
 msgstr "重新加载已保存内容"

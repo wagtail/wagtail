@@ -5,15 +5,15 @@
 # Translators:
 # Erlend Eelmets <debcf78e@opayq.com>, 2020
 # Erlend Eelmets <debcf78e@opayq.com>, 2020
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
 # Ragnar Rebase <rrebase@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Ragnar Rebase <rrebase@gmail.com>, 2020\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -399,10 +399,6 @@ msgstr "Jah, kustuta"
 msgid "No, don't delete"
 msgstr "Ei, ära kustuta"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Tühista %(title)s avaldamine"
-
 msgid "Yes, unpublish it"
 msgstr "Jah, tühista selle avaldamine"
 
@@ -420,13 +416,6 @@ msgstr "Kommentaar"
 
 msgid "Update"
 msgstr "Uuenda"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s võrdlemine"
-
-msgid "Comparing"
-msgstr "Võrreldes"
 
 msgid "Fields"
 msgstr "Väljad"
@@ -480,6 +469,9 @@ msgstr "Kuupäev"
 msgid "Site summary"
 msgstr "Saidi kokkuvõte"
 
+msgid "Close"
+msgstr "Sulge"
+
 msgid "Task started"
 msgstr "Ülesanne algas"
 
@@ -488,9 +480,6 @@ msgstr "Muudatused taotletud aadressil"
 
 msgid "Awaiting"
 msgstr "Ootan"
-
-msgid "Close"
-msgstr "Sulge"
 
 msgid "Awaiting your review"
 msgstr "Teie ülevaatuse ootamine"
@@ -842,10 +831,6 @@ msgstr "Mittetäielik ülesanne"
 msgid "Completed at"
 msgstr "Valmis kell"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Leht %(page_num)s lehtedest %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "Riivsai"
 
@@ -877,11 +862,8 @@ msgid "Visit the live page"
 msgstr "Külastage reaalajas lehte"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Tühista ajaversiooni %(revision.id)s %(title)s jaoks"
-
-msgid "Unschedule"
-msgstr "Ajakava tühistamine"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Leht %(page_num)s lehtedest %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Kas olete kindel, et soovite selle redigeerimise ajakava tühistada?"
@@ -1110,9 +1092,6 @@ msgstr "Võta tagasi"
 msgid "Redo"
 msgstr "Tee uuesti"
 
-msgid "Bold"
-msgstr "Julge"
-
 msgid "Italic"
 msgstr "Kursiiv"
 
@@ -1228,6 +1207,9 @@ msgstr "Varaseim"
 
 msgid "Latest"
 msgstr "Uusim"
+
+msgid "Unschedule"
+msgstr "Ajakava tühistamine"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1363,9 +1345,6 @@ msgid ""
 msgstr ""
 "Vaatate selle lehe eelmist versiooni <b>%(created_at)s</b> kasutajalt%(user)s"
 
-msgid "Page history"
-msgstr "Lehe ajalugu"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Lehe '%(page_title)s' avaldamine tühistati."
@@ -1462,9 +1441,6 @@ msgstr "Uus töövoo ülesanne"
 msgid "Task '%(object)s' created."
 msgstr "Ülesanne '%(object)s' on loodud."
 
-msgid "Editing workflow task"
-msgstr "Töövoo ülesande muutmine"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Ülesanne '%(object)s' on värskendatud."
@@ -1512,9 +1488,23 @@ msgstr "Lehe ' %(title)s' avaldamise tühistamine"
 msgid "View page history for '%(title)s'"
 msgstr "Kuva lehe ajalugu: %(title)s"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Pealkiri %(level)d"
+msgid "Heading 1"
+msgstr "Pealkiri 1"
+
+msgid "Heading 2"
+msgstr "Pealkiri 2"
+
+msgid "Heading 3"
+msgstr "Pealkiri 3"
+
+msgid "Heading 4"
+msgstr "Pealkiri 4"
+
+msgid "Heading 5"
+msgstr "Pealkiri 5"
+
+msgid "Heading 6"
+msgstr "Pealkiri 6"
 
 msgid "Bulleted list"
 msgstr "Täppidega loend"
@@ -1524,6 +1514,9 @@ msgstr "Numbriloend"
 
 msgid "Blockquote"
 msgstr "Blokeeri pakkumine"
+
+msgid "Bold"
+msgstr "Julge"
 
 msgid "Link"
 msgstr "Link"

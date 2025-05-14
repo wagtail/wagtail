@@ -3,7 +3,6 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse, reverse_lazy
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
-from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from draftjs_exporter.dom import DOM
 
@@ -41,6 +40,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 )
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
+from wagtail.admin.ui.menus.pages import PageMenuItem
 from wagtail.admin.ui.sidebar import (
     PageExplorerMenuItem as PageExplorerMenuItemComponent,
 )
@@ -52,7 +52,7 @@ from wagtail.admin.views.pages.bulk_actions import (
     UnpublishBulkAction,
 )
 from wagtail.admin.viewsets import viewsets
-from wagtail.admin.widgets import ButtonWithDropdownFromHook, PageListingButton
+from wagtail.admin.widgets import ButtonWithDropdownFromHook
 from wagtail.models import Collection, Page, Task, Workflow
 from wagtail.permissions import (
     collection_permission_policy,
@@ -232,8 +232,6 @@ def page_listing_buttons(page, user, next_url=None):
         next_url=next_url,
         icon_name="dots-horizontal",
         attrs={
-            "target": "_blank",
-            "rel": "noreferrer",
             "aria-label": _("More options for '%(title)s'")
             % {"title": page.get_admin_display_title()},
         },
@@ -241,77 +239,64 @@ def page_listing_buttons(page, user, next_url=None):
     )
 
 
-class PageListingEditButton(PageListingButton):
+class PageListingEditButton(PageMenuItem):
     label = _("Edit")
     icon_name = "edit"
-    aria_label_format = _("Edit '%(title)s'")
     url_name = "wagtailadmin_pages:edit"
 
-    @property
-    def show(self):
-        return self.page_perms.can_edit()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_edit()
 
 
-class PageListingViewDraftButton(PageListingButton):
+class PageListingViewDraftButton(PageMenuItem):
     label = _("View draft")
     icon_name = "draft"
-    aria_label_format = _("Preview draft version of '%(title)s'")
     url_name = "wagtailadmin_pages:view_draft"
-    attrs = {"rel": "noreferrer"}
+    link_rel = "noreferrer"
 
-    @property
-    def show(self):
+    def is_shown(self, user):
         return self.page.has_unpublished_changes and self.page.is_previewable()
 
 
-class PageListingViewLiveButton(PageListingButton):
+class PageListingViewLiveButton(PageMenuItem):
     label = _("View live")
     icon_name = "doc-empty"
-    aria_label_format = _("View live version of '%(title)s'")
-    attrs = {"rel": "noreferrer"}
+    link_rel = "noreferrer"
 
-    @property
-    def show(self):
+    def is_shown(self, user):
         return self.page.live and self.page.url
 
 
-class PageListingAddChildPageButton(PageListingButton):
+class PageListingAddChildPageButton(PageMenuItem):
     label = _("Add child page")
     icon_name = "circle-plus"
-    aria_label_format = _("Add a child page to '%(title)s'")
     url_name = "wagtailadmin_pages:add_subpage"
 
-    @property
-    def show(self):
-        return self.page_perms.can_add_subpage()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_add_subpage()
 
 
-class PageListingMoveButton(PageListingButton):
+class PageListingMoveButton(PageMenuItem):
     label = _("Move")
     icon_name = "arrow-right-full"
-    aria_label_format = _("Move page '%(title)s'")
     url_name = "wagtailadmin_pages:move"
 
-    @property
-    def show(self):
-        return self.page_perms.can_move()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_move()
 
 
-class PageListingCopyButton(PageListingButton):
+class PageListingCopyButton(PageMenuItem):
     label = _("Copy")
     icon_name = "copy"
-    aria_label_format = _("Copy page '%(title)s'")
     url_name = "wagtailadmin_pages:copy"
 
-    @property
-    def show(self):
-        return self.page_perms.can_copy()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_copy()
 
 
-class PageListingDeleteButton(PageListingButton):
+class PageListingDeleteButton(PageMenuItem):
     label = _("Delete")
     icon_name = "bin"
-    aria_label_format = _("Delete page '%(title)s'")
 
     @cached_property
     def url(self):
@@ -333,41 +318,34 @@ class PageListingDeleteButton(PageListingButton):
                     url += "?" + urlencode({"next": self.next_url})
             return url
 
-    @property
-    def show(self):
-        return self.page_perms.can_delete()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_delete()
 
 
-class PageListingUnpublishButton(PageListingButton):
+class PageListingUnpublishButton(PageMenuItem):
     label = _("Unpublish")
     icon_name = "download"
-    aria_label_format = _("Unpublish page '%(title)s'")
     url_name = "wagtailadmin_pages:unpublish"
 
-    @property
-    def show(self):
-        return self.page_perms.can_unpublish()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_unpublish()
 
 
-class PageListingHistoryButton(PageListingButton):
+class PageListingHistoryButton(PageMenuItem):
     label = _("History")
     icon_name = "history"
-    aria_label_format = _("View page history for '%(title)s'")
     url_name = "wagtailadmin_pages:history"
 
-    @property
-    def show(self):
-        return self.page_perms.can_view_revisions()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_view_revisions()
 
 
-class PageListingSortMenuOrderButton(PageListingButton):
+class PageListingSortMenuOrderButton(PageMenuItem):
     label = _("Sort menu order")
     icon_name = "list-ul"
-    aria_label_format = _("Change ordering of child pages of '%(title)s'")
 
-    @property
-    def show(self):
-        return self.page_perms.can_reorder_children()
+    def is_shown(self, user):
+        return self.page.permissions_for_user(user).can_reorder_children()
 
     @cached_property
     def url(self):
@@ -376,38 +354,32 @@ class PageListingSortMenuOrderButton(PageListingButton):
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, user, next_url=None):
-    yield PageListingEditButton(page=page, user=user, next_url=next_url, priority=2)
-    yield PageListingViewDraftButton(page=page, user=user, priority=4)
-    yield PageListingViewLiveButton(page=page, user=user, url=page.url, priority=6)
-    yield PageListingAddChildPageButton(
-        page=page, user=user, next_url=next_url, priority=8
-    )
-    yield PageListingMoveButton(page=page, user=user, priority=10)
-    yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=20)
-    yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=30)
-    yield PageListingUnpublishButton(
-        page=page, user=user, next_url=next_url, priority=40
-    )
-    yield PageListingHistoryButton(page=page, user=user, priority=50)
-    yield PageListingSortMenuOrderButton(page=page, user=user, priority=60)
+    yield PageListingEditButton(page=page, next_url=next_url, priority=2)
+    yield PageListingViewDraftButton(page=page, priority=4)
+    yield PageListingViewLiveButton(page=page, url=page.url, priority=6)
+    yield PageListingAddChildPageButton(page=page, next_url=next_url, priority=8)
+    yield PageListingMoveButton(page=page, priority=10)
+    yield PageListingCopyButton(page=page, next_url=next_url, priority=20)
+    yield PageListingDeleteButton(page=page, next_url=next_url, priority=30)
+    yield PageListingUnpublishButton(page=page, next_url=next_url, priority=40)
+    yield PageListingHistoryButton(page=page, priority=50)
+    yield PageListingSortMenuOrderButton(page=page, priority=60)
 
 
 @hooks.register("register_page_header_buttons")
 def page_header_buttons(page, user, view_name, next_url=None):
-    yield PageListingEditButton(page=page, user=user, priority=10)
+    yield PageListingEditButton(page=page, priority=10)
 
     # "add child" is a separate primary action on the index page
     if view_name != "index":
-        yield PageListingAddChildPageButton(page=page, user=user, priority=15)
+        yield PageListingAddChildPageButton(page=page, priority=15)
 
-    yield PageListingMoveButton(page=page, user=user, priority=20)
-    yield PageListingCopyButton(page=page, user=user, next_url=next_url, priority=30)
-    yield PageListingDeleteButton(page=page, user=user, next_url=next_url, priority=50)
-    yield PageListingUnpublishButton(
-        page=page, user=user, next_url=next_url, priority=60
-    )
-    yield PageListingHistoryButton(page=page, user=user, priority=65)
-    yield PageListingSortMenuOrderButton(page=page, user=user, priority=70)
+    yield PageListingMoveButton(page=page, priority=20)
+    yield PageListingCopyButton(page=page, next_url=next_url, priority=30)
+    yield PageListingDeleteButton(page=page, next_url=next_url, priority=50)
+    yield PageListingUnpublishButton(page=page, next_url=next_url, priority=60)
+    yield PageListingHistoryButton(page=page, priority=65)
+    yield PageListingSortMenuOrderButton(page=page, priority=70)
 
 
 @hooks.register("register_admin_urls")
@@ -495,7 +467,7 @@ def register_core_features(features):
             {
                 "icon": "h1",
                 "type": "header-one",
-                "description": gettext("Heading %(level)d") % {"level": 1},
+                "description": _("Heading 1"),
             }
         ),
     )
@@ -516,7 +488,7 @@ def register_core_features(features):
             {
                 "icon": "h2",
                 "type": "header-two",
-                "description": gettext("Heading %(level)d") % {"level": 2},
+                "description": _("Heading 2"),
             }
         ),
     )
@@ -537,7 +509,7 @@ def register_core_features(features):
             {
                 "icon": "h3",
                 "type": "header-three",
-                "description": gettext("Heading %(level)d") % {"level": 3},
+                "description": _("Heading 3"),
             }
         ),
     )
@@ -558,7 +530,7 @@ def register_core_features(features):
             {
                 "icon": "h4",
                 "type": "header-four",
-                "description": gettext("Heading %(level)d") % {"level": 4},
+                "description": _("Heading 4"),
             }
         ),
     )
@@ -579,7 +551,7 @@ def register_core_features(features):
             {
                 "icon": "h5",
                 "type": "header-five",
-                "description": gettext("Heading %(level)d") % {"level": 5},
+                "description": _("Heading 5"),
             }
         ),
     )
@@ -600,7 +572,7 @@ def register_core_features(features):
             {
                 "icon": "h6",
                 "type": "header-six",
-                "description": gettext("Heading %(level)d") % {"level": 6},
+                "description": _("Heading 6"),
             }
         ),
     )
@@ -621,7 +593,7 @@ def register_core_features(features):
             {
                 "type": "unordered-list-item",
                 "icon": "list-ul",
-                "description": gettext("Bulleted list"),
+                "description": _("Bulleted list"),
             }
         ),
     )
@@ -645,7 +617,7 @@ def register_core_features(features):
             {
                 "type": "ordered-list-item",
                 "icon": "list-ol",
-                "description": gettext("Numbered list"),
+                "description": _("Numbered list"),
             }
         ),
     )
@@ -669,7 +641,7 @@ def register_core_features(features):
             {
                 "type": "blockquote",
                 "icon": "openquote",
-                "description": gettext("Blockquote"),
+                "description": _("Blockquote"),
             }
         ),
     )
@@ -691,7 +663,7 @@ def register_core_features(features):
             {
                 "type": "BOLD",
                 "icon": "bold",
-                "description": gettext("Bold"),
+                "description": _("Bold"),
             }
         ),
     )
@@ -713,7 +685,7 @@ def register_core_features(features):
             {
                 "type": "ITALIC",
                 "icon": "italic",
-                "description": gettext("Italic"),
+                "description": _("Italic"),
             }
         ),
     )
@@ -736,7 +708,7 @@ def register_core_features(features):
             {
                 "type": "LINK",
                 "icon": "link",
-                "description": gettext("Link"),
+                "description": _("Link"),
                 # We want to enforce constraints on which links can be pasted into rich text.
                 # Keep only the attributes Wagtail needs.
                 "attributes": ["url", "id", "parentId"],
@@ -783,7 +755,7 @@ def register_core_features(features):
             {
                 "type": "SUPERSCRIPT",
                 "icon": "superscript",
-                "description": gettext("Superscript"),
+                "description": _("Superscript"),
             }
         ),
     )
@@ -804,7 +776,7 @@ def register_core_features(features):
             {
                 "type": "SUBSCRIPT",
                 "icon": "subscript",
-                "description": gettext("Subscript"),
+                "description": _("Subscript"),
             }
         ),
     )
@@ -825,7 +797,7 @@ def register_core_features(features):
             {
                 "type": "STRIKETHROUGH",
                 "icon": "strikethrough",
-                "description": gettext("Strikethrough"),
+                "description": _("Strikethrough"),
             }
         ),
     )
@@ -846,7 +818,7 @@ def register_core_features(features):
             {
                 "type": "CODE",
                 "icon": "code",
-                "description": gettext("Code"),
+                "description": _("Code"),
             }
         ),
     )

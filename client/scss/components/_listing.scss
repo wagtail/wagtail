@@ -1,3 +1,5 @@
+@use '../tools' as *;
+
 /* stylelint-disable selector-max-combinators */
 // General listings, like for pages, images or snippets
 ul.listing {
@@ -374,10 +376,12 @@ ul.listing {
       border-bottom: 0;
     }
 
+    th:first-child,
     td:first-child {
       padding-inline-start: theme('spacing.6');
     }
 
+    th:last-child,
     td:last-child {
       padding-inline-end: theme('spacing.6');
     }
@@ -477,6 +481,27 @@ table.listing {
 
 .pagination {
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @include media-breakpoint-up(sm) {
+    flex-wrap: nowrap;
+  }
+
+  &__start,
+  &__end {
+    display: flex;
+    flex: 1;
+    @include media-breakpoint-down(md) {
+      flex-basis: auto;
+    }
+  }
+
+  &__end {
+    justify-content: end;
+  }
 
   p {
     margin: 0;
@@ -484,19 +509,60 @@ table.listing {
 
   ul {
     @include unlist();
-    margin-top: -1.7em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: center;
   }
 
   li {
     line-height: 1em;
+    display: flex;
+    align-items: center;
+
+    a:not([href]) {
+      visibility: hidden;
+    }
+
+    a,
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.pagination__page-number {
+      a,
+      span {
+        font-weight: theme('fontWeight.medium');
+        height: theme('spacing.8');
+        min-width: theme('spacing.8');
+        margin: theme('spacing.1');
+      }
+
+      a {
+        border: 1px solid theme('colors.border-furniture');
+        border-radius: theme('borderRadius.sm');
+        color: theme('colors.text-label');
+      }
+
+      &.pagination__page-number--current a {
+        background-color: theme('colors.surface-button-default');
+        border-color: transparent;
+        color: theme('colors.text-button');
+      }
+
+      &:hover a {
+        background-color: theme('colors.surface-button-outline-hover');
+        border-color: theme('colors.border-button-outline-hover');
+        color: theme('colors.text-button-outline-hover');
+      }
+    }
   }
 
-  .prev {
-    float: inline-start;
-  }
-
+  .prev,
   .next {
-    float: inline-end;
+    margin: 0 0.5rem;
   }
 }
 

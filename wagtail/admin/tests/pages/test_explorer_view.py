@@ -17,7 +17,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.timestamps import local_datetime
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestPageExplorer(WagtailTestUtils, TestCase):
@@ -166,6 +165,50 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
             page_ids, [self.child_page.id, self.new_page.id, self.old_page.id]
         )
 
+    def test_ordering_by_content_type(self):
+        # Delete the child_page to avoid nondeterministic ordering with the
+        # new_page when ordering by content type, as they are the same type
+        self.child_page.delete()
+
+        event_page = SingleEventPage(
+            title="Wagtail Space 2025",
+            location="virtual",
+            audience="public",
+            cost="free",
+            date_from="2025-06-16",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        orderings = {
+            "content_type": (
+                [self.new_page.id, self.old_page.id, event_page.id],
+                "-content_type",
+            ),
+            "-content_type": (
+                [event_page.id, self.old_page.id, self.new_page.id],
+                "content_type",
+            ),
+        }
+        url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        for ordering, (pages, reverse_param) in orderings.items():
+            with self.subTest(ordering=ordering):
+                response = self.client.get(url, {"ordering": ordering})
+                self.assertEqual(response.status_code, 200)
+                self.assertTemplateUsed(
+                    response, "wagtailadmin/pages/explorable_index.html"
+                )
+                self.assertEqual(response.context["ordering"], ordering)
+
+                # Child pages should be ordered by content type
+                page_ids = [page.id for page in response.context["pages"]]
+                self.assertEqual(page_ids, pages)
+
+                # The type column should contain a link to order by content type
+                soup = self.get_soup(response.content)
+                thead = soup.select_one("main table thead")
+                link = thead.select_one(f"a[href='{url}?ordering={reverse_param}']")
+                self.assertIsNotNone(link)
+
     def test_ordering_search_results_by_created_at(self):
         response = self.client.get(
             reverse("wagtailadmin_explore", args=(self.root_page.id,)),
@@ -187,6 +230,16 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/pages/index.html")
+
+        # The type column should not contain a link to order by content type
+        soup = self.get_soup(response.content)
+        headings = soup.select("main table thead th")
+        type_th = None
+        for heading in headings:
+            if heading.text.strip() == "Type":
+                type_th = heading
+        self.assertIsNotNone(type_th)
+        self.assertIsNone(type_th.select_one("a"))
 
     def test_change_default_child_page_ordering_attribute(self):
         # save old get_default_order to reset at end of test
@@ -323,30 +376,6 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(
             page_ids, [self.old_page.id, self.new_page.id, self.child_page.id]
         )
-
-    def test_construct_page_listing_buttons_hook_with_old_signature(self):
-        def add_dummy_button(buttons, page, page_perms, context=None):
-            item = Button(
-                label="Dummy Button",
-                url="/dummy-button",
-                priority=10,
-            )
-            buttons.append(item)
-
-        with hooks.register_temporarily(
-            "construct_page_listing_buttons", add_dummy_button
-        ):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms`",
-            ):
-                response = self.client.get(
-                    reverse("wagtailadmin_explore", args=(self.root_page.id,))
-                )
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailadmin/pages/explorable_index.html")
-        self.assertContains(response, "Dummy Button")
-        self.assertContains(response, "/dummy-button")
 
     def test_construct_page_listing_buttons_hook_with_new_signature(self):
         def add_dummy_button(buttons, page, user, context=None):
@@ -689,7 +718,7 @@ class TestPageExplorer(WagtailTestUtils, TestCase):
         self.assertEqual(page_ids, {self.new_page.id, new_page_child.id})
         self.assertContainsActiveFilter(
             response,
-            "Date updated: Jan. 1, 2015 -",
+            "Date updated: Jan. 1, 2015 - any",
             "latest_revision_created_at_from=2015-01-01",
         )
 

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Martin <martinpajuste@gmail.com>, 2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020\n"
 "Language-Team: Estonian (http://app.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,9 @@ msgstr "Üles liikuma"
 
 msgid "Move down"
 msgstr "Mine alla"
+
+msgid "Drag"
+msgstr "Vedama"
 
 msgid "Delete"
 msgstr "Kustuta"
@@ -73,8 +76,24 @@ msgstr "Lukustatud"
 msgid "Unlocked"
 msgstr "Lukustamata"
 
-msgid "latest revision"
-msgstr "uusim redaktsioon"
+msgid "content type"
+msgstr "sisu tüüp"
+
+msgid "timestamp (UTC)"
+msgstr "ajatempel (UTC)"
+
+msgid "log entry"
+msgstr "logikanne"
+
+msgid "log entries"
+msgstr "logikirjed"
+
+msgid "system"
+msgstr "süsteemi"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Tundmatu %(action)s"
 
 msgid "live"
 msgstr "elama"
@@ -112,9 +131,6 @@ msgstr "otse + plaanitud"
 msgid "live + draft"
 msgstr "otse + mustand"
 
-msgid "Default"
-msgstr "Vaikimisi"
-
 msgid "locked"
 msgstr "lukus"
 
@@ -124,11 +140,35 @@ msgstr "lukustatud kell"
 msgid "locked by"
 msgstr "lukustatud"
 
-msgid "in moderation"
-msgstr "mõõdukalt"
+msgid "collection"
+msgstr "kollektsioon"
 
-msgid "live + in moderation"
-msgstr "live + mõõdukalt"
+msgid "collection view restriction"
+msgstr "kogu vaatamise piirang"
+
+msgid "collection view restrictions"
+msgstr "kogu vaatamise piirangud"
+
+msgid "name"
+msgstr "nimi"
+
+msgid "collections"
+msgstr "kollektsioonid"
+
+msgid "group"
+msgstr "Grupp"
+
+msgid "permission"
+msgstr "luba"
+
+msgid "group collection permission"
+msgstr "grupi kogumise luba"
+
+msgid "group collection permissions"
+msgstr "grupikogude load"
+
+msgid "uploaded by user"
+msgstr "kasutaja üles laaditud"
 
 msgid "Add/edit pages you own"
 msgstr "Lisage / muutke omatavaid lehti"
@@ -179,9 +219,6 @@ msgstr ""
 "Lehe nimi sellisena, nagu see URL-ides ilmub, nt http://domain.com/blog/[my-"
 "slug]/"
 
-msgid "content type"
-msgstr "sisu tüüp"
-
 msgid "URL path"
 msgstr "URL-i tee"
 
@@ -204,30 +241,6 @@ msgstr "lehele"
 msgid "pages"
 msgstr "lehekülgi"
 
-msgid "created at"
-msgstr "loodud aadressil"
-
-msgid "user"
-msgstr "kasutaja"
-
-msgid "content JSON"
-msgstr "sisu JSON"
-
-msgid "approved go live at"
-msgstr "heakskiidetud otseülekanne kell"
-
-msgid "revision"
-msgstr "redaktsioon"
-
-msgid "revisions"
-msgstr "redaktsioonid"
-
-msgid "group"
-msgstr "Grupp"
-
-msgid "permission"
-msgstr "luba"
-
 msgid "group page permission"
 msgstr "grupilehe luba"
 
@@ -249,112 +262,6 @@ msgstr "töövoo leht"
 msgid "workflow pages"
 msgstr "töövoo lehed"
 
-msgid "workflow_tasks"
-msgstr "töövoo_ülesanded"
-
-msgid "task"
-msgstr "ülesanne"
-
-msgid "workflow task order"
-msgstr "töövoo ülesannete järjekord"
-
-msgid "workflow task orders"
-msgstr "töövoo ülesannete tellimused"
-
-msgid "name"
-msgstr "nimi"
-
-msgid "active"
-msgstr "aktiivne"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Töövoogudesse saab lisada aktiivseid ülesandeid. Ülesande desaktiveerimine "
-"ei eemalda seda olemasolevatest töövoogudest."
-
-msgid "tasks"
-msgstr "ülesandeid"
-
-msgid "workflows"
-msgstr "töövood"
-
-msgid "groups"
-msgstr "rühmadesse"
-
-msgid "Request changes"
-msgstr "Taotle muudatusi"
-
-msgid "Approve"
-msgstr "Kinnita"
-
-msgid "Approve with comment"
-msgstr "Kinnitage kommentaariga"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Valitud Wagtail Groupsi liikmed saavad selle ülesande heaks kiita"
-
-msgid "Group approval task"
-msgstr "Grupi kinnitamise ülesanne"
-
-msgid "Group approval tasks"
-msgstr "Grupi kinnitamise ülesanded"
-
-msgid "In progress"
-msgstr "Pooleli"
-
-msgid "Approved"
-msgstr "Heaks kiidetud"
-
-msgid "Needs changes"
-msgstr "Vajab muudatusi"
-
-msgid "Cancelled"
-msgstr "Tühistatud"
-
-msgid "status"
-msgstr "staatus"
-
-msgid "requested by"
-msgstr "nõutud"
-
-msgid "current task state"
-msgstr "praegune ülesande olek"
-
-msgid "Not started"
-msgstr "Alustamata"
-
-msgid "Workflow state"
-msgstr "Töövoo olek"
-
-msgid "Workflow states"
-msgstr "Töövoo olekud"
-
-msgid "Rejected"
-msgstr "Tagasi lükatud"
-
-msgid "Skipped"
-msgstr "Jäeti vahele"
-
-msgid "workflow state"
-msgstr "töövoo olek"
-
-msgid "started at"
-msgstr "algas kell"
-
-msgid "finished at"
-msgstr "valmis kell"
-
-msgid "finished by"
-msgstr "valmis"
-
-msgid "Task state"
-msgstr "Ülesande olek"
-
-msgid "Task states"
-msgstr "Ülesande seisud"
-
 msgid "page log entry"
 msgstr "lehelogi kirje"
 
@@ -364,42 +271,29 @@ msgstr "lehelogi kirjed"
 msgid "Draft saved"
 msgstr "Mustand on salvestatud"
 
-msgid "timestamp (UTC)"
-msgstr "ajatempel (UTC)"
+msgid "Default"
+msgstr "Vaikimisi"
 
-msgid "log entry"
-msgstr "logikanne"
+msgid "created at"
+msgstr "loodud aadressil"
 
-msgid "log entries"
-msgstr "logikirjed"
+msgid "user"
+msgstr "kasutaja"
 
-msgid "system"
-msgstr "süsteemi"
+msgid "content JSON"
+msgstr "sisu JSON"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Tundmatu %(action)s"
+msgid "approved go live at"
+msgstr "heakskiidetud otseülekanne kell"
 
-msgid "collection"
-msgstr "kollektsioon"
+msgid "revision"
+msgstr "redaktsioon"
 
-msgid "collection view restriction"
-msgstr "kogu vaatamise piirang"
+msgid "revisions"
+msgstr "redaktsioonid"
 
-msgid "collection view restrictions"
-msgstr "kogu vaatamise piirangud"
-
-msgid "collections"
-msgstr "kollektsioonid"
-
-msgid "group collection permission"
-msgstr "grupi kogumise luba"
-
-msgid "group collection permissions"
-msgstr "grupikogude load"
-
-msgid "uploaded by user"
-msgstr "kasutaja üles laaditud"
+msgid "latest revision"
+msgstr "uusim redaktsioon"
 
 msgid "hostname"
 msgstr "hostinimi"
@@ -458,11 +352,120 @@ msgstr "Avalik"
 msgid "Private, accessible to users in specific groups"
 msgstr "Privaatne, juurdepääsetav teatud gruppide kasutajatele"
 
+msgid "groups"
+msgstr "rühmadesse"
+
 msgid "view restriction"
 msgstr "vaatamise piiramine"
 
 msgid "view restrictions"
 msgstr "vaatamise piirangud"
+
+msgid "In progress"
+msgstr "Pooleli"
+
+msgid "Approved"
+msgstr "Heaks kiidetud"
+
+msgid "Needs changes"
+msgstr "Vajab muudatusi"
+
+msgid "Cancelled"
+msgstr "Tühistatud"
+
+msgid "status"
+msgstr "staatus"
+
+msgid "requested by"
+msgstr "nõutud"
+
+msgid "current task state"
+msgstr "praegune ülesande olek"
+
+msgid "Not started"
+msgstr "Alustamata"
+
+msgid "Workflow state"
+msgstr "Töövoo olek"
+
+msgid "Workflow states"
+msgstr "Töövoo olekud"
+
+msgid "active"
+msgstr "aktiivne"
+
+msgid "workflows"
+msgstr "töövood"
+
+msgid "workflow_tasks"
+msgstr "töövoo_ülesanded"
+
+msgid "task"
+msgstr "ülesanne"
+
+msgid "workflow task order"
+msgstr "töövoo ülesannete järjekord"
+
+msgid "workflow task orders"
+msgstr "töövoo ülesannete tellimused"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Töövoogudesse saab lisada aktiivseid ülesandeid. Ülesande desaktiveerimine "
+"ei eemalda seda olemasolevatest töövoogudest."
+
+msgid "tasks"
+msgstr "ülesandeid"
+
+msgid "Request changes"
+msgstr "Taotle muudatusi"
+
+msgid "Approve"
+msgstr "Kinnita"
+
+msgid "Approve with comment"
+msgstr "Kinnitage kommentaariga"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Valitud Wagtail Groupsi liikmed saavad selle ülesande heaks kiita"
+
+msgid "Group approval task"
+msgstr "Grupi kinnitamise ülesanne"
+
+msgid "Group approval tasks"
+msgstr "Grupi kinnitamise ülesanded"
+
+msgid "Rejected"
+msgstr "Tagasi lükatud"
+
+msgid "Skipped"
+msgstr "Jäeti vahele"
+
+msgid "workflow state"
+msgstr "töövoo olek"
+
+msgid "started at"
+msgstr "algas kell"
+
+msgid "finished at"
+msgstr "valmis kell"
+
+msgid "finished by"
+msgstr "valmis"
+
+msgid "Task state"
+msgstr "Ülesande olek"
+
+msgid "Task states"
+msgstr "Ülesande seisud"
+
+msgid "in moderation"
+msgstr "mõõdukalt"
+
+msgid "live + in moderation"
+msgstr "live + mõõdukalt"
 
 msgid "Log in"
 msgstr "Logi sisse"

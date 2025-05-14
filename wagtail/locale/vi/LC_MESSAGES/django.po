@@ -4,15 +4,16 @@
 #
 # Translators:
 # stdpi, 2024
+# stdpi, 2024
 # Vu Pham, 2021
 # Vu Pham, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: stdpi, 2024\n"
+"Last-Translator: Vu Pham, 2021\n"
 "Language-Team: Vietnamese (http://app.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -51,8 +52,11 @@ msgstr "đã hết hạn"
 msgid "draft"
 msgstr "bản nháp"
 
-msgid "Default"
-msgstr "Mặc định"
+msgid "name"
+msgstr "tên"
+
+msgid "uploaded by user"
+msgstr "Được tải lên bởi người dùng"
 
 msgid "Edit"
 msgstr "Biên tập"
@@ -72,6 +76,9 @@ msgstr "tiêu đề"
 msgid "owner"
 msgstr "chủ sở hữu"
 
+msgid "Default"
+msgstr "Mặc định"
+
 msgid "created at"
 msgstr "Được tạo lúc"
 
@@ -81,17 +88,14 @@ msgstr "người dùng"
 msgid "content JSON"
 msgstr "nội dung JSON"
 
-msgid "name"
-msgstr "tên"
+msgid "default"
+msgstr "mặc định"
+
+msgid "Public"
+msgstr "Công khai"
 
 msgid "groups"
 msgstr "Nhóm"
-
-msgid "Approve"
-msgstr "Phê chuẩn"
-
-msgid "Approve with comment"
-msgstr "Phê chuẩn với bình luận"
 
 msgid "Approved"
 msgstr "Đã được phê chuẩn"
@@ -102,14 +106,11 @@ msgstr "trạng thái"
 msgid "requested by"
 msgstr "được yêu cầu bởi"
 
-msgid "uploaded by user"
-msgstr "Được tải lên bởi người dùng"
+msgid "Approve"
+msgstr "Phê chuẩn"
 
-msgid "default"
-msgstr "mặc định"
-
-msgid "Public"
-msgstr "Công khai"
+msgid "Approve with comment"
+msgstr "Phê chuẩn với bình luận"
 
 msgid "Deleted"
 msgstr "Đã xóa"

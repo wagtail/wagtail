@@ -2,16 +2,20 @@ import json
 
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import translation
+from django.utils.translation import gettext
 
 from wagtail import hooks
 from wagtail.admin.userbar import AccessibilityItem
 from wagtail.coreutils import get_dummy_request
-from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
+from wagtail.test.context_processors import get_call_count, reset_call_count
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.users.models import UserProfile
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class TestUserbarTag(WagtailTestUtils, TestCase):
@@ -441,11 +445,13 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
         self.homepage.add_child(instance=self.page)
 
     def test_userbar_rendered(self):
+        reset_call_count()
         response = self.page.serve(self.request)
         response.render()
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<template id="wagtail-userbar-template">')
+        self.assertEqual(get_call_count(), 1)
 
     def test_userbar_anonymous_user_cannot_see(self):
         self.request.user = AnonymousUser()
@@ -479,17 +485,71 @@ class TestUserbarInPageServe(WagtailTestUtils, TestCase):
             kwargs["called"] = True
             return items
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position",
-        ), hooks.register_temporarily(
-            "construct_wagtail_userbar",
-            construct_wagtail_userbar,
+        with (
+            self.assertWarnsMessage(
+                RemovedInWagtail80Warning,
+                "`construct_wagtail_userbar` hook functions should accept a "
+                "`page` argument in third position",
+            ),
+            hooks.register_temporarily(
+                "construct_wagtail_userbar",
+                construct_wagtail_userbar,
+            ),
         ):
             response = self.page.serve(self.request)
             response.render()
 
             self.assertTrue(kwargs.get("called"))
+
+    @override_settings(
+        WAGTAIL_I18N_ENABLED=True,
+        WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
+        WAGTAILADMIN_PERMITTED_LANGUAGES=[("en", "English")],
+        LANGUAGE_CODE="en",
+    )
+    def test_userbar_rendered_in_admin_permitted_language_if_user_has_no_language(self):
+        french = Locale.objects.create(language_code="fr")
+        self.homepage.copy_for_translation(french)
+        french_page = self.page.copy_for_translation(french)
+
+        with translation.override("fr"):
+            response = french_page.serve(self.request)
+            response.render()
+
+        self.assertContains(response, "Go to Wagtail admin")
+
+    @override_settings(
+        WAGTAIL_I18N_ENABLED=True,
+        WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
+        LANGUAGE_CODE="en",
+    )
+    def test_userbar_rendered_in_active_language_if_admin_permitted(self):
+        french = Locale.objects.create(language_code="fr")
+        self.homepage.copy_for_translation(french)
+        french_page = self.page.copy_for_translation(french)
+
+        with translation.override("fr"):
+            response = french_page.serve(self.request)
+            response.render()
+
+        with translation.override("fr"):
+            expected_text = gettext("Go to Wagtail admin")
+        self.assertContains(response, expected_text)
+
+    @override_settings(LANGUAGE_CODE="en")
+    def test_userbar_rendered_in_user_preferred_language(self):
+        profile = UserProfile.get_for_user(self.user)
+        profile.preferred_language = "fr"
+        profile.save()
+
+        response = self.page.serve(self.request)
+        response.render()
+
+        # Ensure we have a French string without tests failing if translation changes
+        with translation.override("fr"):
+            expected_text = gettext("Go to Wagtail admin")
+        self.assertNotEqual(expected_text, "Go to Wagtail admin")
+        self.assertContains(response, expected_text)
 
 
 class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
@@ -522,12 +582,16 @@ class TestUserbarHooksForChecksPanel(WagtailTestUtils, TestCase):
             kwargs["called"] = True
             return items
 
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position",
-        ), hooks.register_temporarily(
-            "construct_wagtail_userbar",
-            construct_wagtail_userbar,
+        with (
+            self.assertWarnsMessage(
+                RemovedInWagtail80Warning,
+                "`construct_wagtail_userbar` hook functions should accept a "
+                "`page` argument in third position",
+            ),
+            hooks.register_temporarily(
+                "construct_wagtail_userbar",
+                construct_wagtail_userbar,
+            ),
         ):
             response = self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))

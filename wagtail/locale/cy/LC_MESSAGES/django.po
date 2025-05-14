@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Welsh (http://app.transifex.com/torchbox/wagtail/language/"
@@ -43,8 +43,11 @@ msgstr "Sylw"
 msgid "Locked"
 msgstr "Wedi' gloi"
 
-msgid "Default"
-msgstr "Diofyn"
+msgid "name"
+msgstr "enw"
+
+msgid "uploaded by user"
+msgstr "wedi'i uwchlwytho gan ddefnyddiwr"
 
 msgid "Edit"
 msgstr "Golygu"
@@ -61,26 +64,29 @@ msgstr "Datgloi"
 msgid "title"
 msgstr "teitl"
 
+msgid "For search engines"
+msgstr "Ar gyfer peiriannau chwilio"
+
+msgid "For site menus"
+msgstr "Ar gyfer ddewislen safle"
+
 msgid "page"
 msgstr "tudalen"
 
+msgid "Default"
+msgstr "Diofyn"
+
 msgid "created at"
 msgstr "creu yn"
-
-msgid "name"
-msgstr "enw"
-
-msgid "groups"
-msgstr "grwpiau"
-
-msgid "uploaded by user"
-msgstr "wedi'i uwchlwytho gan ddefnyddiwr"
 
 msgid "site"
 msgstr "safle"
 
 msgid "default"
 msgstr "diofyn"
+
+msgid "groups"
+msgstr "grwpiau"
 
 msgid "Continue"
 msgstr "Parhau"

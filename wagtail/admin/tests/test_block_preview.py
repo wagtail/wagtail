@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
+from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.test.utils import WagtailTestUtils
@@ -24,6 +25,7 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
             description="A single line of text",
             preview_value="Hello, world!",
         )
+        block.set_name("single_line_text")
         response = self.get(block)
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
@@ -44,6 +46,9 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         main = soup.select_one("main")
         self.assertIsNotNone(main)
         self.assertEqual(main.text.strip(), "Hello, world!")
+
+        wrapper = main.select_one("div.block-single_line_text")
+        self.assertIsNotNone(wrapper)
 
     def test_nonexisting_block(self):
         response = self.client.get(reverse("wagtailadmin_block_preview"))
@@ -150,6 +155,11 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
             ("meta", PreviewValueViaMeta()),
             ("method", PreviewValueViaMethod()),
             ("kwarg", blocks.Block(preview_value="Hello, world!")),
+            ("localized", blocks.Block(preview_value=_("Hello, world!"))),
+            (
+                "localized_rich_text",
+                blocks.RichTextBlock(preview_value=_("<p>Hello, world!</p>")),
+            ),
         ]
 
         for via, block in cases:

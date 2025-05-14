@@ -10,10 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, "
-"2015-2018,2022-2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2022\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -45,9 +44,6 @@ msgstr "Hætta við vinnuflæði"
 msgid "Unpublish"
 msgstr "Taka úr loftinu"
 
-msgid "Delete"
-msgstr "Eyða"
-
 msgid "Save"
 msgstr "Vista"
 
@@ -60,6 +56,9 @@ msgstr "%(label)s og setja í birtingu"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snifsi"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Delete selected snippets"
 msgstr "Eyða völdum snifsum"
@@ -159,14 +158,6 @@ msgstr "Færslur"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Fleiri valmöguleikar fyrir '%(title)s'"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Breyta þessu %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "%(model_name)s saga"
 
 msgid "Home"
 msgstr "Heim"

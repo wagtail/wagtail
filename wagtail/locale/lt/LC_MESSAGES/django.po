@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://app.transifex.com/torchbox/wagtail/"
@@ -45,6 +45,9 @@ msgstr "Perkelti aukštyn"
 msgid "Move down"
 msgstr "Perkelti žemyn"
 
+msgid "Drag"
+msgstr "Tempti"
+
 msgid "Duplicate"
 msgstr "Dubliuoti"
 
@@ -74,6 +77,9 @@ msgstr "Užrakinta"
 
 msgid "Unlocked"
 msgstr "Atrakinta"
+
+msgid "content type"
+msgstr "turinio tipas"
 
 msgid "live"
 msgstr "veikiantis"
@@ -108,11 +114,35 @@ msgstr "veikiantis + suplanuotas"
 msgid "live + draft"
 msgstr "veikiantis + juodraštis"
 
-msgid "Default"
-msgstr "Numatytasis"
-
 msgid "locked"
 msgstr "Užrakintas"
+
+msgid "collection"
+msgstr "kolekcija"
+
+msgid "collection view restriction"
+msgstr "žiūrėti kolekcijos apribojimą"
+
+msgid "collection view restrictions"
+msgstr "žiūrėti kolekcijos apribojimus"
+
+msgid "name"
+msgstr "pavadinimas"
+
+msgid "collections"
+msgstr "kolekcijos"
+
+msgid "group"
+msgstr "grupė"
+
+msgid "permission"
+msgstr "leidimai"
+
+msgid "group collection permission"
+msgstr "grupės kolekcijos leidimas"
+
+msgid "uploaded by user"
+msgstr "įkelta vartotojo"
 
 msgid "Add/edit pages you own"
 msgstr "Pridėti/redaguoti puslapius kurie jums priklauso"
@@ -160,9 +190,6 @@ msgstr ""
 "Puslapio pavadinimas, kuris bus atvaizduojamas URL, pvz. http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "content type"
-msgstr "turinio tipas"
-
 msgid "URL path"
 msgstr "URL kelias"
 
@@ -199,29 +226,17 @@ msgstr ""
 msgid "latest revision created at"
 msgstr "paskutinė revizija sukurta"
 
+msgid "For search engines"
+msgstr "Paieškos varikliams"
+
+msgid "For site menus"
+msgstr "Tinklalapio meniu"
+
 msgid "page"
 msgstr "puslapis"
 
 msgid "pages"
 msgstr "puslapiai"
-
-msgid "created at"
-msgstr "sukurta"
-
-msgid "user"
-msgstr "vartotojas"
-
-msgid "content JSON"
-msgstr "turinys JSON"
-
-msgid "approved go live at"
-msgstr "patvirtintas įjungimas"
-
-msgid "group"
-msgstr "grupė"
-
-msgid "permission"
-msgstr "leidimai"
 
 msgid "group page permission"
 msgstr "grupės puslapio leidimas"
@@ -235,21 +250,6 @@ msgstr "puslapio peržiūros apribojimas"
 msgid "page view restrictions"
 msgstr "puslapio peržiūros apribojimai"
 
-msgid "name"
-msgstr "pavadinimas"
-
-msgid "groups"
-msgstr "grupės"
-
-msgid "Approve"
-msgstr "Patvirtinti"
-
-msgid "Approve with comment"
-msgstr "Patvirtinti su komentaru"
-
-msgid "current task state"
-msgstr "dabartinė užduoties būsena"
-
 msgid "Draft saved"
 msgstr "Juodraštis išsaugotas"
 
@@ -259,23 +259,20 @@ msgstr "komentaras"
 msgid "comments"
 msgstr "komentarai"
 
-msgid "collection"
-msgstr "kolekcija"
+msgid "Default"
+msgstr "Numatytasis"
 
-msgid "collection view restriction"
-msgstr "žiūrėti kolekcijos apribojimą"
+msgid "created at"
+msgstr "sukurta"
 
-msgid "collection view restrictions"
-msgstr "žiūrėti kolekcijos apribojimus"
+msgid "user"
+msgstr "vartotojas"
 
-msgid "collections"
-msgstr "kolekcijos"
+msgid "content JSON"
+msgstr "turinys JSON"
 
-msgid "group collection permission"
-msgstr "grupės kolekcijos leidimas"
-
-msgid "uploaded by user"
-msgstr "įkelta vartotojo"
+msgid "approved go live at"
+msgstr "patvirtintas įjungimas"
 
 msgid "hostname"
 msgstr "svetainės kompiuterio vardas"
@@ -334,11 +331,23 @@ msgstr "Viešas"
 msgid "Private, accessible to users in specific groups"
 msgstr "Privatu, pasiekiama specifinėse grupėse esantiems vartotojams"
 
+msgid "groups"
+msgstr "grupės"
+
 msgid "view restriction"
 msgstr "žiūrėti apribojimą"
 
 msgid "view restrictions"
 msgstr "žiūrėti apribojimus"
+
+msgid "current task state"
+msgstr "dabartinė užduoties būsena"
+
+msgid "Approve"
+msgstr "Patvirtinti"
+
+msgid "Approve with comment"
+msgstr "Patvirtinti su komentaru"
 
 msgid "Log in"
 msgstr "Prisijungti"

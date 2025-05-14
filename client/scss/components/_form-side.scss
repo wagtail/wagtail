@@ -1,6 +1,7 @@
 @use 'sass:color';
 @use 'sass:map';
 @use 'sass:math';
+@use '../tools' as *;
 
 .side-panel-open {
   @apply w-overflow-y-hidden sm:w-overflow-y-auto;

@@ -1,6 +1,6 @@
 import unittest
-
 import zoneinfo
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -117,6 +117,25 @@ class TestAuthentication(WagtailTestUtils, TestCase):
 
         # Check that the user was redirected to the login page
         self.assertRedirects(response, reverse("wagtailadmin_login"))
+
+        # Check that the user was logged out
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    @override_settings(WAGTAILADMIN_LOGIN_URL="fallback")
+    def test_logout_redirect_with_custom_login_url(self):
+        """
+        This tests that if the WAGTAILADMIN_LOGIN_URL setting is customized,
+        the user will be redirected to that URL when logging out of the admin.
+        """
+        # Login
+        self.login()
+
+        # Get logout page
+        response = self.client.post(reverse("wagtailadmin_logout"))
+
+        # Check that the user was redirected to the URL set for the
+        # WAGTAILADMIN_LOGIN_URL setting
+        self.assertRedirects(response, reverse("fallback"))
 
         # Check that the user was logged out
         self.assertNotIn("_auth_user_id", self.client.session)

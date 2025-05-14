@@ -10,13 +10,15 @@
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2019,2021,2024
 # Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2021
+# Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>, 2016-2019,2021,2024\n"
+"Last-Translator: Rodrigo Sottomaior Macedo "
+"<sottomaiormacedotec@sottomaiormacedo.tech>, 2021\n"
 "Language-Team: Portuguese (Brazil) (http://app.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -49,9 +51,6 @@ msgstr "Cancelar fluxo de trabalho"
 msgid "Unpublish"
 msgstr "Despublicar"
 
-msgid "Delete"
-msgstr "Excluir"
-
 msgid "Save"
 msgstr "Salvar"
 
@@ -64,6 +63,9 @@ msgstr "%(label)s e publicar"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
+
+msgid "Delete"
+msgstr "Excluir"
 
 msgid "Delete selected snippets"
 msgstr "Excluir snippets selecionados"
@@ -156,14 +158,6 @@ msgstr "Instâncias"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Mais opções para '%(title)s'"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Editar %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "%(model_name)s histórico"
 
 msgid "Home"
 msgstr "Página inicial"

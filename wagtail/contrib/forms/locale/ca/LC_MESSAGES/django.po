@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023
+# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2016-2017,2020,2023,2025\n"
 "Language-Team: Catalan (http://app.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -30,10 +30,19 @@ msgstr "Data de fi"
 
 #, python-format
 msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
+"The name '%(duplicate_clean_name)s' is already assigned to this field and "
+"cannot be changed. Please enter a different label for the conflicting field."
 msgstr ""
-"Hi ha un altre camp amb l'etiqueta %(label_name)s, canvieu una d'elles."
+"El nom '%(duplicate_clean_name)s' ja està assignat a aquest camp i no pot "
+"ser modificat. Introduïu una etiqueta diferent per al camp en conflicte."
+
+#, python-format
+msgid ""
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
+msgstr ""
+"El nom de camp '%(duplicate_clean_name)s' entra en conflicte amb un altre "
+"camp. Canvieu l'etiqueta."
 
 msgid "Single line text"
 msgstr "Text d'una sola línia"

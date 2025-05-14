@@ -10,16 +10,16 @@
 # mahulst, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2015
-# Storm Heg <storm@stormbase.digital>, 2021-2024
+# Storm Heg <storm@stormbase.digital>, 2021-2025
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:05+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021-2024\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -448,8 +448,7 @@ msgid ""
 "required."
 msgstr ""
 "Upload geslaagd. Voorzie deze afbeelding van een betere titel, indien nodig. "
-"Je kunt ook de afbeelding helemaal verwijderen indien de upload onnodig "
-"bleek. "
+"Je kunt de afbeelding ook verwijderen indien deze toch niet nodig is."
 
 msgid ""
 "Upload successful. However, your new image seems to be a duplicate of this "

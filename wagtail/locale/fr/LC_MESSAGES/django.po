@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # Aurélien Debord <contact@aureliendebord.com>, 2017
 # Benoît Vogel <contact@spicy-informatique.com>, 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023-2024\n"
+"Last-Translator: Tom Dyson <tom@torchbox.com>, 2015\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +57,9 @@ msgstr "Monter"
 
 msgid "Move down"
 msgstr "Descendre"
+
+msgid "Drag"
+msgstr "Glisser"
 
 msgid "Duplicate"
 msgstr "Dupliquer"
@@ -195,8 +199,34 @@ msgstr "Verrouillé(e) par programmation"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Actuellement verrouillé(e) et sera publié(e) à la date programmée"
 
-msgid "latest revision"
-msgstr "dernière version"
+msgid "content type"
+msgstr "type de contenu"
+
+msgid "timestamp (UTC)"
+msgstr "horodatage (UTC)"
+
+msgid "log entry"
+msgstr "entrée de journal"
+
+msgid "log entries"
+msgstr "entrées de journal"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "L'action de journal « %(action_name)s » n'a pas été déclarée."
+
+msgid "system"
+msgstr "système"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s inconnu(e)"
+
+msgid "model log entry"
+msgstr "entrée de journal de modèle"
+
+msgid "model log entries"
+msgstr "entrées de journal de modèle"
 
 msgid "live"
 msgstr "publiée"
@@ -234,17 +264,8 @@ msgstr "publiée + programmée"
 msgid "live + draft"
 msgstr "publiée + brouillon"
 
-msgid "Default"
-msgstr "Par défaut"
-
-msgid "Preview in mobile size"
-msgstr "Prévisualiser au format mobile"
-
-msgid "Preview in tablet size"
-msgstr "Prévisualiser au format tablette"
-
-msgid "Preview in desktop size"
-msgstr "Prévisualiser au format ordinateur de bureau"
+msgid "locale"
+msgstr "région"
 
 msgid "locked"
 msgstr "verrouillé"
@@ -255,11 +276,38 @@ msgstr "Verrouillé à"
 msgid "locked by"
 msgstr "Verrouillé par"
 
-msgid "in moderation"
-msgstr "en cours de modération"
+msgid "collection"
+msgstr "collection"
 
-msgid "live + in moderation"
-msgstr "publiée + en cours de modération"
+msgid "collection view restriction"
+msgstr "confidentialité de collection"
+
+msgid "collection view restrictions"
+msgstr "confidentialités de collection"
+
+msgid "name"
+msgstr "nom"
+
+msgid "collections"
+msgstr "collections"
+
+msgid "group"
+msgstr "groupe"
+
+msgid "permission"
+msgstr "permission"
+
+msgid "group collection permission"
+msgstr "permission de collection de groupe"
+
+msgid "group collection permissions"
+msgstr "permission de collection de groupe"
+
+msgid "for content type"
+msgstr "pour le type de contenu"
+
+msgid "uploaded by user"
+msgstr "transféré par l'utilisateur"
 
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
@@ -310,9 +358,6 @@ msgstr ""
 "Le nom de la page comme elle apparaîtra dans l'URL e.g http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "content type"
-msgstr "type de contenu"
-
 msgid "URL path"
 msgstr "URL"
 
@@ -351,6 +396,12 @@ msgstr ""
 msgid "latest revision created at"
 msgstr "dernière version créée le"
 
+msgid "For search engines"
+msgstr "Pour les moteurs de recherche"
+
+msgid "For site menus"
+msgstr "Pour les menus du site"
+
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use within the parent page at "
@@ -364,33 +415,6 @@ msgstr "page"
 
 msgid "pages"
 msgstr "pages"
-
-msgid "object id"
-msgstr "ID de l'objet"
-
-msgid "created at"
-msgstr "créé à"
-
-msgid "user"
-msgstr "utilisateur"
-
-msgid "content JSON"
-msgstr "contenu JSON"
-
-msgid "approved go live at"
-msgstr "publication approuvée le"
-
-msgid "revision"
-msgstr "version"
-
-msgid "revisions"
-msgstr "versions"
-
-msgid "group"
-msgstr "groupe"
-
-msgid "permission"
-msgstr "permission"
 
 msgid "group page permission"
 msgstr "permission de page par groupe"
@@ -413,144 +437,6 @@ msgstr "page de workflow"
 msgid "workflow pages"
 msgstr "pages de workflow"
 
-msgid "workflow_tasks"
-msgstr "tâche de workflow"
-
-msgid "task"
-msgstr "tâche"
-
-msgid "workflow task order"
-msgstr "ordre de tâche de workflow"
-
-msgid "workflow task orders"
-msgstr "ordres de tâche de workflow"
-
-msgid "name"
-msgstr "nom"
-
-msgid "active"
-msgstr "actif"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Les tâches actives peuvent être ajoutées aux workflows. Désactiver une tâche "
-"ne la supprime pas des workflows existants."
-
-msgid "tasks"
-msgstr "tâches"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Les workflows actifs peuvent être ajoutés aux pages/fragments. Désactivé un "
-"workflow ne le supprime pas des pages/fragments existants."
-
-msgid "workflows"
-msgstr "workflows"
-
-msgid "groups"
-msgstr "groupes"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Les pages/fragments à cette étape du workflow seront modérés ou approuvés "
-"par ces groupes d'utilisateurs"
-
-msgid "Request changes"
-msgstr "Demander des modifications"
-
-msgid "Approve"
-msgstr "Approuver"
-
-msgid "Approve with comment"
-msgstr "Approuver avec un commentaire"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr ""
-"Les membres des groupes Wagtails sélectionnés peuvent approuver cette tâche"
-
-msgid "Group approval task"
-msgstr "Groupe d'approbation de tâche"
-
-msgid "Group approval tasks"
-msgstr "Groupe d'approbation de tâches"
-
-msgid "In progress"
-msgstr "en cours"
-
-msgid "Approved"
-msgstr "Approuvé"
-
-msgid "Needs changes"
-msgstr "Modifications nécessaires"
-
-msgid "Cancelled"
-msgstr "Annulé"
-
-msgid "status"
-msgstr "statut"
-
-msgid "requested by"
-msgstr "demandé par"
-
-msgid "current task state"
-msgstr "État actuel de la tâche"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Il ne peut y avoir qu'un seul état de workflow « en cours » ou "
-"« modifications nécessaires » par page/fragment."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"Workflow « %(workflow_name)s » sur %(model_name)s « %(title)s » : %(status)s"
-
-msgid "Not started"
-msgstr "Pas commencé"
-
-msgid "Workflow state"
-msgstr "État de workflow"
-
-msgid "Workflow states"
-msgstr "États de workflow"
-
-msgid "Rejected"
-msgstr "Rejeté"
-
-msgid "Skipped"
-msgstr "Ignoré"
-
-msgid "workflow state"
-msgstr "état de workflow"
-
-msgid "started at"
-msgstr "commencé à"
-
-msgid "finished at"
-msgstr "terminé à"
-
-msgid "finished by"
-msgstr "terminé par"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"Tâche « %(task_name)s » sur la version « %(revision_info)s » : %(status)s"
-
-msgid "Task state"
-msgstr "État de tâche"
-
-msgid "Task states"
-msgstr "États de tâche"
-
 msgid "page log entry"
 msgstr "entrée de journal de page"
 
@@ -572,58 +458,20 @@ msgstr "Réponse de commentaire"
 msgid "comment replies"
 msgstr "Réponses de commentaire"
 
-msgid "timestamp (UTC)"
-msgstr "horodatage (UTC)"
+msgid "Default"
+msgstr "Par défaut"
 
-msgid "log entry"
-msgstr "entrée de journal"
+msgid "Preview in mobile size"
+msgstr "Prévisualiser au format mobile"
 
-msgid "log entries"
-msgstr "entrées de journal"
+msgid "Preview in tablet size"
+msgstr "Prévisualiser au format tablette"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "L'action de journal « %(action_name)s » n'a pas été déclarée."
+msgid "Preview in desktop size"
+msgstr "Prévisualiser au format ordinateur de bureau"
 
-msgid "system"
-msgstr "système"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "%(action)s inconnu(e)"
-
-msgid "model log entry"
-msgstr "entrée de journal de modèle"
-
-msgid "model log entries"
-msgstr "entrées de journal de modèle"
-
-msgid "locale"
-msgstr "région"
-
-msgid "collection"
-msgstr "collection"
-
-msgid "collection view restriction"
-msgstr "confidentialité de collection"
-
-msgid "collection view restrictions"
-msgstr "confidentialités de collection"
-
-msgid "collections"
-msgstr "collections"
-
-msgid "group collection permission"
-msgstr "permission de collection de groupe"
-
-msgid "group collection permissions"
-msgstr "permission de collection de groupe"
-
-msgid "for content type"
-msgstr "pour le type de contenu"
-
-msgid "uploaded by user"
-msgstr "transféré par l'utilisateur"
+msgid "object id"
+msgstr "ID de l'objet"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -648,6 +496,27 @@ msgstr "sera remplacé par un(e) %(model_name)s spécifié(e) par le système"
 
 msgid "will unset the reference"
 msgstr "supprimera la référence"
+
+msgid "created at"
+msgstr "créé à"
+
+msgid "user"
+msgstr "utilisateur"
+
+msgid "content JSON"
+msgstr "contenu JSON"
+
+msgid "approved go live at"
+msgstr "publication approuvée le"
+
+msgid "revision"
+msgstr "version"
+
+msgid "revisions"
+msgstr "versions"
+
+msgid "latest revision"
+msgstr "dernière version"
 
 msgid "hostname"
 msgstr "nom d'hôte"
@@ -723,11 +592,152 @@ msgstr ""
 "Les mots de passe partagé ne devraient pas être utilisés pour protéger du "
 "contenu sensible. N'importe qui ayant ce mot de passe pourra voir le contenu."
 
+msgid "groups"
+msgstr "groupes"
+
 msgid "view restriction"
 msgstr "confidentialité"
 
 msgid "view restrictions"
 msgstr "confidentialités"
+
+msgid "In progress"
+msgstr "en cours"
+
+msgid "Approved"
+msgstr "Approuvé"
+
+msgid "Needs changes"
+msgstr "Modifications nécessaires"
+
+msgid "Cancelled"
+msgstr "Annulé"
+
+msgid "status"
+msgstr "statut"
+
+msgid "requested by"
+msgstr "demandé par"
+
+msgid "current task state"
+msgstr "État actuel de la tâche"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Il ne peut y avoir qu'un seul état de workflow « en cours » ou "
+"« modifications nécessaires » par page/fragment."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Workflow « %(workflow_name)s » sur %(model_name)s « %(title)s » : %(status)s"
+
+msgid "Not started"
+msgstr "Pas commencé"
+
+msgid "Workflow state"
+msgstr "État de workflow"
+
+msgid "Workflow states"
+msgstr "États de workflow"
+
+msgid "active"
+msgstr "actif"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Les workflows actifs peuvent être ajoutés aux pages/fragments. Désactivé un "
+"workflow ne le supprime pas des pages/fragments existants."
+
+msgid "workflows"
+msgstr "workflows"
+
+msgid "workflow_tasks"
+msgstr "tâche de workflow"
+
+msgid "task"
+msgstr "tâche"
+
+msgid "workflow task order"
+msgstr "ordre de tâche de workflow"
+
+msgid "workflow task orders"
+msgstr "ordres de tâche de workflow"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Les tâches actives peuvent être ajoutées aux workflows. Désactiver une tâche "
+"ne la supprime pas des workflows existants."
+
+msgid "tasks"
+msgstr "tâches"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Les pages/fragments à cette étape du workflow seront modérés ou approuvés "
+"par ces groupes d'utilisateurs"
+
+msgid "Request changes"
+msgstr "Demander des modifications"
+
+msgid "Approve"
+msgstr "Approuver"
+
+msgid "Approve with comment"
+msgstr "Approuver avec un commentaire"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr ""
+"Les membres des groupes Wagtails sélectionnés peuvent approuver cette tâche"
+
+msgid "Group approval task"
+msgstr "Groupe d'approbation de tâche"
+
+msgid "Group approval tasks"
+msgstr "Groupe d'approbation de tâches"
+
+msgid "Rejected"
+msgstr "Rejeté"
+
+msgid "Skipped"
+msgstr "Ignoré"
+
+msgid "workflow state"
+msgstr "état de workflow"
+
+msgid "started at"
+msgstr "commencé à"
+
+msgid "finished at"
+msgstr "terminé à"
+
+msgid "finished by"
+msgstr "terminé par"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr ""
+"Tâche « %(task_name)s » sur la version « %(revision_info)s » : %(status)s"
+
+msgid "Task state"
+msgstr "État de tâche"
+
+msgid "Task states"
+msgstr "États de tâche"
+
+msgid "in moderation"
+msgstr "en cours de modération"
+
+msgid "live + in moderation"
+msgstr "publiée + en cours de modération"
 
 msgid "Log in"
 msgstr "Connexion"

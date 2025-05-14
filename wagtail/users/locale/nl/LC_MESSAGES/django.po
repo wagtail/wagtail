@@ -5,6 +5,7 @@
 # Translators:
 # Harmen <sigmo@sigmo.nl>, 2022
 # Joeri Vlekken, 2024
+# Joeri Vlekken, 2024
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2023
 # Storm Heg <storm@stormbase.digital>, 2021-2024
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 11:54+0000\n"
-"Last-Translator: Joeri Vlekken, 2024\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2022-2023\n"
 "Language-Team: Dutch (http://app.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"

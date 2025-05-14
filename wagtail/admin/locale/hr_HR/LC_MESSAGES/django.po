@@ -7,14 +7,14 @@
 # Dino Aljević <dino8890@protonmail.com>, 2020-2022
 # Luka Matijević <lumatijev@gmail.com>, 2015
 # Marko Burazin <marko.burazin1@gmail.com>, 2020
-# Matt Westcott <matthew@torchbox.com>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2021,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2021,2025\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -479,10 +479,6 @@ msgstr "Da, izbriši"
 msgid "No, don't delete"
 msgstr "Ne, nemoj izbrisati"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "Odjavi %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Da, odjavi"
 
@@ -500,13 +496,6 @@ msgstr "Komentar"
 
 msgid "Update"
 msgstr "Ažuriraj"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Usporedba %(title)s"
-
-msgid "Comparing"
-msgstr "Usporedba"
 
 msgid "Fields"
 msgstr "Polja"
@@ -560,11 +549,11 @@ msgstr "Datum"
 msgid "Site summary"
 msgstr "Sažetak"
 
-msgid "Changes requested at"
-msgstr "Zatražene promjene u"
-
 msgid "Close"
 msgstr "Zatvori"
+
+msgid "Changes requested at"
+msgstr "Zatražene promjene u"
 
 msgid "Awaiting your review"
 msgstr "Čekaju vaš pregled"
@@ -945,10 +934,6 @@ msgstr "Nepotpun zadatak"
 msgid "Completed at"
 msgstr "Završeno u"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Stranica %(page_num)s od %(total_pages)s."
-
 msgid "Toggle breadcrumbs"
 msgstr "Prikaži/sakrij navigacijsku traku"
 
@@ -986,11 +971,8 @@ msgid "Visit the live page"
 msgstr "Posjetite stranicu uživo"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Odjavi reviziju %(revision.id)s za %(title)s"
-
-msgid "Unschedule"
-msgstr "Otkaži"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Stranica %(page_num)s od %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Jeste li sigurni da želite otkazati ovu reviziju?"
@@ -1211,9 +1193,6 @@ msgstr "Vrati"
 msgid "Redo"
 msgstr "Ponovi"
 
-msgid "Bold"
-msgstr "Podebljano"
-
 msgid "Italic"
 msgstr "Kurziv"
 
@@ -1347,6 +1326,9 @@ msgstr "Najranije"
 msgid "Latest"
 msgstr "Najnovije"
 
+msgid "Unschedule"
+msgstr "Otkaži"
+
 msgid "Field"
 msgstr "Polje"
 
@@ -1452,9 +1434,6 @@ msgstr ""
 "Gledate prijašnju verziju ove stranice iz <b>%(created_at)s</b> korisnika "
 "%(user)s"
 
-msgid "Page history"
-msgstr "Povijest stranice"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Stranica '%(page_title)s' je odjavljena."
@@ -1539,9 +1518,6 @@ msgstr "Novi zadatak tijeka rada"
 msgid "Task '%(object)s' created."
 msgstr "Zadatak '%(object)s' je stvoren."
 
-msgid "Editing workflow task"
-msgstr "Uređivanje zadatak tijeka rada"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Zadatak '%(object)s' je ažuriran."
@@ -1592,9 +1568,23 @@ msgstr "Pogledaj povijest stranice '%(title)s'"
 msgid "Sort menu order"
 msgstr "Sortiraj poredak izbornika"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Naslov %(level)d"
+msgid "Heading 1"
+msgstr "Naslov 1"
+
+msgid "Heading 2"
+msgstr "Naslov 2"
+
+msgid "Heading 3"
+msgstr "Naslov 3"
+
+msgid "Heading 4"
+msgstr "Naslov 4"
+
+msgid "Heading 5"
+msgstr "Naslov 5"
+
+msgid "Heading 6"
+msgstr "Naslov 6"
 
 msgid "Bulleted list"
 msgstr "Popis s predznacima"
@@ -1604,6 +1594,9 @@ msgstr "Numerirani popis"
 
 msgid "Blockquote"
 msgstr "Blok citat"
+
+msgid "Bold"
+msgstr "Podebljano"
 
 msgid "Link"
 msgstr "Poveznica"

@@ -8,13 +8,14 @@
 # Kyu Choi, 2022
 # Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020
+# sl kim <vizuan@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:06+0000\n"
-"Last-Translator: Kyu Choi, 2022\n"
+"Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -140,11 +141,22 @@ msgstr "아니오, 지우지 않습니다"
 msgid "Latest documents"
 msgstr "최근 문서"
 
+#, python-format
+msgid "Sorry, no documents match \"<em>%(search_query)s</em>\""
+msgstr "죄송합니다. \"%(search_query)s\"에 해당하는 문서가 없습니다"
+
 msgid "You haven't uploaded any documents in this collection."
 msgstr "이 모음에는 업로드한 문서가 없습니다."
 
 msgid "You haven't uploaded any documents."
 msgstr "업로드한 문서가 없습니다."
+
+msgid ""
+"Why not <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-"
+"trigger>upload one now</a>?"
+msgstr ""
+"지금 <a class=\"upload-one-now\" href=\"#tab-upload\" data-tab-trigger>새로 "
+"업로드</a>를 해보는 건 어떨까요?"
 
 msgid "Change document:"
 msgstr "문서 변경:"

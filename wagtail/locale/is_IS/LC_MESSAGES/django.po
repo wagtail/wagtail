@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2019-2024\n"
 "Language-Team: Icelandic (Iceland) (http://app.transifex.com/torchbox/"
@@ -42,6 +42,9 @@ msgstr "Færa upp"
 
 msgid "Move down"
 msgstr "Færa niður"
+
+msgid "Drag"
+msgstr "Draga"
 
 msgid "Duplicate"
 msgstr "Afrita"
@@ -170,8 +173,34 @@ msgstr "Læst af tímastillingu"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Er læst og fer í loftið á stilltum tíma"
 
-msgid "latest revision"
-msgstr "nýjasta útgáfa"
+msgid "content type"
+msgstr "efnistegund"
+
+msgid "timestamp (UTC)"
+msgstr "tímastimpill (UTC)"
+
+msgid "log entry"
+msgstr "atburðaskráning"
+
+msgid "log entries"
+msgstr "atburðaskráningar"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Aðgerð í atburðaskrá '%(action_name)s' hefur ekki verið skráð."
+
+msgid "system"
+msgstr "kerfi"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Óþekkt %(action)s"
+
+msgid "model log entry"
+msgstr "atburðaskráning gagnamódels"
+
+msgid "model log entries"
+msgstr "atburðaskráningar gagnamódels"
 
 msgid "live"
 msgstr "Í birtingu"
@@ -209,17 +238,8 @@ msgstr "í loftinu + tímasett"
 msgid "live + draft"
 msgstr "í birtingu + uppkast"
 
-msgid "Default"
-msgstr "Sjálfgefið"
-
-msgid "Preview in mobile size"
-msgstr "Forskoða í farsíma stærð"
-
-msgid "Preview in tablet size"
-msgstr "Forskoða í spjaldtölvu stærð"
-
-msgid "Preview in desktop size"
-msgstr "Forskoða í borðtölvu stærð"
+msgid "locale"
+msgstr "tungumál"
 
 msgid "locked"
 msgstr "læst"
@@ -230,11 +250,38 @@ msgstr "læst á"
 msgid "locked by"
 msgstr "læst af"
 
-msgid "in moderation"
-msgstr "bíður samþykktar"
+msgid "collection"
+msgstr "safn"
 
-msgid "live + in moderation"
-msgstr "í birtingu + bíður samþykktar"
+msgid "collection view restriction"
+msgstr "skoðunartakmörkun safns"
+
+msgid "collection view restrictions"
+msgstr "skoðunartakmarkanir safns"
+
+msgid "name"
+msgstr "nafn"
+
+msgid "collections"
+msgstr "söfn"
+
+msgid "group"
+msgstr "hópur"
+
+msgid "permission"
+msgstr "heimild"
+
+msgid "group collection permission"
+msgstr "safnheimild hóps"
+
+msgid "group collection permissions"
+msgstr "Myndasafns heimildir hóps"
+
+msgid "for content type"
+msgstr "fyrir efnistegund"
+
+msgid "uploaded by user"
+msgstr "hlaðið inn af"
 
 msgid "Add/edit pages you own"
 msgstr "Bæta við/breyta síðum sem þú átt"
@@ -285,9 +332,6 @@ msgstr ""
 "Nafnið á síðunni eins og það mun birtast í slóðinni t.d. http://domain.com/"
 "blog/[min-vefslod]/"
 
-msgid "content type"
-msgstr "efnistegund"
-
 msgid "URL path"
 msgstr "Slóð"
 
@@ -320,6 +364,12 @@ msgstr "Lýsandi texti sem birtist undir fyrirsögn í leitarvélum."
 msgid "latest revision created at"
 msgstr "síðasta útgáfa búin til"
 
+msgid "For search engines"
+msgstr "Fyrir leitarvélar"
+
+msgid "For site menus"
+msgstr "Fyrir valmyndir"
+
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use within the parent page at "
@@ -333,33 +383,6 @@ msgstr "síða"
 
 msgid "pages"
 msgstr "íður"
-
-msgid "object id"
-msgstr "object id"
-
-msgid "created at"
-msgstr "búin til"
-
-msgid "user"
-msgstr "notandi"
-
-msgid "content JSON"
-msgstr "efni JSON"
-
-msgid "approved go live at"
-msgstr "samþykkta að fara í loftið"
-
-msgid "revision"
-msgstr "útgáfa"
-
-msgid "revisions"
-msgstr "útgáfur"
-
-msgid "group"
-msgstr "hópur"
-
-msgid "permission"
-msgstr "heimild"
 
 msgid "group page permission"
 msgstr "síðuheimild hóps"
@@ -382,142 +405,6 @@ msgstr "síða vinnuflæðis"
 msgid "workflow pages"
 msgstr "síður vinnuflæðis"
 
-msgid "workflow_tasks"
-msgstr "skref vinnuflæðis"
-
-msgid "task"
-msgstr "verkefni"
-
-msgid "workflow task order"
-msgstr "röðun vinnuflæði verkefna"
-
-msgid "workflow task orders"
-msgstr "röðun skrefa vinnuflæðis"
-
-msgid "name"
-msgstr "nafn"
-
-msgid "active"
-msgstr "virkt"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Hægt er að bæta virkum skrefum við vinnuflæði. Það að óvirkja skref "
-"fjarlægir það ekki úr núverandi vinnuflæðum."
-
-msgid "tasks"
-msgstr "skref"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Hægt er að bæta virkum vinnuflæðum á síður/snifsi. Það að óvirkja vinnuflæði "
-"fjarlægir það ekki af áður viðhengdum síðum/snifsum."
-
-msgid "workflows"
-msgstr "vinnuflæði"
-
-msgid "groups"
-msgstr "hópur"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Síður/snifsi í þessu skrefi í vinnuflæði verða yfirfarnar og samþykktar af "
-"þessum notendum"
-
-msgid "Request changes"
-msgstr "Biðja um breytingu"
-
-msgid "Approve"
-msgstr "Samþykkja"
-
-msgid "Approve with comment"
-msgstr "Samþykkja með athugasemd"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Meðlimir valdrar Wagtail grúppu geta samþykkt þetta skref"
-
-msgid "Group approval task"
-msgstr "Hópsamþykktar skref"
-
-msgid "Group approval tasks"
-msgstr "Hópsamþykktar skref"
-
-msgid "In progress"
-msgstr "Í vinnslu"
-
-msgid "Approved"
-msgstr "Samþykkt"
-
-msgid "Needs changes"
-msgstr "Þarfnast breytinga"
-
-msgid "Cancelled"
-msgstr "Hætt við"
-
-msgid "status"
-msgstr "staða"
-
-msgid "requested by"
-msgstr "umbeðið af"
-
-msgid "current task state"
-msgstr "núverandi staða skrefs"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Aðeins eitt vinnuflæði með stöðuna \"í gangi\" eða \"þarfnast breytinga\" má "
-"vera á hverri síðu/snifsi."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"Vinnuflæði '%(workflow_name)s' á %(model_name)s '%(title)s': %(status)s"
-
-msgid "Not started"
-msgstr "Ekki byrjað"
-
-msgid "Workflow state"
-msgstr "Staða vinnuflæðis"
-
-msgid "Workflow states"
-msgstr "Stöður vinnuflæðis"
-
-msgid "Rejected"
-msgstr "Hafnað"
-
-msgid "Skipped"
-msgstr "Sleppt"
-
-msgid "workflow state"
-msgstr "staða vinnuflæðis"
-
-msgid "started at"
-msgstr "byrjaði"
-
-msgid "finished at"
-msgstr "endaði"
-
-msgid "finished by"
-msgstr "endar"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr "Skref '%(task_name)s' í útgáfu '%(revision_info)s': %(status)s"
-
-msgid "Task state"
-msgstr "Staða skrefs"
-
-msgid "Task states"
-msgstr "Stöður skrefs"
-
 msgid "page log entry"
 msgstr "atburðaskráning síðu"
 
@@ -539,58 +426,20 @@ msgstr "svar við athugasemd"
 msgid "comment replies"
 msgstr "svör við athugasemdum"
 
-msgid "timestamp (UTC)"
-msgstr "tímastimpill (UTC)"
+msgid "Default"
+msgstr "Sjálfgefið"
 
-msgid "log entry"
-msgstr "atburðaskráning"
+msgid "Preview in mobile size"
+msgstr "Forskoða í farsíma stærð"
 
-msgid "log entries"
-msgstr "atburðaskráningar"
+msgid "Preview in tablet size"
+msgstr "Forskoða í spjaldtölvu stærð"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Aðgerð í atburðaskrá '%(action_name)s' hefur ekki verið skráð."
+msgid "Preview in desktop size"
+msgstr "Forskoða í borðtölvu stærð"
 
-msgid "system"
-msgstr "kerfi"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Óþekkt %(action)s"
-
-msgid "model log entry"
-msgstr "atburðaskráning gagnamódels"
-
-msgid "model log entries"
-msgstr "atburðaskráningar gagnamódels"
-
-msgid "locale"
-msgstr "tungumál"
-
-msgid "collection"
-msgstr "safn"
-
-msgid "collection view restriction"
-msgstr "skoðunartakmörkun safns"
-
-msgid "collection view restrictions"
-msgstr "skoðunartakmarkanir safns"
-
-msgid "collections"
-msgstr "söfn"
-
-msgid "group collection permission"
-msgstr "safnheimild hóps"
-
-msgid "group collection permissions"
-msgstr "Myndasafns heimildir hóps"
-
-msgid "for content type"
-msgstr "fyrir efnistegund"
-
-msgid "uploaded by user"
-msgstr "hlaðið inn af"
+msgid "object id"
+msgstr "object id"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -615,6 +464,27 @@ msgstr "verður stillt á %(model_name)s sem ákveðið er af kerfinu"
 
 msgid "will unset the reference"
 msgstr "mun fjarlægja vísunina"
+
+msgid "created at"
+msgstr "búin til"
+
+msgid "user"
+msgstr "notandi"
+
+msgid "content JSON"
+msgstr "efni JSON"
+
+msgid "approved go live at"
+msgstr "samþykkta að fara í loftið"
+
+msgid "revision"
+msgstr "útgáfa"
+
+msgid "revisions"
+msgstr "útgáfur"
+
+msgid "latest revision"
+msgstr "nýjasta útgáfa"
 
 msgid "hostname"
 msgstr "slóð"
@@ -689,11 +559,150 @@ msgstr ""
 "Sameiginleg lykilorð ættu ekki að vera notuð til þess að verja viðkvæmt "
 "efni. Allir sem hafa aðgang að þessu lykilorði munu geta séð efnið."
 
+msgid "groups"
+msgstr "hópur"
+
 msgid "view restriction"
 msgstr "skoða takmörkun"
 
 msgid "view restrictions"
 msgstr "skoða takmarkanir"
+
+msgid "In progress"
+msgstr "Í vinnslu"
+
+msgid "Approved"
+msgstr "Samþykkt"
+
+msgid "Needs changes"
+msgstr "Þarfnast breytinga"
+
+msgid "Cancelled"
+msgstr "Hætt við"
+
+msgid "status"
+msgstr "staða"
+
+msgid "requested by"
+msgstr "umbeðið af"
+
+msgid "current task state"
+msgstr "núverandi staða skrefs"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Aðeins eitt vinnuflæði með stöðuna \"í gangi\" eða \"þarfnast breytinga\" má "
+"vera á hverri síðu/snifsi."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Vinnuflæði '%(workflow_name)s' á %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "Ekki byrjað"
+
+msgid "Workflow state"
+msgstr "Staða vinnuflæðis"
+
+msgid "Workflow states"
+msgstr "Stöður vinnuflæðis"
+
+msgid "active"
+msgstr "virkt"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Hægt er að bæta virkum vinnuflæðum á síður/snifsi. Það að óvirkja vinnuflæði "
+"fjarlægir það ekki af áður viðhengdum síðum/snifsum."
+
+msgid "workflows"
+msgstr "vinnuflæði"
+
+msgid "workflow_tasks"
+msgstr "skref vinnuflæðis"
+
+msgid "task"
+msgstr "verkefni"
+
+msgid "workflow task order"
+msgstr "röðun vinnuflæði verkefna"
+
+msgid "workflow task orders"
+msgstr "röðun skrefa vinnuflæðis"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Hægt er að bæta virkum skrefum við vinnuflæði. Það að óvirkja skref "
+"fjarlægir það ekki úr núverandi vinnuflæðum."
+
+msgid "tasks"
+msgstr "skref"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Síður/snifsi í þessu skrefi í vinnuflæði verða yfirfarnar og samþykktar af "
+"þessum notendum"
+
+msgid "Request changes"
+msgstr "Biðja um breytingu"
+
+msgid "Approve"
+msgstr "Samþykkja"
+
+msgid "Approve with comment"
+msgstr "Samþykkja með athugasemd"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Meðlimir valdrar Wagtail grúppu geta samþykkt þetta skref"
+
+msgid "Group approval task"
+msgstr "Hópsamþykktar skref"
+
+msgid "Group approval tasks"
+msgstr "Hópsamþykktar skref"
+
+msgid "Rejected"
+msgstr "Hafnað"
+
+msgid "Skipped"
+msgstr "Sleppt"
+
+msgid "workflow state"
+msgstr "staða vinnuflæðis"
+
+msgid "started at"
+msgstr "byrjaði"
+
+msgid "finished at"
+msgstr "endaði"
+
+msgid "finished by"
+msgstr "endar"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Skref '%(task_name)s' í útgáfu '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Staða skrefs"
+
+msgid "Task states"
+msgstr "Stöður skrefs"
+
+msgid "in moderation"
+msgstr "bíður samþykktar"
+
+msgid "live + in moderation"
+msgstr "í birtingu + bíður samþykktar"
 
 msgid "Log in"
 msgstr "Innskrá"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -36,6 +36,9 @@ msgstr "Muda ba leten"
 
 msgid "Move down"
 msgstr "Muda ba karik"
+
+msgid "Drag"
+msgstr "Rasta"
 
 msgid "Delete"
 msgstr "Hamoos"
@@ -64,6 +67,9 @@ msgstr "Xavi tiha ona"
 
 msgid "Unlocked"
 msgstr "Loke tiha ona"
+
+msgid "content type"
+msgstr "Tipu konteudu"
 
 msgid "live"
 msgstr "Hela"
@@ -98,11 +104,26 @@ msgstr "Hela + ajenda"
 msgid "live + draft"
 msgstr "Hela + esbosu"
 
-msgid "Default"
-msgstr "Estandar"
-
 msgid "locked"
 msgstr "Xavi tiha ona"
+
+msgid "collection"
+msgstr "Koleksaun"
+
+msgid "name"
+msgstr "Naran"
+
+msgid "collections"
+msgstr "Koleksaun sira"
+
+msgid "group"
+msgstr "Grupu"
+
+msgid "permission"
+msgstr "Permisaun"
+
+msgid "uploaded by user"
+msgstr "hatama ona husi uzuariu"
 
 msgid "Add/edit pages you own"
 msgstr "Hatama/hadia pajina ita nia rasik."
@@ -140,9 +161,6 @@ msgid ""
 msgstr ""
 "Naran pajina iha URL sira laran ezemplu http://domain.com/blog/[my-slug]/"
 
-msgid "content type"
-msgstr "Tipu konteudu"
-
 msgid "URL path"
 msgstr "Dalan URL"
 
@@ -161,6 +179,15 @@ msgstr "Pajina"
 msgid "pages"
 msgstr "Pajina sira"
 
+msgid "group page permission"
+msgstr "Grupu pajina permisaun"
+
+msgid "group page permissions"
+msgstr "Grupu pajina permisaun sira"
+
+msgid "Default"
+msgstr "Estandar"
+
 msgid "created at"
 msgstr "Kria iha"
 
@@ -172,36 +199,6 @@ msgstr "Konteudu JSON"
 
 msgid "approved go live at"
 msgstr "Aprova ona ba hela iha"
-
-msgid "group"
-msgstr "Grupu"
-
-msgid "permission"
-msgstr "Permisaun"
-
-msgid "group page permission"
-msgstr "Grupu pajina permisaun"
-
-msgid "group page permissions"
-msgstr "Grupu pajina permisaun sira"
-
-msgid "name"
-msgstr "Naran"
-
-msgid "groups"
-msgstr "Grupu sira"
-
-msgid "Approve"
-msgstr "Aprova"
-
-msgid "collection"
-msgstr "Koleksaun"
-
-msgid "collections"
-msgstr "Koleksaun sira"
-
-msgid "uploaded by user"
-msgstr "hatama ona husi uzuariu"
 
 msgid "hostname"
 msgstr "naranhost"
@@ -254,6 +251,12 @@ msgstr ""
 
 msgid "Public"
 msgstr "Publiku"
+
+msgid "groups"
+msgstr "Grupu sira"
+
+msgid "Approve"
+msgstr "Aprova"
 
 msgid "Log in"
 msgstr "Tama"

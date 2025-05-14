@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>, 2024\n"
 "Language-Team: Uyghur (http://app.transifex.com/torchbox/wagtail/language/"
@@ -42,9 +42,6 @@ msgstr "خىزمەت ئېقىمىدىن ۋاز كەچ "
 msgid "Unpublish"
 msgstr "تارقاتما"
 
-msgid "Delete"
-msgstr "ئۆچۈر"
-
 msgid "Save"
 msgstr "ساقلا"
 
@@ -57,6 +54,9 @@ msgstr "%(label)s ۋە تارقات"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail پۇرۇچ"
+
+msgid "Delete"
+msgstr "ئۆچۈر"
 
 msgid "Delete selected snippets"
 msgstr "تاللانغان پۇرۇچنى ئۆچۈر"
@@ -156,14 +156,6 @@ msgstr "مىسال"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "«%(title)s» نىڭ تېخىمۇ كۆپ تاللانمىسى"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "%(model_name)s تەھرىر"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "%(model_name)s تارىخى"
 
 msgid "Home"
 msgstr "باش بەت"

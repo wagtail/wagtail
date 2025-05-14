@@ -4,6 +4,7 @@ from django.conf import settings
 from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse, reverse_lazy
+from django.utils import translation
 
 from wagtail.admin.rich_text import DraftailRichTextArea, get_rich_text_editor_widget
 from wagtail.admin.rich_text.converters.editor_html import (
@@ -636,3 +637,16 @@ class TestRichTextChooserUrls(WagtailTestUtils, BaseRichTextEditHandlerTestCase)
         self.assertIn("/admin/images/chooser/", html)
         self.assertIn("/admin/embeds/chooser/", html)
         self.assertIn("/admin/documents/chooser/", html)
+
+
+class TestDraftailLazyTranslations(SimpleTestCase):
+    def test_context_i18n(self):
+        widget = DraftailRichTextArea(features=["h2"])
+        context_default_language = widget.get_context(None, None, {})
+        with translation.override("de"):
+            context_de = widget.get_context(None, None, {})
+        # At least the description of the h2 feature should be different
+        self.assertNotEqual(
+            context_default_language["widget"]["attrs"]["data-w-init-detail-value"],
+            context_de["widget"]["attrs"]["data-w-init-detail-value"],
+        )

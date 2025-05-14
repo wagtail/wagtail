@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>, 2017\n"
 "Language-Team: Indonesian (Indonesia) (http://app.transifex.com/torchbox/"
@@ -38,6 +38,9 @@ msgstr "Geser ke atas"
 msgid "Move down"
 msgstr "Geser ke bawah"
 
+msgid "Drag"
+msgstr "Seret"
+
 msgid "Delete"
 msgstr "Hapus"
 
@@ -64,6 +67,9 @@ msgstr "Terkunci"
 
 msgid "Unlocked"
 msgstr "Kunci terbuka"
+
+msgid "content type"
+msgstr "tipe konten"
 
 msgid "live"
 msgstr "aktif"
@@ -98,9 +104,6 @@ msgstr "akitf + terjadwal"
 msgid "live + draft"
 msgstr "aktif + konsep"
 
-msgid "Default"
-msgstr "Utama"
-
 msgid "locked"
 msgstr "terkunci"
 
@@ -110,8 +113,32 @@ msgstr "Terkunci pada"
 msgid "locked by"
 msgstr "Dikunci oleh"
 
-msgid "in moderation"
-msgstr "dalam moderasi"
+msgid "collection"
+msgstr "koleksi"
+
+msgid "collection view restriction"
+msgstr "batasan penampilan koleksi"
+
+msgid "collection view restrictions"
+msgstr "semua batasan penampilan koleksi"
+
+msgid "name"
+msgstr "nama"
+
+msgid "collections"
+msgstr "koleksi-koleksi"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "group collection permission"
+msgstr "izin grup koleksi"
+
+msgid "uploaded by user"
+msgstr "diunggah oleh pengguna"
 
 msgid "Add/edit pages you own"
 msgstr "Tambah/ubah halaman anda sendiri"
@@ -156,9 +183,6 @@ msgstr ""
 "Nama halaman ini yang akan tampil dalam URL, contoh http://namasitus.com/"
 "blog/[judul-slug]/"
 
-msgid "content type"
-msgstr "tipe konten"
-
 msgid "URL path"
 msgstr "jalur URL"
 
@@ -183,24 +207,6 @@ msgstr "halaman"
 msgid "pages"
 msgstr "halaman-halaman"
 
-msgid "created at"
-msgstr "dibuat pada"
-
-msgid "user"
-msgstr "pemakai"
-
-msgid "content JSON"
-msgstr "JSON konten"
-
-msgid "approved go live at"
-msgstr "disetujui untuk tampil aktif pada"
-
-msgid "group"
-msgstr "grup"
-
-msgid "permission"
-msgstr "izin"
-
 msgid "group page permission"
 msgstr "izin grup halaman"
 
@@ -213,32 +219,20 @@ msgstr "batasan penampilan halaman"
 msgid "page view restrictions"
 msgstr "semua batasan penampilan halaman"
 
-msgid "name"
-msgstr "nama"
+msgid "Default"
+msgstr "Utama"
 
-msgid "groups"
-msgstr "grup"
+msgid "created at"
+msgstr "dibuat pada"
 
-msgid "Approve"
-msgstr "Menyetujui"
+msgid "user"
+msgstr "pemakai"
 
-msgid "collection"
-msgstr "koleksi"
+msgid "content JSON"
+msgstr "JSON konten"
 
-msgid "collection view restriction"
-msgstr "batasan penampilan koleksi"
-
-msgid "collection view restrictions"
-msgstr "semua batasan penampilan koleksi"
-
-msgid "collections"
-msgstr "koleksi-koleksi"
-
-msgid "group collection permission"
-msgstr "izin grup koleksi"
-
-msgid "uploaded by user"
-msgstr "diunggah oleh pengguna"
+msgid "approved go live at"
+msgstr "disetujui untuk tampil aktif pada"
 
 msgid "hostname"
 msgstr "hostname"
@@ -298,11 +292,20 @@ msgstr "Publik"
 msgid "Private, accessible to users in specific groups"
 msgstr "Pribadi, dapat diakses oleh pengguna dalam grup tertentu"
 
+msgid "groups"
+msgstr "grup"
+
 msgid "view restriction"
 msgstr "tampilkan batasan"
 
 msgid "view restrictions"
 msgstr "tampilkan semua batasan"
+
+msgid "Approve"
+msgstr "Menyetujui"
+
+msgid "in moderation"
+msgstr "dalam moderasi"
 
 msgid "Log in"
 msgstr "Masuk"

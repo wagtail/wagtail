@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2024\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -43,9 +43,6 @@ msgstr "Otkaži tijek rada"
 msgid "Unpublish"
 msgstr "Odjavi"
 
-msgid "Delete"
-msgstr "Izbriši"
-
 msgid "Save"
 msgstr "Spremi"
 
@@ -58,6 +55,9 @@ msgstr "%(label)s i Objavi"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail izresci"
+
+msgid "Delete"
+msgstr "Izbriši"
 
 msgid "Delete selected snippets"
 msgstr "Izbriši odabrane izreske"
@@ -160,14 +160,6 @@ msgstr "Broj instanci"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Više opcija za '%(title)s'"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Uredi ovaj %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "Povijest %(model_name)s"
 
 msgid "Home"
 msgstr "Naslovna"

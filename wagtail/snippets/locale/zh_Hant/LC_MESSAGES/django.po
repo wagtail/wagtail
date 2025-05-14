@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>, 2019\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -47,9 +47,6 @@ msgstr "取消工作流程"
 msgid "Unpublish"
 msgstr "取消發佈"
 
-msgid "Delete"
-msgstr "刪除"
-
 msgid "Save"
 msgstr "儲存"
 
@@ -62,6 +59,9 @@ msgstr "%(label)s並發布"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail 片段"
+
+msgid "Delete"
+msgstr "刪除"
 
 #, python-format
 msgid "%(model_name)s '%(object)s' deleted."

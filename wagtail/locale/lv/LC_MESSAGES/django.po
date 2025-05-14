@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>, 2016\n"
 "Language-Team: Latvian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -38,6 +38,9 @@ msgstr "Uz augšu"
 
 msgid "Move down"
 msgstr "Uz leju"
+
+msgid "Drag"
+msgstr "Pārvilkt"
 
 msgid "Duplicate"
 msgstr "Dublicēt"
@@ -80,8 +83,12 @@ msgstr "Slēgts"
 msgid "Unlocked"
 msgstr "Atslēgts"
 
-msgid "latest revision"
-msgstr "pēdējā revīzija"
+msgid "content type"
+msgstr "satura veids"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Nezināma %(action)s"
 
 msgid "live"
 msgstr "tiešsaistē"
@@ -116,9 +123,6 @@ msgstr "melnraksts"
 msgid "live + draft"
 msgstr "tiešsaitē + melnraksts"
 
-msgid "Default"
-msgstr "Noklusējums"
-
 msgid "locked"
 msgstr "slēgta"
 
@@ -127,9 +131,6 @@ msgstr "tika slēgta"
 
 msgid "locked by"
 msgstr "tika slēgta"
-
-msgid "in moderation"
-msgstr "pārbaudē"
 
 msgid "Add/edit pages you own"
 msgstr "Pievienot/labot jums piederošās lapas"
@@ -167,9 +168,6 @@ msgid ""
 msgstr ""
 "Lapas nosaukums, kas parādās saitē, t. i., http://domain.com/blog/[jūsu-"
 "saites-daļa]/"
-
-msgid "content type"
-msgstr "satura veids"
 
 msgid "URL path"
 msgstr "saites ceļš"
@@ -211,24 +209,20 @@ msgstr "lapa"
 msgid "pages"
 msgstr "lapas"
 
-msgid "object id"
-msgstr "objekta identifikātors"
-
 msgid "page view restriction"
 msgstr "lapu skatījuma ierobežojumi"
 
 msgid "page view restrictions"
 msgstr "Lapu skatīšanas ierobežojumi"
 
-msgid "groups"
-msgstr "grupas"
+msgid "Default"
+msgstr "Noklusējums"
 
-msgid "Approve"
-msgstr "Apstiprināt"
+msgid "object id"
+msgstr "objekta identifikātors"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Nezināma %(action)s"
+msgid "latest revision"
+msgstr "pēdējā revīzija"
 
 msgid "hostname"
 msgstr " resursdatora nosaukums"
@@ -244,6 +238,15 @@ msgstr "noklusētais"
 
 msgid "Public"
 msgstr "Publisks"
+
+msgid "groups"
+msgstr "grupas"
+
+msgid "Approve"
+msgstr "Apstiprināt"
+
+msgid "in moderation"
+msgstr "pārbaudē"
 
 msgid "Edited"
 msgstr "Labots"

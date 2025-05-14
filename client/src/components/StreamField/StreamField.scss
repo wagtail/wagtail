@@ -1,4 +1,4 @@
-@import 'scss/components/c-sf-add-button';
+@use 'scss/components/c-sf-add-button';
 
 [aria-expanded='true'] + .w-panel__heading .c-sf-block__title {
   @apply w-sr-only;

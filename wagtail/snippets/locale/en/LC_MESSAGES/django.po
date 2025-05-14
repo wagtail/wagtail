@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,58 +18,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: action_menu.py:72
-#: templates/wagtailsnippets/snippets/action_menu/publish.html:15
+#: action_menu.py:79
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:13
 msgid "Publish"
 msgstr ""
 
-#: action_menu.py:85
+#: action_menu.py:92
 msgid "Submit for moderation"
 msgstr ""
 
-#: action_menu.py:113
+#: action_menu.py:120
 #, python-format
 msgid "Resubmit to %(task_name)s"
 msgstr ""
 
-#: action_menu.py:123
+#: action_menu.py:130
 #, python-format
 msgid "Submit to %(workflow_name)s"
 msgstr ""
 
-#: action_menu.py:164
+#: action_menu.py:171
 msgid "Restart workflow "
 msgstr ""
 
-#: action_menu.py:185
+#: action_menu.py:192
 msgid "Cancel workflow "
 msgstr ""
 
-#: action_menu.py:199
+#: action_menu.py:206
 msgid "Unpublish"
 msgstr ""
 
-#: action_menu.py:219 bulk_actions/delete.py:15
-msgid "Delete"
-msgstr ""
-
-#: action_menu.py:247
+#: action_menu.py:226
 #: templates/wagtailsnippets/snippets/action_menu/save.html:27
 msgid "Save"
 msgstr ""
 
-#: action_menu.py:254
+#: action_menu.py:233
 #: templates/wagtailsnippets/snippets/action_menu/locked.html:4
 msgid "Locked"
 msgstr ""
 
-#: action_menu.py:330
+#: action_menu.py:309
 #, python-format
 msgid "%(label)s and Publish"
 msgstr ""
 
 #: apps.py:9
 msgid "Wagtail snippets"
+msgstr ""
+
+#: bulk_actions/delete.py:15
+msgid "Delete"
 msgstr ""
 
 #: bulk_actions/delete.py:17
@@ -145,11 +145,19 @@ msgid ""
 "rel=\"noreferrer\">create one now</a>?"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/publish.html:11
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:9
+msgid "Scheduling…"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:9
 msgid "Publishing…"
 msgstr ""
 
-#: templates/wagtailsnippets/snippets/action_menu/publish.html:15
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:13
+msgid "Schedule to publish"
+msgstr ""
+
+#: templates/wagtailsnippets/snippets/action_menu/publish.html:13
 msgid "Publish this version"
 msgstr ""
 
@@ -177,24 +185,24 @@ msgstr ""
 msgid "Choose"
 msgstr ""
 
-#: views/snippets.py:76 views/snippets.py:870 wagtail_hooks.py:42
+#: views/snippets.py:85 views/snippets.py:856 wagtail_hooks.py:38
 msgid "Snippets"
 msgstr ""
 
-#: views/snippets.py:117
+#: views/snippets.py:126
 msgid "Name"
 msgstr ""
 
-#: views/snippets.py:123
+#: views/snippets.py:132
 msgid "Instances"
 msgstr ""
 
-#: views/snippets.py:215
+#: views/snippets.py:216
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr ""
 
-#: views/snippets.py:869
+#: views/snippets.py:848
 msgid "Home"
 msgstr ""
 

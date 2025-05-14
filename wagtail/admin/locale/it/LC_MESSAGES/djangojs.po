@@ -1,17 +1,17 @@
 #
 # Translators:
 # Alessio Di Stasio <aledista@gmail.com>, 2022
-# Stefano Marchetto <airbatum@gmail.com>, 2022
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2022
 # giammi <gian-maria.daffre@giammi.org>, 2022
-# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2022
 # gcm, 2022
 # Marco Badan <marco.badan@gmail.com>, 2024
 # Loic Teixeira, 2024
+# Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2025
+# Stefano Marchetto <airbatum@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Stefano Marchetto <airbatum@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/torchbox/teams/8009/it/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: it\n"
@@ -32,6 +32,9 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixel"
 msgstr[2] "%(num)s pixel"
+
+msgid "Actions"
+msgstr "Azioni"
 
 msgid "Add a comment"
 msgstr "Aggiungi un commento"
@@ -125,6 +128,9 @@ msgstr "Pagine"
 
 msgid "Pin toolbar"
 msgstr "Blocca toolbar"
+
+msgid "Preview"
+msgstr "Anteprima"
 
 msgid "Reload saved content"
 msgstr "Ricarica il contenuto salvato"

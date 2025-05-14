@@ -10,7 +10,8 @@
 # Fatih Koç koç <fatihinemaili@gmail.com>, 2021
 # Halim Turan <halim_turan_61@hotmail.com>, 2020
 # Halit Çelik, 2023
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Halit Çelik, 2023
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Halit Çelik, 2023\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Turkish (http://app.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -416,10 +417,6 @@ msgstr "Evet, sil"
 msgid "No, don't delete"
 msgstr "Hayır, silme"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "%(title)s yayından kaldır"
-
 msgid "Yes, unpublish it"
 msgstr "Evet, yayından kaldır"
 
@@ -431,13 +428,6 @@ msgstr "Eylemler"
 
 msgid "Update"
 msgstr "Güncelle"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "%(title)s karşılaştırılıyor"
-
-msgid "Comparing"
-msgstr "Karşılaştırılıyor"
 
 msgid "Fields"
 msgstr "Alanlar"
@@ -716,10 +706,6 @@ msgstr "Bu elemanı düzenle"
 msgid "Started at"
 msgstr "Oluşturulma zamanı"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sayfa %(page_num)s / %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "İçerik haritası"
 
@@ -742,11 +728,8 @@ msgid "Visit the live page"
 msgstr "Yayındaki sayfayı gör"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
-
-msgid "Unschedule"
-msgstr "Planı kaldır"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Sayfa %(page_num)s / %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Bu değişiklik planını kaldırmak istediğinizden emin misiniz?"
@@ -809,9 +792,6 @@ msgstr "Geri al"
 
 msgid "Redo"
 msgstr "Yeniden"
-
-msgid "Bold"
-msgstr "Kalın"
 
 msgid "Italic"
 msgstr "Yatay"
@@ -913,6 +893,9 @@ msgstr "En eski"
 
 msgid "Latest"
 msgstr "En yeni"
+
+msgid "Unschedule"
+msgstr "Planı kaldır"
 
 #, python-format
 msgid "Edit this %(object)s"
@@ -1038,9 +1021,23 @@ msgstr "'%(title)s' sayfasını sil"
 msgid "Unpublish page '%(title)s'"
 msgstr "'%(title)s' sayfasını yayından kaldır"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Başlık %(level)d"
+msgid "Heading 1"
+msgstr "Başlık 1"
+
+msgid "Heading 2"
+msgstr "Başlık 2"
+
+msgid "Heading 3"
+msgstr "Başlık 3"
+
+msgid "Heading 4"
+msgstr "Başlık 4"
+
+msgid "Heading 5"
+msgstr "Başlık 5"
+
+msgid "Heading 6"
+msgstr "Başlık 6"
 
 msgid "Bulleted list"
 msgstr "Numarasız liste"
@@ -1050,6 +1047,9 @@ msgstr "Numaralı liste"
 
 msgid "Blockquote"
 msgstr "Alıntı"
+
+msgid "Bold"
+msgstr "Kalın"
 
 msgid "Link"
 msgstr "Bağlantı"

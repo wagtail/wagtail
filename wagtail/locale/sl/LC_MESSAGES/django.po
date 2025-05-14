@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Andrej Marsetič, 2022-2024\n"
+"Last-Translator: UP, 2021\n"
 "Language-Team: Slovenian (http://app.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,9 @@ msgstr "Premakni navzgor"
 
 msgid "Move down"
 msgstr "Premakni navzdol"
+
+msgid "Drag"
+msgstr "Povleci"
 
 msgid "Duplicate"
 msgstr "Podvoji"
@@ -174,8 +177,34 @@ msgstr "Zaklenjeno po urniku"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Trenutno zaklenjeno in bo objavljeno na načrtovani datum"
 
-msgid "latest revision"
-msgstr "zadnja revizija"
+msgid "content type"
+msgstr "tip vsebine"
+
+msgid "timestamp (UTC)"
+msgstr "časovni žig (UTC)"
+
+msgid "log entry"
+msgstr "vnos v dnevnik"
+
+msgid "log entries"
+msgstr "vnosi v dnevnik"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Akcija dnevnika '%(action_name)s' ni bila registrirana."
+
+msgid "system"
+msgstr "sistem"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Neznan %(action)s"
+
+msgid "model log entry"
+msgstr "vnos v dnevnik modela"
+
+msgid "model log entries"
+msgstr "vnosi v dnevnik modela"
 
 msgid "live"
 msgstr "v živo"
@@ -213,17 +242,8 @@ msgstr "objavljeno + po urniku"
 msgid "live + draft"
 msgstr "objavljeno + osnutek"
 
-msgid "Default"
-msgstr "Privzeta"
-
-msgid "Preview in mobile size"
-msgstr "Predogled v mobilni velikosti"
-
-msgid "Preview in tablet size"
-msgstr "Predogled v velikosti tablice"
-
-msgid "Preview in desktop size"
-msgstr "Predogled v namizni velikosti"
+msgid "locale"
+msgstr "lokalno"
 
 msgid "locked"
 msgstr "zaklenjeno"
@@ -234,11 +254,38 @@ msgstr "zaklenjena na"
 msgid "locked by"
 msgstr "zaklenil"
 
-msgid "in moderation"
-msgstr "v pregledu"
+msgid "collection"
+msgstr "zbirka"
 
-msgid "live + in moderation"
-msgstr "objavljeno + v pregledu"
+msgid "collection view restriction"
+msgstr "omejitev pogleda zbirke"
+
+msgid "collection view restrictions"
+msgstr "omejitve ogledov zbirke"
+
+msgid "name"
+msgstr "ime"
+
+msgid "collections"
+msgstr "zbirke"
+
+msgid "group"
+msgstr "skupina"
+
+msgid "permission"
+msgstr "dovoljenje"
+
+msgid "group collection permission"
+msgstr "dovoljenje za skupinsko zbiranje"
+
+msgid "group collection permissions"
+msgstr "dovoljenja za zbirke skupin"
+
+msgid "for content type"
+msgstr "za vrsto vsebine"
+
+msgid "uploaded by user"
+msgstr "ki jo je naložil uporabnik"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi strani v vaši lasti"
@@ -289,9 +336,6 @@ msgstr ""
 "Ime strani, kot se bo pojavilo v URL-ju, npr. e.g http://domain.com/blog/"
 "[moj-kljuc]/"
 
-msgid "content type"
-msgstr "tip vsebine"
-
 msgid "URL path"
 msgstr "URL pot"
 
@@ -328,6 +372,12 @@ msgstr ""
 msgid "latest revision created at"
 msgstr "zadnja različica ustvarjena"
 
+msgid "For search engines"
+msgstr "Za iskalnike"
+
+msgid "For site menus"
+msgstr "Za menije strani"
+
 #, python-format
 msgid ""
 "The slug '%(page_slug)s' is already in use within the parent page at "
@@ -341,33 +391,6 @@ msgstr "stran"
 
 msgid "pages"
 msgstr "strani"
-
-msgid "object id"
-msgstr "id objekta"
-
-msgid "created at"
-msgstr "ustvarjeno"
-
-msgid "user"
-msgstr "uporabnik"
-
-msgid "content JSON"
-msgstr "JSON vsebina"
-
-msgid "approved go live at"
-msgstr "potrjeno, objava"
-
-msgid "revision"
-msgstr "revizija"
-
-msgid "revisions"
-msgstr "revizije"
-
-msgid "group"
-msgstr "skupina"
-
-msgid "permission"
-msgstr "dovoljenje"
 
 msgid "group page permission"
 msgstr "dovoljenje za stran skupine"
@@ -390,142 +413,6 @@ msgstr "stran poteka dela"
 msgid "workflow pages"
 msgstr "strani potekov dela"
 
-msgid "workflow_tasks"
-msgstr "potekdela_naloge"
-
-msgid "task"
-msgstr "naloga"
-
-msgid "workflow task order"
-msgstr "vrstni red opravil poteka dela"
-
-msgid "workflow task orders"
-msgstr "naloge poteka dela"
-
-msgid "name"
-msgstr "ime"
-
-msgid "active"
-msgstr "aktiven"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Aktivne naloge je mogoče dodajati delovnim procesom. Deaktiviranje ne "
-"odstrani opravila iz obstoječih delovnih procesov."
-
-msgid "tasks"
-msgstr "naloge"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Aktivne potek dela je mogoče dodati na strani/izrezke. Če deaktivirate potek "
-"dela, ga ne odstranite z obstoječih strani/delčkov."
-
-msgid "workflows"
-msgstr "delovni potek"
-
-msgid "groups"
-msgstr "skupine"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Te skupine uporabnikov bodo moderirale ali odobrile strani/delce v tem "
-"koraku skozi proces dela"
-
-msgid "Request changes"
-msgstr "Zahtevajte spremembe"
-
-msgid "Approve"
-msgstr "Potrdi"
-
-msgid "Approve with comment"
-msgstr "Odobri s komentarjem"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Člani izbranih skupin Wagtail lahko odobrijo to nalogo"
-
-msgid "Group approval task"
-msgstr "Naloga skupinske odobritve"
-
-msgid "Group approval tasks"
-msgstr "Naloge skupinske odobritve"
-
-msgid "In progress"
-msgstr "V teku"
-
-msgid "Approved"
-msgstr "dobreno"
-
-msgid "Needs changes"
-msgstr "Potrebuje spremembe"
-
-msgid "Cancelled"
-msgstr "Preklicano"
-
-msgid "status"
-msgstr "status"
-
-msgid "requested by"
-msgstr "zahtevano od"
-
-msgid "current task state"
-msgstr "trenutno stanje naloge"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Morda je samo eden v teku ali pa je potrebno spremeniti stanje poteka dela "
-"na strani/delcih."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"Delovni tok '%(workflow_name)s' na %(model_name)s '%(title)s': %(status)s"
-
-msgid "Not started"
-msgstr "Ni začeto"
-
-msgid "Workflow state"
-msgstr "potekdela_stanje"
-
-msgid "Workflow states"
-msgstr "Stanja poteka dela"
-
-msgid "Rejected"
-msgstr "Zavrnjeno"
-
-msgid "Skipped"
-msgstr "Preskočeno"
-
-msgid "workflow state"
-msgstr "stanje poteka dela"
-
-msgid "started at"
-msgstr "začeto ob"
-
-msgid "finished at"
-msgstr "zaključeno ob"
-
-msgid "finished by"
-msgstr "zaključil"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr "Naloga '%(task_name)s' na reviziji '%(revision_info)s': %(status)s"
-
-msgid "Task state"
-msgstr "Stanje naloge"
-
-msgid "Task states"
-msgstr "Stanja naloge"
-
 msgid "page log entry"
 msgstr "vnos v dnevnik strani"
 
@@ -547,58 +434,20 @@ msgstr "komentar odgovor"
 msgid "comment replies"
 msgstr "odgovori na komentarje"
 
-msgid "timestamp (UTC)"
-msgstr "časovni žig (UTC)"
+msgid "Default"
+msgstr "Privzeta"
 
-msgid "log entry"
-msgstr "vnos v dnevnik"
+msgid "Preview in mobile size"
+msgstr "Predogled v mobilni velikosti"
 
-msgid "log entries"
-msgstr "vnosi v dnevnik"
+msgid "Preview in tablet size"
+msgstr "Predogled v velikosti tablice"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Akcija dnevnika '%(action_name)s' ni bila registrirana."
+msgid "Preview in desktop size"
+msgstr "Predogled v namizni velikosti"
 
-msgid "system"
-msgstr "sistem"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Neznan %(action)s"
-
-msgid "model log entry"
-msgstr "vnos v dnevnik modela"
-
-msgid "model log entries"
-msgstr "vnosi v dnevnik modela"
-
-msgid "locale"
-msgstr "lokalno"
-
-msgid "collection"
-msgstr "zbirka"
-
-msgid "collection view restriction"
-msgstr "omejitev pogleda zbirke"
-
-msgid "collection view restrictions"
-msgstr "omejitve ogledov zbirke"
-
-msgid "collections"
-msgstr "zbirke"
-
-msgid "group collection permission"
-msgstr "dovoljenje za skupinsko zbiranje"
-
-msgid "group collection permissions"
-msgstr "dovoljenja za zbirke skupin"
-
-msgid "for content type"
-msgstr "za vrsto vsebine"
-
-msgid "uploaded by user"
-msgstr "ki jo je naložil uporabnik"
+msgid "object id"
+msgstr "id objekta"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -623,6 +472,27 @@ msgstr "bo nastavljen na %(model_name)s vrednost, ki jo določi sistem"
 
 msgid "will unset the reference"
 msgstr "bo razveljavilo referenco"
+
+msgid "created at"
+msgstr "ustvarjeno"
+
+msgid "user"
+msgstr "uporabnik"
+
+msgid "content JSON"
+msgstr "JSON vsebina"
+
+msgid "approved go live at"
+msgstr "potrjeno, objava"
+
+msgid "revision"
+msgstr "revizija"
+
+msgid "revisions"
+msgstr "revizije"
+
+msgid "latest revision"
+msgstr "zadnja revizija"
 
 msgid "hostname"
 msgstr "ime strežnika"
@@ -697,11 +567,150 @@ msgstr ""
 "Za zaščito občutljive vsebine ne smete uporabljati skupnih gesel. Vsakdo, ki "
 "ima to geslo, si bo lahko ogledal vsebino."
 
+msgid "groups"
+msgstr "skupine"
+
 msgid "view restriction"
 msgstr "omejitev pogleda"
 
 msgid "view restrictions"
 msgstr "omejitve pogleda"
+
+msgid "In progress"
+msgstr "V teku"
+
+msgid "Approved"
+msgstr "dobreno"
+
+msgid "Needs changes"
+msgstr "Potrebuje spremembe"
+
+msgid "Cancelled"
+msgstr "Preklicano"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "zahtevano od"
+
+msgid "current task state"
+msgstr "trenutno stanje naloge"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Morda je samo eden v teku ali pa je potrebno spremeniti stanje poteka dela "
+"na strani/delcih."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Delovni tok '%(workflow_name)s' na %(model_name)s '%(title)s': %(status)s"
+
+msgid "Not started"
+msgstr "Ni začeto"
+
+msgid "Workflow state"
+msgstr "potekdela_stanje"
+
+msgid "Workflow states"
+msgstr "Stanja poteka dela"
+
+msgid "active"
+msgstr "aktiven"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktivne potek dela je mogoče dodati na strani/izrezke. Če deaktivirate potek "
+"dela, ga ne odstranite z obstoječih strani/delčkov."
+
+msgid "workflows"
+msgstr "delovni potek"
+
+msgid "workflow_tasks"
+msgstr "potekdela_naloge"
+
+msgid "task"
+msgstr "naloga"
+
+msgid "workflow task order"
+msgstr "vrstni red opravil poteka dela"
+
+msgid "workflow task orders"
+msgstr "naloge poteka dela"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktivne naloge je mogoče dodajati delovnim procesom. Deaktiviranje ne "
+"odstrani opravila iz obstoječih delovnih procesov."
+
+msgid "tasks"
+msgstr "naloge"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Te skupine uporabnikov bodo moderirale ali odobrile strani/delce v tem "
+"koraku skozi proces dela"
+
+msgid "Request changes"
+msgstr "Zahtevajte spremembe"
+
+msgid "Approve"
+msgstr "Potrdi"
+
+msgid "Approve with comment"
+msgstr "Odobri s komentarjem"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Člani izbranih skupin Wagtail lahko odobrijo to nalogo"
+
+msgid "Group approval task"
+msgstr "Naloga skupinske odobritve"
+
+msgid "Group approval tasks"
+msgstr "Naloge skupinske odobritve"
+
+msgid "Rejected"
+msgstr "Zavrnjeno"
+
+msgid "Skipped"
+msgstr "Preskočeno"
+
+msgid "workflow state"
+msgstr "stanje poteka dela"
+
+msgid "started at"
+msgstr "začeto ob"
+
+msgid "finished at"
+msgstr "zaključeno ob"
+
+msgid "finished by"
+msgstr "zaključil"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Naloga '%(task_name)s' na reviziji '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Stanje naloge"
+
+msgid "Task states"
+msgstr "Stanja naloge"
+
+msgid "in moderation"
+msgstr "v pregledu"
+
+msgid "live + in moderation"
+msgstr "objavljeno + v pregledu"
 
 msgid "Log in"
 msgstr "Prijava"

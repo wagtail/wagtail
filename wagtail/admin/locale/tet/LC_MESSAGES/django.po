@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Peter Coward <peter@catalpa.io>, 2019\n"
 "Language-Team: Tetum (Tetun) (http://app.transifex.com/torchbox/wagtail/"
@@ -359,10 +359,6 @@ msgstr "Sin, hamoos"
 msgid "No, don't delete"
 msgstr "Lae, Labele hamoos"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "La publika %(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "Sin, subar"
 
@@ -374,13 +370,6 @@ msgstr "Asaun sira"
 
 msgid "Update"
 msgstr "Troka"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparasaun %(title)s"
-
-msgid "Comparing"
-msgstr "Comparasaun"
 
 msgid "Fields"
 msgstr "Attributu sira"
@@ -623,10 +612,6 @@ msgstr "Xavi tiha ona"
 msgid "Name"
 msgstr "Naran"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pajina %(page_num)s husi %(total_pages)s"
-
 msgid "Breadcrumb"
 msgstr "Hatudu dalan korta"
 
@@ -646,11 +631,8 @@ msgid "Visit the live page"
 msgstr "Vizita pajina publiku"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Hamoos orariu revizaun %(revision.id)s ba %(title)s"
-
-msgid "Unschedule"
-msgstr "Hamoos orariu"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pajina %(page_num)s husi %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Ita serteza hakarak hamoos orariu revizaun nee?"
@@ -781,6 +763,9 @@ msgstr "%(model_name)s '%(object)s' hamoos ona."
 
 msgid "Latest"
 msgstr " Mak tardi liu"
+
+msgid "Unschedule"
+msgstr "Hamoos orariu"
 
 #, python-format
 msgid "Edit this %(object)s"

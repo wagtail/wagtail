@@ -15,6 +15,7 @@
 * Sævar Öfjörð Magnússon (Overcast)
 * Sage Abdullah (Torchbox)
 * Scott Cranfill (JPL)
+* Sébastien Corbin
 * Stefan Hammer (wunderweiss)
 * Storm Heg
 * Thibaud Colas (Torchbox)
@@ -719,7 +720,6 @@
 * Kevin Chung (kev-odin)
 * valnuro
 * Vitaly Babiy
-* Sébastien Corbin
 * Sahil Jangra
 * Henry Harutyunyan
 * Alex Morega
@@ -870,6 +870,23 @@
 * Stéphane Blondon
 * Jatin Bhardwaj
 * Mohamed Rabiaa
+* Bernhard Bliem
+* Mahmoud Nasser
+* Prabhpreet Kaur
+* Baptiste Mispelon
+* Mohammad Fathi Rahman
+* Ashish Nagmoti
+* Dhruvi Patel
+* Sylvain Boissel
+* Jordan Teichmann
+* Aditya (megatrron)
+* Arthur Tripp
+* Ian Meigh
+* Jigyasu Rajput
+* Antoine Rodriguez
+* Gorlik
+* manu
+* Maciek Baron
 
 ## Translators
 
@@ -897,7 +914,7 @@
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Christophe Chauvet, Sébastien Corbin, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Aurel Pere, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: X Bello, Amós Oviedo
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Bohreromir, Matti Borchers, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
+* German: Ettore Atalan, Bohreromir, Matti Borchers, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Christian González, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Florian Vogt, Alexander Weiß, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, Dimitri Fekas, fekioh, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Gilad Levi, Men770, Adi Ron, Oleg Sverdlov
@@ -907,7 +924,7 @@
 * Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Reshi Mahendra, Geek Pantura, Andry Widya Putra, Ronggo Radityo, M. Febrian Ramadhana
 * Italian: Sandro Badalamenti, Marco Badan, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, gcm, Giacomo Ghizzani, LB (Ben Johnston), Marco Lerco, Stefano Marchetto, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi, tognee
 * Japanese: Sangmin Ahn, Goto Hayato, Shuhei Hirota, Shu Ishida, bayside kent, Yudai Kobayashi, Tri Minh, Koji Miyazawa, Tetsuya Morimoto, Tomo Mizoe, Hideaki Oguchi, Safu9, Hiroki Sawano, Kinoshita Shinji, Daigo Shitara, Okosama Star, Shimizu Taku, umepon0626, Takuya Yamamoto
-* Korean: Kyungil Choi, Jihan Chung, mirusu400
+* Korean: Kyungil Choi, Jihan Chung, mirusu400, sl kim
 * Latvian: Aleksandrs Korņijenko, Reinis Rozenbergs, Maris Serzans, Joren Štekeļs
 * Lithuanian: Matas Dailyda, Naglis Jonaitis
 * Maori: Awatea Randall

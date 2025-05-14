@@ -68,6 +68,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     (category) => category.items || [],
   );
   const [inputItems, setInputItems] = useState<ComboBoxOption[]>(flatItems);
+  const [previewedIndex, setPreviewedIndex] = useState<number>(-1);
   // Re-create the categories so the two-column layout flows as expected.
   const categories = items.reduce<ComboBoxCategory<ComboBoxOption>[]>(
     (cats, cat, index) => {
@@ -88,7 +89,6 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     getMenuProps,
     getInputProps,
     getItemProps,
-    highlightedIndex,
     setHighlightedIndex,
     setInputValue,
     openMenu,
@@ -139,6 +139,9 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     },
 
     onInputValueChange: (changes) => {
+      // Hide any preview when the user types or clears the search input.
+      setPreviewedIndex(-1);
+
       const { inputValue: val } = changes;
       if (!val) {
         setInputItems(flatItems);
@@ -155,9 +158,6 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
       setHighlightedIndex(0);
     },
   });
-
-  const [lastHighlightedIndex, setLastHighlightedIndex] =
-    useState(highlightedIndex);
 
   useEffect(() => {
     if (inputValue) {
@@ -178,15 +178,8 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     }
   }, [inputValue]);
 
-  if (
-    inputItems[highlightedIndex] &&
-    highlightedIndex !== lastHighlightedIndex
-  ) {
-    setLastHighlightedIndex(highlightedIndex);
-  }
-
   const previewedBlock =
-    inputItems[highlightedIndex] || inputItems[lastHighlightedIndex];
+    previewedIndex >= 0 ? inputItems[previewedIndex] : null;
 
   return (
     <div className="w-combobox-container">
@@ -283,8 +276,13 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
                         <button
                           className="w-combobox__option-preview"
                           aria-label={comboBoxPreviewLabel}
+                          aria-expanded={previewedIndex === itemIndex}
                           type="button"
-                          onClick={() => setHighlightedIndex(itemIndex)}
+                          onClick={() =>
+                            setPreviewedIndex(
+                              previewedIndex === itemIndex ? -1 : itemIndex,
+                            )
+                          }
                         >
                           <Icon name="view" />
                         </button>

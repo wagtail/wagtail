@@ -8,13 +8,14 @@
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2024
 # Julian C <jcuotpc@gmail.com>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Dan Braghis, 2014-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -395,12 +396,6 @@ msgstr "Toate %(objects)s articolele selectate pe acest ecran"
 msgid "All items in listing selected"
 msgstr "Toate articolele din listă selectate"
 
-msgid "For search engines"
-msgstr "Pentru motoare de căutare"
-
-msgid "For site menus"
-msgstr "Pentru meniuri"
-
 msgid "Content"
 msgstr "Conținut"
 
@@ -668,10 +663,6 @@ msgid "No, don't delete"
 msgstr "Nu, nu șterge"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Anulează publicarea %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "Sigur doriți să ștergeți acest %(model_name)s?"
 
@@ -730,13 +721,6 @@ msgid ""
 msgstr ""
 "Previzualizarea nu poate fi afișată din cauza erorilor de validare. <br /"
 ">Faceți click pe \"salvare\" pentru a evidenția câmpurile relevante."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparare %(title)s"
-
-msgid "Comparing"
-msgstr "Comparare"
 
 msgid "Fields"
 msgstr "Câmpuri"
@@ -805,6 +789,9 @@ msgstr "Rezumat sait"
 msgid "Read the release notes."
 msgstr "Citește notele de lansare."
 
+msgid "Close"
+msgstr "Închideți"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Paginile și fragmentele Dvs. într-un flux de lucru"
 
@@ -816,9 +803,6 @@ msgstr "Modificări solicitate la"
 
 msgid "Awaiting"
 msgstr "Așteaptă"
-
-msgid "Close"
-msgstr "Închideți"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1741,13 +1725,6 @@ msgstr "Alege când acest %(model_name)s va fi publicat sau/și va expira"
 msgid "Choose when this page should go live and/or expire"
 msgstr "Alegeți când această pagină va deveni live sau/și va expira"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Acest program de publicare va fi aplicat numai după ce selectați opțiunea "
-"\"Publică\""
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Oricine are permisiuni de editare poate crea programări"
 
@@ -1853,10 +1830,6 @@ msgstr "Completat la"
 msgid "Clear"
 msgstr "Curăță"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s din %(total_pages)s."
-
 msgid "Toggle breadcrumbs"
 msgstr "Comută breadcrumb"
 
@@ -1914,21 +1887,18 @@ msgstr "Accesați pagina live"
 msgid "Visible to all. Visit the live page"
 msgstr "Vizibilă tuturor. Vizitează pagina live"
 
-msgid "Private. Visit the live page"
-msgstr "Privată. Vizitează pagina live"
-
 msgid "Visible to all"
 msgstr "Vizibilă tuturor"
 
-msgid "Toggle section"
-msgstr "Comută secțiunea"
+msgid "Private. Visit the live page"
+msgstr "Privată. Vizitează pagina live"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Anulează programarea reviziei %(revision.id)s pentru %(title)s"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Pagina %(page_num)s din %(total_pages)s"
 
-msgid "Unschedule"
-msgstr "Anulează programare"
+msgid "Toggle section"
+msgstr "Comută secțiunea"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Sigur doriți să anulați programarea acestei revizii?"
@@ -2047,9 +2017,6 @@ msgstr "Program invalid"
 
 msgid "Go-live:"
 msgstr "Dată de lansare:"
-
-msgid "Once published:"
-msgstr "La publicare:"
 
 msgid "No publishing schedule set"
 msgstr "Nu a fost stabilit un program de publicare"
@@ -2449,9 +2416,6 @@ msgstr "Inserează sau editează un link"
 msgid "Text formatting"
 msgstr "Formatare text"
 
-msgid "Bold"
-msgstr "Caractere aldine"
-
 msgid "Italic"
 msgstr "Cursiv"
 
@@ -2742,6 +2706,9 @@ msgstr "'%(object)s' nepublicat."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "Programarea versiunii %(revision_id)s a \"%(object)s\" a fost anulată."
 
+msgid "Unschedule"
+msgstr "Anulează programare"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "revizia %(revision_id)s a \"%(object)s\""
@@ -2778,38 +2745,6 @@ msgstr "Bord"
 msgid "Delete selected pages"
 msgstr "Șterge paginile selectate"
 
-msgid "1 page has been deleted"
-msgstr "1 pagină a fost ștersă"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 pagină și %(num_child_objects)d pagină descendentă au fost șterse"
-msgstr[1] "1 pagină și %(num_child_objects)d pagini descendente au fost șterse"
-msgstr[2] ""
-"1 pagină și %(num_child_objects)d de pagini descendente au fost șterse"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d pagini au fost șterse"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagină descendentă au "
-"fost șterse"
-msgstr[1] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagini descendente au "
-"fost șterse"
-msgstr[2] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d de pagini descendente "
-"au fost șterse"
-
 msgid "Select a new parent page"
 msgstr "Alege o pagină de bază nouă"
 
@@ -2826,80 +2761,8 @@ msgstr[2] "%(num_pages)d pagini au fost mutate"
 msgid "Publish selected pages"
 msgstr "Publică paginile selectate"
 
-msgid "1 page has been published"
-msgstr "1 pagină a fost publicată"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] ""
-"1 pagină și %(num_child_objects)d pagină descendentă au fost publicate"
-msgstr[1] ""
-"1 pagină și %(num_child_objects)d pagini descendente au fost publicate"
-msgstr[2] ""
-"1 pagină și %(num_child_objects)d de pagini descendente au fost publicate"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d pagini au fost publicate"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagină descendentă au "
-"fost publicate"
-msgstr[1] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d pagini descendente au "
-"fost publicate"
-msgstr[2] ""
-"%(num_parent_objects)d pagini și %(num_child_objects)d de pagini descendente "
-"au fost publicate"
-
 msgid "Unpublish selected pages"
 msgstr "Anulează publicarea paginilor selectate"
-
-msgid "1 page has been unpublished"
-msgstr "Publicarea la 1 pagină a fost anulată"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] ""
-"Publicarea la 1 pagină și %(num_child_objects)d pagină descendentă a fost "
-"anulată"
-msgstr[1] ""
-"Publicarea la 1 pagină și %(num_child_objects)d pagini descendente a fost "
-"anulată"
-msgstr[2] ""
-"Publicarea la 1 pagină și %(num_child_objects)d de pagini descendente a fost "
-"anulată"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "Publicarea la %(num_parent_objects)d pagini a fost anulată"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d pagină "
-"descendentă a fost anulată"
-msgstr[1] ""
-"Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d pagini "
-"descendente a fost anulată"
-msgstr[2] ""
-"Publicarea la %(num_parent_objects)d pagini și %(num_child_objects)d de "
-"pagini descendente a fost anulată"
 
 msgid "Choose parent"
 msgstr "Alege părinte"
@@ -3063,9 +2926,6 @@ msgstr ""
 "Sunteți în process de vizualizare a versiunii precedente a paginii din "
 "<b>%(created_at)s</b> de către %(user)s"
 
-msgid "Page history"
-msgstr "Istoria paginii"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Publicare anulată pentru pagina '%(page_title)s'."
@@ -3201,9 +3061,6 @@ msgstr "Sarcină flux de lucru nouă"
 msgid "Task '%(object)s' created."
 msgstr "Sarcina '%(object)s' a fost creată."
 
-msgid "Editing workflow task"
-msgstr "Editare sarcină de flux de lucru"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Sarcina '%(object)s' a fost actualizată."
@@ -3286,9 +3143,23 @@ msgstr "Sortează ordinea de meniu"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Schimbă ordinea paginilor descendente la '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Antet %(level)d"
+msgid "Heading 1"
+msgstr "Antet 1"
+
+msgid "Heading 2"
+msgstr "Antet 2"
+
+msgid "Heading 3"
+msgstr "Antet 3"
+
+msgid "Heading 4"
+msgstr "Antet 4"
+
+msgid "Heading 5"
+msgstr "Antet 5"
+
+msgid "Heading 6"
+msgstr "Antet 6"
 
 msgid "Bulleted list"
 msgstr "Listă cu puncte"
@@ -3298,6 +3169,9 @@ msgstr "Listă numerotată"
 
 msgid "Blockquote"
 msgstr "Citat"
+
+msgid "Bold"
+msgstr "Caractere aldine"
 
 msgid "Link"
 msgstr "Legătură"

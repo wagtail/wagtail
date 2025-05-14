@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
 # Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
@@ -14,14 +15,14 @@
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
-# Sébastien Corbin <seb.corbin@gmail.com>, 2023
+# Sébastien Corbin <seb.corbin@gmail.com>, 2023,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2023,2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -54,9 +55,6 @@ msgstr "Annuler le workflow"
 msgid "Unpublish"
 msgstr "Dépublier"
 
-msgid "Delete"
-msgstr "Supprimer"
-
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -69,6 +67,9 @@ msgstr " %(label)s et Publier"
 
 msgid "Wagtail snippets"
 msgstr "Fragments Wagtail"
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "Delete selected snippets"
 msgstr "Supprimer les fragments sélectionnés"
@@ -136,8 +137,14 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" "
 "rel=\"noreferrer\">en créer un maintenant</a> ?"
 
+msgid "Scheduling…"
+msgstr "En cours de programmation..."
+
 msgid "Publishing…"
 msgstr "Publication..."
+
+msgid "Schedule to publish"
+msgstr "Programmer pour publication"
 
 msgid "Publish this version"
 msgstr "Publier cette version"
@@ -172,14 +179,6 @@ msgstr "Occurrences"
 #, python-format
 msgid "More options for '%(title)s'"
 msgstr "Plus d’options pour « %(title)s »"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Modifier ce/cette %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "Historique de %(model_name)s"
 
 msgid "Home"
 msgstr "Accueil"

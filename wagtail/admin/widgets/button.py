@@ -1,23 +1,22 @@
 from warnings import warn
 
 from django.forms.utils import flatatt
-from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.coreutils import accepts_kwarg
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.admin.ui.menus import MenuItem
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
-class Button(Component):
+class BaseButton(Component):
     template_name = "wagtailadmin/shared/button.html"
     show = True
     label = ""
     icon_name = None
     url = None
     attrs = {}
+    allow_in_dropdown = False
 
     def __init__(
         self, label="", url=None, classname="", icon_name=None, attrs={}, priority=1000
@@ -35,16 +34,10 @@ class Button(Component):
 
         self.attrs = self.attrs.copy()
         self.attrs.update(attrs)
-
-        # if a 'title' attribute has been passed, correct that to aria-label
-        # as that's what will be picked up in renderings that don't use button.render
-        # directly (e.g. _dropdown_items.html)
-        if "title" in self.attrs and "aria-label" not in self.attrs:
-            self.attrs["aria-label"] = self.attrs.pop("title")
         self.priority = priority
 
     def get_context_data(self, parent_context):
-        return {"button": self}
+        return {"button": self, "request": parent_context.get("request")}
 
     @property
     def base_attrs_string(self):
@@ -62,27 +55,27 @@ class Button(Component):
         return f"<Button: {self.label}>"
 
     def __lt__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) < (other.priority, other.label)
 
     def __le__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) <= (other.priority, other.label)
 
     def __gt__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) > (other.priority, other.label)
 
     def __ge__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (self.priority, self.label) >= (other.priority, other.label)
 
     def __eq__(self, other):
-        if not isinstance(other, Button):
+        if not isinstance(other, (BaseButton, MenuItem)):
             return NotImplemented
         return (
             self.label == other.label
@@ -92,9 +85,29 @@ class Button(Component):
             and self.priority == other.priority
         )
 
+    @classmethod
+    def from_menu_item(cls, menu_item: MenuItem):
+        attrs = {}
+        if link_rel := getattr(menu_item, "link_rel", None):
+            attrs["rel"] = link_rel
 
-class HeaderButton(Button):
-    """An icon-only button to be displayed after the breadcrumbs in the header."""
+        return cls(
+            label=menu_item.label,
+            url=menu_item.url,
+            icon_name=menu_item.icon_name,
+            priority=menu_item.priority,
+            attrs=attrs,
+        )
+
+
+class Button(BaseButton):
+    """Plain link button with a label and optional icon."""
+
+    allow_in_dropdown = True
+
+
+class HeaderButton(BaseButton):
+    """Top-level button to be displayed after the breadcrumbs in the header."""
 
     def __init__(
         self,
@@ -127,48 +140,26 @@ class HeaderButton(Button):
 
 # Base class for all listing buttons
 # This is also used by SnippetListingButton defined in wagtail.snippets.widgets
-class ListingButton(Button):
+class ListingButton(BaseButton):
+    """Top-level button to be displayed in a listing view."""
+
     def __init__(self, label="", url=None, classname="", **kwargs):
         classname = f"{classname} button button-small button-secondary".strip()
         super().__init__(label=label, url=url, classname=classname, **kwargs)
 
 
 class PageListingButton(ListingButton):
-    aria_label_format = None
-    url_name = None
-
-    def __init__(self, *args, page=None, next_url=None, attrs={}, user=None, **kwargs):
-        self.page = page
-        self.user = user
-        self.next_url = next_url
-
-        attrs = attrs.copy()
-        if (
-            self.page
-            and self.aria_label_format is not None
-            and "aria-label" not in attrs
-        ):
-            attrs["aria-label"] = self.aria_label_format % {
-                "title": self.page.get_admin_display_title()
-            }
-        super().__init__(*args, attrs=attrs, **kwargs)
-
-    @cached_property
-    def url(self):
-        if self.page and self.url_name is not None:
-            url = reverse(self.url_name, args=[self.page.id])
-            if self.next_url:
-                url += "?" + urlencode({"next": self.next_url})
-            return url
-
-    @cached_property
-    def page_perms(self):
-        if self.page:
-            return self.page.permissions_for_user(self.user)
+    def __init__(self, *args, **kwargs):
+        warn(
+            "`PageListingButton` is deprecated. "
+            "Use `wagtail.admin.widgets.button.ListingButton` instead.",
+            category=RemovedInWagtail80Warning,
+        )
+        super().__init__(*args, **kwargs)
 
 
-class BaseDropdownMenuButton(Button):
-    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
+class BaseDropdownMenuButton(BaseButton):
+    template_name = "wagtailadmin/shared/button_with_dropdown.html"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, url=None, **kwargs)
@@ -177,14 +168,28 @@ class BaseDropdownMenuButton(Button):
     def dropdown_buttons(self):
         raise NotImplementedError
 
+    @property
+    def base_attrs_string(self):
+        attrs = self.attrs.copy()
+        # For dropdowns, attrs are rendered on the wrapper `<div>`, not the
+        # toggle button. Don't render the `aria-label` on the wrapper. We'll pass
+        # it as the `title` context variable to be used as `toggle_aria_label`
+        # instead, which will be rendered on the toggle button.
+        attrs.pop("aria-label", None)
+        return flatatt(attrs)
+
     def get_context_data(self, parent_context):
-        return {
-            "buttons": sorted(self.dropdown_buttons),
-            "label": self.label,
-            "title": self.aria_label,
-            "toggle_classname": self.classname,
-            "icon_name": self.icon_name,
-        }
+        context = super().get_context_data(parent_context)
+        context.update(
+            {
+                "buttons": sorted(self.dropdown_buttons),
+                "label": self.label,
+                "title": self.aria_label,
+                "toggle_classname": self.classname,
+                "icon_name": self.icon_name,
+            }
+        )
+        return context
 
 
 class ButtonWithDropdown(BaseDropdownMenuButton):
@@ -194,32 +199,22 @@ class ButtonWithDropdown(BaseDropdownMenuButton):
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
+    # This page-specific class and template is documented for
+    # the register_page_listing_buttons hook
+    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
+
     def __init__(
         self,
         label,
         hook_name,
         page,
-        user=None,
-        page_perms=None,
+        user,
         next_url=None,
         **kwargs,
     ):
         self.hook_name = hook_name
         self.page = page
-
-        if user is None:
-            if page_perms is not None:
-                warn(
-                    "ButtonWithDropdownFromHook should be passed a `user` argument instead of `page_perms`",
-                    category=RemovedInWagtail70Warning,
-                    stacklevel=2,
-                )
-                self.user = page_perms.user
-            else:
-                raise TypeError("ButtonWithDropdownFromHook requires a `user` argument")
-        else:
-            self.user = user
-
+        self.user = user
         self.next_url = next_url
 
         super().__init__(label, **kwargs)
@@ -232,21 +227,19 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
     def dropdown_buttons(self):
         button_hooks = hooks.get_hooks(self.hook_name)
 
-        buttons = []
+        hook_buttons = []
         for hook in button_hooks:
-            if accepts_kwarg(hook, "user"):
-                buttons.extend(
-                    hook(page=self.page, user=self.user, next_url=self.next_url)
-                )
-            else:
-                # old-style hook that accepts page_perms instead of user
-                warn(
-                    f"`{self.hook_name}` hook functions should accept a `user` argument instead of `page_perms` -"
-                    f" {hook.__module__}.{hook.__name__} needs to be updated",
-                    category=RemovedInWagtail70Warning,
-                )
-                page_perms = self.page.permissions_for_user(self.user)
-                buttons.extend(hook(self.page, page_perms, self.next_url))
+            hook_buttons.extend(
+                hook(page=self.page, user=self.user, next_url=self.next_url)
+            )
 
-        buttons = [b for b in buttons if b.show]
+        buttons = []
+        for button in hook_buttons:
+            # Allow hooks to return either Button or MenuItem instances
+            if isinstance(button, MenuItem):
+                if button.is_shown(self.user):
+                    buttons.append(Button.from_menu_item(button))
+            elif button.show:
+                buttons.append(button)
+
         return buttons

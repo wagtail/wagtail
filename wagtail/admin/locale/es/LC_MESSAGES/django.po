@@ -11,6 +11,7 @@
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
 # Enrique Sánchez-Reboto García, 2023
+# Enrique Sánchez-Reboto García, 2023
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Hector Garcia <torkoff@gmail.com>, 2022
 # Joaquín T <joaquintita@gmail.com>, 2014
@@ -18,8 +19,9 @@
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
 # Lautaro Bringas, 2023
+# Lautaro Bringas, 2023
 # Matt Westcott <matthew@torchbox.com>, 2016
-# Matt Westcott <matthew@torchbox.com>, 2016,2024
+# Matt Westcott <matthew@torchbox.com>, 2016,2024-2025
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Oluwadamilare Ogunbanjo, 2022
@@ -33,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2016,2024-2025\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -390,12 +392,6 @@ msgstr "Todos los %(objects)s elementos en esta pantalla seleccionados"
 msgid "All items in listing selected"
 msgstr "Todos los elementos en la lista seleccionados"
 
-msgid "For search engines"
-msgstr "Para motores de búsqueda"
-
-msgid "For site menus"
-msgstr "Para menús del sitio"
-
 msgid "Content"
 msgstr "Contenido"
 
@@ -661,10 +657,6 @@ msgid "No, don't delete"
 msgstr "No, no eliminar"
 
 #, python-format
-msgid "Unpublish %(title)s"
-msgstr "Despublicar %(title)s"
-
-#, python-format
 msgid "Are you sure you want to unpublish this %(model_name)s?"
 msgstr "¿Estás seguro de que quieres despublicar este %(model_name)s¿"
 
@@ -703,13 +695,6 @@ msgid ""
 msgstr ""
 "No se puede mostrar la vista previa debido a errores de validación. <br /"
 ">Pulse guardar para resaltar los campos afectados."
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "Comparando %(title)s"
-
-msgid "Comparing"
-msgstr "Comparando"
 
 msgid "Fields"
 msgstr "Campos"
@@ -780,6 +765,9 @@ msgstr "Resumen del sitio"
 msgid "Read the release notes."
 msgstr "Lea los detalles de la versión."
 
+msgid "Close"
+msgstr "Cerrar"
+
 msgid "Task started"
 msgstr "Tarea iniciada"
 
@@ -788,9 +776,6 @@ msgstr "Cambios solicitados el"
 
 msgid "Awaiting"
 msgstr "Esperando"
-
-msgid "Close"
-msgstr "Cerrar"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1698,10 +1683,6 @@ msgstr "Completado el"
 msgid "Clear"
 msgstr "Limpiar"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Página %(page_num)s de %(total_pages)s."
-
 msgid "Toggle breadcrumbs"
 msgstr "Alternar migas de pan"
 
@@ -1744,21 +1725,18 @@ msgstr "Visitar la página publicada"
 msgid "Visible to all. Visit the live page"
 msgstr "Visible para todos. Visitar la página en vivo"
 
-msgid "Private. Visit the live page"
-msgstr "Privada. Visitar la página en vivo"
-
 msgid "Visible to all"
 msgstr "Visible para todos"
 
-msgid "Toggle section"
-msgstr "Alternar sección"
+msgid "Private. Visit the live page"
+msgstr "Privada. Visitar la página en vivo"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "Desprogramar Revisión %(revision.id)s para %(title)s"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Página %(page_num)s de %(total_pages)s"
 
-msgid "Unschedule"
-msgstr "No programar"
+msgid "Toggle section"
+msgstr "Alternar sección"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Está seguro de desprogramar la revisión?"
@@ -1862,9 +1840,6 @@ msgstr "Ver historial"
 
 msgid "Go-live:"
 msgstr "Publica:"
-
-msgid "Once published:"
-msgstr "Una vez publicado:"
 
 msgid "No publishing schedule set"
 msgstr "No hay fecha de publicación establecida"
@@ -2194,9 +2169,6 @@ msgstr "Deshacer"
 msgid "Redo"
 msgstr "Rehacer"
 
-msgid "Bold"
-msgstr "Negrilla"
-
 msgid "Italic"
 msgstr "Italica"
 
@@ -2414,6 +2386,9 @@ msgstr "'%(object)s' despublicado."
 msgid "Version %(revision_id)s of \"%(object)s\" unscheduled."
 msgstr "La versión %(revision_id)s of \"%(object)s\" ha sido desplanificada."
 
+msgid "Unschedule"
+msgstr "No programar"
+
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr " revisión %(revision_id)s de \"%(object)s\""
@@ -2435,37 +2410,6 @@ msgstr "Panel de control"
 msgid "Delete selected pages"
 msgstr "Eliminar páginas seleccionadas"
 
-msgid "1 page has been deleted"
-msgstr "1 página ha sido eliminada"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been deleted"
-msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
-msgstr[0] "1 página y %(num_child_objects)d página hija ha sido eliminada"
-msgstr[1] "1 página y %(num_child_objects)d páginas hijas han sido eliminadas"
-msgstr[2] "1 página y %(num_child_objects)d páginas hijas han sido eliminadas"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been deleted"
-msgstr "%(num_parent_objects)d páginas han sido eliminadas"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"deleted"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"deleted"
-msgstr[0] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d página hija ha sido "
-"eliminada"
-msgstr[1] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d páginas hijas han "
-"sido eliminadas"
-msgstr[2] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d páginas hijas han "
-"sido eliminadas"
-
 msgid "Select a new parent page"
 msgstr "Seleccionar una nueva página padre"
 
@@ -2482,73 +2426,8 @@ msgstr[2] "%(num_pages)d páginas han sido movidas"
 msgid "Publish selected pages"
 msgstr "Publicar páginas seleccionadas"
 
-msgid "1 page has been published"
-msgstr "1 página ha sido publicada"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been published"
-msgid_plural "1 page and %(num_child_objects)d child pages have been published"
-msgstr[0] "1 página y %(num_child_objects)d página hija ha sido publicada"
-msgstr[1] "1 página y %(num_child_objects)d páginas hijas han sido publicadas"
-msgstr[2] "1 página y %(num_child_objects)d páginas hijas han sido publicadas"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been published"
-msgstr "%(num_parent_objects)d páginas han sido publicadas"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"published"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"published"
-msgstr[0] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d página hija ha sido "
-"publicada"
-msgstr[1] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d páginas hijas han "
-"sido publicadas"
-msgstr[2] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d páginas hijas han "
-"sido publicadas"
-
 msgid "Unpublish selected pages"
 msgstr "Despublicar páginas seleccionadas"
-
-msgid "1 page has been unpublished"
-msgstr "1 página ha sido despublicada"
-
-#, python-format
-msgid "1 page and %(num_child_objects)d child page have been unpublished"
-msgid_plural ""
-"1 page and %(num_child_objects)d child pages have been unpublished"
-msgstr[0] "1 página y %(num_child_objects)d página hija ha sido despublicada"
-msgstr[1] ""
-"1 página y %(num_child_objects)d páginas hijas han sido despublicadas"
-msgstr[2] ""
-"1 página y %(num_child_objects)d páginas hijas han sido despublicadas"
-
-#, python-format
-msgid "%(num_parent_objects)d pages have been unpublished"
-msgstr "%(num_parent_objects)d páginas han sido despublicadas"
-
-#, python-format
-msgid ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
-"unpublished"
-msgid_plural ""
-"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
-"unpublished"
-msgstr[0] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d página hija ha sido "
-"despublicada"
-msgstr[1] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d páginas hijas han "
-"sido despublicadas"
-msgstr[2] ""
-"%(num_parent_objects)d páginas y %(num_child_objects)d páginas hijas han "
-"sido despublicadas"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2687,9 +2566,6 @@ msgstr ""
 "Estás viendo una versión anterior de esta página desde el <b>%(created_at)s</"
 "b> por %(user)s"
 
-msgid "Page history"
-msgstr "Historial de página"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "Página '%(page_title)s' sin publicar."
@@ -2796,9 +2672,6 @@ msgstr "Nueva tarea de flujo de trabajo"
 msgid "Task '%(object)s' created."
 msgstr "Tarea '%(object)s' creada."
 
-msgid "Editing workflow task"
-msgstr "Editando tarea de flujo de trabajo"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Tarea '%(object)s' actualizada."
@@ -2856,9 +2729,23 @@ msgstr "Ordenar menú"
 msgid "Change ordering of child pages of '%(title)s'"
 msgstr "Cambiar el orden de las páginas hijas de '%(title)s'"
 
-#, python-format
-msgid "Heading %(level)d"
-msgstr "Encabezado %(level)d"
+msgid "Heading 1"
+msgstr "Encabezado 1"
+
+msgid "Heading 2"
+msgstr "Encabezado 2"
+
+msgid "Heading 3"
+msgstr "Encabezado 3"
+
+msgid "Heading 4"
+msgstr "Encabezado 4"
+
+msgid "Heading 5"
+msgstr "Encabezado 5"
+
+msgid "Heading 6"
+msgstr "Encabezado 6"
 
 msgid "Bulleted list"
 msgstr "Lista con viñetas"
@@ -2868,6 +2755,9 @@ msgstr "Lista numerada"
 
 msgid "Blockquote"
 msgstr "Bloque de texto citado"
+
+msgid "Bold"
+msgstr "Negrilla"
 
 msgid "Link"
 msgstr "Enlace"

@@ -1,4 +1,3 @@
-import json
 import os
 import unittest
 from datetime import datetime, timedelta
@@ -12,7 +11,6 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
     avatar_url,
@@ -22,14 +20,12 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
     timesince_last_update,
     timesince_simple,
 )
-from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
 from wagtail.coreutils import get_dummy_request
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale, Page
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.users.models import UserProfile
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestAvatarUrlInterceptTemplateTag(WagtailTestUtils, TestCase):
@@ -398,24 +394,6 @@ class TestInternationalisationTags(TestCase):
         with override_settings(WAGTAIL_I18N_ENABLED=True):
             self.assertTrue(i18n_enabled())
 
-    def test_locales(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `locales` template tag will be removed in a future release.",
-        ):
-            locales_output = locales_tag()
-
-        self.assertIsInstance(locales_output, str)
-        self.assertEqual(
-            json.loads(locales_output),
-            [
-                {"code": "en", "display_name": "English"},
-                {"code": "fr", "display_name": "French"},
-                {"code": "ro", "display_name": "Romanian"},
-                {"code": "ru", "display_name": "Russian"},
-            ],
-        )
-
     def test_locale_label_from_id(self):
         with self.assertNumQueries(1):
             self.assertEqual(locale_label_from_id(self.locale_ids[0]), "English")
@@ -426,20 +404,6 @@ class TestInternationalisationTags(TestCase):
         # check with an invalid id
         with self.assertNumQueries(0):
             self.assertIsNone(locale_label_from_id(self.locale_ids[-1] + 100), None)
-
-    def test_js_translation_strings(self):
-        template = """
-            {% load wagtailadmin_tags %}
-            {% js_translation_strings %}
-        """
-
-        expected = json.dumps(get_js_translation_strings())
-
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `js_translation_strings` template tag will be removed in a future release.",
-        ):
-            self.assertHTMLEqual(expected, Template(template).render(Context()))
 
 
 class ComponentTest(SimpleTestCase):
@@ -1068,3 +1032,53 @@ class PageBreadcrumbsTagTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         self.assertEqual(len(invalid_icons), 0)
         icon = soup.select_one("ol li:last-child svg use[href='#icon-site']")
         self.assertIsNotNone(icon)
+
+
+class ThemeColorSchemeTest(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.request = get_dummy_request()
+        self.user = self.login()
+        self.request.user = self.user
+        self.profile = UserProfile.get_for_user(self.user)
+
+    def test_default_mode(self):
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark light")
+
+    def test_dark_mode(self):
+        self.profile.theme = "dark"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "dark")
+
+    def test_light_mode(self):
+        self.profile.theme = "light"
+        self.profile.save()
+
+        template = """
+            {% load wagtailadmin_tags %}
+            <meta name="color-scheme" content="{% admin_theme_color_scheme %}">
+        """
+        rendered = Template(template).render(Context({"request": self.request}))
+
+        soup = self.get_soup(rendered)
+        meta_tag = soup.find("meta", {"name": "color-scheme"})
+        self.assertIsNotNone(meta_tag)
+        self.assertEqual(meta_tag["content"], "light")

@@ -11,8 +11,8 @@ type CopyOptions = {
  * @example
  * ```html
  * <div data-controller="w-clipboard">
- *  <input type="text" value="Hello World" data-w-clipboard-target="value" />
- *  <button type="button" data-action="w-clipboard#copy">Copy</button>
+ *   <input type="text" value="Hello World" data-w-clipboard-target="value" />
+ *   <button type="button" data-action="w-clipboard#copy">Copy</button>
  * </div>
  * ```
  */

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
@@ -32,24 +32,17 @@ msgstr "тайлбар"
 msgid "Delete %(query)s"
 msgstr "%(query)s устгах"
 
-msgid "Delete"
-msgstr "Устгах"
-
-msgid "Yes, delete"
-msgstr "Тийм, устга"
-
-#, python-format
-msgid "Editing %(query)s"
-msgstr "%(query)s засч байна"
-
-msgid "Editing"
-msgstr "Засч байна"
-
 msgid "Move up"
 msgstr "Дээшээ зөөх"
 
 msgid "Move down"
 msgstr "Доошоо зөөх"
+
+msgid "Drag"
+msgstr "Чирэх"
+
+msgid "Delete"
+msgstr "Устгах"
 
 msgid "Popular search terms"
 msgstr "Түгээмэл хайлтын утга"
@@ -59,9 +52,6 @@ msgstr "Хайлт"
 
 msgid "Terms"
 msgstr "Утгууд"
-
-msgid "Views (past week)"
-msgstr "Үзэлт (өнгөрсөн долоо хоногийн)"
 
 msgid "No results found"
 msgstr "Үр дүн олдсонгүй"
@@ -75,11 +65,8 @@ msgstr "Гадаад холбоос"
 msgid "None"
 msgstr "Хоосон"
 
-msgid "Search Terms"
-msgstr "Хайлтын утгууд"
+msgid "Date"
+msgstr "Огноо"
 
 msgid "Search term(s)"
 msgstr "Хайлтын утга(утгууд)"
-
-msgid "Edit"
-msgstr "Засах"

@@ -2,19 +2,22 @@
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2022
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2022
-# Luís Tiago Favas <traducoes@favas.eu>, 2022
-# Tiago Henriques <trinosauro@gmail.com>, 2022
 # Loic Teixeira, 2024
+# Tiago Henriques <trinosauro@gmail.com>, 2025
+# Luís Tiago Favas <traducoes@favas.eu>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2024\n"
+"Last-Translator: Luís Tiago Favas <traducoes@favas.eu>, 2025\n"
 "Language-Team: Portuguese (Portugal) (https://app.transifex.com/torchbox/"
 "teams/8009/pt_PT/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
+
+msgid "Actions"
+msgstr "Ações"
 
 msgid "Add a comment"
 msgstr "Adicionar um comentário"
@@ -87,6 +90,9 @@ msgstr "Explorador de páginas"
 
 msgid "Pages"
 msgstr "Páginas"
+
+msgid "Preview"
+msgstr "Visualizar"
 
 msgid "Reload saved content"
 msgstr "Recarregar conteúdo gravado"

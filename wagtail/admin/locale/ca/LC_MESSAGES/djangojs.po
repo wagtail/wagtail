@@ -2,11 +2,11 @@
 # Translators:
 # David Llop, 2022
 # Loic Teixeira, 2022
-# Roger Pons <rogerpons@gmail.com>, 2024
+# Roger Pons <rogerpons@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2024\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/torchbox/teams/8009/ca/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: ca\n"
@@ -35,6 +35,9 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s píxel"
 msgstr[1] "%(num)s píxels"
+
+msgid "Actions"
+msgstr "Accions"
 
 msgid "Add a comment"
 msgstr "Afegir un comentari"
@@ -137,6 +140,9 @@ msgstr "Pàgines"
 
 msgid "Pin toolbar"
 msgstr "Fixar barra d'eines"
+
+msgid "Preview"
+msgstr "Previsualització"
 
 msgid "Reload saved content"
 msgstr "Recarrega el contingut desat"

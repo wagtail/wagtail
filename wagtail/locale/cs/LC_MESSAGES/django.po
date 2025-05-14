@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: IT Management <hudan@itmanagement.cz>, 2018,2020,2024\n"
+"Last-Translator: Vláďa Macek <macek@sandbox.cz>, 2021\n"
 "Language-Team: Czech (http://app.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,9 @@ msgstr "Posunout nahoru"
 
 msgid "Move down"
 msgstr "Posunout dolů"
+
+msgid "Drag"
+msgstr "Přetáhnout myší"
 
 msgid "Duplicate"
 msgstr "Duplikovat"
@@ -91,6 +94,29 @@ msgid ""
 msgstr ""
 "{model_name} '{title}' je uzamčena a naplánována k zveřejnění {datetime}"
 
+msgid "content type"
+msgstr "content type (typ obsahu)"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp - čas zpracování (UTC)"
+
+msgid "log entry"
+msgstr "položka logu"
+
+msgid "log entries"
+msgstr "položky logu"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Akce logu '%(action_name)s' není registrována."
+
+msgid "system"
+msgstr "systém"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Neznámé %(action)s"
+
 msgid "live"
 msgstr "publikováno"
 
@@ -127,9 +153,6 @@ msgstr "publikováno + naplánováno"
 msgid "live + draft"
 msgstr "publikováno + koncept"
 
-msgid "Default"
-msgstr "Default(ní)"
-
 msgid "locked"
 msgstr "uzamčeno"
 
@@ -139,11 +162,35 @@ msgstr "uzamčeno: "
 msgid "locked by"
 msgstr "uzamčeno uživatelem"
 
-msgid "in moderation"
-msgstr "probíhá schvalování"
+msgid "collection"
+msgstr "kolekce"
 
-msgid "live + in moderation"
-msgstr "publikováno + probíhá schvalování"
+msgid "collection view restriction"
+msgstr "omezení zobrazení kolekce"
+
+msgid "collection view restrictions"
+msgstr "omezení zobrazení kolekcí"
+
+msgid "name"
+msgstr "jméno"
+
+msgid "collections"
+msgstr "kolekce"
+
+msgid "group"
+msgstr "skupina"
+
+msgid "permission"
+msgstr "oprávnění"
+
+msgid "group collection permission"
+msgstr "skupinové oprávnění pro kolekci"
+
+msgid "group collection permissions"
+msgstr "skupinová oprávnění pro kolekci"
+
+msgid "uploaded by user"
+msgstr "nahráno uživatelem"
 
 msgid "Add/edit pages you own"
 msgstr "Přidat/Editovat vámi vlastněné stránky"
@@ -192,9 +239,6 @@ msgid ""
 "[my-slug]/"
 msgstr "Název stránky viditelný v URL, např. http://domain.com/blog/[my-slug]/"
 
-msgid "content type"
-msgstr "content type (typ obsahu)"
-
 msgid "URL path"
 msgstr "URL adresa"
 
@@ -229,29 +273,17 @@ msgstr "Popisný text, který se zobrazí pod nadpisem ve výsledcích vyhledáv
 msgid "latest revision created at"
 msgstr "poslední verze vytvořena:"
 
+msgid "For search engines"
+msgstr "Pro vyhledávače"
+
+msgid "For site menus"
+msgstr "Pro menu webu"
+
 msgid "page"
 msgstr "stránka"
 
 msgid "pages"
 msgstr "stránky"
-
-msgid "created at"
-msgstr "vytvořeno:"
-
-msgid "user"
-msgstr "uživatel"
-
-msgid "content JSON"
-msgstr "obsah JSON"
-
-msgid "approved go live at"
-msgstr "povoleno publikovat:"
-
-msgid "group"
-msgstr "skupina"
-
-msgid "permission"
-msgstr "oprávnění"
 
 msgid "group page permission"
 msgstr "skupinové oprávnění stránky"
@@ -274,112 +306,6 @@ msgstr "stránka postupu"
 msgid "workflow pages"
 msgstr "stránky postupu"
 
-msgid "workflow_tasks"
-msgstr "úlohy postupu"
-
-msgid "task"
-msgstr "úloha"
-
-msgid "workflow task order"
-msgstr "pořadí úloh postupu"
-
-msgid "workflow task orders"
-msgstr "pořadí úloh postupu"
-
-msgid "name"
-msgstr "jméno"
-
-msgid "active"
-msgstr "aktivní"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Aktivní úlohy mohou být přidány do postupu. (Deaktivování úlohy ji nevyřadí "
-"z probíhajícího zpracování.)"
-
-msgid "tasks"
-msgstr "úlohy"
-
-msgid "workflows"
-msgstr "postupy"
-
-msgid "groups"
-msgstr "skupiny"
-
-msgid "Request changes"
-msgstr "Vyžádat změny"
-
-msgid "Approve"
-msgstr "Schválit"
-
-msgid "Approve with comment"
-msgstr "Schválit s komentářem"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Členové zvolené skupiny mohou schválit tuto úlohu"
-
-msgid "Group approval task"
-msgstr "Skupinou schvalovaná úloha"
-
-msgid "Group approval tasks"
-msgstr "Skupinou schvalované úlohy"
-
-msgid "In progress"
-msgstr "Probíhající.."
-
-msgid "Approved"
-msgstr "Schváleno"
-
-msgid "Needs changes"
-msgstr "Vyžaduje úpravy"
-
-msgid "Cancelled"
-msgstr "Zrušeno"
-
-msgid "status"
-msgstr "stav"
-
-msgid "requested by"
-msgstr "požadováno kým"
-
-msgid "current task state"
-msgstr "aktuální stav úlohy"
-
-msgid "Not started"
-msgstr "Není spuštěno"
-
-msgid "Workflow state"
-msgstr "Stav postupu"
-
-msgid "Workflow states"
-msgstr "Stavy postupu"
-
-msgid "Rejected"
-msgstr "Odmítnuto"
-
-msgid "Skipped"
-msgstr "Přeskočeno"
-
-msgid "workflow state"
-msgstr "stav zpracování"
-
-msgid "started at"
-msgstr "spuštěno v"
-
-msgid "finished at"
-msgstr "dokončeno v"
-
-msgid "finished by"
-msgstr "dokončeno (kým)"
-
-msgid "Task state"
-msgstr "Stav úlohy"
-
-msgid "Task states"
-msgstr "Stavy úlohy"
-
 msgid "page log entry"
 msgstr "položka logu pro stránku"
 
@@ -401,46 +327,20 @@ msgstr "reakce na komentář"
 msgid "comment replies"
 msgstr "reakce na komentář"
 
-msgid "timestamp (UTC)"
-msgstr "timestamp - čas zpracování (UTC)"
+msgid "Default"
+msgstr "Default(ní)"
 
-msgid "log entry"
-msgstr "položka logu"
+msgid "created at"
+msgstr "vytvořeno:"
 
-msgid "log entries"
-msgstr "položky logu"
+msgid "user"
+msgstr "uživatel"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Akce logu '%(action_name)s' není registrována."
+msgid "content JSON"
+msgstr "obsah JSON"
 
-msgid "system"
-msgstr "systém"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Neznámé %(action)s"
-
-msgid "collection"
-msgstr "kolekce"
-
-msgid "collection view restriction"
-msgstr "omezení zobrazení kolekce"
-
-msgid "collection view restrictions"
-msgstr "omezení zobrazení kolekcí"
-
-msgid "collections"
-msgstr "kolekce"
-
-msgid "group collection permission"
-msgstr "skupinové oprávnění pro kolekci"
-
-msgid "group collection permissions"
-msgstr "skupinová oprávnění pro kolekci"
-
-msgid "uploaded by user"
-msgstr "nahráno uživatelem"
+msgid "approved go live at"
+msgstr "povoleno publikovat:"
 
 msgid "hostname"
 msgstr "hostname (jméno hostitele)"
@@ -499,11 +399,120 @@ msgstr "Veřejné"
 msgid "Private, accessible to users in specific groups"
 msgstr "Privátní, dostupné uživatelům v oprávněných skupinách"
 
+msgid "groups"
+msgstr "skupiny"
+
 msgid "view restriction"
 msgstr "omezení zobrazení"
 
 msgid "view restrictions"
 msgstr "omezení zobrazení"
+
+msgid "In progress"
+msgstr "Probíhající.."
+
+msgid "Approved"
+msgstr "Schváleno"
+
+msgid "Needs changes"
+msgstr "Vyžaduje úpravy"
+
+msgid "Cancelled"
+msgstr "Zrušeno"
+
+msgid "status"
+msgstr "stav"
+
+msgid "requested by"
+msgstr "požadováno kým"
+
+msgid "current task state"
+msgstr "aktuální stav úlohy"
+
+msgid "Not started"
+msgstr "Není spuštěno"
+
+msgid "Workflow state"
+msgstr "Stav postupu"
+
+msgid "Workflow states"
+msgstr "Stavy postupu"
+
+msgid "active"
+msgstr "aktivní"
+
+msgid "workflows"
+msgstr "postupy"
+
+msgid "workflow_tasks"
+msgstr "úlohy postupu"
+
+msgid "task"
+msgstr "úloha"
+
+msgid "workflow task order"
+msgstr "pořadí úloh postupu"
+
+msgid "workflow task orders"
+msgstr "pořadí úloh postupu"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktivní úlohy mohou být přidány do postupu. (Deaktivování úlohy ji nevyřadí "
+"z probíhajícího zpracování.)"
+
+msgid "tasks"
+msgstr "úlohy"
+
+msgid "Request changes"
+msgstr "Vyžádat změny"
+
+msgid "Approve"
+msgstr "Schválit"
+
+msgid "Approve with comment"
+msgstr "Schválit s komentářem"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Členové zvolené skupiny mohou schválit tuto úlohu"
+
+msgid "Group approval task"
+msgstr "Skupinou schvalovaná úloha"
+
+msgid "Group approval tasks"
+msgstr "Skupinou schvalované úlohy"
+
+msgid "Rejected"
+msgstr "Odmítnuto"
+
+msgid "Skipped"
+msgstr "Přeskočeno"
+
+msgid "workflow state"
+msgstr "stav zpracování"
+
+msgid "started at"
+msgstr "spuštěno v"
+
+msgid "finished at"
+msgstr "dokončeno v"
+
+msgid "finished by"
+msgstr "dokončeno (kým)"
+
+msgid "Task state"
+msgstr "Stav úlohy"
+
+msgid "Task states"
+msgstr "Stavy úlohy"
+
+msgid "in moderation"
+msgstr "probíhá schvalování"
+
+msgid "live + in moderation"
+msgstr "publikováno + probíhá schvalování"
 
 msgid "Log in"
 msgstr "Přihlásit se"

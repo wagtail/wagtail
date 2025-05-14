@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
 "Last-Translator: Yunchi Pang <yunchipang@gmail.com>, 2024\n"
 "Language-Team: Chinese Traditional (http://app.transifex.com/torchbox/"
@@ -511,10 +511,6 @@ msgstr "確認刪除"
 msgid "No, don't delete"
 msgstr "否，不刪除"
 
-#, python-format
-msgid "Unpublish %(title)s"
-msgstr "取消發佈%(title)s"
-
 msgid "Yes, unpublish it"
 msgstr "是，取消發佈"
 
@@ -532,13 +528,6 @@ msgstr "評論"
 
 msgid "Update"
 msgstr "更新"
-
-#, python-format
-msgid "Comparing %(title)s"
-msgstr "比較 %(title)s"
-
-msgid "Comparing"
-msgstr "正在比較"
 
 msgid "Fields"
 msgstr "欄位"
@@ -590,14 +579,14 @@ msgstr "日期"
 msgid "Site summary"
 msgstr "網站摘要"
 
+msgid "Close"
+msgstr "關閉"
+
 msgid "Task started"
 msgstr "作業開始"
 
 msgid "Awaiting"
 msgstr "等待中"
-
-msgid "Close"
-msgstr "關閉"
 
 msgid "Awaiting your review"
 msgstr "待審中"
@@ -1039,10 +1028,6 @@ msgstr "未完成作業"
 msgid "Completed at"
 msgstr "完成時間"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
-
 msgid "Close dialog"
 msgstr "關閉對話框"
 
@@ -1074,11 +1059,8 @@ msgid "Visit the live page"
 msgstr "查看線上頁面"
 
 #, python-format
-msgid "Unschedule Revision %(revision.id)s for %(title)s"
-msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
-
-msgid "Unschedule"
-msgstr "取消預定發佈"
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "確定要取消這個修訂版本的預定發佈嗎？"
@@ -1276,9 +1258,6 @@ msgstr "復原"
 msgid "Redo"
 msgstr "取消復原"
 
-msgid "Bold"
-msgstr "粗體"
-
 msgid "Italic"
 msgstr "斜體"
 
@@ -1401,6 +1380,9 @@ msgstr "最早的"
 msgid "Latest"
 msgstr "最近的"
 
+msgid "Unschedule"
+msgstr "取消預定發佈"
+
 #, python-format
 msgid "Edit this %(object)s"
 msgstr "編輯此 %(object)s"
@@ -1499,9 +1481,6 @@ msgstr "頁面 '%(page_title)s'已解鎖。"
 msgid "Page '%(page_title)s' moved."
 msgstr "頁面 '%(page_title)s' 已移動。"
 
-msgid "Page history"
-msgstr "頁面歷史"
-
 #, python-format
 msgid "Page '%(page_title)s' unpublished."
 msgstr "頁面'%(page_title)s'已取消發佈。"
@@ -1588,9 +1567,6 @@ msgstr "新增工作流程作業"
 msgid "Task '%(object)s' created."
 msgstr "已建立作業 '%(object)s'"
 
-msgid "Editing workflow task"
-msgstr "編輯工作流程作業"
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "已更新作業 '%(object)s'"
@@ -1648,6 +1624,9 @@ msgstr "編號列表"
 
 msgid "Blockquote"
 msgstr "區塊引言"
+
+msgid "Bold"
+msgstr "粗體"
 
 msgid "Link"
 msgstr "超連接"

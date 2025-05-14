@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use '../tools' as *;
+@use '../settings' as *;
 
 .footer {
   @include transition(bottom 0.5s ease 1s);
@@ -100,6 +102,7 @@
       // Unset these styles in favor of a fixed height and the grid gap
       height: $text-input-height;
       margin-inline-start: initial;
+      font-size: theme('fontSize.16');
     }
 
     @include media-breakpoint-up(sm) {
@@ -137,7 +140,6 @@
   }
 
   > .button {
-    font-size: theme('fontSize.16');
     flex-grow: 1;
   }
 }

@@ -1,6 +1,6 @@
 """Handles rendering of the list of actions in the footer of the snippet create/edit views."""
+
 from functools import lru_cache
-from warnings import warn
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -14,7 +14,6 @@ from wagtail import hooks
 from wagtail.admin.ui.components import Component
 from wagtail.models import DraftStateMixin, LockableMixin, WorkflowMixin
 from wagtail.snippets.permissions import get_permission_name
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class ActionMenuItem(Component):
@@ -50,6 +49,13 @@ class ActionMenuItem(Component):
         context = parent_context.copy()
         url = self.get_url(parent_context)
 
+        instance = parent_context.get("instance")
+        is_scheduled = (
+            parent_context.get("draftstate_enabled")
+            and instance
+            and instance.go_live_at
+        )
+
         context.update(
             {
                 "label": self.label,
@@ -58,6 +64,7 @@ class ActionMenuItem(Component):
                 "classname": self.classname,
                 "icon_name": self.icon_name,
                 "request": parent_context["request"],
+                "is_scheduled": is_scheduled,
                 "is_revision": parent_context["view"] == "revisions_revert",
             }
         )
@@ -211,34 +218,6 @@ class UnpublishMenuItem(ActionMenuItem):
     def get_url(self, context):
         instance = context["instance"]
         url_name = instance.snippet_viewset.get_url_name("unpublish")
-        return reverse(url_name, args=[quote(instance.pk)])
-
-
-class DeleteMenuItem(ActionMenuItem):
-    name = "action-delete"
-    label = _("Delete")
-    icon_name = "bin"
-
-    def __init__(self, order=None):
-        super().__init__(order)
-        warn(
-            "DeleteMenuItem is deprecated. "
-            "The delete option is now provided via EditView.get_header_more_buttons().",
-            RemovedInWagtail70Warning,
-        )
-
-    def is_shown(self, context):
-        delete_permission = get_permission_name("delete", context["model"])
-
-        return (
-            context["view"] == "edit"
-            and context["request"].user.has_perm(delete_permission)
-            and not context.get("locked_for_user")
-        )
-
-    def get_url(self, context):
-        instance = context["instance"]
-        url_name = instance.snippet_viewset.get_url_name("delete")
         return reverse(url_name, args=[quote(instance.pk)])
 
 

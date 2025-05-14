@@ -8,6 +8,7 @@
 # Antoni Aloy <aaloy@apsl.net>, 2022
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # Enrique Sánchez-Reboto García, 2023
+# Enrique Sánchez-Reboto García, 2023
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Joaquín T <joaquintita@gmail.com>, 2014
 # Joaquín T <joaquintita@gmail.com>, 2014
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Enrique Sánchez-Reboto García, 2023\n"
+"Last-Translator: X Bello <xbello@gmail.com>, 2022\n"
 "Language-Team: Spanish (http://app.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -58,9 +59,6 @@ msgstr "Cancelar flujo de trabajo"
 msgid "Unpublish"
 msgstr "Despublicar"
 
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Save"
 msgstr "Guardar"
 
@@ -73,6 +71,9 @@ msgstr "%(label)s y Publicar"
 
 msgid "Wagtail snippets"
 msgstr "Fragmentos Wagtail"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Delete selected snippets"
 msgstr "Eliminar fragmentos seleccionados"
@@ -164,14 +165,6 @@ msgstr "Nombre"
 
 msgid "Instances"
 msgstr "Instancias"
-
-#, python-format
-msgid "Edit this %(model_name)s"
-msgstr "Editar este %(model_name)s"
-
-#, python-format
-msgid "%(model_name)s history"
-msgstr "Historial de %(model_name)s"
 
 msgid "Home"
 msgstr "Inicio"

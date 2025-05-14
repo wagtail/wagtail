@@ -8,13 +8,14 @@
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
 # Soft Exim, 2022
 # visual, 2022
+# visual, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 17:53+0100\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Soft Exim, 2022\n"
+"Last-Translator: visual, 2022\n"
 "Language-Team: Mongolian (http://app.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +40,9 @@ msgstr "Дээшээ зөөх"
 
 msgid "Move down"
 msgstr "Доошоо зөөх"
+
+msgid "Drag"
+msgstr "Чирэх"
 
 msgid "Delete"
 msgstr "Устгах"
@@ -67,6 +71,9 @@ msgstr "Түгжигдсэн"
 
 msgid "Unlocked"
 msgstr "Түгжигдээгүй"
+
+msgid "content type"
+msgstr "контентын төрөл"
 
 msgid "live"
 msgstr "нийтлэгдсэн"
@@ -101,11 +108,38 @@ msgstr "нийтлэгдсэн + төлөвлөгдсөн"
 msgid "live + draft"
 msgstr "нийтлэгдсэн + ноорог"
 
-msgid "Default"
-msgstr "Өгөгдмөл"
-
 msgid "locked"
 msgstr "түгжигдсэн"
+
+msgid "collection"
+msgstr "цуглуулга"
+
+msgid "collection view restriction"
+msgstr "цуглуулга харах хязгаарлалт"
+
+msgid "collection view restrictions"
+msgstr "цуглуулга харах хязгаарлалтууд"
+
+msgid "name"
+msgstr "нэр"
+
+msgid "collections"
+msgstr "цуглуулгууд"
+
+msgid "group"
+msgstr "бүлэг"
+
+msgid "permission"
+msgstr "эрх"
+
+msgid "group collection permission"
+msgstr "бүлэг цуглуулгын эрх"
+
+msgid "group collection permissions"
+msgstr "бүлэг цуглуулгын эрх"
+
+msgid "uploaded by user"
+msgstr "хэрэглэгчийн хуулсан"
 
 msgid "Add/edit pages you own"
 msgstr "Өөрийн хуудсаа нэмэх/засах"
@@ -143,9 +177,6 @@ msgstr "Нийтэд харагдах хуудасны гарчиг"
 msgid "slug"
 msgstr "слаг"
 
-msgid "content type"
-msgstr "контентын төрөл"
-
 msgid "URL path"
 msgstr "URL зам"
 
@@ -164,6 +195,15 @@ msgstr "хуудас"
 msgid "pages"
 msgstr "хуудсууд"
 
+msgid "page view restriction"
+msgstr "хуудас харах хязгаарлалт"
+
+msgid "page view restrictions"
+msgstr "хуудас харах хязгаарлалтууд"
+
+msgid "Default"
+msgstr "Өгөгдмөл"
+
 msgid "created at"
 msgstr "үүссэн"
 
@@ -175,48 +215,6 @@ msgstr "контент JSON"
 
 msgid "approved go live at"
 msgstr "нийтлэхээр зөвшөөрөгдсөн"
-
-msgid "group"
-msgstr "бүлэг"
-
-msgid "permission"
-msgstr "эрх"
-
-msgid "page view restriction"
-msgstr "хуудас харах хязгаарлалт"
-
-msgid "page view restrictions"
-msgstr "хуудас харах хязгаарлалтууд"
-
-msgid "name"
-msgstr "нэр"
-
-msgid "groups"
-msgstr "бүлгүүд"
-
-msgid "Approve"
-msgstr "Зөвшөөрөх"
-
-msgid "collection"
-msgstr "цуглуулга"
-
-msgid "collection view restriction"
-msgstr "цуглуулга харах хязгаарлалт"
-
-msgid "collection view restrictions"
-msgstr "цуглуулга харах хязгаарлалтууд"
-
-msgid "collections"
-msgstr "цуглуулгууд"
-
-msgid "group collection permission"
-msgstr "бүлэг цуглуулгын эрх"
-
-msgid "group collection permissions"
-msgstr "бүлэг цуглуулгын эрх"
-
-msgid "uploaded by user"
-msgstr "хэрэглэгчийн хуулсан"
 
 msgid "hostname"
 msgstr "хост"
@@ -259,11 +257,17 @@ msgstr "Нийтэд нээлттэй"
 msgid "Private, accessible to users in specific groups"
 msgstr "Хувийн, тодорхой бүлгийн гишүүд хандах боломжтой"
 
+msgid "groups"
+msgstr "бүлгүүд"
+
 msgid "view restriction"
 msgstr "хязгаарлалтуудыг харах"
 
 msgid "view restrictions"
 msgstr "хязгаарлалтуудыг харах"
+
+msgid "Approve"
+msgstr "Зөвшөөрөх"
 
 msgid "Log in"
 msgstr "Нэвтрэх"
