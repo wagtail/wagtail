@@ -1,10 +1,15 @@
 from warnings import warn
 
 from django.template.loader import render_to_string
+from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.ui.components import Component
 from wagtail.coreutils import accepts_kwarg
+from wagtail.models import Revision
+from wagtail.models.pages import Page
+from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
@@ -289,3 +294,70 @@ def apply_userbar_hooks(request, items, page):
                 category=RemovedInWagtail80Warning,
             )
             fn(request, items)
+
+
+class Userbar(Component):
+    template_name = "wagtailadmin/userbar/base.html"
+
+    def __init__(self, *, object=None, position="bottom-right"):
+        self.object = object
+        self.position = position
+
+    def get_context_data(self, parent_context):
+        request = parent_context["request"]
+        # Render the userbar differently within the preview panel.
+        in_preview_panel = getattr(request, "in_preview_panel", False)
+
+        # Render the userbar using the user's preferred admin language
+        userprofile = UserProfile.get_for_user(request.user)
+        with translation.override(userprofile.get_preferred_language()):
+            try:
+                revision_id = request.revision_id
+            except AttributeError:
+                revision_id = None
+
+            if in_preview_panel:
+                items = [
+                    AccessibilityItem(),
+                ]
+            elif isinstance(self.object, Page) and self.object.pk:
+                if revision_id:
+                    revision = Revision.page_revisions.get(id=revision_id)
+                    items = [
+                        AdminItem(),
+                        ExplorePageItem(revision.content_object),
+                        EditPageItem(revision.content_object),
+                        AccessibilityItem(),
+                    ]
+                else:
+                    # Not a revision
+                    items = [
+                        AdminItem(),
+                        ExplorePageItem(self.object),
+                        EditPageItem(self.object),
+                        AddPageItem(self.object),
+                        AccessibilityItem(),
+                    ]
+            else:
+                # Not a page.
+                items = [
+                    AdminItem(),
+                    AccessibilityItem(),
+                ]
+
+            apply_userbar_hooks(request, items, self.object)
+
+            # Render the items
+            rendered_items = [item.render(request) for item in items]
+
+            # Remove any unrendered items
+            rendered_items = [item for item in rendered_items if item]
+
+            # Render the userbar items
+            return {
+                "request": request,
+                "items": rendered_items,
+                "position": self.position,
+                "page": self.object,
+                "revision_id": revision_id,
+            }
