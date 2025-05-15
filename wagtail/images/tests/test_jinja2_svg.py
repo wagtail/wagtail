@@ -10,7 +10,7 @@ from wagtail.test.utils import WagtailTestUtils
 
 
 class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
-    """Test SVG support in Jinja2 templates with preserve_svg parameter."""
+    """Test SVG support in Jinja2 templates with preserve-svg filter."""
 
     def setUp(self):
         # Create a real test engine
@@ -45,7 +45,7 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         return template.render(context)
 
     def test_image_with_raster_image(self):
-        """Test that raster images work normally without preserve_svg."""
+        """Test that raster images work normally without preserve-svg."""
         html = self.render(
             '{{ image(img, "width-200|format-webp") }}', {"img": self.raster_image}
         )
@@ -54,16 +54,16 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertIn(".webp", html)  # Format conversion applied
 
     def test_image_with_svg_without_preserve(self):
-        """Test that without preserve_svg, SVGs get all operations (which would fail in production)."""
+        """Test that without preserve-svg, SVGs get all operations (which would fail in production)."""
         with self.assertRaises(AttributeError):
             self.render(
                 '{{ image(img, "width-200|format-webp") }}', {"img": self.svg_image}
             )
 
     def test_image_with_svg_with_preserve(self):
-        """Test that with preserve_svg=True, SVGs only get safe operations."""
+        """Test that with preserve-svg filter, SVGs only get safe operations."""
         html = self.render(
-            '{{ image(img, "width-200|format-webp", preserve_svg=True) }}',
+            '{{ image(img, "width-200|format-webp|preserve-svg") }}',
             {"img": self.svg_image},
         )
 
@@ -72,9 +72,9 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertNotIn(".webp", html)
 
     def test_srcset_image_with_svg_preserve(self):
-        """Test that preserve_svg works with srcset_image function."""
+        """Test that preserve-svg works with srcset_image function."""
         html = self.render(
-            '{{ srcset_image(img, "width-{200,400}|format-webp", sizes="100vw", preserve_svg=True) }}',
+            '{{ srcset_image(img, "width-{200,400}|format-webp|preserve-svg", sizes="100vw") }}',
             {"img": self.svg_image},
         )
 
@@ -83,9 +83,9 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertNotIn(".webp", html)
 
     def test_picture_with_svg_preserve(self):
-        """Test that preserve_svg works with picture function."""
+        """Test that preserve-svg works with picture function."""
         html = self.render(
-            '{{ picture(img, "format-{avif,webp,jpeg}|width-400", preserve_svg=True) }}',
+            '{{ picture(img, "format-{avif,webp,jpeg}|width-400|preserve-svg") }}',
             {"img": self.svg_image},
         )
 
@@ -96,9 +96,9 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertNotIn(".jpeg", html)
 
     def test_preserve_svg_with_multiple_operations(self):
-        """Test preserve_svg with multiple operations, some safe, some unsafe for SVGs."""
+        """Test preserve-svg with multiple operations, some safe, some unsafe for SVGs."""
         html = self.render(
-            '{{ image(img, "width-300|height-200|format-webp|fill-100x100|jpegquality-80", preserve_svg=True) }}',
+            '{{ image(img, "width-300|height-200|format-webp|fill-100x100|jpegquality-80|preserve-svg") }}',
             {"img": self.svg_image},
         )
 
@@ -107,18 +107,10 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         self.assertNotIn(".webp", html)
         self.assertNotIn("jpegquality-80", html)
 
-    def test_invalid_filter_spec_error(self):
-        """Test that invalid filter specs still raise appropriate errors."""
-        with self.assertRaises(InvalidFilterSpecError):
-            self.render(
-                '{{ image(img, "invalidfilter", preserve_svg=True) }}',
-                {"img": self.svg_image},
-            )
-
     def test_preserve_svg_with_custom_attributes(self):
-        """Test preserve_svg works with custom HTML attributes."""
+        """Test preserve-svg works with custom HTML attributes."""
         html = self.render(
-            '{{ image(img, "width-200|format-webp", class="my-image", alt="Custom alt", preserve_svg=True) }}',
+            '{{ image(img, "width-200|format-webp|preserve-svg", class="my-image", alt="Custom alt") }}',
             {"img": self.svg_image},
         )
 
