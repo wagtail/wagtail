@@ -177,11 +177,15 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
         self.request = get_dummy_request()
         self.request.user = self.user
 
-    def get_script(self):
-        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+    def get_content(self, position="bottom-right"):
+        template = Template(
+            f"{{% load wagtailuserbar %}}{{% wagtailuserbar position='{position}' %}}"
+        )
         content = template.render(Context({"request": self.request}))
-        soup = self.get_soup(content)
+        return self.get_soup(content)
 
+    def get_script(self):
+        soup = self.get_content()
         # Should include the configuration as a JSON script with the specific id
         return soup.find("script", id="accessibility-axe-configuration")
 
@@ -196,6 +200,25 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             ]
 
         return customise_accessibility_checker
+
+    def test_position(self):
+        content = self.get_content(position="top-left")
+        # The element with the data-wagtail-userbar attribute should have the
+        # right CSS class (w-userbar--top-left) for the positioning
+        target = content.select_one("aside [data-wagtail-userbar]")
+        self.assertIsNotNone(target)
+        self.assertIn("w-userbar--top-left", target.get("class"))
+
+        # The accessibility results dialog should be teleported to the
+        # [data-wagtail-userbar] element so that it is positioned correctly
+        dialog_content = content.select_one("#accessibility-results")
+        self.assertIsNotNone(dialog_content)
+        template = dialog_content.parent
+        self.assertIsNotNone(template)
+        self.assertEqual(
+            template.get("data-w-teleport-target-value"),
+            "[data-wagtail-userbar]",
+        )
 
     def test_config_json(self):
         script = self.get_script()
