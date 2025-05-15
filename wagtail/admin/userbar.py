@@ -304,13 +304,18 @@ class Userbar(Component):
         self.position = position
 
     def get_context_data(self, parent_context):
-        request = parent_context["request"]
+        request = parent_context.get("request")
         # Render the userbar differently within the preview panel.
         in_preview_panel = getattr(request, "in_preview_panel", False)
 
-        # Render the userbar using the user's preferred admin language
-        userprofile = UserProfile.get_for_user(request.user)
-        with translation.override(userprofile.get_preferred_language()):
+        if not request or request.user.is_anonymous:
+            language = None
+        else:
+            # Render the userbar using the user's preferred admin language
+            userprofile = UserProfile.get_for_user(request.user)
+            language = userprofile.get_preferred_language()
+
+        with translation.override(language):
             try:
                 revision_id = request.revision_id
             except AttributeError:

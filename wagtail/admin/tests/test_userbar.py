@@ -741,6 +741,50 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.homepage = Page.objects.get(id=2)
         self.parent_page = self.homepage.get_parent()
 
+    def test_render_anonymous_user(self):
+        self.request.user = AnonymousUser()
+        rendered = Userbar().render_html({"request": self.request})
+        soup = self.get_soup(rendered)
+
+        items = soup.select("li")
+        self.assertEqual(len(items), 2)
+
+        admin_url = f"http://localhost{reverse('wagtailadmin_home')}"
+        admin_item = items[0]
+        admin_link = admin_item.select_one("a")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.get("href"), admin_url)
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+        accessibility_item = items[-1]
+        button = accessibility_item.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(
+            button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )
+
+    def test_render_no_request(self):
+        rendered = Userbar().render_html({})
+        soup = self.get_soup(rendered)
+
+        items = soup.select("li")
+        self.assertEqual(len(items), 2)
+
+        admin_item = items[0]
+        admin_link = admin_item.select_one("a")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.get("href"), reverse("wagtailadmin_home"))
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+        accessibility_item = items[-1]
+        button = accessibility_item.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(
+            button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )
+
     def test_render_minimal(self):
         rendered = Userbar().render_html({"request": self.request})
         soup = self.get_soup(rendered)
