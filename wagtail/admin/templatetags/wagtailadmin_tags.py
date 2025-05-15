@@ -645,7 +645,7 @@ def admin_theme_classname(context):
     """
     Retrieves the theme name for the current user.
     """
-    user = context["request"].user
+    user = getattr(context.get("request"), "user", None)
     theme_name = (
         user.wagtail_userprofile.theme
         if hasattr(user, "wagtail_userprofile")
