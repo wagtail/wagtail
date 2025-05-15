@@ -43,7 +43,6 @@ def srcset_image(image, filterspec, preserve_svg=False, **attrs):
     if preserve_svg and image.is_svg():
         filterspec = to_svg_safe_spec(filterspec)
 
-
     specs = Filter.expand_spec(filterspec)
     renditions = get_renditions_or_not_found(image, specs)
 

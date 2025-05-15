@@ -117,7 +117,7 @@ def to_svg_safe_spec(filter_specs):
     """
     if isinstance(filter_specs, str):
         filter_specs = filter_specs.split("|")
-    
+
     svg_preserving_specs = [
         "max",
         "min",
@@ -127,16 +127,17 @@ def to_svg_safe_spec(filter_specs):
         "fill",
         "original",
     ]
-    
+
     # Keep only safe operations and remove preserve-svg
     safe_specs = [
         x
         for x in filter_specs
-        if any(x.startswith(prefix) for prefix in svg_preserving_specs) and x != "preserve-svg"
+        if any(x.startswith(prefix) for prefix in svg_preserving_specs)
+        and x != "preserve-svg"
     ]
-    
+
     # If no safe operations remain, use 'original'
     if not safe_specs:
         return "original"
-    
+
     return "|".join(safe_specs)
