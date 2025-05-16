@@ -118,6 +118,15 @@ class Collection(MP_Node):
         # Output unicode plain-text version
         return "{}↳ {}".format(" " * 4 * display_depth, self.name)
 
+    def natural_key(self):
+        """Returns the path of collection names from root to self as a natural key."""
+        names = []
+        current = self
+        while current:
+            names.insert(0, current.name)
+            current = current.get_parent() if hasattr(current, "get_parent") else None
+        return tuple(names)
+
     class Meta:
         verbose_name = _("collection")
         verbose_name_plural = _("collections")
