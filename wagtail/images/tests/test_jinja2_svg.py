@@ -1,10 +1,33 @@
 from django.test import TestCase
 
+from wagtail.images.models import Image
+from wagtail.images.tests.utils import (
+    get_test_image_file,
+    get_test_image_file_svg,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
 class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
     """Test SVG support in Jinja2 templates with preserve-svg filter."""
+
+    def setUp(self):
+        # Create a real test engine
+        from django.template.loader import engines
+
+        self.engine = engines["jinja2"]
+
+        # Create a raster image
+        self.raster_image = Image.objects.create(
+            title="Test raster image",
+            file=get_test_image_file(),
+        )
+
+        # Create an SVG image
+        self.svg_image = Image.objects.create(
+            title="Test SVG image",
+            file=get_test_image_file_svg(),
+        )
 
     def render(self, string, context=None):
         if context is None:
