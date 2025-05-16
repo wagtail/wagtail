@@ -8,6 +8,7 @@ jest.spyOn(global, 'setTimeout');
 describe('PreviewController', () => {
   let application;
   let windowSpy;
+  let mockScroll;
 
   const identifier = 'w-preview';
 
@@ -104,6 +105,7 @@ describe('PreviewController', () => {
 
   beforeEach(() => {
     windowSpy = jest.spyOn(global, 'window', 'get');
+    mockScroll = jest.fn();
 
     document.body.innerHTML = /* html */ `
       <form method="POST" data-edit-form>
@@ -214,7 +216,6 @@ describe('PreviewController', () => {
     oldIframe.contentWindow.scrollY = 100;
 
     // Simulate the iframe loading
-    const mockScroll = jest.fn();
     newIframe.contentWindow.scroll = mockScroll;
     await Promise.resolve();
     newIframe.dispatchEvent(new Event('load'));
@@ -1372,6 +1373,26 @@ describe('PreviewController', () => {
       );
       expect(newTabLink.href).toEqual(
         'https://app.example.com/preview/foo/7/?mode=form',
+      );
+    });
+
+    it('should allow the iframe to be cross-domain', async () => {
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.setAttribute(
+        'data-w-preview-render-url-value',
+        'https://headless.site/$preview/foo/7/',
+      );
+
+      // Mock a SecurityError that is raised when calling
+      // iframe.contentWindow.scroll() on a cross-origin frame.
+      mockScroll = jest.fn(() => {
+        throw new Error(
+          'SecurityError: Cannot access properties of a cross-origin frame.',
+        );
+      });
+
+      await initializeOpenedPanel(
+        `https://headless.site/$preview/foo/7/?in_preview_panel=true`,
       );
     });
   });
