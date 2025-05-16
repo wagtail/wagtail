@@ -29,7 +29,7 @@ def image(image, filterspec, **attrs):
         return rendition
 
 
-def srcset_image(image, filterspec, preserve_svg=False, **attrs):
+def srcset_image(image, filterspec, **attrs):
     if not image:
         return ""
 
@@ -49,7 +49,7 @@ def srcset_image(image, filterspec, preserve_svg=False, **attrs):
     return ResponsiveImage(renditions, attrs)
 
 
-def picture(image, filterspec, preserve_svg=False, **attrs):
+def picture(image, filterspec, **attrs):
     if not image:
         return ""
 
