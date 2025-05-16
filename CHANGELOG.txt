@@ -16,6 +16,7 @@ Changelog
  * Add minimum length validation for `RichTextBlock` and `RichTextField` (Alec Baron)
  * Support `preserve-svg` in Jinja2 image tags (Vishesh Garg)
  * Allow `SnippetChooserBlock`'s `icon` to take precedence over `SnippetViewSet.icon` (Matt Westcott)
+ * Allow searching the users index on custom fields (Paul Craciunoiu, Sage Abdullah)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)

@@ -888,6 +888,7 @@
 * manu
 * Maciek Baron
 * Vishesh Garg
+* Paul Craciunoiu
 
 ## Translators
 
