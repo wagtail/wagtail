@@ -74,9 +74,11 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
     if (this.targetValue) {
       target = document.querySelector(this.targetValue);
     } else {
-      const rootNode = this.element.getRootNode();
+      const rootNode = this.element.getRootNode() as Document | ShadowRoot;
       target =
-        rootNode instanceof Document ? rootNode.body : rootNode.firstChild;
+        rootNode instanceof Document
+          ? rootNode.body
+          : rootNode.firstElementChild;
     }
 
     if (!(target instanceof Element)) {
