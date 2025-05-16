@@ -99,21 +99,39 @@ describe('TeleportController', () => {
       const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
       document.body.appendChild(shadowHost);
 
+      shadowRoot.innerHTML = /* html */ `
+        <div>
+          <aside>
+            <!--
+            The template will be moved here, and then the content will be
+            teleported to the <div> (first child of the shadow root)
+            when the app starts
+            -->
+          </aside>
+        </div>
+      `;
+
+      // Move the template to the aside element
+      const aside = shadowRoot.querySelector('aside');
       const template = document.getElementById('template');
-      const content = template.content.cloneNode(true);
+      aside.append(template);
 
-      const targetContainer = document.createElement('div');
-      targetContainer.setAttribute('id', 'target-container');
-      targetContainer.appendChild(content);
-      shadowRoot.appendChild(targetContainer);
-
+      // Create a new application with the shadow DOM as the root element
+      application = new Application(shadowRoot.firstElementChild);
+      application.register('w-teleport', TeleportController);
       application.start();
 
       await Promise.resolve();
 
-      expect(shadowRoot.querySelector('#target-container').innerHTML).toContain(
+      application.stop();
+
+      // Without an explicit target, the content should be teleported to the
+      // first child of the shadow root
+      expect(shadowRoot.firstElementChild.innerHTML).toContain(
         '<div id="content">Some content</div>',
       );
+      // The template should be removed from the DOM
+      expect(shadowRoot.querySelector('template')).toBeNull();
     });
 
     it('should clear the target container if the reset value is set to true', async () => {
