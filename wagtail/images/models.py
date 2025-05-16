@@ -913,6 +913,10 @@ class Image(AbstractImage):
         "focal_point_height",
     )
 
+    def natural_key(self):
+        """Returns the image file name as a natural key."""
+        return self.file.name
+
     class Meta(AbstractImage.Meta):
         verbose_name = _("image")
         verbose_name_plural = _("images")

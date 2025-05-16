@@ -10,10 +10,7 @@ from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
-from django.core.exceptions import (
-    FieldDoesNotExist,
-    ValidationError,
-)
+from django.core.exceptions import FieldDoesNotExist, ValidationError
 from django.db import models, transaction
 from django.db.models import Q, Value
 from django.db.models.expressions import Subquery
@@ -28,9 +25,7 @@ from django.utils.functional import Promise, cached_property
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
-from modelcluster.models import (
-    ClusterableModel,
-)
+from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
@@ -52,11 +47,7 @@ from wagtail.fields import StreamField
 from wagtail.log_actions import log
 from wagtail.query import PageQuerySet
 from wagtail.search import index
-from wagtail.signals import (
-    page_published,
-    page_slug_changed,
-    pre_validate_delete,
-)
+from wagtail.signals import page_published, page_slug_changed, pre_validate_delete
 from wagtail.url_routing import RouteResult
 from wagtail.utils.timestamps import ensure_utc
 
@@ -2035,6 +2026,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for codename, _, name in PAGE_PERMISSION_TYPES
             if codename not in {"add_page", "change_page", "delete_page", "view_page"}
         ]
+
+    def natural_key(self):
+        """Returns the page's url_path as a natural key."""
+        return (self.url_path,)
 
 
 # set module path of Page so that when Sphinx autodoc sees Page in type annotations
