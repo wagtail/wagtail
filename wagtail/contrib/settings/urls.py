@@ -14,4 +14,9 @@ urlpatterns = [
         views.EditView.as_view(),
         name="edit",
     ),
+    path(
+        "<slug:app_name>/<slug:model_name>/<int:pk>/preview/",
+        views.PreviewOnEdit.as_view(),
+        name="preview_on_edit",
+    ),
 ]
