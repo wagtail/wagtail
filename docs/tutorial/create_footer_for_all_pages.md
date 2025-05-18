@@ -122,6 +122,9 @@ Create an `includes` folder in your `mysite/templates` folder. Then in your newl
 Now, go to your `mysite/templates/base.html` file and modify it as follows:
 
 ```
+# add these two lines to avoid invalid block tags 
+{% load static %}
+{% load wagtailuserbar %}
 <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
 
