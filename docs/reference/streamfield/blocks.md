@@ -62,7 +62,7 @@ All block definitions accept the following optional keyword arguments or `Meta` 
 The `preview_value`, `preview_template`, and `description` keyword arguments were added.
 ```
 
-All block definitions have the following methods that can be overridden:
+All block definitions have the following methods and properties that can be overridden:
 
 ```{eval-rst}
 .. autoclass:: wagtail.blocks.Block
@@ -73,6 +73,7 @@ All block definitions have the following methods that can be overridden:
     .. automethod:: wagtail.blocks.Block.get_preview_context
     .. automethod:: wagtail.blocks.Block.get_preview_template
     .. automethod:: wagtail.blocks.Block.get_description
+    .. autoattribute:: wagtail.blocks.Block.is_previewable
 ```
 
 (field_block_types)=

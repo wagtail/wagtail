@@ -600,6 +600,20 @@ For more details on overriding templates, see Django's guide on [](inv:django#ho
 
 The global `wagtailcore/shared/block_preview.html` override will be used for all blocks by default. If you want to use a different template for a particular block, you can still specify `preview_template`, which will take precedence.
 
+(turning_off_block_previews)=
+
+### Turning off previews for a specific block
+
+To turn off previews for a block, set {attr}`is_previewable = False <wagtail.blocks.Block.is_previewable>` on the block class.
+
+```{code-block} python
+:emphasize-lines: 3
+
+class ConfigBlock(blocks.StructBlock):
+    ...
+    is_previewable = False
+```
+
 ## Customizations
 
 All block types implement a common API for rendering their front-end and form representations, and storing and retrieving values to and from the database. By subclassing the various block classes and overriding these methods, all kinds of customizations are possible, from modifying the layout of StructBlock form fields to implementing completely new ways of combining blocks. For further details, see [](custom_streamfield_blocks).
