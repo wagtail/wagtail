@@ -38,6 +38,7 @@ Changelog
  * Fix: Fix type hints for `register_filter_adapter_class` parameters (Sébastien Corbin)
  * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
  * Docs: Use tuple instead of set in `UniqueConstraint` examples for a custom rendition model to avoid spurious migrations (Alec Baron)
+ * Docs: Document how to turn off StreamField block previews (Shlomo Markowitz)
 
 7.0 LTS (06.05.2025)
 ~~~~~~~~~~~~~~~~~~~~
