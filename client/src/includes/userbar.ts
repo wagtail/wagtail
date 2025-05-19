@@ -298,9 +298,15 @@ export class Userbar extends HTMLElement {
     // On initialisation, all menu items should be disabled for roving tab index
     resetItemsTabIndex();
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      await this.initialiseAxe();
-    });
+    // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
+    // In this case, we need to call the initialisation function immediately.
+    if (document.readyState === 'complete') {
+      this.initialiseAxe();
+    } else {
+      document.addEventListener('DOMContentLoaded', async () => {
+        await this.initialiseAxe();
+      });
+    }
   }
 
   /*
