@@ -4,6 +4,7 @@ from wagtail.images.models import Image
 from wagtail.images.tests.utils import (
     get_test_image_file,
     get_test_image_file_svg,
+    get_test_image_filename,
 )
 from wagtail.test.utils import WagtailTestUtils
 
@@ -41,9 +42,12 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
         html = self.render(
             '{{ image(img, "width-200|format-webp") }}', {"img": self.raster_image}
         )
+        filename = get_test_image_filename(self.raster_image, "width-200.format-webp")
 
-        self.assertIn('width="200"', html)
-        self.assertIn(".webp", html)  # Format conversion applied
+        self.assertHTMLEqual(
+            html,
+            f'<img src="{filename}" width="200" height="150" alt="Test raster image">',
+        )
 
     def test_image_with_svg_without_preserve(self):
         """Test that without preserve-svg, SVGs get all operations (which would fail in production)."""
@@ -55,61 +59,73 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
     def test_image_with_svg_with_preserve(self):
         """Test that with preserve-svg filter, SVGs only get safe operations."""
         html = self.render(
-            '{{ image(img, "width-200|format-webp|preserve-svg") }}',
+            '{{ image(img, "width-45|format-webp|preserve-svg") }}',
             {"img": self.svg_image},
         )
+        filename = get_test_image_filename(self.svg_image, "width-45")
 
-        # Check the SVG is preserved
-        self.assertIn(".svg", html)
-        self.assertNotIn(".webp", html)
+        self.assertHTMLEqual(
+            html,
+            f'<img src="{filename}" width="45.0" height="45.0" alt="Test SVG image">',
+        )
 
     def test_srcset_image_with_svg_preserve(self):
         """Test that preserve-svg works with srcset_image function."""
         html = self.render(
-            '{{ srcset_image(img, "width-{200,400}|format-webp|preserve-svg", sizes="100vw") }}',
+            '{{ srcset_image(img, "width-{35,55}|format-webp|preserve-svg", sizes="100vw") }}',
             {"img": self.svg_image},
         )
+        filename35 = get_test_image_filename(self.svg_image, "width-35")
+        filename55 = get_test_image_filename(self.svg_image, "width-55")
 
-        # Should preserve SVG format
-        self.assertIn(".svg", html)
-        self.assertNotIn(".webp", html)
+        self.assertHTMLEqual(
+            html,
+            f"""
+                <img sizes="100vw" src="{filename35}"
+                    srcset="{filename35} 35.0w, {filename55} 55.0w" width="35.0" height="35.0"
+                    alt="Test SVG image">
+            """,
+        )
 
     def test_picture_with_svg_preserve(self):
         """Test that preserve-svg works with picture function."""
         html = self.render(
-            '{{ picture(img, "format-{avif,webp,jpeg}|width-400|preserve-svg") }}',
+            '{{ picture(img, "format-{avif,webp,jpeg}|width-85|preserve-svg") }}',
             {"img": self.svg_image},
         )
-
-        # Should preserve SVG format
-        self.assertIn(".svg", html)
-        self.assertNotIn(".webp", html)
-        self.assertNotIn(".avif", html)
-        self.assertNotIn(".jpeg", html)
+        filename = get_test_image_filename(self.svg_image, "width-85")
+        self.assertHTMLEqual(
+            html,
+            f"""
+                <picture>
+                    <img src="{filename}" alt="Test SVG image" width="85.0" height="85.0">
+                </picture>
+            """,
+        )
 
     def test_preserve_svg_with_multiple_operations(self):
         """Test preserve-svg with multiple operations, some safe, some unsafe for SVGs."""
         html = self.render(
-            '{{ image(img, "width-300|height-200|format-webp|fill-100x100|jpegquality-80|preserve-svg") }}',
+            '{{ image(img, "width-300|height-200|format-webp|max-100x100|jpegquality-80|preserve-svg") }}',
             {"img": self.svg_image},
         )
-
-        # Should preserve SVG format
-        self.assertIn(".svg", html)
-        self.assertNotIn(".webp", html)
-        self.assertNotIn("jpegquality-80", html)
+        filename = get_test_image_filename(
+            self.svg_image, "width-300.height-200.max-100x100"
+        )
+        self.assertHTMLEqual(
+            html,
+            f'<img src="{filename}" alt="Test SVG image" width="100.0" height="100.0">',
+        )
 
     def test_preserve_svg_with_custom_attributes(self):
         """Test preserve-svg works with custom HTML attributes."""
         html = self.render(
-            '{{ image(img, "width-200|format-webp|preserve-svg", class="my-image", alt="Custom alt") }}',
+            '{{ image(img, "width-66|format-webp|preserve-svg", class="my-image", alt="Custom alt") }}',
             {"img": self.svg_image},
         )
+        filename = get_test_image_filename(self.svg_image, "width-66")
 
-        # Check custom attributes are present
-        self.assertIn('class="my-image"', html)
-        self.assertIn('alt="Custom alt"', html)
-
-        # SVG should be preserved
-        self.assertNotIn(".webp", html)
-        self.assertIn(".svg", html)
+        self.assertHTMLEqual(
+            html,
+            f'<img src="{filename}" class="my-image" alt="Custom alt" width="66.0" height="66.0">',
+        )
