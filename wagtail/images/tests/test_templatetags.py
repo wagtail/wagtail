@@ -483,3 +483,54 @@ class PictureTagTestCase(ImagesTestCase):
             </picture>
         """
         self.assertHTMLEqual(rendered, expected)
+
+    def test_preserve_svg_with_raster_image(self):
+        filenames = [
+            get_test_image_filename(self.image, "width-180.format-avif"),
+            get_test_image_filename(self.image, "width-360.format-avif"),
+            get_test_image_filename(self.image, "width-180.format-jpeg"),
+            get_test_image_filename(self.image, "width-360.format-jpeg"),
+        ]
+
+        rendered = self.render(
+            '{% picture myimage width-{180,360} format-{avif,jpeg} preserve-svg sizes="100vw" %}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <picture>
+            <source srcset="{filenames[0]} 180w, {filenames[1]} 360w" sizes="100vw" type="image/avif">
+            <img
+                sizes="100vw"
+                src="{filenames[2]}"
+                srcset="{filenames[2]} 180w, {filenames[3]} 360w"
+                alt="Test image"
+                width="180"
+                height="135"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_preserve_svg_with_svg_image(self):
+        filenames = [
+            get_test_image_filename(self.svg_image, "width-40"),
+            get_test_image_filename(self.svg_image, "width-80"),
+        ]
+
+        rendered = self.render(
+            '{% picture myimage width-{40,80} format-{avif,jpeg} preserve-svg sizes="100vw" %}',
+            {"myimage": self.svg_image},
+        )
+        expected = f"""
+            <picture>
+            <img
+                sizes="100vw"
+                src="{filenames[0]}"
+                srcset="{filenames[0]} 40.0w, {filenames[1]} 80.0w"
+                alt="Test SVG image"
+                width="40.0"
+                height="40.0"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
