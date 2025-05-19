@@ -600,6 +600,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         if isinstance(filters[0], str):
             filters = [Filter(spec) for spec in dict.fromkeys(filters).keys()]
 
+        # Remove duplicate filters from the list while preserving order
+        filters = list(dict.fromkeys(filters))
+
         # Find existing renditions where possible
         renditions = self.find_existing_renditions(*filters)
 
@@ -1157,6 +1160,14 @@ class Filter:
             return ""
 
         return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
+
+    def __eq__(self, value):
+        if isinstance(value, Filter):
+            return self.spec == value.spec
+        return False
+
+    def __hash__(self):
+        return hash(self.spec)
 
 
 class ResponsiveImage:
