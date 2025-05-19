@@ -501,6 +501,31 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         except AttributeError:
             pass
 
+    def clean_filter_for_svg(self, filter: Filter) -> Filter:
+        """
+        Given a Filter object, check if its spec contains a 'preserve-svg' directive. If so,
+        remove it from the spec (along with any rasterising operations, in the case that this
+        image is an SVG) and return a new Filter object with the cleaned spec.
+        """
+        spec_elements = filter.spec.split("|")
+        if "preserve-svg" in spec_elements:
+            # remove 'preserve-svg' from filter specs for all image types
+            clean_spec = "|".join(
+                item for item in spec_elements if item != "preserve-svg"
+            )
+            if not clean_spec:
+                # no formatting directives were included in filter
+                raise InvalidFilterSpecError(
+                    "Filter should include at least one formatting directive other than 'preserve-svg'"
+                )
+            if self.is_svg():
+                # remove rasterizing directives
+                clean_spec = to_svg_safe_spec(clean_spec)
+
+            return Filter(spec=clean_spec)
+
+        return filter
+
     def get_rendition(self, filter: Filter | str) -> AbstractRendition:
         """
         Returns a ``Rendition`` instance with a ``file`` field value (an
@@ -519,22 +544,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 "Unrecognised filter format - string or Filter instance expected"
             )
 
-        spec_elements = filter.spec.split("|")
-        if "preserve-svg" in spec_elements:
-            # remove 'preserve-svg' from filter specs for all image types
-            clean_spec = "|".join(
-                item for item in spec_elements if item != "preserve-svg"
-            )
-            if not clean_spec:
-                # no formatting directives were included in filter
-                raise InvalidFilterSpecError(
-                    "Filter should include at least one formatting directive other than 'preserve-svg'"
-                )
-            if self.is_svg():
-                # remove rasterizing directives
-                clean_spec = to_svg_safe_spec(clean_spec)
-
-            filter = Filter(spec=clean_spec)
+        filter = self.clean_filter_for_svg(filter)
 
         try:
             rendition = self.find_existing_rendition(filter)
@@ -599,12 +609,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         model will be returned.
         """
         Rendition = self.get_rendition_model()
-        # We don’t support providing mixed Filter and string arguments in the same call.
-        if isinstance(filters[0], str):
-            filters = [Filter(spec) for spec in dict.fromkeys(filters).keys()]
+
+        clean_filters = []
+        for filter in filters:
+            if isinstance(filter, str):
+                filter = Filter(spec=filter)
+
+            filter = self.clean_filter_for_svg(filter)
+            clean_filters.append(filter)
 
         # Remove duplicate filters from the list while preserving order
-        filters = list(dict.fromkeys(filters))
+        filters = list(dict.fromkeys(clean_filters))
 
         # Find existing renditions where possible
         renditions = self.find_existing_renditions(*filters)
