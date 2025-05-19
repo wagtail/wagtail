@@ -69,6 +69,19 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
             f'<img src="{filename}" width="45.0" height="45.0" alt="Test SVG image">',
         )
 
+    def test_raster_image_with_preserve_svg(self):
+        """Test that preserve-svg on image tag has no effect on raster images."""
+        html = self.render(
+            '{{ image(img, "width-100|format-webp|preserve-svg") }}',
+            {"img": self.raster_image},
+        )
+        filename = get_test_image_filename(self.raster_image, "width-100.format-webp")
+
+        self.assertHTMLEqual(
+            html,
+            f'<img src="{filename}" width="100" height="75" alt="Test raster image">',
+        )
+
     def test_srcset_image_with_svg_preserve(self):
         """Test that preserve-svg works with srcset_image function."""
         html = self.render(
@@ -87,6 +100,28 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
             """,
         )
 
+    def test_raster_srcset_image_with_preserve_svg(self):
+        """Test that preserve-svg on srcset_image tag has no effect on raster images."""
+        html = self.render(
+            '{{ srcset_image(img, "width-{100,120}|format-webp|preserve-svg", sizes="100vw") }}',
+            {"img": self.raster_image},
+        )
+        filename100 = get_test_image_filename(
+            self.raster_image, "width-100.format-webp"
+        )
+        filename120 = get_test_image_filename(
+            self.raster_image, "width-120.format-webp"
+        )
+
+        self.assertHTMLEqual(
+            html,
+            f"""
+                <img sizes="100vw" src="{filename100}"
+                    srcset="{filename100} 100w, {filename120} 120w" width="100" height="75"
+                    alt="Test raster image">
+            """,
+        )
+
     def test_picture_with_svg_preserve(self):
         """Test that preserve-svg works with picture function."""
         html = self.render(
@@ -99,6 +134,29 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
             f"""
                 <picture>
                     <img src="{filename}" alt="Test SVG image" width="85.0" height="85.0">
+                </picture>
+            """,
+        )
+
+    def test_raster_picture_with_preserve_svg(self):
+        """Test that preserve-svg on picture tag has no effect on raster images."""
+        html = self.render(
+            '{{ picture(img, "width-160|format-{webp,jpeg}|preserve-svg") }}',
+            {"img": self.raster_image},
+        )
+        filename_webp = get_test_image_filename(
+            self.raster_image, "width-160.format-webp"
+        )
+        filename_jpeg = get_test_image_filename(
+            self.raster_image, "width-160.format-jpeg"
+        )
+
+        self.assertHTMLEqual(
+            html,
+            f"""
+                <picture>
+                    <source srcset="{filename_webp}" type="image/webp">
+                    <img src="{filename_jpeg}" alt="Test raster image" width="160" height="120">
                 </picture>
             """,
         )
@@ -129,3 +187,54 @@ class TestJinja2SVGSupport(WagtailTestUtils, TestCase):
             html,
             f'<img src="{filename}" class="my-image" alt="Custom alt" width="66.0" height="66.0">',
         )
+
+    def test_picture_with_multiple_formats_and_sizes_with_raster_image(self):
+        filenames = [
+            get_test_image_filename(self.raster_image, "width-160.format-avif"),
+            get_test_image_filename(self.raster_image, "width-320.format-avif"),
+            get_test_image_filename(self.raster_image, "width-160.format-jpeg"),
+            get_test_image_filename(self.raster_image, "width-320.format-jpeg"),
+        ]
+
+        rendered = self.render(
+            '{{ picture(myimage, "width-{160,320}|format-{avif,jpeg}|preserve-svg", sizes="100vw") }}',
+            {"myimage": self.raster_image},
+        )
+        expected = f"""
+            <picture>
+            <source srcset="{filenames[0]} 160w, {filenames[1]} 320w" sizes="100vw" type="image/avif">
+            <img
+                sizes="100vw"
+                src="{filenames[2]}"
+                srcset="{filenames[2]} 160w, {filenames[3]} 320w"
+                alt="Test raster image"
+                width="160"
+                height="120"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_picture_with_multiple_formats_and_sizes_with_svg_image(self):
+        filenames = [
+            get_test_image_filename(self.svg_image, "width-45"),
+            get_test_image_filename(self.svg_image, "width-90"),
+        ]
+
+        rendered = self.render(
+            '{{ picture(myimage, "width-{45,90}|format-{avif,jpeg}|preserve-svg", sizes="100vw") }}',
+            {"myimage": self.svg_image},
+        )
+        expected = f"""
+            <picture>
+            <img
+                sizes="100vw"
+                src="{filenames[0]}"
+                srcset="{filenames[0]} 45.0w, {filenames[1]} 90.0w"
+                alt="Test SVG image"
+                width="45.0"
+                height="45.0"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
