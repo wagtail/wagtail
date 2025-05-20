@@ -18,6 +18,7 @@ import { debounce, DebouncedFunction } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
 import { setOptionalInterval } from '../utils/interval';
+import { GetScrollPosition, getWagtailMessage } from '../utils/message';
 
 interface PreviewDataResponse {
   is_valid: boolean;
@@ -95,6 +96,13 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /** The device size width to use when the preview is not available. */
   static fallbackWidth = PREVIEW_UNAVAILABLE_WIDTH.toString();
+
+  /**
+   * The time tolerance between the iframe's `load` event and the scroll
+   * restoration completion, which may not be instantaneous for cross-domain
+   * preview iframes.
+   */
+  static scrollRestoreTimeout = 10_000; // 10 seconds
 
   // Classes
 
@@ -712,7 +720,7 @@ export class PreviewController extends Controller<HTMLElement> {
    * Replaces the old iframe with the new iframe.
    * @param event The `load` event from the new iframe
    */
-  replaceIframe(event: Event) {
+  async replaceIframe(event: Event) {
     const id = this.iframeTarget.id;
     const newIframe = event.target as HTMLIFrameElement;
 
@@ -721,19 +729,8 @@ export class PreviewController extends Controller<HTMLElement> {
     // not run the replacement logic in this case.
     if (!newIframe.src) return;
 
-    // Restore scroll position with instant scroll to avoid flickering if the
-    // previewed page has scroll-behavior: smooth.
-    try {
-      newIframe.contentWindow?.scroll({
-        top: this.iframeTarget.contentWindow?.scrollY as number,
-        left: this.iframeTarget.contentWindow?.scrollX as number,
-        behavior: 'instant',
-      });
-    } catch {
-      // The iframe is likely cross-domain, e.g. in a headless setup, in which
-      // case we cannot call `scroll()` directly. Continue without restoring the
-      // scroll position.
-    }
+    // On subsequent loads, restore the scroll position from the old iframe
+    if (this.ready) await this.restoreScrollPosition(newIframe);
 
     // Remove any other existing iframes. Normally there are two iframes at this
     // point, the old one and the new one. However, the `load` event may be fired
@@ -758,6 +755,88 @@ export class PreviewController extends Controller<HTMLElement> {
     }
   }
 
+  async restoreScrollPosition(newIframe: HTMLIFrameElement): Promise<void> {
+    const isCrossOrigin = { oldIframe: false, newIframe: false };
+    // Do try/catch for each iframe so we know which of the iframes are cross-origin
+    try {
+      isCrossOrigin.oldIframe =
+        !this.iframeTarget.contentWindow?.location.origin;
+    } catch {
+      isCrossOrigin.oldIframe = true;
+    }
+    try {
+      isCrossOrigin.newIframe = !newIframe.contentWindow?.location.origin;
+    } catch {
+      isCrossOrigin.newIframe = true;
+    }
+
+    // Origins mismatch, something has gone wrong, skip scroll restoration.
+    if (isCrossOrigin.oldIframe !== isCrossOrigin.newIframe) {
+      return Promise.resolve();
+    }
+
+    // Normal same-domain for both iframes
+    if (!isCrossOrigin.oldIframe && !isCrossOrigin.newIframe) {
+      // Restore scroll position with instant scroll to avoid flickering if the
+      // previewed page has scroll-behavior: smooth.
+      newIframe.contentWindow?.scroll({
+        top: this.iframeTarget.contentWindow?.scrollY as number,
+        left: this.iframeTarget.contentWindow?.scrollX as number,
+        behavior: 'instant',
+      });
+      return Promise.resolve();
+    }
+
+    // Both iframes are likely cross-domain, e.g. in a headless setup, in which
+    // case we cannot call `scroll()` directly. Use the postMessage API
+    // instead to request the scroll position from the old iframe and send it
+    // to the new iframe.
+    return new Promise<void>((resolve) => {
+      const scrollHandler = (event: MessageEvent) => {
+        const data = getWagtailMessage(event);
+        if (!data) return;
+
+        switch (data.type) {
+          case 'w-preview:request-scroll':
+            // The new iframe is requesting to scroll to the last scroll position
+            // Get the last scroll position from the old iframe
+            this.iframeTarget.contentWindow?.postMessage(
+              {
+                wagtail: {
+                  type: 'w-preview:get-scroll-position',
+                } as GetScrollPosition,
+              },
+              data.origin,
+            );
+            break;
+          case 'w-preview:set-scroll-position':
+            // The old iframe responded with the last scroll position
+            // Set the scroll position on the new iframe
+            newIframe.contentWindow?.postMessage(
+              { wagtail: data },
+              data.origin,
+            );
+
+            // Done, remove the event listener and resolve the promise
+            window.removeEventListener('message', scrollHandler);
+            resolve();
+            break;
+          default:
+            break;
+        }
+      };
+
+      window.addEventListener('message', scrollHandler);
+
+      // If the cross-frame communication takes too long,
+      // resolve the promise to avoid hanging the preview indefinitely
+      setTimeout(() => {
+        window.removeEventListener('message', scrollHandler);
+        resolve();
+      }, PreviewController.scrollRestoreTimeout);
+    });
+  }
+
   /**
    * Runs the content and accessibility checks.
    * This is called when the preview iframe is loaded, or when the iframe sends
@@ -771,11 +850,9 @@ export class PreviewController extends Controller<HTMLElement> {
     // Other events do not need to be checked, as we assume it's intentional
     // (e.g. a custom button that re-runs the checks on click).
     if (event && event.type === 'message') {
-      // Ignore message events that are not from Wagtail
-      if (!(typeof event.data === 'object' && 'wagtail' in event.data))
-        return this.contentChecksPromise;
+      const data = getWagtailMessage(event);
       // Ignore messages that are not from the userbar indicating axe is ready
-      if (event.data.wagtail.type !== 'w-userbar:axe-ready')
+      if (data?.type !== 'w-userbar:axe-ready')
         return this.contentChecksPromise;
     }
 
