@@ -4,7 +4,6 @@ from jinja2.ext import Extension
 from .models import Filter, Picture, ResponsiveImage
 from .shortcuts import get_rendition_or_not_found, get_renditions_or_not_found
 from .templatetags.wagtailimages_tags import image_url
-from .utils import to_svg_safe_spec
 
 
 def image(image, filterspec, **attrs):
@@ -16,10 +15,6 @@ def image(image, filterspec, **attrs):
             "filter specs in 'image' tag may only contain A-Z, a-z, 0-9, dots, hyphens, pipes and underscores. "
             "(given filter: {})".format(filterspec)
         )
-
-    preserve_svg = "preserve-svg" in filterspec.split("|")
-    if preserve_svg and image.is_svg():
-        filterspec = to_svg_safe_spec(filterspec)
 
     rendition = get_rendition_or_not_found(image, filterspec)
 
@@ -39,10 +34,6 @@ def srcset_image(image, filterspec, **attrs):
             "(given filter: {})".format(filterspec)
         )
 
-    preserve_svg = "preserve-svg" in filterspec.split("|")
-    if preserve_svg and image.is_svg():
-        filterspec = to_svg_safe_spec(filterspec)
-
     specs = Filter.expand_spec(filterspec)
     renditions = get_renditions_or_not_found(image, specs)
 
@@ -58,10 +49,6 @@ def picture(image, filterspec, **attrs):
             "filter specs in 'picture' tag may only contain A-Z, a-z, 0-9, dots, hyphens, curly braces, commas, pipes and underscores. "
             "(given filter: {})".format(filterspec)
         )
-
-    preserve_svg = "preserve-svg" in filterspec.split("|")
-    if preserve_svg and image.is_svg():
-        filterspec = to_svg_safe_spec(filterspec)
 
     specs = Filter.expand_spec(filterspec)
     renditions = get_renditions_or_not_found(image, specs)
