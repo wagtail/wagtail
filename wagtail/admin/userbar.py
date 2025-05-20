@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
+from wagtail.admin.utils import get_admin_base_url
 from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Revision
 from wagtail.models.pages import Page
@@ -365,6 +366,7 @@ class Userbar(Component):
             # Render the userbar items
             return {
                 "request": request,
+                "origin": get_admin_base_url(),
                 "items": rendered_items,
                 "position": self.position,
                 "page": self.object,
