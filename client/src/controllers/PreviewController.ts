@@ -305,6 +305,12 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   updatePromise: Promise<boolean> | null = null;
 
+  /** Promise for the current content checks request. This resolved when both
+   * the content checks and the accessibility checks are completed. Useful for
+   * queueing the checks, as Axe does not allow concurrent runs.
+   */
+  contentChecksPromise: Promise<void> | null = null;
+
   /**
    * The currently active device size input element. Falls back to the default size input.
    */
@@ -351,12 +357,18 @@ export class PreviewController extends Controller<HTMLElement> {
     this.deactivatePreview = this.deactivatePreview.bind(this);
     this.setPreviewData = this.setPreviewData.bind(this);
     this.checkAndUpdatePreview = this.checkAndUpdatePreview.bind(this);
+    this.runChecks = this.runChecks.bind(this);
 
     this.sidePanelContainer.addEventListener('show', this.activatePreview);
     this.sidePanelContainer.addEventListener('hide', this.deactivatePreview);
 
     this.checksSidePanel?.addEventListener('show', this.activatePreview);
     this.checksSidePanel?.addEventListener('hide', this.deactivatePreview);
+
+    // Add the message event listener here instead of using a Stimulus action,
+    // as message events may originate from other sources and thus will add
+    // noise to the console when used as an action.
+    window.addEventListener('message', this.runChecks);
 
     this.restoreLastSavedPreferences();
   }
@@ -744,13 +756,43 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('loaded', { cancelable: false });
 
-    runContentChecks();
+    this.runChecks().finally(() => this.finishUpdate());
+  }
 
-    const onClickSelector = () => this.newTabTarget.click();
-    runAccessibilityChecks(onClickSelector);
+  /**
+   * Runs the content and accessibility checks.
+   * This is called when the preview iframe is loaded, or when the iframe sends
+   * a message event from the userbar indicating that it has finished running
+   * the checks within itself.
+   * @param event The message event from the userbar
+   */
+  async runChecks(event?: MessageEvent<{ wagtail: { type: string } }>) {
+    // If the method acts as a MessageEvent handler, ensure the event is
+    // from the correct source and type, to avoid running the checks excessively.
+    // Other events do not need to be checked, as we assume it's intentional
+    // (e.g. a custom button that re-runs the checks on click).
+    if (event && event.type === 'message') {
+      // Ignore message events that are not from Wagtail
+      if (!(typeof event.data === 'object' && 'wagtail' in event.data))
+        return this.contentChecksPromise;
+      // Ignore messages that are not from the userbar indicating axe is ready
+      if (event.data.wagtail.type !== 'w-userbar:axe-ready')
+        return this.contentChecksPromise;
+    }
 
-    // Ready for another update
-    this.finishUpdate();
+    // If the content checks are already running, wait for them to finish before
+    // re-running them, as Axe does not allow concurrent runs.
+    if (this.contentChecksPromise) {
+      await this.contentChecksPromise;
+    }
+
+    this.contentChecksPromise = (async () => {
+      await runContentChecks();
+      await runAccessibilityChecks(() => this.newTabTarget.click());
+      this.contentChecksPromise = null;
+    })();
+
+    return this.contentChecksPromise;
   }
 
   /**
@@ -826,6 +868,8 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   disconnect(): void {
+    window.removeEventListener('message', this.runChecks);
+
     this.sidePanelContainer.removeEventListener('show', this.activatePreview);
     this.sidePanelContainer.removeEventListener('hide', this.deactivatePreview);
 
