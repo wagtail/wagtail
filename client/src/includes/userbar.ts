@@ -25,6 +25,7 @@ export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
   declare dialog: A11yDialog;
   declare dialogBody: HTMLElement;
+  declare origin: string;
 
   connectedCallback() {
     const template = document.querySelector<HTMLTemplateElement>(
@@ -51,6 +52,10 @@ export class Userbar extends HTMLElement {
     if (!userbar || !trigger || !list) {
       return;
     }
+
+    this.origin =
+      userbar.getAttribute('data-wagtail-userbar-origin') ||
+      window.location.origin;
 
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'w-userbar--active';
@@ -485,6 +490,39 @@ export class Userbar extends HTMLElement {
       config,
       a11yRowTemplate,
       onClickSelector,
+    );
+
+    // In headless a setup, the userbar might be initialized after the "load"
+    // event has been fired, so the PreviewController's Axe has already scanned
+    // this window without Axe running inside it. We need to notify the parent
+    // window when the userbar (and thus Axe) has been initialized, so that it
+    // can re-run Axe against this window.
+    //
+    // We do this here instead of in connectedCallback() or initialiseAxe() to
+    // make sure that the message is sent only after Axe has finished running,
+    // otherwise the PreviewController's Axe may try to run Axe in this window
+    // while a previous run is still in progress, which will cause an error.
+    if (this.inCrossOriginIframe) {
+      this.postAxeReady();
+    }
+  }
+
+  get inCrossOriginIframe() {
+    try {
+      // Check if we can access the top window's origin.
+      // If we can, it's not a cross-origin iframe.
+      return !window.top?.origin;
+    } catch {
+      // If an error is thrown (e.g. SecurityError), it's likely cross-origin,
+      // e.g. in a headless setup.
+      return true;
+    }
+  }
+
+  postAxeReady() {
+    window.top?.postMessage(
+      { wagtail: { type: 'w-userbar:axe-ready' } },
+      this.origin,
     );
   }
 }
