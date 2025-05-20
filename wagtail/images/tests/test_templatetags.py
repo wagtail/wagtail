@@ -109,11 +109,13 @@ class ImageNodeTestCase(TestCase):
         for image, filter_specs, expected in params:
             with self.subTest(img=image, filter_specs=filter_specs, expected=expected):
                 context = {"image": image, "image_node": "fake_value"}
-                node = ImageNode(Variable("image"), filter_specs, preserve_svg=True)
-                node.render(context)
-                self.assertEqual(
-                    node.get_filter(preserve_svg=image.is_svg()).spec, expected
+                node = ImageNode(
+                    Variable("image"),
+                    filter_specs + ["preserve-svg"],
+                    output_var_name="rendition",
                 )
+                node.render(context)
+                self.assertEqual(context["rendition"].filter_spec, expected)
 
 
 class ImagesTestCase(TestCase):
