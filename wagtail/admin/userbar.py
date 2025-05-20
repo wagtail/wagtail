@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
+from wagtail.admin.utils import get_admin_base_url
 from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Revision
 from wagtail.models.pages import Page
@@ -310,10 +311,12 @@ class Userbar(Component):
 
         if not request or request.user.is_anonymous:
             language = None
+            origin = get_admin_base_url()
         else:
             # Render the userbar using the user's preferred admin language
             userprofile = UserProfile.get_for_user(request.user)
             language = userprofile.get_preferred_language()
+            origin = f"{request.scheme}://{request.get_host()}"
 
         with translation.override(language):
             try:
@@ -361,6 +364,7 @@ class Userbar(Component):
             # Render the userbar items
             return {
                 "request": request,
+                "origin": origin,
                 "items": rendered_items,
                 "position": self.position,
                 "page": self.object,
