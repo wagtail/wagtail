@@ -262,6 +262,7 @@ describe('PreviewController', () => {
 
   const expectIframeReloaded = async (
     expectedUrl = `http://localhost${url}?in_preview_panel=true`,
+    onLoad = jest.fn(),
   ) => {
     // Should create a new invisible iframe with the correct URL
     let iframes = document.querySelectorAll('iframe');
@@ -269,6 +270,7 @@ describe('PreviewController', () => {
     const oldIframe = iframes[0];
     const newIframe = iframes[1];
     const oldIframeId = oldIframe.id;
+    const initial = !oldIframe.src;
     expect(oldIframeId).toBeTruthy();
     expect(newIframe.hasAttribute('id')).toBe(false);
     expect(newIframe.src).toEqual(expectedUrl);
@@ -282,18 +284,23 @@ describe('PreviewController', () => {
     newIframe.contentWindow.scroll = mockScroll;
     await Promise.resolve();
     newIframe.dispatchEvent(new Event('load'));
-    expect(mockScroll).toHaveBeenCalled();
+    await Promise.resolve();
+    await Promise.resolve();
+    await onLoad(newIframe);
     iframes = document.querySelectorAll('iframe');
     expect(iframes.length).toEqual(1);
     expect(iframes[0]).toBe(newIframe);
     expect(newIframe.id).toEqual(oldIframeId);
     expect(newIframe.src).toEqual(expectedUrl);
     expect(newIframe.getAttribute('style')).toBeNull();
-    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-      top: oldIframe.contentWindow.scrollY,
-      left: oldIframe.contentWindow.scrollX,
-      behavior: 'instant',
-    });
+    if (!initial) {
+      expect(mockScroll).toHaveBeenCalled();
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: oldIframe.contentWindow.scrollY,
+        left: oldIframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
+    }
 
     // Clear the fetch call history
     fetch.mockClear();
@@ -528,9 +535,6 @@ describe('PreviewController', () => {
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.classList.contains('w-preview__proxy')).toBe(true);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       await Promise.resolve();
       expect(events.loaded).toHaveLength(0);
       expect(events.ready).toHaveLength(0);
@@ -545,11 +549,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
 
       // Should set the device width property to the selected size (the default)
       const element = document.querySelector('[data-controller="w-preview"]');
@@ -650,9 +649,6 @@ describe('PreviewController', () => {
       expect(newIframe.classList.contains('w-preview__proxy')).toBe(true);
       expect(events.ready).toHaveLength(0);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       await Promise.resolve();
       expect(events.loaded).toHaveLength(0);
       expect(events.ready).toHaveLength(0);
@@ -667,11 +663,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
 
       // Should set the has-errors class on the controlled element
       expect(element.classList).toContain('w-preview--has-errors');
@@ -802,9 +793,6 @@ describe('PreviewController', () => {
       expect(newIframe.classList.contains('w-preview__proxy')).toBe(true);
       expect(events.ready).toHaveLength(0);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       await Promise.resolve();
       expect(events.loaded).toHaveLength(0);
       expect(events.ready).toHaveLength(0);
@@ -819,11 +807,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
 
       // Should set the has-errors class on the controlled element
       expect(element.classList).toContain('w-preview--has-errors');
@@ -1046,9 +1029,6 @@ describe('PreviewController', () => {
       // The spinner should still be visible while the iframe is loading
       expect(spinnerElement.hidden).toBe(false);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       // Simulate the iframe loading
       await Promise.resolve();
       newIframe.dispatchEvent(new Event('load'));
@@ -1059,11 +1039,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
       // The spinner should be hidden after the iframe loads
       expect(spinnerElement.hidden).toBe(true);
 
@@ -1174,7 +1149,13 @@ describe('PreviewController', () => {
       await Promise.resolve();
       iframe.contentWindow.scroll = jest.fn();
       iframe.dispatchEvent(new Event('load'));
-      await Promise.resolve();
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(iframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: iframe.contentWindow.scrollY,
+        left: iframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
 
       // Should dispatch the loaded event
       expect(events.loaded).toHaveLength(2);
@@ -1641,24 +1622,180 @@ describe('PreviewController', () => {
       );
     });
 
-    it('should allow the iframe to be cross-domain', async () => {
-      const element = document.querySelector('[data-controller="w-preview"]');
-      element.setAttribute(
-        'data-w-preview-render-url-value',
-        'https://headless.site/$preview/foo/7/',
-      );
+    describe('cross-domain iframe behavior', () => {
+      let oldIframe;
+      let spies;
 
-      // Mock a SecurityError that is raised when calling
-      // iframe.contentWindow.scroll() on a cross-origin frame.
-      mockScroll = jest.fn(() => {
-        throw new Error(
-          'SecurityError: Cannot access properties of a cross-origin frame.',
+      beforeEach(async () => {
+        const element = document.querySelector('[data-controller="w-preview"]');
+        element.setAttribute(
+          'data-w-preview-auto-update-interval-value',
+          '200',
+        );
+        element.setAttribute(
+          'data-w-preview-render-url-value',
+          'https://headless.site/$preview/foo/7/',
+        );
+
+        await initializeOpenedPanel(
+          `https://headless.site/$preview/foo/7/?in_preview_panel=true`,
+        );
+        global.fetch.mockClear();
+
+        // Mock a SecurityError that is raised when calling
+        // iframe.contentWindow.scroll() on a cross-origin frame.
+        mockScroll = jest.fn(() => {
+          throw new Error(
+            'SecurityError: Cannot access properties of a cross-origin frame.',
+          );
+        });
+
+        oldIframe = document.querySelector('iframe');
+
+        fetch.mockResponseSuccessJSON(validAvailableResponse);
+        const input = document.querySelector('input[name="title"');
+        input.value = 'Changed title';
+
+        // Trigger auto update check
+        await jest.runOnlyPendingTimersAsync();
+        // Wait for debounce
+        await jest.runOnlyPendingTimersAsync();
+
+        // Should send the preview data to the backend URL
+        expect(global.fetch).toHaveBeenCalledWith(url, {
+          body: expect.any(Object),
+          method: 'POST',
+        });
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+
+        spies = [
+          jest.spyOn(window, 'addEventListener'),
+          jest.spyOn(window, 'removeEventListener'),
+          jest.spyOn(oldIframe.contentWindow, 'postMessage'),
+        ];
+      });
+
+      afterEach(() => {
+        spies.forEach((spy) => spy.mockRestore());
+      });
+
+      it('should use postMessage to restore the scroll position on the new iframe', async () => {
+        await expectIframeReloaded(
+          'https://headless.site/$preview/foo/7/?in_preview_panel=true',
+          async (newIframe) => {
+            expect(window.addEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+
+            jest.spyOn(newIframe.contentWindow, 'postMessage');
+
+            // Unrelated Wagtail message to the parent window should not trigger
+            // any postMessage calls to any of the iframes
+            window.postMessage(
+              { wagtail: { type: 'w-other:unrelated' } },
+              'http://localhost',
+            );
+            await jest.advanceTimersToNextTimerAsync();
+            expect(oldIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+            expect(newIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+
+            // Simulate the newIframe sending a request to the parent window for
+            // the scroll position of the oldIframe
+            window.postMessage(
+              {
+                wagtail: {
+                  type: 'w-preview:request-scroll',
+                  origin: 'https://headless.site',
+                },
+              },
+              'http://localhost',
+            );
+            await jest.advanceTimersToNextTimerAsync();
+
+            // Should call postMessage on the oldIframe to get its scroll position
+            expect(oldIframe.contentWindow.postMessage).toHaveBeenCalledWith(
+              {
+                wagtail: { type: 'w-preview:get-scroll-position' },
+              },
+              'https://headless.site',
+            );
+
+            const message = {
+              type: 'w-preview:set-scroll-position',
+              x: 123,
+              y: 456,
+              origin: 'https://headless.site',
+            };
+
+            // Should not clean up the event listener yet as we're still waiting
+            // for the scroll restoration communication to complete
+            expect(window.removeEventListener).not.toHaveBeenCalled();
+
+            // Simulate the oldIframe sending its scroll position to the parent window
+            window.postMessage({ wagtail: message }, 'http://localhost');
+            await jest.advanceTimersToNextTimerAsync();
+
+            // Should call postMessage on the newIframe to set its scroll position
+            expect(newIframe.contentWindow.postMessage).toHaveBeenCalledWith(
+              { wagtail: message },
+              'https://headless.site',
+            );
+
+            // Should clean up the event listener as the scroll restoration
+            // communication has completed successfully
+            expect(window.removeEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+          },
         );
       });
 
-      await initializeOpenedPanel(
-        `https://headless.site/$preview/foo/7/?in_preview_panel=true`,
-      );
+      it('should have a timeout for the scroll restoration communication', async () => {
+        await expectIframeReloaded(
+          'https://headless.site/$preview/foo/7/?in_preview_panel=true',
+          async (newIframe) => {
+            expect(window.addEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+
+            jest.spyOn(newIframe.contentWindow, 'postMessage');
+
+            // Unrelated message (not from Wagtail) to the parent window should
+            // not trigger any postMessage calls to any of the iframes
+            window.postMessage(
+              { someExtension: { says: 'hello' } },
+              'http://localhost',
+            );
+            await jest.advanceTimersToNextTimerAsync();
+            expect(oldIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+            expect(newIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+
+            // Should not clean up the event listener yet as we're still waiting
+            // for the scroll restoration communication to complete
+            expect(window.removeEventListener).not.toHaveBeenCalled();
+
+            // After the timeout has passed, the scroll restoration
+            // communication should be considered failed and no postMessage
+            // should be sent to the newIframe, but the rest of the iframe
+            // reload process should continue
+            await jest.advanceTimersByTimeAsync(
+              PreviewController.scrollRestoreTimeout,
+            );
+            expect(oldIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+            expect(newIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+
+            // Should clean up the event listener as the scroll restoration
+            // communication has timed out
+            expect(window.removeEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+          },
+        );
+      });
     });
   });
 
