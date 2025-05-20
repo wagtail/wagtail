@@ -11,6 +11,7 @@ import { wagtailPreviewPlugin } from './previewPlugin';
 import { contentMetricsPluginInstance } from './contentMetrics';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
+import { getWagtailMessage, WagtailMessage } from '../utils/message';
 
 /*
 This entrypoint is not bundled with any polyfills to keep it as light as possible
@@ -312,6 +313,18 @@ export class Userbar extends HTMLElement {
         await this.initialiseAxe();
       });
     }
+
+    this.handleMessage = this.handleMessage.bind(this);
+
+    // If we are in a cross-origin iframe, request the parent to restore the
+    // scroll position of the preview panel's previous iframe to this one.
+    if (this.inCrossOriginIframe) {
+      window.addEventListener('message', this.handleMessage);
+      this.postMessage({
+        type: 'w-preview:request-scroll',
+        origin: window.location.origin,
+      });
+    }
   }
 
   /*
@@ -519,10 +532,44 @@ export class Userbar extends HTMLElement {
     }
   }
 
+  postMessage(message: WagtailMessage) {
+    window.top?.postMessage({ wagtail: message }, this.origin);
+  }
+
   postAxeReady() {
-    window.top?.postMessage(
-      { wagtail: { type: 'w-userbar:axe-ready' } },
-      this.origin,
-    );
+    this.postMessage({ type: 'w-userbar:axe-ready' });
+  }
+
+  handleMessage(event: MessageEvent) {
+    const data = getWagtailMessage(event);
+    if (!data) return;
+
+    switch (data.type) {
+      case 'w-preview:get-scroll-position':
+        // This window is the old iframe
+        // and the preview panel requested the scroll position
+        this.postMessage({
+          type: 'w-preview:set-scroll-position',
+          x: window.scrollX,
+          y: window.scrollY,
+          origin: window.location.origin,
+        });
+        break;
+
+      case 'w-preview:set-scroll-position':
+        // This window is the new iframe
+        // and the preview panel sent the scroll position to be restored
+        window.scrollTo({ top: data.y, left: data.x, behavior: 'instant' });
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  disconnectedCallback() {
+    if (this.inCrossOriginIframe) {
+      window.removeEventListener('message', this.handleMessage);
+    }
   }
 }
