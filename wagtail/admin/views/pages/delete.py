@@ -39,8 +39,12 @@ def delete(request, page_id):
                         pages_to_delete.update(additional_pages)
 
         pages_to_delete = list(pages_to_delete)
+        usage = ReferenceIndex.get_references_to(page).group_by_source_object()
 
         if request.method == "POST":
+            if usage.is_protected:
+                raise PermissionDenied
+
             continue_deleting = True
             if (
                 request.POST.get("confirm_site_name")
@@ -81,7 +85,6 @@ def delete(request, page_id):
                     return redirect(next_url)
                 return redirect("wagtailadmin_explore", parent_id)
 
-    usage = ReferenceIndex.get_references_to(page).group_by_source_object()
     descendant_count = page.get_descendant_count()
     return TemplateResponse(
         request,

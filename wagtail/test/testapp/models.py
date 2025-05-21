@@ -240,18 +240,34 @@ class CustomPreviewSizesPage(Page):
         return "desktop"
 
 
+class ExcludedCopyPageNote(Orderable):
+    page = ParentalKey(
+        "tests.PageWithExcludedCopyField",
+        related_name="special_notes",
+        on_delete=models.CASCADE,
+    )
+    note = models.CharField(max_length=255)
+
+    panels = [FieldPanel("note")]
+
+
 # Page with Excluded Fields when copied
 class PageWithExcludedCopyField(Page):
     content = models.TextField()
 
-    # Exclude this field from being copied
+    # Exclude these fields and the special_notes relation from being copied
     special_field = models.CharField(blank=True, max_length=255, default="Very Special")
-    exclude_fields_in_copy = ["special_field"]
+    special_stream = StreamField(
+        [("item", CharBlock())], default=[("item", "default item")]
+    )
+    exclude_fields_in_copy = ["special_field", "special_notes", "special_stream"]
 
     content_panels = [
         TitleFieldPanel("title", classname="title"),
         FieldPanel("special_field"),
         FieldPanel("content"),
+        FieldPanel("special_stream"),
+        InlinePanel("special_notes", label="Special notes"),
     ]
 
 
@@ -1399,6 +1415,20 @@ class VariousOnDeleteModel(models.Model):
     )
     protected_document = models.ForeignKey(
         "wagtaildocs.Document",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    protected_page = models.ForeignKey(
+        "wagtailcore.Page",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    protected_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
         null=True,
         blank=True,

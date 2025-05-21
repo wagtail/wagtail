@@ -164,9 +164,9 @@ filter_adapter_class_registry = ObjectTypeRegistry()
 
 
 def register_filter_adapter_class(
-    filter_class: django_filters.Filter,
-    adapter_class: BaseFilterAdapter = None,
-    exact_class: BaseFilterAdapter = False,
+    filter_class: type[django_filters.Filter],
+    adapter_class: type[BaseFilterAdapter] = None,
+    exact_class: bool = False,
 ):
     """
     Define how a django-filter Filter should be displayed when it's active.

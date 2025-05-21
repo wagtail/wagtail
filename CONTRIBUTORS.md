@@ -887,6 +887,10 @@
 * Gorlik
 * manu
 * Maciek Baron
+* Vishesh Garg
+* Paul Craciunoiu
+* Richard Allen
+* Dimaco
 
 ## Translators
 

@@ -3,9 +3,14 @@ from django.contrib.auth.models import Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail.snippets.bulk_actions.delete import DeleteBulkAction
-from wagtail.test.testapp.models import FullFeaturedSnippet
+from wagtail.test.testapp.models import (
+    Advert,
+    FullFeaturedSnippet,
+    VariousOnDeleteModel,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -70,7 +75,10 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
                 args=(quote(item.pk),),
             ),
         )
-        self.assertContains(response, "Used 0 times")
+        self.assertContains(
+            response,
+            "This full-featured snippet is referenced 0 times.",
+        )
 
     def test_bulk_delete(self):
         response = self.client.post(self.get_url())
@@ -239,3 +247,79 @@ class TestSnippetDeleteView(WagtailTestUtils, TestCase):
                 pk__in=[snippet.pk for snippet in self.test_snippets]
             ).exists()
         )
+
+
+class TestProtectedBulkDeleteView(WagtailTestUtils, TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.snippet_model = Advert
+        cls.test_snippets = [
+            cls.snippet_model.objects.create(text=f"Title-{i}") for i in range(1, 6)
+        ]
+        cls.url = reverse(
+            "wagtail_bulk_action",
+            args=(
+                cls.snippet_model._meta.app_label,
+                cls.snippet_model._meta.model_name,
+                "delete",
+            ),
+        )
+        cls.query_params = {
+            "next": reverse("wagtailsnippets_tests_advert:list"),
+            "id": [item.pk for item in cls.test_snippets],
+        }
+        cls.url += "?" + urlencode(cls.query_params, doseq=True)
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_delete_get_with_protected_reference(self):
+        protected = self.test_snippets[0]
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                on_delete_protect=protected,
+            )
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        main = soup.select_one("main")
+        usage_link = main.find(
+            "a",
+            href=reverse(
+                "wagtailsnippets_tests_advert:usage",
+                args=[quote(protected.pk)],
+            )
+            + "?describe_on_delete=1",
+        )
+        self.assertIsNotNone(usage_link)
+        self.assertEqual(usage_link.text.strip(), "This advert is referenced 1 time.")
+        self.assertContains(
+            response,
+            "One or more references to this advert prevent it from being deleted.",
+        )
+        submit_button = main.select_one("form button[type=submit]")
+        self.assertIsNone(submit_button)
+        back_button = main.find("a", href=reverse("wagtailsnippets_tests_advert:list"))
+        self.assertIsNotNone(back_button)
+        self.assertEqual(back_button.text.strip(), "Go back")
+
+    def test_delete_post_with_protected_reference(self):
+        protected = self.test_snippets[0]
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                on_delete_protect=protected,
+            )
+        response = self.client.post(self.url)
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        # Check that the snippet is still here
+        self.assertTrue(Advert.objects.filter(pk=protected.pk).exists())

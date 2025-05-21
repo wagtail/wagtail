@@ -12,10 +12,21 @@ Changelog
  * Define default `GenericRelations` for `RevisionMixin` and `WorkflowMixin`, to avoid issues with deletion cascades (Sage Abdullah)
  * Document and relocate the `init_new_page` signal (Maciek Baron)
  * Use `requests` to access oEmbed endpoints, for more robust SSL certificate handling (Matt Westcott)
+ * Ensure that bulk deletion views respect protected foreign keys (Sage Abdullah)
+ * Add minimum length validation for `RichTextBlock` and `RichTextField` (Alec Baron)
+ * Support `preserve-svg` in Jinja2 image tags (Vishesh Garg)
+ * Allow `SnippetChooserBlock`'s `icon` to take precedence over `SnippetViewSet.icon` (Matt Westcott)
+ * Allow searching the users index on custom fields (Paul Craciunoiu, Sage Abdullah)
+ * Recognise `preserve-svg` as a filter when calling `Image.get_rendition` directly (Richard Allen)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
  * Fix: Fix behaviour of `ViewSet.inject_view_methods` with multiple methods (Gorlik)
+ * Fix: Preserve query strings in URLs submitted to CloudFront for invalidation (Jigyasu Rajput)
+ * Fix: Handle non-JSON-safe fields in `exclude_fields_in_copy` (Matt Westcott)
+ * Fix: Allow upload of AVIF images through image chooser on Firefox (Matt Westcott)
+ * Fix: Accept any string beginning with 'y' as confirmation for `import_redirects` command (Matt Westcott)
+ * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
@@ -23,6 +34,7 @@ Changelog
 7.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Fix type hints for `register_filter_adapter_class` parameters (Sébastien Corbin)
  * Docs: Use tuple instead of set in `UniqueConstraint` examples for a custom rendition model to avoid spurious migrations (Alec Baron)
 
 7.0 LTS (06.05.2025)

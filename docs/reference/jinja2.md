@@ -83,6 +83,12 @@ Or resize an image and retrieve the resized image object (rendition) for more be
 <div class="wrapper" style="background-image: url({{ background.url }});"></div>
 ```
 
+When working with SVG images, you can use `preserve_svg` in the filter string to prevent operations that would require rasterizing the SVG. When preserve_svg is set to True and the image is an SVG, operations that would require rasterization (like format conversion) will be automatically filtered out, ensuring SVGs remain as vector graphics. This is especially useful in loops processing both raster images and SVGs.
+
+```html+jinja
+{{ image(page.svg_image, "width-400|format-webp|preserve_svg") }}
+```
+
 See [](image_tag) for more information
 
 ### `srcset_image()`
@@ -106,6 +112,12 @@ Or resize an image and retrieve the renditions for more bespoke use:
 ```html+jinja
 {% set bg=srcset_image(page.background_image, "max-{512x512,1024x1024}") %}
 <div class="wrapper" style="background-image: image-set(url({{ bg.renditions[0].url }}) 1x, url({{ bg.renditions[1].url }}) 2x);"></div>
+```
+
+When working with SVG images, you can use `preserve_svg` in the filter string to prevent operations that would require rasterizing the SVG.
+
+```html+jinja
+{{ srcset_image(page.svg_image, "width-400|format-webp|preserve_svg") }}
 ```
 
 ### `picture()`
@@ -150,6 +162,12 @@ Or resize an image and retrieve the renditions for more bespoke use:
 ```html+jinja
 {% set bg=picture(page.background_image, "format-{avif,jpeg}|max-{512x512,1024x1024}") %}
 <div class="wrapper" style="background-image: image-set(url({{ bg.formats['avif'][0].url }}) 1x type('image/avif'), url({{ bg.formats['avif'][1].url }}) 2x type('image/avif'), url({{ bg.formats['jpeg'][0].url }}) 1x type('image/jpeg'), url({{ bg.formats['jpeg'][1].url }}) 2x type('image/jpeg'));"></div>
+```
+
+For SVG images, you can use `preserve_svg` in the filter string to ensure they remain as vector graphics:
+
+```html+jinja
+{{ picture(page.header_image, "format-{avif,webp,jpeg}|width-{400,800}|preserve_svg", sizes="80vw") }}
 ```
 
 ### `|richtext`

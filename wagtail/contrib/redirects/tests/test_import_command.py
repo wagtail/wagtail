@@ -237,47 +237,65 @@ class TestImportCommand(TestCase):
 
         self.assertEqual(Redirect.objects.count(), 0)
 
-    @patch(
-        "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
-        return_value="Y",
-    )
-    def test_successful_ask_imports_redirect(self, get_input):
+    def test_successful_ask_imports_redirect(self):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
         invalid_file.write("from,to\n")
         invalid_file.write("/alpha,http://omega.test/")
         invalid_file.seek(0)
 
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            format="csv",
-            ask=True,
-            stdout=out,
-        )
+        # Any input that starts with "y" of any case should be accepted as a yes
+        inputs = ["Y", "yessica haircut"]
 
-        self.assertEqual(Redirect.objects.count(), 1)
+        for input in inputs:
+            with (
+                self.subTest(input=input),
+                patch(
+                    "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
+                    return_value=input,
+                ),
+            ):
+                out = StringIO()
+                call_command(
+                    "import_redirects",
+                    src=invalid_file.name,
+                    format="csv",
+                    ask=True,
+                    stdout=out,
+                )
+                self.assertEqual(Redirect.objects.count(), 1)
+                Redirect.objects.all().delete()
 
-    @patch(
-        "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
-        return_value="N",
-    )
-    def test_native_ask_imports_redirect(self, get_input):
+    def test_native_ask_imports_redirect(self):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
         invalid_file.write("from,to\n")
         invalid_file.write("/alpha,http://omega.test/")
         invalid_file.seek(0)
 
-        out = StringIO()
-        call_command(
-            "import_redirects",
-            src=invalid_file.name,
-            format="csv",
-            ask=True,
-            stdout=out,
-        )
+        inputs = ["N", "", "whatever"]
 
-        self.assertEqual(Redirect.objects.count(), 0)
+        for input in inputs:
+            with (
+                self.subTest(input=input),
+                patch(
+                    "wagtail.contrib.redirects.management.commands.import_redirects.get_input",
+                    return_value=input,
+                ) as mock_input,
+            ):
+                out = StringIO()
+                call_command(
+                    "import_redirects",
+                    src=invalid_file.name,
+                    format="csv",
+                    ask=True,
+                    stdout=out,
+                )
+                # The provided option that has an uppercase letter (which
+                # denotes a default) is N, so the empty string or any other
+                # unrecognized input should behave as if the user had entered N.
+                mock_input.assert_called_once_with(
+                    "1. Found /alpha -> http://omega.test/ Create? y/N: "
+                )
+                self.assertEqual(Redirect.objects.count(), 0)
 
     def test_offset_parameter(self):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")

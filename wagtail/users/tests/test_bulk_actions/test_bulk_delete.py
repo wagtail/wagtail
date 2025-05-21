@@ -1,9 +1,14 @@
+import unittest
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.http import urlencode
 
+from wagtail.test.testapp.models import VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 
@@ -11,10 +16,11 @@ User = get_user_model()
 
 
 class TestUserDeleteView(WagtailTestUtils, TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(cls):
         # create a set of test users
-        self.test_users = [
-            self.create_user(
+        cls.test_users = [
+            cls.create_user(
                 username=f"testuser-{i}",
                 email=f"testuser{i}@email.com",
                 password=f"password-{i}",
@@ -22,13 +28,12 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
             for i in range(1, 6)
         ]
         # also create a superuser to delete
-        self.superuser = self.create_superuser(
+        cls.superuser = cls.create_superuser(
             username="testsuperuser",
             email="testsuperuser@email.com",
             password="password",
         )
-        self.current_user = self.login()
-        self.url = (
+        cls.base_url = (
             reverse(
                 "wagtail_bulk_action",
                 args=(
@@ -39,11 +44,17 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
             )
             + "?"
         )
-        for user in self.test_users:
-            self.url += f"id={user.pk}&"
+        cls.query_params = {
+            "next": reverse("wagtailusers_users:index"),
+            "id": [user.pk for user in cls.test_users],
+        }
+        cls.url = cls.base_url + urlencode(cls.query_params, doseq=True)
 
-        self.self_delete_url = self.url + f"id={self.current_user.pk}"
-        self.superuser_delete_url = self.url + f"id={self.superuser.pk}"
+        cls.superuser_delete_url = cls.base_url + f"id={cls.superuser.pk}"
+
+    def setUp(self):
+        self.current_user = self.login()
+        self.self_delete_url = self.base_url + f"id={self.current_user.pk}"
 
     def test_simple(self):
         response = self.client.get(self.url)
@@ -142,3 +153,99 @@ class TestUserDeleteView(WagtailTestUtils, TestCase):
 
         for user in self.test_users:
             self.assertFalse(User.objects.filter(email=user.email).exists())
+
+    def test_delete_get_with_protected_reference(self):
+        protected = self.test_users[0]
+        model_name = User._meta.verbose_name
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=protected,
+            )
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        main = soup.select_one("main")
+        usage_link = main.find(
+            "a",
+            href=reverse("wagtailusers_users:usage", args=[protected.pk])
+            + "?describe_on_delete=1",
+        )
+        self.assertIsNotNone(usage_link)
+        self.assertEqual(
+            usage_link.text.strip(), f"This {model_name} is referenced 1 time."
+        )
+        self.assertContains(
+            response,
+            f"One or more references to this {model_name} prevent it from being deleted.",
+        )
+        submit_button = main.select_one("form button[type=submit]")
+        self.assertIsNone(submit_button)
+        back_button = main.find("a", href=reverse("wagtailusers_users:index"))
+        self.assertIsNotNone(back_button)
+        self.assertEqual(back_button.text.strip(), "Go back")
+
+    def test_delete_post_with_protected_reference(self):
+        protected = self.test_users[0]
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=protected,
+            )
+        response = self.client.post(self.url)
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        # Check that the user is still here
+        self.assertTrue(User.objects.filter(pk=protected.pk).exists())
+
+    def test_with_search(self):
+        self.create_user(
+            username="raz",
+            email="raz@email.com",
+            password="password",
+            first_name="Razputin",
+            last_name="Aquato",
+        )
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(User._meta.app_label, User._meta.model_name, "delete"),
+            ),
+            {"q": "raz", "id": "all"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Razputin")
+        self.assertNotContains(response, "testuser")
+
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "customuser.CustomUser",
+        "Only applicable to CustomUser",
+    )
+    def test_with_search_backend(self):
+        self.create_user(
+            username="raz",
+            email="raz@email.com",
+            password="password",
+            first_name="Razputin",
+            last_name="Aquato",
+            country="Grulovia",
+        )
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(User._meta.app_label, User._meta.model_name, "delete"),
+            ),
+            # The country field is defined in the model's search_fields,
+            # which only works with an indexed model
+            {"q": "gru", "id": "all"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Razputin")
+        self.assertNotContains(response, "testuser")

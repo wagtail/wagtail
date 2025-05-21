@@ -340,6 +340,78 @@ class TestBackendConfiguration(SimpleTestCase):
                 }
             )
 
+    @mock.patch(
+        "wagtail.contrib.frontend_cache.backends.cloudfront.CloudfrontBackend._create_invalidation"
+    )
+    def test_cloudfront_purge_with_query_string(self, mock_create_invalidation):
+        """Test that CloudFront invalidation includes query strings when purging URLs."""
+        backends = get_backends(
+            backend_settings={
+                "cloudfront": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
+                    "DISTRIBUTION_ID": "frontend",
+                    "AWS_ACCESS_KEY_ID": "test-access-key",
+                    "AWS_SECRET_ACCESS_KEY": "test-secret-key",
+                },
+            }
+        )
+
+        backends["cloudfront"].purge(
+            "http://www.example.com/path/to/page?query=value&another=param"
+        )
+        mock_create_invalidation.assert_called_once_with(
+            "frontend", ["/path/to/page?query=value&another=param"]
+        )
+
+    @mock.patch(
+        "wagtail.contrib.frontend_cache.backends.cloudfront.CloudfrontBackend._create_invalidation"
+    )
+    def test_cloudfront_purge_root_with_query_string(self, mock_create_invalidation):
+        """Test that CloudFront invalidation handles root URLs with query strings."""
+        backends = get_backends(
+            backend_settings={
+                "cloudfront": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
+                    "DISTRIBUTION_ID": "frontend",
+                    "AWS_ACCESS_KEY_ID": "test-access-key",
+                    "AWS_SECRET_ACCESS_KEY": "test-secret-key",
+                },
+            }
+        )
+
+        backends["cloudfront"].purge("http://www.example.com?query=value")
+        mock_create_invalidation.assert_called_once_with("frontend", ["/?query=value"])
+
+    @mock.patch(
+        "wagtail.contrib.frontend_cache.backends.cloudfront.CloudfrontBackend._create_invalidation"
+    )
+    def test_cloudfront_purge_batch_with_query_strings(self, mock_create_invalidation):
+        """Test that CloudFront invalidation batch includes query strings."""
+        backends = get_backends(
+            backend_settings={
+                "cloudfront": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
+                    "DISTRIBUTION_ID": "frontend",
+                    "AWS_ACCESS_KEY_ID": "test-access-key",
+                    "AWS_SECRET_ACCESS_KEY": "test-secret-key",
+                },
+            }
+        )
+
+        backends["cloudfront"].purge_batch(
+            [
+                "http://www.example.com/path/to/page?query=value",
+                "http://www.example.com/another/path",
+                "http://www.example.com?root=query",
+            ]
+        )
+        mock_create_invalidation.assert_called_once()
+        self.assertEqual(mock_create_invalidation.call_args.args[0], "frontend")
+        self.assertEqual(
+            sorted(mock_create_invalidation.call_args.args[1]),
+            ["/?root=query", "/another/path", "/path/to/page?query=value"],
+        )
+
     def test_multiple(self):
         backends = get_backends(
             backend_settings={

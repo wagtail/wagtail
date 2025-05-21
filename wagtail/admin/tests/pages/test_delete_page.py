@@ -8,7 +8,12 @@ from django.urls import reverse
 
 from wagtail.models import Page
 from wagtail.signals import page_unpublished
-from wagtail.test.testapp.models import SimplePage, StandardChild, StandardIndex
+from wagtail.test.testapp.models import (
+    SimplePage,
+    StandardChild,
+    StandardIndex,
+    VariousOnDeleteModel,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -364,3 +369,24 @@ class TestPageDelete(WagtailTestUtils, TestCase):
 
         # page should be deleted
         self.assertFalse(Page.objects.filter(id=self.child_page.id).exists())
+
+    def test_delete_post_with_protected_reference(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_page=self.child_page,
+            )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+        )
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        # Check that the page is still here
+        self.assertTrue(Page.objects.filter(pk=self.child_page.id).exists())

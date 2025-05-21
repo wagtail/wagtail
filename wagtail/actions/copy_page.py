@@ -181,6 +181,11 @@ class CopyPageAction:
 
         # Copy revisions
         if self.copy_revisions:
+            # Fetch data for the new page copy in the same serializable format that would be
+            # written to revisions. Any field in exclude_fields that is found in the revision data
+            # will be replaced with the corresponding field from here.
+            page_copy_data = page_copy.serializable_data()
+
             for revision in page.revisions.all():
                 use_as_latest_revision = revision.pk == page.latest_revision_id
                 revision.pk = None
@@ -221,13 +226,9 @@ class CopyPageAction:
                                 )
                             )
 
-                for exclude_field in specific_page.exclude_fields_in_copy:
-                    if exclude_field in revision_content and hasattr(
-                        page_copy, exclude_field
-                    ):
-                        revision_content[exclude_field] = getattr(
-                            page_copy, exclude_field, None
-                        )
+                for field_name in exclude_fields:
+                    if field_name in revision_content:
+                        revision_content[field_name] = page_copy_data.get(field_name)
 
                 revision.content = revision_content
 
