@@ -29,6 +29,7 @@ Changelog
  * Add type-to-confirm step when deleting large numbers of pages through bulk actions (Rachel Smith)
  * Add `NoFutureDateValidator` to validate against dates in the future (Talha Rizwan)
  * Extract separate `background_position_x` and `background_position_y` properties from `AbstractRendition.background_position_style` (Chiemezuo Akujobi)
+ * Add support for translated string concatenation in the locale selector when switching between a model's language in the admin (Matt Westcott, Ellie Walsh-O'Neill)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
