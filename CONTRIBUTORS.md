@@ -898,6 +898,7 @@
 * Anees Asghar
 * Rachel Smith
 * Talha Rizwan
+* Ellie Walsh-O'Neill
 
 ## Translators
 
