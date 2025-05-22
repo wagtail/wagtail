@@ -553,15 +553,39 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["data_rows"]), 1)
 
     def test_list_submissions_filtering_range(self):
-        response = self.client.get(
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"date_from": "12/31/2013", "date_to": "01/02/2014"},
-        )
+        url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        params = {"date_from": "12/31/2013", "date_to": "01/02/2014"}
+        response = self.client.get(url, params)
 
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
+        soup = self.get_soup(response.content)
+        next_input = soup.select_one('input[name="next"]')
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input["value"], f"{url}?{urlencode(params)}")
+
+    def test_list_submissions_filtering_results(self):
+        index_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        results_url = reverse(
+            "wagtailforms:list_submissions_results",
+            args=(self.form_page.id,),
+        )
+        params = {"date_from": "12/31/2013", "date_to": "01/02/2014"}
+        response = self.client.get(results_url, params)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateNotUsed(response, "wagtailforms/submissions_index.html")
+        self.assertTemplateUsed(response, "wagtailforms/list_submissions.html")
+        self.assertEqual(len(response.context["data_rows"]), 1)
+        soup = self.get_soup(response.content)
+        next_input = soup.select_one('input[name="next"]')
+        self.assertIsNotNone(next_input)
+        # The next URL should point to the index page (instead of results page)
+        # with the same query params to preserve the filter
+        self.assertEqual(next_input["value"], f"{index_url}?{urlencode(params)}")
 
     def test_list_submissions_pagination(self):
         self.make_list_submissions()

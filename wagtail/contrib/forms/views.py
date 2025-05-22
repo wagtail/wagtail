@@ -363,5 +363,5 @@ class SubmissionsListView(SpreadsheetExportMixin, BaseListingView):
                 }
             )
 
-        context["next_url"] = self.request.get_full_path()
+        context["next_url"] = f"{self.get_index_url()}?{self.request.GET.urlencode()}"
         return context
