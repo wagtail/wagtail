@@ -2,6 +2,7 @@ from unittest import mock
 from urllib.error import HTTPError, URLError
 
 import requests
+import responses
 from azure.mgmt.cdn import CdnManagementClient
 from azure.mgmt.frontdoor import FrontDoorManagementClient
 from django.core.exceptions import ImproperlyConfigured
@@ -12,6 +13,7 @@ from wagtail.contrib.frontend_cache.backends import (
     AzureCdnBackend,
     AzureFrontDoorBackend,
     BaseBackend,
+    BunnyBackend,
     CloudflareBackend,
     CloudfrontBackend,
     HTTPBackend,
@@ -189,6 +191,28 @@ class TestBackendConfiguration(SimpleTestCase):
         self.assertEqual(client._config.subscription_id, "fake-subscription-id")
         self.assertIs(client._config.credential, mock_credentials)
 
+    def test_bunny_requires_access_key(self):
+        with self.assertRaisesMessage(
+            ImproperlyConfigured,
+            "The Bunny backend requires ACCESS_KEY to be specified",
+        ):
+            get_backends(
+                backend_settings={
+                    "bunny": {
+                        "BACKEND": "wagtail.contrib.frontend_cache.backends.BunnyBackend",
+                    },
+                }
+            )
+
+        get_backends(
+            backend_settings={
+                "bunny": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.BunnyBackend",
+                    "ACCESS_KEY": "access-key",
+                },
+            }
+        )
+
     @mock.patch(
         "wagtail.contrib.frontend_cache.backends.azure.AzureCdnBackend._make_purge_call"
     )
@@ -271,6 +295,57 @@ class TestBackendConfiguration(SimpleTestCase):
         call_args = tuple(make_purge_call_mock.call_args)[0]
         self.assertIsInstance(call_args[0], FrontDoorManagementClient)
         self.assertEqual(call_args[1], ["/home/events/christmas/?test=1", "/blog/"])
+
+    @responses.activate
+    def test_bunny_purge(self):
+        responses.post(BunnyBackend.PURGE_API_URL)
+
+        backends = get_backends(
+            backend_settings={
+                "bunny": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.BunnyBackend",
+                    "ACCESS_KEY": "access-key",
+                },
+            }
+        )
+
+        self.assertEqual(set(backends.keys()), {"bunny"})
+        self.assertIsInstance(backends["bunny"], BunnyBackend)
+
+        with self.assertNoLogs("wagtail.frontendcache"):
+            backends["bunny"].purge(
+                "http://www.wagtail.org/home/events/christmas/?test=1"
+            )
+
+    @responses.activate
+    def test_bunny_purge_error(self):
+        responses.post(
+            BunnyBackend.PURGE_API_URL,
+            status=404,
+            json={"Message": "The requested Pull Zone was not found"},
+        )
+
+        backends = get_backends(
+            backend_settings={
+                "bunny": {
+                    "BACKEND": "wagtail.contrib.frontend_cache.backends.BunnyBackend",
+                    "ACCESS_KEY": "access-key",
+                },
+            }
+        )
+
+        self.assertEqual(set(backends.keys()), {"bunny"})
+        self.assertIsInstance(backends["bunny"], BunnyBackend)
+
+        with self.assertLogs("wagtail.frontendcache", level="ERROR") as logs:
+            backends["bunny"].purge(
+                "http://www.wagtail.org/home/events/christmas/?test=1"
+            )
+
+        self.assertEqual(
+            logs.records[0].getMessage(),
+            "Couldn't purge 'http://www.wagtail.org/home/events/christmas/?test=1' from cache. HTTPError: 404. Message: The requested Pull Zone was not found",
+        )
 
     def test_http(self):
         """Test that `HTTPBackend.purge` works when urlopen succeeds"""
