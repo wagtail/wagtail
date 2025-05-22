@@ -506,6 +506,12 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         # check display of list values within form submissions
         self.assertContains(response, "foo, baz")
 
+    def test_list_submissions_with_non_form_page(self):
+        # Accessing a submissions list view with the root page (non-form page)
+        response = self.client.get(reverse("wagtailforms:list_submissions", args=(2,)))
+        # Should raise 404 instead of a 500 error
+        self.assertEqual(response.status_code, 404)
+
     def test_list_submissions_after_filter_form_submissions_for_user_hook(self):
         # Hook forbids to delete form submissions for everyone
         def construct_forms_for_user(user, queryset):

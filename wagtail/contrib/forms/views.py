@@ -5,6 +5,7 @@ from django.contrib.admin.utils import quote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.forms import CheckboxSelectMultiple
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import classproperty
@@ -24,6 +25,7 @@ from wagtail.admin.views.generic import PermissionCheckedMixin
 from wagtail.admin.views.generic.base import BaseListingView
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.views.pages.listing import PageFilterSet, PageListingMixin
+from wagtail.contrib.forms.models import FormMixin
 from wagtail.contrib.forms.utils import get_form_types, get_forms_for_user
 from wagtail.models import Page
 from wagtail.permissions import page_permission_policy
@@ -33,6 +35,8 @@ def get_submissions_list_view(request, *args, **kwargs):
     """Call the form page's list submissions view class"""
     page_id = kwargs.get("page_id")
     form_page = get_object_or_404(Page, id=page_id).specific
+    if not isinstance(form_page, FormMixin):
+        raise Http404
     return form_page.serve_submissions_list_view(request, *args, **kwargs)
 
 
