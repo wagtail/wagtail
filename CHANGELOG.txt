@@ -26,6 +26,7 @@ Changelog
  * Fix: Handle non-JSON-safe fields in `exclude_fields_in_copy` (Matt Westcott)
  * Fix: Allow upload of AVIF images through image chooser on Firefox (Matt Westcott)
  * Fix: Accept any string beginning with 'y' as confirmation for `import_redirects` command (Matt Westcott)
+ * Fix: Fix error when accessing the submissions listing view with a non-form page (Sage Abdullah)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
