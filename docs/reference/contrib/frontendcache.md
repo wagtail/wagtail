@@ -232,6 +232,23 @@ WAGTAILFRONTENDCACHE = {
 
 Another option that can be set is `SUBSCRIPTION_ID`. By default the first encountered subscription will be used, but if your credential has access to more subscriptions, you should set this to an explicit value.
 
+### Bunny CDN
+
+Firstly, you need to register an account with Bunny if you haven't already got one. You can do this here: [Bunny Sign up](https://dash.bunny.net/auth/register). Then, grab your API key from [your account settings](https://dash.bunny.net/account/settings).
+
+Add an item into the `WAGTAILFRONTENDCACHE` and set the `BACKEND` parameter to `wagtail.contrib.frontend_cache.backends.BunnyBackend` and `ACCESS_KEY` to your API key:
+
+```python
+# settings.py
+
+WAGTAILFRONTENDCACHE = {
+    'bunny': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.BunnyBackend',
+        'ACCESS_KEY': 'your-access-key',
+    },
+}
+```
+
 (frontendcache_multiple_backends)=
 
 ## Multiple backends
