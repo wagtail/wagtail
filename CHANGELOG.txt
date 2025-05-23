@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.3.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+
+
 6.3.4 (24.04.2025)
 ~~~~~~~~~~~~~~~~~~
 
