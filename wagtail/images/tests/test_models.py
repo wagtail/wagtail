@@ -1013,6 +1013,47 @@ class TestRenditions(TestCase):
         with self.assertRaises(AttributeError):
             self.svg_image.get_rendition(Filter("width-400|bgcolor-000|format-jpeg"))
 
+    def test_image_get_renditions_preserve_svg(self):
+        renditions = self.image.get_renditions(
+            "width-400|bgcolor-000|format-jpeg|preserve-svg",
+            "width-200|bgcolor-000|format-jpeg|preserve-svg",
+        )
+        filename1 = get_test_image_filename(
+            self.image, "width-400.bgcolor-000.format-jpeg"
+        )
+        filename2 = get_test_image_filename(
+            self.image, "width-200.bgcolor-000.format-jpeg"
+        )
+
+        # no directives stripped except 'preserve-svg'
+        # (which is stripped from both the dictionary key and the resulting rendition)
+        self.assertEqual(
+            renditions["width-400|bgcolor-000|format-jpeg"].filter_spec,
+            "width-400|bgcolor-000|format-jpeg",
+        )
+        self.assertEqual(renditions["width-400|bgcolor-000|format-jpeg"].url, filename1)
+
+        self.assertEqual(
+            renditions["width-200|bgcolor-000|format-jpeg"].filter_spec,
+            "width-200|bgcolor-000|format-jpeg",
+        )
+        self.assertEqual(renditions["width-200|bgcolor-000|format-jpeg"].url, filename2)
+
+    def test_svg_get_renditions_preserve_svg(self):
+        renditions = self.svg_image.get_renditions(
+            "width-400|bgcolor-000|format-jpeg|preserve-svg",
+            "width-200|bgcolor-000|format-jpeg|preserve-svg",
+        )
+        filename1 = get_test_image_filename(self.svg_image, "width-400")
+        filename2 = get_test_image_filename(self.svg_image, "width-200")
+
+        # all non-SVG-safe directives stripped (from both the dictionary key and the resulting rendition)
+        self.assertEqual(renditions["width-400"].filter_spec, "width-400")
+        self.assertEqual(renditions["width-400"].url, filename1)
+
+        self.assertEqual(renditions["width-200"].filter_spec, "width-200")
+        self.assertEqual(renditions["width-200"].url, filename2)
+
 
 @override_settings(
     CACHES={"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}

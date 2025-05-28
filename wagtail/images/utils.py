@@ -133,7 +133,6 @@ def to_svg_safe_spec(filter_specs):
         x
         for x in filter_specs
         if any(x.startswith(prefix) for prefix in svg_preserving_specs)
-        and x != "preserve-svg"
     ]
 
     # If no safe operations remain, use 'original'
