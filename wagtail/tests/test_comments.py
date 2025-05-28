@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from wagtail.models import Comment, Page
+from wagtail.test.testapp.models import StreamPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class CommentTestingUtils:
@@ -41,3 +43,34 @@ class TestRevisionDeletion(CommentTestingUtils, TestCase):
         self.revision_3.delete()
         with self.assertRaises(Comment.DoesNotExist):
             self.new_comment.refresh_from_db()
+
+
+class TestContentPath(WagtailTestUtils, CommentTestingUtils, TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+        self.child_page = StreamPage(
+            title="stream page",
+            slug="stream-page",
+            body=[
+                {
+                    "id": "234",
+                    "type": "product",
+                    "value": {"name": "Cuddly toy", "price": "$9.95"},
+                },
+            ],
+        )
+
+        self.root_page.add_child(instance=self.child_page)
+        self.revision_1 = self.child_page.save_revision()
+        self.user = self.login()
+
+    def test_streamfield_supports_nested_paths(self):
+        comment = Comment.objects.create(
+            page=self.child_page,
+            user=self.user,
+            text="test",
+            contentpath="body.234.name",
+        )
+
+        self.assertTrue(comment.has_valid_contentpath(self.child_page))
