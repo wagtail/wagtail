@@ -6,16 +6,22 @@ from django.core.exceptions import (
     PermissionDenied,
 )
 from django.db import models, transaction
+from django.db.models import F
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast
-from django.http import Http404, HttpResponseRedirect
+from django.http import (
+    Http404,
+    HttpResponseBadRequest,
+    HttpResponseRedirect,
+    JsonResponse,
+)
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.views.generic.edit import (
     BaseCreateView,
     BaseDeleteView,
@@ -35,6 +41,7 @@ from wagtail.admin.ui.tables import (
     ButtonsColumnMixin,
     Column,
     LocaleColumn,
+    OrderingColumn,
     TitleColumn,
     UpdatedAtColumn,
 )
@@ -71,9 +78,11 @@ class IndexView(
     copy_url_name = None
     inspect_url_name = None
     delete_url_name = None
+    reorder_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
     list_filter = None
     show_other_searches = False
+    sort_order_field = None
 
     @cached_property
     def is_searchable(self):
@@ -104,6 +113,19 @@ class IndexView(
             (WagtailFilterSet,),
             {"Meta": Meta},
         )
+
+    def get_table(self, object_list):
+        if self.reorder_url_name:
+            # Ideally we could just override get_table_kwargs.
+            # But as of right now the super class itself does not call super().
+            table_kwargs = self.get_table_kwargs()
+            table_kwargs["reorder_url"] = self.get_reorder_url()
+            return self.table_class(
+                self.columns,
+                object_list,
+                **table_kwargs,
+            )
+        return super().get_table(object_list)
 
     def _annotate_queryset_updated_at(self, queryset):
         # Annotate the objects' updated_at, use _ prefix to avoid name collision
@@ -138,9 +160,13 @@ class IndexView(
         if has_updated_at_column:
             queryset = self._annotate_queryset_updated_at(queryset)
 
+        if self.sort_order_field and self.ordering == self.sort_order_field:
+            # Disable pagination to ensure all items are loaded and available for ordering
+            self.paginate_by = None
+            return queryset.order_by(self.sort_order_field)
         # Explicitly handle null values for the updated at column to ensure consistency
         # across database backends and match the behaviour in page explorer
-        if self.ordering == "_updated_at":
+        elif self.ordering == "_updated_at":
             return queryset.order_by(models.F("_updated_at").asc(nulls_first=True))
         elif self.ordering == "-_updated_at":
             return queryset.order_by(models.F("_updated_at").desc(nulls_last=True))
@@ -256,6 +282,17 @@ class IndexView(
                 column = self._get_custom_column(field)
             columns.append(column)
 
+        # We can not access self.ordering here, as it would lead to a recursion error.
+        current_ordering = self.request.GET.get("ordering", self.default_ordering)
+        self.show_ordering_column = current_ordering == self.sort_order_field
+        if self.sort_order_field and self.show_ordering_column:
+            columns.insert(
+                0,
+                OrderingColumn(
+                    "ordering", width="80px", sort_key=self.sort_order_field
+                ),
+            )
+
         return columns
 
     def get_edit_url(self, instance):
@@ -275,6 +312,10 @@ class IndexView(
     def get_delete_url(self, instance):
         if self.delete_url_name and self.user_has_permission("delete"):
             return reverse(self.delete_url_name, args=(quote(instance.pk),))
+
+    def get_reorder_url(self):
+        if self.reorder_url_name and self.user_has_permission("change"):
+            return reverse(self.reorder_url_name, args=(999999,))
 
     def get_add_url(self):
         if self.add_url_name and self.user_has_permission("add"):
@@ -298,6 +339,19 @@ class IndexView(
                     self.add_item_label,
                     url=self.add_url,
                     icon_name="plus",
+                )
+            )
+        return buttons
+
+    @cached_property
+    def header_more_buttons(self):
+        buttons = super().header_more_buttons
+        if self.sort_order_field and self.user_has_permission("change"):
+            buttons.append(
+                Button(
+                    _("Sort items"),
+                    url=self.index_url + f"?ordering={self.sort_order_field}",
+                    icon_name="list-ul",
                 )
             )
         return buttons
@@ -424,6 +478,7 @@ class CreateView(
     submit_button_label = gettext_lazy("Create")
     submit_button_active_label = gettext_lazy("Creating…")
     actions = ["create"]
+    sort_order_field = None
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -575,6 +630,19 @@ class CreateView(
         and returns the new object. Override this to implement custom save logic.
         """
         instance = self.form.save()
+        if self.sort_order_field:
+            sort_order_field = getattr(instance, self.sort_order_field)
+            if sort_order_field is None:
+                max_order = (
+                    self.model._default_manager.aggregate(
+                        max_order=models.Max(self.sort_order_field)
+                    )["max_order"]
+                    or 0
+                )
+                instance_order = max_order + 1
+                setattr(instance, self.sort_order_field, instance_order)
+                instance.save(update_fields=[self.sort_order_field])
+
         log(instance=instance, action="wagtail.create", content_changed=True)
         return instance
 
@@ -1511,3 +1579,51 @@ class RevisionsUnscheduleView(WagtailAdminTemplateMixin, TemplateView):
             )
 
         return redirect(self.get_next_url())
+
+
+class ReorderView(View):
+    """View for handling the reordering of model instances that have an order field."""
+
+    model = None
+    sort_order_field = None
+
+    def get_queryset(self):
+        return self.model._default_manager.all().order_by(self.sort_order_field)
+
+    def post(self, request, *args, **kwargs):
+        item_to_move = get_object_or_404(self.model, pk=unquote(kwargs.get("pk")))
+        new_position = request.GET.get("position")
+
+        if new_position is None:
+            return HttpResponseBadRequest("Position parameter is required")
+
+        try:
+            new_position = int(new_position)
+        except ValueError:
+            return HttpResponseBadRequest("Position must be an integer")
+
+        queryset = self.get_queryset()
+        current_position = list(queryset).index(item_to_move)
+
+        with transaction.atomic():
+            # Move other items to make space for the item being moved
+            if new_position < current_position:
+                queryset.filter(
+                    **{
+                        f"{self.sort_order_field}__gte": new_position,
+                        f"{self.sort_order_field}__lt": current_position,
+                    }
+                ).update(**{self.sort_order_field: F(self.sort_order_field) + 1})
+            elif new_position > current_position:
+                queryset.filter(
+                    **{
+                        f"{self.sort_order_field}__gt": current_position,
+                        f"{self.sort_order_field}__lte": new_position,
+                    }
+                ).update(**{self.sort_order_field: F(self.sort_order_field) - 1})
+
+            # Once the other items have been moved, update the actual item.
+            setattr(item_to_move, self.sort_order_field, new_position)
+            item_to_move.save(update_fields=[self.sort_order_field])
+
+        return JsonResponse({"success": True})

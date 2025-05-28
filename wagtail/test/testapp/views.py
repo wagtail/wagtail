@@ -232,6 +232,7 @@ class FeatureCompleteToyViewSet(ModelViewSet):
     # search_fields derived from the model
     inspect_view_enabled = True
     inspect_view_fields = ["strid", "release_date"]
+    sort_order_field = "sort_order"
 
     panels = [
         FieldPanel("name"),
@@ -252,7 +253,7 @@ class FCToyAlt1ViewSet(ModelViewSet):
     menu_label = "FC Toys Alt 1"
     inspect_view_class = FCToyAlt1InspectView
     inspect_view_enabled = True
-    inspect_view_fields_exclude = ["strid", "release_date"]
+    inspect_view_fields_exclude = ["strid", "release_date", "sort_order"]
     copy_view_enabled = False
 
     def get_index_view_kwargs(self, **kwargs):
