@@ -138,4 +138,26 @@ describe('LocaleController', () => {
     );
     expect(select).toMatchSnapshot();
   });
+
+  it('should correctly apply French spacing rules to localized time zone labels', async () => {
+  document.documentElement.lang = 'fr-FR';
+  await setup(/* html */ `
+    <select
+      name="locale-current_time_zone"
+      data-controller="w-init w-locale"
+      data-action="w-init:ready->w-locale#localizeTimeZoneOptions"
+      data-w-locale-server-time-zone-param="Europe/Paris"
+    >
+    </select>
+  `);
+  
+    expect(select.getAttribute('data-controller')).toEqual('w-locale');
+    const selected = select.selectedOptions[0];
+    expect(selected).toBeTruthy();
+    expect(selected.value).toEqual('');
+    expect(selected.textContent).toBe(
+      'Use server time zone: UTC+1 (heure normale d’Europe centrale)'
+    );
+    expect(select).toMatchSnapshot();
+  });
 });
