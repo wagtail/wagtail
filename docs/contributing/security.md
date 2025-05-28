@@ -72,3 +72,11 @@ In various places Wagtail provides the option to export data in CSV format, and 
 Since the CSV format has no concept of formulae or macros, there is also no agreed-upon convention for escaping data to prevent it from being interpreted in that way; commonly-suggested approaches such as prefixing the field with a quote character would corrupt legitimate data (such as phone numbers beginning with '+') when interpreted by software correctly following the CSV specification.
 
 Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimizes the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.
+
+## Securing untrusted user-uploaded files
+
+Any system that allows user-uploaded files is a potential security risk. Several historical reports have raised the issue that if uploads aren't properly secured, they can potentially lead to arbitrary code execution (via [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)).
+
+When Wagtail serves these files itself (ie the content is returned in the response directly), the required protections are already in place. This can be done using the [dynamic image serve](using_images_outside_wagtail) view for images and by setting [](wagtaildocs_serve_method) to `serve_view`. However, when files are served from where they're being stored directly (such as directly from the AWS S3 bucket), Wagtail has little to no control over how the files are served. Instead, developers must make sure care is taken when configuring file storage to serve files. The relevant documentation for [images](svg_security_considerations) and [documents](documents_security_considerations) should be read before serving files directly from remote storage.
+
+Because the considerations needed for remote storage are already documented, we do not consider misconfiguration of storage, particularly when served directly from the media source, as a security vulnerability in Wagtail. This includes when using Django's built-in media serving capabilities via `MEDIA_URL`. Vulnerabilities in Wagtail's build in serve views are still considered.
