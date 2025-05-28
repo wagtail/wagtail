@@ -4,7 +4,7 @@ from django.forms import widgets
 
 class SlugInput(widgets.TextInput):
     """
-    Associates the input field with the Stimulus w-slug (SlugController).
+    Associates the input field with the Stimulus w-slug (CleanController).
     Slugifies content based on `WAGTAIL_ALLOW_UNICODE_SLUGS` and supports
     fields syncing their value to this field (see `TitleFieldPanel`) if
     also used.
@@ -18,6 +18,7 @@ class SlugInput(widgets.TextInput):
                 settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True
             ),
             "data-w-slug-compare-as-param": "urlify",
+            "data-w-slug-trim-value": "true",
         }
         if attrs:
             default_attrs.update(attrs)
