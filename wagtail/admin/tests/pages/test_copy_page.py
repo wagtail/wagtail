@@ -798,3 +798,54 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check if slug is hello-world-2
         self.assertContains(response, "copy-form-2")
+
+    def test_page_copy_form_widgets(self):
+        """
+        For widget rendering, we want to validate that the locale gets passed to the slug
+        and that the title is NOT syncing with the slug as this is NOT required on copy form.
+        """
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,))
+        )
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the form has the correct widgets
+        self.assertContains(response, "id_new_title")
+        self.assertContains(response, "id_new_slug")
+
+        soup = self.get_soup(response.content)
+
+        # Check the attributes on the slug field (locale available & slugify used on blue)
+        slug_field = soup.find("input", id="id_new_slug")
+        self.assertEqual(
+            slug_field.attrs,
+            {
+                "type": "text",
+                "name": "new_slug",
+                "value": "hello-world",
+                "data-controller": "w-slug",
+                "data-action": "blur->w-slug#slugify w-sync:check->w-slug#compare w-sync:apply->w-slug#urlify:prevent",
+                "data-w-slug-allow-unicode-value": "",
+                "data-w-slug-compare-as-param": "urlify",
+                "data-w-slug-trim-value": "true",
+                "data-w-slug-locale-value": "en",
+                "required": "",
+                "id": "id_new_slug",
+            },
+        )
+
+        # Check the attributes on the title field (no syncing)
+        title_field = soup.find("input", id="id_new_title")
+        self.assertEqual(
+            title_field.attrs,
+            {
+                "type": "text",
+                "name": "new_title",
+                "value": "Hello world!",
+                "required": "",
+                "id": "id_new_title",
+            },
+        )
