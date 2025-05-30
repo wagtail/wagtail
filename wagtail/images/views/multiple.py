@@ -98,12 +98,15 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        allowed_extensions = get_allowed_image_extensions()
+        mime_types = [f"image/{ext}" for ext in allowed_extensions]
 
         context.update(
             {
                 "max_filesize": self.form.fields["file"].max_upload_size,
                 "max_title_length": self.form.fields["title"].max_length,
-                "allowed_extensions": get_allowed_image_extensions(),
+                "allowed_extensions": allowed_extensions,
+                "mime_types": mime_types,
                 "error_max_file_size": self.form.fields["file"].error_messages[
                     "file_too_large_unknown_size"
                 ],
