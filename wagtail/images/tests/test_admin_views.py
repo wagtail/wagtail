@@ -2454,6 +2454,9 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
             file=get_test_image_file(),
         )
 
+    @override_settings(
+        WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
+    )
     def test_add(self):
         """
         This tests that the add view responds correctly on a GET request
@@ -2464,6 +2467,15 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/multiple/add.html")
+
+        # Check input field's accept attribute explicitly
+        # lists the allowed images extensions
+        soup = self.get_soup(response.content)
+        upload_field = soup.select("input#fileupload").pop()
+        self.assertEqual(
+            upload_field.attrs["accept"],
+            "image/gif, image/jpg, image/jpeg, image/png, image/webp, image/avif, image/heic",
+        )
 
         # draftail should NOT be a standard JS include on this page
         # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
