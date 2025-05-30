@@ -81,6 +81,9 @@ class EmbedBlock(blocks.URLBlock):
             )
 
     def clean(self, value):
+        if not self.required and value in (None, "", EmbedValue("")):
+            return None
+
         if value is None or (isinstance(value, EmbedValue) and not value.url):
             raise ValidationError(_("Please enter a URL for this embed."))
         if isinstance(value, EmbedValue) and not value.html:
