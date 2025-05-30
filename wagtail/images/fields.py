@@ -191,14 +191,13 @@ class WagtailImageField(ImageField):
             and "accept" not in widget.attrs
             and attrs.get("accept") == "image/*"
         ):
-            # File upload dialogs will often not allow selecting heic or avif if the accept attribute is
-            # given as "image/*" - we need to add explicit mimetypes for these
-            extra_mime_types = []
-            if "heic" in self.allowed_image_extensions:
-                extra_mime_types.append("image/heic")
-            if "avif" in self.allowed_image_extensions:
-                extra_mime_types.append("image/avif")
-            if extra_mime_types:
-                attrs["accept"] = ", ".join(["image/*"] + extra_mime_types)
+            # add explicit MIME TYPE for all allowed image extensions.
+            # This ensures the OS file upload picker only shows selectable image files
+            # that match the configured types
+            mime_types = [
+                f"image/{img_extension}"
+                for img_extension in self.allowed_image_extensions
+            ]
+            attrs["accept"] = ", ".join(mime_types)
 
         return attrs
