@@ -1035,6 +1035,17 @@ class TestEmbedBlock(TestCase):
         cleaned_value = block.clean(None)
         self.assertIsNone(cleaned_value)
 
+    def test_clean_empty_url(self):
+        """
+        EmbedBlock should raise ValidationError if the EmbedValue has an empty URL
+        """
+        block = EmbedBlock()
+
+        with self.assertRaisesMessage(
+            ValidationError, "Please enter a URL for this embed."
+        ):
+            block.clean(EmbedValue(""))
+
     @patch("wagtail.embeds.embeds.get_embed")
     def test_clean_invalid_url(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
