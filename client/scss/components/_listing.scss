@@ -53,7 +53,7 @@ ul.listing {
   td {
     vertical-align: middle;
 
-    a.nolink[download] {
+    &.wrap-anywhere {
       overflow-wrap: anywhere;
     }
   }
