@@ -80,6 +80,7 @@ from wagtail.models import (
     PreviewableMixin,
     RevisionMixin,
     Task,
+    TaskState,
     TranslatableMixin,
     WorkflowMixin,
 )
@@ -239,18 +240,34 @@ class CustomPreviewSizesPage(Page):
         return "desktop"
 
 
+class ExcludedCopyPageNote(Orderable):
+    page = ParentalKey(
+        "tests.PageWithExcludedCopyField",
+        related_name="special_notes",
+        on_delete=models.CASCADE,
+    )
+    note = models.CharField(max_length=255)
+
+    panels = [FieldPanel("note")]
+
+
 # Page with Excluded Fields when copied
 class PageWithExcludedCopyField(Page):
     content = models.TextField()
 
-    # Exclude this field from being copied
+    # Exclude these fields and the special_notes relation from being copied
     special_field = models.CharField(blank=True, max_length=255, default="Very Special")
-    exclude_fields_in_copy = ["special_field"]
+    special_stream = StreamField(
+        [("item", CharBlock())], default=[("item", "default item")]
+    )
+    exclude_fields_in_copy = ["special_field", "special_notes", "special_stream"]
 
     content_panels = [
         TitleFieldPanel("title", classname="title"),
         FieldPanel("special_field"),
         FieldPanel("content"),
+        FieldPanel("special_stream"),
+        InlinePanel("special_notes", label="Special notes"),
     ]
 
 
@@ -458,6 +475,12 @@ class HeadCountRelatedModelUsingPK(models.Model):
     custom_id = models.AutoField(primary_key=True)
     event_page = ParentalKey(
         EventPage, on_delete=models.CASCADE, related_name="head_counts"
+    )
+    related_page = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE,
+        related_name="head_count_relations",
+        null=True,
     )
     head_count = models.IntegerField()
     panels = [FieldPanel("head_count")]
@@ -1397,6 +1420,20 @@ class VariousOnDeleteModel(models.Model):
         blank=True,
         related_name="+",
     )
+    protected_page = models.ForeignKey(
+        "wagtailcore.Page",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    protected_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
 
     cascading_toy = models.ForeignKey(
         "tests.FeatureCompleteToy",
@@ -1614,7 +1651,7 @@ class CustomRendition(AbstractRendition):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields={"image", "filter_spec", "focal_point_key"},
+                fields=("image", "filter_spec", "focal_point_key"),
                 name="unique_rendition",
             )
         ]
@@ -2333,6 +2370,74 @@ class TaggedRestaurant(ItemBase):
 
 class SimpleTask(Task):
     pass
+
+
+class UserApprovalTaskState(TaskState):
+    pass
+
+
+class UserApprovalTask(Task):
+    """
+    Based on https://docs.wagtail.org/en/stable/extending/custom_tasks.html.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False
+    )
+
+    admin_form_fields = Task.admin_form_fields + ["user"]
+
+    task_state_class = UserApprovalTaskState
+
+    # prevent editing of `user` after the task is created
+    # by default, this attribute contains the 'name' field to prevent tasks from being renamed
+    admin_form_readonly_on_edit_fields = Task.admin_form_readonly_on_edit_fields + [
+        "user"
+    ]
+
+    def user_can_access_editor(self, page, user):
+        return user == self.user
+
+    def page_locked_for_user(self, page, user):
+        return user != self.user
+
+    def get_actions(self, page, user):
+        if user == self.user:
+            return [
+                ("approve", "Approve", False),
+                ("approve", "Approve with style", True),
+                ("reject", "Reject", False),
+                ("cancel", "Cancel", False),
+            ]
+        else:
+            return []
+
+    def get_template_for_action(self, action):
+        # https://github.com/wagtail/wagtail/issues/12222
+        # This will be used for "Approve with style" which has the third value
+        # (action_requires_additional_data_from_modal) set to True.
+        if action == "approve":
+            return "tests/workflows/approve_with_style.html"
+        return super().get_template_for_action(action)
+
+    def on_action(self, task_state, user, action_name, **kwargs):
+        if action_name == "cancel":
+            return task_state.workflow_state.cancel(user=user)
+        else:
+            return super().on_action(task_state, user, action_name, **kwargs)
+
+    def get_task_states_user_can_moderate(self, user, **kwargs):
+        if user == self.user:
+            # get all task states linked to the (base class of) current task
+            return TaskState.objects.filter(
+                status=TaskState.STATUS_IN_PROGRESS, task=self.task_ptr
+            )
+        else:
+            return TaskState.objects.none()
+
+    @classmethod
+    def get_description(cls):
+        return "Only a specific user can approve this task"
 
 
 # StreamField media definitions must not be evaluated at startup (e.g. during system checks) -

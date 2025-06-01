@@ -46,6 +46,7 @@ from wagtail.images.image_operations import (
     TransformOperation,
 )
 from wagtail.images.rect import Rect
+from wagtail.images.utils import to_svg_safe_spec
 from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -513,6 +514,24 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         if isinstance(filter, str):
             filter = Filter(spec=filter)
+        elif not isinstance(filter, Filter):
+            raise InvalidFilterSpecError(
+                "Unrecognised filter format - string or Filter instance expected"
+            )
+
+        if "preserve-svg" in filter.spec:
+            # remove 'preserve-svg' from filter specs for all image types
+            filter.spec = "|".join(
+                item for item in filter.spec.split("|") if item != "preserve-svg"
+            )
+            if not filter.spec:
+                # no formatting directives were included in filter
+                raise InvalidFilterSpecError(
+                    "Filter should include at least one formatting directive other than 'preserve-svg'"
+                )
+            if self.is_svg():
+                # remove rasterizing directives
+                filter.spec = to_svg_safe_spec(filter.spec)
 
         try:
             rendition = self.find_existing_rendition(filter)
@@ -1405,8 +1424,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
                         "on the 'image', 'filter_spec', and 'focal_point_key' fields."
                         % cls._meta.label,
                         hint=(
-                            "Add models.UniqueConstraint(fields={"
-                            '"image", "filter_spec", "focal_point_key"}, '
+                            "Add models.UniqueConstraint(fields=("
+                            '"image", "filter_spec", "focal_point_key"), '
                             'name="unique_rendition") to %s.Meta.constraints.'
                             % (cls.__name__,)
                         ),

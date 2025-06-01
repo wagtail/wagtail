@@ -6,7 +6,12 @@ from django.utils import translation
 
 from wagtail.fields import RichTextField
 from wagtail.models import Locale, Page, Site
-from wagtail.rich_text import RichText, RichTextMaxLengthValidator, expand_db_html
+from wagtail.rich_text import (
+    RichText,
+    RichTextMaxLengthValidator,
+    RichTextMinLengthValidator,
+    expand_db_html,
+)
 from wagtail.rich_text.feature_registry import FeatureRegistry
 from wagtail.rich_text.pages import PageLinkHandler
 from wagtail.rich_text.rewriters import LinkRewriter, extract_attrs
@@ -414,24 +419,33 @@ class TestRichTextField(TestCase):
         )
 
 
-class TestRichTextMaxLengthValidator(TestCase):
+class TestRichTextLengthValidators(TestCase):
     def test_count_characters(self):
-        """Keep those tests up-to-date with MaxLength tests client-side."""
-        validator = RichTextMaxLengthValidator(50)
-        self.assertEqual(validator.clean("<p>Plain text</p>"), 10)
-        # HTML entities should be un-escaped.
-        self.assertEqual(validator.clean("<p>There&#x27;s quote</p>"), 13)
-        # BR should be ignored.
-        self.assertEqual(validator.clean("<p>Line<br/>break</p>"), 9)
-        # Content over multiple blocks should be treated as a single line of text with no joiner.
-        self.assertEqual(validator.clean("<p>Multi</p><p>blocks</p>"), 11)
-        # Empty blocks should be ignored.
-        self.assertEqual(validator.clean("<p>Empty</p><p></p><p>blocks</p>"), 11)
-        # HR should be ignored.
-        self.assertEqual(validator.clean("<p>With</p><hr/><p>HR</p>"), 6)
-        # Embed blocks should be ignored.
-        self.assertEqual(validator.clean("<p>With</p><embed/><p>embed</p>"), 9)
-        # Counts symbols with multiple code units (heart unicode + variation selector).
-        self.assertEqual(validator.clean("<p>U+2764 U+FE0F ❤️</p>"), 16)
-        # Counts symbols with zero-width joiners.
-        self.assertEqual(validator.clean("<p>👨‍👨‍👧</p>"), 5)
+        """Keep these tests up-to-date with RichText length tests client-side."""
+
+        validators = [
+            RichTextMaxLengthValidator(50),
+            RichTextMinLengthValidator(5),
+        ]
+
+        for validator in validators:
+            with self.subTest(validator=validator):
+                self.assertEqual(validator.clean("<p>Plain text</p>"), 10)
+                # HTML entities should be un-escaped.
+                self.assertEqual(validator.clean("<p>There&#x27;s quote</p>"), 13)
+                # BR should be ignored.
+                self.assertEqual(validator.clean("<p>Line<br/>break</p>"), 9)
+                # Content over multiple blocks should be treated as a single line of text with no joiner.
+                self.assertEqual(validator.clean("<p>Multi</p><p>blocks</p>"), 11)
+                # Empty blocks should be ignored.
+                self.assertEqual(
+                    validator.clean("<p>Empty</p><p></p><p>blocks</p>"), 11
+                )
+                # HR should be ignored.
+                self.assertEqual(validator.clean("<p>With</p><hr/><p>HR</p>"), 6)
+                # Embed blocks should be ignored.
+                self.assertEqual(validator.clean("<p>With</p><embed/><p>embed</p>"), 9)
+                # Counts symbols with multiple code units (heart unicode + variation selector).
+                self.assertEqual(validator.clean("<p>U+2764 U+FE0F ❤️</p>"), 16)
+                # Counts symbols with zero-width joiners.
+                self.assertEqual(validator.clean("<p>👨‍👨‍👧</p>"), 5)

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrei Satsevich, 2023-2024
 # Andrei Satsevich, 2023
 # Andrei Satsevich, 2024
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: Andrei Satsevich, 2024\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -55,9 +56,6 @@ msgstr "Отменить рабочий процесс"
 msgid "Unpublish"
 msgstr "Отменить публикацию"
 
-msgid "Delete"
-msgstr "Удалить"
-
 msgid "Save"
 msgstr "Сохранить"
 
@@ -70,6 +68,9 @@ msgstr "%(label)s и Опубликовать"
 
 msgid "Wagtail snippets"
 msgstr "Фрагменты Wagtail"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Delete selected snippets"
 msgstr "Удалить выбранные фрагменты"

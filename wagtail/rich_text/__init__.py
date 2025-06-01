@@ -2,7 +2,7 @@ import re
 from functools import lru_cache
 from html import unescape
 
-from django.core.validators import MaxLengthValidator
+from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db.models import Model
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -170,6 +170,16 @@ class LinkHandler(EntityHandler):
 
 class EmbedHandler(EntityHandler):
     pass
+
+
+class RichTextMinLengthValidator(MinLengthValidator):
+    """
+    A variant of MinLengthValidator that only counts text (not HTML tags) towards the limit
+    Un-escapes entities for consistency with client-side character count.
+    """
+
+    def clean(self, x):
+        return len(unescape(strip_tags(x)))
 
 
 class RichTextMaxLengthValidator(MaxLengthValidator):

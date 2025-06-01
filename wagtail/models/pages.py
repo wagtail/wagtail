@@ -4,7 +4,6 @@ import functools
 import logging
 import posixpath
 import uuid
-from warnings import warn
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -59,7 +58,6 @@ from wagtail.signals import (
     pre_validate_delete,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
@@ -342,9 +340,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
 
-    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
+    _revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        related_query_name="page",
+        for_concrete_model=False,
+    )
 
-    # Add GenericRelation to allow WorkflowState.objects.filter(page=...) queries.
+    # Override WorkflowMixin's GenericRelation to specify related_query_name
+    # so we can do WorkflowState.objects.filter(page=...) queries.
     # There is no need to override the workflow_states property, as the default
     # implementation in WorkflowMixin already ensures that the queryset uses the
     # base Page content type.
@@ -714,7 +719,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         If ``clean=True`` is passed, and the page has ``live=False`` set, only the title and slug fields are validated.
 
-        .. versionchanged:: 6.5
+        .. versionchanged:: 7.0
            ``clean=True`` now only performs full validation when the page is live. When the page is not live, only
            the title and slug fields are validated. Previously, full validation was always performed.
         """
@@ -1283,7 +1288,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
-        Return ``None`` if the page is not routable.
+        Return ``None`` if the page is not routable, or return
+        ``(site_id, None, None)`` if ``NoReverseMatch`` exception is raised.
 
         This is used internally by the ``full_url``, ``url``, ``relative_url``
         and ``get_site`` properties and methods; pages with custom URL routing
@@ -1880,26 +1886,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ``action_url`` = URL that this form should be POSTed to
         """
 
-        password_required_template = self.password_required_template
-
-        if not password_required_template:
-            password_required_template = getattr(
-                settings,
-                "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
-                "wagtailcore/password_required.html",
-            )
-
-            if hasattr(settings, "PASSWORD_REQUIRED_TEMPLATE"):
-                warn(
-                    "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
-                    category=RemovedInWagtail70Warning,
-                )
-
-                password_required_template = getattr(
-                    settings,
-                    "PASSWORD_REQUIRED_TEMPLATE",
-                    password_required_template,
-                )
+        password_required_template = self.password_required_template or getattr(
+            settings,
+            "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
+            "wagtailcore/password_required.html",
+        )
 
         context = self.get_context(request)
         context["form"] = form

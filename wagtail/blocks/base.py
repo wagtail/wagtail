@@ -2,7 +2,6 @@ import collections
 import itertools
 import json
 import re
-import warnings
 from functools import lru_cache
 from importlib import import_module
 
@@ -17,9 +16,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.coreutils import accepts_kwarg
 from wagtail.telepath import JSContext
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
@@ -252,16 +249,7 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        args = {"context": context}
-        if accepts_kwarg(self.get_template, "value"):
-            args["value"] = value
-        else:
-            warnings.warn(
-                f"{self.__class__.__name__}.get_template should accept a 'value' argument as first argument",
-                RemovedInWagtail70Warning,
-            )
-
-        template = self.get_template(**args)
+        template = self.get_template(value, context=context)
         if not template:
             return self.render_basic(value, context=context)
 
@@ -336,14 +324,14 @@ class Block(metaclass=BaseBlock):
 
     @cached_property
     def is_previewable(self):
-        # To prevent showing a broken preview if the block preview has not been
-        # configured, consider the block to be previewable if either:
-        # - a specific preview template is configured for the block
-        # - a preview value is provided and the global template has been overridden
-        # which are the intended ways to configure block previews.
-        #
-        # If a block is made previewable by other means, the `is_previewable`
-        # property should be overridden to return `True`.
+        """
+        Determine whether the block is previewable in the block picker. By
+        default, it automatically detects when a custom template is used or the
+        :ref:`the global preview template <streamfield_global_preview_template>`
+        is overridden and a preview value is provided. If the block is
+        previewable by other means, override this property to return ``True``.
+        To turn off previews for the block, set it to ``False``.
+        """
         has_specific_template = (
             hasattr(self.meta, "preview_template")
             or self.__class__.get_preview_template is not Block.get_preview_template
@@ -723,7 +711,7 @@ class BlockWidget(forms.Widget):
     def media(self):
         return self.js_context.media + forms.Media(
             js=[
-                # needed for initBlockWidget, although these will almost certainly be
+                # these will almost certainly be
                 # pulled in by the block adapters too
                 versioned_static("wagtailadmin/js/telepath/telepath.js"),
                 versioned_static("wagtailadmin/js/telepath/blocks.js"),

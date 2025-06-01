@@ -1,8 +1,6 @@
 import datetime
-import json
 import re
 from urllib.parse import urljoin
-from warnings import warn
 
 from django import template
 from django.conf import settings
@@ -35,6 +33,7 @@ from wagtail.admin.menu import admin_menu
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.utils import (
     get_admin_base_url,
     get_keyboard_key_labels_from_request,
@@ -44,11 +43,10 @@ from wagtail.admin.utils import (
 )
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_breadcrumbs_items_for_page
-from wagtail.admin.widgets import Button, ButtonWithDropdown, PageListingButton
+from wagtail.admin.widgets import Button, ButtonWithDropdown
+from wagtail.admin.widgets.button import ListingButton
 from wagtail.coreutils import (
-    accepts_kwarg,
     camelcase_to_underscore,
-    escape_script,
     get_content_type_label,
     get_locales_display_names,
 )
@@ -60,7 +58,6 @@ from wagtail.models import (
 )
 from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 register = template.Library()
 
@@ -294,31 +291,6 @@ def allow_unicode_slugs():
     return getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
 
 
-class EscapeScriptNode(template.Node):
-    TAG_NAME = "escapescript"
-
-    def __init__(self, nodelist):
-        super().__init__()
-        warn(
-            "The `escapescript` template tag is deprecated - use `template` elements instead.",
-            category=RemovedInWagtail70Warning,
-        )
-        self.nodelist = nodelist
-
-    def render(self, context):
-        out = self.nodelist.render(context)
-        return escape_script(out)
-
-    @classmethod
-    def handle(cls, parser, token):
-        nodelist = parser.parse(("end" + EscapeScriptNode.TAG_NAME,))
-        parser.delete_first_token()
-        return cls(nodelist)
-
-
-register.tag(EscapeScriptNode.TAG_NAME, EscapeScriptNode.handle)
-
-
 # Helpers for Widget.render_with_errors, our extension to the Django widget API that allows widgets to
 # take on the responsibility of rendering their own error messages
 @register.filter
@@ -451,36 +423,23 @@ def page_listing_buttons(context, page, user, next_url=None):
     next_url = next_url or context["request"].path
     button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
-    buttons = []
+    hook_buttons = []
     for hook in button_hooks:
-        if accepts_kwarg(hook, "user"):
-            buttons.extend(hook(page=page, next_url=next_url, user=user))
-        else:
-            # old-style hook that accepts page_perms instead of user
-            warn(
-                "`register_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
-                f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
-            )
+        hook_buttons.extend(hook(page=page, next_url=next_url, user=user))
 
-            page_perms = page.permissions_for_user(user)
-            buttons.extend(hook(page, page_perms, next_url))
+    buttons = []
+    for button in hook_buttons:
+        # Allow hooks to return either Button or MenuItem instances
+        if isinstance(button, MenuItem):
+            if button.is_shown(user):
+                buttons.append(ListingButton.from_menu_item(button))
+        elif button.show:
+            buttons.append(button)
 
     buttons.sort()
 
     for hook in hooks.get_hooks("construct_page_listing_buttons"):
-        if accepts_kwarg(hook, "user"):
-            hook(buttons, page=page, user=user, context=context)
-        else:
-            # old-style hook that accepts page_perms instead of user
-            warn(
-                "`construct_page_listing_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
-                f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
-            )
-
-            page_perms = page.permissions_for_user(user)
-            hook(buttons, page, page_perms, context)
+        hook(buttons, page=page, user=user, context=context)
 
     return {"page": page, "buttons": buttons}
 
@@ -490,27 +449,23 @@ def page_listing_buttons(context, page, user, next_url=None):
 )
 def page_header_buttons(context, page, user, view_name):
     next_url = context["request"].path
-    page_perms = page.permissions_for_user(user)
     button_hooks = hooks.get_hooks("register_page_header_buttons")
 
-    buttons = []
+    hook_buttons = []
     for hook in button_hooks:
-        if accepts_kwarg(hook, "user"):
-            buttons.extend(
-                hook(page=page, user=user, next_url=next_url, view_name=view_name)
-            )
-        else:
-            # old-style hook that accepts page_perms instead of user
-            warn(
-                "`register_page_header_buttons` hook functions should accept a `user` argument instead of `page_perms` -"
-                f" {hook.__module__}.{hook.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
-            )
+        hook_buttons.extend(
+            hook(page=page, user=user, next_url=next_url, view_name=view_name)
+        )
 
-            page_perms = page.permissions_for_user(user)
-            buttons.extend(hook(page, page_perms, next_url))
+    buttons = []
+    for button in hook_buttons:
+        # Allow hooks to return either Button or MenuItem instances
+        if isinstance(button, MenuItem):
+            if button.is_shown(user):
+                buttons.append(Button.from_menu_item(button))
+        elif button.show:
+            buttons.append(button)
 
-    buttons = [b for b in buttons if b.show]
     buttons.sort()
     return {
         "buttons": buttons,
@@ -532,7 +487,7 @@ def bulk_action_choices(context, app_label, model_name):
         next_url = context["request"].path
 
     bulk_action_buttons = [
-        PageListingButton(
+        ListingButton(
             action.display_name,
             reverse(
                 "wagtail_bulk_action", args=[app_label, model_name, action.action_type]
@@ -712,15 +667,6 @@ def admin_theme_color_scheme(context):
 
 
 @register.simple_tag
-def js_translation_strings():
-    warn(
-        "The `js_translation_strings` template tag will be removed in a future release.",
-        category=RemovedInWagtail70Warning,
-    )
-    return mark_safe(json.dumps(get_js_translation_strings()))
-
-
-@register.simple_tag
 def notification_static(path):
     """
     Variant of the {% static %}` tag for use in notification emails - tries to form
@@ -892,26 +838,6 @@ def i18n_enabled():
 
 
 @register.simple_tag
-def locales(serialize=True):
-    result = [
-        {
-            "code": locale.language_code,
-            "display_name": force_str(locale.get_display_name()),
-        }
-        for locale in Locale.objects.all()
-    ]
-
-    if serialize:
-        warn(
-            "The `locales` template tag will be removed in a future release.",
-            category=RemovedInWagtail70Warning,
-        )
-        return json.dumps(result)
-
-    return result
-
-
-@register.simple_tag
 def locale_label_from_id(locale_id):
     """
     Returns the Locale display name given its id.
@@ -989,7 +915,13 @@ def wagtail_config(context):
             "BLOCK_PREVIEW": reverse("wagtailadmin_block_preview"),
         },
         "I18N_ENABLED": i18n_enabled(),
-        "LOCALES": locales(serialize=False),
+        "LOCALES": [
+            {
+                "code": locale.language_code,
+                "display_name": force_str(locale.get_display_name()),
+            }
+            for locale in Locale.objects.all()
+        ],
         "STRINGS": get_js_translation_strings(),
     }
 

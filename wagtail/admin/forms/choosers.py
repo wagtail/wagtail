@@ -133,13 +133,13 @@ class LocaleFilterMixin(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        locales = Locale.objects.all()
-        if locales:
+        choices = [
+            (locale.language_code, locale.get_display_name())
+            for locale in Locale.objects.all()
+        ]
+        if choices:
             self.fields["locale"] = forms.ChoiceField(
-                choices=[
-                    (locale.language_code, locale.get_display_name())
-                    for locale in locales
-                ],
+                choices=[("", _("All")), *choices],
                 required=False,
                 widget=forms.Select(attrs={"data-chooser-modal-search-filter": True}),
             )

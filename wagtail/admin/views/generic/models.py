@@ -1,5 +1,3 @@
-import warnings
-
 from django.contrib.admin.utils import label_for_field, quote, unquote
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import (
@@ -31,27 +29,28 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.panels import get_edit_handler
 from wagtail.admin.ui.components import Component, MediaContainer
 from wagtail.admin.ui.fields import display_class_registry
+from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.side_panels import StatusSidePanel
 from wagtail.admin.ui.tables import (
     ButtonsColumnMixin,
     Column,
+    LocaleColumn,
     TitleColumn,
     UpdatedAtColumn,
 )
 from wagtail.admin.utils import get_latest_str, get_valid_next_url_from_request
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.admin.widgets.button import (
+    BaseButton,
     Button,
     ButtonWithDropdown,
     HeaderButton,
-    ListingButton,
 )
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import DraftStateMixin, Locale, ReferenceIndex
 from wagtail.models.audit_log import ModelLogEntry
 from wagtail.search.index import class_is_indexed
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 from .base import BaseListingView, WagtailAdminTemplateMixin
 from .mixins import BeforeAfterHookMixin, HookResponseMixin, LocaleMixin, PanelMixin
@@ -73,26 +72,8 @@ class IndexView(
     inspect_url_name = None
     delete_url_name = None
     any_permission_required = ["add", "change", "delete", "view"]
-    list_display = ["__str__", UpdatedAtColumn()]
     list_filter = None
     show_other_searches = False
-
-    def get_search_url(self):
-        # This is only used by views that do not use breadcrumbs, thus uses the
-        # legacy header.html. The search in that header template accepts both
-        # the search_url (which really should be search_url_name) and the
-        # index_results_url. This means we can advise using the latter instead,
-        # without having to instruct how to set up breadcrumbs.
-        warnings.warn(
-            "`IndexView.get_search_url` is deprecated. "
-            "Use `IndexView.get_index_results_url` instead.",
-            RemovedInWagtail70Warning,
-        )
-        return self.index_url_name
-
-    @cached_property
-    def search_url(self):
-        return self.get_search_url()
 
     @cached_property
     def is_searchable(self):
@@ -256,6 +237,13 @@ class IndexView(
         )
 
     @cached_property
+    def list_display(self):
+        list_display = ["__str__", UpdatedAtColumn()]
+        if self.i18n_enabled:
+            list_display.insert(1, LocaleColumn())
+        return list_display
+
+    @cached_property
     def columns(self):
         # If not explicitly overridden, derive from list_display
         columns = []
@@ -318,58 +306,55 @@ class IndexView(
         buttons = []
         if edit_url := self.get_edit_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Edit"),
                     url=edit_url,
                     icon_name="edit",
-                    attrs={
-                        "aria-label": _("Edit '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=10,
                 )
             )
         if copy_url := self.get_copy_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Copy"),
                     url=copy_url,
                     icon_name="copy",
-                    attrs={
-                        "aria-label": _("Copy '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=20,
                 )
             )
         if inspect_url := self.get_inspect_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Inspect"),
                     url=inspect_url,
                     icon_name="info-circle",
-                    attrs={
-                        "aria-label": _("Inspect '%(title)s'")
-                        % {"title": str(instance)}
-                    },
                     priority=20,
                 )
             )
         if delete_url := self.get_delete_url(instance):
             buttons.append(
-                ListingButton(
+                MenuItem(
                     _("Delete"),
                     url=delete_url,
                     icon_name="bin",
-                    attrs={
-                        "aria-label": _("Delete '%(title)s'") % {"title": str(instance)}
-                    },
                     priority=30,
                 )
             )
         return buttons
 
     def get_list_buttons(self, instance):
-        more_buttons = self.get_list_more_buttons(instance)
         buttons = []
+        more_buttons = []
+
+        for button in self.get_list_more_buttons(instance):
+            if isinstance(button, BaseButton) and not button.allow_in_dropdown:
+                buttons.append(button)
+            elif isinstance(button, MenuItem):
+                if button.is_shown(self.request.user):
+                    more_buttons.append(Button.from_menu_item(button))
+            elif button.show:
+                more_buttons.append(button)
+
         if more_buttons:
             buttons.append(
                 ButtonWithDropdown(
@@ -404,12 +389,6 @@ class IndexView(
         if context["can_add"]:
             context["add_url"] = context["header_action_url"] = self.add_url
             context["header_action_label"] = self.add_item_label
-
-        # RemovedInWagtail70Warning:
-        # Remove these in favor of using search_form and index_results_url
-        if self.is_searchable and not self.index_results_url:
-            context["is_searchable"] = self.is_searchable
-            context["search_url"] = self.search_url
 
         context["model_opts"] = self.model and self.model._meta
         return context
@@ -1124,8 +1103,13 @@ class InspectView(PermissionCheckedMixin, WagtailAdminTemplateMixin, TemplateVie
         return capfirst(label_for_field(field_name, model=self.model))
 
     def get_field_display_value(self, field_name, field):
-        # First we check for a 'get_fieldname_display' property/method on
+        # First we check for a `get_fieldname_display_value` method on the InspectView
+        # then for a 'get_fieldname_display' property/method on
         # the model, and return the value of that, if present.
+        value_func = getattr(self, f"get_{field_name}_display_value", None)
+        if value_func is not None and callable(value_func):
+            return value_func()
+
         value_func = getattr(self.object, "get_%s_display" % field_name, None)
         if value_func is not None:
             if callable(value_func):
@@ -1190,7 +1174,6 @@ class RevisionsCompareView(WagtailAdminTemplateMixin, TemplateView):
     history_label = gettext_lazy("History")
     page_title = gettext_lazy("Compare")
     template_name = "wagtailadmin/generic/revisions/compare.html"
-    _show_breadcrumbs = True
     model = None
 
     def get_breadcrumbs_items(self):

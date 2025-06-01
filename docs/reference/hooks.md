@@ -440,19 +440,32 @@ This hook takes two parameters:
 -   `user`: The user object to generate the button for
 -   `request_user`: The currently logged-in user
 
-This example will add a simple button to the listing if the currently logged-in user is a superuser:
+This example will add a button inside the "More" dropdown and a top-level button in the listing if the currently logged-in user is a superuser:
 
 ```python
-from wagtail.users.widgets import UserListingButton
+from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register("register_user_listing_buttons")
 def user_listing_external_profile(user, request_user):
     if request_user.is_superuser:
-        yield UserListingButton(
+        yield wagtailadmin_widgets.Button(
             "Show profile",
             f"/goes/to/a/url/{user.pk}",
             priority=30,
         )
+        yield wagtailadmin_widgets.ListingButton(
+            "Impersonate",
+            f"/goes/to/another/url/{user.pk}",
+            priority=10,
+        )
+```
+
+```{versionchanged} 7.0
+The `wagtail.users.widgets.UserListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
+```
+
+```{versionadded} 7.0
+The `wagtail.admin.widgets.ListingButton` class can be used to add buttons to the top-level menu in the users listing.
 ```
 
 (filter_form_submissions_for_user)=
@@ -514,7 +527,9 @@ def global_admin_css():
 
 ### `insert_editor_js`
 
-Add additional JavaScript files or code snippets to the page editor.
+Add additional JavaScript files or code snippets to page, snippets and ModelViewSet editing and creation views. This hook's output is also included in the [](styleguide) view to better test editing customizations.
+
+See [](extending_client_side) for more details about how to integrate these kinds of customizations.
 
 ```python
 # wagtail_hooks.py
@@ -562,6 +577,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 ### `insert_global_admin_js`
 
 Add additional JavaScript files or code snippets to all admin pages.
+
+See [](extending_client_side) for more details about how to integrate these kinds of customizations.
 
 ```python
 from django.utils.html import format_html
@@ -1046,7 +1063,7 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_page_listing_buttons')
 def page_listing_buttons(page, user, next_url=None):
-    yield wagtailadmin_widgets.PageListingButton(
+    yield wagtailadmin_widgets.ListingButton(
         'A page listing button',
         '/goes/to/a/url/',
         priority=10
@@ -1060,6 +1077,10 @@ The arguments passed to the hook are as follows:
 -   `next_url` - the URL that the linked action should redirect back to on completion of the action if the view supports it
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
+
+```{versionchanged} 7.0
+The `PageListingButton` class is deprecated in favor of `ListingButton`.
+```
 
 (register_page_listing_more_buttons)=
 
@@ -1129,7 +1150,7 @@ The template for the dropdown button can be customized by overriding `wagtailadm
 
 ### `construct_page_listing_buttons`
 
-Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `PageListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
+Modify the final list of page listing buttons in the page explorer. The callable passed to this hook receives a list of `ListingButton` objects, a page, a user object, and a context dictionary, and should modify the list of listing items in-place.
 
 ```python
 @hooks.register('construct_page_listing_buttons')
@@ -1365,15 +1386,20 @@ def make_delete_default_action(menu_items, request, context):
 
 Add buttons to the actions list for a snippet in the snippets listing. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
 
-This example will add a simple button to the listing:
+This example will add a button inside the "More" dropdown and a top-level button in the listing:
 
 ```python
-from wagtail.snippets import widgets as wagtailsnippets_widgets
+from wagtail.admin import widgets as wagtailadmin_widgets
 
 @hooks.register('register_snippet_listing_buttons')
 def snippet_listing_buttons(snippet, user, next_url=None):
-    yield wagtailsnippets_widgets.SnippetListingButton(
-        'A page listing button',
+    yield wagtailadmin_widgets.Button(
+        'A snippet listing button inside the "More" dropdown',
+        '/goes/to/a/url/',
+        priority=90
+    )
+    yield wagtailadmin_widgets.ListingButton(
+        'A top-level snippet listing button',
         '/goes/to/a/url/',
         priority=10
     )
@@ -1387,11 +1413,19 @@ The arguments passed to the hook are as follows:
 
 The `priority` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with `priority=10` will be displayed before a button with `priority=20`.
 
+```{versionchanged} 7.0
+The `wagtail.snippets.widgets.SnippetListingButton` class is deprecated in favor of `wagtail.admin.widgets.Button`.
+```
+
+```{versionadded} 7.0
+The `wagtail.admin.widgets.ListingButton` class can be used to add buttons to the top-level menu in the snippets listing.
+```
+
 (construct_snippet_listing_buttons)=
 
 ### `construct_snippet_listing_buttons`
 
-Modify the final list of snippet listing buttons. The callable passed to this hook receives a list of `SnippetListingButton` objects, the snippet object and a user, and should modify the list of menu items in-place.
+Modify the final list of snippet listing buttons in the "More" dropdown menu. The callable passed to this hook receives a list of `Button` objects, the snippet object and a user, and should modify the list of menu items in-place.
 
 ```python
 @hooks.register('construct_snippet_listing_buttons')

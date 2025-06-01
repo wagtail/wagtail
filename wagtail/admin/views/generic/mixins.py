@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -21,7 +22,7 @@ from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
-from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
@@ -106,6 +107,14 @@ class BeforeAfterHookMixin(HookResponseMixin):
 
 class LocaleMixin:
     @cached_property
+    def i18n_enabled(self) -> bool:
+        return (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and (model := getattr(self, "model", None)) is not None
+            and issubclass(model, TranslatableMixin)
+        )
+
+    @cached_property
     def locale(self):
         return self.get_locale()
 
@@ -113,19 +122,17 @@ class LocaleMixin:
     def translations(self):
         return self.get_translations() if self.locale else []
 
-    def get_locale(self):
+    def get_locale(self) -> Optional[Locale]:
         if not getattr(self, "model", None):
             return None
 
-        i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if not i18n_enabled or not issubclass(self.model, TranslatableMixin):
+        if not self.i18n_enabled:
             return None
 
         if hasattr(self, "object") and self.object:
             return self.object.locale
 
-        selected_locale = self.request.GET.get("locale")
-        if selected_locale:
+        if selected_locale := self.request.GET.get("locale"):
             return get_object_or_404(Locale, language_code=selected_locale)
         return Locale.get_default()
 
@@ -218,6 +225,13 @@ class IndexViewOptionalFeaturesMixin:
             )
             return queryset
         return super()._annotate_queryset_updated_at(queryset)
+
+    @cached_property
+    def list_display(self):
+        list_display = super().list_display.copy()
+        if issubclass(self.model, DraftStateMixin):
+            list_display.append(LiveStatusTagColumn())
+        return list_display
 
 
 class CreateEditViewOptionalFeaturesMixin:

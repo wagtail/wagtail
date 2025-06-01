@@ -16,7 +16,7 @@ from wagtail.models import (
     PageViewRestriction,
     Revision,
 )
-from wagtail.signals import page_published
+from wagtail.signals import init_new_page, page_published
 from wagtail.test.testapp.models import (
     Advert,
     BusinessChild,
@@ -174,38 +174,48 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertContains(response, 'href="%s?next=/admin/users/"' % target_url)
 
     def test_create_simplepage(self):
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "simplepage", self.root_page.id),
+        # Connect a mock signal handler to the signal
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                )
             )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
-        self.assertContains(
-            response,
-            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-        )
-        self.assertContains(
-            response,
-            '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-        )
-        # test register_page_action_menu_item hook
-        self.assertContains(
-            response,
-            '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>',
-        )
-        self.assertContains(response, "testapp/js/siren.js")
-        # test construct_page_action_menu hook
-        self.assertContains(
-            response,
-            '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>',
-        )
-        # test that workflow actions are shown
-        self.assertContains(
-            response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">',
-        )
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
+            self.assertContains(
+                response,
+                '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            )
+            self.assertContains(
+                response,
+                '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            )
+            # test register_page_action_menu_item hook
+            self.assertContains(
+                response,
+                '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>',
+            )
+            self.assertContains(response, "testapp/js/siren.js")
+            # test construct_page_action_menu hook
+            self.assertContains(
+                response,
+                '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>',
+            )
+            # test that workflow actions are shown
+            self.assertContains(
+                response,
+                '<button type="submit" name="action-submit" value="Submit for moderation" class="button">',
+            )
+
+            self.assertEqual(handler.call_count, 1)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            init_new_page.disconnect(handler)
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_workflow_buttons_not_shown_when_workflow_disabled(self):
@@ -307,31 +317,49 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.user.save()
 
-        # Get page
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=(
-                    "tests",
-                    "simplepage",
-                    self.root_page.id,
-                ),
-            )
-        )
+        handler = mock.MagicMock()
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 302)
+        init_new_page.connect(handler)
+        try:
+            # Get page
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=(
+                        "tests",
+                        "simplepage",
+                        self.root_page.id,
+                    ),
+                )
+            )
+
+            # Check that the user received a 403 response
+            self.assertEqual(response.status_code, 302)
+
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            init_new_page.disconnect(handler)
 
     def test_cannot_create_page_with_is_creatable_false(self):
         # tests.MTIBasePage has is_creatable=False, so attempting to add a new one
         # should fail with permission denied
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "mtibasepage", self.root_page.id),
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "mtibasepage", self.root_page.id),
+                )
             )
-        )
-        self.assertRedirects(response, "/admin/")
+            self.assertRedirects(response, "/admin/")
+
+            # Check that the signal was not fired
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            init_new_page.disconnect(handler)
 
     def test_cannot_create_page_when_can_create_at_returns_false(self):
         # issue #2892
@@ -403,13 +431,22 @@ class TestPageCreation(WagtailTestUtils, TestCase):
     def test_cannot_create_page_with_wrong_parent_page_types(self):
         # tests.BusinessChild has limited parent_page_types, so attempting to add
         # a new one at the root level should fail with permission denied
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "businesschild", self.root_page.id),
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "businesschild", self.root_page.id),
+                )
             )
-        )
-        self.assertRedirects(response, "/admin/")
+            self.assertRedirects(response, "/admin/")
+
+            # Check that the signal was not fired
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            init_new_page.disconnect(handler)
 
     def test_cannot_create_page_with_wrong_subpage_types(self):
         # Add a BusinessIndex to test business rules in
@@ -421,13 +458,22 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # BusinessIndex has limited subpage_types, so attempting to add a SimplePage
         # underneath it should fail with permission denied
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "simplepage", business_index.id),
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", business_index.id),
+                )
             )
-        )
-        self.assertRedirects(response, "/admin/")
+            self.assertRedirects(response, "/admin/")
+
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            init_new_page.disconnect(handler)
 
     def test_create_page_defined_before_admin_load(self):
         """

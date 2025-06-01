@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.coreutils import accepts_kwarg
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class BaseItem:
@@ -15,9 +15,7 @@ class BaseItem:
         return {"self": self, "request": request}
 
     def render(self, request):
-        return render_to_string(
-            self.template, self.get_context_data(request), request=request
-        )
+        return render_to_string(self.template, self.get_context_data(request))
 
 
 class AdminItem(BaseItem):
@@ -314,6 +312,6 @@ def apply_userbar_hooks(request, items, page):
             warn(
                 "`construct_wagtail_userbar` hook functions should accept a `page` argument in third position -"
                 f" {fn.__module__}.{fn.__name__} needs to be updated",
-                category=RemovedInWagtail70Warning,
+                category=RemovedInWagtail80Warning,
             )
             fn(request, items)

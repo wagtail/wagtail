@@ -156,6 +156,30 @@ class TestSnippetChooserBlockWithIcon(TestCase):
         # It should use the icon defined in the FullFeaturedSnippetViewSet
         self.assertEqual(js_args[2]["icon"], "cog")
 
+    def test_adapt_with_explicit_icon(self):
+        block = SnippetChooserBlock(FullFeaturedSnippet, icon="thumbtack")
+
+        block.set_name("test_snippetchooserblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2]["icon"], "thumbtack")
+
+    def test_adapt_with_explicit_default_icon(self):
+        block = SnippetChooserBlock(FullFeaturedSnippet, icon="snippet")
+
+        block.set_name("test_snippetchooserblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2]["icon"], "snippet")
+
+    def test_adapt_with_no_icon_specified_on_block_or_viewset(self):
+        block = SnippetChooserBlock(Advert)
+
+        block.set_name("test_snippetchooserblock")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2]["icon"], "snippet")
+
     def test_deconstruct(self):
         block = SnippetChooserBlock(FullFeaturedSnippet, required=False)
         path, args, kwargs = block.deconstruct()
@@ -425,10 +449,10 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
 
     def create_test_snippets(self):
         FullFeaturedSnippet.objects.create(
-            text="Nasi goreng from Indonesia", country_code="ID"
+            text="Nasi goreng from Indonesia", country_code="ID", some_number=123
         )
         FullFeaturedSnippet.objects.create(
-            text="Fish and chips from the UK", country_code="UK"
+            text="Fish and chips from the UK", country_code="UK", some_number=456
         )
 
     def test_get_include_filters_form_media(self):
@@ -510,6 +534,29 @@ class TestFilterSetClass(BaseSnippetViewSetTests):
         url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
         self.assertEqual(url, self.get_url("list_results"))
         self.assertNotIn("country_code=ID", params)
+
+    def test_range_filter(self):
+        self.create_test_snippets()
+        response = self.get({"some_number_min": 100, "some_number_max": 200})
+        self.assertContains(response, "Nasi goreng from Indonesia")
+        self.assertNotContains(response, "Fish and chips from the UK")
+        self.assertContains(response, "There is 1 match")
+        # Should render the active filters
+        soup = self.get_soup(response.content)
+        active_filters = soup.select_one(".w-active-filters")
+        self.assertIsNotNone(active_filters)
+        pill = active_filters.select_one(".w-pill")
+        self.assertIsNotNone(pill)
+        self.assertEqual(
+            pill.get_text(separator=" ", strip=True),
+            "Number range: 100 - 200",
+        )
+        clear = pill.select_one(".w-pill__remove")
+        self.assertIsNotNone(clear)
+        url, params = clear.attrs.get("data-w-swap-src-value").split("?", 1)
+        self.assertEqual(url, self.get_url("list_results"))
+        self.assertNotIn("some_number_min=100", params)
+        self.assertNotIn("some_number_max=200", params)
 
 
 class TestFilterSetClassSearch(WagtailTestUtils, TransactionTestCase):
@@ -1204,7 +1251,7 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
         self.assertEqual(item.url, reverse("wagtailsnippets:index"))
 
         # Clear cached property
-        del item._all_have_menu_items
+        del item._snippets_in_index_view
 
         with mock.patch(
             "wagtail.snippets.views.snippets.SnippetViewSet.get_menu_item_is_registered"
@@ -1213,6 +1260,19 @@ class TestMenuItemRegistration(BaseSnippetViewSetTests):
             menu_items = admin_menu.render_component(self.request)
             snippets = [item for item in menu_items if item.name == "snippets"]
             self.assertEqual(len(snippets), 0)
+
+    def test_snippets_menu_item_hidden_when_user_lacks_permissions_for_snippets(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        menu_items = admin_menu.render_component(self.request)
+        snippets = [item for item in menu_items if item.name == "snippets"]
+        self.assertEqual(len(snippets), 0)
 
 
 class TestCustomFormClass(BaseSnippetViewSetTests):
@@ -1471,9 +1531,6 @@ class TestInspectViewConfiguration(BaseSnippetViewSetTests):
 
 class TestBreadcrumbs(AdminTemplateTestUtils, BaseSnippetViewSetTests):
     model = FullFeaturedSnippet
-    base_breadcrumb_items = AdminTemplateTestUtils.base_breadcrumb_items + [
-        {"label": "Snippets", "url": "/admin/snippets/"},
-    ]
 
     @classmethod
     def setUpTestData(cls):
@@ -1645,3 +1702,33 @@ class TestCustomPermissionPolicy(BaseSnippetViewSetTests):
         self.assertEqual(self.user.get_full_name(), "[FORBIDDEN] Joe")
         response = self.client.get(self.get_url("edit", args=(quote(self.object.pk),)))
         self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+
+class TestSnippetIndexViewBreadcrumbs(SimpleTestCase):
+    def test_snippet_without_menu_item_breadcrumbs(self):
+        self.assertEqual(
+            Advert.snippet_viewset.breadcrumbs_items,
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+            ],
+        )
+
+    def check_snippet_with_menu_item_breadcrumbs(self, expected):
+        self.assertEqual(DraftStateModel.snippet_viewset.breadcrumbs_items, expected)
+
+    def test_snippet_with_menu_item_breadcrumbs(self):
+        self.check_snippet_with_menu_item_breadcrumbs(
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+            ],
+        )
+
+    @override_settings(WAGTAILSNIPPETS_MENU_SHOW_ALL=True)
+    def test_snippet_with_menu_item_breadcrumbs_show_all(self):
+        self.check_snippet_with_menu_item_breadcrumbs(
+            [
+                {"url": reverse("wagtailadmin_home"), "label": "Home"},
+                {"url": reverse("wagtailsnippets:index"), "label": "Snippets"},
+            ]
+        )

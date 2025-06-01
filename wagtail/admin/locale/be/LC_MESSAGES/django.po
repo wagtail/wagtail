@@ -4,15 +4,15 @@
 #
 # Translators:
 # Andrei Satsevich, 2023-2024
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020,2025
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrei Satsevich, 2023-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2020,2025\n"
 "Language-Team: Belarusian (http://app.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -723,10 +723,6 @@ msgstr "Дата / час"
 msgid "Edit this item"
 msgstr "Рэдагаваць гэты элемент"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Старонка %(page_num)s з %(total_pages)s."
-
 msgid "Breadcrumb"
 msgstr "Шлях па сайту"
 
@@ -756,6 +752,10 @@ msgstr "Бягучы статус старонкі:"
 
 msgid "Visit the live page"
 msgstr "Наведаць старонку"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Старонка %(page_num)s з %(total_pages)s"
 
 msgid "Are you sure you want to unschedule this revision?"
 msgstr "Вы ўпэўненыя, што жадаеце адмяніць гэтую версію?"
@@ -845,9 +845,6 @@ msgstr "Адмяніць дзеянне"
 
 msgid "Redo"
 msgstr "Абнавіць"
-
-msgid "Bold"
-msgstr "Тоўсты"
 
 msgid "Italic"
 msgstr "Нахільны"
@@ -1086,26 +1083,20 @@ msgstr "Выдаліць з публікацыі '%(title)s'"
 msgid "Heading 1"
 msgstr "Заголовак 1"
 
-
 msgid "Heading 2"
 msgstr "Заголовак 2"
-
 
 msgid "Heading 3"
 msgstr "Заголовак 3"
 
-
 msgid "Heading 4"
 msgstr "Заголовак 4"
-
 
 msgid "Heading 5"
 msgstr "Заголовак 5"
 
-
 msgid "Heading 6"
 msgstr "Заголовак 6"
-
 
 msgid "Bulleted list"
 msgstr "Маркіраваны спіс"
@@ -1115,6 +1106,9 @@ msgstr "Нумараваны спіс"
 
 msgid "Blockquote"
 msgstr "Цытата"
+
+msgid "Bold"
+msgstr "Тоўсты"
 
 msgid "Link"
 msgstr "Спасылка"

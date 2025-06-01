@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023,2025
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2023\n"
+"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>, 2016\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -184,8 +184,34 @@ msgstr "Zároló: időzített publikálás funkció"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Jelenleg zárolva van, és a megadott időpontban lesz látható"
 
-msgid "latest revision"
-msgstr "utolsó verzió"
+msgid "content type"
+msgstr "tartalomtípus"
+
+msgid "timestamp (UTC)"
+msgstr "Időbélyeg (UTC)"
+
+msgid "log entry"
+msgstr "napló bejegyzés"
+
+msgid "log entries"
+msgstr "napló bejegyzések"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "A '%(action_name)s' napló akció nincs regisztrálva."
+
+msgid "system"
+msgstr "rendszer"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Ismeretlen %(action)s"
+
+msgid "model log entry"
+msgstr "adatmodell naplóbejegyzés"
+
+msgid "model log entries"
+msgstr "adatmodell naplóbejegyzések"
 
 msgid "live"
 msgstr "közzétett oldal"
@@ -223,17 +249,8 @@ msgstr "közzétéve + időzítve"
 msgid "live + draft"
 msgstr "közzétéve + vázlat"
 
-msgid "Default"
-msgstr "Alapértelmezett"
-
-msgid "Preview in mobile size"
-msgstr "Előnézet okostelefon méretben"
-
-msgid "Preview in tablet size"
-msgstr "Előnézet tablet méretben"
-
-msgid "Preview in desktop size"
-msgstr "Előnézet monitor méretben"
+msgid "locale"
+msgstr "nyelv"
 
 msgid "locked"
 msgstr "zárolt"
@@ -244,11 +261,38 @@ msgstr "zárolva ekkor: "
 msgid "locked by"
 msgstr "zároló: "
 
-msgid "in moderation"
-msgstr "jóváhagyás alatt"
+msgid "collection"
+msgstr "gyűjtemény"
 
-msgid "live + in moderation"
-msgstr "közzétéve + moderálás alatt"
+msgid "collection view restriction"
+msgstr "gyűjtemény elérési korlátozás"
+
+msgid "collection view restrictions"
+msgstr "gyűjtemény elérési korlátozások"
+
+msgid "name"
+msgstr "név"
+
+msgid "collections"
+msgstr "gyűjtemények"
+
+msgid "group"
+msgstr "csoport"
+
+msgid "permission"
+msgstr "hozzáférés"
+
+msgid "group collection permission"
+msgstr "csoportos gyűjtemény engedély"
+
+msgid "group collection permissions"
+msgstr "csoportos gyűjtemény engedélyek"
+
+msgid "for content type"
+msgstr "a tartalomtípushoz "
+
+msgid "uploaded by user"
+msgstr "feltöltő"
 
 msgid "Add/edit pages you own"
 msgstr "Saját oldalaim létrehozása/szerkesztése"
@@ -298,9 +342,6 @@ msgid ""
 msgstr ""
 "Az oldal neve, ahogy az URL-ben szerepelni fog, pl. http://domain.com/blog/"
 "[oldal domain-darabkája]/"
-
-msgid "content type"
-msgstr "tartalomtípus"
 
 msgid "URL path"
 msgstr "URL cím"
@@ -354,33 +395,6 @@ msgstr "oldal"
 msgid "pages"
 msgstr "oldalak"
 
-msgid "object id"
-msgstr "azonosító"
-
-msgid "created at"
-msgstr "létrehozás ideje"
-
-msgid "user"
-msgstr "felhasználó"
-
-msgid "content JSON"
-msgstr "JSON tartalom"
-
-msgid "approved go live at"
-msgstr "jóváhagyott közzététel időpontja"
-
-msgid "revision"
-msgstr "verzió"
-
-msgid "revisions"
-msgstr "verziók"
-
-msgid "group"
-msgstr "csoport"
-
-msgid "permission"
-msgstr "hozzáférés"
-
 msgid "group page permission"
 msgstr "csoport hozzáférés"
 
@@ -401,143 +415,6 @@ msgstr "munkafolyamat oldal"
 
 msgid "workflow pages"
 msgstr "munkafolyamat oldalak"
-
-msgid "workflow_tasks"
-msgstr "munkafolyamat feladatok"
-
-msgid "task"
-msgstr "feladat"
-
-msgid "workflow task order"
-msgstr "munkafolyamat feladat sorrend"
-
-msgid "workflow task orders"
-msgstr "munkafolyamat feladat sorrendek"
-
-msgid "name"
-msgstr "név"
-
-msgid "active"
-msgstr "aktív"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Az aktív feladatokat hozzá lehet adni a munkafolyamatokhoz. Az inaktivált "
-"feladatok nem fognak törlődni a meglévő munkafolyamatokból."
-
-msgid "tasks"
-msgstr "feladatok"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Az aktív munkafolyamatokat hozzá lehet rendelni az oldalakhoz és elemekhez. "
-"A munkafolyamat inaktiválása nem fogja azt törölni a meglévő tartalmakból."
-
-msgid "workflows"
-msgstr "munkafolyamatok"
-
-msgid "groups"
-msgstr "csoportok"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Az adott lépésnél tartó oldalakat/elemeket ezek a felhasználók fogják "
-"moderálni vagy jóváhagyni"
-
-msgid "Request changes"
-msgstr "Változtatások kérése"
-
-msgid "Approve"
-msgstr "Jóváhagyás"
-
-msgid "Approve with comment"
-msgstr "Jóváhagyás megjegyzéssel"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "A kiválasztott csoport tagjai tudják ezt a feladatot jóváhagyni"
-
-msgid "Group approval task"
-msgstr "Csoport jóváhagyás feladat"
-
-msgid "Group approval tasks"
-msgstr "Csoport jóváhagyás feladatok"
-
-msgid "In progress"
-msgstr "Folyamatban"
-
-msgid "Approved"
-msgstr "Jóváhagyva"
-
-msgid "Needs changes"
-msgstr "Változtatás szükséges"
-
-msgid "Cancelled"
-msgstr "Megszakítva"
-
-msgid "status"
-msgstr "státusz"
-
-msgid "requested by"
-msgstr "kérelmező "
-
-msgid "current task state"
-msgstr "jelenlegi feladat állapot"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Egy oldal/elem esetén csak egyetlen folyamatban vagy változtatás szükséges "
-"munkafolyamat állapot lehet"
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"'%(workflow_name)s' munkafolyamat a(z) '%(title)s' %(model_name)s esetén: "
-"%(status)s"
-
-msgid "Not started"
-msgstr "Nincs elindítva"
-
-msgid "Workflow state"
-msgstr "Munkafolyamat állapot"
-
-msgid "Workflow states"
-msgstr "Munkafolyamat állapotok"
-
-msgid "Rejected"
-msgstr "Elutasítva"
-
-msgid "Skipped"
-msgstr "Átlépve"
-
-msgid "workflow state"
-msgstr "munkafolyamat állapot"
-
-msgid "started at"
-msgstr "elindítva: "
-
-msgid "finished at"
-msgstr "befejezve: "
-
-msgid "finished by"
-msgstr "befejező: "
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr "'%(task_name)s' feladat a(z) '%(revision_info)s' verzión: %(status)s"
-
-msgid "Task state"
-msgstr "Feladat állapot"
-
-msgid "Task states"
-msgstr "Feladat állapotok"
 
 msgid "page log entry"
 msgstr "oldal naplóbejegyzés"
@@ -560,52 +437,20 @@ msgstr "megjegyzés válasz"
 msgid "comment replies"
 msgstr "megjegyzés válaszok"
 
-msgid "timestamp (UTC)"
-msgstr "Időbélyeg (UTC)"
+msgid "Default"
+msgstr "Alapértelmezett"
 
-msgid "log entry"
-msgstr "napló bejegyzés"
+msgid "Preview in mobile size"
+msgstr "Előnézet okostelefon méretben"
 
-msgid "log entries"
-msgstr "napló bejegyzések"
+msgid "Preview in tablet size"
+msgstr "Előnézet tablet méretben"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "A '%(action_name)s' napló akció nincs regisztrálva."
+msgid "Preview in desktop size"
+msgstr "Előnézet monitor méretben"
 
-msgid "system"
-msgstr "rendszer"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Ismeretlen %(action)s"
-
-msgid "model log entry"
-msgstr "adatmodell naplóbejegyzés"
-
-msgid "model log entries"
-msgstr "adatmodell naplóbejegyzések"
-
-msgid "collection"
-msgstr "gyűjtemény"
-
-msgid "collection view restriction"
-msgstr "gyűjtemény elérési korlátozás"
-
-msgid "collection view restrictions"
-msgstr "gyűjtemény elérési korlátozások"
-
-msgid "collections"
-msgstr "gyűjtemények"
-
-msgid "group collection permission"
-msgstr "csoportos gyűjtemény engedély"
-
-msgid "group collection permissions"
-msgstr "csoportos gyűjtemény engedélyek"
-
-msgid "uploaded by user"
-msgstr "feltöltő"
+msgid "object id"
+msgstr "azonosító"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -630,6 +475,27 @@ msgstr "rendszer által meghatározott %(model_name)s tartalomra lesz állítva 
 
 msgid "will unset the reference"
 msgstr "törli a hivatkozást"
+
+msgid "created at"
+msgstr "létrehozás ideje"
+
+msgid "user"
+msgstr "felhasználó"
+
+msgid "content JSON"
+msgstr "JSON tartalom"
+
+msgid "approved go live at"
+msgstr "jóváhagyott közzététel időpontja"
+
+msgid "revision"
+msgstr "verzió"
+
+msgid "revisions"
+msgstr "verziók"
+
+msgid "latest revision"
+msgstr "utolsó verzió"
 
 msgid "hostname"
 msgstr "hosztnév"
@@ -685,14 +551,170 @@ msgstr ""
 msgid "Public"
 msgstr "Publikus"
 
+msgid "Private, accessible with a shared password"
+msgstr "Privát, megosztott jelszóval elérhető"
+
+msgid "Private, accessible to any logged-in users"
+msgstr "Privát, bejelentkezett felhasználóknak elérhető"
+
 msgid "Private, accessible to users in specific groups"
 msgstr "Privát, csak a megadott csoportba tartozó felhasználók látják"
+
+msgid "shared password"
+msgstr "megosztott jelszó"
+
+msgid ""
+"Shared passwords should not be used to protect sensitive content. Anyone who "
+"has this password will be able to view the content."
+msgstr ""
+"A megosztott jelszavakat nem szabad érzékeny tartalmak védelmére használni. "
+"Bárki, aki hozzájut a jelszóhoz, megtekintheti az oldalt."
+
+msgid "groups"
+msgstr "csoportok"
 
 msgid "view restriction"
 msgstr "elérési korlátozás"
 
 msgid "view restrictions"
 msgstr "elérési korlátozások"
+
+msgid "In progress"
+msgstr "Folyamatban"
+
+msgid "Approved"
+msgstr "Jóváhagyva"
+
+msgid "Needs changes"
+msgstr "Változtatás szükséges"
+
+msgid "Cancelled"
+msgstr "Megszakítva"
+
+msgid "status"
+msgstr "státusz"
+
+msgid "requested by"
+msgstr "kérelmező "
+
+msgid "current task state"
+msgstr "jelenlegi feladat állapot"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Egy oldal/elem esetén csak egyetlen folyamatban vagy változtatás szükséges "
+"munkafolyamat állapot lehet"
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"'%(workflow_name)s' munkafolyamat a(z) '%(title)s' %(model_name)s esetén: "
+"%(status)s"
+
+msgid "Not started"
+msgstr "Nincs elindítva"
+
+msgid "Workflow state"
+msgstr "Munkafolyamat állapot"
+
+msgid "Workflow states"
+msgstr "Munkafolyamat állapotok"
+
+msgid "active"
+msgstr "aktív"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Az aktív munkafolyamatokat hozzá lehet rendelni az oldalakhoz és elemekhez. "
+"A munkafolyamat inaktiválása nem fogja azt törölni a meglévő tartalmakból."
+
+msgid "workflows"
+msgstr "munkafolyamatok"
+
+msgid "workflow_tasks"
+msgstr "munkafolyamat feladatok"
+
+msgid "task"
+msgstr "feladat"
+
+msgid "workflow task order"
+msgstr "munkafolyamat feladat sorrend"
+
+msgid "workflow task orders"
+msgstr "munkafolyamat feladat sorrendek"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Az aktív feladatokat hozzá lehet adni a munkafolyamatokhoz. Az inaktivált "
+"feladatok nem fognak törlődni a meglévő munkafolyamatokból."
+
+msgid "tasks"
+msgstr "feladatok"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Az adott lépésnél tartó oldalakat/elemeket ezek a felhasználók fogják "
+"moderálni vagy jóváhagyni"
+
+msgid "Request changes"
+msgstr "Változtatások kérése"
+
+msgid "Approve"
+msgstr "Jóváhagyás"
+
+msgid "Approve with comment"
+msgstr "Jóváhagyás megjegyzéssel"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "A kiválasztott csoport tagjai tudják ezt a feladatot jóváhagyni"
+
+msgid "Group approval task"
+msgstr "Csoport jóváhagyás feladat"
+
+msgid "Group approval tasks"
+msgstr "Csoport jóváhagyás feladatok"
+
+msgid "Rejected"
+msgstr "Elutasítva"
+
+msgid "Skipped"
+msgstr "Átlépve"
+
+msgid "workflow state"
+msgstr "munkafolyamat állapot"
+
+msgid "started at"
+msgstr "elindítva: "
+
+msgid "finished at"
+msgstr "befejezve: "
+
+msgid "finished by"
+msgstr "befejező: "
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "'%(task_name)s' feladat a(z) '%(revision_info)s' verzión: %(status)s"
+
+msgid "Task state"
+msgstr "Feladat állapot"
+
+msgid "Task states"
+msgstr "Feladat állapotok"
+
+msgid "in moderation"
+msgstr "jóváhagyás alatt"
+
+msgid "live + in moderation"
+msgstr "közzétéve + moderálás alatt"
 
 msgid "Log in"
 msgstr "Bejelentkezés"

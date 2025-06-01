@@ -8,13 +8,14 @@
 # Kyu Choi, 2022
 # Kyu Choi, 2022
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019
+# sl kim <vizuan@gmail.com>, 2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019\n"
+"Last-Translator: sl kim <vizuan@gmail.com>, 2025\n"
 "Language-Team: Korean (http://app.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -106,8 +107,8 @@ msgstr "검색"
 msgid "Terms"
 msgstr "단어"
 
-msgid "Views (past week)"
-msgstr "본 횟수(지난 주)"
+msgid "Views"
+msgstr "조회수"
 
 msgid "No results found"
 msgstr "검색 결과가 없습니다"

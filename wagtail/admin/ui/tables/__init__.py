@@ -4,6 +4,7 @@ from collections import OrderedDict
 from collections.abc import Mapping
 
 from django.contrib.admin.utils import quote
+from django.contrib.humanize.templatetags.humanize import intcomma
 from django.forms import MediaDefiningClass
 from django.template.loader import get_template
 from django.templatetags.l10n import unlocalize
@@ -13,7 +14,8 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext, gettext_lazy
 
 from wagtail.admin.ui.components import Component
-from wagtail.coreutils import multigetattr
+from wagtail.coreutils import get_locales_display_names, multigetattr
+from wagtail.models import Locale
 
 
 class BaseColumn(metaclass=MediaDefiningClass):
@@ -172,6 +174,15 @@ class Column(BaseColumn):
         return context
 
 
+class NumberColumn(Column):
+    """A specialised column that displays numbers with locale-aware formatting"""
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context["value"] = intcomma(context["value"])
+        return context
+
+
 class ButtonsColumnMixin:
     """A mixin for columns that contain buttons"""
 
@@ -303,6 +314,31 @@ class LiveStatusTagColumn(StatusTagColumn):
             primary=lambda instance: instance.live,
             **kwargs,
         )
+
+
+class LocaleColumn(Column):
+    """Represents a Locale label."""
+
+    cell_template_name = "wagtailadmin/tables/locale_cell.html"
+
+    def __init__(self, **kwargs):
+        super().__init__(
+            "locale_id",
+            label=kwargs.pop("label", gettext("Locale")),
+            sort_key=kwargs.pop("sort_key", "locale"),
+            classname=kwargs.pop("classname", "w-text-16"),
+            **kwargs,
+        )
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        value = self.get_value(instance)
+        if isinstance(value, int):
+            value = get_locales_display_names().get(value)
+        elif isinstance(value, Locale):
+            value = value.get_display_name()
+        context["value"] = value
+        return context
 
 
 class DateColumn(Column):

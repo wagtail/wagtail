@@ -4,6 +4,7 @@
 #
 # Translators:
 # Alex Morega, 2023
+# Alex Morega, 2023
 # Bogdan Mateescu, 2019
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2022,2024
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Dan Braghis, 2014-2022,2024\n"
+"Last-Translator: Bogdan Mateescu, 2019\n"
 "Language-Team: Romanian (http://app.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -177,8 +178,34 @@ msgstr "Blocat conform programului"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Blocat în prezent și va fi publicat la data programată"
 
-msgid "latest revision"
-msgstr "ultima revizie"
+msgid "content type"
+msgstr "tip de conținut"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp (UTC)"
+
+msgid "log entry"
+msgstr "intrare jurnal"
+
+msgid "log entries"
+msgstr "intrări jurnal"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Acțiunea de jurnal '%(action_name)s' a fost înregistrată."
+
+msgid "system"
+msgstr "sistem"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Acțiune necunoscută %(action)s"
+
+msgid "model log entry"
+msgstr "intrare jurnal pentru model"
+
+msgid "model log entries"
+msgstr "intrări jurnal pentru model"
 
 msgid "live"
 msgstr "live"
@@ -216,18 +243,6 @@ msgstr "live + programată"
 msgid "live + draft"
 msgstr "live + ciornă"
 
-msgid "Default"
-msgstr "Implicit"
-
-msgid "Preview in mobile size"
-msgstr "Previzualizare în dimensiune telefon mobil"
-
-msgid "Preview in tablet size"
-msgstr "Previzualizare în dimensiune tabletă"
-
-msgid "Preview in desktop size"
-msgstr "Previzualizare în dimensiune desktop"
-
 msgid "locked"
 msgstr "blocat"
 
@@ -237,11 +252,38 @@ msgstr "blocat la"
 msgid "locked by"
 msgstr "blocat de"
 
-msgid "in moderation"
-msgstr "în moderare"
+msgid "collection"
+msgstr "colecție"
 
-msgid "live + in moderation"
-msgstr "live + în moderare"
+msgid "collection view restriction"
+msgstr "restricție de vizualizare colecție"
+
+msgid "collection view restrictions"
+msgstr "restricție de vizualizare colecții"
+
+msgid "name"
+msgstr "nume"
+
+msgid "collections"
+msgstr "colecții"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission"
+msgstr "permisiune"
+
+msgid "group collection permission"
+msgstr "permisiune grup colecție"
+
+msgid "group collection permissions"
+msgstr "permisiuni grup colecție"
+
+msgid "for content type"
+msgstr "pentru tipul de conținut"
+
+msgid "uploaded by user"
+msgstr "încărcată de utlizator"
 
 msgid "Add/edit pages you own"
 msgstr "Adaugă/editeaza pagini deținute"
@@ -291,9 +333,6 @@ msgid ""
 msgstr ""
 "Numele paginii așa cum va apărea în adrese. De exemplu, http://domain.com/"
 "blog/[my-slug]/"
-
-msgid "content type"
-msgstr "tip de conținut"
 
 msgid "URL path"
 msgstr "Cale"
@@ -352,33 +391,6 @@ msgstr "pagină"
 msgid "pages"
 msgstr "pagini"
 
-msgid "object id"
-msgstr "id obiect"
-
-msgid "created at"
-msgstr "creat la"
-
-msgid "user"
-msgstr "utilizator"
-
-msgid "content JSON"
-msgstr "conținut JSON"
-
-msgid "approved go live at"
-msgstr "aprobat pentru publicare la"
-
-msgid "revision"
-msgstr "revizie"
-
-msgid "revisions"
-msgstr "reviziuni"
-
-msgid "group"
-msgstr "grup"
-
-msgid "permission"
-msgstr "permisiune"
-
 msgid "group page permission"
 msgstr "permisie grup pagină"
 
@@ -399,143 +411,6 @@ msgstr "pagină flux de lucru"
 
 msgid "workflow pages"
 msgstr "pagini flux de lucru"
-
-msgid "workflow_tasks"
-msgstr "workflow_tasks"
-
-msgid "task"
-msgstr "sarcină"
-
-msgid "workflow task order"
-msgstr "ordine sarcini flux de lucru"
-
-msgid "workflow task orders"
-msgstr "ordini sarcini flux de lucru"
-
-msgid "name"
-msgstr "nume"
-
-msgid "active"
-msgstr "activ"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Sarcini active pot fi adăugate la fluxuri de lucru. Dezactivarea sarcinii nu "
-"rezultă în eliminarea ei din fluxurile de lucru existente."
-
-msgid "tasks"
-msgstr "sarcini"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Fluxuri de lucru active pot fi adăugate la pagini/fragmente. Dezactivarea "
-"unui flux de lucru nu îl elimină de la pagini/fragmente existente."
-
-msgid "workflows"
-msgstr "fluxuri de lucru"
-
-msgid "groups"
-msgstr "grupuri"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Pagini/fragmente aflate la acest pas dintr-un flux de lucru vor fi moderate "
-"sau aprobate de către aceste grupuri de utilizatori"
-
-msgid "Request changes"
-msgstr "Solicită modificări"
-
-msgid "Approve"
-msgstr "Aprobă"
-
-msgid "Approve with comment"
-msgstr "Aprobă cu comentariu"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Mebrii Grupurilor Wagtail selectați pot aproba această sarcină"
-
-msgid "Group approval task"
-msgstr "Sarcină de aprobare de grup"
-
-msgid "Group approval tasks"
-msgstr "Sarcini de aprobare de grup"
-
-msgid "In progress"
-msgstr "În desfășurare"
-
-msgid "Approved"
-msgstr "Aprobat"
-
-msgid "Needs changes"
-msgstr "Necesită modificări"
-
-msgid "Cancelled"
-msgstr "Anulat"
-
-msgid "status"
-msgstr "stare"
-
-msgid "requested by"
-msgstr "solicitat de"
-
-msgid "current task state"
-msgstr "starea sarcinii curente"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr ""
-"Poate exista o singură stare a fluxului de lucru \"în lucru\" sau \"necesită "
-"schimbări\" per pagină/fragment."
-
-#, python-format
-msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
-msgstr ""
-"Fluxul de lucru '%(workflow_name)s' pentru %(model_name)s '%(title)s': "
-"%(status)s"
-
-msgid "Not started"
-msgstr "Neînceput"
-
-msgid "Workflow state"
-msgstr "Statut flux de lucru"
-
-msgid "Workflow states"
-msgstr "Statuturi flux de lucru"
-
-msgid "Rejected"
-msgstr "Respins"
-
-msgid "Skipped"
-msgstr "Omis"
-
-msgid "workflow state"
-msgstr "statut flux de lucru"
-
-msgid "started at"
-msgstr "început la"
-
-msgid "finished at"
-msgstr "terminat la"
-
-msgid "finished by"
-msgstr "terminat de"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr "Sarcina '%(task_name)s' pentru revizia '%(revision_info)s': %(status)s"
-
-msgid "Task state"
-msgstr "Stare sarcină"
-
-msgid "Task states"
-msgstr "Stări de sarcină"
 
 msgid "page log entry"
 msgstr "intrare jurnal de pagină"
@@ -558,55 +433,20 @@ msgstr "comentariu răspuns "
 msgid "comment replies"
 msgstr "comentarii răspuns"
 
-msgid "timestamp (UTC)"
-msgstr "timestamp (UTC)"
+msgid "Default"
+msgstr "Implicit"
 
-msgid "log entry"
-msgstr "intrare jurnal"
+msgid "Preview in mobile size"
+msgstr "Previzualizare în dimensiune telefon mobil"
 
-msgid "log entries"
-msgstr "intrări jurnal"
+msgid "Preview in tablet size"
+msgstr "Previzualizare în dimensiune tabletă"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Acțiunea de jurnal '%(action_name)s' a fost înregistrată."
+msgid "Preview in desktop size"
+msgstr "Previzualizare în dimensiune desktop"
 
-msgid "system"
-msgstr "sistem"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Acțiune necunoscută %(action)s"
-
-msgid "model log entry"
-msgstr "intrare jurnal pentru model"
-
-msgid "model log entries"
-msgstr "intrări jurnal pentru model"
-
-msgid "collection"
-msgstr "colecție"
-
-msgid "collection view restriction"
-msgstr "restricție de vizualizare colecție"
-
-msgid "collection view restrictions"
-msgstr "restricție de vizualizare colecții"
-
-msgid "collections"
-msgstr "colecții"
-
-msgid "group collection permission"
-msgstr "permisiune grup colecție"
-
-msgid "group collection permissions"
-msgstr "permisiuni grup colecție"
-
-msgid "for content type"
-msgstr "pentru tipul de conținut"
-
-msgid "uploaded by user"
-msgstr "încărcată de utlizator"
+msgid "object id"
+msgstr "id obiect"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -631,6 +471,27 @@ msgstr "va fi setat la un %(model_name)s specificat de sistem"
 
 msgid "will unset the reference"
 msgstr "va șterge referința"
+
+msgid "created at"
+msgstr "creat la"
+
+msgid "user"
+msgstr "utilizator"
+
+msgid "content JSON"
+msgstr "conținut JSON"
+
+msgid "approved go live at"
+msgstr "aprobat pentru publicare la"
+
+msgid "revision"
+msgstr "revizie"
+
+msgid "revisions"
+msgstr "reviziuni"
+
+msgid "latest revision"
+msgstr "ultima revizie"
 
 msgid "hostname"
 msgstr "nume gazdă"
@@ -706,11 +567,151 @@ msgstr ""
 "Nu folosiți parolele partajate pentru a proteja conținut senzitiv. Oricine "
 "are această parolă va putea vedea conținutul."
 
+msgid "groups"
+msgstr "grupuri"
+
 msgid "view restriction"
 msgstr "vezi restricție"
 
 msgid "view restrictions"
 msgstr "vezi restricții"
+
+msgid "In progress"
+msgstr "În desfășurare"
+
+msgid "Approved"
+msgstr "Aprobat"
+
+msgid "Needs changes"
+msgstr "Necesită modificări"
+
+msgid "Cancelled"
+msgstr "Anulat"
+
+msgid "status"
+msgstr "stare"
+
+msgid "requested by"
+msgstr "solicitat de"
+
+msgid "current task state"
+msgstr "starea sarcinii curente"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr ""
+"Poate exista o singură stare a fluxului de lucru \"în lucru\" sau \"necesită "
+"schimbări\" per pagină/fragment."
+
+#, python-format
+msgid "Workflow '%(workflow_name)s' on %(model_name)s '%(title)s': %(status)s"
+msgstr ""
+"Fluxul de lucru '%(workflow_name)s' pentru %(model_name)s '%(title)s': "
+"%(status)s"
+
+msgid "Not started"
+msgstr "Neînceput"
+
+msgid "Workflow state"
+msgstr "Statut flux de lucru"
+
+msgid "Workflow states"
+msgstr "Statuturi flux de lucru"
+
+msgid "active"
+msgstr "activ"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Fluxuri de lucru active pot fi adăugate la pagini/fragmente. Dezactivarea "
+"unui flux de lucru nu îl elimină de la pagini/fragmente existente."
+
+msgid "workflows"
+msgstr "fluxuri de lucru"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "sarcină"
+
+msgid "workflow task order"
+msgstr "ordine sarcini flux de lucru"
+
+msgid "workflow task orders"
+msgstr "ordini sarcini flux de lucru"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Sarcini active pot fi adăugate la fluxuri de lucru. Dezactivarea sarcinii nu "
+"rezultă în eliminarea ei din fluxurile de lucru existente."
+
+msgid "tasks"
+msgstr "sarcini"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Pagini/fragmente aflate la acest pas dintr-un flux de lucru vor fi moderate "
+"sau aprobate de către aceste grupuri de utilizatori"
+
+msgid "Request changes"
+msgstr "Solicită modificări"
+
+msgid "Approve"
+msgstr "Aprobă"
+
+msgid "Approve with comment"
+msgstr "Aprobă cu comentariu"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Mebrii Grupurilor Wagtail selectați pot aproba această sarcină"
+
+msgid "Group approval task"
+msgstr "Sarcină de aprobare de grup"
+
+msgid "Group approval tasks"
+msgstr "Sarcini de aprobare de grup"
+
+msgid "Rejected"
+msgstr "Respins"
+
+msgid "Skipped"
+msgstr "Omis"
+
+msgid "workflow state"
+msgstr "statut flux de lucru"
+
+msgid "started at"
+msgstr "început la"
+
+msgid "finished at"
+msgstr "terminat la"
+
+msgid "finished by"
+msgstr "terminat de"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr "Sarcina '%(task_name)s' pentru revizia '%(revision_info)s': %(status)s"
+
+msgid "Task state"
+msgstr "Stare sarcină"
+
+msgid "Task states"
+msgstr "Stări de sarcină"
+
+msgid "in moderation"
+msgstr "în moderare"
+
+msgid "live + in moderation"
+msgstr "live + în moderare"
 
 msgid "Log in"
 msgstr "Logare"

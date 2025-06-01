@@ -6,6 +6,8 @@ from django.db import models
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.localization import get_available_admin_languages
+
 
 def upload_avatar_to(instance, filename):
     filename, ext = os.path.splitext(filename)
@@ -112,7 +114,11 @@ class UserProfile(models.Model):
         return cls.objects.get_or_create(user=user)[0]
 
     def get_preferred_language(self):
-        return self.preferred_language or get_language()
+        if self.preferred_language:
+            return self.preferred_language
+        if (language := get_language()) in dict(get_available_admin_languages()):
+            return language
+        return settings.LANGUAGE_CODE
 
     def get_current_time_zone(self):
         return self.current_time_zone or settings.TIME_ZONE

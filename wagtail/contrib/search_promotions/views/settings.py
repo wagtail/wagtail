@@ -10,7 +10,11 @@ from django.utils.translation import gettext_lazy
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.ui.tables import Column, RelatedObjectsColumn, TitleColumn
+from wagtail.admin.ui.tables import (
+    NumberColumn,
+    RelatedObjectsColumn,
+    TitleColumn,
+)
 from wagtail.admin.views import generic
 from wagtail.contrib.search_promotions import forms, models
 from wagtail.contrib.search_promotions.models import Query, SearchPromotion
@@ -51,7 +55,7 @@ class IndexView(generic.IndexView):
             label=gettext_lazy("Promoted results"),
             width="40%",
         ),
-        Column(
+        NumberColumn(
             "views",
             label=gettext_lazy("Views"),
             width="20%",
@@ -87,7 +91,6 @@ class SearchPromotionCreateEditMixin:
     edit_url_name = "wagtailsearchpromotions:edit"
     form_class = forms.QueryForm
     header_icon = "pick"
-    _show_breadcrumbs = True
     page_subtitle = gettext_lazy("Promoted search result")
 
     def get_success_message(self, instance=None):

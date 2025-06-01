@@ -5,19 +5,20 @@
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
 # B N <biczoxd@gmail.com>, 2018
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2025
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
+# Matt Westcott <matthew@torchbox.com>, 2025
 # Patrik Radics, 2022
 # Patrik Radics, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2019-2024\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -89,6 +90,16 @@ msgstr "Gyűjtemény"
 
 msgid "Tag"
 msgstr "Címkézés"
+
+msgid "Filter by up to ten most popular tags."
+msgstr "Szűrés a tíz legnépszerűbb címkére"
+
+#, python-format
+msgid "Use server language: %(language_name)s"
+msgstr "Szerver nyelvének használata: %(language_name)s"
+
+msgid "Use server time zone"
+msgstr "Szerver időzónájának használata"
 
 msgid "Preferred language"
 msgstr "Alapértelmezett nyelv"
@@ -254,6 +265,21 @@ msgstr "Kérjük válasszon új szülőt ennek az oldalnak."
 msgid "Parent page"
 msgstr "Szülő oldal"
 
+msgid "The new page will be a child of this given parent page."
+msgstr "Az új oldal a megadott szülőoldal gyermeke lesz."
+
+#, python-format
+msgid "You do not have permission to create a page under \"%(page_title)s\"."
+msgstr ""
+"Nincs jogosultsága új oldal létrehozására a(z) \"%(page_title)s\" alatt."
+
+#, python-format
+msgid ""
+"You cannot create a page of type \"%(page_type)s\" under \"%(page_title)s\"."
+msgstr ""
+"Nem lehet \"%(page_type)s\" típusú oldalt létrehozni a(z) \"%(page_title)s\" "
+"oldal alatt."
+
 msgid "Search…"
 msgstr "Keresés..."
 
@@ -382,6 +408,9 @@ msgstr "Mind a(z) %(objects)s elem kiválasztva ezen a képernyőn"
 
 msgid "All items in listing selected"
 msgstr "Minden elem kiválasztva a listában"
+
+msgid "Can access Wagtail admin"
+msgstr "Elérheti a Wagtail admin felületét"
 
 msgid "Content"
 msgstr "Tartalom"
@@ -745,11 +774,18 @@ msgstr ""
 msgid "Account"
 msgstr "Felhasználói fiók"
 
+#, python-format
+msgid "Wagtail %(current_version)s editor guide"
+msgstr "Wagtail %(current_version)s szerkesztői útmutató (angol)"
+
 msgid "Your locked pages"
 msgstr "Zárolt oldalai"
 
 msgid "Language"
 msgstr "Nyelv"
+
+msgid "Privacy and access"
+msgstr "Védelem és elérés"
 
 msgid "Status"
 msgstr "Állapot"
@@ -778,8 +814,34 @@ msgstr "Dátum"
 msgid "Site summary"
 msgstr "Oldal összegzés"
 
+#, python-format
+msgid ""
+"%(total)s Page <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgid_plural ""
+"%(total)s Pages <span class=\"w-sr-only\">created in %(site_name)s</span>"
+msgstr[0] ""
+"%(total)s oldal <span class=\"w-sr-only\">létrehozva a weboldalon: "
+"%(site_name)s</span>"
+msgstr[1] ""
+"%(total)s oldal <span class=\"w-sr-only\">létrehozva a weboldalon: "
+"%(site_name)s</span>"
+
+msgid "Wagtail upgrade available"
+msgstr "Wagtail frissítés elérhető"
+
+#, python-format
+msgid ""
+"Your version: <strong>%(current_version)s</strong>. New version: <strong "
+"data-w-upgrade-target=\"latestVersion\"></strong>."
+msgstr ""
+"Az ön verziója <strong>%(current_version)s</strong>. Az elérhető új verzió "
+"<strong data-w-upgrade-target=\"latestVersion\"></strong>."
+
 msgid "Read the release notes."
 msgstr "Frissítési dokumentáció megtekintése."
+
+msgid "Close"
+msgstr "Bezár"
 
 msgid "Your pages and snippets in a workflow"
 msgstr "Munkafolyamatban lévő oldalak és elemek"
@@ -792,9 +854,6 @@ msgstr "Változtatások kérése:"
 
 msgid "Awaiting"
 msgstr "Várakozik"
-
-msgid "Close"
-msgstr "Bezár"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1132,6 +1191,9 @@ msgid ""
 msgstr ""
 "A(z) \"%(title)s\" %(model_name)s be lett küldve a következő "
 "munkafolyamatba: \"%(workflow)s\"."
+
+msgid "Changing the privacy for this page has been disabled."
+msgstr "Az oldal védelmének beállítási lehetősége ki lett kapcsolva."
 
 msgid "Publishing…"
 msgstr "Közzététel folyamatban..."
@@ -1705,11 +1767,6 @@ msgstr ""
 msgid "Choose when this page should go live and/or expire"
 msgstr "Válassza ki, hogy az oldal mikor lesz közzétéve vagy eltüntetve"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr "Az időzítés csak akkor működik, ha az adott tartalom közzé van téve"
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Bárki, akinek szerkesztési joga van, tud időzíteni"
 
@@ -1826,9 +1883,8 @@ msgstr "Befejezve: "
 msgid "Clear"
 msgstr "Alapállapot"
 
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "%(page_num)s/%(total_pages)s. oldal"
+msgid "Edit account avatar"
+msgstr "Fiók profilkép szerkesztése"
 
 msgid "Toggle breadcrumbs"
 msgstr "Morzsamenü kapcsolása"
@@ -1839,8 +1895,67 @@ msgstr "Navigációs sáv"
 msgid "Close dialog"
 msgstr "Ablak bezárása"
 
+msgid "You saved a new version in another window"
+msgstr "Egy új verzió lett elmentve egy másik ablakban"
+
+msgid "System"
+msgstr "Rendszer"
+
+#, python-format
+msgid "%(user_name)s saved a new version"
+msgstr "%(user_name)s elmentett egy új verziót"
+
+msgid "Refresh"
+msgstr "Frissítés"
+
+msgid "You have unsaved changes in another window"
+msgstr "Egy másik ablakban mentetlen változtatások vannak"
+
+#, python-format
+msgid "%(user_name)s has unsaved changes"
+msgstr "%(user_name)s felhasználónak mentetlen változtatásai vannak"
+
+msgid "Currently viewing"
+msgstr "Jelenleg nézi"
+
+#, python-format
+msgid "One other user is currently viewing"
+msgid_plural "%(num_user)s other users are currently viewing"
+msgstr[0] "1 másik felhasználó nézi jelenleg"
+msgstr[1] "%(num_user)s másik felhasználó nézi jelenleg"
+
+msgid ""
+"Proceeding will overwrite the changes you made in that window. Refreshing "
+"the page will show you the new changes, but you will lose any of your "
+"unsaved changes in the current window."
+msgstr ""
+"Ha folytatja, akkor felül fogja írni a változtatásokat, amiket a másik "
+"ablakban hajtott végre. A frissítés lehetőséget használva az oldal "
+"megmutatja a másik ablakban végrehajtott változtatásokat, de az ebben az "
+"ablakban módosított adatok eltűnnek."
+
+#, python-format
+msgid ""
+"Proceeding will overwrite the changes made by %(user_name)s. Refreshing the "
+"page will show you the new changes, but you will lose any of your unsaved "
+"changes."
+msgstr ""
+"Ha folytatja, akkor felül fogja írni a változtatásokat, amiket %(user_name)s "
+"hajtott végre. A frissítés lehetőséget használva az oldal megmutatja a másik "
+"ablakban végrehajtott változtatásokat, de az ebben az ablakban módosított "
+"adatok eltűnnek."
+
+msgid "Refreshing the page means you will lose any unsaved changes"
+msgstr "Az oldal frissítése a mentetlen változtatások elvesztésével jár"
+
+msgid "Refresh page"
+msgstr "Oldal frissítése"
+
 msgid "Continue"
 msgstr "Folytatás"
+
+msgid "Refresh the page"
+msgstr "Az oldal frissítése"
 
 msgid "Download XLSX"
 msgstr "XSLX letöltése"
@@ -1869,6 +1984,18 @@ msgstr "Vissza"
 msgid "History"
 msgstr "Történet"
 
+msgid "Keyboard shortcuts"
+msgstr "Billenytűkombinációk"
+
+msgid "All keyboard shortcuts"
+msgstr "Összes billentyűkombináció"
+
+msgid "Section"
+msgstr "Szekció"
+
+msgid "Keyboard shortcut"
+msgstr "Billentyűkombináció"
+
 msgid "Current page status:"
 msgstr "Oldal jelenlegi státusza:"
 
@@ -1883,6 +2010,10 @@ msgstr "Látható mindenkinek"
 
 msgid "Private. Visit the live page"
 msgstr "Privát. Élő oldal megtekintése"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "%(page_num)s/%(total_pages)s. oldal"
 
 msgid "Toggle section"
 msgstr "Szekció kapcsolása"
@@ -1910,6 +2041,18 @@ msgstr "Oldalsáv kapcsolása"
 
 msgid "Side panel width"
 msgstr "Oldalpanel szélessége"
+
+msgid "Show issue"
+msgstr "Probléma megjelenítése"
+
+msgid "Content metrics"
+msgstr "Tartalmi mérőszámok"
+
+msgid "Words"
+msgstr "Szavak"
+
+msgid "Reading time"
+msgstr "Olvasási idő"
 
 msgid "Issues found"
 msgstr "Problémák találhatóak"
@@ -2004,9 +2147,6 @@ msgstr "Érvénytelen időzítés"
 msgid "Go-live:"
 msgstr "Megjelenés:"
 
-msgid "Once published:"
-msgstr "Egyszer közzétéve: "
-
 msgid "No publishing schedule set"
 msgstr "Nincs közzététel időzítve"
 
@@ -2018,6 +2158,9 @@ msgstr "Előnézet új fülben"
 
 msgid "Loading"
 msgstr "Betöltés"
+
+msgid "Refreshing…"
+msgstr "Frissítés..."
 
 msgid "Preview is out of date"
 msgstr "Az előnézet már nem aktuális"
@@ -2033,6 +2176,9 @@ msgstr "Előnézet mód"
 
 msgid "First published"
 msgstr "Első közzététel időpontja"
+
+msgid "Save your changes before leaving"
+msgstr "Mentse el a változtatásokat, mielőtt elhagyja az oldalt"
 
 msgid "You have <span>unsaved edits</span>"
 msgstr "Az oldalon<span>mentetlen változtatások</span> vannak"
@@ -2365,17 +2511,50 @@ msgstr "%(task_name)s lépésben %(started_at)s óta"
 msgid "%(status_display)s %(task_name)s %(started_at)s"
 msgstr "%(status_display)s%(task_name)s%(started_at)s"
 
+msgid "Common actions"
+msgstr "Gyakori műveletek"
+
+msgid "Cut"
+msgstr "Másolás"
+
+msgid "Paste"
+msgstr "Beillesztés"
+
+msgid "Paste and match style"
+msgstr "Beillesztés a stílus átvételével"
+
+msgid "Paste without formatting"
+msgstr "Beillesztés formázás nélkül"
+
 msgid "Undo"
 msgstr "Visszavonás"
 
 msgid "Redo"
 msgstr "Újra"
 
-msgid "Bold"
-msgstr "Félkövér"
+msgid "Save changes"
+msgstr "Változtatások mentése"
+
+msgid "Text content"
+msgstr "Szöveges tartalom"
+
+msgid "Insert or edit a link"
+msgstr "Hivatkozás beillesztése vagy szerkesztése"
+
+msgid "Text formatting"
+msgstr "Szövegformázás"
 
 msgid "Italic"
 msgstr "Dőlt"
+
+msgid "Underline"
+msgstr "Aláhúzás"
+
+msgid "Monospace (code)"
+msgstr "Monospace (kód)"
+
+msgid "Strike-through"
+msgstr "Áthúzás"
 
 msgid "Superscript"
 msgstr "Felső index"
@@ -2430,6 +2609,48 @@ msgid ""
 msgstr ""
 "A(z) '%(parent)s' oldal alá tartozó gyermekoldalak sorbarendezése "
 "'%(label)s' alapján csökkenő sorrendbe."
+
+msgid "Button text is empty"
+msgstr "A gomb szövege üres"
+
+msgid "Use meaningful text for screen reader users"
+msgstr "Használjon a képernyőfelolvasó programok számára értelmes szöveget"
+
+msgid "Empty heading found"
+msgstr "Üres címsor"
+
+msgid "Table header text is empty"
+msgstr "A táblázat fejléce üres"
+
+msgid "Empty frame title found"
+msgstr "Üres keretcím"
+
+msgid "Use a meaningful title for screen reader users"
+msgstr "Használjon a képernyőfelolvasó programok számára értelmezhető címet"
+
+msgid "Incorrect heading hierarchy"
+msgstr "Érvénytelen címsor szerkezet"
+
+msgid "Avoid skipping levels"
+msgstr "Kerülje a szintek kihagyását"
+
+msgid "Input button text is empty"
+msgstr "A gomb felirata üres"
+
+msgid "Link text is empty"
+msgstr "A hivatkozás szövege hiányzik"
+
+msgid "Misusing paragraphs as headings"
+msgstr "Bekezdés használata címsorként"
+
+msgid "Use proper heading tags"
+msgstr "Használjon címsort"
+
+msgid "Image alt text has inappropriate pattern"
+msgstr "A kép alternatív szövegének a mintája nem megfelelő"
+
+msgid "Use meaningful text"
+msgstr "Kérjük használjon értelmes leírást"
 
 msgid "Profile"
 msgstr "Profil"
@@ -2608,6 +2829,10 @@ msgstr ""
 "verziója időzítve lett."
 
 #, python-format
+msgid "%(related_model_name)s %(field_label)s"
+msgstr "%(related_model_name)s %(field_label)s"
+
+#, python-format
 msgid "Edit '%(title)s'"
 msgstr "'%(title)s' szerkesztése"
 
@@ -2657,6 +2882,9 @@ msgstr "%(model_name)s '%(object)s' törölve."
 msgid "Are you sure you want to delete this %(model_name)s?"
 msgstr "Biztosan törölni kívánja ezt a(z) %(model_name)s tartalmat?"
 
+msgid "Compare"
+msgstr "Összevetés"
+
 msgid "Earliest"
 msgstr "Legkorábbi"
 
@@ -2677,6 +2905,10 @@ msgstr "Időzítés visszavonása"
 #, python-format
 msgid "revision %(revision_id)s of \"%(object)s\""
 msgstr "\"%(object)s\" %(revision_id)s verziója"
+
+#, python-format
+msgid "Preview for %(block_label)s (%(block_type)s)"
+msgstr "%(block_label)s (%(block_type)s) előnézete"
 
 msgid "If you confirm deletion"
 msgstr "Ha megerősíti a törlést"
@@ -2707,8 +2939,29 @@ msgstr ""
 msgid "Dashboard"
 msgstr "Műszerfal"
 
+msgid "Search all pages…"
+msgstr "Összes oldal keresése..."
+
+#, python-format
+msgid "Privacy is inherited from the ancestor page - %(ancestor_page)s"
+msgstr ""
+"A láthatósági beállítások az egyik magasabb szintű oldaltól származnak - "
+"%(ancestor_page)s"
+
 msgid "Delete selected pages"
 msgstr "Kiválasztott oldalak törlése"
+
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been deleted"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been deleted"
+msgstr "%(parent_pages)s és %(child_pages)s törölve"
+
+#, python-format
+msgid "%(num_parent_objects)d page has been deleted"
+msgid_plural "%(num_parent_objects)d pages have been deleted"
+msgstr[0] "%(num_parent_objects)d oldal törölve"
+msgstr[1] "%(num_parent_objects)d oldal törölve"
 
 msgid "Select a new parent page"
 msgstr "Új szülő oldal kiválasztása"
@@ -2722,11 +2975,54 @@ msgid_plural "%(num_pages)d pages have been moved"
 msgstr[0] "%(num_pages)d oldal átmozgatva"
 msgstr[1] "%(num_pages)d oldal átmozgatva"
 
+#, python-format
+msgid "%(num_parent_objects)d page"
+msgid_plural "%(num_parent_objects)d pages"
+msgstr[0] "%(num_parent_objects)d oldal"
+msgstr[1] "%(num_parent_objects)d oldal"
+
+#, python-format
+msgid "%(num_child_objects)d child page"
+msgid_plural "%(num_child_objects)d child pages"
+msgstr[0] "%(num_child_objects)d gyermekoldal"
+msgstr[1] "%(num_child_objects)d gyermekoldal"
+
 msgid "Publish selected pages"
 msgstr "Kiválasztott oldalak közzététele"
 
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been published"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been published"
+msgstr "%(parent_pages)s és %(child_pages)s közzétéve"
+
+#, python-format
+msgid "%(num_parent_objects)d page has been published"
+msgid_plural "%(num_parent_objects)d pages have been published"
+msgstr[0] "%(num_parent_objects)d oldal közzétéve"
+msgstr[1] "%(num_parent_objects)d oldal közzétéve"
+
 msgid "Unpublish selected pages"
 msgstr "Kiválasztott oldalak visszavonása"
+
+#. Translators: This forms a message such as "1 page and 3 child pages have
+#. been unpublished"
+#, python-format
+msgid "%(parent_pages)s and %(child_pages)s have been unpublished"
+msgstr "%(parent_pages)s és %(child_pages)s visszavonva"
+
+#, python-format
+msgid "%(num_parent_objects)d page has been unpublished"
+msgid_plural "%(num_parent_objects)d pages have been unpublished"
+msgstr[0] "%(num_parent_objects)d oldal visszavonva"
+msgstr[1] "%(num_parent_objects)d oldal visszavonva"
+
+msgid "Choose parent"
+msgstr "Szülő választása"
+
+#, python-format
+msgid "Create a new %(model_name)s"
+msgstr "Új %(model_name)s létrehozása"
 
 #, python-format
 msgid "Page '%(page_title)s' has been converted into an ordinary page."
@@ -2831,6 +3127,9 @@ msgstr "Az oldal mentése nem sikerült, mert zárolva van."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
+
+msgid "Is commenting action"
+msgstr "Hozzászólás akció"
 
 msgid "Date updated"
 msgstr "Frissítés dátuma"
@@ -2958,11 +3257,20 @@ msgstr "Oldal/elem típusa"
 msgid "Page/Snippet Title"
 msgstr "Oldal/elem címe"
 
+msgid "By task"
+msgstr "Feladat szerint"
+
 msgid "Workflow tasks"
 msgstr "Munkafolyamat feladatok"
 
 msgid "Requested By"
 msgstr "Kérelmezte: "
+
+msgid "By workflow"
+msgstr "Munkamenet szerint"
+
+msgid "Show disabled"
+msgstr "Kikapcsoltak mutatása"
 
 msgid "Add a workflow"
 msgstr "Munkafolyamat hozzáadása"
@@ -3027,9 +3335,6 @@ msgstr "Új munkafolyamat feladat"
 #, python-format
 msgid "Task '%(object)s' created."
 msgstr "'%(object)s' feladat létrehozva."
-
-msgid "Editing workflow task"
-msgstr "Munkafolyamat feladat szerkesztése"
 
 #, python-format
 msgid "Task '%(object)s' updated."
@@ -3109,26 +3414,20 @@ msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
 msgid "Heading 1"
 msgstr "Fejléc 1"
 
-
 msgid "Heading 2"
 msgstr "Fejléc 2"
-
 
 msgid "Heading 3"
 msgstr "Fejléc 3"
 
-
 msgid "Heading 4"
 msgstr "Fejléc 4"
-
 
 msgid "Heading 5"
 msgstr "Fejléc 5"
 
-
 msgid "Heading 6"
 msgstr "Fejléc 6"
-
 
 msgid "Bulleted list"
 msgstr "Lista"
@@ -3138,6 +3437,9 @@ msgstr "Sorszámozott lista"
 
 msgid "Blockquote"
 msgstr "Idézet"
+
+msgid "Bold"
+msgstr "Félkövér"
 
 msgid "Link"
 msgstr "Link"
@@ -3157,6 +3459,9 @@ msgstr "Újdonságok a Wagtail %(version)s verzióban"
 
 msgid "Editor Guide"
 msgstr "Szerkesztők Kézikönyve (Angol)"
+
+msgid "Shortcuts"
+msgstr "Billentyűkombinációk"
 
 msgid "Help"
 msgstr "Segítség"

@@ -6,14 +6,15 @@
 # Amawalee Combe <dang@getsalebox.com>, 2019
 # Jon Combe <jon@naremit.com>, 2019
 # Siramol Khunchai, 2024
+# Siramol Khunchai, 2024
 # Walaksawan Vervoort <nula_wala@yahoo.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Siramol Khunchai, 2024\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>, 2019\n"
 "Language-Team: Thai (http://app.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +79,9 @@ msgstr "{model_name} '{title}' ถูกล็อค และมีกำหน
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "ถูกล็อคอยู่ในตอนนี้ และจะเผยแพร่เมื่อถึงวันที่กำหนด"
 
+msgid "content type"
+msgstr "ประเภทของเนื้อหา"
+
 msgid "live"
 msgstr "เผยแพร่"
 
@@ -114,14 +118,38 @@ msgstr "เผยแพร่ + กำหนดการ"
 msgid "live + draft"
 msgstr "เผยแพร่ + ร่าง"
 
-msgid "Default"
-msgstr "ต้นแบบ"
-
 msgid "locked"
 msgstr "ล็อค"
 
-msgid "live + in moderation"
-msgstr "เผยแพร่ + รอตรวจ"
+msgid "collection"
+msgstr "ของสะสม"
+
+msgid "collection view restriction"
+msgstr "การดูชุดมีข้อจำกัด"
+
+msgid "collection view restrictions"
+msgstr "การดูชุดมีข้อจำกัด"
+
+msgid "name"
+msgstr "ชื่อ"
+
+msgid "collections"
+msgstr "ของสะสมต่างๆ"
+
+msgid "group"
+msgstr "กลุ่ม"
+
+msgid "permission"
+msgstr "การอนุญาต"
+
+msgid "group collection permission"
+msgstr "การสะสมกลุ่มที่จะอนุญาต"
+
+msgid "group collection permissions"
+msgstr "การสะสมกลุ่มที่จะอนุญาต"
+
+msgid "uploaded by user"
+msgstr "อัพโหลดโดยผู้ใช้"
 
 msgid "Add/edit pages you own"
 msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"
@@ -161,9 +189,6 @@ msgid ""
 "[my-slug]/"
 msgstr "ชื่อของหน้านี้ จะปรากฏใน URLs e.g http://domain.com/blog/[my-slug]/"
 
-msgid "content type"
-msgstr "ประเภทของเนื้อหา"
-
 msgid "URL path"
 msgstr "ช่องทางของ URL"
 
@@ -186,24 +211,6 @@ msgstr "หน้า"
 msgid "pages"
 msgstr "หลายๆหน้า"
 
-msgid "created at"
-msgstr "สร้างขึ้นเมื่อ"
-
-msgid "user"
-msgstr "ผู้ใช้"
-
-msgid "content JSON"
-msgstr "ข้อมูลของ JSON"
-
-msgid "approved go live at"
-msgstr "ได้รับอนุมัติให้ไปที่เผยแพร่"
-
-msgid "group"
-msgstr "กลุ่ม"
-
-msgid "permission"
-msgstr "การอนุญาต"
-
 msgid "group page permission"
 msgstr "การอนุญาตหลายๆหน้า"
 
@@ -216,38 +223,23 @@ msgstr "การเปิดดูหน้ามีข้อจำกัด"
 msgid "page view restrictions"
 msgstr "การเปิดดูหน้ามีข้อจำกัด"
 
-msgid "name"
-msgstr "ชื่อ"
-
-msgid "groups"
-msgstr "กลุ่ม"
-
-msgid "Approve"
-msgstr "ยืนยัน"
-
 msgid "Draft saved"
 msgstr "บันทึกฉบับร่างเรียบร้อย"
 
-msgid "collection"
-msgstr "ของสะสม"
+msgid "Default"
+msgstr "ต้นแบบ"
 
-msgid "collection view restriction"
-msgstr "การดูชุดมีข้อจำกัด"
+msgid "created at"
+msgstr "สร้างขึ้นเมื่อ"
 
-msgid "collection view restrictions"
-msgstr "การดูชุดมีข้อจำกัด"
+msgid "user"
+msgstr "ผู้ใช้"
 
-msgid "collections"
-msgstr "ของสะสมต่างๆ"
+msgid "content JSON"
+msgstr "ข้อมูลของ JSON"
 
-msgid "group collection permission"
-msgstr "การสะสมกลุ่มที่จะอนุญาต"
-
-msgid "group collection permissions"
-msgstr "การสะสมกลุ่มที่จะอนุญาต"
-
-msgid "uploaded by user"
-msgstr "อัพโหลดโดยผู้ใช้"
+msgid "approved go live at"
+msgstr "ได้รับอนุมัติให้ไปที่เผยแพร่"
 
 msgid "hostname"
 msgstr "ชื่อเจ้าของ"
@@ -303,11 +295,20 @@ msgstr "สาธารณะ"
 msgid "Private, accessible to users in specific groups"
 msgstr "ส่วนตัว,สำหรับผู้ใช้ที่เป็นกลุ่มเฉพาะเจาะจง"
 
+msgid "groups"
+msgstr "กลุ่ม"
+
 msgid "view restriction"
 msgstr "ดูข้อจำกัด"
 
 msgid "view restrictions"
 msgstr "ดูข้อจำกัดต่างๆ"
+
+msgid "Approve"
+msgstr "ยืนยัน"
+
+msgid "live + in moderation"
+msgstr "เผยแพร่ + รอตรวจ"
 
 msgid "Log in"
 msgstr "เข้าสู่ระบบ"

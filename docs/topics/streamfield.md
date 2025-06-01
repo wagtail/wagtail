@@ -518,10 +518,6 @@ All block types, not just `StructBlock`, support the `template` property. Howeve
 
 ## Configuring block previews
 
-```{versionadded} 6.4
-The ability to have previews for StreamField blocks was added.
-```
-
 StreamField blocks can have previews that will be shown inside the block picker when you add a block in the editor. To enable this feature, you must configure the preview value and template. You can also add a description to help users pick the right block for their content.
 
 You can do so by [passing the keyword arguments](block_preview_arguments) `preview_value`, `preview_template`, and `description` when instantiating a block:
@@ -599,6 +595,20 @@ Note that the default preview template does not include any static assets that m
 For more details on overriding templates, see Django's guide on [](inv:django#howto/overriding-templates).
 
 The global `wagtailcore/shared/block_preview.html` override will be used for all blocks by default. If you want to use a different template for a particular block, you can still specify `preview_template`, which will take precedence.
+
+(turning_off_block_previews)=
+
+### Turning off previews for a specific block
+
+To turn off previews for a block, set {attr}`is_previewable = False <wagtail.blocks.Block.is_previewable>` on the block class.
+
+```{code-block} python
+:emphasize-lines: 3
+
+class ConfigBlock(blocks.StructBlock):
+    ...
+    is_previewable = False
+```
 
 ## Customizations
 

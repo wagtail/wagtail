@@ -1,3 +1,4 @@
+import hashlib
 import unittest
 
 from django.conf import settings
@@ -13,6 +14,7 @@ from django.test import SimpleTestCase, TestCase, TransactionTestCase, override_
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
+from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.models import (
     Filter,
     Picture,
@@ -131,9 +133,11 @@ class TestImage(TestCase):
             self.image.get_file_size()
 
     def test_file_hash(self):
-        self.assertEqual(
-            self.image.get_file_hash(), "4dd0211870e130b7e1690d2ec53c499a54a48fef"
-        )
+        with self.image.file.open() as f:
+            loaded_hash = hashlib.sha1(f.read()).hexdigest()
+        # Ensure get_file_hash() (which does the hash by chunks) returns the
+        # same hash as the one calculated by loading the file into memory.
+        self.assertEqual(self.image.get_file_hash(), loaded_hash)
 
     def test_get_suggested_focal_point_svg(self):
         """
@@ -518,6 +522,10 @@ class TestRenditions(TestCase):
             title="Test image",
             file=get_test_image_file(),
         )
+        self.svg_image = Image.objects.create(
+            title="Test SVG image",
+            file=get_test_image_file_svg(),
+        )
 
     def test_get_rendition_model(self):
         self.assertIs(Image.get_rendition_model(), Rendition)
@@ -548,8 +556,8 @@ class TestRenditions(TestCase):
         )
         self.assertEqual(
             errors[0].hint,
-            "Add models.UniqueConstraint(fields={"
-            '"image", "filter_spec", "focal_point_key"}, '
+            "Add models.UniqueConstraint(fields=("
+            '"image", "filter_spec", "focal_point_key"), '
             'name="unique_rendition") to CustomRendition.Meta.constraints.',
         )
 
@@ -944,6 +952,66 @@ class TestRenditions(TestCase):
         self.assertEqual(
             get_rendition_storage(), storages[settings.WAGTAILIMAGES_RENDITION_STORAGE]
         )
+
+    def test_image_get_rendition_preserve_svg(self):
+        image_rendition_1 = self.image.get_rendition(
+            "width-400|bgcolor-000|format-jpeg|preserve-svg"
+        )
+        # no directives stripped except 'preserve-svg'
+        self.assertEqual(
+            image_rendition_1.filter_spec, "width-400|bgcolor-000|format-jpeg"
+        )
+
+        image_rendition_2 = self.image.get_rendition(
+            "width-400|bgcolor-000|format-jpeg"
+        )
+        # preserve-svg has no effect and thus the existing rendition will be returned
+        self.assertEqual(image_rendition_1, image_rendition_2)
+
+        # same behaviour when passing a Filter object rather than a string
+        image_rendition_3 = self.image.get_rendition(
+            Filter("width-400|bgcolor-000|format-jpeg|preserve-svg")
+        )
+        self.assertEqual(image_rendition_1, image_rendition_3)
+        image_rendition_4 = self.image.get_rendition(
+            Filter("width-400|bgcolor-000|format-jpeg")
+        )
+        self.assertEqual(image_rendition_1, image_rendition_4)
+
+        # preserve-svg with no other directive raises error
+        with self.assertRaises(InvalidFilterSpecError):
+            self.image.get_rendition("preserve-svg")
+
+    def test_svg_get_rendition_preserve_svg(self):
+        # rasterize directives stripped
+        svg_rendition_1 = self.svg_image.get_rendition(
+            "width-400|bgcolor-000|format-jpeg|preserve-svg"
+        )
+        self.assertEqual(svg_rendition_1.filter_spec, "width-400")
+
+        # str filter & Filter with preserve-svg produce same result
+        svg_rendition_2 = self.svg_image.get_rendition(
+            Filter("width-400|bgcolor-000|format-jpeg|preserve-svg")
+        )
+        self.assertEqual(svg_rendition_1, svg_rendition_2)
+
+        # fallback to 'original' if no SVG-safe directives remain
+        svg_rendition_3 = self.svg_image.get_rendition(
+            Filter("bgcolor-000|format-jpeg|preserve-svg")
+        )
+        self.assertEqual(svg_rendition_3.filter_spec, "original")
+
+        # no rasterize directives, no preserve-svg
+        svg_rendition_4 = self.svg_image.get_rendition(Filter("width-400"))
+        self.assertEqual(svg_rendition_4.filter_spec, "width-400")
+
+        # no rasterize directives, preserve-svg has no affect
+        svg_rendition_5 = self.svg_image.get_rendition(Filter("width-400|preserve-svg"))
+        self.assertEqual(svg_rendition_4, svg_rendition_5)
+
+        # has raterize directives but no preserve-svg raises error
+        with self.assertRaises(AttributeError):
+            self.svg_image.get_rendition(Filter("width-400|bgcolor-000|format-jpeg"))
 
 
 @override_settings(

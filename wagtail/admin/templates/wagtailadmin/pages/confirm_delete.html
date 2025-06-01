@@ -92,7 +92,7 @@
         {% page_permissions page as page_perms %}
         {% if page_perms.can_unpublish %}
             {% url 'wagtailadmin_pages:unpublish' page.id as unpublish_url %}
-            <p style="margin-top: 1em">{% blocktrans trimmed %}Alternatively you can <a href="{{ unpublish_url }}">unpublish the page</a>. This removes the page from public view and you can edit or publish it again later.{% endblocktrans %}</p>
+            <p class="w-mt-4">{% blocktrans trimmed %}Alternatively you can <a href="{{ unpublish_url }}">unpublish the page</a>. This removes the page from public view and you can edit or publish it again later.{% endblocktrans %}</p>
         {% endif %}
     </div>
 {% endblock %}

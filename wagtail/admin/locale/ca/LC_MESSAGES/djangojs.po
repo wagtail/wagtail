@@ -36,6 +36,9 @@ msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s píxel"
 msgstr[1] "%(num)s píxels"
 
+msgid "Actions"
+msgstr "Accions"
+
 msgid "Add a comment"
 msgstr "Afegir un comentari"
 

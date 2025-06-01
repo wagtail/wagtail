@@ -15,6 +15,9 @@ msgstr ""
 "Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Actions"
+msgstr "操作"
+
 msgid "Add a comment"
 msgstr "添加注釋"
 
