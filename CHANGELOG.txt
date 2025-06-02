@@ -29,6 +29,7 @@ Changelog
  * Fix: Accept any string beginning with 'y' as confirmation for `import_redirects` command (Matt Westcott)
  * Fix: Fix error when accessing the submissions listing view with a non-form page (Sage Abdullah)
  * Fix: Replace inline styles with CSS classes in HTML files (Srishti Jaiswal)
+ * Fix: Refactor remaining inline styles to avoid unsafe-inline style-src CSP (Chiemezuo Akujobi)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
