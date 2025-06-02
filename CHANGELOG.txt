@@ -40,6 +40,7 @@ Changelog
  * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
  * Docs: Use tuple instead of set in `UniqueConstraint` examples for a custom rendition model to avoid spurious migrations (Alec Baron)
  * Docs: Document how to turn off StreamField block previews (Shlomo Markowitz)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
 
 7.0 LTS (06.05.2025)
 ~~~~~~~~~~~~~~~~~~~~
