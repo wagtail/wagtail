@@ -85,7 +85,7 @@ from .revisions import (  # noqa: F401
     RevisionQuerySet,
     RevisionsManager,
 )
-from .sites import Site, SiteManager, SiteRootPath  # noqa: F401
+from .sites import GroupSitePermission, Site, SiteManager, SiteRootPath  # noqa: F401
 from .specific import SpecificMixin  # noqa: F401
 from .view_restrictions import BaseViewRestriction  # noqa: F401
 from .workflows import (  # noqa: F401
