@@ -253,6 +253,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
 
 
 6.3.4 (24.04.2025)
