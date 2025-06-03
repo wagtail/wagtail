@@ -426,6 +426,7 @@ class ListBlock(Block):
                 child_block = kwargs.get("child_block")
                 if isinstance(child_block, Block):
                     block_id = lookup.add_block(child_block)
+                    kwargs = kwargs.copy()  # avoid mutating the original kwargs stored in self._constructor_args
                     kwargs["child_block"] = block_id
 
         return path, args, kwargs
