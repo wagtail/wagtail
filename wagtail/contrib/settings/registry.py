@@ -11,6 +11,7 @@ from wagtail.admin.admin_url_finder import (
 from wagtail.admin.menu import MenuItem
 from wagtail.permission_policies import ModelPermissionPolicy
 
+from .forms import SitePermissionForm
 from .permissions import user_can_edit_setting_type
 
 
@@ -85,6 +86,16 @@ class Registry(list):
                 content_type__app_label=model._meta.app_label,
                 codename=f"change_{model._meta.model_name}",
             )
+
+        if issubclass(model, BaseSiteSetting):
+            # construct a subclass of SitePermissionForm specific to this model
+            class SitePermissionFormSubclass(SitePermissionForm):
+                settings_model = model
+                icon = self._model_icons.get(model)
+
+            @hooks.register("register_group_permission_panel")
+            def group_permission_panel():
+                return SitePermissionFormSubclass
 
         # Register an admin URL finder
         permission_policy = ModelPermissionPolicy(model)

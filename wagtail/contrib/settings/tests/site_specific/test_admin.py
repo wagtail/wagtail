@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.text import capfirst
@@ -8,7 +8,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
-from wagtail.models import Page, Site
+from wagtail.models import GroupSitePermission, Page, Site
 from wagtail.test.testapp.models import (
     FileSiteSetting,
     IconSiteSetting,
@@ -514,3 +514,80 @@ class TestEditHandlers(TestCase):
         handler = get_setting_edit_handler(TabbedSiteSettings)
         self.assertIsInstance(handler, TabbedInterface)
         self.assertEqual(len(handler.children), 2)
+
+
+class TestPermissionConfiguration(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+
+        self.group = Group.objects.get(name="Editors")
+        self.default_site = Site.objects.get(is_default_site=True)
+        self.other_site = Site.objects.create(
+            hostname="example.com", root_page=Page.objects.get(pk=2)
+        )
+        self.permission = Permission.objects.get_by_natural_key(
+            app_label="tests",
+            model="testsitesetting",
+            codename="change_testsitesetting",
+        )
+        GroupSitePermission.objects.create(
+            group=self.group,
+            site=self.default_site,
+            permission=self.permission,
+        )
+
+    def test_get_permissions(self):
+        response = self.client.get(
+            reverse("wagtailusers_groups:edit", args=(self.group.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Test site setting permissions")
+        soup = self.get_soup(response.content)
+        default_site_checkbox = soup.select_one(
+            f"[name='tests_testsitesetting_site_permissions-sites'][value='{self.default_site.pk}']"
+        )
+        self.assertTrue(default_site_checkbox.has_attr("checked"))
+        other_site_checkbox = soup.select_one(
+            f"[name='tests_testsitesetting_site_permissions-sites'][value='{self.other_site.pk}']"
+        )
+        self.assertFalse(other_site_checkbox.has_attr("checked"))
+
+    def test_set_permissions(self):
+        response = self.client.post(
+            reverse("wagtailusers_groups:edit", args=(self.group.id,)),
+            {
+                "name": "test group",
+                "permissions": [],
+                "page_permissions-TOTAL_FORMS": ["0"],
+                "page_permissions-MAX_NUM_FORMS": ["1000"],
+                "page_permissions-INITIAL_FORMS": ["0"],
+                "document_permissions-TOTAL_FORMS": ["0"],
+                "document_permissions-MAX_NUM_FORMS": ["1000"],
+                "document_permissions-INITIAL_FORMS": ["0"],
+                "image_permissions-TOTAL_FORMS": ["0"],
+                "image_permissions-MAX_NUM_FORMS": ["1000"],
+                "image_permissions-INITIAL_FORMS": ["0"],
+                "collection_permissions-TOTAL_FORMS": ["0"],
+                "collection_permissions-MAX_NUM_FORMS": ["1000"],
+                "collection_permissions-INITIAL_FORMS": ["0"],
+                "tests_testsitesetting_site_permissions-sites": [
+                    str(self.other_site.pk),
+                ],
+            },
+        )
+        self.assertRedirects(response, reverse("wagtailusers_groups:index"))
+
+        self.assertTrue(
+            GroupSitePermission.objects.filter(
+                group=self.group,
+                site=self.other_site,
+                permission=self.permission,
+            ).exists()
+        )
+        self.assertFalse(
+            GroupSitePermission.objects.filter(
+                group=self.group,
+                site=self.default_site,
+                permission=self.permission,
+            ).exists()
+        )
