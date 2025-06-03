@@ -80,6 +80,49 @@ The methods used to get the URL of a `Page` such as `Page.get_url` and `Page.get
 
 When using the [`{% pageurl %}`](pageurl_tag) or [`{% fullpageurl %}`](fullpageurl_tag) template tags, the request is automatically passed in, so no further optimization is needed.
 
+## Specific instances
+
+Some APIs require using the `Page` model, such as when you want to search across all pages on your site. However, you want to then render or call methods on the specific instances.
+
+These specific instances can be retrieved using the `specific` attribute on either the page or queryset:
+
+```python
+>>> Page.objects.all().specific()
+[<BlogPage: A Blog post>, <BlogPage: Another Blog post>]
+>>> Page.objects.first()
+<Page: A Blog post>
+>>> Page.objects.first().specific
+<BlogPage: A Blog post>
+```
+
+When using `specific`, custom fields which only exist on the specific page (eg the body of a blog post) require an extra query to load. When using the `.specific` queryset method, these queries are done in bulk (one per page type), rather than one per instance, improving performance.
+
+### Deferred fields
+
+Alternatively, the loading of these extra fields can be "deferred". If only the base `Page` model's fields are needed, but you still need your specific instance's methods, the extra fields can be skipped when creating the specific instances:
+
+```python
+>>> Page.objects.all().specific(defer=True)
+[<BlogPage: A Blog post>, <BlogPage: Another Blog post>]
+>>> Page.objects.first()
+<Page: A Blog post>
+>>> Page.objects.first().specific_deferred
+<BlogPage: A Blog post>
+```
+
+The instances are the same - the difference comes when trying to access these extra fields:
+
+```python
+>>> page = Page.objects.first()
+>>> specific_page = page.specific  # A query is done here for the `body`
+>>> specific_deferred_page = page.specific_deferred  # No queries are done here
+>>> specific_deferred_page.body  # The query for `body` is done here
+```
+
+Because no additional queries are performed, and less data is operated on, "deferred" models can be significantly faster than specific versions, especially when working with a large number of pages.
+
+Using the `.specific` QuerySet method is faster than calling `.specific` or `.specific_deferred` on each instance, since internal operations can be done in bulk.
+
 ## Search
 
 Wagtail has strong support for [Elasticsearch](https://www.elastic.co) - both in the editor interface and for users of your site - but can fall back to a database search if Elasticsearch isn't present. Elasticsearch is faster and more powerful than the Django ORM for text search, so we recommend installing it or using a hosted service like [Searchly](http://www.searchly.com/).

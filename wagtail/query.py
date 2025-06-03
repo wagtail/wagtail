@@ -12,6 +12,7 @@ from django.db.models.functions import Cast, Length, Substr
 from django.db.models.query import ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.coreutils import batched
 from wagtail.models.i18n import Locale
 from wagtail.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -754,28 +755,68 @@ class SpecificIterable(ModelIterable):
         else:
             # Iterate through the queryset, returning the rows in manageable
             # chunks for self.__iter__() to fetch full instances for
-            current_chunk = []
-            for r in queryset.iterator(self.chunk_size):
-                current_chunk.append(r)
-                if len(current_chunk) == self.chunk_size:
-                    yield tuple(current_chunk)
-                    current_chunk.clear()
-            # Return any left-overs
-            if current_chunk:
-                yield tuple(current_chunk)
+            yield from batched(queryset.iterator(self.chunk_size), self.chunk_size)
 
 
 class DeferredSpecificIterable(ModelIterable):
+    """
+    A highly-modified iterable which returns instances
+    of the specific model, but with only the parent model's fields.
+    """
+
     def __iter__(self):
-        for obj in super().__iter__():
-            if obj.specific_class:
-                yield obj.specific_deferred
-            else:
-                warnings.warn(
-                    "A specific version of the following object could not be returned "
-                    "because the specific model is not present on the active "
-                    f"branch: <{obj.__class__.__name__} id='{obj.id}' title='{obj.title}' "
-                    f"type='{obj.content_type}'>",
-                    category=RuntimeWarning,
-                )
+        queryset = self.queryset
+
+        # TODO(#12388): If `select_related` was used, the optimised implementation doesn't work.
+        # Instead, fall back to a more naive implementation.
+        if queryset.query.select_related:
+            for obj in super().__iter__():
+                if obj.specific_class:
+                    yield obj.specific_deferred
+                else:
+                    warnings.warn(
+                        "A specific version of the following object could not be returned "
+                        "because the specific model is not present on the active "
+                        f"branch: <{obj.__class__.__name__} id='{obj.id}' title='{obj.title}' "
+                        f"type='{obj.content_type}'>",
+                        category=RuntimeWarning,
+                    )
+        else:
+            model = queryset.model
+            db = queryset.db
+            specific_models = {}
+            annotations = list(queryset.query.annotation_select.keys())
+
+            results = queryset.values()
+
+            if self.chunked_fetch:
+                results = results.iterator(self.chunk_size)
+
+            for row in results:
+                content_type_id = row["content_type_id"]
+                pk = row["id"]
+
+                if (specific_model := specific_models.get(content_type_id)) is None:
+                    content_type = ContentType.objects.get_for_id(content_type_id)
+                    specific_model = content_type.model_class()
+                    if specific_model is None:
+                        warnings.warn(
+                            "A specific version of the following content type could not be returned "
+                            "because the specific model is not present on the active "
+                            f"branch: <{model.__name__} pk='{pk}' type='{content_type}'>",
+                            category=RuntimeWarning,
+                        )
+                        specific_model = model
+                    specific_models[content_type_id] = specific_model
+
+                obj = specific_model.from_db(db, row.keys(), row.values())
+
+                # If the model uses a different primary key (eg `page_ptr_id`), we need to add it in
+                if (pk_name := specific_model._meta.pk.attname) not in row:
+                    setattr(obj, pk_name, pk)
+
+                # Add any annotated fields
+                for attr in annotations:
+                    setattr(obj, attr, row[attr])
+
                 yield obj
