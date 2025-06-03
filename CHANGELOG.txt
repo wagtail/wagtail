@@ -42,6 +42,7 @@ Changelog
  * Fix: Ensure that "all items in listing" option on image / document bulk actions respects user permissions (Alex Morega)
  * Fix: Adjust accessibility dialog position based on userbar position (Anees Asghar, Sage Abdullah)
  * Fix: Correctly handle ordering API results by mixed ascending and descending order (Rohit Sharma, Mahmoud Nasser)
+ * Fix: Ensure that draft changes to an editable `first_published_at` field are preserved on reloading (Talha Rizwan)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)

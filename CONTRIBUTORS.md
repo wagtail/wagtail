@@ -897,6 +897,7 @@
 * Ziyao Yan
 * Anees Asghar
 * Rachel Smith
+* Talha Rizwan
 
 ## Translators
 
