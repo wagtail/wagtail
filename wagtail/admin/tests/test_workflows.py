@@ -178,7 +178,7 @@ class TestWorkflowsIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase)
         soup = self.get_soup(response.content)
         cells = [
             text
-            for td in soup.select("td")
+            for td in soup.select("main table td")
             if (text := td.get_text(separator=" | ", strip=True))
         ]
         self.assertEqual(
