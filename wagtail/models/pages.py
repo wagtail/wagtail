@@ -25,6 +25,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import translation as translation
 from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
+from django.utils.log import log_response
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -1233,13 +1234,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         allowed_methods = self.allowed_http_method_names()
         if request.method not in allowed_methods:
-            logger.warning(
+            response = HttpResponseNotAllowed(allowed_methods)
+            log_response(
                 "Method Not Allowed (%s): %s",
                 request.method,
                 request.path,
-                extra={"status_code": 405, "request": request},
+                request=request,
+                response=response,
             )
-            return HttpResponseNotAllowed(allowed_methods)
+            return response
 
     def handle_options_request(self, request, *args, **kwargs):
         """
