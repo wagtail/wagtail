@@ -26,6 +26,7 @@
                 <input
                     id="fileupload"
                     multiple
+                    accept="{{mime_types|join:', '}}"
                     name="files[]"
                     type="file"
                     data-accept-file-types="/\.({{ allowed_extensions|join:'|' }})$/i"

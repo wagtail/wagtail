@@ -1629,7 +1629,8 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         # upload file field should have an explicit 'accept' case for image/avif
         soup = self.get_soup(response_json["html"])
         self.assertEqual(
-            soup.select_one('input[type="file"]').get("accept"), "image/*, image/avif"
+            soup.select_one('input[type="file"]').get("accept"),
+            "image/avif, image/gif, image/jpg, image/jpeg, image/png, image/webp",
         )
 
     def test_simple_with_collection_nesting(self):
@@ -1655,7 +1656,7 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         soup = self.get_soup(response_json["html"])
         self.assertEqual(
             soup.select_one('input[type="file"]').get("accept"),
-            "image/*, image/heic, image/avif",
+            "image/gif, image/jpg, image/jpeg, image/png, image/webp, image/avif, image/heic",
         )
 
     @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
@@ -1667,7 +1668,10 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
         soup = self.get_soup(response_json["html"])
-        self.assertEqual(soup.select_one('input[type="file"]').get("accept"), "image/*")
+        self.assertEqual(
+            soup.select_one('input[type="file"]').get("accept"),
+            "image/gif, image/jpg, image/jpeg, image/png, image/webp",
+        )
 
     def test_choose_permissions(self):
         # Create group with access to admin and Chooser permission on one Collection, but not another.
@@ -2450,6 +2454,9 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
             file=get_test_image_file(),
         )
 
+    @override_settings(
+        WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
+    )
     def test_add(self):
         """
         This tests that the add view responds correctly on a GET request
@@ -2460,6 +2467,15 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/multiple/add.html")
+
+        # Check input field's accept attribute explicitly
+        # lists the allowed images extensions
+        soup = self.get_soup(response.content)
+        upload_field = soup.select("input#fileupload").pop()
+        self.assertEqual(
+            upload_field.attrs["accept"],
+            "image/gif, image/jpg, image/jpeg, image/png, image/webp, image/avif, image/heic",
+        )
 
         # draftail should NOT be a standard JS include on this page
         # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
