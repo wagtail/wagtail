@@ -434,6 +434,12 @@ Changelog
  * Maintenance: Update Pillow dependency to allow 11.x (Storm Heg)
 
 
+6.2.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
+
+
 6.2.3 (01.11.2024)
 ~~~~~~~~~~~~~~~~~~
 
