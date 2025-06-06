@@ -256,6 +256,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
  * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
 
 
