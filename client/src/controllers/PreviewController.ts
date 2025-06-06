@@ -787,8 +787,8 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     this.contentChecksPromise = (async () => {
-      await runContentChecks();
       await runAccessibilityChecks(() => this.newTabTarget.click());
+      await runContentChecks();
       this.contentChecksPromise = null;
     })();
 
