@@ -6,6 +6,7 @@ import {
   getAxeConfiguration,
   getA11yReport,
   renderA11yResults,
+  WagtailAxeConfiguration,
 } from '../includes/a11y-result';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
@@ -17,83 +18,6 @@ import { debounce } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
 import { setOptionalInterval } from '../utils/interval';
-
-const runContentChecks = async () => {
-  axe.registerPlugin(wagtailPreviewPlugin);
-
-  const contentMetrics = await getPreviewContentMetrics({
-    targetElement: 'main, [role="main"]',
-  });
-
-  // This requires Wagtail's preview plugin for axe to be registered in the
-  // preview iframe, which is not done in tests as the registration happens via
-  // the userbar.
-  if (!contentMetrics) return;
-
-  renderContentMetrics({
-    wordCount: contentMetrics.wordCount,
-    readingTime: contentMetrics.readingTime,
-  });
-};
-
-const runAccessibilityChecks = async (
-  onClickSelector: (selectorName: string, event: MouseEvent) => void,
-) => {
-  const a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
-    '#w-a11y-result-row-template',
-  );
-  const checksPanel = document.querySelector<HTMLElement>(
-    '[data-checks-panel]',
-  );
-  const config = getAxeConfiguration(document.body);
-  const toggleCounter = document.querySelector<HTMLElement>(
-    '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
-  );
-  const panelCounter = document.querySelector<HTMLElement>(
-    '[data-side-panel="checks"] [data-a11y-result-count]',
-  );
-
-  if (
-    !checksPanel ||
-    !a11yRowTemplate ||
-    !config ||
-    !toggleCounter ||
-    !panelCounter
-  ) {
-    return;
-  }
-
-  // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
-  config.context = {
-    include: {
-      fromFrames: ['#w-preview-iframe'].concat(
-        (config.context as ContextObject).include as string[],
-      ),
-    },
-  } as ContextObject;
-  if ((config.context.exclude as string[])?.length > 0) {
-    config.context.exclude = {
-      fromFrames: ['#w-preview-iframe'].concat(
-        config.context.exclude as string[],
-      ),
-    } as ContextObject['exclude'];
-  }
-
-  const { results, a11yErrorsNumber } = await getA11yReport(config);
-
-  toggleCounter.innerText = a11yErrorsNumber.toString();
-  toggleCounter.hidden = a11yErrorsNumber === 0;
-  panelCounter.innerText = a11yErrorsNumber.toString();
-  panelCounter.classList.toggle('has-errors', a11yErrorsNumber > 0);
-
-  renderA11yResults(
-    checksPanel,
-    results,
-    config,
-    a11yRowTemplate,
-    onClickSelector,
-  );
-};
 
 interface PreviewDataResponse {
   is_valid: boolean;
@@ -226,8 +150,20 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set in connect()
 
+  /** Template for rendering a row of accessibility check results. */
+  declare a11yRowTemplate: HTMLTemplateElement | null;
+  /** Configuration for Axe. */
+  declare axeConfig: WagtailAxeConfiguration | null;
+  /** Container for rendering content checks results. */
+  declare checksPanel: HTMLElement | null;
+  /** Content checks counter inside the checks panel. */
+  declare checksPanelCounter: HTMLElement | null;
   /** Side panel for content checks. */
   declare checksSidePanel: HTMLDivElement | null;
+  /** Content checks counter on the side panel toggle. */
+  declare checksToggleCounter: HTMLElement | null;
+  /** Whether content checks are enabled. */
+  declare contentChecksEnabled: boolean;
   /** Main editor form. */
   declare editForm: HTMLFormElement;
   /** ResizeObserver to observe when the panel is resized
@@ -351,8 +287,6 @@ export class PreviewController extends Controller<HTMLElement> {
     // element to also act as the controller.
     this.sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
-    this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
-
     this.activatePreview = this.activatePreview.bind(this);
     this.deactivatePreview = this.deactivatePreview.bind(this);
     this.setPreviewData = this.setPreviewData.bind(this);
@@ -362,15 +296,67 @@ export class PreviewController extends Controller<HTMLElement> {
     this.sidePanelContainer.addEventListener('show', this.activatePreview);
     this.sidePanelContainer.addEventListener('hide', this.deactivatePreview);
 
-    this.checksSidePanel?.addEventListener('show', this.activatePreview);
-    this.checksSidePanel?.addEventListener('hide', this.deactivatePreview);
+    this.setUpContentChecks();
+
+    this.restoreLastSavedPreferences();
+  }
+
+  setUpContentChecks() {
+    this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
+    this.a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
+      '#w-a11y-result-row-template',
+    );
+    this.checksPanel = document.querySelector<HTMLElement>(
+      '[data-checks-panel]',
+    );
+    this.axeConfig = getAxeConfiguration(document.body);
+    this.checksToggleCounter = document.querySelector<HTMLElement>(
+      '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
+    );
+    this.checksPanelCounter = document.querySelector<HTMLElement>(
+      '[data-side-panel="checks"] [data-a11y-result-count]',
+    );
+
+    if (
+      !(
+        this.checksSidePanel &&
+        this.checksPanel &&
+        this.a11yRowTemplate &&
+        this.axeConfig &&
+        this.checksToggleCounter &&
+        this.checksPanelCounter
+      )
+    ) {
+      this.contentChecksEnabled = false;
+      return;
+    }
+
+    // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
+    this.axeConfig.context = {
+      include: {
+        fromFrames: ['#w-preview-iframe'].concat(
+          (this.axeConfig.context as ContextObject).include as string[],
+        ),
+      },
+    } as ContextObject;
+    if ((this.axeConfig.context.exclude as string[])?.length > 0) {
+      this.axeConfig.context.exclude = {
+        fromFrames: ['#w-preview-iframe'].concat(
+          this.axeConfig.context.exclude as string[],
+        ),
+      } as ContextObject['exclude'];
+    }
+
+    axe.registerPlugin(wagtailPreviewPlugin);
+
+    this.checksSidePanel.addEventListener('show', this.activatePreview);
+    this.checksSidePanel.addEventListener('hide', this.deactivatePreview);
 
     // Add the message event listener here instead of using a Stimulus action,
     // as message events may originate from other sources and thus will add
     // noise to the console when used as an action.
     window.addEventListener('message', this.runChecks);
-
-    this.restoreLastSavedPreferences();
+    this.contentChecksEnabled = true;
   }
 
   renderUrlValueChanged(newValue: string) {
@@ -756,7 +742,11 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('loaded', { cancelable: false });
 
-    this.runChecks().finally(() => this.finishUpdate());
+    if (this.contentChecksEnabled) {
+      this.runChecks().finally(() => this.finishUpdate());
+    } else {
+      this.finishUpdate();
+    }
   }
 
   /**
@@ -787,12 +777,47 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     this.contentChecksPromise = (async () => {
-      await runAccessibilityChecks(() => this.newTabTarget.click());
-      await runContentChecks();
+      await this.runAccessibilityChecks();
+      await this.runContentChecks();
       this.contentChecksPromise = null;
     })();
 
     return this.contentChecksPromise;
+  }
+
+  async runAccessibilityChecks() {
+    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig!);
+
+    this.checksToggleCounter!.textContent = a11yErrorsNumber.toString();
+    this.checksToggleCounter!.hidden = a11yErrorsNumber === 0;
+    this.checksPanelCounter!.textContent = a11yErrorsNumber.toString();
+    this.checksPanelCounter!.classList.toggle(
+      'has-errors',
+      a11yErrorsNumber > 0,
+    );
+
+    renderA11yResults(
+      this.checksPanel!,
+      results,
+      this.axeConfig!,
+      this.a11yRowTemplate!,
+      () => this.newTabTarget.click(),
+    );
+  }
+
+  async runContentChecks() {
+    const contentMetrics = await getPreviewContentMetrics({
+      targetElement: 'main, [role="main"]',
+    });
+
+    // If for any reason the plugin fails to return the content metrics (e.g.
+    // the previewed page shows an error response), skip rendering the metrics.
+    if (!contentMetrics) return;
+
+    renderContentMetrics({
+      wordCount: contentMetrics.wordCount,
+      readingTime: contentMetrics.readingTime,
+    });
   }
 
   /**
@@ -868,13 +893,14 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   disconnect(): void {
-    window.removeEventListener('message', this.runChecks);
-
     this.sidePanelContainer.removeEventListener('show', this.activatePreview);
     this.sidePanelContainer.removeEventListener('hide', this.deactivatePreview);
 
-    this.checksSidePanel?.removeEventListener('show', this.activatePreview);
-    this.checksSidePanel?.removeEventListener('hide', this.deactivatePreview);
+    if (this.contentChecksEnabled) {
+      window.removeEventListener('message', this.runChecks);
+      this.checksSidePanel!.removeEventListener('show', this.activatePreview);
+      this.checksSidePanel!.removeEventListener('hide', this.deactivatePreview);
+    }
 
     this.resizeObserver.disconnect();
   }
