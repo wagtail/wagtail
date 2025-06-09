@@ -20,6 +20,7 @@ from wagtail.models import PreviewableMixin, Site
 
 from .forms import SiteSwitchForm
 from .models import BaseGenericSetting, BaseSiteSetting
+from .permissions import get_permission_policy
 from .registry import registry
 
 

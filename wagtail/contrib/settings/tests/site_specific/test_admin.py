@@ -82,6 +82,17 @@ class TestSiteSettingMenu(SiteSettingTestMixin, WagtailTestUtils, TestCase):
             response, reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
         )
 
+    def test_menu_item_with_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        self.assertContains(response, "Test site setting")
+        self.assertContains(
+            response, reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
+        )
+
     def test_menu_item_icon(self):
         menu_item = SettingMenuItem(IconSiteSetting, icon="tag", classname="test-class")
         self.assertEqual(menu_item.icon_name, "tag")
