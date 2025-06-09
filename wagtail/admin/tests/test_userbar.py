@@ -384,7 +384,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                         # Override via class attribute
                         ".sr-only",
                         # Should include the default exclude selectors
-                        {"fromShadowDOM": ["wagtail-userbar"]},
+                        {"fromShadowDom": ["wagtail-userbar"]},
                         # Override via method
                         "[data-please-ignore]",
                     ],
