@@ -14,10 +14,10 @@ from wagtail.admin.panels import (
 )
 from wagtail.admin.views import generic
 from wagtail.models import Site
-from wagtail.permission_policies import ModelPermissionPolicy
 
 from .forms import SiteSwitchForm
 from .models import BaseGenericSetting, BaseSiteSetting
+from .permissions import get_permission_policy
 from .registry import registry
 
 
@@ -89,7 +89,7 @@ class EditView(generic.EditView):
         self.app_name = app_name
         self.model_name = model_name
         self.model = get_model_from_url_params(app_name, model_name)
-        self.permission_policy = ModelPermissionPolicy(self.model)
+        self.permission_policy = get_permission_policy(self.model)
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
 
@@ -123,9 +123,13 @@ class EditView(generic.EditView):
         context = super().get_context_data(**kwargs)
 
         site_switcher = None
-        if self.site and Site.objects.count() > 1:
-            site_switcher = SiteSwitchForm(self.site, self.model)
-            context["media"] += site_switcher.media
+        if issubclass(self.model, BaseSiteSetting):
+            sites = self.permission_policy.sites_user_has_permission_for(
+                self.request.user, "change"
+            )
+            if len(sites) > 1:
+                site_switcher = SiteSwitchForm(self.site, self.model, sites=sites)
+                context["media"] += site_switcher.media
 
         context["site_switcher"] = site_switcher
         return context
