@@ -1,0 +1,28 @@
+{% load wagtailadmin_tags i18n %}
+
+<div>
+    {% if view_mode == "list" %}
+        <a href="?view=grid">
+            <button
+                type="button"
+                class="w-filter-button"
+                aria-label="{% trans 'Toggle view' %}"
+                style="align-items: center; justify-content: center; display: flex"
+            >
+                {% icon name="grip" %}
+            </button>
+        </a>
+
+    {% else %}
+        <a href="?view=list">
+            <button
+                type="button"
+                class="w-filter-button"
+                aria-label="{% trans 'Toggle view' %}"
+                style="align-items: center; justify-content: center; display: flex"
+            >
+                {% icon name="list-ul" %}
+            </button>
+        </a>
+    {% endif %}
+</div>
