@@ -1,6 +1,29 @@
 import { Application } from '@hotwired/stimulus';
+import axe from 'axe-core';
 import { ProgressController } from './ProgressController';
 import { PreviewController } from './PreviewController';
+import { wagtailPreviewPlugin } from '../includes/previewPlugin';
+
+jest.mock('axe-core', () => {
+  const originalAxe = jest.requireActual('axe-core');
+  return {
+    ...originalAxe,
+    run: jest.fn(),
+    utils: {
+      ...originalAxe.utils,
+      sendCommandToFrame: jest.fn(),
+    },
+  };
+});
+
+function mockAxeResults(runResults, contentChecksResults) {
+  axe.run.mockResolvedValueOnce(runResults);
+  axe.utils.sendCommandToFrame.mockImplementationOnce(
+    (frame, options, callback) => {
+      callback(contentChecksResults);
+    },
+  );
+}
 
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');
@@ -91,6 +114,49 @@ describe('PreviewController', () => {
     </select>
   `;
 
+  const axeConfig = {
+    context: { include: ['main'] },
+    options: {},
+    messages: {
+      'heading-order': {
+        error_name: 'Incorrect heading hierarchy',
+        help_text: 'Avoid skipping levels',
+      },
+    },
+    spec: {},
+  };
+
+  const checksSidePanel = /* html */ `
+    <button type="button" data-side-panel-toggle="checks">
+      <div data-side-panel-toggle-counter></div>
+    </button>
+    <div data-side-panel="checks">
+      <h2 id="side-panel-checks-title">Checks</h2>
+      <template id="w-a11y-result-row-template">
+        <div data-a11y-result-row>
+          <h3>
+            <span data-a11y-result-name></span>
+          </h3>
+          <div data-a11y-result-help></div>
+          <button
+            data-a11y-result-selector
+            type="button"
+            aria-label="Show issue"
+          >
+            <span data-a11y-result-selector-text></span>
+          </button>
+        </div>
+      </template>
+      <h3>Word count: <span data-content-word-count>-</span></h3>
+      <h3>Reading time: <span data-content-reading-time>-</span></h3>
+      <h3>Issues found: <span data-a11y-result-count>-</span></h3>
+      <div data-checks-panel></div>
+    </div>
+    <script type="application/json" id="accessibility-axe-configuration">
+      ${JSON.stringify(axeConfig)}
+    </script>
+  `;
+
   beforeAll(() => {
     Object.keys(events).forEach((name) => {
       document.addEventListener(`${identifier}:${name}`, pushEvent);
@@ -111,9 +177,6 @@ describe('PreviewController', () => {
       <form method="POST" data-edit-form>
         <input type="text" id="id_title" name="title" value="My Page" />
       </form>
-      <div data-side-panel="checks">
-        <h2 id="side-panel-checks-title">Checks</h2>
-      </div>
       <div data-side-panel="preview">
         <h2 id="side-panel-preview-title">Preview</h2>
         <div
@@ -286,6 +349,10 @@ describe('PreviewController', () => {
     await Promise.resolve();
 
     await expectIframeReloaded(expectedUrl);
+
+    // If content checks are enabled, there are a few more promises to resolve
+    await jest.runOnlyPendingTimersAsync();
+
     expect(events).toMatchObject({
       update: [expect.any(Event)],
       json: [expect.any(Event)],
@@ -1560,6 +1627,370 @@ describe('PreviewController', () => {
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
       });
+    });
+  });
+
+  describe('content checks', () => {
+    const mockViolations = [
+      {
+        id: 'landmark-complementary-is-top-level',
+        impact: 'moderate',
+        tags: ['cat.semantics', 'best-practice'],
+        description:
+          'Ensure the complementary landmark or aside is at top level',
+        help: 'Aside should not be contained in another landmark',
+        helpUrl:
+          'https://dequeuniversity.com/rules/axe/4.10/landmark-complementary-is-top-level?application=axeAPI',
+        nodes: [
+          {
+            any: [
+              {
+                id: 'landmark-is-top-level',
+                data: {
+                  role: null,
+                },
+                relatedNodes: [],
+                impact: 'moderate',
+                message: 'The null landmark is contained in another landmark.',
+              },
+            ],
+            all: [],
+            none: [],
+            impact: 'moderate',
+            html: '<aside><div><div><h4>Origin</h4><p>United States (New England)</p></div><div><h4>Type</h4><p>Yeast bread</p></div></div></aside>',
+            target: ['#w-preview-iframe', 'aside'],
+            failureSummary:
+              'Fix any of the following:\n  The null landmark is contained in another landmark.',
+          },
+        ],
+      },
+      {
+        id: 'heading-order',
+        impact: 'moderate',
+        tags: ['cat.semantics', 'best-practice'],
+        description: 'Ensure the order of headings is semantically correct',
+        help: 'Heading levels should only increase by one',
+        helpUrl:
+          'https://dequeuniversity.com/rules/axe/4.10/heading-order?application=axeAPI',
+        nodes: [
+          {
+            any: [
+              {
+                id: 'heading-order',
+                data: null,
+                relatedNodes: [],
+                impact: 'moderate',
+                message: 'Heading order invalid',
+              },
+            ],
+            all: [],
+            none: [],
+            impact: 'moderate',
+            html: '<h4>Origin</h4>',
+            target: ['#w-preview-iframe', 'div:nth-child(1) > h4'],
+            failureSummary:
+              'Fix any of the following:\n  Heading order invalid',
+          },
+        ],
+      },
+    ];
+
+    beforeEach(() => {
+      // We log accessibility violations to the console as errors,
+      // mock it to avoid cluttering the test output.
+      jest.spyOn(console, 'error').mockImplementation(() => {});
+      document.body.insertAdjacentHTML('beforeend', checksSidePanel);
+    });
+
+    afterEach(() => {
+      // eslint-disable-next-line no-console
+      console.error.mockRestore();
+      // Ensure disconnect() is called before the next test so that the window's
+      // event listeners are removed
+      document.body.innerHTML = '';
+    });
+
+    it('should run content checks on the preview and render the results', async () => {
+      mockAxeResults(
+        { violations: mockViolations },
+        { wordCount: 123, readingTime: 7 },
+      );
+
+      await initializeOpenedPanel();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        'axe.run results',
+        mockViolations,
+      );
+
+      await Promise.resolve();
+
+      const toggleCounter = document.querySelector(
+        '[data-side-panel-toggle-counter]',
+      );
+      expect(toggleCounter.textContent.trim()).toEqual('2');
+
+      const wordCount = document.querySelector('[data-content-word-count]');
+      expect(wordCount.textContent.trim()).toEqual('123');
+
+      const readingTime = document.querySelector('[data-content-reading-time]');
+      expect(readingTime.textContent.trim()).toEqual('7 mins');
+
+      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      expect(panelCounter.textContent.trim()).toEqual('2');
+
+      const checksPanel = document.querySelector('[data-checks-panel]');
+      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+
+      // Note: The sorting algorithm does not work on the preview panel because
+      // the logic does not access the iframe's DOM to compare the nodes, so it
+      // ends up comparing the iframe itself, thus
+      expect(resultRows.length).toEqual(2);
+
+      // Should allow custom error message and help text from the config instead
+      // of Axe's defaults
+      expect(
+        resultRows[0]
+          .querySelector('[data-a11y-result-name]')
+          .textContent.trim(),
+      ).toEqual('Incorrect heading hierarchy');
+      expect(
+        resultRows[0]
+          .querySelector('[data-a11y-result-help]')
+          .textContent.trim(),
+      ).toEqual('Avoid skipping levels');
+      // Should strip out the #w-preview-iframe selector
+      expect(
+        resultRows[0]
+          .querySelector('[data-a11y-result-selector]')
+          .textContent.trim(),
+      ).toEqual('div:nth-child(1) > h4');
+
+      // Should use Axe's error message and help text
+      expect(
+        resultRows[1]
+          .querySelector('[data-a11y-result-name]')
+          .textContent.trim(),
+      ).toEqual('Aside should not be contained in another landmark');
+      expect(
+        resultRows[1]
+          .querySelector('[data-a11y-result-help]')
+          .textContent.trim(),
+      ).toEqual('Ensure the complementary landmark or aside is at top level');
+      // Should strip out the #w-preview-iframe selector
+      const selector = resultRows[1].querySelector(
+        '[data-a11y-result-selector]',
+      );
+      expect(selector.textContent.trim()).toEqual('aside');
+
+      mockWindow({ open: jest.fn() });
+
+      // Click the selector link to open the result in a new tab
+      selector.click();
+
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
+
+      // Should open the result in a new tab with the correct URL
+      const absoluteUrl = `http://localhost${url}`;
+      expect(window.open).toHaveBeenCalledWith(absoluteUrl, absoluteUrl);
+    });
+
+    it('should not throw an error if content metrics plugin fails to return the results', async () => {
+      mockAxeResults({ violations: mockViolations }, null);
+
+      await initializeOpenedPanel();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        'axe.run results',
+        mockViolations,
+      );
+
+      await Promise.resolve();
+
+      const toggleCounter = document.querySelector(
+        '[data-side-panel-toggle-counter]',
+      );
+      expect(toggleCounter.textContent.trim()).toEqual('2');
+
+      const wordCount = document.querySelector('[data-content-word-count]');
+      expect(wordCount.textContent.trim()).toEqual('-');
+
+      const readingTime = document.querySelector('[data-content-reading-time]');
+      expect(readingTime.textContent.trim()).toEqual('-');
+
+      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      expect(panelCounter.textContent.trim()).toEqual('2');
+
+      const checksPanel = document.querySelector('[data-checks-panel]');
+      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+
+      // Should still render accessibility results
+      expect(resultRows.length).toEqual(2);
+    });
+
+    it('should re-run content checks when the window gets a message event with w-userbar:axe-ready', async () => {
+      let violations = [];
+
+      mockAxeResults({ violations }, {});
+      await initializeOpenedPanel();
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      violations = mockViolations;
+      mockAxeResults({ violations }, { wordCount: 456, readingTime: 14 });
+
+      // A non-Wagtail message event should not trigger the checks
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { something: { foo: 'bar' } },
+        }),
+      );
+      await jest.runAllTimersAsync();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      // A Wagtail message event that is unrelated should not trigger the checks
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:other' } },
+        }),
+      );
+      await jest.runAllTimersAsync();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      // Simulate the Wagtail userbar sending the axe-ready event to indicate
+      // that it just finished running the accessibility checks and the
+      // PreviewController should re-run the checks
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:axe-ready' } },
+        }),
+      );
+      await jest.runAllTimersAsync();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        'axe.run results',
+        mockViolations,
+      );
+      // eslint-disable-next-line no-console
+      console.error.mockClear();
+
+      // Mock two long-running checks
+      violations = [mockViolations[1]];
+      const newViolations = [mockViolations[0]];
+      mockAxeResults(
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({ violations });
+          }, 5_000);
+        }),
+        {},
+      );
+      mockAxeResults(
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({ violations: newViolations });
+          }, 15_000);
+        }),
+        {},
+      );
+
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:axe-ready' } },
+        }),
+      );
+      await jest.advanceTimersByTimeAsync(4_000);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      // If an event is dispatched while the checks are still running,
+      // it will be queued and processed after the current check finishes
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:axe-ready' } },
+        }),
+      );
+      await jest.advanceTimersByTimeAsync(5_000);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith('axe.run results', violations);
+
+      await jest.advanceTimersByTimeAsync(7_000);
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(2);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        'axe.run results',
+        newViolations,
+      );
+    });
+
+    it('should clean up event listeners on disconnect', async () => {
+      mockAxeResults({ violations: [] }, {});
+      const panel = document.querySelector('[data-side-panel="checks"]');
+      const element = document.querySelector('[data-controller="w-preview"]');
+      const spies = [
+        jest.spyOn(panel, 'addEventListener'),
+        jest.spyOn(panel, 'removeEventListener'),
+        jest.spyOn(window, 'addEventListener'),
+        jest.spyOn(window, 'removeEventListener'),
+      ];
+
+      await initializeOpenedPanel();
+
+      const controller = application.getControllerForElementAndIdentifier(
+        element,
+        identifier,
+      );
+
+      expect(window.addEventListener).toHaveBeenCalledWith(
+        'message',
+        controller.runChecks,
+      );
+      expect(panel.addEventListener).toHaveBeenCalledWith(
+        'show',
+        controller.activatePreview,
+      );
+      expect(panel.addEventListener).toHaveBeenCalledWith(
+        'hide',
+        controller.deactivatePreview,
+      );
+
+      element.removeAttribute('data-controller');
+      await jest.runAllTimersAsync();
+
+      expect(window.removeEventListener).toHaveBeenCalledWith(
+        'message',
+        controller.runChecks,
+      );
+      expect(panel.removeEventListener).toHaveBeenCalledWith(
+        'show',
+        controller.activatePreview,
+      );
+      expect(panel.removeEventListener).toHaveBeenCalledWith(
+        'hide',
+        controller.deactivatePreview,
+      );
+
+      spies.forEach((spy) => spy.mockRestore());
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
     });
   });
 });
