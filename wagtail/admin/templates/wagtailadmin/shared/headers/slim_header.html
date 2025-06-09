@@ -63,6 +63,9 @@
                     {% endblock %}
                 </div>
             </div>
+            {% block view_toggle %}
+                {# Button to toggle between image listing's grid and list view #}
+            {% endblock %}
 
             {% block search_form %}
                 {% if not search_url %}
@@ -110,6 +113,7 @@
                             required as the content is dynamically loaded.
                         {% endcomment %}
                         <input hidden disabled type="submit" />
+                        <input type="hidden" name="view" value="{{ view_mode }}">
                     </form>
                 {% endif %}
             {% endblock %}

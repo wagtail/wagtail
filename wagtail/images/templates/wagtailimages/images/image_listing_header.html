@@ -1,6 +1,10 @@
 {% extends "wagtailadmin/shared/headers/slim_header.html" %}
 {% load wagtailadmin_tags %}
 
+{% block view_toggle %}
+    {% include "wagtailimages/images/view_toggle_button.html" %}
+{% endblock %}
+
 {% block extra_form_fields %}
     {{ extra_form_fields  }}
 {% endblock %}
