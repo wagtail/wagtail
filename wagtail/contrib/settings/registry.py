@@ -9,15 +9,15 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.menu import MenuItem
-from wagtail.permission_policies import ModelPermissionPolicy
 
 from .forms import SitePermissionForm
-from .permissions import user_can_edit_setting_type
+from .permissions import get_permission_policy
 
 
 class SettingMenuItem(MenuItem):
     def __init__(self, model, icon="cog", classname="", **kwargs):
         self.model = model
+        self.permission_policy = get_permission_policy(model)
         super().__init__(
             label=capfirst(model._meta.verbose_name),
             url=reverse(
@@ -30,7 +30,7 @@ class SettingMenuItem(MenuItem):
         )
 
     def is_shown(self, request):
-        return user_can_edit_setting_type(request.user, self.model)
+        return self.permission_policy.user_has_permission(request.user, "change")
 
 
 class SiteSettingAdminURLFinder(ModelAdminURLFinder):
@@ -98,7 +98,7 @@ class Registry(list):
                 return SitePermissionFormSubclass
 
         # Register an admin URL finder
-        permission_policy = ModelPermissionPolicy(model)
+        permission_policy = get_permission_policy(model)
 
         if issubclass(model, BaseSiteSetting):
             finder_class = type(

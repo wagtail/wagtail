@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from django.utils.text import capfirst
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -20,7 +19,7 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 
-class TestSiteSettingMenu(WagtailTestUtils, TestCase):
+class SiteSettingTestMixin:
     def login_only_admin(self):
         """Log in with a user that only has permission to access the admin"""
         user = self.create_user(username="test", password="password")
@@ -32,11 +31,30 @@ class TestSiteSettingMenu(WagtailTestUtils, TestCase):
         self.login(username="test", password="password")
         return user
 
+    def grant_default_site_permission(self, user):
+        """
+        Grant the user permission to edit TestSiteSetting for the default site.
+        This is used to test site-specific permissions.
+        """
+        site_owners = Group.objects.create(name="Site Owners")
+        GroupSitePermission.objects.create(
+            group=site_owners,
+            site=Site.objects.get(is_default_site=True),
+            permission=Permission.objects.get_by_natural_key(
+                app_label="tests",
+                model="testsitesetting",
+                codename="change_testsitesetting",
+            ),
+        )
+        user.groups.add(site_owners)
+
+
+class TestSiteSettingMenu(SiteSettingTestMixin, WagtailTestUtils, TestCase):
     def test_menu_item_in_admin(self):
         self.login()
         response = self.client.get(reverse("wagtailadmin_home"))
 
-        self.assertContains(response, capfirst(TestSiteSetting._meta.verbose_name))
+        self.assertContains(response, "Test site setting")
         self.assertContains(
             response, reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
         )
@@ -45,8 +63,19 @@ class TestSiteSettingMenu(WagtailTestUtils, TestCase):
         self.login_only_admin()
         response = self.client.get(reverse("wagtailadmin_home"))
 
-        self.assertNotContains(response, TestSiteSetting._meta.verbose_name)
+        self.assertNotContains(response, "Test site setting")
         self.assertNotContains(
+            response, reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
+        )
+
+    def test_menu_item_with_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+
+        response = self.client.get(reverse("wagtailadmin_home"))
+
+        self.assertContains(response, "Test site setting")
+        self.assertContains(
             response, reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
         )
 
@@ -70,11 +99,23 @@ class BaseTestSiteSettingView(WagtailTestUtils, TestCase):
         return reverse("wagtailsettings:edit", args=args)
 
 
-class TestSiteSettingCreateView(BaseTestSiteSettingView):
+class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
     def setUp(self):
         self.user = self.login()
 
     def test_get_edit(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_edit_without_permission(self):
+        self.login_only_admin()
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_edit_with_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
@@ -98,6 +139,28 @@ class TestSiteSettingCreateView(BaseTestSiteSettingView):
         url_finder = AdminURLFinder(self.user)
         expected_url = "/admin/settings/tests/testsitesetting/%d/" % default_site.pk
         self.assertEqual(url_finder.get_edit_url(setting), expected_url)
+
+    def test_edit_without_permission(self):
+        self.login_only_admin()
+        response = self.post(
+            post_data={"title": "Edited site title", "email": "test@example.com"}
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertFalse(TestSiteSetting.objects.exists())
+
+    def test_edit_with_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+
+        response = self.post(
+            post_data={"title": "Edited site title", "email": "test@example.com"}
+        )
+        self.assertEqual(response.status_code, 302)
+        default_site = Site.objects.get(is_default_site=True)
+        setting = TestSiteSetting.objects.get(site=default_site)
+        self.assertEqual(setting.title, "Edited site title")
+        self.assertEqual(setting.email, "test@example.com")
 
     def test_file_upload_multipart(self):
         response = self.get(setting=FileSiteSetting)
@@ -205,7 +268,7 @@ class TestSiteSettingCreateView(BaseTestSiteSettingView):
         self.assertEqual(settings.sensitive_email, "test@example.com")
 
 
-class TestSiteSettingEditView(BaseTestSiteSettingView):
+class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
     def setUp(self):
         self.default_site = Site.objects.get(is_default_site=True)
 
@@ -218,6 +281,18 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
         self.user = self.login()
 
     def test_get_edit(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_edit_without_permission(self):
+        self.login_only_admin()
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+    def test_get_edit_with_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
@@ -249,6 +324,29 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
         setting = TestSiteSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, "Edited site title")
         self.assertEqual(setting.email, "test@example.com")
+
+    def test_edit_without_permission(self):
+        self.login_only_admin()
+        response = self.post(
+            post_data={"title": "Edited site title", "email": "test@example.com"}
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.test_setting.refresh_from_db()
+        self.assertEqual(self.test_setting.title, "Site title")
+        self.assertEqual(self.test_setting.email, "initial@example.com")
+
+    def test_edit_with_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+
+        response = self.post(
+            post_data={"title": "Edited site title", "email": "test@example.com"}
+        )
+        self.assertEqual(response.status_code, 302)
+        self.test_setting.refresh_from_db()
+        self.assertEqual(self.test_setting.title, "Edited site title")
+        self.assertEqual(self.test_setting.email, "test@example.com")
 
     def test_get_redirect_to_relevant_instance(self):
         url = reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
@@ -382,7 +480,7 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
 @override_settings(
     ALLOWED_HOSTS=["testserver", "example.com", "noneoftheabove.example.com"]
 )
-class TestMultiSite(BaseTestSiteSettingView):
+class TestMultiSite(SiteSettingTestMixin, BaseTestSiteSettingView):
     def setUp(self):
         self.default_site = Site.objects.get(is_default_site=True)
         self.other_site = Site.objects.create(
@@ -438,7 +536,44 @@ class TestMultiSite(BaseTestSiteSettingView):
         """Check that the switcher form exists in the page"""
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'id="settings-site-switch"')
+        soup = self.get_soup(response.content)
+        options = soup.select("form#settings-site-switch option")
+        self.assertEqual(len(options), 2)  # other site + default site
+        self.assertEqual("example.com", options[0].text.strip())
+        self.assertEqual("localhost [default]", options[1].text.strip())
+
+    def test_no_switcher_when_only_permission_for_one_site(self):
+        """The switcher should not be displayed if the user only has permission to edit one site"""
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'id="settings-site-switch"')
+
+    def test_switcher_when_permission_for_individual_sites(self):
+        """The switcher should only show the sites the user has permission to edit"""
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+        third_site = Site.objects.create(
+            hostname="third.example.com", root_page=Page.objects.get(pk=2)
+        )
+        GroupSitePermission.objects.create(
+            group=Group.objects.get(name="Site Owners"),
+            site=third_site,
+            permission=Permission.objects.get_by_natural_key(
+                app_label="tests",
+                model="testsitesetting",
+                codename="change_testsitesetting",
+            ),
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        options = soup.select("form#settings-site-switch option")
+        self.assertEqual(len(options), 2)  # default site + third site
+        self.assertEqual("localhost [default]", options[0].text.strip())
+        self.assertEqual("third.example.com", options[1].text.strip())
 
     def test_unknown_site(self):
         """Check that unknown sites throw a 404"""
