@@ -498,10 +498,8 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             search_query, columns=["body"], output_field=FloatField()
         )
 
-        index_query = (
-            IndexEntry.objects.annotate(score=score_expression).filter(
-                content_type_id__in=get_descendants_content_types_pks(self.queryset.model)
-            )
+        index_query = IndexEntry.objects.annotate(score=score_expression).filter(
+            content_type_id__in=get_descendants_content_types_pks(self.queryset.model)
         )
         # Filter the index query down to just those objects that match (or don't match) the search query.
         if not negated:
@@ -510,17 +508,18 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             index_query = index_query.exclude(match_expression)
 
         # Finally, filter self.queryset down to only those objects that match the search query.
-        results = self.queryset.filter(id__in=index_query.values('object_id'))
+        results = self.queryset.filter(id__in=index_query.values("object_id"))
         # If the caller requested it, annotate the queryset with the scores, and possibly order by them.
         if score_field is not None and not negated:
             # When the query is negated, all the scores will be 0, making this block irrelevant.
 
             # Create a scalar subquery to associate the scores with the primary keys of the results.
-            score_subquery = (
-                index_query.filter(object_id=OuterRef('pk'))
-                .values('score')[:1]
+            score_subquery = index_query.filter(object_id=OuterRef("pk")).values(
+                "score"
+            )[:1]
+            results = results.annotate(
+                **{score_field: Subquery(score_subquery, output_field=FloatField())}
             )
-            results = results.annotate(**{score_field: Subquery(score_subquery, output_field=FloatField())})
             if self.order_by_relevance:
                 results = results.order_by(f"-{score_field}", "-pk")
 
