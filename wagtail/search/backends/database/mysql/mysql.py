@@ -8,7 +8,7 @@ from django.db import (
     router,
     transaction,
 )
-from django.db.models import Case, When
+from django.db.models import Case, OuterRef, Subquery, When
 from django.db.models.aggregates import Avg, Count
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.expressions import F
@@ -498,25 +498,35 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             search_query, columns=["body"], output_field=FloatField()
         )
 
-        index_entries = IndexEntry.objects.annotate(score=score_expression).filter(
-            content_type_id__in=get_descendants_content_types_pks(self.queryset.model)
+        index_query = (
+            IndexEntry.objects.annotate(score=score_expression).filter(
+                content_type_id__in=get_descendants_content_types_pks(self.queryset.model)
+            )
         )
+        # Filter the index query down to just those objects that match (or don't match) the search query.
         if not negated:
-            index_entries = index_entries.filter(match_expression)
-            if self.order_by_relevance:  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
-                index_entries = index_entries.order_by(score_expression.desc())
+            index_query = index_query.filter(match_expression)
         else:
-            index_entries = index_entries.exclude(match_expression)
+            index_query = index_query.exclude(match_expression)
 
-        index_entries = index_entries[start:stop]  # Trim the results
+        # Finally, filter self.queryset down to only those objects that match the search query.
+        results = self.queryset.filter(id__in=index_query.values('object_id'))
+        # If the caller requested it, annotate the queryset with the scores, and possibly order by them.
+        if score_field is not None and not negated:
+            # When the query is negated, all the scores will be 0, making this block irrelevant.
 
-        object_ids = {
-            index_entry.object_id for index_entry in index_entries
-        }  # Get the set of IDs from the indexed objects, removes duplicates too
+            # Create a scalar subquery to associate the scores with the primary keys of the results.
+            score_subquery = (
+                index_query.filter(object_id=OuterRef('pk'))
+                .values('score')[:1]
+            )
+            results = results.annotate(**{score_field: Subquery(score_subquery, output_field=FloatField())})
+            if self.order_by_relevance:
+                results = results.order_by(f"-{score_field}", "-pk")
 
-        results = self.queryset.filter(id__in=object_ids)
-
-        return results
+        # We can't trim the results until the end, because mysql doesn't support LIMIT in subqueries, and you can't
+        # re-order a sliced queryset.
+        return results[start:stop]
 
     def _process_lookup(self, field, lookup, value):
         lhs = field.get_attname(self.queryset.model) + "__" + lookup
