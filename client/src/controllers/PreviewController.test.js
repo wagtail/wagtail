@@ -1992,5 +1992,47 @@ describe('PreviewController', () => {
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(0);
     });
+
+    describe('custom axe configuration', () => {
+      it('should convert axe context config for the preview iframe', async () => {
+        mockAxeResults({ violations: [] }, {});
+        await initializeOpenedPanel();
+        expect(axe.run).toHaveBeenCalledWith(
+          {
+            include: {
+              fromFrames: ['#w-preview-iframe', 'main'],
+            },
+          },
+          axeConfig.options,
+        );
+      });
+
+      it('should respect context.exclude', async () => {
+        const config = document.getElementById(
+          'accessibility-axe-configuration',
+        );
+        config.innerHTML = JSON.stringify({
+          ...axeConfig,
+          context: {
+            include: ['#main'],
+            exclude: ['[data-ignored]'],
+          },
+        });
+
+        mockAxeResults({ violations: [] }, {});
+        await initializeOpenedPanel();
+        expect(axe.run).toHaveBeenCalledWith(
+          {
+            include: {
+              fromFrames: ['#w-preview-iframe', '#main'],
+            },
+            exclude: {
+              fromFrames: ['#w-preview-iframe', '[data-ignored]'],
+            },
+          },
+          axeConfig.options,
+        );
+      });
+    });
   });
 });
