@@ -145,7 +145,7 @@ describe('getA11yReport', () => {
     };
     (axe.run as jest.Mock).mockResolvedValue(mockResults);
     const config: WagtailAxeConfiguration = {
-      context: 'body',
+      context: { include: ['body'] },
       options: {},
       messages: {},
       spec: {
@@ -169,7 +169,7 @@ describe('getA11yReport', () => {
     };
     (axe.run as jest.Mock).mockResolvedValue(mockResults);
     const config: WagtailAxeConfiguration = {
-      context: 'body',
+      context: { include: ['body'] },
       options: {},
       messages: {},
       spec: {

@@ -1,6 +1,6 @@
 import axe, {
   AxeResults,
-  ElementContext,
+  ContextObject,
   NodeResult,
   Result,
   RunOptions,
@@ -46,7 +46,7 @@ interface ErrorMessage {
   help_text: string;
 }
 export interface WagtailAxeConfiguration {
-  context: ElementContext;
+  context: ContextObject;
   options: RunOptions;
   messages: Record<string, ErrorMessage>;
   spec: Spec;
