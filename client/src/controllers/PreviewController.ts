@@ -332,13 +332,12 @@ export class PreviewController extends Controller<HTMLElement> {
     }
 
     // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
-    this.axeConfig.context = {
-      include: {
-        fromFrames: ['#w-preview-iframe'].concat(
-          (this.axeConfig.context as ContextObject).include as string[],
-        ),
-      },
-    } as ContextObject;
+    this.axeConfig.context.include = {
+      fromFrames: ['#w-preview-iframe'].concat(
+        this.axeConfig.context.include as string[],
+      ),
+    } as ContextObject['include'];
+
     if ((this.axeConfig.context.exclude as string[])?.length > 0) {
       this.axeConfig.context.exclude = {
         fromFrames: ['#w-preview-iframe'].concat(
