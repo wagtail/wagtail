@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Permission
 from django.db.models import Q
 
 from wagtail.models import GroupSitePermission, Site
@@ -15,16 +14,25 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
     individual sites through wagtail.models.GroupSitePermission records.
     """
 
-    def _user_has_global_permission(self, user, permission_ids):
+    permission_cache_name = "_site_permission_cache"
+
+    def get_all_permissions_for_user(self, user):
+        # For these users, we can determine the permissions without querying
+        # GroupCollectionPermission by checking it directly in _check_perm()
+        if not user.is_active or user.is_anonymous or user.is_superuser:
+            return GroupSitePermission.objects.none()
+
+        return GroupSitePermission.objects.filter(group__user=user).select_related(
+            "permission"
+        )
+
+    def _user_has_global_permission(self, user, actions):
         """
         Check if the user has any of the given permissions assigned through a global
         django.contrib.auth permission, either directly or through a group.
         """
-        return (
-            Permission.objects.filter(
-                id__in=permission_ids, group__in=user.groups.all()
-            ).exists()
-            or user.user_permissions.filter(id__in=permission_ids).exists()
+        return any(
+            user.has_perm(self._get_permission_name(action)) for action in actions
         )
 
     def user_has_any_permission(self, user, actions):
@@ -37,22 +45,16 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
         if user.is_superuser:
             return True
 
-        permission_ids = list(
-            self._get_permission_objects_for_actions(actions).values_list(
-                "id", flat=True
-            )
+        if self._user_has_global_permission(user, actions):
+            return True
+
+        codenames = self._get_permission_codenames(actions)
+
+        return any(
+            group_site_permission.permission.content_type == self._content_type
+            and group_site_permission.permission.codename in codenames
+            for group_site_permission in self.get_cached_permissions_for_user(user)
         )
-
-        if self._user_has_global_permission(user, permission_ids):
-            return True
-
-        # Look for site-specific permissions associated with any of the user's groups
-        if GroupSitePermission.objects.filter(
-            permission_id__in=permission_ids, group__in=user.groups.all()
-        ).exists():
-            return True
-
-        return False
 
     def users_with_any_permission(self, actions):
         """
@@ -88,27 +90,22 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
         if user.is_superuser:
             return True
 
-        permission_ids = list(
-            self._get_permission_objects_for_actions(actions).values_list(
-                "id", flat=True
-            )
-        )
-
-        if self._user_has_global_permission(user, permission_ids):
+        if self._user_has_global_permission(user, actions):
             return True
+
+        codenames = self._get_permission_codenames(actions)
 
         if isinstance(instance, Site):
-            site = instance
+            site_id = instance.pk
         else:
-            site = instance.site
+            site_id = instance.site_id
 
-        # Look for a site-specific permission associated with any of the user's groups
-        if GroupSitePermission.objects.filter(
-            permission_id__in=permission_ids, group__in=user.groups.all(), site=site
-        ).exists():
-            return True
-
-        return False
+        return any(
+            group_site_permission.permission.content_type == self._content_type
+            and group_site_permission.permission.codename in codenames
+            and group_site_permission.site_id == site_id
+            for group_site_permission in self.get_cached_permissions_for_user(user)
+        )
 
     def sites_user_has_any_permission_for(self, user, actions):
         """
@@ -126,7 +123,7 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
             )
         )
 
-        if self._user_has_global_permission(user, permission_ids):
+        if self._user_has_global_permission(user, actions):
             return Site.objects.all()
 
         # Look for site-specific permissions associated with any of the user's groups
