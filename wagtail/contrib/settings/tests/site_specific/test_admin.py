@@ -59,6 +59,9 @@ class TestSiteSettingMenu(SiteSettingTestMixin, WagtailTestUtils, TestCase):
             response, reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
         )
 
+        # test that custom icon is used
+        self.assertContains(response, '"tag"')
+
     def test_menu_item_no_permissions(self):
         self.login_only_admin()
         response = self.client.get(reverse("wagtailadmin_home"))
