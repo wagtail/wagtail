@@ -891,6 +891,7 @@
 * Paul Craciunoiu
 * Richard Allen
 * Dimaco
+* Charan T M
 
 ## Translators
 

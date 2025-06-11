@@ -298,6 +298,32 @@ class BaseTypedTableBlock(Block):
         else:
             return ""
 
+    def get_searchable_content(self, value):
+        """extract all searchable content from the typed table block (caption, headings, cells)."""
+        content = []
+
+        if not value:
+            return content
+
+        if value.caption:
+            content.append(str(value.caption))
+
+        for col in value.columns:
+            heading = col.get("heading")
+
+            if heading:
+                content.append(str(heading))
+
+        for row in value.row_data:
+            for col, cell in zip(value.columns, row["values"]):
+                block = col.get("block")
+                if hasattr(block, "get_searchable_content"):
+                    content.extend(block.get_searchable_content(cell))
+                elif cell is not None:
+                    content.append(str(cell))
+
+        return content
+
     class Meta:
         default = None
         icon = "table"
