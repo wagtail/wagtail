@@ -345,24 +345,39 @@ class TestTableBlock(TestCase):
             },
         )
 
-    def test_get_searchable_block(self):
-        block = TypedTableBlock(
-            [("name", blocks.CharBlock()), ("quantity", blocks.IntegerBlock())]
-        )
+    class TestTableBlock(TestCase):
+        def test_get_searchable_content_includes_caption_headings_and_cells(self):
+            columns = [
+                {"heading": "Fruit", "block": block.CharBlock()},
+                {"heading": "Quantity", "block": block.CharBlock()},
+            ]
 
-        table_data = {
-            "columns": [
-                {"type": "name", "heading": "Fruit"},
-                {"type": "quantity", "heading": "qty"},
-            ],
-            "rows": [{"values": ["Apple", 5]}, {"values": ["Banana", 10]}],
-            "caption": "Fruit Stock",
-        }
+            row_data = [{"values": ["Apple", "5"]}, {"values": ["Banana", "10"]}]
 
-        value = block.to_python(table_data)
-        content = block.get_searchable_content(value)
+            class Value:
+                def __init__(self, caption, columns, row_data):
+                    self.caption = caption
+                    self.columns = columns
+                    self.row_data = row_data
 
-        self.assertEqual(content, ["Apple", "5", "Banana", "10"])
+            value = Value(
+                caption="This is a fruit table", columns=columns, row_data=row_data
+            )
+
+            block = TypedTableBlock()
+            content = block.get_searchable_content(value)
+
+            expected_content = [
+                "This is a fruit table",
+                "Fruit",
+                "Quantity",
+                "Apple",
+                "5",
+                "Banana",
+                "10",
+            ]
+
+            self.assertEqual(content, expected_content)
 
 
 class TestBlockDefinitionLookup(TestCase):
