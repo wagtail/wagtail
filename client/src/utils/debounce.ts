@@ -30,7 +30,7 @@
 export const debounce = <A extends any[], R = any>(
   func: (...args: A) => R | Promise<R>,
   wait: number | null = 0,
-): { (...args: A): Promise<R>; cancel(): void } => {
+): DebouncedFunction<A, R> => {
   let timeoutId: number | undefined;
 
   const debounced = (...args: A) => {
@@ -59,5 +59,13 @@ export const debounce = <A extends any[], R = any>(
     window.clearTimeout(timeoutId);
   };
 
+  debounced.restore = () => func;
+
   return debounced;
+};
+
+export type DebouncedFunction<A extends any[], R = any> = {
+  (...args: A): Promise<R>;
+  cancel(): void;
+  restore(): (...args: A) => R | Promise<R>;
 };
