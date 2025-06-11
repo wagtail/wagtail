@@ -297,10 +297,9 @@ class BaseTypedTableBlock(Block):
             return value.render_as_block(context)
         else:
             return ""
-        
 
     def get_searchable_content(self, value):
-        """ Used to extract all the content from the table cells"""
+        """Used to extract all the content from the table cells"""
 
         content = []
         if value:
@@ -325,7 +324,6 @@ class BaseTypedTableBlock(Block):
 
 class TypedTableBlock(BaseTypedTableBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
-        
 
 
 class TypedTableBlockAdapter(Adapter):

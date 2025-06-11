@@ -346,29 +346,24 @@ class TestTableBlock(TestCase):
         )
 
     def test_get_searchable_block(self):
-        block  =  TypedTableBlock([
-            ('name', blocks.CharBlock()),
-            ('quantity', blocks.IntegerBlock())
-
-        ])
+        block = TypedTableBlock(
+            [("name", blocks.CharBlock()), ("quantity", blocks.IntegerBlock())]
+        )
 
         table_data = {
-            'columns':[
-                {'type':'name', 'heading':'Fruit'},
-                {'type':'quantity', 'heading':'qty'}
+            "columns": [
+                {"type": "name", "heading": "Fruit"},
+                {"type": "quantity", "heading": "qty"},
             ],
-            'rows':[
-                {'values':['Apple',5]},
-                {'values':['Banana',10]}
-            ],
-
-            'caption':'Fruit Stock'
+            "rows": [{"values": ["Apple", 5]}, {"values": ["Banana", 10]}],
+            "caption": "Fruit Stock",
         }
 
         value = block.to_python(table_data)
         content = block.get_searchable_content(value)
 
-        self.assertEqual(content, ['Apple', '5', 'Banana', '10'])
+        self.assertEqual(content, ["Apple", "5", "Banana", "10"])
+
 
 class TestBlockDefinitionLookup(TestCase):
     def test_block_lookup(self):
