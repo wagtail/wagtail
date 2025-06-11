@@ -4,7 +4,7 @@ import { initCollapsiblePanels } from '../../includes/panels';
 import { ExpandingFormset } from '../ExpandingFormset';
 
 /**
- * Attaches behaviour for an InlinePanel where inner panels can be created,
+ * Attaches behavior for an InlinePanel where inner panels can be created,
  * removed and re-ordered.
  *
  * @param {Object} opts
@@ -14,6 +14,9 @@ import { ExpandingFormset } from '../ExpandingFormset';
  * @param {number} opts.maxForms
  * @param {function} opts.onAdd
  * @returns {Object}
+ *
+ * @deprecated - Will be removed in a future release once fully migrated to Stimulus.
+ * @see `client/src/controllers/FormsetController.ts` for the future (WIP) implementation.
  */
 export class InlinePanel extends ExpandingFormset {
   constructor(opts) {

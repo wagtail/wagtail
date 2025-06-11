@@ -26,7 +26,7 @@ window.StimulusModule = StimulusModule;
  */
 const wagtail = window.wagtail || {};
 
-/** Initialise Wagtail Stimulus application with core controller definitions. */
+/** Initialize Wagtail Stimulus application with core controller definitions. */
 wagtail.app = initStimulus({ definitions: coreControllerDefinitions });
 
 /** Expose components as globals for third-party reuse. */

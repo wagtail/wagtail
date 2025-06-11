@@ -1,7 +1,5 @@
 {% load i18n l10n static wagtailadmin_tags %}
 
-{{ self.formset.management_form }}
-
 {% if self.formset.non_form_errors %}
     <div class="error-message">
         {% for error in self.formset.non_form_errors %}
@@ -14,25 +12,9 @@
     {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
 {% endif %}
 
-<div id="id_{{ self.formset.prefix }}-FORMS"
-     data-controller="w-formset"
-     data-formset-prefix="id_{{ self.formset.prefix }}"
-     data-w-formset-min-forms-input-value="{{ self.formset.min_num|unlocalize }}"
-     data-w-formset-max-forms-input-value="{{ self.formset.max_num|unlocalize }}"
-     data-can-order="{% if can_order %}true{% else %}false{% endif %}">
-
-    <input type="hidden" 
-           name="{{ self.formset.management_form.TOTAL_FORMS.name }}" 
-           value="{{ self.formset.management_form.TOTAL_FORMS.value }}"
-           data-w-formset-target="totalFormsInput">
-    <input type="hidden" 
-           name="{{ self.formset.management_form.MIN_NUM_FORMS.name }}" 
-           value="{{ self.formset.management_form.MIN_NUM_FORMS.value }}"
-           data-w-formset-target="minFormsInput">
-    <input type="hidden" 
-           name="{{ self.formset.management_form.MAX_NUM_FORMS.name }}" 
-           value="{{ self.formset.management_form.MAX_NUM_FORMS.value }}"
-           data-w-formset-target="maxFormsInput">
+<div id="id_{{ self.formset.prefix }}-FORMS" data-controller="w-formset{% if can_order %} w-orderable{% endif %}" data-formset-prefix="id_{{ self.formset.prefix }}">
+    <!-- NOTE: THERE IS A BETTER WAY - we can use `attrs` on the Panel - but let's fix that later -->
+    {{ self.formset.management_form }}
 
     <div data-w-formset-target="forms">
         {% for child in self.children %}
@@ -42,10 +24,7 @@
 
     <div class="w-mb-4 -w-ml-4">
         {% block add_button %}
-            <button type="button" 
-                    class="button button-small button-secondary chooser__choose-button"
-                    data-action="w-formset#add"
-                    data-w-formset-target="add">
+            <button type="button" class="button button-small button-secondary chooser__choose-button" data-action="w-formset#add" data-w-formset-target="add">
                 {% icon name=icon|default:"plus-inverse" %}
                 {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
             </button>

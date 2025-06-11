@@ -2,23 +2,22 @@
 
 {% fragment as id %}inline_child_{{ child.form.prefix }}{% endfragment %}
 {% fragment as panel_id %}{{ id }}-panel{% endfragment %}
-<div data-w-formset-target="child" id="{{ id }}" data-contentpath-disabled>
+<div data-w-formset-target="child" id="{{ id }}" data-contentpath-disabled data-w-orderable-target="item">
     {% fragment as header_controls %}
         {% if can_order %}
-            <button type="button" class="button button--icon text-replace white" 
-                    data-action="w-formset#updateOrdering" 
-                    title="{% trans 'Move up' %}">{% icon name="arrow-up" %}</button>
-            <button type="button" class="button button--icon text-replace white" 
-                    data-action="w-formset#updateOrdering" 
-                    title="{% trans 'Move down' %}">{% icon name="arrow-down" %}</button>
-            <button type="button" class="button button--icon text-replace white" 
-                    data-action="w-formset#updateOrdering"
-                    title="{% trans 'Drag' %}">{% icon name="grip" %}</button>
+            <button type="button" class="button button--icon text-replace white" data-w-orderable-target="up" data-action="w-orderable#up" title="{% trans 'Move up' %}">
+                {% icon name="arrow-up" %}
+            </button>
+            <button type="button" class="button button--icon text-replace white" data-w-orderable-target="down" data-action="w-orderable#down" title="{% trans 'Move down' %}">
+                {% icon name="arrow-down" %}
+            </button>
+            <button type="button" class="button button--icon text-replace white" data-w-orderable-target="handle" title="{% trans 'Drag' %}">
+                {% icon name="grip" %}
+            </button>
         {% endif %}
-        <button type="button" class="button button--icon text-replace white" 
-                data-action="w-formset#delete"
-                data-w-formset-target="delete" 
-                title="{% trans 'Delete' %}">{% icon name="bin" %}</button>
+        <button type="button" class="button button--icon text-replace white" data-action="w-formset#delete" data-w-formset-target="delete" title="{% trans 'Delete' %}">
+            {% icon name="bin" %}
+        </button>
     {% endfragment %}
     {% fragment as heading %}
         {{ self.label }}<span data-w-formset-target="count"></span>
@@ -34,15 +33,5 @@
             </ul>
         {% endif %}
         {{ child.render_form_content }}
-        
-        <input type="hidden" 
-               name="{{ child.form.DELETE.name }}" 
-               data-w-formset-target="deleteInput">
-        
-        {% if can_order %}
-            <input type="hidden" 
-                   name="{{ child.form.ORDER.name }}" 
-                   data-w-formset-target="orderInput">
-        {% endif %}
     {% endpanel %}
 </div>

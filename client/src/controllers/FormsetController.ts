@@ -182,7 +182,8 @@ export class FormsetController extends Controller<HTMLElement> {
   }
 
   /**
-   * When a new child is added, update the total count and dispatch an added event.
+   * When a new child is added, or one has been inserted after a re-ordering event,
+   * update the total count and dispatch an added event (only when it is a new one).
    */
   childTargetConnected(target: HTMLElement) {
     this.updateOrdering();

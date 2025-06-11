@@ -116,12 +116,17 @@ class InlinePanel(Panel):
             self.children = []
             for index, subform in enumerate(self.formset.forms):
                 # override the DELETE field to have a hidden input
-                subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+                subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput(
+                    attrs={"data-w-formset-target": "deleteInput"}
+                )
 
                 # ditto for the ORDER field, if present
                 if self.formset.can_order:
                     subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
-                        attrs={"value": index + 1}
+                        attrs={
+                            "value": index + 1,
+                            "data-w-formset-target": "orderInput",
+                        }
                     )
 
                 self.children.append(
@@ -141,9 +146,23 @@ class InlinePanel(Panel):
                 )
 
             empty_form = self.formset.empty_form
-            empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+            empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput(
+                attrs={"data-w-formset-target": "deleteInput"}
+            )
             if self.formset.can_order:
-                empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+                empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput(
+                    attrs={"data-w-formset-target": "orderInput"}
+                )
+
+            for field in self.formset.management_form:
+                if field.name.endswith(forms.formsets.TOTAL_FORM_COUNT):
+                    field.field.widget.attrs["data-w-formset-target"] = (
+                        "totalFormsInput"
+                    )
+                if field.name.endswith(forms.formsets.MIN_NUM_FORM_COUNT):
+                    field.field.widget.attrs["data-w-formset-target"] = "minFormsInput"
+                if field.name.endswith(forms.formsets.MAX_NUM_FORM_COUNT):
+                    field.field.widget.attrs["data-w-formset-target"] = "maxFormsInput"
 
             self.empty_child = self.child_edit_handler.get_bound_panel(
                 instance=empty_form.instance,
