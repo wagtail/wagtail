@@ -94,6 +94,18 @@ class BaseTypedTableBlock(Block):
                 (name, lookup.get_block(index)) for name, index in child_blocks
             ]
         return cls(child_blocks, **kwargs)
+    
+    def get_searchable_content(self, value):
+        content = []
+        if not value or not hasattr(value, 'columns') or not hasattr(value, 'row_data'):
+            return content
+        for row in value.row_data:
+            for col, value in zip(value.columns, row['values']):
+                content.extend(col['block'].get_searchable_content(value))
+        if hasattr(value, 'caption') and value.caption:
+            content.append(value.caption)
+        return content
+
 
     def value_from_datadict(self, data, files, prefix):
         caption = data["%s-caption" % prefix]
