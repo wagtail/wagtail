@@ -425,6 +425,35 @@ describe('PreviewController', () => {
       );
     });
 
+    it('should have a fallback width if the input is missing the data attribute', async () => {
+      application = Application.start();
+      application.register(identifier, PreviewController);
+
+      const element = document.querySelector('[data-controller="w-preview"]');
+      await Promise.resolve();
+
+      const tabletSizeInput = document.querySelector(
+        'input[name="preview-size"][value="tablet"]',
+      );
+      tabletSizeInput.removeAttribute('data-device-width');
+      tabletSizeInput.click();
+      await Promise.resolve();
+      const newSizeInput = document.querySelector(
+        'input[name="preview-size"]:checked',
+      );
+      expect(newSizeInput.value).toEqual('tablet');
+      const newSizeLabel = newSizeInput.labels[0];
+      expect(
+        newSizeLabel.classList.contains('w-preview__size-button--selected'),
+      ).toBe(true);
+      expect(localStorage.getItem('wagtail:preview-panel-device')).toEqual(
+        'tablet',
+      );
+      expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+        PreviewController.fallbackWidth, // 375px
+      );
+    });
+
     it('should observe its own size so it can set the preview width accordingly', async () => {
       expect(ResizeObserverMock).not.toHaveBeenCalled();
 
@@ -868,6 +897,45 @@ describe('PreviewController', () => {
       // the preview mode
       const absoluteUrl = `http://localhost${url}`;
       expect(window.open).toHaveBeenCalledWith(absoluteUrl, absoluteUrl);
+    });
+
+    it('should not fire an update request when there is a pending update', async () => {
+      await initializeOpenedPanel();
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      // Open the preview in a new tab
+      const newTabLink = document.querySelector(
+        '[data-w-preview-target="newTab"]',
+      );
+      newTabLink.click();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+
+      // Click the link again multiple times
+      newTabLink.click();
+      newTabLink.click();
+
+      mockWindow({ open: jest.fn() });
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
+
+      // Should not send another request to the preview URL
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Should call window.open() with the correct URL, and the base URL should
+      // be used as the second argument to ensure the same tab is reused if it's
+      // already open even when the URL is different, e.g. when the user changes
+      // the preview mode
+      const absoluteUrl = `http://localhost${url}`;
+      expect(window.open).toHaveBeenCalledTimes(3);
+      expect(window.open).toHaveBeenNthCalledWith(1, absoluteUrl, absoluteUrl);
+      expect(window.open).toHaveBeenNthCalledWith(2, absoluteUrl, absoluteUrl);
+      expect(window.open).toHaveBeenNthCalledWith(3, absoluteUrl, absoluteUrl);
     });
 
     it('should show an alert if the update request fails when opening in a new tab', async () => {
