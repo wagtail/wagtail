@@ -1019,12 +1019,14 @@ class TestEmbedBlock(TestCase):
 
         block = EmbedBlock()
 
-        cleaned_value = block.clean(EmbedValue("https://www.youtube.com/watch/"))
+        cleaned_value = block.clean(
+            block.normalize(EmbedValue("https://www.youtube.com/watch/"))
+        )
         self.assertIsInstance(cleaned_value, EmbedValue)
         self.assertEqual(cleaned_value.url, "https://www.youtube.com/watch/")
 
         with self.assertRaisesMessage(ValidationError, ""):
-            block.clean(None)
+            block.clean(block.normalize(None))
 
     @responses.activate
     def test_clean_non_required(self):
@@ -1032,11 +1034,13 @@ class TestEmbedBlock(TestCase):
 
         block = EmbedBlock(required=False)
 
-        cleaned_value = block.clean(EmbedValue("https://www.youtube.com/watch/"))
+        cleaned_value = block.clean(
+            block.normalize(EmbedValue("https://www.youtube.com/watch/"))
+        )
         self.assertIsInstance(cleaned_value, EmbedValue)
         self.assertEqual(cleaned_value.url, "https://www.youtube.com/watch/")
 
-        cleaned_value = block.clean(None)
+        cleaned_value = block.clean(block.normalize(None))
         self.assertIsNone(cleaned_value)
 
     @responses.activate
@@ -1046,9 +1050,17 @@ class TestEmbedBlock(TestCase):
         non_required_block = EmbedBlock(required=False)
 
         with self.assertRaises(ValidationError):
-            non_required_block.clean(EmbedValue("http://no-oembed-here.com/something"))
+            non_required_block.clean(
+                non_required_block.normalize(
+                    EmbedValue("http://no-oembed-here.com/something")
+                )
+            )
 
         required_block = EmbedBlock()
 
         with self.assertRaises(ValidationError):
-            required_block.clean(EmbedValue("http://no-oembed-here.com/something"))
+            required_block.clean(
+                non_required_block.normalize(
+                    EmbedValue("http://no-oembed-here.com/something")
+                )
+            )

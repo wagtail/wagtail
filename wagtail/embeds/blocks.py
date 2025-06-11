@@ -87,8 +87,11 @@ class EmbedBlock(blocks.URLBlock):
 
     def normalize(self, value):
         if isinstance(value, EmbedValue):
-            return value
-        return EmbedValue(value)
+            return value if value.url else None
+        elif value:
+            return EmbedValue(value)
+        else:
+            return None
 
     class Meta:
         icon = "media"
