@@ -1243,6 +1243,136 @@ describe('PreviewController', () => {
         updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
       });
     });
+
+    it('should respect changes to the interval value', async () => {
+      expect(events.ready).toHaveLength(0);
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.setAttribute('data-w-preview-auto-update-interval-value', '500');
+      await initializeOpenedPanel();
+
+      // If there are no changes, should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(events.update).toHaveLength(1); // Only contains the initial fetch
+
+      // Simulate an invalid form submission
+      const input = document.querySelector('input[name="title"');
+      input.value = '';
+      fetch.mockResponseSuccessJSON(invalidAvailableResponse);
+
+      // After 1s (500ms for check interval, 500ms for request debounce),
+      // should send the preview data to the preview URL
+      await jest.advanceTimersByTime(1000);
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(events.update).toHaveLength(2);
+
+      // Should not yet have the has-errors class on the controlled element
+      expect(element.classList).not.toContain('w-preview--has-errors');
+
+      // Simulate the request completing
+      await Promise.resolve();
+      expect(events.json).toHaveLength(2);
+
+      // Should set the has-errors class on the controlled element
+      expect(element.classList).toContain('w-preview--has-errors');
+
+      // Should not create a new iframe for reloading the preview
+      const iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      // Should not dispatch a load event (only the initial load event exists)
+      expect(events.load).toHaveLength(1);
+
+      fetch.mockClear();
+
+      // If there are no changes, should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // Update the auto update interval to 1000ms
+      element.setAttribute('data-w-preview-auto-update-interval-value', '1000');
+      await Promise.resolve();
+
+      // Simulate a change in the form
+      input.value = 'New title';
+
+      // After 1400ms, the check interval should be triggered but the request
+      // should not be fired yet to wait for the debounce
+      await jest.advanceTimersByTime(1400);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // Simulate another change (that is valid) in the form
+      input.value = 'New title version two';
+
+      // After 1200ms (>2s since the first change), the request should still not
+      // be sent due to the debounce
+      await jest.advanceTimersByTime(1200);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // If we wait another 900ms, the request should be sent as it has been
+      // >2s since the last change
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      await jest.advanceTimersByTime(900);
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(events.update).toHaveLength(3);
+
+      // Simulate the request completing
+      expect(events.json).toHaveLength(2);
+      expect(events.load).toHaveLength(1);
+      await Promise.resolve();
+      expect(events.json).toHaveLength(3);
+      expect(events.load).toHaveLength(2);
+
+      // Should no longer have the has-errors class on the controlled element
+      expect(element.classList).not.toContain('w-preview--has-errors');
+
+      // Expect the iframe to be reloaded
+      expect(events.loaded).toHaveLength(1);
+      await expectIframeReloaded();
+      expect(events.loaded).toHaveLength(2);
+
+      // Close the side panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('hide'));
+      await Promise.resolve();
+
+      // Any further changes should not trigger the auto update
+      input.value = 'Changes should be ignored';
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      expect(events).toMatchObject({
+        // Initial, invalid, valid
+        update: [expect.any(Event), expect.any(Event), expect.any(Event)],
+        json: [
+          expect.objectContaining({
+            detail: { data: { is_valid: true, is_available: true } },
+          }),
+          expect.objectContaining({
+            detail: { data: { is_valid: false, is_available: true } },
+          }),
+          expect.objectContaining({
+            detail: { data: { is_valid: true, is_available: true } },
+          }),
+        ],
+        error: [],
+        // Initial, valid (the invalid form submission does not reload the iframe)
+        load: [expect.any(Event), expect.any(Event)],
+        loaded: [expect.any(Event), expect.any(Event)],
+        ready: [expect.any(Event)],
+        // Initial, invalid, valid
+        updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
+      });
+    });
   });
 
   describe('manual update using a button', () => {

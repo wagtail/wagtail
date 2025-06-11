@@ -14,7 +14,7 @@ import {
   renderContentMetrics,
 } from '../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { debounce } from '../utils/debounce';
+import { debounce, DebouncedFunction } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
 import { setOptionalInterval } from '../utils/interval';
@@ -371,7 +371,12 @@ export class PreviewController extends Controller<HTMLElement> {
   autoUpdateIntervalValueChanged() {
     // If the value is changed, only update the interval if it's currently active
     // as we don't want to start the interval when the panel is hidden
-    if (this.updateInterval) this.addInterval();
+    if (this.updateInterval) {
+      this.addInterval();
+    } else if (!this.autoUpdateIntervalValue) {
+      // If the auto-update interval is unset, clear the interval
+      this.clearInterval();
+    }
   }
 
   /**
@@ -425,13 +430,11 @@ export class PreviewController extends Controller<HTMLElement> {
     );
 
     if (this.updateInterval) {
-      // Apply debounce for subsequent updates if not already applied
-      if (!('cancel' in this.setPreviewData)) {
-        this.setPreviewData = debounce(
-          this.setPreviewData,
-          this.autoUpdateIntervalValue,
-        );
-      }
+      // Apply debounce for subsequent updates if an interval was set
+      this.setPreviewData = debounce(
+        this.setPreviewData,
+        this.autoUpdateIntervalValue,
+      );
     }
   }
 
@@ -439,6 +442,11 @@ export class PreviewController extends Controller<HTMLElement> {
    * Clears the auto-update interval.
    */
   clearInterval() {
+    // Restore the original function if it was previously debounced
+    if ('restore' in this.setPreviewData) {
+      this.setPreviewData =
+        this.setPreviewData.restore() as typeof this.setPreviewData;
+    }
     if (!this.updateInterval) return;
     window.clearInterval(this.updateInterval);
     this.updateInterval = null;
@@ -581,7 +589,9 @@ export class PreviewController extends Controller<HTMLElement> {
    * display an error message.
    * @returns whether the data is valid
    */
-  async setPreviewData() {
+  setPreviewData:
+    | (() => Promise<boolean | undefined>)
+    | DebouncedFunction<[], boolean | undefined> = async () => {
     // Bail out if there is already a pending update
     if (this.updatePromise) return this.updatePromise;
 
@@ -642,7 +652,7 @@ export class PreviewController extends Controller<HTMLElement> {
     })();
 
     return this.updatePromise;
-  }
+  };
 
   /**
    * Clears the preview data from the session.
