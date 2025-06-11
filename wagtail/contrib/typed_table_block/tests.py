@@ -348,8 +348,8 @@ class TestTableBlock(TestCase):
     class TestTableBlock(TestCase):
         def test_get_searchable_content_includes_caption_headings_and_cells(self):
             columns = [
-                {"heading": "Fruit", "block": block.CharBlock()},
-                {"heading": "Quantity", "block": block.CharBlock()},
+                {"heading": "Fruit", "block": blocks.CharBlock()},
+                {"heading": "Quantity", "block": blocks.CharBlock()},
             ]
 
             row_data = [{"values": ["Apple", "5"]}, {"values": ["Banana", "10"]}]
