@@ -52,7 +52,10 @@ ul.listing {
 
   td {
     vertical-align: middle;
-    overflow-wrap: anywhere;
+
+    &.wrap-anywhere {
+      overflow-wrap: anywhere;
+    }
   }
 
   td.title {
