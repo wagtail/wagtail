@@ -1,7 +1,7 @@
 Changelog
 =========
 
-7.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix type hints for `register_filter_adapter_class` parameters (Sébastien Corbin)
