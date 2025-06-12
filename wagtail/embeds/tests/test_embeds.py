@@ -952,15 +952,23 @@ class TestEmbedBlock(TestCase):
         block = EmbedBlock()
 
         cleaned_value = block.clean(
-            EmbedValue("https://www.youtube.com/watch?v=_U79Wc965vw")
+            block.normalize(EmbedValue("https://www.youtube.com/watch?v=_U79Wc965vw"))
         )
         self.assertIsInstance(cleaned_value, EmbedValue)
         self.assertEqual(
             cleaned_value.url, "https://www.youtube.com/watch?v=_U79Wc965vw"
         )
 
+    @patch("wagtail.embeds.embeds.get_embed")
+    def test_clean_required_empty(self, get_embed):
+        get_embed.return_value = Embed(html="<h1>Hello world!</h1>")
+
+        block = EmbedBlock()
+
         with self.assertRaisesMessage(ValidationError, ""):
             block.clean(block.normalize(None))
+
+        get_embed.assert_not_called()
 
     @patch("wagtail.embeds.embeds.get_embed")
     def test_clean_non_required(self, get_embed):
@@ -976,8 +984,16 @@ class TestEmbedBlock(TestCase):
             cleaned_value.url, "https://www.youtube.com/watch?v=_U79Wc965vw"
         )
 
+    @patch("wagtail.embeds.embeds.get_embed")
+    def test_clean_non_required_empty(self, get_embed):
+        get_embed.return_value = Embed(html="<h1>Hello world!</h1>")
+
+        block = EmbedBlock(required=False)
+
         cleaned_value = block.clean(block.normalize(None))
         self.assertIsNone(cleaned_value)
+
+        get_embed.assert_not_called()
 
     @patch("wagtail.embeds.embeds.get_embed")
     def test_clean_invalid_url(self, get_embed):
