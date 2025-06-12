@@ -185,6 +185,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       <button
         onClick={onClickOpenCloseToggle}
         aria-label={gettext('Toggle sidebar')}
+        aria-keyshortcuts="["
         aria-expanded={visibleOnMobile ? 'true' : 'false'}
         className={
           'button sidebar-nav-toggle' +
@@ -193,6 +194,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
         }
         type="button"
         ref={mobileNavToggleRef}
+        data-w-kbd-target={isMobile ? 'element' : undefined}
       >
         {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>
@@ -220,6 +222,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
             <button
               onClick={onClickCollapseToggle}
               aria-label={gettext('Toggle sidebar')}
+              aria-keyshortcuts="["
               aria-expanded={slim ? 'false' : 'true'}
               type="button"
               className={`${!slim ? 'w-mr-4' : ''}
@@ -233,6 +236,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
                 hover:opacity-100
                 more-contrast:w-border-border-interactive-more-contrast-dark-bg
                 hover:more-contrast:w-border-border-interactive-more-contrast-dark-bg-hover`}
+              data-w-kbd-target={!isMobile ? 'element' : undefined}
             >
               <Icon
                 name="expand-right"
