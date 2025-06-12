@@ -10,7 +10,9 @@ from wagtail.permission_policies.collections import (
     CollectionPermissionPolicy,
 )
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.tests.test_permission_policies import PermissionPolicyTestUtils
+from wagtail.tests.permission_policies.test_permission_policies import (
+    PermissionPolicyTestUtils,
+)
 
 
 class PermissionPolicyTestCase(PermissionPolicyTestUtils, WagtailTestUtils, TestCase):

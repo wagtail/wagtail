@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.text import capfirst
@@ -416,3 +416,17 @@ class TestEditHandlers(TestCase):
         handler = get_setting_edit_handler(TabbedGenericSettings)
         self.assertIsInstance(handler, TabbedInterface)
         self.assertEqual(len(handler.children), 2)
+
+
+class TestPermissionConfiguration(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.login()
+        self.group = Group.objects.get(name="Editors")
+
+    def test_get_permissions(self):
+        # Generic settings should not get their own section in the group permissions UI
+        response = self.client.get(
+            reverse("wagtailusers_groups:edit", args=(self.group.id,)),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Test generic setting permissions")

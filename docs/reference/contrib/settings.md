@@ -105,6 +105,15 @@ class MySettings(BaseGenericSetting):
     ])
 ```
 
+## Permissions
+
+Settings are editable by superusers, and any users who have been granted "change" permission on the setting model. Additionally, for models extending `BaseSiteSetting`, permissions can be assigned for individual sites through the Groups area of the admin, under Settings.
+
+```{versionadded} 7.1
+The ability to assign permissions for individual sites was added.
+```
+
+
 ## Appearance
 
 You can change the label used in the menu by changing the

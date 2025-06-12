@@ -1957,14 +1957,6 @@ class IconGenericSetting(BaseGenericSetting):
     pass
 
 
-class NotYetRegisteredSiteSetting(BaseSiteSetting):
-    pass
-
-
-class NotYetRegisteredGenericSetting(BaseGenericSetting):
-    pass
-
-
 @register_setting
 class FileSiteSetting(BaseSiteSetting):
     file = models.FileField()
