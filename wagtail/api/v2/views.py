@@ -113,6 +113,9 @@ class BaseAPIViewSet(GenericViewSet):
                 )
             )
 
+        if "fields" in request.GET:
+            url = url + "?fields=" + request.GET["fields"]
+
         return redirect(url)
 
     def find_object(self, queryset, request):
