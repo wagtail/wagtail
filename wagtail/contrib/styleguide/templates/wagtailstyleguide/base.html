@@ -112,7 +112,7 @@
                         <h2><a href="">Something here</a></h2>
                     </div>
 
-                    <small class="col6" style="text-align:end">Something else</small>
+                    <small class="col6 w-text-end">Something else</small>
                 </div>
             </li>
             <li>
@@ -121,7 +121,7 @@
                         <a href="">Something here</a>
                     </div>
 
-                    <small class="col6" style="text-align:end">Something else</small>
+                    <small class="col6 w-text-end">Something else</small>
                 </div>
             </li>
             <li>
@@ -130,7 +130,7 @@
                         <a href="">Something here</a>
                     </div>
 
-                    <small class="col6" style="text-align:end">Something else</small>
+                    <small class="col6 w-text-end">Something else</small>
                 </div>
             </li>
         </ul>
@@ -420,7 +420,7 @@
 
         {% url "wagtailstyleguide" as add_link %}
         {% include "wagtailadmin/shared/header.html" with title=page_title action_url=add_link icon="image" action_text="button" search_url="wagtailimages:index" %}
-        <div id="listing-results" style="display: none;">{% comment %} Not implemented, hide content to avoid confusion {% endcomment %}</div>
+        <div id="listing-results" hidden>{% comment %} Not implemented, hide content to avoid confusion {% endcomment %}</div>
     {% endpanel %}
 
     {% panel id="forms" heading="Forms" %}
@@ -467,7 +467,7 @@
         <p>&nbsp;</p>
 
         <div id="progress-example2" class="progress active">
-            <div class="bar" style="width: 50%;">50%</div>
+            <div class="bar w-w-1/2">50%</div>
         </div>
     {% endpanel %}
 
@@ -487,13 +487,13 @@
         <h3>Loading mask</h3>
         <p>Add the following <code>div</code> around any items you wish to display with a spinner overlay and fading out</p>
         <p>Remove the "loading" class to disable the effect</p>
-        <div class="loading-mask loading" style="width:200px">
+        <div class="loading-mask loading w-w-52">
             {% include "wagtailadmin/logo.html"%}
         </div>
 
         <h3>Image transparency</h3>
         <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> or <code>svg</code> tag thus:</p>
-        <div style="width:200px">
+        <div class="w-w-52">
             {% include "wagtailadmin/logo.html" with classname="show-transparency" %}
         </div>
     {% endpanel %}
