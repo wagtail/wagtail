@@ -839,24 +839,6 @@ class TestEmbedTag(TestCase):
 
 
 class TestEmbedBlock(TestCase):
-    def set_up_embed_response(self):
-        responses.get(
-            url="https://www.youtube.com/oembed",
-            match=[
-                matchers.query_param_matcher(
-                    {"url": "https://www.youtube.com/watch/", "format": "json"}
-                ),
-            ],
-            json={
-                "type": "something",
-                "url": "http://www.example.com",
-                "title": "test_title",
-                "width": "640",
-                "height": "480",
-                "html": "<h1>Hello world!</h1>",
-            },
-        )
-
     def test_deserialize(self):
         """
         Deserialising the JSONish value of an EmbedBlock (a URL) should give us an EmbedValue
@@ -882,12 +864,12 @@ class TestEmbedBlock(TestCase):
         serialized_empty_val = block.get_prep_value(None)
         self.assertEqual(serialized_empty_val, "")
 
-    @responses.activate
-    def test_render(self):
-        self.set_up_embed_response()
+    @patch("wagtail.embeds.embeds.get_embed")
+    def test_render(self, get_embed):
+        get_embed.return_value = Embed(html="<h1>Hello world!</h1>")
 
         block = EmbedBlock()
-        block_val = block.to_python("https://www.youtube.com/watch/")
+        block_val = block.to_python("http://www.example.com/foo")
 
         temp = template.Template("embed: {{ embed }}")
         context = template.Context({"embed": block_val})
@@ -896,14 +878,17 @@ class TestEmbedBlock(TestCase):
         # Check that the embed was in the returned HTML
         self.assertIn("<h1>Hello world!</h1>", result)
 
-    @responses.activate
-    def test_render_within_structblock(self):
+        # Check that get_embed was called correctly
+        get_embed.assert_any_call("http://www.example.com/foo", None, None)
+
+    @patch("wagtail.embeds.embeds.get_embed")
+    def test_render_within_structblock(self, get_embed):
         """
         When rendering the value of an EmbedBlock directly in a template
         (as happens when accessing it as a child of a StructBlock), the
         proper embed output should be rendered, not the URL.
         """
-        self.set_up_embed_response()
+        get_embed.return_value = Embed(html="<h1>Hello world!</h1>")
 
         block = blocks.StructBlock(
             [
@@ -913,7 +898,7 @@ class TestEmbedBlock(TestCase):
         )
 
         block_val = block.to_python(
-            {"title": "A test", "embed": "https://www.youtube.com/watch/"}
+            {"title": "A test", "embed": "http://www.example.com/foo"}
         )
 
         temp = template.Template("embed: {{ self.embed }}")
@@ -921,6 +906,9 @@ class TestEmbedBlock(TestCase):
         result = temp.render(context)
 
         self.assertIn("<h1>Hello world!</h1>", result)
+
+        # Check that get_embed was called correctly
+        get_embed.assert_any_call("http://www.example.com/foo", None, None)
 
     def test_value_from_form(self):
         """
@@ -957,39 +945,43 @@ class TestEmbedBlock(TestCase):
         self.assertIsInstance(block5.get_default(), EmbedValue)
         self.assertEqual(block5.get_default().url, "http://www.example.com/foo")
 
-    @responses.activate
-    def test_clean_required(self):
-        self.set_up_embed_response()
+    @patch("wagtail.embeds.embeds.get_embed")
+    def test_clean_required(self, get_embed):
+        get_embed.return_value = Embed(html="<h1>Hello world!</h1>")
 
         block = EmbedBlock()
 
         cleaned_value = block.clean(
-            block.normalize(EmbedValue("https://www.youtube.com/watch/"))
+            EmbedValue("https://www.youtube.com/watch?v=_U79Wc965vw")
         )
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url, "https://www.youtube.com/watch/")
+        self.assertEqual(
+            cleaned_value.url, "https://www.youtube.com/watch?v=_U79Wc965vw"
+        )
 
         with self.assertRaisesMessage(ValidationError, ""):
             block.clean(block.normalize(None))
 
-    @responses.activate
-    def test_clean_non_required(self):
-        self.set_up_embed_response()
+    @patch("wagtail.embeds.embeds.get_embed")
+    def test_clean_non_required(self, get_embed):
+        get_embed.return_value = Embed(html="<h1>Hello world!</h1>")
 
         block = EmbedBlock(required=False)
 
         cleaned_value = block.clean(
-            block.normalize(EmbedValue("https://www.youtube.com/watch/"))
+            EmbedValue("https://www.youtube.com/watch?v=_U79Wc965vw")
         )
         self.assertIsInstance(cleaned_value, EmbedValue)
-        self.assertEqual(cleaned_value.url, "https://www.youtube.com/watch/")
+        self.assertEqual(
+            cleaned_value.url, "https://www.youtube.com/watch?v=_U79Wc965vw"
+        )
 
         cleaned_value = block.clean(block.normalize(None))
         self.assertIsNone(cleaned_value)
 
-    @responses.activate
-    def test_clean_invalid_url(self):
-        # no response set up, so responses will raise a ConnectionError
+    @patch("wagtail.embeds.embeds.get_embed")
+    def test_clean_invalid_url(self, get_embed):
+        get_embed.side_effect = EmbedNotFoundException
 
         non_required_block = EmbedBlock(required=False)
 
