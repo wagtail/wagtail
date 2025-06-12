@@ -1355,9 +1355,16 @@ def keyboard_shortcuts_dialog(context):
 
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
 def human_readable_date(date, description=None, placement="top"):
+    if not isinstance(date, (datetime.datetime, datetime.date)):
+        return {
+            "date": None,
+            "description": description,
+            "placement": placement,
+            "tooltip_format": "",
+        }
     if isinstance(date, datetime.datetime):
         tooltip_format = getattr(settings, "DATETIME_FORMAT", "N j, Y, P")
-    elif isinstance(date, datetime.date):
+    else:
         tooltip_format = getattr(settings, "DATE_FORMAT", "N j, Y")
     return {
         "date": date,
