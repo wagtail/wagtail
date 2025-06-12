@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.2.4 (xx.xx.xxxx) - IN DEVELOPMENT
+6.2.4 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
