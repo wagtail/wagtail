@@ -92,7 +92,7 @@ Changelog
  * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
 
 
-6.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.4.2 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Do not show upgrade notification if the installed version is the latest (Sage Abdullah)
