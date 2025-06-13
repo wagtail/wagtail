@@ -6,6 +6,7 @@ import {
   getAxeConfiguration,
   getA11yReport,
   renderA11yResults,
+  WagtailAxeConfiguration,
 } from '../includes/a11y-result';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
@@ -13,87 +14,11 @@ import {
   renderContentMetrics,
 } from '../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
-import { debounce } from '../utils/debounce';
+import { debounce, DebouncedFunction } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
 import { setOptionalInterval } from '../utils/interval';
-
-const runContentChecks = async () => {
-  axe.registerPlugin(wagtailPreviewPlugin);
-
-  const contentMetrics = await getPreviewContentMetrics({
-    targetElement: 'main, [role="main"]',
-  });
-
-  // This requires Wagtail's preview plugin for axe to be registered in the
-  // preview iframe, which is not done in tests as the registration happens via
-  // the userbar.
-  if (!contentMetrics) return;
-
-  renderContentMetrics({
-    wordCount: contentMetrics.wordCount,
-    readingTime: contentMetrics.readingTime,
-  });
-};
-
-const runAccessibilityChecks = async (
-  onClickSelector: (selectorName: string, event: MouseEvent) => void,
-) => {
-  const a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
-    '#w-a11y-result-row-template',
-  );
-  const checksPanel = document.querySelector<HTMLElement>(
-    '[data-checks-panel]',
-  );
-  const config = getAxeConfiguration(document.body);
-  const toggleCounter = document.querySelector<HTMLElement>(
-    '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
-  );
-  const panelCounter = document.querySelector<HTMLElement>(
-    '[data-side-panel="checks"] [data-a11y-result-count]',
-  );
-
-  if (
-    !checksPanel ||
-    !a11yRowTemplate ||
-    !config ||
-    !toggleCounter ||
-    !panelCounter
-  ) {
-    return;
-  }
-
-  // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
-  config.context = {
-    include: {
-      fromFrames: ['#w-preview-iframe'].concat(
-        (config.context as ContextObject).include as string[],
-      ),
-    },
-  } as ContextObject;
-  if ((config.context.exclude as string[])?.length > 0) {
-    config.context.exclude = {
-      fromFrames: ['#w-preview-iframe'].concat(
-        config.context.exclude as string[],
-      ),
-    } as ContextObject['exclude'];
-  }
-
-  const { results, a11yErrorsNumber } = await getA11yReport(config);
-
-  toggleCounter.innerText = a11yErrorsNumber.toString();
-  toggleCounter.hidden = a11yErrorsNumber === 0;
-  panelCounter.innerText = a11yErrorsNumber.toString();
-  panelCounter.classList.toggle('has-errors', a11yErrorsNumber > 0);
-
-  renderA11yResults(
-    checksPanel,
-    results,
-    config,
-    a11yRowTemplate,
-    onClickSelector,
-  );
-};
+import { GetScrollPosition, getWagtailMessage } from '../utils/message';
 
 interface PreviewDataResponse {
   is_valid: boolean;
@@ -172,6 +97,9 @@ export class PreviewController extends Controller<HTMLElement> {
   /** The device size width to use when the preview is not available. */
   static fallbackWidth = PREVIEW_UNAVAILABLE_WIDTH.toString();
 
+  /** The timeout for scroll restoration of cross-domain iframes. */
+  static scrollRestoreTimeout = 10_000; // 10 seconds
+
   // Classes
 
   /** CSS class to indicate that there are errors in the form. */
@@ -226,8 +154,20 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set in connect()
 
+  /** Template for rendering a row of accessibility check results. */
+  declare a11yRowTemplate: HTMLTemplateElement | null;
+  /** Configuration for Axe. */
+  declare axeConfig: WagtailAxeConfiguration | null;
+  /** Container for rendering content checks results. */
+  declare checksPanel: HTMLElement | null;
+  /** Content checks counter inside the checks panel. */
+  declare checksPanelCounter: HTMLElement | null;
   /** Side panel for content checks. */
   declare checksSidePanel: HTMLDivElement | null;
+  /** Content checks counter on the side panel toggle. */
+  declare checksToggleCounter: HTMLElement | null;
+  /** Whether content checks are enabled. */
+  declare contentChecksEnabled: boolean;
   /** Main editor form. */
   declare editForm: HTMLFormElement;
   /** ResizeObserver to observe when the panel is resized
@@ -305,6 +245,12 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   updatePromise: Promise<boolean> | null = null;
 
+  /** Promise for the current content checks request. This resolved when both
+   * the content checks and the accessibility checks are completed. Useful for
+   * queueing the checks, as Axe does not allow concurrent runs.
+   */
+  contentChecksPromise: Promise<void> | null = null;
+
   /**
    * The currently active device size input element. Falls back to the default size input.
    */
@@ -345,20 +291,75 @@ export class PreviewController extends Controller<HTMLElement> {
     // element to also act as the controller.
     this.sidePanelContainer = this.element.parentElement as HTMLDivElement;
 
-    this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
-
     this.activatePreview = this.activatePreview.bind(this);
     this.deactivatePreview = this.deactivatePreview.bind(this);
     this.setPreviewData = this.setPreviewData.bind(this);
     this.checkAndUpdatePreview = this.checkAndUpdatePreview.bind(this);
+    this.runChecks = this.runChecks.bind(this);
 
     this.sidePanelContainer.addEventListener('show', this.activatePreview);
     this.sidePanelContainer.addEventListener('hide', this.deactivatePreview);
 
-    this.checksSidePanel?.addEventListener('show', this.activatePreview);
-    this.checksSidePanel?.addEventListener('hide', this.deactivatePreview);
+    this.setUpContentChecks();
 
     this.restoreLastSavedPreferences();
+  }
+
+  setUpContentChecks() {
+    this.checksSidePanel = document.querySelector('[data-side-panel="checks"]');
+    this.a11yRowTemplate = document.querySelector<HTMLTemplateElement>(
+      '#w-a11y-result-row-template',
+    );
+    this.checksPanel = document.querySelector<HTMLElement>(
+      '[data-checks-panel]',
+    );
+    this.axeConfig = getAxeConfiguration(document.body);
+    this.checksToggleCounter = document.querySelector<HTMLElement>(
+      '[data-side-panel-toggle="checks"] [data-side-panel-toggle-counter]',
+    );
+    this.checksPanelCounter = document.querySelector<HTMLElement>(
+      '[data-side-panel="checks"] [data-a11y-result-count]',
+    );
+
+    if (
+      !(
+        this.checksSidePanel &&
+        this.checksPanel &&
+        this.a11yRowTemplate &&
+        this.axeConfig &&
+        this.checksToggleCounter &&
+        this.checksPanelCounter
+      )
+    ) {
+      this.contentChecksEnabled = false;
+      return;
+    }
+
+    // Ensure we only test within the preview iframe, but nonetheless with the correct selectors.
+    this.axeConfig.context.include = {
+      fromFrames: ['#w-preview-iframe'].concat(
+        this.axeConfig.context.include as string[],
+      ),
+    } as ContextObject['include'];
+
+    if ((this.axeConfig.context.exclude as string[])?.length > 0) {
+      this.axeConfig.context.exclude = {
+        fromFrames: ['#w-preview-iframe'].concat(
+          this.axeConfig.context.exclude as string[],
+        ),
+      } as ContextObject['exclude'];
+    }
+
+    axe.registerPlugin(wagtailPreviewPlugin);
+
+    this.checksSidePanel.addEventListener('show', this.activatePreview);
+    this.checksSidePanel.addEventListener('hide', this.deactivatePreview);
+
+    // Add the message event listener here instead of using a Stimulus action,
+    // as message events may originate from other sources and thus will add
+    // noise to the console when used as an action.
+    window.addEventListener('message', this.runChecks);
+    this.contentChecksEnabled = true;
   }
 
   renderUrlValueChanged(newValue: string) {
@@ -374,7 +375,12 @@ export class PreviewController extends Controller<HTMLElement> {
   autoUpdateIntervalValueChanged() {
     // If the value is changed, only update the interval if it's currently active
     // as we don't want to start the interval when the panel is hidden
-    if (this.updateInterval) this.addInterval();
+    if (this.updateInterval) {
+      this.addInterval();
+    } else if (!this.autoUpdateIntervalValue) {
+      // If the auto-update interval is unset, clear the interval
+      this.clearInterval();
+    }
   }
 
   /**
@@ -428,13 +434,11 @@ export class PreviewController extends Controller<HTMLElement> {
     );
 
     if (this.updateInterval) {
-      // Apply debounce for subsequent updates if not already applied
-      if (!('cancel' in this.setPreviewData)) {
-        this.setPreviewData = debounce(
-          this.setPreviewData,
-          this.autoUpdateIntervalValue,
-        );
-      }
+      // Apply debounce for subsequent updates if an interval was set
+      this.setPreviewData = debounce(
+        this.setPreviewData,
+        this.autoUpdateIntervalValue,
+      );
     }
   }
 
@@ -442,6 +446,11 @@ export class PreviewController extends Controller<HTMLElement> {
    * Clears the auto-update interval.
    */
   clearInterval() {
+    // Restore the original function if it was previously debounced
+    if ('restore' in this.setPreviewData) {
+      this.setPreviewData =
+        this.setPreviewData.restore() as typeof this.setPreviewData;
+    }
     if (!this.updateInterval) return;
     window.clearInterval(this.updateInterval);
     this.updateInterval = null;
@@ -584,7 +593,9 @@ export class PreviewController extends Controller<HTMLElement> {
    * display an error message.
    * @returns whether the data is valid
    */
-  async setPreviewData() {
+  setPreviewData:
+    | (() => Promise<boolean | undefined>)
+    | DebouncedFunction<[], boolean | undefined> = async () => {
     // Bail out if there is already a pending update
     if (this.updatePromise) return this.updatePromise;
 
@@ -645,7 +656,7 @@ export class PreviewController extends Controller<HTMLElement> {
     })();
 
     return this.updatePromise;
-  }
+  };
 
   /**
    * Clears the preview data from the session.
@@ -705,7 +716,7 @@ export class PreviewController extends Controller<HTMLElement> {
    * Replaces the old iframe with the new iframe.
    * @param event The `load` event from the new iframe
    */
-  replaceIframe(event: Event) {
+  async replaceIframe(event: Event) {
     const id = this.iframeTarget.id;
     const newIframe = event.target as HTMLIFrameElement;
 
@@ -714,13 +725,8 @@ export class PreviewController extends Controller<HTMLElement> {
     // not run the replacement logic in this case.
     if (!newIframe.src) return;
 
-    // Restore scroll position with instant scroll to avoid flickering if the
-    // previewed page has scroll-behavior: smooth.
-    newIframe.contentWindow?.scroll({
-      top: this.iframeTarget.contentWindow?.scrollY as number,
-      left: this.iframeTarget.contentWindow?.scrollX as number,
-      behavior: 'instant',
-    });
+    // On subsequent loads, restore the scroll position from the old iframe
+    if (this.ready) await this.restoreScrollPosition(newIframe);
 
     // Remove any other existing iframes. Normally there are two iframes at this
     // point, the old one and the new one. However, the `load` event may be fired
@@ -738,13 +744,142 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('loaded', { cancelable: false });
 
-    runContentChecks();
+    if (this.contentChecksEnabled) {
+      this.runChecks().finally(() => this.finishUpdate());
+    } else {
+      this.finishUpdate();
+    }
+  }
 
-    const onClickSelector = () => this.newTabTarget.click();
-    runAccessibilityChecks(onClickSelector);
+  async restoreScrollPosition(newIframe: HTMLIFrameElement): Promise<void> {
+    // Restore scroll position with instant scroll to avoid flickering if the
+    // previewed page has scroll-behavior: smooth.
+    try {
+      newIframe.contentWindow?.scroll({
+        top: this.iframeTarget.contentWindow?.scrollY as number,
+        left: this.iframeTarget.contentWindow?.scrollX as number,
+        behavior: 'instant',
+      });
+      return Promise.resolve();
+    } catch {
+      // The iframe is likely cross-domain, e.g. in a headless setup, in which
+      // case we cannot call `scroll()` directly. Use the postMessage API
+      // instead to request the scroll position from the old iframe and send it
+      // to the new iframe.
+      return new Promise<void>((resolve) => {
+        const scrollHandler = (event: MessageEvent) => {
+          const data = getWagtailMessage(event);
+          if (!data) return;
 
-    // Ready for another update
-    this.finishUpdate();
+          switch (data.type) {
+            case 'w-preview:request-scroll':
+              // The new iframe is requesting to scroll to the last scroll position
+              // Get the last scroll position from the old iframe
+              this.iframeTarget.contentWindow?.postMessage(
+                {
+                  wagtail: {
+                    type: 'w-preview:get-scroll-position',
+                  } as GetScrollPosition,
+                },
+                data.origin,
+              );
+              break;
+            case 'w-preview:set-scroll-position':
+              // The old iframe responded with the last scroll position
+              // Set the scroll position on the new iframe
+              newIframe.contentWindow?.postMessage(
+                { wagtail: data },
+                data.origin,
+              );
+
+              // Done, remove the event listener and resolve the promise
+              window.removeEventListener('message', scrollHandler);
+              resolve();
+              break;
+            default:
+              break;
+          }
+        };
+
+        window.addEventListener('message', scrollHandler);
+
+        // If the cross-frame communication takes too long,
+        // resolve the promise to avoid hanging the preview indefinitely
+        setTimeout(() => {
+          window.removeEventListener('message', scrollHandler);
+          resolve();
+        }, PreviewController.scrollRestoreTimeout);
+      });
+    }
+  }
+
+  /**
+   * Runs the content and accessibility checks.
+   * This is called when the preview iframe is loaded, or when the iframe sends
+   * a message event from the userbar indicating that it has finished running
+   * the checks within itself.
+   * @param event The message event from the userbar
+   */
+  async runChecks(event?: MessageEvent<{ wagtail: { type: string } }>) {
+    // If the method acts as a MessageEvent handler, ensure the event is
+    // from the correct source and type, to avoid running the checks excessively.
+    // Other events do not need to be checked, as we assume it's intentional
+    // (e.g. a custom button that re-runs the checks on click).
+    if (event && event.type === 'message') {
+      const data = getWagtailMessage(event);
+      // Ignore messages that are not from the userbar indicating axe is ready
+      if (data?.type !== 'w-userbar:axe-ready')
+        return this.contentChecksPromise;
+    }
+
+    // If the content checks are already running, wait for them to finish before
+    // re-running them, as Axe does not allow concurrent runs.
+    if (this.contentChecksPromise) {
+      await this.contentChecksPromise;
+    }
+
+    this.contentChecksPromise = (async () => {
+      await this.runAccessibilityChecks();
+      await this.runContentChecks();
+      this.contentChecksPromise = null;
+    })();
+
+    return this.contentChecksPromise;
+  }
+
+  async runAccessibilityChecks() {
+    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig!);
+
+    this.checksToggleCounter!.textContent = a11yErrorsNumber.toString();
+    this.checksToggleCounter!.hidden = a11yErrorsNumber === 0;
+    this.checksPanelCounter!.textContent = a11yErrorsNumber.toString();
+    this.checksPanelCounter!.classList.toggle(
+      'has-errors',
+      a11yErrorsNumber > 0,
+    );
+
+    renderA11yResults(
+      this.checksPanel!,
+      results,
+      this.axeConfig!,
+      this.a11yRowTemplate!,
+      () => this.newTabTarget.click(),
+    );
+  }
+
+  async runContentChecks() {
+    const contentMetrics = await getPreviewContentMetrics({
+      targetElement: 'main, [role="main"]',
+    });
+
+    // If for any reason the plugin fails to return the content metrics (e.g.
+    // the previewed page shows an error response), skip rendering the metrics.
+    if (!contentMetrics) return;
+
+    renderContentMetrics({
+      wordCount: contentMetrics.wordCount,
+      readingTime: contentMetrics.readingTime,
+    });
   }
 
   /**
@@ -823,8 +958,11 @@ export class PreviewController extends Controller<HTMLElement> {
     this.sidePanelContainer.removeEventListener('show', this.activatePreview);
     this.sidePanelContainer.removeEventListener('hide', this.deactivatePreview);
 
-    this.checksSidePanel?.removeEventListener('show', this.activatePreview);
-    this.checksSidePanel?.removeEventListener('hide', this.deactivatePreview);
+    if (this.contentChecksEnabled) {
+      window.removeEventListener('message', this.runChecks);
+      this.checksSidePanel!.removeEventListener('show', this.activatePreview);
+      this.checksSidePanel!.removeEventListener('hide', this.deactivatePreview);
+    }
 
     this.resizeObserver.disconnect();
   }
