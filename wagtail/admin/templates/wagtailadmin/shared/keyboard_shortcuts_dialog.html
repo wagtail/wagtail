@@ -17,10 +17,12 @@
                         <th class="w-h4" scope="rowgroup">{{ category.1 }}</th>
                     </tr>
                     {% for shortcut in shortcuts %}
-                        <tr class="w-keyboard_shortcuts__key">
-                            <th scope="row">{{ shortcut.0 }}</th>
-                            <td><kbd>{{ shortcut.1 }}</kbd></td>
-                        </tr>
+                        {% if shortcut %}
+                            <tr class="w-keyboard_shortcuts__key">
+                                <th scope="row">{{ shortcut.0 }}</th>
+                                <td><kbd>{{ shortcut.1 }}</kbd></td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             {% endfor %}
