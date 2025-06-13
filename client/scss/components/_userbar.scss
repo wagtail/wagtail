@@ -21,19 +21,23 @@ $userbar-z-index: 9999;
 $positions: (
   'top-left': (
     'vertical': 'top',
-    'horizontal': 'left',
+    'horizontal': 'inline-start',
+    'horizontal-inv': 'inline-end',
   ),
   'top-right': (
     'vertical': 'top',
-    'horizontal': 'right',
+    'horizontal': 'inline-end',
+    'horizontal-inv': 'inline-start',
   ),
   'bottom-left': (
     'vertical': 'bottom',
-    'horizontal': 'left',
+    'horizontal': 'inline-start',
+    'horizontal-inv': 'inline-end',
   ),
   'bottom-right': (
     'vertical': 'bottom',
-    'horizontal': 'right',
+    'horizontal': 'inline-end',
+    'horizontal-inv': 'inline-start',
   ),
 );
 
@@ -216,20 +220,14 @@ $positions: (
 
 .w-dialog--userbar {
   // Display off to the side of the page rather than in the middle.
-  inset-inline-start: auto;
   font-family: theme('fontFamily.sans');
-  padding-inline-end: 2rem;
   z-index: $userbar-z-index;
 
   .w-dialog__close-button {
-    $size: theme('spacing.6');
-    width: $size;
-    height: $size;
-    top: calc(-1 * $size / 2);
-    inset-inline-end: calc(-1 * $size / 2);
     border-radius: theme('borderRadius.full');
     border: 2px solid theme('colors.icon-primary');
     background: theme('colors.surface-page');
+    z-index: calc($userbar-z-index + 1);
   }
 
   .w-dialog__close-icon {
@@ -292,14 +290,15 @@ $positions: (
 @each $pos, $attrs in $positions {
   $vertical: map.get($attrs, vertical);
   $horizontal: map.get($attrs, horizontal);
+  $horizontal-inv: map.get($attrs, horizontal-inv);
 
   .w-userbar--#{$pos} {
     #{$vertical}: $position;
-    #{$horizontal}: $position;
+    inset-#{$horizontal}: $position;
 
     .w-userbar-items {
       #{$vertical}: 100%;
-      #{$horizontal}: 0;
+      inset-#{$horizontal}: 0;
       padding-#{$vertical}: theme('spacing.2');
     }
 
@@ -324,6 +323,19 @@ $positions: (
             transition-delay: 0.05s * $i;
           }
         }
+      }
+    }
+
+    .w-dialog--userbar {
+      inset-#{$horizontal-inv}: auto;
+      padding-#{$horizontal}: theme('spacing.8');
+
+      .w-dialog__close-button {
+        $size: theme('spacing.6');
+        width: $size;
+        height: $size;
+        inset-#{$horizontal}: calc(-1 * $size / 2);
+        top: calc(-1 * $size / 2);
       }
     }
   }
