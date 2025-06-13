@@ -11,6 +11,7 @@ from django.utils.crypto import get_random_string
 from elasticsearch import VERSION as ELASTICSEARCH_VERSION
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
+from datetime import time
 
 from wagtail.search.backends.base import (
     BaseSearchBackend,
@@ -76,7 +77,7 @@ class Elasticsearch7Mapping:
         "SlugField": "string",
         "SmallIntegerField": "integer",
         "TextField": "string",
-        "TimeField": "date",
+        "TimeField": "keyword",
         "URLField": "string",
     }
 
@@ -270,6 +271,14 @@ class Elasticsearch7Mapping:
         edgengrams = []
         for field in self.model.get_search_fields():
             value = field.get_value(obj)
+
+            if isinstance(value, time):
+                value = value.strftime("%H:%M:%S") if value else None
+            elif isinstance(value, (list, tuple)):
+                value = [
+                    item.strftime("%H:%M:%S") if isinstance(item, time) else item
+                    for item in value
+                ]
 
             if isinstance(field, RelatedFields):
                 if isinstance(value, (models.Manager, models.QuerySet)):
