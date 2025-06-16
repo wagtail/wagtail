@@ -16,6 +16,11 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
 
     permission_cache_name = "_site_permission_cache"
 
+    def __init__(self, model, auth_model=None, site_field_name="site"):
+        super().__init__(model, auth_model=auth_model)
+        self.site_field_name = site_field_name
+        self.site_fk_field_name = model._meta.get_field(self.site_field_name).attname
+
     def get_all_permissions_for_user(self, user):
         # For these users, we can determine the permissions without querying
         # GroupCollectionPermission by checking it directly in _check_perm()
@@ -98,7 +103,7 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
         if isinstance(instance, Site):
             site_id = instance.pk
         else:
-            site_id = instance.site_id
+            site_id = getattr(instance, self.site_fk_field_name)
 
         return any(
             group_site_permission.permission.content_type == self._content_type
@@ -138,7 +143,11 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
         permission to perform any of the given actions
         """
         return self.model.objects.filter(
-            site__in=self.sites_user_has_any_permission_for(user, actions)
+            **{
+                f"{self.site_field_name}__in": self.sites_user_has_any_permission_for(
+                    user, actions
+                )
+            }
         )
 
     def users_with_any_permission_for_instance(self, actions, instance):
@@ -155,7 +164,7 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
         if isinstance(instance, Site):
             site = instance
         else:
-            site = instance.site
+            site = getattr(instance, self.site_field_name)
 
         return get_user_model().objects.filter(
             (
