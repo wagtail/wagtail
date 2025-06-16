@@ -56,7 +56,7 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
         codenames = self._get_permission_codenames(actions)
 
         return any(
-            group_site_permission.permission.content_type == self._content_type
+            group_site_permission.permission.content_type_id == self._content_type.pk
             and group_site_permission.permission.codename in codenames
             for group_site_permission in self.get_cached_permissions_for_user(user)
         )
@@ -106,7 +106,7 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
             site_id = getattr(instance, self.site_fk_field_name)
 
         return any(
-            group_site_permission.permission.content_type == self._content_type
+            group_site_permission.permission.content_type_id == self._content_type.pk
             and group_site_permission.permission.codename in codenames
             and group_site_permission.site_id == site_id
             for group_site_permission in self.get_cached_permissions_for_user(user)
