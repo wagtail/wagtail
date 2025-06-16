@@ -135,9 +135,9 @@ class BasePermissionPolicy:
         permission to perform any of the given actions
         """
         if self.user_has_any_permission(user, actions):
-            return self.model.objects.all()
+            return self.model._default_manager.all()
         else:
-            return self.model.objects.none()
+            return self.model._default_manager.none()
 
     def instances_user_has_permission_for(self, user, action):
         """
@@ -387,22 +387,24 @@ class OwnershipPermissionPolicy(BaseDjangoAuthPermissionPolicy):
         if user.is_active and user.is_superuser:
             # active superusers can perform any action (including unrecognised ones)
             # on any instance
-            return self.model.objects.all()
+            return self.model._default_manager.all()
         elif "change" in actions or "delete" in actions:
             if user.has_perm(self._get_permission_name("change")):
                 # user can edit all instances
-                return self.model.objects.all()
+                return self.model._default_manager.all()
             elif user.has_perm(self._get_permission_name("add")):
                 # user can edit their own instances
-                return self.model.objects.filter(**{self.owner_field_name: user})
+                return self.model._default_manager.filter(
+                    **{self.owner_field_name: user}
+                )
             else:
                 # user has no permissions at all on this model
-                return self.model.objects.none()
+                return self.model._default_manager.none()
         else:
             # action is either not recognised, or is the 'add' action which is
             # not meaningful for existing instances. As such, non-superusers
             # cannot perform it on any existing instances.
-            return self.model.objects.none()
+            return self.model._default_manager.none()
 
     def users_with_any_permission_for_instance(self, actions, instance):
         if "change" in actions or "delete" in actions:

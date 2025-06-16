@@ -142,7 +142,7 @@ class SitePermissionPolicy(BaseDjangoAuthPermissionPolicy):
         Return a queryset of all instances of this model for which the given user has
         permission to perform any of the given actions
         """
-        return self.model.objects.filter(
+        return self.model._default_manager.filter(
             **{
                 f"{self.site_field_name}__in": self.sites_user_has_any_permission_for(
                     user, actions
