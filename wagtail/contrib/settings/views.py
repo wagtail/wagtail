@@ -17,7 +17,6 @@ from wagtail.models import Site
 
 from .forms import SiteSwitchForm
 from .models import BaseGenericSetting, BaseSiteSetting
-from .permissions import get_permission_policy
 from .registry import registry
 
 
@@ -89,7 +88,7 @@ class EditView(generic.EditView):
         self.app_name = app_name
         self.model_name = model_name
         self.model = get_model_from_url_params(app_name, model_name)
-        self.permission_policy = get_permission_policy(self.model)
+        self.permission_policy = self.model.get_permission_policy()
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
 
