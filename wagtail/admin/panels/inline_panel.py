@@ -110,6 +110,14 @@ class InlinePanel(Panel):
             if self.form is None:
                 return
 
+            self.prepare_formset()
+
+        def prepare_formset(self):
+            """
+            Prepare the formset for rendering, including setting up child formsAdd commentMore actions
+            and handling any necessary widgets for deletion and ordering.
+            """
+
             self.formset = self.form.formsets[self.panel.relation_name]
             self.child_edit_handler = self.panel.child_edit_handler
 
