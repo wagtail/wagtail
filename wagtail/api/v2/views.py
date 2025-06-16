@@ -56,6 +56,7 @@ class BaseAPIViewSet(GenericViewSet):
             "format",
         ]
     )
+    find_query_parameters = frozenset(["id"])
     body_fields = ["id"]
     meta_fields = ["type", "detail_url"]
     listing_default_fields = ["id", "type", "detail_url"]
@@ -113,10 +114,12 @@ class BaseAPIViewSet(GenericViewSet):
                 )
             )
 
-        if "fields" in request.GET:
-            url = url + "?fields=" + request.GET["fields"]
+        # Retain all query parameters except ones only used to find the object
+        query = request.GET.copy()
+        for param in self.find_query_parameters:
+            query.pop(param, None)
 
-        return redirect(url)
+        return redirect(f"{url}?{query.urlencode()}")
 
     def find_object(self, queryset, request):
         """
@@ -436,6 +439,11 @@ class PagesAPIViewSet(BaseAPIViewSet):
             "translation_of",
             "locale",
             "site",
+        ]
+    )
+    find_query_parameters = BaseAPIViewSet.find_query_parameters.union(
+        [
+            "html_path",
         ]
     )
     body_fields = BaseAPIViewSet.body_fields + [
