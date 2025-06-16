@@ -122,6 +122,10 @@ class EditView(generic.EditView):
         context = super().get_context_data(**kwargs)
 
         site_switcher = None
+        site_for_header = (
+            None  # shown when multiple sites exist, but only one is editable
+        )
+
         if issubclass(self.model, BaseSiteSetting):
             sites = self.permission_policy.sites_user_has_permission_for(
                 self.request.user, "change"
@@ -129,8 +133,11 @@ class EditView(generic.EditView):
             if len(sites) > 1:
                 site_switcher = SiteSwitchForm(self.site, self.model, sites=sites)
                 context["media"] += site_switcher.media
+            elif Site.objects.count() > 1:
+                site_for_header = self.site
 
         context["site_switcher"] = site_switcher
+        context["site_for_header"] = site_for_header
         return context
 
     def get_success_url(self):

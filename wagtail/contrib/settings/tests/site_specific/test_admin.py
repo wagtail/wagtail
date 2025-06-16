@@ -546,12 +546,29 @@ class TestMultiSite(SiteSettingTestMixin, BaseTestSiteSettingView):
         self.assertEqual("localhost [default]", options[1].text.strip())
 
     def test_no_switcher_when_only_permission_for_one_site(self):
-        """The switcher should not be displayed if the user only has permission to edit one site"""
+        """
+        The switcher should not be displayed if the user only has permission to edit one site,
+        but a static label should be shown instead
+        """
         user = self.login_only_admin()
         self.grant_default_site_permission(user)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, 'id="settings-site-switch"')
+        self.assertContains(response, "Site: localhost [default]", html=True)
+
+    def test_no_switcher_when_only_one_site_exists(self):
+        """
+        No switcher or label should be shown if only one site exists
+        """
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+        self.other_site.delete()  # Remove the other site
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'id="settings-site-switch"')
+        self.assertNotContains(response, "Site: localhost [default]", html=True)
 
     def test_switcher_when_permission_for_individual_sites(self):
         """The switcher should only show the sites the user has permission to edit"""
