@@ -81,7 +81,10 @@ class SitePermissionForm(forms.Form):
             # that the group has permission for.
             kwargs["initial"] = {
                 "sites": [
-                    permission.site for permission in self.get_existing_permissions()
+                    permission.site
+                    for permission in self.get_existing_permissions().select_related(
+                        "site"
+                    )
                 ]
             }
         super().__init__(*args, **kwargs)
