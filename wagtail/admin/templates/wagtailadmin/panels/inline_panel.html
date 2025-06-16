@@ -15,7 +15,7 @@
 {% endif %}
 
 <div id="id_{{ self.formset.prefix }}-FORMS">
-    <div data-w-formset-target="forms">
+    <div data-w-formset-target="forms" data-w-orderable-target="container">
         {% for child in self.children %}
             {% include "wagtailadmin/panels/inline_panel_child.html" %}
         {% endfor %}

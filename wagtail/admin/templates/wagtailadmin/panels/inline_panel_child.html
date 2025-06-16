@@ -2,7 +2,7 @@
 
 {% fragment as id %}inline_child_{{ child.form.prefix }}{% endfragment %}
 {% fragment as panel_id %}{{ id }}-panel{% endfragment %}
-<div data-w-formset-target="child" id="{{ id }}" data-contentpath-disabled data-w-orderable-target="item">
+<div data-w-formset-target="child" id="{{ id }}" data-contentpath-disabled data-w-orderable-target="item" data-w-orderable-item-id="{{ id }}">
     {% fragment as header_controls %}
         {% if can_order %}
             <button type="button" class="button button--icon text-replace white" data-w-orderable-target="up" data-action="w-orderable#up" title="{% trans 'Move up' %}">
