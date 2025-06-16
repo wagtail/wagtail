@@ -892,6 +892,7 @@
 * Richard Allen
 * Dimaco
 * Charan T M
+* Andrew Hosgood
 
 ## Translators
 

@@ -20,6 +20,7 @@ Changelog
  * Recognise `preserve-svg` as a filter when calling `Image.get_rendition` directly (Richard Allen)
  * Add support for `preserve-svg` for `Image.get_renditions`, picture, and srcset_image tags (Matt Westcott)
  * Include `TypedTableBlock` content when indexing for search (Charan T M)
+ * Preserve query parameters when redirecting from the API `find` view to the `detail` view (Andrew Hosgood)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
