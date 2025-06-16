@@ -195,5 +195,25 @@ class InlinePanel(Panel):
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["can_order"] = self.formset.can_order
+            can_order = self.formset.can_order
+            context["can_order"] = can_order
+
+            attrs = context["attrs"]
+            # Set data-controller, including any existing value
+            # Used by the w-formset controller (FormsetController)
+            # to add dynamic behaviour
+            attrs["data-controller"] = " ".join(
+                " ".join(
+                    [
+                        attrs.get("data-controller", ""),
+                        "w-formset",
+                        "w-orderable" if can_order else "",
+                    ]
+                ).split()
+            )
+
+            attrs["data-w-formset-deleted-class"] = (
+                "w-transition-opacity w-duration-300 w-ease-out w-opacity-0"
+            )
+            context["attrs"] = attrs
             return context

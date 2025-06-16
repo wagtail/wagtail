@@ -1,5 +1,7 @@
 {% load i18n l10n static wagtailadmin_tags %}
 
+{{ self.formset.management_form }}
+
 {% if self.formset.non_form_errors %}
     <div class="error-message">
         {% for error in self.formset.non_form_errors %}
@@ -12,10 +14,7 @@
     {% help_block status="info" %}{{ self.help_text }}{% endhelp_block %}
 {% endif %}
 
-<div id="id_{{ self.formset.prefix }}-FORMS" data-controller="w-formset{% if can_order %} w-orderable{% endif %}" data-formset-prefix="id_{{ self.formset.prefix }}">
-    <!-- NOTE: THERE IS A BETTER WAY - we can use `attrs` on the Panel - but let's fix that later -->
-    {{ self.formset.management_form }}
-
+<div id="id_{{ self.formset.prefix }}-FORMS">
     <div data-w-formset-target="forms">
         {% for child in self.children %}
             {% include "wagtailadmin/panels/inline_panel_child.html" %}
