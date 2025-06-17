@@ -16,10 +16,13 @@ from wagtail.admin.views.generic.multiple_upload import (
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
-from wagtail.images.fields import get_allowed_image_extensions
 from wagtail.images.forms import get_image_form, get_image_multi_form
 from wagtail.images.permissions import ImagesPermissionPolicyGetter, permission_policy
-from wagtail.images.utils import find_image_duplicates
+from wagtail.images.utils import (
+    find_image_duplicates,
+    get_accept_attributes,
+    get_allowed_image_extensions,
+)
 
 
 class AddView(WagtailAdminTemplateMixin, BaseAddView):
@@ -104,6 +107,7 @@ class AddView(WagtailAdminTemplateMixin, BaseAddView):
                 "max_filesize": self.form.fields["file"].max_upload_size,
                 "max_title_length": self.form.fields["title"].max_length,
                 "allowed_extensions": get_allowed_image_extensions(),
+                "accept_attributes": get_accept_attributes(),
                 "error_max_file_size": self.form.fields["file"].error_messages[
                     "file_too_large_unknown_size"
                 ],
