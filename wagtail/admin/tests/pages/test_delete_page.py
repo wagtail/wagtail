@@ -83,7 +83,9 @@ class TestPageDelete(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "This action will delete total <b>3</b> pages.")
+        self.assertContains(
+            response, "This action will delete <b>3</b> pages in total."
+        )
         self.assertContains(response, "Please type <b>mysite</b> to confirm.")
         self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # deletion should not actually happen on GET
@@ -107,7 +109,9 @@ class TestPageDelete(WagtailTestUtils, TestCase):
         # One error messages should be returned
         messages = [m.message for m in response.context["messages"]]
         self.assertEqual(len(messages), 1)
-        self.assertContains(response, "This action will delete total <b>3</b> pages.")
+        self.assertContains(
+            response, "This action will delete <b>3</b> pages in total."
+        )
         self.assertContains(response, "Please type <b>mysite</b> to confirm.")
         self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # Site should not be deleted
