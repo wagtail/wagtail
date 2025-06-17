@@ -54,20 +54,37 @@ def redirect_to_relevant_instance(request, app_name, model_name):
     if issubclass(model, BaseSiteSetting):
         # Redirect the user to the edit page for the current site
         # (or the current request does not correspond to a site, the first site in the list)
-        site_request = Site.find_for_request(request)
-        site = site_request or Site.objects.first()
+        site = Site.find_for_request(request)
+        permission_policy = model.get_permission_policy()
+        if not site or not permission_policy.user_has_permission_for_instance(
+            request.user, "change", site
+        ):
+            # Select the first site they can edit
+            site = permission_policy.sites_user_has_permission_for(
+                request.user, "change"
+            ).first()
+
         if not site:
-            messages.error(
-                request,
-                _("This setting could not be opened because there is no site defined."),
-            )
-            return redirect("wagtailadmin_home")
+            if Site.objects.exists():
+                # There are sites, but the user has no permission to edit any of them
+                raise PermissionDenied
+            else:
+                # No sites exist, so we can't redirect to a specific site
+                messages.error(
+                    request,
+                    _(
+                        "This setting could not be opened because there is no site defined."
+                    ),
+                )
+                return redirect("wagtailadmin_home")
+
         return redirect(
             "wagtailsettings:edit",
             app_name,
             model_name,
             site.pk,
         )
+
     elif issubclass(model, BaseGenericSetting):
         return redirect(
             "wagtailsettings:edit",

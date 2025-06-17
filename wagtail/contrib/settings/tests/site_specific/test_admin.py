@@ -418,6 +418,32 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
         response = self.client.get(url)
         self.assertRedirects(response, status_code=302, expected_url="/admin/")
 
+    def test_get_redirect_to_relevant_instance_with_specific_site_permission(self):
+        user = self.login_only_admin()
+        other_site = Site.objects.create(
+            hostname="example.com", root_page=Page.objects.get(pk=2)
+        )
+
+        # grant this user permission to edit other_site only
+        site_owners = Group.objects.create(name="Site Owners")
+        GroupSitePermission.objects.create(
+            group=site_owners,
+            site=other_site,
+            permission=Permission.objects.get_by_natural_key(
+                app_label="tests",
+                model="testsitesetting",
+                codename="change_testsitesetting",
+            ),
+        )
+        user.groups.add(site_owners)
+
+        url = reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
+
+        response = self.client.get(url)
+        self.assertRedirects(
+            response, status_code=302, expected_url=f"{url}{other_site.pk}/"
+        )
+
     def test_edit_restricted_field(self):
         # User has edit permission over the setting model, including the sensitive_email field
         test_setting = TestPermissionedSiteSetting()
