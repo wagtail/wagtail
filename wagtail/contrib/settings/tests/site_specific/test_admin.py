@@ -122,6 +122,16 @@ class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_get_edit_without_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+        other_site = Site.objects.create(
+            hostname="example.com", root_page=Page.objects.get(pk=2)
+        )
+        response = self.get(site_pk=other_site.pk)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
     def test_edit_invalid(self):
         response = self.post(post_data={"foo": "bar"})
         self.assertContains(response, "The setting could not be saved due to errors.")
@@ -164,6 +174,21 @@ class TestSiteSettingCreateView(SiteSettingTestMixin, BaseTestSiteSettingView):
         setting = TestSiteSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, "Edited site title")
         self.assertEqual(setting.email, "test@example.com")
+
+    def test_edit_without_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+        other_site = Site.objects.create(
+            hostname="example.com", root_page=Page.objects.get(pk=2)
+        )
+
+        response = self.post(
+            site_pk=other_site.pk,
+            post_data={"title": "Edited site title", "email": "test@example.com"},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertFalse(TestSiteSetting.objects.exists())
 
     def test_file_upload_multipart(self):
         response = self.get(setting=FileSiteSetting)
@@ -299,6 +324,16 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_get_edit_without_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+        other_site = Site.objects.create(
+            hostname="example.com", root_page=Page.objects.get(pk=2)
+        )
+        response = self.get(site_pk=other_site.pk)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
     def test_non_existent_model(self):
         response = self.client.get(
             reverse("wagtailsettings:edit", args=["test", "foo", 1])
@@ -350,6 +385,23 @@ class TestSiteSettingEditView(SiteSettingTestMixin, BaseTestSiteSettingView):
         self.test_setting.refresh_from_db()
         self.assertEqual(self.test_setting.title, "Edited site title")
         self.assertEqual(self.test_setting.email, "test@example.com")
+
+    def test_edit_without_site_specific_permission(self):
+        user = self.login_only_admin()
+        self.grant_default_site_permission(user)
+        other_site = Site.objects.create(
+            hostname="example.com", root_page=Page.objects.get(pk=2)
+        )
+
+        response = self.post(
+            site_pk=other_site.pk,
+            post_data={"title": "Edited site title", "email": "test@example.com"},
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.test_setting.refresh_from_db()
+        self.assertEqual(self.test_setting.title, "Site title")
+        self.assertEqual(self.test_setting.email, "initial@example.com")
 
     def test_get_redirect_to_relevant_instance(self):
         url = reverse("wagtailsettings:edit", args=("tests", "testsitesetting"))
