@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -99,6 +100,12 @@ class EditView(generic.EditView):
         self.site = None
         if issubclass(self.model, BaseSiteSetting):
             self.site = get_object_or_404(Site, pk=self.pk)
+
+            if not self.permission_policy.user_has_permission_for_instance(
+                self.request.user, "change", self.site
+            ):
+                raise PermissionDenied
+
             return self.model.for_site(self.site)
         else:
             return get_object_or_404(self.model, pk=self.pk)
