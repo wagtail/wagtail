@@ -23,6 +23,7 @@ Changelog
  * Include `TypedTableBlock` content when indexing for search (Charan T M)
  * Preserve query parameters when redirecting from the API `find` view to the `detail` view (Andrew Hosgood)
  * Add 'Edit' button to success message after copying page (Dhruvi Patel)
+ * Restrict file dialog in multiple image uploader to the allowed image file types (mubarak-mustopha)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
