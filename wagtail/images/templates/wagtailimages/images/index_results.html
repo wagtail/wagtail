@@ -23,7 +23,6 @@
                                     <a href="{% querystring ordering='-title' %}" title="Sort by 'Title' in ascending order." class="icon icon-arrow-up-after label" >{% trans "Title" %}</a>
                                 {% endif %}
                             </th>
-                            <th>{% trans "File" %}</th>
                             <th>{% trans "Collection" %}</th>
                             <th>
                                 {% if ordering == "-created_at" %}
@@ -48,9 +47,9 @@
                                 </td>
                                 <td class="title">
                                     <h2><a href="{% url view.edit_url_name image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">{{ image.title|ellipsistrim:60 }}</a></h2>
+                                    <br><span>{{ image.filename }}</span>
                                 </td>
-                                <td>{{image.filename}}</td>
-                                <td>{{image.collection}}</td>
+                                <td>{{ image.collection }}</td>
                                 <td>{% timesince_last_update image.created_at %}</td>
                             </tr>
                         {% endfor %}
