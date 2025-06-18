@@ -1408,6 +1408,62 @@ class AbstractRendition(ImageFileMixin, models.Model):
         else:
             return "background-position: 50% 50%;"
 
+    @property
+    def background_position_x(self):
+        """
+        Returns the horizontal background position as a percentage string.
+
+        This positions the rendition horizontally according to the focal point's x coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The horizontal position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to client-facing HTML.
+
+        A usage example in the client-facing CSS (to avoid inline styles):
+            <div class="my-bg-image" data-background-position-x="{{ image.background_position_x }}">
+            </div>
+
+            .my-bg-image {
+                background-position-x: attr(data-background-position-x, <number>);
+            }
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            horz = int((focal_point.x * 100) // self.width)
+            return f"{horz}%"
+        else:
+            return "50%"
+
+    @property
+    def background_position_y(self):
+        """
+        Returns the vertical background position as a percentage string.
+
+        This positions the rendition vertically according to the focal point's y coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The vertical position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to client-facing HTML.
+
+        A usage example in the client-facing CSS (to avoid inline styles):
+            <div class="my-bg-image" data-background-position-y="{{ image.background_position_y }}">
+            </div>
+
+            .my-bg-image {
+                background-position-y: attr(data-background-position-y, <number>);
+            }
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            vert = int((focal_point.y * 100) // self.height)
+            return f"{vert}%"
+        else:
+            return "50%"
+
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
 
