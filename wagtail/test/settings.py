@@ -228,6 +228,7 @@ else:
     AUTH_USER_MODEL = "customuser.CustomUser"
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
+    INSTALLED_APPS.append("django.contrib.postgres")
     WAGTAILSEARCH_BACKENDS["postgresql"] = {
         "BACKEND": "wagtail.search.backends.database",
         "AUTO_UPDATE": False,

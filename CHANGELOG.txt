@@ -37,6 +37,7 @@ Changelog
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
  * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
+ * Maintenance: Add `django.contrib.postgres` to test settings `INSTALLED_APPS` (Sage Abdullah)
 
 
 7.0.1 (12.06.2025)
