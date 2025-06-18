@@ -37,6 +37,7 @@ Changelog
  * Fix: Replace inline styles with CSS classes in HTML files (Srishti Jaiswal)
  * Fix: Refactor remaining inline styles to avoid unsafe-inline style-src CSP (Chiemezuo Akujobi)
  * Fix: Avoid breaking words in listing table cells unless specifically enabled (Ziyao Yan)
+ * Fix: Ensure that "all items in listing" option on image / document bulk actions respects user permissions (Alex Morega)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
