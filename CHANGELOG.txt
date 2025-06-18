@@ -4,6 +4,7 @@ Changelog
 7.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Allow configuring permissions for site settings on a per-site basis (Matt Westcott)
  * Add iHeart oembed provider (Storm Heg)
  * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
  * Add ability for the header breadcrumbs to save their open/closed state across navigation & refresh (Srishti Jaiswal)
