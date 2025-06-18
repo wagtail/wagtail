@@ -1400,13 +1400,53 @@ class AbstractRendition(ImageFileMixin, models.Model):
             <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
             </div>
         """
+        horz = self.background_position_x
+        vert = self.background_position_y
+        return f"background-position: {horz} {vert};"
+
+    @property
+    def background_position_x(self):
+        """
+        Returns the horizontal background position as a percentage string.
+
+        This positions the rendition horizontally according to the focal point's x coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The horizontal position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-x` CSS property instead of using inline styles.
+            <div class="my-bg-image" data-background-position-x="{{ image.background_position_x }}">
+            </div>
+        """
         focal_point = self.focal_point
         if focal_point:
             horz = int((focal_point.x * 100) // self.width)
-            vert = int((focal_point.y * 100) // self.height)
-            return f"background-position: {horz}% {vert}%;"
+            return f"{horz}%"
         else:
-            return "background-position: 50% 50%;"
+            return "50%"
+
+    @property
+    def background_position_y(self):
+        """
+        Returns the vertical background position as a percentage string.
+
+        This positions the rendition vertically according to the focal point's y coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The vertical position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-y` CSS property instead of using inline styles.
+            <div class="my-bg-image" data-background-position-y="{{ image.background_position_y }}">
+            </div>
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            vert = int((focal_point.y * 100) // self.height)
+            return f"{vert}%"
+        else:
+            return "50%"
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
