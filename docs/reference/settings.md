@@ -757,26 +757,6 @@ WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
 
 See [](private_pages) for more details.
 
-### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
-
-If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
-
-```python
-WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
-```
-
-See [](private_pages) for more details.
-
-### `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`
-
-If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
-
-```python
-WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
-```
-
-See [](private_pages) for more details.
-
 ## Tags
 
 ### `TAGGIT_CASE_INSENSITIVE`
