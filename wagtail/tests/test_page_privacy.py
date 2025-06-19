@@ -9,6 +9,7 @@ from wagtail.test.utils import WagtailTestUtils
 def custom_group_handler(page, request, restriction):
     return HttpResponse("Not for you!", status=402)
 
+
 class TestPagePrivacy(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
 
@@ -221,7 +222,7 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
         self.login(username="eventmoderator", password="password")
         response = self.client.get("/secret-event-editor-plans/")
         self.assertEqual(response.status_code, 402)
-        self.assertEqual(response.content, b'Not for you!')
+        self.assertEqual(response.content, b"Not for you!")
 
     def test_group_restriction_with_permitted_user(self):
         self.login(username="eventeditor", password="password")

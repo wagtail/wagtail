@@ -1,11 +1,9 @@
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
-from django.test import RequestFactory, TestCase, override_settings
-from django.urls import reverse
+from django.test import RequestFactory, TestCase
 
 from wagtail import hooks
 from wagtail.models import Page, PageViewRestriction
@@ -16,6 +14,7 @@ from wagtail.wagtail_hooks import check_view_restrictions
 
 def test_hook():
     pass
+
 
 class TestLoginView(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]

@@ -158,6 +158,7 @@ def describe_collection_docs(collection):
             "url": url,
         }
 
+
 @hooks.register("before_serve_document")
 def check_view_restrictions(document, request):
     """

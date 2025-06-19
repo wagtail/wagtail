@@ -13,8 +13,10 @@ try:
 except ImportError:
     from urllib import quote
 
+
 def custom_doc_group_handler(document, request, restriction):
     return HttpResponse("Not for you!", status=402)
+
 
 class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -142,14 +144,13 @@ class TestCollectionPrivacyDocument(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 403)
 
     @override_settings(
-        WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER=
-        "wagtail.documents.tests.test_collection_privacy.custom_doc_group_handler"
+        WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER="wagtail.documents.tests.test_collection_privacy.custom_doc_group_handler"
     )
     def test_group_restriction_with_unpermitted_user_custom_handler(self):
         self.login(username="eventmoderator", password="password")
         response, url = self.get_document(self.group_collection)
         self.assertEqual(response.status_code, 402)
-        self.assertEqual(response.content, b'Not for you!')
+        self.assertEqual(response.content, b"Not for you!")
 
     def test_group_restriction_with_permitted_user(self):
         self.login(username="eventeditor", password="password")
