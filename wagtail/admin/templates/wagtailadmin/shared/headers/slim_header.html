@@ -114,6 +114,7 @@
                         {% endcomment %}
                         <input hidden disabled type="submit" />
                         <input type="hidden" name="view" value="{{ view_mode }}">
+                        {# Passing view_mode so that on searching list view is preserved #}
                     </form>
                 {% endif %}
             {% endblock %}
