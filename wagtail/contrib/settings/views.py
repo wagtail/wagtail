@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -14,7 +15,6 @@ from wagtail.admin.panels import (
 )
 from wagtail.admin.views import generic
 from wagtail.models import Site
-from wagtail.permission_policies import ModelPermissionPolicy
 
 from .forms import SiteSwitchForm
 from .models import BaseGenericSetting, BaseSiteSetting
@@ -54,20 +54,37 @@ def redirect_to_relevant_instance(request, app_name, model_name):
     if issubclass(model, BaseSiteSetting):
         # Redirect the user to the edit page for the current site
         # (or the current request does not correspond to a site, the first site in the list)
-        site_request = Site.find_for_request(request)
-        site = site_request or Site.objects.first()
+        site = Site.find_for_request(request)
+        permission_policy = model.get_permission_policy()
+        if not site or not permission_policy.user_has_permission_for_instance(
+            request.user, "change", site
+        ):
+            # Select the first site they can edit
+            site = permission_policy.sites_user_has_permission_for(
+                request.user, "change"
+            ).first()
+
         if not site:
-            messages.error(
-                request,
-                _("This setting could not be opened because there is no site defined."),
-            )
-            return redirect("wagtailadmin_home")
+            if Site.objects.exists():
+                # There are sites, but the user has no permission to edit any of them
+                raise PermissionDenied
+            else:
+                # No sites exist, so we can't redirect to a specific site
+                messages.error(
+                    request,
+                    _(
+                        "This setting could not be opened because there is no site defined."
+                    ),
+                )
+                return redirect("wagtailadmin_home")
+
         return redirect(
             "wagtailsettings:edit",
             app_name,
             model_name,
             site.pk,
         )
+
     elif issubclass(model, BaseGenericSetting):
         return redirect(
             "wagtailsettings:edit",
@@ -89,7 +106,7 @@ class EditView(generic.EditView):
         self.app_name = app_name
         self.model_name = model_name
         self.model = get_model_from_url_params(app_name, model_name)
-        self.permission_policy = ModelPermissionPolicy(self.model)
+        self.permission_policy = self.model.get_permission_policy()
         self.pk = kwargs.get(self.pk_url_kwarg)
         super().setup(request, app_name, model_name, *args, **kwargs)
 
@@ -100,6 +117,12 @@ class EditView(generic.EditView):
         self.site = None
         if issubclass(self.model, BaseSiteSetting):
             self.site = get_object_or_404(Site, pk=self.pk)
+
+            if not self.permission_policy.user_has_permission_for_instance(
+                self.request.user, "change", self.site
+            ):
+                raise PermissionDenied
+
             return self.model.for_site(self.site)
         else:
             return get_object_or_404(self.model, pk=self.pk)
@@ -123,11 +146,22 @@ class EditView(generic.EditView):
         context = super().get_context_data(**kwargs)
 
         site_switcher = None
-        if self.site and Site.objects.count() > 1:
-            site_switcher = SiteSwitchForm(self.site, self.model)
-            context["media"] += site_switcher.media
+        site_for_header = (
+            None  # shown when multiple sites exist, but only one is editable
+        )
+
+        if issubclass(self.model, BaseSiteSetting):
+            sites = self.permission_policy.sites_user_has_permission_for(
+                self.request.user, "change"
+            )
+            if len(sites) > 1:
+                site_switcher = SiteSwitchForm(self.site, self.model, sites=sites)
+                context["media"] += site_switcher.media
+            elif Site.objects.count() > 1:
+                site_for_header = self.site
 
         context["site_switcher"] = site_switcher
+        context["site_for_header"] = site_for_header
         return context
 
     def get_success_url(self):

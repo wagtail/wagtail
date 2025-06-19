@@ -1,10 +1,11 @@
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail.admin.views.bulk_action.mixins import ReferenceIndexMixin
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
-class DeleteBulkAction(ImageBulkAction):
+class DeleteBulkAction(ReferenceIndexMixin, ImageBulkAction):
     display_name = _("Delete")
     action_type = "delete"
     aria_label = _("Delete selected images")
@@ -24,6 +25,9 @@ class DeleteBulkAction(ImageBulkAction):
             pk__in=[obj.pk for obj in objects]
         ).delete()
         return num_parent_objects, 0
+
+    def get_usage_url(self, item):
+        return item.usage_url + "?describe_on_delete=1"
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         return ngettext(

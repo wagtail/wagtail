@@ -4,6 +4,7 @@ Changelog
 7.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Allow configuring permissions for site settings on a per-site basis (Matt Westcott)
  * Add iHeart oembed provider (Storm Heg)
  * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
  * Add ability for the header breadcrumbs to save their open/closed state across navigation & refresh (Srishti Jaiswal)
@@ -12,18 +13,51 @@ Changelog
  * Define default `GenericRelations` for `RevisionMixin` and `WorkflowMixin`, to avoid issues with deletion cascades (Sage Abdullah)
  * Document and relocate the `init_new_page` signal (Maciek Baron)
  * Use `requests` to access oEmbed endpoints, for more robust SSL certificate handling (Matt Westcott)
+ * Ensure that bulk deletion views respect protected foreign keys (Sage Abdullah)
+ * Add minimum length validation for `RichTextBlock` and `RichTextField` (Alec Baron)
+ * Allow `SnippetChooserBlock`'s `icon` to take precedence over `SnippetViewSet.icon` (Matt Westcott)
+ * Allow searching the users index on custom fields (Paul Craciunoiu, Sage Abdullah)
+ * Support `preserve-svg` in Jinja2 image tags (Vishesh Garg)
+ * Recognise `preserve-svg` as a filter when calling `Image.get_rendition` directly (Richard Allen)
+ * Add support for `preserve-svg` for `Image.get_renditions`, picture, and srcset_image tags (Matt Westcott)
+ * Include `TypedTableBlock` content when indexing for search (Charan T M)
+ * Preserve query parameters when redirecting from the API `find` view to the `detail` view (Andrew Hosgood)
+ * Add 'Edit' button to success message after copying page (Dhruvi Patel)
+ * Restrict file dialog in multiple image uploader to the allowed image file types (Mustopha Mubarak O)
+ * Raise clear error when non-StreamBlock is used as top-level block in StreamField (Clifford Gama)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
  * Fix: Fix behaviour of `ViewSet.inject_view_methods` with multiple methods (Gorlik)
+ * Fix: Preserve query strings in URLs submitted to CloudFront for invalidation (Jigyasu Rajput)
+ * Fix: Handle non-JSON-safe fields in `exclude_fields_in_copy` (Matt Westcott)
+ * Fix: Allow upload of AVIF images through image chooser on Firefox (Matt Westcott)
+ * Fix: Accept any string beginning with 'y' as confirmation for `import_redirects` command (Matt Westcott)
+ * Fix: Fix error when accessing the submissions listing view with a non-form page (Sage Abdullah)
+ * Fix: Replace inline styles with CSS classes in HTML files (Srishti Jaiswal)
+ * Fix: Refactor remaining inline styles to avoid unsafe-inline style-src CSP (Chiemezuo Akujobi)
+ * Fix: Avoid breaking words in listing table cells unless specifically enabled (Ziyao Yan)
+ * Fix: Ensure that "all items in listing" option on image / document bulk actions respects user permissions (Alex Morega)
+ * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
+ * Maintenance: Add `django.contrib.postgres` to test settings `INSTALLED_APPS` (Sage Abdullah)
 
-7.0.1 (xx.xx.xxxx) - IN DEVELOPMENT
+
+7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Fix type hints for `register_filter_adapter_class` parameters (Sébastien Corbin)
+ * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
+ * Fix: Fix saving of empty values in EmbedBlock (Matt Westcott)
+ * Fix: Sanitize request data when logging method not allowed (Jake Howard)
  * Docs: Use tuple instead of set in `UniqueConstraint` examples for a custom rendition model to avoid spurious migrations (Alec Baron)
+ * Docs: Document how to turn off StreamField block previews (Shlomo Markowitz)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
+
 
 7.0 LTS (06.05.2025)
 ~~~~~~~~~~~~~~~~~~~~
@@ -104,10 +138,14 @@ Changelog
  * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
 
 
-6.4.2 (xx.xx.xxxx) - IN DEVELOPMENT
+6.4.2 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Do not show upgrade notification if the installed version is the latest (Sage Abdullah)
+ * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
+ * Fix: Sanitize request data when logging method not allowed (Jake Howard)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
 
 
 6.4.1 (21.02.2025)
@@ -265,6 +303,14 @@ Changelog
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
+6.3.5 (12.06.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
+
+
 6.3.4 (24.04.2025)
 ~~~~~~~~~~~~~~~~~~
 
@@ -403,6 +449,12 @@ Changelog
  * Maintenance: Improve code reuse for footer actions markup across generic views (Sage Abdullah)
  * Maintenance: Deprecate internal `DeleteMenuItem` API for footer actions (Sage Abdullah)
  * Maintenance: Update Pillow dependency to allow 11.x (Storm Heg)
+
+
+6.2.4 (12.06.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
 
 
 6.2.3 (01.11.2024)

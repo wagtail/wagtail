@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+{% panel heading=heading icon=form.icon id=panel_id %}
+    {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+
+    <ul class="fields">
+        {% for field in form.visible_fields %}
+            <li>{% formattedfield field %}</li>
+        {% endfor %}
+    </ul>
+{% endpanel %}

@@ -887,6 +887,14 @@
 * Gorlik
 * manu
 * Maciek Baron
+* Vishesh Garg
+* Paul Craciunoiu
+* Richard Allen
+* Dimaco
+* Charan T M
+* Andrew Hosgood
+* Mustopha Mubarak O
+* Ziyao Yan
 
 ## Translators
 

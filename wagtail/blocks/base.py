@@ -324,14 +324,14 @@ class Block(metaclass=BaseBlock):
 
     @cached_property
     def is_previewable(self):
-        # To prevent showing a broken preview if the block preview has not been
-        # configured, consider the block to be previewable if either:
-        # - a specific preview template is configured for the block
-        # - a preview value is provided and the global template has been overridden
-        # which are the intended ways to configure block previews.
-        #
-        # If a block is made previewable by other means, the `is_previewable`
-        # property should be overridden to return `True`.
+        """
+        Determine whether the block is previewable in the block picker. By
+        default, it automatically detects when a custom template is used or the
+        :ref:`the global preview template <streamfield_global_preview_template>`
+        is overridden and a preview value is provided. If the block is
+        previewable by other means, override this property to return ``True``.
+        To turn off previews for the block, set it to ``False``.
+        """
         has_specific_template = (
             hasattr(self.meta, "preview_template")
             or self.__class__.get_preview_template is not Block.get_preview_template
