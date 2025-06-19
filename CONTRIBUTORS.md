@@ -893,7 +893,7 @@
 * Dimaco
 * Charan T M
 * Andrew Hosgood
-* mubarak-mustopha
+* Mustopha Mubarak O
 * Ziyao Yan
 
 ## Translators
