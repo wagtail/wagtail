@@ -76,7 +76,6 @@ class UsersWithPermissionTest(TestCase):
         actions = ["change"]
         self.mixin.users_with_any_permission_for_instance(actions, instance)
         self.mixin._check_perm.assert_not_called()
-
     def test_change_sem_dono_sem_perm(self):
         instance = Mock()
         instance.collection = Mock()
