@@ -798,7 +798,7 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
             response,
             """
             <td>
-                <svg class="icon icon-error default w-text-critical-100" aria-hidden="true">
+                <svg class="icon icon-error default w-text-text-error" aria-hidden="true">
                     <use href="#icon-error"></use>
                 </svg>
                 <span class="w-sr-only">False</span>
