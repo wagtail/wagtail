@@ -1,10 +1,16 @@
 from warnings import warn
 
 from django.template.loader import render_to_string
+from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.ui.components import Component
+from wagtail.admin.utils import get_admin_base_url
 from wagtail.coreutils import accepts_kwarg
+from wagtail.models import Revision
+from wagtail.models.pages import Page
+from wagtail.users.models import UserProfile
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
@@ -20,13 +26,6 @@ class BaseItem:
 
 class AdminItem(BaseItem):
     template = "wagtailadmin/userbar/item_admin.html"
-
-    def render(self, request):
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        return super().render(request)
 
 
 class AccessibilityItem(BaseItem):
@@ -44,7 +43,7 @@ class AccessibilityItem(BaseItem):
     axe_exclude = []
 
     # Make sure that the userbar is not tested.
-    _axe_default_exclude = [{"fromShadowDOM": ["wagtail-userbar"]}]
+    _axe_default_exclude = [{"fromShadowDom": ["wagtail-userbar"]}]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
@@ -214,13 +213,6 @@ class AccessibilityItem(BaseItem):
             "axe_configuration": self.get_axe_configuration(request),
         }
 
-    def render(self, request):
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
-        return super().render(request)
-
 
 class AddPageItem(BaseItem):
     template = "wagtailadmin/userbar/item_page_add.html"
@@ -232,10 +224,6 @@ class AddPageItem(BaseItem):
     def render(self, request):
         # Don't render if the page doesn't have an id
         if not self.page.id:
-            return ""
-
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if user doesn't have ability to add children here
@@ -256,10 +244,6 @@ class ExplorePageItem(BaseItem):
     def render(self, request):
         # Don't render if the page doesn't have an id
         if not self.page.id:
-            return ""
-
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if user doesn't have ability to edit or publish subpages on the parent page
@@ -292,10 +276,6 @@ class EditPageItem(BaseItem):
         except AttributeError:
             pass
 
-        # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm("wagtailadmin.access_admin"):
-            return ""
-
         # Don't render if the user doesn't have permission to edit this page
         permission_checker = self.page.permissions_for_user(request.user)
         if not permission_checker.can_edit():
@@ -315,3 +295,78 @@ def apply_userbar_hooks(request, items, page):
                 category=RemovedInWagtail80Warning,
             )
             fn(request, items)
+
+
+class Userbar(Component):
+    template_name = "wagtailadmin/userbar/base.html"
+
+    def __init__(self, *, object=None, position="bottom-right"):
+        self.object = object
+        self.position = position
+
+    def get_context_data(self, parent_context):
+        request = parent_context.get("request")
+        # Render the userbar differently within the preview panel.
+        in_preview_panel = getattr(request, "in_preview_panel", False)
+
+        if not request or request.user.is_anonymous:
+            language = None
+            origin = get_admin_base_url()
+        else:
+            # Render the userbar using the user's preferred admin language
+            userprofile = UserProfile.get_for_user(request.user)
+            language = userprofile.get_preferred_language()
+            origin = f"{request.scheme}://{request.get_host()}"
+
+        with translation.override(language):
+            try:
+                revision_id = request.revision_id
+            except AttributeError:
+                revision_id = None
+
+            if in_preview_panel:
+                items = [
+                    AccessibilityItem(),
+                ]
+            elif isinstance(self.object, Page) and self.object.pk:
+                if revision_id:
+                    revision = Revision.page_revisions.get(id=revision_id)
+                    items = [
+                        AdminItem(),
+                        ExplorePageItem(revision.content_object),
+                        EditPageItem(revision.content_object),
+                        AccessibilityItem(),
+                    ]
+                else:
+                    # Not a revision
+                    items = [
+                        AdminItem(),
+                        ExplorePageItem(self.object),
+                        EditPageItem(self.object),
+                        AddPageItem(self.object),
+                        AccessibilityItem(),
+                    ]
+            else:
+                # Not a page.
+                items = [
+                    AdminItem(),
+                    AccessibilityItem(),
+                ]
+
+            apply_userbar_hooks(request, items, self.object)
+
+            # Render the items
+            rendered_items = [item.render(request) for item in items]
+
+            # Remove any unrendered items
+            rendered_items = [item for item in rendered_items if item]
+
+            # Render the userbar items
+            return {
+                "request": request,
+                "origin": origin,
+                "items": rendered_items,
+                "position": self.position,
+                "page": self.object,
+                "revision_id": revision_id,
+            }
