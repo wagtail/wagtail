@@ -20,10 +20,10 @@ from wagtail.admin.filters import (
 from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.ui.tables import (
+    BooleanColumn,
     BulkActionsCheckboxColumn,
     Column,
     DateColumn,
-    StatusTagColumn,
     TitleColumn,
 )
 from wagtail.admin.utils import get_user_display_name
@@ -145,13 +145,9 @@ class IndexView(generic.IndexView):
                 classname="level",
                 width="10%",
             ),
-            StatusTagColumn(
+            BooleanColumn(
                 "is_active",
-                accessor=lambda u: gettext_lazy("Active")
-                if u.is_active
-                else gettext_lazy("Inactive"),
-                primary=lambda u: u.is_active,
-                label=gettext_lazy("Status"),
+                label=gettext_lazy("Active"),
                 sort_key="is_active" if "is_active" in self.model_fields else None,
                 classname="status",
                 width="10%",
