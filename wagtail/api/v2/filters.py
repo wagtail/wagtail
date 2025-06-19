@@ -88,17 +88,24 @@ class OrderingFilter(BaseFilterBackend):
         # Handle random ordering separately
         if "random" in order_by_list:
             if len(order_by_list) > 1:
-                raise BadRequestError(
-                    "random ordering cannot be combined with other fields"
-                )
+                raise BadRequestError("random ordering cannot be combined with other fields")
             if "offset" in request.GET:
                 raise BadRequestError("random ordering with offset is not supported")
             return queryset.order_by("?")
 
+        allowed_fields = view.get_available_fields(queryset.model, db_fields_only=True)
+        validated_fields = []
+
+        for field in order_by_list:
+            field_name = field.lstrip("-")
+            if field_name not in allowed_fields:
+                raise BadRequestError(f"cannot order by '{field}' (unknown field)")
+            validated_fields.append(field)
+
         try:
-            return queryset.order_by(*order_by_list)
+            return queryset.order_by(*validated_fields)
         except FieldError:
-            raise BadRequestError(f"cannot order by '{order_param}' (unknown field)")
+            raise BadRequestError(f"cannot order by '{order_param}' (invalid field)")
 
 
 class SearchFilter(BaseFilterBackend):
