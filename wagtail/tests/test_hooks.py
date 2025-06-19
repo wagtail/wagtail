@@ -109,7 +109,7 @@ class TestServeHooks(WagtailTestUtils, TestCase):
             response = serve(self.request, self.page.url)
             self.assertEqual(response.content, b"Halted")
 
-    def test_serve_group_view_restriction(self):
+    def test_serve_chain_group_view_restriction(self):
         restriction = PageViewRestriction.objects.create(
             page=self.page,
             restriction_type=PageViewRestriction.GROUPS,
