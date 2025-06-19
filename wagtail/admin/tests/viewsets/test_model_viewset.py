@@ -242,7 +242,7 @@ class TestCustomColumns(WagtailTestUtils, TestCase):
         self.assertIsNotNone(success)
         self.assertEqual(success.text.strip(), "True")
 
-        error = soup.select_one("td:has(svg.icon-error.w-text-critical-100)")
+        error = soup.select_one("td:has(svg.icon-error.w-text-text-error)")
         self.assertIsNotNone(error)
         self.assertEqual(error.text.strip(), "False")
 
