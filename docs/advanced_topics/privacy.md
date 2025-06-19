@@ -165,3 +165,28 @@ class VideoPage(Page):
 
     password_required_template = 'video/password_required.html'
 ```
+
+(handling_group_permissions)=
+## Handling group permissions
+
+When a page is restricted based on a user's groups, it is possible to customise how Wagtail will handle the response. By default, unauthenticated users are redirected to the login view. Requests from authenticated users who do *not* belong to the required group raise a {class}`~django.core.exceptions.PermissionDenied` exception, but this can be override through the setting `WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER`, which must refer to the path of a callable that accepts `page`, `response` and `restriction` as arguments:
+
+```python
+WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER = "myapp.handlers.unauthenticated_group_handler"
+```
+
+```python
+def unauthenticated_group_handler(page, request, restriction):
+    return HttpResponse("This content is just for tea pots", status=418)
+```
+
+This functionality also exists for documents in private collections, using the setting `WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER`:
+
+```python
+WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER = "myapp.handlers.unauthenticated_doc_group_handler"
+```
+
+```python
+def unauthenticated_doc_group_handler(document, request, restriction):
+    return HttpResponse("This document is just for tea pots", status=418)
+```

@@ -703,6 +703,22 @@ WAGTAILDOCS_PASSWORD_REQUIRED_TEMPLATE = 'myapp/document_password_required.html'
 
 As above, but for password restrictions on documents. For more details, see the [](private_pages) documentation.
 
+### `WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER`
+
+```python
+WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER = "myapp.handlers.unauthenticated_group_handler"
+```
+
+This is the path to the method which will be used to handle authenticated users attempting to access a page without the required group permission. For more details, see the [](handling_group_permissions) documentation.
+
+### `WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER`
+
+```python
+WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER = "myapp.handlers.unauthenticated_doc_group_handler"
+```
+
+As above, but for group restrictions on collections. For more details, see the [](handling_group_permissions) documentation.
+
 ### `WAGTAIL_FRONTEND_LOGIN_TEMPLATE`
 
 The basic login page can be customized with a custom template.
@@ -720,6 +736,26 @@ WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 ```
 
 For more details, see the [](login_page) documentation.
+
+### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
+
+If you'd rather users not have the ability to use a shared password to make pages private, you can disable it with this setting:
+
+```python
+WAGTAIL_PRIVATE_PAGE_OPTIONS = {"SHARED_PASSWORD": False}
+```
+
+See [](private_pages) for more details.
+
+### `WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS`
+
+If you'd rather users not have the ability to use a shared password to make collections (used for documents) private, you can disable it with this setting:
+
+```python
+WAGTAILDOCS_PRIVATE_COLLECTION_OPTIONS = {"SHARED_PASSWORD": False}
+```
+
+See [](private_pages) for more details.
 
 ### `WAGTAIL_PRIVATE_PAGE_OPTIONS`
 

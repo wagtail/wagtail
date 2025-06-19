@@ -1,7 +1,9 @@
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.template.response import TemplateResponse
 from django.urls import include, path, reverse, reverse_lazy
 from django.utils.cache import add_never_cache_headers
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -156,7 +158,6 @@ def describe_collection_docs(collection):
             "url": url,
         }
 
-
 @hooks.register("before_serve_document")
 def check_view_restrictions(document, request):
     """
@@ -192,11 +193,25 @@ def check_view_restrictions(document, request):
                 add_never_cache_headers(response)
                 return response
 
-            elif restriction.restriction_type in [
-                BaseViewRestriction.LOGIN,
-                BaseViewRestriction.GROUPS,
-            ]:
+            elif restriction.restriction_type == BaseViewRestriction.LOGIN:
                 return require_wagtail_login(next=request.get_full_path())
+
+            if restriction.restriction_type == BaseViewRestriction.GROUPS:
+                if not request.user.is_authenticated:
+                    response = require_wagtail_login(next=request.get_full_path())
+                    add_never_cache_headers(response)
+                    return response
+                else:
+                    handler_path = getattr(
+                        settings,
+                        "WAGTAILDOCS_UNAUTHENTICATED_GROUP_HANDLER",
+                        None,
+                    )
+                    if handler_path:
+                        handler = import_string(handler_path)
+                        return handler(document, request, restriction)
+                    else:
+                        raise PermissionDenied
 
 
 class DocumentAdminURLFinder(ModelAdminURLFinder):

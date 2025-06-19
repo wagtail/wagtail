@@ -1,9 +1,13 @@
 from django.contrib.auth.models import Group
+from django.http import HttpResponse
 from django.test import TestCase, override_settings
 
 from wagtail.models import Page, PageViewRestriction
 from wagtail.test.utils import WagtailTestUtils
 
+
+def custom_group_handler(page, request, restriction):
+    return HttpResponse("Not for you!", status=402)
 
 class TestPagePrivacy(WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
@@ -208,7 +212,16 @@ class TestPagePrivacy(WagtailTestUtils, TestCase):
     def test_group_restriction_with_unpermitted_user(self):
         self.login(username="eventmoderator", password="password")
         response = self.client.get("/secret-event-editor-plans/")
-        self.assertRedirects(response, "/_util/login/?next=/secret-event-editor-plans/")
+        self.assertEqual(response.status_code, 403)
+
+    @override_settings(
+        WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER="wagtail.tests.test_page_privacy.custom_group_handler"
+    )
+    def test_group_restriction_with_unpermitted_user_custom_handler(self):
+        self.login(username="eventmoderator", password="password")
+        response = self.client.get("/secret-event-editor-plans/")
+        self.assertEqual(response.status_code, 402)
+        self.assertEqual(response.content, b'Not for you!')
 
     def test_group_restriction_with_permitted_user(self):
         self.login(username="eventeditor", password="password")
