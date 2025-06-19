@@ -88,7 +88,9 @@ class OrderingFilter(BaseFilterBackend):
         # Handle random ordering separately
         if "random" in order_by_list:
             if len(order_by_list) > 1:
-                raise BadRequestError("random ordering cannot be combined with other fields")
+                raise BadRequestError(
+                    "random ordering cannot be combined with other fields"
+                )
             if "offset" in request.GET:
                 raise BadRequestError("random ordering with offset is not supported")
             return queryset.order_by("?")
