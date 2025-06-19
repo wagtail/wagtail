@@ -167,6 +167,7 @@ class VideoPage(Page):
 ```
 
 (handling_group_permissions)=
+
 ## Handling group permissions
 
 When a page is restricted based on a user's groups, it is possible to customise how Wagtail will handle the response. By default, unauthenticated users are redirected to the login view. Requests from authenticated users who do *not* belong to the required group raise a {class}`~django.core.exceptions.PermissionDenied` exception, but this can be override through the setting `WAGTAIL_UNAUTHENTICATED_GROUP_HANDLER`, which must refer to the path of a callable that accepts `page`, `response` and `restriction` as arguments:
