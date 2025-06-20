@@ -69,19 +69,8 @@
 
             <form action="{% url 'wagtailadmin_pages:delete' page.id %}" method="POST">
                 {% csrf_token %}
-                {% if confirm_before_delete %}
-                    <p id="id_confirm_site_name-warning" class="status-msg failure">
-                        {% blocktrans trimmed with total_pages=descendant_count|add:1|intcomma %}
-                            This action will delete total <b>{{ total_pages }}</b> pages.
-                        {% endblocktrans %}
-                    </p>
-                    <label class="w-label-3" for="id_confirm_site_name">
-                        {% blocktrans trimmed %}
-                            Please type <b>{{ wagtail_site_name }}</b> to confirm.
-                        {% endblocktrans %}
-                    </label>
-                    <input type="text" name="confirm_site_name" class="w-mb-4"
-                           id="id_confirm_site_name" aria-describedby="id_confirm_site_name-warning" required>
+                {% if type_to_confirm_before_delete %}
+                    {% include "wagtailadmin/shared/dialog/confirm_site_name.html" with total_pages=descendant_count|add:1 %}
                 {% endif %}
                 <input type="hidden" name="next" value="{{ next }}">
                 <input type="submit" value="{% trans 'Yes, delete it' %}" class="button serious">
