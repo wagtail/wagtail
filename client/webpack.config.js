@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 // Generates a path to the output bundle to be loaded in the browser.
 const getOutputPath = (app, folder, filename) => {
@@ -178,6 +179,44 @@ module.exports = function exports(env, argv) {
           },
         ],
       }),
+      new FileManagerPlugin({
+        events: {
+          onStart: {
+            delete: [
+              // The `move` operation does not support overwriting existing
+              // files, so delete them first at the start of the build process.
+              getOutputPath('admin', 'js/vendor', 'axe.js'),
+              getOutputPath('admin', 'js/vendor', 'axe.js.LICENSE.txt'),
+            ],
+          },
+          onEnd: {
+            // After the build is finished, move any dynamic import chunks that
+            // were generated (relative to the root path of the repository due
+            // to output.path) to the actual static directory of the Django app
+            // (wagtail/admin/static). The plugin does not support merging
+            // existing directories or using glob patterns.
+            move: [
+              {
+                source: path.join('wagtailadmin', 'js', 'vendor', 'axe.js'),
+                destination: getOutputPath('admin', 'js/vendor', 'axe.js'),
+              },
+              {
+                source: path.join(
+                  'wagtailadmin',
+                  'js',
+                  'vendor',
+                  'axe.js.LICENSE.txt',
+                ),
+                destination: getOutputPath(
+                  'admin',
+                  'js/vendor',
+                  'axe.js.LICENSE.txt',
+                ),
+              },
+            ],
+          },
+        },
+      }),
     ],
 
     module: {
@@ -248,6 +287,17 @@ module.exports = function exports(env, argv) {
     optimization: {
       splitChunks: {
         cacheGroups: {
+          axe: {
+            // For dynamic imports to work, this has to be relative to the
+            // static directory of a Django app, e.g. wagtail/admin/static.
+            // However, because output.path is set to the root of the project,
+            // the produced file will be in ./wagtailadmin/js/vendor/axe.js,
+            // which will need to be moved to the correct location.
+            name: path.join('wagtailadmin', 'js', 'vendor', 'axe'),
+            test: /[\\/]axe-core[\\/]/,
+            priority: -10,
+            reuseExistingChunk: true,
+          },
           vendor: {
             name: getOutputPath('admin', 'js', 'vendor'),
             chunks: 'initial',

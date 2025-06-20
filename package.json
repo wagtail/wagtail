@@ -84,6 +84,7 @@
     "eslint": "^8.56.0",
     "eslint-plugin-storybook": "^0.6.15",
     "expose-loader": "^5.0.0",
+    "filemanager-webpack-plugin": "^8.0.0",
     "gettext-extractor": "^3.8.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
