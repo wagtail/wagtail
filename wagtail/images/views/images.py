@@ -111,12 +111,15 @@ class IndexView(generic.IndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        view_mode = self.request.GET.get("view", "grid")
+
         context.update(
             {
                 "next": self.get_next_url(),
                 "current_collection": self.current_collection,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
+                "view_mode": view_mode,
             }
         )
 
