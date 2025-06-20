@@ -324,6 +324,39 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
+    def test_userbar_in_preview(self):
+        self.client.post(self.preview_on_edit_url, self.post_data)
+        host = "other.example.com:8000"
+        response = self.client.get(self.preview_on_edit_url, headers={"host": host})
+
+        # Check the HTML response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "tests/previewable_model.html")
+        soup = self.get_soup(response.content)
+        userbar = soup.select_one("wagtail-userbar")
+        self.assertIsNotNone(userbar)
+
+        # Absolute URLs to static assets should be rendered with the original
+        # request's host as the base URL, as snippets have no concept of the
+        # current site or fully qualified URLs.
+
+        css_links = soup.select("link[rel='stylesheet']")
+        self.assertEqual(
+            [link.get("href") for link in css_links],
+            [
+                f"http://{host}{versioned_static('wagtailadmin/css/core.css')}",
+                "/path/to/my/custom.css",
+            ],
+        )
+        scripts = soup.select("script[src]")
+        self.assertEqual(
+            [script.get("src") for script in scripts],
+            [
+                f"http://{host}{versioned_static('wagtailadmin/js/vendor.js')}",
+                f"http://{host}{versioned_static('wagtailadmin/js/userbar.js')}",
+            ],
+        )
+
     def test_preview_revision(self):
         snippet = MultiPreviewModesModel.objects.create(text="Multiple modes")
         revision = snippet.save_revision(log_action=True)
