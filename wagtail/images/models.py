@@ -1400,13 +1400,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
             <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
             </div>
         """
-        focal_point = self.focal_point
-        if focal_point:
-            horz = int((focal_point.x * 100) // self.width)
-            vert = int((focal_point.y * 100) // self.height)
-            return f"background-position: {horz}% {vert}%;"
-        else:
-            return "background-position: 50% 50%;"
+        horz = self.background_position_x
+        vert = self.background_position_y
+        return f"background-position: {horz} {vert};"
 
     @property
     def background_position_x(self):
@@ -1419,15 +1415,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
         Returns:
             str: The horizontal position as a percentage (e.g., "25%")
 
-        This can be passed as a data attribute to client-facing HTML.
-
-        A usage example in the client-facing CSS (to avoid inline styles):
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-x` CSS property instead of using inline styles.
             <div class="my-bg-image" data-background-position-x="{{ image.background_position_x }}">
             </div>
-
-            .my-bg-image {
-                background-position-x: attr(data-background-position-x, <number>);
-            }
         """
         focal_point = self.focal_point
         if focal_point:
@@ -1447,15 +1437,9 @@ class AbstractRendition(ImageFileMixin, models.Model):
         Returns:
             str: The vertical position as a percentage (e.g., "25%")
 
-        This can be passed as a data attribute to client-facing HTML.
-
-        A usage example in the client-facing CSS (to avoid inline styles):
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-y` CSS property instead of using inline styles.
             <div class="my-bg-image" data-background-position-y="{{ image.background_position_y }}">
             </div>
-
-            .my-bg-image {
-                background-position-y: attr(data-background-position-y, <number>);
-            }
         """
         focal_point = self.focal_point
         if focal_point:
