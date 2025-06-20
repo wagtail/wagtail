@@ -895,6 +895,7 @@
 * Andrew Hosgood
 * Mustopha Mubarak O
 * Ziyao Yan
+* Anees Asghar
 
 ## Translators
 
