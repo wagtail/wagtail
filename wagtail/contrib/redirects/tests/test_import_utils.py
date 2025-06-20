@@ -1,9 +1,11 @@
 import hashlib
 import os
 
+from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.test import TestCase, override_settings
 
+from wagtail.contrib.redirects.tmp_storages import CacheStorage
 from wagtail.contrib.redirects.utils import (
     get_file_storage,
     get_import_formats,
@@ -44,6 +46,19 @@ class TestImportUtils(TestCase):
     def test_that_cache_storage_are_returned(self):
         FileStorage = get_file_storage()
         self.assertEqual(FileStorage.__name__, "RedirectsCacheStorage")
+
+    @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE="cache")
+    def test_cache_storage_remove_uses_prefix(self):
+        storage = CacheStorage(name='test_key')
+        storage.save('test_content')
+        self.assertEqual(storage.read(), 'test_content')
+
+        storage.remove()
+        self.assertIsNone(storage.read())
+
+        # Verify that the cache key includes the prefix explicitly
+        prefix = storage.CACHE_PREFIX
+        self.assertIsNone(cache.get(prefix + 'test_key'))  
 
     def test_that_temp_folder_storage_are_returned_as_default(self):
         FileStorage = get_file_storage()
