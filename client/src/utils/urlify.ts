@@ -12,8 +12,9 @@ const downcodeMapping = config.reduce((acc, downcodeMap) => {
 const regex = new RegExp(Object.keys(downcodeMapping).join('|'), 'g');
 
 /**
- * IMPORTANT This util and the mapping is a direct port of Django's urlify.js util,
- * without the need for a full Regex polyfill implementation.
+ * This util and the mapping is refined port of Django's urlify.js util.
+ * Without the Regex polyfill & without running trim (assuming the trim will be run before if needed).
+ *
  * @see https://github.com/django/django/blob/main/django/contrib/admin/static/admin/js/urlify.js
  */
 export const urlify = (
@@ -37,7 +38,6 @@ export const urlify = (
   } else {
     str = str.replace(/[^-\w\s]/g, ''); // remove unneeded chars
   }
-  str = str.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
   str = str.replace(/[-\s]+/g, '-'); // convert spaces to hyphens
   str = str.substring(0, numChars); // trim to first num_chars chars
   str = str.replace(/-+$/g, ''); // trim any trailing hyphens
