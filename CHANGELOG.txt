@@ -46,6 +46,10 @@ Changelog
  * Maintenance: Add `django.contrib.postgres` to test settings `INSTALLED_APPS` (Sage Abdullah)
 
 
+7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+
 7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 

@@ -7,6 +7,7 @@ Release notes
    upgrading
    release_process
    7.1
+   7.0.2
    7.0.1
    7.0
    6.4.2
