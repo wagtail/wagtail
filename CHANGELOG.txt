@@ -49,6 +49,7 @@ Changelog
 7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Prevent error when restoring scroll position for cross-domain preview iframe (Sage Abdullah)
 
 7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
