@@ -1,5 +1,6 @@
 from warnings import warn
 
+from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.translation import gettext_lazy as _
@@ -42,7 +43,7 @@ class AccessibilityItem(BaseItem):
     axe_exclude = []
 
     # Make sure that the userbar is not tested.
-    _axe_default_exclude = [{"fromShadowDOM": ["wagtail-userbar"]}]
+    _axe_default_exclude = [{"fromShadowDom": ["wagtail-userbar"]}]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
@@ -310,10 +311,12 @@ class Userbar(Component):
 
         if not request or request.user.is_anonymous:
             language = None
+            origin = getattr(settings, "WAGTAILADMIN_BASE_URL", None)
         else:
             # Render the userbar using the user's preferred admin language
             userprofile = UserProfile.get_for_user(request.user)
             language = userprofile.get_preferred_language()
+            origin = f"{request.scheme}://{request.get_host()}"
 
         with translation.override(language):
             try:
@@ -361,6 +364,7 @@ class Userbar(Component):
             # Render the userbar items
             return {
                 "request": request,
+                "origin": origin,
                 "items": rendered_items,
                 "position": self.position,
                 "page": self.object,
