@@ -1,10 +1,13 @@
+import datetime
 import json
 
+from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.validators import MaxLengthValidator
+from django.core.validators import BaseValidator, MaxLengthValidator
 from django.db import models
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.blocks.definition_lookup import (
@@ -16,6 +19,25 @@ from wagtail.rich_text import (
     extract_references_from_rich_text,
     get_text_for_indexing,
 )
+
+
+class NoFutureDateValidator(BaseValidator):
+    """
+    A validator that prevents future dates from being entered.
+
+    Useful for fields that should be in the past or present
+    but never in the future.
+    """
+
+    message = _("Date cannot be in the future.")
+    code = "future_date"
+
+    def __init__(self, message=None):
+        super().__init__(limit_value=None, message=message)
+
+    def __call__(self, value):
+        if value and value > datetime.date.today():
+            raise ValidationError(self.message, code=self.code)
 
 
 class RichTextField(models.TextField):
