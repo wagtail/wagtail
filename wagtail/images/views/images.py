@@ -15,6 +15,12 @@ from django.views import View
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
+from wagtail.admin.ui.tables import (
+    BulkActionsCheckboxColumn,
+    Column,
+    DateColumn,
+    TitleColumn,
+)
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
 from wagtail.images import get_image_model
@@ -65,7 +71,6 @@ class IndexView(generic.IndexView):
     edit_url_name = "wagtailimages:edit"
     template_name = "wagtailimages/images/index.html"
     results_template_name = "wagtailimages/images/index_results.html"
-    columns = []
 
     def get_paginate_by(self, queryset):
         return getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 30)
@@ -111,19 +116,66 @@ class IndexView(generic.IndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        view_mode = self.request.GET.get("view", "grid")
-
         context.update(
             {
                 "next": self.get_next_url(),
                 "current_collection": self.current_collection,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
-                "view_mode": view_mode,
+                "view_mode": self.view_mode,
             }
         )
 
         return context
+
+    @cached_property
+    def view_mode(self):
+        return self.request.GET.get("view", "grid")
+
+    @cached_property
+    def columns(self):
+        if self.view_mode == "grid":
+            return []
+        else:
+            columns = [
+                BulkActionsColumn("bulk_actions"),
+                ImagePreviewColumn("preview", label=_("Preview"), accessor="image"),
+                TitleColumnWithFilename(
+                    "title",
+                    label=_("Title"),
+                    sort_key="title",
+                    get_url=self.get_edit_url,
+                    width="35%",
+                ),
+                Column("collection", label=_("Collection"), accessor="collection.name"),
+                DateColumn(
+                    "created_at",
+                    label=_("Created"),
+                    sort_key="created_at",
+                ),
+            ]
+
+            return columns
+
+
+class BulkActionsColumn(BulkActionsCheckboxColumn):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, obj_type="image", **kwargs)
+
+    def get_header_context_data(self, parent_context):
+        context = super().get_header_context_data(parent_context)
+        parent = parent_context.get("current_collection")
+        if parent:
+            context["parent"] = parent.id
+        return context
+
+
+class ImagePreviewColumn(TitleColumn):
+    cell_template_name = "wagtailimages/images/image_preview_column_cell.html"
+
+
+class TitleColumnWithFilename(TitleColumn):
+    cell_template_name = "wagtailimages/images/title_column_cell.html"
 
 
 class EditView(generic.EditView):
