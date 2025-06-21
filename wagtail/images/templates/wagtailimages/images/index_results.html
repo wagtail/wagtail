@@ -3,87 +3,28 @@
 {% load i18n l10n %}
 
 {% block results %}
-
     {% if view_mode == "list" %}
-        {% block list_view %}
-            {% panel id="listings" %}
-
-                <table class="listing">
-
-                    <thead>
-                        <tr>
-                            {% include "wagtailadmin/bulk_actions/select_all_checkbox_cell.html" %}
-                            <th>{% trans "Preview" %}</th>
-                            <th>
-                                {% if ordering == "-title" %}
-                                    <a href="{% querystring ordering='title' %}" title="Sort by 'Title' in descending order." class="icon icon-arrow-down-after teal label" >{% trans "Title" %}</a>
-                                {% elif ordering == "title" %}
-                                    <a href="{% querystring ordering='-title' %}" title="Sort by 'Title' in ascending order." class="icon icon-arrow-up-after teal label" >{% trans "Title" %}</a>
-                                {% else %}
-                                    <a href="{% querystring ordering='-title' %}" title="Sort by 'Title' in ascending order." class="icon icon-arrow-up-after label" >{% trans "Title" %}</a>
-                                {% endif %}
-                            </th>
-                            <th>{% trans "Collection" %}</th>
-                            <th>
-                                {% if ordering == "-created_at" %}
-                                    <a href="{% querystring ordering='created_at' %}" title="Sort by 'Created' in descending order." class="icon icon-arrow-down-after teal label" >{% trans "Created" %}</a>
-                                {% elif ordering == "created_at" %}
-                                    <a href="{% querystring ordering='-created_at' %}" title="Sort by 'Created' in ascending order." class="icon icon-arrow-up-after teal label" >{% trans "Created" %}</a>
-                                {% else %}
-                                    <a href="{% querystring ordering='-created_at' %}" title="Sort by 'Created' in ascending order." class="icon icon-arrow-up-after label" >{% trans "Created" %}</a>
-                                {% endif %}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for image in object_list %}
-
-                            <tr>
-                                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" instance=image aria_describedby=title_id only %}
-                                <td>
-                                    <a href="{% url view.edit_url_name image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
-                                        <div class="image">{% image image max-105x105 class="show-transparency" alt="" %}</div>
-                                    </a>
-                                </td>
-                                <td class="title">
-                                    <h2><a href="{% url view.edit_url_name image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">{{ image.title|ellipsistrim:60 }}</a></h2>
-                                    <br><span>{{ image.filename }}</span>
-                                </td>
-                                <td>{{ image.collection }}</td>
-                                <td>{% timesince_last_update image.created_at %}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-            {% endpanel %}
-        {% endblock %}
-
+        {{block.super}}
     {% else %}
-
-        {% block grid_view %}
-            <div class="nice-padding">
-                <ul class="listing horiz images">
-                    {% for image in object_list %}
-                        <li>
-                            {% fragment as title_id %}image_{{ image.pk|unlocalize|admin_urlquote }}_title{% endfragment %}
-                            {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" instance=image aria_describedby=title_id only %}
-                            <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url view.edit_url_name image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
-                                <figure>
-                                    {% include "wagtailimages/images/results_image.html" %}
-                                    <figcaption id="{{ title_id }}">
-                                        {{ image.title|ellipsistrim:60 }}
-                                    </figcaption>
-                                </figure>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endblock %}
-
+        <div class="nice-padding">
+            <ul class="listing horiz images">
+                {% for image in object_list %}
+                    <li>
+                        {% fragment as title_id %}image_{{ image.pk|unlocalize|admin_urlquote }}_title{% endfragment %}
+                        {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" instance=image aria_describedby=title_id only %}
+                        <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url view.edit_url_name image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
+                            <figure>
+                                {% include "wagtailimages/images/results_image.html" %}
+                                <figcaption id="{{ title_id }}">
+                                    {{ image.title|ellipsistrim:60 }}
+                                </figcaption>
+                            </figure>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
-
 {% endblock %}
 
 {% block no_results_message %}
