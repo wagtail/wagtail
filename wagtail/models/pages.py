@@ -1965,20 +1965,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.latest_revision_id = self.latest_revision_id
         obj.latest_revision_created_at = self.latest_revision_created_at
 
-        if "first_published_at" not in content:
+        if obj.first_published_at is None:
             obj.first_published_at = self.first_published_at
-        else:
-            revision_first_published_at = content.get("first_published_at")
-            if isinstance(revision_first_published_at, str):
-                revision_first_published_at = models.DateTimeField().to_python(
-                    revision_first_published_at
-                )
-            if self.first_published_at is None:
-                obj.first_published_at = revision_first_published_at
-            elif revision_first_published_at != self.first_published_at:
-                obj.first_published_at = revision_first_published_at
-            else:
-                obj.first_published_at = self.first_published_at
 
         obj.translation_key = self.translation_key
         obj.locale_id = self.locale_id
