@@ -2,7 +2,8 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block item_content %}
-    <a href="{% url 'wagtailadmin_pages:add_subpage' self.page.id %}" target="_parent" role="menuitem">
+    {% url 'wagtailadmin_pages:add_subpage' self.page.id as add_url %}
+    <a href="{% build_absolute_url add_url %}" target="_parent" role="menuitem">
         {% icon name="plus" classname="w-action-icon" %}
         {% trans 'Add a child page' %}
     </a>

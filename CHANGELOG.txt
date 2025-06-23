@@ -25,6 +25,7 @@ Changelog
  * Add 'Edit' button to success message after copying page (Dhruvi Patel)
  * Restrict file dialog in multiple image uploader to the allowed image file types (Mustopha Mubarak O)
  * Raise clear error when non-StreamBlock is used as top-level block in StreamField (Clifford Gama)
+ * Refactor userbar rendering to better support headless websites (Sage Abdullah)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
@@ -38,6 +39,8 @@ Changelog
  * Fix: Refactor remaining inline styles to avoid unsafe-inline style-src CSP (Chiemezuo Akujobi)
  * Fix: Avoid breaking words in listing table cells unless specifically enabled (Ziyao Yan)
  * Fix: Ensure that "all items in listing" option on image / document bulk actions respects user permissions (Alex Morega)
+ * Fix: Adjust accessibility dialog position based on userbar position (Anees Asghar, Sage Abdullah)
+ * Fix: Correctly handle ordering API results by mixed ascending and descending order (Rohit Sharma, Mahmoud Nasser)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
@@ -45,6 +48,11 @@ Changelog
  * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
  * Maintenance: Add `django.contrib.postgres` to test settings `INSTALLED_APPS` (Sage Abdullah)
 
+
+7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when restoring scroll position for cross-domain preview iframe (Sage Abdullah)
 
 7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
