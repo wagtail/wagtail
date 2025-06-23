@@ -61,6 +61,7 @@
  * Fix: Handle `help_text` kwarg in `FloatBlock` (Nick Smith)
  * Fix: Set `aria-invalid` on StreamField widgets input when there is an error (Sage Abdullah)
  * Fix: Make sure the label of panel collapse buttons is translatable (Thibaud Colas)
+ * Fix: Ensure there is suitable padding for large numbers on pagination within universal listings (M. Sumair Khokhar)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
  * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
