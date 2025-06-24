@@ -536,6 +536,26 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
                 f"Expected header '{expected_header}' not found in list view",
             )
 
+    def test_view_toggle_button_in_list_view(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        view_toggle_button = soup.find("button", class_="w-view-toggle-button")
+        self.assertIsNotNone(
+            view_toggle_button, "Expected view toggle button in list view"
+        )
+
+    def test_view_toggle_button_in_grid_view(self):
+        response = self.client.get(reverse("wagtailimages:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        view_toggle_button = soup.find("button", class_="w-view-toggle-button")
+        self.assertIsNotNone(
+            view_toggle_button, "Expected view toggle button in grid view"
+        )
+
 
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
