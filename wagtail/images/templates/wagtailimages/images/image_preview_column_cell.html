@@ -3,11 +3,9 @@
 {% load wagtailimages_tags %}
 
 {% block title %}
-    <div>
-        <a class="image-choice" href="{% url 'wagtailimages:edit' instance.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
-            <figure>
-                {% image instance max-105x105 class="show-transparency"%}
-            </figure>
-        </a>
-    </div>
+    <a class="image-choice" href="{% url 'wagtailimages:edit' instance.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
+        <figure>
+            {% image instance max-105x105 class="show-transparency"%}
+        </figure>
+    </a>
 {% endblock %}
