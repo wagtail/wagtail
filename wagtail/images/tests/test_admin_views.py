@@ -398,6 +398,143 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         ]
         self.assertEqual(len(in_clauses), 0)
 
+    def test_correct_view_mode_is_passed_to_context(self):
+        response = self.client.get(reverse("wagtailimages:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view_mode"], "grid")
+
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view_mode"], "list")
+
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "grid"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view_mode"], "grid")
+
+    def test_view_when_view_mode_is_list(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view_mode"], "list")
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNotNone(
+            table, "Expected a table element to be present in list view."
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNone(
+            grid_ul,
+            "Expected no ul element with class 'listing horiz images' in list view.",
+        )
+
+    def test_view_when_view_mode_is_grid(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "grid"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["view_mode"], "grid")
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table, "Expected no table element with class 'listing' in grid view."
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "Expected a ul element with class 'listing horiz images' in grid view.",
+        )
+
+    def test_view_when_no_view_mode_is_passed(self):
+        response = self.client.get(reverse("wagtailimages:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "If no view mode is passed, it should default to grid view (no table) - table found",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "If no view mode is passed, it should default to grid view (ul not found)",
+        )
+
+    def test_view_when_view_mode_is_invalid(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "invalid"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "If no view mode is passed, it should default to grid view (no table) - table found",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "If no view mode is passed, it should default to grid view (ul not found)",
+        )
+
+    def test_image_is_present_in_image_preview_column(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        image_preview_wrapper = soup.select_one("td.title.image-preview")
+        self.assertIsNotNone(
+            image_preview_wrapper, "Expected image preview wrapper in list view"
+        )
+
+        preview_image = image_preview_wrapper.find("img")
+        self.assertIsNotNone(preview_image, "Expected image element in preview column")
+
+    def test_title_and_filename_are_present_in_title_column(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        title_and_filename_wrapper = soup.select_one("td.title.title-with-filename")
+        self.assertIsNotNone(
+            title_and_filename_wrapper,
+            "Expected a <td> with class 'title and title-with-filename' inside the listing table.",
+        )
+
+        title_wrapper_div = title_and_filename_wrapper.find(
+            "div", class_="title-wrapper"
+        )
+        self.assertIsNotNone(
+            title_wrapper_div,
+            "Expected a <div> with class 'title-wrapper' inside the 'title' div.",
+        )
+
+        filename_wrapper_div = title_and_filename_wrapper.find(
+            "div", class_="filename-wrapper"
+        )
+        self.assertIsNotNone(
+            filename_wrapper_div,
+            "Expected a <div> with class 'filename-wrapper' inside the 'title' div.",
+        )
+
+    def test_list_view_contains_required_table_headers(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        headers = soup.find_all("th")
+        header_texts = [th.get_text(strip=True) for th in headers]
+
+        expected_headers = ["Preview", "Title", "Collection", "Created"]
+        for expected_header in expected_headers:
+            self.assertIn(
+                expected_header,
+                header_texts,
+                f"Expected header '{expected_header}' not found in list view",
+            )
+
 
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
