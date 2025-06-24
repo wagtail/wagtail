@@ -111,7 +111,10 @@ class BaseChooser(widgets.Input):
     def get_instance(self, value):
         """
         Given a value passed to this widget for rendering (which may be None, an id, or a model
-        instance), return a model instance or None
+        instance), return a model instance or None. If the value is an id, it will first try to match
+        against the primary key. If that fails and the value cannot be used as a primary key, it will
+        attempt to match against any unique fields (excluding the primary key) to handle cases where
+        ForeignKey uses to_field pointing to a different unique field.
         """
         if value is None:
             return None
@@ -121,6 +124,27 @@ class BaseChooser(widgets.Input):
             try:
                 return self.model_class.objects.get(pk=value)
             except self.model_class.DoesNotExist:
+                return None
+            except (ValueError, TypeError):
+                pk_field = self.model_class._meta.pk
+                pk_attname = pk_field.attname if pk_field else None
+
+                unique_fields = []
+                for field in self.model_class._meta.get_fields():
+                    if (
+                        getattr(field, "unique", False)
+                        and hasattr(field, "attname")
+                        and field.attname != pk_attname
+                    ):
+                        unique_fields.append(field.attname)
+
+                # Try each unique field to see if we find a match
+                for field_name in unique_fields:
+                    try:
+                        return self.model_class.objects.get(**{field_name: value})
+                    except (self.model_class.DoesNotExist, ValueError, TypeError):
+                        continue
+
                 return None
 
     def get_display_title(self, instance):
