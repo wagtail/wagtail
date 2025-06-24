@@ -10,13 +10,7 @@ from django.forms.widgets import FileInput
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
-
-def get_allowed_image_extensions():
-    return getattr(
-        settings,
-        "WAGTAILIMAGES_EXTENSIONS",
-        ["avif", "gif", "jpg", "jpeg", "png", "webp"],
-    )
+from wagtail.images.utils import get_accept_attributes, get_allowed_image_extensions
 
 
 def ImageFileExtensionValidator(value):
@@ -193,12 +187,6 @@ class WagtailImageField(ImageField):
         ):
             # File upload dialogs will often not allow selecting heic or avif if the accept attribute is
             # given as "image/*" - we need to add explicit mimetypes for these
-            extra_mime_types = []
-            if "heic" in self.allowed_image_extensions:
-                extra_mime_types.append("image/heic")
-            if "avif" in self.allowed_image_extensions:
-                extra_mime_types.append("image/avif")
-            if extra_mime_types:
-                attrs["accept"] = ", ".join(["image/*"] + extra_mime_types)
+            attrs["accept"] = get_accept_attributes()
 
         return attrs

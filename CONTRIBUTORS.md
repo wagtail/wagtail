@@ -891,6 +891,11 @@
 * Paul Craciunoiu
 * Richard Allen
 * Dimaco
+* Charan T M
+* Andrew Hosgood
+* Mustopha Mubarak O
+* Ziyao Yan
+* Anees Asghar
 
 ## Translators
 

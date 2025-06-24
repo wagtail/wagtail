@@ -49,8 +49,12 @@ if DATABASES["default"]["ENGINE"] == "sql_server.pyodbc":
 
 # explicitly set charset / collation to utf8 on mysql
 if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
-    DATABASES["default"]["TEST"]["CHARSET"] = "utf8"
-    DATABASES["default"]["TEST"]["COLLATION"] = "utf8_general_ci"
+    DATABASES["default"]["OPTIONS"] = {
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_general_ci",
+    }
+    DATABASES["default"]["TEST"]["CHARSET"] = "utf8mb4"
+    DATABASES["default"]["TEST"]["COLLATION"] = "utf8mb4_general_ci"
 
 
 SECRET_KEY = "not needed"
@@ -224,6 +228,7 @@ else:
     AUTH_USER_MODEL = "customuser.CustomUser"
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
+    INSTALLED_APPS.append("django.contrib.postgres")
     WAGTAILSEARCH_BACKENDS["postgresql"] = {
         "BACKEND": "wagtail.search.backends.database",
         "AUTO_UPDATE": False,

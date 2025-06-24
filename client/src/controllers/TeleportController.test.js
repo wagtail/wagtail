@@ -99,19 +99,130 @@ describe('TeleportController', () => {
       const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
       document.body.appendChild(shadowHost);
 
+      shadowRoot.innerHTML = /* html */ `
+        <div>
+          <aside>
+            <!--
+            The template will be moved here, and then the content will be
+            teleported to the <div> (first child of the shadow root)
+            when the app starts
+            -->
+          </aside>
+        </div>
+      `;
+
+      // Move the template to the aside element
+      const aside = shadowRoot.querySelector('aside');
       const template = document.getElementById('template');
-      const content = template.content.cloneNode(true);
+      aside.append(template);
 
-      const targetContainer = document.createElement('div');
-      targetContainer.setAttribute('id', 'target-container');
-      targetContainer.appendChild(content);
-      shadowRoot.appendChild(targetContainer);
-
+      // Create a new application with the shadow DOM as the root element
+      application = new Application(shadowRoot.firstElementChild);
+      application.register('w-teleport', TeleportController);
       application.start();
 
       await Promise.resolve();
 
-      expect(shadowRoot.querySelector('#target-container').innerHTML).toContain(
+      application.stop();
+
+      // Without an explicit target, the content should be teleported to the
+      // first child of the shadow root
+      expect(shadowRoot.firstElementChild.innerHTML).toContain(
+        '<div id="content">Some content</div>',
+      );
+      // The template should be removed from the DOM
+      expect(shadowRoot.querySelector('template')).toBeNull();
+    });
+
+    it('should allow for a custom target container within the shadow root', async () => {
+      const shadowHost = document.createElement('div');
+      const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+      document.body.append(shadowHost);
+
+      // Create a custom target container within the shadow DOM
+      shadowRoot.innerHTML = /* html */ `
+        <div>
+          <aside data-my-element="foo"></aside>
+          <!--
+           The template will be moved here, and then the content will be
+           teleported to the <aside> when the app starts
+          -->
+        </div>
+      `;
+
+      // Move the template to the shadow DOM
+      const template = document.getElementById('template');
+      shadowRoot.firstElementChild.append(template);
+      template.setAttribute(
+        'data-w-teleport-target-value',
+        '[data-my-element]',
+      );
+
+      // Create a new application with the shadow DOM as the root element
+      application = new Application(shadowRoot.firstElementChild);
+      application.register('w-teleport', TeleportController);
+      application.start();
+
+      await Promise.resolve();
+
+      application.stop();
+
+      // The content should be teleported to the <aside> element
+      expect(shadowRoot.querySelector('[data-my-element]').innerHTML).toContain(
+        '<div id="content">Some content</div>',
+      );
+      // The template should be removed from the DOM
+      expect(shadowRoot.querySelector('template')).toBeNull();
+    });
+
+    it('should look in the document if the target is not found in the shadow DOM', async () => {
+      // Create a custom target container in the document body
+      const fallbackTarget = document.createElement('aside');
+      fallbackTarget.setAttribute('data-my-element', 'bar');
+      document.body.append(fallbackTarget);
+
+      const shadowHost = document.createElement('div');
+      const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+      document.body.append(shadowHost);
+
+      // Create an element in the shadow DOM that will not match the target
+      shadowRoot.innerHTML = /* html */ `
+        <div>
+          <aside data-my-element="foo"></aside>
+          <!--
+           The template will be moved here, and then the content will be
+           teleported to the <aside data-my-element="bar"> outside of the shadow
+           DOM when the app starts
+          -->
+        </div>
+      `;
+
+      // Move the template to the shadow DOM
+      const template = document.getElementById('template');
+      shadowRoot.firstElementChild.append(template);
+      template.setAttribute(
+        'data-w-teleport-target-value',
+        '[data-my-element="bar"]',
+      );
+
+      // Create a new application with the shadow DOM as the root element
+      application = new Application(shadowRoot.firstElementChild);
+      application.register('w-teleport', TeleportController);
+      application.start();
+
+      await Promise.resolve();
+
+      application.stop();
+
+      // The content should not be teleported to the <aside> element in the shadow DOM
+      expect(shadowRoot.querySelector('[data-my-element]').innerHTML).toEqual(
+        '',
+      );
+      // The template should be removed from the DOM and does not exist in the body
+      expect(shadowRoot.querySelector('template')).toBeNull();
+      expect(document.querySelector('template')).toBeNull();
+      // The content should be teleported to the <aside> element in the document body
+      expect(fallbackTarget.innerHTML).toContain(
         '<div id="content">Some content</div>',
       );
     });

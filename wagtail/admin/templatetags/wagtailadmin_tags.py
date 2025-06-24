@@ -206,6 +206,18 @@ def admin_url_name(obj, action):
     return obj.snippet_viewset.get_url_name(action)
 
 
+@register.simple_tag(takes_context=True)
+def build_absolute_url(context, url):
+    """
+    Usage: {% build_absolute_url url %}
+    Returns the absolute URL of the given URL.
+    """
+    request = context.get("request")
+    if not request:
+        return url
+    return request.build_absolute_uri(url)
+
+
 @register.simple_tag
 def latest_str(obj):
     """
@@ -633,7 +645,7 @@ def admin_theme_classname(context):
     """
     Retrieves the theme name for the current user.
     """
-    user = context["request"].user
+    user = getattr(context.get("request"), "user", None)
     theme_name = (
         user.wagtail_userprofile.theme
         if hasattr(user, "wagtail_userprofile")

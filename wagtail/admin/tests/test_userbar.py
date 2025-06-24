@@ -8,7 +8,8 @@ from django.utils import translation
 from django.utils.translation import gettext
 
 from wagtail import hooks
-from wagtail.admin.userbar import AccessibilityItem
+from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.userbar import AccessibilityItem, Userbar
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
 from wagtail.test.context_processors import get_call_count, reset_call_count
@@ -24,6 +25,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             username="test", email="test@email.com", password="password"
         )
         self.homepage = Page.objects.get(id=2)
+        self.parent_page = self.homepage.get_parent()
 
     def dummy_request(
         self,
@@ -51,10 +53,36 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 "request": self.dummy_request(self.user),
             }
         )
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(4):
             content = template.render(context)
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
+        soup = self.get_soup(content)
+
+        css_links = soup.select("link[rel='stylesheet']")
+        self.assertEqual(
+            [link.get("href") for link in css_links],
+            [
+                # Wagtail admin core CSS should be linked with absolute URL to
+                # ensure it works when loaded from a different domain
+                # (e.g. headless frontend)
+                f"http://localhost{versioned_static('wagtailadmin/css/core.css')}",
+                # Custom CSS must be changed appropriately if necessary
+                "/path/to/my/custom.css",
+            ],
+        )
+
+        scripts = soup.select("script[src]")
+        self.assertEqual(
+            [script.get("src") for script in scripts],
+            [
+                # Wagtail vendor and userbar JS should be linked with absolute
+                # URL to ensure it works when loaded from a different domain
+                # (e.g. headless frontend)
+                f"http://localhost{versioned_static('wagtailadmin/js/vendor.js')}",
+                f"http://localhost{versioned_static('wagtailadmin/js/userbar.js')}",
+            ],
+        )
 
     def test_userbar_does_not_break_without_request(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}boom")
@@ -104,7 +132,14 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
 
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
 
-    def test_edit_link(self):
+        # Should render the "Go to Wagtail admin" link using an absolute URL
+        soup = self.get_soup(content)
+        admin_url = reverse("wagtailadmin_home")
+        admin_link = soup.select_one(f"a[href='http://localhost{admin_url}']")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+    def test_edit_and_explore_links(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
         content = template.render(
             Context(
@@ -115,9 +150,19 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             )
         )
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
-        self.assertIn("Edit this page", content)
+        soup = self.get_soup(content)
 
-    def test_userbar_edit_menu_in_previews(self):
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
+        edit_link = soup.select_one(f"a[href='http://localhost{edit_url}']")
+        self.assertIsNotNone(edit_link)
+        self.assertEqual(edit_link.text.strip(), "Edit this page")
+
+        explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
+        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        self.assertIsNotNone(explore_link)
+        self.assertEqual(explore_link.text.strip(), "Show in Explorer")
+
+    def test_userbar_edit_and_explore_menu_in_previews(self):
         # The edit link should be visible on draft, revision, and workflow previews.
         # https://github.com/wagtail/wagtail/issues/10002
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
@@ -130,10 +175,17 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
             )
         )
         self.assertIn("<!-- Wagtail user bar embed code -->", content)
-        self.assertIn("Edit this page", content)
-        self.assertIn(
-            reverse("wagtailadmin_pages:edit", args=(self.homepage.id,)), content
-        )
+        soup = self.get_soup(content)
+
+        edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
+        edit_link = soup.select_one(f"a[href='http://localhost{edit_url}']")
+        self.assertIsNotNone(edit_link)
+        self.assertEqual(edit_link.text.strip(), "Edit this page")
+
+        explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
+        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        self.assertIsNotNone(explore_link)
+        self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
     def test_userbar_edit_menu_not_in_preview(self):
         # The edit link should not be visible on PreviewOnEdit/Create views.
@@ -154,6 +206,13 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         self.assertNotIn(
             reverse("wagtailadmin_pages:edit", args=(self.homepage.id,)), content
         )
+
+        # The explore link should still be visible
+        soup = self.get_soup(content)
+        explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
+        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        self.assertIsNotNone(explore_link)
+        self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
     def test_userbar_hidden_in_preview_panel(self):
         template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
@@ -177,11 +236,15 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
         self.request = get_dummy_request()
         self.request.user = self.user
 
-    def get_script(self):
-        template = Template("{% load wagtailuserbar %}{% wagtailuserbar %}")
+    def get_content(self, position="bottom-right"):
+        template = Template(
+            f"{{% load wagtailuserbar %}}{{% wagtailuserbar position='{position}' %}}"
+        )
         content = template.render(Context({"request": self.request}))
-        soup = self.get_soup(content)
+        return self.get_soup(content)
 
+    def get_script(self):
+        soup = self.get_content()
         # Should include the configuration as a JSON script with the specific id
         return soup.find("script", id="accessibility-axe-configuration")
 
@@ -196,6 +259,25 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
             ]
 
         return customise_accessibility_checker
+
+    def test_position(self):
+        content = self.get_content(position="top-left")
+        # The element with the data-wagtail-userbar attribute should have the
+        # right CSS class (w-userbar--top-left) for the positioning
+        target = content.select_one("aside [data-wagtail-userbar]")
+        self.assertIsNotNone(target)
+        self.assertIn("w-userbar--top-left", target.get("class"))
+
+        # The accessibility results dialog should be teleported to the
+        # [data-wagtail-userbar] element so that it is positioned correctly
+        dialog_content = content.select_one("#accessibility-results")
+        self.assertIsNotNone(dialog_content)
+        template = dialog_content.parent
+        self.assertIsNotNone(template)
+        self.assertEqual(
+            template.get("data-w-teleport-target-value"),
+            "[data-wagtail-userbar]",
+        )
 
     def test_config_json(self):
         script = self.get_script()
@@ -623,8 +705,8 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # page allows subpages, so the 'add page' button should show
-        expected_url = reverse(
-            "wagtailadmin_pages:add_subpage", args=(self.event_index.id,)
+        expected_url = self.request.build_absolute_uri(
+            reverse("wagtailadmin_pages:add_subpage", args=(self.event_index.id,))
         )
         needle = f"""
             <a href="{expected_url}" target="_parent" role="menuitem">
@@ -648,3 +730,105 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
         soup = self.get_soup(response.content)
         link = soup.find("a", attrs={"href": expected_url})
         self.assertIsNone(link)
+
+
+class TestUserbarComponent(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.request = get_dummy_request()
+        self.request.user = self.create_superuser(
+            username="test", email="test@email.com", password="password"
+        )
+        self.homepage = Page.objects.get(id=2)
+        self.parent_page = self.homepage.get_parent()
+
+    def test_render_anonymous_user(self):
+        self.request.user = AnonymousUser()
+        rendered = Userbar().render_html({"request": self.request})
+        soup = self.get_soup(rendered)
+
+        items = soup.select("li")
+        self.assertEqual(len(items), 2)
+
+        admin_url = f"http://localhost{reverse('wagtailadmin_home')}"
+        admin_item = items[0]
+        admin_link = admin_item.select_one("a")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.get("href"), admin_url)
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+        accessibility_item = items[-1]
+        button = accessibility_item.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(
+            button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )
+
+    def test_render_no_request(self):
+        rendered = Userbar().render_html({})
+        soup = self.get_soup(rendered)
+
+        items = soup.select("li")
+        self.assertEqual(len(items), 2)
+
+        admin_item = items[0]
+        admin_link = admin_item.select_one("a")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.get("href"), reverse("wagtailadmin_home"))
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+        accessibility_item = items[-1]
+        button = accessibility_item.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(
+            button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )
+
+    def test_render_minimal(self):
+        rendered = Userbar().render_html({"request": self.request})
+        soup = self.get_soup(rendered)
+
+        items = soup.select("li")
+        self.assertEqual(len(items), 2)
+
+        admin_url = f"http://localhost{reverse('wagtailadmin_home')}"
+        admin_item = items[0]
+        admin_link = admin_item.select_one("a")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.get("href"), admin_url)
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+        accessibility_item = items[-1]
+        button = accessibility_item.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(
+            button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )
+
+    def test_render_with_page(self):
+        rendered = Userbar(object=self.homepage).render_html(
+            {"request": self.request, PAGE_TEMPLATE_VAR: self.homepage}
+        )
+        soup = self.get_soup(rendered)
+
+        links = soup.select("li a")
+        expected_urls = [
+            reverse("wagtailadmin_home"),
+            reverse("wagtailadmin_explore", args=(self.parent_page.id,)),
+            reverse("wagtailadmin_pages:edit", args=(self.homepage.id,)),
+            reverse("wagtailadmin_pages:add_subpage", args=(self.homepage.id,)),
+        ]
+        self.assertEqual(len(links), 4)
+        self.assertEqual(
+            [link.get("href") for link in links],
+            [f"http://localhost{url}" for url in expected_urls],
+        )
+
+        accessibility_button = soup.select_one("li button")
+        self.assertIsNotNone(accessibility_button)
+        self.assertEqual(
+            accessibility_button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )

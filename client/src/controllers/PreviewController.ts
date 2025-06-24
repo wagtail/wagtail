@@ -716,11 +716,17 @@ export class PreviewController extends Controller<HTMLElement> {
 
     // Restore scroll position with instant scroll to avoid flickering if the
     // previewed page has scroll-behavior: smooth.
-    newIframe.contentWindow?.scroll({
-      top: this.iframeTarget.contentWindow?.scrollY as number,
-      left: this.iframeTarget.contentWindow?.scrollX as number,
-      behavior: 'instant',
-    });
+    try {
+      newIframe.contentWindow?.scroll({
+        top: this.iframeTarget.contentWindow?.scrollY as number,
+        left: this.iframeTarget.contentWindow?.scrollX as number,
+        behavior: 'instant',
+      });
+    } catch {
+      // The iframe is likely cross-domain, e.g. in a headless setup, in which
+      // case we cannot call `scroll()` directly. Continue without restoring the
+      // scroll position.
+    }
 
     // Remove any other existing iframes. Normally there are two iframes at this
     // point, the old one and the new one. However, the `load` event may be fired
