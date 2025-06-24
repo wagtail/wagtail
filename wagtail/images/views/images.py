@@ -139,13 +139,19 @@ class IndexView(generic.IndexView):
         else:
             columns = [
                 BulkActionsColumn("bulk_actions"),
-                ImagePreviewColumn("preview", label=_("Preview"), accessor="image"),
+                ImagePreviewColumn(
+                    "preview",
+                    label=_("Preview"),
+                    accessor="image",
+                    classname="image-preview",
+                ),
                 TitleColumnWithFilename(
                     "title",
                     label=_("Title"),
                     sort_key="title",
                     get_url=self.get_edit_url,
                     width="35%",
+                    classname="title-with-filename",
                 ),
                 Column("collection", label=_("Collection"), accessor="collection.name"),
                 DateColumn(
