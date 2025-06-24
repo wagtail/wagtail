@@ -672,6 +672,42 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         response = self.get({"tag": "one", "q": "test"})
         self.assertEqual(response.context["page_obj"].paginator.count, 2)
 
+    def test_image_search_when_view_mode_is_list(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"q": "A", "view": "list"}
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNotNone(
+            table,
+            "Expected a table element to be present in list view when searching for images.",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNone(
+            grid_ul,
+            "Expected no ul element with class 'listing horiz images' in list view when searching for images.",
+        )
+
+    def test_image_search_when_view_mode_is_grid(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"q": "A"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "Expected no table element with class 'listing' in grid view when searching for images.",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "Expected a ul element with class 'listing horiz images' in grid view when searching for images.",
+        )
+
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
