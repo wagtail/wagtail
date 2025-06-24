@@ -30,6 +30,10 @@ class AdminItem(BaseItem):
 class AccessibilityItem(BaseItem):
     """A userbar item that runs the accessibility checker."""
 
+    def __init__(self, in_editor=False):
+        super().__init__()
+        self.in_editor = in_editor
+
     #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"
 
