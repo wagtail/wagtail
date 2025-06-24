@@ -414,7 +414,6 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
     def test_view_when_view_mode_is_list(self):
         response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["view_mode"], "list")
         soup = self.get_soup(response.content)
 
         table = soup.find("table", class_="listing")
@@ -431,7 +430,6 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
     def test_view_when_view_mode_is_grid(self):
         response = self.client.get(reverse("wagtailimages:index"), {"view": "grid"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["view_mode"], "grid")
         soup = self.get_soup(response.content)
 
         table = soup.find("table", class_="listing")
@@ -470,13 +468,13 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         table = soup.find("table", class_="listing")
         self.assertIsNone(
             table,
-            "If no view mode is passed, it should default to grid view (no table) - table found",
+            "If invalid view mode is passed, it should default to grid view (no table) - table found",
         )
 
         grid_ul = soup.find("ul", class_="listing horiz images")
         self.assertIsNotNone(
             grid_ul,
-            "If no view mode is passed, it should default to grid view (ul not found)",
+            "If invalid view mode is passed, it should default to grid view (ul not found)",
         )
 
     def test_image_is_present_in_image_preview_column(self):
@@ -486,11 +484,14 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
 
         image_preview_wrapper = soup.select_one("td.title.image-preview")
         self.assertIsNotNone(
-            image_preview_wrapper, "Expected image preview wrapper in list view"
+            image_preview_wrapper,
+            "Expected a <td> with class 'title and image-preview' inside the listing table",
         )
 
         preview_image = image_preview_wrapper.find("img")
-        self.assertIsNotNone(preview_image, "Expected image element in preview column")
+        self.assertIsNotNone(
+            preview_image, "Expected an <img> element inside image-preview <td>"
+        )
 
     def test_title_and_filename_are_present_in_title_column(self):
         response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
@@ -508,7 +509,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(
             title_wrapper_div,
-            "Expected a <div> with class 'title-wrapper' inside the 'title' div.",
+            "Expected a <div> with class 'title-wrapper' inside the title-with-filename <td>",
         )
 
         filename_wrapper_div = title_and_filename_wrapper.find(
@@ -516,7 +517,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         )
         self.assertIsNotNone(
             filename_wrapper_div,
-            "Expected a <div> with class 'filename-wrapper' inside the 'title' div.",
+            "Expected a <div> with class 'filename-wrapper' inside the title-with-filename <td>",
         )
 
     def test_list_view_contains_required_table_headers(self):
