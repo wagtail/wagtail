@@ -29,9 +29,7 @@ class DeleteBulkAction(ReferenceIndexMixin, PageBulkAction):
         context = super().get_context_data(**kwargs)
         pages = context["items"]
         # Count the total number of pages including descendants
-        total_page_count = len(pages) + sum(
-            page["descendant_count"] for page in pages
-        )
+        total_page_count = len(pages) + sum(page["descendant_count"] for page in pages)
         wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME", "wagtail")
         context.update(
             {
