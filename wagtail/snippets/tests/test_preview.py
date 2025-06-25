@@ -6,6 +6,7 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.templatetags.wagtailadmin_tags import absolute_static
 from wagtail.admin.views.generic.preview import PreviewOnEdit
 from wagtail.test.testapp.models import (
     EventCategory,
@@ -324,10 +325,10 @@ class TestPreview(WagtailTestUtils, TestCase):
         )
         self.assertNotContains(response, versioned_static("wagtailadmin/js/icons.js"))
 
+    @override_settings(WAGTAILADMIN_BASE_URL="http://other.example.com:8000")
     def test_userbar_in_preview(self):
         self.client.post(self.preview_on_edit_url, self.post_data)
-        host = "other.example.com:8000"
-        response = self.client.get(self.preview_on_edit_url, headers={"host": host})
+        response = self.client.get(self.preview_on_edit_url)
 
         # Check the HTML response
         self.assertEqual(response.status_code, 200)
@@ -344,7 +345,7 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual(
             [link.get("href") for link in css_links],
             [
-                f"http://{host}{versioned_static('wagtailadmin/css/core.css')}",
+                absolute_static("wagtailadmin/css/core.css"),
                 "/path/to/my/custom.css",
             ],
         )
@@ -352,8 +353,8 @@ class TestPreview(WagtailTestUtils, TestCase):
         self.assertEqual(
             [script.get("src") for script in scripts],
             [
-                f"http://{host}{versioned_static('wagtailadmin/js/vendor.js')}",
-                f"http://{host}{versioned_static('wagtailadmin/js/userbar.js')}",
+                absolute_static("wagtailadmin/js/vendor.js"),
+                absolute_static("wagtailadmin/js/userbar.js"),
             ],
         )
 
