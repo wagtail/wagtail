@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Any, Optional
 from unittest import mock
 
+from bs4 import BeautifulSoup
 from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.conf import settings
@@ -1372,6 +1373,12 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         result = panel.render_html()
+        soup = BeautifulSoup(result, "html.parser")
+
+        # Find the main panel section
+        panel_section = soup.find(
+            "section", class_="w-panel classname-for-speakers w-panel--nested"
+        )
 
         # FIXME: reinstate when we pass classnames to the template again
         # self.assertIn('<li class="object classname-for-speakers">', result)
@@ -1418,7 +1425,13 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         self.assertIn("data-contentpath-disabled", result)
 
         # check that attr option renders the data-controller attribute
-        self.assertIn('data-controller="test"', result)
+        self.assertIn('data-controller="test w-formset w-orderable"', result)
+
+        # test Stimulus data attributes
+        self.assertEqual(
+            panel_section.get("data-w-formset-deleted-class"),
+            "w-transition-opacity w-duration-300 w-ease-out w-opacity-0",
+        )
 
     def test_render_with_panel_overrides(self):
         """
@@ -1529,7 +1542,17 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             instance=event_page, form=form, request=self.request
         )
 
-        self.assertIn('data-max-forms="1000"', panel.render_html())
+        # Get the HTML rendered by the panel
+        result = panel.render_html()
+
+        soup = BeautifulSoup(result, "html.parser")
+        # Find the hidden input with the specific name
+        max_num_forms_input = soup.find(
+            "input", {"type": "hidden", "name": "speakers-MAX_NUM_FORMS"}
+        )
+
+        self.assertEqual(max_num_forms_input["value"], "1000")
+        self.assertIsNotNone(max_num_forms_input)
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
@@ -1570,6 +1593,152 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
                 str(index + 1),
                 f"Initial form at index {index} should have ORDER value {index + 1}",
             )
+
+    def test_render_with_min_max_num_stimulus_values(self):
+        """
+        Test that min_num and max_num parameters are reflected in Stimulus data attributes
+        """
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers", min_num=2, max_num=5)]
+        ).bind_to_model(EventPage)
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = BeautifulSoup(result, "html.parser")
+
+        min_input_control = soup.find(
+            "input", {"data-w-formset-target": "minFormsInput"}
+        )
+        max_input_control = soup.find(
+            "input", {"data-w-formset-target": "maxFormsInput"}
+        )
+
+        # Min/Max values should reflect in HTML
+        self.assertEqual(min_input_control.get("value"), "2")
+        self.assertEqual(max_input_control.get("value"), "5")
+
+    def test_formset_total_value_reflects_existing_forms(self):
+        """
+        Test that data-w-formset-total-value reflects the actual number of existing forms
+        """
+        event_page = EventPage.objects.get(slug="christmas")
+
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers")]
+        ).bind_to_model(EventPage)
+
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = BeautifulSoup(result, "html.parser")
+
+        total_forms_control = soup.find(
+            "input", {"data-w-formset-target": "totalFormsInput"}
+        )
+        bound_panel = panel
+        formset = (
+            bound_panel.children[0].formset
+            if hasattr(bound_panel, "children")
+            else None
+        )
+
+        if formset:
+            expected_total = str(formset.total_form_count())
+            self.assertEqual(total_forms_control.get("value"), expected_total)
+
+    def test_stimulus_controllers_merged_with_custom_attrs(self):
+        """
+        Test that custom data-controller attributes are merged with Stimulus controllers
+        """
+        speaker_object_list = ObjectList(
+            [
+                InlinePanel(
+                    "speakers",
+                    label="Speakers",
+                    attrs={
+                        "data-controller": "custom-controller another-controller",
+                        "data-custom-attr": "custom-value",
+                    },
+                )
+            ]
+        ).bind_to_model(EventPage)
+
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = BeautifulSoup(result, "html.parser")
+
+        panel_section = soup.find("section", class_="w-panel w-panel--nested")
+
+        # Test that all controllers are present
+        controllers = panel_section.get("data-controller", "").split()
+        self.assertIn("w-formset", controllers)
+        self.assertIn("w-orderable", controllers)
+        self.assertIn("custom-controller", controllers)
+        self.assertIn("another-controller", controllers)
+
+        # Test custom attributes are preserved
+        self.assertEqual(panel_section.get("data-custom-attr"), "custom-value")
+
+    def test_no_legacy_js_initialization(self):
+        """
+        Test that the old JavaScript inline script initialization is no longer present
+        """
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers")]
+        ).bind_to_model(EventPage)
+
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+
+        # Test that old JS initialization is NOT present
+        self.assertNotIn("var panel = new InlinePanel({", result)
+        self.assertNotIn("InlinePanel(", result)
+
+    def test_panel_id_and_aria_attributes(self):
+        """
+        Test that panel maintains proper ID and ARIA attributes alongside Stimulus
+        """
+        speaker_object_list = ObjectList(
+            [InlinePanel("speakers", label="Speakers")]
+        ).bind_to_model(EventPage)
+
+        event_page = EventPage.objects.get(slug="christmas")
+        EventPageForm = speaker_object_list.get_form_class()
+        form = EventPageForm(instance=event_page)
+        panel = speaker_object_list.get_bound_panel(
+            instance=event_page, form=form, request=self.request
+        )
+
+        result = panel.render_html()
+        soup = BeautifulSoup(result, "html.parser")
+
+        panel_section = soup.find("section", class_="w-panel w-panel--nested")
+
+        # Test standard panel attributes are still present
+        self.assertIsNotNone(panel_section.get("id"))
+        self.assertIsNotNone(panel_section.get("aria-labelledby"))
+        self.assertIn("panel-", panel_section.get("id", ""))
 
 
 class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
