@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                     DROP INDEX `fulltext_autocomplete`;
 
                 ALTER TABLE wagtailsearch_indexentry
-                    ADD FULLTEXT INDEX `fulltext_autocomplete` (`autocomplete`);
+                    ADD FULLTEXT INDEX `fulltext_autocomplete` (`autocomplete`)
                     WITH PARSER ngram;
                 """,
             )
