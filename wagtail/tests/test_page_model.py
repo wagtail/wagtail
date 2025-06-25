@@ -3634,15 +3634,46 @@ class TestPageWithContentJSON(TestCase):
             "locked_by",
             "locked_at",
             "latest_revision_created_at",
-            "first_published_at",
         ):
             self.assertEqual(
                 getattr(original_page, attr_name), getattr(updated_page, attr_name)
             )
 
+        # first_published_at has special behavior: it's only preserved if the content doesn't provide a value
+        # Since we provided a value in the content, it should use that value instead of preserving the original
+        self.assertNotEqual(
+            original_page.first_published_at, updated_page.first_published_at
+        )
+
         # The url_path should reflect the new slug value, but the
         # rest of the path should have remained unchanged
         self.assertEqual(updated_page.url_path, "/home/about-them/")
+
+    def test_with_content_json_preserves_first_published_at_when_none(self):
+        original_page = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # When first_published_at is None in content, it should preserve the original value
+        content_with_none = original_page.serializable_data()
+        content_with_none["first_published_at"] = None
+
+        updated_page_none = original_page.with_content_json(content_with_none)
+
+        self.assertEqual(
+            original_page.first_published_at, updated_page_none.first_published_at
+        )
+
+    def test_with_content_json_uses_first_published_at_when_provided(self):
+        original_page = SimplePage.objects.get(url_path="/home/about-us/")
+
+        # When first_published_at has a value in content, it should use that value
+        content_with_value = original_page.serializable_data()
+        content_with_value["first_published_at"] = "2000-01-01T00:00:00Z"
+
+        updated_page_value = original_page.with_content_json(content_with_value)
+
+        self.assertNotEqual(
+            original_page.first_published_at, updated_page_value.first_published_at
+        )
 
 
 class TestUnpublish(TestCase):

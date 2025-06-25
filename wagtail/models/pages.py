@@ -1967,7 +1967,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.locked_at = self.locked_at
         obj.latest_revision_id = self.latest_revision_id
         obj.latest_revision_created_at = self.latest_revision_created_at
-        obj.first_published_at = self.first_published_at
+
+        if obj.first_published_at is None:
+            obj.first_published_at = self.first_published_at
+
         obj.translation_key = self.translation_key
         obj.locale_id = self.locale_id
         obj.alias_of_id = self.alias_of_id
