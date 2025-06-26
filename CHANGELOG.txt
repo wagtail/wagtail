@@ -27,6 +27,7 @@ Changelog
  * Raise clear error when non-StreamBlock is used as top-level block in StreamField (Clifford Gama)
  * Refactor userbar rendering to better support headless websites (Sage Abdullah)
  * Add type-to-confirm step when deleting large numbers of pages through bulk actions (Rachel Smith)
+ * Add `NoFutureDateValidator` to validate against dates in the future (Talha Rizwan)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
