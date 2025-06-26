@@ -10,6 +10,7 @@ from wagtail import hooks
 from wagtail.actions.delete_page import DeletePageAction
 from wagtail.admin import messages
 from wagtail.admin.utils import get_valid_next_url_from_request
+from wagtail.admin.views.pages.utils import type_to_delete_confirmation
 from wagtail.models import Page, ReferenceIndex
 
 
@@ -45,15 +46,8 @@ def delete(request, page_id):
             if usage.is_protected:
                 raise PermissionDenied
 
-            continue_deleting = True
-            if (
-                request.POST.get("confirm_site_name")
-                and request.POST.get("confirm_site_name") != wagtail_site_name
-            ):
-                messages.error(
-                    request, f"Please type '{wagtail_site_name}' to confirm."
-                )
-                continue_deleting = False
+            continue_deleting = type_to_delete_confirmation(request)
+
             if continue_deleting:
                 parent_id = page.get_parent().id
                 # Delete the source page.
@@ -99,7 +93,7 @@ def delete(request, page_id):
             "usage_count": usage.count(),
             "is_protected": usage.is_protected,
             # if the number of pages ( child pages + current page) exceeds this limit, then confirm before delete.
-            "confirm_before_delete": (descendant_count + 1)
+            "type_to_confirm_before_delete": (descendant_count + 1)
             >= getattr(settings, "WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT", 10),
             "wagtail_site_name": wagtail_site_name,
             # note that while pages_to_delete may contain a mix of translated pages

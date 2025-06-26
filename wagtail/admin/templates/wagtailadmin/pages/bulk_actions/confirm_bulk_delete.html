@@ -50,7 +50,7 @@
     {% if items and not is_protected %}
         {% trans 'Yes, delete' as action_button_text %}
         {% trans "No, don't delete" as no_action_button_text %}
-        {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}
+        {% include 'wagtailadmin/pages/bulk_actions/confirm_delete_form.html' with action_button_class="serious" %}
     {% else %}
         {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
     {% endif %}

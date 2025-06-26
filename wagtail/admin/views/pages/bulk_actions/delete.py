@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.admin.views.bulk_action.mixins import ReferenceIndexMixin
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
+from wagtail.admin.views.pages.utils import type_to_delete_confirmation
 
 
 class DeleteBulkAction(ReferenceIndexMixin, PageBulkAction):
@@ -22,6 +24,30 @@ class DeleteBulkAction(ReferenceIndexMixin, PageBulkAction):
             **super().object_context(page),
             "descendant_count": page.get_descendant_count(),
         }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pages = context["items"]
+        # Count the total number of pages including descendants
+        total_page_count = len(pages) + sum(page["descendant_count"] for page in pages)
+        wagtail_site_name = getattr(settings, "WAGTAIL_SITE_NAME", "wagtail")
+        context.update(
+            {
+                "wagtail_site_name": wagtail_site_name,
+                "total_page_count": total_page_count,
+                # If the total page count exceeds this limit, then confirm before delete
+                "type_to_confirm_before_delete": total_page_count
+                >= getattr(settings, "WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT", 10),
+            }
+        )
+        return context
+
+    def post(self, request):
+        if type_to_delete_confirmation(request):
+            return super().post(request)
+        else:
+            # Re-render the confirmation page when site name verification fails
+            return self.render_to_response(self.get_context_data())
 
     @classmethod
     def execute_action(cls, objects, user=None, **kwargs):

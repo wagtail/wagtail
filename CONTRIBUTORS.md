@@ -896,6 +896,8 @@
 * Mustopha Mubarak O
 * Ziyao Yan
 * Anees Asghar
+* Rachel Smith
+* Talha Rizwan
 
 ## Translators
 
