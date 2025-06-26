@@ -205,18 +205,6 @@ def admin_url_name(obj, action):
     return obj.snippet_viewset.get_url_name(action)
 
 
-@register.simple_tag(takes_context=True)
-def build_absolute_url(context, url):
-    """
-    Usage: {% build_absolute_url url %}
-    Returns the absolute URL of the given URL.
-    """
-    request = context.get("request")
-    if not request:
-        return url
-    return request.build_absolute_uri(url)
-
-
 @register.simple_tag
 def latest_str(obj):
     """
