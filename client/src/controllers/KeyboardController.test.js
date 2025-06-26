@@ -188,4 +188,41 @@ describe('KeyboardController', () => {
       expect(buttonClickMock).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('using an element target instead of controlled element', () => {
+    it('should call the click event when the `j` key is pressed after being registered', async () => {
+      expect(buttonClickMock).not.toHaveBeenCalled();
+
+      await setup(
+        `
+        <aside data-controller="w-kbd" data-w-kbd-key-value="j">
+          <button id="btn" data-w-kbd-target="element" type="button">Go</button>
+        </aside>
+        `,
+      );
+
+      expect(simulateKey({ key: 'j' }, document.getElementById('btn')));
+
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+      expect(buttonClickMock.mock.contexts).toEqual([
+        document.getElementById('btn'),
+      ]);
+    });
+
+    it('should take the aria-keyshortcuts attribute if the data-w-kbd-key-value is not set', async () => {
+      expect(buttonClickMock).not.toHaveBeenCalled();
+
+      await setup(
+        `
+        <aside data-controller="w-kbd">
+          <button id="btn" aria-keyshortcuts="j" data-w-kbd-target="element" type="button">Go</button>
+        </aside>
+        `,
+      );
+
+      simulateKey({ key: 'j' });
+
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+    });
+  });
 });
