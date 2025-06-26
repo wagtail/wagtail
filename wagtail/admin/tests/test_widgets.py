@@ -741,9 +741,9 @@ class TestBaseChooser(TestCase):
         instance = widget.get_instance(999)
         self.assertIsNone(instance)
 
-    def test_get_instance_with_to_field_value(self):
-        """Test get_instance works with to_field values."""
-        widget = widgets.BaseChooser()
+    def test_get_instance_with_to_field_name(self):
+        """Test get_instance works with to_field_name parameter."""
+        widget = widgets.BaseChooser(to_field_name="name")
         widget.model_class = BlogCategory
 
         instance = widget.get_instance("recipes")

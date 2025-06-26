@@ -218,8 +218,49 @@ class ChooserViewSet(ViewSet):
 
     def on_register(self):
         if self.model and self.register_widget:
+
+            def _create_widget_with_to_field(db_field):
+                to_field_name = getattr(db_field.remote_field, "field_name", None)
+                widget_cls = self.widget_class
+                if isinstance(widget_cls, type):
+                    if (
+                        hasattr(widget_cls, "__init__")
+                        and "model" in widget_cls.__init__.__code__.co_varnames
+                    ):
+                        return widget_cls(model=self.model, to_field_name=to_field_name)
+                    else:
+                        return widget_cls(to_field_name=to_field_name)
+                else:
+                    # already an instance
+                    widget_cls_type = widget_cls.__class__
+                    if (
+                        hasattr(widget_cls_type, "__init__")
+                        and "model" in widget_cls_type.__init__.__code__.co_varnames
+                    ):
+                        widget_instance = widget_cls_type(
+                            model=self.model, to_field_name=to_field_name
+                        )
+                    else:
+                        widget_instance = widget_cls_type(to_field_name=to_field_name)
+
+                    # Copy attributes from the original instance
+                    for attr in [
+                        "choose_one_text",
+                        "choose_another_text",
+                        "link_to_chosen_text",
+                        "chooser_modal_url_name",
+                        "icon",
+                    ]:
+                        if hasattr(widget_cls, attr):
+                            setattr(widget_instance, attr, getattr(widget_cls, attr))
+                    return widget_instance
+
             register_form_field_override(
-                ForeignKey, to=self.model, override={"widget": self.widget_class}
+                ForeignKey,
+                to=self.model,
+                override=lambda db_field: {
+                    "widget": _create_widget_with_to_field(db_field)
+                },
             )
             if self.widget_telepath_adapter_class:
                 adapter = self.widget_telepath_adapter_class()
