@@ -185,7 +185,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       <button
         onClick={onClickOpenCloseToggle}
         aria-label={gettext('Toggle sidebar')}
-        aria-keyshortcuts="["
+        aria-keyshortcuts="ctrl+["
         aria-expanded={visibleOnMobile ? 'true' : 'false'}
         className={
           'button sidebar-nav-toggle' +
@@ -222,7 +222,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
             <button
               onClick={onClickCollapseToggle}
               aria-label={gettext('Toggle sidebar')}
-              aria-keyshortcuts="["
+              aria-keyshortcuts="ctrl+["
               aria-expanded={slim ? 'false' : 'true'}
               type="button"
               className={`${!slim ? 'w-mr-4' : ''}

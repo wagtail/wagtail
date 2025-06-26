@@ -4,7 +4,7 @@ exports[`Sidebar should render with the minimum required props 1`] = `
 <Fragment>
   <button
     aria-expanded="false"
-    aria-keyshortcuts="["
+    aria-keyshortcuts="ctrl+["
     aria-label="Toggle sidebar"
     className="button sidebar-nav-toggle"
     onClick={[Function]}
@@ -27,7 +27,7 @@ exports[`Sidebar should render with the minimum required props 1`] = `
       >
         <button
           aria-expanded="true"
-          aria-keyshortcuts="["
+          aria-keyshortcuts="ctrl+["
           aria-label="Toggle sidebar"
           className="w-mr-4
                 button
