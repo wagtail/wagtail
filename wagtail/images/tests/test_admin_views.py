@@ -543,7 +543,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
-        layout_toggle_button = soup.find("label", id="w-layout-toggle-button")
+        layout_toggle_button = soup.find("label", class_="w-layout-toggle-button")
         self.assertIsNotNone(
             layout_toggle_button, "Expected layout toggle button in list layout"
         )
@@ -553,7 +553,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
-        layout_toggle_button = soup.find("label", id="w-layout-toggle-button")
+        layout_toggle_button = soup.find("label", class_="w-layout-toggle-button")
         self.assertIsNotNone(
             layout_toggle_button, "Expected layout toggle button in grid layout"
         )
