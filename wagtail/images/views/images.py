@@ -122,19 +122,19 @@ class IndexView(generic.IndexView):
                 "current_collection": self.current_collection,
                 "current_ordering": self.ordering,
                 "ORDERING_OPTIONS": self.ORDERING_OPTIONS,
-                "view_mode": self.view_mode,
+                "layout": self.layout,
             }
         )
 
         return context
 
     @cached_property
-    def view_mode(self):
-        return self.request.GET.get("view", "grid")
+    def layout(self):
+        return self.request.GET.get("layout", "grid")
 
     @cached_property
     def columns(self):
-        if self.view_mode == "grid":
+        if self.layout == "grid":
             return []
         else:
             columns = [

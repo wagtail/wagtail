@@ -1,11 +1,11 @@
 {% load wagtailadmin_tags i18n %}
 
-<div id="view-toggle-button-wrapper">
-    {% if view_mode == "list" %}
-        <a href="?view=grid">
+<div id="layout-toggle-button-wrapper">
+    {% if layout == "list" %}
+        <a href="?layout=grid">
             <button
                 type="button"
-                class="w-view-toggle-button"
+                class="w-layout-toggle-button"
                 data-controller="w-tooltip"
                 data-w-tooltip-content-value="Toggle layout"
             >
@@ -14,10 +14,10 @@
         </a>
 
     {% else %}
-        <a href="?view=list">
+        <a href="?layout=list">
             <button
                 type="button"
-                class="w-view-toggle-button"
+                class="w-layout-toggle-button"
                 data-controller="w-tooltip"
                 data-w-tooltip-content-value="Toggle layout"
             >
