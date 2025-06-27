@@ -387,3 +387,28 @@
     border-color: theme('colors.border-field-hover');
   }
 }
+
+.w-layout-toggle-button {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+
+  .w-layout-toggle-button__icon--checked {
+    display: none;
+  }
+
+  .w-layout-toggle-button__icon--unchecked {
+    display: block;
+  }
+
+  &:has(input:checked) {
+    .w-layout-toggle-button__icon--checked {
+      display: block;
+    }
+
+    .w-layout-toggle-button__icon--unchecked {
+      display: none;
+    }
+  }
+}
