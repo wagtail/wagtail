@@ -83,6 +83,7 @@
  * Maintenance: Remove outdated nginx / uWSGI example config files from `/etc` (LB (Ben) Johnston)
  * Maintenance: Use browser built-in `EventTarget` instead of `events.EventEmitter` from Webpack (Sage Abdullah)
  * Maintenance: Split code from `telepath/widgets.js` into separate files (Matt Westcott)
+ * Maintenance: Update development UI guidelines to adopt best practices for image handling within the admin interface (Thibaud Colas)
 
 
 7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
