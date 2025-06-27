@@ -3,7 +3,7 @@
 {% load i18n l10n %}
 
 {% block results %}
-    {% if view_mode == "list" %}
+    {% if layout == "list" %}
         {{block.super}}
     {% else %}
         <div class="nice-padding">

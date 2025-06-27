@@ -398,52 +398,52 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         ]
         self.assertEqual(len(in_clauses), 0)
 
-    def test_correct_view_mode_is_passed_to_context(self):
+    def test_correct_layout_is_passed_to_context(self):
         response = self.client.get(reverse("wagtailimages:index"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["view_mode"], "grid")
+        self.assertEqual(response.context["layout"], "grid")
 
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["view_mode"], "list")
+        self.assertEqual(response.context["layout"], "list")
 
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "grid"})
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["view_mode"], "grid")
+        self.assertEqual(response.context["layout"], "grid")
 
-    def test_view_when_view_mode_is_list(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+    def test_layout_when_layout_is_list(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
         table = soup.find("table", class_="listing")
         self.assertIsNotNone(
-            table, "Expected a table element to be present in list view."
+            table, "Expected a table element to be present in list layout."
         )
 
         grid_ul = soup.find("ul", class_="listing horiz images")
         self.assertIsNone(
             grid_ul,
-            "Expected no ul element with class 'listing horiz images' in list view.",
+            "Expected no ul element with class 'listing horiz images' in list layout.",
         )
 
-    def test_view_when_view_mode_is_grid(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "grid"})
+    def test_layout_when_layout_is_grid(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
         table = soup.find("table", class_="listing")
         self.assertIsNone(
-            table, "Expected no table element with class 'listing' in grid view."
+            table, "Expected no table element with class 'listing' in grid layout."
         )
 
         grid_ul = soup.find("ul", class_="listing horiz images")
         self.assertIsNotNone(
             grid_ul,
-            "Expected a ul element with class 'listing horiz images' in grid view.",
+            "Expected a ul element with class 'listing horiz images' in grid layout.",
         )
 
-    def test_view_when_no_view_mode_is_passed(self):
+    def test_layout_when_no_layout_is_passed(self):
         response = self.client.get(reverse("wagtailimages:index"))
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
@@ -451,34 +451,36 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         table = soup.find("table", class_="listing")
         self.assertIsNone(
             table,
-            "If no view mode is passed, it should default to grid view (no table) - table found",
+            "If no layout is passed, it should default to grid layout (no table) - table found",
         )
 
         grid_ul = soup.find("ul", class_="listing horiz images")
         self.assertIsNotNone(
             grid_ul,
-            "If no view mode is passed, it should default to grid view (ul not found)",
+            "If no layout is passed, it should default to grid layout (ul not found)",
         )
 
-    def test_view_when_view_mode_is_invalid(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "invalid"})
+    def test_layout_when_layout_is_invalid(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"layout": "invalid"}
+        )
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
         table = soup.find("table", class_="listing")
         self.assertIsNone(
             table,
-            "If invalid view mode is passed, it should default to grid view (no table) - table found",
+            "If invalid layout is passed, it should default to grid layout (no table) - table found",
         )
 
         grid_ul = soup.find("ul", class_="listing horiz images")
         self.assertIsNotNone(
             grid_ul,
-            "If invalid view mode is passed, it should default to grid view (ul not found)",
+            "If invalid layout is passed, it should default to grid layout (ul not found)",
         )
 
     def test_image_is_present_in_image_preview_column(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
@@ -494,7 +496,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         )
 
     def test_title_and_filename_are_present_in_title_column(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
@@ -520,8 +522,8 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             "Expected a <div> with class 'filename-wrapper' inside the title-with-filename <td>",
         )
 
-    def test_list_view_contains_required_table_headers(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+    def test_list_layout_contains_required_table_headers(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
@@ -533,27 +535,27 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
             self.assertIn(
                 expected_header,
                 header_texts,
-                f"Expected header '{expected_header}' not found in list view",
+                f"Expected header '{expected_header}' not found in list layout",
             )
 
-    def test_view_toggle_button_in_list_view(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"view": "list"})
+    def test_layout_toggle_button_in_list_layout(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
-        view_toggle_button = soup.find("button", class_="w-view-toggle-button")
+        layout_toggle_button = soup.find("button", class_="w-layout-toggle-button")
         self.assertIsNotNone(
-            view_toggle_button, "Expected view toggle button in list view"
+            layout_toggle_button, "Expected layout toggle button in list layout"
         )
 
-    def test_view_toggle_button_in_grid_view(self):
-        response = self.client.get(reverse("wagtailimages:index"))
+    def test_layout_toggle_button_in_grid_layout(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
-        view_toggle_button = soup.find("button", class_="w-view-toggle-button")
+        layout_toggle_button = soup.find("button", class_="w-layout-toggle-button")
         self.assertIsNotNone(
-            view_toggle_button, "Expected view toggle button in grid view"
+            layout_toggle_button, "Expected layout toggle button in grid layout"
         )
 
 
@@ -672,9 +674,9 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         response = self.get({"tag": "one", "q": "test"})
         self.assertEqual(response.context["page_obj"].paginator.count, 2)
 
-    def test_image_search_when_view_mode_is_list(self):
+    def test_image_search_when_layout_is_list(self):
         response = self.client.get(
-            reverse("wagtailimages:index"), {"q": "A", "view": "list"}
+            reverse("wagtailimages:index"), {"q": "A", "layout": "list"}
         )
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
@@ -682,30 +684,32 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         table = soup.find("table", class_="listing")
         self.assertIsNotNone(
             table,
-            "Expected a table element to be present in list view when searching for images.",
+            "Expected a table element to be present in list layout when searching for images.",
         )
 
         grid_ul = soup.find("ul", class_="listing horiz images")
         self.assertIsNone(
             grid_ul,
-            "Expected no ul element with class 'listing horiz images' in list view when searching for images.",
+            "Expected no ul element with class 'listing horiz images' in list layout when searching for images.",
         )
 
-    def test_image_search_when_view_mode_is_grid(self):
-        response = self.client.get(reverse("wagtailimages:index"), {"q": "A"})
+    def test_image_search_when_layout_is_grid(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"q": "A", "layout": "grid"}
+        )
         self.assertEqual(response.status_code, 200)
         soup = self.get_soup(response.content)
 
         table = soup.find("table", class_="listing")
         self.assertIsNone(
             table,
-            "Expected no table element with class 'listing' in grid view when searching for images.",
+            "Expected no table element with class 'listing' in grid layout when searching for images.",
         )
 
         grid_ul = soup.find("ul", class_="listing horiz images")
         self.assertIsNotNone(
             grid_ul,
-            "Expected a ul element with class 'listing horiz images' in grid view when searching for images.",
+            "Expected a ul element with class 'listing horiz images' in grid layout when searching for images.",
         )
 
 
