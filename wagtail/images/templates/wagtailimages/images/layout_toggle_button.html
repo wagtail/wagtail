@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags i18n %}
 
-<label class="w-slim-header-action-button w-layout-toggle-button" data-controller="w-tooltip" data-w-tooltip-content-value="{% trans 'Toggle layout' %}">
+<label class="w-slim-header-action-button w-layout-toggle-button" data-controller="w-tooltip" data-w-tooltip-content-value="{% translate 'Toggle layout' %}">
     {% icon name="grip" classname="w-layout-toggle-button__icon--checked" %}
     {% icon name="list-ul" classname="w-layout-toggle-button__icon--unchecked" %}
     <input hidden type="checkbox" name="layout" value="list" {% if layout == "list" %}checked{% endif %}>
