@@ -459,6 +459,10 @@ ul.listing {
 .image-choice--list {
   display: inline-block;
   line-height: 0;
+
+  .image {
+    width: 8em;
+  }
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
