@@ -456,6 +456,11 @@ ul.listing {
   word-wrap: break-word;
 }
 
+.image-choice--list {
+  display: inline-block;
+  line-height: 0;
+}
+
 // stylelint-disable-next-line no-duplicate-selectors
 ul.listing {
   border-top: 1px dashed theme('colors.border-field-default');
