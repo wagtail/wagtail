@@ -152,6 +152,12 @@ Changelog
  * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
 
 
+6.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+
+
 6.4.2 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 
