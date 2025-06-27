@@ -262,6 +262,12 @@ Changelog
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
+6.3.6 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+
+
 6.3.5 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
 
