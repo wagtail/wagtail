@@ -16,6 +16,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
 from wagtail.admin.ui.tables import (
+    BaseColumn,
     BulkActionsCheckboxColumn,
     Column,
     DateColumn,
@@ -176,7 +177,7 @@ class BulkActionsColumn(BulkActionsCheckboxColumn):
         return context
 
 
-class ImagePreviewColumn(TitleColumn):
+class ImagePreviewColumn(BaseColumn):
     cell_template_name = "wagtailimages/images/image_preview_column_cell.html"
 
 

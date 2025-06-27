@@ -1,9 +1,8 @@
-{% extends "wagtailadmin/tables/title_cell.html" %}
 {% load wagtailadmin_tags %}
 {% load wagtailimages_tags %}
 
-{% block title %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     <a class="image-choice--list" href="{% url 'wagtailimages:edit' instance.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
         {% image instance max-165x165 class="show-transparency" %}
     </a>
-{% endblock %}
+</td>
