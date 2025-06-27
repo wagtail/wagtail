@@ -47,6 +47,7 @@ Changelog
  * Fix: Correctly handle ordering API results by mixed ascending and descending order (Rohit Sharma, Mahmoud Nasser)
  * Fix: Ensure that draft changes to an editable `first_published_at` field are preserved on reloading (Talha Rizwan)
  * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+ * Fix: Only enable ManifestStaticFilesStorage in production settings, to aid test running (M. Sumair Khokhar)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
  * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)

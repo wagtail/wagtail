@@ -899,6 +899,7 @@
 * Rachel Smith
 * Talha Rizwan
 * Ellie Walsh-O'Neill
+* M. Sumair Khokhar
 
 ## Translators
 
