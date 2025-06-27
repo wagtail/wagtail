@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error when restoring scroll position for cross-domain preview iframe (Sage Abdullah)
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
 
 7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
