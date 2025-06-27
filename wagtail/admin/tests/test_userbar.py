@@ -803,6 +803,13 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         rendered = Userbar().render_html({"request": self.request})
         soup = self.get_soup(rendered)
 
+        userbar = soup.select_one("[data-wagtail-userbar]")
+        self.assertIsNotNone(userbar)
+        self.assertEqual(
+            userbar.get("data-wagtail-userbar-origin"),
+            settings.WAGTAILADMIN_BASE_URL,
+        )
+
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
@@ -844,5 +851,35 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertIsNotNone(accessibility_button)
         self.assertEqual(
             accessibility_button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )
+
+    @override_settings(WAGTAILADMIN_BASE_URL=None)
+    def test_render_without_admin_base_url_setting(self):
+        rendered = Userbar().render_html({"request": self.request})
+        soup = self.get_soup(rendered)
+
+        userbar = soup.select_one("[data-wagtail-userbar]")
+        self.assertIsNotNone(userbar)
+        # Default to an empty string instead of rendering None,
+        # so the JS code can provide the fallback
+        self.assertEqual(userbar.get("data-wagtail-userbar-origin"), "")
+
+        items = soup.select("li")
+        self.assertEqual(len(items), 2)
+
+        # Becomes the root-relative URL since WAGTAILADMIN_BASE_URL is None
+        admin_url = reverse("wagtailadmin_home")
+        admin_item = items[0]
+        admin_link = admin_item.select_one("a")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.get("href"), admin_url)
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+        accessibility_item = items[-1]
+        button = accessibility_item.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(
+            button.get_text(separator=" | ", strip=True).strip(),
             "Issues found | Accessibility",
         )
