@@ -2,6 +2,13 @@
 {% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n l10n %}
 
+{% block before_results %}
+    {{ block.super }}
+    <template data-controller="w-teleport" data-w-teleport-target-value="#layout-toggle-button" data-w-teleport-reset-value="true">
+        {% include "wagtailimages/images/layout_toggle_button.html" %}
+    </template>
+{% endblock %}
+
 {% block results %}
     {% if layout == "list" %}
         {{ block.super }}
