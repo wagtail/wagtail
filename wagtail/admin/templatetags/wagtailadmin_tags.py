@@ -1332,11 +1332,13 @@ def keyboard_shortcuts_dialog(context):
                     _("Add or show comments"),
                     f"{KEYS.CTRL} + {KEYS.ALT} + m",
                 ),
+                (_("Minimap"), f"{KEYS.MOD} + ]"),
             ]
             if comments_enabled
             else [
                 (_("Save changes"), f"{KEYS.MOD} + s"),
                 (_("Preview"), f"{KEYS.MOD} + p"),
+                (_("Minimap"), f"{KEYS.MOD} + ]"),
             ],
             ("rich-text-content", _("Text content")): [
                 (_("Insert or edit a link"), f"{KEYS.MOD} + k")
