@@ -54,6 +54,9 @@ class BaseChooser(widgets.Input):
         ]:
             if var in kwargs:
                 setattr(self, var, kwargs.pop(var))
+
+        # Store to_field_name for ForeignKey fields with to_field parameter
+        self.to_field_name = kwargs.pop("to_field_name", None)
         super().__init__(**kwargs)
 
     @cached_property
@@ -118,10 +121,17 @@ class BaseChooser(widgets.Input):
         elif isinstance(value, self.model_class):
             return value
         else:  # assume instance ID
-            try:
-                return self.model_class.objects.get(pk=value)
-            except self.model_class.DoesNotExist:
-                return None
+            # If we have a to_field_name, use it directly for lookup
+            if self.to_field_name:
+                try:
+                    return self.model_class.objects.get(**{self.to_field_name: value})
+                except self.model_class.DoesNotExist:
+                    return None
+            else:
+                try:
+                    return self.model_class.objects.get(pk=value)
+                except self.model_class.DoesNotExist:
+                    return None
 
     def get_display_title(self, instance):
         """
