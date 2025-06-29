@@ -34,6 +34,7 @@ import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 export class KeyboardController extends Controller<
   HTMLButtonElement | HTMLAnchorElement
 > {
+  static targets = ['element'];
   static values = {
     key: { default: '', type: String },
     scope: { default: '', type: String },
@@ -44,10 +45,27 @@ export class KeyboardController extends Controller<
   /** Scope of the keyboard shortcut, defaults to the normal MouseTrap (non-input) scope. */
   declare scopeValue: '' | 'global';
 
+  /**
+   * Allow an explicit target to be the element that the keyboard activates,
+   * if not provided. defaults to the Controller's element.
+   */
+  declare readonly elementTarget: HTMLButtonElement | HTMLAnchorElement;
+  /** Whether the element target exists. */
+  declare readonly hasElementTarget: boolean;
+
+  /**
+   * Set up the handleKey binding and check for an aria-keyshortcuts attribute to
+   * use as a fallback if the key value is not set.
+   */
+
   initialize() {
     this.handleKey = this.handleKey.bind(this);
+
     if (!this.keyValue) {
-      const ariaKeyShortcuts = this.element.getAttribute('aria-keyshortcuts');
+      const ariaKeyShortcuts = (
+        this.hasElementTarget ? this.elementTarget : this.element
+      ).getAttribute('aria-keyshortcuts');
+
       if (ariaKeyShortcuts) {
         this.keyValue = ariaKeyShortcuts;
       }
@@ -56,17 +74,20 @@ export class KeyboardController extends Controller<
 
   handleKey(event: Event) {
     if (event.preventDefault) event.preventDefault();
-    this.element.click();
+    (this.hasElementTarget ? this.elementTarget : this.element).click();
   }
 
   /**
    * When a key is set or changed, bind the handler to the keyboard shortcut.
    * This will override the shortcut, if already set.
+   * Allow key to be empty, so it can be removed from the attributes to unbind the shortcuts
    */
   keyValueChanged(key: string, previousKey: string) {
     if (previousKey && previousKey !== key) {
       Mousetrap.unbind(previousKey);
     }
+
+    if (!key) return;
 
     if (this.scopeValue === 'global') {
       Mousetrap.bindGlobal(key, this.handleKey);
