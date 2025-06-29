@@ -21,9 +21,10 @@ from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.ui.tables import Table
 from wagtail.images import get_image_model
 from wagtail.images.utils import generate_signature
-from wagtail.images.views.images import ImagesFilterSet
+from wagtail.images.views.images import BulkActionsColumn, ImagesFilterSet
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
@@ -557,6 +558,39 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         self.assertIsNotNone(
             layout_toggle_button, "Expected layout toggle button in grid layout"
         )
+
+
+class TestBulkActionsColumn(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.root_collection = Collection.get_first_root_node()
+        self.test_collection = self.root_collection.add_child(name="Test Collection")
+
+    def test_get_header_context_data_with_current_collection(self):
+        column = BulkActionsColumn("bulk_actions")
+        table = Table(columns=[column], data=[])
+
+        parent_context = {
+            "table": table,
+            "current_collection": self.test_collection,
+        }
+
+        context = column.get_header_context_data(parent_context)
+
+        self.assertEqual(context["parent"], self.test_collection.id)
+
+    def test_get_header_context_data_without_current_collection(self):
+        column = BulkActionsColumn("bulk_actions")
+        table = Table(columns=[column], data=[])
+
+        parent_context = {
+            "table": table,
+            "current_collection": None,
+        }
+
+        context = column.get_header_context_data(parent_context)
+
+        self.assertNotIn("parent", context)
 
 
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
