@@ -87,7 +87,7 @@
   color: theme('colors.white.DEFAULT');
 
   // Reuse the same count component as a button badge.
-  .w-filter-button & {
+  .w-slim-header-action-button & {
     position: absolute;
     top: calc(-0.5 * #{$badge-size});
     inset-inline-end: calc(-0.5 * #{$badge-size});

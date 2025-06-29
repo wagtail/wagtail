@@ -1,0 +1,11 @@
+{% extends "wagtailadmin/tables/title_cell.html" %}
+{% load wagtailadmin_tags %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+{% block extra %}
+    <div class="filename-wrapper">
+        <span>{{ instance.filename }}</span>
+    </div>
+{% endblock %}
