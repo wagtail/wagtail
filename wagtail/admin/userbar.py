@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.ui.components import Component
+from wagtail.admin.utils import get_admin_base_url
 from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Revision
 from wagtail.models.pages import Page
@@ -30,6 +31,10 @@ class AdminItem(BaseItem):
 class AccessibilityItem(BaseItem):
     """A userbar item that runs the accessibility checker."""
 
+    def __init__(self, in_editor=False):
+        super().__init__()
+        self.in_editor = in_editor
+
     #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"
 
@@ -42,7 +47,7 @@ class AccessibilityItem(BaseItem):
     axe_exclude = []
 
     # Make sure that the userbar is not tested.
-    _axe_default_exclude = [{"fromShadowDOM": ["wagtail-userbar"]}]
+    _axe_default_exclude = [{"fromShadowDom": ["wagtail-userbar"]}]
 
     #: A list of `axe-core tags <https://github.com/dequelabs/axe-core/blob/master/doc/API.md#axe-core-tags>`_
     #: or a list of `axe-core rule IDs <https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md>`_
@@ -361,6 +366,7 @@ class Userbar(Component):
             # Render the userbar items
             return {
                 "request": request,
+                "origin": get_admin_base_url(),
                 "items": rendered_items,
                 "position": self.position,
                 "page": self.object,

@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import { gettext } from '../utils/gettext';
 
 /**
  * Localizes elements in the current locale.
@@ -58,7 +59,13 @@ export class LocaleController extends Controller<HTMLSelectElement> {
       if (!timeZone) return;
       const localized = LocaleController.getTZLabel(timeZone);
       const option = opt;
-      option.textContent = `${option.textContent}: ${localized}`;
+      // Translators: An item in the time zone selection dropdown, e.g. "America/New_York: EDT (Eastern Daylight Time)". Some languages may require a space before the colon.
+      const template = gettext(
+        '%(time_zone_option)s: %(localized_time_zone_label)s',
+      );
+      option.textContent = template
+        .replace('%(time_zone_option)s', option.textContent ?? '')
+        .replace('%(localized_time_zone_label)s', localized);
     });
   }
 }

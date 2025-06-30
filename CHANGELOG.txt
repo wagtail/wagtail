@@ -29,6 +29,7 @@ Changelog
  * Add type-to-confirm step when deleting large numbers of pages through bulk actions (Rachel Smith)
  * Add `NoFutureDateValidator` to validate against dates in the future (Talha Rizwan)
  * Extract separate `background_position_x` and `background_position_y` properties from `AbstractRendition.background_position_style` (Chiemezuo Akujobi)
+ * Add support for translated string concatenation in the locale selector when switching between a model's language in the admin (Matt Westcott, Ellie Walsh-O'Neill)
  * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
  * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
  * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
@@ -45,19 +46,23 @@ Changelog
  * Fix: Adjust accessibility dialog position based on userbar position (Anees Asghar, Sage Abdullah)
  * Fix: Correctly handle ordering API results by mixed ascending and descending order (Rohit Sharma, Mahmoud Nasser)
  * Fix: Ensure that draft changes to an editable `first_published_at` field are preserved on reloading (Talha Rizwan)
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
+ * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
  * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
  * Maintenance: Add `django.contrib.postgres` to test settings `INSTALLED_APPS` (Sage Abdullah)
+ * Maintenance: Add integrity & resolved checksums to package-lock.json (Sylvain Fankhauser)
 
 
 7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error when restoring scroll position for cross-domain preview iframe (Sage Abdullah)
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
 
 7.0.1 (12.06.2025)
 ~~~~~~~~~~~~~~~~~~
@@ -149,6 +154,12 @@ Changelog
  * Maintenance: Remove deprecated `wagtailadmin/shared/ajax_pagination_nav.html` template (Sage Abdullah)
  * Maintenance: Formally deprecate support for listing views with no breadcrumbs (Sage Abdullah)
  * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
+
+
+6.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
 
 
 6.4.2 (12.06.2025)
@@ -314,6 +325,12 @@ Changelog
  * Maintenance: Refactor pages `revisions_revert` view to be a subclass of `EditView` (Sage Abdullah)
  * Maintenance: Move images and documents `get_usage().count()` call to view code (Sage Abdullah)
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
+
+
+6.3.6 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
 
 
 6.3.5 (12.06.2025)

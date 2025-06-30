@@ -13,7 +13,6 @@ from django.shortcuts import resolve_url as resolve_url_func
 from django.template import Context
 from django.template.base import token_kwargs
 from django.template.defaultfilters import stringfilter
-from django.templatetags.static import static
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
@@ -204,18 +203,6 @@ def admin_url_name(obj, action):
     if isinstance(obj, Page):
         return f"wagtailadmin_pages:{action}"
     return obj.snippet_viewset.get_url_name(action)
-
-
-@register.simple_tag(takes_context=True)
-def build_absolute_url(context, url):
-    """
-    Usage: {% build_absolute_url url %}
-    Returns the absolute URL of the given URL.
-    """
-    request = context.get("request")
-    if not request:
-        return url
-    return request.build_absolute_uri(url)
 
 
 @register.simple_tag
@@ -679,12 +666,13 @@ def admin_theme_color_scheme(context):
 
 
 @register.simple_tag
-def notification_static(path):
+def absolute_static(path):
     """
-    Variant of the {% static %}` tag for use in notification emails - tries to form
-    a full URL using WAGTAILADMIN_BASE_URL if the static URL isn't already a full URL.
+    Variant of the {% versioned_static %}` tag for use in external systems, such as
+    notification emails. Tries to form a full URL using WAGTAILADMIN_BASE_URL
+    if the static URL isn't already a full URL.
     """
-    return urljoin(base_url_setting(), static(path))
+    return urljoin(base_url_setting(), versioned_static_func(path))
 
 
 @register.simple_tag

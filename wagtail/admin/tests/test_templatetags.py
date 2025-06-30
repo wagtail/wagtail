@@ -13,10 +13,10 @@ from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import VERSION_HASH, versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
+    absolute_static,
     avatar_url,
     i18n_enabled,
     locale_label_from_id,
-    notification_static,
     timesince_last_update,
     timesince_simple,
 )
@@ -83,36 +83,38 @@ class TestAvatarTemplateTag(WagtailTestUtils, TestCase):
         self.assertIn("custom-avatar", url)
 
 
-class TestNotificationStaticTemplateTag(SimpleTestCase):
+class TestAbsoluteStaticTemplateTag(SimpleTestCase):
     @override_settings(STATIC_URL="/static/")
-    def test_local_notification_static(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "{}/static/wagtailadmin/images/email-header.jpg".format(
-                settings.WAGTAILADMIN_BASE_URL
-            ),
-            url,
+    def test_local_absolute_static(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            rf"^{settings.WAGTAILADMIN_BASE_URL}/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
     @override_settings(
         STATIC_URL="/static/", WAGTAILADMIN_BASE_URL="http://localhost:8000"
     )
-    def test_local_notification_static_baseurl(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "http://localhost:8000/static/wagtailadmin/images/email-header.jpg", url
+    def test_local_absolute_static_baseurl(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            r"^http://localhost:8000/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
     @override_settings(
         STATIC_URL="https://s3.amazonaws.com/somebucket/static/",
         WAGTAILADMIN_BASE_URL="http://localhost:8000",
     )
-    def test_remote_notification_static(self):
-        url = notification_static("wagtailadmin/images/email-header.jpg")
-        self.assertEqual(
-            "https://s3.amazonaws.com/somebucket/static/wagtailadmin/images/email-header.jpg",
-            url,
+    def test_remote_absolute_static(self):
+        url = absolute_static("wagtailadmin/images/email-header.jpg")
+        expected = (
+            r"https://s3.amazonaws.com/somebucket/static/wagtailadmin/images/"
+            r"email-header.jpg\?v=(\w{8})$"
         )
+        self.assertRegex(url, expected)
 
 
 class TestVersionedStatic(SimpleTestCase):
