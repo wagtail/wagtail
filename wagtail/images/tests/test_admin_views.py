@@ -488,7 +488,7 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         image_preview_wrapper = soup.find("td", class_="image-preview")
         self.assertIsNotNone(
             image_preview_wrapper,
-            "Expected a <td> with class 'title and image-preview' inside the listing table",
+            "Expected a <td> with class image-preview' inside the listing table",
         )
 
         preview_image = image_preview_wrapper.find("img")
