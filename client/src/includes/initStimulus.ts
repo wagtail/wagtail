@@ -1,5 +1,28 @@
-import type { Definition } from '@hotwired/stimulus';
+import type { Controller, Definition } from '@hotwired/stimulus';
 import { Application } from '@hotwired/stimulus';
+
+class WagtailApplication extends Application {
+  queryController(identifier: string): Controller | null {
+    return this.getControllerForElementAndIdentifier(
+      document.querySelector(
+        `[${this.schema.controllerAttribute}="${identifier}"]`,
+      )!,
+      identifier,
+    );
+  }
+
+  queryControllerAll(identifier: string): Controller[] {
+    return Array.from(
+      document.querySelectorAll(
+        `[${this.schema.controllerAttribute}="${identifier}"]`,
+      ),
+    )
+      .map((element) =>
+        this.getControllerForElementAndIdentifier(element, identifier),
+      )
+      .filter(Boolean) as Controller[];
+  }
+}
 
 /**
  * Initialises the Wagtail Stimulus application, loads the provided controller
@@ -16,8 +39,8 @@ export const initStimulus = ({
   debug?: boolean;
   definitions?: Definition[];
   root?: HTMLElement;
-} = {}): Application => {
-  const app = Application.start(root);
+} = {}): WagtailApplication => {
+  const app = WagtailApplication.start(root) as WagtailApplication;
   app.debug = debug;
   app.load(definitions);
   return app;
