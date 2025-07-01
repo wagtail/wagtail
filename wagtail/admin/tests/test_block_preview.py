@@ -97,13 +97,22 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         self.assertEqual(main.text.strip(), "None")
 
     def test_preview_value_falls_back_to_default(self):
-        block = blocks.IntegerBlock(default=42)
-        response = self.get(block)
-        self.assertEqual(response.status_code, 200)
-        soup = self.get_soup(response.content)
-        main = soup.select_one("main")
-        self.assertIsNotNone(main)
-        self.assertEqual(main.text.strip(), "42")
+        def callable_default():
+            return 42
+
+        cases = [
+            ("static", blocks.IntegerBlock(default=42)),
+            ("callable", blocks.IntegerBlock(default=callable_default)),
+        ]
+
+        for via, block in cases:
+            with self.subTest(via=via):
+                response = self.get(block)
+                self.assertEqual(response.status_code, 200)
+                soup = self.get_soup(response.content)
+                main = soup.select_one("main")
+                self.assertIsNotNone(main)
+                self.assertEqual(main.text.strip(), "42")
 
     def test_preview_template(self):
         class PreviewTemplateViaMeta(blocks.Block):
