@@ -55,6 +55,7 @@ class RedirectsAPIViewSet(BaseAPIViewSet):
             site = Site.find_for_request(self.request)
 
         if site:
+            # Get all redirects for the site as well as those that are not site-specific and apply to all sites
             queryset = queryset.filter(Q(site=site) | Q(site=None))
 
         return queryset
