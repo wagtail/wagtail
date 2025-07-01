@@ -18,6 +18,10 @@ import { debounce, DebouncedFunction } from '../utils/debounce';
 import { gettext } from '../utils/gettext';
 import type { ProgressController } from './ProgressController';
 import { setOptionalInterval } from '../utils/interval';
+import {
+  ExtractorOptions,
+  getExtractedContent,
+} from '../includes/contentExtractor';
 
 interface PreviewDataResponse {
   is_valid: boolean;
@@ -827,6 +831,27 @@ export class PreviewController extends Controller<HTMLElement> {
       wordCount: contentMetrics.wordCount,
       readingTime: contentMetrics.readingTime,
     });
+  }
+
+  /**
+   * Extracts the rendered content from the preview iframe using Readability.js
+   * via an Axe plugin.
+   * @param options Options for extracting content with Readability.js.
+   * See https://github.com/mozilla/readability#new-readabilitydocument-options
+   * for more details. Note that only JSON-serializable options are supported,
+   * as the options are passed to the iframe via `postMessage`. This means that
+   * the `serializer` option is not supported.
+   * @returns A Readability.js `Article` object.
+   * See https://github.com/mozilla/readability#parse for more details.
+   */
+  async extractContent(options?: ExtractorOptions) {
+    const extractedContent = await getExtractedContent(options);
+    // Readability.js returns `null` if it cannot extract any content,
+    // so we only dispatch the event if the content is not null.
+    if (extractedContent) {
+      this.dispatch('content', { detail: { content: extractedContent } });
+    }
+    return extractedContent;
   }
 
   /**
