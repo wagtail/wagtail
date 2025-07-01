@@ -145,7 +145,7 @@ class TestRedirectsAPIMultipleSites(TestCase):
         )
 
     def test_all_redirects_listing(self):
-        """Returns a list of all redirects"""
+        """Returns a list of all redirects for all sites"""
 
         url = reverse("wagtailapi_v2:redirects:listing")
 
@@ -156,7 +156,7 @@ class TestRedirectsAPIMultipleSites(TestCase):
         self.assertEqual(3, len(response.json()["items"]))
 
     def test_site_1_redirects_listing(self):
-        """Returns a list of all redirects"""
+        """Returns a list of all redirects for site 1"""
 
         url = reverse("wagtailapi_v2:redirects:listing", query={"site": "example1"})
 
@@ -167,12 +167,18 @@ class TestRedirectsAPIMultipleSites(TestCase):
         items = response.json()["items"]
 
         self.assertEqual(2, len(items))
+        self.assertTrue(
+            any(item for item in items if item["old_path"] == "/site-1-redirect")
+        )
+        self.assertTrue(
+            any(item for item in items if item["old_path"] == "/all-sites-redirect")
+        )
         self.assertFalse(
             any(item for item in items if item["old_path"] == "/site-2-redirect")
         )
 
     def test_site_2_redirects_listing(self):
-        """Returns a list of all redirects"""
+        """Returns a list of all redirects for site 2"""
 
         url = reverse("wagtailapi_v2:redirects:listing", query={"site": "example2"})
 
@@ -183,6 +189,12 @@ class TestRedirectsAPIMultipleSites(TestCase):
         items = response.json()["items"]
 
         self.assertEqual(2, len(items))
+        self.assertTrue(
+            any(item for item in items if item["old_path"] == "/site-2-redirect")
+        )
+        self.assertTrue(
+            any(item for item in items if item["old_path"] == "/all-sites-redirect")
+        )
         self.assertFalse(
             any(item for item in items if item["old_path"] == "/site-1-redirect")
         )
