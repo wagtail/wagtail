@@ -618,6 +618,23 @@ class QuoteBlock(blocks.StructBlock):
         return {"text": quote.text, "source": quote.source}
 ```
 
+
+Alternatively, the `preview` attribute can be defined as a callable.
+
+```{code-block} python
+:emphasize-lines: 8
+from datetime import datetime
+from wagtail.blocks import DateBlock, StreamBlock
+
+class MyStreamBlock(StreamBlock):
+    # ... other blocks
+    date_block = DateBlock(
+        icon="calendar",
+        preview_value=lambda: datetime.now(),
+        preview_template="blocks/date_block_preview.html",
+    )
+```
+
 (streamfield_global_preview_template)=
 
 ### Overriding the global preview template
