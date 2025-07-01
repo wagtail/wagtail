@@ -135,3 +135,20 @@ class UnindexedBook(index.Indexed, models.Model):
     tags = TaggableManager()
 
     search_fields = []
+
+
+class EventPage(index.Indexed, models.Model):
+    """Test model for DateField and TimeField"""
+
+    title = models.CharField(max_length=255)
+    start_date = models.DateField()
+    start_time = models.TimeField(blank=True, null=True)
+
+    search_fields = [
+        index.SearchField("title"),
+        index.FilterField("start_date"),
+        index.FilterField("start_time"),
+    ]
+
+    def __str__(self):
+        return self.title

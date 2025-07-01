@@ -8,11 +8,17 @@ from django.test import TestCase
 
 from wagtail.search.query import MATCH_ALL, Fuzzy, Phrase
 from wagtail.test.search import models
+from wagtail.test.search.models import EventPage
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
 try:
     from elasticsearch import VERSION as ELASTICSEARCH_VERSION
+    from elasticsearch.exceptions import (
+        ElasticsearchException,
+        RequestError,
+        SerializationError,
+    )
     from elasticsearch.serializer import JSONSerializer
 
     from wagtail.search.backends.elasticsearch7 import Elasticsearch7SearchBackend
@@ -1450,3 +1456,102 @@ class TestBackendConfiguration(TestCase):
             ],
             timeout=10,
         )
+
+
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
+class TestElasticsearch7TimeFieldSerialization(TestCase):
+    """
+    Test TimeField serialization with Elasticsearch backend.
+
+    TimeField values are properly serialized to string format and mapped as 'keyword'
+    type in Elasticsearch, allowing successful indexing without serialization errors.
+    """
+
+    def test_timefield_serialization_success(self):
+        """Test TimeField is successfully indexed to Elasticsearch."""
+
+        event = EventPage(
+            title="Test Event",
+            start_date=datetime.date(2023, 12, 25),
+            start_time=datetime.time(12, 0),
+        )
+
+        backend = Elasticsearch7SearchBackend({})
+        index = backend.get_index_for_model(EventPage)
+
+        index.delete()  # Reset the index just to be sure
+        index.put()
+        index.add_model(EventPage)
+
+        try:
+            index.add_item(event)
+            success = True
+            error_message = None
+        except (
+            ElasticsearchException,
+            RequestError,
+            SerializationError,
+            TypeError,
+        ) as e:
+            success = False
+            error_message = str(e)
+
+        self.assertTrue(
+            success, f"TimeField indexing should succeed. Error: {error_message}"
+        )
+
+    def test_timefield_mapping_fixed(self):
+        """Test TimeField is correctly mapped as 'keyword' type in Elasticsearch mapping."""
+        backend = Elasticsearch7SearchBackend({})
+        mapping = backend.mapping_class(EventPage)
+
+        es_mapping = mapping.get_mapping()
+        properties = es_mapping.get("properties", {})
+
+        self.assertIn("start_time_filter", properties)
+        self.assertEqual(properties["start_time_filter"]["type"], "keyword")
+
+    def test_document_generation_with_timefield_serialized(self):
+        """Test TimeField values are properly serialized to string format."""
+
+        event = EventPage(
+            title="Test Event",
+            start_date=datetime.date(2023, 12, 25),
+            start_time=datetime.time(12, 0),
+        )
+
+        backend = Elasticsearch7SearchBackend({})
+        mapping = backend.mapping_class(EventPage)
+        document = mapping.get_document(event)
+
+        # Verify TimeField is serialized as string
+        self.assertIn("start_time_filter", document)
+        self.assertEqual(document["start_time_filter"], "12:00:00")
+        self.assertIsInstance(document["start_time_filter"], str)
+
+        # Verify document can be JSON serialized with Elasticsearch JSONSerializer
+        try:
+            serializer = JSONSerializer()
+            serializer.dumps(document)
+            json_serializable = True
+        except (TypeError, ValueError):
+            json_serializable = False
+
+        self.assertTrue(
+            json_serializable,
+            "Document should be JSON serializable with Elasticsearch JSONSerializer",
+        )
+
+    def test_timefield_with_none_value(self):
+        """Test TimeField with None value is handled correctly."""
+
+        event = EventPage(
+            title="Test Event", start_date=datetime.date(2023, 12, 25), start_time=None
+        )
+
+        backend = Elasticsearch7SearchBackend({})
+        mapping = backend.mapping_class(EventPage)
+        document = mapping.get_document(event)
+
+        self.assertIn("start_time_filter", document)
+        self.assertIsNone(document["start_time_filter"])
