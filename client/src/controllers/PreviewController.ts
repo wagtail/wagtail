@@ -10,7 +10,9 @@ import {
 } from '../includes/a11y-result';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
-  getPreviewContentMetrics,
+  getPreviewContent,
+  getReadingTime,
+  getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
@@ -892,18 +894,17 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   async runContentChecks() {
-    const contentMetrics = await getPreviewContentMetrics({
+    const content = await getPreviewContent({
       targetElement: 'main, [role="main"]',
     });
 
-    // If for any reason the plugin fails to return the content metrics (e.g.
-    // the previewed page shows an error response), skip rendering the metrics.
-    if (!contentMetrics) return;
+    // If for any reason the plugin fails to return the content (e.g. the
+    // previewed page shows an error response), skip doing anything with it.
+    if (!content) return;
 
-    renderContentMetrics({
-      wordCount: contentMetrics.wordCount,
-      readingTime: contentMetrics.readingTime,
-    });
+    const wordCount = getWordCount(content.lang, content.innerText);
+    const readingTime = getReadingTime(content.lang, wordCount);
+    renderContentMetrics({ wordCount, readingTime });
   }
 
   /**

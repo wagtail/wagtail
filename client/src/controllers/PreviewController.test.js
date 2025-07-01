@@ -16,11 +16,11 @@ jest.mock('axe-core', () => {
   };
 });
 
-function mockAxeResults(runResults, contentChecksResults) {
+function mockAxeResults(runResults, contentExtractorResults) {
   axe.run.mockResolvedValueOnce(runResults);
   axe.utils.sendCommandToFrame.mockImplementationOnce(
     (frame, options, callback) => {
-      callback(contentChecksResults);
+      callback(contentExtractorResults);
     },
   );
 }
@@ -2091,6 +2091,13 @@ describe('PreviewController', () => {
       },
     ];
 
+    const mockText = 'Hello world 123'.repeat(100);
+    const mockExtractedContent = {
+      lang: 'en',
+      innerText: mockText,
+      innerHTML: `<p>${mockText}</p>`,
+    };
+
     beforeEach(() => {
       // We log accessibility violations to the console as errors,
       // mock it to avoid cluttering the test output.
@@ -2107,10 +2114,7 @@ describe('PreviewController', () => {
     });
 
     it('should run content checks on the preview and render the results', async () => {
-      mockAxeResults(
-        { violations: mockViolations },
-        { wordCount: 123, readingTime: 7 },
-      );
+      mockAxeResults({ violations: mockViolations }, mockExtractedContent);
 
       await initializeOpenedPanel();
 
@@ -2130,10 +2134,10 @@ describe('PreviewController', () => {
       expect(toggleCounter.textContent.trim()).toEqual('2');
 
       const wordCount = document.querySelector('[data-content-word-count]');
-      expect(wordCount.textContent.trim()).toEqual('123');
+      expect(wordCount.textContent.trim()).toEqual('201');
 
       const readingTime = document.querySelector('[data-content-reading-time]');
-      expect(readingTime.textContent.trim()).toEqual('7 mins');
+      expect(readingTime.textContent.trim()).toEqual('1 min');
 
       const panelCounter = document.querySelector('[data-a11y-result-count]');
       expect(panelCounter.textContent.trim()).toEqual('2');
@@ -2234,13 +2238,13 @@ describe('PreviewController', () => {
     it('should re-run content checks when the window gets a message event with w-userbar:axe-ready', async () => {
       let violations = [];
 
-      mockAxeResults({ violations }, {});
+      mockAxeResults({ violations }, null);
       await initializeOpenedPanel();
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(0);
 
       violations = mockViolations;
-      mockAxeResults({ violations }, { wordCount: 456, readingTime: 14 });
+      mockAxeResults({ violations }, mockExtractedContent);
 
       // A non-Wagtail message event should not trigger the checks
       window.dispatchEvent(
@@ -2293,7 +2297,7 @@ describe('PreviewController', () => {
             resolve({ violations });
           }, 5_000);
         }),
-        {},
+        mockExtractedContent,
       );
       mockAxeResults(
         new Promise((resolve) => {
@@ -2301,7 +2305,7 @@ describe('PreviewController', () => {
             resolve({ violations: newViolations });
           }, 15_000);
         }),
-        {},
+        mockExtractedContent,
       );
 
       window.dispatchEvent(
@@ -2338,7 +2342,7 @@ describe('PreviewController', () => {
     });
 
     it('should clean up event listeners on disconnect', async () => {
-      mockAxeResults({ violations: [] }, {});
+      mockAxeResults({ violations: [] }, mockExtractedContent);
       const panel = document.querySelector('[data-side-panel="checks"]');
       const element = document.querySelector('[data-controller="w-preview"]');
       const spies = [
@@ -2391,7 +2395,7 @@ describe('PreviewController', () => {
 
     describe('custom axe configuration', () => {
       it('should convert axe context config for the preview iframe', async () => {
-        mockAxeResults({ violations: [] }, {});
+        mockAxeResults({ violations: [] }, mockExtractedContent);
         await initializeOpenedPanel();
         expect(axe.run).toHaveBeenCalledWith(
           {
@@ -2415,7 +2419,7 @@ describe('PreviewController', () => {
           },
         });
 
-        mockAxeResults({ violations: [] }, {});
+        mockAxeResults({ violations: [] }, mockExtractedContent);
         await initializeOpenedPanel();
         expect(axe.run).toHaveBeenCalledWith(
           {
