@@ -40,6 +40,7 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  * @fires PreviewController#error - When an error occurs while updating the preview data.
  * @fires PreviewController#load - Before reloading the preview iframe. Cancelable.
  * @fires PreviewController#loaded - After the preview iframe has been reloaded.
+ * @fires PreviewController#content - When the content of the preview iframe is extracted to be analyzed.
  * @fires PreviewController#ready - When the preview is ready for further updates – only fired on initial load.
  * @fires PreviewController#updated - After an update cycle is finished – may or may not involve reloading the iframe.
  *
@@ -68,6 +69,13 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  * @event PreviewController#loaded
  * @type {CustomEvent}
  * @property {string} name - `w-preview:loaded`
+ *
+ * @event PreviewController#content
+ * @type {CustomEvent}
+ * @property {string} name - `w-preview:content`
+ * @property {Object} detail
+ * @property {ExtractedContent} detail.content - The extracted content from the preview iframe.
+ * @property {ContentMetrics} detail.metrics - The calculated metrics of the preview content.
  *
  * @event PreviewController#ready
  * @type {CustomEvent}
@@ -904,7 +912,11 @@ export class PreviewController extends Controller<HTMLElement> {
 
     const wordCount = getWordCount(content.lang, content.innerText);
     const readingTime = getReadingTime(content.lang, wordCount);
-    renderContentMetrics({ wordCount, readingTime });
+    const metrics = { wordCount, readingTime };
+
+    this.dispatch('content', { detail: { content, metrics } });
+
+    renderContentMetrics(metrics);
   }
 
   /**
