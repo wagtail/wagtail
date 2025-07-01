@@ -1,5 +1,54 @@
-import type { Definition } from '@hotwired/stimulus';
+import type { Controller, Definition } from '@hotwired/stimulus';
 import { Application } from '@hotwired/stimulus';
+
+/**
+ * Wagtail's extension of the base Stimulus `Application` with additional
+ * capabilities for convenience.
+ */
+class WagtailApplication extends Application {
+  /**
+   * Returns the first Stimulus controller that matches the identifier.
+   * @param identifier - The identifier of the controller to query.
+   * @returns The first controller instance that matches the identifier, or null if not found.
+   *
+   * @example - Querying the PreviewController
+   * ```ts
+   * const controller = window.wagtail.app.queryController('w-preview');
+   * const content = await controller?.extractContent();
+   * ```
+   */
+  queryController(identifier: string): Controller | null {
+    return this.getControllerForElementAndIdentifier(
+      document.querySelector(
+        `[${this.schema.controllerAttribute}~="${identifier}"]`,
+      )!,
+      identifier,
+    );
+  }
+
+  /**
+   * Returns all Stimulus controllers that match the identifier.
+   * @param identifier - The identifier of the controller to query.
+   * @returns An array of controller instances that match the identifier.
+   *
+   * @example - Querying all instances of the ActionController
+   * ```ts
+   * const controllers = window.wagtail.app.queryControllerAll('w-action');
+   * controllers.forEach((controller) => controller.reset());
+   * ```
+   */
+  queryControllerAll(identifier: string): Controller[] {
+    return Array.from(
+      document.querySelectorAll(
+        `[${this.schema.controllerAttribute}~="${identifier}"]`,
+      ),
+    )
+      .map((element) =>
+        this.getControllerForElementAndIdentifier(element, identifier),
+      )
+      .filter(Boolean) as Controller[];
+  }
+}
 
 /**
  * Initialises the Wagtail Stimulus application, loads the provided controller
@@ -16,8 +65,8 @@ export const initStimulus = ({
   debug?: boolean;
   definitions?: Definition[];
   root?: HTMLElement;
-} = {}): Application => {
-  const app = Application.start(root);
+} = {}): WagtailApplication => {
+  const app = WagtailApplication.start(root) as WagtailApplication;
   app.debug = debug;
   app.load(definitions);
   return app;
