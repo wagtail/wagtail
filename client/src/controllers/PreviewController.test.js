@@ -16,15 +16,6 @@ jest.mock('axe-core', () => {
   };
 });
 
-function mockAxeResults(runResults, contentExtractorResults) {
-  axe.run.mockResolvedValueOnce(runResults);
-  axe.utils.sendCommandToFrame.mockImplementationOnce(
-    (frame, options, callback) => {
-      callback(contentExtractorResults);
-    },
-  );
-}
-
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');
 
@@ -34,6 +25,8 @@ describe('PreviewController', () => {
   let mockScroll;
   let mockOldIframeLocation;
   let mockNewIframeLocation;
+  let mockA11yResults;
+  let mockExtractedContent;
 
   const identifier = 'w-preview';
 
@@ -43,6 +36,7 @@ describe('PreviewController', () => {
     error: [],
     load: [],
     loaded: [],
+    content: [],
     ready: [],
     updated: [],
   };
@@ -70,6 +64,15 @@ describe('PreviewController', () => {
   });
 
   global.ResizeObserver = ResizeObserverMock;
+
+  function mockAxeResults() {
+    axe.run.mockResolvedValueOnce(mockA11yResults);
+    axe.utils.sendCommandToFrame.mockImplementationOnce(
+      (frame, options, callback) => {
+        callback(mockExtractedContent);
+      },
+    );
+  }
 
   const url = '/admin/pages/1/edit/preview/';
   const spinner = /* html */ `
@@ -330,6 +333,7 @@ describe('PreviewController', () => {
       error: [],
       load: [],
       loaded: [],
+      content: [],
       ready: [],
       updated: [],
     });
@@ -382,6 +386,7 @@ describe('PreviewController', () => {
       error: [],
       load: [expect.any(Event)],
       loaded: [expect.any(Event)],
+      content: mockExtractedContent ? [expect.any(Event)] : [],
       ready: [expect.any(Event)],
       updated: [expect.any(Event)],
     });
@@ -581,6 +586,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -722,6 +728,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -865,6 +872,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -976,6 +984,7 @@ describe('PreviewController', () => {
         ],
         load: [expect.any(Event)], // Initial
         loaded: [expect.any(Event)], // Initial
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)], // Initial, error
       });
@@ -1303,6 +1312,7 @@ describe('PreviewController', () => {
         // Initial, valid (the invalid form submission does not reload the iframe)
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         // Initial, invalid, valid
         updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
@@ -1433,6 +1443,7 @@ describe('PreviewController', () => {
         // Initial, valid (the invalid form submission does not reload the iframe)
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         // Initial, invalid, valid
         updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
@@ -1905,6 +1916,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -1926,6 +1938,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -1941,6 +1954,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)],
       });
@@ -1978,6 +1992,7 @@ describe('PreviewController', () => {
           expect.objectContaining({ defaultPrevented: true }),
         ],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)],
       });
@@ -2005,6 +2020,7 @@ describe('PreviewController', () => {
           expect.objectContaining({ defaultPrevented: false }),
         ],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)],
       });
@@ -2020,6 +2036,7 @@ describe('PreviewController', () => {
           expect.objectContaining({ defaultPrevented: false }),
         ],
         loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
       });
@@ -2091,18 +2108,19 @@ describe('PreviewController', () => {
       },
     ];
 
-    const mockText = 'Hello world 123'.repeat(100);
-    const mockExtractedContent = {
-      lang: 'en',
-      innerText: mockText,
-      innerHTML: `<p>${mockText}</p>`,
-    };
-
     beforeEach(() => {
       // We log accessibility violations to the console as errors,
       // mock it to avoid cluttering the test output.
       jest.spyOn(console, 'error').mockImplementation(() => {});
       document.body.insertAdjacentHTML('beforeend', checksSidePanel);
+
+      const mockText = 'Hello world 123'.repeat(100);
+      mockA11yResults = { violations: [] };
+      mockExtractedContent = {
+        lang: 'en',
+        innerText: mockText,
+        innerHTML: `<p>${mockText}</p>`,
+      };
     });
 
     afterEach(() => {
@@ -2114,7 +2132,8 @@ describe('PreviewController', () => {
     });
 
     it('should run content checks on the preview and render the results', async () => {
-      mockAxeResults({ violations: mockViolations }, mockExtractedContent);
+      mockA11yResults = { violations: mockViolations };
+      mockAxeResults();
 
       await initializeOpenedPanel();
 
@@ -2144,6 +2163,13 @@ describe('PreviewController', () => {
 
       const checksPanel = document.querySelector('[data-checks-panel]');
       const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+
+      // Should dispatch the content event with the extracted content and metrics
+      expect(events.content).toHaveLength(1);
+      expect(events.content[0].detail).toEqual({
+        content: mockExtractedContent,
+        metrics: { wordCount: 201, readingTime: 1 },
+      });
 
       // Note: The sorting algorithm does not work on the preview panel because
       // the logic does not access the iframe's DOM to compare the nodes, so it
@@ -2200,7 +2226,9 @@ describe('PreviewController', () => {
     });
 
     it('should not throw an error if content metrics plugin fails to return the results', async () => {
-      mockAxeResults({ violations: mockViolations }, null);
+      mockA11yResults = { violations: mockViolations };
+      mockExtractedContent = null;
+      mockAxeResults();
 
       await initializeOpenedPanel();
 
@@ -2236,15 +2264,13 @@ describe('PreviewController', () => {
     });
 
     it('should re-run content checks when the window gets a message event with w-userbar:axe-ready', async () => {
-      let violations = [];
-
-      mockAxeResults({ violations }, null);
+      mockAxeResults();
       await initializeOpenedPanel();
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(0);
 
-      violations = mockViolations;
-      mockAxeResults({ violations }, mockExtractedContent);
+      mockA11yResults = { violations: mockViolations };
+      mockAxeResults();
 
       // A non-Wagtail message event should not trigger the checks
       window.dispatchEvent(
@@ -2289,24 +2315,18 @@ describe('PreviewController', () => {
       console.error.mockClear();
 
       // Mock two long-running checks
-      violations = [mockViolations[1]];
-      const newViolations = [mockViolations[0]];
-      mockAxeResults(
-        new Promise((resolve) => {
-          setTimeout(() => {
-            resolve({ violations });
-          }, 5_000);
-        }),
-        mockExtractedContent,
-      );
-      mockAxeResults(
-        new Promise((resolve) => {
-          setTimeout(() => {
-            resolve({ violations: newViolations });
-          }, 15_000);
-        }),
-        mockExtractedContent,
-      );
+      mockA11yResults = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ violations: [mockViolations[1]] });
+        }, 5_000);
+      });
+      mockAxeResults();
+      mockA11yResults = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ violations: [mockViolations[0]] });
+        }, 15_000);
+      });
+      mockAxeResults();
 
       window.dispatchEvent(
         new MessageEvent('message', {
@@ -2328,21 +2348,22 @@ describe('PreviewController', () => {
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(1);
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith('axe.run results', violations);
+      expect(console.error).toHaveBeenCalledWith('axe.run results', [
+        mockViolations[1],
+      ]);
 
       await jest.advanceTimersByTimeAsync(7_000);
 
       // eslint-disable-next-line no-console
       expect(console.error).toHaveBeenCalledTimes(2);
       // eslint-disable-next-line no-console
-      expect(console.error).toHaveBeenCalledWith(
-        'axe.run results',
-        newViolations,
-      );
+      expect(console.error).toHaveBeenCalledWith('axe.run results', [
+        mockViolations[0],
+      ]);
     });
 
     it('should clean up event listeners on disconnect', async () => {
-      mockAxeResults({ violations: [] }, mockExtractedContent);
+      mockAxeResults();
       const panel = document.querySelector('[data-side-panel="checks"]');
       const element = document.querySelector('[data-controller="w-preview"]');
       const spies = [
@@ -2395,7 +2416,7 @@ describe('PreviewController', () => {
 
     describe('custom axe configuration', () => {
       it('should convert axe context config for the preview iframe', async () => {
-        mockAxeResults({ violations: [] }, mockExtractedContent);
+        mockAxeResults();
         await initializeOpenedPanel();
         expect(axe.run).toHaveBeenCalledWith(
           {
@@ -2419,7 +2440,7 @@ describe('PreviewController', () => {
           },
         });
 
-        mockAxeResults({ violations: [] }, mockExtractedContent);
+        mockAxeResults();
         await initializeOpenedPanel();
         expect(axe.run).toHaveBeenCalledWith(
           {
