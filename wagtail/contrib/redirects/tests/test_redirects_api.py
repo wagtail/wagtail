@@ -103,3 +103,86 @@ class TestRedirectsAPI(TestCase):
 
         # Check for a 404 status code
         self.assertEqual(response.status_code, 404)
+
+
+class TestRedirectsAPIMultipleSites(TestCase):
+    def setUp(self):
+        self.example_home_1 = Page.objects.get(slug="home").add_sibling(
+            instance=Page(title="Example Homepage 1", slug="example-home-1")
+        )
+        self.example_page_1 = self.example_home_1.add_child(
+            instance=Page(title="Example Page 1", slug="example-page-1")
+        )
+        self.example_site_1 = Site.objects.create(
+            hostname="example1", root_page=self.example_home_1
+        )
+
+        self.example_home_2 = Page.objects.get(slug="home").add_sibling(
+            instance=Page(title="Example Homepage 2", slug="example-home-2")
+        )
+        self.example_page_2 = self.example_home_2.add_child(
+            instance=Page(title="Example Page 2", slug="example-page-2")
+        )
+        self.example_site_2 = Site.objects.create(
+            hostname="example2", root_page=self.example_home_2
+        )
+
+        Redirect.objects.create(
+            old_path="/site-1-redirect",
+            site=self.example_site_1,
+            redirect_link="https://www.example.com/hello-world/",
+        )
+
+        Redirect.objects.create(
+            old_path="/site-2-redirect",
+            site=self.example_site_2,
+            redirect_link="https://www.example.com/hello-world/",
+        )
+
+        Redirect.objects.create(
+            old_path="/all-sites-redirect",
+            redirect_link="https://www.example.com/hello-world/",
+        )
+
+    def test_all_redirects_listing(self):
+        """Returns a list of all redirects"""
+
+        url = reverse("wagtailapi_v2:redirects:listing")
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(3, len(response.json()["items"]))
+
+    def test_site_1_redirects_listing(self):
+        """Returns a list of all redirects"""
+
+        url = reverse("wagtailapi_v2:redirects:listing", query={"site": "example1"})
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+        items = response.json()["items"]
+
+        self.assertEqual(2, len(items))
+        self.assertFalse(
+            any(item for item in items if item["old_path"] == "/site-2-redirect")
+        )
+
+    def test_site_2_redirects_listing(self):
+        """Returns a list of all redirects"""
+
+        url = reverse("wagtailapi_v2:redirects:listing", query={"site": "example2"})
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+        items = response.json()["items"]
+
+        self.assertEqual(2, len(items))
+        self.assertFalse(
+            any(item for item in items if item["old_path"] == "/site-1-redirect")
+        )
