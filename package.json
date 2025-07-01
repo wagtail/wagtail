@@ -108,6 +108,7 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
+    "@mozilla/readability": "^0.6.0",
     "@tippyjs/react": "^4.2.6",
     "a11y-dialog": "^8.1.1",
     "autosize": "^6.0.1",

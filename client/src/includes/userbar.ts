@@ -11,6 +11,7 @@ import { wagtailPreviewPlugin } from './previewPlugin';
 import { contentMetricsPluginInstance } from './contentMetrics';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
+import { contentExtractorPluginInstance } from './contentExtractor';
 
 /*
 This entrypoint is not bundled with any polyfills to keep it as light as possible
@@ -327,6 +328,7 @@ export class Userbar extends HTMLElement {
 
     axe.registerPlugin(wagtailPreviewPlugin);
     axe.plugins.wagtailPreview.add(contentMetricsPluginInstance);
+    axe.plugins.wagtailPreview.add(contentExtractorPluginInstance);
 
     const stimulus = Application.start(
       this.shadowRoot.firstElementChild as Element,
