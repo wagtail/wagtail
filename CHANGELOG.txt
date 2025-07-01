@@ -51,6 +51,7 @@ Changelog
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
  * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
+ * Docs: Add note about PDF XSS to security page (Matt Westcott)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
