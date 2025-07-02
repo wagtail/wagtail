@@ -61,7 +61,7 @@
  * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
  * Maintenance: Add `django.contrib.postgres` to test settings `INSTALLED_APPS` (Sage Abdullah)
  * Maintenance: Add integrity & resolved checksums to package-lock.json (Sylvain Fankhauser)
- * Maintenance: Replace `SlugController with more generic and reusable `CleanController`  (LB (Ben) Johnston)
+ * Maintenance: Replace `SlugController` with more generic and reusable `CleanController` (LB (Ben) Johnston)
 
 
 7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
