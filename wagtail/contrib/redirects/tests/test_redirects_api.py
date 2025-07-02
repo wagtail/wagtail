@@ -151,7 +151,7 @@ class TestRedirectsAPIMultipleSites(TestCase):
     def test_site_1_redirects_listing(self):
         """Returns a list of all redirects for site 1"""
 
-        url = reverse("wagtailapi_v2:redirects:listing", query={"site": "example1"})
+        url = reverse("wagtailapi_v2:redirects:listing") + "?site=example1"
 
         response = self.client.get(url)
 
@@ -173,7 +173,7 @@ class TestRedirectsAPIMultipleSites(TestCase):
     def test_site_2_redirects_listing(self):
         """Returns a list of all redirects for site 2"""
 
-        url = reverse("wagtailapi_v2:redirects:listing", query={"site": "example2"})
+        url = reverse("wagtailapi_v2:redirects:listing") + "?site=example2"
 
         response = self.client.get(url)
 
