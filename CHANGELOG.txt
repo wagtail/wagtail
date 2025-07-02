@@ -51,6 +51,7 @@
  * Fix: Only enable ManifestStaticFilesStorage in production settings, to aid test running (M. Sumair Khokhar)
  * Fix: Update `BooleanColumn` icons so they can be distinguished without relying on color (Sage Abdullah)
  * Fix: Do not delete default homepage by ID in home app migration (Matt Westcott)
+ * Fix: Update the start project template to align with Django's recommendation to have the `django.middleware.security.SecurityMiddleware` first (Brylie Christopher Oxley)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
  * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
