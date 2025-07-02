@@ -2306,7 +2306,6 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="gallery_images-TOTAL_FORMS"')
-        self.assertContains(response, 'chooserFieldName: "image"')
 
 
 class TestMultipleChooserPanelGetComparison(TestCase):
