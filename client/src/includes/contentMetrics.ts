@@ -2,11 +2,6 @@ import axe from 'axe-core';
 import { ngettext } from '../utils/gettext';
 
 export const getWordCount = (lang: string, text: string): number => {
-  // Firefox ESR doesn’t have support for Intl.Segmenter yet.
-  if (typeof Intl.Segmenter === 'undefined') {
-    return 0;
-  }
-
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
   const segments: Intl.SegmentData[] = Array.from(segmenter.segment(text));
   const wordCount = segments.reduce(
@@ -97,11 +92,6 @@ export const renderContentMetrics = ({
   wordCount,
   readingTime,
 }: ContentMetrics) => {
-  // Skip updates if word count isn’t set.
-  if (!wordCount) {
-    return;
-  }
-
   const wordCountContainer = document.querySelector<HTMLElement>(
     '[data-content-word-count]',
   );
