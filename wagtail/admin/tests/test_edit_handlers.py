@@ -1376,9 +1376,10 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         soup = BeautifulSoup(result, "html.parser")
 
         # Find the main panel section
-        panel_section = soup.find(
-            "section", class_="w-panel classname-for-speakers w-panel--nested"
+        panel_section = soup.select_one(
+            ".classname-for-speakers.w-panel--nested.w-panel"
         )
+        self.assertIsNotNone(panel_section)
 
         # FIXME: reinstate when we pass classnames to the template again
         # self.assertIn('<li class="object classname-for-speakers">', result)
@@ -1545,14 +1546,14 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         # Get the HTML rendered by the panel
         result = panel.render_html()
 
-        soup = BeautifulSoup(result, "html.parser")
+        soup = self.get_soup(result)
         # Find the hidden input with the specific name
         max_num_forms_input = soup.find(
             "input", {"type": "hidden", "name": "speakers-MAX_NUM_FORMS"}
         )
 
-        self.assertEqual(max_num_forms_input["value"], "1000")
         self.assertIsNotNone(max_num_forms_input)
+        self.assertEqual(max_num_forms_input["value"], "1000")
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
@@ -1609,7 +1610,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         result = panel.render_html()
-        soup = BeautifulSoup(result, "html.parser")
+        soup = self.get_soup(result)
 
         min_input_control = soup.find(
             "input", {"data-w-formset-target": "minFormsInput"}
@@ -1639,21 +1640,17 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         result = panel.render_html()
-        soup = BeautifulSoup(result, "html.parser")
+        soup = self.get_soup(result)
 
         total_forms_control = soup.find(
             "input", {"data-w-formset-target": "totalFormsInput"}
         )
         bound_panel = panel
-        formset = (
-            bound_panel.children[0].formset
-            if hasattr(bound_panel, "children")
-            else None
-        )
+        formset = bound_panel.children[0].formset
+        self.assertIsNotNone(format)
+        expected_total = str(formset.total_form_count())
 
-        if formset:
-            expected_total = str(formset.total_form_count())
-            self.assertEqual(total_forms_control.get("value"), expected_total)
+        self.assertEqual(total_forms_control.get("value"), expected_total)
 
     def test_stimulus_controllers_merged_with_custom_attrs(self):
         """
@@ -1680,9 +1677,10 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         result = panel.render_html()
-        soup = BeautifulSoup(result, "html.parser")
+        soup = self.get_soup(result)
 
         panel_section = soup.find("section", class_="w-panel w-panel--nested")
+        self.assertIsNotNone(panel_section)
 
         # Test that all controllers are present
         controllers = panel_section.get("data-controller", "").split()
@@ -1731,9 +1729,10 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         result = panel.render_html()
-        soup = BeautifulSoup(result, "html.parser")
+        soup = self.get_soup(result)
 
         panel_section = soup.find("section", class_="w-panel w-panel--nested")
+        self.assertIsNotNone(panel_section)
 
         # Test standard panel attributes are still present
         self.assertIsNotNone(panel_section.get("id"))
