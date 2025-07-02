@@ -2362,6 +2362,19 @@ describe('PreviewController', () => {
       ]);
     });
 
+    it('should allow content extraction to be executed on demand', async () => {
+      mockAxeResults();
+      await initializeOpenedPanel();
+      const controller = application.getControllerForElementAndIdentifier(
+        document.querySelector('[data-controller="w-preview"]'),
+        identifier,
+      );
+
+      mockAxeResults();
+      const content = await controller.extractContent();
+      expect(content).toEqual(mockExtractedContent);
+    });
+
     it('should clean up event listeners on disconnect', async () => {
       mockAxeResults();
       const panel = document.querySelector('[data-side-panel="checks"]');

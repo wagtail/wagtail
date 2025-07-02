@@ -10,6 +10,7 @@ import {
 } from '../includes/a11y-result';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
+  ContentExtractorOptions,
   getPreviewContent,
   getReadingTime,
   getWordCount,
@@ -172,6 +173,8 @@ export class PreviewController extends Controller<HTMLElement> {
   declare a11yRowTemplate: HTMLTemplateElement | null;
   /** Configuration for Axe. */
   declare axeConfig: WagtailAxeConfiguration | null;
+  /** Configuration for Wagtail's Axe content extractor plugin instance. */
+  declare contentExtractorOptions: ContentExtractorOptions;
   /** Container for rendering content checks results. */
   declare checksPanel: HTMLElement | null;
   /** Content checks counter inside the checks panel. */
@@ -363,6 +366,10 @@ export class PreviewController extends Controller<HTMLElement> {
         ),
       } as ContextObject['exclude'];
     }
+
+    this.contentExtractorOptions = {
+      targetElement: 'main, [role="main"]',
+    };
 
     axe.registerPlugin(wagtailPreviewPlugin);
 
@@ -902,9 +909,7 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   async runContentChecks() {
-    const content = await getPreviewContent({
-      targetElement: 'main, [role="main"]',
-    });
+    const content = await this.extractContent();
 
     // If for any reason the plugin fails to return the content (e.g. the
     // previewed page shows an error response), skip doing anything with it.
@@ -917,6 +922,17 @@ export class PreviewController extends Controller<HTMLElement> {
     this.dispatch('content', { detail: { content, metrics } });
 
     renderContentMetrics(metrics);
+  }
+
+  /**
+   * Extracts the rendered content from the preview iframe via an Axe plugin.
+   * @param options Options object for extracting the content. Supported options:
+   * - `targetElement`: CSS selector for the element to extract content from.
+   *   Defaults to `main, [role="main"]`.
+   * @returns An `ExtractedContent` object with `lang`, `innerText`, and `innerHTML` properties.
+   */
+  async extractContent(options?: ContentExtractorOptions) {
+    return getPreviewContent(options || this.contentExtractorOptions);
   }
 
   /**
