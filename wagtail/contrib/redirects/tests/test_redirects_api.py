@@ -107,24 +107,17 @@ class TestRedirectsAPI(TestCase):
 
 class TestRedirectsAPIMultipleSites(TestCase):
     def setUp(self):
-        self.example_home_1 = Page.objects.get(slug="home").add_sibling(
+        example_home_1 = Page.objects.get(slug="home").add_sibling(
             instance=Page(title="Example Homepage 1", slug="example-home-1")
         )
-        self.example_page_1 = self.example_home_1.add_child(
-            instance=Page(title="Example Page 1", slug="example-page-1")
-        )
         self.example_site_1 = Site.objects.create(
-            hostname="example1", root_page=self.example_home_1
+            hostname="example1", root_page=example_home_1
         )
-
-        self.example_home_2 = Page.objects.get(slug="home").add_sibling(
+        example_home_2 = Page.objects.get(slug="home").add_sibling(
             instance=Page(title="Example Homepage 2", slug="example-home-2")
         )
-        self.example_page_2 = self.example_home_2.add_child(
-            instance=Page(title="Example Page 2", slug="example-page-2")
-        )
         self.example_site_2 = Site.objects.create(
-            hostname="example2", root_page=self.example_home_2
+            hostname="example2", root_page=example_home_2
         )
 
         Redirect.objects.create(

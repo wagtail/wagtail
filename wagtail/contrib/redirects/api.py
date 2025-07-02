@@ -51,12 +51,10 @@ class RedirectsAPIViewSet(BaseAPIViewSet):
                 raise BadRequestError(
                     "Your query returned multiple sites. Try adding a port number to your site filter."
                 )
-        else:
-            site = Site.find_for_request(self.request)
 
-        if site:
-            # Get all redirects for the site as well as those that are not site-specific and apply to all sites
-            queryset = queryset.filter(Q(site=site) | Q(site=None))
+            if site:
+                # Get all redirects for the site as well as those that are not site-specific and apply to all sites
+                queryset = queryset.filter(Q(site=site) | Q(site=None))
 
         return queryset
 
