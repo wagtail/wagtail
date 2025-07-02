@@ -273,10 +273,10 @@ class Elasticsearch7Mapping:
             value = field.get_value(obj)
 
             if isinstance(value, time):
-                value = value.strftime("%H:%M:%S") if value else None
+                value = value.isoformat() if value else None
             elif isinstance(value, (list, tuple)):
                 value = [
-                    item.strftime("%H:%M:%S") if isinstance(item, time) else item
+                    item.isoformat() if isinstance(item, time) else item
                     for item in value
                 ]
 
