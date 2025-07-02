@@ -212,7 +212,7 @@ Wagtail is meant to be used on a wide variety of devices and browsers. Supported
 | Chrome        | Desktop    | Last 2             |
 | MS Edge       | Windows    | Last 2             |
 | Firefox       | Desktop    | Latest             |
-| Firefox ESR   | Desktop    | Latest: 128        |
+| Firefox ESR   | Desktop    | Latest: 140        |
 | Safari        | macOS      | Last 3: 16, 17, 18 |
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
