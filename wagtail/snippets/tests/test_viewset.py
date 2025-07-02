@@ -785,8 +785,8 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
             response,
             """
             <td>
-                <svg class="icon icon-success default w-text-positive-100" aria-hidden="true">
-                    <use href="#icon-success"></use>
+                <svg class="icon icon-check default w-text-positive-100" aria-hidden="true">
+                    <use href="#icon-check"></use>
                 </svg>
                 <span class="w-sr-only">True</span>
             </td>
@@ -798,8 +798,8 @@ class TestListViewWithCustomColumns(BaseSnippetViewSetTests):
             response,
             """
             <td>
-                <svg class="icon icon-error default w-text-critical-100" aria-hidden="true">
-                    <use href="#icon-error"></use>
+                <svg class="icon icon-cross default w-text-text-error" aria-hidden="true">
+                    <use href="#icon-cross"></use>
                 </svg>
                 <span class="w-sr-only">False</span>
             </td>
