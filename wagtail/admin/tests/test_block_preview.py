@@ -155,7 +155,7 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         @staticmethod
         def preview_callable():
             return "Hello, world!"
-            
+
         class PreviewValueViaMeta(blocks.Block):
             class Meta:
                 preview_value = "Hello, world!"
@@ -163,11 +163,11 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
         class PreviewValueViaMethod(blocks.Block):
             def get_preview_value(self):
                 return "Hello, world!"
-        
+
         class PreviewValueViaCallableMeta(blocks.Block):
             class Meta:
                 preview_value = preview_callable
-        
+
         cases = [
             ("meta", PreviewValueViaMeta()),
             ("method", PreviewValueViaMethod()),
