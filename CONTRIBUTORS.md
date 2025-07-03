@@ -900,6 +900,7 @@
 * Talha Rizwan
 * Ellie Walsh-O'Neill
 * M. Sumair Khokhar
+* Gaurav Verma
 
 ## Translators
 
