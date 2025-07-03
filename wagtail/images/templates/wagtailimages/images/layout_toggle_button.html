@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags i18n %}
 
-<label class="w-slim-header-action-button w-layout-toggle-button" data-controller="w-tooltip" data-w-tooltip-content-value="{% translate 'Toggle layout' %}">
+<label class="w-slim-header-action-button w-layout-toggle-button" data-controller="w-tooltip" data-w-tooltip-content-value="{% translate 'Toggle layout' %}" tabindex="0">
     {% if layout == "list" %}
         {% icon name="grip" %}
     {% else %}
