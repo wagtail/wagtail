@@ -54,6 +54,7 @@
  * Fix: Do not delete default homepage by ID in home app migration (Matt Westcott)
  * Fix: Update the start project template to align with Django's recommendation to have the `django.middleware.security.SecurityMiddleware` first (Brylie Christopher Oxley)
  * Fix: Ensure keyboard usage will correctly focus on new comments, including replies, when the side panel is open or closed (Dhruvi Patel)
+ * Fix: Handle `help_text` kwarg in `FloatBlock` (Nick Smith)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
  * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
