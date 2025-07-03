@@ -205,6 +205,57 @@ class PersonBlock(blocks.StructBlock):
 
 For a list of icons available out of the box, see our [icons overview](icons). Project-specific icons are also displayed in the [styleguide](styleguide).
 
+(block_grouping)=
+
+### Grouping blocks
+
+When a `StreamField` has a large number of different block types, the block picker menu can become long and difficult to scan. To help with this, you can organize related blocks into groups by passing the `group` option as a keyword argument or as an attribute on a `Meta` class. Grouped block types will show after all of the ungrouped (common) types, those with no `group` specified.
+
+Any blocks that share the same `group` name will be clustered together under that name as a heading in the menu, making the interface cleaner and more efficient for content authors.
+
+```{code-block} python
+:emphasize-lines: 16, 17, 18
+
+from django.utils.translation import gettext_lazy as _
+from wagtail.fields import StreamField
+from wagtail import blocks
+from wagtail.models import Page
+
+class BlogPage(Page):
+    body = StreamField([
+        # Standard blocks (will appear first, ungrouped)
+        ('heading', blocks.CharBlock(icon='title')),
+        ('paragraph', blocks.RichTextBlock()),
+
+        # "Call to action" blocks, grouped together
+        ('cta_button', blocks.StructBlock([
+            ('button_text', blocks.CharBlock()),
+            ('button_link', blocks.URLBlock()),
+        ], icon='link', group=_('Call to action'))),
+        ('signup_form', blocks.StructBlock([], icon='form', group=_('Call to action'))),
+        ('featured_section', blocks.PageChooserBlock(group=_('Call to action'))),
+    ])
+```
+
+This will render a block picker menu where the `cta_button`, `signup_form`, and `featured_section` blocks all appear together under a "Call to action" heading.
+
+You can also define the group within a block's `Meta` class, which is useful when creating reusable block classes. A `group` passed as a keyword argument will always override any `group` defined on the block’s `Meta` class.
+
+```{code-block} python
+:emphasize-lines: 8
+
+from django.utils.translation import gettext_lazy as _
+
+class CallToActionButtonBlock(blocks.StructBlock):
+    button_text = blocks.CharBlock()
+    button_link = blocks.URLBlock()
+
+    class Meta:
+        group = _('Call to action')
+        icon = 'link'
+        template = 'blocks/cta_button.html'
+```
+
 ### ListBlock
 
 `ListBlock` defines a repeating block, allowing content authors to insert as many instances of a particular block type as they like. For example, a 'gallery' block consisting of multiple images can be defined as follows:
