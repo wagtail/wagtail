@@ -205,6 +205,52 @@ class PersonBlock(blocks.StructBlock):
 
 For a list of icons available out of the box, see our [icons overview](icons). Project-specific icons are also displayed in the [styleguide](styleguide).
 
+### Grouping Blocks
+
+When a ``StreamField`` has a large number of different block types, the block picker menu can become long and difficult to scan. To help with this, you can organize related blocks into groups by passing the ``group`` option as a keyword argument or as an attribute on a ``Meta`` class. If no ``group`` is specified, a block will appear under the default "Common" heading.
+
+Any blocks that share the same ``group`` name will be clustered together under that name as a heading in the menu, making the interface cleaner and more efficient for content authors.
+
+```{code-block} python
+   :emphasize-lines: 15, 16, 17
+
+   from wagtail.fields import StreamField
+   from wagtail import blocks
+   from wagtail.models import Page
+
+   class BlogPage(Page):
+       body = StreamField([
+           # Standard blocks (will appear in the 'Common' group)
+           ('heading', blocks.CharBlock(icon="title")),
+           ('paragraph', blocks.RichTextBlock()),
+
+           # "Call to Action" blocks, grouped together
+           ('cta_button', blocks.StructBlock([
+               ('button_text', blocks.CharBlock()),
+               ('button_link', blocks.URLBlock()),
+           ], icon='link', group='Call to Action')),
+           ('signup_form', blocks.StructBlock([], icon='form', group='Call to Action')),
+           ('featured_section', blocks.PageChooserBlock(group='Call to Action')),
+       ])
+```
+
+This will render a block picker menu where the `cta_button`, `signup_form`, and `featured_section` blocks all appear together under a "Call to Action" heading.
+
+You can also define the group within a block's ``Meta`` class, which is useful when creating reusable block classes. A ``group`` passed as a keyword argument will always override any ``group`` defined on the block’s ``Meta`` class.
+
+```{code-block} python
+   :emphasize-lines: 6
+
+   class CallToActionButtonBlock(blocks.StructBlock):
+       button_text = blocks.CharBlock()
+       button_link = blocks.URLBlock()
+
+       class Meta:
+           group = 'Call to Action'
+           icon = 'link'
+           template = 'blocks/cta_button.html'
+```
+
 ### ListBlock
 
 `ListBlock` defines a repeating block, allowing content authors to insert as many instances of a particular block type as they like. For example, a 'gallery' block consisting of multiple images can be defined as follows:
