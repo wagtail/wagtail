@@ -51,12 +51,14 @@ class BaseChooser(widgets.Input):
             "show_clear_link",
             "icon",
             "linked_fields",
+            "to_field_name",
         ]:
             if var in kwargs:
                 setattr(self, var, kwargs.pop(var))
 
-        # Store to_field_name for ForeignKey fields with to_field parameter
-        self.to_field_name = kwargs.pop("to_field_name", None)
+        if not hasattr(self, "to_field_name"):
+            self.to_field_name = None
+
         super().__init__(**kwargs)
 
     @cached_property
