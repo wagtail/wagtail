@@ -1,6 +1,9 @@
 import { Application } from '@hotwired/stimulus';
 import { CleanController } from './CleanController';
 
+import * as urlify from '../utils/urlify';
+import * as wagtailConfig from '../config/wagtailConfig';
+
 describe('CleanController', () => {
   let application;
 
@@ -257,6 +260,170 @@ describe('CleanController', () => {
         sourceValue: 'title-delta',
       });
     });
+
+    it('should correctly compare the formatted values', () => {
+      const input = document.getElementById('slug');
+
+      input.setAttribute(
+        'data-w-clean-formatters-value',
+        JSON.stringify([[/^(?!blog[-\s])/g.source, 'blog-']]),
+      );
+
+      // check that the formatter is applied (adds blog- to the start)
+      input.value = 'blog-about-a-dog';
+      const event = new CustomEvent('custom:event', {
+        detail: { value: 'about a dog' },
+      });
+      event.preventDefault = jest.fn();
+
+      input.dispatchEvent(event);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+
+      // check the formatter runs on the compare for additional regex checks
+
+      const event2 = new CustomEvent('custom:event', {
+        detail: { value: 'blog about a dog' },
+      });
+
+      event2.preventDefault = jest.fn();
+
+      input.dispatchEvent(event2);
+
+      expect(event2.preventDefault).not.toHaveBeenCalled();
+
+      // check when compare should return false
+
+      const event3 = new CustomEvent('custom:event', {
+        detail: { value: 'another blog about a dog' },
+      });
+
+      event3.preventDefault = jest.fn();
+
+      input.dispatchEvent(event3);
+
+      expect(event3.preventDefault).toHaveBeenCalled();
+    });
+  });
+
+  describe('format', () => {
+    beforeEach(() => {
+      application?.stop();
+
+      document.body.innerHTML = `
+    <input
+      id="id_slug"
+      name="slug"
+      type="text"
+      data-controller="w-clean"
+      data-action="blur->w-clean#format"
+      data-w-clean-formatters-value='${JSON.stringify([[/\D/.source /* find all non-digits */]])}'
+
+    />`;
+
+      application = Application.start();
+      application.register('w-clean', CleanController);
+    });
+
+    it('should format the input value with reasonable regex defaults', async () => {
+      expect(events['w-clean:applied']).toHaveLength(0);
+
+      const slugInput = document.getElementById('id_slug');
+      slugInput.value = 'abc123def456ghi789jkl';
+
+      slugInput.dispatchEvent(new Event('blur'));
+
+      await new Promise(process.nextTick);
+
+      expect(slugInput.value).toEqual('123456789');
+
+      expect(events['w-clean:applied']).toHaveLength(1);
+      expect(events['w-clean:applied']).toHaveProperty('0.detail', {
+        action: 'format',
+        cleanValue: '123456789',
+        sourceValue: 'abc123def456ghi789jkl',
+      });
+    });
+
+    it('should format the input value when focus is moved away from it (with trim)', async () => {
+      expect(events['w-clean:applied']).toHaveLength(0);
+
+      const slugInput = document.getElementById('id_slug');
+      slugInput.setAttribute('data-w-clean-trim-value', 'true');
+      slugInput.setAttribute(
+        'data-w-clean-formatters-value',
+        JSON.stringify([[/\B(?=(\d{3})+(?!\d))/.source, ',']]),
+      );
+
+      slugInput.value = ' 1234567890 ';
+
+      slugInput.dispatchEvent(new Event('blur'));
+
+      await new Promise(process.nextTick);
+
+      expect(slugInput.value).toEqual('1,234,567,890');
+
+      expect(events['w-clean:applied']).toHaveLength(1);
+      expect(events['w-clean:applied']).toHaveProperty('0.detail', {
+        action: 'format',
+        cleanValue: '1,234,567,890',
+        sourceValue: ' 1234567890 ',
+      });
+    });
+
+    it('should support multiple formatters, using custom flags', async () => {
+      const slugInput = document.getElementById('id_slug');
+
+      /**
+       * Example of position in word transliteration
+       * @see https://czo.gov.ua/en/translit
+       */
+      slugInput.setAttribute(
+        'data-w-clean-formatters-value',
+        JSON.stringify([
+          [/(?<=^|\s)Й/.source, 'Y'], // Й at the start of a word, case sensitive (default)
+          [[/й/.source, 'i'], 'i'], // й elsewhere, case insensitive (custom, second param)
+        ]),
+      );
+
+      slugInput.value = 'Йoc piй';
+
+      slugInput.dispatchEvent(new Event('blur'));
+
+      await new Promise(process.nextTick);
+
+      expect(slugInput.value).toEqual('Yoc pii');
+    });
+
+    it('should ensure that formatters that are invalid are correctly flagged', async () => {
+      /* eslint-disable no-console */
+      expect(events['w-clean:applied']).toHaveLength(0);
+
+      const slugInput = document.getElementById('id_slug');
+
+      const consoleError = console.error;
+
+      console.error = jest.fn();
+
+      slugInput.setAttribute(
+        'data-w-clean-formatters-value',
+        JSON.stringify([['??:_INVALID']]),
+      );
+
+      await new Promise(process.nextTick);
+
+      expect(console.error).toHaveBeenCalledTimes(1);
+
+      const [, description, error, detail] = console.error.mock.calls[0];
+      expect(description).toBe('Invalid regex pattern passed to formatters.');
+      expect(error).toBeInstanceOf(SyntaxError);
+      expect(detail).toEqual({ formatters: [['??:_INVALID']] });
+
+      console.error = consoleError;
+
+      expect(events['w-clean:applied']).toHaveLength(0);
+      /* eslint-enable no-console */
+    });
   });
 
   describe('slugify', () => {
@@ -479,6 +646,133 @@ describe('CleanController', () => {
       input.dispatchEvent(new Event('blur'));
       await new Promise(process.nextTick);
       expect(input.value).toBe('i-féta-eínai-kalýteri-');
+    });
+
+    describe('urlify (with locale)', () => {
+      let CleanController2;
+      const originalActiveContentLocale =
+        wagtailConfig.WAGTAIL_CONFIG.ACTIVE_CONTENT_LOCALE;
+      let ACTIVE_CONTENT_LOCALE = originalActiveContentLocale;
+
+      beforeAll(() => {
+        jest.spyOn(urlify, 'urlify');
+
+        Object.defineProperty(
+          wagtailConfig.WAGTAIL_CONFIG,
+          'ACTIVE_CONTENT_LOCALE',
+          {
+            get: () => ACTIVE_CONTENT_LOCALE,
+            configurable: true,
+          },
+        );
+
+        CleanController2 = require('./CleanController').CleanController;
+      });
+
+      const setup = async () => {
+        application?.stop();
+
+        document.body.innerHTML = `
+        <input
+          id="slug"
+          name="slug"
+          type="text"
+          data-controller="w-clean"
+          data-action="blur->w-clean#urlify"
+          data-w-clean-trim-value="true"
+        />`;
+
+        application = Application.start();
+        application.register('w-clean', CleanController2);
+
+        await Promise.resolve();
+      };
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      afterAll(() => {
+        jest.restoreAllMocks();
+        Object.defineProperty(
+          wagtailConfig.WAGTAIL_CONFIG,
+          'ACTIVE_CONTENT_LOCALE',
+          { value: originalActiveContentLocale, writable: true },
+        );
+      });
+
+      const transliterationTest = ' Тестовий  Георгій  цехщик   заголовок  '; // ~Test George [shop]worker title
+      const transliterationTestTrimmed =
+        'Тестовий  Георгій  цехщик   заголовок'; // trimmed version (passed to events)
+      const transliterationRu = 'testovij-georgij-cexshhik-zagolovok'; // Russian transliteration
+      const transliterationUk = 'testovyi-heorhii-tsekhshchyk-zaholovok'; // Ukrainian transliteration
+
+      it('should use the default locale when no locale is provided', async () => {
+        expect(ACTIVE_CONTENT_LOCALE).toBe('en'); // default set in setup mocks
+
+        await setup();
+
+        const input = document.getElementById('slug');
+        input.value = transliterationTest;
+
+        input.dispatchEvent(new Event('blur'));
+
+        await new Promise(process.nextTick);
+
+        expect(urlify.urlify).toHaveBeenCalledTimes(1);
+        expect(urlify.urlify).toHaveBeenCalledWith(transliterationTestTrimmed, {
+          allowUnicode: false,
+          locale: 'en',
+        });
+
+        expect(input.value).toBe(transliterationRu);
+        expect(input.value).not.toBe(transliterationUk);
+      });
+
+      it('should use the the override locale when provided', async () => {
+        ACTIVE_CONTENT_LOCALE = 'uk-UK';
+
+        await setup();
+
+        const input = document.getElementById('slug');
+        input.value = transliterationTest;
+
+        input.dispatchEvent(new Event('blur'));
+
+        await new Promise(process.nextTick);
+
+        expect(urlify.urlify).toHaveBeenCalledTimes(1);
+        expect(urlify.urlify).toHaveBeenCalledWith(transliterationTestTrimmed, {
+          allowUnicode: false,
+          locale: 'uk-UK',
+        });
+
+        expect(input.value).toBe(transliterationUk);
+        expect(input.value).not.toBe(transliterationRu);
+      });
+
+      it('should use an undetermined locale if no locale provided & not available from config or document', async () => {
+        ACTIVE_CONTENT_LOCALE = undefined;
+
+        await setup();
+
+        const input = document.getElementById('slug');
+        input.setAttribute('data-w-clean-allow-unicode-value', 'true');
+
+        input.value = 'Тестовий заголовок';
+
+        input.dispatchEvent(new Event('blur'));
+
+        await new Promise(process.nextTick);
+
+        expect(urlify.urlify).toHaveBeenCalledTimes(1);
+        expect(urlify.urlify).toHaveBeenCalledWith('Тестовий заголовок', {
+          allowUnicode: true,
+          locale: 'und', // undetermined locale
+        });
+
+        expect(input.value).toBe('тестовий-заголовок'); // allows unicode in this test
+      });
     });
   });
 });
