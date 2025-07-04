@@ -8,7 +8,6 @@ from django.test import TestCase
 
 from wagtail.search.query import MATCH_ALL, Fuzzy, Phrase
 from wagtail.test.search import models
-from wagtail.test.search.models import EventPage
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
@@ -1467,24 +1466,36 @@ class TestElasticsearch7TimeFieldSerialization(TestCase):
     type in Elasticsearch, allowing successful indexing without serialization errors.
     """
 
+    def setUp(self):
+        self.author = models.Author.objects.create(name="Test Author")
+        self.backend = Elasticsearch7SearchBackend({})
+        self.index = self.backend.get_index_for_model(models.Book)
+        self.mapping = self.backend.mapping_class(models.Book)
+
+        self.book = models.Book.objects.create(
+            title="Test Book",
+            publication_date=datetime.date(2023, 12, 25),
+            publication_time=datetime.time(12, 0),
+            number_of_pages=100,
+        )
+        self.book.authors.add(self.author)
+
+        self.book_time_none = models.Book.objects.create(
+            title="Test Book None",
+            publication_date=datetime.date(2023, 12, 25),
+            publication_time=None,
+            number_of_pages=100,
+        )
+        self.book_time_none.authors.add(self.author)
+
     def test_timefield_serialization_success(self):
         """Test TimeField is successfully indexed to Elasticsearch."""
-
-        event = EventPage(
-            title="Test Event",
-            start_date=datetime.date(2023, 12, 25),
-            start_time=datetime.time(12, 0),
-        )
-
-        backend = Elasticsearch7SearchBackend({})
-        index = backend.get_index_for_model(EventPage)
-
-        index.delete()  # Reset the index just to be sure
-        index.put()
-        index.add_model(EventPage)
+        self.index.delete()  # Reset the index just to be sure
+        self.index.put()
+        self.index.add_model(models.Book)
 
         try:
-            index.add_item(event)
+            self.index.add_item(self.book)
             success = True
             error_message = None
         except (
@@ -1502,32 +1513,20 @@ class TestElasticsearch7TimeFieldSerialization(TestCase):
 
     def test_timefield_mapping_fixed(self):
         """Test TimeField is correctly mapped as 'keyword' type in Elasticsearch mapping."""
-        backend = Elasticsearch7SearchBackend({})
-        mapping = backend.mapping_class(EventPage)
-
-        es_mapping = mapping.get_mapping()
+        es_mapping = self.mapping.get_mapping()
         properties = es_mapping.get("properties", {})
 
-        self.assertIn("start_time_filter", properties)
-        self.assertEqual(properties["start_time_filter"]["type"], "keyword")
+        self.assertIn("publication_time_filter", properties)
+        self.assertEqual(properties["publication_time_filter"]["type"], "keyword")
 
     def test_document_generation_with_timefield_serialized(self):
         """Test TimeField values are properly serialized to string format."""
-
-        event = EventPage(
-            title="Test Event",
-            start_date=datetime.date(2023, 12, 25),
-            start_time=datetime.time(12, 0),
-        )
-
-        backend = Elasticsearch7SearchBackend({})
-        mapping = backend.mapping_class(EventPage)
-        document = mapping.get_document(event)
+        document = self.mapping.get_document(self.book)
 
         # Verify TimeField is serialized as string
-        self.assertIn("start_time_filter", document)
-        self.assertEqual(document["start_time_filter"], "12:00:00")
-        self.assertIsInstance(document["start_time_filter"], str)
+        self.assertIn("publication_time_filter", document)
+        self.assertEqual(document["publication_time_filter"], "12:00:00")
+        self.assertIsInstance(document["publication_time_filter"], str)
 
         # Verify document can be JSON serialized with Elasticsearch JSONSerializer
         try:
@@ -1544,14 +1543,6 @@ class TestElasticsearch7TimeFieldSerialization(TestCase):
 
     def test_timefield_with_none_value(self):
         """Test TimeField with None value is handled correctly."""
-
-        event = EventPage(
-            title="Test Event", start_date=datetime.date(2023, 12, 25), start_time=None
-        )
-
-        backend = Elasticsearch7SearchBackend({})
-        mapping = backend.mapping_class(EventPage)
-        document = mapping.get_document(event)
-
-        self.assertIn("start_time_filter", document)
-        self.assertIsNone(document["start_time_filter"])
+        document = self.mapping.get_document(self.book_time_none)
+        self.assertIn("publication_time_filter", document)
+        self.assertIsNone(document["publication_time_filter"])

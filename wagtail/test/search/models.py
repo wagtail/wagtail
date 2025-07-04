@@ -23,6 +23,7 @@ class Book(index.Indexed, models.Model):
     summary = models.TextField(blank=True)
     authors = models.ManyToManyField(Author, related_name="books")
     publication_date = models.DateField()
+    publication_time = models.TimeField(blank=True, null=True)
     number_of_pages = models.IntegerField()
     tags = TaggableManager()
 
@@ -34,6 +35,7 @@ class Book(index.Indexed, models.Model):
         index.FilterField("authors"),
         index.RelatedFields("authors", Author.search_fields),
         index.FilterField("publication_date"),
+        index.FilterField("publication_time"),
         index.FilterField("number_of_pages"),
         index.RelatedFields(
             "tags",
@@ -135,20 +137,3 @@ class UnindexedBook(index.Indexed, models.Model):
     tags = TaggableManager()
 
     search_fields = []
-
-
-class EventPage(index.Indexed, models.Model):
-    """Test model for DateField and TimeField"""
-
-    title = models.CharField(max_length=255)
-    start_date = models.DateField()
-    start_time = models.TimeField(blank=True, null=True)
-
-    search_fields = [
-        index.SearchField("title"),
-        index.FilterField("start_date"),
-        index.FilterField("start_time"),
-    ]
-
-    def __str__(self):
-        return self.title
