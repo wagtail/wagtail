@@ -64,6 +64,7 @@
  * Fix: Make sure the label of panel collapse buttons is translatable (Thibaud Colas)
  * Fix: Ensure there is suitable padding for large numbers on pagination within universal listings (M. Sumair Khokhar)
  * Fix: Use the correct localized format utils in the `human_readable_date` template tag (Seb Corbin)
+ * Fix: Ensure the editing of translation alias pages correctly shows links to the source page if the alias was created from a draft (Dan Braghis)
  * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
  * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
  * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
