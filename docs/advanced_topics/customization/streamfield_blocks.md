@@ -26,21 +26,44 @@ You can then provide custom CSS for this block, targeted at the specified classn
 Wagtail's editor styling has some built-in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
 ```
 
+If you want to add custom attributes other than `class` on a `StructBlock` in the page editor, you can specify a `form_attrs` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to add any additional attributes:
+
+```python
+class PersonBlock(blocks.StructBlock):
+    first_name = blocks.CharBlock()
+    surname = blocks.CharBlock()
+    photo = ImageChooserBlock(required=False)
+    biography = blocks.RichTextBlock()
+
+    class Meta:
+        icon = 'user'
+        form_attrs = {
+            'data-controller': 'magic',
+            'data-action': 'click->magic#abracadabra',
+        }
+```
+
+For example, you can use the custom attributes to [attach Stimulus controllers](extending_client_side_stimulus) to the block.
+
+```{note}
+Any attributes in `form_attrs` will take precedence over the default attributes that Wagtail applies to `StructBlock` elements in the page editor, such as `class`.
+```
+
 For more extensive customizations that require changes to the HTML markup as well, you can override the `form_template` attribute in `Meta` to specify your own template path. The following variables are available on this template:
 
-**`children`**  
+**`children`**\
 An `OrderedDict` of `BoundBlock`s for all of the child blocks making up this `StructBlock`.
 
-**`help_text`**  
+**`help_text`**\
 The help text for this block, if specified.
 
-**`classname`**
+**`classname`**\
 The class name passed as `form_classname` (defaults to `struct-block`).
 
-**`block_definition`**
+**`block_definition`**\
 The `StructBlock` instance that defines this block.
 
-**`prefix`**
+**`prefix`**\
 The prefix used on form fields for this block instance, guaranteed to be unique across the form.
 
 To add additional variables, you can override the block's `get_form_context` method:

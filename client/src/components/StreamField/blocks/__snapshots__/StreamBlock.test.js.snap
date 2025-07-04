@@ -63,7 +63,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           </div>
           <div id="block-1-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -131,7 +131,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           </div>
           <div id="block-2-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -199,7 +199,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           </div>
           <div id="block-fake-uuid-v4-value-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-2-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -282,7 +282,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
           </div>
           <div id="block-2-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -350,7 +350,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
           </div>
           <div id="block-1-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -433,7 +433,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
           </div>
           <div id="block-2-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -501,7 +501,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
           </div>
           <div id="block-1-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -584,7 +584,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           </div>
           <div id="block-1-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -652,7 +652,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           </div>
           <div id="block-2-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -735,7 +735,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
           </div>
           <div id="block-1-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -803,7 +803,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
           </div>
           <div id="block-2-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -886,7 +886,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
           </div>
           <div id="block-1-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="" data-controller="w-custom" data-action="click->w-custom#doSomething">
           <div class="w-field__errors" id="the-prefix-0-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
           </div>
@@ -954,7 +954,7 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
           </div>
           <div id="block-2-content" class="w-panel__content">
             <div class="w-field__wrapper" data-field-wrapper="">
-        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="">
+        <div class="w-field w-field--char_field w-field--admin_auto_height_text_input w-field--error" data-field="" data-controller="w-other" data-action="click->w-other#doSomethingElse">
           <div class="w-field__errors" id="the-prefix-1-value-errors" data-field-errors="">
             <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
           <p class="error-message">Not as good as the first one.</p></div>

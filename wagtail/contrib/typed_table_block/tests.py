@@ -270,6 +270,7 @@ class TestTableBlock(TestCase):
                 "icon": "table",
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
+                "attrs": {},
                 "strings": {
                     "CAPTION": "Caption",
                     "CAPTION_HELP_TEXT": (

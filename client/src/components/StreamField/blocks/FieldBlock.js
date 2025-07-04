@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { escapeHtml as h } from '../../../utils/text';
 import Icon from '../../Icon/Icon';
+import { setAttrs } from '../../../utils/attrs';
 
 export class FieldBlock {
   constructor(
@@ -39,6 +40,7 @@ export class FieldBlock {
 
     this.prefix = prefix;
 
+    // Attributes to be set on the widget (input) element
     const options = { attributes: this.getAttributes() };
 
     try {
@@ -100,6 +102,9 @@ export class FieldBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    // Attributes to be set on the field wrapper element
+    setAttrs(this.field, this.blockDef.meta.attrs || {});
   }
 
   setCapabilityOptions(capability, options) {

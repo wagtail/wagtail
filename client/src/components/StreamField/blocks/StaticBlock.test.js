@@ -74,6 +74,10 @@ describe('telepath: wagtail.blocks.StaticBlock allows safe HTML', () => {
       html: 'The admin text <script>somethingBad();</script>',
       icon: 'icon',
       label: 'The label',
+      attrs: {
+        'data-controller': 'w-custom',
+        'data-action': 'click->w-custom#doSomething',
+      },
     });
 
     // Render it

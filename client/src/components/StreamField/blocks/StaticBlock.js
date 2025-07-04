@@ -1,3 +1,4 @@
+import { setAttrs } from '../../../utils/attrs';
 import { escapeHtml as h } from '../../../utils/text';
 
 export class StaticBlock {
@@ -13,6 +14,8 @@ export class StaticBlock {
     }
 
     placeholder.replaceWith(element);
+
+    setAttrs(element, this.blockDef.meta.attrs || {});
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
