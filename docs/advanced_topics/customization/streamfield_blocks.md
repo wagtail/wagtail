@@ -26,7 +26,10 @@ You can then provide custom CSS for this block, targeted at the specified classn
 Wagtail's editor styling has some built-in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
 ```
 
+If you want to add custom attributes other than `class` on a `StructBlock` in the page editor, you can specify a `form_attrs` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to add any additional attributes:
+
 In addition, the `StructBlock`'s `Meta` class also accepts a `collapsed` attribute. When set to `None` (the default), the block is not collapsible. When set to `True` or `False`, the block is wrapped in a collapsible panel and initially displayed in a collapsed or expanded state in the editing interface, respectively. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently.
+
 
 ```python
 class PersonBlock(blocks.StructBlock):
@@ -38,6 +41,17 @@ class PersonBlock(blocks.StructBlock):
     class Meta:
         icon = 'user'
         collapsed = True  # This block will be initially collapsed
+        form_attrs = {
+            # This block has additional customizations enabled
+            'data-controller': 'magic',
+            'data-action': 'click->magic#abracadabra',
+        }
+```
+
+For example, you can use the custom attributes to [attach Stimulus controllers](extending_client_side_stimulus) to the block.
+
+```{note}
+Any attributes in `form_attrs` will take precedence over the default attributes that Wagtail applies to `StructBlock` elements in the page editor, such as `class`.
 ```
 
 For more extensive customizations that require changes to the HTML markup as well, you can override the `form_template` attribute in `Meta` to specify your own template path. The following variables are available on this template:
@@ -57,7 +71,7 @@ The initial collapsible state of the block (defaults to `None`). Note that the c
 **`block_definition`**\
 The `StructBlock` instance that defines this block.
 
-**`prefix`**
+**`prefix`**\
 The prefix used on form fields for this block instance, guaranteed to be unique across the form.
 
 To add additional variables, you can override the block's `get_form_context` method:

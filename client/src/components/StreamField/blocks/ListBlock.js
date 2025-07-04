@@ -13,6 +13,7 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { setAttrs } from '../../../utils/attrs';
 
 /**
  * Wrapper for an item inside a ListBlock
@@ -135,6 +136,8 @@ export class ListBlock extends BaseSequenceBlock {
     }
 
     this.initDragNDrop();
+
+    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
   }
 
   /**

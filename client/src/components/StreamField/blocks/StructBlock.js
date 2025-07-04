@@ -8,6 +8,7 @@ import {
 } from '../../../includes/streamFieldErrors';
 import { CollapsiblePanel } from './CollapsiblePanel';
 import { initCollapsiblePanel } from '../../../includes/panels';
+import { setAttrs } from '../../../utils/attrs';
 
 export class StructBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -118,6 +119,8 @@ export class StructBlock {
       });
       this.container = dom;
     }
+
+    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
   }
 
   setState(state) {
