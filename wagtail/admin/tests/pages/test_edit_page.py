@@ -2139,6 +2139,31 @@ class TestPageEdit(WagtailTestUtils, TestCase):
             html=True,
         )
 
+    def test_edit_alias_page_from_draft_page(self):
+        # Ensure we have at least one revision. This is what happens when creating
+        # a page via the admin. It is stored as latest_revision
+        self.unpublished_page.save_revision()
+        alias_page = self.unpublished_page.create_alias(update_slug="an-alias-page")
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=[alias_page.id])
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
+
+        self.assertNotContains(response, 'id="status-sidebar-live"')
+
+        # Check the edit_alias.html template was used instead
+        self.assertTemplateUsed(response, "wagtailadmin/pages/edit_alias.html")
+        original_page_edit_url = reverse(
+            "wagtailadmin_pages:edit", args=[self.unpublished_page.id]
+        )
+        self.assertContains(
+            response,
+            f'<a class="button button-secondary" href="{original_page_edit_url}">Edit original page</a>',
+            html=True,
+        )
+
     def test_post_edit_alias_page(self):
         alias_page = self.child_page.create_alias(update_slug="new-child-page")
 
