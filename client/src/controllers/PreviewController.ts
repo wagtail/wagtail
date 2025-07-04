@@ -10,7 +10,10 @@ import {
 } from '../includes/a11y-result';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
-  getPreviewContentMetrics,
+  ContentExtractorOptions,
+  getPreviewContent,
+  getReadingTime,
+  getWordCount,
   renderContentMetrics,
 } from '../includes/contentMetrics';
 import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
@@ -38,6 +41,7 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  * @fires PreviewController#error - When an error occurs while updating the preview data.
  * @fires PreviewController#load - Before reloading the preview iframe. Cancelable.
  * @fires PreviewController#loaded - After the preview iframe has been reloaded.
+ * @fires PreviewController#content - When the content of the preview iframe is extracted to be analyzed.
  * @fires PreviewController#ready - When the preview is ready for further updates – only fired on initial load.
  * @fires PreviewController#updated - After an update cycle is finished – may or may not involve reloading the iframe.
  *
@@ -66,6 +70,13 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  * @event PreviewController#loaded
  * @type {CustomEvent}
  * @property {string} name - `w-preview:loaded`
+ *
+ * @event PreviewController#content
+ * @type {CustomEvent}
+ * @property {string} name - `w-preview:content`
+ * @property {Object} detail
+ * @property {ExtractedContent} detail.content - The extracted content from the preview iframe.
+ * @property {ContentMetrics} detail.metrics - The calculated metrics of the preview content.
  *
  * @event PreviewController#ready
  * @type {CustomEvent}
@@ -162,6 +173,8 @@ export class PreviewController extends Controller<HTMLElement> {
   declare a11yRowTemplate: HTMLTemplateElement | null;
   /** Configuration for Axe. */
   declare axeConfig: WagtailAxeConfiguration | null;
+  /** Configuration for Wagtail's Axe content extractor plugin instance. */
+  declare contentExtractorOptions: ContentExtractorOptions;
   /** Container for rendering content checks results. */
   declare checksPanel: HTMLElement | null;
   /** Content checks counter inside the checks panel. */
@@ -353,6 +366,10 @@ export class PreviewController extends Controller<HTMLElement> {
         ),
       } as ContextObject['exclude'];
     }
+
+    this.contentExtractorOptions = {
+      targetElement: 'main, [role="main"]',
+    };
 
     axe.registerPlugin(wagtailPreviewPlugin);
 
@@ -892,18 +909,30 @@ export class PreviewController extends Controller<HTMLElement> {
   }
 
   async runContentChecks() {
-    const contentMetrics = await getPreviewContentMetrics({
-      targetElement: 'main, [role="main"]',
-    });
+    const content = await this.extractContent();
 
-    // If for any reason the plugin fails to return the content metrics (e.g.
-    // the previewed page shows an error response), skip rendering the metrics.
-    if (!contentMetrics) return;
+    // If for any reason the plugin fails to return the content (e.g. the
+    // previewed page shows an error response), skip doing anything with it.
+    if (!content) return;
 
-    renderContentMetrics({
-      wordCount: contentMetrics.wordCount,
-      readingTime: contentMetrics.readingTime,
-    });
+    const wordCount = getWordCount(content.lang, content.innerText);
+    const readingTime = getReadingTime(content.lang, wordCount);
+    const metrics = { wordCount, readingTime };
+
+    this.dispatch('content', { detail: { content, metrics } });
+
+    renderContentMetrics(metrics);
+  }
+
+  /**
+   * Extracts the rendered content from the preview iframe via an Axe plugin.
+   * @param options Options object for extracting the content. Supported options:
+   * - `targetElement`: CSS selector for the element to extract content from.
+   *   Defaults to `main, [role="main"]`.
+   * @returns An `ExtractedContent` object with `lang`, `innerText`, and `innerHTML` properties.
+   */
+  async extractContent(options?: ContentExtractorOptions) {
+    return getPreviewContent(options || this.contentExtractorOptions);
   }
 
   /**

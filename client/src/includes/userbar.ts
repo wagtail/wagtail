@@ -8,7 +8,7 @@ import {
   renderA11yResults,
 } from './a11y-result';
 import { wagtailPreviewPlugin } from './previewPlugin';
-import { contentMetricsPluginInstance } from './contentMetrics';
+import { contentExtractorPluginInstance } from './contentMetrics';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
 import { getWagtailMessage, WagtailMessage } from '../utils/message';
@@ -339,7 +339,7 @@ export class Userbar extends HTMLElement {
     if (!this.shadowRoot) return;
 
     axe.registerPlugin(wagtailPreviewPlugin);
-    axe.plugins.wagtailPreview.add(contentMetricsPluginInstance);
+    axe.plugins.wagtailPreview.add(contentExtractorPluginInstance);
 
     const stimulus = Application.start(
       this.shadowRoot.firstElementChild as Element,

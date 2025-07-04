@@ -53,7 +53,7 @@ describe('initStimulus', () => {
     }
   }
 
-  beforeAll(() => {
+  beforeEach(() => {
     document.body.innerHTML = `
     <main>
       <section data-controller="w-test-mock">
@@ -127,5 +127,81 @@ describe('initStimulus', () => {
 
     // clean up
     section.remove();
+  });
+
+  describe('querying controllers', () => {
+    it('should allow querying for a controller by identifier', () => {
+      const controller = application.queryController('w-test-mock');
+      expect(controller).toBeInstanceOf(TestMockController);
+      expect(controller.itemTargets).toHaveLength(1);
+      expect(controller.itemTargets[0].id).toEqual('item');
+    });
+
+    it('should return null if no controller is found for the identifier', () => {
+      const controller = application.queryController('non-existent-controller');
+      expect(controller).toBeNull();
+    });
+
+    it('should return the first controller found for the identifier', async () => {
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        /* html */ `
+          <footer>
+            <section data-controller="w-test-mock">
+              <div id="item2" data-w-test-mock-target="item"></div>
+            </section>
+          </footer>
+        `,
+      );
+      await Promise.resolve();
+      const controller = application.queryController('w-test-mock');
+      expect(controller).toBeInstanceOf(TestMockController);
+      expect(controller.itemTargets).toHaveLength(1);
+      expect(controller.itemTargets[0].id).toEqual('item');
+    });
+
+    it('should allow querying for all controllers by identifier', async () => {
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        /* html */ `
+          <footer>
+            <section data-controller="w-test-mock">
+              <div id="item2" data-w-test-mock-target="item"></div>
+            </section>
+          </footer>
+        `,
+      );
+      await Promise.resolve();
+      const controllers = application.queryControllerAll('w-test-mock');
+      expect(controllers).toHaveLength(2);
+      expect(controllers[0]).toBeInstanceOf(TestMockController);
+      expect(controllers[1]).toBeInstanceOf(TestMockController);
+      expect(controllers[0].itemTargets[0].id).toEqual('item');
+      expect(controllers[1].itemTargets[0].id).toEqual('item2');
+    });
+
+    it('should match a controller on an element with multiple controllers', async () => {
+      application.register('example-b', WordCountController);
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        /* html */ `
+          <footer>
+            <input value="some words" data-controller="w-test-mock example-b" />
+          </footer>
+        `,
+      );
+      await Promise.resolve();
+      const controller = application.queryController('example-b');
+      expect(controller).toBeInstanceOf(WordCountController);
+      expect(controller.output).not.toBeNull();
+      expect(controller.output.textContent).toEqual('2 / 10 words');
+
+      const controllers = application.queryControllerAll('w-test-mock');
+      expect(controllers).toHaveLength(2);
+      expect(controllers[0]).toBeInstanceOf(TestMockController);
+      expect(controllers[1]).toBeInstanceOf(TestMockController);
+      expect(controllers[0].itemTargets.length).toEqual(1);
+      expect(controllers[1].itemTargets.length).toEqual(0);
+    });
   });
 });
