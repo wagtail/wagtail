@@ -840,6 +840,7 @@ class StreamBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "attrs": block.meta.form_attrs or {},
             "maxNum": block.meta.max_num,
             "minNum": block.meta.min_num,
             "blockCounts": block.meta.block_counts,

@@ -22,6 +22,7 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { setAttrs } from '../../../utils/attrs';
 
 /* global $ */
 
@@ -230,6 +231,8 @@ export class StreamBlock extends BaseSequenceBlock {
     }
 
     this.initDragNDrop();
+
+    setAttrs(this.container[0], this.blockDef.meta.attrs || {});
   }
 
   getBlockGroups() {

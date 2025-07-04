@@ -96,6 +96,10 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
         classname: 'w-field w-field--char_field w-field--text_input',
         helpText: 'drink <em>more</em> water',
         maxLength: 1000,
+        attrs: {
+          'data-controller': 'w-custom',
+          'data-action': 'click->w-custom#doSomething',
+        },
       },
     );
 

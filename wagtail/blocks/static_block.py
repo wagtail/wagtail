@@ -61,6 +61,7 @@ class StaticBlockAdapter(Adapter):
                 "description": block.get_description(),
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
+                "attrs": block.meta.form_attrs or {},
             },
         ]
 

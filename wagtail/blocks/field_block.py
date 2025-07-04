@@ -121,6 +121,7 @@ class FieldBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": " ".join(classname),
+            "attrs": block.meta.form_attrs or {},
             "showAddCommentButton": getattr(
                 block.field.widget, "show_add_comment_button", True
             ),
