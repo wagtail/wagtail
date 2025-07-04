@@ -63,7 +63,10 @@ def activate(log_context):
 
 
 def deactivate():
-    del _active.value
+    try:
+        del _active.value
+    except AttributeError:
+        pass
 
 
 def get_active_log_context():

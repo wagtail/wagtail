@@ -10,6 +10,7 @@ from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail import log_actions
 from wagtail.log_actions import LogActionRegistry
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import (
@@ -656,3 +657,11 @@ class TestAuditLogHooks(WagtailTestUtils, TestCase):
             self.assertEqual(
                 log_actions.get_action_label("test.custom_action"), "Custom action"
             )
+
+    def test_deactivate_attr_error(self):
+        # Ensure that deactivating the log context does not raise an AttributeError
+        # if it has not been activated.
+        # https://github.com/wagtail/wagtail/issues/13208
+        self.assertFalse(hasattr(log_actions._active, "value"))
+        log_actions.deactivate()
+        # No exception should be raised here
