@@ -74,6 +74,10 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
             required: true,
             icon: 'placeholder',
             classname: 'w-field w-field--char_field w-field--text_input',
+            attrs: {
+              'data-controller': 'w-custom',
+              'data-action': 'click->w-custom#doSomething',
+            },
           },
         ),
         new FieldBlockDefinition(
@@ -84,6 +88,10 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
             required: false,
             icon: 'placeholder',
             classname: 'w-field w-field--choice_field w-field--select',
+            attrs: {
+              'data-controller': 'w-other',
+              'data-action': 'click->w-other#doSomethingElse',
+            },
           },
         ),
       ],

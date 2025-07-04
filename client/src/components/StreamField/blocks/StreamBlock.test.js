@@ -79,6 +79,10 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 required: true,
                 icon: 'placeholder',
                 classname: 'w-field w-field--char_field w-field--text_input',
+                attrs: {
+                  'data-controller': 'w-custom',
+                  'data-action': 'click->w-custom#doSomething',
+                },
               },
             ),
             new FieldBlockDefinition(
@@ -90,6 +94,10 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
                 icon: 'pilcrow',
                 classname:
                   'w-field w-field--char_field w-field--admin_auto_height_text_input',
+                attrs: {
+                  'data-controller': 'w-other',
+                  'data-action': 'click->w-other#doSomethingElse',
+                },
               },
             ),
           ],

@@ -62,6 +62,7 @@ class Block(metaclass=BaseBlock):
         label = None
         icon = "placeholder"
         classname = None
+        form_attrs = None
         group = ""
 
     # Attributes of Meta which can legally be modified after the block has been instantiated.

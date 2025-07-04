@@ -191,6 +191,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--text_input",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -213,6 +214,27 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block_with_classname.set_name("test_block")
         js_args = FieldBlockAdapter().js_args(block_with_classname)
         self.assertIn(" special-char-classname", js_args[2]["classname"])
+
+    def test_charblock_adapter_attrs(self):
+        block = blocks.CharBlock(
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("test_block")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_block")
+        self.assertIsInstance(js_args[1], forms.TextInput)
+        self.assertEqual(
+            js_args[2].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
 
     def test_charfield_render_with_template_with_extra_context(self):
         block = ContextCharBlock(template="tests/blocks/heading_block.html")
@@ -300,6 +322,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--choice_field w-field--select",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -716,6 +739,7 @@ class TestRichTextBlock(TestCase):
                 "description": "",
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
+                "attrs": {},
                 "required": True,
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -742,6 +766,7 @@ class TestRichTextBlock(TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
+                "attrs": {},
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -767,6 +792,7 @@ class TestRichTextBlock(TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
+                "attrs": {},
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
                 "maxLength": 400,
@@ -902,6 +928,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--choice_field w-field--select",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -1306,6 +1333,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--multiple_choice_field w-field--select_multiple",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -1745,6 +1773,7 @@ class TestRawHTMLBlock(unittest.TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--textarea",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -2090,6 +2119,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "attrs": {},
             },
         )
 
@@ -2122,7 +2152,32 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "attrs": {},
                 "formTemplate": "<div>Hello</div>",
+            },
+        )
+
+    def test_adapt_with_form_attrs(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+        block = LinkBlock(
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            }
+        )
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_structblock")
+        self.assertEqual(
+            js_args[2].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
             },
         )
 
@@ -2149,6 +2204,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "attrs": {},
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2185,6 +2241,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "attrs": {},
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2213,6 +2270,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "attrs": {},
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2844,6 +2902,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": None,
+                "attrs": {},
                 "collapsed": False,
                 "strings": {
                     "DELETE": "Delete",
@@ -2878,6 +2937,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": None,
+                "attrs": {},
                 "collapsed": False,
                 "minNum": 2,
                 "maxNum": 5,
@@ -3056,6 +3116,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "special-list-class",
+                "attrs": {},
                 "collapsed": False,
                 "strings": {
                     "DELETE": "Delete",
@@ -3093,6 +3154,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "custom-list-class",
+                "attrs": {},
                 "collapsed": False,
                 "strings": {
                     "DELETE": "Delete",
@@ -3102,6 +3164,33 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                     "DRAG": "Drag",
                     "ADD": "Add",
                 },
+            },
+        )
+
+    def test_adapt_with_form_attrs(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(
+            LinkBlock,
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("test_listblock")
+        js_args = ListBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_listblock")
+        self.assertIsInstance(js_args[1], LinkBlock)
+        self.assertEqual(js_args[2], {"title": None, "link": None})
+        self.assertEqual(
+            js_args[3].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
             },
         )
 
@@ -3734,6 +3823,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": None,
+                "attrs": {},
                 "collapsed": False,
                 "maxNum": None,
                 "minNum": None,
@@ -4441,6 +4531,29 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ],
         )
 
+    def test_adapt_with_form_attrs(self):
+        block = blocks.StreamBlock(
+            [
+                (b"heading", blocks.CharBlock()),
+                (b"paragraph", blocks.CharBlock()),
+            ],
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("test_streamblock")
+        js_args = StreamBlockAdapter().js_args(block)
+
+        self.assertEqual(
+            js_args[3].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
     def test_adapt_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering stream block"""
 
@@ -4469,6 +4582,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "collapsed": False,
                 "required": True,
                 "classname": "rocket-section",
+                "attrs": {},
                 "strings": {
                     "DELETE": "Delete",
                     "DUPLICATE": "Duplicate",
@@ -4575,6 +4689,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "collapsed": False,
                 "required": True,
                 "classname": "profile-block-large",
+                "attrs": {},
                 "strings": {
                     "DELETE": "Delete",
                     "DUPLICATE": "Duplicate",
@@ -4922,6 +5037,7 @@ class TestPageChooserBlock(TestCase):
                 "isPreviewable": block.is_previewable,
                 "helpText": "pick a page, any page",
                 "classname": "w-field w-field--model_choice_field w-field--admin_page_chooser",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -5127,6 +5243,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5151,6 +5268,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5174,6 +5292,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Latest posts",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5198,6 +5317,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5222,6 +5342,29 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
+            },
+        )
+
+    def test_adapt_with_form_attrs(self):
+        block = blocks.StaticBlock(
+            admin_text="Latest posts - This block doesn't need to be configured, it will be displayed automatically",
+            template="tests/blocks/posts_static_block.html",
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("posts_static_block")
+        js_args = StaticBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "posts_static_block")
+        self.assertEqual(
+            js_args[1].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
             },
         )
 
@@ -5280,6 +5423,7 @@ class TestDateBlock(TestCase):
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--date_field w-field--admin_date_input",
                 "showAddCommentButton": True,
+                "attrs": {},
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
         )
@@ -5316,6 +5460,7 @@ class TestTimeBlock(TestCase):
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--time_field w-field--admin_time_input",
                 "showAddCommentButton": True,
+                "attrs": {},
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
         )
@@ -5351,6 +5496,7 @@ class TestDateTimeBlock(TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--date_time_field w-field--admin_date_time_input",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },

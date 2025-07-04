@@ -414,6 +414,7 @@ class StructBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "attrs": block.meta.form_attrs or {},
         }
 
         help_text = getattr(block.meta, "help_text", None)
