@@ -1132,6 +1132,7 @@ class TestElasticsearch7Mapping(TestCase):
                 },
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
+                "publication_time_filter": {"type": "keyword"},
                 "summary": {"copy_to": "_all_text", "type": "text"},
                 "number_of_pages_filter": {"type": "integer"},
                 "tags": {
@@ -1178,6 +1179,7 @@ class TestElasticsearch7Mapping(TestCase):
             ],
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
+            "publication_time_filter": None,
             "summary": "",
             "number_of_pages_filter": 423,
             "tags": [],
@@ -1281,8 +1283,9 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 },
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
-                "number_of_pages_filter": {"type": "integer"},
+                "publication_time_filter": {"type": "keyword"},
                 "summary": {"copy_to": "_all_text", "type": "text"},
+                "number_of_pages_filter": {"type": "integer"},
                 "tags": {
                     "type": "nested",
                     "properties": {
@@ -1350,8 +1353,9 @@ class TestElasticsearch7MappingInheritance(TestCase):
             ],
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
-            "number_of_pages_filter": 423,
+            "publication_time_filter": None,
             "summary": "",
+            "number_of_pages_filter": 423,
             "tags": [],
             "tags_filter": [],
         }
@@ -1481,14 +1485,14 @@ class TestElasticsearch7TimeFieldSerialization(TestCase):
         self.book.authors.add(self.author)
 
         self.book_time_none = models.Book.objects.create(
-            title="Test Book None",
+            title="None Time Book",
             publication_date=datetime.date(2023, 12, 25),
             publication_time=None,
             number_of_pages=100,
         )
         self.book_time_none.authors.add(self.author)
 
-    def test_timefield_serialization_success(self):
+    def test_timefield_serialization(self):
         """Test TimeField is successfully indexed to Elasticsearch."""
         self.index.delete()  # Reset the index just to be sure
         self.index.put()
@@ -1511,7 +1515,7 @@ class TestElasticsearch7TimeFieldSerialization(TestCase):
             success, f"TimeField indexing should succeed. Error: {error_message}"
         )
 
-    def test_timefield_mapping_fixed(self):
+    def test_timefield_mapping(self):
         """Test TimeField is correctly mapped as 'keyword' type in Elasticsearch mapping."""
         es_mapping = self.mapping.get_mapping()
         properties = es_mapping.get("properties", {})
