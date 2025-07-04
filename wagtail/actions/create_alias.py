@@ -120,6 +120,7 @@ class CreatePageAliasAction:
             "path",
             "index_entries",
             "postgres_index_entries",
+            "latest_revision",  # for page aliases do not have revisions
         ]
 
         update_attrs = {
