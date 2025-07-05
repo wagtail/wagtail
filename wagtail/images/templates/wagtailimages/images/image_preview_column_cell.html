@@ -1,0 +1,10 @@
+{% load wagtailadmin_tags %}
+{% load wagtailimages_tags %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <a class="image-choice--list" href="{% url 'wagtailimages:edit' instance.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
+        <div class="image">
+            {% image instance max-165x165 class="show-transparency" %}
+        </div>
+    </a>
+</td>

@@ -21,9 +21,10 @@ from willow.optimizers.base import OptimizerBase
 from willow.registry import registry
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.ui.tables import Table
 from wagtail.images import get_image_model
 from wagtail.images.utils import generate_signature
-from wagtail.images.views.images import ImagesFilterSet
+from wagtail.images.views.images import BulkActionsColumn, ImagesFilterSet
 from wagtail.models import (
     Collection,
     GroupCollectionPermission,
@@ -398,6 +399,199 @@ class TestImageIndexView(WagtailTestUtils, TestCase):
         ]
         self.assertEqual(len(in_clauses), 0)
 
+    def test_correct_layout_is_passed_to_context(self):
+        response = self.client.get(reverse("wagtailimages:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["layout"], "grid")
+
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["layout"], "list")
+
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["layout"], "grid")
+
+    def test_layout_when_layout_is_list(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNotNone(
+            table, "Expected a table element to be present in list layout."
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNone(
+            grid_ul,
+            "Expected no ul element with class 'listing horiz images' in list layout.",
+        )
+
+    def test_layout_when_layout_is_grid(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table, "Expected no table element with class 'listing' in grid layout."
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "Expected a ul element with class 'listing horiz images' in grid layout.",
+        )
+
+    def test_layout_when_no_layout_is_passed(self):
+        response = self.client.get(reverse("wagtailimages:index"))
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "If no layout is passed, it should default to grid layout (no table) - table found",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "If no layout is passed, it should default to grid layout (ul not found)",
+        )
+
+    def test_layout_when_layout_is_invalid(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"layout": "invalid"}
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "If invalid layout is passed, it should default to grid layout (no table) - table found",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "If invalid layout is passed, it should default to grid layout (ul not found)",
+        )
+
+    def test_image_is_present_in_image_preview_column(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        image_preview_wrapper = soup.find("td", class_="image-preview")
+        self.assertIsNotNone(
+            image_preview_wrapper,
+            "Expected a <td> with class image-preview' inside the listing table",
+        )
+
+        preview_image = image_preview_wrapper.find("img")
+        self.assertIsNotNone(
+            preview_image, "Expected an <img> element inside image-preview <td>"
+        )
+
+    def test_title_and_filename_are_present_in_title_column(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        title_and_filename_wrapper = soup.select_one("td.title.title-with-filename")
+        self.assertIsNotNone(
+            title_and_filename_wrapper,
+            "Expected a <td> with class 'title and title-with-filename' inside the listing table.",
+        )
+
+        title_wrapper_div = title_and_filename_wrapper.find(
+            "div", class_="title-wrapper"
+        )
+        self.assertIsNotNone(
+            title_wrapper_div,
+            "Expected a <div> with class 'title-wrapper' inside the title-with-filename <td>",
+        )
+
+        filename_wrapper_div = title_and_filename_wrapper.find(
+            "div", class_="filename-wrapper"
+        )
+        self.assertIsNotNone(
+            filename_wrapper_div,
+            "Expected a <div> with class 'filename-wrapper' inside the title-with-filename <td>",
+        )
+
+    def test_list_layout_contains_required_table_headers(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        headers = soup.find_all("th")
+        header_texts = [th.get_text(strip=True) for th in headers]
+
+        expected_headers = ["Preview", "Title", "Collection", "Created"]
+        for expected_header in expected_headers:
+            self.assertIn(
+                expected_header,
+                header_texts,
+                f"Expected header '{expected_header}' not found in list layout",
+            )
+
+    def test_layout_toggle_button_in_list_layout(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        layout_toggle_button = soup.find("label", class_="w-layout-toggle-button")
+        self.assertIsNotNone(
+            layout_toggle_button, "Expected layout toggle button in list layout"
+        )
+
+    def test_layout_toggle_button_in_grid_layout(self):
+        response = self.client.get(reverse("wagtailimages:index"), {"layout": "grid"})
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        layout_toggle_button = soup.find("label", class_="w-layout-toggle-button")
+        self.assertIsNotNone(
+            layout_toggle_button, "Expected layout toggle button in grid layout"
+        )
+
+
+class TestBulkActionsColumn(WagtailTestUtils, TestCase):
+    def setUp(self):
+        self.user = self.login()
+        self.root_collection = Collection.get_first_root_node()
+        self.test_collection = self.root_collection.add_child(name="Test Collection")
+
+    def test_get_header_context_data_with_current_collection(self):
+        column = BulkActionsColumn("bulk_actions")
+        table = Table(columns=[column], data=[])
+
+        parent_context = {
+            "table": table,
+            "current_collection": self.test_collection,
+        }
+
+        context = column.get_header_context_data(parent_context)
+
+        self.assertEqual(context["parent"], self.test_collection.id)
+
+    def test_get_header_context_data_without_current_collection(self):
+        column = BulkActionsColumn("bulk_actions")
+        table = Table(columns=[column], data=[])
+
+        parent_context = {
+            "table": table,
+            "current_collection": None,
+        }
+
+        context = column.get_header_context_data(parent_context)
+
+        self.assertNotIn("parent", context)
+
 
 class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
     fixtures = ["test_empty.json"]
@@ -513,6 +707,44 @@ class TestImageIndexViewSearch(WagtailTestUtils, TransactionTestCase):
         # that have the "one" tag and "test" in the title.
         response = self.get({"tag": "one", "q": "test"})
         self.assertEqual(response.context["page_obj"].paginator.count, 2)
+
+    def test_image_search_when_layout_is_list(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"q": "A", "layout": "list"}
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNotNone(
+            table,
+            "Expected a table element to be present in list layout when searching for images.",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNone(
+            grid_ul,
+            "Expected no ul element with class 'listing horiz images' in list layout when searching for images.",
+        )
+
+    def test_image_search_when_layout_is_grid(self):
+        response = self.client.get(
+            reverse("wagtailimages:index"), {"q": "A", "layout": "grid"}
+        )
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+
+        table = soup.find("table", class_="listing")
+        self.assertIsNone(
+            table,
+            "Expected no table element with class 'listing' in grid layout when searching for images.",
+        )
+
+        grid_ul = soup.find("ul", class_="listing horiz images")
+        self.assertIsNotNone(
+            grid_ul,
+            "Expected a ul element with class 'listing horiz images' in grid layout when searching for images.",
+        )
 
 
 class TestImageListingResultsView(WagtailTestUtils, TransactionTestCase):
