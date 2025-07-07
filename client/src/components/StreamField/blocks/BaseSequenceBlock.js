@@ -2,7 +2,6 @@
 
 /* global $ */
 
-import EventEmitter from 'events';
 import { v4 as uuidv4 } from 'uuid';
 import Sortable from 'sortablejs';
 import { escapeHtml as h } from '../../../utils/text';
@@ -37,13 +36,13 @@ class ActionButton {
     $(container).append(this.dom);
 
     if (this.enableEvent) {
-      this.sequenceChild.on(this.enableEvent, () => {
+      this.sequenceChild.addEventListener(this.enableEvent, () => {
         this.enable();
       });
     }
 
     if (this.disableEvent) {
-      this.sequenceChild.on(this.disableEvent, () => {
+      this.sequenceChild.addEventListener(this.disableEvent, () => {
         this.disable();
       });
     }
@@ -114,7 +113,7 @@ class DeleteButton extends ActionButton {
   }
 }
 
-export class BaseSequenceChild extends EventEmitter {
+export class BaseSequenceChild extends EventTarget {
   constructor(
     blockDef,
     placeholder,
@@ -309,14 +308,14 @@ export class BaseSequenceChild extends EventEmitter {
   }
 
   enableDuplication() {
-    this.emit('enableDuplication');
+    this.dispatchEvent(new Event('enableDuplication'));
     if (this.block && this.block.setCapabilityOptions) {
       this.block.setCapabilityOptions('duplicate', { enabled: true });
     }
   }
 
   disableDuplication() {
-    this.emit('disableDuplication');
+    this.dispatchEvent(new Event('disableDuplication'));
     if (this.block && this.block.setCapabilityOptions) {
       this.block.setCapabilityOptions('duplicate', { enabled: false });
     }
@@ -335,19 +334,19 @@ export class BaseSequenceChild extends EventEmitter {
   }
 
   enableMoveUp() {
-    this.emit('enableMoveUp');
+    this.dispatchEvent(new Event('enableMoveUp'));
   }
 
   disableMoveUp() {
-    this.emit('disableMoveUp');
+    this.dispatchEvent(new Event('disableMoveUp'));
   }
 
   enableMoveDown() {
-    this.emit('enableMoveDown');
+    this.dispatchEvent(new Event('enableMoveDown'));
   }
 
   disableMoveDown() {
-    this.emit('disableMoveDown');
+    this.dispatchEvent(new Event('disableMoveDown'));
   }
 
   setIndex(newIndex) {
