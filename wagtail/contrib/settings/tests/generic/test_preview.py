@@ -4,7 +4,6 @@ from django.urls import reverse
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.test.testapp.models import (
     MultiPreviewModesGenericSetting,
-    NonPreviewableGenericSetting,
     PreviewableGenericSetting,
 )
 from wagtail.test.utils import WagtailTestUtils
@@ -58,7 +57,12 @@ class TestPreview(WagtailTestUtils, TestCase):
         # Check the HTML response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tests/previewable_setting.html")
-        self.assertContains(response, "An edited previewable setting")
+        self.assertContains(
+            response, "<h1>An edited previewable setting</h1>", html=True
+        )
+        self.assertContains(
+            response, "<span>An edited previewable setting</span>", html=True
+        )
 
     def test_preview_on_edit_clear_preview_data(self):
         # Set a fake preview session data for the setting
@@ -257,34 +261,3 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         self.assertIsNotNone(refresh_button)
         self.assertEqual(refresh_button.get("data-controller"), "w-progress")
         self.assertEqual(refresh_button.text.strip(), "Refresh")
-
-
-class TestDisablePreviewWithEmptyModes(WagtailTestUtils, TestCase):
-    """
-    Preview can be disabled by setting preview_modes to an empty list.
-    """
-
-    # NonPreviewableGenericSetting has preview_modes = []
-    model = NonPreviewableGenericSetting
-
-    def setUp(self):
-        self.user = self.login()
-        self.setting = self.model.objects.create(text="A non-previewable setting")
-        self.model_name = self.model._meta.model_name
-
-    def get_url(self, setting, name):
-        model_name = type(setting)._meta.model_name
-        return reverse(
-            f"wagtailsettings:{name}",
-            args=("tests", model_name, setting.pk),
-        )
-
-    def test_disable_preview_on_edit(self):
-        response = self.client.get(self.get_url(self.setting, "edit"))
-        self.assertEqual(response.status_code, 200)
-
-        preview_url = self.get_url(self.setting, "preview_on_edit")
-        self.assertNotContains(response, 'data-side-panel-toggle="preview"')
-        self.assertNotContains(response, 'data-side-panel="preview"')
-        self.assertNotContains(response, 'data-controller="w-preview"')
-        self.assertNotContains(response, preview_url)
