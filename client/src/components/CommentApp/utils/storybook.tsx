@@ -49,6 +49,7 @@ export function RenderCommentsForStorybook({
       comment={comment}
       isVisible={true}
       isFocused={comment.localId === state.comments.focusedComment}
+      forceFocus={false}
     />
   ));
 
@@ -100,7 +101,12 @@ export function addTestComment(
   );
 
   if (options.focused) {
-    store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true }));
+    store.dispatch(
+      setFocusedComment(commentId, {
+        updatePinnedComment: true,
+        forceFocus: true,
+      }),
+    );
   }
 
   return commentId;
