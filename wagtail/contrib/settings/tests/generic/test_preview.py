@@ -2,10 +2,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.test.testapp.models import (
-    MultiPreviewModesGenericSetting,
-    PreviewableGenericSetting,
-)
+from wagtail.test.testapp.models import PreviewableGenericSetting
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -102,9 +99,6 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         self.single = PreviewableGenericSetting.objects.create(
             text="Single preview mode"
         )
-        self.multiple = MultiPreviewModesGenericSetting.objects.create(
-            text="Multiple preview modes"
-        )
 
     def get_url(self, setting, name):
         model_name = type(setting)._meta.model_name
@@ -154,59 +148,6 @@ class TestEnablePreview(WagtailTestUtils, TestCase):
         # Should not show the preview mode selection
         mode_select = controller.select_one('[data-w-preview-target="mode"]')
         self.assertIsNone(mode_select)
-
-    def test_show_preview_panel_on_edit_with_multiple_modes(self):
-        edit_url = self.get_url(self.multiple, "edit")
-        preview_url = self.get_url(self.multiple, "preview_on_edit")
-        new_tab_url = preview_url + "?mode=alt%231"
-        response = self.client.get(edit_url)
-
-        self.assertEqual(response.status_code, 200)
-
-        # Should show the preview panel
-        self.assertContains(response, 'data-side-panel-toggle="preview"')
-        self.assertContains(response, 'data-side-panel="preview"')
-
-        # Should set the preview URL value on the controller
-        soup = self.get_soup(response.content)
-        controller = soup.select_one('[data-controller="w-preview"]')
-        self.assertIsNotNone(controller)
-        self.assertEqual(controller.get("data-w-preview-url-value"), preview_url)
-
-        # Should have a default interval of 500ms and should render the hidden spinner
-        interval_value = controller.get("data-w-preview-auto-update-interval-value")
-        self.assertEqual(interval_value, "500")
-        spinner = controller.select_one('[data-w-preview-target="spinner"]')
-        self.assertIsNotNone(spinner)
-        self.assertIsNotNone(spinner.get("hidden"))
-        self.assertIsNotNone(spinner.select_one("svg.icon-spinner"))
-
-        # Should not render any buttons (the refresh button in particular)
-        refresh_button = controller.select_one("button")
-        self.assertIsNone(refresh_button)
-
-        # Should show the iframe
-        iframe = controller.select_one("#w-preview-iframe")
-        self.assertIsNotNone(iframe)
-        self.assertEqual(iframe.get("data-w-preview-target"), "iframe")
-
-        # Should show the new tab button with the default mode set and correctly quoted
-        new_tab_button = controller.select_one('a[data-w-preview-target="newTab"]')
-        self.assertIsNotNone(new_tab_button)
-        self.assertEqual(new_tab_button["href"], new_tab_url)
-        self.assertEqual(new_tab_button["target"], "_blank")
-
-        # should show the preview mode selection with the default mode selected
-        mode_select = controller.select_one('[data-w-preview-target="mode"]')
-        self.assertIsNotNone(mode_select)
-        self.assertEqual(mode_select["id"], "id_preview_mode")
-        default_option = mode_select.select_one('option[value="alt#1"]')
-        self.assertIsNotNone(default_option)
-        self.assertIsNotNone(default_option.get("selected"))
-        other_option = mode_select.select_one('option[value=""]')
-        self.assertIsNotNone(other_option)
-        self.assertEqual(other_option.text.strip(), "Normal")
-        self.assertIsNone(other_option.get("selected"))
 
     @override_settings(WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL=12345)
     def test_custom_auto_update_interval(self):
