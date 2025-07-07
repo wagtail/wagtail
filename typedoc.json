@@ -6,5 +6,6 @@
   "out": "./docs/client",
   "externalSymbolLinkMappings": {
     "reselect": { "*": "https://reselect.js.org" }
-  }
+  },
+  "plugin": ["typedoc-plugin-mdn-links"]
 }
