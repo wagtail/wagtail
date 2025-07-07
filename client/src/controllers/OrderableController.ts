@@ -75,7 +75,7 @@ export class OrderableController extends Controller<HTMLElement> {
 
   connect() {
     const containerSelector = this.containerValue;
-    const container = this.containerTarget
+    const container = this.hasContainerTarget
       ? this.containerTarget
       : (((containerSelector &&
           this.element.querySelector(containerSelector)) ||
