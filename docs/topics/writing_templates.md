@@ -311,6 +311,8 @@ wagtail-userbar::part(userbar) {
 
 To customize the items shown in the user bar, you can use the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook.
 
+The user bar is also available as a [template component](template_components), which allows it to be rendered independently and [loaded by a headless frontend](headless_user_bar).
+
 ## Varying output between preview and live
 
 Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor-tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a `request.is_preview` variable to distinguish between preview and live:

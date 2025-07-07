@@ -34,6 +34,7 @@ class AccessibilityItem(BaseItem):
     def __init__(self, in_editor=False):
         super().__init__()
         self.in_editor = in_editor
+        """Whether the accessibility checker is being run in the page editor."""
 
     #: The template to use for rendering the item.
     template = "wagtailadmin/userbar/item_accessibility.html"

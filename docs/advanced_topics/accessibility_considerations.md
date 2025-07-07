@@ -165,12 +165,17 @@ class CustomAccessibilityItem(AccessibilityItem):
 
 @hooks.register('construct_wagtail_userbar')
 def replace_userbar_accessibility_item(request, items, page):
-    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
+    items[:] = [
+        CustomAccessibilityItem(in_editor=item.in_editor)
+        if isinstance(item, AccessibilityItem) else item
+        for item in items
+    ]
 ```
 
 The checks you run in production should be restricted to issues your content editors can fix themselves; warnings about things out of their control will only teach them to ignore all warnings. However, it may be useful for you to run additional checks in your development environment.
 
 ```python
+from django.conf import settings
 from wagtail.admin.userbar import AccessibilityItem
 
 
@@ -191,7 +196,7 @@ class CustomAccessibilityItem(AccessibilityItem):
     }
 
     def get_axe_run_only(self, request):
-        if env.bool('DEBUG', default=False):
+        if settings.DEBUG:
             return self.axe_rules_in_dev
         else:
             # In production, run Wagtail's default accessibility rules for authored content only
@@ -200,7 +205,17 @@ class CustomAccessibilityItem(AccessibilityItem):
 
 @hooks.register('construct_wagtail_userbar')
 def replace_userbar_accessibility_item(request, items, page):
-    items[:] = [CustomAccessibilityItem() if isinstance(item, AccessibilityItem) else item for item in items]
+    items[:] = [
+        CustomAccessibilityItem(in_editor=item.in_editor)
+        if isinstance(item, AccessibilityItem) else item
+        for item in items
+    ]
+```
+
+The `AccessibilityItem` class accepts an `in_editor` argument, which is set to `True` when it is instantiated within the page editor. This allows you to customize the Axe configuration based on whether Axe is being run in the page editor or your site's frontend. For example, to change the [`allowedOrigins`](https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#allowedorigins) property in the Axe spec to allow cross-domain iframe communication when the accessibility checker is [loaded in a headless frontend](headless_accessibility_checker).
+
+```{versionadded} 7.1
+The {attr}`~wagtail.admin.userbar.AccessibilityItem.in_editor` argument was added.
 ```
 
 #### AccessibilityItem reference
@@ -210,6 +225,7 @@ The following is the reference documentation for the `AccessibilityItem` class:
 ```{eval-rst}
 .. autoclass:: wagtail.admin.userbar.AccessibilityItem
 
+    .. autoattribute:: in_editor
     .. autoattribute:: axe_include
     .. autoattribute:: axe_exclude
     .. autoattribute:: axe_run_only

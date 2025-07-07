@@ -74,6 +74,117 @@ There currently isn’t a way to request a draft version of a page using the pub
 
 When autosave is released in Wagtail, generating previews will likely be less of an obstacle since the API would be serving up the latest changes in all circumstances. This is can be achieved using a [workaround](https://github.com/cfpb/wagtail-sharing/pull/47).
 
+(headless_user_bar)=
+
+### ✅ User bar
+
+In a cross-domain headless frontend, the [user bar](wagtailuserbar_tag) must be loaded in order to enable certain features in the page editor, such as live preview scroll restoration, the accessibility checker, and content metrics.
+
+The user bar can be added to the frontend by creating a Django view that renders the user bar template, which is then loaded by the frontend. For example, the Django view could be written like the following:
+
+```py
+# views.py
+from django.views.generic import TemplateView
+from wagtail.admin.userbar import Userbar
+
+
+class UserbarView(TemplateView):
+    template_name = Userbar.template_name
+    http_method_names = ["get"]
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        response["Access-Control-Allow-Origin"] = "https://my.headless.site"
+        return response
+
+    def get_context_data(self, **kwargs):
+        return Userbar(object=None, position="bottom-right").get_context_data(
+            super().get_context_data(request=self.request, **kwargs)
+        )
+```
+
+```py
+# urls.py
+from .views import UserbarView
+
+urlpatterns = [
+    # ...
+    path("userbar/", UserbarView.as_view(), name="wagtail_userbar"),
+]
+```
+
+Then, the frontend can load the user bar by making a request to the `/userbar/` endpoint and render the response in the appropriate place in the DOM. The following example is a React component in a Next.js app that loads the user bar:
+
+```tsx
+'use client';
+
+import Script from 'next/script';
+import { useEffect, useRef } from 'react';
+
+export default function Userbar({ hidden = false }: { hidden?: boolean }) {
+  const userbarRef = useRef<HTMLDivElement>(null);
+  const apiHost = process.env.NEXT_PUBLIC_WAGTAIL_API_HOST as string;
+
+  useEffect(() => {
+    fetch(`${apiHost}/userbar/`)
+      .then((res) => res.text())
+      .then((userbar) => {
+        if (
+          !userbarRef.current ||
+          // useEffect runs twice in development mode, so we need to bail out if
+          // the userbar is already present from the previous fetch() call.
+          userbarRef.current.querySelector('wagtail-userbar')
+        )
+          return;
+        userbarRef.current.innerHTML = userbar;
+      });
+  }, [apiHost]);
+
+  return (
+    <>
+      <div hidden={hidden} ref={userbarRef} />
+      {/**
+          The userbar template already includes the script tags,
+          but the browser will not run them when they are added via .innerHTML.
+          Load the scripts using Next.js Script component instead.
+       */}
+      <Script src={`${apiHost}/static/wagtailadmin/js/vendor.js`} />
+      <Script src={`${apiHost}/static/wagtailadmin/js/userbar.js`} />
+    </>
+  );
+}
+```
+
+Note that authentication and authorization are not handled in this example, as they may vary (or not exist at all) depending on the frontend framework and methods used. To ease integrations with various frontends, the user bar can be rendered without authentication, but it will only show the accessibility checker and a link to the Wagtail admin dashboard. In general, you should only load the user bar if the user is meant to use it, such as in the context of a preview route.
+
+(headless_accessibility_checker)=
+
+### ✅ Accessibility checker in page editor
+
+In order to use the accessibility checker in the page editor, the user bar must be loaded in the frontend. If the frontend is served on a different domain than Wagtail, the [](built_in_accessibility_checker) must be customized so that Axe can securely perform cross-frame communication. This can be done by overriding the `get_axe_spec` method of the `AccessibilityItem` class, and setting the `allowedOrigins` property to the frontend URL.
+
+```py
+class HeadlessAccessibilityItem(AccessibilityItem):
+    def get_axe_spec(self, request):
+        spec = super().get_axe_spec(request)
+        spec["allowedOrigins"] = [
+            "https://my.headless.site"  # Replace with your frontend URL
+            if self.in_editor
+            else get_admin_base_url()
+        ]
+        return spec
+
+
+@hooks.register("construct_wagtail_userbar")
+def replace_userbar_accessibility_item(request, items, page):
+    items[:] = [
+        HeadlessAccessibilityItem(in_editor=item.in_editor)
+        if isinstance(item, AccessibilityItem)
+        else item
+        for item in items
+    ]
+```
+
 ### ⚠️ Images
 
 Additional image considerations are needed for headless Wagtail.
