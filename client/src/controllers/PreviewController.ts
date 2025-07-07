@@ -201,6 +201,7 @@ export class PreviewController extends Controller<HTMLElement> {
   /** Whether the preview is ready for further updates.
    *
    * The preview data is stored in the session, which means:
+   *
    * - After logging out and logging back in, the session is cleared, so the
    *   client must send the preview data on initial editor load in order for
    *   Wagtail to render the preview.
