@@ -1,7 +1,6 @@
-import EventEmitter from 'events';
 import { ChooserModal } from '../../includes/chooserModal';
 
-export class Chooser extends EventEmitter {
+export class Chooser extends EventTarget {
   chooserModalClass = ChooserModal;
   titleStateKey = 'title'; // key used in the 'state' dictionary to hold the human-readable title
   editUrlStateKey = 'edit_url'; // key used in the 'state' dictionary to hold the URL of the edit page
@@ -85,7 +84,7 @@ export class Chooser extends EventEmitter {
 
   setStateFromModalData(data) {
     this.setState(data);
-    this.emit('chosen', data);
+    this.dispatchEvent(new Event('chosen', data));
   }
 
   clear() {
