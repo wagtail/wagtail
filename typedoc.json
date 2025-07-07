@@ -1,0 +1,10 @@
+{
+  "basePath": "./client/src",
+  "entryPoints": ["./client/src"],
+  "entryPointStrategy": "expand",
+  "exclude": ["**/*.{stories,test}.{js,ts,jsx,tsx}"],
+  "out": "./docs/client",
+  "externalSymbolLinkMappings": {
+    "reselect": { "*": "https://reselect.js.org" }
+  }
+}
