@@ -1,4 +1,5 @@
 import * as StimulusModule from '@hotwired/stimulus';
+import Telepath from 'telepath-unpack';
 
 import { Icon, Portal } from '../..';
 import { ExpandingFormset } from '../../components/ExpandingFormset';
@@ -42,6 +43,10 @@ window.escapeHtml = escapeHtml;
 window.InlinePanel = InlinePanel;
 
 window.MultipleChooserPanel = MultipleChooserPanel;
+
+if (!window.telepath) {
+  window.telepath = new Telepath();
+}
 
 /**
  * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.
