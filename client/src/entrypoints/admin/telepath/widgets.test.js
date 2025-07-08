@@ -1,5 +1,5 @@
-import '../draftail';
 import './telepath';
+import '../draftail'; // telepath adapter for DraftailRichTextArea is registered here
 import './widgets';
 
 import $ from 'jquery';

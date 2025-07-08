@@ -64,3 +64,10 @@ if (!window.Draftail || !window.draftail) {
     window.draftail.initEditor(`#${id}`, detail, document.currentScript);
   });
 }
+
+if (window.telepath) {
+  window.telepath.register(
+    'wagtail.widgets.DraftailRichTextArea',
+    draftail.DraftailRichTextArea,
+  );
+}
