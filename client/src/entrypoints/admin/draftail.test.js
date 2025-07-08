@@ -24,6 +24,7 @@ describe('draftail', () => {
           "resetBlockWithType": [Function],
           "updateBlockEntity": [Function],
         },
+        "DraftailRichTextArea": [Function],
         "EmbedModalWorkflowSource": [Function],
         "ImageModalWorkflowSource": [Function],
         "LinkModalWorkflowSource": [Function],
