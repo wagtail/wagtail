@@ -378,6 +378,7 @@ class BaseStructBlock(Block):
             ),
             "help_text": getattr(self.meta, "help_text", None),
             "classname": self.meta.form_classname,
+            "collapsed": self.meta.collapsed,
             "block_definition": self,
             "prefix": prefix,
         }
@@ -392,6 +393,7 @@ class BaseStructBlock(Block):
         form_template = None
         value_class = StructValue
         label_format = None
+        collapsed = None
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -414,6 +416,7 @@ class StructBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "collapsed": block.meta.collapsed,
         }
 
         help_text = getattr(block.meta, "help_text", None)

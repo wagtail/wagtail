@@ -9,6 +9,7 @@ interface PanelProps {
   };
   blockTypeIcon: string;
   blockTypeLabel: string;
+  collapsed?: boolean;
 }
 
 /**
@@ -30,11 +31,12 @@ export class CollapsiblePanel {
       blockDef,
       blockTypeIcon,
       blockTypeLabel,
+      collapsed,
     } = this.props;
 
     // Keep in sync with wagtailadmin/shared/panel.html
     template.innerHTML = /* html */ `
-        <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" data-panel>
+        <section class="w-panel w-panel--nested${collapsed ? ' collapsed' : ''}" id="${panelId}" aria-labelledby="${headingId}" data-panel>
           <div class="w-panel__header">
             <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">

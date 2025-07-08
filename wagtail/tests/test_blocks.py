@@ -2090,6 +2090,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
             },
         )
 
@@ -2122,6 +2123,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2149,6 +2151,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2185,6 +2188,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2213,6 +2217,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2220,6 +2225,21 @@ class TestStructBlock(SimpleTestCase):
                 "helpText": "Self-promotion is encouraged",
             },
         )
+
+    def test_adapt_with_collapsed(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        cases = [None, False, True]
+        for case in cases:
+            with self.subTest(collapsed=case):
+                block = LinkBlock(collapsed=case)
+
+                block.set_name("test_structblock")
+                js_args = StructBlockAdapter().js_args(block)
+
+                self.assertIs(js_args[2]["collapsed"], case)
 
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
