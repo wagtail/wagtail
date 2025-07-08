@@ -10,6 +10,7 @@ import {
   toggleCollapsiblePanel,
 } from '../../../includes/panels';
 import { range } from '../../../utils/range';
+import { CollapsiblePanel } from './CollapsiblePanel';
 
 class ActionButton {
   constructor(sequenceChild) {
@@ -142,6 +143,14 @@ export class BaseSequenceChild extends EventTarget {
     const contentId = `block-${id}-content`;
     const blockTypeIcon = h(this.blockDef.meta.icon);
     const blockTypeLabel = h(this.blockDef.meta.label);
+    const collapsiblePanel = new CollapsiblePanel({
+      panelId,
+      headingId,
+      contentId,
+      blockDef,
+      blockTypeIcon,
+      blockTypeLabel,
+    }).render();
 
     const dom = $(`
       <div data-streamfield-child ${
@@ -157,39 +166,7 @@ export class BaseSequenceChild extends EventTarget {
         <input type="hidden" name="${this.prefix}-id" value="${h(
           this.id || '',
         )}">
-        <section class="w-panel w-panel--nested" id="${panelId}" aria-labelledby="${headingId}" data-panel>
-          <div class="w-panel__header">
-            <a class="w-panel__anchor w-panel__anchor--prefix" href="#${panelId}" aria-labelledby="${headingId}" data-panel-anchor>
-              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
-                <use href="#icon-link"></use>
-              </svg>
-            </a>
-            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
-              <svg class="icon icon-${blockTypeIcon} w-panel__icon" aria-hidden="true">
-                <use href="#icon-${blockTypeIcon}"></use>
-              </svg>
-            </button>
-            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
-              <span data-panel-heading-text class="c-sf-block__title"></span>
-              <span class="c-sf-block__type">${blockTypeLabel}</span>
-              ${
-                blockDef.meta.required
-                  ? '<span class="w-required-mark" data-panel-required>*</span>'
-                  : ''
-              }
-            </h2>
-            <a class="w-panel__anchor w-panel__anchor--suffix" href="#${panelId}" aria-labelledby="${headingId}">
-              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
-                <use href="#icon-link"></use>
-              </svg>
-            </a>
-            <div class="w-panel__divider"></div>
-            <div class="w-panel__controls" data-panel-controls></div>
-          </div>
-          <div id="${contentId}" class="w-panel__content">
-            <div data-streamfield-block></div>
-          </div>
-        </section>
+        ${collapsiblePanel.outerHTML}
       </div>
     `);
 
