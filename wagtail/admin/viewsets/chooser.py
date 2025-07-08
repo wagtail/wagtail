@@ -4,10 +4,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.admin.forms.models import register_form_field_override
+from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.admin.views.generic import chooser as chooser_views
 from wagtail.admin.widgets.chooser import BaseChooser
 from wagtail.blocks import ChooserBlock
-from wagtail.telepath import register as register_telepath_adapter
 
 from .base import ViewSet
 

@@ -151,7 +151,7 @@ First, we define a telepath adapter for `AddressBlock`, so that it uses our own 
 
 ```python
 from wagtail.blocks.struct_block import StructBlockAdapter
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 from django import forms
 from django.utils.functional import cached_property
 
@@ -167,6 +167,10 @@ class AddressBlockAdapter(StructBlockAdapter):
         )
 
 register(AddressBlockAdapter(), AddressBlock)
+```
+
+```{versionchanged} 7.1
+The `register` function should now be imported from `wagtail.admin.telepath` rather than `wagtail.telepath`.
 ```
 
 Here `'myapp.blocks.AddressBlock'` is the identifier for our JavaScript class that will be registered with the telepath client-side code, and `'js/address-block.js'` is the file that defines it (as a path within any static file location recognized by Django). This implementation subclasses StructBlockDefinition and adds our custom code to the `render` method:

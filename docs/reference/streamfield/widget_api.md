@@ -6,10 +6,14 @@ For the StreamField editing interface to dynamically create form fields, any Dja
 
 This implementation can be driven by [Stimulus](extending_client_side_stimulus) or for deeper integrations you can leverage telepath.
 
-The [telepath](https://wagtail.github.io/telepath/) library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of `wagtail.widget_adapters.WidgetAdapter` and register it with `wagtail.telepath.register`.
+The [telepath](https://wagtail.github.io/telepath/) library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of `wagtail.widget_adapters.WidgetAdapter` and register it with `wagtail.admin.telepath.register`.
+
+```{versionchanged} 7.1
+The `register` function should now be imported from `wagtail.admin.telepath` rather than `wagtail.telepath`.
+```
 
 ```python
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
 class FancyInputAdapter(WidgetAdapter):

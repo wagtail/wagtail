@@ -32,6 +32,7 @@ from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
+from wagtail.admin.telepath import JSContext
 from wagtail.admin.ui import sidebar
 from wagtail.admin.ui.menus import MenuItem
 from wagtail.admin.utils import (
@@ -56,7 +57,6 @@ from wagtail.models import (
     Page,
     PageViewRestriction,
 )
-from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
 
 register = template.Library()

@@ -16,7 +16,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import JSContext
+from wagtail.admin.telepath import JSContext
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [

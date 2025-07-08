@@ -13,6 +13,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import Adapter, register
 from wagtail.compat import URLField
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import (
@@ -22,7 +23,6 @@ from wagtail.rich_text import (
     extract_references_from_rich_text,
     get_text_for_indexing,
 )
-from wagtail.telepath import Adapter, register
 
 from .base import Block
 

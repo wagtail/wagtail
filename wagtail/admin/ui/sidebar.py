@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, adapter
+from wagtail.admin.telepath import Adapter, adapter
 
 
 class BaseSidebarAdapter(Adapter):

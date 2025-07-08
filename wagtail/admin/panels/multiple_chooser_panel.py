@@ -1,6 +1,6 @@
 from django.core.exceptions import ImproperlyConfigured
 
-from wagtail.telepath import JSContext
+from wagtail.admin.telepath import JSContext
 
 from .inline_panel import InlinePanel
 
