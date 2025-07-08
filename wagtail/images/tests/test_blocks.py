@@ -5,10 +5,10 @@ from django.test import TestCase
 from django.utils.safestring import SafeString
 
 from wagtail.admin import compare
+from wagtail.admin.telepath import JSContext
 from wagtail.blocks.stream_block import StreamValue
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.images.blocks import ImageBlock, ImageChooserBlock
-from wagtail.telepath import JSContext
 from wagtail.test.testapp.models import StreamPage
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
 

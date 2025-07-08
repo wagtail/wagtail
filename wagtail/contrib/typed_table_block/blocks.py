@@ -6,6 +6,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import Adapter, register
 from wagtail.blocks.base import (
     Block,
     DeclarativeSubBlocksMetaclass,
@@ -13,7 +14,6 @@ from wagtail.blocks.base import (
     get_error_list_json_data,
     get_help_icon,
 )
-from wagtail.telepath import Adapter, register
 
 
 class TypedTableBlockValidationError(ValidationError):

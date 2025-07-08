@@ -8,9 +8,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import register
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
 from wagtail.admin.widgets.button import Button
-from wagtail.telepath import register
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 

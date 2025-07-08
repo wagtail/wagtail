@@ -7,8 +7,8 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import register
 from wagtail.rich_text import features as feature_registry
-from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
 
