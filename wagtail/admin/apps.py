@@ -14,3 +14,5 @@ class WagtailAdminAppConfig(AppConfig):
         from wagtail.admin.signal_handlers import register_signal_handlers
 
         register_signal_handlers()
+
+        from wagtail.admin.telepath import widgets  # noqa: F401
