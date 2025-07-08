@@ -720,9 +720,8 @@ class BlockWidget(forms.Widget):
     def media(self):
         return self.js_context.media + forms.Media(
             js=[
-                # these will almost certainly be
+                # this will almost certainly be
                 # pulled in by the block adapters too
-                versioned_static("wagtailadmin/js/telepath/telepath.js"),
                 versioned_static("wagtailadmin/js/telepath/blocks.js"),
             ],
             css={
