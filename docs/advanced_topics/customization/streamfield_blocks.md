@@ -26,18 +26,35 @@ You can then provide custom CSS for this block, targeted at the specified classn
 Wagtail's editor styling has some built-in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
 ```
 
+In addition, the `StructBlock`'s `Meta` class also accepts a `collapsed` attribute. When set to `None` (the default), the block is not collapsible. When set to `True` or `False`, the block is wrapped in a collapsible panel and initially displayed in a collapsed or expanded state in the editing interface, respectively. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently.
+
+```python
+class PersonBlock(blocks.StructBlock):
+    first_name = blocks.CharBlock()
+    surname = blocks.CharBlock()
+    photo = ImageChooserBlock(required=False)
+    biography = blocks.RichTextBlock()
+
+    class Meta:
+        icon = 'user'
+        collapsed = True  # This block will be initially collapsed
+```
+
 For more extensive customizations that require changes to the HTML markup as well, you can override the `form_template` attribute in `Meta` to specify your own template path. The following variables are available on this template:
 
-**`children`**  
+**`children`**\
 An `OrderedDict` of `BoundBlock`s for all of the child blocks making up this `StructBlock`.
 
-**`help_text`**  
+**`help_text`**\
 The help text for this block, if specified.
 
-**`classname`**
+**`classname`**\
 The class name passed as `form_classname` (defaults to `struct-block`).
 
-**`block_definition`**
+**`collapsed`**\
+The initial collapsible state of the block (defaults to `None`). Note that the collapsible panel wrapper is not automatically applied to the block's form template. You must write your own wrapper if you want the block to be collapsible.
+
+**`block_definition`**\
 The `StructBlock` instance that defines this block.
 
 **`prefix`**

@@ -111,6 +111,396 @@ exports[`telepath: wagtail.blocks.StructBlock setError shows non-block errors 1`
           </div></div>"
 `;
 
+exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially collapsed state 1`] = `
+"<div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-content" class="w-panel__content" hidden="">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-accent_color" id="the-prefix-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-font_size" id="the-prefix-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially collapsed state 2`] = `
+"<div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-content" class="w-panel__content">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-accent_color" id="the-prefix-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-font_size" id="the-prefix-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially expanded state 1`] = `
+"<div class="struct-block">
+        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="true">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-content" class="w-panel__content">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-accent_color" id="the-prefix-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-font_size" id="the-prefix-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with collapsible panel it renders correctly with initially expanded state 2`] = `
+"<div class="struct-block">
+        <section class="w-panel w-panel--nested" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-content" class="w-panel__content" hidden="">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-accent_color" id="the-prefix-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-font_size" id="the-prefix-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError passes error messages to children 1`] = `
+"<div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-content" class="w-panel__content" hidden="">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-accent_color" id="the-prefix-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select w-field--error" data-field="">
+          <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+          <p class="error-message">This is too big.</p></div>
+          <div class="w-field__help" id="the-prefix-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-font_size" id="the-prefix-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with collapsible panel setError shows non-block errors 1`] = `
+"<div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-section" aria-labelledby="the-prefix-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-section" aria-labelledby="the-prefix-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-heading" data-panel-toggle="" aria-controls="the-prefix-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-section" aria-labelledby="the-prefix-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-content" class="w-panel__content" hidden=""><p class="help-block help-critical">This is just generally wrong.</p>
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-accent_color" id="the-prefix-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-font_size" id="the-prefix-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>"
+`;
+
 exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders correctly 1`] = `
 "<div class="custom-form-template">
         <p>here comes the first field:</p>
@@ -138,4 +528,610 @@ exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders corre
         </div>
       </div>
       </div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly with initially collapsed state 1`] = `
+"<div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="settings">
+          
+            <div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-accent_color" id="the-prefix-settings-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-font_size" id="the-prefix-settings-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly with initially collapsed state 2`] = `
+"<div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="settings">
+          
+            <div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="true">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-settings-content" class="w-panel__content">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-accent_color" id="the-prefix-settings-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-font_size" id="the-prefix-settings-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly with initially expanded state 1`] = `
+"<div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="settings">
+          
+            <div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-accent_color" id="the-prefix-settings-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-font_size" id="the-prefix-settings-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel it renders correctly with initially expanded state 2`] = `
+"<div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="settings">
+          
+            <div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="true">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-settings-content" class="w-panel__content">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-accent_color" id="the-prefix-settings-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-font_size" id="the-prefix-settings-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setError passes error messages to children 1`] = `
+"<div class="struct-block">
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select w-field--error" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+          <p class="error-message">This is too big.</p></div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="settings">
+          
+            <div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-accent_color" id="the-prefix-settings-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-font_size" id="the-prefix-settings-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with nested collapsible panel setError shows non-block errors 1`] = `
+"<div class="struct-block"><p class="help-block help-critical">This is just generally wrong.</p>
+        
+          <div class="c-sf-help">
+            <div class="help">
+              use <strong>lots</strong> of these
+            </div>
+          </div>
+        <div data-contentpath="heading_text">
+          <label class="w-field__label" for="the-prefix-heading_text">Heading text<span class="w-required-mark">*</span></label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-heading_text-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-heading_text-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-heading_text" id="the-prefix-heading_text">Heading widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="size">
+          <label class="w-field__label" for="the-prefix-size">Size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-size" id="the-prefix-size">Size widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="settings">
+          
+            <div class="struct-block">
+        <section class="w-panel w-panel--nested collapsed" id="the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel="">
+          <div class="w-panel__header">
+            <a class="w-panel__anchor w-panel__anchor--prefix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading" data-panel-anchor="">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <button class="w-panel__toggle" type="button" aria-label="Toggle section" aria-describedby="the-prefix-settings-heading" data-panel-toggle="" aria-controls="the-prefix-settings-content" aria-expanded="false">
+              <svg class="icon icon-title w-panel__icon" aria-hidden="true">
+                <use href="#icon-title"></use>
+              </svg>
+            </button>
+            <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="the-prefix-settings-heading" data-panel-heading="">
+              <span data-panel-heading-text="" class="c-sf-block__title"></span>
+              <span class="c-sf-block__type">Settings block</span>
+              
+            </h2>
+            <a class="w-panel__anchor w-panel__anchor--suffix" href="#the-prefix-settings-section" aria-labelledby="the-prefix-settings-heading">
+              <svg class="icon icon-link w-panel__icon" aria-hidden="true">
+                <use href="#icon-link"></use>
+              </svg>
+            </a>
+            <div class="w-panel__divider"></div>
+            <div class="w-panel__controls" data-panel-controls=""></div>
+          </div>
+          <div id="the-prefix-settings-content" class="w-panel__content" hidden="">
+            
+          
+          <div class="c-sf-help">
+            <div class="help">
+              configure how the block is <strong>displayed</strong>
+            </div>
+          </div>
+        <div data-contentpath="accent_color">
+          <label class="w-field__label" for="the-prefix-settings-accent_color">Accent color</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--char_field w-field--text_input" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-accent_color-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-accent_color-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-accent_color" id="the-prefix-settings-accent_color">Accent color widget</p>
+          </div>
+        </div>
+      </div>
+          </div><div data-contentpath="font_size">
+          <label class="w-field__label" for="the-prefix-settings-font_size">Font size</label>
+            <div class="w-field__wrapper" data-field-wrapper="">
+        <div class="w-field w-field--choice_field w-field--select" data-field="">
+          <div class="w-field__errors" id="the-prefix-settings-font_size-errors" data-field-errors="">
+            <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true" hidden=""><use href="#icon-warning"></use></svg>
+          </div>
+          <div class="w-field__help" id="the-prefix-settings-font_size-helptext" data-field-help=""></div>
+          <div class="w-field__input" data-field-input="">
+            <p name="the-prefix-settings-font_size" id="the-prefix-settings-font_size">Font size widget</p>
+          </div>
+        </div>
+      </div>
+          </div></div>
+        </section></div>
+          </div></div>"
 `;

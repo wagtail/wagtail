@@ -6,6 +6,8 @@ import {
   addErrorMessages,
   removeErrorMessages,
 } from '../../../includes/streamFieldErrors';
+import { CollapsiblePanel } from './CollapsiblePanel';
+import { initCollapsiblePanel } from '../../../includes/panels';
 
 export class StructBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -34,11 +36,31 @@ export class StructBlock {
       });
       this.container = dom;
     } else {
-      const dom = $(`
+      let container = '';
+      // null or undefined means not collapsible
+      const collapsible = blockDef.meta.collapsed != null;
+      if (collapsible) {
+        container = new CollapsiblePanel({
+          panelId: prefix + '-section',
+          headingId: prefix + '-heading',
+          contentId: prefix + '-content',
+          blockTypeIcon: h(blockDef.meta.icon),
+          blockTypeLabel: h(blockDef.meta.label),
+          collapsed: blockDef.meta.collapsed,
+        }).render().outerHTML;
+      }
+
+      let dom = $(`
         <div class="${h(this.blockDef.meta.classname || '')}">
         </div>
       `);
+      dom.append(container);
       $(placeholder).replaceWith(dom);
+
+      if (collapsible) {
+        initCollapsiblePanel(dom.find('[data-panel-toggle]')[0]);
+        dom = dom.find(`#${prefix}-content`);
+      }
 
       if (this.blockDef.meta.helpText) {
         // help text is left unescaped as per Django conventions
@@ -52,13 +74,26 @@ export class StructBlock {
       }
 
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        const childDom = $(`
-        <div data-contentpath="${childBlockDef.name}">
-          <label class="w-field__label">${h(childBlockDef.meta.label)}${
+        const isCollapsibleStructBlock =
+          // Cannot use `instanceof StructBlockDefinition` here as it is defined
+          // later in this file. Compare our own blockDef constructor instead.
+          childBlockDef instanceof this.blockDef.constructor &&
+          childBlockDef.meta.collapsed != null;
+
+        // Collapsible struct blocks have their own header, so only add the label
+        // if this is not a collapsible struct block.
+        let label = '';
+        if (!isCollapsibleStructBlock) {
+          label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
             childBlockDef.meta.required
               ? '<span class="w-required-mark">*</span>'
               : ''
-          }</label>
+          }</label>`;
+        }
+
+        const childDom = $(`
+        <div data-contentpath="${childBlockDef.name}">
+          ${label}
             <div data-streamfield-block></div>
           </div>
         `);
