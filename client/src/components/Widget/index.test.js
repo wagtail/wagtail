@@ -55,6 +55,11 @@ describe('Widget', () => {
     ).toBeNull();
   });
 
+  test('getTextLabel() returns a truncated text label', () => {
+    expect(boundWidget.getTextLabel()).toBe('The Value');
+    expect(boundWidget.getTextLabel({ maxLength: 6 })).toBe('The V…');
+  });
+
   test('focus() focuses the text input', () => {
     boundWidget.focus();
     expect(document.activeElement).toBe(document.querySelector('input'));
@@ -110,6 +115,10 @@ describe('Widget with inline JS', () => {
       '<input type="text" name="the-name" maxlength="255" id="the-id" class="custom-class">',
     );
     expect(document.querySelector('input').value).toBe('The Value');
+
+    // boundWidget still acts on the input, despite it not being the top-level element
+    boundWidget.setState('New Value');
+    expect(document.querySelector('input').value).toBe('New Value');
   });
 });
 
@@ -213,7 +222,7 @@ describe('RadioSelect', () => {
     ).toBeNull();
   });
 
-  test('focus() focuses the text input', () => {
+  test('focus() focuses the first element', () => {
     boundWidget.focus();
 
     expect(document.activeElement).toBe(
