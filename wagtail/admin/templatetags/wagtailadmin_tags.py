@@ -15,8 +15,8 @@ from django.template.base import token_kwargs
 from django.template.defaultfilters import stringfilter
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
+from django.utils import timezone
 from django.utils.encoding import force_str
-from django.utils.format import get_format
 from django.utils.html import avoid_wrapping, json_script
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
@@ -1351,9 +1351,9 @@ def keyboard_shortcuts_dialog(context):
 @register.inclusion_tag("wagtailadmin/shared/human_readable_date.html")
 def human_readable_date(date, description=None, placement="top"):
     if isinstance(date, datetime.datetime):
-        tooltip_format = get_format("DATETIME_FORMAT") or "N j, Y, P"
+        tooltip_format = getattr(settings, "DATETIME_FORMAT", "N j, Y, P")
     elif isinstance(date, datetime.date):
-        tooltip_format = get_format("DATE_FORMAT") or "N j, Y"
+        tooltip_format = getattr(settings, "DATE_FORMAT", "N j, Y")
     return {
         "date": date,
         "description": description,
