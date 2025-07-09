@@ -514,7 +514,7 @@ table.listing {
     @include unlist();
     display: flex;
     flex-wrap: wrap;
-    flex-grow: 2;
+    flex-grow: 1;
     justify-content: center;
   }
 
