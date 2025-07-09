@@ -2,14 +2,7 @@ import { setAttrs } from '../../utils/attrs';
 import { runInlineScripts } from '../../utils/runInlineScripts';
 
 export class BoundWidget {
-  constructor(
-    elementOrNodeList,
-    name,
-    idForLabel,
-    initialState,
-    parentCapabilities,
-    options,
-  ) {
+  constructor(elementOrNodeList, name, idForLabel, parentCapabilities) {
     // if elementOrNodeList not iterable, it must be a single element
     const nodeList = elementOrNodeList.forEach
       ? elementOrNodeList
@@ -36,9 +29,7 @@ export class BoundWidget {
     }
 
     this.idForLabel = idForLabel;
-    this.setState(initialState);
     this.parentCapabilities = parentCapabilities || new Map();
-    this.options = options;
   }
 
   getValue() {
@@ -122,14 +113,14 @@ export class Widget {
     }
 
     // eslint-disable-next-line new-cap
-    return new this.boundWidgetClass(
+    const boundWidget = new this.boundWidgetClass(
       childElements.length === 1 ? childElements[0] : childNodes,
       name,
       idForLabel,
-      initialState,
       parentCapabilities,
-      options,
     );
+    boundWidget.setState(initialState);
+    return boundWidget;
   }
 }
 
@@ -152,7 +143,7 @@ export class CheckboxInput extends Widget {
 }
 
 export class BoundRadioSelect {
-  constructor(element, name, idForLabel, initialState) {
+  constructor(element, name, idForLabel) {
     this.element = element;
     this.name = name;
     this.idForLabel = idForLabel;
@@ -160,7 +151,6 @@ export class BoundRadioSelect {
       `input[name="${name}"][type="checkbox"]`,
     );
     this.selector = `input[name="${name}"]:checked`;
-    this.setState(initialState);
   }
 
   getValue() {
