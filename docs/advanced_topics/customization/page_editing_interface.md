@@ -159,6 +159,54 @@ To unregister, call `unregister_image_format` with the string of the `name` of t
 Unregistering ``Format`` objects will cause errors when viewing or editing pages that reference them.
 ```
 
+(date_field_validation)=
+
+## Date field validation
+
+The `NoFutureDateValidator` prevents users from entering dates in the future. This is particularly useful for fields that should only contain past or present dates, such as:
+
+- Birth dates
+- Historical event dates  
+- Publication dates for content that has already been published
+- Completion dates for finished projects
+
+```python
+from django.db import models
+from wagtail.fields import NoFutureDateValidator
+from wagtail.admin.panels import FieldPanel
+from wagtail.models import Page
+
+
+class EventPage(Page):
+    event_date = models.DateField(
+        validators=[NoFutureDateValidator()],
+        help_text="The date when this event occurred"
+    )
+    birth_date = models.DateField(
+        validators=[NoFutureDateValidator("Birth date cannot be in the future.")],
+        help_text="Person's date of birth"
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('event_date'),
+        FieldPanel('birth_date'),
+    ]
+```
+
+The validator also accepts an optional custom error message:
+
+```python
+# Using default message: "Date cannot be in the future."
+event_date = models.DateField(validators=[NoFutureDateValidator()])
+
+# Using custom message
+birth_date = models.DateField(
+    validators=[NoFutureDateValidator("Please enter a valid birth date.")]
+)
+```
+
+The validator will raise a validation error if the entered date is after today's date.
+
 (custom_edit_handler_forms)=
 
 ## Customizing generated forms

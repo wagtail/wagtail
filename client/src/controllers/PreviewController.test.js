@@ -1,6 +1,20 @@
 import { Application } from '@hotwired/stimulus';
+import axe from 'axe-core';
 import { ProgressController } from './ProgressController';
 import { PreviewController } from './PreviewController';
+import { wagtailPreviewPlugin } from '../includes/previewPlugin';
+
+jest.mock('axe-core', () => {
+  const originalAxe = jest.requireActual('axe-core');
+  return {
+    ...originalAxe,
+    run: jest.fn(),
+    utils: {
+      ...originalAxe.utils,
+      sendCommandToFrame: jest.fn(),
+    },
+  };
+});
 
 jest.useFakeTimers();
 jest.spyOn(global, 'setTimeout');
@@ -9,6 +23,10 @@ describe('PreviewController', () => {
   let application;
   let windowSpy;
   let mockScroll;
+  let mockOldIframeLocation;
+  let mockNewIframeLocation;
+  let mockA11yResults;
+  let mockExtractedContent;
 
   const identifier = 'w-preview';
 
@@ -18,6 +36,7 @@ describe('PreviewController', () => {
     error: [],
     load: [],
     loaded: [],
+    content: [],
     ready: [],
     updated: [],
   };
@@ -45,6 +64,15 @@ describe('PreviewController', () => {
   });
 
   global.ResizeObserver = ResizeObserverMock;
+
+  function mockAxeResults() {
+    axe.run.mockResolvedValueOnce(mockA11yResults);
+    axe.utils.sendCommandToFrame.mockImplementationOnce(
+      (frame, options, callback) => {
+        callback(mockExtractedContent);
+      },
+    );
+  }
 
   const url = '/admin/pages/1/edit/preview/';
   const spinner = /* html */ `
@@ -91,6 +119,49 @@ describe('PreviewController', () => {
     </select>
   `;
 
+  const axeConfig = {
+    context: { include: ['main'] },
+    options: {},
+    messages: {
+      'heading-order': {
+        error_name: 'Incorrect heading hierarchy',
+        help_text: 'Avoid skipping levels',
+      },
+    },
+    spec: {},
+  };
+
+  const checksSidePanel = /* html */ `
+    <button type="button" data-side-panel-toggle="checks">
+      <div data-side-panel-toggle-counter></div>
+    </button>
+    <div data-side-panel="checks">
+      <h2 id="side-panel-checks-title">Checks</h2>
+      <template id="w-a11y-result-row-template">
+        <div data-a11y-result-row>
+          <h3>
+            <span data-a11y-result-name></span>
+          </h3>
+          <div data-a11y-result-help></div>
+          <button
+            data-a11y-result-selector
+            type="button"
+            aria-label="Show issue"
+          >
+            <span data-a11y-result-selector-text></span>
+          </button>
+        </div>
+      </template>
+      <h3>Word count: <span data-content-word-count>-</span></h3>
+      <h3>Reading time: <span data-content-reading-time>-</span></h3>
+      <h3>Issues found: <span data-a11y-result-count>-</span></h3>
+      <div data-checks-panel></div>
+    </div>
+    <script type="application/json" id="accessibility-axe-configuration">
+      ${JSON.stringify(axeConfig)}
+    </script>
+  `;
+
   beforeAll(() => {
     Object.keys(events).forEach((name) => {
       document.addEventListener(`${identifier}:${name}`, pushEvent);
@@ -106,14 +177,13 @@ describe('PreviewController', () => {
   beforeEach(() => {
     windowSpy = jest.spyOn(global, 'window', 'get');
     mockScroll = jest.fn();
+    mockOldIframeLocation = null;
+    mockNewIframeLocation = null;
 
     document.body.innerHTML = /* html */ `
       <form method="POST" data-edit-form>
         <input type="text" id="id_title" name="title" value="My Page" />
       </form>
-      <div data-side-panel="checks">
-        <h2 id="side-panel-checks-title">Checks</h2>
-      </div>
       <div data-side-panel="preview">
         <h2 id="side-panel-preview-title">Preview</h2>
         <div
@@ -199,6 +269,7 @@ describe('PreviewController', () => {
 
   const expectIframeReloaded = async (
     expectedUrl = `http://localhost${url}?in_preview_panel=true`,
+    onLoad = jest.fn(),
   ) => {
     // Should create a new invisible iframe with the correct URL
     let iframes = document.querySelectorAll('iframe');
@@ -206,6 +277,7 @@ describe('PreviewController', () => {
     const oldIframe = iframes[0];
     const newIframe = iframes[1];
     const oldIframeId = oldIframe.id;
+    const initial = !oldIframe.src;
     expect(oldIframeId).toBeTruthy();
     expect(newIframe.hasAttribute('id')).toBe(false);
     expect(newIframe.src).toEqual(expectedUrl);
@@ -215,22 +287,39 @@ describe('PreviewController', () => {
     oldIframe.contentWindow.scrollX = 200;
     oldIframe.contentWindow.scrollY = 100;
 
+    // Apply location mocks to allow testing cross-origin iframes
+    if (mockOldIframeLocation) {
+      delete oldIframe.contentWindow.location;
+      oldIframe.contentWindow.location = mockOldIframeLocation;
+    }
+    if (mockNewIframeLocation) {
+      delete newIframe.contentWindow.location;
+      newIframe.contentWindow.location = mockNewIframeLocation;
+    }
+
     // Simulate the iframe loading
     newIframe.contentWindow.scroll = mockScroll;
     await Promise.resolve();
     newIframe.dispatchEvent(new Event('load'));
-    expect(mockScroll).toHaveBeenCalled();
+    await Promise.resolve();
+    await Promise.resolve();
+    await onLoad(newIframe);
     iframes = document.querySelectorAll('iframe');
     expect(iframes.length).toEqual(1);
     expect(iframes[0]).toBe(newIframe);
     expect(newIframe.id).toEqual(oldIframeId);
     expect(newIframe.src).toEqual(expectedUrl);
     expect(newIframe.getAttribute('style')).toBeNull();
-    expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-      top: oldIframe.contentWindow.scrollY,
-      left: oldIframe.contentWindow.scrollX,
-      behavior: 'instant',
-    });
+    if (!initial && !mockOldIframeLocation && !mockNewIframeLocation) {
+      expect(mockScroll).toHaveBeenCalled();
+      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: oldIframe.contentWindow.scrollY,
+        left: oldIframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
+    } else {
+      expect(mockScroll).not.toHaveBeenCalled();
+    }
 
     // Clear the fetch call history
     fetch.mockClear();
@@ -244,6 +333,7 @@ describe('PreviewController', () => {
       error: [],
       load: [],
       loaded: [],
+      content: [],
       ready: [],
       updated: [],
     });
@@ -286,12 +376,17 @@ describe('PreviewController', () => {
     await Promise.resolve();
 
     await expectIframeReloaded(expectedUrl);
+
+    // If content checks are enabled, there are a few more promises to resolve
+    await jest.runOnlyPendingTimersAsync();
+
     expect(events).toMatchObject({
       update: [expect.any(Event)],
       json: [expect.any(Event)],
       error: [],
       load: [expect.any(Event)],
       loaded: [expect.any(Event)],
+      content: mockExtractedContent ? [expect.any(Event)] : [],
       ready: [expect.any(Event)],
       updated: [expect.any(Event)],
     });
@@ -355,6 +450,35 @@ describe('PreviewController', () => {
       );
       expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
         '1280',
+      );
+    });
+
+    it('should have a fallback width if the input is missing the data attribute', async () => {
+      application = Application.start();
+      application.register(identifier, PreviewController);
+
+      const element = document.querySelector('[data-controller="w-preview"]');
+      await Promise.resolve();
+
+      const tabletSizeInput = document.querySelector(
+        'input[name="preview-size"][value="tablet"]',
+      );
+      tabletSizeInput.removeAttribute('data-device-width');
+      tabletSizeInput.click();
+      await Promise.resolve();
+      const newSizeInput = document.querySelector(
+        'input[name="preview-size"]:checked',
+      );
+      expect(newSizeInput.value).toEqual('tablet');
+      const newSizeLabel = newSizeInput.labels[0];
+      expect(
+        newSizeLabel.classList.contains('w-preview__size-button--selected'),
+      ).toBe(true);
+      expect(localStorage.getItem('wagtail:preview-panel-device')).toEqual(
+        'tablet',
+      );
+      expect(element.style.getPropertyValue('--preview-device-width')).toEqual(
+        PreviewController.fallbackWidth, // 375px
       );
     });
 
@@ -432,9 +556,6 @@ describe('PreviewController', () => {
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.classList.contains('w-preview__proxy')).toBe(true);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       await Promise.resolve();
       expect(events.loaded).toHaveLength(0);
       expect(events.ready).toHaveLength(0);
@@ -449,11 +570,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
 
       // Should set the device width property to the selected size (the default)
       const element = document.querySelector('[data-controller="w-preview"]');
@@ -470,6 +586,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -554,9 +671,6 @@ describe('PreviewController', () => {
       expect(newIframe.classList.contains('w-preview__proxy')).toBe(true);
       expect(events.ready).toHaveLength(0);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       await Promise.resolve();
       expect(events.loaded).toHaveLength(0);
       expect(events.ready).toHaveLength(0);
@@ -571,11 +685,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
 
       // Should set the has-errors class on the controlled element
       expect(element.classList).toContain('w-preview--has-errors');
@@ -619,6 +728,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -706,9 +816,6 @@ describe('PreviewController', () => {
       expect(newIframe.classList.contains('w-preview__proxy')).toBe(true);
       expect(events.ready).toHaveLength(0);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       await Promise.resolve();
       expect(events.loaded).toHaveLength(0);
       expect(events.ready).toHaveLength(0);
@@ -723,11 +830,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
 
       // Should set the has-errors class on the controlled element
       expect(element.classList).toContain('w-preview--has-errors');
@@ -770,6 +872,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -801,6 +904,45 @@ describe('PreviewController', () => {
       // the preview mode
       const absoluteUrl = `http://localhost${url}`;
       expect(window.open).toHaveBeenCalledWith(absoluteUrl, absoluteUrl);
+    });
+
+    it('should not fire an update request when there is a pending update', async () => {
+      await initializeOpenedPanel();
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+
+      // Open the preview in a new tab
+      const newTabLink = document.querySelector(
+        '[data-w-preview-target="newTab"]',
+      );
+      newTabLink.click();
+
+      // Should send the preview data to the preview URL
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+
+      // Click the link again multiple times
+      newTabLink.click();
+      newTabLink.click();
+
+      mockWindow({ open: jest.fn() });
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
+
+      // Should not send another request to the preview URL
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      // Should call window.open() with the correct URL, and the base URL should
+      // be used as the second argument to ensure the same tab is reused if it's
+      // already open even when the URL is different, e.g. when the user changes
+      // the preview mode
+      const absoluteUrl = `http://localhost${url}`;
+      expect(window.open).toHaveBeenCalledTimes(3);
+      expect(window.open).toHaveBeenNthCalledWith(1, absoluteUrl, absoluteUrl);
+      expect(window.open).toHaveBeenNthCalledWith(2, absoluteUrl, absoluteUrl);
+      expect(window.open).toHaveBeenNthCalledWith(3, absoluteUrl, absoluteUrl);
     });
 
     it('should show an alert if the update request fails when opening in a new tab', async () => {
@@ -842,6 +984,7 @@ describe('PreviewController', () => {
         ],
         load: [expect.any(Event)], // Initial
         loaded: [expect.any(Event)], // Initial
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)], // Initial, error
       });
@@ -911,9 +1054,6 @@ describe('PreviewController', () => {
       // The spinner should still be visible while the iframe is loading
       expect(spinnerElement.hidden).toBe(false);
 
-      // Mock the iframe's scroll method
-      newIframe.contentWindow.scroll = jest.fn();
-
       // Simulate the iframe loading
       await Promise.resolve();
       newIframe.dispatchEvent(new Event('load'));
@@ -924,11 +1064,6 @@ describe('PreviewController', () => {
       expect(iframes[0]).toBe(newIframe);
       expect(newIframe.src).toEqual(expectedUrl);
       expect(newIframe.getAttribute('style')).toBeNull();
-      expect(newIframe.contentWindow.scroll).toHaveBeenCalledWith({
-        top: oldIframe.contentWindow.scrollY,
-        left: oldIframe.contentWindow.scrollX,
-        behavior: 'instant',
-      });
       // The spinner should be hidden after the iframe loads
       expect(spinnerElement.hidden).toBe(true);
 
@@ -1039,7 +1174,13 @@ describe('PreviewController', () => {
       await Promise.resolve();
       iframe.contentWindow.scroll = jest.fn();
       iframe.dispatchEvent(new Event('load'));
-      await Promise.resolve();
+      await jest.runOnlyPendingTimersAsync();
+
+      expect(iframe.contentWindow.scroll).toHaveBeenCalledWith({
+        top: iframe.contentWindow.scrollY,
+        left: iframe.contentWindow.scrollX,
+        behavior: 'instant',
+      });
 
       // Should dispatch the loaded event
       expect(events.loaded).toHaveLength(2);
@@ -1171,6 +1312,138 @@ describe('PreviewController', () => {
         // Initial, valid (the invalid form submission does not reload the iframe)
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
+        ready: [expect.any(Event)],
+        // Initial, invalid, valid
+        updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
+      });
+    });
+
+    it('should respect changes to the interval value', async () => {
+      expect(events.ready).toHaveLength(0);
+      const element = document.querySelector('[data-controller="w-preview"]');
+      element.setAttribute('data-w-preview-auto-update-interval-value', '500');
+      await initializeOpenedPanel();
+
+      // If there are no changes, should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(events.update).toHaveLength(1); // Only contains the initial fetch
+
+      // Simulate an invalid form submission
+      const input = document.querySelector('input[name="title"');
+      input.value = '';
+      fetch.mockResponseSuccessJSON(invalidAvailableResponse);
+
+      // After 1s (500ms for check interval, 500ms for request debounce),
+      // should send the preview data to the preview URL
+      await jest.advanceTimersByTime(1000);
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(events.update).toHaveLength(2);
+
+      // Should not yet have the has-errors class on the controlled element
+      expect(element.classList).not.toContain('w-preview--has-errors');
+
+      // Simulate the request completing
+      await Promise.resolve();
+      expect(events.json).toHaveLength(2);
+
+      // Should set the has-errors class on the controlled element
+      expect(element.classList).toContain('w-preview--has-errors');
+
+      // Should not create a new iframe for reloading the preview
+      const iframes = document.querySelectorAll('iframe');
+      expect(iframes.length).toEqual(1);
+      // Should not dispatch a load event (only the initial load event exists)
+      expect(events.load).toHaveLength(1);
+
+      fetch.mockClear();
+
+      // If there are no changes, should not send any request to update the preview
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // Update the auto update interval to 1000ms
+      element.setAttribute('data-w-preview-auto-update-interval-value', '1000');
+      await Promise.resolve();
+
+      // Simulate a change in the form
+      input.value = 'New title';
+
+      // After 1400ms, the check interval should be triggered but the request
+      // should not be fired yet to wait for the debounce
+      await jest.advanceTimersByTime(1400);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // Simulate another change (that is valid) in the form
+      input.value = 'New title version two';
+
+      // After 1200ms (>2s since the first change), the request should still not
+      // be sent due to the debounce
+      await jest.advanceTimersByTime(1200);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      // If we wait another 900ms, the request should be sent as it has been
+      // >2s since the last change
+      fetch.mockResponseSuccessJSON(validAvailableResponse);
+      await jest.advanceTimersByTime(900);
+      expect(global.fetch).toHaveBeenCalledWith(url, {
+        body: expect.any(Object),
+        method: 'POST',
+      });
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(events.update).toHaveLength(3);
+
+      // Simulate the request completing
+      expect(events.json).toHaveLength(2);
+      expect(events.load).toHaveLength(1);
+      await Promise.resolve();
+      expect(events.json).toHaveLength(3);
+      expect(events.load).toHaveLength(2);
+
+      // Should no longer have the has-errors class on the controlled element
+      expect(element.classList).not.toContain('w-preview--has-errors');
+
+      // Expect the iframe to be reloaded
+      expect(events.loaded).toHaveLength(1);
+      await expectIframeReloaded();
+      expect(events.loaded).toHaveLength(2);
+
+      // Close the side panel
+      const sidePanelContainer = document.querySelector(
+        '[data-side-panel="preview"]',
+      );
+      sidePanelContainer.dispatchEvent(new Event('hide'));
+      await Promise.resolve();
+
+      // Any further changes should not trigger the auto update
+      input.value = 'Changes should be ignored';
+      await jest.advanceTimersByTime(10000);
+      expect(global.fetch).not.toHaveBeenCalled();
+
+      expect(events).toMatchObject({
+        // Initial, invalid, valid
+        update: [expect.any(Event), expect.any(Event), expect.any(Event)],
+        json: [
+          expect.objectContaining({
+            detail: { data: { is_valid: true, is_available: true } },
+          }),
+          expect.objectContaining({
+            detail: { data: { is_valid: false, is_available: true } },
+          }),
+          expect.objectContaining({
+            detail: { data: { is_valid: true, is_available: true } },
+          }),
+        ],
+        error: [],
+        // Initial, valid (the invalid form submission does not reload the iframe)
+        load: [expect.any(Event), expect.any(Event)],
+        loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         // Initial, invalid, valid
         updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
@@ -1376,24 +1649,225 @@ describe('PreviewController', () => {
       );
     });
 
-    it('should allow the iframe to be cross-domain', async () => {
-      const element = document.querySelector('[data-controller="w-preview"]');
-      element.setAttribute(
-        'data-w-preview-render-url-value',
-        'https://headless.site/$preview/foo/7/',
-      );
+    describe('cross-domain iframe behavior', () => {
+      let oldIframe;
+      let spies;
+      // Mock a SecurityError that is raised when accessing
+      // iframe.contentWindow.location.origin on a cross-origin frame.
+      const crossOriginLocation = {
+        get origin() {
+          throw new Error(
+            'SecurityError: Cannot access properties of a cross-origin frame.',
+          );
+        },
+      };
 
-      // Mock a SecurityError that is raised when calling
-      // iframe.contentWindow.scroll() on a cross-origin frame.
-      mockScroll = jest.fn(() => {
-        throw new Error(
-          'SecurityError: Cannot access properties of a cross-origin frame.',
+      beforeEach(async () => {
+        // Initialize the preview panel normally
+        const element = document.querySelector('[data-controller="w-preview"]');
+        element.setAttribute(
+          'data-w-preview-auto-update-interval-value',
+          '200',
+        );
+        element.setAttribute(
+          'data-w-preview-render-url-value',
+          'https://headless.site/$preview/foo/7/',
+        );
+
+        await initializeOpenedPanel(
+          `https://headless.site/$preview/foo/7/?in_preview_panel=true`,
+        );
+        global.fetch.mockClear();
+      });
+
+      const setup = async (locationMocks) => {
+        mockOldIframeLocation = locationMocks.oldIframe;
+        mockNewIframeLocation = locationMocks.newIframe;
+
+        oldIframe = document.querySelector('iframe');
+
+        fetch.mockResponseSuccessJSON(validAvailableResponse);
+        const input = document.querySelector('input[name="title"');
+        input.value = 'Changed title';
+
+        // Trigger auto update check
+        await jest.runOnlyPendingTimersAsync();
+        // Wait for debounce
+        await jest.runOnlyPendingTimersAsync();
+
+        // Should send the preview data to the backend URL
+        expect(global.fetch).toHaveBeenCalledWith(url, {
+          body: expect.any(Object),
+          method: 'POST',
+        });
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+
+        spies = [
+          jest.spyOn(window, 'addEventListener'),
+          jest.spyOn(window, 'removeEventListener'),
+          jest.spyOn(oldIframe.contentWindow, 'postMessage'),
+        ];
+      };
+
+      afterEach(() => {
+        spies.forEach((spy) => spy.mockRestore());
+      });
+
+      it('should use postMessage to restore the scroll position on the new iframe', async () => {
+        // Set up both old and new iframe locations to be cross-origin
+        await setup({
+          oldIframe: crossOriginLocation,
+          newIframe: crossOriginLocation,
+        });
+
+        await expectIframeReloaded(
+          'https://headless.site/$preview/foo/7/?in_preview_panel=true',
+          async (newIframe) => {
+            expect(window.addEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+
+            jest.spyOn(newIframe.contentWindow, 'postMessage');
+
+            // Unrelated Wagtail message to the parent window should not trigger
+            // any postMessage calls to any of the iframes
+            window.postMessage(
+              { wagtail: { type: 'w-other:unrelated' } },
+              'http://localhost',
+            );
+            await jest.advanceTimersToNextTimerAsync();
+            expect(oldIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+            expect(newIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+
+            // Simulate the newIframe sending a request to the parent window for
+            // the scroll position of the oldIframe
+            window.postMessage(
+              {
+                wagtail: {
+                  type: 'w-preview:request-scroll',
+                  origin: 'https://headless.site',
+                },
+              },
+              'http://localhost',
+            );
+            await jest.advanceTimersToNextTimerAsync();
+
+            // Should call postMessage on the oldIframe to get its scroll position
+            expect(oldIframe.contentWindow.postMessage).toHaveBeenCalledWith(
+              {
+                wagtail: { type: 'w-preview:get-scroll-position' },
+              },
+              'https://headless.site',
+            );
+
+            const message = {
+              type: 'w-preview:set-scroll-position',
+              x: 123,
+              y: 456,
+              origin: 'https://headless.site',
+            };
+
+            // Should not clean up the event listener yet as we're still waiting
+            // for the scroll restoration communication to complete
+            expect(window.removeEventListener).not.toHaveBeenCalled();
+
+            // Simulate the oldIframe sending its scroll position to the parent window
+            window.postMessage({ wagtail: message }, 'http://localhost');
+            await jest.advanceTimersToNextTimerAsync();
+
+            // Should call postMessage on the newIframe to set its scroll position
+            expect(newIframe.contentWindow.postMessage).toHaveBeenCalledWith(
+              { wagtail: message },
+              'https://headless.site',
+            );
+
+            // Should clean up the event listener as the scroll restoration
+            // communication has completed successfully
+            expect(window.removeEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+          },
         );
       });
 
-      await initializeOpenedPanel(
-        `https://headless.site/$preview/foo/7/?in_preview_panel=true`,
-      );
+      it('should have a timeout for the scroll restoration communication', async () => {
+        // Set up both old and new iframe locations to be cross-origin
+        await setup({
+          oldIframe: crossOriginLocation,
+          newIframe: crossOriginLocation,
+        });
+
+        await expectIframeReloaded(
+          'https://headless.site/$preview/foo/7/?in_preview_panel=true',
+          async (newIframe) => {
+            expect(window.addEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+
+            jest.spyOn(newIframe.contentWindow, 'postMessage');
+
+            // Unrelated message (not from Wagtail) to the parent window should
+            // not trigger any postMessage calls to any of the iframes
+            window.postMessage(
+              { someExtension: { says: 'hello' } },
+              'http://localhost',
+            );
+            await jest.advanceTimersToNextTimerAsync();
+            expect(oldIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+            expect(newIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+
+            // Should not clean up the event listener yet as we're still waiting
+            // for the scroll restoration communication to complete
+            expect(window.removeEventListener).not.toHaveBeenCalled();
+
+            // After the timeout has passed, the scroll restoration
+            // communication should be considered failed and no postMessage
+            // should be sent to the newIframe, but the rest of the iframe
+            // reload process should continue
+            await jest.advanceTimersByTimeAsync(
+              PreviewController.scrollRestoreTimeout,
+            );
+            expect(oldIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+            expect(newIframe.contentWindow.postMessage).not.toHaveBeenCalled();
+
+            // Should clean up the event listener as the scroll restoration
+            // communication has timed out
+            expect(window.removeEventListener).toHaveBeenCalledWith(
+              'message',
+              expect.any(Function),
+            );
+          },
+        );
+      });
+
+      it('should skip scroll restoration if only the old iframe is cross-origin', async () => {
+        // Set up only the old iframe location to be cross-origin
+        await setup({ oldIframe: crossOriginLocation });
+
+        await expectIframeReloaded(
+          'https://headless.site/$preview/foo/7/?in_preview_panel=true',
+          async (newIframe) => {
+            expect(window.addEventListener).not.toHaveBeenCalled();
+            expect(mockScroll).not.toHaveBeenCalled();
+          },
+        );
+      });
+
+      it('should skip scroll restoration if only the new iframe is cross-origin', async () => {
+        // Set up only the new iframe location to be cross-origin
+        await setup({ newIframe: crossOriginLocation });
+
+        await expectIframeReloaded(
+          'https://headless.site/$preview/foo/7/?in_preview_panel=true',
+          async (newIframe) => {
+            expect(window.addEventListener).not.toHaveBeenCalled();
+            expect(mockScroll).not.toHaveBeenCalled();
+          },
+        );
+      });
     });
   });
 
@@ -1442,6 +1916,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -1463,6 +1938,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event)],
       });
@@ -1478,6 +1954,7 @@ describe('PreviewController', () => {
         error: [],
         load: [expect.any(Event), expect.any(Event)],
         loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)],
       });
@@ -1515,6 +1992,7 @@ describe('PreviewController', () => {
           expect.objectContaining({ defaultPrevented: true }),
         ],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)],
       });
@@ -1542,6 +2020,7 @@ describe('PreviewController', () => {
           expect.objectContaining({ defaultPrevented: false }),
         ],
         loaded: [expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event)],
       });
@@ -1557,8 +2036,436 @@ describe('PreviewController', () => {
           expect.objectContaining({ defaultPrevented: false }),
         ],
         loaded: [expect.any(Event), expect.any(Event)],
+        content: [],
         ready: [expect.any(Event)],
         updated: [expect.any(Event), expect.any(Event), expect.any(Event)],
+      });
+    });
+  });
+
+  describe('content checks', () => {
+    const mockViolations = [
+      {
+        id: 'landmark-complementary-is-top-level',
+        impact: 'moderate',
+        tags: ['cat.semantics', 'best-practice'],
+        description:
+          'Ensure the complementary landmark or aside is at top level',
+        help: 'Aside should not be contained in another landmark',
+        helpUrl:
+          'https://dequeuniversity.com/rules/axe/4.10/landmark-complementary-is-top-level?application=axeAPI',
+        nodes: [
+          {
+            any: [
+              {
+                id: 'landmark-is-top-level',
+                data: {
+                  role: null,
+                },
+                relatedNodes: [],
+                impact: 'moderate',
+                message: 'The null landmark is contained in another landmark.',
+              },
+            ],
+            all: [],
+            none: [],
+            impact: 'moderate',
+            html: '<aside><div><div><h4>Origin</h4><p>United States (New England)</p></div><div><h4>Type</h4><p>Yeast bread</p></div></div></aside>',
+            target: ['#w-preview-iframe', 'aside'],
+            failureSummary:
+              'Fix any of the following:\n  The null landmark is contained in another landmark.',
+          },
+        ],
+      },
+      {
+        id: 'heading-order',
+        impact: 'moderate',
+        tags: ['cat.semantics', 'best-practice'],
+        description: 'Ensure the order of headings is semantically correct',
+        help: 'Heading levels should only increase by one',
+        helpUrl:
+          'https://dequeuniversity.com/rules/axe/4.10/heading-order?application=axeAPI',
+        nodes: [
+          {
+            any: [
+              {
+                id: 'heading-order',
+                data: null,
+                relatedNodes: [],
+                impact: 'moderate',
+                message: 'Heading order invalid',
+              },
+            ],
+            all: [],
+            none: [],
+            impact: 'moderate',
+            html: '<h4>Origin</h4>',
+            target: ['#w-preview-iframe', 'div:nth-child(1) > h4'],
+            failureSummary:
+              'Fix any of the following:\n  Heading order invalid',
+          },
+        ],
+      },
+    ];
+
+    beforeEach(() => {
+      // We log accessibility violations to the console as errors,
+      // mock it to avoid cluttering the test output.
+      jest.spyOn(console, 'error').mockImplementation(() => {});
+      document.body.insertAdjacentHTML('beforeend', checksSidePanel);
+
+      const mockText = 'Hello world 123'.repeat(100);
+      mockA11yResults = { violations: [] };
+      mockExtractedContent = {
+        lang: 'en',
+        innerText: mockText,
+        innerHTML: `<p>${mockText}</p>`,
+      };
+    });
+
+    afterEach(() => {
+      // eslint-disable-next-line no-console
+      console.error.mockRestore();
+      // Ensure disconnect() is called before the next test so that the window's
+      // event listeners are removed
+      document.body.innerHTML = '';
+    });
+
+    it('should run content checks on the preview and render the results', async () => {
+      mockA11yResults = { violations: mockViolations };
+      mockAxeResults();
+
+      await initializeOpenedPanel();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        'axe.run results',
+        mockViolations,
+      );
+
+      await Promise.resolve();
+
+      const toggleCounter = document.querySelector(
+        '[data-side-panel-toggle-counter]',
+      );
+      expect(toggleCounter.textContent.trim()).toEqual('2');
+
+      const wordCount = document.querySelector('[data-content-word-count]');
+      expect(wordCount.textContent.trim()).toEqual('201');
+
+      const readingTime = document.querySelector('[data-content-reading-time]');
+      expect(readingTime.textContent.trim()).toEqual('1 min');
+
+      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      expect(panelCounter.textContent.trim()).toEqual('2');
+
+      const checksPanel = document.querySelector('[data-checks-panel]');
+      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+
+      // Should dispatch the content event with the extracted content and metrics
+      expect(events.content).toHaveLength(1);
+      expect(events.content[0].detail).toEqual({
+        content: mockExtractedContent,
+        metrics: { wordCount: 201, readingTime: 1 },
+      });
+
+      // Note: The sorting algorithm does not work on the preview panel because
+      // the logic does not access the iframe's DOM to compare the nodes, so it
+      // ends up comparing the iframe itself, thus
+      expect(resultRows.length).toEqual(2);
+
+      // Should allow custom error message and help text from the config instead
+      // of Axe's defaults
+      expect(
+        resultRows[0]
+          .querySelector('[data-a11y-result-name]')
+          .textContent.trim(),
+      ).toEqual('Incorrect heading hierarchy');
+      expect(
+        resultRows[0]
+          .querySelector('[data-a11y-result-help]')
+          .textContent.trim(),
+      ).toEqual('Avoid skipping levels');
+      // Should strip out the #w-preview-iframe selector
+      expect(
+        resultRows[0]
+          .querySelector('[data-a11y-result-selector]')
+          .textContent.trim(),
+      ).toEqual('div:nth-child(1) > h4');
+
+      // Should use Axe's error message and help text
+      expect(
+        resultRows[1]
+          .querySelector('[data-a11y-result-name]')
+          .textContent.trim(),
+      ).toEqual('Aside should not be contained in another landmark');
+      expect(
+        resultRows[1]
+          .querySelector('[data-a11y-result-help]')
+          .textContent.trim(),
+      ).toEqual('Ensure the complementary landmark or aside is at top level');
+      // Should strip out the #w-preview-iframe selector
+      const selector = resultRows[1].querySelector(
+        '[data-a11y-result-selector]',
+      );
+      expect(selector.textContent.trim()).toEqual('aside');
+
+      mockWindow({ open: jest.fn() });
+
+      // Click the selector link to open the result in a new tab
+      selector.click();
+
+      // Run all timers and promises
+      await jest.runAllTimersAsync();
+
+      // Should open the result in a new tab with the correct URL
+      const absoluteUrl = `http://localhost${url}`;
+      expect(window.open).toHaveBeenCalledWith(absoluteUrl, absoluteUrl);
+    });
+
+    it('should not throw an error if content metrics plugin fails to return the results', async () => {
+      mockA11yResults = { violations: mockViolations };
+      mockExtractedContent = null;
+      mockAxeResults();
+
+      await initializeOpenedPanel();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        'axe.run results',
+        mockViolations,
+      );
+
+      await Promise.resolve();
+
+      const toggleCounter = document.querySelector(
+        '[data-side-panel-toggle-counter]',
+      );
+      expect(toggleCounter.textContent.trim()).toEqual('2');
+
+      const wordCount = document.querySelector('[data-content-word-count]');
+      expect(wordCount.textContent.trim()).toEqual('-');
+
+      const readingTime = document.querySelector('[data-content-reading-time]');
+      expect(readingTime.textContent.trim()).toEqual('-');
+
+      const panelCounter = document.querySelector('[data-a11y-result-count]');
+      expect(panelCounter.textContent.trim()).toEqual('2');
+
+      const checksPanel = document.querySelector('[data-checks-panel]');
+      const resultRows = checksPanel.querySelectorAll('[data-a11y-result-row]');
+
+      // Should still render accessibility results
+      expect(resultRows.length).toEqual(2);
+    });
+
+    it('should re-run content checks when the window gets a message event with w-userbar:axe-ready', async () => {
+      mockAxeResults();
+      await initializeOpenedPanel();
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      mockA11yResults = { violations: mockViolations };
+      mockAxeResults();
+
+      // A non-Wagtail message event should not trigger the checks
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { something: { foo: 'bar' } },
+        }),
+      );
+      await jest.runAllTimersAsync();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      // A Wagtail message event that is unrelated should not trigger the checks
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:other' } },
+        }),
+      );
+      await jest.runAllTimersAsync();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      // Simulate the Wagtail userbar sending the axe-ready event to indicate
+      // that it just finished running the accessibility checks and the
+      // PreviewController should re-run the checks
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:axe-ready' } },
+        }),
+      );
+      await jest.runAllTimersAsync();
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith(
+        'axe.run results',
+        mockViolations,
+      );
+      // eslint-disable-next-line no-console
+      console.error.mockClear();
+
+      // Mock two long-running checks
+      mockA11yResults = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ violations: [mockViolations[1]] });
+        }, 5_000);
+      });
+      mockAxeResults();
+      mockA11yResults = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ violations: [mockViolations[0]] });
+        }, 15_000);
+      });
+      mockAxeResults();
+
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:axe-ready' } },
+        }),
+      );
+      await jest.advanceTimersByTimeAsync(4_000);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+
+      // If an event is dispatched while the checks are still running,
+      // it will be queued and processed after the current check finishes
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:axe-ready' } },
+        }),
+      );
+      await jest.advanceTimersByTimeAsync(5_000);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(1);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith('axe.run results', [
+        mockViolations[1],
+      ]);
+
+      await jest.advanceTimersByTimeAsync(7_000);
+
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(2);
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledWith('axe.run results', [
+        mockViolations[0],
+      ]);
+    });
+
+    it('should allow content extraction to be executed on demand', async () => {
+      mockAxeResults();
+      await initializeOpenedPanel();
+      const controller = application.getControllerForElementAndIdentifier(
+        document.querySelector('[data-controller="w-preview"]'),
+        identifier,
+      );
+
+      mockAxeResults();
+      const content = await controller.extractContent();
+      expect(content).toEqual(mockExtractedContent);
+    });
+
+    it('should clean up event listeners on disconnect', async () => {
+      mockAxeResults();
+      const panel = document.querySelector('[data-side-panel="checks"]');
+      const element = document.querySelector('[data-controller="w-preview"]');
+      const spies = [
+        jest.spyOn(panel, 'addEventListener'),
+        jest.spyOn(panel, 'removeEventListener'),
+        jest.spyOn(window, 'addEventListener'),
+        jest.spyOn(window, 'removeEventListener'),
+      ];
+
+      await initializeOpenedPanel();
+
+      const controller = application.getControllerForElementAndIdentifier(
+        element,
+        identifier,
+      );
+
+      expect(window.addEventListener).toHaveBeenCalledWith(
+        'message',
+        controller.runChecks,
+      );
+      expect(panel.addEventListener).toHaveBeenCalledWith(
+        'show',
+        controller.activatePreview,
+      );
+      expect(panel.addEventListener).toHaveBeenCalledWith(
+        'hide',
+        controller.deactivatePreview,
+      );
+
+      element.removeAttribute('data-controller');
+      await jest.runAllTimersAsync();
+
+      expect(window.removeEventListener).toHaveBeenCalledWith(
+        'message',
+        controller.runChecks,
+      );
+      expect(panel.removeEventListener).toHaveBeenCalledWith(
+        'show',
+        controller.activatePreview,
+      );
+      expect(panel.removeEventListener).toHaveBeenCalledWith(
+        'hide',
+        controller.deactivatePreview,
+      );
+
+      spies.forEach((spy) => spy.mockRestore());
+      // eslint-disable-next-line no-console
+      expect(console.error).toHaveBeenCalledTimes(0);
+    });
+
+    describe('custom axe configuration', () => {
+      it('should convert axe context config for the preview iframe', async () => {
+        mockAxeResults();
+        await initializeOpenedPanel();
+        expect(axe.run).toHaveBeenCalledWith(
+          {
+            include: {
+              fromFrames: ['#w-preview-iframe', 'main'],
+            },
+          },
+          axeConfig.options,
+        );
+      });
+
+      it('should respect context.exclude', async () => {
+        const config = document.getElementById(
+          'accessibility-axe-configuration',
+        );
+        config.innerHTML = JSON.stringify({
+          ...axeConfig,
+          context: {
+            include: ['#main'],
+            exclude: ['[data-ignored]'],
+          },
+        });
+
+        mockAxeResults();
+        await initializeOpenedPanel();
+        expect(axe.run).toHaveBeenCalledWith(
+          {
+            include: {
+              fromFrames: ['#w-preview-iframe', '#main'],
+            },
+            exclude: {
+              fromFrames: ['#w-preview-iframe', '[data-ignored]'],
+            },
+          },
+          axeConfig.options,
+        );
       });
     });
   });

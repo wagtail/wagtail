@@ -8,9 +8,10 @@ import {
   renderA11yResults,
 } from './a11y-result';
 import { wagtailPreviewPlugin } from './previewPlugin';
-import { contentMetricsPluginInstance } from './contentMetrics';
+import { contentExtractorPluginInstance } from './contentMetrics';
 import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
+import { getWagtailMessage, WagtailMessage } from '../utils/message';
 
 /*
 This entrypoint is not bundled with any polyfills to keep it as light as possible
@@ -23,6 +24,9 @@ Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_rovi
 
 export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
+  declare dialog: A11yDialog;
+  declare dialogBody: HTMLElement;
+  declare origin: string;
 
   connectedCallback() {
     const template = document.querySelector<HTMLTemplateElement>(
@@ -49,6 +53,10 @@ export class Userbar extends HTMLElement {
     if (!userbar || !trigger || !list) {
       return;
     }
+
+    this.origin =
+      userbar.getAttribute('data-wagtail-userbar-origin') ||
+      window.location.origin;
 
     const listItems = list.querySelectorAll('li');
     const isActiveClass = 'w-userbar--active';
@@ -296,9 +304,27 @@ export class Userbar extends HTMLElement {
     // On initialisation, all menu items should be disabled for roving tab index
     resetItemsTabIndex();
 
-    document.addEventListener('DOMContentLoaded', async () => {
-      await this.initialiseAxe();
-    });
+    // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
+    // In this case, we need to call the initialisation function immediately.
+    if (document.readyState === 'complete') {
+      this.initialiseAxe();
+    } else {
+      document.addEventListener('DOMContentLoaded', async () => {
+        await this.initialiseAxe();
+      });
+    }
+
+    this.handleMessage = this.handleMessage.bind(this);
+
+    // If we are in a cross-origin iframe, request the parent to restore the
+    // scroll position of the preview panel's previous iframe to this one.
+    if (this.inCrossOriginIframe) {
+      window.addEventListener('message', this.handleMessage);
+      this.postMessage({
+        type: 'w-preview:request-scroll',
+        origin: window.location.origin,
+      });
+    }
   }
 
   /*
@@ -310,23 +336,10 @@ export class Userbar extends HTMLElement {
   // Initialise Axe
   async initialiseAxe() {
     // Collect content data from the live preview via Axe plugin for content metrics calculation
+    if (!this.shadowRoot) return;
+
     axe.registerPlugin(wagtailPreviewPlugin);
-    axe.plugins.wagtailPreview.add(contentMetricsPluginInstance);
-
-    const accessibilityTrigger = this.shadowRoot?.getElementById(
-      'accessibility-trigger',
-    );
-    const config = getAxeConfiguration(this.shadowRoot);
-    if (!this.shadowRoot || !accessibilityTrigger || !config) return;
-
-    const { results, a11yErrorsNumber } = await getA11yReport(config);
-
-    if (results.violations.length) {
-      const a11yErrorBadge = document.createElement('span');
-      a11yErrorBadge.textContent = String(a11yErrorsNumber);
-      a11yErrorBadge.classList.add('w-userbar-axe-count');
-      this.trigger.appendChild(a11yErrorBadge);
-    }
+    axe.plugins.wagtailPreview.add(contentExtractorPluginInstance);
 
     const stimulus = Application.start(
       this.shadowRoot.firstElementChild as Element,
@@ -350,11 +363,32 @@ export class Userbar extends HTMLElement {
       },
     );
 
-    const { body: modalBody, dialog: modal } = await modalReady;
+    const { dialog, body } = await modalReady;
+    this.dialog = dialog;
+    this.dialogBody = body;
 
-    // Disable TS linter check for legacy code in 3rd party `A11yDialog` element
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    const accessibilityTrigger = this.shadowRoot.getElementById(
+      'accessibility-trigger',
+    );
+
+    const toggleAxeResults = () => {
+      if (!this.dialog.shown) {
+        this.dialog.show();
+      } else {
+        this.dialog.hide();
+      }
+    };
+
+    accessibilityTrigger?.addEventListener('click', toggleAxeResults);
+
+    await this.runAxe();
+  }
+
+  async runAxe() {
+    if (!this.shadowRoot) return;
+
+    const config = getAxeConfiguration(this.shadowRoot);
+
     const accessibilityResultsBox = this.shadowRoot.querySelector(
       '#accessibility-results',
     );
@@ -367,8 +401,28 @@ export class Userbar extends HTMLElement {
         '#w-a11y-result-outline-template',
       );
 
-    if (!accessibilityResultsBox || !a11yRowTemplate || !a11yOutlineTemplate) {
+    if (
+      !config ||
+      !accessibilityResultsBox ||
+      !a11yRowTemplate ||
+      !a11yOutlineTemplate
+    ) {
       return;
+    }
+
+    // Collect content data from the live preview via Axe plugin for content metrics calculation
+    const { results, a11yErrorsNumber } = await getA11yReport(config);
+
+    this.trigger.querySelector('[data-w-userbar-axe-count]')?.remove();
+    if (results.violations.length) {
+      const a11yErrorBadge = document.createElement('span');
+      a11yErrorBadge.textContent = String(a11yErrorsNumber);
+      a11yErrorBadge.classList.add('w-userbar-axe-count');
+      a11yErrorBadge.setAttribute(
+        'data-w-userbar-axe-count',
+        String(a11yErrorsNumber),
+      );
+      this.trigger.appendChild(a11yErrorBadge);
     }
 
     const innerErrorBadges = this.shadowRoot.querySelectorAll<HTMLSpanElement>(
@@ -443,22 +497,79 @@ export class Userbar extends HTMLElement {
       });
     };
 
-    const toggleAxeResults = () => {
-      if (accessibilityResultsBox.getAttribute('aria-hidden') === 'true') {
-        modal.show();
+    renderA11yResults(
+      this.dialogBody,
+      results,
+      config,
+      a11yRowTemplate,
+      onClickSelector,
+    );
 
-        renderA11yResults(
-          modalBody,
-          results,
-          config,
-          a11yRowTemplate,
-          onClickSelector,
-        );
-      } else {
-        modal.hide();
-      }
-    };
+    // In headless a setup, the userbar might be initialized after the "load"
+    // event has been fired, so the PreviewController's Axe has already scanned
+    // this window without Axe running inside it. We need to notify the parent
+    // window when the userbar (and thus Axe) has been initialized, so that it
+    // can re-run Axe against this window.
+    //
+    // We do this here instead of in connectedCallback() or initialiseAxe() to
+    // make sure that the message is sent only after Axe has finished running,
+    // otherwise the PreviewController's Axe may try to run Axe in this window
+    // while a previous run is still in progress, which will cause an error.
+    if (this.inCrossOriginIframe) {
+      this.postAxeReady();
+    }
+  }
 
-    accessibilityTrigger.addEventListener('click', toggleAxeResults);
+  get inCrossOriginIframe() {
+    try {
+      // Check if we can access the top window's origin.
+      // If we can, it's not a cross-origin iframe.
+      return !window.top?.origin;
+    } catch {
+      // If an error is thrown (e.g. SecurityError), it's likely cross-origin,
+      // e.g. in a headless setup.
+      return true;
+    }
+  }
+
+  postMessage(message: WagtailMessage) {
+    window.top?.postMessage({ wagtail: message }, this.origin);
+  }
+
+  postAxeReady() {
+    this.postMessage({ type: 'w-userbar:axe-ready' });
+  }
+
+  handleMessage(event: MessageEvent) {
+    const data = getWagtailMessage(event);
+    if (!data) return;
+
+    switch (data.type) {
+      case 'w-preview:get-scroll-position':
+        // This window is the old iframe
+        // and the preview panel requested the scroll position
+        this.postMessage({
+          type: 'w-preview:set-scroll-position',
+          x: window.scrollX,
+          y: window.scrollY,
+          origin: window.location.origin,
+        });
+        break;
+
+      case 'w-preview:set-scroll-position':
+        // This window is the new iframe
+        // and the preview panel sent the scroll position to be restored
+        window.scrollTo({ top: data.y, left: data.x, behavior: 'instant' });
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  disconnectedCallback() {
+    if (this.inCrossOriginIframe) {
+      window.removeEventListener('message', this.handleMessage);
+    }
   }
 }

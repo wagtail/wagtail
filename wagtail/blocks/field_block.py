@@ -230,6 +230,7 @@ class FloatBlock(FieldBlock):
     def __init__(
         self,
         required=True,
+        help_text=None,
         max_value=None,
         min_value=None,
         validators=(),
@@ -238,6 +239,7 @@ class FloatBlock(FieldBlock):
     ):
         self.field = forms.FloatField(
             required=required,
+            help_text=help_text,
             max_value=max_value,
             min_value=min_value,
             validators=validators,

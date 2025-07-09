@@ -6,6 +6,13 @@ import { InitController } from './InitController';
 jest.useFakeTimers();
 jest.setSystemTime(new Date('2025-01-11'));
 
+afterEach(() => {
+  // clear any mocked globals after each test
+  if (window.django) {
+    delete window.django;
+  }
+});
+
 describe('LocaleController', () => {
   let app;
   let select;
@@ -135,6 +142,37 @@ describe('LocaleController', () => {
     expect(selected.value).toEqual('');
     expect(selected.textContent).toEqual(
       'Use server time zone: GMT+9 (Waktu Standar Jepang)',
+    );
+    expect(select).toMatchSnapshot();
+  });
+
+  it('should correctly apply French spacing rules to localized time zone labels', async () => {
+    const gettextMock = jest.fn();
+    gettextMock.mockImplementation(
+      (str) => '%(time_zone_option)s : %(localized_time_zone_label)s',
+    );
+    window.django = { gettext: gettextMock };
+
+    document.documentElement.lang = 'fr-FR';
+    await setup(/* html */ `
+      <select
+        name="locale-current_time_zone"
+        data-controller="w-init w-locale"
+        data-action="w-init:ready->w-locale#localizeTimeZoneOptions"
+        data-w-locale-server-time-zone-param="Europe/Paris"
+      >
+      </select>
+    `);
+
+    expect(select.getAttribute('data-controller')).toEqual('w-locale');
+    expect(gettextMock).toHaveBeenCalledWith(
+      '%(time_zone_option)s: %(localized_time_zone_label)s',
+    );
+    const selected = select.selectedOptions[0];
+    expect(selected).toBeTruthy();
+    expect(selected.value).toEqual('');
+    expect(selected.textContent).toBe(
+      'Use server time zone : UTC+1 (heure normale d’Europe centrale)',
     );
     expect(select).toMatchSnapshot();
   });

@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, Permission
 from django.template import Context, Template
 from django.test import TestCase, override_settings
@@ -8,7 +9,7 @@ from django.utils import translation
 from django.utils.translation import gettext
 
 from wagtail import hooks
-from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.templatetags.wagtailadmin_tags import absolute_static
 from wagtail.admin.userbar import AccessibilityItem, Userbar
 from wagtail.coreutils import get_dummy_request
 from wagtail.models import PAGE_TEMPLATE_VAR, Locale, Page, Site
@@ -66,7 +67,7 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 # Wagtail admin core CSS should be linked with absolute URL to
                 # ensure it works when loaded from a different domain
                 # (e.g. headless frontend)
-                f"http://localhost{versioned_static('wagtailadmin/css/core.css')}",
+                absolute_static("wagtailadmin/css/core.css"),
                 # Custom CSS must be changed appropriately if necessary
                 "/path/to/my/custom.css",
             ],
@@ -79,8 +80,8 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
                 # Wagtail vendor and userbar JS should be linked with absolute
                 # URL to ensure it works when loaded from a different domain
                 # (e.g. headless frontend)
-                f"http://localhost{versioned_static('wagtailadmin/js/vendor.js')}",
-                f"http://localhost{versioned_static('wagtailadmin/js/userbar.js')}",
+                absolute_static("wagtailadmin/js/vendor.js"),
+                absolute_static("wagtailadmin/js/userbar.js"),
             ],
         )
 
@@ -135,7 +136,9 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         # Should render the "Go to Wagtail admin" link using an absolute URL
         soup = self.get_soup(content)
         admin_url = reverse("wagtailadmin_home")
-        admin_link = soup.select_one(f"a[href='http://localhost{admin_url}']")
+        admin_link = soup.select_one(
+            f"a[href='{settings.WAGTAILADMIN_BASE_URL}{admin_url}']"
+        )
         self.assertIsNotNone(admin_link)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
@@ -153,12 +156,16 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         soup = self.get_soup(content)
 
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-        edit_link = soup.select_one(f"a[href='http://localhost{edit_url}']")
+        edit_link = soup.select_one(
+            f"a[href='{settings.WAGTAILADMIN_BASE_URL}{edit_url}']"
+        )
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        explore_link = soup.select_one(
+            f"a[href='{settings.WAGTAILADMIN_BASE_URL}{explore_url}']"
+        )
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -178,12 +185,16 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         soup = self.get_soup(content)
 
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.homepage.id,))
-        edit_link = soup.select_one(f"a[href='http://localhost{edit_url}']")
+        edit_link = soup.select_one(
+            f"a[href='{settings.WAGTAILADMIN_BASE_URL}{edit_url}']"
+        )
         self.assertIsNotNone(edit_link)
         self.assertEqual(edit_link.text.strip(), "Edit this page")
 
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        explore_link = soup.select_one(
+            f"a[href='{settings.WAGTAILADMIN_BASE_URL}{explore_url}']"
+        )
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -210,7 +221,9 @@ class TestUserbarTag(WagtailTestUtils, TestCase):
         # The explore link should still be visible
         soup = self.get_soup(content)
         explore_url = reverse("wagtailadmin_explore", args=(self.parent_page.id,))
-        explore_link = soup.select_one(f"a[href='http://localhost{explore_url}']")
+        explore_link = soup.select_one(
+            f"a[href='{settings.WAGTAILADMIN_BASE_URL}{explore_url}']"
+        )
         self.assertIsNotNone(explore_link)
         self.assertEqual(explore_link.text.strip(), "Show in Explorer")
 
@@ -384,7 +397,7 @@ class TestAccessibilityCheckerConfig(WagtailTestUtils, TestCase):
                         # Override via class attribute
                         ".sr-only",
                         # Should include the default exclude selectors
-                        {"fromShadowDOM": ["wagtail-userbar"]},
+                        {"fromShadowDom": ["wagtail-userbar"]},
                         # Override via method
                         "[data-please-ignore]",
                     ],
@@ -705,7 +718,7 @@ class TestUserbarAddLink(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # page allows subpages, so the 'add page' button should show
-        expected_url = self.request.build_absolute_uri(
+        expected_url = settings.WAGTAILADMIN_BASE_URL + (
             reverse("wagtailadmin_pages:add_subpage", args=(self.event_index.id,))
         )
         needle = f"""
@@ -749,7 +762,7 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
-        admin_url = f"http://localhost{reverse('wagtailadmin_home')}"
+        admin_url = f"{settings.WAGTAILADMIN_BASE_URL}{reverse('wagtailadmin_home')}"
         admin_item = items[0]
         admin_link = admin_item.select_one("a")
         self.assertIsNotNone(admin_link)
@@ -771,10 +784,11 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
+        admin_url = f"{settings.WAGTAILADMIN_BASE_URL}{reverse('wagtailadmin_home')}"
         admin_item = items[0]
         admin_link = admin_item.select_one("a")
         self.assertIsNotNone(admin_link)
-        self.assertEqual(admin_link.get("href"), reverse("wagtailadmin_home"))
+        self.assertEqual(admin_link.get("href"), admin_url)
         self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
 
         accessibility_item = items[-1]
@@ -789,10 +803,17 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         rendered = Userbar().render_html({"request": self.request})
         soup = self.get_soup(rendered)
 
+        userbar = soup.select_one("[data-wagtail-userbar]")
+        self.assertIsNotNone(userbar)
+        self.assertEqual(
+            userbar.get("data-wagtail-userbar-origin"),
+            settings.WAGTAILADMIN_BASE_URL,
+        )
+
         items = soup.select("li")
         self.assertEqual(len(items), 2)
 
-        admin_url = f"http://localhost{reverse('wagtailadmin_home')}"
+        admin_url = f"{settings.WAGTAILADMIN_BASE_URL}{reverse('wagtailadmin_home')}"
         admin_item = items[0]
         admin_link = admin_item.select_one("a")
         self.assertIsNotNone(admin_link)
@@ -823,12 +844,42 @@ class TestUserbarComponent(WagtailTestUtils, TestCase):
         self.assertEqual(len(links), 4)
         self.assertEqual(
             [link.get("href") for link in links],
-            [f"http://localhost{url}" for url in expected_urls],
+            [f"{settings.WAGTAILADMIN_BASE_URL}{url}" for url in expected_urls],
         )
 
         accessibility_button = soup.select_one("li button")
         self.assertIsNotNone(accessibility_button)
         self.assertEqual(
             accessibility_button.get_text(separator=" | ", strip=True).strip(),
+            "Issues found | Accessibility",
+        )
+
+    @override_settings(WAGTAILADMIN_BASE_URL=None)
+    def test_render_without_admin_base_url_setting(self):
+        rendered = Userbar().render_html({"request": self.request})
+        soup = self.get_soup(rendered)
+
+        userbar = soup.select_one("[data-wagtail-userbar]")
+        self.assertIsNotNone(userbar)
+        # Default to an empty string instead of rendering None,
+        # so the JS code can provide the fallback
+        self.assertEqual(userbar.get("data-wagtail-userbar-origin"), "")
+
+        items = soup.select("li")
+        self.assertEqual(len(items), 2)
+
+        # Becomes the root-relative URL since WAGTAILADMIN_BASE_URL is None
+        admin_url = reverse("wagtailadmin_home")
+        admin_item = items[0]
+        admin_link = admin_item.select_one("a")
+        self.assertIsNotNone(admin_link)
+        self.assertEqual(admin_link.get("href"), admin_url)
+        self.assertEqual(admin_link.text.strip(), "Go to Wagtail admin")
+
+        accessibility_item = items[-1]
+        button = accessibility_item.select_one("button")
+        self.assertIsNotNone(button)
+        self.assertEqual(
+            button.get_text(separator=" | ", strip=True).strip(),
             "Issues found | Accessibility",
         )

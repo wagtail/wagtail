@@ -335,7 +335,7 @@ class ChecksSidePanel(BaseSidePanel):
 
     def get_axe_configuration(self):
         # Retrieve the Axe configuration from the userbar.
-        userbar_items = [AccessibilityItem()]
+        userbar_items = [AccessibilityItem(in_editor=True)]
         page = self.object if issubclass(self.model, Page) else None
         apply_userbar_hooks(self.request, userbar_items, page)
 

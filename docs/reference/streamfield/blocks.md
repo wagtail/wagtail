@@ -144,6 +144,7 @@ All block definitions have the following methods and properties that can be over
     :param required: If true (the default), the field cannot be left blank.
     :param max_value: The maximum allowed numeric value of the field.
     :param min_value: The minimum allowed numeric value of the field.
+    :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
