@@ -224,32 +224,31 @@ class BaseSearchQueryCompiler:
                     continue
                 else:
                     raise OrderByFieldError(
-                        'Cannot sort search results with "'
-                        + field_name
-                        + '". Please use a search backend that handles these '
+                        f'Cannot sort search results with "{field_name}". '
+                        'Please use a search backend that handles these '
                         "(e.g. database backend) or specify simple fields.",
                         field_name=field_name,
                     )
-            else:
-                if field_name.startswith("-"):
-                    reverse = True
-                    field_name = field_name[1:]
 
-                field = self._get_filterable_field(field_name)
+            if field_name.startswith("-"):
+                reverse = True
+                field_name = field_name[1:]
 
-                if field is None:
-                    raise OrderByFieldError(
-                        'Cannot sort search results with field "'
-                        + field_name
-                        + "\". Please add index.FilterField('"
-                        + field_name
-                        + "') to "
-                        + self.queryset.model.__name__
-                        + ".search_fields.",
-                        field_name=field_name,
-                    )
+            field = self._get_filterable_field(field_name)
 
-                yield reverse, field
+            if field is None:
+                raise OrderByFieldError(
+                    'Cannot sort search results with field "'
+                    + field_name
+                    + "\". Please add index.FilterField('"
+                    + field_name
+                    + "') to "
+                    + self.queryset.model.__name__
+                    + ".search_fields.",
+                    field_name=field_name,
+                )
+
+            yield reverse, field
 
     def check(self):
         # Check search fields

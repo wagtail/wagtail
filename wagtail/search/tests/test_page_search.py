@@ -50,10 +50,14 @@ class PageSearchTests:
         if self.backend.query_compiler_class.HANDLES_ORDER_BY_EXPRESSIONS:
             qs.autocomplete("blah", order_by_relevance=False, backend=self.backend_name)
         else:
-            with self.assertRaises(OrderByFieldError):
+            with self.assertRaises(OrderByFieldError) as ctx:
                 qs.autocomplete(
                     "blah", order_by_relevance=False, backend=self.backend_name
                 )
+            self.assertIn(
+                'Cannot sort search results with "OrderBy(F(last_published_at), descending=False)".',
+                str(ctx.exception)
+            )
 
     def test_search_specific_queryset(self):
         list(Page.objects.specific().search("bread", backend=self.backend_name))
