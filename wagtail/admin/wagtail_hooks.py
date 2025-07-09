@@ -1057,6 +1057,7 @@ def register_icons(icons):
         "glasses.svg",
         "globe.svg",
         "grip.svg",
+        "grid.svg",
         "group.svg",
         "h1.svg",
         "h2.svg",
