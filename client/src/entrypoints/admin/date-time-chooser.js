@@ -6,6 +6,11 @@ import {
   initDateTimeChooser,
   initTimeChooser,
 } from '../../includes/dateTimeChooser';
+import {
+  AdminDateInput,
+  AdminTimeInput,
+  AdminDateTimeInput,
+} from '../../components/DateTimeWidget';
 
 /* global wagtailConfig */
 
@@ -21,3 +26,12 @@ window.hideCurrent = hideCurrent;
 window.initDateChooser = initDateChooser;
 window.initTimeChooser = initTimeChooser;
 window.initDateTimeChooser = initDateTimeChooser;
+
+if (window.telepath) {
+  window.telepath.register('wagtail.widgets.AdminDateInput', AdminDateInput);
+  window.telepath.register('wagtail.widgets.AdminTimeInput', AdminTimeInput);
+  window.telepath.register(
+    'wagtail.widgets.AdminDateTimeInput',
+    AdminDateTimeInput,
+  );
+}
