@@ -225,7 +225,7 @@ class BaseSearchQueryCompiler:
                 else:
                     raise OrderByFieldError(
                         f'Cannot sort search results with "{field_name}". '
-                        'Please use a search backend that handles these '
+                        "Please use a search backend that handles these "
                         "(e.g. database backend) or specify simple fields.",
                         field_name=field_name,
                     )

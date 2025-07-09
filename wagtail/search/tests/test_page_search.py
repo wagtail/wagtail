@@ -56,7 +56,7 @@ class PageSearchTests:
                 )
             self.assertIn(
                 'Cannot sort search results with "OrderBy(F(last_published_at), descending=False)".',
-                str(ctx.exception)
+                str(ctx.exception),
             )
 
     def test_search_specific_queryset(self):
