@@ -1,6 +1,5 @@
 import unittest.mock
 
-from django import forms
 from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -11,7 +10,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
-from django.template import RequestContext, Template
+from django.middleware.csrf import get_token
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -21,9 +20,8 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.models import Admin
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.admin.widgets.button import ButtonWithDropdown
+from wagtail.admin.widgets.button import Button, ButtonWithDropdown, ListingButton
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.coreutils import get_dummy_request
 from wagtail.log_actions import log
 from wagtail.models import (
     Collection,
@@ -33,20 +31,19 @@ from wagtail.models import (
     LockableMixin,
     Page,
 )
+from wagtail.test.customuser.forms import CustomUserCreationForm, CustomUserEditForm
+from wagtail.test.customuser.viewsets import CustomUserViewSet
+from wagtail.test.testapp.models import VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
-from wagtail.users.forms import GroupForm, UserCreationForm, UserEditForm
+from wagtail.users.forms import GroupForm
 from wagtail.users.models import UserProfile
 from wagtail.users.permission_order import register as register_permission_order
 from wagtail.users.views.groups import GroupViewSet
-from wagtail.users.views.users import (
-    UserViewSet,
-    get_user_creation_form,
-    get_user_edit_form,
-)
+from wagtail.users.views.users import UserViewSet
 from wagtail.users.wagtail_hooks import get_viewset_cls
 from wagtail.users.widgets import UserListingButton
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 add_user_perm_codename = f"add_{AUTH_USER_MODEL_NAME.lower()}"
 delete_user_perm_codename = f"delete_{AUTH_USER_MODEL_NAME.lower()}"
@@ -63,125 +60,11 @@ class CustomGroupForm(GroupForm):
     pass
 
 
-class CustomUserCreationForm(UserCreationForm):
-    country = forms.CharField(required=True, label="Country")
-    attachment = forms.FileField(required=True, label="Attachment")
-
-
-class CustomUserEditForm(UserEditForm):
-    country = forms.CharField(required=True, label="Country")
-    attachment = forms.FileField(required=True, label="Attachment")
-
-
 class CustomGroupViewSet(GroupViewSet):
     icon = "custom-icon"
 
     def get_form_class(self, for_update=False):
         return CustomGroupForm
-
-
-class CustomUserViewSet(UserViewSet):
-    icon = "custom-icon"
-
-    def get_form_class(self, for_update=False):
-        if for_update:
-            return CustomUserEditForm
-        return CustomUserCreationForm
-
-
-class TestUserFormHelpers(TestCase):
-    def test_get_user_edit_form_with_default_form(self):
-        user_form = get_user_edit_form()
-        self.assertIs(user_form, UserEditForm)
-
-    def test_get_user_creation_form_with_default_form(self):
-        user_form = get_user_creation_form()
-        self.assertIs(user_form, UserCreationForm)
-
-    @override_settings(
-        WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm"
-    )
-    def test_get_user_creation_form_with_custom_form(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
-            "`UserViewSet` subclass and override `get_form_class()` instead.",
-        ):
-            user_form = get_user_creation_form()
-        self.assertIs(user_form, CustomUserCreationForm)
-
-    @override_settings(WAGTAIL_USER_EDIT_FORM="wagtail.users.tests.CustomUserEditForm")
-    def test_get_user_edit_form_with_custom_form(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
-            "`UserViewSet` subclass and override `get_form_class()` instead.",
-        ):
-            user_form = get_user_edit_form()
-        self.assertIs(user_form, CustomUserEditForm)
-
-    @override_settings(
-        WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationFormDoesNotExist"
-    )
-    def test_get_user_creation_form_with_invalid_form(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `WAGTAIL_USER_CREATION_FORM` setting is deprecated. Use a custom "
-            "`UserViewSet` subclass and override `get_form_class()` instead.",
-        ):
-            self.assertRaises(ImproperlyConfigured, get_user_creation_form)
-
-    @override_settings(
-        WAGTAIL_USER_EDIT_FORM="wagtail.users.tests.CustomUserEditFormDoesNotExist"
-    )
-    def test_get_user_edit_form_with_invalid_form(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "The `WAGTAIL_USER_EDIT_FORM` setting is deprecated. Use a custom "
-            "`UserViewSet` subclass and override `get_form_class()` instead.",
-        ):
-            self.assertRaises(ImproperlyConfigured, get_user_edit_form)
-
-
-class TestGroupUsersView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
-    def setUp(self):
-        # create a user that should be visible in the listing
-        self.test_user = self.create_user(
-            username="testuser",
-            email="testuser@email.com",
-            password="password",
-            first_name="First Name",
-            last_name="Last Name",
-        )
-        self.test_group = Group.objects.create(name="Test Group")
-        self.test_user.groups.add(self.test_group)
-        self.login()
-
-    def get(self, params={}, group_id=None):
-        return self.client.get(
-            reverse(
-                "wagtailusers_groups:users", args=(group_id or self.test_group.pk,)
-            ),
-            params,
-        )
-
-    def test_simple(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "Accessing the list of users in a group via "
-            f"/admin/groups/{self.test_group.pk}/users/ is deprecated, use "
-            f"/admin/users/?group={self.test_group.pk} instead.",
-        ):
-            response = self.get()
-
-        self.assertRedirects(
-            response,
-            reverse("wagtailusers_users:index") + f"?group={self.test_group.pk}",
-        )
-
-    def test_inexisting_group(self):
-        response = self.get(group_id=9999)
-        self.assertEqual(response.status_code, 404)
 
 
 class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -239,8 +122,69 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         results = response.context["users"]
         self.assertIn(self.test_user, results)
 
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "customuser.CustomUser",
+        "Only applicable to CustomUser",
+    )
+    def test_search_query_with_search_backend(self):
+        custom_user_with_country = self.create_user(
+            username="testjoe",
+            email="testjoe@email.com",
+            password="password",
+            first_name="Joe",
+            last_name="Doe",
+            country="testcountry",
+        )
+        response = self.get({"q": "testco"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertEqual(list(results), [custom_user_with_country])
+
+        response = self.get({"q": "jo"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertEqual(list(results), [custom_user_with_country])
+
+        response = self.get({"q": "nonexistent"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertEqual(list(results), [])
+
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "customuser.CustomUser",
+        "Only applicable to CustomUser",
+    )
+    def test_search_and_filter_by_group(self):
+        user_in_group = self.create_user(
+            username="raz",
+            email="raz@email.com",
+            password="password",
+            first_name="Razputin",
+            last_name="Aquato",
+            country="Grulovia",
+        )
+        self.create_user(
+            username="mirtala",
+            email="mirtala@email.com",
+            password="password",
+            first_name="Mirtala",
+            last_name="Aquato",
+            country="Grulovia",
+        )
+        psychonauts = Group.objects.create(name="Psychonauts")
+        user_in_group.groups.add(psychonauts)
+
+        response = self.get({"q": "gru", "group": psychonauts.pk})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertEqual(list(results), [user_in_group])
+
     def test_search_query_multiple_fields(self):
-        response = self.get({"q": "first name last name"})
+        response = self.get({"q": "first nam"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context["users"]
+        self.assertIn(self.test_user, results)
+        response = self.get({"q": "last na"})
         self.assertEqual(response.status_code, 200)
         results = response.context["users"]
         self.assertIn(self.test_user, results)
@@ -375,16 +319,41 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertSequenceEqual(urls, expected_urls)
 
     def test_buttons_hook(self):
+        class CustomButton(Button):
+            template_name = "tests/custom_button.html"
+
+            def __init__(self, *args, user_pk, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.user_pk = user_pk
+
+            def get_context_data(self, parent_context):
+                context = super().get_context_data(parent_context)
+                context["user_pk"] = self.user_pk
+                context["csrf_token"] = get_token(context["request"])
+                return context
+
         def hook(user, request_user):
             self.assertEqual(request_user, self.user)
-            yield UserListingButton(
-                "Show profile",
+            # This should be a top-level button
+            yield ListingButton(
+                "Enhance profile",
                 f"/goes/to/a/url/{user.pk}",
                 priority=30,
             )
+            # These should be inside the default dropdown
+            yield Button("Show profile", f"/goes/to/a/url/{user.pk}", priority=20)
+            yield CustomButton(
+                "Impersonate",
+                f"/impersonate/{user.pk}",
+                priority=30,
+                icon_name="user",
+                user_pk=user.pk,
+            )
+            # This should be a top-level button
             yield ButtonWithDropdown(
                 label="Moar pls!",
-                buttons=[UserListingButton("Alrighty", "/cheers", priority=10)],
+                buttons=[ListingButton("Alrighty", "/cheers", priority=10)],
+                attrs={"data-foo": "bar"},
             )
 
         with self.register_hook("register_user_listing_buttons", hook):
@@ -399,16 +368,24 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
         profile_url = f"/goes/to/a/url/{self.test_user.pk}"
         actions = row.select_one("td ul.actions")
+        custom_buttons = actions.select(f"a[href='{profile_url}']")
+        self.assertEqual(len(custom_buttons), 2)
         top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNone(top_level_custom_button)
-        custom_button = actions.select_one(
+        self.assertIs(top_level_custom_button, custom_buttons[0])
+        self.assertEqual(top_level_custom_button.text.strip(), "Enhance profile")
+        self.assertEqual(
+            top_level_custom_button.get("class"),
+            ["button", "button-small", "button-secondary"],
+        )
+        in_dropdown_custom_button = actions.select_one(
             f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
         )
-        self.assertIsNotNone(custom_button)
+        self.assertIs(in_dropdown_custom_button, custom_buttons[1])
         self.assertEqual(
-            custom_button.text.strip(),
+            in_dropdown_custom_button.text.strip(),
             "Show profile",
         )
+        self.assertEqual(in_dropdown_custom_button.get("class"), [])
 
         nested_dropdown = actions.select_one(
             "li [data-controller='w-dropdown'] [data-controller='w-dropdown']"
@@ -417,16 +394,71 @@ class TestUserIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         dropdown_buttons = actions.select("li > [data-controller='w-dropdown']")
         # Default "More" button and the custom "Moar pls!" button
         self.assertEqual(len(dropdown_buttons), 2)
-        custom_dropdown = None
-        for button in dropdown_buttons:
-            if "Moar pls!" in button.text.strip():
-                custom_dropdown = button
+
+        default_dropdown = dropdown_buttons[0]
+        # Should allow a button with a custom template,
+        # e.g. rendering a <button> inside a <form> instead of a <a> tag
+        impersonate_form = default_dropdown.select_one(
+            f"form[action='/impersonate/{self.test_user.pk}']"
+        )
+        self.assertIsNotNone(impersonate_form)
+        self.assertEqual(
+            impersonate_form.select_one("input[name='user_pk']").attrs.get("value"),
+            str(self.test_user.pk),
+        )
+        self.assertEqual(
+            impersonate_form.select_one("button[type='submit']").text.strip(),
+            "Impersonate",
+        )
+        csrf_token = impersonate_form.select_one("input[name='csrfmiddlewaretoken']")
+        self.assertIsNotNone(csrf_token)
+
+        custom_dropdown = dropdown_buttons[1]
         self.assertIsNotNone(custom_dropdown)
         self.assertEqual(custom_dropdown.select_one("button").text.strip(), "Moar pls!")
+        self.assertEqual(custom_dropdown.get("data-foo"), "bar")
         # Should contain the custom button inside the custom dropdown
         custom_button = custom_dropdown.find("a", attrs={"href": "/cheers"})
         self.assertIsNotNone(custom_button)
         self.assertEqual(custom_button.text.strip(), "Alrighty")
+
+    def test_buttons_hook_with_deprecated_class(self):
+        def hook(user, request_user):
+            self.assertEqual(request_user, self.user)
+            yield UserListingButton(
+                "Show profile", f"/goes/to/a/url/{user.pk}", priority=20
+            )
+
+        with self.register_hook("register_user_listing_buttons", hook):
+            with self.assertWarnsMessage(
+                RemovedInWagtail80Warning,
+                "`UserListingButton` is deprecated. "
+                "Use `wagtail.admin.widgets.button.Button` "
+                "or `wagtail.admin.widgets.button.ListingButton` instead.",
+            ):
+                response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/shared/buttons.html")
+
+        soup = self.get_soup(response.content)
+        row = soup.select_one(f"tbody tr:has([data-object-id='{self.test_user.pk}'])")
+        self.assertIsNotNone(row)
+
+        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
+        actions = row.select_one("td ul.actions")
+        custom_buttons = actions.select(f"a[href='{profile_url}']")
+        self.assertEqual(len(custom_buttons), 1)
+        top_level_custom_button = actions.select_one(f"li > a[href='{profile_url}']")
+        self.assertIsNone(top_level_custom_button)
+        in_dropdown_custom_button = actions.select_one(
+            f"li [data-controller='w-dropdown'] a[href='{profile_url}']"
+        )
+        self.assertIs(in_dropdown_custom_button, custom_buttons[0])
+        self.assertEqual(
+            in_dropdown_custom_button.text.strip(),
+            "Show profile",
+        )
 
 
 class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -456,6 +488,21 @@ class TestUserIndexResultsView(AdminTemplateTestUtils, WagtailTestUtils, TestCas
 class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def setUp(self):
         self.login()
+        self.post_data = {
+            "username": "testuser",
+            "email": "test@user.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": "password",
+            "password2": "password",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            self.post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
 
     def get(self, params={}):
         return self.client.get(reverse("wagtailusers_users:add"), params)
@@ -484,14 +531,7 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_create(self):
         response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-            },
+            self.post_data,
             follow=True,
         )
 
@@ -505,50 +545,18 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             self.assertContains(response, "User &#x27;test@user.com&#x27; created.")
         else:
             self.assertContains(response, "User &#x27;testuser&#x27; created.")
-
-    @unittest.skipUnless(
-        settings.AUTH_USER_MODEL == "customuser.CustomUser",
-        "Only applicable to CustomUser",
-    )
-    @override_settings(
-        WAGTAIL_USER_CREATION_FORM="wagtail.users.tests.CustomUserCreationForm",
-    )
-    def test_create_with_custom_form(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-                "country": "testcountry",
-                "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
-            }
-        )
-
-        # Should redirect back to index
-        self.assertRedirects(response, reverse("wagtailusers_users:index"))
-
-        # Check that the user was created
-        users = get_user_model().objects.filter(email="test@user.com")
-        self.assertEqual(users.count(), 1)
-        self.assertEqual(users.first().country, "testcountry")
-        self.assertEqual(users.first().attachment.read(), b"Uploaded file")
+            self.assertEqual(users.first().country, "testcountry")
+            self.assertEqual(users.first().attachment.read(), b"Uploaded file")
 
     def test_create_with_whitespaced_password(self):
         """Password should not be stripped"""
-        self.post(
-            {
-                "username": "testuser2",
-                "email": "test@user2.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "  whitespaced_password  ",
-                "password2": "  whitespaced_password  ",
-            },
-            follow=True,
-        )
+        post_data = self.post_data.copy()
+        post_data["username"] = "testuser2"
+        post_data["email"] = "test@user2.com"
+        post_data["password1"] = "  whitespaced_password  "
+        post_data["password2"] = "  whitespaced_password  "
+
+        self.post(post_data, follow=True)
         # Try to login with the password
         self.client.logout()
         username = "testuser2"
@@ -557,16 +565,10 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.login(username=username, password="  whitespaced_password  ")
 
     def test_create_with_password_mismatch(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "password1",
-                "password2": "password2",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = "password1"
+        post_data["password2"] = "password2"
+        response = self.post(post_data)
 
         # Should remain on page
         self.assertEqual(response.status_code, 200)
@@ -591,17 +593,13 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         Specifically test that the UserAttributeSimilarityValidator works,
         which requires a full-populated user model before the validation works.
         """
+        post_data = self.post_data.copy()
         # Create a user with a password the same as their name
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Example",
-                "last_name": "Name",
-                "password1": "example name",
-                "password2": "example name",
-            }
-        )
+        post_data["first_name"] = "Example"
+        post_data["last_name"] = "Name"
+        post_data["password1"] = "example name"
+        post_data["password2"] = "example name"
+        response = self.post(post_data)
 
         # Should remain on page
         self.assertEqual(response.status_code, 200)
@@ -618,16 +616,10 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_create_with_missing_password(self):
         """Password should be required by default"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "",
-                "password2": "",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = ""
+        post_data["password2"] = ""
+        response = self.post(post_data)
 
         # Should remain on page
         self.assertEqual(response.status_code, 200)
@@ -651,16 +643,11 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
     def test_create_with_password_not_required(self):
         """Password should not be required if WAGTAILUSERS_PASSWORD_REQUIRED is False"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "",
-                "password2": "",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = ""
+        post_data["password2"] = ""
+
+        response = self.post(post_data)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -673,16 +660,11 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
     def test_optional_password_is_still_validated(self):
         """When WAGTAILUSERS_PASSWORD_REQUIRED is False, password validation should still apply if a password _is_ supplied"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "banana",
-                "password2": "kumquat",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = "banana"
+        post_data["password2"] = "kumquat"
+
+        response = self.post(post_data)
 
         # Should remain on page
         self.assertEqual(response.status_code, 200)
@@ -697,16 +679,11 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
     def test_password_still_accepted_when_optional(self):
         """When WAGTAILUSERS_PASSWORD_REQUIRED is False, we should still allow a password to be set"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "banana",
-                "password2": "banana",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = "banana"
+        post_data["password2"] = "banana"
+
+        response = self.post(post_data)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -728,16 +705,10 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
     def test_password_fields_ignored_when_disabled(self):
         """When WAGTAILUSERS_PASSWORD_ENABLED is False, users should always be created without a usable password"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "banana",  # not part of the form - should be ignored
-                "password2": "kumquat",  # not part of the form - should be ignored
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = "banana"  # not part of the form - should be ignored
+        post_data["password2"] = "kumquat"  # not part of the form - should be ignored
+        response = self.post(post_data)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -763,15 +734,9 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             return HttpResponse("Overridden!")
 
         with self.register_hook("before_create_user", hook_func):
-            post_data = {
-                "username": "testuser",
-                "email": "testuser@test.com",
-                "password1": "password12",
-                "password2": "password12",
-                "first_name": "test",
-                "last_name": "user",
-            }
-            response = self.client.post(reverse("wagtailusers_users:add"), post_data)
+            response = self.client.post(
+                reverse("wagtailusers_users:add"), self.post_data
+            )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
@@ -782,15 +747,9 @@ class TestUserCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             return HttpResponse("Overridden!")
 
         with self.register_hook("after_create_user", hook_func):
-            post_data = {
-                "username": "testuser",
-                "email": "testuser@test.com",
-                "password1": "password12",
-                "password2": "password12",
-                "first_name": "test",
-                "last_name": "user",
-            }
-            response = self.client.post(reverse("wagtailusers_users:add"), post_data)
+            response = self.client.post(
+                reverse("wagtailusers_users:add"), self.post_data
+            )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
@@ -923,6 +882,55 @@ class TestUserDeleteView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
+    def test_delete_get_with_protected_reference(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        model_name = User._meta.verbose_name
+        delete_url = reverse(
+            "wagtailusers_users:delete",
+            args=(self.test_user.pk,),
+        )
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, f"This {model_name} is referenced 1 time.")
+        self.assertContains(
+            response,
+            f"One or more references to this {model_name} prevent it "
+            "from being deleted.",
+        )
+        self.assertContains(
+            response,
+            reverse(
+                "wagtailusers_users:usage",
+                args=(self.test_user.pk,),
+            )
+            + "?describe_on_delete=1",
+        )
+        self.assertNotContains(response, "Yes, delete")
+        self.assertNotContains(response, delete_url)
+
+    def test_delete_post_with_protected_reference(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        delete_url = reverse(
+            "wagtailusers_users:delete",
+            args=(self.test_user.pk,),
+        )
+        response = self.client.post(delete_url)
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+
+        # Check that the user is still here
+        self.assertTrue(User.objects.filter(pk=self.test_user.pk).exists())
+
 
 class TestUserDeleteViewForNonSuperuser(
     AdminTemplateTestUtils, WagtailTestUtils, TestCase
@@ -1002,6 +1010,23 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             password="password",
         )
 
+        self.post_data = {
+            "username": "testuser",
+            "email": "test@user.com",
+            "first_name": "Edited",
+            "last_name": "User",
+            "password1": "newpassword",
+            "password2": "newpassword",
+            "is_active": "on",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            self.post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
+
         # Login
         self.current_user = self.login()
 
@@ -1049,22 +1074,6 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         url_finder = AdminURLFinder(self.current_user)
         self.assertEqual(url_finder.get_edit_url(self.test_user), edit_url)
 
-    def test_legacy_url_redirect(self):
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            (
-                "UserViewSet's `/<pk>/` edit view URL pattern has been "
-                "deprecated in favour of /edit/<pk>/."
-            ),
-        ):
-            response = self.client.get(f"/admin/users/{self.test_user.pk}/")
-
-        self.assertRedirects(
-            response,
-            f"/admin/users/edit/{self.test_user.pk}/",
-            status_code=301,
-        )
-
     def test_nonexistent_redirect(self):
         invalid_id = (
             "99999999-9999-9999-9999-999999999999"
@@ -1074,18 +1083,7 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertEqual(self.get(user_id=invalid_id).status_code, 404)
 
     def test_simple_post(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "newpassword",
-                "password2": "newpassword",
-                "is_active": "on",
-            },
-            follow=True,
-        )
+        response = self.post(self.post_data, follow=True)
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
 
@@ -1097,6 +1095,8 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             self.assertContains(response, "User &#x27;test@user.com&#x27; updated.")
         else:
             self.assertContains(response, "User &#x27;testuser&#x27; updated.")
+            self.assertEqual(user.country, "testcountry")
+            self.assertEqual(user.attachment.read(), b"Uploaded file")
 
         # On next load of the edit view,
         # should render the status panel with the last updated time
@@ -1117,17 +1117,10 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_password_optional(self):
         """Leaving password fields blank should leave it unchanged"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "",
-                "password2": "",
-                "is_active": "on",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = ""
+        post_data["password2"] = ""
+        response = self.post(post_data)
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
 
@@ -1138,17 +1131,10 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
 
     def test_passwords_match(self):
         """Password fields should be validated if supplied"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "banana",
-                "password2": "kumquat",
-                "is_active": "on",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = "banana"
+        post_data["password2"] = "kumquat"
+        response = self.post(post_data)
         # Should remain on page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
@@ -1174,16 +1160,12 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         which requires a full-populated user model before the validation works.
         """
         # Create a user with a password the same as their name
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "Name",
-                "password1": "edited name",
-                "password2": "edited name",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["first_name"] = "Edited"
+        post_data["last_name"] = "Name"
+        post_data["password1"] = "edited name"
+        post_data["password2"] = "edited name"
+        response = self.post(post_data)
 
         # Should remain on page
         self.assertEqual(response.status_code, 200)
@@ -1200,19 +1182,10 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertTrue(user.check_password("password"))
 
     def test_edit_and_deactivate(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-                # Leaving out these fields, thus setting them to False:
-                # 'is_active': 'on'
-                # 'is_superuser': 'on',
-            }
-        )
+        post_data = self.post_data.copy()
+        del post_data["is_active"]
+
+        response = self.post(post_data)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -1226,18 +1199,9 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIs(user.is_active, False)
 
     def test_edit_and_make_superuser(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-                "is_active": "on",
-                "is_superuser": "on",
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["is_superuser"] = "on"
+        response = self.post(post_data)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -1251,19 +1215,25 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIs(user.is_active, True)
 
     def test_edit_self(self):
-        response = self.post(
-            {
-                "username": "test@email.com",
-                "email": "test@email.com",
-                "first_name": "Edited Myself",
-                "last_name": "User",
-                # 'password1': "password",
-                # 'password2': "password",
-                "is_active": "on",
-                "is_superuser": "on",
-            },
-            self.current_user.pk,
-        )
+        post_data = {
+            "username": "test@email.com",
+            "email": "test@email.com",
+            "first_name": "Edited Myself",
+            "last_name": "User",
+            # 'password1': "password",
+            # 'password2': "password",
+            "is_active": "on",
+            "is_superuser": "on",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
+
+        response = self.post(post_data, self.current_user.pk)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -1278,19 +1248,24 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIs(user.is_active, True)
 
     def test_editing_own_password_does_not_log_out(self):
-        response = self.post(
-            {
-                "username": "test@email.com",
-                "email": "test@email.com",
-                "first_name": "Edited Myself",
-                "last_name": "User",
-                "password1": "c0rrecth0rse",
-                "password2": "c0rrecth0rse",
-                "is_active": "on",
-                "is_superuser": "on",
-            },
-            self.current_user.pk,
-        )
+        post_data = {
+            "username": "test@email.com",
+            "email": "test@email.com",
+            "first_name": "Edited Myself",
+            "last_name": "User",
+            "password1": "c0rrecth0rse",
+            "password2": "c0rrecth0rse",
+            "is_active": "on",
+            "is_superuser": "on",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
+        response = self.post(post_data, self.current_user.pk)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -1307,21 +1282,27 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         """
         check that unsetting a user's own is_active or is_superuser flag has no effect
         """
-        response = self.post(
-            {
-                "username": "test@email.com",
-                "email": "test@email.com",
-                "first_name": "Edited Myself",
-                "last_name": "User",
-                # 'password1': "password",
-                # 'password2': "password",
-                # failing to submit is_active or is_superuser would unset those flags,
-                # if we didn't explicitly prevent that when editing self
-                # 'is_active': 'on',
-                # 'is_superuser': 'on',
-            },
-            self.current_user.pk,
-        )
+        post_data = {
+            "username": "test@email.com",
+            "email": "test@email.com",
+            "first_name": "Edited Myself",
+            "last_name": "User",
+            # 'password1': "password",
+            # 'password2': "password",
+            # failing to submit is_active or is_superuser would unset those flags,
+            # if we didn't explicitly prevent that when editing self
+            # 'is_active': 'on',
+            # 'is_superuser': 'on',
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
+
+        response = self.post(post_data, self.current_user.pk)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -1334,36 +1315,6 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertIs(user.is_superuser, True)
         # Check that the user is still active
         self.assertIs(user.is_active, True)
-
-    @unittest.skipUnless(
-        settings.AUTH_USER_MODEL == "customuser.CustomUser",
-        "Only applicable to CustomUser",
-    )
-    @override_settings(
-        WAGTAIL_USER_EDIT_FORM="wagtail.users.tests.CustomUserEditForm",
-    )
-    def test_edit_with_custom_form(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-                "country": "testcountry",
-                "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
-            }
-        )
-
-        # Should redirect back to index
-        self.assertRedirects(response, reverse("wagtailusers_users:index"))
-
-        # Check that the user was edited
-        user = get_user_model().objects.get(pk=self.test_user.pk)
-        self.assertEqual(user.first_name, "Edited")
-        self.assertEqual(user.country, "testcountry")
-        self.assertEqual(user.attachment.read(), b"Uploaded file")
 
     @unittest.skipIf(
         settings.AUTH_USER_MODEL == "emailuser.EmailUser", "Not applicable to EmailUser"
@@ -1378,6 +1329,8 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
                 "last_name": "User",
                 "password1": "password",
                 "password2": "password",
+                "country": "testcountry",
+                "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
             }
         )
 
@@ -1396,17 +1349,10 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
     def test_password_fields_ignored_when_disabled(self):
         """When WAGTAILUSERS_PASSWORD_REQUIRED is False, existing password should be left unchanged"""
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "is_active": "on",
-                "password1": "banana",  # not part of the form - should be ignored
-                "password2": "kumquat",  # not part of the form - should be ignored
-            }
-        )
+        post_data = self.post_data.copy()
+        post_data["password1"] = "banana"  # not part of the form - should be ignored
+        post_data["password2"] = "kumquat"  # not part of the form - should be ignored
+        response = self.post(post_data)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
@@ -1439,16 +1385,9 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             return HttpResponse("Overridden!")
 
         with self.register_hook("before_edit_user", hook_func):
-            post_data = {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-            }
             response = self.client.post(
-                reverse("wagtailusers_users:edit", args=(self.test_user.pk,)), post_data
+                reverse("wagtailusers_users:edit", args=(self.test_user.pk,)),
+                self.post_data,
             )
 
         self.assertEqual(response.status_code, 200)
@@ -1462,16 +1401,9 @@ class TestUserEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             return HttpResponse("Overridden!")
 
         with self.register_hook("after_edit_user", hook_func):
-            post_data = {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-            }
             response = self.client.post(
-                reverse("wagtailusers_users:edit", args=(self.test_user.pk,)), post_data
+                reverse("wagtailusers_users:edit", args=(self.test_user.pk,)),
+                self.post_data,
             )
 
         self.assertEqual(response.status_code, 200)
@@ -1594,6 +1526,14 @@ class TestUserEditViewForNonSuperuser(WagtailTestUtils, TestCase):
             "is_superuser": "on",
             "is_active": "on",
         }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
+
         response = self.client.post(
             reverse("wagtailusers_users:edit", args=(self.editor_user.pk,)), post_data
         )
@@ -1635,6 +1575,58 @@ class TestUserHistoryView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed("wagtailadmin/generic/listing.html")
         self.assertContains(response, "Created")
         self.assertContains(response, "Edited")
+
+
+class TestUserUsageView(WagtailTestUtils, TestCase):
+    # More thorough tests are in test_model_viewset
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.test_user = cls.create_user(
+            username="testuser",
+            email="testuser@email.com",
+            first_name="Original",
+            last_name="User",
+            password="password",
+        )
+        cls.url = reverse("wagtailusers_users:usage", args=(cls.test_user.pk,))
+
+    def setUp(self):
+        self.user = self.login()
+
+    def test_simple(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            referrer = VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        response = self.client.get(self.url)
+        self.assertTemplateUsed("wagtailadmin/generic/listing.html")
+        soup = self.get_soup(response.content)
+        tds = soup.select("main table td")
+        self.assertEqual(
+            [td.text.strip() for td in tds],
+            [str(referrer), capfirst(referrer._meta.verbose_name), "Protected user"],
+        )
+
+    def test_describe_on_delete(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            referrer = VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_user=self.test_user,
+            )
+        response = self.client.get(self.url + "?describe_on_delete=1")
+        self.assertTemplateUsed("wagtailadmin/generic/listing.html")
+        soup = self.get_soup(response.content)
+        tds = soup.select("main table td")
+        self.assertEqual(
+            [td.text.strip() for td in tds],
+            [
+                str(referrer),
+                capfirst(referrer._meta.verbose_name),
+                "Protected user: prevents deletion",
+            ],
+        )
 
 
 class TestGroupIndexView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
@@ -1740,7 +1732,7 @@ class TestGroupCreateView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_num_queries(self):
         # Warm up the cache
         self.get()
-        with self.assertNumQueries(20):
+        with self.assertNumQueries(30):
             self.get()
 
     def test_create_group(self):
@@ -2165,7 +2157,7 @@ class TestGroupEditView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     def test_num_queries(self):
         # Warm up the cache
         self.get()
-        with self.assertNumQueries(32):
+        with self.assertNumQueries(47):
             self.get()
 
     def test_nonexistent_group_redirect(self):
@@ -2722,65 +2714,104 @@ class TestGroupHistoryView(WagtailTestUtils, TestCase):
 
 
 class TestGroupViewSet(TestCase):
-    app_config_attr = "group_viewset"
-    default_viewset_cls = GroupViewSet
-    custom_viewset_cls = CustomGroupViewSet
-    create_form_cls = CustomGroupForm
-    edit_form_cls = CustomGroupForm
-
     def setUp(self):
         self.app_config = apps.get_app_config("wagtailusers")
+        self.app_config_class_name = self.app_config.__class__.__name__
 
     def test_get_viewset_cls(self):
         self.assertIs(
-            get_viewset_cls(self.app_config, self.app_config_attr),
-            self.default_viewset_cls,
+            get_viewset_cls(self.app_config, "group_viewset"),
+            GroupViewSet,
         )
 
     def test_get_viewset_cls_with_custom_form(self):
         with unittest.mock.patch.object(
             self.app_config,
-            self.app_config_attr,
-            new=f"wagtail.users.tests.{self.custom_viewset_cls.__name__}",
+            "group_viewset",
+            new="wagtail.users.tests.CustomGroupViewSet",
         ):
-            group_viewset = get_viewset_cls(self.app_config, self.app_config_attr)
-        self.assertIs(group_viewset, self.custom_viewset_cls)
+            group_viewset = get_viewset_cls(self.app_config, "group_viewset")
+        self.assertIs(group_viewset, CustomGroupViewSet)
         self.assertEqual(group_viewset.icon, "custom-icon")
         viewset = group_viewset()
-        self.assertIs(viewset.get_form_class(for_update=False), self.create_form_cls)
-        self.assertIs(viewset.get_form_class(for_update=True), self.edit_form_cls)
+        self.assertIs(viewset.get_form_class(for_update=False), CustomGroupForm)
+        self.assertIs(viewset.get_form_class(for_update=True), CustomGroupForm)
 
     def test_get_viewset_cls_custom_form_invalid_value(self):
         with unittest.mock.patch.object(
-            self.app_config, self.app_config_attr, new="asdfasdf"
+            self.app_config, "group_viewset", new="asdfasdf"
         ):
             with self.assertRaisesMessage(
                 ImproperlyConfigured,
-                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
+                f"Invalid setting for {self.app_config_class_name}.group_viewset: "
                 "asdfasdf doesn't look like a module path",
             ):
-                get_viewset_cls(self.app_config, self.app_config_attr)
+                get_viewset_cls(self.app_config, "group_viewset")
 
     def test_get_viewset_cls_custom_form_does_not_exist(self):
         with unittest.mock.patch.object(
             self.app_config,
-            self.app_config_attr,
+            "group_viewset",
             new="wagtail.users.tests.CustomClassDoesNotExist",
         ):
             with self.assertRaisesMessage(
                 ImproperlyConfigured,
-                f"Invalid setting for WagtailUsersAppConfig.{self.app_config_attr}: "
+                f"Invalid setting for {self.app_config_class_name}.group_viewset: "
                 'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
             ):
-                get_viewset_cls(self.app_config, self.app_config_attr)
+                get_viewset_cls(self.app_config, "group_viewset")
 
 
-class TestUserViewSet(TestGroupViewSet):
-    app_config_attr = "user_viewset"
-    default_viewset_cls = UserViewSet
-    custom_viewset_cls = CustomUserViewSet
-    create_form_cls = CustomUserCreationForm
-    edit_form_cls = CustomUserEditForm
+class TestUserViewSet(TestCase):
+    def setUp(self):
+        self.app_config = apps.get_app_config("wagtailusers")
+        self.app_config_class_name = self.app_config.__class__.__name__
+
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "emailuser.EmailUser",
+        "Test only applies to EmailUser model",
+    )
+    def test_get_viewset_cls_default(self):
+        self.assertIs(
+            get_viewset_cls(self.app_config, "user_viewset"),
+            UserViewSet,
+        )
+
+    @unittest.skipUnless(
+        settings.AUTH_USER_MODEL == "customuser.CustomUser",
+        "Test only applies to CustomUser model",
+    )
+    def test_get_viewset_cls_custom(self):
+        viewset_cls = get_viewset_cls(self.app_config, "user_viewset")
+        self.assertIs(viewset_cls, CustomUserViewSet)
+        self.assertEqual(viewset_cls.icon, "custom-icon")
+        viewset = viewset_cls()
+        self.assertIs(viewset.get_form_class(for_update=False), CustomUserCreationForm)
+        self.assertIs(viewset.get_form_class(for_update=True), CustomUserEditForm)
+
+    def test_get_viewset_cls_custom_form_invalid_value(self):
+        with unittest.mock.patch.object(
+            self.app_config, "user_viewset", new="asdfasdf"
+        ):
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                f"Invalid setting for {self.app_config_class_name}.user_viewset: "
+                "asdfasdf doesn't look like a module path",
+            ):
+                get_viewset_cls(self.app_config, "user_viewset")
+
+    def test_get_viewset_cls_custom_form_does_not_exist(self):
+        with unittest.mock.patch.object(
+            self.app_config,
+            "user_viewset",
+            new="wagtail.users.tests.CustomClassDoesNotExist",
+        ):
+            with self.assertRaisesMessage(
+                ImproperlyConfigured,
+                f"Invalid setting for {self.app_config_class_name}.user_viewset: "
+                'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
+            ):
+                get_viewset_cls(self.app_config, "user_viewset")
 
     def test_registered_permissions(self):
         group_ct = ContentType.objects.get_for_model(Group)
@@ -2831,6 +2862,21 @@ class TestAuthorisationCreateView(WagtailTestUtils, TestCase):
         self._user = self.create_user(username="auth_user", password="password")
         self._user.user_permissions.add(Permission.objects.get(codename="access_admin"))
         self.login(username="auth_user", password="password")
+        self.post_data = {
+            "username": "testuser",
+            "email": "test@user.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password1": "password",
+            "password2": "password",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            self.post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
 
     def get(self, params={}):
         return self.client.get(reverse("wagtailusers_users:add"), params)
@@ -2862,16 +2908,7 @@ class TestAuthorisationCreateView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/create.html")
 
     def test_unauthorised_post(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-            }
-        )
+        response = self.post(self.post_data)
         # Should redirect to admin index (permission denied)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
@@ -2883,16 +2920,7 @@ class TestAuthorisationCreateView(WagtailTestUtils, TestCase):
 
     def test_authorised_post(self):
         self.gain_permissions()
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Test",
-                "last_name": "User",
-                "password1": "password",
-                "password2": "password",
-            }
-        )
+        response = self.post(self.post_data)
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
         user = get_user_model().objects.filter(email="test@user.com")
         self.assertTrue(user.exists())
@@ -2910,6 +2938,22 @@ class TestAuthorisationEditView(WagtailTestUtils, TestCase):
             last_name="User",
             password="password",
         )
+        self.post_data = {
+            "username": "testuser",
+            "email": "test@user.com",
+            "first_name": "Edited",
+            "last_name": "User",
+            "password1": "newpassword",
+            "password2": "newpassword",
+            "is_active": "on",
+        }
+        if settings.AUTH_USER_MODEL == "customuser.CustomUser":
+            self.post_data.update(
+                {
+                    "country": "testcountry",
+                    "attachment": SimpleUploadedFile("test.txt", b"Uploaded file"),
+                }
+            )
 
     def get(self, params={}, user_id=None):
         return self.client.get(
@@ -2947,17 +2991,7 @@ class TestAuthorisationEditView(WagtailTestUtils, TestCase):
         self.assertTemplateUsed(response, "wagtailusers/users/edit.html")
 
     def test_unauthorised_post(self):
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "newpassword",
-                "password2": "newpassword",
-                "is_active": "on",
-            }
-        )
+        response = self.post(self.post_data)
         # Should redirect to admin index (permission denied)
         self.assertRedirects(response, reverse("wagtailadmin_home"))
         self.assertEqual(
@@ -2970,17 +3004,7 @@ class TestAuthorisationEditView(WagtailTestUtils, TestCase):
 
     def test_authorised_post(self):
         self.gain_permissions()
-        response = self.post(
-            {
-                "username": "testuser",
-                "email": "test@user.com",
-                "first_name": "Edited",
-                "last_name": "User",
-                "password1": "newpassword",
-                "password2": "newpassword",
-                "is_active": "on",
-            }
-        )
+        response = self.post(self.post_data)
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, "Edited")
@@ -3048,103 +3072,6 @@ class TestAuthorisationDeleteView(WagtailTestUtils, TestCase):
         self.assertRedirects(response, reverse("wagtailusers_users:index"))
         user = get_user_model().objects.filter(email="test_user@email.com")
         self.assertFalse(user.exists())
-
-
-class TestTemplateTags(WagtailTestUtils, TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.user = cls.create_superuser("admin")
-        cls.request = get_dummy_request()
-        cls.request.user = cls.user
-        cls.test_user = cls.create_user(
-            username="testuser",
-            email="testuser@email.com",
-            password="password",
-        )
-
-    def test_user_listing_buttons(self):
-        template = """
-            {% load wagtailusers_tags %}
-            {% for user in users %}
-                <ul class="actions">
-                    {% user_listing_buttons user %}
-                </ul>
-            {% endfor %}
-        """
-
-        def hook(user, request_user):
-            self.assertEqual(user, self.test_user)
-            self.assertEqual(request_user, self.user)
-            yield UserListingButton(
-                "Show profile",
-                f"/goes/to/a/url/{user.pk}",
-                priority=30,
-            )
-
-        with self.register_hook("register_user_listing_buttons", hook):
-            with self.assertWarnsMessage(
-                RemovedInWagtail70Warning,
-                "`user_listing_buttons` template tag is deprecated.",
-            ):
-                html = Template(template).render(
-                    RequestContext(self.request, {"users": [self.test_user]})
-                )
-
-        soup = self.get_soup(html)
-
-        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
-        top_level_custom_button = soup.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNotNone(top_level_custom_button)
-        self.assertEqual(
-            top_level_custom_button.text.strip(),
-            "Show profile",
-        )
-
-    def test_user_listing_buttons_with_deprecated_hook(self):
-        template = """
-            {% load wagtailusers_tags %}
-            {% for user in users %}
-                <ul class="actions">
-                    {% user_listing_buttons user %}
-                </ul>
-            {% endfor %}
-        """
-
-        def deprecated_hook(context, user):
-            self.assertEqual(user, self.test_user)
-            self.assertEqual(context.request.user, self.user)
-            yield UserListingButton(
-                "Show profile",
-                f"/goes/to/a/url/{user.pk}",
-                priority=30,
-            )
-
-        with self.register_hook("register_user_listing_buttons", deprecated_hook):
-            with self.assertWarns(RemovedInWagtail70Warning) as warning_manager:
-                html = Template(template).render(
-                    RequestContext(self.request, {"users": [self.test_user]})
-                )
-
-        self.assertEqual(
-            [str(w.message) for w in warning_manager.warnings],
-            [
-                # Deprecation of the template tag
-                "`user_listing_buttons` template tag is deprecated.",
-                # Deprecation of the hook signature
-                "`register_user_listing_buttons` hook functions should accept a "
-                "`request_user` argument instead of `context` - "
-                "wagtail.users.tests.test_admin_views.deprecated_hook needs to be updated",
-            ],
-        )
-
-        soup = self.get_soup(html)
-        profile_url = f"/goes/to/a/url/{self.test_user.pk}"
-        top_level_custom_button = soup.select_one(f"li > a[href='{profile_url}']")
-        self.assertIsNotNone(top_level_custom_button)
-        self.assertEqual(
-            top_level_custom_button.text.strip(),
-            "Show profile",
-        )
 
 
 class TestAdminPermissions(WagtailTestUtils, TestCase):

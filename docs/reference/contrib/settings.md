@@ -105,6 +105,15 @@ class MySettings(BaseGenericSetting):
     ])
 ```
 
+## Permissions
+
+Settings are editable by superusers, and any users who have been granted "change" permission on the setting model. Additionally, for models extending `BaseSiteSetting`, permissions can be assigned for individual sites through the Groups area of the admin, under Settings.
+
+```{versionadded} 7.1
+The ability to assign permissions for individual sites was added.
+```
+
+
 ## Appearance
 
 You can change the label used in the menu by changing the
@@ -146,6 +155,8 @@ def view(request):
     social_media_settings = GenericSocialMediaSettings.load(request_or_site=request)
     ...
 ```
+
+The `request_or_site` argument is optional - if this is passed, and is a request object, the result will be cached on the request to avoid repeated database lookups within the same request.
 
 (site_settings)=
 

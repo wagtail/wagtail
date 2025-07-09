@@ -25,7 +25,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
 from wagtail.test.utils.wagtail_tests import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class TestModelViewSetGroup(WagtailTestUtils, TestCase):
@@ -239,11 +238,11 @@ class TestCustomColumns(WagtailTestUtils, TestCase):
         self.assertIsNotNone(help)
         self.assertEqual(help.text.strip(), "None")
 
-        success = soup.select_one("td:has(svg.icon-success.w-text-positive-100)")
+        success = soup.select_one("td:has(svg.icon-check.w-text-positive-100)")
         self.assertIsNotNone(success)
         self.assertEqual(success.text.strip(), "True")
 
-        error = soup.select_one("td:has(svg.icon-error.w-text-critical-100)")
+        error = soup.select_one("td:has(svg.icon-cross.w-text-text-error)")
         self.assertIsNotNone(error)
         self.assertEqual(error.text.strip(), "False")
 
@@ -950,41 +949,6 @@ class TestBreadcrumbs(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
         self.assertBreadcrumbsItemsRendered(items, response.content)
 
 
-class TestLegacyPatterns(WagtailTestUtils, TestCase):
-    # RemovedInWagtail70Warning: legacy integer pk-based URLs will be removed
-
-    def setUp(self):
-        self.user = self.login()
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.object = JSONStreamModel.objects.create(
-            body='[{"type": "text", "value": "foo"}]',
-        )
-
-    def test_legacy_edit(self):
-        edit_url = reverse("streammodel:edit", args=(quote(self.object.pk),))
-        legacy_edit_url = "/admin/streammodel/1/"
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/` edit view URL pattern has been deprecated in favour of /edit/<pk>/.",
-        ):
-            response = self.client.get(legacy_edit_url)
-        self.assertEqual(edit_url, "/admin/streammodel/edit/1/")
-        self.assertRedirects(response, edit_url, 301)
-
-    def test_legacy_delete(self):
-        delete_url = reverse("streammodel:delete", args=(quote(self.object.pk),))
-        legacy_delete_url = "/admin/streammodel/1/delete/"
-        with self.assertWarnsRegex(
-            RemovedInWagtail70Warning,
-            "`/<pk>/delete/` delete view URL pattern has been deprecated in favour of /delete/<pk>/.",
-        ):
-            response = self.client.get(legacy_delete_url)
-        self.assertEqual(delete_url, "/admin/streammodel/delete/1/")
-        self.assertRedirects(response, delete_url, 301)
-
-
 class TestHistoryView(WagtailTestUtils, TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -1400,7 +1364,7 @@ class TestInspectView(WagtailTestUtils, TestCase):
             reverse("fctoy_alt1:inspect", args=(quote(self.object.pk),))
         )
         expected_fields = ["Name"]
-        expected_values = ["Test Toy"]
+        expected_values = [f"Test Toy ({self.object.pk})"]
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailadmin/generic/inspect.html")
         soup = self.get_soup(response.content)
@@ -1501,6 +1465,8 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         actions = soup.select_one("tbody tr td ul.actions")
         more_dropdown = actions.select_one("li [data-controller='w-dropdown']")
         self.assertIsNotNone(more_dropdown)
+        # The aria-label should be on the toggle button, not the dropdown
+        self.assertIsNone(more_dropdown.get("aria-label"))
         more_button = more_dropdown.select_one("button")
         self.assertEqual(
             more_button.attrs.get("aria-label").strip(),
@@ -1510,22 +1476,18 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         expected_buttons = [
             (
                 "Edit",
-                f"Edit '{self.object}'",
                 reverse("feature_complete_toy:edit", args=[quote(self.object.pk)]),
             ),
             (
                 "Copy",
-                f"Copy '{self.object}'",
                 reverse("feature_complete_toy:copy", args=[quote(self.object.pk)]),
             ),
             (
                 "Inspect",
-                f"Inspect '{self.object}'",
                 reverse("feature_complete_toy:inspect", args=[quote(self.object.pk)]),
             ),
             (
                 "Delete",
-                f"Delete '{self.object}'",
                 reverse("feature_complete_toy:delete", args=[quote(self.object.pk)]),
             ),
         ]
@@ -1533,12 +1495,11 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         rendered_buttons = more_dropdown.select("a")
         self.assertEqual(len(rendered_buttons), len(expected_buttons))
 
-        for rendered_button, (label, aria_label, url) in zip(
-            rendered_buttons, expected_buttons
-        ):
+        for rendered_button, (label, url) in zip(rendered_buttons, expected_buttons):
             self.assertEqual(rendered_button.text.strip(), label)
-            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+            # Should not render aria-label in favor of the button text
+            self.assertIsNone(rendered_button.attrs.get("aria-label"))
 
     def test_title_cell_not_link_to_edit_view_when_no_edit_permission(self):
         self.user.is_superuser = False
@@ -1629,17 +1590,14 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         expected_buttons = [
             (
                 "Edit",
-                f"Edit '{self.object}'",
                 reverse("fctoy_alt1:edit", args=[quote(self.object.pk)]),
             ),
             (
                 "Inspect",
-                f"Inspect '{self.object}'",
                 reverse("fctoy_alt1:inspect", args=[quote(self.object.pk)]),
             ),
             (
                 "Delete",
-                f"Delete '{self.object}'",
                 reverse("fctoy_alt1:delete", args=[quote(self.object.pk)]),
             ),
         ]
@@ -1647,12 +1605,11 @@ class TestListingButtons(WagtailTestUtils, TestCase):
         rendered_buttons = more_dropdown.select("a")
         self.assertEqual(len(rendered_buttons), len(expected_buttons))
 
-        for rendered_button, (label, aria_label, url) in zip(
-            rendered_buttons, expected_buttons
-        ):
+        for rendered_button, (label, url) in zip(rendered_buttons, expected_buttons):
             self.assertEqual(rendered_button.text.strip(), label)
-            self.assertEqual(rendered_button.attrs.get("aria-label"), aria_label)
             self.assertEqual(rendered_button.attrs.get("href"), url)
+            # Should not render aria-label in favor of the button text
+            self.assertIsNone(rendered_button.attrs.get("aria-label"))
 
     def test_dropdown_not_rendered_when_no_child_buttons_exist(self):
         self.user.is_superuser = False

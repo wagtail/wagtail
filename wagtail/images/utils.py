@@ -117,6 +117,7 @@ def to_svg_safe_spec(filter_specs):
     """
     if isinstance(filter_specs, str):
         filter_specs = filter_specs.split("|")
+
     svg_preserving_specs = [
         "max",
         "min",
@@ -126,9 +127,35 @@ def to_svg_safe_spec(filter_specs):
         "fill",
         "original",
     ]
+
+    # Keep only safe operations and remove preserve-svg
     safe_specs = [
         x
         for x in filter_specs
         if any(x.startswith(prefix) for prefix in svg_preserving_specs)
     ]
+
+    # If no safe operations remain, use 'original'
+    if not safe_specs:
+        return "original"
+
     return "|".join(safe_specs)
+
+
+def get_allowed_image_extensions():
+    return getattr(
+        settings,
+        "WAGTAILIMAGES_EXTENSIONS",
+        ["avif", "gif", "jpg", "jpeg", "png", "webp"],
+    )
+
+
+def get_accept_attributes():
+    allowed_image_extensions = get_allowed_image_extensions()
+    accept_attrs = "image/*"
+    if "heic" in allowed_image_extensions:
+        accept_attrs += ", image/heic"
+    if "avif" in allowed_image_extensions:
+        accept_attrs += ", image/avif"
+
+    return accept_attrs

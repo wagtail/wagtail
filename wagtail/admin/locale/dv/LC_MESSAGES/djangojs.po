@@ -10,6 +10,9 @@ msgstr ""
 "Language: dv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Actions"
+msgstr "އަމަލުތައް"
+
 msgid "Alt text"
 msgstr "ބަދަލު ލިޔުންކޮޅު"
 

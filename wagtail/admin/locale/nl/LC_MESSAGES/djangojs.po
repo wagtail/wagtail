@@ -4,13 +4,13 @@
 # Rob Moorman <rob@moori.nl>, 2022
 # benny_AT_it_digin.com <benny@it-digin.com>, 2022
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2022
-# Thijs Kramer <thijskramer@gmail.com>, 2023
 # Storm Heg <storm@stormbase.digital>, 2024
 # Loic Teixeira, 2025
+# Thijs Kramer <thijskramer@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
-"Last-Translator: Loic Teixeira, 2025\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/torchbox/teams/8009/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: nl\n"
@@ -39,6 +39,9 @@ msgid "%(num)s pixel"
 msgid_plural "%(num)s pixels"
 msgstr[0] "%(num)s pixel"
 msgstr[1] "%(num)s pixels"
+
+msgid "Actions"
+msgstr "Acties"
 
 msgid "Add a comment"
 msgstr "Voeg opmerking toe"

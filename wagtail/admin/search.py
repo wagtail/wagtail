@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
@@ -9,7 +7,6 @@ from django.utils.text import slugify
 
 from wagtail import hooks
 from wagtail.admin.forms.search import SearchForm
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class SearchArea(metaclass=MediaDefiningClass):
@@ -21,19 +18,13 @@ class SearchArea(metaclass=MediaDefiningClass):
         url,
         name=None,
         classname="",
-        classnames="",
         icon_name="",
         attrs=None,
         order=1000,
     ):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for SearchArea is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
         self.label = label
         self.url = url
-        self.classname = classname or classnames
+        self.classname = classname
         self.icon_name = icon_name
         self.name = name or slugify(str(label))
         self.order = order

@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
@@ -258,6 +258,28 @@ class RevisionMixin(models.Model):
         editable=False,
     )
 
+    _revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        for_concrete_model=False,
+    )
+    """
+    A default ``GenericRelation`` for the purpose of automatically deleting
+    revisions when the object is deleted. This is not used to query the object's
+    revisions. Instead, the :meth:`revisions` property is used for that purpose.
+    As such, this default relation is considered private.
+
+    This ``GenericRelation`` does not have a
+    :attr:`~django.contrib.contenttypes.fields.GenericRelation.related_query_name`,
+    so it cannot be used for reverse-related queries from ``Revision`` back to
+    this model. If the feature is desired, subclasses can define their own
+    ``GenericRelation`` to ``Revision`` with a custom ``related_query_name``.
+
+    .. versionadded:: 7.1
+        The default ``GenericRelation`` :attr:`~wagtail.models.RevisionMixin._revisions` was added.
+    """
+
     # An array of additional field names that will not be included when the object is copied.
     default_exclude_fields_in_copy = [
         "latest_revision",
@@ -266,19 +288,15 @@ class RevisionMixin(models.Model):
     @property
     def revisions(self):
         """
-        Returns revisions that belong to the object.
-
-        Subclasses should define a
-        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
-        :class:`~wagtail.models.Revision` and override this property to return
-        that ``GenericRelation``. This allows subclasses to customize the
-        ``related_query_name`` of the ``GenericRelation`` and add custom logic
-        (e.g. to always use the specific instance in ``Page``).
+        Returns revisions that belong to the object. For non-page models, this
+        is done by querying the :class:`~wagtail.models.Revision` model directly
+        rather than using a
+        :class:`~django.contrib.contenttypes.fields.GenericRelation`, to avoid
+        `a known limitation <https://code.djangoproject.com/ticket/31269>`_ in
+        Django for models with multi-table inheritance where the relation's
+        content type may not match the instance's type.
         """
-        return Revision.objects.filter(
-            content_type=self.get_content_type(),
-            object_id=self.pk,
-        )
+        return Revision.objects.for_instance(self)
 
     def get_base_content_type(self):
         parents = self._meta.get_parent_list()

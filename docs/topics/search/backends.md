@@ -54,6 +54,8 @@ Here's a list of backends that Wagtail supports out of the box.
 The database search backend searches content in the database using the full-text search features of the database backend in use (such as PostgreSQL FTS, SQLite FTS5).
 This backend is intended to be used for development and also should be good enough to use in production on sites that don't require any Elasticsearch specific features.
 
+If you use the PostgreSQL database backend, you must add `django.contrib.postgres` to your [`INSTALLED_APPS`](inv:django:std:setting#INSTALLED_APPS) setting.
+
 (wagtailsearch_backends_elasticsearch)=
 
 ### Elasticsearch Backend

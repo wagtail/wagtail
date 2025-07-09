@@ -16,8 +16,9 @@ from wagtail.models import (
     PageViewRestriction,
     Revision,
 )
-from wagtail.signals import page_published
+from wagtail.signals import init_new_page, page_published
 from wagtail.test.testapp.models import (
+    Advert,
     BusinessChild,
     BusinessIndex,
     BusinessSubIndex,
@@ -32,6 +33,7 @@ from wagtail.test.testapp.models import (
     StandardIndex,
 )
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data, streamfield
 from wagtail.test.utils.timestamps import submittable_timestamp
 
 
@@ -172,38 +174,48 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertContains(response, 'href="%s?next=/admin/users/"' % target_url)
 
     def test_create_simplepage(self):
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "simplepage", self.root_page.id),
+        # Connect a mock signal handler to the signal
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", self.root_page.id),
+                )
             )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
-        self.assertContains(
-            response,
-            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-        )
-        self.assertContains(
-            response,
-            '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
-        )
-        # test register_page_action_menu_item hook
-        self.assertContains(
-            response,
-            '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>',
-        )
-        self.assertContains(response, "testapp/js/siren.js")
-        # test construct_page_action_menu hook
-        self.assertContains(
-            response,
-            '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>',
-        )
-        # test that workflow actions are shown
-        self.assertContains(
-            response,
-            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">',
-        )
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
+            self.assertContains(
+                response,
+                '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            )
+            self.assertContains(
+                response,
+                '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            )
+            # test register_page_action_menu_item hook
+            self.assertContains(
+                response,
+                '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>',
+            )
+            self.assertContains(response, "testapp/js/siren.js")
+            # test construct_page_action_menu hook
+            self.assertContains(
+                response,
+                '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>',
+            )
+            # test that workflow actions are shown
+            self.assertContains(
+                response,
+                '<button type="submit" name="action-submit" value="Submit for moderation" class="button">',
+            )
+
+            self.assertEqual(handler.call_count, 1)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            init_new_page.disconnect(handler)
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_workflow_buttons_not_shown_when_workflow_disabled(self):
@@ -305,31 +317,49 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         )
         self.user.save()
 
-        # Get page
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=(
-                    "tests",
-                    "simplepage",
-                    self.root_page.id,
-                ),
-            )
-        )
+        handler = mock.MagicMock()
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 302)
+        init_new_page.connect(handler)
+        try:
+            # Get page
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=(
+                        "tests",
+                        "simplepage",
+                        self.root_page.id,
+                    ),
+                )
+            )
+
+            # Check that the user received a 403 response
+            self.assertEqual(response.status_code, 302)
+
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            init_new_page.disconnect(handler)
 
     def test_cannot_create_page_with_is_creatable_false(self):
         # tests.MTIBasePage has is_creatable=False, so attempting to add a new one
         # should fail with permission denied
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "mtibasepage", self.root_page.id),
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "mtibasepage", self.root_page.id),
+                )
             )
-        )
-        self.assertRedirects(response, "/admin/")
+            self.assertRedirects(response, "/admin/")
+
+            # Check that the signal was not fired
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            init_new_page.disconnect(handler)
 
     def test_cannot_create_page_when_can_create_at_returns_false(self):
         # issue #2892
@@ -401,13 +431,22 @@ class TestPageCreation(WagtailTestUtils, TestCase):
     def test_cannot_create_page_with_wrong_parent_page_types(self):
         # tests.BusinessChild has limited parent_page_types, so attempting to add
         # a new one at the root level should fail with permission denied
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "businesschild", self.root_page.id),
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "businesschild", self.root_page.id),
+                )
             )
-        )
-        self.assertRedirects(response, "/admin/")
+            self.assertRedirects(response, "/admin/")
+
+            # Check that the signal was not fired
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            init_new_page.disconnect(handler)
 
     def test_cannot_create_page_with_wrong_subpage_types(self):
         # Add a BusinessIndex to test business rules in
@@ -419,13 +458,22 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # BusinessIndex has limited subpage_types, so attempting to add a SimplePage
         # underneath it should fail with permission denied
-        response = self.client.get(
-            reverse(
-                "wagtailadmin_pages:add",
-                args=("tests", "simplepage", business_index.id),
+        handler = mock.MagicMock()
+
+        init_new_page.connect(handler)
+        try:
+            response = self.client.get(
+                reverse(
+                    "wagtailadmin_pages:add",
+                    args=("tests", "simplepage", business_index.id),
+                )
             )
-        )
-        self.assertRedirects(response, "/admin/")
+            self.assertRedirects(response, "/admin/")
+
+            self.assertEqual(handler.call_count, 0)
+        finally:
+            # Disconnect mock handler to prevent cross-test pollution
+            init_new_page.disconnect(handler)
 
     def test_create_page_defined_before_admin_load(self):
         """
@@ -481,6 +529,509 @@ class TestPageCreation(WagtailTestUtils, TestCase):
         self.assertFalse(
             any(Page.find_problems()), msg="treebeard found consistency problems"
         )
+
+    def test_create_simplepage_post_with_blank_title(self):
+        post_data = {
+            "title": "",
+            "content": "Some content",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "title", "This field is required."
+        )
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+    def test_create_simplepage_post_with_blank_content(self):
+        """
+        Saving a page as draft with blank content should be allowed, as this skips
+        required=True validation
+        """
+        post_data = {
+            "title": "New page",
+            "content": "",
+            "slug": "hello-world",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.title, post_data["title"])
+        self.assertEqual(page.draft_title, post_data["title"])
+        self.assertIsInstance(page, SimplePage)
+        self.assertFalse(page.live)
+        self.assertFalse(page.first_published_at)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_publish_simplepage_post_with_blank_content(self):
+        post_data = {
+            "title": "New page",
+            "content": "",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "content", "This field is required."
+        )
+
+        # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
+        self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+        # page should not be created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="hello-world"
+            ).exists()
+        )
+
+    def test_create_eventpage_post_with_blank_start_date(self):
+        """
+        EventPage.date_from has null=True and blank=False; the latter is not enforced when
+        saving as draft, so an empty date_from should be allowed
+        """
+        post_data = {
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "London",
+            "cost": "Free",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="event-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.date_from, None)
+        self.assertFalse(page.live)
+
+    def test_required_asterisk_on_reshowing_form(self):
+        """
+        If a form is reshown due to a validation error elsewhere, fields whose validation
+        was deferred should still show the required asterisk.
+        """
+        post_data = {
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "",
+            "cost": "Free",
+            "signup_link": "Not a valid URL",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Empty fields should not cause a validation error, but the invalid URL should
+        self.assertNotContains(response, "This field is required.")
+        self.assertContains(response, "Enter a valid URL.", count=1)
+
+        # Asterisks should still show against required fields
+        soup = self.get_soup(response.content)
+        self.assertTrue(
+            soup.select_one('label[for="id_date_from"] > span.w-required-mark')
+        )
+        self.assertTrue(
+            soup.select_one('label[for="id_location"] > span.w-required-mark')
+        )
+
+    def test_cannot_publish_eventpage_post_with_blank_start_date(self):
+        """
+        EventPage.date_from has null=True and blank=False; the latter is enforced when
+        publishing, so an empty date_from should not be allowed
+        """
+        post_data = {
+            "action-publish": "Publish",
+            "title": "Event page",
+            "date_from": "",
+            "slug": "event-page",
+            "audience": "public",
+            "location": "London",
+            "cost": "Free",
+            "carousel_items-TOTAL_FORMS": 0,
+            "carousel_items-INITIAL_FORMS": 0,
+            "carousel_items-MIN_NUM_FORMS": 0,
+            "carousel_items-MAX_NUM_FORMS": 0,
+            "speakers-TOTAL_FORMS": 0,
+            "speakers-INITIAL_FORMS": 0,
+            "speakers-MIN_NUM_FORMS": 0,
+            "speakers-MAX_NUM_FORMS": 0,
+            "related_links-TOTAL_FORMS": 0,
+            "related_links-INITIAL_FORMS": 0,
+            "related_links-MIN_NUM_FORMS": 0,
+            "related_links-MAX_NUM_FORMS": 0,
+            "head_counts-TOTAL_FORMS": 0,
+            "head_counts-INITIAL_FORMS": 0,
+            "head_counts-MIN_NUM_FORMS": 0,
+            "head_counts-MAX_NUM_FORMS": 0,
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "eventpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "date_from", "This field is required."
+        )
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="event-page"
+            ).exists()
+        )
+
+    def test_cannot_create_page_with_blank_required_date(self):
+        """
+        A non-nullable, non-text field cannot be saved with a blank value, so we should
+        enforce requiredness even when saving as draft
+        """
+        post_data = {
+            "title": "Page with missing date",
+            "deadline": "",
+            "slug": "missing-date",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "requireddatepage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised
+        self.assertFormError(
+            response.context["form"], "deadline", "This field is required."
+        )
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="missing-date"
+            ).exists()
+        )
+
+    def test_create_streampage_post_with_blank_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield([]),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="stream-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(len(page.body), 0)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_streampage_with_blank_body(self):
+        post_data = nested_form_data(
+            {
+                "title": "Stream page",
+                "slug": "stream-page",
+                "body": streamfield([]),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "streampage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check that a form error was raised. The actual message as rendered
+        # ("This field is required.") is passed to the StreamBlock as part of
+        # StreamBlockValidationError.non_block_errors, whereas assertFormError
+        # only considers the message attribute (which is a generic error).
+        self.assertFormError(
+            response.context["form"], "body", "Validation error in StreamBlock"
+        )
+        self.assertContains(response, "This field is required.")
+
+        # Page should not have been created
+        self.assertFalse(
+            Page.objects.filter(
+                path__startswith=self.root_page.path, slug="stream-page"
+            ).exists()
+        )
+
+    def test_can_create_form_page_with_blank_fields_in_inline_children(self):
+        post_data = nested_form_data(
+            {
+                "title": "Form page",
+                "slug": "form-page",
+                "form_fields": inline_formset(
+                    [
+                        {
+                            "label": "some field",
+                            "help_text": "",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                        {
+                            "label": "",
+                            "help_text": "haven't decided on a label yet",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                    ]
+                ),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="form-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.form_fields.count(), 2)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_form_page_with_blank_fields_in_inline_children(self):
+        post_data = nested_form_data(
+            {
+                "title": "Form page",
+                "slug": "form-page",
+                "form_fields": inline_formset(
+                    [
+                        {
+                            "label": "some field",
+                            "help_text": "",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                        {
+                            "label": "",
+                            "help_text": "haven't decided on a label yet",
+                            "required": "required",
+                            "field_type": "singleline",
+                            "choices": "",
+                            "default_value": "",
+                        },
+                    ]
+                ),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "This field is required.")
+
+    def test_can_create_page_with_less_than_min_inline_panels(self):
+        # min_num constraints on inline panels should not be enforced when saving as draft
+        post_data = nested_form_data(
+            {
+                "title": "Promotional page",
+                "slug": "promotional-page",
+                "advert_placements": inline_formset([]),
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "promotionalpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="promotional-page"
+        ).specific
+
+        # Should be redirected to edit page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=(page.id,))
+        )
+
+        self.assertEqual(page.advert_placements.count(), 0)
+        self.assertFalse(page.live)
+
+    def test_cannot_publish_page_with_less_than_min_inline_panels(self):
+        # min_num constraints on inline panels should not be enforced when saving as draft
+        post_data = nested_form_data(
+            {
+                "title": "Promotional page",
+                "slug": "promotional-page",
+                "advert_placements": inline_formset([]),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "promotionalpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Please submit at least 1 form.")
+
+    def test_can_publish_page_with_enough_inline_panels(self):
+        advert = Advert.objects.create(text="Red Bull gives you wings")
+        # min_num constraints on inline panels should not be enforced when saving as draft
+        post_data = nested_form_data(
+            {
+                "title": "Promotional page",
+                "slug": "promotional-page",
+                "advert_placements": inline_formset(
+                    [
+                        {
+                            "advert": advert.id,
+                            "colour": "red",
+                        },
+                    ]
+                ),
+                "action-publish": "Publish",
+            }
+        )
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "promotionalpage", self.root_page.id),
+            ),
+            post_data,
+        )
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="promotional-page"
+        ).specific
+        self.assertTrue(page.live)
+        self.assertEqual(page.advert_placements.count(), 1)
 
     def test_create_simplepage_scheduled(self):
         go_live_at = timezone.now() + datetime.timedelta(days=1)
@@ -782,6 +1333,128 @@ class TestPageCreation(WagtailTestUtils, TestCase):
 
         # form should be marked as having unsaved changes for the purposes of the dirty-forms warning
         self.assertContains(response, 'data-w-unsaved-force-value="true"')
+
+    def test_create_default_privacy_page_public(self):
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = self.root_page.get_children().filter(slug="hello-world").first()
+
+        self.assertEqual(PageViewRestriction.objects.filter(page=page).count(), 0)
+
+    @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
+    def test_create_default_privacy_page_logged_in(
+        self, mock_get_default_privacy_setting
+    ):
+        mock_get_default_privacy_setting.return_value = {"type": "login"}
+
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="login"
+            ).count(),
+            1,
+        )
+
+    @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
+    def test_create_default_privacy_page_shared_password(
+        self, mock_get_default_privacy_setting
+    ):
+        mock_get_default_privacy_setting.return_value = {
+            "type": "password",
+            "password": "password",
+        }
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="password"
+            ).count(),
+            1,
+        )
+
+    @mock.patch("wagtail.test.testapp.models.SimplePage.get_default_privacy_setting")
+    def test_create_default_privacy_page_user_groups(
+        self, mock_get_default_privacy_setting
+    ):
+        mock_get_default_privacy_setting.return_value = {"type": "groups", "groups": []}
+
+        post_data = {
+            "title": "New page!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-publish": "Publish",
+        }
+
+        self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "simplepage", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        # Find the page and check it
+        page = Page.objects.get(
+            path__startswith=self.root_page.path, slug="hello-world"
+        ).specific
+
+        self.assertEqual(
+            PageViewRestriction.objects.filter(
+                page=page, restriction_type="groups"
+            ).count(),
+            1,
+        )
 
     def test_create_nonexistantparent(self):
         response = self.client.get(

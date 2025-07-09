@@ -4,6 +4,7 @@
 #
 # Translators:
 # Adrien <laadrien@gmail.com>, 2014
+# Axel H., 2016
 # Axel Haustant, 2016
 # Axel H., 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016-2017
@@ -14,15 +15,16 @@
 # Loic Teixeira, 2020,2022
 # Loic Teixeira, 2018
 # incognitae <pierre@onoffdesign.com>, 2016
+# Sébastien Corbin <seb.corbin@gmail.com>, 2025
 # Sophy O <sophy.ouch@erudit.org>, 2017
 # Tom Dyson <tom@torchbox.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Tom Dyson <tom@torchbox.com>, 2015\n"
+"Last-Translator: Sébastien Corbin <seb.corbin@gmail.com>, 2025\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -43,11 +45,11 @@ msgstr "Date jusqu’au"
 
 #, python-format
 msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
+"Field name '%(duplicate_clean_name)s' conflicts with another field. Please "
+"change the label."
 msgstr ""
-"Il y a un autre champ avec le label %(label_name)s, veuillez changer l'un "
-"d'entre eux."
+"Le nom du champ '%(duplicate_clean_name)s' est en conflit avec un autre "
+"champ. Veuillez modifier le libellé."
 
 msgid "Single line text"
 msgstr "Texte d'une seule ligne"

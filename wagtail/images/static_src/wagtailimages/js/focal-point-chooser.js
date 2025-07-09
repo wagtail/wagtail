@@ -83,6 +83,11 @@ $(function () {
   var width = focalPointOriginal.width;
   var height = focalPointOriginal.height;
 
+  // To avoid an inline style in the HTML which violates CSP, max-width and
+  // max-height are passed as data attributes to then be set as CSS properties.
+  $chooser.css('max-height', $chooser.data('max-height'));
+  $chooser.css('max-width', $chooser.data('max-width'));
+
   $indicator.css('left', (left * 100) / original.width + '%');
   $indicator.css('top', (top * 100) / original.height + '%');
   $indicator.css('width', (width * 100) / original.width + '%');

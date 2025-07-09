@@ -319,3 +319,34 @@ class TestBulkMove(WagtailTestUtils, TestCase):
             Page.objects.get(id=self.test_page_b_1.id).get_parent().id,
             self.section_b.id,
         )
+
+    def test_bulk_move_with_restricted_parent_page_types(self):
+        board_meetings = Page.objects.get(
+            url_path="/home/events/businessy-events/board-meetings/"
+        )
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "move",
+                ),
+            )
+            + f"?id={board_meetings.id}"
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        html = response.content.decode()
+
+        self.assertInHTML("<p>Are you sure you want to move these pages?</p>", html)
+
+        self.assertInHTML(
+            '<li><a href="{edit_page_url}" target="_blank" rel="noreferrer">Board meetings</a></li>'.format(
+                edit_page_url=reverse(
+                    "wagtailadmin_pages:edit", args=[board_meetings.id]
+                ),
+            ),
+            html,
+        )

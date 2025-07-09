@@ -12,7 +12,7 @@ from wagtail.admin.forms.tags import TagField
 from wagtail.models import Page
 from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class TestAdminPageChooserWidget(TestCase):
@@ -557,7 +557,7 @@ class TestAdminTagWidget(TestCase):
     def test_legacy_tag_limit_setting(self):
         widget = widgets.AdminTagWidget()
         with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
+            RemovedInWagtail80Warning,
             "The setting 'TAG_LIMIT' is deprecated. "
             "Please use 'WAGTAIL_TAG_LIMIT' instead.",
         ):
@@ -576,7 +576,7 @@ class TestAdminTagWidget(TestCase):
     def test_legacy_tag_spaces_allowed_setting(self):
         widget = widgets.AdminTagWidget()
         with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
+            RemovedInWagtail80Warning,
             "The setting 'TAG_SPACES_ALLOWED' is deprecated. "
             "Please use 'WAGTAIL_TAG_SPACES_ALLOWED' instead.",
         ):
@@ -704,7 +704,7 @@ class TestSlugInput(TestCase):
         html = widget.render("test", None, attrs={"id": "test-id"})
 
         self.assertInHTML(
-            '<input type="text" name="test" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-allow-unicode-value data-w-slug-compare-as-param="urlify" id="test-id">',
+            '<input type="text" name="test" data-controller="w-slug" data-action="blur-&gt;w-slug#slugify w-sync:check-&gt;w-slug#compare w-sync:apply-&gt;w-slug#urlify:prevent" data-w-slug-allow-unicode-value data-w-slug-compare-as-param="urlify" data-w-slug-trim-value="true" id="test-id">',
             html,
         )
 

@@ -1,13 +1,14 @@
 import axe, {
   AxeResults,
-  ElementContext,
+  ContextObject,
+  CrossTreeSelector,
   NodeResult,
   Result,
   RunOptions,
   Spec,
 } from 'axe-core';
 
-const toSelector = (str: string | string[]) =>
+const toSelector = (str: string | string[] | CrossTreeSelector[]) =>
   Array.isArray(str) ? str.join(' ') : str;
 
 const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
@@ -46,7 +47,7 @@ interface ErrorMessage {
   help_text: string;
 }
 export interface WagtailAxeConfiguration {
-  context: ElementContext;
+  context: ContextObject;
   options: RunOptions;
   messages: Record<string, ErrorMessage>;
   spec: Spec;
@@ -203,7 +204,7 @@ export const renderA11yResults = (
         // Special-case when displaying accessibility results within the admin interface.
         const isInCMS = node.target[0] === '#w-preview-iframe';
         const selectorName = toSelector(
-          isInCMS ? node.target[1] : node.target[0],
+          node.target.filter((target) => target !== '#w-preview-iframe'),
         );
 
         const a11ySelector = currentA11yRow.querySelector(

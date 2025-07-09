@@ -798,3 +798,73 @@ class TestPageCopy(WagtailTestUtils, TestCase):
 
         # Check if slug is hello-world-2
         self.assertContains(response, "copy-form-2")
+
+    def test_copy_page_success_msg_contains_edit_button(self):
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "publish_copies": False,
+            "alias": False,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)),
+            post_data,
+            follow=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug="hello-world-2").first()
+        self.assertIsNotNone(page_copy)
+
+        # Check the "Edit" button present in success message
+        soup = self.get_soup(response.content)
+        edit_button = soup.select_one(".messages .success a.button")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(
+            edit_button["href"],
+            reverse("wagtailadmin_pages:edit", args=(page_copy.id,)),
+        )
+        self.assertEqual("Edit", edit_button.text)
+
+    def test_copy_page_success_msg_contains_edit_button_subpages(self):
+        post_data = {
+            "new_title": "Hello world 2",
+            "new_slug": "hello-world-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": True,
+            "publish_copies": False,
+            "alias": False,
+        }
+        response = self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(self.test_page.id,)),
+            post_data,
+            follow=True,
+        )
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(
+            response, reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
+
+        # Get copy
+        page_copy = self.root_page.get_children().filter(slug="hello-world-2").first()
+        self.assertIsNotNone(page_copy)
+
+        # Check the "Edit" button present in success message
+        soup = self.get_soup(response.content)
+        edit_button = soup.select_one(".messages .success a.button")
+        self.assertIsNotNone(edit_button)
+        self.assertEqual(
+            edit_button["href"],
+            reverse("wagtailadmin_pages:edit", args=(page_copy.id,)),
+        )
+        self.assertEqual("Edit", edit_button.text)

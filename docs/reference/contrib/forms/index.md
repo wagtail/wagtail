@@ -6,6 +6,8 @@ The `wagtailforms` module allows you to set up single-page forms, such as a 'Con
 
 ```{note}
 **wagtailforms is not a replacement for** [Django's form support](inv:django#topics/forms/index). It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behavior to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the [wagtail-form-example project](https://github.com/gasman/wagtail-form-example/commits/master) for an example of integrating a Django form into a Wagtail page.
+
+A number of third-party packages provide form builder capabilities using Wagtail's [StreamField](streamfield_topic) for greater flexibility - see [Wagtail Flexible Forms](https://docs.coderedcorp.com/wagtail-flexible-forms/index.html) and [Wagtail Form Plugins](https://github.com/laas/wagtail-form-plugins).
 ```
 
 (form_builder_usage)=

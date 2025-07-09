@@ -1,3 +1,5 @@
+from django import VERSION as DJANGO_VERSION
+from django import forms
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
@@ -27,3 +29,17 @@ except ImportError:
         PUT = "PUT"
         DELETE = "DELETE"
         PATCH = "PATCH"
+
+
+URLField = forms.URLField
+
+# Prevent deprecation warning about the default scheme changing from "http" to
+# "https" in Django 5.0, while also avoiding the need to set the
+# FORMS_URLFIELD_ASSUME_HTTPS that would raise a different deprecation warning.
+# Remove the following block when the minimum Django version is >= 5.0.
+if (5, 0) <= DJANGO_VERSION < (6, 0):
+
+    class URLField(forms.URLField):
+        def __init__(self, *args, **kwargs):
+            kwargs.setdefault("assume_scheme", "https")
+            super().__init__(*args, **kwargs)

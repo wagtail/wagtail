@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
+from django.utils.translation import gettext_lazy as _
 
 from wagtail import blocks
 from wagtail.test.utils import WagtailTestUtils
@@ -154,6 +155,11 @@ class TestStreamFieldBlockPreviewView(WagtailTestUtils, TestCase):
             ("meta", PreviewValueViaMeta()),
             ("method", PreviewValueViaMethod()),
             ("kwarg", blocks.Block(preview_value="Hello, world!")),
+            ("localized", blocks.Block(preview_value=_("Hello, world!"))),
+            (
+                "localized_rich_text",
+                blocks.RichTextBlock(preview_value=_("<p>Hello, world!</p>")),
+            ),
         ]
 
         for via, block in cases:

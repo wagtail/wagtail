@@ -1,7 +1,7 @@
 import {
   getWordCount,
   getReadingTime,
-  contentMetricsPluginInstance,
+  contentExtractorPluginInstance,
 } from './contentMetrics';
 
 describe.each`
@@ -43,7 +43,7 @@ describe.each`
   });
 });
 
-describe('contentMetricsPluginInstance', () => {
+describe('contentExtractorPluginInstance', () => {
   let originalInnerText;
   beforeAll(() => {
     originalInnerText = Object.getOwnPropertyDescriptor(
@@ -79,13 +79,25 @@ describe('contentMetricsPluginInstance', () => {
 
   it('should use the specified selector', () => {
     const done = jest.fn();
-    contentMetricsPluginInstance.getMetrics({ targetElement: 'main' }, done);
-    expect(done).toHaveBeenCalledWith({ wordCount: 2, readingTime: 0 });
+    contentExtractorPluginInstance.extract({ targetElement: 'main' }, done);
+    expect(done).toHaveBeenCalledTimes(1);
+    const content = done.mock.lastCall[0];
+    expect(content.lang).toEqual('en');
+    expect(content.innerText.trim()).toEqual('Test content');
+    expect(content.innerHTML.trim()).toEqual('<p>Test content</p>');
   });
 
   it('should fall back to the body element if the selector does not match any elements', () => {
     const done = jest.fn();
-    contentMetricsPluginInstance.getMetrics({ targetElement: 'article' }, done);
-    expect(done).toHaveBeenCalledWith({ wordCount: 4, readingTime: 0 });
+    contentExtractorPluginInstance.extract({ targetElement: 'article' }, done);
+    expect(done).toHaveBeenCalledTimes(1);
+    const content = done.mock.lastCall[0];
+    expect(content.lang).toEqual('en');
+    expect(content.innerText.trim().replace(/\s+/g, ' ')).toEqual(
+      'Test content Something else',
+    );
+    expect(content.innerHTML.trim().replace(/\s+/g, ' ')).toEqual(
+      '<main> <p>Test content</p> </main> <div>Something else</div>',
+    );
   });
 });

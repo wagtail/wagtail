@@ -455,4 +455,83 @@ describe('RevealController', () => {
       expect(document.querySelector('header').outerHTML).toEqual(previousHTML);
     });
   });
+
+  describe('saving and retrieving the opened/closed state from local storage', () => {
+    beforeEach(async () => {
+      jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
+      jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('should use the existing saved state, if opened, and expand on connect', async () => {
+      localStorage.getItem.mockImplementation(() => 'opened');
+
+      await setup(
+        `
+        <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-storage-key-value="header">
+          <button aria-controls="my-content" aria-expanded="false" type="button" data-action="w-breadcrumbs#toggle" data-w-breadcrumbs-target="toggle">Toggle</button>
+        </section>`,
+        'w-breadcrumbs',
+      );
+
+      const toggleButton = document.querySelector('button');
+      expect(Storage.prototype.getItem).toHaveBeenCalledWith(
+        'wagtail:w-breadcrumbs:header',
+      );
+      expect(toggleButton.getAttribute('aria-expanded')).toBe('true');
+
+      await Promise.resolve(toggleButton.click());
+
+      expect(toggleButton.getAttribute('aria-expanded')).toBe('false');
+      expect(Storage.prototype.setItem).toHaveBeenLastCalledWith(
+        'wagtail:w-breadcrumbs:header',
+        'closed',
+      );
+    });
+
+    it('should use the existing saved state, if closed, and close on connect', async () => {
+      localStorage.getItem.mockImplementation(() => 'closed');
+      await setup(
+        `
+        <section class="w-breadcrumbs" data-controller="w-breadcrumbs" data-w-breadcrumbs-storage-key-value="header-test">
+          <button aria-controls="my-content" aria-expanded="true" type="button" data-action="w-breadcrumbs#toggle" data-w-breadcrumbs-target="toggle">Toggle</button>
+        </section>`,
+        'w-breadcrumbs',
+      );
+
+      const toggleButton = document.querySelector('button');
+      expect(Storage.prototype.getItem).toHaveBeenCalledWith(
+        'wagtail:w-breadcrumbs:header-test',
+      );
+      expect(toggleButton.getAttribute('aria-expanded')).toBe('false');
+
+      await Promise.resolve(toggleButton.click());
+
+      expect(toggleButton.getAttribute('aria-expanded')).toBe('true');
+      expect(Storage.prototype.setItem).toHaveBeenLastCalledWith(
+        'wagtail:w-breadcrumbs:header-test',
+        'opened',
+      );
+    });
+
+    it('should not load and save state if no storage key is provided', async () => {
+      await setup(
+        `
+      <section class="w-breadcrumbs" data-controller="w-breadcrumbs">
+        <button type="button" data-w-breadcrumbs-target="toggle" aria-controls="my-content" aria-expanded="false">Toggle</button>
+      </section>`,
+        'w-breadcrumbs',
+      );
+
+      expect(localStorage.getItem).not.toHaveBeenCalled();
+      const toggleButton = document.querySelector('button');
+
+      await Promise.resolve(toggleButton.click());
+
+      expect(localStorage.setItem).not.toHaveBeenCalled();
+    });
+  });
 });

@@ -54,6 +54,8 @@ The return value is a dictionary of renditions keyed by the specifications that 
 }
 ```
 
+If any specification contains the `preserve-svg` directive, the resulting dictionary key will be the final filter specification used for the rendition (omitting the `preserve-svg` directive, and any non-SVG-safe operations in the case that the image is an SVG) rather than the one originally passed. This may result in multiple specifications in the list resolving to the same final value - for example, if the list contains `width-400|format-jpeg|preserve-svg` and `width-400|format-webp|preserve-svg`, these will both reduce to `width-400` when applied to an SVG image. In this case, the return value will have fewer items than the original list.
+
 (caching_image_renditions)=
 
 ## Caching image renditions

@@ -58,11 +58,7 @@ All block definitions accept the following optional keyword arguments or `Meta` 
 -   `description`
     -   The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
 
-```{versionadded} 6.4
-The `preview_value`, `preview_template`, and `description` keyword arguments were added.
-```
-
-All block definitions have the following methods that can be overridden:
+All block definitions have the following methods and properties that can be overridden:
 
 ```{eval-rst}
 .. autoclass:: wagtail.blocks.Block
@@ -73,6 +69,7 @@ All block definitions have the following methods that can be overridden:
     .. automethod:: wagtail.blocks.Block.get_preview_context
     .. automethod:: wagtail.blocks.Block.get_preview_template
     .. automethod:: wagtail.blocks.Block.get_description
+    .. autoattribute:: wagtail.blocks.Block.is_previewable
 ```
 
 (field_block_types)=
@@ -147,6 +144,7 @@ All block definitions have the following methods that can be overridden:
     :param required: If true (the default), the field cannot be left blank.
     :param max_value: The maximum allowed numeric value of the field.
     :param min_value: The minimum allowed numeric value of the field.
+    :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
@@ -257,6 +255,7 @@ All block definitions have the following methods that can be overridden:
     :param features: Specifies the set of features allowed (see :ref:`rich_text_features`).
     :param required: If true (the default), the field cannot be left blank.
     :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
+    :param min_length: The minimum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).

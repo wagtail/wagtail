@@ -1,0 +1,117 @@
+[build-system]
+requires = ["setuptools>=78.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wagtail"
+dynamic = ["version"]
+description = "A Django content management system."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Wagtail core team + contributors", email = "hello@wagtail.org" },
+]
+requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Framework :: Django",
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+  "Framework :: Django :: 5.1",
+  "Framework :: Django :: 5.2",
+  "Framework :: Wagtail",
+  "Topic :: Internet :: WWW/HTTP :: Site Management",
+]
+dependencies = [
+  "Django>=4.2",
+  "django-modelcluster>=6.2.1,<7.0",
+  "django-permissionedforms>=0.1,<1.0",
+  "django-taggit>=5.0,<7",
+  "django-treebeard>=4.5.1,<5.0",
+  "djangorestframework>=3.15.1,<4.0",
+  "django-filter>=23.3",
+  "draftjs_exporter>=2.1.5,<6.0",
+  "Pillow>=9.1.0,<12.0.0",
+  "beautifulsoup4>=4.8,<5",
+  "Willow[heif]>=1.10.0,<2",
+  "requests>=2.11.1,<3.0",
+  "openpyxl>=3.0.10,<4.0",
+  "anyascii>=0.1.5",
+  "telepath>=0.3.1,<1",
+  "laces>=0.1,<0.2",
+  "django-tasks>=0.7,<0.8",
+]
+
+[project.urls]
+Homepage = "https://wagtail.org/"
+Documentation = "https://docs.wagtail.org"
+Repository = "https://github.com/wagtail/wagtail"
+Changelog = "https://github.com/wagtail/wagtail/blob/main/CHANGELOG.txt"
+"Issue Tracker" = "https://github.com/wagtail/wagtail/issues"
+Funding = "https://wagtail.org/sponsor/"
+
+[project.optional-dependencies]
+testing = [
+  # Required for running the tests
+  "python-dateutil>=2.7",
+  "Jinja2>=3.0,<3.2",
+  "boto3>=1.28,<2",
+  "freezegun>=0.3.8",
+  "azure-mgmt-cdn>=12.0,<13.0",
+  "azure-mgmt-frontdoor>=1.0,<1.1",
+  "django-pattern-library>=0.7",
+  "responses>=0.25,<1",
+  # For coverage and PEP8 linting
+  "coverage>=3.7.0",
+  "doc8==1.1.2",
+  "ruff==0.9.6",
+  # For enforcing string formatting mechanism in source files
+  "semgrep==1.40.0",
+  # For templates linting
+  "curlylint==0.13.1",
+  # For template indenting
+  "djhtml==3.0.6",
+  # For validating string formats in .po translation files
+  "polib>=1.1,<2.0",
+  # For wagtail.test.utils.wagtail_factories (used for streamfield migration toolkit)
+  "factory-boy>=3.2",
+  # For running tests in parallel
+  "tblib>=2.0,<3.0",
+]
+docs = [
+  "pyenchant>=3.1.1,<4",
+  "sphinxcontrib-spelling>=7,<8",
+  "Sphinx>=7.3",
+  "sphinx-autobuild>=0.6.0",
+  "sphinx-wagtail-theme==6.5.0",
+  "myst_parser==2.0.0",
+]
+
+[project.scripts]
+wagtail = "wagtail.bin.wagtail:main"
+
+[tool.doc8]
+ignore = ["D001"]
+ignore_path = ["_build", "docs/_build"]
+
+[tool.pytest.ini_options]
+django_find_project = false
+python_files = ["test_*.py"]
+testpaths = ["wagtail"]
+
+[tool.setuptools.packages.find]
+include = ["wagtail*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "wagtail.__version__" }

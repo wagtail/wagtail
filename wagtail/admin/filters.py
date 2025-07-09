@@ -221,10 +221,10 @@ class CollectionFilter(django_filters.ModelChoiceFilter):
     field_class = CollectionChoiceField
 
 
-class PopularTagsFilter(django_filters.MultipleChoiceFilter):
-    # This uses a MultipleChoiceFilter instead of a ModelMultipleChoiceFilter
-    # because the queryset has been sliced, which means ModelMultipleChoiceFilter
-    # cannot do further queries to validate the selected tags.
+class RelatedFilterMixin:
+    # Workaround for https://github.com/wagtail/wagtail/issues/6616 by changing
+    # a filter on a related field into a filter on the primary key of instances
+    # that match the filter value.
 
     def __init__(self, *args, use_subquery=False, **kwargs):
         super().__init__(*args, **kwargs)
@@ -234,10 +234,15 @@ class PopularTagsFilter(django_filters.MultipleChoiceFilter):
         filtered = super().filter(qs, value)
         if not self.use_subquery or not value:
             return filtered
-
-        # Workaround for https://github.com/wagtail/wagtail/issues/6616
         pks = list(filtered.values_list("pk", flat=True))
         return qs.filter(pk__in=pks)
+
+
+class PopularTagsFilter(RelatedFilterMixin, django_filters.MultipleChoiceFilter):
+    # This uses a MultipleChoiceFilter instead of a ModelMultipleChoiceFilter
+    # because the queryset has been sliced, which means ModelMultipleChoiceFilter
+    # cannot do further queries to validate the selected tags.
+    pass
 
 
 class BaseMediaFilterSet(WagtailFilterSet):

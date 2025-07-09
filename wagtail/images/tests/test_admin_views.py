@@ -1626,9 +1626,11 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         # draftail should NOT be a standard JS include on this page
         self.assertNotIn("wagtailadmin/js/draftail.js", response_json["html"])
 
-        # upload file field should have accept="image/*"
+        # upload file field should have an explicit 'accept' case for image/avif
         soup = self.get_soup(response_json["html"])
-        self.assertEqual(soup.select_one('input[type="file"]').get("accept"), "image/*")
+        self.assertEqual(
+            soup.select_one('input[type="file"]').get("accept"), "image/*, image/avif"
+        )
 
     def test_simple_with_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
@@ -1649,11 +1651,23 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(response_json["step"], "choose")
         self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
 
-        # upload file field should have an explicit 'accept' case for image/heic
+        # upload file field should have an explicit 'accept' case for image/heic and image/avif
         soup = self.get_soup(response_json["html"])
         self.assertEqual(
-            soup.select_one('input[type="file"]').get("accept"), "image/*, image/heic"
+            soup.select_one('input[type="file"]').get("accept"),
+            "image/*, image/heic, image/avif",
         )
+
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
+    def test_upload_field_without_avif(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "choose")
+        self.assertTemplateUsed(response, "wagtailimages/chooser/chooser.html")
+
+        soup = self.get_soup(response_json["html"])
+        self.assertEqual(soup.select_one('input[type="file"]').get("accept"), "image/*")
 
     def test_choose_permissions(self):
         # Create group with access to admin and Chooser permission on one Collection, but not another.
@@ -2447,6 +2461,14 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailimages/multiple/add.html")
 
+        # multiple upload file field should have 'accept' attr with an explicit
+        # case for image/avif
+        soup = self.get_soup(response.content)
+        self.assertEqual(
+            soup.select_one("input[type='file'][multiple]").get("accept"),
+            "image/*, image/avif",
+        )
+
         # draftail should NOT be a standard JS include on this page
         # (see TestMultipleImageUploaderWithCustomImageModel - this confirms that form media
         # definitions are being respected)
@@ -2461,6 +2483,32 @@ class TestMultipleImageUploader(AdminTemplateTestUtils, WagtailTestUtils, TestCa
                 {"url": "", "label": "Add images"},
             ],
             response.content,
+        )
+
+    @override_settings(
+        WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp", "avif", "heic"]
+    )
+    def test_multiple_upload_field_accepts_heic(self):
+        response = self.client.get(reverse("wagtailimages:add_multiple"))
+
+        self.assertEqual(response.status_code, 200)
+
+        # multiple upload file field should have explicit 'accept' case for image/heic and image/avif
+        soup = self.get_soup(response.content)
+        self.assertEqual(
+            soup.select_one("input[type='file'][multiple]").get("accept"),
+            "image/*, image/heic, image/avif",
+        )
+
+    @override_settings(WAGTAILIMAGES_EXTENSIONS=["gif", "jpg", "jpeg", "png", "webp"])
+    def test_multiple_upload_field_without_avif(self):
+        response = self.client.get(reverse("wagtailimages:add_multiple"))
+
+        self.assertEqual(response.status_code, 200)
+
+        soup = self.get_soup(response.content)
+        self.assertEqual(
+            soup.select_one("input[type='file'][multiple]").get("accept"), "image/*"
         )
 
     @override_settings(WAGTAILIMAGES_MAX_UPLOAD_SIZE=1000)

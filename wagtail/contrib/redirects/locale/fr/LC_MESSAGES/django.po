@@ -3,6 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# 69c761fa404d2f74d5a7a2904d9e6f47_dc2dbc9 <f37077798760362881f9d396b6e22ec7_1878>, 2018
+# Axel H., 2016
 # Axel Haustant, 2016
 # Axel H., 2016
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
@@ -17,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2014-02-20 21:04+0000\n"
 "Last-Translator: Sebastien Andrivet <sebastien@andrivet.com>, 2016\n"
 "Language-Team: French (http://app.transifex.com/torchbox/wagtail/language/"

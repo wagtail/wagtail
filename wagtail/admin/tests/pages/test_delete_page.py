@@ -8,7 +8,12 @@ from django.urls import reverse
 
 from wagtail.models import Page
 from wagtail.signals import page_unpublished
-from wagtail.test.testapp.models import SimplePage, StandardChild, StandardIndex
+from wagtail.test.testapp.models import (
+    SimplePage,
+    StandardChild,
+    StandardIndex,
+    VariousOnDeleteModel,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -78,7 +83,9 @@ class TestPageDelete(WagtailTestUtils, TestCase):
             reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "This action will delete total <b>3</b> pages.")
+        self.assertContains(
+            response, "This action will delete <b>3</b> pages in total."
+        )
         self.assertContains(response, "Please type <b>mysite</b> to confirm.")
         self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # deletion should not actually happen on GET
@@ -102,7 +109,9 @@ class TestPageDelete(WagtailTestUtils, TestCase):
         # One error messages should be returned
         messages = [m.message for m in response.context["messages"]]
         self.assertEqual(len(messages), 1)
-        self.assertContains(response, "This action will delete total <b>3</b> pages.")
+        self.assertContains(
+            response, "This action will delete <b>3</b> pages in total."
+        )
         self.assertContains(response, "Please type <b>mysite</b> to confirm.")
         self.assertContains(response, '<input type="text" name="confirm_site_name"')
         # Site should not be deleted
@@ -364,3 +373,24 @@ class TestPageDelete(WagtailTestUtils, TestCase):
 
         # page should be deleted
         self.assertFalse(Page.objects.filter(id=self.child_page.id).exists())
+
+    def test_delete_post_with_protected_reference(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_page=self.child_page,
+            )
+        response = self.client.post(
+            reverse("wagtailadmin_pages:delete", args=(self.child_page.id,))
+        )
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        # Check that the page is still here
+        self.assertTrue(Page.objects.filter(pk=self.child_page.id).exists())

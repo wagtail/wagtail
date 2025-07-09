@@ -185,9 +185,12 @@ class TestTableBlock(TestCase):
         normalized_table = self.block.normalize(table)
         self.assertIs(normalized_table, table)
 
-        # Should normalize None as-is
+        # Should normalize None to an empty TypedTable
         none_value = self.block.normalize(None)
-        self.assertIs(none_value, None)
+        self.assertIsInstance(none_value, TypedTable)
+        self.assertEqual(none_value.columns, [])
+        self.assertEqual(none_value.row_data, [])
+        self.assertEqual(none_value.caption, "")
 
     def test_to_python(self):
         """
@@ -341,6 +344,32 @@ class TestTableBlock(TestCase):
                 "blockErrors": {1: {2: {"messages": ["This field is required."]}}},
             },
         )
+
+    def test_get_searchable_content_includes_caption_headings_and_cells(self):
+        columns = [
+            {"heading": "Fruit", "type": "text"},
+            {"heading": "Quantity", "type": "text"},
+        ]
+
+        row_data = [{"values": ["Apple", "5"]}, {"values": ["Banana", "10"]}]
+
+        value = self.block.to_python(
+            {"columns": columns, "rows": row_data, "caption": "This is a fruit table"}
+        )
+
+        content = self.block.get_searchable_content(value)
+
+        expected_content = [
+            "This is a fruit table",
+            "Fruit",
+            "Quantity",
+            "Apple",
+            "5",
+            "Banana",
+            "10",
+        ]
+
+        self.assertEqual(content, expected_content)
 
 
 class TestBlockDefinitionLookup(TestCase):

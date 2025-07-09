@@ -556,6 +556,10 @@ In this example, any of the image objects that are SVGs will only have the `fill
 
 ### Security considerations
 
+```{warning}
+Any system that allows user-uploaded files is a potential security risk.
+```
+
 Wagtail's underlying image library, Willow, is configured to mitigate known XML parser exploits (e.g. billion laughs, quadratic blowup) by rejecting suspicious files.
 
 When including SVG images in templates via the `image` tag, they will be rendered as HTML `img` elements. In this case, `script` elements in SVGs will not be executed, mitigating XSS attacks.

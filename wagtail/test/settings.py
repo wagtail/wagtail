@@ -49,8 +49,12 @@ if DATABASES["default"]["ENGINE"] == "sql_server.pyodbc":
 
 # explicitly set charset / collation to utf8 on mysql
 if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
-    DATABASES["default"]["TEST"]["CHARSET"] = "utf8"
-    DATABASES["default"]["TEST"]["COLLATION"] = "utf8_general_ci"
+    DATABASES["default"]["OPTIONS"] = {
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_general_ci",
+    }
+    DATABASES["default"]["TEST"]["CHARSET"] = "utf8mb4"
+    DATABASES["default"]["TEST"]["COLLATION"] = "utf8mb4_general_ci"
 
 
 SECRET_KEY = "not needed"
@@ -101,6 +105,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "wagtail.test.context_processors.do_not_use_static_url",
                 "wagtail.contrib.settings.context_processors.settings",
+                "wagtail.test.context_processors.count_calls",
             ],
             "debug": True,  # required in order to catch template errors
         },
@@ -163,7 +168,6 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.sites",
     "wagtail.locales",
-    "wagtail.users",
     "wagtail.snippets",
     "wagtail.documents",
     "wagtail.admin",
@@ -171,6 +175,7 @@ INSTALLED_APPS = [
     "wagtail",
     "taggit",
     "rest_framework",
+    "django_filters",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -212,19 +217,18 @@ WAGTAILSEARCH_BACKENDS = {
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 if os.environ.get("USE_EMAIL_USER_MODEL"):
+    INSTALLED_APPS.append("wagtail.users")
     INSTALLED_APPS.append("wagtail.test.emailuser")
     AUTH_USER_MODEL = "emailuser.EmailUser"
     print("EmailUser (no username) user model active")  # noqa: T201
 else:
+    # this appconfig takes the place of wagtail.users
+    INSTALLED_APPS.append("wagtail.test.apps.CustomUsersAppConfig")
     INSTALLED_APPS.append("wagtail.test.customuser")
     AUTH_USER_MODEL = "customuser.CustomUser"
-    # Extra user field for custom user edit and create form tests. This setting
-    # needs to here because it is used at the module level of wagtailusers.forms
-    # when the module gets loaded. The decorator 'override_settings' does not work
-    # in this scenario.
-    WAGTAIL_USER_CUSTOM_FIELDS = ["country", "attachment"]
 
 if os.environ.get("DATABASE_ENGINE") == "django.db.backends.postgresql":
+    INSTALLED_APPS.append("django.contrib.postgres")
     WAGTAILSEARCH_BACKENDS["postgresql"] = {
         "BACKEND": "wagtail.search.backends.database",
         "AUTO_UPDATE": False,

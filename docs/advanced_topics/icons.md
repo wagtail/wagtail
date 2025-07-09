@@ -76,6 +76,22 @@ Place your app before any Wagtail apps in `INSTALLED_APPS`.
 Wagtail icons live in `wagtail/admin/templates/wagtailadmin/icons/`.
 Place your own SVG files in `<your_app>/templates/wagtailadmin/icons/`.
 
+(custom_icons_userbar)=
+
+### Using custom icons in the userbar
+
+The userbar provides quick actions within page views when logged in. To customize the items shown in the user bar, you can use the [`construct_wagtail_userbar`](construct_wagtail_userbar) hook. If you want to use custom icons within these menu items they must be made available in the correct template.
+
+```html+django
+{# <yourapp>/templates/wagtailadmin/userbar/base.html #}
+{% extends "wagtailadmin/userbar/base.html" %}
+
+{% block icons %}
+    {{ block.super }}
+    {% include "wagtailadmin/icons/toucan.svg" %}
+{% endblock %}
+```
+
 (available_icons)=
 
 ## Available icons

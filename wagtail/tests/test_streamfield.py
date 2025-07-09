@@ -8,6 +8,7 @@ from django.test import TestCase, skipUnlessDBFeature
 from django.utils.safestring import SafeString
 
 from wagtail import blocks
+from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.blocks import StreamBlockValidationError, StreamValue
 from wagtail.fields import StreamField
 from wagtail.images.models import Image
@@ -22,6 +23,7 @@ from wagtail.test.testapp.models import (
     JSONStreamModel,
     StreamPage,
 )
+from wagtail.test.utils.form_data import nested_form_data, rich_text, streamfield
 
 
 class TestLazyStreamField(TestCase):
@@ -547,6 +549,57 @@ class TestStreamFieldCountValidation(TestCase):
         instance = JSONMinMaxCountStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
 
+    def test_minimum_count_disregarded_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONMinMaxCountStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("text", "Some text"),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertTrue(form.is_valid())
+
+    def test_maximum_count_respected_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONMinMaxCountStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                        ("text", "Some text"),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertFalse(form.is_valid())
+
     def test_maximum_count(self):
         # 5 blocks okay
         body = [self.rich_text_body] * 5
@@ -626,6 +679,54 @@ class TestStreamFieldCountValidation(TestCase):
         body = [self.text_body, self.image_body, self.rich_text_body]
         instance = JSONBlockCountsStreamModel.objects.create(body=json.dumps(body))
         self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+    def test_block_count_minimum_disregarded_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONBlockCountsStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("rich_text", rich_text("Some text")),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertTrue(form.is_valid())
+
+    def test_block_count_maximum_respected_when_deferring_validation(self):
+        class StreamForm(WagtailAdminModelForm):
+            class Meta:
+                model = JSONBlockCountsStreamModel
+                fields = ["body"]
+                defer_required_on_fields = ["body"]
+
+        form_data = nested_form_data(
+            {
+                "body": streamfield(
+                    [
+                        ("rich_text", rich_text("Some text")),
+                        ("rich_text", rich_text("Some text")),
+                        ("rich_text", rich_text("Some text")),
+                    ]
+                )
+            }
+        )
+        form = StreamForm(form_data)
+        self.assertFalse(form.is_valid())
+
+        form = StreamForm(form_data)
+        form.defer_required_fields()
+        self.assertFalse(form.is_valid())
 
     def test_streamfield_count_argument_precedence(self):
         class TestStreamBlock(blocks.StreamBlock):
@@ -1014,6 +1115,54 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
             },
         )
 
+    def test_deconstruct_with_listblock_with_child_block_kwarg_idempotence(self):
+        # See https://github.com/wagtail/wagtail/issues/13137. When a ListBlock is defined with
+        # a child_block keyword argument, its deconstruct_with_lookup method inserts that child
+        # block into the lookup to obtain an ID, and returns that ID as the child_block kwarg
+        # in its result. However, an implementation bug meant that this was mutating the kwargs
+        # dict stored in the block's _constructor_args attribute. As a result, subsequent calls
+        # to deconstruct_with_lookup (which happen routinely during makemigrations) would
+        # encounter the ID in child_block, leave it alone (because it isn't a block object as
+        # expected), and return that ID in the result without adding it to the lookup, messing
+        # up the ID sequence in the process.
+        field = StreamField(
+            [
+                ("heading", blocks.CharBlock(required=True)),
+                (
+                    "bullets",
+                    blocks.ListBlock(child_block=blocks.CharBlock(required=False)),
+                ),
+            ],
+            blank=True,
+        )
+        field.set_attributes_from_name("body")
+
+        expected_args = [
+            [
+                ("heading", 0),
+                ("bullets", 2),
+            ]
+        ]
+        expected_kwargs = {
+            "blank": True,
+            "block_lookup": {
+                0: ("wagtail.blocks.CharBlock", (), {"required": True}),
+                1: ("wagtail.blocks.CharBlock", (), {"required": False}),
+                2: ("wagtail.blocks.ListBlock", (), {"child_block": 1}),
+            },
+        }
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(kwargs, expected_kwargs)
+        self.assertEqual(args, expected_args)
+
+        name, path, args, kwargs = field.deconstruct()
+        self.assertEqual(name, "body")
+        self.assertEqual(path, "wagtail.fields.StreamField")
+        self.assertEqual(kwargs, expected_kwargs)
+        self.assertEqual(args, expected_args)
+
     def test_deconstruct_with_listblock_subclass(self):
         # See https://github.com/wagtail/wagtail/issues/12164 - unlike StructBlock and StreamBlock,
         # ListBlock's deconstruct method doesn't reduce subclasses to the base ListBlock class.
@@ -1051,3 +1200,17 @@ class TestDeconstructStreamFieldWithLookup(TestCase):
                 },
             },
         )
+
+
+class TestBlockTypeValidation(TestCase):
+    def test_non_streamblock_raises_correct_error(self):
+        """stream_block raises useful error message when non-StreamBlock is provided."""
+        msg = (
+            "The top-level block must be a StreamBlock (got StructBlock). "
+            "Either pass a StreamBlock instance/class, or a list of block definitions "
+            "as (name, block) tuples."
+        )
+
+        with self.assertRaisesMessage(TypeError, msg):
+            field = StreamField(blocks.StructBlock([("name", blocks.CharBlock())]))
+            field.stream_block

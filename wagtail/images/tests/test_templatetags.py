@@ -104,15 +104,18 @@ class ImageNodeTestCase(TestCase):
             (self.svg_image, ["height-300"], "height-300"),
             (self.svg_image, ["scale-50"], "scale-50"),
             (self.svg_image, ["fill-400x400"], "fill-400x400"),
+            (self.svg_image, ["format-webp", "webpquality-50"], "original"),
         ]
         for image, filter_specs, expected in params:
             with self.subTest(img=image, filter_specs=filter_specs, expected=expected):
                 context = {"image": image, "image_node": "fake_value"}
-                node = ImageNode(Variable("image"), filter_specs, preserve_svg=True)
-                node.render(context)
-                self.assertEqual(
-                    node.get_filter(preserve_svg=image.is_svg()).spec, expected
+                node = ImageNode(
+                    Variable("image"),
+                    filter_specs + ["preserve-svg"],
+                    output_var_name="rendition",
                 )
+                node.render(context)
+                self.assertEqual(context["rendition"].filter_spec, expected)
 
 
 class ImagesTestCase(TestCase):
@@ -478,6 +481,57 @@ class PictureTagTestCase(ImagesTestCase):
                 alt="Test image"
                 width="640"
                 height="480"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_preserve_svg_with_raster_image(self):
+        filenames = [
+            get_test_image_filename(self.image, "width-180.format-avif"),
+            get_test_image_filename(self.image, "width-360.format-avif"),
+            get_test_image_filename(self.image, "width-180.format-jpeg"),
+            get_test_image_filename(self.image, "width-360.format-jpeg"),
+        ]
+
+        rendered = self.render(
+            '{% picture myimage width-{180,360} format-{avif,jpeg} preserve-svg sizes="100vw" %}',
+            {"myimage": self.image},
+        )
+        expected = f"""
+            <picture>
+            <source srcset="{filenames[0]} 180w, {filenames[1]} 360w" sizes="100vw" type="image/avif">
+            <img
+                sizes="100vw"
+                src="{filenames[2]}"
+                srcset="{filenames[2]} 180w, {filenames[3]} 360w"
+                alt="Test image"
+                width="180"
+                height="135"
+            >
+            </picture>
+        """
+        self.assertHTMLEqual(rendered, expected)
+
+    def test_preserve_svg_with_svg_image(self):
+        filenames = [
+            get_test_image_filename(self.svg_image, "width-40"),
+            get_test_image_filename(self.svg_image, "width-80"),
+        ]
+
+        rendered = self.render(
+            '{% picture myimage width-{40,80} format-{avif,jpeg} preserve-svg sizes="100vw" %}',
+            {"myimage": self.svg_image},
+        )
+        expected = f"""
+            <picture>
+            <img
+                sizes="100vw"
+                src="{filenames[0]}"
+                srcset="{filenames[0]} 40.0w, {filenames[1]} 80.0w"
+                alt="Test SVG image"
+                width="40.0"
+                height="40.0"
             >
             </picture>
         """

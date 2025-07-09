@@ -4,7 +4,6 @@ import functools
 import logging
 import posixpath
 import uuid
-from warnings import warn
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
@@ -26,6 +25,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils import translation as translation
 from django.utils.encoding import force_bytes, force_str
 from django.utils.functional import Promise, cached_property
+from django.utils.log import log_response
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -59,7 +59,6 @@ from wagtail.signals import (
     pre_validate_delete,
 )
 from wagtail.url_routing import RouteResult
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 from wagtail.utils.timestamps import ensure_utc
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
@@ -283,6 +282,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public"),
     )
+    title.required_on_save = True
     # to reflect title of a current draft in the admin UI
     draft_title = models.CharField(max_length=255, editable=False)
     slug = models.SlugField(
@@ -341,9 +341,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         verbose_name=_("latest revision created at"), null=True, editable=False
     )
 
-    _revisions = GenericRelation("wagtailcore.Revision", related_query_name="page")
+    _revisions = GenericRelation(
+        "wagtailcore.Revision",
+        content_type_field="content_type",
+        object_id_field="object_id",
+        related_query_name="page",
+        for_concrete_model=False,
+    )
 
-    # Add GenericRelation to allow WorkflowState.objects.filter(page=...) queries.
+    # Override WorkflowMixin's GenericRelation to specify related_query_name
+    # so we can do WorkflowState.objects.filter(page=...) queries.
     # There is no need to override the workflow_states property, as the default
     # implementation in WorkflowMixin already ensures that the queryset uses the
     # base Page content type.
@@ -625,9 +632,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return self.admin_default_ordering
 
-    def full_clean(self, *args, **kwargs):
-        # Apply fixups that need to happen before per-field validation occurs
-
+    def _set_core_field_defaults(self):
+        """
+        Set default values for core fields (slug, draft_title, locale) that need to be
+        in place before validating or saving
+        """
         if not self.slug:
             # Try to auto-populate slug from title
             allow_unicode = getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
@@ -644,10 +653,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if self.locale_id is None:
             self.locale = self.get_default_locale()
 
+    def full_clean(self, *args, **kwargs):
+        self._set_core_field_defaults()
         super().full_clean(*args, **kwargs)
 
-    def clean(self):
-        super().clean()
+    def _check_slug_is_unique(self):
         parent_page = self.get_parent()
         if not Page._slug_is_available(self.slug, parent_page, self):
             raise ValidationError(
@@ -658,6 +668,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     % {"page_slug": self.slug, "parent_url_path": parent_page.url}
                 }
             )
+
+    def clean(self):
+        super().clean()
+        self._check_slug_is_unique()
+
+    def minimal_clean(self):
+        self._set_core_field_defaults()
+        self.title = self._meta.get_field("title").clean(self.title, self)
+        self._check_slug_is_unique()
 
     def is_site_root(self):
         """
@@ -678,23 +697,39 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, clean=True, user=None, log_action=False, **kwargs):
         """
-        Overrides default method behavior to make additional updates unique to pages,
-        such as updating the ``url_path`` value of descendant page to reflect changes
-        to this page's slug.
+        Writes the page to the database, performing additional housekeeping tasks to ensure data
+        integrity:
 
-        New pages should generally be saved via the :meth:`~treebeard.mp_tree.MP_Node.add_child`
-        or :meth:`~treebeard.mp_tree.MP_Node.add_sibling`
-        method of an existing page, which will correctly set the ``path`` and ``depth``
-        fields on the new page before saving it.
+        * ``locale``, ``draft_title`` and ``slug`` are set to default values if not provided, with ``slug``
+          being generated from the title with a suffix to ensure uniqueness within the parent page
+          where necessary
+        * The ``url_path`` field is set based on the ``slug`` and the parent page
+        * If the ``slug`` has changed, the ``url_path`` of this page and all descendants is updated and
+          a :ref:`page_slug_changed` signal is sent
 
-        By default, pages are validated using ``full_clean()`` before attempting to
-        save changes to the database, which helps to preserve validity when restoring
-        pages from historic revisions (which might not necessarily reflect the current
-        model state). This validation step can be bypassed by calling the method with
-        ``clean=False``.
+        New pages should be saved by passing the unsaved page instance to the
+        :meth:`~treebeard.mp_tree.MP_Node.add_child`
+        or :meth:`~treebeard.mp_tree.MP_Node.add_sibling` method of an existing page, which will correctly update
+        the fields responsible for tracking the page's location in the tree.
+
+        If ``clean=False`` is passed, the page is saved without validation. This is appropriate for updates that only
+        change metadata such as `latest_revision` while keeping content and page location unchanged.
+
+        If ``clean=True`` is passed (the default), and the page has ``live=True`` set, the page is validated using
+        :meth:`~django.db.models.Model.full_clean` before saving.
+
+        If ``clean=True`` is passed, and the page has ``live=False`` set, only the title and slug fields are validated.
+
+        .. versionchanged:: 7.0
+           ``clean=True`` now only performs full validation when the page is live. When the page is not live, only
+           the title and slug fields are validated. Previously, full validation was always performed.
         """
         if clean:
-            self.full_clean()
+            if self.live:
+                self.full_clean()
+            else:
+                # Saving as draft; only perform the minimal validation to satisfy data integrity
+                self.minimal_clean()
 
         slug_changed = False
         is_new = self.id is None
@@ -1199,13 +1234,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         allowed_methods = self.allowed_http_method_names()
         if request.method not in allowed_methods:
-            logger.warning(
+            response = HttpResponseNotAllowed(allowed_methods)
+            log_response(
                 "Method Not Allowed (%s): %s",
                 request.method,
                 request.path,
-                extra={"status_code": 405, "request": request},
+                request=request,
+                response=response,
             )
-            return HttpResponseNotAllowed(allowed_methods)
+            return response
 
     def handle_options_request(self, request, *args, **kwargs):
         """
@@ -1254,7 +1291,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
-        Return ``None`` if the page is not routable.
+        Return ``None`` if the page is not routable, or return
+        ``(site_id, None, None)`` if ``NoReverseMatch`` exception is raised.
 
         This is used internally by the ``full_url``, ``url``, ``relative_url``
         and ``get_site`` properties and methods; pages with custom URL routing
@@ -1428,6 +1466,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self.specific
         except self.specific_class.DoesNotExist:
             return None
+
+    def get_default_privacy_setting(self, request: HttpRequest):
+        """Set the default privacy setting for a page."""
+        return {"type": BaseViewRestriction.NONE}
 
     @classmethod
     def clean_subpage_models(cls):
@@ -1847,26 +1889,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         ``action_url`` = URL that this form should be POSTed to
         """
 
-        password_required_template = self.password_required_template
-
-        if not password_required_template:
-            password_required_template = getattr(
-                settings,
-                "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
-                "wagtailcore/password_required.html",
-            )
-
-            if hasattr(settings, "PASSWORD_REQUIRED_TEMPLATE"):
-                warn(
-                    "The `PASSWORD_REQUIRED_TEMPLATE` setting is deprecated - use `WAGTAIL_PASSWORD_REQUIRED_TEMPLATE` instead.",
-                    category=RemovedInWagtail70Warning,
-                )
-
-                password_required_template = getattr(
-                    settings,
-                    "PASSWORD_REQUIRED_TEMPLATE",
-                    password_required_template,
-                )
+        password_required_template = self.password_required_template or getattr(
+            settings,
+            "WAGTAIL_PASSWORD_REQUIRED_TEMPLATE",
+            "wagtailcore/password_required.html",
+        )
 
         context = self.get_context(request)
         context["form"] = form
@@ -1940,7 +1967,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.locked_at = self.locked_at
         obj.latest_revision_id = self.latest_revision_id
         obj.latest_revision_created_at = self.latest_revision_created_at
-        obj.first_published_at = self.first_published_at
+
+        if obj.first_published_at is None:
+            obj.first_published_at = self.first_published_at
+
         obj.translation_key = self.translation_key
         obj.locale_id = self.locale_id
         obj.alias_of_id = self.alias_of_id

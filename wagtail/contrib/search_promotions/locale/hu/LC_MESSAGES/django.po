@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020,2022-2023
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020,2022-2023,2025
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, "
-"2019-2020,2022-2023\n"
+"2019-2020,2022-2023,2025\n"
 "Language-Team: Hungarian (http://app.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,9 @@ msgstr ""
 "Nincs kiemelt keresés hozzáadva. Miért nem <a "
 "href=\"%(wagtailsearchpromotions_add_url)s\">ad hozzá egyet</a>?"
 
+msgid "No promoted results have been created."
+msgstr "Nincs szponzorált keresés létrehozva."
+
 msgid "Popular search terms"
 msgstr "Népszerű keresések"
 
@@ -148,8 +151,8 @@ msgstr "Keresés"
 msgid "Terms"
 msgstr "Kifejezések"
 
-msgid "Views (past week)"
-msgstr "Megtekintések (elmúlt héten)"
+msgid "Views"
+msgstr "Megtekintések"
 
 msgid "No results found"
 msgstr "Nincs találat."
@@ -165,6 +168,9 @@ msgstr "Üres"
 
 msgid "Date"
 msgstr "Dátum"
+
+msgid "Search terms"
+msgstr "Keresési kifejezések"
 
 msgid "Search term(s)"
 msgstr "Keresési kifejezés(ek)"

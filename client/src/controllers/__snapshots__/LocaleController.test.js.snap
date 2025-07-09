@@ -319,6 +319,166 @@ exports[`LocaleController should allow updating the time zone options on an unco
 </select>
 `;
 
+exports[`LocaleController should correctly apply French spacing rules to localized time zone labels 1`] = `
+<select
+  data-action="w-init:ready->w-locale#localizeTimeZoneOptions"
+  data-controller="w-locale"
+  data-w-locale-server-time-zone-param="Europe/Paris"
+  name="locale-current_time_zone"
+>
+  
+      
+  <option
+    selected=""
+    value=""
+  >
+    Use server time zone : UTC+1 (heure normale d’Europe centrale)
+  </option>
+  
+      
+  <option
+    value="Africa/Abidjan"
+  >
+    Africa/Abidjan : UTC (heure moyenne de Greenwich)
+  </option>
+  
+      
+  <option
+    value="America/Argentina/Jujuy"
+  >
+    America/Argentina/Jujuy : UTC−3 (heure normale d’Argentine)
+  </option>
+  
+      
+  <option
+    value="America/Indiana/Knox"
+  >
+    America/Indiana/Knox : UTC−6 (heure normale du centre nord-américain)
+  </option>
+  
+      
+  <option
+    value="Antarctica/Rothera"
+  >
+    Antarctica/Rothera : UTC−3 (heure de Rothera)
+  </option>
+  
+      
+  <option
+    value="Arctic/Longyearbyen"
+  >
+    Arctic/Longyearbyen : UTC+1 (heure normale d’Europe centrale)
+  </option>
+  
+      
+  <option
+    value="Asia/Katmandu"
+  >
+    Asia/Katmandu : UTC+5:45 (heure du Népal)
+  </option>
+  
+      
+  <option
+    value="Atlantic/Canary"
+  >
+    Atlantic/Canary : UTC (heure normale d’Europe de l’Ouest)
+  </option>
+  
+      
+  <option
+    value="Australia/South"
+  >
+    Australia/South : UTC+10:30 (heure d’été du centre de l’Australie)
+  </option>
+  
+      
+  <option
+    value="Brazil/East"
+  >
+    Brazil/East : UTC−3 (heure normale de Brasilia)
+  </option>
+  
+      
+  <option
+    value="Canada/Atlantic"
+  >
+    Canada/Atlantic : UTC−4 (heure normale de l’Atlantique)
+  </option>
+  
+      
+  <option
+    value="Chile/Continental"
+  >
+    Chile/Continental : UTC−3 (heure d’été du Chili)
+  </option>
+  
+      
+  <option
+    value="EST"
+  >
+    EST : UTC−5 (heure normale de l’Est nord-américain)
+  </option>
+  
+      
+  <option
+    value="Etc/GMT-7"
+  >
+    Etc/GMT-7 : UTC+7 (UTC+07:00)
+  </option>
+  
+      
+  <option
+    value="Europe/Brussels"
+  >
+    Europe/Brussels : UTC+1 (heure normale d’Europe centrale)
+  </option>
+  
+      
+  <option
+    value="GMT"
+  >
+    GMT : UTC (temps universel coordonné)
+  </option>
+  
+      
+  <option
+    value="Indian/Maldives"
+  >
+    Indian/Maldives : UTC+5 (heure des Maldives)
+  </option>
+  
+      
+  <option
+    value="Pacific/Tarawa"
+  >
+    Pacific/Tarawa : UTC+12 (heure des îles Gilbert)
+  </option>
+  
+      
+  <option
+    value="UTC"
+  >
+    UTC : UTC (temps universel coordonné)
+  </option>
+  
+      
+  <option
+    value="Universal"
+  >
+    Universal : UTC (temps universel coordonné)
+  </option>
+  
+      
+  <option
+    value="Zulu"
+  >
+    Zulu : UTC (temps universel coordonné)
+  </option>
+  
+    
+</select>
+`;
+
 exports[`LocaleController should localize to the current HTML locale and use the server time zone param for the default 1`] = `
 <select
   data-action="w-init:ready->w-locale#localizeTimeZoneOptions"

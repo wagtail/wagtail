@@ -4,13 +4,14 @@ from django.contrib.auth.models import Permission
 from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest
 from django.http.response import HttpResponse
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 from wagtail.models import Page
 from wagtail.signals import page_unpublished
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import SimplePage, VariousOnDeleteModel
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -53,6 +54,7 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
             for grandchild_page in grandchild_pages:
                 child_page.add_child(instance=grandchild_page)
 
+        self.explore_url = reverse("wagtailadmin_explore", args=[self.root_page.id])
         self.url = (
             reverse(
                 "wagtail_bulk_action",
@@ -64,8 +66,11 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
             )
             + "?"
         )
-        for child_page in self.pages_to_be_deleted:
-            self.url += f"&id={child_page.id}"
+        query_params = {
+            "next": self.explore_url,
+            "id": [page.pk for page in self.pages_to_be_deleted],
+        }
+        self.url += urlencode(query_params, doseq=True)
 
         # Login
         self.user = self.login()
@@ -77,24 +82,36 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         for child_page in self.child_pages:
             self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
 
-        html = response.content.decode()
+        soup = self.get_soup(response.content)
         for child_page in self.pages_to_be_deleted:
-            # check if the pages to be deleted and number of descendant pages are displayed
-            needle = "<li>"
-            needle += '<a href="{edit_page_url}" target="_blank" rel="noreferrer">{page_title}</a>'.format(
-                edit_page_url=reverse("wagtailadmin_pages:edit", args=[child_page.id]),
-                page_title=child_page.title,
+            edit_url = reverse("wagtailadmin_pages:edit", args=[child_page.id])
+            edit_link = soup.find("a", href=edit_url)
+            self.assertIsNotNone(edit_link)
+            self.assertEqual(
+                edit_link.text.strip(),
+                child_page.get_admin_display_title(),
             )
+            li = edit_link.parent
             descendants = len(self.grandchildren_pages.get(child_page, []))
             if descendants:
-                needle += "<p>"
+                subpage_info = li.select_one("p")
+                self.assertIsNotNone(subpage_info)
                 if descendants == 1:
-                    needle += "This will also delete one more subpage."
+                    text = "This will also delete one more subpage."
                 else:
-                    needle += f"This will also delete {descendants} more subpages."
-                needle += "</p>"
-            needle += "</li>"
-            self.assertInHTML(needle, html)
+                    text = f"This will also delete {descendants} more subpages."
+                self.assertEqual(subpage_info.text.strip(), text)
+
+            usage_url = (
+                reverse("wagtailadmin_pages:usage", args=[child_page.id])
+                + "?describe_on_delete=1"
+            )
+            usage_link = li.find("a", href=usage_url)
+            self.assertIsNotNone(usage_link)
+            self.assertEqual(
+                usage_link.text.strip(),
+                "This page is referenced 0 times.",
+            )
 
     def test_page_delete_specific_admin_title(self):
         response = self.client.get(self.url)
@@ -362,3 +379,223 @@ class TestBulkDelete(WagtailTestUtils, TestCase):
         # Check that the child pages not to be deleted remain
         for child_page in self.pages_not_to_be_deleted:
             self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
+
+    def test_delete_get_with_protected_reference(self):
+        protected = self.pages_to_be_deleted[0]
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_page=protected,
+            )
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        soup = self.get_soup(response.content)
+        main = soup.select_one("main")
+        usage_link = main.find(
+            "a",
+            href=reverse("wagtailadmin_pages:usage", args=[protected.pk])
+            + "?describe_on_delete=1",
+        )
+        self.assertIsNotNone(usage_link)
+        self.assertEqual(usage_link.text.strip(), "This page is referenced 1 time.")
+        self.assertContains(
+            response,
+            "One or more references to this page prevent it from being deleted.",
+        )
+        submit_button = main.select_one("form button[type=submit]")
+        self.assertIsNone(submit_button)
+        back_button = main.find("a", href=self.explore_url)
+        self.assertIsNotNone(back_button)
+        self.assertEqual(back_button.text.strip(), "Go back")
+
+    def test_delete_post_with_protected_reference(self):
+        protected = self.pages_to_be_deleted[0]
+        with self.captureOnCommitCallbacks(execute=True):
+            VariousOnDeleteModel.objects.create(
+                text="Undeletable",
+                protected_page=protected,
+            )
+        response = self.client.post(self.url)
+
+        # Should throw a PermissionDenied error and redirect to the dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
+
+        # Check that the page is still here
+        self.assertTrue(Page.objects.filter(pk=protected.pk).exists())
+
+    @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=10)
+    def test_confirm_delete_scenario_1(self):
+        """
+        Bulk deletion when the number of pages is below the unsafe deletion limit.
+
+        When fewer pages than WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT are
+        selected for deletion:
+        1. The extra typed confirmation dialog is not displayed
+        2. Pages are deleted through the standard confirmation flow
+        """
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "delete"),
+            )
+            + "?"
+        )
+        query_params = {
+            "next": self.explore_url,
+            "id": [page.pk for page in self.pages_to_be_deleted[:2]],
+        }
+        url += urlencode(query_params, doseq=True)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, '<input type="text" name="confirm_site_name"')
+        # Check that pages have not been deleted yet (from GET request)
+        for page in self.pages_to_be_deleted[:2]:
+            self.assertTrue(SimplePage.objects.filter(id=page.id).exists())
+        response = self.client.post(url)
+        # Should be redirected to explorer page
+        self.assertEqual(response.status_code, 302)
+        # Check that pages have been deleted (POST request)
+        for page in self.pages_to_be_deleted[:2]:
+            self.assertFalse(SimplePage.objects.filter(id=page.id).exists())
+
+    @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=1)
+    @override_settings(WAGTAIL_SITE_NAME="mysite")
+    def test_confirm_delete_scenario_2(self):
+        """
+        Bulk deletion when the number of pages is above the unsafe deletion limit.
+
+        When more pages than WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT are selected for
+        deletion:
+        1. The extra typed confirmation dialog is displayed
+        """
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "delete"),
+            )
+            + "?"
+        )
+        query_params = {
+            "next": self.explore_url,
+            "id": [page.pk for page in self.pages_to_be_deleted],
+        }
+        url += urlencode(query_params, doseq=True)
+
+        # Calculate the total number of pages to delete including descendants
+        total_pages = len(self.pages_to_be_deleted)
+        for page in self.pages_to_be_deleted:
+            total_pages += page.get_descendants().count()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response, f"This action will delete <b>{total_pages}</b> pages in total."
+        )
+        self.assertContains(response, "Please type <b>mysite</b> to confirm.")
+        self.assertContains(response, '<input type="text" name="confirm_site_name"')
+        # Check that pages have not been deleted by the GET request
+        for page in self.pages_to_be_deleted:
+            self.assertTrue(SimplePage.objects.filter(id=page.id).exists())
+
+        # Check that descendant pages have not been deleted by the GET request
+        for parent_page, grandchild_pages in self.grandchildren_pages.items():
+            for grandchild_page in grandchild_pages:
+                self.assertTrue(
+                    SimplePage.objects.filter(id=grandchild_page.id).exists()
+                )
+
+    @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=3)
+    @override_settings(WAGTAIL_SITE_NAME="mysite")
+    def test_confirm_delete_scenario_3(self):
+        """
+        Bulk deletion with unsuccessful confirmation dialog.
+
+        When a user enters an incorrect site name in the confirmation dialog:
+        1. The pages are not deleted
+        2. The same confirmation form is displayed again
+        3. An error message is displayed
+        """
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "delete"),
+            )
+            + "?"
+        )
+        query_params = {
+            "next": self.explore_url,
+            "id": [page.pk for page in self.pages_to_be_deleted],
+        }
+        url += urlencode(query_params, doseq=True)
+
+        # Calculate total number of pages to delete including descendants
+        total_pages = len(self.pages_to_be_deleted)
+        for page in self.pages_to_be_deleted:
+            total_pages += page.get_descendants().count()
+
+        response = self.client.post(url, data={"confirm_site_name": "random"})
+        self.assertEqual(response.status_code, 200)
+
+        # Check that an error message is displayed
+        messages = [m.message for m in response.context["messages"]]
+        self.assertEqual(len(messages), 1)
+        # Check that the confirmation form is displayed
+        self.assertContains(
+            response, f"This action will delete <b>{total_pages}</b> pages in total."
+        )
+        self.assertContains(response, "Please type <b>mysite</b> to confirm.")
+        self.assertContains(response, '<input type="text" name="confirm_site_name"')
+
+        # Check that pages have not been deleted
+        for page in self.pages_to_be_deleted:
+            self.assertTrue(SimplePage.objects.filter(id=page.id).exists())
+
+        # Check that descendant pages have not been deleted
+        for parent_page, grandchild_pages in self.grandchildren_pages.items():
+            for grandchild_page in grandchild_pages:
+                self.assertTrue(
+                    SimplePage.objects.filter(id=grandchild_page.id).exists()
+                )
+
+    @override_settings(WAGTAILADMIN_UNSAFE_PAGE_DELETION_LIMIT=3)
+    @override_settings(WAGTAIL_SITE_NAME="mysite")
+    def test_confirm_delete_scenario_4(self):
+        """
+        Bulk deletion with successful confirmation dialog.
+
+        When a user enters the correct site name in the confirmation dialog:
+        1. The pages are deleted
+        2. The user is redirected to the explorer page
+        """
+        url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=("wagtailcore", "page", "delete"),
+            )
+            + "?"
+        )
+        query_params = {
+            "next": self.explore_url,
+            "id": [page.pk for page in self.pages_to_be_deleted],
+        }
+        url += urlencode(query_params, doseq=True)
+
+        response = self.client.post(url, data={"confirm_site_name": "mysite"})
+
+        # Should be redirected to explorer page
+        self.assertRedirects(response, self.explore_url)
+
+        # Check that the pages are deleted
+        for page in self.pages_to_be_deleted:
+            self.assertFalse(SimplePage.objects.filter(id=page.id).exists())
+
+        # Check that the descendant pages are also deleted
+        for parent_page, grandchild_pages in self.grandchildren_pages.items():
+            for grandchild_page in grandchild_pages:
+                self.assertFalse(
+                    SimplePage.objects.filter(id=grandchild_page.id).exists()
+                )
