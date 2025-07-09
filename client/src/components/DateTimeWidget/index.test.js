@@ -1,10 +1,6 @@
-import './telepath';
-import './widgets';
-import $ from 'jquery';
+import { AdminDateInput, AdminDateTimeInput, AdminTimeInput } from './index';
 
-window.$ = $;
-
-describe('telepath: wagtail.widgets.DateInput', () => {
+describe('AdminDateInput', () => {
   let boundWidget;
 
   beforeEach(() => {
@@ -14,14 +10,9 @@ describe('telepath: wagtail.widgets.DateInput', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
 
     // Render
-    const widgetDef = window.telepath.unpack({
-      _type: 'wagtail.widgets.AdminDateInput',
-      _args: [
-        {
-          dayOfWeekStart: 0,
-          format: 'Y-m-d',
-        },
-      ],
+    const widgetDef = new AdminDateInput({
+      dayOfWeekStart: 0,
+      format: 'Y-m-d',
     });
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -77,7 +68,7 @@ describe('telepath: wagtail.widgets.DateInput', () => {
   });
 });
 
-describe('telepath: wagtail.widgets.TimeInput', () => {
+describe('AdminTimeInput', () => {
   let boundWidget;
 
   beforeEach(() => {
@@ -87,14 +78,9 @@ describe('telepath: wagtail.widgets.TimeInput', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
 
     // Render
-    const widgetDef = window.telepath.unpack({
-      _type: 'wagtail.widgets.AdminTimeInput',
-      _args: [
-        {
-          format: 'H:i',
-          formatTime: 'H:i',
-        },
-      ],
+    const widgetDef = new AdminTimeInput({
+      format: 'H:i',
+      formatTime: 'H:i',
     });
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -150,7 +136,7 @@ describe('telepath: wagtail.widgets.TimeInput', () => {
   });
 });
 
-describe('telepath: wagtail.widgets.DateTimeInput', () => {
+describe('AdminDateTimeInput', () => {
   let boundWidget;
 
   beforeEach(() => {
@@ -160,15 +146,10 @@ describe('telepath: wagtail.widgets.DateTimeInput', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
 
     // Render
-    const widgetDef = window.telepath.unpack({
-      _type: 'wagtail.widgets.AdminDateTimeInput',
-      _args: [
-        {
-          dayOfWeekStart: 0,
-          format: 'Y-m-d H:i',
-          formatTime: 'H:i',
-        },
-      ],
+    const widgetDef = new AdminDateTimeInput({
+      dayOfWeekStart: 0,
+      format: 'Y-m-d H:i',
+      formatTime: 'H:i',
     });
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
