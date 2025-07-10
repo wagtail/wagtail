@@ -24,10 +24,9 @@ class FancyInputAdapter(WidgetAdapter):
     def js_args(self, widget):
         return [
             # Arguments typically include the widget's HTML representation
-            # and label ID rendered with __NAME__ and __ID__ placeholders,
-            # for use in the client-side render() method
+            # rendered with __NAME__ and __ID__ placeholders, for use in the
+            # client-side render() method
             widget.render('__NAME__', None, attrs={'id': '__ID__'}),
-            widget.id_for_label('__ID__'),
             widget.extra_options,
         ]
 

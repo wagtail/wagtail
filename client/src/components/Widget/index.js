@@ -32,7 +32,7 @@ export const querySelectorIncludingSelf = (elementOrNodeList, selector) => {
 };
 
 export class BoundWidget {
-  constructor(elementOrNodeList, name, idForLabel, parentCapabilities) {
+  constructor(elementOrNodeList, name, parentCapabilities) {
     // look for an input element with the given name
     const selector = `:is(input,select,textarea,button)[name="${name}"]`;
     this.input = querySelectorIncludingSelf(elementOrNodeList, selector);
@@ -40,7 +40,7 @@ export class BoundWidget {
       throw new Error(`No input found with name "${name}"`);
     }
 
-    this.idForLabel = idForLabel;
+    this.idForLabel = this.input.id;
     this.parentCapabilities = parentCapabilities || new Map();
   }
 
@@ -84,9 +84,8 @@ export class BoundWidget {
 }
 
 export class Widget {
-  constructor(html, idPattern) {
+  constructor(html) {
     this.html = html;
-    this.idPattern = idPattern;
   }
 
   boundWidgetClass = BoundWidget;
@@ -100,7 +99,6 @@ export class Widget {
     options = {},
   ) {
     const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
-    const idForLabel = this.idPattern.replace(/__ID__/g, id);
 
     /* write the HTML into a temp container to parse it into a node list */
     const tempContainer = document.createElement('div');
@@ -128,7 +126,6 @@ export class Widget {
     const boundWidget = new this.boundWidgetClass(
       childElements.length === 1 ? childElements[0] : childNodes,
       name,
-      idForLabel,
       parentCapabilities,
     );
     boundWidget.setState(initialState);
@@ -160,10 +157,10 @@ export class CheckboxInput extends Widget {
 }
 
 export class BoundRadioSelect {
-  constructor(element, name, idForLabel) {
+  constructor(element, name) {
     this.element = element;
     this.name = name;
-    this.idForLabel = idForLabel;
+    this.idForLabel = '';
     this.isMultiple = !!this.element.querySelector(
       `input[name="${name}"][type="checkbox"]`,
     );
