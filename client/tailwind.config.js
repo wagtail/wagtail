@@ -49,7 +49,6 @@ const themeColors = Object.fromEntries(
 
 const lightThemeColors = colorThemes.light.reduce((colorTokens, category) => {
   Object.entries(category.tokens).forEach(([name, token]) => {
-    // eslint-disable-next-line no-param-reassign
     colorTokens[name] = `var(${token.cssVariable})`;
   });
   return colorTokens;

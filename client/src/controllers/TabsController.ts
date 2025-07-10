@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: ["error", {  "ignorePropertyModificationsFor": ["hidden"] }] */
-
 import { Controller } from '@hotwired/stimulus';
 
 import { getElementByContentPath } from '../utils/contentPath';

@@ -74,7 +74,6 @@ const updateScrollPosition = (list: HTMLOListElement) => {
   }
 
   // Scroll changes require mutating this property.
-  // eslint-disable-next-line no-param-reassign
   list.scrollTop = newScroll;
 };
 

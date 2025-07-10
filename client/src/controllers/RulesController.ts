@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["disabled"] }] */
-
 import { Controller } from '@hotwired/stimulus';
 
 import { castArray } from '../utils/castArray';

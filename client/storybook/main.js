@@ -25,8 +25,6 @@ module.exports = {
   }),
 
   webpackFinal: (config) => {
-    /* eslint-disable no-param-reassign */
-
     const rules = [
       {
         test: /\.(scss|css)$/,
