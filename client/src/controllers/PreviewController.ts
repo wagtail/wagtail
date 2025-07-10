@@ -776,6 +776,16 @@ export class PreviewController extends Controller<HTMLElement> {
     this.finishUpdate();
   }
 
+  /**
+   * Restores the scroll position from the old iframe to the new one.
+   * For same-origin iframes, this is done by calling `scroll()` on the new
+   * iframe's content window with the scroll position of the old iframe.
+   * For cross-origin iframes, this is done by using the postMessage API to
+   * request the scroll position from the old iframe and send it to the new one.
+   * @param newIframe The new iframe element that will replace the old one.
+   * @returns a Promise that resolves when the scroll position is restored or
+   * the timeout has lapsed.
+   */
   async restoreScrollPosition(newIframe: HTMLIFrameElement): Promise<void> {
     const isCrossOrigin = { oldIframe: false, newIframe: false };
     // Do try/catch for each iframe so we know which of the iframes are cross-origin
@@ -891,6 +901,9 @@ export class PreviewController extends Controller<HTMLElement> {
     return this.contentChecksPromise;
   }
 
+  /**
+   * Runs the accessibility checks using Axe.
+   */
   async runAccessibilityChecks() {
     const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig!);
 
@@ -911,6 +924,10 @@ export class PreviewController extends Controller<HTMLElement> {
     );
   }
 
+  /**
+   * Runs the content checks by extracting the content from the preview iframe
+   * using an Axe plugin and calculating the word count and reading time.
+   */
   async runContentChecks() {
     const content = await this.extractContent();
 
