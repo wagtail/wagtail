@@ -122,6 +122,11 @@ export class Widget {
     boundWidget.setState(initialState);
     return boundWidget;
   }
+
+  getByName(name, container) {
+    // eslint-disable-next-line new-cap
+    return new this.boundWidgetClass(container, name);
+  }
 }
 
 export class BoundCheckboxInput extends BoundWidget {
