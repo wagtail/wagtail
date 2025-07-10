@@ -16,7 +16,7 @@ repos:
         types_or: [css, scss, javascript, ts, tsx, json, yaml]
         additional_dependencies:
           # Keep in sync with package.json
-          - prettier@3.1.0
+          - prettier@3.3.3
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.56.0
     hooks:
