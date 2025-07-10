@@ -5,6 +5,7 @@ from wagtail.admin.forms.models import (
     WagtailAdminDraftStateFormMixin,
     WagtailAdminModelForm,
 )
+from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.admin.ui.components import Component
 from wagtail.blocks import StreamValue
 from wagtail.coreutils import safe_snake_case
@@ -223,6 +224,7 @@ class Panel:
 
         return value
 
+    @register_telepath_adapter
     class BoundPanel(Component):
         """
         A template component for a panel that has been associated with a model instance, form, and request.
@@ -324,3 +326,6 @@ class Panel:
                 self.request,
                 self.form.__class__.__name__,
             )
+
+        def telepath_pack(self, context):
+            return ("wagtail.panels.Panel", [])

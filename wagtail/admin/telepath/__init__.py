@@ -18,8 +18,8 @@ registry = WagtailAdapterRegistry(telepath_js_path=None)
 JSContext = registry.js_context_class
 
 
-def register(adapter, cls):
-    registry.register(adapter, cls)
+def register(*args, **kwargs):
+    return registry.register(*args, **kwargs)
 
 
 def adapter(js_constructor, base=Adapter):

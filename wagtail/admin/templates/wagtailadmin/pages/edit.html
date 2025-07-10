@@ -25,6 +25,7 @@
             data-w-unsaved-confirmation-value="true"
             data-w-unsaved-force-value="{% if has_unsaved_changes %}true{% else %}false{% endif %}"
             data-w-unsaved-watch-value="edits{% if comments_enabled %} comments{% endif %}"
+            data-edit-handler="{{ edit_handler_json }}"
         >
             {% csrf_token %}
 
@@ -36,6 +37,13 @@
                 {# Reuse the footer container, but redefine the actions content down below to use component classes #}
             {% endblock %}
         </form>
+        <script>
+            const form = document.getElementById('page-edit-form');
+            const editHandlerJson = form.getAttribute('data-edit-handler');
+            const packedEditHandler = JSON.parse(editHandlerJson);
+            const editHandler = window.telepath.unpack(packedEditHandler);
+            console.log(editHandler);
+        </script>
     {% endblock %}
 {% endblock %}
 
