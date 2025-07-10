@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: ["error", { "ignorePropertyModificationsFor": ["checked"] }] */
-
 import { Controller } from '@hotwired/stimulus';
 
 type ToggleOptions = {

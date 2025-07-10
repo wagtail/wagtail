@@ -72,7 +72,6 @@ module.exports = function exports(env, argv) {
   };
 
   const entry = {};
-  // eslint-disable-next-line no-restricted-syntax
   for (const [appName, moduleNames] of Object.entries(entrypoints)) {
     moduleNames.forEach((moduleName) => {
       entry[moduleName] = {

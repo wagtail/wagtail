@@ -58,7 +58,6 @@ export default function initSidePanel() {
       const name = panel.dataset.sidePanel;
       if (name === panelName) {
         if (panel.hidden) {
-          // eslint-disable-next-line no-param-reassign
           panel.hidden = false;
           // Don't fire the show event just yet,
           // to ensure that the hide event for the other panels is fired first.
@@ -67,7 +66,6 @@ export default function initSidePanel() {
         }
       } else if (!panel.hidden) {
         const hidePanel = () => {
-          // eslint-disable-next-line no-param-reassign
           panel.hidden = true;
           panel.dispatchEvent(new CustomEvent('hide'));
           sidePanelWrapper.classList.remove(`form-side--${name}`);

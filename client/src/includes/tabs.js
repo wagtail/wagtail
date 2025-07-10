@@ -67,7 +67,6 @@ class Tabs {
       } else if (tabActive) {
         // If a tab isn't hidden for some reason hide it
         this.tabPanels.forEach((tab) => {
-          // eslint-disable-next-line no-param-reassign
           tab.hidden = true;
         });
         // Show aria-selected tab
@@ -175,7 +174,6 @@ class Tabs {
    */
   animateIn(tabContent) {
     setTimeout(() => {
-      // eslint-disable-next-line no-param-reassign
       tabContent.hidden = false;
       // Wait for hidden attribute to be applied then fade in
       setTimeout(() => {
@@ -192,7 +190,6 @@ class Tabs {
     // Wait element to transition out and then hide with hidden
     tabContent.classList.remove(this.state.css.animate);
     setTimeout(() => {
-      // eslint-disable-next-line no-param-reassign
       tabContent.hidden = true;
     }, this.state.transition);
   }
@@ -206,7 +203,6 @@ class Tabs {
         });
         tab.addEventListener('keydown', this.keydownEventListener);
         // Set index of tab used in keyboard controls
-        // eslint-disable-next-line no-param-reassign
         tab.index = index;
       });
 

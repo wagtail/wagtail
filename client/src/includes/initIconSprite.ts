@@ -27,7 +27,6 @@ export const initIconSprite = (
     if (!spriteContainer || !data) return;
 
     domReady().then(() => {
-      // eslint-disable-next-line no-param-reassign
       spriteContainer.innerHTML = data;
     });
   };

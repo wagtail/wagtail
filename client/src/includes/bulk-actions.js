@@ -36,12 +36,11 @@ function getStringForListing(key) {
  */
 function onSelectAllChange(e) {
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-    el.checked = e.target.checked; // eslint-disable-line no-param-reassign
+    el.checked = e.target.checked;
   });
   const changeEvent = new Event('change');
   document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
     if (el.checked !== e.target.checked) {
-      // eslint-disable-next-line no-param-reassign
       el.checked = e.target.checked;
       if (e.target.checked) {
         el.dispatchEvent(changeEvent);
@@ -105,7 +104,7 @@ function onSelectIndividualCheckbox(e) {
   } else {
     /* unchecks `Select all` checkbox as soon as one page is unchecked */
     document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-      el.checked = false; // eslint-disable-line no-param-reassign
+      el.checked = false;
     });
     checkedState.checkedObjects.delete(e.target.dataset.objectId);
   }
@@ -127,7 +126,7 @@ function onSelectIndividualCheckbox(e) {
   if (numCheckedObjects === checkedState.numObjects) {
     /* when all checkboxes in the page are checked */
     document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-      el.checked = true; // eslint-disable-line no-param-reassign
+      el.checked = true;
     });
     if (checkedState.shouldShowAllInListingText) {
       document
@@ -247,7 +246,7 @@ function addBulkActionListeners() {
 function rebindBulkActionsEventListeners() {
   // when deselecting all checkbox, simply hide the footer for smooth transition
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
-    el.checked = false; // eslint-disable-line no-param-reassign
+    el.checked = false;
   });
   document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {
