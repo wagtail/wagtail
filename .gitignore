@@ -8,7 +8,6 @@
 /MANIFEST
 /wagtail.egg-info/
 /docs/_build/
-/docs/client/
 /.tox/
 /.venv
 /venv

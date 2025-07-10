@@ -1,9 +1,11 @@
 {
+  "readme": "./client/README.md",
+  "name": "Wagtail client-side components",
   "basePath": "./client/src",
   "entryPoints": ["./client/src"],
   "entryPointStrategy": "expand",
   "exclude": ["**/*.{stories,test}.{js,ts,jsx,tsx}"],
-  "out": "./docs/client",
+  "out": "./docs/_build/html/reference/client/",
   "externalSymbolLinkMappings": {
     "reselect": { "*": "https://reselect.js.org" }
   },
