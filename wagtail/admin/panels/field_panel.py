@@ -9,6 +9,7 @@ from django.utils.text import capfirst
 
 from wagtail.admin import compare
 from wagtail.admin.forms.models import registry as model_field_registry
+from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.blocks import BlockField
 
 from .base import Panel
@@ -148,6 +149,7 @@ class FieldPanel(Panel):
             self.model,
         )
 
+    @register_telepath_adapter
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/field_panel.html"
         # Default icons for common model field types,
@@ -389,3 +391,6 @@ class FieldPanel(Panel):
                 self.request,
                 self.form.__class__.__name__,
             )
+
+        def telepath_pack(self, context):
+            return ("wagtail.panels.FieldPanel", [self.field_name])

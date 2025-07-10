@@ -48,6 +48,23 @@ if (!window.telepath) {
   window.telepath = new Telepath();
 }
 
+class Panel {}
+window.telepath.register('wagtail.panels.Panel', Panel);
+
+class PanelGroup {
+  constructor(children) {
+    this.children = children;
+  }
+}
+window.telepath.register('wagtail.panels.PanelGroup', PanelGroup);
+
+class FieldPanel {
+  constructor(fieldName) {
+    this.fieldName = fieldName;
+  }
+}
+window.telepath.register('wagtail.panels.FieldPanel', FieldPanel);
+
 /**
  * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.
  * @deprecated RemovedInWagtail80
