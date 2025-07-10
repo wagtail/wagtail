@@ -41,10 +41,7 @@ class StreamChild extends BaseSequenceChild {
   }
 
   getDuplicatedState() {
-    return {
-      ...super.getDuplicatedState(),
-      type: this.type,
-    };
+    return { ...super.getDuplicatedState(), type: this.type };
   }
 
   setState({ type, value, id }) {
@@ -128,11 +125,7 @@ class StreamBlockMenu extends BaseInsertionControl {
         isPreviewable: blockDef.meta.isPreviewable,
       }));
 
-      return {
-        label: group || '',
-        type: group || '',
-        items: groupItems,
-      };
+      return { label: group || '', type: group || '', items: groupItems };
     });
   }
 

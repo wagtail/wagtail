@@ -72,11 +72,7 @@ export class SyncController extends Controller<HTMLInputElement> {
 
       if (this.quietValue) return;
 
-      this.dispatch('change', {
-        cancelable: false,
-        prefix: '',
-        target,
-      });
+      this.dispatch('change', { cancelable: false, prefix: '', target });
     };
 
     this.processTargetElements('apply').forEach((target) => {
