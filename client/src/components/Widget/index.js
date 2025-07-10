@@ -1,31 +1,43 @@
 import { setAttrs } from '../../utils/attrs';
 import { runInlineScripts } from '../../utils/runInlineScripts';
 
+export const querySelectorIncludingSelf = (elementOrNodeList, selector) => {
+  /**
+   * Given an element or a NodeList, return the first element that matches the selector.
+   * This can be the top-level element itself or a descendant.
+   */
+
+  // if elementOrNodeList not iterable, it must be a single element
+  const nodeList = elementOrNodeList.forEach
+    ? elementOrNodeList
+    : [elementOrNodeList];
+
+  for (let i = 0; i < nodeList.length; i += 1) {
+    const container = nodeList[i];
+    if (container.nodeType === Node.ELEMENT_NODE) {
+      // Check if the container itself matches the selector
+      if (container.matches(selector)) {
+        return container;
+      }
+
+      // If not, search within the container
+      const found = container.querySelector(selector);
+      if (found) {
+        return found;
+      }
+    }
+  }
+
+  return null; // No matching element found
+};
+
 export class BoundWidget {
   constructor(elementOrNodeList, name, idForLabel, parentCapabilities) {
-    // if elementOrNodeList not iterable, it must be a single element
-    const nodeList = elementOrNodeList.forEach
-      ? elementOrNodeList
-      : [elementOrNodeList];
-
-    // look for an input element with the given name, as either a direct element of nodeList
-    // or a descendant
+    // look for an input element with the given name
     const selector = `:is(input,select,textarea,button)[name="${name}"]`;
-
-    for (let i = 0; i < nodeList.length; i += 1) {
-      const element = nodeList[i];
-      if (element.nodeType === Node.ELEMENT_NODE) {
-        if (element.matches(selector)) {
-          this.input = element;
-          break;
-        } else {
-          const input = element.querySelector(selector);
-          if (input) {
-            this.input = input;
-            break;
-          }
-        }
-      }
+    this.input = querySelectorIncludingSelf(elementOrNodeList, selector);
+    if (!this.input) {
+      throw new Error(`No input found with name "${name}"`);
     }
 
     this.idForLabel = idForLabel;
