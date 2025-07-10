@@ -174,7 +174,6 @@ export const INITIAL_STATE: CommentsState = {
 
 export const reducer = produce(
   (draft: CommentsState, action: actions.Action) => {
-    /* eslint-disable no-param-reassign */
     const deleteComment = (comment: Comment) => {
       if (!comment.remoteId) {
         // If the comment doesn't exist in the database, there's no need to keep it around locally

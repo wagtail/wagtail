@@ -67,7 +67,7 @@ export class SyncController extends Controller<HTMLInputElement> {
     const valueToApply = event?.params?.apply || this.element.value;
 
     const applyValue = (target) => {
-      /* use setter to correctly update value in non-inputs (e.g. select) */ // eslint-disable-next-line no-param-reassign
+      /* use setter to correctly update value in non-inputs (e.g. select) */
       target.value = valueToApply;
 
       if (this.quietValue) return;
