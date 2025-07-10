@@ -6,6 +6,8 @@ import {
   getAxeConfiguration,
   getA11yReport,
   renderA11yResults,
+  addCustomChecks,
+  WagtailAxeConfiguration,
 } from './a11y-result';
 import { wagtailPreviewPlugin } from './previewPlugin';
 import { contentExtractorPluginInstance } from './contentMetrics';
@@ -27,6 +29,7 @@ export class Userbar extends HTMLElement {
   declare dialog: A11yDialog;
   declare dialogBody: HTMLElement;
   declare origin: string;
+  declare axeConfig: WagtailAxeConfiguration | null;
 
   connectedCallback() {
     const template = document.querySelector<HTMLTemplateElement>(
@@ -336,8 +339,10 @@ export class Userbar extends HTMLElement {
   // Initialise Axe
   async initialiseAxe() {
     // Collect content data from the live preview via Axe plugin for content metrics calculation
-    if (!this.shadowRoot) return;
+    this.axeConfig = getAxeConfiguration(this.shadowRoot);
+    if (!this.shadowRoot || !this.axeConfig) return;
 
+    axe.configure(addCustomChecks(this.axeConfig.spec));
     axe.registerPlugin(wagtailPreviewPlugin);
     axe.plugins.wagtailPreview.add(contentExtractorPluginInstance);
 
@@ -387,8 +392,6 @@ export class Userbar extends HTMLElement {
   async runAxe() {
     if (!this.shadowRoot) return;
 
-    const config = getAxeConfiguration(this.shadowRoot);
-
     const accessibilityResultsBox = this.shadowRoot.querySelector(
       '#accessibility-results',
     );
@@ -402,7 +405,7 @@ export class Userbar extends HTMLElement {
       );
 
     if (
-      !config ||
+      !this.axeConfig ||
       !accessibilityResultsBox ||
       !a11yRowTemplate ||
       !a11yOutlineTemplate
@@ -411,7 +414,7 @@ export class Userbar extends HTMLElement {
     }
 
     // Collect content data from the live preview via Axe plugin for content metrics calculation
-    const { results, a11yErrorsNumber } = await getA11yReport(config);
+    const { results, a11yErrorsNumber } = await getA11yReport(this.axeConfig);
 
     this.trigger.querySelector('[data-w-userbar-axe-count]')?.remove();
     if (results.violations.length) {
@@ -500,7 +503,7 @@ export class Userbar extends HTMLElement {
     renderA11yResults(
       this.dialogBody,
       results,
-      config,
+      this.axeConfig,
       a11yRowTemplate,
       onClickSelector,
     );

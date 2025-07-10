@@ -7,6 +7,7 @@ import {
   getA11yReport,
   renderA11yResults,
   WagtailAxeConfiguration,
+  addCustomChecks,
 } from '../includes/a11y-result';
 import { wagtailPreviewPlugin } from '../includes/previewPlugin';
 import {
@@ -371,6 +372,7 @@ export class PreviewController extends Controller<HTMLElement> {
       targetElement: 'main, [role="main"]',
     };
 
+    axe.configure(addCustomChecks(this.axeConfig.spec));
     axe.registerPlugin(wagtailPreviewPlugin);
 
     this.checksSidePanel.addEventListener('show', this.activatePreview);
