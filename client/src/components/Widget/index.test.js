@@ -27,6 +27,19 @@ describe('Widget', () => {
     expect(document.querySelector('input').value).toBe('The Value');
   });
 
+  test('it fails rendering if no input is found', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const nonWidget = new Widget('<div>Not an input</div>', '__ID__');
+    expect(() => {
+      nonWidget.render(
+        document.getElementById('placeholder'),
+        'the-name',
+        'the-id',
+        'The Value',
+      );
+    }).toThrow('No input found with name "the-name"');
+  });
+
   test('getValue() returns the current value', () => {
     expect(boundWidget.getValue()).toBe('The Value');
     document.querySelector('input').value = 'New Value';
