@@ -18,4 +18,5 @@ project_template
 jinja2
 panels
 viewsets
+client
 ```

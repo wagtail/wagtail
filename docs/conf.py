@@ -192,6 +192,10 @@ myst_url_schemes = {
     "mailto": None,
 }
 
+myst_enable_extensions = [
+    "attrs_inline",
+]
+
 # -- Options for HTML output ----------------------------------------------
 
 # Theme options are theme-specific and customise the look and feel of a theme

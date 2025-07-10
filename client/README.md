@@ -1,31 +1,13 @@
-# Wagtail client-side components
+<!-- NOTE: This file is rendered both by Sphinx via `include` and by TypeDoc. -->
+<!-- Only use plain Markdown without Sphinx-specific syntax. -->
 
-> This library aims to give developers the ability to subclass and configure Wagtail's UI components.
+Wagtail includes a wide range of client-side components powered by Stimulus and other JavaScript libraries. These components can be used programmatically to build custom features and enhancements within the Wagtail admin interface. To assist advanced developers and third-party package maintainers, we automatically generate documentation for these components using [TypeDoc](https://typedoc.org).
 
-## Usage
+Please note that some of these components may evolve rapidly and are not subject to the same stability guarantees outlined in our deprecation policy. If you make use of these components, ensure that you have a testing process that help you catch any breaking changes with each Wagtail upgrade.
 
-```sh
-npm install wagtail
-```
+<!-- END -->
+<!-- The rest will be rendered by TypeDoc. -->
 
-```javascript
-import { Explorer } from 'wagtail';
-// [...]
-<Explorer />;
-```
+For more details, see our [deprecation policy](../../releases/release_process.html#deprecation-policy).
 
-## Development
-
-```sh
-# From the project root, start the webpack + styles compilation.
-npm run start
-```
-
-You will also need:
-
--   [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) – React developer tools integrated into Chrome.
--   [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) – Redux developer tools integrated into Chrome.
-
-## Releases
-
-The front-end is bundled at the same time as the Wagtail project. This package also aims to be available separately on npm as [`wagtail`](https://www.npmjs.com/package/wagtail).
+[Return to Wagtail's main documentation.](../index.html)
