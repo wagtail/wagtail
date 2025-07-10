@@ -60,14 +60,7 @@ export type WagtailMessage =
  * @returns The Wagtail message if it exists, or null if it does not.
  */
 export function getWagtailMessage(event: MessageEvent): WagtailMessage | null {
-  if (
-    !(
-      event.type === 'message' &&
-      typeof event.data === 'object' &&
-      'wagtail' in event.data
-    )
-  )
-    return null;
+  if (!(event.type === 'message' && event?.data?.wagtail)) return null;
 
   return event.data.wagtail;
 }
