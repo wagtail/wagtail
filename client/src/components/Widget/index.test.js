@@ -88,6 +88,13 @@ describe('Widget', () => {
     expect(input.getAttribute('aria-describedby')).toBe('some-id');
     expect(input.required).toBe(true);
   });
+
+  it('can be retrieved for an existing form element', () => {
+    document.body.innerHTML =
+      '<input type="text" name="surname" id="id_surname" value="Bobson">';
+    const otherBoundWidget = widgetDef.getByName('surname', document.body);
+    expect(otherBoundWidget.getValue()).toBe('Bobson');
+  });
 });
 
 describe('Widget with inline JS', () => {
