@@ -130,14 +130,14 @@ interface A11yReport {
 }
 
 /**
- * Get accessibility testing results from Axe based on the configurable custom spec, context, and options.
- * It integrates custom rules into the Axe configuration before running the tests.
+ * Get accessibility testing results from Axe based on the configurable custom context and options.
+ * Before calling this function, ensure that Axe has been configured with
+ * axe.configure() using the config's `spec`, along with any custom checks.
  */
 export const getA11yReport = async (
   config: WagtailAxeConfiguration,
 ): Promise<A11yReport> => {
-  axe.configure(addCustomChecks(config.spec));
-  // Initialise Axe based on the context and options defined in Python.
+  // Run Axe based on the context and options defined in Python.
   const results = await axe.run(config.context, config.options);
   const a11yErrorsNumber = results.violations.reduce(
     (sum, violation) => sum + violation.nodes.length,
