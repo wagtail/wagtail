@@ -321,6 +321,16 @@ describe('PreviewController', () => {
       expect(mockScroll).not.toHaveBeenCalled();
     }
 
+    if (mockA11yResults) {
+      // Simulate the userbar's Axe being ready and instructing the controller
+      // to run Axe from the parent window.
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: { wagtail: { type: 'w-userbar:axe-ready' } },
+        }),
+      );
+    }
+
     // Clear the fetch call history
     fetch.mockClear();
   };
