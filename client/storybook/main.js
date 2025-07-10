@@ -7,10 +7,7 @@ module.exports = {
 
   addons: ['@storybook/addon-docs', '@storybook/addon-controls'],
 
-  framework: {
-    name: '@storybook/react-webpack5',
-    options: {},
-  },
+  framework: { name: '@storybook/react-webpack5', options: {} },
 
   /**
    * Redefine Babel config to allow TypeScript class fields `declare`.
@@ -35,12 +32,7 @@ module.exports = {
         test: /\.(scss|css)$/,
         use: [
           'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              url: false,
-            },
-          },
+          { loader: 'css-loader', options: { url: false } },
           {
             loader: 'postcss-loader',
             options: {
@@ -52,24 +44,16 @@ module.exports = {
           'sass-loader',
         ],
       },
-      {
-        test: /\.(md|html)$/,
-        type: 'asset/source',
-      },
+      { test: /\.(md|html)$/, type: 'asset/source' },
     ];
 
     config.module.rules = config.module.rules.concat(rules);
 
     // Allow using path magic variables to reduce boilerplate in stories.
-    config.node = {
-      __filename: true,
-      __dirname: true,
-    };
+    config.node = { __filename: true, __dirname: true };
 
     return config;
   },
 
-  docs: {
-    autodocs: true,
-  },
+  docs: { autodocs: true },
 };
