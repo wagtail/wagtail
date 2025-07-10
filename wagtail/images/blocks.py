@@ -5,10 +5,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.compare import BlockComparison, StructBlockComparison
+from wagtail.admin.telepath import register
 from wagtail.blocks import BooleanBlock, CharBlock, ChooserBlock, StructBlock
 from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 from wagtail.images.models import AbstractImage
-from wagtail.telepath import register
 
 from .shortcuts import get_rendition_or_not_found
 
