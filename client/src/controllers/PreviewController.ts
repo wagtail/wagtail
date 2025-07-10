@@ -767,11 +767,13 @@ export class PreviewController extends Controller<HTMLElement> {
 
     this.dispatch('loaded', { cancelable: false });
 
-    if (this.contentChecksEnabled) {
-      this.runChecks().finally(() => this.finishUpdate());
-    } else {
-      this.finishUpdate();
-    }
+    // Finish the update process. Instead of calling `runChecks()` here,
+    // accessibility and content checks will be triggered by the userbar in the
+    // new iframe via the `w-userbar:axe-ready` message event. This ensures that
+    // Axe in this window does not instruct the new iframe's Axe to immediately
+    // run the checks, which might fail if it is still running the initial
+    // checks as part of the userbar initialization.
+    this.finishUpdate();
   }
 
   async restoreScrollPosition(newIframe: HTMLIFrameElement): Promise<void> {
@@ -858,9 +860,8 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /**
    * Runs the content and accessibility checks.
-   * This is called when the preview iframe is loaded, or when the iframe sends
-   * a message event from the userbar indicating that it has finished running
-   * the checks within itself.
+   * This is called when the iframe sends a message event from the userbar
+   * indicating that it has finished running the checks within itself.
    * @param event The message event from the userbar
    */
   async runChecks(event?: MessageEvent<{ wagtail: { type: string } }>) {

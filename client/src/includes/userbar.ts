@@ -307,27 +307,43 @@ export class Userbar extends HTMLElement {
     // On initialisation, all menu items should be disabled for roving tab index
     resetItemsTabIndex();
 
-    // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
-    // In this case, we need to call the initialisation function immediately.
-    if (document.readyState === 'complete') {
-      this.initialiseAxe();
-    } else {
-      document.addEventListener('DOMContentLoaded', async () => {
-        await this.initialiseAxe();
-      });
-    }
-
     this.handleMessage = this.handleMessage.bind(this);
+    this.onWindowLoad = this.onWindowLoad.bind(this);
 
     // If we are in a cross-origin iframe, request the parent to restore the
     // scroll position of the preview panel's previous iframe to this one.
     if (this.inCrossOriginIframe) {
       window.addEventListener('message', this.handleMessage);
-      this.postMessage({
-        type: 'w-preview:request-scroll',
-        origin: window.location.origin,
-      });
     }
+
+    // The page may already be loaded, e.g. when the userbar is loaded via AJAX.
+    // In this case, we need to call the initialisation function immediately.
+    if (document.readyState === 'complete') {
+      this.onWindowLoad();
+    } else {
+      // Use `load` event instead of `DOMContentLoaded`, as the document may be
+      // in the "interactive" state, which likely means `DOMContentLoaded` has
+      // already fired. See onWindowLoad() for more details.
+      window.addEventListener('load', this.onWindowLoad);
+    }
+  }
+
+  /**
+   * Initialization code that must happen after the window has fully loaded.
+   * We want to make sure that the PreviewController:
+   *
+   * - has moved the id of the iframe (that is used by Axe) to the new iframe
+   *   before we run Axe
+   * - has set up the scroll restoration message event listener
+   *
+   * Both of which are done in the `load` event handler of the iframe's window.
+   */
+  async onWindowLoad() {
+    this.postMessage({
+      type: 'w-preview:request-scroll',
+      origin: window.location.origin,
+    });
+    await this.initialiseAxe();
   }
 
   /*
@@ -508,19 +524,15 @@ export class Userbar extends HTMLElement {
       onClickSelector,
     );
 
-    // In headless a setup, the userbar might be initialized after the "load"
-    // event has been fired, so the PreviewController's Axe has already scanned
-    // this window without Axe running inside it. We need to notify the parent
-    // window when the userbar (and thus Axe) has been initialized, so that it
-    // can re-run Axe against this window.
-    //
+    // Notify the parent window when the userbar (and thus Axe) has been
+    // initialized and is ready, so that it can re-run Axe against this window.
     // We do this here instead of in connectedCallback() or initialiseAxe() to
     // make sure that the message is sent only after Axe has finished running,
     // otherwise the PreviewController's Axe may try to run Axe in this window
     // while a previous run is still in progress, which will cause an error.
-    if (this.inCrossOriginIframe) {
-      this.postAxeReady();
-    }
+    // This also allows custom code in the frontend to trigger a re-run of the
+    // checks both in the frontend and in the editor by calling this method.
+    this.postAxeReady();
   }
 
   get inCrossOriginIframe() {
