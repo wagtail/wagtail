@@ -220,10 +220,7 @@ export class BulkController extends Controller<HTMLElement> {
   toggleAll(
     event: CustomEvent<ToggleAllOptions> & { params?: ToggleAllOptions },
   ) {
-    const { force = null, group = null } = {
-      ...event.detail,
-      ...event.params,
-    };
+    const { force = null, group = null } = { ...event.detail, ...event.params };
 
     this.lastChanged = null;
 
