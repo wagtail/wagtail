@@ -177,7 +177,8 @@ def wagtail_admin_base_url_check(app_configs, **kwargs):
             Warning(
                 "The WAGTAILADMIN_BASE_URL setting is not defined",
                 hint="This should be the base URL used to access the Wagtail admin site. "
-                "Without this, URLs in notification emails will not display correctly.",
+                "Without this, admin URLs outside of the admin (e.g. notification "
+                "emails and the user bar) will not display correctly.",
                 id="wagtailadmin.W003",
             )
         )

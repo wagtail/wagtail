@@ -20,9 +20,9 @@ This is the human-readable name of your Wagtail install which welcomes users upo
 WAGTAILADMIN_BASE_URL = 'http://example.com'
 ```
 
-This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
+This is the base URL used by the Wagtail admin site. It is used for generating absolute URLs to the admin, such as in notification emails and the user bar. This setting must not include the admin path (`/admin`) or a trailing slash.
 
-If this setting is not present, Wagtail will try to fall back to `request.site.root_url` or to the request's host name.
+If this setting is not set, a system check warning will be raised.
 
 (append_slash)=
 
