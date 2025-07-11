@@ -105,6 +105,7 @@
     "typedoc": "^0.28.7",
     "typedoc-plugin-mdn-links": "^5.0.4",
     "typescript": "^5.8.3",
+    "yaml": "^2.8.0",
     "webpack": "^5.100.2",
     "webpack-cli": "^5.1.4"
   },
@@ -145,8 +146,9 @@
     "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
     "lint:css": "stylelint **/*.scss",
     "lint:format": "prettier --check \"**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}\"",
+    "lint:project": "node ./scripts/check-dependencies.mjs",
     "lint:ts": "tsc --noEmit",
-    "lint": "npm run lint:js && npm run lint:ts && npm run lint:css && npm run lint:format",
+    "lint": "npm run lint:js && npm run lint:ts && npm run lint:css && npm run lint:format && npm run lint:project",
     "test": "npm run test:unit",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
