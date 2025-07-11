@@ -164,6 +164,9 @@ Note that authentication and authorization are not handled in this example, as t
 In order to use the accessibility checker in the page editor, the user bar must be loaded in the frontend. If the frontend is served on a different domain than Wagtail, the [](built_in_accessibility_checker) must be customized so that Axe can securely perform cross-frame communication. This can be done by overriding the `get_axe_spec` method of the `AccessibilityItem` class, and setting the `allowedOrigins` property to the frontend URL.
 
 ```py
+from wagtail.admin.utils import get_admin_base_url
+
+
 class HeadlessAccessibilityItem(AccessibilityItem):
     def get_axe_spec(self, request):
         spec = super().get_axe_spec(request)
