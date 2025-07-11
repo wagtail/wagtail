@@ -2,6 +2,10 @@
 
 # Extending client-side behavior
 
+```{note}
+This document provides an overview of how to extend Wagtail's client-side behavior. For a more detailed API reference of Wagtail's JavaScript components, see [](javascript_components).
+```
+
 Many kinds of common customizations can be done without reaching into JavaScript, but depending on what parts of the client-side interaction you want to leverage or customize, you may need to employ React, Stimulus, or plain (vanilla) JS.
 
 [React](https://reactjs.org/) is used for more complex parts of Wagtail, such as the sidebar, commenting system, and the Draftail rich-text editor.

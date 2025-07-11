@@ -8,7 +8,7 @@ build:
     post_install:
       - npm install
     post_build:
-      - npm run build-docs -- --out $READTHEDOCS_OUTPUT/html/reference/client/
+      - npm run build-docs -- --out $READTHEDOCS_OUTPUT/html/reference/ui/client/
 python:
   install:
     - method: pip

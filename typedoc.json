@@ -5,7 +5,7 @@
   "entryPoints": ["./client/src"],
   "entryPointStrategy": "expand",
   "exclude": ["**/*.{stories,test}.{js,ts,jsx,tsx}"],
-  "out": "./docs/_build/html/reference/client/",
+  "out": "./docs/_build/html/reference/ui/client/",
   "externalSymbolLinkMappings": {
     "reselect": { "*": "https://reselect.js.org" }
   },
