@@ -16,7 +16,7 @@ repos:
         types_or: [css, scss, javascript, ts, tsx, json, yaml]
         additional_dependencies:
           # Keep in sync with package.json
-          - prettier@3.3.3
+          - prettier@3.6.2
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.56.0
     hooks:
@@ -26,10 +26,10 @@ repos:
         args: [--report-unused-disable-directives]
         additional_dependencies:
           # Keep in sync with package.json
-          - eslint@8.56.0
+          - eslint@8.57.0
           - '@typescript-eslint/eslint-plugin@6.21.0'
           - '@typescript-eslint/parser@6.21.0'
-          - '@wagtail/eslint-config-wagtail@0.4.0'
+          - '@wagtail/eslint-config-wagtail@0.5.0'
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
     rev: v15.11.0
     hooks:
