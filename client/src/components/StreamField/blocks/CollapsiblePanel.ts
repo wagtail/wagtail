@@ -1,3 +1,5 @@
+import { gettext } from '../../../utils/gettext';
+
 interface PanelProps {
   panelId: string;
   headingId: string;
@@ -43,7 +45,7 @@ export class CollapsiblePanel {
                 <use href="#icon-link"></use>
               </svg>
             </a>
-            <button class="w-panel__toggle" type="button" aria-label="${'Toggle section'}" aria-describedby="${headingId}" data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
+            <button class="w-panel__toggle" type="button" aria-label="${gettext('Toggle section')}" aria-describedby="${headingId}" data-panel-toggle aria-controls="${contentId}" aria-expanded="true">
               <svg class="icon icon-${blockTypeIcon} w-panel__icon" aria-hidden="true">
                 <use href="#icon-${blockTypeIcon}"></use>
               </svg>
