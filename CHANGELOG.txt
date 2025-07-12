@@ -65,6 +65,7 @@
  * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
  * Docs: Add note about PDF XSS to security page (Matt Westcott)
  * Docs: Add documentation for how to group blocks within the StreamField picker (Gaurav Verma)
+ * Docs: Clarify the user bar does not have moderation features (Sage Abdullah)
  * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
  * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
  * Maintenance: Remove squash.io configuration (Sage Abdullah)
