@@ -193,6 +193,9 @@ myst_url_schemes = {
 }
 
 myst_enable_extensions = [
+    # To support the `.external` link modifier. See:
+    # https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#customising-external-url-resolution
+    # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-inline
     "attrs_inline",
 ]
 
