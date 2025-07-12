@@ -33,8 +33,7 @@ class WidgetAdapter(Adapter):
         )
 
 
-register(WidgetAdapter(), forms.widgets.Input)
-register(WidgetAdapter(), forms.Textarea)
+register(WidgetAdapter(), forms.widgets.Widget)
 
 
 class CheckboxInputAdapter(WidgetAdapter):

@@ -4,6 +4,7 @@ import Telepath from 'telepath-unpack';
 import { Icon, Portal } from '../..';
 import { ExpandingFormset } from '../../components/ExpandingFormset';
 import { coreControllerDefinitions } from '../../controllers';
+import { Panel, PanelGroup, FieldPanel } from '../../components/Panel';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
@@ -48,21 +49,8 @@ if (!window.telepath) {
   window.telepath = new Telepath();
 }
 
-class Panel {}
 window.telepath.register('wagtail.panels.Panel', Panel);
-
-class PanelGroup {
-  constructor(children) {
-    this.children = children;
-  }
-}
 window.telepath.register('wagtail.panels.PanelGroup', PanelGroup);
-
-class FieldPanel {
-  constructor(fieldName) {
-    this.fieldName = fieldName;
-  }
-}
 window.telepath.register('wagtail.panels.FieldPanel', FieldPanel);
 
 /**
