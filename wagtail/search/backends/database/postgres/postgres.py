@@ -324,6 +324,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
     DEFAULT_OPERATOR = "and"
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
+    HANDLES_ORDER_BY_EXPRESSIONS = True
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
