@@ -392,5 +392,18 @@
   align-items: center;
   justify-content: center;
   display: flex;
-  cursor: pointer;
+
+  [type='checkbox'] {
+    width: theme('spacing.10');
+    height: theme('spacing.10');
+    opacity: 0;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  &:focus-within:has(:focus-visible) {
+    @include focus-outline;
+  }
 }
