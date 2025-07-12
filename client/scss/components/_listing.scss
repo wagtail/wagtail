@@ -552,6 +552,7 @@ table.listing {
         border: 1px solid theme('colors.border-furniture');
         border-radius: theme('borderRadius.sm');
         color: theme('colors.text-label');
+        padding: theme('spacing.1') theme('spacing.2');
       }
 
       &.pagination__page-number--current a {
