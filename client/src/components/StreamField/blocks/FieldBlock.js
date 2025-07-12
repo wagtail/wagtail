@@ -122,6 +122,12 @@ export class FieldBlock {
       .querySelectorAll('.error-message')
       .forEach((element) => element.remove());
 
+    // The widget knows exactly where the <input> is, so we let it handle the
+    // invalid state to e.g. set the aria-invalid attribute. Use optional
+    // chaining as custom widgets may not have implemented this method, or the
+    // widget itself may have failed to render in the first place.
+    this.widget?.setInvalid?.(!!error);
+
     if (error) {
       this.field.classList.add('w-field--error');
       errorContainer.querySelector('.icon').removeAttribute('hidden');

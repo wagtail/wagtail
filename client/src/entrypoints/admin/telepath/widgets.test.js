@@ -61,6 +61,17 @@ describe('telepath: wagtail.widgets.Widget', () => {
     expect(document.querySelector('input').value).toBe('The new Value');
   });
 
+  test('setInvalid() sets aria-invalid attribute', () => {
+    boundWidget.setInvalid(true);
+    expect(document.querySelector('input').getAttribute('aria-invalid')).toBe(
+      'true',
+    );
+    boundWidget.setInvalid(false);
+    expect(
+      document.querySelector('input').getAttribute('aria-invalid'),
+    ).toBeNull();
+  });
+
   test('focus() focuses the text input', () => {
     boundWidget.focus();
     expect(document.activeElement).toBe(document.querySelector('input'));
@@ -205,6 +216,27 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
     boundWidget.setState(['coffee']);
     expect(document.querySelector('input[value="tea"]').checked).toBe(false);
     expect(document.querySelector('input[value="coffee"]').checked).toBe(true);
+  });
+
+  test('setInvalid() sets aria-invalid attribute', () => {
+    boundWidget.setInvalid(true);
+    expect(
+      document.querySelector('input[value="tea"]').getAttribute('aria-invalid'),
+    ).toBe('true');
+    expect(
+      document
+        .querySelector('input[value="coffee"]')
+        .getAttribute('aria-invalid'),
+    ).toBe('true');
+    boundWidget.setInvalid(false);
+    expect(
+      document.querySelector('input[value="tea"]').getAttribute('aria-invalid'),
+    ).toBeNull();
+    expect(
+      document
+        .querySelector('input[value="coffee"]')
+        .getAttribute('aria-invalid'),
+    ).toBeNull();
   });
 
   test('focus() focuses the text input', () => {
@@ -620,6 +652,13 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     expect(retrievedState).toStrictEqual(NEW_STATE);
   });
 
+  test('setInvalid() sets aria-invalid attribute', () => {
+    boundWidget.setInvalid(true);
+    expect(inputElement.getAttribute('aria-invalid')).toBe('true');
+    boundWidget.setInvalid(false);
+    expect(inputElement.getAttribute('aria-invalid')).toBeNull();
+  });
+
   test('focus() focuses the text input', () => {
     // focus happens on a timeout, so use a mock to make it happen instantly
     jest.useFakeTimers();
@@ -713,6 +752,17 @@ describe('telepath: wagtail.widgets.DateInput', () => {
     expect(document.querySelector('input').value).toBe('2021-01-20');
   });
 
+  test('setInvalid() sets aria-invalid attribute', () => {
+    boundWidget.setInvalid(true);
+    expect(document.querySelector('input').getAttribute('aria-invalid')).toBe(
+      'true',
+    );
+    boundWidget.setInvalid(false);
+    expect(
+      document.querySelector('input').getAttribute('aria-invalid'),
+    ).toBeNull();
+  });
+
   test('focus() focuses the input', () => {
     boundWidget.focus();
     expect(document.activeElement).toBe(document.querySelector('input'));
@@ -773,6 +823,17 @@ describe('telepath: wagtail.widgets.TimeInput', () => {
   test('setState() changes the current state', () => {
     boundWidget.setState('12:34');
     expect(document.querySelector('input').value).toBe('12:34');
+  });
+
+  test('setInvalid() sets aria-invalid attribute', () => {
+    boundWidget.setInvalid(true);
+    expect(document.querySelector('input').getAttribute('aria-invalid')).toBe(
+      'true',
+    );
+    boundWidget.setInvalid(false);
+    expect(
+      document.querySelector('input').getAttribute('aria-invalid'),
+    ).toBeNull();
   });
 
   test('focus() focuses the input', () => {
@@ -837,6 +898,17 @@ describe('telepath: wagtail.widgets.DateTimeInput', () => {
   test('setState() changes the current state', () => {
     boundWidget.setState('2021-01-20 12:34');
     expect(document.querySelector('input').value).toBe('2021-01-20 12:34');
+  });
+
+  test('setInvalid() sets aria-invalid attribute', () => {
+    boundWidget.setInvalid(true);
+    expect(document.querySelector('input').getAttribute('aria-invalid')).toBe(
+      'true',
+    );
+    boundWidget.setInvalid(false);
+    expect(
+      document.querySelector('input').getAttribute('aria-invalid'),
+    ).toBeNull();
   });
 
   test('focus() focuses the input', () => {

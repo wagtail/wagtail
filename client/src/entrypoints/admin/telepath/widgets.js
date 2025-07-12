@@ -55,6 +55,14 @@ class BoundWidget {
     this.input.value = state;
   }
 
+  setInvalid(invalid) {
+    if (invalid) {
+      this.input.setAttribute('aria-invalid', 'true');
+    } else {
+      this.input.removeAttribute('aria-invalid');
+    }
+  }
+
   getTextLabel(opts) {
     const val = this.getValue();
     if (typeof val !== 'string') return null;
@@ -181,6 +189,18 @@ class BoundRadioSelect {
     for (let i = 0; i < inputs.length; i += 1) {
       inputs[i].checked = state.includes(inputs[i].value);
     }
+  }
+
+  setInvalid(invalid) {
+    this.element
+      .querySelectorAll(`input[name="${this.name}"]`)
+      .forEach((input) => {
+        if (invalid) {
+          input.setAttribute('aria-invalid', 'true');
+        } else {
+          input.removeAttribute('aria-invalid');
+        }
+      });
   }
 
   focus() {
@@ -352,6 +372,14 @@ class BoundDraftailWidget {
     this.input.draftailEditor.onChange(editorState);
   }
 
+  setInvalid(invalid) {
+    if (invalid) {
+      this.input.setAttribute('aria-invalid', 'true');
+    } else {
+      this.input.removeAttribute('aria-invalid');
+    }
+  }
+
   getTextLabel(opts) {
     const maxLength = opts && opts.maxLength;
     if (!this.input.value) return '';
@@ -511,6 +539,13 @@ class BaseDateTimeWidget extends Widget {
       },
       setState(state) {
         element.value = state;
+      },
+      setInvalid(invalid) {
+        if (invalid) {
+          element.setAttribute('aria-invalid', 'true');
+        } else {
+          element.removeAttribute('aria-invalid');
+        }
       },
       focus(opts) {
         // focusing opens the date picker, so don't do this if it's a 'soft' focus
