@@ -28,6 +28,7 @@ lint-client:
 	npm run lint:css --silent
 	npm run lint:js --silent
 	npm run lint:format --silent
+	npm run lint:project
 
 lint-docs:
 	doc8 docs
