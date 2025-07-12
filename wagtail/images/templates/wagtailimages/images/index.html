@@ -8,6 +8,9 @@
 
 {% block slim_header %}
     {% fragment as extra_form_fields %}
+        <div id="layout-toggle-button">
+            {% include "wagtailimages/images/layout_toggle_button.html" %}
+        </div>
         {% rawformattedfield label_text=_("Sort by") id_for_label="order_images_by" sr_only_label=True %}
             <select id="order_images_by" name="ordering">
                 {% for ordering, ordering_text in ORDERING_OPTIONS.items %}

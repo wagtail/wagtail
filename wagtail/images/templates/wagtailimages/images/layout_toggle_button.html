@@ -1,0 +1,10 @@
+{% load wagtailadmin_tags i18n %}
+
+<label class="w-slim-header-action-button w-layout-toggle-button">
+    {% if layout == "list" %}
+        {% icon name="grid" %}
+    {% else %}
+        {% icon name="list-ul" %}
+    {% endif %}
+    <input type="checkbox" aria-label="{% translate 'Toggle layout' %}" name="layout" value="list" {% if layout == "list" %}checked{% endif %} data-controller="w-tooltip" data-w-tooltip-content-value="{% translate 'Toggle layout' %}">
+</label>
