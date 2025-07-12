@@ -252,7 +252,7 @@ describe('OrderableController', () => {
 
       fetch.mockResponseSuccessJSON('');
 
-      await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...ENTER)));
+      await Promise.resolve(controller.apply({ currentTarget: handle }, 1));
 
       expect(global.fetch).toHaveBeenCalledWith('/base/url/93?position=1', {
         body: expect.any(FormData),
