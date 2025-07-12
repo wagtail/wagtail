@@ -42,7 +42,7 @@
             const editHandlerJson = form.getAttribute('data-edit-handler');
             const packedEditHandler = JSON.parse(editHandlerJson);
             const editHandler = window.telepath.unpack(packedEditHandler);
-            console.log(editHandler);
+            console.log(editHandler.getWidgets());
         </script>
     {% endblock %}
 {% endblock %}

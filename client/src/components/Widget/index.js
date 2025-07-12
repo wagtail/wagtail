@@ -31,13 +31,20 @@ export const querySelectorIncludingSelf = (elementOrNodeList, selector) => {
   return null; // No matching element found
 };
 
+export class InputNotFoundError extends Error {
+  constructor(name) {
+    super(`No input found with name "${name}"`);
+    this.name = 'InputNotFoundError';
+  }
+}
+
 export class BoundWidget {
   constructor(elementOrNodeList, name, parentCapabilities) {
     // look for an input element with the given name
     const selector = `:is(input,select,textarea,button)[name="${name}"]`;
     this.input = querySelectorIncludingSelf(elementOrNodeList, selector);
     if (!this.input) {
-      throw new Error(`No input found with name "${name}"`);
+      throw new InputNotFoundError(name);
     }
 
     this.idForLabel = this.input.id;
