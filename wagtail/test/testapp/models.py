@@ -58,6 +58,7 @@ from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import (
     BaseGenericSetting,
     BaseSiteSetting,
+    PreviewableSettingMixin,
     register_setting,
 )
 from wagtail.contrib.sitemaps import Sitemap
@@ -1965,6 +1966,14 @@ class FileSiteSetting(BaseSiteSetting):
 @register_setting
 class FileGenericSetting(BaseGenericSetting):
     file = models.FileField()
+
+
+@register_setting
+class PreviewableGenericSetting(PreviewableSettingMixin, BaseGenericSetting):
+    text = models.TextField()
+
+    def get_preview_template(self, request, mode_name):
+        return "tests/previewable_setting.html"
 
 
 class BlogCategory(models.Model):

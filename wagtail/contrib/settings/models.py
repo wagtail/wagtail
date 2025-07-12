@@ -3,7 +3,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 
 from wagtail.coreutils import InvokeViaAttributeShortcut
-from wagtail.models import Site
+from wagtail.models import PreviewableMixin, Site
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.permission_policies.sites import SitePermissionPolicy
 
@@ -14,6 +14,13 @@ __all__ = [
     "BaseSiteSetting",
     "register_setting",
 ]
+
+
+class PreviewableSettingMixin(PreviewableMixin):
+    def get_preview_context(self, request, mode_name):
+        # Inject current instance into request
+        setattr(request, self.get_cache_attr_name(), self)
+        return super().get_preview_context(request, mode_name)
 
 
 class AbstractSetting(models.Model):
