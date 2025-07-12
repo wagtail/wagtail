@@ -11,7 +11,12 @@ from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
 from wagtail.models import Page
 from wagtail.test.testapp.forms import AdminStarDateInput
-from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
+from wagtail.test.testapp.models import (
+    BlogCategory,
+    EventPage,
+    RestaurantTag,
+    SimplePage,
+)
 from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
@@ -715,3 +720,53 @@ class TestSlugInput(TestCase):
         html = widget.render("test", None, attrs={"id": "test-id"})
 
         self.assertNotIn("data-w-slug-allow-unicode-value", html)
+
+
+class TestBaseChooser(TestCase):
+    """Test cases for BaseChooser widget, especially handling of to_field foreign keys."""
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.category = BlogCategory.objects.create(name="recipes")
+        cls.category2 = BlogCategory.objects.create(name="news")
+
+    def test_get_instance_with_primary_key(self):
+        """Test get_instance works with primary key."""
+        widget = widgets.BaseChooser()
+        widget.model_class = BlogCategory
+
+        instance = widget.get_instance(self.category.pk)
+        self.assertEqual(instance, self.category)
+
+        instance = widget.get_instance(999)
+        self.assertIsNone(instance)
+
+    def test_get_instance_with_to_field_name(self):
+        """Test get_instance works with to_field_name parameter."""
+        widget = widgets.BaseChooser(to_field_name="name")
+        widget.model_class = BlogCategory
+
+        instance = widget.get_instance("recipes")
+        self.assertEqual(instance, self.category)
+
+        instance = widget.get_instance("news")
+        self.assertEqual(instance, self.category2)
+
+        instance = widget.get_instance("nonexistent")
+        self.assertIsNone(instance)
+
+    def test_get_instance_with_model_instance(self):
+        """Test get_instance works when passed a model instance."""
+        widget = widgets.BaseChooser()
+        widget.model_class = BlogCategory
+
+        instance = widget.get_instance(self.category)
+        self.assertEqual(instance, self.category)
+
+    def test_get_instance_with_none(self):
+        """Test get_instance returns None when passed None."""
+        widget = widgets.BaseChooser()
+        widget.model_class = BlogCategory
+
+        instance = widget.get_instance(None)
+        self.assertIsNone(instance)

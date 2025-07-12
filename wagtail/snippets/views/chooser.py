@@ -1,6 +1,8 @@
+from django.db.models import ForeignKey
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.ui.tables import LiveStatusTagColumn
 from wagtail.admin.views.generic.chooser import (
     BaseChooseView,
@@ -14,6 +16,7 @@ from wagtail.admin.views.generic.chooser import (
 from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.models import DraftStateMixin
 from wagtail.snippets.widgets import AdminSnippetChooser
+from wagtail.telepath import register as register_telepath_adapter
 
 
 class BaseSnippetChooseView(BaseChooseView):
@@ -73,7 +76,38 @@ class SnippetChooserViewSet(ChooserViewSet):
     chosen_view_class = SnippetChosenView
     chosen_multiple_view_class = SnippetChosenMultipleView
     create_view_class = SnippetCreateView
+    base_widget_class = AdminSnippetChooser
 
     @cached_property
     def widget_class(self):
-        return AdminSnippetChooser(model=self.model, icon=self.icon)
+        """
+        Returns the form widget class for this chooser.
+        """
+        widget_class_name = f"{self.model_name}ChooserWidget"
+
+        return type(
+            widget_class_name,
+            (self.base_widget_class,),
+            {
+                "model": self.model,
+                "icon": self.icon,
+            },
+        )
+
+    def on_register(self):
+        if self.model and self.register_widget:
+            register_form_field_override(
+                ForeignKey,
+                to=self.model,
+                override=lambda db_field: {
+                    "widget": self.widget_class(
+                        model=self.model,
+                        to_field_name=getattr(
+                            db_field.remote_field, "field_name", None
+                        ),
+                    )
+                },
+            )
+            if self.widget_telepath_adapter_class:
+                adapter = self.widget_telepath_adapter_class()
+                register_telepath_adapter(adapter, self.widget_class)
