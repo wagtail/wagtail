@@ -5,7 +5,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRel
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import FieldDoesNotExist
 from django.db import connection, models
-from django.db.models.functions import Cast
+from django.db.models import CharField, Count, OuterRef, Subquery
+from django.db.models.functions import Cast, Coalesce
 from django.utils.functional import cached_property
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
@@ -655,6 +656,23 @@ class ReferenceIndex(models.Model):
             )
             for object in objects
         }
+
+    @classmethod
+    def usage_count_subquery(cls, model):
+        return Coalesce(
+            Subquery(
+                ReferenceIndex.objects.filter(
+                    to_content_type=ContentType.objects.get_for_model(model),
+                    to_object_id=Cast(OuterRef("pk"), output_field=CharField()),
+                )
+                .values("object_id", "to_object_id")
+                .distinct()
+                .values("to_object_id")
+                .annotate(count=Count("object_id", distinct=True))
+                .values("count")
+            ),
+            0,
+        )
 
     @property
     def _content_type(self):

@@ -413,6 +413,10 @@ class BulkActionsCheckboxColumn(BaseColumn):
         return context
 
 
+class UsageCountColumn(BaseColumn):
+    cell_template_name = "wagtailadmin/tables/usage_count_column_cell.html"
+
+
 class ReferencesColumn(Column):
     cell_template_name = "wagtailadmin/tables/references_cell.html"
 

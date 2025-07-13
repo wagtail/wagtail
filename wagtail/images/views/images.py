@@ -21,6 +21,7 @@ from wagtail.admin.ui.tables import (
     Column,
     DateColumn,
     TitleColumn,
+    UsageCountColumn,
 )
 from wagtail.admin.utils import get_valid_next_url_from_request, set_query_params
 from wagtail.admin.views import generic
@@ -30,7 +31,7 @@ from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
-from wagtail.models import Site
+from wagtail.models import ReferenceIndex, Site
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -88,6 +89,13 @@ class IndexView(generic.IndexView):
             .select_related("collection")
             .prefetch_renditions("max-165x165")
         )
+
+        # Annotate with usage count from the ReferenceIndex if using the list layout
+        if self.layout == "list":
+            return images.annotate(
+                usage_count=ReferenceIndex.usage_count_subquery(self.model)
+            )
+
         return images
 
     @cached_property
@@ -160,6 +168,7 @@ class IndexView(generic.IndexView):
                     label=_("Created"),
                     sort_key="created_at",
                 ),
+                UsageCountColumn("usage_count", label=_("Usage")),
             ]
 
             return columns

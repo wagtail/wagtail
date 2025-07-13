@@ -2118,6 +2118,32 @@ class TestUsageCount(WagtailTestUtils, TestCase):
         response = self.client.get(reverse("wagtaildocs:edit", args=(1,)))
         self.assertContains(response, "Used 0 times")
 
+    def test_usage_count_column_with_document_usage(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            doc = models.Document.objects.get(id=1)
+            page = EventPage.objects.get(id=4)
+            event_page_related_link = EventPageRelatedLink()
+            event_page_related_link.page = page
+            event_page_related_link.link_document = doc
+            event_page_related_link.save()
+
+        response = self.client.get(reverse("wagtaildocs:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Used 1 time")
+
+        expected_url = "/admin/documents/usage/1/"
+        self.assertContains(response, expected_url)
+
+    def test_usage_count_column_no_document_usage(self):
+        response = self.client.get(reverse("wagtaildocs:index"), {"layout": "list"})
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Used 0 times")
+
+        expected_url = "/admin/documents/usage/1/"
+        self.assertContains(response, expected_url)
+
 
 class TestGetUsage(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
     fixtures = ["test.json"]
