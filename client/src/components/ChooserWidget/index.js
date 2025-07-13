@@ -218,4 +218,12 @@ export class ChooserFactory {
   getById(id) {
     return document.getElementById(`${id}-chooser`).widget;
   }
+
+  /**
+   * retrieve the widget object corresponding to the given HTML name
+   */
+  getByName(name, container) {
+    const input = container.querySelector(`input[name="${name}"]`);
+    return this.getById(input.id);
+  }
 }
