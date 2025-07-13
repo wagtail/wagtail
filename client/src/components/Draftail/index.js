@@ -307,17 +307,21 @@ const initEditor = (selector, originalOptions, currentScript) => {
 };
 
 class BoundDraftailWidget {
-  constructor(input, options, parentCapabilities) {
+  constructor(input, options, parentCapabilities, shouldInitEditor) {
     this.input = input;
     this.capabilities = new Map(parentCapabilities);
     this.options = options;
 
-    const [, setOptions] = initEditor(
-      '#' + this.input.id,
-      this.getFullOptions(),
-      document.currentScript,
-    );
-    this.setDraftailOptions = setOptions;
+    if (shouldInitEditor) {
+      const [, setOptions] = initEditor(
+        '#' + this.input.id,
+        this.getFullOptions(),
+        document.currentScript,
+      );
+      this.setDraftailOptions = setOptions;
+    } else {
+      this.setDraftailOptions = null;
+    }
   }
 
   getValue() {
@@ -365,6 +369,11 @@ class BoundDraftailWidget {
   }
 
   setCapabilityOptions(capability, capabilityOptions) {
+    if (!this.setDraftailOptions) {
+      throw new Error(
+        'setCapabilityOptions is only supported on Draftail widgets rendered via DraftailRichTextArea.render',
+      );
+    }
     const newCapability = Object.assign(
       this.capabilities.get(capability),
       capabilityOptions,
@@ -458,6 +467,7 @@ class DraftailRichTextArea {
       input,
       { ...this.options, ...options },
       parentCapabilities,
+      true, // shouldInitEditor
     );
 
     if (initialiseBlank) {
@@ -465,6 +475,21 @@ class DraftailRichTextArea {
     }
 
     return boundDraftail;
+  }
+
+  getByName(name, container) {
+    const selector = `input[name="${name}"]`;
+    let input;
+    if (container.matches(selector)) {
+      input = container;
+    } else {
+      input = container.querySelector(selector);
+    }
+    if (!input) {
+      throw new Error(`No input found with name "${name}"`);
+    }
+
+    return new BoundDraftailWidget(input, this.options, null, false);
   }
 }
 
