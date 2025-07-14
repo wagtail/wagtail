@@ -160,7 +160,7 @@ class PanelGroup(Panel):
             return comparators
 
         def telepath_pack(self, context):
-            return ("wagtail.panels.PanelGroup", [self.children])
+            return ("wagtail.panels.PanelGroup", [self.visible_children])
 
 
 class TabbedInterface(PanelGroup):
