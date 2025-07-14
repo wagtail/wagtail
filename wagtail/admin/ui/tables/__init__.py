@@ -239,7 +239,10 @@ class TitleColumn(Column):
         return context
 
     def get_link_attrs(self, instance, parent_context):
-        return self.link_attrs.copy()
+        if callable(self.link_attrs):
+            return self.link_attrs(instance, parent_context)
+        else:
+            return self.link_attrs.copy()
 
     def get_link_url(self, instance, parent_context):
         if self._get_url_func:

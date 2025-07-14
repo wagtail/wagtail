@@ -221,7 +221,9 @@ class ChooserModalOnloadHandlerFactory {
     }
 
     $(this.chosenLinkSelector, containerElement).on('click', (event) => {
-      modal.loadUrl(event.currentTarget.href);
+      // Use the data attribute for AJAX URL if available, otherwise fall back to href
+      const ajaxUrl = event.currentTarget.dataset.chooserModalChoiceUrl || event.currentTarget.href;
+      modal.loadUrl(ajaxUrl);
       return false;
     });
 
