@@ -155,7 +155,7 @@ class Block(metaclass=BaseBlock):
         """
         Return this block's default value (conventionally found in self.meta.default),
         converted to the value type expected by this block. If the default is a callable
-        (e.g., a function or lambda), it will be evaluated at runtime. This caters for
+        (e.g. a function), it will be evaluated at runtime. This caters for
         the case where that value type is not something that can be expressed statically at
         model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
@@ -315,10 +315,9 @@ class Block(metaclass=BaseBlock):
         """
         Return the placeholder value that will be used for rendering the block's
         preview. By default, the value is the ``preview_value`` from the block's
-        options if provided. If it's a callable, it will be invoked at runtime to
-        allow dynamic preview values, otherwise the ``default`` is used as fallback.
-        This method can also be overridden to provide a dynamic preview value, such as
-        from the database.
+        options if provided. If it's a callable, it will be evaluated at runtime.
+        If ``preview_value`` is not provided, the ``default`` is used as fallback.
+        This method can also be overridden to provide a dynamic preview value.
         """
         if hasattr(self.meta, "preview_value"):
             value = self.meta.preview_value
