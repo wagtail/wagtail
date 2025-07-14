@@ -13,6 +13,11 @@ from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 
 try:
     from elasticsearch import VERSION as ELASTICSEARCH_VERSION
+    from elasticsearch.exceptions import (
+        ElasticsearchException,
+        RequestError,
+        SerializationError,
+    )
     from elasticsearch.serializer import JSONSerializer
 
     from wagtail.search.backends.elasticsearch7 import Elasticsearch7SearchBackend
@@ -1127,6 +1132,7 @@ class TestElasticsearch7Mapping(TestCase):
                 },
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
+                "publication_time_filter": {"type": "keyword"},
                 "summary": {"copy_to": "_all_text", "type": "text"},
                 "number_of_pages_filter": {"type": "integer"},
                 "tags": {
@@ -1173,6 +1179,7 @@ class TestElasticsearch7Mapping(TestCase):
             ],
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
+            "publication_time_filter": None,
             "summary": "",
             "number_of_pages_filter": 423,
             "tags": [],
@@ -1276,8 +1283,9 @@ class TestElasticsearch7MappingInheritance(TestCase):
                 },
                 "authors_filter": {"type": "integer"},
                 "publication_date_filter": {"type": "date"},
-                "number_of_pages_filter": {"type": "integer"},
+                "publication_time_filter": {"type": "keyword"},
                 "summary": {"copy_to": "_all_text", "type": "text"},
+                "number_of_pages_filter": {"type": "integer"},
                 "tags": {
                     "type": "nested",
                     "properties": {
@@ -1345,8 +1353,9 @@ class TestElasticsearch7MappingInheritance(TestCase):
             ],
             "authors_filter": [2],
             "publication_date_filter": datetime.date(1954, 7, 29),
-            "number_of_pages_filter": 423,
+            "publication_time_filter": None,
             "summary": "",
+            "number_of_pages_filter": 423,
             "tags": [],
             "tags_filter": [],
         }
@@ -1450,3 +1459,94 @@ class TestBackendConfiguration(TestCase):
             ],
             timeout=10,
         )
+
+
+@unittest.skipIf(ELASTICSEARCH_VERSION[0] != 7, "Elasticsearch 7 required")
+class TestElasticsearch7TimeFieldSerialization(TestCase):
+    """
+    Test TimeField serialization with Elasticsearch backend.
+
+    TimeField values are properly serialized to string format and mapped as 'keyword'
+    type in Elasticsearch, allowing successful indexing without serialization errors.
+    """
+
+    def setUp(self):
+        self.author = models.Author.objects.create(name="Test Author")
+        self.backend = Elasticsearch7SearchBackend({})
+        self.index = self.backend.get_index_for_model(models.Book)
+        self.mapping = self.backend.mapping_class(models.Book)
+
+        self.book = models.Book.objects.create(
+            title="Test Book",
+            publication_date=datetime.date(2023, 12, 25),
+            publication_time=datetime.time(12, 0),
+            number_of_pages=100,
+        )
+        self.book.authors.add(self.author)
+
+        self.book_time_none = models.Book.objects.create(
+            title="None Time Book",
+            publication_date=datetime.date(2023, 12, 25),
+            publication_time=None,
+            number_of_pages=100,
+        )
+        self.book_time_none.authors.add(self.author)
+
+    def test_timefield_serialization(self):
+        """Test TimeField is successfully indexed to Elasticsearch."""
+        self.index.delete()  # Reset the index just to be sure
+        self.index.put()
+        self.index.add_model(models.Book)
+
+        try:
+            self.index.add_item(self.book)
+            success = True
+            error_message = None
+        except (
+            ElasticsearchException,
+            RequestError,
+            SerializationError,
+            TypeError,
+        ) as e:
+            success = False
+            error_message = str(e)
+
+        self.assertTrue(
+            success, f"TimeField indexing should succeed. Error: {error_message}"
+        )
+
+    def test_timefield_mapping(self):
+        """Test TimeField is correctly mapped as 'keyword' type in Elasticsearch mapping."""
+        es_mapping = self.mapping.get_mapping()
+        properties = es_mapping.get("properties", {})
+
+        self.assertIn("publication_time_filter", properties)
+        self.assertEqual(properties["publication_time_filter"]["type"], "keyword")
+
+    def test_document_generation_with_timefield_serialized(self):
+        """Test TimeField values are properly serialized to string format."""
+        document = self.mapping.get_document(self.book)
+
+        # Verify TimeField is serialized as string
+        self.assertIn("publication_time_filter", document)
+        self.assertEqual(document["publication_time_filter"], "12:00:00")
+        self.assertIsInstance(document["publication_time_filter"], str)
+
+        # Verify document can be JSON serialized with Elasticsearch JSONSerializer
+        try:
+            serializer = JSONSerializer()
+            serializer.dumps(document)
+            json_serializable = True
+        except (TypeError, ValueError):
+            json_serializable = False
+
+        self.assertTrue(
+            json_serializable,
+            "Document should be JSON serializable with Elasticsearch JSONSerializer",
+        )
+
+    def test_timefield_with_none_value(self):
+        """Test TimeField with None value is handled correctly."""
+        document = self.mapping.get_document(self.book_time_none)
+        self.assertIn("publication_time_filter", document)
+        self.assertIsNone(document["publication_time_filter"])
