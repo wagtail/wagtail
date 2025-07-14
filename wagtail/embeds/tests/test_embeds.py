@@ -1013,6 +1013,13 @@ class TestEmbedBlock(TestCase):
         self.assertIsInstance(block5.get_default(), EmbedValue)
         self.assertEqual(block5.get_default().url, "http://www.example.com/foo")
 
+        def callable_default():
+            return EmbedValue("http://www.example.com/foo")
+
+        block6 = EmbedBlock(default=callable_default)
+        self.assertIsInstance(block6.get_default(), EmbedValue)
+        self.assertEqual(block6.get_default().url, "http://www.example.com/foo")
+
     @responses.activate
     def test_clean_required(self):
         self.set_up_embed_response()

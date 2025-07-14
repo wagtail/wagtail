@@ -151,6 +151,9 @@ class Block(metaclass=BaseBlock):
         """
         return BoundBlock(self, value, prefix=prefix, errors=errors)
 
+    def _evaluate_callable(self, value):
+        return value() if callable(value) else value
+
     def get_default(self):
         """
         Return this block's default value (conventionally found in self.meta.default),
@@ -160,9 +163,7 @@ class Block(metaclass=BaseBlock):
         model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        default = getattr(self.meta, "default", None)
-        if callable(default):
-            default = default()
+        default = self._evaluate_callable(getattr(self.meta, "default", None))
         return self.normalize(default)
 
     def clean(self, value):
@@ -320,9 +321,7 @@ class Block(metaclass=BaseBlock):
         This method can also be overridden to provide a dynamic preview value.
         """
         if hasattr(self.meta, "preview_value"):
-            value = self.meta.preview_value
-            if callable(value):
-                value = value()
+            value = self._evaluate_callable(self.meta.preview_value)
             return self.normalize(value)
         return self.get_default()
 

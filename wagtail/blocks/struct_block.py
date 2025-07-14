@@ -133,12 +133,11 @@ class BaseStructBlock(Block):
         rather than a StructValue; for consistency, we need to convert it to a StructValue
         for StructBlock to work with
         """
+        default = self._evaluate_callable(self.meta.default)
 
         return self.normalize(
             {
-                name: self.meta.default[name]
-                if name in self.meta.default
-                else block.get_default()
+                name: default[name] if name in default else block.get_default()
                 for name, block in self.child_blocks.items()
             }
         )

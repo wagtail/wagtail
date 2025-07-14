@@ -773,7 +773,7 @@ class RawHTMLBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_default(self):
-        return self.normalize(self.meta.default or "")
+        return self.normalize(self._evaluate_callable(self.meta.default or ""))
 
     def to_python(self, value):
         return mark_safe(value)

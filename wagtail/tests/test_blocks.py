@@ -275,6 +275,13 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean("bar")
 
+    def test_charfield_with_callable_default(self):
+        def callable_default():
+            return "Hello world!"
+
+        block = blocks.CharBlock(default=callable_default)
+        self.assertEqual(block.get_default(), "Hello world!")
+
     def test_choicefield_render(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(
@@ -709,6 +716,14 @@ class TestRichTextBlock(TestCase):
         default_value = blocks.RichTextBlock(
             default=RichText("<p>foo</p>")
         ).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, "<p>foo</p>")
+
+    def test_get_default_with_callable(self):
+        def callable_default():
+            return RichText("<p>foo</p>")
+
+        default_value = blocks.RichTextBlock(default=callable_default).get_default()
         self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, "<p>foo</p>")
 
@@ -1730,6 +1745,14 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertEqual(default_value, "<blink>BÖÖM</blink>")
         self.assertIsInstance(default_value, SafeData)
 
+    def test_get_default_with_callable(self):
+        def callable_default():
+            return "<blink>BÖÖM</blink>"
+
+        default_value = blocks.RawHTMLBlock(default=callable_default).get_default()
+        self.assertEqual(default_value, "<blink>BÖÖM</blink>")
+        self.assertIsInstance(default_value, SafeData)
+
     def test_serialize(self):
         block = blocks.RawHTMLBlock()
         result = block.get_prep_value(mark_safe("<blink>BÖÖM</blink>"))
@@ -2245,6 +2268,25 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         default_val = block.get_default()
         self.assertEqual(default_val.get("title"), "Torchbox")
+
+    def test_get_default_with_callable(self):
+        def callable_struct_default():
+            return {"title": "Torchbox"}
+
+        def default_link():
+            return "http://www.torchbox.com"
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock(default=default_link)
+
+        block = LinkBlock(default=callable_struct_default)
+        default_val = block.get_default()
+
+        # Should combine the defaults from the StructBlock's default and the
+        # child block's default, and allow them both to be callable
+        self.assertEqual(default_val.get("title"), "Torchbox")
+        self.assertEqual(default_val.get("link"), "http://www.torchbox.com")
 
     def test_adapt_with_help_text_on_meta(self):
         class LinkBlock(blocks.StructBlock):
@@ -3101,6 +3143,14 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         )
 
         self.assertEqual(list(block.get_default()), ["peas", "beans", "carrots"])
+
+    def test_default_callable(self):
+        def callable_default():
+            return ["chocolate", "vanilla"]
+
+        block = blocks.ListBlock(blocks.CharBlock(), default=callable_default)
+
+        self.assertEqual(list(block.get_default()), ["chocolate", "vanilla"])
 
     def test_default_default(self):
         """
@@ -4187,6 +4237,29 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(len(stream_value), 1)
         self.assertEqual(stream_value[0].block_type, "heading")
         self.assertEqual(stream_value[0].value, "A different default heading")
+
+    def test_callable_default(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        def callable_default():
+            return [("heading", "A default heading from callable")]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock(default=callable_default)
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({"author": "Bob"})
+        stream_value = struct_value["article"]
+
+        self.assertIsInstance(stream_value, blocks.StreamValue)
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, "heading")
+        self.assertEqual(stream_value[0].value, "A default heading from callable")
 
     def test_stream_value_equality(self):
         block = blocks.StreamBlock(
