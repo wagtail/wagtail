@@ -11,6 +11,14 @@ import { initMinimap } from '../../components/Minimap';
 document.addEventListener('DOMContentLoaded', () => {
   initSidePanel();
   initCollapsiblePanels();
+
+  const editHandlerElement = document.querySelector('[data-edit-handler]');
+  if (editHandlerElement) {
+    const editHandlerJson =
+      editHandlerElement.getAttribute('data-edit-handler');
+    const packedEditHandler = JSON.parse(editHandlerJson);
+    window.editHandler = window.telepath.unpack(packedEditHandler);
+  }
 });
 
 /**
