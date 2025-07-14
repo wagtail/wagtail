@@ -619,20 +619,25 @@ class QuoteBlock(blocks.StructBlock):
 ```
 
 
-Alternatively, the `preview` attribute can be defined as a callable.
+Alternatively, the `preview_value` can be defined as a callable.
 
 ```{code-block} python
-:emphasize-lines: 8
-from datetime import datetime
+:emphasize-lines: 9
+from django.utils import timezone
 from wagtail.blocks import DateBlock, StreamBlock
+
 
 class MyStreamBlock(StreamBlock):
     # ... other blocks
     date_block = DateBlock(
         icon="calendar",
-        preview_value=lambda: datetime.now(),
+        preview_value=timezone.now,
         preview_template="blocks/date_block_preview.html",
     )
+```
+
+```{versionadded} 7.1
+The `preview_value` can now be defined as a callable.
 ```
 
 (streamfield_global_preview_template)=
