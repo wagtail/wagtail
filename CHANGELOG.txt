@@ -82,6 +82,7 @@
  * Maintenance: Replace `SlugController` with more generic and reusable `CleanController` (LB (Ben) Johnston)
  * Maintenance: Remove outdated nginx / uWSGI example config files from `/etc` (LB (Ben) Johnston)
  * Maintenance: Use browser built-in `EventTarget` instead of `events.EventEmitter` from Webpack (Sage Abdullah)
+ * Maintenance: Split code from `telepath/widgets.js` into separate files (Matt Westcott)
 
 
 7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
