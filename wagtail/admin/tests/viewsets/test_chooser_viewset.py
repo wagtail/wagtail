@@ -1,9 +1,11 @@
 import json
 
-from django.test import TestCase, override_settings
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin import widgets
+from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.views.generic.chooser import BaseChooseView
 from wagtail.models import Locale
 from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.testapp.models import Advert
@@ -23,6 +25,7 @@ class TestChooserViewSetWithFilteredObjects(WagtailTestUtils, TestCase):
 
     def setUp(self):
         self.user = self.login()
+        self.rf = RequestFactory()
 
     def test_get(self):
         response = self.client.get("/admin/animated_advert_chooser/")
@@ -59,6 +62,37 @@ class TestChooserViewSetWithFilteredObjects(WagtailTestUtils, TestCase):
                 "linkedFields": {"url": "#id_cool_url"},
             },
         )
+
+    def test_title_column_uses_edit_url_for_href(self):
+        """Test that generic chooser title_column uses edit URL for href and chooser URL in data attribute."""
+        advert = Advert.objects.create(text="Test advert", url="https://example.com")
+        request = self.rf.get("/admin/test_chooser/")
+        request.user = self.user
+
+        # mock chooser view
+        class MockChooserView(BaseChooseView):
+            model = Advert
+            chosen_url_name = "test:chosen"
+            is_multiple_choice = False
+
+            def append_preserved_url_parameters(self, url):
+                return url
+
+        view = MockChooserView()
+        view.request = request
+
+        # Test the helper methods
+        edit_url = view._get_edit_url_for_object(advert)
+        self.assertIsNotNone(edit_url)
+
+        title_column = view.title_column
+        self.assertIsInstance(title_column, TitleColumn)
+
+        # Test this is set to the edit URL
+        self.assertEqual(title_column._get_url_func, view._get_edit_url_for_object)
+
+        # Test that link_attrs is callable
+        self.assertTrue(callable(title_column.link_attrs))
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
     def test_filter_by_locale(self):
