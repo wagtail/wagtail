@@ -199,6 +199,7 @@ export class StreamBlock extends BaseSequenceBlock {
       `).insertBefore(dom);
     }
     this.container = dom;
+    this.element = dom.get(0);
 
     // StreamChild objects for the current (non-deleted) child blocks
     this.children = [];
