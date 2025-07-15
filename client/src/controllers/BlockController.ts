@@ -57,7 +57,13 @@ export class BlockController extends Controller<HTMLElement> {
     }
 
     const output = telepath.unpack(this.dataValue);
-    output.render(element, id, ...this.argumentsValue);
+    const rootBlock = output.render(element, id, ...this.argumentsValue);
+
+    // attach a reference to the top-level block to the root element, so that the BlockWidget
+    // JS class can retrieve it later
+    rootBlock.element.id = `${id}-root`;
+    rootBlock.element.rootBlock = rootBlock;
+
     this.dispatch('ready', { detail: { ...output }, cancelable: false });
   }
 }

@@ -248,3 +248,32 @@ export class BoundSelect extends BoundWidget {
 export class Select extends Widget {
   boundWidgetClass = BoundSelect;
 }
+
+export class BlockWidget extends Widget {
+  constructor() {
+    // Pass an empty string as the HTML. This means we cannot generate new instances through `render`,
+    // but we're not making use of that - and the real HTML would embed the block definition as a data
+    // attribute, which could potentially be huge.
+    super('');
+  }
+
+  render() {
+    throw new Error('BlockWidget does not support rendering');
+  }
+
+  getByName(name, container) {
+    // Retrieve the block object that was stashed on the root element by BlockController
+    const rootElement = querySelectorIncludingSelf(container, `#${name}-root`);
+    if (!rootElement) {
+      throw new InputNotFoundError(name);
+    }
+    if (!rootElement.rootBlock) {
+      throw new Error(
+        `BlockWidget with name "${name}" does not have a root block attached.`,
+      );
+    }
+    // The API for block objects matches the one for widgets (getValue, getState, etc.),
+    // so we just return that in lieu of a BoundWidget.
+    return rootElement.rootBlock;
+  }
+}

@@ -17,6 +17,7 @@ from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.telepath import JSContext
+from wagtail.admin.telepath import register as register_telepath_adapter
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
@@ -654,6 +655,7 @@ class DeclarativeSubBlocksMetaclass(BaseBlock):
 # ========================
 
 
+@register_telepath_adapter
 class BlockWidget(forms.Widget):
     """Wraps a block object as a widget so that it can be incorporated into a Django form"""
 
@@ -734,6 +736,9 @@ class BlockWidget(forms.Widget):
 
     def value_omitted_from_data(self, data, files, name):
         return self.block_def.value_omitted_from_data(data, files, name)
+
+    def telepath_pack(self, context):
+        return ("wagtail.widgets.BlockWidget", [])
 
 
 class BlockField(forms.Field):
