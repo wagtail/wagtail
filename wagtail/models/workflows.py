@@ -1,3 +1,5 @@
+from typing import Union
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
@@ -20,7 +22,7 @@ from modelcluster.models import (
 
 from wagtail.coreutils import get_content_type_label
 from wagtail.forms import TaskStateCommentForm
-from wagtail.locks import WorkflowLock
+from wagtail.locks import BaseLock, WorkflowLock
 from wagtail.log_actions import log
 from wagtail.query import SpecificQuerySetMixin
 from wagtail.signals import (
@@ -665,6 +667,8 @@ class Task(SpecificMixin, models.Model):
         ),
     )
     objects = TaskManager()
+
+    lock_class = WorkflowLock
 
     admin_form_fields = ["name"]
     admin_form_readonly_on_edit_fields = ["name"]
@@ -1360,13 +1364,19 @@ class WorkflowMixin(models.Model):
             else:
                 return _("live")
 
-    def get_lock(self):
+    def get_lock(self) -> Union[BaseLock, WorkflowLock, None]:
         # Standard locking should take precedence over workflow locking
         # because it's possible for both to be used at the same time
-        lock = super().get_lock()
-        if lock:
+        if lock := super().get_lock():
             return lock
 
-        current_workflow_task = self.current_workflow_task
-        if current_workflow_task:
-            return WorkflowLock(self, current_workflow_task)
+        if current_workflow_task := self.current_workflow_task:
+            # Use the workflow task-defined lock class,
+            # but only if it is or inherits from WorkflowLock
+            lock_class = current_workflow_task.lock_class
+            if not issubclass(lock_class, WorkflowLock):
+                lock_class = WorkflowLock
+
+            return lock_class(self, current_workflow_task)
+
+        return None
