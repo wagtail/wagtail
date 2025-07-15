@@ -395,5 +395,9 @@ class FieldPanel(Panel):
         def telepath_pack(self, context):
             return (
                 "wagtail.panels.FieldPanel",
-                [self.field_name, self.bound_field.field.widget],
+                [
+                    type(self.panel).__name__,
+                    self.field_name,
+                    self.bound_field.field.widget,
+                ],
             )
