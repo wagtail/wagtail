@@ -26,6 +26,7 @@ from wagtail.admin.utils import (
     get_latest_str,
     get_user_display_name,
 )
+from wagtail.locks import BasicLock
 from wagtail.models import (
     GroupApprovalTask,
     GroupPagePermission,
@@ -41,6 +42,8 @@ from wagtail.models import (
 )
 from wagtail.signals import page_published, published
 from wagtail.test.testapp.models import (
+    CustomLockTask,
+    CustomWorkflowLock,
     FullFeaturedSnippet,
     ModeratedModel,
     MultiPreviewModesPage,
@@ -4851,3 +4854,34 @@ class TestWorkflowStateEmailNotifier(BasePageWorkflowTests):
             with self.subTest(f"Testing with {notification}_notifications"):
                 notifier.notification = notification
                 self.assertSetEqual(notifier.get_valid_recipients(self.object), set())
+
+
+class TestCustomWorkflowLockOnTask(BasePageWorkflowTests):
+    def setup_workflow_and_tasks(self):
+        self.workflow = Workflow.objects.create(name="test_workflow")
+        self.task_1 = CustomLockTask.objects.create(name="test_task_1")
+        WorkflowTask.objects.create(
+            workflow=self.workflow, task=self.task_1, sort_order=1
+        )
+
+    def test_custom_lock_class(self):
+        self.post("submit")
+        response = self.client.get(self.get_url("edit"))
+        self.assertContains(response, "If there is a door, there must be a key")
+        self.assertIsInstance(self.object.get_lock(), CustomWorkflowLock)
+
+    @mock.patch.object(CustomLockTask, "lock_class", new_callable=mock.PropertyMock)
+    def test_typeerror_if_custom_lock_class_inherits_basic_locks(self, mock_property):
+        mock_property.return_value = BasicLock
+
+        self.post("submit")
+
+        with self.assertRaises(TypeError):
+            self.client.get(self.get_url("edit"))
+
+
+class TestCustomWorkflowLockOnTaskWithSnippets(
+    TestCustomWorkflowLockOnTask,
+    BaseSnippetWorkflowTests,
+):
+    pass

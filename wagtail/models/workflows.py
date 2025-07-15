@@ -666,6 +666,8 @@ class Task(SpecificMixin, models.Model):
     )
     objects = TaskManager()
 
+    lock_class = WorkflowLock
+
     admin_form_fields = ["name"]
     admin_form_readonly_on_edit_fields = ["name"]
 
@@ -1363,10 +1365,11 @@ class WorkflowMixin(models.Model):
     def get_lock(self):
         # Standard locking should take precedence over workflow locking
         # because it's possible for both to be used at the same time
-        lock = super().get_lock()
-        if lock:
+        if lock := super().get_lock():
             return lock
 
-        current_workflow_task = self.current_workflow_task
-        if current_workflow_task:
-            return WorkflowLock(self, current_workflow_task)
+        if current_workflow_task := self.current_workflow_task:
+            lock_class = current_workflow_task.lock_class
+            return lock_class(self, current_workflow_task)
+
+        return None
