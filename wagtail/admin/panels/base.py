@@ -328,4 +328,4 @@ class Panel:
             )
 
         def telepath_pack(self, context):
-            return ("wagtail.panels.Panel", [])
+            return ("wagtail.panels.Panel", [type(self.panel).__name__])

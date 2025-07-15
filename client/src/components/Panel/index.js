@@ -1,4 +1,8 @@
 export class Panel {
+  constructor(type) {
+    this.type = type;
+  }
+
   collectWidgets() {
     /* Insert any widgets that this panel manages into the `collection` dict. */
   }
@@ -12,8 +16,8 @@ export class Panel {
 }
 
 export class PanelGroup extends Panel {
-  constructor(children) {
-    super();
+  constructor(type, children) {
+    super(type);
     this.children = children;
   }
 
@@ -26,8 +30,8 @@ export class PanelGroup extends Panel {
 }
 
 export class FieldPanel extends Panel {
-  constructor(fieldName, widget) {
-    super();
+  constructor(type, fieldName, widget) {
+    super(type);
     this.fieldName = fieldName;
     this.widget = widget;
   }
