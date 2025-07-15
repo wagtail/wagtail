@@ -36,18 +36,26 @@ export class FieldPanel extends Panel {
     this.widget = widget;
   }
 
+  getBoundWidget() {
+    // Widget classes created before Wagtail 7.1 may not have a `getByName` method :-(
+    if (this.widget.getByName) {
+      return this.widget.getByName(this.fieldName, document.body);
+    }
+    return null;
+  }
+
   collectWidgets(collection) {
     let boundWidget;
     // Widget classes created before Wagtail 7.1 may not have a `getByName` method :-(
-    if (this.widget.getByName) {
-      try {
-        boundWidget = this.widget.getByName(this.fieldName, document.body);
-      } catch (error) {
-        if (error.name === 'InputNotFoundError') {
-          return; // Skip adding this widget if not found
-        }
-        throw error; // Re-throw other errors
+    try {
+      boundWidget = this.getBoundWidget();
+    } catch (error) {
+      if (error.name === 'InputNotFoundError') {
+        return; // Skip adding this widget if not found
       }
+      throw error; // Re-throw other errors
+    }
+    if (boundWidget) {
       // eslint-disable-next-line no-param-reassign
       collection[this.fieldName] = boundWidget;
     }
