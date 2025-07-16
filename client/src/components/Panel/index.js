@@ -1,6 +1,7 @@
 export class Panel {
   constructor(opts) {
     this.type = opts.type;
+    this.prefix = opts.prefix;
   }
 
   getPanelByName(/* name */) {
@@ -46,5 +47,10 @@ export class FieldPanel extends Panel {
   getPanelByName(name) {
     if (name === this.fieldName) return this;
     return null;
+  }
+
+  getErrorMessage() {
+    const errorContainer = document.getElementById(`${this.prefix}-errors`);
+    return errorContainer?.querySelector('.error-message')?.textContent?.trim();
   }
 }
