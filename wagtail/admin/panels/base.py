@@ -327,5 +327,12 @@ class Panel:
                 self.form.__class__.__name__,
             )
 
+        telepath_adapter_name = "wagtail.panels.Panel"
+
+        def js_opts(self):
+            return {
+                "type": type(self.panel).__name__,
+            }
+
         def telepath_pack(self, context):
-            return ("wagtail.panels.Panel", [type(self.panel).__name__])
+            return (self.telepath_adapter_name, [self.js_opts()])

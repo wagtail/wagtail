@@ -14,7 +14,7 @@
 
     <script>
         (function() {
-            var panel = new MultipleChooserPanel("MultipleChooserPanel", JSON.parse("{{options_json|escapejs}}"));
+            var panel = new MultipleChooserPanel(JSON.parse("{{options_json|escapejs}}"));
         })();
     </script>
 {% endblock %}

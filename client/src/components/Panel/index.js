@@ -1,6 +1,6 @@
 export class Panel {
-  constructor(type) {
-    this.type = type;
+  constructor(opts) {
+    this.type = opts.type;
   }
 
   getPanelByName(/* name */) {
@@ -14,9 +14,9 @@ export class Panel {
 }
 
 export class PanelGroup extends Panel {
-  constructor(type, children) {
-    super(type);
-    this.children = children;
+  constructor(opts) {
+    super(opts);
+    this.children = opts.children;
   }
 
   getPanelByName(name) {
@@ -29,10 +29,10 @@ export class PanelGroup extends Panel {
 }
 
 export class FieldPanel extends Panel {
-  constructor(type, fieldName, widget) {
-    super(type);
-    this.fieldName = fieldName;
-    this.widget = widget;
+  constructor(opts) {
+    super(opts);
+    this.fieldName = opts.fieldName;
+    this.widget = opts.widget;
   }
 
   getBoundWidget() {
