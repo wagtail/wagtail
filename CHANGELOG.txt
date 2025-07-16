@@ -84,6 +84,7 @@
  * Maintenance: Use browser built-in `EventTarget` instead of `events.EventEmitter` from Webpack (Sage Abdullah)
  * Maintenance: Split code from `telepath/widgets.js` into separate files (Matt Westcott)
  * Maintenance: Update development UI guidelines to adopt best practices for image handling within the admin interface (Thibaud Colas)
+ * Maintenance: Bump minimum Willow version to v1.11.0 to use Pillow's built-in AVIF support (Sage Abdullah)
 
 
 7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
