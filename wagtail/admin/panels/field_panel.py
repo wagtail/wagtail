@@ -392,12 +392,14 @@ class FieldPanel(Panel):
                 self.form.__class__.__name__,
             )
 
-        def telepath_pack(self, context):
-            return (
-                "wagtail.panels.FieldPanel",
-                [
-                    type(self.panel).__name__,
-                    self.field_name,
-                    self.bound_field.field.widget,
-                ],
+        telepath_adapter_name = "wagtail.panels.FieldPanel"
+
+        def js_opts(self):
+            opts = super().js_opts()
+            opts.update(
+                {
+                    "fieldName": self.field_name,
+                    "widget": self.bound_field.field.widget,
+                }
             )
+            return opts

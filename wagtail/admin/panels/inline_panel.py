@@ -177,9 +177,11 @@ class InlinePanel(Panel):
                 )
             ]
 
-        @property
+        telepath_adapter_name = "wagtail.panels.InlinePanel"
+
         def js_opts(self):
             return {
+                "type": type(self.panel).__name__,
                 "formsetPrefix": f"id_{self.formset.prefix}",
                 "emptyChildFormPrefix": self.empty_child.form.prefix,
                 "canOrder": self.formset.can_order,
@@ -189,14 +191,5 @@ class InlinePanel(Panel):
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["options_json"] = json.dumps(self.js_opts)
+            context["options_json"] = json.dumps(self.js_opts())
             return context
-
-        def telepath_pack(self, context):
-            return (
-                "wagtail.panels.InlinePanel",
-                [
-                    type(self.panel).__name__,
-                    self.js_opts,
-                ],
-            )

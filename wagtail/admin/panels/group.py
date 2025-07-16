@@ -159,11 +159,12 @@ class PanelGroup(Panel):
 
             return comparators
 
-        def telepath_pack(self, context):
-            return (
-                "wagtail.panels.PanelGroup",
-                [type(self.panel).__name__, self.visible_children],
-            )
+        telepath_adapter_name = "wagtail.panels.PanelGroup"
+
+        def js_opts(self):
+            opts = super().js_opts()
+            opts["children"] = self.visible_children
+            return opts
 
 
 class TabbedInterface(PanelGroup):

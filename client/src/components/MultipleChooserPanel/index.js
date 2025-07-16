@@ -1,8 +1,8 @@
 import { InlinePanel } from '../InlinePanel';
 
 export class MultipleChooserPanel extends InlinePanel {
-  constructor(type, opts) {
-    super(type, opts);
+  constructor(opts) {
+    super(opts);
 
     this.chooserWidgetFactory = window.telepath.unpack(
       JSON.parse(

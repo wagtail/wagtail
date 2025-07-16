@@ -37,9 +37,10 @@ class MultipleChooserPanel(InlinePanel):
                     self.chooser_widget
                 )
 
-        @property
+        telepath_adapter_name = "wagtail.panels.MultipleChooserPanel"
+
         def js_opts(self):
-            opts = super().js_opts
+            opts = super().js_opts()
             opts["chooserFieldName"] = self.panel.chooser_field_name
             return opts
 
@@ -53,12 +54,3 @@ class MultipleChooserPanel(InlinePanel):
         @property
         def media(self):
             return super().media + self.js_context.media
-
-        def telepath_pack(self, context):
-            return (
-                "wagtail.panels.MultipleChooserPanel",
-                [
-                    type(self.panel).__name__,
-                    self.js_opts,
-                ],
-            )
