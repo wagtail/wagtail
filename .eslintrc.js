@@ -1,3 +1,7 @@
+/**
+ * @see https://eslint.org/docs/user-guide/configuring
+ * @type {import('eslint').Linter.Config}
+ */
 module.exports = {
   extends: [
     '@wagtail/eslint-config-wagtail',
@@ -15,7 +19,7 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-use-before-define': 'error',
     // it is often helpful to pull out logic to class methods that may not use `this`
     'class-methods-use-this': 'off',
     'import/extensions': [
