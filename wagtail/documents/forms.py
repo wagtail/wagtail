@@ -38,6 +38,12 @@ class BaseDocumentForm(BaseCollectionMemberForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_file = self.instance.file
+        # Dynamically set sync value target to the id of the file input rather
+        # than hardcoding it
+        if "title" in self.fields and "file" in self.fields:
+            self.fields["file"].widget.attrs["data-w-sync-target-value"] = (
+                f"#{self['title'].id_for_label}"
+            )
 
     def save(self, commit=True):
         if "file" in self.changed_data:
@@ -60,7 +66,18 @@ class BaseDocumentForm(BaseCollectionMemberForm):
         return self.instance
 
     class Meta:
-        widgets = {"tags": AdminTagWidget, "file": forms.FileInput()}
+        widgets = {
+            "tags": AdminTagWidget,
+            "file": forms.FileInput(
+                attrs={
+                    "data-controller": "w-sync",
+                    "data-action": "change->w-sync#apply",
+                    "data-w-sync-bubbles-param": "true",
+                    "data-w-sync-name-value": "wagtail:documents-upload",
+                    "data-w-sync-normalize-value": "true",
+                }
+            ),
+        }
 
     def clean_tags(self):
         tags = self.cleaned_data["tags"]

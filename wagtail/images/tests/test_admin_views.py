@@ -897,6 +897,25 @@ class TestImageAddView(AdminTemplateTestUtils, WagtailTestUtils, TestCase):
             response.content,
         )
 
+        soup = self.get_soup(response.content)
+        form = soup.select_one("main form")
+        self.assertIsNotNone(form)
+        title_input = form.select_one('input[type="text"][name="title"]')
+        self.assertIsNotNone(title_input)
+        self.assertEqual(title_input.get("id"), "id_title")
+        file_input = form.select_one('input[type="file"][name="file"]')
+        self.assertIsNotNone(file_input)
+        expected_attributes = {
+            "data-controller": "w-sync",
+            "data-action": "change->w-sync#apply",
+            "data-w-sync-bubbles-param": "true",
+            "data-w-sync-name-value": "wagtail:images-upload",
+            "data-w-sync-normalize-value": "true",
+            "data-w-sync-target-value": "#id_title",
+        }
+        for attr, expected_value in expected_attributes.items():
+            self.assertEqual(file_input.get(attr), expected_value)
+
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
@@ -1953,6 +1972,27 @@ class TestImageChooserView(WagtailTestUtils, TestCase):
         self.assertEqual(
             soup.select_one('input[type="file"]').get("accept"), "image/*, image/avif"
         )
+        form = soup.select_one("form[data-chooser-modal-creation-form]")
+        self.assertIsNotNone(form)
+        title_input = form.select_one(
+            'input[type="text"][name="image-chooser-upload-title"]'
+        )
+        self.assertIsNotNone(title_input)
+        self.assertEqual(title_input.get("id"), "id_image-chooser-upload-title")
+        file_input = form.select_one(
+            'input[type="file"][name="image-chooser-upload-file"]'
+        )
+        self.assertIsNotNone(file_input)
+        expected_attributes = {
+            "data-controller": "w-sync",
+            "data-action": "change->w-sync#apply",
+            "data-w-sync-bubbles-param": "true",
+            "data-w-sync-name-value": "wagtail:images-upload",
+            "data-w-sync-normalize-value": "true",
+            "data-w-sync-target-value": "#id_image-chooser-upload-title",
+        }
+        for attr, expected_value in expected_attributes.items():
+            self.assertEqual(file_input.get(attr), expected_value)
 
     def test_simple_with_collection_nesting(self):
         root_collection = Collection.get_first_root_node()

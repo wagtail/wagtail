@@ -34,6 +34,7 @@ Changelog
  * Maintenance: Fix intermittent test failures caused by nondeterministic order in TestFilteredModelChoiceField (Sage Abdullah)
  * Maintenance: Add support for `attrs` in `formattedfield` tag & clean up other usages of the `attrs` template include (LB (Ben) Johnston)
  * Maintenance: Allow exempting external templates from number formatting checks (Sage Abdullah)
+ * Maintenance: Migrate file title generation to SyncController for CSP compliance (Aayushman Singh, Chiemezuo Akujobi, LB (Ben) Johnston, Sage Abdullah)
 
 
 7.1.2 (xx.xx.xxxx) - IN DEVELOPMENT
