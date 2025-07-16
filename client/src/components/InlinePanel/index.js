@@ -16,8 +16,10 @@ import { ExpandingFormset } from '../ExpandingFormset';
  * @returns {Object}
  */
 export class InlinePanel extends ExpandingFormset {
-  constructor(opts) {
+  constructor(type, opts) {
     super(opts.formsetPrefix, opts);
+    this.type = type;
+    this.relationName = opts.relationName;
     this.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
 
     if (this.opts.canOrder) {
