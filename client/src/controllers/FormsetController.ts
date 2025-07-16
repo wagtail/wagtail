@@ -244,6 +244,19 @@ export class FormsetController extends Controller<HTMLElement> {
 
     deleteInput.value = '1';
 
+    // Update button states after deletion
+    const activeCount = this.childTargets.length;
+    const disableAdd = activeCount >= this.maxValue;
+    const disableDelete = activeCount <= this.minValue;
+
+    this.addTargets.forEach((button) => {
+      button.disabled = disableAdd;
+    });
+
+    this.deleteTargets.forEach((button) => {
+      button.disabled = disableDelete;
+    });
+
     this.dispatch('change', {
       prefix: '',
       target: deleteInput,
