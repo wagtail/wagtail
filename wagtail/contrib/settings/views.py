@@ -208,3 +208,9 @@ class PreviewOnEdit(preview.PreviewOnEdit):
             return self.model.for_site(self.site)
         else:
             return get_object_or_404(self.model, pk=self.pk)
+
+    def get_extra_request_attrs(self):
+        attrs = super().get_extra_request_attrs()
+        # Inject current instance into request so the context processor uses it
+        attrs[self.object.get_cache_attr_name()] = self.object
+        return attrs

@@ -69,9 +69,23 @@ class TestGenericSiteSettingPreview(WagtailTestUtils, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tests/previewable_setting.html")
         soup = self.get_soup(response.content)
-        current = soup.select_one("h1")
+        # This value is accessed using the default `object` context variable
+        current = soup.select_one("#current-object")
         self.assertIsNotNone(current)
         self.assertEqual(current.text.strip(), f"An edited {self.verbose_name}")
+        # This value is accessed using the context processor, and it's the
+        # setting being previewed
+        injected = soup.select_one(f"#{self.model_name}")
+        self.assertIsNotNone(injected)
+        self.assertEqual(injected.text.strip(), f"An edited {self.verbose_name}")
+        # The other setting is accessed using the context processor and it
+        # should not be affected and still have the initial value
+        other_setting = soup.select_one(f"#{self.other_model._meta.model_name}")
+        self.assertIsNotNone(other_setting)
+        self.assertEqual(
+            other_setting.text.strip(),
+            f"An initial {self.other_model._meta.verbose_name}",
+        )
 
     def test_preview_on_edit_clear_preview_data(self):
         # Set a fake preview session data for the setting
