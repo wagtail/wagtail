@@ -332,6 +332,7 @@ class Panel:
         def js_opts(self):
             return {
                 "type": type(self.panel).__name__,
+                "prefix": self.prefix,
             }
 
         def telepath_pack(self, context):
