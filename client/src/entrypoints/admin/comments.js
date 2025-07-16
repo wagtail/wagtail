@@ -4,7 +4,7 @@ import { initCommentApp } from '../../components/CommentApp/main';
 const KEYCODE_M = 77;
 
 /**
- * Entry point loaded when the comments system is in use.
+ * Entrypoint loaded when the comments system is in use.
  */
 window.comments = (() => {
   const commentApp = initCommentApp();

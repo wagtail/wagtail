@@ -41,7 +41,6 @@ export const sortAxeViolations = (violations: Result[]) =>
  * Wagtail's Axe configuration object. This should reflect what's returned by
  * `wagtail.admin.userbar.AccessibilityItem.get_axe_configuration()`.
  */
-
 interface ErrorMessage {
   error_name: string;
   help_text: string;
@@ -80,9 +79,9 @@ export const getAxeConfiguration = (
 
 /**
  * Custom rule for checking image alt text. This rule checks if the alt text for images
- * contains poor quality text like file extensions or undescores.
+ * contains poor quality text like file extensions or underscores.
  * The rule will be added via the Axe.configure() API.
- * https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
+ * @see https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
  */
 export const checkImageAltText = (
   node: HTMLImageElement,

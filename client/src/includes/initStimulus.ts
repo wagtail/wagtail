@@ -51,7 +51,7 @@ class WagtailApplication extends Application {
 }
 
 /**
- * Initialises the Wagtail Stimulus application, loads the provided controller
+ * Initializes the Wagtail Stimulus application, loads the provided controller
  * definitions and returns the app instance.
  *
  * Loads the supplied core controller definitions into the application.

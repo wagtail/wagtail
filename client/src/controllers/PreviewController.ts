@@ -417,7 +417,7 @@ export class PreviewController extends Controller<HTMLElement> {
     try {
       lastDevice = localStorage.getItem(this.deviceLocalStorageKeyValue);
     } catch (e) {
-      // Initialise with the default device if the last one cannot be restored.
+      // Initialize with the default device if the last one cannot be restored.
     }
     const lastDeviceInput =
       this.sizeTargets.find((input) => input.value === lastDevice) ||

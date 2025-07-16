@@ -12,10 +12,10 @@ export const getWordCount = (lang: string, text: string): number => {
   return wordCount;
 };
 
-/*
-Language-specific reading speeds according to a meta-analysis of 190 studies on reading rates.
-Study preprint: https://osf.io/preprints/psyarxiv/xynwg/
-DOI: https://doi.org/10.1016/j.jml.2019.104047
+/**
+ * Language-specific reading speeds according to a meta-analysis of 190 studies on reading rates.
+ * Study preprint: @see https://osf.io/preprints/psyarxiv/xynwg/
+ * DOI: @see https://doi.org/10.1016/j.jml.2019.104047
  */
 const readingSpeeds = {
   ar: 181, // Arabic

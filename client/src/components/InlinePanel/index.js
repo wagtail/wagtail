@@ -4,7 +4,7 @@ import { initCollapsiblePanels } from '../../includes/panels';
 import { ExpandingFormset } from '../ExpandingFormset';
 
 /**
- * Attaches behaviour for an InlinePanel where inner panels can be created,
+ * Attaches behavior for an InlinePanel where inner panels can be created,
  * removed and re-ordered.
  *
  * @param {Object} opts

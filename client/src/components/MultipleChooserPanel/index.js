@@ -43,7 +43,7 @@ export class MultipleChooserPanel extends InlinePanel {
       );
       if (this.getChildCount() >= this.opts.maxForms) {
         // need to set the data-force-disabled attribute to override the standard modal-workflow
-        // behaviour of re-enabling the button after the modal closes (which potentially happens
+        // behavior of re-enabling the button after the modal closes (which potentially happens
         // after this code has run)
         openModalButton.setAttribute('disabled', 'true');
         openModalButton.setAttribute('data-force-disabled', 'true');
