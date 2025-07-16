@@ -1,4 +1,5 @@
 import functools
+import json
 
 from django import forms
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
@@ -174,7 +175,16 @@ class InlinePanel(Panel):
                 )
             ]
 
+        @property
+        def js_opts(self):
+            return {
+                "formsetPrefix": f"id_{self.formset.prefix}",
+                "emptyChildFormPrefix": self.empty_child.form.prefix,
+                "canOrder": self.formset.can_order,
+                "maxForms": self.formset.max_num,
+            }
+
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["can_order"] = self.formset.can_order
+            context["options_json"] = json.dumps(self.js_opts)
             return context

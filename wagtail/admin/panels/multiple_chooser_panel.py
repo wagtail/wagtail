@@ -35,9 +35,14 @@ class MultipleChooserPanel(InlinePanel):
                     self.chooser_widget
                 )
 
+        @property
+        def js_opts(self):
+            opts = super().js_opts
+            opts["chooserFieldName"] = self.panel.chooser_field_name
+            return opts
+
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["chooser_field_name"] = self.panel.chooser_field_name
             context["chooser_widget_definition"] = (
                 self.chooser_widget_telepath_definition
             )
