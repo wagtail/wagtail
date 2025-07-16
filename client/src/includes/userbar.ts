@@ -548,6 +548,8 @@ export class Userbar extends HTMLElement {
   }
 
   postMessage(message: WagtailMessage) {
+    // Don't post messages if this window is not in an iframe.
+    if (window.top === window) return;
     window.top?.postMessage({ wagtail: message }, this.origin);
   }
 
