@@ -52,6 +52,11 @@ if (!window.telepath) {
 window.telepath.register('wagtail.panels.Panel', Panel);
 window.telepath.register('wagtail.panels.PanelGroup', PanelGroup);
 window.telepath.register('wagtail.panels.FieldPanel', FieldPanel);
+window.telepath.register('wagtail.panels.InlinePanel', InlinePanel);
+window.telepath.register(
+  'wagtail.panels.MultipleChooserPanel',
+  MultipleChooserPanel,
+);
 
 /**
  * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.

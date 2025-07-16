@@ -52,7 +52,7 @@ describe('InlinePanel', () => {
       canOrder: true,
     };
 
-    panel = new InlinePanel(options);
+    panel = new InlinePanel('InlinePanel', options);
 
     jest.runAllTimers();
   });

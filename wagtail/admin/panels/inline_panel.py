@@ -7,6 +7,7 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
 from wagtail.admin import compare
+from wagtail.admin.telepath import register as register_telepath_adapter
 
 from .base import Panel, get_form_for_model
 from .group import MultiFieldPanel
@@ -100,6 +101,7 @@ class InlinePanel(Panel):
     def classes(self):
         return super().classes() + ["w-panel--nested"]
 
+    @register_telepath_adapter
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"
 
@@ -182,9 +184,19 @@ class InlinePanel(Panel):
                 "emptyChildFormPrefix": self.empty_child.form.prefix,
                 "canOrder": self.formset.can_order,
                 "maxForms": self.formset.max_num,
+                "relationName": self.panel.relation_name,
             }
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
             context["options_json"] = json.dumps(self.js_opts)
             return context
+
+        def telepath_pack(self, context):
+            return (
+                "wagtail.panels.InlinePanel",
+                [
+                    type(self.panel).__name__,
+                    self.js_opts,
+                ],
+            )

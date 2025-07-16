@@ -43,7 +43,7 @@
 {% block js_init %}
     <script>
         (function() {
-            var panel = new InlinePanel(JSON.parse("{{options_json|escapejs}}"));
+            var panel = new InlinePanel("InlinePanel", JSON.parse("{{options_json|escapejs}}"));
         })();
     </script>
 {% endblock %}
