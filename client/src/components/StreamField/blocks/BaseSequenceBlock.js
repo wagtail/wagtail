@@ -230,12 +230,12 @@ export class BaseSequenceChild extends EventTarget {
       setTimeout(() => {
         dom.slideDown();
         if (focus) {
-          // focus this field if we can do so without obtrusive UI behaviour
+          // focus this field if we can do so without obtrusive UI behavior
           this.block.focus({ soft: true });
         }
       }, 10);
     } else if (focus) {
-      // focus this field if we can do so without obtrusive UI behaviour
+      // focus this field if we can do so without obtrusive UI behavior
       this.block.focus({ soft: true });
     }
   }

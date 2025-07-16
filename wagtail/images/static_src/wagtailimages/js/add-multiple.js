@@ -123,7 +123,7 @@ $(function () {
         }),
       );
 
-      // default behaviour (title is just file name)
+      // default behavior (title is just file name)
       return event
         ? form.serializeArray().concat({ name: 'title', value: data.title })
         : form.serializeArray();
