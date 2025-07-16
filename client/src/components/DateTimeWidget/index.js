@@ -1,4 +1,5 @@
-/* Widget classes for date and time inputs. These depend on window.initDateChooser,
+/**
+ * Widget classes for date and time inputs. These depend on window.initDateChooser,
  * window.initTimeChooser, and window.initDateTimeChooser being defined, which is done
  * by entrypoints/admin/date-time-chooser.js.
  */
