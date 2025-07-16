@@ -43,12 +43,7 @@
 {% block js_init %}
     <script>
         (function() {
-            var panel = new InlinePanel({
-                formsetPrefix: "id_{{ self.formset.prefix }}",
-                emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
-                canOrder: {% if can_order %}true{% else %}false{% endif %},
-                maxForms: {{ self.formset.max_num|unlocalize }}
-            });
+            var panel = new InlinePanel(JSON.parse("{{options_json|escapejs}}"));
         })();
     </script>
 {% endblock %}

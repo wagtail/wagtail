@@ -1422,7 +1422,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         # rendered panel must include the JS initializer
-        self.assertIn("var panel = new InlinePanel({", result)
+        self.assertIn("var panel = new InlinePanel(", result)
 
         # rendered panel must have data-contentpath-disabled attribute by default
         self.assertIn("data-contentpath-disabled", result)
@@ -1512,7 +1512,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         )
 
         # render_js_init must provide the JS initializer
-        self.assertIn("var panel = new InlinePanel({", panel.render_html())
+        self.assertIn("var panel = new InlinePanel(", panel.render_html())
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):
@@ -1542,7 +1542,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             instance=event_page, form=form, request=self.request
         )
 
-        self.assertIn("maxForms: 1000", panel.render_html())
+        self.assertIn(r"\u0022maxForms\u0022: 1000", panel.render_html())
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
@@ -2151,7 +2151,9 @@ class TestMultipleChooserPanel(WagtailTestUtils, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="gallery_images-TOTAL_FORMS"')
-        self.assertContains(response, 'chooserFieldName: "image"')
+        self.assertContains(
+            response, r"\u0022chooserFieldName\u0022: \u0022image\u0022"
+        )
 
 
 class TestMultipleChooserPanelGetComparison(TestCase):
