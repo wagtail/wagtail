@@ -352,4 +352,9 @@ export class InlinePanel extends ExpandingFormset {
       this.updateControlStates();
     }
   }
+
+  getPanelByName(name) {
+    if (name === this.relationName) return this;
+    return null;
+  }
 }

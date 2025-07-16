@@ -3,15 +3,13 @@ export class Panel {
     this.type = type;
   }
 
-  collectWidgets() {
-    /* Insert any widgets that this panel manages into the `collection` dict. */
-  }
+  getPanelByName(/* name */) {
+    /* Return any descendant panel (including self) that matches the given field or relation name,
+     * or null if there is no match
+     */
 
-  getWidgets() {
-    /* Return a dict of widgets that this panel manages. */
-    const collection = {};
-    this.collectWidgets(collection);
-    return collection;
+    // The base panel definition has no notion of descendants or a name of its own, so just return null
+    return null;
   }
 }
 
@@ -21,11 +19,12 @@ export class PanelGroup extends Panel {
     this.children = children;
   }
 
-  collectWidgets(collection) {
-    /* Insert any widgets that this panel group manages into the `collection` dict. */
-    this.children.forEach((child) => {
-      child.collectWidgets(collection);
-    });
+  getPanelByName(name) {
+    for (const child of this.children) {
+      const panel = child.getPanelByName(name);
+      if (panel) return panel;
+    }
+    return null;
   }
 }
 
@@ -44,20 +43,8 @@ export class FieldPanel extends Panel {
     return null;
   }
 
-  collectWidgets(collection) {
-    let boundWidget;
-    // Widget classes created before Wagtail 7.1 may not have a `getByName` method :-(
-    try {
-      boundWidget = this.getBoundWidget();
-    } catch (error) {
-      if (error.name === 'InputNotFoundError') {
-        return; // Skip adding this widget if not found
-      }
-      throw error; // Re-throw other errors
-    }
-    if (boundWidget) {
-      // eslint-disable-next-line no-param-reassign
-      collection[this.fieldName] = boundWidget;
-    }
+  getPanelByName(name) {
+    if (name === this.fieldName) return this;
+    return null;
   }
 }
