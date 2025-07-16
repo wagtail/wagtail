@@ -126,6 +126,10 @@ export class OrderableController extends Controller<HTMLElement> {
     };
   }
 
+  get order() {
+    return this.sortable?.toArray() ?? [];
+  }
+
   /**
    * Apply the updated ordering to the server if the url value is provided,
    * dispatch events before & after the submission.
