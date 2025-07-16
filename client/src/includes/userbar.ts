@@ -1,3 +1,9 @@
+/**
+ * This entrypoint is not bundled with any polyfills to keep it as light as possible,
+ * please stick to old JS APIs and avoid importing anything that might require a vendored module.
+ * More background can be found in `webpack.config.js`.
+ */
+
 import axe from 'axe-core';
 
 import A11yDialog from 'a11y-dialog';
@@ -15,15 +21,13 @@ import { DialogController } from '../controllers/DialogController';
 import { TeleportController } from '../controllers/TeleportController';
 import { getWagtailMessage, WagtailMessage } from '../utils/message';
 
-/*
-This entrypoint is not bundled with any polyfills to keep it as light as possible
-Please stick to old JS APIs and avoid importing anything that might require a vendored module
-More background can be found in webpack.config.js
-
-This component implements a roving tab index for keyboard navigation
-Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
-*/
-
+/**
+ * The Wagtail Userbar component, which provides a user interface for
+ * navigating and interacting with the Wagtail admin interface.
+ *
+ * This component implements a roving tab index for keyboard navigation.
+ * @see https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex - Learn more about roving tabIndex
+ */
 export class Userbar extends HTMLElement {
   declare trigger: HTMLElement;
   declare dialog: A11yDialog;
@@ -69,11 +73,11 @@ export class Userbar extends HTMLElement {
     // Avoid Web Component FOUC while stylesheets are loading.
     userbar.style.display = 'none';
 
-    /*
-    querySelector for all items that can be focused
-    tabIndex has been removed for roving tabindex compatibility
-    source: https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
-    */
+    /**
+     * querySelector for all items that can be focused
+     * tabIndex has been removed for roving tabindex compatibility
+     * @see https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
+     */
     const focusableItemSelector = `a[href],
     button:not([disabled]),
     input:not([disabled])`;
@@ -132,7 +136,9 @@ export class Userbar extends HTMLElement {
       shadowRoot.activeElement &&
       shadowRoot.activeElement.closest('.w-userbar-nav');
 
-    // Reset all focusable menu items to `tabIndex = -1`
+    /**
+     * Reset all focusable menu items to `tabIndex = -1`
+     */
     const resetItemsTabIndex = () => {
       listItems.forEach((listItem) => {
         // eslint-disable-next-line no-param-reassign
@@ -140,7 +146,9 @@ export class Userbar extends HTMLElement {
       });
     };
 
-    // Focus element using a roving tab index
+    /**
+     * Focus element using a roving tab index
+     */
     const focusElement = (el: HTMLElement) => {
       resetItemsTabIndex();
       // eslint-disable-next-line no-param-reassign
@@ -197,14 +205,14 @@ export class Userbar extends HTMLElement {
       });
     };
 
-    /*
-    This handler is responsible for keyboard input when items inside the userbar are focused.
-    It should only listen when the userbar is open.
-
-    It is responsible for:
-    - Shifting focus using the arrow / home / end keys.
-    - Closing the menu when 'Escape' is pressed.
-    */
+    /**
+     * This handler is responsible for keyboard input when items inside the userbar are focused.
+     * It should only listen when the userbar is open.
+     *
+     * It is responsible for:
+     * - Shifting focus using the arrow / home / end keys.
+     * - Closing the menu when 'Escape' is pressed.
+     */
     const handleUserbarItemsKeyDown = (event: KeyboardEvent) => {
       // Only handle keyboard input if the userbar is open
       if (trigger.getAttribute('aria-expanded') === 'true') {
@@ -254,10 +262,10 @@ export class Userbar extends HTMLElement {
       hideUserbar();
     };
 
-    /*
-    This handler is responsible for opening the userbar with the arrow keys
-    if it's focused and not open yet. It should always be listening.
-    */
+    /**
+     * This handler is responsible for opening the userbar with the arrow keys
+     * if it's focused and not open yet. It should always be listening.
+     */
     const handleTriggerKeyDown = (event: KeyboardEvent) => {
       // Check if the userbar is focused (but not open yet) and should be opened by keyboard input
       if (
@@ -330,8 +338,9 @@ export class Userbar extends HTMLElement {
 
   /**
    * Initialization code that must happen after the window has fully loaded.
-   * We want to make sure that the PreviewController:
    *
+   * @remarks
+   * We want to make sure that the PreviewController:
    * - has moved the id of the iframe (that is used by Axe) to the new iframe
    *   before we run Axe
    * - has set up the scroll restoration message event listener
@@ -343,17 +352,16 @@ export class Userbar extends HTMLElement {
       type: 'w-preview:request-scroll',
       origin: window.location.origin,
     });
-    await this.initialiseAxe();
+    await this.initializeAxe();
   }
 
-  /*
-  Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
-  Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
-  See documentation: https://github.com/dequelabs/axe-core/tree/develop/doc
-  */
-
-  // Initialise Axe
-  async initialiseAxe() {
+  /**
+   * Initialize Axe
+   * Integrating Axe accessibility checker to improve ATAG compliance, adapted for content authors to identify and fix accessibility issues.
+   * Scans loaded page for errors with 3 initial rules ('empty-heading', 'p-as-heading', 'heading-order') and outputs the results in GUI.
+   * @see https://github.com/dequelabs/axe-core/tree/develop/doc
+   */
+  async initializeAxe() {
     // Collect content data from the live preview via Axe plugin for content metrics calculation
     this.axeConfig = getAxeConfiguration(this.shadowRoot);
     if (!this.shadowRoot || !this.axeConfig) return;
@@ -526,7 +534,7 @@ export class Userbar extends HTMLElement {
 
     // Notify the parent window when the userbar (and thus Axe) has been
     // initialized and is ready, so that it can re-run Axe against this window.
-    // We do this here instead of in connectedCallback() or initialiseAxe() to
+    // We do this here instead of in connectedCallback() or initializeAxe() to
     // make sure that the message is sent only after Axe has finished running,
     // otherwise the PreviewController's Axe may try to run Axe in this window
     // while a previous run is still in progress, which will cause an error.
