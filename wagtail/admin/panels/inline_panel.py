@@ -29,7 +29,13 @@ class InlinePanel(Panel):
         super().__init__(*args, **kwargs)
         self.relation_name = relation_name
         self.panels = panels
-        self.heading = heading or label or capfirst(relation_name.replace("_", " "))
+        self.heading = (
+            heading
+            if heading
+            else capfirst(label)
+            if label
+            else capfirst(relation_name.replace("_", " "))
+        )
         self.label = label
         self.min_num = min_num
         self.max_num = max_num
