@@ -1841,7 +1841,7 @@ class MTIBasePage(Page):
     is_creatable = False
 
     class Meta:
-        verbose_name = "MTI Base page"
+        verbose_name = "MTI base page"
 
 
 class MTIChildPage(MTIBasePage):
@@ -1943,8 +1943,8 @@ class ImportantPagesGenericSetting(BaseGenericSetting):
     )
 
     class Meta:
-        verbose_name = _("Important pages settings")
-        verbose_name_plural = _("Important pages settings")
+        verbose_name = _("important pages settings")
+        verbose_name_plural = _("important pages settings")
 
 
 @register_setting(icon="tag")
@@ -2282,8 +2282,8 @@ class PersonPage(Page):
     ]
 
     class Meta:
-        verbose_name = "Person"
-        verbose_name_plural = "Persons"
+        verbose_name = "person"
+        verbose_name_plural = "persons"
 
 
 class Address(index.Indexed, ClusterableModel, Orderable):
@@ -2305,8 +2305,8 @@ class Address(index.Indexed, ClusterableModel, Orderable):
     ]
 
     class Meta:
-        verbose_name = "Address"
-        verbose_name_plural = "Addresses"
+        verbose_name = "address"
+        verbose_name_plural = "addresses"
 
 
 class AddressTag(TaggedItemBase):
@@ -2347,8 +2347,8 @@ class RestaurantTag(TagBase):
     free_tagging = False
 
     class Meta:
-        verbose_name = "Tag"
-        verbose_name_plural = "Tags"
+        verbose_name = "tag"
+        verbose_name_plural = "tags"
 
 
 class TaggedRestaurant(ItemBase):

@@ -119,5 +119,5 @@ class GenericSettingModelTestCase(GenericSettingsTestMixin, TestCase):
 
         self.assertEqual(
             str(ImportantPagesGenericSetting.load()),
-            "Important pages settings",
+            "important pages settings",
         )
