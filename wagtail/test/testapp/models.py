@@ -267,7 +267,7 @@ class PageWithExcludedCopyField(Page):
         FieldPanel("special_field"),
         FieldPanel("content"),
         FieldPanel("special_stream"),
-        InlinePanel("special_notes", label="Special notes"),
+        InlinePanel("special_notes", label="special note"),
     ]
 
 
@@ -366,7 +366,7 @@ class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableMode
         "last_name",
         "image",
         MultiFieldPanel(LinkFields.panels, "Link"),
-        InlinePanel("awards", label="Awards"),
+        InlinePanel("awards", label="award"),
     ]
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):
@@ -441,18 +441,18 @@ class EventPage(Page):
         FieldPanel("audience", help_text="Who this event is for"),
         "cost",
         "signup_link",
-        InlinePanel("carousel_items", label="Carousel items"),
+        InlinePanel("carousel_items", label="carousel item"),
         "body",
         InlinePanel(
             "speakers",
-            label="Speaker",
+            label="speaker",
             heading="Speaker lineup",
             help_text="Put the keynote speaker first",
         ),
-        InlinePanel("related_links", label="Related links"),
+        InlinePanel("related_links", label="related link"),
         "categories",
         # InlinePanel related model uses `pk` not `id`
-        InlinePanel("head_counts", label="Head Counts"),
+        InlinePanel("head_counts", label="head count"),
     ]
 
     promote_panels = [
@@ -614,7 +614,7 @@ class FormPage(AbstractEmailForm):
 
     content_panels = [
         TitleFieldPanel("title", classname="title"),
-        InlinePanel("form_fields", label="Form fields"),
+        InlinePanel("form_fields", label="form field"),
         MultiFieldPanel(
             [
                 FieldPanel("to_address"),
@@ -673,7 +673,7 @@ class JadeFormPage(AbstractEmailForm):
 
     content_panels = [
         TitleFieldPanel("title", classname="title"),
-        InlinePanel("form_fields", label="Form fields"),
+        InlinePanel("form_fields", label="form field"),
         MultiFieldPanel(
             [
                 FieldPanel("to_address"),
@@ -720,7 +720,7 @@ class FormPageWithRedirect(AbstractEmailForm):
     content_panels = [
         TitleFieldPanel("title", classname="title"),
         FieldPanel("thank_you_redirect_page"),
-        InlinePanel("form_fields", label="Form fields"),
+        InlinePanel("form_fields", label="form field"),
         MultiFieldPanel(
             [
                 FieldPanel("to_address"),
@@ -823,7 +823,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
     content_panels = [
         TitleFieldPanel("title", classname="title"),
         FieldPanel("intro"),
-        InlinePanel("custom_form_fields", label="Form fields"),
+        InlinePanel("custom_form_fields", label="form field"),
         FieldPanel("thank_you_text"),
         MultiFieldPanel(
             [
@@ -894,7 +894,7 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     content_panels = [
         TitleFieldPanel("title", classname="title"),
         FieldPanel("intro"),
-        InlinePanel("form_fields", label="Form fields"),
+        InlinePanel("form_fields", label="form field"),
         FieldPanel("thank_you_text"),
         MultiFieldPanel(
             [
@@ -1024,7 +1024,7 @@ class FormPageWithCustomFormBuilder(AbstractEmailForm):
 
     content_panels = [
         TitleFieldPanel("title", classname="title"),
-        InlinePanel("form_fields", label="Form fields"),
+        InlinePanel("form_fields", label="form field"),
         MultiFieldPanel(
             [
                 FieldPanel("to_address"),
@@ -1486,7 +1486,7 @@ class StandardIndex(Page):
         TitleFieldPanel("title", classname="title"),
         FieldPanel("seo_title"),
         FieldPanel("slug"),
-        InlinePanel("advert_placements", label="Adverts"),
+        InlinePanel("advert_placements", heading="Adverts", label="advert"),
     ]
 
     promote_panels = []
@@ -1494,7 +1494,7 @@ class StandardIndex(Page):
 
 class PromotionalPage(Page):
     content_panels = Page.content_panels + [
-        InlinePanel("advert_placements", label="Adverts", min_num=1),
+        InlinePanel("advert_placements", heading="Adverts", label="advert", min_num=1),
     ]
 
 
@@ -2347,8 +2347,8 @@ class SocialLink(index.Indexed, ClusterableModel):
     panels = ["url", "kind"]
 
     class Meta:
-        verbose_name = "Social link"
-        verbose_name_plural = "Social links"
+        verbose_name = "social link"
+        verbose_name_plural = "social links"
 
 
 class RestaurantPage(Page):

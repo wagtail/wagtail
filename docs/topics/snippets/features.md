@@ -185,7 +185,7 @@ class Shirt(RevisionMixin, ClusterableModel):
         FieldPanel("name"),
         FieldPanel("colour"),
         FieldPanel("categories", widget=forms.CheckboxSelectMultiple),
-        InlinePanel("images", label="Images"),
+        InlinePanel("images"),
     ]
 
 

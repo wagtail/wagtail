@@ -436,7 +436,7 @@ class TestPanelAttributes(WagtailTestUtils, TestCase):
                     [
                         InlinePanel(
                             "speakers",
-                            label="Speakers",
+                            label="speaker",
                             attrs={"data-panel-type": "inline"},
                         ),
                     ],
@@ -533,7 +533,7 @@ class TestTabbedInterface(WagtailTestUtils, TestCase):
                 ),
                 ObjectList(
                     [
-                        InlinePanel("speakers", label="Speakers"),
+                        InlinePanel("speakers", label="speaker"),
                     ],
                     heading="Speakers",
                 ),
@@ -755,7 +755,7 @@ class TestObjectList(TestCase):
                 FieldPanel("title", widget=forms.Textarea),
                 FieldPanel("date_from"),
                 FieldPanel("date_to"),
-                InlinePanel("speakers", label="Speakers"),
+                InlinePanel("speakers", label="speaker"),
             ],
             heading="Event details",
             classname="shiny",
@@ -1360,7 +1360,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "speakers",
-                    label="Speakers",
+                    label="speaker",
                     classname="classname-for-speakers",
                     attrs={"data-controller": "test"},
                 )
@@ -1439,7 +1439,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "speakers",
-                    label="Speakers",
+                    label="speaker",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
                         FieldPanel("image"),
@@ -1526,7 +1526,7 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "speakers",
-                    label="Speakers",
+                    label="speaker",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
                         FieldPanel("image"),
@@ -1546,11 +1546,11 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
-            self.assertRaises(TypeError, lambda: InlinePanel(label="Speakers"))
+            self.assertRaises(TypeError, lambda: InlinePanel(label="speaker"))
             self.assertRaises(
                 TypeError,
                 lambda: InlinePanel(
-                    EventPage, "speakers", label="Speakers", bacon="chunky"
+                    EventPage, "speakers", label="speaker", bacon="chunky"
                 ),
             )
 
@@ -1559,13 +1559,13 @@ class TestInlinePanel(WagtailTestUtils, TestCase):
         # Heading is the plural term, derived from the relation's related_name
         self.assertEqual(panel.heading, "Social links")
         # Label is the singular term, derived from the related model's verbose_name
-        self.assertEqual(panel.label, "Social link")
+        self.assertEqual(panel.label, "social link")
 
     def test_inline_panel_order_with_min_num(self):
         event_page = EventPage.objects.get(slug="christmas")
 
         speaker_object_list = ObjectList(
-            [InlinePanel("speakers", label="Speakers", min_num=2)]
+            [InlinePanel("speakers", label="speaker", min_num=2)]
         ).bind_to_model(EventPage)
 
         EventPageForm = speaker_object_list.get_form_class()
@@ -1602,7 +1602,7 @@ class TestNonOrderableInlinePanel(WagtailTestUtils, TestCase):
             [
                 InlinePanel(
                     "social_links",
-                    label="Social Links",
+                    label="social link",
                 )
             ]
         ).bind_to_model(PersonPage)
@@ -2279,7 +2279,7 @@ class TestPanelIcons(WagtailTestUtils, TestCase):
     def test_override_inlinepanel_icon(self):
         cases = [
             (
-                InlinePanel("carousel_items", label="Carousey", icon="cogs"),
+                InlinePanel("carousel_items", label="carousey", icon="cogs"),
                 "cogs",
             ),
             (

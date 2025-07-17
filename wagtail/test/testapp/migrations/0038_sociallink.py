@@ -44,8 +44,8 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "Social link",
-                "verbose_name_plural": "Social links",
+                "verbose_name": "social link",
+                "verbose_name_plural": "social links",
             },
             bases=(wagtail.search.index.Indexed, models.Model),
         ),
