@@ -1,7 +1,7 @@
 import { InlinePanel } from '../InlinePanel';
 
 export class MultipleChooserPanel extends InlinePanel {
-  constructor(opts) {
+  constructor(opts, initControls = true) {
     super(opts);
 
     this.chooserWidgetFactory = window.telepath.unpack(
@@ -11,26 +11,29 @@ export class MultipleChooserPanel extends InlinePanel {
       ),
     );
 
-    const openModalButton = document.getElementById(
-      `${opts.formsetPrefix}-OPEN_MODAL`,
-    );
-    openModalButton.addEventListener('click', () => {
-      this.chooserWidgetFactory.openModal(
-        (result) => {
-          result.forEach((item) => {
-            if (opts.maxForms && this.getChildCount() >= opts.maxForms) return;
-            this.addForm();
-            const formIndex = this.formCount - 1;
-            const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
-            const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
-            const chooserWidget =
-              this.chooserWidgetFactory.getById(chooserFieldId);
-            chooserWidget.setStateFromModalData(item);
-          });
-        },
-        { multiple: true },
+    if (initControls) {
+      const openModalButton = document.getElementById(
+        `${opts.formsetPrefix}-OPEN_MODAL`,
       );
-    });
+      openModalButton.addEventListener('click', () => {
+        this.chooserWidgetFactory.openModal(
+          (result) => {
+            result.forEach((item) => {
+              if (opts.maxForms && this.getChildCount() >= opts.maxForms)
+                return;
+              this.addForm();
+              const formIndex = this.formCount - 1;
+              const formPrefix = `${opts.formsetPrefix}-${formIndex}`;
+              const chooserFieldId = `${formPrefix}-${opts.chooserFieldName}`;
+              const chooserWidget =
+                this.chooserWidgetFactory.getById(chooserFieldId);
+              chooserWidget.setStateFromModalData(item);
+            });
+          },
+          { multiple: true },
+        );
+      });
+    }
   }
 
   updateOpenModalButtonState() {
