@@ -14,7 +14,6 @@ export class ExpandingFormset {
     const addButton = $('#' + prefix + '-ADD');
     this.formContainer = $('#' + prefix + '-FORMS');
     this.totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
-    this.formCount = parseInt(this.totalFormsInput.val(), 10);
 
     const emptyFormElement = document.getElementById(
       prefix + '-EMPTY_FORM_TEMPLATE',
@@ -35,6 +34,10 @@ export class ExpandingFormset {
     }
   }
 
+  get formCount() {
+    return parseInt(this.totalFormsInput.val(), 10);
+  }
+
   /**
    * @param {object?} opts
    * @param {boolean?} opts.runCallbacks - (default: true) - if false, the onAdd and onInit callbacks will not be run
@@ -48,8 +51,7 @@ export class ExpandingFormset {
 
     this.formContainer.append(newFormHtml);
 
-    this.formCount += 1;
-    this.totalFormsInput.val(this.formCount);
+    this.totalFormsInput.val(this.formCount + 1);
 
     if (!('runCallbacks' in opts) || opts.runCallbacks) {
       if (this.opts.onAdd) this.opts.onAdd(formIndex);
