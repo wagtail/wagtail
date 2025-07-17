@@ -268,6 +268,9 @@ class PreviewableMixin:
     def get_preview_context(self, request, mode_name):
         """
         Returns a context dictionary for use in templates for previewing this object.
+
+        By default, this returns a dictionary containing the ``request`` and
+        and the ``object`` itself.
         """
         return {"object": self, "request": request}
 
