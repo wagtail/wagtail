@@ -16,46 +16,48 @@ import { ExpandingFormset } from '../ExpandingFormset';
  * @returns {Object}
  */
 export class InlinePanel extends ExpandingFormset {
-  constructor(opts) {
-    super(opts.formsetPrefix, opts);
+  constructor(opts, initControls = true) {
+    super(opts.formsetPrefix, opts, initControls);
     this.type = opts.type;
     this.prefix = opts.prefix;
     this.relationName = opts.relationName;
     this.formsElt = $('#' + opts.formsetPrefix + '-FORMS');
 
-    if (this.opts.canOrder) {
-      this.sortable = Sortable.create(this.formsElt.get(0), {
-        handle: '[data-inline-panel-child-drag]',
-        animation: 200,
-        onEnd: this.handleDragEnd.bind(this),
-        setData: (dataTransfer) => {
-          dataTransfer.setData(
-            'application/vnd.wagtail.type',
-            'inlinepanel-child',
-          );
-        },
+    if (initControls) {
+      if (this.opts.canOrder) {
+        this.sortable = Sortable.create(this.formsElt.get(0), {
+          handle: '[data-inline-panel-child-drag]',
+          animation: 200,
+          onEnd: this.handleDragEnd.bind(this),
+          setData: (dataTransfer) => {
+            dataTransfer.setData(
+              'application/vnd.wagtail.type',
+              'inlinepanel-child',
+            );
+          },
+        });
+      }
+
+      for (let i = 0; i < this.formCount; i += 1) {
+        const childPrefix = this.opts.emptyChildFormPrefix.replace(
+          /__prefix__/g,
+          i,
+        );
+        this.initChildControls(childPrefix);
+      }
+
+      this.updateControlStates();
+      // dispatch event for form ready
+      setTimeout(() => {
+        this.formsElt.get(0)?.dispatchEvent(
+          new CustomEvent('w-formset:ready', {
+            bubbles: true,
+            cancelable: false,
+            detail: { ...opts },
+          }),
+        );
       });
     }
-
-    for (let i = 0; i < this.formCount; i += 1) {
-      const childPrefix = this.opts.emptyChildFormPrefix.replace(
-        /__prefix__/g,
-        i,
-      );
-      this.initChildControls(childPrefix);
-    }
-
-    this.updateControlStates();
-    // dispatch event for form ready
-    setTimeout(() => {
-      this.formsElt.get(0)?.dispatchEvent(
-        new CustomEvent('w-formset:ready', {
-          bubbles: true,
-          cancelable: false,
-          detail: { ...opts },
-        }),
-      );
-    });
   }
 
   /**

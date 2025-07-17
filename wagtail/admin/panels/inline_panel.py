@@ -193,3 +193,9 @@ class InlinePanel(Panel):
             context = super().get_context_data(parent_context)
             context["options_json"] = json.dumps(self.js_opts())
             return context
+
+        def telepath_pack(self, context):
+            # pass initControls = False so that we do not initialize controls while calling
+            # the constructor; this prevents attaching event handlers multiple times if the
+            # object is unpacked multiple times
+            return (self.telepath_adapter_name, [self.js_opts(), False])

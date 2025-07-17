@@ -9,18 +9,12 @@ import $ from 'jquery';
  * @see `client/src/controllers/FormsetController.ts` for the future (WIP) implementation.
  */
 export class ExpandingFormset {
-  constructor(prefix, opts = {}) {
+  constructor(prefix, opts = {}, initControls = true) {
     this.opts = opts;
     const addButton = $('#' + prefix + '-ADD');
     this.formContainer = $('#' + prefix + '-FORMS');
     this.totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
     this.formCount = parseInt(this.totalFormsInput.val(), 10);
-
-    if (opts.onInit) {
-      for (let i = 0; i < this.formCount; i += 1) {
-        opts.onInit(i);
-      }
-    }
 
     const emptyFormElement = document.getElementById(
       prefix + '-EMPTY_FORM_TEMPLATE',
@@ -28,9 +22,17 @@ export class ExpandingFormset {
 
     this.emptyFormTemplate = emptyFormElement.innerHTML;
 
-    addButton.on('click', () => {
-      this.addForm();
-    });
+    if (initControls) {
+      if (opts.onInit) {
+        for (let i = 0; i < this.formCount; i += 1) {
+          opts.onInit(i);
+        }
+      }
+
+      addButton.on('click', () => {
+        this.addForm();
+      });
+    }
   }
 
   /**
