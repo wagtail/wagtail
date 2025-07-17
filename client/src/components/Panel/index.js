@@ -30,6 +30,8 @@ export class PanelGroup extends Panel {
 }
 
 export class FieldPanel extends Panel {
+  #boundWidget; // Cached bound widget instance, populated by getBoundWidget()
+
   constructor(opts) {
     super(opts);
     this.fieldName = opts.fieldName;
@@ -37,11 +39,15 @@ export class FieldPanel extends Panel {
   }
 
   getBoundWidget() {
+    if (this.#boundWidget !== undefined) return this.#boundWidget;
+
     // Widget classes created before Wagtail 7.1 may not have a `getByName` method :-(
     if (this.widget.getByName) {
-      return this.widget.getByName(this.fieldName, document.body);
+      this.#boundWidget = this.widget.getByName(this.fieldName, document.body);
+    } else {
+      this.#boundWidget = null;
     }
-    return null;
+    return this.#boundWidget;
   }
 
   getPanelByName(name) {
@@ -52,5 +58,43 @@ export class FieldPanel extends Panel {
   getErrorMessage() {
     const errorContainer = document.getElementById(`${this.prefix}-errors`);
     return errorContainer?.querySelector('.error-message')?.textContent?.trim();
+  }
+
+  setErrorMessage(message) {
+    const errorContainerId = `${this.prefix}-errors`;
+    const errorContainer = document.getElementById(errorContainerId);
+    if (!errorContainer) return;
+
+    const input = this.getBoundWidget()?.input;
+
+    if (!message) {
+      errorContainer.innerHTML = '';
+      if (input) {
+        input.removeAttribute('aria-invalid');
+
+        const describedBy = input.getAttribute('aria-describedby') || '';
+        const newDescribedBy = describedBy
+          .split(' ')
+          .filter((id) => id !== errorContainerId)
+          .join(' ');
+        input.setAttribute('aria-describedby', newDescribedBy);
+      }
+    } else {
+      errorContainer.innerHTML = `
+        <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
+        <p class="error-message"></p>
+      `;
+      errorContainer.querySelector('.error-message').textContent = message;
+      if (input) {
+        input.setAttribute('aria-invalid', 'true');
+
+        const describedBy = input.getAttribute('aria-describedby') || '';
+        const describedByIds = describedBy.split(' ').filter(Boolean);
+        if (!describedByIds.includes(errorContainerId)) {
+          describedByIds.push(errorContainerId);
+        }
+        input.setAttribute('aria-describedby', describedByIds.join(' '));
+      }
+    }
   }
 }
