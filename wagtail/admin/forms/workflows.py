@@ -307,7 +307,7 @@ def get_workflow_edit_handler():
                 FieldPanel("task", widget=AdminTaskChooser(show_clear_link=False)),
             ],
             heading=_("Add tasks to your workflow"),
-            label=_("Task"),
+            label=_("task"),
             icon="thumbtack",
         ),
     ]

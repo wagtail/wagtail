@@ -94,7 +94,7 @@ class InlinePanel(Panel):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
         if not self.label:
-            self.label = capfirst(self.db_field.related_model._meta.verbose_name)
+            self.label = self.db_field.related_model._meta.verbose_name
 
     def classes(self):
         return super().classes() + ["w-panel--nested"]

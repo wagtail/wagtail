@@ -54,7 +54,7 @@ class BlogPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('body'),
-        InlinePanel('related_links', heading="Related links", label="Related link"),
+        InlinePanel('related_links'),
     ]
 
     promote_panels = [
@@ -371,7 +371,7 @@ To add this to the admin interface, use the `InlinePanel` edit panel class:
 content_panels = [
     ...
 
-    InlinePanel('related_links', label="Related links"),
+    InlinePanel('related_links'),
 ]
 ```
 
