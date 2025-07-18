@@ -217,7 +217,7 @@ A pull request that just adds unit tests to some core functionality that does no
 - [ ] Write unit tests
 ```
 
-### 7. Submitting a Pull Request
+### 7. Submitting a pull request
 
 A pull request that has the title 'fixes issue' is unhelpful at best, and spammy at worst. Take a few moments to think about how to give your change a title. Communicate (in a few words) the problem solved or feature added or bug fixed. Instead of 'Fixes 10423', use words and write a title 'Fixes documentation dark mode refresh issue'. No one in a project knows that issue `10423` is that one about the documentation dark mode refresh issue.
 
@@ -231,9 +231,9 @@ Referencing the issue being fixed within the pull request description is just as
 
 If the change is visual it's strongly recommended to add before and after screenshots. This helps you confirm the change has worked and also helps reviewers understand the change made.
 
-It is often good to write yourself a checklist for any pull request and fill in the gaps. **Remember that the Pull Request template is there for a reason so please use that checklist also.**
+It is often good to write yourself a checklist for any pull request and fill in the gaps. **Remember that the pull request template is there for a reason so please use that checklist also.**
 
-#### Pull Request Checklist
+#### Checklist (for a pull request)
 
 ```markdown
 -   [ ] Small description of the solution, one sentence.
@@ -276,7 +276,7 @@ Remember that it is OK to move on and try something else. Try a different issue 
 
 #### Responding to a review
 
-Almost every Pull Request (PR) (except for the most smallest changes) will have some form of feedback. This will usually come in the form of a review and a request for changes. At this point your PR will be flagged as 'needs work', 'needs tests' or in some cases 'needs design decision'. Take the time to read all the feedback and try to resolve or respond to comments if you have questions.
+Almost every pull request (PR) (except for the most smallest changes) will have some form of feedback. This will usually come in the form of a review and a request for changes. At this point your PR will be flagged as 'needs work', 'needs tests' or in some cases 'needs design decision'. Take the time to read all the feedback and try to resolve or respond to comments if you have questions.
 
 ```{warning}
 Avoid closing the PR only to create a new one, instead keep it open and push your changes/fixes to the same branch. Unless directed to make the PR smaller, keep the same one open and work through items one by one.
@@ -317,7 +317,7 @@ It is best to avoid fixing more than one issue in a single pull request, unless 
 
 ### When do I need to write unit tests for a pull request (PR)?
 
-Unless you are updating the documentation or only making visual style changes, your Pull Request should contain tests.
+Unless you are updating the documentation or only making visual style changes, your pull request should contain tests.
 
 If you are new to writing tests in Django, start by reading the [Django documentation on testing](inv:django#topics/testing/overview). Re-read the [Wagtail documentation notes on testing](testing) and have a look at [existing tests](https://cs.github.com/?scopeName=All+repos&scope=&q=repo%3Awagtail%2Fwagtail+path%3A**%2Ftests%2F**).
 
@@ -333,20 +333,26 @@ There is also the more recently created `#development` channel for advice on und
 
 Be sure to always read the issue in full and review all links, sometimes there may already be an open pull request for the same issue. To avoid duplicating efforts it would be best to see if that pull request is close to ready and then move on to something else. Alternatively, if it has been a long enough amount of time, you may want to pick up the code and build on it to get it finished or ask if they need help.
 
-### Can I just use Gitpod to develop
+### Can I just use Gitpod to develop?
 
-While Gitpod is great for some small scale Pull Requests, it will not be a suitable tool for complex contributions and it's best to take the time to set up a fully functional development environment so you can manage branches and ongoing commits to one branch.
+While Gitpod is great for some small scale pull requests, it will not be a suitable tool for complex contributions and it's best to take the time to set up a fully functional development environment so you can manage branches and ongoing commits to one branch.
 
 Here are some links for using Gitpod with the Wagtail packages:
 
 -   [Bakerydemo Gitpod instructions](https://github.com/wagtail/bakerydemo#setup-with-gitpod)
 -   [Wagtail Gitpod – Wagtail development setup in one click](https://wagtail.org/blog/gitpod/)
 
-### How can I be assigned an issue to contribute to
+### Can I use Windows to develop?
+
+While a lot of our documentation works best on Linux or MacOS, we do have some guidance for [development on Windows](development_on_windows).
+
+You can also go through this [Windows step by step guide to getting bakerydemo running with local Wagtail](https://juliet.hashnode.dev/a-step-by-step-guide-for-manually-setting-up-bakery-demo-with-wagtail).
+
+### How can I be assigned an issue to contribute to?
 
 We only use GitHub's issue assignment feature for members of the Wagtail core team when tasks are being planned as part of core roadmap features or when being used for a specific internship program. If an issue is not assigned to anyone, feel free to work on it, there is no need to ask to be assigned the issue.
 
-Instead, review the issue, understand it and if you feel you can contribute you can just raise a Pull Request, or add a comment that you are taking a look at this. There are no strict claiming or reserving rules in place, anyone is free to work on any issue, but try to avoid double effort if someone has already got a Pull Request underway.
+Instead, review the issue, understand it and if you feel you can contribute you can just raise a pull request, or add a comment that you are taking a look at this. There are no strict claiming or reserving rules in place, anyone is free to work on any issue, but try to avoid double effort if someone has already got a pull request underway.
 
 ## Helpful links
 
@@ -355,7 +361,6 @@ Instead, review the issue, understand it and if you feel you can contribute you 
 -   [Learning Git Branching](https://learngitbranching.js.org/) a solid interactive guide to understand how git branching works.
 -   [Hacktoberfest](https://hacktoberfest.com/) every October, join in the fun and submit pull requests.
 -   [21 Pull Requests](https://24pullrequests.com/) a December community effort to contribute to open source.
--   [Windows step by step guide to getting bakerydemo running with local Wagtail](https://juliet.hashnode.dev/a-step-by-step-guide-for-manually-setting-up-bakery-demo-with-wagtail)
 
 ### Inspiration for this content
 
