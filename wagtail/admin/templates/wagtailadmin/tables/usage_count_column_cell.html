@@ -2,7 +2,7 @@
 
 <td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
     <a href="{{ instance.usage_url }}">
-        {% blocktrans trimmed with usage_count=instance.usage_count|intcomma count count=instance.usage_count %}
+        {% blocktrans trimmed with usage_count=instance.usage_count|intcomma count usage_count_counter=instance.usage_count %}
             Used {{ usage_count }} time
         {% plural %}
             Used {{ usage_count }} times
