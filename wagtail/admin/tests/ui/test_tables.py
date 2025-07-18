@@ -173,6 +173,81 @@ class TestTable(TestCase):
             % (blog.pk, gallery.pk),
         )
 
+    def test_title_column_callable_link_attrs(self):
+        """Test that TitleColumn supports callable link_attrs for dynamic link attributes."""
+        root_page = Page.objects.filter(depth=2).first()
+        blog = Site.objects.create(
+            hostname="blog.example.com", site_name="My blog", root_page=root_page
+        )
+        data = [blog]
+
+        def dynamic_link_attrs(instance, parent_context):
+            return {
+                "data-site-id": str(instance.pk),
+                "data-hostname": instance.hostname,
+            }
+
+        table = Table(
+            [
+                TitleColumn(
+                    "hostname",
+                    url_name="wagtailsites:edit",
+                    link_attrs=dynamic_link_attrs,  # callable link_attrs
+                ),
+            ],
+            data,
+        )
+
+        html = self.render_component(table)
+        self.assertIn(f'data-site-id="{blog.pk}"', html)
+        self.assertIn(f'data-hostname="{blog.hostname}"', html)
+        self.assertIn(f'href="/admin/sites/edit/{blog.pk}/"', html)
+        self.assertIn("blog.example.com", html)
+
+    def test_title_column_static_link_attrs_still_work(self):
+        """Test that TitleColumn still works with static link_attrs dictionary."""
+        root_page = Page.objects.filter(depth=2).first()
+        blog = Site.objects.create(
+            hostname="blog.example.com", site_name="My blog", root_page=root_page
+        )
+        data = [blog]
+
+        table = Table(
+            [
+                TitleColumn(
+                    "hostname",
+                    url_name="wagtailsites:edit",
+                    link_attrs={
+                        "data-chooser": "yes",
+                        "class": "static-link",
+                    },  # static dict
+                ),
+            ],
+            data,
+        )
+
+        html = self.render_component(table)
+        self.assertHTMLEqual(
+            html,
+            """
+            <table class="listing">
+                <thead>
+                    <tr><th>Hostname</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            <div class="title-wrapper">
+                                <a href="/admin/sites/edit/%d/" data-chooser="yes" class="static-link">blog.example.com</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        """
+            % blog.pk,
+        )
+
     def test_column_media(self):
         class FancyColumn(Column):
             class Media:
