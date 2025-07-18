@@ -1,44 +1,54 @@
 import { setAttrs } from '../../utils/attrs';
 import { runInlineScripts } from '../../utils/runInlineScripts';
 
-export class BoundWidget {
-  constructor(
-    elementOrNodeList,
-    name,
-    idForLabel,
-    initialState,
-    parentCapabilities,
-    options,
-  ) {
-    // if elementOrNodeList not iterable, it must be a single element
-    const nodeList = elementOrNodeList.forEach
-      ? elementOrNodeList
-      : [elementOrNodeList];
+export const querySelectorIncludingSelf = (elementOrNodeList, selector) => {
+  /**
+   * Given an element or a NodeList, return the first element that matches the selector.
+   * This can be the top-level element itself or a descendant.
+   */
 
-    // look for an input element with the given name, as either a direct element of nodeList
-    // or a descendant
-    const selector = `:is(input,select,textarea,button)[name="${name}"]`;
+  // if elementOrNodeList not iterable, it must be a single element
+  const nodeList = elementOrNodeList.forEach
+    ? elementOrNodeList
+    : [elementOrNodeList];
 
-    for (let i = 0; i < nodeList.length; i += 1) {
-      const element = nodeList[i];
-      if (element.nodeType === Node.ELEMENT_NODE) {
-        if (element.matches(selector)) {
-          this.input = element;
-          break;
-        } else {
-          const input = element.querySelector(selector);
-          if (input) {
-            this.input = input;
-            break;
-          }
-        }
+  for (let i = 0; i < nodeList.length; i += 1) {
+    const container = nodeList[i];
+    if (container.nodeType === Node.ELEMENT_NODE) {
+      // Check if the container itself matches the selector
+      if (container.matches(selector)) {
+        return container;
+      }
+
+      // If not, search within the container
+      const found = container.querySelector(selector);
+      if (found) {
+        return found;
       }
     }
+  }
 
-    this.idForLabel = idForLabel;
-    this.setState(initialState);
+  return null; // No matching element found
+};
+
+export class InputNotFoundError extends Error {
+  constructor(name) {
+    super(`No input found with name "${name}"`);
+    this.name = 'InputNotFoundError';
+  }
+}
+
+export class BoundWidget {
+  constructor(elementOrNodeList, name, parentCapabilities) {
+    // look for an input element with the given name
+    const selector = `:is(input,select,textarea,button)[name="${name}"]`;
+    this.input = querySelectorIncludingSelf(elementOrNodeList, selector);
+    if (!this.input) {
+      throw new InputNotFoundError(name);
+    }
+
+    this.idForLabel = this.input.id;
     this.parentCapabilities = parentCapabilities || new Map();
-    this.options = options;
   }
 
   getValue() {
@@ -81,9 +91,8 @@ export class BoundWidget {
 }
 
 export class Widget {
-  constructor(html, idPattern) {
+  constructor(html) {
     this.html = html;
-    this.idPattern = idPattern;
   }
 
   boundWidgetClass = BoundWidget;
@@ -97,7 +106,6 @@ export class Widget {
     options = {},
   ) {
     const html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
-    const idForLabel = this.idPattern.replace(/__ID__/g, id);
 
     /* write the HTML into a temp container to parse it into a node list */
     const tempContainer = document.createElement('div');
@@ -122,14 +130,18 @@ export class Widget {
     }
 
     // eslint-disable-next-line new-cap
-    return new this.boundWidgetClass(
+    const boundWidget = new this.boundWidgetClass(
       childElements.length === 1 ? childElements[0] : childNodes,
       name,
-      idForLabel,
-      initialState,
       parentCapabilities,
-      options,
     );
+    boundWidget.setState(initialState);
+    return boundWidget;
+  }
+
+  getByName(name, container) {
+    // eslint-disable-next-line new-cap
+    return new this.boundWidgetClass(container, name);
   }
 }
 
@@ -152,15 +164,14 @@ export class CheckboxInput extends Widget {
 }
 
 export class BoundRadioSelect {
-  constructor(element, name, idForLabel, initialState) {
+  constructor(element, name) {
     this.element = element;
     this.name = name;
-    this.idForLabel = idForLabel;
+    this.idForLabel = '';
     this.isMultiple = !!this.element.querySelector(
       `input[name="${name}"][type="checkbox"]`,
     );
     this.selector = `input[name="${name}"]:checked`;
-    this.setState(initialState);
   }
 
   getValue() {
@@ -236,4 +247,33 @@ export class BoundSelect extends BoundWidget {
 
 export class Select extends Widget {
   boundWidgetClass = BoundSelect;
+}
+
+export class BlockWidget extends Widget {
+  constructor() {
+    // Pass an empty string as the HTML. This means we cannot generate new instances through `render`,
+    // but we're not making use of that - and the real HTML would embed the block definition as a data
+    // attribute, which could potentially be huge.
+    super('');
+  }
+
+  render() {
+    throw new Error('BlockWidget does not support rendering');
+  }
+
+  getByName(name, container) {
+    // Retrieve the block object that was stashed on the root element by BlockController
+    const rootElement = querySelectorIncludingSelf(container, `#${name}-root`);
+    if (!rootElement) {
+      throw new InputNotFoundError(name);
+    }
+    if (!rootElement.rootBlock) {
+      throw new Error(
+        `BlockWidget with name "${name}" does not have a root block attached.`,
+      );
+    }
+    // The API for block objects matches the one for widgets (getValue, getState, etc.),
+    // so we just return that in lieu of a BoundWidget.
+    return rootElement.rootBlock;
+  }
 }

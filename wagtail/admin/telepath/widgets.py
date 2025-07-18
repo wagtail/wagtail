@@ -18,7 +18,6 @@ class WidgetAdapter(Adapter):
     def js_args(self, widget):
         return [
             widget.render("__NAME__", None, attrs={"id": "__ID__"}),
-            widget.id_for_label("__ID__"),
         ]
 
     def get_media(self, widget):
@@ -34,8 +33,7 @@ class WidgetAdapter(Adapter):
         )
 
 
-register(WidgetAdapter(), forms.widgets.Input)
-register(WidgetAdapter(), forms.Textarea)
+register(WidgetAdapter(), forms.widgets.Widget)
 
 
 class CheckboxInputAdapter(WidgetAdapter):

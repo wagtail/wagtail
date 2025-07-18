@@ -1,4 +1,5 @@
 import functools
+import json
 
 from django import forms
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
@@ -6,6 +7,7 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
 from wagtail.admin import compare
+from wagtail.admin.telepath import register as register_telepath_adapter
 
 from .base import Panel, get_form_for_model
 from .group import MultiFieldPanel
@@ -99,6 +101,7 @@ class InlinePanel(Panel):
     def classes(self):
         return super().classes() + ["w-panel--nested"]
 
+    @register_telepath_adapter
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"
 
@@ -174,7 +177,25 @@ class InlinePanel(Panel):
                 )
             ]
 
+        telepath_adapter_name = "wagtail.panels.InlinePanel"
+
+        def js_opts(self):
+            return {
+                "type": type(self.panel).__name__,
+                "formsetPrefix": f"id_{self.formset.prefix}",
+                "emptyChildFormPrefix": self.empty_child.form.prefix,
+                "canOrder": self.formset.can_order,
+                "maxForms": self.formset.max_num,
+                "relationName": self.panel.relation_name,
+            }
+
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)
-            context["can_order"] = self.formset.can_order
+            context["options_json"] = json.dumps(self.js_opts())
             return context
+
+        def telepath_pack(self, context):
+            # pass initControls = False so that we do not initialize controls while calling
+            # the constructor; this prevents attaching event handlers multiple times if the
+            # object is unpacked multiple times
+            return (self.telepath_adapter_name, [self.js_opts(), False])

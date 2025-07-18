@@ -10,7 +10,6 @@ describe('Widget', () => {
 
     widgetDef = new Widget(
       '<input type="text" name="__NAME__" maxlength="255" id="__ID__">',
-      '__ID__',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -25,6 +24,19 @@ describe('Widget', () => {
       '<input type="text" name="the-name" maxlength="255" id="the-id">',
     );
     expect(document.querySelector('input').value).toBe('The Value');
+  });
+
+  test('it fails rendering if no input is found', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const nonWidget = new Widget('<div>Not an input</div>');
+    expect(() => {
+      nonWidget.render(
+        document.getElementById('placeholder'),
+        'the-name',
+        'the-id',
+        'The Value',
+      );
+    }).toThrow('No input found with name "the-name"');
   });
 
   test('getValue() returns the current value', () => {
@@ -88,6 +100,13 @@ describe('Widget', () => {
     expect(input.getAttribute('aria-describedby')).toBe('some-id');
     expect(input.required).toBe(true);
   });
+
+  it('can be retrieved for an existing form element', () => {
+    document.body.innerHTML =
+      '<input type="text" name="surname" id="id_surname" value="Bobson">';
+    const otherBoundWidget = widgetDef.getByName('surname', document.body);
+    expect(otherBoundWidget.getValue()).toBe('Bobson');
+  });
 });
 
 describe('Widget with inline JS', () => {
@@ -100,7 +119,6 @@ describe('Widget with inline JS', () => {
 
     widgetDef = new Widget(
       '<div><input type="text" name="__NAME__" maxlength="255" id="__ID__"><script>document.getElementById("__ID__").className = "custom-class";</script></div>',
-      '__ID__',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -132,7 +150,6 @@ describe('Widget with multiple top-level nodes', () => {
 
     widgetDef = new Widget(
       '<!-- here comes a widget --><input type="text" name="__NAME__" maxlength="255" id="__ID__"><button data-button-state="idle">Click me</button><script>document.getElementById("__ID__").className = "custom-class";</script>',
-      '__ID__',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -171,7 +188,6 @@ describe('RadioSelect', () => {
           <input type="radio" name="__NAME__" value="coffee" id="__ID___1"> Coffee</label>
         </li>
       </ul>`,
-      '__ID___0',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -253,7 +269,6 @@ describe('RadioSelect for CheckboxSelectMultiple', () => {
           <input type="checkbox" name="__NAME__" value="blue" id="__ID___2"> Blue</label>
         </li>
       </ul>`,
-      '__ID___0',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -295,7 +310,6 @@ describe('CheckboxInput', () => {
 
     const widgetDef = new CheckboxInput(
       '<input type="checkbox" name="__NAME__" id="__ID__">',
-      '__ID__',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -345,7 +359,6 @@ describe('Select', () => {
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
       </select>`,
-      '__ID__',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
@@ -397,7 +410,6 @@ describe('Select multiple', () => {
         <option value="green">Green</option>
         <option value="blue">Blue</option>
       </select>`,
-      '__ID__',
     );
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),

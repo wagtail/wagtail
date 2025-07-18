@@ -4,6 +4,7 @@ import Telepath from 'telepath-unpack';
 import { Icon, Portal } from '../..';
 import { ExpandingFormset } from '../../components/ExpandingFormset';
 import { coreControllerDefinitions } from '../../controllers';
+import { Panel, PanelGroup, FieldPanel } from '../../components/Panel';
 import { InlinePanel } from '../../components/InlinePanel';
 import { MultipleChooserPanel } from '../../components/MultipleChooserPanel';
 import { WAGTAIL_CONFIG } from '../../config/wagtailConfig';
@@ -47,6 +48,15 @@ window.MultipleChooserPanel = MultipleChooserPanel;
 if (!window.telepath) {
   window.telepath = new Telepath();
 }
+
+window.telepath.register('wagtail.panels.Panel', Panel);
+window.telepath.register('wagtail.panels.PanelGroup', PanelGroup);
+window.telepath.register('wagtail.panels.FieldPanel', FieldPanel);
+window.telepath.register('wagtail.panels.InlinePanel', InlinePanel);
+window.telepath.register(
+  'wagtail.panels.MultipleChooserPanel',
+  MultipleChooserPanel,
+);
 
 /**
  * Support legacy, undocumented, usage of `buildExpandingFormset` as a global function.
