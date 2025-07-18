@@ -1,6 +1,8 @@
 import pytest
 from django.core.cache import cache
+
 from wagtail.contrib.redirects.tmp_storages import CacheStorage
+
 
 @pytest.mark.django_db
 def test_cache_storage_save_and_remove():
