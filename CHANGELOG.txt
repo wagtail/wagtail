@@ -32,6 +32,7 @@ Changelog
  * Fix: Ensure fixed RichText toolbar shows under footer actions (Maciek Baron)
  * Fix: Prevent error when iterating over specific tasks with missing models (Lasse Schmieding)
  * Fix: Ensure `TableBlock` header dropdown default option can be translated (arpitmak)
+ * Fix: Fix missing cache key prefix when removing cached redirect files (Heric Libong)
  * Docs: Fix cross-reference links to the TypeDoc-generated docs (Sage Abdullah)
  * Docs: Refine readthedocs' search indexing for releases and client-side code (Sage Abdullah)
  * Docs: Fix incorrect link to third party site in advanced topics (Yousef Al-Hadhrami (Yemeni))

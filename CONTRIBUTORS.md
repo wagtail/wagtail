@@ -914,6 +914,7 @@
 * Martin Fitzpatrick
 * arpitmak
 * Eric Matthes
+* Heric Libong
 
 ## Translators
 
