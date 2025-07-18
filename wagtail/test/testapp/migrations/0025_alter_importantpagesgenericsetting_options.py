@@ -12,8 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterModelOptions(
             name="importantpagesgenericsetting",
             options={
-                "verbose_name": "Important pages settings",
-                "verbose_name_plural": "Important pages settings",
+                "verbose_name": "important pages settings",
+                "verbose_name_plural": "important pages settings",
             },
         ),
     ]

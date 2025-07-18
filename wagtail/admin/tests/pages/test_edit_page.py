@@ -2461,6 +2461,8 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
         # Response should include an advert_placements formset labelled Adverts
         self.assertContains(response, "Adverts")
         self.assertContains(response, "id_advert_placements-TOTAL_FORMS")
+        # Expecting the add-button
+        self.assertContains(response, "Add advert")
 
     def test_post_create_form(self):
         post_data = {
@@ -2539,6 +2541,8 @@ class TestChildRelationsOnSuperclass(WagtailTestUtils, TestCase):
             '<input type="hidden" name="advert_placements-0-advert" value="1" id="id_advert_placements-0-advert">',
             html=True,
         )
+        # Expecting the add-button
+        self.assertContains(response, "Add advert")
 
     def test_post_edit_form(self):
         post_data = {

@@ -546,7 +546,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "MTI Base page",
+                "verbose_name": "MTI base page",
             },
             bases=("wagtailcore.page",),
         ),
@@ -1958,8 +1958,8 @@ class Migration(migrations.Migration):
                 ("address", models.CharField(max_length=255, verbose_name="Address")),
             ],
             options={
-                "verbose_name": "Address",
-                "verbose_name_plural": "Addresses",
+                "verbose_name": "address",
+                "verbose_name_plural": "addresses",
             },
             bases=(wagtail.search.index.Indexed, models.Model),
         ),
@@ -1987,8 +1987,8 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "Person",
-                "verbose_name_plural": "Persons",
+                "verbose_name": "person",
+                "verbose_name_plural": "persons",
             },
             bases=("wagtailcore.page",),
         ),
@@ -2093,8 +2093,8 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "Tag",
-                "verbose_name_plural": "Tags",
+                "verbose_name": "tag",
+                "verbose_name_plural": "tags",
             },
         ),
         migrations.CreateModel(

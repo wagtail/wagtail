@@ -27,7 +27,13 @@ class InlinePanel(Panel):
         super().__init__(*args, **kwargs)
         self.relation_name = relation_name
         self.panels = panels
-        self.heading = heading or label or capfirst(relation_name.replace("_", " "))
+        self.heading = (
+            heading
+            if heading
+            else capfirst(label)
+            if label
+            else capfirst(relation_name.replace("_", " "))
+        )
         self.label = label
         self.min_num = min_num
         self.max_num = max_num
@@ -94,7 +100,7 @@ class InlinePanel(Panel):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
         if not self.label:
-            self.label = capfirst(self.db_field.related_model._meta.verbose_name)
+            self.label = self.db_field.related_model._meta.verbose_name
 
     def classes(self):
         return super().classes() + ["w-panel--nested"]

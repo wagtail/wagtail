@@ -53,7 +53,7 @@ class FormPage(AbstractEmailForm):
     content_panels = AbstractEmailForm.content_panels + [
         FormSubmissionsPanel(),
         FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
+        InlinePanel('form_fields'),
         FieldPanel('thank_you_text'),
         MultiFieldPanel([
             FieldRowPanel([
