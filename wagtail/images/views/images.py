@@ -2,7 +2,10 @@ import os
 from tempfile import SpooledTemporaryFile
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.db.models import CharField, Count, OuterRef, Subquery
+from django.db.models.functions import Cast, Coalesce
 from django.http import FileResponse, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -30,7 +33,7 @@ from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
-from wagtail.models import Site
+from wagtail.models import ReferenceIndex, Site
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -80,13 +83,29 @@ class IndexView(generic.IndexView):
         return self.ORDERING_OPTIONS
 
     def get_base_queryset(self):
-        # Get images (filtered by user permission)
+        # Get images (filtered by user permission and annotated with usage counts)
         images = (
             permission_policy.instances_user_has_any_permission_for(
                 self.request.user, ["change", "delete"]
             )
             .select_related("collection")
             .prefetch_renditions("max-165x165")
+            .annotate(
+                usage_count=Coalesce(
+                    Subquery(
+                        ReferenceIndex.objects.filter(
+                            to_content_type=ContentType.objects.get_for_model(Image),
+                            to_object_id=Cast(OuterRef("pk"), output_field=CharField()),
+                        )
+                        .values("object_id", "to_object_id")
+                        .distinct()
+                        .values("to_object_id")
+                        .annotate(count=Count("object_id", distinct=True))
+                        .values("count")
+                    ),
+                    0,
+                )
+            )
         )
         return images
 
@@ -160,6 +179,7 @@ class IndexView(generic.IndexView):
                     label=_("Created"),
                     sort_key="created_at",
                 ),
+                UsageCountColumn("usage_count", label=_("Usage")),
             ]
 
             return columns
@@ -183,6 +203,10 @@ class ImagePreviewColumn(BaseColumn):
 
 class TitleColumnWithFilename(TitleColumn):
     cell_template_name = "wagtailimages/images/title_column_cell.html"
+
+
+class UsageCountColumn(BaseColumn):
+    cell_template_name = "wagtailadmin/tables/usage_count_column_cell.html"
 
 
 class EditView(generic.EditView):

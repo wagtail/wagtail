@@ -1,7 +1,10 @@
 import os
 
 from django.contrib.admin.utils import quote
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.db.models import CharField, Count, OuterRef, Subquery
+from django.db.models.functions import Cast, Coalesce
 from django.http.response import HttpResponse as HttpResponse
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
@@ -12,6 +15,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.filters import BaseMediaFilterSet
 from wagtail.admin.ui.tables import (
+    BaseColumn,
     BulkActionsCheckboxColumn,
     Column,
     DateColumn,
@@ -24,6 +28,7 @@ from wagtail.admin.views import generic
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
+from wagtail.models import ReferenceIndex
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 Document = get_document_model()
@@ -46,6 +51,10 @@ class DocumentTable(Table):
         context = super().get_context_data(parent_context)
         context["current_collection"] = parent_context.get("current_collection")
         return context
+
+
+class UsageCountColumn(BaseColumn):
+    cell_template_name = "wagtailadmin/tables/usage_count_column_cell.html"
 
 
 class DocumentsFilterSet(BaseMediaFilterSet):
@@ -78,10 +87,31 @@ class IndexView(generic.IndexView):
     show_other_searches = True
 
     def get_base_queryset(self):
-        # Get documents (filtered by user permission)
-        return self.permission_policy.instances_user_has_any_permission_for(
-            self.request.user, ["change", "delete"]
-        ).select_related("collection")
+        # Get documents (filtered by user permission and annotated with usage counts)
+        documents = (
+            self.permission_policy.instances_user_has_any_permission_for(
+                self.request.user, ["change", "delete"]
+            )
+            .select_related("collection")
+            .annotate(
+                usage_count=Coalesce(
+                    Subquery(
+                        ReferenceIndex.objects.filter(
+                            to_content_type=ContentType.objects.get_for_model(Document),
+                            to_object_id=Cast(OuterRef("pk"), output_field=CharField()),
+                        )
+                        .values("object_id", "to_object_id")
+                        .distinct()
+                        .values("to_object_id")
+                        .annotate(count=Count("object_id", distinct=True))
+                        .values("count")
+                    ),
+                    0,
+                )
+            )
+        )
+
+        return documents
 
     @cached_property
     def current_collection(self):
@@ -104,8 +134,8 @@ class IndexView(generic.IndexView):
                 "created_at",
                 label=_("Created"),
                 sort_key="created_at",
-                width="16%",
             ),
+            UsageCountColumn("usage_count", label=_("Usage"), width="16%"),
         ]
         if self.filters and "collection_id" in self.filters.filters:
             columns.insert(
