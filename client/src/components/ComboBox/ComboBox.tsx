@@ -76,7 +76,6 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
         return [...cats, { ...cat, items: cat.items.slice() }];
       }
 
-      // eslint-disable-next-line no-param-reassign
       cats[index - 1].items = cats[index - 1].items.concat(cat.items);
 
       return cats;
