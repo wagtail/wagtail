@@ -158,6 +158,12 @@ class PanelGroup(Panel):
 
 
 class TabbedInterface(PanelGroup):
+    BASE_ATTRS = {
+        "data-controller": "w-tabs",
+        "data-action": "popstate@window->w-tabs#select",
+        "data-w-tabs-use-location-value": "true",
+    }
+
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/tabbed_interface.html"
 

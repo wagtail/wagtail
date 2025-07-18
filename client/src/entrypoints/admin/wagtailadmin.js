@@ -1,4 +1,3 @@
-import { initTabs } from '../../includes/tabs';
 import initSidePanel from '../../includes/sidePanel';
 import {
   initAnchoredPanels,
@@ -10,7 +9,6 @@ import { initMinimap } from '../../components/Minimap';
  * Add in here code to run once the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  initTabs();
   initSidePanel();
   initCollapsiblePanels();
 });
