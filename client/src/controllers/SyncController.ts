@@ -90,6 +90,59 @@ export class SyncController extends Controller<HTMLInputElement> {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  prefillTitleFromFilename(_event?: Event) {
+    const input = this.element;
+
+    // Find the target input via the selector in data-w-sync-target-value
+    const titleInput = document.querySelector<HTMLInputElement>(
+      this.targetValue,
+    );
+
+    if (!titleInput) {
+      return;
+    }
+
+    // Do not override if user has already typed a title
+    if (titleInput.value) return;
+
+    const rawPath = input.value || '';
+    const parts = rawPath.split('\\');
+    const filenameWithExt = parts[parts.length - 1] || '';
+
+    // Remove file extension
+    const title = filenameWithExt.replace(/\.[^.]+$/, '');
+
+    // Prepare details for the custom event
+    const maxTitleLengthAttr = titleInput.getAttribute('maxLength');
+    const maxTitleLength =
+      maxTitleLengthAttr !== null ? parseInt(maxTitleLengthAttr, 10) : null;
+
+    const customEvent = new CustomEvent('wagtail:images-upload', {
+      bubbles: true,
+      cancelable: true,
+      detail: {
+        data: { title },
+        filename: filenameWithExt,
+        maxTitleLength,
+      },
+    });
+
+    // Dispatch the event on the closest <form> element
+    const form = input.closest('form');
+    const cancelled = form ? !form.dispatchEvent(customEvent) : false;
+
+    if (cancelled) return;
+
+    titleInput.value = title;
+
+    // Optionally dispatch a change event if you want to notify any listeners
+    if (!this.quietValue) {
+      const changeEvent = new Event('change', { bubbles: true });
+      titleInput.dispatchEvent(changeEvent);
+    }
+  }
+
   /**
    * Clears the value of the targeted elements.
    */
