@@ -164,7 +164,9 @@ describe('OrderableController', () => {
           handle: '[data-w-orderable-target="handle"]',
         }),
       );
+    });
 
+    it('should be able to register controller with different identifier', async () => {
       const [controllerWithDifferentIdentifier] = await setup(
         `<ul id="orderable" data-controller="w-something"></ul>`,
         'w-something',
@@ -219,12 +221,18 @@ describe('OrderableController', () => {
 
       await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...DOWN)));
 
+      // there is a debounce after dispatch, so we need to wait for it
+      await jest.runAllTimersAsync();
+
       expect(sortSpy).toHaveBeenLastCalledWith(['73', '93', '75'], true);
       expect(document.activeElement).toEqual(handle); // keep focus on the handle (after move)
 
       // it should not error when moving down beyond the last element
 
       await Promise.resolve(handle.dispatchEvent(new KeyboardEvent(...DOWN)));
+
+      // there is a debounce after dispatch, so we need to wait for it
+      await jest.runAllTimersAsync();
 
       expect(sortSpy).toHaveBeenLastCalledWith(['73', '93', '75'], true);
       expect(document.activeElement).toEqual(handle); // keep focus on the handle (after move)
