@@ -9,12 +9,12 @@ def test_cache_storage_save_and_remove():
     name = "testfile.txt"
     content = b"hello world"
     storage = CacheStorage(name)
-    
-    # Ajoute au cache
+
+    # Adds to cache
     storage.save(content)
     key = storage.CACHE_PREFIX + storage.name
     assert cache.get(key) == content
-    
-    # Supprime du cache
+
+    # Removes from cache
     storage.remove()
     assert cache.get(key) is None
