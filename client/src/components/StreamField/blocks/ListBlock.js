@@ -53,7 +53,7 @@ class ListChild extends BaseSequenceChild {
 /**
  * Represents a position in the DOM where a new list item can be inserted.
  *
- * @description
+ * @remarks
  * This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
  */
 class InsertPosition extends BaseInsertionControl {

@@ -3,14 +3,14 @@ const WAGTAIL_DIRECTIVE_DELIMITER = ':w:';
 /**
  * Extract the Wagtail directives from the URL fragment.
  *
- * This follows the algorithm described in
- * https://wicg.github.io/scroll-to-text-fragment/#extracting-the-fragment-directive
- * for extracting the fragment directive from the URL fragment, with a few
- * differences:
+ * @see https://wicg.github.io/scroll-to-text-fragment/#extracting-the-fragment-directive
+ *
+ * @remarks
+ * This follows the algorithm described above, o extract the fragment directive from the URL fragment,
+ * with a few differences:
  * - We use a :w: delimiter instead of the proposed :~: delimiter.
  * - We don't remove our directive from the URL fragment.
  *
- * @param rawFragment The raw fragment (hash) from the URL,
  * @returns a string of Wagtail directives, if any, in the style of URL search parameters.
  *
  * @example window.location.hash = '#:w:contentpath=abc1.d2e.3f'
@@ -23,6 +23,7 @@ const WAGTAIL_DIRECTIVE_DELIMITER = ':w:';
  * // getWagtailDirectives() === 'contentpath=abc1.d2e.3f&unknown=123&unknown=456'
  */
 export function getWagtailDirectives() {
+  // The raw fragment (hash) from the URL
   const rawFragment = window.location.hash;
   const position = rawFragment.indexOf(WAGTAIL_DIRECTIVE_DELIMITER);
   if (position === -1) return '';

@@ -127,7 +127,7 @@ export const wrapWagtailIcon = (type) => {
 /**
  * Initializes the DraftailEditor for a given field.
  * @param {string} selector
- * @param {Object} originalOptions
+ * @param {object} originalOptions
  * @param {Element} currentScript
  */
 const initEditor = (selector, originalOptions, currentScript) => {

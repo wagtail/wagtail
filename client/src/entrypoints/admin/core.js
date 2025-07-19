@@ -19,11 +19,11 @@ window.StimulusModule = StimulusModule;
  * interface to access the Stimulus application instance and base
  * React components.
  *
- * @type {Object} wagtail
- * @property {Object} app - Wagtail's Stimulus application instance.
- * @property {Object} components - Exposed components as globals for third-party reuse.
- * @property {Object} components.Icon - Icon React component.
- * @property {Object} components.Portal - Portal React component.
+ * @type {object} wagtail
+ * @property {object} app - Wagtail's Stimulus application instance.
+ * @property {object} components - Exposed components as globals for third-party reuse.
+ * @property {object} components.Icon - Icon React component.
+ * @property {object} components.Portal - Portal React component.
  */
 const wagtail = window.wagtail || {};
 

@@ -1,10 +1,10 @@
 import { getElementByContentPath } from '../utils/contentPath';
 /**
- *  All tabs and tab content must be nested in an element with the data-tab attribute
- *  All tab buttons need the role="tab" attr and an href with the tab content ID
- *  Tab contents need to have the role="tabpanel" attribute and ID attribute that matches the href of the tab link.
- *  Tab buttons should also be wrapped in an element with the role="tablist" attribute
- *  Use the attribute data-tab-trigger on an Anchor link and set the href to the #ID of the tab you would like to trigger
+ * All tabs and tab content must be nested in an element with the data-tab attribute
+ * All tab buttons need the role="tab" attr and an href with the tab content ID
+ * Tab contents need to have the role="tabpanel" attribute and ID attribute that matches the href of the tab link.
+ * Tab buttons should also be wrapped in an element with the role="tablist" attribute
+ * Use the attribute data-tab-trigger on an Anchor link and set the href to the #ID of the tab you would like to trigger
  */
 class Tabs {
   constructor(node) {
@@ -171,7 +171,7 @@ class Tabs {
 
   /**
    * Fade Up and In animation
-   * @param tabContent{HTMLElement}
+   * @param {HTMLElement} tabContent
    */
   animateIn(tabContent) {
     setTimeout(() => {
@@ -186,7 +186,7 @@ class Tabs {
 
   /**
    * Fade Down and Out by removing css class
-   * @param tabContent{HTMLElement}
+   * @param {HTMLElement} tabContent
    */
   animateOut(tabContent) {
     // Wait element to transition out and then hide with hidden
@@ -244,7 +244,7 @@ class Tabs {
   }
 
   /**
-   *  Handle keydown on tabs
+   * Handle keydown on tabs
    * @param {Event}event
    */
   keydownEventListener(event) {
@@ -302,7 +302,9 @@ class Tabs {
     this.state.initialPageLoad = false;
   }
 
-  // Either focus the next, previous, first, or last tab depending on key pressed
+  /**
+   * Either focus the next, previous, first, or last tab depending on key pressed
+   */
   switchTabOnArrowPress(event) {
     const pressed = event.key;
     const { direction } = this.state;
@@ -343,8 +345,8 @@ class Tabs {
   }
 
   /**
-   *  Populate a list of links aria-controls attributes with their href value
-   * @param links{HTMLAnchorElement[]}
+   * Populate a list of links aria-controls attributes with their href value
+   * @param {HTMLAnchorElement[]} links
    */
   static setAriaControlsByHref(links) {
     links.forEach((link) => {

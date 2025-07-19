@@ -99,9 +99,11 @@ export class ActionController extends Controller<
     csrftokenElement.value = WAGTAIL_CONFIG.CSRF_TOKEN;
     formElement.appendChild(csrftokenElement);
 
-    /** If continue is false, pass the current URL as the next param
+    /**
+     * If continue is false, pass the current URL as the next param
      * so that the user is redirected back to the current page instead
-     * of continuing to the submitted page */
+     * of continuing to the submitted page
+     */
     if (!this.continueValue) {
       const nextElement = document.createElement('input');
       nextElement.type = 'hidden';

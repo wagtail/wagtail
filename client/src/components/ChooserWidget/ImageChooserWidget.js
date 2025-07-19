@@ -16,15 +16,17 @@ export class ImageChooser extends Chooser {
    * Constructs the initial state of the chooser from the rendered (static) HTML.
    * The state is either null (no image chosen) or an object containing the image details.
    *
-   * @returns {Object|null} The initial state of the chooser. If an image is chosen,
-   * the state object contains the following properties:
-   * - id: {number} The ID of the chosen image.
-   * - edit_url: {string} The URL to edit the chosen image.
-   * - title: {string} The title of the chosen image.
-   * - preview: {Object} An object containing the preview details of the chosen image:
-   *   - url: {string} The URL of the preview image.
-   *   - width: {string} The width of the preview image.
-   *   - height: {string} The height of the preview image.
+   * @typedef {object} ImageChosenState if an image is chosen
+   * @property {number} id The ID of the chosen image.
+   * @property {string} edit_url The URL to edit the chosen image.
+   * @property {string} title The title of the chosen image.
+   * @property {object} preview Preview details of the chosen image.
+   * @property {string} preview.url The URL of the preview image.
+   * @property {string} preview.width The width of the preview image.
+   * @property {string} preview.height The height of the preview image.
+   * @property {string} default_alt_text The default alt text for the image.
+   *
+   * @returns {ImageChosenState|null} The initial state of the chooser or null if no image is chosen.
    */
   getStateFromHTML() {
     const state = super.getStateFromHTML();

@@ -6,7 +6,7 @@ import { gettext } from '../../../utils/gettext';
  * Definition for a command in the Draftail context menu that inserts a block.
  *
  * @param {BoundDraftailWidget} widget - the bound Draftail widget
- * @param {Object} split - capability descriptor from the containing block's capabilities definition
+ * @param {object} split - capability descriptor from the containing block's capabilities definition
  */
 export class DraftailSplitCommand {
   constructor(widget, split) {

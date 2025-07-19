@@ -73,7 +73,9 @@ describe('telepath: wagtail.widgets.TableInput', () => {
   let renderMock;
   let updateSettingsMock;
 
-  // Call this to render the table block with the current settings
+  /**
+   * Call this to render the table block with the current settings
+   */
   const render = () => {
     // Create a placeholder to render the widget
     document.body.innerHTML = '<div id="placeholder"></div>';

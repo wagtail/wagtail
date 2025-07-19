@@ -30,7 +30,7 @@ class StreamChild extends BaseSequenceChild {
   /**
    * wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
    * such as id
-   * @returns {Object} - The state of the child block
+   * @returns {object} - The state of the child block
    */
   getState() {
     return {

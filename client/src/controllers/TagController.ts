@@ -12,7 +12,7 @@ declare global {
 /**
  * Attach the jQuery tagit UI to the controlled element.
  *
- * See https://github.com/aehlke/tag-it
+ * @see https://github.com/aehlke/tag-it
  *
  * @example
  * ```html

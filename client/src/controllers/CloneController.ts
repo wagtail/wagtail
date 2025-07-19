@@ -8,8 +8,10 @@ type AddOptions = {
   clear?: boolean;
   /** Content for the message, HTML not supported. */
   text?: string;
-  /** Clone template type (found using data-type on template targets).
-   * e.g. Message status level based on Django's message types. */
+  /**
+   * Clone template type (found using data-type on template targets).
+   * e.g. Message status level based on Django's message types.
+   */
   type?: 'success' | 'error' | 'warning' | string;
 };
 

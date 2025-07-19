@@ -1,20 +1,10 @@
-/** @typedef {{
-    hex: string;
-    hsl: string;
-    bgUtility: string;
-    textUtility: string;
-    cssVariable: string;
-    usage: string;
-    contrastText: string;
-}} Shade */
-
-/** @typedef {{
-    [jsName: string | number]: Shade;
-}} Hues */
-
-/** @typedef {{
-    [jsName: string]: Hues;
-}} Colors */
+/**
+ * @typedef {{ hex: string; hsl: string; bgUtility: string; textUtility: string; cssVariable: string; usage: string; contrastText: string; }} Shade
+ *
+ * @typedef {{ [jsName: string | number]: Shade; }} Hues
+ *
+ * @typedef {{ [jsName: string]: Hues; }} Colors
+ */
 
 /** @type {Colors} */
 const staticColors = {

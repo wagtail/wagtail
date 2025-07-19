@@ -27,11 +27,13 @@ export interface CommentReply {
   author: Author | null;
   date: number;
   deleted: boolean;
-  // There are three variables used for text
-  // text is the canonical text, that will be output to the form
-  // newText stores the edited version of the text until it is saved
-  // originalText stores the text upon reply creation, and is
-  // used to check whether existing replies have been edited
+  /**
+   * There are three variables used for text
+   * text is the canonical text, that will be output to the form
+   * newText stores the edited version of the text until it is saved
+   * originalText stores the text upon reply creation, and is
+   * used to check whether existing replies have been edited
+   */
   text: string;
   originalText: string;
   newText: string;
@@ -95,11 +97,13 @@ export interface Comment {
   replies: Map<number, CommentReply>;
   newReply: string;
   remoteReplyCount: number;
-  // There are three variables used for text
-  // text is the canonical text, that will be output to the form
-  // newText stores the edited version of the text until it is saved
-  // originalText stores the text upon comment creation, and is
-  // used to check whether existing comments have been edited
+  /**
+   * There are three variables used for text
+   * text is the canonical text, that will be output to the form
+   * newText stores the edited version of the text until it is saved
+   * originalText stores the text upon comment creation, and is
+   * used to check whether existing comments have been edited
+   */
   text: string;
   originalText: string;
   newText: string;
@@ -160,7 +164,7 @@ export interface CommentsState {
   forceFocus: boolean;
   focusedComment: number | null;
   pinnedComment: number | null;
-  // This is redundant, but stored for efficiency as it will change only as the app adds its loaded comments
+  /** This is redundant, but stored for efficiency as it will change only as the app adds its loaded comments */
   remoteCommentCount: number;
 }
 
