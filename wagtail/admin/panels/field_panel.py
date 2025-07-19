@@ -25,6 +25,7 @@ class FieldPanel(Panel):
         disable_comments=None,
         permission=None,
         read_only=False,
+        required_on_save=None,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -33,6 +34,7 @@ class FieldPanel(Panel):
         self.disable_comments = disable_comments
         self.permission = permission
         self.read_only = read_only
+        self.required_on_save = required_on_save
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
@@ -42,6 +44,7 @@ class FieldPanel(Panel):
             disable_comments=self.disable_comments,
             permission=self.permission,
             read_only=self.read_only,
+            required_on_save=self.required_on_save,
         )
         return kwargs
 
@@ -52,6 +55,27 @@ class FieldPanel(Panel):
         opts = {
             "fields": [self.field_name],
         }
+
+        required_on_save = self.required_on_save
+        if required_on_save is None:
+            # If required_on_save is not explicitly set, treat it as false unless:
+            # - it corresponds to a model field with required_on_save=True (such as page title)
+            # - it corresponds to a non-null, non-text-typed model field (in which case a blank value
+            #   is not valid at the database level)
+            try:
+                db_field = self.db_field
+            except FieldDoesNotExist:
+                required_on_save = False
+            else:
+                required_on_save = getattr(db_field, "required_on_save", False) or (
+                    db_field.null is False
+                    and db_field.get_internal_type()
+                    not in ("CharField", "TextField", "JSONField")
+                )
+
+        if not required_on_save:
+            opts["defer_required_on_fields"] = [self.field_name]
+
         if self.widget:
             opts["widgets"] = {self.field_name: self.widget}
 
@@ -84,14 +108,12 @@ class FieldPanel(Panel):
 
     @cached_property
     def db_field(self):
-        try:
-            model = self.model
-        except AttributeError:
+        if self.model is None:
             raise ImproperlyConfigured(
                 "%r must be bound to a model before calling db_field" % self
             )
 
-        return model._meta.get_field(self.field_name)
+        return self.model._meta.get_field(self.field_name)
 
     @property
     def clean_name(self):
@@ -110,8 +132,7 @@ class FieldPanel(Panel):
             labels = dict(choices)
             display_values = [
                 str(labels.get(v, v))  # Use raw value if no match found
-                for v in
-                (
+                for v in (
                     # Account for single AND multiple choice fields
                     tuple(value) if isinstance(value, (list, tuple)) else (value,)
                 )

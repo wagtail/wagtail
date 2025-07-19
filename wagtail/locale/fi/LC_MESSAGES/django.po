@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2024\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>, 2020\n"
 "Language-Team: Finnish (http://app.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -158,6 +158,35 @@ msgstr "Lukittu aikataulun toimesta"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "Parhaillaan lukittu ja julkaistaan ajastettuna päiväyksenä"
 
+msgid "content type"
+msgstr "sisältötyyppi"
+
+msgid "timestamp (UTC)"
+msgstr "aikaleima (UTC)"
+
+msgid "log entry"
+msgstr "lokimerkintä"
+
+msgid "log entries"
+msgstr "lokimerkinnät"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "Lokitoimintoa '%(action_name)s' ei ole rekisteröity."
+
+msgid "system"
+msgstr "järjestelmä"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Tuntematon %(action)s"
+
+msgid "model log entry"
+msgstr "mallin lokimerkintä"
+
+msgid "model log entries"
+msgstr "mallin lokimerkinnät"
+
 msgid "live"
 msgstr "julkaistu"
 
@@ -194,18 +223,6 @@ msgstr "esillä + ajastettu"
 msgid "live + draft"
 msgstr "julkaistu + luonnos"
 
-msgid "Default"
-msgstr "Oletus"
-
-msgid "Preview in mobile size"
-msgstr "Esikatsele mobiiliversiona"
-
-msgid "Preview in tablet size"
-msgstr "Esikatsele tablettiversiona"
-
-msgid "Preview in desktop size"
-msgstr "Esikatsele työpöytäversiona"
-
 msgid "locked"
 msgstr "lukittu"
 
@@ -215,11 +232,35 @@ msgstr "lukittu"
 msgid "locked by"
 msgstr "lukinnut"
 
-msgid "in moderation"
-msgstr "tarkastettavana"
+msgid "collection"
+msgstr "kokoelma"
 
-msgid "live + in moderation"
-msgstr "esillä + tarkastettavana"
+msgid "collection view restriction"
+msgstr "kokoelman rajoitus"
+
+msgid "collection view restrictions"
+msgstr "kokoelman rajoitukset"
+
+msgid "name"
+msgstr "nimi"
+
+msgid "collections"
+msgstr "kokoelmat"
+
+msgid "group"
+msgstr "ryhmä"
+
+msgid "permission"
+msgstr "oikeudet"
+
+msgid "group collection permission"
+msgstr "ryhmä/kokoelma-oikeus"
+
+msgid "group collection permissions"
+msgstr "ryhmän oikeudet kokoelmaan"
+
+msgid "uploaded by user"
+msgstr "lähettänyt käyttäjä"
 
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"
@@ -270,9 +311,6 @@ msgstr ""
 "Sivun nimi kuten se esiintyy URL:eissa esim. http://domain.com/blog/"
 "[polkutunnus]/"
 
-msgid "content type"
-msgstr "sisältötyyppi"
-
 msgid "URL path"
 msgstr "URL-polku"
 
@@ -317,24 +355,6 @@ msgstr "sivu"
 msgid "pages"
 msgstr "sivut"
 
-msgid "created at"
-msgstr "luotu"
-
-msgid "user"
-msgstr "käyttäjä"
-
-msgid "content JSON"
-msgstr "sisältö-JSON"
-
-msgid "approved go live at"
-msgstr "hyväksytty julkistus"
-
-msgid "group"
-msgstr "ryhmä"
-
-msgid "permission"
-msgstr "oikeudet"
-
 msgid "group page permission"
 msgstr "ryhmä/sivu-oikeus"
 
@@ -349,111 +369,6 @@ msgstr "sivunkatselurajoitukset"
 
 msgid "workflow"
 msgstr "työnkulku"
-
-msgid "task"
-msgstr "tehtävä"
-
-msgid "name"
-msgstr "nimi"
-
-msgid "active"
-msgstr "aktiivinen"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Aktiivisia tehtäviä on mahdollista lisätä työnkulkuihin. Tehtävän "
-"aktivoinnin poistaminen ei poista tehtävää olemassa olevasta työnkulusta."
-
-msgid "tasks"
-msgstr "tehtävät"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Aktiivisia työnkulkuja on mahdollista lisätä sivuihin/pätkiin. Työnkulun "
-"aktivoinnin poistaminen ei poista työnkulkua olemassa olevasta sivusta/"
-"pätkästä."
-
-msgid "workflows"
-msgstr "työnkulut"
-
-msgid "groups"
-msgstr "ryhmät"
-
-msgid "Request changes"
-msgstr "Pyydä muutoksia"
-
-msgid "Approve"
-msgstr "Hyväksy"
-
-msgid "Approve with comment"
-msgstr "Hyväksy kommentin kera"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Valitun Wagtail-ryhmän jäsenet voivat hyväksyä tämän tehtävän"
-
-msgid "Group approval task"
-msgstr "Ryhmän hyväksyntätehtävä"
-
-msgid "Group approval tasks"
-msgstr "Ryhmän hyväksyntätehtävät"
-
-msgid "In progress"
-msgstr "Meneillään"
-
-msgid "Approved"
-msgstr "Hyväksytty"
-
-msgid "Needs changes"
-msgstr "Vaatii muutoksia"
-
-msgid "Cancelled"
-msgstr "Peruttu"
-
-msgid "status"
-msgstr "tila"
-
-msgid "requested by"
-msgstr "pyytänyt"
-
-msgid "current task state"
-msgstr "nykyinen tehtävän tila"
-
-msgid "Not started"
-msgstr "Ei aloitettu"
-
-msgid "Workflow state"
-msgstr "Työnkulun tila"
-
-msgid "Workflow states"
-msgstr "Työnkulun tilat"
-
-msgid "Rejected"
-msgstr "Hylätty"
-
-msgid "Skipped"
-msgstr "Ohitettu"
-
-msgid "workflow state"
-msgstr "työnkulun tila"
-
-msgid "started at"
-msgstr "aloitettu"
-
-msgid "finished at"
-msgstr "valmistunut"
-
-msgid "finished by"
-msgstr "valmistanut"
-
-msgid "Task state"
-msgstr "Tehtävän tila"
-
-msgid "Task states"
-msgstr "Tehtävän tilat"
 
 msgid "Draft saved"
 msgstr "Luonnos tallennettu"
@@ -470,52 +385,17 @@ msgstr "kommentin vastaus"
 msgid "comment replies"
 msgstr "kommentin vastaukset"
 
-msgid "timestamp (UTC)"
-msgstr "aikaleima (UTC)"
+msgid "Default"
+msgstr "Oletus"
 
-msgid "log entry"
-msgstr "lokimerkintä"
+msgid "Preview in mobile size"
+msgstr "Esikatsele mobiiliversiona"
 
-msgid "log entries"
-msgstr "lokimerkinnät"
+msgid "Preview in tablet size"
+msgstr "Esikatsele tablettiversiona"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "Lokitoimintoa '%(action_name)s' ei ole rekisteröity."
-
-msgid "system"
-msgstr "järjestelmä"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Tuntematon %(action)s"
-
-msgid "model log entry"
-msgstr "mallin lokimerkintä"
-
-msgid "model log entries"
-msgstr "mallin lokimerkinnät"
-
-msgid "collection"
-msgstr "kokoelma"
-
-msgid "collection view restriction"
-msgstr "kokoelman rajoitus"
-
-msgid "collection view restrictions"
-msgstr "kokoelman rajoitukset"
-
-msgid "collections"
-msgstr "kokoelmat"
-
-msgid "group collection permission"
-msgstr "ryhmä/kokoelma-oikeus"
-
-msgid "group collection permissions"
-msgstr "ryhmän oikeudet kokoelmaan"
-
-msgid "uploaded by user"
-msgstr "lähettänyt käyttäjä"
+msgid "Preview in desktop size"
+msgstr "Esikatsele työpöytäversiona"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -529,6 +409,18 @@ msgstr "ei tee mitään"
 
 msgid "may prevent deletion"
 msgstr "saattaa estää poistamisen"
+
+msgid "created at"
+msgstr "luotu"
+
+msgid "user"
+msgstr "käyttäjä"
+
+msgid "content JSON"
+msgstr "sisältö-JSON"
+
+msgid "approved go live at"
+msgstr "hyväksytty julkistus"
 
 msgid "hostname"
 msgstr "isäntäosoite"
@@ -603,11 +495,119 @@ msgstr ""
 "Jaettuja salasanoja ei tule käyttää arkaluonteisen tiedon suojaamiseen. Kuka "
 "tahansa, jolla on tämä salasana, voi nähdä sisällön."
 
+msgid "groups"
+msgstr "ryhmät"
+
 msgid "view restriction"
 msgstr "näyttörajoitus"
 
 msgid "view restrictions"
 msgstr "näyttörajoitukset"
+
+msgid "In progress"
+msgstr "Meneillään"
+
+msgid "Approved"
+msgstr "Hyväksytty"
+
+msgid "Needs changes"
+msgstr "Vaatii muutoksia"
+
+msgid "Cancelled"
+msgstr "Peruttu"
+
+msgid "status"
+msgstr "tila"
+
+msgid "requested by"
+msgstr "pyytänyt"
+
+msgid "current task state"
+msgstr "nykyinen tehtävän tila"
+
+msgid "Not started"
+msgstr "Ei aloitettu"
+
+msgid "Workflow state"
+msgstr "Työnkulun tila"
+
+msgid "Workflow states"
+msgstr "Työnkulun tilat"
+
+msgid "active"
+msgstr "aktiivinen"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktiivisia työnkulkuja on mahdollista lisätä sivuihin/pätkiin. Työnkulun "
+"aktivoinnin poistaminen ei poista työnkulkua olemassa olevasta sivusta/"
+"pätkästä."
+
+msgid "workflows"
+msgstr "työnkulut"
+
+msgid "task"
+msgstr "tehtävä"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktiivisia tehtäviä on mahdollista lisätä työnkulkuihin. Tehtävän "
+"aktivoinnin poistaminen ei poista tehtävää olemassa olevasta työnkulusta."
+
+msgid "tasks"
+msgstr "tehtävät"
+
+msgid "Request changes"
+msgstr "Pyydä muutoksia"
+
+msgid "Approve"
+msgstr "Hyväksy"
+
+msgid "Approve with comment"
+msgstr "Hyväksy kommentin kera"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Valitun Wagtail-ryhmän jäsenet voivat hyväksyä tämän tehtävän"
+
+msgid "Group approval task"
+msgstr "Ryhmän hyväksyntätehtävä"
+
+msgid "Group approval tasks"
+msgstr "Ryhmän hyväksyntätehtävät"
+
+msgid "Rejected"
+msgstr "Hylätty"
+
+msgid "Skipped"
+msgstr "Ohitettu"
+
+msgid "workflow state"
+msgstr "työnkulun tila"
+
+msgid "started at"
+msgstr "aloitettu"
+
+msgid "finished at"
+msgstr "valmistunut"
+
+msgid "finished by"
+msgstr "valmistanut"
+
+msgid "Task state"
+msgstr "Tehtävän tila"
+
+msgid "Task states"
+msgstr "Tehtävän tilat"
+
+msgid "in moderation"
+msgstr "tarkastettavana"
+
+msgid "live + in moderation"
+msgstr "esillä + tarkastettavana"
 
 msgid "Log in"
 msgstr "Kirjaudu"

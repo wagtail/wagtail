@@ -14,7 +14,7 @@ from django.utils.html import format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.admin.telepath import Adapter, register
 
 from .base import (
     Block,
@@ -160,7 +160,8 @@ class BaseStreamBlock(Block):
     def required(self):
         return self.meta.required
 
-    def clean(self, value):
+    def clean(self, value, ignore_required_constraints=False):
+        required = self.required and not ignore_required_constraints
         cleaned_data = []
         errors = {}
         non_block_errors = ErrorList()
@@ -172,15 +173,16 @@ class BaseStreamBlock(Block):
             except ValidationError as e:
                 errors[i] = e
 
-        if self.meta.min_num is not None and self.meta.min_num > len(value):
-            non_block_errors.append(
-                ValidationError(
-                    _("The minimum number of items is %(min_num)d")
-                    % {"min_num": self.meta.min_num}
+        if required:
+            if self.meta.min_num is not None and self.meta.min_num > len(value):
+                non_block_errors.append(
+                    ValidationError(
+                        _("The minimum number of items is %(min_num)d")
+                        % {"min_num": self.meta.min_num}
+                    )
                 )
-            )
-        elif self.required and len(value) == 0:
-            non_block_errors.append(ValidationError(_("This field is required.")))
+            elif len(value) == 0:
+                non_block_errors.append(ValidationError(_("This field is required.")))
 
         if self.meta.max_num is not None and self.meta.max_num < len(value):
             non_block_errors.append(
@@ -200,7 +202,7 @@ class BaseStreamBlock(Block):
                 max_num = min_max.get("max_num", None)
                 min_num = min_max.get("min_num", None)
                 block_count = block_counts[block_name]
-                if min_num is not None and min_num > block_count:
+                if required and min_num is not None and min_num > block_count:
                     non_block_errors.append(
                         ValidationError(
                             "{}: {}".format(
@@ -838,6 +840,7 @@ class StreamBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "attrs": block.meta.form_attrs or {},
             "maxNum": block.meta.max_num,
             "minNum": block.meta.min_num,
             "blockCounts": block.meta.block_counts,

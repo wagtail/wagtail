@@ -2,6 +2,7 @@ from django.contrib.auth.models import Group
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Page, PageViewRestriction
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
@@ -120,7 +121,8 @@ class TestSetPrivacyView(WagtailTestUtils, TestCase):
         )
         html = response.json()["html"]
         self.assertIn(
-            f'<span>Privacy is inherited from the ancestor page - <a href="{parent_edit_url }">Private page (simple page)</a></span>',
+            f"<span>Privacy is inherited from the ancestor page - "
+            f'<a href="{parent_edit_url}">Private page (simple page)</a></span>',
             html,
         )
 
@@ -503,9 +505,13 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
+        privacy_switch_js = versioned_static("wagtailadmin/js/privacy-switch.js")
+
         public_link = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
         private_link = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+        scripts = soup.select(f"script[src='{privacy_switch_js}']")
 
+        self.assertEqual(len(scripts), 1)
         # Check the privacy indicator is public
         self.assertEqual(public_link["class"], ["page-status-tag"])
 
@@ -524,8 +530,13 @@ class TestPrivacyIndicators(WagtailTestUtils, TestCase):
 
         soup = self.get_soup(response.content)
 
+        privacy_switch_js = versioned_static("wagtailadmin/js/privacy-switch.js")
+
         public_link = soup.select_one('[data-w-zone-switch-key-value="isPublic"]')
         private_link = soup.select_one('[data-w-zone-switch-key-value="!isPublic"]')
+        scripts = soup.select(f"script[src='{privacy_switch_js}']")
+
+        self.assertEqual(len(scripts), 1)
 
         # Check the privacy indicator is private
         self.assertEqual(private_link["class"], ["page-status-tag"])

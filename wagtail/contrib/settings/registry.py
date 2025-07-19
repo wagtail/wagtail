@@ -1,5 +1,3 @@
-from warnings import warn
-
 from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.urls import reverse
@@ -11,22 +9,14 @@ from wagtail.admin.admin_url_finder import (
     register_admin_url_finder,
 )
 from wagtail.admin.menu import MenuItem
-from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
-from .permissions import user_can_edit_setting_type
+from .forms import SitePermissionForm
 
 
 class SettingMenuItem(MenuItem):
-    def __init__(self, model, icon="cog", classname="", classnames="", **kwargs):
-        if classnames:
-            warn(
-                "The `classnames` kwarg for SettingMenuItem is deprecated - use `classname` instead.",
-                category=RemovedInWagtail70Warning,
-            )
-        classname = classname or classnames
-
+    def __init__(self, model, icon="cog", classname="", **kwargs):
         self.model = model
+        self.permission_policy = self.model.get_permission_policy()
         super().__init__(
             label=capfirst(model._meta.verbose_name),
             url=reverse(
@@ -39,7 +29,7 @@ class SettingMenuItem(MenuItem):
         )
 
     def is_shown(self, request):
-        return user_can_edit_setting_type(request.user, self.model)
+        return self.permission_policy.user_has_permission(request.user, "change")
 
 
 class SiteSettingAdminURLFinder(ModelAdminURLFinder):
@@ -96,8 +86,18 @@ class Registry(list):
                 codename=f"change_{model._meta.model_name}",
             )
 
+        if issubclass(model, BaseSiteSetting):
+            # construct a subclass of SitePermissionForm specific to this model
+            class SitePermissionFormSubclass(SitePermissionForm):
+                settings_model = model
+                icon = self._model_icons.get(model)
+
+            @hooks.register("register_group_permission_panel")
+            def group_permission_panel():
+                return SitePermissionFormSubclass
+
         # Register an admin URL finder
-        permission_policy = ModelPermissionPolicy(model)
+        permission_policy = model.get_permission_policy()
 
         if issubclass(model, BaseSiteSetting):
             finder_class = type(

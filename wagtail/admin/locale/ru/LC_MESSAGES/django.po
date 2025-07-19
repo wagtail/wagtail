@@ -7,9 +7,12 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Alexandr <alexromantsov@gmail.com>, 2016
 # Alexey Sveshnikov, 2022
+# Alexey Sveshnikov, 2022
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrei Satsevich, 2023
+# Andrei Satsevich, 2023
 # Andrei Satsevich, 2023-2025
+# Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Andrei “Talkerbox” Audzei <bigtalkerbox@gmail.com>, 2016
 # Arseni M <arseni+transifex@mouchinski.com>, 2017
@@ -20,7 +23,7 @@
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
-# Matt Westcott <matthew@torchbox.com>, 2015,2020
+# Matt Westcott <matthew@torchbox.com>, 2015,2020,2025
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
@@ -36,6 +39,7 @@
 # Виталий Чекрыжев, 2021
 # Влад <integration.into.society@gmail.com>, 2021-2022
 # Дмитрий Костелянец, 2023
+# Дмитрий Костелянец, 2023
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # Михаил Герасимов, 2019
@@ -44,9 +48,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 18:23+0100\n"
 "PO-Revision-Date: 2014-02-21 15:50+0000\n"
-"Last-Translator: Andrei Satsevich, 2023-2025\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>, 2015,2020,2025\n"
 "Language-Team: Russian (http://app.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -892,6 +896,9 @@ msgstr ""
 msgid "Read the release notes."
 msgstr "Прочтите примечания к выпуску."
 
+msgid "Close"
+msgstr "Закрыть"
+
 msgid "Your pages and snippets in a workflow"
 msgstr "Ваши страницы и фрагменты в рабочем процессе"
 
@@ -903,9 +910,6 @@ msgstr "Изменения запрошены в"
 
 msgid "Awaiting"
 msgstr "В ожидании"
-
-msgid "Close"
-msgstr "Закрыть"
 
 #, python-format
 msgid "Things in Wagtail %(version)s have changed!"
@@ -1908,13 +1912,6 @@ msgid "Choose when this page should go live and/or expire"
 msgstr ""
 "Выберите, когда эта страница должна стать активной и/или снятой с публикации"
 
-msgid ""
-"This publishing schedule will only take effect after you select the "
-"\"Publish\" option"
-msgstr ""
-"Этот график публикации вступит в силу только после выбора опции "
-"\"Опубликовать\"."
-
 msgid "Anyone with editing permissions can create schedules"
 msgstr "Любой, у кого есть права на редактирование, может создавать расписания"
 
@@ -2028,10 +2025,6 @@ msgstr "Завершен в"
 
 msgid "Clear"
 msgstr "Очистить"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Страница %(page_num)s из %(total_pages)s."
 
 msgid "Edit account avatar"
 msgstr "Редактировать аватар аккаунта"
@@ -2160,6 +2153,10 @@ msgstr "Видно всем"
 
 msgid "Private. Visit the live page"
 msgstr "Приватно. Посетите опубликованную страницу"
+
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s"
+msgstr "Страница %(page_num)s из %(total_pages)s"
 
 msgid "Toggle section"
 msgstr "Переключить раздел"
@@ -2292,9 +2289,6 @@ msgstr "Неверное расписание"
 
 msgid "Go-live:"
 msgstr "Запустить:"
-
-msgid "Once published:"
-msgstr "После публикации:"
 
 msgid "No publishing schedule set"
 msgstr "График публикации не установлен"
@@ -2704,9 +2698,6 @@ msgstr "Вставка или изменение ссылки"
 
 msgid "Text formatting"
 msgstr "Форматирование текста"
-
-msgid "Bold"
-msgstr "Жирный"
 
 msgid "Italic"
 msgstr "Наклонный"
@@ -3517,9 +3508,6 @@ msgstr "Новая задача рабочего процесса"
 msgid "Task '%(object)s' created."
 msgstr "Задача '%(object)s' создана."
 
-msgid "Editing workflow task"
-msgstr "Редактирование задачи рабочего процесса."
-
 #, python-format
 msgid "Task '%(object)s' updated."
 msgstr "Задача '%(object)s' обновлена."
@@ -3610,26 +3598,20 @@ msgstr "Изменить порядок дочерних страниц '%(title
 msgid "Heading 1"
 msgstr "Заголовок 1"
 
-
 msgid "Heading 2"
 msgstr "Заголовок 2"
-
 
 msgid "Heading 3"
 msgstr "Заголовок 3"
 
-
 msgid "Heading 4"
 msgstr "Заголовок 4"
-
 
 msgid "Heading 5"
 msgstr "Заголовок 5"
 
-
 msgid "Heading 6"
 msgstr "Заголовок 6"
-
 
 msgid "Bulleted list"
 msgstr "Маркированный список"
@@ -3639,6 +3621,9 @@ msgstr "Нумерованный список"
 
 msgid "Blockquote"
 msgstr "Цитата"
+
+msgid "Bold"
+msgstr "Жирный"
 
 msgid "Link"
 msgstr "Ссылка"

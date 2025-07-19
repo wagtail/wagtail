@@ -22,9 +22,6 @@ if (!window.Draftail || !window.draftail) {
   // Expose module as a global.
   window.draftail = draftail;
 
-  /** @deprecated RemovedInWagtail70 - Ensure that any third party packages that use global.chooserUrls can still append to this global object until support is removed. */
-  window.chooserUrls = global.chooserUrls || {};
-
   // Plugins for the built-in entities.
   const entityTypes = [
     {
@@ -66,4 +63,11 @@ if (!window.Draftail || !window.draftail) {
 
     window.draftail.initEditor(`#${id}`, detail, document.currentScript);
   });
+}
+
+if (window.telepath) {
+  window.telepath.register(
+    'wagtail.widgets.DraftailRichTextArea',
+    draftail.DraftailRichTextArea,
+  );
 }

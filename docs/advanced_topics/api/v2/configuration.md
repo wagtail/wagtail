@@ -231,6 +231,29 @@ This adds two fields to the API (other fields omitted for brevity):
 }
 ```
 
+### Rich text in the API
+
+In the above example, we serialize the `body` field using Wagtail’s storage format for rich text, described in [](../../../extending/rich_text_internals). This is useful when the API client will directly manipulate the identifiers referencing external data within rich text, such as fetching more data about page links or images by ID.
+
+It’s also often useful for the API to directly provide a “display” representation, similarly to the `|richtext` template filter. This can be done with a custom serializer:
+
+```python
+from rest_framework.fields import CharField
+from wagtail.rich_text import expand_db_html
+
+
+class RichTextSerializer(CharField):
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return expand_db_html(representation)
+```
+
+We can then change our `api_fields` definition so `body` uses this new serializer:
+
+```python
+APIField('body', serializer=RichTextSerializer()),
+```
+
 (api_v2_images)=
 
 ### Images in the API
@@ -366,3 +389,4 @@ endpoints.
 
 This allows you to change the maximum number of results a user can request at a
 time. This applies to all endpoints. Set to `None` for no limit.
+Combine with [`?limit` and `?offset` query parameters](apiv2_pagination) to retrieve the desired number of results.

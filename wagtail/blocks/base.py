@@ -2,7 +2,6 @@ import collections
 import itertools
 import json
 import re
-import warnings
 from functools import lru_cache
 from importlib import import_module
 
@@ -17,9 +16,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.coreutils import accepts_kwarg
-from wagtail.telepath import JSContext
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
+from wagtail.admin.telepath import JSContext
 from wagtail.utils.templates import template_is_overridden
 
 __all__ = [
@@ -65,6 +62,7 @@ class Block(metaclass=BaseBlock):
         label = None
         icon = "placeholder"
         classname = None
+        form_attrs = None
         group = ""
 
     # Attributes of Meta which can legally be modified after the block has been instantiated.
@@ -153,15 +151,20 @@ class Block(metaclass=BaseBlock):
         """
         return BoundBlock(self, value, prefix=prefix, errors=errors)
 
+    def _evaluate_callable(self, value):
+        return value() if callable(value) else value
+
     def get_default(self):
         """
         Return this block's default value (conventionally found in self.meta.default),
-        converted to the value type expected by this block. This caters for the case
-        where that value type is not something that can be expressed statically at
+        converted to the value type expected by this block. If the default is a callable
+        (e.g. a function), it will be evaluated at runtime. This caters for
+        the case where that value type is not something that can be expressed statically at
         model definition time (e.g. something like StructValue which incorporates a
         pointer back to the block definition object).
         """
-        return self.normalize(getattr(self.meta, "default", None))
+        default = self._evaluate_callable(getattr(self.meta, "default", None))
+        return self.normalize(default)
 
     def clean(self, value):
         """
@@ -252,16 +255,7 @@ class Block(metaclass=BaseBlock):
         use a template (with the passed context, supplemented by the result of get_context) if a
         'template' property is specified on the block, and fall back on render_basic otherwise.
         """
-        args = {"context": context}
-        if accepts_kwarg(self.get_template, "value"):
-            args["value"] = value
-        else:
-            warnings.warn(
-                f"{self.__class__.__name__}.get_template should accept a 'value' argument as first argument",
-                RemovedInWagtail70Warning,
-            )
-
-        template = self.get_template(**args)
+        template = self.get_template(value, context=context)
         if not template:
             return self.render_basic(value, context=context)
 
@@ -322,12 +316,13 @@ class Block(metaclass=BaseBlock):
         """
         Return the placeholder value that will be used for rendering the block's
         preview. By default, the value is the ``preview_value`` from the block's
-        options if provided, otherwise the ``default`` is used as fallback. This
-        method can be overridden to provide a dynamic preview value, such as
-        from the database.
+        options if provided. If it's a callable, it will be evaluated at runtime.
+        If ``preview_value`` is not provided, the ``default`` is used as fallback.
+        This method can also be overridden to provide a dynamic preview value.
         """
         if hasattr(self.meta, "preview_value"):
-            return self.normalize(self.meta.preview_value)
+            value = self._evaluate_callable(self.meta.preview_value)
+            return self.normalize(value)
         return self.get_default()
 
     @cached_property
@@ -336,14 +331,14 @@ class Block(metaclass=BaseBlock):
 
     @cached_property
     def is_previewable(self):
-        # To prevent showing a broken preview if the block preview has not been
-        # configured, consider the block to be previewable if either:
-        # - a specific preview template is configured for the block
-        # - a preview value is provided and the global template has been overridden
-        # which are the intended ways to configure block previews.
-        #
-        # If a block is made previewable by other means, the `is_previewable`
-        # property should be overridden to return `True`.
+        """
+        Determine whether the block is previewable in the block picker. By
+        default, it automatically detects when a custom template is used or the
+        :ref:`the global preview template <streamfield_global_preview_template>`
+        is overridden and a preview value is provided. If the block is
+        previewable by other means, override this property to return ``True``.
+        To turn off previews for the block, set it to ``False``.
+        """
         has_specific_template = (
             hasattr(self.meta, "preview_template")
             or self.__class__.get_preview_template is not Block.get_preview_template
@@ -723,9 +718,8 @@ class BlockWidget(forms.Widget):
     def media(self):
         return self.js_context.media + forms.Media(
             js=[
-                # needed for initBlockWidget, although these will almost certainly be
+                # this will almost certainly be
                 # pulled in by the block adapters too
-                versioned_static("wagtailadmin/js/telepath/telepath.js"),
                 versioned_static("wagtailadmin/js/telepath/blocks.js"),
             ],
             css={
@@ -756,7 +750,22 @@ class BlockField(forms.Field):
         super().__init__(**kwargs)
 
     def clean(self, value):
-        return self.block.clean(value)
+        from wagtail.blocks.stream_block import StreamBlock
+
+        if isinstance(self.block, StreamBlock):
+            # StreamBlock is the only block type that is formally-supported as the top level block
+            # of a BlockField, but it's possible that other block types could be used, so check
+            # this explicitly.
+            # self.block has a `required` attribute that is consistent with the StreamField's `blank`
+            # attribute and thus the `required` attribute of BlockField - but if the latter has been
+            # assigned dynamically (e.g. by defer_required_fields) we want this to take precedence.
+            # We do this through the `ignore_required_constraints` flag recognised by
+            # StreamBlock.clean.
+            return self.block.clean(
+                value, ignore_required_constraints=not self.required
+            )
+        else:
+            return self.block.clean(value)
 
     def has_changed(self, initial_value, data_value):
         return self.block.get_prep_value(initial_value) != self.block.get_prep_value(

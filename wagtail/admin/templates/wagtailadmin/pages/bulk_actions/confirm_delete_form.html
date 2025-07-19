@@ -1,0 +1,6 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/form.html' %}
+{% block form_fields %}
+    {% if type_to_confirm_before_delete %}
+        {% include "wagtailadmin/shared/dialog/confirm_site_name.html" with total_pages=total_page_count %}
+    {% endif %}
+{% endblock form_fields %}

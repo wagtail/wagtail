@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>, 2015\n"
 "Language-Team: Slovak (Slovakia) (http://app.transifex.com/torchbox/wagtail/"
@@ -64,6 +64,9 @@ msgstr "Zamknuté"
 msgid "Unlocked"
 msgstr "Odomknuté"
 
+msgid "content type"
+msgstr "typ obsahu"
+
 msgid "live"
 msgstr "live"
 
@@ -94,11 +97,35 @@ msgstr "koncept"
 msgid "live + draft"
 msgstr "live  + koncept"
 
-msgid "Default"
-msgstr "Predvolené"
-
 msgid "locked"
 msgstr "zamknuté"
+
+msgid "collection"
+msgstr "kolekcia"
+
+msgid "collection view restriction"
+msgstr "obmedzenie zobrazenia kolekcie"
+
+msgid "collection view restrictions"
+msgstr "obmedzenia zobrazenia kolekcie"
+
+msgid "name"
+msgstr "názov"
+
+msgid "collections"
+msgstr "kolekcie"
+
+msgid "group"
+msgstr "skupina"
+
+msgid "permission"
+msgstr "oprávnenie"
+
+msgid "group collection permission"
+msgstr "oprávnenia skupiny ku kolekcii"
+
+msgid "uploaded by user"
+msgstr "nahral používateľ"
 
 msgid "Add/edit pages you own"
 msgstr "Pridať/upraviť stránky ktoré vlastníte"
@@ -140,9 +167,6 @@ msgstr ""
 "Názov ktorý sa bude zobrazovať v adrese URL napríklad.  http://domain.com/"
 "blog/[my-slug]/"
 
-msgid "content type"
-msgstr "typ obsahu"
-
 msgid "URL path"
 msgstr "URL cesta"
 
@@ -165,24 +189,6 @@ msgstr "stránka"
 msgid "pages"
 msgstr "stránky"
 
-msgid "created at"
-msgstr "vytvorené"
-
-msgid "user"
-msgstr "používateľ"
-
-msgid "content JSON"
-msgstr "obsah JSON"
-
-msgid "approved go live at"
-msgstr "schválené na zverejnenie"
-
-msgid "group"
-msgstr "skupina"
-
-msgid "permission"
-msgstr "oprávnenie"
-
 msgid "group page permission"
 msgstr "skupinové oprávnenie stránky"
 
@@ -195,32 +201,20 @@ msgstr "obmedzenie zobrazenia stránky"
 msgid "page view restrictions"
 msgstr "obmedzenia zobrazenia stránky"
 
-msgid "name"
-msgstr "názov"
+msgid "Default"
+msgstr "Predvolené"
 
-msgid "groups"
-msgstr "skupiny"
+msgid "created at"
+msgstr "vytvorené"
 
-msgid "Approve"
-msgstr "Schváliť"
+msgid "user"
+msgstr "používateľ"
 
-msgid "collection"
-msgstr "kolekcia"
+msgid "content JSON"
+msgstr "obsah JSON"
 
-msgid "collection view restriction"
-msgstr "obmedzenie zobrazenia kolekcie"
-
-msgid "collection view restrictions"
-msgstr "obmedzenia zobrazenia kolekcie"
-
-msgid "collections"
-msgstr "kolekcie"
-
-msgid "group collection permission"
-msgstr "oprávnenia skupiny ku kolekcii"
-
-msgid "uploaded by user"
-msgstr "nahral používateľ"
+msgid "approved go live at"
+msgstr "schválené na zverejnenie"
 
 msgid "hostname"
 msgstr "hostname"
@@ -279,11 +273,17 @@ msgstr "Verejná"
 msgid "Private, accessible to users in specific groups"
 msgstr "Súkromné, prístupné používateľom v špecifických skupinách"
 
+msgid "groups"
+msgstr "skupiny"
+
 msgid "view restriction"
 msgstr "zobraziť obmedzenie"
 
 msgid "view restrictions"
 msgstr "zobraziť obmedzenia"
+
+msgid "Approve"
+msgstr "Schváliť"
 
 msgid "Log in"
 msgstr "Prihlásiť"

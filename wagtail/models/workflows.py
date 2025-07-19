@@ -1,7 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -780,6 +780,9 @@ class Task(SpecificMixin, models.Model):
         return TaskStateCommentForm
 
     def get_template_for_action(self, action):
+        """
+        Specifies a template for the workflow action modal.
+        """
         return ""
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
@@ -1155,8 +1158,34 @@ class TaskState(SpecificMixin, models.Model):
         verbose_name_plural = _("Task states")
 
 
-class WorkflowMixin:
+class WorkflowMixin(models.Model):
     """A mixin that allows a model to have workflows."""
+
+    _workflow_states = GenericRelation(
+        "wagtailcore.WorkflowState",
+        content_type_field="base_content_type",
+        object_id_field="object_id",
+        for_concrete_model=False,
+    )
+    """
+    A default ``GenericRelation`` for the purpose of automatically deleting
+    workflow states when the object is deleted. This is not used to query the
+    object's workflow states. Instead, the :meth:`workflow_states` property is
+    used for that purpose. As such, this default relation is considered private.
+
+    This ``GenericRelation`` does not have a
+    :attr:`~django.contrib.contenttypes.fields.GenericRelation.related_query_name`,
+    so it cannot be used for reverse-related queries from ``WorkflowState`` back
+    to this model. If the feature is desired, subclasses can define their own
+    ``GenericRelation`` to ``WorkflowState`` with a custom
+    ``related_query_name``.
+
+    .. versionadded:: 7.1
+        The default ``GenericRelation`` :attr:`~wagtail.models.WorkflowMixin._workflow_states` was added.
+    """
+
+    class Meta:
+        abstract = True
 
     @classmethod
     def check(cls, **kwargs):
@@ -1169,8 +1198,7 @@ class WorkflowMixin:
     def _check_draftstate_and_revision_mixins(cls):
         mro = cls.mro()
         error = checks.Error(
-            "WorkflowMixin requires DraftStateMixin and RevisionMixin "
-            "(in that order).",
+            "WorkflowMixin requires DraftStateMixin and RevisionMixin (in that order).",
             hint=(
                 "Make sure your model's inheritance order is as follows: "
                 "WorkflowMixin, DraftStateMixin, RevisionMixin."
@@ -1237,15 +1265,13 @@ class WorkflowMixin:
     @property
     def workflow_states(self):
         """
-        Returns workflow states that belong to the object.
-
-        To allow filtering ``WorkflowState`` queries by the object,
-        subclasses should define a
-        :class:`~django.contrib.contenttypes.fields.GenericRelation` to
-        :class:`~wagtail.models.WorkflowState` with the desired
-        ``related_query_name``. This property can be replaced with the
-        ``GenericRelation`` or overridden to allow custom logic, which can be
-        useful if the model has inheritance.
+        Returns workflow states that belong to the object. For non-page models,
+        this is done by querying the :class:`~wagtail.models.WorkflowState`
+        model directly rather than using a
+        :class:`~django.contrib.contenttypes.fields.GenericRelation`, to avoid
+        `a known limitation <https://code.djangoproject.com/ticket/31269>`_ in
+        Django for models with multi-table inheritance where the relation's
+        content type may not match the instance's type.
         """
         return WorkflowState.objects.for_instance(self)
 

@@ -19,6 +19,10 @@ exports[`telepath: wagtail.blocks.StaticBlock allows safe HTML boundblock matche
 StaticBlock {
   "blockDef": StaticBlockDefinition {
     "meta": {
+      "attrs": {
+        "data-action": "click->w-custom#doSomething",
+        "data-controller": "w-custom",
+      },
       "html": "The admin text <script>somethingBad();</script>",
       "icon": "icon",
       "label": "The label",
@@ -28,7 +32,7 @@ StaticBlock {
 }
 `;
 
-exports[`telepath: wagtail.blocks.StaticBlock allows safe HTML it renders correctly 1`] = `"<div>The admin text <script>somethingBad();</script></div>"`;
+exports[`telepath: wagtail.blocks.StaticBlock allows safe HTML it renders correctly 1`] = `"<div data-controller="w-custom" data-action="click->w-custom#doSomething">The admin text <script>somethingBad();</script></div>"`;
 
 exports[`telepath: wagtail.blocks.StaticBlock boundblock matches the snapshot 1`] = `
 StaticBlock {

@@ -46,6 +46,7 @@ from wagtail.images.image_operations import (
     TransformOperation,
 )
 from wagtail.images.rect import Rect
+from wagtail.images.utils import to_svg_safe_spec
 from wagtail.models import CollectionMember, ReferenceIndex
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -500,6 +501,31 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         except AttributeError:
             pass
 
+    def clean_filter_for_svg(self, filter: Filter) -> Filter:
+        """
+        Given a Filter object, check if its spec contains a 'preserve-svg' directive. If so,
+        remove it from the spec (along with any rasterising operations, in the case that this
+        image is an SVG) and return a new Filter object with the cleaned spec.
+        """
+        spec_elements = filter.spec.split("|")
+        if "preserve-svg" in spec_elements:
+            # remove 'preserve-svg' from filter specs for all image types
+            clean_spec = "|".join(
+                item for item in spec_elements if item != "preserve-svg"
+            )
+            if not clean_spec:
+                # no formatting directives were included in filter
+                raise InvalidFilterSpecError(
+                    "Filter should include at least one formatting directive other than 'preserve-svg'"
+                )
+            if self.is_svg():
+                # remove rasterizing directives
+                clean_spec = to_svg_safe_spec(clean_spec)
+
+            return Filter(spec=clean_spec)
+
+        return filter
+
     def get_rendition(self, filter: Filter | str) -> AbstractRendition:
         """
         Returns a ``Rendition`` instance with a ``file`` field value (an
@@ -513,6 +539,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         if isinstance(filter, str):
             filter = Filter(spec=filter)
+        elif not isinstance(filter, Filter):
+            raise InvalidFilterSpecError(
+                "Unrecognised filter format - string or Filter instance expected"
+            )
+
+        filter = self.clean_filter_for_svg(filter)
 
         try:
             rendition = self.find_existing_rendition(filter)
@@ -577,9 +609,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         model will be returned.
         """
         Rendition = self.get_rendition_model()
-        # We don’t support providing mixed Filter and string arguments in the same call.
-        if isinstance(filters[0], str):
-            filters = [Filter(spec) for spec in dict.fromkeys(filters).keys()]
+
+        clean_filters = []
+        for filter in filters:
+            if isinstance(filter, str):
+                filter = Filter(spec=filter)
+
+            filter = self.clean_filter_for_svg(filter)
+            clean_filters.append(filter)
+
+        # Remove duplicate filters from the list while preserving order
+        filters = list(dict.fromkeys(clean_filters))
 
         # Find existing renditions where possible
         renditions = self.find_existing_renditions(*filters)
@@ -1139,6 +1179,14 @@ class Filter:
 
         return hashlib.sha1(vary_string.encode("utf-8")).hexdigest()[:8]
 
+    def __eq__(self, value):
+        if isinstance(value, Filter):
+            return self.spec == value.spec
+        return False
+
+    def __hash__(self):
+        return hash(self.spec)
+
 
 class ResponsiveImage:
     """
@@ -1352,13 +1400,53 @@ class AbstractRendition(ImageFileMixin, models.Model):
             <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
             </div>
         """
+        horz = self.background_position_x
+        vert = self.background_position_y
+        return f"background-position: {horz} {vert};"
+
+    @property
+    def background_position_x(self):
+        """
+        Returns the horizontal background position as a percentage string.
+
+        This positions the rendition horizontally according to the focal point's x coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The horizontal position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-x` CSS property instead of using inline styles.
+            <div class="my-bg-image" data-background-position-x="{{ image.background_position_x }}">
+            </div>
+        """
         focal_point = self.focal_point
         if focal_point:
             horz = int((focal_point.x * 100) // self.width)
-            vert = int((focal_point.y * 100) // self.height)
-            return f"background-position: {horz}% {vert}%;"
+            return f"{horz}%"
         else:
-            return "background-position: 50% 50%;"
+            return "50%"
+
+    @property
+    def background_position_y(self):
+        """
+        Returns the vertical background position as a percentage string.
+
+        This positions the rendition vertically according to the focal point's y coordinate.
+        If no focal point is set, defaults to 50% (center).
+
+        Returns:
+            str: The vertical position as a percentage (e.g., "25%")
+
+        This can be passed as a data attribute to then be used in JavaScript to set the `background-position-y` CSS property instead of using inline styles.
+            <div class="my-bg-image" data-background-position-y="{{ image.background_position_y }}">
+            </div>
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            vert = int((focal_point.y * 100) // self.height)
+            return f"{vert}%"
+        else:
+            return "50%"
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
@@ -1405,8 +1493,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
                         "on the 'image', 'filter_spec', and 'focal_point_key' fields."
                         % cls._meta.label,
                         hint=(
-                            "Add models.UniqueConstraint(fields={"
-                            '"image", "filter_spec", "focal_point_key"}, '
+                            "Add models.UniqueConstraint(fields=("
+                            '"image", "filter_spec", "focal_point_key"), '
                             'name="unique_rendition") to %s.Meta.constraints.'
                             % (cls.__name__,)
                         ),

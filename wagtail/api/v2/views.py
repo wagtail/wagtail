@@ -56,6 +56,7 @@ class BaseAPIViewSet(GenericViewSet):
             "format",
         ]
     )
+    find_query_parameters = frozenset(["id"])
     body_fields = ["id"]
     meta_fields = ["type", "detail_url"]
     listing_default_fields = ["id", "type", "detail_url"]
@@ -113,7 +114,12 @@ class BaseAPIViewSet(GenericViewSet):
                 )
             )
 
-        return redirect(url)
+        # Retain all query parameters except ones only used to find the object
+        query = request.GET.copy()
+        for param in self.find_query_parameters:
+            query.pop(param, None)
+
+        return redirect(f"{url}?{query.urlencode()}")
 
     def find_object(self, queryset, request):
         """
@@ -305,10 +311,10 @@ class BaseAPIViewSet(GenericViewSet):
                 child_endpoint_class = (
                     child_endpoint_class[1] if child_endpoint_class else BaseAPIViewSet
                 )
-                child_serializer_classes[
-                    field_name
-                ] = child_endpoint_class._get_serializer_class(
-                    router, child_model, child_sub_fields, nested=True
+                child_serializer_classes[field_name] = (
+                    child_endpoint_class._get_serializer_class(
+                        router, child_model, child_sub_fields, nested=True
+                    )
                 )
 
             else:
@@ -433,6 +439,11 @@ class PagesAPIViewSet(BaseAPIViewSet):
             "translation_of",
             "locale",
             "site",
+        ]
+    )
+    find_query_parameters = BaseAPIViewSet.find_query_parameters.union(
+        [
+            "html_path",
         ]
     )
     body_fields = BaseAPIViewSet.body_fields + [

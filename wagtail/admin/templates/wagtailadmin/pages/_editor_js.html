@@ -1,9 +1,8 @@
 {% load wagtailadmin_tags %}
 
 {% comment %}
-    JavaScript declarations to be included on the 'create page' and 'edit page' views
+    DEPRECATED: Remove this template in a future release and replace with the direct hook_output template tag, customizations should use the hook only.
+    Do not add any further standalone script imports here, this template will be deprecated in a future release - RemovedInWagtail80
 {% endcomment %}
 
-<script src="{% versioned_static 'wagtailadmin/js/comments.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
 {% hook_output 'insert_editor_js' %}

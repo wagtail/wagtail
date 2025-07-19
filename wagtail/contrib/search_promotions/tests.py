@@ -4,6 +4,7 @@ from io import BytesIO, StringIO
 
 from django.contrib.auth.models import Permission
 from django.core import management
+from django.db.models import F
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -22,6 +23,18 @@ from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags
 from wagtail.log_actions import registry as log_registry
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.template_tests import AdminTemplateTestUtils
+
+
+def _add_N_hits(query, n, date=None):
+    """
+    Add multiple daily hits to the given query
+    """
+    if n < 2:
+        raise ValueError("You must add at least 2 hits")
+    if date is None:
+        date = timezone.now().date()
+    query.add_hit(date=date)  # Make sure the associated QueryDailyHits is created
+    QueryDailyHits.objects.filter(query=query, date=date).update(hits=F("hits") + n - 1)
 
 
 class TestSearchPromotions(TestCase):
@@ -87,8 +100,7 @@ class TestSearchPromotions(TestCase):
 
     def test_get_most_popular(self):
         popularQuery = Query.get("popular")
-        for i in range(5):
-            popularQuery.add_hit()
+        _add_N_hits(popularQuery, 5)
         SearchPromotion.objects.create(
             query=Query.get("popular"),
             page_id=2,
@@ -117,8 +129,7 @@ class TestSearchPromotions(TestCase):
         FIVE_DAYS_AGO = TODAY - timedelta(days=5)
 
         popularQuery = Query.get("popular")
-        for i in range(5):
-            popularQuery.add_hit(date=FIVE_DAYS_AGO)
+        _add_N_hits(popularQuery, 5, date=FIVE_DAYS_AGO)
 
         surpriseQuery = Query.get("surprise")
         surpriseQuery.add_hit(date=TODAY)
@@ -382,8 +393,7 @@ class TestSearchPromotionsIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
         )
 
         popularQuery = Query.get("optimal")
-        for i in range(50):
-            popularQuery.add_hit()
+        _add_N_hits(popularQuery, 50)
         SearchPromotion.objects.create(
             query=popularQuery,
             page_id=1,
@@ -392,8 +402,7 @@ class TestSearchPromotionsIndexView(AdminTemplateTestUtils, WagtailTestUtils, Te
         )
 
         popularQuery = Query.get("suboptimal")
-        for i in range(25):
-            popularQuery.add_hit()
+        _add_N_hits(popularQuery, 25)
         SearchPromotion.objects.create(
             query=popularQuery,
             page_id=1,
@@ -654,8 +663,7 @@ class TestSearchPromotionsAddView(AdminTemplateTestUtils, WagtailTestUtils, Test
             response.context["searchpicks_formset"],
             0,
             "page",
-            "Select a valid choice. "
-            "That choice is not one of the available choices.",
+            "Select a valid choice. That choice is not one of the available choices.",
         )
         # Should not raise an error anywhere else
         self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
@@ -992,8 +1000,7 @@ class TestSearchPromotionsEditView(AdminTemplateTestUtils, WagtailTestUtils, Tes
             response.context["searchpicks_formset"],
             1,
             "page",
-            "Select a valid choice. "
-            "That choice is not one of the available choices.",
+            "Select a valid choice. That choice is not one of the available choices.",
         )
         # Should not raise an error anywhere else
         self.assertFormSetError(response.context["searchpicks_formset"], 0, None, [])
@@ -1560,7 +1567,8 @@ class TestQueryStringNormalisation(TestCase):
     def test_different_queries(self):
         queries = [
             "HelloWorld",
-            "HelloWorld!" "  Hello  World!  ",
+            "HelloWorld!",
+            "  Hello  World  ",
             "Hello",
         ]
 
@@ -1570,13 +1578,8 @@ class TestQueryStringNormalisation(TestCase):
 
 class TestQueryPopularity(TestCase):
     def test_query_popularity(self):
-        # Add 3 hits to unpopular query
-        for i in range(3):
-            Query.get("unpopular query").add_hit()
-
-        # Add 10 hits to popular query
-        for i in range(10):
-            Query.get("popular query").add_hit()
+        _add_N_hits(Query.get("unpopular query"), 3)
+        _add_N_hits(Query.get("popular query"), 10)
 
         # Get most popular queries
         popular_queries = Query.get_most_popular()
@@ -1586,9 +1589,7 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[0], Query.get("popular query"))
         self.assertEqual(popular_queries[1], Query.get("unpopular query"))
 
-        # Add 5 hits to little popular query
-        for i in range(5):
-            Query.get("little popular query").add_hit()
+        _add_N_hits(Query.get("little popular query"), 5)
 
         # Check list again, little popular query should be in the middle
         self.assertEqual(popular_queries.count(), 3)
@@ -1597,8 +1598,7 @@ class TestQueryPopularity(TestCase):
         self.assertEqual(popular_queries[2], Query.get("unpopular query"))
 
         # Unpopular query goes viral!
-        for i in range(20):
-            Query.get("unpopular query").add_hit()
+        _add_N_hits(Query.get("unpopular query"), 20)
 
         # Unpopular query should be most popular now
         self.assertEqual(popular_queries.count(), 3)
@@ -1613,14 +1613,11 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
     @classmethod
     def setUpTestData(self):
         self.query = Query.get("A query with three hits")
-        self.query.add_hit()
-        self.query.add_hit()
-        self.query.add_hit()
+        _add_N_hits(self.query, 3)
         Query.get("a query with no hits")
         Query.get("A query with one hit").add_hit()
         query = Query.get("A query with two hits")
-        query.add_hit()
-        query.add_hit()
+        _add_N_hits(query, 2)
 
     def test_simple(self):
         response = self.get()
@@ -1730,6 +1727,22 @@ class TestQueryHitsReportView(BaseReportViewTestCase):
                     [[cell.text.strip() for cell in tr.select("td")] for tr in trs],
                     results,
                 )
+
+    def test_hits_column_localized(self):
+        _add_N_hits(self.query, 10_000)
+
+        def _get_hits(lang):
+            response = self.get(headers={"accept-language": lang})
+            soup = self.get_soup(response.content)
+            trs = soup.select("main tr")
+            self.assertEqual(len(trs), 4)  # 1 header + 3 body rows
+            _, hits = trs[1].select("td")
+            return hits.text.strip()
+
+        for lang, expected in [("en", "10,003"), ("fr", "10\N{NO-BREAK SPACE}003")]:
+            with self.subTest(lang=lang):
+                hits = _get_hits(lang=lang)
+                self.assertEqual(hits, expected)
 
 
 class TestFilteredQueryHitsView(BaseReportViewTestCase):

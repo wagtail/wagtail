@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
-"Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020,2023\n"
+"Last-Translator: 祝沙军 <zhushajun@gmail.com>, 2017\n"
 "Language-Team: Chinese (China) (http://app.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -98,8 +98,34 @@ msgstr "已锁定"
 msgid "Unlocked"
 msgstr "已解锁"
 
-msgid "latest revision"
-msgstr "最新版本"
+msgid "content type"
+msgstr "内容类型"
+
+msgid "timestamp (UTC)"
+msgstr "时间戳（UTC）"
+
+msgid "log entry"
+msgstr "日志条目"
+
+msgid "log entries"
+msgstr "日志条目"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "日志动作“%(action_name)s”未被注册"
+
+msgid "system"
+msgstr "系统"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "未知的 %(action)s"
+
+msgid "model log entry"
+msgstr "模型日志条目"
+
+msgid "model log entries"
+msgstr "模型日志条目"
 
 msgid "live"
 msgstr "在用"
@@ -137,18 +163,6 @@ msgstr "在用 + 已计划"
 msgid "live + draft"
 msgstr "发布+草稿"
 
-msgid "Default"
-msgstr "默认"
-
-msgid "Preview in mobile size"
-msgstr "手机预览"
-
-msgid "Preview in tablet size"
-msgstr "平板预览"
-
-msgid "Preview in desktop size"
-msgstr "桌面预览"
-
 msgid "locked"
 msgstr "已锁定"
 
@@ -158,11 +172,35 @@ msgstr "锁定于"
 msgid "locked by"
 msgstr "锁定人"
 
-msgid "in moderation"
-msgstr "审核中"
+msgid "collection"
+msgstr "集合"
 
-msgid "live + in moderation"
-msgstr "发布+审核中"
+msgid "collection view restriction"
+msgstr "集合查看限制"
+
+msgid "collection view restrictions"
+msgstr "集合查看限制"
+
+msgid "name"
+msgstr "名字"
+
+msgid "collections"
+msgstr "集合"
+
+msgid "group"
+msgstr "组"
+
+msgid "permission"
+msgstr "权限"
+
+msgid "group collection permission"
+msgstr "群组集合权限"
+
+msgid "group collection permissions"
+msgstr "群组集合权限"
+
+msgid "uploaded by user"
+msgstr "用户上传"
 
 msgid "Add/edit pages you own"
 msgstr "添加/编辑所属的页面"
@@ -211,9 +249,6 @@ msgid ""
 "[my-slug]/"
 msgstr "用于URL的页面名称，如http://domain.com/work/[my-work]/"
 
-msgid "content type"
-msgstr "内容类型"
-
 msgid "URL path"
 msgstr "URL路径"
 
@@ -258,33 +293,6 @@ msgstr "页面"
 msgid "pages"
 msgstr "页面"
 
-msgid "object id"
-msgstr "对象ID"
-
-msgid "created at"
-msgstr "创建时间"
-
-msgid "user"
-msgstr "用户"
-
-msgid "content JSON"
-msgstr "内容JSON"
-
-msgid "approved go live at"
-msgstr "批准上线时间"
-
-msgid "revision"
-msgstr "修订版本"
-
-msgid "revisions"
-msgstr "修订版本"
-
-msgid "group"
-msgstr "组"
-
-msgid "permission"
-msgstr "权限"
-
 msgid "group page permission"
 msgstr "群组页面权限"
 
@@ -305,110 +313,6 @@ msgstr "工作流页面"
 
 msgid "workflow pages"
 msgstr "工作流页面"
-
-msgid "workflow_tasks"
-msgstr "工作流任务"
-
-msgid "task"
-msgstr "任务"
-
-msgid "workflow task order"
-msgstr "工作流任务顺序"
-
-msgid "workflow task orders"
-msgstr "工作流任务顺序"
-
-msgid "name"
-msgstr "名字"
-
-msgid "active"
-msgstr "有效"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr "有效任务可以添加到工作流中。停用任务不会将其从现有工作流中删除。"
-
-msgid "tasks"
-msgstr "任务"
-
-msgid "workflows"
-msgstr "工作流"
-
-msgid "groups"
-msgstr "组"
-
-msgid "Request changes"
-msgstr "请求修改"
-
-msgid "Approve"
-msgstr "批准"
-
-msgid "Approve with comment"
-msgstr "带评论批准"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "所选Wagtail组的成员可以批准此任务"
-
-msgid "Group approval task"
-msgstr "组审批任务"
-
-msgid "Group approval tasks"
-msgstr "组审批任务"
-
-msgid "In progress"
-msgstr "进行中"
-
-msgid "Approved"
-msgstr "已批准"
-
-msgid "Needs changes"
-msgstr "需要修改"
-
-msgid "Cancelled"
-msgstr "已取消"
-
-msgid "status"
-msgstr "状态"
-
-msgid "requested by"
-msgstr "请求人"
-
-msgid "current task state"
-msgstr "当前任务状态"
-
-msgid "Not started"
-msgstr "未启动"
-
-msgid "Workflow state"
-msgstr "工作流状态"
-
-msgid "Workflow states"
-msgstr "工作流状态"
-
-msgid "Rejected"
-msgstr "已拒绝"
-
-msgid "Skipped"
-msgstr "已跳过"
-
-msgid "workflow state"
-msgstr "工作流状态"
-
-msgid "started at"
-msgstr "启动于"
-
-msgid "finished at"
-msgstr "完成于"
-
-msgid "finished by"
-msgstr "完成人"
-
-msgid "Task state"
-msgstr "任务状态"
-
-msgid "Task states"
-msgstr "任务状态"
 
 msgid "page log entry"
 msgstr "页面日志条目"
@@ -431,52 +335,41 @@ msgstr "评论回复"
 msgid "comment replies"
 msgstr "评论回复"
 
-msgid "timestamp (UTC)"
-msgstr "时间戳（UTC）"
+msgid "Default"
+msgstr "默认"
 
-msgid "log entry"
-msgstr "日志条目"
+msgid "Preview in mobile size"
+msgstr "手机预览"
 
-msgid "log entries"
-msgstr "日志条目"
+msgid "Preview in tablet size"
+msgstr "平板预览"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "日志动作“%(action_name)s”未被注册"
+msgid "Preview in desktop size"
+msgstr "桌面预览"
 
-msgid "system"
-msgstr "系统"
+msgid "object id"
+msgstr "对象ID"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "未知的 %(action)s"
+msgid "created at"
+msgstr "创建时间"
 
-msgid "model log entry"
-msgstr "模型日志条目"
+msgid "user"
+msgstr "用户"
 
-msgid "model log entries"
-msgstr "模型日志条目"
+msgid "content JSON"
+msgstr "内容JSON"
 
-msgid "collection"
-msgstr "集合"
+msgid "approved go live at"
+msgstr "批准上线时间"
 
-msgid "collection view restriction"
-msgstr "集合查看限制"
+msgid "revision"
+msgstr "修订版本"
 
-msgid "collection view restrictions"
-msgstr "集合查看限制"
+msgid "revisions"
+msgstr "修订版本"
 
-msgid "collections"
-msgstr "集合"
-
-msgid "group collection permission"
-msgstr "群组集合权限"
-
-msgid "group collection permissions"
-msgstr "群组集合权限"
-
-msgid "uploaded by user"
-msgstr "用户上传"
+msgid "latest revision"
+msgstr "最新版本"
 
 msgid "hostname"
 msgstr "主机名"
@@ -532,11 +425,118 @@ msgstr "公开"
 msgid "Private, accessible to users in specific groups"
 msgstr "私有，特定用户组中的用户可访问"
 
+msgid "groups"
+msgstr "组"
+
 msgid "view restriction"
 msgstr "查看限制"
 
 msgid "view restrictions"
 msgstr "查看限制"
+
+msgid "In progress"
+msgstr "进行中"
+
+msgid "Approved"
+msgstr "已批准"
+
+msgid "Needs changes"
+msgstr "需要修改"
+
+msgid "Cancelled"
+msgstr "已取消"
+
+msgid "status"
+msgstr "状态"
+
+msgid "requested by"
+msgstr "请求人"
+
+msgid "current task state"
+msgstr "当前任务状态"
+
+msgid "Not started"
+msgstr "未启动"
+
+msgid "Workflow state"
+msgstr "工作流状态"
+
+msgid "Workflow states"
+msgstr "工作流状态"
+
+msgid "active"
+msgstr "有效"
+
+msgid "workflows"
+msgstr "工作流"
+
+msgid "workflow_tasks"
+msgstr "工作流任务"
+
+msgid "task"
+msgstr "任务"
+
+msgid "workflow task order"
+msgstr "工作流任务顺序"
+
+msgid "workflow task orders"
+msgstr "工作流任务顺序"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr "有效任务可以添加到工作流中。停用任务不会将其从现有工作流中删除。"
+
+msgid "tasks"
+msgstr "任务"
+
+msgid "Request changes"
+msgstr "请求修改"
+
+msgid "Approve"
+msgstr "批准"
+
+msgid "Approve with comment"
+msgstr "带评论批准"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "所选Wagtail组的成员可以批准此任务"
+
+msgid "Group approval task"
+msgstr "组审批任务"
+
+msgid "Group approval tasks"
+msgstr "组审批任务"
+
+msgid "Rejected"
+msgstr "已拒绝"
+
+msgid "Skipped"
+msgstr "已跳过"
+
+msgid "workflow state"
+msgstr "工作流状态"
+
+msgid "started at"
+msgstr "启动于"
+
+msgid "finished at"
+msgstr "完成于"
+
+msgid "finished by"
+msgstr "完成人"
+
+msgid "Task state"
+msgstr "任务状态"
+
+msgid "Task states"
+msgstr "任务状态"
+
+msgid "in moderation"
+msgstr "审核中"
+
+msgid "live + in moderation"
+msgstr "发布+审核中"
 
 msgid "Log in"
 msgstr "登录"

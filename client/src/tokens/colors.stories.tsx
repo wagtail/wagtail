@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { staticColors, Hues, Shade } from './colors';
-import colorThemes, { ThemeCategory } from './colorThemes';
+import colorThemes, { ThemeCategory, Token } from './colorThemes';
 import {
   generateColorVariables,
   generateThemeColorVariables,
@@ -110,7 +110,7 @@ const CategorySwatches = ({ category }: { category: ThemeCategory }) => (
     <h3 className="w-h3">{category.label}</h3>
     <div className="w-grid w-grid-flow-col w-gap-2.5">
       {Object.entries(category.tokens).map(([name, token]) => (
-        <TokenSwatch key={token} name={name} token={token} />
+        <TokenSwatch key={name} name={name} token={token} />
       ))}
     </div>
   </div>
@@ -219,7 +219,7 @@ const colorCustomisationsDemo = (
             .sort(([nameA], [nameB]) =>
               nameA === 'DEFAULT' ? -1 : Number(nameB) - Number(nameA),
             )
-            .map(([name, shade]) => (
+            .map(([_, shade]) => (
               <tr key={shade.hex}>
                 <td style={{ backgroundColor: `var(${shade.cssVariable})` }} />
                 <td>

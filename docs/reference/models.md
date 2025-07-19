@@ -190,6 +190,38 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: find_for_request
 
+    .. method:: get_default_privacy_setting(request)
+
+        Set the default privacy setting for the page.
+
+        The method must return a dictionary with at least a 'type' key. The value must be one of the following values from :class:`~wagtail.models.PageViewRestriction`'s :attr:`~wagtail.models.PageViewRestriction.restriction_type`:
+
+        - ``BaseViewRestriction.NONE``: The page is public and can be accessed by anyone. (default) - '{"type": BaseViewRestriction.NONE}'
+
+        - ``BaseViewRestriction.LOGIN``: The page is private and can only be accessed by authenticated users. - '{"type": BaseViewRestriction.LOGIN}'
+
+        - ``BaseViewRestriction.PASSWORD``: The page is private and can only be accessed by users with a shared password. (requires additional ``password`` key in the dictionary) - '{"type": BaseViewRestriction.PASSWORD, "password": "P@ssw0rd123!"}'
+
+        - ``BaseViewRestriction.GROUPS``: The page is private and can only be accessed by users in specific groups. (requires additional ``groups`` key with list of Group objects) - '{"type": BaseViewRestriction.GROUPS, "groups": [moderators, editors]}'
+
+        Example
+
+        .. code-block:: python
+
+            class BreadsIndexPage(Page):
+                #...
+
+                def get_default_privacy_setting(request):
+                    from wagtail.models import BaseViewRestriction
+                    # if the editor has the foo.add_bar permission set the default to groups with the moderators and editors group checked
+                    if request.user.has_perm("foo.add_bar"):
+                        moderators = Group.objects.filter(name="Moderators").first()
+                        editors = Group.objects.filter(name="Editors").first()
+                        return {"type": BaseViewRestriction.GROUPS, "groups": [moderators,editors]}
+                    else:
+                        return {"type": BaseViewRestriction.NONE}
+
+
     .. autoattribute:: context_object_name
 
         Custom name for page instance in page's ``Context``.
@@ -405,6 +437,12 @@ See also [django-treebeard](inv:treebeard:std:doc#index)'s [node API](inv:treebe
 
     .. automethod:: copy
 
+    .. method:: move(new_parent, pos=None)
+
+        Move a page and all its descendants to a new parent.
+        See :meth:`django-treebeard <treebeard.mp_tree.MP_Node.move>` for more information.
+
+
     .. automethod:: create_alias
 
     .. automethod:: update_aliases
@@ -543,6 +581,8 @@ database queries making them unable to be edited or viewed.
 `TranslatableMixin` is an abstract model that can be added to any non-page Django model to make it translatable.
 Pages already include this mixin, so there is no need to add it.
 
+For a non-page model to be translatable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](translatable_snippets).
+
 ### Database fields
 
 ```{eval-rst}
@@ -596,6 +636,8 @@ If your model defines a [`Meta` class](inv:django#ref/models/options) (either wi
 `PreviewableMixin` is a mixin class that can be added to any non-page Django model to allow previewing its instances.
 Pages already include this mixin, so there is no need to add it.
 
+For a non-page model to be previewable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_making_snippets_previewable).
+
 ### Methods and properties
 
 ```{eval-rst}
@@ -623,6 +665,8 @@ Pages already include this mixin, so there is no need to add it.
 `RevisionMixin` is an abstract model that can be added to any non-page Django model to allow saving revisions of its instances.
 Pages already include this mixin, so there is no need to add it.
 
+For a non-page model to be revisionable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_saving_revisions_of_snippets).
+
 ### Database fields
 
 ```{eval-rst}
@@ -641,6 +685,8 @@ Pages already include this mixin, so there is no need to add it.
 .. class:: RevisionMixin
     :no-index:
 
+    .. autoattribute:: _revisions
+
     .. autoattribute:: revisions
 
     .. automethod:: save_revision
@@ -654,6 +700,8 @@ Pages already include this mixin, so there is no need to add it.
 
 `DraftStateMixin` is an abstract model that can be added to any non-page Django model to allow its instances to have unpublished changes.
 This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages already include this mixin, so there is no need to add it.
+
+For a non-page model to have publishing features in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_saving_draft_changes_of_snippets).
 
 ### Database fields
 
@@ -711,6 +759,8 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` to be applied. Pages 
 `LockableMixin` is an abstract model that can be added to any non-page Django model to allow its instances to be locked.
 Pages already include this mixin, so there is no need to add it. See [](wagtailsnippets_locking_snippets) for more details.
 
+For a non-page model to be lockable in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_locking_snippets).
+
 ### Database fields
 
 ```{eval-rst}
@@ -751,6 +801,8 @@ Pages already include this mixin, so there is no need to add it. See [](wagtails
 `WorkflowMixin` is a mixin class that can be added to any non-page Django model to allow its instances to be submitted to workflows.
 This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.models.DraftStateMixin` to be applied. Pages already include this mixin, so there is no need to add it. See [](wagtailsnippets_enabling_workflows) for more details.
 
+For a non-page model to have workflow features in the admin, it must also be [registered as a snippet](wagtailsnippets_registering). See also [](wagtailsnippets_enabling_workflows).
+
 ### Methods and properties
 
 ```{eval-rst}
@@ -761,6 +813,8 @@ This mixin requires {class}`~wagtail.models.RevisionMixin` and {class}`~wagtail.
     .. autoattribute:: has_workflow
 
     .. automethod:: get_workflow
+
+    .. autoattribute:: _workflow_states
 
     .. autoattribute:: workflow_states
 

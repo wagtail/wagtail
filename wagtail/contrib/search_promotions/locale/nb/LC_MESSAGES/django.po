@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:02+0100\n"
 "PO-Revision-Date: 2015-08-26 14:04+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>, 2015\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -96,9 +96,6 @@ msgstr "Søk"
 
 msgid "Terms"
 msgstr "Søkeord"
-
-msgid "Views (past week)"
-msgstr "Visninger (siste uke)"
 
 msgid "No results found"
 msgstr "Ingen resultater funnet"

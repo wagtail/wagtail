@@ -1,3 +1,5 @@
+from warnings import warn
+
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
@@ -6,9 +8,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.admin.telepath import register
 from wagtail.admin.widgets import BaseChooser, BaseChooserAdapter
-from wagtail.admin.widgets.button import ListingButton
-from wagtail.telepath import register
+from wagtail.admin.widgets.button import Button
+from wagtail.utils.deprecation import RemovedInWagtail80Warning
 
 
 class AdminSnippetChooser(BaseChooser):
@@ -67,5 +70,12 @@ class SnippetChooserAdapter(BaseChooserAdapter):
 register(SnippetChooserAdapter(), AdminSnippetChooser)
 
 
-class SnippetListingButton(ListingButton):
-    pass
+class SnippetListingButton(Button):
+    def __init__(self, *args, **kwargs):
+        warn(
+            "`SnippetListingButton` is deprecated. "
+            "Use `wagtail.admin.widgets.button.Button` "
+            "or `wagtail.admin.widgets.button.ListingButton` instead.",
+            category=RemovedInWagtail80Warning,
+        )
+        super().__init__(*args, **kwargs)

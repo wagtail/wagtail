@@ -2,7 +2,7 @@ jest.setTimeout(30000);
 
 describe('Groups', () => {
   beforeAll(async () => {
-    await page.goto(`${TEST_ORIGIN}/admin/groups/2/`);
+    await page.goto(`${TEST_ORIGIN}/admin/groups/edit/2/`);
   });
 
   it('has the right heading', async () => {

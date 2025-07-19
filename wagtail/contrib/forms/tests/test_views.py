@@ -1,4 +1,5 @@
 import datetime
+import html
 from io import BytesIO
 
 from django.conf import settings
@@ -505,6 +506,12 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         # check display of list values within form submissions
         self.assertContains(response, "foo, baz")
 
+    def test_list_submissions_with_non_form_page(self):
+        # Accessing a submissions list view with the root page (non-form page)
+        response = self.client.get(reverse("wagtailforms:list_submissions", args=(2,)))
+        # Should raise 404 instead of a 500 error
+        self.assertEqual(response.status_code, 404)
+
     def test_list_submissions_after_filter_form_submissions_for_user_hook(self):
         # Hook forbids to delete form submissions for everyone
         def construct_forms_for_user(user, queryset):
@@ -552,15 +559,39 @@ class TestFormsSubmissionsList(WagtailTestUtils, TestCase):
         self.assertEqual(len(response.context["data_rows"]), 1)
 
     def test_list_submissions_filtering_range(self):
-        response = self.client.get(
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,)),
-            {"date_from": "12/31/2013", "date_to": "01/02/2014"},
-        )
+        url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        params = {"date_from": "12/31/2013", "date_to": "01/02/2014"}
+        response = self.client.get(url, params)
 
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailforms/submissions_index.html")
         self.assertEqual(len(response.context["data_rows"]), 1)
+        soup = self.get_soup(response.content)
+        next_input = soup.select_one('input[name="next"]')
+        self.assertIsNotNone(next_input)
+        self.assertEqual(next_input["value"], f"{url}?{urlencode(params)}")
+
+    def test_list_submissions_filtering_results(self):
+        index_url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
+        results_url = reverse(
+            "wagtailforms:list_submissions_results",
+            args=(self.form_page.id,),
+        )
+        params = {"date_from": "12/31/2013", "date_to": "01/02/2014"}
+        response = self.client.get(results_url, params)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateNotUsed(response, "wagtailforms/submissions_index.html")
+        self.assertTemplateUsed(response, "wagtailforms/list_submissions.html")
+        self.assertEqual(len(response.context["data_rows"]), 1)
+        soup = self.get_soup(response.content)
+        next_input = soup.select_one('input[name="next"]')
+        self.assertIsNotNone(next_input)
+        # The next URL should point to the index page (instead of results page)
+        # with the same query params to preserve the filter
+        self.assertEqual(next_input["value"], f"{index_url}?{urlencode(params)}")
 
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
@@ -1851,9 +1882,13 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+        expected_validation_error_msg = html.escape(
+            "Field name 'foo' conflicts with another field. Please change the label."
+        )
+
         self.assertContains(
             response,
-            text="There is another field with the label foo, please change one of them.",
+            expected_validation_error_msg,
         )
 
     def test_adding_duplicate_form_labels_as_cleaned_name(self):
@@ -1889,9 +1924,14 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+        expected_validation_error_msg = html.escape(
+            "Field name 'low_earth_orbit' conflicts with another field. "
+            "Please change the label."
+        )
+
         self.assertContains(
             response,
-            text="There is another field with the label LOW EARTH ORBIT, please change one of them.",
+            expected_validation_error_msg,
         )
 
     def test_adding_duplicate_form_labels_using_override_clean_name(self):
@@ -1928,9 +1968,14 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+        expected_validation_error_msg = html.escape(
+            "Field name 'test duplicate' conflicts with another field. "
+            "Please change the label."
+        )
+
         self.assertContains(
             response,
-            text="There is another field with the label duplicate 1, please change one of them.",
+            expected_validation_error_msg,
         )
 
     def test_rename_existing_field_and_add_new_field_with_clashing_clean_name(
@@ -1968,9 +2013,15 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+
+        expected_validation_error_msg = html.escape(
+            "Field name 'test_field' conflicts with another field. "
+            "Please change the label."
+        )
+
         self.assertContains(
             response,
-            text="There is another field with the label Test field, please change one of them.",
+            expected_validation_error_msg,
         )
 
     def test_adding_duplicate_form_labels_with_custom_related_name(self):
@@ -2014,10 +2065,145 @@ class TestDuplicateFormFieldLabels(WagtailTestUtils, TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+        expected_validation_error_msg = html.escape(
+            "Field name 'chocolate' conflicts with another field. "
+            "Please change the label."
+        )
+
         self.assertContains(
             response,
-            text="There is another field with the label chocolate, please change one of them.",
+            expected_validation_error_msg,
         )
+
+    def test_validation_errors_are_added_to_all_duplicate_fields(self):
+        """
+        Ensure all forms with duplicate labels have the correct validation error added.
+        """
+
+        form_page = FormPage(
+            title="Form page!",
+            form_fields=[FormField(label="Test field", field_type="singleline")],
+        )
+        self.root_page.add_child(instance=form_page)
+
+        post_data = {
+            "title": "Form page!",
+            "slug": "form-page",
+            "form_fields-TOTAL_FORMS": "5",
+            "form_fields-INITIAL_FORMS": "1",
+            "form_fields-MIN_NUM_FORMS": "0",
+            "form_fields-MAX_NUM_FORMS": "1000",
+            # Duplicate field labels
+            "form_fields-0-id": form_page.form_fields.first().pk,
+            "form_fields-0-label": "Test field",
+            "form_fields-0-field_type": "singleline",
+            "form_fields-1-id": "",
+            "form_fields-1-label": "Test field",
+            "form_fields-1-field_type": "singleline",
+            "form_fields-2-id": "",
+            "form_fields-2-label": "Test field",
+            "form_fields-2-field_type": "singleline",
+            "form_fields-3-id": "",
+            "form_fields-3-label": "duplicate 2",
+            "form_fields-3-field_type": "singleline",
+            "form_fields-4-id": "",
+            "form_fields-4-label": "duplicate 2",
+            "form_fields-4-field_type": "singleline",
+        }
+
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=[form_page.pk]), post_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        form = response.context["form"]
+        formset = form.formsets["form_fields"]
+
+        # Expected validation error messages
+        expected_error_text_field_0 = (
+            "The name 'test_field' is already assigned to this field and cannot be "
+            "changed. Please enter a different label for the conflicting field."
+        )
+        expected_error_text_fields_1_2 = (
+            "Field name 'test_field' conflicts with another field. Please "
+            "change the label."
+        )
+        expected_error_text_fields_3_4 = (
+            "Field name 'duplicate_2' conflicts with another field. Please "
+            "change the label."
+        )
+
+        # Check validation errors for form 0
+        self.assertIn("label", formset.forms[0].errors)
+        self.assertEqual(
+            formset.forms[0].errors["label"][0],
+            expected_error_text_field_0,
+        )
+
+        # Check validation errors for forms 1 and 2
+        for i in [1, 2]:
+            with self.subTest(
+                form_index=i,
+            ):
+                self.assertIn("label", formset.forms[i].errors)
+                self.assertEqual(
+                    formset.forms[i].errors["label"][0],
+                    expected_error_text_fields_1_2,
+                )
+
+        # Check validation errors for forms 3 and 4
+        for i in [3, 4]:
+            with self.subTest(
+                form_index=i,
+            ):
+                self.assertIn("label", formset.forms[i].errors)
+                self.assertEqual(
+                    formset.forms[i].errors["label"][0],
+                    expected_error_text_fields_3_4,
+                )
+
+    def test_deletion_of_duplicate_formset_form_field_allows_page_publish(self):
+        """
+        Test that deleting a duplicate formset form field allows the page to be
+        published.
+        """
+        form_page = FormPage(
+            title="Form page!",
+            form_fields=[FormField(label="Test field", field_type="singleline")],
+            live=False,
+        )
+        self.root_page.add_child(instance=form_page)
+        self.assertFalse(form_page.live)
+
+        post_data = {
+            "title": "Form page!",
+            "slug": "form-page",
+            "action-publish": "action-publish",
+            "form_fields-TOTAL_FORMS": "2",
+            "form_fields-INITIAL_FORMS": "1",
+            "form_fields-MIN_NUM_FORMS": "0",
+            "form_fields-MAX_NUM_FORMS": "1000",
+            "form_fields-0-id": form_page.form_fields.first().pk,
+            "form_fields-0-label": "Test field",
+            "form_fields-0-field_type": "singleline",
+            # Add a duplicate field but mark it for deletion
+            "form_fields-1-id": "",
+            "form_fields-1-label": "Test field",
+            "form_fields-1-field_type": "singleline",
+            "form_fields-1-DELETE": "on",
+        }
+
+        response = self.client.post(
+            reverse("wagtailadmin_pages:edit", args=[form_page.pk]), post_data
+        )
+
+        # Response should redirect to parent page list view
+        self.assertEqual(response.status_code, 302)
+
+        form_page.refresh_from_db()
+
+        self.assertTrue(form_page.live)
 
 
 class TestPreview(WagtailTestUtils, TestCase):

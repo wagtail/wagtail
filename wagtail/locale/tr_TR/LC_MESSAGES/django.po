@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ragıp Ünal <ragip@ragipunal.com>, 2015\n"
 "Language-Team: Turkish (Turkey) (http://app.transifex.com/torchbox/wagtail/"
@@ -75,6 +75,9 @@ msgstr "Kilitlendi"
 msgid "Unlocked"
 msgstr "Kilitsiz"
 
+msgid "content type"
+msgstr "içerik türü"
+
 msgid "live"
 msgstr "canlı"
 
@@ -108,11 +111,38 @@ msgstr "canlı + zamanlandı"
 msgid "live + draft"
 msgstr "canlı + taslak"
 
-msgid "Default"
-msgstr "Varsayılan"
-
 msgid "locked"
 msgstr "kilitlendi"
+
+msgid "collection"
+msgstr "koleksiyon"
+
+msgid "collection view restriction"
+msgstr "koleksiyon görme kısıtı"
+
+msgid "collection view restrictions"
+msgstr "koleksiyon görme kısıtları"
+
+msgid "name"
+msgstr "isim"
+
+msgid "collections"
+msgstr "koleksiyonlar"
+
+msgid "group"
+msgstr "grup"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "group collection permission"
+msgstr "grup koleksiyon izni"
+
+msgid "group collection permissions"
+msgstr "grup koleksiyon izinleri"
+
+msgid "uploaded by user"
+msgstr "yükleyen kullanıcı"
 
 msgid "Add/edit pages you own"
 msgstr "Sahip olduğun sayfalara ekle/düzenle"
@@ -156,9 +186,6 @@ msgid ""
 msgstr ""
 "URL'lelerde sayfanın görüneceği ad, örneğin http://domain.com/blog/[my-slug]/"
 
-msgid "content type"
-msgstr "içerik türü"
-
 msgid "URL path"
 msgstr "URL yolu"
 
@@ -182,24 +209,6 @@ msgstr "sayfa"
 msgid "pages"
 msgstr "sayfalar"
 
-msgid "created at"
-msgstr "oluşturulma zamanı"
-
-msgid "user"
-msgstr "kullanıcı"
-
-msgid "content JSON"
-msgstr "JSON içerik"
-
-msgid "approved go live at"
-msgstr "onaylandı, canlısı"
-
-msgid "group"
-msgstr "grup"
-
-msgid "permission"
-msgstr "izin"
-
 msgid "group page permission"
 msgstr "grup sayfası izni"
 
@@ -212,35 +221,20 @@ msgstr "sayfa izleme kısıtı"
 msgid "page view restrictions"
 msgstr "sayfa görme kısıtları"
 
-msgid "name"
-msgstr "isim"
+msgid "Default"
+msgstr "Varsayılan"
 
-msgid "groups"
-msgstr "gruplar"
+msgid "created at"
+msgstr "oluşturulma zamanı"
 
-msgid "Approve"
-msgstr "Onayla"
+msgid "user"
+msgstr "kullanıcı"
 
-msgid "collection"
-msgstr "koleksiyon"
+msgid "content JSON"
+msgstr "JSON içerik"
 
-msgid "collection view restriction"
-msgstr "koleksiyon görme kısıtı"
-
-msgid "collection view restrictions"
-msgstr "koleksiyon görme kısıtları"
-
-msgid "collections"
-msgstr "koleksiyonlar"
-
-msgid "group collection permission"
-msgstr "grup koleksiyon izni"
-
-msgid "group collection permissions"
-msgstr "grup koleksiyon izinleri"
-
-msgid "uploaded by user"
-msgstr "yükleyen kullanıcı"
+msgid "approved go live at"
+msgstr "onaylandı, canlısı"
 
 msgid "hostname"
 msgstr "ana bilgisayar adı (hostname)"
@@ -299,11 +293,17 @@ msgstr "Genel"
 msgid "Private, accessible to users in specific groups"
 msgstr "Gizli, belirli gruptaki kullanıcılar erişebilir"
 
+msgid "groups"
+msgstr "gruplar"
+
 msgid "view restriction"
 msgstr "kısıtı gör"
 
 msgid "view restrictions"
 msgstr "kısıtları gör"
+
+msgid "Approve"
+msgstr "Onayla"
 
 msgid "Log in"
 msgstr "Giriş yap"

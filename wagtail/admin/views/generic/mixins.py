@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -17,10 +18,11 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import messages
+from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.admin.models import EditingSession
 from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.ui.editing_sessions import EditingSessionsModule
-from wagtail.admin.ui.tables import TitleColumn
+from wagtail.admin.ui.tables import LiveStatusTagColumn, TitleColumn
 from wagtail.admin.utils import get_latest_str, set_query_params
 from wagtail.locks import BasicLock, ScheduledForPublishLock, WorkflowLock
 from wagtail.log_actions import log
@@ -105,6 +107,14 @@ class BeforeAfterHookMixin(HookResponseMixin):
 
 class LocaleMixin:
     @cached_property
+    def i18n_enabled(self) -> bool:
+        return (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and (model := getattr(self, "model", None)) is not None
+            and issubclass(model, TranslatableMixin)
+        )
+
+    @cached_property
     def locale(self):
         return self.get_locale()
 
@@ -112,19 +122,17 @@ class LocaleMixin:
     def translations(self):
         return self.get_translations() if self.locale else []
 
-    def get_locale(self):
+    def get_locale(self) -> Optional[Locale]:
         if not getattr(self, "model", None):
             return None
 
-        i18n_enabled = getattr(settings, "WAGTAIL_I18N_ENABLED", False)
-        if not i18n_enabled or not issubclass(self.model, TranslatableMixin):
+        if not self.i18n_enabled:
             return None
 
         if hasattr(self, "object") and self.object:
             return self.object.locale
 
-        selected_locale = self.request.GET.get("locale")
-        if selected_locale:
+        if selected_locale := self.request.GET.get("locale"):
             return get_object_or_404(Locale, language_code=selected_locale)
         return Locale.get_default()
 
@@ -218,6 +226,13 @@ class IndexViewOptionalFeaturesMixin:
             return queryset
         return super()._annotate_queryset_updated_at(queryset)
 
+    @cached_property
+    def list_display(self):
+        list_display = super().list_display.copy()
+        if issubclass(self.model, DraftStateMixin):
+            list_display.append(LiveStatusTagColumn())
+        return list_display
+
 
 class CreateEditViewOptionalFeaturesMixin:
     """
@@ -254,6 +269,11 @@ class CreateEditViewOptionalFeaturesMixin:
         self.lock = self.get_lock()
         self.locked_for_user = self.lock and self.lock.for_user(request.user)
         super().setup(request, *args, **kwargs)
+        self.saving_as_draft = (
+            self.draftstate_enabled
+            and request.method == "POST"
+            and self.action in ("create", "edit")
+        )
 
     @cached_property
     def workflow(self):
@@ -502,7 +522,9 @@ class CreateEditViewOptionalFeaturesMixin:
         # Save revision if the model inherits from RevisionMixin
         self.new_revision = None
         if self.revision_enabled:
-            self.new_revision = instance.save_revision(user=self.request.user)
+            self.new_revision = instance.save_revision(
+                user=self.request.user, clean=not self.saving_as_draft
+            )
 
         log(
             instance=instance,
@@ -723,9 +745,9 @@ class CreateEditViewOptionalFeaturesMixin:
         context["draftstate_enabled"] = self.draftstate_enabled
         context["workflow_enabled"] = self.workflow_enabled
         context["workflow_history_url"] = self.get_workflow_history_url()
-        context[
-            "confirm_workflow_cancellation_url"
-        ] = self.get_confirm_workflow_cancellation_url()
+        context["confirm_workflow_cancellation_url"] = (
+            self.get_confirm_workflow_cancellation_url()
+        )
         context["publishing_will_cancel_workflow"] = getattr(
             settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
         ) and bool(self.workflow_tasks)
@@ -735,8 +757,20 @@ class CreateEditViewOptionalFeaturesMixin:
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
+
         # Make sure object is not locked
-        if not self.locked_for_user and form.is_valid():
+        if self.locked_for_user:
+            return self.form_invalid(form)
+
+        # If saving as draft, do not enforce full validation
+        if self.saving_as_draft and isinstance(form, WagtailAdminModelForm):
+            form.defer_required_fields()
+            form_is_valid = form.is_valid()
+            form.restore_required_fields()
+        else:
+            form_is_valid = form.is_valid()
+
+        if form_is_valid:
             return self.form_valid(form)
         else:
             return self.form_invalid(form)

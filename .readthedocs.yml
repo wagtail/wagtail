@@ -3,6 +3,12 @@ build:
   os: ubuntu-22.04
   tools:
     python: '3.11'
+    nodejs: '22'
+  jobs:
+    post_install:
+      - npm ci
+    post_build:
+      - npm run build-docs -- --out $READTHEDOCS_OUTPUT/html/reference/ui/client/
 python:
   install:
     - method: pip

@@ -1,0 +1,13 @@
+{
+  "readme": "./client/README.md",
+  "name": "Wagtail client-side components",
+  "basePath": "./client/src",
+  "entryPoints": ["./client/src"],
+  "entryPointStrategy": "expand",
+  "exclude": ["**/*.{stories,test}.{js,ts,jsx,tsx}"],
+  "out": "./docs/_build/html/reference/ui/client/",
+  "externalSymbolLinkMappings": {
+    "reselect": { "*": "https://reselect.js.org" }
+  },
+  "plugin": ["typedoc-plugin-mdn-links"]
+}

@@ -12,15 +12,17 @@ import { runInlineScripts } from '../utils/runInlineScripts';
  * Depending on location of the controlled element.
  *
  * @example
+ * ```html
  * <aside>
  *   <template
- *    data-controller="w-teleport"
- *    data-w-teleport-target-value="#other-location"
+ *     data-controller="w-teleport"
+ *     data-w-teleport-target-value="#other-location"
  *   >
- *    <div class="content-to-clone">Some content</div>
+ *     <div class="content-to-clone">Some content</div>
  *   </template>
  *   <div id="other-location"></div>
  * </aside>
+ * ```
  */
 export class TeleportController extends Controller<HTMLTemplateElement> {
   static values = {
@@ -68,13 +70,18 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
    */
   get target() {
     let target: any;
+    const root = this.element.getRootNode() as Document | ShadowRoot;
 
     if (this.targetValue) {
-      target = document.querySelector(this.targetValue);
-    } else {
-      const rootNode = this.element.getRootNode();
+      // Look for the target in the shadow root first, then the document, as
+      // using document.querySelector won't match elements in the shadow root.
       target =
-        rootNode instanceof Document ? rootNode.body : rootNode.firstChild;
+        root.querySelector(this.targetValue) ||
+        document.querySelector(this.targetValue);
+    } else {
+      // If no target selector is provided, default to the body if the root node
+      // is a document, otherwise use the first element in the shadow root.
+      target = root instanceof Document ? root.body : root.firstElementChild;
     }
 
     if (!(target instanceof Element)) {

@@ -9,7 +9,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.admin.telepath import Adapter, register
 
 from .base import (
     Block,
@@ -427,6 +427,7 @@ class ListBlock(Block):
                 child_block = kwargs.get("child_block")
                 if isinstance(child_block, Block):
                     block_id = lookup.add_block(child_block)
+                    kwargs = kwargs.copy()  # avoid mutating the original kwargs stored in self._constructor_args
                     kwargs["child_block"] = block_id
 
         return path, args, kwargs
@@ -455,6 +456,7 @@ class ListBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "attrs": block.meta.form_attrs or {},
             "collapsed": block.meta.collapsed,
             "strings": {
                 "MOVE_UP": _("Move up"),

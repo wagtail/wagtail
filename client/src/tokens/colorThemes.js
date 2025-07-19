@@ -1,5 +1,5 @@
 /** @typedef {{
-    value: svar(--w-color-trin)g;
+    value: string;
     bgUtility: string;
     textUtility: string;
     cssVariable: string;

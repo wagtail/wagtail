@@ -255,6 +255,13 @@ ifttt = {
     ],
 }
 
+iheart = {
+    "endpoint": "https://www.iheart.com/oembed/",
+    "urls": [
+        r"^https?://(?:www\.)?iheart\.com/.+$",
+    ],
+}
+
 issuu = {
     "endpoint": "https://issuu.com/oembed",
     "urls": [
@@ -501,9 +508,10 @@ twenty_three_hq = {
 }
 
 twitter = {
-    "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}",
+    "endpoint": "https://publish.twitter.com/oembed",
     "urls": [
         r"^https?://twitter\.com/(?:#!)?[^#?/]+/status/.+$",
+        r"^https?://x\.com/(?:#!)?[^#?/]+/status/.+$",
     ],
 }
 
@@ -654,6 +662,7 @@ all_providers = [
     hulu,
     ifixit,
     ifttt,
+    iheart,
     issuu,
     justin_tv,
     kickstarter,

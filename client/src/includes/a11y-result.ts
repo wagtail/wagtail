@@ -1,13 +1,14 @@
 import axe, {
   AxeResults,
-  ElementContext,
+  ContextObject,
+  CrossTreeSelector,
   NodeResult,
   Result,
   RunOptions,
   Spec,
 } from 'axe-core';
 
-const toSelector = (str: string | string[]) =>
+const toSelector = (str: string | string[] | CrossTreeSelector[]) =>
   Array.isArray(str) ? str.join(' ') : str;
 
 const sortAxeNodes = (nodeResultA?: NodeResult, nodeResultB?: NodeResult) => {
@@ -46,7 +47,7 @@ interface ErrorMessage {
   help_text: string;
 }
 export interface WagtailAxeConfiguration {
-  context: ElementContext;
+  context: ContextObject;
   options: RunOptions;
   messages: Record<string, ErrorMessage>;
   spec: Spec;
@@ -129,14 +130,14 @@ interface A11yReport {
 }
 
 /**
- * Get accessibility testing results from Axe based on the configurable custom spec, context, and options.
- * It integrates custom rules into the Axe configuration before running the tests.
+ * Get accessibility testing results from Axe based on the configurable custom context and options.
+ * Before calling this function, ensure that Axe has been configured with
+ * axe.configure() using the config's `spec`, along with any custom checks.
  */
 export const getA11yReport = async (
   config: WagtailAxeConfiguration,
 ): Promise<A11yReport> => {
-  axe.configure(addCustomChecks(config.spec));
-  // Initialise Axe based on the context and options defined in Python.
+  // Run Axe based on the context and options defined in Python.
   const results = await axe.run(config.context, config.options);
   const a11yErrorsNumber = results.violations.reduce(
     (sum, violation) => sum + violation.nodes.length,
@@ -203,7 +204,7 @@ export const renderA11yResults = (
         // Special-case when displaying accessibility results within the admin interface.
         const isInCMS = node.target[0] === '#w-preview-iframe';
         const selectorName = toSelector(
-          isInCMS ? node.target[1] : node.target[0],
+          node.target.filter((target) => target !== '#w-preview-iframe'),
         );
 
         const a11ySelector = currentA11yRow.querySelector(

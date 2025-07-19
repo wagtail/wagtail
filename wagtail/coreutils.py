@@ -6,7 +6,6 @@ import unicodedata
 from collections.abc import Iterable
 from hashlib import md5
 from typing import TYPE_CHECKING, Any, Union
-from warnings import warn
 
 from anyascii import anyascii
 from django.apps import apps
@@ -25,8 +24,6 @@ from django.utils.encoding import force_str
 from django.utils.text import capfirst, slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 from django.utils.translation import gettext_lazy as _
-
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 if TYPE_CHECKING:
     from wagtail.models import Site
@@ -92,22 +89,6 @@ def resolve_model_string(model_string, default_app=None):
 
     else:
         raise ValueError(f"Can not resolve {model_string!r} into a model", model_string)
-
-
-SCRIPT_RE = re.compile(r"<(-*)/script>")
-
-
-def escape_script(text):
-    """
-    Escape `</script>` tags in 'text' so that it can be placed within a `<script>` block without
-    accidentally closing it. A '-' character will be inserted for each time it is escaped:
-    `<-/script>`, `<--/script>` etc.
-    """
-    warn(
-        "The `escape_script` hook is deprecated - use `template` elements instead.",
-        category=RemovedInWagtail70Warning,
-    )
-    return SCRIPT_RE.sub(r"<-\1/script>", text)
 
 
 SLUGIFY_RE = re.compile(r"[^\w\s-]", re.UNICODE)

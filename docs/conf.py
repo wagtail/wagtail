@@ -192,6 +192,13 @@ myst_url_schemes = {
     "mailto": None,
 }
 
+myst_enable_extensions = [
+    # To support the `.external` link modifier. See:
+    # https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#customising-external-url-resolution
+    # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-attributes-inline
+    "attrs_inline",
+]
+
 # -- Options for HTML output ----------------------------------------------
 
 # Theme options are theme-specific and customise the look and feel of a theme

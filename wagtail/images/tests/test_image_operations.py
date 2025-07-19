@@ -639,11 +639,10 @@ class TestFormatFilter(TestCase):
         )
 
         f = BytesIO()
-        with patch("PIL.Image.Image.save") as save:
+        with patch("willow.plugins.pillow.PillowImage.save_as_avif") as save_as_avif:
             fil.run(image, f)
 
-        # quality=80 is default for The Willow and PIL libraries
-        save.assert_called_with(f, "AVIF", quality=-1, chroma=444)
+        save_as_avif.assert_called_with(f, lossless=True)
 
     def test_jpeg(self):
         fil = Filter(spec="width-400|format-jpeg")

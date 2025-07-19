@@ -1,6 +1,7 @@
 """
 editor-html conversion for contenteditable editors
 """
+
 from wagtail.admin.rich_text.converters import editor_html
 from wagtail.embeds import format
 from wagtail.embeds.exceptions import EmbedException

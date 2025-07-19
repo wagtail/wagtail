@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Ole Kristian Losvik <ole@losol.no>, 2020\n"
 "Language-Team: Norwegian Bokmål (http://app.transifex.com/torchbox/wagtail/"
@@ -69,6 +69,9 @@ msgstr "Låst"
 msgid "Unlocked"
 msgstr "Ulåst"
 
+msgid "content type"
+msgstr "innholdstype"
+
 msgid "live"
 msgstr "publisert"
 
@@ -102,9 +105,6 @@ msgstr "publisert + planlagt"
 msgid "live + draft"
 msgstr "publisert + kladd"
 
-msgid "Default"
-msgstr "Standard"
-
 msgid "locked"
 msgstr "låst"
 
@@ -113,6 +113,36 @@ msgstr "låst den"
 
 msgid "locked by"
 msgstr "låst av"
+
+msgid "collection"
+msgstr "samling"
+
+msgid "collection view restriction"
+msgstr "visningsbegrensning for samling"
+
+msgid "collection view restrictions"
+msgstr "visningsbegrensninger for samling"
+
+msgid "name"
+msgstr "navn"
+
+msgid "collections"
+msgstr "samlinger"
+
+msgid "group"
+msgstr "gruppe"
+
+msgid "permission"
+msgstr "tillatelse"
+
+msgid "group collection permission"
+msgstr "gruppetillatelse for samling"
+
+msgid "group collection permissions"
+msgstr "gruppetillatelser for samling"
+
+msgid "uploaded by user"
+msgstr "opplastet av bruker"
 
 msgid "Add/edit pages you own"
 msgstr "Legg til/rediger sider du eier"
@@ -163,9 +193,6 @@ msgstr ""
 "Navnet på siden slik det vil vises i URLer, feks. http://domene.no/blogg/min-"
 "slug/"
 
-msgid "content type"
-msgstr "innholdstype"
-
 msgid "URL path"
 msgstr "URL-sti"
 
@@ -195,24 +222,6 @@ msgstr "side"
 msgid "pages"
 msgstr "sider"
 
-msgid "created at"
-msgstr "opprettet"
-
-msgid "user"
-msgstr "bruker"
-
-msgid "content JSON"
-msgstr "JSON for innhold"
-
-msgid "approved go live at"
-msgstr "godkjent for publisering"
-
-msgid "group"
-msgstr "gruppe"
-
-msgid "permission"
-msgstr "tillatelse"
-
 msgid "group page permission"
 msgstr "gruppetillatelse for side"
 
@@ -225,35 +234,20 @@ msgstr "visningsbegrensning for side"
 msgid "page view restrictions"
 msgstr "visningsbegrensninger for sider"
 
-msgid "name"
-msgstr "navn"
+msgid "Default"
+msgstr "Standard"
 
-msgid "groups"
-msgstr "grupper"
+msgid "created at"
+msgstr "opprettet"
 
-msgid "Approve"
-msgstr "Godkjenn"
+msgid "user"
+msgstr "bruker"
 
-msgid "collection"
-msgstr "samling"
+msgid "content JSON"
+msgstr "JSON for innhold"
 
-msgid "collection view restriction"
-msgstr "visningsbegrensning for samling"
-
-msgid "collection view restrictions"
-msgstr "visningsbegrensninger for samling"
-
-msgid "collections"
-msgstr "samlinger"
-
-msgid "group collection permission"
-msgstr "gruppetillatelse for samling"
-
-msgid "group collection permissions"
-msgstr "gruppetillatelser for samling"
-
-msgid "uploaded by user"
-msgstr "opplastet av bruker"
+msgid "approved go live at"
+msgstr "godkjent for publisering"
 
 msgid "hostname"
 msgstr "vertsnavn"
@@ -312,11 +306,17 @@ msgstr "Offentlig"
 msgid "Private, accessible to users in specific groups"
 msgstr "Privat, tilgjengelig kun for brukere i spesifikke grupper"
 
+msgid "groups"
+msgstr "grupper"
+
 msgid "view restriction"
 msgstr "visningsbegrensning"
 
 msgid "view restrictions"
 msgstr "visningsbegrensninger"
+
+msgid "Approve"
+msgstr "Godkjenn"
 
 msgid "Log in"
 msgstr "Logg inn"

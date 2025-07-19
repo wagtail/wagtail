@@ -150,7 +150,12 @@ class PreviewableMixin:
         Return the URL that _get_dummy_headers() should use to set META headers
         for the faked HttpRequest.
         """
-        return self.full_url
+        if url := self.full_url:
+            return url
+        # If no full_url is defined, try to use the original request's URL
+        # to build a dummy request so that we get the correct scheme and host.
+        if original_request:
+            return original_request.build_absolute_uri("/")
 
     def get_full_url(self):
         return None
@@ -263,6 +268,9 @@ class PreviewableMixin:
     def get_preview_context(self, request, mode_name):
         """
         Returns a context dictionary for use in templates for previewing this object.
+
+        By default, this returns a dictionary containing the ``request`` and
+        and the ``object`` itself.
         """
         return {"object": self, "request": request}
 

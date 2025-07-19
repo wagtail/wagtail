@@ -9,7 +9,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.admin.telepath import Adapter, register
 
 from .base import (
     Block,
@@ -133,12 +133,11 @@ class BaseStructBlock(Block):
         rather than a StructValue; for consistency, we need to convert it to a StructValue
         for StructBlock to work with
         """
+        default = self._evaluate_callable(self.meta.default)
 
         return self.normalize(
             {
-                name: self.meta.default[name]
-                if name in self.meta.default
-                else block.get_default()
+                name: default[name] if name in default else block.get_default()
                 for name, block in self.child_blocks.items()
             }
         )
@@ -378,6 +377,7 @@ class BaseStructBlock(Block):
             ),
             "help_text": getattr(self.meta, "help_text", None),
             "classname": self.meta.form_classname,
+            "collapsed": self.meta.collapsed,
             "block_definition": self,
             "prefix": prefix,
         }
@@ -392,6 +392,7 @@ class BaseStructBlock(Block):
         form_template = None
         value_class = StructValue
         label_format = None
+        collapsed = None
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -414,6 +415,8 @@ class StructBlockAdapter(Adapter):
             "blockDefId": block.definition_prefix,
             "isPreviewable": block.is_previewable,
             "classname": block.meta.form_classname,
+            "collapsed": block.meta.collapsed,
+            "attrs": block.meta.form_attrs or {},
         }
 
         help_text = getattr(block.meta, "help_text", None)

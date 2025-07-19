@@ -4,12 +4,13 @@
 #
 # Translators:
 # Fauzaan Gasim, 2024
+# Fauzaan Gasim, 2024
 # Matt Westcott <matthew@torchbox.com>, 2024
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>, 2024\n"
 "Language-Team: Divehi (http://app.transifex.com/torchbox/wagtail/language/"
@@ -170,8 +171,30 @@ msgstr "ޝެޑިއުލް އަށް ބަލާފައި ތަޅުލާފައި"
 msgid "Currently locked and will go live on the scheduled date"
 msgstr "މިވަގުތު ތަޅުލާފައި ހުރިއިރު ލައިވް ކުރާނީ ޝެޑިއުލް ތާރީހުގަ އެވެ"
 
-msgid "latest revision"
-msgstr "އެންމެ ފަހުން އިސްލާހު ކުރި އެވެ"
+msgid "content type"
+msgstr "ކޮންޓެންޓް ޓައިޕް"
+
+msgid "timestamp (UTC)"
+msgstr "ޓައިމްސްޓޭމްޕް (ޔޫޓީސީ)"
+
+msgid "log entry"
+msgstr "ލޮގް އެންޓްރީ ކުރުން"
+
+msgid "log entries"
+msgstr "ލޮގް އެންޓްރީސް"
+
+#, python-format
+msgid "The log action '%(action_name)s' has not been registered."
+msgstr "ލޮގް އެކްޝަން &#39;%(action_name)s&#39; ރަޖިސްޓްރީކޮށްފައެއް ނުވެއެވެ."
+
+msgid "system"
+msgstr "ސިސްޓަމް"
+
+msgid "model log entry"
+msgstr "މޮޑެލް ލޮގް އެންޓްރީ ކުރުން"
+
+msgid "model log entries"
+msgstr "މޮޑެލް ލޮގް އެންޓްރީސް"
 
 msgid "live"
 msgstr "ދިރިއުޅުން"
@@ -209,18 +232,6 @@ msgstr "ލައިވް + ޝެޑިއުލް ކުރެވިފައި"
 msgid "live + draft"
 msgstr "ލައިވް + ޑްރާފްޓް"
 
-msgid "Default"
-msgstr "ޑީފޯލްޓް"
-
-msgid "Preview in mobile size"
-msgstr "މޯބައިލް ސައިޒުގައި ޕްރިވިއު ކުރުން"
-
-msgid "Preview in tablet size"
-msgstr "ޓެބްލެޓް ސައިޒުގައި ޕްރިވިއު ކުރާށެވެ"
-
-msgid "Preview in desktop size"
-msgstr "ޑެސްކްޓޮޕް ސައިޒުގައި ޕްރިވިއުކުރުން"
-
 msgid "locked"
 msgstr "ތަޅުލާފައި"
 
@@ -230,11 +241,35 @@ msgstr "ތަޅުލާފައި އޮތީ"
 msgid "locked by"
 msgstr "ތަޅުލާފައި"
 
-msgid "in moderation"
-msgstr "މެދުމިނުގެ ގޮތަކަށެވެ"
+msgid "collection"
+msgstr "ނެގުން"
 
-msgid "live + in moderation"
-msgstr "ދިރިއުޅެނީ + މެދުމިނުގައި"
+msgid "collection view restriction"
+msgstr "ކަލެކްޝަން ވިއު ރެސްޓްރިކްޝަން"
+
+msgid "collection view restrictions"
+msgstr "ކަލެކްޝަން ވިއު ރެސްޓްރިކްޝަންސް"
+
+msgid "name"
+msgstr "ނަން"
+
+msgid "collections"
+msgstr "ކަލެކްޝަންތަކެވެ"
+
+msgid "group"
+msgstr "ގްރޫޕް"
+
+msgid "permission"
+msgstr "ހުއްދަ"
+
+msgid "group collection permission"
+msgstr "ގްރޫޕް ކަލެކްޝަންގެ ހުއްދަ ލިބިފައިވުން"
+
+msgid "group collection permissions"
+msgstr "ގްރޫޕް ކަލެކްޝަންގެ ހުއްދަތައް"
+
+msgid "uploaded by user"
+msgstr "ޔޫސަރ އަޕްލޯޑް ކޮށްފައި"
 
 msgid "Add/edit pages you own"
 msgstr "ތިމާގެ އަމިއްލަ ޞަފްޙާތައް އިތުރުކުރުން/އެޑިޓްކުރުން"
@@ -282,9 +317,6 @@ msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr "ޔޫއާރްއެލްތަކުގައި ފެންނާނެ ގޮތަށް ޕޭޖުގެ ނަން މ. http://domain.com/blog/[my-slug]/"
-
-msgid "content type"
-msgstr "ކޮންޓެންޓް ޓައިޕް"
 
 msgid "URL path"
 msgstr "ޔޫއާރްއެލް މަގު"
@@ -337,33 +369,6 @@ msgstr "ސަފްހާ"
 msgid "pages"
 msgstr "ޞަފްޙާތަކެވެ"
 
-msgid "object id"
-msgstr "އޮބްޖެކްޓް އައިޑީ"
-
-msgid "created at"
-msgstr "އުފެއްދިފައިވަނީ "
-
-msgid "user"
-msgstr "ޔޫޒަރ"
-
-msgid "content JSON"
-msgstr "ކޮންޓެންޓް ޖޭއެސްއޯއެން"
-
-msgid "approved go live at"
-msgstr "އެޕްރޫވްޑް ގޯ ލައިވް އެޓް"
-
-msgid "revision"
-msgstr "މުރާޖަޢާ"
-
-msgid "revisions"
-msgstr "އިސްލާހުކުރުން"
-
-msgid "group"
-msgstr "ގްރޫޕް"
-
-msgid "permission"
-msgstr "ހުއްދަ"
-
 msgid "group page permission"
 msgstr "ގްރޫޕް ޕޭޖްގެ ހުއްދަ ލިބިފައިވުން"
 
@@ -384,134 +389,6 @@ msgstr "ވޯކްފްލޯ ޕޭޖް"
 
 msgid "workflow pages"
 msgstr "ވޯކްފްލޯ ޕޭޖްތަކެވެ"
-
-msgid "workflow_tasks"
-msgstr "ވޯކްފްލޯ_ޓާސްކްސް"
-
-msgid "task"
-msgstr "މަސައްކަތެއް"
-
-msgid "workflow task order"
-msgstr "ވޯކްފްލޯ ޓާސްކް އޯޑަރ އެވެ"
-
-msgid "workflow task orders"
-msgstr "ވޯކްފްލޯ ޓާސްކް އޯޑަރސް"
-
-msgid "name"
-msgstr "ނަން"
-
-msgid "active"
-msgstr "އެކްޓިވް"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"އެކްޓިވް ޓާސްކްތައް ވޯކްފްލޯތަކަށް އިތުރުކުރެވިދާނެއެވެ. ޓާސްކެއް ޑިއެކްޓިވޭޓް ކުރުމަކީ މިހާރު ހުރި ވޯކްފްލޯތަކުން އެ ޓާސްކެއް ނައްތާލެވޭނެ "
-"ކަމެއް ނޫނެވެ."
-
-msgid "tasks"
-msgstr "މަސައްކަތެވެ"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"އެކްޓިވް ވޯކްފްލޯތައް ޕޭޖް/ސްނިޕެޓްތަކަށް އިތުރުކުރެވިދާނެއެވެ. ވޯކްފްލޯއެއް ޑިއެކްޓިވޭޓް ކުރުމުން މިހާރު ހުރި ޕޭޖްތަކުން/ސްނިޕެޓްތަކުން އެ "
-"ވޯކްފްލޯއެއް ނައްތާލެވޭކަށް ނެތެވެ."
-
-msgid "workflows"
-msgstr "ވޯކްފްލޯސް އެވެ"
-
-msgid "groups"
-msgstr "ގްރޫޕްތަކެވެ"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr "ވޯކްފްލޯއެއްގެ މި ފިޔަވަޅުގައި ހުންނަ ޕޭޖްތައް/ސްނިޕެޓްތައް މޮޑެރޭޓް ނުވަތަ އެޕްރޫވް ކުރާނީ މި ގްރޫޕްތަކުގެ ޔޫޒަރުންނެވެ"
-
-msgid "Request changes"
-msgstr "ބަދަލު ގެނައުމަށް އެދި"
-
-msgid "Approve"
-msgstr "ރުހުން"
-
-msgid "Approve with comment"
-msgstr "ކޮމެންޓާއެކު އެޕްރޫވް ކުރާށެވެ"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "މި މަސައްކަތަށް ޚިޔާރުކުރެވޭ ވެގްޓޭލް ގްރޫޕްތަކުގެ މެމްބަރުންނަށް ފާސްކުރެވޭނެއެވެ"
-
-msgid "Group approval task"
-msgstr "ގްރޫޕް އެޕްރޫވަލް ޓާސްކް"
-
-msgid "Group approval tasks"
-msgstr "ގްރޫޕް އެޕްރޫވަލް ކުރުމުގެ މަސައްކަތްތައް"
-
-msgid "In progress"
-msgstr "ކުރިއަށް އެބަދެއެވެ"
-
-msgid "Approved"
-msgstr "ހުއްދަލިބިފައިވުން"
-
-msgid "Needs changes"
-msgstr "ބަދަލުތަކެއް ބޭނުންވެއެވެ"
-
-msgid "Cancelled"
-msgstr "ކެންސަލް ކޮށްފި އެވެ"
-
-msgid "status"
-msgstr "ޙާލަތު"
-
-msgid "requested by"
-msgstr "އެދިފައިވާ..."
-
-msgid "current task state"
-msgstr "މިހާރުގެ ޓާސްކް ސްޓޭޓް"
-
-msgid ""
-"There may only be one in progress or needs changes workflow state per page/"
-"snippet."
-msgstr "ކޮންމެ ޕޭޖަކަށް/ސްނިޕެޓަކަށް ވޯކްފްލޯ ސްޓޭޓް ކުރިއަށްދާ ނުވަތަ ބަދަލުކުރަންޖެހޭ އެއްޗެއް ހުރެދާނެ"
-
-msgid "Not started"
-msgstr "ނުފެށޭ"
-
-msgid "Workflow state"
-msgstr "ވޯކްފްލޯ ސްޓޭޓް"
-
-msgid "Workflow states"
-msgstr "ވޯކްފްލޯ ސްޓޭޓްސް"
-
-msgid "Rejected"
-msgstr "ދެކޮޅު ހެދިއެވެ"
-
-msgid "Skipped"
-msgstr "ސްކިޕް ވެއްޖެއެވެ"
-
-msgid "workflow state"
-msgstr "ވޯކްފްލޯ ސްޓޭޓް"
-
-msgid "started at"
-msgstr "ފެށިއްޖެ އެވެ"
-
-msgid "finished at"
-msgstr "ނިމުނީ 10:00 ގައެވެ"
-
-msgid "finished by"
-msgstr "ނިމިގެން ދިޔައީ"
-
-#, python-format
-msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
-msgstr ""
-"ރިވިޝަން &#39;%(revision_info)s&#39; ގައި &#39;%(task_name)s&#39; ޓާސްކް: %(status)s"
-
-msgid "Task state"
-msgstr "ޓާސްކް ސްޓޭޓް"
-
-msgid "Task states"
-msgstr "ޓާސްކް ސްޓޭޓްސް"
 
 msgid "page log entry"
 msgstr "ޕޭޖް ލޮގް އެންޓްރީ ކުރުން"
@@ -534,48 +411,20 @@ msgstr "ކޮމެންޓް ރިޕްލައި"
 msgid "comment replies"
 msgstr "ކޮމެންޓް ރިޕްލައި ކުރެއެވެ"
 
-msgid "timestamp (UTC)"
-msgstr "ޓައިމްސްޓޭމްޕް (ޔޫޓީސީ)"
+msgid "Default"
+msgstr "ޑީފޯލްޓް"
 
-msgid "log entry"
-msgstr "ލޮގް އެންޓްރީ ކުރުން"
+msgid "Preview in mobile size"
+msgstr "މޯބައިލް ސައިޒުގައި ޕްރިވިއު ކުރުން"
 
-msgid "log entries"
-msgstr "ލޮގް އެންޓްރީސް"
+msgid "Preview in tablet size"
+msgstr "ޓެބްލެޓް ސައިޒުގައި ޕްރިވިއު ކުރާށެވެ"
 
-#, python-format
-msgid "The log action '%(action_name)s' has not been registered."
-msgstr "ލޮގް އެކްޝަން &#39;%(action_name)s&#39; ރަޖިސްޓްރީކޮށްފައެއް ނުވެއެވެ."
+msgid "Preview in desktop size"
+msgstr "ޑެސްކްޓޮޕް ސައިޒުގައި ޕްރިވިއުކުރުން"
 
-msgid "system"
-msgstr "ސިސްޓަމް"
-
-msgid "model log entry"
-msgstr "މޮޑެލް ލޮގް އެންޓްރީ ކުރުން"
-
-msgid "model log entries"
-msgstr "މޮޑެލް ލޮގް އެންޓްރީސް"
-
-msgid "collection"
-msgstr "ނެގުން"
-
-msgid "collection view restriction"
-msgstr "ކަލެކްޝަން ވިއު ރެސްޓްރިކްޝަން"
-
-msgid "collection view restrictions"
-msgstr "ކަލެކްޝަން ވިއު ރެސްޓްރިކްޝަންސް"
-
-msgid "collections"
-msgstr "ކަލެކްޝަންތަކެވެ"
-
-msgid "group collection permission"
-msgstr "ގްރޫޕް ކަލެކްޝަންގެ ހުއްދަ ލިބިފައިވުން"
-
-msgid "group collection permissions"
-msgstr "ގްރޫޕް ކަލެކްޝަންގެ ހުއްދަތައް"
-
-msgid "uploaded by user"
-msgstr "ޔޫސަރ އަޕްލޯޑް ކޮށްފައި"
+msgid "object id"
+msgstr "އޮބްޖެކްޓް އައިޑީ"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
@@ -600,6 +449,27 @@ msgstr "ސިސްޓަމުން ކަނޑައެޅިފައިވާ %(model_name)s އަ�
 
 msgid "will unset the reference"
 msgstr "ރެފަރެންސް އަންސެޓް ކުރާނެއެވެ"
+
+msgid "created at"
+msgstr "އުފެއްދިފައިވަނީ "
+
+msgid "user"
+msgstr "ޔޫޒަރ"
+
+msgid "content JSON"
+msgstr "ކޮންޓެންޓް ޖޭއެސްއޯއެން"
+
+msgid "approved go live at"
+msgstr "އެޕްރޫވްޑް ގޯ ލައިވް އެޓް"
+
+msgid "revision"
+msgstr "މުރާޖަޢާ"
+
+msgid "revisions"
+msgstr "އިސްލާހުކުރުން"
+
+msgid "latest revision"
+msgstr "އެންމެ ފަހުން އިސްލާހު ކުރި އެވެ"
 
 msgid "hostname"
 msgstr "ހޯސްޓް ނަން"
@@ -655,11 +525,142 @@ msgstr "ޕަބްލިކް"
 msgid "Private, accessible to users in specific groups"
 msgstr "އަމިއްލަ، ވަކި ގްރޫޕްތަކެއްގައި ތިބި ޔޫޒަރުންނަށް އެކްސެސިބަލް"
 
+msgid "groups"
+msgstr "ގްރޫޕްތަކެވެ"
+
 msgid "view restriction"
 msgstr "ވިއު ރެސްޓްރިކްޝަން"
 
 msgid "view restrictions"
 msgstr "ބަލާ ރެސްޓްރިކްޝަންސް"
+
+msgid "In progress"
+msgstr "ކުރިއަށް އެބަދެއެވެ"
+
+msgid "Approved"
+msgstr "ހުއްދަލިބިފައިވުން"
+
+msgid "Needs changes"
+msgstr "ބަދަލުތަކެއް ބޭނުންވެއެވެ"
+
+msgid "Cancelled"
+msgstr "ކެންސަލް ކޮށްފި އެވެ"
+
+msgid "status"
+msgstr "ޙާލަތު"
+
+msgid "requested by"
+msgstr "އެދިފައިވާ..."
+
+msgid "current task state"
+msgstr "މިހާރުގެ ޓާސްކް ސްޓޭޓް"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page/"
+"snippet."
+msgstr "ކޮންމެ ޕޭޖަކަށް/ސްނިޕެޓަކަށް ވޯކްފްލޯ ސްޓޭޓް ކުރިއަށްދާ ނުވަތަ ބަދަލުކުރަންޖެހޭ އެއްޗެއް ހުރެދާނެ"
+
+msgid "Not started"
+msgstr "ނުފެށޭ"
+
+msgid "Workflow state"
+msgstr "ވޯކްފްލޯ ސްޓޭޓް"
+
+msgid "Workflow states"
+msgstr "ވޯކްފްލޯ ސްޓޭޓްސް"
+
+msgid "active"
+msgstr "އެކްޓިވް"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"އެކްޓިވް ވޯކްފްލޯތައް ޕޭޖް/ސްނިޕެޓްތަކަށް އިތުރުކުރެވިދާނެއެވެ. ވޯކްފްލޯއެއް ޑިއެކްޓިވޭޓް ކުރުމުން މިހާރު ހުރި ޕޭޖްތަކުން/ސްނިޕެޓްތަކުން އެ "
+"ވޯކްފްލޯއެއް ނައްތާލެވޭކަށް ނެތެވެ."
+
+msgid "workflows"
+msgstr "ވޯކްފްލޯސް އެވެ"
+
+msgid "workflow_tasks"
+msgstr "ވޯކްފްލޯ_ޓާސްކްސް"
+
+msgid "task"
+msgstr "މަސައްކަތެއް"
+
+msgid "workflow task order"
+msgstr "ވޯކްފްލޯ ޓާސްކް އޯޑަރ އެވެ"
+
+msgid "workflow task orders"
+msgstr "ވޯކްފްލޯ ޓާސްކް އޯޑަރސް"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"އެކްޓިވް ޓާސްކްތައް ވޯކްފްލޯތަކަށް އިތުރުކުރެވިދާނެއެވެ. ޓާސްކެއް ޑިއެކްޓިވޭޓް ކުރުމަކީ މިހާރު ހުރި ވޯކްފްލޯތަކުން އެ ޓާސްކެއް ނައްތާލެވޭނެ "
+"ކަމެއް ނޫނެވެ."
+
+msgid "tasks"
+msgstr "މަސައްކަތެވެ"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr "ވޯކްފްލޯއެއްގެ މި ފިޔަވަޅުގައި ހުންނަ ޕޭޖްތައް/ސްނިޕެޓްތައް މޮޑެރޭޓް ނުވަތަ އެޕްރޫވް ކުރާނީ މި ގްރޫޕްތަކުގެ ޔޫޒަރުންނެވެ"
+
+msgid "Request changes"
+msgstr "ބަދަލު ގެނައުމަށް އެދި"
+
+msgid "Approve"
+msgstr "ރުހުން"
+
+msgid "Approve with comment"
+msgstr "ކޮމެންޓާއެކު އެޕްރޫވް ކުރާށެވެ"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "މި މަސައްކަތަށް ޚިޔާރުކުރެވޭ ވެގްޓޭލް ގްރޫޕްތަކުގެ މެމްބަރުންނަށް ފާސްކުރެވޭނެއެވެ"
+
+msgid "Group approval task"
+msgstr "ގްރޫޕް އެޕްރޫވަލް ޓާސްކް"
+
+msgid "Group approval tasks"
+msgstr "ގްރޫޕް އެޕްރޫވަލް ކުރުމުގެ މަސައްކަތްތައް"
+
+msgid "Rejected"
+msgstr "ދެކޮޅު ހެދިއެވެ"
+
+msgid "Skipped"
+msgstr "ސްކިޕް ވެއްޖެއެވެ"
+
+msgid "workflow state"
+msgstr "ވޯކްފްލޯ ސްޓޭޓް"
+
+msgid "started at"
+msgstr "ފެށިއްޖެ އެވެ"
+
+msgid "finished at"
+msgstr "ނިމުނީ 10:00 ގައެވެ"
+
+msgid "finished by"
+msgstr "ނިމިގެން ދިޔައީ"
+
+#, python-format
+msgid "Task '%(task_name)s' on Revision '%(revision_info)s': %(status)s"
+msgstr ""
+"ރިވިޝަން &#39;%(revision_info)s&#39; ގައި &#39;%(task_name)s&#39; ޓާސްކް: %(status)s"
+
+msgid "Task state"
+msgstr "ޓާސްކް ސްޓޭޓް"
+
+msgid "Task states"
+msgstr "ޓާސްކް ސްޓޭޓްސް"
+
+msgid "in moderation"
+msgstr "މެދުމިނުގެ ގޮތަކަށެވެ"
+
+msgid "live + in moderation"
+msgstr "ދިރިއުޅެނީ + މެދުމިނުގައި"
 
 msgid "Log in"
 msgstr "ލޮގްއިން ކޮށްލައްވާށެވެ"

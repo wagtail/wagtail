@@ -5,7 +5,7 @@
 #
 # Translators:
 # Loic Teixeira, 2022
-# Istvan Farkas <istvan.farkas@gmail.com>, 2023
+# Istvan Farkas <istvan.farkas@gmail.com>, 2025
 #
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-20 17:59+0000\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2023\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/torchbox/teams/8009/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,9 @@ msgid "Translate the parent page."
 msgid_plural "Translate the parent pages."
 msgstr[0] "Szülőoldal lefordítása."
 msgstr[1] "Szülőoldalak lefordítása."
+
+msgid "Can submit translations"
+msgstr "Beküldhet fordításokat"
 
 msgid "Submit"
 msgstr "Mehet"

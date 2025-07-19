@@ -17,15 +17,16 @@
 # Oliver Engel <codeangel@posteo.de>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
+# Stefan Hammer <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Stefan Hammer <stefan@hammerworxx.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:08+0100\n"
 "PO-Revision-Date: 2014-09-11 15:42+0000\n"
-"Last-Translator: Tammo van Lessen <tvanlessen@gmail.com>, 2015\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>, 2022\n"
 "Language-Team: German (http://app.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -42,14 +43,6 @@ msgstr "Datum von"
 
 msgid "Date to"
 msgstr "Datum bis"
-
-#, python-format
-msgid ""
-"There is another field with the label %(label_name)s, please change one of "
-"them."
-msgstr ""
-"Es gibt ein weiteres Feld mit der Bezeichnung %(label_name)s, bitte ändern "
-"Sie eines der beiden."
 
 msgid "Single line text"
 msgstr "Einzeiliger Text"

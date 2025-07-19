@@ -1,27 +1,207 @@
-Changelog
+    Changelog
 =========
 
-6.5 (xx.xx.xxxx) - IN DEVELOPMENT
+7.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
+ * Allow configuring permissions for site settings on a per-site basis (Matt Westcott)
+ * Add iHeart oEmbed provider (Storm Heg)
+ * Add locale-aware `NumberColumn` to display numbers in universal listings (Baptiste Mispelon)
+ * Add ability for the header breadcrumbs to save their open/closed state across navigation & refresh (Srishti Jaiswal)
+ * Update Twitter oEmbed provider to recognize x.com links (manu)
+ * Render listing buttons as template components (Sage Abdullah)
+ * Define default `GenericRelations` for `RevisionMixin` and `WorkflowMixin`, to avoid issues with deletion cascades (Sage Abdullah)
+ * Document and relocate the `init_new_page` signal (Maciek Baron)
+ * Use `requests` to access oEmbed endpoints, for more robust SSL certificate handling (Matt Westcott)
+ * Ensure that bulk deletion views respect protected foreign keys (Sage Abdullah)
+ * Add minimum length validation for `RichTextBlock` and `RichTextField` (Alec Baron)
+ * Allow `SnippetChooserBlock`'s `icon` to take precedence over `SnippetViewSet.icon` (Matt Westcott)
+ * Allow searching the users index on custom fields (Paul Craciunoiu, Sage Abdullah)
+ * Support `preserve-svg` in Jinja2 image tags (Vishesh Garg)
+ * Recognize `preserve-svg` as a filter when calling `Image.get_rendition` directly (Richard Allen)
+ * Add support for `preserve-svg` for `Image.get_renditions`, picture, and srcset_image tags (Matt Westcott)
+ * Include `TypedTableBlock` content when indexing for search (Charan T M)
+ * Preserve query parameters when redirecting from the API `find` view to the `detail` view (Andrew Hosgood)
+ * Add 'Edit' button to success message after copying page (Dhruvi Patel)
+ * Restrict file dialog in multiple image uploader to the allowed image file types (Mustopha Mubarak O)
+ * Raise clear error when non-StreamBlock is used as top-level block in StreamField (Clifford Gama)
+ * Refactor userbar rendering to better support headless websites (Sage Abdullah)
+ * Add type-to-confirm step when deleting large numbers of pages through bulk actions (Rachel Smith)
+ * Add `NoFutureDateValidator` to validate against dates in the future (Talha Rizwan)
+ * Extract separate `background_position_x` and `background_position_y` properties from `AbstractRendition.background_position_style` (Chiemezuo Akujobi)
+ * Add support for translated string concatenation in the locale selector when switching between a model's language in the admin (Matt Westcott, Ellie Walsh-O'Neill)
+ * Switch to check / cross icons for users’ active state in users listing (Sage Abdullah)
+ * Add a keyboard shortcut to easily toggle the visibility of the minimap side panel (Dhruvi Patel)
+ * Add API for extracting preview page content (Sage Abdullah)
+ * Add toggle from grid to list layout for image listings (Joel William)
+ * Add support for opt-in collapsible `StructBlock`s (Sage Abdullah)
+ * Add `form_attrs` support to all StreamField blocks (Sage Abdullah)
+ * Update project template documentation to include testing instructions and include starting test file in template (Aditya (megatrron))
+ * Add support for `preview_value` and `default` in `Block` meta options as callables for dynamic previews within StreamField (Ziyao Yan, Sage Abdullah)
+ * Add previews support for generic and site settings (Sébastien Corbin, Sage Abdullah)
+ * Fix: Handle lazy translation strings as `preview_value` for `RichTextBlock` (Seb Corbin)
+ * Fix: Fix handling of newline-separated choices in form builder when using non-windows newline characters (Baptiste Mispelon)
+ * Fix: Ensure `WAGTAILADMIN_LOGIN_URL` is respected when logging out of the admin (Antoine Rodriguez, Ramon de Jezus)
+ * Fix: Fix behavior of `ViewSet.inject_view_methods` with multiple methods (Gorlik)
+ * Fix: Preserve query strings in URLs submitted to CloudFront for invalidation (Jigyasu Rajput)
+ * Fix: Handle non-JSON-safe fields in `exclude_fields_in_copy` (Matt Westcott)
+ * Fix: Allow upload of AVIF images through image chooser on Firefox (Matt Westcott)
+ * Fix: Accept any string beginning with 'y' as confirmation for `import_redirects` command (Matt Westcott)
+ * Fix: Fix error when accessing the submissions listing view with a non-form page (Sage Abdullah)
+ * Fix: Replace inline styles with CSS classes in HTML files (Srishti Jaiswal)
+ * Fix: Refactor remaining inline styles to avoid unsafe-inline style-src CSP (Chiemezuo Akujobi)
+ * Fix: Avoid breaking words in listing table cells unless specifically enabled (Ziyao Yan)
+ * Fix: Ensure that "all items in listing" option on image / document bulk actions respects user permissions (Alex Morega)
+ * Fix: Adjust accessibility dialog position based on userbar position (Anees Asghar, Sage Abdullah)
+ * Fix: Correctly handle ordering API results by mixed ascending and descending order (Rohit Sharma, Mahmoud Nasser)
+ * Fix: Ensure that draft changes to an editable `first_published_at` field are preserved on reloading (Talha Rizwan)
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+ * Fix: Only enable ManifestStaticFilesStorage in production settings, to aid test running (M. Sumair Khokhar)
+ * Fix: Update `BooleanColumn` icons so they can be distinguished without relying on color (Sage Abdullah)
+ * Fix: Do not delete default homepage by ID in home app migration (Matt Westcott)
+ * Fix: Update the start project template to align with Django's recommendation to have the `django.middleware.security.SecurityMiddleware` first (Brylie Christopher Oxley)
+ * Fix: Ensure keyboard usage will correctly focus on new comments, including replies, when the side panel is open or closed (Dhruvi Patel)
+ * Fix: Handle `help_text` kwarg in `FloatBlock` (Nick Smith)
+ * Fix: Set `aria-invalid` on StreamField widgets input when there is an error (Sage Abdullah)
+ * Fix: Make sure the label of panel collapse buttons is translatable (Thibaud Colas)
+ * Fix: Ensure there is suitable padding for large numbers on pagination within universal listings (M. Sumair Khokhar)
+ * Fix: Use the correct localized format utils in the `human_readable_date` template tag (Seb Corbin)
+ * Fix: Ensure the editing of translation alias pages correctly shows links to the source page if the alias was created from a draft (Dan Braghis)
+ * Docs: Add missing tag library imports to footer template code in tutorial (Dimaco)
+ * Docs: Improve documentation around securing user-uploaded files (Jake Howard)
+ * Docs: Introduce search_fields in a dedicated tutorial section instead of the introduction (Matt Westcott)
+ * Docs: Add note about PDF XSS to security page (Matt Westcott)
+ * Docs: Add documentation for how to group blocks within the StreamField picker (Gaurav Verma)
+ * Docs: Clarify the user bar does not have moderation features (Sage Abdullah)
+ * Docs: Add experimental documentation for admin UI components and client-side code (Sage Abdullah)
+ * Maintenance: Refactor `get_embed` to remove `finder` argument which was only used for mocking in unit tests (Jigyasu Rajput)
+ * Maintenance: Simplify handling of `None` values in `TypedTableBlock` (Jigyasu Rajput)
+ * Maintenance: Remove squash.io configuration (Sage Abdullah)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
+ * Maintenance: Add `django.contrib.postgres` to test settings `INSTALLED_APPS` (Sage Abdullah)
+ * Maintenance: Add integrity & resolved checksums to package-lock.json (Sylvain Fankhauser)
+ * Maintenance: Replace `SlugController` with more generic and reusable `CleanController` (LB (Ben) Johnston)
+ * Maintenance: Remove outdated nginx / uWSGI example config files from `/etc` (LB (Ben) Johnston)
+ * Maintenance: Use browser built-in `EventTarget` instead of `events.EventEmitter` from Webpack (Sage Abdullah)
+ * Maintenance: Split code from `telepath/widgets.js` into separate files (Matt Westcott)
+ * Maintenance: Update development UI guidelines to adopt best practices for image handling within the admin interface (Thibaud Colas)
+ * Maintenance: Bump minimum Willow version to v1.11.0 to use Pillow's built-in AVIF support (Sage Abdullah)
+ * Maintenance: Add overridable blocks in comments and checks side panel templates (Sage Abdullah)
+
+
+7.0.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when restoring scroll position for cross-domain preview iframe (Sage Abdullah)
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+ * Fix: Ensure the editing of translation alias pages correctly shows links to the source page if the alias was created from a draft (Dan Braghis)
+
+7.0.1 (12.06.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix type hints for `register_filter_adapter_class` parameters (Sébastien Corbin)
+ * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
+ * Fix: Fix saving of empty values in EmbedBlock (Matt Westcott)
+ * Fix: Sanitize request data when logging method not allowed (Jake Howard)
+ * Docs: Use tuple instead of set in `UniqueConstraint` examples for a custom rendition model to avoid spurious migrations (Alec Baron)
+ * Docs: Document how to turn off StreamField block previews (Shlomo Markowitz)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
+
+
+7.0 LTS (06.05.2025)
+~~~~~~~~~~~~~~~~~~~~
+
+ * Add formal support for Django 5.2 (Matt Westcott)
+ * Allow validation of required fields to be deferred on saving drafts (Matt Westcott, Sage Abdullah)
  * Add `WAGTAIL_` prefix to Wagtail-specific tag settings (Aayushman Singh)
  * Implement `normalize` on `TypedTableBlock` to assist with setting `default` and `preview_value` (Sage Abdullah)
  * Apply normalization when modifying a `StreamBlock`'s value to assist with programmatic changes to `StreamField` (Matt Westcott)
  * Allow a custom image rendition model to define its unique constraint with `models.UniqueConstraint` instead of `unique_together` (Oliver Parker, Cynthia Kiser, Sage Abdullah)
  * Default to the `standard` tokenizer on Elasticsearch, to correctly handle numbers as tokens (Matt Westcott)
+ * Add color-scheme meta tag to Wagtail admin (Ashish Nagmoti)
+ * Add the ability to set the default privacy restriction for new pages using `get_default_privacy_setting` (Shlomo Markowitz)
+ * Improve performance of batch purging page urls in the frontend cache, avoiding n+1 query issues (Andy Babic)
+ * Add better support and documentation for overriding or extending icons used in the in the userbar (Sébastien Corbin)
+ * List the comments action, if comments are enabled, within the admin keyboard shortcuts dialog (Dhruvi Patel)
+ * Add better support and documentation for overriding the default field widgets used within form pages (Baptiste Mispelon)
+ * Allow workflow tasks to specify a template for the action modal via `get_template_for_action` (Sage Abdullah)
+ * Change 'Publish' button label to 'Schedule to publish' if go-live schedule is set (Sage Abdullah)
+ * Exclude snippets that have their own menu items from the "Snippets" menu (Andy Chosak, Matt Westcott)
+ * Introduce new designs for listings and chooser pagination (except page chooser) (Jordan Teichmann, Sage Abdullah)
+ * Add default "Locale" column to listings and choosers of translatable models (Dan Braghis, Sage Abdullah)
+ * Apply current content's locale in choosers by default and add the ability to clear the locale filter (Dan Braghis)
+ * Hide add locale button when no more languages are available (Dan Braghis)
+ * Allow customizing `InspectView` field display value via methods on the view (Dan Braghis)
+ * Make rendering of active listing filters extensible, to support additional filter types (Sage Abdullah)
  * Fix: Take preferred language into account for translatable strings in client-side code (Bernhard Bliem, Sage Abdullah)
  * Fix: Do not show the content type column as sortable when searching pages (Srishti Jaiswal, Sage Abdullah)
  * Fix: Support simple subqueries for `in` and `exact` lookup on Elasticsearch (Sage Abdullah)
  * Fix: Force preview panel scroll behavior to instant to avoid flickering (Sage Abdullah)
  * Fix: Support translating with the preferred language for rich text formatting labels (Bernhard Bliem, Sage Abdullah)
  * Fix: Make "Actions" label translatable within the rich text toolbar (Bernhard Bliem, Sage Abdullah)
+ * Fix: Fix incorrect "Views (past week)" heading on promoted search results listing (Baptiste Mispelon)
+ * Fix: Ensure `InlinePanel` will be correctly ordered after the first save when `min_num` is used (Elhussein Almasri, Joel William)
+ * Fix: Avoid deprecation warnings about URLField `assume_scheme` on Django 5.x (Sage Abdullah)
+ * Fix: Fix setup.cfg syntax for setuptools v78 (Sage Abdullah)
+ * Fix: Ensure `ImproperlyConfigured` is thrown from `db_field` on unbound `FieldPanel`s as intended (Matt Westcott)
+ * Fix: Refine the positioning of the add comment button next to select, radio, checkbox fields and between field row columns (Srishti Jaiswal)
+ * Fix: Show the correct privacy status for child collections of private collections (Shlomo Markowitz)
+ * Fix: Ensure reference index correctly handles models with primary keys not named `id` (Sage Abdullah)
+ * Fix: On "move page" bulk action, do not prefill the destination with the root page (Stefan Hammer)
+ * Fix: Ensure the default preferred language respects the `WAGTAILADMIN_PERMITTED_LANGUAGES` setting (Sébastien Corbin)
+ * Fix: Ensure there is consistent padding in homepage panels table headers (Aditya (megatrron))
+ * Fix: Prevent redundant calls to context processors when rendering userbar (Ihor Marhitych)
+ * Fix: Fix validation of duplicate field names in form builder when fields have been deleted (Ian Meigh)
+ * Fix: Fix font size of footer action buttons when there is only one item (Sage Abdullah)
  * Docs: Add missing `django.contrib.admin` to list of apps in "add to Django project" guide (Mohamed Rabiaa)
+ * Docs: Add tutorial on deploying on Ubuntu to third-party tutorials (Mohammad Fathi Rahman)
+ * Docs: Document that request_or_site is optional on BaseGenericSetting.load (Matt Westcott)
+ * Docs: Mention third-party StreamField based form builder packages in the form builder documentation (Matt Westcott)
+ * Docs: Clarify that `insert_editor_js` hook applies to all core editing/creation views (LB (Ben) Johnston)
+ * Docs: Clarify requirement for non-page models using model mixins to be registered as snippets (Sage Abdullah)
+ * Docs: Clarify that `Page.get_url_parts` will return a tuple, not `None` for `NoReverseMatch` errors (Arthur Tripp)
+ * Docs: Add how-to Django Ninja to API documentation (Thibaud Colas)
+ * Docs: Document the `expand_db_html` utility function to create HTML ready for display (Thibaud Colas)
+ * Docs: Mention `expand_db_html` usage for rich text in REST framework API (Thibaud Colas)
+ * Docs: Further document usage of API `?limit` with `WAGTAILAPI_LIMIT_MAX` (Thibaud Colas)
  * Maintenance: Migrate away from deprecated Sass import rules to module system (Srishti Jaiswal)
  * Maintenance: Apply Sass mixed declarations migration in preparation for CSS nesting (Prabhpreet Kaur)
  * Maintenance: Refactor styles for Draftail, minimap, and comments to fix remaining Sass migration warnings (Thibaud Colas)
  * Maintenance: npm package updates; `downshift`, `focus-trap-react`, `immer`, `redux`, `uuid` (LB (Ben) Johnston)
  * Maintenance: Validate against invalid characters in Lexeme values (Matt Westcott)
  * Maintenance: Split up `wagtail.models` module into submodules (Matt Westcott)
+ * Maintenance: Update `ruff` to 0.9.6 (Sage Abdullah)
+ * Maintenance: Fix up `stubs` & `adapter` contents to better support Jest testing (LB (Ben) Johnston)
+ * Maintenance: Cleanup Stimulus controller imports, JSDoc & linting (LB (Ben) Johnston)
+ * Maintenance: Rename `SkipLinkController` to `FocusController` with improved reusability, updated unit tests, and added story (LB (Ben) Johnston)
+ * Maintenance: Fix CI testing issues with the Stimulus `LocaleController` time zones & non-deterministic page ordering tests (Sage Abdullah)
+ * Maintenance: Make GitHub highlight `.html` files as Django templates (Jake Howard)
+ * Maintenance: Remove admin JavaScript imports from shared template includes, moving the imports to the appropriate core admin inclusion locations (Sai Srikar Dumpeti)
+ * Maintenance: Remove non-editing view inclusions of the `insert_editor_js` hook output, deprecate the wrapper template tag `_editor_js.html` (Sai Srikar Dumpeti, LB (Ben) Johnston)
+ * Maintenance: Remove upper bound on Django dependency (Matt Westcott)
+ * Maintenance: Add `default_auto_field` setting to home app in project template (Sylvain Boissel)
+ * Maintenance: Migrate setuptools configuration from `setup.py` and `setup.cfg` to `pyproject.toml` (Sage Abdullah)
+ * Maintenance: Refactor `move_choose_destination` to a class-based view (Chiemezuo Akujobi)
+ * Maintenance: Remove deprecated `wagtailadmin/shared/ajax_pagination_nav.html` template (Sage Abdullah)
+ * Maintenance: Formally deprecate support for listing views with no breadcrumbs (Sage Abdullah)
+ * Maintenance: Update `django-tasks` to 0.7.x (Jake Howard)
+
+
+6.4.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+
+
+6.4.2 (12.06.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Do not show upgrade notification if the installed version is the latest (Sage Abdullah)
+ * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
+ * Fix: Sanitize request data when logging method not allowed (Jake Howard)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
 
 
 6.4.1 (21.02.2025)
@@ -179,9 +359,24 @@ Changelog
  * Maintenance: Upgrade sass-loader to resolve Sass deprecation warnings (Ayaan Qadri)
 
 
-6.3.4 (xx.xx.xxxx) - IN DEVELOPMENT
+6.3.6 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
+ * Fix: Remove ngram parser on MySQL that prevented autocomplete search from returning results (Vince Salvino)
+
+
+6.3.5 (12.06.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Use correct URL when redirecting back to the listing after filtering and deleting form submissions (Sage Abdullah)
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
+ * Maintenance: Use `utf8mb4` charset and collation for MySQL test database (Sage Abdullah)
+
+
+6.3.4 (24.04.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Added support for Django 5.2
  * Fix: Add missing “Close” label to the upgrade notification dismiss button (Sage Abdullah)
  * Fix: Fix white text on white background in previews for sites that use color-scheme without a background-color (Sage Abdullah)
  * Maintenance: Remove upper version boundary for django-filter (Dan Braghis)
@@ -316,6 +511,12 @@ Changelog
  * Maintenance: Improve code reuse for footer actions markup across generic views (Sage Abdullah)
  * Maintenance: Deprecate internal `DeleteMenuItem` API for footer actions (Sage Abdullah)
  * Maintenance: Update Pillow dependency to allow 11.x (Storm Heg)
+
+
+6.2.4 (12.06.2025)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix broken migration when ListBlock is defined with a `child_block` kwarg (Matt Westcott)
 
 
 6.2.3 (01.11.2024)

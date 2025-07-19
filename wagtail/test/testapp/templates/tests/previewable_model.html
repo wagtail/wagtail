@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load wagtailuserbar %}
 <html lang="en">
     <head>
         <title>{{ object.text }} (Default Preview)</title>
@@ -10,5 +11,6 @@
                 <li>{{ category.name }}</li>
             {% endfor %}
         </ul>
+        {% wagtailuserbar %}
     </body>
 </html>

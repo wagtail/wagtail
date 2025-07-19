@@ -30,7 +30,6 @@ from wagtail.test.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.test.testapp.blocks import SectionBlock
 from wagtail.test.testapp.models import EventPage, SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.deprecation import RemovedInWagtail70Warning
 
 
 class FooStreamBlock(blocks.StreamBlock):
@@ -192,6 +191,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--text_input",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -214,6 +214,27 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block_with_classname.set_name("test_block")
         js_args = FieldBlockAdapter().js_args(block_with_classname)
         self.assertIn(" special-char-classname", js_args[2]["classname"])
+
+    def test_charblock_adapter_attrs(self):
+        block = blocks.CharBlock(
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("test_block")
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_block")
+        self.assertIsInstance(js_args[1], forms.TextInput)
+        self.assertEqual(
+            js_args[2].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
 
     def test_charfield_render_with_template_with_extra_context(self):
         block = ContextCharBlock(template="tests/blocks/heading_block.html")
@@ -253,6 +274,13 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         with self.assertRaises(ValidationError):
             block.clean("bar")
+
+    def test_charfield_with_callable_default(self):
+        def callable_default():
+            return "Hello world!"
+
+        block = blocks.CharBlock(default=callable_default)
+        self.assertEqual(block.get_default(), "Hello world!")
 
     def test_choicefield_render(self):
         class ChoiceBlock(blocks.FieldBlock):
@@ -301,6 +329,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--choice_field w-field--select",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -678,10 +707,23 @@ class TestRichTextBlock(TestCase):
         self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, "<p>foo</p>")
 
+    def test_get_default_with_localized_string(self):
+        default_value = blocks.RichTextBlock(default=_("<p>english</p>")).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, "<p>english</p>")
+
     def test_get_default_with_richtext_value(self):
         default_value = blocks.RichTextBlock(
             default=RichText("<p>foo</p>")
         ).get_default()
+        self.assertIsInstance(default_value, RichText)
+        self.assertEqual(default_value.source, "<p>foo</p>")
+
+    def test_get_default_with_callable(self):
+        def callable_default():
+            return RichText("<p>foo</p>")
+
+        default_value = blocks.RichTextBlock(default=callable_default).get_default()
         self.assertIsInstance(default_value, RichText)
         self.assertEqual(default_value.source, "<p>foo</p>")
 
@@ -712,6 +754,7 @@ class TestRichTextBlock(TestCase):
                 "description": "",
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
+                "attrs": {},
                 "required": True,
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
@@ -738,6 +781,7 @@ class TestRichTextBlock(TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
+                "attrs": {},
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -763,6 +807,7 @@ class TestRichTextBlock(TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--draftail_rich_text_area",
+                "attrs": {},
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
                 "maxLength": 400,
@@ -799,11 +844,28 @@ class TestRichTextBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean(RichText("<p>this exceeds the 20 character limit</p>"))
 
+        # Case to test that markup is not counted towards length
         block.clean(
             RichText(
                 '<p><a href="http://really-long-domain-name.example.com">also</a> short</p>'
             )
         )
+
+    def test_validate_min_length(self):
+        block = blocks.RichTextBlock(min_length=20)
+
+        block.clean(RichText("<p>this passes the 20 character minimum</p>"))
+
+        with self.assertRaises(ValidationError):
+            block.clean(RichText("<p>too short</p>"))
+
+        # Case to test that markup is not counted towards length
+        with self.assertRaises(ValidationError):
+            block.clean(
+                RichText(
+                    '<p><a href="http://really-long-domain-name.example.com">also</a> too short</p>'
+                )
+            )
 
     def test_get_searchable_content(self):
         block = blocks.RichTextBlock()
@@ -881,6 +943,7 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--choice_field w-field--select",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -1285,6 +1348,7 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--multiple_choice_field w-field--select_multiple",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -1681,6 +1745,14 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertEqual(default_value, "<blink>BÖÖM</blink>")
         self.assertIsInstance(default_value, SafeData)
 
+    def test_get_default_with_callable(self):
+        def callable_default():
+            return "<blink>BÖÖM</blink>"
+
+        default_value = blocks.RawHTMLBlock(default=callable_default).get_default()
+        self.assertEqual(default_value, "<blink>BÖÖM</blink>")
+        self.assertIsInstance(default_value, SafeData)
+
     def test_serialize(self):
         block = blocks.RawHTMLBlock()
         result = block.get_prep_value(mark_safe("<blink>BÖÖM</blink>"))
@@ -1724,6 +1796,7 @@ class TestRawHTMLBlock(unittest.TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--char_field w-field--textarea",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -2069,6 +2142,8 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
+                "attrs": {},
             },
         )
 
@@ -2101,7 +2176,58 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
+                "attrs": {},
                 "formTemplate": "<div>Hello</div>",
+            },
+        )
+
+    def test_adapt_with_form_attrs(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+        block = LinkBlock(
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            }
+        )
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_structblock")
+        self.assertEqual(
+            js_args[2].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+    def test_adapt_with_form_attrs_on_meta(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                form_attrs = {
+                    "data-controller": "w-custom",
+                    "data-action": "click->w-custom#doSomething",
+                }
+
+        block = LinkBlock()
+
+        block.set_name("test_structblock")
+        js_args = StructBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_structblock")
+        self.assertEqual(
+            js_args[2].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
             },
         )
 
@@ -2128,6 +2254,8 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
+                "attrs": {},
                 "formTemplate": "<div>Hello</div>",
             },
         )
@@ -2140,6 +2268,25 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         default_val = block.get_default()
         self.assertEqual(default_val.get("title"), "Torchbox")
+
+    def test_get_default_with_callable(self):
+        def callable_struct_default():
+            return {"title": "Torchbox"}
+
+        def default_link():
+            return "http://www.torchbox.com"
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock(default=default_link)
+
+        block = LinkBlock(default=callable_struct_default)
+        default_val = block.get_default()
+
+        # Should combine the defaults from the StructBlock's default and the
+        # child block's default, and allow them both to be callable
+        self.assertEqual(default_val.get("title"), "Torchbox")
+        self.assertEqual(default_val.get("link"), "http://www.torchbox.com")
 
     def test_adapt_with_help_text_on_meta(self):
         class LinkBlock(blocks.StructBlock):
@@ -2164,6 +2311,8 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
+                "attrs": {},
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2192,6 +2341,8 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
+                "collapsed": None,
+                "attrs": {},
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
                     '<use href="#icon-help"></use></svg>'
@@ -2199,6 +2350,21 @@ class TestStructBlock(SimpleTestCase):
                 "helpText": "Self-promotion is encouraged",
             },
         )
+
+    def test_adapt_with_collapsed(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        cases = [None, False, True]
+        for case in cases:
+            with self.subTest(collapsed=case):
+                block = LinkBlock(collapsed=case)
+
+                block.set_name("test_structblock")
+                js_args = StructBlockAdapter().js_args(block)
+
+                self.assertIs(js_args[2]["collapsed"], case)
 
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
@@ -2823,6 +2989,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": None,
+                "attrs": {},
                 "collapsed": False,
                 "strings": {
                     "DELETE": "Delete",
@@ -2857,6 +3024,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": None,
+                "attrs": {},
                 "collapsed": False,
                 "minNum": 2,
                 "maxNum": 5,
@@ -2976,6 +3144,14 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(list(block.get_default()), ["peas", "beans", "carrots"])
 
+    def test_default_callable(self):
+        def callable_default():
+            return ["chocolate", "vanilla"]
+
+        block = blocks.ListBlock(blocks.CharBlock(), default=callable_default)
+
+        self.assertEqual(list(block.get_default()), ["chocolate", "vanilla"])
+
     def test_default_default(self):
         """
         if no explicit 'default' is set on the ListBlock, it should fall back on
@@ -3035,6 +3211,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "special-list-class",
+                "attrs": {},
                 "collapsed": False,
                 "strings": {
                     "DELETE": "Delete",
@@ -3072,6 +3249,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "custom-list-class",
+                "attrs": {},
                 "collapsed": False,
                 "strings": {
                     "DELETE": "Delete",
@@ -3081,6 +3259,33 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                     "DRAG": "Drag",
                     "ADD": "Add",
                 },
+            },
+        )
+
+    def test_adapt_with_form_attrs(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(
+            LinkBlock,
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("test_listblock")
+        js_args = ListBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "test_listblock")
+        self.assertIsInstance(js_args[1], LinkBlock)
+        self.assertEqual(js_args[2], {"title": None, "link": None})
+        self.assertEqual(
+            js_args[3].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
             },
         )
 
@@ -3713,6 +3918,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": None,
+                "attrs": {},
                 "collapsed": False,
                 "maxNum": None,
                 "minNum": None,
@@ -4031,6 +4237,29 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(len(stream_value), 1)
         self.assertEqual(stream_value[0].block_type, "heading")
         self.assertEqual(stream_value[0].value, "A different default heading")
+
+    def test_callable_default(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        def callable_default():
+            return [("heading", "A default heading from callable")]
+
+        # to access the default value, we retrieve it through a StructBlock
+        # from a struct value that's missing that key
+        class ArticleContainerBlock(blocks.StructBlock):
+            author = blocks.CharBlock()
+            article = ArticleBlock(default=callable_default)
+
+        block = ArticleContainerBlock()
+        struct_value = block.to_python({"author": "Bob"})
+        stream_value = struct_value["article"]
+
+        self.assertIsInstance(stream_value, blocks.StreamValue)
+        self.assertEqual(len(stream_value), 1)
+        self.assertEqual(stream_value[0].block_type, "heading")
+        self.assertEqual(stream_value[0].value, "A default heading from callable")
 
     def test_stream_value_equality(self):
         block = blocks.StreamBlock(
@@ -4420,6 +4649,29 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ],
         )
 
+    def test_adapt_with_form_attrs(self):
+        block = blocks.StreamBlock(
+            [
+                (b"heading", blocks.CharBlock()),
+                (b"paragraph", blocks.CharBlock()),
+            ],
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("test_streamblock")
+        js_args = StreamBlockAdapter().js_args(block)
+
+        self.assertEqual(
+            js_args[3].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
     def test_adapt_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering stream block"""
 
@@ -4448,6 +4700,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "collapsed": False,
                 "required": True,
                 "classname": "rocket-section",
+                "attrs": {},
                 "strings": {
                     "DELETE": "Delete",
                     "DUPLICATE": "Duplicate",
@@ -4554,6 +4807,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 "collapsed": False,
                 "required": True,
                 "classname": "profile-block-large",
+                "attrs": {},
                 "strings": {
                     "DELETE": "Delete",
                     "DUPLICATE": "Duplicate",
@@ -4901,6 +5155,7 @@ class TestPageChooserBlock(TestCase):
                 "isPreviewable": block.is_previewable,
                 "helpText": "pick a page, any page",
                 "classname": "w-field w-field--model_choice_field w-field--admin_page_chooser",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -5106,6 +5361,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5130,6 +5386,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5153,6 +5410,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Latest posts",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5177,6 +5435,7 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
             },
         )
 
@@ -5201,6 +5460,29 @@ class TestStaticBlock(unittest.TestCase):
                 "isPreviewable": block.is_previewable,
                 "label": "Posts static block",
                 "description": "",
+                "attrs": {},
+            },
+        )
+
+    def test_adapt_with_form_attrs(self):
+        block = blocks.StaticBlock(
+            admin_text="Latest posts - This block doesn't need to be configured, it will be displayed automatically",
+            template="tests/blocks/posts_static_block.html",
+            form_attrs={
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
+            },
+        )
+
+        block.set_name("posts_static_block")
+        js_args = StaticBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], "posts_static_block")
+        self.assertEqual(
+            js_args[1].get("attrs"),
+            {
+                "data-controller": "w-custom",
+                "data-action": "click->w-custom#doSomething",
             },
         )
 
@@ -5259,6 +5541,7 @@ class TestDateBlock(TestCase):
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--date_field w-field--admin_date_input",
                 "showAddCommentButton": True,
+                "attrs": {},
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
         )
@@ -5295,6 +5578,7 @@ class TestTimeBlock(TestCase):
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--time_field w-field--admin_time_input",
                 "showAddCommentButton": True,
+                "attrs": {},
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
         )
@@ -5330,6 +5614,7 @@ class TestDateTimeBlock(TestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "w-field w-field--date_time_field w-field--admin_date_time_input",
+                "attrs": {},
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -5749,23 +6034,6 @@ class TestIncludeBlockTag(TestCase):
 
 
 class TestOverriddenGetTemplateBlockTag(TestCase):
-    def test_get_template_old_signature(self):
-        class BlockUsingGetTemplateMethod(blocks.Block):
-            my_new_template = "tests/blocks/heading_block.html"
-
-            def get_template(self, context=None):
-                return self.my_new_template
-
-        block = BlockUsingGetTemplateMethod(
-            template="tests/blocks/this_shouldnt_be_used.html"
-        )
-        with self.assertWarnsMessage(
-            RemovedInWagtail70Warning,
-            "BlockUsingGetTemplateMethod.get_template should accept a 'value' argument as first argument",
-        ):
-            html = block.render("Hello World")
-        self.assertEqual(html, "<h1>Hello World</h1>")
-
     def test_block_render_passes_the_value_argument_to_get_template(self):
         """verifies Block.render() passes the value to get_template"""
 

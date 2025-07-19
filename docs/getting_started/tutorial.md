@@ -359,9 +359,6 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 
-# add this:
-from wagtail.search import index
-
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
 class BlogPage(Page):
@@ -369,15 +366,8 @@ class BlogPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
-
     content_panels = Page.content_panels + ["date", "intro", "body"]
 ```
-
-In the model above, you import `index` as this makes the model searchable. You then list fields that you want to be searchable for the user.
 
 You have to migrate your database again because of the new changes in your `models.py` file:
 
@@ -553,7 +543,6 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.search import index
 
 # ... Keep the definition of BlogIndexPage, update the content_panels of BlogPage, and add a new BlogPageGalleryImage model:
 
@@ -561,11 +550,6 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
 
     content_panels = Page.content_panels + [
         "date", "intro", "body",
@@ -647,11 +631,6 @@ class BlogPage(Page):
         else:
             return None
 
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-    ]
-
     content_panels = Page.content_panels + ["date", "intro", "body", "gallery_images"]
 ```
 
@@ -725,7 +704,6 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import MultiFieldPanel
-from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 class BlogPage(Page):
@@ -736,7 +714,7 @@ class BlogPage(Page):
     # Add this:
     authors = ParentalManyToManyField('blog.Author', blank=True)
 
-    # ... Keep the main_image method and search_fields definition. Modify your content_panels:
+    # ... Keep the main_image method. Modify your content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel(["date", "authors"], heading="Blog information"),
         "intro", "body", "gallery_images"
@@ -760,7 +738,6 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 class BlogPage(Page):
@@ -849,7 +826,6 @@ from taggit.models import TaggedItemBase
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.search import index
 
 
 # ... Keep the definition of BlogIndexPage model and add a new BlogPageTag model
@@ -870,7 +846,7 @@ class BlogPage(Page):
     # Add this:
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
 
-    # ... Keep the main_image method and search_fields definition. Then modify the content_panels:
+    # ... Keep the main_image method. Then modify the content_panels:
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             "date",

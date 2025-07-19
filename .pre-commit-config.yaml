@@ -3,7 +3,7 @@ default_language_version:
   python: python3
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.1.5'
+    rev: 'v0.9.6'
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
@@ -16,7 +16,7 @@ repos:
         types_or: [css, scss, javascript, ts, tsx, json, yaml]
         additional_dependencies:
           # Keep in sync with package.json
-          - prettier@3.1.0
+          - prettier@3.3.3
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.56.0
     hooks:

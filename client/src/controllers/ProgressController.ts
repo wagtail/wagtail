@@ -7,6 +7,7 @@ const DEFAULT_CLASS = 'button-longrunning';
  * until the duration has elapsed. Will also update the button's label while in progress.
  *
  * @example
+ * ```html
  * <button
  *   type="submit"
  *   class="button button-longrunning"
@@ -16,9 +17,10 @@ const DEFAULT_CLASS = 'button-longrunning';
  *   data-w-progress-duration-seconds-value="40"
  *   data-action="w-progress#activate"
  * >
- *  {% icon name="spinner" %}
- *  <em data-w-progress-target="label">{% trans 'Sign in' %}</em>
+ *   {% icon name="spinner" %}
+ *   <em data-w-progress-target="label">{% trans 'Sign in' %}</em>
  * </button>
+ * ```
  */
 export class ProgressController extends Controller<HTMLButtonElement> {
   static classes = ['active'];

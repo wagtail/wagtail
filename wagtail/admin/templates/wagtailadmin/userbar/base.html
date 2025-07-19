@@ -3,21 +3,26 @@
 <template id="wagtail-userbar-template">
     {# In preview panels, we still render the userbar UI, but hidden by default. #}
     <aside {% if request.in_preview_panel %}hidden{% endif %}>
-        <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar part="userbar">
-            <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}">
-            {% hook_output 'insert_global_admin_css' %}
+        <div class="w-userbar w-userbar--{{ position|default:'bottom-right' }} {% admin_theme_classname %}" data-wagtail-userbar data-wagtail-userbar-origin="{{ origin|default:"" }}" part="userbar">
+            {% block css %}
+                <link rel="stylesheet" href="{% absolute_static 'wagtailadmin/css/core.css' %}">
+                {# For headless userbar: the contents of the hook also need absolute URLs #}
+                {% hook_output 'insert_global_admin_css' %}
+            {% endblock %}
             <div class="w-userbar-nav">
 
                 <svg class="w-hidden">
                     <defs>
-                        {% include "wagtailadmin/icons/wagtail.svg" %}
-                        {% include "wagtailadmin/icons/key.svg" %}
-                        {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
-                        {% include "wagtailadmin/icons/edit.svg" %}
-                        {% include "wagtailadmin/icons/plus.svg" %}
-                        {% include "wagtailadmin/icons/check.svg" %}
-                        {% include "wagtailadmin/icons/cross.svg" %}
-                        {% include "wagtailadmin/icons/crosshairs.svg" %}
+                        {% block icons %}
+                            {% include "wagtailadmin/icons/wagtail.svg" %}
+                            {% include "wagtailadmin/icons/key.svg" %}
+                            {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
+                            {% include "wagtailadmin/icons/edit.svg" %}
+                            {% include "wagtailadmin/icons/plus.svg" %}
+                            {% include "wagtailadmin/icons/check.svg" %}
+                            {% include "wagtailadmin/icons/cross.svg" %}
+                            {% include "wagtailadmin/icons/crosshairs.svg" %}
+                        {% endblock %}
                     </defs>
                 </svg>
 
@@ -26,9 +31,11 @@
                     <span class="w-sr-only">{% trans 'View Wagtail quick actions' %}</span>
                 </button>
                 <ul aria-labelledby="wagtail-userbar-trigger" class="w-userbar-items" id="wagtail-userbar-items" role="menu">
-                    {% for item in items %}
-                        {{ item|safe }}
-                    {% endfor %}
+                    {% block items %}
+                        {% for item in items %}
+                            {{ item|safe }}
+                        {% endfor %}
+                    {% endblock %}
                 </ul>
             </div>
         </div>
@@ -36,6 +43,8 @@
     </aside>
 </template>
 <wagtail-userbar></wagtail-userbar>
-<script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/userbar.js' %}"></script>
+{% block js %}
+    <script src="{% absolute_static 'wagtailadmin/js/vendor.js' %}"></script>
+    <script src="{% absolute_static 'wagtailadmin/js/userbar.js' %}"></script>
+{% endblock %}
 <!-- end Wagtail user bar embed code -->

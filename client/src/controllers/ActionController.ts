@@ -7,50 +7,61 @@ import { WAGTAIL_CONFIG } from '../config/wagtailConfig';
  * triggering a form submission where the form is created dynamically
  * in the DOM and then submitted.
  *
- * @example - triggering a click
+ * @example - Triggering a click
+ * ```html
  * <button
- *  type="button"
- *  data-controller="w-action"
- *  data-action="some-event#click"
+ *   type="button"
+ *   data-controller="w-action"
+ *   data-action="some-event#click"
  * >
- *  Go
+ *   Go
  * </button>
+ * ```
  *
- * @example - triggering a dynamic POST submission
+ * @example - Triggering a dynamic POST submission
+ * ```html
  * <button
- *  type="submit"
- *  data-controller="w-action"
- *  data-action="w-action#post"
- *  data-w-action-url-value='url/to/post/to'
+ *   type="submit"
+ *   data-controller="w-action"
+ *   data-action="w-action#post"
+ *   data-w-action-url-value='url/to/post/to'
  * >
  *  Enable
  * </button>
+ * ```
  *
- * @example - triggering a POST request via sendBeacon
+ * @example - Triggering a POST request via sendBeacon
+ * ```html
  * <button data-controller="w-action" data-action="blur->w-action#sendBeacon">
- *  If you move focus away from this button, a POST request will be sent.
+ *   If you move focus away from this button, a POST request will be sent.
  * </button>
+ * ```
  *
- * @example - triggering a dynamic redirect
- * // note: a link is preferred normally
+ * @example - Triggering a dynamic redirect (a link is normally preferred)
+ * ```html
  * <form>
  *   <select name="url" data-controller="w-action" data-action="change->w-action#redirect">
  *     <option value="/path/to/1">1</option>
  *     <option value="/path/to/2">2</option>
  *   </select>
  * </form>
+ * ```
  *
- * @example - triggering selection of the text in a field
+ * @example - Triggering selection of the text in a field
+ * ```html
  * <form>
  *   <textarea name="url" data-controller="w-action" data-action="click->w-action#select">
  *     This text will all be selected on focus.
  *   </textarea>
  * </form>
+ * ```
  *
- * @example - ensuring a button's click does not propagate
+ * @example - Ensuring a button's click does not propagate
+ * ```html
  * <div>
  *   <button type="button" data-controller="w-action" data-action="w-action#noop:stop">Go</button>
  * </div>
+ * ```
  */
 export class ActionController extends Controller<
   HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement

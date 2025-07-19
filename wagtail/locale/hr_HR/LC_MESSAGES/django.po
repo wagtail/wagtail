@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020,2022-2023\n"
 "Language-Team: Croatian (Croatia) (http://app.transifex.com/torchbox/wagtail/"
@@ -116,6 +116,21 @@ msgstr "Otključano"
 msgid "Locked by workflow"
 msgstr "Zaključao tijek rada"
 
+msgid "content type"
+msgstr "vrsta sadržaja"
+
+msgid "timestamp (UTC)"
+msgstr "vremenska oznaka (UTC)"
+
+msgid "log entry"
+msgstr "zapis"
+
+msgid "log entries"
+msgstr "zapisi"
+
+msgid "system"
+msgstr "sustav"
+
 msgid "live"
 msgstr "uživo"
 
@@ -152,9 +167,6 @@ msgstr "uživo + zakazano"
 msgid "live + draft"
 msgstr "uživo + skica"
 
-msgid "Default"
-msgstr "Zadano"
-
 msgid "locked"
 msgstr "zaključano"
 
@@ -164,11 +176,35 @@ msgstr "zaključano u"
 msgid "locked by"
 msgstr "zaključao/la"
 
-msgid "in moderation"
-msgstr "u moderiranju"
+msgid "collection"
+msgstr "zbirka"
 
-msgid "live + in moderation"
-msgstr "uživo + u moderiranju"
+msgid "collection view restriction"
+msgstr "ograničenje pogleda zbirke"
+
+msgid "collection view restrictions"
+msgstr "ograničenje pogleda zbirki"
+
+msgid "name"
+msgstr "naziv"
+
+msgid "collections"
+msgstr "zbirke"
+
+msgid "group"
+msgstr "grupa"
+
+msgid "permission"
+msgstr "dozvole"
+
+msgid "group collection permission"
+msgstr "Grupna dozvola zbirke"
+
+msgid "group collection permissions"
+msgstr "Grupne dozvole zbirke"
+
+msgid "uploaded by user"
+msgstr "Prenio korisnik"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi vlastite stranice"
@@ -219,9 +255,6 @@ msgstr ""
 "Kratica koja će se pojavljivati u URL-u, npr. http://domena.com/blog/[moj-"
 "slug]/"
 
-msgid "content type"
-msgstr "vrsta sadržaja"
-
 msgid "URL path"
 msgstr "URL putanja"
 
@@ -264,30 +297,6 @@ msgstr "stranica"
 msgid "pages"
 msgstr "stranice"
 
-msgid "created at"
-msgstr "stvoreno u"
-
-msgid "user"
-msgstr "korisnik"
-
-msgid "content JSON"
-msgstr "sadržaj JSON"
-
-msgid "approved go live at"
-msgstr "odobreno uživo u"
-
-msgid "revision"
-msgstr "verzija"
-
-msgid "revisions"
-msgstr "verzije"
-
-msgid "group"
-msgstr "grupa"
-
-msgid "permission"
-msgstr "dozvole"
-
 msgid "group page permission"
 msgstr "Grupna dozvola stranice"
 
@@ -309,126 +318,6 @@ msgstr "stranica radnog tijeka"
 msgid "workflow pages"
 msgstr "stranice radnog tijeka"
 
-msgid "workflow_tasks"
-msgstr "zadaci radnog tijeka"
-
-msgid "task"
-msgstr "zadatak"
-
-msgid "workflow task order"
-msgstr "redoslijed zadatka radnog tijeka"
-
-msgid "workflow task orders"
-msgstr "redoslijedi zadataka radnog tijeka"
-
-msgid "name"
-msgstr "naziv"
-
-msgid "active"
-msgstr "aktivno"
-
-msgid ""
-"Active tasks can be added to workflows. Deactivating a task does not remove "
-"it from existing workflows."
-msgstr ""
-"Akitvni zadaci se mogu dodati u tijek rada. Obustavljanje zadataka ga ne "
-"briše iz postojećih tijekova rada."
-
-msgid "tasks"
-msgstr "zadaci"
-
-msgid ""
-"Active workflows can be added to pages/snippets. Deactivating a workflow "
-"does not remove it from existing pages/snippets."
-msgstr ""
-"Aktivni tijekovi rada se mogu dodati stranicama/izrescima. Obustavljanje "
-"tijeka rada ga ne briše iz postojećih stranica/izrezaka."
-
-msgid "workflows"
-msgstr "tijekovi rada"
-
-msgid "groups"
-msgstr "grupe"
-
-msgid ""
-"Pages/snippets at this step in a workflow will be moderated or approved by "
-"these groups of users"
-msgstr ""
-"Stranice/izresci u ovom koraku radnog tijeka će biti moderirane ili odobrene "
-"od strane ovih grupa korisnika"
-
-msgid "Request changes"
-msgstr "Zatraži izmjene"
-
-msgid "Approve"
-msgstr "Odobri"
-
-msgid "Approve with comment"
-msgstr "Odobri uz komentar"
-
-msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Članovi odabrane Wagtail grupe mogu odobriti ovaj zadatak"
-
-msgid "Group approval task"
-msgstr "Grupno odobrenje zadatka"
-
-msgid "Group approval tasks"
-msgstr "Grupno odobrenje zadataka"
-
-msgid "In progress"
-msgstr "U tijeku"
-
-msgid "Approved"
-msgstr "Odobreno"
-
-msgid "Needs changes"
-msgstr "Potrebne su izmjene"
-
-msgid "Cancelled"
-msgstr "Obustavljeno"
-
-msgid "status"
-msgstr "status"
-
-msgid "requested by"
-msgstr "zatražio korisnik"
-
-msgid "current task state"
-msgstr "trenutno stanje zadatka"
-
-msgid "Not started"
-msgstr "Nije započeto"
-
-msgid "Workflow state"
-msgstr "Stanje radnog tijeka"
-
-msgid "Workflow states"
-msgstr "Stanja radnog tijeka"
-
-msgid "Rejected"
-msgstr "Odbijeno"
-
-msgid "Skipped"
-msgstr "Preskočeno"
-
-msgid "workflow state"
-msgstr "stanje radnog tijeka"
-
-msgid "started at"
-msgstr "Započeto"
-
-msgid "finished at"
-msgstr "završeno u"
-
-msgid "finished by"
-msgstr "izvršio korisnik"
-
-msgid "Task state"
-msgstr "Stanje zadatka"
-
-msgid "Task states"
-msgstr "Stanja zadataka"
-
 msgid "page log entry"
 msgstr "zapis stranice"
 
@@ -438,42 +327,30 @@ msgstr "zapisi stranice"
 msgid "Draft saved"
 msgstr "Spremljena skica"
 
-msgid "timestamp (UTC)"
-msgstr "vremenska oznaka (UTC)"
-
-msgid "log entry"
-msgstr "zapis"
-
-msgid "log entries"
-msgstr "zapisi"
-
-msgid "system"
-msgstr "sustav"
-
-msgid "collection"
-msgstr "zbirka"
-
-msgid "collection view restriction"
-msgstr "ograničenje pogleda zbirke"
-
-msgid "collection view restrictions"
-msgstr "ograničenje pogleda zbirki"
-
-msgid "collections"
-msgstr "zbirke"
-
-msgid "group collection permission"
-msgstr "Grupna dozvola zbirke"
-
-msgid "group collection permissions"
-msgstr "Grupne dozvole zbirke"
-
-msgid "uploaded by user"
-msgstr "Prenio korisnik"
+msgid "Default"
+msgstr "Zadano"
 
 #, python-format
 msgid "the %(model_name)s will also be deleted"
 msgstr "%(model_name)s će također biti izbrisano"
+
+msgid "created at"
+msgstr "stvoreno u"
+
+msgid "user"
+msgstr "korisnik"
+
+msgid "content JSON"
+msgstr "sadržaj JSON"
+
+msgid "approved go live at"
+msgstr "odobreno uživo u"
+
+msgid "revision"
+msgstr "verzija"
+
+msgid "revisions"
+msgstr "verzije"
 
 msgid "hostname"
 msgstr "naziv domaćina"
@@ -532,11 +409,134 @@ msgstr "Javno"
 msgid "Private, accessible to users in specific groups"
 msgstr "Privatno, pristup korisnicima u određenim grupama"
 
+msgid "groups"
+msgstr "grupe"
+
 msgid "view restriction"
 msgstr "ograničenje pogleda"
 
 msgid "view restrictions"
 msgstr "ograničenja pogleda"
+
+msgid "In progress"
+msgstr "U tijeku"
+
+msgid "Approved"
+msgstr "Odobreno"
+
+msgid "Needs changes"
+msgstr "Potrebne su izmjene"
+
+msgid "Cancelled"
+msgstr "Obustavljeno"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "zatražio korisnik"
+
+msgid "current task state"
+msgstr "trenutno stanje zadatka"
+
+msgid "Not started"
+msgstr "Nije započeto"
+
+msgid "Workflow state"
+msgstr "Stanje radnog tijeka"
+
+msgid "Workflow states"
+msgstr "Stanja radnog tijeka"
+
+msgid "active"
+msgstr "aktivno"
+
+msgid ""
+"Active workflows can be added to pages/snippets. Deactivating a workflow "
+"does not remove it from existing pages/snippets."
+msgstr ""
+"Aktivni tijekovi rada se mogu dodati stranicama/izrescima. Obustavljanje "
+"tijeka rada ga ne briše iz postojećih stranica/izrezaka."
+
+msgid "workflows"
+msgstr "tijekovi rada"
+
+msgid "workflow_tasks"
+msgstr "zadaci radnog tijeka"
+
+msgid "task"
+msgstr "zadatak"
+
+msgid "workflow task order"
+msgstr "redoslijed zadatka radnog tijeka"
+
+msgid "workflow task orders"
+msgstr "redoslijedi zadataka radnog tijeka"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Akitvni zadaci se mogu dodati u tijek rada. Obustavljanje zadataka ga ne "
+"briše iz postojećih tijekova rada."
+
+msgid "tasks"
+msgstr "zadaci"
+
+msgid ""
+"Pages/snippets at this step in a workflow will be moderated or approved by "
+"these groups of users"
+msgstr ""
+"Stranice/izresci u ovom koraku radnog tijeka će biti moderirane ili odobrene "
+"od strane ovih grupa korisnika"
+
+msgid "Request changes"
+msgstr "Zatraži izmjene"
+
+msgid "Approve"
+msgstr "Odobri"
+
+msgid "Approve with comment"
+msgstr "Odobri uz komentar"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Članovi odabrane Wagtail grupe mogu odobriti ovaj zadatak"
+
+msgid "Group approval task"
+msgstr "Grupno odobrenje zadatka"
+
+msgid "Group approval tasks"
+msgstr "Grupno odobrenje zadataka"
+
+msgid "Rejected"
+msgstr "Odbijeno"
+
+msgid "Skipped"
+msgstr "Preskočeno"
+
+msgid "workflow state"
+msgstr "stanje radnog tijeka"
+
+msgid "started at"
+msgstr "Započeto"
+
+msgid "finished at"
+msgstr "završeno u"
+
+msgid "finished by"
+msgstr "izvršio korisnik"
+
+msgid "Task state"
+msgstr "Stanje zadatka"
+
+msgid "Task states"
+msgstr "Stanja zadataka"
+
+msgid "in moderation"
+msgstr "u moderiranju"
+
+msgid "live + in moderation"
+msgstr "uživo + u moderiranju"
 
 msgid "Log in"
 msgstr "Prijava"

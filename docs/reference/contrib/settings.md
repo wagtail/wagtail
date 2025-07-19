@@ -105,6 +105,15 @@ class MySettings(BaseGenericSetting):
     ])
 ```
 
+## Permissions
+
+Settings are editable by superusers, and any users who have been granted "change" permission on the setting model. Additionally, for models extending `BaseSiteSetting`, permissions can be assigned for individual sites through the Groups area of the admin, under Settings.
+
+```{versionadded} 7.1
+The ability to assign permissions for individual sites was added.
+```
+
+
 ## Appearance
 
 You can change the label used in the menu by changing the
@@ -147,6 +156,8 @@ def view(request):
     ...
 ```
 
+The `request_or_site` argument is optional - if this is passed, and is a request object, the result will be cached on the request to avoid repeated database lookups within the same request.
+
 (site_settings)=
 
 #### Site-specific settings
@@ -170,6 +181,8 @@ def view(request):
     social_media_settings = SiteSpecificSocialMediaSettings.for_site(site=user.origin_site)
     ...
 ```
+
+(using_settings_in_django_templates)=
 
 ### Using in Django templates
 
@@ -291,7 +304,7 @@ Or, alternately, using the `set` tag:
 {% set site_social_settings=settings("app_label.SiteSpecificSocialMediaSettings") %}
 ```
 
-## Utilising `select_related` to improve efficiency
+## Utilizing `select_related` to improve efficiency
 
 For models with foreign key relationships to other objects (for example pages),
 which are very often needed to output values in templates, you can set
@@ -335,7 +348,7 @@ and two more to fetch each page):
 {% pageurl settings.app_label.GenericImportantPages.sign_up_page %}
 ```
 
-## Utilising the `page_url` setting shortcut
+## Utilizing the `page_url` setting shortcut
 
 If, like in the previous section, your settings model references pages,
 and you often need to output the URLs of those pages in your project,
@@ -379,3 +392,59 @@ When using the `page_url` shortcut, there are a couple of points worth noting:
 3.  If the settings object DOES have the attribute, but the attribute returns
     a value of `None` (or something that is not a `Page`), the shortcut
     will return an empty string.
+
+(enabling_previews_for_settings)=
+
+## Enabling previews for settings
+
+[Similar to snippets](wagtailsnippets_making_snippets_previewable), if a setting model inherits from {class}`~wagtail.models.PreviewableMixin`, Wagtail will automatically add a live preview panel in the editor. In addition to inheriting the mixin, the model must also override {meth}`~wagtail.models.PreviewableMixin.get_preview_template` or {meth}`~wagtail.models.PreviewableMixin.serve_preview`.
+
+When the setting is used within the preview template [via the context processor](using_settings_in_django_templates), Wagtail will automatically reflect any changes to the settings within the preview. This allows you to reuse your existing templates, such as the template of a Wagtail {class}`~wagtail.models.Page`, and see how the settings affect the page in real-time.
+
+All features provided by the `PreviewableMixin` are available, including the ability to have different {attr}`~wagtail.models.PreviewableMixin.preview_modes` and to use the {meth}`~wagtail.models.PreviewableMixin.get_preview_context` method to add additional context variables.
+
+```python
+from wagtail.contrib.settings.models import (
+    BaseGenericSetting,
+    BaseSiteSetting,
+    register_setting,
+)
+from wagtail.models import PreviewableMixin
+
+from myproject.blog.models import BlogPage
+from myproject.home.models import HomePage
+
+
+@register_setting
+class GenericSocialMediaSettings(PreviewableMixin, BaseGenericSetting):
+    def get_preview_template(self, preview_mode):
+        # Custom template specifically for this setting's preview
+        return "settings/generic/social_media.html"
+
+
+@register_setting
+class SiteSpecificSocialMediaSettings(PreviewableMixin, BaseSiteSetting):
+    preview_modes = [("home", "Home page"), ("blog", "Blog page")]
+    _models_for_preview = {
+        "home": HomePage,
+        "blog": BlogPage,
+    }
+
+    def get_preview_context(self, request, mode_name):
+        # Add a Page instance to the context for the preview
+        context = super().get_preview_context(request, mode_name)
+        context["page"] = (
+            self._models_for_preview[mode_name]
+            .objects.descendant_of(self.site.root_page, inclusive=True)
+            .first()
+        )
+        return context
+
+    def get_preview_template(self, request, mode_name):
+        # Reuse the Page model's template for the preview
+        return self._models_for_preview[mode_name].template
+```
+
+```{versionadded} 7.1
+The ability to enable previews for settings was added.
+```

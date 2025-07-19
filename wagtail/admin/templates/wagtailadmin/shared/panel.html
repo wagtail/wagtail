@@ -15,6 +15,8 @@
     - `header_controls` - Additional panel buttons to display in the header area.
     - `attrs` - Additional HTML attributes to render on the panel.
 
+    When making changes to this template, please ensure that the JavaScript-equivalent `CollapsiblePanel` component is also updated accordingly.
+
 {% endcomment %}
 {% fragment as prefix %}{% if id_prefix %}{{ id_prefix }}-{% endif %}{{ id }}{% endfragment %}
 {% fragment as panel_id %}{{ prefix }}-section{% endfragment %}

@@ -37,7 +37,7 @@ body = StreamField([
 All block definitions accept the following optional keyword arguments or `Meta` class attributes:
 
 -   `default`
-    -   The default value that a new 'empty' block should receive.
+    -   The default value (or a callable that returns the value) that a new 'empty' block should receive.
 -   `label`
     -   The label to display in the editor interface when referring to this block - defaults to a prettified version of the block name (or, in a context where no name is assigned - such as within a `ListBlock` - the empty string).
 -   `icon`
@@ -47,22 +47,26 @@ All block definitions accept the following optional keyword arguments or `Meta` 
 -   `group`
     -   The group used to categorize this block. Any blocks with the same group name will be shown together in the editor interface with the group name as a heading.
 
+```{versionadded} 7.1
+The `default` can now be defined as a callable.
+```
+
 (block_preview_arguments)=
 
 [StreamField blocks can have previews](configuring_block_previews) that will be shown inside the block picker. To accommodate the feature, all block definitions also accept the following options:
 
 -   `preview_value`
-    -   The placeholder value that will be used for rendering the preview. See {meth}`~wagtail.blocks.Block.get_preview_value` for more details.
+    -   The placeholder value (or a callable that returns the value) that will be used for rendering the preview. See {meth}`~wagtail.blocks.Block.get_preview_value` for more details.
 -   `preview_template`
     -   The template that is used to render the preview. See {meth}`~wagtail.blocks.Block.get_preview_template` for more details.
 -   `description`
     -   The description of the block to be shown to editors. See {meth}`~wagtail.blocks.Block.get_description` for more details.
 
-```{versionadded} 6.4
-The `preview_value`, `preview_template`, and `description` keyword arguments were added.
+```{versionadded} 7.1
+The `preview_value` can now be defined as a callable.
 ```
 
-All block definitions have the following methods that can be overridden:
+All block definitions have the following methods and properties that can be overridden:
 
 ```{eval-rst}
 .. autoclass:: wagtail.blocks.Block
@@ -73,6 +77,7 @@ All block definitions have the following methods that can be overridden:
     .. automethod:: wagtail.blocks.Block.get_preview_context
     .. automethod:: wagtail.blocks.Block.get_preview_template
     .. automethod:: wagtail.blocks.Block.get_description
+    .. autoattribute:: wagtail.blocks.Block.is_previewable
 ```
 
 (field_block_types)=
@@ -98,6 +103,11 @@ All block definitions have the following methods that can be overridden:
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
+
+
+.. versionadded:: 7.1
+   The ``form_attrs`` keyword argument was added to all built-in field block types.
 
 
 .. autoclass:: wagtail.blocks.TextBlock
@@ -113,6 +123,7 @@ All block definitions have the following methods that can be overridden:
     :param rows: Number of rows to show on the textarea (defaults to 1).
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.EmailBlock
@@ -124,6 +135,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.IntegerBlock
@@ -137,6 +149,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.FloatBlock
@@ -147,8 +160,10 @@ All block definitions have the following methods that can be overridden:
     :param required: If true (the default), the field cannot be left blank.
     :param max_value: The maximum allowed numeric value of the field.
     :param min_value: The minimum allowed numeric value of the field.
+    :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.DecimalBlock
@@ -164,6 +179,7 @@ All block definitions have the following methods that can be overridden:
     :param decimal_places: The number of decimal places to store with the number.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.RegexBlock
@@ -187,6 +203,7 @@ All block definitions have the following methods that can be overridden:
     :param min_length: The minimum allowed length of the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.URLBlock
@@ -200,6 +217,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.BooleanBlock
@@ -210,6 +228,7 @@ All block definitions have the following methods that can be overridden:
     :param required: If true (the default), the checkbox must be ticked to proceed. As with Django's ``BooleanField``, a checkbox that can be left ticked or unticked must be explicitly denoted with ``required=False``.
     :param help_text: Help text to display alongside the field.
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.DateBlock
@@ -222,6 +241,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.TimeBlock
@@ -234,6 +254,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.DateTimeBlock
@@ -246,6 +267,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.RichTextBlock
@@ -257,10 +279,12 @@ All block definitions have the following methods that can be overridden:
     :param features: Specifies the set of features allowed (see :ref:`rich_text_features`).
     :param required: If true (the default), the field cannot be left blank.
     :param max_length: The maximum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
+    :param min_length: The minimum allowed length of the field. Only text is counted; rich text formatting, embedded content and paragraph / line breaks do not count towards the limit.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.RawHTMLBlock
@@ -274,6 +298,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
     .. WARNING::
       When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
@@ -290,6 +315,7 @@ All block definitions have the following methods that can be overridden:
     :param help_text: Help text to display alongside the field.
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.ChoiceBlock
@@ -304,6 +330,7 @@ All block definitions have the following methods that can be overridden:
     :param widget: The form widget to render the field with (see :doc:`Django Widgets <django:ref/forms/widgets>`).
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
     ``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
 
@@ -349,6 +376,7 @@ All block definitions have the following methods that can be overridden:
     :param widget: The form widget to render the field with (see :doc:`Django Widgets <django:ref/forms/widgets>`).
     :param validators: A list of validation functions for the field (see :doc:`Django Validators <django:ref/validators>`).
     :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
+    :param form_attrs: A dictionary of additional attributes to add to the form field's wrapper element when rendered on the page editing form.
 
 
 .. autoclass:: wagtail.blocks.PageChooserBlock
@@ -416,6 +444,10 @@ All block definitions have the following methods that can be overridden:
 
 ## Structural block types
 
+```{versionadded} 7.1
+The `form_attrs` keyword argument was added to all built-in structural block types.
+```
+
 ```{eval-rst}
 .. autoclass:: wagtail.blocks.StaticBlock
     :show-inheritance:
@@ -442,6 +474,10 @@ All block definitions have the following methods that can be overridden:
                label = 'Latest posts'
                admin_text = '{label}: configured elsewhere'.format(label=label)
                template = 'latest_posts.html'
+               form_attrs = {
+                   'data-controller': 'magic',
+                   'data-action': 'click->magic#abracadabra',
+               }
 
 
 .. autoclass:: wagtail.blocks.StructBlock
@@ -494,7 +530,9 @@ All block definitions have the following methods that can be overridden:
     The following additional options are available as either keyword arguments or Meta class attributes:
 
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
+    :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface. See :ref:`custom_editing_interfaces_for_structblock`.
     :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
+    :param collapsed: When ``None`` (the default), the block is not collapsible. When ``True`` or ``False``, the block is collapsible and initially displayed in a collapsed or expanded state in the editing interface, respectively. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`custom_editing_interfaces_for_structblock`.
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:
@@ -531,6 +569,7 @@ All block definitions have the following methods that can be overridden:
     The following additional options are available as either keyword arguments or Meta class attributes:
 
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
+    :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface.
     :param min_num: Minimum number of sub-blocks that the list must have.
     :param max_num: Maximum number of sub-blocks that the list may have.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
@@ -593,6 +632,7 @@ All block definitions have the following methods that can be overridden:
     :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
     :param collapsed: When true, all sub-blocks are initially collapsed.
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
+    :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface.
 
     .. code-block:: python
         :emphasize-lines: 6

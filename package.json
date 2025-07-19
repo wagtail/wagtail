@@ -102,6 +102,8 @@
     "tailwindcss-vanilla-rtl": "^0.4.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
+    "typedoc": "^0.28.7",
+    "typedoc-plugin-mdn-links": "^5.0.3",
     "typescript": "^5.6.3",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4"
@@ -151,6 +153,7 @@
     "test:unit:coverage": "jest --coverage",
     "test:integration": "./client/tests/integration/node_modules/.bin/jest --config ./client/tests/integration/jest.config.js",
     "storybook": "storybook dev -c client/storybook -p 6006 --no-open --no-version-updates",
+    "build-docs": "typedoc",
     "build-storybook": "storybook build -c client/storybook"
   }
 }

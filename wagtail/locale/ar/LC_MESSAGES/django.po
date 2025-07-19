@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-25 23:05+0100\n"
 "PO-Revision-Date: 2014-02-21 15:51+0000\n"
 "Last-Translator: ultraify media <ultraify@gmail.com>, 2018\n"
 "Language-Team: Arabic (http://app.transifex.com/torchbox/wagtail/language/"
@@ -70,6 +70,9 @@ msgstr "مغلق"
 msgid "Unlocked"
 msgstr "غير مغلق"
 
+msgid "content type"
+msgstr "نوع المحتوى"
+
 msgid "live"
 msgstr "حي"
 
@@ -103,11 +106,38 @@ msgstr "حي + مجدول"
 msgid "live + draft"
 msgstr "حي + مسودة"
 
-msgid "Default"
-msgstr "عادي"
-
 msgid "locked"
 msgstr "مغلق"
+
+msgid "collection"
+msgstr "مجموعة"
+
+msgid "collection view restriction"
+msgstr "تقييد عرض المجموعة"
+
+msgid "collection view restrictions"
+msgstr "قيود عرض المجموعة"
+
+msgid "name"
+msgstr "اسم"
+
+msgid "collections"
+msgstr "مجموعات"
+
+msgid "group"
+msgstr "مجموعة"
+
+msgid "permission"
+msgstr "تصريح"
+
+msgid "group collection permission"
+msgstr "إذن مجموعة المجموعة"
+
+msgid "group collection permissions"
+msgstr "مجموعة أذونات المجموعة"
+
+msgid "uploaded by user"
+msgstr "رفع عن طريق المستخدم"
 
 msgid "Add/edit pages you own"
 msgstr "أضف أو نقح سفحات أنت الصاحب لها "
@@ -150,9 +180,6 @@ msgid ""
 "[my-slug]/"
 msgstr "اسم الصفحة كما ستظهر في URLs e.g http://domain.com/blog/[my-slug]/"
 
-msgid "content type"
-msgstr "نوع المحتوى"
-
 msgid "URL path"
 msgstr "مسار عنوان URL"
 
@@ -182,24 +209,6 @@ msgstr "صفحة"
 msgid "pages"
 msgstr "صفحات"
 
-msgid "created at"
-msgstr "أنشئت في"
-
-msgid "user"
-msgstr "مستخدم"
-
-msgid "content JSON"
-msgstr "محتوى JSON"
-
-msgid "approved go live at"
-msgstr "وافق على النشر في"
-
-msgid "group"
-msgstr "مجموعة"
-
-msgid "permission"
-msgstr "تصريح"
-
 msgid "group page permission"
 msgstr "إذن صفحة المجموعة"
 
@@ -212,35 +221,20 @@ msgstr "تقييد عرض الصفحة"
 msgid "page view restrictions"
 msgstr "قيود عرض الصفحة"
 
-msgid "name"
-msgstr "اسم"
+msgid "Default"
+msgstr "عادي"
 
-msgid "groups"
-msgstr "مجموعات"
+msgid "created at"
+msgstr "أنشئت في"
 
-msgid "Approve"
-msgstr "موافق"
+msgid "user"
+msgstr "مستخدم"
 
-msgid "collection"
-msgstr "مجموعة"
+msgid "content JSON"
+msgstr "محتوى JSON"
 
-msgid "collection view restriction"
-msgstr "تقييد عرض المجموعة"
-
-msgid "collection view restrictions"
-msgstr "قيود عرض المجموعة"
-
-msgid "collections"
-msgstr "مجموعات"
-
-msgid "group collection permission"
-msgstr "إذن مجموعة المجموعة"
-
-msgid "group collection permissions"
-msgstr "مجموعة أذونات المجموعة"
-
-msgid "uploaded by user"
-msgstr "رفع عن طريق المستخدم"
+msgid "approved go live at"
+msgstr "وافق على النشر في"
 
 msgid "hostname"
 msgstr "اسم المضيف"
@@ -299,11 +293,17 @@ msgstr "عام"
 msgid "Private, accessible to users in specific groups"
 msgstr "خاص ، يمكن للمستخدمين الوصول إليه في مجموعات محددة"
 
+msgid "groups"
+msgstr "مجموعات"
+
 msgid "view restriction"
 msgstr "عرض تقييد"
 
 msgid "view restrictions"
 msgstr "قيود العرض"
+
+msgid "Approve"
+msgstr "موافق"
 
 msgid "Log in"
 msgstr "تسجيل الدخول"

@@ -20,9 +20,9 @@ This is the human-readable name of your Wagtail install which welcomes users upo
 WAGTAILADMIN_BASE_URL = 'http://example.com'
 ```
 
-This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
+This is the base URL used by the Wagtail admin site. It is used for generating absolute URLs to the admin, such as in notification emails and the user bar. This setting must not include the admin path (`/admin`) or a trailing slash.
 
-If this setting is not present, Wagtail will try to fall back to `request.site.root_url` or to the request's host name.
+If this setting is not set, a system check warning will be raised.
 
 (append_slash)=
 
@@ -283,21 +283,6 @@ WAGTAIL_ALLOW_UNICODE_SLUGS = True
 ```
 
 By default, page slugs can contain any alphanumeric characters, including non-Latin alphabets. Set this to False to limit slugs to ASCII characters.
-
-(wagtail_auto_update_preview)=
-
-### `WAGTAIL_AUTO_UPDATE_PREVIEW`
-
-```python
-WAGTAIL_AUTO_UPDATE_PREVIEW = True
-```
-
-When enabled, the preview panel in the page editor is automatically updated on each change. If set to `False`, a refresh button will be shown and the preview is only updated when the button is clicked.
-This behavior is enabled by default.
-
-```{versionchanged} 6.3
-This setting is deprecated. Set `WAGTAIL_AUTO_UPDATE_PREVIEW_INTERVAL = 0` to disable automatic preview updates instead.
-```
 
 (wagtail_auto_update_preview_interval)=
 
@@ -582,44 +567,6 @@ WAGTAILADMIN_USER_PASSWORD_RESET_FORM = 'users.forms.PasswordResetForm'
 
 Allows the default `PasswordResetForm` to be extended with extra fields.
 
-(user_form_settings)=
-
-### `WAGTAIL_USER_EDIT_FORM`
-
-```python
-WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
-```
-
-Allows the default `UserEditForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user edit form.
-
-```{versionchanged} 6.2
-This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
-```
-
-### `WAGTAIL_USER_CREATION_FORM`
-
-```python
-WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
-```
-
-Allows the default `UserCreationForm` class to be overridden with a custom form when a custom user model is being used and extra fields are required in the user creation form.
-
-```{versionchanged} 6.2
-This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
-```
-
-### `WAGTAIL_USER_CUSTOM_FIELDS`
-
-```python
-WAGTAIL_USER_CUSTOM_FIELDS = ['country']
-```
-
-A list of the extra custom fields to be appended to the default list. The resulting list is passed to {class}`~django.forms.ModelForm`'s `Meta.fields` to generate the form fields.
-
-```{versionchanged} 6.2
-This setting has been deprecated in favor of customizing the form classes via `UserViewSet.get_form_class()` and will be removed in a future release. For further information, see [](custom_userviewset).
-```
-
 ### `WAGTAILADMIN_USER_LOGIN_FORM`
 
 ```python
@@ -653,10 +600,6 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 Any provided query string will merge with the default parameters. For example, using the setting `//www.gravatar.com/avatar?d=robohash` will use the `robohash` override instead of the default `mp` (mystery person). The `s` parameter will be ignored as this is specified depending on location within the admin interface.
 
 See the [Gravatar images URL documentation](https://docs.gravatar.com/api/avatars/images/) for more details.
-
-```{versionchanged} 6.4
-Added query string merging.
-```
 
 (wagtail_user_time_zones)=
 
@@ -810,7 +753,7 @@ Tags are case-sensitive by default ('music' and 'Music' are treated as distinct 
 
 ### `WAGTAIL_TAG_SPACES_ALLOWED`
 
-```{versionchanged} 6.5
+```{versionchanged} 7.0
 The setting was renamed from `TAG_SPACES_ALLOWED` to `WAGTAIL_TAG_SPACES_ALLOWED`.
 ```
 
@@ -822,7 +765,7 @@ Tags can only consist of a single word, no spaces allowed. The default setting i
 
 ### `WAGTAIL_TAG_LIMIT`
 
-```{versionchanged} 6.5
+```{versionchanged} 7.0
 The setting was renamed from `TAG_LIMIT` to `WAGTAIL_TAG_LIMIT`.
 ```
 
@@ -860,7 +803,7 @@ Required when using frontend cache invalidation, used to generate absolute URLs 
 WAGTAILAPI_LIMIT_MAX = 500
 ```
 
-Default is 20, used to change the maximum number of results a user can request at a time, set to `None` for no limit.
+Default is 20, used to change the maximum number of results a user can request at a time, set to `None` for no limit. Once this is set, combine with [`?limit` and `?offset` query parameters](apiv2_pagination) to retrieve the desired number of results.
 
 ### `WAGTAILAPI_SEARCH_ENABLED`
 
@@ -971,3 +914,19 @@ WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the workflow continues to provide less urgent feedback.
+
+## Snippets
+
+(wagtailsnippets_menu_show_all)=
+
+### `WAGTAILSNIPPETS_MENU_SHOW_ALL`
+
+```python
+WAGTAILSNIPPETS_MENU_SHOW_ALL = False
+```
+
+The sidebar "Snippets" menu item is only shown if any snippet models exist
+[without their own menu items](wagtailsnippets_menu_item)
+and by default its view only contains those models.
+This setting can be set to `True` to always show the "Snippets" menu item
+and to have its view include all snippet models for which the user has permission to add, view, or change.

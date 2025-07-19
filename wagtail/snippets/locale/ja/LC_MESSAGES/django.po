@@ -4,6 +4,7 @@
 #
 # Translators:
 # bayside kent, 2022
+# bayside kent, 2022
 # Daigo Shitara <stain.witness@gmail.com>, 2016
 # shuhei hirota, 2019
 # shuhei hirota, 2019
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 17:59+0000\n"
+"POT-Creation-Date: 2025-04-24 13:03+0100\n"
 "PO-Revision-Date: 2014-02-19 19:01+0000\n"
-"Last-Translator: bayside kent, 2022\n"
+"Last-Translator: 石田秀 <ishidashu@gmail.com>, 2015\n"
 "Language-Team: Japanese (http://app.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -47,9 +48,6 @@ msgstr "ワークフローの中止"
 msgid "Unpublish"
 msgstr "非公開"
 
-msgid "Delete"
-msgstr "削除"
-
 msgid "Save"
 msgstr "保存"
 
@@ -62,6 +60,9 @@ msgstr "%(label)sと公開 "
 
 msgid "Wagtail snippets"
 msgstr "Wagtail スニペット"
+
+msgid "Delete"
+msgstr "削除"
 
 msgid "Delete selected snippets"
 msgstr "選択したスニペットを削除します"
