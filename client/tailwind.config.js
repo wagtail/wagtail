@@ -136,9 +136,8 @@ module.exports = {
     scrollbarThin,
     /**
      * forced-colors media query for Windows High-Contrast mode support
-     * See:
-     * - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
-     * - https://github.com/tailwindlabs/tailwindcss/blob/v3.0.23/src/corePlugins.js#L168-L171
+     * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
+     * @see https://github.com/tailwindlabs/tailwindcss/blob/v3.0.23/src/corePlugins.js#L168-L171
      */
     plugin(({ addVariant }) => {
       addVariant('forced-colors', '@media (forced-colors: active)');

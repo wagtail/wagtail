@@ -8,6 +8,7 @@ export const hideTooltipOnEsc = {
   name: 'hideOnEsc',
   defaultValue: true,
   fn({ hide }: Instance) {
+    /** Hides the tooltip when escape key is pressed. */
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         hide();

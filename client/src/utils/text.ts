@@ -1,7 +1,7 @@
 /**
  * Escapes provided HTML.
  *
- * https://stackoverflow.com/questions/6234773/can-i-escape-html-special-chars-in-javascript
+ * @see https://stackoverflow.com/questions/6234773/can-i-escape-html-special-chars-in-javascript
  *
  * @param {string} unsafe - raw HTML to be made safe
  * @returns {string}

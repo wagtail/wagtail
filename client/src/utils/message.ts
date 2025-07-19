@@ -32,15 +32,17 @@ export interface GetScrollPosition {
 }
 
 /**
+ * For simplicity, the same message type is used for both purposes instead of
+ * creating separate message types. This allows the CMS to pass over the message
+ * received from the old iframe to the new iframe as-is.
+ *
+ * @remarks
  * Indicates two things:
  * 1. The current window (i.e. the old preview iframe) is sending its scroll
  *    position to the recipient window (i.e. CMS).
  * 2. The current window (i.e. the CMS) is instructing the recipient window
  *    (i.e. the new preview iframe) to set its scroll position to the given
  *    coordinates.
- * For simplicity, the same message type is used for both purposes instead of
- * creating separate message types. This allows the CMS to pass over the message
- * received from the old iframe to the new iframe as-is.
  */
 export interface SetScrollPosition extends MessageWithOrigin {
   type: 'w-preview:set-scroll-position';

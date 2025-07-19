@@ -125,9 +125,9 @@ export const wrapWagtailIcon = (type) => {
 };
 
 /**
- * Initialises the DraftailEditor for a given field.
+ * Initializes the DraftailEditor for a given field.
  * @param {string} selector
- * @param {Object} originalOptions
+ * @param {object} originalOptions
  * @param {Element} currentScript
  */
 const initEditor = (selector, originalOptions, currentScript) => {
@@ -192,7 +192,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
       ...type,
     }));
 
-    // Only initialise the character count / max length on fields explicitly requiring it.
+    // Only initialize the character count / max length on fields explicitly requiring it.
     if (field.hasAttribute('maxlength')) {
       const maxLengthID = `${field.id}-length`;
       ariaDescribedBy = maxLengthID;

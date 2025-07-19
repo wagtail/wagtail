@@ -5,9 +5,9 @@ import { splitState } from '../CommentableEditor/CommentableEditor';
  * Definition for a command in the Draftail context menu that inserts a block.
  *
  * @param {BoundDraftailWidget} widget - the bound Draftail widget
- * @param {Object} blockDef - block definition for the block to be inserted
- * @param {Object} addSibling - capability descriptors from the containing block's capabilities definition
- * @param {Object} split - capability descriptor from the containing block's capabilities definition
+ * @param {object} blockDef - block definition for the block to be inserted
+ * @param {object} addSibling - capability descriptors from the containing block's capabilities definition
+ * @param {object} split - capability descriptor from the containing block's capabilities definition
  */
 export class DraftailInsertBlockCommand {
   constructor(widget, blockDef, addSibling, split) {

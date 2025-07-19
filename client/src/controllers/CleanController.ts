@@ -46,7 +46,7 @@ export class CleanController extends Controller<HTMLInputElement> {
    * @event CleanController#applied
    * @type {CustomEvent}
    * @property {string} name - `w-slug:applied` | `w-clean:applied`
-   * @property {Object} detail
+   * @property {object} detail
    * @property {string} detail.action - The action that was applied (e.g. 'urlify' or 'slugify').
    * @property {string} detail.cleanValue - The the cleaned value that is applied.
    * @property {string} detail.sourceValue - The original value.

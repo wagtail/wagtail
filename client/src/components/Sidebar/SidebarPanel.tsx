@@ -28,7 +28,7 @@ export const SidebarPanel: React.FunctionComponent<SidebarPanelProps> = ({
   }
 
   const style = {
-    // See https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors.
+    /** @see https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors */
     ['--z-index' as any]: zIndex,
   };
 
