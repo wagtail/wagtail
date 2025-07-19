@@ -105,7 +105,7 @@ export default function ComboBox<ComboBoxOption extends ComboBoxItem>({
     },
     selectedItem: null,
 
-    // Call onSelect only on item click and enter key press events
+    /** Call onSelect only on item click and enter key press events */
     onSelectedItemChange: (changes) => {
       const changeType = changes.type;
       switch (changeType) {

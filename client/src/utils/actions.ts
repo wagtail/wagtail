@@ -7,8 +7,10 @@ interface Action<N, P, M> {
   meta?: M;
 }
 
-// Stolen from the following project (had a 18kb footprint at the time).
-// https://github.com/acdlite/redux-actions/blob/79c68635fb1524c1b1cf8e2398d4b099b53ca8de/src/createAction.js
+/**
+ * Stolen from the following project (had a 18kb footprint at the time).
+ * @see https://github.com/acdlite/redux-actions/blob/79c68635fb1524c1b1cf8e2398d4b099b53ca8de/src/createAction.js
+ */
 export function createAction<N extends string, T extends any[], P, M>(
   type: N,
   actionCreator?: (...args: T) => P,

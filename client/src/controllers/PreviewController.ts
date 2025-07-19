@@ -53,13 +53,13 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  *
  * @event PreviewController#json
  * @type {CustomEvent}
- * @property {Object} detail
+ * @property {object} detail
  * @property {PreviewDataResponse} detail.data - The response data that indicates whether the submitted data was valid and whether the preview is available.
  * @property {string} name - `w-preview:json`
  *
  * @event PreviewController#error
  * @type {CustomEvent}
- * @property {Object} detail
+ * @property {object} detail
  * @property {Error} detail.error - The error object that was thrown.
  * @property {string} name - `w-preview:error`
  *
@@ -75,7 +75,7 @@ const PREVIEW_UNAVAILABLE_WIDTH = 375;
  * @event PreviewController#content
  * @type {CustomEvent}
  * @property {string} name - `w-preview:content`
- * @property {Object} detail
+ * @property {object} detail
  * @property {ExtractedContent} detail.content - The extracted content from the preview iframe.
  * @property {ContentMetrics} detail.metrics - The calculated metrics of the preview content.
  *
@@ -129,9 +129,11 @@ export class PreviewController extends Controller<HTMLElement> {
 
   /** The main preview `<iframe>` that is currently displayed. */
   declare readonly iframeTarget: HTMLIFrameElement;
-  /** All preview `<iframes>` that are currently in the DOM.
+  /**
+   * All preview `<iframe>`s that are currently in the DOM.
    * This contains the currently displayed `<iframe>` and may also contain
-   * the new `<iframe>` that will replace the current one. */
+   * the new `<iframe>` that will replace the current one.
+   */
   declare readonly iframeTargets: HTMLIFrameElement[];
   /** Preview mode `<select>` element. */
   declare readonly modeTarget: HTMLSelectElement;
@@ -147,8 +149,10 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Values
 
-  /** Interval in milliseconds when the form is checked for changes.
-   * Also used as the debounce duration for the update request. */
+  /**
+   * Interval in milliseconds when the form is checked for changes.
+   * Also used as the debounce duration for the update request.
+   */
   declare readonly autoUpdateIntervalValue: number;
   /** Key for storing the last selected device size in localStorage. */
   declare readonly deviceLocalStorageKeyValue: string;
@@ -156,8 +160,10 @@ export class PreviewController extends Controller<HTMLElement> {
   declare readonly deviceWidthPropertyValue: string;
   /** CSS property for the current width of the panel, to maintain the device scaling. */
   declare readonly panelWidthPropertyValue: string;
-  /** URL for rendering the preview, defaults to `urlValue`.
-   * Useful for headless setups where the front-end may be hosted at a different URL. */
+  /**
+   * URL for rendering the preview, defaults to `urlValue`.
+   * Useful for headless setups where the front-end may be hosted at a different URL.
+   */
   declare renderUrlValue: string;
   /** URL for updating the preview data. Also used for rendering the preview if `renderUrlValue` is unset. */
   declare readonly urlValue: string;
@@ -188,10 +194,13 @@ export class PreviewController extends Controller<HTMLElement> {
   declare contentChecksEnabled: boolean;
   /** Main editor form. */
   declare editForm: HTMLFormElement;
-  /** ResizeObserver to observe when the panel is resized
-   * so we can maintain the device size scaling. */
+  /**
+   * ResizeObserver to observe when the panel is resized
+   * so we can maintain the device size scaling.
+   */
   declare resizeObserver: ResizeObserver;
-  /** Side panel element of the preview panel, i.e. the element with the
+  /**
+   * Side panel element of the preview panel, i.e. the element with the
    * `data-side-panel` attribute. Useful for listening to show/hide events.
    * Normally, this is the parent element of the controller element.
    */
@@ -199,8 +208,10 @@ export class PreviewController extends Controller<HTMLElement> {
 
   // Instance variables with initial values set here
 
-  /** Whether the preview is ready for further updates.
+  /**
+   * Whether the preview is ready for further updates.
    *
+   * @remarks
    * The preview data is stored in the session, which means:
    *
    * - After logging out and logging back in, the session is cleared, so the
@@ -238,7 +249,8 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   ready = false;
 
-  /** Whether the preview is currently available. This is used to distinguish
+  /**
+   * Whether the preview is currently available. This is used to distinguish
    * whether we are rendering a preview or the "Preview is not available"
    * screen. So even if the preview is currently outdated, this is still `true`
    * as long as the preview data is available and the preview is rendered (e.g.
@@ -246,7 +258,8 @@ export class PreviewController extends Controller<HTMLElement> {
    */
   available = true;
 
-  /** Serialized form payload to be compared in between intervals to determine
+  /**
+   * Serialized form payload to be compared in between intervals to determine
    * whether an update should be performed. Note that we currently do not handle
    * file inputs.
    */
@@ -258,13 +271,15 @@ export class PreviewController extends Controller<HTMLElement> {
   /** Interval for the auto-update. */
   updateInterval: ReturnType<typeof setOptionalInterval> = null;
 
-  /** Promise for the current update request. This is resolved as soon as the
+  /**
+   * Promise for the current update request. This is resolved as soon as the
    * update request is successful, so the preview iframe may not have been
    * fully reloaded.
    */
   updatePromise: Promise<boolean> | null = null;
 
-  /** Promise for the current content checks request. This resolved when both
+  /**
+   * Promise for the current content checks request. This resolved when both
    * the content checks and the accessibility checks are completed. Useful for
    * queueing the checks, as Axe does not allow concurrent runs.
    */
@@ -948,8 +963,7 @@ export class PreviewController extends Controller<HTMLElement> {
   /**
    * Extracts the rendered content from the preview iframe via an Axe plugin.
    * @param options Options object for extracting the content. Supported options:
-   * - `targetElement`: CSS selector for the element to extract content from.
-   *   Defaults to `main, [role="main"]`.
+   * - `targetElement`: CSS selector for the element to extract content from. Defaults to `main, [role="main"]`.
    * @returns An `ExtractedContent` object with `lang`, `innerText`, and `innerHTML` properties.
    */
   async extractContent(options?: ContentExtractorOptions) {

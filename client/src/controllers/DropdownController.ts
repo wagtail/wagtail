@@ -9,6 +9,7 @@ import { hideTooltipOnEsc } from './TooltipController';
 const hideTooltipOnBreadcrumbsChange = {
   name: 'hideTooltipOnBreadcrumbAndCollapse',
   fn({ hide }: Instance) {
+    /** Hides the tooltip when breadcrumbs expand or collapse. */
     function onBreadcrumbExpandAndCollapse() {
       hide();
     }
@@ -102,8 +103,10 @@ export class DropdownController extends Controller<HTMLElement> {
     theme: { default: 'dropdown' as TippyTheme, type: String },
   };
 
-  // Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
-  // option for outside clicks that defaults to true and we don't yet expose it.
+  /**
+   * Hide on click *inside* the dropdown. Differs from tippy's hideOnClick
+   * option for outside clicks that defaults to true and we don't yet expose it.
+   */
   declare readonly hideOnClickValue: boolean;
   declare readonly keepMountedValue: boolean;
   declare readonly offsetValue: [number, number];

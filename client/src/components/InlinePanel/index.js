@@ -7,13 +7,13 @@ import { ExpandingFormset } from '../ExpandingFormset';
  * Attaches behavior for an InlinePanel where inner panels can be created,
  * removed and re-ordered.
  *
- * @param {Object} opts
+ * @param {object} opts
  * @param {string} opts.formsetPrefix
  * @param {boolean?} opts.canOrder
  * @param {string} opts.emptyChildFormPrefix
  * @param {number} opts.maxForms
- * @param {function} opts.onAdd
- * @returns {Object}
+ * @param {Function} opts.onAdd
+ * @returns {object}
  */
 export class InlinePanel extends ExpandingFormset {
   constructor(opts, initControls = true) {

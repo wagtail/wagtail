@@ -9,6 +9,7 @@ import { initStimulus } from '../src/includes/initStimulus';
  * each time.
  *
  * @example
+ * ```jsx
  * import { StimulusWrapper } from '../storybook/StimulusWrapper';
  * const Template = ({ debug }) =>
  *   <StimulusWrapper
@@ -17,6 +18,7 @@ import { initStimulus } from '../src/includes/initStimulus';
  *   >
  *     <form data-controller="w-something" />
  *   </StimulusWrapper>
+ * ```
  */
 export class StimulusWrapper extends React.Component<{
   debug?: boolean;

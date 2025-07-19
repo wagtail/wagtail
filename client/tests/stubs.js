@@ -7,7 +7,6 @@
  * Those variables usually come from the back-end via templates.
  * See /wagtailadmin/templates/wagtailadmin/admin_base.html.
  */
-
 const wagtailConfig = {
   ADMIN_API: {
     DOCUMENTS: '/admin/api/main/documents/',

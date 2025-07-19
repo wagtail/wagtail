@@ -97,11 +97,12 @@ export class TeleportController extends Controller<HTMLTemplateElement> {
 
   /**
    * Returns a fresh copy of the DocumentFragment from the controlled element.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode (returns the same type)
+   * @see https://github.com/microsoft/TypeScript/issues/283 (TypeScript will return as Node, incorrectly)
    */
   get templateFragment() {
     const content = this.element.content;
-    // https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode (returns the same type)
-    // https://github.com/microsoft/TypeScript/issues/283 (TypeScript will return as Node, incorrectly)
     const templateFragment = content.cloneNode(true) as typeof content;
 
     // HACK:

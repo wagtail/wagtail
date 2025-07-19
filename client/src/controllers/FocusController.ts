@@ -6,7 +6,7 @@ import { forceFocus } from '../utils/forceFocus';
  * Allows a target element (either via `href` or the targetValue as a selector) to be focused.
  * If the element does not have a `tabindex` attribute, it will be added and removed when the element loses focus.
  *
- * @description
+ * @remarks
  * Useful for the skip link functionality, which appears at the top left corner of the admin when the tab button is clicked.
  * Used to provide an accessible skip button for keyboard control so that users can
  * easily navigate to the main content without having to navigate a long list of navigation links.

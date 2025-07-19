@@ -48,8 +48,10 @@ class VersionNumber {
     return this.preReleaseStep !== null;
   }
 
-  /*
+  /**
    * Check if preReleaseStep of this versionNumber is behind another versionNumber's.
+   *
+   * @throws {CanOnlyComparePreReleaseVersionsError} If either version is not a pre-release.
    */
   isPreReleaseStepBehind(that) {
     if (!this.isPreRelease() || !that.isPreRelease()) {
@@ -68,7 +70,7 @@ class VersionNumber {
     return false;
   }
 
-  /*
+  /**
    * Get VersionDeltaType that this version is behind the other version passed in.
    */
   howMuchBehind(that) {

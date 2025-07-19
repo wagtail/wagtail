@@ -244,6 +244,10 @@ function addBulkActionListeners() {
   });
 }
 
+/**
+ * Rebinds event listeners for bulk actions.
+ * This is useful when the page content changes dynamically, such as after an AJAX request.
+ */
 function rebindBulkActionsEventListeners() {
   // when deselecting all checkbox, simply hide the footer for smooth transition
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach((el) => {

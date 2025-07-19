@@ -8,14 +8,15 @@ import draftail, {
 } from '../../components/Draftail/index';
 
 /**
- * Entry point loaded when the Draftail editor is in use.
+ * Entrypoint loaded when the Draftail editor is in use.
+ *
+ * @remarks
+ * This file is included and run when there's a DraftailRichTextArea widget in the response.
+ * Normally this is only included once in the initial page load, but it may be included
+ * more than once when there's an AJAX response that includes the widget, e.g. in choosers.
+ * Ensure we only run the initialization code once.
+ * @see https://github.com/wagtail/wagtail/issues/12002
  */
-
-// This file is included and run when there's a DraftailRichTextArea widget in the response.
-// Normally this is only included once in the initial page load, but it may be included
-// more than once when there's an AJAX response that includes the widget, e.g. in choosers.
-// Ensure we only run the initialization code once.
-// https://github.com/wagtail/wagtail/issues/12002
 if (!window.Draftail || !window.draftail) {
   // Expose Draftail package as a global.
   window.Draftail = Draftail;

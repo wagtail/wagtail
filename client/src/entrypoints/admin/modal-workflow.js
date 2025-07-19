@@ -6,21 +6,21 @@ import { gettext } from '../../utils/gettext';
 /**
  * ModalWorkflow - A framework for modal popups that are loaded via AJAX.
  *
- * @description
+ * @remarks
  * Allows navigation to other subpages to happen within the modal.
  * Supports returning a response to the calling page, which may happen after several navigation steps.
  *
  * @param {object} opts
  * @param {string} opts.url - A URL to the view that will be loaded into the dialog.
- *   If not provided and `dialogId` is given, the dialog component's `data-url` attribute is used instead.
- * @param {string=} opts.dialogId - The id of the dialog component to use instead of the Bootstrap modal.
- * @param {Object.<string, function>=} opts.responses - A object of callbacks to be called when the modal content calls `modal.respond(callbackName, params)`
- * @param {Object.<string, function>=} opts.onload - A object of callbacks to be called when loading a step of the workflow.
- *   The 'step' field in the response identifies the callback to call, passing it the
- *   modal object and response data as arguments.
- * @param {HTMLElement=} opts.triggerElement - Element that triggered the modal.
- *   It will be disabled while the modal is shown.
- *   If not provided, defaults to `document.activeElement` (which may not work as expected in Safari).
+ * If not provided and `dialogId` is given, the dialog component's `data-url` attribute is used instead.
+ * @param {string?} opts.dialogId - The id of the dialog component to use instead of the Bootstrap modal.
+ * @param {object} opts.responses - An object of callbacks to be called when the modal content calls `modal.respond(callbackName, params)`
+ * @param {object} opts.onload - An object whose keys are step names and values are callbacks to be called when loading a step of the workflow.
+ * The 'step' field in the response identifies the callback to call, passing it the
+ * modal object and response data as arguments.
+ * @param {HTMLElement?} opts.triggerElement - Element that triggered the modal.
+ * It will be disabled while the modal is shown.
+ * If not provided, defaults to `document.activeElement` (which may not work as expected in Safari).
  * @returns {object}
  */
 function ModalWorkflow(opts) {

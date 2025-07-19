@@ -1,9 +1,12 @@
 import type { Annotation } from './annotation';
 import { getOrDefault } from './maps';
 
-const GAP = 20.0; // Gap between comments in pixels
-const TOP_MARGIN = 100.0; // Spacing from the top to the first comment in pixels
-const OFFSET = -50; // How many pixels from the annotation position should the comments be placed?
+/** Gap between comments in pixels. */
+const GAP = 20.0;
+/** Spacing from the top to the first comment in pixels. */
+const TOP_MARGIN = 100.0;
+/** How many pixels from the annotation position should the comments be placed? */
+const OFFSET = -50;
 
 export class LayoutController {
   commentElements: Map<number, HTMLElement> = new Map();

@@ -98,11 +98,13 @@ $(function () {
      * filename (with extension) as the title is preserved.
      *
      * @example
+     * ```js
      * document.addEventListener('wagtail:images-upload', function(event) {
      *   // remove file extension
      *   var newTitle = (event.detail.data.title || '').replace(/\.[^.]+$/, '');
      *   event.detail.data.title = newTitle;
      * });
+     * ```
      *
      * @param {HtmlElement[]} form
      * @returns {{name: 'string', value: *}[]}

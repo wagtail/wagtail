@@ -71,8 +71,10 @@ export class FormsetController extends Controller<HTMLElement> {
   declare readonly minFormsInputTarget: HTMLInputElement;
   /** Hidden input to read for the value for max forms. */
   declare readonly maxFormsInputTarget: HTMLInputElement;
-  /** Target element that has the template content to clone for new forms.
-   * `__prefix__` will be replaced with the next formIndex value upon creation. */
+  /**
+   * Target element that has the template content to clone for new forms.
+   * `__prefix__` will be replaced with the next formIndex value upon creation.
+   */
   declare readonly templateTarget: HTMLTemplateElement;
   /** Hidden input to track the total forms (including deleted) for POST request and initial reading. */
   declare readonly totalFormsInputTarget: HTMLInputElement;
@@ -123,6 +125,8 @@ export class FormsetController extends Controller<HTMLElement> {
   /**
    * Find the event's target's closest child target and remove it by
    * removing the 'child' target and adding a 'child-removed' target.
+   *
+   * @throws {Error} If the child form target for the event target cannot be found.
    */
   delete(event: Event) {
     const target = this.childTargets.find((child) =>
@@ -172,6 +176,8 @@ export class FormsetController extends Controller<HTMLElement> {
   /**
    * When removed, add the class and update the total count.
    * Also update the DELETE input for this form.
+   *
+   * @throws {Error} If the DELETE input target cannot be found within the removed form.
    */
   childTargetDisconnected(target: HTMLElement) {
     const deletedClasses = this.deletedClasses;

@@ -2,7 +2,9 @@
 global.fetch = jest.fn();
 global.Headers = jest.fn();
 
-// Helper to mock a success JSON response.
+/**
+ * Helper to mock a success JSON response.
+ */
 fetch.mockResponseSuccessJSON = (body) => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
@@ -14,7 +16,9 @@ fetch.mockResponseSuccessJSON = (body) => {
   );
 };
 
-// Helper to mock a success text response.
+/**
+ * Helper to mock a success text response.
+ */
 fetch.mockResponseSuccessText = (body) => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
@@ -26,7 +30,9 @@ fetch.mockResponseSuccessText = (body) => {
   );
 };
 
-// Helper to mock a failure response.
+/**
+ * Helper to mock a failure response.
+ */
 fetch.mockResponseFailure = () => {
   fetch.mockImplementationOnce(() =>
     Promise.resolve({
@@ -46,7 +52,9 @@ fetch.mockResponseCrash = () => {
   );
 };
 
-// Helper to mock a timeout response.
+/**
+ * Helper to mock a timeout response.
+ */
 fetch.mockResponseTimeout = () => {
   fetch.mockImplementationOnce(() => {
     const timeout = 1000;

@@ -22,8 +22,8 @@ interface PingResponse {
  * Manage an editing session by indicating the presence of the user and handling
  * cases when there are multiple users editing the same content.
  *
+ * @remarks
  * This controller defines the following behaviors:
- *
  * - Dispatching a ping event periodically, which can be utilized by other
  *   controllers to keep the session alive or indicate presence.
  * - Dispatching an event indicating the visibility state of the document.

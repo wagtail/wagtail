@@ -79,8 +79,10 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       }
     }
 
-    /* Set up behavior of choose-page links in the newly-loaded search results,
-    to pass control back to the calling page */
+    /**
+     * Set up behavior of choose-page links in the newly-loaded search results,
+     * to pass control back to the calling page.
+     */
     function ajaxifySearchResults() {
       // eslint-disable-next-line func-names
       $('.page-results a.choose-page', modal.body).on('click', function () {
