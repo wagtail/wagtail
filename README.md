@@ -1,58 +1,66 @@
 <h1 align="center">
-    <picture>
-        <source media="(prefers-color-scheme: light)" srcset=".github/wagtail.svg">
-        <source media="(prefers-color-scheme: dark)" srcset=".github/wagtail-inverse.svg">
-        <img width="343" src=".github/wagtail.svg" alt="Wagtail">
-    </picture>
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset=".github/wagtail.svg" />
+    <source media="(prefers-color-scheme: dark)" srcset=".github/wagtail-inverse.svg" />
+    <img width="343" src=".github/wagtail.svg" alt="Wagtail Logo" />
+  </picture>
 </h1>
+
 <p align="center">
-    <br>
-    <a href="https://github.com/wagtail/wagtail/actions">
-        <img src="https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg" alt="Build Status" />
-    </a>
-    <a href="https://opensource.org/licenses/BSD-3-Clause">
-        <img src="https://img.shields.io/badge/license-BSD-blue.svg" alt="License" />
-    </a>
-    <a href="https://pypi.python.org/pypi/wagtail/">
-        <img src="https://img.shields.io/pypi/v/wagtail.svg" alt="Version" />
-    </a>
-    <a href="https://pypi.python.org/pypi/wagtail/">
-        <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
-    </a>
-    <a href="https://fosstodon.org/@wagtail">
-        <img src="https://img.shields.io/mastodon/follow/109308882653647818?domain=https%3A%2F%2Ffosstodon.org&style=social" alt="Follow @wagtail@fosstodon.org">
-    </a>
+  <br />
+  <a href="https://github.com/wagtail/wagtail/actions">
+    <img src="https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg" alt="Build Status" />
+  </a>
+  <a href="https://opensource.org/licenses/BSD-3-Clause">
+    <img src="https://img.shields.io/badge/license-BSD-blue.svg" alt="License" />
+  </a>
+  <a href="https://pypi.python.org/pypi/wagtail/">
+    <img src="https://img.shields.io/pypi/v/wagtail.svg" alt="Version" />
+  </a>
+  <a href="https://pypi.python.org/pypi/wagtail/">
+    <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly Downloads" />
+  </a>
+  <a href="https://fosstodon.org/@wagtail">
+    <img
+      src="https://img.shields.io/mastodon/follow/109308882653647818?domain=https%3A%2F%2Ffosstodon.org&style=social"
+      alt="Follow @wagtail@fosstodon.org"
+    />
+  </a>
 </p>
 
-Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
+---
+
+## What is **Wagtail**?
+
+**Wagtail** is a sleek, open-source CMS built on Django. It’s designed to deliver an exceptional experience for content editors while empowering developers with precise control over site design and structure.
 
 ![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/wagtail-screenshot-with-browser.png)
 
-### 🔥 Features
+---
 
--   A fast, attractive interface for authors
--   Complete control over front-end design and structure
--   Scales to millions of pages and thousands of editors
--   Fast out of the box, cache-friendly when you need it
--   Content API for 'headless' sites with decoupled front-end
--   Runs on a Raspberry Pi or a multi-datacenter cloud platform
--   StreamField encourages flexible content without compromising structure
--   Powerful, integrated search, using Elasticsearch or PostgreSQL
--   Excellent support for images and embedded content
--   Multi-site and multi-language ready
--   Embraces and extends Django
+## ✨ Key Features
 
-Find out more at [wagtail.org](https://wagtail.org/).
+- Beautiful, fast, and intuitive authoring interface
+- Full freedom to craft custom front-end experiences
+- Scalable to millions of pages and thousands of editors
+- Blazing fast, with smart caching support
+- Headless CMS ready with a powerful Content API
+- Runs anywhere — from Raspberry Pi to global cloud platforms
+- Flexible, structured content with StreamField
+- Powerful built-in search via Elasticsearch or PostgreSQL
+- First-class support for images and rich embedded media
+- Multi-site and multilingual support out-of-the-box
+- Built on and extends Django’s robust framework
 
-### 👉 Getting started
+Learn more at [wagtail.org](https://wagtail.org/).
 
-Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
+---
 
-To get started with using Wagtail, run the following in a [virtual environment](https://docs.python.org/3/tutorial/venv.html):
+## 🚀 Getting Started in Minutes
 
-![Installing Wagtail](.github/install-animation.gif)
+Wagtail requires **Python 3** and works on all major platforms. Here's the quick start:
 
-```sh
+```bash
 pip install wagtail
 wagtail start mysite
 cd mysite
@@ -60,9 +68,6 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
-```
-
-For detailed installation and setup docs, see [the getting started tutorial](https://docs.wagtail.org/en/stable/getting_started/tutorial.html).
 
 ### 👨‍👩‍👧‍👦 Who’s using it?
 
