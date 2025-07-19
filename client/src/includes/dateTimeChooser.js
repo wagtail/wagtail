@@ -1,4 +1,5 @@
-/* Helper functions for initializing date and time chooser inputs using jQuery datetimepicker.
+/**
+ * Helper functions for initializing date and time chooser inputs using jQuery datetimepicker.
  * These are made available in the `window` scope by entrypoints/admin/date-time-chooser.js,
  * and depend on jquery and jquery.datetimepicker.js having been loaded.
  */
@@ -14,9 +15,9 @@ export function dateEqual(x, y) {
   );
 }
 
-/*
-Remove the xdsoft_current css class from markup unless the selected date is currently in view.
-Keep the normal behaviour if the home button is clicked.
+/**
+ * Remove the xdsoft_current css class from markup unless the selected date is currently in view.
+ * Keep the normal behavior if the home button is clicked.
  */
 export function hideCurrent(current, input) {
   const selected = new Date(input[0].value);
