@@ -1,12 +1,11 @@
 import { setAttrs } from '../../utils/attrs';
 import { runInlineScripts } from '../../utils/runInlineScripts';
 
+/**
+ * Given an element or a NodeList, return the first element that matches the selector.
+ * This can be the top-level element itself or a descendant.
+ */
 export const querySelectorIncludingSelf = (elementOrNodeList, selector) => {
-  /**
-   * Given an element or a NodeList, return the first element that matches the selector.
-   * This can be the top-level element itself or a descendant.
-   */
-
   // if elementOrNodeList not iterable, it must be a single element
   const nodeList = elementOrNodeList.forEach
     ? elementOrNodeList

@@ -1,25 +1,30 @@
 export class Panel {
-  type: string; // Type of the panel; will generally match the Python-side panel class name (e.g., 'FieldPanel', 'PanelGroup')
-  prefix: string; // Prefix for the panel's HTML elements (e.g., 'field-')
+  /**
+   * Type of the panel; will generally match the Python-side panel class name
+   * (e.g., `FieldPanel`, `PanelGroup`) */
+  type: string;
+  /** Prefix for the panel's HTML elements (e.g., `field-`) */
+  prefix: string;
 
   constructor(opts: { type: string; prefix: string }) {
     this.type = opts.type;
     this.prefix = opts.prefix;
   }
 
+  /**
+   * Return any descendant panel (including self) that matches the given field or relation name,
+   * or `null` if there is no match
+   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getPanelByName(_name: string): Panel | null {
-    /* Return any descendant panel (including self) that matches the given field or relation name,
-     * or null if there is no match
-     */
-
     // The base panel definition has no notion of descendants or a name of its own, so just return null
     return null;
   }
 }
 
 export class PanelGroup extends Panel {
-  children: Panel[]; // Array of child panels
+  /** Array of child panels */
+  children: Panel[];
 
   constructor(opts: { type: string; prefix: string; children: Panel[] }) {
     super(opts);
@@ -36,9 +41,12 @@ export class PanelGroup extends Panel {
 }
 
 export class FieldPanel extends Panel {
-  #boundWidget: any; // Cached bound widget instance, populated by getBoundWidget()
-  fieldName: string; // Name of the field this panel is associated with
-  widget: any; // Widget class used for rendering the field
+  /** Cached bound widget instance, populated by `getBoundWidget()` */
+  #boundWidget: any;
+  /** Name of the field this panel is associated with */
+  fieldName: string;
+  /** Widget class used for rendering the field */
+  widget: any;
 
   constructor(opts: {
     type: string;

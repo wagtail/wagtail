@@ -213,14 +213,14 @@ export class ChooserFactory {
   }
 
   /**
-   * retrieve the widget object corresponding to the given HTML ID
+   * Retrieve the widget object corresponding to the given HTML ID
    */
   getById(id) {
     return document.getElementById(`${id}-chooser`).widget;
   }
 
   /**
-   * retrieve the widget object corresponding to the given HTML name
+   * Retrieve the widget object corresponding to the given HTML name
    */
   getByName(name, container) {
     const input = container.querySelector(`input[name="${name}"]`);
