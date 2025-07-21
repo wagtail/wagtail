@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editHandlerJson =
       editHandlerElement.getAttribute('data-edit-handler');
     const packedEditHandler = JSON.parse(editHandlerJson);
-    window.editHandler = window.telepath.unpack(packedEditHandler);
+    window.wagtail.editHandler = window.telepath.unpack(packedEditHandler);
   }
 });
 
