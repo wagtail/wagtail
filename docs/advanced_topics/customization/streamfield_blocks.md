@@ -26,21 +26,44 @@ You can then provide custom CSS for this block, targeted at the specified classn
 Wagtail's editor styling has some built-in styling for the `struct-block` class and other related elements. If you specify a value for `form_classname`, it will overwrite the classes that are already applied to `StructBlock`, so you must remember to specify the `struct-block` as well.
 ```
 
-If you want to add custom attributes other than `class` on a `StructBlock` in the page editor, you can specify a `form_attrs` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to add any additional attributes:
+If you want to add custom attributes other than `class` on a `StructBlock` in the page editor, you can specify a `form_attrs` attribute (either as a keyword argument to the `StructBlock` constructor, or in a subclass's `Meta`) to add any additional attributes.
 
-In addition, the `StructBlock`'s `Meta` class also accepts a `collapsed` attribute. When set to `None` (the default), the block is not collapsible. When set to `True` or `False`, the block is wrapped in a collapsible panel and initially displayed in a collapsed or expanded state in the editing interface, respectively. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently.
+In addition, the `StructBlock`'s `Meta` class also accepts a `collapsed` attribute. When set to `True`, the block is initially displayed in a collapsed state in the editing interface. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. Note that this only applies to `StructBlock` inside another `StructBlock`. If the `StructBlock` is within a `StreamBlock` or `ListBlock`, the initial state will follow the parent block's `collapsed` option.
 
 
 ```python
+class SettingsBlock(blocks.StructBlock):
+    theme = ChoiceBlock(
+        choices=[
+            ("banana", "Banana"),
+            ("cherry", "Cherry"),
+            ("lime", "Lime"),
+        ],
+        required=False,
+        default="banana",
+        help_text="Select the theme for the block",
+    )
+    available = blocks.BooleanBlock(
+        required=False,
+        default=True,
+        help_text="Whether this person is available",
+    )
+
+    class Meta:
+        icon = 'cog'
+        collapsed = True  # This block will be initially collapsed
+        label_format = "Settings (Theme: {theme})"  # The label when collapsed
+
+
 class PersonBlock(blocks.StructBlock):
     first_name = blocks.CharBlock()
     surname = blocks.CharBlock()
     photo = ImageChooserBlock(required=False)
     biography = blocks.RichTextBlock()
+    settings = SettingsBlock()
 
     class Meta:
         icon = 'user'
-        collapsed = True  # This block will be initially collapsed
         form_attrs = {
             # This block has additional customizations enabled
             'data-controller': 'magic',
@@ -66,7 +89,7 @@ The help text for this block, if specified.
 The class name passed as `form_classname` (defaults to `struct-block`).
 
 **`collapsed`**\
-The initial collapsible state of the block (defaults to `None`). Note that the collapsible panel wrapper is not automatically applied to the block's form template. You must write your own wrapper if you want the block to be collapsible.
+The initial collapsible state of the block (defaults to `False`).
 
 **`block_definition`**\
 The `StructBlock` instance that defines this block.

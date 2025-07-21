@@ -532,7 +532,7 @@ The `form_attrs` keyword argument was added to all built-in structural block typ
     :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
     :param form_attrs: A dictionary of additional attributes to set on the root element of this block as displayed in the editing interface. See :ref:`custom_editing_interfaces_for_structblock`.
     :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
-    :param collapsed: When ``None`` (the default), the block is not collapsible. When ``True`` or ``False``, the block is collapsible and initially displayed in a collapsed or expanded state in the editing interface, respectively. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`custom_editing_interfaces_for_structblock`.
+    :param collapsed: When true and the block is within another ``StructBlock``, the block is initially collapsed. This can be useful for blocks with many sub-blocks, or blocks that are not expected to be edited frequently. See :ref:`custom_editing_interfaces_for_structblock`.
     :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
     :param search_index: If false (default true), the content of this block will not be indexed for searching.
     :param label_format:

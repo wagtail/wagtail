@@ -447,19 +447,7 @@ describe('telepath: wagtail.blocks.StructBlock with nested collapsible panel', (
     });
   });
 
-  test('it renders correctly with initially collapsed state', () => {
-    expect(document.body.innerHTML).toMatchSnapshot();
-
-    // Check that the panel can be expanded by clicking the toggle button
-    const button = document.querySelector('[data-panel-toggle]');
-    expect(button).toBeTruthy();
-    button.click();
-
-    // Check that the panel is now expanded
-    expect(document.body.innerHTML).toMatchSnapshot();
-  });
-
-  test('it renders correctly with initially expanded state', () => {
+  test('it renders correctly', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
 
     // Check that the panel can be expanded by clicking the toggle button

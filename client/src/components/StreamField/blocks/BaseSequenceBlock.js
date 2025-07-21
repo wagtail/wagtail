@@ -11,6 +11,7 @@ import {
 } from '../../../includes/panels';
 import { range } from '../../../utils/range';
 import { CollapsiblePanel } from './CollapsiblePanel';
+import { StructBlockDefinition } from './StructBlock';
 
 class ActionButton {
   constructor(sequenceChild) {
@@ -201,6 +202,12 @@ export class BaseSequenceChild extends EventTarget {
       getBlockCount: this.sequence.getBlockCount.bind(this.sequence),
       getBlockMax: this.sequence.getBlockMax.bind(this.sequence),
     });
+
+    // StructBlock is collapsible by default, but if it's also a sequence child,
+    // we want to control the collapsible rendering from here instead.
+    if (this.blockDef instanceof StructBlockDefinition) {
+      this.blockDef.collapsible = false;
+    }
 
     this.block = this.blockDef.render(
       blockElement,

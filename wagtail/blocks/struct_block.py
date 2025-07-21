@@ -392,7 +392,7 @@ class BaseStructBlock(Block):
         form_template = None
         value_class = StructValue
         label_format = None
-        collapsed = None
+        collapsed = False
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
