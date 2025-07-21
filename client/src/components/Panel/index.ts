@@ -1,10 +1,14 @@
 export class Panel {
-  constructor(opts) {
+  type: string; // Type of the panel; will generally match the Python-side panel class name (e.g., 'FieldPanel', 'PanelGroup')
+  prefix: string; // Prefix for the panel's HTML elements (e.g., 'field-')
+
+  constructor(opts: { type: string; prefix: string }) {
     this.type = opts.type;
     this.prefix = opts.prefix;
   }
 
-  getPanelByName(/* name */) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getPanelByName(_name: string): Panel | null {
     /* Return any descendant panel (including self) that matches the given field or relation name,
      * or null if there is no match
      */
@@ -15,12 +19,14 @@ export class Panel {
 }
 
 export class PanelGroup extends Panel {
-  constructor(opts) {
+  children: Panel[]; // Array of child panels
+
+  constructor(opts: { type: string; prefix: string; children: Panel[] }) {
     super(opts);
     this.children = opts.children;
   }
 
-  getPanelByName(name) {
+  getPanelByName(name: string): Panel | null {
     for (const child of this.children) {
       const panel = child.getPanelByName(name);
       if (panel) return panel;
@@ -30,9 +36,16 @@ export class PanelGroup extends Panel {
 }
 
 export class FieldPanel extends Panel {
-  #boundWidget; // Cached bound widget instance, populated by getBoundWidget()
+  #boundWidget: any; // Cached bound widget instance, populated by getBoundWidget()
+  fieldName: string; // Name of the field this panel is associated with
+  widget: any; // Widget class used for rendering the field
 
-  constructor(opts) {
+  constructor(opts: {
+    type: string;
+    prefix: string;
+    fieldName: string;
+    widget: any;
+  }) {
     super(opts);
     this.fieldName = opts.fieldName;
     this.widget = opts.widget;
@@ -50,7 +63,7 @@ export class FieldPanel extends Panel {
     return this.#boundWidget;
   }
 
-  getPanelByName(name) {
+  getPanelByName(name: string): Panel | null {
     if (name === this.fieldName) return this;
     return null;
   }
@@ -60,7 +73,7 @@ export class FieldPanel extends Panel {
     return errorContainer?.querySelector('.error-message')?.textContent?.trim();
   }
 
-  setErrorMessage(message) {
+  setErrorMessage(message: string | null) {
     const errorContainerId = `${this.prefix}-errors`;
     const errorContainer = document.getElementById(errorContainerId);
     if (!errorContainer) return;
@@ -75,7 +88,7 @@ export class FieldPanel extends Panel {
         const describedBy = input.getAttribute('aria-describedby') || '';
         const newDescribedBy = describedBy
           .split(' ')
-          .filter((id) => id !== errorContainerId)
+          .filter((id: string) => id !== errorContainerId)
           .join(' ');
         input.setAttribute('aria-describedby', newDescribedBy);
       }
@@ -84,7 +97,9 @@ export class FieldPanel extends Panel {
         <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true"><use href="#icon-warning"></use></svg>
         <p class="error-message"></p>
       `;
-      errorContainer.querySelector('.error-message').textContent = message;
+      (
+        errorContainer.querySelector('.error-message') as HTMLElement
+      ).textContent = message;
       if (input) {
         input.setAttribute('aria-invalid', 'true');
 
