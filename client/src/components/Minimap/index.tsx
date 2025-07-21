@@ -60,9 +60,13 @@ const createMinimapLink = (
  */
 const renderMinimap = (container: HTMLElement) => {
   let anchorsContainer: HTMLElement = document.body;
-  const tabs = document.querySelector('[data-controller~="w-tabs"]');
+  // Find a tabs container that is not within a panel and has panel anchors inside it.
+  // This is likely a top-level tabs container rendered via TabbedInterface.
+  const tabs = document.querySelector(
+    `[data-controller~="w-tabs"]:not([data-panel] [data-controller~="w-tabs"]):has([data-panel-anchor])`,
+  );
 
-  // Render the minimap based on the active tab when there are tabs.
+  // Render the minimap based on the active tab when there are such tabs.
   if (tabs) {
     const activeTab = tabs.querySelector('[role="tab"][aria-selected="true"]');
     const panelId = activeTab?.getAttribute('aria-controls');
