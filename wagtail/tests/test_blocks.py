@@ -2142,7 +2142,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
-                "collapsed": None,
+                "collapsed": False,
                 "attrs": {},
             },
         )
@@ -2176,7 +2176,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
-                "collapsed": None,
+                "collapsed": False,
                 "attrs": {},
                 "formTemplate": "<div>Hello</div>",
             },
@@ -2254,7 +2254,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
-                "collapsed": None,
+                "collapsed": False,
                 "attrs": {},
                 "formTemplate": "<div>Hello</div>",
             },
@@ -2311,7 +2311,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
-                "collapsed": None,
+                "collapsed": False,
                 "attrs": {},
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'
@@ -2341,7 +2341,7 @@ class TestStructBlock(SimpleTestCase):
                 "blockDefId": block.definition_prefix,
                 "isPreviewable": block.is_previewable,
                 "classname": "struct-block",
-                "collapsed": None,
+                "collapsed": False,
                 "attrs": {},
                 "helpIcon": (
                     '<svg class="icon icon-help default" aria-hidden="true">'

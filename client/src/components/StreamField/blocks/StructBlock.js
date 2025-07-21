@@ -18,10 +18,29 @@ export class StructBlock {
 
     this.childBlocks = {};
 
+    let container = '';
+    if (this.blockDef.collapsible) {
+      container = new CollapsiblePanel({
+        panelId: prefix + '-section',
+        headingId: prefix + '-heading',
+        contentId: prefix + '-content',
+        blockTypeIcon: h(blockDef.meta.icon),
+        blockTypeLabel: h(blockDef.meta.label),
+        collapsed: blockDef.meta.collapsed,
+      }).render().outerHTML;
+    }
+
     if (blockDef.meta.formTemplate) {
-      const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
-      const dom = $(html);
+      let dom = $(container);
       $(placeholder).replaceWith(dom);
+
+      if (this.blockDef.collapsible) {
+        dom = this.#initializeCollapsiblePanel(dom, prefix);
+      }
+
+      const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
+      dom.append(html);
+
       const blockErrors = initialError?.blockErrors || {};
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
         const childBlockElement = dom
@@ -37,20 +56,6 @@ export class StructBlock {
       });
       this.container = dom;
     } else {
-      let container = '';
-      // null or undefined means not collapsible
-      const collapsible = blockDef.meta.collapsed != null;
-      if (collapsible) {
-        container = new CollapsiblePanel({
-          panelId: prefix + '-section',
-          headingId: prefix + '-heading',
-          contentId: prefix + '-content',
-          blockTypeIcon: h(blockDef.meta.icon),
-          blockTypeLabel: h(blockDef.meta.label),
-          collapsed: blockDef.meta.collapsed,
-        }).render().outerHTML;
-      }
-
       let dom = $(`
         <div class="${h(this.blockDef.meta.classname || '')}">
         </div>
@@ -58,9 +63,8 @@ export class StructBlock {
       dom.append(container);
       $(placeholder).replaceWith(dom);
 
-      if (collapsible) {
-        initCollapsiblePanel(dom.find('[data-panel-toggle]')[0]);
-        dom = dom.find(`#${prefix}-content`);
+      if (this.blockDef.collapsible) {
+        dom = this.#initializeCollapsiblePanel(dom, prefix);
       }
 
       if (this.blockDef.meta.helpText) {
@@ -75,16 +79,15 @@ export class StructBlock {
       }
 
       this.blockDef.childBlockDefs.forEach((childBlockDef) => {
-        const isCollapsibleStructBlock =
+        const isStructBlock =
           // Cannot use `instanceof StructBlockDefinition` here as it is defined
           // later in this file. Compare our own blockDef constructor instead.
-          childBlockDef instanceof this.blockDef.constructor &&
-          childBlockDef.meta.collapsed != null;
+          childBlockDef instanceof this.blockDef.constructor;
 
-        // Collapsible struct blocks have their own header, so only add the label
-        // if this is not a collapsible struct block.
+        // Struct blocks are collapsible and thus have their own header,
+        // so only add the label if this is not a struct block.
         let label = '';
-        if (!isCollapsibleStructBlock) {
+        if (!isStructBlock) {
           label = `<label class="w-field__label">${h(childBlockDef.meta.label)}${
             childBlockDef.meta.required
               ? '<span class="w-required-mark">*</span>'
@@ -121,6 +124,12 @@ export class StructBlock {
     }
 
     setAttrs(this.container[0], this.blockDef.meta.attrs || {});
+  }
+
+  #initializeCollapsiblePanel(dom, prefix) {
+    const collapsibleToggle = dom.find('[data-panel-toggle]')[0];
+    initCollapsiblePanel(collapsibleToggle);
+    return dom.find(`#${prefix}-content`);
   }
 
   setState(state) {
@@ -225,6 +234,11 @@ export class StructBlockDefinition {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
     this.meta = meta;
+
+    // Always collapsible by default, but can be overridden e.g. when used in a
+    // StreamBlock or ListBlock, in which case the collapsible behavior is
+    // controlled by the parent block.
+    this.collapsible = true;
   }
 
   render(placeholder, prefix, initialState, initialError) {
