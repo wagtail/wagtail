@@ -156,4 +156,67 @@ describe('KeyboardController', () => {
       expect(buttonClickMock).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('custom keyboard shortcut enabled', () => {
+    afterEach(() => {
+      const existingElement = document.getElementById(
+        'w-keyboard-shortcut-preference',
+      );
+      if (existingElement) {
+        existingElement.remove();
+      }
+    });
+
+    it('should return true when custom_keyboard_shortcuts is true', async () => {
+      const preferenceElement = document.createElement('script');
+      preferenceElement.id = 'w-keyboard-shortcut-preference';
+      preferenceElement.type = 'application/json';
+      preferenceElement.textContent = JSON.stringify({
+        custom_keyboard_shortcuts: true,
+      });
+      document.head.appendChild(preferenceElement);
+
+      await setup(
+        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>`,
+      );
+
+      simulateKey({ key: 'j' });
+
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return false when custom_keyboard_shortcuts is false', async () => {
+      const preferenceElement = document.createElement('script');
+      preferenceElement.id = 'w-keyboard-shortcut-preference';
+      preferenceElement.type = 'application/json';
+      preferenceElement.textContent = JSON.stringify({
+        custom_keyboard_shortcuts: false,
+      });
+      document.head.appendChild(preferenceElement);
+
+      await setup(
+        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>`,
+      );
+
+      simulateKey({ key: 'j' });
+
+      expect(buttonClickMock).not.toHaveBeenCalled();
+    });
+
+    it('should return true when JSON parsing fails', async () => {
+      const preferenceElement = document.createElement('script');
+      preferenceElement.id = 'w-keyboard-shortcut-preference';
+      preferenceElement.type = 'application/json';
+      preferenceElement.textContent = 'invalid json content';
+      document.head.appendChild(preferenceElement);
+
+      await setup(
+        `<button id="btn" data-controller="w-kbd" data-w-kbd-key-value="j">Go</button>`,
+      );
+
+      simulateKey({ key: 'j' });
+
+      expect(buttonClickMock).toHaveBeenCalledTimes(1);
+    });
+  });
 });

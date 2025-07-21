@@ -109,6 +109,14 @@ class UserProfile(models.Model):
         max_length=40,
     )
 
+    custom_keyboard_shortcuts = models.BooleanField(
+        verbose_name=_("Custom keyboard shortcut"),
+        default=True,
+        help_text=_(
+            "Enable custom Wagtail shortcuts. For example, the ']' shortcut to toggle minimap, or 'b' to toggle breadcrumbs"
+        ),
+    )
+
     @classmethod
     def get_for_user(cls, user):
         return cls.objects.get_or_create(user=user)[0]

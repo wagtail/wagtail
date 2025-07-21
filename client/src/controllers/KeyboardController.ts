@@ -54,6 +54,22 @@ export class KeyboardController extends Controller<
     }
   }
 
+  customKeyboardShortcutsEnabled(): boolean {
+    const customShortcutElement = document.getElementById(
+      'w-keyboard-shortcut-preference',
+    );
+    if (!customShortcutElement) {
+      return true;
+    }
+
+    try {
+      const config = JSON.parse(customShortcutElement.textContent || 'true');
+      return config.custom_keyboard_shortcuts;
+    } catch (error) {
+      return true;
+    }
+  }
+
   handleKey(event: Event) {
     if (event.preventDefault) event.preventDefault();
     this.element.click();
@@ -66,6 +82,13 @@ export class KeyboardController extends Controller<
   keyValueChanged(key: string, previousKey: string) {
     if (previousKey && previousKey !== key) {
       Mousetrap.unbind(previousKey);
+    }
+
+    /**
+     * Check if custom keyboard shortcuts are disabled by user in settings
+     */
+    if (!this.customKeyboardShortcutsEnabled()) {
+      return;
     }
 
     if (this.scopeValue === 'global') {

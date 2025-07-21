@@ -151,3 +151,12 @@ class ThemePreferencesForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ["theme", "contrast", "density"]
+
+
+class KeyboardShortcutPreference(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ["custom_keyboard_shortcuts"]
+        widgets = {
+            "custom_keyboard_shortcuts": SwitchInput(),
+        }

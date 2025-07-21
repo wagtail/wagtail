@@ -666,6 +666,20 @@ def admin_theme_color_scheme(context):
     return theme_name
 
 
+@register.simple_tag(takes_context=True)
+def keyboard_shortcut_preference(context):
+    """
+    Retrieves the character key keyboard shortcut preference for current user
+    """
+    user = getattr(context.get("request"), "user", None)
+    custom_keyboard_shortcuts = (
+        user.wagtail_userprofile.custom_keyboard_shortcuts
+        if hasattr(user, "wagtail_userprofile")
+        else True
+    )
+    return {"custom_keyboard_shortcuts": custom_keyboard_shortcuts}
+
+
 @register.simple_tag
 def absolute_static(path):
     """
