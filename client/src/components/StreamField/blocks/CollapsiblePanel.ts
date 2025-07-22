@@ -51,13 +51,13 @@ export class CollapsiblePanel {
               </svg>
             </button>
             <h2 class="w-panel__heading w-panel__heading--label" aria-level="3" id="${headingId}" data-panel-heading>
-              <span data-panel-heading-text class="c-sf-block__title"></span>
               <span class="c-sf-block__type">${blockTypeLabel}</span>
               ${
                 blockDef?.meta.required
                   ? '<span class="w-required-mark" data-panel-required>*</span>'
                   : ''
               }
+              <span data-panel-heading-text class="c-sf-block__title"></span>
             </h2>
             <a class="w-panel__anchor w-panel__anchor--suffix" href="#${panelId}" aria-labelledby="${headingId}">
               <svg class="icon icon-link w-panel__icon" aria-hidden="true">
