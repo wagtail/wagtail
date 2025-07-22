@@ -29,6 +29,9 @@ $header-button-size: theme('spacing.6');
   align-items: center;
   margin-bottom: theme('spacing.[0.5]');
   margin-inline-start: calc(-1 * #{$mobile-nice-padding});
+  // Ensure a minimum height even if the header does not have control buttons,
+  // e.g. in a collapsible StructBlock.
+  min-height: theme('spacing.8');
 
   @include media-breakpoint-up(sm) {
     margin-inline-start: calc(
