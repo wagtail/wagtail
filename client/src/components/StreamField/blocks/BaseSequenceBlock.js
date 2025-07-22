@@ -224,12 +224,12 @@ export class BaseSequenceChild extends EventTarget {
     }
 
     this.toggleElement.addEventListener('wagtail:panel-toggle', () => {
-      const label = this.getTextLabel({ maxLength: 50 });
+      const label = this.getTextLabel({ maxLength: 70 });
       this.titleElement.text(label || '');
     });
 
     // Set in initialisation regardless of block state for screen reader users.
-    const textLabel = this.getTextLabel({ maxLength: 50 });
+    const textLabel = this.getTextLabel({ maxLength: 70 });
     this.titleElement.text(textLabel || '');
 
     if (animate) {
