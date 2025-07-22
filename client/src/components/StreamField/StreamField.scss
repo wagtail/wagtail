@@ -1,5 +1,9 @@
 @use 'scss/components/c-sf-add-button';
 
+.c-sf-block__title {
+  @apply w-help-text;
+}
+
 [aria-expanded='true'] + .w-panel__heading .c-sf-block__title {
   @apply w-sr-only;
 }
